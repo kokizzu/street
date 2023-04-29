@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  tarantool1:
+    image: tarantool/tarantool:latest # 2.10.4
+    # x.x.0 = alpha, x.x.1 = beta, x.x.2+ = stable, latest not always stable
+    environment:
+      TARANTOOL_USER_NAME: "userT"
+      TARANTOOL_USER_PASSWORD: "passT"
+      TT_READAHEAD: '1632000' # 10x
+      TT_VINYL_MEMORY: '2684354560' # 20x
+      TT_VINYL_CACHE: '2684354560' # 20x
+      TT_NET_MSG_MAX: '76800' # 100x
+      TT_MEMTX_MEMORY: '268435456' # 1x
+      TT_VINYL_PAGE_SIZE: '8192' # 1x
+    ports:
+      - "3301:3301"
+
+  clickhouse1:
+    image: yandex/clickhouse-server
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    environment:
+      CLICKHOUSE_USER: "userC"
+      CLICKHOUSE_PASSWORD: "passC"
+      CLICHOUSE_DB: "dbC"
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144

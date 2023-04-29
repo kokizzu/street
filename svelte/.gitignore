@@ -1,0 +1,10 @@
+
+.idea
+node_modules
+
+# generated files
+
+index.html
+page1/subpage.html
+page1/subpage3/index.html
+page2/index.html
