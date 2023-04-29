@@ -2,6 +2,8 @@
   import axios from 'axios'
   import {onMount} from "svelte";
   
+  // TODO: codegen axios part
+  
   // server state
   const title = '#{title}' // /*! title */ {/* title */} [/* title */]
   // TODO: print session or fetch from cookie
@@ -24,13 +26,13 @@
   
   onMount( onHashChange )
   
-  function UserRegister() {
+  function GuestRegister() {
     // TODO: replace all alert with growl
     if( !email ) return alert( 'email is required' )
     if( password.length<12 ) return alert( 'password must be at least 12 characters' )
     if( password!==confirmPass ) return alert( 'passwords do not match' )
     // TODO: send to backend
-    axios.post( 'UserRegister', { email, password } )
+    axios.post( 'GuestRegister', { email, password } )
       .then( res => {
         if( res.data.error ) return alert( res.data.error )
       } ).catch( err => {
@@ -55,7 +57,7 @@
 	{#if mode===REGISTER}
 		<label for="confirmPass">Confirm Password</label>
 		<input type="password" id="confirmPass" bind:value={confirmPass}><br/>
-		<button on:click={UserRegister}>Register</button>
+		<button on:click={GuestRegister}>Register</button>
 		<br/>
 		Already have account?
 		<a href="#LOGIN" on:click={()=> mode=LOGIN}>Login</a>

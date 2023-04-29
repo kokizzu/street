@@ -3,7 +3,22 @@
 
 People can buy/sell house/building
 
+## Architecture
+
+nothing fancy, just normal monolith but with multiple database connection
+
+```
+browser --> svelte+monolith --> tarantool/clickhouse
+mobile  --> monolith --> tarantool/clickhouse
+```
+
+## Project Structure
+
+- conf: shared configuration
 - main: inject all dependencies
+- svelte: web frontend
+
+MVC-like structure
 
 - presentation -> serialization and transport
 - domain -> business logic, DTO
@@ -15,10 +30,10 @@ People can buy/sell house/building
 - wc = write/command (OLTP)
 - sa = statistics/analytics (OLAP)
 
-## start dev mode
+## Start dev mode
 
 ```shell
-# start go server
+# start golang backend server
 air 
 
 # manually
@@ -29,13 +44,45 @@ cd svelte
 npm run watch
 ```
 
+## Generate ORM
+
+```shell
+# input: 
+# - model/m*.go
+
+go test -bench=BenchmarkGenerateOrm
+
+# output:
+# - model/m*/rq*/*.go  # -- read/query models
+# - model/m*/wc*/*.go  # -- write/command mutation models
+# - model/m*/sa*/*.go  # -- statistic/analytics models
+```
+
+## Generate Views
+
+```shell
+# input: 
+# - domain/*.go
+# - model/m*/*/*.go
+# - svelte/*.svelte
+
+go get -bench=BenchmarkGenerateViews
+
+# output:
+# - presentation/actions.GEN.go     # -- all possible commands
+# - presentation/api_routes.GEN.go  # -- automatic API routes
+# - presentation/web_viwe.GEN.go    # -- all template that can be used in web_static.go
+# - presentation/cmd_run.GEN.go     # -- all CLI commands
+# - svelte/jsApi.GEN.js             # -- all API client SDK 
+```
+
 ## Manual test
 
 ```shell
 # using command line
-go run main.go cli UserRegister '{"email":"a@b.c"}'
+go run main.go cli GuestRegister '{"email":"a@b.c"}'
 
 # using curl
 go run main.go web
-curl -X POST -d '{"email":"test@a.com"}' localhost:1234/UserRegister
+curl -X POST -d '{"email":"test@a.com"}' localhost:1234/GuestRegister
 ```

@@ -6,4 +6,4 @@ bin = '/tmp/street.exe'
 full_bin = '/tmp/street.exe web'
 include_ext = ['go']
 exclude_regex = ['_test.go']
-exclude_dir = ['backup', 'svelte']
+exclude_dir = ['backup', 'svelte' 'tmp']

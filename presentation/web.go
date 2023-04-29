@@ -1,8 +1,6 @@
 package presentation
 
 import (
-	"context"
-
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
 	"github.com/kokizzu/gotro/D/Ch"
@@ -70,38 +68,39 @@ func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, u
 func (w *WebServer) Start() {
 	fw := fiber.New()
 
-	b := &domain.Domain{
-		UserOltp: w.AuthOltp,
-		UserOlap: w.AuthOlap,
+	d := &domain.Domain{
+		AuthOltp: w.AuthOltp,
+		AuthOlap: w.AuthOlap,
 	}
 
-	// TODO: generate automatically
-	debug := conf.IsDebug()
-	const svelteDir = `svelte/`
-	userRegisterUi, err := Z.ParseFile(debug, debug, svelteDir+`index.html`)
-	L.PanicIf(err, `failed to parse index.html`)
+	// load svelte templates
+	views = &Views{}
+	views.LoadAll()
 
-	fw.Get("/", func(c *fiber.Ctx) error {
-		// TODO: fetch from session
-		c.Set("Content-Type", "text/html")
-		return c.SendString(userRegisterUi.Str(M.SX{
-			// TODO: put things to be rendered
-			`title`: `Street`,
-		}))
-	})
+	// assign static routes (GET)
+	WebStatic(fw, d)
 
-	// TODO: inject routes here with codegen
-	fw.Post("/"+domain.UserRegisterAction, func(c *fiber.Ctx) error {
-		ctx := context.Background() // TODO: use tracer
-		in := domain.UserRegisterIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserRegisterAction); err != nil {
-			return err
-		}
-		in.FromFiberCtx(c, ctx)
-		out := b.UserRegister(&in)
-		out.DecorateSession(c, &in.RequestCommon, &in)
-		return in.ToFiberCtx(c, out)
-	})
+	// API routes (POST)
+	ApiRoutes(fw, d)
 
 	log.Err(fw.Listen(w.Cfg.ListenAddr()))
+}
+
+type Views struct {
+	cache map[string]*Z.TemplateChain
+}
+
+var views *Views
+
+func (v *Views) LoadAll() {
+	if v.cache == nil {
+		v.cache = map[string]*Z.TemplateChain{}
+	}
+	debug := conf.IsDebug()
+	const svelteDir = `svelte/`
+	var err error
+	for svelte, html := range viewList {
+		v.cache[svelte], err = Z.ParseFile(debug, debug, svelteDir+html)
+		L.PanicIf(err, `failed to parse `+html)
+	}
 }

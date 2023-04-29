@@ -6,6 +6,6 @@ import (
 )
 
 type Domain struct {
-	UserOltp *Tt.Adapter
-	UserOlap *Ch.Adapter
+	AuthOltp *Tt.Adapter
+	AuthOlap *Ch.Adapter
 }
