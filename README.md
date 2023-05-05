@@ -3,6 +3,8 @@
 
 People can buy/sell house/building
 
+[links](https://docs.google.com/document/d/1ATjUVawcWBM_axQBJU2Xdcu2WkF4sz9-NSGCSDzBHJ8/edit)
+
 ## Architecture
 
 nothing fancy, just normal monolith but with multiple database connection
