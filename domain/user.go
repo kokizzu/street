@@ -46,3 +46,20 @@ const (
 
 	ErrUserNotFound = `user not found`
 )
+
+func (d *Domain) UserProfile(in *UserProfileIn) (out UserProfileOut) {
+	sess := d.mustLogin(in.RequestCommon, &out.ResponseCommon)
+	if sess == nil {
+		return
+	}
+
+	user := rqAuth.NewUsers(d.AuthOltp)
+	user.Id = sess.UserId
+	if !user.FindById() {
+		out.SetError(403, ErrUserNotFound)
+		return
+	}
+	user.CensorFields()
+	out.User = user
+	return
+}

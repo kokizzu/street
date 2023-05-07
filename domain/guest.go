@@ -156,6 +156,7 @@ func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgot
 
 	recently := in.TimeNow().Add(-conf.ForgotPasswordThrottleMinute * time.Minute).Unix()
 	if user.SecretCodeAt >= recently {
+		guestForgotPasswordLock.Unlock(in.Email)
 		out.SetError(400, ErrGuestForgotPassworTriggeredTooFrequently)
 		return
 	}
@@ -177,23 +178,6 @@ func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgot
 	}
 
 	out.Ok = true
-	return
-}
-
-func (d *Domain) UserProfile(in *UserProfileIn) (out UserProfileOut) {
-	sess := d.mustLogin(in.RequestCommon, &out.ResponseCommon)
-	if sess == nil {
-		return
-	}
-
-	user := rqAuth.NewUsers(d.AuthOltp)
-	user.Id = sess.UserId
-	if !user.FindById() {
-		out.SetError(403, ErrUserNotFound)
-		return
-	}
-	user.CensorFields()
-	out.User = user
 	return
 }
 
@@ -237,7 +221,8 @@ func (d *Domain) GuestResetPassword(in *GuestResetPasswordIn) (out GuestResetPas
 		out.SetErrorf(400, ErrGuestResetPasswordTooShort)
 		return
 	}
-	if in.SecretCode == `` ||
+	if user.SecretCode == `` ||
+		user.SecretCodeAt == 0 ||
 		in.UnixNow()-user.SecretCodeAt > conf.ForgotPasswordExpireMinute*60 {
 		out.SetError(404, ErrGuestResetPasswordExpiredLink)
 		return

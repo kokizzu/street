@@ -17,6 +17,33 @@ import (
 func cmdRun(b *domain.Domain, action string, payload []byte) {
 	switch action {
 
+	case domain.DecryptAction:
+		in := domain.DecryptIn{}
+		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+			return
+		}
+		out := b.Decrypt(&in)
+		fmt.Println(X.ToJsonPretty(out))
+
+
+	case domain.EncryptAction:
+		in := domain.EncryptIn{}
+		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+			return
+		}
+		out := b.Encrypt(&in)
+		fmt.Println(X.ToJsonPretty(out))
+
+
+	case domain.GuestForgotPasswordAction:
+		in := domain.GuestForgotPasswordIn{}
+		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+			return
+		}
+		out := b.GuestForgotPassword(&in)
+		fmt.Println(X.ToJsonPretty(out))
+
+
 	case domain.GuestLoginAction:
 		in := domain.GuestLoginIn{}
 		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
@@ -32,6 +59,51 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.GuestRegister(&in)
+		fmt.Println(X.ToJsonPretty(out))
+
+
+	case domain.GuestResetPasswordAction:
+		in := domain.GuestResetPasswordIn{}
+		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+			return
+		}
+		out := b.GuestResetPassword(&in)
+		fmt.Println(X.ToJsonPretty(out))
+
+
+	case domain.MarshalEnkodoAction:
+		in := domain.MarshalEnkodoIn{}
+		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+			return
+		}
+		out := b.MarshalEnkodo(&in)
+		fmt.Println(X.ToJsonPretty(out))
+
+
+	case domain.UnmarshalEnkodoAction:
+		in := domain.UnmarshalEnkodoIn{}
+		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+			return
+		}
+		out := b.UnmarshalEnkodo(&in)
+		fmt.Println(X.ToJsonPretty(out))
+
+
+	case domain.UserLogoutAction:
+		in := domain.UserLogoutIn{}
+		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+			return
+		}
+		out := b.UserLogout(&in)
+		fmt.Println(X.ToJsonPretty(out))
+
+
+	case domain.UserProfileAction:
+		in := domain.UserProfileIn{}
+		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+			return
+		}
+		out := b.UserProfile(&in)
 		fmt.Println(X.ToJsonPretty(out))
 
 	}

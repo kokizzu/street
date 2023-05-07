@@ -12,6 +12,45 @@ import (
 
 func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 
+	// Decrypt
+	fw.Post("/"+domain.DecryptAction, func(c *fiber.Ctx) error {
+		ctx := context.Background() // TODO: use tracer
+		in := domain.DecryptIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.DecryptAction); err != nil {
+			return err
+		}
+		in.FromFiberCtx(c, ctx)
+		out := d.Decrypt(&in)
+		out.DecorateSession(c, &in.RequestCommon, &in)
+		return in.ToFiberCtx(c, out)
+	})
+
+	// Encrypt
+	fw.Post("/"+domain.EncryptAction, func(c *fiber.Ctx) error {
+		ctx := context.Background() // TODO: use tracer
+		in := domain.EncryptIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.EncryptAction); err != nil {
+			return err
+		}
+		in.FromFiberCtx(c, ctx)
+		out := d.Encrypt(&in)
+		out.DecorateSession(c, &in.RequestCommon, &in)
+		return in.ToFiberCtx(c, out)
+	})
+
+	// GuestForgotPassword
+	fw.Post("/"+domain.GuestForgotPasswordAction, func(c *fiber.Ctx) error {
+		ctx := context.Background() // TODO: use tracer
+		in := domain.GuestForgotPasswordIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.GuestForgotPasswordAction); err != nil {
+			return err
+		}
+		in.FromFiberCtx(c, ctx)
+		out := d.GuestForgotPassword(&in)
+		out.DecorateSession(c, &in.RequestCommon, &in)
+		return in.ToFiberCtx(c, out)
+	})
+
 	// GuestLogin
 	fw.Post("/"+domain.GuestLoginAction, func(c *fiber.Ctx) error {
 		ctx := context.Background() // TODO: use tracer
@@ -34,6 +73,71 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		}
 		in.FromFiberCtx(c, ctx)
 		out := d.GuestRegister(&in)
+		out.DecorateSession(c, &in.RequestCommon, &in)
+		return in.ToFiberCtx(c, out)
+	})
+
+	// GuestResetPassword
+	fw.Post("/"+domain.GuestResetPasswordAction, func(c *fiber.Ctx) error {
+		ctx := context.Background() // TODO: use tracer
+		in := domain.GuestResetPasswordIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.GuestResetPasswordAction); err != nil {
+			return err
+		}
+		in.FromFiberCtx(c, ctx)
+		out := d.GuestResetPassword(&in)
+		out.DecorateSession(c, &in.RequestCommon, &in)
+		return in.ToFiberCtx(c, out)
+	})
+
+	// MarshalEnkodo
+	fw.Post("/"+domain.MarshalEnkodoAction, func(c *fiber.Ctx) error {
+		ctx := context.Background() // TODO: use tracer
+		in := domain.MarshalEnkodoIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.MarshalEnkodoAction); err != nil {
+			return err
+		}
+		in.FromFiberCtx(c, ctx)
+		out := d.MarshalEnkodo(&in)
+		out.DecorateSession(c, &in.RequestCommon, &in)
+		return in.ToFiberCtx(c, out)
+	})
+
+	// UnmarshalEnkodo
+	fw.Post("/"+domain.UnmarshalEnkodoAction, func(c *fiber.Ctx) error {
+		ctx := context.Background() // TODO: use tracer
+		in := domain.UnmarshalEnkodoIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UnmarshalEnkodoAction); err != nil {
+			return err
+		}
+		in.FromFiberCtx(c, ctx)
+		out := d.UnmarshalEnkodo(&in)
+		out.DecorateSession(c, &in.RequestCommon, &in)
+		return in.ToFiberCtx(c, out)
+	})
+
+	// UserLogout
+	fw.Post("/"+domain.UserLogoutAction, func(c *fiber.Ctx) error {
+		ctx := context.Background() // TODO: use tracer
+		in := domain.UserLogoutIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserLogoutAction); err != nil {
+			return err
+		}
+		in.FromFiberCtx(c, ctx)
+		out := d.UserLogout(&in)
+		out.DecorateSession(c, &in.RequestCommon, &in)
+		return in.ToFiberCtx(c, out)
+	})
+
+	// UserProfile
+	fw.Post("/"+domain.UserProfileAction, func(c *fiber.Ctx) error {
+		ctx := context.Background() // TODO: use tracer
+		in := domain.UserProfileIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserProfileAction); err != nil {
+			return err
+		}
+		in.FromFiberCtx(c, ctx)
+		out := d.UserProfile(&in)
 		out.DecorateSession(c, &in.RequestCommon, &in)
 		return in.ToFiberCtx(c, out)
 	})
