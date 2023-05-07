@@ -7,14 +7,10 @@ import (
 )
 
 var allCommands = []string{
-	domain.DecryptAction,
-	domain.EncryptAction,
 	domain.GuestForgotPasswordAction,
 	domain.GuestLoginAction,
 	domain.GuestRegisterAction,
 	domain.GuestResetPasswordAction,
-	domain.MarshalEnkodoAction,
-	domain.UnmarshalEnkodoAction,
 	domain.UserLogoutAction,
 	domain.UserProfileAction,
 }

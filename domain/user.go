@@ -21,7 +21,7 @@ type (
 )
 
 const (
-	UserLogoutUrl = `user/logout`
+	UserLogoutAction = `user/logout`
 
 	ErrUserSessionRemovalFailed = `user session removal failed`
 )
@@ -42,7 +42,7 @@ type (
 )
 
 const (
-	UserProfileUrl = `user/profile`
+	UserProfileAction = `user/profile`
 
 	ErrUserNotFound = `user not found`
 )

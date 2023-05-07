@@ -12,32 +12,6 @@ import (
 
 func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 
-	// Decrypt
-	fw.Post("/"+domain.DecryptAction, func(c *fiber.Ctx) error {
-		ctx := context.Background() // TODO: use tracer
-		in := domain.DecryptIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.DecryptAction); err != nil {
-			return err
-		}
-		in.FromFiberCtx(c, ctx)
-		out := d.Decrypt(&in)
-		out.DecorateSession(c, &in.RequestCommon, &in)
-		return in.ToFiberCtx(c, out)
-	})
-
-	// Encrypt
-	fw.Post("/"+domain.EncryptAction, func(c *fiber.Ctx) error {
-		ctx := context.Background() // TODO: use tracer
-		in := domain.EncryptIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.EncryptAction); err != nil {
-			return err
-		}
-		in.FromFiberCtx(c, ctx)
-		out := d.Encrypt(&in)
-		out.DecorateSession(c, &in.RequestCommon, &in)
-		return in.ToFiberCtx(c, out)
-	})
-
 	// GuestForgotPassword
 	fw.Post("/"+domain.GuestForgotPasswordAction, func(c *fiber.Ctx) error {
 		ctx := context.Background() // TODO: use tracer
@@ -86,32 +60,6 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		}
 		in.FromFiberCtx(c, ctx)
 		out := d.GuestResetPassword(&in)
-		out.DecorateSession(c, &in.RequestCommon, &in)
-		return in.ToFiberCtx(c, out)
-	})
-
-	// MarshalEnkodo
-	fw.Post("/"+domain.MarshalEnkodoAction, func(c *fiber.Ctx) error {
-		ctx := context.Background() // TODO: use tracer
-		in := domain.MarshalEnkodoIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.MarshalEnkodoAction); err != nil {
-			return err
-		}
-		in.FromFiberCtx(c, ctx)
-		out := d.MarshalEnkodo(&in)
-		out.DecorateSession(c, &in.RequestCommon, &in)
-		return in.ToFiberCtx(c, out)
-	})
-
-	// UnmarshalEnkodo
-	fw.Post("/"+domain.UnmarshalEnkodoAction, func(c *fiber.Ctx) error {
-		ctx := context.Background() // TODO: use tracer
-		in := domain.UnmarshalEnkodoIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UnmarshalEnkodoAction); err != nil {
-			return err
-		}
-		in.FromFiberCtx(c, ctx)
-		out := d.UnmarshalEnkodo(&in)
 		out.DecorateSession(c, &in.RequestCommon, &in)
 		return in.ToFiberCtx(c, out)
 	})

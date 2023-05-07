@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"sort"
 	"testing"
+	"time"
 
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
@@ -18,6 +19,8 @@ import (
 //go:generate go test -bench=BenchmarkGenerateViews
 
 func BenchmarkGenerateViews(b *testing.B) {
+	L.TIMETRACK_MIN_DURATION = 0
+
 	p := codegen{
 		ModelDir:  "../model",
 		DomainDir: "../domain",
@@ -130,10 +133,11 @@ func (c *consts) AddConst(name, val string) {
 }
 
 type tmethod struct {
-	Name  string
-	In    string
-	Out   string
-	Calls []string
+	MethodName string
+	In         string
+	Out        string
+	Calls      []string
+	Receiver   string
 }
 
 func (t *tmethod) Visit(node ast.Node) (w ast.Visitor) {
@@ -152,15 +156,19 @@ func (t *tmethod) Visit(node ast.Node) (w ast.Visitor) {
 	return t
 }
 
-type handlers struct {
-	byName map[string]tmethod
+func (t *tmethod) FullName() string {
+	return t.Receiver + `.` + t.MethodName
 }
 
-func (m *handlers) AddMethod(name string, handler tmethod) {
-	if m.byName == nil {
-		m.byName = make(map[string]tmethod)
+type handlers struct {
+	byRcvDotMethod map[string]tmethod
+}
+
+func (m *handlers) AddMethod(handler tmethod) {
+	if m.byRcvDotMethod == nil {
+		m.byRcvDotMethod = make(map[string]tmethod)
 	}
-	m.byName[name] = handler
+	m.byRcvDotMethod[handler.FullName()] = handler
 }
 
 type domains struct {
@@ -206,7 +214,7 @@ func (d *domains) Visit(n ast.Node) (w ast.Visitor) {
 	if funcAst, ok := n.(*ast.FuncDecl); ok {
 		handler := getDomainHandler(funcAst)
 		if handler != nil {
-			d.handlers.AddMethod(handler.Name, *handler)
+			d.handlers.AddMethod(*handler)
 		}
 		return nil
 	}
@@ -226,7 +234,15 @@ func getStruct(typAst *ast.TypeSpec) (name string, fields tstruct) {
 
 func getDomainHandler(funcAst *ast.FuncDecl) *tmethod {
 	res := &tmethod{}
-	res.Name = funcAst.Name.Name
+	recv := funcAst.Recv
+	if recv != nil &&
+		len(recv.List) == 1 &&
+		recv.List[0].Type != nil {
+		if starAst, ok := recv.List[0].Type.(*ast.StarExpr); ok {
+			res.Receiver = starAst.X.(*ast.Ident).Name
+		}
+	}
+	res.MethodName = funcAst.Name.Name
 	// not a handler, handler must only receive struct ends with 'In'
 	if funcAst.Type.Params == nil ||
 		len(funcAst.Type.Params.List) != 1 ||
@@ -283,6 +299,7 @@ func getType(expr ast.Expr) string {
 func (c *codegen) StartCodegen() {
 
 	// parse model files
+	start := time.Now()
 	err := filepath.Walk(c.ModelDir, func(path string, info os.FileInfo, err error) error {
 		if L.IsError(err, `filepath.Walk`) {
 			return err
@@ -295,8 +312,10 @@ func (c *codegen) StartCodegen() {
 		return nil
 	})
 	L.PanicIf(err, `filepath.Walk Model`)
+	L.TimeTrack(start, `parsing model dir`)
 
 	// parse domain files
+	start = time.Now()
 	err = filepath.Walk(c.DomainDir, func(path string, info os.FileInfo, err error) error {
 		if L.IsError(err, `filepath.Walk`) {
 			return err
@@ -309,6 +328,7 @@ func (c *codegen) StartCodegen() {
 		return nil
 	})
 	L.PanicIf(err, `filepath.Walk Domain`)
+	L.TimeTrack(start, `parsing domain dir`)
 
 	c.GenerateActionsFile()
 	c.GenerateApiRoutesFile()
@@ -316,6 +336,7 @@ func (c *codegen) StartCodegen() {
 	c.GenerateCmdRunFile()
 
 	// parse svelte files
+	start = time.Now()
 	err = filepath.Walk(c.SvelteDir, func(path string, info os.FileInfo, err error) error {
 		if L.IsError(err, `filepath.Walk`) {
 			return err
@@ -326,6 +347,7 @@ func (c *codegen) StartCodegen() {
 		}
 		return nil
 	})
+	L.TimeTrack(start, `parsing svelte dir`)
 
 	c.GenerateWebRouteFile()
 
@@ -342,19 +364,25 @@ func (d *domains) parseDomainFile(path string) {
 
 func (d *domains) eachSortedHandler(eachFunc func(name string, handler tmethod)) {
 	// sort handlers
-	handlers := d.handlers.byName
+	handlers := d.handlers.byRcvDotMethod
 	handlerNames := make([]string, 0, len(handlers))
-	for handlerName := range handlers {
-		handlerNames = append(handlerNames, handlerName)
+	byName := map[string]tmethod{}
+	for _, handler := range handlers {
+		// only add domain method, not session or any other struct
+		if S.Contains(handler.Receiver, `Domain`) {
+			handlerNames = append(handlerNames, handler.MethodName)
+			byName[handler.MethodName] = handler
+		}
 	}
 	sort.Strings(handlerNames)
 
 	for _, name := range handlerNames {
-		eachFunc(name, handlers[name])
+		eachFunc(name, byName[name])
 	}
 }
 
 func (c *codegen) GenerateActionsFile() {
+	defer L.TimeTrack(time.Now(), `GenerateActionsFile`)
 
 	b := bytes.Buffer{}
 	b.WriteString(`package presentation
@@ -375,6 +403,7 @@ var allCommands = []string{
 }
 
 func (c *codegen) GenerateApiRoutesFile() {
+	defer L.TimeTrack(time.Now(), `GenerateApiRoutesFile`)
 
 	b := bytes.Buffer{}
 	b.WriteString(`package presentation
@@ -413,6 +442,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 }
 
 func (c *codegen) GenerateJsApiFile() {
+	defer L.TimeTrack(time.Now(), `GenerateJsApiFile`)
 
 	b := bytes.Buffer{}
 
@@ -504,18 +534,18 @@ func (c *codegen) jsDoc(b *bytes.Buffer, fields []tfield, parent string) {
 }
 
 func (c *codegen) jsFunc(b *bytes.Buffer, handler tmethod) {
-	action := c.domains.consts.byName[handler.Name+`Action`]
+	action := c.domains.consts.byName[handler.MethodName+`Action`]
 	b.WriteString(`/**
- * @callback ` + handler.Name + `Callback
+ * @callback ` + handler.MethodName + `Callback
  * @param {` + handler.Out + `} o
  * @returns {Promise}
  */
 /**
  * @param  {` + handler.In + `} i
- * @param {` + handler.Name + `Callback} cb
+ * @param {` + handler.MethodName + `Callback} cb
  * @returns {Promise}
  */
-async function ` + handler.Name + `( i, cb ) {
+async function ` + handler.MethodName + `( i, cb ) {
   return await axios.post( '/` + action + `', i ).then( cb )
 }` + NL)
 
@@ -523,6 +553,8 @@ async function ` + handler.Name + `( i, cb ) {
 }
 
 func (c *codegen) GenerateCmdRunFile() {
+	defer L.TimeTrack(time.Now(), `GenerateCmdRunFile`)
+
 	b := bytes.Buffer{}
 	b.WriteString(`package presentation
 
@@ -559,6 +591,8 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 }
 
 func (c *codegen) GenerateWebRouteFile() {
+	L.TimeTrack(time.Now(), `GenerateWebRouteFile`)
+
 	b := bytes.Buffer{}
 	b.WriteString(`package presentation
 

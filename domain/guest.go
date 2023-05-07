@@ -67,6 +67,8 @@ func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
 	}
 	user.CensorFields()
 	out.User = user.Users
+
+	// TODO: send verification link
 	return
 }
 
@@ -110,6 +112,7 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 	user.CensorFields()
 	out.User = *user
 	session := d.createSession(user.Id, user.Email, in.UserAgent)
+	// TODO: set list of roles in the session
 	if !session.DoInsert() {
 		out.SetError(500, ErrFailedStoringSession)
 		return
