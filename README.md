@@ -3,6 +3,8 @@
 
 People can buy/sell house/building
 
+[links](https://docs.google.com/document/d/1ATjUVawcWBM_axQBJU2Xdcu2WkF4sz9-NSGCSDzBHJ8/edit)
+
 ## Architecture
 
 nothing fancy, just normal monolith but with multiple database connection
@@ -84,5 +86,6 @@ go run main.go cli guest/register '{"email":"a@b.c"}'
 
 # using curl
 go run main.go web
+
 curl -X POST -d '{"email":"test@a.com"}' localhost:1234/guest/register
 ```

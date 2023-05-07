@@ -33,11 +33,13 @@ type RequestCommon struct {
 	IpAddress     string            `json:"ipAddress" form:"ipAddress" query:"ipAddress" long:"ipAddress" msg:"ipAddress"`
 	OutputFormat  string            `json:"outputFormat,omitempty" form:"outputFormat" query:"outputFormat" long:"outputFormat" msg:"outputFormat"` // defaults to json
 	Uploads       map[string]string `json:"uploads,omitempty" form:"uploads" query:"uploads" long:"uploads" msg:"uploads"`                          // form key and temporary file path
-	Now           int64             `json:"-" form:"now" query:"now" long:"now" msg:"-"`
 	Debug         bool              `json:"debug,omitempty" form:"debug" query:"debug" long:"debug" msg:"debug"`
 	Header        string            `json:"header,omitempty" form:"header" query:"header" long:"header" msg:"header"`
 	RawBody       string            `json:"rawBody,omitempty" form:"rawBody" query:"rawBody" long:"rawBody" msg:"rawBody"`
 	Host          string            `json:"host" form:"host" query:"host" long:"host" msg:"host"`
+
+	// in seconds
+	now int64 `json:"-" form:"now" query:"now" long:"now" msg:"-"`
 }
 
 func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any) error {
@@ -62,10 +64,10 @@ func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any) error {
 }
 
 func (l *RequestCommon) UnixNow() int64 {
-	if l.Now == 0 {
-		l.Now = fastime.UnixNow()
+	if l.now == 0 {
+		l.now = fastime.UnixNow()
 	}
-	return l.Now
+	return l.now
 }
 
 func (i *RequestCommon) TimeNow() time.Time {
@@ -78,7 +80,7 @@ func (l *RequestCommon) FromFiberCtx(ctx *fiber.Ctx, tracerCtx context.Context) 
 	l.UserAgent = string(ctx.Request().Header.UserAgent())
 	l.IpAddress = ctx.IP()
 	l.Host = ctx.Protocol() + `://` + ctx.Hostname()
-	l.Now = fastime.UnixNow()
+	l.now = fastime.UnixNow()
 	// TODO: check ctx.Accepts()
 	//ctx.Request().URI().RequestURI()
 	file, err := ctx.FormFile(`fileBinary`)
@@ -121,7 +123,7 @@ func (l *RequestCommon) FromCli(file *os.File, ctx context.Context) {
 	l.UserAgent = `CLI` // TODO: add input format combination, eg. json-stdin
 	l.IpAddress = `127.0.0.1`
 	l.TracerContext = ctx
-	l.Now = fastime.UnixNow()
+	l.now = fastime.UnixNow()
 }
 
 func (l *RequestCommon) deleteTempFiles() {

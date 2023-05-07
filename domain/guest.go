@@ -1,8 +1,13 @@
 package domain
 
 import (
-	"github.com/kokizzu/gotro/S"
+	"time"
 
+	"github.com/kokizzu/gotro/S"
+	"github.com/kokizzu/id64"
+	"github.com/vburenin/nsync"
+
+	"street/conf"
 	"street/model/mAuth/rqAuth"
 	"street/model/mAuth/wcAuth"
 )
@@ -54,8 +59,8 @@ func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
 	}
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Email = in.Email
-	user.Password = S.EncryptPassword(in.Password)
-	user.CreatedAt = in.Now
+	user.SetEncryptedPassword(in.Password, in.UnixNow())
+	user.CreatedAt = in.UnixNow()
 	if !user.DoInsert() {
 		out.SetError(500, ErrGuestRegisterUserCreationFailed)
 		return
@@ -110,5 +115,145 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 		return
 	}
 	out.SessionToken = session.SessionToken
+	return
+}
+
+type (
+	GuestForgotPasswordIn struct {
+		RequestCommon
+		Email string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
+	}
+
+	GuestForgotPasswordOut struct {
+		ResponseCommon
+		Ok bool `json:"ok" form:"ok" query:"ok" long:"ok" msg:"ok"`
+
+		resetPassUrl string
+	}
+)
+
+const (
+	GuestForgotPasswordAction = `guest/forgotPassword`
+
+	ErrGuestForgotPasswordEmailNotFound         = `forgot password email not found`
+	ErrGuestForgotPassworTriggeredTooFrequently = `forgot password triggered to frequently`
+	ErrGuestForgotPasswordModificationFailed    = `forgot password modification failed`
+)
+
+var guestForgotPasswordLock = nsync.NewNamedMutex()
+
+func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgotPasswordOut) {
+	user := wcAuth.NewUsersMutator(d.AuthOltp)
+	user.Email = in.Email
+
+	guestForgotPasswordLock.Lock(in.Email)
+
+	if !user.FindByEmail() {
+		guestForgotPasswordLock.Unlock(in.Email)
+		out.SetError(400, ErrGuestForgotPasswordEmailNotFound)
+		return
+	}
+
+	recently := in.TimeNow().Add(-conf.ForgotPasswordThrottleMinute * time.Minute).Unix()
+	if user.SecretCodeAt >= recently {
+		out.SetError(400, ErrGuestForgotPassworTriggeredTooFrequently)
+		return
+	}
+
+	secretCode := id64.SID() + S.RandomCB63[int64](1)
+	user.SetSecretCode(secretCode)
+	user.SetSecretCodeAt(in.UnixNow())
+	hash := S.EncodeCB63(user.Id, 8)
+
+	out.resetPassUrl = in.Host + `/?secretCode=` + secretCode + `&hash=` + hash
+	go func() {
+		defer guestForgotPasswordLock.Unlock(in.Email)
+		// TODO: send email of the url
+	}()
+
+	if !user.DoUpdateById() {
+		out.SetError(500, ErrGuestForgotPasswordModificationFailed)
+		return
+	}
+
+	out.Ok = true
+	return
+}
+
+func (d *Domain) UserProfile(in *UserProfileIn) (out UserProfileOut) {
+	sess := d.mustLogin(in.RequestCommon, &out.ResponseCommon)
+	if sess == nil {
+		return
+	}
+
+	user := rqAuth.NewUsers(d.AuthOltp)
+	user.Id = sess.UserId
+	if !user.FindById() {
+		out.SetError(403, ErrUserNotFound)
+		return
+	}
+	user.CensorFields()
+	out.User = user
+	return
+}
+
+type (
+	GuestResetPasswordIn struct {
+		RequestCommon
+		SecretCode string `json:"secretCode" form:"secretCode" query:"secretCode" long:"secretCode" msg:"secretCode"`
+		Hash       string `json:"hash" form:"hash" query:"hash" long:"hash" msg:"hash"`
+		Password   string `json:"password" form:"password" query:"password" long:"password" msg:"password"`
+	}
+	GuestResetPasswordOut struct {
+		ResponseCommon
+		Ok bool `json:"ok" form:"ok" query:"ok" long:"ok" msg:"ok"`
+	}
+)
+
+const (
+	GuestResetPasswordAction = `guest/resetPassword`
+
+	ErrGuestResetPasswordInvalidHash        = `invalid hash`
+	ErrGuestResetPasswordTooShort           = `password too short`
+	ErrGuestResetPasswordUserNotFound       = `user not found`
+	ErrGuestResetPasswordWrongSecret        = `wrong secret code`
+	ErrGuestResetPasswordExpiredLink        = `expired link`
+	ErrGuestResetPasswordModificationFailed = `reset password modification failed`
+)
+
+func (d *Domain) GuestResetPassword(in *GuestResetPasswordIn) (out GuestResetPasswordOut) {
+	userId, ok := S.DecodeCB63[uint64](in.Hash)
+	if !ok {
+		out.SetError(400, ErrGuestResetPasswordInvalidHash)
+		return
+	}
+	user := wcAuth.NewUsersMutator(d.AuthOltp)
+	user.Id = userId
+	if !user.FindById() {
+		out.SetError(400, ErrGuestResetPasswordUserNotFound)
+		return
+	}
+	if len(in.Password) < minPassLength {
+		out.SetErrorf(400, ErrGuestResetPasswordTooShort)
+		return
+	}
+	if in.SecretCode == `` ||
+		in.UnixNow()-user.SecretCodeAt > conf.ForgotPasswordExpireMinute*60 {
+		out.SetError(404, ErrGuestResetPasswordExpiredLink)
+		return
+	}
+	if user.SecretCode != in.SecretCode {
+		out.SetError(400, ErrGuestResetPasswordWrongSecret)
+		return
+	}
+	user.SetSecretCode(``)
+	user.SetSecretCodeAt(0)
+	user.SetEncryptedPassword(in.Password, in.UnixNow())
+
+	if !user.DoUpdateById() {
+		out.SetError(500, ErrGuestResetPasswordModificationFailed)
+		return
+	}
+	out.Ok = true
 	return
 }
