@@ -7,11 +7,11 @@ import (
 	"street/model/mAuth/wcAuth"
 )
 
-//go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file user.go
-//go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type user.go
-//go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type user.go
-//go:generate replacer -afterprefix 'By" form' 'By,string" form' type user.go
-//go:generate farify doublequote --file user.go
+//go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file guest.go
+//go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type guest.go
+//go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type guest.go
+//go:generate replacer -afterprefix 'By" form' 'By,string" form' type guest.go
+//go:generate farify doublequote --file guest.go
 
 type (
 	GuestRegisterIn struct {
@@ -60,7 +60,7 @@ func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
 		out.SetError(500, ErrGuestRegisterUserCreationFailed)
 		return
 	}
-	user.Password = ``
+	user.CensorFields()
 	out.User = user.Users
 	return
 }
@@ -83,6 +83,7 @@ const (
 	ErrGuestLoginEmailInvalid             = `email must be valid`
 	ErrGuestLoginEmailOrPasswordIncorrect = `incorrect email or password`
 	ErrGuestLoginPasswordOrEmailIncorrect = `incorrect password or email`
+	ErrFailedStoringSession               = `failed storing session`
 )
 
 func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
@@ -101,7 +102,13 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 		out.SetError(400, ErrGuestLoginPasswordOrEmailIncorrect)
 		return
 	}
-	user.Password = ``
+	user.CensorFields()
 	out.User = *user
+	session := d.createSession(user.Id, user.Email, in.UserAgent)
+	if !session.DoInsert() {
+		out.SetError(500, ErrFailedStoringSession)
+		return
+	}
+	out.SessionToken = session.SessionToken
 	return
 }

@@ -418,6 +418,7 @@ func (c *codegen) GenerateJsApiFile() {
 
 	b.WriteString(`
 import axios from "axios";` + NL)
+	b.WriteString(generatedComment)
 
 	c.domains.eachSortedHandler(func(name string, handler tmethod) {
 		fields := c.domains.types.byName[handler.In].fields
@@ -428,6 +429,8 @@ import axios from "axios";` + NL)
 
 		c.jsFunc(&b, handler)
 	})
+
+	b.WriteString(generatedComment)
 
 	L.CreateFile(c.JsApiGenFile, b.String())
 }
@@ -533,6 +536,8 @@ import (
 	"street/domain"
 )
 
+` + generatedComment + `
+
 func cmdRun(b *domain.Domain, action string, payload []byte) {
 	switch action {`)
 	c.domains.eachSortedHandler(func(name string, handler tmethod) {
@@ -548,6 +553,7 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 `)
 	})
 	b.WriteString(NL + TAB + `}` + NL + `}` + NL)
+	b.WriteString(generatedComment)
 
 	L.CreateFile(c.CmdRunGenFile, b.String())
 }
@@ -561,6 +567,8 @@ import (
 	"github.com/kokizzu/gotro/M"
 )
 
+` + generatedComment + `
+
 var viewList = map[string]string{
 `)
 	sort.Strings(c.views)
@@ -569,7 +577,7 @@ var viewList = map[string]string{
 		left := S.LeftOfLast(svelteFile, `.svelte`)
 		htmlFile := left + `.html`
 
-		cacheName := S.RightOf(left, `svelte`)
+		cacheName := left[len(c.SvelteDir):]
 		cacheName = S.Replace(cacheName, `/`, ` `)
 		cacheName = S.PascalCase(cacheName)
 
@@ -586,6 +594,8 @@ func (v *Views) Render` + cacheName + `(c *fiber.Ctx, m M.SX) error {
 }` + NL)
 
 	}
+
+	b.WriteString(generatedComment)
 
 	L.CreateFile(c.WebViewGenFile, b.String())
 }

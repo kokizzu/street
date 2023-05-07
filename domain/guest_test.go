@@ -111,5 +111,6 @@ func TestGuestLogin(t *testing.T) {
 		out := d.GuestLogin(&in)
 		assert.Equal(t, out.Error, "")
 		assert.Equal(t, out.User.Id, reg.Id)
+		require.NotEmpty(t, out.SessionToken)
 	})
 }
