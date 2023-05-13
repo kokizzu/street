@@ -14,6 +14,7 @@ import (
 
 	"street/conf"
 	"street/domain"
+	"street/model/xMailer"
 )
 
 type WebServer struct {
@@ -21,6 +22,7 @@ type WebServer struct {
 	AuthOlap *Ch.Adapter
 	Log      *zerolog.Logger
 	Cfg      conf.WebConf
+	Mailer   xMailer.Mailer
 }
 
 var requiredHeader = M.SS{
@@ -71,6 +73,7 @@ func (w *WebServer) Start() {
 	d := &domain.Domain{
 		AuthOltp: w.AuthOltp,
 		AuthOlap: w.AuthOlap,
+		Mailer:   w.Mailer,
 	}
 
 	// load svelte templates

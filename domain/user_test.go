@@ -10,10 +10,7 @@ import (
 )
 
 func TestLogout(t *testing.T) {
-	d := Domain{
-		AuthOltp: testTt,
-		AuthOlap: testCh,
-	}
+	d := testDomain()
 
 	email := id64.SID() + `@login`
 	const pass = `012345678901`

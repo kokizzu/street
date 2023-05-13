@@ -10,6 +10,7 @@ import (
 
 	"street/conf"
 	"street/model"
+	"street/model/xMailer"
 	"street/presentation"
 )
 
@@ -28,7 +29,25 @@ func main() {
 	args := os.Args
 	if len(args) < 2 {
 		L.Print(`must start with: run, web, cron, or migrate as first argument`)
+		L.Print(args)
 		return
+	}
+
+	// mailer
+	var mailer xMailer.Mailer
+	switch xMailer.GetMailer() {
+	case `sendgrid`:
+		sg := &xMailer.Sengrid{SendgridConf: conf.EnvSendgrid()}
+		L.PanicIf(sg.Connect(), `Sengrid.Connect`)
+		mailer.SendMailFunc = sg.SendEmail
+	case `mailjet`:
+		mj := &xMailer.Mailjet{MailjetConf: conf.EnvMailjet()}
+		L.PanicIf(mj.Connect(), `Mailjet.Connect`)
+		mailer.SendMailFunc = mj.SendEmail
+	default: // use mailhog
+		mh, err := xMailer.NewMailhog(conf.EnvMailhog())
+		L.PanicIf(err, `NewMailhog`)
+		mailer.SendMailFunc = mh.SendEmail
 	}
 
 	// connect to tarantool
@@ -52,6 +71,7 @@ func main() {
 			AuthOlap: cConn,
 			Log:      log,
 			Cfg:      conf.EnvWebConf(),
+			Mailer:   mailer,
 		}
 		ws.Start()
 	case `cli`:
@@ -59,6 +79,7 @@ func main() {
 			AuthOltp: tConn,
 			AuthOlap: cConn,
 			Log:      log,
+			Mailer:   mailer,
 		}
 		cli.Run(os.Args[2:])
 	case `cron`:
@@ -66,6 +87,7 @@ func main() {
 			AuthOltp: tConn,
 			AuthOlap: cConn,
 			Log:      log,
+			Mailer:   mailer,
 		}
 		cron.Start()
 	case `migrate`:

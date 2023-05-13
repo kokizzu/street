@@ -89,3 +89,10 @@ go run main.go web
 
 curl -X POST -d '{"email":"test@a.com"}' localhost:1234/guest/register
 ```
+
+## Note
+
+```shell
+# docker spawning failed (because test terminated improperly), run this:
+alias dockill='docker kill $(docker ps -q); docker container prune -f; docker network prune -f'
+```

@@ -3,6 +3,7 @@ package domain
 import (
 	"time"
 
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/id64"
 	"github.com/vburenin/nsync"
@@ -27,6 +28,8 @@ type (
 	GuestRegisterOut struct {
 		ResponseCommon
 		User rqAuth.Users `json:"user" form:"user" query:"user" long:"user" msg:"user"`
+
+		verifyEmailUrl string
 	}
 )
 
@@ -61,6 +64,7 @@ func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
 	user.Email = in.Email
 	user.SetEncryptedPassword(in.Password, in.UnixNow())
 	user.CreatedAt = in.UnixNow()
+	user.SecretCode = S.RandomCB63(1)
 	if !user.DoInsert() {
 		out.SetError(500, ErrGuestRegisterUserCreationFailed)
 		return
@@ -68,7 +72,67 @@ func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
 	user.CensorFields()
 	out.User = user.Users
 
-	// TODO: send verification link
+	// send verification link
+	hash := S.EncodeCB63(user.Id, 8)
+	out.verifyEmailUrl = in.Host + `/` + GuestVerifyEmailAction + `?code=` + user.SecretCode + `&hash=` + hash
+	go func() {
+		err := d.Mailer.SendRegistrationEmail(user.Email, out.verifyEmailUrl)
+		L.IsError(err, `SendRegistrationEmail`)
+		// TODO: insert failed event to clickhouse
+	}()
+	return
+}
+
+type (
+	GuestVerifyEmailIn struct {
+		RequestCommon
+		SecretCode string `json:"secretCode" form:"secretCode" query:"secretCode" long:"secretCode" msg:"secretCode"`
+		Hash       string `json:"hash" form:"hash" query:"hash" long:"hash" msg:"hash"`
+	}
+	GuestVerifyEmailOut struct {
+		ResponseCommon
+		Ok bool `json:"ok" form:"ok" query:"ok" long:"ok" msg:"ok"`
+	}
+)
+
+const (
+	GuestVerifyEmailAction = `guest/verifyEmail`
+
+	ErrGuestVerifyEmailInvalidHash        = `invalid hash`
+	ErrGuestVerifyEmailUserNotFound       = `user not found`
+	ErrGuestVerifyEmailSecretCodeMismatch = `secret code mismatch`
+	ErrGuestVerifyEmailModificationFailed = `failed modifying user`
+)
+
+func (d *Domain) GuestVerifyEmail(in *GuestVerifyEmailIn) (out GuestVerifyEmailOut) {
+	userId, ok := S.DecodeCB63[uint64](in.Hash)
+	if !ok {
+		out.SetError(400, ErrGuestVerifyEmailInvalidHash)
+		return
+	}
+	user := wcAuth.NewUsersMutator(d.AuthOltp)
+	user.Id = userId
+	if !user.FindById() {
+		out.SetError(400, ErrGuestVerifyEmailUserNotFound)
+		return
+	}
+	if user.VerifiedAt != 0 { // already verified
+		out.Ok = true
+		return
+	}
+	if user.SecretCode != in.SecretCode {
+		out.SetError(400, ErrGuestVerifyEmailSecretCodeMismatch)
+		return
+	}
+	user.SetVerifiedAt(in.UnixNow())
+	user.SetSecretCode(``)
+	user.SetSecretCodeAt(0)
+
+	if !user.DoUpdateById() {
+		out.SetError(500, ErrGuestVerifyEmailModificationFailed)
+		return
+	}
+	out.Ok = true
 	return
 }
 
@@ -169,10 +233,12 @@ func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgot
 	user.SetSecretCodeAt(in.UnixNow())
 	hash := S.EncodeCB63(user.Id, 8)
 
-	out.resetPassUrl = in.Host + `/?secretCode=` + secretCode + `&hash=` + hash
+	out.resetPassUrl = in.Host + `/` + GuestResetPasswordAction + `?secretCode=` + secretCode + `&hash=` + hash
 	go func() {
 		defer guestForgotPasswordLock.Unlock(in.Email)
-		// TODO: send email of the url
+		err := d.Mailer.SendResetPasswordEmail(user.Email, out.resetPassUrl)
+		L.IsError(err, `SendResetPasswordEmail`)
+		// TODO: insert failed event to clickhouse
 	}()
 
 	if !user.DoUpdateById() {
@@ -233,6 +299,10 @@ func (d *Domain) GuestResetPassword(in *GuestResetPasswordIn) (out GuestResetPas
 	if user.SecretCode != in.SecretCode {
 		out.SetError(400, ErrGuestResetPasswordWrongSecret)
 		return
+	}
+	// also verify the user if not verified yet
+	if user.VerifiedAt == 0 {
+		user.SetVerifiedAt(in.UnixNow())
 	}
 	user.SetSecretCode(``)
 	user.SetSecretCodeAt(0)

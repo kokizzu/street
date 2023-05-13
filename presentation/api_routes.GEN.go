@@ -64,6 +64,19 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out)
 	})
 
+	// GuestVerifyEmail
+	fw.Post("/"+domain.GuestVerifyEmailAction, func(c *fiber.Ctx) error {
+		ctx := context.Background() // TODO: use tracer
+		in := domain.GuestVerifyEmailIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.GuestVerifyEmailAction); err != nil {
+			return err
+		}
+		in.FromFiberCtx(c, ctx)
+		out := d.GuestVerifyEmail(&in)
+		out.DecorateSession(c, &in.RequestCommon, &in)
+		return in.ToFiberCtx(c, out)
+	})
+
 	// UserLogout
 	fw.Post("/"+domain.UserLogoutAction, func(c *fiber.Ctx) error {
 		ctx := context.Background() // TODO: use tracer

@@ -29,3 +29,9 @@ services:
       nofile:
         soft: 262144
         hard: 262144
+
+  mailhog1:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"

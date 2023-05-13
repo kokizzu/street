@@ -10,9 +10,21 @@ import (
 
 
 var viewList = map[string]string{
+	`GuestResetPass`: `../svelte/guest/resetPass.html`, // ../svelte/guest/resetPass.svelte
+	`GuestVerifyEmail`: `../svelte/guest/verifyEmail.html`, // ../svelte/guest/verifyEmail.svelte
 	`Index`: `../svelte/index.html`, // ../svelte/index.svelte
 }
 
+
+func (v *Views) RenderGuestResetPass(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html")
+	return c.SendString(v.cache[`GuestResetPass`].Str(m))
+}
+
+func (v *Views) RenderGuestVerifyEmail(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html")
+	return c.SendString(v.cache[`GuestVerifyEmail`].Str(m))
+}
 
 func (v *Views) RenderIndex(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html")

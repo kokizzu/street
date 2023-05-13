@@ -222,14 +222,16 @@ func (d *domains) Visit(n ast.Node) (w ast.Visitor) {
 }
 
 func getStruct(typAst *ast.TypeSpec) (name string, fields tstruct) {
-	structAst := typAst.Type.(*ast.StructType)
-	vStruct := tstruct{}
-	for _, fieldAst := range structAst.Fields.List {
-		for _, name := range fieldAst.Names {
-			vStruct.AddField(name.Name, getType(fieldAst.Type))
+	if structAst, ok := typAst.Type.(*ast.StructType); ok {
+		vStruct := tstruct{}
+		for _, fieldAst := range structAst.Fields.List {
+			for _, name := range fieldAst.Names {
+				vStruct.AddField(name.Name, getType(fieldAst.Type))
+			}
 		}
+		return typAst.Name.Name, vStruct
 	}
-	return typAst.Name.Name, vStruct
+	return typAst.Name.Name, tstruct{}
 }
 
 func getDomainHandler(funcAst *ast.FuncDecl) *tmethod {
@@ -447,7 +449,7 @@ func (c *codegen) GenerateJsApiFile() {
 	b := bytes.Buffer{}
 
 	b.WriteString(`
-import axios from "axios";` + NL)
+const axios = require("axios");` + NL)
 	b.WriteString(generatedComment)
 
 	c.domains.eachSortedHandler(func(name string, handler tmethod) {
@@ -493,7 +495,7 @@ func (c *codegen) jsField(b *bytes.Buffer, field tfield, indent int) {
 
 	// write field names
 	spaces := S.Repeat(` `, indent*2)
-	b.WriteString(`  ` + spaces + field.Name + `: `)
+	b.WriteString(`  ` + spaces + S.CamelCase(field.Name) + `: `)
 
 	// write field type
 	switch t {
@@ -501,6 +503,8 @@ func (c *codegen) jsField(b *bytes.Buffer, field tfield, indent int) {
 		b.WriteString(`0,`)
 	case `string`:
 		b.WriteString(`'',`)
+	case `bool`:
+		b.WriteString(`false,`)
 	default:
 		ty := c.models.types.byName[t]
 		b.WriteString(`{ // ` + t + NL)
@@ -524,12 +528,12 @@ func (c *codegen) jsDoc(b *bytes.Buffer, fields []tfield, parent string) {
 		default:
 			ty := c.models.types.byName[t]
 			if len(ty.fields) > 0 {
-				c.jsDoc(b, ty.fields, field.Name+`.`)
+				c.jsDoc(b, ty.fields, S.CamelCase(field.Name)+`.`)
 				continue
 			}
 			jsT = `Object`
 		}
-		b.WriteString(` * @property {` + jsT + `} ` + parent + field.Name + NL)
+		b.WriteString(` * @property {` + jsT + `} ` + parent + S.CamelCase(field.Name) + NL)
 	}
 }
 
@@ -545,7 +549,7 @@ func (c *codegen) jsFunc(b *bytes.Buffer, handler tmethod) {
  * @param {` + handler.MethodName + `Callback} cb
  * @returns {Promise}
  */
-async function ` + handler.MethodName + `( i, cb ) {
+exports.` + handler.MethodName + ` = async function ` + handler.MethodName + `( i, cb ) {
   return await axios.post( '/` + action + `', i ).then( cb )
 }` + NL)
 

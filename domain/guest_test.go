@@ -13,10 +13,7 @@ import (
 )
 
 func TestGuestRegister(t *testing.T) {
-	d := Domain{
-		AuthOltp: testTt,
-		AuthOlap: testCh,
-	}
+	d := testDomain()
 
 	t.Run("emptyInput", func(t *testing.T) {
 		in := GuestRegisterIn{}
@@ -57,14 +54,50 @@ func TestGuestRegister(t *testing.T) {
 		out := d.GuestRegister(&in)
 		assert.Equal(t, out.Error, "")
 		require.NotZero(t, out.User.Id)
+
+		secretCode, hash := parseSecretCodeHashUrl(t, out.verifyEmailUrl)
+
+		t.Run(`verifyEmail,invalidHash`, func(t *testing.T) {
+			in := GuestVerifyEmailIn{
+				SecretCode: secretCode,
+				Hash:       `#*()@&MN%#9834`,
+			}
+			out := d.GuestVerifyEmail(&in)
+			assert.Equal(t, out.Error, ErrGuestVerifyEmailInvalidHash)
+		})
+
+		t.Run(`verifyEmail,invalidSecretCode`, func(t *testing.T) {
+			in := GuestVerifyEmailIn{
+				SecretCode: `@#*)($*@#%)(@`,
+				Hash:       hash,
+			}
+			out := d.GuestVerifyEmail(&in)
+			assert.Equal(t, out.Error, ErrGuestVerifyEmailSecretCodeMismatch)
+		})
+
+		t.Run(`verifyEmail,valid`, func(t *testing.T) {
+			in := GuestVerifyEmailIn{
+				SecretCode: secretCode,
+				Hash:       hash,
+			}
+			out := d.GuestVerifyEmail(&in)
+			assert.Equal(t, out.Error, "")
+			assert.True(t, out.Ok)
+		})
+
+		t.Run(`verifyEmail,alreadyVerified`, func(t *testing.T) {
+			in := GuestVerifyEmailIn{
+				SecretCode: `whatever`,
+				Hash:       hash,
+			}
+			out := d.GuestVerifyEmail(&in)
+			require.Empty(t, out.Error)
+		})
 	})
 }
 
 func TestGuestLogin(t *testing.T) {
-	d := Domain{
-		AuthOltp: testTt,
-		AuthOlap: testCh,
-	}
+	d := testDomain()
 
 	t.Run("emptyInput", func(t *testing.T) {
 		in := GuestLoginIn{}
@@ -119,10 +152,7 @@ func TestGuestLogin(t *testing.T) {
 }
 
 func TestForgotResetPassword(t *testing.T) {
-	d := Domain{
-		AuthOltp: testTt,
-		AuthOlap: testCh,
-	}
+	d := testDomain()
 
 	email := id64.SID() + `@reset`
 	const pass = `012345678901`
@@ -140,7 +170,7 @@ func TestForgotResetPassword(t *testing.T) {
 			Email: email,
 		}
 		out := d.GuestForgotPassword(in)
-		assert.Equal(t, out.Error, ``)
+		require.Empty(t, out.Error)
 		require.NotEmpty(t, out.resetPassUrl)
 
 		t.Run(`forgotPasswordAgain`, func(t *testing.T) {
@@ -148,11 +178,7 @@ func TestForgotResetPassword(t *testing.T) {
 			assert.Equal(t, out.Error, ErrGuestForgotPassworTriggeredTooFrequently)
 		})
 
-		resetToken := S.RightOf(out.resetPassUrl, `/?`)
-		tokens := S.Split(resetToken, `&`)
-		require.Len(t, tokens, 2)
-		secretCode := S.RightOf(tokens[0], `=`)
-		hash := S.RightOf(tokens[1], `=`)
+		secretCode, hash := parseSecretCodeHashUrl(t, out.resetPassUrl)
 
 		t.Run(`resetPassword,invalidHash`, func(t *testing.T) {
 			in := &GuestResetPasswordIn{
@@ -198,7 +224,7 @@ func TestForgotResetPassword(t *testing.T) {
 				Password:   pass,
 			}
 			out := d.GuestResetPassword(in)
-			assert.Equal(t, out.Error, ``)
+			require.Empty(t, out.Error)
 
 			t.Run(`resetPasswordAgain`, func(t *testing.T) {
 				out := d.GuestResetPassword(in)
@@ -207,4 +233,13 @@ func TestForgotResetPassword(t *testing.T) {
 		})
 	})
 
+}
+
+func parseSecretCodeHashUrl(t *testing.T, url string) (secretCode string, hash string) {
+	resetToken := S.RightOf(url, `?`)
+	tokens := S.Split(resetToken, `&`)
+	require.Len(t, tokens, 2)
+	secretCode = S.RightOf(tokens[0], `=`)
+	hash = S.RightOf(tokens[1], `=`)
+	return
 }

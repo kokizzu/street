@@ -1,5 +1,5 @@
 <script>
-  import axios from 'axios'
+  import {GuestRegister} from "./jsApi.GEN.js"
   import {onMount} from "svelte";
   
   // TODO: codegen axios part
@@ -26,22 +26,27 @@
   
   onMount( onHashChange )
   
-  function GuestRegister() {
+  async function guestRegister() {
     // TODO: replace all alert with growl
     if( !email ) return alert( 'email is required' )
     if( password.length<12 ) return alert( 'password must be at least 12 characters' )
     if( password!==confirmPass ) return alert( 'passwords do not match' )
     // TODO: send to backend
-    axios.post( 'GuestRegister', { email, password } )
-      .then( res => {
-        if( res.data.error ) return alert( res.data.error )
-      } ).catch( err => {
-        alert( err )
-      }
-    )
+    const i = { email, password }
+    await GuestRegister( i, function( o ) {
+      // TODO: codegen commonResponse
+      // TODO: generate jsdoc proper callback type is something like this:
+      /*
+	      config:{transitional: {…}, adapter: Array(2), transformRequest: Array(1), transformResponse: Array(1), timeout: 0, …}
+			data:{sessionToken: '', error: 'email already used', status: 400, user: {…}}
+			headers: AxiosHeaders {content-length: '277', content-type: 'application/json', date: 'Sat, 13 May 2023 22:53:11 GMT'}
+       */
+      console.log( o )
+      //if( o.User ) return alert( o.data.error )
+    } )
   }
   
-  function UserLogin() {
+  function guestLogin() {
   
   }
 
@@ -57,12 +62,12 @@
 	{#if mode===REGISTER}
 		<label for="confirmPass">Confirm Password</label>
 		<input type="password" id="confirmPass" bind:value={confirmPass}><br/>
-		<button on:click={GuestRegister}>Register</button>
+		<button on:click={guestRegister}>Register</button>
 		<br/>
 		Already have account?
 		<a href="#LOGIN" on:click={()=> mode=LOGIN}>Login</a>
 	{:else}
-		<button on:click={UserLogin}>Login</button>
+		<button on:click={guestLogin}>Login</button>
 		<br/>
 		Have no account?
 		<a href="#REGISTER" on:click={()=> mode=REGISTER}>Register</a>
