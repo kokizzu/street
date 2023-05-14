@@ -121,11 +121,21 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
   - **A**: make sure docker service is up and running
 - **Q**: what's normal flow of development?
   - **A**: 
-      1. create new/modify model on `model/w[schema]/` folder
+      1. create new/modify model on `model/m[schema]/[schema]_tables.go` folder, create benchmark function to generate and migrate the tables in `RunMigration` function.
       2. run `./gen-orm.sh`, create helper function on `model/w[schema]/[rq|wc|sa][schema]/[schema]_helper.go` or 3rd party wrapper in `model/x[service]/x[provider].go`
       3. create a role in `domain/[role].go` containing all business logic for that role
-      4.  write test in `domain/[role]_test.go` to make sure all business requirement are met
+      4. write test in `domain/[role]_test.go` to make sure all business requirement are met
       5. generate domain routes `cd presentation; go get -bench=BenchmarkGenerateViews`, start web service `air web`
       6. write frontend on `svelte/`, start frontend service `cd svelte; npm run watch`
       7. generate frontend helpers `cd presentation; go get -bench=BenchmarkGenerateViews`
       8. write SSR if needed on `presentation/web_static.go`
+- **Q**: want to change the generated views?
+  - **A**: 
+      1. change the template on `presentation/1_codegen_test.go`
+      2. run `cd presentation; go get -bench=BenchmarkGenerateViews`
+- **Q**: want to change generated ORM or schema migration has bug?
+  - **A**: create a pull request to [gotro](//github.com/kokizzu/gotro) 
+- **Q**: generated html have bug?
+  - **A**: create a pull request to [svelte-mpa](//github.com/kokizzu/svelte-mpa)
+- **Q**: where is the devlog?
+  - **A**: on [youtube livestream](//www.youtube.com/@kokizzu/streams)
