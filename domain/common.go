@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net/http"
 	"os"
 	"path/filepath"
 	"time"
@@ -14,6 +15,7 @@ import (
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/id64"
 	"github.com/kpango/fastime"
+	"github.com/rs/zerolog/log"
 
 	"street/conf"
 )
@@ -42,8 +44,11 @@ type RequestCommon struct {
 	now int64 `json:"-" form:"now" query:"now" long:"now" msg:"-"`
 }
 
-func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any) error {
+func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon) error {
 	defer l.deleteTempFiles()
+	if rc.StatusCode != http.StatusOK {
+		ctx.Status(rc.StatusCode)
+	}
 	switch l.OutputFormat {
 	case ``, `json`, fiber.MIMEApplicationJSON:
 		ctx.Set(fiber.HeaderContentType, fiber.MIMEApplicationJSON)
@@ -57,6 +62,7 @@ func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any) error {
 			return err
 		}
 		// TODO: log size/bytes written
+		log.Print(string(byt))
 	default:
 		return errors.New(`ToFiberCtx unhandled format: ` + l.OutputFormat)
 	}

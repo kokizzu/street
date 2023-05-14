@@ -436,7 +436,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		in.FromFiberCtx(c, ctx)
 		out := d.` + name + `(&in)
 		out.DecorateSession(c, &in.RequestCommon, &in)
-		return in.ToFiberCtx(c, out)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon)
 	})
 `)
 	})

@@ -3,6 +3,8 @@ package presentation
 import (
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
@@ -35,6 +37,7 @@ var requiredHeader = M.SS{
 // 3. params
 func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, url string) error {
 	body := ctx.Body()
+	reqCommon.Debug = reqCommon.Debug || conf.IsDebug()
 	path := S.LeftOf(url, `?`) // without API_PREFIX
 	if header, ok := requiredHeader[path]; ok {
 		reqCommon.Header = ctx.Get(header)
@@ -58,11 +61,13 @@ func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, u
 				return err
 			}
 		}
-		trimBody := S.Left(string(body), 4096)
-		L.Print(trimBody)
+		trimBody := S.Left(string(body), 1024)
 		if reqCommon.Debug && reqCommon.RawBody == `` {
 			reqCommon.RawBody = trimBody
 		}
+	}
+	if conf.IsDebug() && reqCommon.Debug {
+		log.Print(reqCommon.RawBody)
 	}
 	return nil
 }
@@ -80,6 +85,11 @@ func (w *WebServer) Start() {
 	// load svelte templates
 	views = &Views{}
 	views.LoadAll()
+
+	fw.Use(recover.New())
+	if conf.IsDebug() { // TODO: use faster logger for production
+		fw.Use(logger.New())
+	}
 
 	// assign static routes (GET)
 	WebStatic(fw, d)

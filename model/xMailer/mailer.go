@@ -4,7 +4,8 @@ import (
 	"os"
 
 	"github.com/kokizzu/gotro/L"
-	"github.com/kokizzu/gotro/W2/example/conf"
+
+	"street/conf"
 )
 
 type SendMailFunc func(toEmailName map[string]string, subject, text, html string) error
@@ -18,7 +19,7 @@ func GetMailer() string {
 }
 
 func (m *Mailer) SendRegistrationEmail(email string, verifyEmailUrl string) error {
-	if conf.DEBUG_MODE {
+	if conf.IsDebug() {
 		L.Print(`SendRegistrationEmail`, email, verifyEmailUrl)
 	}
 	return m.SendMailFunc(
@@ -38,7 +39,7 @@ please ignore this email if you didn't register<br/>`,
 }
 
 func (m *Mailer) SendResetPasswordEmail(email string, resetPassUrl string) error {
-	if conf.DEBUG_MODE {
+	if conf.IsDebug() {
 		L.Print(`SendResetPasswordEmail`, email, resetPassUrl)
 	}
 	return m.SendMailFunc(

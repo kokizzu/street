@@ -22,7 +22,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		in.FromFiberCtx(c, ctx)
 		out := d.GuestForgotPassword(&in)
 		out.DecorateSession(c, &in.RequestCommon, &in)
-		return in.ToFiberCtx(c, out)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon)
 	})
 
 	// GuestLogin
@@ -35,7 +35,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		in.FromFiberCtx(c, ctx)
 		out := d.GuestLogin(&in)
 		out.DecorateSession(c, &in.RequestCommon, &in)
-		return in.ToFiberCtx(c, out)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon)
 	})
 
 	// GuestRegister
@@ -48,7 +48,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		in.FromFiberCtx(c, ctx)
 		out := d.GuestRegister(&in)
 		out.DecorateSession(c, &in.RequestCommon, &in)
-		return in.ToFiberCtx(c, out)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon)
 	})
 
 	// GuestResetPassword
@@ -61,7 +61,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		in.FromFiberCtx(c, ctx)
 		out := d.GuestResetPassword(&in)
 		out.DecorateSession(c, &in.RequestCommon, &in)
-		return in.ToFiberCtx(c, out)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon)
 	})
 
 	// GuestVerifyEmail
@@ -74,7 +74,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		in.FromFiberCtx(c, ctx)
 		out := d.GuestVerifyEmail(&in)
 		out.DecorateSession(c, &in.RequestCommon, &in)
-		return in.ToFiberCtx(c, out)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon)
 	})
 
 	// UserLogout
@@ -87,7 +87,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		in.FromFiberCtx(c, ctx)
 		out := d.UserLogout(&in)
 		out.DecorateSession(c, &in.RequestCommon, &in)
-		return in.ToFiberCtx(c, out)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon)
 	})
 
 	// UserProfile
@@ -100,7 +100,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		in.FromFiberCtx(c, ctx)
 		out := d.UserProfile(&in)
 		out.DecorateSession(c, &in.RequestCommon, &in)
-		return in.ToFiberCtx(c, out)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon)
 	})
 
 }

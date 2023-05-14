@@ -36,7 +36,7 @@ MVC-like structure
 
 ```shell
 # start golang backend server
-air 
+air web
 
 # manually
 go run main.go web
