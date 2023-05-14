@@ -1,5 +1,5 @@
 <script>
-  import {GuestLogin, GuestRegister} from "./jsApi.GEN.js"
+  import {GuestLogin, GuestRegister, UserLogout} from "./jsApi.GEN.js"
   import {onMount} from "svelte";
   
   function getCookie( name ) {
@@ -18,9 +18,17 @@
   
   const LOGIN = 'LOGIN'
   const REGISTER = 'REGISTER'
+  const USER = ''
   let mode = LOGIN
   
   function onHashChange() {
+    const auth = getCookie( 'auth' )
+    console.log( auth )
+    if( auth ) {
+      location.hash = ''
+      mode = USER
+      return
+    }
     const hash = location.hash
     if( hash===`#${LOGIN}` ) mode = LOGIN
     else if( hash===`#${REGISTER}` ) mode = REGISTER
@@ -49,33 +57,47 @@
     const i = { email, password }
     await GuestLogin( i, function( o ) {
       console.log( o )
-      if( o.error ) alert( o.error )
+      if( o.error ) alert( o.error );
+      onHashChange()
+    } )
+  }
+  
+  async function userLogout() {
+    await UserLogout( {}, function( o ) {
+      console.log( o )
+      if( o.error ) alert( o.error );
+      onHashChange()
     } )
   }
 
 </script>
 
 <svelte:window on:hashchange={onHashChange}/>
-<h1>{title} - {mode}</h1>
-<div class="mainContainer">
-	<label for="email">Email</label>
-	<input type="text" id="email" bind:value={email}/><br/>
-	<label for="password">Password</label>
-	<input type="password" id="password" bind:value={password}><br/>
-	{#if mode===REGISTER}
-		<label for="confirmPass">Confirm Password</label>
-		<input type="password" id="confirmPass" bind:value={confirmPass}><br/>
-		<button on:click={guestRegister}>Register</button>
-		<br/>
-		Already have account?
-		<a href="#LOGIN" on:click={()=> mode=LOGIN}>Login</a>
-	{:else}
-		<button on:click={guestLogin}>Login</button>
-		<br/>
-		Have no account?
-		<a href="#REGISTER" on:click={()=> mode=REGISTER}>Register</a>
-	{/if}
-</div>
+{#if mode===USER}
+	already logged in
+	<button on:click={userLogout}>Logout</button>
+{:else}
+	<h1>{title} - {mode}</h1>
+	<div class="mainContainer">
+		<label for="email">Email</label>
+		<input type="text" id="email" bind:value={email}/><br/>
+		<label for="password">Password</label>
+		<input type="password" id="password" bind:value={password}><br/>
+		{#if mode===REGISTER}
+			<label for="confirmPass">Confirm Password</label>
+			<input type="password" id="confirmPass" bind:value={confirmPass}><br/>
+			<button on:click={guestRegister}>Register</button>
+			<br/>
+			Already have account?
+			<a href="#LOGIN" on:click={()=> mode=LOGIN}>Login</a>
+		{:else}
+			<button on:click={guestLogin}>Login</button>
+			<br/>
+			Have no account?
+			<a href="#REGISTER" on:click={()=> mode=REGISTER}>Register</a>
+		{/if}
+	</div>
+{/if}
 
 <style>
     /* pad label and input so they are equal in size */

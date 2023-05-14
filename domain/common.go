@@ -170,6 +170,10 @@ func (l *ResponseCommon) DecorateSession(ctx *fiber.Ctx, inRc *RequestCommon, in
 	if l.SessionToken != `` {
 		if l.SessionToken == conf.CookieLogoutValue {
 			ctx.ClearCookie(conf.CookieName)
+			ctx.Cookie(&fiber.Cookie{
+				Name:    conf.CookieName,
+				Expires: time.Unix(0, 0),
+			})
 		} else {
 			ctx.Cookie(&fiber.Cookie{
 				Name:    conf.CookieName,
