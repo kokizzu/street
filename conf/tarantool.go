@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/kokizzu/gotro/D/Tt"
-	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"github.com/tarantool/go-tarantool"
 )
@@ -31,15 +30,18 @@ var ErrConnectTarantool = errors.New(`TarantoolConf) Connect`)
 
 func (c TarantoolConf) Connect() (a *Tt.Adapter, err error) {
 	hostPort := fmt.Sprintf("%s:%d", c.Host, c.Port)
+	var taran *tarantool.Connection
 	connectFunc := func() *tarantool.Connection {
-		taran, err := tarantool.Connect(hostPort, tarantool.Opts{
+		taran, err = tarantool.Connect(hostPort, tarantool.Opts{
 			User: c.User,
 			Pass: c.Pass,
 		})
-		L.IsError(err, `tarantool.Connect `+hostPort)
 		return taran
 	}
-	taran := connectFunc()
+	taran = connectFunc()
+	if taran == nil {
+		return nil, WrapError(ErrConnectTarantool, err)
+	}
 	_, err = taran.Ping()
 	if err != nil {
 		return nil, WrapError(ErrConnectTarantool, err)

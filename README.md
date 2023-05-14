@@ -16,21 +16,24 @@ mobile  --> monolith --> tarantool/clickhouse
 
 ## Project Structure
 
-- conf: shared configuration
-- main: inject all dependencies
-- svelte: web frontend
+- `conf`: shared configuration
+- `main`: inject all dependencies
+- `svelte`: web frontend
+- `deploy`: scripts for deploying to production
 
 MVC-like structure
 
-- presentation -> serialization and transport
-- domain -> business logic, DTO
-- model -> persistence/3rd party endpoints, DAO
+- `presentation` -> serialization and transport
+- `domain` -> business logic, DTO
+- `model` -> persistence/3rd party endpoints, DAO
 
 ## CQRS
 
-- rq = request/query (OLTP)
-- wc = write/command (OLTP)
-- sa = statistics/analytics (OLAP)
+separates read/query and write/command into different database/connection.
+
+- `rq` = read/query (OLTP) -> to tarantool replica
+- `wc` = write/command (OLTP) -> to tarantool master
+- `sa` = statistics/analytics (OLAP) -> to clickhouse
 
 ## Start dev mode
 
@@ -72,6 +75,7 @@ go test -bench=BenchmarkGenerateOrm
 # - model/m*/*/*.go
 # - svelte/*.svelte
 
+cd presentation
 go get -bench=BenchmarkGenerateViews
 
 # output:
@@ -100,3 +104,28 @@ curl -X POST -d '{"email":"test@a.com"}' localhost:1234/guest/register
 # docker spawning failed (because test terminated improperly), run this:
 alias dockill='docker kill $(docker ps -q); docker container prune -f; docker network prune -f'
 ```
+
+## FAQ
+
+- Q: where to put SSR?
+  - A: `presentation/web_static.go`
+- Q: got error `.env.override` no such file or directory
+	- A: create `.env.override` file
+- Q: got error `failed to stat the template: index.html`
+  - A: run `cd svelte; npm run watch` at least once
+- Q: got error `TarantoolConf) Connect: dial tcp 127.0.0.1:3301: connect: connection refused"`
+  - A: run `docker-compose up`
+- Q: got error `ClickhouseConf) Connect: dial tcp 127.0.0.1:9000: connect: connection refused`
+  - A: run `docker-compose up`
+- Q: got error `docker.errors.DockerException: Error while fetching server API version: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory'))`
+	- A: make sure docker service is up and running
+- Q: what's normal flow of development?
+	- A: 
+		- 1. create new/modify model on `model/w[schema]/` folder
+		- 2. run `./gen-orm.sh`, create helper function on `model/w[schema]/[rq|wc|sa][schema]/[schema]_helper.go` or 3rd party wrapper in `model/x[service]/x[provider].go`
+		- 3. create a role in `domain/[role].go` containing all business logic for that role
+    - 4. write test in `domain/[role]_test.go` to make sure all business requirement are met
+		- 5. generate domain routes `cd presentation; go get -bench=BenchmarkGenerateViews`, start web service `air web`
+    - 6. write frontend on `svelte/`, start frontend service `cd svelte; npm run watch`
+		- 7. generate frontend helpers `cd presentation; go get -bench=BenchmarkGenerateViews`
+    - 8. write SSR if needed on `presentation/web_static.go`

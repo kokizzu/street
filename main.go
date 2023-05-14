@@ -1,11 +1,16 @@
 package main
 
 import (
+	"context"
 	"os"
+	"time"
 
+	"github.com/kokizzu/gotro/D/Ch"
+	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"github.com/rs/zerolog"
+	"golang.org/x/sync/errgroup"
 
 	"street/conf"
 	"street/model"
@@ -29,34 +34,60 @@ func main() {
 		return
 	}
 
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	eg, ctx := errgroup.WithContext(ctx)
+	var closers []func() error
+
 	// mailer
 	var mailer xMailer.Mailer
-	switch xMailer.GetMailer() {
-	case `sendgrid`:
-		sg := &xMailer.Sengrid{SendgridConf: conf.EnvSendgrid()}
-		L.PanicIf(sg.Connect(), `Sengrid.Connect`)
-		mailer.SendMailFunc = sg.SendEmail
-	case `mailjet`:
-		mj := &xMailer.Mailjet{MailjetConf: conf.EnvMailjet()}
-		L.PanicIf(mj.Connect(), `Mailjet.Connect`)
-		mailer.SendMailFunc = mj.SendEmail
-	default: // use mailhog
-		mh, err := xMailer.NewMailhog(conf.EnvMailhog())
-		L.PanicIf(err, `NewMailhog`)
-		mailer.SendMailFunc = mh.SendEmail
-	}
+	eg.Go(func() error {
+		switch xMailer.GetMailer() {
+		case `sendgrid`:
+			sg := &xMailer.Sengrid{SendgridConf: conf.EnvSendgrid()}
+			L.PanicIf(sg.Connect(), `Sengrid.Connect`)
+			mailer.SendMailFunc = sg.SendEmail
+		case `mailjet`:
+			mj := &xMailer.Mailjet{MailjetConf: conf.EnvMailjet()}
+			L.PanicIf(mj.Connect(), `Mailjet.Connect`)
+			mailer.SendMailFunc = mj.SendEmail
+		default: // use mailhog
+			mh, err := xMailer.NewMailhog(conf.EnvMailhog())
+			L.PanicIf(err, `NewMailhog`)
+			mailer.SendMailFunc = mh.SendEmail
+		}
+		return nil
+	})
+
+	var err error
 
 	// connect to tarantool
-	tConf := conf.EnvTarantool()
-	tConn, err := tConf.Connect()
-	L.PanicIf(err, `tConf.Connect`)
-	defer tConn.Close()
+	var tConn *Tt.Adapter
+	eg.Go(func() error {
+		tConf := conf.EnvTarantool()
+		tConn, err = tConf.Connect()
+		if tConn != nil {
+			closers = append(closers, tConn.Close)
+		}
+		return err
+	})
 
 	// connect to clickhouse
-	cConf := conf.EnvClickhouse()
-	cConn, err := cConf.Connect()
-	L.PanicIf(err, `cConf.Connect`)
-	defer cConn.Close()
+	var cConn *Ch.Adapter
+	eg.Go(func() error {
+		cConf := conf.EnvClickhouse()
+		cConn, err = cConf.Connect()
+		if cConn != nil {
+			closers = append(closers, cConn.Close)
+		}
+		return err
+	})
+
+	L.PanicIf(eg.Wait(), `eg.Wait`)
+	for _, closer := range closers {
+		closer := closer
+		defer closer()
+	}
 
 	// start
 	mode := S.ToLower(os.Args[1])
