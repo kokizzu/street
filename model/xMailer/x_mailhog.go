@@ -32,7 +32,10 @@ func (m *Mailhog) Connect() error {
 	// mail.WithSMTPAuth(mail.SMTPAuthPlain),
 	// mail.WithUsername("user")
 	// mail.WithPassword("pwd"))
-	m.client, err = mail.NewClient(m.MailhogHost, mail.WithPort(m.MailhogPort))
+	m.client, err = mail.NewClient(m.MailhogHost,
+		mail.WithPort(m.MailhogPort),
+		mail.WithTLSPolicy(mail.NoTLS),
+	)
 	return err
 
 }

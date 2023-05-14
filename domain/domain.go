@@ -12,4 +12,15 @@ type Domain struct {
 	AuthOlap     *Ch.Adapter
 	SendMailFunc xMailer.SendMailFunc
 	Mailer       xMailer.Mailer
+
+	IsBgSvc bool // long running program
+}
+
+// will run in background if background service
+func (d *Domain) runSubtask(subTask func()) {
+	if d.IsBgSvc {
+		go subTask()
+	} else {
+		subTask()
+	}
 }

@@ -75,11 +75,12 @@ func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
 	// send verification link
 	hash := S.EncodeCB63(user.Id, 8)
 	out.verifyEmailUrl = in.Host + `/` + GuestVerifyEmailAction + `?code=` + user.SecretCode + `&hash=` + hash
-	go func() {
+
+	d.runSubtask(func() {
 		err := d.Mailer.SendRegistrationEmail(user.Email, out.verifyEmailUrl)
 		L.IsError(err, `SendRegistrationEmail`)
 		// TODO: insert failed event to clickhouse
-	}()
+	})
 	return
 }
 
@@ -234,12 +235,12 @@ func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgot
 	hash := S.EncodeCB63(user.Id, 8)
 
 	out.resetPassUrl = in.Host + `/` + GuestResetPasswordAction + `?secretCode=` + secretCode + `&hash=` + hash
-	go func() {
+	d.runSubtask(func() {
 		defer guestForgotPasswordLock.Unlock(in.Email)
 		err := d.Mailer.SendResetPasswordEmail(user.Email, out.resetPassUrl)
 		L.IsError(err, `SendResetPasswordEmail`)
 		// TODO: insert failed event to clickhouse
-	}()
+	})
 
 	if !user.DoUpdateById() {
 		out.SetError(500, ErrGuestForgotPasswordModificationFailed)

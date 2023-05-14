@@ -74,6 +74,7 @@ func (w *WebServer) Start() {
 		AuthOltp: w.AuthOltp,
 		AuthOlap: w.AuthOlap,
 		Mailer:   w.Mailer,
+		IsBgSvc:  true,
 	}
 
 	// load svelte templates

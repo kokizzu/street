@@ -20,11 +20,13 @@ func (m *Mailer) SendRegistrationEmail(email string, verifyEmailUrl string) erro
 		`Verify Registration Link`,
 		`Hi `+email+`, 
 
-please click this link to verify your registration: `+verifyEmailUrl+`
+please click this link to verify your registration: 
+  `+verifyEmailUrl+`
 
 please ignore this email if you didn't register`,
 		`Hi `+email+`, <br><br>
-please click this link to verify your registration: <a href="`+verifyEmailUrl+`">`+verifyEmailUrl+`</a><br/>
+please click this link to verify your registration: <br/>
+  <a href="`+verifyEmailUrl+`">`+verifyEmailUrl+`</a><br/><br/>
 please ignore this email if you didn't register<br/>`,
 	)
 }
@@ -35,11 +37,13 @@ func (m *Mailer) SendResetPasswordEmail(email string, resetPassUrl string) error
 		`Reset Password Link`,
 		`Hi `+email+`,
 
-please click this link to reset your password: `+resetPassUrl+`
+please click this link to reset your password: 
+`+resetPassUrl+`
 
 please ignore this email if you didn't request reset password link`,
 		`Hi `+email+`, <br><br>
-please click this link to reset your password: <a href="`+resetPassUrl+`">`+resetPassUrl+`</a><br/>
+please click this link to reset your password: <br/>
+<a href="`+resetPassUrl+`">`+resetPassUrl+`</a><br/><br/>
 please ignore this email if you didn't request reset password link<br/>`,
 	)
 }
