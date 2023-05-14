@@ -52,7 +52,11 @@ npm run watch
 # input: 
 # - model/m*.go
 
+./gen-orm.sh
+# or
+cd model
 go test -bench=BenchmarkGenerateOrm
+# then go generate each file
 
 # output:
 # - model/m*/rq*/*.go  # -- read/query models
