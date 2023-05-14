@@ -30,7 +30,14 @@
 </style>
 
 
-<main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
+<main id="app"><h1>/*! title */</h1>
+
+
+
+<h2 class="error">#{error}</h2>
+
+<hr>
+<a href="/">Back to main page</a></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
 <style></style>
@@ -63,13 +70,31 @@
   function end_hydrating() {
     is_hydrating = false;
   }
+  function insert(target, node, anchor) {
+    target.insertBefore(node, anchor || null);
+  }
   function detach(node) {
     if (node.parentNode) {
       node.parentNode.removeChild(node);
     }
   }
-  function children(element) {
-    return Array.from(element.childNodes);
+  function element(name) {
+    return document.createElement(name);
+  }
+  function text(data) {
+    return document.createTextNode(data);
+  }
+  function space() {
+    return text(" ");
+  }
+  function attr(node, attribute, value) {
+    if (value == null)
+      node.removeAttribute(attribute);
+    else if (node.getAttribute(attribute) !== value)
+      node.setAttribute(attribute, value);
+  }
+  function children(element2) {
+    return Array.from(element2.childNodes);
   }
   var current_component;
   function set_current_component(component) {
@@ -218,7 +243,7 @@
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance, create_fragment, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance, create_fragment2, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -257,7 +282,7 @@
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment ? create_fragment($.ctx) : false;
+    $.fragment = create_fragment2 ? create_fragment2($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -289,8 +314,8 @@
           this.appendChild(this.$.slotted[key]);
         }
       }
-      attributeChangedCallback(attr, _oldValue, newValue) {
-        this[attr] = newValue;
+      attributeChangedCallback(attr2, _oldValue, newValue) {
+        this[attr2] = newValue;
       }
       disconnectedCallback() {
         run_all(this.$.on_disconnect);
@@ -347,10 +372,118 @@
   };
 
   // guest/verifyEmail.svelte
+  function create_if_block_1(ctx) {
+    let h2;
+    return {
+      c() {
+        h2 = element("h2");
+        h2.textContent = `${email} is verified`;
+      },
+      m(target, anchor) {
+        insert(target, h2, anchor);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching)
+          detach(h2);
+      }
+    };
+  }
+  function create_if_block(ctx) {
+    let h2;
+    return {
+      c() {
+        h2 = element("h2");
+        h2.textContent = `${error}`;
+        attr(h2, "class", "error");
+      },
+      m(target, anchor) {
+        insert(target, h2, anchor);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching)
+          detach(h2);
+      }
+    };
+  }
+  function create_fragment(ctx) {
+    let h1;
+    let t1;
+    let t2;
+    let t3;
+    let hr;
+    let t4;
+    let a;
+    let if_block0 = verified === "true" && create_if_block_1(ctx);
+    let if_block1 = error && create_if_block(ctx);
+    return {
+      c() {
+        h1 = element("h1");
+        h1.textContent = "/*! title */";
+        t1 = space();
+        if (if_block0)
+          if_block0.c();
+        t2 = space();
+        if (if_block1)
+          if_block1.c();
+        t3 = space();
+        hr = element("hr");
+        t4 = space();
+        a = element("a");
+        a.textContent = "Back to main page";
+        attr(a, "href", "/");
+      },
+      m(target, anchor) {
+        insert(target, h1, anchor);
+        insert(target, t1, anchor);
+        if (if_block0)
+          if_block0.m(target, anchor);
+        insert(target, t2, anchor);
+        if (if_block1)
+          if_block1.m(target, anchor);
+        insert(target, t3, anchor);
+        insert(target, hr, anchor);
+        insert(target, t4, anchor);
+        insert(target, a, anchor);
+      },
+      p(ctx2, [dirty]) {
+        if (verified === "true")
+          if_block0.p(ctx2, dirty);
+        if (error)
+          if_block1.p(ctx2, dirty);
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching)
+          detach(h1);
+        if (detaching)
+          detach(t1);
+        if (if_block0)
+          if_block0.d(detaching);
+        if (detaching)
+          detach(t2);
+        if (if_block1)
+          if_block1.d(detaching);
+        if (detaching)
+          detach(t3);
+        if (detaching)
+          detach(hr);
+        if (detaching)
+          detach(t4);
+        if (detaching)
+          detach(a);
+      }
+    };
+  }
+  var verified = "#{verified}";
+  var error = "#{error}";
+  var email = "#{email}";
   var VerifyEmail = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, null, safe_not_equal, {});
+      init(this, options, null, create_fragment, safe_not_equal, {});
     }
   };
   var verifyEmail_default = VerifyEmail;

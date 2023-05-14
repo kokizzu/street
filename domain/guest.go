@@ -74,7 +74,7 @@ func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
 
 	// send verification link
 	hash := S.EncodeCB63(user.Id, 8)
-	out.verifyEmailUrl = in.Host + `/` + GuestVerifyEmailAction + `?code=` + user.SecretCode + `&hash=` + hash
+	out.verifyEmailUrl = in.Host + `/` + GuestVerifyEmailAction + `?secretCode=` + user.SecretCode + `&hash=` + hash
 
 	d.runSubtask(func() {
 		err := d.Mailer.SendRegistrationEmail(user.Email, out.verifyEmailUrl)
@@ -92,7 +92,8 @@ type (
 	}
 	GuestVerifyEmailOut struct {
 		ResponseCommon
-		Ok bool `json:"ok" form:"ok" query:"ok" long:"ok" msg:"ok"`
+		Ok    bool   `json:"ok" form:"ok" query:"ok" long:"ok" msg:"ok"`
+		Email string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
 	}
 )
 
@@ -117,6 +118,9 @@ func (d *Domain) GuestVerifyEmail(in *GuestVerifyEmailIn) (out GuestVerifyEmailO
 		out.SetError(400, ErrGuestVerifyEmailUserNotFound)
 		return
 	}
+
+	out.Email = user.Email
+
 	if user.VerifiedAt != 0 { // already verified
 		out.Ok = true
 		return

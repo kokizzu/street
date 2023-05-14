@@ -1,6 +1,8 @@
 <script>
-  import {GuestLogin, GuestRegister, GuestResendVerificationEmail, UserLogout} from "./jsApi.GEN.js"
+  import {GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail, UserLogout} from "./jsApi.GEN.js"
   import {onMount, tick} from "svelte";
+  
+  let user = {/* user */}
   
   function getCookie( name ) {
     var match = document.cookie.match( new RegExp( '(^| )' + name + '=([^;]+)' ) );
@@ -23,6 +25,7 @@
   const LOGIN = 'LOGIN'
   const REGISTER = 'REGISTER'
   const RESEND_VERIFICATION_EMAIL = 'RESEND-VERIFICATION-EMAIL'
+  const FORGOT_PASSWORD = 'FORGOT-PASSWORD'
   const USER = ''
   let mode = LOGIN
   
@@ -41,6 +44,7 @@
     if( hash===LOGIN ) mode = LOGIN
     else if( hash===REGISTER ) mode = REGISTER
     else if( hash===RESEND_VERIFICATION_EMAIL ) mode = RESEND_VERIFICATION_EMAIL
+    else if( hash===FORGOT_PASSWORD ) mode = FORGOT_PASSWORD
     else location.hash = LOGIN
     await tick()
     emailInput.focus()
@@ -54,7 +58,7 @@
     if( password.length<12 ) return alert( 'password must be at least 12 characters' )
     if( password!==confirmPass ) return alert( 'passwords do not match' )
     // TODO: send to backend
-    const i = { email, password }
+    const i = {email, password}
     await GuestRegister( i, async function( o ) {
       // TODO: codegen commonResponse (o.error, etc)
       // TODO: codegen list of possible errors
@@ -71,21 +75,34 @@
   async function guestLogin() {
     if( !email ) return alert( 'email is required' )
     if( password.length<12 ) return alert( 'password must be at least 12 characters' )
-    const i = { email, password }
+    const i = {email, password}
     await GuestLogin( i, function( o ) {
       console.log( o )
       if( o.error ) alert( o.error );
+      user = o.user
       onHashChange()
     } )
   }
   
   async function guestResendVerificationEmail() {
     if( !email ) return alert( 'email is required' )
-    const i = { email }
+    const i = {email}
     await GuestResendVerificationEmail( i, function( o ) {
       console.log( o )
       if( o.error ) alert( o.error );
       onHashChange()
+      alert('a email verification link has been sent to your email')
+    } )
+  }
+  
+  async function guestForgotPassword() {
+    if( !email ) return alert( 'email is required' )
+    const i = {email}
+    await GuestForgotPassword( i, function( o ) {
+      console.log( o )
+      if( o.error ) alert( o.error );
+      onHashChange()
+      alert('a reset password link has been sent to your email')
     } )
   }
   
@@ -103,6 +120,10 @@
 {#if mode===USER}
 	already logged in
 	<button on:click={userLogout}>Logout</button>
+	
+	<br/>
+	Debug:<br/>
+	<textarea cols="20" rows="10">{JSON.stringify( user, null, 2 )}</textarea>
 	
 	<hr/>
 	TODO: import other svelte component here (menu, content, etc)
@@ -131,6 +152,10 @@
 			<button on:click={guestResendVerificationEmail}>Resend Verification Email</button>
 		{/if}
 		
+		{#if mode===FORGOT_PASSWORD}
+			<button on:click={guestForgotPassword}>Request Reset Password Link</button>
+		{/if}
+		
 		<br/>
 		
 		{#if mode!==REGISTER}
@@ -143,11 +168,14 @@
 		{/if}
 		{#if mode!==RESEND_VERIFICATION_EMAIL}
 			Email not verified?
-			<a href="#RESEND-VERIFICATION-EMAIL" on:click={()=> mode=RESEND_VERIFICATION_EMAIL}>Resend verification email</a><br/>
+			<a href="#{RESEND_VERIFICATION_EMAIL}" on:click={()=> mode=RESEND_VERIFICATION_EMAIL}>Resend verification email</a><br/>
+		{/if}
+		{#if mode!==FORGOT_PASSWORD}
+			Forgot your password?
+			<a href="#{FORGOT_PASSWORD}" on:click={()=> mode=FORGOT_PASSWORD}>Forgot password</a><br/>
 		{/if}
 	</div>
 {/if}
-
 <style>
     /* pad label and input so they are equal in size */
     label {
