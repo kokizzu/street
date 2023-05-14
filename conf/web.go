@@ -16,7 +16,7 @@ var WEB_PROTO_DOMAIN string
 func init() {
 	WEB_PROTO_DOMAIN = os.Getenv("WEB_PROTO_DOMAIN")
 	if WEB_PROTO_DOMAIN == `` {
-		WEB_PROTO_DOMAIN = `http://localhost`
+		WEB_PROTO_DOMAIN = `http://localhost:1234`
 	}
 }
 
