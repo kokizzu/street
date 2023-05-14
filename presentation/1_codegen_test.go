@@ -453,7 +453,27 @@ func (c *codegen) GenerateJsApiFile() {
 	b := bytes.Buffer{}
 
 	b.WriteString(`
-const axios = require("axios");` + NL)
+const axios = require("axios");` + NL + `
+
+// rearrange response to be data first instead of axios error
+function wrapErr( cb ) {
+  return function( err ) {
+    let data = ((err.response || {}).data || {})
+    if( !data.error ) data.error = err.code
+    data._axios = err
+    cb( data )
+  }
+}
+
+// rearrange response to be data first instead of axios error
+function wrapOk( cb ) {
+  return function( resp ) {
+    let data = resp.data || {}
+    data._axios = resp
+    cb( data )
+  }
+}
+`)
 	b.WriteString(generatedComment)
 
 	c.domains.eachSortedHandler(func(name string, handler tmethod) {
@@ -554,7 +574,9 @@ func (c *codegen) jsFunc(b *bytes.Buffer, handler tmethod) {
  * @returns {Promise}
  */
 exports.` + handler.MethodName + ` = async function ` + handler.MethodName + `( i, cb ) {
-  return await axios.post( '/` + action + `', i ).then( cb )
+  return await axios.post( '/` + action + `', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
 }` + NL)
 
 	b.WriteString(NL)

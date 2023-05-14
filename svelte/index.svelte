@@ -37,12 +37,25 @@
       // TODO: codegen commonResponse
       // TODO: generate jsdoc proper callback type is something like this:
       /*
+         if succeed (same as raw.response)
 	      config:{transitional: {…}, adapter: Array(2), transformRequest: Array(1), transformResponse: Array(1), timeout: 0, …}
 			data:{sessionToken: '', error: 'email already used', status: 400, user: {…}}
 			headers: AxiosHeaders {content-length: '277', content-type: 'application/json', date: 'Sat, 13 May 2023 22:53:11 GMT'}
+			request:XMLHttpRequest {onreadystatechange: null, readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
+			status:200
+			statusText:"Status OK"
+			
+			if error
+			code:"ERR_BAD_REQUEST"
+			config:{transitional: {…}, adapter: Array(2), transformRequest: Array(1), transformResponse: Array(1), timeout: 0, …}
+			message:"Request failed with status code 400"
+			name:"AxiosError"
+			request:XMLHttpRequest {onreadystatechange: null, readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
+			data: same as response.data
+			response: same as above
        */
       console.log( o )
-      //if( o.User ) return alert( o.data.error )
+      if(o.error) alert(o.error)
     } )
   }
   
