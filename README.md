@@ -81,7 +81,7 @@ go get -bench=BenchmarkGenerateViews
 # output:
 # - presentation/actions.GEN.go     # -- all possible commands
 # - presentation/api_routes.GEN.go  # -- automatic API routes
-# - presentation/web_viwe.GEN.go    # -- all template that can be used in web_static.go
+# - presentation/web_view.GEN.go    # -- all template that can be used in web_static.go
 # - presentation/cmd_run.GEN.go     # -- all CLI commands
 # - svelte/jsApi.GEN.js             # -- all API client SDK 
 ```
@@ -107,25 +107,25 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
 
 ## FAQ
 
-- Q: where to put SSR?
-  - A: `presentation/web_static.go`
-- Q: got error `.env.override` no such file or directory
-	- A: create `.env.override` file
-- Q: got error `failed to stat the template: index.html`
-  - A: run `cd svelte; npm run watch` at least once
-- Q: got error `TarantoolConf) Connect: dial tcp 127.0.0.1:3301: connect: connection refused"`
-  - A: run `docker-compose up`
-- Q: got error `ClickhouseConf) Connect: dial tcp 127.0.0.1:9000: connect: connection refused`
-  - A: run `docker-compose up`
-- Q: got error `docker.errors.DockerException: Error while fetching server API version: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory'))`
-	- A: make sure docker service is up and running
-- Q: what's normal flow of development?
-	- A: 
-		- 1. create new/modify model on `model/w[schema]/` folder
-		- 2. run `./gen-orm.sh`, create helper function on `model/w[schema]/[rq|wc|sa][schema]/[schema]_helper.go` or 3rd party wrapper in `model/x[service]/x[provider].go`
-		- 3. create a role in `domain/[role].go` containing all business logic for that role
-    - 4. write test in `domain/[role]_test.go` to make sure all business requirement are met
-		- 5. generate domain routes `cd presentation; go get -bench=BenchmarkGenerateViews`, start web service `air web`
-    - 6. write frontend on `svelte/`, start frontend service `cd svelte; npm run watch`
-		- 7. generate frontend helpers `cd presentation; go get -bench=BenchmarkGenerateViews`
-    - 8. write SSR if needed on `presentation/web_static.go`
+- **Q**: where to put SSR?
+  - **A**: `presentation/web_static.go`
+- **Q**: got error `.env.override` no such file or directory
+  - **A**: create `.env.override` file
+- **Q**: got error `failed to stat the template: index.html`
+  - **A**: run `cd svelte; npm run watch` at least once
+- **Q**: got error `TarantoolConf) Connect: dial tcp 127.0.0.1:3301: connect: connection refused"`
+  - **A**: run `docker-compose up`
+- **Q**: got error `ClickhouseConf) Connect: dial tcp 127.0.0.1:9000: connect: connection refused`
+  - **A**: run `docker-compose up`
+- **Q**: got error `docker.errors.DockerException: Error while fetching server API version: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory'))`
+  - **A**: make sure docker service is up and running
+- **Q**: what's normal flow of development?
+  - **A**: 
+      1. create new/modify model on `model/w[schema]/` folder
+      2. run `./gen-orm.sh`, create helper function on `model/w[schema]/[rq|wc|sa][schema]/[schema]_helper.go` or 3rd party wrapper in `model/x[service]/x[provider].go`
+      3. create a role in `domain/[role].go` containing all business logic for that role
+      4.  write test in `domain/[role]_test.go` to make sure all business requirement are met
+      5. generate domain routes `cd presentation; go get -bench=BenchmarkGenerateViews`, start web service `air web`
+      6. write frontend on `svelte/`, start frontend service `cd svelte; npm run watch`
+      7. generate frontend helpers `cd presentation; go get -bench=BenchmarkGenerateViews`
+      8. write SSR if needed on `presentation/web_static.go`
