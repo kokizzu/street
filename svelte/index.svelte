@@ -1,8 +1,11 @@
 <script>
-  import {GuestRegister} from "./jsApi.GEN.js"
+  import {GuestLogin, GuestRegister} from "./jsApi.GEN.js"
   import {onMount} from "svelte";
   
-  // TODO: codegen axios part
+  function getCookie( name ) {
+    var match = document.cookie.match( new RegExp( '(^| )' + name + '=([^;]+)' ) );
+    if( match ) return match[ 2 ];
+  }
   
   // server state
   const title = '#{title}' // /*! title */ {/* title */} [/* title */]
@@ -34,33 +37,20 @@
     // TODO: send to backend
     const i = { email, password }
     await GuestRegister( i, function( o ) {
-      // TODO: codegen commonResponse
-      // TODO: generate jsdoc proper callback type is something like this:
-      /*
-         if succeed (same as raw.response)
-	      config:{transitional: {…}, adapter: Array(2), transformRequest: Array(1), transformResponse: Array(1), timeout: 0, …}
-			data:{sessionToken: '', error: 'email already used', status: 400, user: {…}}
-			headers: AxiosHeaders {content-length: '277', content-type: 'application/json', date: 'Sat, 13 May 2023 22:53:11 GMT'}
-			request:XMLHttpRequest {onreadystatechange: null, readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
-			status:200
-			statusText:"Status OK"
-			
-			if error
-			code:"ERR_BAD_REQUEST"
-			config:{transitional: {…}, adapter: Array(2), transformRequest: Array(1), transformResponse: Array(1), timeout: 0, …}
-			message:"Request failed with status code 400"
-			name:"AxiosError"
-			request:XMLHttpRequest {onreadystatechange: null, readyState: 4, timeout: 0, withCredentials: false, upload: XMLHttpRequestUpload, …}
-			data: same as response.data
-			response: same as above
-       */
+      // TODO: codegen commonResponse (o.error)
       console.log( o )
-      if(o.error) alert(o.error)
+      if( o.error ) alert( o.error )
     } )
   }
   
-  function guestLogin() {
-  
+  async function guestLogin() {
+    if( !email ) return alert( 'email is required' )
+    if( password.length<12 ) return alert( 'password must be at least 12 characters' )
+    const i = { email, password }
+    await GuestLogin( i, function( o ) {
+      console.log( o )
+      if( o.error ) alert( o.error )
+    } )
   }
 
 </script>
