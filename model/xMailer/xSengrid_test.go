@@ -3,7 +3,7 @@ package xMailer
 import (
 	"testing"
 
-	"github.com/zeebo/assert"
+	"github.com/stretchr/testify/assert"
 
 	"street/conf"
 )

@@ -23,14 +23,12 @@ require (
 	github.com/tarantool/go-tarantool v1.10.0
 	github.com/vburenin/nsync v0.0.0-20160822015540-9a75d1c80410
 	github.com/wneessen/go-mail v0.3.9
-	github.com/zeebo/assert v1.3.0
 	github.com/zeebo/xxh3 v1.0.2
 	golang.org/x/sync v0.1.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 )
 
 require (
-	cloud.google.com/go v0.67.0 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20230124172434-306776ec8161 // indirect
 	github.com/ClickHouse/ch-go v0.55.0 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
@@ -48,8 +46,6 @@ require (
 	github.com/fatih/color v1.15.0 // indirect
 	github.com/go-faster/city v1.0.1 // indirect
 	github.com/go-faster/errors v0.6.1 // indirect
-	github.com/go-logr/logr v1.2.4 // indirect
-	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/goccy/go-yaml v1.11.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
@@ -106,7 +102,6 @@ require (
 	golang.org/x/exp v0.0.0-20230425010034-47ecfdc1ba53 // indirect
 	golang.org/x/mod v0.10.0 // indirect
 	golang.org/x/net v0.9.0 // indirect
-	golang.org/x/oauth2 v0.0.0-20220524215830-622c5d57e401 // indirect
 	golang.org/x/sys v0.7.0 // indirect
 	golang.org/x/text v0.9.0 // indirect
 	golang.org/x/tools v0.8.0 // indirect

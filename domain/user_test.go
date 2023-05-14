@@ -5,8 +5,8 @@ import (
 
 	"github.com/kokizzu/id64"
 	"github.com/kpango/fastime"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/zeebo/assert"
 )
 
 func TestLogout(t *testing.T) {

@@ -6,8 +6,8 @@ import (
 
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/id64"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/zeebo/assert"
 
 	"street/model/mAuth/rqAuth"
 )
