@@ -59,8 +59,10 @@ func (s *Sengrid) SendEmail(toEmailName map[string]string, subject, text, html s
 		contents = append(contents, mail.NewContent("text/html", html))
 	}
 	message.AddContent(contents...)
-	res, err := s.client.Send(message)
 
-	L.Print(res)
-	return fmt.Errorf("%w: %v", ErrSendgridSendingEmail, err)
+	if res, err := s.client.Send(message); err != nil {
+		L.Print(res)
+		return fmt.Errorf("%w: %v", ErrSendgridSendingEmail, err)
+	}
+	return nil
 }

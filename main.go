@@ -3,7 +3,6 @@ package main
 import (
 	"os"
 
-	"github.com/joho/godotenv"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"github.com/rs/zerolog"
@@ -21,10 +20,7 @@ func main() {
 	conf.VERSION = VERSION
 	log = conf.InitLogger()
 
-	err := godotenv.Overload(`.env`)
-	L.PanicIf(err, `godotenv.Load .env`)
-	err = godotenv.Overload(`.env.override`)
-	L.PanicIf(err, `godotenv.Load .env.override`)
+	conf.LoadEnv()
 
 	args := os.Args
 	if len(args) < 2 {
