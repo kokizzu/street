@@ -295,6 +295,10 @@ func getType(expr ast.Expr) string {
 	if arrayAst, ok := expr.(*ast.ArrayType); ok {
 		return `[]` + getType(arrayAst.Elt)
 	}
+	// func, eg. func(){}
+	if _, ok := expr.(*ast.FuncType); ok {
+		return `func()`
+	}
 	panic(fmt.Sprintf(`unhandled type: %T %#v`, expr, expr))
 }
 

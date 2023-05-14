@@ -15,4 +15,16 @@ func WebStatic(fw *fiber.App, d *domain.Domain) {
 			`title`: `Street`,
 		})
 	})
+
+	fw.Get("/guest/verifyEmail", func(c *fiber.Ctx) error {
+		return views.RenderGuestVerifyEmail(c, M.SX{
+			`title`: `Email Verification`,
+		})
+	})
+
+	fw.Get(`/guest/resetPassword`, func(c *fiber.Ctx) error {
+		return views.RenderGuestResetPassword(c, M.SX{
+			`title`: `Reset Password`,
+		})
+	})
 }

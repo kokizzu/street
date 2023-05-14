@@ -10,15 +10,15 @@ import (
 
 
 var viewList = map[string]string{
-	`GuestResetPass`: `../svelte/guest/resetPass.html`, // ../svelte/guest/resetPass.svelte
+	`GuestResetPassword`: `../svelte/guest/resetPassword.html`, // ../svelte/guest/resetPassword.svelte
 	`GuestVerifyEmail`: `../svelte/guest/verifyEmail.html`, // ../svelte/guest/verifyEmail.svelte
 	`Index`: `../svelte/index.html`, // ../svelte/index.svelte
 }
 
 
-func (v *Views) RenderGuestResetPass(c *fiber.Ctx, m M.SX) error {
+func (v *Views) RenderGuestResetPassword(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html")
-	return c.SendString(v.cache[`GuestResetPass`].Str(m))
+	return c.SendString(v.cache[`GuestResetPassword`].Str(m))
 }
 
 func (v *Views) RenderGuestVerifyEmail(c *fiber.Ctx, m M.SX) error {
