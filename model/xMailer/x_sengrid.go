@@ -44,8 +44,12 @@ func (s *Sengrid) SendEmail(toEmailName map[string]string, subject, text, html s
 	message.SetReplyTo(replyTo)
 	message.Subject = subject
 	p := mail.NewPersonalization()
-	p.AddTos(from)
-	p.AddBCCs(tos...)
+	if s.UseBcc {
+		p.AddTos(from)
+		p.AddBCCs(tos...)
+	} else {
+		p.AddTos(tos...)
+	}
 	message.AddPersonalizations(p)
 	contents := []*mail.Content{}
 	if text != "" {

@@ -49,15 +49,23 @@ func (m *Mailhog) SendEmail(
 	if err := msg.FromFormat(m.DefaultFromName, m.DefaultFromEmail); err != nil {
 		return fmt.Errorf("%w: FromFormat: %v", ErrMailhogSendingEmail, err)
 	}
-	if err := msg.AddToFormat(m.DefaultFromName, m.DefaultFromEmail); err != nil {
-		return fmt.Errorf("%w: AddToFormat: %v", ErrMailhogSendingEmail, err)
+	if m.UseBcc {
+		if err := msg.AddToFormat(m.DefaultFromName, m.DefaultFromEmail); err != nil {
+			return fmt.Errorf("%w: AddToFormat: %v", ErrMailhogSendingEmail, err)
+		}
 	}
 	if err := msg.ReplyToFormat(m.DefaultFromName, m.ReplyToEmail); err != nil {
 		return fmt.Errorf("%w: ReplyToFormat: %v", ErrMailhogSendingEmail, err)
 	}
 	for email, name := range toEmailName {
-		if err := msg.AddBccFormat(name, email); err != nil {
-			return fmt.Errorf("%w: AddBccFormat: %v", ErrMailhogSendingEmail, err)
+		if m.UseBcc {
+			if err := msg.AddBccFormat(name, email); err != nil {
+				return fmt.Errorf("%w: AddBccFormat: %v", ErrMailhogSendingEmail, err)
+			}
+		} else {
+			if err := msg.AddToFormat(name, email); err != nil {
+				return fmt.Errorf("%w: AddToFormat: %v", ErrMailhogSendingEmail, err)
+			}
 		}
 	}
 	msg.Subject(subject)

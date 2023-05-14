@@ -2,12 +2,15 @@ package conf
 
 import (
 	"os"
+
+	"github.com/kokizzu/gotro/X"
 )
 
 type MailerConf struct {
 	DefaultFromEmail string
 	DefaultFromName  string
 	ReplyToEmail     string
+	UseBcc           bool
 }
 
 func EnvMailer() MailerConf {
@@ -15,5 +18,6 @@ func EnvMailer() MailerConf {
 		DefaultFromEmail: os.Getenv("MAILER_DEFAULT_FROM_EMAIL"),
 		DefaultFromName:  os.Getenv("MAILER_DEFAULT_FROM_NAME"),
 		ReplyToEmail:     os.Getenv("MAILER_REPLY_TO_EMAIL"),
+		UseBcc:           X.ToBool(os.Getenv("MAILER_USE_BCC")),
 	}
 }

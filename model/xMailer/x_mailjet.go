@@ -46,16 +46,20 @@ func (m *Mailjet) SendEmail(toEmailName map[string]string, subject, text, html s
 
 	messagesInfo := []mailjet.InfoMessagesV31{
 		{
-			From:    &from,
-			ReplyTo: &replyTo,
-			Bcc:     &to,
-			To: &mailjet.RecipientsV31{
-				from,
-			},
+			From:     &from,
+			ReplyTo:  &replyTo,
 			Subject:  subject,
 			TextPart: text,
 			HTMLPart: html,
 		},
+	}
+	if m.UseBcc {
+		messagesInfo[0].Bcc = &to
+		messagesInfo[0].To = &mailjet.RecipientsV31{
+			from,
+		}
+	} else {
+		messagesInfo[0].To = &to
 	}
 	messages := mailjet.MessagesV31{Info: messagesInfo}
 	res, err := m.client.SendMailV31(&messages)
