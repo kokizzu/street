@@ -51,6 +51,19 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon)
 	})
 
+	// GuestResendVerificationEmail
+	fw.Post("/"+domain.GuestResendVerificationEmailAction, func(c *fiber.Ctx) error {
+		ctx := context.Background() // TODO: use tracer
+		in := domain.GuestResendVerificationEmailIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.GuestResendVerificationEmailAction); err != nil {
+			return err
+		}
+		in.FromFiberCtx(c, ctx)
+		out := d.GuestResendVerificationEmail(&in)
+		out.DecorateSession(c, &in.RequestCommon, &in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon)
+	})
+
 	// GuestResetPassword
 	fw.Post("/"+domain.GuestResetPasswordAction, func(c *fiber.Ctx) error {
 		ctx := context.Background() // TODO: use tracer

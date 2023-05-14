@@ -64,7 +64,7 @@ func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
 	user.Email = in.Email
 	user.SetEncryptedPassword(in.Password, in.UnixNow())
 	user.CreatedAt = in.UnixNow()
-	user.SecretCode = S.RandomCB63(1)
+	user.SecretCode = id64.SID() + S.RandomCB63(1)
 	if !user.DoInsert() {
 		out.SetError(500, ErrGuestRegisterUserCreationFailed)
 		return
@@ -214,7 +214,10 @@ func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgot
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Email = in.Email
 
-	guestForgotPasswordLock.Lock(in.Email)
+	if !guestForgotPasswordLock.TryLock(in.Email) {
+		out.SetError(400, ErrGuestForgotPassworTriggeredTooFrequently)
+		return
+	}
 
 	if !user.FindByEmail() {
 		guestForgotPasswordLock.Unlock(in.Email)
@@ -229,7 +232,7 @@ func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgot
 		return
 	}
 
-	secretCode := id64.SID() + S.RandomCB63[int64](1)
+	secretCode := id64.SID() + S.RandomCB63(1)
 	user.SetSecretCode(secretCode)
 	user.SetSecretCodeAt(in.UnixNow())
 	hash := S.EncodeCB63(user.Id, 8)
@@ -243,6 +246,7 @@ func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgot
 	})
 
 	if !user.DoUpdateById() {
+		guestForgotPasswordLock.Unlock(in.Email)
 		out.SetError(500, ErrGuestForgotPasswordModificationFailed)
 		return
 	}
@@ -313,6 +317,81 @@ func (d *Domain) GuestResetPassword(in *GuestResetPasswordIn) (out GuestResetPas
 		out.SetError(500, ErrGuestResetPasswordModificationFailed)
 		return
 	}
+	out.Ok = true
+	return
+}
+
+type (
+	GuestResendVerificationEmailIn struct {
+		RequestCommon
+		Email string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
+	}
+	GuestResendVerificationEmailOut struct {
+		ResponseCommon
+		Ok bool `json:"ok" form:"ok" query:"ok" long:"ok" msg:"ok"`
+
+		verifyEmailUrl string
+	}
+)
+
+const (
+	GuestResendVerificationEmailAction = `guest/resendVerificationEmail`
+
+	ErrGuestResendVerificationEmailUserNotFound           = `user not found`
+	ErrGuestResendVerificationEmailTriggeredTooFrequently = `resend verification triggered to frequently`
+	ErrGuestResendVerificationEmailUserAlreadyVerified    = `user already verified`
+	ErrGuestResendVerificationEmailModificationFailed     = `resend verification modification failed`
+)
+
+var guestResendVerificationEmailLock = nsync.NewNamedMutex()
+
+func (d *Domain) GuestResendVerificationEmail(in *GuestResendVerificationEmailIn) (out GuestResendVerificationEmailOut) {
+	user := wcAuth.NewUsersMutator(d.AuthOltp)
+	user.Email = in.Email
+
+	if !guestResendVerificationEmailLock.TryLock(in.Email) {
+		out.SetError(400, ErrGuestResendVerificationEmailTriggeredTooFrequently)
+		return
+	}
+
+	if !user.FindByEmail() {
+		guestResendVerificationEmailLock.Unlock(in.Email)
+		out.SetError(400, ErrGuestResendVerificationEmailUserNotFound)
+		return
+	}
+
+	if user.VerifiedAt > 0 {
+		guestResendVerificationEmailLock.Unlock(in.Email)
+		out.SetError(400, ErrGuestResendVerificationEmailUserAlreadyVerified)
+		return
+	}
+
+	recently := in.TimeNow().Add(-conf.ResendVerificationEmailThrottleMinute * time.Minute).Unix()
+	if user.SecretCodeAt >= recently {
+		guestResendVerificationEmailLock.Unlock(in.Email)
+		out.SetError(400, ErrGuestResendVerificationEmailTriggeredTooFrequently)
+		return
+	}
+
+	secretCode := id64.SID() + S.RandomCB63(1)
+	user.SetSecretCode(secretCode)
+	user.SetSecretCodeAt(in.UnixNow())
+	hash := S.EncodeCB63(user.Id, 8)
+
+	out.verifyEmailUrl = in.Host + `/` + GuestVerifyEmailAction + `?secretCode=` + secretCode + `&hash=` + hash
+	d.runSubtask(func() {
+		defer guestResendVerificationEmailLock.Unlock(in.Email)
+		err := d.Mailer.SendRegistrationEmail(user.Email, out.verifyEmailUrl)
+		L.IsError(err, `SendRegistrationEmail`)
+		// TODO: insert failed event to clickhouse
+	})
+
+	if !user.DoUpdateById() {
+		guestResendVerificationEmailLock.Unlock(in.Email)
+		out.SetError(500, ErrGuestResendVerificationEmailModificationFailed)
+		return
+	}
+
 	out.Ok = true
 	return
 }

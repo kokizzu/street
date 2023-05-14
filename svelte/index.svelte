@@ -1,6 +1,6 @@
 <script>
-  import {GuestLogin, GuestRegister, UserLogout} from "./jsApi.GEN.js"
-  import {onMount} from "svelte";
+  import {GuestLogin, GuestRegister, GuestResendVerificationEmail, UserLogout} from "./jsApi.GEN.js"
+  import {onMount, tick} from "svelte";
   
   function getCookie( name ) {
     var match = document.cookie.match( new RegExp( '(^| )' + name + '=([^;]+)' ) );
@@ -16,12 +16,17 @@
   let password = ''
   let confirmPass = ''
   
+  // binding to element
+  let emailInput = {}
+  let passInput = {}
+  
   const LOGIN = 'LOGIN'
   const REGISTER = 'REGISTER'
+  const RESEND_VERIFICATION_EMAIL = 'RESEND-VERIFICATION-EMAIL'
   const USER = ''
   let mode = LOGIN
   
-  function onHashChange() {
+  async function onHashChange() {
     const auth = getCookie( 'auth' )
     console.log( auth )
     if( auth ) {
@@ -29,10 +34,16 @@
       mode = USER
       return
     }
-    const hash = location.hash
-    if( hash===`#${LOGIN}` ) mode = LOGIN
-    else if( hash===`#${REGISTER}` ) mode = REGISTER
+    
+    let hash = (location.hash || '')
+    if( hash[ 0 ]==='#' ) hash = hash.substring( 1 )
+    
+    if( hash===LOGIN ) mode = LOGIN
+    else if( hash===REGISTER ) mode = REGISTER
+    else if( hash===RESEND_VERIFICATION_EMAIL ) mode = RESEND_VERIFICATION_EMAIL
     else location.hash = LOGIN
+    await tick()
+    emailInput.focus()
   }
   
   onMount( onHashChange )
@@ -44,10 +55,16 @@
     if( password!==confirmPass ) return alert( 'passwords do not match' )
     // TODO: send to backend
     const i = { email, password }
-    await GuestRegister( i, function( o ) {
-      // TODO: codegen commonResponse (o.error)
+    await GuestRegister( i, async function( o ) {
+      // TODO: codegen commonResponse (o.error, etc)
+      // TODO: codegen list of possible errors
       console.log( o )
-      if( o.error ) alert( o.error )
+      if( o.error ) return alert( o.error )
+      alert( 'registered successfully, a registration verification has been sent to your email' )
+      mode = LOGIN
+      password = ''
+      await tick()
+      passInput.focus()
     } )
   }
   
@@ -56,6 +73,16 @@
     if( password.length<12 ) return alert( 'password must be at least 12 characters' )
     const i = { email, password }
     await GuestLogin( i, function( o ) {
+      console.log( o )
+      if( o.error ) alert( o.error );
+      onHashChange()
+    } )
+  }
+  
+  async function guestResendVerificationEmail() {
+    if( !email ) return alert( 'email is required' )
+    const i = { email }
+    await GuestResendVerificationEmail( i, function( o ) {
       console.log( o )
       if( o.error ) alert( o.error );
       onHashChange()
@@ -76,25 +103,47 @@
 {#if mode===USER}
 	already logged in
 	<button on:click={userLogout}>Logout</button>
+	
+	<hr/>
+	TODO: import other svelte component here (menu, content, etc)
 {:else}
 	<h1>{title} - {mode}</h1>
 	<div class="mainContainer">
 		<label for="email">Email</label>
-		<input type="text" id="email" bind:value={email}/><br/>
-		<label for="password">Password</label>
-		<input type="password" id="password" bind:value={password}><br/>
+		<input type="text" id="email" bind:value={email} bind:this={emailInput}/><br/>
+		
+		{#if mode===LOGIN || mode===REGISTER}
+			<label for="password">Password</label>
+			<input type="password" id="password" bind:value={password} bind:this={passInput}><br/>
+		{/if}
+		
 		{#if mode===REGISTER}
 			<label for="confirmPass">Confirm Password</label>
 			<input type="password" id="confirmPass" bind:value={confirmPass}><br/>
 			<button on:click={guestRegister}>Register</button>
-			<br/>
-			Already have account?
-			<a href="#LOGIN" on:click={()=> mode=LOGIN}>Login</a>
-		{:else}
+		{/if}
+		
+		{#if mode===LOGIN}
 			<button on:click={guestLogin}>Login</button>
-			<br/>
+		{/if}
+		
+		{#if mode===RESEND_VERIFICATION_EMAIL}
+			<button on:click={guestResendVerificationEmail}>Resend Verification Email</button>
+		{/if}
+		
+		<br/>
+		
+		{#if mode!==REGISTER}
 			Have no account?
-			<a href="#REGISTER" on:click={()=> mode=REGISTER}>Register</a>
+			<a href="#REGISTER" on:click={()=> mode=REGISTER}>Register</a><br/>
+		{/if}
+		{#if mode!==LOGIN}
+			Already have account?
+			<a href="#LOGIN" on:click={()=> mode=LOGIN}>Login</a><br/>
+		{/if}
+		{#if mode!==RESEND_VERIFICATION_EMAIL}
+			Email not verified?
+			<a href="#RESEND-VERIFICATION-EMAIL" on:click={()=> mode=RESEND_VERIFICATION_EMAIL}>Resend verification email</a><br/>
 		{/if}
 	</div>
 {/if}

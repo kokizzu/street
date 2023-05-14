@@ -44,6 +44,15 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		fmt.Println(X.ToJsonPretty(out))
 
 
+	case domain.GuestResendVerificationEmailAction:
+		in := domain.GuestResendVerificationEmailIn{}
+		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+			return
+		}
+		out := b.GuestResendVerificationEmail(&in)
+		fmt.Println(X.ToJsonPretty(out))
+
+
 	case domain.GuestResetPasswordAction:
 		in := domain.GuestResetPasswordIn{}
 		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {

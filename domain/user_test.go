@@ -21,7 +21,7 @@ func TestLogout(t *testing.T) {
 		Password: pass,
 	}
 	out := d.GuestRegister(&in)
-	assert.Equal(t, out.Error, "")
+	require.Empty(t, out.Error)
 	require.NotZero(t, out.User.Id)
 
 	t.Run(`emptySessionToken`, func(t *testing.T) {
@@ -63,7 +63,7 @@ func TestLogout(t *testing.T) {
 			Password: pass,
 		}
 		out := d.GuestLogin(&in)
-		assert.Equal(t, out.Error, "")
+		require.Empty(t, out.Error)
 		require.NotZero(t, out.User.Id)
 		require.NotEmpty(t, out.SessionToken)
 
@@ -77,7 +77,7 @@ func TestLogout(t *testing.T) {
 				},
 			}
 			out := d.UserProfile(in)
-			assert.Equal(t, out.Error, "")
+			require.Empty(t, out.Error)
 			if out.User != nil {
 				require.NotZero(t, out.User.Id)
 			}
@@ -101,7 +101,7 @@ func TestLogout(t *testing.T) {
 				},
 			}
 			out := d.UserLogout(in)
-			assert.Equal(t, out.Error, "")
+			require.Empty(t, out.Error)
 			require.NotZero(t, out.LogoutAt)
 			previousLogoutAt := out.LogoutAt
 

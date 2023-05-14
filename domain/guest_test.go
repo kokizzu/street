@@ -52,7 +52,7 @@ func TestGuestRegister(t *testing.T) {
 			Password: "123456789012",
 		}
 		out := d.GuestRegister(&in)
-		assert.Equal(t, out.Error, "")
+		require.Empty(t, out.Error)
 		require.NotZero(t, out.User.Id)
 
 		secretCode, hash := parseSecretCodeHashUrl(t, out.verifyEmailUrl)
@@ -81,7 +81,7 @@ func TestGuestRegister(t *testing.T) {
 				Hash:       hash,
 			}
 			out := d.GuestVerifyEmail(&in)
-			assert.Equal(t, out.Error, "")
+			require.Empty(t, out.Error)
 			assert.True(t, out.Ok)
 		})
 
@@ -94,6 +94,63 @@ func TestGuestRegister(t *testing.T) {
 			require.Empty(t, out.Error)
 		})
 	})
+}
+
+func TestGuestRequestVerificationEmail(t *testing.T) {
+	d := testDomain()
+
+	const email = "a@b.e"
+	in := GuestRegisterIn{
+		Email:    email,
+		Password: "123456789012",
+	}
+	out := d.GuestRegister(&in)
+	require.Empty(t, out.Error)
+	require.NotZero(t, out.User.Id)
+
+	t.Run("userNotFound", func(t *testing.T) {
+		in := GuestResendVerificationEmailIn{
+			Email: "x@x.com",
+		}
+		out := d.GuestResendVerificationEmail(&in)
+		assert.Equal(t, out.Error, ErrGuestResendVerificationEmailUserNotFound)
+	})
+
+	t.Run("firstRequest", func(t *testing.T) {
+		in := GuestResendVerificationEmailIn{
+			Email: email,
+		}
+		out := d.GuestResendVerificationEmail(&in)
+		require.Empty(t, out.Error)
+		assert.True(t, out.Ok)
+		secret, hash := parseSecretCodeHashUrl(t, out.verifyEmailUrl)
+
+		t.Run("triggeredAgain", func(t *testing.T) {
+			in := GuestResendVerificationEmailIn{
+				Email: email,
+			}
+			out := d.GuestResendVerificationEmail(&in)
+			assert.Equal(t, out.Error, ErrGuestResendVerificationEmailTriggeredTooFrequently)
+		})
+
+		t.Run(`verify`, func(t *testing.T) {
+			in := GuestVerifyEmailIn{
+				SecretCode: secret,
+				Hash:       hash,
+			}
+			out := d.GuestVerifyEmail(&in)
+			require.Empty(t, out.Error)
+
+			t.Run(`requestVerificationEmail,alreadyVerified`, func(t *testing.T) {
+				in := GuestResendVerificationEmailIn{
+					Email: email,
+				}
+				out := d.GuestResendVerificationEmail(&in)
+				assert.Equal(t, out.Error, ErrGuestResendVerificationEmailUserAlreadyVerified)
+			})
+		})
+	})
+
 }
 
 func TestGuestLogin(t *testing.T) {
@@ -145,7 +202,7 @@ func TestGuestLogin(t *testing.T) {
 			Password: "test12345678",
 		}
 		out := d.GuestLogin(&in)
-		assert.Equal(t, out.Error, "")
+		require.Empty(t, out.Error)
 		assert.Equal(t, out.User.Id, reg.Id)
 		require.NotEmpty(t, out.SessionToken)
 	})
@@ -163,7 +220,7 @@ func TestForgotResetPassword(t *testing.T) {
 		Password: pass,
 	}
 	out := d.GuestRegister(&in)
-	assert.Equal(t, out.Error, "")
+	require.Empty(t, out.Error)
 
 	t.Run(`forgotPassword`, func(t *testing.T) {
 		in := &GuestForgotPasswordIn{

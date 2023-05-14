@@ -177,6 +177,38 @@ exports.GuestRegister = async function GuestRegister( i, cb ) {
 }
 
 /**
+ * @typedef {Object} GuestResendVerificationEmailIn
+ * @property {String} email
+ */
+const GuestResendVerificationEmailIn = {
+  email: '', // string
+}
+/**
+ * @typedef {Object} GuestResendVerificationEmailOut
+ * @property {Object} ok
+ * @property {String} verifyEmailUrl
+ */
+const GuestResendVerificationEmailOut = {
+  ok: false, // bool
+  verifyEmailUrl: '', // string
+}
+/**
+ * @callback GuestResendVerificationEmailCallback
+ * @param {GuestResendVerificationEmailOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {GuestResendVerificationEmailIn} i
+ * @param {GuestResendVerificationEmailCallback} cb
+ * @returns {Promise}
+ */
+exports.GuestResendVerificationEmail = async function GuestResendVerificationEmail( i, cb ) {
+  return await axios.post( '/guest/resendVerificationEmail', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} GuestResetPasswordIn
  * @property {String} secretCode
  * @property {String} hash
