@@ -109,6 +109,8 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
 
 - **Q**: where to put SSR?
   - **A**: `presentation/web_static.go`
+- **Q**: got error `Command 'air' not found`
+  - **A**: install [air](//github.com/cosmtrek/air)
 - **Q**: where to put secret that I don't want to commit?
   - **A**: on `.env.override` file
 - **Q**: got error `.env.override` no such file or directory
