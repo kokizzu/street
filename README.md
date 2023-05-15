@@ -109,6 +109,8 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
 
 - **Q**: where to put SSR?
   - **A**: `presentation/web_static.go`
+- **Q**: got error `there is no space with name [tableName]`
+  - **A**: run `go run main.go migrate` to do migration
 - **Q**: got error `Command 'air' not found`
   - **A**: install [air](//github.com/cosmtrek/air)
 - **Q**: got error `Command 'replacer' not found`
