@@ -111,6 +111,12 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
   - **A**: `presentation/web_static.go`
 - **Q**: got error `Command 'air' not found`
   - **A**: install [air](//github.com/cosmtrek/air)
+- **Q**: got error `Command 'replacer' not found`
+  - **A**: install [replacer](//github.com/kokizzu/replacer)
+- **Q**: got error `Command 'gomodifytags' not found`
+  - **A**: install [goimports](//github.com/fatih/gomodifytags)
+- **Q**: got error `Command 'farify' not found`
+  - **A**: install [farify](//github.com/akbarfa49/farify)
 - **Q**: where to put secret that I don't want to commit?
   - **A**: on `.env.override` file
 - **Q**: got error `.env.override` no such file or directory
