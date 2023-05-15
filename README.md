@@ -109,6 +109,8 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
 
 - **Q**: where to put SSR?
   - **A**: `presentation/web_static.go`
+- **Q**: where to put secret that I don't want to commit?
+  - **A**: on `.env.override` file
 - **Q**: got error `.env.override` no such file or directory
   - **A**: create `.env.override` file
 - **Q**: got error `failed to stat the template: index.html`
@@ -122,13 +124,15 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
 - **Q**: what's normal flow of development?
   - **A**: 
       1. create new/modify model on `model/m[schema]/[schema]_tables.go` folder, create benchmark function to generate and migrate the tables in `RunMigration` function.
-      2. run `./gen-orm.sh`, create helper function on `model/w[schema]/[rq|wc|sa][schema]/[schema]_helper.go` or 3rd party wrapper in `model/x[service]/x[provider].go`
+      2. run `./gen-orm.sh`, create helper function on `model/w[schema]/[rq|wc|sa][schema]/[schema]_helper.go` or 3rd party wrapper in `model/x[repo]/x[provider].go`
       3. create a role in `domain/[role].go` containing all business logic for that role
       4. write test in `domain/[role]_test.go` to make sure all business requirement are met
       5. generate domain routes `cd presentation; go get -bench=BenchmarkGenerateViews`, start web service `air web`
       6. write frontend on `svelte/`, start frontend service `cd svelte; npm run watch`
       7. generate frontend helpers `cd presentation; go get -bench=BenchmarkGenerateViews`
       8. write SSR if needed on `presentation/web_static.go`
+- **Q**: how to add additional tech stack?
+  - **A**: put on `docker-compose.yml` and add to `domain/0_main_test.go` so it would run on integration test. Create the `conf/[provider].go` and `model/x[repo]/x[provider].go` to wrap the 3rd party connector. 
 - **Q**: want to change the generated views?
   - **A**: 
       1. change the template on `presentation/1_codegen_test.go`
