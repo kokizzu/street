@@ -76,7 +76,7 @@ go test -bench=BenchmarkGenerateOrm
 # - svelte/*.svelte
 
 cd presentation
-go get -bench=BenchmarkGenerateViews
+go test -bench=BenchmarkGenerateViews
 
 # output:
 # - presentation/actions.GEN.go     # -- all possible commands
@@ -96,6 +96,13 @@ go run main.go cli guest/register '{"email":"a@b.c"}'
 go run main.go web
 
 curl -X POST -d '{"email":"test@a.com"}' localhost:1234/guest/register
+```
+
+## Deploy
+
+```shell
+cd deploy
+./deploy.sh
 ```
 
 ## Note

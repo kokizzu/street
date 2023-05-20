@@ -15,11 +15,11 @@ WorkingDirectory=/home/street
 ExecStart=/home/street/start_street_web.sh
 ExecStop=/usr/bin/killall street.exe
 
-LimitNOFILE==2097152
+LimitNOFILE=2097152
 LimitNPROC=65535
 
 ProtectSystem=full
-NoNewPrivileges==true
+NoNewPrivileges=true
 
 [Install]
 WantedBy=multi-user.target

@@ -20,6 +20,25 @@ import (
 //go:generate farify doublequote --file guest.go
 
 type (
+	GuestDebugIn struct {
+		RequestCommon
+	}
+	GuestDebugOut struct {
+		ResponseCommon
+		Request RequestCommon
+	}
+)
+
+const (
+	GuestDebugAction = `guest/debug`
+)
+
+func (d *Domain) GuestDebug(in *GuestDebugIn) (out GuestDebugOut) {
+	out.Request = in.RequestCommon
+	return
+}
+
+type (
 	GuestRegisterIn struct {
 		RequestCommon
 		Email    string `json:"email" form:"email" query:"email" long:"email" msg:"email"`

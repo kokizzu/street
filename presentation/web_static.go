@@ -23,7 +23,6 @@ func WebStatic(fw *fiber.App, d *domain.Domain) {
 			in.FromFiberCtx(c, ctx)
 			out := d.UserProfile(&in)
 			user = out.User
-			L.Print(out)
 		}
 		return views.RenderIndex(c, M.SX{
 			`title`: `Street`,

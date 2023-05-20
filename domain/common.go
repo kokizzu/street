@@ -84,11 +84,11 @@ func (l *RequestCommon) FromFiberCtx(ctx *fiber.Ctx, tracerCtx context.Context) 
 	l.RequestId = id64.UID()
 	l.SessionToken = ctx.Cookies(conf.CookieName, l.SessionToken)
 	l.UserAgent = string(ctx.Request().Header.UserAgent())
-	l.IpAddress = ctx.IP()
 	l.Host = ctx.Protocol() + `://` + ctx.Hostname()
+	// from nginx reverse proxy
+	l.IpAddress = ctx.IP()
+	// "Accept":"*/*", "Connection":"close", "Content-Length":"0", "Host":"admin.hapstr.xyz", "User-Agent":"curl/7.81.0", "X-Forwarded-For":"182.253.163.10", "X-Forwarded-Proto":"https", "X-Real-Ip":"182.253.163.10"
 	l.now = fastime.UnixNow()
-	// TODO: check ctx.Accepts()
-	//ctx.Request().URI().RequestURI()
 	file, err := ctx.FormFile(`fileBinary`)
 	if err == nil {
 		l.Uploads = map[string]string{}
@@ -98,7 +98,6 @@ func (l *RequestCommon) FromFiberCtx(ctx *fiber.Ctx, tracerCtx context.Context) 
 			l.Uploads[file.Filename] = target
 		}
 	}
-	//L.Describe(l)
 	l.TracerContext = tracerCtx
 }
 

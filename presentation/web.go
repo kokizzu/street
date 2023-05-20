@@ -73,7 +73,9 @@ func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, u
 }
 
 func (w *WebServer) Start() {
-	fw := fiber.New()
+	fw := fiber.New(fiber.Config{
+		ProxyHeader: `X-Real-IP`,
+	})
 
 	d := &domain.Domain{
 		AuthOltp: w.AuthOltp,

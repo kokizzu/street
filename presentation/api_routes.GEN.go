@@ -12,6 +12,19 @@ import (
 
 func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 
+	// GuestDebug
+	fw.Post("/"+domain.GuestDebugAction, func(c *fiber.Ctx) error {
+		ctx := context.Background() // TODO: use tracer
+		in := domain.GuestDebugIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.GuestDebugAction); err != nil {
+			return err
+		}
+		in.FromFiberCtx(c, ctx)
+		out := d.GuestDebug(&in)
+		out.DecorateSession(c, &in.RequestCommon, &in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon)
+	})
+
 	// GuestForgotPassword
 	fw.Post("/"+domain.GuestForgotPasswordAction, func(c *fiber.Ctx) error {
 		ctx := context.Background() // TODO: use tracer
