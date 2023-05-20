@@ -1,8 +1,6 @@
 package xMailer
 
 import (
-	"os"
-
 	"github.com/kokizzu/gotro/L"
 
 	"street/conf"
@@ -12,10 +10,6 @@ type SendMailFunc func(toEmailName map[string]string, subject, text, html string
 
 type Mailer struct {
 	SendMailFunc SendMailFunc
-}
-
-func GetMailer() string {
-	return os.Getenv(`MAILER_DEFAULT`)
 }
 
 func (m *Mailer) SendRegistrationEmail(email string, verifyEmailUrl string) error {

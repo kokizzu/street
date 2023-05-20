@@ -154,4 +154,4 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
 - **Q**: where is the devlog?
   - **A**: on [youtube livestream](//www.youtube.com/@kokizzu/streams)
 - **Q**: why secrets not encrypted?
-  - **A**: it's ok for now since it's listen to localhost
+  - **A**: it's ok for PoC phase, since it's listen to localhost

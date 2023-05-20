@@ -2,7 +2,7 @@ version: '3'
 
 services:
   tarantool1:
-    image: tarantool/tarantool:latest # 2.10.4
+    image: tarantool/tarantool:2.10.6
     # x.x.0 = alpha, x.x.1 = beta, x.x.2+ = stable, latest not always stable
     environment:
       TARANTOOL_USER_NAME: "userT"
@@ -17,7 +17,7 @@ services:
       - "3301:3301"
 
   clickhouse1:
-    image: yandex/clickhouse-server
+    image: clickhouse/clickhouse-server:23.4.2.11
     ports:
       - "8123:8123"
       - "9000:9000"

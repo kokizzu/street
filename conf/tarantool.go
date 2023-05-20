@@ -52,3 +52,7 @@ func (c TarantoolConf) Connect() (a *Tt.Adapter, err error) {
 	}
 	return
 }
+
+func (c TarantoolConf) DebugStr() string {
+	return fmt.Sprintf(`%s@%s:%d`, c.User, c.Host, c.Port)
+}

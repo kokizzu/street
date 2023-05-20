@@ -78,7 +78,7 @@
     const i = {email, password}
     await GuestLogin( i, function( o ) {
       console.log( o )
-      if( o.error ) alert( o.error );
+      if( o.error ) return alert( o.error );
       user = o.user
       onHashChange()
     } )
@@ -89,7 +89,7 @@
     const i = {email}
     await GuestResendVerificationEmail( i, function( o ) {
       console.log( o )
-      if( o.error ) alert( o.error );
+      if( o.error ) return alert( o.error );
       onHashChange()
       alert('a email verification link has been sent to your email')
     } )
@@ -100,7 +100,7 @@
     const i = {email}
     await GuestForgotPassword( i, function( o ) {
       console.log( o )
-      if( o.error ) alert( o.error );
+      if( o.error ) return alert( o.error );
       onHashChange()
       alert('a reset password link has been sent to your email')
     } )
@@ -109,7 +109,7 @@
   async function userLogout() {
     await UserLogout( {}, function( o ) {
       console.log( o )
-      if( o.error ) alert( o.error );
+      if( o.error ) return alert( o.error );
       onHashChange()
     } )
   }

@@ -2,12 +2,14 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"time"
 
 	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
 	"github.com/rs/zerolog"
 	"golang.org/x/sync/errgroup"
@@ -23,14 +25,27 @@ var log *zerolog.Logger
 
 func main() {
 	conf.VERSION = VERSION
-	log = conf.InitLogger()
+	fmt.Println(conf.PROJECT_NAME + ` ` + S.IfEmpty(VERSION, `local-dev`))
 
+	log = conf.InitLogger()
 	conf.LoadEnv()
 
 	args := os.Args
 	if len(args) < 2 {
-		L.Print(`must start with: run, web, cron, or migrate as first argument`)
+		L.Print(`must start with: run, web, cron, migrate, or config as first argument`)
 		L.Print(args)
+		return
+	}
+
+	if args[1] == `config` {
+		L.Describe(M.SX{
+			`web`:        conf.EnvWebConf(),
+			`tarantool`:  conf.EnvTarantool(),
+			`clickhouse`: conf.EnvClickhouse(),
+			`sendgrid`:   conf.EnvSendgrid(),
+			`mailjet`:    conf.EnvMailjet(),
+			`mailhog`:    conf.EnvMailhog(),
+		})
 		return
 	}
 
@@ -41,8 +56,10 @@ func main() {
 
 	// mailer
 	var mailer xMailer.Mailer
+	mailerCfg := conf.EnvMailer()
 	eg.Go(func() error {
-		switch xMailer.GetMailer() {
+		fmt.Println(`mailer: ` + mailerCfg.DefaultMailer)
+		switch mailerCfg.DefaultMailer {
 		case `sendgrid`:
 			sg := &xMailer.Sengrid{SendgridConf: conf.EnvSendgrid()}
 			L.PanicIf(sg.Connect(), `Sengrid.Connect`)
@@ -68,6 +85,7 @@ func main() {
 		tConn, err = tConf.Connect()
 		if tConn != nil {
 			closers = append(closers, tConn.Close)
+			fmt.Println(`tarantool connected: ` + tConf.DebugStr())
 		}
 		return err
 	})
@@ -79,6 +97,7 @@ func main() {
 		cConn, err = cConf.Connect()
 		if cConn != nil {
 			closers = append(closers, cConn.Close)
+			fmt.Println(`clickhouse connected: ` + cConf.DebugStr())
 		}
 		return err
 	})

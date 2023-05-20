@@ -77,3 +77,7 @@ func (c ClickhouseConf) Connect() (a *Ch.Adapter, err error) {
 	return a, nil
 
 }
+
+func (c ClickhouseConf) DebugStr() string {
+	return fmt.Sprintf("%s@%s:%d", c.User, c.Host, c.Port)
+}
