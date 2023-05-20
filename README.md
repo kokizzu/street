@@ -153,3 +153,5 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
   - **A**: create a pull request to [svelte-mpa](//github.com/kokizzu/svelte-mpa)
 - **Q**: where is the devlog?
   - **A**: on [youtube livestream](//www.youtube.com/@kokizzu/streams)
+- **Q**: why secrets not encrypted?
+  - **A**: it's ok for now since it's listen to localhost

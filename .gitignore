@@ -2,3 +2,8 @@
 .idea
 tmp
 .env.override
+street.exe
+deploy/svelte
+deploy/.env
+deploy/.env.production
+deploy/.env.override
