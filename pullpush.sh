@@ -18,7 +18,7 @@ echo 'Going to commit with message: '\"$*\"
 read -p "Press Ctrl+C to exit, press any enter key to really commit..
 "
 
-git commit -m "$*" && git pull && git push origin master
+git commit -m "$*" && git pull && git push && git push hapstr
 
 #git tag -a `ruby -e 't = Time.now; print "v1.#{t.month+(t.year-2021)*12}%02d.#{t.hour}%02d" % [t.day, t.min]'` -m "$*"
 #git push --tags 

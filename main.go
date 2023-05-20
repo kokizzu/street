@@ -56,8 +56,8 @@ func main() {
 
 	// mailer
 	var mailer xMailer.Mailer
-	mailerCfg := conf.EnvMailer()
 	eg.Go(func() error {
+		mailerCfg := conf.EnvMailer()
 		fmt.Println(`mailer: ` + mailerCfg.DefaultMailer)
 		switch mailerCfg.DefaultMailer {
 		case `sendgrid`:

@@ -4,9 +4,29 @@ SERVER=root@benalu.dev
 VERSION=$(date +%Y.%m.%d)-$(git rev-parse --short HEAD)$(git diff --quiet || echo '-dev')
 
 ( cd .. &&
-GOOS=linux GOARCH=amd64 go build -o street.exe -ldflags="-X main.VERSION='$VERSION'" ) &&
+GOOS=linux GOARCH=amd64 go build -o street.exe \
+    -ldflags="-X main.VERSION='$VERSION'" ) &&
 mv ../street.exe . &&
-rsync --delete -a --exclude='node_modules' --exclude 'tmp' --exclude='*.svelte' ../svelte/ svelte &&
+rsync --delete -a \
+  --exclude='_*' \
+  --exclude='.*' \
+  --exclude='tmp' \
+  --exclude='*.svelte' \
+  --exclude='*.sh' \
+  --exclude='*.md' \
+  --exclude='package*.json' \
+  --exclude='tsconfig.json' \
+  --exclude='svelte.config.js' \
+  --exclude='build.js' \
+  --exclude='node_modules' \
+  --include='*.ico' \
+  --include='*.png' \
+  --include='*.jpg' \
+  --include='*.svg' \
+  --include='*.js' \
+  --include='*.html' \
+  --include='*.css' \
+  ../svelte/ svelte &&
 cp ../.env.override . &&
 upx street.exe &&
 rsync -avz --progress . $SERVER:/home/street &&
