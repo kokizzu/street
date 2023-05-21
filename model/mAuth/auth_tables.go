@@ -66,7 +66,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 }
 
 const (
-	TableUserLogs Ch.TableName = `userLogs`
+	TableActionLogs Ch.TableName = `actionLogs`
 
 	RequestId  = `requestId`
 	Error      = `error`
@@ -80,19 +80,19 @@ const (
 )
 
 var ClickhouseTables = map[Ch.TableName]*Ch.TableProp{
-	TableUserLogs: {
+	TableActionLogs: {
 		Fields: []Ch.Field{
 			{CreatedAt, Ch.DateTime},
 			{RequestId, Ch.String},
-			{Error, Ch.String},
 			{ActorId, Ch.UInt64},
+			{Action, Ch.String},
+			{StatusCode, Ch.Int16},
+			{Traces, Ch.String},
+			{Error, Ch.String},
 			{IpAddr4, Ch.IPv4},
 			{IpAddr6, Ch.IPv6},
 			{UserAgent, Ch.String},
-			{Action, Ch.String},
-			{Traces, Ch.String},
-			{StatusCode, Ch.Int16},
 		},
-		Orders: []string{ActorId, RequestId},
+		Orders: []string{CreatedAt, RequestId, ActorId, Action},
 	},
 }

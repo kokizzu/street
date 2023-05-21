@@ -26,8 +26,8 @@ var log *zerolog.Logger
 func main() {
 	conf.VERSION = VERSION
 
-	// note: set instancec id when there's multiple instance
-	// lexid.Config.Separator = `~[ID]`
+	// note: set instance id when there's multiple instance
+	// lexid.Config.Separator = `~THE_INSTANCE_ID`
 
 	fmt.Println(conf.PROJECT_NAME + ` ` + S.IfEmpty(VERSION, `local-dev`))
 

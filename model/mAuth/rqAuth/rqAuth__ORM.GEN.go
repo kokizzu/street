@@ -3,14 +3,14 @@ package rqAuth
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 import (
-	"street/model/mAuth"
+	`street/model/mAuth`
 
-	"github.com/tarantool/go-tarantool"
+	`github.com/tarantool/go-tarantool`
 
-	"github.com/kokizzu/gotro/A"
-	"github.com/kokizzu/gotro/D/Tt"
-	"github.com/kokizzu/gotro/L"
-	"github.com/kokizzu/gotro/X"
+	`github.com/kokizzu/gotro/A`
+	`github.com/kokizzu/gotro/D/Tt`
+	`github.com/kokizzu/gotro/L`
+	`github.com/kokizzu/gotro/X`
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file rqAuth__ORM.GEN.go
@@ -21,11 +21,11 @@ import (
 
 // Sessions DAO reader/query struct
 type Sessions struct {
-	Adapter      *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	SessionToken string      `json:"sessionToken" form:"sessionToken" query:"sessionToken" long:"sessionToken" msg:"sessionToken"`
-	UserId       uint64      `json:"userId,string" form:"userId" query:"userId" long:"userId" msg:"userId"`
-	ExpiredAt    int64       `json:"expiredAt" form:"expiredAt" query:"expiredAt" long:"expiredAt" msg:"expiredAt"`
-	Device       string      `json:"device" form:"device" query:"device" long:"device" msg:"device"`
+	Adapter *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-"`
+	SessionToken string
+	UserId       uint64
+	ExpiredAt    int64
+	Device       string
 }
 
 // NewSessions create new ORM reader/query object
@@ -171,7 +171,7 @@ func (s *Sessions) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, 
 
 // Total count number of rows
 func (s *Sessions) Total() int64 { //nolint:dupl false positive
-	rows := s.Adapter.CallBoxSpace(s.SpaceName()+`:count`, A.X{})
+	rows := s.Adapter.CallBoxSpace(s.SpaceName() + `:count`, A.X{})
 	if len(rows) > 0 && len(rows[0]) > 0 {
 		return X.ToI(rows[0][0])
 	}
@@ -182,21 +182,21 @@ func (s *Sessions) Total() int64 { //nolint:dupl false positive
 
 // Users DAO reader/query struct
 type Users struct {
-	Adapter            *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	Id                 uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
-	Email              string      `json:"email" form:"email" query:"email" long:"email" msg:"email"`
-	Password           string      `json:"password" form:"password" query:"password" long:"password" msg:"password"`
-	CreatedAt          int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	CreatedBy          uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
-	UpdatedAt          int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
-	UpdatedBy          uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
-	DeletedAt          int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
-	PasswordSetAt      int64       `json:"passwordSetAt" form:"passwordSetAt" query:"passwordSetAt" long:"passwordSetAt" msg:"passwordSetAt"`
-	SecretCode         string      `json:"secretCode" form:"secretCode" query:"secretCode" long:"secretCode" msg:"secretCode"`
-	SecretCodeAt       int64       `json:"secretCodeAt" form:"secretCodeAt" query:"secretCodeAt" long:"secretCodeAt" msg:"secretCodeAt"`
-	VerificationSentAt int64       `json:"verificationSentAt" form:"verificationSentAt" query:"verificationSentAt" long:"verificationSentAt" msg:"verificationSentAt"`
-	VerifiedAt         int64       `json:"verifiedAt" form:"verifiedAt" query:"verifiedAt" long:"verifiedAt" msg:"verifiedAt"`
-	LastLoginAt        int64       `json:"lastLoginAt" form:"lastLoginAt" query:"lastLoginAt" long:"lastLoginAt" msg:"lastLoginAt"`
+	Adapter *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-"`
+	Id                 uint64
+	Email              string
+	Password           string
+	CreatedAt          int64
+	CreatedBy          uint64
+	UpdatedAt          int64
+	UpdatedBy          uint64
+	DeletedAt          int64
+	PasswordSetAt      int64
+	SecretCode         string
+	SecretCodeAt       int64
+	VerificationSentAt int64
+	VerifiedAt         int64
+	LastLoginAt        int64
 }
 
 // NewUsers create new ORM reader/query object
@@ -504,7 +504,7 @@ func (u *Users) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.
 
 // Total count number of rows
 func (u *Users) Total() int64 { //nolint:dupl false positive
-	rows := u.Adapter.CallBoxSpace(u.SpaceName()+`:count`, A.X{})
+	rows := u.Adapter.CallBoxSpace(u.SpaceName() + `:count`, A.X{})
 	if len(rows) > 0 && len(rows[0]) > 0 {
 		return X.ToI(rows[0][0])
 	}
@@ -512,3 +512,4 @@ func (u *Users) Total() int64 { //nolint:dupl false positive
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
