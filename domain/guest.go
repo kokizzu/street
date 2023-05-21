@@ -36,6 +36,7 @@ const (
 )
 
 func (d *Domain) GuestDebug(in *GuestDebugIn) (out GuestDebugOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	out.Request = in.RequestCommon
 	return
 }
@@ -66,6 +67,7 @@ const (
 )
 
 func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	in.Email = S.Trim(S.ValidateEmail(in.Email))
 	if in.Email == `` {
 		out.SetError(400, ErrGuestRegisterEmailInvalid)
@@ -90,6 +92,7 @@ func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
 		out.SetError(500, ErrGuestRegisterUserCreationFailed)
 		return
 	}
+	out.actor = user.Id
 	user.CensorFields()
 	out.User = user.Users
 
@@ -128,6 +131,7 @@ const (
 )
 
 func (d *Domain) GuestVerifyEmail(in *GuestVerifyEmailIn) (out GuestVerifyEmailOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	userId, ok := S.DecodeCB63[uint64](in.Hash)
 	if !ok {
 		out.SetError(400, ErrGuestVerifyEmailInvalidHash)
@@ -139,6 +143,7 @@ func (d *Domain) GuestVerifyEmail(in *GuestVerifyEmailIn) (out GuestVerifyEmailO
 		out.SetError(400, ErrGuestVerifyEmailUserNotFound)
 		return
 	}
+	out.actor = userId
 
 	out.Email = user.Email
 
@@ -184,6 +189,7 @@ const (
 )
 
 func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	in.Email = S.Trim(S.ValidateEmail(in.Email))
 	if in.Email == `` {
 		out.SetError(400, ErrGuestLoginEmailInvalid)
@@ -195,6 +201,7 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 		out.SetError(400, ErrGuestLoginEmailOrPasswordIncorrect)
 		return
 	}
+	out.actor = user.Id
 	if err := S.CheckPassword(user.Password, in.Password); err != nil {
 		out.SetError(400, ErrGuestLoginPasswordOrEmailIncorrect)
 		return
@@ -236,6 +243,7 @@ const (
 var guestForgotPasswordLock = nsync.NewNamedMutex()
 
 func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgotPasswordOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Email = in.Email
 
@@ -249,6 +257,7 @@ func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgot
 		out.SetError(400, ErrGuestForgotPasswordEmailNotFound)
 		return
 	}
+	out.actor = user.Id
 
 	recently := in.TimeNow().Add(-conf.ForgotPasswordThrottleMinute * time.Minute).Unix()
 	if user.SecretCodeAt >= recently {
@@ -305,6 +314,7 @@ const (
 )
 
 func (d *Domain) GuestResetPassword(in *GuestResetPasswordIn) (out GuestResetPasswordOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	userId, ok := S.DecodeCB63[uint64](in.Hash)
 	if !ok {
 		out.SetError(400, ErrGuestResetPasswordInvalidHash)
@@ -316,6 +326,7 @@ func (d *Domain) GuestResetPassword(in *GuestResetPasswordIn) (out GuestResetPas
 		out.SetError(400, ErrGuestResetPasswordUserNotFound)
 		return
 	}
+	out.actor = user.Id
 	if len(in.Password) < minPassLength {
 		out.SetErrorf(400, ErrGuestResetPasswordTooShort)
 		return
@@ -371,6 +382,7 @@ const (
 var guestResendVerificationEmailLock = nsync.NewNamedMutex()
 
 func (d *Domain) GuestResendVerificationEmail(in *GuestResendVerificationEmailIn) (out GuestResendVerificationEmailOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Email = in.Email
 
@@ -384,6 +396,7 @@ func (d *Domain) GuestResendVerificationEmail(in *GuestResendVerificationEmailIn
 		out.SetError(400, ErrGuestResendVerificationEmailUserNotFound)
 		return
 	}
+	out.actor = user.Id
 
 	if user.VerifiedAt > 0 {
 		guestResendVerificationEmailLock.Unlock(in.Email)
@@ -440,6 +453,7 @@ const (
 )
 
 func (d *Domain) GuestExternalAuth(in *GuestExternalAuthIn) (out GuestExternalAuthOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	csrfState := in.Provider + `|`
 	if in.SessionToken == `` {
 		in.SessionToken = `TEMP__` + lexid.ID()
@@ -491,6 +505,7 @@ const (
 )
 
 func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCallbackOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	csrf := S.RightOf(in.State, `|`)
 	if csrf == `` {
 		out.SetError(400, ErrGuestOauthCallbackInvalidState)
@@ -561,7 +576,10 @@ func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCal
 			out.SetError(500, ErrGuestOauthCallbackFailedUserCreation)
 			return
 		}
+		out.actor = user.Id
 	} else {
+		out.actor = user.Id
+
 		// update verifiedAt if not verified
 		if user.VerifiedAt == 0 {
 			user.SetVerifiedAt(in.UnixNow())

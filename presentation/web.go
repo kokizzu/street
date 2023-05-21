@@ -38,6 +38,7 @@ var requiredHeader = M.SS{
 // 3. params
 func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, url string) error {
 	body := ctx.Body()
+	reqCommon.Action = url
 	reqCommon.Debug = reqCommon.Debug || conf.IsDebug()
 	path := S.LeftOf(url, `?`) // without API_PREFIX
 	if header, ok := requiredHeader[path]; ok {
@@ -86,6 +87,7 @@ func (w *WebServer) Start() {
 		IsBgSvc:  true,
 		Oauth:    w.Oauth,
 	}
+	d.InitTimedBuffer()
 
 	// load svelte templates
 	views = &Views{}
@@ -103,6 +105,8 @@ func (w *WebServer) Start() {
 	ApiRoutes(fw, d)
 
 	log.Err(fw.Listen(w.Cfg.ListenAddr()))
+
+	d.WaitTimedBufferFinalFlush()
 }
 
 type Views struct {

@@ -17,7 +17,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return err
 		}
 		out := d.GuestDebug(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
 	// GuestExternalAuth
@@ -27,7 +27,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return err
 		}
 		out := d.GuestExternalAuth(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
 	// GuestForgotPassword
@@ -37,7 +37,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return err
 		}
 		out := d.GuestForgotPassword(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
 	// GuestLogin
@@ -47,7 +47,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return err
 		}
 		out := d.GuestLogin(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
 	// GuestOauthCallback
@@ -57,7 +57,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return err
 		}
 		out := d.GuestOauthCallback(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
 	// GuestRegister
@@ -67,7 +67,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return err
 		}
 		out := d.GuestRegister(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
 	// GuestResendVerificationEmail
@@ -77,7 +77,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return err
 		}
 		out := d.GuestResendVerificationEmail(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
 	// GuestResetPassword
@@ -87,7 +87,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return err
 		}
 		out := d.GuestResetPassword(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
 	// GuestVerifyEmail
@@ -97,7 +97,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return err
 		}
 		out := d.GuestVerifyEmail(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
 	// UserLogout
@@ -107,7 +107,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return err
 		}
 		out := d.UserLogout(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
 	// UserProfile
@@ -117,7 +117,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return err
 		}
 		out := d.UserProfile(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
 }

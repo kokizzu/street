@@ -34,6 +34,8 @@ func (c *CLI) Run(args []string) {
 		Mailer:   c.Mailer,
 		Oauth:    c.Oauth,
 	}
+	b.InitTimedBuffer()
 	cmdRun(b, args[0], []byte(args[1]))
+	b.WaitTimedBufferFinalFlush()
 
 }

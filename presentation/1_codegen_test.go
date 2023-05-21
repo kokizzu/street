@@ -431,7 +431,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return err
 		}
 		out := d.` + name + `(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 `)
 	})

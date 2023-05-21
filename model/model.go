@@ -9,19 +9,19 @@ import (
 )
 
 type Migrator struct {
-	UserOltp *Tt.Adapter
-	UserOlap *Ch.Adapter
+	AuthOltp *Tt.Adapter
+	AuthOlap *Ch.Adapter
 }
 
 func RunMigration(
-	userOltp *Tt.Adapter,
-	userOlap *Ch.Adapter,
+	authOltp *Tt.Adapter,
+	authOlap *Ch.Adapter,
 ) {
 	L.Print(`run migration..`)
 	m := Migrator{
-		UserOltp: userOltp,
-		UserOlap: userOlap,
+		AuthOltp: authOltp,
+		AuthOlap: authOlap,
 	}
-	m.UserOltp.MigrateTables(mAuth.TarantoolTables)
-	m.UserOlap.MigrateTables(mAuth.ClickhouseTables)
+	m.AuthOltp.MigrateTables(mAuth.TarantoolTables)
+	m.AuthOlap.MigrateTables(mAuth.ClickhouseTables)
 }

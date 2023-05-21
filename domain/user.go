@@ -48,6 +48,7 @@ const (
 )
 
 func (d *Domain) UserProfile(in *UserProfileIn) (out UserProfileOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	sess := d.mustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
 		return
@@ -59,6 +60,8 @@ func (d *Domain) UserProfile(in *UserProfileIn) (out UserProfileOut) {
 		out.SetError(403, ErrUserNotFound)
 		return
 	}
+	out.actor = user.Id
+
 	user.CensorFields()
 	out.User = user
 	return

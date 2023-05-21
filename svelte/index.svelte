@@ -147,6 +147,9 @@
 		
 		{#if mode===LOGIN}
 			<button on:click={guestLogin}>Login</button>
+		{/if}
+		
+		{#if mode===REGISTER || mode===LOGIN}
 			{#if google}
 				or
 				<a class="button" href={google}>Sign in/up using Google</a>

@@ -4,8 +4,9 @@ package saAuth
 
 import (
 	"database/sql"
-	"street/model/mAuth"
 	"time"
+
+	"street/model/mAuth"
 
 	_ "github.com/ClickHouse/clickhouse-go/v2"
 	chBuffer "github.com/kokizzu/ch-timed-buffer"
@@ -32,14 +33,17 @@ var Preparators = map[Ch.TableName]chBuffer.Preparator{
 }
 
 type UserLogs struct {
-	Adapter   *Ch.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	CreatedAt time.Time   `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	RequestId string      `json:"requestId,string" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
-	Error     string      `json:"error" form:"error" query:"error" long:"error" msg:"error"`
-	ActorId   uint64      `json:"actorId,string" form:"actorId" query:"actorId" long:"actorId" msg:"actorId"`
-	IpAddr4   string      `json:"ipAddr4" form:"ipAddr4" query:"ipAddr4" long:"ipAddr4" msg:"ipAddr4"`
-	IpAddr6   string      `json:"ipAddr6" form:"ipAddr6" query:"ipAddr6" long:"ipAddr6" msg:"ipAddr6"`
-	UserAgent string      `json:"userAgent" form:"userAgent" query:"userAgent" long:"userAgent" msg:"userAgent"`
+	Adapter    *Ch.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	CreatedAt  time.Time   `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	RequestId  string      `json:"requestId,string" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
+	Error      string      `json:"error" form:"error" query:"error" long:"error" msg:"error"`
+	ActorId    uint64      `json:"actorId,string" form:"actorId" query:"actorId" long:"actorId" msg:"actorId"`
+	IpAddr4    string      `json:"ipAddr4" form:"ipAddr4" query:"ipAddr4" long:"ipAddr4" msg:"ipAddr4"`
+	IpAddr6    string      `json:"ipAddr6" form:"ipAddr6" query:"ipAddr6" long:"ipAddr6" msg:"ipAddr6"`
+	UserAgent  string      `json:"userAgent" form:"userAgent" query:"userAgent" long:"userAgent" msg:"userAgent"`
+	Action     string      `json:"action" form:"action" query:"action" long:"action" msg:"action"`
+	Traces     string      `json:"traces" form:"traces" query:"traces" long:"traces" msg:"traces"`
+	StatusCode int16       `json:"statusCode" form:"statusCode" query:"statusCode" long:"statusCode" msg:"statusCode"`
 }
 
 func NewUserLogs(adapter *Ch.Adapter) *UserLogs {
@@ -56,7 +60,7 @@ func (u *UserLogs) sqlTableName() string { //nolint:dupl false positive
 
 // insert, error if exists
 func (u *UserLogs) sqlInsert() string { //nolint:dupl false positive
-	return `INSERT INTO ` + u.sqlTableName() + `(` + u.sqlAllFields() + `) VALUES (?,?,?,?,?,?,?)`
+	return `INSERT INTO ` + u.sqlTableName() + `(` + u.sqlAllFields() + `) VALUES (?,?,?,?,?,?,?,?,?,?)`
 }
 
 func (u *UserLogs) sqlCount() string { //nolint:dupl false positive
@@ -71,22 +75,28 @@ func (u *UserLogs) sqlSelectAllFields() string { //nolint:dupl false positive
 	, ipAddr4
 	, ipAddr6
 	, userAgent
+	, action
+	, traces
+	, statusCode
 	`
 }
 
 func (u *UserLogs) sqlAllFields() string { //nolint:dupl false positive
-	return `createdAt, requestId, error, actorId, ipAddr4, ipAddr6, userAgent`
+	return `createdAt, requestId, error, actorId, ipAddr4, ipAddr6, userAgent, action, traces, statusCode`
 }
 
 func (u UserLogs) SqlInsertParam() []any { //nolint:dupl false positive
 	return []any{
-		u.CreatedAt, // 0
-		u.RequestId, // 1
-		u.Error,     // 2
-		u.ActorId,   // 3
-		u.IpAddr4,   // 4
-		u.IpAddr6,   // 5
-		u.UserAgent, // 6
+		u.CreatedAt,  // 0
+		u.RequestId,  // 1
+		u.Error,      // 2
+		u.ActorId,    // 3
+		u.IpAddr4,    // 4
+		u.IpAddr6,    // 5
+		u.UserAgent,  // 6
+		u.Action,     // 7
+		u.Traces,     // 8
+		u.StatusCode, // 9
 	}
 }
 
@@ -146,15 +156,42 @@ func (u *UserLogs) sqlUserAgent() string { //nolint:dupl false positive
 	return `userAgent`
 }
 
+func (u *UserLogs) IdxAction() int { //nolint:dupl false positive
+	return 7
+}
+
+func (u *UserLogs) sqlAction() string { //nolint:dupl false positive
+	return `action`
+}
+
+func (u *UserLogs) IdxTraces() int { //nolint:dupl false positive
+	return 8
+}
+
+func (u *UserLogs) sqlTraces() string { //nolint:dupl false positive
+	return `traces`
+}
+
+func (u *UserLogs) IdxStatusCode() int { //nolint:dupl false positive
+	return 9
+}
+
+func (u *UserLogs) sqlStatusCode() string { //nolint:dupl false positive
+	return `statusCode`
+}
+
 func (u *UserLogs) ToArray() A.X { //nolint:dupl false positive
 	return A.X{
-		u.CreatedAt, // 0
-		u.RequestId, // 1
-		u.Error,     // 2
-		u.ActorId,   // 3
-		u.IpAddr4,   // 4
-		u.IpAddr6,   // 5
-		u.UserAgent, // 6
+		u.CreatedAt,  // 0
+		u.RequestId,  // 1
+		u.Error,      // 2
+		u.ActorId,    // 3
+		u.IpAddr4,    // 4
+		u.IpAddr6,    // 5
+		u.UserAgent,  // 6
+		u.Action,     // 7
+		u.Traces,     // 8
+		u.StatusCode, // 9
 	}
 }
 
