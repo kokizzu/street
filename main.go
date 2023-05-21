@@ -102,6 +102,8 @@ func main() {
 		return err
 	})
 
+	oauth := conf.EnvOauth()
+
 	L.PanicIf(eg.Wait(), `eg.Wait`)
 	for _, closer := range closers {
 		closer := closer
@@ -118,6 +120,7 @@ func main() {
 			Log:      log,
 			Cfg:      conf.EnvWebConf(),
 			Mailer:   mailer,
+			Oauth:    oauth,
 		}
 		ws.Start()
 	case `cli`:
@@ -126,6 +129,7 @@ func main() {
 			AuthOlap: cConn,
 			Log:      log,
 			Mailer:   mailer,
+			Oauth:    oauth,
 		}
 		cli.Run(os.Args[2:])
 	case `cron`:

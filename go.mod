@@ -24,11 +24,13 @@ require (
 	github.com/vburenin/nsync v0.0.0-20160822015540-9a75d1c80410
 	github.com/wneessen/go-mail v0.3.9
 	github.com/zeebo/xxh3 v1.0.2
+	golang.org/x/oauth2 v0.0.0-20220524215830-622c5d57e401
 	golang.org/x/sync v0.1.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 )
 
 require (
+	cloud.google.com/go v0.67.0 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20230124172434-306776ec8161 // indirect
 	github.com/ClickHouse/ch-go v0.55.0 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect

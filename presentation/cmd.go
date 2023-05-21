@@ -5,6 +5,7 @@ import (
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/rs/zerolog"
 
+	"street/conf"
 	"street/domain"
 	"street/model/xMailer"
 )
@@ -14,6 +15,7 @@ type CLI struct {
 	AuthOlap *Ch.Adapter
 	Log      *zerolog.Logger
 	Mailer   xMailer.Mailer
+	Oauth    conf.OauthConf
 }
 
 func (c *CLI) Run(args []string) {
@@ -30,6 +32,7 @@ func (c *CLI) Run(args []string) {
 		AuthOltp: c.AuthOltp,
 		AuthOlap: c.AuthOlap,
 		Mailer:   c.Mailer,
+		Oauth:    c.Oauth,
 	}
 	cmdRun(b, args[0], []byte(args[1]))
 

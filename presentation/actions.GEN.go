@@ -8,8 +8,10 @@ import (
 
 var allCommands = []string{
 	domain.GuestDebugAction,
+	domain.GuestExternalAuthAction,
 	domain.GuestForgotPasswordAction,
 	domain.GuestLoginAction,
+	domain.GuestOauthCallbackAction,
 	domain.GuestRegisterAction,
 	domain.GuestResendVerificationEmailAction,
 	domain.GuestResetPasswordAction,

@@ -232,7 +232,7 @@ func TestForgotResetPassword(t *testing.T) {
 
 		t.Run(`forgotPasswordAgain`, func(t *testing.T) {
 			out := d.GuestForgotPassword(in)
-			assert.Equal(t, out.Error, ErrGuestForgotPassworTriggeredTooFrequently)
+			assert.Equal(t, out.Error, ErrGuestForgotPasswordTriggeredTooFrequently)
 		})
 
 		secretCode, hash := parseSecretCodeHashUrl(t, out.resetPassUrl)

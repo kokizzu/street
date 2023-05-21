@@ -49,6 +49,7 @@ func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon) 
 	if rc.StatusCode != http.StatusOK {
 		ctx.Status(rc.StatusCode)
 	}
+	rc.DecorateSession(ctx)
 	switch l.OutputFormat {
 	case ``, `json`, fiber.MIMEApplicationJSON:
 		ctx.Set(fiber.HeaderContentType, fiber.MIMEApplicationJSON)
@@ -63,6 +64,8 @@ func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon) 
 		}
 		// TODO: log size/bytes written
 		log.Print(string(byt))
+	case `html`:
+		// do nothing
 	default:
 		return errors.New(`ToFiberCtx unhandled format: ` + l.OutputFormat)
 	}
@@ -165,7 +168,7 @@ func (o *ResponseCommon) SetErrorf(code int, errFmt string, args ...any) {
 	o.Error = fmt.Sprintf(errFmt, args...)
 }
 
-func (l *ResponseCommon) DecorateSession(ctx *fiber.Ctx, inRc *RequestCommon, in any) {
+func (l *ResponseCommon) DecorateSession(ctx *fiber.Ctx) {
 	if l.SessionToken != `` {
 		if l.SessionToken == conf.CookieLogoutValue {
 			ctx.ClearCookie(conf.CookieName)
@@ -173,12 +176,12 @@ func (l *ResponseCommon) DecorateSession(ctx *fiber.Ctx, inRc *RequestCommon, in
 				Name:    conf.CookieName,
 				Expires: time.Unix(0, 0),
 			})
-		} else {
-			ctx.Cookie(&fiber.Cookie{
-				Name:    conf.CookieName,
-				Value:   l.SessionToken,
-				Expires: time.Now().AddDate(0, 0, conf.CookieDays),
-			})
+			return
 		}
+		ctx.Cookie(&fiber.Cookie{
+			Name:    conf.CookieName,
+			Value:   l.SessionToken,
+			Expires: time.Now().AddDate(0, 0, conf.CookieDays),
+		})
 	}
 }

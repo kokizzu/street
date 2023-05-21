@@ -4,6 +4,7 @@ import (
 	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
 
+	"street/conf"
 	"street/model/xMailer"
 )
 
@@ -13,7 +14,10 @@ type Domain struct {
 	SendMailFunc xMailer.SendMailFunc
 	Mailer       xMailer.Mailer
 
-	IsBgSvc bool // long running program
+	IsBgSvc bool // long-running program
+	Oauth   conf.OauthConf
+
+	GoogleUserInfoEndpointCache string
 }
 
 // will run in background if background service

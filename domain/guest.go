@@ -4,8 +4,10 @@ import (
 	"time"
 
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/id64"
+	"github.com/kokizzu/lexid"
 	"github.com/vburenin/nsync"
 
 	"street/conf"
@@ -25,7 +27,7 @@ type (
 	}
 	GuestDebugOut struct {
 		ResponseCommon
-		Request RequestCommon
+		Request RequestCommon `json:"request" form:"request" query:"request" long:"request" msg:"request"`
 	}
 )
 
@@ -178,7 +180,7 @@ const (
 	ErrGuestLoginEmailInvalid             = `email must be valid`
 	ErrGuestLoginEmailOrPasswordIncorrect = `incorrect email or password`
 	ErrGuestLoginPasswordOrEmailIncorrect = `incorrect password or email`
-	ErrFailedStoringSession               = `failed storing session`
+	ErrGuestLoginFailedStoringSession     = `failed storing session for login`
 )
 
 func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
@@ -202,7 +204,7 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 	session := d.createSession(user.Id, user.Email, in.UserAgent)
 	// TODO: set list of roles in the session
 	if !session.DoInsert() {
-		out.SetError(500, ErrFailedStoringSession)
+		out.SetError(500, ErrGuestLoginFailedStoringSession)
 		return
 	}
 	out.SessionToken = session.SessionToken
@@ -226,9 +228,9 @@ type (
 const (
 	GuestForgotPasswordAction = `guest/forgotPassword`
 
-	ErrGuestForgotPasswordEmailNotFound         = `forgot password email not found`
-	ErrGuestForgotPassworTriggeredTooFrequently = `forgot password triggered to frequently`
-	ErrGuestForgotPasswordModificationFailed    = `forgot password modification failed`
+	ErrGuestForgotPasswordEmailNotFound          = `forgot password email not found`
+	ErrGuestForgotPasswordTriggeredTooFrequently = `forgot password triggered to frequently`
+	ErrGuestForgotPasswordModificationFailed     = `forgot password modification failed`
 )
 
 var guestForgotPasswordLock = nsync.NewNamedMutex()
@@ -238,7 +240,7 @@ func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgot
 	user.Email = in.Email
 
 	if !guestForgotPasswordLock.TryLock(in.Email) {
-		out.SetError(400, ErrGuestForgotPassworTriggeredTooFrequently)
+		out.SetError(400, ErrGuestForgotPasswordTriggeredTooFrequently)
 		return
 	}
 
@@ -251,7 +253,7 @@ func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgot
 	recently := in.TimeNow().Add(-conf.ForgotPasswordThrottleMinute * time.Minute).Unix()
 	if user.SecretCodeAt >= recently {
 		guestForgotPasswordLock.Unlock(in.Email)
-		out.SetError(400, ErrGuestForgotPassworTriggeredTooFrequently)
+		out.SetError(400, ErrGuestForgotPasswordTriggeredTooFrequently)
 		return
 	}
 
@@ -416,5 +418,170 @@ func (d *Domain) GuestResendVerificationEmail(in *GuestResendVerificationEmailIn
 	}
 
 	out.Ok = true
+	return
+}
+
+type (
+	GuestExternalAuthIn struct {
+		RequestCommon
+		Provider string `json:"provider" form:"provider" query:"provider" long:"provider" msg:"provider"`
+	}
+	GuestExternalAuthOut struct {
+		ResponseCommon
+		Link string `json:"link" form:"link" query:"link" long:"link" msg:"link"`
+	}
+)
+
+const (
+	GuestExternalAuthAction = `guest/externalAuth`
+
+	GuestExternalAuthProviderNotSet = `oauth provider not set`
+	GuestExternalAuthInvalidUrl     = `oauth provider invalid url`
+)
+
+func (d *Domain) GuestExternalAuth(in *GuestExternalAuthIn) (out GuestExternalAuthOut) {
+	csrfState := in.Provider + `|`
+	if in.SessionToken == `` {
+		in.SessionToken = `TEMP__` + lexid.ID()
+		out.SessionToken = in.SessionToken
+	}
+	csrfState += S.Left(in.SessionToken, 20)
+
+	switch in.Provider {
+	case OauthGoogle:
+		provider := d.Oauth.Google[in.Host]
+		if provider == nil {
+			out.SetError(400, GuestExternalAuthInvalidUrl)
+			return
+		}
+		out.Link = provider.AuthCodeURL(csrfState)
+	default:
+		out.SetError(400, GuestExternalAuthProviderNotSet)
+	}
+	return
+}
+
+type (
+	GuestOauthCallbackIn struct {
+		RequestCommon
+		State       string `json:"state" form:"state" query:"state" long:"state" msg:"state"`
+		Code        string `json:"code" form:"code" query:"code" long:"code" msg:"code"`
+		AccessToken string `json:"accessToken" form:"accessToken" query:"accessToken" long:"accessToken" msg:"accessToken"`
+	}
+
+	GuestOauthCallbackOut struct {
+		ResponseCommon
+		OauthUser   M.SX         `json:"oauthUser" form:"oauthUser" query:"oauthUser" long:"oauthUser" msg:"oauthUser"`
+		Email       string       `json:"email" form:"email" query:"email" long:"email" msg:"email"`
+		CurrentUser rqAuth.Users `json:"currentUser" form:"currentUser" query:"currentUser" long:"currentUser" msg:"currentUser"`
+		Provider    string       `json:"provider" form:"provider" query:"provider" long:"provider" msg:"provider"`
+	}
+)
+
+const (
+	GuestOauthCallbackAction = `guest/oauthCallback`
+
+	ErrGuestOauthCallbackInvalidState           = `invalid csrf state`
+	ErrGuestOauthCallbackInvalidCsrf            = `invalid csrf token`
+	ErrGuestOauthCallbackInvalidUrl             = `invalid url`
+	ErrGuestOauthCallbackFailedExchange         = `failed exchange oauth token`
+	ErrGuestOauthCallbackFailedUserCreation     = `failed user creation from oauth`
+	ErrGuestOauthCallbackFailedUserModification = `failed user modification from oauth`
+	ErrGuestOauthCallbackFailedStoringSession   = `failed storing session from oauth`
+)
+
+func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCallbackOut) {
+	csrf := S.RightOf(in.State, `|`)
+	if csrf == `` {
+		out.SetError(400, ErrGuestOauthCallbackInvalidState)
+		return
+	}
+
+	L.Print(in.SessionToken)
+	L.Print(csrf)
+	if !S.StartsWith(in.SessionToken, csrf) {
+		out.SetError(400, ErrGuestOauthCallbackInvalidCsrf)
+		return
+	}
+
+	out.Provider = S.LeftOf(in.State, `|`)
+
+	switch out.Provider {
+	case OauthGoogle:
+		provider := d.Oauth.Google[in.Host]
+		if provider == nil {
+			L.Print(d.Oauth.Google)
+			L.Print(in.Host)
+			out.SetError(400, ErrGuestOauthCallbackInvalidUrl)
+			return
+		}
+
+		token, err := provider.Exchange(in.TracerContext, in.Code)
+		if L.IsError(err, `google.provider.Exchange`) {
+			out.SetError(400, ErrGuestOauthCallbackFailedExchange)
+			return
+		}
+
+		client := provider.Client(in.TracerContext, token)
+		if d.GoogleUserInfoEndpointCache == `` {
+			json := fetchJsonMap(client, `https://accounts.google.com/.well-known/openid-configuration`, &out.ResponseCommon)
+			d.GoogleUserInfoEndpointCache = json.GetStr(`userinfo_endpoint`)
+			if out.HasError() {
+				return
+			}
+		}
+		out.OauthUser = fetchJsonMap(client, d.GoogleUserInfoEndpointCache, &out.ResponseCommon)
+		/* from google:
+		{
+			"email":			"",
+			"email_verified":	true,
+			"family_name":		"",
+			"gender":			"",
+			"given_name":		"",
+			"locale":			"en-GB",
+			"name":				"",
+			"picture":			"http://",
+			"profile":			"http://",
+			"sub":				"number"
+		} */
+		if out.HasError() {
+			return
+		}
+		out.Email = out.OauthUser.GetStr(`email`)
+	}
+
+	user := wcAuth.NewUsersMutator(d.AuthOltp)
+	user.Email = out.Email
+
+	if !user.FindByEmail() {
+		// create user if not exists
+		user.VerifiedAt = in.UnixNow()
+
+		if !user.DoInsert() {
+			out.SetError(500, ErrGuestOauthCallbackFailedUserCreation)
+			return
+		}
+	} else {
+		// update verifiedAt if not verified
+		if user.VerifiedAt == 0 {
+			user.SetVerifiedAt(in.UnixNow())
+		}
+
+		if !user.DoUpdateById() {
+			out.SetError(500, ErrGuestOauthCallbackFailedUserModification)
+			return
+		}
+	}
+
+	d.expireSession(in.SessionToken, &out.ResponseCommon)
+
+	// create new session
+	session := d.createSession(user.Id, user.Email, in.UserAgent)
+	if !session.DoInsert() {
+		out.SetError(500, ErrGuestOauthCallbackFailedStoringSession)
+		return
+	}
+	out.SessionToken = session.SessionToken
+
 	return
 }

@@ -26,6 +26,15 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		fmt.Println(X.ToJsonPretty(out))
 
 
+	case domain.GuestExternalAuthAction:
+		in := domain.GuestExternalAuthIn{}
+		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+			return
+		}
+		out := b.GuestExternalAuth(&in)
+		fmt.Println(X.ToJsonPretty(out))
+
+
 	case domain.GuestForgotPasswordAction:
 		in := domain.GuestForgotPasswordIn{}
 		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
@@ -41,6 +50,15 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.GuestLogin(&in)
+		fmt.Println(X.ToJsonPretty(out))
+
+
+	case domain.GuestOauthCallbackAction:
+		in := domain.GuestOauthCallbackIn{}
+		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+			return
+		}
+		out := b.GuestOauthCallback(&in)
 		fmt.Println(X.ToJsonPretty(out))
 
 

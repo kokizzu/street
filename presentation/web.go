@@ -25,6 +25,7 @@ type WebServer struct {
 	Log      *zerolog.Logger
 	Cfg      conf.WebConf
 	Mailer   xMailer.Mailer
+	Oauth    conf.OauthConf
 }
 
 var requiredHeader = M.SS{
@@ -69,6 +70,7 @@ func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, u
 	if conf.IsDebug() && reqCommon.Debug {
 		log.Print(reqCommon.RawBody)
 	}
+	reqCommon.FromFiberCtx(ctx, ctx.UserContext())
 	return nil
 }
 
@@ -82,6 +84,7 @@ func (w *WebServer) Start() {
 		AuthOlap: w.AuthOlap,
 		Mailer:   w.Mailer,
 		IsBgSvc:  true,
+		Oauth:    w.Oauth,
 	}
 
 	// load svelte templates

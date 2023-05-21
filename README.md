@@ -38,15 +38,19 @@ separates read/query and write/command into different database/connection.
 ## Start dev mode
 
 ```shell
-# start golang backend server
+# start frontend auto build 
+cd svelte
+npm run watch
+
+# start golang backend server, also serving static html
 air web
 
 # manually
 go run main.go web
 
-# start frontend auto build 
-cd svelte
-npm run watch
+# start reverse proxy, if you need test oauth
+caddy run # foreground
+caddy start # background
 ```
 
 ## Generate ORM
@@ -75,8 +79,10 @@ go test -bench=BenchmarkGenerateOrm
 # - model/m*/*/*.go
 # - svelte/*.svelte
 
+./gen-views.sh
+# or
 cd presentation
-go test -bench=BenchmarkGenerateViews
+go test -bench=BenchmarkGenerateViews 
 
 # output:
 # - presentation/actions.GEN.go     # -- all possible commands
@@ -118,6 +124,8 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
   - **A**: `presentation/web_static.go`
 - **Q**: got error `there is no space with name [tableName]`
   - **A**: run `go run main.go migrate` to do migration
+- **Q**: got error `Command 'caddy' not found`
+  - **A**: install [caddy](//caddyserver.com/docs/install)
 - **Q**: got error `Command 'air' not found`
   - **A**: install [air](//github.com/cosmtrek/air)
 - **Q**: got error `Command 'replacer' not found`

@@ -10,11 +10,17 @@ import (
 
 
 var viewList = map[string]string{
+	`GuestOauthCallback`: `../svelte/guest/oauthCallback.html`, // ../svelte/guest/oauthCallback.svelte
 	`GuestResetPassword`: `../svelte/guest/resetPassword.html`, // ../svelte/guest/resetPassword.svelte
 	`GuestVerifyEmail`: `../svelte/guest/verifyEmail.html`, // ../svelte/guest/verifyEmail.svelte
 	`Index`: `../svelte/index.html`, // ../svelte/index.svelte
 }
 
+
+func (v *Views) RenderGuestOauthCallback(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html")
+	return c.SendString(v.cache[`GuestOauthCallback`].Str(m))
+}
 
 func (v *Views) RenderGuestResetPassword(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html")
