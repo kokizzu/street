@@ -4,6 +4,7 @@ import (
 	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
+	"street/model/mProperty"
 
 	"street/model/mAuth"
 )
@@ -24,4 +25,6 @@ func RunMigration(
 	}
 	m.UserOltp.MigrateTables(mAuth.TarantoolTables)
 	m.UserOlap.MigrateTables(mAuth.ClickhouseTables)
+	m.UserOltp.MigrateTables(mProperty.TarantoolTables)
+	m.UserOlap.MigrateTables(mProperty.ClickhouseTables)
 }
