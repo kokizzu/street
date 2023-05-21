@@ -203,5 +203,7 @@ func (d *Domain) mustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 		out.SetError(403, ErrSessionTokenLoggedOut)
 		return nil
 	}
+
+	out.actor = sess.UserId
 	return &sess
 }
