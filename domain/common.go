@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/goccy/go-json"
@@ -14,6 +15,7 @@ import (
 	"github.com/jessevdk/go-flags"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/id64"
+	"github.com/kokizzu/lexid"
 	"github.com/kpango/fastime"
 	"github.com/rs/zerolog/log"
 
@@ -29,7 +31,7 @@ import (
 
 type RequestCommon struct {
 	TracerContext context.Context   `json:"-" form:"tracerContext" query:"tracerContext" long:"tracerContext" msg:"-"`
-	RequestId     uint64            `json:"requestId,string" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
+	RequestId     string            `json:"requestId" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
 	SessionToken  string            `json:"sessionToken" form:"sessionToken" query:"sessionToken" long:"sessionToken" msg:"sessionToken"`
 	UserAgent     string            `json:"userAgent" form:"userAgent" query:"userAgent" long:"userAgent" msg:"userAgent"`
 	IpAddress     string            `json:"ipAddress" form:"ipAddress" query:"ipAddress" long:"ipAddress" msg:"ipAddress"`
@@ -39,21 +41,25 @@ type RequestCommon struct {
 	Header        string            `json:"header,omitempty" form:"header" query:"header" long:"header" msg:"header"`
 	RawBody       string            `json:"rawBody,omitempty" form:"rawBody" query:"rawBody" long:"rawBody" msg:"rawBody"`
 	Host          string            `json:"host" form:"host" query:"host" long:"host" msg:"host"`
+	Action        string            `json:"action" form:"action" query:"action" long:"action" msg:"action"`
 
 	// in seconds
 	now int64 `json:"-" form:"now" query:"now" long:"now" msg:"-"`
 }
 
-func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon) error {
+func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon, in any) error {
 	defer l.deleteTempFiles()
 	if rc.StatusCode != http.StatusOK {
 		ctx.Status(rc.StatusCode)
 	}
+	rc.DecorateSession(ctx)
 	switch l.OutputFormat {
 	case ``, `json`, fiber.MIMEApplicationJSON:
 		ctx.Set(fiber.HeaderContentType, fiber.MIMEApplicationJSON)
+		if l.Debug {
+			rc.Debug = in
+		}
 		byt, err := json.Marshal(out)
-		//L.Print(string(byt))
 		if L.IsError(err, `json.Marshal: %#v`, out) {
 			return err
 		}
@@ -62,7 +68,11 @@ func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon) 
 			return err
 		}
 		// TODO: log size/bytes written
-		log.Print(string(byt))
+		if l.Debug {
+			log.Print(string(byt))
+		}
+	case `html`:
+		// do nothing
 	default:
 		return errors.New(`ToFiberCtx unhandled format: ` + l.OutputFormat)
 	}
@@ -81,12 +91,15 @@ func (i *RequestCommon) TimeNow() time.Time {
 }
 
 func (l *RequestCommon) FromFiberCtx(ctx *fiber.Ctx, tracerCtx context.Context) {
-	l.RequestId = id64.UID()
+	l.RequestId = lexid.ID()
 	l.SessionToken = ctx.Cookies(conf.CookieName, l.SessionToken)
 	l.UserAgent = string(ctx.Request().Header.UserAgent())
 	l.Host = ctx.Protocol() + `://` + ctx.Hostname()
 	// from nginx reverse proxy
 	l.IpAddress = ctx.IP()
+	if l.IpAddress == `` {
+		l.IpAddress = `0.0.0.0`
+	}
 	// "Accept":"*/*", "Connection":"close", "Content-Length":"0", "Host":"admin.hapstr.xyz", "User-Agent":"curl/7.81.0", "X-Forwarded-For":"182.253.163.10", "X-Forwarded-Proto":"https", "X-Real-Ip":"182.253.163.10"
 	l.now = fastime.UnixNow()
 	file, err := ctx.FormFile(`fileBinary`)
@@ -120,7 +133,7 @@ func (l *RequestCommon) ToCli(file *os.File, out any) {
 }
 
 func (l *RequestCommon) FromCli(file *os.File, ctx context.Context) {
-	l.RequestId = id64.UID()
+	l.RequestId = lexid.ID()
 	// TODO: read from args/stdin/config-file?
 	// l.SessionToken =
 	_, err := flags.Parse(&l)
@@ -144,6 +157,10 @@ type ResponseCommon struct {
 	StatusCode   int    `json:"status" form:"statusCode" query:"statusCode" long:"statusCode" msg:"statusCode"`
 	Debug        any    `json:"debug,omitempty" form:"debug" query:"debug" long:"debug" msg:"debug"`
 	Redirect     string `json:"redirect,omitempty" form:"redirect" query:"redirect" long:"redirect" msg:"redirect"`
+
+	// action trace
+	traces []string
+	actor  uint64
 }
 
 func (o *ResponseCommon) HasError() bool {
@@ -165,7 +182,7 @@ func (o *ResponseCommon) SetErrorf(code int, errFmt string, args ...any) {
 	o.Error = fmt.Sprintf(errFmt, args...)
 }
 
-func (l *ResponseCommon) DecorateSession(ctx *fiber.Ctx, inRc *RequestCommon, in any) {
+func (l *ResponseCommon) DecorateSession(ctx *fiber.Ctx) {
 	if l.SessionToken != `` {
 		if l.SessionToken == conf.CookieLogoutValue {
 			ctx.ClearCookie(conf.CookieName)
@@ -173,12 +190,20 @@ func (l *ResponseCommon) DecorateSession(ctx *fiber.Ctx, inRc *RequestCommon, in
 				Name:    conf.CookieName,
 				Expires: time.Unix(0, 0),
 			})
-		} else {
-			ctx.Cookie(&fiber.Cookie{
-				Name:    conf.CookieName,
-				Value:   l.SessionToken,
-				Expires: time.Now().AddDate(0, 0, conf.CookieDays),
-			})
+			return
 		}
+		ctx.Cookie(&fiber.Cookie{
+			Name:    conf.CookieName,
+			Value:   l.SessionToken,
+			Expires: time.Now().AddDate(0, 0, conf.CookieDays),
+		})
 	}
+}
+
+func (o *ResponseCommon) AddTrace(act string) {
+	o.traces = append(o.traces, act)
+}
+
+func (o *ResponseCommon) Traces() string {
+	return strings.Join(o.traces, `|`)
 }

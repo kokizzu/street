@@ -1,30 +1,31 @@
 package model
 
 import (
+	"street/model/mProperty"
+
 	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
-	"street/model/mProperty"
 
 	"street/model/mAuth"
 )
 
 type Migrator struct {
-	UserOltp *Tt.Adapter
-	UserOlap *Ch.Adapter
+	AuthOltp *Tt.Adapter
+	AuthOlap *Ch.Adapter
 }
 
 func RunMigration(
-	userOltp *Tt.Adapter,
-	userOlap *Ch.Adapter,
+	authOltp *Tt.Adapter,
+	authOlap *Ch.Adapter,
 ) {
 	L.Print(`run migration..`)
 	m := Migrator{
-		UserOltp: userOltp,
-		UserOlap: userOlap,
+		AuthOltp: authOltp,
+		AuthOlap: authOlap,
 	}
-	m.UserOltp.MigrateTables(mAuth.TarantoolTables)
-	m.UserOlap.MigrateTables(mAuth.ClickhouseTables)
-	m.UserOltp.MigrateTables(mProperty.TarantoolTables)
-	m.UserOlap.MigrateTables(mProperty.ClickhouseTables)
+	m.AuthOltp.MigrateTables(mAuth.TarantoolTables)
+	m.AuthOlap.MigrateTables(mAuth.ClickhouseTables)
+	m.AuthOltp.MigrateTables(mProperty.TarantoolTables)
+	m.AuthOlap.MigrateTables(mProperty.ClickhouseTables)
 }

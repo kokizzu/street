@@ -2,7 +2,8 @@
   import {GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail, UserLogout} from "./jsApi.GEN.js"
   import {onMount, tick} from "svelte";
   
-  let user = {/* user */}
+  let user = {/* user */};
+  let google = '#{google}';
   
   function getCookie( name ) {
     var match = document.cookie.match( new RegExp( '(^| )' + name + '=([^;]+)' ) );
@@ -32,7 +33,7 @@
   async function onHashChange() {
     const auth = getCookie( 'auth' )
     console.log( auth )
-    if( auth ) {
+    if( auth && !auth.startsWith( 'TEMP__' ) ) {
       location.hash = ''
       mode = USER
       return
@@ -91,7 +92,7 @@
       console.log( o )
       if( o.error ) return alert( o.error );
       onHashChange()
-      alert('a email verification link has been sent to your email')
+      alert( 'a email verification link has been sent to your email' )
     } )
   }
   
@@ -102,7 +103,7 @@
       console.log( o )
       if( o.error ) return alert( o.error );
       onHashChange()
-      alert('a reset password link has been sent to your email')
+      alert( 'a reset password link has been sent to your email' )
     } )
   }
   
@@ -110,7 +111,7 @@
     await UserLogout( {}, function( o ) {
       console.log( o )
       if( o.error ) return alert( o.error );
-      onHashChange()
+      window.location = '/'
     } )
   }
 
@@ -146,6 +147,13 @@
 		
 		{#if mode===LOGIN}
 			<button on:click={guestLogin}>Login</button>
+		{/if}
+		
+		{#if mode===REGISTER || mode===LOGIN}
+			{#if google}
+				or
+				<a class="button" href={google}>Sign in/up using Google</a>
+			{/if}
 		{/if}
 		
 		{#if mode===RESEND_VERIFICATION_EMAIL}

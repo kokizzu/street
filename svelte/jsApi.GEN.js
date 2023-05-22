@@ -52,6 +52,36 @@ exports.GuestDebug = async function GuestDebug( i, cb ) {
 }
 
 /**
+ * @typedef {Object} GuestExternalAuthIn
+ * @property {String} provider
+ */
+const GuestExternalAuthIn = {
+  provider: '', // string
+}
+/**
+ * @typedef {Object} GuestExternalAuthOut
+ * @property {String} link
+ */
+const GuestExternalAuthOut = {
+  link: '', // string
+}
+/**
+ * @callback GuestExternalAuthCallback
+ * @param {GuestExternalAuthOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {GuestExternalAuthIn} i
+ * @param {GuestExternalAuthCallback} cb
+ * @returns {Promise}
+ */
+exports.GuestExternalAuth = async function GuestExternalAuth( i, cb ) {
+  return await axios.post( '/guest/externalAuth', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} GuestForgotPasswordIn
  * @property {String} email
  */
@@ -139,6 +169,75 @@ const GuestLoginOut = {
  */
 exports.GuestLogin = async function GuestLogin( i, cb ) {
   return await axios.post( '/guest/login', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} GuestOauthCallbackIn
+ * @property {String} state
+ * @property {String} code
+ * @property {String} accessToken
+ */
+const GuestOauthCallbackIn = {
+  state: '', // string
+  code: '', // string
+  accessToken: '', // string
+}
+/**
+ * @typedef {Object} GuestOauthCallbackOut
+ * @property {Object} oauthUser
+ * @property {String} email
+ * @property {number} currentUser.id
+ * @property {String} currentUser.email
+ * @property {String} currentUser.password
+ * @property {number} currentUser.createdAt
+ * @property {number} currentUser.createdBy
+ * @property {number} currentUser.updatedAt
+ * @property {number} currentUser.updatedBy
+ * @property {number} currentUser.deletedAt
+ * @property {number} currentUser.passwordSetAt
+ * @property {String} currentUser.secretCode
+ * @property {number} currentUser.secretCodeAt
+ * @property {number} currentUser.verificationSentAt
+ * @property {number} currentUser.verifiedAt
+ * @property {number} currentUser.lastLoginAt
+ * @property {String} provider
+ */
+const GuestOauthCallbackOut = {
+  oauthUser: { // M.SX
+  }, // M.SX
+  email: '', // string
+  currentUser: { // rqAuth.Users
+    id: 0, // uint64
+    email: '', // string
+    password: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    passwordSetAt: 0, // int64
+    secretCode: '', // string
+    secretCodeAt: 0, // int64
+    verificationSentAt: 0, // int64
+    verifiedAt: 0, // int64
+    lastLoginAt: 0, // int64
+  }, // rqAuth.Users
+  provider: '', // string
+}
+/**
+ * @callback GuestOauthCallbackCallback
+ * @param {GuestOauthCallbackOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {GuestOauthCallbackIn} i
+ * @param {GuestOauthCallbackCallback} cb
+ * @returns {Promise}
+ */
+exports.GuestOauthCallback = async function GuestOauthCallback( i, cb ) {
+  return await axios.post( '/guest/oauthCallback', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

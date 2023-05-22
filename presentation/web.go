@@ -25,6 +25,7 @@ type WebServer struct {
 	Log      *zerolog.Logger
 	Cfg      conf.WebConf
 	Mailer   xMailer.Mailer
+	Oauth    conf.OauthConf
 }
 
 var requiredHeader = M.SS{
@@ -37,6 +38,7 @@ var requiredHeader = M.SS{
 // 3. params
 func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, url string) error {
 	body := ctx.Body()
+	reqCommon.Action = url
 	reqCommon.Debug = reqCommon.Debug || conf.IsDebug()
 	path := S.LeftOf(url, `?`) // without API_PREFIX
 	if header, ok := requiredHeader[path]; ok {
@@ -69,6 +71,7 @@ func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, u
 	if conf.IsDebug() && reqCommon.Debug {
 		log.Print(reqCommon.RawBody)
 	}
+	reqCommon.FromFiberCtx(ctx, ctx.UserContext())
 	return nil
 }
 
@@ -82,7 +85,9 @@ func (w *WebServer) Start() {
 		AuthOlap: w.AuthOlap,
 		Mailer:   w.Mailer,
 		IsBgSvc:  true,
+		Oauth:    w.Oauth,
 	}
+	d.InitTimedBuffer()
 
 	// load svelte templates
 	views = &Views{}
@@ -100,6 +105,8 @@ func (w *WebServer) Start() {
 	ApiRoutes(fw, d)
 
 	log.Err(fw.Listen(w.Cfg.ListenAddr()))
+
+	d.WaitTimedBufferFinalFlush()
 }
 
 type Views struct {

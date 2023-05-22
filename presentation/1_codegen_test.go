@@ -415,8 +415,6 @@ func (c *codegen) GenerateApiRoutesFile() {
 	b.WriteString(`package presentation
 ` + generatedComment + `
 import (
-	"context"
-
 	"github.com/gofiber/fiber/v2"
 
 	"street/domain"
@@ -428,15 +426,12 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		b.WriteString(`
 	// ` + name + `
 	fw.Post("/"+domain.` + name + `Action, func(c *fiber.Ctx) error {
-		ctx := context.Background() // TODO: use tracer
 		in := domain.` + name + `In{}
 		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.` + name + `Action); err != nil {
 			return err
 		}
-		in.FromFiberCtx(c, ctx)
 		out := d.` + name + `(&in)
-		out.DecorateSession(c, &in.RequestCommon, &in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 `)
 	})

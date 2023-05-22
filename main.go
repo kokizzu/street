@@ -25,6 +25,10 @@ var log *zerolog.Logger
 
 func main() {
 	conf.VERSION = VERSION
+
+	// note: set instance id when there's multiple instance
+	// lexid.Config.Separator = `~THE_INSTANCE_ID`
+
 	fmt.Println(conf.PROJECT_NAME + ` ` + S.IfEmpty(VERSION, `local-dev`))
 
 	log = conf.InitLogger()
@@ -102,6 +106,8 @@ func main() {
 		return err
 	})
 
+	oauth := conf.EnvOauth()
+
 	L.PanicIf(eg.Wait(), `eg.Wait`)
 	for _, closer := range closers {
 		closer := closer
@@ -118,6 +124,7 @@ func main() {
 			Log:      log,
 			Cfg:      conf.EnvWebConf(),
 			Mailer:   mailer,
+			Oauth:    oauth,
 		}
 		ws.Start()
 	case `cli`:
@@ -126,6 +133,7 @@ func main() {
 			AuthOlap: cConn,
 			Log:      log,
 			Mailer:   mailer,
+			Oauth:    oauth,
 		}
 		cli.Run(os.Args[2:])
 	case `cron`:
