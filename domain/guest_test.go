@@ -18,7 +18,7 @@ func TestGuestRegister(t *testing.T) {
 	t.Run("emptyInput", func(t *testing.T) {
 		in := GuestRegisterIn{}
 		out := d.GuestRegister(&in)
-		assert.Equal(t, out.Error, "email must be valid")
+		assert.Equal(t, out.Error, ErrGuestRegisterEmailInvalid)
 	})
 
 	t.Run("invalidEmail", func(t *testing.T) {
@@ -159,7 +159,7 @@ func TestGuestLogin(t *testing.T) {
 	t.Run("emptyInput", func(t *testing.T) {
 		in := GuestLoginIn{}
 		out := d.GuestLogin(&in)
-		assert.Equal(t, out.Error, "email must be valid")
+		assert.Equal(t, out.Error, ErrGuestLoginEmailInvalid)
 	})
 
 	t.Run("invalidEmail", func(t *testing.T) {
