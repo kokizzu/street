@@ -121,10 +121,13 @@ func main() {
 		ws := &presentation.WebServer{
 			AuthOltp: tConn,
 			AuthOlap: cConn,
-			Log:      log,
-			Cfg:      conf.EnvWebConf(),
-			Mailer:   mailer,
-			Oauth:    oauth,
+			PropOltp: tConn,
+			PropOlap: cConn,
+
+			Log:    log,
+			Cfg:    conf.EnvWebConf(),
+			Mailer: mailer,
+			Oauth:  oauth,
 		}
 		ws.Start()
 	case `cli`:
@@ -140,12 +143,14 @@ func main() {
 		cron := &presentation.Cron{
 			AuthOltp: tConn,
 			AuthOlap: cConn,
+			PropOltp: tConn,
+			PropOlap: cConn,
 			Log:      log,
 			Mailer:   mailer,
 		}
 		cron.Start()
 	case `migrate`:
-		model.RunMigration(tConn, cConn)
+		model.RunMigration(tConn, cConn, tConn, cConn)
 	default:
 		log.Error().Str(`mode`, mode).Msg(`unknown mode`)
 	}

@@ -111,7 +111,7 @@ func TestMain(m *testing.M) {
 	_ = eg.Wait()
 
 	// run migration
-	model.RunMigration(testTt, testCh)
+	model.RunMigration(testTt, testCh, testTt, testCh)
 
 	// run tests
 	m.Run()

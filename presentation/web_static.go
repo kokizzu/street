@@ -81,4 +81,16 @@ func WebStatic(fw *fiber.App, d *domain.Domain) {
 			`title`: `Reset Password`,
 		})
 	})
+
+	fw.Get(`/privacy`, func(ctx *fiber.Ctx) error {
+		return views.RenderPrivacy(ctx, M.SX{
+			`title`: `HapSTR Privacy Policy`,
+		})
+	})
+
+	fw.Get(`/tos`, func(ctx *fiber.Ctx) error {
+		return views.RenderTos(ctx, M.SX{
+			`title`: `HapSTR Terms of Service`,
+		})
+	})
 }

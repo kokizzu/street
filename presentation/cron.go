@@ -14,6 +14,8 @@ type Cron struct {
 	Log          *zerolog.Logger
 	SendMailFunc xMailer.SendMailFunc
 	Mailer       xMailer.Mailer
+	PropOltp     *Tt.Adapter
+	PropOlap     *Ch.Adapter
 }
 
 func (c *Cron) Start() {

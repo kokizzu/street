@@ -26,6 +26,8 @@ type WebServer struct {
 	Cfg      conf.WebConf
 	Mailer   xMailer.Mailer
 	Oauth    conf.OauthConf
+	PropOltp *Tt.Adapter
+	PropOlap *Ch.Adapter
 }
 
 var requiredHeader = M.SS{
