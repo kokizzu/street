@@ -1,6 +1,8 @@
 package model
 
 import (
+	"street/model/mProperty"
+
 	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
@@ -24,4 +26,6 @@ func RunMigration(
 	}
 	m.AuthOltp.MigrateTables(mAuth.TarantoolTables)
 	m.AuthOlap.MigrateTables(mAuth.ClickhouseTables)
+	m.AuthOltp.MigrateTables(mProperty.TarantoolTables)
+	m.AuthOlap.MigrateTables(mProperty.ClickhouseTables)
 }
