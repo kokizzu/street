@@ -22,6 +22,9 @@ const (
 	VerificationSentAt = `verificationSentAt`
 	VerifiedAt         = `verifiedAt`
 	LastLoginAt        = `lastLoginAt`
+
+	LoginAt  = `loginAt`
+	LoginIPs = `LoginIPs`
 )
 
 const (
@@ -60,6 +63,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UserId, Tt.Unsigned},
 			{ExpiredAt, Tt.Integer},
 			{Device, Tt.String},
+			{LoginAt, Tt.Integer},
+			{LoginIPs, Tt.String},
 		},
 		Unique1: SessionToken,
 	},

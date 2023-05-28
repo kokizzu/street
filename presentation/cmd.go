@@ -1,21 +1,11 @@
 package presentation
 
 import (
-	"github.com/kokizzu/gotro/D/Ch"
-	"github.com/kokizzu/gotro/D/Tt"
-	"github.com/rs/zerolog"
-
-	"street/conf"
 	"street/domain"
-	"street/model/xMailer"
 )
 
 type CLI struct {
-	AuthOltp *Tt.Adapter
-	AuthOlap *Ch.Adapter
-	Log      *zerolog.Logger
-	Mailer   xMailer.Mailer
-	Oauth    conf.OauthConf
+	*domain.Domain
 }
 
 func (c *CLI) Run(args []string) {
@@ -28,14 +18,8 @@ func (c *CLI) Run(args []string) {
 		return
 	}
 
-	b := &domain.Domain{
-		AuthOltp: c.AuthOltp,
-		AuthOlap: c.AuthOlap,
-		Mailer:   c.Mailer,
-		Oauth:    c.Oauth,
-	}
-	b.InitTimedBuffer()
-	cmdRun(b, args[0], []byte(args[1]))
-	b.WaitTimedBufferFinalFlush()
+	c.InitTimedBuffer()
+	cmdRun(c.Domain, args[0], []byte(args[1]))
+	c.Domain.WaitTimedBufferFinalFlush()
 
 }

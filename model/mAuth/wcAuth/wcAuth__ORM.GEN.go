@@ -3,19 +3,20 @@ package wcAuth
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 import (
-	`street/model/mAuth/rqAuth`
+	"street/model/mAuth/rqAuth"
 
-	`github.com/kokizzu/gotro/A`
-	`github.com/kokizzu/gotro/D/Tt`
-	`github.com/kokizzu/gotro/L`
-	`github.com/kokizzu/gotro/X`
+	"github.com/kokizzu/gotro/A"
+	"github.com/kokizzu/gotro/D/Tt"
+	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/X"
 )
 
+// SessionsMutator DAO writer/command struct
+//
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file wcAuth__ORM.GEN.go
 //go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type wcAuth__ORM.GEN.go
 //go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type wcAuth__ORM.GEN.go
 //go:generate replacer -afterprefix 'By" form' 'By,string" form' type wcAuth__ORM.GEN.go
-// SessionsMutator DAO writer/command struct
 type SessionsMutator struct {
 	rqAuth.Sessions
 	mutations []A.X
@@ -42,6 +43,8 @@ func (s *SessionsMutator) ClearMutations() { //nolint:dupl false positive
 //		A.X{`=`, 1, s.UserId},
 //		A.X{`=`, 2, s.ExpiredAt},
 //		A.X{`=`, 3, s.Device},
+//		A.X{`=`, 4, s.LoginAt},
+//		A.X{`=`, 5, s.LoginIPs},
 //	})
 //	return !L.IsError(err, `Sessions.DoUpsert failed: `+s.SpaceName())
 // }
@@ -116,6 +119,26 @@ func (s *SessionsMutator) SetDevice(val string) bool { //nolint:dupl false posit
 	if val != s.Device {
 		s.mutations = append(s.mutations, A.X{`=`, 3, val})
 		s.Device = val
+		return true
+	}
+	return false
+}
+
+// SetLoginAt create mutations, should not duplicate
+func (s *SessionsMutator) SetLoginAt(val int64) bool { //nolint:dupl false positive
+	if val != s.LoginAt {
+		s.mutations = append(s.mutations, A.X{`=`, 4, val})
+		s.LoginAt = val
+		return true
+	}
+	return false
+}
+
+// SetLoginIPs create mutations, should not duplicate
+func (s *SessionsMutator) SetLoginIPs(val string) bool { //nolint:dupl false positive
+	if val != s.LoginIPs {
+		s.mutations = append(s.mutations, A.X{`=`, 5, val})
+		s.LoginIPs = val
 		return true
 	}
 	return false
@@ -367,4 +390,3 @@ func (u *UsersMutator) SetLastLoginAt(val int64) bool { //nolint:dupl false posi
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
-

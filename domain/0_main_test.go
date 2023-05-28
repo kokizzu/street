@@ -108,7 +108,8 @@ func TestMain(m *testing.M) {
 		return nil
 	})
 
-	_ = eg.Wait()
+	err := eg.Wait()
+	L.PanicIf(err, `eg.Wait`)
 
 	// run migration
 	model.RunMigration(testTt, testCh, testTt, testCh)
@@ -119,10 +120,20 @@ func TestMain(m *testing.M) {
 	// teardown dockertest instance
 }
 
-func testDomain() *Domain {
-	return &Domain{
+func testDomain() (*Domain, func()) {
+	d := &Domain{
 		AuthOltp: testTt,
 		AuthOlap: testCh,
-		Mailer:   testMailer,
+
+		PropOltp: testTt,
+		PropOlap: testCh,
+
+		Mailer:  xMailer.Mailer{SendMailFunc: testMailer.SendMailFunc},
+		IsBgSvc: false,
+	}
+	d.InitTimedBuffer()
+	return d, func() {
+		go d.authLogs.Close()
+		d.WaitTimedBufferFinalFlush()
 	}
 }

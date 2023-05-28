@@ -7,29 +7,19 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
-	"github.com/kokizzu/gotro/D/Ch"
-	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/Z"
-	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
 	"street/conf"
 	"street/domain"
-	"street/model/xMailer"
 )
 
 type WebServer struct {
-	AuthOltp *Tt.Adapter
-	AuthOlap *Ch.Adapter
-	Log      *zerolog.Logger
-	Cfg      conf.WebConf
-	Mailer   xMailer.Mailer
-	Oauth    conf.OauthConf
-	PropOltp *Tt.Adapter
-	PropOlap *Ch.Adapter
+	*domain.Domain
+	Cfg conf.WebConf
 }
 
 var requiredHeader = M.SS{
@@ -84,14 +74,7 @@ func (w *WebServer) Start() {
 		ProxyHeader: `X-Real-IP`,
 	})
 
-	d := &domain.Domain{
-		AuthOltp: w.AuthOltp,
-		AuthOlap: w.AuthOlap,
-		Mailer:   w.Mailer,
-		IsBgSvc:  true,
-		Oauth:    w.Oauth,
-	}
-	d.InitTimedBuffer()
+	w.Domain.InitTimedBuffer()
 
 	// load svelte templates
 	views = &Views{}
@@ -103,10 +86,10 @@ func (w *WebServer) Start() {
 	}
 
 	// assign static routes (GET)
-	WebStatic(fw, d)
+	WebStatic(fw, w.Domain)
 
 	// API routes (POST)
-	ApiRoutes(fw, d)
+	ApiRoutes(fw, w.Domain)
 
 	// finally serve static files from svelte directory if any
 	fw.Static(`/`, `./svelte`, fiber.Static{
@@ -119,7 +102,7 @@ func (w *WebServer) Start() {
 
 	log.Err(fw.Listen(w.Cfg.ListenAddr()))
 
-	d.WaitTimedBufferFinalFlush()
+	w.Domain.WaitTimedBufferFinalFlush()
 }
 
 type Views struct {
