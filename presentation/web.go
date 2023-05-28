@@ -1,6 +1,8 @@
 package presentation
 
 import (
+	"time"
+
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -105,6 +107,15 @@ func (w *WebServer) Start() {
 
 	// API routes (POST)
 	ApiRoutes(fw, d)
+
+	// finally serve static files from svelte directory if any
+	fw.Static(`/`, `./svelte`, fiber.Static{
+		Compress:      true,
+		ByteRange:     true,
+		Browse:        false,
+		CacheDuration: 5 * time.Second,
+		MaxAge:        3600,
+	})
 
 	log.Err(fw.Listen(w.Cfg.ListenAddr()))
 
