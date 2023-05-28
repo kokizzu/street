@@ -7,3 +7,4 @@ deploy/svelte
 deploy/.env
 deploy/.env.production
 deploy/.env.override
+*.fiber.gz

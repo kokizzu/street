@@ -9,6 +9,30 @@ server {
   include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
+
+  gzip on;
+
+  gzip_types
+    text/css
+    text/plain
+    text/javascript
+    application/javascript
+    application/json
+    application/x-javascript
+    application/xml
+    application/xml+rss
+    application/xhtml+xml
+    application/x-font-ttf
+    application/x-font-opentype
+    application/vnd.ms-fontobject
+    image/svg+xml
+    image/x-icon
+    application/rss+xml;
+  gzip_proxied    no-cache no-store private expired auth;
+  gzip_min_length 1024;
+  gzip_comp_level 2;
+  gzip_buffers 32 8k;
+
   server_name admin.hapstr.xyz;
 
   location / {
