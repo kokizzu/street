@@ -9,13 +9,17 @@ server {
   include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
   ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
-  root /home/street/svelte;
   server_name admin.hapstr.xyz;
 
   location / {
+    root /home/street/svelte;
+    try_files $uri @apiproxy;
+  }
+
+  location @apiproxy {
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarwwwwwwwwwwwwded-Proto $scheme;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_pass http://localhost:1234;
   }
