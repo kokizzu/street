@@ -3,6 +3,10 @@ package domain
 import (
 	"log"
 
+	"github.com/kokizzu/gotro/A"
+	"github.com/kokizzu/gotro/I"
+	"github.com/kokizzu/gotro/S"
+
 	"street/model/mAuth/rqAuth"
 	"street/model/mAuth/wcAuth"
 )
@@ -165,6 +169,11 @@ func (d *Domain) UserDeactivate(in *UserDeactivateIn) (out UserDeactivateOut) {
 	}
 
 	user.SetDeletedAt(in.UnixNow())
+	arr := S.Split(user.Email, `@`)
+	arr[0] += `DEL` + I.UToS(user.Id)
+	newEmail := A.StrJoin(arr, `@`)
+
+	user.SetEmail(newEmail)
 
 	if !user.DoUpdateById() {
 		out.SetError(500, ErrUserDeactivateUpdateFailed)
