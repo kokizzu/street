@@ -7,7 +7,7 @@ import (
 )
 
 func (rq *Property) FindPropertiesBySerialNumber(serialNumber string) (res []*Property) {
-	query := `SELECT * from ` + rq.sqlTableName() + `WHERE ` + rq.SerialNumber + ` = serialNumber`
+	query := `SELECT * from ` + rq.sqlTableName() + `WHERE "serialNumber" = '` + serialNumber + `'`
 	if conf.DEBUG_MODE {
 		L.Print(query)
 	}
@@ -25,7 +25,7 @@ func (rq *Property) FindPropertiesByUniqueKey(uniqueSerialAndSize string) (res [
 
 	fmt.Println("Query == ", query)
 	if conf.DEBUG_MODE {
-		L.Print(query)
+		//L.Print(query)
 	}
 	rq.Adapter.QuerySql(query, func(row []any) {
 		obj := &Property{}

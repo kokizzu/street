@@ -3,6 +3,7 @@ package model
 import (
 	"fmt"
 	"street/model/mProperty"
+	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
 	"time"
 
@@ -41,8 +42,100 @@ func RunMigration(
 	m.PropOlap.MigrateTables(mProperty.ClickhouseTables)
 }
 
+func UpdateAddressesToHouse(adapter **Tt.Adapter) {
+	fmt.Println("Begin the process update address to house")
+	pathData := "/Volumes/DATA/Projects/HapSTR/test-files/a_lvr_land_a.xlsx"
+	f, err := excelize.OpenFile(pathData)
+	if err != nil {
+		fmt.Println(err)
+	}
+	propertyMutator := wcProperty.NewPropertyMutator(*adapter)
+	defer func() {
+		if err := f.Close(); err != nil {
+			fmt.Println(err)
+		}
+	}()
+
+	rows, err := f.GetRows("BuyAndSell")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	for index, row := range rows {
+		if index == 0 || index == 1 {
+			continue
+		}
+
+		var district string = ""
+		var address string = ""
+		var serialPropertyNumber string = ""
+
+		for colIndex, colCell := range row {
+			// Col 0 - District
+			// Col 2 - Address
+			// Col 27 - House Serial Number
+
+			if colIndex == 0 {
+				district = colCell
+			}
+			if colIndex == 2 {
+				address = colCell
+			}
+			if colIndex == 27 {
+				serialPropertyNumber = colCell
+			}
+			// Get list of property based on house serial number
+			existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
+
+			for _, house := range existingHouseData {
+				fmt.Println("House data -> ", house)
+
+				if house.Address != "" && house.District != "" {
+					continue
+				} else {
+					house.Address = address
+					house.District = district
+
+					// Updated house
+					dataMutator := wcProperty.NewPropertyMutator(*adapter)
+					dataMutator.Property = rqProperty.Property{
+						Adapter:                *adapter,
+						Id:                     house.Id,
+						UniquePropertyKey:      house.UniquePropertyKey,
+						SerialNumber:           house.SerialNumber,
+						SizeM2:                 house.SizeM2,
+						MainUse:                house.MainUse,
+						MainBuildingMaterial:   house.MainBuildingMaterial,
+						ConstructCompletedDate: house.ConstructCompletedDate,
+						NumberOfFloors:         house.NumberOfFloors,
+						BuildingLamination:     house.BuildingLamination,
+						Address:                house.Address,
+						District:               house.District,
+						Note:                   house.Note,
+						CreatedAt:              house.CreatedAt,
+						CreatedBy:              house.CreatedBy,
+						UpdatedAt:              time.Now().UnixMilli(),
+						UpdatedBy:              house.UpdatedBy,
+						DeletedAt:              house.DeletedAt,
+					}
+
+					// Update
+					dataMutator.DoOverwriteById()
+				}
+			}
+
+		}
+	}
+
+	fmt.Println("End the process update address to house")
+
+}
+
 func ImportExcelData(adapter *Tt.Adapter) {
 	fmt.Println("Import excel data")
+
+	// TODO path files could be changed
 	pathData := "/Volumes/DATA/Projects/HapSTR/test-files/a_lvr_land_a.xlsx"
 	f, err := excelize.OpenFile(pathData)
 	if err != nil {
@@ -60,17 +153,14 @@ func ImportExcelData(adapter *Tt.Adapter) {
 		fmt.Println(err)
 		return
 	}
-
+	fmt.Println("Begin the process of import house data")
 	for index, row := range rows {
-		fmt.Println("Row => ", index)
 		if index == 0 || index == 1 {
 			continue
 		}
 
 		propertyMutator := wcProperty.NewPropertyMutator(adapter)
 		for colIndex, colCell := range row {
-			fmt.Println("col index => ", colIndex)
-			fmt.Println(colCell, "\t")
 			propertyMutator.Address = ""
 			if colIndex == 0 {
 				propertyMutator.SerialNumber = colCell
@@ -106,5 +196,8 @@ func ImportExcelData(adapter *Tt.Adapter) {
 		} else {
 			propertyMutator.DoInsert()
 		}
+
 	}
+	fmt.Println("End process of import house data")
+	UpdateAddressesToHouse(&adapter)
 }
