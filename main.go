@@ -151,6 +151,9 @@ func main() {
 		cron.Start()
 	case `migrate`:
 		model.RunMigration(tConn, cConn, tConn, cConn)
+	case `import`:
+		fmt.Println("Import excel sheet data")
+		model.ImportExcelData(tConn)
 	default:
 		log.Error().Str(`mode`, mode).Msg(`unknown mode`)
 	}
