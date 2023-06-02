@@ -22,6 +22,7 @@ const (
 	VerificationSentAt = `verificationSentAt`
 	VerifiedAt         = `verifiedAt`
 	LastLoginAt        = `lastLoginAt`
+	FullName           = `fullName`
 
 	LoginAt  = `loginAt`
 	LoginIPs = `LoginIPs`
@@ -53,6 +54,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{VerificationSentAt, Tt.Integer},
 			{VerifiedAt, Tt.Integer},
 			{LastLoginAt, Tt.Integer},
+			{FullName, Tt.String},
 		},
 		AutoIncrementId: true,
 		Unique1:         Email,

@@ -227,6 +227,7 @@ type Users struct {
 	VerificationSentAt int64
 	VerifiedAt         int64
 	LastLoginAt        int64
+	FullName           string
 }
 
 // NewUsers create new ORM reader/query object
@@ -297,6 +298,7 @@ func (u *Users) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "verificationSentAt"
 	, "verifiedAt"
 	, "lastLoginAt"
+	, "fullName"
 	`
 }
 
@@ -317,6 +319,7 @@ func (u *Users) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 11, u.VerificationSentAt},
 		A.X{`=`, 12, u.VerifiedAt},
 		A.X{`=`, 13, u.LastLoginAt},
+		A.X{`=`, 14, u.FullName},
 	}
 }
 
@@ -460,6 +463,16 @@ func (u *Users) SqlLastLoginAt() string { //nolint:dupl false positive
 	return `"lastLoginAt"`
 }
 
+// IdxFullName return name of the index
+func (u *Users) IdxFullName() int { //nolint:dupl false positive
+	return 14
+}
+
+// SqlFullName return name of the column being indexed
+func (u *Users) SqlFullName() string { //nolint:dupl false positive
+	return `"fullName"`
+}
+
 // ToArray receiver fields to slice
 func (u *Users) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -481,6 +494,7 @@ func (u *Users) ToArray() A.X { //nolint:dupl false positive
 		u.VerificationSentAt, // 11
 		u.VerifiedAt,         // 12
 		u.LastLoginAt,        // 13
+		u.FullName,           // 14
 	}
 }
 
@@ -500,6 +514,7 @@ func (u *Users) FromArray(a A.X) *Users { //nolint:dupl false positive
 	u.VerificationSentAt = X.ToI(a[11])
 	u.VerifiedAt = X.ToI(a[12])
 	u.LastLoginAt = X.ToI(a[13])
+	u.FullName = X.ToS(a[14])
 	return u
 }
 
