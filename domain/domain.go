@@ -82,6 +82,8 @@ func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 		IpAddr4:    ip4,
 		IpAddr6:    ip6,
 		UserAgent:  in.UserAgent,
+		Lat:        in.Lat,
+		Long:       in.Long,
 	}
 	return d.authLogs.Insert([]any{
 		row.CreatedAt,
@@ -94,5 +96,7 @@ func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 		row.IpAddr4,
 		row.IpAddr6,
 		row.UserAgent,
+		row.Lat,
+		row.Long,
 	})
 }
