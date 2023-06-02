@@ -77,8 +77,8 @@ func (d *Domain) UserProfile(in *UserProfileIn) (out UserProfileOut) {
 type (
 	UserChangePasswordIn struct {
 		RequestCommon
-		OldPass string
-		NewPass string
+		OldPass string `json:"oldPass" form:"oldPass" query:"oldPass" long:"oldPass" msg:"oldPass"`
+		NewPass string `json:"newPass" form:"newPass" query:"newPass" long:"newPass" msg:"newPass"`
 	}
 	UserChangePasswordOut struct {
 		ResponseCommon
@@ -132,7 +132,7 @@ func (d *Domain) UserChangePassword(in *UserChangePasswordIn) (out UserChangePas
 type (
 	UserDeactivateIn struct {
 		RequestCommon
-		Password string
+		Password string `json:"password" form:"password" query:"password" long:"password" msg:"password"`
 	}
 
 	UserDeactivateOut struct {

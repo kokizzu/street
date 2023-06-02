@@ -82,6 +82,8 @@ const (
 	Action     = `action`
 	Traces     = `traces`
 	StatusCode = `statusCode`
+	Lat        = `lat`
+	Long       = `long`
 )
 
 var ClickhouseTables = map[Ch.TableName]*Ch.TableProp{
@@ -97,6 +99,8 @@ var ClickhouseTables = map[Ch.TableName]*Ch.TableProp{
 			{IpAddr4, Ch.IPv4},
 			{IpAddr6, Ch.IPv6},
 			{UserAgent, Ch.String},
+			{Lat, Ch.Float64},
+			{Long, Ch.Float64},
 		},
 		Orders: []string{CreatedAt, RequestId, ActorId, Action},
 	},
