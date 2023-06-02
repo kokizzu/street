@@ -204,6 +204,7 @@ func (u *UsersMutator) DoDeletePermanentById() bool { //nolint:dupl false positi
 //		A.X{`=`, 12, u.VerifiedAt},
 //		A.X{`=`, 13, u.LastLoginAt},
 //		A.X{`=`, 14, u.FullName},
+//		A.X{`=`, 15, u.UserName},
 //	})
 //	return !L.IsError(err, `Users.DoUpsert failed: `+u.SpaceName())
 // }
@@ -394,6 +395,16 @@ func (u *UsersMutator) SetFullName(val string) bool { //nolint:dupl false positi
 	if val != u.FullName {
 		u.mutations = append(u.mutations, A.X{`=`, 14, val})
 		u.FullName = val
+		return true
+	}
+	return false
+}
+
+// SetUserName create mutations, should not duplicate
+func (u *UsersMutator) SetUserName(val string) bool { //nolint:dupl false positive
+	if val != u.UserName {
+		u.mutations = append(u.mutations, A.X{`=`, 15, val})
+		u.UserName = val
 		return true
 	}
 	return false
