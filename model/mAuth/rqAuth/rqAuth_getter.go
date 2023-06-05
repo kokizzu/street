@@ -8,6 +8,8 @@ import (
 
 func (u *Users) CensorFields() {
 	u.Password = ``
+	u.SecretCode = ``
+	u.SecretCodeAt = 0
 }
 
 func (u *Users) CheckPassword(pass string) error {
