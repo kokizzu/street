@@ -88,6 +88,7 @@ func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
 	user.SetEncryptedPassword(in.Password, in.UnixNow())
 	user.CreatedAt = in.UnixNow()
 	user.SecretCode = id64.SID() + S.RandomCB63(1)
+	user.SetGenUniqueUsernameByEmail(in.Email, in.UnixNow())
 	if !user.DoInsert() {
 		out.SetError(500, ErrGuestRegisterUserCreationFailed)
 		return
@@ -574,11 +575,12 @@ func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCal
 	}
 
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
-	user.Email = out.Email
+	user.Email = S.ValidateEmail(out.Email)
 
 	if !user.FindByEmail() {
 		// create user if not exists
 		user.VerifiedAt = in.UnixNow()
+		user.SetGenUniqueUsernameByEmail(user.Email, in.UnixNow())
 
 		if !user.DoInsert() {
 			out.SetError(500, ErrGuestOauthCallbackFailedUserCreation)

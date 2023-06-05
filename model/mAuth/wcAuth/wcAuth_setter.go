@@ -24,3 +24,9 @@ WHERE ` + s.SqlUserId() + ` = ` + I.UToS(userId) + `
 	out := s.Adapter.ExecSql(query)
 	return activeSession, X.ToS(out[`error`])
 }
+
+func (u *UsersMutator) SetGenUniqueUsernameByEmail(email string, suffix int64) string {
+	newUsername := S.Right(S.ValidateIdent(S.LeftOf(email, `@`))+`_`+I.ToS(suffix%10000), 32)
+	u.SetUserName(newUsername)
+	return newUsername
+}

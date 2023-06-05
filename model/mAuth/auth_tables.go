@@ -60,7 +60,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		},
 		AutoIncrementId: true,
 		Unique1:         Email,
-		//Unique2:         UserName, // later after migration setting default usernames code done
+		Unique2:         UserName, // after migration setting default usernames code done
 	},
 	TableSessions: {
 		Fields: []Tt.Field{

@@ -283,6 +283,25 @@ func (u *Users) FindByEmail() bool { //nolint:dupl false positive
 	return false
 }
 
+// UniqueIndexUserName return unique index name
+func (u *Users) UniqueIndexUserName() string { //nolint:dupl false positive
+	return `userName`
+}
+
+// FindByUserName Find one by UserName
+func (u *Users) FindByUserName() bool { //nolint:dupl false positive
+	res, err := u.Adapter.Select(u.SpaceName(), u.UniqueIndexUserName(), 0, 1, tarantool.IterEq, A.X{u.UserName})
+	if L.IsError(err, `Users.FindByUserName failed: `+u.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		u.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
 // SqlSelectAllFields generate Sql select fields
 func (u *Users) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "id"

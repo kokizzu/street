@@ -191,3 +191,72 @@ func (d *Domain) UserDeactivate(in *UserDeactivateIn) (out UserDeactivateOut) {
 	_ = logins
 	return
 }
+
+type (
+	UserUpdateProfileIn struct {
+		RequestCommon
+		UserName string `json:"userName" form:"userName" query:"userName" long:"userName" msg:"userName"`
+		FullName string `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
+		Email    string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
+	}
+
+	UserUpdateProfileOut struct {
+		ResponseCommon
+		User *rqAuth.Users `json:"user" form:"user" query:"user" long:"user" msg:"user"`
+	}
+)
+
+const (
+	UserUpdateProfileAction = `user/updateProfile`
+
+	ErrUpdateProfileUsernameAlreadyUsed = `username already used`
+	ErrUpdateProfileEmailAlreadyUsed    = `email already used`
+	ErrUpdateProfileFailed              = `update profile failed`
+)
+
+func (d *Domain) UserUpdateProfile(in *UserUpdateProfileIn) (out UserProfileOut) {
+	sess := d.mustLogin(in.RequestCommon, &out.ResponseCommon)
+	if sess == nil {
+		return
+	}
+
+	user := wcAuth.NewUsersMutator(d.AuthOltp)
+	user.Id = sess.UserId
+	if !user.FindById() {
+		out.SetError(400, ErrUserProfileNotFound)
+		return
+	}
+
+	if user.UserName != in.UserName {
+		dup := rqAuth.NewUsers(d.AuthOltp)
+		dup.UserName = S.ValidateIdent(in.UserName)
+		if dup.FindByUserName() && dup.Id != user.Id {
+			out.SetError(400, ErrUpdateProfileUsernameAlreadyUsed)
+			return
+		}
+		user.SetUserName(dup.Email)
+	}
+
+	if user.Email != in.Email {
+		dup := rqAuth.NewUsers(d.AuthOltp)
+		dup.Email = S.ValidateEmail(in.Email)
+		if dup.FindByEmail() && dup.Id != user.Id {
+			out.SetError(400, ErrUpdateProfileEmailAlreadyUsed)
+			return
+		}
+		user.SetEmail(dup.Email)
+	}
+
+	if user.FullName != in.FullName {
+		user.SetFullName(in.FullName)
+	}
+
+	if !user.DoUpdateById() {
+		out.SetError(400, ErrUpdateProfileFailed)
+		return
+	}
+
+	user.CensorFields()
+	out.User = &user.Users
+	return
+}
