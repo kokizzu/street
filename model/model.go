@@ -42,9 +42,9 @@ func RunMigration(
 	m.PropOlap.MigrateTables(mProperty.ClickhouseTables)
 }
 
-func UpdateAddressesToHouse(adapter **Tt.Adapter) {
+func UpdateAddressesToHouse(adapter **Tt.Adapter, resourceFile string) {
 	fmt.Println("Begin the process update address to house")
-	pathData := "/Volumes/DATA/Projects/HapSTR/test-files/a_lvr_land_a.xlsx"
+	pathData := resourceFile
 	f, err := excelize.OpenFile(pathData)
 	if err != nil {
 		fmt.Println(err)
@@ -56,7 +56,7 @@ func UpdateAddressesToHouse(adapter **Tt.Adapter) {
 		}
 	}()
 
-	rows, err := f.GetRows("BuyAndSell")
+	rows, err := f.GetRows("不動產買賣BuyandSell")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -124,7 +124,6 @@ func UpdateAddressesToHouse(adapter **Tt.Adapter) {
 					dataMutator.DoOverwriteById()
 				}
 			}
-
 		}
 	}
 
@@ -132,11 +131,11 @@ func UpdateAddressesToHouse(adapter **Tt.Adapter) {
 
 }
 
-func ImportExcelData(adapter *Tt.Adapter) {
+func ImportExcelData(adapter *Tt.Adapter, resourcePath string) {
 	fmt.Println("Import excel data")
-
+	fmt.Println("Resource path => " + resourcePath)
 	// TODO path files could be changed
-	pathData := "/Volumes/DATA/Projects/HapSTR/test-files/a_lvr_land_a.xlsx"
+	pathData := resourcePath
 	f, err := excelize.OpenFile(pathData)
 	if err != nil {
 		fmt.Println(err)
@@ -148,7 +147,7 @@ func ImportExcelData(adapter *Tt.Adapter) {
 		}
 	}()
 
-	rows, err := f.GetRows("House")
+	rows, err := f.GetRows("建物HouseDetail")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -191,13 +190,12 @@ func ImportExcelData(adapter *Tt.Adapter) {
 
 		// Check if unique property key is existed
 		existingProperties := propertyMutator.FindPropertiesByUniqueKey(uniqueSerialNumber)
-		if len(existingProperties) > 0 {
+		if len(existingProperties) > 0 || uniqueSerialNumber == "#" {
 			continue
 		} else {
 			propertyMutator.DoInsert()
 		}
-
 	}
 	fmt.Println("End process of import house data")
-	UpdateAddressesToHouse(&adapter)
+	UpdateAddressesToHouse(&adapter, resourcePath)
 }
