@@ -3,19 +3,20 @@ package wcAuth
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 import (
-	`street/model/mAuth/rqAuth`
+	"street/model/mAuth/rqAuth"
 
-	`github.com/kokizzu/gotro/A`
-	`github.com/kokizzu/gotro/D/Tt`
-	`github.com/kokizzu/gotro/L`
-	`github.com/kokizzu/gotro/X`
+	"github.com/kokizzu/gotro/A"
+	"github.com/kokizzu/gotro/D/Tt"
+	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/X"
 )
 
+// SessionsMutator DAO writer/command struct
+//
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file wcAuth__ORM.GEN.go
 //go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type wcAuth__ORM.GEN.go
 //go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type wcAuth__ORM.GEN.go
 //go:generate replacer -afterprefix 'By" form' 'By,string" form' type wcAuth__ORM.GEN.go
-// SessionsMutator DAO writer/command struct
 type SessionsMutator struct {
 	rqAuth.Sessions
 	mutations []A.X
@@ -42,6 +43,8 @@ func (s *SessionsMutator) ClearMutations() { //nolint:dupl false positive
 //		A.X{`=`, 1, s.UserId},
 //		A.X{`=`, 2, s.ExpiredAt},
 //		A.X{`=`, 3, s.Device},
+//		A.X{`=`, 4, s.LoginAt},
+//		A.X{`=`, 5, s.LoginIPs},
 //	})
 //	return !L.IsError(err, `Sessions.DoUpsert failed: `+s.SpaceName())
 // }
@@ -121,6 +124,26 @@ func (s *SessionsMutator) SetDevice(val string) bool { //nolint:dupl false posit
 	return false
 }
 
+// SetLoginAt create mutations, should not duplicate
+func (s *SessionsMutator) SetLoginAt(val int64) bool { //nolint:dupl false positive
+	if val != s.LoginAt {
+		s.mutations = append(s.mutations, A.X{`=`, 4, val})
+		s.LoginAt = val
+		return true
+	}
+	return false
+}
+
+// SetLoginIPs create mutations, should not duplicate
+func (s *SessionsMutator) SetLoginIPs(val string) bool { //nolint:dupl false positive
+	if val != s.LoginIPs {
+		s.mutations = append(s.mutations, A.X{`=`, 5, val})
+		s.LoginIPs = val
+		return true
+	}
+	return false
+}
+
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 // UsersMutator DAO writer/command struct
@@ -181,6 +204,8 @@ func (u *UsersMutator) DoDeletePermanentById() bool { //nolint:dupl false positi
 //		A.X{`=`, 11, u.VerificationSentAt},
 //		A.X{`=`, 12, u.VerifiedAt},
 //		A.X{`=`, 13, u.LastLoginAt},
+//		A.X{`=`, 14, u.FullName},
+//		A.X{`=`, 15, u.UserName},
 //	})
 //	return !L.IsError(err, `Users.DoUpsert failed: `+u.SpaceName())
 // }
@@ -204,6 +229,27 @@ func (u *UsersMutator) DoUpdateByEmail() bool { //nolint:dupl false positive
 func (u *UsersMutator) DoDeletePermanentByEmail() bool { //nolint:dupl false positive
 	_, err := u.Adapter.Delete(u.SpaceName(), u.UniqueIndexEmail(), A.X{u.Email})
 	return !L.IsError(err, `Users.DoDeletePermanentByEmail failed: `+u.SpaceName())
+}
+
+// DoOverwriteByUserName update all columns, error if not exists, not using mutations/Set*
+func (u *UsersMutator) DoOverwriteByUserName() bool { //nolint:dupl false positive
+	_, err := u.Adapter.Update(u.SpaceName(), u.UniqueIndexUserName(), A.X{u.UserName}, u.ToUpdateArray())
+	return !L.IsError(err, `Users.DoOverwriteByUserName failed: `+u.SpaceName())
+}
+
+// DoUpdateByUserName update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (u *UsersMutator) DoUpdateByUserName() bool { //nolint:dupl false positive
+	if !u.HaveMutation() {
+		return true
+	}
+	_, err := u.Adapter.Update(u.SpaceName(), u.UniqueIndexUserName(), A.X{u.UserName}, u.mutations)
+	return !L.IsError(err, `Users.DoUpdateByUserName failed: `+u.SpaceName())
+}
+
+// DoDeletePermanentByUserName permanent delete
+func (u *UsersMutator) DoDeletePermanentByUserName() bool { //nolint:dupl false positive
+	_, err := u.Adapter.Delete(u.SpaceName(), u.UniqueIndexUserName(), A.X{u.UserName})
+	return !L.IsError(err, `Users.DoDeletePermanentByUserName failed: `+u.SpaceName())
 }
 
 // DoInsert insert, error if already exists
@@ -366,5 +412,24 @@ func (u *UsersMutator) SetLastLoginAt(val int64) bool { //nolint:dupl false posi
 	return false
 }
 
-// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+// SetFullName create mutations, should not duplicate
+func (u *UsersMutator) SetFullName(val string) bool { //nolint:dupl false positive
+	if val != u.FullName {
+		u.mutations = append(u.mutations, A.X{`=`, 14, val})
+		u.FullName = val
+		return true
+	}
+	return false
+}
 
+// SetUserName create mutations, should not duplicate
+func (u *UsersMutator) SetUserName(val string) bool { //nolint:dupl false positive
+	if val != u.UserName {
+		u.mutations = append(u.mutations, A.X{`=`, 15, val})
+		u.UserName = val
+		return true
+	}
+	return false
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

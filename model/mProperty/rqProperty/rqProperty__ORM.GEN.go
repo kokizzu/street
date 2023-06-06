@@ -377,4 +377,3 @@ func (p *Property) Total() int64 { //nolint:dupl false positive
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
-

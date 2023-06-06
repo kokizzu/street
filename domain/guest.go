@@ -88,6 +88,7 @@ func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
 	user.SetEncryptedPassword(in.Password, in.UnixNow())
 	user.CreatedAt = in.UnixNow()
 	user.SecretCode = id64.SID() + S.RandomCB63(1)
+	user.SetGenUniqueUsernameByEmail(in.Email, in.UnixNow())
 	if !user.DoInsert() {
 		out.SetError(500, ErrGuestRegisterUserCreationFailed)
 		return
@@ -183,6 +184,7 @@ const (
 	GuestLoginAction = `guest/login`
 
 	ErrGuestLoginEmailInvalid             = `email must be valid`
+	ErrGuestLoginUserDeactivated          = `user deactivated`
 	ErrGuestLoginEmailOrPasswordIncorrect = `incorrect email or password`
 	ErrGuestLoginPasswordOrEmailIncorrect = `incorrect password or email`
 	ErrGuestLoginFailedStoringSession     = `failed storing session for login`
@@ -202,13 +204,20 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 		return
 	}
 	out.actor = user.Id
-	if err := S.CheckPassword(user.Password, in.Password); err != nil {
+
+	if user.DeletedAt > 0 {
+		out.SetError(400, ErrGuestLoginUserDeactivated)
+		return
+	}
+
+	if err := user.CheckPassword(in.Password); err != nil {
 		out.SetError(400, ErrGuestLoginPasswordOrEmailIncorrect)
 		return
 	}
 	user.CensorFields()
 	out.User = *user
 	session := d.createSession(user.Id, user.Email, in.UserAgent)
+
 	// TODO: set list of roles in the session
 	if !session.DoInsert() {
 		out.SetError(500, ErrGuestLoginFailedStoringSession)
@@ -538,14 +547,14 @@ func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCal
 		}
 
 		client := provider.Client(in.TracerContext, token)
-		if d.GoogleUserInfoEndpointCache == `` {
+		if d.googleUserInfoEndpointCache == `` {
 			json := fetchJsonMap(client, `https://accounts.google.com/.well-known/openid-configuration`, &out.ResponseCommon)
-			d.GoogleUserInfoEndpointCache = json.GetStr(`userinfo_endpoint`)
+			d.googleUserInfoEndpointCache = json.GetStr(`userinfo_endpoint`)
 			if out.HasError() {
 				return
 			}
 		}
-		out.OauthUser = fetchJsonMap(client, d.GoogleUserInfoEndpointCache, &out.ResponseCommon)
+		out.OauthUser = fetchJsonMap(client, d.googleUserInfoEndpointCache, &out.ResponseCommon)
 		/* from google:
 		{
 			"email":			"",
@@ -566,11 +575,12 @@ func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCal
 	}
 
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
-	user.Email = out.Email
+	user.Email = S.ValidateEmail(out.Email)
 
 	if !user.FindByEmail() {
 		// create user if not exists
 		user.VerifiedAt = in.UnixNow()
+		user.SetGenUniqueUsernameByEmail(user.Email, in.UnixNow())
 
 		if !user.DoInsert() {
 			out.SetError(500, ErrGuestOauthCallbackFailedUserCreation)

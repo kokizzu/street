@@ -42,6 +42,8 @@ type RequestCommon struct {
 	RawBody       string            `json:"rawBody,omitempty" form:"rawBody" query:"rawBody" long:"rawBody" msg:"rawBody"`
 	Host          string            `json:"host" form:"host" query:"host" long:"host" msg:"host"`
 	Action        string            `json:"action" form:"action" query:"action" long:"action" msg:"action"`
+	Lat           float64           `json:"lat" form:"lat" query:"lat" long:"lat" msg:"lat"`
+	Long          float64           `json:"long" form:"long" query:"long" long:"long" msg:"long"`
 
 	// in seconds
 	now int64 `json:"-" form:"now" query:"now" long:"now" msg:"-"`

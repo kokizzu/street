@@ -13,7 +13,8 @@ import (
 )
 
 func TestGuestRegister(t *testing.T) {
-	d := testDomain()
+	d, closer := testDomain()
+	defer closer()
 
 	t.Run("emptyInput", func(t *testing.T) {
 		in := GuestRegisterIn{}
@@ -97,7 +98,8 @@ func TestGuestRegister(t *testing.T) {
 }
 
 func TestGuestRequestVerificationEmail(t *testing.T) {
-	d := testDomain()
+	d, closer := testDomain()
+	defer closer()
 
 	const email = "a@b.e"
 	in := GuestRegisterIn{
@@ -154,7 +156,8 @@ func TestGuestRequestVerificationEmail(t *testing.T) {
 }
 
 func TestGuestLogin(t *testing.T) {
-	d := testDomain()
+	d, closer := testDomain()
+	defer closer()
 
 	t.Run("emptyInput", func(t *testing.T) {
 		in := GuestLoginIn{}
@@ -209,7 +212,8 @@ func TestGuestLogin(t *testing.T) {
 }
 
 func TestForgotResetPassword(t *testing.T) {
-	d := testDomain()
+	d, closer := testDomain()
+	defer closer()
 
 	email := id64.SID() + `@reset`
 	const pass = `012345678901`

@@ -271,4 +271,3 @@ func (p *PropertyMutator) SetDeletedAt(val int64) bool { //nolint:dupl false pos
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
-

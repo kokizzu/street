@@ -16,6 +16,7 @@ import (
 	"golang.org/x/sync/errgroup"
 
 	"street/conf"
+	"street/domain"
 	"street/model"
 	"street/model/xMailer"
 	"street/presentation"
@@ -115,39 +116,37 @@ func main() {
 		defer closer()
 	}
 
+	// create domain object
+	d := &domain.Domain{
+		AuthOltp: tConn,
+		AuthOlap: cConn,
+		PropOltp: tConn,
+		PropOlap: cConn,
+		Mailer: xMailer.Mailer{
+			SendMailFunc: mailer.SendMailFunc,
+		},
+		IsBgSvc: false,
+		Oauth:   oauth,
+		Log:     log,
+	}
+
 	// start
 	mode := S.ToLower(os.Args[1])
 	switch mode {
 	case `web`:
 		ws := &presentation.WebServer{
-			AuthOltp: tConn,
-			AuthOlap: cConn,
-			PropOltp: tConn,
-			PropOlap: cConn,
-
-			Log:    log,
+			Domain: d,
 			Cfg:    conf.EnvWebConf(),
-			Mailer: mailer,
-			Oauth:  oauth,
 		}
 		ws.Start()
 	case `cli`:
 		cli := &presentation.CLI{
-			AuthOltp: tConn,
-			AuthOlap: cConn,
-			Log:      log,
-			Mailer:   mailer,
-			Oauth:    oauth,
+			Domain: d,
 		}
 		cli.Run(os.Args[2:])
 	case `cron`:
 		cron := &presentation.Cron{
-			AuthOltp: tConn,
-			AuthOlap: cConn,
-			PropOltp: tConn,
-			PropOlap: cConn,
-			Log:      log,
-			Mailer:   mailer,
+			Domain: d,
 		}
 		cron.Start()
 	case `migrate`:

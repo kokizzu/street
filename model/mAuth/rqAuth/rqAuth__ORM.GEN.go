@@ -26,6 +26,8 @@ type Sessions struct {
 	UserId       uint64
 	ExpiredAt    int64
 	Device       string
+	LoginAt      int64
+	LoginIPs     string
 }
 
 // NewSessions create new ORM reader/query object
@@ -38,8 +40,8 @@ func (s *Sessions) SpaceName() string { //nolint:dupl false positive
 	return string(mAuth.TableSessions) // casting required to string from Tt.TableName
 }
 
-// sqlTableName returns quoted table name
-func (s *Sessions) sqlTableName() string { //nolint:dupl false positive
+// SqlTableName returns quoted table name
+func (s *Sessions) SqlTableName() string { //nolint:dupl false positive
 	return `"sessions"`
 }
 
@@ -62,12 +64,14 @@ func (s *Sessions) FindBySessionToken() bool { //nolint:dupl false positive
 	return false
 }
 
-// sqlSelectAllFields generate sql select fields
-func (s *Sessions) sqlSelectAllFields() string { //nolint:dupl false positive
+// SqlSelectAllFields generate Sql select fields
+func (s *Sessions) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "sessionToken"
 	, "userId"
 	, "expiredAt"
 	, "device"
+	, "loginAt"
+	, "LoginIPs"
 	`
 }
 
@@ -78,6 +82,8 @@ func (s *Sessions) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 1, s.UserId},
 		A.X{`=`, 2, s.ExpiredAt},
 		A.X{`=`, 3, s.Device},
+		A.X{`=`, 4, s.LoginAt},
+		A.X{`=`, 5, s.LoginIPs},
 	}
 }
 
@@ -86,8 +92,8 @@ func (s *Sessions) IdxSessionToken() int { //nolint:dupl false positive
 	return 0
 }
 
-// sqlSessionToken return name of the column being indexed
-func (s *Sessions) sqlSessionToken() string { //nolint:dupl false positive
+// SqlSessionToken return name of the column being indexed
+func (s *Sessions) SqlSessionToken() string { //nolint:dupl false positive
 	return `"sessionToken"`
 }
 
@@ -96,8 +102,8 @@ func (s *Sessions) IdxUserId() int { //nolint:dupl false positive
 	return 1
 }
 
-// sqlUserId return name of the column being indexed
-func (s *Sessions) sqlUserId() string { //nolint:dupl false positive
+// SqlUserId return name of the column being indexed
+func (s *Sessions) SqlUserId() string { //nolint:dupl false positive
 	return `"userId"`
 }
 
@@ -106,8 +112,8 @@ func (s *Sessions) IdxExpiredAt() int { //nolint:dupl false positive
 	return 2
 }
 
-// sqlExpiredAt return name of the column being indexed
-func (s *Sessions) sqlExpiredAt() string { //nolint:dupl false positive
+// SqlExpiredAt return name of the column being indexed
+func (s *Sessions) SqlExpiredAt() string { //nolint:dupl false positive
 	return `"expiredAt"`
 }
 
@@ -116,9 +122,29 @@ func (s *Sessions) IdxDevice() int { //nolint:dupl false positive
 	return 3
 }
 
-// sqlDevice return name of the column being indexed
-func (s *Sessions) sqlDevice() string { //nolint:dupl false positive
+// SqlDevice return name of the column being indexed
+func (s *Sessions) SqlDevice() string { //nolint:dupl false positive
 	return `"device"`
+}
+
+// IdxLoginAt return name of the index
+func (s *Sessions) IdxLoginAt() int { //nolint:dupl false positive
+	return 4
+}
+
+// SqlLoginAt return name of the column being indexed
+func (s *Sessions) SqlLoginAt() string { //nolint:dupl false positive
+	return `"loginAt"`
+}
+
+// IdxLoginIPs return name of the index
+func (s *Sessions) IdxLoginIPs() int { //nolint:dupl false positive
+	return 5
+}
+
+// SqlLoginIPs return name of the column being indexed
+func (s *Sessions) SqlLoginIPs() string { //nolint:dupl false positive
+	return `"LoginIPs"`
 }
 
 // ToArray receiver fields to slice
@@ -128,6 +154,8 @@ func (s *Sessions) ToArray() A.X { //nolint:dupl false positive
 		s.UserId,       // 1
 		s.ExpiredAt,    // 2
 		s.Device,       // 3
+		s.LoginAt,      // 4
+		s.LoginIPs,     // 5
 	}
 }
 
@@ -137,13 +165,15 @@ func (s *Sessions) FromArray(a A.X) *Sessions { //nolint:dupl false positive
 	s.UserId = X.ToU(a[1])
 	s.ExpiredAt = X.ToI(a[2])
 	s.Device = X.ToS(a[3])
+	s.LoginAt = X.ToI(a[4])
+	s.LoginIPs = X.ToS(a[5])
 	return s
 }
 
 // FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
 func (s *Sessions) FindOffsetLimit(offset, limit uint32, idx string) []Sessions { //nolint:dupl false positive
 	var rows []Sessions
-	res, err := s.Adapter.Select(s.SpaceName(), idx, offset, limit, 2, A.X{})
+	res, err := s.Adapter.Select(s.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
 	if L.IsError(err, `Sessions.FindOffsetLimit failed: `+s.SpaceName()) {
 		return rows
 	}
@@ -157,7 +187,7 @@ func (s *Sessions) FindOffsetLimit(offset, limit uint32, idx string) []Sessions 
 // FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
 func (s *Sessions) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
 	var rows []A.X
-	res, err := s.Adapter.Select(s.SpaceName(), idx, offset, limit, 2, A.X{})
+	res, err := s.Adapter.Select(s.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
 	if L.IsError(err, `Sessions.FindOffsetLimit failed: `+s.SpaceName()) {
 		return rows, Tt.QueryMetaFrom(res, err)
 	}
@@ -197,6 +227,8 @@ type Users struct {
 	VerificationSentAt int64
 	VerifiedAt         int64
 	LastLoginAt        int64
+	FullName           string
+	UserName           string
 }
 
 // NewUsers create new ORM reader/query object
@@ -209,8 +241,8 @@ func (u *Users) SpaceName() string { //nolint:dupl false positive
 	return string(mAuth.TableUsers) // casting required to string from Tt.TableName
 }
 
-// sqlTableName returns quoted table name
-func (u *Users) sqlTableName() string { //nolint:dupl false positive
+// SqlTableName returns quoted table name
+func (u *Users) SqlTableName() string { //nolint:dupl false positive
 	return `"users"`
 }
 
@@ -251,8 +283,27 @@ func (u *Users) FindByEmail() bool { //nolint:dupl false positive
 	return false
 }
 
-// sqlSelectAllFields generate sql select fields
-func (u *Users) sqlSelectAllFields() string { //nolint:dupl false positive
+// UniqueIndexUserName return unique index name
+func (u *Users) UniqueIndexUserName() string { //nolint:dupl false positive
+	return `userName`
+}
+
+// FindByUserName Find one by UserName
+func (u *Users) FindByUserName() bool { //nolint:dupl false positive
+	res, err := u.Adapter.Select(u.SpaceName(), u.UniqueIndexUserName(), 0, 1, tarantool.IterEq, A.X{u.UserName})
+	if L.IsError(err, `Users.FindByUserName failed: `+u.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		u.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
+// SqlSelectAllFields generate Sql select fields
+func (u *Users) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "id"
 	, "email"
 	, "password"
@@ -267,6 +318,8 @@ func (u *Users) sqlSelectAllFields() string { //nolint:dupl false positive
 	, "verificationSentAt"
 	, "verifiedAt"
 	, "lastLoginAt"
+	, "fullName"
+	, "userName"
 	`
 }
 
@@ -287,6 +340,8 @@ func (u *Users) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 11, u.VerificationSentAt},
 		A.X{`=`, 12, u.VerifiedAt},
 		A.X{`=`, 13, u.LastLoginAt},
+		A.X{`=`, 14, u.FullName},
+		A.X{`=`, 15, u.UserName},
 	}
 }
 
@@ -295,8 +350,8 @@ func (u *Users) IdxId() int { //nolint:dupl false positive
 	return 0
 }
 
-// sqlId return name of the column being indexed
-func (u *Users) sqlId() string { //nolint:dupl false positive
+// SqlId return name of the column being indexed
+func (u *Users) SqlId() string { //nolint:dupl false positive
 	return `"id"`
 }
 
@@ -305,8 +360,8 @@ func (u *Users) IdxEmail() int { //nolint:dupl false positive
 	return 1
 }
 
-// sqlEmail return name of the column being indexed
-func (u *Users) sqlEmail() string { //nolint:dupl false positive
+// SqlEmail return name of the column being indexed
+func (u *Users) SqlEmail() string { //nolint:dupl false positive
 	return `"email"`
 }
 
@@ -315,8 +370,8 @@ func (u *Users) IdxPassword() int { //nolint:dupl false positive
 	return 2
 }
 
-// sqlPassword return name of the column being indexed
-func (u *Users) sqlPassword() string { //nolint:dupl false positive
+// SqlPassword return name of the column being indexed
+func (u *Users) SqlPassword() string { //nolint:dupl false positive
 	return `"password"`
 }
 
@@ -325,8 +380,8 @@ func (u *Users) IdxCreatedAt() int { //nolint:dupl false positive
 	return 3
 }
 
-// sqlCreatedAt return name of the column being indexed
-func (u *Users) sqlCreatedAt() string { //nolint:dupl false positive
+// SqlCreatedAt return name of the column being indexed
+func (u *Users) SqlCreatedAt() string { //nolint:dupl false positive
 	return `"createdAt"`
 }
 
@@ -335,8 +390,8 @@ func (u *Users) IdxCreatedBy() int { //nolint:dupl false positive
 	return 4
 }
 
-// sqlCreatedBy return name of the column being indexed
-func (u *Users) sqlCreatedBy() string { //nolint:dupl false positive
+// SqlCreatedBy return name of the column being indexed
+func (u *Users) SqlCreatedBy() string { //nolint:dupl false positive
 	return `"createdBy"`
 }
 
@@ -345,8 +400,8 @@ func (u *Users) IdxUpdatedAt() int { //nolint:dupl false positive
 	return 5
 }
 
-// sqlUpdatedAt return name of the column being indexed
-func (u *Users) sqlUpdatedAt() string { //nolint:dupl false positive
+// SqlUpdatedAt return name of the column being indexed
+func (u *Users) SqlUpdatedAt() string { //nolint:dupl false positive
 	return `"updatedAt"`
 }
 
@@ -355,8 +410,8 @@ func (u *Users) IdxUpdatedBy() int { //nolint:dupl false positive
 	return 6
 }
 
-// sqlUpdatedBy return name of the column being indexed
-func (u *Users) sqlUpdatedBy() string { //nolint:dupl false positive
+// SqlUpdatedBy return name of the column being indexed
+func (u *Users) SqlUpdatedBy() string { //nolint:dupl false positive
 	return `"updatedBy"`
 }
 
@@ -365,8 +420,8 @@ func (u *Users) IdxDeletedAt() int { //nolint:dupl false positive
 	return 7
 }
 
-// sqlDeletedAt return name of the column being indexed
-func (u *Users) sqlDeletedAt() string { //nolint:dupl false positive
+// SqlDeletedAt return name of the column being indexed
+func (u *Users) SqlDeletedAt() string { //nolint:dupl false positive
 	return `"deletedAt"`
 }
 
@@ -375,8 +430,8 @@ func (u *Users) IdxPasswordSetAt() int { //nolint:dupl false positive
 	return 8
 }
 
-// sqlPasswordSetAt return name of the column being indexed
-func (u *Users) sqlPasswordSetAt() string { //nolint:dupl false positive
+// SqlPasswordSetAt return name of the column being indexed
+func (u *Users) SqlPasswordSetAt() string { //nolint:dupl false positive
 	return `"passwordSetAt"`
 }
 
@@ -385,8 +440,8 @@ func (u *Users) IdxSecretCode() int { //nolint:dupl false positive
 	return 9
 }
 
-// sqlSecretCode return name of the column being indexed
-func (u *Users) sqlSecretCode() string { //nolint:dupl false positive
+// SqlSecretCode return name of the column being indexed
+func (u *Users) SqlSecretCode() string { //nolint:dupl false positive
 	return `"secretCode"`
 }
 
@@ -395,8 +450,8 @@ func (u *Users) IdxSecretCodeAt() int { //nolint:dupl false positive
 	return 10
 }
 
-// sqlSecretCodeAt return name of the column being indexed
-func (u *Users) sqlSecretCodeAt() string { //nolint:dupl false positive
+// SqlSecretCodeAt return name of the column being indexed
+func (u *Users) SqlSecretCodeAt() string { //nolint:dupl false positive
 	return `"secretCodeAt"`
 }
 
@@ -405,8 +460,8 @@ func (u *Users) IdxVerificationSentAt() int { //nolint:dupl false positive
 	return 11
 }
 
-// sqlVerificationSentAt return name of the column being indexed
-func (u *Users) sqlVerificationSentAt() string { //nolint:dupl false positive
+// SqlVerificationSentAt return name of the column being indexed
+func (u *Users) SqlVerificationSentAt() string { //nolint:dupl false positive
 	return `"verificationSentAt"`
 }
 
@@ -415,8 +470,8 @@ func (u *Users) IdxVerifiedAt() int { //nolint:dupl false positive
 	return 12
 }
 
-// sqlVerifiedAt return name of the column being indexed
-func (u *Users) sqlVerifiedAt() string { //nolint:dupl false positive
+// SqlVerifiedAt return name of the column being indexed
+func (u *Users) SqlVerifiedAt() string { //nolint:dupl false positive
 	return `"verifiedAt"`
 }
 
@@ -425,9 +480,29 @@ func (u *Users) IdxLastLoginAt() int { //nolint:dupl false positive
 	return 13
 }
 
-// sqlLastLoginAt return name of the column being indexed
-func (u *Users) sqlLastLoginAt() string { //nolint:dupl false positive
+// SqlLastLoginAt return name of the column being indexed
+func (u *Users) SqlLastLoginAt() string { //nolint:dupl false positive
 	return `"lastLoginAt"`
+}
+
+// IdxFullName return name of the index
+func (u *Users) IdxFullName() int { //nolint:dupl false positive
+	return 14
+}
+
+// SqlFullName return name of the column being indexed
+func (u *Users) SqlFullName() string { //nolint:dupl false positive
+	return `"fullName"`
+}
+
+// IdxUserName return name of the index
+func (u *Users) IdxUserName() int { //nolint:dupl false positive
+	return 15
+}
+
+// SqlUserName return name of the column being indexed
+func (u *Users) SqlUserName() string { //nolint:dupl false positive
+	return `"userName"`
 }
 
 // ToArray receiver fields to slice
@@ -451,6 +526,8 @@ func (u *Users) ToArray() A.X { //nolint:dupl false positive
 		u.VerificationSentAt, // 11
 		u.VerifiedAt,         // 12
 		u.LastLoginAt,        // 13
+		u.FullName,           // 14
+		u.UserName,           // 15
 	}
 }
 
@@ -470,13 +547,15 @@ func (u *Users) FromArray(a A.X) *Users { //nolint:dupl false positive
 	u.VerificationSentAt = X.ToI(a[11])
 	u.VerifiedAt = X.ToI(a[12])
 	u.LastLoginAt = X.ToI(a[13])
+	u.FullName = X.ToS(a[14])
+	u.UserName = X.ToS(a[15])
 	return u
 }
 
 // FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
 func (u *Users) FindOffsetLimit(offset, limit uint32, idx string) []Users { //nolint:dupl false positive
 	var rows []Users
-	res, err := u.Adapter.Select(u.SpaceName(), idx, offset, limit, 2, A.X{})
+	res, err := u.Adapter.Select(u.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
 	if L.IsError(err, `Users.FindOffsetLimit failed: `+u.SpaceName()) {
 		return rows
 	}
@@ -490,7 +569,7 @@ func (u *Users) FindOffsetLimit(offset, limit uint32, idx string) []Users { //no
 // FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
 func (u *Users) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
 	var rows []A.X
-	res, err := u.Adapter.Select(u.SpaceName(), idx, offset, limit, 2, A.X{})
+	res, err := u.Adapter.Select(u.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
 	if L.IsError(err, `Users.FindOffsetLimit failed: `+u.SpaceName()) {
 		return rows, Tt.QueryMetaFrom(res, err)
 	}

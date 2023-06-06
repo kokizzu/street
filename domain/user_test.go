@@ -10,7 +10,8 @@ import (
 )
 
 func TestLogout(t *testing.T) {
-	d := testDomain()
+	d, closer := testDomain()
+	defer closer()
 
 	email := id64.SID() + `@login`
 	const pass = `012345678901`
@@ -94,6 +95,87 @@ func TestLogout(t *testing.T) {
 			assert.Equal(t, out.Error, ErrSessionTokenInvalid)
 		})
 
+		t.Run(`changePass,noNewPass`, func(t *testing.T) {
+			in := &UserChangePasswordIn{
+				RequestCommon: RequestCommon{
+					SessionToken: sessionToken,
+				},
+			}
+			out := d.UserChangePassword(in)
+			assert.Equal(t, out.Error, ErrUserChangePasswordNewPassTooShort)
+		})
+
+		const newPass = `1234567890123`
+
+		t.Run(`changePass,wrongOldPass`, func(t *testing.T) {
+			in := &UserChangePasswordIn{
+				RequestCommon: RequestCommon{
+					SessionToken: sessionToken,
+				},
+				NewPass: newPass,
+			}
+			out := d.UserChangePassword(in)
+			assert.Equal(t, out.Error, ErrUserChangePasswordWrongOldPass)
+		})
+
+		t.Run(`changePass,valid`, func(t *testing.T) {
+			in := &UserChangePasswordIn{
+				RequestCommon: RequestCommon{
+					SessionToken: sessionToken,
+				},
+				NewPass: newPass,
+				OldPass: pass,
+			}
+			out := d.UserChangePassword(in)
+			assert.Empty(t, out.Error)
+
+			t.Run(`loginAfterChangePass,useOldPass`, func(t *testing.T) {
+				in := &GuestLoginIn{
+					Email:    email,
+					Password: pass,
+				}
+				out := d.GuestLogin(in)
+				assert.Equal(t, out.Error, ErrGuestLoginPasswordOrEmailIncorrect)
+			})
+
+			t.Run(`loginAfterChangePass,newPass`, func(t *testing.T) {
+				in := &GuestLoginIn{
+					Email:    email,
+					Password: newPass,
+				}
+				out := d.GuestLogin(in)
+				assert.Empty(t, out.Error)
+
+				newSessionToken := out.SessionToken
+
+				t.Run(`deactivate,wrongPass`, func(t *testing.T) {
+					in := &UserDeactivateIn{
+						RequestCommon: RequestCommon{
+							SessionToken: newSessionToken,
+						},
+						Password: pass,
+					}
+					out := d.UserDeactivate(in)
+					assert.Equal(t, out.Error, ErrUserDeactivateWrongPass)
+				})
+
+				t.Run(`deactivate,correctPass`, func(t *testing.T) {
+					in := &UserDeactivateIn{
+						RequestCommon: RequestCommon{
+							SessionToken: newSessionToken,
+						},
+						Password: newPass,
+					}
+					out := d.UserDeactivate(in)
+					assert.Empty(t, out.Error)
+
+					// TODO: check login again, should not able
+					// TODO: use session to do profile after deactivate, should not able
+				})
+
+			})
+		})
+
 		t.Run(`logout`, func(t *testing.T) {
 			in := &UserLogoutIn{
 				RequestCommon: RequestCommon{
@@ -120,6 +202,27 @@ func TestLogout(t *testing.T) {
 				out := d.UserLogout(in)
 				assert.Equal(t, out.Error, ``)
 				assert.Equal(t, out.LogoutAt, previousLogoutAt)
+			})
+
+			t.Run(`changePassword,notLoggedIn`, func(t *testing.T) {
+				in := &UserChangePasswordIn{
+					RequestCommon: RequestCommon{
+						SessionToken: sessionToken,
+					},
+				}
+				out := d.UserChangePassword(in)
+				assert.Equal(t, out.Error, ErrSessionTokenLoggedOut)
+			})
+
+			t.Run(`deactivate,notLoggedIn`, func(t *testing.T) {
+				in := &UserDeactivateIn{
+					RequestCommon: RequestCommon{
+						SessionToken: sessionToken,
+					},
+					Password: pass,
+				}
+				out := d.UserDeactivate(in)
+				assert.Equal(t, out.Error, ErrSessionTokenLoggedOut)
 			})
 		})
 	})

@@ -8,7 +8,7 @@ import (
 	chBuffer "github.com/kokizzu/ch-timed-buffer"
 	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
-	"github.com/kokizzu/gotro/S"
+	"github.com/rs/zerolog"
 
 	"street/conf"
 	"street/model/mAuth"
@@ -17,18 +17,25 @@ import (
 )
 
 type Domain struct {
-	AuthOltp     *Tt.Adapter
-	AuthOlap     *Ch.Adapter
-	SendMailFunc xMailer.SendMailFunc
-	Mailer       xMailer.Mailer
+	AuthOltp *Tt.Adapter
+	AuthOlap *Ch.Adapter
+
+	PropOltp *Tt.Adapter
+	PropOlap *Ch.Adapter
+
+	Mailer xMailer.Mailer
 
 	IsBgSvc bool // long-running program
 	Oauth   conf.OauthConf
 
-	GoogleUserInfoEndpointCache string
+	// oauth related cache
+	googleUserInfoEndpointCache string
 
 	// timed buffer
 	authLogs *chBuffer.TimedBuffer
+
+	// logger
+	Log *zerolog.Logger
 }
 
 // will run in background if background service
@@ -51,8 +58,19 @@ func (d *Domain) WaitTimedBufferFinalFlush() {
 
 func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 	ip := net.ParseIP(in.IpAddress)
-	ip4 := S.IfEmpty(ip.To4().String(), `0.0.0.0`)
-	ip6 := S.IfEmpty(ip.To16().String(), `0:0:0:0:0:0:0:0`)
+	v4 := ip.To4()
+	var ip4, ip6 string
+	if v4 == nil {
+		ip4 = `0.0.0.0`
+	} else {
+		ip4 = v4.String()
+	}
+	v6 := ip.To16()
+	if v6 == nil {
+		ip6 = `0:0:0:0:0:0:0:0`
+	} else {
+		ip6 = v6.String()
+	}
 	row := saAuth.ActionLogs{
 		CreatedAt:  in.TimeNow(),
 		RequestId:  in.RequestId,
@@ -64,6 +82,8 @@ func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 		IpAddr4:    ip4,
 		IpAddr6:    ip6,
 		UserAgent:  in.UserAgent,
+		Lat:        in.Lat,
+		Long:       in.Long,
 	}
 	return d.authLogs.Insert([]any{
 		row.CreatedAt,
@@ -76,5 +96,7 @@ func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 		row.IpAddr4,
 		row.IpAddr6,
 		row.UserAgent,
+		row.Lat,
+		row.Long,
 	})
 }

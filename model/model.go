@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"street/model/mAuth/wcAuth"
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
@@ -36,6 +37,7 @@ func RunMigration(
 		PropOltp: propOltp,
 		PropOlap: propOlap,
 	}
+	mAuth.TarantoolTables[mAuth.TableUsers].PreReformatMigrationHook = wcAuth.UniqueUsernameMigration
 	m.AuthOltp.MigrateTables(mAuth.TarantoolTables)
 	m.AuthOlap.MigrateTables(mAuth.ClickhouseTables)
 	m.PropOltp.MigrateTables(mProperty.TarantoolTables)

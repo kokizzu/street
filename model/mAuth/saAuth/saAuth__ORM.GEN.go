@@ -24,7 +24,7 @@ import (
 var actionLogsDummy = ActionLogs{}
 var Preparators = map[Ch.TableName]chBuffer.Preparator{
 	mAuth.TableActionLogs: func(tx *sql.Tx) *sql.Stmt {
-		query := actionLogsDummy.sqlInsert()
+		query := actionLogsDummy.SqlInsert()
 		stmt, err := tx.Prepare(query)
 		L.IsError(err, `failed to tx.Prepare: `+query)
 		return stmt
@@ -42,6 +42,8 @@ type ActionLogs struct {
 	IpAddr4    string
 	IpAddr6    string
 	UserAgent  string
+	Lat        float64
+	Long       float64
 }
 
 func NewActionLogs(adapter *Ch.Adapter) *ActionLogs {
@@ -52,20 +54,20 @@ func (a ActionLogs) TableName() Ch.TableName { //nolint:dupl false positive
 	return mAuth.TableActionLogs
 }
 
-func (a *ActionLogs) sqlTableName() string { //nolint:dupl false positive
+func (a *ActionLogs) SqlTableName() string { //nolint:dupl false positive
 	return `"actionLogs"`
 }
 
 // insert, error if exists
-func (a *ActionLogs) sqlInsert() string { //nolint:dupl false positive
-	return `INSERT INTO ` + a.sqlTableName() + `(` + a.sqlAllFields() + `) VALUES (?,?,?,?,?,?,?,?,?,?)`
+func (a *ActionLogs) SqlInsert() string { //nolint:dupl false positive
+	return `INSERT INTO ` + a.SqlTableName() + `(` + a.SqlAllFields() + `) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`
 }
 
-func (a *ActionLogs) sqlCount() string { //nolint:dupl false positive
-	return `SELECT COUNT(*) FROM ` + a.sqlTableName()
+func (a *ActionLogs) SqlCount() string { //nolint:dupl false positive
+	return `SELECT COUNT(*) FROM ` + a.SqlTableName()
 }
 
-func (a *ActionLogs) sqlSelectAllFields() string { //nolint:dupl false positive
+func (a *ActionLogs) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` createdAt
 	, requestId
 	, actorId
@@ -76,11 +78,13 @@ func (a *ActionLogs) sqlSelectAllFields() string { //nolint:dupl false positive
 	, ipAddr4
 	, ipAddr6
 	, userAgent
+	, lat
+	, long
 	`
 }
 
-func (a *ActionLogs) sqlAllFields() string { //nolint:dupl false positive
-	return `createdAt, requestId, actorId, action, statusCode, traces, error, ipAddr4, ipAddr6, userAgent`
+func (a *ActionLogs) SqlAllFields() string { //nolint:dupl false positive
+	return `createdAt, requestId, actorId, action, statusCode, traces, error, ipAddr4, ipAddr6, userAgent, lat, long`
 }
 
 func (a ActionLogs) SqlInsertParam() []any { //nolint:dupl false positive
@@ -95,6 +99,8 @@ func (a ActionLogs) SqlInsertParam() []any { //nolint:dupl false positive
 		a.IpAddr4, // 7 
 		a.IpAddr6, // 8 
 		a.UserAgent, // 9 
+		a.Lat, // 10 
+		a.Long, // 11 
 	}
 }
 
@@ -102,7 +108,7 @@ func (a *ActionLogs) IdxCreatedAt() int { //nolint:dupl false positive
 	return 0
 }
 
-func (a *ActionLogs) sqlCreatedAt() string { //nolint:dupl false positive
+func (a *ActionLogs) SqlCreatedAt() string { //nolint:dupl false positive
 	return `createdAt`
 }
 
@@ -110,7 +116,7 @@ func (a *ActionLogs) IdxRequestId() int { //nolint:dupl false positive
 	return 1
 }
 
-func (a *ActionLogs) sqlRequestId() string { //nolint:dupl false positive
+func (a *ActionLogs) SqlRequestId() string { //nolint:dupl false positive
 	return `requestId`
 }
 
@@ -118,7 +124,7 @@ func (a *ActionLogs) IdxActorId() int { //nolint:dupl false positive
 	return 2
 }
 
-func (a *ActionLogs) sqlActorId() string { //nolint:dupl false positive
+func (a *ActionLogs) SqlActorId() string { //nolint:dupl false positive
 	return `actorId`
 }
 
@@ -126,7 +132,7 @@ func (a *ActionLogs) IdxAction() int { //nolint:dupl false positive
 	return 3
 }
 
-func (a *ActionLogs) sqlAction() string { //nolint:dupl false positive
+func (a *ActionLogs) SqlAction() string { //nolint:dupl false positive
 	return `action`
 }
 
@@ -134,7 +140,7 @@ func (a *ActionLogs) IdxStatusCode() int { //nolint:dupl false positive
 	return 4
 }
 
-func (a *ActionLogs) sqlStatusCode() string { //nolint:dupl false positive
+func (a *ActionLogs) SqlStatusCode() string { //nolint:dupl false positive
 	return `statusCode`
 }
 
@@ -142,7 +148,7 @@ func (a *ActionLogs) IdxTraces() int { //nolint:dupl false positive
 	return 5
 }
 
-func (a *ActionLogs) sqlTraces() string { //nolint:dupl false positive
+func (a *ActionLogs) SqlTraces() string { //nolint:dupl false positive
 	return `traces`
 }
 
@@ -150,7 +156,7 @@ func (a *ActionLogs) IdxError() int { //nolint:dupl false positive
 	return 6
 }
 
-func (a *ActionLogs) sqlError() string { //nolint:dupl false positive
+func (a *ActionLogs) SqlError() string { //nolint:dupl false positive
 	return `error`
 }
 
@@ -158,7 +164,7 @@ func (a *ActionLogs) IdxIpAddr4() int { //nolint:dupl false positive
 	return 7
 }
 
-func (a *ActionLogs) sqlIpAddr4() string { //nolint:dupl false positive
+func (a *ActionLogs) SqlIpAddr4() string { //nolint:dupl false positive
 	return `ipAddr4`
 }
 
@@ -166,7 +172,7 @@ func (a *ActionLogs) IdxIpAddr6() int { //nolint:dupl false positive
 	return 8
 }
 
-func (a *ActionLogs) sqlIpAddr6() string { //nolint:dupl false positive
+func (a *ActionLogs) SqlIpAddr6() string { //nolint:dupl false positive
 	return `ipAddr6`
 }
 
@@ -174,8 +180,24 @@ func (a *ActionLogs) IdxUserAgent() int { //nolint:dupl false positive
 	return 9
 }
 
-func (a *ActionLogs) sqlUserAgent() string { //nolint:dupl false positive
+func (a *ActionLogs) SqlUserAgent() string { //nolint:dupl false positive
 	return `userAgent`
+}
+
+func (a *ActionLogs) IdxLat() int { //nolint:dupl false positive
+	return 10
+}
+
+func (a *ActionLogs) SqlLat() string { //nolint:dupl false positive
+	return `lat`
+}
+
+func (a *ActionLogs) IdxLong() int { //nolint:dupl false positive
+	return 11
+}
+
+func (a *ActionLogs) SqlLong() string { //nolint:dupl false positive
+	return `long`
 }
 
 func (a *ActionLogs) ToArray() A.X { //nolint:dupl false positive
@@ -190,6 +212,8 @@ func (a *ActionLogs) ToArray() A.X { //nolint:dupl false positive
 		a.IpAddr4,    // 7
 		a.IpAddr6,    // 8
 		a.UserAgent,  // 9
+		a.Lat,        // 10
+		a.Long,       // 11
 	}
 }
 

@@ -23,7 +23,7 @@ import (
 
 var tablePropertyLogsDummy = TablePropertyLogs{}
 var Preparators = map[Ch.TableName]chBuffer.Preparator{
-	mProperty.TableTablePropertyLogs: func(tx *sql.Tx) *sql.Stmt {
+	mProperty.TablePropertyLogs: func(tx *sql.Tx) *sql.Stmt {
 		query := tablePropertyLogsDummy.sqlInsert()
 		stmt, err := tx.Prepare(query)
 		L.IsError(err, `failed to tx.Prepare: `+query)
@@ -46,7 +46,7 @@ func NewTablePropertyLogs(adapter *Ch.Adapter) *TablePropertyLogs {
 }
 
 func (t TablePropertyLogs) TableName() Ch.TableName { //nolint:dupl false positive
-	return mProperty.TableTablePropertyLogs
+	return mProperty.TablePropertyLogs
 }
 
 func (t *TablePropertyLogs) sqlTableName() string { //nolint:dupl false positive
@@ -158,4 +158,3 @@ func (t *TablePropertyLogs) ToArray() A.X { //nolint:dupl false positive
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/Ch/clickhouse_orm_generator.go
-

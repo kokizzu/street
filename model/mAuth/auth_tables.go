@@ -22,6 +22,11 @@ const (
 	VerificationSentAt = `verificationSentAt`
 	VerifiedAt         = `verifiedAt`
 	LastLoginAt        = `lastLoginAt`
+	FullName           = `fullName`
+	UserName           = `userName`
+
+	LoginAt  = `loginAt`
+	LoginIPs = `LoginIPs`
 )
 
 const (
@@ -50,9 +55,12 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{VerificationSentAt, Tt.Integer},
 			{VerifiedAt, Tt.Integer},
 			{LastLoginAt, Tt.Integer},
+			{FullName, Tt.String},
+			{UserName, Tt.String},
 		},
 		AutoIncrementId: true,
 		Unique1:         Email,
+		Unique2:         UserName, // after migration setting default usernames code done
 	},
 	TableSessions: {
 		Fields: []Tt.Field{
@@ -60,6 +68,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UserId, Tt.Unsigned},
 			{ExpiredAt, Tt.Integer},
 			{Device, Tt.String},
+			{LoginAt, Tt.Integer},
+			{LoginIPs, Tt.String},
 		},
 		Unique1: SessionToken,
 	},
@@ -77,6 +87,8 @@ const (
 	Action     = `action`
 	Traces     = `traces`
 	StatusCode = `statusCode`
+	Lat        = `lat`
+	Long       = `long`
 )
 
 var ClickhouseTables = map[Ch.TableName]*Ch.TableProp{
@@ -92,6 +104,8 @@ var ClickhouseTables = map[Ch.TableName]*Ch.TableProp{
 			{IpAddr4, Ch.IPv4},
 			{IpAddr6, Ch.IPv6},
 			{UserAgent, Ch.String},
+			{Lat, Ch.Float64},
+			{Long, Ch.Float64},
 		},
 		Orders: []string{CreatedAt, RequestId, ActorId, Action},
 	},
