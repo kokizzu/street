@@ -94,12 +94,13 @@ func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
 		return
 	}
 	out.actor = user.Id
-	user.CensorFields()
-	out.User = user.Users
 
 	// send verification link
 	hash := S.EncodeCB63(user.Id, 8)
 	out.verifyEmailUrl = in.Host + `/` + GuestVerifyEmailAction + `?secretCode=` + user.SecretCode + `&hash=` + hash
+
+	user.CensorFields()
+	out.User = user.Users
 
 	d.runSubtask(func() {
 		err := d.Mailer.SendRegistrationEmail(user.Email, out.verifyEmailUrl)
