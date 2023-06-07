@@ -150,6 +150,7 @@ const (
 )
 
 func (d *Domain) UserDeactivate(in *UserDeactivateIn) (out UserDeactivateOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	sess := d.mustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
 		return
@@ -215,6 +216,7 @@ const (
 )
 
 func (d *Domain) UserUpdateProfile(in *UserUpdateProfileIn) (out UserProfileOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	sess := d.mustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
 		return
@@ -253,9 +255,12 @@ func (d *Domain) UserUpdateProfile(in *UserUpdateProfileIn) (out UserProfileOut)
 	}
 
 	if !user.DoUpdateById() {
+		user.HaveMutation()
 		out.SetError(400, ErrUpdateProfileFailed)
 		return
 	}
+
+	out.AddDbChangeLogs(user.Logs())
 
 	user.CensorFields()
 	out.User = &user.Users

@@ -20,11 +20,17 @@ import (
 type PropertyMutator struct {
 	rqProperty.Property
 	mutations []A.X
+	logs      []A.X
 }
 
 // NewPropertyMutator create new ORM writer/command object
 func NewPropertyMutator(adapter *Tt.Adapter) *PropertyMutator {
 	return &PropertyMutator{Property: rqProperty.Property{Adapter: adapter}}
+}
+
+// Logs get array of logs [field, old, new]
+func (p *PropertyMutator) Logs() []A.X { //nolint:dupl false positive
+	return p.logs
 }
 
 // HaveMutation check whether Set* methods ever called
@@ -35,6 +41,7 @@ func (p *PropertyMutator) HaveMutation() bool { //nolint:dupl false positive
 // ClearMutations clear all previously called Set* methods
 func (p *PropertyMutator) ClearMutations() { //nolint:dupl false positive
 	p.mutations = []A.X{}
+	p.logs = []A.X{}
 }
 
 // DoOverwriteById update all columns, error if not exists, not using mutations/Set*
@@ -102,6 +109,7 @@ func (p *PropertyMutator) DoUpsert() bool { //nolint:dupl false positive
 func (p *PropertyMutator) SetId(val uint64) bool { //nolint:dupl false positive
 	if val != p.Id {
 		p.mutations = append(p.mutations, A.X{`=`, 0, val})
+		p.logs = append(p.logs, A.X{`id`, p.Id, val})
 		p.Id = val
 		return true
 	}
@@ -112,6 +120,7 @@ func (p *PropertyMutator) SetId(val uint64) bool { //nolint:dupl false positive
 func (p *PropertyMutator) SetSerialNumber(val string) bool { //nolint:dupl false positive
 	if val != p.SerialNumber {
 		p.mutations = append(p.mutations, A.X{`=`, 1, val})
+		p.logs = append(p.logs, A.X{`serialNumber`, p.SerialNumber, val})
 		p.SerialNumber = val
 		return true
 	}
@@ -122,6 +131,7 @@ func (p *PropertyMutator) SetSerialNumber(val string) bool { //nolint:dupl false
 func (p *PropertyMutator) SetSizeM2(val float64) bool { //nolint:dupl false positive
 	if val != p.SizeM2 {
 		p.mutations = append(p.mutations, A.X{`=`, 2, val})
+		p.logs = append(p.logs, A.X{`sizeM2`, p.SizeM2, val})
 		p.SizeM2 = val
 		return true
 	}
@@ -132,6 +142,7 @@ func (p *PropertyMutator) SetSizeM2(val float64) bool { //nolint:dupl false posi
 func (p *PropertyMutator) SetMainUse(val string) bool { //nolint:dupl false positive
 	if val != p.MainUse {
 		p.mutations = append(p.mutations, A.X{`=`, 3, val})
+		p.logs = append(p.logs, A.X{`mainUse`, p.MainUse, val})
 		p.MainUse = val
 		return true
 	}
@@ -142,6 +153,7 @@ func (p *PropertyMutator) SetMainUse(val string) bool { //nolint:dupl false posi
 func (p *PropertyMutator) SetMainBuildingMaterial(val string) bool { //nolint:dupl false positive
 	if val != p.MainBuildingMaterial {
 		p.mutations = append(p.mutations, A.X{`=`, 4, val})
+		p.logs = append(p.logs, A.X{`mainBuildingMaterial`, p.MainBuildingMaterial, val})
 		p.MainBuildingMaterial = val
 		return true
 	}
@@ -152,6 +164,7 @@ func (p *PropertyMutator) SetMainBuildingMaterial(val string) bool { //nolint:du
 func (p *PropertyMutator) SetConstructCompletedDate(val int64) bool { //nolint:dupl false positive
 	if val != p.ConstructCompletedDate {
 		p.mutations = append(p.mutations, A.X{`=`, 5, val})
+		p.logs = append(p.logs, A.X{`constructCompletedDate`, p.ConstructCompletedDate, val})
 		p.ConstructCompletedDate = val
 		return true
 	}
@@ -162,6 +175,7 @@ func (p *PropertyMutator) SetConstructCompletedDate(val int64) bool { //nolint:d
 func (p *PropertyMutator) SetNumberOfFloors(val float64) bool { //nolint:dupl false positive
 	if val != p.NumberOfFloors {
 		p.mutations = append(p.mutations, A.X{`=`, 6, val})
+		p.logs = append(p.logs, A.X{`numberOfFloors`, p.NumberOfFloors, val})
 		p.NumberOfFloors = val
 		return true
 	}
@@ -172,6 +186,7 @@ func (p *PropertyMutator) SetNumberOfFloors(val float64) bool { //nolint:dupl fa
 func (p *PropertyMutator) SetBuildingLamination(val string) bool { //nolint:dupl false positive
 	if val != p.BuildingLamination {
 		p.mutations = append(p.mutations, A.X{`=`, 7, val})
+		p.logs = append(p.logs, A.X{`buildingLamination`, p.BuildingLamination, val})
 		p.BuildingLamination = val
 		return true
 	}
@@ -182,6 +197,7 @@ func (p *PropertyMutator) SetBuildingLamination(val string) bool { //nolint:dupl
 func (p *PropertyMutator) SetNote(val string) bool { //nolint:dupl false positive
 	if val != p.Note {
 		p.mutations = append(p.mutations, A.X{`=`, 8, val})
+		p.logs = append(p.logs, A.X{`note`, p.Note, val})
 		p.Note = val
 		return true
 	}
@@ -192,6 +208,7 @@ func (p *PropertyMutator) SetNote(val string) bool { //nolint:dupl false positiv
 func (p *PropertyMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.CreatedAt {
 		p.mutations = append(p.mutations, A.X{`=`, 9, val})
+		p.logs = append(p.logs, A.X{`createdAt`, p.CreatedAt, val})
 		p.CreatedAt = val
 		return true
 	}
@@ -202,6 +219,7 @@ func (p *PropertyMutator) SetCreatedAt(val int64) bool { //nolint:dupl false pos
 func (p *PropertyMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.CreatedBy {
 		p.mutations = append(p.mutations, A.X{`=`, 10, val})
+		p.logs = append(p.logs, A.X{`createdBy`, p.CreatedBy, val})
 		p.CreatedBy = val
 		return true
 	}
@@ -212,6 +230,7 @@ func (p *PropertyMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false po
 func (p *PropertyMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.UpdatedAt {
 		p.mutations = append(p.mutations, A.X{`=`, 11, val})
+		p.logs = append(p.logs, A.X{`updatedAt`, p.UpdatedAt, val})
 		p.UpdatedAt = val
 		return true
 	}
@@ -222,6 +241,7 @@ func (p *PropertyMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false pos
 func (p *PropertyMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.UpdatedBy {
 		p.mutations = append(p.mutations, A.X{`=`, 12, val})
+		p.logs = append(p.logs, A.X{`updatedBy`, p.UpdatedBy, val})
 		p.UpdatedBy = val
 		return true
 	}
@@ -232,6 +252,7 @@ func (p *PropertyMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false po
 func (p *PropertyMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.DeletedAt {
 		p.mutations = append(p.mutations, A.X{`=`, 13, val})
+		p.logs = append(p.logs, A.X{`deletedAt`, p.DeletedAt, val})
 		p.DeletedAt = val
 		return true
 	}

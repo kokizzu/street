@@ -7,13 +7,14 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strings"
 	"time"
 
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
 	"github.com/jessevdk/go-flags"
+	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/X"
 	"github.com/kokizzu/id64"
 	"github.com/kokizzu/lexid"
 	"github.com/kpango/fastime"
@@ -161,7 +162,7 @@ type ResponseCommon struct {
 	Redirect     string `json:"redirect,omitempty" form:"redirect" query:"redirect" long:"redirect" msg:"redirect"`
 
 	// action trace
-	traces []string
+	traces []any
 	actor  uint64
 }
 
@@ -206,6 +207,19 @@ func (o *ResponseCommon) AddTrace(act string) {
 	o.traces = append(o.traces, act)
 }
 
+func (a *ResponseCommon) AddDbChangeLogs(x []A.X) { // array of [field, old, new]
+	for _, v := range x {
+		a.traces = append(a.traces, v)
+	}
+}
+
+func (a *ResponseCommon) AddDbChange(field, old, new any) {
+	a.traces = append(a.traces, []any{field, old, new})
+}
+
 func (o *ResponseCommon) Traces() string {
-	return strings.Join(o.traces, `|`)
+	if o.traces == nil {
+		return ``
+	}
+	return X.ToJson(o.traces)
 }

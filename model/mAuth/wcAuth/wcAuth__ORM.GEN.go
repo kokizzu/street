@@ -20,11 +20,17 @@ import (
 type SessionsMutator struct {
 	rqAuth.Sessions
 	mutations []A.X
+	logs      []A.X
 }
 
 // NewSessionsMutator create new ORM writer/command object
 func NewSessionsMutator(adapter *Tt.Adapter) *SessionsMutator {
 	return &SessionsMutator{Sessions: rqAuth.Sessions{Adapter: adapter}}
+}
+
+// Logs get array of logs [field, old, new]
+func (s *SessionsMutator) Logs() []A.X { //nolint:dupl false positive
+	return s.logs
 }
 
 // HaveMutation check whether Set* methods ever called
@@ -35,6 +41,7 @@ func (s *SessionsMutator) HaveMutation() bool { //nolint:dupl false positive
 // ClearMutations clear all previously called Set* methods
 func (s *SessionsMutator) ClearMutations() { //nolint:dupl false positive
 	s.mutations = []A.X{}
+	s.logs = []A.X{}
 }
 
 // func (s *SessionsMutator) DoUpsert() bool { //nolint:dupl false positive
@@ -88,6 +95,7 @@ func (s *SessionsMutator) DoUpsert() bool { //nolint:dupl false positive
 func (s *SessionsMutator) SetSessionToken(val string) bool { //nolint:dupl false positive
 	if val != s.SessionToken {
 		s.mutations = append(s.mutations, A.X{`=`, 0, val})
+		s.logs = append(s.logs, A.X{`sessionToken`, s.SessionToken, val})
 		s.SessionToken = val
 		return true
 	}
@@ -98,6 +106,7 @@ func (s *SessionsMutator) SetSessionToken(val string) bool { //nolint:dupl false
 func (s *SessionsMutator) SetUserId(val uint64) bool { //nolint:dupl false positive
 	if val != s.UserId {
 		s.mutations = append(s.mutations, A.X{`=`, 1, val})
+		s.logs = append(s.logs, A.X{`userId`, s.UserId, val})
 		s.UserId = val
 		return true
 	}
@@ -108,6 +117,7 @@ func (s *SessionsMutator) SetUserId(val uint64) bool { //nolint:dupl false posit
 func (s *SessionsMutator) SetExpiredAt(val int64) bool { //nolint:dupl false positive
 	if val != s.ExpiredAt {
 		s.mutations = append(s.mutations, A.X{`=`, 2, val})
+		s.logs = append(s.logs, A.X{`expiredAt`, s.ExpiredAt, val})
 		s.ExpiredAt = val
 		return true
 	}
@@ -118,6 +128,7 @@ func (s *SessionsMutator) SetExpiredAt(val int64) bool { //nolint:dupl false pos
 func (s *SessionsMutator) SetDevice(val string) bool { //nolint:dupl false positive
 	if val != s.Device {
 		s.mutations = append(s.mutations, A.X{`=`, 3, val})
+		s.logs = append(s.logs, A.X{`device`, s.Device, val})
 		s.Device = val
 		return true
 	}
@@ -128,6 +139,7 @@ func (s *SessionsMutator) SetDevice(val string) bool { //nolint:dupl false posit
 func (s *SessionsMutator) SetLoginAt(val int64) bool { //nolint:dupl false positive
 	if val != s.LoginAt {
 		s.mutations = append(s.mutations, A.X{`=`, 4, val})
+		s.logs = append(s.logs, A.X{`loginAt`, s.LoginAt, val})
 		s.LoginAt = val
 		return true
 	}
@@ -138,6 +150,7 @@ func (s *SessionsMutator) SetLoginAt(val int64) bool { //nolint:dupl false posit
 func (s *SessionsMutator) SetLoginIPs(val string) bool { //nolint:dupl false positive
 	if val != s.LoginIPs {
 		s.mutations = append(s.mutations, A.X{`=`, 5, val})
+		s.logs = append(s.logs, A.X{`loginIPs`, s.LoginIPs, val})
 		s.LoginIPs = val
 		return true
 	}
@@ -150,11 +163,17 @@ func (s *SessionsMutator) SetLoginIPs(val string) bool { //nolint:dupl false pos
 type UsersMutator struct {
 	rqAuth.Users
 	mutations []A.X
+	logs      []A.X
 }
 
 // NewUsersMutator create new ORM writer/command object
 func NewUsersMutator(adapter *Tt.Adapter) *UsersMutator {
 	return &UsersMutator{Users: rqAuth.Users{Adapter: adapter}}
+}
+
+// Logs get array of logs [field, old, new]
+func (u *UsersMutator) Logs() []A.X { //nolint:dupl false positive
+	return u.logs
 }
 
 // HaveMutation check whether Set* methods ever called
@@ -165,6 +184,7 @@ func (u *UsersMutator) HaveMutation() bool { //nolint:dupl false positive
 // ClearMutations clear all previously called Set* methods
 func (u *UsersMutator) ClearMutations() { //nolint:dupl false positive
 	u.mutations = []A.X{}
+	u.logs = []A.X{}
 }
 
 // DoOverwriteById update all columns, error if not exists, not using mutations/Set*
@@ -276,6 +296,7 @@ func (u *UsersMutator) DoUpsert() bool { //nolint:dupl false positive
 func (u *UsersMutator) SetId(val uint64) bool { //nolint:dupl false positive
 	if val != u.Id {
 		u.mutations = append(u.mutations, A.X{`=`, 0, val})
+		u.logs = append(u.logs, A.X{`id`, u.Id, val})
 		u.Id = val
 		return true
 	}
@@ -286,6 +307,7 @@ func (u *UsersMutator) SetId(val uint64) bool { //nolint:dupl false positive
 func (u *UsersMutator) SetEmail(val string) bool { //nolint:dupl false positive
 	if val != u.Email {
 		u.mutations = append(u.mutations, A.X{`=`, 1, val})
+		u.logs = append(u.logs, A.X{`email`, u.Email, val})
 		u.Email = val
 		return true
 	}
@@ -306,6 +328,7 @@ func (u *UsersMutator) SetPassword(val string) bool { //nolint:dupl false positi
 func (u *UsersMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != u.CreatedAt {
 		u.mutations = append(u.mutations, A.X{`=`, 3, val})
+		u.logs = append(u.logs, A.X{`createdAt`, u.CreatedAt, val})
 		u.CreatedAt = val
 		return true
 	}
@@ -316,6 +339,7 @@ func (u *UsersMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positi
 func (u *UsersMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != u.CreatedBy {
 		u.mutations = append(u.mutations, A.X{`=`, 4, val})
+		u.logs = append(u.logs, A.X{`createdBy`, u.CreatedBy, val})
 		u.CreatedBy = val
 		return true
 	}
@@ -326,6 +350,7 @@ func (u *UsersMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false posit
 func (u *UsersMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != u.UpdatedAt {
 		u.mutations = append(u.mutations, A.X{`=`, 5, val})
+		u.logs = append(u.logs, A.X{`updatedAt`, u.UpdatedAt, val})
 		u.UpdatedAt = val
 		return true
 	}
@@ -336,6 +361,7 @@ func (u *UsersMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positi
 func (u *UsersMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != u.UpdatedBy {
 		u.mutations = append(u.mutations, A.X{`=`, 6, val})
+		u.logs = append(u.logs, A.X{`updatedBy`, u.UpdatedBy, val})
 		u.UpdatedBy = val
 		return true
 	}
@@ -346,6 +372,7 @@ func (u *UsersMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false posit
 func (u *UsersMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != u.DeletedAt {
 		u.mutations = append(u.mutations, A.X{`=`, 7, val})
+		u.logs = append(u.logs, A.X{`deletedAt`, u.DeletedAt, val})
 		u.DeletedAt = val
 		return true
 	}
@@ -356,6 +383,7 @@ func (u *UsersMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positi
 func (u *UsersMutator) SetPasswordSetAt(val int64) bool { //nolint:dupl false positive
 	if val != u.PasswordSetAt {
 		u.mutations = append(u.mutations, A.X{`=`, 8, val})
+		u.logs = append(u.logs, A.X{`passwordSetAt`, u.PasswordSetAt, val})
 		u.PasswordSetAt = val
 		return true
 	}
@@ -386,6 +414,7 @@ func (u *UsersMutator) SetSecretCodeAt(val int64) bool { //nolint:dupl false pos
 func (u *UsersMutator) SetVerificationSentAt(val int64) bool { //nolint:dupl false positive
 	if val != u.VerificationSentAt {
 		u.mutations = append(u.mutations, A.X{`=`, 11, val})
+		u.logs = append(u.logs, A.X{`verificationSentAt`, u.VerificationSentAt, val})
 		u.VerificationSentAt = val
 		return true
 	}
@@ -396,6 +425,7 @@ func (u *UsersMutator) SetVerificationSentAt(val int64) bool { //nolint:dupl fal
 func (u *UsersMutator) SetVerifiedAt(val int64) bool { //nolint:dupl false positive
 	if val != u.VerifiedAt {
 		u.mutations = append(u.mutations, A.X{`=`, 12, val})
+		u.logs = append(u.logs, A.X{`verifiedAt`, u.VerifiedAt, val})
 		u.VerifiedAt = val
 		return true
 	}
@@ -406,6 +436,7 @@ func (u *UsersMutator) SetVerifiedAt(val int64) bool { //nolint:dupl false posit
 func (u *UsersMutator) SetLastLoginAt(val int64) bool { //nolint:dupl false positive
 	if val != u.LastLoginAt {
 		u.mutations = append(u.mutations, A.X{`=`, 13, val})
+		u.logs = append(u.logs, A.X{`lastLoginAt`, u.LastLoginAt, val})
 		u.LastLoginAt = val
 		return true
 	}
@@ -416,6 +447,7 @@ func (u *UsersMutator) SetLastLoginAt(val int64) bool { //nolint:dupl false posi
 func (u *UsersMutator) SetFullName(val string) bool { //nolint:dupl false positive
 	if val != u.FullName {
 		u.mutations = append(u.mutations, A.X{`=`, 14, val})
+		u.logs = append(u.logs, A.X{`fullName`, u.FullName, val})
 		u.FullName = val
 		return true
 	}
@@ -426,6 +458,7 @@ func (u *UsersMutator) SetFullName(val string) bool { //nolint:dupl false positi
 func (u *UsersMutator) SetUserName(val string) bool { //nolint:dupl false positive
 	if val != u.UserName {
 		u.mutations = append(u.mutations, A.X{`=`, 15, val})
+		u.logs = append(u.logs, A.X{`userName`, u.UserName, val})
 		u.UserName = val
 		return true
 	}

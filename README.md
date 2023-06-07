@@ -170,3 +170,5 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
   - **A**: on [youtube livestream](//www.youtube.com/@kokizzu/streams)
 - **Q**: why secrets not encrypted?
   - **A**: it's ok for PoC phase, since it's listen to localhost
+- **Q**: run test against local `docker compose` instead of `dockertest`?
+  - **A**: set env or export `USE_COMPOSE=x` before running test
