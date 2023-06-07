@@ -34,11 +34,11 @@ const AdminUserListOut = {
 }
 /**
  * @callback AdminUserListCallback
- * @param {AdminUserListOut} o
+ * @param {AdminUserCrudOut} o
  * @returns {Promise}
  */
 /**
- * @param  {AdminUserListIn} i
+ * @param  {AdminUserCrudIn} i
  * @param {AdminUserListCallback} cb
  * @returns {Promise}
  */

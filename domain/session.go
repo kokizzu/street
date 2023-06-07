@@ -186,6 +186,8 @@ const (
 	ErrSessionTokenNotFound  = `sessionToken not found`
 	ErrSessionTokenLoggedOut = `sessionToken already logged out`
 
+	ErrSegmentNotAllowed = `session segment not allowed`
+
 	ErrSessionUserNotSuperAdmin = `session email is not superadmin`
 )
 
@@ -222,7 +224,15 @@ func (d *Domain) mustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 		return nil
 	}
 
+	// fill segment
 	d.segmentsFromSession(sess)
+
+	// check allowed to hit/access this segment
+	firstSegment := in.FirstSegment()
+	if !sess.IsSuperAdmin && !sess.Segments[firstSegment] {
+		out.SetError(403, ErrSegmentNotAllowed)
+		return nil
+	}
 
 	out.actor = sess.UserId
 	return sess

@@ -75,6 +75,17 @@ func (s *Sessions) SqlSelectAllFields() string { //nolint:dupl false positive
 	`
 }
 
+// SqlSelectAllUncensoredFields generate Sql select fields
+func (s *Sessions) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
+	return ` "sessionToken"
+	, "userId"
+	, "expiredAt"
+	, "device"
+	, "loginAt"
+	, "loginIPs"
+	`
+}
+
 // ToUpdateArray generate slice of update command
 func (s *Sessions) ToUpdateArray() A.X { //nolint:dupl false positive
 	return A.X{
@@ -161,6 +172,17 @@ func (s *Sessions) ToArray() A.X { //nolint:dupl false positive
 
 // FromArray convert slice to receiver fields
 func (s *Sessions) FromArray(a A.X) *Sessions { //nolint:dupl false positive
+	s.SessionToken = X.ToS(a[0])
+	s.UserId = X.ToU(a[1])
+	s.ExpiredAt = X.ToI(a[2])
+	s.Device = X.ToS(a[3])
+	s.LoginAt = X.ToI(a[4])
+	s.LoginIPs = X.ToS(a[5])
+	return s
+}
+
+// FromUncensoredArray convert slice to receiver fields
+func (s *Sessions) FromUncensoredArray(a A.X) *Sessions { //nolint:dupl false positive
 	s.SessionToken = X.ToS(a[0])
 	s.UserId = X.ToU(a[1])
 	s.ExpiredAt = X.ToI(a[2])
@@ -304,6 +326,27 @@ func (u *Users) FindByUserName() bool { //nolint:dupl false positive
 
 // SqlSelectAllFields generate Sql select fields
 func (u *Users) SqlSelectAllFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "email"
+	, "password"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	, "passwordSetAt"
+	, "secretCode"
+	, "secretCodeAt"
+	, "verificationSentAt"
+	, "verifiedAt"
+	, "lastLoginAt"
+	, "fullName"
+	, "userName"
+	`
+}
+
+// SqlSelectAllUncensoredFields generate Sql select fields
+func (u *Users) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
 	return ` "id"
 	, "email"
 	, "password"
@@ -551,6 +594,24 @@ func (u *Users) FromArray(a A.X) *Users { //nolint:dupl false positive
 	u.PasswordSetAt = X.ToI(a[8])
 	u.SecretCode = X.ToS(a[9])
 	u.SecretCodeAt = X.ToI(a[10])
+	u.VerificationSentAt = X.ToI(a[11])
+	u.VerifiedAt = X.ToI(a[12])
+	u.LastLoginAt = X.ToI(a[13])
+	u.FullName = X.ToS(a[14])
+	u.UserName = X.ToS(a[15])
+	return u
+}
+
+// FromUncensoredArray convert slice to receiver fields
+func (u *Users) FromUncensoredArray(a A.X) *Users { //nolint:dupl false positive
+	u.Id = X.ToU(a[0])
+	u.Email = X.ToS(a[1])
+	u.CreatedAt = X.ToI(a[3])
+	u.CreatedBy = X.ToU(a[4])
+	u.UpdatedAt = X.ToI(a[5])
+	u.UpdatedBy = X.ToU(a[6])
+	u.DeletedAt = X.ToI(a[7])
+	u.PasswordSetAt = X.ToI(a[8])
 	u.VerificationSentAt = X.ToI(a[11])
 	u.VerifiedAt = X.ToI(a[12])
 	u.LastLoginAt = X.ToI(a[13])

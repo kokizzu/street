@@ -90,6 +90,25 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	`
 }
 
+// SqlSelectAllUncensoredFields generate Sql select fields
+func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "serialNumber"
+	, "sizeM2"
+	, "mainUse"
+	, "mainBuildingMaterial"
+	, "constructCompletedDate"
+	, "numberOfFloors"
+	, "buildingLamination"
+	, "note"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	`
+}
+
 // ToUpdateArray generate slice of update command
 func (p *Property) ToUpdateArray() A.X { //nolint:dupl false positive
 	return A.X{
@@ -276,6 +295,25 @@ func (p *Property) ToArray() A.X { //nolint:dupl false positive
 
 // FromArray convert slice to receiver fields
 func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
+	p.Id = X.ToU(a[0])
+	p.SerialNumber = X.ToS(a[1])
+	p.SizeM2 = X.ToF(a[2])
+	p.MainUse = X.ToS(a[3])
+	p.MainBuildingMaterial = X.ToS(a[4])
+	p.ConstructCompletedDate = X.ToI(a[5])
+	p.NumberOfFloors = X.ToF(a[6])
+	p.BuildingLamination = X.ToS(a[7])
+	p.Note = X.ToS(a[8])
+	p.CreatedAt = X.ToI(a[9])
+	p.CreatedBy = X.ToU(a[10])
+	p.UpdatedAt = X.ToI(a[11])
+	p.UpdatedBy = X.ToU(a[12])
+	p.DeletedAt = X.ToI(a[13])
+	return p
+}
+
+// FromUncensoredArray convert slice to receiver fields
+func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false positive
 	p.Id = X.ToU(a[0])
 	p.SerialNumber = X.ToS(a[1])
 	p.SizeM2 = X.ToF(a[2])

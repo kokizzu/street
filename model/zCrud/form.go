@@ -13,21 +13,21 @@ type InputType string
 type Validation string
 
 const (
-	String DataType = `string`
-	Int    DataType = `int`
-	Float  DataType = `float`
-	IntArr DataType = `intArr`
+	DataTypeString DataType = `string`
+	DataTypeInt    DataType = `int`
+	DataTypeFloat  DataType = `float`
+	DataTypeIntArr DataType = `intArr`
 
-	Text     InputType = `text`
-	TextArea InputType = `textarea`
-	Password InputType = `password`
-	Combobox InputType = `combobox`
-	Checkbox InputType = `checkbox`
+	InputTypeText     InputType = `text`
+	InputTypeTextArea InputType = `textarea`
+	InputTypePassword InputType = `password`
+	InputTypeCombobox InputType = `combobox`
+	InputTypeCheckbox InputType = `checkbox`
 
-	Required Validation = `required`
-	MinLen   Validation = `minLen`
-	MaxLen   Validation = `maxLen`
-	Regex    Validation = `regex`
+	ValidationRequired Validation = `required`
+	ValidationMinLen   Validation = `minLen`
+	ValidationMaxLen   Validation = `maxLen`
+	ValidationRegex    Validation = `regex`
 )
 
 type Fields struct {

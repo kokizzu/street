@@ -208,6 +208,8 @@ github.com/kokizzu/gotro v1.3006.2352 h1:upI1PRosq32P1Bsdo+lA2I9orfldPPQ3IRsX6zC
 github.com/kokizzu/gotro v1.3006.2352/go.mod h1:+FqSdg9EEcXiH8TSrWrpC4FS9YBIRTSKZU1drTTQ7Nw=
 github.com/kokizzu/gotro v1.3007.1519 h1:yt1svtZGKedkDcP6suaL/WVOgHatUDjoYf2sYDrrivM=
 github.com/kokizzu/gotro v1.3007.1519/go.mod h1:+FqSdg9EEcXiH8TSrWrpC4FS9YBIRTSKZU1drTTQ7Nw=
+github.com/kokizzu/gotro v1.3008.506 h1:1/xQWrgofGM/UCoTpTd35Uubm+YuozHxZbV73dZ0llg=
+github.com/kokizzu/gotro v1.3008.506/go.mod h1:7sg+qls5Qa5eeBlycDoOpN9EoKjn4vRmSxfrAB7DFaI=
 github.com/kokizzu/id64 v1.2829.1452 h1:d+hbN+0YOX51AUYCU6pIVuLnsKhL1TNDBwBfHKevdX8=
 github.com/kokizzu/id64 v1.2829.1452/go.mod h1:ssdJfBhCjVs02lh6QutYOO8ZH+PWe5MDPh2gehPRgqU=
 github.com/kokizzu/lexid v1.2423.1347 h1:EJl5H+WX9/FC5/lDOjwylTvh7k2IKxaYeV+F6idbLMo=
@@ -325,6 +327,8 @@ github.com/tarantool/go-openssl v0.0.8-0.20230307065445-720eeb389195 h1:/AN3eUPs
 github.com/tarantool/go-openssl v0.0.8-0.20230307065445-720eeb389195/go.mod h1:M7H4xYSbzqpW/ZRBMyH0eyqQBsnhAMfsYk5mv0yid7A=
 github.com/tarantool/go-tarantool v1.11.0 h1:iLw8kYDQNFA3c3VHhBJJajXKUJPaz0StY/CdrutDn6s=
 github.com/tarantool/go-tarantool v1.11.0/go.mod h1:QRiXv0jnxwgxHtr9ZmifSr/eRba76gTUBgp69pDMX1U=
+github.com/tarantool/go-tarantool v1.12.0 h1:JmTJDppt1hvSrI0iZKMocgWlBWMvEkhFGUZCgau9wS8=
+github.com/tarantool/go-tarantool v1.12.0/go.mod h1:QRiXv0jnxwgxHtr9ZmifSr/eRba76gTUBgp69pDMX1U=
 github.com/tdewolff/minify v2.3.6+incompatible h1:2hw5/9ZvxhWLvBUnHE06gElGYz+Jv9R4Eys0XUzItYo=
 github.com/tdewolff/minify v2.3.6+incompatible/go.mod h1:9Ov578KJUmAWpS6NeZwRZyT56Uf6o3Mcz9CEsg8USYs=
 github.com/tdewolff/parse v2.3.4+incompatible h1:x05/cnGwIMf4ceLuDMBOdQ1qGniMoxpP46ghf0Qzh38=

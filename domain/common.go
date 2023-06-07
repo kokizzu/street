@@ -15,6 +15,7 @@ import (
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 	"github.com/kokizzu/id64"
 	"github.com/kokizzu/lexid"
@@ -153,6 +154,17 @@ func (l *RequestCommon) deleteTempFiles() {
 		// TODO: delete temporary uploads
 		_ = tmpPath
 	}
+}
+
+func (l *RequestCommon) FirstSegment() string {
+	if l.Action == `` {
+		return ``
+	}
+	segments := S.Split(l.Action, `/`)
+	if len(segments) > 0 {
+		return segments[0]
+	}
+	return ``
 }
 
 type ResponseCommon struct {

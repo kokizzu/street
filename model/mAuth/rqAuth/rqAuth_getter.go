@@ -4,6 +4,8 @@ import (
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
+
+	"street/model/zCrud"
 )
 
 func (u *Users) CheckPassword(pass string) error {
@@ -19,5 +21,24 @@ WHERE ` + s.SqlUserId() + ` = ` + I.UToS(userId) + `
 	s.Adapter.QuerySql(query, func(row []any) {
 		res = append(res, s.FromArray(row))
 	})
+	return
+}
+
+func (u *Users) FindByPagination(in *zCrud.PaginationIn, out *zCrud.PaginationOut) (res [][]any) {
+	limitOffsetSql := out.LimitOffsetSql(in)
+
+	whereAndSql, orderBySql := out.WhereOrderSql(in.Filters, in.Order, []string{}) // TODO: u.FieldsArray())
+
+	query := `-- ` + L.CallerInfo().String() + `
+SELECT ` + u.SqlSelectAllUncensoredFields() + `
+FROM ` + u.SqlTableName() + `
+` + whereAndSql + `
+` + orderBySql + `
+` + limitOffsetSql
+	u.Adapter.QuerySql(query, func(row []any) {
+		res = append(res, row)
+	})
+
+	out.CalculatePages(len(res))
 	return
 }
