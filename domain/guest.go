@@ -178,6 +178,8 @@ type (
 	GuestLoginOut struct {
 		ResponseCommon
 		User rqAuth.Users `json:"user" form:"user" query:"user" long:"user" msg:"user"`
+
+		Segments M.SB `json:"segments" form:"segments" query:"segments" long:"segments" msg:"segments"`
 	}
 )
 
@@ -217,7 +219,7 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 	}
 	user.CensorFields()
 	out.User = *user
-	session := d.createSession(user.Id, user.Email, in.UserAgent)
+	session, sess := d.createSession(user.Id, user.Email, in.UserAgent)
 
 	// TODO: set list of roles in the session
 	if !session.DoInsert() {
@@ -225,6 +227,7 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 		return
 	}
 	out.SessionToken = session.SessionToken
+	out.Segments = d.segmentsFromSession(sess)
 	return
 }
 
@@ -499,6 +502,8 @@ type (
 		Email       string       `json:"email" form:"email" query:"email" long:"email" msg:"email"`
 		CurrentUser rqAuth.Users `json:"currentUser" form:"currentUser" query:"currentUser" long:"currentUser" msg:"currentUser"`
 		Provider    string       `json:"provider" form:"provider" query:"provider" long:"provider" msg:"provider"`
+
+		Segments M.SB `json:"segments" form:"segments" query:"segments" long:"segments" msg:"segments"`
 	}
 )
 
@@ -605,12 +610,13 @@ func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCal
 	d.expireSession(in.SessionToken, &out.ResponseCommon)
 
 	// create new session
-	session := d.createSession(user.Id, user.Email, in.UserAgent)
+	session, sess := d.createSession(user.Id, user.Email, in.UserAgent)
 	if !session.DoInsert() {
 		out.SetError(500, ErrGuestOauthCallbackFailedStoringSession)
 		return
 	}
 	out.SessionToken = session.SessionToken
+	out.Segments = sess.Segments
 
 	return
 }

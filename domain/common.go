@@ -14,6 +14,7 @@ import (
 	"github.com/jessevdk/go-flags"
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/X"
 	"github.com/kokizzu/id64"
 	"github.com/kokizzu/lexid"
@@ -222,4 +223,17 @@ func (o *ResponseCommon) Traces() string {
 		return ``
 	}
 	return X.ToJson(o.traces)
+}
+
+func (d *Domain) segmentsFromSession(s *Session) M.SB {
+	s.IsSuperAdmin = d.Superadmins[s.Email]
+	s.Segments = M.SB{
+		UserSegment:    true,
+		BuyerSegment:   true,
+		RealtorSegment: true,
+	}
+	if s.IsSuperAdmin {
+		s.Segments[AdminSegment] = true
+	}
+	return s.Segments
 }

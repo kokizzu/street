@@ -5,6 +5,7 @@ import (
 
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/I"
+	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
 
 	"street/model/mAuth/rqAuth"
@@ -45,6 +46,8 @@ type (
 	UserProfileOut struct {
 		ResponseCommon
 		User *rqAuth.Users `json:"user" form:"user" query:"user" long:"user" msg:"user"`
+
+		Segments M.SB `json:"segments" form:"segments" query:"segments" long:"segments" msg:"segments"`
 	}
 )
 
@@ -71,6 +74,7 @@ func (d *Domain) UserProfile(in *UserProfileIn) (out UserProfileOut) {
 
 	user.CensorFields()
 	out.User = user
+	out.Segments = sess.Segments
 	return
 }
 

@@ -375,7 +375,9 @@ func (d *domains) eachSortedHandler(eachFunc func(name string, handler tmethod))
 	byName := map[string]tmethod{}
 	for _, handler := range handlers {
 		// only add domain method, not session or any other struct
-		if S.Contains(handler.Receiver, `Domain`) {
+		if S.Contains(handler.Receiver, `Domain`) &&
+			S.EndsWith(handler.In, `In`) &&
+			S.EndsWith(handler.Out, `Out`) {
 			handlerNames = append(handlerNames, handler.MethodName)
 			byName[handler.MethodName] = handler
 		}
@@ -648,7 +650,7 @@ var viewList = map[string]string{
 	for _, cacheName := range cacheNames {
 		b.WriteString(`
 func (v *Views) Render` + cacheName + `(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-DataType", "text/html")
+	c.Set("Content-Type", "text/html")
 	return c.SendString(v.cache[` + S.BT(cacheName) + `].Str(m))
 }` + NL)
 

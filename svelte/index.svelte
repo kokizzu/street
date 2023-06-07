@@ -3,6 +3,7 @@
   import {onMount, tick} from "svelte";
   
   let user = {/* user */};
+  let segments = {/* segments */};
   let google = '#{google}';
   
   function getCookie( name ) {
@@ -32,8 +33,8 @@
   
   async function onHashChange() {
     const auth = getCookie( 'auth' )
-    console.log( auth )
-    if( auth && !auth.startsWith( 'TEMP__' ) ) {
+    console.log( auth, user )
+    if( auth && user && !auth.startsWith( 'TEMP__' ) ) {
       location.hash = ''
       mode = USER
       return
@@ -81,6 +82,7 @@
       console.log( o )
       if( o.error ) return alert( o.error );
       user = o.user
+      segments = o.segments
       onHashChange()
     } )
   }
@@ -125,6 +127,8 @@
 	<br/>
 	Debug:<br/>
 	<textarea cols="20" rows="10">{JSON.stringify( user, null, 2 )}</textarea>
+	
+	<textarea cols="20" rows="10">{JSON.stringify( segments, null, 2 )}</textarea>
 	
 	<hr/>
 	TODO: import other svelte component here (menu, content, etc)
