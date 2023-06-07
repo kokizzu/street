@@ -8,6 +8,7 @@ import (
 	chBuffer "github.com/kokizzu/ch-timed-buffer"
 	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
+	"github.com/kokizzu/gotro/M"
 	"github.com/rs/zerolog"
 
 	"street/conf"
@@ -36,6 +37,9 @@ type Domain struct {
 
 	// logger
 	Log *zerolog.Logger
+
+	// list of superadmin emails
+	Superadmins M.SB
 }
 
 // will run in background if background service
