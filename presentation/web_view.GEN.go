@@ -20,32 +20,32 @@ var viewList = map[string]string{
 
 
 func (v *Views) RenderGuestOauthCallback(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-DataType", "text/html")
 	return c.SendString(v.cache[`GuestOauthCallback`].Str(m))
 }
 
 func (v *Views) RenderGuestResetPassword(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-DataType", "text/html")
 	return c.SendString(v.cache[`GuestResetPassword`].Str(m))
 }
 
 func (v *Views) RenderGuestVerifyEmail(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-DataType", "text/html")
 	return c.SendString(v.cache[`GuestVerifyEmail`].Str(m))
 }
 
 func (v *Views) RenderIndex(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-DataType", "text/html")
 	return c.SendString(v.cache[`Index`].Str(m))
 }
 
 func (v *Views) RenderPrivacy(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-DataType", "text/html")
 	return c.SendString(v.cache[`Privacy`].Str(m))
 }
 
 func (v *Views) RenderTos(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-DataType", "text/html")
 	return c.SendString(v.cache[`Tos`].Str(m))
 }
 

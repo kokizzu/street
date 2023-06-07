@@ -169,6 +169,8 @@ const (
 	ErrSessionTokenExpired   = `sessionToken expired`
 	ErrSessionTokenNotFound  = `sessionToken not found`
 	ErrSessionTokenLoggedOut = `sessionToken already logged out`
+
+	ErrSessionUserNotSuperAdmin = `session email is not superadmin`
 )
 
 func (d *Domain) mustLogin(in RequestCommon, out *ResponseCommon) (res *Session) {
@@ -206,4 +208,16 @@ func (d *Domain) mustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 
 	out.actor = sess.UserId
 	return &sess
+}
+
+func (d *Domain) mustAdmin(in RequestCommon, out *ResponseCommon) (res *Session) {
+	res = d.mustLogin(in, out)
+	if res == nil {
+		return nil
+	}
+	if !d.Superadmins[res.Email] {
+		out.SetError(403, ErrSessionUserNotSuperAdmin)
+		return nil
+	}
+	return res
 }

@@ -128,7 +128,7 @@ func main() {
 		Oauth:   oauth,
 		Log:     log,
 
-		Superadmins: conf.EnvSuperadmins(),
+		Superadmins: conf.EnvSuperAdmins(),
 	}
 
 	// start
