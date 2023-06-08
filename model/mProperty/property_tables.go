@@ -29,11 +29,11 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Fields: []Tt.Field{
 			{Id, Tt.Unsigned},
 			{SerialNumber, Tt.String},
-			{SizeM2, Tt.Number},
+			{SizeM2, Tt.Double},
 			{MainUse, Tt.String},
 			{MainBuildingMaterial, Tt.String},
 			{ConstructCompletedDate, Tt.Integer},
-			{NumberOfFloors, Tt.Number},
+			{NumberOfFloors, Tt.Double}, // float?
 			{BuildingLamination, Tt.String},
 			{Note, Tt.String},
 			{CreatedAt, Tt.Integer},

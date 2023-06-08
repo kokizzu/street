@@ -29,10 +29,10 @@ type (
 )
 
 const (
-	AdminUserListAction = `admin/userList`
+	AdminUserCrudAction = `admin/userList`
 )
 
-func (d *Domain) AdminUserList(in *AdminUserCrudIn) (out AdminUserCrudOut) {
+func (d *Domain) AdminUserCrud(in *AdminUserCrudIn) (out AdminUserCrudOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	sess := d.mustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {

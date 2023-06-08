@@ -17,12 +17,12 @@ import (
 func cmdRun(b *domain.Domain, action string, payload []byte) {
 	switch action {
 
-	case domain.AdminUserListAction:
-		in := domain.AdminUserListIn{}
+	case domain.AdminUserCrudAction:
+		in := domain.AdminUserCrudIn{}
 		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
 			return
 		}
-		out := b.AdminUserList(&in)
+		out := b.AdminUserCrud(&in)
 		fmt.Println(X.ToJsonPretty(out))
 
 

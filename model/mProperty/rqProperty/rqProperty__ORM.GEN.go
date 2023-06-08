@@ -369,4 +369,22 @@ func (p *Property) Total() int64 { //nolint:dupl false positive
 	return 0
 }
 
+// PropertyFieldTypeMap returns key value of field name and key
+var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
+	`id`:                     Tt.Unsigned,
+	`serialNumber`:           Tt.String,
+	`sizeM2`:                 Tt.Double,
+	`mainUse`:                Tt.String,
+	`mainBuildingMaterial`:   Tt.String,
+	`constructCompletedDate`: Tt.Integer,
+	`numberOfFloors`:         Tt.Double,
+	`buildingLamination`:     Tt.String,
+	`note`:                   Tt.String,
+	`createdAt`:              Tt.Integer,
+	`createdBy`:              Tt.Unsigned,
+	`updatedAt`:              Tt.Integer,
+	`updatedBy`:              Tt.Unsigned,
+	`deletedAt`:              Tt.Integer,
+}
+
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
