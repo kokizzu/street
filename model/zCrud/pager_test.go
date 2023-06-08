@@ -30,10 +30,7 @@ func TestPagination(t *testing.T) {
 			limitOffsetSql: autogold.Expect("\nLIMIT 10"),
 			whereAndSql:    autogold.Expect(""),
 			orderBySql:     autogold.Expect(""),
-			expectOut: autogold.Expect(PagerOut{
-				Page: 1, PerPage: 10, Pages: 1, Total: 1,
-				Filters: map[string][]string{},
-			}),
+			expectOut:      autogold.Expect(PagerOut{Page: 1, PerPage: 10, Pages: 1, Total: 1}),
 		},
 		{
 			name: `orderAsc`,
@@ -50,10 +47,7 @@ func TestPagination(t *testing.T) {
 			whereAndSql:    autogold.Expect(""),
 			orderBySql: autogold.Expect(`
 ORDER BY "id"`),
-			expectOut: autogold.Expect(PagerOut{
-				Page: 1, PerPage: 10, Pages: 1, Total: 1,
-				Filters: map[string][]string{},
-			}),
+			expectOut: autogold.Expect(PagerOut{Page: 1, PerPage: 10, Pages: 1, Total: 1}),
 		},
 		{
 			name: `orderDesc`,
@@ -70,10 +64,7 @@ ORDER BY "id"`),
 			whereAndSql:    autogold.Expect(""),
 			orderBySql: autogold.Expect(`
 ORDER BY "id" DESC`),
-			expectOut: autogold.Expect(PagerOut{
-				Page: 1, PerPage: 10, Pages: 1, Total: 1,
-				Filters: map[string][]string{},
-			}),
+			expectOut: autogold.Expect(PagerOut{Page: 1, PerPage: 10, Pages: 1, Total: 1}),
 		},
 		{
 			name: `orderMulti`,
@@ -90,10 +81,7 @@ ORDER BY "id" DESC`),
 			whereAndSql:    autogold.Expect(""),
 			orderBySql: autogold.Expect(`
 ORDER BY "name" DESC, "id"`),
-			expectOut: autogold.Expect(PagerOut{
-				Page: 1, PerPage: 10, Pages: 5, Total: 44,
-				Filters: map[string][]string{},
-			}),
+			expectOut: autogold.Expect(PagerOut{Page: 1, PerPage: 10, Pages: 5, Total: 44}),
 		},
 		{
 			name: `filterEq`,
@@ -218,11 +206,38 @@ AND ("name"<='abc')`),
 			}),
 		},
 		{
+			name: `filterLtGt`,
+			in: PagerIn{
+				Filters: map[string][]string{
+					`id`:   {`>=1`},
+					`name`: {`<abc`},
+				},
+			},
+			countResult: 95,
+			fieldToType: map[string]Tt.DataType{
+				`id`:   Tt.Integer,
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 10"),
+			whereAndSql: autogold.Expect(`
+WHERE ("id">=1)
+AND ("name"<'abc')`),
+			orderBySql: autogold.Expect(""),
+			expectOut: autogold.Expect(PagerOut{
+				Page: 1, PerPage: 10, Pages: 10, Total: 95,
+				Filters: map[string][]string{
+					"id":   {">=1"},
+					"name": {"<abc"},
+				},
+			}),
+		},
+		{
 			name: `filterLtGtMulti`,
 			in: PagerIn{
 				Filters: map[string][]string{
 					`id`:   {`>1`, `<=23`},
-					`name`: {`abc`, `<=def`, `>ghij`},
+					`name`: {`abc`, `<def`, `>=ghij`},
 				},
 			},
 			countResult: 39,
@@ -234,7 +249,7 @@ AND ("name"<='abc')`),
 			limitOffsetSql: autogold.Expect("\nLIMIT 10"),
 			whereAndSql: autogold.Expect(`
 WHERE (("id">1 AND "id"<=23))
-AND ("name"<='def' OR "name">'ghij' OR "name" IN ('abc'))`),
+AND ("name"<'def' OR "name">='ghij' OR "name" IN ('abc'))`),
 			orderBySql: autogold.Expect(""),
 			expectOut: autogold.Expect(PagerOut{
 				Page: 1, PerPage: 10, Pages: 4, Total: 39,
@@ -245,8 +260,35 @@ AND ("name"<='def' OR "name">'ghij' OR "name" IN ('abc'))`),
 					},
 					"name": {
 						"abc",
-						">ghij",
-						"<=def",
+						">=ghij",
+						"<def",
+					},
+				},
+			}),
+		},
+		{
+			name: `filterLike`,
+			in: PagerIn{
+				Filters: map[string][]string{
+					`name`: {`<>a*bc`, `*def*`},
+				},
+			},
+			countResult: 3,
+			fieldToType: map[string]Tt.DataType{
+				`id`:   Tt.Integer,
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 10"),
+			whereAndSql: autogold.Expect(`
+WHERE ("name" NOT LIKE 'a%bc' OR "name" LIKE '%def%')`),
+			orderBySql: autogold.Expect(""),
+			expectOut: autogold.Expect(PagerOut{
+				Page: 1, PerPage: 10, Pages: 1, Total: 3,
+				Filters: map[string][]string{
+					"name": {
+						"<>a*bc",
+						"*def*",
 					},
 				},
 			}),
@@ -259,7 +301,7 @@ AND ("name"<='def' OR "name">'ghij' OR "name" IN ('abc'))`),
 					`name`: {`abc`, `<=def`, `>ghij`, `xyz`, `<>a`, `<>`, `foo`},
 				},
 			},
-			countResult: 39,
+			countResult: 10,
 			fieldToType: map[string]Tt.DataType{
 				`id`:   Tt.Integer,
 				`name`: Tt.String,
@@ -271,7 +313,7 @@ WHERE (("id">1 AND "id"<=23) OR "id" IN (4,9) OR "id" NOT IN (-5,44))
 AND ("name"<='def' OR "name">'ghij' OR "name" IN ('abc','xyz','foo') OR "name" NOT IN ('a',''))`),
 			orderBySql: autogold.Expect(""),
 			expectOut: autogold.Expect(PagerOut{
-				Page: 1, PerPage: 10, Pages: 4, Total: 39,
+				Page: 1, PerPage: 10, Pages: 1, Total: 10,
 				Filters: map[string][]string{
 					"id": {
 						"4",
@@ -292,6 +334,23 @@ AND ("name"<='def' OR "name">'ghij' OR "name" IN ('abc','xyz','foo') OR "name" N
 					},
 				},
 			}),
+		},
+		{
+			name: `offset`,
+			in: PagerIn{
+				Page:    2,
+				PerPage: 5,
+			},
+			countResult: 11,
+			fieldToType: map[string]Tt.DataType{
+				`id`:   Tt.Integer,
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 5 OFFSET 5"),
+			whereAndSql:    autogold.Expect(""),
+			orderBySql:     autogold.Expect(""),
+			expectOut:      autogold.Expect(PagerOut{Page: 2, PerPage: 5, Pages: 3, Total: 11}),
 		},
 	}
 

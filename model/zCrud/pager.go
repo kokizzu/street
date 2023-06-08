@@ -3,11 +3,13 @@ package zCrud
 import (
 	"fmt"
 	"math"
+	"sort"
 	"strconv"
 
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/S"
+	"golang.org/x/exp/maps"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file pagination.go
@@ -31,7 +33,7 @@ const minPerPage = 10
 const maxPerPage = 1000
 
 func (p *PagerIn) Limit() int {
-	if p.PerPage <= minPerPage {
+	if p.PerPage <= 0 {
 		return minPerPage
 	}
 	if p.PerPage >= maxPerPage {
@@ -74,18 +76,23 @@ LIMIT %d`, p.PerPage) + offsetStr
 func (p *PagerOut) WhereOrderSql(filters map[string][]string, orders []string, fieldToType map[string]Tt.DataType) (whereAndSql, orderBySql string) {
 
 	var whereAnd []string
-	p.Filters = map[string][]string{}
-	for field, value := range filters {
+	fields := maps.Keys(filters)
+	sort.Strings(fields)
+	for _, field := range fields {
 		typ, ok := fieldToType[field]
 		if !ok {
 			continue
 		}
+		value := filters[field]
 		quotedValue, filtered := equalityQuoteValue(value, typ, S.QQ(field))
 		if len(quotedValue) > 1 {
 			whereOr := A.StrJoin(quotedValue, ` OR `)
 			whereAnd = append(whereAnd, whereOr)
 		} else if len(quotedValue) == 1 {
 			whereAnd = append(whereAnd, quotedValue[0])
+		}
+		if p.Filters == nil {
+			p.Filters = map[string][]string{}
 		}
 		p.Filters[field] = filtered
 	}
