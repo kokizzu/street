@@ -27,7 +27,7 @@ WHERE ` + s.SqlUserId() + ` = ` + I.UToS(userId) + `
 func (u *Users) FindByPagination(in *zCrud.PaginationIn, out *zCrud.PaginationOut) (res [][]any) {
 	limitOffsetSql := out.LimitOffsetSql(in)
 
-	whereAndSql, orderBySql := out.WhereOrderSql(in.Filters, in.Order, []string{}) // TODO: u.FieldsArray())
+	whereAndSql, orderBySql := out.WhereOrderSql(in.Filters, in.Order, map[string]string{}) // TODO: u.FieldsTypeMap())
 
 	query := `-- ` + L.CallerInfo().String() + `
 SELECT ` + u.SqlSelectAllUncensoredFields() + `

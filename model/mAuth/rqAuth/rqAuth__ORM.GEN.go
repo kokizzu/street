@@ -230,6 +230,16 @@ func (s *Sessions) Total() int64 { //nolint:dupl false positive
 	return 0
 }
 
+// SessionsFieldTypeMap returns key value of field name and key
+var SessionsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
+	`sessionToken`: Tt.String,
+	`userId`:       Tt.Unsigned,
+	`expiredAt`:    Tt.Integer,
+	`device`:       Tt.String,
+	`loginAt`:      Tt.Integer,
+	`loginIPs`:     Tt.String,
+}
+
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 // Users DAO reader/query struct
@@ -656,6 +666,26 @@ func (u *Users) Total() int64 { //nolint:dupl false positive
 		return X.ToI(rows[0][0])
 	}
 	return 0
+}
+
+// UsersFieldTypeMap returns key value of field name and key
+var UsersFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
+	`id`:                 Tt.Unsigned,
+	`email`:              Tt.String,
+	`password`:           Tt.String,
+	`createdAt`:          Tt.Integer,
+	`createdBy`:          Tt.Unsigned,
+	`updatedAt`:          Tt.Integer,
+	`updatedBy`:          Tt.Unsigned,
+	`deletedAt`:          Tt.Integer,
+	`passwordSetAt`:      Tt.Integer,
+	`secretCode`:         Tt.String,
+	`secretCodeAt`:       Tt.Integer,
+	`verificationSentAt`: Tt.Integer,
+	`verifiedAt`:         Tt.Integer,
+	`lastLoginAt`:        Tt.Integer,
+	`fullName`:           Tt.String,
+	`userName`:           Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
