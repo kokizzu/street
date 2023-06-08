@@ -91,7 +91,7 @@ func (p *PagerOut) WhereOrderSql(filters map[string][]string, orders []string, f
 	}
 	if len(whereAnd) > 0 {
 		whereAndSql = `
-WHERE (` + A.StrJoin(whereAnd, `) 
+WHERE (` + A.StrJoin(whereAnd, `)
 	AND (`) + `)`
 	}
 

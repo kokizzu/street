@@ -156,6 +156,143 @@ AND ("name" IN ('abc','def','ghij'))`),
 				},
 			}),
 		},
+		{
+			name: `filterNeq`,
+			in: PagerIn{
+				Filters: map[string][]string{
+					`id`:   {`<>1`, `<>23`},
+					`name`: {`<>abc`, `<>`},
+				},
+				PerPage: 20,
+			},
+			countResult: 41,
+			fieldToType: map[string]Tt.DataType{
+				`id`:   Tt.Integer,
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 20"),
+			whereAndSql: autogold.Expect(`
+WHERE ("id" NOT IN (1,23))
+AND ("name" NOT IN ('abc',''))`),
+			orderBySql: autogold.Expect(""),
+			expectOut: autogold.Expect(PagerOut{
+				Page: 1, PerPage: 20, Pages: 3, Total: 41,
+				Filters: map[string][]string{
+					"id": {
+						"<>1",
+						"<>23",
+					},
+					"name": {
+						"<>abc",
+						"<>",
+					},
+				},
+			}),
+		},
+		{
+			name: `filterLtGt`,
+			in: PagerIn{
+				Filters: map[string][]string{
+					`id`:   {`>1`},
+					`name`: {`<=abc`},
+				},
+			},
+			countResult: 31,
+			fieldToType: map[string]Tt.DataType{
+				`id`:   Tt.Integer,
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 10"),
+			whereAndSql: autogold.Expect(`
+WHERE ("id">1)
+AND ("name"<='abc')`),
+			orderBySql: autogold.Expect(""),
+			expectOut: autogold.Expect(PagerOut{
+				Page: 1, PerPage: 10, Pages: 4, Total: 31,
+				Filters: map[string][]string{
+					"id":   {">1"},
+					"name": {"<=abc"},
+				},
+			}),
+		},
+		{
+			name: `filterLtGtMulti`,
+			in: PagerIn{
+				Filters: map[string][]string{
+					`id`:   {`>1`, `<=23`},
+					`name`: {`abc`, `<=def`, `>ghij`},
+				},
+			},
+			countResult: 39,
+			fieldToType: map[string]Tt.DataType{
+				`id`:   Tt.Integer,
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 10"),
+			whereAndSql: autogold.Expect(`
+WHERE (("id">1 AND "id"<=23))
+AND ("name"<='def' OR "name">'ghij' OR "name" IN ('abc'))`),
+			orderBySql: autogold.Expect(""),
+			expectOut: autogold.Expect(PagerOut{
+				Page: 1, PerPage: 10, Pages: 4, Total: 39,
+				Filters: map[string][]string{
+					"id": {
+						">1",
+						"<=23",
+					},
+					"name": {
+						"abc",
+						">ghij",
+						"<=def",
+					},
+				},
+			}),
+		},
+		{
+			name: `filterMultiOp`,
+			in: PagerIn{
+				Filters: map[string][]string{
+					`id`:   {`4`, `9`, `<>-5`, `<>44`, `>1`, `<=23`},
+					`name`: {`abc`, `<=def`, `>ghij`, `xyz`, `<>a`, `<>`, `foo`},
+				},
+			},
+			countResult: 39,
+			fieldToType: map[string]Tt.DataType{
+				`id`:   Tt.Integer,
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 10"),
+			whereAndSql: autogold.Expect(`
+WHERE (("id">1 AND "id"<=23) OR "id" IN (4,9) OR "id" NOT IN (-5,44))
+AND ("name"<='def' OR "name">'ghij' OR "name" IN ('abc','xyz','foo') OR "name" NOT IN ('a',''))`),
+			orderBySql: autogold.Expect(""),
+			expectOut: autogold.Expect(PagerOut{
+				Page: 1, PerPage: 10, Pages: 4, Total: 39,
+				Filters: map[string][]string{
+					"id": {
+						"4",
+						"9",
+						"<>-5",
+						"<>44",
+						">1",
+						"<=23",
+					},
+					"name": {
+						"abc",
+						"xyz",
+						"<>a",
+						"<>",
+						"foo",
+						">ghij",
+						"<=def",
+					},
+				},
+			}),
+		},
 	}
 
 	for _, tc := range testCases {
