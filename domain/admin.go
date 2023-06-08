@@ -17,12 +17,12 @@ type (
 
 		Action string `json:"action" form:"action" query:"action" long:"action" msg:"action"`
 
-		zCrud.PaginationIn
+		zCrud.PagerIn
 	}
 	AdminUserCrudOut struct {
 		ResponseCommon
 
-		zCrud.PaginationOut
+		zCrud.PagerOut
 
 		Users [][]any `json:"users" form:"users" query:"users" long:"users" msg:"users"`
 	}
@@ -49,7 +49,7 @@ func (d *Domain) AdminUserCrud(in *AdminUserCrudIn) (out AdminUserCrudOut) {
 		r := rqAuth.NewUsers(d.AuthOltp)
 
 		// TODO: return all columns meta/schema
-		out.Users = r.FindByPagination(&in.PaginationIn, &out.PaginationOut)
+		out.Users = r.FindByPagination(&in.PagerIn, &out.PagerOut)
 
 		// TODO: return [][]any based on order
 

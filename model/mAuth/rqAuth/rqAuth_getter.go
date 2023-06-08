@@ -5,6 +5,7 @@ import (
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
+	"github.com/kokizzu/gotro/X"
 
 	"street/model/zCrud"
 )
@@ -25,21 +26,25 @@ WHERE ` + s.SqlUserId() + ` = ` + I.UToS(userId) + `
 	return
 }
 
-func (u *Users) FindByPagination(in *zCrud.PaginationIn, out *zCrud.PaginationOut) (res [][]any) {
+func (u *Users) FindByPagination(in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
 	limitOffsetSql := out.LimitOffsetSql(in)
 
 	whereAndSql, orderBySql := out.WhereOrderSql(in.Filters, in.Order, map[string]Tt.DataType{}) // TODO: u.FieldsTypeMap())
 
-	query := `-- ` + L.CallerInfo().String() + `
+	queryCount := `-- Users) FindByPagination
+SELECT COUNT(1)
+FROM ` + u.SqlTableName() + whereAndSql + `
+LIMIT 1`
+	u.Adapter.QuerySql(queryCount, func(row []any) {
+		out.CalculatePages(int(X.ToI(row[0])))
+	})
+
+	queryRows := `-- Users) FindByPagination
 SELECT ` + u.SqlSelectAllUncensoredFields() + `
-FROM ` + u.SqlTableName() + `
-` + whereAndSql + `
-` + orderBySql + `
-` + limitOffsetSql
-	u.Adapter.QuerySql(query, func(row []any) {
+FROM ` + u.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+	u.Adapter.QuerySql(queryRows, func(row []any) {
 		res = append(res, row)
 	})
 
-	out.CalculatePages(len(res))
 	return
 }

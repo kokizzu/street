@@ -16,7 +16,7 @@ import (
 //go:generate replacer -afterprefix 'By" form' 'By,string" form' type pagination.go
 //go:generate farify doublequote --file pagination.go
 
-type PaginationIn struct {
+type PagerIn struct {
 	Page    int `json:"page" form:"page" query:"page" long:"page" msg:"page"`
 	PerPage int `json:"perPage" form:"perPage" query:"perPage" long:"perPage" msg:"perPage"`
 
@@ -30,7 +30,7 @@ type PaginationIn struct {
 const minPerPage = 10
 const maxPerPage = 1000
 
-func (p *PaginationIn) Limit() int {
+func (p *PagerIn) Limit() int {
 	if p.PerPage <= minPerPage {
 		return minPerPage
 	}
@@ -40,33 +40,33 @@ func (p *PaginationIn) Limit() int {
 	return p.PerPage
 }
 
-func (p *PaginationIn) Offset() int {
+func (p *PagerIn) Offset() int {
 	if p.Page <= 0 {
 		return 0
 	}
 	return (p.Page - 1) * p.PerPage
 }
 
-type PaginationOut struct {
+type PagerOut struct {
 	Page    int `json:"page" form:"page" query:"page" long:"page" msg:"page"`
 	PerPage int `json:"perPage" form:"perPage" query:"perPage" long:"perPage" msg:"perPage"`
 
 	Pages int `json:"pages" form:"pages" query:"pages" long:"pages" msg:"pages"`
-	Total int `json:"total" form:"total" query:"total" long:"total" msg:"total"`
+	Total int `json:"countResult" form:"countResult" query:"countResult" long:"countResult" msg:"countResult"`
 
 	Filters map[string][]string `json:"filters" form:"filters" query:"filters" long:"filters" msg:"filters"`
 
 	Order []string `json:"order" form:"order" query:"order" long:"order" msg:"order"`
 }
 
-func (p *PaginationOut) LimitOffsetSql(in *PaginationIn) string {
+func (p *PagerOut) LimitOffsetSql(in *PagerIn) string {
 	offset := in.Offset()
 	p.PerPage = in.Limit()
 	p.Page = offset/p.PerPage + 1
 	return fmt.Sprintf(`LIMIT %d OFFSET %d`, p.PerPage, offset)
 }
 
-func (p *PaginationOut) WhereOrderSql(filters map[string][]string, orders []string, fieldToType map[string]Tt.DataType) (whereAndSql, orderBySql string) {
+func (p *PagerOut) WhereOrderSql(filters map[string][]string, orders []string, fieldToType map[string]Tt.DataType) (whereAndSql, orderBySql string) {
 
 	var whereAnd []string
 	for field, value := range filters {
@@ -94,12 +94,16 @@ func (p *PaginationOut) WhereOrderSql(filters map[string][]string, orders []stri
 		dir := dirField[0]
 		dirStr := ``
 		if dir == '+' {
-		} else if dir != '-' {
+		} else if dir == '-' {
 			dirStr = ` DESC`
 		} else {
 			continue
 		}
-		orderBy = append(orderBy, dirField[1:]+dirStr)
+		field := dirField[1:]
+		if _, ok := fieldToType[field]; !ok {
+			continue
+		}
+		orderBy = append(orderBy, S.QQ(field)+dirStr)
 	}
 	if len(orderBy) > 0 {
 		orderBySql = "\n" + `ORDER BY ` + A.StrJoin(orderBy, `, `)
@@ -263,7 +267,9 @@ func splitOperatorValue(str string) (op string, rhs string) {
 	return
 }
 
-func (p *PaginationOut) CalculatePages(total int) {
+func (p *PagerOut) CalculatePages(total int) {
 	p.Total = total
-	p.Pages = total / p.PerPage
+	if total > 0 {
+		p.Pages = 1 + total/p.PerPage
+	}
 }
