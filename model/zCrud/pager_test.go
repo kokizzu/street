@@ -336,6 +336,35 @@ AND ("name"<='def' OR "name">'ghij' OR "name" IN ('abc','xyz','foo') OR "name" N
 			}),
 		},
 		{
+			name: `filterSqlInjection`,
+			in: PagerIn{
+				Filters: map[string][]string{
+					`id`:   {`' OR 1=1; -- `},
+					`name`: {`'; DROP TABLE users; -- `, `') OR 1=1; -- `},
+				},
+			},
+			countResult: 2,
+			fieldToType: map[string]Tt.DataType{
+				`id`:   Tt.Integer,
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 10"),
+			whereAndSql: autogold.Expect(`
+WHERE ("name" IN ('&apos;; DROP TABLE users; --','&apos;) OR 1=1; --'))`),
+			orderBySql: autogold.Expect(""),
+			expectOut: autogold.Expect(PagerOut{
+				Page: 1, PerPage: 10, Pages: 1, Total: 2,
+				Filters: map[string][]string{
+					"id": {},
+					"name": {
+						"'; DROP TABLE users; -- ",
+						"') OR 1=1; -- ",
+					},
+				},
+			}),
+		},
+		{
 			name: `offset`,
 			in: PagerIn{
 				Page:    2,
