@@ -63,26 +63,35 @@ func (p *PagerOut) LimitOffsetSql(in *PagerIn) string {
 	offset := in.Offset()
 	p.PerPage = in.Limit()
 	p.Page = offset/p.PerPage + 1
-	return fmt.Sprintf(`LIMIT %d OFFSET %d`, p.PerPage, offset)
+	offsetStr := ``
+	if offset > 0 {
+		offsetStr = fmt.Sprintf(` OFFSET %d`, offset)
+	}
+	return fmt.Sprintf(`
+LIMIT %d`, p.PerPage) + offsetStr
 }
 
 func (p *PagerOut) WhereOrderSql(filters map[string][]string, orders []string, fieldToType map[string]Tt.DataType) (whereAndSql, orderBySql string) {
 
 	var whereAnd []string
+	p.Filters = map[string][]string{}
 	for field, value := range filters {
-		if typ, ok := fieldToType[field]; ok {
-			quotedValue, filtered := equalityQuoteValue(value, typ, S.QQ(field))
-			if len(quotedValue) > 1 {
-				whereOr := A.StrJoin(quotedValue, ` OR `)
-				whereAnd = append(whereAnd, whereOr)
-			} else if len(quotedValue) == 1 {
-				whereAnd = append(whereAnd, quotedValue[0])
-			}
-			p.Filters[field] = filtered
+		typ, ok := fieldToType[field]
+		if !ok {
+			continue
 		}
+		quotedValue, filtered := equalityQuoteValue(value, typ, S.QQ(field))
+		if len(quotedValue) > 1 {
+			whereOr := A.StrJoin(quotedValue, ` OR `)
+			whereAnd = append(whereAnd, whereOr)
+		} else if len(quotedValue) == 1 {
+			whereAnd = append(whereAnd, quotedValue[0])
+		}
+		p.Filters[field] = filtered
 	}
 	if len(whereAnd) > 0 {
-		whereAndSql = "\n" + `WHERE (` + A.StrJoin(whereAnd, `) 
+		whereAndSql = `
+WHERE (` + A.StrJoin(whereAnd, `) 
 	AND (`) + `)`
 	}
 
@@ -106,7 +115,8 @@ func (p *PagerOut) WhereOrderSql(filters map[string][]string, orders []string, f
 		orderBy = append(orderBy, S.QQ(field)+dirStr)
 	}
 	if len(orderBy) > 0 {
-		orderBySql = "\n" + `ORDER BY ` + A.StrJoin(orderBy, `, `)
+		orderBySql = `
+ORDER BY ` + A.StrJoin(orderBy, `, `)
 	}
 	return whereAndSql, orderBySql
 }
@@ -270,6 +280,6 @@ func splitOperatorValue(str string) (op string, rhs string) {
 func (p *PagerOut) CalculatePages(total int) {
 	p.Total = total
 	if total > 0 {
-		p.Pages = 1 + total/p.PerPage
+		p.Pages = (p.PerPage - 1 + total) / p.PerPage
 	}
 }
