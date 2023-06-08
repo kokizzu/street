@@ -2,6 +2,7 @@ package zCrud
 
 import (
 	"fmt"
+	"math"
 	"strconv"
 
 	"github.com/kokizzu/gotro/A"
@@ -67,16 +68,17 @@ func (p *PaginationOut) LimitOffsetSql(in *PaginationIn) string {
 
 func (p *PaginationOut) WhereOrderSql(filters map[string][]string, orders []string, fieldToType map[string]Tt.DataType) (whereAndSql, orderBySql string) {
 
-	whereAnd := []string{}
+	var whereAnd []string
 	for field, value := range filters {
 		if typ, ok := fieldToType[field]; ok {
-			quotedValue := equalityQuoteValue(value, typ, S.QQ(field))
+			quotedValue, filtered := equalityQuoteValue(value, typ, S.QQ(field))
 			if len(quotedValue) > 1 {
 				whereOr := A.StrJoin(quotedValue, ` OR `)
 				whereAnd = append(whereAnd, whereOr)
 			} else if len(quotedValue) == 1 {
 				whereAnd = append(whereAnd, quotedValue[0])
 			}
+			p.Filters[field] = filtered
 		}
 	}
 	if len(whereAnd) > 0 {
@@ -84,7 +86,7 @@ func (p *PaginationOut) WhereOrderSql(filters map[string][]string, orders []stri
 	AND (`) + `)`
 	}
 
-	orderBy := []string{}
+	var orderBy []string
 	for _, dirField := range orders {
 		if len(dirField) <= 2 {
 			continue
@@ -105,71 +107,131 @@ func (p *PaginationOut) WhereOrderSql(filters map[string][]string, orders []stri
 	return whereAndSql, orderBySql
 }
 
-func equalityQuoteValue(values []string, expectTyp Tt.DataType, field string) (res []string) {
+func equalityQuoteValue(values []string, expectTyp Tt.DataType, field string) (whereOr []string, filtered []string) {
+
+	// TODO: if value equal then make it unique
+
 	// allow >, <, >=, <=, <>, *LIKE* and NOT LIKE, if multiple = or <> then will use IN or NOT IN
+	// currently if value equal, last write wins
 	switch expectTyp {
 	case Tt.Unsigned, Tt.Integer, Tt.Double:
-		equalValues := []string{}
-		inequalValues := []string{}
+		var equalValues, unequalValues []string
+		var gte, lte, gtf, ltf string
+		gtv := math.MaxFloat64
+		ltv := -math.MaxFloat64
 		for _, str := range values {
 			operator, rhs := splitOperatorValue(str)
-			if _, err := strconv.ParseFloat(rhs, 64); err != nil {
+			v, err := strconv.ParseFloat(rhs, 64)
+			if err != nil {
 				continue
 			}
 			if operator == `=` {
+				filtered = append(filtered, rhs)
 				equalValues = append(equalValues, rhs)
 			} else if operator == `<>` {
-				inequalValues = append(inequalValues, rhs)
+				filtered = append(filtered, operator+rhs)
+				unequalValues = append(unequalValues, rhs)
 			} else {
-				res = append(res, field+operator+rhs)
+				if gtv >= v && operator[0] == '>' {
+					gtv = v
+					gte = field + operator + rhs
+					gtf = operator + rhs
+				}
+				if ltv <= v && operator[0] == '<' {
+					ltv = v
+					lte = field + operator + rhs
+					ltf = operator + rhs
+				}
 			}
-			// TODO: autodetect intersection to use AND instead of OR
+		}
+		if gte != `` && lte != `` {
+			filtered = append(filtered, gtf, ltf)
+			if gtv < ltv {
+				// autodetect intersection to use AND instead of OR
+				whereOr = append(whereOr, `(`+gte+` AND `+lte+`)`)
+			} else {
+				whereOr = append(whereOr, lte, gte)
+			}
+		} else if gte != `` {
+			filtered = append(filtered, gtf)
+			whereOr = append(whereOr, gte)
+		} else if lte != `` {
+			filtered = append(filtered, ltf)
+			whereOr = append(whereOr, lte)
 		}
 		if len(equalValues) > 0 {
-			res = append(res, field+` IN (`+A.StrJoin(equalValues, `,`)+`)`)
+			whereOr = append(whereOr, field+` IN (`+A.StrJoin(equalValues, `,`)+`)`)
 		}
-		if len(inequalValues) > 0 {
-			res = append(res, field+` NOT IN (`+A.StrJoin(inequalValues, `,`)+`)`)
+		if len(unequalValues) > 0 {
+			whereOr = append(whereOr, field+` NOT IN (`+A.StrJoin(unequalValues, `,`)+`)`)
 		}
 	case Tt.String:
-		equalValues := []string{}
-		inequalValues := []string{}
+		var equalValues, unequalValues []string
+		var gte, lte, gtf, ltf string
+		gtv := `~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
+		ltv := ``
 		for _, str := range values {
 			operator, rhs := splitOperatorValue(str)
 			hasWildcard := S.Contains(rhs, `*`)
 			if operator == `=` {
+				filtered = append(filtered, rhs)
 				if hasWildcard {
 					rhs = S.Replace(rhs, `*`, `%`)
 					operator = ` LIKE `
-					res = append(res, field+operator+S.Z(rhs))
+					whereOr = append(whereOr, field+operator+S.Z(rhs))
 					continue
 				}
 				equalValues = append(equalValues, S.Z(rhs))
 			} else if operator == `<>` {
+				filtered = append(filtered, operator+rhs)
 				if hasWildcard {
 					rhs = S.Replace(rhs, `*`, `%`)
 					operator = ` NOT LIKE `
-					res = append(res, field+operator+S.Z(rhs))
+					whereOr = append(whereOr, field+operator+S.Z(rhs))
 					continue
 				}
-				inequalValues = append(inequalValues, S.Z(rhs))
+				unequalValues = append(unequalValues, S.Z(rhs))
 			} else {
-				res = append(res, field+operator+S.Z(rhs))
+				if gtv >= rhs && operator[0] == '>' {
+					gtv = rhs
+					gte = field + operator + S.Z(rhs)
+					gtf = operator + rhs
+				}
+				if ltv <= rhs && operator[0] == '<' {
+					ltv = rhs
+					lte = field + operator + S.Z(rhs)
+					ltf = operator + rhs
+				}
 			}
 		}
-		if len(equalValues) > 0 {
-			res = append(res, field+` IN (`+A.StrJoin(equalValues, `,`)+`)`)
+		if gte != `` && lte != `` {
+			filtered = append(filtered, gtf, ltf)
+			if gtv < ltv {
+				// autodetect intersection to use AND instead of OR
+				whereOr = append(whereOr, `(`+gte+` AND `+lte+`)`)
+			} else {
+				whereOr = append(whereOr, lte, gte)
+			}
+		} else if gte != `` {
+			filtered = append(filtered, gtf)
+			whereOr = append(whereOr, gte)
+		} else if lte != `` {
+			filtered = append(filtered, ltf)
+			whereOr = append(whereOr, lte)
 		}
-		if len(inequalValues) > 0 {
-			res = append(res, field+` NOT IN (`+A.StrJoin(inequalValues, `,`)+`)`)
+		if len(equalValues) > 0 {
+			whereOr = append(whereOr, field+` IN (`+A.StrJoin(equalValues, `,`)+`)`)
+		}
+		if len(unequalValues) > 0 {
+			whereOr = append(whereOr, field+` NOT IN (`+A.StrJoin(unequalValues, `,`)+`)`)
 		}
 	case Tt.Array: // assume geo
 		// TODO: do geoquery, but with sql: https://t.me/tarantool/15882
 	case Tt.Boolean: // ignore for now
 	}
-	// TODO: return error
+	// TODO: return debug/filtered
 
-	return []string{}
+	return
 }
 
 func splitOperatorValue(str string) (op string, rhs string) {
