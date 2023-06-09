@@ -54,6 +54,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		},
 		AutoIncrementId: true,
 		Unique1:         Id,
+		Engine:          Tt.Memtx,
 	},
 }
 
