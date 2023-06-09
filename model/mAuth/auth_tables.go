@@ -24,9 +24,6 @@ const (
 	LastLoginAt        = `lastLoginAt`
 	FullName           = `fullName`
 	UserName           = `userName`
-
-	LoginAt  = `loginAt`
-	LoginIPs = `LoginIPs`
 )
 
 const (
@@ -36,6 +33,9 @@ const (
 	UserId       = `userId`
 	ExpiredAt    = `expiredAt`
 	Device       = `device`
+
+	LoginAt  = `loginAt`
+	LoginIPs = `loginIPs`
 )
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
@@ -58,9 +58,10 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{FullName, Tt.String},
 			{UserName, Tt.String},
 		},
-		AutoIncrementId: true,
-		Unique1:         Email,
-		Unique2:         UserName, // after migration setting default usernames code done
+		AutoIncrementId:  true,
+		Unique1:          Email,
+		Unique2:          UserName, // after migration setting default usernames code done
+		AutoCensorFields: []string{Password, SecretCode, SecretCodeAt},
 	},
 	TableSessions: {
 		Fields: []Tt.Field{

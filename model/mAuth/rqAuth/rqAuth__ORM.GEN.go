@@ -71,7 +71,18 @@ func (s *Sessions) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "expiredAt"
 	, "device"
 	, "loginAt"
-	, "LoginIPs"
+	, "loginIPs"
+	`
+}
+
+// SqlSelectAllUncensoredFields generate Sql select fields
+func (s *Sessions) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
+	return ` "sessionToken"
+	, "userId"
+	, "expiredAt"
+	, "device"
+	, "loginAt"
+	, "loginIPs"
 	`
 }
 
@@ -144,7 +155,7 @@ func (s *Sessions) IdxLoginIPs() int { //nolint:dupl false positive
 
 // SqlLoginIPs return name of the column being indexed
 func (s *Sessions) SqlLoginIPs() string { //nolint:dupl false positive
-	return `"LoginIPs"`
+	return `"loginIPs"`
 }
 
 // ToArray receiver fields to slice
@@ -161,6 +172,17 @@ func (s *Sessions) ToArray() A.X { //nolint:dupl false positive
 
 // FromArray convert slice to receiver fields
 func (s *Sessions) FromArray(a A.X) *Sessions { //nolint:dupl false positive
+	s.SessionToken = X.ToS(a[0])
+	s.UserId = X.ToU(a[1])
+	s.ExpiredAt = X.ToI(a[2])
+	s.Device = X.ToS(a[3])
+	s.LoginAt = X.ToI(a[4])
+	s.LoginIPs = X.ToS(a[5])
+	return s
+}
+
+// FromUncensoredArray convert slice to receiver fields
+func (s *Sessions) FromUncensoredArray(a A.X) *Sessions { //nolint:dupl false positive
 	s.SessionToken = X.ToS(a[0])
 	s.UserId = X.ToU(a[1])
 	s.ExpiredAt = X.ToI(a[2])
@@ -206,6 +228,16 @@ func (s *Sessions) Total() int64 { //nolint:dupl false positive
 		return X.ToI(rows[0][0])
 	}
 	return 0
+}
+
+// SessionsFieldTypeMap returns key value of field name and key
+var SessionsFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
+	`sessionToken`: Tt.String,
+	`userId`:       Tt.Unsigned,
+	`expiredAt`:    Tt.Integer,
+	`device`:       Tt.String,
+	`loginAt`:      Tt.Integer,
+	`loginIPs`:     Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
@@ -304,6 +336,27 @@ func (u *Users) FindByUserName() bool { //nolint:dupl false positive
 
 // SqlSelectAllFields generate Sql select fields
 func (u *Users) SqlSelectAllFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "email"
+	, "password"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	, "passwordSetAt"
+	, "secretCode"
+	, "secretCodeAt"
+	, "verificationSentAt"
+	, "verifiedAt"
+	, "lastLoginAt"
+	, "fullName"
+	, "userName"
+	`
+}
+
+// SqlSelectAllUncensoredFields generate Sql select fields
+func (u *Users) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
 	return ` "id"
 	, "email"
 	, "password"
@@ -505,6 +558,12 @@ func (u *Users) SqlUserName() string { //nolint:dupl false positive
 	return `"userName"`
 }
 
+// CensorFields remove sensitive fields for output
+func (u *Users) CensorFields() { //nolint:dupl false positive
+	u.Password = ``
+	u.SecretCode = ``
+	u.SecretCodeAt = 0
+	}
 // ToArray receiver fields to slice
 func (u *Users) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -552,6 +611,24 @@ func (u *Users) FromArray(a A.X) *Users { //nolint:dupl false positive
 	return u
 }
 
+// FromUncensoredArray convert slice to receiver fields
+func (u *Users) FromUncensoredArray(a A.X) *Users { //nolint:dupl false positive
+	u.Id = X.ToU(a[0])
+	u.Email = X.ToS(a[1])
+	u.CreatedAt = X.ToI(a[3])
+	u.CreatedBy = X.ToU(a[4])
+	u.UpdatedAt = X.ToI(a[5])
+	u.UpdatedBy = X.ToU(a[6])
+	u.DeletedAt = X.ToI(a[7])
+	u.PasswordSetAt = X.ToI(a[8])
+	u.VerificationSentAt = X.ToI(a[11])
+	u.VerifiedAt = X.ToI(a[12])
+	u.LastLoginAt = X.ToI(a[13])
+	u.FullName = X.ToS(a[14])
+	u.UserName = X.ToS(a[15])
+	return u
+}
+
 // FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
 func (u *Users) FindOffsetLimit(offset, limit uint32, idx string) []Users { //nolint:dupl false positive
 	var rows []Users
@@ -588,6 +665,26 @@ func (u *Users) Total() int64 { //nolint:dupl false positive
 		return X.ToI(rows[0][0])
 	}
 	return 0
+}
+
+// UsersFieldTypeMap returns key value of field name and key
+var UsersFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
+	`id`:                 Tt.Unsigned,
+	`email`:              Tt.String,
+	`password`:           Tt.String,
+	`createdAt`:          Tt.Integer,
+	`createdBy`:          Tt.Unsigned,
+	`updatedAt`:          Tt.Integer,
+	`updatedBy`:          Tt.Unsigned,
+	`deletedAt`:          Tt.Integer,
+	`passwordSetAt`:      Tt.Integer,
+	`secretCode`:         Tt.String,
+	`secretCodeAt`:       Tt.Integer,
+	`verificationSentAt`: Tt.Integer,
+	`verifiedAt`:         Tt.Integer,
+	`lastLoginAt`:        Tt.Integer,
+	`fullName`:           Tt.String,
+	`userName`:           Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

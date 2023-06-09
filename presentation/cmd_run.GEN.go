@@ -17,6 +17,15 @@ import (
 func cmdRun(b *domain.Domain, action string, payload []byte) {
 	switch action {
 
+	case domain.AdminUserCrudAction:
+		in := domain.AdminUserCrudIn{}
+		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+			return
+		}
+		out := b.AdminUserCrud(&in)
+		fmt.Println(X.ToJsonPretty(out))
+
+
 	case domain.GuestDebugAction:
 		in := domain.GuestDebugIn{}
 		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
@@ -98,6 +107,24 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		fmt.Println(X.ToJsonPretty(out))
 
 
+	case domain.UserChangePasswordAction:
+		in := domain.UserChangePasswordIn{}
+		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+			return
+		}
+		out := b.UserChangePassword(&in)
+		fmt.Println(X.ToJsonPretty(out))
+
+
+	case domain.UserDeactivateAction:
+		in := domain.UserDeactivateIn{}
+		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+			return
+		}
+		out := b.UserDeactivate(&in)
+		fmt.Println(X.ToJsonPretty(out))
+
+
 	case domain.UserLogoutAction:
 		in := domain.UserLogoutIn{}
 		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
@@ -113,6 +140,15 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.UserProfile(&in)
+		fmt.Println(X.ToJsonPretty(out))
+
+
+	case domain.UserUpdateProfileAction:
+		in := domain.UserUpdateProfileIn{}
+		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+			return
+		}
+		out := b.UserUpdateProfile(&in)
 		fmt.Println(X.ToJsonPretty(out))
 
 	}

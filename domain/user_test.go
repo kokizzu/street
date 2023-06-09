@@ -3,6 +3,7 @@ package domain
 import (
 	"testing"
 
+	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/id64"
 	"github.com/kpango/fastime"
 	"github.com/stretchr/testify/assert"
@@ -69,6 +70,9 @@ func TestLogout(t *testing.T) {
 		require.NotEmpty(t, out.SessionToken)
 
 		sessionToken := out.SessionToken
+		oldUsername := out.User.UserName
+		oldEmail := out.User.Email
+		oldFullname := out.User.FullName
 
 		// check profile after login must succeed
 		t.Run(`profile`, func(t *testing.T) {
@@ -81,6 +85,56 @@ func TestLogout(t *testing.T) {
 			require.Empty(t, out.Error)
 			if out.User != nil {
 				require.NotZero(t, out.User.Id)
+			}
+		})
+
+		t.Run(`updateProfileUserName`, func(t *testing.T) {
+			in := &UserUpdateProfileIn{
+				RequestCommon: RequestCommon{
+					SessionToken: sessionToken,
+				},
+				UserName: S.RandomPassword(10),
+			}
+			require.NotEqual(t, in.UserName, oldUsername)
+			out := d.UserUpdateProfile(in)
+			require.Empty(t, out.Error)
+			if out.User != nil {
+				require.NotZero(t, out.User.Id)
+				require.Equal(t, out.User.UserName, in.UserName)
+			}
+		})
+
+		t.Run(`updateProfileEmail`, func(t *testing.T) {
+			in := &UserUpdateProfileIn{
+				RequestCommon: RequestCommon{
+					SessionToken: sessionToken,
+				},
+				Email: S.RandomPassword(10) + `@yahoo.com`,
+			}
+			require.NotEqual(t, in.Email, oldEmail)
+			out := d.UserUpdateProfile(in)
+			require.Empty(t, out.Error)
+			if out.User != nil {
+				require.NotZero(t, out.User.Id)
+				require.Equal(t, out.User.Email, in.Email)
+				require.Empty(t, out.User.VerifiedAt)
+				email = out.User.Email
+			}
+		})
+
+		t.Run(`updateProfileFullName`, func(t *testing.T) {
+			in := &UserUpdateProfileIn{
+				RequestCommon: RequestCommon{
+					SessionToken: sessionToken,
+				},
+				FullName: S.RandomPassword(10),
+			}
+			require.NotEqual(t, in.FullName, oldFullname)
+			out := d.UserUpdateProfile(in)
+			require.Empty(t, out.Error)
+			if out.User != nil {
+				require.NotZero(t, out.User.Id)
+				require.Equal(t, out.User.FullName, in.FullName)
 			}
 		})
 
@@ -127,7 +181,7 @@ func TestLogout(t *testing.T) {
 				OldPass: pass,
 			}
 			out := d.UserChangePassword(in)
-			assert.Empty(t, out.Error)
+			require.Empty(t, out.Error)
 
 			t.Run(`loginAfterChangePass,useOldPass`, func(t *testing.T) {
 				in := &GuestLoginIn{
@@ -144,7 +198,7 @@ func TestLogout(t *testing.T) {
 					Password: newPass,
 				}
 				out := d.GuestLogin(in)
-				assert.Empty(t, out.Error)
+				require.Empty(t, out.Error)
 
 				newSessionToken := out.SessionToken
 
@@ -167,7 +221,7 @@ func TestLogout(t *testing.T) {
 						Password: newPass,
 					}
 					out := d.UserDeactivate(in)
-					assert.Empty(t, out.Error)
+					require.Empty(t, out.Error)
 
 					// TODO: check login again, should not able
 					// TODO: use session to do profile after deactivate, should not able
@@ -194,6 +248,19 @@ func TestLogout(t *testing.T) {
 					},
 				}
 				out := d.UserProfile(in)
+				assert.Equal(t, out.Error, ErrSessionTokenLoggedOut)
+			})
+
+			t.Run(`updateProfileAfterLogout`, func(t *testing.T) {
+				in := &UserUpdateProfileIn{
+					RequestCommon: RequestCommon{
+						SessionToken: sessionToken,
+					},
+					UserName: "ayaya",
+					FullName: "",
+					Email:    "",
+				}
+				out := d.UserUpdateProfile(in)
 				assert.Equal(t, out.Error, ErrSessionTokenLoggedOut)
 			})
 

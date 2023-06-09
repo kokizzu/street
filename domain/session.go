@@ -11,6 +11,7 @@ import (
 
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/lexid"
 	"github.com/kpango/fastime"
@@ -27,23 +28,37 @@ type Session struct {
 	UserId    uint64
 	ExpiredAt int64 // in seconds
 	Email     string
+
+	// not saved but retrieved from SUPERADMIN_EMAILS env
+	IsSuperAdmin bool
+
+	Segments M.SB
 }
 
-func (u *Session) MarshalEnkodo(enc *enkodo.Encoder) (err error) {
-	_ = enc.Uint64(u.UserId)
-	_ = enc.Int64(u.ExpiredAt)
-	_ = enc.String(u.Email)
+// list of first segment of url path, if empty then only /guest segment
+const (
+	GuestSegment   = `guest`
+	UserSegment    = `user`
+	BuyerSegment   = `buyer`
+	AdminSegment   = `admin`
+	RealtorSegment = `realtor`
+)
+
+func (s *Session) MarshalEnkodo(enc *enkodo.Encoder) (err error) {
+	_ = enc.Uint64(s.UserId)
+	_ = enc.Int64(s.ExpiredAt)
+	_ = enc.String(s.Email)
 	return
 }
 
-func (u *Session) UnmarshalEnkodo(dec *enkodo.Decoder) (err error) {
-	if u.UserId, err = dec.Uint64(); err != nil {
+func (s *Session) UnmarshalEnkodo(dec *enkodo.Decoder) (err error) {
+	if s.UserId, err = dec.Uint64(); err != nil {
 		return
 	}
-	if u.ExpiredAt, err = dec.Int64(); err != nil {
+	if s.ExpiredAt, err = dec.Int64(); err != nil {
 		return
 	}
-	if u.Email, err = dec.String(); err != nil {
+	if s.Email, err = dec.String(); err != nil {
 		return
 	}
 	return
@@ -131,17 +146,18 @@ func (s *Session) Decrypt(sessionToken, userAgent string) bool {
 	return !L.IsError(err, `enkodo.Unmarshal`)
 }
 
-func (d *Domain) createSession(userId uint64, email string, userAgent string) *wcAuth.SessionsMutator {
+func (d *Domain) createSession(userId uint64, email string, userAgent string) (*wcAuth.SessionsMutator, *Session) {
 	session := wcAuth.NewSessionsMutator(d.AuthOltp)
 	session.UserId = userId
-	sess := Session{
+	sess := &Session{
 		UserId:    userId,
 		ExpiredAt: fastime.Now().AddDate(0, 0, conf.CookieDays).Unix(),
 		Email:     email,
 	}
 	session.SessionToken = sess.Encrypt(userAgent)
 	session.ExpiredAt = sess.ExpiredAt
-	return session
+	d.segmentsFromSession(sess)
+	return session, sess
 }
 
 func (d *Domain) expireSession(token string, out *ResponseCommon) int64 {
@@ -169,6 +185,10 @@ const (
 	ErrSessionTokenExpired   = `sessionToken expired`
 	ErrSessionTokenNotFound  = `sessionToken not found`
 	ErrSessionTokenLoggedOut = `sessionToken already logged out`
+
+	ErrSegmentNotAllowed = `session segment not allowed`
+
+	ErrSessionUserNotSuperAdmin = `session email is not superadmin`
 )
 
 func (d *Domain) mustLogin(in RequestCommon, out *ResponseCommon) (res *Session) {
@@ -182,7 +202,7 @@ func (d *Domain) mustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 			out.SessionToken = conf.CookieLogoutValue
 		}
 	}()
-	sess := Session{}
+	sess := &Session{}
 	if !sess.Decrypt(in.SessionToken, in.UserAgent) {
 		out.SetError(403, ErrSessionTokenInvalid)
 		return nil
@@ -204,6 +224,29 @@ func (d *Domain) mustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 		return nil
 	}
 
+	// fill segment
+	d.segmentsFromSession(sess)
+
+	// check allowed to hit/access this segment
+	firstSegment := in.FirstSegment()
+	if !sess.IsSuperAdmin && !sess.Segments[firstSegment] {
+		out.SetError(403, ErrSegmentNotAllowed)
+		return nil
+	}
+
 	out.actor = sess.UserId
-	return &sess
+	return sess
+}
+
+func (d *Domain) mustAdmin(in RequestCommon, out *ResponseCommon) (sess *Session) {
+	sess = d.mustLogin(in, out)
+	if sess == nil {
+		return nil
+	}
+	if !sess.IsSuperAdmin {
+		out.SetError(403, ErrSessionUserNotSuperAdmin)
+		return nil
+	}
+	sess.IsSuperAdmin = true
+	return sess
 }

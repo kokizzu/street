@@ -4,11 +4,10 @@ import (
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
-)
+	"github.com/kokizzu/gotro/X"
 
-func (u *Users) CensorFields() {
-	u.Password = ``
-}
+	"street/model/zCrud"
+)
 
 func (u *Users) CheckPassword(pass string) error {
 	return S.CheckPassword(u.Password, pass)
@@ -23,5 +22,29 @@ WHERE ` + s.SqlUserId() + ` = ` + I.UToS(userId) + `
 	s.Adapter.QuerySql(query, func(row []any) {
 		res = append(res, s.FromArray(row))
 	})
+	return
+}
+
+func (u *Users) FindByPagination(in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
+	whereAndSql := out.WhereAndSql(in.Filters, UsersFieldTypeMap)
+
+	queryCount := `-- Users) FindByPagination
+SELECT COUNT(1)
+FROM ` + u.SqlTableName() + whereAndSql + `
+LIMIT 1`
+	u.Adapter.QuerySql(queryCount, func(row []any) {
+		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
+	})
+
+	orderBySql := out.OrderBySql(in.Order, UsersFieldTypeMap)
+	limitOffsetSql := out.LimitOffsetSql()
+
+	queryRows := `-- Users) FindByPagination
+SELECT ` + u.SqlSelectAllUncensoredFields() + `
+FROM ` + u.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+	u.Adapter.QuerySql(queryRows, func(row []any) {
+		res = append(res, row)
+	})
+
 	return
 }

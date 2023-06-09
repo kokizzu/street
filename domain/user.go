@@ -5,6 +5,7 @@ import (
 
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/I"
+	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
 
 	"street/model/mAuth/rqAuth"
@@ -45,6 +46,8 @@ type (
 	UserProfileOut struct {
 		ResponseCommon
 		User *rqAuth.Users `json:"user" form:"user" query:"user" long:"user" msg:"user"`
+
+		Segments M.SB `json:"segments" form:"segments" query:"segments" long:"segments" msg:"segments"`
 	}
 )
 
@@ -71,6 +74,7 @@ func (d *Domain) UserProfile(in *UserProfileIn) (out UserProfileOut) {
 
 	user.CensorFields()
 	out.User = user
+	out.Segments = sess.Segments
 	return
 }
 
@@ -150,6 +154,7 @@ const (
 )
 
 func (d *Domain) UserDeactivate(in *UserDeactivateIn) (out UserDeactivateOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	sess := d.mustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
 		return
@@ -215,6 +220,7 @@ const (
 )
 
 func (d *Domain) UserUpdateProfile(in *UserUpdateProfileIn) (out UserProfileOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	sess := d.mustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
 		return
@@ -227,17 +233,17 @@ func (d *Domain) UserUpdateProfile(in *UserUpdateProfileIn) (out UserProfileOut)
 		return
 	}
 
-	if user.UserName != in.UserName {
+	if in.UserName != `` && user.UserName != in.UserName {
 		dup := rqAuth.NewUsers(d.AuthOltp)
 		dup.UserName = S.ValidateIdent(in.UserName)
 		if dup.FindByUserName() && dup.Id != user.Id {
 			out.SetError(400, ErrUpdateProfileUsernameAlreadyUsed)
 			return
 		}
-		user.SetUserName(dup.Email)
+		user.SetUserName(dup.UserName)
 	}
 
-	if user.Email != in.Email {
+	if in.Email != `` && user.Email != in.Email {
 		dup := rqAuth.NewUsers(d.AuthOltp)
 		dup.Email = S.ValidateEmail(in.Email)
 		if dup.FindByEmail() && dup.Id != user.Id {
@@ -245,16 +251,20 @@ func (d *Domain) UserUpdateProfile(in *UserUpdateProfileIn) (out UserProfileOut)
 			return
 		}
 		user.SetEmail(dup.Email)
+		user.SetVerifiedAt(0) // must also unset verifiedAt
 	}
 
-	if user.FullName != in.FullName {
+	if in.FullName != `` && user.FullName != in.FullName {
 		user.SetFullName(in.FullName)
 	}
 
 	if !user.DoUpdateById() {
+		user.HaveMutation()
 		out.SetError(400, ErrUpdateProfileFailed)
 		return
 	}
+
+	out.AddDbChangeLogs(user.Logs())
 
 	user.CensorFields()
 	out.User = &user.Users

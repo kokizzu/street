@@ -10,6 +10,16 @@ import (
 
 func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 
+	// AdminUserCrud
+	fw.Post("/"+domain.AdminUserCrudAction, func(c *fiber.Ctx) error {
+		in := domain.AdminUserCrudIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.AdminUserCrudAction); err != nil {
+			return err
+		}
+		out := d.AdminUserCrud(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// GuestDebug
 	fw.Post("/"+domain.GuestDebugAction, func(c *fiber.Ctx) error {
 		in := domain.GuestDebugIn{}
@@ -100,6 +110,26 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// UserChangePassword
+	fw.Post("/"+domain.UserChangePasswordAction, func(c *fiber.Ctx) error {
+		in := domain.UserChangePasswordIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserChangePasswordAction); err != nil {
+			return err
+		}
+		out := d.UserChangePassword(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// UserDeactivate
+	fw.Post("/"+domain.UserDeactivateAction, func(c *fiber.Ctx) error {
+		in := domain.UserDeactivateIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserDeactivateAction); err != nil {
+			return err
+		}
+		out := d.UserDeactivate(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// UserLogout
 	fw.Post("/"+domain.UserLogoutAction, func(c *fiber.Ctx) error {
 		in := domain.UserLogoutIn{}
@@ -117,6 +147,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return err
 		}
 		out := d.UserProfile(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// UserUpdateProfile
+	fw.Post("/"+domain.UserUpdateProfileAction, func(c *fiber.Ctx) error {
+		in := domain.UserUpdateProfileIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserUpdateProfileAction); err != nil {
+			return err
+		}
+		out := d.UserUpdateProfile(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

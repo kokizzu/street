@@ -19,11 +19,17 @@ import (
 type PropertyMutator struct {
 	rqProperty.Property
 	mutations []A.X
+	logs      []A.X
 }
 
 // NewPropertyMutator create new ORM writer/command object
 func NewPropertyMutator(adapter *Tt.Adapter) *PropertyMutator {
 	return &PropertyMutator{Property: rqProperty.Property{Adapter: adapter}}
+}
+
+// Logs get array of logs [field, old, new]
+func (p *PropertyMutator) Logs() []A.X { //nolint:dupl false positive
+	return p.logs
 }
 
 // HaveMutation check whether Set* methods ever called
@@ -34,6 +40,7 @@ func (p *PropertyMutator) HaveMutation() bool { //nolint:dupl false positive
 // ClearMutations clear all previously called Set* methods
 func (p *PropertyMutator) ClearMutations() { //nolint:dupl false positive
 	p.mutations = []A.X{}
+	p.logs = []A.X{}
 }
 
 // DoOverwriteById update all columns, error if not exists, not using mutations/Set*
@@ -71,11 +78,13 @@ func (p *PropertyMutator) DoDeletePermanentById() bool { //nolint:dupl false pos
 //		A.X{`=`, 9, p.Address},
 //		A.X{`=`, 10, p.District},
 //		A.X{`=`, 11, p.Note},
-//		A.X{`=`, 12, p.CreatedAt},
-//		A.X{`=`, 13, p.CreatedBy},
-//		A.X{`=`, 14, p.UpdatedAt},
-//		A.X{`=`, 15, p.UpdatedBy},
-//		A.X{`=`, 16, p.DeletedAt},
+//		A.X{`=`, 12, p.Latitude},
+//		A.X{`=`, 13, p.Longitude},
+//		A.X{`=`, 14, p.CreatedAt},
+//		A.X{`=`, 15, p.CreatedBy},
+//		A.X{`=`, 16, p.UpdatedAt},
+//		A.X{`=`, 17, p.UpdatedBy},
+//		A.X{`=`, 18, p.DeletedAt},
 //	})
 //	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName())
 // }
@@ -104,6 +113,7 @@ func (p *PropertyMutator) DoUpsert() bool { //nolint:dupl false positive
 func (p *PropertyMutator) SetId(val uint64) bool { //nolint:dupl false positive
 	if val != p.Id {
 		p.mutations = append(p.mutations, A.X{`=`, 0, val})
+		p.logs = append(p.logs, A.X{`id`, p.Id, val})
 		p.Id = val
 		return true
 	}
@@ -114,6 +124,7 @@ func (p *PropertyMutator) SetId(val uint64) bool { //nolint:dupl false positive
 func (p *PropertyMutator) SetUniquePropertyKey(val string) bool { //nolint:dupl false positive
 	if val != p.UniquePropertyKey {
 		p.mutations = append(p.mutations, A.X{`=`, 1, val})
+		p.logs = append(p.logs, A.X{`uniquePropertyKey`, p.UniquePropertyKey, val})
 		p.UniquePropertyKey = val
 		return true
 	}
@@ -124,6 +135,7 @@ func (p *PropertyMutator) SetUniquePropertyKey(val string) bool { //nolint:dupl 
 func (p *PropertyMutator) SetSerialNumber(val string) bool { //nolint:dupl false positive
 	if val != p.SerialNumber {
 		p.mutations = append(p.mutations, A.X{`=`, 2, val})
+		p.logs = append(p.logs, A.X{`serialNumber`, p.SerialNumber, val})
 		p.SerialNumber = val
 		return true
 	}
@@ -134,6 +146,7 @@ func (p *PropertyMutator) SetSerialNumber(val string) bool { //nolint:dupl false
 func (p *PropertyMutator) SetSizeM2(val string) bool { //nolint:dupl false positive
 	if val != p.SizeM2 {
 		p.mutations = append(p.mutations, A.X{`=`, 3, val})
+		p.logs = append(p.logs, A.X{`sizeM2`, p.SizeM2, val})
 		p.SizeM2 = val
 		return true
 	}
@@ -144,6 +157,7 @@ func (p *PropertyMutator) SetSizeM2(val string) bool { //nolint:dupl false posit
 func (p *PropertyMutator) SetMainUse(val string) bool { //nolint:dupl false positive
 	if val != p.MainUse {
 		p.mutations = append(p.mutations, A.X{`=`, 4, val})
+		p.logs = append(p.logs, A.X{`mainUse`, p.MainUse, val})
 		p.MainUse = val
 		return true
 	}
@@ -154,6 +168,7 @@ func (p *PropertyMutator) SetMainUse(val string) bool { //nolint:dupl false posi
 func (p *PropertyMutator) SetMainBuildingMaterial(val string) bool { //nolint:dupl false positive
 	if val != p.MainBuildingMaterial {
 		p.mutations = append(p.mutations, A.X{`=`, 5, val})
+		p.logs = append(p.logs, A.X{`mainBuildingMaterial`, p.MainBuildingMaterial, val})
 		p.MainBuildingMaterial = val
 		return true
 	}
@@ -164,6 +179,7 @@ func (p *PropertyMutator) SetMainBuildingMaterial(val string) bool { //nolint:du
 func (p *PropertyMutator) SetConstructCompletedDate(val string) bool { //nolint:dupl false positive
 	if val != p.ConstructCompletedDate {
 		p.mutations = append(p.mutations, A.X{`=`, 6, val})
+		p.logs = append(p.logs, A.X{`constructCompletedDate`, p.ConstructCompletedDate, val})
 		p.ConstructCompletedDate = val
 		return true
 	}
@@ -174,6 +190,7 @@ func (p *PropertyMutator) SetConstructCompletedDate(val string) bool { //nolint:
 func (p *PropertyMutator) SetNumberOfFloors(val string) bool { //nolint:dupl false positive
 	if val != p.NumberOfFloors {
 		p.mutations = append(p.mutations, A.X{`=`, 7, val})
+		p.logs = append(p.logs, A.X{`numberOfFloors`, p.NumberOfFloors, val})
 		p.NumberOfFloors = val
 		return true
 	}
@@ -184,6 +201,7 @@ func (p *PropertyMutator) SetNumberOfFloors(val string) bool { //nolint:dupl fal
 func (p *PropertyMutator) SetBuildingLamination(val string) bool { //nolint:dupl false positive
 	if val != p.BuildingLamination {
 		p.mutations = append(p.mutations, A.X{`=`, 8, val})
+		p.logs = append(p.logs, A.X{`buildingLamination`, p.BuildingLamination, val})
 		p.BuildingLamination = val
 		return true
 	}
@@ -194,6 +212,7 @@ func (p *PropertyMutator) SetBuildingLamination(val string) bool { //nolint:dupl
 func (p *PropertyMutator) SetAddress(val string) bool { //nolint:dupl false positive
 	if val != p.Address {
 		p.mutations = append(p.mutations, A.X{`=`, 9, val})
+		p.logs = append(p.logs, A.X{`address`, p.Address, val})
 		p.Address = val
 		return true
 	}
@@ -204,6 +223,7 @@ func (p *PropertyMutator) SetAddress(val string) bool { //nolint:dupl false posi
 func (p *PropertyMutator) SetDistrict(val string) bool { //nolint:dupl false positive
 	if val != p.District {
 		p.mutations = append(p.mutations, A.X{`=`, 10, val})
+		p.logs = append(p.logs, A.X{`district`, p.District, val})
 		p.District = val
 		return true
 	}
@@ -214,7 +234,30 @@ func (p *PropertyMutator) SetDistrict(val string) bool { //nolint:dupl false pos
 func (p *PropertyMutator) SetNote(val string) bool { //nolint:dupl false positive
 	if val != p.Note {
 		p.mutations = append(p.mutations, A.X{`=`, 11, val})
+		p.logs = append(p.logs, A.X{`note`, p.Note, val})
 		p.Note = val
+		return true
+	}
+	return false
+}
+
+// SetLatitude create mutations, should not duplicate
+func (p *PropertyMutator) SetLatitude(val string) bool { //nolint:dupl false positive
+	if val != p.Latitude {
+		p.mutations = append(p.mutations, A.X{`=`, 12, val})
+		p.logs = append(p.logs, A.X{`latitude`, p.Latitude, val})
+		p.Latitude = val
+		return true
+	}
+	return false
+}
+
+// SetLongitude create mutations, should not duplicate
+func (p *PropertyMutator) SetLongitude(val string) bool { //nolint:dupl false positive
+	if val != p.Longitude {
+		p.mutations = append(p.mutations, A.X{`=`, 13, val})
+		p.logs = append(p.logs, A.X{`longitude`, p.Longitude, val})
+		p.Longitude = val
 		return true
 	}
 	return false
@@ -223,7 +266,8 @@ func (p *PropertyMutator) SetNote(val string) bool { //nolint:dupl false positiv
 // SetCreatedAt create mutations, should not duplicate
 func (p *PropertyMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.CreatedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 12, val})
+		p.mutations = append(p.mutations, A.X{`=`, 14, val})
+		p.logs = append(p.logs, A.X{`createdAt`, p.CreatedAt, val})
 		p.CreatedAt = val
 		return true
 	}
@@ -233,7 +277,8 @@ func (p *PropertyMutator) SetCreatedAt(val int64) bool { //nolint:dupl false pos
 // SetCreatedBy create mutations, should not duplicate
 func (p *PropertyMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.CreatedBy {
-		p.mutations = append(p.mutations, A.X{`=`, 13, val})
+		p.mutations = append(p.mutations, A.X{`=`, 15, val})
+		p.logs = append(p.logs, A.X{`createdBy`, p.CreatedBy, val})
 		p.CreatedBy = val
 		return true
 	}
@@ -243,7 +288,8 @@ func (p *PropertyMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false po
 // SetUpdatedAt create mutations, should not duplicate
 func (p *PropertyMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.UpdatedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 14, val})
+		p.mutations = append(p.mutations, A.X{`=`, 16, val})
+		p.logs = append(p.logs, A.X{`updatedAt`, p.UpdatedAt, val})
 		p.UpdatedAt = val
 		return true
 	}
@@ -253,7 +299,8 @@ func (p *PropertyMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false pos
 // SetUpdatedBy create mutations, should not duplicate
 func (p *PropertyMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.UpdatedBy {
-		p.mutations = append(p.mutations, A.X{`=`, 15, val})
+		p.mutations = append(p.mutations, A.X{`=`, 17, val})
+		p.logs = append(p.logs, A.X{`updatedBy`, p.UpdatedBy, val})
 		p.UpdatedBy = val
 		return true
 	}
@@ -263,7 +310,8 @@ func (p *PropertyMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false po
 // SetDeletedAt create mutations, should not duplicate
 func (p *PropertyMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.DeletedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 16, val})
+		p.mutations = append(p.mutations, A.X{`=`, 18, val})
+		p.logs = append(p.logs, A.X{`deletedAt`, p.DeletedAt, val})
 		p.DeletedAt = val
 		return true
 	}
@@ -271,3 +319,4 @@ func (p *PropertyMutator) SetDeletedAt(val int64) bool { //nolint:dupl false pos
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+

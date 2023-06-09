@@ -128,6 +128,8 @@ func main() {
 		IsBgSvc: false,
 		Oauth:   oauth,
 		Log:     log,
+
+		Superadmins: conf.EnvSuperAdmins(),
 	}
 
 	// start

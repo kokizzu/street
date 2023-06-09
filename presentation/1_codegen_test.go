@@ -375,7 +375,9 @@ func (d *domains) eachSortedHandler(eachFunc func(name string, handler tmethod))
 	byName := map[string]tmethod{}
 	for _, handler := range handlers {
 		// only add domain method, not session or any other struct
-		if S.Contains(handler.Receiver, `Domain`) {
+		if S.Contains(handler.Receiver, `Domain`) &&
+			S.EndsWith(handler.In, `In`) &&
+			S.EndsWith(handler.Out, `Out`) {
 			handlerNames = append(handlerNames, handler.MethodName)
 			byName[handler.MethodName] = handler
 		}

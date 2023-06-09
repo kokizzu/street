@@ -94,6 +94,56 @@ func TestGuestRegister(t *testing.T) {
 			out := d.GuestVerifyEmail(&in)
 			require.Empty(t, out.Error)
 		})
+
+		t.Run("login", func(t *testing.T) {
+			in := GuestLoginIn{
+				Email:    in.Email,
+				Password: in.Password,
+			}
+			out := d.GuestLogin(&in)
+			require.Empty(t, out.Error)
+
+			oldEmail := in.Email
+			oldPass := in.Password
+
+			t.Run(`updateProfileEmail,unverify`, func(t *testing.T) {
+				newEmail := S.RandomPassword(10) + `@yahoo.com`
+				in := &UserUpdateProfileIn{
+					RequestCommon: RequestCommon{
+						SessionToken: out.SessionToken,
+					},
+					Email: newEmail,
+				}
+				require.NotEqual(t, in.Email, oldEmail)
+				out := d.UserUpdateProfile(in)
+				require.Empty(t, out.Error)
+				if out.User != nil {
+					require.NotZero(t, out.User.Id)
+					require.Equal(t, out.User.Email, in.Email)
+					require.Empty(t, out.User.VerifiedAt)
+				}
+
+				t.Run(`cantLoginAfterEmailChanged`, func(t *testing.T) {
+					in := &GuestLoginIn{
+						Email:    oldEmail,
+						Password: oldPass,
+					}
+					out := d.GuestLogin(in)
+					require.Equal(t, out.Error, ErrGuestLoginEmailOrPasswordIncorrect)
+				})
+
+				t.Run(`canLoginAfterEmailChanged`, func(t *testing.T) {
+					in := &GuestLoginIn{
+						Email:    newEmail,
+						Password: oldPass,
+					}
+					out := d.GuestLogin(in)
+					require.Empty(t, out.Error)
+					require.NotEmpty(t, out.SessionToken)
+				})
+			})
+
+		})
 	})
 }
 

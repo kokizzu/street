@@ -14,19 +14,23 @@ func WebStatic(fw *fiber.App, d *domain.Domain) {
 		var in domain.UserProfileIn
 		err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserProfileAction)
 		var user *rqAuth.Users
+		segments := M.SB{}
 		if err == nil {
 			out := d.UserProfile(&in)
 			user = out.User
+			segments = out.Segments
 		}
 		google := d.GuestExternalAuth(&domain.GuestExternalAuthIn{
 			RequestCommon: in.RequestCommon,
 			Provider:      domain.OauthGoogle,
 		})
-		google.DecorateSession(c)
+		google.ResponseCommon.DecorateSession(c)
 		return views.RenderIndex(c, M.SX{
 			`title`:  `Street`,
 			`user`:   user,
 			`google`: google.Link,
+
+			`segments`: segments,
 		})
 	})
 

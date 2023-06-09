@@ -37,7 +37,7 @@ func RunMigration(
 		PropOltp: propOltp,
 		PropOlap: propOlap,
 	}
-	mAuth.TarantoolTables[mAuth.TableUsers].PreReformatMigrationHook = wcAuth.UniqueUsernameMigration
+	mAuth.TarantoolTables[mAuth.TableUsers].PreUnique1MigrationHook = wcAuth.UniqueUsernameMigration
 	m.AuthOltp.MigrateTables(mAuth.TarantoolTables)
 	m.AuthOlap.MigrateTables(mAuth.ClickhouseTables)
 	m.PropOltp.MigrateTables(mProperty.TarantoolTables)

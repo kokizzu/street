@@ -7,13 +7,16 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strings"
 	"time"
 
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
 	"github.com/jessevdk/go-flags"
+	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/S"
+	"github.com/kokizzu/gotro/X"
 	"github.com/kokizzu/id64"
 	"github.com/kokizzu/lexid"
 	"github.com/kpango/fastime"
@@ -153,6 +156,17 @@ func (l *RequestCommon) deleteTempFiles() {
 	}
 }
 
+func (l *RequestCommon) FirstSegment() string {
+	if l.Action == `` {
+		return ``
+	}
+	segments := S.Split(l.Action, `/`)
+	if len(segments) > 0 {
+		return segments[0]
+	}
+	return ``
+}
+
 type ResponseCommon struct {
 	SessionToken string `json:"sessionToken" form:"sessionToken" query:"sessionToken" long:"sessionToken" msg:"sessionToken"`
 	Error        string `json:"error" form:"error" query:"error" long:"error" msg:"error"`
@@ -161,7 +175,7 @@ type ResponseCommon struct {
 	Redirect     string `json:"redirect,omitempty" form:"redirect" query:"redirect" long:"redirect" msg:"redirect"`
 
 	// action trace
-	traces []string
+	traces []any
 	actor  uint64
 }
 
@@ -206,6 +220,32 @@ func (o *ResponseCommon) AddTrace(act string) {
 	o.traces = append(o.traces, act)
 }
 
+func (a *ResponseCommon) AddDbChangeLogs(x []A.X) { // array of [field, old, new]
+	for _, v := range x {
+		a.traces = append(a.traces, v)
+	}
+}
+
+func (a *ResponseCommon) AddDbChange(field, old, new any) {
+	a.traces = append(a.traces, []any{field, old, new})
+}
+
 func (o *ResponseCommon) Traces() string {
-	return strings.Join(o.traces, `|`)
+	if o.traces == nil {
+		return ``
+	}
+	return X.ToJson(o.traces)
+}
+
+func (d *Domain) segmentsFromSession(s *Session) M.SB {
+	s.IsSuperAdmin = d.Superadmins[s.Email]
+	s.Segments = M.SB{
+		UserSegment:    true,
+		BuyerSegment:   true,
+		RealtorSegment: true,
+	}
+	if s.IsSuperAdmin {
+		s.Segments[AdminSegment] = true
+	}
+	return s.Segments
 }
