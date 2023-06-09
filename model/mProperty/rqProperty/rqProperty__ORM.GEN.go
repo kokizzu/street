@@ -23,7 +23,7 @@ import (
 type Property struct {
 	Adapter                *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	Id                     uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
-	UniquePropertyKey      string      `json:"uniquePropertyKey" form:"uniquePropertyKey" query:"uniquePropertyKey" long:"uniquePropertyKey" msg:"uniquePropertyKey"`
+	UniqPropKey            string      `json:"uniqPropKey" form:"uniqPropKey" query:"uniqPropKey" long:"uniqPropKey" msg:"uniqPropKey"`
 	SerialNumber           string      `json:"serialNumber" form:"serialNumber" query:"serialNumber" long:"serialNumber" msg:"serialNumber"`
 	SizeM2                 string      `json:"sizeM2" form:"sizeM2" query:"sizeM2" long:"sizeM2" msg:"sizeM2"`
 	MainUse                string      `json:"mainUse" form:"mainUse" query:"mainUse" long:"mainUse" msg:"mainUse"`
@@ -34,8 +34,8 @@ type Property struct {
 	Address                string      `json:"address" form:"address" query:"address" long:"address" msg:"address"`
 	District               string      `json:"district" form:"district" query:"district" long:"district" msg:"district"`
 	Note                   string      `json:"note" form:"note" query:"note" long:"note" msg:"note"`
-	Latitude               string      `json:"latitude" form:"latitude" query:"latitude" long:"latitude" msg:"latitude"`
-	Longitude              string      `json:"longitude" form:"longitude" query:"longitude" long:"longitude" msg:"longitude"`
+	Lat                    string      `json:"lat" form:"lat" query:"lat" long:"lat" msg:"lat"`
+	Long                   string      `json:"long" form:"long" query:"long" long:"long" msg:"long"`
 	CreatedAt              int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
 	CreatedBy              uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
 	UpdatedAt              int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
@@ -76,10 +76,29 @@ func (p *Property) FindById() bool { //nolint:dupl false positive
 	return false
 }
 
+// UniqueIndexUniqPropKey return unique index name
+func (p *Property) UniqueIndexUniqPropKey() string { //nolint:dupl false positive
+	return `UniqPropKey`
+}
+
+// FindByUniqPropKey Find one by UniqPropKey
+func (p *Property) FindByUniqPropKey() bool { //nolint:dupl false positive
+	res, err := p.Adapter.Select(p.SpaceName(), p.UniqueIndexUniqPropKey(), 0, 1, tarantool.IterEq, A.X{p.UniqPropKey})
+	if L.IsError(err, `Property.FindByUniqPropKey failed: `+p.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		p.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
 // SqlSelectAllFields generate Sql select fields
 func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "id"
-	, "uniquePropertyKey"
+	, "UniqPropKey"
 	, "serialNumber"
 	, "sizeM2"
 	, "mainUse"
@@ -90,8 +109,8 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "address"
 	, "district"
 	, "note"
-	, "latitude"
-	, "longitude"
+	, "lat"
+	, "long"
 	, "createdAt"
 	, "createdBy"
 	, "updatedAt"
@@ -103,7 +122,7 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 // SqlSelectAllUncensoredFields generate Sql select fields
 func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
 	return ` "id"
-	, "uniquePropertyKey"
+	, "UniqPropKey"
 	, "serialNumber"
 	, "sizeM2"
 	, "mainUse"
@@ -114,8 +133,8 @@ func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 	, "address"
 	, "district"
 	, "note"
-	, "latitude"
-	, "longitude"
+	, "lat"
+	, "long"
 	, "createdAt"
 	, "createdBy"
 	, "updatedAt"
@@ -128,7 +147,7 @@ func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 func (p *Property) ToUpdateArray() A.X { //nolint:dupl false positive
 	return A.X{
 		A.X{`=`, 0, p.Id},
-		A.X{`=`, 1, p.UniquePropertyKey},
+		A.X{`=`, 1, p.UniqPropKey},
 		A.X{`=`, 2, p.SerialNumber},
 		A.X{`=`, 3, p.SizeM2},
 		A.X{`=`, 4, p.MainUse},
@@ -139,8 +158,8 @@ func (p *Property) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 9, p.Address},
 		A.X{`=`, 10, p.District},
 		A.X{`=`, 11, p.Note},
-		A.X{`=`, 12, p.Latitude},
-		A.X{`=`, 13, p.Longitude},
+		A.X{`=`, 12, p.Lat},
+		A.X{`=`, 13, p.Long},
 		A.X{`=`, 14, p.CreatedAt},
 		A.X{`=`, 15, p.CreatedBy},
 		A.X{`=`, 16, p.UpdatedAt},
@@ -159,14 +178,14 @@ func (p *Property) SqlId() string { //nolint:dupl false positive
 	return `"id"`
 }
 
-// IdxUniquePropertyKey return name of the index
-func (p *Property) IdxUniquePropertyKey() int { //nolint:dupl false positive
+// IdxUniqPropKey return name of the index
+func (p *Property) IdxUniqPropKey() int { //nolint:dupl false positive
 	return 1
 }
 
-// SqlUniquePropertyKey return name of the column being indexed
-func (p *Property) SqlUniquePropertyKey() string { //nolint:dupl false positive
-	return `"uniquePropertyKey"`
+// SqlUniqPropKey return name of the column being indexed
+func (p *Property) SqlUniqPropKey() string { //nolint:dupl false positive
+	return `"UniqPropKey"`
 }
 
 // IdxSerialNumber return name of the index
@@ -269,24 +288,24 @@ func (p *Property) SqlNote() string { //nolint:dupl false positive
 	return `"note"`
 }
 
-// IdxLatitude return name of the index
-func (p *Property) IdxLatitude() int { //nolint:dupl false positive
+// IdxLat return name of the index
+func (p *Property) IdxLat() int { //nolint:dupl false positive
 	return 12
 }
 
-// SqlLatitude return name of the column being indexed
-func (p *Property) SqlLatitude() string { //nolint:dupl false positive
-	return `"latitude"`
+// SqlLat return name of the column being indexed
+func (p *Property) SqlLat() string { //nolint:dupl false positive
+	return `"lat"`
 }
 
-// IdxLongitude return name of the index
-func (p *Property) IdxLongitude() int { //nolint:dupl false positive
+// IdxLong return name of the index
+func (p *Property) IdxLong() int { //nolint:dupl false positive
 	return 13
 }
 
-// SqlLongitude return name of the column being indexed
-func (p *Property) SqlLongitude() string { //nolint:dupl false positive
-	return `"longitude"`
+// SqlLong return name of the column being indexed
+func (p *Property) SqlLong() string { //nolint:dupl false positive
+	return `"long"`
 }
 
 // IdxCreatedAt return name of the index
@@ -347,7 +366,7 @@ func (p *Property) ToArray() A.X { //nolint:dupl false positive
 	}
 	return A.X{
 		id,
-		p.UniquePropertyKey,      // 1
+		p.UniqPropKey,            // 1
 		p.SerialNumber,           // 2
 		p.SizeM2,                 // 3
 		p.MainUse,                // 4
@@ -358,8 +377,8 @@ func (p *Property) ToArray() A.X { //nolint:dupl false positive
 		p.Address,                // 9
 		p.District,               // 10
 		p.Note,                   // 11
-		p.Latitude,               // 12
-		p.Longitude,              // 13
+		p.Lat,                    // 12
+		p.Long,                   // 13
 		p.CreatedAt,              // 14
 		p.CreatedBy,              // 15
 		p.UpdatedAt,              // 16
@@ -371,7 +390,7 @@ func (p *Property) ToArray() A.X { //nolint:dupl false positive
 // FromArray convert slice to receiver fields
 func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 	p.Id = X.ToU(a[0])
-	p.UniquePropertyKey = X.ToS(a[1])
+	p.UniqPropKey = X.ToS(a[1])
 	p.SerialNumber = X.ToS(a[2])
 	p.SizeM2 = X.ToS(a[3])
 	p.MainUse = X.ToS(a[4])
@@ -382,8 +401,8 @@ func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 	p.Address = X.ToS(a[9])
 	p.District = X.ToS(a[10])
 	p.Note = X.ToS(a[11])
-	p.Latitude = X.ToS(a[12])
-	p.Longitude = X.ToS(a[13])
+	p.Lat = X.ToS(a[12])
+	p.Long = X.ToS(a[13])
 	p.CreatedAt = X.ToI(a[14])
 	p.CreatedBy = X.ToU(a[15])
 	p.UpdatedAt = X.ToI(a[16])
@@ -395,7 +414,7 @@ func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 // FromUncensoredArray convert slice to receiver fields
 func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false positive
 	p.Id = X.ToU(a[0])
-	p.UniquePropertyKey = X.ToS(a[1])
+	p.UniqPropKey = X.ToS(a[1])
 	p.SerialNumber = X.ToS(a[2])
 	p.SizeM2 = X.ToS(a[3])
 	p.MainUse = X.ToS(a[4])
@@ -406,8 +425,8 @@ func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false po
 	p.Address = X.ToS(a[9])
 	p.District = X.ToS(a[10])
 	p.Note = X.ToS(a[11])
-	p.Latitude = X.ToS(a[12])
-	p.Longitude = X.ToS(a[13])
+	p.Lat = X.ToS(a[12])
+	p.Long = X.ToS(a[13])
 	p.CreatedAt = X.ToI(a[14])
 	p.CreatedBy = X.ToU(a[15])
 	p.UpdatedAt = X.ToI(a[16])
@@ -457,7 +476,7 @@ func (p *Property) Total() int64 { //nolint:dupl false positive
 // PropertyFieldTypeMap returns key value of field name and key
 var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`id`:                     Tt.Unsigned,
-	`uniquePropertyKey`:      Tt.String,
+	`UniqPropKey`:            Tt.String,
 	`serialNumber`:           Tt.String,
 	`sizeM2`:                 Tt.String,
 	`mainUse`:                Tt.String,
@@ -468,8 +487,8 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`address`:                Tt.String,
 	`district`:               Tt.String,
 	`note`:                   Tt.String,
-	`latitude`:               Tt.String,
-	`longitude`:              Tt.String,
+	`lat`:                    Tt.String,
+	`long`:                   Tt.String,
 	`createdAt`:              Tt.Integer,
 	`createdBy`:              Tt.Unsigned,
 	`updatedAt`:              Tt.Integer,

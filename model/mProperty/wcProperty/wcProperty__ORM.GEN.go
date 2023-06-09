@@ -68,7 +68,7 @@ func (p *PropertyMutator) DoDeletePermanentById() bool { //nolint:dupl false pos
 // func (p *PropertyMutator) DoUpsert() bool { //nolint:dupl false positive
 //	_, err := p.Adapter.Upsert(p.SpaceName(), p.ToArray(), A.X{
 //		A.X{`=`, 0, p.Id},
-//		A.X{`=`, 1, p.UniquePropertyKey},
+//		A.X{`=`, 1, p.UniqPropKey},
 //		A.X{`=`, 2, p.SerialNumber},
 //		A.X{`=`, 3, p.SizeM2},
 //		A.X{`=`, 4, p.MainUse},
@@ -79,8 +79,8 @@ func (p *PropertyMutator) DoDeletePermanentById() bool { //nolint:dupl false pos
 //		A.X{`=`, 9, p.Address},
 //		A.X{`=`, 10, p.District},
 //		A.X{`=`, 11, p.Note},
-//		A.X{`=`, 12, p.Latitude},
-//		A.X{`=`, 13, p.Longitude},
+//		A.X{`=`, 12, p.Lat},
+//		A.X{`=`, 13, p.Long},
 //		A.X{`=`, 14, p.CreatedAt},
 //		A.X{`=`, 15, p.CreatedBy},
 //		A.X{`=`, 16, p.UpdatedAt},
@@ -89,6 +89,27 @@ func (p *PropertyMutator) DoDeletePermanentById() bool { //nolint:dupl false pos
 //	})
 //	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName())
 // }
+
+// DoOverwriteByUniqPropKey update all columns, error if not exists, not using mutations/Set*
+func (p *PropertyMutator) DoOverwriteByUniqPropKey() bool { //nolint:dupl false positive
+	_, err := p.Adapter.Update(p.SpaceName(), p.UniqueIndexUniqPropKey(), A.X{p.UniqPropKey}, p.ToUpdateArray())
+	return !L.IsError(err, `Property.DoOverwriteByUniqPropKey failed: `+p.SpaceName())
+}
+
+// DoUpdateByUniqPropKey update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (p *PropertyMutator) DoUpdateByUniqPropKey() bool { //nolint:dupl false positive
+	if !p.HaveMutation() {
+		return true
+	}
+	_, err := p.Adapter.Update(p.SpaceName(), p.UniqueIndexUniqPropKey(), A.X{p.UniqPropKey}, p.mutations)
+	return !L.IsError(err, `Property.DoUpdateByUniqPropKey failed: `+p.SpaceName())
+}
+
+// DoDeletePermanentByUniqPropKey permanent delete
+func (p *PropertyMutator) DoDeletePermanentByUniqPropKey() bool { //nolint:dupl false positive
+	_, err := p.Adapter.Delete(p.SpaceName(), p.UniqueIndexUniqPropKey(), A.X{p.UniqPropKey})
+	return !L.IsError(err, `Property.DoDeletePermanentByUniqPropKey failed: `+p.SpaceName())
+}
 
 // DoInsert insert, error if already exists
 func (p *PropertyMutator) DoInsert() bool { //nolint:dupl false positive
@@ -121,12 +142,12 @@ func (p *PropertyMutator) SetId(val uint64) bool { //nolint:dupl false positive
 	return false
 }
 
-// SetUniquePropertyKey create mutations, should not duplicate
-func (p *PropertyMutator) SetUniquePropertyKey(val string) bool { //nolint:dupl false positive
-	if val != p.UniquePropertyKey {
+// SetUniqPropKey create mutations, should not duplicate
+func (p *PropertyMutator) SetUniqPropKey(val string) bool { //nolint:dupl false positive
+	if val != p.UniqPropKey {
 		p.mutations = append(p.mutations, A.X{`=`, 1, val})
-		p.logs = append(p.logs, A.X{`uniquePropertyKey`, p.UniquePropertyKey, val})
-		p.UniquePropertyKey = val
+		p.logs = append(p.logs, A.X{`UniqPropKey`, p.UniqPropKey, val})
+		p.UniqPropKey = val
 		return true
 	}
 	return false
@@ -242,23 +263,23 @@ func (p *PropertyMutator) SetNote(val string) bool { //nolint:dupl false positiv
 	return false
 }
 
-// SetLatitude create mutations, should not duplicate
-func (p *PropertyMutator) SetLatitude(val string) bool { //nolint:dupl false positive
-	if val != p.Latitude {
+// SetLat create mutations, should not duplicate
+func (p *PropertyMutator) SetLat(val string) bool { //nolint:dupl false positive
+	if val != p.Lat {
 		p.mutations = append(p.mutations, A.X{`=`, 12, val})
-		p.logs = append(p.logs, A.X{`latitude`, p.Latitude, val})
-		p.Latitude = val
+		p.logs = append(p.logs, A.X{`lat`, p.Lat, val})
+		p.Lat = val
 		return true
 	}
 	return false
 }
 
-// SetLongitude create mutations, should not duplicate
-func (p *PropertyMutator) SetLongitude(val string) bool { //nolint:dupl false positive
-	if val != p.Longitude {
+// SetLong create mutations, should not duplicate
+func (p *PropertyMutator) SetLong(val string) bool { //nolint:dupl false positive
+	if val != p.Long {
 		p.mutations = append(p.mutations, A.X{`=`, 13, val})
-		p.logs = append(p.logs, A.X{`longitude`, p.Longitude, val})
-		p.Longitude = val
+		p.logs = append(p.logs, A.X{`long`, p.Long, val})
+		p.Long = val
 		return true
 	}
 	return false

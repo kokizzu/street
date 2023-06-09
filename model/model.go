@@ -119,7 +119,7 @@ func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
 			dataMutator.Property = rqProperty.Property{
 				Adapter:                *adapter,
 				Id:                     house.Id,
-				UniquePropertyKey:      house.UniquePropertyKey,
+				UniqPropKey:            house.UniqPropKey,
 				SerialNumber:           house.SerialNumber,
 				SizeM2:                 house.SizeM2,
 				MainUse:                house.MainUse,
@@ -220,7 +220,7 @@ func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
 			dataMutator.Property = rqProperty.Property{
 				Adapter:                *adapter,
 				Id:                     house.Id,
-				UniquePropertyKey:      house.UniquePropertyKey,
+				UniqPropKey:            house.UniqPropKey,
 				SerialNumber:           house.SerialNumber,
 				SizeM2:                 house.SizeM2,
 				MainUse:                house.MainUse,
@@ -321,7 +321,7 @@ func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
 			dataMutator.Property = rqProperty.Property{
 				Adapter:                *adapter,
 				Id:                     house.Id,
-				UniquePropertyKey:      house.UniquePropertyKey,
+				UniqPropKey:            house.UniqPropKey,
 				SerialNumber:           house.SerialNumber,
 				SizeM2:                 house.SizeM2,
 				MainUse:                house.MainUse,
@@ -405,18 +405,21 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 		// Build unique key with serial number and size
 		uniqueSerialNumber := propertyMutator.SerialNumber +
 			"#" + propertyMutator.SizeM2
-		propertyMutator.UniquePropertyKey = uniqueSerialNumber
+		if uniqueSerialNumber == "#" {
+			stat.Skip()
+			continue
+		}
+		propertyMutator.UniqPropKey = uniqueSerialNumber
 
 		// Check if unique property key is existed
-		existingProperties := propertyMutator.FindPropertiesByUniqueKey(uniqueSerialNumber)
-		if len(existingProperties) > 0 || uniqueSerialNumber == "#" {
+		if propertyMutator.FindByUniqPropKey() {
 			stat.Skip()
 			continue
 		}
 
 		stat.Ok(propertyMutator.DoInsert())
 	}
-	fmt.Println("End process of import house data")
+	fmt.Println("\nEnd process of import house data")
 }
 
 func ImportExcelData(adapter *Tt.Adapter, resourcePath string) {

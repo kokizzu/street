@@ -9,7 +9,7 @@ const (
 	TableProperty Tt.TableName = `property`
 
 	Id                     = `id`
-	uniquePropertyKey      = `uniquePropertyKey`
+	UniqPropKey            = `UniqPropKey`
 	SerialNumber           = `serialNumber`
 	SizeM2                 = `sizeM2`
 	MainUse                = `mainUse`
@@ -20,20 +20,21 @@ const (
 	Address                = `address`
 	District               = `district`
 	Note                   = `note`
-	Latitude               = `latitude`
-	Longitude              = `longitude`
-	CreatedAt              = `createdAt`
-	CreatedBy              = `createdBy`
-	UpdatedAt              = `updatedAt`
-	UpdatedBy              = `updatedBy`
-	DeletedAt              = `deletedAt`
+	// TODO: change to spatial column
+	Lat       = `lat`
+	Long      = `long`
+	CreatedAt = `createdAt`
+	CreatedBy = `createdBy`
+	UpdatedAt = `updatedAt`
+	UpdatedBy = `updatedBy`
+	DeletedAt = `deletedAt`
 )
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableProperty: {
 		Fields: []Tt.Field{
 			{Id, Tt.Unsigned},
-			{uniquePropertyKey, Tt.String},
+			{UniqPropKey, Tt.String},
 			{SerialNumber, Tt.String},
 			{SizeM2, Tt.String},
 			{MainUse, Tt.String},
@@ -44,8 +45,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Address, Tt.String},
 			{District, Tt.String},
 			{Note, Tt.String},
-			{Latitude, Tt.String},
-			{Longitude, Tt.String},
+			{Lat, Tt.String},
+			{Long, Tt.String},
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},
 			{UpdatedAt, Tt.Integer},
@@ -53,7 +54,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedAt, Tt.Integer},
 		},
 		AutoIncrementId: true,
-		Unique1:         Id,
+		Unique1:         UniqPropKey,
+		Indexes:         []string{SerialNumber},
 		Engine:          Tt.Memtx,
 	},
 }
