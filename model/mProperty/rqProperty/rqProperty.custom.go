@@ -1,11 +1,17 @@
 package rqProperty
 
 import (
+	"github.com/kokizzu/gotro/S"
+
 	"street/conf"
 )
 
+// TODO: this is slow, use tarantool-go api instead
+
 func (rq *Property) FindPropertiesBySerialNumber(serialNumber string) (res []*Property) {
-	query := `SELECT ` + rq.SqlSelectAllFields() + ` from ` + rq.SqlTableName() + `WHERE "serialNumber" = '` + serialNumber + `'`
+	query := `SELECT ` + rq.SqlSelectAllFields() + ` 
+FROM ` + rq.SqlTableName() + `
+WHERE "serialNumber" = ` + S.Q(serialNumber)
 	if conf.IsDebug() {
 		//L.Print(query)
 	}
@@ -18,8 +24,9 @@ func (rq *Property) FindPropertiesBySerialNumber(serialNumber string) (res []*Pr
 }
 
 func (rq *Property) FindPropertiesByUniqueKey(uniqueSerialAndSize string) (res []*Property) {
-	query := `SELECT ` + rq.SqlSelectAllFields() + ` from ` + rq.SqlTableName() +
-		` WHERE "uniquePropertyKey" = '` + uniqueSerialAndSize + `'`
+	query := `SELECT ` + rq.SqlSelectAllFields() + ` 
+FROM ` + rq.SqlTableName() + ` 
+WHERE "uniquePropertyKey" = ` + S.Q(uniqueSerialAndSize)
 
 	if conf.IsDebug() {
 		//L.Print(query)

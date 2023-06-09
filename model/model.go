@@ -65,14 +65,19 @@ func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
 		return
 	}
 
+	stat := &ImporterStat{Total: len(rows)}
 	for index, row := range rows {
+
+		stat.Print()
+
 		if index == 0 || index == 1 {
+			stat.Skip()
 			continue
 		}
 
-		var district string = ""
-		var address string = ""
-		var serialPropertyNumber string = ""
+		var district = ""
+		var address = ""
+		var serialPropertyNumber = ""
 
 		for colIndex, colCell := range row {
 			// Col 0 - District
@@ -91,17 +96,16 @@ func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
 		}
 
 		if district == "" || address == "" || serialPropertyNumber == "" {
+			stat.Skip()
 			continue
 		}
 
 		// Get list of property based on house serial number
 		existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
 
-		stat := &ImporterStat{Total: len(existingHouseData)}
+		stat.Total += len(existingHouseData)
 		for _, house := range existingHouseData {
 			//fmt.Println("House data -> ", house)
-
-			stat.Print()
 
 			if house.Address != "" && house.District != "" {
 				stat.Skip()
@@ -138,7 +142,7 @@ func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
 		}
 	}
 
-	fmt.Println("[Scan Buy-Sell sheet] End the process update address to house")
+	fmt.Println("\n[Scan Buy-Sell sheet] End the process update address to house")
 
 }
 
@@ -162,14 +166,18 @@ func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
 		return
 	}
 
+	stat := &ImporterStat{Total: len(rows)}
 	for index, row := range rows {
+		stat.Print()
+
 		if index >= 0 && index <= 2 {
+			stat.Skip()
 			continue
 		}
 
-		var district string = ""
-		var address string = ""
-		var serialPropertyNumber string = ""
+		var district = ""
+		var address = ""
+		var serialPropertyNumber = ""
 
 		for colIndex, colCell := range row {
 			// Col 0 - District
@@ -187,19 +195,18 @@ func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
 			}
 		}
 
-		fmt.Println("Row index => ", index)
+		//fmt.Println("Row index => ", index)
 		if district == "" || address == "" || serialPropertyNumber == "" {
+			stat.Skip()
 			continue
 		}
 
 		// Get list of property based on house serial number
 		existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
 
-		stat := &ImporterStat{Total: len(existingHouseData)}
+		stat.Total += len(existingHouseData)
 		for _, house := range existingHouseData {
 			//fmt.Println("House data -> ", house)
-
-			stat.Print()
 
 			if house.Address != "" && house.District != "" {
 				stat.Skip()
@@ -237,11 +244,11 @@ func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
 
 	}
 
-	fmt.Println("[Scan Rent sheet] End the process update address to house")
+	fmt.Println("\n[Scan Rent sheet] End the process update address to house")
 }
 
 func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
-	fmt.Println("[Scan Rent sheet] Begin the process update address to house")
+	fmt.Println("[Scan Rent sheet2] Begin the process update address to house")
 	pathData := resourceFile
 	f, err := excelize.OpenFile(pathData)
 	if err != nil {
@@ -260,14 +267,18 @@ func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
 		return
 	}
 
+	stat := &ImporterStat{Total: len(rows)}
 	for index, row := range rows {
+		stat.Print()
+
 		if index >= 0 && index <= 2 {
+			stat.Skip()
 			continue
 		}
 
-		var district string = ""
-		var address string = ""
-		var serialPropertyNumber string = ""
+		var district = ""
+		var address = ""
+		var serialPropertyNumber = ""
 
 		for colIndex, colCell := range row {
 			// Col 0 - District
@@ -285,19 +296,18 @@ func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
 			}
 		}
 
-		fmt.Println("Row index => ", index)
+		//fmt.Println("Row index => ", index)
 		if district == "" || address == "" || serialPropertyNumber == "" {
+			stat.Skip()
 			continue
 		}
 
 		// Get list of property based on house serial number
 		existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
 
-		stat := &ImporterStat{Total: len(existingHouseData)}
+		stat.Total += len(existingHouseData)
 		for _, house := range existingHouseData {
 			//fmt.Println("House data -> ", house)
-
-			stat.Print()
 
 			if house.Address != "" && house.District != "" {
 				stat.Skip()
@@ -335,7 +345,7 @@ func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
 
 	}
 
-	fmt.Println("[Scan Rent sheet] End the process update address to house")
+	fmt.Println("\n[Scan Rent sheet2] End the process update address to house")
 }
 
 func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
@@ -360,7 +370,10 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 	stat := &ImporterStat{Total: len(rows)}
 	fmt.Println("Begin the process of import house data")
 	for index, row := range rows {
+		stat.Print()
+
 		if index == 0 || index == 1 {
+			stat.Skip()
 			continue
 		}
 
@@ -394,17 +407,14 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 			"#" + propertyMutator.SizeM2
 		propertyMutator.UniquePropertyKey = uniqueSerialNumber
 
-		// print state
-		stat.Print()
-
 		// Check if unique property key is existed
 		existingProperties := propertyMutator.FindPropertiesByUniqueKey(uniqueSerialNumber)
 		if len(existingProperties) > 0 || uniqueSerialNumber == "#" {
 			stat.Skip()
 			continue
-		} else {
-			stat.Ok(propertyMutator.DoInsert())
 		}
+
+		stat.Ok(propertyMutator.DoInsert())
 	}
 	fmt.Println("End process of import house data")
 }
