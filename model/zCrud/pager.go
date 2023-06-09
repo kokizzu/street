@@ -29,32 +29,6 @@ type PagerIn struct {
 	Order []string `json:"order" form:"order" query:"order" long:"order" msg:"order"`
 }
 
-const minPerPage = 10
-const maxPerPage = 1000
-
-func (p *PagerIn) Limit() int {
-	if p.PerPage <= 0 {
-		return minPerPage
-	}
-	if p.PerPage >= maxPerPage {
-		return maxPerPage
-	}
-	return p.PerPage
-}
-
-func (p *PagerIn) Offset(maxOffset int) int {
-	if p.Page <= 0 {
-		return 0
-	}
-	// set to last page if overflow
-	expectedPage := (p.Page - 1) * p.PerPage
-	maxPage := (p.PerPage - 1 + maxOffset) / p.PerPage
-	if expectedPage > maxPage {
-		expectedPage = maxPage
-	}
-	return expectedPage
-}
-
 type PagerOut struct {
 	Page    int `json:"page" form:"page" query:"page" long:"page" msg:"page"`
 	PerPage int `json:"perPage" form:"perPage" query:"perPage" long:"perPage" msg:"perPage"`
@@ -67,19 +41,42 @@ type PagerOut struct {
 	Order []string `json:"order" form:"order" query:"order" long:"order" msg:"order"`
 }
 
-func (p *PagerOut) LimitOffsetSql(in *PagerIn, count int) string {
-	offset := in.Offset(count)
-	p.Page = offset/p.PerPage + 1
+func (p *PagerOut) LimitOffsetSql() string {
 	offsetStr := ``
-	if offset > 0 {
-		offsetStr = fmt.Sprintf(` OFFSET %d`, offset)
+	if p.Page > 1 {
+		offsetStr = fmt.Sprintf(` OFFSET %d`, (p.Page-1)*p.PerPage)
 	}
 	return fmt.Sprintf(`
 LIMIT %d`, p.PerPage) + offsetStr
 }
 
-func (p *PagerOut) WhereOrderSql(filters map[string][]string, orders []string, fieldToType map[string]Tt.DataType) (whereAndSql, orderBySql string) {
-
+func (p *PagerOut) OrderBySql(orders []string, fieldToType map[string]Tt.DataType) (orderBySql string) {
+	var orderBy []string
+	for _, dirField := range orders {
+		if len(dirField) <= 2 {
+			continue
+		}
+		dir := dirField[0]
+		dirStr := ``
+		if dir == '+' {
+		} else if dir == '-' {
+			dirStr = ` DESC`
+		} else {
+			continue
+		}
+		field := dirField[1:]
+		if _, ok := fieldToType[field]; !ok {
+			continue
+		}
+		orderBy = append(orderBy, S.QQ(field)+dirStr)
+	}
+	if len(orderBy) > 0 {
+		orderBySql = `
+ORDER BY ` + A.StrJoin(orderBy, `, `)
+	}
+	return
+}
+func (p *PagerOut) WhereAndSql(filters map[string][]string, fieldToType map[string]Tt.DataType) (whereAndSql string) {
 	var whereAnd []string
 	fields := maps.Keys(filters)
 	sort.Strings(fields)
@@ -106,31 +103,7 @@ func (p *PagerOut) WhereOrderSql(filters map[string][]string, orders []string, f
 WHERE (` + A.StrJoin(whereAnd, `)
 	AND (`) + `)`
 	}
-
-	var orderBy []string
-	for _, dirField := range orders {
-		if len(dirField) <= 2 {
-			continue
-		}
-		dir := dirField[0]
-		dirStr := ``
-		if dir == '+' {
-		} else if dir == '-' {
-			dirStr = ` DESC`
-		} else {
-			continue
-		}
-		field := dirField[1:]
-		if _, ok := fieldToType[field]; !ok {
-			continue
-		}
-		orderBy = append(orderBy, S.QQ(field)+dirStr)
-	}
-	if len(orderBy) > 0 {
-		orderBySql = `
-ORDER BY ` + A.StrJoin(orderBy, `, `)
-	}
-	return whereAndSql, orderBySql
+	return
 }
 
 func equalityQuoteValue(values []string, expectTyp Tt.DataType, field string) (whereOr []string, filtered []string) {
@@ -289,9 +262,38 @@ func splitOperatorValue(str string) (op string, rhs string) {
 	return
 }
 
-func (p *PagerOut) CalculatePages(total int) {
-	p.Total = total
-	if total > 0 {
-		p.Pages = (p.PerPage - 1 + total) / p.PerPage
+const maxPerPage = 1000
+
+func limit(perPage int) int {
+	const defaultPerPage = 10
+	if perPage <= 0 {
+		return defaultPerPage
+	}
+	if perPage >= maxPerPage {
+		return maxPerPage
+	}
+	return perPage
+}
+
+func offset(page, perPage, count int) (offset int) {
+	if page <= 0 {
+		return 0
+	}
+	// set to last page if overflow
+	expectedOffset := (page - 1) * perPage
+	maxOffset := (count / perPage) * perPage
+	if expectedOffset > maxOffset {
+		expectedOffset = maxOffset
+	}
+	return expectedOffset
+}
+
+func (p *PagerOut) CalculatePages(page, perPage, count int) {
+	p.PerPage = limit(perPage)
+	offset := offset(page, p.PerPage, count)
+	p.Page = offset/p.PerPage + 1
+	p.Total = count
+	if count > 0 {
+		p.Pages = (p.PerPage - 1 + count) / p.PerPage
 	}
 }

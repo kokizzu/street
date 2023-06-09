@@ -465,10 +465,10 @@ WHERE ("name" IN ('&apos;; DROP TABLE users; --','&apos;) OR 1=1; --'))`),
 				`name`: Tt.String,
 			},
 
-			limitOffsetSql: autogold.Expect("\nLIMIT 5 OFFSET 3"),
+			limitOffsetSql: autogold.Expect("\nLIMIT 5 OFFSET 5"),
 			whereAndSql:    autogold.Expect(""),
 			orderBySql:     autogold.Expect(""),
-			expectOut:      autogold.Expect(PagerOut{Page: 1, PerPage: 5, Pages: 3, Total: 11}),
+			expectOut:      autogold.Expect(PagerOut{Page: 2, PerPage: 5, Pages: 3, Total: 11}),
 		},
 		{
 			name: `limitNegative`,
@@ -493,32 +493,32 @@ WHERE ("name" IN ('&apos;; DROP TABLE users; --','&apos;) OR 1=1; --'))`),
 				Page:    300,
 				PerPage: 2000,
 			},
-			countResult: 11,
+			countResult: 2100,
 			fieldToType: map[string]Tt.DataType{
 				`id`:   Tt.Integer,
 				`name`: Tt.String,
 			},
 
-			limitOffsetSql: autogold.Expect("\nLIMIT 1000 OFFSET 1"),
+			limitOffsetSql: autogold.Expect("\nLIMIT 1000 OFFSET 2000"),
 			whereAndSql:    autogold.Expect(""),
 			orderBySql:     autogold.Expect(""),
-			expectOut:      autogold.Expect(PagerOut{Page: 1, PerPage: 1000, Pages: 1, Total: 11}),
+			expectOut:      autogold.Expect(PagerOut{Page: 3, PerPage: 1000, Pages: 3, Total: 2100}),
 		},
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			out := PagerOut{
-				PerPage: tc.in.Limit(),
-			}
+			out := PagerOut{}
 
-			out.CalculatePages(tc.countResult)
+			out.CalculatePages(tc.in.Page, tc.in.PerPage, tc.countResult)
 
-			limitOffsetSql := out.LimitOffsetSql(&tc.in, tc.countResult)
+			limitOffsetSql := out.LimitOffsetSql()
 			tc.limitOffsetSql.Equal(t, limitOffsetSql)
 
-			whereAndSql, orderBySql := out.WhereOrderSql(tc.in.Filters, tc.in.Order, tc.fieldToType)
+			whereAndSql := out.WhereAndSql(tc.in.Filters, tc.fieldToType)
 			tc.whereAndSql.Equal(t, whereAndSql)
+
+			orderBySql := out.OrderBySql(tc.in.Order, tc.fieldToType)
 			tc.orderBySql.Equal(t, orderBySql)
 
 			tc.expectOut.Equal(t, out)

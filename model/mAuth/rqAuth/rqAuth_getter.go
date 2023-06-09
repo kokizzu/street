@@ -1,7 +1,6 @@
 package rqAuth
 
 import (
-	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
@@ -27,21 +26,18 @@ WHERE ` + s.SqlUserId() + ` = ` + I.UToS(userId) + `
 }
 
 func (u *Users) FindByPagination(in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
-	out.PerPage = in.Limit()
+	whereAndSql := out.WhereAndSql(in.Filters, UsersFieldTypeMap)
 
-	whereAndSql, orderBySql := out.WhereOrderSql(in.Filters, in.Order, map[string]Tt.DataType{}) // TODO: u.FieldsTypeMap())
-
-	total := 0
 	queryCount := `-- Users) FindByPagination
 SELECT COUNT(1)
 FROM ` + u.SqlTableName() + whereAndSql + `
 LIMIT 1`
 	u.Adapter.QuerySql(queryCount, func(row []any) {
-		total = int(X.ToI(row[0]))
-		out.CalculatePages(total)
+		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
 	})
 
-	limitOffsetSql := out.LimitOffsetSql(in, total)
+	orderBySql := out.OrderBySql(in.Order, UsersFieldTypeMap)
+	limitOffsetSql := out.LimitOffsetSql()
 
 	queryRows := `-- Users) FindByPagination
 SELECT ` + u.SqlSelectAllUncensoredFields() + `
