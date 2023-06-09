@@ -9,6 +9,7 @@ const (
 	TableProperty Tt.TableName = `property`
 
 	Id                     = `id`
+	uniquePropertyKey      = `uniquePropertyKey`
 	SerialNumber           = `serialNumber`
 	SizeM2                 = `sizeM2`
 	MainUse                = `mainUse`
@@ -16,7 +17,11 @@ const (
 	ConstructCompletedDate = `constructCompletedDate`
 	NumberOfFloors         = `numberOfFloors`
 	BuildingLamination     = `buildingLamination`
+	Address                = `address`
+	District               = `district`
 	Note                   = `note`
+	Latitude               = `latitude`
+	Longitude              = `longitude`
 	CreatedAt              = `createdAt`
 	CreatedBy              = `createdBy`
 	UpdatedAt              = `updatedAt`
@@ -28,14 +33,19 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableProperty: {
 		Fields: []Tt.Field{
 			{Id, Tt.Unsigned},
+			{uniquePropertyKey, Tt.String},
 			{SerialNumber, Tt.String},
-			{SizeM2, Tt.Double},
+			{SizeM2, Tt.String},
 			{MainUse, Tt.String},
 			{MainBuildingMaterial, Tt.String},
-			{ConstructCompletedDate, Tt.Integer},
-			{NumberOfFloors, Tt.Double}, // float?
+			{ConstructCompletedDate, Tt.String},
+			{NumberOfFloors, Tt.String},
 			{BuildingLamination, Tt.String},
+			{Address, Tt.String},
+			{District, Tt.String},
 			{Note, Tt.String},
+			{Latitude, Tt.String},
+			{Longitude, Tt.String},
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},
 			{UpdatedAt, Tt.Integer},

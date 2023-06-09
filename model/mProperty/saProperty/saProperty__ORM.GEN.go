@@ -3,16 +3,16 @@ package saProperty
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/Ch/clickhouse_orm_generator.go
 
 import (
-	"database/sql"
-	"street/model/mProperty"
-	"time"
+	`database/sql`
+	`street/model/mProperty`
+	`time`
 
-	_ "github.com/ClickHouse/clickhouse-go/v2"
-	chBuffer "github.com/kokizzu/ch-timed-buffer"
+	_ `github.com/ClickHouse/clickhouse-go/v2`
+	chBuffer `github.com/kokizzu/ch-timed-buffer`
 
-	"github.com/kokizzu/gotro/A"
-	"github.com/kokizzu/gotro/D/Ch"
-	"github.com/kokizzu/gotro/L"
+	`github.com/kokizzu/gotro/A`
+	`github.com/kokizzu/gotro/D/Ch`
+	`github.com/kokizzu/gotro/L`
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file saProperty__ORM.GEN.go
@@ -30,16 +30,15 @@ var Preparators = map[Ch.TableName]chBuffer.Preparator{
 		return stmt
 	},
 }
-
 type TablePropertyLogs struct {
-	Adapter   *Ch.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	CreatedAt time.Time   `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	RequestId string      `json:"requestId,string" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
-	Error     string      `json:"error" form:"error" query:"error" long:"error" msg:"error"`
-	ActorId   uint64      `json:"actorId,string" form:"actorId" query:"actorId" long:"actorId" msg:"actorId"`
-	IpAddr4   string      `json:"ipAddr4" form:"ipAddr4" query:"ipAddr4" long:"ipAddr4" msg:"ipAddr4"`
-	IpAddr6   string      `json:"ipAddr6" form:"ipAddr6" query:"ipAddr6" long:"ipAddr6" msg:"ipAddr6"`
-	UserAgent string      `json:"userAgent" form:"userAgent" query:"userAgent" long:"userAgent" msg:"userAgent"`
+	Adapter *Ch.Adapter `json:"-" msg:"-" query:"-" form:"-"`
+	CreatedAt time.Time
+	RequestId string
+	Error     string
+	ActorId   uint64
+	IpAddr4   string
+	IpAddr6   string
+	UserAgent string
 }
 
 func NewTablePropertyLogs(adapter *Ch.Adapter) *TablePropertyLogs {
@@ -80,13 +79,13 @@ func (t *TablePropertyLogs) SqlAllFields() string { //nolint:dupl false positive
 
 func (t TablePropertyLogs) SqlInsertParam() []any { //nolint:dupl false positive
 	return []any{
-		t.CreatedAt, // 0
-		t.RequestId, // 1
-		t.Error,     // 2
-		t.ActorId,   // 3
-		t.IpAddr4,   // 4
-		t.IpAddr6,   // 5
-		t.UserAgent, // 6
+		t.CreatedAt, // 0 
+		t.RequestId, // 1 
+		t.Error, // 2 
+		t.ActorId, // 3 
+		t.IpAddr4, // 4 
+		t.IpAddr6, // 5 
+		t.UserAgent, // 6 
 	}
 }
 
@@ -159,3 +158,4 @@ func (t *TablePropertyLogs) ToArray() A.X { //nolint:dupl false positive
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/Ch/clickhouse_orm_generator.go
+

@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/kokizzu/gotro/D/Ch"
@@ -152,6 +153,15 @@ func main() {
 		cron.Start()
 	case `migrate`:
 		model.RunMigration(tConn, cConn, tConn, cConn)
+	case `import`:
+		fmt.Println("Import excel sheet data")
+		p, err := filepath.Abs("./static/house_data/House_Data_Full_Version_v1.xlsx")
+		if err != nil {
+			fmt.Println("Error -> ", err)
+		}
+
+		// fmt.Println(p)
+		model.ImportExcelData(tConn, p)
 	default:
 		log.Error().Str(`mode`, mode).Msg(`unknown mode`)
 	}

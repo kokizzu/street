@@ -3,14 +3,14 @@ package rqProperty
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 import (
-	"street/model/mProperty"
+	`street/model/mProperty`
 
-	"github.com/tarantool/go-tarantool"
+	`github.com/tarantool/go-tarantool`
 
-	"github.com/kokizzu/gotro/A"
-	"github.com/kokizzu/gotro/D/Tt"
-	"github.com/kokizzu/gotro/L"
-	"github.com/kokizzu/gotro/X"
+	`github.com/kokizzu/gotro/A`
+	`github.com/kokizzu/gotro/D/Tt`
+	`github.com/kokizzu/gotro/L`
+	`github.com/kokizzu/gotro/X`
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file rqProperty__ORM.GEN.go
@@ -21,21 +21,26 @@ import (
 
 // Property DAO reader/query struct
 type Property struct {
-	Adapter                *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	Id                     uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
-	SerialNumber           string      `json:"serialNumber" form:"serialNumber" query:"serialNumber" long:"serialNumber" msg:"serialNumber"`
-	SizeM2                 float64     `json:"sizeM2" form:"sizeM2" query:"sizeM2" long:"sizeM2" msg:"sizeM2"`
-	MainUse                string      `json:"mainUse" form:"mainUse" query:"mainUse" long:"mainUse" msg:"mainUse"`
-	MainBuildingMaterial   string      `json:"mainBuildingMaterial" form:"mainBuildingMaterial" query:"mainBuildingMaterial" long:"mainBuildingMaterial" msg:"mainBuildingMaterial"`
-	ConstructCompletedDate int64       `json:"constructCompletedDate" form:"constructCompletedDate" query:"constructCompletedDate" long:"constructCompletedDate" msg:"constructCompletedDate"`
-	NumberOfFloors         float64     `json:"numberOfFloors" form:"numberOfFloors" query:"numberOfFloors" long:"numberOfFloors" msg:"numberOfFloors"`
-	BuildingLamination     string      `json:"buildingLamination" form:"buildingLamination" query:"buildingLamination" long:"buildingLamination" msg:"buildingLamination"`
-	Note                   string      `json:"note" form:"note" query:"note" long:"note" msg:"note"`
-	CreatedAt              int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	CreatedBy              uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
-	UpdatedAt              int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
-	UpdatedBy              uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
-	DeletedAt              int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	Adapter *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-"`
+	Id                     uint64
+	UniquePropertyKey      string
+	SerialNumber           string
+	SizeM2                 string
+	MainUse                string
+	MainBuildingMaterial   string
+	ConstructCompletedDate string
+	NumberOfFloors         string
+	BuildingLamination     string
+	Address                string
+	District               string
+	Note                   string
+	Latitude               string
+	Longitude              string
+	CreatedAt              int64
+	CreatedBy              uint64
+	UpdatedAt              int64
+	UpdatedBy              uint64
+	DeletedAt              int64
 }
 
 // NewProperty create new ORM reader/query object
@@ -74,6 +79,7 @@ func (p *Property) FindById() bool { //nolint:dupl false positive
 // SqlSelectAllFields generate Sql select fields
 func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "id"
+	, "uniquePropertyKey"
 	, "serialNumber"
 	, "sizeM2"
 	, "mainUse"
@@ -81,7 +87,11 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "constructCompletedDate"
 	, "numberOfFloors"
 	, "buildingLamination"
+	, "address"
+	, "district"
 	, "note"
+	, "latitude"
+	, "longitude"
 	, "createdAt"
 	, "createdBy"
 	, "updatedAt"
@@ -93,6 +103,7 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 // SqlSelectAllUncensoredFields generate Sql select fields
 func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
 	return ` "id"
+	, "uniquePropertyKey"
 	, "serialNumber"
 	, "sizeM2"
 	, "mainUse"
@@ -100,7 +111,11 @@ func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 	, "constructCompletedDate"
 	, "numberOfFloors"
 	, "buildingLamination"
+	, "address"
+	, "district"
 	, "note"
+	, "latitude"
+	, "longitude"
 	, "createdAt"
 	, "createdBy"
 	, "updatedAt"
@@ -113,19 +128,24 @@ func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 func (p *Property) ToUpdateArray() A.X { //nolint:dupl false positive
 	return A.X{
 		A.X{`=`, 0, p.Id},
-		A.X{`=`, 1, p.SerialNumber},
-		A.X{`=`, 2, p.SizeM2},
-		A.X{`=`, 3, p.MainUse},
-		A.X{`=`, 4, p.MainBuildingMaterial},
-		A.X{`=`, 5, p.ConstructCompletedDate},
-		A.X{`=`, 6, p.NumberOfFloors},
-		A.X{`=`, 7, p.BuildingLamination},
-		A.X{`=`, 8, p.Note},
-		A.X{`=`, 9, p.CreatedAt},
-		A.X{`=`, 10, p.CreatedBy},
-		A.X{`=`, 11, p.UpdatedAt},
-		A.X{`=`, 12, p.UpdatedBy},
-		A.X{`=`, 13, p.DeletedAt},
+		A.X{`=`, 1, p.UniquePropertyKey},
+		A.X{`=`, 2, p.SerialNumber},
+		A.X{`=`, 3, p.SizeM2},
+		A.X{`=`, 4, p.MainUse},
+		A.X{`=`, 5, p.MainBuildingMaterial},
+		A.X{`=`, 6, p.ConstructCompletedDate},
+		A.X{`=`, 7, p.NumberOfFloors},
+		A.X{`=`, 8, p.BuildingLamination},
+		A.X{`=`, 9, p.Address},
+		A.X{`=`, 10, p.District},
+		A.X{`=`, 11, p.Note},
+		A.X{`=`, 12, p.Latitude},
+		A.X{`=`, 13, p.Longitude},
+		A.X{`=`, 14, p.CreatedAt},
+		A.X{`=`, 15, p.CreatedBy},
+		A.X{`=`, 16, p.UpdatedAt},
+		A.X{`=`, 17, p.UpdatedBy},
+		A.X{`=`, 18, p.DeletedAt},
 	}
 }
 
@@ -139,9 +159,19 @@ func (p *Property) SqlId() string { //nolint:dupl false positive
 	return `"id"`
 }
 
+// IdxUniquePropertyKey return name of the index
+func (p *Property) IdxUniquePropertyKey() int { //nolint:dupl false positive
+	return 1
+}
+
+// SqlUniquePropertyKey return name of the column being indexed
+func (p *Property) SqlUniquePropertyKey() string { //nolint:dupl false positive
+	return `"uniquePropertyKey"`
+}
+
 // IdxSerialNumber return name of the index
 func (p *Property) IdxSerialNumber() int { //nolint:dupl false positive
-	return 1
+	return 2
 }
 
 // SqlSerialNumber return name of the column being indexed
@@ -151,7 +181,7 @@ func (p *Property) SqlSerialNumber() string { //nolint:dupl false positive
 
 // IdxSizeM2 return name of the index
 func (p *Property) IdxSizeM2() int { //nolint:dupl false positive
-	return 2
+	return 3
 }
 
 // SqlSizeM2 return name of the column being indexed
@@ -161,7 +191,7 @@ func (p *Property) SqlSizeM2() string { //nolint:dupl false positive
 
 // IdxMainUse return name of the index
 func (p *Property) IdxMainUse() int { //nolint:dupl false positive
-	return 3
+	return 4
 }
 
 // SqlMainUse return name of the column being indexed
@@ -171,7 +201,7 @@ func (p *Property) SqlMainUse() string { //nolint:dupl false positive
 
 // IdxMainBuildingMaterial return name of the index
 func (p *Property) IdxMainBuildingMaterial() int { //nolint:dupl false positive
-	return 4
+	return 5
 }
 
 // SqlMainBuildingMaterial return name of the column being indexed
@@ -181,7 +211,7 @@ func (p *Property) SqlMainBuildingMaterial() string { //nolint:dupl false positi
 
 // IdxConstructCompletedDate return name of the index
 func (p *Property) IdxConstructCompletedDate() int { //nolint:dupl false positive
-	return 5
+	return 6
 }
 
 // SqlConstructCompletedDate return name of the column being indexed
@@ -191,7 +221,7 @@ func (p *Property) SqlConstructCompletedDate() string { //nolint:dupl false posi
 
 // IdxNumberOfFloors return name of the index
 func (p *Property) IdxNumberOfFloors() int { //nolint:dupl false positive
-	return 6
+	return 7
 }
 
 // SqlNumberOfFloors return name of the column being indexed
@@ -201,7 +231,7 @@ func (p *Property) SqlNumberOfFloors() string { //nolint:dupl false positive
 
 // IdxBuildingLamination return name of the index
 func (p *Property) IdxBuildingLamination() int { //nolint:dupl false positive
-	return 7
+	return 8
 }
 
 // SqlBuildingLamination return name of the column being indexed
@@ -209,9 +239,29 @@ func (p *Property) SqlBuildingLamination() string { //nolint:dupl false positive
 	return `"buildingLamination"`
 }
 
+// IdxAddress return name of the index
+func (p *Property) IdxAddress() int { //nolint:dupl false positive
+	return 9
+}
+
+// SqlAddress return name of the column being indexed
+func (p *Property) SqlAddress() string { //nolint:dupl false positive
+	return `"address"`
+}
+
+// IdxDistrict return name of the index
+func (p *Property) IdxDistrict() int { //nolint:dupl false positive
+	return 10
+}
+
+// SqlDistrict return name of the column being indexed
+func (p *Property) SqlDistrict() string { //nolint:dupl false positive
+	return `"district"`
+}
+
 // IdxNote return name of the index
 func (p *Property) IdxNote() int { //nolint:dupl false positive
-	return 8
+	return 11
 }
 
 // SqlNote return name of the column being indexed
@@ -219,9 +269,29 @@ func (p *Property) SqlNote() string { //nolint:dupl false positive
 	return `"note"`
 }
 
+// IdxLatitude return name of the index
+func (p *Property) IdxLatitude() int { //nolint:dupl false positive
+	return 12
+}
+
+// SqlLatitude return name of the column being indexed
+func (p *Property) SqlLatitude() string { //nolint:dupl false positive
+	return `"latitude"`
+}
+
+// IdxLongitude return name of the index
+func (p *Property) IdxLongitude() int { //nolint:dupl false positive
+	return 13
+}
+
+// SqlLongitude return name of the column being indexed
+func (p *Property) SqlLongitude() string { //nolint:dupl false positive
+	return `"longitude"`
+}
+
 // IdxCreatedAt return name of the index
 func (p *Property) IdxCreatedAt() int { //nolint:dupl false positive
-	return 9
+	return 14
 }
 
 // SqlCreatedAt return name of the column being indexed
@@ -231,7 +301,7 @@ func (p *Property) SqlCreatedAt() string { //nolint:dupl false positive
 
 // IdxCreatedBy return name of the index
 func (p *Property) IdxCreatedBy() int { //nolint:dupl false positive
-	return 10
+	return 15
 }
 
 // SqlCreatedBy return name of the column being indexed
@@ -241,7 +311,7 @@ func (p *Property) SqlCreatedBy() string { //nolint:dupl false positive
 
 // IdxUpdatedAt return name of the index
 func (p *Property) IdxUpdatedAt() int { //nolint:dupl false positive
-	return 11
+	return 16
 }
 
 // SqlUpdatedAt return name of the column being indexed
@@ -251,7 +321,7 @@ func (p *Property) SqlUpdatedAt() string { //nolint:dupl false positive
 
 // IdxUpdatedBy return name of the index
 func (p *Property) IdxUpdatedBy() int { //nolint:dupl false positive
-	return 12
+	return 17
 }
 
 // SqlUpdatedBy return name of the column being indexed
@@ -261,7 +331,7 @@ func (p *Property) SqlUpdatedBy() string { //nolint:dupl false positive
 
 // IdxDeletedAt return name of the index
 func (p *Property) IdxDeletedAt() int { //nolint:dupl false positive
-	return 13
+	return 18
 }
 
 // SqlDeletedAt return name of the column being indexed
@@ -277,57 +347,72 @@ func (p *Property) ToArray() A.X { //nolint:dupl false positive
 	}
 	return A.X{
 		id,
-		p.SerialNumber,           // 1
-		p.SizeM2,                 // 2
-		p.MainUse,                // 3
-		p.MainBuildingMaterial,   // 4
-		p.ConstructCompletedDate, // 5
-		p.NumberOfFloors,         // 6
-		p.BuildingLamination,     // 7
-		p.Note,                   // 8
-		p.CreatedAt,              // 9
-		p.CreatedBy,              // 10
-		p.UpdatedAt,              // 11
-		p.UpdatedBy,              // 12
-		p.DeletedAt,              // 13
+		p.UniquePropertyKey,      // 1
+		p.SerialNumber,           // 2
+		p.SizeM2,                 // 3
+		p.MainUse,                // 4
+		p.MainBuildingMaterial,   // 5
+		p.ConstructCompletedDate, // 6
+		p.NumberOfFloors,         // 7
+		p.BuildingLamination,     // 8
+		p.Address,                // 9
+		p.District,               // 10
+		p.Note,                   // 11
+		p.Latitude,               // 12
+		p.Longitude,              // 13
+		p.CreatedAt,              // 14
+		p.CreatedBy,              // 15
+		p.UpdatedAt,              // 16
+		p.UpdatedBy,              // 17
+		p.DeletedAt,              // 18
 	}
 }
 
 // FromArray convert slice to receiver fields
 func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 	p.Id = X.ToU(a[0])
-	p.SerialNumber = X.ToS(a[1])
-	p.SizeM2 = X.ToF(a[2])
-	p.MainUse = X.ToS(a[3])
-	p.MainBuildingMaterial = X.ToS(a[4])
-	p.ConstructCompletedDate = X.ToI(a[5])
-	p.NumberOfFloors = X.ToF(a[6])
-	p.BuildingLamination = X.ToS(a[7])
-	p.Note = X.ToS(a[8])
-	p.CreatedAt = X.ToI(a[9])
-	p.CreatedBy = X.ToU(a[10])
-	p.UpdatedAt = X.ToI(a[11])
-	p.UpdatedBy = X.ToU(a[12])
-	p.DeletedAt = X.ToI(a[13])
+	p.UniquePropertyKey = X.ToS(a[1])
+	p.SerialNumber = X.ToS(a[2])
+	p.SizeM2 = X.ToS(a[3])
+	p.MainUse = X.ToS(a[4])
+	p.MainBuildingMaterial = X.ToS(a[5])
+	p.ConstructCompletedDate = X.ToS(a[6])
+	p.NumberOfFloors = X.ToS(a[7])
+	p.BuildingLamination = X.ToS(a[8])
+	p.Address = X.ToS(a[9])
+	p.District = X.ToS(a[10])
+	p.Note = X.ToS(a[11])
+	p.Latitude = X.ToS(a[12])
+	p.Longitude = X.ToS(a[13])
+	p.CreatedAt = X.ToI(a[14])
+	p.CreatedBy = X.ToU(a[15])
+	p.UpdatedAt = X.ToI(a[16])
+	p.UpdatedBy = X.ToU(a[17])
+	p.DeletedAt = X.ToI(a[18])
 	return p
 }
 
 // FromUncensoredArray convert slice to receiver fields
 func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false positive
 	p.Id = X.ToU(a[0])
-	p.SerialNumber = X.ToS(a[1])
-	p.SizeM2 = X.ToF(a[2])
-	p.MainUse = X.ToS(a[3])
-	p.MainBuildingMaterial = X.ToS(a[4])
-	p.ConstructCompletedDate = X.ToI(a[5])
-	p.NumberOfFloors = X.ToF(a[6])
-	p.BuildingLamination = X.ToS(a[7])
-	p.Note = X.ToS(a[8])
-	p.CreatedAt = X.ToI(a[9])
-	p.CreatedBy = X.ToU(a[10])
-	p.UpdatedAt = X.ToI(a[11])
-	p.UpdatedBy = X.ToU(a[12])
-	p.DeletedAt = X.ToI(a[13])
+	p.UniquePropertyKey = X.ToS(a[1])
+	p.SerialNumber = X.ToS(a[2])
+	p.SizeM2 = X.ToS(a[3])
+	p.MainUse = X.ToS(a[4])
+	p.MainBuildingMaterial = X.ToS(a[5])
+	p.ConstructCompletedDate = X.ToS(a[6])
+	p.NumberOfFloors = X.ToS(a[7])
+	p.BuildingLamination = X.ToS(a[8])
+	p.Address = X.ToS(a[9])
+	p.District = X.ToS(a[10])
+	p.Note = X.ToS(a[11])
+	p.Latitude = X.ToS(a[12])
+	p.Longitude = X.ToS(a[13])
+	p.CreatedAt = X.ToI(a[14])
+	p.CreatedBy = X.ToU(a[15])
+	p.UpdatedAt = X.ToI(a[16])
+	p.UpdatedBy = X.ToU(a[17])
+	p.DeletedAt = X.ToI(a[18])
 	return p
 }
 
@@ -362,7 +447,7 @@ func (p *Property) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, 
 
 // Total count number of rows
 func (p *Property) Total() int64 { //nolint:dupl false positive
-	rows := p.Adapter.CallBoxSpace(p.SpaceName()+`:count`, A.X{})
+	rows := p.Adapter.CallBoxSpace(p.SpaceName() + `:count`, A.X{})
 	if len(rows) > 0 && len(rows[0]) > 0 {
 		return X.ToI(rows[0][0])
 	}
@@ -370,16 +455,21 @@ func (p *Property) Total() int64 { //nolint:dupl false positive
 }
 
 // PropertyFieldTypeMap returns key value of field name and key
-var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
+var PropertyFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
 	`id`:                     Tt.Unsigned,
+	`uniquePropertyKey`:      Tt.String,
 	`serialNumber`:           Tt.String,
-	`sizeM2`:                 Tt.Double,
+	`sizeM2`:                 Tt.String,
 	`mainUse`:                Tt.String,
 	`mainBuildingMaterial`:   Tt.String,
-	`constructCompletedDate`: Tt.Integer,
-	`numberOfFloors`:         Tt.Double,
+	`constructCompletedDate`: Tt.String,
+	`numberOfFloors`:         Tt.String,
 	`buildingLamination`:     Tt.String,
+	`address`:                Tt.String,
+	`district`:               Tt.String,
 	`note`:                   Tt.String,
+	`latitude`:               Tt.String,
+	`longitude`:              Tt.String,
 	`createdAt`:              Tt.Integer,
 	`createdBy`:              Tt.Unsigned,
 	`updatedAt`:              Tt.Integer,
@@ -388,3 +478,4 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+

@@ -3,16 +3,16 @@ package saAuth
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/Ch/clickhouse_orm_generator.go
 
 import (
-	"database/sql"
-	"street/model/mAuth"
-	"time"
+	`database/sql`
+	`street/model/mAuth`
+	`time`
 
-	_ "github.com/ClickHouse/clickhouse-go/v2"
-	chBuffer "github.com/kokizzu/ch-timed-buffer"
+	_ `github.com/ClickHouse/clickhouse-go/v2`
+	chBuffer `github.com/kokizzu/ch-timed-buffer`
 
-	"github.com/kokizzu/gotro/A"
-	"github.com/kokizzu/gotro/D/Ch"
-	"github.com/kokizzu/gotro/L"
+	`github.com/kokizzu/gotro/A`
+	`github.com/kokizzu/gotro/D/Ch`
+	`github.com/kokizzu/gotro/L`
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file saAuth__ORM.GEN.go
@@ -30,21 +30,20 @@ var Preparators = map[Ch.TableName]chBuffer.Preparator{
 		return stmt
 	},
 }
-
 type ActionLogs struct {
-	Adapter    *Ch.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	CreatedAt  time.Time   `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	RequestId  string      `json:"requestId,string" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
-	ActorId    uint64      `json:"actorId,string" form:"actorId" query:"actorId" long:"actorId" msg:"actorId"`
-	Action     string      `json:"action" form:"action" query:"action" long:"action" msg:"action"`
-	StatusCode int16       `json:"statusCode" form:"statusCode" query:"statusCode" long:"statusCode" msg:"statusCode"`
-	Traces     string      `json:"traces" form:"traces" query:"traces" long:"traces" msg:"traces"`
-	Error      string      `json:"error" form:"error" query:"error" long:"error" msg:"error"`
-	IpAddr4    string      `json:"ipAddr4" form:"ipAddr4" query:"ipAddr4" long:"ipAddr4" msg:"ipAddr4"`
-	IpAddr6    string      `json:"ipAddr6" form:"ipAddr6" query:"ipAddr6" long:"ipAddr6" msg:"ipAddr6"`
-	UserAgent  string      `json:"userAgent" form:"userAgent" query:"userAgent" long:"userAgent" msg:"userAgent"`
-	Lat        float64     `json:"lat" form:"lat" query:"lat" long:"lat" msg:"lat"`
-	Long       float64     `json:"long" form:"long" query:"long" long:"long" msg:"long"`
+	Adapter *Ch.Adapter `json:"-" msg:"-" query:"-" form:"-"`
+	CreatedAt  time.Time
+	RequestId  string
+	ActorId    uint64
+	Action     string
+	StatusCode int16
+	Traces     string
+	Error      string
+	IpAddr4    string
+	IpAddr6    string
+	UserAgent  string
+	Lat        float64
+	Long       float64
 }
 
 func NewActionLogs(adapter *Ch.Adapter) *ActionLogs {
@@ -90,18 +89,18 @@ func (a *ActionLogs) SqlAllFields() string { //nolint:dupl false positive
 
 func (a ActionLogs) SqlInsertParam() []any { //nolint:dupl false positive
 	return []any{
-		a.CreatedAt,  // 0
-		a.RequestId,  // 1
-		a.ActorId,    // 2
-		a.Action,     // 3
-		a.StatusCode, // 4
-		a.Traces,     // 5
-		a.Error,      // 6
-		a.IpAddr4,    // 7
-		a.IpAddr6,    // 8
-		a.UserAgent,  // 9
-		a.Lat,        // 10
-		a.Long,       // 11
+		a.CreatedAt, // 0 
+		a.RequestId, // 1 
+		a.ActorId, // 2 
+		a.Action, // 3 
+		a.StatusCode, // 4 
+		a.Traces, // 5 
+		a.Error, // 6 
+		a.IpAddr4, // 7 
+		a.IpAddr6, // 8 
+		a.UserAgent, // 9 
+		a.Lat, // 10 
+		a.Long, // 11 
 	}
 }
 
@@ -219,3 +218,4 @@ func (a *ActionLogs) ToArray() A.X { //nolint:dupl false positive
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/Ch/clickhouse_orm_generator.go
+
