@@ -79,13 +79,12 @@ func (p *PropertyMutator) DoDeletePermanentById() bool { //nolint:dupl false pos
 //		A.X{`=`, 9, p.Address},
 //		A.X{`=`, 10, p.District},
 //		A.X{`=`, 11, p.Note},
-//		A.X{`=`, 12, p.Lat},
-//		A.X{`=`, 13, p.Long},
-//		A.X{`=`, 14, p.CreatedAt},
-//		A.X{`=`, 15, p.CreatedBy},
-//		A.X{`=`, 16, p.UpdatedAt},
-//		A.X{`=`, 17, p.UpdatedBy},
-//		A.X{`=`, 18, p.DeletedAt},
+//		A.X{`=`, 12, p.Coord},
+//		A.X{`=`, 13, p.CreatedAt},
+//		A.X{`=`, 14, p.CreatedBy},
+//		A.X{`=`, 15, p.UpdatedAt},
+//		A.X{`=`, 16, p.UpdatedBy},
+//		A.X{`=`, 17, p.DeletedAt},
 //	})
 //	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName())
 // }
@@ -263,32 +262,18 @@ func (p *PropertyMutator) SetNote(val string) bool { //nolint:dupl false positiv
 	return false
 }
 
-// SetLat create mutations, should not duplicate
-func (p *PropertyMutator) SetLat(val string) bool { //nolint:dupl false positive
-	if val != p.Lat {
-		p.mutations = append(p.mutations, A.X{`=`, 12, val})
-		p.logs = append(p.logs, A.X{`lat`, p.Lat, val})
-		p.Lat = val
-		return true
-	}
-	return false
-}
-
-// SetLong create mutations, should not duplicate
-func (p *PropertyMutator) SetLong(val string) bool { //nolint:dupl false positive
-	if val != p.Long {
-		p.mutations = append(p.mutations, A.X{`=`, 13, val})
-		p.logs = append(p.logs, A.X{`long`, p.Long, val})
-		p.Long = val
-		return true
-	}
-	return false
+// SetCoord create mutations, should not duplicate
+func (p *PropertyMutator) SetCoord(val []any) bool { //nolint:dupl false positive
+	p.mutations = append(p.mutations, A.X{`=`, 12, val})
+	p.logs = append(p.logs, A.X{`coord`, p.Coord, val})
+	p.Coord = val
+	return true
 }
 
 // SetCreatedAt create mutations, should not duplicate
 func (p *PropertyMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.CreatedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 14, val})
+		p.mutations = append(p.mutations, A.X{`=`, 13, val})
 		p.logs = append(p.logs, A.X{`createdAt`, p.CreatedAt, val})
 		p.CreatedAt = val
 		return true
@@ -299,7 +284,7 @@ func (p *PropertyMutator) SetCreatedAt(val int64) bool { //nolint:dupl false pos
 // SetCreatedBy create mutations, should not duplicate
 func (p *PropertyMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.CreatedBy {
-		p.mutations = append(p.mutations, A.X{`=`, 15, val})
+		p.mutations = append(p.mutations, A.X{`=`, 14, val})
 		p.logs = append(p.logs, A.X{`createdBy`, p.CreatedBy, val})
 		p.CreatedBy = val
 		return true
@@ -310,7 +295,7 @@ func (p *PropertyMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false po
 // SetUpdatedAt create mutations, should not duplicate
 func (p *PropertyMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.UpdatedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 16, val})
+		p.mutations = append(p.mutations, A.X{`=`, 15, val})
 		p.logs = append(p.logs, A.X{`updatedAt`, p.UpdatedAt, val})
 		p.UpdatedAt = val
 		return true
@@ -321,7 +306,7 @@ func (p *PropertyMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false pos
 // SetUpdatedBy create mutations, should not duplicate
 func (p *PropertyMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.UpdatedBy {
-		p.mutations = append(p.mutations, A.X{`=`, 17, val})
+		p.mutations = append(p.mutations, A.X{`=`, 16, val})
 		p.logs = append(p.logs, A.X{`updatedBy`, p.UpdatedBy, val})
 		p.UpdatedBy = val
 		return true
@@ -332,7 +317,7 @@ func (p *PropertyMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false po
 // SetDeletedAt create mutations, should not duplicate
 func (p *PropertyMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.DeletedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 18, val})
+		p.mutations = append(p.mutations, A.X{`=`, 17, val})
 		p.logs = append(p.logs, A.X{`deletedAt`, p.DeletedAt, val})
 		p.DeletedAt = val
 		return true

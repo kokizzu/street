@@ -21,8 +21,7 @@ const (
 	District               = `district`
 	Note                   = `note`
 	// TODO: change to spatial column
-	Lat       = `lat`
-	Long      = `long`
+	Coord     = `coord`
 	CreatedAt = `createdAt`
 	CreatedBy = `createdBy`
 	UpdatedAt = `updatedAt`
@@ -45,8 +44,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Address, Tt.String},
 			{District, Tt.String},
 			{Note, Tt.String},
-			{Lat, Tt.String},
-			{Long, Tt.String},
+			{Coord, Tt.Array},
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},
 			{UpdatedAt, Tt.Integer},

@@ -34,8 +34,7 @@ type Property struct {
 	Address                string      `json:"address" form:"address" query:"address" long:"address" msg:"address"`
 	District               string      `json:"district" form:"district" query:"district" long:"district" msg:"district"`
 	Note                   string      `json:"note" form:"note" query:"note" long:"note" msg:"note"`
-	Lat                    string      `json:"lat" form:"lat" query:"lat" long:"lat" msg:"lat"`
-	Long                   string      `json:"long" form:"long" query:"long" long:"long" msg:"long"`
+	Coord                  []any       `json:"coord" form:"coord" query:"coord" long:"coord" msg:"coord"`
 	CreatedAt              int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
 	CreatedBy              uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
 	UpdatedAt              int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
@@ -109,8 +108,7 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "address"
 	, "district"
 	, "note"
-	, "lat"
-	, "long"
+	, "coord"
 	, "createdAt"
 	, "createdBy"
 	, "updatedAt"
@@ -133,8 +131,7 @@ func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 	, "address"
 	, "district"
 	, "note"
-	, "lat"
-	, "long"
+	, "coord"
 	, "createdAt"
 	, "createdBy"
 	, "updatedAt"
@@ -158,13 +155,12 @@ func (p *Property) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 9, p.Address},
 		A.X{`=`, 10, p.District},
 		A.X{`=`, 11, p.Note},
-		A.X{`=`, 12, p.Lat},
-		A.X{`=`, 13, p.Long},
-		A.X{`=`, 14, p.CreatedAt},
-		A.X{`=`, 15, p.CreatedBy},
-		A.X{`=`, 16, p.UpdatedAt},
-		A.X{`=`, 17, p.UpdatedBy},
-		A.X{`=`, 18, p.DeletedAt},
+		A.X{`=`, 12, p.Coord},
+		A.X{`=`, 13, p.CreatedAt},
+		A.X{`=`, 14, p.CreatedBy},
+		A.X{`=`, 15, p.UpdatedAt},
+		A.X{`=`, 16, p.UpdatedBy},
+		A.X{`=`, 17, p.DeletedAt},
 	}
 }
 
@@ -288,29 +284,19 @@ func (p *Property) SqlNote() string { //nolint:dupl false positive
 	return `"note"`
 }
 
-// IdxLat return name of the index
-func (p *Property) IdxLat() int { //nolint:dupl false positive
+// IdxCoord return name of the index
+func (p *Property) IdxCoord() int { //nolint:dupl false positive
 	return 12
 }
 
-// SqlLat return name of the column being indexed
-func (p *Property) SqlLat() string { //nolint:dupl false positive
-	return `"lat"`
-}
-
-// IdxLong return name of the index
-func (p *Property) IdxLong() int { //nolint:dupl false positive
-	return 13
-}
-
-// SqlLong return name of the column being indexed
-func (p *Property) SqlLong() string { //nolint:dupl false positive
-	return `"long"`
+// SqlCoord return name of the column being indexed
+func (p *Property) SqlCoord() string { //nolint:dupl false positive
+	return `"coord"`
 }
 
 // IdxCreatedAt return name of the index
 func (p *Property) IdxCreatedAt() int { //nolint:dupl false positive
-	return 14
+	return 13
 }
 
 // SqlCreatedAt return name of the column being indexed
@@ -320,7 +306,7 @@ func (p *Property) SqlCreatedAt() string { //nolint:dupl false positive
 
 // IdxCreatedBy return name of the index
 func (p *Property) IdxCreatedBy() int { //nolint:dupl false positive
-	return 15
+	return 14
 }
 
 // SqlCreatedBy return name of the column being indexed
@@ -330,7 +316,7 @@ func (p *Property) SqlCreatedBy() string { //nolint:dupl false positive
 
 // IdxUpdatedAt return name of the index
 func (p *Property) IdxUpdatedAt() int { //nolint:dupl false positive
-	return 16
+	return 15
 }
 
 // SqlUpdatedAt return name of the column being indexed
@@ -340,7 +326,7 @@ func (p *Property) SqlUpdatedAt() string { //nolint:dupl false positive
 
 // IdxUpdatedBy return name of the index
 func (p *Property) IdxUpdatedBy() int { //nolint:dupl false positive
-	return 17
+	return 16
 }
 
 // SqlUpdatedBy return name of the column being indexed
@@ -350,7 +336,7 @@ func (p *Property) SqlUpdatedBy() string { //nolint:dupl false positive
 
 // IdxDeletedAt return name of the index
 func (p *Property) IdxDeletedAt() int { //nolint:dupl false positive
-	return 18
+	return 17
 }
 
 // SqlDeletedAt return name of the column being indexed
@@ -377,13 +363,12 @@ func (p *Property) ToArray() A.X { //nolint:dupl false positive
 		p.Address,                // 9
 		p.District,               // 10
 		p.Note,                   // 11
-		p.Lat,                    // 12
-		p.Long,                   // 13
-		p.CreatedAt,              // 14
-		p.CreatedBy,              // 15
-		p.UpdatedAt,              // 16
-		p.UpdatedBy,              // 17
-		p.DeletedAt,              // 18
+		p.Coord,                  // 12
+		p.CreatedAt,              // 13
+		p.CreatedBy,              // 14
+		p.UpdatedAt,              // 15
+		p.UpdatedBy,              // 16
+		p.DeletedAt,              // 17
 	}
 }
 
@@ -401,13 +386,12 @@ func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 	p.Address = X.ToS(a[9])
 	p.District = X.ToS(a[10])
 	p.Note = X.ToS(a[11])
-	p.Lat = X.ToS(a[12])
-	p.Long = X.ToS(a[13])
-	p.CreatedAt = X.ToI(a[14])
-	p.CreatedBy = X.ToU(a[15])
-	p.UpdatedAt = X.ToI(a[16])
-	p.UpdatedBy = X.ToU(a[17])
-	p.DeletedAt = X.ToI(a[18])
+	p.Coord = X.ToArr(a[12])
+	p.CreatedAt = X.ToI(a[13])
+	p.CreatedBy = X.ToU(a[14])
+	p.UpdatedAt = X.ToI(a[15])
+	p.UpdatedBy = X.ToU(a[16])
+	p.DeletedAt = X.ToI(a[17])
 	return p
 }
 
@@ -425,13 +409,12 @@ func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false po
 	p.Address = X.ToS(a[9])
 	p.District = X.ToS(a[10])
 	p.Note = X.ToS(a[11])
-	p.Lat = X.ToS(a[12])
-	p.Long = X.ToS(a[13])
-	p.CreatedAt = X.ToI(a[14])
-	p.CreatedBy = X.ToU(a[15])
-	p.UpdatedAt = X.ToI(a[16])
-	p.UpdatedBy = X.ToU(a[17])
-	p.DeletedAt = X.ToI(a[18])
+	p.Coord = X.ToArr(a[12])
+	p.CreatedAt = X.ToI(a[13])
+	p.CreatedBy = X.ToU(a[14])
+	p.UpdatedAt = X.ToI(a[15])
+	p.UpdatedBy = X.ToU(a[16])
+	p.DeletedAt = X.ToI(a[17])
 	return p
 }
 
@@ -487,8 +470,7 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`address`:                Tt.String,
 	`district`:               Tt.String,
 	`note`:                   Tt.String,
-	`lat`:                    Tt.String,
-	`long`:                   Tt.String,
+	`coord`:                  Tt.Array,
 	`createdAt`:              Tt.Integer,
 	`createdBy`:              Tt.Unsigned,
 	`updatedAt`:              Tt.Integer,

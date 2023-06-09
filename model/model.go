@@ -6,7 +6,6 @@ import (
 
 	"street/model/mAuth/wcAuth"
 	"street/model/mProperty"
-	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
 
 	"github.com/xuri/excelize/v2"
@@ -103,7 +102,7 @@ func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
 		// Get list of property based on house serial number
 		existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
 
-		stat.Total += len(existingHouseData)
+		stat.Total += len(existingHouseData) - 1
 		for _, house := range existingHouseData {
 			//fmt.Println("House data -> ", house)
 
@@ -116,26 +115,9 @@ func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
 
 			// Updated house
 			dataMutator := wcProperty.NewPropertyMutator(*adapter)
-			dataMutator.Property = rqProperty.Property{
-				Adapter:                *adapter,
-				Id:                     house.Id,
-				UniqPropKey:            house.UniqPropKey,
-				SerialNumber:           house.SerialNumber,
-				SizeM2:                 house.SizeM2,
-				MainUse:                house.MainUse,
-				MainBuildingMaterial:   house.MainBuildingMaterial,
-				ConstructCompletedDate: house.ConstructCompletedDate,
-				NumberOfFloors:         house.NumberOfFloors,
-				BuildingLamination:     house.BuildingLamination,
-				Address:                house.Address,
-				District:               house.District,
-				Note:                   house.Note,
-				CreatedAt:              house.CreatedAt,
-				CreatedBy:              house.CreatedBy,
-				UpdatedAt:              time.Now().UnixMilli(),
-				UpdatedBy:              house.UpdatedBy,
-				DeletedAt:              house.DeletedAt,
-			}
+			dataMutator.Property = *house
+			dataMutator.Adapter = *adapter
+			dataMutator.UpdatedAt = time.Now().Unix()
 
 			// Update
 			stat.Ok(dataMutator.DoOverwriteById())
@@ -204,7 +186,7 @@ func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
 		// Get list of property based on house serial number
 		existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
 
-		stat.Total += len(existingHouseData)
+		stat.Total += len(existingHouseData) - 1
 		for _, house := range existingHouseData {
 			//fmt.Println("House data -> ", house)
 
@@ -217,26 +199,9 @@ func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
 
 			// Updated house
 			dataMutator := wcProperty.NewPropertyMutator(*adapter)
-			dataMutator.Property = rqProperty.Property{
-				Adapter:                *adapter,
-				Id:                     house.Id,
-				UniqPropKey:            house.UniqPropKey,
-				SerialNumber:           house.SerialNumber,
-				SizeM2:                 house.SizeM2,
-				MainUse:                house.MainUse,
-				MainBuildingMaterial:   house.MainBuildingMaterial,
-				ConstructCompletedDate: house.ConstructCompletedDate,
-				NumberOfFloors:         house.NumberOfFloors,
-				BuildingLamination:     house.BuildingLamination,
-				Address:                house.Address,
-				District:               house.District,
-				Note:                   house.Note,
-				CreatedAt:              house.CreatedAt,
-				CreatedBy:              house.CreatedBy,
-				UpdatedAt:              time.Now().UnixMilli(),
-				UpdatedBy:              house.UpdatedBy,
-				DeletedAt:              house.DeletedAt,
-			}
+			dataMutator.Property = *house
+			dataMutator.Adapter = *adapter
+			dataMutator.UpdatedAt = time.Now().Unix()
 
 			// Update
 			stat.Ok(dataMutator.DoOverwriteById())
@@ -305,7 +270,7 @@ func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
 		// Get list of property based on house serial number
 		existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
 
-		stat.Total += len(existingHouseData)
+		stat.Total += len(existingHouseData) - 1
 		for _, house := range existingHouseData {
 			//fmt.Println("House data -> ", house)
 
@@ -318,26 +283,9 @@ func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
 
 			// Updated house
 			dataMutator := wcProperty.NewPropertyMutator(*adapter)
-			dataMutator.Property = rqProperty.Property{
-				Adapter:                *adapter,
-				Id:                     house.Id,
-				UniqPropKey:            house.UniqPropKey,
-				SerialNumber:           house.SerialNumber,
-				SizeM2:                 house.SizeM2,
-				MainUse:                house.MainUse,
-				MainBuildingMaterial:   house.MainBuildingMaterial,
-				ConstructCompletedDate: house.ConstructCompletedDate,
-				NumberOfFloors:         house.NumberOfFloors,
-				BuildingLamination:     house.BuildingLamination,
-				Address:                house.Address,
-				District:               house.District,
-				Note:                   house.Note,
-				CreatedAt:              house.CreatedAt,
-				CreatedBy:              house.CreatedBy,
-				UpdatedAt:              time.Now().UnixMilli(),
-				UpdatedBy:              house.UpdatedBy,
-				DeletedAt:              house.DeletedAt,
-			}
+			dataMutator.Property = *house
+			dataMutator.Adapter = *adapter
+			dataMutator.UpdatedAt = time.Now().Unix()
 
 			// Update
 			stat.Ok(dataMutator.DoOverwriteById())
@@ -378,6 +326,7 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 		}
 
 		propertyMutator := wcProperty.NewPropertyMutator(adapter)
+		propertyMutator.Coord = []any{0, 0}
 		for colIndex, colCell := range row {
 			propertyMutator.Address = ""
 			if colIndex == 0 {
