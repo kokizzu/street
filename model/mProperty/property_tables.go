@@ -20,6 +20,8 @@ const (
 	Address                = `address`
 	District               = `district`
 	Note                   = `note`
+	Latitude               = `latitude`
+	Longitude              = `longitude`
 	CreatedAt              = `createdAt`
 	CreatedBy              = `createdBy`
 	UpdatedAt              = `updatedAt`
@@ -42,6 +44,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Address, Tt.String},
 			{District, Tt.String},
 			{Note, Tt.String},
+			{Latitude, Tt.String},
+			{Longitude, Tt.String},
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},
 			{UpdatedAt, Tt.Integer},

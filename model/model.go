@@ -44,8 +44,8 @@ func RunMigration(
 	m.PropOlap.MigrateTables(mProperty.ClickhouseTables)
 }
 
-func UpdateAddressesToHouse(adapter **Tt.Adapter, resourceFile string) {
-	fmt.Println("Begin the process update address to house")
+func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
+	fmt.Println("[Scan Buy-Sell sheet] Begin the process update address to house")
 	pathData := resourceFile
 	f, err := excelize.OpenFile(pathData)
 	if err != nil {
@@ -87,56 +87,248 @@ func UpdateAddressesToHouse(adapter **Tt.Adapter, resourceFile string) {
 			if colIndex == 27 {
 				serialPropertyNumber = colCell
 			}
-			// Get list of property based on house serial number
-			existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
+		}
 
-			for _, house := range existingHouseData {
-				fmt.Println("House data -> ", house)
+		if district == "" || address == "" || serialPropertyNumber == "" {
+			continue
+		}
 
-				if house.Address != "" && house.District != "" {
-					continue
-				} else {
-					house.Address = address
-					house.District = district
+		// Get list of property based on house serial number
+		existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
 
-					// Updated house
-					dataMutator := wcProperty.NewPropertyMutator(*adapter)
-					dataMutator.Property = rqProperty.Property{
-						Adapter:                *adapter,
-						Id:                     house.Id,
-						UniquePropertyKey:      house.UniquePropertyKey,
-						SerialNumber:           house.SerialNumber,
-						SizeM2:                 house.SizeM2,
-						MainUse:                house.MainUse,
-						MainBuildingMaterial:   house.MainBuildingMaterial,
-						ConstructCompletedDate: house.ConstructCompletedDate,
-						NumberOfFloors:         house.NumberOfFloors,
-						BuildingLamination:     house.BuildingLamination,
-						Address:                house.Address,
-						District:               house.District,
-						Note:                   house.Note,
-						CreatedAt:              house.CreatedAt,
-						CreatedBy:              house.CreatedBy,
-						UpdatedAt:              time.Now().UnixMilli(),
-						UpdatedBy:              house.UpdatedBy,
-						DeletedAt:              house.DeletedAt,
-					}
+		for _, house := range existingHouseData {
+			fmt.Println("House data -> ", house)
 
-					// Update
-					dataMutator.DoOverwriteById()
+			if house.Address != "" && house.District != "" {
+				continue
+			} else {
+				house.Address = address
+				house.District = district
+
+				// Updated house
+				dataMutator := wcProperty.NewPropertyMutator(*adapter)
+				dataMutator.Property = rqProperty.Property{
+					Adapter:                *adapter,
+					Id:                     house.Id,
+					UniquePropertyKey:      house.UniquePropertyKey,
+					SerialNumber:           house.SerialNumber,
+					SizeM2:                 house.SizeM2,
+					MainUse:                house.MainUse,
+					MainBuildingMaterial:   house.MainBuildingMaterial,
+					ConstructCompletedDate: house.ConstructCompletedDate,
+					NumberOfFloors:         house.NumberOfFloors,
+					BuildingLamination:     house.BuildingLamination,
+					Address:                house.Address,
+					District:               house.District,
+					Note:                   house.Note,
+					CreatedAt:              house.CreatedAt,
+					CreatedBy:              house.CreatedBy,
+					UpdatedAt:              time.Now().UnixMilli(),
+					UpdatedBy:              house.UpdatedBy,
+					DeletedAt:              house.DeletedAt,
 				}
+
+				// Update
+				dataMutator.DoOverwriteById()
 			}
 		}
 	}
 
-	fmt.Println("End the process update address to house")
+	fmt.Println("[Scan Buy-Sell sheet] End the process update address to house")
 
 }
 
-func ImportExcelData(adapter *Tt.Adapter, resourcePath string) {
-	fmt.Println("Import excel data")
-	fmt.Println("Resource path => " + resourcePath)
-	// TODO path files could be changed
+func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
+	fmt.Println("[Scan Rent sheet] Begin the process update address to house")
+	pathData := resourceFile
+	f, err := excelize.OpenFile(pathData)
+	if err != nil {
+		fmt.Println(err)
+	}
+	propertyMutator := wcProperty.NewPropertyMutator(*adapter)
+	defer func() {
+		if err := f.Close(); err != nil {
+			fmt.Println(err)
+		}
+	}()
+
+	rows, err := f.GetRows("不動產租賃Rent")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	for index, row := range rows {
+		if index >= 0 && index <= 2 {
+			continue
+		}
+
+		var district string = ""
+		var address string = ""
+		var serialPropertyNumber string = ""
+
+		for colIndex, colCell := range row {
+			// Col 0 - District
+			// Col 2 - Address
+			// Col 27/28 - House Serial Number
+
+			if colIndex == 0 {
+				district = colCell
+			}
+			if colIndex == 2 {
+				address = colCell
+			}
+			if colIndex == 27 {
+				serialPropertyNumber = colCell
+			}
+		}
+
+		fmt.Println("Row index => ", index)
+		if district == "" || address == "" || serialPropertyNumber == "" {
+			continue
+		}
+
+		// Get list of property based on house serial number
+		existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
+
+		for _, house := range existingHouseData {
+			fmt.Println("House data -> ", house)
+
+			if house.Address != "" && house.District != "" {
+				continue
+			} else {
+				house.Address = address
+				house.District = district
+
+				// Updated house
+				dataMutator := wcProperty.NewPropertyMutator(*adapter)
+				dataMutator.Property = rqProperty.Property{
+					Adapter:                *adapter,
+					Id:                     house.Id,
+					UniquePropertyKey:      house.UniquePropertyKey,
+					SerialNumber:           house.SerialNumber,
+					SizeM2:                 house.SizeM2,
+					MainUse:                house.MainUse,
+					MainBuildingMaterial:   house.MainBuildingMaterial,
+					ConstructCompletedDate: house.ConstructCompletedDate,
+					NumberOfFloors:         house.NumberOfFloors,
+					BuildingLamination:     house.BuildingLamination,
+					Address:                house.Address,
+					District:               house.District,
+					Note:                   house.Note,
+					CreatedAt:              house.CreatedAt,
+					CreatedBy:              house.CreatedBy,
+					UpdatedAt:              time.Now().UnixMilli(),
+					UpdatedBy:              house.UpdatedBy,
+					DeletedAt:              house.DeletedAt,
+				}
+
+				// Update
+				dataMutator.DoOverwriteById()
+			}
+		}
+
+	}
+
+	fmt.Println("[Scan Rent sheet] End the process update address to house")
+}
+
+func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
+	fmt.Println("[Scan Rent sheet] Begin the process update address to house")
+	pathData := resourceFile
+	f, err := excelize.OpenFile(pathData)
+	if err != nil {
+		fmt.Println(err)
+	}
+	propertyMutator := wcProperty.NewPropertyMutator(*adapter)
+	defer func() {
+		if err := f.Close(); err != nil {
+			fmt.Println(err)
+		}
+	}()
+
+	rows, err := f.GetRows("不動產租賃Rent")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	for index, row := range rows {
+		if index >= 0 && index <= 2 {
+			continue
+		}
+
+		var district string = ""
+		var address string = ""
+		var serialPropertyNumber string = ""
+
+		for colIndex, colCell := range row {
+			// Col 0 - District
+			// Col 2 - Address
+			// Col 27/28 - House Serial Number
+
+			if colIndex == 0 {
+				district = colCell
+			}
+			if colIndex == 2 {
+				address = colCell
+			}
+			if colIndex == 28 {
+				serialPropertyNumber = colCell
+			}
+		}
+
+		fmt.Println("Row index => ", index)
+		if district == "" || address == "" || serialPropertyNumber == "" {
+			continue
+		}
+
+		// Get list of property based on house serial number
+		existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
+
+		for _, house := range existingHouseData {
+			fmt.Println("House data -> ", house)
+
+			if house.Address != "" && house.District != "" {
+				continue
+			} else {
+				house.Address = address
+				house.District = district
+
+				// Updated house
+				dataMutator := wcProperty.NewPropertyMutator(*adapter)
+				dataMutator.Property = rqProperty.Property{
+					Adapter:                *adapter,
+					Id:                     house.Id,
+					UniquePropertyKey:      house.UniquePropertyKey,
+					SerialNumber:           house.SerialNumber,
+					SizeM2:                 house.SizeM2,
+					MainUse:                house.MainUse,
+					MainBuildingMaterial:   house.MainBuildingMaterial,
+					ConstructCompletedDate: house.ConstructCompletedDate,
+					NumberOfFloors:         house.NumberOfFloors,
+					BuildingLamination:     house.BuildingLamination,
+					Address:                house.Address,
+					District:               house.District,
+					Note:                   house.Note,
+					CreatedAt:              house.CreatedAt,
+					CreatedBy:              house.CreatedBy,
+					UpdatedAt:              time.Now().UnixMilli(),
+					UpdatedBy:              house.UpdatedBy,
+					DeletedAt:              house.DeletedAt,
+				}
+
+				// Update
+				dataMutator.DoOverwriteById()
+			}
+		}
+
+	}
+
+	fmt.Println("[Scan Rent sheet] End the process update address to house")
+}
+
+func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 	pathData := resourcePath
 	f, err := excelize.OpenFile(pathData)
 	if err != nil {
@@ -199,5 +391,15 @@ func ImportExcelData(adapter *Tt.Adapter, resourcePath string) {
 		}
 	}
 	fmt.Println("End process of import house data")
-	UpdateAddressesToHouse(&adapter, resourcePath)
+}
+
+func ImportExcelData(adapter *Tt.Adapter, resourcePath string) {
+	fmt.Println("[Start] Beginning of process data")
+
+	ReadHouseDataSheet(adapter, resourcePath)
+	GetHouseAddressInBuySellData(&adapter, resourcePath)
+	GetHouseAddressInRentData1(&adapter, resourcePath)
+	GetHouseAddressInRentData2(&adapter, resourcePath)
+
+	fmt.Println("[End] End process of import house data")
 }
