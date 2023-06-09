@@ -127,7 +127,7 @@ AND ("name" IN ('23'))`),
 			}),
 		},
 		{
-			name: `filterMissing`,
+			name: `filterInvalidField`,
 			in: PagerIn{
 				Filters: map[string][]string{
 					`somethingNotHere`: {`>1`},
@@ -469,6 +469,40 @@ WHERE ("name" IN ('&apos;; DROP TABLE users; --','&apos;) OR 1=1; --'))`),
 			whereAndSql:    autogold.Expect(""),
 			orderBySql:     autogold.Expect(""),
 			expectOut:      autogold.Expect(PagerOut{Page: 2, PerPage: 5, Pages: 3, Total: 11}),
+		},
+		{
+			name: `offsetNegative`,
+			in: PagerIn{
+				Page:    -55,
+				PerPage: 5,
+			},
+			countResult: 11,
+			fieldToType: map[string]Tt.DataType{
+				`id`:   Tt.Integer,
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 5"),
+			whereAndSql:    autogold.Expect(""),
+			orderBySql:     autogold.Expect(""),
+			expectOut:      autogold.Expect(PagerOut{Page: 1, PerPage: 5, Pages: 3, Total: 11}),
+		},
+		{
+			name: `offsetOverflow`,
+			in: PagerIn{
+				Page:    555,
+				PerPage: 5,
+			},
+			countResult: 11,
+			fieldToType: map[string]Tt.DataType{
+				`id`:   Tt.Integer,
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 5 OFFSET 10"),
+			whereAndSql:    autogold.Expect(""),
+			orderBySql:     autogold.Expect(""),
+			expectOut:      autogold.Expect(PagerOut{Page: 3, PerPage: 5, Pages: 3, Total: 11}),
 		},
 		{
 			name: `limitNegative`,

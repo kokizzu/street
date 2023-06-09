@@ -39,6 +39,6 @@ type Fields struct {
 
 	Validations map[Validation]any `json:"validations" form:"validations" query:"validations" long:"validations" msg:"validations"`
 
-	// endpoint to find the combobox reference
+	// endpoint to find the combobox reference, if combobox/select source for autocomplete is too large
 	RefEndpoint string `json:"refEndpoint" form:"refEndpoint" query:"refEndpoint" long:"refEndpoint" msg:"refEndpoint"`
 }
