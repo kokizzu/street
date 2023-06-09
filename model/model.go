@@ -97,41 +97,44 @@ func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
 		// Get list of property based on house serial number
 		existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
 
+		stat := &ImporterStat{Total: len(existingHouseData)}
 		for _, house := range existingHouseData {
-			fmt.Println("House data -> ", house)
+			//fmt.Println("House data -> ", house)
+
+			stat.Print()
 
 			if house.Address != "" && house.District != "" {
+				stat.Skip()
 				continue
-			} else {
-				house.Address = address
-				house.District = district
-
-				// Updated house
-				dataMutator := wcProperty.NewPropertyMutator(*adapter)
-				dataMutator.Property = rqProperty.Property{
-					Adapter:                *adapter,
-					Id:                     house.Id,
-					UniquePropertyKey:      house.UniquePropertyKey,
-					SerialNumber:           house.SerialNumber,
-					SizeM2:                 house.SizeM2,
-					MainUse:                house.MainUse,
-					MainBuildingMaterial:   house.MainBuildingMaterial,
-					ConstructCompletedDate: house.ConstructCompletedDate,
-					NumberOfFloors:         house.NumberOfFloors,
-					BuildingLamination:     house.BuildingLamination,
-					Address:                house.Address,
-					District:               house.District,
-					Note:                   house.Note,
-					CreatedAt:              house.CreatedAt,
-					CreatedBy:              house.CreatedBy,
-					UpdatedAt:              time.Now().UnixMilli(),
-					UpdatedBy:              house.UpdatedBy,
-					DeletedAt:              house.DeletedAt,
-				}
-
-				// Update
-				dataMutator.DoOverwriteById()
 			}
+			house.Address = address
+			house.District = district
+
+			// Updated house
+			dataMutator := wcProperty.NewPropertyMutator(*adapter)
+			dataMutator.Property = rqProperty.Property{
+				Adapter:                *adapter,
+				Id:                     house.Id,
+				UniquePropertyKey:      house.UniquePropertyKey,
+				SerialNumber:           house.SerialNumber,
+				SizeM2:                 house.SizeM2,
+				MainUse:                house.MainUse,
+				MainBuildingMaterial:   house.MainBuildingMaterial,
+				ConstructCompletedDate: house.ConstructCompletedDate,
+				NumberOfFloors:         house.NumberOfFloors,
+				BuildingLamination:     house.BuildingLamination,
+				Address:                house.Address,
+				District:               house.District,
+				Note:                   house.Note,
+				CreatedAt:              house.CreatedAt,
+				CreatedBy:              house.CreatedBy,
+				UpdatedAt:              time.Now().UnixMilli(),
+				UpdatedBy:              house.UpdatedBy,
+				DeletedAt:              house.DeletedAt,
+			}
+
+			// Update
+			stat.Ok(dataMutator.DoOverwriteById())
 		}
 	}
 
@@ -192,41 +195,44 @@ func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
 		// Get list of property based on house serial number
 		existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
 
+		stat := &ImporterStat{Total: len(existingHouseData)}
 		for _, house := range existingHouseData {
-			fmt.Println("House data -> ", house)
+			//fmt.Println("House data -> ", house)
+
+			stat.Print()
 
 			if house.Address != "" && house.District != "" {
+				stat.Skip()
 				continue
-			} else {
-				house.Address = address
-				house.District = district
-
-				// Updated house
-				dataMutator := wcProperty.NewPropertyMutator(*adapter)
-				dataMutator.Property = rqProperty.Property{
-					Adapter:                *adapter,
-					Id:                     house.Id,
-					UniquePropertyKey:      house.UniquePropertyKey,
-					SerialNumber:           house.SerialNumber,
-					SizeM2:                 house.SizeM2,
-					MainUse:                house.MainUse,
-					MainBuildingMaterial:   house.MainBuildingMaterial,
-					ConstructCompletedDate: house.ConstructCompletedDate,
-					NumberOfFloors:         house.NumberOfFloors,
-					BuildingLamination:     house.BuildingLamination,
-					Address:                house.Address,
-					District:               house.District,
-					Note:                   house.Note,
-					CreatedAt:              house.CreatedAt,
-					CreatedBy:              house.CreatedBy,
-					UpdatedAt:              time.Now().UnixMilli(),
-					UpdatedBy:              house.UpdatedBy,
-					DeletedAt:              house.DeletedAt,
-				}
-
-				// Update
-				dataMutator.DoOverwriteById()
 			}
+			house.Address = address
+			house.District = district
+
+			// Updated house
+			dataMutator := wcProperty.NewPropertyMutator(*adapter)
+			dataMutator.Property = rqProperty.Property{
+				Adapter:                *adapter,
+				Id:                     house.Id,
+				UniquePropertyKey:      house.UniquePropertyKey,
+				SerialNumber:           house.SerialNumber,
+				SizeM2:                 house.SizeM2,
+				MainUse:                house.MainUse,
+				MainBuildingMaterial:   house.MainBuildingMaterial,
+				ConstructCompletedDate: house.ConstructCompletedDate,
+				NumberOfFloors:         house.NumberOfFloors,
+				BuildingLamination:     house.BuildingLamination,
+				Address:                house.Address,
+				District:               house.District,
+				Note:                   house.Note,
+				CreatedAt:              house.CreatedAt,
+				CreatedBy:              house.CreatedBy,
+				UpdatedAt:              time.Now().UnixMilli(),
+				UpdatedBy:              house.UpdatedBy,
+				DeletedAt:              house.DeletedAt,
+			}
+
+			// Update
+			stat.Ok(dataMutator.DoOverwriteById())
 		}
 
 	}
@@ -287,41 +293,44 @@ func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
 		// Get list of property based on house serial number
 		existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
 
+		stat := &ImporterStat{Total: len(existingHouseData)}
 		for _, house := range existingHouseData {
-			fmt.Println("House data -> ", house)
+			//fmt.Println("House data -> ", house)
+
+			stat.Print()
 
 			if house.Address != "" && house.District != "" {
+				stat.Skip()
 				continue
-			} else {
-				house.Address = address
-				house.District = district
-
-				// Updated house
-				dataMutator := wcProperty.NewPropertyMutator(*adapter)
-				dataMutator.Property = rqProperty.Property{
-					Adapter:                *adapter,
-					Id:                     house.Id,
-					UniquePropertyKey:      house.UniquePropertyKey,
-					SerialNumber:           house.SerialNumber,
-					SizeM2:                 house.SizeM2,
-					MainUse:                house.MainUse,
-					MainBuildingMaterial:   house.MainBuildingMaterial,
-					ConstructCompletedDate: house.ConstructCompletedDate,
-					NumberOfFloors:         house.NumberOfFloors,
-					BuildingLamination:     house.BuildingLamination,
-					Address:                house.Address,
-					District:               house.District,
-					Note:                   house.Note,
-					CreatedAt:              house.CreatedAt,
-					CreatedBy:              house.CreatedBy,
-					UpdatedAt:              time.Now().UnixMilli(),
-					UpdatedBy:              house.UpdatedBy,
-					DeletedAt:              house.DeletedAt,
-				}
-
-				// Update
-				dataMutator.DoOverwriteById()
 			}
+			house.Address = address
+			house.District = district
+
+			// Updated house
+			dataMutator := wcProperty.NewPropertyMutator(*adapter)
+			dataMutator.Property = rqProperty.Property{
+				Adapter:                *adapter,
+				Id:                     house.Id,
+				UniquePropertyKey:      house.UniquePropertyKey,
+				SerialNumber:           house.SerialNumber,
+				SizeM2:                 house.SizeM2,
+				MainUse:                house.MainUse,
+				MainBuildingMaterial:   house.MainBuildingMaterial,
+				ConstructCompletedDate: house.ConstructCompletedDate,
+				NumberOfFloors:         house.NumberOfFloors,
+				BuildingLamination:     house.BuildingLamination,
+				Address:                house.Address,
+				District:               house.District,
+				Note:                   house.Note,
+				CreatedAt:              house.CreatedAt,
+				CreatedBy:              house.CreatedBy,
+				UpdatedAt:              time.Now().UnixMilli(),
+				UpdatedBy:              house.UpdatedBy,
+				DeletedAt:              house.DeletedAt,
+			}
+
+			// Update
+			stat.Ok(dataMutator.DoOverwriteById())
 		}
 
 	}
@@ -348,7 +357,7 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 		return
 	}
 
-	inserted, skipped := 0, 0
+	stat := &ImporterStat{Total: len(rows)}
 	fmt.Println("Begin the process of import house data")
 	for index, row := range rows {
 		if index == 0 || index == 1 {
@@ -386,19 +395,15 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 		propertyMutator.UniquePropertyKey = uniqueSerialNumber
 
 		// print state
-		progress := inserted + skipped
-		if progress%100 == 0 {
-			fmt.Printf("\rInserted: %d, Skipped: %d, %.2f%%", inserted, skipped, float64(progress*100)/float64(len(rows)))
-		}
+		stat.Print()
 
 		// Check if unique property key is existed
 		existingProperties := propertyMutator.FindPropertiesByUniqueKey(uniqueSerialNumber)
 		if len(existingProperties) > 0 || uniqueSerialNumber == "#" {
-			skipped++
+			stat.Skip()
 			continue
 		} else {
-			propertyMutator.DoInsert()
-			inserted++
+			stat.Ok(propertyMutator.DoInsert())
 		}
 	}
 	fmt.Println("End process of import house data")
