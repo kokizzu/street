@@ -2,11 +2,12 @@ package model
 
 import (
 	"fmt"
+	"time"
+
 	"street/model/mAuth/wcAuth"
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
-	"time"
 
 	"github.com/xuri/excelize/v2"
 
@@ -346,6 +347,8 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 		fmt.Println(err)
 		return
 	}
+
+	inserted, skipped := 0, 0
 	fmt.Println("Begin the process of import house data")
 	for index, row := range rows {
 		if index == 0 || index == 1 {
@@ -374,7 +377,7 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 			currentTime := time.Now().UnixMilli()
 			propertyMutator.CreatedAt = currentTime
 			propertyMutator.UpdatedAt = currentTime
-			fmt.Println(propertyMutator)
+			//fmt.Println(propertyMutator)
 		}
 
 		// Build unique key with serial number and size
@@ -382,12 +385,20 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 			"#" + propertyMutator.SizeM2
 		propertyMutator.UniquePropertyKey = uniqueSerialNumber
 
+		// print state
+		progress := inserted + skipped
+		if progress%100 == 0 {
+			fmt.Printf("\rInserted: %d, Skipped: %d, %.2f%%", inserted, skipped, float64(progress*100)/float64(len(rows)))
+		}
+
 		// Check if unique property key is existed
 		existingProperties := propertyMutator.FindPropertiesByUniqueKey(uniqueSerialNumber)
 		if len(existingProperties) > 0 || uniqueSerialNumber == "#" {
+			skipped++
 			continue
 		} else {
 			propertyMutator.DoInsert()
+			inserted++
 		}
 	}
 	fmt.Println("End process of import house data")

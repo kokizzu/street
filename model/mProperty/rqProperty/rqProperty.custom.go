@@ -1,16 +1,13 @@
 package rqProperty
 
 import (
-	"fmt"
 	"street/conf"
-
-	"github.com/kokizzu/gotro/L"
 )
 
 func (rq *Property) FindPropertiesBySerialNumber(serialNumber string) (res []*Property) {
-	query := `SELECT ` + rq.sqlSelectAllFields() + ` from ` + rq.sqlTableName() + `WHERE "serialNumber" = '` + serialNumber + `'`
+	query := `SELECT ` + rq.SqlSelectAllFields() + ` from ` + rq.SqlTableName() + `WHERE "serialNumber" = '` + serialNumber + `'`
 	if conf.IsDebug() {
-		L.Print(query)
+		//L.Print(query)
 	}
 	rq.Adapter.QuerySql(query, func(row []any) {
 		obj := &Property{}
@@ -21,12 +18,11 @@ func (rq *Property) FindPropertiesBySerialNumber(serialNumber string) (res []*Pr
 }
 
 func (rq *Property) FindPropertiesByUniqueKey(uniqueSerialAndSize string) (res []*Property) {
-	query := `SELECT ` + rq.sqlSelectAllFields() + ` from ` + rq.sqlTableName() +
+	query := `SELECT ` + rq.SqlSelectAllFields() + ` from ` + rq.SqlTableName() +
 		` WHERE "uniquePropertyKey" = '` + uniqueSerialAndSize + `'`
 
-	fmt.Println("Query == ", query)
 	if conf.IsDebug() {
-		L.Print(query)
+		//L.Print(query)
 	}
 	rq.Adapter.QuerySql(query, func(row []any) {
 		obj := &Property{}
