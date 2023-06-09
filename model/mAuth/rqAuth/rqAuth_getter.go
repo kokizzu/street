@@ -27,17 +27,21 @@ WHERE ` + s.SqlUserId() + ` = ` + I.UToS(userId) + `
 }
 
 func (u *Users) FindByPagination(in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
-	limitOffsetSql := out.LimitOffsetSql(in)
+	out.PerPage = in.Limit()
 
 	whereAndSql, orderBySql := out.WhereOrderSql(in.Filters, in.Order, map[string]Tt.DataType{}) // TODO: u.FieldsTypeMap())
 
+	total := 0
 	queryCount := `-- Users) FindByPagination
 SELECT COUNT(1)
 FROM ` + u.SqlTableName() + whereAndSql + `
 LIMIT 1`
 	u.Adapter.QuerySql(queryCount, func(row []any) {
-		out.CalculatePages(int(X.ToI(row[0])))
+		total = int(X.ToI(row[0]))
+		out.CalculatePages(total)
 	})
+
+	limitOffsetSql := out.LimitOffsetSql(in, total)
 
 	queryRows := `-- Users) FindByPagination
 SELECT ` + u.SqlSelectAllUncensoredFields() + `

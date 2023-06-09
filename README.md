@@ -165,7 +165,7 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
 - **Q**: want to change generated ORM or schema migration has bug?
   - **A**: create a pull request to [gotro](//github.com/kokizzu/gotro) 
 - **Q**: generated html have bug?
-  - **A**: create a pull request to [svelte-mpa](//github.com/kokizzu/svelte-mpa)
+  - **A**: create a pull request to [svelte-mpa](//github.com/kokizzu/svelte-mpa) or [svelte](//github.com/sveltejs/svelte)
 - **Q**: where is the devlog?
   - **A**: on [youtube livestream](//www.youtube.com/@kokizzu/streams)
 - **Q**: why secrets not encrypted?

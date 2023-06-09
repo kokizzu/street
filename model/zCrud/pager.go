@@ -42,11 +42,17 @@ func (p *PagerIn) Limit() int {
 	return p.PerPage
 }
 
-func (p *PagerIn) Offset() int {
+func (p *PagerIn) Offset(maxOffset int) int {
 	if p.Page <= 0 {
 		return 0
 	}
-	return (p.Page - 1) * p.PerPage
+	// set to last page if overflow
+	expectedPage := (p.Page - 1) * p.PerPage
+	maxPage := (p.PerPage - 1 + maxOffset) / p.PerPage
+	if expectedPage > maxPage {
+		expectedPage = maxPage
+	}
+	return expectedPage
 }
 
 type PagerOut struct {
@@ -61,9 +67,8 @@ type PagerOut struct {
 	Order []string `json:"order" form:"order" query:"order" long:"order" msg:"order"`
 }
 
-func (p *PagerOut) LimitOffsetSql(in *PagerIn) string {
-	offset := in.Offset()
-	p.PerPage = in.Limit()
+func (p *PagerOut) LimitOffsetSql(in *PagerIn, count int) string {
+	offset := in.Offset(count)
 	p.Page = offset/p.PerPage + 1
 	offsetStr := ``
 	if offset > 0 {
@@ -246,9 +251,9 @@ func equalityQuoteValue(values []string, expectTyp Tt.DataType, field string) (w
 		if len(unequalValues) > 0 {
 			whereOr = append(whereOr, field+` NOT IN (`+A.StrJoin(unequalValues, `,`)+`)`)
 		}
-	case Tt.Array: // assume geo
+		//case Tt.Array: // assume geo
 		// TODO: do geoquery, but with sql: https://t.me/tarantool/15882
-	case Tt.Boolean: // ignore for now
+		//case Tt.Boolean: // ignore for now
 	}
 	// TODO: return debug/filtered
 

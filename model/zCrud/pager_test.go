@@ -33,6 +33,22 @@ func TestPagination(t *testing.T) {
 			expectOut:      autogold.Expect(PagerOut{Page: 1, PerPage: 10, Pages: 1, Total: 1}),
 		},
 		{
+			name: `orderInvalid`,
+			in: PagerIn{
+				Order: []string{`+`, `-`, `noDiraction`, `+notExists`},
+			},
+			countResult: 1,
+			fieldToType: map[string]Tt.DataType{
+				`id`:   Tt.Integer,
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 10"),
+			whereAndSql:    autogold.Expect(""),
+			orderBySql:     autogold.Expect(""),
+			expectOut:      autogold.Expect(PagerOut{Page: 1, PerPage: 10, Pages: 1, Total: 1}),
+		},
+		{
 			name: `orderAsc`,
 			in: PagerIn{
 				Order: []string{`+id`},
@@ -109,6 +125,25 @@ AND ("name" IN ('23'))`),
 					"name": {"23"},
 				},
 			}),
+		},
+		{
+			name: `filterMissing`,
+			in: PagerIn{
+				Filters: map[string][]string{
+					`somethingNotHere`: {`>1`},
+				},
+				PerPage: 40,
+			},
+			countResult: 88,
+			fieldToType: map[string]Tt.DataType{
+				`id`:   Tt.Integer,
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 40"),
+			whereAndSql:    autogold.Expect(""),
+			orderBySql:     autogold.Expect(""),
+			expectOut:      autogold.Expect(PagerOut{Page: 1, PerPage: 40, Pages: 3, Total: 88}),
 		},
 		{
 			name: `filterEqMulti`,
@@ -206,6 +241,59 @@ AND ("name"<='abc')`),
 			}),
 		},
 		{
+			name: `filterGt`,
+			in: PagerIn{
+				Filters: map[string][]string{
+					`id`:   {`>1`},
+					`name`: {`>=abc`},
+				},
+				PerPage: 40,
+			},
+			countResult: 88,
+			fieldToType: map[string]Tt.DataType{
+				`id`:   Tt.Integer,
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 40"),
+			whereAndSql: autogold.Expect(`
+WHERE ("id">1)
+AND ("name">='abc')`),
+			orderBySql: autogold.Expect(""),
+			expectOut: autogold.Expect(PagerOut{
+				Page: 1, PerPage: 40, Pages: 3, Total: 88,
+				Filters: map[string][]string{
+					"id":   {">1"},
+					"name": {">=abc"},
+				},
+			}),
+		},
+		{
+			name: `filterLt`,
+			in: PagerIn{
+				Filters: map[string][]string{
+					`id`:   {`<=1`},
+					`name`: {`<abc`},
+				},
+				PerPage: 2,
+			},
+			countResult: 3,
+			fieldToType: map[string]Tt.DataType{
+				`id`:   Tt.Integer,
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 2"),
+			whereAndSql: autogold.Expect(`
+WHERE ("id"<=1)
+AND ("name"<'abc')`),
+			orderBySql: autogold.Expect(""),
+			expectOut: autogold.Expect(PagerOut{Page: 1, PerPage: 2, Pages: 2, Total: 3, Filters: map[string][]string{
+				"id":   {"<=1"},
+				"name": {"<abc"},
+			}}),
+		},
+		{
 			name: `filterLtGt`,
 			in: PagerIn{
 				Filters: map[string][]string{
@@ -297,8 +385,8 @@ WHERE ("name" NOT LIKE 'a%bc' OR "name" LIKE '%def%')`),
 			name: `filterMultiOp`,
 			in: PagerIn{
 				Filters: map[string][]string{
-					`id`:   {`4`, `9`, `<>-5`, `<>44`, `>1`, `<=23`},
-					`name`: {`abc`, `<=def`, `>ghij`, `xyz`, `<>a`, `<>`, `foo`},
+					`id`:   {`4`, `9`, `<>-5`, `<>44`, `<=1`, `>23`},
+					`name`: {`abc`, ``, `>def`, `<=ghij`, `xyz`, `<>a`, `<>`, `foo`},
 				},
 			},
 			countResult: 10,
@@ -309,8 +397,8 @@ WHERE ("name" NOT LIKE 'a%bc' OR "name" LIKE '%def%')`),
 
 			limitOffsetSql: autogold.Expect("\nLIMIT 10"),
 			whereAndSql: autogold.Expect(`
-WHERE (("id">1 AND "id"<=23) OR "id" IN (4,9) OR "id" NOT IN (-5,44))
-AND ("name"<='def' OR "name">'ghij' OR "name" IN ('abc','xyz','foo') OR "name" NOT IN ('a',''))`),
+WHERE ("id"<=1 OR "id">23 OR "id" IN (4,9) OR "id" NOT IN (-5,44))
+AND (("name">'def' AND "name"<='ghij') OR "name" IN ('abc','','xyz','foo') OR "name" NOT IN ('a',''))`),
 			orderBySql: autogold.Expect(""),
 			expectOut: autogold.Expect(PagerOut{
 				Page: 1, PerPage: 10, Pages: 1, Total: 10,
@@ -320,17 +408,18 @@ AND ("name"<='def' OR "name">'ghij' OR "name" IN ('abc','xyz','foo') OR "name" N
 						"9",
 						"<>-5",
 						"<>44",
-						">1",
-						"<=23",
+						">23",
+						"<=1",
 					},
 					"name": {
 						"abc",
+						"",
 						"xyz",
 						"<>a",
 						"<>",
 						"foo",
-						">ghij",
-						"<=def",
+						">def",
+						"<=ghij",
 					},
 				},
 			}),
@@ -376,25 +465,62 @@ WHERE ("name" IN ('&apos;; DROP TABLE users; --','&apos;) OR 1=1; --'))`),
 				`name`: Tt.String,
 			},
 
-			limitOffsetSql: autogold.Expect("\nLIMIT 5 OFFSET 5"),
+			limitOffsetSql: autogold.Expect("\nLIMIT 5 OFFSET 3"),
 			whereAndSql:    autogold.Expect(""),
 			orderBySql:     autogold.Expect(""),
-			expectOut:      autogold.Expect(PagerOut{Page: 2, PerPage: 5, Pages: 3, Total: 11}),
+			expectOut:      autogold.Expect(PagerOut{Page: 1, PerPage: 5, Pages: 3, Total: 11}),
+		},
+		{
+			name: `limitNegative`,
+			in: PagerIn{
+				Page:    -1,
+				PerPage: -2,
+			},
+			countResult: 11,
+			fieldToType: map[string]Tt.DataType{
+				`id`:   Tt.Integer,
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 10"),
+			whereAndSql:    autogold.Expect(""),
+			orderBySql:     autogold.Expect(""),
+			expectOut:      autogold.Expect(PagerOut{Page: 1, PerPage: 10, Pages: 2, Total: 11}),
+		},
+		{
+			name: `limitOverflow`,
+			in: PagerIn{
+				Page:    300,
+				PerPage: 2000,
+			},
+			countResult: 11,
+			fieldToType: map[string]Tt.DataType{
+				`id`:   Tt.Integer,
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 1000 OFFSET 1"),
+			whereAndSql:    autogold.Expect(""),
+			orderBySql:     autogold.Expect(""),
+			expectOut:      autogold.Expect(PagerOut{Page: 1, PerPage: 1000, Pages: 1, Total: 11}),
 		},
 	}
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			out := PagerOut{}
+			out := PagerOut{
+				PerPage: tc.in.Limit(),
+			}
 
-			limitOffsetSql := out.LimitOffsetSql(&tc.in)
+			out.CalculatePages(tc.countResult)
+
+			limitOffsetSql := out.LimitOffsetSql(&tc.in, tc.countResult)
 			tc.limitOffsetSql.Equal(t, limitOffsetSql)
 
 			whereAndSql, orderBySql := out.WhereOrderSql(tc.in.Filters, tc.in.Order, tc.fieldToType)
 			tc.whereAndSql.Equal(t, whereAndSql)
 			tc.orderBySql.Equal(t, orderBySql)
 
-			out.CalculatePages(tc.countResult)
 			tc.expectOut.Equal(t, out)
 
 		})
