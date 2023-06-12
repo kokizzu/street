@@ -177,7 +177,7 @@ type (
 	}
 	GuestLoginOut struct {
 		ResponseCommon
-		User rqAuth.Users `json:"user" form:"user" query:"user" long:"user" msg:"user"`
+		User *rqAuth.Users `json:"user" form:"user" query:"user" long:"user" msg:"user"`
 
 		Segments M.SB `json:"segments" form:"segments" query:"segments" long:"segments" msg:"segments"`
 	}
@@ -218,7 +218,7 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 		return
 	}
 	user.CensorFields()
-	out.User = *user
+	out.User = user
 	session, sess := d.createSession(user.Id, user.Email, in.UserAgent)
 
 	// TODO: set list of roles in the session
