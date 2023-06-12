@@ -6,6 +6,7 @@ VERSION=$(date +%Y.%m.%d)-$(git rev-parse --short HEAD)$(git diff --quiet || ech
 ( cd .. &&
 GOOS=linux GOARCH=amd64 go build -o street.exe \
     -ldflags="-X main.VERSION='$VERSION'" ) &&
+rsync -apv ../static ./ &&
 mv ../street.exe . &&
 rsync --delete -a \
   --exclude='_*' \
