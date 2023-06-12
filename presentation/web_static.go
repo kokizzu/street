@@ -11,15 +11,7 @@ import (
 func WebStatic(fw *fiber.App, d *domain.Domain) {
 
 	fw.Get(`/`, func(c *fiber.Ctx) error {
-		var in domain.UserProfileIn
-		err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserProfileAction)
-		var user *rqAuth.Users
-		segments := M.SB{}
-		if err == nil {
-			out := d.UserProfile(&in)
-			user = out.User
-			segments = out.Segments
-		}
+		in, user, segments := userInfoFromContext(c, d)
 		google := d.GuestExternalAuth(&domain.GuestExternalAuthIn{
 			RequestCommon: in.RequestCommon,
 			Provider:      domain.OauthGoogle,
@@ -97,4 +89,47 @@ func WebStatic(fw *fiber.App, d *domain.Domain) {
 			`title`: `HapSTR Terms of Service`,
 		})
 	})
+
+	fw.Get(`/buyer`, func(ctx *fiber.Ctx) error {
+		_, _, segments := userInfoFromContext(ctx, d)
+		return views.RenderBuyer(ctx, M.SX{
+			`title`:    `Buyer`,
+			`segments`: segments,
+		})
+	})
+	fw.Get(`/realtor`, func(ctx *fiber.Ctx) error {
+		_, _, segments := userInfoFromContext(ctx, d)
+		return views.RenderRealtor(ctx, M.SX{
+			`title`:    `Realtor`,
+			`segments`: segments,
+		})
+	})
+	fw.Get(`/admin`, func(ctx *fiber.Ctx) error {
+		_, _, segments := userInfoFromContext(ctx, d)
+		return views.RenderAdmin(ctx, M.SX{
+			`title`:    `Admin`,
+			`segments`: segments,
+		})
+	})
+	fw.Get(`/user`, func(ctx *fiber.Ctx) error {
+		_, user, segments := userInfoFromContext(ctx, d)
+		return views.RenderUser(ctx, M.SX{
+			`title`:    `Profile`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+}
+
+func userInfoFromContext(c *fiber.Ctx, d *domain.Domain) (domain.UserProfileIn, *rqAuth.Users, M.SB) {
+	var in domain.UserProfileIn
+	err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserProfileAction)
+	var user *rqAuth.Users
+	segments := M.SB{}
+	if err == nil {
+		out := d.UserProfile(&in)
+		user = out.User
+		segments = out.Segments
+	}
+	return in, user, segments
 }

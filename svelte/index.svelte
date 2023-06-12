@@ -1,6 +1,7 @@
 <script>
   import {GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail, UserLogout} from "./jsApi.GEN.js"
   import {onMount, tick} from "svelte";
+  import Menu from "./_components/menu.svelte"
   
   let user = {/* user */};
   let segments = {/* segments */};
@@ -121,89 +122,105 @@
 
 <svelte:window on:hashchange={onHashChange}/>
 {#if mode===USER}
+	<Menu access={segments} />
 	already logged in
 	<button on:click={userLogout}>Logout</button>
-	
-	<br/>
-	Debug:<br/>
-	<textarea cols="20" rows="10">{JSON.stringify( user, null, 2 )}</textarea>
-	
-	<textarea cols="20" rows="10">{JSON.stringify( segments, null, 2 )}</textarea>
 	
 	<hr/>
 	TODO: import other svelte component here (menu, content, etc)
 {:else}
-	<h1>{title} - {mode}</h1>
-	<div class="mainContainer">
-		<label for="email">Email</label>
-		<input type="text" id="email" bind:value={email} bind:this={emailInput}/><br/>
-		
-		{#if mode===LOGIN || mode===REGISTER}
-			<label for="password">Password</label>
-			<input type="password" id="password" bind:value={password} bind:this={passInput}><br/>
-		{/if}
-		
-		{#if mode===REGISTER}
-			<label for="confirmPass">Confirm Password</label>
-			<input type="password" id="confirmPass" bind:value={confirmPass}><br/>
-			<button on:click={guestRegister}>Register</button>
-		{/if}
-		
-		{#if mode===LOGIN}
-			<button on:click={guestLogin}>Login</button>
-		{/if}
-		
-		{#if mode===REGISTER || mode===LOGIN}
-			{#if google}
-				or
-				<a class="button" href={google}>Sign in/up using Google</a>
+	<div class="guest">
+		<h1>{title} - {mode}</h1>
+		<div class="mainContainer">
+			<label for="email">Email</label>
+			<input type="text" id="email" bind:value={email} bind:this={emailInput}/><br/>
+			
+			{#if mode===LOGIN || mode===REGISTER}
+				<label for="password">Password</label>
+				<input type="password" id="password" bind:value={password} bind:this={passInput}><br/>
 			{/if}
-		{/if}
-		
-		{#if mode===RESEND_VERIFICATION_EMAIL}
-			<button on:click={guestResendVerificationEmail}>Resend Verification Email</button>
-		{/if}
-		
-		{#if mode===FORGOT_PASSWORD}
-			<button on:click={guestForgotPassword}>Request Reset Password Link</button>
-		{/if}
-		
-		<br/>
-		
-		{#if mode!==REGISTER}
-			Have no account?
-			<a href="#REGISTER" on:click={()=> mode=REGISTER}>Register</a><br/>
-		{/if}
-		{#if mode!==LOGIN}
-			Already have account?
-			<a href="#LOGIN" on:click={()=> mode=LOGIN}>Login</a><br/>
-		{/if}
-		{#if mode!==RESEND_VERIFICATION_EMAIL}
-			Email not verified?
-			<a href="#{RESEND_VERIFICATION_EMAIL}" on:click={()=> mode=RESEND_VERIFICATION_EMAIL}>Resend verification email</a><br/>
-		{/if}
-		{#if mode!==FORGOT_PASSWORD}
-			Forgot your password?
-			<a href="#{FORGOT_PASSWORD}" on:click={()=> mode=FORGOT_PASSWORD}>Forgot password</a><br/>
-		{/if}
+			
+			{#if mode===REGISTER}
+				<label for="confirmPass">Confirm Password</label>
+				<input type="password" id="confirmPass" bind:value={confirmPass}><br/>
+				<label>
+					<button on:click={guestRegister}>Register</button>
+				</label>
+			{/if}
+			
+			{#if mode===LOGIN}
+				<label>
+					<button on:click={guestLogin}>Login</button>
+				</label>
+			{/if}
+			
+			{#if mode===REGISTER || mode===LOGIN}
+				{#if google}
+					or
+					<a class="button" href={google}>sign in/sign up using Google</a>
+				{/if}
+			{/if}
+			
+			{#if mode===RESEND_VERIFICATION_EMAIL}
+				<span class="label"></span>
+				<button on:click={guestResendVerificationEmail}>Resend Verification Email</button>
+			{/if}
+			
+			{#if mode===FORGOT_PASSWORD}
+				<span class="label"></span>
+				<button on:click={guestForgotPassword}>Request Reset Password Link</button>
+			{/if}
+			
+			<br/>
+			<hr/>
+			
+			{#if mode!==REGISTER}
+				Have no account?
+				<a href="#REGISTER" on:click={()=> mode=REGISTER}>register</a><br/>
+			{/if}
+			{#if mode!==LOGIN}
+				Already have account?
+				<a href="#LOGIN" on:click={()=> mode=LOGIN}>login</a><br/>
+			{/if}
+			{#if mode!==RESEND_VERIFICATION_EMAIL}
+				Email not yet verified?
+				<a href="#{RESEND_VERIFICATION_EMAIL}" on:click={()=> mode=RESEND_VERIFICATION_EMAIL}>request verification email</a><br/>
+			{/if}
+			{#if mode!==FORGOT_PASSWORD}
+				Forgot your password?
+				<a href="#{FORGOT_PASSWORD}" on:click={()=> mode=FORGOT_PASSWORD}>request reset password link</a><br/>
+			{/if}
+		</div>
 	</div>
 {/if}
 <style>
+    h1 {
+        text-align : center;
+    }
+
     /* pad label and input so they are equal in size */
     label {
+        display    : inline-block;
+        padding    : 0.2em;
+        width      : 11em;
+        text-align : right;
+    }
+
+    span.label {
+        width   : 11em;
         display : inline-block;
-        padding : 0.2em;
-        width   : 5em;
     }
 
     input {
-        width   : 10em;
+        width   : 16em;
         padding : 0.1em;
         margin  : 0.2em
     }
 
     button {
-        padding : 0.3em;
+        margin-top    : 0.5em;
+        padding       : 0.3em;
+        border-radius : 0.3em;
     }
 
     * {
@@ -213,5 +230,14 @@
 
     .mainContainer {
         margin : 0 auto;
+    }
+
+    div.guest {
+        margin           : 0 auto;
+        max-width        : 640px;
+        background-color : lightgrey;
+        border           : 1px solid grey;
+        border-radius    : 1em;
+        padding          : 1em
     }
 </style>

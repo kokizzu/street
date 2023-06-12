@@ -1,0 +1,817 @@
+<html><head>
+	<title>/*! title */</title>
+</head>
+<body>
+<style>
+	html {
+		max-width: 70ch;
+		padding: 0.5em 0.5em;
+		margin: auto;
+		line-height: 1.25;
+		font-size: 1.25em;
+	}
+
+	body {
+		font-family: sans-serif;
+		max-width: 70ch;
+		padding: 1ch;
+		margin: auto;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		margin: 0.5em 0 1em;
+	}
+
+	p, ul, ol {
+		margin-bottom: 0.5em;
+		color: #1d1d1d;
+		font-family: sans-serif;
+	}
+</style>
+
+
+<main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
+
+
+<style>/* fakecss:/home/kyz/go/src/street/svelte/_components/menu.esbuild-svelte-fake-css */
+.menu.svelte-7hh36s.svelte-7hh36s {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+.menu.svelte-7hh36s li.svelte-7hh36s {
+  float: left;
+}
+.menu.svelte-7hh36s li a.svelte-7hh36s {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.menu.svelte-7hh36s li a.svelte-7hh36s:hover:not(.active) {
+  background-color: #111;
+}
+.active.svelte-7hh36s.svelte-7hh36s {
+  background-color: #4CAF50;
+}
+</style>
+<script>(() => {
+  // node_modules/svelte/internal/index.mjs
+  function noop() {
+  }
+  function run(fn) {
+    return fn();
+  }
+  function blank_object() {
+    return /* @__PURE__ */ Object.create(null);
+  }
+  function run_all(fns) {
+    fns.forEach(run);
+  }
+  function is_function(thing) {
+    return typeof thing === "function";
+  }
+  function safe_not_equal(a, b) {
+    return a != a ? b == b : a !== b || (a && typeof a === "object" || typeof a === "function");
+  }
+  function is_empty(obj) {
+    return Object.keys(obj).length === 0;
+  }
+  var is_hydrating = false;
+  function start_hydrating() {
+    is_hydrating = true;
+  }
+  function end_hydrating() {
+    is_hydrating = false;
+  }
+  function append(target, node) {
+    target.appendChild(node);
+  }
+  function insert(target, node, anchor) {
+    target.insertBefore(node, anchor || null);
+  }
+  function detach(node) {
+    if (node.parentNode) {
+      node.parentNode.removeChild(node);
+    }
+  }
+  function element(name) {
+    return document.createElement(name);
+  }
+  function text(data) {
+    return document.createTextNode(data);
+  }
+  function space() {
+    return text(" ");
+  }
+  function attr(node, attribute, value) {
+    if (value == null)
+      node.removeAttribute(attribute);
+    else if (node.getAttribute(attribute) !== value)
+      node.setAttribute(attribute, value);
+  }
+  function children(element2) {
+    return Array.from(element2.childNodes);
+  }
+  function set_style(node, key, value, important) {
+    if (value === null) {
+      node.style.removeProperty(key);
+    } else {
+      node.style.setProperty(key, value, important ? "important" : "");
+    }
+  }
+  function toggle_class(element2, name, toggle) {
+    element2.classList[toggle ? "add" : "remove"](name);
+  }
+  var current_component;
+  function set_current_component(component) {
+    current_component = component;
+  }
+  var dirty_components = [];
+  var binding_callbacks = [];
+  var render_callbacks = [];
+  var flush_callbacks = [];
+  var resolved_promise = /* @__PURE__ */ Promise.resolve();
+  var update_scheduled = false;
+  function schedule_update() {
+    if (!update_scheduled) {
+      update_scheduled = true;
+      resolved_promise.then(flush);
+    }
+  }
+  function add_render_callback(fn) {
+    render_callbacks.push(fn);
+  }
+  var seen_callbacks = /* @__PURE__ */ new Set();
+  var flushidx = 0;
+  function flush() {
+    if (flushidx !== 0) {
+      return;
+    }
+    const saved_component = current_component;
+    do {
+      try {
+        while (flushidx < dirty_components.length) {
+          const component = dirty_components[flushidx];
+          flushidx++;
+          set_current_component(component);
+          update(component.$);
+        }
+      } catch (e) {
+        dirty_components.length = 0;
+        flushidx = 0;
+        throw e;
+      }
+      set_current_component(null);
+      dirty_components.length = 0;
+      flushidx = 0;
+      while (binding_callbacks.length)
+        binding_callbacks.pop()();
+      for (let i = 0; i < render_callbacks.length; i += 1) {
+        const callback = render_callbacks[i];
+        if (!seen_callbacks.has(callback)) {
+          seen_callbacks.add(callback);
+          callback();
+        }
+      }
+      render_callbacks.length = 0;
+    } while (dirty_components.length);
+    while (flush_callbacks.length) {
+      flush_callbacks.pop()();
+    }
+    update_scheduled = false;
+    seen_callbacks.clear();
+    set_current_component(saved_component);
+  }
+  function update($) {
+    if ($.fragment !== null) {
+      $.update();
+      run_all($.before_update);
+      const dirty = $.dirty;
+      $.dirty = [-1];
+      $.fragment && $.fragment.p($.ctx, dirty);
+      $.after_update.forEach(add_render_callback);
+    }
+  }
+  function flush_render_callbacks(fns) {
+    const filtered = [];
+    const targets = [];
+    render_callbacks.forEach((c) => fns.indexOf(c) === -1 ? filtered.push(c) : targets.push(c));
+    targets.forEach((c) => c());
+    render_callbacks = filtered;
+  }
+  var outroing = /* @__PURE__ */ new Set();
+  var outros;
+  function transition_in(block, local) {
+    if (block && block.i) {
+      outroing.delete(block);
+      block.i(local);
+    }
+  }
+  function transition_out(block, local, detach2, callback) {
+    if (block && block.o) {
+      if (outroing.has(block))
+        return;
+      outroing.add(block);
+      outros.c.push(() => {
+        outroing.delete(block);
+        if (callback) {
+          if (detach2)
+            block.d(1);
+          callback();
+        }
+      });
+      block.o(local);
+    } else if (callback) {
+      callback();
+    }
+  }
+  var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : global;
+  var _boolean_attributes = [
+    "allowfullscreen",
+    "allowpaymentrequest",
+    "async",
+    "autofocus",
+    "autoplay",
+    "checked",
+    "controls",
+    "default",
+    "defer",
+    "disabled",
+    "formnovalidate",
+    "hidden",
+    "inert",
+    "ismap",
+    "loop",
+    "multiple",
+    "muted",
+    "nomodule",
+    "novalidate",
+    "open",
+    "playsinline",
+    "readonly",
+    "required",
+    "reversed",
+    "selected"
+  ];
+  var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
+  function create_component(block) {
+    block && block.c();
+  }
+  function mount_component(component, target, anchor, customElement) {
+    const { fragment, after_update } = component.$;
+    fragment && fragment.m(target, anchor);
+    if (!customElement) {
+      add_render_callback(() => {
+        const new_on_destroy = component.$.on_mount.map(run).filter(is_function);
+        if (component.$.on_destroy) {
+          component.$.on_destroy.push(...new_on_destroy);
+        } else {
+          run_all(new_on_destroy);
+        }
+        component.$.on_mount = [];
+      });
+    }
+    after_update.forEach(add_render_callback);
+  }
+  function destroy_component(component, detaching) {
+    const $ = component.$;
+    if ($.fragment !== null) {
+      flush_render_callbacks($.after_update);
+      run_all($.on_destroy);
+      $.fragment && $.fragment.d(detaching);
+      $.on_destroy = $.fragment = null;
+      $.ctx = [];
+    }
+  }
+  function make_dirty(component, i) {
+    if (component.$.dirty[0] === -1) {
+      dirty_components.push(component);
+      schedule_update();
+      component.$.dirty.fill(0);
+    }
+    component.$.dirty[i / 31 | 0] |= 1 << i % 31;
+  }
+  function init(component, options, instance2, create_fragment3, not_equal, props, append_styles, dirty = [-1]) {
+    const parent_component = current_component;
+    set_current_component(component);
+    const $ = component.$ = {
+      fragment: null,
+      ctx: [],
+      // state
+      props,
+      update: noop,
+      not_equal,
+      bound: blank_object(),
+      // lifecycle
+      on_mount: [],
+      on_destroy: [],
+      on_disconnect: [],
+      before_update: [],
+      after_update: [],
+      context: new Map(options.context || (parent_component ? parent_component.$.context : [])),
+      // everything else
+      callbacks: blank_object(),
+      dirty,
+      skip_bound: false,
+      root: options.target || parent_component.$.root
+    };
+    append_styles && append_styles($.root);
+    let ready = false;
+    $.ctx = instance2 ? instance2(component, options.props || {}, (i, ret, ...rest) => {
+      const value = rest.length ? rest[0] : ret;
+      if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
+        if (!$.skip_bound && $.bound[i])
+          $.bound[i](value);
+        if (ready)
+          make_dirty(component, i);
+      }
+      return ret;
+    }) : [];
+    $.update();
+    ready = true;
+    run_all($.before_update);
+    $.fragment = create_fragment3 ? create_fragment3($.ctx) : false;
+    if (options.target) {
+      if (options.hydrate) {
+        start_hydrating();
+        const nodes = children(options.target);
+        $.fragment && $.fragment.l(nodes);
+        nodes.forEach(detach);
+      } else {
+        $.fragment && $.fragment.c();
+      }
+      if (options.intro)
+        transition_in(component.$.fragment);
+      mount_component(component, options.target, options.anchor, options.customElement);
+      end_hydrating();
+      flush();
+    }
+    set_current_component(parent_component);
+  }
+  var SvelteElement;
+  if (typeof HTMLElement === "function") {
+    SvelteElement = class extends HTMLElement {
+      constructor() {
+        super();
+        this.attachShadow({ mode: "open" });
+      }
+      connectedCallback() {
+        const { on_mount } = this.$;
+        this.$.on_disconnect = on_mount.map(run).filter(is_function);
+        for (const key in this.$.slotted) {
+          this.appendChild(this.$.slotted[key]);
+        }
+      }
+      attributeChangedCallback(attr2, _oldValue, newValue) {
+        this[attr2] = newValue;
+      }
+      disconnectedCallback() {
+        run_all(this.$.on_disconnect);
+      }
+      $destroy() {
+        destroy_component(this, 1);
+        this.$destroy = noop;
+      }
+      $on(type, callback) {
+        if (!is_function(callback)) {
+          return noop;
+        }
+        const callbacks = this.$.callbacks[type] || (this.$.callbacks[type] = []);
+        callbacks.push(callback);
+        return () => {
+          const index = callbacks.indexOf(callback);
+          if (index !== -1)
+            callbacks.splice(index, 1);
+        };
+      }
+      $set($props) {
+        if (this.$set && !is_empty($props)) {
+          this.$.skip_bound = true;
+          this.$set($props);
+          this.$.skip_bound = false;
+        }
+      }
+    };
+  }
+  var SvelteComponent = class {
+    $destroy() {
+      destroy_component(this, 1);
+      this.$destroy = noop;
+    }
+    $on(type, callback) {
+      if (!is_function(callback)) {
+        return noop;
+      }
+      const callbacks = this.$.callbacks[type] || (this.$.callbacks[type] = []);
+      callbacks.push(callback);
+      return () => {
+        const index = callbacks.indexOf(callback);
+        if (index !== -1)
+          callbacks.splice(index, 1);
+      };
+    }
+    $set($props) {
+      if (this.$set && !is_empty($props)) {
+        this.$.skip_bound = true;
+        this.$set($props);
+        this.$.skip_bound = false;
+      }
+    }
+  };
+
+  // _components/menu.svelte
+  function create_if_block_3(ctx) {
+    let li;
+    return {
+      c() {
+        li = element("li");
+        li.innerHTML = `<a href="/buyer" class="svelte-7hh36s">Buyer</a>`;
+        attr(li, "class", "svelte-7hh36s");
+        toggle_class(
+          li,
+          "active",
+          /*segment*/
+          ctx[1] === "buyer"
+        );
+      },
+      m(target, anchor) {
+        insert(target, li, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*segment*/
+        2) {
+          toggle_class(
+            li,
+            "active",
+            /*segment*/
+            ctx2[1] === "buyer"
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching)
+          detach(li);
+      }
+    };
+  }
+  function create_if_block_2(ctx) {
+    let li;
+    return {
+      c() {
+        li = element("li");
+        li.innerHTML = `<a href="/realtor" class="svelte-7hh36s">Realtor</a>`;
+        attr(li, "class", "svelte-7hh36s");
+        toggle_class(
+          li,
+          "active",
+          /*segment*/
+          ctx[1] === "realtor"
+        );
+      },
+      m(target, anchor) {
+        insert(target, li, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*segment*/
+        2) {
+          toggle_class(
+            li,
+            "active",
+            /*segment*/
+            ctx2[1] === "realtor"
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching)
+          detach(li);
+      }
+    };
+  }
+  function create_if_block_1(ctx) {
+    let li;
+    return {
+      c() {
+        li = element("li");
+        li.innerHTML = `<a href="/admin" class="svelte-7hh36s">Admin</a>`;
+        attr(li, "class", "svelte-7hh36s");
+        toggle_class(
+          li,
+          "active",
+          /*segment*/
+          ctx[1] === "admin"
+        );
+      },
+      m(target, anchor) {
+        insert(target, li, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*segment*/
+        2) {
+          toggle_class(
+            li,
+            "active",
+            /*segment*/
+            ctx2[1] === "admin"
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching)
+          detach(li);
+      }
+    };
+  }
+  function create_if_block(ctx) {
+    let li;
+    return {
+      c() {
+        li = element("li");
+        li.innerHTML = `<a href="/user" class="svelte-7hh36s">Profile</a>`;
+        set_style(li, "float", "right");
+        attr(li, "class", "svelte-7hh36s");
+        toggle_class(
+          li,
+          "active",
+          /*segment*/
+          ctx[1] === "user"
+        );
+      },
+      m(target, anchor) {
+        insert(target, li, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*segment*/
+        2) {
+          toggle_class(
+            li,
+            "active",
+            /*segment*/
+            ctx2[1] === "user"
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching)
+          detach(li);
+      }
+    };
+  }
+  function create_fragment(ctx) {
+    let ul;
+    let li;
+    let t1;
+    let t2;
+    let t3;
+    let t4;
+    let if_block0 = (
+      /*access*/
+      ctx[0].buyer && create_if_block_3(ctx)
+    );
+    let if_block1 = (
+      /*access*/
+      ctx[0].realtor && create_if_block_2(ctx)
+    );
+    let if_block2 = (
+      /*access*/
+      ctx[0].admin && create_if_block_1(ctx)
+    );
+    let if_block3 = (
+      /*access*/
+      ctx[0].user && create_if_block(ctx)
+    );
+    return {
+      c() {
+        ul = element("ul");
+        li = element("li");
+        li.innerHTML = `<a href="/" class="svelte-7hh36s">Home</a>`;
+        t1 = space();
+        if (if_block0)
+          if_block0.c();
+        t2 = space();
+        if (if_block1)
+          if_block1.c();
+        t3 = space();
+        if (if_block2)
+          if_block2.c();
+        t4 = space();
+        if (if_block3)
+          if_block3.c();
+        attr(li, "class", "svelte-7hh36s");
+        toggle_class(
+          li,
+          "active",
+          /*segment*/
+          ctx[1] === ""
+        );
+        attr(ul, "class", "menu svelte-7hh36s");
+      },
+      m(target, anchor) {
+        insert(target, ul, anchor);
+        append(ul, li);
+        append(ul, t1);
+        if (if_block0)
+          if_block0.m(ul, null);
+        append(ul, t2);
+        if (if_block1)
+          if_block1.m(ul, null);
+        append(ul, t3);
+        if (if_block2)
+          if_block2.m(ul, null);
+        append(ul, t4);
+        if (if_block3)
+          if_block3.m(ul, null);
+      },
+      p(ctx2, [dirty]) {
+        if (dirty & /*segment*/
+        2) {
+          toggle_class(
+            li,
+            "active",
+            /*segment*/
+            ctx2[1] === ""
+          );
+        }
+        if (
+          /*access*/
+          ctx2[0].buyer
+        ) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+          } else {
+            if_block0 = create_if_block_3(ctx2);
+            if_block0.c();
+            if_block0.m(ul, t2);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        if (
+          /*access*/
+          ctx2[0].realtor
+        ) {
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
+          } else {
+            if_block1 = create_if_block_2(ctx2);
+            if_block1.c();
+            if_block1.m(ul, t3);
+          }
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
+        }
+        if (
+          /*access*/
+          ctx2[0].admin
+        ) {
+          if (if_block2) {
+            if_block2.p(ctx2, dirty);
+          } else {
+            if_block2 = create_if_block_1(ctx2);
+            if_block2.c();
+            if_block2.m(ul, t4);
+          }
+        } else if (if_block2) {
+          if_block2.d(1);
+          if_block2 = null;
+        }
+        if (
+          /*access*/
+          ctx2[0].user
+        ) {
+          if (if_block3) {
+            if_block3.p(ctx2, dirty);
+          } else {
+            if_block3 = create_if_block(ctx2);
+            if_block3.c();
+            if_block3.m(ul, null);
+          }
+        } else if (if_block3) {
+          if_block3.d(1);
+          if_block3 = null;
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching)
+          detach(ul);
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        if (if_block2)
+          if_block2.d();
+        if (if_block3)
+          if_block3.d();
+      }
+    };
+  }
+  function instance($self, $props, $invalidate) {
+    let { access = {
+      "admin": false,
+      "buyer": false,
+      "realtor": false,
+      "user": false
+    } } = $props;
+    let segment;
+    $self.$set = ($props2) => {
+      if ("access" in $props2)
+        $invalidate(0, access = $props2.access);
+    };
+    $:
+      $invalidate(1, segment = (window.location + "").split("/")[4]);
+    return [access, segment];
+  }
+  var Menu = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance, create_fragment, safe_not_equal, { access: 0 });
+    }
+  };
+  var menu_default = Menu;
+
+  // user.svelte
+  function create_fragment2(ctx) {
+    let menu;
+    let t0;
+    let br0;
+    let t1;
+    let br1;
+    let t2;
+    let textarea;
+    let textarea_value_value;
+    let current;
+    menu = new menu_default({ props: { access: segments } });
+    return {
+      c() {
+        create_component(menu.$.fragment);
+        t0 = text("\n\nlogged user profile content goes here\n\n");
+        br0 = element("br");
+        t1 = text("\nDebug:");
+        br1 = element("br");
+        t2 = space();
+        textarea = element("textarea");
+        attr(textarea, "cols", "20");
+        attr(textarea, "rows", "10");
+        textarea.value = textarea_value_value = JSON.stringify(user, null, 2);
+      },
+      m(target, anchor) {
+        mount_component(menu, target, anchor);
+        insert(target, t0, anchor);
+        insert(target, br0, anchor);
+        insert(target, t1, anchor);
+        insert(target, br1, anchor);
+        insert(target, t2, anchor);
+        insert(target, textarea, anchor);
+        current = true;
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(menu.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(menu.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(menu, detaching);
+        if (detaching)
+          detach(t0);
+        if (detaching)
+          detach(br0);
+        if (detaching)
+          detach(t1);
+        if (detaching)
+          detach(br1);
+        if (detaching)
+          detach(t2);
+        if (detaching)
+          detach(textarea);
+      }
+    };
+  }
+  var user = {/* user */};
+  var segments = {/* segments */};
+  var User = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, null, create_fragment2, safe_not_equal, {});
+    }
+  };
+  var user_default = User;
+
+  // user.svelte.ts
+  var app = new user_default({ target: document.getElementById("app") });
+})();
+</script>
+</body></html>
