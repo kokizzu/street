@@ -92,9 +92,17 @@ const GuestExternalAuthIn = {
 /**
  * @typedef {Object} GuestExternalAuthOut
  * @property {String} link
+ * @property {String} clientID
+ * @property {String} redirectUrl
+ * @property {Array<String>} scopes
+ * @property {String} csrfState
  */
 const GuestExternalAuthOut = {
   link: '', // string
+  clientID: '', // string
+  redirectUrl: '', // string
+  scopes: [], // array of string // []string
+  csrfState: '', // string
 }
 /**
  * @callback GuestExternalAuthCallback

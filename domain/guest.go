@@ -455,6 +455,12 @@ type (
 	GuestExternalAuthOut struct {
 		ResponseCommon
 		Link string `json:"link" form:"link" query:"link" long:"link" msg:"link"`
+
+		// these for manual client-side oauth link generation
+		ClientID    string   `json:"clientId" form:"clientId" query:"clientId" long:"clientId" msg:"clientId"`
+		RedirectUrl string   `json:"redirectUrl" form:"redirectUrl" query:"redirectUrl" long:"redirectUrl" msg:"redirectUrl"`
+		Scopes      []string `json:"scopes" form:"scopes" query:"scopes" long:"scopes" msg:"scopes"`
+		CsrfState   string   `json:"csrfState" form:"csrfState" query:"csrfState" long:"csrfState" msg:"csrfState"`
 	}
 )
 
@@ -482,6 +488,10 @@ func (d *Domain) GuestExternalAuth(in *GuestExternalAuthIn) (out GuestExternalAu
 			return
 		}
 		out.Link = provider.AuthCodeURL(csrfState)
+		out.ClientID = provider.ClientID
+		out.RedirectUrl = provider.RedirectURL
+		out.Scopes = provider.Scopes
+		out.CsrfState = csrfState
 	default:
 		out.SetError(400, GuestExternalAuthProviderNotSet)
 	}
