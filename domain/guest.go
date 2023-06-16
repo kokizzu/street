@@ -540,7 +540,6 @@ func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCal
 	case OauthGoogle:
 		provider := d.Oauth.Google[in.Host]
 		if provider == nil {
-			L.Print(d.Oauth.Google)
 			L.Print(in.Host)
 			out.SetError(400, ErrGuestOauthCallbackInvalidUrl)
 			return
