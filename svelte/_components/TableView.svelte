@@ -73,10 +73,18 @@
         </span>
       Total: {pager.countResult}
       <span class='right'>
-        <button disabled={!allowPrevPage} on:click={() => gotoPage(1)}>|&lt;</button>
-        <button disabled={!allowPrevPage} on:click={() => gotoPage(pager.page-1)}>&lt;</button>
-        <button disabled={!allowNextPage} on:click={() => gotoPage(pager.page+1)}>&gt;</button>
-        <button disabled={!allowNextPage} on:click={() => gotoPage(pager.pages)}>&gt;|</button>
+        <button disabled={!allowPrevPage} on:click={() => gotoPage(1)}>
+          <i class='gg-push-chevron-left' />
+        </button>
+        <button disabled={!allowPrevPage} on:click={() => gotoPage(pager.page-1)}>
+          <i class='gg-chevron-left' />
+        </button>
+        <button disabled={!allowNextPage} on:click={() => gotoPage(pager.page+1)}>
+          <i class='gg-chevron-right' />
+        </button>
+        <button disabled={!allowNextPage} on:click={() => gotoPage(pager.pages)}>
+          <i class='gg-push-chevron-right' />
+        </button>
       </span>
     </th>
   </tr>

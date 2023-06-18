@@ -71,6 +71,7 @@
 
     .menu li button {
         padding : 0.5em;
+        margin  : 0.3em;
     }
 
     .active {

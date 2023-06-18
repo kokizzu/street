@@ -5,11 +5,11 @@
 <body>
 <style>
     html {
-        max-width: 99%;
-        padding     : 0.5em 0.5em;
+        max-width   : 99%;
+        padding     : 0.5rem 0.5rem;
         margin      : auto;
         line-height : 1.25;
-        font-size   : 1.25em;
+        font-size   : 1.25rem;
     }
 
     body {
@@ -19,18 +19,81 @@
     }
 
     h1, h2, h3, h4, h5, h6 {
-        margin : 0.5em 0 1em;
+        margin : 0.5rem 0 1rem;
     }
 
     p, ul, ol {
-        margin-bottom : 0.5em;
+        margin-bottom : 0.5rem;
         color         : #1D1D1D;
         font-family   : sans-serif;
+    }
+
+    button {
+        height           : 2rem;
+        padding          : 0.5rem;
+        font-weight      : bold;
+        font-size        : 1rem;
+        background-color : #BBB;
+        color            : black;
+        border-radius    : 0.6rem;
+    }
+
+    button.danger {
+        background-color : red;
+    }
+
+    button.danger:active, button.danger:hover {
+        background-color : darkred;
+    }
+
+    button.warning {
+        background-color : orange;
+    }
+
+    button.warning:active, button.warning:hover {
+        background-color : darkorange;
+    }
+
+    button.primary {
+        background-color : limegreen;
+    }
+
+    button.primary:active, button.primary:hover {
+        background-color : green;
+    }
+
+
+    button:disabled {
+        background-color : #777;
+        color            : #222;
+    }
+
+    button:active, button:hover {
+        background-color : #999;
+    }
+
+    input, select, textarea {
+        padding       : 0.1rem 0.5rem 0.1rem 0.5rem;
+        font-weight   : bold;
+        font-size     : 1rem;
+        border-radius : 0.5rem;
+    }
+
+    input[type="checkbox"] {
+        width  : 2rem;
+        height : 2rem;
+    }
+
+    label {
+        font-weight : bold;
+        display     : inline-block;
+        padding     : 0.2rem;
+        width       : 11rem;
     }
 </style>
 
 
-<main id="app"><ul class="menu svelte-1te8zdp"><li class="svelte-1te8zdp"><a href="/" class="svelte-1te8zdp">Home</a></li>
+<main id="app"><ul class="menu svelte-14j5e9r"><li class="svelte-14j5e9r"><a href="/" class="svelte-14j5e9r">Home</a></li>
   
   
   
@@ -49,35 +112,37 @@
     </tr>
   <tr><td class="svelte-18nqf8w">Unique User</td>
     </tr>
+  <tr><th class="svelte-18nqf8w">Actions</th></tr>
   
 </table></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
 <style>/* fakecss:/home/kyz/go/src/street/svelte/_components/Menu.esbuild-svelte-fake-css */
-.menu.svelte-1te8zdp.svelte-1te8zdp {
+.menu.svelte-14j5e9r.svelte-14j5e9r {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: #333;
 }
-.menu.svelte-1te8zdp li.svelte-1te8zdp {
+.menu.svelte-14j5e9r li.svelte-14j5e9r {
   float: left;
 }
-.menu.svelte-1te8zdp li a.svelte-1te8zdp {
+.menu.svelte-14j5e9r li a.svelte-14j5e9r {
   display: block;
   color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
 }
-.menu.svelte-1te8zdp li a.svelte-1te8zdp:hover:not(.active) {
+.menu.svelte-14j5e9r li a.svelte-14j5e9r:hover:not(.active) {
   background-color: #111;
 }
-.menu.svelte-1te8zdp li button.svelte-1te8zdp {
+.menu.svelte-14j5e9r li button.svelte-14j5e9r {
   padding: 0.5em;
+  margin: 0.3em;
 }
-.active.svelte-1te8zdp.svelte-1te8zdp {
+.active.svelte-14j5e9r.svelte-14j5e9r {
   background-color: #4CAF50;
 }
 
@@ -117,7 +182,7 @@ table.svelte-18nqf8w {
   width: 100%;
 }
 table.svelte-18nqf8w,td.svelte-18nqf8w,th.svelte-18nqf8w{border:1px solid black}table.svelte-18nqf8w{border-collapse:collapse;width:100%}
-.menu.svelte-1te8zdp.svelte-1te8zdp{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#333}.menu.svelte-1te8zdp li.svelte-1te8zdp{float:left}.menu.svelte-1te8zdp li a.svelte-1te8zdp{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.menu.svelte-1te8zdp li a.svelte-1te8zdp:hover:not(.active){background-color:#111}.menu.svelte-1te8zdp li button.svelte-1te8zdp{padding:0.5em}.active.svelte-1te8zdp.svelte-1te8zdp{background-color:#4CAF50}
+.menu.svelte-14j5e9r.svelte-14j5e9r{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#333}.menu.svelte-14j5e9r li.svelte-14j5e9r{float:left}.menu.svelte-14j5e9r li a.svelte-14j5e9r{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.menu.svelte-14j5e9r li a.svelte-14j5e9r:hover:not(.active){background-color:#111}.menu.svelte-14j5e9r li button.svelte-14j5e9r{padding:0.5em;margin:0.3em}.active.svelte-14j5e9r.svelte-14j5e9r{background-color:#4CAF50}
 .submenu.svelte-dk81xr.svelte-dk81xr{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#666}.submenu.svelte-dk81xr li.svelte-dk81xr{float:left}.submenu.svelte-dk81xr li a.svelte-dk81xr{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.submenu.svelte-dk81xr li a.svelte-dk81xr:hover:not(.active){background-color:#111}.active.svelte-dk81xr.svelte-dk81xr{background-color:#4CAF50}</style>
 <script>(() => {
   var __create = Object.create;
@@ -2618,8 +2683,8 @@ table.svelte-18nqf8w,td.svelte-18nqf8w,th.svelte-18nqf8w{border:1px solid black}
     return {
       c() {
         li = element("li");
-        li.innerHTML = `<a href="/buyer" class="svelte-1te8zdp">Buyer</a>`;
-        attr(li, "class", "svelte-1te8zdp");
+        li.innerHTML = `<a href="/buyer" class="svelte-14j5e9r">Buyer</a>`;
+        attr(li, "class", "svelte-14j5e9r");
         toggle_class(
           li,
           "active",
@@ -2652,8 +2717,8 @@ table.svelte-18nqf8w,td.svelte-18nqf8w,th.svelte-18nqf8w{border:1px solid black}
     return {
       c() {
         li = element("li");
-        li.innerHTML = `<a href="/realtor" class="svelte-1te8zdp">Realtor</a>`;
-        attr(li, "class", "svelte-1te8zdp");
+        li.innerHTML = `<a href="/realtor" class="svelte-14j5e9r">Realtor</a>`;
+        attr(li, "class", "svelte-14j5e9r");
         toggle_class(
           li,
           "active",
@@ -2686,8 +2751,8 @@ table.svelte-18nqf8w,td.svelte-18nqf8w,th.svelte-18nqf8w{border:1px solid black}
     return {
       c() {
         li = element("li");
-        li.innerHTML = `<a href="/admin" class="svelte-1te8zdp">Admin</a>`;
-        attr(li, "class", "svelte-1te8zdp");
+        li.innerHTML = `<a href="/admin" class="svelte-14j5e9r">Admin</a>`;
+        attr(li, "class", "svelte-14j5e9r");
         toggle_class(
           li,
           "active",
@@ -2729,12 +2794,12 @@ table.svelte-18nqf8w,td.svelte-18nqf8w,th.svelte-18nqf8w{border:1px solid black}
         button.textContent = "Logout";
         t1 = space();
         li1 = element("li");
-        li1.innerHTML = `<a href="/user" class="svelte-1te8zdp">Profile</a>`;
-        attr(button, "class", "svelte-1te8zdp");
+        li1.innerHTML = `<a href="/user" class="svelte-14j5e9r">Profile</a>`;
+        attr(button, "class", "svelte-14j5e9r");
         set_style(li0, "float", "right");
-        attr(li0, "class", "svelte-1te8zdp");
+        attr(li0, "class", "svelte-14j5e9r");
         set_style(li1, "float", "right");
-        attr(li1, "class", "svelte-1te8zdp");
+        attr(li1, "class", "svelte-14j5e9r");
         toggle_class(
           li1,
           "active",
@@ -2807,7 +2872,7 @@ table.svelte-18nqf8w,td.svelte-18nqf8w,th.svelte-18nqf8w{border:1px solid black}
       c() {
         ul = element("ul");
         li = element("li");
-        li.innerHTML = `<a href="/" class="svelte-1te8zdp">Home</a>`;
+        li.innerHTML = `<a href="/" class="svelte-14j5e9r">Home</a>`;
         t1 = space();
         if (if_block0)
           if_block0.c();
@@ -2820,14 +2885,14 @@ table.svelte-18nqf8w,td.svelte-18nqf8w,th.svelte-18nqf8w{border:1px solid black}
         t4 = space();
         if (if_block3)
           if_block3.c();
-        attr(li, "class", "svelte-1te8zdp");
+        attr(li, "class", "svelte-14j5e9r");
         toggle_class(
           li,
           "active",
           /*segment1*/
           ctx[1] === ""
         );
-        attr(ul, "class", "menu svelte-1te8zdp");
+        attr(ul, "class", "menu svelte-14j5e9r");
       },
       m(target, anchor) {
         insert(target, ul, anchor);

@@ -5,11 +5,11 @@
 <body>
 <style>
     html {
-        max-width: 99%;
-        padding     : 0.5em 0.5em;
+        max-width   : 99%;
+        padding     : 0.5rem 0.5rem;
         margin      : auto;
         line-height : 1.25;
-        font-size   : 1.25em;
+        font-size   : 1.25rem;
     }
 
     body {
@@ -19,18 +19,81 @@
     }
 
     h1, h2, h3, h4, h5, h6 {
-        margin : 0.5em 0 1em;
+        margin : 0.5rem 0 1rem;
     }
 
     p, ul, ol {
-        margin-bottom : 0.5em;
+        margin-bottom : 0.5rem;
         color         : #1D1D1D;
         font-family   : sans-serif;
+    }
+
+    button {
+        height           : 2rem;
+        padding          : 0.5rem;
+        font-weight      : bold;
+        font-size        : 1rem;
+        background-color : #BBB;
+        color            : black;
+        border-radius    : 0.6rem;
+    }
+
+    button.danger {
+        background-color : red;
+    }
+
+    button.danger:active, button.danger:hover {
+        background-color : darkred;
+    }
+
+    button.warning {
+        background-color : orange;
+    }
+
+    button.warning:active, button.warning:hover {
+        background-color : darkorange;
+    }
+
+    button.primary {
+        background-color : limegreen;
+    }
+
+    button.primary:active, button.primary:hover {
+        background-color : green;
+    }
+
+
+    button:disabled {
+        background-color : #777;
+        color            : #222;
+    }
+
+    button:active, button:hover {
+        background-color : #999;
+    }
+
+    input, select, textarea {
+        padding       : 0.1rem 0.5rem 0.1rem 0.5rem;
+        font-weight   : bold;
+        font-size     : 1rem;
+        border-radius : 0.5rem;
+    }
+
+    input[type="checkbox"] {
+        width  : 2rem;
+        height : 2rem;
+    }
+
+    label {
+        font-weight : bold;
+        display     : inline-block;
+        padding     : 0.2rem;
+        width       : 11rem;
     }
 </style>
 
 
-<main id="app"><ul class="menu svelte-1te8zdp"><li class="svelte-1te8zdp"><a href="/" class="svelte-1te8zdp">Home</a></li>
+<main id="app"><ul class="menu svelte-14j5e9r"><li class="svelte-14j5e9r"><a href="/" class="svelte-14j5e9r">Home</a></li>
   
   
   
@@ -42,13 +105,13 @@
 
 </ul>
 
-<table class="svelte-1lzkscw"><thead><tr></tr></thead>
+<table class="svelte-wkkedv"><thead><tr></tr></thead>
   <tbody></tbody>
-  <tfoot><tr><th colspan="0" class="svelte-1lzkscw"><span class="left svelte-1lzkscw">Page undefined of undefined,
-      <input class="perPage svelte-1lzkscw" type="number"> rows per page.
+  <tfoot><tr><th colspan="0" class="svelte-wkkedv"><span class="left svelte-wkkedv">Page undefined of undefined,
+      <input class="perPage svelte-wkkedv" type="number"> rows per page.
         </span>
       Total: undefined
-      <span class="right svelte-1lzkscw"><button disabled>|&lt;</button>
+      <span class="right svelte-wkkedv"><button disabled>|&lt;</button>
         <button disabled>&lt;</button>
         <button disabled>&gt;</button>
         <button disabled>&gt;|</button></span></th></tr></tfoot>
@@ -56,30 +119,31 @@
 
 
 <style>/* fakecss:/home/kyz/go/src/street/svelte/_components/Menu.esbuild-svelte-fake-css */
-.menu.svelte-1te8zdp.svelte-1te8zdp {
+.menu.svelte-14j5e9r.svelte-14j5e9r {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: #333;
 }
-.menu.svelte-1te8zdp li.svelte-1te8zdp {
+.menu.svelte-14j5e9r li.svelte-14j5e9r {
   float: left;
 }
-.menu.svelte-1te8zdp li a.svelte-1te8zdp {
+.menu.svelte-14j5e9r li a.svelte-14j5e9r {
   display: block;
   color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
 }
-.menu.svelte-1te8zdp li a.svelte-1te8zdp:hover:not(.active) {
+.menu.svelte-14j5e9r li a.svelte-14j5e9r:hover:not(.active) {
   background-color: #111;
 }
-.menu.svelte-1te8zdp li button.svelte-1te8zdp {
+.menu.svelte-14j5e9r li button.svelte-14j5e9r {
   padding: 0.5em;
+  margin: 0.3em;
 }
-.active.svelte-1te8zdp.svelte-1te8zdp {
+.active.svelte-14j5e9r.svelte-14j5e9r {
   background-color: #4CAF50;
 }
 
@@ -133,13 +197,13 @@ button.action.svelte-wkkedv {
 }
 
 /* fakecss:/home/kyz/go/src/street/svelte/_components/ModalForm.esbuild-svelte-fake-css */
-.left.svelte-m81a1q {
+.left.svelte-7ka3kb {
   float: left;
 }
-.right.svelte-m81a1q {
+.right.svelte-7ka3kb {
   float: right;
 }
-.backdrop.svelte-m81a1q {
+.backdrop.svelte-7ka3kb {
   position: fixed;
   top: 0;
   left: 0;
@@ -148,7 +212,7 @@ button.action.svelte-wkkedv {
   height: 100%;
   opacity: .8;
 }
-.modal.svelte-m81a1q {
+.modal.svelte-7ka3kb {
   background-color: white;
   position: fixed;
   top: 20%;
@@ -162,26 +226,25 @@ button.action.svelte-wkkedv {
   padding: 1em;
   opacity: 1;
 }
-.title.svelte-m81a1q {
+.title.svelte-7ka3kb {
   font-weight: bold;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
-button.close.svelte-m81a1q {
+button.close.svelte-7ka3kb {
   float: right;
-  height: 2em;
 }
-label.svelte-m81a1q {
+label.svelte-7ka3kb {
   width: 12em;
   display: inline-block;
   text-align: right;
   margin-right: 1em;
 }
-.menu.svelte-1te8zdp.svelte-1te8zdp{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#333}.menu.svelte-1te8zdp li.svelte-1te8zdp{float:left}.menu.svelte-1te8zdp li a.svelte-1te8zdp{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.menu.svelte-1te8zdp li a.svelte-1te8zdp:hover:not(.active){background-color:#111}.menu.svelte-1te8zdp li button.svelte-1te8zdp{padding:0.5em}.active.svelte-1te8zdp.svelte-1te8zdp{background-color:#4CAF50}
+.menu.svelte-14j5e9r.svelte-14j5e9r{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#333}.menu.svelte-14j5e9r li.svelte-14j5e9r{float:left}.menu.svelte-14j5e9r li a.svelte-14j5e9r{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.menu.svelte-14j5e9r li a.svelte-14j5e9r:hover:not(.active){background-color:#111}.menu.svelte-14j5e9r li button.svelte-14j5e9r{padding:0.5em;margin:0.3em}.active.svelte-14j5e9r.svelte-14j5e9r{background-color:#4CAF50}
 .submenu.svelte-dk81xr.svelte-dk81xr{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#666}.submenu.svelte-dk81xr li.svelte-dk81xr{float:left}.submenu.svelte-dk81xr li a.svelte-dk81xr{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.submenu.svelte-dk81xr li a.svelte-dk81xr:hover:not(.active){background-color:#111}.active.svelte-dk81xr.svelte-dk81xr{background-color:#4CAF50}
-.left.svelte-m81a1q{float:left
-    }.right.svelte-m81a1q{float:right
-    }.backdrop.svelte-m81a1q{position:fixed;top:0;left:0;background:grey;width:100%;height:100%;opacity:.8}.modal.svelte-m81a1q{background-color:white;position:fixed;top:20%;left:50%;width:600px;margin-left:-300px;margin-top:0;overflow-y:auto;box-shadow:.25rem .25rem .5rem #DADADA, -.25rem -.25rem .5rem #FFF;border-radius:1em;padding:1em;opacity:1}.title.svelte-m81a1q{font-weight:bold;font-size:1.5em}button.close.svelte-m81a1q{float:right;height:2em}label.svelte-m81a1q{width:12em;display:inline-block;text-align:right;margin-right:1em}
-table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lzkscw,td.svelte-1lzkscw{border:1px solid black}input.perPage.svelte-1lzkscw{width:4em}span.left.svelte-1lzkscw{float:left}span.right.svelte-1lzkscw{float:right}button.action.svelte-1lzkscw{height:2em}</style>
+.left.svelte-7ka3kb{float:left
+    }.right.svelte-7ka3kb{float:right
+    }.backdrop.svelte-7ka3kb{position:fixed;top:0;left:0;background:grey;width:100%;height:100%;opacity:.8}.modal.svelte-7ka3kb{background-color:white;position:fixed;top:20%;left:50%;width:600px;margin-left:-300px;margin-top:0;overflow-y:auto;box-shadow:.25rem .25rem .5rem #DADADA, -.25rem -.25rem .5rem #FFF;border-radius:1em;padding:1em;opacity:1}.title.svelte-7ka3kb{font-weight:bold;font-size:1.2em}button.close.svelte-7ka3kb{float:right}label.svelte-7ka3kb{width:12em;display:inline-block;text-align:right;margin-right:1em}
+table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.svelte-wkkedv,th.svelte-wkkedv,td.svelte-wkkedv{border:1px solid black}input.perPage.svelte-wkkedv{width:4em}span.left.svelte-wkkedv{float:left}span.right.svelte-wkkedv{float:right}button.action.svelte-wkkedv{height:2em}</style>
 <script>(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -2797,8 +2860,8 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
     return {
       c() {
         li = element("li");
-        li.innerHTML = `<a href="/buyer" class="svelte-1te8zdp">Buyer</a>`;
-        attr(li, "class", "svelte-1te8zdp");
+        li.innerHTML = `<a href="/buyer" class="svelte-14j5e9r">Buyer</a>`;
+        attr(li, "class", "svelte-14j5e9r");
         toggle_class(
           li,
           "active",
@@ -2831,8 +2894,8 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
     return {
       c() {
         li = element("li");
-        li.innerHTML = `<a href="/realtor" class="svelte-1te8zdp">Realtor</a>`;
-        attr(li, "class", "svelte-1te8zdp");
+        li.innerHTML = `<a href="/realtor" class="svelte-14j5e9r">Realtor</a>`;
+        attr(li, "class", "svelte-14j5e9r");
         toggle_class(
           li,
           "active",
@@ -2865,8 +2928,8 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
     return {
       c() {
         li = element("li");
-        li.innerHTML = `<a href="/admin" class="svelte-1te8zdp">Admin</a>`;
-        attr(li, "class", "svelte-1te8zdp");
+        li.innerHTML = `<a href="/admin" class="svelte-14j5e9r">Admin</a>`;
+        attr(li, "class", "svelte-14j5e9r");
         toggle_class(
           li,
           "active",
@@ -2908,12 +2971,12 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         button.textContent = "Logout";
         t1 = space();
         li1 = element("li");
-        li1.innerHTML = `<a href="/user" class="svelte-1te8zdp">Profile</a>`;
-        attr(button, "class", "svelte-1te8zdp");
+        li1.innerHTML = `<a href="/user" class="svelte-14j5e9r">Profile</a>`;
+        attr(button, "class", "svelte-14j5e9r");
         set_style(li0, "float", "right");
-        attr(li0, "class", "svelte-1te8zdp");
+        attr(li0, "class", "svelte-14j5e9r");
         set_style(li1, "float", "right");
-        attr(li1, "class", "svelte-1te8zdp");
+        attr(li1, "class", "svelte-14j5e9r");
         toggle_class(
           li1,
           "active",
@@ -2986,7 +3049,7 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
       c() {
         ul = element("ul");
         li = element("li");
-        li.innerHTML = `<a href="/" class="svelte-1te8zdp">Home</a>`;
+        li.innerHTML = `<a href="/" class="svelte-14j5e9r">Home</a>`;
         t1 = space();
         if (if_block0)
           if_block0.c();
@@ -2999,14 +3062,14 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         t4 = space();
         if (if_block3)
           if_block3.c();
-        attr(li, "class", "svelte-1te8zdp");
+        attr(li, "class", "svelte-14j5e9r");
         toggle_class(
           li,
           "active",
           /*segment1*/
           ctx[1] === ""
         );
-        attr(ul, "class", "menu svelte-1te8zdp");
+        attr(ul, "class", "menu svelte-14j5e9r");
       },
       m(target, anchor) {
         insert(target, ul, anchor);
@@ -3641,19 +3704,19 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
     let t10;
     let span1;
     let button0;
-    let t11;
+    let i0;
     let button0_disabled_value;
-    let t12;
+    let t11;
     let button1;
-    let t13;
+    let i1;
     let button1_disabled_value;
-    let t14;
+    let t12;
     let button2;
-    let t15;
+    let i2;
     let button2_disabled_value;
-    let t16;
+    let t13;
     let button3;
-    let t17;
+    let i3;
     let button3_disabled_value;
     let th_colspan_value;
     let mounted;
@@ -3704,25 +3767,29 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         t10 = space();
         span1 = element("span");
         button0 = element("button");
-        t11 = text("|<");
-        t12 = space();
+        i0 = element("i");
+        t11 = space();
         button1 = element("button");
-        t13 = text("<");
-        t14 = space();
+        i1 = element("i");
+        t12 = space();
         button2 = element("button");
-        t15 = text(">");
-        t16 = space();
+        i2 = element("i");
+        t13 = space();
         button3 = element("button");
-        t17 = text(">|");
+        i3 = element("i");
         attr(input, "class", "perPage svelte-wkkedv");
         attr(input, "type", "number");
         attr(span0, "class", "left svelte-wkkedv");
+        attr(i0, "class", "gg-push-chevron-left");
         button0.disabled = button0_disabled_value = !/*allowPrevPage*/
         ctx[4];
+        attr(i1, "class", "gg-chevron-left");
         button1.disabled = button1_disabled_value = !/*allowPrevPage*/
         ctx[4];
+        attr(i2, "class", "gg-chevron-right");
         button2.disabled = button2_disabled_value = !/*allowNextPage*/
         ctx[3];
+        attr(i3, "class", "gg-push-chevron-right");
         button3.disabled = button3_disabled_value = !/*allowNextPage*/
         ctx[3];
         attr(span1, "class", "right svelte-wkkedv");
@@ -3769,16 +3836,16 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         append(th, t10);
         append(th, span1);
         append(span1, button0);
-        append(button0, t11);
-        append(span1, t12);
+        append(button0, i0);
+        append(span1, t11);
         append(span1, button1);
-        append(button1, t13);
-        append(span1, t14);
+        append(button1, i1);
+        append(span1, t12);
         append(span1, button2);
-        append(button2, t15);
-        append(span1, t16);
+        append(button2, i2);
+        append(span1, t13);
         append(span1, button3);
-        append(button3, t17);
+        append(button3, i3);
         if (!mounted) {
           dispose = [
             listen(
@@ -4095,20 +4162,20 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         button1.textContent = "Cancel";
         t11 = space();
         if_block.c();
-        attr(div0, "class", "backdrop svelte-m81a1q");
+        attr(div0, "class", "backdrop svelte-7ka3kb");
         attr(div1, "class", "modal_background");
         attr(button0, "tabindex", "0");
         attr(button0, "aria-label", "close");
         attr(button0, "title", "Close");
         attr(button0, "type", "button");
-        attr(button0, "class", "close svelte-m81a1q");
-        attr(div2, "class", "title svelte-m81a1q");
+        attr(button0, "class", "close svelte-7ka3kb");
+        attr(div2, "class", "title svelte-7ka3kb");
         attr(button1, "tabindex", "0");
-        attr(button1, "class", "left button secondary svelte-m81a1q");
+        attr(button1, "class", "left button secondary svelte-7ka3kb");
         attr(div3, "class", "layout-h");
         attr(div4, "class", "modal_content box -small");
         set_style(div4, "outline", "none");
-        attr(div5, "class", "modal svelte-m81a1q");
+        attr(div5, "class", "modal svelte-7ka3kb");
       },
       m(target, anchor) {
         insert(target, div0, anchor);
@@ -4292,7 +4359,7 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         br = element("br");
         attr(label, "for", label_for_value = "modalForm__" + /*field*/
         ctx[21].name);
-        attr(label, "class", "svelte-m81a1q");
+        attr(label, "class", "svelte-7ka3kb");
       },
       m(target, anchor) {
         insert(target, label, anchor);
@@ -4753,7 +4820,7 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         if_block.c();
         if_block_anchor = empty();
         attr(button, "tabindex", "0");
-        attr(button, "class", "right button primary svelte-m81a1q");
+        attr(button, "class", "right button primary svelte-7ka3kb");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -4801,7 +4868,7 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
       c() {
         span = element("span");
         span.textContent = "Saving..";
-        attr(span, "class", "right svelte-m81a1q");
+        attr(span, "class", "right svelte-7ka3kb");
       },
       m(target, anchor) {
         insert(target, span, anchor);
@@ -4822,7 +4889,7 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         button = element("button");
         button.textContent = "Delete";
         attr(button, "tabindex", "0");
-        attr(button, "class", "right button danger svelte-m81a1q");
+        attr(button, "class", "right button danger svelte-7ka3kb");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -4854,7 +4921,7 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         button = element("button");
         button.textContent = "Restore";
         attr(button, "tabindex", "0");
-        attr(button, "class", "right button orange svelte-m81a1q");
+        attr(button, "class", "right button orange svelte-7ka3kb");
       },
       m(target, anchor) {
         insert(target, button, anchor);

@@ -186,15 +186,12 @@
     h1 {
         text-align : center;
     }
-
-    /* pad label and input so they are equal in size */
+    
     label {
-        display    : inline-block;
-        padding    : 0.2em;
-        width      : 11em;
-        text-align : right;
+        text-align  : right;
     }
 
+    /* pad label and input so they are equal in size */
     span.label {
         width   : 11em;
         display : inline-block;
@@ -202,14 +199,7 @@
 
     input {
         width   : 16em;
-        padding : 0.1em;
         margin  : 0.2em
-    }
-
-    button {
-        margin-top    : 0.5em;
-        padding       : 0.3em;
-        border-radius : 0.3em;
     }
 
     * {

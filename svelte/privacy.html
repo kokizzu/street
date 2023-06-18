@@ -5,11 +5,11 @@
 <body>
 <style>
     html {
-        max-width: 99%;
-        padding     : 0.5em 0.5em;
+        max-width   : 99%;
+        padding     : 0.5rem 0.5rem;
         margin      : auto;
         line-height : 1.25;
-        font-size   : 1.25em;
+        font-size   : 1.25rem;
     }
 
     body {
@@ -19,13 +19,76 @@
     }
 
     h1, h2, h3, h4, h5, h6 {
-        margin : 0.5em 0 1em;
+        margin : 0.5rem 0 1rem;
     }
 
     p, ul, ol {
-        margin-bottom : 0.5em;
+        margin-bottom : 0.5rem;
         color         : #1D1D1D;
         font-family   : sans-serif;
+    }
+
+    button {
+        height           : 2rem;
+        padding          : 0.5rem;
+        font-weight      : bold;
+        font-size        : 1rem;
+        background-color : #BBB;
+        color            : black;
+        border-radius    : 0.6rem;
+    }
+
+    button.danger {
+        background-color : red;
+    }
+
+    button.danger:active, button.danger:hover {
+        background-color : darkred;
+    }
+
+    button.warning {
+        background-color : orange;
+    }
+
+    button.warning:active, button.warning:hover {
+        background-color : darkorange;
+    }
+
+    button.primary {
+        background-color : limegreen;
+    }
+
+    button.primary:active, button.primary:hover {
+        background-color : green;
+    }
+
+
+    button:disabled {
+        background-color : #777;
+        color            : #222;
+    }
+
+    button:active, button:hover {
+        background-color : #999;
+    }
+
+    input, select, textarea {
+        padding       : 0.1rem 0.5rem 0.1rem 0.5rem;
+        font-weight   : bold;
+        font-size     : 1rem;
+        border-radius : 0.5rem;
+    }
+
+    input[type="checkbox"] {
+        width  : 2rem;
+        height : 2rem;
+    }
+
+    label {
+        font-weight : bold;
+        display     : inline-block;
+        padding     : 0.2rem;
+        width       : 11rem;
     }
 </style>
 
