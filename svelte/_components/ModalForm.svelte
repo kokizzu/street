@@ -34,7 +34,6 @@
   }
   
   function deletePressed() {
-    if( !haveChanges() ) return cancelPressed();
     // TODO: change confirm below to show diff before save
     if( confirm( 'are you sure you want to delete this row?' ) ) {
       loading = true;
@@ -43,7 +42,6 @@
   }
   
   function restorePressed() {
-    if( !haveChanges() ) return cancelPressed();
     // TODO: change confirm below to show diff before save
     if( confirm( 'are you sure you want to restore this row?' ) ) {
       loading = true;
@@ -122,7 +120,7 @@
           <button tabindex='0' class='right button primary' on:click={savePressed}>Save</button>
           {#if row.id}
             {#if row.deletedAt>0}
-              <button tabindex='0' class='right button orange' on:click={restorePressed}>Restore</button>
+              <button tabindex='0' class='right button warning' on:click={restorePressed}>Restore</button>
             {:else}
               <button tabindex='0' class='right button danger' on:click={deletePressed}>Delete</button>
             {/if}

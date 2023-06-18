@@ -6,6 +6,16 @@
   export let rows = []; // 2 dimension array
   export let pager = {}; // pagination
   
+  $: deletedAtIdx = (function() {
+    for( let z = 0; z<fields.length; z++ ) {
+      let field = fields[ z ];
+      if( field.name=='deletedAt' ) {
+        return z;
+      }
+    }
+    return -1;
+  })();
+  
   const dispatch = createEventDispatcher();
   
   function gotoPage( page ) {
@@ -43,10 +53,11 @@
   </thead>
   <tbody>
   {#each rows as row, no}
-    <tr>
+    <tr class:deleted={row[deletedAtIdx]>0}>
       {#each fields as field, i}
         {#if field.name==='id'}
           <td>
+            {row[deletedAtIdx]>0}
             <button class='action' on:click={() => editRow(row[i])}>
               <i class='gg-pen' />
             </button>
@@ -93,8 +104,8 @@
 <style>
     table {
         border-collapse : collapse;
-        width: 100%;
-        margin-top: 1em;
+        width           : 100%;
+        margin-top      : 1em;
     }
 
     table, th, td {
@@ -115,5 +126,10 @@
 
     button.action {
         height : 2em;
+    }
+
+    tr.deleted td {
+        text-decoration : line-through;
+        color           : red;
     }
 </style>

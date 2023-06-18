@@ -150,6 +150,16 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 				out.SetError(400, ErrAdminUserIdNotFound)
 				return
 			}
+
+			if in.Action == zCrud.ActionDelete {
+				if user.DeletedAt == 0 {
+					user.SetDeletedAt(in.UnixNow())
+				}
+			} else if in.Action == zCrud.ActionRestore {
+				if user.DeletedAt > 0 {
+					user.SetDeletedAt(0)
+				}
+			}
 		} else {
 			user.SetCreatedAt(in.UnixNow())
 		}
