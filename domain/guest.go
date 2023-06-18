@@ -86,10 +86,11 @@ func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Email = in.Email
 	user.SetEncryptedPassword(in.Password, in.UnixNow())
-	user.CreatedAt = in.UnixNow()
-	user.UpdatedAt = in.UnixNow()
 	user.SecretCode = id64.SID() + S.RandomCB63(1)
 	user.SetGenUniqueUsernameByEmail(in.Email, in.UnixNow())
+
+	user.SetUpdatedAt(in.UnixNow())
+	user.SetCreatedAt(in.UnixNow())
 	if !user.DoInsert() {
 		out.SetError(500, ErrGuestRegisterUserCreationFailed)
 		return
@@ -162,6 +163,7 @@ func (d *Domain) GuestVerifyEmail(in *GuestVerifyEmailIn) (out GuestVerifyEmailO
 	user.SetSecretCode(``)
 	user.SetSecretCodeAt(0)
 
+	user.SetUpdatedAt(in.UnixNow())
 	if !user.DoUpdateById() {
 		out.SetError(500, ErrGuestVerifyEmailModificationFailed)
 		return
@@ -221,6 +223,7 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 		return
 	}
 	user.SetLastLoginAt(in.UnixNow())
+	user.SetUpdatedAt(in.UnixNow())
 	if !user.DoUpsert() {
 		out.AddTrace(WarnFailedSetLastLoginAt)
 		return
@@ -300,6 +303,7 @@ func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgot
 		// TODO: insert failed event to clickhouse
 	})
 
+	user.SetUpdatedAt(in.UnixNow())
 	if !user.DoUpdateById() {
 		guestForgotPasswordLock.Unlock(in.Email)
 		out.SetError(500, ErrGuestForgotPasswordModificationFailed)
@@ -370,6 +374,7 @@ func (d *Domain) GuestResetPassword(in *GuestResetPasswordIn) (out GuestResetPas
 	user.SetSecretCodeAt(0)
 	user.SetEncryptedPassword(in.Password, in.UnixNow())
 
+	user.SetUpdatedAt(in.UnixNow())
 	if !user.DoUpdateById() {
 		out.SetError(500, ErrGuestResetPasswordModificationFailed)
 		return
@@ -445,6 +450,7 @@ func (d *Domain) GuestResendVerificationEmail(in *GuestResendVerificationEmailIn
 		// TODO: insert failed event to clickhouse
 	})
 
+	user.SetUpdatedAt(in.UnixNow())
 	if !user.DoUpdateById() {
 		guestResendVerificationEmailLock.Unlock(in.Email)
 		out.SetError(500, ErrGuestResendVerificationEmailModificationFailed)
@@ -610,7 +616,10 @@ func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCal
 		// create user if not exists
 		user.VerifiedAt = in.UnixNow()
 		user.SetGenUniqueUsernameByEmail(user.Email, in.UnixNow())
+		user.SetLastLoginAt(in.UnixNow())
 
+		user.SetUpdatedAt(in.UnixNow())
+		user.SetCreatedAt(in.UnixNow())
 		if !user.DoInsert() {
 			out.SetError(500, ErrGuestOauthCallbackFailedUserCreation)
 			return
@@ -623,7 +632,9 @@ func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCal
 		if user.VerifiedAt == 0 {
 			user.SetVerifiedAt(in.UnixNow())
 		}
+		user.SetLastLoginAt(in.UnixNow())
 
+		user.SetUpdatedAt(in.UnixNow())
 		if !user.DoUpdateById() {
 			out.SetError(500, ErrGuestOauthCallbackFailedUserModification)
 			return

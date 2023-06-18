@@ -62,6 +62,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Unique1:          Email,
 		Unique2:          UserName, // after migration setting default usernames code done
 		AutoCensorFields: []string{Password, SecretCode, SecretCodeAt},
+		Engine:           Tt.Memtx,
 	},
 	TableSessions: {
 		Fields: []Tt.Field{
@@ -73,6 +74,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{LoginIPs, Tt.String},
 		},
 		Unique1: SessionToken,
+		Engine:  Tt.Memtx,
 	},
 }
 

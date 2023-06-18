@@ -19,6 +19,7 @@ import (
 	"street/domain"
 	"street/model"
 	"street/model/xMailer"
+	"street/model/zUpgrade"
 	"street/presentation"
 )
 
@@ -162,6 +163,8 @@ func main() {
 
 		// fmt.Println(p)
 		model.ImportExcelData(tConn, p)
+	case `upgradememtx`:
+		zUpgrade.UserSessionToMemtx(tConn)
 	default:
 		log.Error().Str(`mode`, mode).Msg(`unknown mode`)
 	}

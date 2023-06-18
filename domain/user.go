@@ -124,6 +124,7 @@ func (d *Domain) UserChangePassword(in *UserChangePasswordIn) (out UserChangePas
 	}
 
 	user.SetEncryptedPassword(in.NewPass, in.UnixNow())
+	user.SetUpdatedAt(in.UnixNow())
 	if !user.DoUpdateById() {
 		out.SetError(500, ErrUserChangePasswordSaveUserFailed)
 		return

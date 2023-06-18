@@ -1,8 +1,6 @@
 package domain
 
 import (
-	"github.com/kokizzu/gotro/L"
-
 	"street/model/mAuth/rqAuth"
 	"street/model/mAuth/saAuth"
 	"street/model/mAuth/wcAuth"
@@ -179,9 +177,10 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 		if user.HaveMutation() {
 			user.SetUpdatedAt(in.UnixNow())
 			user.SetUpdatedBy(sess.UserId)
+			if user.Id == 0 {
+				user.SetCreatedAt(in.UnixNow())
+			}
 		}
-		L.Describe(user)
-
 		if !user.DoUpsert() {
 			out.SetError(500, ErrAdminUserSaveFailed)
 			break
