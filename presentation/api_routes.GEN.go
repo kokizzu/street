@@ -10,13 +10,13 @@ import (
 
 func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 
-	// AdminUserCrud
-	fw.Post("/"+domain.AdminUserCrudAction, func(c *fiber.Ctx) error {
-		in := domain.AdminUserCrudIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.AdminUserCrudAction); err != nil {
+	// AdminUsers
+	fw.Post("/"+domain.AdminUsersAction, func(c *fiber.Ctx) error {
+		in := domain.AdminUsersIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.AdminUsersAction); err != nil {
 			return err
 		}
-		out := d.AdminUserCrud(&in)
+		out := d.AdminUsers(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

@@ -11,6 +11,9 @@ import (
 
 var viewList = map[string]string{
 	`Admin`: `../svelte/admin.html`, // ../svelte/admin.svelte
+	`AdminActionLogs`: `../svelte/admin/actionLogs.html`, // ../svelte/admin/actionLogs.svelte
+	`AdminSessions`: `../svelte/admin/sessions.html`, // ../svelte/admin/sessions.svelte
+	`AdminUsers`: `../svelte/admin/users.html`, // ../svelte/admin/users.svelte
 	`Buyer`: `../svelte/buyer.html`, // ../svelte/buyer.svelte
 	`GuestOauthCallback`: `../svelte/guest/oauthCallback.html`, // ../svelte/guest/oauthCallback.svelte
 	`GuestResetPassword`: `../svelte/guest/resetPassword.html`, // ../svelte/guest/resetPassword.svelte
@@ -26,6 +29,21 @@ var viewList = map[string]string{
 func (v *Views) RenderAdmin(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html")
 	return c.SendString(v.cache[`Admin`].Str(m))
+}
+
+func (v *Views) RenderAdminActionLogs(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html")
+	return c.SendString(v.cache[`AdminActionLogs`].Str(m))
+}
+
+func (v *Views) RenderAdminSessions(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html")
+	return c.SendString(v.cache[`AdminSessions`].Str(m))
+}
+
+func (v *Views) RenderAdminUsers(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html")
+	return c.SendString(v.cache[`AdminUsers`].Str(m))
 }
 
 func (v *Views) RenderBuyer(c *fiber.Ctx, m M.SX) error {

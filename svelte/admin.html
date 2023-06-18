@@ -755,17 +755,23 @@ admin content goes here</main><script>document.getElementById('app').innerHTML='
   // admin.svelte
   function create_fragment2(ctx) {
     let menu;
-    let t;
+    let t0;
+    let ul;
     let current;
     menu = new menu_default({ props: { access: segments } });
     return {
       c() {
         create_component(menu.$.fragment);
-        t = text("\nadmin content goes here");
+        t0 = space();
+        ul = element("ul");
+        ul.innerHTML = `<li><a href="/admin/users">Users</a></li> 
+  <li><a href="/admin/sessions">Sessions</a></li> 
+  <li><a href="/admin/actionLogs">Sessions</a></li>`;
       },
       m(target, anchor) {
         mount_component(menu, target, anchor);
-        insert(target, t, anchor);
+        insert(target, t0, anchor);
+        insert(target, ul, anchor);
         current = true;
       },
       p: noop,
@@ -782,7 +788,9 @@ admin content goes here</main><script>document.getElementById('app').innerHTML='
       d(detaching) {
         destroy_component(menu, detaching);
         if (detaching)
-          detach(t);
+          detach(t0);
+        if (detaching)
+          detach(ul);
       }
     };
   }

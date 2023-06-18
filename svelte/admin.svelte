@@ -6,4 +6,8 @@
 </script>
 
 <Menu access={segments}/>
-admin content goes here
+<ul>
+  <li><a href="/admin/users">Users</a></li>
+  <li><a href="/admin/sessions">Sessions</a></li>
+  <li><a href="/admin/actionLogs">Sessions</a></li>
+</ul>
