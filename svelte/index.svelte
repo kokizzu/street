@@ -1,5 +1,5 @@
 <script>
-  import {GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail, UserLogout} from "./jsApi.GEN.js"
+  import {GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail} from "./jsApi.GEN.js"
   import {onMount, tick} from "svelte";
   import Menu from "./_components/menu.svelte"
   
@@ -109,23 +109,12 @@
       alert( 'a reset password link has been sent to your email' )
     } )
   }
-  
-  async function userLogout() {
-    await UserLogout( {}, function( o ) {
-      console.log( o )
-      if( o.error ) return alert( o.error );
-      window.location = '/'
-    } )
-  }
-
 </script>
 
 <svelte:window on:hashchange={onHashChange}/>
 {#if mode===USER}
 	<Menu access={segments} />
 	already logged in
-	<button on:click={userLogout}>Logout</button>
-	
 	<hr/>
 	TODO: import other svelte component here (menu, content, etc)
 {:else}

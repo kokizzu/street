@@ -220,12 +220,12 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 		out.SetError(400, ErrGuestLoginPasswordOrEmailIncorrect)
 		return
 	}
-	user.CensorFields()
 	user.SetLastLoginAt(in.UnixNow())
-	if !user.DoOverwriteById() {
+	if !user.DoUpsert() {
 		out.AddTrace(WarnFailedSetLastLoginAt)
 		return
 	}
+	user.CensorFields()
 	out.User = &user.Users
 	session, sess := d.createSession(user.Id, user.Email, in.UserAgent)
 

@@ -1,33 +1,47 @@
 <script>
-  import {onMount} from "svelte";
+  import { onMount } from 'svelte';
+  import { UserLogout } from '../jsApi.GEN.js';
   
   export let access = {
-    "admin": false,
-    "buyer": false,
-    "realtor": false,
-    "user": false
-  }
+    'admin': false,
+    'buyer': false,
+    'realtor': false,
+    'user': false,
+  };
   
   let segment;
-  onMount(() => {
-    segment = ((window || {}).location + '').split('/')[4] // [http, '', domain, first-segment]
-  })
+  onMount( () => {
+    segment = ((window || {}).location + '').split( '/' )[ 4 ]; // [http, '', domain, first-segment]
+  } );
+  
+  async function userLogout() {
+    await UserLogout( {}, function( o ) {
+      console.log( o );
+      if( o.error ) return alert( o.error );
+      window.location = '/';
+    } );
+  }
 </script>
 
-<ul class="menu">
-		<li class:active={segment === ''}><a href="/">Home</a></li>
-	{#if access.buyer }
-		<li class:active={segment === 'buyer'}><a href="/buyer">Buyer</a></li>
-	{/if}
-	{#if access.realtor}
-		<li class:active={segment === 'realtor'}><a href="/realtor">Realtor</a></li>
-	{/if}
-	{#if access.admin }
-		<li class:active={segment === 'admin'}><a href="/admin">Admin</a></li>
-	{/if}
-	{#if access.user}
-		<li class:active={segment === 'user'} style="float: right"><a href="/user">Profile</a></li>
-	{/if}
+<ul class='menu'>
+  <li class:active={segment === ''}><a href='/'>Home</a></li>
+  {#if access.buyer }
+    <li class:active={segment === 'buyer'}><a href='/buyer'>Buyer</a></li>
+  {/if}
+  {#if access.realtor}
+    <li class:active={segment === 'realtor'}><a href='/realtor'>Realtor</a></li>
+  {/if}
+  {#if access.admin }
+    <li class:active={segment === 'admin'}><a href='/admin'>Admin</a></li>
+  {/if}
+  {#if access.user}
+    <li style='float:right'>
+      <button on:click={userLogout}>Logout</button>
+    </li>
+    <li class:active={segment === 'user'} style='float:right'>
+      <a href='/user'>Profile</a>
+    </li>
+  {/if}
 </ul>
 
 <style>
@@ -57,6 +71,10 @@
 
     .menu li a.active {
         float : right;
+    }
+
+    .menu li button {
+        padding : 0.5em;
     }
 
     .active {
