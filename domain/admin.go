@@ -4,6 +4,7 @@ import (
 	"github.com/kokizzu/gotro/L"
 
 	"street/model/mAuth/rqAuth"
+	"street/model/mAuth/saAuth"
 	"street/model/mAuth/wcAuth"
 	"street/model/zCrud"
 )
@@ -178,5 +179,41 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 		out.Users = r.FindByPagination(&AdminUsersMeta, &in.Pager, &out.Pager)
 	}
 
+	return
+}
+
+type (
+	AdminDashboardIn struct {
+		RequestCommon
+	}
+
+	AdminDashboardOut struct {
+		ResponseCommon
+
+		RegisteredUserTotal int64
+
+		RequestsPerDate   map[string]int
+		UniqueUserPerDate map[string]int
+		UniqueIpPerDate   map[string]int
+
+		CountPerActionsPerDate map[string]map[string]int
+	}
+)
+
+const (
+	AdminDashboardAction = `admin/dashboard`
+)
+
+func (d *Domain) AdminDashboard(in *AdminDashboardIn) (out AdminDashboardOut) {
+
+	rq := rqAuth.NewUsers(d.AuthOltp)
+	out.RegisteredUserTotal = rq.Total()
+
+	sa := saAuth.NewActionLogs(d.AuthOlap)
+	out.RequestsPerDate = sa.StatRequestsPerDate()
+	out.UniqueUserPerDate = sa.StatUniqueUserPerDate()
+	out.UniqueIpPerDate = sa.StatUniqueIpPerDate()
+
+	out.CountPerActionsPerDate = sa.StatPerActionsPerDate()
 	return
 }

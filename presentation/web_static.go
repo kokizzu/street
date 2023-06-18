@@ -110,9 +110,17 @@ func WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return nil
 		}
+		out := d.AdminDashboard(&domain.AdminDashboardIn{
+			RequestCommon: in.RequestCommon,
+		})
 		return views.RenderAdmin(ctx, M.SX{
-			`title`:    `Admin`,
-			`segments`: segments,
+			`title`:                  `Admin`,
+			`segments`:               segments,
+			`uniqueIpPerDate`:        out.UniqueIpPerDate,
+			`requestsPerDate`:        out.RequestsPerDate,
+			`uniqueUserPerDate`:      out.UniqueUserPerDate,
+			`registeredUserTotal`:    out.RegisteredUserTotal,
+			`countPerActionsPerDate`: out.CountPerActionsPerDate,
 		})
 	})
 	fw.Get(`/admin/users`, func(ctx *fiber.Ctx) error {

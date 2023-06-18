@@ -87,7 +87,7 @@
           {#if field.inputType==='hidden'}
             <input type='hidden' bind:value={row[field.name]} />
           {:else}
-            <label>{field.label}</label>
+            <label for='modalForm__{field.name}'>{field.label}</label>
             {#if field.readOnly}
               {#if field.inputType==='datetime'}
                 <span>{datetime( row[ field.name ] )}</span>
@@ -95,13 +95,12 @@
                 <span>{row[ field.name ]}</span>
               {/if}
             {:else}
-              {#if field.inputType==='text'}
-                <input type='text' bind:value={row[field.name]} />
-              {:else if field.inputType==='textarea'}
-                <textarea bind:value={row[field.name]}></textarea>
+              {#if field.inputType==='textarea'}
+                <textarea id='modalForm__{field.name}' bind:value={row[field.name]}></textarea>
               {:else if field.inputType==='number'}
-                <input type='number' bind:value={row[field.name]} />
+                <input id='modalForm__{field.name}' type='number' bind:value={row[field.name]} />
               {:else}
+                <input id='modalForm__{field.name}' type='text' bind:value={row[field.name]} />
               {/if}
             {/if}
             <br />

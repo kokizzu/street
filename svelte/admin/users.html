@@ -39,8 +39,8 @@
 </ul>
 <ul class="submenu svelte-dk81xr"><li class="svelte-dk81xr"><a href="/admin" class="svelte-dk81xr">Dashboard</a></li>
   <li class="svelte-dk81xr"><a href="/admin/users" class="svelte-dk81xr">Users</a></li>
-  <li class="svelte-dk81xr"><a href="/admin/sessions" class="svelte-dk81xr">Sessions</a></li>
-  <li class="svelte-dk81xr"><a href="/admin/actionLogs" class="svelte-dk81xr">Action Logs</a></li>
+
+
 </ul>
 
 <table class="svelte-1lzkscw"><thead><tr></tr></thead>
@@ -177,9 +177,9 @@ label.svelte-m81a1q {
 }
 .menu.svelte-1te8zdp.svelte-1te8zdp{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#333}.menu.svelte-1te8zdp li.svelte-1te8zdp{float:left}.menu.svelte-1te8zdp li a.svelte-1te8zdp{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.menu.svelte-1te8zdp li a.svelte-1te8zdp:hover:not(.active){background-color:#111}.menu.svelte-1te8zdp li button.svelte-1te8zdp{padding:0.5em}.active.svelte-1te8zdp.svelte-1te8zdp{background-color:#4CAF50}
 .submenu.svelte-dk81xr.svelte-dk81xr{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#666}.submenu.svelte-dk81xr li.svelte-dk81xr{float:left}.submenu.svelte-dk81xr li a.svelte-dk81xr{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.submenu.svelte-dk81xr li a.svelte-dk81xr:hover:not(.active){background-color:#111}.active.svelte-dk81xr.svelte-dk81xr{background-color:#4CAF50}
-.left.svelte-9fgd8u{float:left
-    }.right.svelte-9fgd8u{float:right
-    }.backdrop.svelte-9fgd8u{position:fixed;top:0;left:0;background:grey;width:100%;height:100%;opacity:.8}.modal.svelte-9fgd8u{background-color:white;position:fixed;top:20%;left:50%;width:600px;margin-left:-300px;margin-top:0;overflow-y:auto;box-shadow:.25rem .25rem .5rem #DADADA, -.25rem -.25rem .5rem #FFF;border-radius:1em;padding:1em;opacity:1}.title.svelte-9fgd8u{font-weight:bold;font-size:1.5em}button.close.svelte-9fgd8u{float:right;height:2em}label.svelte-9fgd8u{width:8em}
+.left.svelte-m81a1q{float:left
+    }.right.svelte-m81a1q{float:right
+    }.backdrop.svelte-m81a1q{position:fixed;top:0;left:0;background:grey;width:100%;height:100%;opacity:.8}.modal.svelte-m81a1q{background-color:white;position:fixed;top:20%;left:50%;width:600px;margin-left:-300px;margin-top:0;overflow-y:auto;box-shadow:.25rem .25rem .5rem #DADADA, -.25rem -.25rem .5rem #FFF;border-radius:1em;padding:1em;opacity:1}.title.svelte-m81a1q{font-weight:bold;font-size:1.5em}button.close.svelte-m81a1q{float:right;height:2em}label.svelte-m81a1q{width:12em;display:inline-block;text-align:right;margin-right:1em}
 table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lzkscw,td.svelte-1lzkscw{border:1px solid black}input.perPage.svelte-1lzkscw{width:4em}span.left.svelte-1lzkscw{float:left}span.right.svelte-1lzkscw{float:right}button.action.svelte-1lzkscw{height:2em}</style>
 <script>(() => {
   var __create = Object.create;
@@ -2403,6 +2403,9 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
   function empty() {
     return text("");
   }
+  function comment(content) {
+    return document.createComment(content);
+  }
   function listen(node, event, handler, options) {
     node.addEventListener(event, handler, options);
     return () => node.removeEventListener(event, handler, options);
@@ -3147,9 +3150,9 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
     let t1;
     let li1;
     let t3;
-    let li2;
-    let t5;
-    let li3;
+    let c0;
+    let t4;
+    let c1;
     return {
       c() {
         ul = element("ul");
@@ -3159,11 +3162,9 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         li1 = element("li");
         li1.innerHTML = `<a href="/admin/users" class="svelte-dk81xr">Users</a>`;
         t3 = space();
-        li2 = element("li");
-        li2.innerHTML = `<a href="/admin/sessions" class="svelte-dk81xr">Sessions</a>`;
-        t5 = space();
-        li3 = element("li");
-        li3.innerHTML = `<a href="/admin/actionLogs" class="svelte-dk81xr">Action Logs</a>`;
+        c0 = comment(`  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>`);
+        t4 = space();
+        c1 = comment(`  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>`);
         attr(li0, "class", "svelte-dk81xr");
         toggle_class(
           li0,
@@ -3178,20 +3179,6 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
           /*segment2*/
           ctx[0] === "users"
         );
-        attr(li2, "class", "svelte-dk81xr");
-        toggle_class(
-          li2,
-          "active",
-          /*segment2*/
-          ctx[0] === "sessions"
-        );
-        attr(li3, "class", "svelte-dk81xr");
-        toggle_class(
-          li3,
-          "active",
-          /*segment2*/
-          ctx[0] === "actionLogs"
-        );
         attr(ul, "class", "submenu svelte-dk81xr");
       },
       m(target, anchor) {
@@ -3200,9 +3187,9 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         append(ul, t1);
         append(ul, li1);
         append(ul, t3);
-        append(ul, li2);
-        append(ul, t5);
-        append(ul, li3);
+        append(ul, c0);
+        append(ul, t4);
+        append(ul, c1);
       },
       p(ctx2, [dirty]) {
         if (dirty & /*segment2*/
@@ -3221,24 +3208,6 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
             "active",
             /*segment2*/
             ctx2[0] === "users"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            li2,
-            "active",
-            /*segment2*/
-            ctx2[0] === "sessions"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            li3,
-            "active",
-            /*segment2*/
-            ctx2[0] === "actionLogs"
           );
         }
       },
@@ -4288,6 +4257,7 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
       ctx[21].label + ""
     );
     let t0;
+    let label_for_value;
     let t1;
     let t2;
     let br;
@@ -4299,19 +4269,14 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         return create_if_block_4;
       if (
         /*field*/
-        ctx2[21].inputType === "text"
+        ctx2[21].inputType === "textarea"
       )
         return create_if_block_6;
       if (
         /*field*/
-        ctx2[21].inputType === "textarea"
-      )
-        return create_if_block_7;
-      if (
-        /*field*/
         ctx2[21].inputType === "number"
       )
-        return create_if_block_8;
+        return create_if_block_7;
       return create_else_block_4;
     }
     let current_block_type = select_block_type_1(ctx, -1);
@@ -4324,6 +4289,8 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         if_block.c();
         t2 = space();
         br = element("br");
+        attr(label, "for", label_for_value = "modalForm__" + /*field*/
+        ctx[21].name);
         attr(label, "class", "svelte-m81a1q");
       },
       m(target, anchor) {
@@ -4339,6 +4306,11 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         8 && t0_value !== (t0_value = /*field*/
         ctx2[21].label + ""))
           set_data(t0, t0_value);
+        if (dirty & /*fields*/
+        8 && label_for_value !== (label_for_value = "modalForm__" + /*field*/
+        ctx2[21].name)) {
+          attr(label, "for", label_for_value);
+        }
         if (current_block_type === (current_block_type = select_block_type_1(ctx2, dirty)) && if_block) {
           if_block.p(ctx2, dirty);
         } else {
@@ -4417,10 +4389,8 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
     };
   }
   function create_else_block_4(ctx) {
-    return { c: noop, m: noop, p: noop, d: noop };
-  }
-  function create_if_block_8(ctx) {
     let input;
+    let input_id_value;
     let mounted;
     let dispose;
     function input_input_handler_2() {
@@ -4433,7 +4403,9 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
     return {
       c() {
         input = element("input");
-        attr(input, "type", "number");
+        attr(input, "id", input_id_value = "modalForm__" + /*field*/
+        ctx[21].name);
+        attr(input, "type", "text");
       },
       m(target, anchor) {
         insert(target, input, anchor);
@@ -4452,6 +4424,76 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
+        if (dirty & /*fields*/
+        8 && input_id_value !== (input_id_value = "modalForm__" + /*field*/
+        ctx[21].name)) {
+          attr(input, "id", input_id_value);
+        }
+        if (dirty & /*row, fields*/
+        12 && input.value !== /*row*/
+        ctx[2][
+          /*field*/
+          ctx[21].name
+        ]) {
+          set_input_value(
+            input,
+            /*row*/
+            ctx[2][
+              /*field*/
+              ctx[21].name
+            ]
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching)
+          detach(input);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_7(ctx) {
+    let input;
+    let input_id_value;
+    let mounted;
+    let dispose;
+    function input_input_handler_1() {
+      ctx[17].call(
+        input,
+        /*field*/
+        ctx[21]
+      );
+    }
+    return {
+      c() {
+        input = element("input");
+        attr(input, "id", input_id_value = "modalForm__" + /*field*/
+        ctx[21].name);
+        attr(input, "type", "number");
+      },
+      m(target, anchor) {
+        insert(target, input, anchor);
+        set_input_value(
+          input,
+          /*row*/
+          ctx[2][
+            /*field*/
+            ctx[21].name
+          ]
+        );
+        if (!mounted) {
+          dispose = listen(input, "input", input_input_handler_1);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (dirty & /*fields*/
+        8 && input_id_value !== (input_id_value = "modalForm__" + /*field*/
+        ctx[21].name)) {
+          attr(input, "id", input_id_value);
+        }
         if (dirty & /*row, fields*/
         12 && to_number(input.value) !== /*row*/
         ctx[2][
@@ -4476,12 +4518,13 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
       }
     };
   }
-  function create_if_block_7(ctx) {
+  function create_if_block_6(ctx) {
     let textarea;
+    let textarea_id_value;
     let mounted;
     let dispose;
     function textarea_input_handler() {
-      ctx[17].call(
+      ctx[16].call(
         textarea,
         /*field*/
         ctx[21]
@@ -4490,6 +4533,8 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
     return {
       c() {
         textarea = element("textarea");
+        attr(textarea, "id", textarea_id_value = "modalForm__" + /*field*/
+        ctx[21].name);
       },
       m(target, anchor) {
         insert(target, textarea, anchor);
@@ -4508,6 +4553,11 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
+        if (dirty & /*fields*/
+        8 && textarea_id_value !== (textarea_id_value = "modalForm__" + /*field*/
+        ctx[21].name)) {
+          attr(textarea, "id", textarea_id_value);
+        }
         if (dirty & /*row, fields*/
         12) {
           set_input_value(
@@ -4523,63 +4573,6 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
       d(detaching) {
         if (detaching)
           detach(textarea);
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block_6(ctx) {
-    let input;
-    let mounted;
-    let dispose;
-    function input_input_handler_1() {
-      ctx[16].call(
-        input,
-        /*field*/
-        ctx[21]
-      );
-    }
-    return {
-      c() {
-        input = element("input");
-        attr(input, "type", "text");
-      },
-      m(target, anchor) {
-        insert(target, input, anchor);
-        set_input_value(
-          input,
-          /*row*/
-          ctx[2][
-            /*field*/
-            ctx[21].name
-          ]
-        );
-        if (!mounted) {
-          dispose = listen(input, "input", input_input_handler_1);
-          mounted = true;
-        }
-      },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-        if (dirty & /*row, fields*/
-        12 && input.value !== /*row*/
-        ctx[2][
-          /*field*/
-          ctx[21].name
-        ]) {
-          set_input_value(
-            input,
-            /*row*/
-            ctx[2][
-              /*field*/
-              ctx[21].name
-            ]
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching)
-          detach(input);
         mounted = false;
         dispose();
       }
@@ -5008,16 +5001,16 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
       row[field.name] = this.value;
       $invalidate(2, row);
     }
-    function input_input_handler_1(field) {
-      row[field.name] = this.value;
-      $invalidate(2, row);
-    }
     function textarea_input_handler(field) {
       row[field.name] = this.value;
       $invalidate(2, row);
     }
-    function input_input_handler_2(field) {
+    function input_input_handler_1(field) {
       row[field.name] = to_number(this.value);
+      $invalidate(2, row);
+    }
+    function input_input_handler_2(field) {
+      row[field.name] = this.value;
       $invalidate(2, row);
     }
     $self.$set = ($props2) => {
@@ -5053,8 +5046,8 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
       $scope,
       slots,
       input_input_handler,
-      input_input_handler_1,
       textarea_input_handler,
+      input_input_handler_1,
       input_input_handler_2
     ];
   }
