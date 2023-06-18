@@ -57,7 +57,6 @@
       {#each fields as field, i}
         {#if field.name==='id'}
           <td>
-            {row[deletedAtIdx]>0}
             <button class='action' on:click={() => editRow(row[i])}>
               <i class='gg-pen' />
             </button>

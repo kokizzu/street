@@ -3519,22 +3519,13 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
   }
   function create_if_block2(ctx) {
     let td;
-    let t0_value = (
-      /*row*/
-      (ctx[17][
-        /*deletedAtIdx*/
-        ctx[5]
-      ] > 0) + ""
-    );
-    let t0;
-    let t1;
     let button;
-    let t2;
-    let t3_value = (
+    let t0;
+    let t1_value = (
       /*no*/
       ctx[19] + 1 + ""
     );
-    let t3;
+    let t1;
     let mounted;
     let dispose;
     function click_handler() {
@@ -3551,22 +3542,18 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
     return {
       c() {
         td = element("td");
-        t0 = text(t0_value);
-        t1 = space();
         button = element("button");
         button.innerHTML = `<i class="gg-pen"></i>`;
-        t2 = space();
-        t3 = text(t3_value);
+        t0 = space();
+        t1 = text(t1_value);
         attr(button, "class", "action svelte-1o1btri");
         attr(td, "class", "svelte-1o1btri");
       },
       m(target, anchor) {
         insert(target, td, anchor);
+        append(td, button);
         append(td, t0);
         append(td, t1);
-        append(td, button);
-        append(td, t2);
-        append(td, t3);
         if (!mounted) {
           dispose = listen(button, "click", click_handler);
           mounted = true;
@@ -3574,13 +3561,6 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
-        if (dirty & /*rows, deletedAtIdx*/
-        36 && t0_value !== (t0_value = /*row*/
-        (ctx[17][
-          /*deletedAtIdx*/
-          ctx[5]
-        ] > 0) + ""))
-          set_data(t0, t0_value);
       },
       d(detaching) {
         if (detaching)
@@ -3679,8 +3659,8 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         append(tr, t);
       },
       p(ctx2, dirty) {
-        if (dirty & /*editRow, rows, deletedAtIdx, fields, datetime*/
-        294) {
+        if (dirty & /*editRow, rows, fields, datetime*/
+        262) {
           each_value_1 = /*fields*/
           ctx2[1];
           let i;
