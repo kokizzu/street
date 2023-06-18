@@ -21,7 +21,7 @@ type (
 		// for modifying user
 		User rqAuth.Users `json:"user" form:"user" query:"user" long:"user" msg:"user"`
 
-		// will filled by default with form id=0
+		// will be filled by default with form id=0
 		WithMeta bool `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
 
 		Pager zCrud.PagerIn
@@ -34,7 +34,7 @@ type (
 		Meta *zCrud.Meta `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 
 		// modified user or form user
-		User rqAuth.Users `json:"user" form:"user" query:"user" long:"user" msg:"user"`
+		User *rqAuth.Users `json:"user" form:"user" query:"user" long:"user" msg:"user"`
 
 		// listing
 		Users [][]any `json:"users" form:"users" query:"users" long:"users" msg:"users"`
@@ -136,6 +136,8 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 		if !user.FindById() {
 			out.SetError(400, ErrAdminUserIdNotFound)
 		}
+		user.CensorFields()
+		out.User = user
 	case zCrud.ActionUpsert, zCrud.ActionDelete, zCrud.ActionRestore:
 
 		user := wcAuth.NewUsersMutator(d.AuthOltp)
@@ -155,6 +157,9 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 			out.SetError(500, ErrAdminUserSaveFailed)
 			break
 		}
+
+		user.CensorFields()
+		out.User = &user.Users
 
 		fallthrough
 	case zCrud.ActionList:

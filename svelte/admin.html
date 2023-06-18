@@ -1,5 +1,6 @@
 <html><head>
   <title>/*! title */</title>
+  <link href="/css.gg.css" rel="stylesheet">
 </head>
 <body>
 <style>
@@ -30,7 +31,7 @@
 </style>
 
 
-<main id="app"><ul class="menu svelte-1n6rn51"><li class="svelte-1n6rn51"><a href="/" class="svelte-1n6rn51">Home</a></li>
+<main id="app"><ul class="menu svelte-1te8zdp"><li class="svelte-1te8zdp"><a href="/" class="svelte-1te8zdp">Home</a></li>
   
   
   
@@ -41,10 +42,10 @@
   <li class="svelte-dk81xr"><a href="/admin/sessions" class="svelte-dk81xr">Sessions</a></li>
   <li class="svelte-dk81xr"><a href="/admin/actionLogs" class="svelte-dk81xr">Action Logs</a></li>
 </ul>
-TODO: show statistics here</main><script>document.getElementById('app').innerHTML=''</script><!---->
+TODO: show summary statistics here</main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:/home/kyz/go/src/street/svelte/_components/menu.esbuild-svelte-fake-css */
+<style>/* fakecss:/home/kyz/go/src/street/svelte/_components/Menu.esbuild-svelte-fake-css */
 .menu.svelte-1te8zdp.svelte-1te8zdp {
   list-style-type: none;
   margin: 0;
@@ -96,7 +97,7 @@ TODO: show statistics here</main><script>document.getElementById('app').innerHTM
 .active.svelte-dk81xr.svelte-dk81xr {
   background-color: #4CAF50;
 }
-.menu.svelte-1n6rn51.svelte-1n6rn51{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#333}.menu.svelte-1n6rn51 li.svelte-1n6rn51{float:left}.menu.svelte-1n6rn51 li a.svelte-1n6rn51{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.menu.svelte-1n6rn51 li a.svelte-1n6rn51:hover:not(.active){background-color:#111}.menu.svelte-1n6rn51 li button.svelte-1n6rn51{padding:0.5em}.active.svelte-1n6rn51.svelte-1n6rn51{background-color:#4CAF50}
+.menu.svelte-1te8zdp.svelte-1te8zdp{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#333}.menu.svelte-1te8zdp li.svelte-1te8zdp{float:left}.menu.svelte-1te8zdp li a.svelte-1te8zdp{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.menu.svelte-1te8zdp li a.svelte-1te8zdp:hover:not(.active){background-color:#111}.menu.svelte-1te8zdp li button.svelte-1te8zdp{padding:0.5em}.active.svelte-1te8zdp.svelte-1te8zdp{background-color:#4CAF50}
 .submenu.svelte-dk81xr.svelte-dk81xr{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#666}.submenu.svelte-dk81xr li.svelte-dk81xr{float:left}.submenu.svelte-dk81xr li a.svelte-dk81xr{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.submenu.svelte-dk81xr li a.svelte-dk81xr:hover:not(.active){background-color:#111}.active.svelte-dk81xr.svelte-dk81xr{background-color:#4CAF50}</style>
 <script>(() => {
   var __create = Object.create;
@@ -2575,7 +2576,7 @@ TODO: show statistics here</main><script>document.getElementById('app').innerHTM
     }
   };
 
-  // _components/menu.svelte
+  // _components/Menu.svelte
   var import_jsApi_GEN = __toESM(require_jsApi_GEN());
   function create_if_block_3(ctx) {
     let li;
@@ -2927,7 +2928,7 @@ TODO: show statistics here</main><script>document.getElementById('app').innerHTM
       init(this, options, instance, create_fragment, safe_not_equal, { access: 0 });
     }
   };
-  var menu_default = Menu;
+  var Menu_default = Menu;
 
   // admin/_adminSubMenu.svelte
   function create_fragment2(ctx) {
@@ -3061,7 +3062,7 @@ TODO: show statistics here</main><script>document.getElementById('app').innerHTM
     let adminsubmenu;
     let t1;
     let current;
-    menu = new menu_default({ props: { access: segments } });
+    menu = new Menu_default({ props: { access: segments } });
     adminsubmenu = new adminSubMenu_default({});
     return {
       c() {

@@ -1,8 +1,9 @@
 <script>
-  import Menu from '../_components/menu.svelte';
+  import Menu from '../_components/Menu.svelte';
   import AdminSubMenu from './_adminSubMenu.svelte';
-  import TableView from '../_components/tableView.svelte';
+  import TableView from '../_components/TableView.svelte';
   import { AdminUsers } from '../jsApi.GEN';
+  import MasterForm from '../_components/MasterForm.svelte';
   
   let segments = {/* segments */ };
   let fields = [/* fields */];
@@ -23,10 +24,30 @@
       pager = res.pager;
     } );
   }
+  
+  let masterForm = MasterForm; // for lookup
+  
+  async function editRow( e ) {
+    const id = e.detail;
+    await AdminUsers( {
+      user: { id },
+      action: 'form',
+    }, function( res ) {
+      console.log( res );
+      masterForm.showDialog(res)
+    } );
+  }
+
 
 </script>
 <Menu access={segments} />
 <AdminSubMenu></AdminSubMenu>
-<TableView {fields} {pager} rows={users}
+<MasterForm {fields}
+            bind:this={masterForm}
+></MasterForm>
+<TableView {fields}
+           bind:pager={pager}
+           rows={users}
            on:refreshTableView={refreshTableView}
+           on:editRow={editRow}
 ></TableView>

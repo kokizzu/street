@@ -43,6 +43,7 @@ LIMIT 1`
 SELECT ` + meta.ToSelect() + `
 FROM ` + u.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	u.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
 	})
 

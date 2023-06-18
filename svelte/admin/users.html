@@ -1,5 +1,6 @@
 <html><head>
   <title>/*! title */</title>
+  <link href="/css.gg.css" rel="stylesheet">
 </head>
 <body>
 <style>
@@ -30,7 +31,7 @@
 </style>
 
 
-<main id="app"><ul class="menu svelte-1n6rn51"><li class="svelte-1n6rn51"><a href="/" class="svelte-1n6rn51">Home</a></li>
+<main id="app"><ul class="menu svelte-1te8zdp"><li class="svelte-1te8zdp"><a href="/" class="svelte-1te8zdp">Home</a></li>
   
   
   
@@ -41,20 +42,22 @@
   <li class="svelte-dk81xr"><a href="/admin/sessions" class="svelte-dk81xr">Sessions</a></li>
   <li class="svelte-dk81xr"><a href="/admin/actionLogs" class="svelte-dk81xr">Action Logs</a></li>
 </ul>
-<table class="svelte-7poely"><thead><tr></tr></thead>
+<div class="hidden">
+</div>
+<table class="svelte-1lzkscw"><thead><tr></tr></thead>
   <tbody></tbody>
-  <tfoot><tr><th colspan="0" class="svelte-7poely"><span class="left svelte-7poely">Page undefined of undefined,
-      <input class="perPage svelte-7poely" type="number"> per page.
+  <tfoot><tr><th colspan="0" class="svelte-1lzkscw"><span class="left svelte-1lzkscw">Page undefined of undefined,
+      <input class="perPage svelte-1lzkscw" type="number"> rows per page.
         </span>
       Total: undefined
-      <span class="right svelte-7poely"><button disabled>|&lt;</button>
+      <span class="right svelte-1lzkscw"><button disabled>|&lt;</button>
         <button disabled>&lt;</button>
         <button disabled>&gt;</button>
         <button disabled>&gt;|</button></span></th></tr></tfoot>
 </table></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:/home/kyz/go/src/street/svelte/_components/menu.esbuild-svelte-fake-css */
+<style>/* fakecss:/home/kyz/go/src/street/svelte/_components/Menu.esbuild-svelte-fake-css */
 .menu.svelte-1te8zdp.svelte-1te8zdp {
   list-style-type: none;
   margin: 0;
@@ -107,27 +110,35 @@
   background-color: #4CAF50;
 }
 
-/* fakecss:/home/kyz/go/src/street/svelte/_components/tableView.esbuild-svelte-fake-css */
-table.svelte-7poely {
+/* fakecss:/home/kyz/go/src/street/svelte/_components/TableView.esbuild-svelte-fake-css */
+table.svelte-1lzkscw {
   border-collapse: collapse;
 }
-table.svelte-7poely,
-th.svelte-7poely,
-td.svelte-7poely {
+table.svelte-1lzkscw,
+th.svelte-1lzkscw,
+td.svelte-1lzkscw {
   border: 1px solid black;
 }
-input.perPage.svelte-7poely {
+input.perPage.svelte-1lzkscw {
   width: 4em;
 }
-span.left.svelte-7poely {
+span.left.svelte-1lzkscw {
   float: left;
 }
-span.right.svelte-7poely {
+span.right.svelte-1lzkscw {
   float: right;
 }
-.menu.svelte-1n6rn51.svelte-1n6rn51{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#333}.menu.svelte-1n6rn51 li.svelte-1n6rn51{float:left}.menu.svelte-1n6rn51 li a.svelte-1n6rn51{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.menu.svelte-1n6rn51 li a.svelte-1n6rn51:hover:not(.active){background-color:#111}.menu.svelte-1n6rn51 li button.svelte-1n6rn51{padding:0.5em}.active.svelte-1n6rn51.svelte-1n6rn51{background-color:#4CAF50}
+button.action.svelte-1lzkscw {
+  height: 2em;
+}
+
+/* fakecss:/home/kyz/go/src/street/svelte/_components/MasterForm.esbuild-svelte-fake-css */
+div.hidden.svelte-13w8qvt {
+  display: none;
+}
+.menu.svelte-1te8zdp.svelte-1te8zdp{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#333}.menu.svelte-1te8zdp li.svelte-1te8zdp{float:left}.menu.svelte-1te8zdp li a.svelte-1te8zdp{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.menu.svelte-1te8zdp li a.svelte-1te8zdp:hover:not(.active){background-color:#111}.menu.svelte-1te8zdp li button.svelte-1te8zdp{padding:0.5em}.active.svelte-1te8zdp.svelte-1te8zdp{background-color:#4CAF50}
 .submenu.svelte-dk81xr.svelte-dk81xr{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#666}.submenu.svelte-dk81xr li.svelte-dk81xr{float:left}.submenu.svelte-dk81xr li a.svelte-dk81xr{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.submenu.svelte-dk81xr li a.svelte-dk81xr:hover:not(.active){background-color:#111}.active.svelte-dk81xr.svelte-dk81xr{background-color:#4CAF50}
-table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poely,td.svelte-7poely{border:1px solid black}input.perPage.svelte-7poely{width:4em}span.left.svelte-7poely{float:left}span.right.svelte-7poely{float:right}</style>
+table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lzkscw,td.svelte-1lzkscw{border:1px solid black}input.perPage.svelte-1lzkscw{width:4em}span.left.svelte-1lzkscw{float:left}span.right.svelte-1lzkscw{float:right}button.action.svelte-1lzkscw{height:2em}</style>
 <script>(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -159,7 +170,7 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
   var require_axios = __commonJS({
     "node_modules/axios/dist/browser/axios.cjs"(exports, module) {
       "use strict";
-      function bind(fn, thisArg) {
+      function bind2(fn, thisArg) {
         return function wrap() {
           return fn.apply(thisArg, arguments);
         };
@@ -279,7 +290,7 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
       var extend = (a, b, thisArg, { allOwnKeys } = {}) => {
         forEach(b, (val, key) => {
           if (thisArg && isFunction(val)) {
-            a[key] = bind(val, thisArg);
+            a[key] = bind2(val, thisArg);
           } else {
             a[key] = val;
           }
@@ -2130,13 +2141,13 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance5 = bind(Axios$1.prototype.request, context);
-        utils.extend(instance5, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance5, context, null, { allOwnKeys: true });
-        instance5.create = function create(instanceConfig) {
+        const instance6 = bind2(Axios$1.prototype.request, context);
+        utils.extend(instance6, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance6, context, null, { allOwnKeys: true });
+        instance6.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance5;
+        return instance6;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2367,6 +2378,9 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
   function add_render_callback(fn) {
     render_callbacks.push(fn);
   }
+  function add_flush_callback(fn) {
+    flush_callbacks.push(fn);
+  }
   var seen_callbacks = /* @__PURE__ */ new Set();
   var flushidx = 0;
   function flush() {
@@ -2480,6 +2494,13 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
     "selected"
   ];
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
+  function bind(component, name, callback) {
+    const index = component.$.props[name];
+    if (index !== void 0) {
+      component.$.bound[index] = callback;
+      callback(component.$.ctx[index]);
+    }
+  }
   function create_component(block) {
     block && block.c();
   }
@@ -2517,7 +2538,7 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance5, create_fragment5, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance6, create_fragment6, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -2543,7 +2564,7 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance5 ? instance5(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance6 ? instance6(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -2556,7 +2577,7 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment5 ? create_fragment5($.ctx) : false;
+    $.fragment = create_fragment6 ? create_fragment6($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -2645,7 +2666,7 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
     }
   };
 
-  // _components/menu.svelte
+  // _components/Menu.svelte
   var import_jsApi_GEN = __toESM(require_jsApi_GEN());
   function create_if_block_3(ctx) {
     let li;
@@ -2997,7 +3018,7 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
       init(this, options, instance, create_fragment, safe_not_equal, { access: 0 });
     }
   };
-  var menu_default = Menu;
+  var Menu_default = Menu;
 
   // admin/_adminSubMenu.svelte
   function create_fragment2(ctx) {
@@ -3124,35 +3145,36 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
   };
   var adminSubMenu_default = AdminSubMenu;
 
-  // _components/tableView.svelte
+  // _components/TableView.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[14] = list[i];
+    child_ctx[16] = list[i];
+    child_ctx[18] = i;
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[17] = list[i];
-    child_ctx[19] = i;
+    child_ctx[19] = list[i];
+    child_ctx[21] = i;
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[17] = list[i];
+    child_ctx[19] = list[i];
     return child_ctx;
   }
-  function create_each_block_2(ctx) {
+  function create_else_block_1(ctx) {
     let th;
     let t_value = (
       /*field*/
-      ctx[17].label + ""
+      ctx[19].label + ""
     );
     let t;
     return {
       c() {
         th = element("th");
         t = text(t_value);
-        attr(th, "class", "svelte-7poely");
+        attr(th, "class", "svelte-1lzkscw");
       },
       m(target, anchor) {
         insert(target, th, anchor);
@@ -3161,7 +3183,7 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
       p(ctx2, dirty) {
         if (dirty & /*fields*/
         2 && t_value !== (t_value = /*field*/
-        ctx2[17].label + ""))
+        ctx2[19].label + ""))
           set_data(t, t_value);
       },
       d(detaching) {
@@ -3170,125 +3192,33 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
       }
     };
   }
-  function create_else_block(ctx) {
-    let td;
-    let t_value = (
-      /*row*/
-      ctx[14][
-        /*i*/
-        ctx[19]
-      ] + ""
-    );
-    let t;
+  function create_if_block_32(ctx) {
+    let th;
     return {
       c() {
-        td = element("td");
-        t = text(t_value);
-        attr(td, "class", "svelte-7poely");
+        th = element("th");
+        th.textContent = "Action";
+        attr(th, "class", "svelte-1lzkscw");
       },
       m(target, anchor) {
-        insert(target, td, anchor);
-        append(td, t);
+        insert(target, th, anchor);
       },
-      p(ctx2, dirty) {
-        if (dirty & /*rows*/
-        4 && t_value !== (t_value = /*row*/
-        ctx2[14][
-          /*i*/
-          ctx2[19]
-        ] + ""))
-          set_data(t, t_value);
-      },
+      p: noop,
       d(detaching) {
         if (detaching)
-          detach(td);
+          detach(th);
       }
     };
   }
-  function create_if_block_12(ctx) {
-    let td;
-    let t_value = date(
-      /*row*/
-      ctx[14][
-        /*i*/
-        ctx[19]
-      ]
-    ) + "";
-    let t;
-    return {
-      c() {
-        td = element("td");
-        t = text(t_value);
-        attr(td, "class", "svelte-7poely");
-      },
-      m(target, anchor) {
-        insert(target, td, anchor);
-        append(td, t);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*rows*/
-        4 && t_value !== (t_value = date(
-          /*row*/
-          ctx2[14][
-            /*i*/
-            ctx2[19]
-          ]
-        ) + ""))
-          set_data(t, t_value);
-      },
-      d(detaching) {
-        if (detaching)
-          detach(td);
-      }
-    };
-  }
-  function create_if_block2(ctx) {
-    let td;
-    let t_value = !!/*row*/
-    ctx[14][
-      /*i*/
-      ctx[19]
-    ] + "";
-    let t;
-    return {
-      c() {
-        td = element("td");
-        t = text(t_value);
-        attr(td, "class", "svelte-7poely");
-      },
-      m(target, anchor) {
-        insert(target, td, anchor);
-        append(td, t);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*rows*/
-        4 && t_value !== (t_value = !!/*row*/
-        ctx2[14][
-          /*i*/
-          ctx2[19]
-        ] + ""))
-          set_data(t, t_value);
-      },
-      d(detaching) {
-        if (detaching)
-          detach(td);
-      }
-    };
-  }
-  function create_each_block_1(ctx) {
+  function create_each_block_2(ctx) {
     let if_block_anchor;
     function select_block_type(ctx2, dirty) {
       if (
         /*field*/
-        ctx2[17].inputType === "checkbox"
+        ctx2[19].name === "id"
       )
-        return create_if_block2;
-      if (
-        /*field*/
-        ctx2[17].inputType === "datetime"
-      )
-        return create_if_block_12;
-      return create_else_block;
+        return create_if_block_32;
+      return create_else_block_1;
     }
     let current_block_type = select_block_type(ctx, -1);
     let if_block = current_block_type(ctx);
@@ -3303,6 +3233,214 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
       },
       p(ctx2, dirty) {
         if (current_block_type === (current_block_type = select_block_type(ctx2, dirty)) && if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        }
+      },
+      d(detaching) {
+        if_block.d(detaching);
+        if (detaching)
+          detach(if_block_anchor);
+      }
+    };
+  }
+  function create_else_block(ctx) {
+    let td;
+    let t_value = (
+      /*row*/
+      ctx[16][
+        /*i*/
+        ctx[21]
+      ] + ""
+    );
+    let t;
+    return {
+      c() {
+        td = element("td");
+        t = text(t_value);
+        attr(td, "class", "svelte-1lzkscw");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rows*/
+        4 && t_value !== (t_value = /*row*/
+        ctx2[16][
+          /*i*/
+          ctx2[21]
+        ] + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching)
+          detach(td);
+      }
+    };
+  }
+  function create_if_block_22(ctx) {
+    let td;
+    let t_value = datetime(
+      /*row*/
+      ctx[16][
+        /*i*/
+        ctx[21]
+      ]
+    ) + "";
+    let t;
+    return {
+      c() {
+        td = element("td");
+        t = text(t_value);
+        attr(td, "class", "svelte-1lzkscw");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rows*/
+        4 && t_value !== (t_value = datetime(
+          /*row*/
+          ctx2[16][
+            /*i*/
+            ctx2[21]
+          ]
+        ) + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching)
+          detach(td);
+      }
+    };
+  }
+  function create_if_block_12(ctx) {
+    let td;
+    let t_value = !!/*row*/
+    ctx[16][
+      /*i*/
+      ctx[21]
+    ] + "";
+    let t;
+    return {
+      c() {
+        td = element("td");
+        t = text(t_value);
+        attr(td, "class", "svelte-1lzkscw");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rows*/
+        4 && t_value !== (t_value = !!/*row*/
+        ctx2[16][
+          /*i*/
+          ctx2[21]
+        ] + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching)
+          detach(td);
+      }
+    };
+  }
+  function create_if_block2(ctx) {
+    let td;
+    let button;
+    let t0;
+    let t1_value = (
+      /*no*/
+      ctx[18] + 1 + ""
+    );
+    let t1;
+    let mounted;
+    let dispose;
+    function click_handler() {
+      return (
+        /*click_handler*/
+        ctx[8](
+          /*row*/
+          ctx[16],
+          /*i*/
+          ctx[21]
+        )
+      );
+    }
+    return {
+      c() {
+        td = element("td");
+        button = element("button");
+        button.innerHTML = `<i class="gg-pen"></i>`;
+        t0 = space();
+        t1 = text(t1_value);
+        attr(button, "class", "action svelte-1lzkscw");
+        attr(td, "class", "svelte-1lzkscw");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, button);
+        append(td, t0);
+        append(td, t1);
+        if (!mounted) {
+          dispose = listen(button, "click", click_handler);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+      },
+      d(detaching) {
+        if (detaching)
+          detach(td);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_each_block_1(ctx) {
+    let if_block_anchor;
+    function select_block_type_1(ctx2, dirty) {
+      if (
+        /*field*/
+        ctx2[19].name === "id"
+      )
+        return create_if_block2;
+      if (
+        /*field*/
+        ctx2[19].inputType === "checkbox"
+      )
+        return create_if_block_12;
+      if (
+        /*field*/
+        ctx2[19].inputType === "datetime"
+      )
+        return create_if_block_22;
+      return create_else_block;
+    }
+    let current_block_type = select_block_type_1(ctx, -1);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (current_block_type === (current_block_type = select_block_type_1(ctx2, dirty)) && if_block) {
           if_block.p(ctx2, dirty);
         } else {
           if_block.d(1);
@@ -3349,8 +3487,8 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
         append(tr, t);
       },
       p(ctx2, dirty) {
-        if (dirty & /*rows, fields, date*/
-        6) {
+        if (dirty & /*editRow, rows, fields, datetime*/
+        134) {
           each_value_1 = /*fields*/
           ctx2[1];
           let i;
@@ -3485,9 +3623,9 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
         t16 = space();
         button3 = element("button");
         t17 = text(">|");
-        attr(input, "class", "perPage svelte-7poely");
+        attr(input, "class", "perPage svelte-1lzkscw");
         attr(input, "type", "number");
-        attr(span0, "class", "left svelte-7poely");
+        attr(span0, "class", "left svelte-1lzkscw");
         button0.disabled = button0_disabled_value = !/*allowPrevPage*/
         ctx[4];
         button1.disabled = button1_disabled_value = !/*allowPrevPage*/
@@ -3496,11 +3634,11 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
         ctx[3];
         button3.disabled = button3_disabled_value = !/*allowNextPage*/
         ctx[3];
-        attr(span1, "class", "right svelte-7poely");
+        attr(span1, "class", "right svelte-1lzkscw");
         attr(th, "colspan", th_colspan_value = /*fields*/
         ctx[1].length);
-        attr(th, "class", "svelte-7poely");
-        attr(table, "class", "svelte-7poely");
+        attr(th, "class", "svelte-1lzkscw");
+        attr(table, "class", "svelte-1lzkscw");
       },
       m(target, anchor) {
         insert(target, table, anchor);
@@ -3556,37 +3694,37 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
               input,
               "input",
               /*input_input_handler*/
-              ctx[7]
+              ctx[9]
             ),
             listen(
               input,
               "change",
               /*change_handler*/
-              ctx[8]
+              ctx[10]
             ),
             listen(
               button0,
               "click",
-              /*click_handler*/
-              ctx[9]
+              /*click_handler_1*/
+              ctx[11]
             ),
             listen(
               button1,
               "click",
-              /*click_handler_1*/
-              ctx[10]
+              /*click_handler_2*/
+              ctx[12]
             ),
             listen(
               button2,
               "click",
-              /*click_handler_2*/
-              ctx[11]
+              /*click_handler_3*/
+              ctx[13]
             ),
             listen(
               button3,
               "click",
-              /*click_handler_3*/
-              ctx[12]
+              /*click_handler_4*/
+              ctx[14]
             )
           ];
           mounted = true;
@@ -3613,8 +3751,8 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
           }
           each_blocks_1.length = each_value_2.length;
         }
-        if (dirty & /*fields, rows, date*/
-        6) {
+        if (dirty & /*fields, editRow, rows, datetime*/
+        134) {
           each_value = /*rows*/
           ctx2[2];
           let i;
@@ -3692,11 +3830,11 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
       }
     };
   }
-  function date(unixSec) {
+  function datetime(unixSec) {
     if (!unixSec)
       return "";
-    const date2 = new Date(unixSec * 1e3);
-    return date2.toISOString().substring(0, 10);
+    const dt = new Date(unixSec * 1e3).toISOString();
+    return dt.substring(0, 10) + " " + dt.substring(11, 16);
   }
   function instance3($self, $props, $invalidate) {
     let allowPrevPage;
@@ -3711,15 +3849,19 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
     function changePerPage(perPage) {
       dispatch("refreshTableView", { ...pager, perPage });
     }
+    function editRow(row) {
+      dispatch("editRow", row);
+    }
+    const click_handler = (row, i) => editRow(row[i]);
     function input_input_handler() {
       pager.perPage = to_number(this.value);
       $invalidate(0, pager);
     }
     const change_handler = () => changePerPage(pager.perPage);
-    const click_handler = () => gotoPage(1);
-    const click_handler_1 = () => gotoPage(pager.page - 1);
-    const click_handler_2 = () => gotoPage(pager.page + 1);
-    const click_handler_3 = () => gotoPage(pager.pages);
+    const click_handler_1 = () => gotoPage(1);
+    const click_handler_2 = () => gotoPage(pager.page - 1);
+    const click_handler_3 = () => gotoPage(pager.page + 1);
+    const click_handler_4 = () => gotoPage(pager.pages);
     $self.$set = ($props2) => {
       if ("fields" in $props2)
         $invalidate(1, fields2 = $props2.fields);
@@ -3748,12 +3890,14 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
       allowPrevPage,
       gotoPage,
       changePerPage,
+      editRow,
+      click_handler,
       input_input_handler,
       change_handler,
-      click_handler,
       click_handler_1,
       click_handler_2,
-      click_handler_3
+      click_handler_3,
+      click_handler_4
     ];
   }
   var TableView = class extends SvelteComponent {
@@ -3762,36 +3906,163 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
       init(this, options, instance3, create_fragment3, safe_not_equal, { fields: 1, rows: 2, pager: 0 });
     }
   };
-  var tableView_default = TableView;
+  var TableView_default = TableView;
 
   // admin/users.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
+
+  // _components/MasterForm.svelte
+  function get_each_context2(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[1] = list[i];
+    return child_ctx;
+  }
+  function create_each_block2(ctx) {
+    let div;
+    let t_value = JSON.stringify(
+      /*field*/
+      ctx[1]
+    ) + "";
+    let t;
+    return {
+      c() {
+        div = element("div");
+        t = text(t_value);
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        append(div, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*fields*/
+        1 && t_value !== (t_value = JSON.stringify(
+          /*field*/
+          ctx2[1]
+        ) + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching)
+          detach(div);
+      }
+    };
+  }
   function create_fragment4(ctx) {
+    let div;
+    let each_value = (
+      /*fields*/
+      ctx[0]
+    );
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block2(get_each_context2(ctx, each_value, i));
+    }
+    return {
+      c() {
+        div = element("div");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        attr(div, "class", "svelte-13w8qvt");
+        toggle_class(div, "hidden", !visible);
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(div, null);
+          }
+        }
+      },
+      p(ctx2, [dirty]) {
+        if (dirty & /*JSON, fields*/
+        1) {
+          each_value = /*fields*/
+          ctx2[0];
+          let i;
+          for (i = 0; i < each_value.length; i += 1) {
+            const child_ctx = get_each_context2(ctx2, each_value, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block2(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(div, null);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value.length;
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching)
+          detach(div);
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
+  var visible = false;
+  function instance4($self, $props, $invalidate) {
+    let { fields: fields2 = [] } = $props;
+    $self.$set = ($props2) => {
+      if ("fields" in $props2)
+        $invalidate(0, fields2 = $props2.fields);
+    };
+    return [fields2];
+  }
+  var MasterForm = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance4, create_fragment4, safe_not_equal, { fields: 0 });
+    }
+  };
+  var MasterForm_default = MasterForm;
+
+  // admin/users.svelte
+  function create_fragment5(ctx) {
     let menu;
     let t0;
     let adminsubmenu;
     let t1;
+    let masterform;
+    let t2;
     let tableview;
+    let updating_pager;
     let current;
-    menu = new menu_default({ props: { access: segments } });
+    menu = new Menu_default({ props: { access: segments } });
     adminsubmenu = new adminSubMenu_default({});
-    tableview = new tableView_default({
-      props: {
-        fields,
-        pager: (
-          /*pager*/
-          ctx[1]
-        ),
-        rows: (
-          /*users*/
-          ctx[0]
-        )
-      }
-    });
+    let masterform_props = { fields };
+    masterform = new MasterForm_default({ props: masterform_props });
+    ctx[5](masterform);
+    function tableview_pager_binding(value) {
+      ctx[6](value);
+    }
+    let tableview_props = { fields, rows: (
+      /*users*/
+      ctx[0]
+    ) };
+    if (
+      /*pager*/
+      ctx[1] !== void 0
+    ) {
+      tableview_props.pager = /*pager*/
+      ctx[1];
+    }
+    tableview = new TableView_default({ props: tableview_props });
+    binding_callbacks.push(() => bind(tableview, "pager", tableview_pager_binding));
     tableview.$on(
       "refreshTableView",
       /*refreshTableView*/
-      ctx[2]
+      ctx[3]
+    );
+    tableview.$on(
+      "editRow",
+      /*editRow*/
+      ctx[4]
     );
     return {
       c() {
@@ -3799,6 +4070,8 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
         t0 = space();
         create_component(adminsubmenu.$.fragment);
         t1 = space();
+        create_component(masterform.$.fragment);
+        t2 = space();
         create_component(tableview.$.fragment);
       },
       m(target, anchor) {
@@ -3806,19 +4079,26 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
         insert(target, t0, anchor);
         mount_component(adminsubmenu, target, anchor);
         insert(target, t1, anchor);
+        mount_component(masterform, target, anchor);
+        insert(target, t2, anchor);
         mount_component(tableview, target, anchor);
         current = true;
       },
       p(ctx2, [dirty]) {
+        const masterform_changes = {};
+        masterform.$set(masterform_changes);
         const tableview_changes = {};
-        if (dirty & /*pager*/
-        2)
-          tableview_changes.pager = /*pager*/
-          ctx2[1];
         if (dirty & /*users*/
         1)
           tableview_changes.rows = /*users*/
           ctx2[0];
+        if (!updating_pager && dirty & /*pager*/
+        2) {
+          updating_pager = true;
+          tableview_changes.pager = /*pager*/
+          ctx2[1];
+          add_flush_callback(() => updating_pager = false);
+        }
         tableview.$set(tableview_changes);
       },
       i(local) {
@@ -3826,12 +4106,14 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
           return;
         transition_in(menu.$.fragment, local);
         transition_in(adminsubmenu.$.fragment, local);
+        transition_in(masterform.$.fragment, local);
         transition_in(tableview.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(menu.$.fragment, local);
         transition_out(adminsubmenu.$.fragment, local);
+        transition_out(masterform.$.fragment, local);
         transition_out(tableview.$.fragment, local);
         current = false;
       },
@@ -3842,13 +4124,17 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
         destroy_component(adminsubmenu, detaching);
         if (detaching)
           detach(t1);
+        ctx[5](null);
+        destroy_component(masterform, detaching);
+        if (detaching)
+          detach(t2);
         destroy_component(tableview, detaching);
       }
     };
   }
   var segments = {/* segments */ };
   var fields = [/* fields */];
-  function instance4($self, $props, $invalidate) {
+  function instance5($self, $props, $invalidate) {
     let users = [/* users */];
     let pager = {/* pager */ };
     async function refreshTableView(e) {
@@ -3858,6 +4144,24 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
         $invalidate(1, pager = res.pager);
       });
     }
+    let masterForm = MasterForm_default;
+    async function editRow(e) {
+      const id = e.detail;
+      await (0, import_jsApi.AdminUsers)({ user: { id }, action: "form" }, function(res) {
+        console.log(res);
+        masterForm.showDialog(res);
+      });
+    }
+    function masterform_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        masterForm = $value;
+        $invalidate(2, masterForm);
+      });
+    }
+    function tableview_pager_binding(value) {
+      pager = value;
+      $invalidate(1, pager);
+    }
     $self.$.update = () => {
       if ($self.$.dirty & /*users, pager*/
       3) {
@@ -3865,12 +4169,20 @@ table.svelte-7poely{border-collapse:collapse}table.svelte-7poely,th.svelte-7poel
           console.log(users, fields, pager);
       }
     };
-    return [users, pager, refreshTableView];
+    return [
+      users,
+      pager,
+      masterForm,
+      refreshTableView,
+      editRow,
+      masterform_binding,
+      tableview_pager_binding
+    ];
   }
   var Users = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance4, create_fragment4, safe_not_equal, {});
+      init(this, options, instance5, create_fragment5, safe_not_equal, {});
     }
   };
   var users_default = Users;

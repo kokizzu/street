@@ -1,5 +1,5 @@
 <script>
-  import Menu from './_components/menu.svelte'
+  import Menu from './_components/Menu.svelte'
   import AdminSubMenu from './admin/_adminSubMenu.svelte'
   
   let user = {/* user */}
