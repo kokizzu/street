@@ -5,6 +5,7 @@ import (
 
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/kokizzu/gotro/L"
@@ -81,6 +82,11 @@ func (w *WebServer) Start() {
 	views.LoadAll()
 
 	fw.Use(recover.New())
+	fw.Use(limiter.New(limiter.Config{
+		Max:               300,
+		Expiration:        30 * time.Second,
+		LimiterMiddleware: limiter.SlidingWindow{},
+	}))
 	if conf.IsDebug() { // TODO: use faster logger for production
 		fw.Use(logger.New())
 	}
