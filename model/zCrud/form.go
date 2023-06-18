@@ -1,5 +1,11 @@
 package zCrud
 
+import (
+	"sync"
+
+	"github.com/kokizzu/gotro/S"
+)
+
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file form.go
 //go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type form.go
 //go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type form.go
@@ -45,4 +51,26 @@ type Field struct {
 
 	// endpoint to find the combobox reference, if combobox/select source for autocomplete is too large
 	RefEndpoint string `json:"refEndpoint" form:"refEndpoint" query:"refEndpoint" long:"refEndpoint" msg:"refEndpoint"`
+}
+
+type Meta struct {
+	Fields []Field
+
+	mutex        sync.Mutex
+	cachedSelect string
+}
+
+func (m *Meta) ToSelect() string {
+	if m.cachedSelect > `` {
+		return m.cachedSelect
+	}
+	m.mutex.Lock()
+	defer m.mutex.Unlock()
+	for _, f := range m.Fields {
+		// our internal, so safe from sql injection
+		m.cachedSelect += `, ` + S.QQ(f.Name)
+	}
+	// assume more than 1
+	m.cachedSelect = m.cachedSelect[1:]
+	return m.cachedSelect
 }

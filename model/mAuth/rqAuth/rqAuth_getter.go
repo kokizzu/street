@@ -25,7 +25,7 @@ WHERE ` + s.SqlUserId() + ` = ` + I.UToS(userId) + `
 	return
 }
 
-func (u *Users) FindByPagination(in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
+func (u *Users) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
 	whereAndSql := out.WhereAndSql(in.Filters, UsersFieldTypeMap)
 
 	queryCount := `-- Users) FindByPagination
@@ -40,7 +40,7 @@ LIMIT 1`
 	limitOffsetSql := out.LimitOffsetSql()
 
 	queryRows := `-- Users) FindByPagination
-SELECT ` + u.SqlSelectAllUncensoredFields() + `
+SELECT ` + meta.ToSelect() + `
 FROM ` + u.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	u.Adapter.QuerySql(queryRows, func(row []any) {
 		res = append(res, row)

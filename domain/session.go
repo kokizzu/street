@@ -191,7 +191,7 @@ const (
 	ErrSessionUserNotSuperAdmin = `session email is not superadmin`
 )
 
-func (d *Domain) mustLogin(in RequestCommon, out *ResponseCommon) (res *Session) {
+func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session) {
 	if in.SessionToken == `` {
 		out.SetError(403, ErrSessionTokenEmpty)
 		return nil
@@ -238,8 +238,8 @@ func (d *Domain) mustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 	return sess
 }
 
-func (d *Domain) mustAdmin(in RequestCommon, out *ResponseCommon) (sess *Session) {
-	sess = d.mustLogin(in, out)
+func (d *Domain) MustAdmin(in RequestCommon, out *ResponseCommon) (sess *Session) {
+	sess = d.MustLogin(in, out)
 	if sess == nil {
 		return nil
 	}

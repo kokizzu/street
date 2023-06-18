@@ -36,9 +36,10 @@
 	
 	
 </ul>
-<ul><li><a href="/admin/users">Users</a></li>
-  <li><a href="/admin/sessions">Sessions</a></li>
-  <li><a href="/admin/actionLogs">Sessions</a></li></ul></main><script>document.getElementById('app').innerHTML=''</script><!---->
+<table class="svelte-n4mbwd"><thead><tr></tr></thead>
+  <tbody></tbody>
+  <tfoot></tfoot>
+</table></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
 <style>/* fakecss:/home/kyz/go/src/street/svelte/_components/menu.esbuild-svelte-fake-css */
@@ -65,7 +66,18 @@
 .active.svelte-7hh36s.svelte-7hh36s {
   background-color: #4CAF50;
 }
-.menu.svelte-7hh36s.svelte-7hh36s{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#333}.menu.svelte-7hh36s li.svelte-7hh36s{float:left}.menu.svelte-7hh36s li a.svelte-7hh36s{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.menu.svelte-7hh36s li a.svelte-7hh36s:hover:not(.active){background-color:#111}.active.svelte-7hh36s.svelte-7hh36s{background-color:#4CAF50}</style>
+
+/* fakecss:/home/kyz/go/src/street/svelte/_components/tableView.esbuild-svelte-fake-css */
+table.svelte-n4mbwd {
+  border-collapse: collapse;
+}
+table.svelte-n4mbwd,
+th.svelte-n4mbwd,
+td.svelte-n4mbwd {
+  border: 1px solid black;
+}
+.menu.svelte-7hh36s.svelte-7hh36s{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#333}.menu.svelte-7hh36s li.svelte-7hh36s{float:left}.menu.svelte-7hh36s li a.svelte-7hh36s{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.menu.svelte-7hh36s li a.svelte-7hh36s:hover:not(.active){background-color:#111}.active.svelte-7hh36s.svelte-7hh36s{background-color:#4CAF50}
+table.svelte-n4mbwd{border-collapse:collapse}table.svelte-n4mbwd,td.svelte-n4mbwd{border:1px solid black}</style>
 <script>(() => {
   // node_modules/svelte/internal/index.mjs
   function noop() {
@@ -106,6 +118,12 @@
       node.parentNode.removeChild(node);
     }
   }
+  function destroy_each(iterations, detaching) {
+    for (let i = 0; i < iterations.length; i += 1) {
+      if (iterations[i])
+        iterations[i].d(detaching);
+    }
+  }
   function element(name) {
     return document.createElement(name);
   }
@@ -115,6 +133,9 @@
   function space() {
     return text(" ");
   }
+  function empty() {
+    return text("");
+  }
   function attr(node, attribute, value) {
     if (value == null)
       node.removeAttribute(attribute);
@@ -123,6 +144,12 @@
   }
   function children(element2) {
     return Array.from(element2.childNodes);
+  }
+  function set_data(text2, data) {
+    data = "" + data;
+    if (text2.data === data)
+      return;
+    text2.data = data;
   }
   function set_style(node, key, value, important) {
     if (value === null) {
@@ -311,7 +338,7 @@
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance2, create_fragment3, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance4, create_fragment4, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -337,7 +364,7 @@
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance2 ? instance2(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance4 ? instance4(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -350,7 +377,7 @@
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment3 ? create_fragment3($.ctx) : false;
+    $.fragment = create_fragment4 ? create_fragment4($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -754,26 +781,414 @@
   };
   var menu_default = Menu;
 
-  // admin.svelte
+  // _components/tableView.svelte
+  function get_each_context(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[2] = list[i];
+    return child_ctx;
+  }
+  function get_each_context_1(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[5] = list[i];
+    child_ctx[7] = i;
+    return child_ctx;
+  }
+  function get_each_context_2(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[5] = list[i];
+    return child_ctx;
+  }
+  function create_each_block_2(ctx) {
+    let th;
+    let t_value = (
+      /*field*/
+      ctx[5].label + ""
+    );
+    let t;
+    return {
+      c() {
+        th = element("th");
+        t = text(t_value);
+        attr(th, "class", "svelte-n4mbwd");
+      },
+      m(target, anchor) {
+        insert(target, th, anchor);
+        append(th, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*fields*/
+        1 && t_value !== (t_value = /*field*/
+        ctx2[5].label + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching)
+          detach(th);
+      }
+    };
+  }
+  function create_else_block(ctx) {
+    let td;
+    let t_value = (
+      /*row*/
+      ctx[2][
+        /*i*/
+        ctx[7]
+      ] + ""
+    );
+    let t;
+    return {
+      c() {
+        td = element("td");
+        t = text(t_value);
+        attr(td, "class", "svelte-n4mbwd");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rows*/
+        2 && t_value !== (t_value = /*row*/
+        ctx2[2][
+          /*i*/
+          ctx2[7]
+        ] + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching)
+          detach(td);
+      }
+    };
+  }
+  function create_if_block_12(ctx) {
+    let td;
+    let t_value = date(
+      /*row*/
+      ctx[2][
+        /*i*/
+        ctx[7]
+      ]
+    ) + "";
+    let t;
+    return {
+      c() {
+        td = element("td");
+        t = text(t_value);
+        attr(td, "class", "svelte-n4mbwd");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rows*/
+        2 && t_value !== (t_value = date(
+          /*row*/
+          ctx2[2][
+            /*i*/
+            ctx2[7]
+          ]
+        ) + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching)
+          detach(td);
+      }
+    };
+  }
+  function create_if_block2(ctx) {
+    let td;
+    let t_value = !!/*row*/
+    ctx[2][
+      /*i*/
+      ctx[7]
+    ] + "";
+    let t;
+    return {
+      c() {
+        td = element("td");
+        t = text(t_value);
+        attr(td, "class", "svelte-n4mbwd");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rows*/
+        2 && t_value !== (t_value = !!/*row*/
+        ctx2[2][
+          /*i*/
+          ctx2[7]
+        ] + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching)
+          detach(td);
+      }
+    };
+  }
+  function create_each_block_1(ctx) {
+    let if_block_anchor;
+    function select_block_type(ctx2, dirty) {
+      if (
+        /*field*/
+        ctx2[5].inputType === "checkbox"
+      )
+        return create_if_block2;
+      if (
+        /*field*/
+        ctx2[5].inputType === "datetime"
+      )
+        return create_if_block_12;
+      return create_else_block;
+    }
+    let current_block_type = select_block_type(ctx, -1);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (current_block_type === (current_block_type = select_block_type(ctx2, dirty)) && if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        }
+      },
+      d(detaching) {
+        if_block.d(detaching);
+        if (detaching)
+          detach(if_block_anchor);
+      }
+    };
+  }
+  function create_each_block(ctx) {
+    let tr;
+    let t;
+    let each_value_1 = (
+      /*fields*/
+      ctx[0]
+    );
+    let each_blocks = [];
+    for (let i = 0; i < each_value_1.length; i += 1) {
+      each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+    }
+    return {
+      c() {
+        tr = element("tr");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        t = space();
+      },
+      m(target, anchor) {
+        insert(target, tr, anchor);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(tr, null);
+          }
+        }
+        append(tr, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rows, fields, date*/
+        3) {
+          each_value_1 = /*fields*/
+          ctx2[0];
+          let i;
+          for (i = 0; i < each_value_1.length; i += 1) {
+            const child_ctx = get_each_context_1(ctx2, each_value_1, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block_1(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(tr, t);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value_1.length;
+        }
+      },
+      d(detaching) {
+        if (detaching)
+          detach(tr);
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
   function create_fragment2(ctx) {
-    let menu;
+    let table;
+    let thead;
+    let tr;
     let t0;
-    let ul;
+    let tbody;
+    let t1;
+    let tfoot;
+    let each_value_2 = (
+      /*fields*/
+      ctx[0]
+    );
+    let each_blocks_1 = [];
+    for (let i = 0; i < each_value_2.length; i += 1) {
+      each_blocks_1[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+    }
+    let each_value = (
+      /*rows*/
+      ctx[1]
+    );
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    }
+    return {
+      c() {
+        table = element("table");
+        thead = element("thead");
+        tr = element("tr");
+        for (let i = 0; i < each_blocks_1.length; i += 1) {
+          each_blocks_1[i].c();
+        }
+        t0 = space();
+        tbody = element("tbody");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        t1 = space();
+        tfoot = element("tfoot");
+        attr(table, "class", "svelte-n4mbwd");
+      },
+      m(target, anchor) {
+        insert(target, table, anchor);
+        append(table, thead);
+        append(thead, tr);
+        for (let i = 0; i < each_blocks_1.length; i += 1) {
+          if (each_blocks_1[i]) {
+            each_blocks_1[i].m(tr, null);
+          }
+        }
+        append(table, t0);
+        append(table, tbody);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(tbody, null);
+          }
+        }
+        append(table, t1);
+        append(table, tfoot);
+      },
+      p(ctx2, [dirty]) {
+        if (dirty & /*fields*/
+        1) {
+          each_value_2 = /*fields*/
+          ctx2[0];
+          let i;
+          for (i = 0; i < each_value_2.length; i += 1) {
+            const child_ctx = get_each_context_2(ctx2, each_value_2, i);
+            if (each_blocks_1[i]) {
+              each_blocks_1[i].p(child_ctx, dirty);
+            } else {
+              each_blocks_1[i] = create_each_block_2(child_ctx);
+              each_blocks_1[i].c();
+              each_blocks_1[i].m(tr, null);
+            }
+          }
+          for (; i < each_blocks_1.length; i += 1) {
+            each_blocks_1[i].d(1);
+          }
+          each_blocks_1.length = each_value_2.length;
+        }
+        if (dirty & /*fields, rows, date*/
+        3) {
+          each_value = /*rows*/
+          ctx2[1];
+          let i;
+          for (i = 0; i < each_value.length; i += 1) {
+            const child_ctx = get_each_context(ctx2, each_value, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(tbody, null);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value.length;
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching)
+          detach(table);
+        destroy_each(each_blocks_1, detaching);
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
+  function date(unixSec) {
+    if (!unixSec)
+      return "";
+    const date2 = new Date(unixSec * 1e3);
+    return date2.toISOString().substring(0, 10);
+  }
+  function instance2($self, $props, $invalidate) {
+    let { fields: fields2 = [] } = $props;
+    let { rows = [] } = $props;
+    $self.$set = ($props2) => {
+      if ("fields" in $props2)
+        $invalidate(0, fields2 = $props2.fields);
+      if ("rows" in $props2)
+        $invalidate(1, rows = $props2.rows);
+    };
+    return [fields2, rows];
+  }
+  var TableView = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance2, create_fragment2, safe_not_equal, { fields: 0, rows: 1 });
+    }
+  };
+  var tableView_default = TableView;
+
+  // admin/users.svelte
+  function create_fragment3(ctx) {
+    let menu;
+    let t;
+    let tableview;
     let current;
     menu = new menu_default({ props: { access: segments } });
+    tableview = new tableView_default({ props: { fields, rows: users } });
     return {
       c() {
         create_component(menu.$.fragment);
-        t0 = space();
-        ul = element("ul");
-        ul.innerHTML = `<li><a href="/admin/users">Users</a></li> 
-  <li><a href="/admin/sessions">Sessions</a></li> 
-  <li><a href="/admin/actionLogs">Sessions</a></li>`;
+        t = space();
+        create_component(tableview.$.fragment);
       },
       m(target, anchor) {
         mount_component(menu, target, anchor);
-        insert(target, t0, anchor);
-        insert(target, ul, anchor);
+        insert(target, t, anchor);
+        mount_component(tableview, target, anchor);
         current = true;
       },
       p: noop,
@@ -781,32 +1196,40 @@
         if (current)
           return;
         transition_in(menu.$.fragment, local);
+        transition_in(tableview.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(menu.$.fragment, local);
+        transition_out(tableview.$.fragment, local);
         current = false;
       },
       d(detaching) {
         destroy_component(menu, detaching);
         if (detaching)
-          detach(t0);
-        if (detaching)
-          detach(ul);
+          detach(t);
+        destroy_component(tableview, detaching);
       }
     };
   }
   var segments = {/* segments */};
-  var Admin = class extends SvelteComponent {
+  var fields = [/* fields */ ];
+  var users = [/* users */];
+  function instance3($self) {
+    $:
+      console.log(users, fields);
+    return [];
+  }
+  var Users = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment2, safe_not_equal, {});
+      init(this, options, instance3, create_fragment3, safe_not_equal, {});
     }
   };
-  var admin_default = Admin;
+  var users_default = Users;
 
-  // admin.svelte.ts
-  var app = new admin_default({ target: document.getElementById("app") });
+  // admin/users.svelte.ts
+  var app = new users_default({ target: document.getElementById("app") });
 })();
 </script>
 </body></html>

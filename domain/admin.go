@@ -21,6 +21,9 @@ type (
 		// for modifying user
 		User rqAuth.Users `json:"user" form:"user" query:"user" long:"user" msg:"user"`
 
+		// will filled by default with form id=0
+		WithMeta bool `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
+
 		zCrud.PagerIn
 	}
 	AdminUsersOut struct {
@@ -28,7 +31,7 @@ type (
 
 		zCrud.PagerOut
 
-		Meta []zCrud.Field
+		Meta *zCrud.Meta `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 
 		// modified user or form user
 		User rqAuth.Users `json:"user" form:"user" query:"user" long:"user" msg:"user"`
@@ -45,18 +48,88 @@ const (
 	ErrAdminUserSaveFailed = `user save failed`
 )
 
+var AdminUsersMeta = zCrud.Meta{
+	Fields: []zCrud.Field{
+		{
+			Name:      `id`,
+			Label:     `ID`,
+			ReadOnly:  true,
+			DataType:  zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeHidden,
+		},
+		{
+			Name:      `userName`,
+			Label:     `Username`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name:      `email`,
+			Label:     `Email`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeEmail,
+		},
+		{
+			Name:      `fullName`,
+			Label:     `Full Name`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name:      `createdAt`,
+			Label:     `Created At`,
+			ReadOnly:  true,
+			DataType:  zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeDateTime,
+		},
+		{
+			Name:      `updatedAt`,
+			Label:     `Updated At`,
+			ReadOnly:  true,
+			DataType:  zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeDateTime,
+		},
+		{
+			Name:      `deletedAt`,
+			Label:     `Deleted At`,
+			ReadOnly:  true,
+			DataType:  zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeDateTime,
+		},
+		{
+			Name:      `verifiedAt`,
+			Label:     `Verified At`,
+			ReadOnly:  true,
+			DataType:  zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeDateTime,
+		},
+		{
+			Name:      `lastLoginAt`,
+			Label:     `Last Login At`,
+			ReadOnly:  true,
+			DataType:  zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeDateTime,
+		},
+	},
+}
+
 func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
-	sess := d.mustLogin(in.RequestCommon, &out.ResponseCommon)
+	sess := d.MustAdmin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
 		return
 	}
 
-	fillMeta := false
+	if in.WithMeta {
+		out.Meta = &AdminUsersMeta
+	}
 
 	switch in.Action {
 	case zCrud.ActionForm:
-		fillMeta = true
+		if in.User.Id <= 0 {
+			out.Meta = &AdminUsersMeta
+			return
+		}
 
 		user := rqAuth.NewUsers(d.AuthOltp)
 		user.Id = in.User.Id
@@ -85,74 +158,8 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 
 		fallthrough
 	case zCrud.ActionList:
-		fillMeta = true
 		r := rqAuth.NewUsers(d.AuthOltp)
-		out.Users = r.FindByPagination(&in.PagerIn, &out.PagerOut)
-	}
-
-	if fillMeta {
-		out.Meta = []zCrud.Field{
-			{
-				Name:      `id`,
-				Label:     `ID`,
-				ReadOnly:  true,
-				DataType:  zCrud.DataTypeInt,
-				InputType: zCrud.InputTypeHidden,
-			},
-			{
-				Name:      `userName`,
-				Label:     `Username`,
-				DataType:  zCrud.DataTypeString,
-				InputType: zCrud.InputTypeText,
-			},
-			{
-				Name:      `email`,
-				Label:     `Email`,
-				DataType:  zCrud.DataTypeString,
-				InputType: zCrud.InputTypeEmail,
-			},
-			{
-				Name:      `fullName`,
-				Label:     `Full Name`,
-				DataType:  zCrud.DataTypeString,
-				InputType: zCrud.InputTypeText,
-			},
-			{
-				Name:      `createdAt`,
-				Label:     `Created At`,
-				ReadOnly:  true,
-				DataType:  zCrud.DataTypeInt,
-				InputType: zCrud.InputTypeDateTime,
-			},
-			{
-				Name:      `updatedAt`,
-				Label:     `Updated At`,
-				ReadOnly:  true,
-				DataType:  zCrud.DataTypeInt,
-				InputType: zCrud.InputTypeDateTime,
-			},
-			{
-				Name:      `deletedAt`,
-				Label:     `Deleted At`,
-				ReadOnly:  true,
-				DataType:  zCrud.DataTypeInt,
-				InputType: zCrud.InputTypeDateTime,
-			},
-			{
-				Name:      `verifiedAt`,
-				Label:     `Verified At`,
-				ReadOnly:  true,
-				DataType:  zCrud.DataTypeInt,
-				InputType: zCrud.InputTypeDateTime,
-			},
-			{
-				Name:      `lastLoginAt`,
-				Label:     `Last Login At`,
-				ReadOnly:  true,
-				DataType:  zCrud.DataTypeInt,
-				InputType: zCrud.InputTypeDateTime,
-			},
-		}
+		out.Users = r.FindByPagination(&AdminUsersMeta, &in.PagerIn, &out.PagerOut)
 	}
 
 	return

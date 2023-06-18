@@ -6,6 +6,7 @@ import (
 
 	"street/domain"
 	"street/model/mAuth/rqAuth"
+	"street/model/zCrud"
 )
 
 func WebStatic(fw *fiber.App, d *domain.Domain) {
@@ -105,20 +106,68 @@ func WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 	fw.Get(`/admin`, func(ctx *fiber.Ctx) error {
-		_, _, segments := userInfoFromContext(ctx, d)
+		in, _, segments := userInfoFromContext(ctx, d)
+		if notAdmin(ctx, d, in.RequestCommon) {
+			return nil
+		}
 		return views.RenderAdmin(ctx, M.SX{
 			`title`:    `Admin`,
 			`segments`: segments,
 		})
 	})
+	fw.Get(`/admin/users`, func(ctx *fiber.Ctx) error {
+		var in domain.AdminUsersIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminUsersAction)
+		if err != nil {
+			return err
+		}
+		if notAdmin(ctx, d, in.RequestCommon) {
+			return nil
+		}
+		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Action = zCrud.ActionList
+		out := d.AdminUsers(&in)
+		return views.RenderAdminUsers(ctx, M.SX{
+			`title`:    `Users`,
+			`segments`: segments,
+			`users`:    out.Users,
+			`fields`:   out.Meta.Fields,
+		})
+	})
 	fw.Get(`/user`, func(ctx *fiber.Ctx) error {
-		_, user, segments := userInfoFromContext(ctx, d)
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return nil
+		}
 		return views.RenderUser(ctx, M.SX{
 			`title`:    `Profile`,
 			`user`:     user,
 			`segments`: segments,
 		})
 	})
+}
+
+func notLogin(ctx *fiber.Ctx, d *domain.Domain, in domain.RequestCommon) bool {
+	var check domain.ResponseCommon
+	if d.MustLogin(in, &check) == nil {
+		_ = views.RenderError(ctx, M.SX{
+			`error`: check.Error,
+		})
+		return true
+	}
+	return false
+}
+
+func notAdmin(ctx *fiber.Ctx, d *domain.Domain, in domain.RequestCommon) bool {
+	var check domain.ResponseCommon
+	if d.MustAdmin(in, &check) == nil {
+		_ = views.RenderError(ctx, M.SX{
+			`error`: check.Error,
+		})
+		return true
+	}
+	return false
 }
 
 func userInfoFromContext(c *fiber.Ctx, d *domain.Domain) (domain.UserProfileIn, *rqAuth.Users, M.SB) {
@@ -132,4 +181,15 @@ func userInfoFromContext(c *fiber.Ctx, d *domain.Domain) (domain.UserProfileIn, 
 		segments = out.Segments
 	}
 	return in, user, segments
+}
+
+func userInfoFromRequest(rc domain.RequestCommon, d *domain.Domain) (*rqAuth.Users, M.SB) {
+	var user *rqAuth.Users
+	segments := M.SB{}
+	out := d.UserProfile(&domain.UserProfileIn{
+		RequestCommon: rc,
+	})
+	user = out.User
+	segments = out.Segments
+	return user, segments
 }

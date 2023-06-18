@@ -87,6 +87,7 @@ func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
 	user.Email = in.Email
 	user.SetEncryptedPassword(in.Password, in.UnixNow())
 	user.CreatedAt = in.UnixNow()
+	user.UpdatedAt = in.UnixNow()
 	user.SecretCode = id64.SID() + S.RandomCB63(1)
 	user.SetGenUniqueUsernameByEmail(in.Email, in.UnixNow())
 	if !user.DoInsert() {
@@ -191,6 +192,8 @@ const (
 	ErrGuestLoginEmailOrPasswordIncorrect = `incorrect email or password`
 	ErrGuestLoginPasswordOrEmailIncorrect = `incorrect password or email`
 	ErrGuestLoginFailedStoringSession     = `failed storing session for login`
+
+	WarnFailedSetLastLoginAt = `failed setting lastLoginAt`
 )
 
 func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
@@ -200,7 +203,7 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 		out.SetError(400, ErrGuestLoginEmailInvalid)
 		return
 	}
-	user := rqAuth.NewUsers(d.AuthOltp)
+	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Email = in.Email
 	if !user.FindByEmail() {
 		out.SetError(400, ErrGuestLoginEmailOrPasswordIncorrect)
@@ -218,7 +221,12 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 		return
 	}
 	user.CensorFields()
-	out.User = user
+	user.SetLastLoginAt(in.UnixNow())
+	if !user.DoOverwriteById() {
+		out.AddTrace(WarnFailedSetLastLoginAt)
+		return
+	}
+	out.User = &user.Users
 	session, sess := d.createSession(user.Id, user.Email, in.UserAgent)
 
 	// TODO: set list of roles in the session

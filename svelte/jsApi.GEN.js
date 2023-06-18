@@ -41,6 +41,7 @@ function wrapOk( cb ) {
  * @property {number} user.lastLoginAt
  * @property {String} user.fullName
  * @property {String} user.userName
+ * @property {Object} withMeta
  */
 const AdminUsersIn = {
   action: '', // string
@@ -62,10 +63,13 @@ const AdminUsersIn = {
     fullName: '', // string
     userName: '', // string
   }, // rqAuth.Users
+  withMeta: false, // bool
 }
 /**
  * @typedef {Object} AdminUsersOut
- * @property {Object} meta
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
  * @property {number} user.id
  * @property {String} user.email
  * @property {String} user.password
@@ -85,8 +89,13 @@ const AdminUsersIn = {
  * @property {Object} users
  */
 const AdminUsersOut = {
-  meta: { // []zCrud.Field
-  }, // []zCrud.Field
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
   user: { // rqAuth.Users
     id: 0, // uint64
     email: '', // string

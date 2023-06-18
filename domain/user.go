@@ -59,7 +59,7 @@ const (
 
 func (d *Domain) UserProfile(in *UserProfileIn) (out UserProfileOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
-	sess := d.mustLogin(in.RequestCommon, &out.ResponseCommon)
+	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
 		return
 	}
@@ -101,7 +101,7 @@ const (
 
 func (d *Domain) UserChangePassword(in *UserChangePasswordIn) (out UserChangePasswordOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
-	sess := d.mustLogin(in.RequestCommon, &out.ResponseCommon)
+	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
 		return
 	}
@@ -155,7 +155,7 @@ const (
 
 func (d *Domain) UserDeactivate(in *UserDeactivateIn) (out UserDeactivateOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
-	sess := d.mustLogin(in.RequestCommon, &out.ResponseCommon)
+	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
 		return
 	}
@@ -221,7 +221,7 @@ const (
 
 func (d *Domain) UserUpdateProfile(in *UserUpdateProfileIn) (out UserProfileOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
-	sess := d.mustLogin(in.RequestCommon, &out.ResponseCommon)
+	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
 		return
 	}
