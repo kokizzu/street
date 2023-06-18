@@ -451,6 +451,7 @@ type (
 	GuestExternalAuthIn struct {
 		RequestCommon
 		Provider string `json:"provider" form:"provider" query:"provider" long:"provider" msg:"provider"`
+		Redirect bool   `json:"redirect" form:"redirect" query:"redirect" long:"redirect" msg:"redirect"`
 	}
 	GuestExternalAuthOut struct {
 		ResponseCommon
@@ -495,6 +496,11 @@ func (d *Domain) GuestExternalAuth(in *GuestExternalAuthIn) (out GuestExternalAu
 	default:
 		out.SetError(400, GuestExternalAuthProviderNotSet)
 	}
+
+	if in.Redirect {
+		out.SetRedirect(out.Link)
+	}
+
 	return
 }
 

@@ -57,6 +57,9 @@ func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon, 
 	if rc.StatusCode != http.StatusOK {
 		ctx.Status(rc.StatusCode)
 	}
+	if rc.Redirect != `` {
+		ctx.Redirect(rc.Redirect, rc.StatusCode)
+	}
 	rc.DecorateSession(ctx)
 	switch l.OutputFormat {
 	case ``, `json`, fiber.MIMEApplicationJSON:
@@ -184,7 +187,7 @@ func (o *ResponseCommon) HasError() bool {
 }
 
 func (o *ResponseCommon) SetRedirect(to string) {
-	o.StatusCode = 302
+	o.StatusCode = 303 // force GET
 	o.Redirect = to
 }
 

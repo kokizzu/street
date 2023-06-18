@@ -101,7 +101,7 @@ const GuestExternalAuthOut = {
   link: '', // string
   clientID: '', // string
   redirectUrl: '', // string
-  scopes: [], // array of string // []string
+  scopes: [], // []string
   csrfState: '', // string
 }
 /**

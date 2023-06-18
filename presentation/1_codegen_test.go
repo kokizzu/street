@@ -527,7 +527,7 @@ func (c *codegen) jsField(b *bytes.Buffer, field tfield, indent int) {
 	case `bool`:
 		b.WriteString(`false,`)
 	case `[]string`:
-		b.WriteString(`[], // array of string`)
+		b.WriteString(`[],`)
 	default:
 		ty := c.models.types.byName[t]
 		b.WriteString(`{ // ` + t + NL)
