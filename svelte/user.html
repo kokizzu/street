@@ -100,11 +100,39 @@
   
 </ul>
 
-logged user profile content goes here
+<hr>
 
-<br>
-Debug:<br>
-<textarea cols="20" rows="10">{}</textarea></main><script>document.getElementById('app').innerHTML=''</script><!---->
+<h2>Update Profile</h2><br>
+<label for="email">Email</label>
+<input id="email" type="email"><br>
+<label for="userName">Username</label>
+<input id="userName" type="text"><br>
+<label for="fullName">Full Name</label>
+<input id="fullName" type="text"><br>
+<label for="registered">Registered</label>
+<span id="registered"></span><br>
+<label for="lastLogin">Last login</label>
+<span id="lastLogin"></span><br>
+<label for="verified">Verified</label>
+<span id="verified"></span>
+
+<label for="updateProfile"></label>
+<button id="updateProfile">Update Profile</button>
+
+<hr>
+
+<h2>Change password</h2>
+
+
+<label for="oldPassword">Old Password</label>
+<input id="oldPassword" type="password" value=""><br>
+
+<label for="newPassword">New Password</label>
+<input id="newPassword" type="password" value=""><br>
+<label for="repeatNewPassword">Repeat New Password</label>
+<input id="repeatNewPassword" type="password" value=""><br>
+
+<button>Change Password</button></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
 <style>/* fakecss:/home/kyz/go/src/street/svelte/_components/Menu.esbuild-svelte-fake-css */
@@ -2138,13 +2166,13 @@ Debug:<br>
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance2 = bind(Axios$1.prototype.request, context);
-        utils.extend(instance2, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance2, context, null, { allOwnKeys: true });
-        instance2.create = function create(instanceConfig) {
+        const instance3 = bind(Axios$1.prototype.request, context);
+        utils.extend(instance3, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance3, context, null, { allOwnKeys: true });
+        instance3.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance2;
+        return instance3;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2219,7 +2247,7 @@ Debug:<br>
       exports.GuestVerifyEmail = async function GuestVerifyEmail(i, cb) {
         return await axios.post("/guest/verifyEmail", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserChangePassword = async function UserChangePassword(i, cb) {
+      exports.UserChangePassword = async function UserChangePassword2(i, cb) {
         return await axios.post("/user/changePassword", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserDeactivate = async function UserDeactivate(i, cb) {
@@ -2231,8 +2259,23 @@ Debug:<br>
       exports.UserProfile = async function UserProfile(i, cb) {
         return await axios.post("/user/profile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserUpdateProfile = async function UserUpdateProfile(i, cb) {
+      exports.UserUpdateProfile = async function UserUpdateProfile2(i, cb) {
         return await axios.post("/user/updateProfile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+    }
+  });
+
+  // _components/formatter.js
+  var require_formatter = __commonJS({
+    "_components/formatter.js"(exports, module) {
+      function datetime2(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = new Date(unixSec * 1e3).toISOString();
+        return dt.substring(0, 10) + " " + dt.substring(11, 16);
+      }
+      module.exports = {
+        datetime: datetime2
       };
     }
   });
@@ -2297,6 +2340,15 @@ Debug:<br>
   }
   function children(element2) {
     return Array.from(element2.childNodes);
+  }
+  function set_data(text2, data) {
+    data = "" + data;
+    if (text2.data === data)
+      return;
+    text2.data = data;
+  }
+  function set_input_value(input, value) {
+    input.value = value == null ? "" : value;
   }
   function set_style(node, key, value, important) {
     if (value === null) {
@@ -2485,7 +2537,7 @@ Debug:<br>
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance2, create_fragment3, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance3, create_fragment3, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -2511,7 +2563,7 @@ Debug:<br>
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance2 ? instance2(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance3 ? instance3(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -2968,41 +3020,427 @@ Debug:<br>
   var Menu_default = Menu;
 
   // user.svelte
+  var import_formatter = __toESM(require_formatter());
+  var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
   function create_fragment2(ctx) {
     let menu;
     let t0;
-    let br0;
+    let hr0;
     let t1;
+    let h20;
+    let br0;
+    let t3;
+    let label0;
+    let t5;
+    let input0;
     let br1;
-    let t2;
-    let textarea;
-    let textarea_value_value;
+    let t6;
+    let label1;
+    let t8;
+    let input1;
+    let br2;
+    let t9;
+    let label2;
+    let t11;
+    let input2;
+    let br3;
+    let t12;
+    let label3;
+    let t14;
+    let span0;
+    let t15_value = (0, import_formatter.datetime)(
+      /*user*/
+      ctx[0].createdAt
+    ) + "";
+    let t15;
+    let br4;
+    let t16;
+    let label4;
+    let t18;
+    let span1;
+    let t19_value = (0, import_formatter.datetime)(
+      /*user*/
+      ctx[0].lastLoginAt
+    ) + "";
+    let t19;
+    let br5;
+    let t20;
+    let label5;
+    let t22;
+    let span2;
+    let t23_value = (0, import_formatter.datetime)(
+      /*user*/
+      ctx[0].verifiedAt
+    ) + "";
+    let t23;
+    let br6;
+    let t24;
+    let label6;
+    let t25;
+    let button0;
+    let t27;
+    let hr1;
+    let t28;
+    let h21;
+    let t30;
+    let label7;
+    let t32;
+    let input3;
+    let br7;
+    let t33;
+    let label8;
+    let t35;
+    let input4;
+    let br8;
+    let t36;
+    let label9;
+    let t38;
+    let input5;
+    let br9;
+    let t39;
+    let label10;
+    let t40;
+    let button1;
     let current;
+    let mounted;
+    let dispose;
     menu = new Menu_default({ props: { access: segments } });
     return {
       c() {
         create_component(menu.$.fragment);
-        t0 = text("\n\nlogged user profile content goes here\n\n");
+        t0 = space();
+        hr0 = element("hr");
+        t1 = space();
+        h20 = element("h2");
+        h20.textContent = "Update Profile";
         br0 = element("br");
-        t1 = text("\nDebug:");
+        t3 = space();
+        label0 = element("label");
+        label0.textContent = "Email";
+        t5 = space();
+        input0 = element("input");
         br1 = element("br");
-        t2 = space();
-        textarea = element("textarea");
-        attr(textarea, "cols", "20");
-        attr(textarea, "rows", "10");
-        textarea.value = textarea_value_value = JSON.stringify(user, null, 2);
+        t6 = space();
+        label1 = element("label");
+        label1.textContent = "Username";
+        t8 = space();
+        input1 = element("input");
+        br2 = element("br");
+        t9 = space();
+        label2 = element("label");
+        label2.textContent = "Full Name";
+        t11 = space();
+        input2 = element("input");
+        br3 = element("br");
+        t12 = space();
+        label3 = element("label");
+        label3.textContent = "Registered";
+        t14 = space();
+        span0 = element("span");
+        t15 = text(t15_value);
+        br4 = element("br");
+        t16 = space();
+        label4 = element("label");
+        label4.textContent = "Last login";
+        t18 = space();
+        span1 = element("span");
+        t19 = text(t19_value);
+        br5 = element("br");
+        t20 = space();
+        label5 = element("label");
+        label5.textContent = "Verified";
+        t22 = space();
+        span2 = element("span");
+        t23 = text(t23_value);
+        br6 = element("br");
+        t24 = space();
+        label6 = element("label");
+        t25 = space();
+        button0 = element("button");
+        button0.textContent = "Update Profile";
+        t27 = space();
+        hr1 = element("hr");
+        t28 = space();
+        h21 = element("h2");
+        h21.textContent = "Change password";
+        t30 = space();
+        label7 = element("label");
+        label7.textContent = "Old Password";
+        t32 = space();
+        input3 = element("input");
+        br7 = element("br");
+        t33 = space();
+        label8 = element("label");
+        label8.textContent = "New Password";
+        t35 = space();
+        input4 = element("input");
+        br8 = element("br");
+        t36 = space();
+        label9 = element("label");
+        label9.textContent = "Repeat New Password";
+        t38 = space();
+        input5 = element("input");
+        br9 = element("br");
+        t39 = space();
+        label10 = element("label");
+        t40 = space();
+        button1 = element("button");
+        button1.textContent = "Change Password";
+        attr(label0, "for", "email");
+        attr(input0, "id", "email");
+        attr(input0, "type", "email");
+        attr(label1, "for", "userName");
+        attr(input1, "id", "userName");
+        attr(input1, "type", "text");
+        attr(label2, "for", "fullName");
+        attr(input2, "id", "fullName");
+        attr(input2, "type", "text");
+        attr(label3, "for", "registered");
+        attr(span0, "id", "registered");
+        attr(label4, "for", "lastLogin");
+        attr(span1, "id", "lastLogin");
+        attr(label5, "for", "verified");
+        attr(span2, "id", "verified");
+        attr(label6, "for", "updateProfile");
+        attr(button0, "id", "updateProfile");
+        attr(label7, "for", "oldPassword");
+        attr(input3, "id", "oldPassword");
+        attr(input3, "type", "password");
+        attr(label8, "for", "newPassword");
+        attr(input4, "id", "newPassword");
+        attr(input4, "type", "password");
+        attr(label9, "for", "repeatNewPassword");
+        attr(input5, "id", "repeatNewPassword");
+        attr(input5, "type", "password");
+        attr(label10, "for", "changePassword");
+        attr(button1, "id", "changePassword");
       },
       m(target, anchor) {
         mount_component(menu, target, anchor);
         insert(target, t0, anchor);
-        insert(target, br0, anchor);
+        insert(target, hr0, anchor);
         insert(target, t1, anchor);
+        insert(target, h20, anchor);
+        insert(target, br0, anchor);
+        insert(target, t3, anchor);
+        insert(target, label0, anchor);
+        insert(target, t5, anchor);
+        insert(target, input0, anchor);
+        set_input_value(
+          input0,
+          /*user*/
+          ctx[0].email
+        );
         insert(target, br1, anchor);
-        insert(target, t2, anchor);
-        insert(target, textarea, anchor);
+        insert(target, t6, anchor);
+        insert(target, label1, anchor);
+        insert(target, t8, anchor);
+        insert(target, input1, anchor);
+        set_input_value(
+          input1,
+          /*user*/
+          ctx[0].userName
+        );
+        insert(target, br2, anchor);
+        insert(target, t9, anchor);
+        insert(target, label2, anchor);
+        insert(target, t11, anchor);
+        insert(target, input2, anchor);
+        set_input_value(
+          input2,
+          /*user*/
+          ctx[0].fullName
+        );
+        insert(target, br3, anchor);
+        insert(target, t12, anchor);
+        insert(target, label3, anchor);
+        insert(target, t14, anchor);
+        insert(target, span0, anchor);
+        append(span0, t15);
+        insert(target, br4, anchor);
+        insert(target, t16, anchor);
+        insert(target, label4, anchor);
+        insert(target, t18, anchor);
+        insert(target, span1, anchor);
+        append(span1, t19);
+        insert(target, br5, anchor);
+        insert(target, t20, anchor);
+        insert(target, label5, anchor);
+        insert(target, t22, anchor);
+        insert(target, span2, anchor);
+        append(span2, t23);
+        insert(target, br6, anchor);
+        insert(target, t24, anchor);
+        insert(target, label6, anchor);
+        insert(target, t25, anchor);
+        insert(target, button0, anchor);
+        insert(target, t27, anchor);
+        insert(target, hr1, anchor);
+        insert(target, t28, anchor);
+        insert(target, h21, anchor);
+        insert(target, t30, anchor);
+        insert(target, label7, anchor);
+        insert(target, t32, anchor);
+        insert(target, input3, anchor);
+        set_input_value(
+          input3,
+          /*oldPassword*/
+          ctx[1]
+        );
+        insert(target, br7, anchor);
+        insert(target, t33, anchor);
+        insert(target, label8, anchor);
+        insert(target, t35, anchor);
+        insert(target, input4, anchor);
+        set_input_value(
+          input4,
+          /*newPassword*/
+          ctx[2]
+        );
+        insert(target, br8, anchor);
+        insert(target, t36, anchor);
+        insert(target, label9, anchor);
+        insert(target, t38, anchor);
+        insert(target, input5, anchor);
+        set_input_value(
+          input5,
+          /*repeatNewPassword*/
+          ctx[3]
+        );
+        insert(target, br9, anchor);
+        insert(target, t39, anchor);
+        insert(target, label10, anchor);
+        insert(target, t40, anchor);
+        insert(target, button1, anchor);
         current = true;
+        if (!mounted) {
+          dispose = [
+            listen(
+              input0,
+              "input",
+              /*input0_input_handler*/
+              ctx[6]
+            ),
+            listen(
+              input1,
+              "input",
+              /*input1_input_handler*/
+              ctx[7]
+            ),
+            listen(
+              input2,
+              "input",
+              /*input2_input_handler*/
+              ctx[8]
+            ),
+            listen(
+              button0,
+              "click",
+              /*updateProfile*/
+              ctx[4]
+            ),
+            listen(
+              input3,
+              "input",
+              /*input3_input_handler*/
+              ctx[9]
+            ),
+            listen(
+              input4,
+              "input",
+              /*input4_input_handler*/
+              ctx[10]
+            ),
+            listen(
+              input5,
+              "input",
+              /*input5_input_handler*/
+              ctx[11]
+            ),
+            listen(
+              button1,
+              "click",
+              /*changePassword*/
+              ctx[5]
+            )
+          ];
+          mounted = true;
+        }
       },
-      p: noop,
+      p(ctx2, [dirty]) {
+        if (dirty & /*user*/
+        1 && input0.value !== /*user*/
+        ctx2[0].email) {
+          set_input_value(
+            input0,
+            /*user*/
+            ctx2[0].email
+          );
+        }
+        if (dirty & /*user*/
+        1 && input1.value !== /*user*/
+        ctx2[0].userName) {
+          set_input_value(
+            input1,
+            /*user*/
+            ctx2[0].userName
+          );
+        }
+        if (dirty & /*user*/
+        1 && input2.value !== /*user*/
+        ctx2[0].fullName) {
+          set_input_value(
+            input2,
+            /*user*/
+            ctx2[0].fullName
+          );
+        }
+        if ((!current || dirty & /*user*/
+        1) && t15_value !== (t15_value = (0, import_formatter.datetime)(
+          /*user*/
+          ctx2[0].createdAt
+        ) + ""))
+          set_data(t15, t15_value);
+        if ((!current || dirty & /*user*/
+        1) && t19_value !== (t19_value = (0, import_formatter.datetime)(
+          /*user*/
+          ctx2[0].lastLoginAt
+        ) + ""))
+          set_data(t19, t19_value);
+        if ((!current || dirty & /*user*/
+        1) && t23_value !== (t23_value = (0, import_formatter.datetime)(
+          /*user*/
+          ctx2[0].verifiedAt
+        ) + ""))
+          set_data(t23, t23_value);
+        if (dirty & /*oldPassword*/
+        2 && input3.value !== /*oldPassword*/
+        ctx2[1]) {
+          set_input_value(
+            input3,
+            /*oldPassword*/
+            ctx2[1]
+          );
+        }
+        if (dirty & /*newPassword*/
+        4 && input4.value !== /*newPassword*/
+        ctx2[2]) {
+          set_input_value(
+            input4,
+            /*newPassword*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*repeatNewPassword*/
+        8 && input5.value !== /*repeatNewPassword*/
+        ctx2[3]) {
+          set_input_value(
+            input5,
+            /*repeatNewPassword*/
+            ctx2[3]
+          );
+        }
+      },
       i(local) {
         if (current)
           return;
@@ -3018,24 +3456,212 @@ Debug:<br>
         if (detaching)
           detach(t0);
         if (detaching)
-          detach(br0);
+          detach(hr0);
         if (detaching)
           detach(t1);
         if (detaching)
+          detach(h20);
+        if (detaching)
+          detach(br0);
+        if (detaching)
+          detach(t3);
+        if (detaching)
+          detach(label0);
+        if (detaching)
+          detach(t5);
+        if (detaching)
+          detach(input0);
+        if (detaching)
           detach(br1);
         if (detaching)
-          detach(t2);
+          detach(t6);
         if (detaching)
-          detach(textarea);
+          detach(label1);
+        if (detaching)
+          detach(t8);
+        if (detaching)
+          detach(input1);
+        if (detaching)
+          detach(br2);
+        if (detaching)
+          detach(t9);
+        if (detaching)
+          detach(label2);
+        if (detaching)
+          detach(t11);
+        if (detaching)
+          detach(input2);
+        if (detaching)
+          detach(br3);
+        if (detaching)
+          detach(t12);
+        if (detaching)
+          detach(label3);
+        if (detaching)
+          detach(t14);
+        if (detaching)
+          detach(span0);
+        if (detaching)
+          detach(br4);
+        if (detaching)
+          detach(t16);
+        if (detaching)
+          detach(label4);
+        if (detaching)
+          detach(t18);
+        if (detaching)
+          detach(span1);
+        if (detaching)
+          detach(br5);
+        if (detaching)
+          detach(t20);
+        if (detaching)
+          detach(label5);
+        if (detaching)
+          detach(t22);
+        if (detaching)
+          detach(span2);
+        if (detaching)
+          detach(br6);
+        if (detaching)
+          detach(t24);
+        if (detaching)
+          detach(label6);
+        if (detaching)
+          detach(t25);
+        if (detaching)
+          detach(button0);
+        if (detaching)
+          detach(t27);
+        if (detaching)
+          detach(hr1);
+        if (detaching)
+          detach(t28);
+        if (detaching)
+          detach(h21);
+        if (detaching)
+          detach(t30);
+        if (detaching)
+          detach(label7);
+        if (detaching)
+          detach(t32);
+        if (detaching)
+          detach(input3);
+        if (detaching)
+          detach(br7);
+        if (detaching)
+          detach(t33);
+        if (detaching)
+          detach(label8);
+        if (detaching)
+          detach(t35);
+        if (detaching)
+          detach(input4);
+        if (detaching)
+          detach(br8);
+        if (detaching)
+          detach(t36);
+        if (detaching)
+          detach(label9);
+        if (detaching)
+          detach(t38);
+        if (detaching)
+          detach(input5);
+        if (detaching)
+          detach(br9);
+        if (detaching)
+          detach(t39);
+        if (detaching)
+          detach(label10);
+        if (detaching)
+          detach(t40);
+        if (detaching)
+          detach(button1);
+        mounted = false;
+        run_all(dispose);
       }
     };
   }
-  var user = {/* user */};
-  var segments = {/* segments */};
+  var segments = {/* segments */ };
+  function instance2($self, $props, $invalidate) {
+    let user = {/* user */ };
+    let oldPassword = "";
+    let newPassword = "";
+    let repeatNewPassword = "";
+    let oldProfileJson = "";
+    onMount(() => {
+      oldProfileJson = JSON.stringify(user);
+    });
+    async function updateProfile() {
+      if (JSON.stringify(user) == oldProfileJson)
+        return alert("No changes");
+      (0, import_jsApi_GEN2.UserUpdateProfile)(user, function(res) {
+        if (res.error)
+          return alert(res.error);
+        oldProfileJson = JSON.stringify(res.user);
+        $invalidate(0, user = res.user);
+        alert("profile updated");
+      });
+    }
+    async function changePassword() {
+      if (newPassword != repeatNewPassword)
+        return alert("New password and repeat new password must be same");
+      let input = {
+        oldPass: oldPassword,
+        newPass: newPassword
+      };
+      (0, import_jsApi_GEN2.UserChangePassword)(input, function(res) {
+        if (res.error)
+          return alert(res.error);
+        $invalidate(1, oldPassword = "");
+        $invalidate(2, newPassword = "");
+        $invalidate(3, repeatNewPassword = "");
+        alert("password changed");
+      });
+    }
+    function input0_input_handler() {
+      user.email = this.value;
+      $invalidate(0, user);
+    }
+    function input1_input_handler() {
+      user.userName = this.value;
+      $invalidate(0, user);
+    }
+    function input2_input_handler() {
+      user.fullName = this.value;
+      $invalidate(0, user);
+    }
+    function input3_input_handler() {
+      oldPassword = this.value;
+      $invalidate(1, oldPassword);
+    }
+    function input4_input_handler() {
+      newPassword = this.value;
+      $invalidate(2, newPassword);
+    }
+    function input5_input_handler() {
+      repeatNewPassword = this.value;
+      $invalidate(3, repeatNewPassword);
+    }
+    return [
+      user,
+      oldPassword,
+      newPassword,
+      repeatNewPassword,
+      updateProfile,
+      changePassword,
+      input0_input_handler,
+      input1_input_handler,
+      input2_input_handler,
+      input3_input_handler,
+      input4_input_handler,
+      input5_input_handler
+    ];
+  }
   var User = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment2, safe_not_equal, {});
+      init(this, options, instance2, create_fragment2, safe_not_equal, {});
     }
   };
   var user_default = User;

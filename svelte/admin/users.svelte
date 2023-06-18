@@ -10,7 +10,7 @@
   let users = [/* users */];
   let pager = {/* pager */ };
   
-  $: console.log( users, fields, pager );
+  // $: console.log( users, fields, pager );
   
   // return true if got error
   function handleResponse( res ) {

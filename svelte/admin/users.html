@@ -111,10 +111,10 @@
       <input class="perPage svelte-wkkedv" type="number"> rows per page.
         </span>
       Total: undefined
-      <span class="right svelte-wkkedv"><button disabled>|&lt;</button>
-        <button disabled>&lt;</button>
-        <button disabled>&gt;</button>
-        <button disabled>&gt;|</button></span></th></tr></tfoot>
+      <span class="right svelte-wkkedv"><button disabled><i class="gg-push-chevron-left"></i></button>
+        <button disabled><i class="gg-chevron-left"></i></button>
+        <button disabled><i class="gg-chevron-right"></i></button>
+        <button disabled><i class="gg-push-chevron-right"></i></button></span></th></tr></tfoot>
 </table></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
@@ -5315,13 +5315,6 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
       pager = value;
       $invalidate(1, pager);
     }
-    $self.$.update = () => {
-      if ($self.$.dirty & /*users, pager*/
-      3) {
-        $:
-          console.log(users, fields, pager);
-      }
-    };
     return [
       users,
       pager,
