@@ -11,7 +11,6 @@ import (
 
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
-	"github.com/jessevdk/go-flags"
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
@@ -21,6 +20,7 @@ import (
 	"github.com/kokizzu/lexid"
 	"github.com/kpango/fastime"
 	"github.com/rs/zerolog/log"
+	"github.com/yosuke-furukawa/json5/encoding/json5"
 
 	"street/conf"
 )
@@ -49,7 +49,8 @@ type RequestCommon struct {
 	Long          float64           `json:"long" form:"long" query:"long" long:"long" msg:"long"`
 
 	// in seconds
-	now int64 `json:"-" form:"now" query:"now" long:"now" msg:"-"`
+	now   int64     `json:"-" form:"now" query:"now" long:"now" msg:"-"`
+	start time.Time `json:"-"` // for latency measurement
 }
 
 func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon, in any) error {
@@ -98,6 +99,10 @@ func (i *RequestCommon) TimeNow() time.Time {
 	return time.Unix(i.UnixNow(), 0)
 }
 
+func (i *RequestCommon) Latency() float64 {
+	return fastime.Since(i.start).Seconds()
+}
+
 func (l *RequestCommon) FromFiberCtx(ctx *fiber.Ctx, tracerCtx context.Context) {
 	l.RequestId = lexid.ID()
 	l.SessionToken = ctx.Cookies(conf.CookieName, l.SessionToken)
@@ -110,6 +115,7 @@ func (l *RequestCommon) FromFiberCtx(ctx *fiber.Ctx, tracerCtx context.Context) 
 	}
 	// "Accept":"*/*", "Connection":"close", "Content-Length":"0", "Host":"admin.hapstr.xyz", "User-Agent":"curl/7.81.0", "X-Forwarded-For":"182.253.163.10", "X-Forwarded-Proto":"https", "X-Real-Ip":"182.253.163.10"
 	l.now = fastime.UnixNow()
+	l.start = fastime.Now()
 	file, err := ctx.FormFile(`fileBinary`)
 	if err == nil {
 		l.Uploads = map[string]string{}
@@ -122,34 +128,60 @@ func (l *RequestCommon) FromFiberCtx(ctx *fiber.Ctx, tracerCtx context.Context) 
 	l.TracerContext = tracerCtx
 }
 
-func (l *RequestCommon) ToCli(file *os.File, out any) {
+func (l *RequestCommon) ToCli(file *os.File, out any, rc ResponseCommon) {
 	defer l.deleteTempFiles()
+	var byt []byte
+	var err error
 	switch l.OutputFormat {
-	case ``, `json`, fiber.MIMEApplicationJSON:
-		byt, err := json.Marshal(out)
-		if L.IsError(err, `json.Marshal: %#v`, out) {
+	case `json`, fiber.MIMEApplicationJSON:
+		byt, err = json.MarshalIndent(out, ``, `  `)
+		if L.IsError(err, `json5.MarshalIndent: %#v`, out) {
 			return
 		}
 		_, err = file.Write(byt)
 		if L.IsError(err, `file.Write failed: `+string(byt)) {
 			return
 		}
-		// TODO: log size/bytes written
-	default:
-		L.Print(`ToCli unhandled format: ` + l.OutputFormat)
+	default: // empty format also goes here
+		byt, err = json5.MarshalIndent(out, ``, `  `)
 	}
+	if L.IsError(err, `marshal: %#v`, out) {
+		return
+	}
+	_, err = file.Write(byt)
+	if L.IsError(err, `file.Write failed: `+string(byt)) {
+		return
+	}
+
+	_, _ = os.Stderr.WriteString(M.SX{
+		`statusCode`:   rc.StatusCode,
+		`sessionToken`: rc.SessionToken,
+		`redirect`:     rc.Redirect,
+		`error`:        rc.Error,
+		`debug`:        rc.Debug,
+		`latency`:      l.Latency(),
+		`requestId`:    l.RequestId,
+	}.ToJsonPretty())
+
 }
 
-func (l *RequestCommon) FromCli(file *os.File, ctx context.Context) {
+func (l *RequestCommon) FromCli(action string, payload []byte, in any) bool {
+	err := json5.Unmarshal(payload, &in)
+	if L.IsError(err, `json5.Unmarshal`) {
+		return false
+	}
 	l.RequestId = lexid.ID()
-	// TODO: read from args/stdin/config-file?
+	// TODO: read from args/stdin/config-file other than json
 	// l.SessionToken =
-	_, err := flags.Parse(&l)
-	L.PanicIf(err, `flags.Parse`)
+	//_, err = flags.Parse(&l)
+	//L.PanicIf(err, `flags.Parse`)
 	l.UserAgent = `CLI` // TODO: add input format combination, eg. json-stdin
 	l.IpAddress = `127.0.0.1`
-	l.TracerContext = ctx
+	l.TracerContext = context.Background()
 	l.now = fastime.UnixNow()
+	l.start = fastime.Now()
+	l.Action = action
+	return true
 }
 
 func (l *RequestCommon) deleteTempFiles() {

@@ -10,6 +10,16 @@ import (
 
 func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 
+	// AdminDashboard
+	fw.Post("/"+domain.AdminDashboardAction, func(c *fiber.Ctx) error {
+		in := domain.AdminDashboardIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.AdminDashboardAction); err != nil {
+			return err
+		}
+		out := d.AdminDashboard(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// AdminUsers
 	fw.Post("/"+domain.AdminUsersAction, func(c *fiber.Ctx) error {
 		in := domain.AdminUsersIn{}

@@ -88,6 +88,7 @@ func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 		UserAgent:  in.UserAgent,
 		Lat:        in.Lat,
 		Long:       in.Long,
+		Latency:    in.Latency(),
 	}
 	return d.authLogs.Insert([]any{
 		row.CreatedAt,
@@ -102,5 +103,6 @@ func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 		row.UserAgent,
 		row.Lat,
 		row.Long,
+		row.Latency,
 	})
 }

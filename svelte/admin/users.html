@@ -197,13 +197,13 @@ button.action.svelte-wkkedv {
 }
 
 /* fakecss:/home/kyz/go/src/street/svelte/_components/ModalForm.esbuild-svelte-fake-css */
-.left.svelte-7ka3kb {
+.left.svelte-1346uxr {
   float: left;
 }
-.right.svelte-7ka3kb {
+.right.svelte-1346uxr {
   float: right;
 }
-.backdrop.svelte-7ka3kb {
+.backdrop.svelte-1346uxr {
   position: fixed;
   top: 0;
   left: 0;
@@ -212,7 +212,7 @@ button.action.svelte-wkkedv {
   height: 100%;
   opacity: .8;
 }
-.modal.svelte-7ka3kb {
+.modal.svelte-1346uxr {
   background-color: white;
   position: fixed;
   top: 20%;
@@ -226,14 +226,14 @@ button.action.svelte-wkkedv {
   padding: 1em;
   opacity: 1;
 }
-.title.svelte-7ka3kb {
+.title.svelte-1346uxr {
   font-weight: bold;
   font-size: 1.2em;
 }
-button.close.svelte-7ka3kb {
+button.close.svelte-1346uxr {
   float: right;
 }
-label.svelte-7ka3kb {
+label.svelte-1346uxr {
   width: 12em;
   display: inline-block;
   text-align: right;
@@ -2298,6 +2298,9 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
           cb(data);
         };
       }
+      exports.AdminDashboard = async function AdminDashboard(i, cb) {
+        return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminUsers = async function AdminUsers2(i, cb) {
         return await axios.post("/admin/users", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -4083,23 +4086,25 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
     let t2;
     let div2;
     let t3;
+    let p;
     let t4;
     let t5;
-    let t6_value = (
-      /*row*/
-      ctx[2].id + ""
-    );
-    let t6;
-    let t7;
-    let p;
-    let t8;
-    let t9;
     let div3;
     let button1;
-    let t11;
+    let t7;
     let current;
     let mounted;
     let dispose;
+    function select_block_type(ctx2, dirty) {
+      if (
+        /*row*/
+        ctx2[2].id
+      )
+        return create_if_block_9;
+      return create_else_block_5;
+    }
+    let current_block_type = select_block_type(ctx, -1);
+    let if_block0 = current_block_type(ctx);
     let each_value = (
       /*fields*/
       ctx[3]
@@ -4119,7 +4124,7 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
       ctx[13],
       null
     );
-    function select_block_type_3(ctx2, dirty) {
+    function select_block_type_4(ctx2, dirty) {
       if (
         /*loading*/
         ctx2[1]
@@ -4127,8 +4132,8 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
         return create_if_block_13;
       return create_else_block2;
     }
-    let current_block_type = select_block_type_3(ctx, -1);
-    let if_block = current_block_type(ctx);
+    let current_block_type_1 = select_block_type_4(ctx, -1);
+    let if_block1 = current_block_type_1(ctx);
     return {
       c() {
         div0 = element("div");
@@ -4141,41 +4146,35 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
         button0.innerHTML = `<i class="gg-close"></i>`;
         t2 = space();
         div2 = element("div");
-        t3 = text("Edit ");
-        t4 = text(
-          /*rowType*/
-          ctx[4]
-        );
-        t5 = text(" ID: ");
-        t6 = text(t6_value);
-        t7 = space();
+        if_block0.c();
+        t3 = space();
         p = element("p");
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        t8 = space();
+        t4 = space();
         if (default_slot)
           default_slot.c();
-        t9 = space();
+        t5 = space();
         div3 = element("div");
         button1 = element("button");
         button1.textContent = "Cancel";
-        t11 = space();
-        if_block.c();
-        attr(div0, "class", "backdrop svelte-7ka3kb");
+        t7 = space();
+        if_block1.c();
+        attr(div0, "class", "backdrop svelte-1346uxr");
         attr(div1, "class", "modal_background");
         attr(button0, "tabindex", "0");
         attr(button0, "aria-label", "close");
         attr(button0, "title", "Close");
         attr(button0, "type", "button");
-        attr(button0, "class", "close svelte-7ka3kb");
-        attr(div2, "class", "title svelte-7ka3kb");
+        attr(button0, "class", "close svelte-1346uxr");
+        attr(div2, "class", "title svelte-1346uxr");
         attr(button1, "tabindex", "0");
-        attr(button1, "class", "left button secondary svelte-7ka3kb");
+        attr(button1, "class", "left button secondary svelte-1346uxr");
         attr(div3, "class", "layout-h");
         attr(div4, "class", "modal_content box -small");
         set_style(div4, "outline", "none");
-        attr(div5, "class", "modal svelte-7ka3kb");
+        attr(div5, "class", "modal svelte-1346uxr");
       },
       m(target, anchor) {
         insert(target, div0, anchor);
@@ -4187,26 +4186,23 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
         append(div4, button0);
         append(div4, t2);
         append(div4, div2);
-        append(div2, t3);
-        append(div2, t4);
-        append(div2, t5);
-        append(div2, t6);
-        append(div4, t7);
+        if_block0.m(div2, null);
+        append(div4, t3);
         append(div4, p);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
             each_blocks[i].m(p, null);
           }
         }
-        append(p, t8);
+        append(p, t4);
         if (default_slot) {
           default_slot.m(p, null);
         }
-        append(div4, t9);
+        append(div4, t5);
         append(div4, div3);
         append(div3, button1);
-        append(div3, t11);
-        if_block.m(div3, null);
+        append(div3, t7);
+        if_block1.m(div3, null);
         current = true;
         if (!mounted) {
           dispose = [
@@ -4227,17 +4223,16 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
         }
       },
       p(ctx2, dirty) {
-        if (!current || dirty & /*rowType*/
-        16)
-          set_data(
-            t4,
-            /*rowType*/
-            ctx2[4]
-          );
-        if ((!current || dirty & /*row*/
-        4) && t6_value !== (t6_value = /*row*/
-        ctx2[2].id + ""))
-          set_data(t6, t6_value);
+        if (current_block_type === (current_block_type = select_block_type(ctx2, dirty)) && if_block0) {
+          if_block0.p(ctx2, dirty);
+        } else {
+          if_block0.d(1);
+          if_block0 = current_block_type(ctx2);
+          if (if_block0) {
+            if_block0.c();
+            if_block0.m(div2, null);
+          }
+        }
         if (dirty & /*row, fields, datetime*/
         12) {
           each_value = /*fields*/
@@ -4250,7 +4245,7 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
             } else {
               each_blocks[i] = create_each_block2(child_ctx);
               each_blocks[i].c();
-              each_blocks[i].m(p, t8);
+              each_blocks[i].m(p, t4);
             }
           }
           for (; i < each_blocks.length; i += 1) {
@@ -4281,14 +4276,14 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
             );
           }
         }
-        if (current_block_type === (current_block_type = select_block_type_3(ctx2, dirty)) && if_block) {
-          if_block.p(ctx2, dirty);
+        if (current_block_type_1 === (current_block_type_1 = select_block_type_4(ctx2, dirty)) && if_block1) {
+          if_block1.p(ctx2, dirty);
         } else {
-          if_block.d(1);
-          if_block = current_block_type(ctx2);
-          if (if_block) {
-            if_block.c();
-            if_block.m(div3, null);
+          if_block1.d(1);
+          if_block1 = current_block_type_1(ctx2);
+          if (if_block1) {
+            if_block1.c();
+            if_block1.m(div3, null);
           }
         }
       },
@@ -4309,12 +4304,95 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
           detach(t0);
         if (detaching)
           detach(div5);
+        if_block0.d();
         destroy_each(each_blocks, detaching);
         if (default_slot)
           default_slot.d(detaching);
-        if_block.d();
+        if_block1.d();
         mounted = false;
         run_all(dispose);
+      }
+    };
+  }
+  function create_else_block_5(ctx) {
+    let t0;
+    let t1;
+    return {
+      c() {
+        t0 = text("New ");
+        t1 = text(
+          /*rowType*/
+          ctx[4]
+        );
+      },
+      m(target, anchor) {
+        insert(target, t0, anchor);
+        insert(target, t1, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rowType*/
+        16)
+          set_data(
+            t1,
+            /*rowType*/
+            ctx2[4]
+          );
+      },
+      d(detaching) {
+        if (detaching)
+          detach(t0);
+        if (detaching)
+          detach(t1);
+      }
+    };
+  }
+  function create_if_block_9(ctx) {
+    let t0;
+    let t1;
+    let t2;
+    let t3_value = (
+      /*row*/
+      ctx[2].id + ""
+    );
+    let t3;
+    return {
+      c() {
+        t0 = text("Edit ");
+        t1 = text(
+          /*rowType*/
+          ctx[4]
+        );
+        t2 = text(" ID: ");
+        t3 = text(t3_value);
+      },
+      m(target, anchor) {
+        insert(target, t0, anchor);
+        insert(target, t1, anchor);
+        insert(target, t2, anchor);
+        insert(target, t3, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rowType*/
+        16)
+          set_data(
+            t1,
+            /*rowType*/
+            ctx2[4]
+          );
+        if (dirty & /*row*/
+        4 && t3_value !== (t3_value = /*row*/
+        ctx2[2].id + ""))
+          set_data(t3, t3_value);
+      },
+      d(detaching) {
+        if (detaching)
+          detach(t0);
+        if (detaching)
+          detach(t1);
+        if (detaching)
+          detach(t2);
+        if (detaching)
+          detach(t3);
       }
     };
   }
@@ -4329,25 +4407,25 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
     let t1;
     let t2;
     let br;
-    function select_block_type_1(ctx2, dirty) {
+    function select_block_type_2(ctx2, dirty) {
       if (
         /*field*/
         ctx2[21].readOnly
       )
-        return create_if_block_4;
+        return create_if_block_5;
       if (
         /*field*/
         ctx2[21].inputType === "textarea"
       )
-        return create_if_block_6;
+        return create_if_block_7;
       if (
         /*field*/
         ctx2[21].inputType === "number"
       )
-        return create_if_block_7;
+        return create_if_block_8;
       return create_else_block_4;
     }
-    let current_block_type = select_block_type_1(ctx, -1);
+    let current_block_type = select_block_type_2(ctx, -1);
     let if_block = current_block_type(ctx);
     return {
       c() {
@@ -4359,7 +4437,7 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
         br = element("br");
         attr(label, "for", label_for_value = "modalForm__" + /*field*/
         ctx[21].name);
-        attr(label, "class", "svelte-7ka3kb");
+        attr(label, "class", "svelte-1346uxr");
       },
       m(target, anchor) {
         insert(target, label, anchor);
@@ -4379,7 +4457,7 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
         ctx2[21].name)) {
           attr(label, "for", label_for_value);
         }
-        if (current_block_type === (current_block_type = select_block_type_1(ctx2, dirty)) && if_block) {
+        if (current_block_type === (current_block_type = select_block_type_2(ctx2, dirty)) && if_block) {
           if_block.p(ctx2, dirty);
         } else {
           if_block.d(1);
@@ -4403,7 +4481,7 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
       }
     };
   }
-  function create_if_block_33(ctx) {
+  function create_if_block_4(ctx) {
     let input;
     let mounted;
     let dispose;
@@ -4521,7 +4599,7 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
       }
     };
   }
-  function create_if_block_7(ctx) {
+  function create_if_block_8(ctx) {
     let input;
     let input_id_value;
     let mounted;
@@ -4586,7 +4664,7 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
       }
     };
   }
-  function create_if_block_6(ctx) {
+  function create_if_block_7(ctx) {
     let textarea;
     let textarea_id_value;
     let mounted;
@@ -4646,17 +4724,17 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
       }
     };
   }
-  function create_if_block_4(ctx) {
+  function create_if_block_5(ctx) {
     let if_block_anchor;
-    function select_block_type_2(ctx2, dirty) {
+    function select_block_type_3(ctx2, dirty) {
       if (
         /*field*/
         ctx2[21].inputType === "datetime"
       )
-        return create_if_block_5;
+        return create_if_block_6;
       return create_else_block_3;
     }
-    let current_block_type = select_block_type_2(ctx, -1);
+    let current_block_type = select_block_type_3(ctx, -1);
     let if_block = current_block_type(ctx);
     return {
       c() {
@@ -4668,7 +4746,7 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
         insert(target, if_block_anchor, anchor);
       },
       p(ctx2, dirty) {
-        if (current_block_type === (current_block_type = select_block_type_2(ctx2, dirty)) && if_block) {
+        if (current_block_type === (current_block_type = select_block_type_3(ctx2, dirty)) && if_block) {
           if_block.p(ctx2, dirty);
         } else {
           if_block.d(1);
@@ -4720,7 +4798,7 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
       }
     };
   }
-  function create_if_block_5(ctx) {
+  function create_if_block_6(ctx) {
     let span;
     let t_value = (0, import_formatter2.datetime)(
       /*row*/
@@ -4758,15 +4836,15 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
   }
   function create_each_block2(ctx) {
     let if_block_anchor;
-    function select_block_type(ctx2, dirty) {
+    function select_block_type_1(ctx2, dirty) {
       if (
         /*field*/
         ctx2[21].inputType === "hidden"
       )
-        return create_if_block_33;
+        return create_if_block_4;
       return create_else_block_2;
     }
-    let current_block_type = select_block_type(ctx, -1);
+    let current_block_type = select_block_type_1(ctx, -1);
     let if_block = current_block_type(ctx);
     return {
       c() {
@@ -4778,7 +4856,7 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
         insert(target, if_block_anchor, anchor);
       },
       p(ctx2, dirty) {
-        if (current_block_type === (current_block_type = select_block_type(ctx2, dirty)) && if_block) {
+        if (current_block_type === (current_block_type = select_block_type_1(ctx2, dirty)) && if_block) {
           if_block.p(ctx2, dirty);
         } else {
           if_block.d(1);
@@ -4802,30 +4880,26 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
     let if_block_anchor;
     let mounted;
     let dispose;
-    function select_block_type_4(ctx2, dirty) {
-      if (
-        /*row*/
-        ctx2[2].deletedAt > 0
-      )
-        return create_if_block_23;
-      return create_else_block_12;
-    }
-    let current_block_type = select_block_type_4(ctx, -1);
-    let if_block = current_block_type(ctx);
+    let if_block = (
+      /*row*/
+      ctx[2].id && create_if_block_23(ctx)
+    );
     return {
       c() {
         button = element("button");
         button.textContent = "Save";
         t1 = space();
-        if_block.c();
+        if (if_block)
+          if_block.c();
         if_block_anchor = empty();
         attr(button, "tabindex", "0");
-        attr(button, "class", "right button primary svelte-7ka3kb");
+        attr(button, "class", "right button primary svelte-1346uxr");
       },
       m(target, anchor) {
         insert(target, button, anchor);
         insert(target, t1, anchor);
-        if_block.m(target, anchor);
+        if (if_block)
+          if_block.m(target, anchor);
         insert(target, if_block_anchor, anchor);
         if (!mounted) {
           dispose = listen(
@@ -4838,15 +4912,20 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
         }
       },
       p(ctx2, dirty) {
-        if (current_block_type === (current_block_type = select_block_type_4(ctx2, dirty)) && if_block) {
-          if_block.p(ctx2, dirty);
-        } else {
-          if_block.d(1);
-          if_block = current_block_type(ctx2);
+        if (
+          /*row*/
+          ctx2[2].id
+        ) {
           if (if_block) {
+            if_block.p(ctx2, dirty);
+          } else {
+            if_block = create_if_block_23(ctx2);
             if_block.c();
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
           }
+        } else if (if_block) {
+          if_block.d(1);
+          if_block = null;
         }
       },
       d(detaching) {
@@ -4854,7 +4933,8 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
           detach(button);
         if (detaching)
           detach(t1);
-        if_block.d(detaching);
+        if (if_block)
+          if_block.d(detaching);
         if (detaching)
           detach(if_block_anchor);
         mounted = false;
@@ -4868,7 +4948,7 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
       c() {
         span = element("span");
         span.textContent = "Saving..";
-        attr(span, "class", "right svelte-7ka3kb");
+        attr(span, "class", "right svelte-1346uxr");
       },
       m(target, anchor) {
         insert(target, span, anchor);
@@ -4877,6 +4957,46 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
       d(detaching) {
         if (detaching)
           detach(span);
+      }
+    };
+  }
+  function create_if_block_23(ctx) {
+    let if_block_anchor;
+    function select_block_type_5(ctx2, dirty) {
+      if (
+        /*row*/
+        ctx2[2].deletedAt > 0
+      )
+        return create_if_block_33;
+      return create_else_block_12;
+    }
+    let current_block_type = select_block_type_5(ctx, -1);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (current_block_type === (current_block_type = select_block_type_5(ctx2, dirty)) && if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        }
+      },
+      d(detaching) {
+        if_block.d(detaching);
+        if (detaching)
+          detach(if_block_anchor);
       }
     };
   }
@@ -4889,7 +5009,7 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
         button = element("button");
         button.textContent = "Delete";
         attr(button, "tabindex", "0");
-        attr(button, "class", "right button danger svelte-7ka3kb");
+        attr(button, "class", "right button danger svelte-1346uxr");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -4912,7 +5032,7 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
       }
     };
   }
-  function create_if_block_23(ctx) {
+  function create_if_block_33(ctx) {
     let button;
     let mounted;
     let dispose;
@@ -4921,7 +5041,7 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
         button = element("button");
         button.textContent = "Restore";
         attr(button, "tabindex", "0");
-        attr(button, "class", "right button orange svelte-7ka3kb");
+        attr(button, "class", "right button orange svelte-1346uxr");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -5152,21 +5272,29 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
     let t0;
     let adminsubmenu;
     let t1;
+    let button;
+    let t3;
     let modalform;
-    let t2;
+    let t4;
     let tableview;
     let updating_pager;
     let current;
+    let mounted;
+    let dispose;
     menu = new Menu_default({ props: { access: segments } });
     adminsubmenu = new adminSubMenu_default({});
-    let modalform_props = { fields, onConfirm: (
-      /*saveRow*/
-      ctx[5]
-    ) };
+    let modalform_props = {
+      fields,
+      rowType: "User",
+      onConfirm: (
+        /*saveRow*/
+        ctx[6]
+      )
+    };
     modalform = new ModalForm_default({ props: modalform_props });
-    ctx[6](modalform);
+    ctx[7](modalform);
     function tableview_pager_binding(value) {
-      ctx[7](value);
+      ctx[8](value);
     }
     let tableview_props = { fields, rows: (
       /*users*/
@@ -5197,8 +5325,11 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
         t0 = space();
         create_component(adminsubmenu.$.fragment);
         t1 = space();
+        button = element("button");
+        button.textContent = "Add";
+        t3 = space();
         create_component(modalform.$.fragment);
-        t2 = space();
+        t4 = space();
         create_component(tableview.$.fragment);
       },
       m(target, anchor) {
@@ -5206,10 +5337,21 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
         insert(target, t0, anchor);
         mount_component(adminsubmenu, target, anchor);
         insert(target, t1, anchor);
+        insert(target, button, anchor);
+        insert(target, t3, anchor);
         mount_component(modalform, target, anchor);
-        insert(target, t2, anchor);
+        insert(target, t4, anchor);
         mount_component(tableview, target, anchor);
         current = true;
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*addRow*/
+            ctx[5]
+          );
+          mounted = true;
+        }
       },
       p(ctx2, [dirty]) {
         const modalform_changes = {};
@@ -5251,11 +5393,17 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
         destroy_component(adminsubmenu, detaching);
         if (detaching)
           detach(t1);
-        ctx[6](null);
+        if (detaching)
+          detach(button);
+        if (detaching)
+          detach(t3);
+        ctx[7](null);
         destroy_component(modalform, detaching);
         if (detaching)
-          detach(t2);
+          detach(t4);
         destroy_component(tableview, detaching);
+        mounted = false;
+        dispose();
       }
     };
   }
@@ -5289,10 +5437,13 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
           form.showModal(res.user);
       });
     }
+    function addRow() {
+      form.showModal({ id: "" });
+    }
     async function saveRow(action, row) {
       await (0, import_jsApi.AdminUsers)(
         {
-          user: row,
+          user: { ...row, id: "0" },
           action,
           pager
           // force refresh page, will be slow
@@ -5321,6 +5472,7 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
       form,
       refreshTableView,
       editRow,
+      addRow,
       saveRow,
       modalform_binding,
       tableview_pager_binding

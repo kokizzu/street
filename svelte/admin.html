@@ -2237,6 +2237,9 @@ table.svelte-18nqf8w,td.svelte-18nqf8w,th.svelte-18nqf8w{border:1px solid black}
           cb(data);
         };
       }
+      exports.AdminDashboard = async function AdminDashboard(i, cb) {
+        return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminUsers = async function AdminUsers(i, cb) {
         return await axios.post("/admin/users", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };

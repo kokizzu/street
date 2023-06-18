@@ -47,8 +47,10 @@ type (
 const (
 	AdminUsersAction = `admin/users`
 
-	ErrAdminUserIdNotFound = `user id not found`
-	ErrAdminUserSaveFailed = `user save failed`
+	ErrAdminUserIdNotFound      = `user id not found`
+	ErrAdminUserSaveFailed      = `user save failed`
+	ErrAdminUsersEmailDuplicate = `email already by another user`
+	ErrAdminUsernameDuplicate   = `username already user by another user`
 )
 
 var AdminUsersMeta = zCrud.Meta{
@@ -152,8 +154,23 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 		}
 
 		// admin can override validation
-		user.SetUserName(in.User.UserName)
-		user.SetEmail(in.User.Email)
+		if user.SetUserName(in.User.UserName) {
+			dup := rqAuth.NewUsers(d.AuthOltp)
+			dup.UserName = in.User.UserName
+			if dup.FindByUserName() {
+				out.SetError(400, ErrAdminUsernameDuplicate)
+				return
+			}
+		}
+		if user.SetEmail(in.User.Email) {
+			user.SetVerifiedAt(0)
+			dup := rqAuth.NewUsers(d.AuthOltp)
+			dup.Email = in.User.Email
+			if dup.FindByEmail() {
+				out.SetError(400, ErrAdminUsersEmailDuplicate)
+				return
+			}
+		}
 		user.SetFullName(in.User.FullName)
 
 		if user.HaveMutation() {

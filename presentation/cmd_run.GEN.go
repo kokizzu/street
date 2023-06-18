@@ -1,11 +1,7 @@
 package presentation
 
 import (
-	"fmt"
-
-	"github.com/goccy/go-json"
-	"github.com/kokizzu/gotro/L"
-	"github.com/kokizzu/gotro/X"
+	"os"
 
 	"street/domain"
 )
@@ -17,139 +13,148 @@ import (
 func cmdRun(b *domain.Domain, action string, payload []byte) {
 	switch action {
 
+	case domain.AdminDashboardAction:
+		in := domain.AdminDashboardIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.AdminDashboard(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+
 	case domain.AdminUsersAction:
 		in := domain.AdminUsersIn{}
-		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.AdminUsers(&in)
-		fmt.Println(X.ToJsonPretty(out))
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
 	case domain.GuestDebugAction:
 		in := domain.GuestDebugIn{}
-		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.GuestDebug(&in)
-		fmt.Println(X.ToJsonPretty(out))
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
 	case domain.GuestExternalAuthAction:
 		in := domain.GuestExternalAuthIn{}
-		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.GuestExternalAuth(&in)
-		fmt.Println(X.ToJsonPretty(out))
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
 	case domain.GuestForgotPasswordAction:
 		in := domain.GuestForgotPasswordIn{}
-		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.GuestForgotPassword(&in)
-		fmt.Println(X.ToJsonPretty(out))
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
 	case domain.GuestLoginAction:
 		in := domain.GuestLoginIn{}
-		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.GuestLogin(&in)
-		fmt.Println(X.ToJsonPretty(out))
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
 	case domain.GuestOauthCallbackAction:
 		in := domain.GuestOauthCallbackIn{}
-		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.GuestOauthCallback(&in)
-		fmt.Println(X.ToJsonPretty(out))
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
 	case domain.GuestRegisterAction:
 		in := domain.GuestRegisterIn{}
-		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.GuestRegister(&in)
-		fmt.Println(X.ToJsonPretty(out))
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
 	case domain.GuestResendVerificationEmailAction:
 		in := domain.GuestResendVerificationEmailIn{}
-		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.GuestResendVerificationEmail(&in)
-		fmt.Println(X.ToJsonPretty(out))
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
 	case domain.GuestResetPasswordAction:
 		in := domain.GuestResetPasswordIn{}
-		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.GuestResetPassword(&in)
-		fmt.Println(X.ToJsonPretty(out))
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
 	case domain.GuestVerifyEmailAction:
 		in := domain.GuestVerifyEmailIn{}
-		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.GuestVerifyEmail(&in)
-		fmt.Println(X.ToJsonPretty(out))
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
 	case domain.UserChangePasswordAction:
 		in := domain.UserChangePasswordIn{}
-		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.UserChangePassword(&in)
-		fmt.Println(X.ToJsonPretty(out))
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
 	case domain.UserDeactivateAction:
 		in := domain.UserDeactivateIn{}
-		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.UserDeactivate(&in)
-		fmt.Println(X.ToJsonPretty(out))
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
 	case domain.UserLogoutAction:
 		in := domain.UserLogoutIn{}
-		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.UserLogout(&in)
-		fmt.Println(X.ToJsonPretty(out))
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
 	case domain.UserProfileAction:
 		in := domain.UserProfileIn{}
-		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.UserProfile(&in)
-		fmt.Println(X.ToJsonPretty(out))
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
 	case domain.UserUpdateProfileAction:
 		in := domain.UserUpdateProfileIn{}
-		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.UserUpdateProfile(&in)
-		fmt.Println(X.ToJsonPretty(out))
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	}
 }

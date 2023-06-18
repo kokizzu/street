@@ -81,7 +81,13 @@
       <button tabindex='0' aria-label='close' title='Close' type='button' class='close' on:click={cancelPressed}>
         <i class='gg-close' />
       </button>
-      <div class='title'>Edit {rowType} ID: {row.id}</div>
+      <div class='title'>
+        {#if row.id}
+          Edit {rowType} ID: {row.id}
+        {:else}
+          New {rowType}
+        {/if}
+      </div>
       <p>
         {#each fields as field}
           {#if field.inputType==='hidden'}
@@ -114,10 +120,12 @@
           <span class='right'>Saving..</span>
         {:else}
           <button tabindex='0' class='right button primary' on:click={savePressed}>Save</button>
-          {#if row.deletedAt>0}
-            <button tabindex='0' class='right button orange' on:click={restorePressed}>Restore</button>
-          {:else}
-            <button tabindex='0' class='right button danger' on:click={deletePressed}>Delete</button>
+          {#if row.id}
+            {#if row.deletedAt>0}
+              <button tabindex='0' class='right button orange' on:click={restorePressed}>Restore</button>
+            {:else}
+              <button tabindex='0' class='right button danger' on:click={deletePressed}>Delete</button>
+            {/if}
           {/if}
         {/if}
       </div>
@@ -164,7 +172,7 @@
     }
 
     button.close {
-        float  : right;
+        float : right;
     }
 
     label {

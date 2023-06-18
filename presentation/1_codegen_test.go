@@ -590,11 +590,7 @@ func (c *codegen) GenerateCmdRunFile() {
 	b.WriteString(`package presentation
 
 import (
-	"fmt"
-
-	"github.com/goccy/go-json"
-	"github.com/kokizzu/gotro/L"
-	"github.com/kokizzu/gotro/X"
+	"os"
 
 	"street/domain"
 )
@@ -608,11 +604,11 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 
 	case domain.` + name + `Action:
 		in := domain.` + name + `In{}
-		if L.IsError(json.Unmarshal(payload, &in), "json.Unmarshal") {
+		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.` + name + `(&in)
-		fmt.Println(X.ToJsonPretty(out))
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 `)
 	})
 	b.WriteString(NL + TAB + `}` + NL + `}` + NL)

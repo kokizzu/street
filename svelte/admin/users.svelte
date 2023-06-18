@@ -48,14 +48,18 @@
     } );
   }
   
+  function addRow() {
+    form.showModal( { id: '' } );
+  }
+  
   async function saveRow( action, row ) {
     await AdminUsers( {
-      user: row,
+      user: {...row, id: '0'},
       action: action,
       pager: pager, // force refresh page, will be slow
     }, function( res ) {
       if( handleResponse( res ) ) {
-        return form.setLoading(false); // has error
+        return form.setLoading( false ); // has error
       }
       form.hideModal(); // success
     } );
@@ -65,7 +69,9 @@
 </script>
 <Menu access={segments} />
 <AdminSubMenu></AdminSubMenu>
+<button on:click={addRow}>Add</button>
 <ModalForm {fields}
+           rowType='User'
            bind:this={form}
            onConfirm={saveRow}
 ></ModalForm>
