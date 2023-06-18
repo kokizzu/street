@@ -85,6 +85,8 @@
 <style>
     table {
         border-collapse : collapse;
+        width: 100%;
+        margin-top: 1em;
     }
 
     table, th, td {

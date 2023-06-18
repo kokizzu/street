@@ -5,7 +5,7 @@
 <body>
 <style>
     html {
-        max-width   : 70ch;
+        max-width: 99%;
         padding     : 0.5em 0.5em;
         margin      : auto;
         line-height : 1.25;
@@ -14,7 +14,6 @@
 
     body {
         font-family : sans-serif;
-        max-width   : 70ch;
         padding     : 1ch;
         margin      : auto;
     }
@@ -110,24 +109,26 @@
 }
 
 /* fakecss:/home/kyz/go/src/street/svelte/_components/TableView.esbuild-svelte-fake-css */
-table.svelte-1lzkscw {
+table.svelte-wkkedv {
   border-collapse: collapse;
+  width: 100%;
+  margin-top: 1em;
 }
-table.svelte-1lzkscw,
-th.svelte-1lzkscw,
-td.svelte-1lzkscw {
+table.svelte-wkkedv,
+th.svelte-wkkedv,
+td.svelte-wkkedv {
   border: 1px solid black;
 }
-input.perPage.svelte-1lzkscw {
+input.perPage.svelte-wkkedv {
   width: 4em;
 }
-span.left.svelte-1lzkscw {
+span.left.svelte-wkkedv {
   float: left;
 }
-span.right.svelte-1lzkscw {
+span.right.svelte-wkkedv {
   float: right;
 }
-button.action.svelte-1lzkscw {
+button.action.svelte-wkkedv {
   height: 2em;
 }
 
@@ -3264,7 +3265,7 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
       c() {
         th = element("th");
         t = text(t_value);
-        attr(th, "class", "svelte-1lzkscw");
+        attr(th, "class", "svelte-wkkedv");
       },
       m(target, anchor) {
         insert(target, th, anchor);
@@ -3288,7 +3289,7 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
       c() {
         th = element("th");
         th.textContent = "Action";
-        attr(th, "class", "svelte-1lzkscw");
+        attr(th, "class", "svelte-wkkedv");
       },
       m(target, anchor) {
         insert(target, th, anchor);
@@ -3354,7 +3355,7 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-1lzkscw");
+        attr(td, "class", "svelte-wkkedv");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -3389,7 +3390,7 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-1lzkscw");
+        attr(td, "class", "svelte-wkkedv");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -3424,7 +3425,7 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-1lzkscw");
+        attr(td, "class", "svelte-wkkedv");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -3474,8 +3475,8 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         button.innerHTML = `<i class="gg-pen"></i>`;
         t0 = space();
         t1 = text(t1_value);
-        attr(button, "class", "action svelte-1lzkscw");
-        attr(td, "class", "svelte-1lzkscw");
+        attr(button, "class", "action svelte-wkkedv");
+        attr(td, "class", "svelte-wkkedv");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -3713,9 +3714,9 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         t16 = space();
         button3 = element("button");
         t17 = text(">|");
-        attr(input, "class", "perPage svelte-1lzkscw");
+        attr(input, "class", "perPage svelte-wkkedv");
         attr(input, "type", "number");
-        attr(span0, "class", "left svelte-1lzkscw");
+        attr(span0, "class", "left svelte-wkkedv");
         button0.disabled = button0_disabled_value = !/*allowPrevPage*/
         ctx[4];
         button1.disabled = button1_disabled_value = !/*allowPrevPage*/
@@ -3724,11 +3725,11 @@ table.svelte-1lzkscw{border-collapse:collapse}table.svelte-1lzkscw,th.svelte-1lz
         ctx[3];
         button3.disabled = button3_disabled_value = !/*allowNextPage*/
         ctx[3];
-        attr(span1, "class", "right svelte-1lzkscw");
+        attr(span1, "class", "right svelte-wkkedv");
         attr(th, "colspan", th_colspan_value = /*fields*/
         ctx[1].length);
-        attr(th, "class", "svelte-1lzkscw");
-        attr(table, "class", "svelte-1lzkscw");
+        attr(th, "class", "svelte-wkkedv");
+        attr(table, "class", "svelte-wkkedv");
       },
       m(target, anchor) {
         insert(target, table, anchor);
