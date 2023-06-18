@@ -53,8 +53,10 @@
   }
   
   async function saveRow( action, row ) {
+    let user = { ...row };
+    if( !user.id ) user.id = '0';
     await AdminUsers( {
-      user: {...row, id: '0'},
+      user: user,
       action: action,
       pager: pager, // force refresh page, will be slow
     }, function( res ) {

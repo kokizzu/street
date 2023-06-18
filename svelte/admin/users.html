@@ -5441,9 +5441,12 @@ table.svelte-wkkedv{border-collapse:collapse;width:100%;margin-top:1em}table.sve
       form.showModal({ id: "" });
     }
     async function saveRow(action, row) {
+      let user = { ...row };
+      if (!user.id)
+        user.id = "0";
       await (0, import_jsApi.AdminUsers)(
         {
-          user: { ...row, id: "0" },
+          user,
           action,
           pager
           // force refresh page, will be slow

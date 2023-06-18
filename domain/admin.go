@@ -148,7 +148,10 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 		user := wcAuth.NewUsersMutator(d.AuthOltp)
 		user.Id = in.User.Id
 		if user.Id > 0 {
-			user.FindById()
+			if !user.FindById() {
+				out.SetError(400, ErrAdminUserIdNotFound)
+				return
+			}
 		} else {
 			user.SetCreatedAt(in.UnixNow())
 		}
@@ -157,7 +160,7 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 		if user.SetUserName(in.User.UserName) {
 			dup := rqAuth.NewUsers(d.AuthOltp)
 			dup.UserName = in.User.UserName
-			if dup.FindByUserName() {
+			if dup.FindByUserName() && dup.Id != user.Id {
 				out.SetError(400, ErrAdminUsernameDuplicate)
 				return
 			}
@@ -166,7 +169,7 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 			user.SetVerifiedAt(0)
 			dup := rqAuth.NewUsers(d.AuthOltp)
 			dup.Email = in.User.Email
-			if dup.FindByEmail() {
+			if dup.FindByEmail() && dup.Id != user.Id {
 				out.SetError(400, ErrAdminUsersEmailDuplicate)
 				return
 			}

@@ -20,17 +20,6 @@ var viewList = map[string]string{
 	`GuestResetPassword`: `../svelte/guest/resetPassword.html`, // ../svelte/guest/resetPassword.svelte
 	`GuestVerifyEmail`: `../svelte/guest/verifyEmail.html`, // ../svelte/guest/verifyEmail.svelte
 	`Index`: `../svelte/index.html`, // ../svelte/index.svelte
-	`NodeModulesSvelteLightweightChartsComponentsAreaSeries`: `../svelte/node_modules/svelte-lightweight-charts/components/area-series.html`, // ../svelte/node_modules/svelte-lightweight-charts/components/area-series.svelte
-	`NodeModulesSvelteLightweightChartsComponentsBarSeries`: `../svelte/node_modules/svelte-lightweight-charts/components/bar-series.html`, // ../svelte/node_modules/svelte-lightweight-charts/components/bar-series.svelte
-	`NodeModulesSvelteLightweightChartsComponentsBaselineSeries`: `../svelte/node_modules/svelte-lightweight-charts/components/baseline-series.html`, // ../svelte/node_modules/svelte-lightweight-charts/components/baseline-series.svelte
-	`NodeModulesSvelteLightweightChartsComponentsCandlestickSeries`: `../svelte/node_modules/svelte-lightweight-charts/components/candlestick-series.html`, // ../svelte/node_modules/svelte-lightweight-charts/components/candlestick-series.svelte
-	`NodeModulesSvelteLightweightChartsComponentsChart`: `../svelte/node_modules/svelte-lightweight-charts/components/chart.html`, // ../svelte/node_modules/svelte-lightweight-charts/components/chart.svelte
-	`NodeModulesSvelteLightweightChartsComponentsHistogramSeries`: `../svelte/node_modules/svelte-lightweight-charts/components/histogram-series.html`, // ../svelte/node_modules/svelte-lightweight-charts/components/histogram-series.svelte
-	`NodeModulesSvelteLightweightChartsComponentsInternalContextProvider`: `../svelte/node_modules/svelte-lightweight-charts/components/internal/context-provider.html`, // ../svelte/node_modules/svelte-lightweight-charts/components/internal/context-provider.svelte
-	`NodeModulesSvelteLightweightChartsComponentsLineSeries`: `../svelte/node_modules/svelte-lightweight-charts/components/line-series.html`, // ../svelte/node_modules/svelte-lightweight-charts/components/line-series.svelte
-	`NodeModulesSvelteLightweightChartsComponentsPriceLine`: `../svelte/node_modules/svelte-lightweight-charts/components/price-line.html`, // ../svelte/node_modules/svelte-lightweight-charts/components/price-line.svelte
-	`NodeModulesSvelteLightweightChartsComponentsPriceScale`: `../svelte/node_modules/svelte-lightweight-charts/components/price-scale.html`, // ../svelte/node_modules/svelte-lightweight-charts/components/price-scale.svelte
-	`NodeModulesSvelteLightweightChartsComponentsTimeScale`: `../svelte/node_modules/svelte-lightweight-charts/components/time-scale.html`, // ../svelte/node_modules/svelte-lightweight-charts/components/time-scale.svelte
 	`Privacy`: `../svelte/privacy.html`, // ../svelte/privacy.svelte
 	`Realtor`: `../svelte/realtor.html`, // ../svelte/realtor.svelte
 	`Tos`: `../svelte/tos.html`, // ../svelte/tos.svelte
@@ -86,61 +75,6 @@ func (v *Views) RenderGuestVerifyEmail(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderIndex(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html")
 	return c.SendString(v.cache[`Index`].Str(m))
-}
-
-func (v *Views) RenderNodeModulesSvelteLightweightChartsComponentsAreaSeries(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
-	return c.SendString(v.cache[`NodeModulesSvelteLightweightChartsComponentsAreaSeries`].Str(m))
-}
-
-func (v *Views) RenderNodeModulesSvelteLightweightChartsComponentsBarSeries(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
-	return c.SendString(v.cache[`NodeModulesSvelteLightweightChartsComponentsBarSeries`].Str(m))
-}
-
-func (v *Views) RenderNodeModulesSvelteLightweightChartsComponentsBaselineSeries(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
-	return c.SendString(v.cache[`NodeModulesSvelteLightweightChartsComponentsBaselineSeries`].Str(m))
-}
-
-func (v *Views) RenderNodeModulesSvelteLightweightChartsComponentsCandlestickSeries(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
-	return c.SendString(v.cache[`NodeModulesSvelteLightweightChartsComponentsCandlestickSeries`].Str(m))
-}
-
-func (v *Views) RenderNodeModulesSvelteLightweightChartsComponentsChart(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
-	return c.SendString(v.cache[`NodeModulesSvelteLightweightChartsComponentsChart`].Str(m))
-}
-
-func (v *Views) RenderNodeModulesSvelteLightweightChartsComponentsHistogramSeries(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
-	return c.SendString(v.cache[`NodeModulesSvelteLightweightChartsComponentsHistogramSeries`].Str(m))
-}
-
-func (v *Views) RenderNodeModulesSvelteLightweightChartsComponentsInternalContextProvider(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
-	return c.SendString(v.cache[`NodeModulesSvelteLightweightChartsComponentsInternalContextProvider`].Str(m))
-}
-
-func (v *Views) RenderNodeModulesSvelteLightweightChartsComponentsLineSeries(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
-	return c.SendString(v.cache[`NodeModulesSvelteLightweightChartsComponentsLineSeries`].Str(m))
-}
-
-func (v *Views) RenderNodeModulesSvelteLightweightChartsComponentsPriceLine(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
-	return c.SendString(v.cache[`NodeModulesSvelteLightweightChartsComponentsPriceLine`].Str(m))
-}
-
-func (v *Views) RenderNodeModulesSvelteLightweightChartsComponentsPriceScale(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
-	return c.SendString(v.cache[`NodeModulesSvelteLightweightChartsComponentsPriceScale`].Str(m))
-}
-
-func (v *Views) RenderNodeModulesSvelteLightweightChartsComponentsTimeScale(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
-	return c.SendString(v.cache[`NodeModulesSvelteLightweightChartsComponentsTimeScale`].Str(m))
 }
 
 func (v *Views) RenderPrivacy(c *fiber.Ctx, m M.SX) error {

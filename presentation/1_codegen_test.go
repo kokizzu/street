@@ -348,7 +348,8 @@ func (c *codegen) StartCodegen() {
 			return err
 		}
 		if S.EndsWith(path, `.svelte`) &&
-			!S.Contains(path, `/_`) {
+			!S.Contains(path, `/_`) &&
+			!S.Contains(path, `node_modules/`) {
 			c.views = append(c.views, path)
 		}
 		return nil
