@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"github.com/kokizzu/gotro/L"
+
 	"street/model/mAuth/rqAuth"
 	"street/model/mAuth/wcAuth"
 	"street/model/zCrud"
@@ -153,6 +155,12 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 		user.SetEmail(in.User.Email)
 		user.SetFullName(in.User.FullName)
 
+		if user.HaveMutation() {
+			user.SetUpdatedAt(in.UnixNow())
+			user.SetUpdatedBy(sess.UserId)
+		}
+		L.Describe(user)
+
 		if !user.DoUpsert() {
 			out.SetError(500, ErrAdminUserSaveFailed)
 			break
@@ -161,6 +169,9 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 		user.CensorFields()
 		out.User = &user.Users
 
+		if in.Pager.Page == 0 {
+			break
+		}
 		fallthrough
 	case zCrud.ActionList:
 		r := rqAuth.NewUsers(d.AuthOltp)

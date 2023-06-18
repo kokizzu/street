@@ -1,15 +1,10 @@
 <script>
   import { createEventDispatcher } from 'svelte';
+  import { datetime } from './formatter.js';
   
   export let fields = []; // array of field object
   export let rows = []; // 2 dimension array
   export let pager = {}; // pagination
-  
-  function datetime( unixSec ) {
-    if( !unixSec ) return '';
-    const dt = new Date( unixSec * 1000 ).toISOString();
-    return dt.substring( 0, 10 ) + ' ' + dt.substring( 11, 16 );
-  }
   
   const dispatch = createEventDispatcher();
   
