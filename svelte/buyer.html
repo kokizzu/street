@@ -30,7 +30,14 @@
 </style>
 
 
-<main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
+<main id="app"><ul class="menu svelte-7hh36s"><li class="svelte-7hh36s"><a href="/" class="svelte-7hh36s">Home</a></li>
+	
+	
+	
+	
+</ul>
+
+buyer content goes here</main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
 <style>/* fakecss:/home/kyz/go/src/street/svelte/_components/menu.esbuild-svelte-fake-css */
@@ -57,7 +64,7 @@
 .active.svelte-7hh36s.svelte-7hh36s {
   background-color: #4CAF50;
 }
-</style>
+.menu.svelte-7hh36s.svelte-7hh36s{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#333}.menu.svelte-7hh36s li.svelte-7hh36s{float:left}.menu.svelte-7hh36s li a.svelte-7hh36s{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.menu.svelte-7hh36s li a.svelte-7hh36s:hover:not(.active){background-color:#111}.active.svelte-7hh36s.svelte-7hh36s{background-color:#4CAF50}</style>
 <script>(() => {
   // node_modules/svelte/internal/index.mjs
   function noop() {
@@ -129,6 +136,14 @@
   var current_component;
   function set_current_component(component) {
     current_component = component;
+  }
+  function get_current_component() {
+    if (!current_component)
+      throw new Error("Function called outside component initialization");
+    return current_component;
+  }
+  function onMount(fn) {
+    get_current_component().$.on_mount.push(fn);
   }
   var dirty_components = [];
   var binding_callbacks = [];
@@ -721,12 +736,13 @@
       "user": false
     } } = $props;
     let segment;
+    onMount(() => {
+      $invalidate(1, segment = ((window || {}).location + "").split("/")[4]);
+    });
     $self.$set = ($props2) => {
       if ("access" in $props2)
         $invalidate(0, access = $props2.access);
     };
-    $:
-      $invalidate(1, segment = (window.location + "").split("/")[4]);
     return [access, segment];
   }
   var Menu = class extends SvelteComponent {

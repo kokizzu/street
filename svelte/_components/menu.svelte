@@ -1,4 +1,6 @@
 <script>
+  import {onMount} from "svelte";
+  
   export let access = {
     "admin": false,
     "buyer": false,
@@ -7,7 +9,9 @@
   }
   
   let segment;
-  $: segment = (window.location + '').split('/')[4] // [http, '', domain, first-segment]
+  onMount(() => {
+    segment = ((window || {}).location + '').split('/')[4] // [http, '', domain, first-segment]
+  })
 </script>
 
 <ul class="menu">
