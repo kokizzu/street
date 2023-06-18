@@ -133,6 +133,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain) {
 			`segments`: segments,
 			`users`:    out.Users,
 			`fields`:   out.Meta.Fields,
+			`pager`:    out.Pager,
 		})
 	})
 	fw.Get(`/user`, func(ctx *fiber.Ctx) error {

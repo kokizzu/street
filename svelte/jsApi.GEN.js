@@ -42,6 +42,10 @@ function wrapOk( cb ) {
  * @property {String} user.fullName
  * @property {String} user.userName
  * @property {Object} withMeta
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
  */
 const AdminUsersIn = {
   action: '', // string
@@ -64,9 +68,22 @@ const AdminUsersIn = {
     userName: '', // string
   }, // rqAuth.Users
   withMeta: false, // bool
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
 }
 /**
  * @typedef {Object} AdminUsersOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
  * @property {Object} meta.fields
  * @property {Object} meta.mutex
  * @property {String} meta.cachedSelect
@@ -89,6 +106,15 @@ const AdminUsersIn = {
  * @property {Object} users
  */
 const AdminUsersOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
   meta: { // zCrud.Meta
     fields: { // []Field
     }, // []Field

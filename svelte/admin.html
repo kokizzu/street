@@ -30,45 +30,74 @@
 </style>
 
 
-<main id="app"><ul class="menu svelte-7hh36s"><li class="svelte-7hh36s"><a href="/" class="svelte-7hh36s">Home</a></li>
-	
-	
-	
-	
+<main id="app"><ul class="menu svelte-1n6rn51"><li class="svelte-1n6rn51"><a href="/" class="svelte-1n6rn51">Home</a></li>
+  
+  
+  
+  
 </ul>
-<ul><li><a href="/admin/users">Users</a></li>
-  <li><a href="/admin/sessions">Sessions</a></li>
-  <li><a href="/admin/actionLogs">Sessions</a></li></ul></main><script>document.getElementById('app').innerHTML=''</script><!---->
+<ul class="submenu svelte-dk81xr"><li class="svelte-dk81xr"><a href="/admin" class="svelte-dk81xr">Dashboard</a></li>
+  <li class="svelte-dk81xr"><a href="/admin/users" class="svelte-dk81xr">Users</a></li>
+  <li class="svelte-dk81xr"><a href="/admin/sessions" class="svelte-dk81xr">Sessions</a></li>
+  <li class="svelte-dk81xr"><a href="/admin/actionLogs" class="svelte-dk81xr">Action Logs</a></li>
+</ul>
+TODO: show statistics here</main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
 <style>/* fakecss:/home/kyz/go/src/street/svelte/_components/menu.esbuild-svelte-fake-css */
-.menu.svelte-1n6rn51.svelte-1n6rn51 {
+.menu.svelte-1te8zdp.svelte-1te8zdp {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: #333;
 }
-.menu.svelte-1n6rn51 li.svelte-1n6rn51 {
+.menu.svelte-1te8zdp li.svelte-1te8zdp {
   float: left;
 }
-.menu.svelte-1n6rn51 li a.svelte-1n6rn51 {
+.menu.svelte-1te8zdp li a.svelte-1te8zdp {
   display: block;
   color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
 }
-.menu.svelte-1n6rn51 li a.svelte-1n6rn51:hover:not(.active) {
+.menu.svelte-1te8zdp li a.svelte-1te8zdp:hover:not(.active) {
   background-color: #111;
 }
-.menu.svelte-1n6rn51 li button.svelte-1n6rn51 {
+.menu.svelte-1te8zdp li button.svelte-1te8zdp {
   padding: 0.5em;
 }
-.active.svelte-1n6rn51.svelte-1n6rn51 {
+.active.svelte-1te8zdp.svelte-1te8zdp {
   background-color: #4CAF50;
 }
-.menu.svelte-7hh36s.svelte-7hh36s{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#333}.menu.svelte-7hh36s li.svelte-7hh36s{float:left}.menu.svelte-7hh36s li a.svelte-7hh36s{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.menu.svelte-7hh36s li a.svelte-7hh36s:hover:not(.active){background-color:#111}.active.svelte-7hh36s.svelte-7hh36s{background-color:#4CAF50}</style>
+
+/* fakecss:/home/kyz/go/src/street/svelte/admin/_adminSubMenu.esbuild-svelte-fake-css */
+.submenu.svelte-dk81xr.svelte-dk81xr {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #666;
+}
+.submenu.svelte-dk81xr li.svelte-dk81xr {
+  float: left;
+}
+.submenu.svelte-dk81xr li a.svelte-dk81xr {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.submenu.svelte-dk81xr li a.svelte-dk81xr:hover:not(.active) {
+  background-color: #111;
+}
+.active.svelte-dk81xr.svelte-dk81xr {
+  background-color: #4CAF50;
+}
+.menu.svelte-1n6rn51.svelte-1n6rn51{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#333}.menu.svelte-1n6rn51 li.svelte-1n6rn51{float:left}.menu.svelte-1n6rn51 li a.svelte-1n6rn51{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.menu.svelte-1n6rn51 li a.svelte-1n6rn51:hover:not(.active){background-color:#111}.menu.svelte-1n6rn51 li button.svelte-1n6rn51{padding:0.5em}.active.svelte-1n6rn51.svelte-1n6rn51{background-color:#4CAF50}
+.submenu.svelte-dk81xr.svelte-dk81xr{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#666}.submenu.svelte-dk81xr li.svelte-dk81xr{float:left}.submenu.svelte-dk81xr li a.svelte-dk81xr{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.submenu.svelte-dk81xr li a.svelte-dk81xr:hover:not(.active){background-color:#111}.active.svelte-dk81xr.svelte-dk81xr{background-color:#4CAF50}</style>
 <script>(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -2071,13 +2100,13 @@
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance2 = bind(Axios$1.prototype.request, context);
-        utils.extend(instance2, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance2, context, null, { allOwnKeys: true });
-        instance2.create = function create(instanceConfig) {
+        const instance3 = bind(Axios$1.prototype.request, context);
+        utils.extend(instance3, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance3, context, null, { allOwnKeys: true });
+        instance3.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance2;
+        return instance3;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2418,7 +2447,7 @@
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance2, create_fragment3, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance3, create_fragment4, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -2444,7 +2473,7 @@
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance2 ? instance2(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance3 ? instance3(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -2457,7 +2486,7 @@
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment3 ? create_fragment3($.ctx) : false;
+    $.fragment = create_fragment4 ? create_fragment4($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -2553,12 +2582,12 @@
     return {
       c() {
         li = element("li");
-        li.innerHTML = `<a href="/buyer" class="svelte-1n6rn51">Buyer</a>`;
-        attr(li, "class", "svelte-1n6rn51");
+        li.innerHTML = `<a href="/buyer" class="svelte-1te8zdp">Buyer</a>`;
+        attr(li, "class", "svelte-1te8zdp");
         toggle_class(
           li,
           "active",
-          /*segment*/
+          /*segment1*/
           ctx[1] === "buyer"
         );
       },
@@ -2566,12 +2595,12 @@
         insert(target, li, anchor);
       },
       p(ctx2, dirty) {
-        if (dirty & /*segment*/
+        if (dirty & /*segment1*/
         2) {
           toggle_class(
             li,
             "active",
-            /*segment*/
+            /*segment1*/
             ctx2[1] === "buyer"
           );
         }
@@ -2587,12 +2616,12 @@
     return {
       c() {
         li = element("li");
-        li.innerHTML = `<a href="/realtor" class="svelte-1n6rn51">Realtor</a>`;
-        attr(li, "class", "svelte-1n6rn51");
+        li.innerHTML = `<a href="/realtor" class="svelte-1te8zdp">Realtor</a>`;
+        attr(li, "class", "svelte-1te8zdp");
         toggle_class(
           li,
           "active",
-          /*segment*/
+          /*segment1*/
           ctx[1] === "realtor"
         );
       },
@@ -2600,12 +2629,12 @@
         insert(target, li, anchor);
       },
       p(ctx2, dirty) {
-        if (dirty & /*segment*/
+        if (dirty & /*segment1*/
         2) {
           toggle_class(
             li,
             "active",
-            /*segment*/
+            /*segment1*/
             ctx2[1] === "realtor"
           );
         }
@@ -2621,12 +2650,12 @@
     return {
       c() {
         li = element("li");
-        li.innerHTML = `<a href="/admin" class="svelte-1n6rn51">Admin</a>`;
-        attr(li, "class", "svelte-1n6rn51");
+        li.innerHTML = `<a href="/admin" class="svelte-1te8zdp">Admin</a>`;
+        attr(li, "class", "svelte-1te8zdp");
         toggle_class(
           li,
           "active",
-          /*segment*/
+          /*segment1*/
           ctx[1] === "admin"
         );
       },
@@ -2634,12 +2663,12 @@
         insert(target, li, anchor);
       },
       p(ctx2, dirty) {
-        if (dirty & /*segment*/
+        if (dirty & /*segment1*/
         2) {
           toggle_class(
             li,
             "active",
-            /*segment*/
+            /*segment1*/
             ctx2[1] === "admin"
           );
         }
@@ -2664,16 +2693,16 @@
         button.textContent = "Logout";
         t1 = space();
         li1 = element("li");
-        li1.innerHTML = `<a href="/user" class="svelte-1n6rn51">Profile</a>`;
-        attr(button, "class", "svelte-1n6rn51");
+        li1.innerHTML = `<a href="/user" class="svelte-1te8zdp">Profile</a>`;
+        attr(button, "class", "svelte-1te8zdp");
         set_style(li0, "float", "right");
-        attr(li0, "class", "svelte-1n6rn51");
+        attr(li0, "class", "svelte-1te8zdp");
         set_style(li1, "float", "right");
-        attr(li1, "class", "svelte-1n6rn51");
+        attr(li1, "class", "svelte-1te8zdp");
         toggle_class(
           li1,
           "active",
-          /*segment*/
+          /*segment1*/
           ctx[1] === "user"
         );
       },
@@ -2693,12 +2722,12 @@
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*segment*/
+        if (dirty & /*segment1*/
         2) {
           toggle_class(
             li1,
             "active",
-            /*segment*/
+            /*segment1*/
             ctx2[1] === "user"
           );
         }
@@ -2742,7 +2771,7 @@
       c() {
         ul = element("ul");
         li = element("li");
-        li.innerHTML = `<a href="/" class="svelte-1n6rn51">Home</a>`;
+        li.innerHTML = `<a href="/" class="svelte-1te8zdp">Home</a>`;
         t1 = space();
         if (if_block0)
           if_block0.c();
@@ -2755,14 +2784,14 @@
         t4 = space();
         if (if_block3)
           if_block3.c();
-        attr(li, "class", "svelte-1n6rn51");
+        attr(li, "class", "svelte-1te8zdp");
         toggle_class(
           li,
           "active",
-          /*segment*/
+          /*segment1*/
           ctx[1] === ""
         );
-        attr(ul, "class", "menu svelte-1n6rn51");
+        attr(ul, "class", "menu svelte-1te8zdp");
       },
       m(target, anchor) {
         insert(target, ul, anchor);
@@ -2781,12 +2810,12 @@
           if_block3.m(ul, null);
       },
       p(ctx2, [dirty]) {
-        if (dirty & /*segment*/
+        if (dirty & /*segment1*/
         2) {
           toggle_class(
             li,
             "active",
-            /*segment*/
+            /*segment1*/
             ctx2[1] === ""
           );
         }
@@ -2874,9 +2903,9 @@
       "realtor": false,
       "user": false
     } } = $props;
-    let segment;
+    let segment1;
     onMount(() => {
-      $invalidate(1, segment = ((window || {}).location + "").split("/")[4]);
+      $invalidate(1, segment1 = window.location.pathname.split("/")[1]);
     });
     async function userLogout() {
       await (0, import_jsApi_GEN.UserLogout)({}, function(o) {
@@ -2890,7 +2919,7 @@
       if ("access" in $props2)
         $invalidate(0, access = $props2.access);
     };
-    return [access, segment, userLogout];
+    return [access, segment1, userLogout];
   }
   var Menu = class extends SvelteComponent {
     constructor(options) {
@@ -2900,26 +2929,152 @@
   };
   var menu_default = Menu;
 
-  // admin.svelte
+  // admin/_adminSubMenu.svelte
   function create_fragment2(ctx) {
+    let ul;
+    let li0;
+    let t1;
+    let li1;
+    let t3;
+    let li2;
+    let t5;
+    let li3;
+    return {
+      c() {
+        ul = element("ul");
+        li0 = element("li");
+        li0.innerHTML = `<a href="/admin" class="svelte-dk81xr">Dashboard</a>`;
+        t1 = space();
+        li1 = element("li");
+        li1.innerHTML = `<a href="/admin/users" class="svelte-dk81xr">Users</a>`;
+        t3 = space();
+        li2 = element("li");
+        li2.innerHTML = `<a href="/admin/sessions" class="svelte-dk81xr">Sessions</a>`;
+        t5 = space();
+        li3 = element("li");
+        li3.innerHTML = `<a href="/admin/actionLogs" class="svelte-dk81xr">Action Logs</a>`;
+        attr(li0, "class", "svelte-dk81xr");
+        toggle_class(
+          li0,
+          "active",
+          /*segment2*/
+          ctx[0] === ""
+        );
+        attr(li1, "class", "svelte-dk81xr");
+        toggle_class(
+          li1,
+          "active",
+          /*segment2*/
+          ctx[0] === "users"
+        );
+        attr(li2, "class", "svelte-dk81xr");
+        toggle_class(
+          li2,
+          "active",
+          /*segment2*/
+          ctx[0] === "sessions"
+        );
+        attr(li3, "class", "svelte-dk81xr");
+        toggle_class(
+          li3,
+          "active",
+          /*segment2*/
+          ctx[0] === "actionLogs"
+        );
+        attr(ul, "class", "submenu svelte-dk81xr");
+      },
+      m(target, anchor) {
+        insert(target, ul, anchor);
+        append(ul, li0);
+        append(ul, t1);
+        append(ul, li1);
+        append(ul, t3);
+        append(ul, li2);
+        append(ul, t5);
+        append(ul, li3);
+      },
+      p(ctx2, [dirty]) {
+        if (dirty & /*segment2*/
+        1) {
+          toggle_class(
+            li0,
+            "active",
+            /*segment2*/
+            ctx2[0] === ""
+          );
+        }
+        if (dirty & /*segment2*/
+        1) {
+          toggle_class(
+            li1,
+            "active",
+            /*segment2*/
+            ctx2[0] === "users"
+          );
+        }
+        if (dirty & /*segment2*/
+        1) {
+          toggle_class(
+            li2,
+            "active",
+            /*segment2*/
+            ctx2[0] === "sessions"
+          );
+        }
+        if (dirty & /*segment2*/
+        1) {
+          toggle_class(
+            li3,
+            "active",
+            /*segment2*/
+            ctx2[0] === "actionLogs"
+          );
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching)
+          detach(ul);
+      }
+    };
+  }
+  function instance2($self, $props, $invalidate) {
+    let segment2;
+    onMount(() => {
+      $invalidate(0, segment2 = window.location.pathname.split("/")[2] || "");
+    });
+    return [segment2];
+  }
+  var AdminSubMenu = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance2, create_fragment2, safe_not_equal, {});
+    }
+  };
+  var adminSubMenu_default = AdminSubMenu;
+
+  // admin.svelte
+  function create_fragment3(ctx) {
     let menu;
     let t0;
-    let ul;
+    let adminsubmenu;
+    let t1;
     let current;
     menu = new menu_default({ props: { access: segments } });
+    adminsubmenu = new adminSubMenu_default({});
     return {
       c() {
         create_component(menu.$.fragment);
         t0 = space();
-        ul = element("ul");
-        ul.innerHTML = `<li><a href="/admin/users">Users</a></li> 
-  <li><a href="/admin/sessions">Sessions</a></li> 
-  <li><a href="/admin/actionLogs">Sessions</a></li>`;
+        create_component(adminsubmenu.$.fragment);
+        t1 = text("\nTODO: show summary statistics here");
       },
       m(target, anchor) {
         mount_component(menu, target, anchor);
         insert(target, t0, anchor);
-        insert(target, ul, anchor);
+        mount_component(adminsubmenu, target, anchor);
+        insert(target, t1, anchor);
         current = true;
       },
       p: noop,
@@ -2927,18 +3082,21 @@
         if (current)
           return;
         transition_in(menu.$.fragment, local);
+        transition_in(adminsubmenu.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(menu.$.fragment, local);
+        transition_out(adminsubmenu.$.fragment, local);
         current = false;
       },
       d(detaching) {
         destroy_component(menu, detaching);
         if (detaching)
           detach(t0);
+        destroy_component(adminsubmenu, detaching);
         if (detaching)
-          detach(ul);
+          detach(t1);
       }
     };
   }
@@ -2946,7 +3104,7 @@
   var Admin = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment2, safe_not_equal, {});
+      init(this, options, null, create_fragment3, safe_not_equal, {});
     }
   };
   var admin_default = Admin;

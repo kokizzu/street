@@ -24,12 +24,12 @@ type (
 		// will filled by default with form id=0
 		WithMeta bool `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
 
-		zCrud.PagerIn
+		Pager zCrud.PagerIn
 	}
 	AdminUsersOut struct {
 		ResponseCommon
 
-		zCrud.PagerOut
+		Pager zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 
 		Meta *zCrud.Meta `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 
@@ -159,7 +159,7 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 		fallthrough
 	case zCrud.ActionList:
 		r := rqAuth.NewUsers(d.AuthOltp)
-		out.Users = r.FindByPagination(&AdminUsersMeta, &in.PagerIn, &out.PagerOut)
+		out.Users = r.FindByPagination(&AdminUsersMeta, &in.Pager, &out.Pager)
 	}
 
 	return

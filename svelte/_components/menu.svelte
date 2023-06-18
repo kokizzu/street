@@ -9,9 +9,9 @@
     'user': false,
   };
   
-  let segment;
+  let segment1;
   onMount( () => {
-    segment = ((window || {}).location + '').split( '/' )[ 4 ]; // [http, '', domain, first-segment]
+    segment1 = window.location.pathname.split( '/' )[ 1 ];
   } );
   
   async function userLogout() {
@@ -24,21 +24,21 @@
 </script>
 
 <ul class='menu'>
-  <li class:active={segment === ''}><a href='/'>Home</a></li>
+  <li class:active={segment1 === ''}><a href='/'>Home</a></li>
   {#if access.buyer }
-    <li class:active={segment === 'buyer'}><a href='/buyer'>Buyer</a></li>
+    <li class:active={segment1 === 'buyer'}><a href='/buyer'>Buyer</a></li>
   {/if}
   {#if access.realtor}
-    <li class:active={segment === 'realtor'}><a href='/realtor'>Realtor</a></li>
+    <li class:active={segment1 === 'realtor'}><a href='/realtor'>Realtor</a></li>
   {/if}
   {#if access.admin }
-    <li class:active={segment === 'admin'}><a href='/admin'>Admin</a></li>
+    <li class:active={segment1 === 'admin'}><a href='/admin'>Admin</a></li>
   {/if}
   {#if access.user}
     <li style='float:right'>
       <button on:click={userLogout}>Logout</button>
     </li>
-    <li class:active={segment === 'user'} style='float:right'>
+    <li class:active={segment1 === 'user'} style='float:right'>
       <a href='/user'>Profile</a>
     </li>
   {/if}
@@ -67,10 +67,6 @@
 
     .menu li a:hover:not(.active) {
         background-color : #111;
-    }
-
-    .menu li a.active {
-        float : right;
     }
 
     .menu li button {
