@@ -93,19 +93,12 @@
 </style>
 
 
-<main id="app"><h1>/*! title */</h1>
-
-
-
-<h2 class="error">#{error}</h2>
-
-<hr>
-<a href="/">Back to main page</a></main><script>document.getElementById('app').innerHTML=''</script><!---->
+<main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
 <style></style>
 <script>(() => {
-  // node_modules/svelte/internal/index.mjs
+  // node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
   function run(fn) {
@@ -121,11 +114,65 @@
     return typeof thing === "function";
   }
   function safe_not_equal(a, b) {
-    return a != a ? b == b : a !== b || (a && typeof a === "object" || typeof a === "function");
+    return a != a ? b == b : a !== b || a && typeof a === "object" || typeof a === "function";
   }
   function is_empty(obj) {
     return Object.keys(obj).length === 0;
   }
+
+  // node_modules/svelte/src/runtime/internal/globals.js
+  var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
+    // @ts-ignore Node typings have this
+    global
+  );
+
+  // node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  var ResizeObserverSingleton = class {
+    /**
+     * @private
+     * @readonly
+     * @type {WeakMap<Element, import('./private.js').Listener>}
+     */
+    _listeners = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
+    /**
+     * @private
+     * @type {ResizeObserver}
+     */
+    _observer = void 0;
+    /** @type {ResizeObserverOptions} */
+    options;
+    /** @param {ResizeObserverOptions} options */
+    constructor(options) {
+      this.options = options;
+    }
+    /**
+     * @param {Element} element
+     * @param {import('./private.js').Listener} listener
+     * @returns {() => void}
+     */
+    observe(element2, listener) {
+      this._listeners.set(element2, listener);
+      this._getObserver().observe(element2, this.options);
+      return () => {
+        this._listeners.delete(element2);
+        this._observer.unobserve(element2);
+      };
+    }
+    /**
+     * @private
+     */
+    _getObserver() {
+      return this._observer ?? (this._observer = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          ResizeObserverSingleton.entries.set(entry.target, entry);
+          this._listeners.get(entry.target)?.(entry);
+        }
+      }));
+    }
+  };
+  ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
+
+  // node_modules/svelte/src/runtime/internal/dom.js
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -159,10 +206,24 @@
   function children(element2) {
     return Array.from(element2.childNodes);
   }
+  function get_custom_elements_slots(element2) {
+    const result = {};
+    element2.childNodes.forEach(
+      /** @param {Element} node */
+      (node) => {
+        result[node.slot || "default"] = true;
+      }
+    );
+    return result;
+  }
+
+  // node_modules/svelte/src/runtime/internal/lifecycle.js
   var current_component;
   function set_current_component(component) {
     current_component = component;
   }
+
+  // node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -236,6 +297,8 @@
     targets.forEach((c) => c());
     render_callbacks = filtered;
   }
+
+  // node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   function transition_in(block, local) {
     if (block && block.i) {
@@ -243,49 +306,53 @@
       block.i(local);
     }
   }
-  var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : global;
-  var _boolean_attributes = [
-    "allowfullscreen",
-    "allowpaymentrequest",
-    "async",
-    "autofocus",
-    "autoplay",
-    "checked",
-    "controls",
-    "default",
-    "defer",
-    "disabled",
-    "formnovalidate",
-    "hidden",
-    "inert",
-    "ismap",
-    "loop",
-    "multiple",
-    "muted",
-    "nomodule",
-    "novalidate",
-    "open",
-    "playsinline",
-    "readonly",
-    "required",
-    "reversed",
-    "selected"
-  ];
+
+  // node_modules/svelte/src/shared/boolean_attributes.js
+  var _boolean_attributes = (
+    /** @type {const} */
+    [
+      "allowfullscreen",
+      "allowpaymentrequest",
+      "async",
+      "autofocus",
+      "autoplay",
+      "checked",
+      "controls",
+      "default",
+      "defer",
+      "disabled",
+      "formnovalidate",
+      "hidden",
+      "inert",
+      "ismap",
+      "loop",
+      "multiple",
+      "muted",
+      "nomodule",
+      "novalidate",
+      "open",
+      "playsinline",
+      "readonly",
+      "required",
+      "reversed",
+      "selected"
+    ]
+  );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
-  function mount_component(component, target, anchor, customElement) {
+
+  // node_modules/svelte/src/runtime/internal/Component.js
+  function mount_component(component, target, anchor) {
     const { fragment, after_update } = component.$;
     fragment && fragment.m(target, anchor);
-    if (!customElement) {
-      add_render_callback(() => {
-        const new_on_destroy = component.$.on_mount.map(run).filter(is_function);
-        if (component.$.on_destroy) {
-          component.$.on_destroy.push(...new_on_destroy);
-        } else {
-          run_all(new_on_destroy);
-        }
-        component.$.on_mount = [];
-      });
-    }
+    add_render_callback(() => {
+      const new_on_destroy = component.$.on_mount.map(run).filter(is_function);
+      if (component.$.on_destroy) {
+        component.$.on_destroy.push(...new_on_destroy);
+      } else {
+        run_all(new_on_destroy);
+      }
+      component.$.on_mount = [];
+    });
     after_update.forEach(add_render_callback);
   }
   function destroy_component(component, detaching) {
@@ -357,7 +424,7 @@
       }
       if (options.intro)
         transition_in(component.$.fragment);
-      mount_component(component, options.target, options.anchor, options.customElement);
+      mount_component(component, options.target, options.anchor);
       end_hydrating();
       flush();
     }
@@ -366,53 +433,204 @@
   var SvelteElement;
   if (typeof HTMLElement === "function") {
     SvelteElement = class extends HTMLElement {
-      constructor() {
+      $componentCtor;
+      $slots;
+      $component;
+      $connected = false;
+      $data = {};
+      $reflecting = false;
+      /** @type {Record<string, CustomElementPropDefinition>} */
+      $props_definition = {};
+      /** @type {Record<string, Function[]>} */
+      $listeners = {};
+      /** @type {Map<Function, Function>} */
+      $listener_unsubscribe_fns = /* @__PURE__ */ new Map();
+      constructor($componentCtor, $slots, use_shadow_dom) {
         super();
-        this.attachShadow({ mode: "open" });
-      }
-      connectedCallback() {
-        const { on_mount } = this.$;
-        this.$.on_disconnect = on_mount.map(run).filter(is_function);
-        for (const key in this.$.slotted) {
-          this.appendChild(this.$.slotted[key]);
+        this.$componentCtor = $componentCtor;
+        this.$slots = $slots;
+        if (use_shadow_dom) {
+          this.attachShadow({ mode: "open" });
         }
       }
+      addEventListener(type, listener, options) {
+        this.$listeners[type] = this.$listeners[type] || [];
+        this.$listeners[type].push(listener);
+        if (this.$component) {
+          const unsub = this.$component.$on(type, listener);
+          this.$listener_unsubscribe_fns.set(listener, unsub);
+        }
+        super.addEventListener(type, listener, options);
+      }
+      removeEventListener(type, listener, options) {
+        super.removeEventListener(type, listener, options);
+        if (this.$component) {
+          const unsub = this.$listener_unsubscribe_fns.get(listener);
+          if (unsub) {
+            unsub();
+            this.$listener_unsubscribe_fns.delete(listener);
+          }
+        }
+      }
+      async connectedCallback() {
+        this.$connected = true;
+        if (!this.$component) {
+          let create_slot = function(name) {
+            return () => {
+              let node;
+              const obj = {
+                c: function create() {
+                  node = document.createElement("slot");
+                  if (name !== "default") {
+                    node.setAttribute("name", name);
+                  }
+                },
+                /**
+                 * @param {HTMLElement} target
+                 * @param {HTMLElement} [anchor]
+                 */
+                m: function mount(target, anchor) {
+                  insert(target, node, anchor);
+                },
+                d: function destroy(detaching) {
+                  if (detaching) {
+                    detach(node);
+                  }
+                }
+              };
+              return obj;
+            };
+          };
+          await Promise.resolve();
+          if (!this.$connected) {
+            return;
+          }
+          const $slots = {};
+          const existing_slots = get_custom_elements_slots(this);
+          for (const name of this.$slots) {
+            if (name in existing_slots) {
+              $slots[name] = [create_slot(name)];
+            }
+          }
+          for (const attribute of this.attributes) {
+            const name = this.$get_prop_name(attribute.name);
+            if (!(name in this.$data)) {
+              this.$data[name] = get_custom_element_value(
+                name,
+                attribute.value,
+                this.$props_definition,
+                "toProp"
+              );
+            }
+          }
+          this.$component = new this.$componentCtor({
+            target: this.shadowRoot || this,
+            props: {
+              ...this.$data,
+              $slots,
+              $scope: {
+                ctx: []
+              }
+            }
+          });
+          for (const type in this.$listeners) {
+            for (const listener of this.$listeners[type]) {
+              const unsub = this.$component.$on(type, listener);
+              this.$listener_unsubscribe_fns.set(listener, unsub);
+            }
+          }
+          this.$listeners = {};
+        }
+      }
+      // We don't need this when working within Svelte code, but for compatibility of people using this outside of Svelte
+      // and setting attributes through setAttribute etc, this is helpful
       attributeChangedCallback(attr2, _oldValue, newValue) {
-        this[attr2] = newValue;
+        if (this.$reflecting)
+          return;
+        attr2 = this.$get_prop_name(attr2);
+        this.$data[attr2] = get_custom_element_value(
+          attr2,
+          newValue,
+          this.$props_definition,
+          "toProp"
+        );
+        this.$component?.$set({ [attr2]: this.$data[attr2] });
       }
       disconnectedCallback() {
-        run_all(this.$.on_disconnect);
+        this.$connected = false;
+        Promise.resolve().then(() => {
+          if (!this.$connected) {
+            this.$component.$destroy();
+            this.$component = void 0;
+          }
+        });
       }
-      $destroy() {
-        destroy_component(this, 1);
-        this.$destroy = noop;
-      }
-      $on(type, callback) {
-        if (!is_function(callback)) {
-          return noop;
-        }
-        const callbacks = this.$.callbacks[type] || (this.$.callbacks[type] = []);
-        callbacks.push(callback);
-        return () => {
-          const index = callbacks.indexOf(callback);
-          if (index !== -1)
-            callbacks.splice(index, 1);
-        };
-      }
-      $set($props) {
-        if (this.$set && !is_empty($props)) {
-          this.$.skip_bound = true;
-          this.$set($props);
-          this.$.skip_bound = false;
-        }
+      $get_prop_name(attribute_name) {
+        return Object.keys(this.$props_definition).find(
+          (key) => this.$props_definition[key].attribute === attribute_name || !this.$props_definition[key].attribute && key.toLowerCase() === attribute_name
+        ) || attribute_name;
       }
     };
   }
+  function get_custom_element_value(prop, value, props_definition, transform) {
+    const type = props_definition[prop]?.type;
+    value = type === "Boolean" && typeof value !== "boolean" ? value != null : value;
+    if (!transform || !props_definition[prop]) {
+      return value;
+    } else if (transform === "toAttribute") {
+      switch (type) {
+        case "Object":
+        case "Array":
+          return value == null ? null : JSON.stringify(value);
+        case "Boolean":
+          return value ? "" : null;
+        case "Number":
+          return value == null ? null : value;
+        default:
+          return value;
+      }
+    } else {
+      switch (type) {
+        case "Object":
+        case "Array":
+          return value && JSON.parse(value);
+        case "Boolean":
+          return value;
+        case "Number":
+          return value != null ? +value : value;
+        default:
+          return value;
+      }
+    }
+  }
   var SvelteComponent = class {
+    /**
+     * ### PRIVATE API
+     *
+     * Do not use, may change at any time
+     *
+     * @type {any}
+     */
+    $ = void 0;
+    /**
+     * ### PRIVATE API
+     *
+     * Do not use, may change at any time
+     *
+     * @type {any}
+     */
+    $set = void 0;
+    /** @returns {void} */
     $destroy() {
       destroy_component(this, 1);
       this.$destroy = noop;
     }
+    /**
+     * @template {Extract<keyof Events, string>} K
+     * @param {K} type
+     * @param {((e: Events[K]) => void) | null | undefined} callback
+     * @returns {() => void}
+     */
     $on(type, callback) {
       if (!is_function(callback)) {
         return noop;
@@ -425,14 +643,25 @@
           callbacks.splice(index, 1);
       };
     }
-    $set($props) {
-      if (this.$set && !is_empty($props)) {
+    /**
+     * @param {Partial<Props>} props
+     * @returns {void}
+     */
+    $set(props) {
+      if (this.$set && !is_empty(props)) {
         this.$.skip_bound = true;
-        this.$set($props);
+        this.$set(props);
         this.$.skip_bound = false;
       }
     }
   };
+
+  // node_modules/svelte/src/shared/version.js
+  var PUBLIC_VERSION = "4";
+
+  // node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  if (typeof window !== "undefined")
+    (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
   // guest/verifyEmail.svelte
   function create_if_block_1(ctx) {
@@ -447,8 +676,9 @@
       },
       p: noop,
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(h2);
+        }
       }
     };
   }
@@ -465,8 +695,9 @@
       },
       p: noop,
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(h2);
+        }
       }
     };
   }
@@ -483,7 +714,7 @@
     return {
       c() {
         h1 = element("h1");
-        h1.textContent = "/*! title */";
+        h1.textContent = '/*! title */';
         t1 = space();
         if (if_block0)
           if_block0.c();
@@ -519,30 +750,25 @@
       i: noop,
       o: noop,
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(h1);
-        if (detaching)
           detach(t1);
+          detach(t2);
+          detach(t3);
+          detach(hr);
+          detach(t4);
+          detach(a);
+        }
         if (if_block0)
           if_block0.d(detaching);
-        if (detaching)
-          detach(t2);
         if (if_block1)
           if_block1.d(detaching);
-        if (detaching)
-          detach(t3);
-        if (detaching)
-          detach(hr);
-        if (detaching)
-          detach(t4);
-        if (detaching)
-          detach(a);
       }
     };
   }
-  var verified = "#{verified}";
-  var error = "#{error}";
-  var email = "#{email}";
+  var verified = '#{verified}';
+  var error = '#{error}';
+  var email = '#{email}';
   var VerifyEmail = class extends SvelteComponent {
     constructor(options) {
       super();

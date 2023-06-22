@@ -93,30 +93,7 @@
 </style>
 
 
-<main id="app"><ul class="menu svelte-14j5e9r"><li class="svelte-14j5e9r"><a href="/" class="svelte-14j5e9r">Home</a></li>
-  
-  
-  
-  
-</ul>
-<ul class="submenu svelte-dk81xr"><li class="svelte-dk81xr"><a href="/admin" class="svelte-dk81xr">Dashboard</a></li>
-  <li class="svelte-dk81xr"><a href="/admin/users" class="svelte-dk81xr">Users</a></li>
-
-
-</ul>
-<button>Add</button>
-
-<table class="svelte-1o1btri"><thead><tr></tr></thead>
-  <tbody></tbody>
-  <tfoot><tr><th colspan="0" class="svelte-1o1btri"><span class="left svelte-1o1btri">Page undefined of undefined,
-      <input class="perPage svelte-1o1btri" type="number"> rows per page.
-        </span>
-      Total: undefined
-      <span class="right svelte-1o1btri"><button disabled><i class="gg-push-chevron-left"></i></button>
-        <button disabled><i class="gg-chevron-left"></i></button>
-        <button disabled><i class="gg-chevron-right"></i></button>
-        <button disabled><i class="gg-push-chevron-right"></i></button></span></th></tr></tfoot>
-</table></main><script>document.getElementById('app').innerHTML=''</script><!---->
+<main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
 <style>/* fakecss:/home/kyz/go/src/street/svelte/_components/Menu.esbuild-svelte-fake-css */
@@ -244,12 +221,7 @@ label.svelte-1346uxr {
   text-align: right;
   margin-right: 1em;
 }
-.menu.svelte-14j5e9r.svelte-14j5e9r{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#333}.menu.svelte-14j5e9r li.svelte-14j5e9r{float:left}.menu.svelte-14j5e9r li a.svelte-14j5e9r{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.menu.svelte-14j5e9r li a.svelte-14j5e9r:hover:not(.active){background-color:#111}.menu.svelte-14j5e9r li button.svelte-14j5e9r{padding:0.5em;margin:0.3em}.active.svelte-14j5e9r.svelte-14j5e9r{background-color:#4CAF50}
-.submenu.svelte-dk81xr.svelte-dk81xr{list-style-type:none;margin:0;padding:0;overflow:hidden;background-color:#666}.submenu.svelte-dk81xr li.svelte-dk81xr{float:left}.submenu.svelte-dk81xr li a.svelte-dk81xr{display:block;color:white;text-align:center;padding:14px 16px;text-decoration:none}.submenu.svelte-dk81xr li a.svelte-dk81xr:hover:not(.active){background-color:#111}.active.svelte-dk81xr.svelte-dk81xr{background-color:#4CAF50}
-.left.svelte-1346uxr{float:left
-    }.right.svelte-1346uxr{float:right
-    }.backdrop.svelte-1346uxr{position:fixed;top:0;left:0;background:grey;width:100%;height:100%;opacity:.8}.modal.svelte-1346uxr{background-color:white;position:fixed;top:20%;left:50%;width:600px;margin-left:-300px;margin-top:0;overflow-y:auto;box-shadow:.25rem .25rem .5rem #DADADA, -.25rem -.25rem .5rem #FFF;border-radius:1em;padding:1em;opacity:1}.title.svelte-1346uxr{font-weight:bold;font-size:1.2em}button.close.svelte-1346uxr{float:right}label.svelte-1346uxr{width:12em;display:inline-block;text-align:right;margin-right:1em}
-table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-top:1em}table.svelte-1o1btri.svelte-1o1btri,th.svelte-1o1btri.svelte-1o1btri,td.svelte-1o1btri.svelte-1o1btri{border:1px solid black}input.perPage.svelte-1o1btri.svelte-1o1btri{width:4em}span.left.svelte-1o1btri.svelte-1o1btri{float:left}span.right.svelte-1o1btri.svelte-1o1btri{float:right}button.action.svelte-1o1btri.svelte-1o1btri{height:2em}tr.deleted.svelte-1o1btri td.svelte-1o1btri{text-decoration:line-through;color:red}</style>
+</style>
 <script>(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
@@ -1536,13 +1508,13 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         let firstSampleTS;
         min = min !== void 0 ? min : 1e3;
         return function push(chunkLength) {
-          const now = Date.now();
+          const now2 = Date.now();
           const startedAt = timestamps[tail];
           if (!firstSampleTS) {
-            firstSampleTS = now;
+            firstSampleTS = now2;
           }
           bytes[head] = chunkLength;
-          timestamps[head] = now;
+          timestamps[head] = now2;
           let i = tail;
           let bytesCount = 0;
           while (i !== head) {
@@ -1553,10 +1525,10 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
           if (head === tail) {
             tail = (tail + 1) % samplesCount;
           }
-          if (now - firstSampleTS < min) {
+          if (now2 - firstSampleTS < min) {
             return;
           }
-          const passed = startedAt && now - startedAt;
+          const passed = startedAt && now2 - startedAt;
           return passed ? Math.round(bytesCount * 1e3 / passed) : void 0;
         };
       }
@@ -1886,7 +1858,7 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         });
         return config;
       }
-      var VERSION = "1.4.0";
+      var VERSION2 = "1.4.0";
       var validators$1 = {};
       ["object", "boolean", "number", "function", "string", "symbol"].forEach((type, i) => {
         validators$1[type] = function validator2(thing) {
@@ -1896,7 +1868,7 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
       var deprecatedWarnings = {};
       validators$1.transitional = function transitional(validator2, version, message) {
         function formatMessage(opt, desc) {
-          return "[Axios v" + VERSION + "] Transitional option '" + opt + "'" + desc + (message ? ". " + message : "");
+          return "[Axios v" + VERSION2 + "] Transitional option '" + opt + "'" + desc + (message ? ". " + message : "");
         }
         return (value, opt, opts) => {
           if (validator2 === false) {
@@ -2265,7 +2237,7 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
       axios.CanceledError = CanceledError;
       axios.CancelToken = CancelToken$1;
       axios.isCancel = isCancel;
-      axios.VERSION = VERSION;
+      axios.VERSION = VERSION2;
       axios.toFormData = toFormData;
       axios.AxiosError = AxiosError;
       axios.Cancel = axios.CanceledError;
@@ -2369,13 +2341,16 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
     }
   });
 
-  // node_modules/svelte/internal/index.mjs
+  // node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
   function assign(tar, src) {
     for (const k in src)
       tar[k] = src[k];
-    return tar;
+    return (
+      /** @type {T & S} */
+      tar
+    );
   }
   function run(fn) {
     return fn();
@@ -2390,7 +2365,7 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
     return typeof thing === "function";
   }
   function safe_not_equal(a, b) {
-    return a != a ? b == b : a !== b || (a && typeof a === "object" || typeof a === "function");
+    return a != a ? b == b : a !== b || a && typeof a === "object" || typeof a === "function";
   }
   function is_empty(obj) {
     return Object.keys(obj).length === 0;
@@ -2439,6 +2414,60 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
     }
     return -1;
   }
+
+  // node_modules/svelte/src/runtime/internal/globals.js
+  var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
+    // @ts-ignore Node typings have this
+    global
+  );
+
+  // node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  var ResizeObserverSingleton = class {
+    /**
+     * @private
+     * @readonly
+     * @type {WeakMap<Element, import('./private.js').Listener>}
+     */
+    _listeners = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
+    /**
+     * @private
+     * @type {ResizeObserver}
+     */
+    _observer = void 0;
+    /** @type {ResizeObserverOptions} */
+    options;
+    /** @param {ResizeObserverOptions} options */
+    constructor(options) {
+      this.options = options;
+    }
+    /**
+     * @param {Element} element
+     * @param {import('./private.js').Listener} listener
+     * @returns {() => void}
+     */
+    observe(element2, listener) {
+      this._listeners.set(element2, listener);
+      this._getObserver().observe(element2, this.options);
+      return () => {
+        this._listeners.delete(element2);
+        this._observer.unobserve(element2);
+      };
+    }
+    /**
+     * @private
+     */
+    _getObserver() {
+      return this._observer ?? (this._observer = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          ResizeObserverSingleton.entries.set(entry.target, entry);
+          this._listeners.get(entry.target)?.(entry);
+        }
+      }));
+    }
+  };
+  ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
+
+  // node_modules/svelte/src/runtime/internal/dom.js
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -2498,26 +2527,37 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
     data = "" + data;
     if (text2.data === data)
       return;
-    text2.data = data;
+    text2.data = /** @type {string} */
+    data;
   }
   function set_input_value(input, value) {
     input.value = value == null ? "" : value;
   }
   function set_style(node, key, value, important) {
-    if (value === null) {
+    if (value == null) {
       node.style.removeProperty(key);
     } else {
       node.style.setProperty(key, value, important ? "important" : "");
     }
   }
   function toggle_class(element2, name, toggle) {
-    element2.classList[toggle ? "add" : "remove"](name);
+    element2.classList.toggle(name, !!toggle);
   }
   function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
-    const e = document.createEvent("CustomEvent");
-    e.initCustomEvent(type, bubbles, cancelable, detail);
-    return e;
+    return new CustomEvent(type, { detail, bubbles, cancelable });
   }
+  function get_custom_elements_slots(element2) {
+    const result = {};
+    element2.childNodes.forEach(
+      /** @param {Element} node */
+      (node) => {
+        result[node.slot || "default"] = true;
+      }
+    );
+    return result;
+  }
+
+  // node_modules/svelte/src/runtime/internal/lifecycle.js
   var current_component;
   function set_current_component(component) {
     current_component = component;
@@ -2535,7 +2575,12 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
     return (type, detail, { cancelable = false } = {}) => {
       const callbacks = component.$.callbacks[type];
       if (callbacks) {
-        const event = custom_event(type, detail, { cancelable });
+        const event = custom_event(
+          /** @type {string} */
+          type,
+          detail,
+          { cancelable }
+        );
         callbacks.slice().forEach((fn) => {
           fn.call(component, event);
         });
@@ -2544,6 +2589,8 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
       return true;
     };
   }
+
+  // node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -2620,6 +2667,8 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
     targets.forEach((c) => c());
     render_callbacks = filtered;
   }
+
+  // node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   var outros;
   function group_outros() {
@@ -2660,35 +2709,46 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
       callback();
     }
   }
-  var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : global;
-  var _boolean_attributes = [
-    "allowfullscreen",
-    "allowpaymentrequest",
-    "async",
-    "autofocus",
-    "autoplay",
-    "checked",
-    "controls",
-    "default",
-    "defer",
-    "disabled",
-    "formnovalidate",
-    "hidden",
-    "inert",
-    "ismap",
-    "loop",
-    "multiple",
-    "muted",
-    "nomodule",
-    "novalidate",
-    "open",
-    "playsinline",
-    "readonly",
-    "required",
-    "reversed",
-    "selected"
-  ];
+
+  // node_modules/svelte/src/runtime/internal/each.js
+  function ensure_array_like(array_like_or_iterator) {
+    return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
+  }
+
+  // node_modules/svelte/src/shared/boolean_attributes.js
+  var _boolean_attributes = (
+    /** @type {const} */
+    [
+      "allowfullscreen",
+      "allowpaymentrequest",
+      "async",
+      "autofocus",
+      "autoplay",
+      "checked",
+      "controls",
+      "default",
+      "defer",
+      "disabled",
+      "formnovalidate",
+      "hidden",
+      "inert",
+      "ismap",
+      "loop",
+      "multiple",
+      "muted",
+      "nomodule",
+      "novalidate",
+      "open",
+      "playsinline",
+      "readonly",
+      "required",
+      "reversed",
+      "selected"
+    ]
+  );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
+
+  // node_modules/svelte/src/runtime/internal/Component.js
   function bind(component, name, callback) {
     const index = component.$.props[name];
     if (index !== void 0) {
@@ -2699,20 +2759,18 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
   function create_component(block) {
     block && block.c();
   }
-  function mount_component(component, target, anchor, customElement) {
+  function mount_component(component, target, anchor) {
     const { fragment, after_update } = component.$;
     fragment && fragment.m(target, anchor);
-    if (!customElement) {
-      add_render_callback(() => {
-        const new_on_destroy = component.$.on_mount.map(run).filter(is_function);
-        if (component.$.on_destroy) {
-          component.$.on_destroy.push(...new_on_destroy);
-        } else {
-          run_all(new_on_destroy);
-        }
-        component.$.on_mount = [];
-      });
-    }
+    add_render_callback(() => {
+      const new_on_destroy = component.$.on_mount.map(run).filter(is_function);
+      if (component.$.on_destroy) {
+        component.$.on_destroy.push(...new_on_destroy);
+      } else {
+        run_all(new_on_destroy);
+      }
+      component.$.on_mount = [];
+    });
     after_update.forEach(add_render_callback);
   }
   function destroy_component(component, detaching) {
@@ -2784,7 +2842,7 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
       }
       if (options.intro)
         transition_in(component.$.fragment);
-      mount_component(component, options.target, options.anchor, options.customElement);
+      mount_component(component, options.target, options.anchor);
       end_hydrating();
       flush();
     }
@@ -2793,53 +2851,204 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
   var SvelteElement;
   if (typeof HTMLElement === "function") {
     SvelteElement = class extends HTMLElement {
-      constructor() {
+      $componentCtor;
+      $slots;
+      $component;
+      $connected = false;
+      $data = {};
+      $reflecting = false;
+      /** @type {Record<string, CustomElementPropDefinition>} */
+      $props_definition = {};
+      /** @type {Record<string, Function[]>} */
+      $listeners = {};
+      /** @type {Map<Function, Function>} */
+      $listener_unsubscribe_fns = /* @__PURE__ */ new Map();
+      constructor($componentCtor, $slots, use_shadow_dom) {
         super();
-        this.attachShadow({ mode: "open" });
-      }
-      connectedCallback() {
-        const { on_mount } = this.$;
-        this.$.on_disconnect = on_mount.map(run).filter(is_function);
-        for (const key in this.$.slotted) {
-          this.appendChild(this.$.slotted[key]);
+        this.$componentCtor = $componentCtor;
+        this.$slots = $slots;
+        if (use_shadow_dom) {
+          this.attachShadow({ mode: "open" });
         }
       }
+      addEventListener(type, listener, options) {
+        this.$listeners[type] = this.$listeners[type] || [];
+        this.$listeners[type].push(listener);
+        if (this.$component) {
+          const unsub = this.$component.$on(type, listener);
+          this.$listener_unsubscribe_fns.set(listener, unsub);
+        }
+        super.addEventListener(type, listener, options);
+      }
+      removeEventListener(type, listener, options) {
+        super.removeEventListener(type, listener, options);
+        if (this.$component) {
+          const unsub = this.$listener_unsubscribe_fns.get(listener);
+          if (unsub) {
+            unsub();
+            this.$listener_unsubscribe_fns.delete(listener);
+          }
+        }
+      }
+      async connectedCallback() {
+        this.$connected = true;
+        if (!this.$component) {
+          let create_slot2 = function(name) {
+            return () => {
+              let node;
+              const obj = {
+                c: function create() {
+                  node = document.createElement("slot");
+                  if (name !== "default") {
+                    node.setAttribute("name", name);
+                  }
+                },
+                /**
+                 * @param {HTMLElement} target
+                 * @param {HTMLElement} [anchor]
+                 */
+                m: function mount(target, anchor) {
+                  insert(target, node, anchor);
+                },
+                d: function destroy(detaching) {
+                  if (detaching) {
+                    detach(node);
+                  }
+                }
+              };
+              return obj;
+            };
+          };
+          await Promise.resolve();
+          if (!this.$connected) {
+            return;
+          }
+          const $slots = {};
+          const existing_slots = get_custom_elements_slots(this);
+          for (const name of this.$slots) {
+            if (name in existing_slots) {
+              $slots[name] = [create_slot2(name)];
+            }
+          }
+          for (const attribute of this.attributes) {
+            const name = this.$get_prop_name(attribute.name);
+            if (!(name in this.$data)) {
+              this.$data[name] = get_custom_element_value(
+                name,
+                attribute.value,
+                this.$props_definition,
+                "toProp"
+              );
+            }
+          }
+          this.$component = new this.$componentCtor({
+            target: this.shadowRoot || this,
+            props: {
+              ...this.$data,
+              $slots,
+              $scope: {
+                ctx: []
+              }
+            }
+          });
+          for (const type in this.$listeners) {
+            for (const listener of this.$listeners[type]) {
+              const unsub = this.$component.$on(type, listener);
+              this.$listener_unsubscribe_fns.set(listener, unsub);
+            }
+          }
+          this.$listeners = {};
+        }
+      }
+      // We don't need this when working within Svelte code, but for compatibility of people using this outside of Svelte
+      // and setting attributes through setAttribute etc, this is helpful
       attributeChangedCallback(attr2, _oldValue, newValue) {
-        this[attr2] = newValue;
+        if (this.$reflecting)
+          return;
+        attr2 = this.$get_prop_name(attr2);
+        this.$data[attr2] = get_custom_element_value(
+          attr2,
+          newValue,
+          this.$props_definition,
+          "toProp"
+        );
+        this.$component?.$set({ [attr2]: this.$data[attr2] });
       }
       disconnectedCallback() {
-        run_all(this.$.on_disconnect);
+        this.$connected = false;
+        Promise.resolve().then(() => {
+          if (!this.$connected) {
+            this.$component.$destroy();
+            this.$component = void 0;
+          }
+        });
       }
-      $destroy() {
-        destroy_component(this, 1);
-        this.$destroy = noop;
-      }
-      $on(type, callback) {
-        if (!is_function(callback)) {
-          return noop;
-        }
-        const callbacks = this.$.callbacks[type] || (this.$.callbacks[type] = []);
-        callbacks.push(callback);
-        return () => {
-          const index = callbacks.indexOf(callback);
-          if (index !== -1)
-            callbacks.splice(index, 1);
-        };
-      }
-      $set($props) {
-        if (this.$set && !is_empty($props)) {
-          this.$.skip_bound = true;
-          this.$set($props);
-          this.$.skip_bound = false;
-        }
+      $get_prop_name(attribute_name) {
+        return Object.keys(this.$props_definition).find(
+          (key) => this.$props_definition[key].attribute === attribute_name || !this.$props_definition[key].attribute && key.toLowerCase() === attribute_name
+        ) || attribute_name;
       }
     };
   }
+  function get_custom_element_value(prop, value, props_definition, transform) {
+    const type = props_definition[prop]?.type;
+    value = type === "Boolean" && typeof value !== "boolean" ? value != null : value;
+    if (!transform || !props_definition[prop]) {
+      return value;
+    } else if (transform === "toAttribute") {
+      switch (type) {
+        case "Object":
+        case "Array":
+          return value == null ? null : JSON.stringify(value);
+        case "Boolean":
+          return value ? "" : null;
+        case "Number":
+          return value == null ? null : value;
+        default:
+          return value;
+      }
+    } else {
+      switch (type) {
+        case "Object":
+        case "Array":
+          return value && JSON.parse(value);
+        case "Boolean":
+          return value;
+        case "Number":
+          return value != null ? +value : value;
+        default:
+          return value;
+      }
+    }
+  }
   var SvelteComponent = class {
+    /**
+     * ### PRIVATE API
+     *
+     * Do not use, may change at any time
+     *
+     * @type {any}
+     */
+    $ = void 0;
+    /**
+     * ### PRIVATE API
+     *
+     * Do not use, may change at any time
+     *
+     * @type {any}
+     */
+    $set = void 0;
+    /** @returns {void} */
     $destroy() {
       destroy_component(this, 1);
       this.$destroy = noop;
     }
+    /**
+     * @template {Extract<keyof Events, string>} K
+     * @param {K} type
+     * @param {((e: Events[K]) => void) | null | undefined} callback
+     * @returns {() => void}
+     */
     $on(type, callback) {
       if (!is_function(callback)) {
         return noop;
@@ -2852,14 +3061,25 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
           callbacks.splice(index, 1);
       };
     }
-    $set($props) {
-      if (this.$set && !is_empty($props)) {
+    /**
+     * @param {Partial<Props>} props
+     * @returns {void}
+     */
+    $set(props) {
+      if (this.$set && !is_empty(props)) {
         this.$.skip_bound = true;
-        this.$set($props);
+        this.$set(props);
         this.$.skip_bound = false;
       }
     }
   };
+
+  // node_modules/svelte/src/shared/version.js
+  var PUBLIC_VERSION = "4";
+
+  // node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  if (typeof window !== "undefined")
+    (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
   // _components/Menu.svelte
   var import_jsApi_GEN = __toESM(require_jsApi_GEN());
@@ -2892,8 +3112,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(li);
+        }
       }
     };
   }
@@ -2926,8 +3147,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(li);
+        }
       }
     };
   }
@@ -2960,8 +3182,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(li);
+        }
       }
     };
   }
@@ -3019,12 +3242,11 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(li0);
-        if (detaching)
           detach(t1);
-        if (detaching)
           detach(li1);
+        }
         mounted = false;
         dispose();
       }
@@ -3169,8 +3391,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
       i: noop,
       o: noop,
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(ul);
+        }
         if (if_block0)
           if_block0.d();
         if (if_block1)
@@ -3286,8 +3509,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
       i: noop,
       o: noop,
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(ul);
+        }
       }
     };
   }
@@ -3349,8 +3573,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
           set_data(t, t_value);
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(th);
+        }
       }
     };
   }
@@ -3367,8 +3592,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
       },
       p: noop,
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(th);
+        }
       }
     };
   }
@@ -3406,9 +3632,10 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
       },
       d(detaching) {
-        if_block.d(detaching);
-        if (detaching)
+        if (detaching) {
           detach(if_block_anchor);
+        }
+        if_block.d(detaching);
       }
     };
   }
@@ -3442,8 +3669,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
           set_data(t, t_value);
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(td);
+        }
       }
     };
   }
@@ -3479,8 +3707,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
           set_data(t, t_value);
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(td);
+        }
       }
     };
   }
@@ -3512,8 +3741,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
           set_data(t, t_value);
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(td);
+        }
       }
     };
   }
@@ -3563,8 +3793,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         ctx = new_ctx;
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(td);
+        }
         mounted = false;
         dispose();
       }
@@ -3614,16 +3845,17 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
       },
       d(detaching) {
-        if_block.d(detaching);
-        if (detaching)
+        if (detaching) {
           detach(if_block_anchor);
+        }
+        if_block.d(detaching);
       }
     };
   }
   function create_each_block(ctx) {
     let tr;
     let t;
-    let each_value_1 = (
+    let each_value_1 = ensure_array_like(
       /*fields*/
       ctx[1]
     );
@@ -3661,8 +3893,10 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
       p(ctx2, dirty) {
         if (dirty & /*editRow, rows, fields, datetime*/
         262) {
-          each_value_1 = /*fields*/
-          ctx2[1];
+          each_value_1 = ensure_array_like(
+            /*fields*/
+            ctx2[1]
+          );
           let i;
           for (i = 0; i < each_value_1.length; i += 1) {
             const child_ctx = get_each_context_1(ctx2, each_value_1, i);
@@ -3693,8 +3927,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(tr);
+        }
         destroy_each(each_blocks, detaching);
       }
     };
@@ -3751,7 +3986,7 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
     let th_colspan_value;
     let mounted;
     let dispose;
-    let each_value_2 = (
+    let each_value_2 = ensure_array_like(
       /*fields*/
       ctx[1]
     );
@@ -3759,7 +3994,7 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
     for (let i = 0; i < each_value_2.length; i += 1) {
       each_blocks_1[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
     }
-    let each_value = (
+    let each_value = ensure_array_like(
       /*rows*/
       ctx[2]
     );
@@ -3921,8 +4156,10 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
       p(ctx2, [dirty]) {
         if (dirty & /*fields*/
         2) {
-          each_value_2 = /*fields*/
-          ctx2[1];
+          each_value_2 = ensure_array_like(
+            /*fields*/
+            ctx2[1]
+          );
           let i;
           for (i = 0; i < each_value_2.length; i += 1) {
             const child_ctx = get_each_context_2(ctx2, each_value_2, i);
@@ -3941,8 +4178,10 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
         if (dirty & /*rows, deletedAtIdx, fields, editRow, datetime*/
         294) {
-          each_value = /*rows*/
-          ctx2[2];
+          each_value = ensure_array_like(
+            /*rows*/
+            ctx2[2]
+          );
           let i;
           for (i = 0; i < each_value.length; i += 1) {
             const child_ctx = get_each_context(ctx2, each_value, i);
@@ -4009,8 +4248,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
       i: noop,
       o: noop,
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(table);
+        }
         destroy_each(each_blocks_1, detaching);
         destroy_each(each_blocks, detaching);
         mounted = false;
@@ -4147,7 +4387,7 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
     }
     let current_block_type = select_block_type(ctx, -1);
     let if_block0 = current_block_type(ctx);
-    let each_value = (
+    let each_value = ensure_array_like(
       /*fields*/
       ctx[3]
     );
@@ -4277,8 +4517,10 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
         if (dirty & /*row, fields, datetime*/
         12) {
-          each_value = /*fields*/
-          ctx2[3];
+          each_value = ensure_array_like(
+            /*fields*/
+            ctx2[3]
+          );
           let i;
           for (i = 0; i < each_value.length; i += 1) {
             const child_ctx = get_each_context2(ctx2, each_value, i);
@@ -4340,12 +4582,11 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         current = false;
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(div0);
-        if (detaching)
           detach(t0);
-        if (detaching)
           detach(div5);
+        }
         if_block0.d();
         destroy_each(each_blocks, detaching);
         if (default_slot)
@@ -4381,10 +4622,10 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
           );
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(t0);
-        if (detaching)
           detach(t1);
+        }
       }
     };
   }
@@ -4427,14 +4668,12 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
           set_data(t3, t3_value);
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(t0);
-        if (detaching)
           detach(t1);
-        if (detaching)
           detach(t2);
-        if (detaching)
           detach(t3);
+        }
       }
     };
   }
@@ -4511,15 +4750,13 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(label);
-        if (detaching)
           detach(t1);
-        if_block.d(detaching);
-        if (detaching)
           detach(t2);
-        if (detaching)
           detach(br);
+        }
+        if_block.d(detaching);
       }
     };
   }
@@ -4569,8 +4806,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(input);
+        }
         mounted = false;
         dispose();
       }
@@ -4634,8 +4872,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(input);
+        }
         mounted = false;
         dispose();
       }
@@ -4699,8 +4938,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(input);
+        }
         mounted = false;
         dispose();
       }
@@ -4759,8 +4999,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(textarea);
+        }
         mounted = false;
         dispose();
       }
@@ -4800,9 +5041,10 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
       },
       d(detaching) {
-        if_block.d(detaching);
-        if (detaching)
+        if (detaching) {
           detach(if_block_anchor);
+        }
+        if_block.d(detaching);
       }
     };
   }
@@ -4835,8 +5077,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
           set_data(t, t_value);
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(span);
+        }
       }
     };
   }
@@ -4871,8 +5114,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
           set_data(t, t_value);
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(span);
+        }
       }
     };
   }
@@ -4910,9 +5154,10 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
       },
       d(detaching) {
-        if_block.d(detaching);
-        if (detaching)
+        if (detaching) {
           detach(if_block_anchor);
+        }
+        if_block.d(detaching);
       }
     };
   }
@@ -4971,14 +5216,13 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
       },
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(button);
-        if (detaching)
           detach(t1);
+          detach(if_block_anchor);
+        }
         if (if_block)
           if_block.d(detaching);
-        if (detaching)
-          detach(if_block_anchor);
         mounted = false;
         dispose();
       }
@@ -4997,8 +5241,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
       },
       p: noop,
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(span);
+        }
       }
     };
   }
@@ -5036,9 +5281,10 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         }
       },
       d(detaching) {
-        if_block.d(detaching);
-        if (detaching)
+        if (detaching) {
           detach(if_block_anchor);
+        }
+        if_block.d(detaching);
       }
     };
   }
@@ -5067,8 +5313,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
       },
       p: noop,
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(button);
+        }
         mounted = false;
         dispose();
       }
@@ -5099,8 +5346,9 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
       },
       p: noop,
       d(detaching) {
-        if (detaching)
+        if (detaching) {
           detach(button);
+        }
         mounted = false;
         dispose();
       }
@@ -5161,10 +5409,11 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         current = false;
       },
       d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
         if (if_block)
           if_block.d(detaching);
-        if (detaching)
-          detach(if_block_anchor);
       }
     };
   }
@@ -5425,20 +5674,17 @@ table.svelte-1o1btri.svelte-1o1btri{border-collapse:collapse;width:100%;margin-t
         current = false;
       },
       d(detaching) {
-        destroy_component(menu, detaching);
-        if (detaching)
+        if (detaching) {
           detach(t0);
-        destroy_component(adminsubmenu, detaching);
-        if (detaching)
           detach(t1);
-        if (detaching)
           detach(button);
-        if (detaching)
           detach(t3);
+          detach(t4);
+        }
+        destroy_component(menu, detaching);
+        destroy_component(adminsubmenu, detaching);
         ctx[7](null);
         destroy_component(modalform, detaching);
-        if (detaching)
-          detach(t4);
         destroy_component(tableview, detaching);
         mounted = false;
         dispose();
