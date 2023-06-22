@@ -4,8 +4,8 @@
   import { onMount } from 'svelte';
   import { UserChangePassword, UserUpdateProfile } from './jsApi.GEN.js';
   
-  let user = {/* user */ };
-  let segments = {/* segments */ };
+  let user = {/* user */};
+  let segments = {/* segments */};
   
   let oldPassword = '';
   let newPassword = '';

@@ -5,10 +5,10 @@
   import { AdminUsers } from '../jsApi.GEN';
   import ModalForm from '../_components/ModalForm.svelte';
   
-  let segments = {/* segments */ };
+  let segments = {/* segments */};
   let fields = [/* fields */];
   let users = [/* users */];
-  let pager = {/* pager */ };
+  let pager = {/* pager */};
   
   // $: console.log( users, fields, pager );
   
@@ -40,7 +40,7 @@
   async function editRow( e ) {
     const id = e.detail;
     await AdminUsers( {
-      user: { id },
+      user: {id},
       action: 'form',
     }, function( res ) {
       if( !handleResponse( res ) )
@@ -49,11 +49,11 @@
   }
   
   function addRow() {
-    form.showModal( { id: '' } );
+    form.showModal( {id: ''} );
   }
   
   async function saveRow( action, row ) {
-    let user = { ...row };
+    let user = {...row};
     if( !user.id ) user.id = '0';
     await AdminUsers( {
       user: user,

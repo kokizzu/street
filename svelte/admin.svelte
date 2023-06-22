@@ -3,14 +3,14 @@
   import AdminSubMenu from './admin/_adminSubMenu.svelte';
   import { onMount } from 'svelte';
   
-  let user = {/* user */ };
-  let segments = {/* segments */ };
+  let user = {/* user */};
+  let segments = {/* segments */};
   
-  let uniqueIpPerDate = {/* uniqueIpPerDate */ };
-  let requestsPerDate = {/* requestsPerDate */ };
-  let uniqueUserPerDate = {/* uniqueUserPerDate */ };
+  let uniqueIpPerDate = {/* uniqueIpPerDate */};
+  let requestsPerDate = {/* requestsPerDate */};
+  let uniqueUserPerDate = {/* uniqueUserPerDate */};
   let registeredUserTotal = +'#{registeredUserTotal}';
-  let countPerActionsPerDate = {/* countPerActionsPerDate */ };
+  let countPerActionsPerDate = {/* countPerActionsPerDate */};
   
   let sortedDate = [];
   onMount( () => {
@@ -30,7 +30,7 @@
   <tr>
     <th>Stat</th>
     {#each sortedDate as date}
-      <th>{(date + '').substring( 5, 10 ).replace('-',' ')}</th>
+      <th>{(date + '').substring( 5, 10 ).replace( '-', ' ' )}</th>
     {/each}
   </tr>
   <tr>
@@ -54,11 +54,11 @@
   <tr>
     <th>Actions</th>
   </tr>
-  {#each Object.keys(countPerActionsPerDate) as actionsPerDate}
+  {#each Object.keys( countPerActionsPerDate ) as actionsPerDate}
     <tr>
       <td>{actionsPerDate}</td>
       {#each sortedDate as date}
-        <td>{countPerActionsPerDate[actionsPerDate][ date ] || ''}</td>
+        <td>{countPerActionsPerDate[ actionsPerDate ][ date ] || ''}</td>
       {/each}
     </tr>
   {/each}
