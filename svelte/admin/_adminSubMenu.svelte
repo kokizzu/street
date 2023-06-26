@@ -10,6 +10,7 @@
 <ul class='submenu'>
   <li class:active={segment2===''}><a href="/admin">Dashboard</a></li>
   <li class:active={segment2==='users'}><a href="/admin/users">Users</a></li>
+  <li class:active={segment2==='properties'}><a href="/admin/properties">Properties</a></li>
 <!--  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>-->
 <!--  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>-->
 </ul>

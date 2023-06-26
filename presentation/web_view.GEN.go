@@ -12,6 +12,7 @@ import (
 var viewList = map[string]string{
 	`Admin`: `../svelte/admin.html`, // ../svelte/admin.svelte
 	`AdminActionLogs`: `../svelte/admin/actionLogs.html`, // ../svelte/admin/actionLogs.svelte
+	`AdminProperties`: `../svelte/admin/properties.html`, // ../svelte/admin/properties.svelte
 	`AdminSessions`: `../svelte/admin/sessions.html`, // ../svelte/admin/sessions.svelte
 	`AdminUsers`: `../svelte/admin/users.html`, // ../svelte/admin/users.svelte
 	`Buyer`: `../svelte/buyer.html`, // ../svelte/buyer.svelte
@@ -28,72 +29,77 @@ var viewList = map[string]string{
 
 
 func (v *Views) RenderAdmin(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`Admin`].Str(m))
 }
 
 func (v *Views) RenderAdminActionLogs(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`AdminActionLogs`].Str(m))
 }
 
+func (v *Views) RenderAdminProperties(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`AdminProperties`].Str(m))
+}
+
 func (v *Views) RenderAdminSessions(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`AdminSessions`].Str(m))
 }
 
 func (v *Views) RenderAdminUsers(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`AdminUsers`].Str(m))
 }
 
 func (v *Views) RenderBuyer(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`Buyer`].Str(m))
 }
 
 func (v *Views) RenderError(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`Error`].Str(m))
 }
 
 func (v *Views) RenderGuestOauthCallback(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`GuestOauthCallback`].Str(m))
 }
 
 func (v *Views) RenderGuestResetPassword(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`GuestResetPassword`].Str(m))
 }
 
 func (v *Views) RenderGuestVerifyEmail(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`GuestVerifyEmail`].Str(m))
 }
 
 func (v *Views) RenderIndex(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`Index`].Str(m))
 }
 
 func (v *Views) RenderPrivacy(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`Privacy`].Str(m))
 }
 
 func (v *Views) RenderRealtor(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`Realtor`].Str(m))
 }
 
 func (v *Views) RenderTos(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`Tos`].Str(m))
 }
 
 func (v *Views) RenderUser(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`User`].Str(m))
 }
 

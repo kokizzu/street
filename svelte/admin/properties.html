@@ -124,6 +124,103 @@
 .active.svelte-14j5e9r.svelte-14j5e9r {
   background-color: #4CAF50;
 }
+
+/* fakecss:/home/kyz/go/src/street/svelte/admin/_adminSubMenu.esbuild-svelte-fake-css */
+.submenu.svelte-dk81xr.svelte-dk81xr {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #666;
+}
+.submenu.svelte-dk81xr li.svelte-dk81xr {
+  float: left;
+}
+.submenu.svelte-dk81xr li a.svelte-dk81xr {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.submenu.svelte-dk81xr li a.svelte-dk81xr:hover:not(.active) {
+  background-color: #111;
+}
+.active.svelte-dk81xr.svelte-dk81xr {
+  background-color: #4CAF50;
+}
+
+/* fakecss:/home/kyz/go/src/street/svelte/_components/TableView.esbuild-svelte-fake-css */
+table.svelte-1o1btri.svelte-1o1btri {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 1em;
+}
+table.svelte-1o1btri.svelte-1o1btri,
+th.svelte-1o1btri.svelte-1o1btri,
+td.svelte-1o1btri.svelte-1o1btri {
+  border: 1px solid black;
+}
+input.perPage.svelte-1o1btri.svelte-1o1btri {
+  width: 4em;
+}
+span.left.svelte-1o1btri.svelte-1o1btri {
+  float: left;
+}
+span.right.svelte-1o1btri.svelte-1o1btri {
+  float: right;
+}
+button.action.svelte-1o1btri.svelte-1o1btri {
+  height: 2em;
+}
+tr.deleted.svelte-1o1btri td.svelte-1o1btri {
+  text-decoration: line-through;
+  color: red;
+}
+
+/* fakecss:/home/kyz/go/src/street/svelte/_components/ModalForm.esbuild-svelte-fake-css */
+.left.svelte-1346uxr {
+  float: left;
+}
+.right.svelte-1346uxr {
+  float: right;
+}
+.backdrop.svelte-1346uxr {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: grey;
+  width: 100%;
+  height: 100%;
+  opacity: .8;
+}
+.modal.svelte-1346uxr {
+  background-color: white;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  width: 600px;
+  margin-left: -300px;
+  margin-top: 0;
+  overflow-y: auto;
+  box-shadow: .25rem .25rem .5rem #DADADA, -.25rem -.25rem .5rem #FFF;
+  border-radius: 1em;
+  padding: 1em;
+  opacity: 1;
+}
+.title.svelte-1346uxr {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+button.close.svelte-1346uxr {
+  float: right;
+}
+label.svelte-1346uxr {
+  width: 12em;
+  display: inline-block;
+  text-align: right;
+  margin-right: 1em;
+}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -156,7 +253,7 @@
   var require_axios = __commonJS({
     "node_modules/axios/dist/browser/axios.cjs"(exports, module) {
       "use strict";
-      function bind(fn, thisArg) {
+      function bind2(fn, thisArg) {
         return function wrap() {
           return fn.apply(thisArg, arguments);
         };
@@ -276,7 +373,7 @@
       var extend = (a, b, thisArg, { allOwnKeys } = {}) => {
         forEach(b, (val, key) => {
           if (thisArg && isFunction(val)) {
-            a[key] = bind(val, thisArg);
+            a[key] = bind2(val, thisArg);
           } else {
             a[key] = val;
           }
@@ -2127,13 +2224,13 @@
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance2 = bind(Axios$1.prototype.request, context);
-        utils.extend(instance2, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance2, context, null, { allOwnKeys: true });
-        instance2.create = function create(instanceConfig) {
+        const instance6 = bind2(Axios$1.prototype.request, context);
+        utils.extend(instance6, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance6, context, null, { allOwnKeys: true });
+        instance6.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance2;
+        return instance6;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2181,7 +2278,7 @@
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
         return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.AdminProperties = async function AdminProperties(i, cb) {
+      exports.AdminProperties = async function AdminProperties2(i, cb) {
         return await axios.post("/admin/properties", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.AdminUsers = async function AdminUsers(i, cb) {
@@ -2232,8 +2329,31 @@
     }
   });
 
+  // _components/formatter.js
+  var require_formatter = __commonJS({
+    "_components/formatter.js"(exports, module) {
+      function datetime3(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = new Date(unixSec * 1e3).toISOString();
+        return dt.substring(0, 10) + " " + dt.substring(11, 16);
+      }
+      module.exports = {
+        datetime: datetime3
+      };
+    }
+  });
+
   // node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
+  }
+  function assign(tar, src) {
+    for (const k in src)
+      tar[k] = src[k];
+    return (
+      /** @type {T & S} */
+      tar
+    );
   }
   function run(fn) {
     return fn();
@@ -2252,6 +2372,50 @@
   }
   function is_empty(obj) {
     return Object.keys(obj).length === 0;
+  }
+  function create_slot(definition, ctx, $scope, fn) {
+    if (definition) {
+      const slot_ctx = get_slot_context(definition, ctx, $scope, fn);
+      return definition[0](slot_ctx);
+    }
+  }
+  function get_slot_context(definition, ctx, $scope, fn) {
+    return definition[1] && fn ? assign($scope.ctx.slice(), definition[1](fn(ctx))) : $scope.ctx;
+  }
+  function get_slot_changes(definition, $scope, dirty, fn) {
+    if (definition[2] && fn) {
+      const lets = definition[2](fn(dirty));
+      if ($scope.dirty === void 0) {
+        return lets;
+      }
+      if (typeof lets === "object") {
+        const merged = [];
+        const len = Math.max($scope.dirty.length, lets.length);
+        for (let i = 0; i < len; i += 1) {
+          merged[i] = $scope.dirty[i] | lets[i];
+        }
+        return merged;
+      }
+      return $scope.dirty | lets;
+    }
+    return $scope.dirty;
+  }
+  function update_slot_base(slot, slot_definition, ctx, $scope, slot_changes, get_slot_context_fn) {
+    if (slot_changes) {
+      const slot_context = get_slot_context(slot_definition, ctx, $scope, get_slot_context_fn);
+      slot.p(slot_context, slot_changes);
+    }
+  }
+  function get_all_dirty_from_scope($scope) {
+    if ($scope.ctx.length > 32) {
+      const dirty = [];
+      const length = $scope.ctx.length / 32;
+      for (let i = 0; i < length; i++) {
+        dirty[i] = -1;
+      }
+      return dirty;
+    }
+    return -1;
   }
 
   // node_modules/svelte/src/runtime/internal/globals.js
@@ -2325,6 +2489,12 @@
       node.parentNode.removeChild(node);
     }
   }
+  function destroy_each(iterations, detaching) {
+    for (let i = 0; i < iterations.length; i += 1) {
+      if (iterations[i])
+        iterations[i].d(detaching);
+    }
+  }
   function element(name) {
     return document.createElement(name);
   }
@@ -2333,6 +2503,12 @@
   }
   function space() {
     return text(" ");
+  }
+  function empty() {
+    return text("");
+  }
+  function comment(content) {
+    return document.createComment(content);
   }
   function listen(node, event, handler, options) {
     node.addEventListener(event, handler, options);
@@ -2344,8 +2520,21 @@
     else if (node.getAttribute(attribute) !== value)
       node.setAttribute(attribute, value);
   }
+  function to_number(value) {
+    return value === "" ? null : +value;
+  }
   function children(element2) {
     return Array.from(element2.childNodes);
+  }
+  function set_data(text2, data) {
+    data = "" + data;
+    if (text2.data === data)
+      return;
+    text2.data = /** @type {string} */
+    data;
+  }
+  function set_input_value(input, value) {
+    input.value = value == null ? "" : value;
   }
   function set_style(node, key, value, important) {
     if (value == null) {
@@ -2356,6 +2545,9 @@
   }
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
+  }
+  function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
+    return new CustomEvent(type, { detail, bubbles, cancelable });
   }
   function get_custom_elements_slots(element2) {
     const result = {};
@@ -2381,6 +2573,25 @@
   function onMount(fn) {
     get_current_component().$.on_mount.push(fn);
   }
+  function createEventDispatcher() {
+    const component = get_current_component();
+    return (type, detail, { cancelable = false } = {}) => {
+      const callbacks = component.$.callbacks[type];
+      if (callbacks) {
+        const event = custom_event(
+          /** @type {string} */
+          type,
+          detail,
+          { cancelable }
+        );
+        callbacks.slice().forEach((fn) => {
+          fn.call(component, event);
+        });
+        return !event.defaultPrevented;
+      }
+      return true;
+    };
+  }
 
   // node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
@@ -2397,6 +2608,9 @@
   }
   function add_render_callback(fn) {
     render_callbacks.push(fn);
+  }
+  function add_flush_callback(fn) {
+    flush_callbacks.push(fn);
   }
   var seen_callbacks = /* @__PURE__ */ new Set();
   var flushidx = 0;
@@ -2460,6 +2674,20 @@
   // node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   var outros;
+  function group_outros() {
+    outros = {
+      r: 0,
+      c: [],
+      p: outros
+      // parent group
+    };
+  }
+  function check_outros() {
+    if (!outros.r) {
+      run_all(outros.c);
+    }
+    outros = outros.p;
+  }
   function transition_in(block, local) {
     if (block && block.i) {
       outroing.delete(block);
@@ -2483,6 +2711,11 @@
     } else if (callback) {
       callback();
     }
+  }
+
+  // node_modules/svelte/src/runtime/internal/each.js
+  function ensure_array_like(array_like_or_iterator) {
+    return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
 
   // node_modules/svelte/src/shared/boolean_attributes.js
@@ -2519,6 +2752,13 @@
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
   // node_modules/svelte/src/runtime/internal/Component.js
+  function bind(component, name, callback) {
+    const index = component.$.props[name];
+    if (index !== void 0) {
+      component.$.bound[index] = callback;
+      callback(component.$.ctx[index]);
+    }
+  }
   function create_component(block) {
     block && block.c();
   }
@@ -2554,7 +2794,7 @@
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance2, create_fragment3, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance6, create_fragment6, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -2580,7 +2820,7 @@
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance2 ? instance2(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance6 ? instance6(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -2593,7 +2833,7 @@
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment3 ? create_fragment3($.ctx) : false;
+    $.fragment = create_fragment6 ? create_fragment6($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -2656,7 +2896,7 @@
       async connectedCallback() {
         this.$connected = true;
         if (!this.$component) {
-          let create_slot = function(name) {
+          let create_slot2 = function(name) {
             return () => {
               let node;
               const obj = {
@@ -2690,7 +2930,7 @@
           const existing_slots = get_custom_elements_slots(this);
           for (const name of this.$slots) {
             if (name in existing_slots) {
-              $slots[name] = [create_slot(name)];
+              $slots[name] = [create_slot2(name)];
             }
           }
           for (const attribute of this.attributes) {
@@ -3201,52 +3441,2373 @@
   };
   var Menu_default = Menu;
 
-  // realtor.svelte
+  // admin/_adminSubMenu.svelte
   function create_fragment2(ctx) {
-    let menu;
-    let t;
-    let current;
-    menu = new Menu_default({ props: { access: segments } });
+    let ul;
+    let li0;
+    let t1;
+    let li1;
+    let t3;
+    let li2;
+    let t5;
+    let c0;
+    let t6;
+    let c1;
     return {
       c() {
-        create_component(menu.$.fragment);
-        t = text("\nrealtor content goes here");
+        ul = element("ul");
+        li0 = element("li");
+        li0.innerHTML = `<a href="/admin" class="svelte-dk81xr">Dashboard</a>`;
+        t1 = space();
+        li1 = element("li");
+        li1.innerHTML = `<a href="/admin/users" class="svelte-dk81xr">Users</a>`;
+        t3 = space();
+        li2 = element("li");
+        li2.innerHTML = `<a href="/admin/properties" class="svelte-dk81xr">Properties</a>`;
+        t5 = space();
+        c0 = comment(`  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>`);
+        t6 = space();
+        c1 = comment(`  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>`);
+        attr(li0, "class", "svelte-dk81xr");
+        toggle_class(
+          li0,
+          "active",
+          /*segment2*/
+          ctx[0] === ""
+        );
+        attr(li1, "class", "svelte-dk81xr");
+        toggle_class(
+          li1,
+          "active",
+          /*segment2*/
+          ctx[0] === "users"
+        );
+        attr(li2, "class", "svelte-dk81xr");
+        toggle_class(
+          li2,
+          "active",
+          /*segment2*/
+          ctx[0] === "properties"
+        );
+        attr(ul, "class", "submenu svelte-dk81xr");
       },
       m(target, anchor) {
-        mount_component(menu, target, anchor);
-        insert(target, t, anchor);
-        current = true;
+        insert(target, ul, anchor);
+        append(ul, li0);
+        append(ul, t1);
+        append(ul, li1);
+        append(ul, t3);
+        append(ul, li2);
+        append(ul, t5);
+        append(ul, c0);
+        append(ul, t6);
+        append(ul, c1);
+      },
+      p(ctx2, [dirty]) {
+        if (dirty & /*segment2*/
+        1) {
+          toggle_class(
+            li0,
+            "active",
+            /*segment2*/
+            ctx2[0] === ""
+          );
+        }
+        if (dirty & /*segment2*/
+        1) {
+          toggle_class(
+            li1,
+            "active",
+            /*segment2*/
+            ctx2[0] === "users"
+          );
+        }
+        if (dirty & /*segment2*/
+        1) {
+          toggle_class(
+            li2,
+            "active",
+            /*segment2*/
+            ctx2[0] === "properties"
+          );
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(ul);
+        }
+      }
+    };
+  }
+  function instance2($self, $props, $invalidate) {
+    let segment2;
+    onMount(() => {
+      $invalidate(0, segment2 = window.location.pathname.split("/")[2] || "");
+    });
+    return [segment2];
+  }
+  var AdminSubMenu = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance2, create_fragment2, safe_not_equal, {});
+    }
+  };
+  var adminSubMenu_default = AdminSubMenu;
+
+  // _components/TableView.svelte
+  var import_formatter = __toESM(require_formatter());
+  function get_each_context(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[17] = list[i];
+    child_ctx[19] = i;
+    return child_ctx;
+  }
+  function get_each_context_1(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[20] = list[i];
+    child_ctx[22] = i;
+    return child_ctx;
+  }
+  function get_each_context_2(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[20] = list[i];
+    return child_ctx;
+  }
+  function create_else_block_1(ctx) {
+    let th;
+    let t_value = (
+      /*field*/
+      ctx[20].label + ""
+    );
+    let t;
+    return {
+      c() {
+        th = element("th");
+        t = text(t_value);
+        attr(th, "class", "svelte-1o1btri");
+      },
+      m(target, anchor) {
+        insert(target, th, anchor);
+        append(th, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*fields*/
+        2 && t_value !== (t_value = /*field*/
+        ctx2[20].label + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(th);
+        }
+      }
+    };
+  }
+  function create_if_block_32(ctx) {
+    let th;
+    return {
+      c() {
+        th = element("th");
+        th.textContent = "Action";
+        attr(th, "class", "svelte-1o1btri");
+      },
+      m(target, anchor) {
+        insert(target, th, anchor);
       },
       p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(th);
+        }
+      }
+    };
+  }
+  function create_each_block_2(ctx) {
+    let if_block_anchor;
+    function select_block_type(ctx2, dirty) {
+      if (
+        /*field*/
+        ctx2[20].name === "id"
+      )
+        return create_if_block_32;
+      return create_else_block_1;
+    }
+    let current_block_type = select_block_type(ctx, -1);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (current_block_type === (current_block_type = select_block_type(ctx2, dirty)) && if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if_block.d(detaching);
+      }
+    };
+  }
+  function create_else_block(ctx) {
+    let td;
+    let t_value = (
+      /*row*/
+      ctx[17][
+        /*i*/
+        ctx[22]
+      ] + ""
+    );
+    let t;
+    return {
+      c() {
+        td = element("td");
+        t = text(t_value);
+        attr(td, "class", "svelte-1o1btri");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rows*/
+        4 && t_value !== (t_value = /*row*/
+        ctx2[17][
+          /*i*/
+          ctx2[22]
+        ] + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+      }
+    };
+  }
+  function create_if_block_22(ctx) {
+    let td;
+    let t_value = (0, import_formatter.datetime)(
+      /*row*/
+      ctx[17][
+        /*i*/
+        ctx[22]
+      ]
+    ) + "";
+    let t;
+    return {
+      c() {
+        td = element("td");
+        t = text(t_value);
+        attr(td, "class", "svelte-1o1btri");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rows*/
+        4 && t_value !== (t_value = (0, import_formatter.datetime)(
+          /*row*/
+          ctx2[17][
+            /*i*/
+            ctx2[22]
+          ]
+        ) + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+      }
+    };
+  }
+  function create_if_block_12(ctx) {
+    let td;
+    let t_value = !!/*row*/
+    ctx[17][
+      /*i*/
+      ctx[22]
+    ] + "";
+    let t;
+    return {
+      c() {
+        td = element("td");
+        t = text(t_value);
+        attr(td, "class", "svelte-1o1btri");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rows*/
+        4 && t_value !== (t_value = !!/*row*/
+        ctx2[17][
+          /*i*/
+          ctx2[22]
+        ] + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+      }
+    };
+  }
+  function create_if_block2(ctx) {
+    let td;
+    let button;
+    let t0;
+    let t1_value = (
+      /*no*/
+      ctx[19] + 1 + ""
+    );
+    let t1;
+    let mounted;
+    let dispose;
+    function click_handler() {
+      return (
+        /*click_handler*/
+        ctx[9](
+          /*row*/
+          ctx[17],
+          /*i*/
+          ctx[22]
+        )
+      );
+    }
+    return {
+      c() {
+        td = element("td");
+        button = element("button");
+        button.innerHTML = `<i class="gg-pen"></i>`;
+        t0 = space();
+        t1 = text(t1_value);
+        attr(button, "class", "action svelte-1o1btri");
+        attr(td, "class", "svelte-1o1btri");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, button);
+        append(td, t0);
+        append(td, t1);
+        if (!mounted) {
+          dispose = listen(button, "click", click_handler);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_each_block_1(ctx) {
+    let if_block_anchor;
+    function select_block_type_1(ctx2, dirty) {
+      if (
+        /*field*/
+        ctx2[20].name === "id"
+      )
+        return create_if_block2;
+      if (
+        /*field*/
+        ctx2[20].inputType === "checkbox"
+      )
+        return create_if_block_12;
+      if (
+        /*field*/
+        ctx2[20].inputType === "datetime"
+      )
+        return create_if_block_22;
+      return create_else_block;
+    }
+    let current_block_type = select_block_type_1(ctx, -1);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (current_block_type === (current_block_type = select_block_type_1(ctx2, dirty)) && if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if_block.d(detaching);
+      }
+    };
+  }
+  function create_each_block(ctx) {
+    let tr;
+    let t;
+    let each_value_1 = ensure_array_like(
+      /*fields*/
+      ctx[1]
+    );
+    let each_blocks = [];
+    for (let i = 0; i < each_value_1.length; i += 1) {
+      each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+    }
+    return {
+      c() {
+        tr = element("tr");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        t = space();
+        attr(tr, "class", "svelte-1o1btri");
+        toggle_class(
+          tr,
+          "deleted",
+          /*row*/
+          ctx[17][
+            /*deletedAtIdx*/
+            ctx[5]
+          ] > 0
+        );
+      },
+      m(target, anchor) {
+        insert(target, tr, anchor);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(tr, null);
+          }
+        }
+        append(tr, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*editRow, rows, fields, datetime*/
+        262) {
+          each_value_1 = ensure_array_like(
+            /*fields*/
+            ctx2[1]
+          );
+          let i;
+          for (i = 0; i < each_value_1.length; i += 1) {
+            const child_ctx = get_each_context_1(ctx2, each_value_1, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block_1(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(tr, t);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value_1.length;
+        }
+        if (dirty & /*rows, deletedAtIdx*/
+        36) {
+          toggle_class(
+            tr,
+            "deleted",
+            /*row*/
+            ctx2[17][
+              /*deletedAtIdx*/
+              ctx2[5]
+            ] > 0
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(tr);
+        }
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
+  function create_fragment3(ctx) {
+    let table;
+    let thead;
+    let tr0;
+    let t0;
+    let tbody;
+    let t1;
+    let tfoot;
+    let tr1;
+    let th;
+    let span0;
+    let t2;
+    let t3_value = (
+      /*pager*/
+      ctx[0].page + ""
+    );
+    let t3;
+    let t4;
+    let t5_value = (
+      /*pager*/
+      ctx[0].pages + ""
+    );
+    let t5;
+    let t6;
+    let input;
+    let t7;
+    let t8;
+    let t9_value = (
+      /*pager*/
+      ctx[0].countResult + ""
+    );
+    let t9;
+    let t10;
+    let span1;
+    let button0;
+    let i0;
+    let button0_disabled_value;
+    let t11;
+    let button1;
+    let i1;
+    let button1_disabled_value;
+    let t12;
+    let button2;
+    let i2;
+    let button2_disabled_value;
+    let t13;
+    let button3;
+    let i3;
+    let button3_disabled_value;
+    let th_colspan_value;
+    let mounted;
+    let dispose;
+    let each_value_2 = ensure_array_like(
+      /*fields*/
+      ctx[1]
+    );
+    let each_blocks_1 = [];
+    for (let i = 0; i < each_value_2.length; i += 1) {
+      each_blocks_1[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+    }
+    let each_value = ensure_array_like(
+      /*rows*/
+      ctx[2]
+    );
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    }
+    return {
+      c() {
+        table = element("table");
+        thead = element("thead");
+        tr0 = element("tr");
+        for (let i = 0; i < each_blocks_1.length; i += 1) {
+          each_blocks_1[i].c();
+        }
+        t0 = space();
+        tbody = element("tbody");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        t1 = space();
+        tfoot = element("tfoot");
+        tr1 = element("tr");
+        th = element("th");
+        span0 = element("span");
+        t2 = text("Page ");
+        t3 = text(t3_value);
+        t4 = text(" of ");
+        t5 = text(t5_value);
+        t6 = text(",\n      ");
+        input = element("input");
+        t7 = text(" rows per page.");
+        t8 = text("\n      Total: ");
+        t9 = text(t9_value);
+        t10 = space();
+        span1 = element("span");
+        button0 = element("button");
+        i0 = element("i");
+        t11 = space();
+        button1 = element("button");
+        i1 = element("i");
+        t12 = space();
+        button2 = element("button");
+        i2 = element("i");
+        t13 = space();
+        button3 = element("button");
+        i3 = element("i");
+        attr(input, "class", "perPage svelte-1o1btri");
+        attr(input, "type", "number");
+        attr(span0, "class", "left svelte-1o1btri");
+        attr(i0, "class", "gg-push-chevron-left");
+        button0.disabled = button0_disabled_value = !/*allowPrevPage*/
+        ctx[4];
+        attr(i1, "class", "gg-chevron-left");
+        button1.disabled = button1_disabled_value = !/*allowPrevPage*/
+        ctx[4];
+        attr(i2, "class", "gg-chevron-right");
+        button2.disabled = button2_disabled_value = !/*allowNextPage*/
+        ctx[3];
+        attr(i3, "class", "gg-push-chevron-right");
+        button3.disabled = button3_disabled_value = !/*allowNextPage*/
+        ctx[3];
+        attr(span1, "class", "right svelte-1o1btri");
+        attr(th, "colspan", th_colspan_value = /*fields*/
+        ctx[1].length);
+        attr(th, "class", "svelte-1o1btri");
+        attr(table, "class", "svelte-1o1btri");
+      },
+      m(target, anchor) {
+        insert(target, table, anchor);
+        append(table, thead);
+        append(thead, tr0);
+        for (let i = 0; i < each_blocks_1.length; i += 1) {
+          if (each_blocks_1[i]) {
+            each_blocks_1[i].m(tr0, null);
+          }
+        }
+        append(table, t0);
+        append(table, tbody);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(tbody, null);
+          }
+        }
+        append(table, t1);
+        append(table, tfoot);
+        append(tfoot, tr1);
+        append(tr1, th);
+        append(th, span0);
+        append(span0, t2);
+        append(span0, t3);
+        append(span0, t4);
+        append(span0, t5);
+        append(span0, t6);
+        append(span0, input);
+        set_input_value(
+          input,
+          /*pager*/
+          ctx[0].perPage
+        );
+        append(span0, t7);
+        append(th, t8);
+        append(th, t9);
+        append(th, t10);
+        append(th, span1);
+        append(span1, button0);
+        append(button0, i0);
+        append(span1, t11);
+        append(span1, button1);
+        append(button1, i1);
+        append(span1, t12);
+        append(span1, button2);
+        append(button2, i2);
+        append(span1, t13);
+        append(span1, button3);
+        append(button3, i3);
+        if (!mounted) {
+          dispose = [
+            listen(
+              input,
+              "input",
+              /*input_input_handler*/
+              ctx[10]
+            ),
+            listen(
+              input,
+              "change",
+              /*change_handler*/
+              ctx[11]
+            ),
+            listen(
+              button0,
+              "click",
+              /*click_handler_1*/
+              ctx[12]
+            ),
+            listen(
+              button1,
+              "click",
+              /*click_handler_2*/
+              ctx[13]
+            ),
+            listen(
+              button2,
+              "click",
+              /*click_handler_3*/
+              ctx[14]
+            ),
+            listen(
+              button3,
+              "click",
+              /*click_handler_4*/
+              ctx[15]
+            )
+          ];
+          mounted = true;
+        }
+      },
+      p(ctx2, [dirty]) {
+        if (dirty & /*fields*/
+        2) {
+          each_value_2 = ensure_array_like(
+            /*fields*/
+            ctx2[1]
+          );
+          let i;
+          for (i = 0; i < each_value_2.length; i += 1) {
+            const child_ctx = get_each_context_2(ctx2, each_value_2, i);
+            if (each_blocks_1[i]) {
+              each_blocks_1[i].p(child_ctx, dirty);
+            } else {
+              each_blocks_1[i] = create_each_block_2(child_ctx);
+              each_blocks_1[i].c();
+              each_blocks_1[i].m(tr0, null);
+            }
+          }
+          for (; i < each_blocks_1.length; i += 1) {
+            each_blocks_1[i].d(1);
+          }
+          each_blocks_1.length = each_value_2.length;
+        }
+        if (dirty & /*rows, deletedAtIdx, fields, editRow, datetime*/
+        294) {
+          each_value = ensure_array_like(
+            /*rows*/
+            ctx2[2]
+          );
+          let i;
+          for (i = 0; i < each_value.length; i += 1) {
+            const child_ctx = get_each_context(ctx2, each_value, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(tbody, null);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value.length;
+        }
+        if (dirty & /*pager*/
+        1 && t3_value !== (t3_value = /*pager*/
+        ctx2[0].page + ""))
+          set_data(t3, t3_value);
+        if (dirty & /*pager*/
+        1 && t5_value !== (t5_value = /*pager*/
+        ctx2[0].pages + ""))
+          set_data(t5, t5_value);
+        if (dirty & /*pager*/
+        1 && to_number(input.value) !== /*pager*/
+        ctx2[0].perPage) {
+          set_input_value(
+            input,
+            /*pager*/
+            ctx2[0].perPage
+          );
+        }
+        if (dirty & /*pager*/
+        1 && t9_value !== (t9_value = /*pager*/
+        ctx2[0].countResult + ""))
+          set_data(t9, t9_value);
+        if (dirty & /*allowPrevPage*/
+        16 && button0_disabled_value !== (button0_disabled_value = !/*allowPrevPage*/
+        ctx2[4])) {
+          button0.disabled = button0_disabled_value;
+        }
+        if (dirty & /*allowPrevPage*/
+        16 && button1_disabled_value !== (button1_disabled_value = !/*allowPrevPage*/
+        ctx2[4])) {
+          button1.disabled = button1_disabled_value;
+        }
+        if (dirty & /*allowNextPage*/
+        8 && button2_disabled_value !== (button2_disabled_value = !/*allowNextPage*/
+        ctx2[3])) {
+          button2.disabled = button2_disabled_value;
+        }
+        if (dirty & /*allowNextPage*/
+        8 && button3_disabled_value !== (button3_disabled_value = !/*allowNextPage*/
+        ctx2[3])) {
+          button3.disabled = button3_disabled_value;
+        }
+        if (dirty & /*fields*/
+        2 && th_colspan_value !== (th_colspan_value = /*fields*/
+        ctx2[1].length)) {
+          attr(th, "colspan", th_colspan_value);
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(table);
+        }
+        destroy_each(each_blocks_1, detaching);
+        destroy_each(each_blocks, detaching);
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function instance3($self, $props, $invalidate) {
+    let deletedAtIdx;
+    let allowPrevPage;
+    let allowNextPage;
+    let { fields: fields2 = [] } = $props;
+    let { rows = [] } = $props;
+    let { pager = {} } = $props;
+    const dispatch = createEventDispatcher();
+    function gotoPage(page) {
+      dispatch("refreshTableView", { ...pager, page });
+    }
+    function changePerPage(perPage) {
+      dispatch("refreshTableView", { ...pager, perPage });
+    }
+    function editRow(row) {
+      dispatch("editRow", row);
+    }
+    const click_handler = (row, i) => editRow(row[i]);
+    function input_input_handler() {
+      pager.perPage = to_number(this.value);
+      $invalidate(0, pager);
+    }
+    const change_handler = () => changePerPage(pager.perPage);
+    const click_handler_1 = () => gotoPage(1);
+    const click_handler_2 = () => gotoPage(pager.page - 1);
+    const click_handler_3 = () => gotoPage(pager.page + 1);
+    const click_handler_4 = () => gotoPage(pager.pages);
+    $self.$set = ($props2) => {
+      if ("fields" in $props2)
+        $invalidate(1, fields2 = $props2.fields);
+      if ("rows" in $props2)
+        $invalidate(2, rows = $props2.rows);
+      if ("pager" in $props2)
+        $invalidate(0, pager = $props2.pager);
+    };
+    $self.$.update = () => {
+      if ($self.$.dirty & /*fields*/
+      2) {
+        $:
+          $invalidate(5, deletedAtIdx = function() {
+            for (let z = 0; z < fields2.length; z++) {
+              let field = fields2[z];
+              if (field.name == "deletedAt") {
+                return z;
+              }
+            }
+            return -1;
+          }());
+      }
+      if ($self.$.dirty & /*pager*/
+      1) {
+        $:
+          $invalidate(4, allowPrevPage = pager.page > 1);
+      }
+      if ($self.$.dirty & /*pager*/
+      1) {
+        $:
+          $invalidate(3, allowNextPage = pager.page < pager.pages);
+      }
+    };
+    return [
+      pager,
+      fields2,
+      rows,
+      allowNextPage,
+      allowPrevPage,
+      deletedAtIdx,
+      gotoPage,
+      changePerPage,
+      editRow,
+      click_handler,
+      input_input_handler,
+      change_handler,
+      click_handler_1,
+      click_handler_2,
+      click_handler_3,
+      click_handler_4
+    ];
+  }
+  var TableView = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance3, create_fragment3, safe_not_equal, { fields: 1, rows: 2, pager: 0 });
+    }
+  };
+  var TableView_default = TableView;
+
+  // _components/ModalForm.svelte
+  var import_formatter2 = __toESM(require_formatter());
+  function get_each_context2(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[21] = list[i];
+    child_ctx[22] = list;
+    child_ctx[23] = i;
+    return child_ctx;
+  }
+  function create_if_block3(ctx) {
+    let div0;
+    let t0;
+    let div5;
+    let div1;
+    let t1;
+    let div4;
+    let button0;
+    let t2;
+    let div2;
+    let t3;
+    let p;
+    let t4;
+    let t5;
+    let div3;
+    let button1;
+    let t7;
+    let current;
+    let mounted;
+    let dispose;
+    function select_block_type(ctx2, dirty) {
+      if (
+        /*row*/
+        ctx2[2].id
+      )
+        return create_if_block_9;
+      return create_else_block_5;
+    }
+    let current_block_type = select_block_type(ctx, -1);
+    let if_block0 = current_block_type(ctx);
+    let each_value = ensure_array_like(
+      /*fields*/
+      ctx[3]
+    );
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block2(get_each_context2(ctx, each_value, i));
+    }
+    const default_slot_template = (
+      /*#slots*/
+      ctx[14].default
+    );
+    const default_slot = create_slot(
+      default_slot_template,
+      ctx,
+      /*$scope*/
+      ctx[13],
+      null
+    );
+    function select_block_type_4(ctx2, dirty) {
+      if (
+        /*loading*/
+        ctx2[1]
+      )
+        return create_if_block_13;
+      return create_else_block2;
+    }
+    let current_block_type_1 = select_block_type_4(ctx, -1);
+    let if_block1 = current_block_type_1(ctx);
+    return {
+      c() {
+        div0 = element("div");
+        t0 = space();
+        div5 = element("div");
+        div1 = element("div");
+        t1 = space();
+        div4 = element("div");
+        button0 = element("button");
+        button0.innerHTML = `<i class="gg-close"></i>`;
+        t2 = space();
+        div2 = element("div");
+        if_block0.c();
+        t3 = space();
+        p = element("p");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        t4 = space();
+        if (default_slot)
+          default_slot.c();
+        t5 = space();
+        div3 = element("div");
+        button1 = element("button");
+        button1.textContent = "Cancel";
+        t7 = space();
+        if_block1.c();
+        attr(div0, "class", "backdrop svelte-1346uxr");
+        attr(div1, "class", "modal_background");
+        attr(button0, "tabindex", "0");
+        attr(button0, "aria-label", "close");
+        attr(button0, "title", "Close");
+        attr(button0, "type", "button");
+        attr(button0, "class", "close svelte-1346uxr");
+        attr(div2, "class", "title svelte-1346uxr");
+        attr(button1, "tabindex", "0");
+        attr(button1, "class", "left button secondary svelte-1346uxr");
+        attr(div3, "class", "layout-h");
+        attr(div4, "class", "modal_content box -small");
+        set_style(div4, "outline", "none");
+        attr(div5, "class", "modal svelte-1346uxr");
+      },
+      m(target, anchor) {
+        insert(target, div0, anchor);
+        insert(target, t0, anchor);
+        insert(target, div5, anchor);
+        append(div5, div1);
+        append(div5, t1);
+        append(div5, div4);
+        append(div4, button0);
+        append(div4, t2);
+        append(div4, div2);
+        if_block0.m(div2, null);
+        append(div4, t3);
+        append(div4, p);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(p, null);
+          }
+        }
+        append(p, t4);
+        if (default_slot) {
+          default_slot.m(p, null);
+        }
+        append(div4, t5);
+        append(div4, div3);
+        append(div3, button1);
+        append(div3, t7);
+        if_block1.m(div3, null);
+        current = true;
+        if (!mounted) {
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*cancelPressed*/
+              ctx[8]
+            ),
+            listen(
+              button1,
+              "click",
+              /*cancelPressed*/
+              ctx[8]
+            )
+          ];
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (current_block_type === (current_block_type = select_block_type(ctx2, dirty)) && if_block0) {
+          if_block0.p(ctx2, dirty);
+        } else {
+          if_block0.d(1);
+          if_block0 = current_block_type(ctx2);
+          if (if_block0) {
+            if_block0.c();
+            if_block0.m(div2, null);
+          }
+        }
+        if (dirty & /*row, fields, datetime*/
+        12) {
+          each_value = ensure_array_like(
+            /*fields*/
+            ctx2[3]
+          );
+          let i;
+          for (i = 0; i < each_value.length; i += 1) {
+            const child_ctx = get_each_context2(ctx2, each_value, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block2(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(p, t4);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value.length;
+        }
+        if (default_slot) {
+          if (default_slot.p && (!current || dirty & /*$scope*/
+          8192)) {
+            update_slot_base(
+              default_slot,
+              default_slot_template,
+              ctx2,
+              /*$scope*/
+              ctx2[13],
+              !current ? get_all_dirty_from_scope(
+                /*$scope*/
+                ctx2[13]
+              ) : get_slot_changes(
+                default_slot_template,
+                /*$scope*/
+                ctx2[13],
+                dirty,
+                null
+              ),
+              null
+            );
+          }
+        }
+        if (current_block_type_1 === (current_block_type_1 = select_block_type_4(ctx2, dirty)) && if_block1) {
+          if_block1.p(ctx2, dirty);
+        } else {
+          if_block1.d(1);
+          if_block1 = current_block_type_1(ctx2);
+          if (if_block1) {
+            if_block1.c();
+            if_block1.m(div3, null);
+          }
+        }
+      },
       i(local) {
         if (current)
           return;
-        transition_in(menu.$.fragment, local);
+        transition_in(default_slot, local);
         current = true;
       },
       o(local) {
-        transition_out(menu.$.fragment, local);
+        transition_out(default_slot, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(t);
+          detach(div0);
+          detach(t0);
+          detach(div5);
+        }
+        if_block0.d();
+        destroy_each(each_blocks, detaching);
+        if (default_slot)
+          default_slot.d(detaching);
+        if_block1.d();
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function create_else_block_5(ctx) {
+    let t0;
+    let t1;
+    return {
+      c() {
+        t0 = text("New ");
+        t1 = text(
+          /*rowType*/
+          ctx[4]
+        );
+      },
+      m(target, anchor) {
+        insert(target, t0, anchor);
+        insert(target, t1, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rowType*/
+        16)
+          set_data(
+            t1,
+            /*rowType*/
+            ctx2[4]
+          );
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(t0);
+          detach(t1);
+        }
+      }
+    };
+  }
+  function create_if_block_9(ctx) {
+    let t0;
+    let t1;
+    let t2;
+    let t3_value = (
+      /*row*/
+      ctx[2].id + ""
+    );
+    let t3;
+    return {
+      c() {
+        t0 = text("Edit ");
+        t1 = text(
+          /*rowType*/
+          ctx[4]
+        );
+        t2 = text(" ID: ");
+        t3 = text(t3_value);
+      },
+      m(target, anchor) {
+        insert(target, t0, anchor);
+        insert(target, t1, anchor);
+        insert(target, t2, anchor);
+        insert(target, t3, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rowType*/
+        16)
+          set_data(
+            t1,
+            /*rowType*/
+            ctx2[4]
+          );
+        if (dirty & /*row*/
+        4 && t3_value !== (t3_value = /*row*/
+        ctx2[2].id + ""))
+          set_data(t3, t3_value);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(t0);
+          detach(t1);
+          detach(t2);
+          detach(t3);
+        }
+      }
+    };
+  }
+  function create_else_block_2(ctx) {
+    let label;
+    let t0_value = (
+      /*field*/
+      ctx[21].label + ""
+    );
+    let t0;
+    let label_for_value;
+    let t1;
+    let t2;
+    let br;
+    function select_block_type_2(ctx2, dirty) {
+      if (
+        /*field*/
+        ctx2[21].readOnly
+      )
+        return create_if_block_5;
+      if (
+        /*field*/
+        ctx2[21].inputType === "textarea"
+      )
+        return create_if_block_7;
+      if (
+        /*field*/
+        ctx2[21].inputType === "number"
+      )
+        return create_if_block_8;
+      return create_else_block_4;
+    }
+    let current_block_type = select_block_type_2(ctx, -1);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        label = element("label");
+        t0 = text(t0_value);
+        t1 = space();
+        if_block.c();
+        t2 = space();
+        br = element("br");
+        attr(label, "for", label_for_value = "modalForm__" + /*field*/
+        ctx[21].name);
+        attr(label, "class", "svelte-1346uxr");
+      },
+      m(target, anchor) {
+        insert(target, label, anchor);
+        append(label, t0);
+        insert(target, t1, anchor);
+        if_block.m(target, anchor);
+        insert(target, t2, anchor);
+        insert(target, br, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*fields*/
+        8 && t0_value !== (t0_value = /*field*/
+        ctx2[21].label + ""))
+          set_data(t0, t0_value);
+        if (dirty & /*fields*/
+        8 && label_for_value !== (label_for_value = "modalForm__" + /*field*/
+        ctx2[21].name)) {
+          attr(label, "for", label_for_value);
+        }
+        if (current_block_type === (current_block_type = select_block_type_2(ctx2, dirty)) && if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(t2.parentNode, t2);
+          }
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(label);
+          detach(t1);
+          detach(t2);
+          detach(br);
+        }
+        if_block.d(detaching);
+      }
+    };
+  }
+  function create_if_block_4(ctx) {
+    let input;
+    let mounted;
+    let dispose;
+    function input_input_handler() {
+      ctx[15].call(
+        input,
+        /*field*/
+        ctx[21]
+      );
+    }
+    return {
+      c() {
+        input = element("input");
+        attr(input, "type", "hidden");
+      },
+      m(target, anchor) {
+        insert(target, input, anchor);
+        set_input_value(
+          input,
+          /*row*/
+          ctx[2][
+            /*field*/
+            ctx[21].name
+          ]
+        );
+        if (!mounted) {
+          dispose = listen(input, "input", input_input_handler);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (dirty & /*row, fields*/
+        12) {
+          set_input_value(
+            input,
+            /*row*/
+            ctx[2][
+              /*field*/
+              ctx[21].name
+            ]
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(input);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_else_block_4(ctx) {
+    let input;
+    let input_id_value;
+    let mounted;
+    let dispose;
+    function input_input_handler_2() {
+      ctx[18].call(
+        input,
+        /*field*/
+        ctx[21]
+      );
+    }
+    return {
+      c() {
+        input = element("input");
+        attr(input, "id", input_id_value = "modalForm__" + /*field*/
+        ctx[21].name);
+        attr(input, "type", "text");
+      },
+      m(target, anchor) {
+        insert(target, input, anchor);
+        set_input_value(
+          input,
+          /*row*/
+          ctx[2][
+            /*field*/
+            ctx[21].name
+          ]
+        );
+        if (!mounted) {
+          dispose = listen(input, "input", input_input_handler_2);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (dirty & /*fields*/
+        8 && input_id_value !== (input_id_value = "modalForm__" + /*field*/
+        ctx[21].name)) {
+          attr(input, "id", input_id_value);
+        }
+        if (dirty & /*row, fields*/
+        12 && input.value !== /*row*/
+        ctx[2][
+          /*field*/
+          ctx[21].name
+        ]) {
+          set_input_value(
+            input,
+            /*row*/
+            ctx[2][
+              /*field*/
+              ctx[21].name
+            ]
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(input);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_8(ctx) {
+    let input;
+    let input_id_value;
+    let mounted;
+    let dispose;
+    function input_input_handler_1() {
+      ctx[17].call(
+        input,
+        /*field*/
+        ctx[21]
+      );
+    }
+    return {
+      c() {
+        input = element("input");
+        attr(input, "id", input_id_value = "modalForm__" + /*field*/
+        ctx[21].name);
+        attr(input, "type", "number");
+      },
+      m(target, anchor) {
+        insert(target, input, anchor);
+        set_input_value(
+          input,
+          /*row*/
+          ctx[2][
+            /*field*/
+            ctx[21].name
+          ]
+        );
+        if (!mounted) {
+          dispose = listen(input, "input", input_input_handler_1);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (dirty & /*fields*/
+        8 && input_id_value !== (input_id_value = "modalForm__" + /*field*/
+        ctx[21].name)) {
+          attr(input, "id", input_id_value);
+        }
+        if (dirty & /*row, fields*/
+        12 && to_number(input.value) !== /*row*/
+        ctx[2][
+          /*field*/
+          ctx[21].name
+        ]) {
+          set_input_value(
+            input,
+            /*row*/
+            ctx[2][
+              /*field*/
+              ctx[21].name
+            ]
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(input);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_7(ctx) {
+    let textarea;
+    let textarea_id_value;
+    let mounted;
+    let dispose;
+    function textarea_input_handler() {
+      ctx[16].call(
+        textarea,
+        /*field*/
+        ctx[21]
+      );
+    }
+    return {
+      c() {
+        textarea = element("textarea");
+        attr(textarea, "id", textarea_id_value = "modalForm__" + /*field*/
+        ctx[21].name);
+      },
+      m(target, anchor) {
+        insert(target, textarea, anchor);
+        set_input_value(
+          textarea,
+          /*row*/
+          ctx[2][
+            /*field*/
+            ctx[21].name
+          ]
+        );
+        if (!mounted) {
+          dispose = listen(textarea, "input", textarea_input_handler);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (dirty & /*fields*/
+        8 && textarea_id_value !== (textarea_id_value = "modalForm__" + /*field*/
+        ctx[21].name)) {
+          attr(textarea, "id", textarea_id_value);
+        }
+        if (dirty & /*row, fields*/
+        12) {
+          set_input_value(
+            textarea,
+            /*row*/
+            ctx[2][
+              /*field*/
+              ctx[21].name
+            ]
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(textarea);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_5(ctx) {
+    let if_block_anchor;
+    function select_block_type_3(ctx2, dirty) {
+      if (
+        /*field*/
+        ctx2[21].inputType === "datetime"
+      )
+        return create_if_block_6;
+      return create_else_block_3;
+    }
+    let current_block_type = select_block_type_3(ctx, -1);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (current_block_type === (current_block_type = select_block_type_3(ctx2, dirty)) && if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if_block.d(detaching);
+      }
+    };
+  }
+  function create_else_block_3(ctx) {
+    let span;
+    let t_value = (
+      /*row*/
+      ctx[2][
+        /*field*/
+        ctx[21].name
+      ] + ""
+    );
+    let t;
+    return {
+      c() {
+        span = element("span");
+        t = text(t_value);
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+        append(span, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*row, fields*/
+        12 && t_value !== (t_value = /*row*/
+        ctx2[2][
+          /*field*/
+          ctx2[21].name
+        ] + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
+  function create_if_block_6(ctx) {
+    let span;
+    let t_value = (0, import_formatter2.datetime)(
+      /*row*/
+      ctx[2][
+        /*field*/
+        ctx[21].name
+      ]
+    ) + "";
+    let t;
+    return {
+      c() {
+        span = element("span");
+        t = text(t_value);
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+        append(span, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*row, fields*/
+        12 && t_value !== (t_value = (0, import_formatter2.datetime)(
+          /*row*/
+          ctx2[2][
+            /*field*/
+            ctx2[21].name
+          ]
+        ) + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
+  function create_each_block2(ctx) {
+    let if_block_anchor;
+    function select_block_type_1(ctx2, dirty) {
+      if (
+        /*field*/
+        ctx2[21].inputType === "hidden"
+      )
+        return create_if_block_4;
+      return create_else_block_2;
+    }
+    let current_block_type = select_block_type_1(ctx, -1);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (current_block_type === (current_block_type = select_block_type_1(ctx2, dirty)) && if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if_block.d(detaching);
+      }
+    };
+  }
+  function create_else_block2(ctx) {
+    let button;
+    let t1;
+    let if_block_anchor;
+    let mounted;
+    let dispose;
+    let if_block = (
+      /*row*/
+      ctx[2].id && create_if_block_23(ctx)
+    );
+    return {
+      c() {
+        button = element("button");
+        button.textContent = "Save";
+        t1 = space();
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+        attr(button, "tabindex", "0");
+        attr(button, "class", "right button primary svelte-1346uxr");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        insert(target, t1, anchor);
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*savePressed*/
+            ctx[7]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (
+          /*row*/
+          ctx2[2].id
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+          } else {
+            if_block = create_if_block_23(ctx2);
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          if_block.d(1);
+          if_block = null;
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+          detach(t1);
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_13(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Saving..";
+        attr(span, "class", "right svelte-1346uxr");
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
+  function create_if_block_23(ctx) {
+    let if_block_anchor;
+    function select_block_type_5(ctx2, dirty) {
+      if (
+        /*row*/
+        ctx2[2].deletedAt > 0
+      )
+        return create_if_block_33;
+      return create_else_block_12;
+    }
+    let current_block_type = select_block_type_5(ctx, -1);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (current_block_type === (current_block_type = select_block_type_5(ctx2, dirty)) && if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if_block.d(detaching);
+      }
+    };
+  }
+  function create_else_block_12(ctx) {
+    let button;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        button = element("button");
+        button.textContent = "Delete";
+        attr(button, "tabindex", "0");
+        attr(button, "class", "right button danger svelte-1346uxr");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*deletePressed*/
+            ctx[5]
+          );
+          mounted = true;
+        }
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_33(ctx) {
+    let button;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        button = element("button");
+        button.textContent = "Restore";
+        attr(button, "tabindex", "0");
+        attr(button, "class", "right button warning svelte-1346uxr");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*restorePressed*/
+            ctx[6]
+          );
+          mounted = true;
+        }
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_fragment4(ctx) {
+    let if_block_anchor;
+    let current;
+    let if_block = (
+      /*visible*/
+      ctx[0] && create_if_block3(ctx)
+    );
+    return {
+      c() {
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, [dirty]) {
+        if (
+          /*visible*/
+          ctx2[0]
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*visible*/
+            1) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block3(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
+      }
+    };
+  }
+  function instance4($self, $props, $invalidate) {
+    let { $slots: slots = {}, $scope } = $props;
+    let { fields: fields2 = [] } = $props;
+    let { visible = false } = $props;
+    let { loading = false } = $props;
+    let { row = {} } = $props;
+    let { rowType = "Row" } = $props;
+    let { onConfirm = function(action, row2) {
+      console.log("ModalForm.onConfirm", action, row2);
+    } } = $props;
+    let originalRowJson = "";
+    function showModal(fetchedRow) {
+      $invalidate(0, visible = true);
+      originalRowJson = JSON.stringify(fetchedRow);
+      $invalidate(2, row = fetchedRow);
+      $invalidate(1, loading = false);
+      console.log("ModalForm.showModal", fetchedRow);
+    }
+    function hideModal() {
+      $invalidate(0, visible = false);
+    }
+    function setLoading(to) {
+      $invalidate(1, loading = !!to);
+    }
+    function haveChanges() {
+      return originalRowJson !== JSON.stringify(row);
+    }
+    function deletePressed() {
+      if (confirm("are you sure you want to delete this row?")) {
+        $invalidate(1, loading = true);
+        onConfirm("delete", row);
+      }
+    }
+    function restorePressed() {
+      if (confirm("are you sure you want to restore this row?")) {
+        $invalidate(1, loading = true);
+        onConfirm("restore", row);
+      }
+    }
+    function savePressed() {
+      if (!haveChanges())
+        return cancelPressed();
+      if (confirm("are you sure you want to save this row?")) {
+        $invalidate(1, loading = true);
+        onConfirm("upsert", row);
+      }
+    }
+    function cancelPressed() {
+      if (haveChanges()) {
+        if (confirm("are you sure you want to cancel? changes will be lost."))
+          $invalidate(0, visible = false);
+      } else {
+        $invalidate(0, visible = false);
+      }
+    }
+    function input_input_handler(field) {
+      row[field.name] = this.value;
+      $invalidate(2, row);
+    }
+    function textarea_input_handler(field) {
+      row[field.name] = this.value;
+      $invalidate(2, row);
+    }
+    function input_input_handler_1(field) {
+      row[field.name] = to_number(this.value);
+      $invalidate(2, row);
+    }
+    function input_input_handler_2(field) {
+      row[field.name] = this.value;
+      $invalidate(2, row);
+    }
+    $self.$set = ($props2) => {
+      if ("fields" in $props2)
+        $invalidate(3, fields2 = $props2.fields);
+      if ("visible" in $props2)
+        $invalidate(0, visible = $props2.visible);
+      if ("loading" in $props2)
+        $invalidate(1, loading = $props2.loading);
+      if ("row" in $props2)
+        $invalidate(2, row = $props2.row);
+      if ("rowType" in $props2)
+        $invalidate(4, rowType = $props2.rowType);
+      if ("onConfirm" in $props2)
+        $invalidate(9, onConfirm = $props2.onConfirm);
+      if ("$scope" in $props2)
+        $invalidate(13, $scope = $props2.$scope);
+    };
+    return [
+      visible,
+      loading,
+      row,
+      fields2,
+      rowType,
+      deletePressed,
+      restorePressed,
+      savePressed,
+      cancelPressed,
+      onConfirm,
+      showModal,
+      hideModal,
+      setLoading,
+      $scope,
+      slots,
+      input_input_handler,
+      textarea_input_handler,
+      input_input_handler_1,
+      input_input_handler_2
+    ];
+  }
+  var ModalForm = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance4, create_fragment4, safe_not_equal, {
+        fields: 3,
+        visible: 0,
+        loading: 1,
+        row: 2,
+        rowType: 4,
+        onConfirm: 9,
+        showModal: 10,
+        hideModal: 11,
+        setLoading: 12
+      });
+    }
+    get showModal() {
+      return this.$.ctx[10];
+    }
+    get hideModal() {
+      return this.$.ctx[11];
+    }
+    get setLoading() {
+      return this.$.ctx[12];
+    }
+  };
+  var ModalForm_default = ModalForm;
+
+  // admin/properties.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
+  function create_fragment5(ctx) {
+    let menu;
+    let t0;
+    let adminsubmenu;
+    let t1;
+    let button;
+    let t3;
+    let modalform;
+    let t4;
+    let tableview;
+    let updating_pager;
+    let current;
+    let mounted;
+    let dispose;
+    menu = new Menu_default({ props: { access: segments } });
+    adminsubmenu = new adminSubMenu_default({});
+    let modalform_props = {
+      fields,
+      rowType: "User",
+      onConfirm: (
+        /*saveRow*/
+        ctx[6]
+      )
+    };
+    modalform = new ModalForm_default({ props: modalform_props });
+    ctx[7](modalform);
+    function tableview_pager_binding(value) {
+      ctx[8](value);
+    }
+    let tableview_props = { fields, rows: (
+      /*properties*/
+      ctx[0]
+    ) };
+    if (
+      /*pager*/
+      ctx[1] !== void 0
+    ) {
+      tableview_props.pager = /*pager*/
+      ctx[1];
+    }
+    tableview = new TableView_default({ props: tableview_props });
+    binding_callbacks.push(() => bind(tableview, "pager", tableview_pager_binding));
+    tableview.$on(
+      "refreshTableView",
+      /*refreshTableView*/
+      ctx[3]
+    );
+    tableview.$on(
+      "editRow",
+      /*editRow*/
+      ctx[4]
+    );
+    return {
+      c() {
+        create_component(menu.$.fragment);
+        t0 = space();
+        create_component(adminsubmenu.$.fragment);
+        t1 = space();
+        button = element("button");
+        button.textContent = "Add";
+        t3 = space();
+        create_component(modalform.$.fragment);
+        t4 = space();
+        create_component(tableview.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(menu, target, anchor);
+        insert(target, t0, anchor);
+        mount_component(adminsubmenu, target, anchor);
+        insert(target, t1, anchor);
+        insert(target, button, anchor);
+        insert(target, t3, anchor);
+        mount_component(modalform, target, anchor);
+        insert(target, t4, anchor);
+        mount_component(tableview, target, anchor);
+        current = true;
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*addRow*/
+            ctx[5]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, [dirty]) {
+        const modalform_changes = {};
+        modalform.$set(modalform_changes);
+        const tableview_changes = {};
+        if (dirty & /*properties*/
+        1)
+          tableview_changes.rows = /*properties*/
+          ctx2[0];
+        if (!updating_pager && dirty & /*pager*/
+        2) {
+          updating_pager = true;
+          tableview_changes.pager = /*pager*/
+          ctx2[1];
+          add_flush_callback(() => updating_pager = false);
+        }
+        tableview.$set(tableview_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(menu.$.fragment, local);
+        transition_in(adminsubmenu.$.fragment, local);
+        transition_in(modalform.$.fragment, local);
+        transition_in(tableview.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(menu.$.fragment, local);
+        transition_out(adminsubmenu.$.fragment, local);
+        transition_out(modalform.$.fragment, local);
+        transition_out(tableview.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(t0);
+          detach(t1);
+          detach(button);
+          detach(t3);
+          detach(t4);
         }
         destroy_component(menu, detaching);
+        destroy_component(adminsubmenu, detaching);
+        ctx[7](null);
+        destroy_component(modalform, detaching);
+        destroy_component(tableview, detaching);
+        mounted = false;
+        dispose();
       }
     };
   }
   var segments = {/* segments */};
-  var Realtor = class extends SvelteComponent {
+  var fields = [/* fields */];
+  function instance5($self, $props, $invalidate) {
+    let properties = [/* properties */];
+    let pager = {/* pager */};
+    function handleResponse(res) {
+      console.log(res);
+      if (res.error) {
+        alert(res.error);
+        return true;
+      }
+      if (res.properties && res.properties.length)
+        $invalidate(0, properties = res.properties);
+      if (res.pager && res.pager.page)
+        $invalidate(1, pager = res.pager);
+    }
+    async function refreshTableView(e) {
+      const pagerIn = e.detail;
+      await (0, import_jsApi.AdminProperties)({ pager: pagerIn, action: "list" }, function(res) {
+        handleResponse(res);
+      });
+    }
+    let form = ModalForm_default;
+    async function editRow(e) {
+      const id = e.detail;
+      await (0, import_jsApi.AdminProperties)({ property: { id }, action: "form" }, function(res) {
+        if (!handleResponse(res))
+          form.showModal(res.property);
+      });
+    }
+    function addRow() {
+      form.showModal({ id: "" });
+    }
+    async function saveRow(action, row) {
+      let property = { ...row };
+      if (!property.id)
+        property.id = "0";
+      console.log(property);
+      property.coord = JSON.parse("[" + property.coord + "]");
+      await (0, import_jsApi.AdminProperties)(
+        {
+          property,
+          action,
+          pager
+          // force refresh page, will be slow
+        },
+        function(res) {
+          if (handleResponse(res)) {
+            return form.setLoading(false);
+          }
+          form.hideModal();
+        }
+      );
+    }
+    function modalform_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        form = $value;
+        $invalidate(2, form);
+      });
+    }
+    function tableview_pager_binding(value) {
+      pager = value;
+      $invalidate(1, pager);
+    }
+    $self.$.update = () => {
+      if ($self.$.dirty & /*properties*/
+      1) {
+        $:
+          console.log(properties);
+      }
+    };
+    return [
+      properties,
+      pager,
+      form,
+      refreshTableView,
+      editRow,
+      addRow,
+      saveRow,
+      modalform_binding,
+      tableview_pager_binding
+    ];
+  }
+  var Properties = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment2, safe_not_equal, {});
+      init(this, options, instance5, create_fragment5, safe_not_equal, {});
     }
   };
-  var realtor_default = Realtor;
+  var properties_default = Properties;
 
-  // realtor.svelte.ts
-  var app = new realtor_default({ target: document.getElementById("app") });
+  // admin/properties.svelte.ts
+  var app = new properties_default({ target: document.getElementById("app") });
 })();
 </script>
 </body></html>

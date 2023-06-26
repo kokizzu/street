@@ -3,9 +3,9 @@ package rqProperty
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 import (
-	"street/model/mProperty"
-
 	"github.com/tarantool/go-tarantool"
+
+	"street/model/mProperty"
 
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"

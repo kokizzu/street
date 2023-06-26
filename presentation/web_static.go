@@ -123,7 +123,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain) {
 			`countPerActionsPerDate`: out.CountPerActionsPerDate,
 		})
 	})
-	fw.Get(`/admin/users`, func(ctx *fiber.Ctx) error {
+	fw.Get(`/`+domain.AdminUsersAction, func(ctx *fiber.Ctx) error {
 		var in domain.AdminUsersIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminUsersAction)
 		if err != nil {
@@ -142,6 +142,27 @@ func WebStatic(fw *fiber.App, d *domain.Domain) {
 			`users`:    out.Users,
 			`fields`:   out.Meta.Fields,
 			`pager`:    out.Pager,
+		})
+	})
+	fw.Get(`/`+domain.AdminPropertiesAction, func(ctx *fiber.Ctx) error {
+		var in domain.AdminPropertiesIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminPropertiesAction)
+		if err != nil {
+			return err
+		}
+		if notAdmin(ctx, d, in.RequestCommon) {
+			return nil
+		}
+		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Action = zCrud.ActionList
+		out := d.AdminProperties(&in)
+		return views.RenderAdminProperties(ctx, M.SX{
+			`title`:      `Users`,
+			`segments`:   segments,
+			`properties`: out.Properties,
+			`fields`:     out.Meta.Fields,
+			`pager`:      out.Pager,
 		})
 	})
 	fw.Get(`/user`, func(ctx *fiber.Ctx) error {
