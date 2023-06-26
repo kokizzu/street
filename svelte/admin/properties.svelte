@@ -76,7 +76,7 @@
 <AdminSubMenu></AdminSubMenu>
 <button on:click={addRow}>Add</button>
 <ModalForm {fields}
-           rowType='User'
+           rowType='Property'
            bind:this={form}
            onConfirm={saveRow}
 ></ModalForm>
