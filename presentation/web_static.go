@@ -158,7 +158,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.Action = zCrud.ActionList
 		out := d.AdminProperties(&in)
 		return views.RenderAdminProperties(ctx, M.SX{
-			`title`:      `Users`,
+			`title`:      `Properties`,
 			`segments`:   segments,
 			`properties`: out.Properties,
 			`fields`:     out.Meta.Fields,
