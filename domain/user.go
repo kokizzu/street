@@ -277,8 +277,10 @@ type (
 	UserSearchPropIn struct {
 		RequestCommon `json:"request_common"`
 
-		Offset int
-		Limit  int
+		CenterLat  float64 `json:"centerLat" form:"centerLat" query:"centerLat" long:"centerLat" msg:"centerLat"`
+		CenterLong float64 `json:"centerLong" form:"centerLong" query:"centerLong" long:"centerLong" msg:"centerLong"`
+		Offset     int     `json:"offset" form:"offset" query:"offset" long:"offset" msg:"offset"`
+		Limit      int     `json:"limit" form:"limit" query:"limit" long:"limit" msg:"limit"`
 	}
 
 	UserSearchPropOut struct {
@@ -290,6 +292,8 @@ type (
 
 const (
 	UserSearchPropAction = `user/searchProp`
+
+	DefaultLimit = 10
 )
 
 func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
@@ -302,10 +306,10 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 
 	prop := rqProperty.NewProperty(d.AuthOltp)
 
-	if in.Limit < 100 {
-		in.Limit = 100
+	if in.Limit == 0 {
+		in.Limit = DefaultLimit
 	}
 
-	out.Properties = prop.FindByLatLong(in.Lat, in.Long, in.Limit, in.Offset)
+	out.Properties = prop.FindByLatLong(in.CenterLat, in.CenterLong, in.Limit, in.Offset)
 	return
 }
