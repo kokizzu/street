@@ -651,7 +651,7 @@ var viewList = map[string]string{
 	for _, cacheName := range cacheNames {
 		b.WriteString(`
 func (v *Views) Render` + cacheName + `(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html")
+	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[` + S.BT(cacheName) + `].Str(m))
 }` + NL)
 

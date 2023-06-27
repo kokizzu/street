@@ -2217,6 +2217,9 @@ table.svelte-18nqf8w {
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
         return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.AdminProperties = async function AdminProperties(i, cb) {
+        return await axios.post("/admin/properties", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminUsers = async function AdminUsers(i, cb) {
         return await axios.post("/admin/users", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -3262,8 +3265,10 @@ table.svelte-18nqf8w {
     let t1;
     let li1;
     let t3;
+    let li2;
+    let t5;
     let c0;
-    let t4;
+    let t6;
     let c1;
     return {
       c() {
@@ -3274,8 +3279,11 @@ table.svelte-18nqf8w {
         li1 = element("li");
         li1.innerHTML = `<a href="/admin/users" class="svelte-dk81xr">Users</a>`;
         t3 = space();
+        li2 = element("li");
+        li2.innerHTML = `<a href="/admin/properties" class="svelte-dk81xr">Properties</a>`;
+        t5 = space();
         c0 = comment(`  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>`);
-        t4 = space();
+        t6 = space();
         c1 = comment(`  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>`);
         attr(li0, "class", "svelte-dk81xr");
         toggle_class(
@@ -3291,6 +3299,13 @@ table.svelte-18nqf8w {
           /*segment2*/
           ctx[0] === "users"
         );
+        attr(li2, "class", "svelte-dk81xr");
+        toggle_class(
+          li2,
+          "active",
+          /*segment2*/
+          ctx[0] === "properties"
+        );
         attr(ul, "class", "submenu svelte-dk81xr");
       },
       m(target, anchor) {
@@ -3299,8 +3314,10 @@ table.svelte-18nqf8w {
         append(ul, t1);
         append(ul, li1);
         append(ul, t3);
+        append(ul, li2);
+        append(ul, t5);
         append(ul, c0);
-        append(ul, t4);
+        append(ul, t6);
         append(ul, c1);
       },
       p(ctx2, [dirty]) {
@@ -3320,6 +3337,15 @@ table.svelte-18nqf8w {
             "active",
             /*segment2*/
             ctx2[0] === "users"
+          );
+        }
+        if (dirty & /*segment2*/
+        1) {
+          toggle_class(
+            li2,
+            "active",
+            /*segment2*/
+            ctx2[0] === "properties"
           );
         }
       },
