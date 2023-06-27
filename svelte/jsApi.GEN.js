@@ -909,10 +909,14 @@ exports.UserProfile = async function UserProfile( i, cb ) {
 
 /**
  * @typedef {Object} UserSearchPropIn
+ * @property {number} centerLat
+ * @property {number} centerLong
  * @property {number} offset
  * @property {number} limit
  */
 const UserSearchPropIn = {
+  centerLat: 0, // float64
+  centerLong: 0, // float64
   offset: 0, // int
   limit: 0, // int
 }
