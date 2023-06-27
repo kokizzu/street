@@ -55,6 +55,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Unique1:         UniqPropKey,
 		Indexes:         []string{SerialNumber},
 		Engine:          Tt.Memtx,
+		Spatial:         Coord,
 	},
 }
 

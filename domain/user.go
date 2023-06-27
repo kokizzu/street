@@ -10,6 +10,7 @@ import (
 
 	"street/model/mAuth/rqAuth"
 	"street/model/mAuth/wcAuth"
+	"street/model/mProperty/rqProperty"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file user.go
@@ -269,5 +270,42 @@ func (d *Domain) UserUpdateProfile(in *UserUpdateProfileIn) (out UserProfileOut)
 
 	user.CensorFields()
 	out.User = &user.Users
+	return
+}
+
+type (
+	UserSearchPropIn struct {
+		RequestCommon `json:"request_common"`
+
+		Offset int
+		Limit  int
+	}
+
+	UserSearchPropOut struct {
+		ResponseCommon
+
+		Properties []*rqProperty.Property `json:"properties" form:"properties" query:"properties" long:"properties" msg:"properties"`
+	}
+)
+
+const (
+	UserSearchPropAction = `user/searchProp`
+)
+
+func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
+
+	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
+	if sess == nil {
+		return
+	}
+
+	prop := rqProperty.NewProperty(d.AuthOltp)
+
+	if in.Limit < 100 {
+		in.Limit = 100
+	}
+
+	out.Properties = prop.FindByLatLong(in.Lat, in.Long, in.Limit, in.Offset)
 	return
 }

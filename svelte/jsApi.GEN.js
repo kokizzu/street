@@ -908,6 +908,39 @@ exports.UserProfile = async function UserProfile( i, cb ) {
 }
 
 /**
+ * @typedef {Object} UserSearchPropIn
+ * @property {number} offset
+ * @property {number} limit
+ */
+const UserSearchPropIn = {
+  offset: 0, // int
+  limit: 0, // int
+}
+/**
+ * @typedef {Object} UserSearchPropOut
+ * @property {Object} properties
+ */
+const UserSearchPropOut = {
+  properties: { // []rqProperty.Property
+  }, // []rqProperty.Property
+}
+/**
+ * @callback UserSearchPropCallback
+ * @param {UserSearchPropOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserSearchPropIn} i
+ * @param {UserSearchPropCallback} cb
+ * @returns {Promise}
+ */
+exports.UserSearchProp = async function UserSearchProp( i, cb ) {
+  return await axios.post( '/user/searchProp', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} UserUpdateProfileIn
  * @property {String} userName
  * @property {String} fullName

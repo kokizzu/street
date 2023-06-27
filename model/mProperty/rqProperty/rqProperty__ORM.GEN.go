@@ -3,9 +3,9 @@ package rqProperty
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 import (
-	"github.com/tarantool/go-tarantool"
-
 	"street/model/mProperty"
+
+	"github.com/tarantool/go-tarantool"
 
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"
@@ -73,6 +73,11 @@ func (p *Property) FindById() bool { //nolint:dupl false positive
 		return true
 	}
 	return false
+}
+
+// SpatialIndexCoord return spatial index name
+func (p *Property) SpatialIndexCoord() string { //nolint:dupl false positive
+	return `coord`
 }
 
 // UniqueIndexUniqPropKey return unique index name

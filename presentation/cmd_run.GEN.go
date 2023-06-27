@@ -157,6 +157,15 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
+	case domain.UserSearchPropAction:
+		in := domain.UserSearchPropIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.UserSearchProp(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+
 	case domain.UserUpdateProfileAction:
 		in := domain.UserUpdateProfileIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

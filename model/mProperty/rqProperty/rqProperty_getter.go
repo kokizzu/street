@@ -1,8 +1,10 @@
 package rqProperty
 
 import (
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
+	"github.com/tarantool/go-tarantool"
 
 	"street/conf"
 	"street/model/zCrud"
@@ -47,5 +49,19 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 		res = append(res, row)
 	})
 
+	return
+}
+
+func (p *Property) FindByLatLong(lat float64, long float64, limit int, offset int) (rows []*Property) {
+	rows = make([]*Property, 0, limit)
+	p.Coord = []any{lat, long}
+	res, err := p.Adapter.Select(p.SpaceName(), p.SpatialIndexCoord(), uint32(offset), uint32(limit), tarantool.IterNeighbor, p.Coord)
+	if L.IsError(err, `Property) FindByLatLong failed: `+p.SpaceName()) {
+		return rows
+	}
+	for _, row := range res.Tuples() {
+		item := Property{}
+		rows = append(rows, item.FromArray(row))
+	}
 	return
 }

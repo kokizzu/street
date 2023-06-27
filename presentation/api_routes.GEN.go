@@ -170,6 +170,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// UserSearchProp
+	fw.Post("/"+domain.UserSearchPropAction, func(c *fiber.Ctx) error {
+		in := domain.UserSearchPropIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserSearchPropAction); err != nil {
+			return err
+		}
+		out := d.UserSearchProp(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// UserUpdateProfile
 	fw.Post("/"+domain.UserUpdateProfileAction, func(c *fiber.Ctx) error {
 		in := domain.UserUpdateProfileIn{}
