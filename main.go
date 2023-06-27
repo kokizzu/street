@@ -153,7 +153,7 @@ func main() {
 		}
 		cron.Start()
 	case `migrate`:
-		model.RunMigration(tConn, cConn, tConn, cConn)
+		model.RunMigration(tConn, cConn, tConn, cConn, tConn, cConn)
 	case `import`:
 		fmt.Println("Import excel sheet data")
 		p, err := filepath.Abs("./static/house_data/House_Data_Full_Version_v1.xlsx")

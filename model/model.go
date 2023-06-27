@@ -2,11 +2,14 @@ package model
 
 import (
 	"fmt"
+	"strconv"
+	"street/model/mPropertyHistory/wcPropertyHistory"
 	"time"
 
 	"street/model/mAuth/wcAuth"
 	"street/model/mProperty"
 	"street/model/mProperty/wcProperty"
+	"street/model/mPropertyHistory"
 
 	"github.com/xuri/excelize/v2"
 
@@ -18,10 +21,12 @@ import (
 )
 
 type Migrator struct {
-	AuthOltp *Tt.Adapter
-	AuthOlap *Ch.Adapter
-	PropOltp *Tt.Adapter
-	PropOlap *Ch.Adapter
+	AuthOltp        *Tt.Adapter
+	AuthOlap        *Ch.Adapter
+	PropOltp        *Tt.Adapter
+	PropOlap        *Ch.Adapter
+	PropHistoryOltp *Tt.Adapter
+	PropHistoryOlap *Ch.Adapter
 }
 
 func RunMigration(
@@ -29,19 +34,25 @@ func RunMigration(
 	authOlap *Ch.Adapter,
 	propOltp *Tt.Adapter,
 	propOlap *Ch.Adapter,
+	propHistoryOltp *Tt.Adapter,
+	propHistoryOlap *Ch.Adapter,
 ) {
 	L.Print(`run migration..`)
 	m := Migrator{
-		AuthOltp: authOltp,
-		AuthOlap: authOlap,
-		PropOltp: propOltp,
-		PropOlap: propOlap,
+		AuthOltp:        authOltp,
+		AuthOlap:        authOlap,
+		PropOltp:        propOltp,
+		PropOlap:        propOlap,
+		PropHistoryOltp: propHistoryOltp,
+		PropHistoryOlap: propHistoryOlap,
 	}
 	mAuth.TarantoolTables[mAuth.TableUsers].PreUnique1MigrationHook = wcAuth.UniqueUsernameMigration
 	m.AuthOltp.MigrateTables(mAuth.TarantoolTables)
 	m.AuthOlap.MigrateTables(mAuth.ClickhouseTables)
 	m.PropOltp.MigrateTables(mProperty.TarantoolTables)
 	m.PropOlap.MigrateTables(mProperty.ClickhouseTables)
+	m.PropHistoryOltp.MigrateTables(mPropertyHistory.TarantoolTables)
+	m.PropHistoryOlap.MigrateTables(mPropertyHistory.ClickhouseTables)
 }
 
 func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
@@ -371,13 +382,214 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 	fmt.Println("\nEnd process of import house data")
 }
 
+func ImportHouseHistoryInBuySellSheet(adapter **Tt.Adapter, resourcePath string) {
+	fmt.Println("[Start] Beginning of import house history data in buy-sell sheet")
+	pathData := resourcePath
+	f, err := excelize.OpenFile(pathData)
+	if err != nil {
+		fmt.Println(err)
+	}
+	propertyHistoryMutator := wcPropertyHistory.NewPropertyHistoryMutator(*adapter)
+	defer func() {
+		if err := f.Close(); err != nil {
+			fmt.Println(err)
+		}
+	}()
+
+	rows, err := f.GetRows("不動產買賣BuyandSell")
+	stat := &ImporterStat{Total: len(rows)}
+	for index, row := range rows {
+		stat.Print()
+
+		if index >= 0 && index <= 1 {
+			stat.Skip()
+			continue
+		}
+
+		propertyHistoryMutator := wcPropertyHistory.NewPropertyHistoryMutator(*adapter)
+
+		var propertySize = ""
+		var serialNumber = ""
+		var uniquePropertyKey = ""
+		var transactionKey = "" // Combination of serialNumber#size#transactionTime
+
+		for colIndex, colCell := range row {
+
+			// col 0 : District
+			// col 1 : TransactionSign
+			// col 2 : Address
+			// col 3 : Size of property
+			// col 7 : Transaction time
+			// col 8 : Transaction pen number
+
+			// col 21 : total price NTD
+			// col 22 : Unit price per square
+			// col 26 : transaction note
+			// col 27 : Serial number
+
+			if colIndex == 0 {
+				propertyHistoryMutator.District = colCell
+			} else if colIndex == 1 {
+				propertyHistoryMutator.TransactionSign = colCell
+			} else if colIndex == 2 {
+				propertyHistoryMutator.Address = colCell
+			} else if colIndex == 3 {
+				propertySize = colCell
+			} else if colIndex == 7 {
+				propertyHistoryMutator.TransactionTime = colCell
+			} else if colIndex == 8 {
+				propertyHistoryMutator.TransactionNumber = colCell
+			} else if colIndex == 21 {
+				totalPriceData, err := strconv.Atoi(colCell)
+				if err != nil {
+					fmt.Println("Error during conversion for total-price [" + colCell + "]")
+					propertyHistoryMutator.PriceNtd = 0
+				} else {
+					propertyHistoryMutator.PriceNtd = int64(totalPriceData)
+				}
+
+			} else if colIndex == 22 {
+				pricePerUnitData, err := strconv.Atoi(colCell)
+				if err != nil {
+					fmt.Println("Error during conversion for price per unit data [" + colCell + "]")
+					propertyHistoryMutator.PricePerUnit = 0
+				} else {
+					propertyHistoryMutator.PricePerUnit = int64(pricePerUnitData)
+				}
+			} else if colIndex == 26 {
+				propertyHistoryMutator.Note = colCell
+			} else if colIndex == 27 {
+				serialNumber = colCell
+			}
+		}
+		uniquePropertyKey = serialNumber + "#" + propertySize
+		transactionKey = serialNumber + "#" + propertySize + "#" + propertyHistoryMutator.TransactionTime
+		propertyHistoryMutator.PropertyKey = uniquePropertyKey
+		propertyHistoryMutator.TransactionKey = transactionKey
+		propertyHistoryMutator.TransactionType = "BUY_SELL"
+
+		if propertyHistoryMutator.FindByTransactionKey() {
+			stat.Skip()
+			continue
+		}
+		stat.Ok(propertyHistoryMutator.DoInsert())
+
+	}
+	fmt.Println(propertyHistoryMutator)
+	fmt.Println("[End] End of import house history data  in buy-sell sheet")
+}
+
+func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
+	fmt.Println("[Start] Beginning of import house history data in rent sheet")
+	pathData := resourcePath
+	f, err := excelize.OpenFile(pathData)
+	if err != nil {
+		fmt.Println(err)
+	}
+	propertyHistoryMutator := wcPropertyHistory.NewPropertyHistoryMutator(adapter)
+	defer func() {
+		if err := f.Close(); err != nil {
+			fmt.Println(err)
+		}
+	}()
+
+	rows, err := f.GetRows("不動產租賃Rent")
+	stat := &ImporterStat{Total: len(rows)}
+	for index, row := range rows {
+		stat.Print()
+
+		if index >= 0 && index <= 2 {
+			stat.Skip()
+			continue
+		}
+
+		propertyHistoryMutator := wcPropertyHistory.NewPropertyHistoryMutator(adapter)
+
+		var propertySize = ""
+		var serialNumber = ""
+		var uniquePropertyKey = ""
+		var transactionKey = "" // Combination of serialNumber#size#transactionTime
+
+		for colIndex, colCell := range row {
+
+			// col 0 : District
+			// col 1 : TransactionSign
+			// col 2 : Address
+			// col 3 : Size of property
+			// col 7 : Transaction time
+			// col 8 : Transaction pen number
+
+			// col 22 : total price NTD
+			// col 23 : Unit price per square
+			// col 27 : transaction note
+			// col 28 : Serial number
+
+			if colIndex == 0 {
+				propertyHistoryMutator.District = colCell
+			} else if colIndex == 1 {
+				propertyHistoryMutator.TransactionSign = colCell
+			} else if colIndex == 2 {
+				propertyHistoryMutator.Address = colCell
+			} else if colIndex == 3 {
+				propertySize = colCell
+			} else if colIndex == 7 {
+				propertyHistoryMutator.TransactionTime = colCell
+			} else if colIndex == 8 {
+				propertyHistoryMutator.TransactionNumber = colCell
+			} else if colIndex == 22 {
+				totalPriceData, err := strconv.Atoi(colCell)
+				if err != nil {
+					fmt.Println("Error during conversion for total-price [" + colCell + "]")
+					propertyHistoryMutator.PriceNtd = 0
+				} else {
+					propertyHistoryMutator.PriceNtd = int64(totalPriceData)
+				}
+
+			} else if colIndex == 23 {
+				pricePerUnitData, err := strconv.Atoi(colCell)
+				if err != nil {
+					fmt.Println("Error during conversion for price per unit data [" + colCell + "]")
+					propertyHistoryMutator.PricePerUnit = 0
+				} else {
+					propertyHistoryMutator.PricePerUnit = int64(pricePerUnitData)
+				}
+			} else if colIndex == 27 {
+				propertyHistoryMutator.Note = colCell
+			} else if colIndex == 28 {
+				serialNumber = colCell
+			}
+		}
+		uniquePropertyKey = serialNumber + "#" + propertySize
+		transactionKey = serialNumber + "#" + propertySize + "#" + propertyHistoryMutator.TransactionTime
+		propertyHistoryMutator.PropertyKey = uniquePropertyKey
+		propertyHistoryMutator.TransactionKey = transactionKey
+		propertyHistoryMutator.TransactionType = "RENT"
+
+		if propertyHistoryMutator.FindByTransactionKey() {
+			stat.Skip()
+			continue
+		}
+		stat.Ok(propertyHistoryMutator.DoInsert())
+
+	}
+	fmt.Println(propertyHistoryMutator)
+	fmt.Println("[End] End of import house history data  in rent sheet")
+}
+
 func ImportExcelData(adapter *Tt.Adapter, resourcePath string) {
 	fmt.Println("[Start] Beginning of process data")
 
-	ReadHouseDataSheet(adapter, resourcePath)
-	GetHouseAddressInBuySellData(&adapter, resourcePath)
-	GetHouseAddressInRentData1(&adapter, resourcePath)
-	GetHouseAddressInRentData2(&adapter, resourcePath)
+	//ReadHouseDataSheet(adapter, resourcePath)
+	//GetHouseAddressInBuySellData(&adapter, resourcePath)
+	//GetHouseAddressInRentData1(&adapter, resourcePath)
+	//GetHouseAddressInRentData2(&adapter, resourcePath)
 
 	fmt.Println("[End] End process of import house data")
+
+	fmt.Println("=========")
+
+	fmt.Println("[Start] Import history of house data")
+	ImportHouseHistoryInBuySellSheet(&adapter, resourcePath)
+	ImportHouseHistoryInRentSheet(adapter, resourcePath)
+	fmt.Println("[End] Import history of house data")
 }

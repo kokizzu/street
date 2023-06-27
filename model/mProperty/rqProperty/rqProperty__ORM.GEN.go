@@ -3,14 +3,14 @@ package rqProperty
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 import (
-	"street/model/mProperty"
+	`street/model/mProperty`
 
-	"github.com/tarantool/go-tarantool"
+	`github.com/tarantool/go-tarantool`
 
-	"github.com/kokizzu/gotro/A"
-	"github.com/kokizzu/gotro/D/Tt"
-	"github.com/kokizzu/gotro/L"
-	"github.com/kokizzu/gotro/X"
+	`github.com/kokizzu/gotro/A`
+	`github.com/kokizzu/gotro/D/Tt`
+	`github.com/kokizzu/gotro/L`
+	`github.com/kokizzu/gotro/X`
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file rqProperty__ORM.GEN.go
@@ -21,25 +21,25 @@ import (
 
 // Property DAO reader/query struct
 type Property struct {
-	Adapter                *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	Id                     uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
-	UniqPropKey            string      `json:"uniqPropKey" form:"uniqPropKey" query:"uniqPropKey" long:"uniqPropKey" msg:"uniqPropKey"`
-	SerialNumber           string      `json:"serialNumber" form:"serialNumber" query:"serialNumber" long:"serialNumber" msg:"serialNumber"`
-	SizeM2                 string      `json:"sizeM2" form:"sizeM2" query:"sizeM2" long:"sizeM2" msg:"sizeM2"`
-	MainUse                string      `json:"mainUse" form:"mainUse" query:"mainUse" long:"mainUse" msg:"mainUse"`
-	MainBuildingMaterial   string      `json:"mainBuildingMaterial" form:"mainBuildingMaterial" query:"mainBuildingMaterial" long:"mainBuildingMaterial" msg:"mainBuildingMaterial"`
-	ConstructCompletedDate string      `json:"constructCompletedDate" form:"constructCompletedDate" query:"constructCompletedDate" long:"constructCompletedDate" msg:"constructCompletedDate"`
-	NumberOfFloors         string      `json:"numberOfFloors" form:"numberOfFloors" query:"numberOfFloors" long:"numberOfFloors" msg:"numberOfFloors"`
-	BuildingLamination     string      `json:"buildingLamination" form:"buildingLamination" query:"buildingLamination" long:"buildingLamination" msg:"buildingLamination"`
-	Address                string      `json:"address" form:"address" query:"address" long:"address" msg:"address"`
-	District               string      `json:"district" form:"district" query:"district" long:"district" msg:"district"`
-	Note                   string      `json:"note" form:"note" query:"note" long:"note" msg:"note"`
-	Coord                  []any       `json:"coord" form:"coord" query:"coord" long:"coord" msg:"coord"`
-	CreatedAt              int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	CreatedBy              uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
-	UpdatedAt              int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
-	UpdatedBy              uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
-	DeletedAt              int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	Adapter *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-"`
+	Id                     uint64
+	UniqPropKey            string
+	SerialNumber           string
+	SizeM2                 string
+	MainUse                string
+	MainBuildingMaterial   string
+	ConstructCompletedDate string
+	NumberOfFloors         string
+	BuildingLamination     string
+	Address                string
+	District               string
+	Note                   string
+	Coord                  []any
+	CreatedAt              int64
+	CreatedBy              uint64
+	UpdatedAt              int64
+	UpdatedBy              uint64
+	DeletedAt              int64
 }
 
 // NewProperty create new ORM reader/query object
@@ -449,7 +449,7 @@ func (p *Property) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, 
 
 // Total count number of rows
 func (p *Property) Total() int64 { //nolint:dupl false positive
-	rows := p.Adapter.CallBoxSpace(p.SpaceName()+`:count`, A.X{})
+	rows := p.Adapter.CallBoxSpace(p.SpaceName() + `:count`, A.X{})
 	if len(rows) > 0 && len(rows[0]) > 0 {
 		return X.ToI(rows[0][0])
 	}
@@ -457,7 +457,7 @@ func (p *Property) Total() int64 { //nolint:dupl false positive
 }
 
 // PropertyFieldTypeMap returns key value of field name and key
-var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
+var PropertyFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
 	`id`:                     Tt.Unsigned,
 	`UniqPropKey`:            Tt.String,
 	`serialNumber`:           Tt.String,
@@ -479,3 +479,4 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+

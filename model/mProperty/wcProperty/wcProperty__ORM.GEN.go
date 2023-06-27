@@ -3,20 +3,19 @@ package wcProperty
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 import (
-	"street/model/mProperty/rqProperty"
+	`street/model/mProperty/rqProperty`
 
-	"github.com/kokizzu/gotro/A"
-	"github.com/kokizzu/gotro/D/Tt"
-	"github.com/kokizzu/gotro/L"
-	"github.com/kokizzu/gotro/X"
+	`github.com/kokizzu/gotro/A`
+	`github.com/kokizzu/gotro/D/Tt`
+	`github.com/kokizzu/gotro/L`
+	`github.com/kokizzu/gotro/X`
 )
 
-// PropertyMutator DAO writer/command struct
-//
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file wcProperty__ORM.GEN.go
 //go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type wcProperty__ORM.GEN.go
 //go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type wcProperty__ORM.GEN.go
 //go:generate replacer -afterprefix 'By" form' 'By,string" form' type wcProperty__ORM.GEN.go
+// PropertyMutator DAO writer/command struct
 type PropertyMutator struct {
 	rqProperty.Property
 	mutations []A.X
@@ -326,3 +325,4 @@ func (p *PropertyMutator) SetDeletedAt(val int64) bool { //nolint:dupl false pos
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
