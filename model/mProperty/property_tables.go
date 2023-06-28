@@ -18,6 +18,7 @@ const (
 	NumberOfFloors         = `numberOfFloors`
 	BuildingLamination     = `buildingLamination`
 	Address                = `address`
+	FormattedAddress       = `formattedAddress`
 	District               = `district`
 	Note                   = `note`
 	// TODO: change to spatial column
@@ -42,6 +43,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{NumberOfFloors, Tt.String},
 			{BuildingLamination, Tt.String},
 			{Address, Tt.String},
+			{FormattedAddress, Tt.String},
 			{District, Tt.String},
 			{Note, Tt.String},
 			{Coord, Tt.Array},
