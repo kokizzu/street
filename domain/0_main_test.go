@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 	"net"
@@ -11,12 +12,16 @@ import (
 	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/lexid"
+	"github.com/kpango/fastime"
 	"github.com/ory/dockertest/v3"
 	"github.com/tarantool/go-tarantool"
 	"golang.org/x/sync/errgroup"
 
 	"street/conf"
 	"street/model"
+	"street/model/mAuth/wcAuth"
 	"street/model/xMailer"
 )
 
@@ -25,6 +30,13 @@ import (
 var testTt *Tt.Adapter
 var testCh *Ch.Adapter
 var testMailer xMailer.Mailer
+var testTime = fastime.Now()
+var testSuperAdminSessionToken string
+
+const (
+	testSuperAdminEmail    = `admin@localhost`
+	testSuperAdminUserName = `admin1`
+)
 
 func TestMain(m *testing.M) {
 	if os.Getenv(`USE_COMPOSE`) != `` {
@@ -160,10 +172,53 @@ func testDomain() (*Domain, func()) {
 
 		Mailer:  xMailer.Mailer{SendMailFunc: testMailer.SendMailFunc},
 		IsBgSvc: false,
+
+		Superadmins: M.SB{testSuperAdminEmail: true},
 	}
 	d.InitTimedBuffer()
+
+	// create admin
+	admin := wcAuth.NewUsersMutator(testTt)
+	admin.Email = testSuperAdminEmail
+	admin.UserName = testSuperAdminUserName
+	if !admin.FindByEmail() {
+		admin.DoInsert()
+	}
+
+	// create session
+	session := wcAuth.NewSessionsMutator(testTt)
+	session.UserId = admin.Id
+	sess := &Session{
+		UserId:    admin.Id,
+		ExpiredAt: testTime.AddDate(0, 0, conf.CookieDays).Unix(),
+		Email:     admin.Email,
+	}
+	testSuperAdminSessionToken = sess.Encrypt(``) // empty user agent to simplify testing
+	session.SessionToken = testSuperAdminSessionToken
+	session.ExpiredAt = sess.ExpiredAt
+	if !session.FindBySessionToken() {
+		session.DoInsert()
+	}
+
 	return d, func() {
 		go d.authLogs.Close()
 		d.WaitTimedBufferFinalFlush()
+	}
+}
+
+func testAdminRequestCommon(action string) RequestCommon {
+	return RequestCommon{
+		TracerContext: context.Background(),
+		RequestId:     lexid.ID(),
+		SessionToken:  testSuperAdminSessionToken,
+		UserAgent:     "",
+		IpAddress:     "127.0.2.1",
+		Debug:         true,
+		Host:          "localhost:1234",
+		Action:        action,
+		Lat:           -1,
+		Long:          -2,
+		now:           testTime.Unix(),
+		start:         testTime,
 	}
 }

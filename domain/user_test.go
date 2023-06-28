@@ -8,6 +8,9 @@ import (
 	"github.com/kpango/fastime"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"street/model/mProperty/rqProperty"
+	"street/model/zCrud"
 )
 
 func TestLogout(t *testing.T) {
@@ -293,4 +296,37 @@ func TestLogout(t *testing.T) {
 			})
 		})
 	})
+}
+
+func TestUserSearchProp(t *testing.T) {
+	d, closer := testDomain()
+	defer closer()
+
+	// create property as admin
+	out1 := d.AdminProperties(&AdminPropertiesIn{
+		RequestCommon: testAdminRequestCommon(AdminPropertiesAction),
+		Action:        zCrud.ActionUpsert,
+		Property: rqProperty.Property{
+			SerialNumber:           "TEST12321TEST33",
+			SizeM2:                 "200.5",
+			MainUse:                "Residential",
+			MainBuildingMaterial:   "Paper",
+			ConstructCompletedDate: "105年9月7日",
+			NumberOfFloors:         "20",
+			Address:                "4-55 Matsushigecho, Nakamura Ward, Nagoya, Aichi 450-0004",
+			Coord:                  []any{35.16, 136.9},
+		},
+		WithMeta: false,
+	})
+
+	assert.Empty(t, out1.Error)
+
+	// find prop as admin
+	out2 := d.UserSearchProp(&UserSearchPropIn{
+		RequestCommon: testAdminRequestCommon(UserSearchPropAction),
+		CenterLat:     35.1,
+		CenterLong:    136.8,
+		Offset:        0,
+	})
+	assert.Empty(t, out2.Error)
 }
