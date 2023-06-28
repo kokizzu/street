@@ -2,6 +2,7 @@
   import { GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail } from './jsApi.GEN.js';
   import { onMount, tick } from 'svelte';
   import Menu from './_components/Menu.svelte';
+  import RandomProperty from './_components/RandomProperty.svelte';
   
   let user = {/* user */};
   let segments = {/* segments */};
@@ -115,6 +116,7 @@
 {#if mode===USER}
   <Menu access={segments} />
   already logged in
+  <RandomProperty />
   <hr />
   TODO: import other svelte component here (menu, content, etc)
 {:else}
