@@ -23,7 +23,7 @@ import (
 
 var tablePropertyHistoryLogsDummy = TablePropertyHistoryLogs{}
 var Preparators = map[Ch.TableName]chBuffer.Preparator{
-	mPropertyHistory.TableTablePropertyHistoryLogs: func(tx *sql.Tx) *sql.Stmt {
+	mPropertyHistory.TablePropertyHistoryLogs: func(tx *sql.Tx) *sql.Stmt {
 		query := tablePropertyHistoryLogsDummy.SqlInsert()
 		stmt, err := tx.Prepare(query)
 		L.IsError(err, `failed to tx.Prepare: `+query)
@@ -47,7 +47,7 @@ func NewTablePropertyHistoryLogs(adapter *Ch.Adapter) *TablePropertyHistoryLogs 
 }
 
 func (t TablePropertyHistoryLogs) TableName() Ch.TableName { //nolint:dupl false positive
-	return mPropertyHistory.TableTablePropertyHistoryLogs
+	return mPropertyHistory.TablePropertyHistoryLogs
 }
 
 func (t *TablePropertyHistoryLogs) SqlTableName() string { //nolint:dupl false positive

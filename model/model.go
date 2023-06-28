@@ -581,10 +581,10 @@ func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
 func ImportExcelData(adapter *Tt.Adapter, resourcePath string) {
 	fmt.Println("[Start] Beginning of process data")
 
-	//ReadHouseDataSheet(adapter, resourcePath)
-	//GetHouseAddressInBuySellData(&adapter, resourcePath)
-	//GetHouseAddressInRentData1(&adapter, resourcePath)
-	//GetHouseAddressInRentData2(&adapter, resourcePath)
+	ReadHouseDataSheet(adapter, resourcePath)
+	GetHouseAddressInBuySellData(&adapter, resourcePath)
+	GetHouseAddressInRentData1(&adapter, resourcePath)
+	GetHouseAddressInRentData2(&adapter, resourcePath)
 
 	fmt.Println("[End] End process of import house data")
 
