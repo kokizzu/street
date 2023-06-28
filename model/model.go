@@ -34,25 +34,21 @@ func RunMigration(
 	authOlap *Ch.Adapter,
 	propOltp *Tt.Adapter,
 	propOlap *Ch.Adapter,
-	propHistoryOltp *Tt.Adapter,
-	propHistoryOlap *Ch.Adapter,
 ) {
 	L.Print(`run migration..`)
 	m := Migrator{
-		AuthOltp:        authOltp,
-		AuthOlap:        authOlap,
-		PropOltp:        propOltp,
-		PropOlap:        propOlap,
-		PropHistoryOltp: propHistoryOltp,
-		PropHistoryOlap: propHistoryOlap,
+		AuthOltp: authOltp,
+		AuthOlap: authOlap,
+		PropOltp: propOltp,
+		PropOlap: propOlap,
 	}
 	mAuth.TarantoolTables[mAuth.TableUsers].PreUnique1MigrationHook = wcAuth.UniqueUsernameMigration
 	m.AuthOltp.MigrateTables(mAuth.TarantoolTables)
 	m.AuthOlap.MigrateTables(mAuth.ClickhouseTables)
 	m.PropOltp.MigrateTables(mProperty.TarantoolTables)
 	m.PropOlap.MigrateTables(mProperty.ClickhouseTables)
-	m.PropHistoryOltp.MigrateTables(mPropertyHistory.TarantoolTables)
-	m.PropHistoryOlap.MigrateTables(mPropertyHistory.ClickhouseTables)
+	m.PropOltp.MigrateTables(mPropertyHistory.TarantoolTables)
+	m.PropOlap.MigrateTables(mPropertyHistory.ClickhouseTables)
 }
 
 func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
@@ -464,6 +460,10 @@ func ImportHouseHistoryInBuySellSheet(adapter **Tt.Adapter, resourcePath string)
 		}
 		uniquePropertyKey = serialNumber + "#" + propertySize
 		transactionKey = serialNumber + "#" + propertySize + "#" + propertyHistoryMutator.TransactionTime
+
+		currentTime := time.Now().UnixMilli()
+		propertyHistoryMutator.CreatedAt = currentTime
+		propertyHistoryMutator.UpdatedAt = currentTime
 		propertyHistoryMutator.PropertyKey = uniquePropertyKey
 		propertyHistoryMutator.TransactionKey = transactionKey
 		propertyHistoryMutator.TransactionType = "BUY_SELL"
@@ -561,6 +561,10 @@ func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
 		}
 		uniquePropertyKey = serialNumber + "#" + propertySize
 		transactionKey = serialNumber + "#" + propertySize + "#" + propertyHistoryMutator.TransactionTime
+
+		currentTime := time.Now().UnixMilli()
+		propertyHistoryMutator.CreatedAt = currentTime
+		propertyHistoryMutator.UpdatedAt = currentTime
 		propertyHistoryMutator.PropertyKey = uniquePropertyKey
 		propertyHistoryMutator.TransactionKey = transactionKey
 		propertyHistoryMutator.TransactionType = "RENT"

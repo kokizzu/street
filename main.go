@@ -153,15 +153,13 @@ func main() {
 		}
 		cron.Start()
 	case `migrate`:
-		model.RunMigration(tConn, cConn, tConn, cConn, tConn, cConn)
+		model.RunMigration(tConn, cConn, tConn, cConn)
 	case `import`:
 		fmt.Println("Import excel sheet data")
 		p, err := filepath.Abs("./static/house_data/House_Data_Full_Version_v1.xlsx")
 		if err != nil {
 			fmt.Println("Error -> ", err)
 		}
-
-		// fmt.Println(p)
 		model.ImportExcelData(tConn, p)
 	case `upgradememtx`:
 		zUpgrade.UserSessionToMemtx(tConn)
