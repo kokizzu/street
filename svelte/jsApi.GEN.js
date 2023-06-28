@@ -925,8 +925,8 @@ const UserSearchPropIn = {
  * @property {Object} properties
  */
 const UserSearchPropOut = {
-  properties: { // []rqProperty.Property
-  }, // []rqProperty.Property
+  properties: { // []Property
+  }, // []Property
 }
 /**
  * @callback UserSearchPropCallback

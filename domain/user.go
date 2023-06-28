@@ -292,8 +292,8 @@ type (
 
 	Property struct {
 		*rqProperty.Property
-		Lat  float64 `json:"lat" form:"lat" query:"lat" long:"lat" msg:"lat"`
-		Long float64 `json:"long" form:"long" query:"long" long:"long" msg:"long"`
+		Lat float64 `json:"lat" form:"lat" query:"lat" long:"lat" msg:"lat"`
+		Lng float64 `json:"lng" form:"lng" query:"lng" long:"lng" msg:"lng"`
 	}
 )
 
@@ -325,7 +325,7 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 		item.FromArray(row)
 		if len(item.Coord) >= 2 {
 			item.Lat = X.ToF(item.Coord[0])
-			item.Long = X.ToF(item.Coord[1])
+			item.Lng = X.ToF(item.Coord[1])
 		}
 		out.Properties = append(out.Properties, item)
 	})
