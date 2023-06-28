@@ -21,12 +21,10 @@ import (
 )
 
 type Migrator struct {
-	AuthOltp        *Tt.Adapter
-	AuthOlap        *Ch.Adapter
-	PropOltp        *Tt.Adapter
-	PropOlap        *Ch.Adapter
-	PropHistoryOltp *Tt.Adapter
-	PropHistoryOlap *Ch.Adapter
+	AuthOltp *Tt.Adapter
+	AuthOlap *Ch.Adapter
+	PropOltp *Tt.Adapter
+	PropOlap *Ch.Adapter
 }
 
 func RunMigration(
