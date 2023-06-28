@@ -7,6 +7,7 @@ import (
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
+	"github.com/kokizzu/gotro/X"
 
 	"street/model/mAuth/rqAuth"
 	"street/model/mAuth/wcAuth"
@@ -286,12 +287,20 @@ type (
 	UserSearchPropOut struct {
 		ResponseCommon
 
-		Properties []*rqProperty.Property `json:"properties" form:"properties" query:"properties" long:"properties" msg:"properties"`
+		Properties []Property `json:"properties" form:"properties" query:"properties" long:"properties" msg:"properties"`
+	}
+
+	Property struct {
+		*rqProperty.Property
+		Lat  float64 `json:"lat" form:"lat" query:"lat" long:"lat" msg:"lat"`
+		Long float64 `json:"long" form:"long" query:"long" long:"long" msg:"long"`
 	}
 )
 
 const (
 	UserSearchPropAction = `user/searchProp`
+
+	ErrSearchPropFailed = `search prop failed`
 
 	DefaultLimit = 10
 )
@@ -310,6 +319,19 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 		in.Limit = DefaultLimit
 	}
 
-	out.Properties = prop.FindByLatLong(in.CenterLat, in.CenterLong, in.Limit, in.Offset)
+	out.Properties = make([]Property, 0, in.Limit)
+	ok := prop.FindByLatLong(in.CenterLat, in.CenterLong, in.Limit, in.Offset, func(row []any) {
+		item := Property{Property: &rqProperty.Property{}}
+		item.FromArray(row)
+		if len(item.Coord) >= 2 {
+			item.Lat = X.ToF(item.Coord[0])
+			item.Long = X.ToF(item.Coord[1])
+		}
+		out.Properties = append(out.Properties, item)
+	})
+	if !ok {
+		out.SetError(500, ErrSearchPropFailed)
+		return
+	}
 	return
 }
