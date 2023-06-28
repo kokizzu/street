@@ -160,8 +160,6 @@ func main() {
 		if err != nil {
 			fmt.Println("Error -> ", err)
 		}
-
-		// fmt.Println(p)
 		model.ImportExcelData(tConn, p)
 	case `upgradememtx`:
 		zUpgrade.UserSessionToMemtx(tConn)
