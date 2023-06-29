@@ -190,3 +190,9 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
   - **A**: create a `[schema]Meta` on `domain/`, then just call your query 
     method based on `zCrud.Pager` (it would generate the proper SQL query), 
     then use svelte component that can render the form and table/list for you.
+- **Q**: when to use each storage engine?
+  - **A**: `memtx` used for kv query pattern, anything that often being read 
+    and updated (eg. transactions), `vinyl` used for range queries, anything 
+    that rarely being updated (eg. mutation log, history), `clickhouse` used 
+    for analytics queries pattern, anything that will never being updated 
+    ever (eg. action logs, events)
