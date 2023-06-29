@@ -172,3 +172,21 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
   - **A**: it's ok for PoC phase, since it's listen to localhost
 - **Q**: run test against local `docker compose` instead of `dockertest`?
   - **A**: set env or export `USE_COMPOSE=x` before running test
+- **Q**: how SSR works?
+  - **A**: `npm run watch` will convert `.svelte` files into `.html`, `.
+    /gen-views.sh` will generate `vew_view.GEN.go` that can be called by `web_static.go` to render the `.html` files
+- **Q**: how route generator works?
+  - **A**: everytime you make `type XXIn`, `type XXOut`, `const XXAction`, 
+    and `func (d Domain) XX(in XXIn) XXOut` inside `domain/` it will be 
+    automatically 
+    added 
+    to `api_routes.GEN.go`
+- **Q**: how orm generator works?
+  - **A**: create `model/m[schema]/[schema]_tables.go` and `model/m[schema]/
+    [schema]_tables_test.go` then run `./gen-orm.sh`, it would generate 
+    `model/[rq|wc|sa][schema].go`, you can extend the method of generated 
+    structs (`[rq|wc|sa][schema]`) on another file inside the same package.
+- **Q**: how basic form and list/table works?
+  - **A**: create a `[schema]Meta` on `domain/`, then just call your query 
+    method based on `zCrud.Pager` (it would generate the proper SQL query), 
+    then use svelte component that can render the form and table/list for you.
