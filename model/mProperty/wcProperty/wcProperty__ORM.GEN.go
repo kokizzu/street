@@ -85,6 +85,7 @@ func (p *PropertyMutator) DoDeletePermanentById() bool { //nolint:dupl false pos
 //		A.X{`=`, 15, p.UpdatedAt},
 //		A.X{`=`, 16, p.UpdatedBy},
 //		A.X{`=`, 17, p.DeletedAt},
+//		A.X{`=`, 18, p.FormattedAddress},
 //	})
 //	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName())
 // }
@@ -320,6 +321,17 @@ func (p *PropertyMutator) SetDeletedAt(val int64) bool { //nolint:dupl false pos
 		p.mutations = append(p.mutations, A.X{`=`, 17, val})
 		p.logs = append(p.logs, A.X{`deletedAt`, p.DeletedAt, val})
 		p.DeletedAt = val
+		return true
+	}
+	return false
+}
+
+// SetFormattedAddress create mutations, should not duplicate
+func (p *PropertyMutator) SetFormattedAddress(val string) bool { //nolint:dupl false positive
+	if val != p.FormattedAddress {
+		p.mutations = append(p.mutations, A.X{`=`, 18, val})
+		p.logs = append(p.logs, A.X{`formattedAddress`, p.FormattedAddress, val})
+		p.FormattedAddress = val
 		return true
 	}
 	return false

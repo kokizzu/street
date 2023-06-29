@@ -21,13 +21,12 @@ const (
 	FormattedAddress       = `formattedAddress`
 	District               = `district`
 	Note                   = `note`
-	// TODO: change to spatial column
-	Coord     = `coord`
-	CreatedAt = `createdAt`
-	CreatedBy = `createdBy`
-	UpdatedAt = `updatedAt`
-	UpdatedBy = `updatedBy`
-	DeletedAt = `deletedAt`
+	Coord                  = `coord`
+	CreatedAt              = `createdAt`
+	CreatedBy              = `createdBy`
+	UpdatedAt              = `updatedAt`
+	UpdatedBy              = `updatedBy`
+	DeletedAt              = `deletedAt`
 )
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
@@ -43,7 +42,6 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{NumberOfFloors, Tt.String},
 			{BuildingLamination, Tt.String},
 			{Address, Tt.String},
-			{FormattedAddress, Tt.String},
 			{District, Tt.String},
 			{Note, Tt.String},
 			{Coord, Tt.Array},
@@ -52,6 +50,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedAt, Tt.Integer},
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
+			{FormattedAddress, Tt.String},
 		},
 		AutoIncrementId: true,
 		Unique1:         UniqPropKey,

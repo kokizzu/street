@@ -40,6 +40,7 @@ type Property struct {
 	UpdatedAt              int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
 	UpdatedBy              uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
 	DeletedAt              int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	FormattedAddress       string      `json:"formattedAddress" form:"formattedAddress" query:"formattedAddress" long:"formattedAddress" msg:"formattedAddress"`
 }
 
 // NewProperty create new ORM reader/query object
@@ -119,6 +120,7 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "formattedAddress"
 	`
 }
 
@@ -142,6 +144,7 @@ func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "formattedAddress"
 	`
 }
 
@@ -166,6 +169,7 @@ func (p *Property) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 15, p.UpdatedAt},
 		A.X{`=`, 16, p.UpdatedBy},
 		A.X{`=`, 17, p.DeletedAt},
+		A.X{`=`, 18, p.FormattedAddress},
 	}
 }
 
@@ -349,6 +353,16 @@ func (p *Property) SqlDeletedAt() string { //nolint:dupl false positive
 	return `"deletedAt"`
 }
 
+// IdxFormattedAddress return name of the index
+func (p *Property) IdxFormattedAddress() int { //nolint:dupl false positive
+	return 18
+}
+
+// SqlFormattedAddress return name of the column being indexed
+func (p *Property) SqlFormattedAddress() string { //nolint:dupl false positive
+	return `"formattedAddress"`
+}
+
 // ToArray receiver fields to slice
 func (p *Property) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -374,6 +388,7 @@ func (p *Property) ToArray() A.X { //nolint:dupl false positive
 		p.UpdatedAt,              // 15
 		p.UpdatedBy,              // 16
 		p.DeletedAt,              // 17
+		p.FormattedAddress,       // 18
 	}
 }
 
@@ -397,6 +412,7 @@ func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 	p.UpdatedAt = X.ToI(a[15])
 	p.UpdatedBy = X.ToU(a[16])
 	p.DeletedAt = X.ToI(a[17])
+	p.FormattedAddress = X.ToS(a[18])
 	return p
 }
 
@@ -420,6 +436,7 @@ func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false po
 	p.UpdatedAt = X.ToI(a[15])
 	p.UpdatedBy = X.ToU(a[16])
 	p.DeletedAt = X.ToI(a[17])
+	p.FormattedAddress = X.ToS(a[18])
 	return p
 }
 
@@ -481,6 +498,7 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`updatedAt`:              Tt.Integer,
 	`updatedBy`:              Tt.Unsigned,
 	`deletedAt`:              Tt.Integer,
+	`formattedAddress`:       Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
