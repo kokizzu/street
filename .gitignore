@@ -9,3 +9,4 @@ deploy/.env.production
 deploy/.env.override
 *.fiber.gz
 deploy/static
+docker/
