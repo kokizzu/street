@@ -122,7 +122,8 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
 
 - **Q**: where to put SSR?
   - **A**: `presentation/web_static.go`
-- **Q**: got error `there is no space with name [tableName]`
+- **Q**: got error `there is no space with name [tableName], table default.
+  [tableName] does not exists`
   - **A**: run `go run main.go migrate` to do migration
 - **Q**: got error `Command 'caddy' not found`
   - **A**: install [caddy](//caddyserver.com/docs/install)
