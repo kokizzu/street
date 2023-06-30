@@ -38,9 +38,16 @@ separates read/query and write/command into different database/connection.
 ## Start dev mode
 
 ```shell
+# start docker
+docker compose up # or docker-compose up
+
 # start frontend auto build 
 cd svelte
 npm run watch
+
+# do migration (first time, or everytime tarantool/clickhouse docker deleted, 
+# or when there's new migration)
+go run main.go migrate
 
 # start golang backend server, also serving static html
 air web
@@ -104,7 +111,7 @@ go run main.go web
 curl -X POST -d '{"email":"test@a.com"}' localhost:1234/guest/register
 ```
 
-## Deploy
+## Deploy to Production Server
 
 ```shell
 cd deploy
