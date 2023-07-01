@@ -56,7 +56,7 @@ func checkClickhouseTables(cConn *Ch.Adapter, tables map[Ch.TableName]*Ch.TableP
 		tableName := string(tableName)
 		resp, err := cConn.Query(`SELECT column_name, data_type FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = ` + S.Z(tableName))
 		if err != nil {
-			log.Fatal(`please run table migration for clickhouse: `+tableName, err)
+			log.Fatal(`please run TABLE migration for clickhouse: `+tableName, err)
 		}
 		defer resp.Close()
 
@@ -66,15 +66,16 @@ func checkClickhouseTables(cConn *Ch.Adapter, tables map[Ch.TableName]*Ch.TableP
 			var columnName, dataType string
 			err := resp.Scan(&columnName, &dataType)
 			if err != nil {
-				log.Fatal(`please run column migration for clickhouse: `+tableName, err)
+				log.Fatal(`please run COLUMN migration for clickhouse: `+tableName, err)
 			}
 			columnNameTypes[columnName] = dataType
 		}
 
 		// check data type match
 		for _, field := range props.Fields {
-			if columnNameTypes[field.Name] != string(field.Type) {
-				log.Fatal(`please run column type migration for clickhouse: `+tableName, field.Name)
+			existingType := columnNameTypes[field.Name]
+			if existingType != string(field.Type) {
+				log.Fatal(`please run COLUMN_TYPE migration for clickhouse: `+tableName, field.Name, existingType, field.Type)
 			}
 		}
 	}
@@ -85,23 +86,24 @@ func checkTarantoolTables(tConn *Tt.Adapter, tables map[Tt.TableName]*Tt.TablePr
 		tableName := string(tableName)
 		res, err := tConn.Call(`box.space.`+tableName+`:format`, []interface{}{})
 		if err != nil {
-			log.Fatal(`please run table migration for tarantool: `+tableName, err)
+			log.Fatal(`please run TABLE migration for tarantool: `+tableName, err)
 		}
 		rows := res.Tuples()
 		if len(rows) != 1 {
-			log.Fatal(`please run fields migration for tarantool: `+tableName, err)
+			log.Fatal(`please run FIELDS migration for tarantool: ` + tableName)
 		}
 		columnNameTypes := map[string]string{}
 		for _, row := range rows[0] {
-			row, ok := row.(map[interface{}]interface{})
+			m, ok := row.(map[interface{}]interface{})
 			if !ok {
-				log.Fatal(`please run field migration for tarantool: ` + tableName)
+				log.Fatal(`please run FIELD migration for tarantool: `+tableName, row)
 			}
-			columnNameTypes[X.ToS(row[`name`])] = X.ToS(row[`type`])
+			columnNameTypes[X.ToS(m[`name`])] = X.ToS(m[`type`])
 		}
 		for _, field := range tables[Tt.TableName(tableName)].Fields {
-			if columnNameTypes[field.Name] != string(field.Type) {
-				log.Fatal(`please run field type migration for tarantool: `+tableName, field.Name)
+			existingType := columnNameTypes[field.Name]
+			if existingType != string(field.Type) {
+				log.Fatal(`please run FIELD_TYPE migration for tarantool: `+tableName, field.Name, existingType, field.Type)
 			}
 		}
 	}
