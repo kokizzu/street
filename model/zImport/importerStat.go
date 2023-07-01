@@ -1,4 +1,4 @@
-package model
+package zImport
 
 import (
 	"fmt"
