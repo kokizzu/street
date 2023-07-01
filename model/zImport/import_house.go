@@ -10,6 +10,7 @@ import (
 	"github.com/kokizzu/gotro/L"
 	"github.com/xuri/excelize/v2"
 
+	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
 )
 
@@ -30,15 +31,14 @@ func readExcelWorksheet(pathData string, workspace string) (res [][]string, clos
 }
 
 func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
-	fmt.Println("[Scan Buy-Sell sheet] Begin the process update address to house")
-	defer fmt.Println("\n[Scan Buy-Sell sheet] End the process update address to house")
+	defer subTaskPrint(`GetHouseAddressInBuySellData: Buy-Sell sheet, update address to house`)()
 
 	rows, closer := readExcelWorksheet(resourceFile, "不動產買賣BuyandSell")
 	defer closer()
 
-	propertyMutator := wcProperty.NewPropertyMutator(*adapter)
-
 	stat := &ImporterStat{Total: len(rows)}
+	defer stat.Print()
+
 	for index, row := range rows {
 
 		stat.Print()
@@ -74,7 +74,8 @@ func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
 		}
 
 		// Get list of property based on house serial number
-		existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
+		prop := rqProperty.NewProperty(*adapter)
+		existingHouseData := prop.FindPropertiesBySerialNumber(serialPropertyNumber)
 
 		stat.Total += len(existingHouseData) - 1
 		for _, house := range existingHouseData {
@@ -101,15 +102,14 @@ func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
 }
 
 func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
-	fmt.Println("[Scan Rent sheet] Begin the process update address to house")
-	defer fmt.Println("\n[Scan Rent sheet] End the process update address to house")
+	defer subTaskPrint(`GetHouseAddressInRentData1: Rent sheet, update address to house`)()
 
 	rows, closer := readExcelWorksheet(resourceFile, "不動產租賃Rent")
 	defer closer()
 
-	propertyMutator := wcProperty.NewPropertyMutator(*adapter)
-
 	stat := &ImporterStat{Total: len(rows)}
+	defer stat.Print()
+
 	for index, row := range rows {
 		stat.Print()
 
@@ -145,7 +145,8 @@ func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
 		}
 
 		// Get list of property based on house serial number
-		existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
+		prop := rqProperty.NewProperty(*adapter)
+		existingHouseData := prop.FindPropertiesBySerialNumber(serialPropertyNumber)
 
 		stat.Total += len(existingHouseData) - 1
 		for _, house := range existingHouseData {
@@ -172,14 +173,14 @@ func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
 }
 
 func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
-	fmt.Println("[Scan Rent sheet2] Begin the process update address to house")
+	defer subTaskPrint(`GetHouseAddressInRentData2: Rent sheet2, update address to house`)()
 
 	rows, closer := readExcelWorksheet(resourceFile, "不動產租賃Rent")
 	defer closer()
 
-	propertyMutator := wcProperty.NewPropertyMutator(*adapter)
-
 	stat := &ImporterStat{Total: len(rows)}
+	defer stat.Print()
+
 	for index, row := range rows {
 		stat.Print()
 
@@ -215,7 +216,8 @@ func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
 		}
 
 		// Get list of property based on house serial number
-		existingHouseData := propertyMutator.FindPropertiesBySerialNumber(serialPropertyNumber)
+		prop := rqProperty.NewProperty(*adapter)
+		existingHouseData := prop.FindPropertiesBySerialNumber(serialPropertyNumber)
 
 		stat.Total += len(existingHouseData) - 1
 		for _, house := range existingHouseData {
@@ -239,18 +241,17 @@ func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
 		}
 
 	}
-
-	fmt.Println("\n[Scan Rent sheet2] End the process update address to house")
 }
 
 func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
-	fmt.Println("Begin the process of import house data")
-	defer fmt.Println("\nEnd process of import house data")
+	defer subTaskPrint(`ReadHouseDataSheet: import house data`)()
 
 	rows, closer := readExcelWorksheet(resourcePath, "建物HouseDetail")
 	defer closer()
 
 	stat := &ImporterStat{Total: len(rows)}
+	defer stat.Print()
+
 	for index, row := range rows {
 		stat.Print()
 
@@ -304,15 +305,14 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 	}
 }
 func ImportHouseHistoryInBuySellSheet(adapter **Tt.Adapter, resourcePath string) {
-	fmt.Println("[Start] Beginning of import house history data in buy-sell sheet")
-	defer fmt.Println("[End] End of import house history data  in buy-sell sheet")
+	defer subTaskPrint(`ImportHouseHistoryInBuySellSheet: import house history data in buy-sell sheet`)()
 
 	rows, closer := readExcelWorksheet(resourcePath, "不動產買賣BuyandSell")
 	defer closer()
 
-	propertyHistoryMutator := wcProperty.NewPropertyHistoryMutator(*adapter)
-
 	stat := &ImporterStat{Total: len(rows)}
+	defer stat.Print()
+
 	for index, row := range rows {
 		stat.Print()
 
@@ -396,18 +396,17 @@ func ImportHouseHistoryInBuySellSheet(adapter **Tt.Adapter, resourcePath string)
 		stat.Ok(propertyHistoryMutator.DoInsert())
 
 	}
-	fmt.Println(propertyHistoryMutator)
 }
 
 func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
-	fmt.Println("[Start] Beginning of import house history data in rent sheet")
+	defer subTaskPrint("ImportHouseHistoryInRentSheet: import house history data in rent sheet")()
 
 	rows, closer := readExcelWorksheet(resourcePath, "不動產租賃Rent")
 	defer closer()
 
-	propertyHistoryMutator := wcProperty.NewPropertyHistoryMutator(adapter)
-
 	stat := &ImporterStat{Total: len(rows)}
+	defer stat.Print()
+
 	for index, row := range rows {
 		stat.Print()
 
@@ -491,24 +490,29 @@ func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
 		stat.Ok(propertyHistoryMutator.DoInsert())
 
 	}
-	fmt.Println(propertyHistoryMutator)
-	fmt.Println("[End] End of import house history data  in rent sheet")
 }
 
 func ImportExcelData(adapter *Tt.Adapter, resourcePath string) {
-	fmt.Println("[Start] Beginning of process data")
+	fmt.Println("[Start] House")
 
 	ReadHouseDataSheet(adapter, resourcePath)
 	GetHouseAddressInBuySellData(&adapter, resourcePath)
 	GetHouseAddressInRentData1(&adapter, resourcePath)
 	GetHouseAddressInRentData2(&adapter, resourcePath)
 
-	fmt.Println("[End] End process of import house data")
+	fmt.Println("[End] House")
 
 	fmt.Println("=========")
 
-	fmt.Println("[Start] Import history of house data")
+	fmt.Println("[Start] House Trx History")
 	ImportHouseHistoryInBuySellSheet(&adapter, resourcePath)
 	ImportHouseHistoryInRentSheet(adapter, resourcePath)
-	fmt.Println("[End] Import history of house data")
+	fmt.Println("[End] House Trx History")
+}
+
+func subTaskPrint(str string) func() {
+	fmt.Println(`  [Start] ` + str)
+	return func() {
+		fmt.Println("\n" + `  [End] ` + str)
+	}
 }

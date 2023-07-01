@@ -26,7 +26,7 @@ func (s *ImporterStat) Print() {
 		t := fastime.Now()
 		s.startTime = &t
 	}
-	fmt.Printf("\rUpserted: %d, Skipped: %d, Warn: %d, Failed: %d | %.2f%% | %.1fs",
+	fmt.Printf("\r    Upserted: %d, Skipped: %d, Warn: %d, Failed: %d | %.2f%% | %.1fs",
 		s.upserted, s.skipped, s.warn, s.failed,
 		float64(progress*100)/float64(s.Total),
 		fastime.Since(*s.startTime).Seconds())
