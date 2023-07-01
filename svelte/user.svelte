@@ -43,39 +43,39 @@
 
 </script>
 
-<Menu access={segments} />
+<section class="dashboard">
+   <Menu access={segments} />
+   <div class="dashboard_main_content">
+      <hr />
+      <h2>Update Profile</h2><br />
+      <label for='email'>Email</label>
+      <input id='email' type='email' bind:value={user.email} /><br />
+      <label for='userName'>Username</label>
+      <input id='userName' type='text' bind:value={user.userName} /><br />
+      <label for='fullName'>Full Name</label>
+      <input id='fullName' type='text' bind:value={user.fullName} /><br />
+      <label for='registered'>Registered</label>
+      <span id='registered'>{datetime( user.createdAt )}</span><br />
+      <label for='lastLogin'>Last login</label>
+      <span id='lastLogin'>{datetime( user.lastLoginAt )}</span><br />
+      <label for='verified'>Verified</label>
+      <span id='verified'>{datetime( user.verifiedAt )}</span><br />
 
-<hr />
+      <label for='updateProfile'></label>
+      <button id='updateProfile' on:click={updateProfile}>Update Profile</button>
 
-<h2>Update Profile</h2><br />
-<label for='email'>Email</label>
-<input id='email' type='email' bind:value={user.email} /><br />
-<label for='userName'>Username</label>
-<input id='userName' type='text' bind:value={user.userName} /><br />
-<label for='fullName'>Full Name</label>
-<input id='fullName' type='text' bind:value={user.fullName} /><br />
-<label for='registered'>Registered</label>
-<span id='registered'>{datetime( user.createdAt )}</span><br />
-<label for='lastLogin'>Last login</label>
-<span id='lastLogin'>{datetime( user.lastLoginAt )}</span><br />
-<label for='verified'>Verified</label>
-<span id='verified'>{datetime( user.verifiedAt )}</span><br />
+      <hr />
 
-<label for='updateProfile'></label>
-<button id='updateProfile' on:click={updateProfile}>Update Profile</button>
+      <h2>Change password</h2>
+      <label for='oldPassword'>Old Password</label>
+      <input id='oldPassword' type='password' bind:value={oldPassword} /><br />
 
-<hr />
+      <label for='newPassword'>New Password</label>
+      <input id='newPassword' type='password' bind:value={newPassword} /><br />
+      <label for='repeatNewPassword'>Repeat New Password</label>
+      <input id='repeatNewPassword' type='password' bind:value={repeatNewPassword} /><br />
 
-<h2>Change password</h2>
-
-
-<label for='oldPassword'>Old Password</label>
-<input id='oldPassword' type='password' bind:value={oldPassword} /><br />
-
-<label for='newPassword'>New Password</label>
-<input id='newPassword' type='password' bind:value={newPassword} /><br />
-<label for='repeatNewPassword'>Repeat New Password</label>
-<input id='repeatNewPassword' type='password' bind:value={repeatNewPassword} /><br />
-
-<label for='changePassword'></label>
-<button id='changePassword' on:click={changePassword}>Change Password</button>
+      <label for='changePassword'></label>
+      <button id='changePassword' on:click={changePassword}>Change Password</button>
+   </div>
+</section>

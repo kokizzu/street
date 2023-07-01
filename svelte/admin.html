@@ -1,12 +1,12 @@
 <html><head>
   <title>/*! title */</title>
   <link href="/css.gg.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/fontawesome/css/fontawesome.min.css">
 </head>
 <body>
 <style>
     html {
-        max-width   : 99%;
-        padding     : 0.5rem 0.5rem;
+        max-width   : 100%;
         margin      : auto;
         line-height : 1.25;
         font-size   : 1.25rem;
@@ -14,7 +14,6 @@
 
     body {
         font-family : sans-serif;
-        padding     : 1ch;
         margin      : auto;
     }
 
@@ -26,50 +25,6 @@
         margin-bottom : 0.5rem;
         color         : #1D1D1D;
         font-family   : sans-serif;
-    }
-
-    button {
-        height           : 2rem;
-        padding          : 0.5rem;
-        font-weight      : bold;
-        font-size        : 1rem;
-        background-color : #BBB;
-        color            : black;
-        border-radius    : 0.6rem;
-    }
-
-    button.danger {
-        background-color : red;
-    }
-
-    button.danger:active, button.danger:hover {
-        background-color : darkred;
-    }
-
-    button.warning {
-        background-color : orange;
-    }
-
-    button.warning:active, button.warning:hover {
-        background-color : darkorange;
-    }
-
-    button.primary {
-        background-color : limegreen;
-    }
-
-    button.primary:active, button.primary:hover {
-        background-color : green;
-    }
-
-
-    button:disabled {
-        background-color : #777;
-        color            : #222;
-    }
-
-    button:active, button:hover {
-        background-color : #999;
     }
 
     input, select, textarea {
@@ -90,42 +45,97 @@
         padding     : 0.2rem;
         width       : 11rem;
     }
+    hr {
+      border-top-width: 1px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    /* Dashboard */
+    section.dashboard {
+      display: flex;
+      flex-direction: row;
+    }
+    .dashboard_main_content {
+      background-color: #F1F5F9;
+      min-height: 100vh;
+      width: 100%;
+      margin-left: 13rem;
+      padding: 20px;
+    }
 </style>
 
 
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:/home/kyz/go/src/street/svelte/_components/Menu.esbuild-svelte-fake-css */
-.menu.svelte-14j5e9r.svelte-14j5e9r {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-}
-.menu.svelte-14j5e9r li.svelte-14j5e9r {
-  float: left;
-}
-.menu.svelte-14j5e9r li a.svelte-14j5e9r {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-.menu.svelte-14j5e9r li a.svelte-14j5e9r:hover:not(.active) {
-  background-color: #111;
-}
-.menu.svelte-14j5e9r li button.svelte-14j5e9r {
-  padding: 0.5em;
-  margin: 0.3em;
-}
-.active.svelte-14j5e9r.svelte-14j5e9r {
-  background-color: #4CAF50;
+<style>/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/Menu.esbuild-svelte-fake-css */
+@media (min-width: 768px) {
+  .side_menu_admin.svelte-11oych0.svelte-11oych0 {
+    color: #475569;
+    padding: 20px 23px;
+    width: 11rem;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    position: fixed;
+    overflow-y: scroll;
+    overflow: hidden;
+    display: block;
+  }
+  .side_menu_admin_container.svelte-11oych0.svelte-11oych0 {
+    width: 100%;
+  }
+  .side_menu_admin_container.svelte-11oych0 h6.svelte-11oych0 {
+    font-size: 15px;
+    margin: 8px 0;
+  }
+  .menu_container.svelte-11oych0.svelte-11oych0 {
+    margin-top: 1rem;
+    align-items: stretch;
+    flex-direction: column;
+    display: flex;
+  }
+  .menu_container.svelte-11oych0 .menu a.svelte-11oych0 {
+    color: #475569;
+    text-decoration: none;
+    margin: 8px 0;
+    font-size: 13px;
+    line-height: 1rem;
+    font-weight: 700;
+  }
+  .menu_container.svelte-11oych0 .menu a i.svelte-11oych0,
+  .menu_container.svelte-11oych0 .menu button i.svelte-11oych0 {
+    margin-right: 0.3rem;
+    font-size: 14px;
+    color: #CBD5E1;
+  }
+  .menu_container.svelte-11oych0 .menu a.svelte-11oych0:hover,
+  .menu_container.svelte-11oych0 .menu button.svelte-11oych0:hover {
+    color: #64748B;
+  }
+  .active.svelte-11oych0.svelte-11oych0,
+  .active.svelte-11oych0 i.svelte-11oych0 {
+    color: #EF4444 !important;
+  }
+  .menu_container.svelte-11oych0 .menu.svelte-11oych0 {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  .menu_container.svelte-11oych0 .menu .logout.svelte-11oych0 {
+    text-align: left;
+    padding: 0;
+    margin: 8px 0;
+    font-weight: 700;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+    color: #475569;
+  }
 }
 
-/* fakecss:/home/kyz/go/src/street/svelte/admin/_adminSubMenu.esbuild-svelte-fake-css */
+/* fakecss:/home/habi/Dev/workStuff/street/svelte/admin/_adminSubMenu.esbuild-svelte-fake-css */
 .submenu.svelte-dk81xr.svelte-dk81xr {
   list-style-type: none;
   margin: 0;
@@ -150,7 +160,7 @@
   background-color: #4CAF50;
 }
 
-/* fakecss:/home/kyz/go/src/street/svelte/admin.esbuild-svelte-fake-css */
+/* fakecss:/home/habi/Dev/workStuff/street/svelte/admin.esbuild-svelte-fake-css */
 table.svelte-18nqf8w,
 td.svelte-18nqf8w,
 th.svelte-18nqf8w {
@@ -2402,13 +2412,6 @@ table.svelte-18nqf8w {
     text2.data = /** @type {string} */
     data;
   }
-  function set_style(node, key, value, important) {
-    if (value == null) {
-      node.style.removeProperty(key);
-    } else {
-      node.style.setProperty(key, value, important ? "important" : "");
-    }
-  }
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
   }
@@ -2907,27 +2910,28 @@ table.svelte-18nqf8w {
   // _components/Menu.svelte
   var import_jsApi_GEN = __toESM(require_jsApi_GEN());
   function create_if_block_3(ctx) {
-    let li;
+    let a;
     return {
       c() {
-        li = element("li");
-        li.innerHTML = `<a href="/buyer" class="svelte-14j5e9r">Buyer</a>`;
-        attr(li, "class", "svelte-14j5e9r");
+        a = element("a");
+        a.innerHTML = `<i class="fa-solid fa-money-bill-wave svelte-11oych0"></i> BUYER`;
+        attr(a, "href", "/buyer");
+        attr(a, "class", "svelte-11oych0");
         toggle_class(
-          li,
+          a,
           "active",
           /*segment1*/
           ctx[1] === "buyer"
         );
       },
       m(target, anchor) {
-        insert(target, li, anchor);
+        insert(target, a, anchor);
       },
       p(ctx2, dirty) {
         if (dirty & /*segment1*/
         2) {
           toggle_class(
-            li,
+            a,
             "active",
             /*segment1*/
             ctx2[1] === "buyer"
@@ -2936,33 +2940,34 @@ table.svelte-18nqf8w {
       },
       d(detaching) {
         if (detaching) {
-          detach(li);
+          detach(a);
         }
       }
     };
   }
   function create_if_block_2(ctx) {
-    let li;
+    let a;
     return {
       c() {
-        li = element("li");
-        li.innerHTML = `<a href="/realtor" class="svelte-14j5e9r">Realtor</a>`;
-        attr(li, "class", "svelte-14j5e9r");
+        a = element("a");
+        a.innerHTML = `<i class="fa-solid fa-user-tie svelte-11oych0"></i> REALTOR`;
+        attr(a, "href", "/realtor");
+        attr(a, "class", "svelte-11oych0");
         toggle_class(
-          li,
+          a,
           "active",
           /*segment1*/
           ctx[1] === "realtor"
         );
       },
       m(target, anchor) {
-        insert(target, li, anchor);
+        insert(target, a, anchor);
       },
       p(ctx2, dirty) {
         if (dirty & /*segment1*/
         2) {
           toggle_class(
-            li,
+            a,
             "active",
             /*segment1*/
             ctx2[1] === "realtor"
@@ -2971,33 +2976,34 @@ table.svelte-18nqf8w {
       },
       d(detaching) {
         if (detaching) {
-          detach(li);
+          detach(a);
         }
       }
     };
   }
   function create_if_block_1(ctx) {
-    let li;
+    let a;
     return {
       c() {
-        li = element("li");
-        li.innerHTML = `<a href="/admin" class="svelte-14j5e9r">Admin</a>`;
-        attr(li, "class", "svelte-14j5e9r");
+        a = element("a");
+        a.innerHTML = `<i class="fa-sharp fa-solid fa-user-gear svelte-11oych0"></i> ADMIN`;
+        attr(a, "href", "/admin");
+        attr(a, "class", "svelte-11oych0");
         toggle_class(
-          li,
+          a,
           "active",
           /*segment1*/
           ctx[1] === "admin"
         );
       },
       m(target, anchor) {
-        insert(target, li, anchor);
+        insert(target, a, anchor);
       },
       p(ctx2, dirty) {
         if (dirty & /*segment1*/
         2) {
           toggle_class(
-            li,
+            a,
             "active",
             /*segment1*/
             ctx2[1] === "admin"
@@ -3006,43 +3012,38 @@ table.svelte-18nqf8w {
       },
       d(detaching) {
         if (detaching) {
-          detach(li);
+          detach(a);
         }
       }
     };
   }
   function create_if_block(ctx) {
-    let li0;
-    let button;
+    let a;
     let t1;
-    let li1;
+    let button;
     let mounted;
     let dispose;
     return {
       c() {
-        li0 = element("li");
-        button = element("button");
-        button.textContent = "Logout";
+        a = element("a");
+        a.innerHTML = `<i class="fa-solid fa-user-circle svelte-11oych0"></i> PROFILE`;
         t1 = space();
-        li1 = element("li");
-        li1.innerHTML = `<a href="/user" class="svelte-14j5e9r">Profile</a>`;
-        attr(button, "class", "svelte-14j5e9r");
-        set_style(li0, "float", "right");
-        attr(li0, "class", "svelte-14j5e9r");
-        set_style(li1, "float", "right");
-        attr(li1, "class", "svelte-14j5e9r");
+        button = element("button");
+        button.innerHTML = `<i class="fa-solid fa-right-from-bracket svelte-11oych0"></i> LOGOUT`;
+        attr(a, "href", "/user");
+        attr(a, "class", "svelte-11oych0");
         toggle_class(
-          li1,
+          a,
           "active",
           /*segment1*/
           ctx[1] === "user"
         );
+        attr(button, "class", "logout svelte-11oych0");
       },
       m(target, anchor) {
-        insert(target, li0, anchor);
-        append(li0, button);
+        insert(target, a, anchor);
         insert(target, t1, anchor);
-        insert(target, li1, anchor);
+        insert(target, button, anchor);
         if (!mounted) {
           dispose = listen(
             button,
@@ -3057,7 +3058,7 @@ table.svelte-18nqf8w {
         if (dirty & /*segment1*/
         2) {
           toggle_class(
-            li1,
+            a,
             "active",
             /*segment1*/
             ctx2[1] === "user"
@@ -3066,9 +3067,9 @@ table.svelte-18nqf8w {
       },
       d(detaching) {
         if (detaching) {
-          detach(li0);
+          detach(a);
           detach(t1);
-          detach(li1);
+          detach(button);
         }
         mounted = false;
         dispose();
@@ -3076,12 +3077,30 @@ table.svelte-18nqf8w {
     };
   }
   function create_fragment(ctx) {
-    let ul;
-    let li;
+    let aside;
+    let div1;
+    let h3;
     let t1;
+    let div0;
+    let hr0;
     let t2;
+    let c0;
     let t3;
-    let t4;
+    let nav0;
+    let h60;
+    let t5;
+    let a;
+    let t7;
+    let t8;
+    let t9;
+    let t10;
+    let hr1;
+    let t11;
+    let c1;
+    let t12;
+    let nav1;
+    let h61;
+    let t14;
     let if_block0 = (
       /*access*/
       ctx[0].buyer && create_if_block_3(ctx)
@@ -3100,51 +3119,97 @@ table.svelte-18nqf8w {
     );
     return {
       c() {
-        ul = element("ul");
-        li = element("li");
-        li.innerHTML = `<a href="/" class="svelte-14j5e9r">Home</a>`;
+        aside = element("aside");
+        div1 = element("div");
+        h3 = element("h3");
+        h3.textContent = "STREET";
         t1 = space();
+        div0 = element("div");
+        hr0 = element("hr");
+        t2 = space();
+        c0 = comment(" PAGES ");
+        t3 = space();
+        nav0 = element("nav");
+        h60 = element("h6");
+        h60.textContent = "LAYOUT PAGES";
+        t5 = space();
+        a = element("a");
+        a.innerHTML = `<i class="fas fa-home svelte-11oych0" aria-hidden="true"></i> HOME`;
+        t7 = space();
         if (if_block0)
           if_block0.c();
-        t2 = space();
+        t8 = space();
         if (if_block1)
           if_block1.c();
-        t3 = space();
+        t9 = space();
         if (if_block2)
           if_block2.c();
-        t4 = space();
+        t10 = space();
+        hr1 = element("hr");
+        t11 = space();
+        c1 = comment(" AUTH ");
+        t12 = space();
+        nav1 = element("nav");
+        h61 = element("h6");
+        h61.textContent = "NO LAYOUT PAGES";
+        t14 = space();
         if (if_block3)
           if_block3.c();
-        attr(li, "class", "svelte-14j5e9r");
+        attr(h60, "class", "svelte-11oych0");
+        attr(a, "href", "/");
+        attr(a, "class", "svelte-11oych0");
         toggle_class(
-          li,
+          a,
           "active",
           /*segment1*/
           ctx[1] === ""
         );
-        attr(ul, "class", "menu svelte-14j5e9r");
+        attr(nav0, "class", "menu svelte-11oych0");
+        attr(h61, "class", "svelte-11oych0");
+        attr(nav1, "class", "menu svelte-11oych0");
+        attr(div0, "class", "menu_container svelte-11oych0");
+        attr(div1, "class", "side_menu_admin_container svelte-11oych0");
+        attr(aside, "class", "side_menu_admin svelte-11oych0");
       },
       m(target, anchor) {
-        insert(target, ul, anchor);
-        append(ul, li);
-        append(ul, t1);
+        insert(target, aside, anchor);
+        append(aside, div1);
+        append(div1, h3);
+        append(div1, t1);
+        append(div1, div0);
+        append(div0, hr0);
+        append(div0, t2);
+        append(div0, c0);
+        append(div0, t3);
+        append(div0, nav0);
+        append(nav0, h60);
+        append(nav0, t5);
+        append(nav0, a);
+        append(nav0, t7);
         if (if_block0)
-          if_block0.m(ul, null);
-        append(ul, t2);
+          if_block0.m(nav0, null);
+        append(nav0, t8);
         if (if_block1)
-          if_block1.m(ul, null);
-        append(ul, t3);
+          if_block1.m(nav0, null);
+        append(nav0, t9);
         if (if_block2)
-          if_block2.m(ul, null);
-        append(ul, t4);
+          if_block2.m(nav0, null);
+        append(div0, t10);
+        append(div0, hr1);
+        append(div0, t11);
+        append(div0, c1);
+        append(div0, t12);
+        append(div0, nav1);
+        append(nav1, h61);
+        append(nav1, t14);
         if (if_block3)
-          if_block3.m(ul, null);
+          if_block3.m(nav1, null);
       },
       p(ctx2, [dirty]) {
         if (dirty & /*segment1*/
         2) {
           toggle_class(
-            li,
+            a,
             "active",
             /*segment1*/
             ctx2[1] === ""
@@ -3159,7 +3224,7 @@ table.svelte-18nqf8w {
           } else {
             if_block0 = create_if_block_3(ctx2);
             if_block0.c();
-            if_block0.m(ul, t2);
+            if_block0.m(nav0, t8);
           }
         } else if (if_block0) {
           if_block0.d(1);
@@ -3174,7 +3239,7 @@ table.svelte-18nqf8w {
           } else {
             if_block1 = create_if_block_2(ctx2);
             if_block1.c();
-            if_block1.m(ul, t3);
+            if_block1.m(nav0, t9);
           }
         } else if (if_block1) {
           if_block1.d(1);
@@ -3189,7 +3254,7 @@ table.svelte-18nqf8w {
           } else {
             if_block2 = create_if_block_1(ctx2);
             if_block2.c();
-            if_block2.m(ul, t4);
+            if_block2.m(nav0, null);
           }
         } else if (if_block2) {
           if_block2.d(1);
@@ -3204,7 +3269,7 @@ table.svelte-18nqf8w {
           } else {
             if_block3 = create_if_block(ctx2);
             if_block3.c();
-            if_block3.m(ul, null);
+            if_block3.m(nav1, null);
           }
         } else if (if_block3) {
           if_block3.d(1);
@@ -3215,7 +3280,7 @@ table.svelte-18nqf8w {
       o: noop,
       d(detaching) {
         if (detaching) {
-          detach(ul);
+          detach(aside);
         }
         if (if_block0)
           if_block0.d();
@@ -3238,6 +3303,7 @@ table.svelte-18nqf8w {
     let segment1;
     onMount(() => {
       $invalidate(1, segment1 = window.location.pathname.split("/")[1]);
+      console.log(segment1);
     });
     async function userLogout() {
       await (0, import_jsApi_GEN.UserLogout)({}, function(o) {

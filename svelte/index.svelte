@@ -114,11 +114,12 @@
 
 <svelte:window on:hashchange={onHashChange} />
 {#if mode===USER}
-  <Menu access={segments} />
-  already logged in
-  <RandomProperty />
-  <hr />
-  TODO: import other svelte component here (menu, content, etc)
+  <section class="dashboard">
+    <Menu access={segments} />
+    <div class="dashboard_main_content">
+      <RandomProperty />
+    </div>
+  </section>
 {:else}
   <div class='guest'>
     <h1>{title} - {mode}</h1>
