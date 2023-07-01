@@ -493,21 +493,21 @@ func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
 }
 
 func ImportExcelData(adapter *Tt.Adapter, resourcePath string) {
-	fmt.Println("[Start] House")
+	start := time.Now()
 
+	fmt.Println("[Start] House")
 	ReadHouseDataSheet(adapter, resourcePath)
 	GetHouseAddressInBuySellData(&adapter, resourcePath)
 	GetHouseAddressInRentData1(&adapter, resourcePath)
 	GetHouseAddressInRentData2(&adapter, resourcePath)
-
 	fmt.Println("[End] House")
-
-	fmt.Println("=========")
 
 	fmt.Println("[Start] House Trx History")
 	ImportHouseHistoryInBuySellSheet(&adapter, resourcePath)
 	ImportHouseHistoryInRentSheet(adapter, resourcePath)
 	fmt.Println("[End] House Trx History")
+
+	L.TimeTrack(start, "ImportExcelData")
 }
 
 func subTaskPrint(str string) func() {
