@@ -13,6 +13,7 @@ type ImporterStat struct {
 	upserted  int
 	skipped   int
 	failed    int
+	warn      int
 	startTime *time.Time
 }
 
@@ -25,8 +26,8 @@ func (s *ImporterStat) Print() {
 		t := fastime.Now()
 		s.startTime = &t
 	}
-	fmt.Printf("\rUpserted: %d, Skipped: %d, Failed: %d | %.2f%% | %.1fs",
-		s.upserted, s.skipped, s.failed,
+	fmt.Printf("\rUpserted: %d, Skipped: %d, Warn: %d, Failed: %d | %.2f%% | %.1fs",
+		s.upserted, s.skipped, s.warn, s.failed,
 		float64(progress*100)/float64(s.Total),
 		fastime.Since(*s.startTime).Seconds())
 }
@@ -41,4 +42,8 @@ func (s *ImporterStat) Ok(ok bool) {
 	} else {
 		s.failed++
 	}
+}
+
+func (s *ImporterStat) Warn(str string) {
+
 }

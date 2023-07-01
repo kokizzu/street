@@ -397,7 +397,8 @@ func ImportHouseHistoryInBuySellSheet(adapter **Tt.Adapter, resourcePath string)
 			} else if colIndex == 21 {
 				totalPriceData, err := strconv.Atoi(colCell)
 				if err != nil {
-					fmt.Println("Error during conversion for total-price [" + colCell + "]")
+					//fmt.Println("Error during conversion for total-price [" + colCell + "]")
+					stat.Warn(`invalid PriceNtd`)
 					propertyHistoryMutator.PriceNtd = 0
 				} else {
 					propertyHistoryMutator.PriceNtd = int64(totalPriceData)
@@ -406,7 +407,8 @@ func ImportHouseHistoryInBuySellSheet(adapter **Tt.Adapter, resourcePath string)
 			} else if colIndex == 22 {
 				pricePerUnitData, err := strconv.Atoi(colCell)
 				if err != nil {
-					fmt.Println("Error during conversion for price per unit data [" + colCell + "]")
+					//fmt.Println("Error during conversion for price per unit data [" + colCell + "]")
+					stat.Warn(`invalid PricePerUnit`)
 					propertyHistoryMutator.PricePerUnit = 0
 				} else {
 					propertyHistoryMutator.PricePerUnit = int64(pricePerUnitData)
@@ -498,7 +500,8 @@ func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
 			} else if colIndex == 22 {
 				totalPriceData, err := strconv.Atoi(colCell)
 				if err != nil {
-					fmt.Println("Error during conversion for total-price [" + colCell + "]")
+					//fmt.Println("Error during conversion for total-price [" + colCell + "]")
+					stat.Warn(`invalid PriceNtd`)
 					propertyHistoryMutator.PriceNtd = 0
 				} else {
 					propertyHistoryMutator.PriceNtd = int64(totalPriceData)
@@ -507,7 +510,8 @@ func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
 			} else if colIndex == 23 {
 				pricePerUnitData, err := strconv.Atoi(colCell)
 				if err != nil {
-					fmt.Println("Error during conversion for price per unit data [" + colCell + "]")
+					stat.Warn(`invalid PricePerUnit`)
+					//fmt.Println("Error during conversion for price per unit data [" + colCell + "]")
 					propertyHistoryMutator.PricePerUnit = 0
 				} else {
 					propertyHistoryMutator.PricePerUnit = int64(pricePerUnitData)
