@@ -2,34 +2,41 @@ package zImport
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 	"time"
 
 	"github.com/kokizzu/gotro/D/Tt"
+	"github.com/kokizzu/gotro/L"
 	"github.com/xuri/excelize/v2"
 
 	"street/model/mProperty/wcProperty"
 )
 
+func readExcelWorksheet(pathData string, workspace string) (res [][]string, closerFunc func()) {
+	f, err := excelize.OpenFile(pathData)
+	L.PanicIf(err, `excelize.OpenFile`, pathData)
+
+	closerFunc = func() {
+		if err := f.Close(); err != nil {
+			log.Println(`f.Close`, err)
+		}
+	}
+
+	rows, err := f.GetRows(workspace)
+	L.PanicIf(err, `f.GetRows`, workspace)
+
+	return rows, closerFunc
+}
+
 func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
 	fmt.Println("[Scan Buy-Sell sheet] Begin the process update address to house")
-	pathData := resourceFile
-	f, err := excelize.OpenFile(pathData)
-	if err != nil {
-		fmt.Println(err)
-	}
-	propertyMutator := wcProperty.NewPropertyMutator(*adapter)
-	defer func() {
-		if err := f.Close(); err != nil {
-			fmt.Println(err)
-		}
-	}()
+	defer fmt.Println("\n[Scan Buy-Sell sheet] End the process update address to house")
 
-	rows, err := f.GetRows("不動產買賣BuyandSell")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+	rows, closer := readExcelWorksheet(resourceFile, "不動產買賣BuyandSell")
+	defer closer()
+
+	propertyMutator := wcProperty.NewPropertyMutator(*adapter)
 
 	stat := &ImporterStat{Total: len(rows)}
 	for index, row := range rows {
@@ -91,29 +98,16 @@ func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
 		}
 	}
 
-	fmt.Println("\n[Scan Buy-Sell sheet] End the process update address to house")
-
 }
 
 func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
 	fmt.Println("[Scan Rent sheet] Begin the process update address to house")
-	pathData := resourceFile
-	f, err := excelize.OpenFile(pathData)
-	if err != nil {
-		fmt.Println(err)
-	}
-	propertyMutator := wcProperty.NewPropertyMutator(*adapter)
-	defer func() {
-		if err := f.Close(); err != nil {
-			fmt.Println(err)
-		}
-	}()
+	defer fmt.Println("\n[Scan Rent sheet] End the process update address to house")
 
-	rows, err := f.GetRows("不動產租賃Rent")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+	rows, closer := readExcelWorksheet(resourceFile, "不動產租賃Rent")
+	defer closer()
+
+	propertyMutator := wcProperty.NewPropertyMutator(*adapter)
 
 	stat := &ImporterStat{Total: len(rows)}
 	for index, row := range rows {
@@ -175,29 +169,15 @@ func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
 		}
 
 	}
-
-	fmt.Println("\n[Scan Rent sheet] End the process update address to house")
 }
 
 func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
 	fmt.Println("[Scan Rent sheet2] Begin the process update address to house")
-	pathData := resourceFile
-	f, err := excelize.OpenFile(pathData)
-	if err != nil {
-		fmt.Println(err)
-	}
-	propertyMutator := wcProperty.NewPropertyMutator(*adapter)
-	defer func() {
-		if err := f.Close(); err != nil {
-			fmt.Println(err)
-		}
-	}()
 
-	rows, err := f.GetRows("不動產租賃Rent")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+	rows, closer := readExcelWorksheet(resourceFile, "不動產租賃Rent")
+	defer closer()
+
+	propertyMutator := wcProperty.NewPropertyMutator(*adapter)
 
 	stat := &ImporterStat{Total: len(rows)}
 	for index, row := range rows {
@@ -264,26 +244,13 @@ func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
 }
 
 func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
-	pathData := resourcePath
-	f, err := excelize.OpenFile(pathData)
-	if err != nil {
-		fmt.Println(err)
-	}
+	fmt.Println("Begin the process of import house data")
+	defer fmt.Println("\nEnd process of import house data")
 
-	defer func() {
-		if err := f.Close(); err != nil {
-			fmt.Println(err)
-		}
-	}()
-
-	rows, err := f.GetRows("建物HouseDetail")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+	rows, closer := readExcelWorksheet(resourcePath, "建物HouseDetail")
+	defer closer()
 
 	stat := &ImporterStat{Total: len(rows)}
-	fmt.Println("Begin the process of import house data")
 	for index, row := range rows {
 		stat.Print()
 
@@ -335,23 +302,16 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 
 		stat.Ok(propertyMutator.DoInsert())
 	}
-	fmt.Println("\nEnd process of import house data")
 }
 func ImportHouseHistoryInBuySellSheet(adapter **Tt.Adapter, resourcePath string) {
 	fmt.Println("[Start] Beginning of import house history data in buy-sell sheet")
-	pathData := resourcePath
-	f, err := excelize.OpenFile(pathData)
-	if err != nil {
-		fmt.Println(err)
-	}
-	propertyHistoryMutator := wcProperty.NewPropertyHistoryMutator(*adapter)
-	defer func() {
-		if err := f.Close(); err != nil {
-			fmt.Println(err)
-		}
-	}()
+	defer fmt.Println("[End] End of import house history data  in buy-sell sheet")
 
-	rows, err := f.GetRows("不動產買賣BuyandSell")
+	rows, closer := readExcelWorksheet(resourcePath, "不動產買賣BuyandSell")
+	defer closer()
+
+	propertyHistoryMutator := wcProperty.NewPropertyHistoryMutator(*adapter)
+
 	stat := &ImporterStat{Total: len(rows)}
 	for index, row := range rows {
 		stat.Print()
@@ -437,24 +397,16 @@ func ImportHouseHistoryInBuySellSheet(adapter **Tt.Adapter, resourcePath string)
 
 	}
 	fmt.Println(propertyHistoryMutator)
-	fmt.Println("[End] End of import house history data  in buy-sell sheet")
 }
 
 func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
 	fmt.Println("[Start] Beginning of import house history data in rent sheet")
-	pathData := resourcePath
-	f, err := excelize.OpenFile(pathData)
-	if err != nil {
-		fmt.Println(err)
-	}
-	propertyHistoryMutator := wcProperty.NewPropertyHistoryMutator(adapter)
-	defer func() {
-		if err := f.Close(); err != nil {
-			fmt.Println(err)
-		}
-	}()
 
-	rows, err := f.GetRows("不動產租賃Rent")
+	rows, closer := readExcelWorksheet(resourcePath, "不動產租賃Rent")
+	defer closer()
+
+	propertyHistoryMutator := wcProperty.NewPropertyHistoryMutator(adapter)
+
 	stat := &ImporterStat{Total: len(rows)}
 	for index, row := range rows {
 		stat.Print()
