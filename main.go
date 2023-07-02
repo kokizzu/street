@@ -161,6 +161,8 @@ func main() {
 			fmt.Println("Error -> ", err)
 		}
 		model.ImportExcelData(tConn, p)
+	case `migrate_location`:
+		model.MigratedPropertyLocation(tConn)
 	case `upgradememtx`:
 		zUpgrade.UserSessionToMemtx(tConn)
 	default:
