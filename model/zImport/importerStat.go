@@ -15,16 +15,21 @@ type ImporterStat struct {
 	failed    int
 	warn      int
 	startTime *time.Time
+
+	PrintEvery int
 }
 
-func (s *ImporterStat) Print() {
+func (s *ImporterStat) Print(opt ...any) {
 	progress := s.upserted + s.skipped + s.failed
-	if progress%100 != 0 {
-		return
-	}
 	if s.startTime == nil {
 		t := fastime.Now()
 		s.startTime = &t
+	}
+	if s.PrintEvery == 0 {
+		s.PrintEvery = 100
+	}
+	if len(opt) == 0 && progress%s.PrintEvery != 0 {
+		return
 	}
 	fmt.Printf("\r    Upserted: %d, Skipped: %d, Warn: %d, Failed: %d | %.2f%% | %.1fs",
 		s.upserted, s.skipped, s.warn, s.failed,

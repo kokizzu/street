@@ -3,11 +3,14 @@ package zImport
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
-	"street/model/mProperty/wcProperty"
 	"time"
+
+	"github.com/kokizzu/gotro/L"
+
+	"street/model/mProperty/wcProperty"
 
 	"github.com/kokizzu/gotro/D/Tt"
 )
@@ -52,14 +55,14 @@ func buildFullLocationSearchUrl(apiKey string, googleApiUrl string, address stri
 }
 
 func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string, googleApiUrl string) {
+	defer subTaskPrint(`retrieveLatLongFromAddress: retrieve lat/long`)()
 
-	fmt.Println("[Start] Beginning of process data to retrieve lat/long")
 	propertyMutator := wcProperty.NewPropertyMutator(adapter)
 
 	properties := propertyMutator.FindAllProperties()
 
-	stat := &ImporterStat{Total: len(properties)}
-	for index, p := range properties {
+	stat := &ImporterStat{Total: len(properties), PrintEvery: 10}
+	for _, p := range properties {
 		stat.Print()
 
 		if p.Address == "" {
@@ -68,29 +71,35 @@ func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string, googleApiUrl
 		}
 		if p.FormattedAddress != "" {
 			stat.Skip()
-			fmt.Println("Property has address and lat/long already")
+			//log.Println("Property has address and lat/long already")
 			continue
 		}
 
 		fullUrl := buildFullLocationSearchUrl(apiKey, googleApiUrl, p.Address)
 		locationResponse, err := http.Get(fullUrl)
 
-		if err != nil {
-			fmt.Print(err.Error())
-			os.Exit(1)
+		if L.IsError(err, `retrieveLatLongFromAddress: get location response`) {
+			stat.Ok(false)
+			continue
 		}
 
-		responseData, err := ioutil.ReadAll(locationResponse.Body)
-		if err != nil {
-			fmt.Print(err)
+		responseData, err := io.ReadAll(locationResponse.Body)
+		if L.IsError(err, `retrieveLatLongFromAddress: read response body`) {
+			stat.Ok(false)
+			continue
 		}
-		fmt.Println("Response data => " + string(responseData))
+		//fmt.Println("Response data => " + string(responseData))
 		propertyLocation := PlaceResponse{}
 
-		json.Unmarshal([]byte(responseData), &propertyLocation)
+		err = json.Unmarshal(responseData, &propertyLocation)
+		if L.IsError(err, `retrieveLatLongFromAddress: unmarshal response data`) {
+			stat.Ok(false)
+			continue
+		}
 		if len(propertyLocation.Candidates) == 0 {
 			stat.Skip()
-			fmt.Println("There is no available location for this address")
+			stat.Warn(`empty location`)
+			//fmt.Println("There is no available location for this address")
 			break
 		}
 
@@ -108,13 +117,10 @@ func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string, googleApiUrl
 		stat.Ok(dataMutator.DoOverwriteById())
 	}
 
-	fmt.Println("Total length of properties => ", len(properties))
-
-	fmt.Println("[End] Beginning of process data to retrieve lat/long")
+	stat.Print()
 }
 
 func ImportHouseLocation(adapter *Tt.Adapter) {
-
 	googleApiKey := os.Getenv("GOOGLE_API_KEY")
 	if googleApiKey == "" {
 		fmt.Println("Require google api key to execute this operation")
@@ -127,5 +133,7 @@ func ImportHouseLocation(adapter *Tt.Adapter) {
 		return
 	}
 
+	start := time.Now()
 	retrieveLatLongFromAddress(adapter, googleApiKey, googleApiUrl)
+	L.TimeTrack(start, "ImportHouseLocation")
 }
