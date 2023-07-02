@@ -170,8 +170,10 @@ func main() {
 		zImport.ImportExcelData(tConn, p)
 	case `import_location`:
 		zImport.ImportHouseLocation(tConn)
-	case `upgradememtx`:
-		zUpgrade.UserSessionToMemtx(tConn)
+	//case `upgradememtx`:
+	//	zUpgrade.UserSessionToMemtx(tConn)
+	case `fix_time`:
+		zUpgrade.FixCreatedUpdatedAt(tConn)
 	default:
 		log.Error().Str(`mode`, mode).Msg(`unknown mode`)
 	}

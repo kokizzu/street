@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"time"
@@ -97,6 +98,8 @@ func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string) {
 		err = json.Unmarshal(responseData, &propertyLocation)
 		if L.IsError(err, `retrieveLatLongFromAddress: unmarshal response data`) {
 			stat.Fail(`fail json decoded`)
+			log.Print(p.Id, p.Address)
+			log.Println(string(responseData))
 			continue
 		}
 		if len(propertyLocation.Candidates) == 0 {

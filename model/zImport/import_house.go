@@ -280,7 +280,7 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 				propertyMutator.BuildingLamination = colCell
 			}
 			// Update time
-			currentTime := time.Now().UnixMilli()
+			currentTime := time.Now().Unix()
 			propertyMutator.CreatedAt = currentTime
 			propertyMutator.UpdatedAt = currentTime
 			//fmt.Println(propertyMutator)
@@ -382,7 +382,7 @@ func ImportHouseHistoryInBuySellSheet(adapter **Tt.Adapter, resourcePath string)
 		uniquePropertyKey = serialNumber + "#" + propertySize
 		transactionKey = serialNumber + "#" + propertySize + "#" + propertyHistoryMutator.TransactionTime
 
-		currentTime := time.Now().UnixMilli()
+		currentTime := time.Now().Unix()
 		propertyHistoryMutator.CreatedAt = currentTime
 		propertyHistoryMutator.UpdatedAt = currentTime
 		propertyHistoryMutator.PropertyKey = uniquePropertyKey
@@ -476,7 +476,7 @@ func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
 		uniquePropertyKey = serialNumber + "#" + propertySize
 		transactionKey = serialNumber + "#" + propertySize + "#" + propertyHistoryMutator.TransactionTime
 
-		currentTime := time.Now().UnixMilli()
+		currentTime := time.Now().Unix()
 		propertyHistoryMutator.CreatedAt = currentTime
 		propertyHistoryMutator.UpdatedAt = currentTime
 		propertyHistoryMutator.PropertyKey = uniquePropertyKey
