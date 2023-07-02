@@ -1,4 +1,4 @@
-package model
+package zImport
 
 import (
 	"encoding/json"
@@ -121,7 +121,7 @@ func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string, googleApiUrl
 	fmt.Println("[End] Beginning of process data to retrieve lat/long")
 }
 
-func MigratedPropertyLocation(adapter *Tt.Adapter) {
+func ImportHouseLocation(adapter *Tt.Adapter) {
 
 	googleApiKey := os.Getenv("GOOGLE_API_KEY")
 	if googleApiKey == "" {

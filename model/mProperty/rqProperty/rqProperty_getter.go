@@ -27,6 +27,19 @@ WHERE ` + rq.SqlSerialNumber() + ` = ` + S.Q(serialNumber)
 	return res
 }
 
+func (rq *Property) FindAllProperties() (res []*Property) {
+	query := `SELECT ` + rq.SqlSelectAllFields() + `FROM ` + rq.SqlTableName()
+	if conf.IsDebug() {
+		//L.Print(query)
+	}
+	rq.Adapter.QuerySql(query, func(row []any) {
+		obj := &Property{}
+		obj.FromArray(row)
+		res = append(res, obj)
+	})
+	return res
+}
+
 func (p *Property) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud.PagerOut) (res [][]any) {
 	whereAndSql := z3.WhereAndSql(z2.Filters, PropertyFieldTypeMap)
 

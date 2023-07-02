@@ -77,6 +77,13 @@ func (w *WebServer) Start() {
 
 	w.Domain.InitTimedBuffer()
 
+	// check if actionLogs are there, if error, then you need to run migration: go run main.go migrate
+	w.InsertActionLog(&domain.RequestCommon{
+		UserAgent: "server",
+		IpAddress: "127.0.0.1",
+		Action:    "server/start",
+	}, &domain.ResponseCommon{})
+
 	// load svelte templates
 	views = &Views{}
 	views.LoadAll()

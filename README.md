@@ -38,9 +38,16 @@ separates read/query and write/command into different database/connection.
 ## Start dev mode
 
 ```shell
+# start docker
+docker compose up # or docker-compose up
+
 # start frontend auto build 
 cd svelte
 npm run watch
+
+# do migration (first time, or everytime tarantool/clickhouse docker deleted, 
+# or when there's new migration)
+go run main.go migrate
 
 # start golang backend server, also serving static html
 air web
@@ -104,7 +111,7 @@ go run main.go web
 curl -X POST -d '{"email":"test@a.com"}' localhost:1234/guest/register
 ```
 
-## Deploy
+## Deploy to Production Server
 
 ```shell
 cd deploy
@@ -122,7 +129,8 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
 
 - **Q**: where to put SSR?
   - **A**: `presentation/web_static.go`
-- **Q**: got error `there is no space with name [tableName]`
+- **Q**: got error `there is no space with name [tableName], table default.
+  [tableName] does not exists`
   - **A**: run `go run main.go migrate` to do migration
 - **Q**: got error `Command 'caddy' not found`
   - **A**: install [caddy](//caddyserver.com/docs/install)
@@ -172,3 +180,27 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
   - **A**: it's ok for PoC phase, since it's listen to localhost
 - **Q**: run test against local `docker compose` instead of `dockertest`?
   - **A**: set env or export `USE_COMPOSE=x` before running test
+- **Q**: how SSR works?
+  - **A**: `npm run watch` will convert `.svelte` files into `.html`, `.
+    /gen-views.sh` will generate `vew_view.GEN.go` that can be called by `web_static.go` to render the `.html` files
+- **Q**: how route generator works?
+  - **A**: everytime you make `type XXIn`, `type XXOut`, `const XXAction`, 
+    and `func (d Domain) XX(in XXIn) XXOut` inside `domain/` it will be 
+    automatically 
+    added 
+    to `api_routes.GEN.go`
+- **Q**: how orm generator works?
+  - **A**: create `model/m[schema]/[schema]_tables.go` and `model/m[schema]/
+    [schema]_tables_test.go` then run `./gen-orm.sh`, it would generate 
+    `model/[rq|wc|sa][schema].go`, you can extend the method of generated 
+    structs (`[rq|wc|sa][schema]`) on another file inside the same package.
+- **Q**: how basic form and list/table works?
+  - **A**: create a `[schema]Meta` on `domain/`, then just call your query 
+    method based on `zCrud.Pager` (it would generate the proper SQL query), 
+    then use svelte component that can render the form and table/list for you.
+- **Q**: when to use each storage engine?
+  - **A**: `memtx` used for kv query pattern, anything that often being read 
+    and updated (eg. transactions), `vinyl` used for range queries, anything 
+    that rarely being updated (eg. mutation log, history), `clickhouse` used 
+    for analytics queries pattern, anything that will never being updated 
+    ever (eg. action logs, events)

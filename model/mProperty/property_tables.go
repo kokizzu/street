@@ -21,13 +21,25 @@ const (
 	FormattedAddress       = `formattedAddress`
 	District               = `district`
 	Note                   = `note`
-	// TODO: change to spatial column
-	Coord     = `coord`
-	CreatedAt = `createdAt`
-	CreatedBy = `createdBy`
-	UpdatedAt = `updatedAt`
-	UpdatedBy = `updatedBy`
-	DeletedAt = `deletedAt`
+	Coord                  = `coord`
+	CreatedAt              = `createdAt`
+	CreatedBy              = `createdBy`
+	UpdatedAt              = `updatedAt`
+	UpdatedBy              = `updatedBy`
+	DeletedAt              = `deletedAt`
+
+	TablePropertyHistory Tt.TableName = `property_history`
+
+	PropertyKey           = `propertyKey`
+	TransactionKey        = `transactionKey`
+	TransactionType       = `transactionType`
+	TransactionSign       = `transactionSign`
+	TransactionTime       = `transactionTime`
+	TransactionDateNormal = `transactionDateNormal`
+	TransactionNumber     = `transactionNumber`
+	PriceNTD              = `priceNtd`
+	PricePerUnit          = `pricePerUnit`
+	Price                 = `price`
 )
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
@@ -58,6 +70,33 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Indexes:         []string{SerialNumber},
 		Engine:          Tt.Memtx,
 		Spatial:         Coord,
+	},
+	TablePropertyHistory: {
+		Fields: []Tt.Field{
+			{Id, Tt.Unsigned},
+			{PropertyKey, Tt.String},
+			{TransactionKey, Tt.String},
+			{TransactionType, Tt.String},
+			{TransactionSign, Tt.String},
+			{TransactionTime, Tt.String},
+			{TransactionDateNormal, Tt.String},
+			{TransactionNumber, Tt.String},
+			{PriceNTD, Tt.Integer},
+			{PricePerUnit, Tt.Integer},
+			{Price, Tt.Integer},
+			{Address, Tt.String},
+			{District, Tt.String},
+			{Note, Tt.String},
+			{CreatedAt, Tt.Integer},
+			{CreatedBy, Tt.Unsigned},
+			{UpdatedAt, Tt.Integer},
+			{UpdatedBy, Tt.Unsigned},
+			{DeletedAt, Tt.Integer},
+		},
+		AutoIncrementId: true,
+		Unique1:         TransactionKey,
+		Indexes:         []string{Id},
+		Engine:          Tt.Memtx,
 	},
 }
 
