@@ -40,7 +40,7 @@ func (s *ImporterStat) Print(opt ...any) {
 		float64(progress*100)/float64(s.Total),
 		fastime.Since(*s.startTime).Seconds())
 
-	if len(s.warnings) > 0 {
+	if len(opt) > 0 && len(s.warnings) > 0 {
 		fmt.Printf("\n    Warnings: %v", s.warnings)
 	}
 }
