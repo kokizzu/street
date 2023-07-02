@@ -20,7 +20,6 @@ import (
 	"street/model"
 	"street/model/xMailer"
 	"street/model/zImport"
-	"street/model/zUpgrade"
 	"street/presentation"
 )
 
@@ -173,7 +172,7 @@ func main() {
 	//case `upgradememtx`:
 	//	zUpgrade.UserSessionToMemtx(tConn)
 	case `fix_time`:
-		zUpgrade.FixCreatedUpdatedAt(tConn)
+		zImport.FixCreatedUpdatedAt(tConn)
 	default:
 		log.Error().Str(`mode`, mode).Msg(`unknown mode`)
 	}
