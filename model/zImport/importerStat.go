@@ -62,6 +62,7 @@ func (s *ImporterStat) Warn(str string) {
 		s.mutex = &sync.Mutex{}
 		s.warnings = map[string]int{}
 	}
+	s.warn++
 	s.mutex.Lock()
 	s.warnings[str] += 1
 	s.mutex.Unlock()
