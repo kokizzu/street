@@ -82,15 +82,13 @@ func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string) {
 		locationResponse, err := http.Get(fullUrl)
 
 		if L.IsError(err, `retrieveLatLongFromAddress: get location response`) {
-			stat.Ok(false)
-			stat.Warn(`fail request`)
+			stat.Fail(`fail request`)
 			continue
 		}
 
 		responseData, err := io.ReadAll(locationResponse.Body)
 		if L.IsError(err, `retrieveLatLongFromAddress: read response body`) {
-			stat.Ok(false)
-			stat.Warn(`no resp body`)
+			stat.Fail(`no resp body`)
 			continue
 		}
 		//fmt.Println("Response data => " + string(responseData))
@@ -98,8 +96,7 @@ func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string) {
 
 		err = json.Unmarshal(responseData, &propertyLocation)
 		if L.IsError(err, `retrieveLatLongFromAddress: unmarshal response data`) {
-			stat.Ok(false)
-			stat.Warn(`fail json decoded`)
+			stat.Fail(`fail json decoded`)
 			continue
 		}
 		if len(propertyLocation.Candidates) == 0 {

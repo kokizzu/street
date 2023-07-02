@@ -57,6 +57,11 @@ func (s *ImporterStat) Ok(ok bool) {
 	}
 }
 
+func (s *ImporterStat) Fail(msg string) {
+	s.failed++
+	s.Warn(msg)
+}
+
 func (s *ImporterStat) Warn(str string) {
 	if s.mutex == nil {
 		s.mutex = &sync.Mutex{}
