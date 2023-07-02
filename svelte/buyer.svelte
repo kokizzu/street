@@ -1,5 +1,7 @@
 <script>
    import Menu from './_components/Menu.svelte';
+   import ProfileHeader from './_components/ProfileHeader.svelte';
+   import Footer from './_components/Footer.svelte';
   
    let user = {/* user */};
    let segments = {/* segments */};
@@ -8,7 +10,10 @@
 <section class="dashboard">
    <Menu access={segments} />
    <div class="dashboard_main_content">
-      buyer content goes here
+      <ProfileHeader></ProfileHeader>
+      <div class="content">
+         buyer content goes here
+      </div>
+      <Footer></Footer>
    </div>
 </section>
-

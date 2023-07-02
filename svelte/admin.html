@@ -2,6 +2,8 @@
    <title>/*! title */</title>
    <link href="/css.gg.css" rel="stylesheet">
    <link rel="stylesheet" href="/assets/fontawesome/css/fontawesome.min.css">
+   <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">
+   <link rel="stylesheet" href="/assets/fontawesome/css/solid.min.css">
 </head>
 <body>
    <style>
@@ -44,7 +46,9 @@
          min-height: 100vh;
          width: 100%;
          margin-left: 256px;
-         padding: 20px;
+      }
+      .dashboard_main_content .content {
+         min-height: 85vh;
       }
    </style>
 
@@ -54,7 +58,7 @@
 
 <style>/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/Menu.esbuild-svelte-fake-css */
 @media (min-width: 768px) {
-  .side_menu_admin.svelte-3en29u.svelte-3en29u {
+  .side_menu_admin.svelte-1dhjh13.svelte-1dhjh13 {
     left: 0;
     display: block;
     position: fixed;
@@ -63,13 +67,14 @@
     overflow-y: auto;
     flex-direction: row;
     flex-wrap: nowrap;
-    overflow: hidden;
+    overflow: auto;
     background-color: white;
     color: #475569;
     padding: 16px 24px;
     width: 256px;
+    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   }
-  .side_menu_admin_container.svelte-3en29u.svelte-3en29u {
+  .side_menu_admin_container.svelte-1dhjh13.svelte-1dhjh13 {
     flex-direction: column;
     align-items: stretch;
     min-height: 100%;
@@ -79,32 +84,32 @@
     width: 100%;
     margin: 0 auto;
   }
-  .side_menu_admin_container.svelte-3en29u h3.svelte-3en29u {
+  .side_menu_admin_container.svelte-1dhjh13 h3.svelte-1dhjh13 {
     font-size: 16px;
     line-height: 1.5rem;
     padding: 15px 0 10px 0;
     margin: 0;
   }
-  .menu_container.svelte-3en29u.svelte-3en29u {
+  .menu_container.svelte-1dhjh13.svelte-1dhjh13 {
     margin-top: 1rem;
     align-items: stretch;
     flex-direction: column;
     display: flex;
   }
-  .menu_container.svelte-3en29u hr.svelte-3en29u {
+  .menu_container.svelte-1dhjh13 hr.svelte-1dhjh13 {
     margin: 1rem 0;
   }
-  .menu_container.svelte-3en29u h6.svelte-3en29u {
+  .menu_container.svelte-1dhjh13 h6.svelte-1dhjh13 {
     font-size: 15px;
     margin: 8px 0;
   }
-  .menu_container.svelte-3en29u .menu.svelte-3en29u {
+  .menu_container.svelte-1dhjh13 .menu.svelte-1dhjh13 {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
   }
-  .menu_container.svelte-3en29u .menu a.svelte-3en29u,
-  .menu.svelte-3en29u .logout.svelte-3en29u {
+  .menu_container.svelte-1dhjh13 .menu a.svelte-1dhjh13,
+  .menu.svelte-1dhjh13 .logout.svelte-1dhjh13 {
     color: #475569;
     text-decoration: none;
     margin: 0;
@@ -117,18 +122,18 @@
     background-color: transparent;
     border: none;
   }
-  .menu_container.svelte-3en29u .menu a i.svelte-3en29u,
-  .menu_container.svelte-3en29u .menu button i.svelte-3en29u {
+  .menu_container.svelte-1dhjh13 .menu a i.svelte-1dhjh13,
+  .menu_container.svelte-1dhjh13 .menu button i.svelte-1dhjh13 {
     margin-right: 0.8rem;
     font-size: 14px;
     color: #CBD5E1;
   }
-  .menu_container.svelte-3en29u .menu a.svelte-3en29u:hover,
-  .menu_container.svelte-3en29u .menu button.svelte-3en29u:hover {
+  .menu_container.svelte-1dhjh13 .menu a.svelte-1dhjh13:hover,
+  .menu_container.svelte-1dhjh13 .menu button.svelte-1dhjh13:hover {
     color: #64748B;
   }
-  .active.svelte-3en29u.svelte-3en29u,
-  .active.svelte-3en29u i.svelte-3en29u {
+  .active.svelte-1dhjh13.svelte-1dhjh13,
+  .active.svelte-1dhjh13 i.svelte-1dhjh13 {
     color: #EF4444 !important;
   }
 }
@@ -2912,9 +2917,9 @@ table.svelte-18nqf8w {
     return {
       c() {
         a = element("a");
-        a.innerHTML = `<i class="fa-solid fa-money-bill-wave svelte-3en29u"></i> BUYER`;
+        a.innerHTML = `<i class="fa-solid fa-money-bill-wave svelte-1dhjh13"></i> BUYER`;
         attr(a, "href", "/buyer");
-        attr(a, "class", "svelte-3en29u");
+        attr(a, "class", "svelte-1dhjh13");
         toggle_class(
           a,
           "active",
@@ -2948,9 +2953,9 @@ table.svelte-18nqf8w {
     return {
       c() {
         a = element("a");
-        a.innerHTML = `<i class="fa-solid fa-user-tie svelte-3en29u"></i> REALTOR`;
+        a.innerHTML = `<i class="fa-solid fa-user-tie svelte-1dhjh13"></i> REALTOR`;
         attr(a, "href", "/realtor");
-        attr(a, "class", "svelte-3en29u");
+        attr(a, "class", "svelte-1dhjh13");
         toggle_class(
           a,
           "active",
@@ -2984,9 +2989,9 @@ table.svelte-18nqf8w {
     return {
       c() {
         a = element("a");
-        a.innerHTML = `<i class="fa-sharp fa-solid fa-user-gear svelte-3en29u"></i> ADMIN`;
+        a.innerHTML = `<i class="fa-sharp fa-solid fa-user-gear svelte-1dhjh13"></i> ADMIN`;
         attr(a, "href", "/admin");
-        attr(a, "class", "svelte-3en29u");
+        attr(a, "class", "svelte-1dhjh13");
         toggle_class(
           a,
           "active",
@@ -3020,9 +3025,9 @@ table.svelte-18nqf8w {
     return {
       c() {
         a = element("a");
-        a.innerHTML = `<i class="fa-solid fa-user-circle svelte-3en29u"></i> PROFILE`;
+        a.innerHTML = `<i class="fa-solid fa-user-circle svelte-1dhjh13"></i> PROFILE`;
         attr(a, "href", "/user");
-        attr(a, "class", "svelte-3en29u");
+        attr(a, "class", "svelte-1dhjh13");
         toggle_class(
           a,
           "active",
@@ -3058,8 +3063,8 @@ table.svelte-18nqf8w {
     return {
       c() {
         button = element("button");
-        button.innerHTML = `<i class="fa-solid fa-right-from-bracket svelte-3en29u"></i> LOGOUT`;
-        attr(button, "class", "logout svelte-3en29u");
+        button.innerHTML = `<i class="fa-solid fa-right-from-bracket svelte-1dhjh13"></i> LOGOUT`;
+        attr(button, "class", "logout svelte-1dhjh13");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -3153,7 +3158,7 @@ table.svelte-18nqf8w {
         t5 = space();
         nav0 = element("nav");
         a = element("a");
-        a.innerHTML = `<i class="fas fa-home svelte-3en29u" aria-hidden="true"></i> HOME`;
+        a.innerHTML = `<i class="fas fa-home svelte-1dhjh13" aria-hidden="true"></i> HOME`;
         t7 = space();
         if (if_block0)
           if_block0.c();
@@ -3185,27 +3190,27 @@ table.svelte-18nqf8w {
         nav2 = element("nav");
         if (if_block4)
           if_block4.c();
-        attr(h3, "class", "svelte-3en29u");
-        attr(hr0, "class", "svelte-3en29u");
-        attr(h60, "class", "svelte-3en29u");
+        attr(h3, "class", "svelte-1dhjh13");
+        attr(hr0, "class", "svelte-1dhjh13");
+        attr(h60, "class", "svelte-1dhjh13");
         attr(a, "href", "/");
-        attr(a, "class", "svelte-3en29u");
+        attr(a, "class", "svelte-1dhjh13");
         toggle_class(
           a,
           "active",
           /*segment1*/
           ctx[1] === ""
         );
-        attr(nav0, "class", "menu svelte-3en29u");
-        attr(hr1, "class", "svelte-3en29u");
-        attr(h61, "class", "svelte-3en29u");
-        attr(nav1, "class", "menu svelte-3en29u");
-        attr(hr2, "class", "svelte-3en29u");
-        attr(h62, "class", "svelte-3en29u");
-        attr(nav2, "class", "menu svelte-3en29u");
-        attr(div0, "class", "menu_container svelte-3en29u");
-        attr(div1, "class", "side_menu_admin_container svelte-3en29u");
-        attr(aside, "class", "side_menu_admin svelte-3en29u");
+        attr(nav0, "class", "menu svelte-1dhjh13");
+        attr(hr1, "class", "svelte-1dhjh13");
+        attr(h61, "class", "svelte-1dhjh13");
+        attr(nav1, "class", "menu svelte-1dhjh13");
+        attr(hr2, "class", "svelte-1dhjh13");
+        attr(h62, "class", "svelte-1dhjh13");
+        attr(nav2, "class", "menu svelte-1dhjh13");
+        attr(div0, "class", "menu_container svelte-1dhjh13");
+        attr(div1, "class", "side_menu_admin_container svelte-1dhjh13");
+        attr(aside, "class", "side_menu_admin svelte-1dhjh13");
       },
       m(target, anchor) {
         insert(target, aside, anchor);

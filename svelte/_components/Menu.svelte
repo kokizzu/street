@@ -75,11 +75,12 @@
       overflow-y: auto;
       flex-direction: row;
       flex-wrap: nowrap;
-      overflow: hidden;
+      overflow: auto;
       background-color: white;
       color: #475569;
       padding: 16px 24px;
       width: 256px;
+      filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
     }
     .side_menu_admin_container {
       flex-direction: column;
