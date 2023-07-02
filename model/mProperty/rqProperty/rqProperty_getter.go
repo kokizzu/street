@@ -54,7 +54,7 @@ LIMIT 1`
 	orderBySql := z3.OrderBySql(z2.Order, PropertyFieldTypeMap)
 	limitOffsetSql := z3.LimitOffsetSql()
 
-	queryRows := `-- Property) FindByPagination
+	queryRows := `
 SELECT ` + z.ToSelect() + `
 FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	p.Adapter.QuerySql(queryRows, func(row []any) {
@@ -87,7 +87,7 @@ LIMIT 1`
 		z3.CalculatePages(z2.Page, z2.PerPage, int(X.ToI(row[0])))
 	})
 
-	orderBySql := z3.OrderBySql(z2.Order, PropertyFieldTypeMap)
+	orderBySql := z3.OrderBySql(z2.Order, PropertyHistoryFieldTypeMap)
 	limitOffsetSql := z3.LimitOffsetSql()
 
 	queryRows := `-- PropertyHistory) FindByPagination

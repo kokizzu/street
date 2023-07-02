@@ -29,7 +29,7 @@ func fixPropertyTable(propOltp *Tt.Adapter) {
 
 	prop := rqProperty.NewProperty(propOltp)
 
-	const wrongImportAt = 1678793685972
+	const wrongImportAt = 1678_000_000_000
 
 	in := zCrud.PagerIn{
 		Page:    1,
@@ -82,7 +82,7 @@ func fixPropertyHistoryTable(propOltp *Tt.Adapter) {
 
 	ph := rqProperty.NewPropertyHistory(propOltp)
 
-	const wrongImportAt = 1678793685972
+	const wrongImportAt = 1678_000_000_000
 
 	in := zCrud.PagerIn{
 		Page:    1,
