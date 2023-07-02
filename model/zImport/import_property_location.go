@@ -6,11 +6,10 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"street/model/mProperty/wcProperty"
 	"time"
 
 	"github.com/kokizzu/gotro/L"
-
-	"street/model/mProperty/wcProperty"
 
 	"github.com/kokizzu/gotro/D/Tt"
 )
@@ -46,22 +45,29 @@ type Candidate struct {
 }
 
 func buildFullLocationSearchUrl(apiKey string, address string) string {
-	const googleApiUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext`
+	const googleApiUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json`
 
-	fields := "formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry"
-	addressStr := address
+	listFields := "formatted_address,name,rating,opening_hours,geometry"
 	inputType := "textquery"
-	googleApiKey := apiKey
-	placeApiUrl := googleApiUrl + "/json?fields=" + fields + "&input=" + addressStr + "&inputtype=" + inputType + "&key=" + googleApiKey
+	req, err := http.NewRequest("GET", googleApiUrl, nil)
+	if err != nil {
+		L.Print(err)
+		os.Exit(1)
+	}
+	q := req.URL.Query()
+	q.Add("fields", listFields)
+	q.Add("input", address)
+	q.Add("inputtype", inputType)
+	q.Add("key", apiKey)
+	req.URL.RawQuery = q.Encode()
 
-	return placeApiUrl
+	return req.URL.String()
 }
 
 func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string) {
 	defer subTaskPrint(`retrieveLatLongFromAddress: retrieve lat/long`)()
 
 	propertyMutator := wcProperty.NewPropertyMutator(adapter)
-
 	properties := propertyMutator.FindAllProperties()
 
 	stat := &ImporterStat{Total: len(properties), PrintEvery: 10}
