@@ -120,7 +120,7 @@ func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string) {
 		stat.Ok(dataMutator.DoOverwriteById())
 	}
 
-	stat.Print()
+	stat.Print(`force`)
 }
 
 func ImportHouseLocation(adapter *Tt.Adapter) {
