@@ -39,6 +39,10 @@ func (s *ImporterStat) Print(opt ...any) {
 		s.upserted, s.skipped, s.warn, s.failed,
 		float64(progress*100)/float64(s.Total),
 		fastime.Since(*s.startTime).Seconds())
+
+	if len(s.warnings) > 0 {
+		fmt.Printf("\n    Warnings: %v", s.warnings)
+	}
 }
 
 func (s *ImporterStat) Skip() {
@@ -56,6 +60,7 @@ func (s *ImporterStat) Ok(ok bool) {
 func (s *ImporterStat) Warn(str string) {
 	if s.mutex == nil {
 		s.mutex = &sync.Mutex{}
+		s.warnings = map[string]int{}
 	}
 	s.mutex.Lock()
 	s.warnings[str] += 1
