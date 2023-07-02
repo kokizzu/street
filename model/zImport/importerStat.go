@@ -54,6 +54,9 @@ func (s *ImporterStat) Ok(ok bool) {
 }
 
 func (s *ImporterStat) Warn(str string) {
+	if s.mutex == nil {
+		s.mutex = &sync.Mutex{}
+	}
 	s.mutex.Lock()
 	s.warnings[str] += 1
 	s.mutex.Unlock()
