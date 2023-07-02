@@ -41,7 +41,7 @@ type Candidate struct {
 	Geometry         Geometry `json:"geometry"`
 }
 
-func buildFullPlaceSearchUrl(apiKey string, googleApiUrl string, address string) string {
+func buildFullLocationSearchUrl(apiKey string, googleApiUrl string, address string) string {
 	fields := "formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry"
 	addressStr := address
 	inputType := "textquery"
@@ -72,8 +72,7 @@ func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string, googleApiUrl
 			continue
 		}
 
-		fullUrl := buildFullPlaceSearchUrl(apiKey, googleApiUrl, p.Address)
-		fmt.Println("Full URL => ", fullUrl)
+		fullUrl := buildFullLocationSearchUrl(apiKey, googleApiUrl, p.Address)
 		locationResponse, err := http.Get(fullUrl)
 
 		if err != nil {
@@ -89,8 +88,6 @@ func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string, googleApiUrl
 		propertyLocation := PlaceResponse{}
 
 		json.Unmarshal([]byte(responseData), &propertyLocation)
-		fmt.Println("Response => ", propertyLocation.Candidates[0].FormattedAddress)
-		fmt.Println("Response 2 => ", propertyLocation.Candidates[0].Geometry)
 		if len(propertyLocation.Candidates) == 0 {
 			stat.Skip()
 			fmt.Println("There is no available location for this address")
@@ -108,12 +105,7 @@ func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string, googleApiUrl
 		dataMutator.Coord = []any{latitude, longitude}
 		dataMutator.UpdatedAt = time.Now().Unix()
 
-		fmt.Println("PropertyKey = " + p.UniqPropKey)
 		stat.Ok(dataMutator.DoOverwriteById())
-
-		if index >= 10 {
-			break
-		}
 	}
 
 	fmt.Println("Total length of properties => ", len(properties))
