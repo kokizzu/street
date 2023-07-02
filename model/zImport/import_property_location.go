@@ -15,36 +15,39 @@ import (
 	"github.com/kokizzu/gotro/D/Tt"
 )
 
-// A Place Response
+// PlaceResponse A Place Response
 type PlaceResponse struct {
 	Candidates []Candidate `json:"candidates"`
 	Status     string      `json:"status"`
 }
 
-// Location
+// Location lat and long
 type Location struct {
 	Lat float64 `json:"lat"`
 	Lng float64 `json:"lng"`
 }
 
-// View Port
+// ViewPort viewport
 type ViewPort struct {
 	Northeast Location `json:"northeast"`
 	Southwest Location `json:"southwest"`
 }
 
-// Geometry model
+// Geometry geometry model
 type Geometry struct {
 	Location Location `json:"location"`
 	ViewPort ViewPort `json:"viewport"`
 }
 
+// Candidate candidate
 type Candidate struct {
 	FormattedAddress string   `json:"formatted_address"`
 	Geometry         Geometry `json:"geometry"`
 }
 
-func buildFullLocationSearchUrl(apiKey string, googleApiUrl string, address string) string {
+func buildFullLocationSearchUrl(apiKey string, address string) string {
+	const googleApiUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext`
+
 	fields := "formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry"
 	addressStr := address
 	inputType := "textquery"
@@ -54,7 +57,7 @@ func buildFullLocationSearchUrl(apiKey string, googleApiUrl string, address stri
 	return placeApiUrl
 }
 
-func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string, googleApiUrl string) {
+func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string) {
 	defer subTaskPrint(`retrieveLatLongFromAddress: retrieve lat/long`)()
 
 	propertyMutator := wcProperty.NewPropertyMutator(adapter)
@@ -75,7 +78,7 @@ func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string, googleApiUrl
 			continue
 		}
 
-		fullUrl := buildFullLocationSearchUrl(apiKey, googleApiUrl, p.Address)
+		fullUrl := buildFullLocationSearchUrl(apiKey, p.Address)
 		locationResponse, err := http.Get(fullUrl)
 
 		if L.IsError(err, `retrieveLatLongFromAddress: get location response`) {
@@ -127,13 +130,7 @@ func ImportHouseLocation(adapter *Tt.Adapter) {
 		return
 	}
 
-	googleApiUrl := os.Getenv("GOOGLE_API_URL")
-	if googleApiUrl == "" {
-		fmt.Println("Require google api url to execute this operation")
-		return
-	}
-
 	start := time.Now()
-	retrieveLatLongFromAddress(adapter, googleApiKey, googleApiUrl)
+	retrieveLatLongFromAddress(adapter, googleApiKey)
 	L.TimeTrack(start, "ImportHouseLocation")
 }
