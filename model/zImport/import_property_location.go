@@ -103,7 +103,7 @@ func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string) {
 			stat.Skip()
 			stat.Warn(`empty location`)
 			//fmt.Println("There is no available location for this address")
-			break
+			continue
 		}
 
 		dataMutator := wcProperty.NewPropertyMutator(adapter)

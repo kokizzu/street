@@ -2,6 +2,7 @@ package zImport
 
 import (
 	"fmt"
+	"sync"
 	"time"
 
 	"github.com/kpango/fastime"
@@ -17,6 +18,9 @@ type ImporterStat struct {
 	startTime *time.Time
 
 	PrintEvery int
+
+	mutex    *sync.Mutex
+	warnings map[string]int
 }
 
 func (s *ImporterStat) Print(opt ...any) {
@@ -50,5 +54,7 @@ func (s *ImporterStat) Ok(ok bool) {
 }
 
 func (s *ImporterStat) Warn(str string) {
-
+	s.mutex.Lock()
+	s.warnings[str] += 1
+	s.mutex.Unlock()
 }
