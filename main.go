@@ -168,6 +168,8 @@ func main() {
 			fmt.Println("Error -> ", err)
 		}
 		zImport.ImportExcelData(tConn, p)
+	case `import_location`:
+		zImport.ImportHouseLocation(tConn)
 	case `upgradememtx`:
 		zUpgrade.UserSessionToMemtx(tConn)
 	default:
