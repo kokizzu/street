@@ -30,7 +30,7 @@
       <div class="menu_container">
          <!-- PAGES -->
          <hr />
-         <h6>LAYOUT PAGES</h6>
+         <h6>MENU</h6>
          <nav class='menu'>
             <a href='/' class:active={segment1 === ''}>
                <i class="gg-home"></i>
@@ -50,14 +50,14 @@
             {/if}
             {#if access.admin }
                <a href='/admin' class:active={segment1 === 'admin'}>
-                  <i class="gg-profile"></i>
+                  <i class="gg-options" style="margin-left: 5px !important; margin-right: 5px;"></i>
                   <span>ADMIN</span>
                </a>
             {/if}
          </nav>
-         <!-- NO LAYOUT PAGES -->
+         <!-- SETTING -->
          <hr />
-         <h6>NO LAYOUT PAGES</h6>
+         <h6>SETTING</h6>
          <nav class='menu'>
             {#if access.user}
                <a href='/user' class:active={segment1 === 'user'}>
@@ -65,11 +65,6 @@
                   <span>PROFILE</span>
                </a>
             {/if}
-         </nav>
-         <!-- AUTH -->
-         <hr />
-         <h6>AUTH</h6>
-         <nav class='menu'>
             {#if access.user}
                <button on:click={userLogout} class="logout">
                   <i class="gg-log-out"></i>
@@ -128,7 +123,7 @@
     }
     .menu_container h6 {
       font-size: 15px;
-      margin: 8px 0;
+      margin: 12px 0;
     }
 
     .menu_container .menu { 
@@ -153,8 +148,14 @@
       align-items: center;
       align-content: center;
     }
+    .menu_container .menu .logout {
+      margin-left: 4px !important;
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-right: 0;
+    }
     .menu_container .menu .logout span {
-      margin-left: 30px !important;
+      margin-left: 25px !important;
     }
     .menu_container .menu a i, .menu_container .menu .logout i { /*ICON*/
       margin: 0;

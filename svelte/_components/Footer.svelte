@@ -33,6 +33,6 @@
 		color: #475569;
 	}
 	footer nav a:hover {
-		text-decoration: underline;
+		color: #EF4444;
 	}
 </style>
