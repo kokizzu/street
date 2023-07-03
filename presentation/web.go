@@ -88,7 +88,6 @@ func (w *WebServer) Start() {
 	views = &Views{}
 	views.LoadAll()
 
-	fw.Use(recover.New())
 	fw.Use(limiter.New(limiter.Config{
 		Max:               300,
 		Expiration:        30 * time.Second,
@@ -96,6 +95,8 @@ func (w *WebServer) Start() {
 	}))
 	if conf.IsDebug() { // TODO: use faster logger for production
 		fw.Use(logger.New())
+	} else { // prevent panic on production
+		fw.Use(recover.New())
 	}
 
 	// assign static routes (GET)
