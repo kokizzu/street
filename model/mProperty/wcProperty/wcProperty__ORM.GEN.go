@@ -146,7 +146,7 @@ func (p *PropertyMutator) SetId(val uint64) bool { //nolint:dupl false positive
 func (p *PropertyMutator) SetUniqPropKey(val string) bool { //nolint:dupl false positive
 	if val != p.UniqPropKey {
 		p.mutations = append(p.mutations, A.X{`=`, 1, val})
-		p.logs = append(p.logs, A.X{`UniqPropKey`, p.UniqPropKey, val})
+		p.logs = append(p.logs, A.X{`uniqPropKey`, p.UniqPropKey, val})
 		p.UniqPropKey = val
 		return true
 	}

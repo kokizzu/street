@@ -60,7 +60,7 @@ var (
 				InputType: zCrud.InputTypeText,
 			},
 			{
-				Name:      mProperty.UniqPropKey,
+				Name:      mProperty.SerialNumber,
 				Label:     `Serial Number`,
 				DataType:  zCrud.DataTypeString,
 				InputType: zCrud.InputTypeText,

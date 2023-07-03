@@ -83,7 +83,7 @@ func (p *Property) SpatialIndexCoord() string { //nolint:dupl false positive
 
 // UniqueIndexUniqPropKey return unique index name
 func (p *Property) UniqueIndexUniqPropKey() string { //nolint:dupl false positive
-	return `UniqPropKey`
+	return `uniqPropKey`
 }
 
 // FindByUniqPropKey Find one by UniqPropKey
@@ -103,7 +103,7 @@ func (p *Property) FindByUniqPropKey() bool { //nolint:dupl false positive
 // SqlSelectAllFields generate Sql select fields
 func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "id"
-	, "UniqPropKey"
+	, "uniqPropKey"
 	, "serialNumber"
 	, "sizeM2"
 	, "mainUse"
@@ -127,7 +127,7 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 // SqlSelectAllUncensoredFields generate Sql select fields
 func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
 	return ` "id"
-	, "UniqPropKey"
+	, "uniqPropKey"
 	, "serialNumber"
 	, "sizeM2"
 	, "mainUse"
@@ -190,7 +190,7 @@ func (p *Property) IdxUniqPropKey() int { //nolint:dupl false positive
 
 // SqlUniqPropKey return name of the column being indexed
 func (p *Property) SqlUniqPropKey() string { //nolint:dupl false positive
-	return `"UniqPropKey"`
+	return `"uniqPropKey"`
 }
 
 // IdxSerialNumber return name of the index
@@ -481,7 +481,7 @@ func (p *Property) Total() int64 { //nolint:dupl false positive
 // PropertyFieldTypeMap returns key value of field name and key
 var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`id`:                     Tt.Unsigned,
-	`UniqPropKey`:            Tt.String,
+	`uniqPropKey`:            Tt.String,
 	`serialNumber`:           Tt.String,
 	`sizeM2`:                 Tt.String,
 	`mainUse`:                Tt.String,

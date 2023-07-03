@@ -9,7 +9,7 @@ const (
 	TableProperty Tt.TableName = `property`
 
 	Id                     = `id`
-	UniqPropKey            = `UniqPropKey`
+	UniqPropKey            = `uniqPropKey`
 	SerialNumber           = `serialNumber`
 	SizeM2                 = `sizeM2`
 	MainUse                = `mainUse`
