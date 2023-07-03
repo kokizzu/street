@@ -2278,6 +2278,9 @@ label.svelte-1346uxr {
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
         return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.AdminPropHistories = async function AdminPropHistories(i, cb) {
+        return await axios.post("/admin/propHistories", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminProperties = async function AdminProperties(i, cb) {
         return await axios.post("/admin/properties", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2322,6 +2325,9 @@ label.svelte-1346uxr {
       };
       exports.UserProfile = async function UserProfile(i, cb) {
         return await axios.post("/user/profile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserPropHistory = async function UserPropHistory(i, cb) {
+        return await axios.post("/user/propHistory", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserSearchProp = async function UserSearchProp(i, cb) {
         return await axios.post("/user/searchProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -3453,8 +3459,10 @@ label.svelte-1346uxr {
     let t3;
     let li2;
     let t5;
+    let li3;
+    let t7;
     let c0;
-    let t6;
+    let t8;
     let c1;
     return {
       c() {
@@ -3468,8 +3476,11 @@ label.svelte-1346uxr {
         li2 = element("li");
         li2.innerHTML = `<a href="/admin/properties" class="svelte-dk81xr">Properties</a>`;
         t5 = space();
+        li3 = element("li");
+        li3.innerHTML = `<a href="/admin/propHistories" class="svelte-dk81xr">Prop Histories</a>`;
+        t7 = space();
         c0 = comment(`  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>`);
-        t6 = space();
+        t8 = space();
         c1 = comment(`  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>`);
         attr(li0, "class", "svelte-dk81xr");
         toggle_class(
@@ -3492,6 +3503,13 @@ label.svelte-1346uxr {
           /*segment2*/
           ctx[0] === "properties"
         );
+        attr(li3, "class", "svelte-dk81xr");
+        toggle_class(
+          li3,
+          "active",
+          /*segment2*/
+          ctx[0] === "propHistories"
+        );
         attr(ul, "class", "submenu svelte-dk81xr");
       },
       m(target, anchor) {
@@ -3502,8 +3520,10 @@ label.svelte-1346uxr {
         append(ul, t3);
         append(ul, li2);
         append(ul, t5);
+        append(ul, li3);
+        append(ul, t7);
         append(ul, c0);
-        append(ul, t6);
+        append(ul, t8);
         append(ul, c1);
       },
       p(ctx2, [dirty]) {
@@ -3532,6 +3552,15 @@ label.svelte-1346uxr {
             "active",
             /*segment2*/
             ctx2[0] === "properties"
+          );
+        }
+        if (dirty & /*segment2*/
+        1) {
+          toggle_class(
+            li3,
+            "active",
+            /*segment2*/
+            ctx2[0] === "propHistories"
           );
         }
       },

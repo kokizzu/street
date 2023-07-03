@@ -22,6 +22,15 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
+	case domain.AdminPropHistoriesAction:
+		in := domain.AdminPropHistoriesIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.AdminPropHistories(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+
 	case domain.AdminPropertiesAction:
 		in := domain.AdminPropertiesIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

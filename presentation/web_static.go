@@ -165,6 +165,27 @@ func WebStatic(fw *fiber.App, d *domain.Domain) {
 			`pager`:      out.Pager,
 		})
 	})
+	fw.Get(`/`+domain.AdminPropHistoriesAction, func(ctx *fiber.Ctx) error {
+		var in domain.AdminPropHistoriesIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminPropHistoriesAction)
+		if err != nil {
+			return err
+		}
+		if notAdmin(ctx, d, in.RequestCommon) {
+			return nil
+		}
+		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Action = zCrud.ActionList
+		out := d.AdminPropHistories(&in)
+		return views.RenderAdminPropHistories(ctx, M.SX{
+			`title`:         `Prop Histories`,
+			`segments`:      segments,
+			`propHistories`: out.PropHistories,
+			`fields`:        out.Meta.Fields,
+			`pager`:         out.Pager,
+		})
+	})
 	fw.Get(`/user`, func(ctx *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {

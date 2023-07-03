@@ -2181,6 +2181,9 @@
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
         return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.AdminPropHistories = async function AdminPropHistories(i, cb) {
+        return await axios.post("/admin/propHistories", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminProperties = async function AdminProperties(i, cb) {
         return await axios.post("/admin/properties", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2225,6 +2228,9 @@
       };
       exports.UserProfile = async function UserProfile(i, cb) {
         return await axios.post("/user/profile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserPropHistory = async function UserPropHistory(i, cb) {
+        return await axios.post("/user/propHistory", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserSearchProp = async function UserSearchProp(i, cb) {
         return await axios.post("/user/searchProp", i).then(wrapOk(cb)).catch(wrapErr(cb));

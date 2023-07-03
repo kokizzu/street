@@ -12,6 +12,7 @@ import (
 var viewList = map[string]string{
 	`Admin`: `../svelte/admin.html`, // ../svelte/admin.svelte
 	`AdminActionLogs`: `../svelte/admin/actionLogs.html`, // ../svelte/admin/actionLogs.svelte
+	`AdminPropHistories`: `../svelte/admin/propHistories.html`, // ../svelte/admin/propHistories.svelte
 	`AdminProperties`: `../svelte/admin/properties.html`, // ../svelte/admin/properties.svelte
 	`AdminSessions`: `../svelte/admin/sessions.html`, // ../svelte/admin/sessions.svelte
 	`AdminUsers`: `../svelte/admin/users.html`, // ../svelte/admin/users.svelte
@@ -36,6 +37,11 @@ func (v *Views) RenderAdmin(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderAdminActionLogs(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`AdminActionLogs`].Str(m))
+}
+
+func (v *Views) RenderAdminPropHistories(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`AdminPropHistories`].Str(m))
 }
 
 func (v *Views) RenderAdminProperties(c *fiber.Ctx, m M.SX) error {

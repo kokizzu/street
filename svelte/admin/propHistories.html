@@ -2278,10 +2278,10 @@ label.svelte-1346uxr {
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
         return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.AdminPropHistories = async function AdminPropHistories(i, cb) {
+      exports.AdminPropHistories = async function AdminPropHistories2(i, cb) {
         return await axios.post("/admin/propHistories", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.AdminProperties = async function AdminProperties2(i, cb) {
+      exports.AdminProperties = async function AdminProperties(i, cb) {
         return await axios.post("/admin/properties", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.AdminUsers = async function AdminUsers(i, cb) {
@@ -5608,7 +5608,7 @@ label.svelte-1346uxr {
   };
   var ModalForm_default = ModalForm;
 
-  // admin/properties.svelte
+  // admin/propHistories.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
   function create_fragment5(ctx) {
     let menu;
@@ -5628,7 +5628,7 @@ label.svelte-1346uxr {
     adminsubmenu = new adminSubMenu_default({});
     let modalform_props = {
       fields,
-      rowType: "Property",
+      rowType: "Prop History",
       onConfirm: (
         /*saveRow*/
         ctx[6]
@@ -5640,7 +5640,7 @@ label.svelte-1346uxr {
       ctx[8](value);
     }
     let tableview_props = { fields, rows: (
-      /*properties*/
+      /*propHistories*/
       ctx[0]
     ) };
     if (
@@ -5700,9 +5700,9 @@ label.svelte-1346uxr {
         const modalform_changes = {};
         modalform.$set(modalform_changes);
         const tableview_changes = {};
-        if (dirty & /*properties*/
+        if (dirty & /*propHistories*/
         1)
-          tableview_changes.rows = /*properties*/
+          tableview_changes.rows = /*propHistories*/
           ctx2[0];
         if (!updating_pager && dirty & /*pager*/
         2) {
@@ -5750,7 +5750,7 @@ label.svelte-1346uxr {
   var segments = {/* segments */};
   var fields = [/* fields */];
   function instance5($self, $props, $invalidate) {
-    let properties = [/* properties */];
+    let propHistories = [/* propHistories */];
     let pager = {/* pager */};
     function handleResponse(res) {
       console.log(res);
@@ -5758,21 +5758,21 @@ label.svelte-1346uxr {
         alert(res.error);
         return true;
       }
-      if (res.properties && res.properties.length)
-        $invalidate(0, properties = res.properties);
+      if (res.propHistories && res.propHistories.length)
+        $invalidate(0, propHistories = res.propHistories);
       if (res.pager && res.pager.page)
         $invalidate(1, pager = res.pager);
     }
     async function refreshTableView(e) {
       const pagerIn = e.detail;
-      await (0, import_jsApi.AdminProperties)({ pager: pagerIn, action: "list" }, function(res) {
+      await (0, import_jsApi.AdminPropHistories)({ pager: pagerIn, action: "list" }, function(res) {
         handleResponse(res);
       });
     }
     let form = ModalForm_default;
     async function editRow(e) {
       const id = e.detail;
-      await (0, import_jsApi.AdminProperties)({ property: { id }, action: "form" }, function(res) {
+      await (0, import_jsApi.AdminPropHistories)({ propHistory: { id }, action: "form" }, function(res) {
         if (!handleResponse(res))
           form.showModal(res.property);
       });
@@ -5781,14 +5781,14 @@ label.svelte-1346uxr {
       form.showModal({ id: "" });
     }
     async function saveRow(action, row) {
-      let property = { ...row };
-      if (!property.id)
-        property.id = "0";
-      console.log(property);
-      property.coord = JSON.parse("[" + property.coord + "]");
-      await (0, import_jsApi.AdminProperties)(
+      let ph = { ...row };
+      if (!ph.id)
+        ph.id = "0";
+      console.log(ph);
+      ph.coord = JSON.parse("[" + ph.coord + "]");
+      await (0, import_jsApi.AdminPropHistories)(
         {
-          property,
+          property: ph,
           action,
           pager
           // force refresh page, will be slow
@@ -5812,14 +5812,14 @@ label.svelte-1346uxr {
       $invalidate(1, pager);
     }
     $self.$.update = () => {
-      if ($self.$.dirty & /*properties*/
+      if ($self.$.dirty & /*propHistories*/
       1) {
         $:
-          console.log(properties);
+          console.log(propHistories);
       }
     };
     return [
-      properties,
+      propHistories,
       pager,
       form,
       refreshTableView,
@@ -5830,16 +5830,16 @@ label.svelte-1346uxr {
       tableview_pager_binding
     ];
   }
-  var Properties = class extends SvelteComponent {
+  var PropHistories = class extends SvelteComponent {
     constructor(options) {
       super();
       init(this, options, instance5, create_fragment5, safe_not_equal, {});
     }
   };
-  var properties_default = Properties;
+  var propHistories_default = PropHistories;
 
-  // admin/properties.svelte.ts
-  var app = new properties_default({ target: document.getElementById("app") });
+  // admin/propHistories.svelte.ts
+  var app = new propHistories_default({ target: document.getElementById("app") });
 })();
 </script>
 </body></html>

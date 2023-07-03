@@ -63,6 +63,155 @@ exports.AdminDashboard = async function AdminDashboard( i, cb ) {
 }
 
 /**
+ * @typedef {Object} AdminPropHistoriesIn
+ * @property {String} action
+ * @property {number} propHistory.id
+ * @property {String} propHistory.propertyKey
+ * @property {String} propHistory.transactionKey
+ * @property {String} propHistory.transactionType
+ * @property {String} propHistory.transactionSign
+ * @property {String} propHistory.transactionTime
+ * @property {String} propHistory.transactionDateNormal
+ * @property {String} propHistory.transactionNumber
+ * @property {number} propHistory.priceNtd
+ * @property {number} propHistory.pricePerUnit
+ * @property {number} propHistory.price
+ * @property {String} propHistory.address
+ * @property {String} propHistory.district
+ * @property {String} propHistory.note
+ * @property {number} propHistory.createdAt
+ * @property {number} propHistory.createdBy
+ * @property {number} propHistory.updatedAt
+ * @property {number} propHistory.updatedBy
+ * @property {number} propHistory.deletedAt
+ * @property {Object} withMeta
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ */
+const AdminPropHistoriesIn = {
+  action: '', // string
+  propHistory: { // rqProperty.PropertyHistory
+    id: 0, // uint64
+    propertyKey: '', // string
+    transactionKey: '', // string
+    transactionType: '', // string
+    transactionSign: '', // string
+    transactionTime: '', // string
+    transactionDateNormal: '', // string
+    transactionNumber: '', // string
+    priceNtd: 0, // int64
+    pricePerUnit: 0, // int64
+    price: 0, // int64
+    address: '', // string
+    district: '', // string
+    note: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+  }, // rqProperty.PropertyHistory
+  withMeta: false, // bool
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
+}
+/**
+ * @typedef {Object} AdminPropHistoriesOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
+ * @property {number} propHistory.id
+ * @property {String} propHistory.propertyKey
+ * @property {String} propHistory.transactionKey
+ * @property {String} propHistory.transactionType
+ * @property {String} propHistory.transactionSign
+ * @property {String} propHistory.transactionTime
+ * @property {String} propHistory.transactionDateNormal
+ * @property {String} propHistory.transactionNumber
+ * @property {number} propHistory.priceNtd
+ * @property {number} propHistory.pricePerUnit
+ * @property {number} propHistory.price
+ * @property {String} propHistory.address
+ * @property {String} propHistory.district
+ * @property {String} propHistory.note
+ * @property {number} propHistory.createdAt
+ * @property {number} propHistory.createdBy
+ * @property {number} propHistory.updatedAt
+ * @property {number} propHistory.updatedBy
+ * @property {number} propHistory.deletedAt
+ * @property {Object} propHistories
+ */
+const AdminPropHistoriesOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
+  propHistory: { // rqProperty.PropertyHistory
+    id: 0, // uint64
+    propertyKey: '', // string
+    transactionKey: '', // string
+    transactionType: '', // string
+    transactionSign: '', // string
+    transactionTime: '', // string
+    transactionDateNormal: '', // string
+    transactionNumber: '', // string
+    priceNtd: 0, // int64
+    pricePerUnit: 0, // int64
+    price: 0, // int64
+    address: '', // string
+    district: '', // string
+    note: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+  }, // rqProperty.PropertyHistory
+  propHistories: { // [][]any
+  }, // [][]any
+}
+/**
+ * @callback AdminPropHistoriesCallback
+ * @param {AdminPropHistoriesOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {AdminPropHistoriesIn} i
+ * @param {AdminPropHistoriesCallback} cb
+ * @returns {Promise}
+ */
+exports.AdminPropHistories = async function AdminPropHistories( i, cb ) {
+  return await axios.post( '/admin/propHistories', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} AdminPropertiesIn
  * @property {String} action
  * @property {number} property.id
