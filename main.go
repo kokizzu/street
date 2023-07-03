@@ -19,7 +19,7 @@ import (
 	"street/domain"
 	"street/model"
 	"street/model/xMailer"
-	"street/model/zUpgrade"
+	"street/model/zImport"
 	"street/presentation"
 )
 
@@ -111,7 +111,7 @@ func main() {
 
 	oauth := conf.EnvOauth()
 
-	L.PanicIf(eg.Wait(), `eg.Wait`)
+	L.PanicIf(eg.Wait(), `eg.Wait`) // if error, make sure no error on: docker compose up
 	for _, closer := range closers {
 		closer := closer
 		defer closer()
@@ -133,8 +133,14 @@ func main() {
 		Superadmins: conf.EnvSuperAdmins(),
 	}
 
-	// start
 	mode := S.ToLower(os.Args[1])
+
+	// check table existence
+	if mode != `migrate` {
+		model.VerifyTables(tConn, cConn, tConn, cConn)
+	}
+
+	// start
 	switch mode {
 	case `web`:
 		ws := &presentation.WebServer{
@@ -160,9 +166,13 @@ func main() {
 		if err != nil {
 			fmt.Println("Error -> ", err)
 		}
-		model.ImportExcelData(tConn, p)
-	case `upgradememtx`:
-		zUpgrade.UserSessionToMemtx(tConn)
+		zImport.ImportExcelData(tConn, p)
+	case `import_location`:
+		zImport.ImportHouseLocation(tConn)
+	//case `upgradememtx`:
+	//	zUpgrade.UserSessionToMemtx(tConn)
+	case `fix_time`:
+		zImport.FixCreatedUpdatedAt(tConn)
 	default:
 		log.Error().Str(`mode`, mode).Msg(`unknown mode`)
 	}
