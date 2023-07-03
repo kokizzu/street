@@ -9,12 +9,12 @@
 		<div class="right_nav">
 			<form class="search_input">
 				<span>
-					<i class="fa-solid fa-magnifying-glass"></i>
+					<i class="gg-search"></i>
 				</span>
 				<input type="text" placeholder="Search here..." name="search" />
 			</form>
 			<button class="profile_button">
-				<img src="/assets/img/team-1-800x800.jpg" alt="Profile Picture" />
+				<img src="/assets/img/team-1-200x200.jpg" alt="Profile Picture" />
 			</button>
 		</div>
 	</nav>
@@ -60,7 +60,7 @@
    	margin-bottom: auto;
    }
    .profile_header .navbar .right_nav .search_input > span {
-   	padding: 12px;
+   	padding: 13px;
    	position: absolute;
    	z-index: 10;
    	font-size: 16px;

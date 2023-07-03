@@ -1,9 +1,6 @@
 <html><head>
    <title>/*! title */</title>
    <link href="/css.gg.css" rel="stylesheet">
-   <link rel="stylesheet" href="/assets/fontawesome/css/fontawesome.min.css">
-   <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">
-   <link rel="stylesheet" href="/assets/fontawesome/css/solid.min.css">
 </head>
 <body>
    <style>
@@ -58,7 +55,7 @@
 
 <style>/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/Menu.esbuild-svelte-fake-css */
 @media (min-width: 768px) {
-  .side_menu_admin.svelte-1dhjh13.svelte-1dhjh13 {
+  .side_menu_admin.svelte-tsa3sm.svelte-tsa3sm {
     left: 0;
     display: block;
     position: fixed;
@@ -74,7 +71,7 @@
     width: 256px;
     filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   }
-  .side_menu_admin_container.svelte-1dhjh13.svelte-1dhjh13 {
+  .side_menu_admin_container.svelte-tsa3sm.svelte-tsa3sm {
     flex-direction: column;
     align-items: stretch;
     min-height: 100%;
@@ -84,56 +81,66 @@
     width: 100%;
     margin: 0 auto;
   }
-  .side_menu_admin_container.svelte-1dhjh13 h3.svelte-1dhjh13 {
+  .side_menu_admin_container.svelte-tsa3sm h3.svelte-tsa3sm {
     font-size: 16px;
     line-height: 1.5rem;
     padding: 15px 0 10px 0;
     margin: 0;
   }
-  .menu_container.svelte-1dhjh13.svelte-1dhjh13 {
+  .menu_container.svelte-tsa3sm.svelte-tsa3sm {
     margin-top: 1rem;
     align-items: stretch;
     flex-direction: column;
     display: flex;
   }
-  .menu_container.svelte-1dhjh13 hr.svelte-1dhjh13 {
+  .menu_container.svelte-tsa3sm hr.svelte-tsa3sm {
     margin: 1rem 0;
   }
-  .menu_container.svelte-1dhjh13 h6.svelte-1dhjh13 {
+  .menu_container.svelte-tsa3sm h6.svelte-tsa3sm {
     font-size: 15px;
     margin: 8px 0;
   }
-  .menu_container.svelte-1dhjh13 .menu.svelte-1dhjh13 {
+  .menu_container.svelte-tsa3sm .menu.svelte-tsa3sm {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
   }
-  .menu_container.svelte-1dhjh13 .menu a.svelte-1dhjh13,
-  .menu.svelte-1dhjh13 .logout.svelte-1dhjh13 {
+  .menu_container.svelte-tsa3sm .menu a.svelte-tsa3sm,
+  .menu.svelte-tsa3sm .logout.svelte-tsa3sm {
     color: #475569;
     text-decoration: none;
     margin: 0;
     padding: 0.75rem 0;
-    font-size: 0.875rem;
+    font-size: 0.875rem !important;
     line-height: 1.25rem;
     font-weight: 700;
     text-transform: uppercase;
     text-align: left;
     background-color: transparent;
     border: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
   }
-  .menu_container.svelte-1dhjh13 .menu a i.svelte-1dhjh13,
-  .menu_container.svelte-1dhjh13 .menu button i.svelte-1dhjh13 {
-    margin-right: 0.8rem;
-    font-size: 14px;
+  .menu_container.svelte-tsa3sm .menu .logout span.svelte-tsa3sm {
+    margin-left: 30px !important;
+  }
+  .menu_container.svelte-tsa3sm .menu a i.svelte-tsa3sm,
+  .menu_container.svelte-tsa3sm .menu .logout i.svelte-tsa3sm {
+    margin: 0;
     color: #CBD5E1;
   }
-  .menu_container.svelte-1dhjh13 .menu a.svelte-1dhjh13:hover,
-  .menu_container.svelte-1dhjh13 .menu button.svelte-1dhjh13:hover {
+  .menu_container.svelte-tsa3sm .menu a.svelte-tsa3sm:hover,
+  .menu_container.svelte-tsa3sm .menu .logout.svelte-tsa3sm:hover {
     color: #64748B;
   }
-  .active.svelte-1dhjh13.svelte-1dhjh13,
-  .active.svelte-1dhjh13 i.svelte-1dhjh13 {
+  .menu_container.svelte-tsa3sm .menu a span.svelte-tsa3sm,
+  .menu_container.svelte-tsa3sm .menu .logout span.svelte-tsa3sm {
+    margin-left: 15px;
+  }
+  .active.svelte-tsa3sm.svelte-tsa3sm,
+  .active.svelte-tsa3sm i.svelte-tsa3sm {
     color: #EF4444 !important;
   }
 }
@@ -2917,9 +2924,9 @@ table.svelte-18nqf8w {
     return {
       c() {
         a = element("a");
-        a.innerHTML = `<i class="fa-solid fa-money-bill-wave svelte-1dhjh13"></i> BUYER`;
+        a.innerHTML = `<i class="gg-shopping-bag svelte-tsa3sm"></i> <span class="svelte-tsa3sm">BUYER</span>`;
         attr(a, "href", "/buyer");
-        attr(a, "class", "svelte-1dhjh13");
+        attr(a, "class", "svelte-tsa3sm");
         toggle_class(
           a,
           "active",
@@ -2953,9 +2960,9 @@ table.svelte-18nqf8w {
     return {
       c() {
         a = element("a");
-        a.innerHTML = `<i class="fa-solid fa-user-tie svelte-1dhjh13"></i> REALTOR`;
+        a.innerHTML = `<i class="gg-hello svelte-tsa3sm"></i> <span class="svelte-tsa3sm">REALTOR</span>`;
         attr(a, "href", "/realtor");
-        attr(a, "class", "svelte-1dhjh13");
+        attr(a, "class", "svelte-tsa3sm");
         toggle_class(
           a,
           "active",
@@ -2989,9 +2996,9 @@ table.svelte-18nqf8w {
     return {
       c() {
         a = element("a");
-        a.innerHTML = `<i class="fa-sharp fa-solid fa-user-gear svelte-1dhjh13"></i> ADMIN`;
+        a.innerHTML = `<i class="gg-profile svelte-tsa3sm"></i> <span class="svelte-tsa3sm">ADMIN</span>`;
         attr(a, "href", "/admin");
-        attr(a, "class", "svelte-1dhjh13");
+        attr(a, "class", "svelte-tsa3sm");
         toggle_class(
           a,
           "active",
@@ -3025,9 +3032,9 @@ table.svelte-18nqf8w {
     return {
       c() {
         a = element("a");
-        a.innerHTML = `<i class="fa-solid fa-user-circle svelte-1dhjh13"></i> PROFILE`;
+        a.innerHTML = `<i class="gg-profile svelte-tsa3sm"></i> <span class="svelte-tsa3sm">PROFILE</span>`;
         attr(a, "href", "/user");
-        attr(a, "class", "svelte-1dhjh13");
+        attr(a, "class", "svelte-tsa3sm");
         toggle_class(
           a,
           "active",
@@ -3063,8 +3070,8 @@ table.svelte-18nqf8w {
     return {
       c() {
         button = element("button");
-        button.innerHTML = `<i class="fa-solid fa-right-from-bracket svelte-1dhjh13"></i> LOGOUT`;
-        attr(button, "class", "logout svelte-1dhjh13");
+        button.innerHTML = `<i class="gg-log-out svelte-tsa3sm"></i> <span class="svelte-tsa3sm">LOGOUT</span>`;
+        attr(button, "class", "logout svelte-tsa3sm");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -3102,24 +3109,24 @@ table.svelte-18nqf8w {
     let t5;
     let nav0;
     let a;
-    let t7;
     let t8;
     let t9;
     let t10;
-    let c1;
     let t11;
-    let hr1;
+    let c1;
     let t12;
+    let hr1;
+    let t13;
     let h61;
-    let t14;
-    let nav1;
     let t15;
-    let c2;
+    let nav1;
     let t16;
-    let hr2;
+    let c2;
     let t17;
+    let hr2;
+    let t18;
     let h62;
-    let t19;
+    let t20;
     let nav2;
     let if_block0 = (
       /*access*/
@@ -3158,59 +3165,59 @@ table.svelte-18nqf8w {
         t5 = space();
         nav0 = element("nav");
         a = element("a");
-        a.innerHTML = `<i class="fas fa-home svelte-1dhjh13" aria-hidden="true"></i> HOME`;
-        t7 = space();
+        a.innerHTML = `<i class="gg-home svelte-tsa3sm"></i> <span class="svelte-tsa3sm">HOME</span>`;
+        t8 = space();
         if (if_block0)
           if_block0.c();
-        t8 = space();
+        t9 = space();
         if (if_block1)
           if_block1.c();
-        t9 = space();
+        t10 = space();
         if (if_block2)
           if_block2.c();
-        t10 = space();
-        c1 = comment(" NO LAYOUT PAGES ");
         t11 = space();
-        hr1 = element("hr");
+        c1 = comment(" NO LAYOUT PAGES ");
         t12 = space();
+        hr1 = element("hr");
+        t13 = space();
         h61 = element("h6");
         h61.textContent = "NO LAYOUT PAGES";
-        t14 = space();
+        t15 = space();
         nav1 = element("nav");
         if (if_block3)
           if_block3.c();
-        t15 = space();
-        c2 = comment(" AUTH ");
         t16 = space();
-        hr2 = element("hr");
+        c2 = comment(" AUTH ");
         t17 = space();
+        hr2 = element("hr");
+        t18 = space();
         h62 = element("h6");
         h62.textContent = "AUTH";
-        t19 = space();
+        t20 = space();
         nav2 = element("nav");
         if (if_block4)
           if_block4.c();
-        attr(h3, "class", "svelte-1dhjh13");
-        attr(hr0, "class", "svelte-1dhjh13");
-        attr(h60, "class", "svelte-1dhjh13");
+        attr(h3, "class", "svelte-tsa3sm");
+        attr(hr0, "class", "svelte-tsa3sm");
+        attr(h60, "class", "svelte-tsa3sm");
         attr(a, "href", "/");
-        attr(a, "class", "svelte-1dhjh13");
+        attr(a, "class", "svelte-tsa3sm");
         toggle_class(
           a,
           "active",
           /*segment1*/
           ctx[1] === ""
         );
-        attr(nav0, "class", "menu svelte-1dhjh13");
-        attr(hr1, "class", "svelte-1dhjh13");
-        attr(h61, "class", "svelte-1dhjh13");
-        attr(nav1, "class", "menu svelte-1dhjh13");
-        attr(hr2, "class", "svelte-1dhjh13");
-        attr(h62, "class", "svelte-1dhjh13");
-        attr(nav2, "class", "menu svelte-1dhjh13");
-        attr(div0, "class", "menu_container svelte-1dhjh13");
-        attr(div1, "class", "side_menu_admin_container svelte-1dhjh13");
-        attr(aside, "class", "side_menu_admin svelte-1dhjh13");
+        attr(nav0, "class", "menu svelte-tsa3sm");
+        attr(hr1, "class", "svelte-tsa3sm");
+        attr(h61, "class", "svelte-tsa3sm");
+        attr(nav1, "class", "menu svelte-tsa3sm");
+        attr(hr2, "class", "svelte-tsa3sm");
+        attr(h62, "class", "svelte-tsa3sm");
+        attr(nav2, "class", "menu svelte-tsa3sm");
+        attr(div0, "class", "menu_container svelte-tsa3sm");
+        attr(div1, "class", "side_menu_admin_container svelte-tsa3sm");
+        attr(aside, "class", "side_menu_admin svelte-tsa3sm");
       },
       m(target, anchor) {
         insert(target, aside, anchor);
@@ -3226,32 +3233,32 @@ table.svelte-18nqf8w {
         append(div0, t5);
         append(div0, nav0);
         append(nav0, a);
-        append(nav0, t7);
+        append(nav0, t8);
         if (if_block0)
           if_block0.m(nav0, null);
-        append(nav0, t8);
+        append(nav0, t9);
         if (if_block1)
           if_block1.m(nav0, null);
-        append(nav0, t9);
+        append(nav0, t10);
         if (if_block2)
           if_block2.m(nav0, null);
-        append(div0, t10);
-        append(div0, c1);
         append(div0, t11);
-        append(div0, hr1);
+        append(div0, c1);
         append(div0, t12);
+        append(div0, hr1);
+        append(div0, t13);
         append(div0, h61);
-        append(div0, t14);
+        append(div0, t15);
         append(div0, nav1);
         if (if_block3)
           if_block3.m(nav1, null);
-        append(div0, t15);
-        append(div0, c2);
         append(div0, t16);
-        append(div0, hr2);
+        append(div0, c2);
         append(div0, t17);
+        append(div0, hr2);
+        append(div0, t18);
         append(div0, h62);
-        append(div0, t19);
+        append(div0, t20);
         append(div0, nav2);
         if (if_block4)
           if_block4.m(nav2, null);
@@ -3275,7 +3282,7 @@ table.svelte-18nqf8w {
           } else {
             if_block0 = create_if_block_4(ctx2);
             if_block0.c();
-            if_block0.m(nav0, t8);
+            if_block0.m(nav0, t9);
           }
         } else if (if_block0) {
           if_block0.d(1);
@@ -3290,7 +3297,7 @@ table.svelte-18nqf8w {
           } else {
             if_block1 = create_if_block_3(ctx2);
             if_block1.c();
-            if_block1.m(nav0, t9);
+            if_block1.m(nav0, t10);
           }
         } else if (if_block1) {
           if_block1.d(1);

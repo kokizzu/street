@@ -32,15 +32,27 @@
          <hr />
          <h6>LAYOUT PAGES</h6>
          <nav class='menu'>
-            <a href='/' class:active={segment1 === ''}><i class="fas fa-home" aria-hidden="true"></i> HOME</a>
+            <a href='/' class:active={segment1 === ''}>
+               <i class="gg-home"></i>
+               <span>HOME</span>
+            </a>
             {#if access.buyer }
-               <a href='/buyer' class:active={segment1 === 'buyer'}><i class="fa-solid fa-money-bill-wave"></i> BUYER</a>
+               <a href='/buyer' class:active={segment1 === 'buyer'}>
+                  <i class="gg-shopping-bag"></i>
+                  <span>BUYER</span>
+               </a>
             {/if}
             {#if access.realtor}
-               <a href='/realtor' class:active={segment1 === 'realtor'}><i class="fa-solid fa-user-tie"></i> REALTOR</a>
+               <a href='/realtor' class:active={segment1 === 'realtor'}>
+                  <i class="gg-hello"></i>
+                  <span>REALTOR</span>
+               </a>
             {/if}
             {#if access.admin }
-               <a href='/admin' class:active={segment1 === 'admin'}><i class="fa-sharp fa-solid fa-user-gear"></i> ADMIN</a>
+               <a href='/admin' class:active={segment1 === 'admin'}>
+                  <i class="gg-profile"></i>
+                  <span>ADMIN</span>
+               </a>
             {/if}
          </nav>
          <!-- NO LAYOUT PAGES -->
@@ -48,7 +60,10 @@
          <h6>NO LAYOUT PAGES</h6>
          <nav class='menu'>
             {#if access.user}
-               <a href='/user' class:active={segment1 === 'user'}><i class="fa-solid fa-user-circle"></i> PROFILE</a>
+               <a href='/user' class:active={segment1 === 'user'}>
+                  <i class="gg-profile"></i>
+                  <span>PROFILE</span>
+               </a>
             {/if}
          </nav>
          <!-- AUTH -->
@@ -56,7 +71,10 @@
          <h6>AUTH</h6>
          <nav class='menu'>
             {#if access.user}
-               <button on:click={userLogout} class="logout"><i class="fa-solid fa-right-from-bracket"></i> LOGOUT</button>
+               <button on:click={userLogout} class="logout">
+                  <i class="gg-log-out"></i>
+                  <span>LOGOUT</span>
+               </button>
             {/if}
          </nav>
       </div>
@@ -123,21 +141,30 @@
       text-decoration: none;
       margin: 0;
       padding: 0.75rem 0;
-      font-size: 0.875rem;
+      font-size: 0.875rem !important;
       line-height: 1.25rem;
       font-weight: 700;
       text-transform: uppercase;
       text-align: left;
       background-color: transparent;
       border: none;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      align-content: center;
     }
-    .menu_container .menu a i, .menu_container .menu button i { /*ICON*/
-      margin-right: 0.8rem;
-      font-size: 14px;
+    .menu_container .menu .logout span {
+      margin-left: 30px !important;
+    }
+    .menu_container .menu a i, .menu_container .menu .logout i { /*ICON*/
+      margin: 0;
       color: #CBD5E1;
     }
-    .menu_container .menu a:hover, .menu_container .menu button:hover { /*HOVER*/
+    .menu_container .menu a:hover, .menu_container .menu .logout:hover { /*HOVER*/
       color: #64748B;
+    }
+    .menu_container .menu a span, .menu_container .menu .logout span {
+      margin-left: 15px;
     }
     .active, .active i { /*ACTIVE Navigation*/
       color: #EF4444 !important;
