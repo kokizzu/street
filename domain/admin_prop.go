@@ -176,6 +176,7 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 			prop.SetCreatedAt(in.UnixNow())
 		}
 
+		prop.SetUniqPropKey(in.Property.UniqPropKey)
 		prop.SetSerialNumber(in.Property.SerialNumber)
 		prop.SetSizeM2(in.Property.SizeM2)
 		prop.SetMainUse(in.Property.MainUse)
