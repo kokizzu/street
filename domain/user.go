@@ -313,7 +313,7 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 		return
 	}
 
-	prop := rqProperty.NewProperty(d.AuthOltp)
+	prop := rqProperty.NewProperty(d.PropOltp)
 
 	if in.Limit == 0 {
 		in.Limit = DefaultLimit
@@ -334,4 +334,37 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 		return
 	}
 	return
+}
+
+type (
+	UserPropHistoryIn struct {
+		RequestCommon `json:"request_common"`
+
+		PropertyKey string `json:"propertyKey" form:"propertyKey" query:"propertyKey" long:"propertyKey" msg:"propertyKey"`
+	}
+
+	UserPropHistoryOut struct {
+		ResponseCommon
+
+		History []*rqProperty.PropertyHistory `json:"history" form:"history" query:"history" long:"history" msg:"history"`
+	}
+)
+
+const (
+	UserPropHistoryAction = `user/propHistory`
+)
+
+func (d *Domain) UserPropHistory(in *UserPropHistoryIn) (out UserPropHistoryOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
+
+	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
+	if sess == nil {
+		return
+	}
+
+	hist := rqProperty.NewPropertyHistory(d.PropOltp)
+
+	out.History = hist.FindByPropertyKey(in.PropertyKey)
+	return
+
 }

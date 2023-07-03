@@ -83,6 +83,7 @@ exports.AdminDashboard = async function AdminDashboard( i, cb ) {
  * @property {number} property.updatedAt
  * @property {number} property.updatedBy
  * @property {number} property.deletedAt
+ * @property {String} property.formattedAddress
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -111,6 +112,7 @@ const AdminPropertiesIn = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    formattedAddress: '', // string
   }, // rqProperty.Property
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -150,6 +152,7 @@ const AdminPropertiesIn = {
  * @property {number} property.updatedAt
  * @property {number} property.updatedBy
  * @property {number} property.deletedAt
+ * @property {String} property.formattedAddress
  * @property {Object} properties
  */
 const AdminPropertiesOut = {
@@ -189,6 +192,7 @@ const AdminPropertiesOut = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    formattedAddress: '', // string
   }, // rqProperty.Property
   properties: { // [][]any
   }, // [][]any
@@ -903,6 +907,37 @@ const UserProfileOut = {
  */
 exports.UserProfile = async function UserProfile( i, cb ) {
   return await axios.post( '/user/profile', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserPropHistoryIn
+ * @property {String} propertyKey
+ */
+const UserPropHistoryIn = {
+  propertyKey: '', // string
+}
+/**
+ * @typedef {Object} UserPropHistoryOut
+ * @property {Object} history
+ */
+const UserPropHistoryOut = {
+  history: { // []rqProperty.PropertyHistory
+  }, // []rqProperty.PropertyHistory
+}
+/**
+ * @callback UserPropHistoryCallback
+ * @param {UserPropHistoryOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserPropHistoryIn} i
+ * @param {UserPropHistoryCallback} cb
+ * @returns {Promise}
+ */
+exports.UserPropHistory = async function UserPropHistory( i, cb ) {
+  return await axios.post( '/user/propHistory', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

@@ -30,7 +30,7 @@ const (
 
 	TablePropertyHistory Tt.TableName = `property_history`
 
-	PropertyKey           = `propertyKey`
+	PropertyKey           = `propertyKey` // refer to UniqPropKey?
 	TransactionKey        = `transactionKey`
 	TransactionType       = `transactionType`
 	TransactionSign       = `transactionSign`
