@@ -95,7 +95,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		},
 		AutoIncrementId: true,
 		Unique1:         TransactionKey,
-		Indexes:         []string{Id},
+		Indexes:         []string{PropertyKey},
 		Engine:          Tt.Memtx,
 	},
 }
