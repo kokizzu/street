@@ -7,6 +7,12 @@ import (
 	"street/model/zCrud"
 )
 
+//go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file admin_prop.go
+//go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type admin_prop.go
+//go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type admin_prop.go
+//go:generate replacer -afterprefix 'By" form' 'By,string" form' type admin_prop.go
+//go:generate farify doublequote --file admin_prop.go
+
 type (
 	AdminPropertiesIn struct {
 		RequestCommon
@@ -19,7 +25,7 @@ type (
 		// will be filled by default with form id=0
 		WithMeta bool `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
 
-		Pager zCrud.PagerIn
+		Pager zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 	}
 
 	AdminPropertiesOut struct {
@@ -219,25 +225,25 @@ type (
 	AdminPropHistoriesIn struct {
 		RequestCommon
 
-		Action string `json:"action"`
+		Action string `json:"action" form:"action" query:"action" long:"action" msg:"action"`
 
-		PropHistory *rqProperty.PropertyHistory `json:"propertyHistory"`
+		PropHistory rqProperty.PropertyHistory `json:"propHistory" form:"propHistory" query:"propHistory" long:"propHistory" msg:"propHistory"`
 
-		WithMeta bool `json:"withMeta"`
+		WithMeta bool `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
 
-		Pager zCrud.PagerIn `json:"pager"`
+		Pager zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 	}
 
 	AdminPropHistoriesOut struct {
 		ResponseCommon
 
-		Pager zCrud.PagerOut `json:"pager"`
+		Pager zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 
 		Meta *zCrud.Meta `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 
-		PropHistory *rqProperty.PropertyHistory
+		PropHistory *rqProperty.PropertyHistory `json:"propHistory" form:"propHistory" query:"propHistory" long:"propHistory" msg:"propHistory"`
 
-		PropHistories [][]any
+		PropHistories [][]any `json:"propHistories" form:"propHistories" query:"propHistories" long:"propHistories" msg:"propHistories"`
 	}
 )
 
@@ -410,8 +416,8 @@ func (d *Domain) AdminPropHistories(in *AdminPropHistoriesIn) (out AdminPropHist
 		}
 		fallthrough
 	case zCrud.ActionList:
-		r := rqProperty.NewPropertyHistory(d.PropOltp)
-		out.PropHistories = r.FindByPagination(&AdminPropHistoriesMeta, &in.Pager, &out.Pager)
+		ph := rqProperty.NewPropertyHistory(d.PropOltp)
+		out.PropHistories = ph.FindByPagination(&AdminPropHistoriesMeta, &in.Pager, &out.Pager)
 	}
 
 	return

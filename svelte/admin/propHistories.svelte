@@ -44,7 +44,7 @@
       action: 'form',
     }, function( res ) {
       if( !handleResponse( res ) )
-        form.showModal( res.property );
+        form.showModal( res.propHistory );
     } );
   }
   
@@ -56,9 +56,8 @@
     let ph = {...row};
     if( !ph.id ) ph.id = '0';
     console.log(ph)
-    ph.coord = JSON.parse( '[' + ph.coord + ']' );
     await AdminPropHistories( {
-      property: ph,
+      propHistory: ph,
       action: action,
       pager: pager, // force refresh page, will be slow
     }, function( res ) {

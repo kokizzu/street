@@ -5774,7 +5774,7 @@ label.svelte-1346uxr {
       const id = e.detail;
       await (0, import_jsApi.AdminPropHistories)({ propHistory: { id }, action: "form" }, function(res) {
         if (!handleResponse(res))
-          form.showModal(res.property);
+          form.showModal(res.propHistory);
       });
     }
     function addRow() {
@@ -5785,10 +5785,9 @@ label.svelte-1346uxr {
       if (!ph.id)
         ph.id = "0";
       console.log(ph);
-      ph.coord = JSON.parse("[" + ph.coord + "]");
       await (0, import_jsApi.AdminPropHistories)(
         {
-          property: ph,
+          propHistory: ph,
           action,
           pager
           // force refresh page, will be slow
