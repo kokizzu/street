@@ -55,8 +55,12 @@
   async function saveRow( action, row ) {
     let property = {...row};
     if( !property.id ) property.id = '0';
-    console.log(property)
-    property.coord = JSON.parse( '[' + property.coord + ']' );
+    console.log( property );
+    try {
+      property.coord = JSON.parse( '[' + property.coord + ']' );
+    } catch( e ) {
+      property.coord = [0, 0];
+    }
     await AdminProperties( {
       property: property,
       action: action,

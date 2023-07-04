@@ -5785,7 +5785,11 @@ label.svelte-1346uxr {
       if (!property.id)
         property.id = "0";
       console.log(property);
-      property.coord = JSON.parse("[" + property.coord + "]");
+      try {
+        property.coord = JSON.parse("[" + property.coord + "]");
+      } catch (e) {
+        property.coord = [0, 0];
+      }
       await (0, import_jsApi.AdminProperties)(
         {
           property,
