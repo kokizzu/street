@@ -141,6 +141,7 @@
 
     .backdrop {
         position   : fixed;
+        z-index: 40;
         top        : 0;
         left       : 0;
         background : grey;
@@ -152,6 +153,7 @@
     .modal {
         background-color : white;
         position         : fixed;
+        z-index: 50;
         top              : 20%;
         left             : 50%;
         width            : 600px;

@@ -92,7 +92,7 @@
       background-color: white;
       color: #475569;
       padding: 16px 24px;
-      width: 256px;
+      width: 20%;
       filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
     }
     .side_menu_admin_container {

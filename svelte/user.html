@@ -42,7 +42,7 @@
          background-color: #F1F5F9;
          min-height: 100vh;
          width: 100%;
-         margin-left: 256px;
+         margin-left: 20%;
       }
       .dashboard_main_content .content {
          min-height: 85vh;
@@ -55,7 +55,7 @@
 
 <style>/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/Menu.esbuild-svelte-fake-css */
 @media (min-width: 768px) {
-  .side_menu_admin.svelte-9o8pvl.svelte-9o8pvl {
+  .side_menu_admin.svelte-15dfv2d.svelte-15dfv2d {
     left: 0;
     display: block;
     position: fixed;
@@ -68,10 +68,10 @@
     background-color: white;
     color: #475569;
     padding: 16px 24px;
-    width: 256px;
+    width: 20%;
     filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   }
-  .side_menu_admin_container.svelte-9o8pvl.svelte-9o8pvl {
+  .side_menu_admin_container.svelte-15dfv2d.svelte-15dfv2d {
     flex-direction: column;
     align-items: stretch;
     min-height: 100%;
@@ -81,32 +81,32 @@
     width: 100%;
     margin: 0 auto;
   }
-  .side_menu_admin_container.svelte-9o8pvl h3.svelte-9o8pvl {
+  .side_menu_admin_container.svelte-15dfv2d h3.svelte-15dfv2d {
     font-size: 16px;
     line-height: 1.5rem;
     padding: 15px 0 10px 0;
     margin: 0;
   }
-  .menu_container.svelte-9o8pvl.svelte-9o8pvl {
+  .menu_container.svelte-15dfv2d.svelte-15dfv2d {
     margin-top: 1rem;
     align-items: stretch;
     flex-direction: column;
     display: flex;
   }
-  .menu_container.svelte-9o8pvl hr.svelte-9o8pvl {
+  .menu_container.svelte-15dfv2d hr.svelte-15dfv2d {
     margin: 1rem 0;
   }
-  .menu_container.svelte-9o8pvl h6.svelte-9o8pvl {
+  .menu_container.svelte-15dfv2d h6.svelte-15dfv2d {
     font-size: 15px;
     margin: 12px 0;
   }
-  .menu_container.svelte-9o8pvl .menu.svelte-9o8pvl {
+  .menu_container.svelte-15dfv2d .menu.svelte-15dfv2d {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
   }
-  .menu_container.svelte-9o8pvl .menu a.svelte-9o8pvl,
-  .menu.svelte-9o8pvl .logout.svelte-9o8pvl {
+  .menu_container.svelte-15dfv2d .menu a.svelte-15dfv2d,
+  .menu.svelte-15dfv2d .logout.svelte-15dfv2d {
     color: #475569;
     text-decoration: none;
     margin: 0;
@@ -123,30 +123,30 @@
     align-items: center;
     align-content: center;
   }
-  .menu_container.svelte-9o8pvl .menu .logout.svelte-9o8pvl {
+  .menu_container.svelte-15dfv2d .menu .logout.svelte-15dfv2d {
     margin-left: 4px !important;
     margin-top: 0;
     margin-bottom: 0;
     margin-right: 0;
   }
-  .menu_container.svelte-9o8pvl .menu .logout span.svelte-9o8pvl {
+  .menu_container.svelte-15dfv2d .menu .logout span.svelte-15dfv2d {
     margin-left: 25px !important;
   }
-  .menu_container.svelte-9o8pvl .menu a i.svelte-9o8pvl,
-  .menu_container.svelte-9o8pvl .menu .logout i.svelte-9o8pvl {
+  .menu_container.svelte-15dfv2d .menu a i.svelte-15dfv2d,
+  .menu_container.svelte-15dfv2d .menu .logout i.svelte-15dfv2d {
     margin: 0;
     color: #CBD5E1;
   }
-  .menu_container.svelte-9o8pvl .menu a.svelte-9o8pvl:hover,
-  .menu_container.svelte-9o8pvl .menu .logout.svelte-9o8pvl:hover {
+  .menu_container.svelte-15dfv2d .menu a.svelte-15dfv2d:hover,
+  .menu_container.svelte-15dfv2d .menu .logout.svelte-15dfv2d:hover {
     color: #64748B;
   }
-  .menu_container.svelte-9o8pvl .menu a span.svelte-9o8pvl,
-  .menu_container.svelte-9o8pvl .menu .logout span.svelte-9o8pvl {
+  .menu_container.svelte-15dfv2d .menu a span.svelte-15dfv2d,
+  .menu_container.svelte-15dfv2d .menu .logout span.svelte-15dfv2d {
     margin-left: 15px;
   }
-  .active.svelte-9o8pvl.svelte-9o8pvl,
-  .active.svelte-9o8pvl i.svelte-9o8pvl {
+  .active.svelte-15dfv2d.svelte-15dfv2d,
+  .active.svelte-15dfv2d i.svelte-15dfv2d {
     color: #EF4444 !important;
   }
 }
@@ -2267,8 +2267,10 @@
       function datetime2(unixSec) {
         if (!unixSec)
           return "";
-        const dt = new Date(unixSec * 1e3).toISOString();
-        return dt.substring(0, 10) + " " + dt.substring(11, 16);
+        const dt = new Date(unixSec * 1e3);
+        const options = { day: "2-digit", month: "long", year: "numeric" };
+        const formattedDate = dt.toLocaleDateString(void 0, options);
+        return formattedDate;
       }
       module.exports = {
         datetime: datetime2
@@ -2901,9 +2903,9 @@
     return {
       c() {
         a = element("a");
-        a.innerHTML = `<i class="gg-shopping-bag svelte-9o8pvl"></i> <span class="svelte-9o8pvl">BUYER</span>`;
+        a.innerHTML = `<i class="gg-shopping-bag svelte-15dfv2d"></i> <span class="svelte-15dfv2d">BUYER</span>`;
         attr(a, "href", "/buyer");
-        attr(a, "class", "svelte-9o8pvl");
+        attr(a, "class", "svelte-15dfv2d");
         toggle_class(
           a,
           "active",
@@ -2937,9 +2939,9 @@
     return {
       c() {
         a = element("a");
-        a.innerHTML = `<i class="gg-hello svelte-9o8pvl"></i> <span class="svelte-9o8pvl">REALTOR</span>`;
+        a.innerHTML = `<i class="gg-hello svelte-15dfv2d"></i> <span class="svelte-15dfv2d">REALTOR</span>`;
         attr(a, "href", "/realtor");
-        attr(a, "class", "svelte-9o8pvl");
+        attr(a, "class", "svelte-15dfv2d");
         toggle_class(
           a,
           "active",
@@ -2973,9 +2975,9 @@
     return {
       c() {
         a = element("a");
-        a.innerHTML = `<i class="gg-options svelte-9o8pvl" style="margin-left: 5px !important; margin-right: 5px;"></i> <span class="svelte-9o8pvl">ADMIN</span>`;
+        a.innerHTML = `<i class="gg-options svelte-15dfv2d" style="margin-left: 5px !important; margin-right: 5px;"></i> <span class="svelte-15dfv2d">ADMIN</span>`;
         attr(a, "href", "/admin");
-        attr(a, "class", "svelte-9o8pvl");
+        attr(a, "class", "svelte-15dfv2d");
         toggle_class(
           a,
           "active",
@@ -3009,9 +3011,9 @@
     return {
       c() {
         a = element("a");
-        a.innerHTML = `<i class="gg-profile svelte-9o8pvl"></i> <span class="svelte-9o8pvl">PROFILE</span>`;
+        a.innerHTML = `<i class="gg-profile svelte-15dfv2d"></i> <span class="svelte-15dfv2d">PROFILE</span>`;
         attr(a, "href", "/user");
-        attr(a, "class", "svelte-9o8pvl");
+        attr(a, "class", "svelte-15dfv2d");
         toggle_class(
           a,
           "active",
@@ -3047,8 +3049,8 @@
     return {
       c() {
         button = element("button");
-        button.innerHTML = `<i class="gg-log-out svelte-9o8pvl"></i> <span class="svelte-9o8pvl">LOGOUT</span>`;
-        attr(button, "class", "logout svelte-9o8pvl");
+        button.innerHTML = `<i class="gg-log-out svelte-15dfv2d"></i> <span class="svelte-15dfv2d">LOGOUT</span>`;
+        attr(button, "class", "logout svelte-15dfv2d");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -3135,7 +3137,7 @@
         t5 = space();
         nav0 = element("nav");
         a = element("a");
-        a.innerHTML = `<i class="gg-home svelte-9o8pvl"></i> <span class="svelte-9o8pvl">HOME</span>`;
+        a.innerHTML = `<i class="gg-home svelte-15dfv2d"></i> <span class="svelte-15dfv2d">HOME</span>`;
         t8 = space();
         if (if_block0)
           if_block0.c();
@@ -3159,24 +3161,24 @@
         t16 = space();
         if (if_block4)
           if_block4.c();
-        attr(h3, "class", "svelte-9o8pvl");
-        attr(hr0, "class", "svelte-9o8pvl");
-        attr(h60, "class", "svelte-9o8pvl");
+        attr(h3, "class", "svelte-15dfv2d");
+        attr(hr0, "class", "svelte-15dfv2d");
+        attr(h60, "class", "svelte-15dfv2d");
         attr(a, "href", "/");
-        attr(a, "class", "svelte-9o8pvl");
+        attr(a, "class", "svelte-15dfv2d");
         toggle_class(
           a,
           "active",
           /*segment1*/
           ctx[1] === ""
         );
-        attr(nav0, "class", "menu svelte-9o8pvl");
-        attr(hr1, "class", "svelte-9o8pvl");
-        attr(h61, "class", "svelte-9o8pvl");
-        attr(nav1, "class", "menu svelte-9o8pvl");
-        attr(div0, "class", "menu_container svelte-9o8pvl");
-        attr(div1, "class", "side_menu_admin_container svelte-9o8pvl");
-        attr(aside, "class", "side_menu_admin svelte-9o8pvl");
+        attr(nav0, "class", "menu svelte-15dfv2d");
+        attr(hr1, "class", "svelte-15dfv2d");
+        attr(h61, "class", "svelte-15dfv2d");
+        attr(nav1, "class", "menu svelte-15dfv2d");
+        attr(div0, "class", "menu_container svelte-15dfv2d");
+        attr(div1, "class", "side_menu_admin_container svelte-15dfv2d");
+        attr(aside, "class", "side_menu_admin svelte-15dfv2d");
       },
       m(target, anchor) {
         insert(target, aside, anchor);

@@ -76,18 +76,61 @@
       <ProfileHeader></ProfileHeader>
       <AdminSubMenu></AdminSubMenu>
       <div class="content">
-         <button on:click={addRow}>Add</button>
          <ModalForm {fields}
             rowType='User'
             bind:this={form}
             onConfirm={saveRow}
          ></ModalForm>
-         <TableView {fields}
-            bind:pager={pager}
-            rows={users}
-            on:refreshTableView={refreshTableView}
-            on:editRow={editRow}
-         ></TableView>
+         <section class="users_dashboard">
+            <button on:click={addRow} class="add_button">
+               <i class="gg-add"></i>
+               <span>Add</span>
+            </button>
+            <TableView {fields}
+               bind:pager={pager}
+               rows={users}
+               on:refreshTableView={refreshTableView}
+               on:editRow={editRow}
+            ></TableView>
+         </section>
       </div>
    </div>
 </section>
+
+<style>
+   .users_dashboard {
+      position: relative;
+      z-index: 30;
+      margin-top: -40px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 8px;
+      filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+      padding: 20px;
+      background-color: white;
+      width: 88%;
+      height: fit-content;
+      color: #475569;
+      font-size: 16px;
+   }
+   .users_dashboard .add_button {
+      padding: 8px 20px;
+      font-size: 16px;
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      border: none;
+      background-color: #6366F1;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+   }
+   .users_dashboard .add_button:hover {
+      background-color: #7E80F1;
+   }
+   .users_dashboard .add_button i {
+      margin-right: 8px;
+   }
+</style>
