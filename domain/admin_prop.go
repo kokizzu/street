@@ -302,19 +302,19 @@ var AdminPropHistoriesMeta = zCrud.Meta{
 			Name:      mProperty.PriceNTD,
 			Label:     `Price NTD`,
 			DataType:  zCrud.DataTypeInt,
-			InputType: zCrud.InputTypeText,
+			InputType: zCrud.InputTypeNumber,
 		},
 		{
 			Name:      mProperty.PricePerUnit,
 			Label:     `Price Per Unit`,
 			DataType:  zCrud.DataTypeInt,
-			InputType: zCrud.InputTypeText,
+			InputType: zCrud.InputTypeNumber,
 		},
 		{
 			Name:      mProperty.Price,
 			Label:     `Price`,
 			DataType:  zCrud.DataTypeInt,
-			InputType: zCrud.InputTypeText,
+			InputType: zCrud.InputTypeNumber,
 		},
 		{
 			Name:      mProperty.Address,
