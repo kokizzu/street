@@ -393,6 +393,7 @@ func (d *Domain) AdminPropHistories(in *AdminPropHistoriesIn) (out AdminPropHist
 		ph.SetPropertyKey(in.PropHistory.PropertyKey)
 		ph.SetTransactionKey(in.PropHistory.TransactionKey)
 		ph.SetTransactionSign(in.PropHistory.TransactionSign)
+		ph.SetTransactionType(in.PropHistory.TransactionType)
 		ph.SetTransactionTime(in.PropHistory.TransactionTime)
 		ph.SetTransactionDateNormal(in.PropHistory.TransactionDateNormal)
 		ph.SetTransactionNumber(in.PropHistory.TransactionNumber)
