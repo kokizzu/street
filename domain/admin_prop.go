@@ -287,6 +287,12 @@ var AdminPropHistoriesMeta = zCrud.Meta{
 			InputType: zCrud.InputTypeText,
 		},
 		{
+			Name:      mProperty.TransactionType,
+			Label:     `Trx Type`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
 			Name:      mProperty.TransactionDateNormal,
 			Label:     `Trx Date Normal`,
 			DataType:  zCrud.DataTypeString,
