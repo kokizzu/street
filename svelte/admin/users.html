@@ -3637,7 +3637,7 @@ label.svelte-1346uxr {
       }
     };
   }
-  function create_if_block_32(ctx) {
+  function create_if_block_4(ctx) {
     let th;
     return {
       c() {
@@ -3663,7 +3663,7 @@ label.svelte-1346uxr {
         /*field*/
         ctx2[20].name === "id"
       )
-        return create_if_block_32;
+        return create_if_block_4;
       return create_else_block_1;
     }
     let current_block_type = select_block_type(ctx, -1);
@@ -3724,6 +3724,42 @@ label.svelte-1346uxr {
           /*i*/
           ctx2[22]
         ] + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+      }
+    };
+  }
+  function create_if_block_32(ctx) {
+    let td;
+    let t_value = (
+      /*row*/
+      (ctx[17][
+        /*i*/
+        ctx[22]
+      ] || 0).toLocaleString() + ""
+    );
+    let t;
+    return {
+      c() {
+        td = element("td");
+        t = text(t_value);
+        attr(td, "class", "svelte-1o1btri");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rows*/
+        4 && t_value !== (t_value = /*row*/
+        (ctx2[17][
+          /*i*/
+          ctx2[22]
+        ] || 0).toLocaleString() + ""))
           set_data(t, t_value);
       },
       d(detaching) {
@@ -3877,6 +3913,11 @@ label.svelte-1346uxr {
         ctx2[20].inputType === "datetime"
       )
         return create_if_block_22;
+      if (
+        /*field*/
+        ctx2[20].inputType === "number"
+      )
+        return create_if_block_32;
       return create_else_block;
     }
     let current_block_type = select_block_type_1(ctx, -1);
@@ -4818,7 +4859,7 @@ label.svelte-1346uxr {
       }
     };
   }
-  function create_if_block_4(ctx) {
+  function create_if_block_42(ctx) {
     let input;
     let mounted;
     let dispose;
@@ -5185,7 +5226,7 @@ label.svelte-1346uxr {
         /*field*/
         ctx2[21].inputType === "hidden"
       )
-        return create_if_block_4;
+        return create_if_block_42;
       return create_else_block_2;
     }
     let current_block_type = select_block_type_1(ctx, -1);

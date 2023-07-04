@@ -67,6 +67,8 @@
           <td>{!!row[ i ]}</td>
         {:else if field.inputType==='datetime'}
           <td>{datetime( row[ i ] )}</td>
+        {:else if field.inputType==='number'}
+          <td>{(row[i] || 0).toLocaleString()}</td>
         {:else}
           <td>{row[ i ]}</td>
         {/if}
