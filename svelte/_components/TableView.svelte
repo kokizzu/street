@@ -82,11 +82,7 @@
    <div class='pages_set'>
       <div class='page_and_rows_count'>
          <span>Page {pager.page} of {pager.pages},</span>
-         <div class='rows_count_mod'>
-            <button class='dec_btn' onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-</button>
-            <input id='perPage' class='perPage' type='number' min='0' bind:value={pager.perPage} on:change={() => changePerPage(pager.perPage)} />
-            <button class='inc_btn' onclick="this.parentNode.querySelector('input[type=number]').stepUp()">+</button>
-         </div>
+         <input id='perPage' class='perPage' type='number' min='0' bind:value={pager.perPage} on:change={() => changePerPage(pager.perPage)} />
          <span>rows per page.</span>
       </div>
       
@@ -162,47 +158,20 @@
       align-content: center;
       align-items: center;
    }
-   .pages_set .page_and_rows_count .rows_count_mod {
-      display: flex;
-      flex-direction: row;
-      align-content: stretch;
-      align-items: stretch;
-      margin: 0 5px;
-      border-collapse: collapse;
-   }
-   .pages_set .page_and_rows_count .rows_count_mod .perPage {
-      width: 2.5em;
+   
+   .pages_set .page_and_rows_count .perPage {
+      margin: auto 5px;
+      width: 4em;
       border: 1px solid #CBD5E1;
+      border-radius: 4px;
       padding: 5px;
       font-size: 14px;
       text-align: center;
       color: #161616;
       outline-color: #6366F1;
    }
-   .pages_set .page_and_rows_count .rows_count_mod button {
-      background: none;
-      border-top: 1px solid #CBD5E1;
-      border-bottom: 1px solid #CBD5E1;
-      font-weight: 600;
-      cursor: pointer;
-   }
-   .pages_set .page_and_rows_count .rows_count_mod .dec_btn {
-      padding: 0 7px;
-      border-right: none !important;
-      border-left: 1px solid #CBD5E1;
-      border: 1px solid #CBD5E1;
-      border-top-left-radius: 4px;
-      border-bottom-left-radius: 4px;
-   }
-   .pages_set .page_and_rows_count .rows_count_mod .inc_btn {
-      padding: 0 6px;
-      border-left: none;
-      border-right: 1px solid #CBD5E1;;
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
-   }
-   .pages_set .page_and_rows_count .rows_count_mod button:hover {
-      background-color: #EAEAEA;
+   .pages_set .page_and_rows_count .perPage::-webkit-inner-spin-button, .pages_set .page_and_rows_count .perPage::-webkit-outer-spin-button {
+      opacity: 1;
    }
 
    .pagination button {

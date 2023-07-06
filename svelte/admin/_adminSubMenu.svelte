@@ -35,7 +35,7 @@
       flex-direction: row;
    }
    .admin_submenu .menu a {
-      flex-basis: 33.333333%;
+      flex-grow: 1;
       color: #475569;
       background-color: white;
       border-radius: 6px;
@@ -47,12 +47,13 @@
       padding-top: 11px;
       padding-bottom: 11px;
       text-align: center;
+      margin-left: 20px;
    }
    .admin_submenu .menu a:hover {
       color: #EF4444;
    }
-   .admin_submenu .menu a:nth-child(2), .admin_submenu .menu a:nth-child(3) {
-      margin-left: 20px;
+   .admin_submenu .menu a:nth-child(1) {
+      margin-left: 0 !important;
    }
    .admin_submenu .menu .active {
       background-color : #334155 !important;
