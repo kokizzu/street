@@ -9,7 +9,7 @@ const (
 	TableProperty Tt.TableName = `property`
 
 	Id                     = `id`
-	UniqPropKey            = `UniqPropKey`
+	UniqPropKey            = `uniqPropKey`
 	SerialNumber           = `serialNumber`
 	SizeM2                 = `sizeM2`
 	MainUse                = `mainUse`
@@ -30,7 +30,7 @@ const (
 
 	TablePropertyHistory Tt.TableName = `property_history`
 
-	PropertyKey           = `propertyKey`
+	PropertyKey           = `propertyKey` // refer to UniqPropKey?
 	TransactionKey        = `transactionKey`
 	TransactionType       = `transactionType`
 	TransactionSign       = `transactionSign`
@@ -95,7 +95,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		},
 		AutoIncrementId: true,
 		Unique1:         TransactionKey,
-		Indexes:         []string{Id},
+		Indexes:         []string{PropertyKey},
 		Engine:          Tt.Memtx,
 	},
 }

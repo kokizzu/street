@@ -53,7 +53,7 @@
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/Menu.esbuild-svelte-fake-css */
+<style>/* fakecss:/tmp/street/svelte/_components/Menu.esbuild-svelte-fake-css */
 @media (min-width: 768px) {
   .side_menu_admin.svelte-15dfv2d.svelte-15dfv2d {
     left: 0;
@@ -151,7 +151,7 @@
   }
 }
 
-/* fakecss:/home/habi/Dev/workStuff/street/svelte/admin/_adminSubMenu.esbuild-svelte-fake-css */
+/* fakecss:/tmp/street/svelte/admin/_adminSubMenu.esbuild-svelte-fake-css */
 .admin_submenu.svelte-17lkp6m.svelte-17lkp6m {
   position: relative;
   margin-top: -40px;
@@ -194,7 +194,7 @@
   color: white !important;
 }
 
-/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/ProfileHeader.esbuild-svelte-fake-css */
+/* fakecss:/tmp/street/svelte/_components/ProfileHeader.esbuild-svelte-fake-css */
 .profile_header.svelte-o18qk1.svelte-o18qk1.svelte-o18qk1 {
   background-color: #EF4444;
   height: fit-content;
@@ -267,7 +267,7 @@
   border-radius: 9999px;
 }
 
-/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/Footer.esbuild-svelte-fake-css */
+/* fakecss:/tmp/street/svelte/_components/Footer.esbuild-svelte-fake-css */
 footer.svelte-1ezn232.svelte-1ezn232 {
   font-size: 16px;
   display: flex;
@@ -292,7 +292,7 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
   color: #EF4444;
 }
 
-/* fakecss:/home/habi/Dev/workStuff/street/svelte/admin.esbuild-svelte-fake-css */
+/* fakecss:/tmp/street/svelte/admin.esbuild-svelte-fake-css */
 .table_stats.svelte-3opxok {
   position: relative;
   margin-top: -40px;
@@ -350,9 +350,9 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
     mod
   ));
 
-  // node_modules/axios/dist/browser/axios.cjs
+  // node_modules/.pnpm/axios@1.4.0/node_modules/axios/dist/browser/axios.cjs
   var require_axios = __commonJS({
-    "node_modules/axios/dist/browser/axios.cjs"(exports, module) {
+    "node_modules/.pnpm/axios@1.4.0/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
       "use strict";
       function bind(fn, thisArg) {
         return function wrap() {
@@ -2379,6 +2379,9 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
         return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.AdminPropHistories = async function AdminPropHistories(i, cb) {
+        return await axios.post("/admin/propHistories", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminProperties = async function AdminProperties(i, cb) {
         return await axios.post("/admin/properties", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2424,6 +2427,9 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
       exports.UserProfile = async function UserProfile(i, cb) {
         return await axios.post("/user/profile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.UserPropHistory = async function UserPropHistory(i, cb) {
+        return await axios.post("/user/propHistory", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.UserSearchProp = async function UserSearchProp(i, cb) {
         return await axios.post("/user/searchProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2433,7 +2439,7 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
     }
   });
 
-  // node_modules/svelte/src/runtime/internal/utils.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
   function run(fn) {
@@ -2455,13 +2461,13 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
     return Object.keys(obj).length === 0;
   }
 
-  // node_modules/svelte/src/runtime/internal/globals.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
     // @ts-ignore Node typings have this
     global
   );
 
-  // node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
   var ResizeObserverSingleton = class {
     /**
      * @private
@@ -2507,7 +2513,7 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
   };
   ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
 
-  // node_modules/svelte/src/runtime/internal/dom.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/dom.js
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -2578,7 +2584,7 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
     return result;
   }
 
-  // node_modules/svelte/src/runtime/internal/lifecycle.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/lifecycle.js
   var current_component;
   function set_current_component(component) {
     current_component = component;
@@ -2592,7 +2598,7 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
     get_current_component().$.on_mount.push(fn);
   }
 
-  // node_modules/svelte/src/runtime/internal/scheduler.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -2667,7 +2673,7 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
     render_callbacks = filtered;
   }
 
-  // node_modules/svelte/src/runtime/internal/transitions.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   var outros;
   function transition_in(block, local) {
@@ -2695,12 +2701,12 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
     }
   }
 
-  // node_modules/svelte/src/runtime/internal/each.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/each.js
   function ensure_array_like(array_like_or_iterator) {
     return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
 
-  // node_modules/svelte/src/shared/boolean_attributes.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/shared/boolean_attributes.js
   var _boolean_attributes = (
     /** @type {const} */
     [
@@ -2733,7 +2739,7 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
   );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
-  // node_modules/svelte/src/runtime/internal/Component.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/Component.js
   function create_component(block) {
     block && block.c();
   }
@@ -3052,10 +3058,10 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
     }
   };
 
-  // node_modules/svelte/src/shared/version.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/shared/version.js
   var PUBLIC_VERSION = "4";
 
-  // node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/disclose-version/index.js
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
@@ -3529,8 +3535,10 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
     let t3;
     let a2;
     let t5;
+    let a3;
+    let t7;
     let c0;
-    let t6;
+    let t8;
     let c1;
     return {
       c() {
@@ -3545,8 +3553,11 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
         a2 = element("a");
         a2.textContent = "Properties";
         t5 = space();
+        a3 = element("a");
+        a3.textContent = "Prop Histories";
+        t7 = space();
         c0 = comment(`  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>`);
-        t6 = space();
+        t8 = space();
         c1 = comment(`  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>`);
         attr(a0, "href", "/admin");
         attr(a0, "class", "svelte-17lkp6m");
@@ -3572,6 +3583,14 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
           /*segment2*/
           ctx[0] === "properties"
         );
+        attr(a3, "href", "/admin/propHistories");
+        attr(a3, "class", "svelte-17lkp6m");
+        toggle_class(
+          a3,
+          "active",
+          /*segment2*/
+          ctx[0] === "propHistories"
+        );
         attr(nav, "class", "menu svelte-17lkp6m");
         attr(div, "class", "admin_submenu svelte-17lkp6m");
       },
@@ -3584,8 +3603,10 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
         append(nav, t3);
         append(nav, a2);
         append(nav, t5);
+        append(nav, a3);
+        append(nav, t7);
         append(nav, c0);
-        append(nav, t6);
+        append(nav, t8);
         append(nav, c1);
       },
       p(ctx2, [dirty]) {
@@ -3614,6 +3635,15 @@ footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
             "active",
             /*segment2*/
             ctx2[0] === "properties"
+          );
+        }
+        if (dirty & /*segment2*/
+        1) {
+          toggle_class(
+            a3,
+            "active",
+            /*segment2*/
+            ctx2[0] === "propHistories"
           );
         }
       },

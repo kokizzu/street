@@ -100,3 +100,19 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 
 	return
 }
+
+func (rq *PropertyHistory) FindByPropertyKey(key string) (res []*PropertyHistory) {
+	query := `SELECT
+` + rq.SqlSelectAllFields() + `
+FROM ` + rq.SqlTableName() + `
+WHERE ` + rq.SqlPropertyKey() + ` = ` + S.Z(key)
+	if conf.IsDebug() {
+		//L.Print(query)
+	}
+	rq.Adapter.QuerySql(query, func(row []any) {
+		obj := &PropertyHistory{}
+		obj.FromArray(row)
+		res = append(res, obj)
+	})
+	return
+}

@@ -3,14 +3,14 @@
   import AdminSubMenu from './_adminSubMenu.svelte';
   import TableView from '../_components/TableView.svelte';
   import ModalForm from '../_components/ModalForm.svelte';
-  import { AdminProperties } from '../jsApi.GEN';
+  import { AdminPropHistories } from '../jsApi.GEN';
   
   let segments = {/* segments */};
   let fields = [/* fields */];
-  let properties = [/* properties */] || [];
+  let propHistories = [/* propHistories */] || [];
   let pager = {/* pager */};
   
-  $: console.log( properties );
+  $: console.log( propHistories );
   
   // return true if got error
   function handleResponse( res ) {
@@ -20,14 +20,14 @@
       alert( res.error );
       return true;
     }
-    if( res.properties && res.properties.length ) properties = res.properties;
+    if( res.propHistories && res.propHistories.length ) propHistories = res.propHistories;
     if( res.pager && res.pager.page ) pager = res.pager;
   }
   
   async function refreshTableView( e ) {
     const pagerIn = e.detail;
     // console.log( pager );
-    await AdminProperties( {
+    await AdminPropHistories( {
       pager: pagerIn,
       action: 'list',
     }, function( res ) {
@@ -39,12 +39,12 @@
   
   async function editRow( e ) {
     const id = e.detail;
-    await AdminProperties( {
-      property: {id},
+    await AdminPropHistories( {
+      propHistory: {id},
       action: 'form',
     }, function( res ) {
       if( !handleResponse( res ) )
-        form.showModal( res.property );
+        form.showModal( res.propHistory );
     } );
   }
   
@@ -53,16 +53,11 @@
   }
   
   async function saveRow( action, row ) {
-    let property = {...row};
-    if( !property.id ) property.id = '0';
-    console.log( property );
-    try {
-      property.coord = JSON.parse( '[' + property.coord + ']' );
-    } catch( e ) {
-      property.coord = [0, 0];
-    }
-    await AdminProperties( {
-      property: property,
+    let ph = {...row};
+    if( !ph.id ) ph.id = '0';
+    console.log(ph)
+    await AdminPropHistories( {
+      propHistory: ph,
       action: action,
       pager: pager, // force refresh page, will be slow
     }, function( res ) {
@@ -80,13 +75,13 @@
 <AdminSubMenu></AdminSubMenu>
 <button on:click={addRow}>Add</button>
 <ModalForm {fields}
-           rowType='Property'
+           rowType='Prop History'
            bind:this={form}
            onConfirm={saveRow}
 ></ModalForm>
 <TableView {fields}
            bind:pager={pager}
-           rows={properties}
+           rows={propHistories}
            on:refreshTableView={refreshTableView}
            on:editRow={editRow}
 ></TableView>

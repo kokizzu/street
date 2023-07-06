@@ -53,7 +53,7 @@
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/Menu.esbuild-svelte-fake-css */
+<style>/* fakecss:/tmp/street/svelte/_components/Menu.esbuild-svelte-fake-css */
 @media (min-width: 768px) {
   .side_menu_admin.svelte-15dfv2d.svelte-15dfv2d {
     left: 0;
@@ -151,7 +151,7 @@
   }
 }
 
-/* fakecss:/home/habi/Dev/workStuff/street/svelte/admin/_adminSubMenu.esbuild-svelte-fake-css */
+/* fakecss:/tmp/street/svelte/admin/_adminSubMenu.esbuild-svelte-fake-css */
 .admin_submenu.svelte-17lkp6m.svelte-17lkp6m {
   position: relative;
   margin-top: -40px;
@@ -194,7 +194,7 @@
   color: white !important;
 }
 
-/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/TableView.esbuild-svelte-fake-css */
+/* fakecss:/tmp/street/svelte/_components/TableView.esbuild-svelte-fake-css */
 .table_users.svelte-17dtspr.svelte-17dtspr {
   margin-top: 10px;
   background-color: white;
@@ -312,7 +312,7 @@
   background: none;
 }
 
-/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/ModalForm.esbuild-svelte-fake-css */
+/* fakecss:/tmp/street/svelte/_components/ModalForm.esbuild-svelte-fake-css */
 .left.svelte-1b7f8as {
   float: left;
 }
@@ -385,9 +385,9 @@ label.svelte-1b7f8as {
     mod
   ));
 
-  // node_modules/axios/dist/browser/axios.cjs
+  // node_modules/.pnpm/axios@1.4.0/node_modules/axios/dist/browser/axios.cjs
   var require_axios = __commonJS({
-    "node_modules/axios/dist/browser/axios.cjs"(exports, module) {
+    "node_modules/.pnpm/axios@1.4.0/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
       "use strict";
       function bind2(fn, thisArg) {
         return function wrap() {
@@ -2414,6 +2414,9 @@ label.svelte-1b7f8as {
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
         return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.AdminPropHistories = async function AdminPropHistories(i, cb) {
+        return await axios.post("/admin/propHistories", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminProperties = async function AdminProperties2(i, cb) {
         return await axios.post("/admin/properties", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2459,6 +2462,9 @@ label.svelte-1b7f8as {
       exports.UserProfile = async function UserProfile(i, cb) {
         return await axios.post("/user/profile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.UserPropHistory = async function UserPropHistory(i, cb) {
+        return await axios.post("/user/propHistory", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.UserSearchProp = async function UserSearchProp(i, cb) {
         return await axios.post("/user/searchProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2485,7 +2491,7 @@ label.svelte-1b7f8as {
     }
   });
 
-  // node_modules/svelte/src/runtime/internal/utils.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
   function assign(tar, src) {
@@ -2559,13 +2565,13 @@ label.svelte-1b7f8as {
     return -1;
   }
 
-  // node_modules/svelte/src/runtime/internal/globals.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
     // @ts-ignore Node typings have this
     global
   );
 
-  // node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
   var ResizeObserverSingleton = class {
     /**
      * @private
@@ -2611,7 +2617,7 @@ label.svelte-1b7f8as {
   };
   ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
 
-  // node_modules/svelte/src/runtime/internal/dom.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/dom.js
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -2701,7 +2707,7 @@ label.svelte-1b7f8as {
     return result;
   }
 
-  // node_modules/svelte/src/runtime/internal/lifecycle.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/lifecycle.js
   var current_component;
   function set_current_component(component) {
     current_component = component;
@@ -2734,7 +2740,7 @@ label.svelte-1b7f8as {
     };
   }
 
-  // node_modules/svelte/src/runtime/internal/scheduler.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -2812,7 +2818,7 @@ label.svelte-1b7f8as {
     render_callbacks = filtered;
   }
 
-  // node_modules/svelte/src/runtime/internal/transitions.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   var outros;
   function group_outros() {
@@ -2854,12 +2860,12 @@ label.svelte-1b7f8as {
     }
   }
 
-  // node_modules/svelte/src/runtime/internal/each.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/each.js
   function ensure_array_like(array_like_or_iterator) {
     return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
 
-  // node_modules/svelte/src/shared/boolean_attributes.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/shared/boolean_attributes.js
   var _boolean_attributes = (
     /** @type {const} */
     [
@@ -2892,7 +2898,7 @@ label.svelte-1b7f8as {
   );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
-  // node_modules/svelte/src/runtime/internal/Component.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/Component.js
   function bind(component, name, callback) {
     const index = component.$.props[name];
     if (index !== void 0) {
@@ -3218,10 +3224,10 @@ label.svelte-1b7f8as {
     }
   };
 
-  // node_modules/svelte/src/shared/version.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/shared/version.js
   var PUBLIC_VERSION = "4";
 
-  // node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/disclose-version/index.js
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
@@ -3695,8 +3701,10 @@ label.svelte-1b7f8as {
     let t3;
     let a2;
     let t5;
+    let a3;
+    let t7;
     let c0;
-    let t6;
+    let t8;
     let c1;
     return {
       c() {
@@ -3711,8 +3719,11 @@ label.svelte-1b7f8as {
         a2 = element("a");
         a2.textContent = "Properties";
         t5 = space();
+        a3 = element("a");
+        a3.textContent = "Prop Histories";
+        t7 = space();
         c0 = comment(`  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>`);
-        t6 = space();
+        t8 = space();
         c1 = comment(`  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>`);
         attr(a0, "href", "/admin");
         attr(a0, "class", "svelte-17lkp6m");
@@ -3738,6 +3749,14 @@ label.svelte-1b7f8as {
           /*segment2*/
           ctx[0] === "properties"
         );
+        attr(a3, "href", "/admin/propHistories");
+        attr(a3, "class", "svelte-17lkp6m");
+        toggle_class(
+          a3,
+          "active",
+          /*segment2*/
+          ctx[0] === "propHistories"
+        );
         attr(nav, "class", "menu svelte-17lkp6m");
         attr(div, "class", "admin_submenu svelte-17lkp6m");
       },
@@ -3750,8 +3769,10 @@ label.svelte-1b7f8as {
         append(nav, t3);
         append(nav, a2);
         append(nav, t5);
+        append(nav, a3);
+        append(nav, t7);
         append(nav, c0);
-        append(nav, t6);
+        append(nav, t8);
         append(nav, c1);
       },
       p(ctx2, [dirty]) {
@@ -3780,6 +3801,15 @@ label.svelte-1b7f8as {
             "active",
             /*segment2*/
             ctx2[0] === "properties"
+          );
+        }
+        if (dirty & /*segment2*/
+        1) {
+          toggle_class(
+            a3,
+            "active",
+            /*segment2*/
+            ctx2[0] === "propHistories"
           );
         }
       },
@@ -3856,7 +3886,7 @@ label.svelte-1b7f8as {
       }
     };
   }
-  function create_if_block_32(ctx) {
+  function create_if_block_42(ctx) {
     let th;
     return {
       c() {
@@ -3882,7 +3912,7 @@ label.svelte-1b7f8as {
         /*field*/
         ctx2[20].name === "id"
       )
-        return create_if_block_32;
+        return create_if_block_42;
       return create_else_block_1;
     }
     let current_block_type = select_block_type(ctx, -1);
@@ -3943,6 +3973,42 @@ label.svelte-1b7f8as {
           /*i*/
           ctx2[22]
         ] + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+      }
+    };
+  }
+  function create_if_block_32(ctx) {
+    let td;
+    let t_value = (
+      /*row*/
+      (ctx[17][
+        /*i*/
+        ctx[22]
+      ] || 0).toLocaleString() + ""
+    );
+    let t;
+    return {
+      c() {
+        td = element("td");
+        t = text(t_value);
+        attr(td, "class", "svelte-17dtspr");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rows*/
+        4 && t_value !== (t_value = /*row*/
+        (ctx2[17][
+          /*i*/
+          ctx2[22]
+        ] || 0).toLocaleString() + ""))
           set_data(t, t_value);
       },
       d(detaching) {
@@ -4093,6 +4159,11 @@ label.svelte-1b7f8as {
         ctx2[20].inputType === "datetime"
       )
         return create_if_block_22;
+      if (
+        /*field*/
+        ctx2[20].inputType === "number"
+      )
+        return create_if_block_32;
       return create_else_block;
     }
     let current_block_type = select_block_type_1(ctx, -1);
@@ -5067,7 +5138,7 @@ label.svelte-1b7f8as {
       }
     };
   }
-  function create_if_block_42(ctx) {
+  function create_if_block_43(ctx) {
     let input;
     let mounted;
     let dispose;
@@ -5434,7 +5505,7 @@ label.svelte-1b7f8as {
         /*field*/
         ctx2[21].inputType === "hidden"
       )
-        return create_if_block_42;
+        return create_if_block_43;
       return create_else_block_2;
     }
     let current_block_type = select_block_type_1(ctx, -1);
@@ -6037,7 +6108,11 @@ label.svelte-1b7f8as {
       if (!property.id)
         property.id = "0";
       console.log(property);
-      property.coord = JSON.parse("[" + property.coord + "]");
+      try {
+        property.coord = JSON.parse("[" + property.coord + "]");
+      } catch (e) {
+        property.coord = [0, 0];
+      }
       await (0, import_jsApi.AdminProperties)(
         {
           property,

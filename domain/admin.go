@@ -1,11 +1,10 @@
 package domain
 
 import (
+	"street/model/mAuth"
 	"street/model/mAuth/rqAuth"
 	"street/model/mAuth/saAuth"
 	"street/model/mAuth/wcAuth"
-	"street/model/mProperty/rqProperty"
-	"street/model/mProperty/wcProperty"
 	"street/model/zCrud"
 )
 
@@ -56,60 +55,60 @@ const (
 var AdminUsersMeta = zCrud.Meta{
 	Fields: []zCrud.Field{
 		{
-			Name:      `id`,
+			Name:      mAuth.Id,
 			Label:     `ID`,
 			ReadOnly:  true,
 			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeHidden,
 		},
 		{
-			Name:      `userName`,
+			Name:      mAuth.UserName,
 			Label:     `Username`,
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
 		},
 		{
-			Name:      `email`,
+			Name:      mAuth.Email,
 			Label:     `Email`,
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeEmail,
 		},
 		{
-			Name:      `fullName`,
+			Name:      mAuth.FullName,
 			Label:     `Full Name`,
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
 		},
 		{
-			Name:      `createdAt`,
+			Name:      mAuth.CreatedAt,
 			Label:     `Created At`,
 			ReadOnly:  true,
 			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeDateTime,
 		},
 		{
-			Name:      `updatedAt`,
+			Name:      mAuth.UpdatedAt,
 			Label:     `Updated At`,
 			ReadOnly:  true,
 			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeDateTime,
 		},
 		{
-			Name:      `deletedAt`,
+			Name:      mAuth.DeletedAt,
 			Label:     `Deleted At`,
 			ReadOnly:  true,
 			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeDateTime,
 		},
 		{
-			Name:      `verifiedAt`,
+			Name:      mAuth.VerifiedAt,
 			Label:     `Verified At`,
 			ReadOnly:  true,
 			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeDateTime,
 		},
 		{
-			Name:      `lastLoginAt`,
+			Name:      mAuth.LastLoginAt,
 			Label:     `Last Login At`,
 			ReadOnly:  true,
 			DataType:  zCrud.DataTypeInt,
@@ -247,206 +246,5 @@ func (d *Domain) AdminDashboard(in *AdminDashboardIn) (out AdminDashboardOut) {
 	out.UniqueIpPerDate = sa.StatUniqueIpPerDate()
 
 	out.CountPerActionsPerDate = sa.StatPerActionsPerDate()
-	return
-}
-
-type (
-	AdminPropertiesIn struct {
-		RequestCommon
-
-		Action string `json:"action" form:"action" query:"action" long:"action" msg:"action"`
-
-		// for modifying user
-		Property rqProperty.Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
-
-		// will be filled by default with form id=0
-		WithMeta bool `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
-
-		Pager zCrud.PagerIn
-	}
-
-	AdminPropertiesOut struct {
-		ResponseCommon
-
-		Pager zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
-
-		Meta *zCrud.Meta `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
-
-		Property *rqProperty.Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
-
-		// listing
-		Properties [][]any `json:"properties" form:"properties" query:"properties" long:"properties" msg:"properties"`
-	}
-)
-
-const (
-	AdminPropertiesAction = `admin/properties`
-
-	ErrAdminPropertyIdNotFound = `property id not found`
-	ErrAdminPropertySaveFailed = `property save failed`
-)
-
-var (
-	AdminPropertiesMeta = zCrud.Meta{
-		Fields: []zCrud.Field{
-			{
-				Name:      `id`,
-				Label:     `ID`,
-				ReadOnly:  true,
-				DataType:  zCrud.DataTypeInt,
-				InputType: zCrud.InputTypeHidden,
-			},
-			{
-				Name:      `serialNumber`,
-				Label:     `Serial Number`,
-				DataType:  zCrud.DataTypeString,
-				InputType: zCrud.InputTypeText,
-			},
-			{
-				Name:      `sizeM2`,
-				Label:     `Size (m2)`,
-				DataType:  zCrud.DataTypeString,
-				InputType: zCrud.InputTypeText,
-			},
-			{
-				Name:      `mainUse`,
-				Label:     `Main Use`,
-				DataType:  zCrud.DataTypeString,
-				InputType: zCrud.InputTypeText,
-			},
-			{
-				Name:      `mainBuildingMaterial`,
-				Label:     `Main Building Material`,
-				DataType:  zCrud.DataTypeString,
-				InputType: zCrud.InputTypeText,
-			},
-			{
-				Name:      `constructCompletedDate`,
-				Label:     `Construct Completed Date`,
-				DataType:  zCrud.DataTypeString,
-				InputType: zCrud.InputTypeText,
-			},
-			{
-				Name:      `numberOfFloors`,
-				Label:     `Number Of Floors`,
-				DataType:  zCrud.DataTypeString,
-				InputType: zCrud.InputTypeText,
-			},
-			{
-				Name:      `buildingLamination`,
-				Label:     `Building Lamination`,
-				DataType:  zCrud.DataTypeString,
-				InputType: zCrud.InputTypeText,
-			},
-			{
-				Name:      `address`,
-				Label:     `Address`,
-				DataType:  zCrud.DataTypeString,
-				InputType: zCrud.InputTypeText,
-			},
-			{
-				Name:      `district`,
-				Label:     `District`,
-				DataType:  zCrud.DataTypeString,
-				InputType: zCrud.InputTypeText,
-			},
-			{
-				Name:      `note`,
-				Label:     `Note`,
-				DataType:  zCrud.DataTypeString,
-				InputType: zCrud.InputTypeText,
-			},
-			{
-				Name:      `coord`,
-				Label:     `Coord`,
-				DataType:  zCrud.DataTypeString,
-				InputType: zCrud.InputTypeText,
-			},
-		},
-	}
-)
-
-func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut) {
-	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
-	sess := d.MustAdmin(in.RequestCommon, &out.ResponseCommon)
-	if sess == nil {
-		return
-	}
-
-	if in.WithMeta {
-		out.Meta = &AdminPropertiesMeta
-	}
-
-	switch in.Action {
-	case zCrud.ActionForm:
-		if in.Property.Id <= 0 {
-			out.Meta = &AdminPropertiesMeta
-			return
-		}
-
-		prop := rqProperty.NewProperty(d.PropOltp)
-		prop.Id = in.Property.Id
-		if !prop.FindById() {
-			out.SetError(400, ErrAdminPropertyIdNotFound)
-		}
-		out.Property = prop
-	case zCrud.ActionUpsert, zCrud.ActionDelete, zCrud.ActionRestore:
-
-		prop := wcProperty.NewPropertyMutator(d.PropOltp)
-		prop.Id = in.Property.Id
-		if prop.Id > 0 {
-			if !prop.FindById() {
-				out.SetError(400, ErrAdminPropertyIdNotFound)
-				return
-			}
-
-			if in.Action == zCrud.ActionDelete {
-				if prop.DeletedAt == 0 {
-					prop.SetDeletedAt(in.UnixNow())
-				}
-			} else if in.Action == zCrud.ActionRestore {
-				if prop.DeletedAt > 0 {
-					prop.SetDeletedAt(0)
-				}
-			}
-		} else {
-			prop.SetCreatedAt(in.UnixNow())
-		}
-
-		prop.SetSerialNumber(in.Property.SerialNumber)
-		prop.SetSizeM2(in.Property.SizeM2)
-		prop.SetMainUse(in.Property.MainUse)
-		prop.SetMainBuildingMaterial(in.Property.MainBuildingMaterial)
-		prop.SetConstructCompletedDate(in.Property.ConstructCompletedDate)
-		prop.SetNumberOfFloors(in.Property.NumberOfFloors)
-		prop.SetBuildingLamination(in.Property.BuildingLamination)
-		prop.SetAddress(in.Property.Address)
-		prop.SetDistrict(in.Property.District)
-		prop.SetNote(in.Property.Note)
-		prop.SetCoord(in.Property.Coord)
-
-		if prop.HaveMutation() {
-			prop.SetUpdatedAt(in.UnixNow())
-			prop.SetUpdatedBy(sess.UserId)
-			if prop.Id == 0 {
-				prop.SetCreatedAt(in.UnixNow())
-			}
-		}
-		if !prop.DoUpsert() {
-			out.SetError(500, ErrAdminPropertySaveFailed)
-			break
-		}
-
-		out.Property = &prop.Property
-
-		if in.Pager.Page == 0 {
-			break
-		}
-		fallthrough
-	case zCrud.ActionList:
-		r := rqProperty.NewProperty(d.PropOltp)
-		out.Properties = r.FindByPagination(&AdminPropertiesMeta, &in.Pager, &out.Pager)
-	}
-
 	return
 }

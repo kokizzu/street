@@ -11,6 +11,7 @@
       <a href="/admin" class:active={segment2===''}>Dashboard</a>
       <a href="/admin/users" class:active={segment2==='users'}>Users</a>
       <a href="/admin/properties" class:active={segment2==='properties'}>Properties</a>
+      <a href="/admin/propHistories" class:active={segment2==='propHistories'}>Prop Histories</a>
       <!--  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>-->
       <!--  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>-->
    </nav>

@@ -30,6 +30,7 @@ const (
 	InputTypePassword InputType = `password`
 	InputTypeCombobox InputType = `combobox`
 	InputTypeCheckbox InputType = `checkbox`
+	InputTypeNumber   InputType = `number`
 	InputTypeHidden   InputType = `hidden`
 	InputTypeDateTime InputType = `datetime`
 

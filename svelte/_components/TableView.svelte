@@ -68,7 +68,9 @@
                      <td class='table_data'>{!!row[ i ]}</td>
                      {:else if field.inputType==='datetime'}
                         <td class='table_data'>{datetime(row[ i ])}</td>
-                     {:else}
+        {:else if field.inputType==='number'}
+          <td>{(row[i] || 0).toLocaleString()}</td>
+        {:else}
                      <td class='table_data'>{row[ i ]}</td>
                   {/if}
                {/each}

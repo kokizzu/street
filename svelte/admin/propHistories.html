@@ -194,104 +194,6 @@
   color: white !important;
 }
 
-/* fakecss:/tmp/street/svelte/_components/ProfileHeader.esbuild-svelte-fake-css */
-.profile_header.svelte-o18qk1.svelte-o18qk1.svelte-o18qk1 {
-  background-color: #EF4444;
-  height: fit-content;
-  position: relative;
-  padding-top: 18px;
-  padding-bottom: 80px;
-  padding-right: 50px;
-  padding-left: 50px;
-  display: flex;
-  flex-direction: column;
-}
-.profile_header.svelte-o18qk1 .navbar.svelte-o18qk1.svelte-o18qk1 {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.profile_header.svelte-o18qk1 .navbar.svelte-o18qk1 > p.svelte-o18qk1 {
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.5rem;
-  padding: 0;
-  margin: 0;
-  color: white;
-}
-.profile_header.svelte-o18qk1 .navbar .right_nav.svelte-o18qk1.svelte-o18qk1 {
-  display: flex;
-  flex-direction: row;
-}
-.profile_header.svelte-o18qk1 .navbar .right_nav .search_input.svelte-o18qk1.svelte-o18qk1 {
-  margin-right: 15px;
-  margin-top: auto;
-  margin-left: 0;
-  margin-bottom: auto;
-}
-.profile_header.svelte-o18qk1 .navbar .right_nav .search_input.svelte-o18qk1 > span.svelte-o18qk1 {
-  padding: 13px;
-  position: absolute;
-  z-index: 10;
-  font-size: 16px;
-  color: #CBD5E1;
-}
-.profile_header.svelte-o18qk1 .navbar .right_nav .search_input.svelte-o18qk1 > input.svelte-o18qk1 {
-  width: 250px;
-  border: none;
-  border-radius: 8px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-left: 40px;
-  padding-right: 12px;
-}
-.profile_header.svelte-o18qk1 .navbar .right_nav .search_input.svelte-o18qk1 > input.svelte-o18qk1:focus {
-  outline: 3px solid #3b82f6;
-}
-.profile_header.svelte-o18qk1 .navbar .right_nav .profile_button.svelte-o18qk1.svelte-o18qk1 {
-  padding: 0;
-  border: none;
-  margin: 0;
-  width: fit-content;
-  height: fit-content;
-  border-radius: 9999px;
-}
-.profile_header.svelte-o18qk1 .navbar .right_nav .profile_button.svelte-o18qk1.svelte-o18qk1:hover {
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-}
-.profile_header.svelte-o18qk1 .navbar .right_nav .profile_button.svelte-o18qk1 > img.svelte-o18qk1 {
-  width: 50px;
-  height: 50px;
-  border-radius: 9999px;
-}
-
-/* fakecss:/tmp/street/svelte/_components/Footer.esbuild-svelte-fake-css */
-footer.svelte-1ezn232.svelte-1ezn232 {
-  font-size: 16px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 50px;
-  padding: 16px 0;
-  border-top: 1px solid #CBD5E1;
-  color: #475569;
-}
-footer.svelte-1ezn232 nav.svelte-1ezn232 {
-  display: flex;
-  flex-direction: row;
-}
-footer.svelte-1ezn232 nav a.svelte-1ezn232 {
-  text-decoration: none;
-  margin-left: 15px;
-  color: #475569;
-}
-footer.svelte-1ezn232 nav a.svelte-1ezn232:hover {
-  color: #EF4444;
-}
-
 /* fakecss:/tmp/street/svelte/_components/TableView.esbuild-svelte-fake-css */
 .table_users.svelte-17dtspr.svelte-17dtspr {
   margin-top: 10px;
@@ -454,43 +356,6 @@ label.svelte-1b7f8as {
   display: inline-block;
   text-align: right;
   margin-right: 1em;
-}
-
-/* fakecss:/tmp/street/svelte/admin/users.esbuild-svelte-fake-css */
-.users_dashboard.svelte-16l9vge.svelte-16l9vge {
-  position: relative;
-  z-index: 30;
-  margin-top: -40px;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 8px;
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-  padding: 20px;
-  background-color: white;
-  width: 88%;
-  height: fit-content;
-  color: #475569;
-  font-size: 16px;
-}
-.users_dashboard.svelte-16l9vge .add_button.svelte-16l9vge {
-  padding: 8px 20px;
-  font-size: 16px;
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  border: none;
-  background-color: #6366F1;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
-}
-.users_dashboard.svelte-16l9vge .add_button.svelte-16l9vge:hover {
-  background-color: #7E80F1;
-}
-.users_dashboard.svelte-16l9vge .add_button i.svelte-16l9vge {
-  margin-right: 8px;
 }
 </style>
 <script>(() => {
@@ -2549,13 +2414,13 @@ label.svelte-1b7f8as {
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
         return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.AdminPropHistories = async function AdminPropHistories(i, cb) {
+      exports.AdminPropHistories = async function AdminPropHistories2(i, cb) {
         return await axios.post("/admin/propHistories", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.AdminProperties = async function AdminProperties(i, cb) {
         return await axios.post("/admin/properties", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.AdminUsers = async function AdminUsers2(i, cb) {
+      exports.AdminUsers = async function AdminUsers(i, cb) {
         return await axios.post("/admin/users", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.GuestDebug = async function GuestDebug(i, cb) {
@@ -3076,7 +2941,7 @@ label.svelte-1b7f8as {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance6, create_fragment7, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance6, create_fragment6, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3115,7 +2980,7 @@ label.svelte-1b7f8as {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment7 ? create_fragment7($.ctx) : false;
+    $.fragment = create_fragment6 ? create_fragment6($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -3972,36 +3837,6 @@ label.svelte-1b7f8as {
   };
   var adminSubMenu_default = AdminSubMenu;
 
-  // _components/ProfileHeader.svelte
-  function create_fragment3(ctx) {
-    let header;
-    return {
-      c() {
-        header = element("header");
-        header.innerHTML = `<nav class="navbar svelte-o18qk1"><p class="svelte-o18qk1">DASHBOARD</p> <div class="right_nav svelte-o18qk1"><form class="search_input svelte-o18qk1"><span class="svelte-o18qk1"><i class="gg-search"></i></span> <input type="text" placeholder="Search here..." name="search" class="svelte-o18qk1"/></form> <button class="profile_button svelte-o18qk1"><img src="/assets/img/team-1-200x200.jpg" alt="Profile Picture" class="svelte-o18qk1"/></button></div></nav> <div class="stats"><!-- Chart Goes here --></div>`;
-        attr(header, "class", "profile_header svelte-o18qk1");
-      },
-      m(target, anchor) {
-        insert(target, header, anchor);
-      },
-      p: noop,
-      i: noop,
-      o: noop,
-      d(detaching) {
-        if (detaching) {
-          detach(header);
-        }
-      }
-    };
-  }
-  var ProfileHeader = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(this, options, null, create_fragment3, safe_not_equal, {});
-    }
-  };
-  var ProfileHeader_default = ProfileHeader;
-
   // _components/TableView.svelte
   var import_formatter = __toESM(require_formatter());
   function get_each_context(ctx, list, i) {
@@ -4443,7 +4278,7 @@ label.svelte-1b7f8as {
       }
     };
   }
-  function create_fragment4(ctx) {
+  function create_fragment3(ctx) {
     let section;
     let table;
     let thead;
@@ -4886,13 +4721,10 @@ label.svelte-1b7f8as {
   var TableView = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance3, create_fragment4, safe_not_equal, { fields: 1, rows: 2, pager: 0 });
+      init(this, options, instance3, create_fragment3, safe_not_equal, { fields: 1, rows: 2, pager: 0 });
     }
   };
   var TableView_default = TableView;
-
-  // admin/users.svelte
-  var import_jsApi = __toESM(require_jsApi_GEN());
 
   // _components/ModalForm.svelte
   var import_formatter2 = __toESM(require_formatter());
@@ -5900,7 +5732,7 @@ label.svelte-1b7f8as {
       }
     };
   }
-  function create_fragment5(ctx) {
+  function create_fragment4(ctx) {
     let if_block_anchor;
     let current;
     let if_block = (
@@ -6075,7 +5907,7 @@ label.svelte-1b7f8as {
   var ModalForm = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance4, create_fragment5, safe_not_equal, {
+      init(this, options, instance4, create_fragment4, safe_not_equal, {
         fields: 3,
         visible: 0,
         loading: 1,
@@ -6099,33 +5931,27 @@ label.svelte-1b7f8as {
   };
   var ModalForm_default = ModalForm;
 
-  // admin/users.svelte
-  function create_fragment6(ctx) {
-    let section1;
+  // admin/propHistories.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
+  function create_fragment5(ctx) {
     let menu;
     let t0;
-    let div1;
-    let profileheader;
-    let t1;
     let adminsubmenu;
-    let t2;
-    let div0;
-    let modalform;
-    let t3;
-    let section0;
+    let t1;
     let button;
-    let t6;
+    let t3;
+    let modalform;
+    let t4;
     let tableview;
     let updating_pager;
     let current;
     let mounted;
     let dispose;
     menu = new Menu_default({ props: { access: segments } });
-    profileheader = new ProfileHeader_default({});
     adminsubmenu = new adminSubMenu_default({});
     let modalform_props = {
       fields,
-      rowType: "User",
+      rowType: "Prop History",
       onConfirm: (
         /*saveRow*/
         ctx[6]
@@ -6137,7 +5963,7 @@ label.svelte-1b7f8as {
       ctx[8](value);
     }
     let tableview_props = { fields, rows: (
-      /*users*/
+      /*propHistories*/
       ctx[0]
     ) };
     if (
@@ -6161,44 +5987,27 @@ label.svelte-1b7f8as {
     );
     return {
       c() {
-        section1 = element("section");
         create_component(menu.$.fragment);
         t0 = space();
-        div1 = element("div");
-        create_component(profileheader.$.fragment);
-        t1 = space();
         create_component(adminsubmenu.$.fragment);
-        t2 = space();
-        div0 = element("div");
-        create_component(modalform.$.fragment);
-        t3 = space();
-        section0 = element("section");
+        t1 = space();
         button = element("button");
-        button.innerHTML = `<i class="gg-add svelte-16l9vge"></i> <span>Add</span>`;
-        t6 = space();
+        button.textContent = "Add";
+        t3 = space();
+        create_component(modalform.$.fragment);
+        t4 = space();
         create_component(tableview.$.fragment);
-        attr(button, "class", "add_button svelte-16l9vge");
-        attr(section0, "class", "users_dashboard svelte-16l9vge");
-        attr(div0, "class", "content");
-        attr(div1, "class", "dashboard_main_content");
-        attr(section1, "class", "dashboard");
       },
       m(target, anchor) {
-        insert(target, section1, anchor);
-        mount_component(menu, section1, null);
-        append(section1, t0);
-        append(section1, div1);
-        mount_component(profileheader, div1, null);
-        append(div1, t1);
-        mount_component(adminsubmenu, div1, null);
-        append(div1, t2);
-        append(div1, div0);
-        mount_component(modalform, div0, null);
-        append(div0, t3);
-        append(div0, section0);
-        append(section0, button);
-        append(section0, t6);
-        mount_component(tableview, section0, null);
+        mount_component(menu, target, anchor);
+        insert(target, t0, anchor);
+        mount_component(adminsubmenu, target, anchor);
+        insert(target, t1, anchor);
+        insert(target, button, anchor);
+        insert(target, t3, anchor);
+        mount_component(modalform, target, anchor);
+        insert(target, t4, anchor);
+        mount_component(tableview, target, anchor);
         current = true;
         if (!mounted) {
           dispose = listen(
@@ -6214,9 +6023,9 @@ label.svelte-1b7f8as {
         const modalform_changes = {};
         modalform.$set(modalform_changes);
         const tableview_changes = {};
-        if (dirty & /*users*/
+        if (dirty & /*propHistories*/
         1)
-          tableview_changes.rows = /*users*/
+          tableview_changes.rows = /*propHistories*/
           ctx2[0];
         if (!updating_pager && dirty & /*pager*/
         2) {
@@ -6231,7 +6040,6 @@ label.svelte-1b7f8as {
         if (current)
           return;
         transition_in(menu.$.fragment, local);
-        transition_in(profileheader.$.fragment, local);
         transition_in(adminsubmenu.$.fragment, local);
         transition_in(modalform.$.fragment, local);
         transition_in(tableview.$.fragment, local);
@@ -6239,7 +6047,6 @@ label.svelte-1b7f8as {
       },
       o(local) {
         transition_out(menu.$.fragment, local);
-        transition_out(profileheader.$.fragment, local);
         transition_out(adminsubmenu.$.fragment, local);
         transition_out(modalform.$.fragment, local);
         transition_out(tableview.$.fragment, local);
@@ -6247,14 +6054,17 @@ label.svelte-1b7f8as {
       },
       d(detaching) {
         if (detaching) {
-          detach(section1);
+          detach(t0);
+          detach(t1);
+          detach(button);
+          detach(t3);
+          detach(t4);
         }
-        destroy_component(menu);
-        destroy_component(profileheader);
-        destroy_component(adminsubmenu);
+        destroy_component(menu, detaching);
+        destroy_component(adminsubmenu, detaching);
         ctx[7](null);
-        destroy_component(modalform);
-        destroy_component(tableview);
+        destroy_component(modalform, detaching);
+        destroy_component(tableview, detaching);
         mounted = false;
         dispose();
       }
@@ -6263,7 +6073,7 @@ label.svelte-1b7f8as {
   var segments = {/* segments */};
   var fields = [/* fields */];
   function instance5($self, $props, $invalidate) {
-    let users = [/* users */];
+    let propHistories = [/* propHistories */];
     let pager = {/* pager */};
     function handleResponse(res) {
       console.log(res);
@@ -6271,35 +6081,36 @@ label.svelte-1b7f8as {
         alert(res.error);
         return true;
       }
-      if (res.users && res.users.length)
-        $invalidate(0, users = res.users);
+      if (res.propHistories && res.propHistories.length)
+        $invalidate(0, propHistories = res.propHistories);
       if (res.pager && res.pager.page)
         $invalidate(1, pager = res.pager);
     }
     async function refreshTableView(e) {
       const pagerIn = e.detail;
-      await (0, import_jsApi.AdminUsers)({ pager: pagerIn, action: "list" }, function(res) {
+      await (0, import_jsApi.AdminPropHistories)({ pager: pagerIn, action: "list" }, function(res) {
         handleResponse(res);
       });
     }
     let form = ModalForm_default;
     async function editRow(e) {
       const id = e.detail;
-      await (0, import_jsApi.AdminUsers)({ user: { id }, action: "form" }, function(res) {
+      await (0, import_jsApi.AdminPropHistories)({ propHistory: { id }, action: "form" }, function(res) {
         if (!handleResponse(res))
-          form.showModal(res.user);
+          form.showModal(res.propHistory);
       });
     }
     function addRow() {
       form.showModal({ id: "" });
     }
     async function saveRow(action, row) {
-      let user = { ...row };
-      if (!user.id)
-        user.id = "0";
-      await (0, import_jsApi.AdminUsers)(
+      let ph = { ...row };
+      if (!ph.id)
+        ph.id = "0";
+      console.log(ph);
+      await (0, import_jsApi.AdminPropHistories)(
         {
-          user,
+          propHistory: ph,
           action,
           pager
           // force refresh page, will be slow
@@ -6322,8 +6133,15 @@ label.svelte-1b7f8as {
       pager = value;
       $invalidate(1, pager);
     }
+    $self.$.update = () => {
+      if ($self.$.dirty & /*propHistories*/
+      1) {
+        $:
+          console.log(propHistories);
+      }
+    };
     return [
-      users,
+      propHistories,
       pager,
       form,
       refreshTableView,
@@ -6334,16 +6152,16 @@ label.svelte-1b7f8as {
       tableview_pager_binding
     ];
   }
-  var Users = class extends SvelteComponent {
+  var PropHistories = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance5, create_fragment6, safe_not_equal, {});
+      init(this, options, instance5, create_fragment5, safe_not_equal, {});
     }
   };
-  var users_default = Users;
+  var propHistories_default = PropHistories;
 
-  // admin/users.svelte.ts
-  var app = new users_default({ target: document.getElementById("app") });
+  // admin/propHistories.svelte.ts
+  var app = new propHistories_default({ target: document.getElementById("app") });
 })();
 </script>
 </body></html>
