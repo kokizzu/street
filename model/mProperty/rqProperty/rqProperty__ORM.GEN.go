@@ -21,26 +21,28 @@ import (
 
 // Property DAO reader/query struct
 type Property struct {
-	Adapter                *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	Id                     uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
-	UniqPropKey            string      `json:"uniqPropKey" form:"uniqPropKey" query:"uniqPropKey" long:"uniqPropKey" msg:"uniqPropKey"`
-	SerialNumber           string      `json:"serialNumber" form:"serialNumber" query:"serialNumber" long:"serialNumber" msg:"serialNumber"`
-	SizeM2                 string      `json:"sizeM2" form:"sizeM2" query:"sizeM2" long:"sizeM2" msg:"sizeM2"`
-	MainUse                string      `json:"mainUse" form:"mainUse" query:"mainUse" long:"mainUse" msg:"mainUse"`
-	MainBuildingMaterial   string      `json:"mainBuildingMaterial" form:"mainBuildingMaterial" query:"mainBuildingMaterial" long:"mainBuildingMaterial" msg:"mainBuildingMaterial"`
-	ConstructCompletedDate string      `json:"constructCompletedDate" form:"constructCompletedDate" query:"constructCompletedDate" long:"constructCompletedDate" msg:"constructCompletedDate"`
-	NumberOfFloors         string      `json:"numberOfFloors" form:"numberOfFloors" query:"numberOfFloors" long:"numberOfFloors" msg:"numberOfFloors"`
-	BuildingLamination     string      `json:"buildingLamination" form:"buildingLamination" query:"buildingLamination" long:"buildingLamination" msg:"buildingLamination"`
-	Address                string      `json:"address" form:"address" query:"address" long:"address" msg:"address"`
-	District               string      `json:"district" form:"district" query:"district" long:"district" msg:"district"`
-	Note                   string      `json:"note" form:"note" query:"note" long:"note" msg:"note"`
-	Coord                  []any       `json:"coord" form:"coord" query:"coord" long:"coord" msg:"coord"`
-	CreatedAt              int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	CreatedBy              uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
-	UpdatedAt              int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
-	UpdatedBy              uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
-	DeletedAt              int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
-	FormattedAddress       string      `json:"formattedAddress" form:"formattedAddress" query:"formattedAddress" long:"formattedAddress" msg:"formattedAddress"`
+	Adapter                *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-"`
+	Id                     uint64
+	UniqPropKey            string
+	SerialNumber           string
+	SizeM2                 string
+	MainUse                string
+	MainBuildingMaterial   string
+	ConstructCompletedDate string
+	NumberOfFloors         string
+	BuildingLamination     string
+	Address                string
+	District               string
+	Note                   string
+	Coord                  []any
+	CreatedAt              int64
+	CreatedBy              uint64
+	UpdatedAt              int64
+	UpdatedBy              uint64
+	DeletedAt              int64
+	FormattedAddress       string
+	LastPrice              string
+	PriceHistories         []any
 }
 
 // NewProperty create new ORM reader/query object
@@ -121,6 +123,8 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "updatedBy"
 	, "deletedAt"
 	, "formattedAddress"
+	, "lastPrice"
+	, "priceHistories"
 	`
 }
 
@@ -145,6 +149,8 @@ func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 	, "updatedBy"
 	, "deletedAt"
 	, "formattedAddress"
+	, "lastPrice"
+	, "priceHistories"
 	`
 }
 
@@ -170,6 +176,8 @@ func (p *Property) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 16, p.UpdatedBy},
 		A.X{`=`, 17, p.DeletedAt},
 		A.X{`=`, 18, p.FormattedAddress},
+		A.X{`=`, 19, p.LastPrice},
+		A.X{`=`, 20, p.PriceHistories},
 	}
 }
 
@@ -363,6 +371,26 @@ func (p *Property) SqlFormattedAddress() string { //nolint:dupl false positive
 	return `"formattedAddress"`
 }
 
+// IdxLastPrice return name of the index
+func (p *Property) IdxLastPrice() int { //nolint:dupl false positive
+	return 19
+}
+
+// SqlLastPrice return name of the column being indexed
+func (p *Property) SqlLastPrice() string { //nolint:dupl false positive
+	return `"lastPrice"`
+}
+
+// IdxPriceHistories return name of the index
+func (p *Property) IdxPriceHistories() int { //nolint:dupl false positive
+	return 20
+}
+
+// SqlPriceHistories return name of the column being indexed
+func (p *Property) SqlPriceHistories() string { //nolint:dupl false positive
+	return `"priceHistories"`
+}
+
 // ToArray receiver fields to slice
 func (p *Property) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -389,6 +417,8 @@ func (p *Property) ToArray() A.X { //nolint:dupl false positive
 		p.UpdatedBy,              // 16
 		p.DeletedAt,              // 17
 		p.FormattedAddress,       // 18
+		p.LastPrice,              // 19
+		p.PriceHistories,         // 20
 	}
 }
 
@@ -413,6 +443,8 @@ func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 	p.UpdatedBy = X.ToU(a[16])
 	p.DeletedAt = X.ToI(a[17])
 	p.FormattedAddress = X.ToS(a[18])
+	p.LastPrice = X.ToS(a[19])
+	p.PriceHistories = X.ToArr(a[20])
 	return p
 }
 
@@ -437,6 +469,8 @@ func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false po
 	p.UpdatedBy = X.ToU(a[16])
 	p.DeletedAt = X.ToI(a[17])
 	p.FormattedAddress = X.ToS(a[18])
+	p.LastPrice = X.ToS(a[19])
+	p.PriceHistories = X.ToArr(a[20])
 	return p
 }
 
@@ -499,32 +533,35 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`updatedBy`:              Tt.Unsigned,
 	`deletedAt`:              Tt.Integer,
 	`formattedAddress`:       Tt.String,
+	`lastPrice`:              Tt.String,
+	`priceHistories`:         Tt.Array,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 // PropertyHistory DAO reader/query struct
 type PropertyHistory struct {
-	Adapter               *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	Id                    uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
-	PropertyKey           string      `json:"propertyKey" form:"propertyKey" query:"propertyKey" long:"propertyKey" msg:"propertyKey"`
-	TransactionKey        string      `json:"transactionKey" form:"transactionKey" query:"transactionKey" long:"transactionKey" msg:"transactionKey"`
-	TransactionType       string      `json:"transactionType" form:"transactionType" query:"transactionType" long:"transactionType" msg:"transactionType"`
-	TransactionSign       string      `json:"transactionSign" form:"transactionSign" query:"transactionSign" long:"transactionSign" msg:"transactionSign"`
-	TransactionTime       string      `json:"transactionTime" form:"transactionTime" query:"transactionTime" long:"transactionTime" msg:"transactionTime"`
-	TransactionDateNormal string      `json:"transactionDateNormal" form:"transactionDateNormal" query:"transactionDateNormal" long:"transactionDateNormal" msg:"transactionDateNormal"`
-	TransactionNumber     string      `json:"transactionNumber" form:"transactionNumber" query:"transactionNumber" long:"transactionNumber" msg:"transactionNumber"`
-	PriceNtd              int64       `json:"priceNtd" form:"priceNtd" query:"priceNtd" long:"priceNtd" msg:"priceNtd"`
-	PricePerUnit          int64       `json:"pricePerUnit" form:"pricePerUnit" query:"pricePerUnit" long:"pricePerUnit" msg:"pricePerUnit"`
-	Price                 int64       `json:"price" form:"price" query:"price" long:"price" msg:"price"`
-	Address               string      `json:"address" form:"address" query:"address" long:"address" msg:"address"`
-	District              string      `json:"district" form:"district" query:"district" long:"district" msg:"district"`
-	Note                  string      `json:"note" form:"note" query:"note" long:"note" msg:"note"`
-	CreatedAt             int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	CreatedBy             uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
-	UpdatedAt             int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
-	UpdatedBy             uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
-	DeletedAt             int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	Adapter               *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-"`
+	Id                    uint64
+	PropertyKey           string
+	TransactionKey        string
+	TransactionType       string
+	TransactionSign       string
+	TransactionTime       string
+	TransactionDateNormal string
+	TransactionNumber     string
+	PriceNtd              int64
+	PricePerUnit          int64
+	Price                 int64
+	Address               string
+	District              string
+	Note                  string
+	CreatedAt             int64
+	CreatedBy             uint64
+	UpdatedAt             int64
+	UpdatedBy             uint64
+	DeletedAt             int64
+	SerialNumber          string
 }
 
 // NewPropertyHistory create new ORM reader/query object
@@ -600,6 +637,7 @@ func (p *PropertyHistory) SqlSelectAllFields() string { //nolint:dupl false posi
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "serialNumber"
 	`
 }
 
@@ -624,6 +662,7 @@ func (p *PropertyHistory) SqlSelectAllUncensoredFields() string { //nolint:dupl 
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "serialNumber"
 	`
 }
 
@@ -649,6 +688,7 @@ func (p *PropertyHistory) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 16, p.UpdatedAt},
 		A.X{`=`, 17, p.UpdatedBy},
 		A.X{`=`, 18, p.DeletedAt},
+		A.X{`=`, 19, p.SerialNumber},
 	}
 }
 
@@ -842,6 +882,16 @@ func (p *PropertyHistory) SqlDeletedAt() string { //nolint:dupl false positive
 	return `"deletedAt"`
 }
 
+// IdxSerialNumber return name of the index
+func (p *PropertyHistory) IdxSerialNumber() int { //nolint:dupl false positive
+	return 19
+}
+
+// SqlSerialNumber return name of the column being indexed
+func (p *PropertyHistory) SqlSerialNumber() string { //nolint:dupl false positive
+	return `"serialNumber"`
+}
+
 // ToArray receiver fields to slice
 func (p *PropertyHistory) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -868,6 +918,7 @@ func (p *PropertyHistory) ToArray() A.X { //nolint:dupl false positive
 		p.UpdatedAt,             // 16
 		p.UpdatedBy,             // 17
 		p.DeletedAt,             // 18
+		p.SerialNumber,          // 19
 	}
 }
 
@@ -892,6 +943,7 @@ func (p *PropertyHistory) FromArray(a A.X) *PropertyHistory { //nolint:dupl fals
 	p.UpdatedAt = X.ToI(a[16])
 	p.UpdatedBy = X.ToU(a[17])
 	p.DeletedAt = X.ToI(a[18])
+	p.SerialNumber = X.ToS(a[19])
 	return p
 }
 
@@ -916,6 +968,7 @@ func (p *PropertyHistory) FromUncensoredArray(a A.X) *PropertyHistory { //nolint
 	p.UpdatedAt = X.ToI(a[16])
 	p.UpdatedBy = X.ToU(a[17])
 	p.DeletedAt = X.ToI(a[18])
+	p.SerialNumber = X.ToS(a[19])
 	return p
 }
 
@@ -978,6 +1031,7 @@ var PropertyHistoryFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false po
 	`updatedAt`:             Tt.Integer,
 	`updatedBy`:             Tt.Unsigned,
 	`deletedAt`:             Tt.Integer,
+	`serialNumber`:          Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

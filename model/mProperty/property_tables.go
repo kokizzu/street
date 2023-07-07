@@ -27,6 +27,8 @@ const (
 	UpdatedAt              = `updatedAt`
 	UpdatedBy              = `updatedBy`
 	DeletedAt              = `deletedAt`
+	LastPrice              = `lastPrice`
+	PriceHistories         = `priceHistories`
 
 	TablePropertyHistory Tt.TableName = `property_history`
 
@@ -64,6 +66,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
 			{FormattedAddress, Tt.String},
+			{LastPrice, Tt.String},
+			{PriceHistories, Tt.Array},
 		},
 		AutoIncrementId: true,
 		Unique1:         UniqPropKey,
@@ -92,6 +96,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedAt, Tt.Integer},
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
+			{SerialNumber, Tt.String},
 		},
 		AutoIncrementId: true,
 		Unique1:         TransactionKey,

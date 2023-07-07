@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/kokizzu/gotro/D/Tt"
@@ -492,6 +493,35 @@ func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
 	}
 }
 
+func ImportHouseSerialNumberForHistory(adapter *Tt.Adapter) {
+	defer subTaskPrint("Patch serial number to house history")()
+
+	propertyHistoryQuery := rqProperty.NewPropertyHistory(adapter)
+	propertyHistories := propertyHistoryQuery.FindAllPropertyHistories()
+	fmt.Println("Len of house history => ", len(propertyHistories))
+	stat := &ImporterStat{Total: len(propertyHistories)}
+	defer stat.Print()
+
+	for _, pHistory := range propertyHistories {
+
+		fmt.Println(pHistory.PropertyKey)
+		stat.Print()
+
+		dataMutator := wcProperty.NewPropertyHistoryMutator(adapter)
+
+		if pHistory.SerialNumber != "" {
+			stat.Skip()
+			continue
+		}
+
+		pHistory.SerialNumber = strings.Split(pHistory.PropertyKey, "#")[0]
+		dataMutator.PropertyHistory = *pHistory
+		dataMutator.Adapter = adapter
+		dataMutator.UpdatedAt = time.Now().Unix()
+		stat.Ok(dataMutator.DoOverwriteById())
+	}
+}
+
 func ImportExcelData(adapter *Tt.Adapter, resourcePath string) {
 	start := time.Now()
 
@@ -508,6 +538,14 @@ func ImportExcelData(adapter *Tt.Adapter, resourcePath string) {
 	fmt.Println("[End] House Trx History")
 
 	L.TimeTrack(start, "ImportExcelData")
+}
+
+func PatchSerialNumberForHouseHistory(adapter *Tt.Adapter) {
+	start := time.Now()
+	fmt.Println("[Start] Patch serial number for house history")
+	ImportHouseSerialNumberForHistory(adapter)
+	fmt.Println("[End] Patch serial number for house history")
+	L.TimeTrack(start, "Patch-Serial-Number-Property-History")
 }
 
 func subTaskPrint(str string) func() {

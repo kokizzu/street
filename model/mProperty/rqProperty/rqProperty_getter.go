@@ -40,6 +40,19 @@ func (rq *Property) FindAllProperties() (res []*Property) {
 	return res
 }
 
+func (rq *PropertyHistory) FindAllPropertyHistories() (res []*PropertyHistory) {
+	query := `SELECT ` + rq.SqlSelectAllFields() + `FROM ` + rq.SqlTableName()
+	if conf.IsDebug() {
+		//L.Print(query)
+	}
+	rq.Adapter.QuerySql(query, func(row []any) {
+		obj := &PropertyHistory{}
+		obj.FromArray(row)
+		res = append(res, obj)
+	})
+	return res
+}
+
 func (p *Property) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud.PagerOut) (res [][]any) {
 	whereAndSql := z3.WhereAndSql(z2.Filters, PropertyFieldTypeMap)
 
@@ -106,6 +119,22 @@ func (rq *PropertyHistory) FindByPropertyKey(key string) (res []*PropertyHistory
 ` + rq.SqlSelectAllFields() + `
 FROM ` + rq.SqlTableName() + `
 WHERE ` + rq.SqlPropertyKey() + ` = ` + S.Z(key)
+	if conf.IsDebug() {
+		//L.Print(query)
+	}
+	rq.Adapter.QuerySql(query, func(row []any) {
+		obj := &PropertyHistory{}
+		obj.FromArray(row)
+		res = append(res, obj)
+	})
+	return
+}
+
+func (rq *PropertyHistory) FindBySerialNumber(key string) (res []*PropertyHistory) {
+	query := `SELECT
+` + rq.SqlSelectAllFields() + `
+FROM ` + rq.SqlTableName() + `
+WHERE ` + rq.SqlSerialNumber() + `=` + S.Z(key) + ``
 	if conf.IsDebug() {
 		//L.Print(query)
 	}

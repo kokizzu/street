@@ -86,6 +86,8 @@ func (p *PropertyMutator) DoDeletePermanentById() bool { //nolint:dupl false pos
 //		A.X{`=`, 16, p.UpdatedBy},
 //		A.X{`=`, 17, p.DeletedAt},
 //		A.X{`=`, 18, p.FormattedAddress},
+//		A.X{`=`, 19, p.LastPrice},
+//		A.X{`=`, 20, p.PriceHistories},
 //	})
 //	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName())
 // }
@@ -337,6 +339,25 @@ func (p *PropertyMutator) SetFormattedAddress(val string) bool { //nolint:dupl f
 	return false
 }
 
+// SetLastPrice create mutations, should not duplicate
+func (p *PropertyMutator) SetLastPrice(val string) bool { //nolint:dupl false positive
+	if val != p.LastPrice {
+		p.mutations = append(p.mutations, A.X{`=`, 19, val})
+		p.logs = append(p.logs, A.X{`lastPrice`, p.LastPrice, val})
+		p.LastPrice = val
+		return true
+	}
+	return false
+}
+
+// SetPriceHistories create mutations, should not duplicate
+func (p *PropertyMutator) SetPriceHistories(val []any) bool { //nolint:dupl false positive
+	p.mutations = append(p.mutations, A.X{`=`, 20, val})
+	p.logs = append(p.logs, A.X{`priceHistories`, p.PriceHistories, val})
+	p.PriceHistories = val
+	return true
+}
+
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 // PropertyHistoryMutator DAO writer/command struct
@@ -409,6 +430,7 @@ func (p *PropertyHistoryMutator) DoDeletePermanentById() bool { //nolint:dupl fa
 //		A.X{`=`, 16, p.UpdatedAt},
 //		A.X{`=`, 17, p.UpdatedBy},
 //		A.X{`=`, 18, p.DeletedAt},
+//		A.X{`=`, 19, p.SerialNumber},
 //	})
 //	return !L.IsError(err, `PropertyHistory.DoUpsert failed: `+p.SpaceName())
 // }
@@ -658,6 +680,17 @@ func (p *PropertyHistoryMutator) SetDeletedAt(val int64) bool { //nolint:dupl fa
 		p.mutations = append(p.mutations, A.X{`=`, 18, val})
 		p.logs = append(p.logs, A.X{`deletedAt`, p.DeletedAt, val})
 		p.DeletedAt = val
+		return true
+	}
+	return false
+}
+
+// SetSerialNumber create mutations, should not duplicate
+func (p *PropertyHistoryMutator) SetSerialNumber(val string) bool { //nolint:dupl false positive
+	if val != p.SerialNumber {
+		p.mutations = append(p.mutations, A.X{`=`, 19, val})
+		p.logs = append(p.logs, A.X{`serialNumber`, p.SerialNumber, val})
+		p.SerialNumber = val
 		return true
 	}
 	return false
