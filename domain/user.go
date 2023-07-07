@@ -297,6 +297,8 @@ type (
 		*rqProperty.Property
 		Lat float64 `json:"lat" form:"lat" query:"lat" long:"lat" msg:"lat"`
 		Lng float64 `json:"lng" form:"lng" query:"lng" long:"lng" msg:"lng"`
+
+		DistanceKM float64 `json:"distanceKM" form:"distanceKM" query:"distanceKM" long:"distanceKM" msg:"distanceKM"`
 	}
 )
 
@@ -322,7 +324,7 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 		in.Limit = DefaultLimit
 	}
 
-	if in.MaxDistanceKM == 0 {
+	if in.MaxDistanceKM <= 0 {
 		in.MaxDistanceKM = 2
 	}
 
@@ -334,7 +336,8 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 			item.Lat = X.ToF(item.Coord[0])
 			item.Lng = X.ToF(item.Coord[1])
 		}
-		if distanceKm(item.Lat, item.Lng, in.CenterLat, in.CenterLong) > in.MaxDistanceKM {
+		item.DistanceKM = distanceKm(item.Lat, item.Lng, in.CenterLat, in.CenterLong)
+		if item.DistanceKM > in.MaxDistanceKM {
 			return false
 		}
 		out.Properties = append(out.Properties, item)

@@ -26,7 +26,7 @@ type (
 		// will be filled by default with form id=0
 		WithMeta bool `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
 
-		Pager zCrud.PagerIn
+		Pager zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 	}
 	AdminUsersOut struct {
 		ResponseCommon
@@ -220,13 +220,13 @@ type (
 	AdminDashboardOut struct {
 		ResponseCommon
 
-		RegisteredUserTotal int64
+		RegisteredUserTotal int64 `json:"registeredUserTotal" form:"registeredUserTotal" query:"registeredUserTotal" long:"registeredUserTotal" msg:"registeredUserTotal"`
 
-		RequestsPerDate   map[string]int
-		UniqueUserPerDate map[string]int
-		UniqueIpPerDate   map[string]int
+		RequestsPerDate   map[string]int `json:"requestsPerDate" form:"requestsPerDate" query:"requestsPerDate" long:"requestsPerDate" msg:"requestsPerDate"`
+		UniqueUserPerDate map[string]int `json:"uniqueUserPerDate" form:"uniqueUserPerDate" query:"uniqueUserPerDate" long:"uniqueUserPerDate" msg:"uniqueUserPerDate"`
+		UniqueIpPerDate   map[string]int `json:"uniqueIpPerDate" form:"uniqueIpPerDate" query:"uniqueIpPerDate" long:"uniqueIpPerDate" msg:"uniqueIpPerDate"`
 
-		CountPerActionsPerDate map[string]map[string]int
+		CountPerActionsPerDate map[string]map[string]int `json:"countPerActionsPerDate" form:"countPerActionsPerDate" query:"countPerActionsPerDate" long:"countPerActionsPerDate" msg:"countPerActionsPerDate"`
 	}
 )
 
