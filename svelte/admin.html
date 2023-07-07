@@ -1,164 +1,360 @@
 <html><head>
-  <title>/*! title */</title>
-  <link href="/css.gg.css" rel="stylesheet">
+   <title>/*! title */</title>
+   <link href="/css.gg.css" rel="stylesheet">
 </head>
 <body>
-<style>
-    html {
-        max-width   : 99%;
-        padding     : 0.5rem 0.5rem;
-        margin      : auto;
-        line-height : 1.25;
-        font-size   : 1.25rem;
-    }
-
-    body {
-        font-family : sans-serif;
-        padding     : 1ch;
-        margin      : auto;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-        margin : 0.5rem 0 1rem;
-    }
-
-    p, ul, ol {
-        margin-bottom : 0.5rem;
-        color         : #1D1D1D;
-        font-family   : sans-serif;
-    }
-
-    button {
-        height           : 2rem;
-        padding          : 0.5rem;
-        font-weight      : bold;
-        font-size        : 1rem;
-        background-color : #BBB;
-        color            : black;
-        border-radius    : 0.6rem;
-    }
-
-    button.danger {
-        background-color : red;
-    }
-
-    button.danger:active, button.danger:hover {
-        background-color : darkred;
-    }
-
-    button.warning {
-        background-color : orange;
-    }
-
-    button.warning:active, button.warning:hover {
-        background-color : darkorange;
-    }
-
-    button.primary {
-        background-color : limegreen;
-    }
-
-    button.primary:active, button.primary:hover {
-        background-color : green;
-    }
-
-
-    button:disabled {
-        background-color : #777;
-        color            : #222;
-    }
-
-    button:active, button:hover {
-        background-color : #999;
-    }
-
-    input, select, textarea {
-        padding       : 0.1rem 0.5rem 0.1rem 0.5rem;
-        font-weight   : bold;
-        font-size     : 1rem;
-        border-radius : 0.5rem;
-    }
-
-    input[type="checkbox"] {
-        width  : 2rem;
-        height : 2rem;
-    }
-
-    label {
-        font-weight : bold;
-        display     : inline-block;
-        padding     : 0.2rem;
-        width       : 11rem;
-    }
-</style>
+   <style>
+      *,
+      *::before,
+      *::after {
+         box-sizing: border-box;
+      }
+      :root {
+         -moz-tab-size: 4;
+         -o-tab-size: 4;
+         tab-size: 4;
+      }
+      html {
+         max-width                  : 100%;
+         margin                     : auto;
+         line-height-step           : 1.15;
+         -webkit-text-size-adjust   : 100%;
+         font-size                  : 13px;
+      }
+      body {
+         font-family                : Roboto, Helvetica, Arial, sans-serif;
+         margin                     : 0;
+      }
+      hr {
+         height: 0;
+         border-top-width: 1px;
+         width: 100%;
+         overflow: hidden;
+         color: inherit;
+         margin: 0;
+      }
+      /* Dashboard */
+      section.dashboard {
+         display: flex;
+         flex-direction: row;
+      }
+      .dashboard_main_content {
+         background-color: #F1F5F9;
+         min-height: 100vh;
+         width: 100%;
+      }
+      .dashboard_main_content .content {
+         min-height: 85vh;
+      }
+   </style>
 
 
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:/home/kyz/go/src/street/svelte/_components/Menu.esbuild-svelte-fake-css */
-.menu.svelte-14j5e9r.svelte-14j5e9r {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-}
-.menu.svelte-14j5e9r li.svelte-14j5e9r {
-  float: left;
-}
-.menu.svelte-14j5e9r li a.svelte-14j5e9r {
+<style>/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/Menu.esbuild-svelte-fake-css */
+.side_menu_admin.svelte-1ltvite.svelte-1ltvite {
+  left: 0;
   display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  bottom: 0;
+  overflow-y: auto;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow: auto;
+  background-color: white;
+  color: #475569;
+  padding: 16px 24px;
+  width: 300px;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
-.menu.svelte-14j5e9r li a.svelte-14j5e9r:hover:not(.active) {
-  background-color: #111;
-}
-.menu.svelte-14j5e9r li button.svelte-14j5e9r {
-  padding: 0.5em;
-  margin: 0.3em;
-}
-.active.svelte-14j5e9r.svelte-14j5e9r {
-  background-color: #4CAF50;
-}
-
-/* fakecss:/home/kyz/go/src/street/svelte/admin/_adminSubMenu.esbuild-svelte-fake-css */
-.submenu.svelte-dk81xr.svelte-dk81xr {
-  list-style-type: none;
-  margin: 0;
+.side_menu_admin_container.svelte-1ltvite.svelte-1ltvite {
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 100%;
+  flex-wrap: nowrap;
   padding: 0;
-  overflow: hidden;
-  background-color: #666;
-}
-.submenu.svelte-dk81xr li.svelte-dk81xr {
-  float: left;
-}
-.submenu.svelte-dk81xr li a.svelte-dk81xr {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-.submenu.svelte-dk81xr li a.svelte-dk81xr:hover:not(.active) {
-  background-color: #111;
-}
-.active.svelte-dk81xr.svelte-dk81xr {
-  background-color: #4CAF50;
-}
-
-/* fakecss:/home/kyz/go/src/street/svelte/admin.esbuild-svelte-fake-css */
-table.svelte-18nqf8w,
-td.svelte-18nqf8w,
-th.svelte-18nqf8w {
-  border: 1px solid black;
-}
-table.svelte-18nqf8w {
-  border-collapse: collapse;
+  display: flex;
   width: 100%;
+  margin: 0 auto;
+}
+.side_menu_admin_container.svelte-1ltvite header.svelte-1ltvite {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.side_menu_admin_container.svelte-1ltvite header h3.svelte-1ltvite {
+  font-size: 16px;
+  line-height: 1.5rem;
+  padding: 0;
+  margin: 0;
+}
+.side_menu_admin_container.svelte-1ltvite header button.svelte-1ltvite {
+  padding: 5px;
+  border: none;
+  background: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.side_menu_admin_container.svelte-1ltvite header button.svelte-1ltvite:hover {
+  background-color: rgb(0 0 0 / 0.07);
+  color: #EF4444;
+}
+.menu_container.svelte-1ltvite.svelte-1ltvite {
+  margin-top: 1rem;
+  align-items: stretch;
+  flex-direction: column;
+  display: flex;
+}
+.menu_container.svelte-1ltvite hr.svelte-1ltvite {
+  margin: 1rem 0;
+}
+.menu_container.svelte-1ltvite h6.svelte-1ltvite {
+  font-size: 15px;
+  margin: 12px 0;
+}
+.menu_container.svelte-1ltvite .menu.svelte-1ltvite {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+.menu_container.svelte-1ltvite .menu a.svelte-1ltvite,
+.menu.svelte-1ltvite .logout.svelte-1ltvite {
+  color: #475569;
+  text-decoration: none;
+  margin: 0;
+  padding: 0.75rem 0;
+  font-size: 0.875rem !important;
+  line-height: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+}
+.menu_container.svelte-1ltvite .menu .logout.svelte-1ltvite {
+  cursor: pointer;
+  margin-left: 4px !important;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 0;
+}
+.menu_container.svelte-1ltvite .menu .logout span.svelte-1ltvite {
+  margin-left: 25px !important;
+}
+.menu_container.svelte-1ltvite .menu a i.svelte-1ltvite,
+.menu_container.svelte-1ltvite .menu .logout i.svelte-1ltvite {
+  margin: 0;
+  color: #CBD5E1;
+}
+.menu_container.svelte-1ltvite .menu a.svelte-1ltvite:hover,
+.menu_container.svelte-1ltvite .menu .logout.svelte-1ltvite:hover {
+  color: #64748B;
+}
+.menu_container.svelte-1ltvite .menu a span.svelte-1ltvite,
+.menu_container.svelte-1ltvite .menu .logout span.svelte-1ltvite {
+  margin-left: 15px;
+}
+.active.svelte-1ltvite.svelte-1ltvite,
+.active.svelte-1ltvite i.svelte-1ltvite {
+  color: #EF4444 !important;
+}
+
+/* fakecss:/home/habi/Dev/workStuff/street/svelte/admin/_adminSubMenu.esbuild-svelte-fake-css */
+.admin_submenu.svelte-ylwlsa.svelte-ylwlsa {
+  position: relative;
+  margin-top: -40px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  background-color: #EF4444;
+  padding-bottom: 70px;
+}
+.admin_submenu.svelte-ylwlsa .menu.svelte-ylwlsa {
+  width: 88%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: row;
+}
+.admin_submenu.svelte-ylwlsa .menu a.svelte-ylwlsa {
+  flex-grow: 1;
+  color: #475569;
+  background-color: white;
+  border-radius: 6px;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  text-transform: uppercase;
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 700;
+  padding-top: 11px;
+  padding-bottom: 11px;
+  text-align: center;
+  margin-left: 20px;
+}
+.admin_submenu.svelte-ylwlsa .menu a.svelte-ylwlsa:hover {
+  color: #EF4444;
+}
+.admin_submenu.svelte-ylwlsa .menu a.svelte-ylwlsa:nth-child(1) {
+  margin-left: 0 !important;
+}
+.admin_submenu.svelte-ylwlsa .menu .active.svelte-ylwlsa {
+  background-color: #334155 !important;
+  color: white !important;
+}
+
+/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/ProfileHeader.esbuild-svelte-fake-css */
+.profile_header.svelte-1m01gd2.svelte-1m01gd2.svelte-1m01gd2 {
+  background-color: #EF4444;
+  height: fit-content;
+  position: relative;
+  padding-top: 18px;
+  padding-bottom: 80px;
+  padding-right: 50px;
+  padding-left: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.profile_header.svelte-1m01gd2 .navbar.svelte-1m01gd2.svelte-1m01gd2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.profile_header.svelte-1m01gd2 .navbar .label_menu.svelte-1m01gd2.svelte-1m01gd2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+}
+.profile_header.svelte-1m01gd2 .navbar .label_menu button.svelte-1m01gd2.svelte-1m01gd2 {
+  padding: 15px 8px;
+  border: none;
+  background: none;
+  border-radius: 5px;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+}
+.profile_header.svelte-1m01gd2 .navbar .label_menu button.svelte-1m01gd2.svelte-1m01gd2:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.profile_header.svelte-1m01gd2 .navbar .label_menu p.svelte-1m01gd2.svelte-1m01gd2 {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.5rem;
+  padding: 0;
+  margin: 0 0 0 15px;
+}
+.profile_header.svelte-1m01gd2 .navbar .right_nav.svelte-1m01gd2.svelte-1m01gd2 {
+  display: flex;
+  flex-direction: row;
+}
+.profile_header.svelte-1m01gd2 .navbar .right_nav .search_input.svelte-1m01gd2.svelte-1m01gd2 {
+  margin-right: 15px;
+  margin-top: auto;
+  margin-left: 0;
+  margin-bottom: auto;
+}
+.profile_header.svelte-1m01gd2 .navbar .right_nav .search_input.svelte-1m01gd2 > span.svelte-1m01gd2 {
+  padding: 13px;
+  position: absolute;
+  z-index: 10;
+  font-size: 16px;
+  color: #CBD5E1;
+}
+.profile_header.svelte-1m01gd2 .navbar .right_nav .search_input.svelte-1m01gd2 > input.svelte-1m01gd2 {
+  width: 250px;
+  border: none;
+  border-radius: 8px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 40px;
+  padding-right: 12px;
+}
+.profile_header.svelte-1m01gd2 .navbar .right_nav .search_input.svelte-1m01gd2 > input.svelte-1m01gd2:focus {
+  outline: 3px solid #3b82f6;
+}
+.profile_header.svelte-1m01gd2 .navbar .right_nav .profile_button.svelte-1m01gd2.svelte-1m01gd2 {
+  padding: 0;
+  border: none;
+  margin: 0;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 9999px;
+}
+.profile_header.svelte-1m01gd2 .navbar .right_nav .profile_button.svelte-1m01gd2.svelte-1m01gd2:hover {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+.profile_header.svelte-1m01gd2 .navbar .right_nav .profile_button.svelte-1m01gd2 > img.svelte-1m01gd2 {
+  width: 50px;
+  height: 50px;
+  border-radius: 9999px;
+}
+
+/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/Footer.esbuild-svelte-fake-css */
+footer.svelte-uaahja.svelte-uaahja {
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 50px 0 50px;
+  padding: 16px 0;
+  border-top: 1px solid #CBD5E1;
+  color: #475569;
+}
+footer.svelte-uaahja nav.svelte-uaahja {
+  display: flex;
+  flex-direction: row;
+}
+footer.svelte-uaahja nav a.svelte-uaahja {
+  text-decoration: none;
+  margin-left: 15px;
+  color: #475569;
+}
+footer.svelte-uaahja nav a.svelte-uaahja:hover {
+  color: #EF4444;
+}
+
+/* fakecss:/home/habi/Dev/workStuff/street/svelte/admin.esbuild-svelte-fake-css */
+.table_stats.svelte-3opxok {
+  position: relative;
+  margin-top: -40px;
+}
+.table_actions.svelte-3opxok {
+  margin-top: 30px;
+}
+.table_stats.svelte-3opxok,
+.table_actions.svelte-3opxok {
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 8px;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  padding: 20px;
+  background-color: white;
+  width: 88%;
+  height: fit-content;
+  color: #475569;
+  font-size: 16px;
+}
+.table_header.svelte-3opxok {
+  text-align: left !important;
+  color: #6366F1 !important;
+}
+.table_header.svelte-3opxok,
+.table_data.svelte-3opxok {
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 </style>
 <script>(() => {
@@ -2163,13 +2359,13 @@ table.svelte-18nqf8w {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance4 = bind(Axios$1.prototype.request, context);
-        utils.extend(instance4, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance4, context, null, { allOwnKeys: true });
-        instance4.create = function create(instanceConfig) {
+        const instance6 = bind(Axios$1.prototype.request, context);
+        utils.extend(instance6, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance6, context, null, { allOwnKeys: true });
+        instance6.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance4;
+        return instance6;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2385,12 +2581,21 @@ table.svelte-18nqf8w {
   function space() {
     return text(" ");
   }
+  function empty() {
+    return text("");
+  }
   function comment(content) {
     return document.createComment(content);
   }
   function listen(node, event, handler, options) {
     node.addEventListener(event, handler, options);
     return () => node.removeEventListener(event, handler, options);
+  }
+  function prevent_default(fn) {
+    return function(event) {
+      event.preventDefault();
+      return fn.call(this, event);
+    };
   }
   function attr(node, attribute, value) {
     if (value == null)
@@ -2408,15 +2613,11 @@ table.svelte-18nqf8w {
     text2.data = /** @type {string} */
     data;
   }
-  function set_style(node, key, value, important) {
-    if (value == null) {
-      node.style.removeProperty(key);
-    } else {
-      node.style.setProperty(key, value, important ? "important" : "");
-    }
-  }
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
+  }
+  function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
+    return new CustomEvent(type, { detail, bubbles, cancelable });
   }
   function get_custom_elements_slots(element2) {
     const result = {};
@@ -2441,6 +2642,25 @@ table.svelte-18nqf8w {
   }
   function onMount(fn) {
     get_current_component().$.on_mount.push(fn);
+  }
+  function createEventDispatcher() {
+    const component = get_current_component();
+    return (type, detail, { cancelable = false } = {}) => {
+      const callbacks = component.$.callbacks[type];
+      if (callbacks) {
+        const event = custom_event(
+          /** @type {string} */
+          type,
+          detail,
+          { cancelable }
+        );
+        callbacks.slice().forEach((fn) => {
+          fn.call(component, event);
+        });
+        return !event.defaultPrevented;
+      }
+      return true;
+    };
   }
 
   // node_modules/svelte/src/runtime/internal/scheduler.js
@@ -2620,7 +2840,7 @@ table.svelte-18nqf8w {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance4, create_fragment4, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance6, create_fragment6, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -2646,7 +2866,7 @@ table.svelte-18nqf8w {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance4 ? instance4(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance6 ? instance6(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -2659,7 +2879,7 @@ table.svelte-18nqf8w {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment4 ? create_fragment4($.ctx) : false;
+    $.fragment = create_fragment6 ? create_fragment6($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -2912,260 +3132,190 @@ table.svelte-18nqf8w {
 
   // _components/Menu.svelte
   var import_jsApi_GEN = __toESM(require_jsApi_GEN());
-  function create_if_block_3(ctx) {
-    let li;
-    return {
-      c() {
-        li = element("li");
-        li.innerHTML = `<a href="/buyer" class="svelte-14j5e9r">Buyer</a>`;
-        attr(li, "class", "svelte-14j5e9r");
-        toggle_class(
-          li,
-          "active",
-          /*segment1*/
-          ctx[1] === "buyer"
-        );
-      },
-      m(target, anchor) {
-        insert(target, li, anchor);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*segment1*/
-        2) {
-          toggle_class(
-            li,
-            "active",
-            /*segment1*/
-            ctx2[1] === "buyer"
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(li);
-        }
-      }
-    };
-  }
-  function create_if_block_2(ctx) {
-    let li;
-    return {
-      c() {
-        li = element("li");
-        li.innerHTML = `<a href="/realtor" class="svelte-14j5e9r">Realtor</a>`;
-        attr(li, "class", "svelte-14j5e9r");
-        toggle_class(
-          li,
-          "active",
-          /*segment1*/
-          ctx[1] === "realtor"
-        );
-      },
-      m(target, anchor) {
-        insert(target, li, anchor);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*segment1*/
-        2) {
-          toggle_class(
-            li,
-            "active",
-            /*segment1*/
-            ctx2[1] === "realtor"
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(li);
-        }
-      }
-    };
-  }
-  function create_if_block_1(ctx) {
-    let li;
-    return {
-      c() {
-        li = element("li");
-        li.innerHTML = `<a href="/admin" class="svelte-14j5e9r">Admin</a>`;
-        attr(li, "class", "svelte-14j5e9r");
-        toggle_class(
-          li,
-          "active",
-          /*segment1*/
-          ctx[1] === "admin"
-        );
-      },
-      m(target, anchor) {
-        insert(target, li, anchor);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*segment1*/
-        2) {
-          toggle_class(
-            li,
-            "active",
-            /*segment1*/
-            ctx2[1] === "admin"
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(li);
-        }
-      }
-    };
-  }
   function create_if_block(ctx) {
-    let li0;
-    let button;
+    let aside;
+    let div1;
+    let header;
+    let h3;
     let t1;
-    let li1;
+    let button;
+    let t2;
+    let div0;
+    let c0;
+    let t3;
+    let hr0;
+    let t4;
+    let h60;
+    let t6;
+    let nav0;
+    let a;
+    let t9;
+    let t10;
+    let t11;
+    let t12;
+    let c1;
+    let t13;
+    let hr1;
+    let t14;
+    let h61;
+    let t16;
+    let nav1;
+    let t17;
     let mounted;
     let dispose;
+    let if_block0 = (
+      /*access*/
+      ctx[1].buyer && create_if_block_5(ctx)
+    );
+    let if_block1 = (
+      /*access*/
+      ctx[1].realtor && create_if_block_4(ctx)
+    );
+    let if_block2 = (
+      /*access*/
+      ctx[1].admin && create_if_block_3(ctx)
+    );
+    let if_block3 = (
+      /*access*/
+      ctx[1].user && create_if_block_2(ctx)
+    );
+    let if_block4 = (
+      /*access*/
+      ctx[1].user && create_if_block_1(ctx)
+    );
     return {
       c() {
-        li0 = element("li");
-        button = element("button");
-        button.textContent = "Logout";
+        aside = element("aside");
+        div1 = element("div");
+        header = element("header");
+        h3 = element("h3");
+        h3.textContent = "STREET";
         t1 = space();
-        li1 = element("li");
-        li1.innerHTML = `<a href="/user" class="svelte-14j5e9r">Profile</a>`;
-        attr(button, "class", "svelte-14j5e9r");
-        set_style(li0, "float", "right");
-        attr(li0, "class", "svelte-14j5e9r");
-        set_style(li1, "float", "right");
-        attr(li1, "class", "svelte-14j5e9r");
+        button = element("button");
+        button.innerHTML = `<i class="gg-close"></i>`;
+        t2 = space();
+        div0 = element("div");
+        c0 = comment(" PAGES ");
+        t3 = space();
+        hr0 = element("hr");
+        t4 = space();
+        h60 = element("h6");
+        h60.textContent = "MENU";
+        t6 = space();
+        nav0 = element("nav");
+        a = element("a");
+        a.innerHTML = `<i class="gg-home svelte-1ltvite"></i> <span class="svelte-1ltvite">HOME</span>`;
+        t9 = space();
+        if (if_block0)
+          if_block0.c();
+        t10 = space();
+        if (if_block1)
+          if_block1.c();
+        t11 = space();
+        if (if_block2)
+          if_block2.c();
+        t12 = space();
+        c1 = comment(" SETTING ");
+        t13 = space();
+        hr1 = element("hr");
+        t14 = space();
+        h61 = element("h6");
+        h61.textContent = "SETTING";
+        t16 = space();
+        nav1 = element("nav");
+        if (if_block3)
+          if_block3.c();
+        t17 = space();
+        if (if_block4)
+          if_block4.c();
+        attr(h3, "class", "svelte-1ltvite");
+        attr(button, "class", "svelte-1ltvite");
+        attr(header, "class", "svelte-1ltvite");
+        attr(hr0, "class", "svelte-1ltvite");
+        attr(h60, "class", "svelte-1ltvite");
+        attr(a, "href", "/");
+        attr(a, "class", "svelte-1ltvite");
         toggle_class(
-          li1,
+          a,
           "active",
           /*segment1*/
-          ctx[1] === "user"
+          ctx[2] === ""
         );
+        attr(nav0, "class", "menu svelte-1ltvite");
+        attr(hr1, "class", "svelte-1ltvite");
+        attr(h61, "class", "svelte-1ltvite");
+        attr(nav1, "class", "menu svelte-1ltvite");
+        attr(div0, "class", "menu_container svelte-1ltvite");
+        attr(div1, "class", "side_menu_admin_container svelte-1ltvite");
+        attr(aside, "class", "side_menu_admin svelte-1ltvite");
       },
       m(target, anchor) {
-        insert(target, li0, anchor);
-        append(li0, button);
-        insert(target, t1, anchor);
-        insert(target, li1, anchor);
+        insert(target, aside, anchor);
+        append(aside, div1);
+        append(div1, header);
+        append(header, h3);
+        append(header, t1);
+        append(header, button);
+        append(div1, t2);
+        append(div1, div0);
+        append(div0, c0);
+        append(div0, t3);
+        append(div0, hr0);
+        append(div0, t4);
+        append(div0, h60);
+        append(div0, t6);
+        append(div0, nav0);
+        append(nav0, a);
+        append(nav0, t9);
+        if (if_block0)
+          if_block0.m(nav0, null);
+        append(nav0, t10);
+        if (if_block1)
+          if_block1.m(nav0, null);
+        append(nav0, t11);
+        if (if_block2)
+          if_block2.m(nav0, null);
+        append(div0, t12);
+        append(div0, c1);
+        append(div0, t13);
+        append(div0, hr1);
+        append(div0, t14);
+        append(div0, h61);
+        append(div0, t16);
+        append(div0, nav1);
+        if (if_block3)
+          if_block3.m(nav1, null);
+        append(nav1, t17);
+        if (if_block4)
+          if_block4.m(nav1, null);
         if (!mounted) {
-          dispose = listen(
-            button,
-            "click",
-            /*userLogout*/
-            ctx[2]
-          );
+          dispose = listen(button, "click", prevent_default(
+            /*closeMenu*/
+            ctx[4]
+          ));
           mounted = true;
         }
       },
       p(ctx2, dirty) {
         if (dirty & /*segment1*/
-        2) {
+        4) {
           toggle_class(
-            li1,
+            a,
             "active",
             /*segment1*/
-            ctx2[1] === "user"
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(li0);
-          detach(t1);
-          detach(li1);
-        }
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_fragment(ctx) {
-    let ul;
-    let li;
-    let t1;
-    let t2;
-    let t3;
-    let t4;
-    let if_block0 = (
-      /*access*/
-      ctx[0].buyer && create_if_block_3(ctx)
-    );
-    let if_block1 = (
-      /*access*/
-      ctx[0].realtor && create_if_block_2(ctx)
-    );
-    let if_block2 = (
-      /*access*/
-      ctx[0].admin && create_if_block_1(ctx)
-    );
-    let if_block3 = (
-      /*access*/
-      ctx[0].user && create_if_block(ctx)
-    );
-    return {
-      c() {
-        ul = element("ul");
-        li = element("li");
-        li.innerHTML = `<a href="/" class="svelte-14j5e9r">Home</a>`;
-        t1 = space();
-        if (if_block0)
-          if_block0.c();
-        t2 = space();
-        if (if_block1)
-          if_block1.c();
-        t3 = space();
-        if (if_block2)
-          if_block2.c();
-        t4 = space();
-        if (if_block3)
-          if_block3.c();
-        attr(li, "class", "svelte-14j5e9r");
-        toggle_class(
-          li,
-          "active",
-          /*segment1*/
-          ctx[1] === ""
-        );
-        attr(ul, "class", "menu svelte-14j5e9r");
-      },
-      m(target, anchor) {
-        insert(target, ul, anchor);
-        append(ul, li);
-        append(ul, t1);
-        if (if_block0)
-          if_block0.m(ul, null);
-        append(ul, t2);
-        if (if_block1)
-          if_block1.m(ul, null);
-        append(ul, t3);
-        if (if_block2)
-          if_block2.m(ul, null);
-        append(ul, t4);
-        if (if_block3)
-          if_block3.m(ul, null);
-      },
-      p(ctx2, [dirty]) {
-        if (dirty & /*segment1*/
-        2) {
-          toggle_class(
-            li,
-            "active",
-            /*segment1*/
-            ctx2[1] === ""
+            ctx2[2] === ""
           );
         }
         if (
           /*access*/
-          ctx2[0].buyer
+          ctx2[1].buyer
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
           } else {
-            if_block0 = create_if_block_3(ctx2);
+            if_block0 = create_if_block_5(ctx2);
             if_block0.c();
-            if_block0.m(ul, t2);
+            if_block0.m(nav0, t10);
           }
         } else if (if_block0) {
           if_block0.d(1);
@@ -3173,14 +3323,14 @@ table.svelte-18nqf8w {
         }
         if (
           /*access*/
-          ctx2[0].realtor
+          ctx2[1].realtor
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
           } else {
-            if_block1 = create_if_block_2(ctx2);
+            if_block1 = create_if_block_4(ctx2);
             if_block1.c();
-            if_block1.m(ul, t3);
+            if_block1.m(nav0, t11);
           }
         } else if (if_block1) {
           if_block1.d(1);
@@ -3188,14 +3338,14 @@ table.svelte-18nqf8w {
         }
         if (
           /*access*/
-          ctx2[0].admin
+          ctx2[1].admin
         ) {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
           } else {
-            if_block2 = create_if_block_1(ctx2);
+            if_block2 = create_if_block_3(ctx2);
             if_block2.c();
-            if_block2.m(ul, t4);
+            if_block2.m(nav0, null);
           }
         } else if (if_block2) {
           if_block2.d(1);
@@ -3203,25 +3353,38 @@ table.svelte-18nqf8w {
         }
         if (
           /*access*/
-          ctx2[0].user
+          ctx2[1].user
         ) {
           if (if_block3) {
             if_block3.p(ctx2, dirty);
           } else {
-            if_block3 = create_if_block(ctx2);
+            if_block3 = create_if_block_2(ctx2);
             if_block3.c();
-            if_block3.m(ul, null);
+            if_block3.m(nav1, t17);
           }
         } else if (if_block3) {
           if_block3.d(1);
           if_block3 = null;
         }
+        if (
+          /*access*/
+          ctx2[1].user
+        ) {
+          if (if_block4) {
+            if_block4.p(ctx2, dirty);
+          } else {
+            if_block4 = create_if_block_1(ctx2);
+            if_block4.c();
+            if_block4.m(nav1, null);
+          }
+        } else if (if_block4) {
+          if_block4.d(1);
+          if_block4 = null;
+        }
       },
-      i: noop,
-      o: noop,
       d(detaching) {
         if (detaching) {
-          detach(ul);
+          detach(aside);
         }
         if (if_block0)
           if_block0.d();
@@ -3231,10 +3394,237 @@ table.svelte-18nqf8w {
           if_block2.d();
         if (if_block3)
           if_block3.d();
+        if (if_block4)
+          if_block4.d();
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_5(ctx) {
+    let a;
+    return {
+      c() {
+        a = element("a");
+        a.innerHTML = `<i class="gg-shopping-bag svelte-1ltvite"></i> <span class="svelte-1ltvite">BUYER</span>`;
+        attr(a, "href", "/buyer");
+        attr(a, "class", "svelte-1ltvite");
+        toggle_class(
+          a,
+          "active",
+          /*segment1*/
+          ctx[2] === "buyer"
+        );
+      },
+      m(target, anchor) {
+        insert(target, a, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*segment1*/
+        4) {
+          toggle_class(
+            a,
+            "active",
+            /*segment1*/
+            ctx2[2] === "buyer"
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(a);
+        }
+      }
+    };
+  }
+  function create_if_block_4(ctx) {
+    let a;
+    return {
+      c() {
+        a = element("a");
+        a.innerHTML = `<i class="gg-hello svelte-1ltvite"></i> <span class="svelte-1ltvite">REALTOR</span>`;
+        attr(a, "href", "/realtor");
+        attr(a, "class", "svelte-1ltvite");
+        toggle_class(
+          a,
+          "active",
+          /*segment1*/
+          ctx[2] === "realtor"
+        );
+      },
+      m(target, anchor) {
+        insert(target, a, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*segment1*/
+        4) {
+          toggle_class(
+            a,
+            "active",
+            /*segment1*/
+            ctx2[2] === "realtor"
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(a);
+        }
+      }
+    };
+  }
+  function create_if_block_3(ctx) {
+    let a;
+    return {
+      c() {
+        a = element("a");
+        a.innerHTML = `<i class="gg-options svelte-1ltvite" style="margin-left: 5px !important; margin-right: 5px;"></i> <span class="svelte-1ltvite">ADMIN</span>`;
+        attr(a, "href", "/admin");
+        attr(a, "class", "svelte-1ltvite");
+        toggle_class(
+          a,
+          "active",
+          /*segment1*/
+          ctx[2] === "admin"
+        );
+      },
+      m(target, anchor) {
+        insert(target, a, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*segment1*/
+        4) {
+          toggle_class(
+            a,
+            "active",
+            /*segment1*/
+            ctx2[2] === "admin"
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(a);
+        }
+      }
+    };
+  }
+  function create_if_block_2(ctx) {
+    let a;
+    return {
+      c() {
+        a = element("a");
+        a.innerHTML = `<i class="gg-profile svelte-1ltvite"></i> <span class="svelte-1ltvite">PROFILE</span>`;
+        attr(a, "href", "/user");
+        attr(a, "class", "svelte-1ltvite");
+        toggle_class(
+          a,
+          "active",
+          /*segment1*/
+          ctx[2] === "user"
+        );
+      },
+      m(target, anchor) {
+        insert(target, a, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*segment1*/
+        4) {
+          toggle_class(
+            a,
+            "active",
+            /*segment1*/
+            ctx2[2] === "user"
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(a);
+        }
+      }
+    };
+  }
+  function create_if_block_1(ctx) {
+    let button;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        button = element("button");
+        button.innerHTML = `<i class="gg-log-out svelte-1ltvite"></i> <span class="svelte-1ltvite">LOGOUT</span>`;
+        attr(button, "class", "logout svelte-1ltvite");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*userLogout*/
+            ctx[3]
+          );
+          mounted = true;
+        }
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_fragment(ctx) {
+    let if_block_anchor;
+    let if_block = (
+      /*isSideMenuOpen*/
+      ctx[0] && create_if_block(ctx)
+    );
+    return {
+      c() {
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, [dirty]) {
+        if (
+          /*isSideMenuOpen*/
+          ctx2[0]
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+          } else {
+            if_block = create_if_block(ctx2);
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          if_block.d(1);
+          if_block = null;
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
       }
     };
   }
   function instance($self, $props, $invalidate) {
+    const dispatch = createEventDispatcher();
+    let { isSideMenuOpen = false } = $props;
     let { access = {
       "admin": false,
       "buyer": false,
@@ -3243,7 +3633,8 @@ table.svelte-18nqf8w {
     } } = $props;
     let segment1;
     onMount(() => {
-      $invalidate(1, segment1 = window.location.pathname.split("/")[1]);
+      $invalidate(2, segment1 = window.location.pathname.split("/")[1]);
+      console.log(segment1);
     });
     async function userLogout() {
       await (0, import_jsApi_GEN.UserLogout)({}, function(o) {
@@ -3253,101 +3644,114 @@ table.svelte-18nqf8w {
         window.location = "/";
       });
     }
+    function closeMenu() {
+      dispatch("closesidemenu");
+    }
     $self.$set = ($props2) => {
+      if ("isSideMenuOpen" in $props2)
+        $invalidate(0, isSideMenuOpen = $props2.isSideMenuOpen);
       if ("access" in $props2)
-        $invalidate(0, access = $props2.access);
+        $invalidate(1, access = $props2.access);
     };
-    return [access, segment1, userLogout];
+    return [isSideMenuOpen, access, segment1, userLogout, closeMenu];
   }
   var Menu = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance, create_fragment, safe_not_equal, { access: 0 });
+      init(this, options, instance, create_fragment, safe_not_equal, { isSideMenuOpen: 0, access: 1 });
     }
   };
   var Menu_default = Menu;
 
   // admin/_adminSubMenu.svelte
   function create_fragment2(ctx) {
-    let ul;
-    let li0;
+    let div;
+    let nav;
+    let a0;
     let t1;
-    let li1;
+    let a1;
     let t3;
-    let li2;
+    let a2;
     let t5;
-    let li3;
+    let a3;
     let t7;
     let c0;
     let t8;
     let c1;
     return {
       c() {
-        ul = element("ul");
-        li0 = element("li");
-        li0.innerHTML = `<a href="/admin" class="svelte-dk81xr">Dashboard</a>`;
+        div = element("div");
+        nav = element("nav");
+        a0 = element("a");
+        a0.textContent = "Dashboard";
         t1 = space();
-        li1 = element("li");
-        li1.innerHTML = `<a href="/admin/users" class="svelte-dk81xr">Users</a>`;
+        a1 = element("a");
+        a1.textContent = "Users";
         t3 = space();
-        li2 = element("li");
-        li2.innerHTML = `<a href="/admin/properties" class="svelte-dk81xr">Properties</a>`;
+        a2 = element("a");
+        a2.textContent = "Properties";
         t5 = space();
-        li3 = element("li");
-        li3.innerHTML = `<a href="/admin/propHistories" class="svelte-dk81xr">Prop Histories</a>`;
+        a3 = element("a");
+        a3.textContent = "Prop Histories";
         t7 = space();
         c0 = comment(`  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>`);
         t8 = space();
         c1 = comment(`  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>`);
-        attr(li0, "class", "svelte-dk81xr");
+        attr(a0, "href", "/admin");
+        attr(a0, "class", "svelte-ylwlsa");
         toggle_class(
-          li0,
+          a0,
           "active",
           /*segment2*/
           ctx[0] === ""
         );
-        attr(li1, "class", "svelte-dk81xr");
+        attr(a1, "href", "/admin/users");
+        attr(a1, "class", "svelte-ylwlsa");
         toggle_class(
-          li1,
+          a1,
           "active",
           /*segment2*/
           ctx[0] === "users"
         );
-        attr(li2, "class", "svelte-dk81xr");
+        attr(a2, "href", "/admin/properties");
+        attr(a2, "class", "svelte-ylwlsa");
         toggle_class(
-          li2,
+          a2,
           "active",
           /*segment2*/
           ctx[0] === "properties"
         );
-        attr(li3, "class", "svelte-dk81xr");
+        attr(a3, "href", "/admin/propHistories");
+        attr(a3, "class", "svelte-ylwlsa");
         toggle_class(
-          li3,
+          a3,
           "active",
           /*segment2*/
           ctx[0] === "propHistories"
         );
-        attr(ul, "class", "submenu svelte-dk81xr");
+        attr(nav, "class", "menu svelte-ylwlsa");
+        attr(div, "class", "admin_submenu svelte-ylwlsa");
       },
       m(target, anchor) {
-        insert(target, ul, anchor);
-        append(ul, li0);
-        append(ul, t1);
-        append(ul, li1);
-        append(ul, t3);
-        append(ul, li2);
-        append(ul, t5);
-        append(ul, li3);
-        append(ul, t7);
-        append(ul, c0);
-        append(ul, t8);
-        append(ul, c1);
+        insert(target, div, anchor);
+        append(div, nav);
+        append(nav, a0);
+        append(nav, t1);
+        append(nav, a1);
+        append(nav, t3);
+        append(nav, a2);
+        append(nav, t5);
+        append(nav, a3);
+        append(nav, t7);
+        append(nav, c0);
+        append(nav, t8);
+        append(nav, c1);
       },
       p(ctx2, [dirty]) {
         if (dirty & /*segment2*/
         1) {
           toggle_class(
-            li0,
+            a0,
             "active",
             /*segment2*/
             ctx2[0] === ""
@@ -3356,7 +3760,7 @@ table.svelte-18nqf8w {
         if (dirty & /*segment2*/
         1) {
           toggle_class(
-            li1,
+            a1,
             "active",
             /*segment2*/
             ctx2[0] === "users"
@@ -3365,7 +3769,7 @@ table.svelte-18nqf8w {
         if (dirty & /*segment2*/
         1) {
           toggle_class(
-            li2,
+            a2,
             "active",
             /*segment2*/
             ctx2[0] === "properties"
@@ -3374,7 +3778,7 @@ table.svelte-18nqf8w {
         if (dirty & /*segment2*/
         1) {
           toggle_class(
-            li3,
+            a3,
             "active",
             /*segment2*/
             ctx2[0] === "propHistories"
@@ -3385,7 +3789,7 @@ table.svelte-18nqf8w {
       o: noop,
       d(detaching) {
         if (detaching) {
-          detach(ul);
+          detach(div);
         }
       }
     };
@@ -3405,79 +3809,224 @@ table.svelte-18nqf8w {
   };
   var adminSubMenu_default = AdminSubMenu;
 
+  // _components/ProfileHeader.svelte
+  function create_fragment3(ctx) {
+    let header;
+    let nav;
+    let div0;
+    let button0;
+    let t0;
+    let p;
+    let t2;
+    let div1;
+    let t5;
+    let div2;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        header = element("header");
+        nav = element("nav");
+        div0 = element("div");
+        button0 = element("button");
+        button0.innerHTML = `<i class="gg-menu"></i>`;
+        t0 = space();
+        p = element("p");
+        p.textContent = "DASHBOARD";
+        t2 = space();
+        div1 = element("div");
+        div1.innerHTML = `<form class="search_input svelte-1m01gd2"><span class="svelte-1m01gd2"><i class="gg-search"></i></span> <input type="text" placeholder="Search here..." name="search" class="svelte-1m01gd2"/></form> <button class="profile_button svelte-1m01gd2"><img src="/assets/img/team-1-200x200.jpg" alt="Profile Picture" class="svelte-1m01gd2"/></button>`;
+        t5 = space();
+        div2 = element("div");
+        div2.innerHTML = `<!-- Chart Goes here -->`;
+        attr(button0, "class", "svelte-1m01gd2");
+        attr(p, "class", "svelte-1m01gd2");
+        attr(div0, "class", "label_menu svelte-1m01gd2");
+        attr(div1, "class", "right_nav svelte-1m01gd2");
+        attr(nav, "class", "navbar svelte-1m01gd2");
+        attr(div2, "class", "stats");
+        attr(header, "class", "profile_header svelte-1m01gd2");
+      },
+      m(target, anchor) {
+        insert(target, header, anchor);
+        append(header, nav);
+        append(nav, div0);
+        append(div0, button0);
+        append(div0, t0);
+        append(div0, p);
+        append(nav, t2);
+        append(nav, div1);
+        append(header, t5);
+        append(header, div2);
+        if (!mounted) {
+          dispose = listen(button0, "click", prevent_default(
+            /*openSideMenu*/
+            ctx[0]
+          ));
+          mounted = true;
+        }
+      },
+      p: noop,
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(header);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function instance3($self) {
+    const dispatch = createEventDispatcher();
+    function openSideMenu() {
+      dispatch("opensidemenu");
+    }
+    return [openSideMenu];
+  }
+  var ProfileHeader = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance3, create_fragment3, safe_not_equal, {});
+    }
+  };
+  var ProfileHeader_default = ProfileHeader;
+
+  // _components/Footer.svelte
+  function create_fragment4(ctx) {
+    let footer;
+    let p;
+    let t2;
+    let nav;
+    return {
+      c() {
+        footer = element("footer");
+        p = element("p");
+        p.textContent = `Copyright \xA9 ${/*year*/
+        ctx[0]}`;
+        t2 = space();
+        nav = element("nav");
+        nav.innerHTML = `<a href="/privacy" class="svelte-uaahja">Privacy</a> <a href="/tos" class="svelte-uaahja">Terms and Conditions</a> <a href="/about" class="svelte-uaahja">About Us</a>`;
+        attr(nav, "class", "svelte-uaahja");
+        attr(footer, "class", "svelte-uaahja");
+      },
+      m(target, anchor) {
+        insert(target, footer, anchor);
+        append(footer, p);
+        append(footer, t2);
+        append(footer, nav);
+      },
+      p: noop,
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(footer);
+        }
+      }
+    };
+  }
+  function instance4($self) {
+    const year = new Date().getFullYear();
+    return [year];
+  }
+  var Footer = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance4, create_fragment4, safe_not_equal, {});
+    }
+  };
+  var Footer_default = Footer;
+
   // admin.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[2] = list[i];
+    child_ctx[5] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[5] = list[i];
+    child_ctx[8] = list[i];
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[5] = list[i];
+    child_ctx[8] = list[i];
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[5] = list[i];
+    child_ctx[8] = list[i];
     return child_ctx;
   }
   function get_each_context_4(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[5] = list[i];
+    child_ctx[8] = list[i];
     return child_ctx;
   }
   function get_each_context_5(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[5] = list[i];
+    child_ctx[8] = list[i];
     return child_ctx;
   }
-  function create_each_block_5(ctx) {
+  function get_each_context_6(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[8] = list[i];
+    return child_ctx;
+  }
+  function create_each_block_6(ctx) {
+    let c;
+    let t0;
     let th;
-    let t_value = (
+    let t1_value = formatDate(
       /*date*/
-      (ctx[5] + "").substring(5, 10).replace("-", " ") + ""
-    );
-    let t;
+      ctx[8]
+    ) + "";
+    let t1;
     return {
       c() {
+        c = comment(" <th>{(date + '').substring( 5, 10 ).replace( '-', ':' )}</th> ");
+        t0 = space();
         th = element("th");
-        t = text(t_value);
-        attr(th, "class", "svelte-18nqf8w");
+        t1 = text(t1_value);
+        attr(th, "class", "table_header svelte-3opxok");
       },
       m(target, anchor) {
+        insert(target, c, anchor);
+        insert(target, t0, anchor);
         insert(target, th, anchor);
-        append(th, t);
+        append(th, t1);
       },
       p(ctx2, dirty) {
         if (dirty & /*sortedDate*/
-        1 && t_value !== (t_value = /*date*/
-        (ctx2[5] + "").substring(5, 10).replace("-", " ") + ""))
-          set_data(t, t_value);
+        2 && t1_value !== (t1_value = formatDate(
+          /*date*/
+          ctx2[8]
+        ) + ""))
+          set_data(t1, t1_value);
       },
       d(detaching) {
         if (detaching) {
+          detach(c);
+          detach(t0);
           detach(th);
         }
       }
     };
   }
-  function create_each_block_4(ctx) {
+  function create_each_block_5(ctx) {
     let td;
     let t_value = (requestsPerDate[
       /*date*/
-      ctx[5]
-    ] || "") + "";
+      ctx[8]
+    ] || "0") + "";
     let t;
     return {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-18nqf8w");
+        attr(td, "class", "table_data svelte-3opxok");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -3485,10 +4034,42 @@ table.svelte-18nqf8w {
       },
       p(ctx2, dirty) {
         if (dirty & /*sortedDate*/
-        1 && t_value !== (t_value = (requestsPerDate[
+        2 && t_value !== (t_value = (requestsPerDate[
           /*date*/
-          ctx2[5]
-        ] || "") + ""))
+          ctx2[8]
+        ] || "0") + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+      }
+    };
+  }
+  function create_each_block_4(ctx) {
+    let td;
+    let t_value = (uniqueIpPerDate[
+      /*date*/
+      ctx[8]
+    ] || "0") + "";
+    let t;
+    return {
+      c() {
+        td = element("td");
+        t = text(t_value);
+        attr(td, "class", "table_data svelte-3opxok");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*sortedDate*/
+        2 && t_value !== (t_value = (uniqueIpPerDate[
+          /*date*/
+          ctx2[8]
+        ] || "0") + ""))
           set_data(t, t_value);
       },
       d(detaching) {
@@ -3500,16 +4081,16 @@ table.svelte-18nqf8w {
   }
   function create_each_block_3(ctx) {
     let td;
-    let t_value = (uniqueIpPerDate[
+    let t_value = (uniqueUserPerDate[
       /*date*/
-      ctx[5]
-    ] || "") + "";
+      ctx[8]
+    ] || "0") + "";
     let t;
     return {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-18nqf8w");
+        attr(td, "class", "table_data svelte-3opxok");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -3517,10 +4098,10 @@ table.svelte-18nqf8w {
       },
       p(ctx2, dirty) {
         if (dirty & /*sortedDate*/
-        1 && t_value !== (t_value = (uniqueIpPerDate[
+        2 && t_value !== (t_value = (uniqueUserPerDate[
           /*date*/
-          ctx2[5]
-        ] || "") + ""))
+          ctx2[8]
+        ] || "0") + ""))
           set_data(t, t_value);
       },
       d(detaching) {
@@ -3531,33 +4112,33 @@ table.svelte-18nqf8w {
     };
   }
   function create_each_block_2(ctx) {
-    let td;
-    let t_value = (uniqueUserPerDate[
+    let th;
+    let t_value = formatDate(
       /*date*/
-      ctx[5]
-    ] || "") + "";
+      ctx[8]
+    ) + "";
     let t;
     return {
       c() {
-        td = element("td");
+        th = element("th");
         t = text(t_value);
-        attr(td, "class", "svelte-18nqf8w");
+        attr(th, "class", "table_header svelte-3opxok");
       },
       m(target, anchor) {
-        insert(target, td, anchor);
-        append(td, t);
+        insert(target, th, anchor);
+        append(th, t);
       },
       p(ctx2, dirty) {
         if (dirty & /*sortedDate*/
-        1 && t_value !== (t_value = (uniqueUserPerDate[
+        2 && t_value !== (t_value = formatDate(
           /*date*/
-          ctx2[5]
-        ] || "") + ""))
+          ctx2[8]
+        ) + ""))
           set_data(t, t_value);
       },
       d(detaching) {
         if (detaching) {
-          detach(td);
+          detach(th);
         }
       }
     };
@@ -3566,17 +4147,17 @@ table.svelte-18nqf8w {
     let td;
     let t_value = (countPerActionsPerDate[
       /*actionsPerDate*/
-      ctx[2]
+      ctx[5]
     ][
       /*date*/
-      ctx[5]
-    ] || "") + "";
+      ctx[8]
+    ] || "0") + "";
     let t;
     return {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-18nqf8w");
+        attr(td, "class", "table_data svelte-3opxok");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -3584,13 +4165,13 @@ table.svelte-18nqf8w {
       },
       p(ctx2, dirty) {
         if (dirty & /*sortedDate*/
-        1 && t_value !== (t_value = (countPerActionsPerDate[
+        2 && t_value !== (t_value = (countPerActionsPerDate[
           /*actionsPerDate*/
-          ctx2[2]
+          ctx2[5]
         ][
           /*date*/
-          ctx2[5]
-        ] || "") + ""))
+          ctx2[8]
+        ] || "0") + ""))
           set_data(t, t_value);
       },
       d(detaching) {
@@ -3607,7 +4188,7 @@ table.svelte-18nqf8w {
     let t2;
     let each_value_1 = ensure_array_like(
       /*sortedDate*/
-      ctx[0]
+      ctx[1]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value_1.length; i += 1) {
@@ -3618,13 +4199,14 @@ table.svelte-18nqf8w {
         tr = element("tr");
         td = element("td");
         td.textContent = `${/*actionsPerDate*/
-        ctx[2]}`;
+        ctx[5]}`;
         t1 = space();
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
         t2 = space();
-        attr(td, "class", "svelte-18nqf8w");
+        attr(td, "class", "table_data svelte-3opxok");
+        attr(tr, "class", "table_row");
       },
       m(target, anchor) {
         insert(target, tr, anchor);
@@ -3639,10 +4221,10 @@ table.svelte-18nqf8w {
       },
       p(ctx2, dirty) {
         if (dirty & /*countPerActionsPerDate, Object, sortedDate*/
-        1) {
+        2) {
           each_value_1 = ensure_array_like(
             /*sortedDate*/
-            ctx2[0]
+            ctx2[1]
           );
           let i;
           for (i = 0; i < each_value_1.length; i += 1) {
@@ -3669,36 +4251,73 @@ table.svelte-18nqf8w {
       }
     };
   }
-  function create_fragment3(ctx) {
+  function create_fragment5(ctx) {
+    let section;
     let menu;
     let t0;
-    let adminsubmenu;
+    let div1;
+    let profileheader;
     let t1;
-    let table;
+    let adminsubmenu;
+    let t2;
+    let div0;
+    let table0;
     let tr0;
     let th0;
-    let t3;
     let t4;
+    let t5;
     let tr1;
     let td0;
-    let t6;
     let t7;
+    let t8;
     let tr2;
     let td1;
-    let t9;
     let t10;
+    let t11;
     let tr3;
     let td2;
-    let t12;
     let t13;
+    let t14;
+    let table1;
     let tr4;
-    let t15;
+    let th1;
+    let t16;
+    let t17;
+    let t18;
+    let footer;
     let current;
-    menu = new Menu_default({ props: { access: segments } });
+    menu = new Menu_default({
+      props: {
+        access: segments,
+        isSideMenuOpen: (
+          /*sideMenuOpen*/
+          ctx[0]
+        )
+      }
+    });
+    menu.$on(
+      "closesidemenu",
+      /*closeSideMenu*/
+      ctx[3]
+    );
+    profileheader = new ProfileHeader_default({});
+    profileheader.$on(
+      "opensidemenu",
+      /*openSideMenu*/
+      ctx[2]
+    );
     adminsubmenu = new adminSubMenu_default({});
+    let each_value_6 = ensure_array_like(
+      /*sortedDate*/
+      ctx[1]
+    );
+    let each_blocks_5 = [];
+    for (let i = 0; i < each_value_6.length; i += 1) {
+      each_blocks_5[i] = create_each_block_6(get_each_context_6(ctx, each_value_6, i));
+    }
     let each_value_5 = ensure_array_like(
       /*sortedDate*/
-      ctx[0]
+      ctx[1]
     );
     let each_blocks_4 = [];
     for (let i = 0; i < each_value_5.length; i += 1) {
@@ -3706,7 +4325,7 @@ table.svelte-18nqf8w {
     }
     let each_value_4 = ensure_array_like(
       /*sortedDate*/
-      ctx[0]
+      ctx[1]
     );
     let each_blocks_3 = [];
     for (let i = 0; i < each_value_4.length; i += 1) {
@@ -3714,7 +4333,7 @@ table.svelte-18nqf8w {
     }
     let each_value_3 = ensure_array_like(
       /*sortedDate*/
-      ctx[0]
+      ctx[1]
     );
     let each_blocks_2 = [];
     for (let i = 0; i < each_value_3.length; i += 1) {
@@ -3722,7 +4341,7 @@ table.svelte-18nqf8w {
     }
     let each_value_2 = ensure_array_like(
       /*sortedDate*/
-      ctx[0]
+      ctx[1]
     );
     let each_blocks_1 = [];
     for (let i = 0; i < each_value_2.length; i += 1) {
@@ -3733,114 +4352,181 @@ table.svelte-18nqf8w {
     for (let i = 0; i < each_value.length; i += 1) {
       each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
     }
+    footer = new Footer_default({});
     return {
       c() {
+        section = element("section");
         create_component(menu.$.fragment);
         t0 = space();
-        create_component(adminsubmenu.$.fragment);
+        div1 = element("div");
+        create_component(profileheader.$.fragment);
         t1 = space();
-        table = element("table");
+        create_component(adminsubmenu.$.fragment);
+        t2 = space();
+        div0 = element("div");
+        table0 = element("table");
         tr0 = element("tr");
         th0 = element("th");
-        th0.textContent = "Stat";
-        t3 = space();
-        for (let i = 0; i < each_blocks_4.length; i += 1) {
-          each_blocks_4[i].c();
-        }
+        th0.textContent = "Stats";
         t4 = space();
+        for (let i = 0; i < each_blocks_5.length; i += 1) {
+          each_blocks_5[i].c();
+        }
+        t5 = space();
         tr1 = element("tr");
         td0 = element("td");
         td0.textContent = "Requests";
-        t6 = space();
-        for (let i = 0; i < each_blocks_3.length; i += 1) {
-          each_blocks_3[i].c();
-        }
         t7 = space();
+        for (let i = 0; i < each_blocks_4.length; i += 1) {
+          each_blocks_4[i].c();
+        }
+        t8 = space();
         tr2 = element("tr");
         td1 = element("td");
         td1.textContent = "UniqueIP";
-        t9 = space();
-        for (let i = 0; i < each_blocks_2.length; i += 1) {
-          each_blocks_2[i].c();
-        }
         t10 = space();
+        for (let i = 0; i < each_blocks_3.length; i += 1) {
+          each_blocks_3[i].c();
+        }
+        t11 = space();
         tr3 = element("tr");
         td2 = element("td");
         td2.textContent = "Unique User";
-        t12 = space();
+        t13 = space();
+        for (let i = 0; i < each_blocks_2.length; i += 1) {
+          each_blocks_2[i].c();
+        }
+        t14 = space();
+        table1 = element("table");
+        tr4 = element("tr");
+        th1 = element("th");
+        th1.textContent = "Actions";
+        t16 = space();
         for (let i = 0; i < each_blocks_1.length; i += 1) {
           each_blocks_1[i].c();
         }
-        t13 = space();
-        tr4 = element("tr");
-        tr4.innerHTML = `<th class="svelte-18nqf8w">Actions</th>`;
-        t15 = space();
+        t17 = space();
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(th0, "class", "svelte-18nqf8w");
-        attr(td0, "class", "svelte-18nqf8w");
-        attr(td1, "class", "svelte-18nqf8w");
-        attr(td2, "class", "svelte-18nqf8w");
-        attr(table, "class", "svelte-18nqf8w");
+        t18 = space();
+        create_component(footer.$.fragment);
+        attr(th0, "class", "table_header svelte-3opxok");
+        attr(tr0, "class", "table_row");
+        attr(td0, "class", "table_data svelte-3opxok");
+        attr(tr1, "class", "table_row");
+        attr(td1, "class", "table_data svelte-3opxok");
+        attr(tr2, "class", "table_row");
+        attr(td2, "class", "table_data svelte-3opxok");
+        attr(tr3, "class", "table_row");
+        attr(table0, "class", "table_stats svelte-3opxok");
+        attr(th1, "class", "table_header svelte-3opxok");
+        attr(tr4, "class", "table_row");
+        attr(table1, "class", "table_actions svelte-3opxok");
+        attr(div0, "class", "content");
+        attr(div1, "class", "dashboard_main_content");
+        attr(section, "class", "dashboard");
       },
       m(target, anchor) {
-        mount_component(menu, target, anchor);
-        insert(target, t0, anchor);
-        mount_component(adminsubmenu, target, anchor);
-        insert(target, t1, anchor);
-        insert(target, table, anchor);
-        append(table, tr0);
+        insert(target, section, anchor);
+        mount_component(menu, section, null);
+        append(section, t0);
+        append(section, div1);
+        mount_component(profileheader, div1, null);
+        append(div1, t1);
+        mount_component(adminsubmenu, div1, null);
+        append(div1, t2);
+        append(div1, div0);
+        append(div0, table0);
+        append(table0, tr0);
         append(tr0, th0);
-        append(tr0, t3);
+        append(tr0, t4);
+        for (let i = 0; i < each_blocks_5.length; i += 1) {
+          if (each_blocks_5[i]) {
+            each_blocks_5[i].m(tr0, null);
+          }
+        }
+        append(table0, t5);
+        append(table0, tr1);
+        append(tr1, td0);
+        append(tr1, t7);
         for (let i = 0; i < each_blocks_4.length; i += 1) {
           if (each_blocks_4[i]) {
-            each_blocks_4[i].m(tr0, null);
+            each_blocks_4[i].m(tr1, null);
           }
         }
-        append(table, t4);
-        append(table, tr1);
-        append(tr1, td0);
-        append(tr1, t6);
+        append(table0, t8);
+        append(table0, tr2);
+        append(tr2, td1);
+        append(tr2, t10);
         for (let i = 0; i < each_blocks_3.length; i += 1) {
           if (each_blocks_3[i]) {
-            each_blocks_3[i].m(tr1, null);
+            each_blocks_3[i].m(tr2, null);
           }
         }
-        append(table, t7);
-        append(table, tr2);
-        append(tr2, td1);
-        append(tr2, t9);
+        append(table0, t11);
+        append(table0, tr3);
+        append(tr3, td2);
+        append(tr3, t13);
         for (let i = 0; i < each_blocks_2.length; i += 1) {
           if (each_blocks_2[i]) {
-            each_blocks_2[i].m(tr2, null);
+            each_blocks_2[i].m(tr3, null);
           }
         }
-        append(table, t10);
-        append(table, tr3);
-        append(tr3, td2);
-        append(tr3, t12);
+        append(div0, t14);
+        append(div0, table1);
+        append(table1, tr4);
+        append(tr4, th1);
+        append(tr4, t16);
         for (let i = 0; i < each_blocks_1.length; i += 1) {
           if (each_blocks_1[i]) {
-            each_blocks_1[i].m(tr3, null);
+            each_blocks_1[i].m(tr4, null);
           }
         }
-        append(table, t13);
-        append(table, tr4);
-        append(table, t15);
+        append(table1, t17);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
-            each_blocks[i].m(table, null);
+            each_blocks[i].m(table1, null);
           }
         }
+        append(div1, t18);
+        mount_component(footer, div1, null);
         current = true;
       },
       p(ctx2, [dirty]) {
-        if (dirty & /*sortedDate*/
-        1) {
+        const menu_changes = {};
+        if (dirty & /*sideMenuOpen*/
+        1)
+          menu_changes.isSideMenuOpen = /*sideMenuOpen*/
+          ctx2[0];
+        menu.$set(menu_changes);
+        if (dirty & /*formatDate, sortedDate*/
+        2) {
+          each_value_6 = ensure_array_like(
+            /*sortedDate*/
+            ctx2[1]
+          );
+          let i;
+          for (i = 0; i < each_value_6.length; i += 1) {
+            const child_ctx = get_each_context_6(ctx2, each_value_6, i);
+            if (each_blocks_5[i]) {
+              each_blocks_5[i].p(child_ctx, dirty);
+            } else {
+              each_blocks_5[i] = create_each_block_6(child_ctx);
+              each_blocks_5[i].c();
+              each_blocks_5[i].m(tr0, null);
+            }
+          }
+          for (; i < each_blocks_5.length; i += 1) {
+            each_blocks_5[i].d(1);
+          }
+          each_blocks_5.length = each_value_6.length;
+        }
+        if (dirty & /*requestsPerDate, sortedDate*/
+        2) {
           each_value_5 = ensure_array_like(
             /*sortedDate*/
-            ctx2[0]
+            ctx2[1]
           );
           let i;
           for (i = 0; i < each_value_5.length; i += 1) {
@@ -3850,7 +4536,7 @@ table.svelte-18nqf8w {
             } else {
               each_blocks_4[i] = create_each_block_5(child_ctx);
               each_blocks_4[i].c();
-              each_blocks_4[i].m(tr0, null);
+              each_blocks_4[i].m(tr1, null);
             }
           }
           for (; i < each_blocks_4.length; i += 1) {
@@ -3858,11 +4544,11 @@ table.svelte-18nqf8w {
           }
           each_blocks_4.length = each_value_5.length;
         }
-        if (dirty & /*requestsPerDate, sortedDate*/
-        1) {
+        if (dirty & /*uniqueIpPerDate, sortedDate*/
+        2) {
           each_value_4 = ensure_array_like(
             /*sortedDate*/
-            ctx2[0]
+            ctx2[1]
           );
           let i;
           for (i = 0; i < each_value_4.length; i += 1) {
@@ -3872,7 +4558,7 @@ table.svelte-18nqf8w {
             } else {
               each_blocks_3[i] = create_each_block_4(child_ctx);
               each_blocks_3[i].c();
-              each_blocks_3[i].m(tr1, null);
+              each_blocks_3[i].m(tr2, null);
             }
           }
           for (; i < each_blocks_3.length; i += 1) {
@@ -3880,11 +4566,11 @@ table.svelte-18nqf8w {
           }
           each_blocks_3.length = each_value_4.length;
         }
-        if (dirty & /*uniqueIpPerDate, sortedDate*/
-        1) {
+        if (dirty & /*uniqueUserPerDate, sortedDate*/
+        2) {
           each_value_3 = ensure_array_like(
             /*sortedDate*/
-            ctx2[0]
+            ctx2[1]
           );
           let i;
           for (i = 0; i < each_value_3.length; i += 1) {
@@ -3894,7 +4580,7 @@ table.svelte-18nqf8w {
             } else {
               each_blocks_2[i] = create_each_block_3(child_ctx);
               each_blocks_2[i].c();
-              each_blocks_2[i].m(tr2, null);
+              each_blocks_2[i].m(tr3, null);
             }
           }
           for (; i < each_blocks_2.length; i += 1) {
@@ -3902,11 +4588,11 @@ table.svelte-18nqf8w {
           }
           each_blocks_2.length = each_value_3.length;
         }
-        if (dirty & /*uniqueUserPerDate, sortedDate*/
-        1) {
+        if (dirty & /*formatDate, sortedDate*/
+        2) {
           each_value_2 = ensure_array_like(
             /*sortedDate*/
-            ctx2[0]
+            ctx2[1]
           );
           let i;
           for (i = 0; i < each_value_2.length; i += 1) {
@@ -3916,7 +4602,7 @@ table.svelte-18nqf8w {
             } else {
               each_blocks_1[i] = create_each_block_2(child_ctx);
               each_blocks_1[i].c();
-              each_blocks_1[i].m(tr3, null);
+              each_blocks_1[i].m(tr4, null);
             }
           }
           for (; i < each_blocks_1.length; i += 1) {
@@ -3925,7 +4611,7 @@ table.svelte-18nqf8w {
           each_blocks_1.length = each_value_2.length;
         }
         if (dirty & /*sortedDate, countPerActionsPerDate, Object*/
-        1) {
+        2) {
           each_value = ensure_array_like(Object.keys(countPerActionsPerDate));
           let i;
           for (i = 0; i < each_value.length; i += 1) {
@@ -3935,7 +4621,7 @@ table.svelte-18nqf8w {
             } else {
               each_blocks[i] = create_each_block(child_ctx);
               each_blocks[i].c();
-              each_blocks[i].m(table, null);
+              each_blocks[i].m(table1, null);
             }
           }
           for (; i < each_blocks.length; i += 1) {
@@ -3948,27 +4634,32 @@ table.svelte-18nqf8w {
         if (current)
           return;
         transition_in(menu.$.fragment, local);
+        transition_in(profileheader.$.fragment, local);
         transition_in(adminsubmenu.$.fragment, local);
+        transition_in(footer.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(menu.$.fragment, local);
+        transition_out(profileheader.$.fragment, local);
         transition_out(adminsubmenu.$.fragment, local);
+        transition_out(footer.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(t0);
-          detach(t1);
-          detach(table);
+          detach(section);
         }
-        destroy_component(menu, detaching);
-        destroy_component(adminsubmenu, detaching);
+        destroy_component(menu);
+        destroy_component(profileheader);
+        destroy_component(adminsubmenu);
+        destroy_each(each_blocks_5, detaching);
         destroy_each(each_blocks_4, detaching);
         destroy_each(each_blocks_3, detaching);
         destroy_each(each_blocks_2, detaching);
         destroy_each(each_blocks_1, detaching);
         destroy_each(each_blocks, detaching);
+        destroy_component(footer);
       }
     };
   }
@@ -3977,7 +4668,19 @@ table.svelte-18nqf8w {
   var requestsPerDate = {/* requestsPerDate */};
   var uniqueUserPerDate = {/* uniqueUserPerDate */};
   var countPerActionsPerDate = {/* countPerActionsPerDate */};
-  function instance3($self, $props, $invalidate) {
+  function formatDate(dateString) {
+    const options = { day: "numeric", month: "long" };
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", options);
+  }
+  function instance5($self, $props, $invalidate) {
+    let sideMenuOpen = false;
+    function openSideMenu() {
+      $invalidate(0, sideMenuOpen = true);
+    }
+    function closeSideMenu() {
+      $invalidate(0, sideMenuOpen = false);
+    }
     let registeredUserTotal = +'#{registeredUserTotal}';
     let sortedDate = [];
     onMount(() => {
@@ -3988,15 +4691,15 @@ table.svelte-18nqf8w {
         uniqueDate[i] = true;
       for (let i in uniqueUserPerDate)
         uniqueDate[i] = true;
-      $invalidate(0, sortedDate = Object.keys(uniqueDate).sort());
+      $invalidate(1, sortedDate = Object.keys(uniqueDate).sort());
       console.log(sortedDate, uniqueIpPerDate, requestsPerDate, uniqueUserPerDate, uniqueDate, registeredUserTotal);
     });
-    return [sortedDate];
+    return [sideMenuOpen, sortedDate, openSideMenu, closeSideMenu];
   }
   var Admin = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance3, create_fragment3, safe_not_equal, {});
+      init(this, options, instance5, create_fragment5, safe_not_equal, {});
     }
   };
   var admin_default = Admin;

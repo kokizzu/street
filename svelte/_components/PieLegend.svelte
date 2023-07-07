@@ -3,5 +3,7 @@
 </script>
 
 {#each shares as share}
-	<span style="display:inline-block; background-color: {share.color}"> &nbsp; </span> {share.label} <br/>
+	<div>
+		<span style="display:inline-block; background-color: {share.color}"> &nbsp; </span> {share.label} <br/>
+	</div>
 {/each}
