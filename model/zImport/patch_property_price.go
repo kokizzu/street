@@ -29,6 +29,13 @@ func UpdatePriceToProperties(propOltp *Tt.Adapter) {
 	stat := &ImporterStat{Total: len(properties), PrintEvery: 10}
 
 	for _, p := range properties {
+		stat.Print()
+
+		if p.LastPrice != "" && len(p.PriceHistories) > 0 {
+			stat.Skip()
+			continue
+		}
+
 		p.LastPrice = "0"
 		p.PriceHistories = []any{}
 		// Update price for property based on history sheet
