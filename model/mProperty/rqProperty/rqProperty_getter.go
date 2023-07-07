@@ -65,14 +65,16 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	return
 }
 
-func (p *Property) FindByLatLong(lat float64, long float64, limit int, offset int, callback func(row []any)) bool {
+func (p *Property) FindByLatLong(lat float64, long float64, limit int, offset int, callback func(row []any) bool) bool {
 	p.Coord = []any{lat, long}
 	res, err := p.Adapter.Select(p.SpaceName(), p.SpatialIndexCoord(), uint32(offset), uint32(limit), tarantool.IterNeighbor, p.Coord)
 	if L.IsError(err, `Property) FindByLatLong failed: `+p.SpaceName()) {
 		return false
 	}
 	for _, row := range res.Tuples() {
-		callback(row)
+		if !callback(row) {
+			break
+		}
 	}
 	return true
 }

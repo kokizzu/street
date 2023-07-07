@@ -2,6 +2,7 @@ package domain
 
 import (
 	"log"
+	"math"
 
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/I"
@@ -282,6 +283,8 @@ type (
 		CenterLong float64 `json:"centerLong" form:"centerLong" query:"centerLong" long:"centerLong" msg:"centerLong"`
 		Offset     int     `json:"offset" form:"offset" query:"offset" long:"offset" msg:"offset"`
 		Limit      int     `json:"limit" form:"limit" query:"limit" long:"limit" msg:"limit"`
+
+		MaxDistanceKM float64 `json:"maxDistanceKM" form:"maxDistanceKM" query:"maxDistanceKM" long:"maxDistanceKM" msg:"maxDistanceKM"`
 	}
 
 	UserSearchPropOut struct {
@@ -319,21 +322,33 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 		in.Limit = DefaultLimit
 	}
 
+	if in.MaxDistanceKM == 0 {
+		in.MaxDistanceKM = 2
+	}
+
 	out.Properties = make([]Property, 0, in.Limit)
-	ok := prop.FindByLatLong(in.CenterLat, in.CenterLong, in.Limit, in.Offset, func(row []any) {
+	ok := prop.FindByLatLong(in.CenterLat, in.CenterLong, in.Limit, in.Offset, func(row []any) bool {
 		item := Property{Property: &rqProperty.Property{}}
 		item.FromArray(row)
 		if len(item.Coord) >= 2 {
 			item.Lat = X.ToF(item.Coord[0])
 			item.Lng = X.ToF(item.Coord[1])
 		}
+		if distanceKm(item.Lat, item.Lng, in.CenterLat, in.CenterLong) > in.MaxDistanceKM {
+			return false
+		}
 		out.Properties = append(out.Properties, item)
+		return true
 	})
 	if !ok {
 		out.SetError(500, ErrSearchPropFailed)
 		return
 	}
 	return
+}
+
+func distanceKm(lat1, long1, lat2, long2 float64) float64 {
+	return math.Acos(math.Sin(lat1)*math.Sin(lat2)+math.Cos(lat1)*math.Cos(lat2)*math.Cos(long2-long1)) * 6371
 }
 
 type (
