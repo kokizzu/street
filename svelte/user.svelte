@@ -5,6 +5,14 @@
    import { datetime } from './_components/formatter';
    import { onMount } from 'svelte';
    import { UserChangePassword, UserUpdateProfile } from './jsApi.GEN.js';
+
+   let sideMenuOpen = false;
+   function openSideMenu() {
+      sideMenuOpen = true;
+   }
+   function closeSideMenu() {
+      sideMenuOpen = false;
+   }
   
    let user = {/* user */};
    let segments = {/* segments */};
@@ -45,9 +53,13 @@
 </script>
 
 <section class='dashboard'>
-   <Menu access={segments} />
+   <Menu
+      access={segments}
+      isSideMenuOpen={sideMenuOpen}
+      on:closesidemenu={closeSideMenu}
+   />
    <div class='dashboard_main_content'>
-      <ProfileHeader></ProfileHeader>
+      <ProfileHeader on:opensidemenu={openSideMenu}></ProfileHeader>
       <div class='content'>
          <div class='profile_container'>
             <div class='profile_set'>
@@ -182,13 +194,14 @@
    }
    .profile_input input {
       width: 100%;
-      border: 1px solid #64748B;
+      border: 1px solid #CBD5E1;
+      background-color: #F1F5F9;
    	border-radius: 8px;
    	padding: 12px;
    }
    .profile_input input:focus {
       border-color: #3b82f6;
-      outline: 2px solid #3b82f6;
+      outline: 1px solid #3b82f6;
    }
 
    /* Info */

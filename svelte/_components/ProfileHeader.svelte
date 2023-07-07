@@ -1,11 +1,23 @@
 <script>
+	import { createEventDispatcher } from 'svelte';
 	import PieChart from './PieChart.svelte'
 	import PieLegend from './PieLegend.svelte'
+
+	const dispatch = createEventDispatcher();
+
+	function openSideMenu() {
+      dispatch("opensidemenu");
+   }
 </script>
 
 <header class="profile_header">
 	<nav class="navbar">
-		<p>DASHBOARD</p>
+		<div class='label_menu'>
+			<button on:click|preventDefault={openSideMenu}>
+				<i class='gg-menu'></i>
+			</button>
+			<p>DASHBOARD</p>
+		</div>
 		<div class="right_nav">
 			<form class="search_input">
 				<span>
@@ -41,13 +53,30 @@
    	justify-content: space-between;
    	align-items: center;
    }
-   .profile_header .navbar > p {
-   	font-size: 15px;
+	.profile_header .navbar .label_menu {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		color: white;
+	}
+	.profile_header .navbar .label_menu button {
+		padding: 15px 8px;
+		border: none;
+		background: none;
+		border-radius: 5px;
+		font-size: 14px;
+		color: white;
+		cursor: pointer;
+	}
+	.profile_header .navbar .label_menu button:hover {
+		background-color: rgba(255, 255, 255, 0.3);
+	}
+   .profile_header .navbar .label_menu p {
+   	font-size: 17px;
    	font-weight: 600;
       line-height: 1.5rem;
       padding: 0;
-      margin: 0;
-      color: white;
+      margin: 0 0 0 15px;
    }
    .profile_header .navbar .right_nav {
    	display: flex;

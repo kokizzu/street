@@ -5,6 +5,14 @@
    import RandomProperty from './_components/RandomProperty.svelte';
    import ProfileHeader from './_components/ProfileHeader.svelte';
    import Footer from './_components/Footer.svelte';
+
+   let sideMenuOpen = false;
+   function openSideMenu() {
+      sideMenuOpen = true;
+   }
+   function closeSideMenu() {
+      sideMenuOpen = false;
+   }
   
    let user = {/* user */};
    let segments = {/* segments */};
@@ -117,9 +125,13 @@
 <svelte:window on:hashchange={onHashChange} />
 {#if mode===USER}
    <section class='dashboard'>
-      <Menu access={segments} />
+      <Menu
+         access={segments}
+         isSideMenuOpen={sideMenuOpen}
+         on:closesidemenu={closeSideMenu}
+      />
       <div class='dashboard_main_content'>
-         <ProfileHeader></ProfileHeader>
+         <ProfileHeader on:opensidemenu={openSideMenu}></ProfileHeader>
          <div class='content'>
             <RandomProperty />
          </div>

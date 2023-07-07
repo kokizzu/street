@@ -6,6 +6,14 @@
    import TableView from '../_components/TableView.svelte';
    import { AdminUsers } from '../jsApi.GEN';
    import ModalForm from '../_components/ModalForm.svelte';
+
+   let sideMenuOpen = false;
+   function openSideMenu() {
+      sideMenuOpen = true;
+   }
+   function closeSideMenu() {
+      sideMenuOpen = false;
+   }
   
    let segments = {/* segments */};
    let fields = [/* fields */];
@@ -71,9 +79,13 @@
 </script>
 
 <section class="dashboard">
-   <Menu access={segments} />
+   <Menu
+      access={segments}
+      isSideMenuOpen={sideMenuOpen}
+      on:closesidemenu={closeSideMenu}
+   />
    <div class="dashboard_main_content">
-      <ProfileHeader></ProfileHeader>
+      <ProfileHeader on:opensidemenu={openSideMenu}></ProfileHeader>
       <AdminSubMenu></AdminSubMenu>
       <div class="content">
          <ModalForm {fields}
@@ -94,6 +106,7 @@
             ></TableView>
          </section>
       </div>
+      <Footer></Footer>
    </div>
 </section>
 

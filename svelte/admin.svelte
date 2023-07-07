@@ -4,6 +4,14 @@
    import ProfileHeader from './_components/ProfileHeader.svelte';
    import Footer from './_components/Footer.svelte';
    import { onMount } from 'svelte';
+
+   let sideMenuOpen = false;
+   function openSideMenu() {
+      sideMenuOpen = true;
+   }
+   function closeSideMenu() {
+      sideMenuOpen = false;
+   }
   
    let user = {/* user */};
    let segments = {/* segments */};
@@ -33,9 +41,13 @@
 </script>
 
 <section class="dashboard">
-   <Menu access={segments} />
+   <Menu
+      access={segments}
+      isSideMenuOpen={sideMenuOpen}
+      on:closesidemenu={closeSideMenu}
+   />
    <div class="dashboard_main_content">
-      <ProfileHeader></ProfileHeader>
+      <ProfileHeader on:opensidemenu={openSideMenu}></ProfileHeader>
       <AdminSubMenu></AdminSubMenu>
       <div class="content">
          <table class="table_stats">

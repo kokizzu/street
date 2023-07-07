@@ -1,7 +1,10 @@
 <script>
+   import { createEventDispatcher } from 'svelte';
    import { onMount } from 'svelte';
    import { UserLogout } from '../jsApi.GEN.js';
   
+   const dispatch = createEventDispatcher();
+   export let isSideMenuOpen = false;
    export let access = {
       'admin': false,
       'buyer': false,
@@ -22,11 +25,21 @@
          window.location = '/';
       } );
    }
+
+   function closeMenu() {
+      dispatch("closesidemenu")
+   }
 </script>
 
+{#if isSideMenuOpen}
 <aside class="side_menu_admin">
    <div class="side_menu_admin_container">
-      <h3>STREET</h3>
+      <header>
+         <h3>STREET</h3>
+         <button on:click|preventDefault={closeMenu}>
+            <i class='gg-close'></i>
+         </button>
+      </header>
       <div class="menu_container">
          <!-- PAGES -->
          <hr />
@@ -75,14 +88,14 @@
       </div>
    </div>
 </aside>
+{/if}
 
 <style>
-  /* Responsive */
-  @media (min-width: 768px) {
-    .side_menu_admin {
+   .side_menu_admin {
       left: 0;
       display: block;
       position: fixed;
+      z-index: 9999;
       top: 0;
       bottom: 0;
       overflow-y: auto;
@@ -92,10 +105,10 @@
       background-color: white;
       color: #475569;
       padding: 16px 24px;
-      width: 20%;
+      width: 300px;
       filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    }
-    .side_menu_admin_container {
+   }
+   .side_menu_admin_container {
       flex-direction: column;
       align-items: stretch;
       min-height: 100%;
@@ -104,34 +117,51 @@
       display: flex;
       width: 100%;
       margin: 0 auto;
-    }
-    .side_menu_admin_container h3 {
+   }
+   .side_menu_admin_container header {
+      display: flex;
+		flex-direction: row;
+      justify-content: space-between;
+		align-items: center;
+   }
+   .side_menu_admin_container header h3 {
       font-size: 16px;
       line-height: 1.5rem;
-      padding: 15px 0 10px 0;
+      padding: 0;
       margin: 0;
-    }
-    
-    .menu_container {
+   }
+   .side_menu_admin_container header button {
+      padding: 5px;
+		border: none;
+		background: none;
+		border-radius: 5px;
+		font-size: 14px;
+		cursor: pointer;
+   }
+   .side_menu_admin_container header button:hover {
+      background-color: rgb(0 0 0 / 0.07);
+      color: #EF4444;
+   }
+   .menu_container {
       margin-top: 1rem;
       align-items: stretch;
       flex-direction: column;
       display: flex;
-    }
-    .menu_container hr {
+   }
+   .menu_container hr {
       margin: 1rem 0;
-    }
-    .menu_container h6 {
+   }
+   .menu_container h6 {
       font-size: 15px;
       margin: 12px 0;
-    }
+   }
 
-    .menu_container .menu { 
+   .menu_container .menu { 
       display: flex;
       flex-direction: column;
       margin-bottom: 10px;
-    }
-    .menu_container .menu a, .menu .logout{ /*MENU LISTS*/
+   }
+   .menu_container .menu a, .menu .logout{ /*MENU LISTS*/
       color: #475569;
       text-decoration: none;
       margin: 0;
@@ -147,29 +177,28 @@
       flex-direction: row;
       align-items: center;
       align-content: center;
-    }
-    .menu_container .menu .logout {
+   }
+   .menu_container .menu .logout {
       cursor: pointer;
       margin-left: 4px !important;
       margin-top: 0;
       margin-bottom: 0;
       margin-right: 0;
-    }
-    .menu_container .menu .logout span {
+   }
+   .menu_container .menu .logout span {
       margin-left: 25px !important;
-    }
-    .menu_container .menu a i, .menu_container .menu .logout i { /*ICON*/
+   }
+   .menu_container .menu a i, .menu_container .menu .logout i { /*ICON*/
       margin: 0;
       color: #CBD5E1;
-    }
-    .menu_container .menu a:hover, .menu_container .menu .logout:hover { /*HOVER*/
+   }
+   .menu_container .menu a:hover, .menu_container .menu .logout:hover { /*HOVER*/
       color: #64748B;
-    }
-    .menu_container .menu a span, .menu_container .menu .logout span {
+   }
+   .menu_container .menu a span, .menu_container .menu .logout span {
       margin-left: 15px;
-    }
-    .active, .active i { /*ACTIVE Navigation*/
+   }
+   .active, .active i { /*ACTIVE Navigation*/
       color: #EF4444 !important;
-    }
-  }
+   }
 </style>
