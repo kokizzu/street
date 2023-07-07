@@ -1,12 +1,10 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
-	import PieChart from './PieChart.svelte'
-	import PieLegend from './PieLegend.svelte'
-
-	const dispatch = createEventDispatcher();
-
+	// import PieChart from './PieChart.svelte'
+	// import PieLegend from './PieLegend.svelte'
+	import { isSideMenuOpen } from './uiState.js';
+	
 	function openSideMenu() {
-      dispatch("opensidemenu");
+    isSideMenuOpen.set(!$isSideMenuOpen)
    }
 </script>
 
@@ -19,14 +17,14 @@
 			<p>DASHBOARD</p>
 		</div>
 		<div class="right_nav">
-			<form class="search_input">
-				<span>
-					<i class="gg-search"></i>
-				</span>
-				<input type="text" placeholder="Search here..." name="search" />
-			</form>
+<!--			<form class="search_input">-->
+<!--				<span>-->
+<!--					<i class="gg-search"></i>-->
+<!--				</span>-->
+<!--				<input type="text" placeholder="Search here..." name="search" />-->
+<!--			</form>-->
 			<button class="profile_button">
-				<img src="/assets/img/team-1-200x200.jpg" alt="Profile Picture" />
+				<img src="/assets/img/team-1-200x200.jpg" alt="profile" />
 			</button>
 		</div>
 	</nav>
@@ -82,31 +80,31 @@
    	display: flex;
    	flex-direction: row;
    }
-   .profile_header .navbar .right_nav .search_input {
-   	margin-right: 15px;
-   	margin-top: auto;
-   	margin-left: 0;
-   	margin-bottom: auto;
-   }
-   .profile_header .navbar .right_nav .search_input > span {
-   	padding: 13px;
-   	position: absolute;
-   	z-index: 10;
-   	font-size: 16px;
-   	color: #CBD5E1;
-   }
-   .profile_header .navbar .right_nav .search_input > input {
-   	width: 250px;
-   	border: none;
-   	border-radius: 8px;
-   	padding-top: 12px;
-   	padding-bottom: 12px;
-   	padding-left: 40px;
-   	padding-right: 12px;
-   }
-   .profile_header .navbar .right_nav .search_input > input:focus {
-   	outline: 3px solid #3b82f6;
-   }
+   /*.profile_header .navbar .right_nav .search_input {*/
+   /*	margin-right: 15px;*/
+   /*	margin-top: auto;*/
+   /*	margin-left: 0;*/
+   /*	margin-bottom: auto;*/
+   /*}*/
+   /*.profile_header .navbar .right_nav .search_input > span {*/
+   /*	padding: 13px;*/
+   /*	position: absolute;*/
+   /*	z-index: 10;*/
+   /*	font-size: 16px;*/
+   /*	color: #CBD5E1;*/
+   /*}*/
+   /*.profile_header .navbar .right_nav .search_input > input {*/
+   /*	width: 250px;*/
+   /*	border: none;*/
+   /*	border-radius: 8px;*/
+   /*	padding-top: 12px;*/
+   /*	padding-bottom: 12px;*/
+   /*	padding-left: 40px;*/
+   /*	padding-right: 12px;*/
+   /*}*/
+   /*.profile_header .navbar .right_nav .search_input > input:focus {*/
+   /*	outline: 3px solid #3b82f6;*/
+   /*}*/
    .profile_header .navbar .right_nav .profile_button {
       padding: 0;
     	border: none;

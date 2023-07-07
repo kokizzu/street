@@ -1,58 +1,105 @@
 <html><head>
-   <title>/*! title */</title>
-   <link href="/css.gg.css" rel="stylesheet">
+  <title>/*! title */</title>
+  <link href="/css.gg.css" rel="stylesheet">
 </head>
 <body>
-   <style>
-      *,
-      *::before,
-      *::after {
-         box-sizing: border-box;
-      }
-      :root {
-         -moz-tab-size: 4;
-         -o-tab-size: 4;
-         tab-size: 4;
-      }
-      html {
-         max-width                  : 100%;
-         margin                     : auto;
-         line-height-step           : 1.15;
-         -webkit-text-size-adjust   : 100%;
-         font-size                  : 13px;
-      }
-      body {
-         font-family                : Roboto, Helvetica, Arial, sans-serif;
-         margin                     : 0;
-      }
-      hr {
-         height: 0;
-         border-top-width: 1px;
-         width: 100%;
-         overflow: hidden;
-         color: inherit;
-         margin: 0;
-      }
-      /* Dashboard */
-      section.dashboard {
-         display: flex;
-         flex-direction: row;
-      }
-      .dashboard_main_content {
-         background-color: #F1F5F9;
-         min-height: 100vh;
-         width: 100%;
-      }
-      .dashboard_main_content .content {
-         min-height: 85vh;
-      }
-   </style>
+<style>
+    *,
+    *::before,
+    *::after {
+        box-sizing : border-box;
+    }
+
+    :root {
+        -moz-tab-size : 4;
+        -o-tab-size   : 4;
+        tab-size      : 4;
+    }
+
+    html {
+        max-width                : 100%;
+        margin                   : auto;
+        line-height-step         : 1.15;
+        -webkit-text-size-adjust : 100%;
+        font-size                : 13px;
+    }
+
+    body {
+        font-family : Roboto, Helvetica, Arial, sans-serif;
+        margin      : 0;
+    }
+
+    hr {
+        height           : 0;
+        border-top-width : 1px;
+        width            : 100%;
+        overflow         : hidden;
+        color            : inherit;
+        margin           : 0;
+    }
+
+    /* Dashboard */
+    section.dashboard {
+        display        : flex;
+        flex-direction : row;
+    }
+
+    .dashboard_main_content {
+        background-color : #F1F5F9;
+        min-height       : 100vh;
+        width            : 100%;
+    }
+
+    .dashboard_main_content .content {
+        min-height : 85vh;
+    }
+
+
+    .tableview_container {
+        position         : relative;
+        z-index          : 30;
+        margin-top       : -40px;
+        margin-left      : auto;
+        margin-right     : auto;
+        border-radius    : 8px;
+        filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+        padding          : 20px;
+        background-color : white;
+        width            : 88%;
+        height           : fit-content;
+        color            : #475569;
+        font-size        : 16px;
+    }
+
+    .tableview_container .add_button {
+        padding          : 8px 20px;
+        font-size        : 16px;
+        display          : inline-flex;
+        flex-direction   : row;
+        align-items      : center;
+        align-content    : center;
+        justify-content  : center;
+        border           : none;
+        background-color : #6366F1;
+        border-radius    : 8px;
+        color            : white;
+        cursor           : pointer;
+    }
+
+    .tableview_container .add_button:hover {
+        background-color : #7E80F1;
+    }
+
+    .tableview_container .add_button i {
+        margin-right : 8px;
+    }
+</style>
 
 
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:/home/habi/Dev/workStuff/street/svelte/privacy.esbuild-svelte-fake-css */
+<style>/* fakecss:/home/kyz/go/src/street/svelte/privacy.esbuild-svelte-fake-css */
 div.svelte-b4mguj {
   white-space: pre-line;
 }
