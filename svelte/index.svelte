@@ -116,111 +116,259 @@
 
 <svelte:window on:hashchange={onHashChange} />
 {#if mode===USER}
-   <section class="dashboard">
+   <section class='dashboard'>
       <Menu access={segments} />
-      <div class="dashboard_main_content">
+      <div class='dashboard_main_content'>
          <ProfileHeader></ProfileHeader>
-         <div class="content">
+         <div class='content'>
             <RandomProperty />
          </div>
          <Footer></Footer>
       </div>
    </section>
 {:else}
-   <div class='guest'>
-      <h1>{title} - {mode}</h1>
-      <div class='mainContainer'>
-         <label for='email'>Email</label>
-         <input type='text' id='email' bind:value={email} bind:this={emailInput} /><br />
-      
-         {#if mode===LOGIN || mode===REGISTER}
-            <label for='password'>Password</label>
-            <input type='password' id='password' bind:value={password} bind:this={passInput}><br />
-         {/if}
-      
-         {#if mode===REGISTER}
-            <label for='confirmPass'>Confirm Password</label>
-            <input type='password' id='confirmPass' bind:value={confirmPass}><br />
-            <label>
-               <button on:click={guestRegister}>Register</button>
-            </label>
-         {/if}
-      
-         {#if mode===LOGIN}
-            <label>
-               <button on:click={guestLogin}>Login</button>
-            </label>
-         {/if}
-      
-         {#if mode===REGISTER || mode===LOGIN}
-            {#if google}
-               or <a class='button' href={google}>sign in/sign up using Google</a>
+   <section class='auth_section'>
+      <div class='main_container'>
+         <div class="title_container">
+            <p>{title}</p>
+            <h1>{mode}</h1>
+         </div>
+         <div class='sign_in_container'>
+            <div class='input_container'>
+               {#if mode===LOGIN || mode===REGISTER}
+                  <div class='input_box'>
+                     <label for='email'>Email</label>
+                     <input type='text' id='email' bind:value={email} bind:this={emailInput} />
+                  </div>
+                  <div class='input_box'>
+                     <label for='password'>Password</label>
+                     <input type='password' id='password' bind:value={password} bind:this={passInput}>
+                  </div>
+               {/if}
+               {#if mode===REGISTER}
+                  <div class='input_box'>
+                     <label for='confirmPass'>Confirm Password</label>
+                     <input type='password' id='confirmPass' bind:value={confirmPass}>
+                  </div>
+               {/if}
+            </div>
+            <!-- Forgot Password -->
+            {#if mode===LOGIN}
+               <p class='forgot_password'>
+                  Forgot password? 
+                  <a href='#{FORGOT_PASSWORD}' on:click={()=> mode=FORGOT_PASSWORD}>Reset here</a>
+               </p>
             {/if}
-         {/if}
-      
-         {#if mode===RESEND_VERIFICATION_EMAIL}
-            <span class='label'></span>
-            <button on:click={guestResendVerificationEmail}>Resend Verification Email</button>
-         {/if}
-      
-         {#if mode===FORGOT_PASSWORD}
-            <span class='label'></span>
-            <button on:click={guestForgotPassword}>Request Reset Password Link</button>
-         {/if}
-      
-         <br />
-         <hr />
-      
-         {#if mode!==REGISTER}
-            Have no account? <a href='#REGISTER' on:click={()=> mode=REGISTER}>register</a><br />
-         {/if}
-         {#if mode!==LOGIN}
-            Already have account? <a href='#LOGIN' on:click={()=> mode=LOGIN}>login</a><br />
-         {/if}
-         {#if mode!==RESEND_VERIFICATION_EMAIL}
-            Email not yet verified? <a href='#{RESEND_VERIFICATION_EMAIL}' on:click={()=> mode=RESEND_VERIFICATION_EMAIL}>request verification email</a><br />
-         {/if}
-         {#if mode!==FORGOT_PASSWORD}
-            Forgot your password? <a href='#{FORGOT_PASSWORD}' on:click={()=> mode=FORGOT_PASSWORD}>request reset password link</a><br />
-         {/if}
+            <div class='button_container'>
+               {#if mode===REGISTER}
+                  <button on:click={guestRegister}>Register</button>
+               {/if}
+               {#if mode===LOGIN}
+                  <button on:click={guestLogin}>Login</button>
+               {/if}
+               {#if mode===RESEND_VERIFICATION_EMAIL}
+                  <button on:click={guestResendVerificationEmail}>Resend Verification Email</button>
+               {/if}
+               {#if mode===FORGOT_PASSWORD}
+                  <button on:click={guestForgotPassword}>Request Reset Password Link</button>
+               {/if}
+            </div>
+            <!-- Oauth Buttons -->
+            {#if mode===REGISTER || mode===LOGIN}
+               <div class='oauth_container'>
+                  <div class='or_separator'>
+                     <span></span>
+                     <p>or</p>
+                     <span></span>
+                  </div>
+                  <!-- Google OAuth -->
+                  {#if google}
+                     <a class='button' href={google}>
+                        <img src='/assets/icons/google.svg' alt='Google'/>
+                        <span>Continue with Google</span>
+                     </a>
+                  {/if}
+               </div>
+            {/if}
+            <div class='foot_auth'>
+               {#if mode!==REGISTER}
+                  <p>Have no account? <a href='#REGISTER' on:click={()=> mode=REGISTER}>register</a></p>
+               {/if}
+               {#if mode!==LOGIN}
+                  <p>Already have account? <a href='#LOGIN' on:click={()=> mode=LOGIN}>login</a></p>
+               {/if}
+               {#if mode!==RESEND_VERIFICATION_EMAIL}
+                  <p>Email not yet verified? <a href='#{RESEND_VERIFICATION_EMAIL}' on:click={()=> mode=RESEND_VERIFICATION_EMAIL}>request verification email</a></p>
+               {/if}
+            </div>
+         </div>
       </div>
-   </div>
+   </section>
 {/if}
+
+
 <style>
-   h1 {
-      text-align : center;
+   .auth_section {
+      height: 100%;
+      width: 100%;
+      background-color: #F1F5F9;
+      display: flex;
+      color: #475569;
+   }
+   .main_container {
+      width: 480px;
+      height: fit-content;
+      padding: 20px;
+      filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      margin: 50px auto;
+      border: 1px solid #CBD5E1;
+   }
+   .title_container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      text-align: center;
+   }
+   .title_container p {
+      font-size: 16px;
+      font-weight: 600;
+      color: #EF4444;
+      margin: 0;
+   }
+   .title_container h1 {
+      margin: 5px 0 0 0;
+      font-size: 22px;
+      font-weight: 700;
    }
 
-   label {
-      text-align : right;
+   .input_container {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+   }
+   .input_container .input_box {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin-top: 10px;
+   }
+   .input_container .input_box label {
+      font-size: 13px;
+      font-weight: 700;
+      margin-left: 10px;
+      margin-bottom: 8px;
+   }
+   .input_container .input_box input {
+      width: 100%;
+      border: 1px solid #CBD5E1;
+      background-color: #F1F5F9;
+   	border-radius: 8px;
+   	padding: 12px;
+   }
+   .input_container .input_box input:focus {
+      border-color: #3b82f6;
+      outline: 1px solid #3b82f6;
    }
 
-   /* pad label and input so they are equal in size */
-   span.label {
-      width   : 11em;
-      display : inline-block;
+   .forgot_password {
+      margin-top: 7px;
+      margin-bottom: 15px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+   }
+   .forgot_password a {
+      color: #3b82f6;
+      text-decoration: none;
+   }
+   .forgot_password a:hover {
+      color: #5892f5;
+      text-decoration: underline;
    }
 
-   input {
-      width  : 16em;
-      margin : 0.2em
+   .button_container button {
+      margin: 0;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      background-color: #3b82f6;
+      border-radius: 8px;
+      color: white;
+      border: none;
+      cursor: pointer;
+      filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+   }
+   .button_container button:hover {
+      background-color: #5892f5;
    }
 
-   * {
-      font-family : sans-serif;
-      font-size   : 16pt;
+   .oauth_container .or_separator {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+   }
+   .oauth_container .or_separator span {
+      flex-grow: 1;
+      height: 0;
+      border-top: 1px solid #CBD5E1;
+      padding: 0;
+   }
+   .oauth_container .or_separator p {
+      width: fit-content;
+      font-weight: 600;
+      padding: 0 10px;
    }
 
-   .mainContainer {
-      margin : 0 auto;
+   .oauth_container .button {
+      padding: 10px;
+      background-color: white;
+      border: 1px solid #CBD5E1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #334155;
+   }
+   .oauth_container .button:hover {
+      background-color: #F1F5F9;
+      /* #94a3b8 */
+   }
+   .oauth_container .button img {
+      width: 20px;
+      height: auto;
+   }
+   .oauth_container .button span {
+      margin-left: 8px;
    }
 
-   div.guest {
-      margin           : 0 auto;
-      max-width        : 640px;
-      background-color : lightgrey;
-      border           : 1px solid grey;
-      border-radius    : 1em;
-      padding          : 1em
+   .foot_auth {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+   }
+   .foot_auth p {
+      margin-top: 10px;
+      margin-bottom: 0;
+      text-align: center;
+      font-weight: 600;
+      
+   }
+   .foot_auth a {
+      color: #3b82f6;
+      text-decoration: none;
+   }
+   .foot_auth a:hover {
+      color: #5892f5;
+      text-decoration: underline;
    }
 </style>

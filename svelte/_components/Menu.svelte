@@ -149,6 +149,7 @@
       align-content: center;
     }
     .menu_container .menu .logout {
+      cursor: pointer;
       margin-left: 4px !important;
       margin-top: 0;
       margin-bottom: 0;
