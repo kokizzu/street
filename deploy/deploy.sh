@@ -3,11 +3,13 @@
 SERVER=root@benalu.dev
 VERSION=$(date +%Y.%m.%d)-$(git rev-parse --short HEAD)$(git diff --quiet || echo '-dev')
 
+BIN_NAME=street.exe
+
 ( cd .. &&
-GOOS=linux GOARCH=amd64 go build -o street.exe \
+GOOS=linux GOARCH=amd64 go build -o $BIN_NAME \
     -ldflags="-X main.VERSION='$VERSION'" ) &&
 rsync -apvz ../static ./ &&
-mv ../street.exe . &&
+mv ../$BIN_NAME . &&
 rsync --delete -a \
   --exclude='_*' \
   --exclude='.*' \
@@ -29,7 +31,7 @@ rsync --delete -a \
   --include='*.css' \
   ../svelte/ svelte &&
 cp ../.env.override . &&
-upx street.exe &&
+upx $BIN_NAME &&
 rsync -avz --progress . $SERVER:/home/street &&
 ssh $SERVER sudo bash /home/street/reload_services.sh
 

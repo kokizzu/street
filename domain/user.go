@@ -2,7 +2,6 @@ package domain
 
 import (
 	"log"
-	"math"
 
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/I"
@@ -12,6 +11,7 @@ import (
 
 	"street/model/mAuth/rqAuth"
 	"street/model/mAuth/wcAuth"
+	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 )
 
@@ -336,7 +336,7 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 			item.Lat = X.ToF(item.Coord[0])
 			item.Lng = X.ToF(item.Coord[1])
 		}
-		item.DistanceKM = distanceKm(item.Lat, item.Lng, in.CenterLat, in.CenterLong)
+		item.DistanceKM = mProperty.DistanceKm(item.Lat, item.Lng, in.CenterLat, in.CenterLong)
 		if item.DistanceKM > in.MaxDistanceKM {
 			return false
 		}
@@ -348,15 +348,6 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 		return
 	}
 	return
-}
-
-func distanceKm(lat1, lon1, lat2, lon2 float64) float64 {
-	const r = 6371 // km
-	const p = math.Pi / 180
-
-	a := 0.5 - math.Cos((lat2-lat1)*p)/2 + math.Cos(lat1*p)*math.Cos(lat2*p)*(1-math.Cos((lon2-lon1)*p))/2
-
-	return 2 * r * math.Asin(math.Sqrt(a))
 }
 
 type (
