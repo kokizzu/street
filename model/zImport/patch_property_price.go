@@ -1,7 +1,6 @@
 package zImport
 
 import (
-	"fmt"
 	"strconv"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
@@ -32,13 +31,14 @@ func UpdatePriceToProperties(propOltp *Tt.Adapter) {
 	for _, p := range properties {
 		stat.Print()
 
-		if p.LastPrice != "" && len(p.PriceHistories) > 0 {
-			stat.Skip()
-			continue
-		}
+		//if p.LastPrice != "" && len(p.PriceHistories) > 0 {
+		//	stat.Skip()
+		//	continue
+		//}
 
 		p.LastPrice = "0"
-		p.PriceHistories = []any{}
+		p.PriceHistoriesSell = []any{}
+		p.PriceHistoriesRent = []any{}
 
 		// Update price for property based on history sheet
 		propertyHistoryList := propertyHistoryRq.FindByPropertyKey(p.UniqPropKey)
@@ -49,10 +49,13 @@ func UpdatePriceToProperties(propOltp *Tt.Adapter) {
 				if ph.PriceNtd == 0 {
 					continue
 				}
-				fmt.Println("Property key => ", ph.PropertyKey)
-				fmt.Println("Price NTD => ", ph.PriceNtd)
 
-				p.PriceHistories = append(p.PriceHistories, ph.PriceNtd)
+				if ph.TransactionType == "BUY_SELL" {
+					p.PriceHistoriesSell = append(p.PriceHistoriesSell, ph.PriceNtd)
+				} else {
+					p.PriceHistoriesRent = append(p.PriceHistoriesRent, ph.PriceNtd)
+				}
+
 				currentPrice, _ := strconv.ParseInt(p.LastPrice, 10, 64)
 				if p.LastPrice == "" {
 					p.LastPrice = strconv.Itoa(int(ph.PriceNtd))
@@ -60,7 +63,6 @@ func UpdatePriceToProperties(propOltp *Tt.Adapter) {
 					p.LastPrice = strconv.Itoa(int(ph.PriceNtd))
 				}
 			}
-			fmt.Println("Price History => ", p.PriceHistories)
 			propertyMutator.Property = *p
 			propertyMutator.Adapter = propOltp
 			propertyMutator.UpdatedAt = time.Now().Unix()
@@ -74,7 +76,12 @@ func UpdatePriceToProperties(propOltp *Tt.Adapter) {
 				if ph.PriceNtd == 0 {
 					continue
 				}
-				p.PriceHistories = append(p.PriceHistories, ph.PriceNtd)
+
+				if ph.TransactionType == "BUY_SELL" {
+					p.PriceHistoriesSell = append(p.PriceHistoriesSell, ph.PriceNtd)
+				} else {
+					p.PriceHistoriesRent = append(p.PriceHistoriesRent, ph.PriceNtd)
+				}
 
 				currentPrice, _ := strconv.ParseInt(p.LastPrice, 10, 64)
 				if p.LastPrice == "" {
@@ -84,7 +91,7 @@ func UpdatePriceToProperties(propOltp *Tt.Adapter) {
 				}
 			}
 			//fmt.Println("LAst price => ", p.LastPrice)
-			fmt.Println("Price History => ", p.PriceHistories)
+			//fmt.Println("Price History => ", p.PriceHistories)
 			propertyMutator.Property = *p
 			propertyMutator.Adapter = propOltp
 			propertyMutator.UpdatedAt = time.Now().Unix()

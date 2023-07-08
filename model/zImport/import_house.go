@@ -94,6 +94,8 @@ func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
 			dataMutator.Property = *house
 			dataMutator.Adapter = *adapter
 			dataMutator.UpdatedAt = time.Now().Unix()
+			dataMutator.PriceHistoriesSell = []any{}
+			dataMutator.PriceHistoriesRent = []any{}
 
 			// Update
 			stat.Ok(dataMutator.DoOverwriteById())
@@ -295,6 +297,8 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 			continue
 		}
 		propertyMutator.UniqPropKey = uniqueSerialNumber
+		propertyMutator.PriceHistoriesSell = []any{}
+		propertyMutator.PriceHistoriesRent = []any{}
 
 		// Check if unique property key is existed
 		if propertyMutator.FindByUniqPropKey() {

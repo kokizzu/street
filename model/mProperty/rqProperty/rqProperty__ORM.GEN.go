@@ -42,7 +42,8 @@ type Property struct {
 	DeletedAt              int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
 	FormattedAddress       string      `json:"formattedAddress" form:"formattedAddress" query:"formattedAddress" long:"formattedAddress" msg:"formattedAddress"`
 	LastPrice              string      `json:"lastPrice" form:"lastPrice" query:"lastPrice" long:"lastPrice" msg:"lastPrice"`
-	PriceHistories         []any       `json:"priceHistories" form:"priceHistories" query:"priceHistories" long:"priceHistories" msg:"priceHistories"`
+	PriceHistoriesSell     []any       `json:"priceHistoriesSell" form:"priceHistoriesSell" query:"priceHistoriesSell" long:"priceHistoriesSell" msg:"priceHistoriesSell"`
+	PriceHistoriesRent     []any       `json:"priceHistoriesRent" form:"priceHistoriesRent" query:"priceHistoriesRent" long:"priceHistoriesRent" msg:"priceHistoriesRent"`
 }
 
 // NewProperty create new ORM reader/query object
@@ -124,7 +125,8 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "deletedAt"
 	, "formattedAddress"
 	, "lastPrice"
-	, "priceHistories"
+	, "priceHistoriesSell"
+	, "priceHistoriesRent"
 	`
 }
 
@@ -150,7 +152,8 @@ func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 	, "deletedAt"
 	, "formattedAddress"
 	, "lastPrice"
-	, "priceHistories"
+	, "priceHistoriesSell"
+	, "priceHistoriesRent"
 	`
 }
 
@@ -177,7 +180,8 @@ func (p *Property) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 17, p.DeletedAt},
 		A.X{`=`, 18, p.FormattedAddress},
 		A.X{`=`, 19, p.LastPrice},
-		A.X{`=`, 20, p.PriceHistories},
+		A.X{`=`, 20, p.PriceHistoriesSell},
+		A.X{`=`, 21, p.PriceHistoriesRent},
 	}
 }
 
@@ -381,14 +385,24 @@ func (p *Property) SqlLastPrice() string { //nolint:dupl false positive
 	return `"lastPrice"`
 }
 
-// IdxPriceHistories return name of the index
-func (p *Property) IdxPriceHistories() int { //nolint:dupl false positive
+// IdxPriceHistoriesSell return name of the index
+func (p *Property) IdxPriceHistoriesSell() int { //nolint:dupl false positive
 	return 20
 }
 
-// SqlPriceHistories return name of the column being indexed
-func (p *Property) SqlPriceHistories() string { //nolint:dupl false positive
-	return `"priceHistories"`
+// SqlPriceHistoriesSell return name of the column being indexed
+func (p *Property) SqlPriceHistoriesSell() string { //nolint:dupl false positive
+	return `"priceHistoriesSell"`
+}
+
+// IdxPriceHistoriesRent return name of the index
+func (p *Property) IdxPriceHistoriesRent() int { //nolint:dupl false positive
+	return 21
+}
+
+// SqlPriceHistoriesRent return name of the column being indexed
+func (p *Property) SqlPriceHistoriesRent() string { //nolint:dupl false positive
+	return `"priceHistoriesRent"`
 }
 
 // ToArray receiver fields to slice
@@ -418,7 +432,8 @@ func (p *Property) ToArray() A.X { //nolint:dupl false positive
 		p.DeletedAt,              // 17
 		p.FormattedAddress,       // 18
 		p.LastPrice,              // 19
-		p.PriceHistories,         // 20
+		p.PriceHistoriesSell,     // 20
+		p.PriceHistoriesRent,     // 21
 	}
 }
 
@@ -444,7 +459,8 @@ func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 	p.DeletedAt = X.ToI(a[17])
 	p.FormattedAddress = X.ToS(a[18])
 	p.LastPrice = X.ToS(a[19])
-	p.PriceHistories = X.ToArr(a[20])
+	p.PriceHistoriesSell = X.ToArr(a[20])
+	p.PriceHistoriesRent = X.ToArr(a[21])
 	return p
 }
 
@@ -470,7 +486,8 @@ func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false po
 	p.DeletedAt = X.ToI(a[17])
 	p.FormattedAddress = X.ToS(a[18])
 	p.LastPrice = X.ToS(a[19])
-	p.PriceHistories = X.ToArr(a[20])
+	p.PriceHistoriesSell = X.ToArr(a[20])
+	p.PriceHistoriesRent = X.ToArr(a[21])
 	return p
 }
 
@@ -534,7 +551,8 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`deletedAt`:              Tt.Integer,
 	`formattedAddress`:       Tt.String,
 	`lastPrice`:              Tt.String,
-	`priceHistories`:         Tt.Array,
+	`priceHistoriesSell`:     Tt.Array,
+	`priceHistoriesRent`:     Tt.Array,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

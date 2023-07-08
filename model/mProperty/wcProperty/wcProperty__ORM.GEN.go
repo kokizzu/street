@@ -87,7 +87,8 @@ func (p *PropertyMutator) DoDeletePermanentById() bool { //nolint:dupl false pos
 //		A.X{`=`, 17, p.DeletedAt},
 //		A.X{`=`, 18, p.FormattedAddress},
 //		A.X{`=`, 19, p.LastPrice},
-//		A.X{`=`, 20, p.PriceHistories},
+//		A.X{`=`, 20, p.PriceHistoriesSell},
+//		A.X{`=`, 21, p.PriceHistoriesRent},
 //	})
 //	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName())
 // }
@@ -350,11 +351,19 @@ func (p *PropertyMutator) SetLastPrice(val string) bool { //nolint:dupl false po
 	return false
 }
 
-// SetPriceHistories create mutations, should not duplicate
-func (p *PropertyMutator) SetPriceHistories(val []any) bool { //nolint:dupl false positive
+// SetPriceHistoriesSell create mutations, should not duplicate
+func (p *PropertyMutator) SetPriceHistoriesSell(val []any) bool { //nolint:dupl false positive
 	p.mutations = append(p.mutations, A.X{`=`, 20, val})
-	p.logs = append(p.logs, A.X{`priceHistories`, p.PriceHistories, val})
-	p.PriceHistories = val
+	p.logs = append(p.logs, A.X{`priceHistoriesSell`, p.PriceHistoriesSell, val})
+	p.PriceHistoriesSell = val
+	return true
+}
+
+// SetPriceHistoriesRent create mutations, should not duplicate
+func (p *PropertyMutator) SetPriceHistoriesRent(val []any) bool { //nolint:dupl false positive
+	p.mutations = append(p.mutations, A.X{`=`, 21, val})
+	p.logs = append(p.logs, A.X{`priceHistoriesRent`, p.PriceHistoriesRent, val})
+	p.PriceHistoriesRent = val
 	return true
 }
 
