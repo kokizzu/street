@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/goccy/go-json"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
 	"github.com/xuri/excelize/v2"
@@ -248,11 +249,16 @@ func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
 
 }
 
-func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
+func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string, jsonCoordFile string) {
 	defer subTaskPrint(`ReadHouseDataSheet: import house data`)()
 
 	rows, closer := readExcelWorksheet(resourcePath, "建物HouseDetail")
 	defer closer()
+
+	coords := L.ReadFile(jsonCoordFile)
+	coordsByUniqPropKey := map[string][]any{}
+	err := json.Unmarshal([]byte(coords), &coordsByUniqPropKey)
+	L.PanicIf(err, `json.Unmarshal coords`)
 
 	stat := &ImporterStat{Total: len(rows)}
 	defer stat.Print()
@@ -299,6 +305,9 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 			continue
 		}
 		propertyMutator.UniqPropKey = uniqueSerialNumber
+		if arr, ok := coordsByUniqPropKey[uniqueSerialNumber]; ok {
+			propertyMutator.Coord = arr
+		}
 		propertyMutator.PriceHistoriesSell = []any{}
 		propertyMutator.PriceHistoriesRent = []any{}
 
@@ -527,19 +536,19 @@ func ImportHouseSerialNumberForHistory(adapter *Tt.Adapter) {
 
 }
 
-func ImportExcelData(adapter *Tt.Adapter, resourcePath string) {
+func ImportExcelData(adapter *Tt.Adapter, excelFile string, jsonCoordFile string) {
 	start := time.Now()
 
 	fmt.Println("[Start] House")
-	ReadHouseDataSheet(adapter, resourcePath)
-	GetHouseAddressInBuySellData(&adapter, resourcePath)
-	GetHouseAddressInRentData1(&adapter, resourcePath)
-	GetHouseAddressInRentData2(&adapter, resourcePath)
+	ReadHouseDataSheet(adapter, excelFile, jsonCoordFile)
+	GetHouseAddressInBuySellData(&adapter, excelFile)
+	GetHouseAddressInRentData1(&adapter, excelFile)
+	GetHouseAddressInRentData2(&adapter, excelFile)
 	fmt.Println("[End] House")
 
 	fmt.Println("[Start] House Trx History")
-	ImportHouseHistoryInBuySellSheet(&adapter, resourcePath)
-	ImportHouseHistoryInRentSheet(adapter, resourcePath)
+	ImportHouseHistoryInBuySellSheet(&adapter, excelFile)
+	ImportHouseHistoryInRentSheet(adapter, excelFile)
 	fmt.Println("[End] House Trx History")
 
 	L.TimeTrack(start, "ImportExcelData")

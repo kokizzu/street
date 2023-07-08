@@ -161,12 +161,9 @@ func main() {
 	case `migrate`:
 		model.RunMigration(tConn, cConn, tConn, cConn)
 	case `import`:
-		fmt.Println("Import excel sheet data")
-		p, err := filepath.Abs("./static/house_data/House_Data_Full_Version_v1.xlsx")
-		if err != nil {
-			fmt.Println("Error -> ", err)
-		}
-		zImport.ImportExcelData(tConn, p)
+		excelFile, _ := filepath.Abs(`./static/house_data/House_Data_Full_Version_v1.xlsx`)
+		jsonCoordFile, _ := filepath.Abs(`./static/house_data/coordinates.json`)
+		zImport.ImportExcelData(tConn, excelFile, jsonCoordFile)
 		zImport.PatchPropertiesPrice(tConn)
 	case `import_location`:
 		zImport.ImportHouseLocation(tConn)
