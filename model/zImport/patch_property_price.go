@@ -2,12 +2,13 @@ package zImport
 
 import (
 	"fmt"
-	"github.com/kokizzu/gotro/D/Tt"
-	"github.com/kokizzu/gotro/L"
 	"strconv"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
 	"time"
+
+	"github.com/kokizzu/gotro/D/Tt"
+	"github.com/kokizzu/gotro/L"
 )
 
 func PatchPropertiesPrice(propOltp *Tt.Adapter) {
@@ -38,6 +39,7 @@ func UpdatePriceToProperties(propOltp *Tt.Adapter) {
 
 		p.LastPrice = "0"
 		p.PriceHistories = []any{}
+
 		// Update price for property based on history sheet
 		propertyHistoryList := propertyHistoryRq.FindByPropertyKey(p.UniqPropKey)
 
@@ -45,7 +47,6 @@ func UpdatePriceToProperties(propOltp *Tt.Adapter) {
 
 			for _, ph := range propertyHistoryList {
 				if ph.PriceNtd == 0 {
-					stat.Skip()
 					continue
 				}
 				fmt.Println("Property key => ", ph.PropertyKey)
@@ -71,7 +72,6 @@ func UpdatePriceToProperties(propOltp *Tt.Adapter) {
 
 			for _, ph := range pHistoryList {
 				if ph.PriceNtd == 0 {
-					stat.Skip()
 					continue
 				}
 				p.PriceHistories = append(p.PriceHistories, ph.PriceNtd)

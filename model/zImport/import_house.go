@@ -497,22 +497,15 @@ func ImportHouseSerialNumberForHistory(adapter *Tt.Adapter) {
 	defer subTaskPrint("Patch serial number to house history")()
 
 	propertyHistoryQuery := rqProperty.NewPropertyHistory(adapter)
-	propertyHistories := propertyHistoryQuery.FindAllPropertyHistories()
+	propertyHistories := propertyHistoryQuery.FindAllPropertyHistoriesWithBlankSerial()
 	fmt.Println("Len of house history => ", len(propertyHistories))
 	stat := &ImporterStat{Total: len(propertyHistories)}
 	defer stat.Print()
 
 	for _, pHistory := range propertyHistories {
-
-		fmt.Println(pHistory.PropertyKey)
 		stat.Print()
 
 		dataMutator := wcProperty.NewPropertyHistoryMutator(adapter)
-
-		if pHistory.SerialNumber != "" {
-			stat.Skip()
-			continue
-		}
 
 		pHistory.SerialNumber = strings.Split(pHistory.PropertyKey, "#")[0]
 		dataMutator.PropertyHistory = *pHistory
@@ -520,6 +513,7 @@ func ImportHouseSerialNumberForHistory(adapter *Tt.Adapter) {
 		dataMutator.UpdatedAt = time.Now().Unix()
 		stat.Ok(dataMutator.DoOverwriteById())
 	}
+
 }
 
 func ImportExcelData(adapter *Tt.Adapter, resourcePath string) {
