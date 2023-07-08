@@ -142,7 +142,7 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
 - **Q**: got error `Command 'replacer' not found`
   - **A**: install [replacer](//github.com/kokizzu/replacer) or `make setup`
 - **Q**: got error `Command 'gomodifytags' not found`
-  - **A**: install [goimports](//github.com/fatih/gomodifytags) or `make setup`
+  - **A**: install [gomodifytags](//github.com/fatih/gomodifytags) or `make setup`
 - **Q**: got error `Command 'farify' not found`
   - **A**: install [farify](//github.com/akbarfa49/farify) or `make setup`
 - **Q**: where to put secret that I don't want to commit?
