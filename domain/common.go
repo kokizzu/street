@@ -26,15 +26,15 @@ import (
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file common.go
-//go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type common.go
-//go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type common.go
-//go:generate replacer -afterprefix 'By" form' 'By,string" form' type common.go
+//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type common.go
+//go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type common.go
+//go:generate replacer -afterprefix "By\" form" "By,string\" form" type common.go
 // go:generate msgp -tests=false -file common.go -o  common__MSG.GEN.go
 //go:generate farify doublequote --file common.go
 
 type RequestCommon struct {
 	TracerContext context.Context   `json:"-" form:"tracerContext" query:"tracerContext" long:"tracerContext" msg:"-"`
-	RequestId     string            `json:"requestId" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
+	RequestId     string            `json:"requestId,string" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
 	SessionToken  string            `json:"sessionToken" form:"sessionToken" query:"sessionToken" long:"sessionToken" msg:"sessionToken"`
 	UserAgent     string            `json:"userAgent" form:"userAgent" query:"userAgent" long:"userAgent" msg:"userAgent"`
 	IpAddress     string            `json:"ipAddress" form:"ipAddress" query:"ipAddress" long:"ipAddress" msg:"ipAddress"`

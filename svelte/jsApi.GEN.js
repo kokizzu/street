@@ -1097,12 +1097,14 @@ exports.UserPropHistory = async function UserPropHistory( i, cb ) {
  * @property {number} centerLong
  * @property {number} offset
  * @property {number} limit
+ * @property {number} maxDistanceKM
  */
 const UserSearchPropIn = {
   centerLat: 0, // float64
   centerLong: 0, // float64
   offset: 0, // int
   limit: 0, // int
+  maxDistanceKM: 0, // float64
 }
 /**
  * @typedef {Object} UserSearchPropOut

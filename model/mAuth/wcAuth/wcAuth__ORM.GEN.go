@@ -14,9 +14,9 @@ import (
 // SessionsMutator DAO writer/command struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file wcAuth__ORM.GEN.go
-//go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type wcAuth__ORM.GEN.go
-//go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type wcAuth__ORM.GEN.go
-//go:generate replacer -afterprefix 'By" form' 'By,string" form' type wcAuth__ORM.GEN.go
+//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type wcAuth__ORM.GEN.go
+//go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type wcAuth__ORM.GEN.go
+//go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcAuth__ORM.GEN.go
 type SessionsMutator struct {
 	rqAuth.Sessions
 	mutations []A.X

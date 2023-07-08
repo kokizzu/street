@@ -16,9 +16,9 @@ import (
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file saAuth__ORM.GEN.go
-//go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type saAuth__ORM.GEN.go
-//go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type saAuth__ORM.GEN.go
-//go:generate replacer -afterprefix 'By" form' 'By,string" form' type saAuth__ORM.GEN.go
+//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type saAuth__ORM.GEN.go
+//go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type saAuth__ORM.GEN.go
+//go:generate replacer -afterprefix "By\" form" "By,string\" form" type saAuth__ORM.GEN.go
 // go:generate msgp -tests=false -file saAuth__ORM.GEN.go -o saAuth__MSG.GEN.go
 
 var actionLogsDummy = ActionLogs{}
@@ -34,8 +34,8 @@ var Preparators = map[Ch.TableName]chBuffer.Preparator{
 type ActionLogs struct {
 	Adapter    *Ch.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	CreatedAt  time.Time   `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	RequestId  string      `json:"requestId" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
-	ActorId    uint64      `json:"actorId" form:"actorId" query:"actorId" long:"actorId" msg:"actorId"`
+	RequestId  string      `json:"requestId,string" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
+	ActorId    uint64      `json:"actorId,string" form:"actorId" query:"actorId" long:"actorId" msg:"actorId"`
 	Action     string      `json:"action" form:"action" query:"action" long:"action" msg:"action"`
 	StatusCode int16       `json:"statusCode" form:"statusCode" query:"statusCode" long:"statusCode" msg:"statusCode"`
 	Traces     string      `json:"traces" form:"traces" query:"traces" long:"traces" msg:"traces"`

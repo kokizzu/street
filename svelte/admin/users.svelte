@@ -1,6 +1,8 @@
 <script>
   import Menu from '../_components/Menu.svelte';
   import AdminSubMenu from './_adminSubMenu.svelte';
+  import ProfileHeader from '../_components/ProfileHeader.svelte';
+  import Footer from '../_components/Footer.svelte';
   import TableView from '../_components/TableView.svelte';
   import { AdminUsers } from '../jsApi.GEN';
   import ModalForm from '../_components/ModalForm.svelte';
@@ -66,20 +68,36 @@
       form.hideModal(); // success
     } );
   }
-
-
 </script>
-<Menu access={segments} />
-<AdminSubMenu></AdminSubMenu>
-<button on:click={addRow}>Add</button>
-<ModalForm {fields}
-           rowType='User'
-           bind:this={form}
-           onConfirm={saveRow}
-></ModalForm>
-<TableView {fields}
-           bind:pager={pager}
-           rows={users}
-           on:refreshTableView={refreshTableView}
-           on:editRow={editRow}
-></TableView>
+
+<section class='dashboard'>
+  <Menu access={segments} />
+  <div class='dashboard_main_content'>
+    <ProfileHeader></ProfileHeader>
+    <AdminSubMenu></AdminSubMenu>
+    <div class='content'>
+      <ModalForm {fields}
+                 rowType='User'
+                 bind:this={form}
+                 onConfirm={saveRow}
+      ></ModalForm>
+      <section class='tableview_container'>
+        <TableView {fields}
+                   bind:pager={pager}
+                   rows={users}
+                   on:refreshTableView={refreshTableView}
+                   on:editRow={editRow}
+        >
+          <button on:click={addRow} class='add_button'>
+            <i class='gg-add'></i>
+            <span>Add</span>
+          </button>
+        </TableView>
+      </section>
+    </div>
+    <Footer></Footer>
+  </div>
+</section>
+
+<style>
+</style>

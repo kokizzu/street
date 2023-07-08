@@ -7,9 +7,9 @@ import (
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file form.go
-//go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type form.go
-//go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type form.go
-//go:generate replacer -afterprefix 'By" form' 'By,string" form' type form.go
+//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type form.go
+//go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type form.go
+//go:generate replacer -afterprefix "By\" form" "By,string\" form" type form.go
 //go:generate farify doublequote --file form.go
 
 type DataType string
@@ -55,7 +55,7 @@ type Field struct {
 }
 
 type Meta struct {
-	Fields []Field
+	Fields []Field `json:"fields" form:"fields" query:"fields" long:"fields" msg:"fields"`
 
 	mutex        sync.Mutex
 	cachedSelect string

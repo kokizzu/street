@@ -13,17 +13,16 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-//go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file rqAuth__ORM.GEN.go
-//go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type rqAuth__ORM.GEN.go
-//go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type rqAuth__ORM.GEN.go
-//go:generate replacer -afterprefix 'By" form' 'By,string" form' type rqAuth__ORM.GEN.go
-// go:generate msgp -tests=false -file rqAuth__ORM.GEN.go -o rqAuth__MSG.GEN.go
-
 // Sessions DAO reader/query struct
+//
+//go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file rqAuth__ORM.GEN.go
+//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type rqAuth__ORM.GEN.go
+//go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type rqAuth__ORM.GEN.go
+//go:generate replacer -afterprefix "By\" form" "By,string\" form" type rqAuth__ORM.GEN.go
 type Sessions struct {
 	Adapter      *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	SessionToken string      `json:"sessionToken" form:"sessionToken" query:"sessionToken" long:"sessionToken" msg:"sessionToken"`
-	UserId       uint64      `json:"userId" form:"userId" query:"userId" long:"userId" msg:"userId"`
+	UserId       uint64      `json:"userId,string" form:"userId" query:"userId" long:"userId" msg:"userId"`
 	ExpiredAt    int64       `json:"expiredAt" form:"expiredAt" query:"expiredAt" long:"expiredAt" msg:"expiredAt"`
 	Device       string      `json:"device" form:"device" query:"device" long:"device" msg:"device"`
 	LoginAt      int64       `json:"loginAt" form:"loginAt" query:"loginAt" long:"loginAt" msg:"loginAt"`
@@ -245,13 +244,13 @@ var SessionsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 // Users DAO reader/query struct
 type Users struct {
 	Adapter            *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	Id                 uint64      `json:"id" form:"id" query:"id" long:"id" msg:"id"`
+	Id                 uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
 	Email              string      `json:"email" form:"email" query:"email" long:"email" msg:"email"`
 	Password           string      `json:"password" form:"password" query:"password" long:"password" msg:"password"`
 	CreatedAt          int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	CreatedBy          uint64      `json:"createdBy" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	CreatedBy          uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
 	UpdatedAt          int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
-	UpdatedBy          uint64      `json:"updatedBy" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	UpdatedBy          uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
 	DeletedAt          int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
 	PasswordSetAt      int64       `json:"passwordSetAt" form:"passwordSetAt" query:"passwordSetAt" long:"passwordSetAt" msg:"passwordSetAt"`
 	SecretCode         string      `json:"secretCode" form:"secretCode" query:"secretCode" long:"secretCode" msg:"secretCode"`
