@@ -55,7 +55,7 @@ type Field struct {
 }
 
 type Meta struct {
-	Fields []Field
+	Fields []Field `json:"fields" form:"fields" query:"fields" long:"fields" msg:"fields"`
 
 	mutex        sync.Mutex
 	cachedSelect string
