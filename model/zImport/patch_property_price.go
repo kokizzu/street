@@ -50,10 +50,15 @@ func UpdatePriceToProperties(propOltp *Tt.Adapter) {
 					continue
 				}
 
+				priceData := map[string]interface{}{
+					"price":     ph.PriceNtd,
+					"localDate": ph.TransactionTime,
+				}
+
 				if ph.TransactionType == "BUY_SELL" {
-					p.PriceHistoriesSell = append(p.PriceHistoriesSell, ph.PriceNtd)
+					p.PriceHistoriesSell = append(p.PriceHistoriesSell, priceData)
 				} else {
-					p.PriceHistoriesRent = append(p.PriceHistoriesRent, ph.PriceNtd)
+					p.PriceHistoriesRent = append(p.PriceHistoriesRent, priceData)
 				}
 
 				currentPrice, _ := strconv.ParseInt(p.LastPrice, 10, 64)
@@ -77,10 +82,15 @@ func UpdatePriceToProperties(propOltp *Tt.Adapter) {
 					continue
 				}
 
+				priceData := map[string]interface{}{
+					"price":     ph.PriceNtd,
+					"localDate": ph.TransactionTime,
+				}
+
 				if ph.TransactionType == "BUY_SELL" {
-					p.PriceHistoriesSell = append(p.PriceHistoriesSell, ph.PriceNtd)
+					p.PriceHistoriesSell = append(p.PriceHistoriesSell, priceData)
 				} else {
-					p.PriceHistoriesRent = append(p.PriceHistoriesRent, ph.PriceNtd)
+					p.PriceHistoriesRent = append(p.PriceHistoriesRent, priceData)
 				}
 
 				currentPrice, _ := strconv.ParseInt(p.LastPrice, 10, 64)
