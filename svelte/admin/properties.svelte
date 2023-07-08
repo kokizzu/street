@@ -83,7 +83,7 @@
     <AdminSubMenu></AdminSubMenu>
     <div class='content'>
       <ModalForm {fields}
-                 rowType='User'
+                 rowType='Property'
                  bind:this={form}
                  onConfirm={saveRow}
       ></ModalForm>
