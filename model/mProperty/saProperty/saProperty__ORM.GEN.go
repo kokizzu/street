@@ -34,9 +34,9 @@ var Preparators = map[Ch.TableName]chBuffer.Preparator{
 type TablePropertyLogs struct {
 	Adapter   *Ch.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	CreatedAt time.Time   `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	RequestId string      `json:"requestId,string" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
+	RequestId string      `json:"requestId" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
 	Error     string      `json:"error" form:"error" query:"error" long:"error" msg:"error"`
-	ActorId   uint64      `json:"actorId,string" form:"actorId" query:"actorId" long:"actorId" msg:"actorId"`
+	ActorId   uint64      `json:"actorId" form:"actorId" query:"actorId" long:"actorId" msg:"actorId"`
 	IpAddr4   string      `json:"ipAddr4" form:"ipAddr4" query:"ipAddr4" long:"ipAddr4" msg:"ipAddr4"`
 	IpAddr6   string      `json:"ipAddr6" form:"ipAddr6" query:"ipAddr6" long:"ipAddr6" msg:"ipAddr6"`
 	UserAgent string      `json:"userAgent" form:"userAgent" query:"userAgent" long:"userAgent" msg:"userAgent"`

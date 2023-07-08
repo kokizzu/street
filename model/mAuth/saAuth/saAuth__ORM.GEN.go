@@ -34,8 +34,8 @@ var Preparators = map[Ch.TableName]chBuffer.Preparator{
 type ActionLogs struct {
 	Adapter    *Ch.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	CreatedAt  time.Time   `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	RequestId  string      `json:"requestId,string" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
-	ActorId    uint64      `json:"actorId,string" form:"actorId" query:"actorId" long:"actorId" msg:"actorId"`
+	RequestId  string      `json:"requestId" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
+	ActorId    uint64      `json:"actorId" form:"actorId" query:"actorId" long:"actorId" msg:"actorId"`
 	Action     string      `json:"action" form:"action" query:"action" long:"action" msg:"action"`
 	StatusCode int16       `json:"statusCode" form:"statusCode" query:"statusCode" long:"statusCode" msg:"statusCode"`
 	Traces     string      `json:"traces" form:"traces" query:"traces" long:"traces" msg:"traces"`

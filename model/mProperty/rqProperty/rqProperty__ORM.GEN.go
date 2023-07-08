@@ -21,28 +21,28 @@ import (
 
 // Property DAO reader/query struct
 type Property struct {
-	Adapter                *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-"`
-	Id                     uint64
-	UniqPropKey            string
-	SerialNumber           string
-	SizeM2                 string
-	MainUse                string
-	MainBuildingMaterial   string
-	ConstructCompletedDate string
-	NumberOfFloors         string
-	BuildingLamination     string
-	Address                string
-	District               string
-	Note                   string
-	Coord                  []any
-	CreatedAt              int64
-	CreatedBy              uint64
-	UpdatedAt              int64
-	UpdatedBy              uint64
-	DeletedAt              int64
-	FormattedAddress       string
-	LastPrice              string
-	PriceHistories         []any
+	Adapter                *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id                     uint64      `json:"id" form:"id" query:"id" long:"id" msg:"id"`
+	UniqPropKey            string      `json:"uniqPropKey" form:"uniqPropKey" query:"uniqPropKey" long:"uniqPropKey" msg:"uniqPropKey"`
+	SerialNumber           string      `json:"serialNumber" form:"serialNumber" query:"serialNumber" long:"serialNumber" msg:"serialNumber"`
+	SizeM2                 string      `json:"sizeM2" form:"sizeM2" query:"sizeM2" long:"sizeM2" msg:"sizeM2"`
+	MainUse                string      `json:"mainUse" form:"mainUse" query:"mainUse" long:"mainUse" msg:"mainUse"`
+	MainBuildingMaterial   string      `json:"mainBuildingMaterial" form:"mainBuildingMaterial" query:"mainBuildingMaterial" long:"mainBuildingMaterial" msg:"mainBuildingMaterial"`
+	ConstructCompletedDate string      `json:"constructCompletedDate" form:"constructCompletedDate" query:"constructCompletedDate" long:"constructCompletedDate" msg:"constructCompletedDate"`
+	NumberOfFloors         string      `json:"numberOfFloors" form:"numberOfFloors" query:"numberOfFloors" long:"numberOfFloors" msg:"numberOfFloors"`
+	BuildingLamination     string      `json:"buildingLamination" form:"buildingLamination" query:"buildingLamination" long:"buildingLamination" msg:"buildingLamination"`
+	Address                string      `json:"address" form:"address" query:"address" long:"address" msg:"address"`
+	District               string      `json:"district" form:"district" query:"district" long:"district" msg:"district"`
+	Note                   string      `json:"note" form:"note" query:"note" long:"note" msg:"note"`
+	Coord                  []any       `json:"coord" form:"coord" query:"coord" long:"coord" msg:"coord"`
+	CreatedAt              int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy              uint64      `json:"createdBy" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt              int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy              uint64      `json:"updatedBy" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt              int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	FormattedAddress       string      `json:"formattedAddress" form:"formattedAddress" query:"formattedAddress" long:"formattedAddress" msg:"formattedAddress"`
+	LastPrice              string      `json:"lastPrice" form:"lastPrice" query:"lastPrice" long:"lastPrice" msg:"lastPrice"`
+	PriceHistories         []any       `json:"priceHistories" form:"priceHistories" query:"priceHistories" long:"priceHistories" msg:"priceHistories"`
 }
 
 // NewProperty create new ORM reader/query object
@@ -541,27 +541,27 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 
 // PropertyHistory DAO reader/query struct
 type PropertyHistory struct {
-	Adapter               *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-"`
-	Id                    uint64
-	PropertyKey           string
-	TransactionKey        string
-	TransactionType       string
-	TransactionSign       string
-	TransactionTime       string
-	TransactionDateNormal string
-	TransactionNumber     string
-	PriceNtd              int64
-	PricePerUnit          int64
-	Price                 int64
-	Address               string
-	District              string
-	Note                  string
-	CreatedAt             int64
-	CreatedBy             uint64
-	UpdatedAt             int64
-	UpdatedBy             uint64
-	DeletedAt             int64
-	SerialNumber          string
+	Adapter               *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id                    uint64      `json:"id" form:"id" query:"id" long:"id" msg:"id"`
+	PropertyKey           string      `json:"propertyKey" form:"propertyKey" query:"propertyKey" long:"propertyKey" msg:"propertyKey"`
+	TransactionKey        string      `json:"transactionKey" form:"transactionKey" query:"transactionKey" long:"transactionKey" msg:"transactionKey"`
+	TransactionType       string      `json:"transactionType" form:"transactionType" query:"transactionType" long:"transactionType" msg:"transactionType"`
+	TransactionSign       string      `json:"transactionSign" form:"transactionSign" query:"transactionSign" long:"transactionSign" msg:"transactionSign"`
+	TransactionTime       string      `json:"transactionTime" form:"transactionTime" query:"transactionTime" long:"transactionTime" msg:"transactionTime"`
+	TransactionDateNormal string      `json:"transactionDateNormal" form:"transactionDateNormal" query:"transactionDateNormal" long:"transactionDateNormal" msg:"transactionDateNormal"`
+	TransactionNumber     string      `json:"transactionNumber" form:"transactionNumber" query:"transactionNumber" long:"transactionNumber" msg:"transactionNumber"`
+	PriceNtd              int64       `json:"priceNtd" form:"priceNtd" query:"priceNtd" long:"priceNtd" msg:"priceNtd"`
+	PricePerUnit          int64       `json:"pricePerUnit" form:"pricePerUnit" query:"pricePerUnit" long:"pricePerUnit" msg:"pricePerUnit"`
+	Price                 int64       `json:"price" form:"price" query:"price" long:"price" msg:"price"`
+	Address               string      `json:"address" form:"address" query:"address" long:"address" msg:"address"`
+	District              string      `json:"district" form:"district" query:"district" long:"district" msg:"district"`
+	Note                  string      `json:"note" form:"note" query:"note" long:"note" msg:"note"`
+	CreatedAt             int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy             uint64      `json:"createdBy" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt             int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy             uint64      `json:"updatedBy" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt             int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	SerialNumber          string      `json:"serialNumber" form:"serialNumber" query:"serialNumber" long:"serialNumber" msg:"serialNumber"`
 }
 
 // NewPropertyHistory create new ORM reader/query object
