@@ -167,9 +167,9 @@ func main() {
 			fmt.Println("Error -> ", err)
 		}
 		zImport.ImportExcelData(tConn, p)
+		zImport.PatchPropertiesPrice(tConn)
 	case `import_location`:
 		zImport.ImportHouseLocation(tConn)
-		zImport.PatchPropertiesPrice(tConn)
 	//case `upgradememtx`:
 	//	zUpgrade.UserSessionToMemtx(tConn)
 	//case `fix_time`:
