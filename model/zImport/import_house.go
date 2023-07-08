@@ -394,6 +394,7 @@ func ImportHouseHistoryInBuySellSheet(adapter **Tt.Adapter, resourcePath string)
 		propertyHistoryMutator.CreatedAt = currentTime
 		propertyHistoryMutator.UpdatedAt = currentTime
 		propertyHistoryMutator.PropertyKey = uniquePropertyKey
+		propertyHistoryMutator.SerialNumber = serialNumber
 		propertyHistoryMutator.TransactionKey = transactionKey
 		propertyHistoryMutator.TransactionType = "BUY_SELL"
 
@@ -489,6 +490,7 @@ func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
 		propertyHistoryMutator.CreatedAt = currentTime
 		propertyHistoryMutator.UpdatedAt = currentTime
 		propertyHistoryMutator.PropertyKey = uniquePropertyKey
+		propertyHistoryMutator.SerialNumber = serialNumber
 		propertyHistoryMutator.TransactionKey = transactionKey
 		propertyHistoryMutator.TransactionType = "RENT"
 
