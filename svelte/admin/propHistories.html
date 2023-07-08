@@ -350,7 +350,7 @@
 }
 
 /* fakecss:/home/kyz/go/src/street/svelte/_components/ModalForm.esbuild-svelte-fake-css */
-.backdrop.svelte-17uzks9.svelte-17uzks9 {
+.backdrop.svelte-jhual2.svelte-jhual2 {
   position: fixed;
   z-index: 40;
   top: 0;
@@ -360,7 +360,7 @@
   height: 100%;
   opacity: .8;
 }
-.modal_container.svelte-17uzks9.svelte-17uzks9 {
+.modal_container.svelte-jhual2.svelte-jhual2 {
   background-color: white;
   position: fixed;
   z-index: 50;
@@ -377,19 +377,19 @@
   flex-direction: column;
   color: #334155;
 }
-.modal_container.svelte-17uzks9 header.svelte-17uzks9 {
+.modal_container.svelte-jhual2 header.svelte-jhual2 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.modal_container.svelte-17uzks9 header h2.svelte-17uzks9 {
+.modal_container.svelte-jhual2 header h2.svelte-jhual2 {
   font-size: 20px;
   line-height: 1.5rem;
   padding: 0;
   margin: 0;
 }
-.modal_container.svelte-17uzks9 header button.svelte-17uzks9 {
+.modal_container.svelte-jhual2 header button.svelte-jhual2 {
   padding: 5px;
   border: none;
   background: none;
@@ -397,28 +397,28 @@
   font-size: 14px;
   cursor: pointer;
 }
-.modal_container.svelte-17uzks9 header button.svelte-17uzks9:hover {
+.modal_container.svelte-jhual2 header button.svelte-jhual2:hover {
   background-color: rgb(0 0 0 / 0.07);
   color: #EF4444;
 }
-.input_container.svelte-17uzks9.svelte-17uzks9 {
+.input_container.svelte-jhual2.svelte-jhual2 {
   margin: 0 0 20px 0;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
-.input_container.svelte-17uzks9 .input_box.svelte-17uzks9 {
+.input_container.svelte-jhual2 .input_box.svelte-jhual2 {
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-top: 10px;
 }
-.input_container.svelte-17uzks9 .input_box label.svelte-17uzks9 {
+.input_container.svelte-jhual2 .input_box label.svelte-jhual2 {
   font-size: 13px;
   font-weight: 700;
   margin-left: 10px;
 }
-.input_container.svelte-17uzks9 .input_box input.svelte-17uzks9 {
+.input_container.svelte-jhual2 .input_box input.svelte-jhual2 {
   width: 100%;
   border: 1px solid #CBD5E1;
   background-color: #F1F5F9;
@@ -426,28 +426,28 @@
   padding: 8px;
   margin-top: 5px;
 }
-.input_container.svelte-17uzks9 .input_box input.svelte-17uzks9:focus {
+.input_container.svelte-jhual2 .input_box input.svelte-jhual2:focus {
   border-color: #3b82f6;
   outline: 1px solid #3b82f6;
 }
-.input_container.svelte-17uzks9 .form_info.svelte-17uzks9 {
+.input_container.svelte-jhual2 .form_info.svelte-jhual2 {
   display: inline-flex;
   align-items: center;
   font-size: 13px;
   margin: 5px 0 0 10px;
 }
-.input_container.svelte-17uzks9 .form_info label.svelte-17uzks9 {
+.input_container.svelte-jhual2 .form_info label.svelte-jhual2 {
   font-weight: 700;
   margin-right: 10px;
 }
-.button_container.svelte-17uzks9.svelte-17uzks9 {
+.button_container.svelte-jhual2.svelte-jhual2 {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
   align-content: stretch;
 }
-.button_container.svelte-17uzks9 button.svelte-17uzks9 {
+.button_container.svelte-jhual2 button.svelte-jhual2 {
   margin-left: 10px;
   padding: 8px 10px;
   font-size: 13px;
@@ -458,16 +458,16 @@
   cursor: pointer;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
-.button_container.svelte-17uzks9 .cancel.svelte-17uzks9 {
-  background-color: #EF4444;
+.button_container.svelte-jhual2 .cancel.svelte-jhual2 {
+  background-color: grey;
 }
-.button_container.svelte-17uzks9 .save.svelte-17uzks9 {
+.button_container.svelte-jhual2 .save.svelte-jhual2 {
   background-color: #3b82f6;
 }
-.button_container.svelte-17uzks9 .delete.svelte-17uzks9 {
+.button_container.svelte-jhual2 .delete.svelte-jhual2 {
   background-color: #ec4899;
 }
-.button_container.svelte-17uzks9 .restore.svelte-17uzks9 {
+.button_container.svelte-jhual2 .restore.svelte-jhual2 {
   background-color: #f97316;
 }
 
@@ -5258,7 +5258,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function select_block_type(ctx2, dirty) {
       if (
         /*row*/
-        ctx2[2].id
+        ctx2[0].id
       )
         return create_if_block_9;
       return create_else_block_5;
@@ -5287,7 +5287,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function select_block_type_4(ctx2, dirty) {
       if (
         /*loading*/
-        ctx2[1]
+        ctx2[2]
       )
         return create_if_block_13;
       return create_else_block2;
@@ -5318,17 +5318,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         button1.textContent = "Cancel";
         t6 = space();
         if_block1.c();
-        attr(div0, "class", "backdrop svelte-17uzks9");
+        attr(div0, "class", "backdrop svelte-jhual2");
         attr(button0, "aria-label", "close");
         attr(button0, "title", "Close");
         attr(button0, "type", "button");
-        attr(button0, "class", "svelte-17uzks9");
-        attr(header, "class", "svelte-17uzks9");
-        attr(div1, "class", "input_container svelte-17uzks9");
+        attr(button0, "class", "svelte-jhual2");
+        attr(header, "class", "svelte-jhual2");
+        attr(div1, "class", "input_container svelte-jhual2");
         attr(button1, "tabindex", "0");
-        attr(button1, "class", "cancel svelte-17uzks9");
-        attr(div2, "class", "button_container svelte-17uzks9");
-        attr(div3, "class", "modal_container svelte-17uzks9");
+        set_style(button1, "margin", "0 auto 0 0");
+        attr(button1, "class", "cancel svelte-jhual2");
+        attr(div2, "class", "button_container svelte-jhual2");
+        attr(div3, "class", "modal_container svelte-jhual2");
       },
       m(target, anchor) {
         insert(target, div0, anchor);
@@ -5385,7 +5386,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           }
         }
         if (dirty & /*row, fields, datetime*/
-        12) {
+        9) {
           each_value = ensure_array_like(
             /*fields*/
             ctx2[3]
@@ -5478,7 +5479,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*rowType*/
           ctx[4]
         );
-        attr(h2, "class", "svelte-17uzks9");
+        attr(h2, "class", "svelte-jhual2");
       },
       m(target, anchor) {
         insert(target, h2, anchor);
@@ -5508,7 +5509,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t2;
     let t3_value = (
       /*row*/
-      ctx[2].id + ""
+      ctx[0].id + ""
     );
     let t3;
     return {
@@ -5521,7 +5522,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         );
         t2 = text(" ID: ");
         t3 = text(t3_value);
-        attr(h2, "class", "svelte-17uzks9");
+        attr(h2, "class", "svelte-jhual2");
       },
       m(target, anchor) {
         insert(target, h2, anchor);
@@ -5539,8 +5540,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             ctx2[4]
           );
         if (dirty & /*row*/
-        4 && t3_value !== (t3_value = /*row*/
-        ctx2[2].id + ""))
+        1 && t3_value !== (t3_value = /*row*/
+        ctx2[0].id + ""))
           set_data(t3, t3_value);
       },
       d(detaching) {
@@ -5584,8 +5585,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if_block.c();
         attr(label, "for", label_for_value = "modalForm__" + /*field*/
         ctx[21].name);
-        attr(label, "class", "svelte-17uzks9");
-        attr(div, "class", "input_box svelte-17uzks9");
+        attr(label, "class", "svelte-jhual2");
+        attr(div, "class", "input_box svelte-jhual2");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -5652,8 +5653,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if_block.c();
         attr(label, "for", label_for_value = "modalForm__" + /*field*/
         ctx[21].name);
-        attr(label, "class", "svelte-17uzks9");
-        attr(div, "class", "form_info svelte-17uzks9");
+        attr(label, "class", "svelte-jhual2");
+        attr(div, "class", "form_info svelte-jhual2");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -5706,14 +5707,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       c() {
         input = element("input");
         attr(input, "type", "hidden");
-        attr(input, "class", "svelte-17uzks9");
+        attr(input, "class", "svelte-jhual2");
       },
       m(target, anchor) {
         insert(target, input, anchor);
         set_input_value(
           input,
           /*row*/
-          ctx[2][
+          ctx[0][
             /*field*/
             ctx[21].name
           ]
@@ -5726,11 +5727,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if (dirty & /*row, fields*/
-        12) {
+        9) {
           set_input_value(
             input,
             /*row*/
-            ctx[2][
+            ctx[0][
               /*field*/
               ctx[21].name
             ]
@@ -5764,14 +5765,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(input, "id", input_id_value = "modalForm__" + /*field*/
         ctx[21].name);
         attr(input, "type", "text");
-        attr(input, "class", "svelte-17uzks9");
+        attr(input, "class", "svelte-jhual2");
       },
       m(target, anchor) {
         insert(target, input, anchor);
         set_input_value(
           input,
           /*row*/
-          ctx[2][
+          ctx[0][
             /*field*/
             ctx[21].name
           ]
@@ -5789,15 +5790,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           attr(input, "id", input_id_value);
         }
         if (dirty & /*row, fields*/
-        12 && input.value !== /*row*/
-        ctx[2][
+        9 && input.value !== /*row*/
+        ctx[0][
           /*field*/
           ctx[21].name
         ]) {
           set_input_value(
             input,
             /*row*/
-            ctx[2][
+            ctx[0][
               /*field*/
               ctx[21].name
             ]
@@ -5831,14 +5832,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(input, "id", input_id_value = "modalForm__" + /*field*/
         ctx[21].name);
         attr(input, "type", "number");
-        attr(input, "class", "svelte-17uzks9");
+        attr(input, "class", "svelte-jhual2");
       },
       m(target, anchor) {
         insert(target, input, anchor);
         set_input_value(
           input,
           /*row*/
-          ctx[2][
+          ctx[0][
             /*field*/
             ctx[21].name
           ]
@@ -5856,15 +5857,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           attr(input, "id", input_id_value);
         }
         if (dirty & /*row, fields*/
-        12 && to_number(input.value) !== /*row*/
-        ctx[2][
+        9 && to_number(input.value) !== /*row*/
+        ctx[0][
           /*field*/
           ctx[21].name
         ]) {
           set_input_value(
             input,
             /*row*/
-            ctx[2][
+            ctx[0][
               /*field*/
               ctx[21].name
             ]
@@ -5903,7 +5904,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         set_input_value(
           textarea,
           /*row*/
-          ctx[2][
+          ctx[0][
             /*field*/
             ctx[21].name
           ]
@@ -5921,11 +5922,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           attr(textarea, "id", textarea_id_value);
         }
         if (dirty & /*row, fields*/
-        12) {
+        9) {
           set_input_value(
             textarea,
             /*row*/
-            ctx[2][
+            ctx[0][
               /*field*/
               ctx[21].name
             ]
@@ -5945,7 +5946,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span;
     let t_value = (
       /*row*/
-      ctx[2][
+      ctx[0][
         /*field*/
         ctx[21].name
       ] + ""
@@ -5962,8 +5963,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty & /*row, fields*/
-        12 && t_value !== (t_value = /*row*/
-        ctx2[2][
+        9 && t_value !== (t_value = /*row*/
+        ctx2[0][
           /*field*/
           ctx2[21].name
         ] + ""))
@@ -5980,7 +5981,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span;
     let t_value = (0, import_formatter2.datetime)(
       /*row*/
-      ctx[2][
+      ctx[0][
         /*field*/
         ctx[21].name
       ]
@@ -5997,9 +5998,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty & /*row, fields*/
-        12 && t_value !== (t_value = (0, import_formatter2.datetime)(
+        9 && t_value !== (t_value = (0, import_formatter2.datetime)(
           /*row*/
-          ctx2[2][
+          ctx2[0][
             /*field*/
             ctx2[21].name
           ]
@@ -6060,32 +6061,29 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
   }
   function create_else_block2(ctx) {
+    let t0;
     let button;
-    let t1;
-    let if_block_anchor;
     let mounted;
     let dispose;
     let if_block = (
       /*row*/
-      ctx[2].id && create_if_block_23(ctx)
+      ctx[0].id && create_if_block_23(ctx)
     );
     return {
       c() {
-        button = element("button");
-        button.textContent = "Save";
-        t1 = space();
         if (if_block)
           if_block.c();
-        if_block_anchor = empty();
+        t0 = space();
+        button = element("button");
+        button.textContent = "Save";
         attr(button, "tabindex", "0");
-        attr(button, "class", "save svelte-17uzks9");
+        attr(button, "class", "save svelte-jhual2");
       },
       m(target, anchor) {
-        insert(target, button, anchor);
-        insert(target, t1, anchor);
         if (if_block)
           if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
+        insert(target, t0, anchor);
+        insert(target, button, anchor);
         if (!mounted) {
           dispose = listen(
             button,
@@ -6099,14 +6097,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (
           /*row*/
-          ctx2[2].id
+          ctx2[0].id
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
           } else {
             if_block = create_if_block_23(ctx2);
             if_block.c();
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+            if_block.m(t0.parentNode, t0);
           }
         } else if (if_block) {
           if_block.d(1);
@@ -6115,9 +6113,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       d(detaching) {
         if (detaching) {
+          detach(t0);
           detach(button);
-          detach(t1);
-          detach(if_block_anchor);
         }
         if (if_block)
           if_block.d(detaching);
@@ -6150,7 +6147,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function select_block_type_5(ctx2, dirty) {
       if (
         /*row*/
-        ctx2[2].deletedAt > 0
+        ctx2[0].deletedAt > 0
       )
         return create_if_block_33;
       return create_else_block_12;
@@ -6195,7 +6192,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         button = element("button");
         button.textContent = "Delete";
         attr(button, "tabindex", "0");
-        attr(button, "class", "delete svelte-17uzks9");
+        attr(button, "class", "delete svelte-jhual2");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -6228,7 +6225,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         button = element("button");
         button.textContent = "Restore";
         attr(button, "tabindex", "0");
-        attr(button, "class", "restore svelte-17uzks9");
+        attr(button, "class", "restore svelte-jhual2");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -6257,7 +6254,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let current;
     let if_block = (
       /*visible*/
-      ctx[0] && create_if_block3(ctx)
+      ctx[1] && create_if_block3(ctx)
     );
     return {
       c() {
@@ -6274,12 +6271,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, [dirty]) {
         if (
           /*visible*/
-          ctx2[0]
+          ctx2[1]
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
             if (dirty & /*visible*/
-            1) {
+            2) {
               transition_in(if_block, 1);
             }
           } else {
@@ -6327,30 +6324,30 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     } } = $props;
     let originalRowJson = "";
     function showModal(fetchedRow) {
-      $invalidate(0, visible = true);
+      $invalidate(1, visible = true);
       originalRowJson = JSON.stringify(fetchedRow);
-      $invalidate(2, row = fetchedRow);
-      $invalidate(1, loading = false);
+      $invalidate(0, row = fetchedRow);
+      $invalidate(2, loading = false);
       console.log("ModalForm.showModal", fetchedRow);
     }
     function hideModal() {
-      $invalidate(0, visible = false);
+      $invalidate(1, visible = false);
     }
     function setLoading(to) {
-      $invalidate(1, loading = !!to);
+      $invalidate(2, loading = !!to);
     }
     function haveChanges() {
       return originalRowJson !== JSON.stringify(row);
     }
     function deletePressed() {
       if (confirm("are you sure you want to delete this row?")) {
-        $invalidate(1, loading = true);
+        $invalidate(2, loading = true);
         onConfirm("delete", row);
       }
     }
     function restorePressed() {
       if (confirm("are you sure you want to restore this row?")) {
-        $invalidate(1, loading = true);
+        $invalidate(2, loading = true);
         onConfirm("restore", row);
       }
     }
@@ -6358,43 +6355,43 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       if (!haveChanges())
         return cancelPressed();
       if (confirm("are you sure you want to save this row?")) {
-        $invalidate(1, loading = true);
+        $invalidate(2, loading = true);
         onConfirm("upsert", row);
       }
     }
     function cancelPressed() {
       if (haveChanges()) {
         if (confirm("are you sure you want to cancel? changes will be lost."))
-          $invalidate(0, visible = false);
+          $invalidate(1, visible = false);
       } else {
-        $invalidate(0, visible = false);
+        $invalidate(1, visible = false);
       }
     }
     function input_input_handler(field) {
       row[field.name] = this.value;
-      $invalidate(2, row);
+      $invalidate(0, row);
     }
     function textarea_input_handler(field) {
       row[field.name] = this.value;
-      $invalidate(2, row);
+      $invalidate(0, row);
     }
     function input_input_handler_1(field) {
       row[field.name] = to_number(this.value);
-      $invalidate(2, row);
+      $invalidate(0, row);
     }
     function input_input_handler_2(field) {
       row[field.name] = this.value;
-      $invalidate(2, row);
+      $invalidate(0, row);
     }
     $self.$set = ($props2) => {
       if ("fields" in $props2)
         $invalidate(3, fields2 = $props2.fields);
       if ("visible" in $props2)
-        $invalidate(0, visible = $props2.visible);
+        $invalidate(1, visible = $props2.visible);
       if ("loading" in $props2)
-        $invalidate(1, loading = $props2.loading);
+        $invalidate(2, loading = $props2.loading);
       if ("row" in $props2)
-        $invalidate(2, row = $props2.row);
+        $invalidate(0, row = $props2.row);
       if ("rowType" in $props2)
         $invalidate(4, rowType = $props2.rowType);
       if ("onConfirm" in $props2)
@@ -6402,10 +6399,22 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       if ("$scope" in $props2)
         $invalidate(13, $scope = $props2.$scope);
     };
+    $self.$.update = () => {
+      if ($self.$.dirty & /*row*/
+      1) {
+        $:
+          JSON.stringify(row);
+      }
+      if ($self.$.dirty & /*fields*/
+      8) {
+        $:
+          JSON.stringify(fields2);
+      }
+    };
     return [
+      row,
       visible,
       loading,
-      row,
       fields2,
       rowType,
       deletePressed,
@@ -6429,9 +6438,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       super();
       init(this, options, instance4, create_fragment4, safe_not_equal, {
         fields: 3,
-        visible: 0,
-        loading: 1,
-        row: 2,
+        visible: 1,
+        loading: 2,
+        row: 0,
         rowType: 4,
         onConfirm: 9,
         showModal: 10,

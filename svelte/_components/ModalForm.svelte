@@ -65,9 +65,10 @@
       } else {
          visible = false;
       }
-    
-      // brb eating
    }
+   
+         $: JSON.stringify(row)
+         $: JSON.stringify(fields)
 </script>
 
 {#if visible}
@@ -114,15 +115,12 @@
          <slot />
       </div>
       <div class='button_container'>
-         <button tabindex='0' class='cancel' on:click={cancelPressed}>
+         <button tabindex='0' style='margin: 0 auto 0 0' class='cancel' on:click={cancelPressed}>
             Cancel
          </button>
          {#if loading}
             <span class='right'>Saving..</span>
          {:else}
-            <button tabindex='0' class='save' on:click={savePressed}>
-               Save
-            </button>
             {#if row.id}
                {#if row.deletedAt>0}
                   <button tabindex='0' class='restore' on:click={restorePressed}>
@@ -134,6 +132,9 @@
                   </button>
                {/if}
             {/if}
+            <button tabindex='0' class='save' on:click={savePressed}>
+               Save
+            </button>
          {/if}
       </div>
    </div>
@@ -253,7 +254,7 @@
       filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
    }
    .button_container .cancel {
-      background-color: #EF4444;
+      background-color: grey;
    }
    .button_container .save {
       background-color: #3b82f6;
