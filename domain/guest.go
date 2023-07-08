@@ -16,9 +16,9 @@ import (
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file guest.go
-//go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type guest.go
-//go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type guest.go
-//go:generate replacer -afterprefix 'By" form' 'By,string" form' type guest.go
+//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type guest.go
+//go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type guest.go
+//go:generate replacer -afterprefix "By\" form" "By,string\" form" type guest.go
 //go:generate farify doublequote --file guest.go
 
 type (
@@ -472,7 +472,7 @@ type (
 		Link string `json:"link" form:"link" query:"link" long:"link" msg:"link"`
 
 		// these for manual client-side oauth link generation
-		ClientID    string   `json:"clientId" form:"clientId" query:"clientId" long:"clientId" msg:"clientId"`
+		ClientID    string   `json:"clientId,string" form:"clientId" query:"clientId" long:"clientId" msg:"clientId"`
 		RedirectUrl string   `json:"redirectUrl" form:"redirectUrl" query:"redirectUrl" long:"redirectUrl" msg:"redirectUrl"`
 		Scopes      []string `json:"scopes" form:"scopes" query:"scopes" long:"scopes" msg:"scopes"`
 		CsrfState   string   `json:"csrfState" form:"csrfState" query:"csrfState" long:"csrfState" msg:"csrfState"`

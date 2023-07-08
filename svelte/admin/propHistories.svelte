@@ -4,6 +4,8 @@
   import TableView from '../_components/TableView.svelte';
   import ModalForm from '../_components/ModalForm.svelte';
   import { AdminPropHistories } from '../jsApi.GEN';
+  import Footer from '../_components/Footer.svelte';
+  import ProfileHeader from '../_components/ProfileHeader.svelte';
   
   let segments = {/* segments */};
   let fields = [/* fields */];
@@ -55,7 +57,7 @@
   async function saveRow( action, row ) {
     let ph = {...row};
     if( !ph.id ) ph.id = '0';
-    console.log(ph)
+    console.log( ph );
     await AdminPropHistories( {
       propHistory: ph,
       action: action,
@@ -71,17 +73,31 @@
 </script>
 
 
-<Menu access={segments} />
-<AdminSubMenu></AdminSubMenu>
-<button on:click={addRow}>Add</button>
-<ModalForm {fields}
-           rowType='Prop History'
-           bind:this={form}
-           onConfirm={saveRow}
-></ModalForm>
-<TableView {fields}
-           bind:pager={pager}
-           rows={propHistories}
-           on:refreshTableView={refreshTableView}
-           on:editRow={editRow}
-></TableView>
+<section class='dashboard'>
+  <Menu access={segments} />
+  <div class='dashboard_main_content'>
+    <ProfileHeader />
+    <AdminSubMenu></AdminSubMenu>
+    <div class='content'>
+      <ModalForm {fields}
+                 rowType='Prop History'
+                 bind:this={form}
+                 onConfirm={saveRow}
+      ></ModalForm>
+      <section class='tableview_container'>
+        <TableView {fields}
+                   bind:pager={pager}
+                   rows={propHistories}
+                   on:refreshTableView={refreshTableView}
+                   on:editRow={editRow}
+        >
+          <button on:click={addRow} class='add_button'>
+            <i class='gg-add'></i>
+            <span>Add</span>
+          </button>
+        </TableView>
+      </section>
+    </div>
+    <Footer></Footer>
+  </div>
+</section>

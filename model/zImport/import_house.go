@@ -173,6 +173,7 @@ func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
 		}
 
 	}
+
 }
 
 func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
@@ -244,6 +245,7 @@ func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
 		}
 
 	}
+
 }
 
 func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
@@ -308,6 +310,7 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 
 		stat.Ok(propertyMutator.DoInsert())
 	}
+
 }
 func ImportHouseHistoryInBuySellSheet(adapter **Tt.Adapter, resourcePath string) {
 	defer subTaskPrint(`ImportHouseHistoryInBuySellSheet: import house history data in buy-sell sheet`)()
@@ -401,6 +404,7 @@ func ImportHouseHistoryInBuySellSheet(adapter **Tt.Adapter, resourcePath string)
 		stat.Ok(propertyHistoryMutator.DoInsert())
 
 	}
+
 }
 
 func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
@@ -495,6 +499,7 @@ func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
 		stat.Ok(propertyHistoryMutator.DoInsert())
 
 	}
+
 }
 
 func ImportHouseSerialNumberForHistory(adapter *Tt.Adapter) {

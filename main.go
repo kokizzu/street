@@ -171,8 +171,8 @@ func main() {
 		zImport.ImportHouseLocation(tConn)
 	//case `upgradememtx`:
 	//	zUpgrade.UserSessionToMemtx(tConn)
-	case `fix_time`:
-		zImport.FixCreatedUpdatedAt(tConn)
+	//case `fix_time`:
+	//	zImport.FixCreatedUpdatedAt(tConn)
 	case `patch_property_price`:
 		zImport.PatchPropertiesPrice(tConn)
 	case `patch_serial_number_history`:

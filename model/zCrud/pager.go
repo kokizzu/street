@@ -12,11 +12,11 @@ import (
 	"golang.org/x/exp/maps"
 )
 
-//go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file pagination.go
-//go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type pagination.go
-//go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type pagination.go
-//go:generate replacer -afterprefix 'By" form' 'By,string" form' type pagination.go
-//go:generate farify doublequote --file pagination.go
+//go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file pager.go
+//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type pager.go
+//go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type pager.go
+//go:generate replacer -afterprefix "By\" form" "By,string\" form" type pager.go
+//go:generate farify doublequote --file pager.go
 
 type PagerIn struct {
 	Page    int `json:"page" form:"page" query:"page" long:"page" msg:"page"`

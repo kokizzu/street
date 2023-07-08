@@ -2,6 +2,7 @@ package domain
 
 import (
 	"log"
+	"math"
 
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/I"
@@ -15,9 +16,9 @@ import (
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file user.go
-//go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type user.go
-//go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type user.go
-//go:generate replacer -afterprefix 'By" form' 'By,string" form' type user.go
+//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type user.go
+//go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type user.go
+//go:generate replacer -afterprefix "By\" form" "By,string\" form" type user.go
 //go:generate farify doublequote --file user.go
 
 type (
@@ -282,6 +283,8 @@ type (
 		CenterLong float64 `json:"centerLong" form:"centerLong" query:"centerLong" long:"centerLong" msg:"centerLong"`
 		Offset     int     `json:"offset" form:"offset" query:"offset" long:"offset" msg:"offset"`
 		Limit      int     `json:"limit" form:"limit" query:"limit" long:"limit" msg:"limit"`
+
+		MaxDistanceKM float64 `json:"maxDistanceKM" form:"maxDistanceKM" query:"maxDistanceKM" long:"maxDistanceKM" msg:"maxDistanceKM"`
 	}
 
 	UserSearchPropOut struct {
@@ -294,6 +297,8 @@ type (
 		*rqProperty.Property
 		Lat float64 `json:"lat" form:"lat" query:"lat" long:"lat" msg:"lat"`
 		Lng float64 `json:"lng" form:"lng" query:"lng" long:"lng" msg:"lng"`
+
+		DistanceKM float64 `json:"distanceKM" form:"distanceKM" query:"distanceKM" long:"distanceKM" msg:"distanceKM"`
 	}
 )
 
@@ -319,21 +324,39 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 		in.Limit = DefaultLimit
 	}
 
+	if in.MaxDistanceKM <= 0 {
+		in.MaxDistanceKM = 2
+	}
+
 	out.Properties = make([]Property, 0, in.Limit)
-	ok := prop.FindByLatLong(in.CenterLat, in.CenterLong, in.Limit, in.Offset, func(row []any) {
+	ok := prop.FindByLatLong(in.CenterLat, in.CenterLong, in.Limit, in.Offset, func(row []any) bool {
 		item := Property{Property: &rqProperty.Property{}}
 		item.FromArray(row)
 		if len(item.Coord) >= 2 {
 			item.Lat = X.ToF(item.Coord[0])
 			item.Lng = X.ToF(item.Coord[1])
 		}
+		item.DistanceKM = distanceKm(item.Lat, item.Lng, in.CenterLat, in.CenterLong)
+		if item.DistanceKM > in.MaxDistanceKM {
+			return false
+		}
 		out.Properties = append(out.Properties, item)
+		return true
 	})
 	if !ok {
 		out.SetError(500, ErrSearchPropFailed)
 		return
 	}
 	return
+}
+
+func distanceKm(lat1, lon1, lat2, lon2 float64) float64 {
+	const r = 6371 // km
+	const p = math.Pi / 180
+
+	a := 0.5 - math.Cos((lat2-lat1)*p)/2 + math.Cos(lat1*p)*math.Cos(lat2*p)*(1-math.Cos((lon2-lon1)*p))/2
+
+	return 2 * r * math.Asin(math.Sqrt(a))
 }
 
 type (

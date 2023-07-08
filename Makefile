@@ -1,4 +1,10 @@
 
+setup:
+	go get -u -v github.com/kokizzu/gotro@latest
+	go install github.com/fatih/gomodifytags@latest
+	go install github.com/kokizzu/replacer@latest
+	go install github.com/akbarfa49/farify@latest
+
 local-tarantool:
 	docker exec -it `docker ps | grep tarantool | cut -d ' ' -f 1` tarantoolctl connect userT:passT@localhost:3301
 	# box.space -- list all tables
