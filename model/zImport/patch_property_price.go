@@ -2,9 +2,10 @@ package zImport
 
 import (
 	"strconv"
+	"time"
+
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
-	"time"
 
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
@@ -50,10 +51,7 @@ func UpdatePriceToProperties(propOltp *Tt.Adapter) {
 					continue
 				}
 
-				priceData := map[string]interface{}{
-					"price":     ph.PriceNtd,
-					"localDate": ph.TransactionTime,
-				}
+				priceData := []any{ph.PriceNtd, ph.TransactionTime}
 
 				if ph.TransactionType == "BUY_SELL" {
 					p.PriceHistoriesSell = append(p.PriceHistoriesSell, priceData)
@@ -82,10 +80,7 @@ func UpdatePriceToProperties(propOltp *Tt.Adapter) {
 					continue
 				}
 
-				priceData := map[string]interface{}{
-					"price":     ph.PriceNtd,
-					"localDate": ph.TransactionTime,
-				}
+				priceData := []any{ph.PriceNtd, ph.TransactionTime}
 
 				if ph.TransactionType == "BUY_SELL" {
 					p.PriceHistoriesSell = append(p.PriceHistoriesSell, priceData)
