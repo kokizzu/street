@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/kokizzu/gotro/D/Tt"
@@ -93,6 +94,8 @@ func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
 			dataMutator.Property = *house
 			dataMutator.Adapter = *adapter
 			dataMutator.UpdatedAt = time.Now().Unix()
+			dataMutator.PriceHistoriesSell = []any{}
+			dataMutator.PriceHistoriesRent = []any{}
 
 			// Update
 			stat.Ok(dataMutator.DoOverwriteById())
@@ -170,6 +173,7 @@ func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
 		}
 
 	}
+
 }
 
 func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
@@ -241,6 +245,7 @@ func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
 		}
 
 	}
+
 }
 
 func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
@@ -294,6 +299,8 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 			continue
 		}
 		propertyMutator.UniqPropKey = uniqueSerialNumber
+		propertyMutator.PriceHistoriesSell = []any{}
+		propertyMutator.PriceHistoriesRent = []any{}
 
 		// Check if unique property key is existed
 		if propertyMutator.FindByUniqPropKey() {
@@ -303,6 +310,7 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string) {
 
 		stat.Ok(propertyMutator.DoInsert())
 	}
+
 }
 func ImportHouseHistoryInBuySellSheet(adapter **Tt.Adapter, resourcePath string) {
 	defer subTaskPrint(`ImportHouseHistoryInBuySellSheet: import house history data in buy-sell sheet`)()
@@ -396,6 +404,7 @@ func ImportHouseHistoryInBuySellSheet(adapter **Tt.Adapter, resourcePath string)
 		stat.Ok(propertyHistoryMutator.DoInsert())
 
 	}
+
 }
 
 func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
@@ -490,6 +499,30 @@ func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
 		stat.Ok(propertyHistoryMutator.DoInsert())
 
 	}
+
+}
+
+func ImportHouseSerialNumberForHistory(adapter *Tt.Adapter) {
+	defer subTaskPrint("Patch serial number to house history")()
+
+	propertyHistoryQuery := rqProperty.NewPropertyHistory(adapter)
+	propertyHistories := propertyHistoryQuery.FindAllPropertyHistoriesWithBlankSerial()
+	fmt.Println("Len of house history => ", len(propertyHistories))
+	stat := &ImporterStat{Total: len(propertyHistories)}
+	defer stat.Print()
+
+	for _, pHistory := range propertyHistories {
+		stat.Print()
+
+		dataMutator := wcProperty.NewPropertyHistoryMutator(adapter)
+
+		pHistory.SerialNumber = strings.Split(pHistory.PropertyKey, "#")[0]
+		dataMutator.PropertyHistory = *pHistory
+		dataMutator.Adapter = adapter
+		dataMutator.UpdatedAt = time.Now().Unix()
+		stat.Ok(dataMutator.DoOverwriteById())
+	}
+
 }
 
 func ImportExcelData(adapter *Tt.Adapter, resourcePath string) {
@@ -508,6 +541,14 @@ func ImportExcelData(adapter *Tt.Adapter, resourcePath string) {
 	fmt.Println("[End] House Trx History")
 
 	L.TimeTrack(start, "ImportExcelData")
+}
+
+func PatchSerialNumberForHouseHistory(adapter *Tt.Adapter) {
+	start := time.Now()
+	fmt.Println("[Start] Patch serial number for house history")
+	ImportHouseSerialNumberForHistory(adapter)
+	fmt.Println("[End] Patch serial number for house history")
+	L.TimeTrack(start, "Patch-Serial-Number-Property-History")
 }
 
 func subTaskPrint(str string) func() {

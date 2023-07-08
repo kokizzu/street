@@ -102,6 +102,17 @@ go test -bench=BenchmarkGenerateViews
 # - svelte/jsApi.GEN.js             # -- all API client SDK 
 ```
 
+## Importing data
+
+```shell
+go run main.go migrate
+go run main.go import
+go run main.go import_location # require google API key
+go run main.go patch_serial_number_history
+go run main.go patch_property_price
+
+```
+
 ## Manual test
 
 ```shell
