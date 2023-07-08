@@ -31,10 +31,10 @@ func UpdatePriceToProperties(propOltp *Tt.Adapter) {
 	for _, p := range properties {
 		stat.Print()
 
-		//if p.LastPrice != "" && len(p.PriceHistories) > 0 {
-		//	stat.Skip()
-		//	continue
-		//}
+		if p.LastPrice != "" && (len(p.PriceHistoriesRent) > 0 || len(p.PriceHistoriesSell) > 0) {
+			stat.Skip()
+			continue
+		}
 
 		p.LastPrice = "0"
 		p.PriceHistoriesSell = []any{}
