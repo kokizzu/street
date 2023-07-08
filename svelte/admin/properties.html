@@ -99,7 +99,7 @@
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:/home/kyz/go/src/street/svelte/_components/Menu.esbuild-svelte-fake-css */
+<style>/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/Menu.esbuild-svelte-fake-css */
 .side_menu_admin.svelte-13ly30w.svelte-13ly30w {
   left: 0;
   display: block;
@@ -215,7 +215,7 @@
   color: #EF4444 !important;
 }
 
-/* fakecss:/home/kyz/go/src/street/svelte/admin/_adminSubMenu.esbuild-svelte-fake-css */
+/* fakecss:/home/habi/Dev/workStuff/street/svelte/admin/_adminSubMenu.esbuild-svelte-fake-css */
 .admin_submenu.svelte-ylwlsa.svelte-ylwlsa {
   position: relative;
   margin-top: -40px;
@@ -258,7 +258,7 @@
   color: white !important;
 }
 
-/* fakecss:/home/kyz/go/src/street/svelte/_components/ProfileHeader.esbuild-svelte-fake-css */
+/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/ProfileHeader.esbuild-svelte-fake-css */
 .profile_header.svelte-ubnh3m.svelte-ubnh3m.svelte-ubnh3m {
   background-color: #EF4444;
   height: fit-content;
@@ -323,7 +323,7 @@
   border-radius: 9999px;
 }
 
-/* fakecss:/home/kyz/go/src/street/svelte/_components/Footer.esbuild-svelte-fake-css */
+/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/Footer.esbuild-svelte-fake-css */
 footer.svelte-uaahja.svelte-uaahja {
   font-size: 16px;
   display: flex;
@@ -348,7 +348,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   color: #EF4444;
 }
 
-/* fakecss:/home/kyz/go/src/street/svelte/_components/TableView.esbuild-svelte-fake-css */
+/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/TableView.esbuild-svelte-fake-css */
 .table_users.svelte-1gvrrkh.svelte-1gvrrkh {
   margin-top: 10px;
   background-color: white;
@@ -439,27 +439,33 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   background: none;
 }
 
-/* fakecss:/home/kyz/go/src/street/svelte/_components/ModalForm.esbuild-svelte-fake-css */
-.backdrop.svelte-jhual2.svelte-jhual2 {
+/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/ModalForm.esbuild-svelte-fake-css */
+.backdrop.svelte-oq5wkw.svelte-oq5wkw {
   position: fixed;
   z-index: 40;
   top: 0;
   left: 0;
-  background: grey;
+  bottom: 0;
+  background: rgba(41, 41, 41, 0.9);
+  overflow-y: auto;
   width: 100%;
-  height: 100%;
-  opacity: .8;
+  display: flex;
+  justify-content: center;
 }
-.modal_container.svelte-jhual2.svelte-jhual2 {
+.backdrop.svelte-oq5wkw.svelte-oq5wkw::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+.backdrop.svelte-oq5wkw.svelte-oq5wkw::-webkit-scrollbar {
+  width: 0;
+}
+.backdrop.svelte-oq5wkw.svelte-oq5wkw::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.modal_container.svelte-oq5wkw.svelte-oq5wkw {
   background-color: white;
-  position: fixed;
-  z-index: 50;
-  top: 15%;
-  left: 50%;
   width: 500px;
   height: fit-content;
-  margin-left: -300px;
-  margin-top: 0;
+  margin: 30px 0;
   padding: 20px;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   border-radius: 15px;
@@ -467,77 +473,79 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   flex-direction: column;
   color: #334155;
 }
-.modal_container.svelte-jhual2 header.svelte-jhual2 {
+.modal_container.svelte-oq5wkw header.svelte-oq5wkw {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.modal_container.svelte-jhual2 header h2.svelte-jhual2 {
-  font-size: 20px;
+.modal_container.svelte-oq5wkw header h2.svelte-oq5wkw {
+  font-size: 16px;
   line-height: 1.5rem;
   padding: 0;
   margin: 0;
 }
-.modal_container.svelte-jhual2 header button.svelte-jhual2 {
+.modal_container.svelte-oq5wkw header button.svelte-oq5wkw {
   padding: 5px;
   border: none;
   background: none;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
 }
-.modal_container.svelte-jhual2 header button.svelte-jhual2:hover {
+.modal_container.svelte-oq5wkw header button.svelte-oq5wkw:hover {
   background-color: rgb(0 0 0 / 0.07);
   color: #EF4444;
 }
-.input_container.svelte-jhual2.svelte-jhual2 {
-  margin: 0 0 20px 0;
+.input_container.svelte-oq5wkw.svelte-oq5wkw {
+  margin: 0 0 15px 0;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
-.input_container.svelte-jhual2 .input_box.svelte-jhual2 {
+.input_container.svelte-oq5wkw .input_box.svelte-oq5wkw {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
   width: 100%;
   margin-top: 10px;
 }
-.input_container.svelte-jhual2 .input_box label.svelte-jhual2 {
+.input_container.svelte-oq5wkw .input_box label.svelte-oq5wkw {
   font-size: 13px;
   font-weight: 700;
   margin-left: 10px;
+  flex-grow: 1;
 }
-.input_container.svelte-jhual2 .input_box input.svelte-jhual2 {
-  width: 100%;
+.input_container.svelte-oq5wkw .input_box input.svelte-oq5wkw {
+  width: 73%;
   border: 1px solid #CBD5E1;
   background-color: #F1F5F9;
   border-radius: 8px;
   padding: 8px;
   margin-top: 5px;
 }
-.input_container.svelte-jhual2 .input_box input.svelte-jhual2:focus {
+.input_container.svelte-oq5wkw .input_box input.svelte-oq5wkw:focus {
   border-color: #3b82f6;
   outline: 1px solid #3b82f6;
 }
-.input_container.svelte-jhual2 .form_info.svelte-jhual2 {
+.input_container.svelte-oq5wkw .form_info.svelte-oq5wkw {
   display: inline-flex;
   align-items: center;
   font-size: 13px;
   margin: 5px 0 0 10px;
 }
-.input_container.svelte-jhual2 .form_info label.svelte-jhual2 {
+.input_container.svelte-oq5wkw .form_info label.svelte-oq5wkw {
   font-weight: 700;
   margin-right: 10px;
 }
-.button_container.svelte-jhual2.svelte-jhual2 {
+.button_container.svelte-oq5wkw.svelte-oq5wkw {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
   align-content: stretch;
 }
-.button_container.svelte-jhual2 button.svelte-jhual2 {
+.button_container.svelte-oq5wkw button.svelte-oq5wkw {
   margin-left: 10px;
   padding: 8px 10px;
   font-size: 13px;
@@ -548,16 +556,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   cursor: pointer;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
-.button_container.svelte-jhual2 .cancel.svelte-jhual2 {
+.button_container.svelte-oq5wkw .cancel.svelte-oq5wkw {
   background-color: grey;
 }
-.button_container.svelte-jhual2 .save.svelte-jhual2 {
+.button_container.svelte-oq5wkw .save.svelte-oq5wkw {
   background-color: #3b82f6;
 }
-.button_container.svelte-jhual2 .delete.svelte-jhual2 {
+.button_container.svelte-oq5wkw .delete.svelte-oq5wkw {
   background-color: #ec4899;
 }
-.button_container.svelte-jhual2 .restore.svelte-jhual2 {
+.button_container.svelte-oq5wkw .restore.svelte-oq5wkw {
   background-color: #f97316;
 }
 </style>
@@ -5370,19 +5378,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return child_ctx;
   }
   function create_if_block3(ctx) {
-    let div0;
-    let t0;
     let div3;
-    let header;
-    let t1;
-    let button0;
-    let t2;
-    let div1;
-    let t3;
-    let t4;
     let div2;
+    let header;
+    let t0;
+    let button0;
+    let t1;
+    let div0;
+    let t2;
+    let t3;
+    let div1;
     let button1;
-    let t6;
+    let t5;
     let current;
     let mounted;
     let dispose;
@@ -5427,65 +5434,63 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let if_block1 = current_block_type_1(ctx);
     return {
       c() {
-        div0 = element("div");
-        t0 = space();
         div3 = element("div");
+        div2 = element("div");
         header = element("header");
         if_block0.c();
-        t1 = space();
+        t0 = space();
         button0 = element("button");
         button0.innerHTML = `<i class="gg-close"></i>`;
-        t2 = space();
-        div1 = element("div");
+        t1 = space();
+        div0 = element("div");
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        t3 = space();
+        t2 = space();
         if (default_slot)
           default_slot.c();
-        t4 = space();
-        div2 = element("div");
+        t3 = space();
+        div1 = element("div");
         button1 = element("button");
         button1.textContent = "Cancel";
-        t6 = space();
+        t5 = space();
         if_block1.c();
-        attr(div0, "class", "backdrop svelte-jhual2");
         attr(button0, "aria-label", "close");
         attr(button0, "title", "Close");
         attr(button0, "type", "button");
-        attr(button0, "class", "svelte-jhual2");
-        attr(header, "class", "svelte-jhual2");
-        attr(div1, "class", "input_container svelte-jhual2");
+        attr(button0, "class", "svelte-oq5wkw");
+        attr(header, "class", "svelte-oq5wkw");
+        attr(div0, "class", "input_container svelte-oq5wkw");
         attr(button1, "tabindex", "0");
         set_style(button1, "margin", "0 auto 0 0");
-        attr(button1, "class", "cancel svelte-jhual2");
-        attr(div2, "class", "button_container svelte-jhual2");
-        attr(div3, "class", "modal_container svelte-jhual2");
+        attr(button1, "class", "cancel svelte-oq5wkw");
+        attr(div1, "class", "button_container svelte-oq5wkw");
+        attr(div2, "class", "modal_container svelte-oq5wkw");
+        attr(div3, "class", "backdrop svelte-oq5wkw");
       },
       m(target, anchor) {
-        insert(target, div0, anchor);
-        insert(target, t0, anchor);
         insert(target, div3, anchor);
-        append(div3, header);
+        append(div3, div2);
+        append(div2, header);
         if_block0.m(header, null);
-        append(header, t1);
+        append(header, t0);
         append(header, button0);
-        append(div3, t2);
-        append(div3, div1);
+        append(div2, t1);
+        append(div2, div0);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
-            each_blocks[i].m(div1, null);
+            each_blocks[i].m(div0, null);
           }
         }
-        append(div1, t3);
+        append(div0, t2);
         if (default_slot) {
-          default_slot.m(div1, null);
+          default_slot.m(div0, null);
         }
-        append(div3, t4);
-        append(div3, div2);
-        append(div2, button1);
-        append(div2, t6);
-        if_block1.m(div2, null);
+        append(div2, t3);
+        append(div2, div1);
+        append(div1, button1);
+        append(div1, t5);
+        if_block1.m(div1, null);
         current = true;
         if (!mounted) {
           dispose = [
@@ -5513,7 +5518,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if_block0 = current_block_type(ctx2);
           if (if_block0) {
             if_block0.c();
-            if_block0.m(header, t1);
+            if_block0.m(header, t0);
           }
         }
         if (dirty & /*row, fields, datetime*/
@@ -5530,7 +5535,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             } else {
               each_blocks[i] = create_each_block2(child_ctx);
               each_blocks[i].c();
-              each_blocks[i].m(div1, t3);
+              each_blocks[i].m(div0, t2);
             }
           }
           for (; i < each_blocks.length; i += 1) {
@@ -5568,7 +5573,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if_block1 = current_block_type_1(ctx2);
           if (if_block1) {
             if_block1.c();
-            if_block1.m(div2, null);
+            if_block1.m(div1, null);
           }
         }
       },
@@ -5584,8 +5589,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(div0);
-          detach(t0);
           detach(div3);
         }
         if_block0.d();
@@ -5610,7 +5613,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*rowType*/
           ctx[4]
         );
-        attr(h2, "class", "svelte-jhual2");
+        attr(h2, "class", "svelte-oq5wkw");
       },
       m(target, anchor) {
         insert(target, h2, anchor);
@@ -5653,7 +5656,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         );
         t2 = text(" ID: ");
         t3 = text(t3_value);
-        attr(h2, "class", "svelte-jhual2");
+        attr(h2, "class", "svelte-oq5wkw");
       },
       m(target, anchor) {
         insert(target, h2, anchor);
@@ -5716,8 +5719,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if_block.c();
         attr(label, "for", label_for_value = "modalForm__" + /*field*/
         ctx[21].name);
-        attr(label, "class", "svelte-jhual2");
-        attr(div, "class", "input_box svelte-jhual2");
+        attr(label, "class", "svelte-oq5wkw");
+        attr(div, "class", "input_box svelte-oq5wkw");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -5784,8 +5787,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if_block.c();
         attr(label, "for", label_for_value = "modalForm__" + /*field*/
         ctx[21].name);
-        attr(label, "class", "svelte-jhual2");
-        attr(div, "class", "form_info svelte-jhual2");
+        attr(label, "class", "svelte-oq5wkw");
+        attr(div, "class", "form_info svelte-oq5wkw");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -5838,7 +5841,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       c() {
         input = element("input");
         attr(input, "type", "hidden");
-        attr(input, "class", "svelte-jhual2");
+        attr(input, "class", "svelte-oq5wkw");
       },
       m(target, anchor) {
         insert(target, input, anchor);
@@ -5896,7 +5899,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(input, "id", input_id_value = "modalForm__" + /*field*/
         ctx[21].name);
         attr(input, "type", "text");
-        attr(input, "class", "svelte-jhual2");
+        attr(input, "class", "svelte-oq5wkw");
       },
       m(target, anchor) {
         insert(target, input, anchor);
@@ -5963,7 +5966,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(input, "id", input_id_value = "modalForm__" + /*field*/
         ctx[21].name);
         attr(input, "type", "number");
-        attr(input, "class", "svelte-jhual2");
+        attr(input, "class", "svelte-oq5wkw");
       },
       m(target, anchor) {
         insert(target, input, anchor);
@@ -6208,7 +6211,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         button = element("button");
         button.textContent = "Save";
         attr(button, "tabindex", "0");
-        attr(button, "class", "save svelte-jhual2");
+        attr(button, "class", "save svelte-oq5wkw");
       },
       m(target, anchor) {
         if (if_block)
@@ -6323,7 +6326,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         button = element("button");
         button.textContent = "Delete";
         attr(button, "tabindex", "0");
-        attr(button, "class", "delete svelte-jhual2");
+        attr(button, "class", "delete svelte-oq5wkw");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -6356,7 +6359,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         button = element("button");
         button.textContent = "Restore";
         attr(button, "tabindex", "0");
-        attr(button, "class", "restore svelte-jhual2");
+        attr(button, "class", "restore svelte-oq5wkw");
       },
       m(target, anchor) {
         insert(target, button, anchor);
