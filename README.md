@@ -38,6 +38,9 @@ separates read/query and write/command into different database/connection.
 ## Start dev mode
 
 ```shell
+# first time for development
+make setup
+
 # start docker
 docker compose up # or docker-compose up
 
@@ -135,13 +138,13 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
 - **Q**: got error `Command 'caddy' not found`
   - **A**: install [caddy](//caddyserver.com/docs/install)
 - **Q**: got error `Command 'air' not found`
-  - **A**: install [air](//github.com/cosmtrek/air)
+  - **A**: install [air](//github.com/cosmtrek/air) or `make setup`
 - **Q**: got error `Command 'replacer' not found`
-  - **A**: install [replacer](//github.com/kokizzu/replacer)
+  - **A**: install [replacer](//github.com/kokizzu/replacer) or `make setup`
 - **Q**: got error `Command 'gomodifytags' not found`
-  - **A**: install [goimports](//github.com/fatih/gomodifytags)
+  - **A**: install [goimports](//github.com/fatih/gomodifytags) or `make setup`
 - **Q**: got error `Command 'farify' not found`
-  - **A**: install [farify](//github.com/akbarfa49/farify)
+  - **A**: install [farify](//github.com/akbarfa49/farify) or `make setup`
 - **Q**: where to put secret that I don't want to commit?
   - **A**: on `.env.override` file
 - **Q**: got error `.env.override` no such file or directory
