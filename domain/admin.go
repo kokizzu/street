@@ -9,9 +9,9 @@ import (
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file admin.go
-//go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type admin.go
-//go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type admin.go
-//go:generate replacer -afterprefix 'By" form' 'By,string" form' type admin.go
+//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type admin.go
+//go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type admin.go
+//go:generate replacer -afterprefix "By\" form" "By,string\" form" type admin.go
 //go:generate farify doublequote --file admin.go
 
 type (

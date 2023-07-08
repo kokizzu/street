@@ -14,9 +14,9 @@ import (
 // PropertyMutator DAO writer/command struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file wcProperty__ORM.GEN.go
-//go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type wcProperty__ORM.GEN.go
-//go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type wcProperty__ORM.GEN.go
-//go:generate replacer -afterprefix 'By" form' 'By,string" form' type wcProperty__ORM.GEN.go
+//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type wcProperty__ORM.GEN.go
+//go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type wcProperty__ORM.GEN.go
+//go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcProperty__ORM.GEN.go
 type PropertyMutator struct {
 	rqProperty.Property
 	mutations []A.X

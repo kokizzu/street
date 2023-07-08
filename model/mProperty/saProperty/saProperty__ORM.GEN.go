@@ -16,7 +16,7 @@ import (
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file saProperty__ORM.GEN.go
-//go:generate -afterprefix "Id\" form" "Id,string\" form" type saProperty__ORM.GEN.go
+//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type saProperty__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type saProperty__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type saProperty__ORM.GEN.go
 // go:generate msgp -tests=false -file saProperty__ORM.GEN.go -o saProperty__MSG.GEN.go
@@ -34,9 +34,9 @@ var Preparators = map[Ch.TableName]chBuffer.Preparator{
 type TablePropertyLogs struct {
 	Adapter   *Ch.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	CreatedAt time.Time   `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	RequestId string      `json:"requestId" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
+	RequestId string      `json:"requestId,string" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
 	Error     string      `json:"error" form:"error" query:"error" long:"error" msg:"error"`
-	ActorId   uint64      `json:"actorId" form:"actorId" query:"actorId" long:"actorId" msg:"actorId"`
+	ActorId   uint64      `json:"actorId,string" form:"actorId" query:"actorId" long:"actorId" msg:"actorId"`
 	IpAddr4   string      `json:"ipAddr4" form:"ipAddr4" query:"ipAddr4" long:"ipAddr4" msg:"ipAddr4"`
 	IpAddr6   string      `json:"ipAddr6" form:"ipAddr6" query:"ipAddr6" long:"ipAddr6" msg:"ipAddr6"`
 	UserAgent string      `json:"userAgent" form:"userAgent" query:"userAgent" long:"userAgent" msg:"userAgent"`

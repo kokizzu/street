@@ -13,9 +13,9 @@ import (
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file pager.go
-//go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type pager.go
-//go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type pager.go
-//go:generate replacer -afterprefix 'By" form' 'By,string" form' type pager.go
+//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type pager.go
+//go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type pager.go
+//go:generate replacer -afterprefix "By\" form" "By,string\" form" type pager.go
 //go:generate farify doublequote --file pager.go
 
 type PagerIn struct {

@@ -9,7 +9,7 @@ require (
 	github.com/hexops/autogold/v2 v2.1.0
 	github.com/joho/godotenv v1.4.0
 	github.com/kokizzu/ch-timed-buffer v1.2025.1416
-	github.com/kokizzu/gotro v1.3108.1704
+	github.com/kokizzu/gotro v1.3108.1714
 	github.com/kokizzu/id64 v1.2829.1452
 	github.com/kokizzu/lexid v1.2423.1347
 	github.com/kpango/fastime v1.1.9

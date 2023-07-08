@@ -13,13 +13,12 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-//go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file rqAuth__ORM.GEN.go
-//go:generate replacer -afterprefix 'Id" form' 'Id,string" form' type rqAuth__ORM.GEN.go
-//go:generate replacer -afterprefix 'json:"id"' 'json:"id,string"' type rqAuth__ORM.GEN.go
-//go:generate replacer -afterprefix 'By" form' 'By,string" form' type rqAuth__ORM.GEN.go
-// go:generate msgp -tests=false -file rqAuth__ORM.GEN.go -o rqAuth__MSG.GEN.go
-
 // Sessions DAO reader/query struct
+//
+//go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file rqAuth__ORM.GEN.go
+//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type rqAuth__ORM.GEN.go
+//go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type rqAuth__ORM.GEN.go
+//go:generate replacer -afterprefix "By\" form" "By,string\" form" type rqAuth__ORM.GEN.go
 type Sessions struct {
 	Adapter      *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	SessionToken string      `json:"sessionToken" form:"sessionToken" query:"sessionToken" long:"sessionToken" msg:"sessionToken"`
