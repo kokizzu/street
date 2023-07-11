@@ -2,33 +2,49 @@
    import Menu from './_components/Menu.svelte';
    import ProfileHeader from './_components/ProfileHeader.svelte';
    import Footer from './_components/Footer.svelte';
-   import { stackPageRealtor } from '_components/uiState';
+   import { stackPageCount } from '_components/uiState';
+   import Location from '_components/realtor/Location.svelte';
+   import Info from '_components/realtor/Info.svelte';
+   import Floors from '_components/realtor/Floors.svelte';
 
-   let newStack = [];
-   let arrLength = 0;
-   let newElement = {
-      subroute: 'addNewPropStep',
-      attrs: {
-         prop1: 'hehe',
-         prop2: 'haha'
-      }
-   }
-   stackPageRealtor.subscribe((value) => {
-      newStack = value;
-      arrLength = value.length;
-   });
-   function nextPage() {
-      if (arrLength < 4)
-      stackPageRealtor.update(arr => [...arr, newElement] );
-   }
-   function backPage() {
-      if (arrLength > 1)
-      stackPageRealtor.update(arr => {
-         arr.pop();
-         return arr;
-      });
-   }
-  
+   const subpages = [
+      {component: Location},
+      {component: Info},
+      {component: Floors}
+   ]
+   let pageCount = 0;
+   let subpageToRender;
+
+   stackPageCount.subscribe((value) => {
+      pageCount = value;
+      subpageToRender = subpages.slice(0, pageCount);
+   })
+
+   // let newStack = [];
+   // let arrLength = 0;
+   // let newElement = {
+   //    subroute: 'addNewPropStep',
+   //    attrs: {
+   //       prop1: 'hehe',
+   //       prop2: 'haha'
+   //    }
+   // }
+   // stackPageRealtor.subscribe((value) => {
+   //    newStack = value;
+   //    arrLength = value.length;
+   // });
+   // function nextPage() {
+   //    if (arrLength < 4)
+   //    stackPageRealtor.update(arr => [...arr, newElement] );
+   // }
+   // function backPage() {
+   //    if (arrLength > 1)
+   //    stackPageRealtor.update(arr => {
+   //       arr.pop();
+   //       return arr;
+   //    });
+   // }
+   
    let user = {/* user */};
    let segments = {/* segments */};
 </script>
@@ -61,12 +77,10 @@
       </div>
       <div class='content'>
          <div class='realtor_subpage_container'>
-               {#each newStack as subpage}
-                  <div class='subpage'>
-                     <h4>{subpage.subroute}</h4>
-                     <button on:click|preventDefault={nextPage}>NEXt</button>
-                     <button on:click|preventDefault={backPage}>BACk</button>
-                  </div>
+               {#each subpageToRender as subpage}
+                  <section class='subpage_realtor'>
+                     <svelte:component this={subpage.component}/>
+                  </section>
                {/each}
          </div>
       </div>
@@ -165,21 +179,33 @@
       margin-top: -40px;
       margin-left: auto;
       margin-right: auto;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      flex-wrap: nowrap;
-      background-color: white;
+      display: grid;
+      gap: 20px;
+      grid-auto-flow: column;
+      justify-items: center;
       border-radius: 8px;
-      filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
       width: 88%;
+      min-height: 500px;
       padding: 20px;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
    }
-   .realtor_subpage_container .subpage {
-      margin: 0 30px;
+   .realtor_subpage_container::-webkit-scrollbar-thumb {
+      background-color: #EF4444;
+      border-radius: 4px;
+   }
+   .realtor_subpage_container::-webkit-scrollbar {
+      height: 8px;
+   }
+   .realtor_subpage_container::-webkit-scrollbar-track {
+      background-color: transparent;
+      
+   }
+   .realtor_subpage_container .subpage_realtor {
       padding: 20px;
       filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
       background-color: white;
       border-radius: 8px;
+      width: 500px;
    }
 </style>
