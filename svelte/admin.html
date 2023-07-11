@@ -3192,6 +3192,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 
   // _components/uiState.js
   var isSideMenuOpen = writable(false);
+  var stackPageRealtor = writable([
+    {
+      subroute: "main",
+      attrs: {
+        // attribute goes here
+        prop1: "haha",
+        prop2: "hehe"
+      }
+    }
+  ]);
 
   // _components/Menu.svelte
   function create_if_block(ctx) {
