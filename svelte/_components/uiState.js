@@ -8,11 +8,10 @@ export let stackPageCount = writable(1);
 
 // export let stackPageRealtor = writable([
 //    {
-//       subroute: 'main',
+//       subroute: 'location',
 //       attrs: {
-//          components: [],
-//          prop1: 'haha',
-//          prop2: 'hehe'
+//          coordinate: (coordinate),
 //       }
-//    }
+//    },
+//    { TODO, each object will send or push from each subpage}
 // ]);

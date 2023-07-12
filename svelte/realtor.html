@@ -359,32 +359,32 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 }
 
 /* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/realtor/Info.esbuild-svelte-fake-css */
-.info_container.svelte-139he86.svelte-139he86 {
+.info_container.svelte-uwj8mz.svelte-uwj8mz {
   color: #334155;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
 }
-.info_container.svelte-139he86 .next_button.svelte-139he86 {
+.info_container.svelte-uwj8mz .next_button.svelte-uwj8mz {
   background-color: #f97316;
   border-radius: 8px;
   border: none;
   padding: 10px;
   color: white;
-  font-weight: 600;
+  font-weight: 500;
   margin-top: 20px;
   cursor: pointer;
 }
-.info_container.svelte-139he86 .next_button.svelte-139he86:hover {
+.info_container.svelte-uwj8mz .next_button.svelte-uwj8mz:hover {
   background-color: #f58433;
 }
-.info_container.svelte-139he86 h2.svelte-139he86 {
+.info_container.svelte-uwj8mz h2.svelte-uwj8mz {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 20px;
 }
-.back_button.svelte-139he86.svelte-139he86 {
+.back_button.svelte-uwj8mz.svelte-uwj8mz {
   padding: 5px;
   border: none;
   background-color: rgb(0 0 0 / 0.06);
@@ -392,9 +392,82 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   font-size: 14px;
   cursor: pointer;
 }
-.back_button.svelte-139he86.svelte-139he86:hover {
+.back_button.svelte-uwj8mz.svelte-uwj8mz:hover {
   background-color: rgb(0 0 0 / 0.05);
   color: #EF4444;
+}
+.info_input.svelte-uwj8mz.svelte-uwj8mz {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+}
+.house_type_container.svelte-uwj8mz.svelte-uwj8mz {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.house_type.svelte-uwj8mz.svelte-uwj8mz,
+.apartment_floor.svelte-uwj8mz.svelte-uwj8mz,
+.rent_or_sell.svelte-uwj8mz.svelte-uwj8mz {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+}
+.house_type.svelte-uwj8mz button.svelte-uwj8mz,
+.apartment_floor.svelte-uwj8mz input.svelte-uwj8mz,
+.rent_or_sell.svelte-uwj8mz button.svelte-uwj8mz {
+  width: auto;
+  border: 1px solid #CBD5E1;
+  background-color: #F1F5F9;
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: left;
+  color: #f97316;
+}
+.house_type.svelte-uwj8mz button.svelte-uwj8mz:hover,
+.apartment_floor.svelte-uwj8mz input.svelte-uwj8mz:hover,
+.rent_or_sell.svelte-uwj8mz button.svelte-uwj8mz:hover {
+  border: 1px solid #f97316;
+}
+.apartment_floor.svelte-uwj8mz input.svelte-uwj8mz:focus {
+  outline: 1px solid #f97316;
+}
+.info_input.svelte-uwj8mz .option_container.svelte-uwj8mz {
+  width: 100%;
+  position: absolute;
+  top: 70px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  border: 1px solid #CBD5E1;
+  background-color: #F1F5F9;
+}
+.info_input.svelte-uwj8mz .option_container .option.svelte-uwj8mz {
+  margin: 0;
+  padding: 10px 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.info_input.svelte-uwj8mz .option_container .option.svelte-uwj8mz:hover {
+  color: #f97316;
+}
+.option.svelte-uwj8mz input[type=radio].svelte-uwj8mz {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.house_type.svelte-uwj8mz label.svelte-uwj8mz,
+.apartment_floor.svelte-uwj8mz label.svelte-uwj8mz,
+.rent_or_sell.svelte-uwj8mz label.svelte-uwj8mz {
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 10px;
+  margin-bottom: 8px;
 }
 
 /* fakecss:/home/habi/Dev/workStuff/street/svelte/realtor.esbuild-svelte-fake-css */
@@ -2775,8 +2848,32 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     else if (node.getAttribute(attribute) !== value)
       node.setAttribute(attribute, value);
   }
+  function init_binding_group(group) {
+    let _inputs;
+    return {
+      /* push */
+      p(...inputs) {
+        _inputs = inputs;
+        _inputs.forEach((input) => group.push(input));
+      },
+      /* remove */
+      r() {
+        _inputs.forEach((input) => group.splice(group.indexOf(input), 1));
+      }
+    };
+  }
   function children(element2) {
     return Array.from(element2.childNodes);
+  }
+  function set_data(text2, data) {
+    data = "" + data;
+    if (text2.data === data)
+      return;
+    text2.data = /** @type {string} */
+    data;
+  }
+  function set_input_value(input, value) {
+    input.value = value == null ? "" : value;
   }
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
@@ -4072,76 +4169,492 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var Location_default = Location;
 
   // _components/realtor/Info.svelte
+  function create_if_block_22(ctx) {
+    let div;
+    let label0;
+    let input0;
+    let t0;
+    let t1;
+    let label1;
+    let input1;
+    let t2;
+    let binding_group;
+    let mounted;
+    let dispose;
+    binding_group = init_binding_group(
+      /*$binding_groups*/
+      ctx[12][1]
+    );
+    return {
+      c() {
+        div = element("div");
+        label0 = element("label");
+        input0 = element("input");
+        t0 = text("\n                     House");
+        t1 = space();
+        label1 = element("label");
+        input1 = element("input");
+        t2 = text("\n                     Apartment");
+        attr(input0, "type", "radio");
+        attr(input0, "id", "house");
+        input0.__value = "house";
+        set_input_value(input0, input0.__value);
+        attr(input0, "class", "svelte-uwj8mz");
+        attr(label0, "class", "option svelte-uwj8mz");
+        attr(label0, "for", "house");
+        attr(input1, "type", "radio");
+        attr(input1, "id", "apartment");
+        input1.__value = "apartment";
+        set_input_value(input1, input1.__value);
+        attr(input1, "class", "svelte-uwj8mz");
+        attr(label1, "class", "option svelte-uwj8mz");
+        attr(label1, "for", "apartment");
+        attr(div, "class", "option_container svelte-uwj8mz");
+        binding_group.p(input0, input1);
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        append(div, label0);
+        append(label0, input0);
+        input0.checked = input0.__value === /*house_type*/
+        ctx[0];
+        append(label0, t0);
+        append(div, t1);
+        append(div, label1);
+        append(label1, input1);
+        input1.checked = input1.__value === /*house_type*/
+        ctx[0];
+        append(label1, t2);
+        if (!mounted) {
+          dispose = [
+            listen(
+              input0,
+              "change",
+              /*input0_change_handler*/
+              ctx[11]
+            ),
+            listen(
+              input0,
+              "change",
+              /*change_handler*/
+              ctx[13]
+            ),
+            listen(
+              input1,
+              "change",
+              /*input1_change_handler*/
+              ctx[14]
+            ),
+            listen(
+              input1,
+              "change",
+              /*change_handler_1*/
+              ctx[15]
+            )
+          ];
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*house_type*/
+        1) {
+          input0.checked = input0.__value === /*house_type*/
+          ctx2[0];
+        }
+        if (dirty & /*house_type*/
+        1) {
+          input1.checked = input1.__value === /*house_type*/
+          ctx2[0];
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        binding_group.r();
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function create_if_block_12(ctx) {
+    let div;
+    return {
+      c() {
+        div = element("div");
+        div.innerHTML = `<label for="apartment_floor" class="svelte-uwj8mz">Floor</label> <input type="text" name="apartment_floor" id="apartment_floor" placeholder="Your property based" class="svelte-uwj8mz"/>`;
+        attr(div, "class", "apartment_floor svelte-uwj8mz");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+      }
+    };
+  }
+  function create_if_block2(ctx) {
+    let div;
+    let label0;
+    let input0;
+    let t0;
+    let t1;
+    let label1;
+    let input1;
+    let t2;
+    let binding_group;
+    let mounted;
+    let dispose;
+    binding_group = init_binding_group(
+      /*$binding_groups*/
+      ctx[12][0]
+    );
+    return {
+      c() {
+        div = element("div");
+        label0 = element("label");
+        input0 = element("input");
+        t0 = text("\n                     Rent");
+        t1 = space();
+        label1 = element("label");
+        input1 = element("input");
+        t2 = text("\n                     Sell");
+        attr(input0, "type", "radio");
+        attr(input0, "id", "rent");
+        input0.__value = "rent";
+        set_input_value(input0, input0.__value);
+        attr(input0, "class", "svelte-uwj8mz");
+        attr(label0, "class", "option svelte-uwj8mz");
+        attr(label0, "for", "rent");
+        attr(input1, "type", "radio");
+        attr(input1, "id", "sell");
+        input1.__value = "sell";
+        set_input_value(input1, input1.__value);
+        attr(input1, "class", "svelte-uwj8mz");
+        attr(label1, "class", "option svelte-uwj8mz");
+        attr(label1, "for", "sell");
+        attr(div, "class", "option_container svelte-uwj8mz");
+        binding_group.p(input0, input1);
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        append(div, label0);
+        append(label0, input0);
+        input0.checked = input0.__value === /*rent_or_sell*/
+        ctx[3];
+        append(label0, t0);
+        append(div, t1);
+        append(div, label1);
+        append(label1, input1);
+        input1.checked = input1.__value === /*rent_or_sell*/
+        ctx[3];
+        append(label1, t2);
+        if (!mounted) {
+          dispose = [
+            listen(
+              input0,
+              "change",
+              /*input0_change_handler_1*/
+              ctx[16]
+            ),
+            listen(
+              input0,
+              "change",
+              /*change_handler_2*/
+              ctx[17]
+            ),
+            listen(
+              input1,
+              "change",
+              /*input1_change_handler_1*/
+              ctx[18]
+            ),
+            listen(
+              input1,
+              "change",
+              /*change_handler_3*/
+              ctx[19]
+            )
+          ];
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*rent_or_sell*/
+        8) {
+          input0.checked = input0.__value === /*rent_or_sell*/
+          ctx2[3];
+        }
+        if (dirty & /*rent_or_sell*/
+        8) {
+          input1.checked = input1.__value === /*rent_or_sell*/
+          ctx2[3];
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        binding_group.r();
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
   function create_fragment5(ctx) {
-    let div2;
-    let div1;
+    let div5;
+    let div4;
     let button0;
     let t0;
     let h2;
     let t2;
+    let div3;
+    let div1;
     let div0;
-    let t3;
+    let label0;
+    let t4;
     let button1;
+    let t5_value = (
+      /*house_type*/
+      (ctx[0] ? (
+        /*house_type*/
+        ctx[0]
+      ) : "select") + ""
+    );
+    let t5;
+    let t6;
+    let t7;
+    let t8;
+    let div2;
+    let label1;
+    let t10;
+    let button2;
+    let t11_value = (
+      /*rent_or_sell*/
+      (ctx[3] ? (
+        /*rent_or_sell*/
+        ctx[3]
+      ) : "select") + ""
+    );
+    let t11;
+    let button2_disabled_value;
+    let t12;
+    let t13;
+    let button3;
     let mounted;
     let dispose;
+    let if_block0 = (
+      /*showHouseOption*/
+      ctx[1] && create_if_block_22(ctx)
+    );
+    let if_block1 = (
+      /*isApartment*/
+      ctx[2] && create_if_block_12(ctx)
+    );
+    let if_block2 = (
+      /*showRentSellOption*/
+      ctx[4] && create_if_block2(ctx)
+    );
     return {
       c() {
-        div2 = element("div");
-        div1 = element("div");
+        div5 = element("div");
+        div4 = element("div");
         button0 = element("button");
         button0.innerHTML = `<i class="gg-chevron-left"></i>`;
         t0 = space();
         h2 = element("h2");
         h2.textContent = "About the House";
         t2 = space();
+        div3 = element("div");
+        div1 = element("div");
         div0 = element("div");
-        div0.innerHTML = ``;
-        t3 = space();
+        label0 = element("label");
+        label0.textContent = "House Type";
+        t4 = space();
         button1 = element("button");
-        button1.textContent = "NEXT";
-        attr(button0, "class", "back_button svelte-139he86");
-        attr(h2, "class", "svelte-139he86");
-        attr(div0, "class", "location_input");
-        attr(button1, "class", "next_button svelte-139he86");
-        attr(div2, "class", "info_container svelte-139he86");
+        t5 = text(t5_value);
+        t6 = space();
+        if (if_block0)
+          if_block0.c();
+        t7 = space();
+        if (if_block1)
+          if_block1.c();
+        t8 = space();
+        div2 = element("div");
+        label1 = element("label");
+        label1.textContent = "Rent or Sell";
+        t10 = space();
+        button2 = element("button");
+        t11 = text(t11_value);
+        t12 = space();
+        if (if_block2)
+          if_block2.c();
+        t13 = space();
+        button3 = element("button");
+        button3.textContent = "NEXT";
+        attr(button0, "class", "back_button svelte-uwj8mz");
+        attr(h2, "class", "svelte-uwj8mz");
+        attr(label0, "for", "house_type");
+        attr(label0, "class", "svelte-uwj8mz");
+        attr(button1, "class", "svelte-uwj8mz");
+        attr(div0, "class", "house_type svelte-uwj8mz");
+        attr(div1, "class", "house_type_container svelte-uwj8mz");
+        attr(label1, "for", "rent_or_sell");
+        attr(label1, "class", "svelte-uwj8mz");
+        button2.disabled = button2_disabled_value = !/*house_type*/
+        ctx[0];
+        attr(button2, "class", "svelte-uwj8mz");
+        attr(div2, "class", "rent_or_sell svelte-uwj8mz");
+        attr(div3, "class", "info_input svelte-uwj8mz");
+        attr(button3, "class", "next_button svelte-uwj8mz");
+        attr(div5, "class", "info_container svelte-uwj8mz");
       },
       m(target, anchor) {
-        insert(target, div2, anchor);
-        append(div2, div1);
-        append(div1, button0);
-        append(div1, t0);
-        append(div1, h2);
-        append(div1, t2);
+        insert(target, div5, anchor);
+        append(div5, div4);
+        append(div4, button0);
+        append(div4, t0);
+        append(div4, h2);
+        append(div4, t2);
+        append(div4, div3);
+        append(div3, div1);
         append(div1, div0);
-        append(div2, t3);
-        append(div2, button1);
+        append(div0, label0);
+        append(div0, t4);
+        append(div0, button1);
+        append(button1, t5);
+        append(div0, t6);
+        if (if_block0)
+          if_block0.m(div0, null);
+        append(div1, t7);
+        if (if_block1)
+          if_block1.m(div1, null);
+        append(div3, t8);
+        append(div3, div2);
+        append(div2, label1);
+        append(div2, t10);
+        append(div2, button2);
+        append(button2, t11);
+        append(div2, t12);
+        if (if_block2)
+          if_block2.m(div2, null);
+        append(div5, t13);
+        append(div5, button3);
         if (!mounted) {
           dispose = [
             listen(button0, "click", prevent_default(
               /*backPage*/
-              ctx[1]
+              ctx[5]
             )),
-            listen(button1, "click", prevent_default(
-              /*nextPage*/
-              ctx[0]
+            listen(
+              button1,
+              "click",
+              /*handleHouseTypeOption*/
+              ctx[7]
+            ),
+            listen(
+              button2,
+              "click",
+              /*handleRentSellOption*/
+              ctx[9]
+            ),
+            listen(button3, "click", prevent_default(
+              /*nextBtnHandler*/
+              ctx[6]
             ))
           ];
           mounted = true;
         }
       },
-      p: noop,
+      p(ctx2, [dirty]) {
+        if (dirty & /*house_type*/
+        1 && t5_value !== (t5_value = /*house_type*/
+        (ctx2[0] ? (
+          /*house_type*/
+          ctx2[0]
+        ) : "select") + ""))
+          set_data(t5, t5_value);
+        if (
+          /*showHouseOption*/
+          ctx2[1]
+        ) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+          } else {
+            if_block0 = create_if_block_22(ctx2);
+            if_block0.c();
+            if_block0.m(div0, null);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        if (
+          /*isApartment*/
+          ctx2[2]
+        ) {
+          if (if_block1) {
+          } else {
+            if_block1 = create_if_block_12(ctx2);
+            if_block1.c();
+            if_block1.m(div1, null);
+          }
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
+        }
+        if (dirty & /*rent_or_sell*/
+        8 && t11_value !== (t11_value = /*rent_or_sell*/
+        (ctx2[3] ? (
+          /*rent_or_sell*/
+          ctx2[3]
+        ) : "select") + ""))
+          set_data(t11, t11_value);
+        if (dirty & /*house_type*/
+        1 && button2_disabled_value !== (button2_disabled_value = !/*house_type*/
+        ctx2[0])) {
+          button2.disabled = button2_disabled_value;
+        }
+        if (
+          /*showRentSellOption*/
+          ctx2[4]
+        ) {
+          if (if_block2) {
+            if_block2.p(ctx2, dirty);
+          } else {
+            if_block2 = create_if_block2(ctx2);
+            if_block2.c();
+            if_block2.m(div2, null);
+          }
+        } else if (if_block2) {
+          if_block2.d(1);
+          if_block2 = null;
+        }
+      },
       i: noop,
       o: noop,
       d(detaching) {
         if (detaching) {
-          detach(div2);
+          detach(div5);
         }
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        if (if_block2)
+          if_block2.d();
         mounted = false;
         run_all(dispose);
       }
     };
   }
-  function instance5($self) {
+  var ABOUT_THE_HOUSE = "ABOUT-THE-HOUSE";
+  var UPLOAD_HOUSE_PHOTO = "UPLOAD-HOUSE-PHOTO";
+  var FEATURE_OR_FACILITY = "FEATURE-OR-FACILITY";
+  var DESCRIPTION_PROPERTY = "DESCRIPTION-PROPERTY";
+  function instance5($self, $props, $invalidate) {
     let count = 0;
     stackPageCount.subscribe((value) => {
       count = value;
@@ -4154,7 +4667,79 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       if (count > 1)
         stackPageCount.update((n) => n - 1);
     }
-    return [nextPage, backPage];
+    let modeCount = 0;
+    const modeLists = [ABOUT_THE_HOUSE, UPLOAD_HOUSE_PHOTO, FEATURE_OR_FACILITY, DESCRIPTION_PROPERTY];
+    let mode = modeLists[0];
+    function nextBtnHandler() {
+      if (modeCount < modeLists.length) {
+        modeCount++;
+      } else {
+        nextPage();
+      }
+    }
+    let house_type = "";
+    let showHouseOption = false;
+    let isApartment = false;
+    function handleHouseTypeOption() {
+      $invalidate(1, showHouseOption = !showHouseOption);
+    }
+    function selectHouseType() {
+      $invalidate(2, isApartment = house_type === "apartment");
+      $invalidate(1, showHouseOption = !showHouseOption);
+      console.log(house_type);
+    }
+    let rent_or_sell = "";
+    let showRentSellOption = false;
+    function handleRentSellOption() {
+      $invalidate(4, showRentSellOption = !showRentSellOption);
+    }
+    function selectRentOrSell() {
+      $invalidate(4, showRentSellOption = !showRentSellOption);
+      console.log(rent_or_sell);
+    }
+    const $binding_groups = [[], []];
+    function input0_change_handler() {
+      house_type = this.__value;
+      $invalidate(0, house_type);
+    }
+    const change_handler = () => selectHouseType();
+    function input1_change_handler() {
+      house_type = this.__value;
+      $invalidate(0, house_type);
+    }
+    const change_handler_1 = () => selectHouseType();
+    function input0_change_handler_1() {
+      rent_or_sell = this.__value;
+      $invalidate(3, rent_or_sell);
+    }
+    const change_handler_2 = () => selectRentOrSell();
+    function input1_change_handler_1() {
+      rent_or_sell = this.__value;
+      $invalidate(3, rent_or_sell);
+    }
+    const change_handler_3 = () => selectRentOrSell();
+    return [
+      house_type,
+      showHouseOption,
+      isApartment,
+      rent_or_sell,
+      showRentSellOption,
+      backPage,
+      nextBtnHandler,
+      handleHouseTypeOption,
+      selectHouseType,
+      handleRentSellOption,
+      selectRentOrSell,
+      input0_change_handler,
+      $binding_groups,
+      change_handler,
+      input1_change_handler,
+      change_handler_1,
+      input0_change_handler_1,
+      change_handler_2,
+      input1_change_handler_1,
+      change_handler_3
+    ];
   }
   var Info = class extends SvelteComponent {
     constructor(options) {

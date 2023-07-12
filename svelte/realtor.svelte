@@ -19,31 +19,6 @@
       pageCount = value;
       subpageToRender = subpages.slice(0, pageCount);
    })
-
-   // let newStack = [];
-   // let arrLength = 0;
-   // let newElement = {
-   //    subroute: 'addNewPropStep',
-   //    attrs: {
-   //       prop1: 'hehe',
-   //       prop2: 'haha'
-   //    }
-   // }
-   // stackPageRealtor.subscribe((value) => {
-   //    newStack = value;
-   //    arrLength = value.length;
-   // });
-   // function nextPage() {
-   //    if (arrLength < 4)
-   //    stackPageRealtor.update(arr => [...arr, newElement] );
-   // }
-   // function backPage() {
-   //    if (arrLength > 1)
-   //    stackPageRealtor.update(arr => {
-   //       arr.pop();
-   //       return arr;
-   //    });
-   // }
    
    let user = {/* user */};
    let segments = {/* segments */};
