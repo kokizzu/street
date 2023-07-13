@@ -181,6 +181,7 @@
       filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
       background-color: white;
       border-radius: 8px;
-      width: 500px;
+      min-height: 700px;
+      width: 700px;
    }
 </style>
