@@ -15,9 +15,10 @@
 <div class="random_property">
    <h3>Random Property</h3>
    <ul>
-      {#each props as prop}
+      <!-- {#each props as prop}
          <li>{JSON.stringify( prop )}</li>
-      {/each}
+      {/each} -->
+      <li>{JSON.stringify(props[0])}</li>
    </ul>
 </div>
 

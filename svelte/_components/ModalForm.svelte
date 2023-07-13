@@ -72,7 +72,7 @@
 </script>
 
 {#if visible}
-   <div class='backdrop'></div>
+   <div class='backdrop'>
    <div class='modal_container'>
       <header>
          {#if row.id}
@@ -138,6 +138,7 @@
          {/if}
       </div>
    </div>
+   </div>
 {/if}
 
 <style>
@@ -146,22 +147,29 @@
       z-index: 40;
       top: 0;
       left: 0;
-      background: grey;
+      bottom: 0;
+      background: rgba(41, 41, 41, 0.9);
+      overflow-y: auto;
       width: 100%;
-      height: 100%;
-      opacity: .8;
+      display: flex;
+      justify-content: center;
+   }
+   /* Hide scrollbar to not make it 2 in right side */
+   .backdrop::-webkit-scrollbar-thumb {
+      background: transparent;
+   }
+   .backdrop::-webkit-scrollbar {
+      width: 0;
+   }
+   .backdrop::-webkit-scrollbar-track {
+      background-color: transparent;
    }
 
    .modal_container {
       background-color: white;
-      position: fixed;
-      z-index: 50;
-      top: 15%;
-      left: 50%;
       width: 500px;
       height: fit-content;
-      margin-left: -300px;
-      margin-top: 0;
+      margin: 30px 0;
       padding: 20px;
       filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
       border-radius: 15px;
@@ -176,7 +184,7 @@
       align-items: center;
    }
    .modal_container header h2 {
-      font-size: 20px;
+      font-size: 16px;
       line-height: 1.5rem;
       padding: 0;
       margin: 0;
@@ -186,7 +194,7 @@
 		border: none;
 		background: none;
 		border-radius: 5px;
-		font-size: 14px;
+		font-size: 12px;
 		cursor: pointer;
    }
    .modal_container header button:hover {
@@ -195,14 +203,15 @@
    }
 
    .input_container {
-      margin: 0 0 20px 0;
+      margin: 0 0 15px 0;
       width: 100%;
       display: flex;
       flex-direction: column;
    }
    .input_container .input_box {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      align-items: center;
       width: 100%;
       margin-top: 10px;
    }
@@ -210,9 +219,10 @@
       font-size: 13px;
       font-weight: 700;
       margin-left: 10px;
+      flex-grow: 1;
    }
    .input_container .input_box input {
-      width: 100%;
+      width: 73%;
       border: 1px solid #CBD5E1;
       background-color: #F1F5F9;
    	border-radius: 8px;
