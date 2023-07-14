@@ -1,5 +1,4 @@
 <script>
-  // TODO, Make conditional in mode
   import { stackPageCount } from '../uiState';
 
   let count = 0;
@@ -14,18 +13,26 @@
   }
 
   let modeCount = 0;
+  let modeSkippable = false;
   // +=== House info properties ===+
   const ABOUT_THE_HOUSE = 'About The House';
   const UPLOAD_HOUSE_PHOTO = 'Upload House Photo';
   const FEATURE_OR_FACILITY = 'Feature or Facility';
   const DESCRIPTION_PROPERTY = 'Description of this property';
   const PRICE = 'Price';
-  const modeLists = [ABOUT_THE_HOUSE, UPLOAD_HOUSE_PHOTO, FEATURE_OR_FACILITY, DESCRIPTION_PROPERTY, PRICE];
-  let mode = modeLists[modeCount];
+  const modeLists = [
+    { mode: ABOUT_THE_HOUSE, skip: false },
+    { mode: UPLOAD_HOUSE_PHOTO, skip: true },
+    { mode: FEATURE_OR_FACILITY, skip: false },
+    { mode: DESCRIPTION_PROPERTY, skip: true },
+    { mode: PRICE, skip: false }
+  ];
+  let mode = modeLists[modeCount].mode;
   function nextBtnHandler() {
     if (modeCount < modeLists.length - 1) {
       modeCount++;
-      mode = modeLists[modeCount];
+      mode = modeLists[modeCount].mode;
+      modeSkippable = modeLists[modeCount].skip;
     } else {
       nextPage();
     }
@@ -33,9 +40,19 @@
   function backBtnHandler() {
     if (modeCount > 0) {
       modeCount--;
-      mode = modeLists[modeCount];
+      mode = modeLists[modeCount].mode;
+      modeSkippable = modeLists[modeCount].skip;
     } else {
       backPage();
+    }
+  }
+  function skipBtnHandler() {
+    if (modeCount < modeLists.length - 1) {
+      modeCount++;
+      mode = modeLists[modeCount].mode;
+      modeSkippable = modeLists[modeCount].skip;
+    } else {
+      nextPage();
     }
   }
 
@@ -74,7 +91,6 @@
         }]
       });
       reader.readAsDataURL(file);
-      console.log(images[imageCount])
       imageCount++
 
       return;
@@ -199,9 +215,40 @@
         </div>
       </div>
     {/if}
+    {#if mode === FEATURE_OR_FACILITY}
+      <h2>Feature</h2>
+      <div class='feature_section'>
+        <p>Feature goes here</p>
+      </div>
+      <h2>Facility</h2>
+      <div class='facility_section'>
+        <p>Facility goes here</p>
+      </div>
+    {/if}
+    {#if mode === DESCRIPTION_PROPERTY}
+      <h2>{mode}</h2>
+      <div class='description_of_property'>
+        <p>Description of property</p>
+      </div>
+    {/if}
+    {#if mode === PRICE}
+      <h2>{mode}</h2>
+      <div class="price">
+        <p>Price goes here</p>
+      </div>
+    {/if}
   </div>
 
-  <button class='next_button' on:click|preventDefault={nextBtnHandler}>NEXT</button>
+  <div class='next_skip_button'>
+    {#if modeSkippable === true}
+      <button class='skip_button' on:click|preventDefault={skipBtnHandler}>
+        SKIP
+      </button>
+    {/if}
+    <button class='next_button' on:click|preventDefault={nextBtnHandler}>
+      NEXT
+    </button>
+  </div>
 </div>
 
 <style>
@@ -212,17 +259,35 @@
     justify-content: space-between;
     height: 100%;
   }
-  .info_container .next_button {
-    background-color: #f97316;
+  .info_container .next_skip_button {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    font-weight: 500;
+    margin-top: 20px;
+    width: 100%;
+  }
+  .info_container .next_skip_button button {
     border-radius: 8px;
     border: none;
     padding: 10px;
-    color: white;
-    font-weight: 500;
-    margin-top: 20px;
     cursor: pointer;
+    width: 100%;
   }
-  .info_container .next_button:hover {
+  .info_container .next_skip_button .skip_button {
+    margin-right: 10px;
+    border: 1px solid #cbd5e1;
+    background-color: #f1f5f9;
+    color: #f97316;
+  }
+  .info_container .next_skip_button .skip_button:hover {
+    border: 1px solid #f97316;
+  }
+  .info_container .next_skip_button .next_button {
+    background-color: #f97316;
+    color: white;
+  }
+  .info_container .next_skip_button .next_button:hover {
     background-color: #f58433;
   }
   .info_container h2 {
@@ -270,6 +335,9 @@
     font-weight: 600;
     text-align: left;
     color: #f97316;
+  }
+  .rent_or_sell button {
+    width: 50% !important;
   }
   .house_type button:hover, .apartment_floor input:hover, .rent_or_sell button:hover {
     border: 1px solid #f97316;
