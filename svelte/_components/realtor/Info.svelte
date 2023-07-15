@@ -1,15 +1,18 @@
 <script>
-  import { stackPageCount } from '../uiState';
+  import { createEventDispatcher } from 'svelte';
+  import {stackPageCount, subpages} from '../uiState';
 
-  let count = 0;
+  const dispatch = createEventDispatcher();
+
+  let count;
   stackPageCount.subscribe(value => {
     count = value;
   });
   function nextPage() {
-    if (count < 4) stackPageCount.update(n => n + 1);
+    dispatch('nextPage')
   }
   function backPage() {
-    if (count > 1) stackPageCount.update(n => n - 1);
+    dispatch('backPage')
   }
 
   let modeCount = 0;
@@ -23,7 +26,7 @@
   const modeLists = [
     { mode: ABOUT_THE_HOUSE, skip: false },
     { mode: UPLOAD_HOUSE_PHOTO, skip: true },
-    { mode: FEATURE_OR_FACILITY, skip: false },
+    { mode: FEATURE_OR_FACILITY, skip: true },
     { mode: DESCRIPTION_PROPERTY, skip: true },
     { mode: PRICE, skip: false }
   ];
@@ -79,9 +82,7 @@
   let showImage = false;
   function inputImageHandler() {
     const file = imageInput.files[0];
-
     if (file) {
-      
       showImage = true;
       const reader = new FileReader();
       reader.addEventListener('load', function() {
@@ -92,7 +93,6 @@
       });
       reader.readAsDataURL(file);
       imageCount++
-
       return;
     }
     showImage = false;
@@ -195,8 +195,8 @@
             <input
               bind:this={imageInput}
               on:change={inputImageHandler}
-              type="file"
-              accept="image/*"
+              type='file'
+              accept='image/*'
               id='upload_image'
             />
             <i class='gg-software-upload'></i>
@@ -205,8 +205,8 @@
           {#if showImage}
             {#each images as imgFile, index}
               <div class='image_card'>
-                <img src={imgFile.preview} alt="">
-                <button on:click={() => removeImage(index)}>
+                <img src={imgFile.preview} alt=''>
+                <button on:click={() => removeImage(index)} title='remove this image'>
                   <i class='gg-close'></i>
                 </button>
               </div>
@@ -218,23 +218,44 @@
     {#if mode === FEATURE_OR_FACILITY}
       <h2>Feature</h2>
       <div class='feature_section'>
-        <p>Feature goes here</p>
+        <div class='beds'>
+          <input type='number' min='0' name='beds' id='beds'>
+          <label for='beds'>Beds</label>
+        </div>
+        <div class='baths'>
+          <input type='number' min='0' name='baths' id='baths'>
+          <label for='baths'>Baths</label>
+        </div>
+        <div class='square_foot'>
+          <input type='number' min='0' name='square_foot' id='square_foot' step='0.01'>
+          <label for='square_foot'>Sq Ft</label>
+        </div>
       </div>
       <h2>Facility</h2>
       <div class='facility_section'>
-        <p>Facility goes here</p>
+        <textarea rows='10' placeholder='Type the facility in the property.' name='facility' id='facility'></textarea>
       </div>
     {/if}
     {#if mode === DESCRIPTION_PROPERTY}
       <h2>{mode}</h2>
       <div class='description_of_property'>
-        <p>Description of property</p>
+        <textarea rows='20' placeholder='Writing a description can help potential buyers become more interested in your property.' name='description' id='description'></textarea>
       </div>
     {/if}
     {#if mode === PRICE}
       <h2>{mode}</h2>
-      <div class="price">
-        <p>Price goes here</p>
+      <div class='price'>
+        <div class='property_price'>
+          <label for='property_price'>Property Price</label>
+          <input type='number' min='0' name='property_price' id='property_price' />
+        </div>
+        <div class='agency_fee'>
+          <label for='agency_fee'>Agency Fee</label>
+          <div>
+            <input type='number' min='0' name='agency_fee' id='agency_fee'>
+            <span>%</span>
+          </div>
+        </div>
       </div>
     {/if}
   </div>
@@ -337,7 +358,7 @@
     color: #f97316;
   }
   .rent_or_sell button {
-    width: 50% !important;
+    width: 48.3% !important;
   }
   .house_type button:hover, .apartment_floor input:hover, .rent_or_sell button:hover {
     border: 1px solid #f97316;
@@ -399,6 +420,7 @@
     object-fit: cover;
     width: 100%;
     height: 100%;
+    border: 1px solid #cbd5e1;
   }
   .image_card button {
     position: absolute;
@@ -441,5 +463,80 @@
   .image_upload_button p {
     font-size: 11px;
     margin: 0;
+  }
+
+  /* +===============| Feature and Facility |================+ */
+  .feature_section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+  .feature_section .beds, .baths, .square_foot {
+    display: flex;
+    flex-direction: column;
+  }
+  .feature_section .beds input, .baths input, .square_foot input {
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    background-color: #f1f5f9;
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .facility_section textarea {
+    resize: vertical;
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    background-color: #f1f5f9;
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-align: left;
+  }
+
+  /* +====================| Description of Property |==================+ */
+  .description_of_property textarea {
+    resize: vertical;
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    background-color: #f1f5f9;
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-align: left;
+  }
+
+  /* +==============| Price |===================+ */
+  .price {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+  }
+  .price .property_price, .agency_fee {
+    display: flex;
+    flex-direction: column;
+  }
+  .price label {
+    font-size: 13px;
+    font-weight: 700;
+    margin-left: 10px;
+    margin-bottom: 8px;
+  }
+  .price .property_price input, .agency_fee input {
+    width: 50%;
+    border: 1px solid #cbd5e1;
+    background-color: #f1f5f9;
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-align: left;
+  }
+  .price .agency_fee div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .price .agency_fee div span {
+    margin-left: 8px;
+    font-size: 16px;
+    font-weight: 600;
   }
 </style>

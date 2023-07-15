@@ -2,23 +2,21 @@
    import Menu from './_components/Menu.svelte';
    import ProfileHeader from './_components/ProfileHeader.svelte';
    import Footer from './_components/Footer.svelte';
-   import { stackPageCount } from '_components/uiState';
-   import Location from '_components/realtor/Location.svelte';
-   import Info from '_components/realtor/Info.svelte';
-   import Floors from '_components/realtor/Floors.svelte';
 
-   const subpages = [
-      {component: Location},
-      {component: Info},
-      {component: Floors}
-   ]
-   let pageCount = 0;
-   let subpageToRender;
-
-   stackPageCount.subscribe((value) => {
-      pageCount = value;
-      subpageToRender = subpages.slice(0, pageCount);
-   })
+   let subPage = 1;
+   let subpageRef;
+   async function nextPage() {
+      // const nextCard = document.getElementById(`subpage_${pageCount - 1}`);
+      // nextCard.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'center' });
+      if (subPage <= 4) {
+         subPage++;
+         const scrollOption = {
+            left: 860,
+            behavior: 'smooth'
+         }
+         subpageRef.scrollTo(scrollOption)
+      }
+   }
    
    let user = {/* user */};
    let segments = {/* segments */};
@@ -51,12 +49,35 @@
          </div>
       </div>
       <div class='content'>
-         <div class='realtor_subpage_container'>
-               {#each subpageToRender as subpage}
-                  <section class='subpage_realtor'>
-                     <svelte:component this={subpage.component}/>
-                  </section>
-               {/each}
+         <div class='realtor_subpage_container' bind:this={subpageRef}>
+            {#if subPage >= 1}
+               <section class='location'>
+                  <p>location</p>
+                  <button>BACK</button>
+                  <button on:click|preventDefault={nextPage}>NEXT</button>
+               </section>
+            {/if}
+            {#if subPage >= 2}
+               <section class='info'>
+                  <p>info</p>
+                  <button>BACK</button>
+                  <button on:click|preventDefault={nextPage}>NEXT</button>
+               </section>
+            {/if}
+            {#if subPage >= 3}
+               <section class='floor'>
+                  <p>floor</p>
+                  <button>BACK</button>
+                  <button on:click|preventDefault={nextPage}>NEXT</button>
+               </section>
+            {/if}
+            {#if subPage >= 4}
+               <section class='preview'>
+                  <p>preview</p>
+                  <button>BACK</button>
+                  <button on:click|preventDefault={nextPage}>NEXT</button>
+               </section>
+            {/if}
          </div>
       </div>
       <Footer></Footer>
@@ -98,7 +119,7 @@
    }
    .realtor_step_progress_bar .step_wrapper .step_item::before {
       position: absolute;
-      content: "";
+      content: '';
       border-bottom: 2px solid #CBD5E1;
       width: 100%;
       top: 5px;
@@ -107,7 +128,7 @@
    }
    .realtor_step_progress_bar .step_wrapper .step_item::after {
       position: absolute;
-      content: "";
+      content: '';
       border-bottom: 2px solid #CBD5E1;
       width: 100%;
       top: 5px;
@@ -138,7 +159,7 @@
    }
    .step_item.completed::after {
       position: absolute !important;
-      content: ""  !important;
+      content: ''  !important;
       border-bottom: 2px solid #f97316  !important;
       width: 100%  !important;
       top: 5px  !important;
@@ -154,34 +175,32 @@
       margin-top: -40px;
       margin-left: auto;
       margin-right: auto;
-      display: grid;
-      gap: 20px;
-      grid-auto-flow: column;
-      justify-items: center;
+      display: flex;
       border-radius: 8px;
-      width: 88%;
+      width: 860px;
       min-height: 500px;
-      padding: 20px;
-      overflow-x: auto;
-      overscroll-behavior-inline: contain;
+      overflow-x: scroll;
+      scroll-snap-type: x mandatory;
+      filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
    }
    .realtor_subpage_container::-webkit-scrollbar-thumb {
       background-color: #EF4444;
       border-radius: 4px;
    }
    .realtor_subpage_container::-webkit-scrollbar {
-      height: 8px;
+      height: 0;
    }
    .realtor_subpage_container::-webkit-scrollbar-track {
       background-color: transparent;
       
    }
-   .realtor_subpage_container .subpage_realtor {
+   .realtor_subpage_container section {
       padding: 20px;
-      filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+      margin: 0 10px;
       background-color: white;
       border-radius: 8px;
       min-height: 700px;
-      width: 700px;
+      flex: 0 0 860px;
+      scroll-snap-align: start;
    }
 </style>

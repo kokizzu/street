@@ -1,13 +1,14 @@
 <script>
-   import {stackPageCount} from '../uiState';
+   import { createEventDispatcher } from 'svelte';
+   import {stackPageCount, subpages} from '../uiState';
 
-   let count = 0;
+   const dispatch = createEventDispatcher();
+   let count;
    stackPageCount.subscribe((value) => {
       count = value;
    })
    function nextPage() {
-      if(count < 4)
-      stackPageCount.update((n) => n + 1);
+      dispatch('nextPage');
    }
 </script>
 
