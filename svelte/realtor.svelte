@@ -124,11 +124,17 @@
     rooms: [/* we will push when edit floor*/]
   }
   let floorCount = 1;
-
+  let basement_added = false;
   function showAddFloorDialog() {
     add_floor_dialog.showModal();
   }
   function handlerAddFloor() {
+    if (floor_type === 'basement' && basement_added === true) {
+      alert('basement already added')
+      add_floor_dialog.hideModal()
+      return
+    }
+
     if (floor_type === 'basement') {
       floor_attribute = {
         type: floor_type,
@@ -136,6 +142,7 @@
         rooms: []
       }
       floor_lists = [...floor_lists, floor_attribute]
+      basement_added = true
     } else {
       floor_attribute = {
         type: floor_type,
@@ -145,7 +152,9 @@
       floor_lists = [...floor_lists, floor_attribute]
       floorCount++
     }
+    
     add_floor_dialog.hideModal();
+    return
   }
 </script>
 

@@ -4957,13 +4957,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // realtor.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[44] = list[i];
+    child_ctx[45] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[47] = list[i];
-    child_ctx[49] = i;
+    child_ctx[48] = list[i];
+    child_ctx[50] = i;
     return child_ctx;
   }
   function create_if_block_13(ctx) {
@@ -5881,7 +5881,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         /*click_handler*/
         ctx[35](
           /*index*/
-          ctx[49]
+          ctx[50]
         )
       );
     }
@@ -5894,7 +5894,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         button.innerHTML = `<i class="gg-close"></i>`;
         t1 = space();
         if (!src_url_equal(img.src, img_src_value = /*imgFile*/
-        ctx[47].preview))
+        ctx[48].preview))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
         attr(img, "class", "svelte-o83fs9");
@@ -5917,7 +5917,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx = new_ctx;
         if (dirty[0] & /*images*/
         512 && !src_url_equal(img.src, img_src_value = /*imgFile*/
-        ctx[47].preview)) {
+        ctx[48].preview)) {
           attr(img, "src", img_src_value);
         }
       },
@@ -6211,7 +6211,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         const addfloordialog_changes = {};
         if (dirty[1] & /*$scope*/
-        524288) {
+        1048576) {
           addfloordialog_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_floor_type && dirty[0] & /*floor_type*/
@@ -6303,14 +6303,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let p;
     let t0_value = (
       /*floor*/
-      ctx[44].type + ""
+      ctx[45].type + ""
     );
     let t0;
     let t1;
     let t2_value = (
       /*floor*/
-      ctx[44].type === "basement" ? "" : `#${/*floor*/
-      ctx[44].floor}`
+      ctx[45].type === "basement" ? "" : `#${/*floor*/
+      ctx[45].floor}`
     );
     let t2;
     return {
@@ -6329,12 +6329,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*floor_lists*/
         8192 && t0_value !== (t0_value = /*floor*/
-        ctx2[44].type + ""))
+        ctx2[45].type + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*floor_lists*/
         8192 && t2_value !== (t2_value = /*floor*/
-        ctx2[44].type === "basement" ? "" : `#${/*floor*/
-        ctx2[44].floor}`))
+        ctx2[45].type === "basement" ? "" : `#${/*floor*/
+        ctx2[45].floor}`))
           set_data(t2, t2_value);
       },
       d(detaching) {
@@ -6831,13 +6831,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       /* we will push when edit floor*/
     };
     let floorCount = 1;
+    let basement_added = false;
     function showAddFloorDialog() {
       add_floor_dialog.showModal();
     }
     function handlerAddFloor() {
+      if (floor_type === "basement" && basement_added === true) {
+        alert("basement already added");
+        add_floor_dialog.hideModal();
+        return;
+      }
       if (floor_type === "basement") {
         floor_attribute = { type: floor_type, floor: 0, rooms: [] };
         $invalidate(13, floor_lists = [...floor_lists, floor_attribute]);
+        basement_added = true;
       } else {
         floor_attribute = {
           type: floor_type,
@@ -6848,6 +6855,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         floorCount++;
       }
       add_floor_dialog.hideModal();
+      return;
     }
     const $binding_groups = [[], []];
     function input0_change_handler() {
