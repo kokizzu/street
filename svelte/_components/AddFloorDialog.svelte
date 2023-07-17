@@ -98,6 +98,7 @@
     padding: 10px;
     cursor: pointer;
     width: 100%;
+    text-transform: capitalize;
   }
   .add_floor_dialog .buttons .cancel_button {
     margin-right: 10px;
@@ -113,6 +114,7 @@
     flex-direction: column;
     width: 100%;
     position: relative;
+    text-transform: capitalize;
   }
   .add_floor_content .floor_type label {
     font-size: 13px;
@@ -128,6 +130,7 @@
     padding: 10px 12px;
     text-align: left;
     cursor: pointer;
+    text-transform: capitalize;
   }
   .add_floor_content .floor_type button:hover {
     border: 1px solid #f97316;

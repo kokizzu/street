@@ -121,10 +121,14 @@
   let floor_attribute = {
     type: '',
     floor: 0,
-    rooms: [/* we will push when edit floor*/]
+    beds: 0,
+    baths: 0
   }
   let floorCount = 1;
   let basement_added = false;
+  let floor_edit_mode = false;
+  let floor_index_to_edit = 0;
+
   function showAddFloorDialog() {
     add_floor_dialog.showModal();
   }
@@ -134,12 +138,12 @@
       add_floor_dialog.hideModal()
       return
     }
-
     if (floor_type === 'basement') {
       floor_attribute = {
         type: floor_type,
         floor: 0,
-        rooms: []
+        beds: 0,
+        baths: 0
       }
       floor_lists = [...floor_lists, floor_attribute]
       basement_added = true
@@ -147,15 +151,41 @@
       floor_attribute = {
         type: floor_type,
         floor: floorCount,
-        rooms: []
+        beds: 0,
+        baths: 0
       }
       floor_lists = [...floor_lists, floor_attribute]
       floorCount++
     }
-    
     add_floor_dialog.hideModal();
     return
   }
+  function handlerEditFloor(index) {
+    floor_edit_mode = true;
+    floor_index_to_edit = index;
+  }
+  // _______Upload Floor Plan photo
+  // let imageCount = 0;
+  // let imageInput;
+  // let images = [/*{ image: data, preview }*/];
+  // let showImage = false;
+  // function inputImageHandler() {
+  //   const file = imageInput.files[0];
+  //   if (file) {
+  //     showImage = true;
+  //     const reader = new FileReader();
+  //     reader.addEventListener('load', function() {
+  //       images = [...images, {
+  //         image: file,
+  //         preview: reader.result
+  //       }]
+  //     });
+  //     reader.readAsDataURL(file);
+  //     imageCount++
+  //     return;
+  //   }
+  //   showImage = false;
+  // }
 </script>
 
 <section class='dashboard'>
@@ -196,7 +226,12 @@
                   <input type="text" id='input_address' />
                 </div>
                 <div class='map_container'>
-                  <img src='/assets/img/realtor/GoogleMapTA.webp' alt='Map'>
+                  <iframe
+                    title='location'
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7890.4948540156465!2d116.0808121910197!3d-8.572191565888081!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dcdc0619c44f171%3A0x3a8c129c834e7cc2!2sPejeruk%2C%20Ampenan%2C%20Mataram%20City%2C%20West%20Nusa%20Tenggara!5e0!3m2!1sen!2sid!4v1689595526347!5m2!1sen!2sid"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                  </iframe>
                 </div>
               </div>
             </div>               
@@ -228,7 +263,6 @@
                             />
                             House
                           </label>
-          
                           <label class='option' for='apartment'>
                             <input
                               type='radio'
@@ -246,7 +280,7 @@
                       <div class='apartment_floor'>
                         <label for='apartment_floor'>Floor</label>
                         <input
-                          type='text'
+                          type='number'
                           name='apartment_floor'
                           id='apartment_floor'
                           placeholder='Your property based'
@@ -376,21 +410,72 @@
         {#if subPage >= 3}
           <section class='floor' id='subpage_3'>
             <AddFloorDialog bind:this={add_floor_dialog} bind:floor_type={floor_type}>
-              <button class='add_floor_button' on:click={handlerAddFloor}>Add</button>
+              <button disabled={floor_type === ''} class='add_floor_button' on:click={handlerAddFloor}>Add</button>
             </AddFloorDialog>
             <div class='floor_main_content'>
-              <button class='back_button' on:click|preventDefault={backPage}>
+              <button
+                class='back_button'
+                on:click|preventDefault={() => {
+                  if (floor_edit_mode === true) {
+                    floor_edit_mode = false;
+                  } else {
+                    backPage();
+                  }
+                }}>
                 <i class='gg-chevron-left' />
               </button>
               <div class='floor_header'>
-                <h2>Floors</h2>
-                <button on:click|preventDefault={showAddFloorDialog}>Add</button>
+                {#if floor_edit_mode === true}
+                  <h2>Edit {floor_lists[floor_index_to_edit].type} {floor_lists[floor_index_to_edit].type === 'basement' ? '' : `#${floor_lists[floor_index_to_edit].floor}` }</h2>
+                {:else}
+                  <h2>Floors</h2>
+                  <button on:click|preventDefault={showAddFloorDialog}>Add</button>
+                {/if}
               </div>
+              {#if floor_edit_mode === false}
               <div class='floor_items_container'>
-                {#each floor_lists as floor}
-                  <p>{floor.type} {floor.type === 'basement' ? '' : `#${floor.floor}` }</p>
+                {#each floor_lists as floor, index}
+                  <div class='floor_item'>
+                    <div class='left_item'>
+                      <h4>{floor.type} {floor.type === 'basement' ? '' : `#${floor.floor}` }</h4>
+                      <div class='rooms_total'>
+                        <div class='beds'>
+                          <b>3</b>
+                          <p>Beds</p>
+                        </div>
+                        <div class='baths'>
+                          <b>2</b>
+                          <p>Baths</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class='right_item'>
+                      <button class='edit_floor' on:click={() => handlerEditFloor(index)}>Edit</button>
+                      <div class='floor_plan'>
+                        <span>
+                          <i class='gg-image'></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 {/each}
               </div>
+              {/if}
+              {#if floor_edit_mode === true}
+                <div class='edit_floor_container'>
+                  <label class='image_upload_button' for='upload_image'>
+                    <input
+                      bind:this={imageInput}
+                      on:change={inputImageHandler}
+                      type='file'
+                      accept='image/*'
+                      id='upload_image'
+                    />
+                    <i class='gg-software-upload'></i>
+                    <p>Select file to Upload</p>
+                  </label>
+                </div>
+              {/if}
             </div>
             <button class='next_button' on:click|preventDefault={nextPage}>NEXT</button>
           </section>
@@ -559,7 +644,7 @@
     cursor: pointer;
   }
   .location .next_button:hover {
-    background-color: #f58433
+    background-color: #f58433;
   }
   .location h2 {
     font-size: 18px;
@@ -585,11 +670,12 @@
     margin-top: 20px;
     border-radius: 8px;
     width: 100%;
-    height: fit-content;
+    height: 430px;
   }
-  .location_input .map_container img {
+  .location_input .map_container iframe {
     width: 100%;
-    height: auto;
+    height: 100%;
+    border: none;
     border-radius: 8px;
   }
 
@@ -664,6 +750,7 @@
     font-weight: 600;
     text-align: left;
     color: #f97316;
+    text-transform: capitalize;
   }
   .rent_or_sell button {
     width: 48.3% !important;
@@ -905,5 +992,89 @@
   }
   .floor .add_floor_button:hover {
     background-color: #f58433;
+  }
+  .floor .floor_items_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
+  .floor .floor_items_container .floor_item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: rgba(0 0 0 / 0.06);
+    border-radius: 8px;
+    height: fit-content;
+    width: 60%;
+    margin: 0 auto 20px auto;
+  }
+  .floor .floor_items_container .floor_item .left_item {
+    flex-basis: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .floor .floor_items_container .floor_item .left_item h4 {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin: 0;
+  }
+  .floor .floor_items_container .floor_item .left_item .rooms_total {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+  }
+  .floor .floor_items_container .floor_item .beds, .floor_item .baths {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  .floor .floor_items_container .floor_item .beds b, .floor_item .baths b {
+    font-size: 25px;
+  }
+  .floor .floor_items_container .floor_item .beds p, .floor_item .baths p {
+    margin: 10px 0 0 0;
+  }
+  .floor .floor_items_container .floor_item .right_item {
+    flex-basis: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .floor .floor_items_container .floor_item .right_item .edit_floor {
+    background-color: #f97316;
+    border-radius: 8px;
+    border: none;
+    padding: 7px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin: 0 0 0 auto;
+  }
+  .floor .floor_items_container .floor_item .right_item .edit_floor:hover {
+    background-color: #f58433;
+  }
+  .floor .floor_items_container .floor_item .right_item .floor_plan {
+    position: relative;
+    border-radius: 8px;
+    width: 100%;
+    height: 90px;
+    border: 1px solid #cbd5e1;
+    margin-top: 20px;
+  }
+  .floor .floor_items_container .floor_item .right_item .floor_plan span {
+    border-radius: 8px;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 0.06);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>
