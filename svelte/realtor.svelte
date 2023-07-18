@@ -3,6 +3,7 @@
   import ProfileHeader from './_components/ProfileHeader.svelte';
   import Footer from './_components/Footer.svelte';
   import AddFloorDialog from '_components/AddFloorDialog.svelte';
+  import AddRoomDialog from '_components/AddRoomDialog.svelte';
 
   let user = {/* user */};
   let segments = {/* segments */};
@@ -128,7 +129,6 @@
   let basement_added = false;
   let floor_edit_mode = false;
   let floor_index_to_edit = 0;
-
   function showAddFloorDialog() {
     add_floor_dialog.showModal();
   }
@@ -165,27 +165,47 @@
     floor_index_to_edit = index;
   }
   // _______Upload Floor Plan photo
-  // let imageCount = 0;
-  // let imageInput;
-  // let images = [/*{ image: data, preview }*/];
-  // let showImage = false;
-  // function inputImageHandler() {
-  //   const file = imageInput.files[0];
-  //   if (file) {
-  //     showImage = true;
-  //     const reader = new FileReader();
-  //     reader.addEventListener('load', function() {
-  //       images = [...images, {
-  //         image: file,
-  //         preview: reader.result
-  //       }]
-  //     });
-  //     reader.readAsDataURL(file);
-  //     imageCount++
-  //     return;
-  //   }
-  //   showImage = false;
-  // }
+  let imageFloorPlanInput;
+  let imageFloorPlanObj = {
+    image: null,
+    preview: null
+  };
+  let imageFloorPlanUploaded = false;
+  function handlerImageFloorPlan() {
+    const file = imageFloorPlanInput.files[0];
+    if (file) {
+      imageFloorPlanUploaded = true;
+      const reader = new FileReader();
+      reader.addEventListener('load', function() {
+        imageFloorPlanObj = {
+          image: file,
+          preview: reader.result
+        }
+      });
+      reader.readAsDataURL(file);
+      return;
+    }
+    imageFloorPlanUploaded = false;
+  }
+  // ________Rooms Edit
+  let add_room_dialog = AddRoomDialog;
+  let room_type = '';
+  let room_total = 0;
+  function showAddRoomDialog() {
+    add_room_dialog.showModal();
+  }
+  function handlerAddRoom(index) {
+    if (room_type === 'bedroom') {
+      floor_lists[index].beds = room_total
+    }
+    if (room_type === 'bathroom') {
+      floor_lists[index].baths = room_total
+    }
+    add_room_dialog.hideModal();
+    console.log(room_type + 'and' + room_total)
+    console.log(floor_lists[index])
+    return
+  }
 </script>
 
 <section class='dashboard'>
@@ -409,9 +429,14 @@
         {/if}
         {#if subPage >= 3}
           <section class='floor' id='subpage_3'>
+            <!-- Add Floor Dialog -->
             <AddFloorDialog bind:this={add_floor_dialog} bind:floor_type={floor_type}>
               <button disabled={floor_type === ''} class='add_floor_button' on:click={handlerAddFloor}>Add</button>
             </AddFloorDialog>
+            <!-- Add Room Dialog -->
+            <AddRoomDialog bind:this={add_room_dialog} bind:room_type={room_type} bind:room_total={room_total}>
+              <button disabled={room_type === ''} class='add_room_button' on:click={() => handlerAddRoom(floor_index_to_edit)}>Add</button>
+            </AddRoomDialog>
             <div class='floor_main_content'>
               <button
                 class='back_button'
@@ -426,7 +451,7 @@
               </button>
               <div class='floor_header'>
                 {#if floor_edit_mode === true}
-                  <h2>Edit {floor_lists[floor_index_to_edit].type} {floor_lists[floor_index_to_edit].type === 'basement' ? '' : `#${floor_lists[floor_index_to_edit].floor}` }</h2>
+                  <h3>Edit {floor_lists[floor_index_to_edit].type} {floor_lists[floor_index_to_edit].type === 'basement' ? '' : `#${floor_lists[floor_index_to_edit].floor}` }</h3>
                 {:else}
                   <h2>Floors</h2>
                   <button on:click|preventDefault={showAddFloorDialog}>Add</button>
@@ -434,17 +459,18 @@
               </div>
               {#if floor_edit_mode === false}
               <div class='floor_items_container'>
+                {#if floor_lists.length}
                 {#each floor_lists as floor, index}
                   <div class='floor_item'>
                     <div class='left_item'>
                       <h4>{floor.type} {floor.type === 'basement' ? '' : `#${floor.floor}` }</h4>
                       <div class='rooms_total'>
                         <div class='beds'>
-                          <b>3</b>
+                          <b>{floor.beds}</b>
                           <p>Beds</p>
                         </div>
                         <div class='baths'>
-                          <b>2</b>
+                          <b>{floor.baths}</b>
                           <p>Baths</p>
                         </div>
                       </div>
@@ -459,21 +485,52 @@
                     </div>
                   </div>
                 {/each}
+                {:else}
+                  <div class='no_content'>
+                    <p>No Content</p>
+                  </div>
+                {/if}
               </div>
               {/if}
               {#if floor_edit_mode === true}
                 <div class='edit_floor_container'>
-                  <label class='image_upload_button' for='upload_image'>
+                  {#if !imageFloorPlanUploaded}
+                  <label class='floor_plan_upload' for='floor_plan_upload'>
                     <input
-                      bind:this={imageInput}
-                      on:change={inputImageHandler}
+                      bind:this={imageFloorPlanInput}
+                      on:change={handlerImageFloorPlan}
                       type='file'
                       accept='image/*'
-                      id='upload_image'
+                      id='floor_plan_upload'
                     />
-                    <i class='gg-software-upload'></i>
-                    <p>Select file to Upload</p>
+                      <img src='/assets/img/realtor/floor-plan-pen-ruler.jpg.webp' alt=''>
+                      <div>
+                        <i class='gg-add'></i>
+                        <p>Floor Plan Picture</p>
+                      </div>
                   </label>
+                  {/if}
+                  {#if imageFloorPlanUploaded}
+                    <div class='floor_plan_preview'>
+                      <img src={imageFloorPlanObj.preview} alt=''>
+                    </div>
+                  {/if}
+                  <div class='room_list_container'>
+                    <div class='room_list_header'>
+                      <h3>Rooms</h3>
+                      <button on:click={showAddRoomDialog}>Add</button>
+                    </div>
+                    <div class='room_list_item'>
+                      <div>
+                        <span>Bedroom</span>
+                        <span>{floor_lists[floor_index_to_edit].beds}</span>
+                      </div>
+                      <div>
+                        <span>Bathroom</span>
+                        <span>{floor_lists[floor_index_to_edit].baths}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               {/if}
             </div>
@@ -961,12 +1018,20 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
   }
   .floor .floor_header h2 {
     font-weight: 600;
     margin: 0;
     font-size: 18px;
+  }
+  .floor .floor_header h3 {
+    font-weight: 600;
+    margin: 0;
+    font-size: 18px;
+    width: 100%;
+    text-align: center;
   }
   .floor .floor_header button {
     border-radius: 8px;
@@ -981,7 +1046,7 @@
   .floor .floor_header button:hover {
     background-color : rgb(0 0 0 / 0.07);
   }
-  .floor .add_floor_button {
+  .floor .add_floor_button, .add_room_button {
     background-color: #f97316;
     color: white;
     border-radius: 8px;
@@ -990,7 +1055,7 @@
     cursor: pointer;
     width: 100%;
   }
-  .floor .add_floor_button:hover {
+  .floor .add_floor_button:hover, .add_room_button:hover {
     background-color: #f58433;
   }
   .floor .floor_items_container {
@@ -998,6 +1063,18 @@
     flex-direction: column;
     justify-content: center;
     width: 100%;
+  }
+  .floor .floor_items_container .no_content {
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: rgb( 0 0 0 / 0.06);
+    padding: 80px 20px;
+    height: 100%;
+    font-weight: 600;
+    font-size: 16px;
+    width: 60%;
+    margin: 0 auto;
   }
   .floor .floor_items_container .floor_item {
     display: flex;
@@ -1076,5 +1153,93 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .floor .edit_floor_container {
+    height: fit-content;
+    width: 60%;
+    margin: 0 auto 20px auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .floor .edit_floor_container .floor_plan_upload {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    width: 100%;
+    height: 130px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+  }
+  .floor .edit_floor_container .floor_plan_upload input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .floor .edit_floor_container .floor_plan_upload img {
+    width: 100%;
+    height: auto;
+  }
+  .floor .edit_floor_container .floor_plan_upload div {
+    background-color: rgb(255 255 255 / 0.7);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 20px;
+  }
+  .floor .edit_floor_container .floor_plan_upload div p {
+    margin-left: 25px;
+  }
+  .floor .edit_floor_container .floor_plan_preview {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    width: 100%;
+    height: 130px;
+    overflow: hidden;
+  }
+  .floor .edit_floor_container .floor_plan_preview img {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+  }
+  .floor .edit_floor_container .room_list_container .room_list_header {
+    margin: 20px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .floor .edit_floor_container .room_list_container .room_list_header h3 {
+    font-weight: 600;
+    margin: 0;
+    font-size: 18px;
+  }
+  .floor .edit_floor_container .room_list_container .room_list_header button {
+    border-radius: 8px;
+    border: none;
+    padding: 10px 12px;
+    color: #f97316;
+    font-weight: 600;
+    cursor: pointer;
+    background: none;
+    font-size: 14px;
+  }
+  .floor .edit_floor_container .room_list_container .room_list_header button:hover {
+    background-color : rgb(0 0 0 / 0.07);
+  }
+  .floor .edit_floor_container .room_list_container .room_list_item div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 600;
+    padding: 8px 0;
+    border-bottom: 2px solid #334155;
   }
 </style>

@@ -110,6 +110,7 @@
     border: 1px solid #f97316;
   }
   .add_floor_content .floor_type {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     width: 100%;
