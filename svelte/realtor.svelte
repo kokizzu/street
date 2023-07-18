@@ -8,6 +8,34 @@
   let user = {/* user */};
   let segments = {/* segments */};
 
+  // TODO: define payloads
+  let payload = {
+    location: '', /*2°10'26.5"E.*/
+    information: {
+      house_type: '', /*House or Apartment*/
+      ownership: '', /*rent or sell*/
+      feature: {
+        beds: 0,
+        baths: 0,
+        area: 0,
+      },
+      facility: '', /*Facility Description*/
+      description: '', /*Description of this property*/
+      price: {
+        property_price: 0, /*Price*/
+        agency_fee: 0, /*Fee Percentage*/
+      }
+    },
+    floors: [
+      {
+        type: '', /*Floor or Basement*/
+        floor: 0,
+        beds: 0,
+        baths: 0
+      }
+    ]
+  }
+
   let subPage = 1;
   async function nextPage() {
     if (subPage < 4) {
