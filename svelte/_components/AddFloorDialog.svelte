@@ -44,7 +44,10 @@
       </div>
     </div>
     <div class='buttons'>
-      <button on:click|preventDefault={hideModal} class='cancel_button'>Cancel</button>
+      <button on:click|preventDefault={() => {
+        showFloorTypeOption = false;
+        hideModal()
+      }} class='cancel_button'>Cancel</button>
       <slot></slot>
     </div>
   </div>

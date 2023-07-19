@@ -9,32 +9,49 @@
   let segments = {/* segments */};
 
   // TODO: define payloads
-  let payload = {
-    location: '', /*2°10'26.5"E.*/
-    information: {
-      house_type: '', /*House or Apartment*/
-      ownership: '', /*rent or sell*/
-      feature: {
-        beds: 0,
-        baths: 0,
-        area: 0,
-      },
-      facility: '', /*Facility Description*/
-      description: '', /*Description of this property*/
-      price: {
-        property_price: 0, /*Price*/
-        agency_fee: 0, /*Fee Percentage*/
-      }
-    },
-    floors: [
-      {
-        type: '', /*Floor or Basement*/
-        floor: 0,
-        beds: 0,
-        baths: 0
-      }
-    ]
-  }
+  // let realtorStack = [
+  //   {
+  //     subroute: 'location',
+  //     attrs: {
+  //       coordinate: '' /*2°10'26.5"E.*/
+  //     }
+  //   }, {
+  //     subroute: 'information',
+  //     attrs: {
+  //       house_type: '', /*House or Apartment*/
+  //       ownership: '', /*rent or sell*/
+  //       feature: {
+  //         beds: 0,
+  //         baths: 0,
+  //         area: 0,
+  //       },
+  //       facility: '', /*Facility Description*/
+  //       description: '', /*Description of this property*/
+  //       price: {
+  //         property_price: 0, /*Price*/
+  //         agency_fee: 0, /*Fee Percentage*/
+  //       }
+  //     }
+  //   }, {
+  //     subroute: 'floors',
+  //     attrs: {
+  //       floor_lists: [
+  //         {
+  //           type: '', /*Floor or Basement*/
+  //           floor: 0,
+  //           beds: 0,
+  //           baths: 0
+  //         }, {
+  //           type: '', /*Floor or Basement*/
+  //           floor: 0,
+  //           beds: 0,
+  //           baths: 0
+  //         }
+  //       ]
+  //     }
+  //   }
+  // ]
+  let realtorStack = [];
 
   let subPage = 1;
   async function nextPage() {
@@ -49,19 +66,45 @@
       subPage--;
     }
   }
-  async function skipPage() {
-    if (subPage < 4) {
-      await subPage++;
-      const nextCard = document.getElementById(`subpage_${subPage}`);
-      nextCard.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'center' });
+
+  // +=============| Location |=============+ //
+  let location = '';
+  function handlerLocationNext() {
+    if (location === '') {
+      alert('Location must be added');
+    } else {
+      realtorStack = [
+        ...realtorStack,
+        {
+          subroute: 'location',
+          attrs: {
+            coordinate: location
+          }
+        }
+      ]
+      nextPage();
     }
   }
 
-  // +=============| Location |=============+ //
-
   // +=============| House Info |=============+ //
+  let house_info_obj = {
+    house_type: '',
+    floor: 0,
+    ownership: '',
+    feature: {
+      beds: 0,
+      baths: 0,
+      area: 0,
+    },
+    facility: '',
+    description: '',
+    price: {
+      property_price: 0,
+      agency_fee: 0,
+    }
+  }
+
   let modeHouseInfoCount = 0;
-  let modeSkippable = false;
   const ABOUT_THE_HOUSE = 'About The House';
   const UPLOAD_HOUSE_PHOTO = 'Upload House Photo';
   const FEATURE_OR_FACILITY = 'Feature or Facility';
@@ -75,12 +118,21 @@
     { mode: PRICE, skip: false }
   ];
   let mode = modeHouseLists[modeHouseInfoCount].mode;
+  let modeSkippable = modeHouseLists[modeHouseInfoCount].skip;
+
   function houseInfoNext() {
     if (modeHouseInfoCount < modeHouseLists.length - 1) {
       modeHouseInfoCount++;
       mode = modeHouseLists[modeHouseInfoCount].mode;
       modeSkippable = modeHouseLists[modeHouseInfoCount].skip;
     } else {
+      realtorStack = [
+        ...realtorStack,
+        {
+          subroute: 'information',
+          attrs: house_info_obj
+        }
+      ]
       nextPage();
     }
   }
@@ -107,6 +159,7 @@
   let house_type = '';
   let showHouseOption = false;
   let isApartment = false;
+  let floor = 1;
   function handleHouseTypeOption() {
     isApartment = house_type === 'apartment';
     showHouseOption = !showHouseOption;
@@ -116,6 +169,16 @@
   let showRentSellOption = false;
   function handleRentSellOption() {
     showRentSellOption = !showRentSellOption;
+  }
+  function handleNextAboutHouse() {
+    if (house_type === '' || rent_or_sell === '') {
+      alert('Must fill the form');
+    } else {
+      house_info_obj.house_type = house_type;
+      house_info_obj.floor = floor;
+      house_info_obj.ownership = rent_or_sell;
+      houseInfoNext();
+    }
   }
   // ______Upload House Photo
   let imageCount = 0;
@@ -141,6 +204,42 @@
   }
   function removeImage(index) {
     images = images.filter((_, i) => i !== index);
+  }
+  function handleNextUploadHouseImage() {
+    /* TODO: Send image to an endpoint here **/
+    houseInfoNext();
+  }
+  // ______Feature and Facility
+  let feature = {
+    beds: 0,
+    baths: 0,
+    area: 0,
+  }
+  let facility = '';
+  function handleNextFeatureFacility() {
+    house_info_obj.feature.beds = feature.beds;
+    house_info_obj.feature.baths = feature.baths;
+    house_info_obj.feature.area = feature.area;
+    house_info_obj.facility = facility;
+    houseInfoNext();
+  }
+  // _______Description of Property
+  let description_of_property = '';
+  function handleNextDescriptionProperty() {
+    house_info_obj.description = description_of_property;
+    houseInfoNext();
+  }
+  // _______Price of Property
+  let property_price = 0;
+  let agency_fee = 0;
+  function handleNextPriceProperty() {
+    if (property_price === 0 || agency_fee === 0) {
+      alert('Must fill the form');
+    } else {
+      house_info_obj.price.property_price = property_price;
+      house_info_obj.price.agency_fee = agency_fee;
+      houseInfoNext();
+    }
   }
 
   // +=============| Floors |=============+ //
@@ -234,6 +333,19 @@
     console.log(floor_lists[index])
     return
   }
+  function handleNextFloor() {
+    realtorStack = [
+      ...realtorStack,
+      {
+        subroute: 'floors',
+        attrs: {
+          floor_lists: floor_lists
+        }
+      }
+    ]
+    console.log(realtorStack)
+    nextPage();
+  }
 </script>
 
 <section class='dashboard'>
@@ -271,7 +383,7 @@
               <div class='location_input'>
                 <div class='input_box'>
                   <label for="input_address"></label>
-                  <input type="text" id='input_address' />
+                  <input bind:value={location} type="text" id='input_address' />
                 </div>
                 <div class='map_container'>
                   <iframe
@@ -283,7 +395,7 @@
                 </div>
               </div>
             </div>               
-            <button class='next_button' on:click|preventDefault={nextPage}>NEXT</button>
+            <button class='next_button' on:click|preventDefault={handlerLocationNext}>NEXT</button>
           </section>
         {/if}
         {#if subPage >= 2}
@@ -332,6 +444,8 @@
                           name='apartment_floor'
                           id='apartment_floor'
                           placeholder='Your property based'
+                          min='1'
+                          bind:value={floor}
                         />
                       </div>
                     {/if}
@@ -371,8 +485,7 @@
               {/if}
               {#if mode === UPLOAD_HOUSE_PHOTO}
                 <h2>{mode}</h2>
-                <div class='upload_house_photo'>
-                  
+                <div class='upload_house_photo'>     
                   <div class='image_preview_container'>
                     <label class='image_upload_button' for='upload_image'>
                       <input
@@ -402,27 +515,27 @@
                 <h2>Feature</h2>
                 <div class='feature_section'>
                   <div class='beds'>
-                    <input type='number' min='0' name='beds' id='beds'>
+                    <input bind:value={feature.beds} type='number' min='0' name='beds' id='beds'>
                     <label for='beds'>Beds</label>
                   </div>
                   <div class='baths'>
-                    <input type='number' min='0' name='baths' id='baths'>
+                    <input bind:value={feature.baths} type='number' min='0' name='baths' id='baths'>
                     <label for='baths'>Baths</label>
                   </div>
                   <div class='square_foot'>
-                    <input type='number' min='0' name='square_foot' id='square_foot' step='0.01'>
+                    <input bind:value={feature.area} type='number' min='0' name='square_foot' id='square_foot' step='0.01'>
                     <label for='square_foot'>Sq Ft</label>
                   </div>
                 </div>
                 <h2>Facility</h2>
                 <div class='facility_section'>
-                  <textarea rows='10' placeholder='Type the facility in the property.' name='facility' id='facility'></textarea>
+                  <textarea bind:value={facility} rows='10' placeholder='Type the facility in the property.' name='facility' id='facility'></textarea>
                 </div>
               {/if}
               {#if mode === DESCRIPTION_PROPERTY}
                 <h2>{mode}</h2>
                 <div class='description_of_property'>
-                  <textarea rows='20' placeholder='Writing a description can help potential buyers become more interested in your property.' name='description' id='description'></textarea>
+                  <textarea bind:value={description_of_property} rows='20' placeholder='Writing a description can help potential buyers become more interested in your property.' name='description' id='description'></textarea>
                 </div>
               {/if}
               {#if mode === PRICE}
@@ -430,26 +543,40 @@
                 <div class='price'>
                   <div class='property_price'>
                     <label for='property_price'>Property Price</label>
-                    <input type='number' min='0' name='property_price' id='property_price' />
+                    <input bind:value={property_price} type='number' min='0' name='property_price' id='property_price' />
                   </div>
                   <div class='agency_fee'>
                     <label for='agency_fee'>Agency Fee</label>
                     <div>
-                      <input type='number' min='0' name='agency_fee' id='agency_fee'>
+                      <input bind:value={agency_fee} type='number' min='0' max='100' name='agency_fee' id='agency_fee'>
                       <span>%</span>
                     </div>
                   </div>
                 </div>
               {/if}
             </div>
-          
             <div class='next_skip_button'>
               {#if modeSkippable === true}
                 <button class='skip_button' on:click|preventDefault={houseInfoSkip}>
                   SKIP
                 </button>
               {/if}
-              <button class='next_button' on:click|preventDefault={houseInfoNext}>
+              <button
+                class='next_button'
+                on:click|preventDefault={() => {
+                  if (modeHouseInfoCount === 0) {
+                    handleNextAboutHouse();
+                  } else if (modeHouseInfoCount === 1) {
+                    handleNextUploadHouseImage();
+                  } else if (modeHouseInfoCount === 2) {
+                    handleNextFeatureFacility();
+                  } else if (modeHouseInfoCount === 3) {
+                    handleNextDescriptionProperty();
+                  } else if (modeHouseInfoCount === 4) {
+                    handleNextPriceProperty();
+                  }
+                }}
+              >
                 NEXT
               </button>
             </div>
@@ -506,9 +633,13 @@
                     <div class='right_item'>
                       <button class='edit_floor' on:click={() => handlerEditFloor(index)}>Edit</button>
                       <div class='floor_plan'>
-                        <span>
-                          <i class='gg-image'></i>
-                        </span>
+                        {#if imageFloorPlanUploaded}
+                          <img src={imageFloorPlanObj.preview} alt=''>
+                        {:else}
+                          <span>
+                            <i class='gg-image'></i>
+                          </span>
+                        {/if}
                       </div>
                     </div>
                   </div>
@@ -562,7 +693,7 @@
                 </div>
               {/if}
             </div>
-            <button class='next_button' on:click|preventDefault={nextPage}>NEXT</button>
+            <button class='next_button' on:click|preventDefault={handleNextFloor}>NEXT</button>
           </section>
         {/if}
         {#if subPage >= 4}
@@ -1171,6 +1302,12 @@
     height: 90px;
     border: 1px solid #cbd5e1;
     margin-top: 20px;
+    overflow: hidden;
+  }
+  .floor .floor_items_container .floor_item .right_item .floor_plan img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .floor .floor_items_container .floor_item .right_item .floor_plan span {
     border-radius: 8px;
