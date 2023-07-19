@@ -183,7 +183,7 @@
   // ______Upload House Photo
   let imageCount = 0;
   let imageInput;
-  let images = [/*{ image: data, preview }*/];
+  let house_images = [/*{ image: data, preview }*/];
   let showImage = false;
   function inputImageHandler() {
     const file = imageInput.files[0];
@@ -191,7 +191,7 @@
       showImage = true;
       const reader = new FileReader();
       reader.addEventListener('load', function() {
-        images = [...images, {
+        house_images = [...house_images, {
           image: file,
           preview: reader.result
         }]
@@ -203,7 +203,7 @@
     showImage = false;
   }
   function removeImage(index) {
-    images = images.filter((_, i) => i !== index);
+    house_images = house_images.filter((_, i) => i !== index);
   }
   function handleNextUploadHouseImage() {
     /* TODO: Send image to an endpoint here **/
@@ -343,8 +343,12 @@
         }
       }
     ]
-    console.log(realtorStack)
     nextPage();
+  }
+
+  // +=============| PREVIEW |=============+ //
+  function formatPrice(price) {
+    return price.toLocaleString();
   }
 </script>
 
@@ -499,7 +503,7 @@
                       <p>Select file to Upload</p>
                     </label>
                     {#if showImage}
-                      {#each images as imgFile, index}
+                      {#each house_images as imgFile, index}
                         <div class='image_card'>
                           <img src={imgFile.preview} alt=''>
                           <button on:click={() => removeImage(index)} title='remove this image'>
@@ -698,9 +702,35 @@
         {/if}
         {#if subPage >= 4}
           <section class='preview' id='subpage_4'>
-            <p>preview</p>
-            <button on:click|preventDefault={backPage}>BACK</button>
-            <button on:click|preventDefault={nextPage}>NEXT</button>
+            <h2>Preview Your Property</h2>
+            <div class='image_preview_wrapper'>
+              {#if house_images}
+                <img src={house_images[0].preview} alt=''>
+              {:else}
+                <div class='image_preview_empty'>
+                  <i class='gg-image'></i>
+                  <p>No Image to Preview</p>
+                </div>
+              {/if}
+            </div>
+            <div class='preview_price_house_type'>
+              <div class='left_item'>
+                <span>On Sale</span>
+                <div class='price'>
+                  <h3>${formatPrice(realtorStack[1].attrs.price.property_price)}</h3>
+                  <p>Agency Fee: {realtorStack[1].attrs.price.agency_fee}%</p>
+                </div>
+              </div>
+              <div class='right_item'>
+                <button class='like_button'>
+                  <i class='gg-heart'></i>
+                </button>
+                <div class='house_type'>
+                  <i class='gg-home-alt'></i>
+                  <span>{realtorStack[1].attrs.house_type}</span>
+                </div>
+              </div>
+            </div>
           </section>
         {/if}
       </div>
@@ -1406,5 +1436,108 @@
     font-weight: 600;
     padding: 8px 0;
     border-bottom: 2px solid #334155;
+  }
+
+  /* +============| SUBPAGE PREVIEW |===========+ */
+  .preview {
+    color: #334155;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    width: 100%;
+  }
+  .preview h2 {
+    font-weight: 600;
+    margin: 0;
+    font-size: 18px;
+  }
+  .preview .image_preview_wrapper {
+    border-radius: 8px;
+    width: 60%;
+    height: 200px;
+    border: 1px solid #cbd5e1;
+    margin: 20px auto;
+    overflow: hidden;
+  }
+  .preview .image_preview_wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .preview .image_preview_wrapper .image_preview_empty {
+    border-radius: 8px;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 0.06);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .preview .preview_price_house_type {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+  }
+  .preview .preview_price_house_type .left_item {
+    display: flex;
+    flex-direction: column;
+  }
+  .preview .preview_price_house_type .left_item span {
+    padding: 4px 10px;
+    font-size: 12;
+    background-color: #f97316;
+    width: fit-content;
+    color: white;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+  }
+  .preview .preview_price_house_type .left_item .price {
+    display: block;
+  }
+  .preview .preview_price_house_type .left_item .price h3 {
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .preview .preview_price_house_type .left_item p {
+    color: #64748B;
+    font-size: 13px;
+    margin: 10px 0 0 0;
+  }
+  .preview .preview_price_house_type .right_item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+  .preview .preview_price_house_type .right_item .like_button {
+    border: none;
+    background: none;
+    padding: 10px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  .preview .preview_price_house_type .right_item .like_button:hover {
+    background-color: rgb( 0 0 0 / 0.06);
+    color: #f97316;
+  }
+  .preview .preview_price_house_type .right_item .house_type {
+    border-radius: 999px;
+    background-color: #f97316;
+    color: white;
+    padding: 10px 25px;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .preview .preview_price_house_type .right_item .house_type span {
+    margin-left: 5px;
+    font-size: 18px;
+    text-transform: capitalize;
   }
 </style>
