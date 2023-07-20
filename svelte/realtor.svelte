@@ -1,9 +1,15 @@
 <script>
+  import { onMount } from 'svelte';
+
   import Menu from './_components/Menu.svelte';
   import ProfileHeader from './_components/ProfileHeader.svelte';
   import Footer from './_components/Footer.svelte';
   import AddFloorDialog from '_components/AddFloorDialog.svelte';
   import AddRoomDialog from '_components/AddRoomDialog.svelte';
+
+  onMount(async () => {
+    await initMap();
+  })
 
   let user = {/* user */};
   let segments = {/* segments */};
@@ -68,7 +74,19 @@
   }
 
   // +=============| Location |=============+ //
+  let map;
+  let map_container;
   let location = '';
+  // const MAP_API_KEY = 'AIzaSyAJK8eKxUmDnW0Zp5UjOJE3dcp35X0icVE';
+
+  async function initMap() {
+    const { Map } = await google.maps.importLibrary("maps");
+    map = new Map(map_container, {
+      center: { lat: -34.397, lng: 150.644 },
+      zoom: 8,
+    });
+  }
+
   function handlerLocationNext() {
     if (location === '') {
       alert('Location must be added');
@@ -362,6 +380,20 @@
   }
 </script>
 
+<svelte:head>
+  <!-- <script defer async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJK8eKxUmDnW0Zp5UjOJE3dcp35X0icVE&callback=initMap">
+  </script> -->
+  <script>
+    (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+      key: "AIzaSyAJK8eKxUmDnW0Zp5UjOJE3dcp35X0icVE",
+      v: "weekly",
+      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+      // Add other bootstrap parameters as needed, using camel case.
+    });
+  </script>
+</svelte:head>
+
 <section class='dashboard'>
   <Menu
     access ={segments}
@@ -399,13 +431,13 @@
                   <label for="input_address"></label>
                   <input bind:value={location} type="text" id='input_address' />
                 </div>
-                <div class='map_container'>
-                  <iframe
+                <div class='map_container' bind:this={map_container}>
+                  <!-- <iframe
                     title='location'
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7890.4948540156465!2d116.0808121910197!3d-8.572191565888081!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dcdc0619c44f171%3A0x3a8c129c834e7cc2!2sPejeruk%2C%20Ampenan%2C%20Mataram%20City%2C%20West%20Nusa%20Tenggara!5e0!3m2!1sen!2sid!4v1689595526347!5m2!1sen!2sid"
                     loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade">
-                  </iframe>
+                  </iframe> -->
                 </div>
               </div>
             </div>               
@@ -973,12 +1005,12 @@
     width: 100%;
     height: 430px;
   }
-  .location_input .map_container iframe {
+  /* .location_input .map_container iframe {
     width: 100%;
     height: 100%;
     border: none;
     border-radius: 8px;
-  }
+  } */
 
   /* +============| SUBPAGE INFO |===========+ */
   .info {
