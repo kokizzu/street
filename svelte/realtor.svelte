@@ -347,8 +347,18 @@
   }
 
   // +=============| PREVIEW |=============+ //
+  let isPropertySubmitted = false;
+
   function formatPrice(price) {
-    return price.toLocaleString();
+    return price.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    });
+  }
+  function handleSubmit() {
+    isPropertySubmitted = true;
+    // TODO: Submit Payload to Endpoint
+    console.log(realtorStack);
   }
 </script>
 
@@ -702,35 +712,76 @@
         {/if}
         {#if subPage >= 4}
           <section class='preview' id='subpage_4'>
-            <h2>Preview Your Property</h2>
-            <div class='image_preview_wrapper'>
-              {#if house_images}
-                <img src={house_images[0].preview} alt=''>
-              {:else}
-                <div class='image_preview_empty'>
-                  <i class='gg-image'></i>
-                  <p>No Image to Preview</p>
+            {#if isPropertySubmitted === false}
+              <div class='preview_main'>
+                <h2>Preview Your Property</h2>
+                <div class='image_preview_wrapper'>
+                  {#if house_images}
+                    <img src={house_images[0].preview} alt=''>
+                  {:else}
+                    <div class='image_preview_empty'>
+                      <i class='gg-image'></i>
+                      <p>No Image to Preview</p>
+                    </div>
+                  {/if}
                 </div>
-              {/if}
-            </div>
-            <div class='preview_price_house_type'>
-              <div class='left_item'>
-                <span>On Sale</span>
-                <div class='price'>
-                  <h3>${formatPrice(realtorStack[1].attrs.price.property_price)}</h3>
-                  <p>Agency Fee: {realtorStack[1].attrs.price.agency_fee}%</p>
+                <div class='preview_price_house_type'>
+                  <div class='left_item'>
+                    <span>On Sale</span>
+                    <div class='price'>
+                      <h3>{formatPrice(realtorStack[1].attrs.price.property_price)}</h3>
+                      <p>Agency Fee: {realtorStack[1].attrs.price.agency_fee}%</p>
+                    </div>
+                  </div>
+                  <div class='right_item'>
+                    <button class='like_button'>
+                      <i class='gg-heart'></i>
+                    </button>
+                    <div class='house_type'>
+                      <i class='gg-home-alt'></i>
+                      <span>{realtorStack[1].attrs.house_type}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class='preview_feature'>
+                  <div>
+                    <b>{realtorStack[1].attrs.feature.beds}</b>
+                    <p>Beds</p>
+                  </div>
+                  <div>
+                    <b>{realtorStack[1].attrs.feature.baths}</b>
+                    <p>Baths</p>
+                  </div>
+                  <div>
+                    <b>{realtorStack[1].attrs.feature.area}</b>
+                    <p>Sq Ft</p>
+                  </div>
+                </div>
+                <article class='preview_description'>
+                  <div class='preview_facility'>
+                    <h3>Facility</h3>
+                    <p>{realtorStack[1].attrs.facility}</p>
+                  </div>
+                  <div class='preview_about'>
+                    <h3>About</h3>
+                    <p>{realtorStack[1].attrs.description}</p>
+                  </div>
+                </article>
+              </div>
+              <button class='submit_button' on:click|preventDefault={handleSubmit}>SUBMIT</button>
+            {/if}
+            {#if isPropertySubmitted === true}
+              <div class='property_submitted'>
+                <div class='icon_submitted'>
+                  <i class='gg-check-r'></i>
+                  <span>SUBMITTED</span>
+                </div>
+                <div class='message_submmitted'>
+                  <b>We will review it soon</b>
+                  <p>Thanks you for submitting your property.</p>
                 </div>
               </div>
-              <div class='right_item'>
-                <button class='like_button'>
-                  <i class='gg-heart'></i>
-                </button>
-                <div class='house_type'>
-                  <i class='gg-home-alt'></i>
-                  <span>{realtorStack[1].attrs.house_type}</span>
-                </div>
-              </div>
-            </div>
+            {/if}
           </section>
         {/if}
       </div>
@@ -820,6 +871,10 @@
     top: 5px  !important;
     left: 50%  !important;
     z-index: 3  !important;
+  }
+  .step_item.completed::after:last-child {
+    content: none;
+    display: none;
   }
   .step_item.completed span {
     background-color: #f97316 !important;
@@ -1437,14 +1492,18 @@
     padding: 8px 0;
     border-bottom: 2px solid #334155;
   }
-
   /* +============| SUBPAGE PREVIEW |===========+ */
   .preview {
     color: #334155;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     min-height: 100%;
     width: 100%;
+  }
+  .preview .preview_main {
+    display: flex;
+    flex-direction: column;
   }
   .preview h2 {
     font-weight: 600;
@@ -1539,5 +1598,77 @@
     margin-left: 5px;
     font-size: 18px;
     text-transform: capitalize;
+  }
+  .preview .preview_feature {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    margin: 30px auto 0 auto;
+    width: 60%;
+  }
+  .preview .preview_feature div {
+    text-align: center;
+  }
+  .preview .preview_feature div b{
+    font-size: 22px;
+  }
+  .preview .preview_feature div p {
+    margin: 10px 0 0 0;
+  }
+  .preview .preview_description {
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto 0 auto;
+    width: 80%;
+  }
+  .preview .preview_description div:nth-child(1) {
+    margin-bottom: 20px;
+  }
+  .preview .preview_description div h3 {
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    font-size: 18px;
+  }
+  .preview .preview_description div p {
+    margin: 0;
+  }
+  .preview .submit_button {
+    background-color: #f97316;
+    border-radius: 8px;
+    border: none;
+    padding: 10px;
+    color: white;
+    font-weight: 600;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  .preview .submit_button:hover {
+    background-color: #f58433;
+  }
+  .preview .property_submitted {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .preview .property_submitted .icon_submitted {
+    background-color: rgb( 0 0 0 / 0.06);
+    padding: 30px 40px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+  }
+  .preview .property_submitted .icon_submitted span {
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .preview .property_submitted .message_submmitted b {
+    font-weight: 700;
+    font-size: 20px;
   }
 </style>
