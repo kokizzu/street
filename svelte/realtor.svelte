@@ -19,7 +19,9 @@
   //   {
   //     subroute: 'location',
   //     attrs: {
-  //       coordinate: '' /*2°10'26.5"E.*/
+  //       address: '',
+  //       long: 0,
+  //       lat: 0
   //     }
   //   }, {
   //     subroute: 'information',
@@ -58,7 +60,6 @@
   //   }
   // ]
   let realtorStack = [];
-
   let subPage = 1;
   async function nextPage() {
     if (subPage < 4) {
@@ -76,19 +77,68 @@
   // +=============| Location |=============+ //
   let map;
   let map_container;
-  let location = '';
-  // const MAP_API_KEY = 'AIzaSyAJK8eKxUmDnW0Zp5UjOJE3dcp35X0icVE';
-
+  let input_address;
+  let long, lat, address;
+  // const MAP_API_KEY = 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg';
   async function initMap() {
     const { Map } = await google.maps.importLibrary("maps");
     map = new Map(map_container, {
       center: { lat: -34.397, lng: 150.644 },
       zoom: 8,
+      mapTypeId: "roadmap",
+    });
+    const { SearchBox } = await google.maps.importLibrary("places");
+    const searchBox = new SearchBox(input_address);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input_address);
+    map.addListener('bounds_changed', () => {
+      searchBox.setBounds(map.getBounds());
+    });
+    let markers = [];
+    searchBox.addListener('places_changed', () => {
+      const places = searchBox.getPlaces();
+      if (places.length == 0) {
+        return;
+      }
+      // Clear out the old markers
+      markers.forEach((marker) => {
+        marker.setMap(null);
+      });
+      markers = [];
+      // For each place, get the icon, name and location.
+      const bounds = new google.maps.LatLngBounds();
+      places.forEach((place) => {
+        if (!place.geometry || !place.geometry.location) {
+          console.log('Returned place contains no geometry');
+          return;
+        }
+        const icon = {
+          url: place.icon,
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(25, 25),
+        };
+        // create marker for each place
+        markers.push(
+          new google.maps.Marker({
+            map,
+            icon,
+            title: place.name,
+            position: place.geometry.location,
+          })
+        );
+        if (place.geometry.viewport) {
+          // Only geocodes have viewport
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+      });
+      map.fitBounds(bounds);
     });
   }
-
   function handlerLocationNext() {
-    if (location === '') {
+    if (long === '' || lat === '' || address === '') {
       alert('Location must be added');
     } else {
       realtorStack = [
@@ -96,7 +146,9 @@
         {
           subroute: 'location',
           attrs: {
-            coordinate: location
+            address: '',
+            long: 0,
+            lat: 0
           }
         }
       ]
@@ -381,12 +433,10 @@
 </script>
 
 <svelte:head>
-  <!-- <script defer async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJK8eKxUmDnW0Zp5UjOJE3dcp35X0icVE&callback=initMap">
-  </script> -->
+  <!-- Google Map SDK -->
   <script>
     (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-      key: "AIzaSyAJK8eKxUmDnW0Zp5UjOJE3dcp35X0icVE",
+      key: "AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg",
       v: "weekly",
       // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
       // Add other bootstrap parameters as needed, using camel case.
@@ -429,15 +479,10 @@
               <div class='location_input'>
                 <div class='input_box'>
                   <label for="input_address"></label>
-                  <input bind:value={location} type="text" id='input_address' />
+                  <input bind:this={input_address} type="text" id='input_address' />
                 </div>
                 <div class='map_container' bind:this={map_container}>
-                  <!-- <iframe
-                    title='location'
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7890.4948540156465!2d116.0808121910197!3d-8.572191565888081!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dcdc0619c44f171%3A0x3a8c129c834e7cc2!2sPejeruk%2C%20Ampenan%2C%20Mataram%20City%2C%20West%20Nusa%20Tenggara!5e0!3m2!1sen!2sid!4v1689595526347!5m2!1sen!2sid"
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
-                  </iframe> -->
+                  <!-- Map goes here, rendered automatically -->
                 </div>
               </div>
             </div>               
@@ -904,10 +949,6 @@
     left: 50%  !important;
     z-index: 3  !important;
   }
-  .step_item.completed::after:last-child {
-    content: none;
-    display: none;
-  }
   .step_item.completed span {
     background-color: #f97316 !important;
   }
@@ -988,16 +1029,17 @@
     display: flex;
     flex-direction: column;
   }
-  .location_input .input_box input {
-    width: 100%;
-    border: 1px solid #CBD5E1;
-    background-color: #F1F5F9;
-   	border-radius: 8px;
-   	padding: 10px 12px;
+  .location_input #input_address {
+    margin-top: 10px;
+    padding: 12px 15px;
+    border-radius: 2px;
+    border: none;
+    width: 400px;
+    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   }
-  .location_input .input_box input:focus {
+  .location_input #input_address:focus {
     border-color: #f97316;
-    outline: 1px solid #f97316;
+    outline: 2px solid #f97316;
   }
   .location_input .map_container {
     margin-top: 20px;
@@ -1005,12 +1047,6 @@
     width: 100%;
     height: 430px;
   }
-  /* .location_input .map_container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 8px;
-  } */
 
   /* +============| SUBPAGE INFO |===========+ */
   .info {
