@@ -1,5 +1,3 @@
-// store
-
 import { writable } from 'svelte/store';
 
-export let isSideMenuOpen = writable( false );
+export let isSideMenuOpen = writable( false ); // Side Menu
