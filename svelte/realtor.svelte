@@ -78,7 +78,9 @@
   let map;
   let map_container;
   let input_address;
-  let long, lat, address;
+  let lng = 0;
+  let lat = 0;
+  let formatted_address = '';
   // const MAP_API_KEY = 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg';
   async function initMap() {
     const { Map } = await google.maps.importLibrary("maps");
@@ -99,6 +101,12 @@
       if (places.length == 0) {
         return;
       }
+
+      // Fill formatted_address, latitude, and longitude as JSON values
+      lng = places[0].geometry.location.lng();
+      lat = places[0].geometry.location.lat();
+      formatted_address = places[0].formatted_address;
+
       // Clear out the old markers
       markers.forEach((marker) => {
         marker.setMap(null);
@@ -135,10 +143,11 @@
         }
       });
       map.fitBounds(bounds);
+      
     });
   }
   function handlerLocationNext() {
-    if (long === '' || lat === '' || address === '') {
+    if (lng === 0 || lat === 0 || formatted_address === '') {
       alert('Location must be added');
     } else {
       realtorStack = [
@@ -146,12 +155,13 @@
         {
           subroute: 'location',
           attrs: {
-            address: '',
-            long: 0,
-            lat: 0
+            address: formatted_address,
+            lng: lng,
+            lat: lat
           }
         }
       ]
+      console.log(realtorStack)
       nextPage();
     }
   }

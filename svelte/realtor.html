@@ -9444,7 +9444,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let map;
     let map_container;
     let input_address;
-    let long, lat, address;
+    let lng = 0;
+    let lat = 0;
+    let formatted_address = "";
     async function initMap() {
       const { Map: Map2 } = await google.maps.importLibrary("maps");
       map = new Map2(
@@ -9467,6 +9469,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (places.length == 0) {
           return;
         }
+        lng = places[0].geometry.location.lng();
+        lat = places[0].geometry.location.lat();
+        formatted_address = places[0].formatted_address;
         markers.forEach((marker) => {
           marker.setMap(null);
         });
@@ -9500,16 +9505,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       });
     }
     function handlerLocationNext() {
-      if (long === "" || lat === "" || address === "") {
+      if (lng === 0 || lat === 0 || formatted_address === "") {
         alert("Location must be added");
       } else {
         $invalidate(0, realtorStack = [
           ...realtorStack,
           {
             subroute: "location",
-            attrs: { address: "", long: 0, lat: 0 }
+            attrs: { address: formatted_address, lng, lat }
           }
         ]);
+        console.log(realtorStack);
         nextPage();
       }
     }
