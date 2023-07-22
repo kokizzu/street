@@ -84,6 +84,7 @@ exports.AdminDashboard = async function AdminDashboard( i, cb ) {
  * @property {number} propHistory.updatedAt
  * @property {number} propHistory.updatedBy
  * @property {number} propHistory.deletedAt
+ * @property {String} propHistory.serialNumber
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -112,6 +113,7 @@ const AdminPropHistoriesIn = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    serialNumber: '', // string
   }, // rqProperty.PropertyHistory
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -152,6 +154,7 @@ const AdminPropHistoriesIn = {
  * @property {number} propHistory.updatedAt
  * @property {number} propHistory.updatedBy
  * @property {number} propHistory.deletedAt
+ * @property {String} propHistory.serialNumber
  * @property {Object} propHistories
  */
 const AdminPropHistoriesOut = {
@@ -191,6 +194,7 @@ const AdminPropHistoriesOut = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    serialNumber: '', // string
   }, // rqProperty.PropertyHistory
   propHistories: { // [][]any
   }, // [][]any
@@ -233,6 +237,9 @@ exports.AdminPropHistories = async function AdminPropHistories( i, cb ) {
  * @property {number} property.updatedBy
  * @property {number} property.deletedAt
  * @property {String} property.formattedAddress
+ * @property {String} property.lastPrice
+ * @property {Object} property.priceHistoriesSell
+ * @property {Object} property.priceHistoriesRent
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -262,6 +269,11 @@ const AdminPropertiesIn = {
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
     formattedAddress: '', // string
+    lastPrice: '', // string
+    priceHistoriesSell: { // []any
+    }, // []any
+    priceHistoriesRent: { // []any
+    }, // []any
   }, // rqProperty.Property
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -302,6 +314,9 @@ const AdminPropertiesIn = {
  * @property {number} property.updatedBy
  * @property {number} property.deletedAt
  * @property {String} property.formattedAddress
+ * @property {String} property.lastPrice
+ * @property {Object} property.priceHistoriesSell
+ * @property {Object} property.priceHistoriesRent
  * @property {Object} properties
  */
 const AdminPropertiesOut = {
@@ -342,6 +357,11 @@ const AdminPropertiesOut = {
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
     formattedAddress: '', // string
+    lastPrice: '', // string
+    priceHistoriesSell: { // []any
+    }, // []any
+    priceHistoriesRent: { // []any
+    }, // []any
   }, // rqProperty.Property
   properties: { // [][]any
   }, // [][]any
