@@ -51,9 +51,9 @@ func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgot
 		out.SetError(400, ErrGuestForgotPasswordTriggeredTooFrequently)
 		return
 	}
+	defer guestForgotPasswordLock.Unlock(in.Email)
 
 	if !user.FindByEmail() {
-		guestForgotPasswordLock.Unlock(in.Email)
 		out.SetError(400, ErrGuestForgotPasswordEmailNotFound)
 		return
 	}
@@ -61,7 +61,6 @@ func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgot
 
 	recently := in.TimeNow().Add(-conf.ForgotPasswordThrottleMinute * time.Minute).Unix()
 	if user.SecretCodeAt >= recently {
-		guestForgotPasswordLock.Unlock(in.Email)
 		out.SetError(400, ErrGuestForgotPasswordTriggeredTooFrequently)
 		return
 	}
@@ -73,7 +72,6 @@ func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgot
 
 	out.resetPassUrl = in.Host + `/` + GuestResetPasswordAction + `?secretCode=` + secretCode + `&hash=` + hash
 	d.runSubtask(func() {
-		defer guestForgotPasswordLock.Unlock(in.Email)
 		err := d.Mailer.SendResetPasswordEmail(user.Email, out.resetPassUrl)
 		L.IsError(err, `SendResetPasswordEmail`)
 		// TODO: insert failed event to clickhouse
@@ -81,7 +79,6 @@ func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgot
 
 	user.SetUpdatedAt(in.UnixNow())
 	if !user.DoUpdateById() {
-		guestForgotPasswordLock.Unlock(in.Email)
 		out.SetError(500, ErrGuestForgotPasswordModificationFailed)
 		return
 	}
