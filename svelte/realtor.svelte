@@ -374,12 +374,14 @@
   }
   // _______Upload Floor Plan photo
   let imageFloorPlanInput;
+  let imageFloorPlanLists = [];
   let imageFloorPlanObj = {
     image: null,
-    preview: null
+    preview: null,
+    floor: 0
   };
   let imageFloorPlanUploaded = false;
-  function handlerImageFloorPlan() {
+  function handlerImageFloorPlan(floor) {
     const file = imageFloorPlanInput.files[0];
     if (file) {
       imageFloorPlanUploaded = true;
@@ -387,8 +389,10 @@
       reader.addEventListener('load', function() {
         imageFloorPlanObj = {
           image: file,
-          preview: reader.result
+          preview: reader.result,
+          floor: floor
         }
+        imageFloorPlanLists = [...imageFloorPlanLists, imageFloorPlanObj]
       });
       reader.readAsDataURL(file);
       return;
@@ -720,7 +724,7 @@
                 {#each floor_lists as floor, index}
                   <div class='floor_item'>
                     <div class='left_item'>
-                      <h4>{floor.type} {floor.type === 'basement' ? '' : `#${floor.floor}` }</h4>
+                      <h4>{floor.type === 'basement' ? floor.type : `${floor.type} #${floor.floor}`}</h4>
                       <div class='rooms_total'>
                         <div class='beds'>
                           <b>{floor.beds}</b>
@@ -736,7 +740,12 @@
                       <button class='edit_floor' on:click={() => handlerEditFloor(index)}>Edit</button>
                       <div class='floor_plan'>
                         {#if imageFloorPlanUploaded}
-                          <img src={imageFloorPlanObj.preview} alt=''>
+                          {#each imageFloorPlanLists as imgFloorPlan}
+                            {#if imgFloorPlan.floor === floor.floor }
+                              <!-- <img src={imgFloorPlan.preview} alt=''> -->
+                              <p>{imgFloorPlan.floor}</p>
+                            {/if}
+                          {/each}
                         {:else}
                           <span>
                             <i class='gg-image'></i>
@@ -759,7 +768,7 @@
                   <label class='floor_plan_upload' for='floor_plan_upload'>
                     <input
                       bind:this={imageFloorPlanInput}
-                      on:change={handlerImageFloorPlan}
+                      on:change={() => handlerImageFloorPlan(floor_index_to_edit)}
                       type='file'
                       accept='image/*'
                       id='floor_plan_upload'
@@ -855,6 +864,25 @@
                     <p>{realtorStack[1].attrs.description !== '' ? realtorStack[1].attrs.description : '--'}</p>
                   </div>
                 </article>
+                <div class='preview_floors'>
+                  <h2>Floors</h2>
+                  <div class='floor_container'>
+                    {#each realtorStack[2].attrs.floor_lists as floors}
+                      <div class='floor_item'>
+                        <h3>{floors.type === 'basement' ? floors.type : `${floors.type} #${floors.floor}`}</h3>
+                        <div class='floor_attr'>
+                          <div class='floor_facility'>
+                            <p>Bedroom: {floors.beds}</p>
+                            <p>Bathroom: {floors.baths}</p>
+                          </div>
+                          <div class='floor_plan'>
+
+                          </div>
+                        </div>
+                      </div>
+                    {/each}
+                  </div>
+                </div>
               </div>
               <button class='submit_button' on:click|preventDefault={handleSubmit}>SUBMIT</button>
             {/if}
@@ -1710,6 +1738,16 @@
   }
   .preview .preview_description div p {
     margin: 0;
+  }
+  .preview .preview_floors {
+    display: flex;
+    flex-direction: column;
+    margin: 30px auto 0 auto;
+    width: 80%;
+  }
+  .preview .preview_floors h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
   }
   .preview .submit_button {
     background-color: #f97316;
