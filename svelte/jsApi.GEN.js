@@ -1389,10 +1389,12 @@ const UserUploadFileIn = {
 }
 /**
  * @typedef {Object} UserUploadFileOut
- * @property {String} url
+ * @property {String} resizedUrl
+ * @property {String} originalUrl
  */
 const UserUploadFileOut = {
-  url: '', // string
+  resizedUrl: '', // string
+  originalUrl: '', // string
 }
 /**
  * @callback UserUploadFileCallback
