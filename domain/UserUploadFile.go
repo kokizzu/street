@@ -32,6 +32,7 @@ type (
 		ResponseCommon
 		ResizedUrl  string `json:"resizedUrl" form:"resizedUrl" query:"resizedUrl" long:"resizedUrl" msg:"resizedUrl"`
 		OriginalUrl string `json:"originalUrl" form:"originalUrl" query:"originalUrl" long:"originalUrl" msg:"originalUrl"`
+		UrlPattern  string `json:"urlPattern" form:"urlPattern" query:"urlPattern" long:"urlPattern" msg:"urlPattern"`
 	}
 )
 
@@ -133,6 +134,7 @@ func (d *Domain) UserUploadFile(in *UserUploadFileIn) (out UserUploadFileOut) {
 		}
 
 		b62id := string(base62.FormatInt(int64(file.Id)))
+		out.UrlPattern = fmt.Sprintf(`/`+GuestFilesAction+`/%s-___%s`, b62id, ext)
 		out.ResizedUrl = fmt.Sprintf(`/`+GuestFilesAction+`/%s-small%s`, b62id, ext)
 		out.OriginalUrl = fmt.Sprintf(`/`+GuestFilesAction+`/%s-orig%s`, b62id, ext)
 	}()
