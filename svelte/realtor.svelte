@@ -71,6 +71,8 @@
   function backPage() {
     if (subPage > 1) {
       subPage--;
+      realtorStack.pop();
+      realtorStack = realtorStack;
     }
   }
 
@@ -161,7 +163,6 @@
           }
         }
       ]
-      console.log(realtorStack)
       nextPage();
     }
   }
@@ -847,11 +848,11 @@
                 <article class='preview_description'>
                   <div class='preview_facility'>
                     <h3>Facility</h3>
-                    <p>{realtorStack[1].attrs.facility}</p>
+                    <p>{realtorStack[1].attrs.facility !== '' ? realtorStack[1].attrs.facility : '--'}</p>
                   </div>
                   <div class='preview_about'>
                     <h3>About</h3>
-                    <p>{realtorStack[1].attrs.description}</p>
+                    <p>{realtorStack[1].attrs.description !== '' ? realtorStack[1].attrs.description : '--'}</p>
                   </div>
                 </article>
               </div>

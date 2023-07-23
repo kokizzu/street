@@ -8753,7 +8753,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let p4;
     let t29_value = (
       /*realtorStack*/
-      ctx[0][1].attrs.facility + ""
+      (ctx[0][1].attrs.facility !== "" ? (
+        /*realtorStack*/
+        ctx[0][1].attrs.facility
+      ) : "--") + ""
     );
     let t29;
     let t30;
@@ -8763,7 +8766,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let p5;
     let t33_value = (
       /*realtorStack*/
-      ctx[0][1].attrs.description + ""
+      (ctx[0][1].attrs.description !== "" ? (
+        /*realtorStack*/
+        ctx[0][1].attrs.description
+      ) : "--") + ""
     );
     let t33;
     let t34;
@@ -8994,11 +9000,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           set_data(t23, t23_value);
         if (dirty[0] & /*realtorStack*/
         1 && t29_value !== (t29_value = /*realtorStack*/
-        ctx2[0][1].attrs.facility + ""))
+        (ctx2[0][1].attrs.facility !== "" ? (
+          /*realtorStack*/
+          ctx2[0][1].attrs.facility
+        ) : "--") + ""))
           set_data(t29, t29_value);
         if (dirty[0] & /*realtorStack*/
         1 && t33_value !== (t33_value = /*realtorStack*/
-        ctx2[0][1].attrs.description + ""))
+        (ctx2[0][1].attrs.description !== "" ? (
+          /*realtorStack*/
+          ctx2[0][1].attrs.description
+        ) : "--") + ""))
           set_data(t33, t33_value);
       },
       d(detaching) {
@@ -9439,6 +9451,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function backPage() {
       if (subPage > 1) {
         $invalidate(1, subPage--, subPage);
+        realtorStack.pop();
+        $invalidate(0, realtorStack);
       }
     }
     let map;
@@ -9515,7 +9529,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             attrs: { address: formatted_address, lng, lat }
           }
         ]);
-        console.log(realtorStack);
         nextPage();
       }
     }
