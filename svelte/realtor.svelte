@@ -1,4 +1,5 @@
 <script>
+// @ts-nocheck
   import { onMount } from 'svelte';
 
   import Menu from './_components/Menu.svelte';
@@ -380,7 +381,6 @@
     preview: null,
     floor: 0
   };
-  let imageFloorPlanUploaded = false;
   function handlerImageFloorPlan(floor) {
     const file = imageFloorPlanInput.files[0];
     if (file) {
@@ -414,8 +414,6 @@
       floor_lists[index].baths = room_total
     }
     add_room_dialog.hideModal();
-    console.log(room_type + 'and' + room_total)
-    console.log(floor_lists[index])
     return
   }
   function handleNextFloor() {
@@ -719,72 +717,90 @@
                 {/if}
               </div>
               {#if floor_edit_mode === false}
-              <div class='floor_items_container'>
-                {#if floor_lists.length}
-                {#each floor_lists as floor, index}
-                  <div class='floor_item'>
-                    <div class='left_item'>
-                      <h4>{floor.type === 'basement' ? floor.type : `${floor.type} #${floor.floor}`}</h4>
-                      <div class='rooms_total'>
-                        <div class='beds'>
-                          <b>{floor.beds}</b>
-                          <p>Beds</p>
+                <div class='floor_items_container'>
+                  {#if floor_lists.length}
+                    {#each floor_lists as floor, index}
+                      <div class='floor_item'>
+                        <div class='left_item'>
+                          <h4>{floor.type === 'basement' ? floor.type : `${floor.type} #${floor.floor}`}</h4>
+                          <div class='rooms_total'>
+                            <div class='beds'>
+                              <b>{floor.beds}</b>
+                              <p>Beds</p>
+                            </div>
+                            <div class='baths'>
+                              <b>{floor.baths}</b>
+                              <p>Baths</p>
+                            </div>
+                          </div>
                         </div>
-                        <div class='baths'>
-                          <b>{floor.baths}</b>
-                          <p>Baths</p>
+                        <div class='right_item'>
+                          <button class='edit_floor' on:click={() => handlerEditFloor(index)}>Edit</button>
+                          <div class='floor_plan'>
+                            {#each imageFloorPlanLists as imgFloorPlan}
+                              {#if imgFloorPlan.floor === floor.floor }
+                                {#if imgFloorPlan.preview}
+                                  <img src={imgFloorPlan.preview} alt=''>
+                                {:else}
+                                  <span>
+                                    <i class='gg-image'></i>
+                                  </span>
+                                {/if}
+                              {/if}
+                            {/each}
+                          </div>
                         </div>
                       </div>
+                    {/each}
+                  {:else}
+                    <div class='no_content'>
+                      <p>No Content</p>
                     </div>
-                    <div class='right_item'>
-                      <button class='edit_floor' on:click={() => handlerEditFloor(index)}>Edit</button>
-                      <div class='floor_plan'>
-                        {#if imageFloorPlanUploaded}
-                          {#each imageFloorPlanLists as imgFloorPlan}
-                            {#if imgFloorPlan.floor === floor.floor }
-                              <!-- <img src={imgFloorPlan.preview} alt=''> -->
-                              <p>{imgFloorPlan.floor}</p>
-                            {/if}
-                          {/each}
-                        {:else}
-                          <span>
-                            <i class='gg-image'></i>
-                          </span>
-                        {/if}
-                      </div>
-                    </div>
-                  </div>
-                {/each}
-                {:else}
-                  <div class='no_content'>
-                    <p>No Content</p>
-                  </div>
-                {/if}
-              </div>
+                  {/if}
+                </div>
               {/if}
               {#if floor_edit_mode === true}
                 <div class='edit_floor_container'>
-                  {#if !imageFloorPlanUploaded}
-                  <label class='floor_plan_upload' for='floor_plan_upload'>
-                    <input
-                      bind:this={imageFloorPlanInput}
-                      on:change={() => handlerImageFloorPlan(floor_index_to_edit)}
-                      type='file'
-                      accept='image/*'
-                      id='floor_plan_upload'
-                    />
-                      <img src='/assets/img/realtor/floor-plan-pen-ruler.jpg.webp' alt=''>
-                      <div>
-                        <i class='gg-add'></i>
-                        <p>Floor Plan Picture</p>
-                      </div>
-                  </label>
-                  {/if}
-                  {#if imageFloorPlanUploaded}
-                    <div class='floor_plan_preview'>
-                      <img src={imageFloorPlanObj.preview} alt=''>
-                    </div>
-                  {/if}
+                  {#each imageFloorPlanLists as imgFlrPlnLst (imgFlrPlnLst.floor)}
+                    {#if floor_lists[floor_index_to_edit].floor === imgFlrPlnLst.floor}
+                      {#if imgFlrPlnLst.preview}
+                        <div class='floor_plan_preview'>
+                          <img src={imageFloorPlanObj.preview} alt=''>
+                        </div>
+                      {:else}
+                        <label class='floor_plan_upload' for='floor_plan_upload'>
+                          <input
+                            bind:this={imageFloorPlanInput}
+                            on:change={() => handlerImageFloorPlan(floorCount)}
+                            type='file'
+                            accept='image/*'
+                            id='floor_plan_upload'
+                          />
+                          <img src='/assets/img/realtor/floor-plan-pen-ruler.jpg.webp' alt=''>
+                          <div>
+                            <i class='gg-add'></i>
+                            <p>Floor Plan Picture</p>
+                          </div>
+                        </label>
+                      {/if}
+                    {:else}
+                      <label class='floor_plan_upload' for='floor_plan_upload'>
+                        <input
+                          bind:this={imageFloorPlanInput}
+                          on:change={() => handlerImageFloorPlan(floorCount)}
+                          type='file'
+                          accept='image/*'
+                          id='floor_plan_upload'
+                        />
+                        <img src='/assets/img/realtor/floor-plan-pen-ruler.jpg.webp' alt=''>
+                        <div>
+                          <i class='gg-add'></i>
+                          <p>Floor Plan Picture</p>
+                        </div>
+                      </label>
+                    {/if}
+                  {/each}
+
                   <div class='room_list_container'>
                     <div class='room_list_header'>
                       <h3>Rooms</h3>
