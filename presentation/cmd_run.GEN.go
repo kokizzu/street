@@ -22,6 +22,15 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
+	case domain.AdminFilesAction:
+		in := domain.AdminFilesIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.AdminFiles(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+
 	case domain.AdminPropHistoriesAction:
 		in := domain.AdminPropHistoriesIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
@@ -64,6 +73,15 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.GuestExternalAuth(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+
+	case domain.GuestFilesAction:
+		in := domain.GuestFilesIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.GuestFiles(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
@@ -190,6 +208,15 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.UserUpdateProfile(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+
+	case domain.UserUploadFileAction:
+		in := domain.UserUploadFileIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.UserUploadFile(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	}

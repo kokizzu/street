@@ -2,7 +2,6 @@ package rqAuth
 
 import (
 	"github.com/kokizzu/gotro/I"
-	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 
@@ -14,7 +13,9 @@ func (u *Users) CheckPassword(pass string) error {
 }
 
 func (s *Sessions) AllActiveSession(userId uint64, now int64) (res []*Sessions) {
-	query := `-- ` + L.CallerInfo().String() + `
+	const comment = `-- Sessions) AllActiveSession`
+
+	query := comment + `
 SELECT ` + s.SqlSelectAllFields() + `
 FROM ` + s.SqlTableName() + `
 WHERE ` + s.SqlUserId() + ` = ` + I.UToS(userId) + `
@@ -26,9 +27,12 @@ WHERE ` + s.SqlUserId() + ` = ` + I.UToS(userId) + `
 }
 
 func (u *Users) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
-	whereAndSql := out.WhereAndSql(in.Filters, UsersFieldTypeMap)
+	const comment = `-- Users) FindByPagination`
 
-	queryCount := `-- Users) FindByPagination
+	validFields := UsersFieldTypeMap
+	whereAndSql := out.WhereAndSql(in.Filters, validFields)
+
+	queryCount := comment + `
 SELECT COUNT(1)
 FROM ` + u.SqlTableName() + whereAndSql + `
 LIMIT 1`
@@ -36,10 +40,10 @@ LIMIT 1`
 		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
 	})
 
-	orderBySql := out.OrderBySql(in.Order, UsersFieldTypeMap)
+	orderBySql := out.OrderBySql(in.Order, validFields)
 	limitOffsetSql := out.LimitOffsetSql()
 
-	queryRows := `-- Users) FindByPagination
+	queryRows := comment + `
 SELECT ` + meta.ToSelect() + `
 FROM ` + u.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	u.Adapter.QuerySql(queryRows, func(row []any) {

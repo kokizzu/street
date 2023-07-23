@@ -1,6 +1,8 @@
 package presentation
 
 import (
+	"github.com/rs/zerolog"
+
 	"street/domain"
 )
 
@@ -8,7 +10,7 @@ type CLI struct {
 	*domain.Domain
 }
 
-func (c *CLI) Run(args []string) {
+func (c *CLI) Run(args []string, log *zerolog.Logger) {
 	if len(args) < 1 {
 		c.Log.Print(`must start with one of: `, allCommands)
 		return

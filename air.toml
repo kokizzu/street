@@ -4,4 +4,4 @@ root = "."
 include_ext = ['go']
 exclude_regex = ['_test.go']
 exclude_dir = ['backup', 'svelte', 'tmp']
-delay = 200 # 200ms before recompile so won't conflict with npm run watch that updates lots of files
+delay = 400 # delay before recompile so won't conflict with npm run watch that updates lots of files

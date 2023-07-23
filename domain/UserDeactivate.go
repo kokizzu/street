@@ -1,8 +1,6 @@
 package domain
 
 import (
-	"log"
-
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/S"
@@ -51,7 +49,7 @@ func (d *Domain) UserDeactivate(in *UserDeactivateIn) (out UserDeactivateOut) {
 	}
 
 	if err := user.CheckPassword(in.Password); err != nil {
-		log.Println(err)
+		d.Log.Err(err).Msg(ErrUserDeactivateWrongPass)
 		out.SetError(400, ErrUserDeactivateWrongPass)
 		return
 	}
@@ -71,7 +69,7 @@ func (d *Domain) UserDeactivate(in *UserDeactivateIn) (out UserDeactivateOut) {
 	sm := wcAuth.NewSessionsMutator(d.AuthOltp)
 	logins, errStr := sm.ForceLogoutAll(user.Id, in.UnixNow())
 	if errStr != `` {
-		log.Println(errStr)
+		d.Log.Error().Msg(errStr)
 		out.SetError(500, ErrUserDeactivateLogoutFailed)
 		return
 	}

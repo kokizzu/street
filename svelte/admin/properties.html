@@ -215,7 +215,7 @@
   color: #EF4444 !important;
 }
 
-/* fakecss:/home/kyz/go/src/street/svelte/admin/_adminSubMenu.esbuild-svelte-fake-css */
+/* fakecss:/home/kyz/go/src/street/svelte/_components/AdminSubMenu.esbuild-svelte-fake-css */
 .admin_submenu.svelte-ylwlsa.svelte-ylwlsa {
   position: relative;
   margin-top: -40px;
@@ -2625,6 +2625,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
         return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.AdminFiles = async function AdminFiles(i, cb) {
+        return await axios.post("/admin/files", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminPropHistories = async function AdminPropHistories(i, cb) {
         return await axios.post("/admin/propHistories", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2639,6 +2642,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       };
       exports.GuestExternalAuth = async function GuestExternalAuth(i, cb) {
         return await axios.post("/guest/externalAuth", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.GuestFiles = async function GuestFiles(i, cb) {
+        return await axios.post("/guest/files", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.GuestForgotPassword = async function GuestForgotPassword(i, cb) {
         return await axios.post("/guest/forgotPassword", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -2682,6 +2688,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       exports.UserUpdateProfile = async function UserUpdateProfile(i, cb) {
         return await axios.post("/user/updateProfile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.UserUploadFile = async function UserUploadFile(i, cb) {
+        return await axios.post("/user/uploadFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
     }
   });
 
@@ -2702,7 +2711,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   });
 
-  // node_modules/svelte/src/runtime/internal/utils.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
   function assign(tar, src) {
@@ -2789,13 +2798,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return -1;
   }
 
-  // node_modules/svelte/src/runtime/internal/globals.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
     // @ts-ignore Node typings have this
     global
   );
 
-  // node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
   var ResizeObserverSingleton = class {
     /**
      * @private
@@ -2841,7 +2850,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
 
-  // node_modules/svelte/src/runtime/internal/dom.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/dom.js
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -2937,7 +2946,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return result;
   }
 
-  // node_modules/svelte/src/runtime/internal/lifecycle.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/lifecycle.js
   var current_component;
   function set_current_component(component) {
     current_component = component;
@@ -2970,7 +2979,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
   }
 
-  // node_modules/svelte/src/runtime/internal/scheduler.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -3048,7 +3057,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     render_callbacks = filtered;
   }
 
-  // node_modules/svelte/src/runtime/internal/transitions.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   var outros;
   function group_outros() {
@@ -3090,12 +3099,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   }
 
-  // node_modules/svelte/src/runtime/internal/each.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/each.js
   function ensure_array_like(array_like_or_iterator) {
     return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
 
-  // node_modules/svelte/src/shared/boolean_attributes.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/shared/boolean_attributes.js
   var _boolean_attributes = (
     /** @type {const} */
     [
@@ -3128,7 +3137,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
-  // node_modules/svelte/src/runtime/internal/Component.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/Component.js
   function bind(component, name, callback) {
     const index = component.$.props[name];
     if (index !== void 0) {
@@ -3454,17 +3463,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   };
 
-  // node_modules/svelte/src/shared/version.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/shared/version.js
   var PUBLIC_VERSION = "4";
 
-  // node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/disclose-version/index.js
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
   // _components/Menu.svelte
   var import_jsApi_GEN = __toESM(require_jsApi_GEN());
 
-  // node_modules/svelte/src/runtime/store/index.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/store/index.js
   var subscriber_queue = [];
   function writable(value, start = noop) {
     let stop;
@@ -4047,7 +4056,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var Menu_default = Menu;
 
-  // admin/_adminSubMenu.svelte
+  // _components/AdminSubMenu.svelte
   function create_fragment2(ctx) {
     let div;
     let nav;
@@ -4059,8 +4068,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t5;
     let a3;
     let t7;
+    let a4;
+    let t9;
     let c0;
-    let t8;
+    let t10;
     let c1;
     return {
       c() {
@@ -4078,8 +4089,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         a3 = element("a");
         a3.textContent = "Prop Histories";
         t7 = space();
+        a4 = element("a");
+        a4.textContent = "Files";
+        t9 = space();
         c0 = comment(`  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>`);
-        t8 = space();
+        t10 = space();
         c1 = comment(`  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>`);
         attr(a0, "href", "/admin");
         attr(a0, "class", "svelte-ylwlsa");
@@ -4113,6 +4127,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*segment2*/
           ctx[0] === "propHistories"
         );
+        attr(a4, "href", "/admin/files");
+        attr(a4, "class", "svelte-ylwlsa");
+        toggle_class(
+          a4,
+          "active",
+          /*segment2*/
+          ctx[0] === "files"
+        );
         attr(nav, "class", "menu svelte-ylwlsa");
         attr(div, "class", "admin_submenu svelte-ylwlsa");
       },
@@ -4127,8 +4149,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(nav, t5);
         append(nav, a3);
         append(nav, t7);
+        append(nav, a4);
+        append(nav, t9);
         append(nav, c0);
-        append(nav, t8);
+        append(nav, t10);
         append(nav, c1);
       },
       p(ctx2, [dirty]) {
@@ -4168,6 +4192,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             ctx2[0] === "propHistories"
           );
         }
+        if (dirty & /*segment2*/
+        1) {
+          toggle_class(
+            a4,
+            "active",
+            /*segment2*/
+            ctx2[0] === "files"
+          );
+        }
       },
       i: noop,
       o: noop,
@@ -4191,7 +4224,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       init(this, options, instance2, create_fragment2, safe_not_equal, {});
     }
   };
-  var adminSubMenu_default = AdminSubMenu;
+  var AdminSubMenu_default = AdminSubMenu;
 
   // _components/ProfileHeader.svelte
   function create_fragment3(ctx) {
@@ -6648,7 +6681,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let current;
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({});
-    adminsubmenu = new adminSubMenu_default({});
+    adminsubmenu = new AdminSubMenu_default({});
     let modalform_props = {
       fields,
       rowType: "Property",

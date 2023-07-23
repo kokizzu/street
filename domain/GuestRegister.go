@@ -15,6 +15,20 @@ import (
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type GuestRegister.go
 //go:generate farify doublequote --file GuestRegister.go
 
+type (
+	GuestRegisterIn struct {
+		RequestCommon
+		Email    string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
+		Password string `json:"password" form:"password" query:"password" long:"password" msg:"password"`
+	}
+	GuestRegisterOut struct {
+		ResponseCommon
+		User rqAuth.Users `json:"user" form:"user" query:"user" long:"user" msg:"user"`
+
+		verifyEmailUrl string
+	}
+)
+
 const (
 	GuestRegisterAction = `guest/register`
 

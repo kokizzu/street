@@ -154,7 +154,7 @@ func TestMain(m *testing.M) {
 	}
 
 	// run migration
-	model.RunMigration(testTt, testCh, testTt, testCh)
+	model.RunMigration(nil, testTt, testCh, testTt, testCh, testTt)
 
 	// run tests
 	m.Run()
@@ -169,6 +169,8 @@ func testDomain() (*Domain, func()) {
 
 		PropOltp: testTt,
 		PropOlap: testCh,
+
+		StorOltp: testTt,
 
 		Mailer:  xMailer.Mailer{SendMailFunc: testMailer.SendMailFunc},
 		IsBgSvc: false,

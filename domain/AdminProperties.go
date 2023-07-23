@@ -220,29 +220,3 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 
 	return
 }
-
-type (
-	AdminPropHistoriesIn struct {
-		RequestCommon
-
-		Action string `json:"action" form:"action" query:"action" long:"action" msg:"action"`
-
-		PropHistory rqProperty.PropertyHistory `json:"propHistory" form:"propHistory" query:"propHistory" long:"propHistory" msg:"propHistory"`
-
-		WithMeta bool `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
-
-		Pager zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
-	}
-
-	AdminPropHistoriesOut struct {
-		ResponseCommon
-
-		Pager zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
-
-		Meta *zCrud.Meta `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
-
-		PropHistory *rqProperty.PropertyHistory `json:"propHistory" form:"propHistory" query:"propHistory" long:"propHistory" msg:"propHistory"`
-
-		PropHistories [][]any `json:"propHistories" form:"propHistories" query:"propHistories" long:"propHistories" msg:"propHistories"`
-	}
-)
