@@ -185,7 +185,7 @@ func (d *Domain) UserUploadFile(in *UserUploadFileIn) (out UserUploadFileOut) {
 		return
 	}
 
-	err = jpeg.Encode(writer, smallImg, nil)
+	err = jpeg.Encode(writer, smallImg, &jpeg.Options{Quality: 90})
 	if err != nil {
 		d.Log.Err(err).Msg(ErrUserUploadUnableEncodeImage)
 		out.SetError(500, ErrUserUploadUnableEncodeImage)
