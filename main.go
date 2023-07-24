@@ -123,12 +123,15 @@ func main() {
 		AuthOlap: cConn,
 		PropOltp: tConn,
 		PropOlap: cConn,
+		StorOltp: tConn,
 		Mailer: xMailer.Mailer{
 			SendMailFunc: mailer.SendMailFunc,
 		},
 		IsBgSvc: false,
 		Oauth:   oauth,
 		Log:     log,
+
+		UploadDir: conf.UploadDir(),
 
 		Superadmins: conf.EnvSuperAdmins(),
 	}
@@ -137,7 +140,7 @@ func main() {
 
 	// check table existence
 	if mode != `migrate` {
-		model.VerifyTables(tConn, cConn, tConn, cConn)
+		model.VerifyTables(tConn, cConn, tConn, cConn, tConn)
 	}
 
 	// start
@@ -147,19 +150,19 @@ func main() {
 			Domain: d,
 			Cfg:    conf.EnvWebConf(),
 		}
-		ws.Start()
+		ws.Start(log)
 	case `cli`:
 		cli := &presentation.CLI{
 			Domain: d,
 		}
-		cli.Run(os.Args[2:])
+		cli.Run(os.Args[2:], log)
 	case `cron`:
 		cron := &presentation.Cron{
 			Domain: d,
 		}
-		cron.Start()
+		cron.Start(log)
 	case `migrate`:
-		model.RunMigration(tConn, cConn, tConn, cConn)
+		model.RunMigration(log, tConn, cConn, tConn, cConn, tConn)
 	case `import`:
 		excelFile, _ := filepath.Abs(`./static/house_data/House_Data_Full_Version_v1.xlsx`)
 		jsonCoordFile, _ := filepath.Abs(`./static/house_data/coordinates.json`)

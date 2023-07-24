@@ -20,6 +20,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// AdminFiles
+	fw.Post("/"+domain.AdminFilesAction, func(c *fiber.Ctx) error {
+		in := domain.AdminFilesIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.AdminFilesAction); err != nil {
+			return err
+		}
+		out := d.AdminFiles(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// AdminPropHistories
 	fw.Post("/"+domain.AdminPropHistoriesAction, func(c *fiber.Ctx) error {
 		in := domain.AdminPropHistoriesIn{}
@@ -67,6 +77,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return err
 		}
 		out := d.GuestExternalAuth(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// GuestFiles
+	fw.Post("/"+domain.GuestFilesAction, func(c *fiber.Ctx) error {
+		in := domain.GuestFilesIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.GuestFilesAction); err != nil {
+			return err
+		}
+		out := d.GuestFiles(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
@@ -207,6 +227,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return err
 		}
 		out := d.UserUpdateProfile(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// UserUploadFile
+	fw.Post("/"+domain.UserUploadFileAction, func(c *fiber.Ctx) error {
+		in := domain.UserUploadFileIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserUploadFileAction); err != nil {
+			return err
+		}
+		out := d.UserUploadFile(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

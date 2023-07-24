@@ -13,7 +13,10 @@ import (
 // TODO: this is slow, use tarantool-go api instead
 
 func (rq *Property) FindPropertiesBySerialNumber(serialNumber string) (res []*Property) {
-	query := `SELECT ` + rq.SqlSelectAllFields() + ` 
+	const comment = `-- Property) FindPropertiesBySerialNumber`
+
+	query := comment + `
+SELECT ` + rq.SqlSelectAllFields() + ` 
 FROM ` + rq.SqlTableName() + `
 WHERE ` + rq.SqlSerialNumber() + ` = ` + S.Q(serialNumber)
 	if conf.IsDebug() {
@@ -28,7 +31,11 @@ WHERE ` + rq.SqlSerialNumber() + ` = ` + S.Q(serialNumber)
 }
 
 func (rq *Property) FindAllProperties() (res []*Property) {
-	query := `SELECT ` + rq.SqlSelectAllFields() + `FROM ` + rq.SqlTableName()
+	const comment = `-- Property) FindAllProperties`
+
+	query := comment + `
+SELECT ` + rq.SqlSelectAllFields() + `
+FROM ` + rq.SqlTableName()
 	if conf.IsDebug() {
 		//L.Print(query)
 	}
@@ -41,7 +48,10 @@ func (rq *Property) FindAllProperties() (res []*Property) {
 }
 
 func (rq *PropertyHistory) FindAllPropertyHistories() (res []*PropertyHistory) {
-	query := `SELECT ` + rq.SqlSelectAllFields() + `FROM ` + rq.SqlTableName()
+	const comment = `-- PropertyHistory) FindAllPropertyHistories`
+
+	query := comment + `
+SELECT ` + rq.SqlSelectAllFields() + `FROM ` + rq.SqlTableName()
 	if conf.IsDebug() {
 		//L.Print(query)
 	}
@@ -54,7 +64,12 @@ func (rq *PropertyHistory) FindAllPropertyHistories() (res []*PropertyHistory) {
 }
 
 func (rq *PropertyHistory) FindAllPropertyHistoriesWithBlankSerial() (res []*PropertyHistory) {
-	query := `SELECT ` + rq.SqlSelectAllFields() + `FROM ` + rq.SqlTableName() + ` WHERE ` + rq.SqlSerialNumber() + ` = ''`
+	const comment = `-- PropertyHistory) FindAllPropertyHistoriesWithBlankSerial`
+
+	query := comment + `
+SELECT ` + rq.SqlSelectAllFields() + `
+FROM ` + rq.SqlTableName() + ` 
+WHERE ` + rq.SqlSerialNumber() + ` = ''`
 	if conf.IsDebug() {
 		//L.Print(query)
 	}
@@ -66,22 +81,25 @@ func (rq *PropertyHistory) FindAllPropertyHistoriesWithBlankSerial() (res []*Pro
 	return res
 }
 
-func (p *Property) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud.PagerOut) (res [][]any) {
-	whereAndSql := z3.WhereAndSql(z2.Filters, PropertyFieldTypeMap)
+func (p *Property) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
+	const comment = `-- Property) FindByPagination`
 
-	queryCount := `-- Property) FindByPagination
+	validFields := PropertyFieldTypeMap
+	whereAndSql := out.WhereAndSql(in.Filters, validFields)
+
+	queryCount := comment + `
 SELECT COUNT(1)
 FROM ` + p.SqlTableName() + whereAndSql + `
 LIMIT 1`
 	p.Adapter.QuerySql(queryCount, func(row []any) {
-		z3.CalculatePages(z2.Page, z2.PerPage, int(X.ToI(row[0])))
+		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
 	})
 
-	orderBySql := z3.OrderBySql(z2.Order, PropertyFieldTypeMap)
-	limitOffsetSql := z3.LimitOffsetSql()
+	orderBySql := out.OrderBySql(in.Order, validFields)
+	limitOffsetSql := out.LimitOffsetSql()
 
-	queryRows := `
-SELECT ` + z.ToSelect() + `
+	queryRows := comment + `
+SELECT ` + meta.ToSelect() + `
 FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	p.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
@@ -92,9 +110,10 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 }
 
 func (p *Property) FindByLatLong(lat float64, long float64, limit int, offset int, callback func(row []any) bool) bool {
+	const prefix = `Property) FindByLatLong`
 	p.Coord = []any{lat, long}
 	res, err := p.Adapter.Select(p.SpaceName(), p.SpatialIndexCoord(), uint32(offset), uint32(limit), tarantool.IterNeighbor, p.Coord)
-	if L.IsError(err, `Property) FindByLatLong failed: `+p.SpaceName()) {
+	if L.IsError(err, prefix+` failed: `+p.SpaceName()) {
 		return false
 	}
 	for _, row := range res.Tuples() {
@@ -104,22 +123,25 @@ func (p *Property) FindByLatLong(lat float64, long float64, limit int, offset in
 	}
 	return true
 }
-func (p *PropertyHistory) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud.PagerOut) (res [][]any) {
-	whereAndSql := z3.WhereAndSql(z2.Filters, PropertyFieldTypeMap)
+func (p *PropertyHistory) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
+	const comment = `-- PropertyHistory) FindByPagination`
 
-	queryCount := `-- PropertyHistory) FindByPagination
+	validFields := PropertyHistoryFieldTypeMap
+	whereAndSql := out.WhereAndSql(in.Filters, validFields)
+
+	queryCount := comment + `
 SELECT COUNT(1)
 FROM ` + p.SqlTableName() + whereAndSql + `
 LIMIT 1`
 	p.Adapter.QuerySql(queryCount, func(row []any) {
-		z3.CalculatePages(z2.Page, z2.PerPage, int(X.ToI(row[0])))
+		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
 	})
 
-	orderBySql := z3.OrderBySql(z2.Order, PropertyHistoryFieldTypeMap)
-	limitOffsetSql := z3.LimitOffsetSql()
+	orderBySql := out.OrderBySql(in.Order, validFields)
+	limitOffsetSql := out.LimitOffsetSql()
 
-	queryRows := `-- PropertyHistory) FindByPagination
-SELECT ` + z.ToSelect() + `
+	queryRows := comment + `
+SELECT ` + meta.ToSelect() + `
 FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	p.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
@@ -130,8 +152,10 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 }
 
 func (rq *PropertyHistory) FindByPropertyKey(key string) (res []*PropertyHistory) {
-	query := `SELECT
-` + rq.SqlSelectAllFields() + `
+	const comment = `-- PropertyHistory) FindByPropertyKey`
+
+	query := comment + `
+SELECT` + rq.SqlSelectAllFields() + `
 FROM ` + rq.SqlTableName() + `
 WHERE ` + rq.SqlPropertyKey() + ` = ` + S.Z(key)
 	if conf.IsDebug() {
@@ -146,7 +170,10 @@ WHERE ` + rq.SqlPropertyKey() + ` = ` + S.Z(key)
 }
 
 func (rq *PropertyHistory) FindBySerialNumber(key string) (res []*PropertyHistory) {
-	query := `SELECT
+	const comment = `-- PropertyHistory) FindBySerialNumber`
+
+	query := comment + `
+SELECT
 ` + rq.SqlSelectAllFields() + `
 FROM ` + rq.SqlTableName() + `
 WHERE ` + rq.SqlSerialNumber() + `=` + S.Z(key) + ``

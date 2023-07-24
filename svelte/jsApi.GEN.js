@@ -63,6 +63,127 @@ exports.AdminDashboard = async function AdminDashboard( i, cb ) {
 }
 
 /**
+ * @typedef {Object} AdminFilesIn
+ * @property {String} action
+ * @property {number} file.id
+ * @property {number} file.createdAt
+ * @property {number} file.createdBy
+ * @property {String} file.mime
+ * @property {String} file.purpose
+ * @property {number} file.refId
+ * @property {number} file.accessCount
+ * @property {number} file.lastAccessAt
+ * @property {String} file.originalPath
+ * @property {number} file.originalSize
+ * @property {String} file.resizedPath
+ * @property {number} file.resizedSize
+ * @property {Object} withMeta
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ */
+const AdminFilesIn = {
+  action: '', // string
+  file: { // rqStorage.Files
+    id: 0, // uint64
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    mime: '', // string
+    purpose: '', // string
+    refId: 0, // uint64
+    accessCount: 0, // uint64
+    lastAccessAt: 0, // int64
+    originalPath: '', // string
+    originalSize: 0, // uint64
+    resizedPath: '', // string
+    resizedSize: 0, // uint64
+  }, // rqStorage.Files
+  withMeta: false, // bool
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
+}
+/**
+ * @typedef {Object} AdminFilesOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
+ * @property {number} file.id
+ * @property {number} file.createdAt
+ * @property {number} file.createdBy
+ * @property {String} file.mime
+ * @property {String} file.purpose
+ * @property {number} file.refId
+ * @property {number} file.accessCount
+ * @property {number} file.lastAccessAt
+ * @property {String} file.originalPath
+ * @property {number} file.originalSize
+ * @property {String} file.resizedPath
+ * @property {number} file.resizedSize
+ * @property {Object} files
+ */
+const AdminFilesOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
+  file: { // rqStorage.Files
+    id: 0, // uint64
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    mime: '', // string
+    purpose: '', // string
+    refId: 0, // uint64
+    accessCount: 0, // uint64
+    lastAccessAt: 0, // int64
+    originalPath: '', // string
+    originalSize: 0, // uint64
+    resizedPath: '', // string
+    resizedSize: 0, // uint64
+  }, // rqStorage.Files
+  files: { // [][]any
+  }, // [][]any
+}
+/**
+ * @callback AdminFilesCallback
+ * @param {AdminFilesOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {AdminFilesIn} i
+ * @param {AdminFilesCallback} cb
+ * @returns {Promise}
+ */
+exports.AdminFiles = async function AdminFiles( i, cb ) {
+  return await axios.post( '/admin/files', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} AdminPropHistoriesIn
  * @property {String} action
  * @property {number} propHistory.id
@@ -84,6 +205,7 @@ exports.AdminDashboard = async function AdminDashboard( i, cb ) {
  * @property {number} propHistory.updatedAt
  * @property {number} propHistory.updatedBy
  * @property {number} propHistory.deletedAt
+ * @property {String} propHistory.serialNumber
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -112,6 +234,7 @@ const AdminPropHistoriesIn = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    serialNumber: '', // string
   }, // rqProperty.PropertyHistory
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -152,6 +275,7 @@ const AdminPropHistoriesIn = {
  * @property {number} propHistory.updatedAt
  * @property {number} propHistory.updatedBy
  * @property {number} propHistory.deletedAt
+ * @property {String} propHistory.serialNumber
  * @property {Object} propHistories
  */
 const AdminPropHistoriesOut = {
@@ -191,6 +315,7 @@ const AdminPropHistoriesOut = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    serialNumber: '', // string
   }, // rqProperty.PropertyHistory
   propHistories: { // [][]any
   }, // [][]any
@@ -233,6 +358,9 @@ exports.AdminPropHistories = async function AdminPropHistories( i, cb ) {
  * @property {number} property.updatedBy
  * @property {number} property.deletedAt
  * @property {String} property.formattedAddress
+ * @property {String} property.lastPrice
+ * @property {Object} property.priceHistoriesSell
+ * @property {Object} property.priceHistoriesRent
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -262,6 +390,11 @@ const AdminPropertiesIn = {
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
     formattedAddress: '', // string
+    lastPrice: '', // string
+    priceHistoriesSell: { // []any
+    }, // []any
+    priceHistoriesRent: { // []any
+    }, // []any
   }, // rqProperty.Property
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -302,6 +435,9 @@ const AdminPropertiesIn = {
  * @property {number} property.updatedBy
  * @property {number} property.deletedAt
  * @property {String} property.formattedAddress
+ * @property {String} property.lastPrice
+ * @property {Object} property.priceHistoriesSell
+ * @property {Object} property.priceHistoriesRent
  * @property {Object} properties
  */
 const AdminPropertiesOut = {
@@ -342,6 +478,11 @@ const AdminPropertiesOut = {
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
     formattedAddress: '', // string
+    lastPrice: '', // string
+    priceHistoriesSell: { // []any
+    }, // []any
+    priceHistoriesRent: { // []any
+    }, // []any
   }, // rqProperty.Property
   properties: { // [][]any
   }, // [][]any
@@ -564,6 +705,46 @@ const GuestExternalAuthOut = {
  */
 exports.GuestExternalAuth = async function GuestExternalAuth( i, cb ) {
   return await axios.post( '/guest/externalAuth', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} GuestFilesIn
+ * @property {String} base62Id
+ * @property {String} modifier
+ * @property {String} ext
+ */
+const GuestFilesIn = {
+  base62Id: '', // string
+  modifier: '', // string
+  ext: '', // string
+}
+/**
+ * @typedef {Object} GuestFilesOut
+ * @property {Object} request
+ * @property {Object} raw
+ * @property {String} contentType
+ */
+const GuestFilesOut = {
+  request: { // RequestCommon
+  }, // RequestCommon
+  raw: { // []byte
+  }, // []byte
+  contentType: '', // string
+}
+/**
+ * @callback GuestFilesCallback
+ * @param {GuestFilesOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {GuestFilesIn} i
+ * @param {GuestFilesCallback} cb
+ * @returns {Promise}
+ */
+exports.GuestFiles = async function GuestFiles( i, cb ) {
+  return await axios.post( '/guest/files', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -1195,6 +1376,40 @@ const UserUpdateProfileOut = {
  */
 exports.UserUpdateProfile = async function UserUpdateProfile( i, cb ) {
   return await axios.post( '/user/updateProfile', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserUploadFileIn
+ * @property {String} purpose
+ */
+const UserUploadFileIn = {
+  purpose: '', // string
+}
+/**
+ * @typedef {Object} UserUploadFileOut
+ * @property {String} resizedUrl
+ * @property {String} originalUrl
+ * @property {String} urlPattern
+ */
+const UserUploadFileOut = {
+  resizedUrl: '', // string
+  originalUrl: '', // string
+  urlPattern: '', // string
+}
+/**
+ * @callback UserUploadFileCallback
+ * @param {UserUploadFileOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserUploadFileIn} i
+ * @param {UserUploadFileCallback} cb
+ * @returns {Promise}
+ */
+exports.UserUploadFile = async function UserUploadFile( i, cb ) {
+  return await axios.post( '/user/uploadFile', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

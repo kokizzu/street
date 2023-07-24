@@ -14,6 +14,6 @@ type Cron struct {
 	Mailer       xMailer.Mailer
 }
 
-func (c *Cron) Start() {
+func (c *Cron) Start(*zerolog.Logger) {
 
 }

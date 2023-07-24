@@ -12,6 +12,7 @@ import (
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/Z"
+	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
 	"street/conf"
@@ -63,14 +64,19 @@ func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, u
 			reqCommon.RawBody = trimBody
 		}
 	}
-	if conf.IsDebug() && reqCommon.Debug {
-		log.Print(reqCommon.RawBody)
+	if conf.IsDebug() && reqCommon.Debug && reqCommon.RawBody != `` {
+		// prevent too large dump because multipart/form-data is raw binary
+		contentType := ctx.Get(`content-type`)
+		if !S.StartsWith(contentType, `multipart/form-data`) {
+			//log.Print(ctx.GetReqHeaders())
+			log.Print(reqCommon.RawBody)
+		}
 	}
 	reqCommon.FromFiberCtx(ctx, ctx.UserContext())
 	return nil
 }
 
-func (w *WebServer) Start() {
+func (w *WebServer) Start(log *zerolog.Logger) {
 	fw := fiber.New(fiber.Config{
 		ProxyHeader: `X-Real-IP`,
 	})
@@ -100,7 +106,7 @@ func (w *WebServer) Start() {
 	}
 
 	// assign static routes (GET)
-	WebStatic(fw, w.Domain)
+	WebStatic(fw, w.Domain, log)
 
 	// API routes (POST)
 	ApiRoutes(fw, w.Domain)

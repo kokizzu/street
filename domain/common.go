@@ -4,9 +4,9 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"mime/multipart"
 	"net/http"
 	"os"
-	"path/filepath"
 	"time"
 
 	"github.com/goccy/go-json"
@@ -17,7 +17,6 @@ import (
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
-	"github.com/kokizzu/id64"
 	"github.com/kokizzu/lexid"
 	"github.com/kpango/fastime"
 	"github.com/rs/zerolog/log"
@@ -33,21 +32,29 @@ import (
 // go:generate msgp -tests=false -file common.go -o  common__MSG.GEN.go
 //go:generate farify doublequote --file common.go
 
+type RawFile struct {
+	FileName string `json:"fileName" form:"fileName" query:"fileName" long:"fileName" msg:"fileName"`
+	Mime     string `json:"mime" form:"mime" query:"mime" long:"mime" msg:"mime"`
+	Size     int64  `json:"size" form:"size" query:"size" long:"size" msg:"size"`
+	saveFunc func(string) error
+	openFunc func() (multipart.File, error)
+}
+
 type RequestCommon struct {
-	TracerContext context.Context   `json:"-" form:"tracerContext" query:"tracerContext" long:"tracerContext" msg:"-"`
-	RequestId     string            `json:"requestId,string" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
-	SessionToken  string            `json:"sessionToken" form:"sessionToken" query:"sessionToken" long:"sessionToken" msg:"sessionToken"`
-	UserAgent     string            `json:"userAgent" form:"userAgent" query:"userAgent" long:"userAgent" msg:"userAgent"`
-	IpAddress     string            `json:"ipAddress" form:"ipAddress" query:"ipAddress" long:"ipAddress" msg:"ipAddress"`
-	OutputFormat  string            `json:"outputFormat,omitempty" form:"outputFormat" query:"outputFormat" long:"outputFormat" msg:"outputFormat"` // defaults to json
-	Uploads       map[string]string `json:"uploads,omitempty" form:"uploads" query:"uploads" long:"uploads" msg:"uploads"`                          // form key and temporary file path
-	Debug         bool              `json:"debug,omitempty" form:"debug" query:"debug" long:"debug" msg:"debug"`
-	Header        string            `json:"header,omitempty" form:"header" query:"header" long:"header" msg:"header"`
-	RawBody       string            `json:"rawBody,omitempty" form:"rawBody" query:"rawBody" long:"rawBody" msg:"rawBody"`
-	Host          string            `json:"host" form:"host" query:"host" long:"host" msg:"host"`
-	Action        string            `json:"action" form:"action" query:"action" long:"action" msg:"action"`
-	Lat           float64           `json:"lat" form:"lat" query:"lat" long:"lat" msg:"lat"`
-	Long          float64           `json:"long" form:"long" query:"long" long:"long" msg:"long"`
+	TracerContext context.Context `json:"-" form:"tracerContext" query:"tracerContext" long:"tracerContext" msg:"-"`
+	RequestId     string          `json:"requestId,string" form:"requestId" query:"requestId" long:"requestId" msg:"requestId"`
+	SessionToken  string          `json:"sessionToken" form:"sessionToken" query:"sessionToken" long:"sessionToken" msg:"sessionToken"`
+	UserAgent     string          `json:"userAgent" form:"userAgent" query:"userAgent" long:"userAgent" msg:"userAgent"`
+	IpAddress     string          `json:"ipAddress" form:"ipAddress" query:"ipAddress" long:"ipAddress" msg:"ipAddress"`
+	OutputFormat  string          `json:"outputFormat,omitempty" form:"outputFormat" query:"outputFormat" long:"outputFormat" msg:"outputFormat"` // defaults to json
+	RawFile       *RawFile        `json:"rawFile" form:"rawFile" query:"rawFile" long:"rawFile" msg:"rawFile"`
+	Debug         bool            `json:"debug,omitempty" form:"debug" query:"debug" long:"debug" msg:"debug"`
+	Header        string          `json:"header,omitempty" form:"header" query:"header" long:"header" msg:"header"`
+	RawBody       string          `json:"rawBody,omitempty" form:"rawBody" query:"rawBody" long:"rawBody" msg:"rawBody"`
+	Host          string          `json:"host" form:"host" query:"host" long:"host" msg:"host"`
+	Action        string          `json:"action" form:"action" query:"action" long:"action" msg:"action"`
+	Lat           float64         `json:"lat" form:"lat" query:"lat" long:"lat" msg:"lat"`
+	Long          float64         `json:"long" form:"long" query:"long" long:"long" msg:"long"`
 
 	// in seconds
 	now   int64     `json:"-" form:"now" query:"now" long:"now" msg:"-"`
@@ -55,12 +62,11 @@ type RequestCommon struct {
 }
 
 func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon, in any) error {
-	defer l.deleteTempFiles()
 	if rc.StatusCode != http.StatusOK {
 		ctx.Status(rc.StatusCode)
 	}
 	if rc.Redirect != `` {
-		ctx.Redirect(rc.Redirect, rc.StatusCode)
+		_ = ctx.Redirect(rc.Redirect, rc.StatusCode)
 	}
 	rc.DecorateSession(ctx)
 	switch l.OutputFormat {
@@ -117,20 +123,25 @@ func (l *RequestCommon) FromFiberCtx(ctx *fiber.Ctx, tracerCtx context.Context) 
 	// "Accept":"*/*", "Connection":"close", "Content-Length":"0", "Host":"admin.hapstr.xyz", "User-Agent":"curl/7.81.0", "X-Forwarded-For":"182.253.163.10", "X-Forwarded-Proto":"https", "X-Real-Ip":"182.253.163.10"
 	l.now = fastime.UnixNow()
 	l.start = fastime.Now()
-	file, err := ctx.FormFile(`fileBinary`)
+	file, err := ctx.FormFile(`rawFile`)
 	if err == nil {
-		l.Uploads = map[string]string{}
-		target := `/tmp/` + id64.SID() + filepath.Ext(file.Filename)
-		err = ctx.SaveFile(file, target)
-		if !L.IsError(err, `failed saving upload to: `+target) {
-			l.Uploads[file.Filename] = target
+		l.RawFile = &RawFile{
+			FileName: file.Filename,
+			Size:     file.Size,
+			saveFunc: func(to string) error {
+				return ctx.SaveFile(file, to)
+			},
+			openFunc: file.Open,
+		}
+		for _, v := range file.Header {
+			l.RawFile.Mime = v[0]
+			break
 		}
 	}
 	l.TracerContext = tracerCtx
 }
 
 func (l *RequestCommon) ToCli(file *os.File, out any, rc ResponseCommon) {
-	defer l.deleteTempFiles()
 	var byt []byte
 	var err error
 	switch l.OutputFormat {
@@ -183,13 +194,6 @@ func (l *RequestCommon) FromCli(action string, payload []byte, in any) bool {
 	l.start = fastime.Now()
 	l.Action = action
 	return true
-}
-
-func (l *RequestCommon) deleteTempFiles() {
-	for _, tmpPath := range l.Uploads {
-		// TODO: delete temporary uploads
-		_ = tmpPath
-	}
 }
 
 func (l *RequestCommon) FirstSegment() string {

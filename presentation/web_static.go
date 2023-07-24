@@ -3,13 +3,14 @@ package presentation
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/kokizzu/gotro/M"
+	"github.com/rs/zerolog"
 
 	"street/domain"
 	"street/model/mAuth/rqAuth"
 	"street/model/zCrud"
 )
 
-func WebStatic(fw *fiber.App, d *domain.Domain) {
+func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 
 	fw.Get(`/`, func(c *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(c, d)
@@ -196,6 +197,36 @@ func WebStatic(fw *fiber.App, d *domain.Domain) {
 			`user`:     user,
 			`segments`: segments,
 		})
+	})
+	fw.Get(`/`+domain.AdminFilesAction, func(ctx *fiber.Ctx) error {
+		in, _, segments := userInfoFromContext(ctx, d)
+		if notAdmin(ctx, d, in.RequestCommon) {
+			return nil
+		}
+		return views.RenderAdminFiles(ctx, M.SX{
+			`title`:    `Files`,
+			`segments`: segments,
+		})
+	})
+	fw.All(`/guest/files/:base62id-:modifier.:ext`, func(ctx *fiber.Ctx) error {
+		method := ctx.Method()
+		if method != fiber.MethodGet && method != fiber.MethodHead {
+			return nil
+		}
+		var in domain.GuestFilesIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.GuestFilesAction)
+		if err != nil {
+			return err
+		}
+
+		in.Base62id = ctx.Params(`base62id`)
+		in.Modifier = ctx.Params(`modifier`)
+		in.Ext = ctx.Params(`ext`)
+
+		out := d.GuestFiles(&in)
+		ctx.Set("content-type", out.ContentType)
+		_, err = ctx.Write(out.Raw)
+		return err
 	})
 }
 

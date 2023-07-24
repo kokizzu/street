@@ -1,6 +1,6 @@
 <script>
   import Menu from '../_components/Menu.svelte';
-  import AdminSubMenu from './_adminSubMenu.svelte';
+  import AdminSubMenu from '../_components/AdminSubMenu.svelte';
   import ProfileHeader from '../_components/ProfileHeader.svelte';
   import Footer from '../_components/Footer.svelte';
   import TableView from '../_components/TableView.svelte';

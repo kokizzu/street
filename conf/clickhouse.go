@@ -51,7 +51,7 @@ func (c ClickhouseConf) Connect() (a *Ch.Adapter, err error) {
 		Compression: &clickhouse.Compression{
 			Method: clickhouse.CompressionLZ4,
 		},
-		Debug: IsDebug(),
+		//Debug: IsDebug(),
 	}
 	if c.UseSsl {
 		conf.TLS = &tls.Config{

@@ -1,7 +1,6 @@
 package domain
 
 import (
-	"log"
 	"net"
 	"time"
 
@@ -24,6 +23,8 @@ type Domain struct {
 	PropOltp *Tt.Adapter
 	PropOlap *Ch.Adapter
 
+	StorOltp *Tt.Adapter
+
 	Mailer xMailer.Mailer
 
 	IsBgSvc bool // long-running program
@@ -40,6 +41,8 @@ type Domain struct {
 
 	// list of superadmin emails
 	Superadmins M.SB
+
+	UploadDir string
 }
 
 // will run in background if background service
@@ -57,7 +60,7 @@ func (d *Domain) InitTimedBuffer() {
 
 func (d *Domain) WaitTimedBufferFinalFlush() {
 	<-d.authLogs.WaitFinalFlush
-	log.Println(`timed buffer flushed`)
+	d.Log.Debug().Msg(`timed buffer flushed`)
 }
 
 func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {

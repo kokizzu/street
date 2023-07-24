@@ -332,7 +332,9 @@
     type: '',
     floor: 0,
     beds: 0,
-    baths: 0
+    baths: 0,
+    rooms: [/*{ name, sizeM2, unit }*/],
+    planImageUrl: ''
   }
   let floorCount = 1;
   let basement_added = false;
@@ -352,7 +354,9 @@
         type: floor_type,
         floor: 0,
         beds: 0,
-        baths: 0
+        baths: 0,
+        rooms: [],
+        planImageUrl: ''
       }
       floor_lists = [...floor_lists, floor_attribute]
       basement_added = true
@@ -361,7 +365,9 @@
         type: floor_type,
         floor: floorCount,
         beds: 0,
-        baths: 0
+        baths: 0,
+        rooms: [],
+        planImageUrl: ''
       }
       floor_lists = [...floor_lists, floor_attribute]
       floorCount++
@@ -374,31 +380,11 @@
     floor_index_to_edit = index;
   }
   // _______Upload Floor Plan photo
-  let imageFloorPlanInput;
-  let imageFloorPlanLists = [];
-  let imageFloorPlanObj = {
-    image: null,
-    preview: null,
-    floor: 0
-  };
-  function handlerImageFloorPlan(floor) {
-    const file = imageFloorPlanInput.files[0];
-    if (file) {
-      imageFloorPlanUploaded = true;
-      const reader = new FileReader();
-      reader.addEventListener('load', function() {
-        imageFloorPlanObj = {
-          image: file,
-          preview: reader.result,
-          floor: floor
-        }
-        imageFloorPlanLists = [...imageFloorPlanLists, imageFloorPlanObj]
-      });
-      reader.readAsDataURL(file);
-      return;
-    }
-    imageFloorPlanUploaded = false;
+  let imageFloorPlanInput
+  function handlerImageFloorPlan(e) {
+    
   }
+  
   // ________Rooms Edit
   let add_room_dialog = AddRoomDialog;
   let room_type = '';
@@ -761,46 +747,26 @@
               {/if}
               {#if floor_edit_mode === true}
                 <div class='edit_floor_container'>
-                  {#each imageFloorPlanLists as imgFlrPlnLst (imgFlrPlnLst.floor)}
-                    {#if floor_lists[floor_index_to_edit].floor === imgFlrPlnLst.floor}
-                      {#if imgFlrPlnLst.preview}
-                        <div class='floor_plan_preview'>
-                          <img src={imageFloorPlanObj.preview} alt=''>
-                        </div>
-                      {:else}
-                        <label class='floor_plan_upload' for='floor_plan_upload'>
-                          <input
-                            bind:this={imageFloorPlanInput}
-                            on:change={() => handlerImageFloorPlan(floorCount)}
-                            type='file'
-                            accept='image/*'
-                            id='floor_plan_upload'
-                          />
-                          <img src='/assets/img/realtor/floor-plan-pen-ruler.jpg.webp' alt=''>
-                          <div>
-                            <i class='gg-add'></i>
-                            <p>Floor Plan Picture</p>
-                          </div>
-                        </label>
-                      {/if}
-                    {:else}
-                      <label class='floor_plan_upload' for='floor_plan_upload'>
-                        <input
-                          bind:this={imageFloorPlanInput}
-                          on:change={() => handlerImageFloorPlan(floorCount)}
-                          type='file'
-                          accept='image/*'
-                          id='floor_plan_upload'
-                        />
-                        <img src='/assets/img/realtor/floor-plan-pen-ruler.jpg.webp' alt=''>
-                        <div>
-                          <i class='gg-add'></i>
-                          <p>Floor Plan Picture</p>
-                        </div>
-                      </label>
-                    {/if}
-                  {/each}
-
+                  {#if floor_lists[floor_index_to_edit].planImageUrl === ''}
+                    <label class='floor_plan_upload' for='floor_plan_upload'>
+                      <input
+                        bind:this={imageFloorPlanInput}
+                        on:change={() => handlerImageFloorPlan()}
+                        type='file'
+                        accept='image/*'
+                        id='floor_plan_upload'
+                      />
+                      <img src='/assets/img/realtor/floor-plan-pen-ruler.jpg.webp' alt=''>
+                      <div>
+                        <i class='gg-add'></i>
+                        <p>Floor Plan Picture</p>
+                      </div>
+                    </label>
+                  {:else}
+                    <div class='floor_plan_preview'>
+                      <img src={floor_lists[floor_index_to_edit].planImageUrl} alt=''>
+                    </div>
+                  {/if}
                   <div class='room_list_container'>
                     <div class='room_list_header'>
                       <h3>Rooms</h3>

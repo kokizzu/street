@@ -8,9 +8,11 @@ import (
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
+	"github.com/rs/zerolog"
 
 	"street/model/mAuth/wcAuth"
 	"street/model/mProperty"
+	"street/model/mStorage"
 
 	"street/model/mAuth"
 )
@@ -20,35 +22,40 @@ type Migrator struct {
 	AuthOlap *Ch.Adapter
 	PropOltp *Tt.Adapter
 	PropOlap *Ch.Adapter
+	StorOltp *Tt.Adapter
 }
 
-func RunMigration(
-	authOltp *Tt.Adapter,
-	authOlap *Ch.Adapter,
-	propOltp *Tt.Adapter,
-	propOlap *Ch.Adapter,
-) {
+func RunMigration(logger *zerolog.Logger, authOltp *Tt.Adapter, authOlap *Ch.Adapter, propOltp *Tt.Adapter, propOlap *Ch.Adapter, storOltp *Tt.Adapter) {
 	L.Print(`run migration..`)
 	m := Migrator{
 		AuthOltp: authOltp,
 		AuthOlap: authOlap,
 		PropOltp: propOltp,
 		PropOlap: propOlap,
+		StorOltp: storOltp,
 	}
 	mAuth.TarantoolTables[mAuth.TableUsers].PreUnique1MigrationHook = wcAuth.UniqueUsernameMigration
 	m.AuthOltp.MigrateTables(mAuth.TarantoolTables)
 	m.AuthOlap.MigrateTables(mAuth.ClickhouseTables)
 	m.PropOltp.MigrateTables(mProperty.TarantoolTables)
 	m.PropOlap.MigrateTables(mProperty.ClickhouseTables)
+	m.StorOltp.MigrateTables(mStorage.TarantoolTables)
 }
 
 // VerifyTables function to check whether tables are there or not
 // go run main.go migrate
-func VerifyTables(authOltp *Tt.Adapter, authOlap *Ch.Adapter, propOltp *Tt.Adapter, propOlap *Ch.Adapter) {
+func VerifyTables(
+	authOltp *Tt.Adapter,
+	authOlap *Ch.Adapter,
+	propOltp *Tt.Adapter,
+	propOlap *Ch.Adapter,
+	storOltp *Tt.Adapter,
+) {
 	checkClickhouseTables(authOlap, mAuth.ClickhouseTables)
 	checkClickhouseTables(propOlap, mProperty.ClickhouseTables)
 	checkTarantoolTables(authOltp, mAuth.TarantoolTables)
 	checkTarantoolTables(propOltp, mProperty.TarantoolTables)
+	checkTarantoolTables(storOltp, mStorage.TarantoolTables)
 }
 
 func checkClickhouseTables(cConn *Ch.Adapter, tables map[Ch.TableName]*Ch.TableProp) {

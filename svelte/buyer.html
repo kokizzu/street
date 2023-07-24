@@ -2361,6 +2361,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
         return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.AdminFiles = async function AdminFiles(i, cb) {
+        return await axios.post("/admin/files", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminPropHistories = async function AdminPropHistories(i, cb) {
         return await axios.post("/admin/propHistories", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2375,6 +2378,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       };
       exports.GuestExternalAuth = async function GuestExternalAuth(i, cb) {
         return await axios.post("/guest/externalAuth", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.GuestFiles = async function GuestFiles(i, cb) {
+        return await axios.post("/guest/files", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.GuestForgotPassword = async function GuestForgotPassword(i, cb) {
         return await axios.post("/guest/forgotPassword", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -2417,6 +2423,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       };
       exports.UserUpdateProfile = async function UserUpdateProfile(i, cb) {
         return await axios.post("/user/updateProfile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserUploadFile = async function UserUploadFile(i, cb) {
+        return await axios.post("/user/uploadFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
     }
   });

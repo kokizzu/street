@@ -3495,6 +3495,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
         return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.AdminFiles = async function AdminFiles(i, cb) {
+        return await axios.post("/admin/files", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminPropHistories = async function AdminPropHistories(i, cb) {
         return await axios.post("/admin/propHistories", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -3509,6 +3512,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       };
       exports.GuestExternalAuth = async function GuestExternalAuth(i, cb) {
         return await axios.post("/guest/externalAuth", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.GuestFiles = async function GuestFiles(i, cb) {
+        return await axios.post("/guest/files", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.GuestForgotPassword = async function GuestForgotPassword(i, cb) {
         return await axios.post("/guest/forgotPassword", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -3551,6 +3557,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       };
       exports.UserUpdateProfile = async function UserUpdateProfile(i, cb) {
         return await axios.post("/user/updateProfile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserUploadFile = async function UserUploadFile(i, cb) {
+        return await axios.post("/user/uploadFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
     }
   });
@@ -3942,79 +3951,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // node_modules/svelte/src/runtime/internal/each.js
   function ensure_array_like(array_like_or_iterator) {
     return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
-  }
-  function destroy_block(block, lookup) {
-    block.d(1);
-    lookup.delete(block.key);
-  }
-  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block4, next, get_context) {
-    let o = old_blocks.length;
-    let n = list.length;
-    let i = o;
-    const old_indexes = {};
-    while (i--)
-      old_indexes[old_blocks[i].key] = i;
-    const new_blocks = [];
-    const new_lookup = /* @__PURE__ */ new Map();
-    const deltas = /* @__PURE__ */ new Map();
-    const updates = [];
-    i = n;
-    while (i--) {
-      const child_ctx = get_context(ctx, list, i);
-      const key = get_key(child_ctx);
-      let block = lookup.get(key);
-      if (!block) {
-        block = create_each_block4(key, child_ctx);
-        block.c();
-      } else if (dynamic) {
-        updates.push(() => block.p(child_ctx, dirty));
-      }
-      new_lookup.set(key, new_blocks[i] = block);
-      if (key in old_indexes)
-        deltas.set(key, Math.abs(i - old_indexes[key]));
-    }
-    const will_move = /* @__PURE__ */ new Set();
-    const did_move = /* @__PURE__ */ new Set();
-    function insert2(block) {
-      transition_in(block, 1);
-      block.m(node, next);
-      lookup.set(block.key, block);
-      next = block.first;
-      n--;
-    }
-    while (o && n) {
-      const new_block = new_blocks[n - 1];
-      const old_block = old_blocks[o - 1];
-      const new_key = new_block.key;
-      const old_key = old_block.key;
-      if (new_block === old_block) {
-        next = new_block.first;
-        o--;
-        n--;
-      } else if (!new_lookup.has(old_key)) {
-        destroy(old_block, lookup);
-        o--;
-      } else if (!lookup.has(new_key) || will_move.has(new_key)) {
-        insert2(new_block);
-      } else if (did_move.has(old_key)) {
-        o--;
-      } else if (deltas.get(new_key) > deltas.get(old_key)) {
-        did_move.add(new_key);
-        insert2(new_block);
-      } else {
-        will_move.add(old_key);
-        o--;
-      }
-    }
-    while (o--) {
-      const old_block = old_blocks[o];
-      if (!new_lookup.has(old_block.key))
-        destroy(old_block, lookup);
-    }
-    while (n)
-      insert2(new_blocks[n - 1]);
-    run_all(updates);
-    return new_blocks;
   }
 
   // node_modules/svelte/src/shared/boolean_attributes.js
@@ -6079,32 +6015,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var { document: document_1 } = globals;
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[101] = list[i];
+    child_ctx[96] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[104] = list[i];
+    child_ctx[30] = list[i];
+    child_ctx[100] = i;
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[33] = list[i];
-    child_ctx[108] = i;
+    child_ctx[101] = list[i];
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[109] = list[i];
+    child_ctx[104] = list[i];
+    child_ctx[100] = i;
     return child_ctx;
   }
-  function get_each_context_4(ctx, list, i) {
-    const child_ctx = ctx.slice();
-    child_ctx[112] = list[i];
-    child_ctx[108] = i;
-    return child_ctx;
-  }
-  function create_if_block_24(ctx) {
+  function create_if_block_23(ctx) {
     let section;
     let div3;
     let h2;
@@ -6160,16 +6091,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div0, label);
         append(div0, t2);
         append(div0, input);
-        ctx[55](input);
+        ctx[51](input);
         append(div2, t3);
         append(div2, div1);
-        ctx[56](div1);
+        ctx[52](div1);
         append(section, t4);
         append(section, button);
         if (!mounted) {
           dispose = listen(button, "click", prevent_default(
             /*handlerLocationNext*/
-            ctx[35]
+            ctx[32]
           ));
           mounted = true;
         }
@@ -6179,14 +6110,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (detaching) {
           detach(section);
         }
-        ctx[55](null);
-        ctx[56](null);
+        ctx[51](null);
+        ctx[52](null);
         mounted = false;
         dispose();
       }
     };
   }
-  function create_if_block_132(ctx) {
+  function create_if_block_122(ctx) {
     let section;
     let div0;
     let button0;
@@ -6203,27 +6134,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let dispose;
     let if_block0 = (
       /*mode*/
-      ctx[5] === ABOUT_THE_HOUSE && create_if_block_20(ctx)
+      ctx[5] === ABOUT_THE_HOUSE && create_if_block_19(ctx)
     );
     let if_block1 = (
       /*mode*/
-      ctx[5] === UPLOAD_HOUSE_PHOTO && create_if_block_18(ctx)
+      ctx[5] === UPLOAD_HOUSE_PHOTO && create_if_block_17(ctx)
     );
     let if_block2 = (
       /*mode*/
-      ctx[5] === FEATURE_OR_FACILITY && create_if_block_17(ctx)
+      ctx[5] === FEATURE_OR_FACILITY && create_if_block_16(ctx)
     );
     let if_block3 = (
       /*mode*/
-      ctx[5] === DESCRIPTION_PROPERTY && create_if_block_16(ctx)
+      ctx[5] === DESCRIPTION_PROPERTY && create_if_block_15(ctx)
     );
     let if_block4 = (
       /*mode*/
-      ctx[5] === PRICE && create_if_block_15(ctx)
+      ctx[5] === PRICE && create_if_block_14(ctx)
     );
     let if_block5 = (
       /*modeSkippable*/
-      ctx[6] === true && create_if_block_14(ctx)
+      ctx[6] === true && create_if_block_132(ctx)
     );
     return {
       c() {
@@ -6289,11 +6220,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           dispose = [
             listen(button0, "click", prevent_default(
               /*houseInfoBack*/
-              ctx[36]
+              ctx[33]
             )),
             listen(button1, "click", prevent_default(
               /*click_handler_1*/
-              ctx[76]
+              ctx[72]
             ))
           ];
           mounted = true;
@@ -6307,7 +6238,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
           } else {
-            if_block0 = create_if_block_20(ctx2);
+            if_block0 = create_if_block_19(ctx2);
             if_block0.c();
             if_block0.m(div0, t1);
           }
@@ -6322,7 +6253,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
           } else {
-            if_block1 = create_if_block_18(ctx2);
+            if_block1 = create_if_block_17(ctx2);
             if_block1.c();
             if_block1.m(div0, t2);
           }
@@ -6337,7 +6268,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
           } else {
-            if_block2 = create_if_block_17(ctx2);
+            if_block2 = create_if_block_16(ctx2);
             if_block2.c();
             if_block2.m(div0, t3);
           }
@@ -6352,7 +6283,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if (if_block3) {
             if_block3.p(ctx2, dirty);
           } else {
-            if_block3 = create_if_block_16(ctx2);
+            if_block3 = create_if_block_15(ctx2);
             if_block3.c();
             if_block3.m(div0, t4);
           }
@@ -6367,7 +6298,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if (if_block4) {
             if_block4.p(ctx2, dirty);
           } else {
-            if_block4 = create_if_block_15(ctx2);
+            if_block4 = create_if_block_14(ctx2);
             if_block4.c();
             if_block4.m(div0, null);
           }
@@ -6382,7 +6313,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if (if_block5) {
             if_block5.p(ctx2, dirty);
           } else {
-            if_block5 = create_if_block_14(ctx2);
+            if_block5 = create_if_block_132(ctx2);
             if_block5.c();
             if_block5.m(div1, t6);
           }
@@ -6412,7 +6343,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_20(ctx) {
+  function create_if_block_19(ctx) {
     let h2;
     let t0;
     let t1;
@@ -6451,15 +6382,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let dispose;
     let if_block0 = (
       /*showHouseOption*/
-      ctx[8] && create_if_block_23(ctx)
+      ctx[8] && create_if_block_22(ctx)
     );
     let if_block1 = (
       /*isApartment*/
-      ctx[9] && create_if_block_22(ctx)
+      ctx[9] && create_if_block_21(ctx)
     );
     let if_block2 = (
       /*showRentSellOption*/
-      ctx[11] && create_if_block_21(ctx)
+      ctx[11] && create_if_block_20(ctx)
     );
     return {
       c() {
@@ -6539,13 +6470,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               button0,
               "click",
               /*handleHouseTypeOption*/
-              ctx[38]
+              ctx[35]
             ),
             listen(
               button1,
               "click",
               /*handleRentSellOption*/
-              ctx[39]
+              ctx[36]
             )
           ];
           mounted = true;
@@ -6573,7 +6504,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
           } else {
-            if_block0 = create_if_block_23(ctx2);
+            if_block0 = create_if_block_22(ctx2);
             if_block0.c();
             if_block0.m(div0, null);
           }
@@ -6588,7 +6519,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
           } else {
-            if_block1 = create_if_block_22(ctx2);
+            if_block1 = create_if_block_21(ctx2);
             if_block1.c();
             if_block1.m(div1, null);
           }
@@ -6615,7 +6546,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
           } else {
-            if_block2 = create_if_block_21(ctx2);
+            if_block2 = create_if_block_20(ctx2);
             if_block2.c();
             if_block2.m(div2, null);
           }
@@ -6641,7 +6572,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_23(ctx) {
+  function create_if_block_22(ctx) {
     let div;
     let label0;
     let input0;
@@ -6655,7 +6586,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let dispose;
     binding_group = init_binding_group(
       /*$binding_groups*/
-      ctx[58][1]
+      ctx[54][1]
     );
     return {
       c() {
@@ -6703,25 +6634,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               input0,
               "change",
               /*input0_change_handler*/
-              ctx[57]
+              ctx[53]
             ),
             listen(
               input0,
               "change",
               /*change_handler*/
-              ctx[59]
+              ctx[55]
             ),
             listen(
               input1,
               "change",
               /*input1_change_handler*/
-              ctx[60]
+              ctx[56]
             ),
             listen(
               input1,
               "change",
               /*change_handler_1*/
-              ctx[61]
+              ctx[57]
             )
           ];
           mounted = true;
@@ -6749,7 +6680,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_22(ctx) {
+  function create_if_block_21(ctx) {
     let div;
     let label;
     let t1;
@@ -6781,26 +6712,26 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         set_input_value(
           input,
           /*floor*/
-          ctx[33]
+          ctx[30]
         );
         if (!mounted) {
           dispose = listen(
             input,
             "input",
             /*input_input_handler*/
-            ctx[62]
+            ctx[58]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty[1] & /*floor*/
-        4 && to_number(input.value) !== /*floor*/
-        ctx2[33]) {
+        if (dirty[0] & /*floor*/
+        1073741824 && to_number(input.value) !== /*floor*/
+        ctx2[30]) {
           set_input_value(
             input,
             /*floor*/
-            ctx2[33]
+            ctx2[30]
           );
         }
       },
@@ -6813,7 +6744,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_21(ctx) {
+  function create_if_block_20(ctx) {
     let div;
     let label0;
     let input0;
@@ -6827,7 +6758,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let dispose;
     binding_group = init_binding_group(
       /*$binding_groups*/
-      ctx[58][0]
+      ctx[54][0]
     );
     return {
       c() {
@@ -6875,25 +6806,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               input0,
               "change",
               /*input0_change_handler_1*/
-              ctx[63]
+              ctx[59]
             ),
             listen(
               input0,
               "change",
               /*change_handler_2*/
-              ctx[64]
+              ctx[60]
             ),
             listen(
               input1,
               "change",
               /*input1_change_handler_1*/
-              ctx[65]
+              ctx[61]
             ),
             listen(
               input1,
               "change",
               /*change_handler_3*/
-              ctx[66]
+              ctx[62]
             )
           ];
           mounted = true;
@@ -6921,7 +6852,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_18(ctx) {
+  function create_if_block_17(ctx) {
     let h2;
     let t0;
     let t1;
@@ -6938,7 +6869,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let dispose;
     let if_block = (
       /*showImage*/
-      ctx[14] && create_if_block_19(ctx)
+      ctx[14] && create_if_block_18(ctx)
     );
     return {
       c() {
@@ -6980,7 +6911,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div1, div0);
         append(div0, label);
         append(label, input);
-        ctx[67](input);
+        ctx[63](input);
         append(label, t2);
         append(label, i);
         append(label, t3);
@@ -6993,7 +6924,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             input,
             "change",
             /*inputImageHandler*/
-            ctx[41]
+            ctx[38]
           );
           mounted = true;
         }
@@ -7013,7 +6944,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if (if_block) {
             if_block.p(ctx2, dirty);
           } else {
-            if_block = create_if_block_19(ctx2);
+            if_block = create_if_block_18(ctx2);
             if_block.c();
             if_block.m(div0, null);
           }
@@ -7028,7 +6959,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           detach(t1);
           detach(div1);
         }
-        ctx[67](null);
+        ctx[63](null);
         if (if_block)
           if_block.d();
         mounted = false;
@@ -7036,15 +6967,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_19(ctx) {
+  function create_if_block_18(ctx) {
     let each_1_anchor;
-    let each_value_4 = ensure_array_like(
+    let each_value_3 = ensure_array_like(
       /*house_images*/
       ctx[13]
     );
     let each_blocks = [];
-    for (let i = 0; i < each_value_4.length; i += 1) {
-      each_blocks[i] = create_each_block_4(get_each_context_4(ctx, each_value_4, i));
+    for (let i = 0; i < each_value_3.length; i += 1) {
+      each_blocks[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
     }
     return {
       c() {
@@ -7064,18 +6995,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*house_images*/
         8192 | dirty[1] & /*removeImage*/
-        2048) {
-          each_value_4 = ensure_array_like(
+        256) {
+          each_value_3 = ensure_array_like(
             /*house_images*/
             ctx2[13]
           );
           let i;
-          for (i = 0; i < each_value_4.length; i += 1) {
-            const child_ctx = get_each_context_4(ctx2, each_value_4, i);
+          for (i = 0; i < each_value_3.length; i += 1) {
+            const child_ctx = get_each_context_3(ctx2, each_value_3, i);
             if (each_blocks[i]) {
               each_blocks[i].p(child_ctx, dirty);
             } else {
-              each_blocks[i] = create_each_block_4(child_ctx);
+              each_blocks[i] = create_each_block_3(child_ctx);
               each_blocks[i].c();
               each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
             }
@@ -7083,7 +7014,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           for (; i < each_blocks.length; i += 1) {
             each_blocks[i].d(1);
           }
-          each_blocks.length = each_value_4.length;
+          each_blocks.length = each_value_3.length;
         }
       },
       d(detaching) {
@@ -7094,7 +7025,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_each_block_4(ctx) {
+  function create_each_block_3(ctx) {
     let div;
     let img;
     let img_src_value;
@@ -7106,9 +7037,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[68](
+        ctx[64](
           /*index*/
-          ctx[108]
+          ctx[100]
         )
       );
     }
@@ -7121,7 +7052,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         button.innerHTML = `<i class="gg-close"></i>`;
         t1 = space();
         if (!src_url_equal(img.src, img_src_value = /*imgFile*/
-        ctx[112].preview))
+        ctx[104].preview))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
         attr(img, "class", "svelte-1pgve7c");
@@ -7144,7 +7075,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx = new_ctx;
         if (dirty[0] & /*house_images*/
         8192 && !src_url_equal(img.src, img_src_value = /*imgFile*/
-        ctx[112].preview)) {
+        ctx[104].preview)) {
           attr(img, "src", img_src_value);
         }
       },
@@ -7157,7 +7088,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_17(ctx) {
+  function create_if_block_16(ctx) {
     let h20;
     let t1;
     let div3;
@@ -7292,25 +7223,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               input0,
               "input",
               /*input0_input_handler*/
-              ctx[69]
+              ctx[65]
             ),
             listen(
               input1,
               "input",
               /*input1_input_handler*/
-              ctx[70]
+              ctx[66]
             ),
             listen(
               input2,
               "input",
               /*input2_input_handler*/
-              ctx[71]
+              ctx[67]
             ),
             listen(
               textarea,
               "input",
               /*textarea_input_handler*/
-              ctx[72]
+              ctx[68]
             )
           ];
           mounted = true;
@@ -7368,7 +7299,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_16(ctx) {
+  function create_if_block_15(ctx) {
     let h2;
     let t0;
     let t1;
@@ -7410,7 +7341,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             textarea,
             "input",
             /*textarea_input_handler_1*/
-            ctx[73]
+            ctx[69]
           );
           mounted = true;
         }
@@ -7443,7 +7374,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_15(ctx) {
+  function create_if_block_14(ctx) {
     let h2;
     let t0;
     let t1;
@@ -7541,13 +7472,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               input0,
               "input",
               /*input0_input_handler_1*/
-              ctx[74]
+              ctx[70]
             ),
             listen(
               input1,
               "input",
               /*input1_input_handler_1*/
-              ctx[75]
+              ctx[71]
             )
           ];
           mounted = true;
@@ -7591,7 +7522,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_14(ctx) {
+  function create_if_block_132(ctx) {
     let button;
     let mounted;
     let dispose;
@@ -7606,7 +7537,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (!mounted) {
           dispose = listen(button, "click", prevent_default(
             /*houseInfoSkip*/
-            ctx[37]
+            ctx[34]
           ));
           mounted = true;
         }
@@ -7646,7 +7577,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let mounted;
     let dispose;
     function addfloordialog_floor_type_binding(value) {
-      ctx[78](value);
+      ctx[74](value);
     }
     let addfloordialog_props = {
       $slots: { default: [create_default_slot_1] },
@@ -7660,13 +7591,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       ctx[21];
     }
     addfloordialog = new AddFloorDialog_default({ props: addfloordialog_props });
-    ctx[77](addfloordialog);
+    ctx[73](addfloordialog);
     binding_callbacks.push(() => bind(addfloordialog, "floor_type", addfloordialog_floor_type_binding));
     function addroomdialog_room_type_binding(value) {
-      ctx[81](value);
+      ctx[77](value);
     }
     function addroomdialog_room_total_binding(value) {
-      ctx[82](value);
+      ctx[78](value);
     }
     let addroomdialog_props = {
       $slots: { default: [create_default_slot] },
@@ -7674,39 +7605,39 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
     if (
       /*room_type*/
-      ctx[30] !== void 0
+      ctx[27] !== void 0
     ) {
       addroomdialog_props.room_type = /*room_type*/
-      ctx[30];
+      ctx[27];
     }
     if (
       /*room_total*/
-      ctx[31] !== void 0
+      ctx[28] !== void 0
     ) {
       addroomdialog_props.room_total = /*room_total*/
-      ctx[31];
+      ctx[28];
     }
     addroomdialog = new AddRoomDialog_default({ props: addroomdialog_props });
-    ctx[80](addroomdialog);
+    ctx[76](addroomdialog);
     binding_callbacks.push(() => bind(addroomdialog, "room_type", addroomdialog_room_type_binding));
     binding_callbacks.push(() => bind(addroomdialog, "room_total", addroomdialog_room_total_binding));
     function select_block_type(ctx2, dirty) {
       if (
         /*floor_edit_mode*/
-        ctx2[24] === true
+        ctx2[23] === true
       )
-        return create_if_block_122;
-      return create_else_block_5;
+        return create_if_block_11;
+      return create_else_block_4;
     }
     let current_block_type = select_block_type(ctx, [-1, -1, -1, -1]);
     let if_block0 = current_block_type(ctx);
     let if_block1 = (
       /*floor_edit_mode*/
-      ctx[24] === false && create_if_block_8(ctx)
+      ctx[23] === false && create_if_block_7(ctx)
     );
     let if_block2 = (
       /*floor_edit_mode*/
-      ctx[24] === true && create_if_block_52(ctx)
+      ctx[23] === true && create_if_block_52(ctx)
     );
     return {
       c() {
@@ -7769,11 +7700,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           dispose = [
             listen(button0, "click", prevent_default(
               /*click_handler_3*/
-              ctx[83]
+              ctx[79]
             )),
             listen(button1, "click", prevent_default(
               /*handleNextFloor*/
-              ctx[53]
+              ctx[49]
             ))
           ];
           mounted = true;
@@ -7783,7 +7714,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         const addfloordialog_changes = {};
         if (dirty[0] & /*floor_type*/
         2097152 | dirty[3] & /*$scope*/
-        2097152) {
+        8192) {
           addfloordialog_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_floor_type && dirty[0] & /*floor_type*/
@@ -7796,22 +7727,22 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         addfloordialog.$set(addfloordialog_changes);
         const addroomdialog_changes = {};
         if (dirty[0] & /*room_type, floor_index_to_edit*/
-        1107296256 | dirty[3] & /*$scope*/
-        2097152) {
+        150994944 | dirty[3] & /*$scope*/
+        8192) {
           addroomdialog_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_room_type && dirty[0] & /*room_type*/
-        1073741824) {
+        134217728) {
           updating_room_type = true;
           addroomdialog_changes.room_type = /*room_type*/
-          ctx2[30];
+          ctx2[27];
           add_flush_callback(() => updating_room_type = false);
         }
-        if (!updating_room_total && dirty[1] & /*room_total*/
-        1) {
+        if (!updating_room_total && dirty[0] & /*room_total*/
+        268435456) {
           updating_room_total = true;
           addroomdialog_changes.room_total = /*room_total*/
-          ctx2[31];
+          ctx2[28];
           add_flush_callback(() => updating_room_total = false);
         }
         addroomdialog.$set(addroomdialog_changes);
@@ -7827,12 +7758,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*floor_edit_mode*/
-          ctx2[24] === false
+          ctx2[23] === false
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
           } else {
-            if_block1 = create_if_block_8(ctx2);
+            if_block1 = create_if_block_7(ctx2);
             if_block1.c();
             if_block1.m(div1, t6);
           }
@@ -7842,7 +7773,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*floor_edit_mode*/
-          ctx2[24] === true
+          ctx2[23] === true
         ) {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
@@ -7872,9 +7803,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (detaching) {
           detach(section);
         }
-        ctx[77](null);
+        ctx[73](null);
         destroy_component(addfloordialog);
-        ctx[80](null);
+        ctx[76](null);
         destroy_component(addroomdialog);
         if_block0.d();
         if (if_block1)
@@ -7908,7 +7839,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             button,
             "click",
             /*handlerAddFloor*/
-            ctx[48]
+            ctx[45]
           );
           mounted = true;
         }
@@ -7940,7 +7871,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         button = element("button");
         t = text("Add");
         button.disabled = button_disabled_value = /*room_type*/
-        ctx[30] === "";
+        ctx[27] === "";
         attr(button, "class", "add_room_button svelte-1pgve7c");
       },
       m(target, anchor) {
@@ -7951,15 +7882,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             button,
             "click",
             /*click_handler_2*/
-            ctx[79]
+            ctx[75]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*room_type*/
-        1073741824 && button_disabled_value !== (button_disabled_value = /*room_type*/
-        ctx2[30] === "")) {
+        134217728 && button_disabled_value !== (button_disabled_value = /*room_type*/
+        ctx2[27] === "")) {
           button.disabled = button_disabled_value;
         }
       },
@@ -7972,7 +7903,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_else_block_5(ctx) {
+  function create_else_block_4(ctx) {
     let h2;
     let t1;
     let button;
@@ -7995,7 +7926,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (!mounted) {
           dispose = listen(button, "click", prevent_default(
             /*showAddFloorDialog*/
-            ctx[47]
+            ctx[44]
           ));
           mounted = true;
         }
@@ -8012,14 +7943,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_122(ctx) {
+  function create_if_block_11(ctx) {
     let h3;
     let t0;
     let t1_value = (
       /*floor_lists*/
       ctx[22][
         /*floor_index_to_edit*/
-        ctx[25]
+        ctx[24]
       ].type + ""
     );
     let t1;
@@ -8028,11 +7959,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       /*floor_lists*/
       ctx[22][
         /*floor_index_to_edit*/
-        ctx[25]
+        ctx[24]
       ].type === "basement" ? "" : `#${/*floor_lists*/
       ctx[22][
         /*floor_index_to_edit*/
-        ctx[25]
+        ctx[24]
       ].floor}`
     );
     let t3;
@@ -8054,21 +7985,21 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*floor_lists, floor_index_to_edit*/
-        37748736 && t1_value !== (t1_value = /*floor_lists*/
+        20971520 && t1_value !== (t1_value = /*floor_lists*/
         ctx2[22][
           /*floor_index_to_edit*/
-          ctx2[25]
+          ctx2[24]
         ].type + ""))
           set_data(t1, t1_value);
         if (dirty[0] & /*floor_lists, floor_index_to_edit*/
-        37748736 && t3_value !== (t3_value = /*floor_lists*/
+        20971520 && t3_value !== (t3_value = /*floor_lists*/
         ctx2[22][
           /*floor_index_to_edit*/
-          ctx2[25]
+          ctx2[24]
         ].type === "basement" ? "" : `#${/*floor_lists*/
         ctx2[22][
           /*floor_index_to_edit*/
-          ctx2[25]
+          ctx2[24]
         ].floor}`))
           set_data(t3, t3_value);
       },
@@ -8079,15 +8010,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_8(ctx) {
+  function create_if_block_7(ctx) {
     let div;
     function select_block_type_1(ctx2, dirty) {
       if (
         /*floor_lists*/
         ctx2[22].length
       )
-        return create_if_block_9;
-      return create_else_block_4;
+        return create_if_block_8;
+      return create_else_block_3;
     }
     let current_block_type = select_block_type_1(ctx, [-1, -1, -1, -1]);
     let if_block = current_block_type(ctx);
@@ -8121,7 +8052,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_else_block_4(ctx) {
+  function create_else_block_3(ctx) {
     let div;
     return {
       c() {
@@ -8140,15 +8071,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_9(ctx) {
+  function create_if_block_8(ctx) {
     let each_1_anchor;
-    let each_value_2 = ensure_array_like(
+    let each_value_1 = ensure_array_like(
       /*floor_lists*/
       ctx[22]
     );
     let each_blocks = [];
-    for (let i = 0; i < each_value_2.length; i += 1) {
-      each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+    for (let i = 0; i < each_value_1.length; i += 1) {
+      each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
     }
     return {
       c() {
@@ -8166,20 +8097,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         insert(target, each_1_anchor, anchor);
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*imageFloorPlanLists, floor_lists*/
-        138412032 | dirty[1] & /*handlerEditFloor*/
-        262144) {
-          each_value_2 = ensure_array_like(
+        if (dirty[0] & /*floor_lists*/
+        4194304 | dirty[1] & /*handlerEditFloor*/
+        32768) {
+          each_value_1 = ensure_array_like(
             /*floor_lists*/
             ctx2[22]
           );
           let i;
-          for (i = 0; i < each_value_2.length; i += 1) {
-            const child_ctx = get_each_context_2(ctx2, each_value_2, i);
+          for (i = 0; i < each_value_1.length; i += 1) {
+            const child_ctx = get_each_context_1(ctx2, each_value_1, i);
             if (each_blocks[i]) {
               each_blocks[i].p(child_ctx, dirty);
             } else {
-              each_blocks[i] = create_each_block_2(child_ctx);
+              each_blocks[i] = create_each_block_1(child_ctx);
               each_blocks[i].c();
               each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
             }
@@ -8187,7 +8118,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           for (; i < each_blocks.length; i += 1) {
             each_blocks[i].d(1);
           }
-          each_blocks.length = each_value_2.length;
+          each_blocks.length = each_value_1.length;
         }
       },
       d(detaching) {
@@ -8198,15 +8129,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_10(ctx) {
+  function create_if_block_9(ctx) {
     let if_block_anchor;
     function select_block_type_2(ctx2, dirty) {
       if (
         /*imgFloorPlan*/
-        ctx2[109].preview
+        ctx2[101].preview
       )
-        return create_if_block_11;
-      return create_else_block_3;
+        return create_if_block_10;
+      return create_else_block_2;
     }
     let current_block_type = select_block_type_2(ctx, [-1, -1, -1, -1]);
     let if_block = current_block_type(ctx);
@@ -8220,16 +8151,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         insert(target, if_block_anchor, anchor);
       },
       p(ctx2, dirty) {
-        if (current_block_type === (current_block_type = select_block_type_2(ctx2, dirty)) && if_block) {
-          if_block.p(ctx2, dirty);
-        } else {
-          if_block.d(1);
-          if_block = current_block_type(ctx2);
-          if (if_block) {
-            if_block.c();
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        }
+        if_block.p(ctx2, dirty);
       },
       d(detaching) {
         if (detaching) {
@@ -8239,7 +8161,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_else_block_3(ctx) {
+  function create_else_block_2(ctx) {
     let span;
     return {
       c() {
@@ -8258,14 +8180,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_11(ctx) {
+  function create_if_block_10(ctx) {
     let img;
     let img_src_value;
     return {
       c() {
         img = element("img");
         if (!src_url_equal(img.src, img_src_value = /*imgFloorPlan*/
-        ctx[109].preview))
+        ctx[101].preview))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
         attr(img, "class", "svelte-1pgve7c");
@@ -8273,13 +8195,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       m(target, anchor) {
         insert(target, img, anchor);
       },
-      p(ctx2, dirty) {
-        if (dirty[0] & /*imageFloorPlanLists*/
-        134217728 && !src_url_equal(img.src, img_src_value = /*imgFloorPlan*/
-        ctx2[109].preview)) {
-          attr(img, "src", img_src_value);
-        }
-      },
+      p: noop,
       d(detaching) {
         if (detaching) {
           detach(img);
@@ -8287,12 +8203,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_each_block_3(ctx) {
+  function create_each_block_2(ctx) {
     let if_block_anchor;
     let if_block = (
       /*imgFloorPlan*/
-      ctx[109].floor === /*floor*/
-      ctx[33].floor && create_if_block_10(ctx)
+      ctx[101].floor === /*floor*/
+      ctx[30].floor && create_if_block_9(ctx)
     );
     return {
       c() {
@@ -8308,13 +8224,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (
           /*imgFloorPlan*/
-          ctx2[109].floor === /*floor*/
-          ctx2[33].floor
+          ctx2[101].floor === /*floor*/
+          ctx2[30].floor
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
           } else {
-            if_block = create_if_block_10(ctx2);
+            if_block = create_if_block_9(ctx2);
             if_block.c();
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
           }
@@ -8332,18 +8248,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_each_block_2(ctx) {
+  function create_each_block_1(ctx) {
     let div6;
     let div3;
     let h4;
     let t0_value = (
       /*floor*/
-      (ctx[33].type === "basement" ? (
+      (ctx[30].type === "basement" ? (
         /*floor*/
-        ctx[33].type
+        ctx[30].type
       ) : `${/*floor*/
-      ctx[33].type} #${/*floor*/
-      ctx[33].floor}`) + ""
+      ctx[30].type} #${/*floor*/
+      ctx[30].floor}`) + ""
     );
     let t0;
     let t1;
@@ -8352,7 +8268,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let b0;
     let t2_value = (
       /*floor*/
-      ctx[33].beds + ""
+      ctx[30].beds + ""
     );
     let t2;
     let t3;
@@ -8362,7 +8278,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let b1;
     let t6_value = (
       /*floor*/
-      ctx[33].baths + ""
+      ctx[30].baths + ""
     );
     let t6;
     let t7;
@@ -8378,19 +8294,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler_4() {
       return (
         /*click_handler_4*/
-        ctx[84](
+        ctx[80](
           /*index*/
-          ctx[108]
+          ctx[100]
         )
       );
     }
-    let each_value_3 = ensure_array_like(
-      /*imageFloorPlanLists*/
-      ctx[27]
-    );
+    let each_value_2 = ensure_array_like(imageFloorPlanLists);
     let each_blocks = [];
-    for (let i = 0; i < each_value_3.length; i += 1) {
-      each_blocks[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
+    for (let i = 0; i < each_value_2.length; i += 1) {
+      each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
     }
     return {
       c() {
@@ -8475,34 +8388,31 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx = new_ctx;
         if (dirty[0] & /*floor_lists*/
         4194304 && t0_value !== (t0_value = /*floor*/
-        (ctx[33].type === "basement" ? (
+        (ctx[30].type === "basement" ? (
           /*floor*/
-          ctx[33].type
+          ctx[30].type
         ) : `${/*floor*/
-        ctx[33].type} #${/*floor*/
-        ctx[33].floor}`) + ""))
+        ctx[30].type} #${/*floor*/
+        ctx[30].floor}`) + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*floor_lists*/
         4194304 && t2_value !== (t2_value = /*floor*/
-        ctx[33].beds + ""))
+        ctx[30].beds + ""))
           set_data(t2, t2_value);
         if (dirty[0] & /*floor_lists*/
         4194304 && t6_value !== (t6_value = /*floor*/
-        ctx[33].baths + ""))
+        ctx[30].baths + ""))
           set_data(t6, t6_value);
-        if (dirty[0] & /*imageFloorPlanLists, floor_lists*/
-        138412032) {
-          each_value_3 = ensure_array_like(
-            /*imageFloorPlanLists*/
-            ctx[27]
-          );
+        if (dirty[0] & /*floor_lists*/
+        4194304) {
+          each_value_2 = ensure_array_like(imageFloorPlanLists);
           let i;
-          for (i = 0; i < each_value_3.length; i += 1) {
-            const child_ctx = get_each_context_3(ctx, each_value_3, i);
+          for (i = 0; i < each_value_2.length; i += 1) {
+            const child_ctx = get_each_context_2(ctx, each_value_2, i);
             if (each_blocks[i]) {
               each_blocks[i].p(child_ctx, dirty);
             } else {
-              each_blocks[i] = create_each_block_3(child_ctx);
+              each_blocks[i] = create_each_block_2(child_ctx);
               each_blocks[i].c();
               each_blocks[i].m(div4, null);
             }
@@ -8510,7 +8420,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           for (; i < each_blocks.length; i += 1) {
             each_blocks[i].d(1);
           }
-          each_blocks.length = each_value_3.length;
+          each_blocks.length = each_value_2.length;
         }
       },
       d(detaching) {
@@ -8525,8 +8435,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function create_if_block_52(ctx) {
     let div5;
-    let each_blocks = [];
-    let each_1_lookup = /* @__PURE__ */ new Map();
     let t0;
     let div4;
     let div0;
@@ -8543,7 +8451,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       /*floor_lists*/
       ctx[22][
         /*floor_index_to_edit*/
-        ctx[25]
+        ctx[24]
       ].beds + ""
     );
     let t7;
@@ -8556,31 +8464,29 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       /*floor_lists*/
       ctx[22][
         /*floor_index_to_edit*/
-        ctx[25]
+        ctx[24]
       ].baths + ""
     );
     let t11;
     let mounted;
     let dispose;
-    let each_value_1 = ensure_array_like(
-      /*imageFloorPlanLists*/
-      ctx[27]
-    );
-    const get_key = (ctx2) => (
-      /*imgFlrPlnLst*/
-      ctx2[104].floor
-    );
-    for (let i = 0; i < each_value_1.length; i += 1) {
-      let child_ctx = get_each_context_1(ctx, each_value_1, i);
-      let key = get_key(child_ctx);
-      each_1_lookup.set(key, each_blocks[i] = create_each_block_1(key, child_ctx));
+    function select_block_type_3(ctx2, dirty) {
+      if (
+        /*floor_lists*/
+        ctx2[22][
+          /*floor_index_to_edit*/
+          ctx2[24]
+        ].planImageUrl === ""
+      )
+        return create_if_block_6;
+      return create_else_block_1;
     }
+    let current_block_type = select_block_type_3(ctx, [-1, -1, -1, -1]);
+    let if_block = current_block_type(ctx);
     return {
       c() {
         div5 = element("div");
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].c();
-        }
+        if_block.c();
         t0 = space();
         div4 = element("div");
         div0 = element("div");
@@ -8619,11 +8525,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       m(target, anchor) {
         insert(target, div5, anchor);
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          if (each_blocks[i]) {
-            each_blocks[i].m(div5, null);
-          }
-        }
+        if_block.m(div5, null);
         append(div5, t0);
         append(div5, div4);
         append(div4, div0);
@@ -8648,33 +8550,34 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             button,
             "click",
             /*showAddRoomDialog*/
-            ctx[51]
+            ctx[47]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*imageFloorPlanObj, imageFloorPlanLists, imageFloorPlanInput, floorCount, floor_lists, floor_index_to_edit*/
-        515899392 | dirty[1] & /*handlerImageFloorPlan*/
-        524288) {
-          each_value_1 = ensure_array_like(
-            /*imageFloorPlanLists*/
-            ctx2[27]
-          );
-          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value_1, each_1_lookup, div5, destroy_block, create_each_block_1, t0, get_each_context_1);
+        if (current_block_type === (current_block_type = select_block_type_3(ctx2, dirty)) && if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(div5, t0);
+          }
         }
         if (dirty[0] & /*floor_lists, floor_index_to_edit*/
-        37748736 && t7_value !== (t7_value = /*floor_lists*/
+        20971520 && t7_value !== (t7_value = /*floor_lists*/
         ctx2[22][
           /*floor_index_to_edit*/
-          ctx2[25]
+          ctx2[24]
         ].beds + ""))
           set_data(t7, t7_value);
         if (dirty[0] & /*floor_lists, floor_index_to_edit*/
-        37748736 && t11_value !== (t11_value = /*floor_lists*/
+        20971520 && t11_value !== (t11_value = /*floor_lists*/
         ctx2[22][
           /*floor_index_to_edit*/
-          ctx2[25]
+          ctx2[24]
         ].baths + ""))
           set_data(t11, t11_value);
       },
@@ -8682,176 +8585,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (detaching) {
           detach(div5);
         }
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].d();
-        }
+        if_block.d();
         mounted = false;
         dispose();
-      }
-    };
-  }
-  function create_else_block_2(ctx) {
-    let label;
-    let input;
-    let t0;
-    let img;
-    let img_src_value;
-    let t1;
-    let div;
-    let mounted;
-    let dispose;
-    return {
-      c() {
-        label = element("label");
-        input = element("input");
-        t0 = space();
-        img = element("img");
-        t1 = space();
-        div = element("div");
-        div.innerHTML = `<i class="gg-add"></i> <p class="svelte-1pgve7c">Floor Plan Picture</p>`;
-        attr(input, "type", "file");
-        attr(input, "accept", "image/*");
-        attr(input, "id", "floor_plan_upload");
-        attr(input, "class", "svelte-1pgve7c");
-        if (!src_url_equal(img.src, img_src_value = "/assets/img/realtor/floor-plan-pen-ruler.jpg.webp"))
-          attr(img, "src", img_src_value);
-        attr(img, "alt", "");
-        attr(img, "class", "svelte-1pgve7c");
-        attr(div, "class", "svelte-1pgve7c");
-        attr(label, "class", "floor_plan_upload svelte-1pgve7c");
-        attr(label, "for", "floor_plan_upload");
-      },
-      m(target, anchor) {
-        insert(target, label, anchor);
-        append(label, input);
-        ctx[87](input);
-        append(label, t0);
-        append(label, img);
-        append(label, t1);
-        append(label, div);
-        if (!mounted) {
-          dispose = listen(
-            input,
-            "change",
-            /*change_handler_5*/
-            ctx[88]
-          );
-          mounted = true;
-        }
-      },
-      p: noop,
-      d(detaching) {
-        if (detaching) {
-          detach(label);
-        }
-        ctx[87](null);
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block_6(ctx) {
-    let if_block_anchor;
-    function select_block_type_4(ctx2, dirty) {
-      if (
-        /*imgFlrPlnLst*/
-        ctx2[104].preview
-      )
-        return create_if_block_7;
-      return create_else_block_1;
-    }
-    let current_block_type = select_block_type_4(ctx, [-1, -1, -1, -1]);
-    let if_block = current_block_type(ctx);
-    return {
-      c() {
-        if_block.c();
-        if_block_anchor = empty();
-      },
-      m(target, anchor) {
-        if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
-      },
-      p(ctx2, dirty) {
-        if (current_block_type === (current_block_type = select_block_type_4(ctx2, dirty)) && if_block) {
-          if_block.p(ctx2, dirty);
-        } else {
-          if_block.d(1);
-          if_block = current_block_type(ctx2);
-          if (if_block) {
-            if_block.c();
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(if_block_anchor);
-        }
-        if_block.d(detaching);
       }
     };
   }
   function create_else_block_1(ctx) {
-    let label;
-    let input;
-    let t0;
-    let img;
-    let img_src_value;
-    let t1;
-    let div;
-    let mounted;
-    let dispose;
-    return {
-      c() {
-        label = element("label");
-        input = element("input");
-        t0 = space();
-        img = element("img");
-        t1 = space();
-        div = element("div");
-        div.innerHTML = `<i class="gg-add"></i> <p class="svelte-1pgve7c">Floor Plan Picture</p>`;
-        attr(input, "type", "file");
-        attr(input, "accept", "image/*");
-        attr(input, "id", "floor_plan_upload");
-        attr(input, "class", "svelte-1pgve7c");
-        if (!src_url_equal(img.src, img_src_value = "/assets/img/realtor/floor-plan-pen-ruler.jpg.webp"))
-          attr(img, "src", img_src_value);
-        attr(img, "alt", "");
-        attr(img, "class", "svelte-1pgve7c");
-        attr(div, "class", "svelte-1pgve7c");
-        attr(label, "class", "floor_plan_upload svelte-1pgve7c");
-        attr(label, "for", "floor_plan_upload");
-      },
-      m(target, anchor) {
-        insert(target, label, anchor);
-        append(label, input);
-        ctx[85](input);
-        append(label, t0);
-        append(label, img);
-        append(label, t1);
-        append(label, div);
-        if (!mounted) {
-          dispose = listen(
-            input,
-            "change",
-            /*change_handler_4*/
-            ctx[86]
-          );
-          mounted = true;
-        }
-      },
-      p: noop,
-      d(detaching) {
-        if (detaching) {
-          detach(label);
-        }
-        ctx[85](null);
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block_7(ctx) {
     let div;
     let img;
     let img_src_value;
@@ -8859,8 +8599,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       c() {
         div = element("div");
         img = element("img");
-        if (!src_url_equal(img.src, img_src_value = /*imageFloorPlanObj*/
-        ctx[28].preview))
+        if (!src_url_equal(img.src, img_src_value = /*floor_lists*/
+        ctx[22][
+          /*floor_index_to_edit*/
+          ctx[24]
+        ].planImageUrl))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
         attr(img, "class", "svelte-1pgve7c");
@@ -8871,9 +8614,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div, img);
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*imageFloorPlanObj*/
-        268435456 && !src_url_equal(img.src, img_src_value = /*imageFloorPlanObj*/
-        ctx2[28].preview)) {
+        if (dirty[0] & /*floor_lists, floor_index_to_edit*/
+        20971520 && !src_url_equal(img.src, img_src_value = /*floor_lists*/
+        ctx2[22][
+          /*floor_index_to_edit*/
+          ctx2[24]
+        ].planImageUrl)) {
           attr(img, "src", img_src_value);
         }
       },
@@ -8884,56 +8630,63 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_each_block_1(key_1, ctx) {
-    let first;
-    let if_block_anchor;
-    function select_block_type_3(ctx2, dirty) {
-      if (
-        /*floor_lists*/
-        ctx2[22][
-          /*floor_index_to_edit*/
-          ctx2[25]
-        ].floor === /*imgFlrPlnLst*/
-        ctx2[104].floor
-      )
-        return create_if_block_6;
-      return create_else_block_2;
-    }
-    let current_block_type = select_block_type_3(ctx, [-1, -1, -1, -1]);
-    let if_block = current_block_type(ctx);
+  function create_if_block_6(ctx) {
+    let label;
+    let input;
+    let t0;
+    let img;
+    let img_src_value;
+    let t1;
+    let div;
+    let mounted;
+    let dispose;
     return {
-      key: key_1,
-      first: null,
       c() {
-        first = empty();
-        if_block.c();
-        if_block_anchor = empty();
-        this.first = first;
+        label = element("label");
+        input = element("input");
+        t0 = space();
+        img = element("img");
+        t1 = space();
+        div = element("div");
+        div.innerHTML = `<i class="gg-add"></i> <p class="svelte-1pgve7c">Floor Plan Picture</p>`;
+        attr(input, "type", "file");
+        attr(input, "accept", "image/*");
+        attr(input, "id", "floor_plan_upload");
+        attr(input, "class", "svelte-1pgve7c");
+        if (!src_url_equal(img.src, img_src_value = "/assets/img/realtor/floor-plan-pen-ruler.jpg.webp"))
+          attr(img, "src", img_src_value);
+        attr(img, "alt", "");
+        attr(img, "class", "svelte-1pgve7c");
+        attr(div, "class", "svelte-1pgve7c");
+        attr(label, "class", "floor_plan_upload svelte-1pgve7c");
+        attr(label, "for", "floor_plan_upload");
       },
       m(target, anchor) {
-        insert(target, first, anchor);
-        if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
-      },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-        if (current_block_type === (current_block_type = select_block_type_3(ctx, dirty)) && if_block) {
-          if_block.p(ctx, dirty);
-        } else {
-          if_block.d(1);
-          if_block = current_block_type(ctx);
-          if (if_block) {
-            if_block.c();
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
+        insert(target, label, anchor);
+        append(label, input);
+        ctx[81](input);
+        append(label, t0);
+        append(label, img);
+        append(label, t1);
+        append(label, div);
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "change",
+            /*change_handler_4*/
+            ctx[82]
+          );
+          mounted = true;
         }
       },
+      p: noop,
       d(detaching) {
         if (detaching) {
-          detach(first);
-          detach(if_block_anchor);
+          detach(label);
         }
-        if_block.d(detaching);
+        ctx[81](null);
+        mounted = false;
+        dispose();
       }
     };
   }
@@ -8942,11 +8695,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t;
     let if_block0 = (
       /*isPropertySubmitted*/
-      ctx[32] === false && create_if_block_25(ctx)
+      ctx[29] === false && create_if_block_24(ctx)
     );
     let if_block1 = (
       /*isPropertySubmitted*/
-      ctx[32] === true && create_if_block_110(ctx)
+      ctx[29] === true && create_if_block_110(ctx)
     );
     return {
       c() {
@@ -8970,12 +8723,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (
           /*isPropertySubmitted*/
-          ctx2[32] === false
+          ctx2[29] === false
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
           } else {
-            if_block0 = create_if_block_25(ctx2);
+            if_block0 = create_if_block_24(ctx2);
             if_block0.c();
             if_block0.m(section, t);
           }
@@ -8985,7 +8738,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*isPropertySubmitted*/
-          ctx2[32] === true
+          ctx2[29] === true
         ) {
           if (if_block1) {
           } else {
@@ -9009,7 +8762,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_25(ctx) {
+  function create_if_block_24(ctx) {
     let div14;
     let h20;
     let t1;
@@ -9115,7 +8868,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let button1;
     let mounted;
     let dispose;
-    function select_block_type_5(ctx2, dirty) {
+    function select_block_type_4(ctx2, dirty) {
       if (
         /*house_images*/
         ctx2[13]
@@ -9123,7 +8876,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         return create_if_block_32;
       return create_else_block;
     }
-    let current_block_type = select_block_type_5(ctx, [-1, -1, -1, -1]);
+    let current_block_type = select_block_type_4(ctx, [-1, -1, -1, -1]);
     let if_block = current_block_type(ctx);
     let each_value = ensure_array_like(
       /*realtorStack*/
@@ -9325,13 +9078,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (!mounted) {
           dispose = listen(button1, "click", prevent_default(
             /*handleSubmit*/
-            ctx[54]
+            ctx[50]
           ));
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (current_block_type === (current_block_type = select_block_type_5(ctx2, dirty)) && if_block) {
+        if (current_block_type === (current_block_type = select_block_type_4(ctx2, dirty)) && if_block) {
           if_block.p(ctx2, dirty);
         } else {
           if_block.d(1);
@@ -9470,12 +9223,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let h3;
     let t0_value = (
       /*floors*/
-      (ctx[101].type === "basement" ? (
+      (ctx[96].type === "basement" ? (
         /*floors*/
-        ctx[101].type
+        ctx[96].type
       ) : `${/*floors*/
-      ctx[101].type} #${/*floors*/
-      ctx[101].floor}`) + ""
+      ctx[96].type} #${/*floors*/
+      ctx[96].floor}`) + ""
     );
     let t0;
     let t1;
@@ -9485,7 +9238,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t2;
     let t3_value = (
       /*floors*/
-      ctx[101].beds + ""
+      ctx[96].beds + ""
     );
     let t3;
     let t4;
@@ -9493,7 +9246,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t5;
     let t6_value = (
       /*floors*/
-      ctx[101].baths + ""
+      ctx[96].baths + ""
     );
     let t6;
     let t7;
@@ -9547,20 +9300,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*realtorStack*/
         1 && t0_value !== (t0_value = /*floors*/
-        (ctx2[101].type === "basement" ? (
+        (ctx2[96].type === "basement" ? (
           /*floors*/
-          ctx2[101].type
+          ctx2[96].type
         ) : `${/*floors*/
-        ctx2[101].type} #${/*floors*/
-        ctx2[101].floor}`) + ""))
+        ctx2[96].type} #${/*floors*/
+        ctx2[96].floor}`) + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*realtorStack*/
         1 && t3_value !== (t3_value = /*floors*/
-        ctx2[101].beds + ""))
+        ctx2[96].beds + ""))
           set_data(t3, t3_value);
         if (dirty[0] & /*realtorStack*/
         1 && t6_value !== (t6_value = /*floors*/
-        ctx2[101].baths + ""))
+        ctx2[96].baths + ""))
           set_data(t6, t6_value);
       },
       d(detaching) {
@@ -9636,11 +9389,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     profileheader = new ProfileHeader_default({});
     let if_block0 = (
       /*subPage*/
-      ctx[1] >= 1 && create_if_block_24(ctx)
+      ctx[1] >= 1 && create_if_block_23(ctx)
     );
     let if_block1 = (
       /*subPage*/
-      ctx[1] >= 2 && create_if_block_132(ctx)
+      ctx[1] >= 2 && create_if_block_122(ctx)
     );
     let if_block2 = (
       /*subPage*/
@@ -9820,7 +9573,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
           } else {
-            if_block0 = create_if_block_24(ctx2);
+            if_block0 = create_if_block_23(ctx2);
             if_block0.c();
             if_block0.m(div6, t16);
           }
@@ -9835,7 +9588,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
           } else {
-            if_block1 = create_if_block_132(ctx2);
+            if_block1 = create_if_block_122(ctx2);
             if_block1.c();
             if_block1.m(div6, t17);
           }
@@ -9925,6 +9678,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var FEATURE_OR_FACILITY = "Feature or Facility";
   var DESCRIPTION_PROPERTY = "Description of this property";
   var PRICE = "Price";
+  function handlerImageFloorPlan(e) {
+  }
   function formatPrice(price) {
     return price.toLocaleString("en-US", { style: "currency", currency: "USD" });
   }
@@ -10157,7 +9912,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let add_floor_dialog = AddFloorDialog_default;
     let floor_type = "";
     let floor_lists = [];
-    let floor_attribute = { type: "", floor: 0, beds: 0, baths: 0 };
+    let floor_attribute = {
+      type: "",
+      floor: 0,
+      beds: 0,
+      baths: 0,
+      rooms: [],
+      /*{ name, sizeM2, unit }*/
+      planImageUrl: ""
+    };
     let floorCount = 1;
     let basement_added = false;
     let floor_edit_mode = false;
@@ -10176,7 +9939,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           type: floor_type,
           floor: 0,
           beds: 0,
-          baths: 0
+          baths: 0,
+          rooms: [],
+          planImageUrl: ""
         };
         $invalidate(22, floor_lists = [...floor_lists, floor_attribute]);
         basement_added = true;
@@ -10185,39 +9950,21 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           type: floor_type,
           floor: floorCount,
           beds: 0,
-          baths: 0
+          baths: 0,
+          rooms: [],
+          planImageUrl: ""
         };
         $invalidate(22, floor_lists = [...floor_lists, floor_attribute]);
-        $invalidate(23, floorCount++, floorCount);
+        floorCount++;
       }
       add_floor_dialog.hideModal();
       return;
     }
     function handlerEditFloor(index) {
-      $invalidate(24, floor_edit_mode = true);
-      $invalidate(25, floor_index_to_edit = index);
+      $invalidate(23, floor_edit_mode = true);
+      $invalidate(24, floor_index_to_edit = index);
     }
     let imageFloorPlanInput;
-    let imageFloorPlanLists = [];
-    let imageFloorPlanObj = { image: null, preview: null, floor: 0 };
-    function handlerImageFloorPlan(floor2) {
-      const file = imageFloorPlanInput.files[0];
-      if (file) {
-        imageFloorPlanUploaded = true;
-        const reader = new FileReader();
-        reader.addEventListener("load", function() {
-          $invalidate(28, imageFloorPlanObj = {
-            image: file,
-            preview: reader.result,
-            floor: floor2
-          });
-          $invalidate(27, imageFloorPlanLists = [...imageFloorPlanLists, imageFloorPlanObj]);
-        });
-        reader.readAsDataURL(file);
-        return;
-      }
-      imageFloorPlanUploaded = false;
-    }
     let add_room_dialog = AddRoomDialog_default;
     let room_type = "";
     let room_total = 0;
@@ -10246,7 +9993,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     let isPropertySubmitted = false;
     function handleSubmit() {
-      $invalidate(32, isPropertySubmitted = true);
+      $invalidate(29, isPropertySubmitted = true);
       console.log(realtorStack);
     }
     const $binding_groups = [[], []];
@@ -10274,7 +10021,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     const change_handler_1 = () => handleHouseTypeOption();
     function input_input_handler() {
       floor = to_number(this.value);
-      $invalidate(33, floor);
+      $invalidate(30, floor);
     }
     function input0_change_handler_1() {
       rent_or_sell = this.__value;
@@ -10348,20 +10095,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function addroomdialog_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         add_room_dialog = $value;
-        $invalidate(29, add_room_dialog);
+        $invalidate(26, add_room_dialog);
       });
     }
     function addroomdialog_room_type_binding(value) {
       room_type = value;
-      $invalidate(30, room_type);
+      $invalidate(27, room_type);
     }
     function addroomdialog_room_total_binding(value) {
       room_total = value;
-      $invalidate(31, room_total);
+      $invalidate(28, room_total);
     }
     const click_handler_3 = () => {
       if (floor_edit_mode === true) {
-        $invalidate(24, floor_edit_mode = false);
+        $invalidate(23, floor_edit_mode = false);
       } else {
         backPage();
       }
@@ -10370,17 +10117,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function input_binding_2($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         imageFloorPlanInput = $value;
-        $invalidate(26, imageFloorPlanInput);
+        $invalidate(25, imageFloorPlanInput);
       });
     }
-    const change_handler_4 = () => handlerImageFloorPlan(floorCount);
-    function input_binding_3($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        imageFloorPlanInput = $value;
-        $invalidate(26, imageFloorPlanInput);
-      });
-    }
-    const change_handler_5 = () => handlerImageFloorPlan(floorCount);
+    const change_handler_4 = () => handlerImageFloorPlan();
     return [
       realtorStack,
       subPage,
@@ -10405,12 +10145,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       add_floor_dialog,
       floor_type,
       floor_lists,
-      floorCount,
       floor_edit_mode,
       floor_index_to_edit,
       imageFloorPlanInput,
-      imageFloorPlanLists,
-      imageFloorPlanObj,
       add_room_dialog,
       room_type,
       room_total,
@@ -10432,7 +10169,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       showAddFloorDialog,
       handlerAddFloor,
       handlerEditFloor,
-      handlerImageFloorPlan,
       showAddRoomDialog,
       handlerAddRoom,
       handleNextFloor,
@@ -10468,9 +10204,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       click_handler_3,
       click_handler_4,
       input_binding_2,
-      change_handler_4,
-      input_binding_3,
-      change_handler_5
+      change_handler_4
     ];
   }
   var Realtor = class extends SvelteComponent {

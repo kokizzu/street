@@ -1,6 +1,6 @@
 <script>
   import Menu from '../_components/Menu.svelte';
-  import AdminSubMenu from './_adminSubMenu.svelte';
+  import AdminSubMenu from '../_components/AdminSubMenu.svelte';
   import TableView from '../_components/TableView.svelte';
   import ModalForm from '../_components/ModalForm.svelte';
   import { AdminPropHistories } from '../jsApi.GEN';
