@@ -58,6 +58,7 @@ func (d *Domain) GuestResendVerificationEmail(in *GuestResendVerificationEmailIn
 		return
 	}
 	out.actor = user.Id
+	out.refId = user.Id
 
 	if user.VerifiedAt > 0 {
 		guestResendVerificationEmailLock.Unlock(in.Email)

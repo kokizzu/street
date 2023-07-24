@@ -122,8 +122,10 @@ func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCal
 			return
 		}
 		out.actor = user.Id
+		out.refId = user.Id
 	} else {
 		out.actor = user.Id
+		out.refId = user.Id
 
 		// update verifiedAt if not verified
 		if user.VerifiedAt == 0 {

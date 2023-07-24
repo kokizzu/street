@@ -137,6 +137,8 @@ var AdminPropHistoriesMeta = zCrud.Meta{
 
 func (d *Domain) AdminPropHistories(in *AdminPropHistoriesIn) (out AdminPropHistoriesOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
+	out.refId = in.PropHistory.Id
+
 	sess := d.MustAdmin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
 		return

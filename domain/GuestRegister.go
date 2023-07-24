@@ -70,6 +70,7 @@ func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
 		return
 	}
 	out.actor = user.Id
+	out.refId = user.Id
 
 	// send verification link
 	hash := S.EncodeCB63(user.Id, 8)

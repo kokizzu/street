@@ -137,6 +137,8 @@ var (
 
 func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
+	out.refId = in.Property.Id
+
 	sess := d.MustAdmin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
 		return
@@ -157,6 +159,7 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		prop.Id = in.Property.Id
 		if !prop.FindById() {
 			out.SetError(400, ErrAdminPropertyIdNotFound)
+			return
 		}
 		out.Property = prop
 	case zCrud.ActionUpsert, zCrud.ActionDelete, zCrud.ActionRestore:

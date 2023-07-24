@@ -54,6 +54,7 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 		return
 	}
 	out.actor = user.Id
+	out.refId = user.Id
 
 	if user.DeletedAt > 0 {
 		out.SetError(400, ErrGuestLoginUserDeactivated)

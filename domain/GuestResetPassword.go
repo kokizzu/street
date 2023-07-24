@@ -40,6 +40,7 @@ const (
 func (d *Domain) GuestResetPassword(in *GuestResetPasswordIn) (out GuestResetPasswordOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	userId, ok := S.DecodeCB63[uint64](in.Hash)
+	out.refId = userId
 	if !ok {
 		out.SetError(400, ErrGuestResetPasswordInvalidHash)
 		return
@@ -51,6 +52,7 @@ func (d *Domain) GuestResetPassword(in *GuestResetPasswordIn) (out GuestResetPas
 		return
 	}
 	out.actor = user.Id
+
 	if len(in.Password) < minPassLength {
 		out.SetErrorf(400, ErrGuestResetPasswordTooShort)
 		return

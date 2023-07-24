@@ -33,10 +33,12 @@ const (
 
 func (d *Domain) UserChangePassword(in *UserChangePasswordIn) (out UserChangePasswordOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
+
 	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
 		return
 	}
+	out.refId = sess.UserId
 
 	if len(in.NewPass) < minPassLength {
 		out.SetError(400, ErrUserChangePasswordNewPassTooShort)

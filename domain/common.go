@@ -215,8 +215,9 @@ type ResponseCommon struct {
 	Redirect     string `json:"redirect,omitempty" form:"redirect" query:"redirect" long:"redirect" msg:"redirect"`
 
 	// action trace
-	traces []any
-	actor  uint64
+	traces []any  // if you need to add trace or log that can be queried
+	actor  uint64 // currently logged-in user, automatically filled by .mustLogin or .mustAdmin
+	refId  uint64 // refer of primary table id being actioned
 }
 
 func (o *ResponseCommon) HasError() bool {

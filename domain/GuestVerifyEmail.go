@@ -37,6 +37,8 @@ const (
 func (d *Domain) GuestVerifyEmail(in *GuestVerifyEmailIn) (out GuestVerifyEmailOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	userId, ok := S.DecodeCB63[uint64](in.Hash)
+	out.refId = userId
+
 	if !ok {
 		out.SetError(400, ErrGuestVerifyEmailInvalidHash)
 		return

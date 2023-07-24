@@ -44,6 +44,7 @@ var guestForgotPasswordLock = nsync.NewNamedMutex()
 
 func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgotPasswordOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
+
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Email = in.Email
 
@@ -58,6 +59,7 @@ func (d *Domain) GuestForgotPassword(in *GuestForgotPasswordIn) (out GuestForgot
 		return
 	}
 	out.actor = user.Id
+	out.refId = user.Id
 
 	recently := in.TimeNow().Add(-conf.ForgotPasswordThrottleMinute * time.Minute).Unix()
 	if user.SecretCodeAt >= recently {

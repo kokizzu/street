@@ -121,6 +121,7 @@ func (d *Domain) UserUploadFile(in *UserUploadFileIn) (out UserUploadFileOut) {
 		out.SetError(500, ErrUserUploadFailedSaveMetadata)
 		return
 	}
+	out.refId = file.Id
 	defer func() {
 		if out.HasError() {
 			if !file.DoDeletePermanentById() {

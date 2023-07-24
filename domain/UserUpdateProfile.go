@@ -41,6 +41,7 @@ func (d *Domain) UserUpdateProfile(in *UserUpdateProfileIn) (out UserProfileOut)
 	if sess == nil {
 		return
 	}
+	out.refId = sess.UserId
 
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Id = sess.UserId

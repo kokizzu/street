@@ -67,6 +67,7 @@ func (d *Domain) GuestFiles(in *GuestFilesIn) (out GuestFilesOut) {
 	out.Request = in.RequestCommon
 
 	id, err := base62.ParseUint([]byte(in.Base62id))
+	out.refId = id
 	if err != nil {
 		out.SetError(400, ErrGuestFilesInvalidId)
 	}

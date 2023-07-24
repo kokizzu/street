@@ -94,6 +94,8 @@ const (
 	Long       = `long`
 
 	Latency = `latency` // in seconds
+
+	RefId = `refId`
 )
 
 var ClickhouseTables = map[Ch.TableName]*Ch.TableProp{
@@ -112,6 +114,7 @@ var ClickhouseTables = map[Ch.TableName]*Ch.TableProp{
 			{Lat, Ch.Float64},
 			{Long, Ch.Float64},
 			{Latency, Ch.Float64},
+			{RefId, Ch.UInt64},
 		},
 		Orders: []string{CreatedAt, RequestId, ActorId, Action},
 	},

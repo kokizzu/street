@@ -36,6 +36,7 @@ func (d *Domain) UserProfile(in *UserProfileIn) (out UserProfileOut) {
 	if sess == nil {
 		return
 	}
+	out.refId = sess.UserId
 
 	user := rqAuth.NewUsers(d.AuthOltp)
 	user.Id = sess.UserId

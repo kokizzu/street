@@ -39,6 +39,14 @@ func (d *Domain) UserPropHistory(in *UserPropHistoryIn) (out UserPropHistoryOut)
 	hist := rqProperty.NewPropertyHistory(d.PropOltp)
 
 	out.History = hist.FindByPropertyKey(in.PropertyKey)
+
+	// find property being referenced, since the FK is not prop.Id
+	prop := rqProperty.NewProperty(d.PropOltp)
+	prop.UniqPropKey = in.PropertyKey
+	if prop.FindByUniqPropKey() {
+		out.refId = prop.Id
+	}
+
 	return
 
 }

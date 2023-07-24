@@ -40,6 +40,7 @@ func (d *Domain) UserDeactivate(in *UserDeactivateIn) (out UserDeactivateOut) {
 	if sess == nil {
 		return
 	}
+	out.refId = sess.UserId
 
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Id = sess.UserId
