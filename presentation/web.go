@@ -64,11 +64,11 @@ func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, u
 			reqCommon.RawBody = trimBody
 		}
 	}
-	if conf.IsDebug() && reqCommon.Debug {
+	if conf.IsDebug() && reqCommon.Debug && reqCommon.RawBody != `` {
 		// prevent too large dump because multipart/form-data is raw binary
 		contentType := ctx.Get(`content-type`)
 		if !S.StartsWith(contentType, `multipart/form-data`) {
-			log.Print(ctx.GetReqHeaders())
+			//log.Print(ctx.GetReqHeaders())
 			log.Print(reqCommon.RawBody)
 		}
 	}

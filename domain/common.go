@@ -66,7 +66,7 @@ func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon, 
 		ctx.Status(rc.StatusCode)
 	}
 	if rc.Redirect != `` {
-		ctx.Redirect(rc.Redirect, rc.StatusCode)
+		_ = ctx.Redirect(rc.Redirect, rc.StatusCode)
 	}
 	rc.DecorateSession(ctx)
 	switch l.OutputFormat {

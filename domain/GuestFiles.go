@@ -1,10 +1,15 @@
 package domain
 
 import (
+	"context"
+	"fmt"
 	"io"
 	"os"
+	"time"
 
+	"github.com/allegro/bigcache/v3"
 	"github.com/jxskiss/base62"
+	"github.com/kokizzu/gotro/L"
 
 	"street/model/mStorage/wcStorage"
 )
@@ -41,6 +46,22 @@ const (
 	ErrGuestFilesUnreadable   = `file unreadable`
 )
 
+var filesCache = (func() *bigcache.BigCache {
+	cache, initErr := bigcache.New(context.Background(), bigcache.Config{
+		Shards:             1024,
+		LifeWindow:         1 * time.Minute,
+		CleanWindow:        10 * time.Second,
+		MaxEntriesInWindow: 1000 * 10 * 60,
+		MaxEntrySize:       256 * 1024,
+		Verbose:            false,
+		HardMaxCacheSize:   256, // MB
+		OnRemove:           nil,
+		OnRemoveWithReason: nil,
+	})
+	L.PanicIf(initErr, `failed initialize cache`)
+	return cache
+})()
+
 func (d *Domain) GuestFiles(in *GuestFilesIn) (out GuestFilesOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	out.Request = in.RequestCommon
@@ -62,19 +83,24 @@ func (d *Domain) GuestFiles(in *GuestFilesIn) (out GuestFilesOut) {
 		fsPath = file.ResizedPath
 	}
 
-	fs, err := os.Open(d.UploadDir + fsPath)
+	out.Raw, err = filesCache.Get(fsPath)
 	if err != nil {
-		d.Log.Error().Msgf(`file cannot be opend: %v`, fsPath)
-		out.SetError(404, ErrGuestFilesInaccessible)
-		return
-	}
-	defer fs.Close()
+		fs, err := os.Open(d.UploadDir + fsPath)
+		if err != nil {
+			d.Log.Error().Msgf(`file cannot be opend: %v`, fsPath)
+			out.SetError(404, ErrGuestFilesInaccessible)
+			return
+		}
+		defer fs.Close()
 
-	out.Raw, err = io.ReadAll(fs)
-	if err != nil {
-		d.Log.Error().Msgf(`file cannot be read: %v`, fsPath)
-		out.SetError(500, ErrGuestFilesUnreadable)
-		return
+		out.Raw, err = io.ReadAll(fs)
+		if err != nil {
+			d.Log.Error().Msgf(`file cannot be read: %v`, fsPath)
+			out.SetError(500, ErrGuestFilesUnreadable)
+			return
+		}
+		_ = filesCache.Set(fsPath, out.Raw)
+		fmt.Println(`cache`)
 	}
 
 	go file.DoIncStat(in.UnixNow())

@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/ClickHouse/clickhouse-go/v2 v2.10.1
-	github.com/bamiaux/rez v0.0.0-20170731184118-29f4463c688b
+	github.com/allegro/bigcache/v3 v3.1.0
 	github.com/disintegration/imaging v1.6.2
 	github.com/gabriel-vasile/mimetype v1.4.2
 	github.com/goccy/go-json v0.10.2
