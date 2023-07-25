@@ -62,11 +62,19 @@
   // ]
   let realtorStack = [];
   let subPage = 1;
+  let subpage_1;
+  let subpage_2;
+  let subpage_3;
+  let subpage_4;
+  let subpage_container;
   async function nextPage() {
     if (subPage < 4) {
       await subPage++;
+      console.log(subPage);
+      
       const nextCard = document.getElementById(`subpage_${subPage}`);
-      nextCard.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'center' });
+      // nextCard.scrollTo(200, 0)
+      nextCard.scrollIntoView({ behavior: 'smooth' });
     }
   }
   function backPage() {
@@ -150,9 +158,9 @@
     });
   }
   function handlerLocationNext() {
-    if (lng === 0 || lat === 0 || formatted_address === '') {
+    /*if (lng === 0 || lat === 0 || formatted_address === '') {
       alert('Location must be added');
-    } else {
+    } else {*/
       realtorStack = [
         ...realtorStack,
         {
@@ -165,7 +173,7 @@
         }
       ]
       nextPage();
-    }
+  //  }
   }
 
   // +=============| House Info |=============+ //
@@ -380,9 +388,42 @@
     floor_index_to_edit = index;
   }
   // _______Upload Floor Plan photo
-  let imageFloorPlanInput
-  function handlerImageFloorPlan(e) {
-    
+  let imgFlrPlanUploading = false;
+  let imageFloorPlanInput;
+  function handlerImageFloorPlan() {
+    const file = imageFloorPlanInput.files[0];
+    if (file) {
+      var formData = new FormData();
+      formData.append( 'rawFile', file );
+      formData.append( 'purpose', 'floorPlan' ); // property or floorPlan
+      var ajax = new XMLHttpRequest();
+      ajax.upload.addEventListener( 'progress', function(event) {
+        imgFlrPlanUploading = true;
+      });
+      ajax.addEventListener( 'load', function (event) {
+        imgFlrPlanUploading = false;
+        if (ajax.status === 200) {
+          const out = JSON.parse(event.target.responseText)
+          if(!out.error) {
+            floor_lists[floor_index_to_edit].planImageUrl = out.urlPattern; // .originalUrl also available
+          }
+          alert('Upload successful');
+        } else if (ajax.status === 413) {
+          alert('Image too large')
+        } else {
+          alert('Error: ', ajax.status, ajax.statusText)
+        }
+        imageFloorPlanInput.value = ''
+      });
+      ajax.addEventListener( 'error', function(event) {
+        alert('Network error')
+      });
+      ajax.addEventListener( 'abort', function(event) {
+        alert('Upload aborted')
+      }, false );
+      ajax.open( 'POST', '/user/uploadFile' );
+      ajax.send( formData );
+    }
   }
   
   // ________Rooms Edit
@@ -470,9 +511,9 @@
       </div>
     </div>
     <div class='content'>
-      <div class='realtor_subpage_container'>
+      <div class='realtor_subpage_container' bind:this={subpage_container}>
         {#if subPage >= 1}
-          <section class='location' id='subpage_1'>
+          <section class='location' id='subpage_1' bind:this={subpage_1}>
             <div>
               <h2>Type property's address or move the map to autofill it</h2>               
               <div class='location_input'>
@@ -489,7 +530,7 @@
           </section>
         {/if}
         {#if subPage >= 2}
-          <section class='info' id='subpage_2'>
+          <section class='info' id='subpage_2' bind:this={subpage_2}>
             <div class='main_info'>
               <button class='back_button' on:click|preventDefault={houseInfoBack}>
                 <i class='gg-chevron-left' />
@@ -723,17 +764,13 @@
                         <div class='right_item'>
                           <button class='edit_floor' on:click={() => handlerEditFloor(index)}>Edit</button>
                           <div class='floor_plan'>
-                            {#each imageFloorPlanLists as imgFloorPlan}
-                              {#if imgFloorPlan.floor === floor.floor }
-                                {#if imgFloorPlan.preview}
-                                  <img src={imgFloorPlan.preview} alt=''>
-                                {:else}
-                                  <span>
-                                    <i class='gg-image'></i>
-                                  </span>
-                                {/if}
-                              {/if}
-                            {/each}
+                            {#if floor.planImageUrl === ''}
+                              <span>
+                                <i class='gg-image'></i>
+                              </span>
+                            {:else}
+                              <img src={floor.planImageUrl} alt=''/>
+                            {/if}
                           </div>
                         </div>
                       </div>
@@ -747,25 +784,31 @@
               {/if}
               {#if floor_edit_mode === true}
                 <div class='edit_floor_container'>
-                  {#if floor_lists[floor_index_to_edit].planImageUrl === ''}
-                    <label class='floor_plan_upload' for='floor_plan_upload'>
-                      <input
-                        bind:this={imageFloorPlanInput}
-                        on:change={() => handlerImageFloorPlan()}
-                        type='file'
-                        accept='image/*'
-                        id='floor_plan_upload'
-                      />
-                      <img src='/assets/img/realtor/floor-plan-pen-ruler.jpg.webp' alt=''>
-                      <div>
-                        <i class='gg-add'></i>
-                        <p>Floor Plan Picture</p>
-                      </div>
-                    </label>
-                  {:else}
-                    <div class='floor_plan_preview'>
-                      <img src={floor_lists[floor_index_to_edit].planImageUrl} alt=''>
+                  {#if imgFlrPlanUploading === true}
+                    <div class='uploading'>
+                      <p>Uploading... please wait</p>
                     </div>
+                  {:else}
+                    {#if floor_lists[floor_index_to_edit].planImageUrl === ''}
+                      <label class='floor_plan_upload' for='floor_plan_upload'>
+                        <input
+                          bind:this={imageFloorPlanInput}
+                          on:change={() => handlerImageFloorPlan()}
+                          type='file'
+                          accept='image/*'
+                          id='floor_plan_upload'
+                        />
+                        <img src='/assets/img/realtor/floor-plan-pen-ruler.jpg.webp' alt=''>
+                        <div>
+                          <i class='gg-add'></i>
+                          <p>Floor Plan Picture</p>
+                        </div>
+                      </label>
+                    {:else}
+                      <div class='floor_plan_preview'>
+                        <img src={floor_lists[floor_index_to_edit].planImageUrl} alt=''>
+                      </div>
+                    {/if}
                   {/if}
                   <div class='room_list_container'>
                     <div class='room_list_header'>
@@ -796,7 +839,7 @@
                 <h2>Preview Your Property</h2>
                 <div class='image_preview_wrapper'>
                   {#if house_images}
-                    <img src={house_images[0].preview} alt=''>
+                    <img src='/assets/img/realtor/floor-plan-pen-ruler.jpg.webp' alt=''>
                   {:else}
                     <div class='image_preview_empty'>
                       <i class='gg-image'></i>
@@ -1500,6 +1543,16 @@
     display: flex;
     flex-direction: column;
   }
+  .floor .edit_floor_container .uploading {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    width: 100%;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .floor .edit_floor_container .floor_plan_upload {
     border: 1px solid #cbd5e1;
     border-radius: 8px;
