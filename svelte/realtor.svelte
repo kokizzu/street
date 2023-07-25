@@ -29,6 +29,10 @@
   //     attrs: {
   //       house_type: '', /*House or Apartment*/
   //       ownership: '', /*rent or sell*/
+  //       images: [
+  //         "/url/to/images",
+  //         "/url/to/images"
+  //       ]
   //       feature: {
   //         beds: 0,
   //         baths: 0,
@@ -62,18 +66,10 @@
   // ]
   let realtorStack = [];
   let subPage = 1;
-  let subpage_1;
-  let subpage_2;
-  let subpage_3;
-  let subpage_4;
-  let subpage_container;
   async function nextPage() {
     if (subPage < 4) {
       await subPage++;
-      console.log(subPage);
-      
       const nextCard = document.getElementById(`subpage_${subPage}`);
-      // nextCard.scrollTo(200, 0)
       nextCard.scrollIntoView({ behavior: 'smooth' });
     }
   }
@@ -158,9 +154,9 @@
     });
   }
   function handlerLocationNext() {
-    /*if (lng === 0 || lat === 0 || formatted_address === '') {
+    if (lng === 0 || lat === 0 || formatted_address === '') {
       alert('Location must be added');
-    } else {*/
+    } else {
       realtorStack = [
         ...realtorStack,
         {
@@ -173,7 +169,7 @@
         }
       ]
       nextPage();
-  //  }
+    }
   }
 
   // +=============| House Info |=============+ //
@@ -181,6 +177,7 @@
     house_type: '',
     floor: 0,
     ownership: '',
+    images: [],
     feature: {
       beds: 0,
       baths: 0,
@@ -271,32 +268,46 @@
     }
   }
   // ______Upload House Photo
-  let imageCount = 0;
-  let imageInput;
-  let house_images = [/*{ image: data, preview }*/];
-  let showImage = false;
-  function inputImageHandler() {
-    const file = imageInput.files[0];
+  let imageHouseInput;
+  let house_images = [/*"/url/of/house/image"*/];
+  function handlerHouseImage() {
+    const file = imageHouseInput.files[0];
     if (file) {
-      showImage = true;
-      const reader = new FileReader();
-      reader.addEventListener('load', function() {
-        house_images = [...house_images, {
-          image: file,
-          preview: reader.result
-        }]
+      var formData = new FormData();
+      formData.append( 'rawFile', file );
+      formData.append( 'purpose', 'property' ); // property or floorPlan
+      var ajax = new XMLHttpRequest();
+      ajax.addEventListener( 'load', function (event) {
+        imgFlrPlanUploading = false;
+        if (ajax.status === 200) {
+          const out = JSON.parse(event.target.responseText)
+          if(!out.error) {
+            house_images = [...house_images, out.urlPattern]; // push house image url to array
+          }
+          alert('Upload successful');
+        } else if (ajax.status === 413) {
+          alert('Image too large')
+        } else {
+          alert('Error: ', ajax.status, ajax.statusText)
+        }
+        imageHouseInput.value = ''
       });
-      reader.readAsDataURL(file);
-      imageCount++
-      return;
+      ajax.addEventListener( 'error', function(event) {
+        alert('Network error')
+      });
+      ajax.addEventListener( 'abort', function(event) {
+        alert('Upload aborted')
+      }, false );
+      ajax.open( 'POST', '/user/uploadFile' );
+      ajax.send( formData );
     }
-    showImage = false;
   }
   function removeImage(index) {
     house_images = house_images.filter((_, i) => i !== index);
   }
   function handleNextUploadHouseImage() {
-    /* TODO: Send image to an endpoint here **/
+    house_info_obj.images = house_images;
+    console.log(house_images);
     houseInfoNext();
   }
   // ______Feature and Facility
@@ -511,9 +522,9 @@
       </div>
     </div>
     <div class='content'>
-      <div class='realtor_subpage_container' bind:this={subpage_container}>
+      <div class='realtor_subpage_container'>
         {#if subPage >= 1}
-          <section class='location' id='subpage_1' bind:this={subpage_1}>
+          <section class='location' id='subpage_1'>
             <div>
               <h2>Type property's address or move the map to autofill it</h2>               
               <div class='location_input'>
@@ -530,7 +541,7 @@
           </section>
         {/if}
         {#if subPage >= 2}
-          <section class='info' id='subpage_2' bind:this={subpage_2}>
+          <section class='info' id='subpage_2'>
             <div class='main_info'>
               <button class='back_button' on:click|preventDefault={houseInfoBack}>
                 <i class='gg-chevron-left' />
@@ -620,8 +631,8 @@
                   <div class='image_preview_container'>
                     <label class='image_upload_button' for='upload_image'>
                       <input
-                        bind:this={imageInput}
-                        on:change={inputImageHandler}
+                        bind:this={imageHouseInput}
+                        on:change={handlerHouseImage}
                         type='file'
                         accept='image/*'
                         id='upload_image'
@@ -629,10 +640,10 @@
                       <i class='gg-software-upload'></i>
                       <p>Select file to Upload</p>
                     </label>
-                    {#if showImage}
+                    {#if house_images.length}
                       {#each house_images as imgFile, index}
                         <div class='image_card'>
-                          <img src={imgFile.preview} alt=''>
+                          <img src={imgFile} alt=''>
                           <button on:click={() => removeImage(index)} title='remove this image'>
                             <i class='gg-close'></i>
                           </button>
@@ -793,7 +804,7 @@
                       <label class='floor_plan_upload' for='floor_plan_upload'>
                         <input
                           bind:this={imageFloorPlanInput}
-                          on:change={() => handlerImageFloorPlan()}
+                          on:change={handlerImageFloorPlan}
                           type='file'
                           accept='image/*'
                           id='floor_plan_upload'
@@ -838,8 +849,8 @@
               <div class='preview_main'>
                 <h2>Preview Your Property</h2>
                 <div class='image_preview_wrapper'>
-                  {#if house_images}
-                    <img src='/assets/img/realtor/floor-plan-pen-ruler.jpg.webp' alt=''>
+                  {#if house_images.length}
+                    <img src={house_images[0]} alt=''>
                   {:else}
                     <div class='image_preview_empty'>
                       <i class='gg-image'></i>
