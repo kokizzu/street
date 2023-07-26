@@ -307,7 +307,6 @@
   }
   function handleNextUploadHouseImage() {
     house_info_obj.images = house_images;
-    console.log(house_images);
     houseInfoNext();
   }
   // ______Feature and Facility
@@ -377,19 +376,21 @@
         rooms: [],
         planImageUrl: ''
       }
-      floor_lists = [...floor_lists, floor_attribute]
-      basement_added = true
+      floor_lists = [...floor_lists, floor_attribute];
+      basement_added = true;
+      floor_type = '';
     } else {
       floor_attribute = {
         type: floor_type,
         floor: floorCount,
         beds: 0,
         baths: 0,
-        rooms: [],
+        rooms: [/*{name, sizeM2, unit}*/],
         planImageUrl: ''
       }
-      floor_lists = [...floor_lists, floor_attribute]
-      floorCount++
+      floor_lists = [...floor_lists, floor_attribute];
+      floor_type = '';
+      floorCount++;
     }
     add_floor_dialog.hideModal();
     return
@@ -440,20 +441,76 @@
   // ________Rooms Edit
   let add_room_dialog = AddRoomDialog;
   let room_type = '';
-  let room_total = 0;
+  let room_obj = {
+    name: '',
+    sizeM2: 0,
+    unit: 'm2'
+  }
+  let size_m2;
+  let room_size;
+  let unit_mode;
+  let living_room_added = false;
+  let bedroom_total = 0;
+  let bathroom_total = 0;
   function showAddRoomDialog() {
     add_room_dialog.showModal();
   }
   function handlerAddRoom(index) {
+    if (unit_mode === 'SqFt' && size_m2 === 0) {
+      size_m2 = add_room_dialog.sqftToM2(room_size);
+    } else {
+      size_m2 = room_size;
+    }
+    if (room_type === 'living room' && living_room_added === true) {
+      alert('Living Room already added');
+      add_room_dialog.hideModal();
+      room_type = '';
+      room_size = 0;
+      size_m2 = 0;
+      return
+    }
+    if (room_type === 'living room') {
+      room_obj = {
+        name: 'living room',
+        sizeM2: size_m2,
+        unit: 'm2'
+      }
+      floor_lists[index].rooms = [...floor_lists[index].rooms, room_obj];
+      room_type = '';
+      room_size = 0;
+      size_m2 = 0;
+      living_room_added = true;
+    }
     if (room_type === 'bedroom') {
-      floor_lists[index].beds = room_total
+      room_obj = {
+        name: 'bedroom',
+        sizeM2: size_m2,
+        unit: 'm2'
+      }
+      bedroom_total++;
+      floor_lists[index].rooms = [...floor_lists[index].rooms, room_obj]
+      floor_lists[index].beds = bedroom_total;
+      room_type = '';
+      room_size = 0;
+      size_m2 = 0;
     }
     if (room_type === 'bathroom') {
-      floor_lists[index].baths = room_total
+      room_obj = {
+        name: 'bedroom',
+        sizeM2: size_m2,
+        unit: 'm2'
+      }
+      bedroom_total++;
+      floor_lists[index].rooms = [...floor_lists[index].rooms, room_obj];
+      floor_lists[index].baths = bathroom_total;
+      room_type = '';
+      room_size = 0;
+      size_m2 = 0;
     }
     add_room_dialog.hideModal();
     return
   }
+
   function handleNextFloor() {
     realtorStack = [
       ...realtorStack,
@@ -731,7 +788,7 @@
               <button disabled={floor_type === ''} class='add_floor_button' on:click={handlerAddFloor}>Add</button>
             </AddFloorDialog>
             <!-- Add Room Dialog -->
-            <AddRoomDialog bind:this={add_room_dialog} bind:room_type={room_type} bind:room_total={room_total}>
+            <AddRoomDialog bind:this={add_room_dialog} bind:room_type={room_type} bind:room_size={room_size} bind:m2_size={size_m2} bind:unit_mode={unit_mode}>
               <button disabled={room_type === ''} class='add_room_button' on:click={() => handlerAddRoom(floor_index_to_edit)}>Add</button>
             </AddRoomDialog>
             <div class='floor_main_content'>
@@ -788,7 +845,7 @@
                     {/each}
                   {:else}
                     <div class='no_content'>
-                      <p>No Content</p>
+                      <p>No Floor</p>
                     </div>
                   {/if}
                 </div>
@@ -826,16 +883,23 @@
                       <h3>Rooms</h3>
                       <button on:click={showAddRoomDialog}>Add</button>
                     </div>
-                    <div class='room_list_item'>
-                      <div>
-                        <span>Bedroom</span>
-                        <span>{floor_lists[floor_index_to_edit].beds}</span>
+                    {#if floor_lists[floor_index_to_edit]['rooms'].length}
+                      {#each floor_lists[floor_index_to_edit].rooms as room}
+                        <div class='room_list_item'>
+                          <span>{room.name}</span>
+                          <div class='right_item'>
+                            <span>{room.sizeM2} {room.unit}</span>
+                            <button class='remove_room'>
+                              <i class='gg-trash'></i>
+                            </button>
+                          </div>
+                        </div>
+                      {/each}
+                    {:else}
+                      <div class='no_room'>
+                        <p>No room</p>
                       </div>
-                      <div>
-                        <span>Bathroom</span>
-                        <span>{floor_lists[floor_index_to_edit].baths}</span>
-                      </div>
-                    </div>
+                    {/if}
                   </div>
                 </div>
               {/if}
@@ -849,8 +913,8 @@
               <div class='preview_main'>
                 <h2>Preview Your Property</h2>
                 <div class='image_preview_wrapper'>
-                  {#if house_images.length}
-                    <img src={house_images[0]} alt=''>
+                  {#if realtorStack[1]['attrs']['images'].length}
+                    <img src={realtorStack[1]['attrs']['images'][0]} alt=''>
                   {:else}
                     <div class='image_preview_empty'>
                       <i class='gg-image'></i>
@@ -1573,6 +1637,9 @@
     overflow: hidden;
     position: relative;
   }
+  .floor .edit_floor_container .floor_plan_upload:hover {
+    border: 1px solid #f97316;
+  }
   .floor .edit_floor_container .floor_plan_upload input {
     position: absolute;
     opacity: 0;
@@ -1636,14 +1703,44 @@
   .floor .edit_floor_container .room_list_container .room_list_header button:hover {
     background-color : rgb(0 0 0 / 0.07);
   }
-  .floor .edit_floor_container .room_list_container .room_list_item div {
+  .floor .edit_floor_container .room_list_container .room_list_item {
     width: 100%;
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
-    font-weight: 600;
     padding: 8px 0;
-    border-bottom: 2px solid #334155;
+    border-bottom: 1px solid #334155;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+  .floor .edit_floor_container .room_list_container .room_list_item .right_item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .floor .edit_floor_container .room_list_container .room_list_item .right_item .remove_room {
+    border: none;
+    background: none;
+    padding: 10px 13px;
+    border-radius: 50%;
+    margin-left: 8px;
+    cursor: pointer;
+    color: #f97316;
+  }
+  .floor .edit_floor_container .room_list_container .room_list_item .right_item .remove_room:hover {
+    background-color: rgb( 0 0 0 / 0.06);
+  }
+  .floor .room_list_container .no_room {
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: rgb( 0 0 0 / 0.06);
+    padding: 80px 20px;
+    height: fit-content;
+    font-weight: 600;
+    font-size: 16px;
+    width: 100%;
   }
   /* +============| SUBPAGE PREVIEW |===========+ */
   .preview {

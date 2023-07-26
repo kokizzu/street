@@ -7,15 +7,49 @@
     visible = false;
   }
   export let room_type = '';
+  // unit mode
+  const sqft = 'SqFt';
+  const m2 = 'M2';
+  export let unit_mode = m2;
+  export let room_size = 0;
+  let sqft_size = 0;
+  export let m2_size = 0;
   const room_type_lists = [
     'bedroom',
     'bathroom',
+    'living room'
   ]
   let showRoomTypeOption = false;
   function handleRoomTypeOption() {
     showRoomTypeOption = !showRoomTypeOption;
   }
-  export let room_total = 0;
+  function toggleUnitMode() {
+    if (unit_mode == sqft) {
+      if (room_size !== 0) {
+        sqft_size = room_size;
+        m2_size = sqftToM2(room_size);
+        unit_mode = m2;
+        room_size = m2_size;
+      } else {
+        unit_mode = m2;
+      }
+    } else if (unit_mode == m2) {
+      if (room_size !== 0) {
+        m2_size = room_size;
+        sqft_size = m2ToSqft(room_size);
+        unit_mode = sqft;
+        room_size = sqft_size;
+      } else {
+        unit_mode = sqft;
+      }
+    }
+  }
+  export function sqftToM2(sqft) {
+    return sqft * 0.09290304;
+  }
+  function m2ToSqft(m2) {
+    return m2 / 0.09290304;
+  }
 </script>
 
 {#if visible}
@@ -43,9 +77,17 @@
           </div>
         {/if}
       </div>
-      <div class='room_total'>
-        <label for='room_total'>Total</label>
-        <input bind:value={room_total} type='number' name='room_total' id='room_total'>
+      <div class='room_size'>
+        <label for='room_size'>Size</label>
+        <div class='room_input_size_box'>
+          <input bind:value={room_size} type='number' name='room_size' id='room_size'>
+          <div class='unit_toggle'>
+            <p>{unit_mode}</p>
+            <button on:click={toggleUnitMode}>
+              <i class='gg-arrows-exchange'></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     <div class='buttons'>
@@ -172,20 +214,26 @@
     opacity: 0;
     pointer-events: none;
   }
-  .add_room_content .room_total {
+  .add_room_content .room_size {
     display: flex;
     flex-direction: column;
     width: 100%;
     text-transform: capitalize;
     margin-top: 15px;
   }
-  .add_room_content .room_total label {
+  .add_room_content .room_size label {
     font-size: 13px;
     font-weight: 700;
     margin-left: 10px;
     margin-bottom: 8px;
   }
-  .add_room_content .room_total input {
+  .add_room_content .room_size .room_input_size_box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .add_room_content .room_size .room_input_size_box input {
+    flex-grow: 1;
     width: auto;
     border: 1px solid #cbd5e1;
     background-color: #f1f5f9;
@@ -193,5 +241,24 @@
     padding: 10px 12px;
     text-align: left;
     text-transform: capitalize;
+  }
+  .add_room_content .room_size .room_input_size_box .unit_toggle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 8px;
+    font-weight: 500;
+  }
+  .add_room_content .room_size .room_input_size_box .unit_toggle button {
+    border: none;
+    background: none;
+    padding: 9px 8px;
+    border-radius: 50%;
+    margin-left: 8px;
+    cursor: pointer;
+    color: #f97316;
+  }
+  .add_room_content .room_size .room_input_size_box .unit_toggle button:hover {
+    background-color: rgb( 0 0 0 / 0.06);
   }
 </style>
