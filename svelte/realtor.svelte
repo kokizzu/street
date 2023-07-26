@@ -53,12 +53,20 @@
   //           type: '', /*Floor or Basement*/
   //           floor: 0,
   //           beds: 0,
-  //           baths: 0
+  //           baths: 0,
+  //           rooms: []
   //         }, {
   //           type: '', /*Floor or Basement*/
   //           floor: 0,
   //           beds: 0,
-  //           baths: 0
+  //           baths: 0,
+  //           rooms: [
+  //             {
+  //               name: '',
+  //               sizeM2: 0,
+  //               unit: 'm2'
+  //              }
+  //           ]
   //         }
   //       ]
   //     }
@@ -496,11 +504,11 @@
     }
     if (room_type === 'bathroom') {
       room_obj = {
-        name: 'bedroom',
+        name: 'bathroom',
         sizeM2: size_m2,
         unit: 'm2'
       }
-      bedroom_total++;
+      bathroom_total++;
       floor_lists[index].rooms = [...floor_lists[index].rooms, room_obj];
       floor_lists[index].baths = bathroom_total;
       room_type = '';
@@ -971,12 +979,24 @@
                       <div class='floor_item'>
                         <h3>{floors.type === 'basement' ? floors.type : `${floors.type} #${floors.floor}`}</h3>
                         <div class='floor_attr'>
-                          <div class='floor_facility'>
-                            <p>Bedroom: {floors.beds}</p>
-                            <p>Bathroom: {floors.baths}</p>
+                          <div class='floor_rooms'>
+                            {#if floors['rooms'].length}
+                              {#each floors.rooms as rooms}
+                                <div class='room_item'>
+                                  <span>{rooms.name}</span>
+                                  <span>{rooms.sizeM2} {rooms.unit}</span>
+                                </div>
+                              {/each}
+                            {/if}
                           </div>
                           <div class='floor_plan'>
-
+                            {#if floors.planImageUrl === ''}
+                              <span>
+                                <i class='gg-image'></i>
+                              </span>
+                            {:else}
+                              <img src={floors.planImageUrl} alt=''/>
+                            {/if}
                           </div>
                         </div>
                       </div>
@@ -1892,6 +1912,64 @@
     font-size: 22px;
     margin-bottom: 20px;
   }
+  .preview .preview_floors .floor_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .preview .preview_floors .floor_container .floor_item {
+    display: flex;
+    flex-direction: column;
+  }
+  .preview .preview_floors .floor_container .floor_item h3 {
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    text-transform: capitalize;
+  }
+  .preview .preview_floors .floor_container .floor_item .floor_attr {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .preview .preview_floors .floor_container .floor_item .floor_attr .floor_rooms {
+    flex-basis: 60%;
+    display: flex;
+    flex-direction: column;
+  }
+  .preview .preview_floors .floor_container .floor_item .floor_attr .floor_rooms .room_item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    text-transform: capitalize;
+    padding: 5px 0;
+  }
+  .preview .preview_floors .floor_container .floor_item .floor_attr .floor_plan {
+    position: relative;
+    border-radius: 8px;
+    width: 200px;
+    height: 110px;
+    border: 1px solid #cbd5e1;
+    overflow: hidden;
+  }
+  .preview .preview_floors .floor_container .floor_item .floor_attr .floor_plan img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .preview .preview_floors .floor_container .floor_item .floor_attr .floor_plan span {
+    border-radius: 8px;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 0.06);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
   .preview .submit_button {
     background-color: #f97316;
     border-radius: 8px;

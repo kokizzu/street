@@ -80,7 +80,7 @@
       <div class='room_size'>
         <label for='room_size'>Size</label>
         <div class='room_input_size_box'>
-          <input bind:value={room_size} type='number' name='room_size' id='room_size'>
+          <input bind:value={room_size} min='0' type='number' name='room_size' id='room_size'>
           <div class='unit_toggle'>
             <p>{unit_mode}</p>
             <button on:click={toggleUnitMode}>
