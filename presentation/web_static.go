@@ -28,6 +28,15 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		})
 	})
 
+	fw.Get(`/`+domain.GuestExternalAuthAction, func(c *fiber.Ctx) error {
+		in := domain.GuestExternalAuthIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.GuestExternalAuthAction); err != nil {
+			return err
+		}
+		out := d.GuestExternalAuth(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	fw.Get(`/`+domain.GuestOauthCallbackAction, func(c *fiber.Ctx) error {
 		var in domain.GuestOauthCallbackIn
 		err := webApiParseInput(c, &in.RequestCommon, &in, domain.GuestOauthCallbackAction)
