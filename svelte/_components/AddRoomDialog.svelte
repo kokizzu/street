@@ -45,10 +45,14 @@
     }
   }
   export function sqftToM2(sqft) {
-    return sqft * 0.09290304;
+    var value = sqft * 0.09290304;
+    var minifiedValue = value.toFixed(2);
+    return parseFloat(minifiedValue);
   }
   function m2ToSqft(m2) {
-    return m2 / 0.09290304;
+    var value = m2 / 0.09290304;
+    var minifiedValue = value.toFixed(2);
+    return parseFloat(minifiedValue);
   }
 </script>
 
@@ -80,7 +84,7 @@
       <div class='room_size'>
         <label for='room_size'>Size</label>
         <div class='room_input_size_box'>
-          <input bind:value={room_size} min='0' type='number' name='room_size' id='room_size'>
+          <input bind:value={room_size} min='0' step='0.01' type='number' name='room_size' id='room_size'>
           <div class='unit_toggle'>
             <p>{unit_mode}</p>
             <button on:click={toggleUnitMode}>

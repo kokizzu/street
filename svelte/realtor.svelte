@@ -466,6 +466,8 @@
   function handlerAddRoom(index) {
     if (unit_mode === 'SqFt' && size_m2 === 0) {
       size_m2 = add_room_dialog.sqftToM2(room_size);
+    } else if (unit_mode === 'SqFt' && size_m2 !== 0) {
+      size_m2 = add_room_dialog.sqftToM2(room_size)
     } else {
       size_m2 = room_size;
     }
