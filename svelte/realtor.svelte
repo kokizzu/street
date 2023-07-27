@@ -457,7 +457,6 @@
   let size_m2;
   let room_size;
   let unit_mode;
-  let living_room_added = false;
   let bedroom_total = 0;
   let bathroom_total = 0;
   function showAddRoomDialog() {
@@ -471,15 +470,19 @@
     } else {
       size_m2 = room_size;
     }
-    if (room_type === 'living room' && living_room_added === true) {
-      alert('Living Room already added');
-      add_room_dialog.hideModal();
-      room_type = '';
-      room_size = 0;
-      size_m2 = 0;
-      return
-    }
+    
     if (room_type === 'living room') {
+      for (let i = 0; i < floor_lists[index]['rooms'].length; i++) {
+        if (floor_lists[index]['rooms'][i].name === 'living room') {
+          alert('Living Room already added');
+          add_room_dialog.hideModal();
+          room_type = '';
+          room_size = 0;
+          size_m2 = 0;
+          return
+        }
+      }
+
       room_obj = {
         name: 'living room',
         sizeM2: size_m2,
@@ -489,7 +492,6 @@
       room_type = '';
       room_size = 0;
       size_m2 = 0;
-      living_room_added = true;
     }
     if (room_type === 'bedroom') {
       room_obj = {
@@ -1805,6 +1807,9 @@
     justify-content: center;
     align-items: center;
   }
+  .preview .image_preview_wrapper .image_preview_empty p {
+    margin-left: 10px;
+  }
   .preview .preview_price_house_type {
     display: flex;
     flex-direction: row;
@@ -1922,6 +1927,7 @@
   .preview .preview_floors .floor_container .floor_item {
     display: flex;
     flex-direction: column;
+    margin-bottom: 15px;
   }
   .preview .preview_floors .floor_container .floor_item h3 {
     font-weight: 600;
