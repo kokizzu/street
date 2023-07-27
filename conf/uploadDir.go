@@ -20,6 +20,7 @@ func UploadDir() string {
 	if err != nil {
 		err = os.MkdirAll(uploadDir, 0770)
 		L.PanicIf(err, `failed create upload directory: `+uploadDir)
+		dirStat, _ = os.Stat(uploadDir)
 	}
 	if !dirStat.IsDir() {
 		panic(`upload dir is not a directory: ` + uploadDir)

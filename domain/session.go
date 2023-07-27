@@ -111,7 +111,7 @@ func (s *Session) Decrypt(sessionToken, userAgent string) bool {
 	strs := strings.Split(sessionToken, TokenSeparator)
 	tokenLen := len(strs)
 	if tokenLen != 3 {
-		L.Print(`sessionToken length mismatch: ` + I.ToStr(tokenLen))
+		L.Print(`sessionToken length mismatch: ` + I.ToStr(tokenLen) + ` value: ` + sessionToken)
 		return false
 	}
 	uaHash := S.EncodeCB63(fnv1a.HashString64(userAgent), 1)
@@ -132,12 +132,12 @@ func (s *Session) Decrypt(sessionToken, userAgent string) bool {
 	if L.IsError(err, `cipher.NewGCM`) {
 		return false
 	}
-	noncecSize := gcm.NonceSize()
-	if len(data) < noncecSize {
-		L.Print(`len(data) < noncecSize`)
+	nonceSize := gcm.NonceSize()
+	if len(data) < nonceSize {
+		L.Print(`len(data) < nonceSize`)
 		return false
 	}
-	nonce, cipherText := data[:noncecSize], data[noncecSize:]
+	nonce, cipherText := data[:nonceSize], data[nonceSize:]
 	plainText, err := gcm.Open(nil, nonce, cipherText, nil)
 	if L.IsError(err, `gcm.Open`) {
 		return false
