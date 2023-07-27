@@ -1,4 +1,5 @@
 <script>
+// @ts-nocheck
   import { onMount } from 'svelte';
 
   import Menu from './_components/Menu.svelte';
@@ -28,6 +29,10 @@
   //     attrs: {
   //       house_type: '', /*House or Apartment*/
   //       ownership: '', /*rent or sell*/
+  //       images: [
+  //         "/url/to/images",
+  //         "/url/to/images"
+  //       ]
   //       feature: {
   //         beds: 0,
   //         baths: 0,
@@ -48,12 +53,20 @@
   //           type: '', /*Floor or Basement*/
   //           floor: 0,
   //           beds: 0,
-  //           baths: 0
+  //           baths: 0,
+  //           rooms: []
   //         }, {
   //           type: '', /*Floor or Basement*/
   //           floor: 0,
   //           beds: 0,
-  //           baths: 0
+  //           baths: 0,
+  //           rooms: [
+  //             {
+  //               name: '',
+  //               sizeM2: 0,
+  //               unit: 'm2'
+  //              }
+  //           ]
   //         }
   //       ]
   //     }
@@ -65,12 +78,14 @@
     if (subPage < 4) {
       await subPage++;
       const nextCard = document.getElementById(`subpage_${subPage}`);
-      nextCard.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'center' });
+      nextCard.scrollIntoView({ behavior: 'smooth' });
     }
   }
   function backPage() {
     if (subPage > 1) {
       subPage--;
+      realtorStack.pop();
+      realtorStack = realtorStack;
     }
   }
 
@@ -78,7 +93,9 @@
   let map;
   let map_container;
   let input_address;
-  let long, lat, address;
+  let lng = 0;
+  let lat = 0;
+  let formatted_address = '';
   // const MAP_API_KEY = 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg';
   async function initMap() {
     const { Map } = await google.maps.importLibrary("maps");
@@ -99,6 +116,12 @@
       if (places.length == 0) {
         return;
       }
+
+      // Fill formatted_address, latitude, and longitude as JSON values
+      lng = places[0].geometry.location.lng();
+      lat = places[0].geometry.location.lat();
+      formatted_address = places[0].formatted_address;
+
       // Clear out the old markers
       markers.forEach((marker) => {
         marker.setMap(null);
@@ -135,10 +158,11 @@
         }
       });
       map.fitBounds(bounds);
+      
     });
   }
   function handlerLocationNext() {
-    if (long === '' || lat === '' || address === '') {
+    if (lng === 0 || lat === 0 || formatted_address === '') {
       alert('Location must be added');
     } else {
       realtorStack = [
@@ -146,9 +170,9 @@
         {
           subroute: 'location',
           attrs: {
-            address: '',
-            long: 0,
-            lat: 0
+            address: formatted_address,
+            lng: lng,
+            lat: lat
           }
         }
       ]
@@ -161,6 +185,7 @@
     house_type: '',
     floor: 0,
     ownership: '',
+    images: [],
     feature: {
       beds: 0,
       baths: 0,
@@ -251,32 +276,45 @@
     }
   }
   // ______Upload House Photo
-  let imageCount = 0;
-  let imageInput;
-  let house_images = [/*{ image: data, preview }*/];
-  let showImage = false;
-  function inputImageHandler() {
-    const file = imageInput.files[0];
+  let imageHouseInput;
+  let house_images = [/*"/url/of/house/image"*/];
+  function handlerHouseImage() {
+    const file = imageHouseInput.files[0];
     if (file) {
-      showImage = true;
-      const reader = new FileReader();
-      reader.addEventListener('load', function() {
-        house_images = [...house_images, {
-          image: file,
-          preview: reader.result
-        }]
+      var formData = new FormData();
+      formData.append( 'rawFile', file );
+      formData.append( 'purpose', 'property' ); // property or floorPlan
+      var ajax = new XMLHttpRequest();
+      ajax.addEventListener( 'load', function (event) {
+        imgFlrPlanUploading = false;
+        if (ajax.status === 200) {
+          const out = JSON.parse(event.target.responseText)
+          if(!out.error) {
+            house_images = [...house_images, out.urlPattern]; // push house image url to array
+          }
+          alert('Upload successful');
+        } else if (ajax.status === 413) {
+          alert('Image too large')
+        } else {
+          alert('Error: ', ajax.status, ajax.statusText)
+        }
+        imageHouseInput.value = ''
       });
-      reader.readAsDataURL(file);
-      imageCount++
-      return;
+      ajax.addEventListener( 'error', function(event) {
+        alert('Network error')
+      });
+      ajax.addEventListener( 'abort', function(event) {
+        alert('Upload aborted')
+      }, false );
+      ajax.open( 'POST', '/user/uploadFile' );
+      ajax.send( formData );
     }
-    showImage = false;
   }
   function removeImage(index) {
     house_images = house_images.filter((_, i) => i !== index);
   }
   function handleNextUploadHouseImage() {
-    /* TODO: Send image to an endpoint here **/
+    house_info_obj.images = house_images;
     houseInfoNext();
   }
   // ______Feature and Facility
@@ -320,7 +358,9 @@
     type: '',
     floor: 0,
     beds: 0,
-    baths: 0
+    baths: 0,
+    rooms: [/*{ name, sizeM2, unit }*/],
+    planImageUrl: ''
   }
   let floorCount = 1;
   let basement_added = false;
@@ -340,19 +380,25 @@
         type: floor_type,
         floor: 0,
         beds: 0,
-        baths: 0
+        baths: 0,
+        rooms: [],
+        planImageUrl: ''
       }
-      floor_lists = [...floor_lists, floor_attribute]
-      basement_added = true
+      floor_lists = [...floor_lists, floor_attribute];
+      basement_added = true;
+      floor_type = '';
     } else {
       floor_attribute = {
         type: floor_type,
         floor: floorCount,
         beds: 0,
-        baths: 0
+        baths: 0,
+        rooms: [/*{name, sizeM2, unit}*/],
+        planImageUrl: ''
       }
-      floor_lists = [...floor_lists, floor_attribute]
-      floorCount++
+      floor_lists = [...floor_lists, floor_attribute];
+      floor_type = '';
+      floorCount++;
     }
     add_floor_dialog.hideModal();
     return
@@ -362,47 +408,121 @@
     floor_index_to_edit = index;
   }
   // _______Upload Floor Plan photo
+  let imgFlrPlanUploading = false;
   let imageFloorPlanInput;
-  let imageFloorPlanObj = {
-    image: null,
-    preview: null
-  };
-  let imageFloorPlanUploaded = false;
   function handlerImageFloorPlan() {
     const file = imageFloorPlanInput.files[0];
     if (file) {
-      imageFloorPlanUploaded = true;
-      const reader = new FileReader();
-      reader.addEventListener('load', function() {
-        imageFloorPlanObj = {
-          image: file,
-          preview: reader.result
-        }
+      var formData = new FormData();
+      formData.append( 'rawFile', file );
+      formData.append( 'purpose', 'floorPlan' ); // property or floorPlan
+      var ajax = new XMLHttpRequest();
+      ajax.upload.addEventListener( 'progress', function(event) {
+        imgFlrPlanUploading = true;
       });
-      reader.readAsDataURL(file);
-      return;
+      ajax.addEventListener( 'load', function (event) {
+        imgFlrPlanUploading = false;
+        if (ajax.status === 200) {
+          const out = JSON.parse(event.target.responseText)
+          if(!out.error) {
+            floor_lists[floor_index_to_edit].planImageUrl = out.urlPattern; // .originalUrl also available
+          }
+          alert('Upload successful');
+        } else if (ajax.status === 413) {
+          alert('Image too large')
+        } else {
+          alert('Error: ', ajax.status, ajax.statusText)
+        }
+        imageFloorPlanInput.value = ''
+      });
+      ajax.addEventListener( 'error', function(event) {
+        alert('Network error')
+      });
+      ajax.addEventListener( 'abort', function(event) {
+        alert('Upload aborted')
+      }, false );
+      ajax.open( 'POST', '/user/uploadFile' );
+      ajax.send( formData );
     }
-    imageFloorPlanUploaded = false;
   }
+  
   // ________Rooms Edit
   let add_room_dialog = AddRoomDialog;
   let room_type = '';
-  let room_total = 0;
+  let room_obj = {
+    name: '',
+    sizeM2: 0,
+    unit: 'm2'
+  }
+  let size_m2;
+  let room_size;
+  let unit_mode;
+  let bedroom_total = 0;
+  let bathroom_total = 0;
   function showAddRoomDialog() {
     add_room_dialog.showModal();
   }
   function handlerAddRoom(index) {
+    if (unit_mode === 'SqFt' && size_m2 === 0) {
+      size_m2 = add_room_dialog.sqftToM2(room_size);
+    } else if (unit_mode === 'SqFt' && size_m2 !== 0) {
+      size_m2 = add_room_dialog.sqftToM2(room_size)
+    } else {
+      size_m2 = room_size;
+    }
+    
+    if (room_type === 'living room') {
+      for (let i = 0; i < floor_lists[index]['rooms'].length; i++) {
+        if (floor_lists[index]['rooms'][i].name === 'living room') {
+          alert('Living Room already added');
+          add_room_dialog.hideModal();
+          room_type = '';
+          room_size = 0;
+          size_m2 = 0;
+          return
+        }
+      }
+
+      room_obj = {
+        name: 'living room',
+        sizeM2: size_m2,
+        unit: 'm2'
+      }
+      floor_lists[index].rooms = [...floor_lists[index].rooms, room_obj];
+      room_type = '';
+      room_size = 0;
+      size_m2 = 0;
+    }
     if (room_type === 'bedroom') {
-      floor_lists[index].beds = room_total
+      room_obj = {
+        name: 'bedroom',
+        sizeM2: size_m2,
+        unit: 'm2'
+      }
+      bedroom_total++;
+      floor_lists[index].rooms = [...floor_lists[index].rooms, room_obj]
+      floor_lists[index].beds = bedroom_total;
+      room_type = '';
+      room_size = 0;
+      size_m2 = 0;
     }
     if (room_type === 'bathroom') {
-      floor_lists[index].baths = room_total
+      room_obj = {
+        name: 'bathroom',
+        sizeM2: size_m2,
+        unit: 'm2'
+      }
+      bathroom_total++;
+      floor_lists[index].rooms = [...floor_lists[index].rooms, room_obj];
+      floor_lists[index].baths = bathroom_total;
+      room_type = '';
+      room_size = 0;
+      size_m2 = 0;
     }
     add_room_dialog.hideModal();
-    console.log(room_type + 'and' + room_total)
-    console.log(floor_lists[index])
     return
   }
+
   function handleNextFloor() {
     realtorStack = [
       ...realtorStack,
@@ -580,8 +700,8 @@
                   <div class='image_preview_container'>
                     <label class='image_upload_button' for='upload_image'>
                       <input
-                        bind:this={imageInput}
-                        on:change={inputImageHandler}
+                        bind:this={imageHouseInput}
+                        on:change={handlerHouseImage}
                         type='file'
                         accept='image/*'
                         id='upload_image'
@@ -589,10 +709,10 @@
                       <i class='gg-software-upload'></i>
                       <p>Select file to Upload</p>
                     </label>
-                    {#if showImage}
+                    {#if house_images.length}
                       {#each house_images as imgFile, index}
                         <div class='image_card'>
-                          <img src={imgFile.preview} alt=''>
+                          <img src={imgFile} alt=''>
                           <button on:click={() => removeImage(index)} title='remove this image'>
                             <i class='gg-close'></i>
                           </button>
@@ -680,7 +800,7 @@
               <button disabled={floor_type === ''} class='add_floor_button' on:click={handlerAddFloor}>Add</button>
             </AddFloorDialog>
             <!-- Add Room Dialog -->
-            <AddRoomDialog bind:this={add_room_dialog} bind:room_type={room_type} bind:room_total={room_total}>
+            <AddRoomDialog bind:this={add_room_dialog} bind:room_type={room_type} bind:room_size={room_size} bind:m2_size={size_m2} bind:unit_mode={unit_mode}>
               <button disabled={room_type === ''} class='add_room_button' on:click={() => handlerAddRoom(floor_index_to_edit)}>Add</button>
             </AddRoomDialog>
             <div class='floor_main_content'>
@@ -704,82 +824,94 @@
                 {/if}
               </div>
               {#if floor_edit_mode === false}
-              <div class='floor_items_container'>
-                {#if floor_lists.length}
-                {#each floor_lists as floor, index}
-                  <div class='floor_item'>
-                    <div class='left_item'>
-                      <h4>{floor.type} {floor.type === 'basement' ? '' : `#${floor.floor}` }</h4>
-                      <div class='rooms_total'>
-                        <div class='beds'>
-                          <b>{floor.beds}</b>
-                          <p>Beds</p>
+                <div class='floor_items_container'>
+                  {#if floor_lists.length}
+                    {#each floor_lists as floor, index}
+                      <div class='floor_item'>
+                        <div class='left_item'>
+                          <h4>{floor.type === 'basement' ? floor.type : `${floor.type} #${floor.floor}`}</h4>
+                          <div class='rooms_total'>
+                            <div class='beds'>
+                              <b>{floor.beds}</b>
+                              <p>Beds</p>
+                            </div>
+                            <div class='baths'>
+                              <b>{floor.baths}</b>
+                              <p>Baths</p>
+                            </div>
+                          </div>
                         </div>
-                        <div class='baths'>
-                          <b>{floor.baths}</b>
-                          <p>Baths</p>
+                        <div class='right_item'>
+                          <button class='edit_floor' on:click={() => handlerEditFloor(index)}>Edit</button>
+                          <div class='floor_plan'>
+                            {#if floor.planImageUrl === ''}
+                              <span>
+                                <i class='gg-image'></i>
+                              </span>
+                            {:else}
+                              <img src={floor.planImageUrl} alt=''/>
+                            {/if}
+                          </div>
                         </div>
                       </div>
+                    {/each}
+                  {:else}
+                    <div class='no_content'>
+                      <p>No Floor</p>
                     </div>
-                    <div class='right_item'>
-                      <button class='edit_floor' on:click={() => handlerEditFloor(index)}>Edit</button>
-                      <div class='floor_plan'>
-                        {#if imageFloorPlanUploaded}
-                          <img src={imageFloorPlanObj.preview} alt=''>
-                        {:else}
-                          <span>
-                            <i class='gg-image'></i>
-                          </span>
-                        {/if}
-                      </div>
-                    </div>
-                  </div>
-                {/each}
-                {:else}
-                  <div class='no_content'>
-                    <p>No Content</p>
-                  </div>
-                {/if}
-              </div>
+                  {/if}
+                </div>
               {/if}
               {#if floor_edit_mode === true}
                 <div class='edit_floor_container'>
-                  {#if !imageFloorPlanUploaded}
-                  <label class='floor_plan_upload' for='floor_plan_upload'>
-                    <input
-                      bind:this={imageFloorPlanInput}
-                      on:change={handlerImageFloorPlan}
-                      type='file'
-                      accept='image/*'
-                      id='floor_plan_upload'
-                    />
-                      <img src='/assets/img/realtor/floor-plan-pen-ruler.jpg.webp' alt=''>
-                      <div>
-                        <i class='gg-add'></i>
-                        <p>Floor Plan Picture</p>
-                      </div>
-                  </label>
-                  {/if}
-                  {#if imageFloorPlanUploaded}
-                    <div class='floor_plan_preview'>
-                      <img src={imageFloorPlanObj.preview} alt=''>
+                  {#if imgFlrPlanUploading === true}
+                    <div class='uploading'>
+                      <p>Uploading... please wait</p>
                     </div>
+                  {:else}
+                    {#if floor_lists[floor_index_to_edit].planImageUrl === ''}
+                      <label class='floor_plan_upload' for='floor_plan_upload'>
+                        <input
+                          bind:this={imageFloorPlanInput}
+                          on:change={handlerImageFloorPlan}
+                          type='file'
+                          accept='image/*'
+                          id='floor_plan_upload'
+                        />
+                        <img src='/assets/img/realtor/floor-plan-pen-ruler.jpg.webp' alt=''>
+                        <div>
+                          <i class='gg-add'></i>
+                          <p>Floor Plan Picture</p>
+                        </div>
+                      </label>
+                    {:else}
+                      <div class='floor_plan_preview'>
+                        <img src={floor_lists[floor_index_to_edit].planImageUrl} alt=''>
+                      </div>
+                    {/if}
                   {/if}
                   <div class='room_list_container'>
                     <div class='room_list_header'>
                       <h3>Rooms</h3>
                       <button on:click={showAddRoomDialog}>Add</button>
                     </div>
-                    <div class='room_list_item'>
-                      <div>
-                        <span>Bedroom</span>
-                        <span>{floor_lists[floor_index_to_edit].beds}</span>
+                    {#if floor_lists[floor_index_to_edit]['rooms'].length}
+                      {#each floor_lists[floor_index_to_edit].rooms as room}
+                        <div class='room_list_item'>
+                          <span>{room.name}</span>
+                          <div class='right_item'>
+                            <span>{room.sizeM2} {room.unit}</span>
+                            <button class='remove_room'>
+                              <i class='gg-trash'></i>
+                            </button>
+                          </div>
+                        </div>
+                      {/each}
+                    {:else}
+                      <div class='no_room'>
+                        <p>No room</p>
                       </div>
-                      <div>
-                        <span>Bathroom</span>
-                        <span>{floor_lists[floor_index_to_edit].baths}</span>
-                      </div>
-                    </div>
+                    {/if}
                   </div>
                 </div>
               {/if}
@@ -793,8 +925,8 @@
               <div class='preview_main'>
                 <h2>Preview Your Property</h2>
                 <div class='image_preview_wrapper'>
-                  {#if house_images}
-                    <img src={house_images[0].preview} alt=''>
+                  {#if realtorStack[1]['attrs']['images'].length}
+                    <img src={realtorStack[1]['attrs']['images'][0]} alt=''>
                   {:else}
                     <div class='image_preview_empty'>
                       <i class='gg-image'></i>
@@ -837,13 +969,44 @@
                 <article class='preview_description'>
                   <div class='preview_facility'>
                     <h3>Facility</h3>
-                    <p>{realtorStack[1].attrs.facility}</p>
+                    <p>{realtorStack[1].attrs.facility !== '' ? realtorStack[1].attrs.facility : '--'}</p>
                   </div>
                   <div class='preview_about'>
                     <h3>About</h3>
-                    <p>{realtorStack[1].attrs.description}</p>
+                    <p>{realtorStack[1].attrs.description !== '' ? realtorStack[1].attrs.description : '--'}</p>
                   </div>
                 </article>
+                <div class='preview_floors'>
+                  <h2>Floors</h2>
+                  <div class='floor_container'>
+                    {#each realtorStack[2].attrs.floor_lists as floors}
+                      <div class='floor_item'>
+                        <h3>{floors.type === 'basement' ? floors.type : `${floors.type} #${floors.floor}`}</h3>
+                        <div class='floor_attr'>
+                          <div class='floor_rooms'>
+                            {#if floors['rooms'].length}
+                              {#each floors.rooms as rooms}
+                                <div class='room_item'>
+                                  <span>{rooms.name}</span>
+                                  <span>{rooms.sizeM2} {rooms.unit}</span>
+                                </div>
+                              {/each}
+                            {/if}
+                          </div>
+                          <div class='floor_plan'>
+                            {#if floors.planImageUrl === ''}
+                              <span>
+                                <i class='gg-image'></i>
+                              </span>
+                            {:else}
+                              <img src={floors.planImageUrl} alt=''/>
+                            {/if}
+                          </div>
+                        </div>
+                      </div>
+                    {/each}
+                  </div>
+                </div>
               </div>
               <button class='submit_button' on:click|preventDefault={handleSubmit}>SUBMIT</button>
             {/if}
@@ -1479,6 +1642,16 @@
     display: flex;
     flex-direction: column;
   }
+  .floor .edit_floor_container .uploading {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    width: 100%;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .floor .edit_floor_container .floor_plan_upload {
     border: 1px solid #cbd5e1;
     border-radius: 8px;
@@ -1487,6 +1660,9 @@
     cursor: pointer;
     overflow: hidden;
     position: relative;
+  }
+  .floor .edit_floor_container .floor_plan_upload:hover {
+    border: 1px solid #f97316;
   }
   .floor .edit_floor_container .floor_plan_upload input {
     position: absolute;
@@ -1551,14 +1727,44 @@
   .floor .edit_floor_container .room_list_container .room_list_header button:hover {
     background-color : rgb(0 0 0 / 0.07);
   }
-  .floor .edit_floor_container .room_list_container .room_list_item div {
+  .floor .edit_floor_container .room_list_container .room_list_item {
     width: 100%;
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: space-between;
-    font-weight: 600;
     padding: 8px 0;
-    border-bottom: 2px solid #334155;
+    border-bottom: 1px solid #334155;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+  .floor .edit_floor_container .room_list_container .room_list_item .right_item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .floor .edit_floor_container .room_list_container .room_list_item .right_item .remove_room {
+    border: none;
+    background: none;
+    padding: 10px 13px;
+    border-radius: 50%;
+    margin-left: 8px;
+    cursor: pointer;
+    color: #f97316;
+  }
+  .floor .edit_floor_container .room_list_container .room_list_item .right_item .remove_room:hover {
+    background-color: rgb( 0 0 0 / 0.06);
+  }
+  .floor .room_list_container .no_room {
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: rgb( 0 0 0 / 0.06);
+    padding: 80px 20px;
+    height: fit-content;
+    font-weight: 600;
+    font-size: 16px;
+    width: 100%;
   }
   /* +============| SUBPAGE PREVIEW |===========+ */
   .preview {
@@ -1600,6 +1806,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .preview .image_preview_wrapper .image_preview_empty p {
+    margin-left: 10px;
   }
   .preview .preview_price_house_type {
     display: flex;
@@ -1700,6 +1909,75 @@
   .preview .preview_description div p {
     margin: 0;
   }
+  .preview .preview_floors {
+    display: flex;
+    flex-direction: column;
+    margin: 30px auto 0 auto;
+    width: 80%;
+  }
+  .preview .preview_floors h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  .preview .preview_floors .floor_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .preview .preview_floors .floor_container .floor_item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  .preview .preview_floors .floor_container .floor_item h3 {
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    text-transform: capitalize;
+  }
+  .preview .preview_floors .floor_container .floor_item .floor_attr {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .preview .preview_floors .floor_container .floor_item .floor_attr .floor_rooms {
+    flex-basis: 60%;
+    display: flex;
+    flex-direction: column;
+  }
+  .preview .preview_floors .floor_container .floor_item .floor_attr .floor_rooms .room_item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    text-transform: capitalize;
+    padding: 5px 0;
+  }
+  .preview .preview_floors .floor_container .floor_item .floor_attr .floor_plan {
+    position: relative;
+    border-radius: 8px;
+    width: 200px;
+    height: 110px;
+    border: 1px solid #cbd5e1;
+    overflow: hidden;
+  }
+  .preview .preview_floors .floor_container .floor_item .floor_attr .floor_plan img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .preview .preview_floors .floor_container .floor_item .floor_attr .floor_plan span {
+    border-radius: 8px;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 0.06);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
   .preview .submit_button {
     background-color: #f97316;
     border-radius: 8px;
