@@ -349,50 +349,45 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 }
 
 /* fakecss:/home/habi/Dev/workStuff/street/svelte/admin.esbuild-svelte-fake-css */
-.chart_container.svelte-x5k85n.svelte-x5k85n {
+.chart_container.svelte-1ae6jws.svelte-1ae6jws {
   position: relative;
   width: 88%;
   margin: -40px auto 20px auto;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
-.chart_container.svelte-x5k85n .statistics.svelte-x5k85n {
-  width: 60%;
+.chart_container.svelte-1ae6jws .statistics.svelte-1ae6jws {
+  width: 100%;
+  height: 300px;
   box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
   background-color: #334155;
   border-radius: 8px;
-  padding: 16px;
-  height: 350px;
+  padding: 16px 16px 25px 16px;
 }
-.chart_container.svelte-x5k85n .statistics header.svelte-x5k85n {
+.chart_container.svelte-1ae6jws .statistics header.svelte-1ae6jws {
   margin-bottom: 20px;
 }
-.chart_container.svelte-x5k85n .statistics header h3.svelte-x5k85n {
+.chart_container.svelte-1ae6jws .statistics header h3.svelte-1ae6jws {
   font-size: 20px;
   color: white;
   margin: 0;
 }
-.chart_container.svelte-x5k85n .statistics .stats.svelte-x5k85n {
+.chart_container.svelte-1ae6jws .statistics .stats.svelte-1ae6jws {
   height: 87%;
   width: 100%;
 }
-.chart_container.svelte-x5k85n .actions.svelte-x5k85n {
-  flex-grow: 1;
+.chart_container.svelte-1ae6jws .actions.svelte-1ae6jws {
+  width: 100%;
+  margin-top: 40px;
   box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
   background-color: white;
   border-radius: 8px;
-  margin-left: 20px;
   height: 350px;
 }
-.table_stats.svelte-x5k85n.svelte-x5k85n {
-  position: relative;
-  margin-top: 40px;
-}
-.table_actions.svelte-x5k85n.svelte-x5k85n {
+.table_actions.svelte-1ae6jws.svelte-1ae6jws {
   margin-top: 30px;
 }
-.table_stats.svelte-x5k85n.svelte-x5k85n,
-.table_actions.svelte-x5k85n.svelte-x5k85n {
+.table_actions.svelte-1ae6jws.svelte-1ae6jws {
   margin-left: auto;
   margin-right: auto;
   border-radius: 8px;
@@ -404,12 +399,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   color: #475569;
   font-size: 16px;
 }
-.table_header.svelte-x5k85n.svelte-x5k85n {
+.table_header.svelte-1ae6jws.svelte-1ae6jws {
   text-align: left !important;
   color: #6366F1 !important;
 }
-.table_header.svelte-x5k85n.svelte-x5k85n,
-.table_data.svelte-x5k85n.svelte-x5k85n {
+.table_header.svelte-1ae6jws.svelte-1ae6jws,
+.table_data.svelte-1ae6jws.svelte-1ae6jws {
   padding-top: 7px;
   padding-bottom: 7px;
 }
@@ -18349,179 +18344,31 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // admin.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[2] = list[i];
+    child_ctx[6] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[5] = list[i];
+    child_ctx[9] = list[i];
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[5] = list[i];
+    child_ctx[9] = list[i];
     return child_ctx;
-  }
-  function get_each_context_3(ctx, list, i) {
-    const child_ctx = ctx.slice();
-    child_ctx[5] = list[i];
-    return child_ctx;
-  }
-  function get_each_context_4(ctx, list, i) {
-    const child_ctx = ctx.slice();
-    child_ctx[5] = list[i];
-    return child_ctx;
-  }
-  function get_each_context_5(ctx, list, i) {
-    const child_ctx = ctx.slice();
-    child_ctx[5] = list[i];
-    return child_ctx;
-  }
-  function get_each_context_6(ctx, list, i) {
-    const child_ctx = ctx.slice();
-    child_ctx[5] = list[i];
-    return child_ctx;
-  }
-  function create_each_block_6(ctx) {
-    let th;
-    let t_value = formatDate(
-      /*date*/
-      ctx[5]
-    ) + "";
-    let t;
-    return {
-      c() {
-        th = element("th");
-        t = text(t_value);
-        attr(th, "class", "table_header svelte-x5k85n");
-      },
-      m(target, anchor) {
-        insert(target, th, anchor);
-        append(th, t);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*sortedDate*/
-        1 && t_value !== (t_value = formatDate(
-          /*date*/
-          ctx2[5]
-        ) + ""))
-          set_data(t, t_value);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(th);
-        }
-      }
-    };
-  }
-  function create_each_block_5(ctx) {
-    let td;
-    let t_value = (requestsPerDate[
-      /*date*/
-      ctx[5]
-    ] || "0") + "";
-    let t;
-    return {
-      c() {
-        td = element("td");
-        t = text(t_value);
-        attr(td, "class", "table_data svelte-x5k85n");
-      },
-      m(target, anchor) {
-        insert(target, td, anchor);
-        append(td, t);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*sortedDate*/
-        1 && t_value !== (t_value = (requestsPerDate[
-          /*date*/
-          ctx2[5]
-        ] || "0") + ""))
-          set_data(t, t_value);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(td);
-        }
-      }
-    };
-  }
-  function create_each_block_4(ctx) {
-    let td;
-    let t_value = (uniqueIpPerDate[
-      /*date*/
-      ctx[5]
-    ] || "0") + "";
-    let t;
-    return {
-      c() {
-        td = element("td");
-        t = text(t_value);
-        attr(td, "class", "table_data svelte-x5k85n");
-      },
-      m(target, anchor) {
-        insert(target, td, anchor);
-        append(td, t);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*sortedDate*/
-        1 && t_value !== (t_value = (uniqueIpPerDate[
-          /*date*/
-          ctx2[5]
-        ] || "0") + ""))
-          set_data(t, t_value);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(td);
-        }
-      }
-    };
-  }
-  function create_each_block_3(ctx) {
-    let td;
-    let t_value = (uniqueUserPerDate[
-      /*date*/
-      ctx[5]
-    ] || "0") + "";
-    let t;
-    return {
-      c() {
-        td = element("td");
-        t = text(t_value);
-        attr(td, "class", "table_data svelte-x5k85n");
-      },
-      m(target, anchor) {
-        insert(target, td, anchor);
-        append(td, t);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*sortedDate*/
-        1 && t_value !== (t_value = (uniqueUserPerDate[
-          /*date*/
-          ctx2[5]
-        ] || "0") + ""))
-          set_data(t, t_value);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(td);
-        }
-      }
-    };
   }
   function create_each_block_2(ctx) {
     let th;
     let t_value = formatDate(
       /*date*/
-      ctx[5]
+      ctx[9]
     ) + "";
     let t;
     return {
       c() {
         th = element("th");
         t = text(t_value);
-        attr(th, "class", "table_header svelte-x5k85n");
+        attr(th, "class", "table_header svelte-1ae6jws");
       },
       m(target, anchor) {
         insert(target, th, anchor);
@@ -18531,7 +18378,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (dirty & /*sortedDate*/
         1 && t_value !== (t_value = formatDate(
           /*date*/
-          ctx2[5]
+          ctx2[9]
         ) + ""))
           set_data(t, t_value);
       },
@@ -18546,17 +18393,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let td;
     let t_value = (countPerActionsPerDate[
       /*actionsPerDate*/
-      ctx[2]
+      ctx[6]
     ][
       /*date*/
-      ctx[5]
+      ctx[9]
     ] || "0") + "";
     let t;
     return {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "table_data svelte-x5k85n");
+        attr(td, "class", "table_data svelte-1ae6jws");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -18566,10 +18413,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (dirty & /*sortedDate*/
         1 && t_value !== (t_value = (countPerActionsPerDate[
           /*actionsPerDate*/
-          ctx2[2]
+          ctx2[6]
         ][
           /*date*/
-          ctx2[5]
+          ctx2[9]
         ] || "0") + ""))
           set_data(t, t_value);
       },
@@ -18598,13 +18445,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         tr = element("tr");
         td = element("td");
         td.textContent = `${/*actionsPerDate*/
-        ctx[2]}`;
+        ctx[6]}`;
         t1 = space();
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
         t2 = space();
-        attr(td, "class", "table_data svelte-x5k85n");
+        attr(td, "class", "table_data svelte-1ae6jws");
         attr(tr, "class", "table_row");
       },
       m(target, anchor) {
@@ -18662,66 +18509,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let div4;
     let div3;
     let t8;
-    let table0;
-    let tr0;
-    let th0;
+    let table;
+    let tr;
+    let th;
     let t10;
     let t11;
-    let tr1;
-    let td0;
-    let t13;
-    let t14;
-    let tr2;
-    let td1;
-    let t16;
-    let t17;
-    let tr3;
-    let td2;
-    let t19;
-    let t20;
-    let table1;
-    let tr4;
-    let th1;
-    let t22;
-    let t23;
-    let t24;
+    let t12;
     let footer;
     let current;
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({});
     adminsubmenu = new AdminSubMenu_default({});
-    let each_value_6 = ensure_array_like(
-      /*sortedDate*/
-      ctx[0]
-    );
-    let each_blocks_5 = [];
-    for (let i = 0; i < each_value_6.length; i += 1) {
-      each_blocks_5[i] = create_each_block_6(get_each_context_6(ctx, each_value_6, i));
-    }
-    let each_value_5 = ensure_array_like(
-      /*sortedDate*/
-      ctx[0]
-    );
-    let each_blocks_4 = [];
-    for (let i = 0; i < each_value_5.length; i += 1) {
-      each_blocks_4[i] = create_each_block_5(get_each_context_5(ctx, each_value_5, i));
-    }
-    let each_value_4 = ensure_array_like(
-      /*sortedDate*/
-      ctx[0]
-    );
-    let each_blocks_3 = [];
-    for (let i = 0; i < each_value_4.length; i += 1) {
-      each_blocks_3[i] = create_each_block_4(get_each_context_4(ctx, each_value_4, i));
-    }
-    let each_value_3 = ensure_array_like(
-      /*sortedDate*/
-      ctx[0]
-    );
-    let each_blocks_2 = [];
-    for (let i = 0; i < each_value_3.length; i += 1) {
-      each_blocks_2[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
-    }
     let each_value_2 = ensure_array_like(
       /*sortedDate*/
       ctx[0]
@@ -18748,68 +18546,26 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t2 = space();
         div4 = element("div");
         div3 = element("div");
-        div3.innerHTML = `<!-- Statistics --> <div class="statistics svelte-x5k85n"><header class="svelte-x5k85n"><h3 class="svelte-x5k85n">Statistics</h3></header> <div class="stats svelte-x5k85n"><canvas id="stats-chart"></canvas></div></div> <!-- Actions --> <div class="actions svelte-x5k85n"><canvas id="action-stats"></canvas></div>`;
+        div3.innerHTML = `<!-- Statistics --> <div class="statistics svelte-1ae6jws"><header class="svelte-1ae6jws"><h3 class="svelte-1ae6jws">Statistics</h3></header> <div class="stats svelte-1ae6jws"><canvas id="stats-chart"></canvas></div></div> <!-- Actions [ Still Dummy Chart]--> <div class="actions svelte-1ae6jws"><canvas id="action-stats"></canvas></div>`;
         t8 = space();
-        table0 = element("table");
-        tr0 = element("tr");
-        th0 = element("th");
-        th0.textContent = "Stats";
+        table = element("table");
+        tr = element("tr");
+        th = element("th");
+        th.textContent = "Actions";
         t10 = space();
-        for (let i = 0; i < each_blocks_5.length; i += 1) {
-          each_blocks_5[i].c();
-        }
-        t11 = space();
-        tr1 = element("tr");
-        td0 = element("td");
-        td0.textContent = "Requests";
-        t13 = space();
-        for (let i = 0; i < each_blocks_4.length; i += 1) {
-          each_blocks_4[i].c();
-        }
-        t14 = space();
-        tr2 = element("tr");
-        td1 = element("td");
-        td1.textContent = "UniqueIP";
-        t16 = space();
-        for (let i = 0; i < each_blocks_3.length; i += 1) {
-          each_blocks_3[i].c();
-        }
-        t17 = space();
-        tr3 = element("tr");
-        td2 = element("td");
-        td2.textContent = "Unique User";
-        t19 = space();
-        for (let i = 0; i < each_blocks_2.length; i += 1) {
-          each_blocks_2[i].c();
-        }
-        t20 = space();
-        table1 = element("table");
-        tr4 = element("tr");
-        th1 = element("th");
-        th1.textContent = "Actions";
-        t22 = space();
         for (let i = 0; i < each_blocks_1.length; i += 1) {
           each_blocks_1[i].c();
         }
-        t23 = space();
+        t11 = space();
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        t24 = space();
+        t12 = space();
         create_component(footer.$.fragment);
-        attr(div3, "class", "chart_container svelte-x5k85n");
-        attr(th0, "class", "table_header svelte-x5k85n");
-        attr(tr0, "class", "table_row");
-        attr(td0, "class", "table_data svelte-x5k85n");
-        attr(tr1, "class", "table_row");
-        attr(td1, "class", "table_data svelte-x5k85n");
-        attr(tr2, "class", "table_row");
-        attr(td2, "class", "table_data svelte-x5k85n");
-        attr(tr3, "class", "table_row");
-        attr(table0, "class", "table_stats svelte-x5k85n");
-        attr(th1, "class", "table_header svelte-x5k85n");
-        attr(tr4, "class", "table_row");
-        attr(table1, "class", "table_actions svelte-x5k85n");
+        attr(div3, "class", "chart_container svelte-1ae6jws");
+        attr(th, "class", "table_header svelte-1ae6jws");
+        attr(tr, "class", "table_row");
+        attr(table, "class", "table_actions svelte-1ae6jws");
         attr(div4, "class", "content");
         attr(div5, "class", "dashboard_main_content");
         attr(section, "class", "dashboard");
@@ -18826,151 +18582,26 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div5, div4);
         append(div4, div3);
         append(div4, t8);
-        append(div4, table0);
-        append(table0, tr0);
-        append(tr0, th0);
-        append(tr0, t10);
-        for (let i = 0; i < each_blocks_5.length; i += 1) {
-          if (each_blocks_5[i]) {
-            each_blocks_5[i].m(tr0, null);
-          }
-        }
-        append(table0, t11);
-        append(table0, tr1);
-        append(tr1, td0);
-        append(tr1, t13);
-        for (let i = 0; i < each_blocks_4.length; i += 1) {
-          if (each_blocks_4[i]) {
-            each_blocks_4[i].m(tr1, null);
-          }
-        }
-        append(table0, t14);
-        append(table0, tr2);
-        append(tr2, td1);
-        append(tr2, t16);
-        for (let i = 0; i < each_blocks_3.length; i += 1) {
-          if (each_blocks_3[i]) {
-            each_blocks_3[i].m(tr2, null);
-          }
-        }
-        append(table0, t17);
-        append(table0, tr3);
-        append(tr3, td2);
-        append(tr3, t19);
-        for (let i = 0; i < each_blocks_2.length; i += 1) {
-          if (each_blocks_2[i]) {
-            each_blocks_2[i].m(tr3, null);
-          }
-        }
-        append(div4, t20);
-        append(div4, table1);
-        append(table1, tr4);
-        append(tr4, th1);
-        append(tr4, t22);
+        append(div4, table);
+        append(table, tr);
+        append(tr, th);
+        append(tr, t10);
         for (let i = 0; i < each_blocks_1.length; i += 1) {
           if (each_blocks_1[i]) {
-            each_blocks_1[i].m(tr4, null);
+            each_blocks_1[i].m(tr, null);
           }
         }
-        append(table1, t23);
+        append(table, t11);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
-            each_blocks[i].m(table1, null);
+            each_blocks[i].m(table, null);
           }
         }
-        append(div5, t24);
+        append(div5, t12);
         mount_component(footer, div5, null);
         current = true;
       },
       p(ctx2, [dirty]) {
-        if (dirty & /*formatDate, sortedDate*/
-        1) {
-          each_value_6 = ensure_array_like(
-            /*sortedDate*/
-            ctx2[0]
-          );
-          let i;
-          for (i = 0; i < each_value_6.length; i += 1) {
-            const child_ctx = get_each_context_6(ctx2, each_value_6, i);
-            if (each_blocks_5[i]) {
-              each_blocks_5[i].p(child_ctx, dirty);
-            } else {
-              each_blocks_5[i] = create_each_block_6(child_ctx);
-              each_blocks_5[i].c();
-              each_blocks_5[i].m(tr0, null);
-            }
-          }
-          for (; i < each_blocks_5.length; i += 1) {
-            each_blocks_5[i].d(1);
-          }
-          each_blocks_5.length = each_value_6.length;
-        }
-        if (dirty & /*requestsPerDate, sortedDate*/
-        1) {
-          each_value_5 = ensure_array_like(
-            /*sortedDate*/
-            ctx2[0]
-          );
-          let i;
-          for (i = 0; i < each_value_5.length; i += 1) {
-            const child_ctx = get_each_context_5(ctx2, each_value_5, i);
-            if (each_blocks_4[i]) {
-              each_blocks_4[i].p(child_ctx, dirty);
-            } else {
-              each_blocks_4[i] = create_each_block_5(child_ctx);
-              each_blocks_4[i].c();
-              each_blocks_4[i].m(tr1, null);
-            }
-          }
-          for (; i < each_blocks_4.length; i += 1) {
-            each_blocks_4[i].d(1);
-          }
-          each_blocks_4.length = each_value_5.length;
-        }
-        if (dirty & /*uniqueIpPerDate, sortedDate*/
-        1) {
-          each_value_4 = ensure_array_like(
-            /*sortedDate*/
-            ctx2[0]
-          );
-          let i;
-          for (i = 0; i < each_value_4.length; i += 1) {
-            const child_ctx = get_each_context_4(ctx2, each_value_4, i);
-            if (each_blocks_3[i]) {
-              each_blocks_3[i].p(child_ctx, dirty);
-            } else {
-              each_blocks_3[i] = create_each_block_4(child_ctx);
-              each_blocks_3[i].c();
-              each_blocks_3[i].m(tr2, null);
-            }
-          }
-          for (; i < each_blocks_3.length; i += 1) {
-            each_blocks_3[i].d(1);
-          }
-          each_blocks_3.length = each_value_4.length;
-        }
-        if (dirty & /*uniqueUserPerDate, sortedDate*/
-        1) {
-          each_value_3 = ensure_array_like(
-            /*sortedDate*/
-            ctx2[0]
-          );
-          let i;
-          for (i = 0; i < each_value_3.length; i += 1) {
-            const child_ctx = get_each_context_3(ctx2, each_value_3, i);
-            if (each_blocks_2[i]) {
-              each_blocks_2[i].p(child_ctx, dirty);
-            } else {
-              each_blocks_2[i] = create_each_block_3(child_ctx);
-              each_blocks_2[i].c();
-              each_blocks_2[i].m(tr3, null);
-            }
-          }
-          for (; i < each_blocks_2.length; i += 1) {
-            each_blocks_2[i].d(1);
-          }
-          each_blocks_2.length = each_value_3.length;
-        }
         if (dirty & /*formatDate, sortedDate*/
         1) {
           each_value_2 = ensure_array_like(
@@ -18985,7 +18616,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             } else {
               each_blocks_1[i] = create_each_block_2(child_ctx);
               each_blocks_1[i].c();
-              each_blocks_1[i].m(tr4, null);
+              each_blocks_1[i].m(tr, null);
             }
           }
           for (; i < each_blocks_1.length; i += 1) {
@@ -19004,7 +18635,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             } else {
               each_blocks[i] = create_each_block(child_ctx);
               each_blocks[i].c();
-              each_blocks[i].m(table1, null);
+              each_blocks[i].m(table, null);
             }
           }
           for (; i < each_blocks.length; i += 1) {
@@ -19036,10 +18667,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         destroy_component(menu);
         destroy_component(profileheader);
         destroy_component(adminsubmenu);
-        destroy_each(each_blocks_5, detaching);
-        destroy_each(each_blocks_4, detaching);
-        destroy_each(each_blocks_3, detaching);
-        destroy_each(each_blocks_2, detaching);
         destroy_each(each_blocks_1, detaching);
         destroy_each(each_blocks, detaching);
         destroy_component(footer);
@@ -19059,6 +18686,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function instance5($self, $props, $invalidate) {
     let registeredUserTotal = +'#{registeredUserTotal}';
     let sortedDate = [];
+    let formattedDates = [];
+    let data_requestsPerDate = [];
+    let data_uniqueIpPerDate = [];
+    let data_uniqueUserPerDate = [];
     onMount(() => {
       let uniqueDate = {};
       for (let i in uniqueIpPerDate)
@@ -19068,7 +18699,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       for (let i in uniqueUserPerDate)
         uniqueDate[i] = true;
       $invalidate(0, sortedDate = Object.keys(uniqueDate).sort());
-      console.log(sortedDate, uniqueIpPerDate, requestsPerDate, uniqueUserPerDate, uniqueDate, registeredUserTotal);
+      formattedDates = sortedDate.map((date) => formatDate(date));
+      data_requestsPerDate = sortedDate.map((date) => requestsPerDate[date]);
+      data_uniqueIpPerDate = sortedDate.map((date) => uniqueIpPerDate[date]);
+      data_uniqueUserPerDate = sortedDate.map((date) => uniqueUserPerDate[date]);
     });
     onMount(async () => {
       const statsChart = document.getElementById("stats-chart");
@@ -19078,21 +18712,28 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         {
           type: "line",
           data: {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            labels: formattedDates,
             datasets: [
               {
-                label: new Date().getFullYear(),
-                backgroundColor: "#4c51bf",
-                borderColor: "#4c51bf",
-                data: [65, 78, 66, 44, 56, 67, 75],
+                label: "Requests",
+                backgroundColor: "#818cf8",
+                borderColor: "#818cf8",
+                data: data_requestsPerDate,
                 fill: false
               },
               {
-                label: new Date().getFullYear() - 1,
-                fill: false,
-                backgroundColor: "#fff",
-                borderColor: "#fff",
-                data: [40, 68, 86, 74, 56, 60, 87]
+                label: "Unique IP",
+                backgroundColor: "#fb923c",
+                borderColor: "#fb923c",
+                data: data_uniqueIpPerDate,
+                fill: false
+              },
+              {
+                label: "Unique User",
+                backgroundColor: "#2dd4bf",
+                borderColor: "#2dd4bf",
+                data: data_uniqueUserPerDate,
+                fill: false
               }
             ]
           },
@@ -19174,8 +18815,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               {
                 label: new Date().getFullYear() - 1,
                 fill: false,
-                backgroundColor: "#4c51bf",
-                borderColor: "#4c51bf",
+                backgroundColor: "#818cf8",
+                borderColor: "#818cf8",
                 data: [27, 68, 86, 74, 10, 4, 87],
                 barThickness: 8
               }

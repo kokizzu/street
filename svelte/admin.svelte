@@ -1,10 +1,12 @@
 <script>
+  // @ts-nocheck
   import Chart from 'chart.js/auto';
+  import { onMount } from 'svelte';
+
   import Menu from './_components/Menu.svelte';
   import AdminSubMenu from './_components/AdminSubMenu.svelte';
   import ProfileHeader from './_components/ProfileHeader.svelte';
   import Footer from './_components/Footer.svelte';
-  import { onMount } from 'svelte';
   
   let user = {/* user */};
   let segments = {/* segments */};
@@ -14,9 +16,13 @@
   let uniqueUserPerDate = {/* uniqueUserPerDate */};
   let registeredUserTotal = +'#{registeredUserTotal}';
   let countPerActionsPerDate = {/* countPerActionsPerDate */};
-  
   let sortedDate = [];
-  
+  // Each data to be display
+  let formattedDates = [];
+  let data_requestsPerDate = [];
+  let data_uniqueIpPerDate = [];
+  let data_uniqueUserPerDate = [];
+
   function formatDate( dateString ) {
     const options = {day: 'numeric', month: 'long'};
     const date = new Date( dateString );
@@ -29,7 +35,10 @@
     for( let i in requestsPerDate ) uniqueDate[ i ] = true;
     for( let i in uniqueUserPerDate ) uniqueDate[ i ] = true;
     sortedDate = Object.keys( uniqueDate ).sort();
-    console.log( sortedDate, uniqueIpPerDate, requestsPerDate, uniqueUserPerDate, uniqueDate, registeredUserTotal );
+    formattedDates = sortedDate.map(date => formatDate(date));
+    data_requestsPerDate = sortedDate.map(date => requestsPerDate[date]);
+    data_uniqueIpPerDate = sortedDate.map(date => uniqueIpPerDate[date]);
+    data_uniqueUserPerDate = sortedDate.map(date => uniqueUserPerDate[date]);
   } );
 
   // init chart
@@ -40,30 +49,27 @@
     new Chart(statsChart, {
       type: "line",
       data: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-        ],
+        labels: formattedDates,
         datasets: [
           {
-            label: new Date().getFullYear(),
-            backgroundColor: "#4c51bf",
-            borderColor: "#4c51bf",
-            data: [65, 78, 66, 44, 56, 67, 75],
+            label: 'Requests',
+            backgroundColor: "#818cf8",
+            borderColor: "#818cf8",
+            data: data_requestsPerDate,
+            fill: false
+          }, {
+            label: 'Unique IP',
+            backgroundColor: "#fb923c",
+            borderColor: "#fb923c",
+            data: data_uniqueIpPerDate,
+            fill: false
+          }, {
+            label: 'Unique User',
+            backgroundColor: "#2dd4bf",
+            borderColor: "#2dd4bf",
+            data: data_uniqueUserPerDate,
             fill: false
           },
-          {
-            label: new Date().getFullYear() - 1,
-            fill: false,
-            backgroundColor: "#fff",
-            borderColor: "#fff",
-            data: [40, 68, 86, 74, 56, 60, 87]
-          }
         ]
       },
       options: {
@@ -162,8 +168,8 @@
           {
             label: new Date().getFullYear() - 1,
             fill: false,
-            backgroundColor: "#4c51bf",
-            borderColor: "#4c51bf",
+            backgroundColor: "#818cf8",
+            borderColor: "#818cf8",
             data: [27, 68, 86, 74, 10, 4, 87],
             barThickness: 8
           }
@@ -250,37 +256,11 @@
             <canvas id='stats-chart'></canvas>
           </div>
         </div>
-        <!-- Actions -->
+        <!-- Actions [ Still Dummy Chart]-->
         <div class='actions'>
           <canvas id='action-stats'></canvas>
         </div>
       </div>
-      <table class='table_stats'>
-        <tr class='table_row'>
-          <th class='table_header'>Stats</th>
-          {#each sortedDate as date}
-            <th class='table_header'>{formatDate( date )}</th>
-          {/each}
-        </tr>
-        <tr class='table_row'>
-          <td class='table_data'>Requests</td>
-          {#each sortedDate as date}
-            <td class='table_data'>{requestsPerDate[ date ] || '0'}</td>
-          {/each}
-        </tr>
-        <tr class='table_row'>
-          <td class='table_data'>UniqueIP</td>
-          {#each sortedDate as date}
-            <td class='table_data'>{uniqueIpPerDate[ date ] || '0'}</td>
-          {/each}
-        </tr>
-        <tr class='table_row'>
-          <td class='table_data'>Unique User</td>
-          {#each sortedDate as date}
-            <td class='table_data'>{uniqueUserPerDate[ date ] || '0'}</td>
-          {/each}
-        </tr>
-      </table>
       
       <table class='table_actions'>
         <tr class='table_row'>
@@ -308,18 +288,18 @@
 <style>
   .chart_container {
     position: relative;
-    width            : 88%;
+    width: 88%;
     margin: -40px auto 20px auto;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
   }
   .chart_container .statistics {
-    width: 60%;
+    width: 100%;
+    height: 300px;
     box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
     background-color: #334155;
     border-radius: 8px;
-    padding: 16px;
-    height: 350px;
+    padding: 16px 16px 25px 16px;
   }
   .chart_container .statistics header {
     margin-bottom: 20px;
@@ -335,24 +315,19 @@
   }
 
   .chart_container .actions {
-    flex-grow: 1;
+    width: 100%;
+    margin-top: 40px;
     box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
     background-color: white;
     border-radius: 8px;
-    margin-left: 20px;
     height: 350px;
   }
-
-    .table_stats {
-        position   : relative;
-        margin-top : 40px;
-    }
 
     .table_actions {
         margin-top : 30px;
     }
-
-    .table_stats, .table_actions{
+    
+    .table_actions{
         margin-left      : auto;
         margin-right     : auto;
         border-radius    : 8px;
