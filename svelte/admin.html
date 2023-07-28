@@ -349,45 +349,51 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 }
 
 /* fakecss:/home/habi/Dev/workStuff/street/svelte/admin.esbuild-svelte-fake-css */
-.chart_container.svelte-1ae6jws.svelte-1ae6jws {
+.chart_container.svelte-1vh4ivu.svelte-1vh4ivu {
   position: relative;
   width: 88%;
   margin: -40px auto 20px auto;
   display: flex;
   flex-direction: column;
 }
-.chart_container.svelte-1ae6jws .statistics.svelte-1ae6jws {
+.chart_container.svelte-1vh4ivu .statistics.svelte-1vh4ivu {
   width: 100%;
-  height: 300px;
+  height: 400px;
   box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
   background-color: #334155;
   border-radius: 8px;
   padding: 16px 16px 25px 16px;
 }
-.chart_container.svelte-1ae6jws .statistics header.svelte-1ae6jws {
-  margin-bottom: 20px;
-}
-.chart_container.svelte-1ae6jws .statistics header h3.svelte-1ae6jws {
+.chart_container.svelte-1vh4ivu .statistics header h3.svelte-1vh4ivu {
   font-size: 20px;
   color: white;
   margin: 0;
 }
-.chart_container.svelte-1ae6jws .statistics .stats.svelte-1ae6jws {
-  height: 87%;
+.chart_container.svelte-1vh4ivu .statistics .stats.svelte-1vh4ivu {
+  height: 92%;
   width: 100%;
 }
-.chart_container.svelte-1ae6jws .actions.svelte-1ae6jws {
+.chart_container.svelte-1vh4ivu .actions.svelte-1vh4ivu {
   width: 100%;
-  margin-top: 40px;
+  margin-top: 30px;
   box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
   background-color: white;
   border-radius: 8px;
-  height: 350px;
+  height: 500px;
+  padding: 16px 16px 25px 16px;
 }
-.table_actions.svelte-1ae6jws.svelte-1ae6jws {
+.chart_container.svelte-1vh4ivu .actions header h3.svelte-1vh4ivu {
+  font-size: 20px;
+  margin: 0 0 20px 0;
+}
+.chart_container.svelte-1vh4ivu .actions .action.svelte-1vh4ivu {
+  height: 90%;
+  width: 100%;
+}
+.table_actions.svelte-1vh4ivu.svelte-1vh4ivu {
   margin-top: 30px;
 }
-.table_actions.svelte-1ae6jws.svelte-1ae6jws {
+.table_actions.svelte-1vh4ivu.svelte-1vh4ivu {
   margin-left: auto;
   margin-right: auto;
   border-radius: 8px;
@@ -399,12 +405,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   color: #475569;
   font-size: 16px;
 }
-.table_header.svelte-1ae6jws.svelte-1ae6jws {
+.table_header.svelte-1vh4ivu.svelte-1vh4ivu {
   text-align: left !important;
   color: #6366F1 !important;
 }
-.table_header.svelte-1ae6jws.svelte-1ae6jws,
-.table_data.svelte-1ae6jws.svelte-1ae6jws {
+.table_header.svelte-1vh4ivu.svelte-1vh4ivu,
+.table_data.svelte-1vh4ivu.svelte-1vh4ivu {
   padding-top: 7px;
   padding-bottom: 7px;
 }
@@ -6114,14 +6120,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       this._running = false;
       this._lastDate = void 0;
     }
-    _notify(chart, anims, date, type) {
+    _notify(chart, anims, date2, type) {
       const callbacks = anims.listeners[type];
       const numSteps = anims.duration;
       callbacks.forEach((fn) => fn({
         chart,
         initial: anims.initial,
         numSteps,
-        currentStep: Math.min(date - anims.start, numSteps)
+        currentStep: Math.min(date2 - anims.start, numSteps)
       }));
     }
     _refresh() {
@@ -6137,7 +6143,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
       });
     }
-    _update(date = Date.now()) {
+    _update(date2 = Date.now()) {
       let remaining = 0;
       this._charts.forEach((anims, chart) => {
         if (!anims.running || !anims.items.length) {
@@ -6153,7 +6159,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             if (item._total > anims.duration) {
               anims.duration = item._total;
             }
-            item.tick(date);
+            item.tick(date2);
             draw2 = true;
           } else {
             items[i] = items[items.length - 1];
@@ -6162,16 +6168,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (draw2) {
           chart.draw();
-          this._notify(chart, anims, date, "progress");
+          this._notify(chart, anims, date2, "progress");
         }
         if (!items.length) {
           anims.running = false;
-          this._notify(chart, anims, date, "complete");
+          this._notify(chart, anims, date2, "complete");
           anims.initial = false;
         }
         remaining += items.length;
       });
-      this._lastDate = date;
+      this._lastDate = date2;
       if (remaining === 0) {
         this._running = false;
       }
@@ -6286,13 +6292,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     active() {
       return this._active;
     }
-    update(cfg, to2, date) {
+    update(cfg, to2, date2) {
       if (this._active) {
         this._notify(false);
         const currentValue = this._target[this._prop];
-        const elapsed = date - this._start;
+        const elapsed = date2 - this._start;
         const remain = this._duration - elapsed;
-        this._start = date;
+        this._start = date2;
         this._duration = Math.floor(Math.max(remain, cfg.duration));
         this._total += elapsed;
         this._loop = !!cfg.loop;
@@ -6316,8 +6322,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         this._notify(false);
       }
     }
-    tick(date) {
-      const elapsed = date - this._start;
+    tick(date2) {
+      const elapsed = date2 - this._start;
       const duration = this._duration;
       const prop = this._prop;
       const from2 = this._from;
@@ -6406,7 +6412,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       const animations = [];
       const running = target.$animations || (target.$animations = {});
       const props = Object.keys(values);
-      const date = Date.now();
+      const date2 = Date.now();
       let i;
       for (i = props.length - 1; i >= 0; --i) {
         const prop = props[i];
@@ -6422,7 +6428,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         const cfg = animatedProps.get(prop);
         if (animation) {
           if (cfg && animation.active()) {
-            animation.update(cfg, value, date);
+            animation.update(cfg, value, date2);
             continue;
           } else {
             animation.cancel();
@@ -18344,31 +18350,31 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // admin.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[6] = list[i];
+    child_ctx[8] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[9] = list[i];
+    child_ctx[11] = list[i];
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[9] = list[i];
+    child_ctx[11] = list[i];
     return child_ctx;
   }
   function create_each_block_2(ctx) {
     let th;
     let t_value = formatDate(
       /*date*/
-      ctx[9]
+      ctx[11]
     ) + "";
     let t;
     return {
       c() {
         th = element("th");
         t = text(t_value);
-        attr(th, "class", "table_header svelte-1ae6jws");
+        attr(th, "class", "table_header svelte-1vh4ivu");
       },
       m(target, anchor) {
         insert(target, th, anchor);
@@ -18378,7 +18384,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (dirty & /*sortedDate*/
         1 && t_value !== (t_value = formatDate(
           /*date*/
-          ctx2[9]
+          ctx2[11]
         ) + ""))
           set_data(t, t_value);
       },
@@ -18393,17 +18399,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let td;
     let t_value = (countPerActionsPerDate[
       /*actionsPerDate*/
-      ctx[6]
+      ctx[8]
     ][
       /*date*/
-      ctx[9]
+      ctx[11]
     ] || "0") + "";
     let t;
     return {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "table_data svelte-1ae6jws");
+        attr(td, "class", "table_data svelte-1vh4ivu");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -18413,10 +18419,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (dirty & /*sortedDate*/
         1 && t_value !== (t_value = (countPerActionsPerDate[
           /*actionsPerDate*/
-          ctx2[6]
+          ctx2[8]
         ][
           /*date*/
-          ctx2[9]
+          ctx2[11]
         ] || "0") + ""))
           set_data(t, t_value);
       },
@@ -18445,13 +18451,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         tr = element("tr");
         td = element("td");
         td.textContent = `${/*actionsPerDate*/
-        ctx[6]}`;
+        ctx[8]}`;
         t1 = space();
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
         t2 = space();
-        attr(td, "class", "table_data svelte-1ae6jws");
+        attr(td, "class", "table_data svelte-1vh4ivu");
         attr(tr, "class", "table_row");
       },
       m(target, anchor) {
@@ -18501,20 +18507,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let section;
     let menu;
     let t0;
-    let div5;
+    let div6;
     let profileheader;
     let t1;
     let adminsubmenu;
     let t2;
+    let div5;
     let div4;
-    let div3;
-    let t8;
+    let t10;
     let table;
     let tr;
     let th;
-    let t10;
-    let t11;
     let t12;
+    let t13;
+    let t14;
     let footer;
     let current;
     menu = new Menu_default({ props: { access: segments } });
@@ -18539,66 +18545,66 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         section = element("section");
         create_component(menu.$.fragment);
         t0 = space();
-        div5 = element("div");
+        div6 = element("div");
         create_component(profileheader.$.fragment);
         t1 = space();
         create_component(adminsubmenu.$.fragment);
         t2 = space();
+        div5 = element("div");
         div4 = element("div");
-        div3 = element("div");
-        div3.innerHTML = `<!-- Statistics --> <div class="statistics svelte-1ae6jws"><header class="svelte-1ae6jws"><h3 class="svelte-1ae6jws">Statistics</h3></header> <div class="stats svelte-1ae6jws"><canvas id="stats-chart"></canvas></div></div> <!-- Actions [ Still Dummy Chart]--> <div class="actions svelte-1ae6jws"><canvas id="action-stats"></canvas></div>`;
-        t8 = space();
+        div4.innerHTML = `<!-- Statistics --> <div class="statistics svelte-1vh4ivu"><header><h3 class="svelte-1vh4ivu">Statistics</h3></header> <div class="stats svelte-1vh4ivu"><canvas id="stats-chart"></canvas></div></div> <!-- Actions [ Still Dummy Chart]--> <div class="actions svelte-1vh4ivu"><header><h3 class="svelte-1vh4ivu">Actions</h3></header> <div class="action svelte-1vh4ivu"><canvas id="action-chart"></canvas></div></div>`;
+        t10 = space();
         table = element("table");
         tr = element("tr");
         th = element("th");
         th.textContent = "Actions";
-        t10 = space();
+        t12 = space();
         for (let i = 0; i < each_blocks_1.length; i += 1) {
           each_blocks_1[i].c();
         }
-        t11 = space();
+        t13 = space();
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        t12 = space();
+        t14 = space();
         create_component(footer.$.fragment);
-        attr(div3, "class", "chart_container svelte-1ae6jws");
-        attr(th, "class", "table_header svelte-1ae6jws");
+        attr(div4, "class", "chart_container svelte-1vh4ivu");
+        attr(th, "class", "table_header svelte-1vh4ivu");
         attr(tr, "class", "table_row");
-        attr(table, "class", "table_actions svelte-1ae6jws");
-        attr(div4, "class", "content");
-        attr(div5, "class", "dashboard_main_content");
+        attr(table, "class", "table_actions svelte-1vh4ivu");
+        attr(div5, "class", "content");
+        attr(div6, "class", "dashboard_main_content");
         attr(section, "class", "dashboard");
       },
       m(target, anchor) {
         insert(target, section, anchor);
         mount_component(menu, section, null);
         append(section, t0);
-        append(section, div5);
-        mount_component(profileheader, div5, null);
-        append(div5, t1);
-        mount_component(adminsubmenu, div5, null);
-        append(div5, t2);
+        append(section, div6);
+        mount_component(profileheader, div6, null);
+        append(div6, t1);
+        mount_component(adminsubmenu, div6, null);
+        append(div6, t2);
+        append(div6, div5);
         append(div5, div4);
-        append(div4, div3);
-        append(div4, t8);
-        append(div4, table);
+        append(div5, t10);
+        append(div5, table);
         append(table, tr);
         append(tr, th);
-        append(tr, t10);
+        append(tr, t12);
         for (let i = 0; i < each_blocks_1.length; i += 1) {
           if (each_blocks_1[i]) {
             each_blocks_1[i].m(tr, null);
           }
         }
-        append(table, t11);
+        append(table, t13);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
             each_blocks[i].m(table, null);
           }
         }
-        append(div5, t12);
-        mount_component(footer, div5, null);
+        append(div6, t14);
+        mount_component(footer, div6, null);
         current = true;
       },
       p(ctx2, [dirty]) {
@@ -18680,8 +18686,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var countPerActionsPerDate = {/* countPerActionsPerDate */};
   function formatDate(dateString) {
     const options = { day: "numeric", month: "long" };
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", options);
+    const date2 = new Date(dateString);
+    return date2.toLocaleDateString("en-US", options);
   }
   function instance5($self, $props, $invalidate) {
     let registeredUserTotal = +'#{registeredUserTotal}';
@@ -18690,6 +18696,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let data_requestsPerDate = [];
     let data_uniqueIpPerDate = [];
     let data_uniqueUserPerDate = [];
+    let data_actionLists = [];
+    let data_countPerActionsPerDate = [];
     onMount(() => {
       let uniqueDate = {};
       for (let i in uniqueIpPerDate)
@@ -18699,14 +18707,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       for (let i in uniqueUserPerDate)
         uniqueDate[i] = true;
       $invalidate(0, sortedDate = Object.keys(uniqueDate).sort());
-      formattedDates = sortedDate.map((date) => formatDate(date));
-      data_requestsPerDate = sortedDate.map((date) => requestsPerDate[date]);
-      data_uniqueIpPerDate = sortedDate.map((date) => uniqueIpPerDate[date]);
-      data_uniqueUserPerDate = sortedDate.map((date) => uniqueUserPerDate[date]);
+      formattedDates = sortedDate.map((date2) => formatDate(date2));
+      data_requestsPerDate = sortedDate.map((date2) => requestsPerDate[date2]);
+      data_uniqueIpPerDate = sortedDate.map((date2) => uniqueIpPerDate[date2]);
+      data_uniqueUserPerDate = sortedDate.map((date2) => uniqueUserPerDate[date2]);
+      data_actionLists = Object.keys(countPerActionsPerDate);
+      for (let action in countPerActionsPerDate) {
+        let action_data = [];
+        for (let i = 0; i < sortedDate.length; i++) {
+          date = sortedDate[i];
+          if (countPerActionsPerDate[action][date]) {
+            action_data.push(countPerActionsPerDate[action][date]);
+          } else {
+            action_data.push(0);
+          }
+        }
+        data_countPerActionsPerDate.push(action_data);
+      }
     });
     onMount(async () => {
       const statsChart = document.getElementById("stats-chart");
-      const actionChart = document.getElementById("action-stats");
+      const actionChart = document.getElementById("action-chart");
       new auto_default(
         statsChart,
         {
@@ -18716,6 +18737,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             datasets: [
               {
                 label: "Requests",
+                pointRadius: 4,
+                pointBackgroundColor: "#a5b4fc",
                 backgroundColor: "#818cf8",
                 borderColor: "#818cf8",
                 data: data_requestsPerDate,
@@ -18723,6 +18746,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               },
               {
                 label: "Unique IP",
+                pointRadius: 4,
+                pointBackgroundColor: "#fdba74",
                 backgroundColor: "#fb923c",
                 borderColor: "#fb923c",
                 data: data_uniqueIpPerDate,
@@ -18730,6 +18755,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               },
               {
                 label: "Unique User",
+                pointRadius: 4,
+                pointBackgroundColor: "#5eead4",
                 backgroundColor: "#2dd4bf",
                 borderColor: "#2dd4bf",
                 data: data_uniqueUserPerDate,
@@ -18738,6 +18765,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             ]
           },
           options: {
+            plugins: {
+              legend: {
+                rtl: true,
+                labels: { color: "#ffff", textAlign: "right" }
+              }
+            },
             maintainAspectRatio: false,
             responsive: true,
             title: {
@@ -18745,54 +18778,26 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               text: "Sales Charts",
               fontColor: "white"
             },
-            legend: {
-              labels: { fontColor: "white" },
-              align: "end",
-              position: "bottom"
-            },
             tooltips: { mode: "index", intersect: false },
             hover: { mode: "nearest", intersect: true },
             scales: {
-              xAxes: [
-                {
-                  ticks: { fontColor: "rgba(255,255,255,.7)" },
-                  display: true,
-                  scaleLabel: {
-                    display: false,
-                    labelString: "Month",
-                    fontColor: "white"
-                  },
-                  gridLines: {
-                    display: false,
-                    borderDash: [2],
-                    borderDashOffset: [2],
-                    color: "rgba(33, 37, 41, 0.3)",
-                    zeroLineColor: "rgba(0, 0, 0, 0)",
-                    zeroLineBorderDash: [2],
-                    zeroLineBorderDashOffset: [2]
-                  }
+              x: {
+                ticks: { color: "#ffff" },
+                grid: {
+                  tickColor: "transparent",
+                  color: "transparent"
                 }
-              ],
-              yAxes: [
-                {
-                  ticks: { fontColor: "rgba(255,255,255,.7)" },
-                  display: true,
-                  scaleLabel: {
-                    display: false,
-                    labelString: "Value",
-                    fontColor: "white"
-                  },
-                  gridLines: {
-                    borderDash: [3],
-                    borderDashOffset: [3],
-                    drawBorder: false,
-                    color: "rgba(255, 255, 255, 0.15)",
-                    zeroLineColor: "rgba(33, 37, 41, 0)",
-                    zeroLineBorderDash: [2],
-                    zeroLineBorderDashOffset: [2]
-                  }
+              },
+              y: {
+                beginAtZero: true,
+                ticks: { stepSize: 100, color: "#ffff" },
+                border: { dash: [4] },
+                grid: {
+                  tickColor: "rgb(255, 255, 255, 0.2)",
+                  tickBorderDash: [4],
+                  color: "rgb(255, 255, 255, 0.2)"
                 }
-              ]
+              }
             }
           }
         }
@@ -18802,68 +18807,67 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         {
           type: "bar",
           data: {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            labels: formattedDates,
             datasets: [
               {
-                label: new Date().getFullYear(),
+                label: data_actionLists[0],
                 backgroundColor: "#ed64a6",
                 borderColor: "#ed64a6",
-                data: [30, 78, 56, 34, 100, 45, 13],
+                data: data_countPerActionsPerDate[0],
                 fill: false,
-                barThickness: 8
+                barThickness: 5
               },
               {
-                label: new Date().getFullYear() - 1,
+                label: data_actionLists[1],
+                backgroundColor: "#ed64a6",
+                borderColor: "#ed64a6",
+                data: data_countPerActionsPerDate[1],
                 fill: false,
-                backgroundColor: "#818cf8",
-                borderColor: "#818cf8",
-                data: [27, 68, 86, 74, 10, 4, 87],
-                barThickness: 8
+                barThickness: 5
+              },
+              {
+                label: data_actionLists[2],
+                backgroundColor: "#ed64a6",
+                borderColor: "#ed64a6",
+                data: data_countPerActionsPerDate[2],
+                fill: false,
+                barThickness: 5
+              },
+              {
+                label: data_actionLists[3],
+                backgroundColor: "#ed64a6",
+                borderColor: "#ed64a6",
+                data: data_countPerActionsPerDate[3],
+                fill: false,
+                barThickness: 5
+              },
+              {
+                label: data_actionLists[4],
+                backgroundColor: "#ed64a6",
+                borderColor: "#ed64a6",
+                data: data_countPerActionsPerDate[4],
+                fill: false,
+                barThickness: 5
+              },
+              {
+                label: data_actionLists[5],
+                backgroundColor: "#ed64a6",
+                borderColor: "#ed64a6",
+                data: data_countPerActionsPerDate[5],
+                fill: false,
+                barThickness: 5
               }
             ]
+            /* TODO: Display Datasets to 11*/
           },
           options: {
+            plugins: { legend: { position: "right" } },
             maintainAspectRatio: false,
             responsive: true,
             title: { display: false, text: "Orders Chart" },
             tooltips: { mode: "index", intersect: false },
             hover: { mode: "nearest", intersect: true },
-            legend: {
-              labels: { fontColor: "rgba(0,0,0,.4)" },
-              align: "end",
-              position: "bottom"
-            },
-            scales: {
-              xAxes: [
-                {
-                  display: false,
-                  scaleLabel: { display: true, labelString: "Month" },
-                  gridLines: {
-                    borderDash: [2],
-                    borderDashOffset: [2],
-                    color: "rgba(33, 37, 41, 0.3)",
-                    zeroLineColor: "rgba(33, 37, 41, 0.3)",
-                    zeroLineBorderDash: [2],
-                    zeroLineBorderDashOffset: [2]
-                  }
-                }
-              ],
-              yAxes: [
-                {
-                  display: true,
-                  scaleLabel: { display: false, labelString: "Value" },
-                  gridLines: {
-                    borderDash: [2],
-                    drawBorder: false,
-                    borderDashOffset: [2],
-                    color: "rgba(33, 37, 41, 0.2)",
-                    zeroLineColor: "rgba(33, 37, 41, 0.15)",
-                    zeroLineBorderDash: [2],
-                    zeroLineBorderDashOffset: [2]
-                  }
-                }
-              ]
-            }
+            scales: { x: {}, y: {} }
           }
         }
       );

@@ -22,6 +22,8 @@
   let data_requestsPerDate = [];
   let data_uniqueIpPerDate = [];
   let data_uniqueUserPerDate = [];
+  let data_actionLists = [];
+  let data_countPerActionsPerDate = [];
 
   function formatDate( dateString ) {
     const options = {day: 'numeric', month: 'long'};
@@ -39,201 +41,194 @@
     data_requestsPerDate = sortedDate.map(date => requestsPerDate[date]);
     data_uniqueIpPerDate = sortedDate.map(date => uniqueIpPerDate[date]);
     data_uniqueUserPerDate = sortedDate.map(date => uniqueUserPerDate[date]);
+    data_actionLists = Object.keys(countPerActionsPerDate);
+    // data_countPerActionsPerDate = Object.values(countPerActionsPerDate);
+    for (let action in countPerActionsPerDate) {
+      let action_data = []
+      for (let i = 0; i < sortedDate.length; i++) {
+        date = sortedDate[i];
+        if (countPerActionsPerDate[action][date]) {
+          action_data.push(countPerActionsPerDate[action][date])
+        } else {
+          action_data.push(0)
+        }
+      }
+      data_countPerActionsPerDate.push(action_data)
+    }
+
+    // console.log(data_countPerActionsPerDate)
+    // console.log(data_actionLists)
+    // console.log(countPerActionsPerDate)
+    // console.log(sortedDate)
   } );
 
   // init chart
   onMount(async () => {
-    const statsChart = document.getElementById("stats-chart");
-    const actionChart = document.getElementById("action-stats")
+    const statsChart = document.getElementById('stats-chart');
+    const actionChart = document.getElementById('action-chart');
 
     new Chart(statsChart, {
-      type: "line",
+      type: 'line',
       data: {
         labels: formattedDates,
         datasets: [
           {
             label: 'Requests',
-            backgroundColor: "#818cf8",
-            borderColor: "#818cf8",
+            pointRadius: 4,
+            pointBackgroundColor: '#a5b4fc',
+            backgroundColor: '#818cf8',
+            borderColor: '#818cf8',
             data: data_requestsPerDate,
             fill: false
           }, {
             label: 'Unique IP',
-            backgroundColor: "#fb923c",
-            borderColor: "#fb923c",
+            pointRadius: 4,
+            pointBackgroundColor: '#fdba74',
+            backgroundColor: '#fb923c',
+            borderColor: '#fb923c',
             data: data_uniqueIpPerDate,
             fill: false
           }, {
             label: 'Unique User',
-            backgroundColor: "#2dd4bf",
-            borderColor: "#2dd4bf",
+            pointRadius: 4,
+            pointBackgroundColor: '#5eead4',
+            backgroundColor: '#2dd4bf',
+            borderColor: '#2dd4bf',
             data: data_uniqueUserPerDate,
             fill: false
           },
         ]
       },
       options: {
+        plugins: {
+          legend: {
+            rtl: true,
+            labels: {
+              color: '#ffff',
+              textAlign: 'right'
+            }
+          }
+        },
         maintainAspectRatio: false,
         responsive: true,
         title: {
           display: false,
-          text: "Sales Charts",
-          fontColor: "white",
-        },
-        legend: {
-          labels: {
-            fontColor: "white",
-          },
-          align: "end",
-          position: "bottom",
+          text: 'Sales Charts',
+          fontColor: 'white',
         },
         tooltips: {
-          mode: "index",
+          mode: 'index',
           intersect: false,
         },
         hover: {
-          mode: "nearest",
+          mode: 'nearest',
           intersect: true,
         },
         scales: {
-          xAxes: [
-            {
-              ticks: {
-                fontColor: "rgba(255,255,255,.7)",
-              },
-              display: true,
-              scaleLabel: {
-                display: false,
-                labelString: "Month",
-                fontColor: "white",
-              },
-              gridLines: {
-                display: false,
-                borderDash: [2],
-                borderDashOffset: [2],
-                color: "rgba(33, 37, 41, 0.3)",
-                zeroLineColor: "rgba(0, 0, 0, 0)",
-                zeroLineBorderDash: [2],
-                zeroLineBorderDashOffset: [2],
-              },
+          x: {
+            ticks: {
+              color: '#ffff'
             },
-          ],
-          yAxes: [
-            {
-              ticks: {
-                fontColor: "rgba(255,255,255,.7)",
-              },
-              display: true,
-              scaleLabel: {
-                display: false,
-                labelString: "Value",
-                fontColor: "white",
-              },
-              gridLines: {
-                borderDash: [3],
-                borderDashOffset: [3],
-                drawBorder: false,
-                color: "rgba(255, 255, 255, 0.15)",
-                zeroLineColor: "rgba(33, 37, 41, 0)",
-                zeroLineBorderDash: [2],
-                zeroLineBorderDashOffset: [2],
-              },
+            grid: {
+              tickColor: 'transparent',
+              color: 'transparent'
+            }
+          },
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 100,
+              color: '#ffff'
             },
-          ],
+            border: {
+              dash: [4]
+            },
+            grid: {
+              tickColor: 'rgb(255, 255, 255, 0.2)',
+              tickBorderDash: [4],
+              color: 'rgb(255, 255, 255, 0.2)'
+            }
+          }
         },
       },
     });
 
     new Chart(actionChart, {
-      type: "bar",
+      type: 'bar',
       data: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-        ],
+        labels: formattedDates,
         datasets: [
           {
-            label: new Date().getFullYear(),
-            backgroundColor: "#ed64a6",
-            borderColor: "#ed64a6",
-            data: [30, 78, 56, 34, 100, 45, 13],
+            label: data_actionLists[0],
+            backgroundColor: '#ed64a6',
+            borderColor: '#ed64a6',
+            data: data_countPerActionsPerDate[0],
             fill: false,
-            barThickness: 8
-          },
-          {
-            label: new Date().getFullYear() - 1,
+            barThickness: 5
+          }, {
+            label: data_actionLists[1],
+            backgroundColor: '#ed64a6',
+            borderColor: '#ed64a6',
+            data: data_countPerActionsPerDate[1],
             fill: false,
-            backgroundColor: "#818cf8",
-            borderColor: "#818cf8",
-            data: [27, 68, 86, 74, 10, 4, 87],
-            barThickness: 8
-          }
+            barThickness: 5
+          }, {
+            label: data_actionLists[2],
+            backgroundColor: '#ed64a6',
+            borderColor: '#ed64a6',
+            data: data_countPerActionsPerDate[2],
+            fill: false,
+            barThickness: 5
+          }, {
+            label: data_actionLists[3],
+            backgroundColor: '#ed64a6',
+            borderColor: '#ed64a6',
+            data: data_countPerActionsPerDate[3],
+            fill: false,
+            barThickness: 5
+          }, {
+            label: data_actionLists[4],
+            backgroundColor: '#ed64a6',
+            borderColor: '#ed64a6',
+            data: data_countPerActionsPerDate[4],
+            fill: false,
+            barThickness: 5
+          }, {
+            label: data_actionLists[5],
+            backgroundColor: '#ed64a6',
+            borderColor: '#ed64a6',
+            data: data_countPerActionsPerDate[5],
+            fill: false,
+            barThickness: 5
+          }, /* TODO: Display Datasets to 11*/
         ]
       },
       options: {
+        plugins: {
+          legend: {
+            position: 'right'
+          }
+        },
         maintainAspectRatio: false,
         responsive: true,
         title: {
           display: false,
-          text: "Orders Chart",
+          text: 'Orders Chart',
         },
         tooltips: {
-          mode: "index",
+          mode: 'index',
           intersect: false,
         },
         hover: {
-          mode: "nearest",
+          mode: 'nearest',
           intersect: true,
         },
-        legend: {
-          labels: {
-            fontColor: "rgba(0,0,0,.4)",
-          },
-          align: "end",
-          position: "bottom",
-        },
         scales: {
-          xAxes: [
-            {
-              display: false,
-              scaleLabel: {
-                display: true,
-                labelString: "Month",
-              },
-              gridLines: {
-                borderDash: [2],
-                borderDashOffset: [2],
-                color: "rgba(33, 37, 41, 0.3)",
-                zeroLineColor: "rgba(33, 37, 41, 0.3)",
-                zeroLineBorderDash: [2],
-                zeroLineBorderDashOffset: [2],
-              },
-            },
-          ],
-          yAxes: [
-            {
-              display: true,
-              scaleLabel: {
-                display: false,
-                labelString: "Value",
-              },
-              gridLines: {
-                borderDash: [2],
-                drawBorder: false,
-                borderDashOffset: [2],
-                color: "rgba(33, 37, 41, 0.2)",
-                zeroLineColor: "rgba(33, 37, 41, 0.15)",
-                zeroLineBorderDash: [2],
-                zeroLineBorderDashOffset: [2],
-              },
-            },
-          ],
-        },
+          x: {},
+          y: {
+
+          }
+        }
       },
     })
     
@@ -258,7 +253,12 @@
         </div>
         <!-- Actions [ Still Dummy Chart]-->
         <div class='actions'>
-          <canvas id='action-stats'></canvas>
+          <header>
+            <h3>Actions</h3>
+          </header>
+          <div class='action'>
+            <canvas id='action-chart'></canvas>
+          </div>
         </div>
       </div>
       
@@ -295,14 +295,11 @@
   }
   .chart_container .statistics {
     width: 100%;
-    height: 300px;
+    height: 400px;
     box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
     background-color: #334155;
     border-radius: 8px;
     padding: 16px 16px 25px 16px;
-  }
-  .chart_container .statistics header {
-    margin-bottom: 20px;
   }
   .chart_container .statistics header h3 {
     font-size: 20px;
@@ -310,18 +307,28 @@
     margin: 0;
   }
   .chart_container .statistics .stats {
-    height: 87%;
+    height: 92%;
     width: 100%;
   }
 
   .chart_container .actions {
     width: 100%;
-    margin-top: 40px;
+    margin-top: 30px;
     box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
     background-color: white;
     border-radius: 8px;
-    height: 350px;
+    height: 500px;
+    padding: 16px 16px 25px 16px;
   }
+  .chart_container .actions header h3 {
+    font-size: 20px;
+    margin: 0 0 20px 0;
+  }
+  .chart_container .actions .action {
+    height: 90%;
+    width: 100%;
+  }
+
 
     .table_actions {
         margin-top : 30px;
