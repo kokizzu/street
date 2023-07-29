@@ -18326,7 +18326,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t2;
     let div6;
     let div0;
-    let label;
     let strong;
     let t4;
     let t5;
@@ -18351,7 +18350,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t2 = space();
         div6 = element("div");
         div0 = element("div");
-        label = element("label");
         strong = element("strong");
         strong.textContent = "Registered User Total";
         t4 = text(": ");
@@ -18361,7 +18359,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         );
         t6 = space();
         div5 = element("div");
-        div5.innerHTML = `<!-- Statistics --> <div class="statistics svelte-1rbguq5"><header><h3 class="svelte-1rbguq5">Statistics</h3></header> <div class="stats svelte-1rbguq5"><canvas id="stats-chart"></canvas></div></div> <!-- Actions [ Still Dummy Chart]--> <div class="actions svelte-1rbguq5"><header><h3 class="svelte-1rbguq5">Actions</h3></header> <div class="action svelte-1rbguq5"><canvas id="action-chart"></canvas></div></div>`;
+        div5.innerHTML = `<!-- Statistics --> <div class="statistics svelte-1rbguq5"><header><h3 class="svelte-1rbguq5">Last 30 days User Statistics</h3></header> <div class="stats svelte-1rbguq5"><canvas id="stats-chart"></canvas></div></div> <!-- Actions [ Still Dummy Chart]--> <div class="actions svelte-1rbguq5"><header><h3 class="svelte-1rbguq5">Last 30 days Actions</h3></header> <div class="action svelte-1rbguq5"><canvas id="action-chart"></canvas></div></div>`;
         t14 = space();
         create_component(footer.$.fragment);
         attr(div0, "class", "total_container svelte-1rbguq5");
@@ -18381,10 +18379,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div7, t2);
         append(div7, div6);
         append(div6, div0);
-        append(div0, label);
-        append(label, strong);
-        append(label, t4);
-        append(label, t5);
+        append(div0, strong);
+        append(div0, t4);
+        append(div0, t5);
         append(div6, t6);
         append(div6, div5);
         append(div7, t14);
@@ -18457,18 +18454,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         let action_data = [];
         for (let i = 0; i < sortedDate.length; i++) {
           let date = sortedDate[i];
-          if (countPerActionsPerDate[action][date]) {
-            action_data.push(countPerActionsPerDate[action][date]);
-          } else {
-            action_data.push(0);
-          }
+          action_data.push(countPerActionsPerDate[action][date] || 0);
         }
         data_countPerActionsPerDate.push(action_data);
       }
       let total = data_actionLists.length;
       for (let idx = 0; idx < total; ++idx) {
-        const color2 = "hsl(" + Math.floor(360 * idx / (total + 1)) + ", 100%, 60%)";
-        const borderColor = "hsl(" + Math.floor(360 * idx / (total + 1)) + ", 100%, 30%)";
+        const degree = Math.floor(360 * idx / (total + 1));
+        const color2 = "hsl(" + degree + ", 100%, 47%)";
+        const borderColor = "hsl(" + degree + ", 100%, 60%)";
         datasets.push({
           label: data_actionLists[idx],
           backgroundColor: color2,

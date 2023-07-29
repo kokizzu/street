@@ -47,19 +47,18 @@
       let action_data = [];
       for( let i = 0; i<sortedDate.length; i++ ) {
         let date = sortedDate[ i ];
-        if( countPerActionsPerDate[ action ][ date ] ) {
-          action_data.push( countPerActionsPerDate[ action ][ date ] );
-        } else {
-          action_data.push( 0 );
-        }
+        action_data.push( countPerActionsPerDate[ action ][ date ] || 0 );
       }
       data_countPerActionsPerDate.push( action_data );
     }
+    
+    // fill the data
     let total = data_actionLists.length;
     
     for( let idx = 0; idx<total; ++idx ) {
-      const color = 'hsl(' + Math.floor( 360 * idx / (total+1) ) + ', 100%, 60%)'
-      const borderColor = 'hsl(' + Math.floor( 360 * idx / (total+1) ) + ', 100%, 30%)'
+      const degree = Math.floor( 360 * idx / (total+1) ) // since 360 in hsl = 0
+      const color = 'hsl(' + degree + ', 100%, 47%)'
+      const borderColor = 'hsl(' + degree + ', 100%, 60%)'
       datasets.push( {
         label: data_actionLists[ idx ],
         backgroundColor: color,
@@ -228,13 +227,13 @@
     <AdminSubMenu></AdminSubMenu>
     <div class='content'>
       <div class='total_container'>
-        <label><strong>Registered User Total</strong>: {registeredUserTotal}</label>
+        <strong>Registered User Total</strong>: {registeredUserTotal}
       </div>
       <div class='chart_container'>
         <!-- Statistics -->
         <div class='statistics'>
           <header>
-            <h3>Statistics</h3>
+            <h3>Last 30 days User Statistics</h3>
           </header>
           <div class='stats'>
             <canvas id='stats-chart'></canvas>
@@ -243,7 +242,7 @@
         <!-- Actions [ Still Dummy Chart]-->
         <div class='actions'>
           <header>
-            <h3>Actions</h3>
+            <h3>Last 30 days Actions</h3>
           </header>
           <div class='action'>
             <canvas id='action-chart'></canvas>
