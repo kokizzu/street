@@ -2,7 +2,7 @@
   // @ts-nocheck
   import Chart from 'chart.js/auto';
   import { onMount } from 'svelte';
-
+  
   import Menu from './_components/Menu.svelte';
   import AdminSubMenu from './_components/AdminSubMenu.svelte';
   import ProfileHeader from './_components/ProfileHeader.svelte';
@@ -24,7 +24,7 @@
   let data_uniqueUserPerDate = [];
   let data_actionLists = [];
   let data_countPerActionsPerDate = [];
-
+  
   function formatDate( dateString ) {
     const options = {day: 'numeric', month: 'long'};
     const date = new Date( dateString );
@@ -37,31 +37,44 @@
     for( let i in requestsPerDate ) uniqueDate[ i ] = true;
     for( let i in uniqueUserPerDate ) uniqueDate[ i ] = true;
     sortedDate = Object.keys( uniqueDate ).sort();
-    formattedDates = sortedDate.map(date => formatDate(date));
-    data_requestsPerDate = sortedDate.map(date => requestsPerDate[date]);
-    data_uniqueIpPerDate = sortedDate.map(date => uniqueIpPerDate[date]);
-    data_uniqueUserPerDate = sortedDate.map(date => uniqueUserPerDate[date]);
-    data_actionLists = Object.keys(countPerActionsPerDate);
-    for (let action in countPerActionsPerDate) {
-      let action_data = []
-      for (let i = 0; i < sortedDate.length; i++) {
-        date = sortedDate[i];
-        if (countPerActionsPerDate[action][date]) {
-          action_data.push(countPerActionsPerDate[action][date])
+    formattedDates = sortedDate.map( date => formatDate( date ) );
+    data_requestsPerDate = sortedDate.map( date => requestsPerDate[ date ] );
+    data_uniqueIpPerDate = sortedDate.map( date => uniqueIpPerDate[ date ] );
+    data_uniqueUserPerDate = sortedDate.map( date => uniqueUserPerDate[ date ] );
+    let datasets = [];
+    data_actionLists = Object.keys( countPerActionsPerDate );
+    for( let action in countPerActionsPerDate ) {
+      let action_data = [];
+      for( let i = 0; i<sortedDate.length; i++ ) {
+        let date = sortedDate[ i ];
+        if( countPerActionsPerDate[ action ][ date ] ) {
+          action_data.push( countPerActionsPerDate[ action ][ date ] );
         } else {
-          action_data.push(0)
+          action_data.push( 0 );
         }
       }
-      data_countPerActionsPerDate.push(action_data)
+      data_countPerActionsPerDate.push( action_data );
     }
-  } );
-
-  // init Chart.js
-  onMount(async () => {
-    const statsChart = document.getElementById('stats-chart');
-    const actionChart = document.getElementById('action-chart');
-
-    new Chart(statsChart, {
+    let total = data_actionLists.length;
+    
+    for( let idx = 0; idx<total; ++idx ) {
+      const color = 'hsl(' + Math.floor( 360 * idx / (total+1) ) + ', 100%, 60%)'
+      const borderColor = 'hsl(' + Math.floor( 360 * idx / (total+1) ) + ', 100%, 30%)'
+      datasets.push( {
+        label: data_actionLists[ idx ],
+        backgroundColor: color,
+        borderColor: borderColor,
+        data: data_countPerActionsPerDate[ idx ],
+        fill: false,
+        barThickness: 20,
+      } );
+    }
+    
+    // init Chart.js
+    const statsChart = document.getElementById( 'stats-chart' );
+    const actionChart = document.getElementById( 'action-chart' );
+    
+    new Chart( statsChart, {
       type: 'line',
       data: {
         labels: formattedDates,
@@ -69,29 +82,29 @@
           {
             label: 'Requests',
             pointRadius: 4,
-            pointBackgroundColor: '#a5b4fc',
-            backgroundColor: '#818cf8',
-            borderColor: '#818cf8',
+            pointBackgroundColor: '#A5B4FC',
+            backgroundColor: '#818CF8',
+            borderColor: '#818CF8',
             data: data_requestsPerDate,
-            fill: false
+            fill: false,
           }, {
             label: 'Unique IP',
             pointRadius: 4,
-            pointBackgroundColor: '#fdba74',
-            backgroundColor: '#fb923c',
-            borderColor: '#fb923c',
+            pointBackgroundColor: '#FDBA74',
+            backgroundColor: '#FB923C',
+            borderColor: '#FB923C',
             data: data_uniqueIpPerDate,
-            fill: false
+            fill: false,
           }, {
             label: 'Unique User',
             pointRadius: 4,
-            pointBackgroundColor: '#5eead4',
-            backgroundColor: '#2dd4bf',
-            borderColor: '#2dd4bf',
+            pointBackgroundColor: '#5EEAD4',
+            backgroundColor: '#2DD4BF',
+            borderColor: '#2DD4BF',
             data: data_uniqueUserPerDate,
-            fill: false
+            fill: false,
           },
-        ]
+        ],
       },
       options: {
         plugins: {
@@ -99,9 +112,9 @@
             rtl: true,
             labels: {
               color: '#ffff',
-              textAlign: 'right'
-            }
-          }
+              textAlign: 'right',
+            },
+          },
         },
         maintainAspectRatio: false,
         responsive: true,
@@ -121,125 +134,46 @@
         scales: {
           x: {
             ticks: {
-              color: '#ffff'
+              color: '#ffff',
             },
             grid: {
               tickColor: 'transparent',
-              color: 'transparent'
-            }
+              color: 'transparent',
+            },
           },
           y: {
             beginAtZero: true,
             ticks: {
               stepSize: 100,
-              color: '#ffff'
+              color: '#ffff',
             },
             border: {
-              dash: [4]
+              dash: [4],
             },
             grid: {
               tickColor: 'rgb(255, 255, 255, 0.2)',
               tickBorderDash: [4],
-              color: 'rgb(255, 255, 255, 0.2)'
-            }
-          }
+              color: 'rgb(255, 255, 255, 0.2)',
+            },
+          },
         },
       },
-    });
-
-    new Chart(actionChart, {
+    } );
+    
+    new Chart( actionChart, {
       type: 'bar',
       data: {
         labels: formattedDates,
-        datasets: [
-          {
-            label: data_actionLists[0],
-            backgroundColor: '#ef4444',
-            borderColor: '#ef4444',
-            data: data_countPerActionsPerDate[0],
-            fill: false,
-            barThickness: 20
-          }, {
-            label: data_actionLists[1],
-            backgroundColor: '#ed64a6',
-            borderColor: '#ed64a6',
-            data: data_countPerActionsPerDate[1],
-            fill: false,
-            barThickness: 20
-          }, {
-            label: data_actionLists[2],
-            backgroundColor: '#06b6d4',
-            borderColor: '#06b6d4',
-            data: data_countPerActionsPerDate[2],
-            fill: false,
-            barThickness: 20
-          }, {
-            label: data_actionLists[3],
-            backgroundColor: '#84cc16',
-            borderColor: '#84cc16',
-            data: data_countPerActionsPerDate[3],
-            fill: false,
-            barThickness: 20
-          }, {
-            label: data_actionLists[4],
-            backgroundColor: '#78716c',
-            borderColor: '#78716c',
-            data: data_countPerActionsPerDate[4],
-            fill: false,
-            barThickness: 20
-          }, {
-            label: data_actionLists[5],
-            backgroundColor: '#d946ef',
-            borderColor: '#d946ef',
-            data: data_countPerActionsPerDate[5],
-            fill: false,
-            barThickness: 20
-          }, {
-            label: data_actionLists[6],
-            backgroundColor: '#14b8a6',
-            borderColor: '#14b8a6',
-            data: data_countPerActionsPerDate[6],
-            fill: false,
-            barThickness: 20,
-          }, {
-            label: data_actionLists[7],
-            backgroundColor: '#f59e0b',
-            borderColor: '#f59e0b',
-            data: data_countPerActionsPerDate[7],
-            fill: false,
-            barThickness: 20
-          }, {
-            label: data_actionLists[8],
-            backgroundColor: '#0ea5e9',
-            borderColor: '#0ea5e9',
-            data: data_countPerActionsPerDate[8],
-            fill: false,
-            barThickness: 20
-          }, {
-            label: data_actionLists[9],
-            backgroundColor: '#eab308',
-            borderColor: '#eab308',
-            data: data_countPerActionsPerDate[9],
-            fill: false,
-            barThickness: 20
-          }, {
-            label: data_actionLists[10],
-            backgroundColor: '#22c55e',
-            borderColor: '#22c55e',
-            data: data_countPerActionsPerDate[10],
-            fill: false,
-            barThickness: 20
-          },
-        ]
+        datasets: datasets,
       },
       options: {
         plugins: {
           legend: {
             position: 'right',
             labels: {
-              color: '#475569'
-            }
-          }
+              color: '#475569',
+            },
+          },
         },
         maintainAspectRatio: false,
         responsive: true,
@@ -259,32 +193,32 @@
           x: {
             stacked: true,
             ticks: {
-              color: '#475569'
+              color: '#475569',
             },
             grid: {
               tickColor: 'transparent',
-              color: 'transparent'
-            }
+              color: 'transparent',
+            },
           },
           y: {
             stacked: true,
             ticks: {
-              color: '#475569'
+              color: '#475569',
             },
             border: {
-              dash: [4]
+              dash: [4],
             },
             grid: {
-              tickColor: '#d1d5db',
+              tickColor: '#D1D5DB',
               tickBorderDash: [4],
-              color: '#d1d5db'
-            }
-          }
-        }
+              color: '#D1D5DB',
+            },
+          },
+        },
       },
-    })
+    } );
     
-  });
+  } );
 </script>
 
 <section class='dashboard'>
@@ -293,6 +227,9 @@
     <ProfileHeader />
     <AdminSubMenu></AdminSubMenu>
     <div class='content'>
+      <div class='total_container'>
+        <label><strong>Registered User Total</strong>: {registeredUserTotal}</label>
+      </div>
       <div class='chart_container'>
         <!-- Statistics -->
         <div class='statistics'>
@@ -319,46 +256,61 @@
 </section>
 
 <style>
+  .total_container {
+    display          : block;
+    width            : 88%;
+    margin           : -20px auto 20px auto;
+    position         : relative;
+    background-color : antiquewhite;
+    padding          : 1em;
+    border-radius    : 10px;
+  }
+
   .chart_container {
-    position: relative;
-    width: 88%;
-    margin: -40px auto 20px auto;
-    display: flex;
-    flex-direction: column;
+    position       : relative;
+    width          : 88%;
+    margin         : 20px auto 20px auto;
+    display        : flex;
+    flex-direction : column;
   }
+
   .chart_container .statistics {
-    width: 100%;
-    height: 400px;
-    box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
-    background-color: #334155;
-    border-radius: 8px;
-    padding: 16px 16px 25px 16px;
+    width            : 100%;
+    height           : 400px;
+    box-shadow       : 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
+    background-color : #334155;
+    border-radius    : 8px;
+    padding          : 16px 16px 25px 16px;
   }
+
   .chart_container .statistics header h3 {
-    font-size: 20px;
-    color: white;
-    margin: 0;
+    font-size : 20px;
+    color     : white;
+    margin    : 0;
   }
+
   .chart_container .statistics .stats {
-    height: 92%;
-    width: 100%;
+    height : 92%;
+    width  : 100%;
   }
 
   .chart_container .actions {
-    width: 100%;
-    margin-top: 30px;
-    box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
-    background-color: white;
-    border-radius: 8px;
-    height: 500px;
-    padding: 16px 16px 25px 16px;
+    width            : 100%;
+    margin-top       : 30px;
+    box-shadow       : 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
+    background-color : white;
+    border-radius    : 8px;
+    height           : 500px;
+    padding          : 16px 16px 25px 16px;
   }
+
   .chart_container .actions header h3 {
-    font-size: 20px;
-    margin: 0 0 20px 0;
+    font-size : 20px;
+    margin    : 0 0 20px 0;
   }
+
   .chart_container .actions .action {
-    height: 90%;
-    width: 100%;
+    height : 90%;
+    width  : 100%;
   }
 </style>
