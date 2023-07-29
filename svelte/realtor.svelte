@@ -96,32 +96,62 @@
   let lng = 0;
   let lat = 0;
   let formatted_address = '';
+  let clicked_map;
   // const MAP_API_KEY = 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg';
   async function initMap() {
+    const myLatLng = { lat: -34.397, lng: 150.644 };
+    let markers = [];
     const { Map } = await google.maps.importLibrary("maps");
+    const geocoder = new google.maps.Geocoder();
     map = new Map(map_container, {
-      center: { lat: -34.397, lng: 150.644 },
+      center: myLatLng,
       zoom: 8,
       mapTypeId: "roadmap",
+      mapId: "street_project"
     });
     const { SearchBox } = await google.maps.importLibrary("places");
     const searchBox = new SearchBox(input_address);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input_address);
+    // Clickable map
+    map.addListener("click", (event) => {
+      lng = event.latLng.lng();
+      lat = event.latLng.lat();
+      markers.forEach((marker) => {
+        marker.setMap(null);
+      });
+      markers = [];
+      markers.push(
+        new google.maps.Marker({
+          map,
+          position: event.latLng,
+          draggable: true
+        })
+      )
+      geocoder.geocode({ location: event.latLng}, (results, status) => {
+        if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
+          console.log(results[0].formatted_address);
+          formatted_address = results[0].formatted_address
+        } else {
+          console.log("Address not found");
+        }
+      });
+      google.maps.event.addListener(markers[0], 'dragend', (event) => {
+        lng = event.latLng.lng();
+        lat = event.latLng.lat();
+      });
+    })
     map.addListener('bounds_changed', () => {
       searchBox.setBounds(map.getBounds());
     });
-    let markers = [];
     searchBox.addListener('places_changed', () => {
       const places = searchBox.getPlaces();
       if (places.length == 0) {
         return;
       }
-
       // Fill formatted_address, latitude, and longitude as JSON values
       lng = places[0].geometry.location.lng();
       lat = places[0].geometry.location.lat();
       formatted_address = places[0].formatted_address;
-
       // Clear out the old markers
       markers.forEach((marker) => {
         marker.setMap(null);
@@ -156,13 +186,13 @@
         } else {
           bounds.extend(place.geometry.location);
         }
+        console.log(markers)
       });
       map.fitBounds(bounds);
-      
     });
   }
   function handlerLocationNext() {
-    if (lng === 0 || lat === 0 || formatted_address === '') {
+    if (lng === 0 || lat === 0) {
       alert('Location must be added');
     } else {
       realtorStack = [
