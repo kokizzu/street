@@ -349,14 +349,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 }
 
 /* fakecss:/home/habi/Dev/workStuff/street/svelte/admin.esbuild-svelte-fake-css */
-.chart_container.svelte-1vh4ivu.svelte-1vh4ivu {
+.chart_container.svelte-15pel11.svelte-15pel11 {
   position: relative;
   width: 88%;
   margin: -40px auto 20px auto;
   display: flex;
   flex-direction: column;
 }
-.chart_container.svelte-1vh4ivu .statistics.svelte-1vh4ivu {
+.chart_container.svelte-15pel11 .statistics.svelte-15pel11 {
   width: 100%;
   height: 400px;
   box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
@@ -364,16 +364,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   border-radius: 8px;
   padding: 16px 16px 25px 16px;
 }
-.chart_container.svelte-1vh4ivu .statistics header h3.svelte-1vh4ivu {
+.chart_container.svelte-15pel11 .statistics header h3.svelte-15pel11 {
   font-size: 20px;
   color: white;
   margin: 0;
 }
-.chart_container.svelte-1vh4ivu .statistics .stats.svelte-1vh4ivu {
+.chart_container.svelte-15pel11 .statistics .stats.svelte-15pel11 {
   height: 92%;
   width: 100%;
 }
-.chart_container.svelte-1vh4ivu .actions.svelte-1vh4ivu {
+.chart_container.svelte-15pel11 .actions.svelte-15pel11 {
   width: 100%;
   margin-top: 30px;
   box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
@@ -382,37 +382,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   height: 500px;
   padding: 16px 16px 25px 16px;
 }
-.chart_container.svelte-1vh4ivu .actions header h3.svelte-1vh4ivu {
+.chart_container.svelte-15pel11 .actions header h3.svelte-15pel11 {
   font-size: 20px;
   margin: 0 0 20px 0;
 }
-.chart_container.svelte-1vh4ivu .actions .action.svelte-1vh4ivu {
+.chart_container.svelte-15pel11 .actions .action.svelte-15pel11 {
   height: 90%;
   width: 100%;
-}
-.table_actions.svelte-1vh4ivu.svelte-1vh4ivu {
-  margin-top: 30px;
-}
-.table_actions.svelte-1vh4ivu.svelte-1vh4ivu {
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 8px;
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-  padding: 20px;
-  background-color: white;
-  width: 88%;
-  height: fit-content;
-  color: #475569;
-  font-size: 16px;
-}
-.table_header.svelte-1vh4ivu.svelte-1vh4ivu {
-  text-align: left !important;
-  color: #6366F1 !important;
-}
-.table_header.svelte-1vh4ivu.svelte-1vh4ivu,
-.table_data.svelte-1vh4ivu.svelte-1vh4ivu {
-  padding-top: 7px;
-  padding-bottom: 7px;
 }
 </style>
 <script>(() => {
@@ -2651,12 +2627,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       node.parentNode.removeChild(node);
     }
   }
-  function destroy_each(iterations, detaching) {
-    for (let i = 0; i < iterations.length; i += 1) {
-      if (iterations[i])
-        iterations[i].d(detaching);
-    }
-  }
   function element(name) {
     return document.createElement(name);
   }
@@ -2690,13 +2660,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function children(element2) {
     return Array.from(element2.childNodes);
-  }
-  function set_data(text2, data) {
-    data = "" + data;
-    if (text2.data === data)
-      return;
-    text2.data = /** @type {string} */
-    data;
   }
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
@@ -2827,11 +2790,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     } else if (callback2) {
       callback2();
     }
-  }
-
-  // node_modules/svelte/src/runtime/internal/each.js
-  function ensure_array_like(array_like_or_iterator) {
-    return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
 
   // node_modules/svelte/src/shared/boolean_attributes.js
@@ -18348,161 +18306,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var Footer_default = Footer;
 
   // admin.svelte
-  function get_each_context(ctx, list, i) {
-    const child_ctx = ctx.slice();
-    child_ctx[8] = list[i];
-    return child_ctx;
-  }
-  function get_each_context_1(ctx, list, i) {
-    const child_ctx = ctx.slice();
-    child_ctx[11] = list[i];
-    return child_ctx;
-  }
-  function get_each_context_2(ctx, list, i) {
-    const child_ctx = ctx.slice();
-    child_ctx[11] = list[i];
-    return child_ctx;
-  }
-  function create_each_block_2(ctx) {
-    let th;
-    let t_value = formatDate(
-      /*date*/
-      ctx[11]
-    ) + "";
-    let t;
-    return {
-      c() {
-        th = element("th");
-        t = text(t_value);
-        attr(th, "class", "table_header svelte-1vh4ivu");
-      },
-      m(target, anchor) {
-        insert(target, th, anchor);
-        append(th, t);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*sortedDate*/
-        1 && t_value !== (t_value = formatDate(
-          /*date*/
-          ctx2[11]
-        ) + ""))
-          set_data(t, t_value);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(th);
-        }
-      }
-    };
-  }
-  function create_each_block_1(ctx) {
-    let td;
-    let t_value = (countPerActionsPerDate[
-      /*actionsPerDate*/
-      ctx[8]
-    ][
-      /*date*/
-      ctx[11]
-    ] || "0") + "";
-    let t;
-    return {
-      c() {
-        td = element("td");
-        t = text(t_value);
-        attr(td, "class", "table_data svelte-1vh4ivu");
-      },
-      m(target, anchor) {
-        insert(target, td, anchor);
-        append(td, t);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*sortedDate*/
-        1 && t_value !== (t_value = (countPerActionsPerDate[
-          /*actionsPerDate*/
-          ctx2[8]
-        ][
-          /*date*/
-          ctx2[11]
-        ] || "0") + ""))
-          set_data(t, t_value);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(td);
-        }
-      }
-    };
-  }
-  function create_each_block(ctx) {
-    let tr;
-    let td;
-    let t1;
-    let t2;
-    let each_value_1 = ensure_array_like(
-      /*sortedDate*/
-      ctx[0]
-    );
-    let each_blocks = [];
-    for (let i = 0; i < each_value_1.length; i += 1) {
-      each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
-    }
-    return {
-      c() {
-        tr = element("tr");
-        td = element("td");
-        td.textContent = `${/*actionsPerDate*/
-        ctx[8]}`;
-        t1 = space();
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].c();
-        }
-        t2 = space();
-        attr(td, "class", "table_data svelte-1vh4ivu");
-        attr(tr, "class", "table_row");
-      },
-      m(target, anchor) {
-        insert(target, tr, anchor);
-        append(tr, td);
-        append(tr, t1);
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          if (each_blocks[i]) {
-            each_blocks[i].m(tr, null);
-          }
-        }
-        append(tr, t2);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*countPerActionsPerDate, Object, sortedDate*/
-        1) {
-          each_value_1 = ensure_array_like(
-            /*sortedDate*/
-            ctx2[0]
-          );
-          let i;
-          for (i = 0; i < each_value_1.length; i += 1) {
-            const child_ctx = get_each_context_1(ctx2, each_value_1, i);
-            if (each_blocks[i]) {
-              each_blocks[i].p(child_ctx, dirty);
-            } else {
-              each_blocks[i] = create_each_block_1(child_ctx);
-              each_blocks[i].c();
-              each_blocks[i].m(tr, t2);
-            }
-          }
-          for (; i < each_blocks.length; i += 1) {
-            each_blocks[i].d(1);
-          }
-          each_blocks.length = each_value_1.length;
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(tr);
-        }
-        destroy_each(each_blocks, detaching);
-      }
-    };
-  }
   function create_fragment5(ctx) {
     let section;
     let menu;
@@ -18513,32 +18316,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let adminsubmenu;
     let t2;
     let div5;
-    let div4;
     let t10;
-    let table;
-    let tr;
-    let th;
-    let t12;
-    let t13;
-    let t14;
     let footer;
     let current;
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({});
     adminsubmenu = new AdminSubMenu_default({});
-    let each_value_2 = ensure_array_like(
-      /*sortedDate*/
-      ctx[0]
-    );
-    let each_blocks_1 = [];
-    for (let i = 0; i < each_value_2.length; i += 1) {
-      each_blocks_1[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
-    }
-    let each_value = ensure_array_like(Object.keys(countPerActionsPerDate));
-    let each_blocks = [];
-    for (let i = 0; i < each_value.length; i += 1) {
-      each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
-    }
     footer = new Footer_default({});
     return {
       c() {
@@ -18551,27 +18334,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         create_component(adminsubmenu.$.fragment);
         t2 = space();
         div5 = element("div");
-        div4 = element("div");
-        div4.innerHTML = `<!-- Statistics --> <div class="statistics svelte-1vh4ivu"><header><h3 class="svelte-1vh4ivu">Statistics</h3></header> <div class="stats svelte-1vh4ivu"><canvas id="stats-chart"></canvas></div></div> <!-- Actions [ Still Dummy Chart]--> <div class="actions svelte-1vh4ivu"><header><h3 class="svelte-1vh4ivu">Actions</h3></header> <div class="action svelte-1vh4ivu"><canvas id="action-chart"></canvas></div></div>`;
+        div5.innerHTML = `<div class="chart_container svelte-15pel11"><!-- Statistics --> <div class="statistics svelte-15pel11"><header><h3 class="svelte-15pel11">Statistics</h3></header> <div class="stats svelte-15pel11"><canvas id="stats-chart"></canvas></div></div> <!-- Actions [ Still Dummy Chart]--> <div class="actions svelte-15pel11"><header><h3 class="svelte-15pel11">Actions</h3></header> <div class="action svelte-15pel11"><canvas id="action-chart"></canvas></div></div></div>`;
         t10 = space();
-        table = element("table");
-        tr = element("tr");
-        th = element("th");
-        th.textContent = "Actions";
-        t12 = space();
-        for (let i = 0; i < each_blocks_1.length; i += 1) {
-          each_blocks_1[i].c();
-        }
-        t13 = space();
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].c();
-        }
-        t14 = space();
         create_component(footer.$.fragment);
-        attr(div4, "class", "chart_container svelte-1vh4ivu");
-        attr(th, "class", "table_header svelte-1vh4ivu");
-        attr(tr, "class", "table_row");
-        attr(table, "class", "table_actions svelte-1vh4ivu");
         attr(div5, "class", "content");
         attr(div6, "class", "dashboard_main_content");
         attr(section, "class", "dashboard");
@@ -18586,70 +18351,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         mount_component(adminsubmenu, div6, null);
         append(div6, t2);
         append(div6, div5);
-        append(div5, div4);
-        append(div5, t10);
-        append(div5, table);
-        append(table, tr);
-        append(tr, th);
-        append(tr, t12);
-        for (let i = 0; i < each_blocks_1.length; i += 1) {
-          if (each_blocks_1[i]) {
-            each_blocks_1[i].m(tr, null);
-          }
-        }
-        append(table, t13);
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          if (each_blocks[i]) {
-            each_blocks[i].m(table, null);
-          }
-        }
-        append(div6, t14);
+        append(div6, t10);
         mount_component(footer, div6, null);
         current = true;
       },
-      p(ctx2, [dirty]) {
-        if (dirty & /*formatDate, sortedDate*/
-        1) {
-          each_value_2 = ensure_array_like(
-            /*sortedDate*/
-            ctx2[0]
-          );
-          let i;
-          for (i = 0; i < each_value_2.length; i += 1) {
-            const child_ctx = get_each_context_2(ctx2, each_value_2, i);
-            if (each_blocks_1[i]) {
-              each_blocks_1[i].p(child_ctx, dirty);
-            } else {
-              each_blocks_1[i] = create_each_block_2(child_ctx);
-              each_blocks_1[i].c();
-              each_blocks_1[i].m(tr, null);
-            }
-          }
-          for (; i < each_blocks_1.length; i += 1) {
-            each_blocks_1[i].d(1);
-          }
-          each_blocks_1.length = each_value_2.length;
-        }
-        if (dirty & /*sortedDate, countPerActionsPerDate, Object*/
-        1) {
-          each_value = ensure_array_like(Object.keys(countPerActionsPerDate));
-          let i;
-          for (i = 0; i < each_value.length; i += 1) {
-            const child_ctx = get_each_context(ctx2, each_value, i);
-            if (each_blocks[i]) {
-              each_blocks[i].p(child_ctx, dirty);
-            } else {
-              each_blocks[i] = create_each_block(child_ctx);
-              each_blocks[i].c();
-              each_blocks[i].m(table, null);
-            }
-          }
-          for (; i < each_blocks.length; i += 1) {
-            each_blocks[i].d(1);
-          }
-          each_blocks.length = each_value.length;
-        }
-      },
+      p: noop,
       i(local) {
         if (current)
           return;
@@ -18673,8 +18379,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         destroy_component(menu);
         destroy_component(profileheader);
         destroy_component(adminsubmenu);
-        destroy_each(each_blocks_1, detaching);
-        destroy_each(each_blocks, detaching);
         destroy_component(footer);
       }
     };
@@ -18689,7 +18393,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     const date2 = new Date(dateString);
     return date2.toLocaleDateString("en-US", options);
   }
-  function instance5($self, $props, $invalidate) {
+  function instance5($self) {
     let registeredUserTotal = +'#{registeredUserTotal}';
     let sortedDate = [];
     let formattedDates = [];
@@ -18706,7 +18410,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         uniqueDate[i] = true;
       for (let i in uniqueUserPerDate)
         uniqueDate[i] = true;
-      $invalidate(0, sortedDate = Object.keys(uniqueDate).sort());
+      sortedDate = Object.keys(uniqueDate).sort();
       formattedDates = sortedDate.map((date2) => formatDate(date2));
       data_requestsPerDate = sortedDate.map((date2) => requestsPerDate[date2]);
       data_uniqueIpPerDate = sortedDate.map((date2) => uniqueIpPerDate[date2]);
@@ -18811,11 +18515,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             datasets: [
               {
                 label: data_actionLists[0],
-                backgroundColor: "#ed64a6",
-                borderColor: "#ed64a6",
+                backgroundColor: "#ef4444",
+                borderColor: "#ef4444",
                 data: data_countPerActionsPerDate[0],
                 fill: false,
-                barThickness: 5
+                barThickness: 20
               },
               {
                 label: data_actionLists[1],
@@ -18823,56 +18527,119 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
                 borderColor: "#ed64a6",
                 data: data_countPerActionsPerDate[1],
                 fill: false,
-                barThickness: 5
+                barThickness: 20
               },
               {
                 label: data_actionLists[2],
-                backgroundColor: "#ed64a6",
-                borderColor: "#ed64a6",
+                backgroundColor: "#06b6d4",
+                borderColor: "#06b6d4",
                 data: data_countPerActionsPerDate[2],
                 fill: false,
-                barThickness: 5
+                barThickness: 20
               },
               {
                 label: data_actionLists[3],
-                backgroundColor: "#ed64a6",
-                borderColor: "#ed64a6",
+                backgroundColor: "#84cc16",
+                borderColor: "#84cc16",
                 data: data_countPerActionsPerDate[3],
                 fill: false,
-                barThickness: 5
+                barThickness: 20
               },
               {
                 label: data_actionLists[4],
-                backgroundColor: "#ed64a6",
-                borderColor: "#ed64a6",
+                backgroundColor: "#78716c",
+                borderColor: "#78716c",
                 data: data_countPerActionsPerDate[4],
                 fill: false,
-                barThickness: 5
+                barThickness: 20
               },
               {
                 label: data_actionLists[5],
-                backgroundColor: "#ed64a6",
-                borderColor: "#ed64a6",
+                backgroundColor: "#d946ef",
+                borderColor: "#d946ef",
                 data: data_countPerActionsPerDate[5],
                 fill: false,
-                barThickness: 5
+                barThickness: 20
+              },
+              {
+                label: data_actionLists[6],
+                backgroundColor: "#14b8a6",
+                borderColor: "#14b8a6",
+                data: data_countPerActionsPerDate[6],
+                fill: false,
+                barThickness: 20
+              },
+              {
+                label: data_actionLists[7],
+                backgroundColor: "#f59e0b",
+                borderColor: "#f59e0b",
+                data: data_countPerActionsPerDate[7],
+                fill: false,
+                barThickness: 20
+              },
+              {
+                label: data_actionLists[8],
+                backgroundColor: "#0ea5e9",
+                borderColor: "#0ea5e9",
+                data: data_countPerActionsPerDate[8],
+                fill: false,
+                barThickness: 20
+              },
+              {
+                label: data_actionLists[9],
+                backgroundColor: "#eab308",
+                borderColor: "#eab308",
+                data: data_countPerActionsPerDate[9],
+                fill: false,
+                barThickness: 20
+              },
+              {
+                label: data_actionLists[10],
+                backgroundColor: "#22c55e",
+                borderColor: "#22c55e",
+                data: data_countPerActionsPerDate[10],
+                fill: false,
+                barThickness: 20
               }
             ]
-            /* TODO: Display Datasets to 11*/
           },
           options: {
-            plugins: { legend: { position: "right" } },
+            plugins: {
+              legend: {
+                position: "right",
+                labels: { color: "#475569" }
+              }
+            },
             maintainAspectRatio: false,
             responsive: true,
             title: { display: false, text: "Orders Chart" },
             tooltips: { mode: "index", intersect: false },
             hover: { mode: "nearest", intersect: true },
-            scales: { x: {}, y: {} }
+            scales: {
+              x: {
+                stacked: true,
+                ticks: { color: "#475569" },
+                grid: {
+                  tickColor: "transparent",
+                  color: "transparent"
+                }
+              },
+              y: {
+                stacked: true,
+                ticks: { color: "#475569" },
+                border: { dash: [4] },
+                grid: {
+                  tickColor: "#d1d5db",
+                  tickBorderDash: [4],
+                  color: "#d1d5db"
+                }
+              }
+            }
           }
         }
       );
     });
-    return [sortedDate];
+    return [];
   }
   var Admin = class extends SvelteComponent {
     constructor(options) {

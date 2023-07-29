@@ -17,7 +17,7 @@
   let registeredUserTotal = +'#{registeredUserTotal}';
   let countPerActionsPerDate = {/* countPerActionsPerDate */};
   let sortedDate = [];
-  // Each data to be display
+  // Data to be display on the Charts
   let formattedDates = [];
   let data_requestsPerDate = [];
   let data_uniqueIpPerDate = [];
@@ -42,7 +42,6 @@
     data_uniqueIpPerDate = sortedDate.map(date => uniqueIpPerDate[date]);
     data_uniqueUserPerDate = sortedDate.map(date => uniqueUserPerDate[date]);
     data_actionLists = Object.keys(countPerActionsPerDate);
-    // data_countPerActionsPerDate = Object.values(countPerActionsPerDate);
     for (let action in countPerActionsPerDate) {
       let action_data = []
       for (let i = 0; i < sortedDate.length; i++) {
@@ -55,14 +54,9 @@
       }
       data_countPerActionsPerDate.push(action_data)
     }
-
-    // console.log(data_countPerActionsPerDate)
-    // console.log(data_actionLists)
-    // console.log(countPerActionsPerDate)
-    // console.log(sortedDate)
   } );
 
-  // init chart
+  // init Chart.js
   onMount(async () => {
     const statsChart = document.getElementById('stats-chart');
     const actionChart = document.getElementById('action-chart');
@@ -160,53 +154,91 @@
         datasets: [
           {
             label: data_actionLists[0],
-            backgroundColor: '#ed64a6',
-            borderColor: '#ed64a6',
+            backgroundColor: '#ef4444',
+            borderColor: '#ef4444',
             data: data_countPerActionsPerDate[0],
             fill: false,
-            barThickness: 5
+            barThickness: 20
           }, {
             label: data_actionLists[1],
             backgroundColor: '#ed64a6',
             borderColor: '#ed64a6',
             data: data_countPerActionsPerDate[1],
             fill: false,
-            barThickness: 5
+            barThickness: 20
           }, {
             label: data_actionLists[2],
-            backgroundColor: '#ed64a6',
-            borderColor: '#ed64a6',
+            backgroundColor: '#06b6d4',
+            borderColor: '#06b6d4',
             data: data_countPerActionsPerDate[2],
             fill: false,
-            barThickness: 5
+            barThickness: 20
           }, {
             label: data_actionLists[3],
-            backgroundColor: '#ed64a6',
-            borderColor: '#ed64a6',
+            backgroundColor: '#84cc16',
+            borderColor: '#84cc16',
             data: data_countPerActionsPerDate[3],
             fill: false,
-            barThickness: 5
+            barThickness: 20
           }, {
             label: data_actionLists[4],
-            backgroundColor: '#ed64a6',
-            borderColor: '#ed64a6',
+            backgroundColor: '#78716c',
+            borderColor: '#78716c',
             data: data_countPerActionsPerDate[4],
             fill: false,
-            barThickness: 5
+            barThickness: 20
           }, {
             label: data_actionLists[5],
-            backgroundColor: '#ed64a6',
-            borderColor: '#ed64a6',
+            backgroundColor: '#d946ef',
+            borderColor: '#d946ef',
             data: data_countPerActionsPerDate[5],
             fill: false,
-            barThickness: 5
-          }, /* TODO: Display Datasets to 11*/
+            barThickness: 20
+          }, {
+            label: data_actionLists[6],
+            backgroundColor: '#14b8a6',
+            borderColor: '#14b8a6',
+            data: data_countPerActionsPerDate[6],
+            fill: false,
+            barThickness: 20,
+          }, {
+            label: data_actionLists[7],
+            backgroundColor: '#f59e0b',
+            borderColor: '#f59e0b',
+            data: data_countPerActionsPerDate[7],
+            fill: false,
+            barThickness: 20
+          }, {
+            label: data_actionLists[8],
+            backgroundColor: '#0ea5e9',
+            borderColor: '#0ea5e9',
+            data: data_countPerActionsPerDate[8],
+            fill: false,
+            barThickness: 20
+          }, {
+            label: data_actionLists[9],
+            backgroundColor: '#eab308',
+            borderColor: '#eab308',
+            data: data_countPerActionsPerDate[9],
+            fill: false,
+            barThickness: 20
+          }, {
+            label: data_actionLists[10],
+            backgroundColor: '#22c55e',
+            borderColor: '#22c55e',
+            data: data_countPerActionsPerDate[10],
+            fill: false,
+            barThickness: 20
+          },
         ]
       },
       options: {
         plugins: {
           legend: {
-            position: 'right'
+            position: 'right',
+            labels: {
+              color: '#475569'
+            }
           }
         },
         maintainAspectRatio: false,
@@ -224,9 +256,29 @@
           intersect: true,
         },
         scales: {
-          x: {},
+          x: {
+            stacked: true,
+            ticks: {
+              color: '#475569'
+            },
+            grid: {
+              tickColor: 'transparent',
+              color: 'transparent'
+            }
+          },
           y: {
-
+            stacked: true,
+            ticks: {
+              color: '#475569'
+            },
+            border: {
+              dash: [4]
+            },
+            grid: {
+              tickColor: '#d1d5db',
+              tickBorderDash: [4],
+              color: '#d1d5db'
+            }
           }
         }
       },
@@ -261,25 +313,6 @@
           </div>
         </div>
       </div>
-      
-      <table class='table_actions'>
-        <tr class='table_row'>
-          <th class='table_header'>Actions</th>
-          {#each sortedDate as date}
-            <th class='table_header'>{formatDate( date )}</th>
-          {/each}
-        </tr>
-        {#each Object.keys( countPerActionsPerDate ) as actionsPerDate}
-          <tr class='table_row'>
-            <td class='table_data'>{actionsPerDate}</td>
-            {#each sortedDate as date}
-              <td class='table_data'>
-                {countPerActionsPerDate[ actionsPerDate ][ date ] || '0'}
-              </td>
-            {/each}
-          </tr>
-        {/each}
-      </table>
     </div>
     <Footer></Footer>
   </div>
@@ -328,32 +361,4 @@
     height: 90%;
     width: 100%;
   }
-
-
-    .table_actions {
-        margin-top : 30px;
-    }
-    
-    .table_actions{
-        margin-left      : auto;
-        margin-right     : auto;
-        border-radius    : 8px;
-        filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-        padding          : 20px;
-        background-color : white;
-        width            : 88%;
-        height           : fit-content;
-        color            : #475569;
-        font-size        : 16px;
-    }
-
-    .table_header {
-        text-align : left !important;
-        color      : #6366F1 !important;
-    }
-
-    .table_header, .table_data {
-        padding-top    : 7px;
-        padding-bottom : 7px;
-    }
 </style>
