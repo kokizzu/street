@@ -316,8 +316,8 @@
   let imageHouseInput;
   let house_images = [/*"/url/of/house/image"*/];
   let houseImgUploading = false;
-  let uploadStatus = '';
-  let uploadPercent = 0;
+  let uploadHouseStatus = '';
+  let uploadHousePercent = 0;
   function handlerHouseImage() {
     const file = imageHouseInput.files[0];
     if (file) {
@@ -325,6 +325,12 @@
       formData.append( 'rawFile', file );
       formData.append( 'purpose', 'property' ); // property or floorPlan
       var ajax = new XMLHttpRequest();
+      ajax.addEventListener( 'progress', function(event) {
+        houseImgUploading = true;
+        let percent = (event.loaded / event.total) * 100;
+        uploadHousePercent = Math.round(percent);
+        uploadHouseStatus = `${uploadHousePercent}% uploaded... please wait`;
+      });
       ajax.addEventListener( 'load', function (event) {
         houseImgUploading = false;
         if (ajax.status === 200) {
@@ -340,12 +346,6 @@
         }
         imageHouseInput.value = ''
       });
-      ajax.addEventListener( 'progress', function(event) {
-        houseImgUploading = true;
-        let percent = (event.loaded / event.total) * 100;
-        uploadPercent = Math.round(percent);
-        uploadStatus = `${uploadPercent}% uploaded... please wait`;
-      })
       ajax.addEventListener( 'error', function(event) {
         alert('Network error')
       });
@@ -455,6 +455,8 @@
   }
   // _______Upload Floor Plan photo
   let imgFlrPlanUploading = false;
+  let uploadFlrPlanStatus = '';
+  let uploadFlrPlanPercent = 0;
   let imageFloorPlanInput;
   function handlerImageFloorPlan() {
     const file = imageFloorPlanInput.files[0];
@@ -465,6 +467,9 @@
       var ajax = new XMLHttpRequest();
       ajax.upload.addEventListener( 'progress', function(event) {
         imgFlrPlanUploading = true;
+        let percent = (event.loaded / event.total) * 100;
+        uploadFlrPlanPercent = Math.round(percent);
+        uploadFlrPlanStatus = `${uploadFlrPlanPercent}% uploaded... please wait`;
       });
       ajax.addEventListener( 'load', function (event) {
         imgFlrPlanUploading = false;
@@ -756,8 +761,8 @@
                         <i class='gg-software-upload'></i>
                         <p>Select file to Upload</p>
                       {:else}
-                        <progress value={uploadPercent} max='100'></progress>
-                        <p>{uploadStatus}</p>
+                        <progress value={uploadHousePercent} max='100'></progress>
+                        <p>{uploadHouseStatus}</p>
                       {/if}
                     </label>
                     {#if house_images.length}
@@ -922,7 +927,8 @@
                 <div class='edit_floor_container'>
                   {#if imgFlrPlanUploading === true}
                     <div class='uploading'>
-                      <p>Uploading... please wait</p>
+                      <progress value={uploadFlrPlanPercent} max='100'></progress>
+                      <p>{uploadFlrPlanStatus}</p>
                     </div>
                   {:else}
                     {#if floor_lists[floor_index_to_edit].planImageUrl === ''}
@@ -972,7 +978,13 @@
                 </div>
               {/if}
             </div>
-            <button class='next_button' on:click|preventDefault={handleNextFloor}>NEXT</button>
+            <button disabled={imgFlrPlanUploading === true} class='next_button' on:click|preventDefault={handleNextFloor}>
+              {#if imgFlrPlanUploading === true}
+                <i class='gg-disc'></i>
+              {:else}
+                <p>NEXT</p>
+              {/if}
+            </button>
           </section>
         {/if}
         {#if subPage >= 4}
@@ -1087,6 +1099,14 @@
 </section>
 
 <style>
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
   .realtor_step_progress_bar {
     position: relative;
     margin-top: -40px;
@@ -1305,20 +1325,14 @@
   .info .next_skip_button .next_button {
     background-color: #f97316;
     color: white;
+    display: flex;
+    justify-content: center;
   }
   .info .next_skip_button .next_button:hover {
     background-color: #f58433;
   }
   .info .next_skip_button .next_button i {
-    animation: spin 5s infinite linear;
-  }
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+    animation: spin 1.5s infinite linear;
   }
   .info h2 {
     font-size: 18px;
@@ -1573,9 +1587,17 @@
     font-weight: 600;
     margin-top: 20px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
   }
   .floor .next_button:hover {
     background-color: #f58433;
+  }
+  .floor .next_button i {
+    animation: spin 1.5s infinite linear;
+  }
+  .floor .next_button p {
+    margin: 0;
   }
   .floor .floor_header {
     margin: 20px 0;
@@ -1737,8 +1759,33 @@
     width: 100%;
     height: 130px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  .floor .edit_floor_container .uploading p {
+    font-size: 11px;
+    margin: 0;
+  }
+  .floor .edit_floor_container .uploading progress {
+    appearance: none;
+    border-radius: 8px;
+    height: 13px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    width: 65%;
+  }
+  .floor .edit_floor_container .uploading progress::-webkit-progress-bar {
+    background-color: aliceblue;
+    box-shadow: -1px 1px 10px 0px rgba(0,0,0,0.3) inset;
+    -webkit-box-shadow: -1px 1px 10px 0px rgba(0,0,0,0.3) inset;
+    -moz-box-shadow: -1px 1px 10px 0px rgba(0,0,0,0.3) inset;
+  }
+  .floor .edit_floor_container .uploading progress::-webkit-progress-value {
+    background-color: #f97316;
+  }
+  .floor .edit_floor_container .uploading progress::-moz-progress-bar {
+    background-color: #f97316;
   }
 
   .floor .edit_floor_container .floor_plan_upload {
