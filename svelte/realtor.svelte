@@ -96,8 +96,7 @@
   let lng = 0;
   let lat = 0;
   let formatted_address = '';
-  let clicked_map;
-  // const MAP_API_KEY = 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg';
+  
   async function initMap() {
     const myLatLng = { lat: -34.397, lng: 150.644 };
     let markers = [];
@@ -112,10 +111,19 @@
     const { SearchBox } = await google.maps.importLibrary("places");
     const searchBox = new SearchBox(input_address);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input_address);
-    // Clickable map
+    // Convert coordinate to formatted_address
+    const getAddress = (latLng) => {
+      geocoder.geocode({ location: latLng}, (results, status) => {
+        if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
+          formatted_address = results[0].formatted_address;
+        } else {
+          console.log("Address not found");
+          formatted_address = "unknown";
+        }
+      });
+    }
+    // Clickable Map
     map.addListener("click", (event) => {
-      lng = event.latLng.lng();
-      lat = event.latLng.lat();
       markers.forEach((marker) => {
         marker.setMap(null);
       });
@@ -127,19 +135,18 @@
           draggable: true
         })
       )
-      geocoder.geocode({ location: event.latLng}, (results, status) => {
-        if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
-          console.log(results[0].formatted_address);
-          formatted_address = results[0].formatted_address
-        } else {
-          console.log("Address not found");
-        }
-      });
+      // Update data structure
+      lng = event.latLng.lng();
+      lat = event.latLng.lat();
+      getAddress(event.latLng);
+      // Callback for dragend event
       google.maps.event.addListener(markers[0], 'dragend', (event) => {
         lng = event.latLng.lng();
         lat = event.latLng.lat();
+        getAddress(event.latLng);
       });
-    })
+    });
+    // Searchable map
     map.addListener('bounds_changed', () => {
       searchBox.setBounds(map.getBounds());
     });
@@ -192,7 +199,7 @@
     });
   }
   function handlerLocationNext() {
-    if (lng === 0 || lat === 0) {
+    if (lng === 0 || lat === 0 || formatted_address === '') {
       alert('Location must be added');
     } else {
       realtorStack = [
@@ -206,6 +213,7 @@
           }
         }
       ]
+      console.log(realtorStack)
       nextPage();
     }
   }
