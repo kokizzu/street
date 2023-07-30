@@ -379,8 +379,8 @@
   let property_price = 0;
   let agency_fee = 0;
   function handleNextPriceProperty() {
-    if (property_price === 0 || agency_fee === 0) {
-      alert('Must fill the form');
+    if (property_price === 0) {
+      alert(`Price cannot be "${property_price}"`);
     } else {
       house_info_obj.price.property_price = property_price;
       house_info_obj.price.agency_fee = agency_fee;
