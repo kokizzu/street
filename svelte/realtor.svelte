@@ -213,7 +213,6 @@
           }
         }
       ]
-      console.log(realtorStack)
       nextPage();
     }
   }
@@ -316,6 +315,9 @@
   // ______Upload House Photo
   let imageHouseInput;
   let house_images = [/*"/url/of/house/image"*/];
+  let houseImgUploading = false;
+  let uploadStatus = '';
+  let uploadPercent = 0;
   function handlerHouseImage() {
     const file = imageHouseInput.files[0];
     if (file) {
@@ -324,7 +326,7 @@
       formData.append( 'purpose', 'property' ); // property or floorPlan
       var ajax = new XMLHttpRequest();
       ajax.addEventListener( 'load', function (event) {
-        imgFlrPlanUploading = false;
+        houseImgUploading = false;
         if (ajax.status === 200) {
           const out = JSON.parse(event.target.responseText)
           if(!out.error) {
@@ -338,6 +340,12 @@
         }
         imageHouseInput.value = ''
       });
+      ajax.addEventListener( 'progress', function(event) {
+        houseImgUploading = true;
+        let percent = (event.loaded / event.total) * 100;
+        uploadPercent = Math.round(percent);
+        uploadStatus = `${uploadPercent}% uploaded... please wait`;
+      })
       ajax.addEventListener( 'error', function(event) {
         alert('Network error')
       });
@@ -737,15 +745,20 @@
                 <div class='upload_house_photo'>     
                   <div class='image_preview_container'>
                     <label class='image_upload_button' for='upload_image'>
-                      <input
-                        bind:this={imageHouseInput}
-                        on:change={handlerHouseImage}
-                        type='file'
-                        accept='image/*'
-                        id='upload_image'
-                      />
-                      <i class='gg-software-upload'></i>
-                      <p>Select file to Upload</p>
+                      {#if !houseImgUploading}
+                        <input
+                          bind:this={imageHouseInput}
+                          on:change={handlerHouseImage}
+                          type='file'
+                          accept='image/*'
+                          id='upload_image'
+                        />
+                        <i class='gg-software-upload'></i>
+                        <p>Select file to Upload</p>
+                      {:else}
+                        <progress value={uploadPercent} max='100'></progress>
+                        <p>{uploadStatus}</p>
+                      {/if}
                     </label>
                     {#if house_images.length}
                       {#each house_images as imgFile, index}
@@ -811,6 +824,7 @@
                 </button>
               {/if}
               <button
+                disabled={houseImgUploading === true}
                 class='next_button'
                 on:click|preventDefault={() => {
                   if (modeHouseInfoCount === 0) {
@@ -826,7 +840,11 @@
                   }
                 }}
               >
-                NEXT
+                {#if houseImgUploading === true}
+                  <i class='gg-disc'></i>
+                {:else}
+                  <p>NEXT</p>
+                {/if}
               </button>
             </div>
           </section>
@@ -1272,6 +1290,9 @@
     cursor: pointer;
     width: 100%;
   }
+  .info .next_skip_button button p {
+    margin: 0;
+  }
   .info .next_skip_button .skip_button {
     margin-right: 10px;
     border: 1px solid #cbd5e1;
@@ -1287,6 +1308,17 @@
   }
   .info .next_skip_button .next_button:hover {
     background-color: #f58433;
+  }
+  .info .next_skip_button .next_button i {
+    animation: spin 5s infinite linear;
+  }
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
   .info h2 {
     font-size: 18px;
@@ -1370,26 +1402,26 @@
     display: grid;
     gap: 20px;
   }
-  .image_preview_container {
+  .upload_house_photo .image_preview_container {
     display: grid;
     justify-items: center;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
-  .image_card {
+  .upload_house_photo .image_card {
     position: relative;
     border-radius: 8px;
     width: 100%;
     height: 110px;
   }
-  .image_card img {
+  .upload_house_photo .image_card img {
     border-radius: 8px;
     object-fit: cover;
     width: 100%;
     height: 100%;
     border: 1px solid #cbd5e1;
   }
-  .image_card button {
+  .upload_house_photo .image_card button {
     position: absolute;
     z-index: 10;
     top: -10px;
@@ -1402,7 +1434,7 @@
     cursor: pointer;
     filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   }
-  .image_upload_button {
+  .upload_house_photo .image_upload_button {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1414,22 +1446,41 @@
     height: 110px;
     cursor: pointer;
   }
-  .image_upload_button:hover {
+  .upload_house_photo .image_upload_button:hover {
     border: 1px solid #f97316;
     color: #f97316;
   }
-  .image_upload_button input {
+  .upload_house_photo .image_upload_button input {
     position: absolute;
     opacity: 0;
     pointer-events: none;
   }
-  .image_upload_button i {
+  .upload_house_photo .image_upload_button i {
     font-size: 60px;
     margin-bottom: 10px;
   }
-  .image_upload_button p {
+  .upload_house_photo .image_upload_button p {
     font-size: 11px;
     margin: 0;
+  }
+  .upload_house_photo .image_upload_button progress {
+    appearance: none;
+    border-radius: 8px;
+    height: 13px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .upload_house_photo .image_upload_button progress::-webkit-progress-bar {
+    background-color: aliceblue;
+    box-shadow: -1px 1px 10px 0px rgba(0,0,0,0.3) inset;
+    -webkit-box-shadow: -1px 1px 10px 0px rgba(0,0,0,0.3) inset;
+    -moz-box-shadow: -1px 1px 10px 0px rgba(0,0,0,0.3) inset;
+  }
+  .upload_house_photo .image_upload_button progress::-webkit-progress-value {
+    background-color: #f97316;
+  }
+  .upload_house_photo .image_upload_button progress::-moz-progress-bar {
+    background-color: #f97316;
   }
   /* __SUBPAGE INFO - Feature and Facility */
   .feature_section {
