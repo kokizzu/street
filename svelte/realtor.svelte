@@ -96,32 +96,69 @@
   let lng = 0;
   let lat = 0;
   let formatted_address = '';
-  // const MAP_API_KEY = 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg';
+  
   async function initMap() {
+    const myLatLng = { lat: -34.397, lng: 150.644 };
+    let markers = [];
     const { Map } = await google.maps.importLibrary("maps");
+    const geocoder = new google.maps.Geocoder();
     map = new Map(map_container, {
-      center: { lat: -34.397, lng: 150.644 },
+      center: myLatLng,
       zoom: 8,
       mapTypeId: "roadmap",
+      mapId: "street_project"
     });
     const { SearchBox } = await google.maps.importLibrary("places");
     const searchBox = new SearchBox(input_address);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input_address);
+    // Convert coordinate to formatted_address
+    const getAddress = (latLng) => {
+      geocoder.geocode({ location: latLng}, (results, status) => {
+        if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
+          formatted_address = results[0].formatted_address;
+        } else {
+          console.log("Address not found");
+          formatted_address = "unknown";
+        }
+      });
+    }
+    // Clickable Map
+    map.addListener("click", (event) => {
+      markers.forEach((marker) => {
+        marker.setMap(null);
+      });
+      markers = [];
+      markers.push(
+        new google.maps.Marker({
+          map,
+          position: event.latLng,
+          draggable: true
+        })
+      )
+      // Update data structure
+      lng = event.latLng.lng();
+      lat = event.latLng.lat();
+      getAddress(event.latLng);
+      // Callback for dragend event
+      google.maps.event.addListener(markers[0], 'dragend', (event) => {
+        lng = event.latLng.lng();
+        lat = event.latLng.lat();
+        getAddress(event.latLng);
+      });
+    });
+    // Searchable map
     map.addListener('bounds_changed', () => {
       searchBox.setBounds(map.getBounds());
     });
-    let markers = [];
     searchBox.addListener('places_changed', () => {
       const places = searchBox.getPlaces();
       if (places.length == 0) {
         return;
       }
-
       // Fill formatted_address, latitude, and longitude as JSON values
       lng = places[0].geometry.location.lng();
       lat = places[0].geometry.location.lat();
       formatted_address = places[0].formatted_address;
-
       // Clear out the old markers
       markers.forEach((marker) => {
         marker.setMap(null);
@@ -156,9 +193,9 @@
         } else {
           bounds.extend(place.geometry.location);
         }
+        console.log(markers)
       });
       map.fitBounds(bounds);
-      
     });
   }
   function handlerLocationNext() {
@@ -278,6 +315,9 @@
   // ______Upload House Photo
   let imageHouseInput;
   let house_images = [/*"/url/of/house/image"*/];
+  let houseImgUploading = false;
+  let uploadHouseStatus = '';
+  let uploadHousePercent = 0;
   function handlerHouseImage() {
     const file = imageHouseInput.files[0];
     if (file) {
@@ -285,8 +325,14 @@
       formData.append( 'rawFile', file );
       formData.append( 'purpose', 'property' ); // property or floorPlan
       var ajax = new XMLHttpRequest();
+      ajax.addEventListener( 'progress', function(event) {
+        houseImgUploading = true;
+        let percent = (event.loaded / event.total) * 100;
+        uploadHousePercent = Math.round(percent);
+        uploadHouseStatus = `${uploadHousePercent}% uploaded... please wait`;
+      });
       ajax.addEventListener( 'load', function (event) {
-        imgFlrPlanUploading = false;
+        houseImgUploading = false;
         if (ajax.status === 200) {
           const out = JSON.parse(event.target.responseText)
           if(!out.error) {
@@ -341,8 +387,8 @@
   let property_price = 0;
   let agency_fee = 0;
   function handleNextPriceProperty() {
-    if (property_price === 0 || agency_fee === 0) {
-      alert('Must fill the form');
+    if (property_price === 0) {
+      alert(`Price cannot be "${property_price}"`);
     } else {
       house_info_obj.price.property_price = property_price;
       house_info_obj.price.agency_fee = agency_fee;
@@ -409,6 +455,8 @@
   }
   // _______Upload Floor Plan photo
   let imgFlrPlanUploading = false;
+  let uploadFlrPlanStatus = '';
+  let uploadFlrPlanPercent = 0;
   let imageFloorPlanInput;
   function handlerImageFloorPlan() {
     const file = imageFloorPlanInput.files[0];
@@ -419,6 +467,9 @@
       var ajax = new XMLHttpRequest();
       ajax.upload.addEventListener( 'progress', function(event) {
         imgFlrPlanUploading = true;
+        let percent = (event.loaded / event.total) * 100;
+        uploadFlrPlanPercent = Math.round(percent);
+        uploadFlrPlanStatus = `${uploadFlrPlanPercent}% uploaded... please wait`;
       });
       ajax.addEventListener( 'load', function (event) {
         imgFlrPlanUploading = false;
@@ -699,15 +750,20 @@
                 <div class='upload_house_photo'>     
                   <div class='image_preview_container'>
                     <label class='image_upload_button' for='upload_image'>
-                      <input
-                        bind:this={imageHouseInput}
-                        on:change={handlerHouseImage}
-                        type='file'
-                        accept='image/*'
-                        id='upload_image'
-                      />
-                      <i class='gg-software-upload'></i>
-                      <p>Select file to Upload</p>
+                      {#if !houseImgUploading}
+                        <input
+                          bind:this={imageHouseInput}
+                          on:change={handlerHouseImage}
+                          type='file'
+                          accept='image/*'
+                          id='upload_image'
+                        />
+                        <i class='gg-software-upload'></i>
+                        <p>Select file to Upload</p>
+                      {:else}
+                        <progress value={uploadHousePercent} max='100'></progress>
+                        <p>{uploadHouseStatus}</p>
+                      {/if}
                     </label>
                     {#if house_images.length}
                       {#each house_images as imgFile, index}
@@ -773,6 +829,7 @@
                 </button>
               {/if}
               <button
+                disabled={houseImgUploading === true}
                 class='next_button'
                 on:click|preventDefault={() => {
                   if (modeHouseInfoCount === 0) {
@@ -788,7 +845,11 @@
                   }
                 }}
               >
-                NEXT
+                {#if houseImgUploading === true}
+                  <i class='gg-disc'></i>
+                {:else}
+                  <p>NEXT</p>
+                {/if}
               </button>
             </div>
           </section>
@@ -866,7 +927,8 @@
                 <div class='edit_floor_container'>
                   {#if imgFlrPlanUploading === true}
                     <div class='uploading'>
-                      <p>Uploading... please wait</p>
+                      <progress value={uploadFlrPlanPercent} max='100'></progress>
+                      <p>{uploadFlrPlanStatus}</p>
                     </div>
                   {:else}
                     {#if floor_lists[floor_index_to_edit].planImageUrl === ''}
@@ -916,7 +978,13 @@
                 </div>
               {/if}
             </div>
-            <button class='next_button' on:click|preventDefault={handleNextFloor}>NEXT</button>
+            <button disabled={imgFlrPlanUploading === true} class='next_button' on:click|preventDefault={handleNextFloor}>
+              {#if imgFlrPlanUploading === true}
+                <i class='gg-disc'></i>
+              {:else}
+                <p>NEXT</p>
+              {/if}
+            </button>
           </section>
         {/if}
         {#if subPage >= 4}
@@ -1031,6 +1099,14 @@
 </section>
 
 <style>
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
   .realtor_step_progress_bar {
     position: relative;
     margin-top: -40px;
@@ -1234,6 +1310,9 @@
     cursor: pointer;
     width: 100%;
   }
+  .info .next_skip_button button p {
+    margin: 0;
+  }
   .info .next_skip_button .skip_button {
     margin-right: 10px;
     border: 1px solid #cbd5e1;
@@ -1246,9 +1325,14 @@
   .info .next_skip_button .next_button {
     background-color: #f97316;
     color: white;
+    display: flex;
+    justify-content: center;
   }
   .info .next_skip_button .next_button:hover {
     background-color: #f58433;
+  }
+  .info .next_skip_button .next_button i {
+    animation: spin 1.5s infinite linear;
   }
   .info h2 {
     font-size: 18px;
@@ -1332,26 +1416,26 @@
     display: grid;
     gap: 20px;
   }
-  .image_preview_container {
+  .upload_house_photo .image_preview_container {
     display: grid;
     justify-items: center;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
-  .image_card {
+  .upload_house_photo .image_card {
     position: relative;
     border-radius: 8px;
     width: 100%;
     height: 110px;
   }
-  .image_card img {
+  .upload_house_photo .image_card img {
     border-radius: 8px;
     object-fit: cover;
     width: 100%;
     height: 100%;
     border: 1px solid #cbd5e1;
   }
-  .image_card button {
+  .upload_house_photo .image_card button {
     position: absolute;
     z-index: 10;
     top: -10px;
@@ -1364,7 +1448,7 @@
     cursor: pointer;
     filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   }
-  .image_upload_button {
+  .upload_house_photo .image_upload_button {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1376,22 +1460,41 @@
     height: 110px;
     cursor: pointer;
   }
-  .image_upload_button:hover {
+  .upload_house_photo .image_upload_button:hover {
     border: 1px solid #f97316;
     color: #f97316;
   }
-  .image_upload_button input {
+  .upload_house_photo .image_upload_button input {
     position: absolute;
     opacity: 0;
     pointer-events: none;
   }
-  .image_upload_button i {
+  .upload_house_photo .image_upload_button i {
     font-size: 60px;
     margin-bottom: 10px;
   }
-  .image_upload_button p {
+  .upload_house_photo .image_upload_button p {
     font-size: 11px;
     margin: 0;
+  }
+  .upload_house_photo .image_upload_button progress {
+    appearance: none;
+    border-radius: 8px;
+    height: 13px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .upload_house_photo .image_upload_button progress::-webkit-progress-bar {
+    background-color: aliceblue;
+    box-shadow: -1px 1px 10px 0px rgba(0,0,0,0.3) inset;
+    -webkit-box-shadow: -1px 1px 10px 0px rgba(0,0,0,0.3) inset;
+    -moz-box-shadow: -1px 1px 10px 0px rgba(0,0,0,0.3) inset;
+  }
+  .upload_house_photo .image_upload_button progress::-webkit-progress-value {
+    background-color: #f97316;
+  }
+  .upload_house_photo .image_upload_button progress::-moz-progress-bar {
+    background-color: #f97316;
   }
   /* __SUBPAGE INFO - Feature and Facility */
   .feature_section {
@@ -1484,9 +1587,17 @@
     font-weight: 600;
     margin-top: 20px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
   }
   .floor .next_button:hover {
     background-color: #f58433;
+  }
+  .floor .next_button i {
+    animation: spin 1.5s infinite linear;
+  }
+  .floor .next_button p {
+    margin: 0;
   }
   .floor .floor_header {
     margin: 20px 0;
@@ -1648,8 +1759,33 @@
     width: 100%;
     height: 130px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  .floor .edit_floor_container .uploading p {
+    font-size: 11px;
+    margin: 0;
+  }
+  .floor .edit_floor_container .uploading progress {
+    appearance: none;
+    border-radius: 8px;
+    height: 13px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    width: 65%;
+  }
+  .floor .edit_floor_container .uploading progress::-webkit-progress-bar {
+    background-color: aliceblue;
+    box-shadow: -1px 1px 10px 0px rgba(0,0,0,0.3) inset;
+    -webkit-box-shadow: -1px 1px 10px 0px rgba(0,0,0,0.3) inset;
+    -moz-box-shadow: -1px 1px 10px 0px rgba(0,0,0,0.3) inset;
+  }
+  .floor .edit_floor_container .uploading progress::-webkit-progress-value {
+    background-color: #f97316;
+  }
+  .floor .edit_floor_container .uploading progress::-moz-progress-bar {
+    background-color: #f97316;
   }
 
   .floor .edit_floor_container .floor_plan_upload {
