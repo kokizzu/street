@@ -304,6 +304,22 @@ footer.svelte-uaahja nav a.svelte-uaahja {
 footer.svelte-uaahja nav a.svelte-uaahja:hover {
   color: #EF4444;
 }
+
+/* fakecss:/home/habi/Dev/workStuff/street/svelte/buyer.esbuild-svelte-fake-css */
+.street_view.svelte-14o7i16.svelte-14o7i16 {
+  width: 70%;
+  position: relative;
+  margin-top: -40px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 8px;
+}
+.street_view.svelte-14o7i16 iframe.svelte-14o7i16 {
+  width: 100%;
+  height: 450px;
+  border: none;
+  border-radius: 8px;
+}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -3782,11 +3798,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let section;
     let menu;
     let t0;
-    let div1;
+    let div2;
     let profileheader;
     let t1;
-    let div0;
-    let t3;
+    let div1;
+    let t2;
     let footer;
     let current;
     menu = new Menu_default({ props: { access: segments } });
@@ -3797,27 +3813,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         section = element("section");
         create_component(menu.$.fragment);
         t0 = space();
-        div1 = element("div");
+        div2 = element("div");
         create_component(profileheader.$.fragment);
         t1 = space();
-        div0 = element("div");
-        div0.textContent = "buyer content goes here";
-        t3 = space();
+        div1 = element("div");
+        div1.innerHTML = `<div id="street_view" class="street_view svelte-14o7i16"><iframe title="Street view" src="https://www.google.com/maps/embed?pb=!4v1691159921635!6m8!1m7!1sCAoSLEFGMVFpcE9UZ0pyRHBhSjZ5bGhha2QtRHBGNzZ2cDRBZk82alZwMFhjUndM!2m2!1d-33.8562164!2d151.2153473!3f60.305466!4f15.305465999999996!5f0.7820865974627469" allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="svelte-14o7i16"></iframe></div>`;
+        t2 = space();
         create_component(footer.$.fragment);
-        attr(div0, "class", "content");
-        attr(div1, "class", "dashboard_main_content");
+        attr(div1, "class", "content");
+        attr(div2, "class", "dashboard_main_content");
         attr(section, "class", "dashboard");
       },
       m(target, anchor) {
         insert(target, section, anchor);
         mount_component(menu, section, null);
         append(section, t0);
-        append(section, div1);
-        mount_component(profileheader, div1, null);
-        append(div1, t1);
-        append(div1, div0);
-        append(div1, t3);
-        mount_component(footer, div1, null);
+        append(section, div2);
+        mount_component(profileheader, div2, null);
+        append(div2, t1);
+        append(div2, div1);
+        append(div2, t2);
+        mount_component(footer, div2, null);
         current = true;
       },
       p: noop,
