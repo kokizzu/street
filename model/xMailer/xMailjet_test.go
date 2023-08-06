@@ -17,6 +17,7 @@ func TestMailjet(t *testing.T) {
 	m := Mailer{
 		SendMailFunc: sg.SendEmail,
 	}
-	err = m.SendRegistrationEmail(c.DefaultFromEmail, conf.WEB_PROTO_DOMAIN+`/guest/loginVerify?secretCode=justTestingMailJet`)
+	// hardcoded for local, normally use WebConf.WebProtoDomain
+	err = m.SendRegistrationEmail(c.DefaultFromEmail, `http://localhost:1234/guest/loginVerify?secretCode=justTestingMailJet`)
 	assert.NoError(t, err)
 }

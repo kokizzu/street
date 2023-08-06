@@ -1,6 +1,7 @@
 package zImport
 
 import (
+	"fmt"
 	"strconv"
 	"time"
 
@@ -15,7 +16,9 @@ func PatchPropertiesPrice(propOltp *Tt.Adapter) {
 	// data was imported with unix millis, it should be unix
 	start := time.Now()
 
+	fmt.Println("[Start] Properties Price")
 	UpdatePriceToProperties(propOltp)
+	fmt.Println("[End] Properties Price")
 
 	L.TimeTrack(start, `Patch to properties price`)
 }
@@ -28,6 +31,7 @@ func UpdatePriceToProperties(propOltp *Tt.Adapter) {
 	properties := propertyMutator.FindAllProperties()
 
 	stat := &ImporterStat{Total: len(properties), PrintEvery: 10}
+	defer stat.Print(`last`)
 
 	for _, p := range properties {
 		stat.Print()

@@ -17,6 +17,7 @@ func TestSengrid(t *testing.T) {
 	m := Mailer{
 		SendMailFunc: sg.SendEmail,
 	}
-	err = m.SendRegistrationEmail(c.DefaultFromEmail, conf.WEB_PROTO_DOMAIN+`/guest/loginVerify?secretCode=justTestingSendGrid`)
+	// hardcoded for local, normally use WebConf.WebProtoDomain
+	err = m.SendRegistrationEmail(c.DefaultFromEmail, `http://localhost:1234/guest/loginVerify?secretCode=justTestingSendGrid`)
 	assert.NoError(t, err)
 }

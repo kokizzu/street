@@ -35,13 +35,17 @@ func (s *ImporterStat) Print(opt ...any) {
 	if len(opt) == 0 && progress%s.PrintEvery != 0 {
 		return
 	}
+
 	fmt.Printf("\r    Upserted: %d, Skipped: %d, Warn: %d, Failed: %d | %.2f%% | %.1fs",
 		s.upserted, s.skipped, s.warn, s.failed,
 		float64(progress*100)/float64(s.Total),
 		fastime.Since(*s.startTime).Seconds())
 
-	if len(opt) > 0 && len(s.warnings) > 0 {
-		fmt.Printf("\n    Warnings: %v", s.warnings)
+	if len(opt) > 0 {
+		fmt.Println()
+		if len(s.warnings) > 0 {
+			fmt.Printf("    Warnings: %v\n", s.warnings)
+		}
 	}
 }
 

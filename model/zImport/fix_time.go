@@ -51,7 +51,10 @@ func fixPropertyTable(propOltp *Tt.Adapter) {
 	out := &zCrud.PagerOut{}
 
 	rows := prop.FindByPagination(&meta, &in, out)
-	stat := ImporterStat{Total: 0}
+
+	stat := &ImporterStat{Total: len(rows)}
+	defer stat.Print(`last`)
+
 	for len(rows) > 0 {
 		stat.Total += len(rows)
 		for _, row := range rows {
@@ -74,7 +77,6 @@ func fixPropertyTable(propOltp *Tt.Adapter) {
 		}
 		rows = prop.FindByPagination(&meta, &in, out)
 	}
-	stat.Print()
 }
 
 func fixPropertyHistoryTable(propOltp *Tt.Adapter) {
@@ -104,7 +106,10 @@ func fixPropertyHistoryTable(propOltp *Tt.Adapter) {
 	out := &zCrud.PagerOut{}
 
 	rows := ph.FindByPagination(&meta, &in, out)
-	stat := ImporterStat{Total: 0}
+
+	stat := &ImporterStat{Total: len(rows)}
+	defer stat.Print(`last`)
+
 	for len(rows) > 0 {
 		stat.Total += len(rows)
 		for _, row := range rows {
@@ -125,5 +130,4 @@ func fixPropertyHistoryTable(propOltp *Tt.Adapter) {
 		}
 		rows = ph.FindByPagination(&meta, &in, out)
 	}
-	stat.Print()
 }
