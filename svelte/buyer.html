@@ -3620,7 +3620,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let segment1;
     onMount(() => {
       $invalidate(2, segment1 = window.location.pathname.split("/")[1]);
-      console.log(segment1);
     });
     async function userLogout() {
       await (0, import_jsApi_GEN.UserLogout)({}, function(o) {
