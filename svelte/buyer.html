@@ -305,19 +305,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   color: #EF4444;
 }
 
-/* fakecss:/home/habi/Dev/workStuff/street/svelte/buyer.esbuild-svelte-fake-css */
-.street_view.svelte-14o7i16.svelte-14o7i16 {
+/* fakecss:./buyer.esbuild-svelte-fake-css */
+.map_container.svelte-ijp0ve {
   width: 70%;
+  height: 430px;
   position: relative;
   margin-top: -40px;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 8px;
-}
-.street_view.svelte-14o7i16 iframe.svelte-14o7i16 {
-  width: 100%;
-  height: 450px;
-  border: none;
   border-radius: 8px;
 }
 </style>
@@ -2323,13 +2318,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance4 = bind(Axios$1.prototype.request, context);
-        utils.extend(instance4, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance4, context, null, { allOwnKeys: true });
-        instance4.create = function create(instanceConfig) {
+        const instance5 = bind(Axios$1.prototype.request, context);
+        utils.extend(instance5, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance5, context, null, { allOwnKeys: true });
+        instance5.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance4;
+        return instance5;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2786,7 +2781,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance4, create_fragment5, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance5, create_fragment5, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -2812,7 +2807,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance4 ? instance4(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance5 ? instance5(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -3794,14 +3789,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 
   // buyer.svelte
   function create_fragment4(ctx) {
+    let c0;
+    let script;
+    let t1;
     let section;
     let menu;
-    let t0;
+    let t2;
     let div2;
     let profileheader;
-    let t1;
+    let t3;
     let div1;
-    let t2;
+    let div0;
+    let t4;
     let footer;
     let current;
     menu = new Menu_default({ props: { access: segments } });
@@ -3809,29 +3808,40 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     footer = new Footer_default({});
     return {
       c() {
+        c0 = comment(" Google Map SDK ");
+        script = element("script");
+        script.textContent = "(g => {\n      var h, a, k, p = 'The Google Maps JavaScript API', c = 'google', l = 'importLibrary', q = '__ib__', m = document, b = window;\n      b = b[ c ] || (b[ c ] = {});\n      var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise( async ( f, n ) => {\n        await (a = m.createElement( 'script' ));\n        e.set( 'libraries', [...r] + '' );\n        for( k in g ) e.set( k.replace( /[A-Z]/g, t => '_' + t[ 0 ].toLowerCase() ), g[ k ] );\n        e.set( 'callback', c + '.maps.' + q );\n        a.src = `https://maps.${c}apis.com/maps/api/js?` + e;\n        d[ q ] = f;\n        a.onerror = () => h = n( Error( p + ' could not load.' ) );\n        a.nonce = m.querySelector( 'script[nonce]' )?.nonce || '';\n        m.head.append( a );\n      } ));\n      d[ l ] ? console.warn( p + ' only loads once. Ignoring:', g ) : d[ l ] = ( f, ...n ) => r.add( f ) && u().then( () => d[ l ]( f, ...n ) );\n    })( {\n      key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',\n      v: 'weekly',\n      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).\n      // Add other bootstrap parameters as needed, using camel case.\n    } );";
+        t1 = space();
         section = element("section");
         create_component(menu.$.fragment);
-        t0 = space();
+        t2 = space();
         div2 = element("div");
         create_component(profileheader.$.fragment);
-        t1 = space();
+        t3 = space();
         div1 = element("div");
-        div1.innerHTML = `<div id="street_view" class="street_view svelte-14o7i16"><iframe title="Street view" src="https://www.google.com/maps/embed?pb=!4v1691159921635!6m8!1m7!1sCAoSLEFGMVFpcE9UZ0pyRHBhSjZ5bGhha2QtRHBGNzZ2cDRBZk82alZwMFhjUndM!2m2!1d-33.8562164!2d151.2153473!3f60.305466!4f15.305465999999996!5f0.7820865974627469" allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="svelte-14o7i16"></iframe></div>`;
-        t2 = space();
+        div0 = element("div");
+        div0.innerHTML = `<!-- Map goes here, rendered automatically -->`;
+        t4 = space();
         create_component(footer.$.fragment);
+        attr(div0, "class", "map_container svelte-ijp0ve");
         attr(div1, "class", "content");
         attr(div2, "class", "dashboard_main_content");
         attr(section, "class", "dashboard");
       },
       m(target, anchor) {
+        append(document.head, c0);
+        append(document.head, script);
+        insert(target, t1, anchor);
         insert(target, section, anchor);
         mount_component(menu, section, null);
-        append(section, t0);
+        append(section, t2);
         append(section, div2);
         mount_component(profileheader, div2, null);
-        append(div2, t1);
+        append(div2, t3);
         append(div2, div1);
-        append(div2, t2);
+        append(div1, div0);
+        ctx[1](div0);
+        append(div2, t4);
         mount_component(footer, div2, null);
         current = true;
       },
@@ -3852,19 +3862,83 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       d(detaching) {
         if (detaching) {
+          detach(t1);
           detach(section);
         }
+        detach(c0);
+        detach(script);
         destroy_component(menu);
         destroy_component(profileheader);
+        ctx[1](null);
         destroy_component(footer);
       }
     };
   }
   var segments = {/* segments */};
+  function instance4($self, $props, $invalidate) {
+    onMount(async () => {
+      await initMap();
+    });
+    let map;
+    let map_container;
+    async function initMap() {
+      const myLatLng = { lat: -34.397, lng: 150.644 };
+      let markers = [
+        {
+          lat: -34.03360401120961,
+          lng: 149.86401361846924
+        },
+        {
+          lat: -34.40606480160426,
+          lng: 149.94091791534424
+        },
+        {
+          lat: -34.53286884912313,
+          lng: 149.08398432159424
+        },
+        {
+          lat: -34.242748228904865,
+          lng: 149.32568354034424
+        },
+        {
+          lat: -34.87157170169384,
+          lng: 150.00683588409424
+        },
+        {
+          lat: -34.18369473718617,
+          lng: 150.24853510284424
+        }
+      ];
+      const { Map: Map2 } = await google.maps.importLibrary("maps");
+      map = new Map2(
+        map_container,
+        {
+          center: myLatLng,
+          zoom: 8,
+          mapTypeId: "roadmap",
+          mapId: "street_project"
+        }
+      );
+      markers.forEach((marker) => {
+        new google.maps.Marker({
+          position: { lat: marker.lat, lng: marker.lng },
+          map,
+          draggable: true
+        });
+      });
+    }
+    function div0_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        map_container = $value;
+        $invalidate(0, map_container);
+      });
+    }
+    return [map_container, div0_binding];
+  }
   var Buyer = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment4, safe_not_equal, {});
+      init(this, options, instance4, create_fragment4, safe_not_equal, {});
     }
   };
   var buyer_default = Buyer;
