@@ -39,7 +39,7 @@ func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
 	defer closer()
 
 	stat := &ImporterStat{Total: len(rows)}
-	defer stat.Print()
+	defer stat.Print(`last`)
 
 	for index, row := range rows {
 
@@ -112,7 +112,7 @@ func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
 	defer closer()
 
 	stat := &ImporterStat{Total: len(rows)}
-	defer stat.Print()
+	defer stat.Print(`last`)
 
 	for index, row := range rows {
 		stat.Print()
@@ -184,7 +184,7 @@ func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
 	defer closer()
 
 	stat := &ImporterStat{Total: len(rows)}
-	defer stat.Print()
+	defer stat.Print(`last`)
 
 	for index, row := range rows {
 		stat.Print()
@@ -261,7 +261,7 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string, jsonCoordFile 
 	L.PanicIf(err, `json.Unmarshal coords`)
 
 	stat := &ImporterStat{Total: len(rows)}
-	defer stat.Print()
+	defer stat.Print(`last`)
 
 	for index, row := range rows {
 		stat.Print()
@@ -328,7 +328,7 @@ func ImportHouseHistoryInBuySellSheet(adapter **Tt.Adapter, resourcePath string)
 	defer closer()
 
 	stat := &ImporterStat{Total: len(rows)}
-	defer stat.Print()
+	defer stat.Print(`last`)
 
 	for index, row := range rows {
 		stat.Print()
@@ -424,7 +424,7 @@ func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
 	defer closer()
 
 	stat := &ImporterStat{Total: len(rows)}
-	defer stat.Print()
+	defer stat.Print(`last`)
 
 	for index, row := range rows {
 		stat.Print()
@@ -520,7 +520,7 @@ func ImportHouseSerialNumberForHistory(adapter *Tt.Adapter) {
 	propertyHistories := propertyHistoryQuery.FindAllPropertyHistoriesWithBlankSerial()
 	fmt.Println("Len of house history => ", len(propertyHistories))
 	stat := &ImporterStat{Total: len(propertyHistories)}
-	defer stat.Print()
+	defer stat.Print(`last`)
 
 	for _, pHistory := range propertyHistories {
 		stat.Print()
@@ -565,6 +565,6 @@ func PatchSerialNumberForHouseHistory(adapter *Tt.Adapter) {
 func subTaskPrint(str string) func() {
 	fmt.Println(`  [Start] ` + str)
 	return func() {
-		fmt.Println("\n" + `  [End] ` + str)
+		fmt.Println(`  [End] ` + str)
 	}
 }

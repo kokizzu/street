@@ -16,7 +16,7 @@
   let segment1;
   onMount( () => {
     segment1 = window.location.pathname.split( '/' )[ 1 ];
-    console.log( segment1 );
+    // console.log( segment1 );
   } );
   
   async function userLogout() {

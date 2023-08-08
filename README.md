@@ -51,6 +51,7 @@ npm run watch
 # do migration (first time, or everytime tarantool/clickhouse docker deleted, 
 # or when there's new migration)
 go run main.go migrate
+go run main.go import
 
 # start golang backend server, also serving static html
 air web

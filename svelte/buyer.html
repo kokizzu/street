@@ -99,7 +99,7 @@
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/Menu.esbuild-svelte-fake-css */
+<style>/* fakecss:./_components/Menu.esbuild-svelte-fake-css */
 .side_menu_admin.svelte-13ly30w.svelte-13ly30w {
   left: 0;
   display: block;
@@ -215,7 +215,7 @@
   color: #EF4444 !important;
 }
 
-/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/ProfileHeader.esbuild-svelte-fake-css */
+/* fakecss:./_components/ProfileHeader.esbuild-svelte-fake-css */
 .profile_header.svelte-ubnh3m.svelte-ubnh3m.svelte-ubnh3m {
   background-color: #EF4444;
   height: fit-content;
@@ -280,7 +280,7 @@
   border-radius: 9999px;
 }
 
-/* fakecss:/home/habi/Dev/workStuff/street/svelte/_components/Footer.esbuild-svelte-fake-css */
+/* fakecss:./_components/Footer.esbuild-svelte-fake-css */
 footer.svelte-uaahja.svelte-uaahja {
   font-size: 16px;
   display: flex;
@@ -3636,7 +3636,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let segment1;
     onMount(() => {
       $invalidate(2, segment1 = window.location.pathname.split("/")[1]);
-      console.log(segment1);
     });
     async function userLogout() {
       await (0, import_jsApi_GEN.UserLogout)({}, function(o) {

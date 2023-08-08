@@ -7,8 +7,9 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"street/model/mProperty/wcProperty"
 	"time"
+
+	"street/model/mProperty/wcProperty"
 
 	"github.com/kokizzu/gotro/L"
 
@@ -72,6 +73,8 @@ func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string) {
 	properties := propertyMutator.FindAllProperties()
 
 	stat := &ImporterStat{Total: len(properties), PrintEvery: 10}
+	defer stat.Print(`last`)
+
 	for _, p := range properties {
 		stat.Print()
 
@@ -128,8 +131,6 @@ func retrieveLatLongFromAddress(adapter *Tt.Adapter, apiKey string) {
 
 		stat.Ok(dataMutator.DoOverwriteById())
 	}
-
-	stat.Print(`force`)
 }
 
 func ImportHouseLocation(adapter *Tt.Adapter) {
