@@ -637,13 +637,12 @@
   }
   
   async function handleSubmit() {
-    //isPropertySubmitted = true;
-    // TODO: Submit Payload to Endpoint
     console.log( realtorStack, payload );
     const prop = {property: payload};
     await RealtorUpsertProperty( prop, function( res ) {
       console.log( res );
-      if(!res.error) isPropertySubmitted = true; // uncomment when done debugging
+      if( res.error ) return alert( res.error );
+      isPropertySubmitted = true; // uncomment when debugging so can back to previous screen
     } );
   }
 </script>

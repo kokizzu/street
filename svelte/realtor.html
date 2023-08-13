@@ -10854,8 +10854,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       const prop = { property: payload };
       await (0, import_jsApi.RealtorUpsertProperty)(prop, function(res) {
         console.log(res);
-        if (!res.error)
-          $invalidate(38, isPropertySubmitted = true);
+        if (res.error)
+          return alert(res.error);
+        $invalidate(38, isPropertySubmitted = true);
       });
     }
     const $binding_groups = [[], []];
