@@ -10,13 +10,13 @@ SSH_PORT=22
 SSH_PRIVATE_KEY="~/.ssh/habi"
 
 # Backup file name that created with clickhouse_backup_run_on_server.sh
-BACKUP_FILE_NAME="/root/clickhouse_$(date '+%Y%m%d_%H%M%S').tgz"
+BACKUP_FILE_NAME="/root/clickhouse_backup.tgz"
 
 # Project directory on the remote server
 PROJECT_DIR="/root/dev/street"
 
 # Where a backup file will be store in local machine
-TARGET_LOCAL_DIR="../tmp"
+TARGET_LOCAL_DIR="../tmp/clickhouse_$(date '+%Y%m%d_%H%M%S').tgz"
 
 # Run a remote script on a local machine over ssh
 ssh -p $SSH_PORT -i $SSH_PRIVATE_KEY $SERVER_USER@$SERVER_HOST 'bash' $PROJECT_DIR/deploy/backup_clickhouse_on_server.sh

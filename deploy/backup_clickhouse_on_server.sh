@@ -25,4 +25,4 @@ sudo rm -rf /var/lib/clickhouse/backup/
 sudo mkdir -p /var/lib/clickhouse/backup/
 sudo chown clickhouse:clickhouse /var/lib/clickhouse/backup
 echo $SUDO_PASS | sudo -S clickhouse-backup create
-echo $SUDO_PASS | sudo -S tar -czf ${HOME}/clickhouse_$(date '+%Y%m%d_%H%M%S').tgz -C /var/lib/clickhouse/backup/ .
+echo $SUDO_PASS | sudo -S tar -czf ${HOME}/clickhouse_backup.tgz -C /var/lib/clickhouse/backup/ .
