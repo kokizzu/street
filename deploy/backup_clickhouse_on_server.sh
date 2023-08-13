@@ -4,6 +4,12 @@ set -x
 SUDO_PASS=""
 
 CHB_BIN="$(which clickhouse-backup)"
+
+BACKUP_FILE_NAME="clickhouse_$(date '+%Y%m%d_%H%M').tgz"
+
+PROJECT_DIR="$HOME/dev/street"
+BACKUP_FILE_DIR="$PROJECT_DIR/tmp/$BACKUP_FILE_NAME"
+
 if [[ -z "${CHB_BIN}" ]] ; then
 	wget -c https://github.com/AlexAkulov/clickhouse-backup/releases/download/v1.3.2/clickhouse-backup-linux-amd64.tar.gz
 	tar -xf clickhouse-backup.tar.gz
@@ -25,4 +31,4 @@ sudo rm -rf /var/lib/clickhouse/backup/
 sudo mkdir -p /var/lib/clickhouse/backup/
 sudo chown clickhouse:clickhouse /var/lib/clickhouse/backup
 echo $SUDO_PASS | sudo -S clickhouse-backup create
-echo $SUDO_PASS | sudo -S tar -czf ${HOME}/ch_backup.tgz -C /var/lib/clickhouse/backup/ .
+echo $SUDO_PASS | sudo -S tar -czf ${BACKUP_FILE_DIR} -C /var/lib/clickhouse/backup/ .

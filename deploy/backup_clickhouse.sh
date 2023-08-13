@@ -1,10 +1,29 @@
 #!/bin/bash
-set -x
-SERVER_USER="ubuntu"
-SERVER_HOST="10.204.28.21"
-SSH_PORT=22
-ssh -p $SSH_PORT $SERVER_USER@$SERVER_HOST 'bash -s' < clickhouse_backup_run_on_server.sh
-rsync --remove-source-files -r -e "ssh -p ${SSH_PORT}" $SERVER_USER@$SERVER_HOST:/home/$SERVER_USER/ch_backup.tgz ./backup
-mv ./backup/ch_backup.tgz ./backup/ch_backup_$(date '+%Y%m%d_%H%M%S').tgz
 
-#wget -O 'https://github-releases.githubusercontent.com/150444746/e7087300-cec2-11eb-850c-5369b804e074?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20210830%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210830T171747Z&X-Amz-Expires=300&X-Amz-Signature=73cb021c64453d37d392940f87536846360953c5c2956dc141d42b7f9a5d3620&X-Amz-SignedHeaders=host&actor_id=1061610&key_id=0&repo_id=150444746&response-content-disposition=attachment%3B%20filename%3Dclickhouse-backup_1.0.0_amd64.deb&response-content-type=application%2Foctet-stream'
+set -x
+# Remote server information
+SERVER_USER="root"
+SERVER_HOST="203.194.113.211"
+SSH_PORT=22
+
+# Define SSH private key
+SSH_PRIVATE_KEY="~/.ssh/habi"
+
+# Define name for backup file, make sure it's match
+# with the file name that created with clickhouse_backup_run_on_server.sh
+BACKUP_FILE_NAME="clickhouse_$(date '+%Y%m%d_%H%M%S').tgz"
+
+# Project directory on the remote server
+PROJECT_DIR="$HOME/dev/street"
+
+# Where a backup file is stored on the remote server
+BACKUP_FILE_DIR=$PROJECT_DIR/tmp/$BACKUP_FILE_NAME
+
+# Where a backup file will be store in local machine
+TARGET_LOCAL_DIR="../tmp"
+
+# Run a remote script on a local machine over ssh
+ssh -p $SSH_PORT -i $SSH_PRIVATE_KEY $SERVER_USER@$SERVER_HOST 'bash' $PROJECT_DIR/deploy/clickhouse_backup_run_on_server.sh
+
+# Copy backup file from remote server to local machine
+rsync --remove-source-files -r -e "ssh -p ${SSH_PORT} -i ${SSH_PRIVATE_KEY}" $SERVER_USER@$SERVER_HOST:$BACKUP_FILE_DIR $TARGET_LOCAL_DIR
