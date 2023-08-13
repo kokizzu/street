@@ -14,10 +14,10 @@ SSH_PRIVATE_KEY="~/.ssh/habi"
 BACKUP_FILE_NAME="clickhouse_$(date '+%Y%m%d_%H%M%S').tgz"
 
 # Project directory on the remote server
-PROJECT_DIR="$HOME/dev/street"
+PROJECT_DIR="root/dev/street"
 
 # Where a backup file is stored on the remote server
-BACKUP_FILE_DIR=$PROJECT_DIR/tmp/$BACKUP_FILE_NAME
+BACKUP_FILE_DIR=root/$BACKUP_FILE_NAME
 
 # Where a backup file will be store in local machine
 TARGET_LOCAL_DIR="../tmp"

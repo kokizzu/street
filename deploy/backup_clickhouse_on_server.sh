@@ -8,7 +8,7 @@ CHB_BIN="$(which clickhouse-backup)"
 BACKUP_FILE_NAME="clickhouse_$(date '+%Y%m%d_%H%M').tgz"
 
 PROJECT_DIR="$HOME/dev/street"
-BACKUP_FILE_DIR="$PROJECT_DIR/tmp/$BACKUP_FILE_NAME"
+BACKUP_FILE_DIR="$HOME/$BACKUP_FILE_NAME"
 
 if [[ -z "${CHB_BIN}" ]] ; then
 	wget -c https://github.com/AlexAkulov/clickhouse-backup/releases/download/v1.3.2/clickhouse-backup-linux-amd64.tar.gz
