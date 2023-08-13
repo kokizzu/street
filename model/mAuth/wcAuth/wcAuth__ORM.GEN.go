@@ -8,6 +8,7 @@ import (
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/X"
 )
 
@@ -24,8 +25,9 @@ type SessionsMutator struct {
 }
 
 // NewSessionsMutator create new ORM writer/command object
-func NewSessionsMutator(adapter *Tt.Adapter) *SessionsMutator {
-	return &SessionsMutator{Sessions: rqAuth.Sessions{Adapter: adapter}}
+func NewSessionsMutator(adapter *Tt.Adapter) (res *SessionsMutator) {
+	res = &SessionsMutator{Sessions: rqAuth.Sessions{Adapter: adapter}}
+	return
 }
 
 // Logs get array of logs [field, old, new]
@@ -157,6 +159,41 @@ func (s *SessionsMutator) SetLoginIPs(val string) bool { //nolint:dupl false pos
 	return false
 }
 
+// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
+func (s *SessionsMutator) SetAll(from rqAuth.Sessions, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+	if excludeMap == nil { // list of fields to exclude
+		excludeMap = M.SB{}
+	}
+	if forceMap == nil { // list of fields to force overwrite
+		forceMap = M.SB{}
+	}
+	if !excludeMap[`sessionToken`] && (forceMap[`sessionToken`] || from.SessionToken != ``) {
+		s.SessionToken = from.SessionToken
+		changed = true
+	}
+	if !excludeMap[`userId`] && (forceMap[`userId`] || from.UserId != 0) {
+		s.UserId = from.UserId
+		changed = true
+	}
+	if !excludeMap[`expiredAt`] && (forceMap[`expiredAt`] || from.ExpiredAt != 0) {
+		s.ExpiredAt = from.ExpiredAt
+		changed = true
+	}
+	if !excludeMap[`device`] && (forceMap[`device`] || from.Device != ``) {
+		s.Device = from.Device
+		changed = true
+	}
+	if !excludeMap[`loginAt`] && (forceMap[`loginAt`] || from.LoginAt != 0) {
+		s.LoginAt = from.LoginAt
+		changed = true
+	}
+	if !excludeMap[`loginIPs`] && (forceMap[`loginIPs`] || from.LoginIPs != ``) {
+		s.LoginIPs = from.LoginIPs
+		changed = true
+	}
+	return
+}
+
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 // UsersMutator DAO writer/command struct
@@ -167,8 +204,9 @@ type UsersMutator struct {
 }
 
 // NewUsersMutator create new ORM writer/command object
-func NewUsersMutator(adapter *Tt.Adapter) *UsersMutator {
-	return &UsersMutator{Users: rqAuth.Users{Adapter: adapter}}
+func NewUsersMutator(adapter *Tt.Adapter) (res *UsersMutator) {
+	res = &UsersMutator{Users: rqAuth.Users{Adapter: adapter}}
+	return
 }
 
 // Logs get array of logs [field, old, new]
@@ -463,6 +501,81 @@ func (u *UsersMutator) SetUserName(val string) bool { //nolint:dupl false positi
 		return true
 	}
 	return false
+}
+
+// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
+func (u *UsersMutator) SetAll(from rqAuth.Users, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+	if excludeMap == nil { // list of fields to exclude
+		excludeMap = M.SB{}
+	}
+	if forceMap == nil { // list of fields to force overwrite
+		forceMap = M.SB{}
+	}
+	if !excludeMap[`id`] && (forceMap[`id`] || from.Id != 0) {
+		u.Id = from.Id
+		changed = true
+	}
+	if !excludeMap[`email`] && (forceMap[`email`] || from.Email != ``) {
+		u.Email = from.Email
+		changed = true
+	}
+	if !excludeMap[`password`] && (forceMap[`password`] || from.Password != ``) {
+		u.Password = from.Password
+		changed = true
+	}
+	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
+		u.CreatedAt = from.CreatedAt
+		changed = true
+	}
+	if !excludeMap[`createdBy`] && (forceMap[`createdBy`] || from.CreatedBy != 0) {
+		u.CreatedBy = from.CreatedBy
+		changed = true
+	}
+	if !excludeMap[`updatedAt`] && (forceMap[`updatedAt`] || from.UpdatedAt != 0) {
+		u.UpdatedAt = from.UpdatedAt
+		changed = true
+	}
+	if !excludeMap[`updatedBy`] && (forceMap[`updatedBy`] || from.UpdatedBy != 0) {
+		u.UpdatedBy = from.UpdatedBy
+		changed = true
+	}
+	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
+		u.DeletedAt = from.DeletedAt
+		changed = true
+	}
+	if !excludeMap[`passwordSetAt`] && (forceMap[`passwordSetAt`] || from.PasswordSetAt != 0) {
+		u.PasswordSetAt = from.PasswordSetAt
+		changed = true
+	}
+	if !excludeMap[`secretCode`] && (forceMap[`secretCode`] || from.SecretCode != ``) {
+		u.SecretCode = from.SecretCode
+		changed = true
+	}
+	if !excludeMap[`secretCodeAt`] && (forceMap[`secretCodeAt`] || from.SecretCodeAt != 0) {
+		u.SecretCodeAt = from.SecretCodeAt
+		changed = true
+	}
+	if !excludeMap[`verificationSentAt`] && (forceMap[`verificationSentAt`] || from.VerificationSentAt != 0) {
+		u.VerificationSentAt = from.VerificationSentAt
+		changed = true
+	}
+	if !excludeMap[`verifiedAt`] && (forceMap[`verifiedAt`] || from.VerifiedAt != 0) {
+		u.VerifiedAt = from.VerifiedAt
+		changed = true
+	}
+	if !excludeMap[`lastLoginAt`] && (forceMap[`lastLoginAt`] || from.LastLoginAt != 0) {
+		u.LastLoginAt = from.LastLoginAt
+		changed = true
+	}
+	if !excludeMap[`fullName`] && (forceMap[`fullName`] || from.FullName != ``) {
+		u.FullName = from.FullName
+		changed = true
+	}
+	if !excludeMap[`userName`] && (forceMap[`userName`] || from.UserName != ``) {
+		u.UserName = from.UserName
+		changed = true
+	}
+	return
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

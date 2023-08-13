@@ -8,6 +8,7 @@ import (
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/X"
 )
 
@@ -24,8 +25,9 @@ type FilesMutator struct {
 }
 
 // NewFilesMutator create new ORM writer/command object
-func NewFilesMutator(adapter *Tt.Adapter) *FilesMutator {
-	return &FilesMutator{Files: rqStorage.Files{Adapter: adapter}}
+func NewFilesMutator(adapter *Tt.Adapter) (res *FilesMutator) {
+	res = &FilesMutator{Files: rqStorage.Files{Adapter: adapter}}
+	return
 }
 
 // Logs get array of logs [field, old, new]
@@ -254,6 +256,65 @@ func (f *FilesMutator) SetResizedSize(val uint64) bool { //nolint:dupl false pos
 		return true
 	}
 	return false
+}
+
+// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
+func (f *FilesMutator) SetAll(from rqStorage.Files, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+	if excludeMap == nil { // list of fields to exclude
+		excludeMap = M.SB{}
+	}
+	if forceMap == nil { // list of fields to force overwrite
+		forceMap = M.SB{}
+	}
+	if !excludeMap[`id`] && (forceMap[`id`] || from.Id != 0) {
+		f.Id = from.Id
+		changed = true
+	}
+	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
+		f.CreatedAt = from.CreatedAt
+		changed = true
+	}
+	if !excludeMap[`createdBy`] && (forceMap[`createdBy`] || from.CreatedBy != 0) {
+		f.CreatedBy = from.CreatedBy
+		changed = true
+	}
+	if !excludeMap[`mime`] && (forceMap[`mime`] || from.Mime != ``) {
+		f.Mime = from.Mime
+		changed = true
+	}
+	if !excludeMap[`purpose`] && (forceMap[`purpose`] || from.Purpose != ``) {
+		f.Purpose = from.Purpose
+		changed = true
+	}
+	if !excludeMap[`refId`] && (forceMap[`refId`] || from.RefId != 0) {
+		f.RefId = from.RefId
+		changed = true
+	}
+	if !excludeMap[`accessCount`] && (forceMap[`accessCount`] || from.AccessCount != 0) {
+		f.AccessCount = from.AccessCount
+		changed = true
+	}
+	if !excludeMap[`lastAccessAt`] && (forceMap[`lastAccessAt`] || from.LastAccessAt != 0) {
+		f.LastAccessAt = from.LastAccessAt
+		changed = true
+	}
+	if !excludeMap[`originalPath`] && (forceMap[`originalPath`] || from.OriginalPath != ``) {
+		f.OriginalPath = from.OriginalPath
+		changed = true
+	}
+	if !excludeMap[`originalSize`] && (forceMap[`originalSize`] || from.OriginalSize != 0) {
+		f.OriginalSize = from.OriginalSize
+		changed = true
+	}
+	if !excludeMap[`resizedPath`] && (forceMap[`resizedPath`] || from.ResizedPath != ``) {
+		f.ResizedPath = from.ResizedPath
+		changed = true
+	}
+	if !excludeMap[`resizedSize`] && (forceMap[`resizedSize`] || from.ResizedSize != 0) {
+		f.ResizedSize = from.ResizedSize
+		changed = true
+	}
+	return
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

@@ -43,6 +43,14 @@ type Property struct {
 	LastPrice              string      `json:"lastPrice" form:"lastPrice" query:"lastPrice" long:"lastPrice" msg:"lastPrice"`
 	PriceHistoriesSell     []any       `json:"priceHistoriesSell" form:"priceHistoriesSell" query:"priceHistoriesSell" long:"priceHistoriesSell" msg:"priceHistoriesSell"`
 	PriceHistoriesRent     []any       `json:"priceHistoriesRent" form:"priceHistoriesRent" query:"priceHistoriesRent" long:"priceHistoriesRent" msg:"priceHistoriesRent"`
+	Purpose                string      `json:"purpose" form:"purpose" query:"purpose" long:"purpose" msg:"purpose"`
+	HouseType              string      `json:"houseType" form:"houseType" query:"houseType" long:"houseType" msg:"houseType"`
+	Images                 []any       `json:"images" form:"images" query:"images" long:"images" msg:"images"`
+	Bedroom                int64       `json:"bedroom" form:"bedroom" query:"bedroom" long:"bedroom" msg:"bedroom"`
+	Bathroom               int64       `json:"bathroom" form:"bathroom" query:"bathroom" long:"bathroom" msg:"bathroom"`
+	AgencyFeePercent       float64     `json:"agencyFeePercent" form:"agencyFeePercent" query:"agencyFeePercent" long:"agencyFeePercent" msg:"agencyFeePercent"`
+	FloorList              []any       `json:"floorList" form:"floorList" query:"floorList" long:"floorList" msg:"floorList"`
+	Country                string      `json:"country" form:"country" query:"country" long:"country" msg:"country"`
 }
 
 // NewProperty create new ORM reader/query object
@@ -126,6 +134,14 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "lastPrice"
 	, "priceHistoriesSell"
 	, "priceHistoriesRent"
+	, "purpose"
+	, "houseType"
+	, "images"
+	, "bedroom"
+	, "bathroom"
+	, "agencyFeePercent"
+	, "floorList"
+	, "country"
 	`
 }
 
@@ -153,6 +169,14 @@ func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 	, "lastPrice"
 	, "priceHistoriesSell"
 	, "priceHistoriesRent"
+	, "purpose"
+	, "houseType"
+	, "images"
+	, "bedroom"
+	, "bathroom"
+	, "agencyFeePercent"
+	, "floorList"
+	, "country"
 	`
 }
 
@@ -181,6 +205,14 @@ func (p *Property) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 19, p.LastPrice},
 		A.X{`=`, 20, p.PriceHistoriesSell},
 		A.X{`=`, 21, p.PriceHistoriesRent},
+		A.X{`=`, 22, p.Purpose},
+		A.X{`=`, 23, p.HouseType},
+		A.X{`=`, 24, p.Images},
+		A.X{`=`, 25, p.Bedroom},
+		A.X{`=`, 26, p.Bathroom},
+		A.X{`=`, 27, p.AgencyFeePercent},
+		A.X{`=`, 28, p.FloorList},
+		A.X{`=`, 29, p.Country},
 	}
 }
 
@@ -404,6 +436,86 @@ func (p *Property) SqlPriceHistoriesRent() string { //nolint:dupl false positive
 	return `"priceHistoriesRent"`
 }
 
+// IdxPurpose return name of the index
+func (p *Property) IdxPurpose() int { //nolint:dupl false positive
+	return 22
+}
+
+// SqlPurpose return name of the column being indexed
+func (p *Property) SqlPurpose() string { //nolint:dupl false positive
+	return `"purpose"`
+}
+
+// IdxHouseType return name of the index
+func (p *Property) IdxHouseType() int { //nolint:dupl false positive
+	return 23
+}
+
+// SqlHouseType return name of the column being indexed
+func (p *Property) SqlHouseType() string { //nolint:dupl false positive
+	return `"houseType"`
+}
+
+// IdxImages return name of the index
+func (p *Property) IdxImages() int { //nolint:dupl false positive
+	return 24
+}
+
+// SqlImages return name of the column being indexed
+func (p *Property) SqlImages() string { //nolint:dupl false positive
+	return `"images"`
+}
+
+// IdxBedroom return name of the index
+func (p *Property) IdxBedroom() int { //nolint:dupl false positive
+	return 25
+}
+
+// SqlBedroom return name of the column being indexed
+func (p *Property) SqlBedroom() string { //nolint:dupl false positive
+	return `"bedroom"`
+}
+
+// IdxBathroom return name of the index
+func (p *Property) IdxBathroom() int { //nolint:dupl false positive
+	return 26
+}
+
+// SqlBathroom return name of the column being indexed
+func (p *Property) SqlBathroom() string { //nolint:dupl false positive
+	return `"bathroom"`
+}
+
+// IdxAgencyFeePercent return name of the index
+func (p *Property) IdxAgencyFeePercent() int { //nolint:dupl false positive
+	return 27
+}
+
+// SqlAgencyFeePercent return name of the column being indexed
+func (p *Property) SqlAgencyFeePercent() string { //nolint:dupl false positive
+	return `"agencyFeePercent"`
+}
+
+// IdxFloorList return name of the index
+func (p *Property) IdxFloorList() int { //nolint:dupl false positive
+	return 28
+}
+
+// SqlFloorList return name of the column being indexed
+func (p *Property) SqlFloorList() string { //nolint:dupl false positive
+	return `"floorList"`
+}
+
+// IdxCountry return name of the index
+func (p *Property) IdxCountry() int { //nolint:dupl false positive
+	return 29
+}
+
+// SqlCountry return name of the column being indexed
+func (p *Property) SqlCountry() string { //nolint:dupl false positive
+	return `"country"`
+}
+
 // ToArray receiver fields to slice
 func (p *Property) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -433,6 +545,14 @@ func (p *Property) ToArray() A.X { //nolint:dupl false positive
 		p.LastPrice,              // 19
 		p.PriceHistoriesSell,     // 20
 		p.PriceHistoriesRent,     // 21
+		p.Purpose,                // 22
+		p.HouseType,              // 23
+		p.Images,                 // 24
+		p.Bedroom,                // 25
+		p.Bathroom,               // 26
+		p.AgencyFeePercent,       // 27
+		p.FloorList,              // 28
+		p.Country,                // 29
 	}
 }
 
@@ -460,6 +580,14 @@ func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 	p.LastPrice = X.ToS(a[19])
 	p.PriceHistoriesSell = X.ToArr(a[20])
 	p.PriceHistoriesRent = X.ToArr(a[21])
+	p.Purpose = X.ToS(a[22])
+	p.HouseType = X.ToS(a[23])
+	p.Images = X.ToArr(a[24])
+	p.Bedroom = X.ToI(a[25])
+	p.Bathroom = X.ToI(a[26])
+	p.AgencyFeePercent = X.ToF(a[27])
+	p.FloorList = X.ToArr(a[28])
+	p.Country = X.ToS(a[29])
 	return p
 }
 
@@ -487,6 +615,14 @@ func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false po
 	p.LastPrice = X.ToS(a[19])
 	p.PriceHistoriesSell = X.ToArr(a[20])
 	p.PriceHistoriesRent = X.ToArr(a[21])
+	p.Purpose = X.ToS(a[22])
+	p.HouseType = X.ToS(a[23])
+	p.Images = X.ToArr(a[24])
+	p.Bedroom = X.ToI(a[25])
+	p.Bathroom = X.ToI(a[26])
+	p.AgencyFeePercent = X.ToF(a[27])
+	p.FloorList = X.ToArr(a[28])
+	p.Country = X.ToS(a[29])
 	return p
 }
 
@@ -552,6 +688,14 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`lastPrice`:              Tt.String,
 	`priceHistoriesSell`:     Tt.Array,
 	`priceHistoriesRent`:     Tt.Array,
+	`purpose`:                Tt.String,
+	`houseType`:              Tt.String,
+	`images`:                 Tt.Array,
+	`bedroom`:                Tt.Integer,
+	`bathroom`:               Tt.Integer,
+	`agencyFeePercent`:       Tt.Double,
+	`floorList`:              Tt.Array,
+	`country`:                Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

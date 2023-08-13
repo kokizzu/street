@@ -22,6 +22,8 @@ var allCommands = []string{
 	domain.GuestResendVerificationEmailAction,
 	domain.GuestResetPasswordAction,
 	domain.GuestVerifyEmailAction,
+	domain.RealtorOwnedPropertiesAction,
+	domain.RealtorUpsertPropertyAction,
 	domain.UserChangePasswordAction,
 	domain.UserDeactivateAction,
 	domain.UserLogoutAction,

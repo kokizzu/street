@@ -7,6 +7,7 @@
   import Footer from './_components/Footer.svelte';
   import AddFloorDialog from '_components/AddFloorDialog.svelte';
   import AddRoomDialog from '_components/AddRoomDialog.svelte';
+  import { RealtorUpsertProperty } from './jsApi.GEN';
   
   onMount( async () => {
     await initMap();
@@ -39,10 +40,8 @@
         },
         facility: '', /*Facility Description*/
         description: '', /*Description of this property*/
-        price: {
-          property_price: 0, /*Price*/
-          agency_fee: 0, /*Fee Percentage*/
-        },
+        price: 0, /*Price*/
+        agency_fee: 0, /*Fee Percentage*/
       },
     }, {
       subroute: 'floors',
@@ -81,22 +80,20 @@
   
   let payload = {};
   $: payload = {
-    address: mapStack.attrs.address,
-    // TODO: fetch formattedAddress, district
-    Coord: [mapStack.attrs.lat, mapStack.attrs.long],
+    formattedAddress: mapStack.attrs.address,
+    coord: [mapStack.attrs.lat, mapStack.attrs.long],
     houseType: infoStack.attrs.house_type,
-    purpose: infoStack.attrs.purpose, // TODO: add on backend (split table)
-    images: infoStack.attrs.images, // TODO: add on backend
-    beds: infoStack.attrs.feature.beds, // TODO: add on backend
-    baths: infoStack.attrs.feature.baths, // TODO: add on backend
-    sizeM2: infoStack.attrs.feature.area,
-    facilities: infoStack.attrs.facility, // TODO: add on backend
+    purpose: infoStack.attrs.purpose,
+    images: infoStack.attrs.images,
+    bedroom: infoStack.attrs.feature.beds,
+    bathroom: infoStack.attrs.feature.baths,
+    sizeM2: '' + infoStack.attrs.feature.area, // have to be string because of taiwan data
+    mainUse: infoStack.attrs.facility,
     note: infoStack.attrs.description,
-    lastPrice: infoStack.attrs.property_price,
-    agencyFee: infoStack.attrs.agency_fee, // TODO: add on backend
-    numberOfFloors: floorStack.attrs.floor_lists.length,
-    floors: floorStack.attrs.floor_lists, // TODO: add on backend
-    // TODO: create another table split per country? or at least per sell and per rent
+    price: infoStack.attrs.property_price,
+    agencyFeePercent: infoStack.attrs.agency_fee_percent,
+    numberOfFloors: '' + floorStack.attrs.floor_lists.length, // have to be string because of taiwan data
+    floorList: floorStack.attrs.floor_lists,
   };
   
   async function nextPage() {
@@ -123,7 +120,7 @@
   let formatted_address = '';
   
   async function initMap() {
-    const myLatLng = {lat: -34.397, lng: 150.644};
+    const myLatLng = {lat: 23.6978, lng: 120.9605}; // taiwan
     let markers = [];
     const {Map} = await google.maps.importLibrary( 'maps' );
     const geocoder = new google.maps.Geocoder();
@@ -232,7 +229,7 @@
         subroute: 'location',
         attrs: {
           address: formatted_address,
-          lng: lng,
+          long: lng,
           lat: lat,
         },
       };
@@ -428,8 +425,8 @@
     if( property_price===0 ) {
       alert( `Price cannot be "${property_price}"` );
     } else {
-      house_info_obj.price.property_price = property_price;
-      house_info_obj.price.agency_fee = agency_fee;
+      house_info_obj.price = property_price;
+      house_info_obj.agency_fee_percent = agency_fee;
       houseInfoNext();
     }
   }
@@ -639,10 +636,15 @@
     } );
   }
   
-  function handleSubmit() {
-    isPropertySubmitted = true;
+  async function handleSubmit() {
+    //isPropertySubmitted = true;
     // TODO: Submit Payload to Endpoint
     console.log( realtorStack, payload );
+    const prop = {property: payload};
+    await RealtorUpsertProperty( prop, function( res ) {
+      console.log( res );
+      if(!res.error) isPropertySubmitted = true; // uncomment when done debugging
+    } );
   }
 </script>
 
@@ -1060,8 +1062,8 @@
                 <div class='left_item'>
                   <span>On Sale</span>
                   <div class='price'>
-                    <h3>{formatPrice( infoStack.attrs.price.property_price )}</h3>
-                    <p>Agency Fee: {infoStack.attrs.price.agency_fee}%</p>
+                    <h3>{formatPrice( infoStack.attrs.price )}</h3>
+                    <p>Agency Fee: {infoStack.attrs.agency_fee_percent}%</p>
                   </div>
                 </div>
                 <div class='right_item'>
@@ -1682,13 +1684,13 @@
     text-align       : left;
   }
 
-  .price .agency_fee div {
+  .price .agency_fee_percent div {
     display        : flex;
     flex-direction : row;
     align-items    : center;
   }
 
-  .price .agency_fee div span {
+  .price .agency_fee_percent div span {
     margin-left : 8px;
     font-size   : 16px;
     font-weight : 600;

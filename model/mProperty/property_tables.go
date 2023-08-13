@@ -11,17 +11,17 @@ const (
 	Id                     = `id`
 	UniqPropKey            = `uniqPropKey`
 	SerialNumber           = `serialNumber`
-	SizeM2                 = `sizeM2`
-	MainUse                = `mainUse`
+	SizeM2                 = `sizeM2`  // used also for rent/sell
+	MainUse                = `mainUse` // this is facilities for rent/sell
 	MainBuildingMaterial   = `mainBuildingMaterial`
 	ConstructCompletedDate = `constructCompletedDate`
 	NumberOfFloors         = `numberOfFloors`
 	BuildingLamination     = `buildingLamination`
 	Address                = `address`
-	FormattedAddress       = `formattedAddress`
+	FormattedAddress       = `formattedAddress` // used also for rent/sell
 	District               = `district`
-	Note                   = `note`
-	Coord                  = `coord`
+	Note                   = `note`  // used also for rent/sell
+	Coord                  = `coord` // [latitude, longitude] used also for rent/sell
 	CreatedAt              = `createdAt`
 	CreatedBy              = `createdBy`
 	UpdatedAt              = `updatedAt`
@@ -43,6 +43,16 @@ const (
 	PriceNTD              = `priceNtd`
 	PricePerUnit          = `pricePerUnit`
 	Price                 = `price`
+
+	// mostly this one for rent/sell
+	Purpose          = `purpose`   // rent/sell (empty means not for rent/sell)
+	HouseType        = `houseType` // apartment/house
+	Images           = `images`
+	Bedroom          = `bedroom`
+	Bathroom         = `bathroom`
+	AgencyFeePercent = `agencyFeePercent`
+	FloorList        = `floorList`
+	Country          = `country`
 )
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
@@ -70,6 +80,14 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{LastPrice, Tt.String},
 			{PriceHistoriesSell, Tt.Array},
 			{PriceHistoriesRent, Tt.Array},
+			{Purpose, Tt.String},
+			{HouseType, Tt.String},
+			{Images, Tt.Array},
+			{Bedroom, Tt.Integer},
+			{Bathroom, Tt.Integer},
+			{AgencyFeePercent, Tt.Double},
+			{FloorList, Tt.Array},
+			{Country, Tt.String},
 		},
 		AutoIncrementId: true,
 		Unique1:         UniqPropKey,

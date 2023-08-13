@@ -1091,6 +1091,185 @@ exports.GuestVerifyEmail = async function GuestVerifyEmail( i, cb ) {
 }
 
 /**
+ * @typedef {Object} RealtorOwnedPropertiesIn
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ */
+const RealtorOwnedPropertiesIn = {
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
+}
+/**
+ * @typedef {Object} RealtorOwnedPropertiesOut
+ * @property {Object} properties
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ */
+const RealtorOwnedPropertiesOut = {
+  properties: { // []rqProperty.Property
+  }, // []rqProperty.Property
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+}
+/**
+ * @callback RealtorOwnedPropertiesCallback
+ * @param {RealtorOwnedPropertiesOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {RealtorOwnedPropertiesIn} i
+ * @param {RealtorOwnedPropertiesCallback} cb
+ * @returns {Promise}
+ */
+exports.RealtorOwnedProperties = async function RealtorOwnedProperties( i, cb ) {
+  return await axios.post( '/realtor/ownedProperties', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} RealtorUpsertPropertyIn
+ * @property {number} property.id
+ * @property {String} property.uniqPropKey
+ * @property {String} property.serialNumber
+ * @property {String} property.sizeM2
+ * @property {String} property.mainUse
+ * @property {String} property.mainBuildingMaterial
+ * @property {String} property.constructCompletedDate
+ * @property {String} property.numberOfFloors
+ * @property {String} property.buildingLamination
+ * @property {String} property.address
+ * @property {String} property.district
+ * @property {String} property.note
+ * @property {Object} property.coord
+ * @property {number} property.createdAt
+ * @property {number} property.createdBy
+ * @property {number} property.updatedAt
+ * @property {number} property.updatedBy
+ * @property {number} property.deletedAt
+ * @property {String} property.formattedAddress
+ * @property {String} property.lastPrice
+ * @property {Object} property.priceHistoriesSell
+ * @property {Object} property.priceHistoriesRent
+ */
+const RealtorUpsertPropertyIn = {
+  property: { // rqProperty.Property
+    id: 0, // uint64
+    uniqPropKey: '', // string
+    serialNumber: '', // string
+    sizeM2: '', // string
+    mainUse: '', // string
+    mainBuildingMaterial: '', // string
+    constructCompletedDate: '', // string
+    numberOfFloors: '', // string
+    buildingLamination: '', // string
+    address: '', // string
+    district: '', // string
+    note: '', // string
+    coord: { // []any
+    }, // []any
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    formattedAddress: '', // string
+    lastPrice: '', // string
+    priceHistoriesSell: { // []any
+    }, // []any
+    priceHistoriesRent: { // []any
+    }, // []any
+  }, // rqProperty.Property
+}
+/**
+ * @typedef {Object} RealtorUpsertPropertyOut
+ * @property {number} property.id
+ * @property {String} property.uniqPropKey
+ * @property {String} property.serialNumber
+ * @property {String} property.sizeM2
+ * @property {String} property.mainUse
+ * @property {String} property.mainBuildingMaterial
+ * @property {String} property.constructCompletedDate
+ * @property {String} property.numberOfFloors
+ * @property {String} property.buildingLamination
+ * @property {String} property.address
+ * @property {String} property.district
+ * @property {String} property.note
+ * @property {Object} property.coord
+ * @property {number} property.createdAt
+ * @property {number} property.createdBy
+ * @property {number} property.updatedAt
+ * @property {number} property.updatedBy
+ * @property {number} property.deletedAt
+ * @property {String} property.formattedAddress
+ * @property {String} property.lastPrice
+ * @property {Object} property.priceHistoriesSell
+ * @property {Object} property.priceHistoriesRent
+ */
+const RealtorUpsertPropertyOut = {
+  property: { // rqProperty.Property
+    id: 0, // uint64
+    uniqPropKey: '', // string
+    serialNumber: '', // string
+    sizeM2: '', // string
+    mainUse: '', // string
+    mainBuildingMaterial: '', // string
+    constructCompletedDate: '', // string
+    numberOfFloors: '', // string
+    buildingLamination: '', // string
+    address: '', // string
+    district: '', // string
+    note: '', // string
+    coord: { // []any
+    }, // []any
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    formattedAddress: '', // string
+    lastPrice: '', // string
+    priceHistoriesSell: { // []any
+    }, // []any
+    priceHistoriesRent: { // []any
+    }, // []any
+  }, // rqProperty.Property
+}
+/**
+ * @callback RealtorUpsertPropertyCallback
+ * @param {RealtorUpsertPropertyOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {RealtorUpsertPropertyIn} i
+ * @param {RealtorUpsertPropertyCallback} cb
+ * @returns {Promise}
+ */
+exports.RealtorUpsertProperty = async function RealtorUpsertProperty( i, cb ) {
+  return await axios.post( '/realtor/upsertProperty', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} UserChangePasswordIn
  * @property {String} oldPass
  * @property {String} newPass

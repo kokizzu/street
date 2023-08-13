@@ -19,7 +19,7 @@ type (
 
 		Action string `json:"action" form:"action" query:"action" long:"action" msg:"action"`
 
-		// for modifying user
+		// for modifying property
 		Property rqProperty.Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
 
 		// will be filled by default with form id=0
@@ -203,6 +203,7 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 			prop.SetUpdatedBy(sess.UserId)
 			if prop.Id == 0 {
 				prop.SetCreatedAt(in.UnixNow())
+				prop.SetCreatedBy(sess.UserId)
 			}
 		}
 		if !prop.DoUpsert() {

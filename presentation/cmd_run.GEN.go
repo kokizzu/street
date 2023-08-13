@@ -148,6 +148,24 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
+	case domain.RealtorOwnedPropertiesAction:
+		in := domain.RealtorOwnedPropertiesIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.RealtorOwnedProperties(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+
+	case domain.RealtorUpsertPropertyAction:
+		in := domain.RealtorUpsertPropertyIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.RealtorUpsertProperty(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+
 	case domain.UserChangePasswordAction:
 		in := domain.UserChangePasswordIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

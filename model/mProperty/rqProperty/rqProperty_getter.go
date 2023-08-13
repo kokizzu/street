@@ -109,6 +109,37 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	return
 }
 
+func (p *Property) FindOwnedByPagination(in *zCrud.PagerIn, out *zCrud.PagerOut) (res []Property) {
+	const comment = `-- Property) FindOwnedByPagination`
+
+	validFields := PropertyFieldTypeMap
+	whereAndSql := out.WhereAndSql(in.Filters, validFields)
+
+	queryCount := comment + `
+SELECT COUNT(1)
+FROM ` + p.SqlTableName() + whereAndSql + `
+LIMIT 1`
+	p.Adapter.QuerySql(queryCount, func(row []any) {
+		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
+	})
+
+	orderBySql := out.OrderBySql(in.Order, validFields)
+	limitOffsetSql := out.LimitOffsetSql()
+
+	res = make([]Property, 0, out.PerPage)
+	count := 0
+
+	queryRows := comment + `
+SELECT ` + p.SqlSelectAllFields() + `
+FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+	p.Adapter.QuerySql(queryRows, func(row []any) {
+		res[count].FromArray(row)
+		count++
+	})
+	res = res[:count]
+	return
+}
+
 func (p *Property) FindByLatLong(lat float64, long float64, limit int, offset int, callback func(row []any) bool) bool {
 	const prefix = `Property) FindByLatLong`
 	p.Coord = []any{lat, long}

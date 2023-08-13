@@ -8,6 +8,7 @@ import (
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/X"
 )
 
@@ -24,8 +25,14 @@ type PropertyMutator struct {
 }
 
 // NewPropertyMutator create new ORM writer/command object
-func NewPropertyMutator(adapter *Tt.Adapter) *PropertyMutator {
-	return &PropertyMutator{Property: rqProperty.Property{Adapter: adapter}}
+func NewPropertyMutator(adapter *Tt.Adapter) (res *PropertyMutator) {
+	res = &PropertyMutator{Property: rqProperty.Property{Adapter: adapter}}
+	res.Coord = []any{}
+	res.PriceHistoriesSell = []any{}
+	res.PriceHistoriesRent = []any{}
+	res.Images = []any{}
+	res.FloorList = []any{}
+	return
 }
 
 // Logs get array of logs [field, old, new]
@@ -89,6 +96,14 @@ func (p *PropertyMutator) DoDeletePermanentById() bool { //nolint:dupl false pos
 //		A.X{`=`, 19, p.LastPrice},
 //		A.X{`=`, 20, p.PriceHistoriesSell},
 //		A.X{`=`, 21, p.PriceHistoriesRent},
+//		A.X{`=`, 22, p.Purpose},
+//		A.X{`=`, 23, p.HouseType},
+//		A.X{`=`, 24, p.Images},
+//		A.X{`=`, 25, p.Bedroom},
+//		A.X{`=`, 26, p.Bathroom},
+//		A.X{`=`, 27, p.AgencyFeePercent},
+//		A.X{`=`, 28, p.FloorList},
+//		A.X{`=`, 29, p.Country},
 //	})
 //	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName())
 // }
@@ -367,6 +382,219 @@ func (p *PropertyMutator) SetPriceHistoriesRent(val []any) bool { //nolint:dupl 
 	return true
 }
 
+// SetPurpose create mutations, should not duplicate
+func (p *PropertyMutator) SetPurpose(val string) bool { //nolint:dupl false positive
+	if val != p.Purpose {
+		p.mutations = append(p.mutations, A.X{`=`, 22, val})
+		p.logs = append(p.logs, A.X{`purpose`, p.Purpose, val})
+		p.Purpose = val
+		return true
+	}
+	return false
+}
+
+// SetHouseType create mutations, should not duplicate
+func (p *PropertyMutator) SetHouseType(val string) bool { //nolint:dupl false positive
+	if val != p.HouseType {
+		p.mutations = append(p.mutations, A.X{`=`, 23, val})
+		p.logs = append(p.logs, A.X{`houseType`, p.HouseType, val})
+		p.HouseType = val
+		return true
+	}
+	return false
+}
+
+// SetImages create mutations, should not duplicate
+func (p *PropertyMutator) SetImages(val []any) bool { //nolint:dupl false positive
+	p.mutations = append(p.mutations, A.X{`=`, 24, val})
+	p.logs = append(p.logs, A.X{`images`, p.Images, val})
+	p.Images = val
+	return true
+}
+
+// SetBedroom create mutations, should not duplicate
+func (p *PropertyMutator) SetBedroom(val int64) bool { //nolint:dupl false positive
+	if val != p.Bedroom {
+		p.mutations = append(p.mutations, A.X{`=`, 25, val})
+		p.logs = append(p.logs, A.X{`bedroom`, p.Bedroom, val})
+		p.Bedroom = val
+		return true
+	}
+	return false
+}
+
+// SetBathroom create mutations, should not duplicate
+func (p *PropertyMutator) SetBathroom(val int64) bool { //nolint:dupl false positive
+	if val != p.Bathroom {
+		p.mutations = append(p.mutations, A.X{`=`, 26, val})
+		p.logs = append(p.logs, A.X{`bathroom`, p.Bathroom, val})
+		p.Bathroom = val
+		return true
+	}
+	return false
+}
+
+// SetAgencyFeePercent create mutations, should not duplicate
+func (p *PropertyMutator) SetAgencyFeePercent(val float64) bool { //nolint:dupl false positive
+	if val != p.AgencyFeePercent {
+		p.mutations = append(p.mutations, A.X{`=`, 27, val})
+		p.logs = append(p.logs, A.X{`agencyFeePercent`, p.AgencyFeePercent, val})
+		p.AgencyFeePercent = val
+		return true
+	}
+	return false
+}
+
+// SetFloorList create mutations, should not duplicate
+func (p *PropertyMutator) SetFloorList(val []any) bool { //nolint:dupl false positive
+	p.mutations = append(p.mutations, A.X{`=`, 28, val})
+	p.logs = append(p.logs, A.X{`floorList`, p.FloorList, val})
+	p.FloorList = val
+	return true
+}
+
+// SetCountry create mutations, should not duplicate
+func (p *PropertyMutator) SetCountry(val string) bool { //nolint:dupl false positive
+	if val != p.Country {
+		p.mutations = append(p.mutations, A.X{`=`, 29, val})
+		p.logs = append(p.logs, A.X{`country`, p.Country, val})
+		p.Country = val
+		return true
+	}
+	return false
+}
+
+// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
+func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+	if excludeMap == nil { // list of fields to exclude
+		excludeMap = M.SB{}
+	}
+	if forceMap == nil { // list of fields to force overwrite
+		forceMap = M.SB{}
+	}
+	if !excludeMap[`id`] && (forceMap[`id`] || from.Id != 0) {
+		p.Id = from.Id
+		changed = true
+	}
+	if !excludeMap[`uniqPropKey`] && (forceMap[`uniqPropKey`] || from.UniqPropKey != ``) {
+		p.UniqPropKey = from.UniqPropKey
+		changed = true
+	}
+	if !excludeMap[`serialNumber`] && (forceMap[`serialNumber`] || from.SerialNumber != ``) {
+		p.SerialNumber = from.SerialNumber
+		changed = true
+	}
+	if !excludeMap[`sizeM2`] && (forceMap[`sizeM2`] || from.SizeM2 != ``) {
+		p.SizeM2 = from.SizeM2
+		changed = true
+	}
+	if !excludeMap[`mainUse`] && (forceMap[`mainUse`] || from.MainUse != ``) {
+		p.MainUse = from.MainUse
+		changed = true
+	}
+	if !excludeMap[`mainBuildingMaterial`] && (forceMap[`mainBuildingMaterial`] || from.MainBuildingMaterial != ``) {
+		p.MainBuildingMaterial = from.MainBuildingMaterial
+		changed = true
+	}
+	if !excludeMap[`constructCompletedDate`] && (forceMap[`constructCompletedDate`] || from.ConstructCompletedDate != ``) {
+		p.ConstructCompletedDate = from.ConstructCompletedDate
+		changed = true
+	}
+	if !excludeMap[`numberOfFloors`] && (forceMap[`numberOfFloors`] || from.NumberOfFloors != ``) {
+		p.NumberOfFloors = from.NumberOfFloors
+		changed = true
+	}
+	if !excludeMap[`buildingLamination`] && (forceMap[`buildingLamination`] || from.BuildingLamination != ``) {
+		p.BuildingLamination = from.BuildingLamination
+		changed = true
+	}
+	if !excludeMap[`address`] && (forceMap[`address`] || from.Address != ``) {
+		p.Address = from.Address
+		changed = true
+	}
+	if !excludeMap[`district`] && (forceMap[`district`] || from.District != ``) {
+		p.District = from.District
+		changed = true
+	}
+	if !excludeMap[`note`] && (forceMap[`note`] || from.Note != ``) {
+		p.Note = from.Note
+		changed = true
+	}
+	if !excludeMap[`coord`] && (forceMap[`coord`] || from.Coord != nil) {
+		p.Coord = from.Coord
+		changed = true
+	}
+	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
+		p.CreatedAt = from.CreatedAt
+		changed = true
+	}
+	if !excludeMap[`createdBy`] && (forceMap[`createdBy`] || from.CreatedBy != 0) {
+		p.CreatedBy = from.CreatedBy
+		changed = true
+	}
+	if !excludeMap[`updatedAt`] && (forceMap[`updatedAt`] || from.UpdatedAt != 0) {
+		p.UpdatedAt = from.UpdatedAt
+		changed = true
+	}
+	if !excludeMap[`updatedBy`] && (forceMap[`updatedBy`] || from.UpdatedBy != 0) {
+		p.UpdatedBy = from.UpdatedBy
+		changed = true
+	}
+	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
+		p.DeletedAt = from.DeletedAt
+		changed = true
+	}
+	if !excludeMap[`formattedAddress`] && (forceMap[`formattedAddress`] || from.FormattedAddress != ``) {
+		p.FormattedAddress = from.FormattedAddress
+		changed = true
+	}
+	if !excludeMap[`lastPrice`] && (forceMap[`lastPrice`] || from.LastPrice != ``) {
+		p.LastPrice = from.LastPrice
+		changed = true
+	}
+	if !excludeMap[`priceHistoriesSell`] && (forceMap[`priceHistoriesSell`] || from.PriceHistoriesSell != nil) {
+		p.PriceHistoriesSell = from.PriceHistoriesSell
+		changed = true
+	}
+	if !excludeMap[`priceHistoriesRent`] && (forceMap[`priceHistoriesRent`] || from.PriceHistoriesRent != nil) {
+		p.PriceHistoriesRent = from.PriceHistoriesRent
+		changed = true
+	}
+	if !excludeMap[`purpose`] && (forceMap[`purpose`] || from.Purpose != ``) {
+		p.Purpose = from.Purpose
+		changed = true
+	}
+	if !excludeMap[`houseType`] && (forceMap[`houseType`] || from.HouseType != ``) {
+		p.HouseType = from.HouseType
+		changed = true
+	}
+	if !excludeMap[`images`] && (forceMap[`images`] || from.Images != nil) {
+		p.Images = from.Images
+		changed = true
+	}
+	if !excludeMap[`bedroom`] && (forceMap[`bedroom`] || from.Bedroom != 0) {
+		p.Bedroom = from.Bedroom
+		changed = true
+	}
+	if !excludeMap[`bathroom`] && (forceMap[`bathroom`] || from.Bathroom != 0) {
+		p.Bathroom = from.Bathroom
+		changed = true
+	}
+	if !excludeMap[`agencyFeePercent`] && (forceMap[`agencyFeePercent`] || from.AgencyFeePercent != 0) {
+		p.AgencyFeePercent = from.AgencyFeePercent
+		changed = true
+	}
+	if !excludeMap[`floorList`] && (forceMap[`floorList`] || from.FloorList != nil) {
+		p.FloorList = from.FloorList
+		changed = true
+	}
+	if !excludeMap[`country`] && (forceMap[`country`] || from.Country != ``) {
+		p.Country = from.Country
+		changed = true
+	}
+	return
+}
+
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 // PropertyHistoryMutator DAO writer/command struct
@@ -377,8 +605,9 @@ type PropertyHistoryMutator struct {
 }
 
 // NewPropertyHistoryMutator create new ORM writer/command object
-func NewPropertyHistoryMutator(adapter *Tt.Adapter) *PropertyHistoryMutator {
-	return &PropertyHistoryMutator{PropertyHistory: rqProperty.PropertyHistory{Adapter: adapter}}
+func NewPropertyHistoryMutator(adapter *Tt.Adapter) (res *PropertyHistoryMutator) {
+	res = &PropertyHistoryMutator{PropertyHistory: rqProperty.PropertyHistory{Adapter: adapter}}
+	return
 }
 
 // Logs get array of logs [field, old, new]
@@ -703,6 +932,97 @@ func (p *PropertyHistoryMutator) SetSerialNumber(val string) bool { //nolint:dup
 		return true
 	}
 	return false
+}
+
+// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
+func (p *PropertyHistoryMutator) SetAll(from rqProperty.PropertyHistory, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+	if excludeMap == nil { // list of fields to exclude
+		excludeMap = M.SB{}
+	}
+	if forceMap == nil { // list of fields to force overwrite
+		forceMap = M.SB{}
+	}
+	if !excludeMap[`id`] && (forceMap[`id`] || from.Id != 0) {
+		p.Id = from.Id
+		changed = true
+	}
+	if !excludeMap[`propertyKey`] && (forceMap[`propertyKey`] || from.PropertyKey != ``) {
+		p.PropertyKey = from.PropertyKey
+		changed = true
+	}
+	if !excludeMap[`transactionKey`] && (forceMap[`transactionKey`] || from.TransactionKey != ``) {
+		p.TransactionKey = from.TransactionKey
+		changed = true
+	}
+	if !excludeMap[`transactionType`] && (forceMap[`transactionType`] || from.TransactionType != ``) {
+		p.TransactionType = from.TransactionType
+		changed = true
+	}
+	if !excludeMap[`transactionSign`] && (forceMap[`transactionSign`] || from.TransactionSign != ``) {
+		p.TransactionSign = from.TransactionSign
+		changed = true
+	}
+	if !excludeMap[`transactionTime`] && (forceMap[`transactionTime`] || from.TransactionTime != ``) {
+		p.TransactionTime = from.TransactionTime
+		changed = true
+	}
+	if !excludeMap[`transactionDateNormal`] && (forceMap[`transactionDateNormal`] || from.TransactionDateNormal != ``) {
+		p.TransactionDateNormal = from.TransactionDateNormal
+		changed = true
+	}
+	if !excludeMap[`transactionNumber`] && (forceMap[`transactionNumber`] || from.TransactionNumber != ``) {
+		p.TransactionNumber = from.TransactionNumber
+		changed = true
+	}
+	if !excludeMap[`priceNtd`] && (forceMap[`priceNtd`] || from.PriceNtd != 0) {
+		p.PriceNtd = from.PriceNtd
+		changed = true
+	}
+	if !excludeMap[`pricePerUnit`] && (forceMap[`pricePerUnit`] || from.PricePerUnit != 0) {
+		p.PricePerUnit = from.PricePerUnit
+		changed = true
+	}
+	if !excludeMap[`price`] && (forceMap[`price`] || from.Price != 0) {
+		p.Price = from.Price
+		changed = true
+	}
+	if !excludeMap[`address`] && (forceMap[`address`] || from.Address != ``) {
+		p.Address = from.Address
+		changed = true
+	}
+	if !excludeMap[`district`] && (forceMap[`district`] || from.District != ``) {
+		p.District = from.District
+		changed = true
+	}
+	if !excludeMap[`note`] && (forceMap[`note`] || from.Note != ``) {
+		p.Note = from.Note
+		changed = true
+	}
+	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
+		p.CreatedAt = from.CreatedAt
+		changed = true
+	}
+	if !excludeMap[`createdBy`] && (forceMap[`createdBy`] || from.CreatedBy != 0) {
+		p.CreatedBy = from.CreatedBy
+		changed = true
+	}
+	if !excludeMap[`updatedAt`] && (forceMap[`updatedAt`] || from.UpdatedAt != 0) {
+		p.UpdatedAt = from.UpdatedAt
+		changed = true
+	}
+	if !excludeMap[`updatedBy`] && (forceMap[`updatedBy`] || from.UpdatedBy != 0) {
+		p.UpdatedBy = from.UpdatedBy
+		changed = true
+	}
+	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
+		p.DeletedAt = from.DeletedAt
+		changed = true
+	}
+	if !excludeMap[`serialNumber`] && (forceMap[`serialNumber`] || from.SerialNumber != ``) {
+		p.SerialNumber = from.SerialNumber
+		changed = true
+	}
+	return
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

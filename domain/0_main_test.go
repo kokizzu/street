@@ -163,6 +163,8 @@ func TestMain(m *testing.M) {
 }
 
 func testDomain() (*Domain, func()) {
+	log := conf.InitLogger()
+
 	d := &Domain{
 		AuthOltp: testTt,
 		AuthOlap: testCh,
@@ -174,6 +176,8 @@ func testDomain() (*Domain, func()) {
 
 		Mailer:  xMailer.Mailer{SendMailFunc: testMailer.SendMailFunc},
 		IsBgSvc: false,
+
+		Log: log,
 
 		Superadmins: M.SB{testSuperAdminEmail: true},
 	}

@@ -46,6 +46,7 @@ type ActionLogs struct {
 	Lat        float64     `json:"lat" form:"lat" query:"lat" long:"lat" msg:"lat"`
 	Long       float64     `json:"long" form:"long" query:"long" long:"long" msg:"long"`
 	Latency    float64     `json:"latency" form:"latency" query:"latency" long:"latency" msg:"latency"`
+	RefId      uint64      `json:"refId,string" form:"refId" query:"refId" long:"refId" msg:"refId"`
 }
 
 func NewActionLogs(adapter *Ch.Adapter) *ActionLogs {
@@ -62,7 +63,7 @@ func (a *ActionLogs) SqlTableName() string { //nolint:dupl false positive
 
 // insert, error if exists
 func (a *ActionLogs) SqlInsert() string { //nolint:dupl false positive
-	return `INSERT INTO ` + a.SqlTableName() + `(` + a.SqlAllFields() + `) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`
+	return `INSERT INTO ` + a.SqlTableName() + `(` + a.SqlAllFields() + `) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
 }
 
 func (a *ActionLogs) SqlCount() string { //nolint:dupl false positive
@@ -83,11 +84,12 @@ func (a *ActionLogs) SqlSelectAllFields() string { //nolint:dupl false positive
 	, lat
 	, long
 	, latency
+	, refId
 	`
 }
 
 func (a *ActionLogs) SqlAllFields() string { //nolint:dupl false positive
-	return `createdAt, requestId, actorId, action, statusCode, traces, error, ipAddr4, ipAddr6, userAgent, lat, long, latency`
+	return `createdAt, requestId, actorId, action, statusCode, traces, error, ipAddr4, ipAddr6, userAgent, lat, long, latency, refId`
 }
 
 func (a ActionLogs) SqlInsertParam() []any { //nolint:dupl false positive
@@ -105,6 +107,7 @@ func (a ActionLogs) SqlInsertParam() []any { //nolint:dupl false positive
 		a.Lat,        // 10
 		a.Long,       // 11
 		a.Latency,    // 12
+		a.RefId,      // 13
 	}
 }
 
@@ -212,6 +215,14 @@ func (a *ActionLogs) SqlLatency() string { //nolint:dupl false positive
 	return `latency`
 }
 
+func (a *ActionLogs) IdxRefId() int { //nolint:dupl false positive
+	return 13
+}
+
+func (a *ActionLogs) SqlRefId() string { //nolint:dupl false positive
+	return `refId`
+}
+
 func (a *ActionLogs) ToArray() A.X { //nolint:dupl false positive
 	return A.X{
 		a.CreatedAt,  // 0
@@ -227,6 +238,7 @@ func (a *ActionLogs) ToArray() A.X { //nolint:dupl false positive
 		a.Lat,        // 10
 		a.Long,       // 11
 		a.Latency,    // 12
+		a.RefId,      // 13
 	}
 }
 

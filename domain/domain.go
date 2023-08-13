@@ -107,5 +107,6 @@ func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 		row.Lat,
 		row.Long,
 		row.Latency,
+		row.RefId,
 	})
 }

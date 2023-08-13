@@ -203,6 +203,7 @@ func (d *Domain) AdminPropHistories(in *AdminPropHistoriesIn) (out AdminPropHist
 			ph.SetUpdatedBy(sess.UserId)
 			if ph.Id == 0 {
 				ph.SetCreatedAt(in.UnixNow())
+				ph.SetCreatedBy(sess.UserId)
 			}
 		}
 		if !ph.DoUpsert() {

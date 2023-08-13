@@ -160,6 +160,26 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// RealtorOwnedProperties
+	fw.Post("/"+domain.RealtorOwnedPropertiesAction, func(c *fiber.Ctx) error {
+		in := domain.RealtorOwnedPropertiesIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.RealtorOwnedPropertiesAction); err != nil {
+			return err
+		}
+		out := d.RealtorOwnedProperties(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// RealtorUpsertProperty
+	fw.Post("/"+domain.RealtorUpsertPropertyAction, func(c *fiber.Ctx) error {
+		in := domain.RealtorUpsertPropertyIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.RealtorUpsertPropertyAction); err != nil {
+			return err
+		}
+		out := d.RealtorUpsertProperty(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// UserChangePassword
 	fw.Post("/"+domain.UserChangePasswordAction, func(c *fiber.Ctx) error {
 		in := domain.UserChangePasswordIn{}
