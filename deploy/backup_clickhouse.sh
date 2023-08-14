@@ -16,7 +16,7 @@ BACKUP_FILE_NAME="/root/clickhouse_backup.tgz"
 PROJECT_DIR="/root/dev/street"
 
 # Where a backup file will be store in local machine
-TARGET_LOCAL_DIR="../tmp/clickhouse_$(date '+%Y%m%d_%H%M%S').tgz"
+TARGET_LOCAL_DIR="../tmp/clickhouse_$(date '+%Y%m%d_%H%M').tgz"
 
 # Run a remote script on a local machine over ssh
 ssh -p $SSH_PORT -i $SSH_PRIVATE_KEY $SERVER_USER@$SERVER_HOST 'bash' $PROJECT_DIR/deploy/backup_clickhouse_on_server.sh
