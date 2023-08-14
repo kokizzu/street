@@ -118,7 +118,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 	fw.Get(`/admin`, func(ctx *fiber.Ctx) error {
 		in, _, segments := userInfoFromContext(ctx, d)
 		if notAdmin(ctx, d, in.RequestCommon) {
-			return nil
+			return ctx.Redirect(`/`, 302)
 		}
 		out := d.AdminDashboard(&domain.AdminDashboardIn{
 			RequestCommon: in.RequestCommon,
@@ -140,7 +140,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			return err
 		}
 		if notAdmin(ctx, d, in.RequestCommon) {
-			return nil
+			return ctx.Redirect(`/`, 302)
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
@@ -161,7 +161,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			return err
 		}
 		if notAdmin(ctx, d, in.RequestCommon) {
-			return nil
+			return ctx.Redirect(`/`, 302)
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
@@ -182,7 +182,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			return err
 		}
 		if notAdmin(ctx, d, in.RequestCommon) {
-			return nil
+			return ctx.Redirect(`/`, 302)
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
@@ -199,7 +199,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 	fw.Get(`/user`, func(ctx *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
-			return nil
+			return ctx.Redirect(`/`, 302)
 		}
 		return views.RenderUser(ctx, M.SX{
 			`title`:    `Profile`,
@@ -210,7 +210,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 	fw.Get(`/`+domain.AdminFilesAction, func(ctx *fiber.Ctx) error {
 		in, _, segments := userInfoFromContext(ctx, d)
 		if notAdmin(ctx, d, in.RequestCommon) {
-			return nil
+			return ctx.Redirect(`/`, 302)
 		}
 		return views.RenderAdminFiles(ctx, M.SX{
 			`title`:    `Files`,
