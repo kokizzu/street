@@ -10388,6 +10388,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function backPage() {
       if (currentPage > 0) {
         $invalidate(2, currentPage--, currentPage);
+        let card = cards[currentPage];
+        console.log(card);
+        card.scrollIntoView({ behavior: "smooth" });
       }
     }
     let map;

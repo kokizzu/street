@@ -108,6 +108,9 @@
   function backPage() {
     if( currentPage>0 ) {
       currentPage--;
+      let card = cards[ currentPage ];
+      console.log( card );
+      card.scrollIntoView( {behavior: 'smooth'} );
     }
   }
   
