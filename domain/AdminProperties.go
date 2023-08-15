@@ -132,6 +132,12 @@ var (
 				InputType: zCrud.InputTypeText,
 			},
 			{
+				Name:      mProperty.LastPrice,
+				Label:     `Last Price`,
+				DataType:  zCrud.DataTypeString,
+				InputType: zCrud.InputTypeNumber,
+			},
+			{
 				Name:      mProperty.Purpose, // rent/sell
 				Label:     `Purpose`,
 				DataType:  zCrud.DataTypeString,
