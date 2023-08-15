@@ -47,25 +47,25 @@
       subroute: 'floors',
       attrs: {
         floor_lists: [
-          {
-            type: '', /*Floor or Basement*/
-            floor: 0,
-            beds: 0,
-            baths: 0,
-            rooms: [],
-          }, {
-            type: '', /*Floor or Basement*/
-            floor: 0,
-            beds: 0,
-            baths: 0,
-            rooms: [
-              {
-                name: '',
-                sizeM2: 0,
-                unit: 'm2',
-              },
-            ],
-          },
+          // {
+          //   type: '', /*Floor or Basement*/
+          //   floor: 0,
+          //   beds: 0,
+          //   baths: 0,
+          //   rooms: [],
+          // }, {
+          //   type: '', /*Floor or Basement*/
+          //   floor: 0,
+          //   beds: 0,
+          //   baths: 0,
+          //   rooms: [
+          //     {
+          //       name: '',
+          //       sizeM2: 0,
+          //       unit: 'm2',
+          //     },
+          //   ],
+          // },
         ],
       },
     },
@@ -100,7 +100,6 @@
     if( currentPage<3 ) {
       currentPage++;
       let card = cards[ currentPage ];
-      console.log( card );
       card.scrollIntoView( {behavior: 'smooth'} );
     }
   }
@@ -109,9 +108,13 @@
     if( currentPage>0 ) {
       currentPage--;
       let card = cards[ currentPage ];
-      console.log( card );
       card.scrollIntoView( {behavior: 'smooth'} );
     }
+  }
+
+  function progressDotHandler( toPage ) {
+    let card = cards[ toPage ];
+    card.scrollIntoView( {behavior: 'smooth'} );
   }
   
   // +=============| Location |=============+ //
@@ -485,8 +488,16 @@
       floor_lists = [...floor_lists, floor_attribute];
       floor_type = '';
       floorCount++;
+      console.log(floor_lists);
     }
     add_floor_dialog.hideModal();
+    realtorStack[ currentPage ] = {
+      subroute: 'floors',
+      attrs: {
+        floor_lists: floor_lists,
+      },
+    };
+    console.log(floor_lists);
     return;
   }
   
@@ -686,19 +697,19 @@
     <div class='realtor_step_progress_bar'>
       <div class='step_wrapper'>
         <div class={currentPage >= 0 ? 'step_item completed' : 'step_item active'}>
-          <span></span>
+          <button on:click={() => progressDotHandler(0)}></button>
           <p>Location</p>
         </div>
         <div class={currentPage === 1 ? 'step_item active' : 'step_item' && currentPage > 1 ? 'step_item completed' : 'step_item'}>
-          <span></span>
+          <button on:click={() => progressDotHandler(1)}></button>
           <p>Info</p>
         </div>
         <div class={currentPage === 2 ? 'step_item active' : 'step_item' && currentPage > 2 ? 'step_item completed' : 'step_item'}>
-          <span></span>
+          <button on:click={() => progressDotHandler(2)}></button>
           <p>Floor</p>
         </div>
         <div class={currentPage === 3 ? 'step_item active' : 'step_item'}>
-          <span></span>
+          <button on:click={() => progressDotHandler(3)}></button>
           <p>Preview</p>
         </div>
       </div>
@@ -1049,6 +1060,11 @@
         <section class='preview' id='subpage_4' bind:this={cards[3]}>
           {#if isPropertySubmitted===false}
             <div class='preview_main'>
+              <button
+                class='back_button'
+                on:click|preventDefault={backPage}>
+                <i class='gg-chevron-left' />
+              </button>
               <h2>Preview Your Property</h2>
               <div class='image_preview_wrapper'>
                 {#if infoStack.attrs.images.length}
@@ -1065,7 +1081,7 @@
                   <span>On Sale</span>
                   <div class='price'>
                     <h3>{formatPrice( infoStack.attrs.price )}</h3>
-                    <p>Agency Fee: {infoStack.attrs.agency_fee_percent}%</p>
+                    <p>Agency Fee: {infoStack.attrs.agency_fee_percent || '0'}%</p>
                   </div>
                 </div>
                 <div class='right_item'>
@@ -1228,23 +1244,29 @@
     content : none;
   }
 
-  .realtor_step_progress_bar .step_wrapper .step_item span {
+  .realtor_step_progress_bar .step_wrapper .step_item button {
     width            : 13px;
     height           : 13px;
     background-color : #CBD5E1;
     border-radius    : 100%;
+    border           : none;
     z-index          : 4;
+    cursor           : pointer;
+  }
+  .realtor_step_progress_bar .step_wrapper .step_item button:hover {
+    outline          : 5px solid rgb(0 0 0 / 0.09);
   }
 
   .realtor_step_progress_bar .step_wrapper .step_item p {
     margin : 8px 0 0 0;
   }
 
-  .realtor_step_progress_bar .step_wrapper .step_item.active span {
+  .realtor_step_progress_bar .step_wrapper .step_item.active button {
     width            : 11px;
     height           : 11px;
     background-color : white;
     outline          : 3px solid #F97316;
+    cursor           : pointer;
   }
 
   .step_item.completed::after {
@@ -1257,7 +1279,7 @@
     z-index       : 3 !important;
   }
 
-  .step_item.completed span {
+  .step_item.completed button {
     background-color : #F97316 !important;
   }
 
