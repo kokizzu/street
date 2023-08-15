@@ -251,6 +251,13 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		prop.SetDistrict(in.Property.District)
 		prop.SetNote(in.Property.Note)
 		prop.SetCoord(in.Property.Coord)
+		prop.SetLastPrice(in.Property.LastPrice)
+		prop.SetPurpose(in.Property.Purpose)
+		prop.SetHouseType(in.Property.HouseType)
+		prop.SetBedroom(in.Property.Bedroom)
+		prop.SetBathroom(in.Property.Bathroom)
+		prop.SetAgencyFeePercent(in.Property.AgencyFeePercent)
+		prop.SetCountry(in.Property.Country)
 
 		if prop.HaveMutation() {
 			prop.SetUpdatedAt(in.UnixNow())
