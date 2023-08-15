@@ -131,6 +131,54 @@ var (
 				DataType:  zCrud.DataTypeString,
 				InputType: zCrud.InputTypeText,
 			},
+			{
+				Name:      mProperty.Purpose, // rent/sell
+				Label:     `Purpose`,
+				DataType:  zCrud.DataTypeString,
+				InputType: zCrud.InputTypeText, // TODO: change to select
+			},
+			{
+				Name:      mProperty.HouseType, // house/apartment
+				Label:     `House Type`,
+				DataType:  zCrud.DataTypeString,
+				InputType: zCrud.InputTypeText, // TODO: change to select
+			},
+			//{
+			//	Name: 	mProperty.Images,
+			//	Label: 	`Images`,
+			//	DataType: zCrud.DataTypeString,
+			//	InputType: zCrud.InputTypeText, // TODO: change to image upload
+			//},
+			{
+				Name:      mProperty.Bedroom,
+				Label:     `Bedroom`,
+				DataType:  zCrud.DataTypeInt,
+				InputType: zCrud.InputTypeNumber,
+			},
+			{
+				Name:      mProperty.Bathroom,
+				Label:     `Bathroom`,
+				DataType:  zCrud.DataTypeInt,
+				InputType: zCrud.InputTypeNumber,
+			},
+			{
+				Name:      mProperty.AgencyFeePercent,
+				Label:     `Agency Fee Percent`,
+				DataType:  zCrud.DataTypeFloat,
+				InputType: zCrud.InputTypeNumber,
+			},
+			//{
+			//	Name:      mProperty.FloorList,
+			//	Label:     `Floor List`,
+			//	DataType:  zCrud.DataTypeString,
+			//	InputType: zCrud.InputTypeText, // TODO: change to json editor
+			//},
+			{
+				Name:      mProperty.Country,
+				Label:     `Country`,
+				DataType:  zCrud.DataTypeString,
+				InputType: zCrud.InputTypeText, // TODO: change to select
+			},
 		},
 	}
 )
