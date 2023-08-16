@@ -10,3 +10,4 @@ deploy/.env.override
 *.fiber.gz
 deploy/static
 docker/
+*.upx

@@ -135,7 +135,7 @@ var (
 				Name:      mProperty.LastPrice,
 				Label:     `Last Price`,
 				DataType:  zCrud.DataTypeString,
-				InputType: zCrud.InputTypeNumber,
+				InputType: zCrud.InputTypeText, // TODO: need to fix schema
 			},
 			{
 				Name:      mProperty.Purpose, // rent/sell
