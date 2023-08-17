@@ -115,6 +115,13 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			`segments`: segments,
 		})
 	})
+	fw.Get(`/realtor/property`, func(ctx *fiber.Ctx) error {
+		_, _, segments := userInfoFromContext(ctx, d)
+		return views.RenderRealtor(ctx, M.SX{
+			`title`:    `Realtor Property`,
+			`segments`: segments,
+		})
+	})
 	fw.Get(`/admin`, func(ctx *fiber.Ctx) error {
 		in, _, segments := userInfoFromContext(ctx, d)
 		if notAdmin(ctx, d, in.RequestCommon) {
