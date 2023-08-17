@@ -327,12 +327,12 @@ function layoutFor( path, content = {} ) {
     
     function changeListener( path, stats, type, watcher ) {
       switch (type) {
-      case 'change':
-        notifier.notify({
-          title: 'Change occurs',
-          message: `Change occurs in "${path}"`
-        });
-        break;
+      // case 'change':
+      //   notifier.notify({
+      //     title: 'Change occurs',
+      //     message: `Change occurs in "${path}"`
+      //   });
+      //   break;
       case 'add':
         notifier.notify({
           title: 'File added',
