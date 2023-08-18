@@ -9,6 +9,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/goccy/go-json"
 
 	"github.com/gofiber/fiber/v2"
@@ -77,6 +78,8 @@ func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon, 
 		}
 		byt, err := json.Marshal(out)
 		if L.IsError(err, `json.Marshal: %#v`, out) {
+			spew.Dump(in)
+			spew.Dump(out)
 			return err
 		}
 		_, err = ctx.Write(byt)
