@@ -37,6 +37,8 @@ type (
 		Lng float64 `json:"lng" form:"lng" query:"lng" long:"lng" msg:"lng"`
 
 		DistanceKM float64 `json:"distanceKM" form:"distanceKM" query:"distanceKM" long:"distanceKM" msg:"distanceKM"`
+
+		id uint64
 	}
 )
 
@@ -74,6 +76,7 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 			item.Lat = X.ToF(item.Coord[0])
 			item.Lng = X.ToF(item.Coord[1])
 		}
+		item.id = item.Id
 		item.DistanceKM = mProperty.DistanceKm(item.Lat, item.Lng, in.CenterLat, in.CenterLong)
 		if item.DistanceKM > in.MaxDistanceKM {
 			return false
