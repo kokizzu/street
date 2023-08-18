@@ -218,3 +218,8 @@ WHERE ` + rq.SqlSerialNumber() + `=` + S.Z(key) + ``
 	})
 	return
 }
+
+func (p *Property) RemoveMapAnyAny() {
+	// for now just remove the floor property
+	p.FloorList = []any{}
+}
