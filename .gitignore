@@ -11,3 +11,4 @@ deploy/.env.override
 deploy/static
 docker/
 *.upx
+**/*.upx
