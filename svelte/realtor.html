@@ -304,6 +304,67 @@ footer.svelte-uaahja nav a.svelte-uaahja {
 footer.svelte-uaahja nav a.svelte-uaahja:hover {
   color: #EF4444;
 }
+
+/* fakecss:./realtor.esbuild-svelte-fake-css */
+.property_lists_container.svelte-m4fpo6.svelte-m4fpo6 {
+  position: relative;
+  margin-top: -40px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: white;
+  border-radius: 8px;
+  min-height: 500px;
+  width: 70%;
+  color: #475569;
+}
+.property_lists_container.svelte-m4fpo6 .property_lists_header.svelte-m4fpo6 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: fit-content;
+  width: 100%;
+}
+.property_lists_container.svelte-m4fpo6 .property_lists_header .add_button.svelte-m4fpo6 {
+  padding: 8px 20px;
+  font-size: 16px;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  border: none;
+  background-color: #6366F1;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+.property_lists_container.svelte-m4fpo6 .property_lists_header h1.svelte-m4fpo6 {
+  font-size: 18px;
+  margin: 0;
+}
+.property_lists_container.svelte-m4fpo6 .property_lists_header .add_button.svelte-m4fpo6:hover {
+  background-color: #7E80F1;
+}
+.property_lists_container.svelte-m4fpo6 .property_lists_header .add_button i.svelte-m4fpo6 {
+  margin-right: 8px;
+}
+.property_lists_container.svelte-m4fpo6 .property_lists.svelte-m4fpo6 {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+.property_lists_container.svelte-m4fpo6 .property_lists .property.svelte-m4fpo6 {
+  background-color: #F0F0F0;
+  border-radius: 8px;
+  height: 250px;
+}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -2307,13 +2368,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance4 = bind(Axios$1.prototype.request, context);
-        utils.extend(instance4, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance4, context, null, { allOwnKeys: true });
-        instance4.create = function create(instanceConfig) {
+        const instance5 = bind(Axios$1.prototype.request, context);
+        utils.extend(instance5, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance5, context, null, { allOwnKeys: true });
+        instance5.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance4;
+        return instance5;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2403,10 +2464,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       exports.GuestVerifyEmail = async function GuestVerifyEmail(i, cb) {
         return await axios.post("/guest/verifyEmail", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.RealtorOwnedProperties = async function RealtorOwnedProperties(i, cb) {
+      exports.RealtorOwnedProperties = async function RealtorOwnedProperties2(i, cb) {
         return await axios.post("/realtor/ownedProperties", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.RealtorUpsertProperty = async function RealtorUpsertProperty2(i, cb) {
+      exports.RealtorUpsertProperty = async function RealtorUpsertProperty(i, cb) {
         return await axios.post("/realtor/upsertProperty", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserChangePassword = async function UserChangePassword(i, cb) {
@@ -2575,6 +2636,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function children(element2) {
     return Array.from(element2.childNodes);
+  }
+  function set_data(text2, data) {
+    data = "" + data;
+    if (text2.data === data)
+      return;
+    text2.data = /** @type {string} */
+    data;
   }
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
@@ -2776,7 +2844,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance4, create_fragment5, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance5, create_fragment5, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -2802,7 +2870,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance4 ? instance4(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance5 ? instance5(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -3785,14 +3853,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // realtor.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
   function create_fragment4(ctx) {
-    let section;
+    let section1;
     let menu;
     let t0;
-    let div1;
+    let div5;
     let profileheader;
     let t1;
+    let div4;
+    let div3;
     let div0;
-    let t3;
+    let t6;
+    let section0;
+    let t7;
+    let t8;
+    let c;
+    let t9;
+    let div1;
+    let t10;
+    let div2;
+    let t11;
     let footer;
     let current;
     menu = new Menu_default({ props: { access: segments } });
@@ -3800,33 +3879,73 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     footer = new Footer_default({});
     return {
       c() {
-        section = element("section");
+        section1 = element("section");
         create_component(menu.$.fragment);
         t0 = space();
-        div1 = element("div");
+        div5 = element("div");
         create_component(profileheader.$.fragment);
         t1 = space();
+        div4 = element("div");
+        div3 = element("div");
         div0 = element("div");
-        div0.innerHTML = `<p>Realtor</p>`;
-        t3 = space();
+        div0.innerHTML = `<a href="/realtor/property" class="add_button svelte-m4fpo6" style=""><i class="gg-add svelte-m4fpo6"></i> <span>Add</span></a> <h1 class="svelte-m4fpo6">Property owned</h1>`;
+        t6 = space();
+        section0 = element("section");
+        t7 = text(
+          /*propertyToDisplay*/
+          ctx[0]
+        );
+        t8 = space();
+        c = comment(" TODO, loop properties here ");
+        t9 = space();
+        div1 = element("div");
+        div1.innerHTML = ``;
+        t10 = space();
+        div2 = element("div");
+        div2.innerHTML = ``;
+        t11 = space();
         create_component(footer.$.fragment);
-        attr(div0, "class", "content");
-        attr(div1, "class", "dashboard_main_content");
-        attr(section, "class", "dashboard");
+        attr(div0, "class", "property_lists_header svelte-m4fpo6");
+        attr(div1, "class", "property svelte-m4fpo6");
+        attr(div2, "class", "property svelte-m4fpo6");
+        attr(section0, "class", "property_lists svelte-m4fpo6");
+        attr(div3, "class", "property_lists_container svelte-m4fpo6");
+        attr(div4, "class", "content");
+        attr(div5, "class", "dashboard_main_content");
+        attr(section1, "class", "dashboard");
       },
       m(target, anchor) {
-        insert(target, section, anchor);
-        mount_component(menu, section, null);
-        append(section, t0);
-        append(section, div1);
-        mount_component(profileheader, div1, null);
-        append(div1, t1);
-        append(div1, div0);
-        append(div1, t3);
-        mount_component(footer, div1, null);
+        insert(target, section1, anchor);
+        mount_component(menu, section1, null);
+        append(section1, t0);
+        append(section1, div5);
+        mount_component(profileheader, div5, null);
+        append(div5, t1);
+        append(div5, div4);
+        append(div4, div3);
+        append(div3, div0);
+        append(div3, t6);
+        append(div3, section0);
+        append(section0, t7);
+        append(section0, t8);
+        append(section0, c);
+        append(section0, t9);
+        append(section0, div1);
+        append(section0, t10);
+        append(section0, div2);
+        append(div5, t11);
+        mount_component(footer, div5, null);
         current = true;
       },
-      p: noop,
+      p(ctx2, [dirty]) {
+        if (!current || dirty & /*propertyToDisplay*/
+        1)
+          set_data(
+            t7,
+            /*propertyToDisplay*/
+            ctx2[0]
+          );
+      },
       i(local) {
         if (current)
           return;
@@ -3843,7 +3962,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(section);
+          detach(section1);
         }
         destroy_component(menu);
         destroy_component(profileheader);
@@ -3851,13 +3970,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  var segments = {
-    /* segments */
-  };
+  var segments = {/* segments */};
+  function instance4($self, $props, $invalidate) {
+    let propertyToDisplay;
+    onMount(async () => {
+      $invalidate(0, propertyToDisplay = await import_jsApi.RealtorOwnedProperties);
+    });
+    return [propertyToDisplay];
+  }
   var Realtor = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment4, safe_not_equal, {});
+      init(this, options, instance4, create_fragment4, safe_not_equal, {});
     }
   };
   var realtor_default = Realtor;

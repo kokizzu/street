@@ -361,6 +361,14 @@ exports.AdminPropHistories = async function AdminPropHistories( i, cb ) {
  * @property {String} property.lastPrice
  * @property {Object} property.priceHistoriesSell
  * @property {Object} property.priceHistoriesRent
+ * @property {String} property.purpose
+ * @property {String} property.houseType
+ * @property {Object} property.images
+ * @property {number} property.bedroom
+ * @property {number} property.bathroom
+ * @property {number} property.agencyFeePercent
+ * @property {Object} property.floorList
+ * @property {String} property.country
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -395,6 +403,16 @@ const AdminPropertiesIn = {
     }, // []any
     priceHistoriesRent: { // []any
     }, // []any
+    purpose: '', // string
+    houseType: '', // string
+    images: { // []any
+    }, // []any
+    bedroom: 0, // int64
+    bathroom: 0, // int64
+    agencyFeePercent: 0, // float64
+    floorList: { // []any
+    }, // []any
+    country: '', // string
   }, // rqProperty.Property
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -438,6 +456,14 @@ const AdminPropertiesIn = {
  * @property {String} property.lastPrice
  * @property {Object} property.priceHistoriesSell
  * @property {Object} property.priceHistoriesRent
+ * @property {String} property.purpose
+ * @property {String} property.houseType
+ * @property {Object} property.images
+ * @property {number} property.bedroom
+ * @property {number} property.bathroom
+ * @property {number} property.agencyFeePercent
+ * @property {Object} property.floorList
+ * @property {String} property.country
  * @property {Object} properties
  */
 const AdminPropertiesOut = {
@@ -483,6 +509,16 @@ const AdminPropertiesOut = {
     }, // []any
     priceHistoriesRent: { // []any
     }, // []any
+    purpose: '', // string
+    houseType: '', // string
+    images: { // []any
+    }, // []any
+    bedroom: 0, // int64
+    bathroom: 0, // int64
+    agencyFeePercent: 0, // float64
+    floorList: { // []any
+    }, // []any
+    country: '', // string
   }, // rqProperty.Property
   properties: { // [][]any
   }, // [][]any
@@ -1169,6 +1205,14 @@ exports.RealtorOwnedProperties = async function RealtorOwnedProperties( i, cb ) 
  * @property {String} property.lastPrice
  * @property {Object} property.priceHistoriesSell
  * @property {Object} property.priceHistoriesRent
+ * @property {String} property.purpose
+ * @property {String} property.houseType
+ * @property {Object} property.images
+ * @property {number} property.bedroom
+ * @property {number} property.bathroom
+ * @property {number} property.agencyFeePercent
+ * @property {Object} property.floorList
+ * @property {String} property.country
  */
 const RealtorUpsertPropertyIn = {
   property: { // rqProperty.Property
@@ -1197,6 +1241,16 @@ const RealtorUpsertPropertyIn = {
     }, // []any
     priceHistoriesRent: { // []any
     }, // []any
+    purpose: '', // string
+    houseType: '', // string
+    images: { // []any
+    }, // []any
+    bedroom: 0, // int64
+    bathroom: 0, // int64
+    agencyFeePercent: 0, // float64
+    floorList: { // []any
+    }, // []any
+    country: '', // string
   }, // rqProperty.Property
 }
 /**
@@ -1223,6 +1277,14 @@ const RealtorUpsertPropertyIn = {
  * @property {String} property.lastPrice
  * @property {Object} property.priceHistoriesSell
  * @property {Object} property.priceHistoriesRent
+ * @property {String} property.purpose
+ * @property {String} property.houseType
+ * @property {Object} property.images
+ * @property {number} property.bedroom
+ * @property {number} property.bathroom
+ * @property {number} property.agencyFeePercent
+ * @property {Object} property.floorList
+ * @property {String} property.country
  */
 const RealtorUpsertPropertyOut = {
   property: { // rqProperty.Property
@@ -1251,6 +1313,16 @@ const RealtorUpsertPropertyOut = {
     }, // []any
     priceHistoriesRent: { // []any
     }, // []any
+    purpose: '', // string
+    houseType: '', // string
+    images: { // []any
+    }, // []any
+    bedroom: 0, // int64
+    bathroom: 0, // int64
+    agencyFeePercent: 0, // float64
+    floorList: { // []any
+    }, // []any
+    country: '', // string
   }, // rqProperty.Property
 }
 /**
