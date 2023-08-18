@@ -77,7 +77,7 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 			item.Lng = X.ToF(item.Coord[1])
 		}
 		item.id = item.Id
-		item.RemoveMapAnyAny()
+		item.NormalizeFloorList()
 		item.DistanceKM = mProperty.DistanceKm(item.Lat, item.Lng, in.CenterLat, in.CenterLong)
 		if item.DistanceKM > in.MaxDistanceKM {
 			return false

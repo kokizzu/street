@@ -2,6 +2,7 @@ package rqProperty
 
 import (
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 	"github.com/tarantool/go-tarantool"
@@ -25,6 +26,7 @@ WHERE ` + rq.SqlSerialNumber() + ` = ` + S.Q(serialNumber)
 	rq.Adapter.QuerySql(query, func(row []any) {
 		obj := &Property{}
 		obj.FromArray(row)
+		obj.NormalizeFloorList()
 		res = append(res, obj)
 	})
 	return res
@@ -42,6 +44,7 @@ FROM ` + rq.SqlTableName()
 	rq.Adapter.QuerySql(query, func(row []any) {
 		obj := &Property{}
 		obj.FromArray(row)
+		obj.NormalizeFloorList()
 		res = append(res, obj)
 	})
 	return res
@@ -134,6 +137,7 @@ SELECT ` + p.SqlSelectAllFields() + `
 FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	p.Adapter.QuerySql(queryRows, func(row []any) {
 		res[count].FromArray(row)
+		res[count].NormalizeFloorList()
 		count++
 	})
 	res = res[:count]
@@ -219,7 +223,23 @@ WHERE ` + rq.SqlSerialNumber() + `=` + S.Z(key) + ``
 	return
 }
 
-func (p *Property) RemoveMapAnyAny() {
+func (p *Property) NormalizeFloorList() {
 	// for now just remove the floor property
-	p.FloorList = []any{}
+	amsx := []any{}
+	for _, floor := range p.FloorList {
+		msx := M.SX{}
+		maa, ok := floor.(map[any]any)
+		if !ok {
+			continue
+		}
+		for key, val := range maa {
+			strKey, ok := key.(string)
+			if !ok {
+				continue
+			}
+			msx[strKey] = val
+		}
+		amsx = append(amsx, msx)
+	}
+	p.FloorList = amsx
 }
