@@ -1,16 +1,21 @@
 <script>
   // @ts-nocheck
-  import { onMount } from 'svelte';
+  // import { onMount } from 'svelte';
   import Menu from './_components/Menu.svelte';
   import ProfileHeader from './_components/ProfileHeader.svelte';
   import Footer from './_components/Footer.svelte';
-  import { RealtorOwnedProperties } from 'jsApi.GEN';
-  
-  let propertyToDisplay;
-  onMount( async () => {
-    propertyToDisplay = await RealtorOwnedProperties;
-  } );
+  // import { RealtorOwnedProperties } from 'jsApi.GEN';
 
+  // let ownedProperties = {};
+  // onMount(async () => {
+  //   await RealtorOwnedProperties(payload, function(res){
+  //     console.log( res );
+  //     if( res.error ) return alert( res.error );
+  //     ownedProperties = res;
+  //   })
+  // });
+
+  // TODO: Find out what payload to use 💀
   let user = {/* user */};
   let segments = {/* segments */};
 </script>
@@ -31,8 +36,7 @@
           <h1>Property owned</h1>
         </div>
         <section class='property_lists'>
-          {propertyToDisplay}
-          <!-- TODO, loop properties here -->
+          <!-- TODO, loop owned properties here -->
           <div class='property'>
 
           </div>

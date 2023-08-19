@@ -374,7 +374,7 @@
         } else {
           alert( 'Error: ' + ajax.status + ' ' + ajax.statusText );
         }
-        imageHouseInput.value = '';
+        
       } );
       ajax.addEventListener( 'error', function( event ) {
         alert( 'Network error' );
@@ -385,6 +385,7 @@
       ajax.open( 'POST', '/user/uploadFile' );
       ajax.send( formData );
     }
+    imageHouseInput.value = null;
   }
   
   function removeImage( index ) {

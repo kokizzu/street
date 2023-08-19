@@ -10496,7 +10496,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           } else {
             alert("Error: " + ajax.status + " " + ajax.statusText);
           }
-          $invalidate(12, imageHouseInput.value = "", imageHouseInput);
         });
         ajax.addEventListener("error", function(event) {
           alert("Network error");
@@ -10511,6 +10510,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ajax.open("POST", "/user/uploadFile");
         ajax.send(formData);
       }
+      $invalidate(12, imageHouseInput.value = null, imageHouseInput);
     }
     function removeImage(index) {
       $invalidate(13, house_images = house_images.filter((_, i) => i !== index));
