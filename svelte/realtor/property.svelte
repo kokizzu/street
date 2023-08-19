@@ -536,7 +536,6 @@
         } else {
           alert( 'Error: ' + ajax.status + ' ' + ajax.statusText );
         }
-        imageFloorPlanInput.value = '';
       } );
       ajax.addEventListener( 'error', function( event ) {
         alert( 'Network error' );
@@ -547,6 +546,7 @@
       ajax.open( 'POST', '/user/uploadFile' );
       ajax.send( formData );
     }
+    imageFloorPlanInput.value = null;
   }
   
   // ________Rooms Edit

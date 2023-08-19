@@ -1,5 +1,5 @@
 <script>
-  
+  //@ts-nocheck
   let verified = '#{verified}';
   let error = '#{error}';
   let email = '#{email}';

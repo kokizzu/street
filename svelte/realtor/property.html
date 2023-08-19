@@ -10642,7 +10642,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           } else {
             alert("Error: " + ajax.status + " " + ajax.statusText);
           }
-          $invalidate(30, imageFloorPlanInput.value = "", imageFloorPlanInput);
         });
         ajax.addEventListener("error", function(event) {
           alert("Network error");
@@ -10657,6 +10656,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ajax.open("POST", "/user/uploadFile");
         ajax.send(formData);
       }
+      $invalidate(30, imageFloorPlanInput.value = null, imageFloorPlanInput);
     }
     let add_room_dialog = AddRoomDialog_default;
     let room_type = "";

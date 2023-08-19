@@ -1,6 +1,5 @@
 <script>
-  
-  
+  //@ts-nocheck
   import { GuestResetPassword } from '../jsApi.GEN';
   
   let password = '';
