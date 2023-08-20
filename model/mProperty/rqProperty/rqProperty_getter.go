@@ -142,9 +142,7 @@ LIMIT 1`
 SELECT ` + p.SqlSelectAllFields() + `
 FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 
-	L.Print(queryRows)
 	p.Adapter.QuerySql(queryRows, func(row []any) {
-		L.Describe(row)
 		res = append(res, Property{})
 		res[count].FromArray(row)
 		res[count].NormalizeFloorList()
