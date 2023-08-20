@@ -33,7 +33,13 @@ const (
 func (d *Domain) RealtorOwnedProperties(in *RealtorOwnedPropertiesIn) (out RealtorOwnedPropertiesOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
+	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
+	if sess == nil {
+
+		return
+	}
+
 	r := rqProperty.NewProperty(d.PropOltp)
-	out.Properties = r.FindOwnedByPagination(&in.Pager, &out.Pager)
+	out.Properties = r.FindOwnedByPagination(sess.UserId, &in.Pager, &out.Pager)
 	return
 }

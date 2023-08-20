@@ -2,11 +2,14 @@ package presentation
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/X"
 	"github.com/rs/zerolog"
 
 	"street/domain"
 	"street/model/mAuth/rqAuth"
+	"street/model/mProperty/rqProperty"
 	"street/model/zCrud"
 )
 
@@ -102,24 +105,64 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 	})
 
 	fw.Get(`/buyer`, func(ctx *fiber.Ctx) error {
-		_, _, segments := userInfoFromContext(ctx, d)
+		in, _, segments := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
 		return views.RenderBuyer(ctx, M.SX{
 			`title`:    `Buyer`,
 			`segments`: segments,
 		})
 	})
 	fw.Get(`/realtor`, func(ctx *fiber.Ctx) error {
-		_, _, segments := userInfoFromContext(ctx, d)
+		in, _, segments := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		out := d.RealtorOwnedProperties(&domain.RealtorOwnedPropertiesIn{
+			RequestCommon: in.RequestCommon,
+		})
+		if len(out.Properties) == 0 {
+			out.Properties = []rqProperty.Property{}
+		}
 		return views.RenderRealtor(ctx, M.SX{
-			`title`:    `Realtor`,
-			`segments`: segments,
+			`title`:           `Realtor`,
+			`segments`:        segments,
+			`ownedProperties`: out.Properties,
 		})
 	})
 	fw.Get(`/realtor/property`, func(ctx *fiber.Ctx) error {
-		_, _, segments := userInfoFromContext(ctx, d)
+		// create new property
+		in, _, segments := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
 		return views.RenderRealtorProperty(ctx, M.SX{
 			`title`:    `Realtor Property`,
 			`segments`: segments,
+			`property`: nil,
+		})
+	})
+	fw.Get(`/realtor/property/:propId`, func(ctx *fiber.Ctx) error {
+		// edit property
+		in, _, segments := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		out := d.RealtorProperty(&domain.RealtorPropertyIn{
+			RequestCommon: in.RequestCommon,
+			Id:            X.ToU(ctx.Params(`propId`)),
+		})
+		if out.Error != `` {
+			L.Print(out.Error)
+			return views.RenderError(ctx, M.SX{
+				`error`: out.Error,
+			})
+		}
+		return views.RenderRealtorProperty(ctx, M.SX{
+			`title`:    `Realtor Property`,
+			`segments`: segments,
+			`property`: out.Property,
 		})
 	})
 	fw.Get(`/admin`, func(ctx *fiber.Ctx) error {
@@ -248,7 +291,8 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 
 func notLogin(ctx *fiber.Ctx, d *domain.Domain, in domain.RequestCommon) bool {
 	var check domain.ResponseCommon
-	if d.MustLogin(in, &check) == nil {
+	sess := d.MustLogin(in, &check)
+	if sess == nil {
 		_ = views.RenderError(ctx, M.SX{
 			`error`: check.Error,
 		})
@@ -259,7 +303,8 @@ func notLogin(ctx *fiber.Ctx, d *domain.Domain, in domain.RequestCommon) bool {
 
 func notAdmin(ctx *fiber.Ctx, d *domain.Domain, in domain.RequestCommon) bool {
 	var check domain.ResponseCommon
-	if d.MustAdmin(in, &check) == nil {
+	sess := d.MustLogin(in, &check)
+	if sess == nil {
 		_ = views.RenderError(ctx, M.SX{
 			`error`: check.Error,
 		})

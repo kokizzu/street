@@ -9,6 +9,9 @@
   import AddRoomDialog from '../_components/AddRoomDialog.svelte';
   import { RealtorUpsertProperty } from '../jsApi.GEN';
   
+  let property = {/* property */};
+  // ^ if this null = add a new page
+  
   onMount( async () => {
     await initMap();
   } );

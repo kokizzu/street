@@ -194,6 +194,15 @@
   function element(name) {
     return document.createElement(name);
   }
+  function text(data) {
+    return document.createTextNode(data);
+  }
+  function space() {
+    return text(" ");
+  }
+  function comment(content) {
+    return document.createComment(content);
+  }
   function children(element2) {
     return Array.from(element2.childNodes);
   }
@@ -657,13 +666,19 @@
   // error.svelte
   function create_fragment(ctx) {
     let h1;
+    let t1;
+    let c;
     return {
       c() {
         h1 = element("h1");
         h1.textContent = `${error}`;
+        t1 = space();
+        c = comment(" TODO: add back button ");
       },
       m(target, anchor) {
         insert(target, h1, anchor);
+        insert(target, t1, anchor);
+        insert(target, c, anchor);
       },
       p: noop,
       i: noop,
@@ -671,6 +686,8 @@
       d(detaching) {
         if (detaching) {
           detach(h1);
+          detach(t1);
+          detach(c);
         }
       }
     };
