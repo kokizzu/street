@@ -131,6 +131,60 @@ var (
 				DataType:  zCrud.DataTypeString,
 				InputType: zCrud.InputTypeText,
 			},
+			{
+				Name:      mProperty.LastPrice,
+				Label:     `Last Price`,
+				DataType:  zCrud.DataTypeString,
+				InputType: zCrud.InputTypeText, // TODO: need to fix schema
+			},
+			{
+				Name:      mProperty.Purpose, // rent/sell
+				Label:     `Purpose`,
+				DataType:  zCrud.DataTypeString,
+				InputType: zCrud.InputTypeText, // TODO: change to select
+			},
+			{
+				Name:      mProperty.HouseType, // house/apartment
+				Label:     `House Type`,
+				DataType:  zCrud.DataTypeString,
+				InputType: zCrud.InputTypeText, // TODO: change to select
+			},
+			//{
+			//	Name: 	mProperty.Images,
+			//	Label: 	`Images`,
+			//	DataType: zCrud.DataTypeString,
+			//	InputType: zCrud.InputTypeText, // TODO: change to image upload
+			//},
+			{
+				Name:      mProperty.Bedroom,
+				Label:     `Bedroom`,
+				DataType:  zCrud.DataTypeInt,
+				InputType: zCrud.InputTypeNumber,
+			},
+			{
+				Name:      mProperty.Bathroom,
+				Label:     `Bathroom`,
+				DataType:  zCrud.DataTypeInt,
+				InputType: zCrud.InputTypeNumber,
+			},
+			{
+				Name:      mProperty.AgencyFeePercent,
+				Label:     `Agency Fee Percent`,
+				DataType:  zCrud.DataTypeFloat,
+				InputType: zCrud.InputTypeNumber,
+			},
+			//{
+			//	Name:      mProperty.FloorList,
+			//	Label:     `Floor List`,
+			//	DataType:  zCrud.DataTypeString,
+			//	InputType: zCrud.InputTypeText, // TODO: change to json editor
+			//},
+			{
+				Name:      mProperty.Country,
+				Label:     `Country`,
+				DataType:  zCrud.DataTypeString,
+				InputType: zCrud.InputTypeText, // TODO: change to select
+			},
 		},
 	}
 )
@@ -197,6 +251,13 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		prop.SetDistrict(in.Property.District)
 		prop.SetNote(in.Property.Note)
 		prop.SetCoord(in.Property.Coord)
+		prop.SetLastPrice(in.Property.LastPrice)
+		prop.SetPurpose(in.Property.Purpose)
+		prop.SetHouseType(in.Property.HouseType)
+		prop.SetBedroom(in.Property.Bedroom)
+		prop.SetBathroom(in.Property.Bathroom)
+		prop.SetAgencyFeePercent(in.Property.AgencyFeePercent)
+		prop.SetCountry(in.Property.Country)
 
 		if prop.HaveMutation() {
 			prop.SetUpdatedAt(in.UnixNow())
