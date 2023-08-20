@@ -64,6 +64,18 @@ caddy run # foreground
 caddy start # background
 ```
 
+## Execute Tarantool on Docker
+
+```shell
+docker exec -it street_tarantool1_1 tarantoolctl connect userT:passT@127.0.0.1:3301
+```
+
+## Execute Clickhouse on Docker
+
+```shell
+docker exec -it street_clickhouse1_1 clickhouse-client -u userC
+```
+
 ## Generate ORM
 
 ```shell
