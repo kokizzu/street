@@ -630,6 +630,10 @@
     add_room_dialog.hideModal();
     return;
   }
+
+  function handleRemoveRoom(roomIndex) {
+    floor_lists[ floor_index_to_edit ]['rooms'] = floor_lists[ floor_index_to_edit ]['rooms'].filter((_, i) => i !== roomIndex);
+  }
   
   function handleNextFloor() {
     realtorStack[ currentPage ] = {
@@ -1019,12 +1023,12 @@
                     <button on:click={showAddRoomDialog}>Add</button>
                   </div>
                   {#if floor_lists[ floor_index_to_edit ][ 'rooms' ].length}
-                    {#each floor_lists[ floor_index_to_edit ].rooms as room}
+                    {#each floor_lists[ floor_index_to_edit ].rooms as room, index}
                       <div class='room_list_item'>
                         <span>{room.name}</span>
                         <div class='right_item'>
                           <span>{room.sizeM2} {room.unit}</span>
-                          <button class='remove_room'>
+                          <button class='remove_room' on:click={() => handleRemoveRoom(index)}>
                             <i class='gg-trash'></i>
                           </button>
                         </div>
