@@ -1,0 +1,2276 @@
+[
+  {
+   "country_name": "Afghanistan",
+   "iso_2": "AF",
+   "iso_3": "AFG",
+   "country_code": 4,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 33,
+   "coordinate.longitude": 65
+  },
+  {
+   "country_name": "Albania",
+   "iso_2": "AL",
+   "iso_3": "ALB",
+   "country_code": 8,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 41,
+   "coordinate.longitude": 20
+  },
+  {
+   "country_name": "Algeria",
+   "iso_2": "DZ",
+   "iso_3": "DZA",
+   "country_code": 12,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 28,
+   "coordinate.longitude": 3
+  },
+  {
+   "country_name": "American Samoa",
+   "iso_2": "AS",
+   "iso_3": "ASM",
+   "country_code": 16,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2",
+   "coordinate.latitude": -143.333,
+   "coordinate.longitude": -170
+  },
+  {
+   "country_name": "Andorra",
+   "iso_2": "AD",
+   "iso_3": "AND",
+   "country_code": 20,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 42.5,
+   "coordinate.longitude": 1.6
+  },
+  {
+   "country_name": "Angola",
+   "iso_2": "AO",
+   "iso_3": "AGO",
+   "country_code": 24,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2",
+   "coordinate.latitude": -12.5,
+   "coordinate.longitude": 18.5
+  },
+  {
+   "country_name": "Anguilla",
+   "iso_2": "AI",
+   "iso_3": "AIA",
+   "country_code": 660,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 18.25,
+   "coordinate.longitude": -631.667
+  },
+  {
+   "country_name": "Antigua and Barbuda",
+   "iso_2": "AG",
+   "iso_3": "ATG",
+   "country_code": 28,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 17.05,
+   "coordinate.longitude": -61.8
+  },
+  {
+   "country_name": "Argentina",
+   "iso_2": "AR",
+   "iso_3": "ARG",
+   "country_code": 32,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2",
+   "coordinate.latitude": -34,
+   "coordinate.longitude": -64
+  },
+  {
+   "country_name": "Armenia",
+   "iso_2": "AM",
+   "iso_3": "ARM",
+   "country_code": 51,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 40,
+   "coordinate.longitude": 45
+  },
+  {
+   "country_name": "Aruba",
+   "iso_2": "AW",
+   "iso_3": "ABW",
+   "country_code": 533,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 12.5,
+   "coordinate.longitude": -699.667
+  },
+  {
+   "country_name": "Australia",
+   "iso_2": "AU",
+   "iso_3": "AUS",
+   "country_code": 36,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2",
+   "coordinate.latitude": -27,
+   "coordinate.longitude": 133
+  },
+  {
+   "country_name": "Austria",
+   "iso_2": "AT",
+   "iso_3": "AUT",
+   "country_code": 40,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 473.333,
+   "coordinate.longitude": 133.333
+  },
+  {
+   "country_name": "Azerbaijan",
+   "iso_2": "AZ",
+   "iso_3": "AZE",
+   "country_code": 31,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 40.5,
+   "coordinate.longitude": 47.5
+  },
+  {
+   "country_name": "Bahamas",
+   "iso_2": "BS",
+   "iso_3": "BHS",
+   "country_code": 44,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 24.25,
+   "coordinate.longitude": -76
+  },
+  {
+   "country_name": "Bahrain",
+   "iso_2": "BH",
+   "iso_3": "BHR",
+   "country_code": 48,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 26,
+   "coordinate.longitude": 50.55
+  },
+  {
+   "country_name": "Bangladesh",
+   "iso_2": "BD",
+   "iso_3": "BGD",
+   "country_code": 50,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 24,
+   "coordinate.longitude": 90
+  },
+  {
+   "country_name": "Barbados",
+   "iso_2": "BB",
+   "iso_3": "BRB",
+   "country_code": 52,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 131.667,
+   "coordinate.longitude": -595.333
+  },
+  {
+   "country_name": "Belarus",
+   "iso_2": "BY",
+   "iso_3": "BLR",
+   "country_code": 112,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 53,
+   "coordinate.longitude": 28
+  },
+  {
+   "country_name": "Belgium",
+   "iso_2": "BE",
+   "iso_3": "BEL",
+   "country_code": 56,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 508.333,
+   "coordinate.longitude": 4
+  },
+  {
+   "country_name": "Belize",
+   "iso_2": "BZ",
+   "iso_3": "BLZ",
+   "country_code": 84,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 17.25,
+   "coordinate.longitude": -88.75
+  },
+  {
+   "country_name": "Benin",
+   "iso_2": "BJ",
+   "iso_3": "BEN",
+   "country_code": 204,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 9.5,
+   "coordinate.longitude": 2.25
+  },
+  {
+   "country_name": "Bermuda",
+   "iso_2": "BM",
+   "iso_3": "BMU",
+   "country_code": 60,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 323.333,
+   "coordinate.longitude": -64.75
+  },
+  {
+   "country_name": "Bhutan",
+   "iso_2": "BT",
+   "iso_3": "BTN",
+   "country_code": 64,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 27.5,
+   "coordinate.longitude": 90.5
+  },
+  {
+   "country_name": "Bolivia (Plurinational State of)",
+   "iso_2": "BO",
+   "iso_3": "BOL",
+   "country_code": 68,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2",
+   "coordinate.latitude": -17,
+   "coordinate.longitude": -65
+  },
+  {
+   "country_name": "Bosnia and Herzegovina",
+   "iso_2": "BA",
+   "iso_3": "BIH",
+   "country_code": 70,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2",
+   "coordinate.latitude": 44,
+   "coordinate.longitude": 18
+  },
+  {
+   "country_name": "Botswana",
+   "iso_2": "BW",
+   "iso_3": "BWA",
+   "country_code": 72,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2",
+   "coordinate.latitude": -22,
+   "coordinate.longitude": 24
+  },
+  {
+   "country_name": "Bouvet Island",
+   "iso_2": "BV",
+   "iso_3": "BVT",
+   "country_code": 74,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2",
+   "coordinate.latitude": -544.333,
+   "coordinate.longitude": 3.4
+  },
+  {
+   "country_name": "Brazil",
+   "iso_2": "BR",
+   "iso_3": "BRA",
+   "country_code": 76,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2",
+   "coordinate.latitude": -10,
+   "coordinate.longitude": -55
+  },
+  {
+   "country_name": "British Indian Ocean Territory",
+   "iso_2": "IO",
+   "iso_3": "IOT",
+   "country_code": 86,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2",
+   "coordinate.latitude": -6,
+   "coordinate.longitude": 71.5
+  },
+  {
+   "country_name": "Brunei Darussalam",
+   "iso_2": "BN",
+   "iso_3": "BRN",
+   "country_code": 96,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Bulgaria",
+   "iso_2": "BG",
+   "iso_3": "BGR",
+   "country_code": 100,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Burkina Faso",
+   "iso_2": "BF",
+   "iso_3": "BFA",
+   "country_code": 854,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Burundi",
+   "iso_2": "BI",
+   "iso_3": "BDI",
+   "country_code": 108,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Cabo Verde",
+   "iso_2": "CV",
+   "iso_3": "CPV",
+   "country_code": 132,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Cambodia",
+   "iso_2": "KH",
+   "iso_3": "KHM",
+   "country_code": 116,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Cameroon",
+   "iso_2": "CM",
+   "iso_3": "CMR",
+   "country_code": 120,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Canada",
+   "iso_2": "CA",
+   "iso_3": "CAN",
+   "country_code": 124,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Cayman Islands",
+   "iso_2": "KY",
+   "iso_3": "CYM",
+   "country_code": 136,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Central African Republic",
+   "iso_2": "CF",
+   "iso_3": "CAF",
+   "country_code": 140,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Chad",
+   "iso_2": "TD",
+   "iso_3": "TCD",
+   "country_code": 148,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Chile",
+   "iso_2": "CL",
+   "iso_3": "CHL",
+   "country_code": 152,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "China",
+   "iso_2": "CN",
+   "iso_3": "CHN",
+   "country_code": 156,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Christmas Island",
+   "iso_2": "CX",
+   "iso_3": "CXR",
+   "country_code": 162,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Cocos (Keeling) Islands",
+   "iso_2": "CC",
+   "iso_3": "CCK",
+   "country_code": 166,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Colombia",
+   "iso_2": "CO",
+   "iso_3": "COL",
+   "country_code": 170,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Comoros",
+   "iso_2": "KM",
+   "iso_3": "COM",
+   "country_code": 174,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Congo",
+   "iso_2": "CG",
+   "iso_3": "COG",
+   "country_code": 178,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Congo, Democratic Republic of the",
+   "iso_2": "CD",
+   "iso_3": "COD",
+   "country_code": 180,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Cook Islands",
+   "iso_2": "CK",
+   "iso_3": "COK",
+   "country_code": 184,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Costa Rica",
+   "iso_2": "CR",
+   "iso_3": "CRI",
+   "country_code": 188,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Côte d'Ivoire",
+   "iso_2": "CI",
+   "iso_3": "CIV",
+   "country_code": 384,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Croatia",
+   "iso_2": "HR",
+   "iso_3": "HRV",
+   "country_code": 191,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Cuba",
+   "iso_2": "CU",
+   "iso_3": "CUB",
+   "country_code": 192,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Curaçao",
+   "iso_2": "CW",
+   "iso_3": "CUW",
+   "country_code": 531,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Cyprus",
+   "iso_2": "CY",
+   "iso_3": "CYP",
+   "country_code": 196,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Czechia",
+   "iso_2": "CZ",
+   "iso_3": "CZE",
+   "country_code": 203,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Denmark",
+   "iso_2": "DK",
+   "iso_3": "DNK",
+   "country_code": 208,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Djibouti",
+   "iso_2": "DJ",
+   "iso_3": "DJI",
+   "country_code": 262,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Dominica",
+   "iso_2": "DM",
+   "iso_3": "DMA",
+   "country_code": 212,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Dominican Republic",
+   "iso_2": "DO",
+   "iso_3": "DOM",
+   "country_code": 214,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Ecuador",
+   "iso_2": "EC",
+   "iso_3": "ECU",
+   "country_code": 218,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Egypt",
+   "iso_2": "EG",
+   "iso_3": "EGY",
+   "country_code": 818,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "El Salvador",
+   "iso_2": "SV",
+   "iso_3": "SLV",
+   "country_code": 222,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Equatorial Guinea",
+   "iso_2": "GQ",
+   "iso_3": "GNQ",
+   "country_code": 226,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Eritrea",
+   "iso_2": "ER",
+   "iso_3": "ERI",
+   "country_code": 232,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Estonia",
+   "iso_2": "EE",
+   "iso_3": "EST",
+   "country_code": 233,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Eswatini",
+   "iso_2": "SZ",
+   "iso_3": "SWZ",
+   "country_code": 748,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Ethiopia",
+   "iso_2": "ET",
+   "iso_3": "ETH",
+   "country_code": 231,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Falkland Islands (Malvinas)",
+   "iso_2": "FK",
+   "iso_3": "FLK",
+   "country_code": 238,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Faroe Islands",
+   "iso_2": "FO",
+   "iso_3": "FRO",
+   "country_code": 234,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Fiji",
+   "iso_2": "FJ",
+   "iso_3": "FJI",
+   "country_code": 242,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Finland",
+   "iso_2": "FI",
+   "iso_3": "FIN",
+   "country_code": 246,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "France",
+   "iso_2": "FR",
+   "iso_3": "FRA",
+   "country_code": 250,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "French Guiana",
+   "iso_2": "GF",
+   "iso_3": "GUF",
+   "country_code": 254,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "French Polynesia",
+   "iso_2": "PF",
+   "iso_3": "PYF",
+   "country_code": 258,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "French Southern Territories",
+   "iso_2": "TF",
+   "iso_3": "ATF",
+   "country_code": 260,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Gabon",
+   "iso_2": "GA",
+   "iso_3": "GAB",
+   "country_code": 266,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Gambia",
+   "iso_2": "GM",
+   "iso_3": "GMB",
+   "country_code": 270,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Georgia",
+   "iso_2": "GE",
+   "iso_3": "GEO",
+   "country_code": 268,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Germany",
+   "iso_2": "DE",
+   "iso_3": "DEU",
+   "country_code": 276,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Ghana",
+   "iso_2": "GH",
+   "iso_3": "GHA",
+   "country_code": 288,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Gibraltar",
+   "iso_2": "GI",
+   "iso_3": "GIB",
+   "country_code": 292,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Greece",
+   "iso_2": "GR",
+   "iso_3": "GRC",
+   "country_code": 300,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Greenland",
+   "iso_2": "GL",
+   "iso_3": "GRL",
+   "country_code": 304,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Grenada",
+   "iso_2": "GD",
+   "iso_3": "GRD",
+   "country_code": 308,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Guadeloupe",
+   "iso_2": "GP",
+   "iso_3": "GLP",
+   "country_code": 312,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Guam",
+   "iso_2": "GU",
+   "iso_3": "GUM",
+   "country_code": 316,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Guatemala",
+   "iso_2": "GT",
+   "iso_3": "GTM",
+   "country_code": 320,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Guernsey",
+   "iso_2": "GG",
+   "iso_3": "GGY",
+   "country_code": 831,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Guinea",
+   "iso_2": "GN",
+   "iso_3": "GIN",
+   "country_code": 324,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Guinea-Bissau",
+   "iso_2": "GW",
+   "iso_3": "GNB",
+   "country_code": 624,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Guyana",
+   "iso_2": "GY",
+   "iso_3": "GUY",
+   "country_code": 328,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Haiti",
+   "iso_2": "HT",
+   "iso_3": "HTI",
+   "country_code": 332,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Heard Island and McDonald Islands",
+   "iso_2": "HM",
+   "iso_3": "HMD",
+   "country_code": 334,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Holy See",
+   "iso_2": "VA",
+   "iso_3": "VAT",
+   "country_code": 336,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Honduras",
+   "iso_2": "HN",
+   "iso_3": "HND",
+   "country_code": 340,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Hong Kong",
+   "iso_2": "HK",
+   "iso_3": "HKG",
+   "country_code": 344,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Hungary",
+   "iso_2": "HU",
+   "iso_3": "HUN",
+   "country_code": 348,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Iceland",
+   "iso_2": "IS",
+   "iso_3": "ISL",
+   "country_code": 352,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "India",
+   "iso_2": "IN",
+   "iso_3": "IND",
+   "country_code": 356,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Indonesia",
+   "iso_2": "ID",
+   "iso_3": "IDN",
+   "country_code": 360,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Iran (Islamic Republic of)",
+   "iso_2": "IR",
+   "iso_3": "IRN",
+   "country_code": 364,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Iraq",
+   "iso_2": "IQ",
+   "iso_3": "IRQ",
+   "country_code": 368,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Ireland",
+   "iso_2": "IE",
+   "iso_3": "IRL",
+   "country_code": 372,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Isle of Man",
+   "iso_2": "IM",
+   "iso_3": "IMN",
+   "country_code": 833,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Israel",
+   "iso_2": "IL",
+   "iso_3": "ISR",
+   "country_code": 376,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Italy",
+   "iso_2": "IT",
+   "iso_3": "ITA",
+   "country_code": 380,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Jamaica",
+   "iso_2": "JM",
+   "iso_3": "JAM",
+   "country_code": 388,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Japan",
+   "iso_2": "JP",
+   "iso_3": "JPN",
+   "country_code": 392,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "jo"
+  },
+  {
+   "country_name": "Jersey",
+   "iso_2": "JE",
+   "iso_3": "JEY",
+   "country_code": 832,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Jordan",
+   "iso_2": "JO",
+   "iso_3": "JOR",
+   "country_code": 400,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Kazakhstan",
+   "iso_2": "KZ",
+   "iso_3": "KAZ",
+   "country_code": 398,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Kenya",
+   "iso_2": "KE",
+   "iso_3": "KEN",
+   "country_code": 404,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Kiribati",
+   "iso_2": "KI",
+   "iso_3": "KIR",
+   "country_code": 296,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Korea (Democratic People's Republic of)",
+   "iso_2": "KP",
+   "iso_3": "PRK",
+   "country_code": 408,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Korea, Republic of",
+   "iso_2": "KR",
+   "iso_3": "KOR",
+   "country_code": 410,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Kuwait",
+   "iso_2": "KW",
+   "iso_3": "KWT",
+   "country_code": 414,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Kyrgyzstan",
+   "iso_2": "KG",
+   "iso_3": "KGZ",
+   "country_code": 417,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Lao People's Democratic Republic",
+   "iso_2": "LA",
+   "iso_3": "LAO",
+   "country_code": 418,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Latvia",
+   "iso_2": "LV",
+   "iso_3": "LVA",
+   "country_code": 428,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Lebanon",
+   "iso_2": "LB",
+   "iso_3": "LBN",
+   "country_code": 422,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Lesotho",
+   "iso_2": "LS",
+   "iso_3": "LSO",
+   "country_code": 426,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Liberia",
+   "iso_2": "LR",
+   "iso_3": "LBR",
+   "country_code": 430,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "sqft"
+  },
+  {
+   "country_name": "Libya",
+   "iso_2": "LY",
+   "iso_3": "LBY",
+   "country_code": 434,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Liechtenstein",
+   "iso_2": "LI",
+   "iso_3": "LIE",
+   "country_code": 438,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Lithuania",
+   "iso_2": "LT",
+   "iso_3": "LTU",
+   "country_code": 440,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Luxembourg",
+   "iso_2": "LU",
+   "iso_3": "LUX",
+   "country_code": 442,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Macao",
+   "iso_2": "MO",
+   "iso_3": "MAC",
+   "country_code": 446,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Madagascar",
+   "iso_2": "MG",
+   "iso_3": "MDG",
+   "country_code": 450,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Malawi",
+   "iso_2": "MW",
+   "iso_3": "MWI",
+   "country_code": 454,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Malaysia",
+   "iso_2": "MY",
+   "iso_3": "MYS",
+   "country_code": 458,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Maldives",
+   "iso_2": "MV",
+   "iso_3": "MDV",
+   "country_code": 462,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Mali",
+   "iso_2": "ML",
+   "iso_3": "MLI",
+   "country_code": 466,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Malta",
+   "iso_2": "MT",
+   "iso_3": "MLT",
+   "country_code": 470,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Marshall Islands",
+   "iso_2": "MH",
+   "iso_3": "MHL",
+   "country_code": 584,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Martinique",
+   "iso_2": "MQ",
+   "iso_3": "MTQ",
+   "country_code": 474,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Mauritania",
+   "iso_2": "MR",
+   "iso_3": "MRT",
+   "country_code": 478,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Mauritius",
+   "iso_2": "MU",
+   "iso_3": "MUS",
+   "country_code": 480,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Mayotte",
+   "iso_2": "YT",
+   "iso_3": "MYT",
+   "country_code": 175,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Mexico",
+   "iso_2": "MX",
+   "iso_3": "MEX",
+   "country_code": 484,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Micronesia (Federated States of)",
+   "iso_2": "FM",
+   "iso_3": "FSM",
+   "country_code": 583,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Moldova, Republic of",
+   "iso_2": "MD",
+   "iso_3": "MDA",
+   "country_code": 498,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Monaco",
+   "iso_2": "MC",
+   "iso_3": "MCO",
+   "country_code": 492,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Mongolia",
+   "iso_2": "MN",
+   "iso_3": "MNG",
+   "country_code": 496,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Montenegro",
+   "iso_2": "ME",
+   "iso_3": "MNE",
+   "country_code": 499,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Montserrat",
+   "iso_2": "MS",
+   "iso_3": "MSR",
+   "country_code": 500,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Morocco",
+   "iso_2": "MA",
+   "iso_3": "MAR",
+   "country_code": 504,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Mozambique",
+   "iso_2": "MZ",
+   "iso_3": "MOZ",
+   "country_code": 508,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Myanmar",
+   "iso_2": "MM",
+   "iso_3": "MMR",
+   "country_code": 104,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "sqft"
+  },
+  {
+   "country_name": "Namibia",
+   "iso_2": "NA",
+   "iso_3": "NAM",
+   "country_code": 516,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Nauru",
+   "iso_2": "NR",
+   "iso_3": "NRU",
+   "country_code": 520,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Nepal",
+   "iso_2": "NP",
+   "iso_3": "NPL",
+   "country_code": 524,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Netherlands",
+   "iso_2": "NL",
+   "iso_3": "NLD",
+   "country_code": 528,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "New Caledonia",
+   "iso_2": "NC",
+   "iso_3": "NCL",
+   "country_code": 540,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "New Zealand",
+   "iso_2": "NZ",
+   "iso_3": "NZL",
+   "country_code": 554,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Nicaragua",
+   "iso_2": "NI",
+   "iso_3": "NIC",
+   "country_code": 558,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Niger",
+   "iso_2": "NE",
+   "iso_3": "NER",
+   "country_code": 562,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Nigeria",
+   "iso_2": "NG",
+   "iso_3": "NGA",
+   "country_code": 566,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Niue",
+   "iso_2": "NU",
+   "iso_3": "NIU",
+   "country_code": 570,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Norfolk Island",
+   "iso_2": "NF",
+   "iso_3": "NFK",
+   "country_code": 574,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "North Macedonia",
+   "iso_2": "MK",
+   "iso_3": "MKD",
+   "country_code": 807,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Northern Mariana Islands",
+   "iso_2": "MP",
+   "iso_3": "MNP",
+   "country_code": 580,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Norway",
+   "iso_2": "NO",
+   "iso_3": "NOR",
+   "country_code": 578,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Oman",
+   "iso_2": "OM",
+   "iso_3": "OMN",
+   "country_code": 512,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Pakistan",
+   "iso_2": "PK",
+   "iso_3": "PAK",
+   "country_code": 586,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Palau",
+   "iso_2": "PW",
+   "iso_3": "PLW",
+   "country_code": 585,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Palestine, State of",
+   "iso_2": "PS",
+   "iso_3": "PSE",
+   "country_code": 275,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Panama",
+   "iso_2": "PA",
+   "iso_3": "PAN",
+   "country_code": 591,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Papua New Guinea",
+   "iso_2": "PG",
+   "iso_3": "PNG",
+   "country_code": 598,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Paraguay",
+   "iso_2": "PY",
+   "iso_3": "PRY",
+   "country_code": 600,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Peru",
+   "iso_2": "PE",
+   "iso_3": "PER",
+   "country_code": 604,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Philippines",
+   "iso_2": "PH",
+   "iso_3": "PHL",
+   "country_code": 608,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Pitcairn",
+   "iso_2": "PN",
+   "iso_3": "PCN",
+   "country_code": 612,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Poland",
+   "iso_2": "PL",
+   "iso_3": "POL",
+   "country_code": 616,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Portugal",
+   "iso_2": "PT",
+   "iso_3": "PRT",
+   "country_code": 620,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Puerto Rico",
+   "iso_2": "PR",
+   "iso_3": "PRI",
+   "country_code": 630,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Qatar",
+   "iso_2": "QA",
+   "iso_3": "QAT",
+   "country_code": 634,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Réunion",
+   "iso_2": "RE",
+   "iso_3": "REU",
+   "country_code": 638,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Romania",
+   "iso_2": "RO",
+   "iso_3": "ROU",
+   "country_code": 642,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Russian Federation",
+   "iso_2": "RU",
+   "iso_3": "RUS",
+   "country_code": 643,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Rwanda",
+   "iso_2": "RW",
+   "iso_3": "RWA",
+   "country_code": 646,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Saint Barthélemy",
+   "iso_2": "BL",
+   "iso_3": "BLM",
+   "country_code": 652,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Saint Helena, Ascension and Tristan da Cunha",
+   "iso_2": "SH",
+   "iso_3": "SHN",
+   "country_code": 654,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Saint Kitts and Nevis",
+   "iso_2": "KN",
+   "iso_3": "KNA",
+   "country_code": 659,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Saint Lucia",
+   "iso_2": "LC",
+   "iso_3": "LCA",
+   "country_code": 662,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Saint Martin (French part)",
+   "iso_2": "MF",
+   "iso_3": "MAF",
+   "country_code": 663,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Saint Pierre and Miquelon",
+   "iso_2": "PM",
+   "iso_3": "SPM",
+   "country_code": 666,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Saint Vincent and the Grenadines",
+   "iso_2": "VC",
+   "iso_3": "VCT",
+   "country_code": 670,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Samoa",
+   "iso_2": "WS",
+   "iso_3": "WSM",
+   "country_code": 882,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "San Marino",
+   "iso_2": "SM",
+   "iso_3": "SMR",
+   "country_code": 674,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Sao Tome and Principe",
+   "iso_2": "ST",
+   "iso_3": "STP",
+   "country_code": 678,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Saudi Arabia",
+   "iso_2": "SA",
+   "iso_3": "SAU",
+   "country_code": 682,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Senegal",
+   "iso_2": "SN",
+   "iso_3": "SEN",
+   "country_code": 686,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Serbia",
+   "iso_2": "RS",
+   "iso_3": "SRB",
+   "country_code": 688,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Seychelles",
+   "iso_2": "SC",
+   "iso_3": "SYC",
+   "country_code": 690,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Sierra Leone",
+   "iso_2": "SL",
+   "iso_3": "SLE",
+   "country_code": 694,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Singapore",
+   "iso_2": "SG",
+   "iso_3": "SGP",
+   "country_code": 702,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Sint Maarten (Dutch part)",
+   "iso_2": "SX",
+   "iso_3": "SXM",
+   "country_code": 534,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Slovakia",
+   "iso_2": "SK",
+   "iso_3": "SVK",
+   "country_code": 703,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Slovenia",
+   "iso_2": "SI",
+   "iso_3": "SVN",
+   "country_code": 705,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Solomon Islands",
+   "iso_2": "SB",
+   "iso_3": "SLB",
+   "country_code": 90,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Somalia",
+   "iso_2": "SO",
+   "iso_3": "SOM",
+   "country_code": 706,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "South Africa",
+   "iso_2": "ZA",
+   "iso_3": "ZAF",
+   "country_code": 710,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "South Georgia and the South Sandwich Islands",
+   "iso_2": "GS",
+   "iso_3": "SGS",
+   "country_code": 239,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "South Sudan",
+   "iso_2": "SS",
+   "iso_3": "SSD",
+   "country_code": 728,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Spain",
+   "iso_2": "ES",
+   "iso_3": "ESP",
+   "country_code": 724,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Sri Lanka",
+   "iso_2": "LK",
+   "iso_3": "LKA",
+   "country_code": 144,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Sudan",
+   "iso_2": "SD",
+   "iso_3": "SDN",
+   "country_code": 729,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Suriname",
+   "iso_2": "SR",
+   "iso_3": "SUR",
+   "country_code": 740,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Svalbard and Jan Mayen",
+   "iso_2": "SJ",
+   "iso_3": "SJM",
+   "country_code": 744,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Sweden",
+   "iso_2": "SE",
+   "iso_3": "SWE",
+   "country_code": 752,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Switzerland",
+   "iso_2": "CH",
+   "iso_3": "CHE",
+   "country_code": 756,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Syrian Arab Republic",
+   "iso_2": "SY",
+   "iso_3": "SYR",
+   "country_code": 760,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Taiwan, Province of China",
+   "iso_2": "TW",
+   "iso_3": "TWN",
+   "country_code": 158,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Tajikistan",
+   "iso_2": "TJ",
+   "iso_3": "TJK",
+   "country_code": 762,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Tanzania, United Republic of",
+   "iso_2": "TZ",
+   "iso_3": "TZA",
+   "country_code": 834,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Thailand",
+   "iso_2": "TH",
+   "iso_3": "THA",
+   "country_code": 764,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Timor-Leste",
+   "iso_2": "TL",
+   "iso_3": "TLS",
+   "country_code": 626,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Togo",
+   "iso_2": "TG",
+   "iso_3": "TGO",
+   "country_code": 768,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Tokelau",
+   "iso_2": "TK",
+   "iso_3": "TKL",
+   "country_code": 772,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Tonga",
+   "iso_2": "TO",
+   "iso_3": "TON",
+   "country_code": 776,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Trinidad and Tobago",
+   "iso_2": "TT",
+   "iso_3": "TTO",
+   "country_code": 780,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Tunisia",
+   "iso_2": "TN",
+   "iso_3": "TUN",
+   "country_code": 788,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Turkey",
+   "iso_2": "TR",
+   "iso_3": "TUR",
+   "country_code": 792,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Turkmenistan",
+   "iso_2": "TM",
+   "iso_3": "TKM",
+   "country_code": 795,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Turks and Caicos Islands",
+   "iso_2": "TC",
+   "iso_3": "TCA",
+   "country_code": 796,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Tuvalu",
+   "iso_2": "TV",
+   "iso_3": "TUV",
+   "country_code": 798,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Uganda",
+   "iso_2": "UG",
+   "iso_3": "UGA",
+   "country_code": 800,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Ukraine",
+   "iso_2": "UA",
+   "iso_3": "UKR",
+   "country_code": 804,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "United Arab Emirates",
+   "iso_2": "AE",
+   "iso_3": "ARE",
+   "country_code": 784,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "United Kingdom",
+   "iso_2": "GB",
+   "iso_3": "GBR",
+   "country_code": 826,
+   "region": "Europe",
+   "region_code": 150,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "United States of America",
+   "iso_2": "US",
+   "iso_3": "USA",
+   "country_code": 840,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "sqft"
+  },
+  {
+   "country_name": "United States Minor Outlying Islands",
+   "iso_2": "UM",
+   "iso_3": "UMI",
+   "country_code": 581,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Uruguay",
+   "iso_2": "UY",
+   "iso_3": "URY",
+   "country_code": 858,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Uzbekistan",
+   "iso_2": "UZ",
+   "iso_3": "UZB",
+   "country_code": 860,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Vanuatu",
+   "iso_2": "VU",
+   "iso_3": "VUT",
+   "country_code": 548,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Venezuela (Bolivarian Republic of)",
+   "iso_2": "VE",
+   "iso_3": "VEN",
+   "country_code": 862,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Viet Nam",
+   "iso_2": "VN",
+   "iso_3": "VNM",
+   "country_code": 704,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Virgin Islands (British)",
+   "iso_2": "VG",
+   "iso_3": "VGB",
+   "country_code": 92,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Virgin Islands (U.S.)",
+   "iso_2": "VI",
+   "iso_3": "VIR",
+   "country_code": 850,
+   "region": "Americas",
+   "region_code": 19,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Wallis and Futuna",
+   "iso_2": "WF",
+   "iso_3": "WLF",
+   "country_code": 876,
+   "region": "Oceania",
+   "region_code": 9,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Western Sahara",
+   "iso_2": "EH",
+   "iso_3": "ESH",
+   "country_code": 732,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Yemen",
+   "iso_2": "YE",
+   "iso_3": "YEM",
+   "country_code": 887,
+   "region": "Asia",
+   "region_code": 142,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Zambia",
+   "iso_2": "ZM",
+   "iso_3": "ZMB",
+   "country_code": 894,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  },
+  {
+   "country_name": "Zimbabwe",
+   "iso_2": "ZW",
+   "iso_3": "ZWE",
+   "country_code": 716,
+   "region": "Africa",
+   "region_code": 2,
+   "unit_measurement": "m2"
+  }
+ ]
