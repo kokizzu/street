@@ -25,6 +25,7 @@ var viewList = map[string]string{
 	`Index`: `../svelte/index.html`, // ../svelte/index.svelte
 	`Privacy`: `../svelte/privacy.html`, // ../svelte/privacy.svelte
 	`Realtor`: `../svelte/realtor.html`, // ../svelte/realtor.svelte
+	`RealtorProperty`: `../svelte/realtor/property.html`, // ../svelte/realtor/property.svelte
 	`Tos`: `../svelte/tos.html`, // ../svelte/tos.svelte
 	`User`: `../svelte/user.html`, // ../svelte/user.svelte
 }
@@ -103,6 +104,11 @@ func (v *Views) RenderPrivacy(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderRealtor(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`Realtor`].Str(m))
+}
+
+func (v *Views) RenderRealtorProperty(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`RealtorProperty`].Str(m))
 }
 
 func (v *Views) RenderTos(c *fiber.Ctx, m M.SX) error {
