@@ -99,7 +99,60 @@
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style></style>
+<style>/* fakecss:./guest/verifyEmail.esbuild-svelte-fake-css */
+.verify_email_container.svelte-e6v9rf.svelte-e6v9rf {
+  height: 100%;
+  width: 100%;
+  background-color: #f1f5f9;
+  display: flex;
+  color: #475569;
+}
+.main_content.svelte-e6v9rf.svelte-e6v9rf {
+  width: 420px;
+  height: fit-content;
+  padding: 20px;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  margin: 50px auto;
+  border: 1px solid #cbd5e1;
+}
+.main_content.svelte-e6v9rf h1.svelte-e6v9rf {
+  font-weight: 700;
+  font-size: 22px;
+  margin: 0 auto 15px;
+}
+.main_content.svelte-e6v9rf p.svelte-e6v9rf {
+  margin: 0;
+  font-size: 15px;
+  text-align: center;
+}
+.main_content.svelte-e6v9rf a.svelte-e6v9rf {
+  padding: 8px 30px;
+  font-size: 16px;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  border: none;
+  background-color: #6366f1;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  width: fit-content;
+  margin: 30px auto 0 auto;
+}
+.main_content.svelte-e6v9rf a.svelte-e6v9rf:hover {
+  background-color: #7e80f1;
+}
+.main_content.svelte-e6v9rf a i.svelte-e6v9rf {
+  margin-right: 8px;
+}
+</style>
 <script>(() => {
   // node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
@@ -182,6 +235,9 @@
   }
   function end_hydrating() {
     is_hydrating = false;
+  }
+  function append(target, node) {
+    target.appendChild(node);
   }
   function insert(target, node, anchor) {
     target.insertBefore(node, anchor || null);
@@ -668,54 +724,57 @@
 
   // guest/verifyEmail.svelte
   function create_if_block_1(ctx) {
-    let h2;
+    let p;
     return {
       c() {
-        h2 = element("h2");
-        h2.textContent = `${email} is verified`;
+        p = element("p");
+        p.textContent = `${email} is verified`;
+        attr(p, "class", "svelte-e6v9rf");
       },
       m(target, anchor) {
-        insert(target, h2, anchor);
+        insert(target, p, anchor);
       },
       p: noop,
       d(detaching) {
         if (detaching) {
-          detach(h2);
+          detach(p);
         }
       }
     };
   }
   function create_if_block(ctx) {
-    let h2;
+    let p;
     return {
       c() {
-        h2 = element("h2");
-        h2.textContent = `${error}`;
-        attr(h2, "class", "error");
+        p = element("p");
+        p.textContent = `${error}`;
+        attr(p, "class", "error svelte-e6v9rf");
       },
       m(target, anchor) {
-        insert(target, h2, anchor);
+        insert(target, p, anchor);
       },
       p: noop,
       d(detaching) {
         if (detaching) {
-          detach(h2);
+          detach(p);
         }
       }
     };
   }
   function create_fragment(ctx) {
+    let section;
+    let div;
     let h1;
     let t1;
     let t2;
     let t3;
-    let hr;
-    let t4;
     let a;
     let if_block0 = verified === "true" && create_if_block_1(ctx);
     let if_block1 = error && create_if_block(ctx);
     return {
       c() {
+        section = element("section");
+        div = element("div");
         h1 = element("h1");
         h1.textContent = '/*! title */';
         t1 = space();
@@ -725,24 +784,26 @@
         if (if_block1)
           if_block1.c();
         t3 = space();
-        hr = element("hr");
-        t4 = space();
         a = element("a");
-        a.textContent = "Back to main page";
+        a.innerHTML = `<i class="gg-arrow-left-r svelte-e6v9rf"></i> <p class="svelte-e6v9rf">Back to main page</p>`;
+        attr(h1, "class", "svelte-e6v9rf");
         attr(a, "href", "/");
+        attr(a, "class", "svelte-e6v9rf");
+        attr(div, "class", "main_content svelte-e6v9rf");
+        attr(section, "class", "verify_email_container svelte-e6v9rf");
       },
       m(target, anchor) {
-        insert(target, h1, anchor);
-        insert(target, t1, anchor);
+        insert(target, section, anchor);
+        append(section, div);
+        append(div, h1);
+        append(div, t1);
         if (if_block0)
-          if_block0.m(target, anchor);
-        insert(target, t2, anchor);
+          if_block0.m(div, null);
+        append(div, t2);
         if (if_block1)
-          if_block1.m(target, anchor);
-        insert(target, t3, anchor);
-        insert(target, hr, anchor);
-        insert(target, t4, anchor);
-        insert(target, a, anchor);
+          if_block1.m(div, null);
+        append(div, t3);
+        append(div, a);
       },
       p(ctx2, [dirty]) {
         if (verified === "true")
@@ -754,18 +815,12 @@
       o: noop,
       d(detaching) {
         if (detaching) {
-          detach(h1);
-          detach(t1);
-          detach(t2);
-          detach(t3);
-          detach(hr);
-          detach(t4);
-          detach(a);
+          detach(section);
         }
         if (if_block0)
-          if_block0.d(detaching);
+          if_block0.d();
         if (if_block1)
-          if_block1.d(detaching);
+          if_block1.d();
       }
     };
   }

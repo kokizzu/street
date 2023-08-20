@@ -117,7 +117,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 	})
 	fw.Get(`/realtor/property`, func(ctx *fiber.Ctx) error {
 		_, _, segments := userInfoFromContext(ctx, d)
-		return views.RenderRealtor(ctx, M.SX{
+		return views.RenderRealtorProperty(ctx, M.SX{
 			`title`:    `Realtor Property`,
 			`segments`: segments,
 		})

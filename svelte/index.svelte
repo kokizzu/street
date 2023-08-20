@@ -1,4 +1,5 @@
 <script>
+  //@ts-nocheck
   import { GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail } from './jsApi.GEN.js';
   import { onMount, tick } from 'svelte';
   import Menu from './_components/Menu.svelte';

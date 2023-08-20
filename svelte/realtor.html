@@ -304,6 +304,67 @@ footer.svelte-uaahja nav a.svelte-uaahja {
 footer.svelte-uaahja nav a.svelte-uaahja:hover {
   color: #EF4444;
 }
+
+/* fakecss:./realtor.esbuild-svelte-fake-css */
+.property_lists_container.svelte-m4fpo6.svelte-m4fpo6 {
+  position: relative;
+  margin-top: -40px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: white;
+  border-radius: 8px;
+  min-height: 500px;
+  width: 70%;
+  color: #475569;
+}
+.property_lists_container.svelte-m4fpo6 .property_lists_header.svelte-m4fpo6 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: fit-content;
+  width: 100%;
+}
+.property_lists_container.svelte-m4fpo6 .property_lists_header .add_button.svelte-m4fpo6 {
+  padding: 8px 20px;
+  font-size: 16px;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  border: none;
+  background-color: #6366F1;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+.property_lists_container.svelte-m4fpo6 .property_lists_header h1.svelte-m4fpo6 {
+  font-size: 18px;
+  margin: 0;
+}
+.property_lists_container.svelte-m4fpo6 .property_lists_header .add_button.svelte-m4fpo6:hover {
+  background-color: #7E80F1;
+}
+.property_lists_container.svelte-m4fpo6 .property_lists_header .add_button i.svelte-m4fpo6 {
+  margin-right: 8px;
+}
+.property_lists_container.svelte-m4fpo6 .property_lists.svelte-m4fpo6 {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+.property_lists_container.svelte-m4fpo6 .property_lists .property.svelte-m4fpo6 {
+  background-color: #F0F0F0;
+  border-radius: 8px;
+  height: 250px;
+}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -2406,7 +2467,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       exports.RealtorOwnedProperties = async function RealtorOwnedProperties(i, cb) {
         return await axios.post("/realtor/ownedProperties", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.RealtorUpsertProperty = async function RealtorUpsertProperty2(i, cb) {
+      exports.RealtorUpsertProperty = async function RealtorUpsertProperty(i, cb) {
         return await axios.post("/realtor/upsertProperty", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserChangePassword = async function UserChangePassword(i, cb) {
@@ -3783,16 +3844,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var Footer_default = Footer;
 
   // realtor.svelte
-  var import_jsApi = __toESM(require_jsApi_GEN());
   function create_fragment4(ctx) {
-    let section;
+    let section1;
     let menu;
     let t0;
-    let div1;
+    let div5;
     let profileheader;
     let t1;
-    let div0;
-    let t3;
+    let div4;
+    let t9;
     let footer;
     let current;
     menu = new Menu_default({ props: { access: segments } });
@@ -3800,30 +3860,30 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     footer = new Footer_default({});
     return {
       c() {
-        section = element("section");
+        section1 = element("section");
         create_component(menu.$.fragment);
         t0 = space();
-        div1 = element("div");
+        div5 = element("div");
         create_component(profileheader.$.fragment);
         t1 = space();
-        div0 = element("div");
-        div0.innerHTML = `<p>Realtor</p>`;
-        t3 = space();
+        div4 = element("div");
+        div4.innerHTML = `<div class="property_lists_container svelte-m4fpo6"><div class="property_lists_header svelte-m4fpo6"><a href="/realtor/property" class="add_button svelte-m4fpo6" style=""><i class="gg-add svelte-m4fpo6"></i> <span>Add</span></a> <h1 class="svelte-m4fpo6">Property owned</h1></div> <section class="property_lists svelte-m4fpo6"><!-- TODO, loop owned properties here --> <div class="property svelte-m4fpo6"></div> <div class="property svelte-m4fpo6"></div></section></div>`;
+        t9 = space();
         create_component(footer.$.fragment);
-        attr(div0, "class", "content");
-        attr(div1, "class", "dashboard_main_content");
-        attr(section, "class", "dashboard");
+        attr(div4, "class", "content");
+        attr(div5, "class", "dashboard_main_content");
+        attr(section1, "class", "dashboard");
       },
       m(target, anchor) {
-        insert(target, section, anchor);
-        mount_component(menu, section, null);
-        append(section, t0);
-        append(section, div1);
-        mount_component(profileheader, div1, null);
-        append(div1, t1);
-        append(div1, div0);
-        append(div1, t3);
-        mount_component(footer, div1, null);
+        insert(target, section1, anchor);
+        mount_component(menu, section1, null);
+        append(section1, t0);
+        append(section1, div5);
+        mount_component(profileheader, div5, null);
+        append(div5, t1);
+        append(div5, div4);
+        append(div5, t9);
+        mount_component(footer, div5, null);
         current = true;
       },
       p: noop,
@@ -3843,7 +3903,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(section);
+          detach(section1);
         }
         destroy_component(menu);
         destroy_component(profileheader);
@@ -3851,9 +3911,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  var segments = {
-    /* segments */
-  };
+  var segments = {/* segments */};
   var Realtor = class extends SvelteComponent {
     constructor(options) {
       super();
