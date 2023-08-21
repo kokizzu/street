@@ -43,7 +43,7 @@
             <ul>
               {#each ownedProperties as property}
                 <li>
-                  {JSON.stringify( property )}
+                  <!-- {JSON.stringify( property )} -->
                   <a href='/realtor/property/{property.id}'>
                     <span>{property.formattedAddress}</span>
                 </li>

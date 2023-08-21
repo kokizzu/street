@@ -3862,36 +3862,32 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function create_each_block(ctx) {
     let li;
-    let t0_value = JSON.stringify(
-      /*property*/
-      ctx[0]
-    ) + "";
+    let c;
     let t0;
-    let t1;
     let a;
     let span;
-    let t3;
+    let t2;
     let a_href_value;
     return {
       c() {
         li = element("li");
-        t0 = text(t0_value);
-        t1 = space();
+        c = comment(" {JSON.stringify( property )} ");
+        t0 = space();
         a = element("a");
         span = element("span");
         span.textContent = `${/*property*/
         ctx[0].formattedAddress}`;
-        t3 = space();
+        t2 = space();
         attr(a, "href", a_href_value = "/realtor/property/" + /*property*/
         ctx[0].id);
       },
       m(target, anchor) {
         insert(target, li, anchor);
+        append(li, c);
         append(li, t0);
-        append(li, t1);
         append(li, a);
         append(a, span);
-        append(a, t3);
+        append(a, t2);
       },
       p: noop,
       d(detaching) {
@@ -3993,7 +3989,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         current = true;
       },
       p(ctx2, [dirty]) {
-        if (dirty & /*ownedProperties, JSON*/
+        if (dirty & /*ownedProperties*/
         0) {
           each_value = ensure_array_like(ownedProperties);
           let i;

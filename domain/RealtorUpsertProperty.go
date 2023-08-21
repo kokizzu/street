@@ -32,11 +32,12 @@ type (
 const (
 	RealtorUpsertPropertyAction = `realtor/upsertProperty`
 
-	ErrRealtorUpsertPropertyNotExists     = `property id not exists`
-	ErrRealtorUpsertPropertyCoordInvalid  = `property coordinate invalid`
-	ErrRealtorUpsertPropertyEmptyImage    = `property image empty`
-	ErrRealtorUpsertPropertyNotOwnedByYou = `property not owned by you`
-	ErrRealtorUpsertPropertySaveFailed    = `property save failed`
+	ErrRealtorUpsertPropertyNotExists           = `property id not exists`
+	ErrRealtorUpsertPropertyCoordInvalid        = `property coordinate invalid`
+	ErrRealtorUpsertPropertyEmptyImage          = `property image empty`
+	ErrRealtorUpsertPropertyAddressAlreadyAdded = `property address already added by you in the past`
+	ErrRealtorUpsertPropertyNotOwnedByYou       = `property not owned by you`
+	ErrRealtorUpsertPropertySaveFailed          = `property save failed`
 )
 
 func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out RealtorUpsertPropertyOut) {
@@ -85,6 +86,13 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 		prop.SetCreatedBy(sess.UserId)
 	}
 	prop.SetUniqPropKey(fmt.Sprintf("%d_%d", sess.UserId, fnv1a.HashString64(in.Property.FormattedAddress)))
+
+	dup := rqProperty.NewProperty(d.PropOltp)
+	dup.UniqPropKey = prop.UniqPropKey
+	if dup.FindByUniqPropKey() {
+		out.SetError(400, ErrRealtorUpsertPropertyAddressAlreadyAdded)
+		return
+	}
 
 	if !prop.DoUpsert() {
 		out.SetError(500, ErrRealtorUpsertPropertySaveFailed)
