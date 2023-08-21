@@ -215,6 +215,7 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 			out.SetError(400, ErrAdminPropertyIdNotFound)
 			return
 		}
+		prop.NormalizeFloorList()
 		out.Property = prop
 	case zCrud.ActionUpsert, zCrud.ActionDelete, zCrud.ActionRestore:
 
