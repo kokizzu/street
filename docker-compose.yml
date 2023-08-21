@@ -13,6 +13,8 @@ services:
       TT_NET_MSG_MAX: '76800' # 100x
       TT_MEMTX_MEMORY: '268435456' # 1x
       TT_VINYL_PAGE_SIZE: '8192' # 1x
+    volumes:
+      - ./tmpdb/var_lib_tarantool:/var/lib/tarantool
     ports:
       - "3301:3301"
 
@@ -30,8 +32,8 @@ services:
       nofile:
         soft: 262144
         hard: 262144
-#    volumes:
-#      - ./docker/clickhouse__var_log:/var/log
+    volumes:
+      - ./tmpdb/var_lib_clickhouse:/var/lib/clickhouse
 
   mailhog1:
     image: mailhog/mailhog

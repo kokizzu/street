@@ -12,3 +12,4 @@ deploy/static
 docker/
 *.upx
 **/*.upx
+tmpdb
