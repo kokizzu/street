@@ -14,15 +14,6 @@
   export let room_size = 0;
   let sqft_size = 0;
   export let m2_size = 0;
-  const room_type_lists = [
-    'bedroom',
-    'bathroom',
-    'living room'
-  ]
-  let showRoomTypeOption = false;
-  function handleRoomTypeOption() {
-    showRoomTypeOption = !showRoomTypeOption;
-  }
   function toggleUnitMode() {
     if (unit_mode == sqft) {
       if (room_size !== 0) {
@@ -61,25 +52,22 @@
   <div class='add_room_dialog'>
     <div class='add_room_content'>
       <h3>Add Room</h3>
-      <div class='room_type'>
-        <label for='room_type'>Type</label>
-        <button on:click={handleRoomTypeOption}>{room_type ? room_type : 'select'}</button>
-        {#if showRoomTypeOption}
-          <div class='option_container'>
-            {#each room_type_lists as room}
-              <label class='option' for={room}>
-                <input
-                  type='radio'
-                  bind:group={room_type}
-                  on:change={() => handleRoomTypeOption()}
-                  id={room}
-                  value={room}
-                />
-                {room}
-              </label>
-            {/each}
-          </div>
-        {/if}
+      <div class="room_type">
+        <label for="room_type">House Type</label>
+        <div class="option_container">
+          <label class={room_type === 'bedroom' ? 'option clicked': 'option'} for="bedroom">
+            <input type="radio" on:click={() => (room_type = 'bedroom')} id="bedroom" value="bedroom" />
+            bedroom
+          </label>
+          <label class={room_type === 'bathroom' ? 'option clicked': 'option'} for="bathroom">
+            <input type="radio" on:click={() => (room_type = 'bathroom')} id="bathroom" value="bathroom" />
+            bathroom
+          </label>
+          <label class={room_type === 'living room' ? 'option clicked': 'option'} for="living_room">
+            <input type="radio" on:click={() => (room_type = 'living room')} id="living_room" value="living room" />
+            living room
+          </label>
+        </div>
       </div>
       <div class='room_size'>
         <label for='room_size'>Size</label>
@@ -96,10 +84,7 @@
     </div>
     <div class='buttons'>
       <button
-        on:click|preventDefault={() => {
-          showRoomTypeOption = false;
-          hideModal();
-        }}
+        on:click|preventDefault={() => hideModal()}
         class='cancel_button'>Cancel</button>
       <slot></slot>
     </div>
@@ -165,65 +150,59 @@
   .add_room_dialog .buttons .cancel_button:hover {
     border: 1px solid #f97316;
   }
+  .add_room_content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
   .add_room_content .room_type {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
-    position: relative;
-    text-transform: capitalize;
-    margin-top: 15px;
+    height: fit-content;
   }
   .add_room_content .room_type label {
-    font-size: 13px;
-    font-weight: 700;
-    margin-left: 10px;
-    margin-bottom: 8px;
+    font-size     : 13px;
+    font-weight   : 700;
+    margin-left   : 10px;
+    margin-bottom : 8px;
   }
-  .add_room_content .room_type button {
-    width: auto;
-    border: 1px solid #cbd5e1;
-    background-color: #f1f5f9;
-    border-radius: 8px;
-    padding: 10px 12px;
-    text-align: left;
-    cursor: pointer;
-    text-transform: capitalize;
-  }
-  .add_room_content .room_type button:hover {
-    border: 1px solid #f97316;
-    outline: 1px solid #f97316;
-  }
-  .add_room_content .option_container {
+  .add_room_content .room_type .option_container {
     width: 100%;
-    position: absolute;
-    top: 70px;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    border-radius: 8px;
-    border: 1px solid #cbd5e1;
-    background-color: #f1f5f9;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
   }
-  .add_room_content .option_container .option {
+  .add_room_content .room_type .option_container .option {
     margin: 0;
     padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background-color: #f1f5f9;
     font-weight: 500;
+    text-align: center;
     cursor: pointer;
   }
-  .add_room_content .option_container .option:hover {
+  .add_room_content .room_type .option_container .option:hover {
+    border: 1px solid #f97316;
     color: #f97316;
   }
+  .add_room_content .room_type .option_container .option.clicked {
+    background-color: #f97316;
+    color: white;
+    border: none;
+  }
   .option input[type='radio'] {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
+    position       : absolute;
+    opacity        : 0;
+    pointer-events : none;
   }
   .add_room_content .room_size {
     display: flex;
     flex-direction: column;
     width: 100%;
     text-transform: capitalize;
-    margin-top: 15px;
   }
   .add_room_content .room_size label {
     font-size: 13px;

@@ -7,14 +7,6 @@
     visible = false;
   }
   export let floor_type = '';
-  const floor_type_lists = [
-    'floor',
-    'basement'
-  ]
-  let showFloorTypeOption = false;
-  function handleFloorTypeOption() {
-    showFloorTypeOption = !showFloorTypeOption;
-  }
 </script>
 
 {#if visible}
@@ -22,32 +14,27 @@
   <div class='add_floor_dialog'>
     <div class='add_floor_content'>
       <h3>Add Floor</h3>
-      <div class='floor_type'>
-        <label for='floor_type'>Type</label>
-        <button on:click={handleFloorTypeOption}>{floor_type ? floor_type : 'select'}</button>
-        {#if showFloorTypeOption}
-          <div class='option_container'>
-            {#each floor_type_lists as floor}
-              <label class='option' for={floor}>
-                <input
-                  type='radio'
-                  bind:group={floor_type}
-                  on:change={() => handleFloorTypeOption()}
-                  id={floor}
-                  value={floor}
-                />
-                {floor}
-              </label>
-            {/each}
-          </div>
-        {/if}
+      <div class="floor_type">
+        <label for="floor_type">House Type</label>
+        <div class="option_container">
+          <label class={floor_type === 'floor' ? 'option clicked': 'option'} for="floor">
+            <input type="radio" on:click={() => (floor_type = 'floor')} id="floor" value="floor" />
+            floor
+          </label>
+          <label class={floor_type === 'basement' ? 'option clicked': 'option'} for="basement">
+            <input
+              type="radio"
+              on:click={() => (floor_type = 'basement')}
+              id="basement"
+              value="basement"
+            />
+            Basement
+          </label>
+        </div>
       </div>
     </div>
     <div class='buttons'>
-      <button on:click|preventDefault={() => {
-        showFloorTypeOption = false;
-        hideModal()
-      }} class='cancel_button'>Cancel</button>
+      <button on:click|preventDefault={() => hideModal()} class='cancel_button'>Cancel</button>
       <slot></slot>
     </div>
   </div>
@@ -72,7 +59,8 @@
   .add_floor_dialog {
     color: #334155;
     width: 400px;
-    height: 400px;
+    height: fit-content;
+    gap: 40px;
     background-color: white;
     padding: 20px;
     border-radius: 8px;
@@ -92,7 +80,6 @@
     flex-direction: row;
     align-items: stretch;
     font-weight: 500;
-    margin-top: 20px;
     width: 100%;
   }
   .add_floor_dialog .buttons button {
@@ -113,56 +100,46 @@
     border: 1px solid #f97316;
   }
   .add_floor_content .floor_type {
-    margin-top: 20px;
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
-    position: relative;
-    text-transform: capitalize;
+    height: fit-content;
   }
   .add_floor_content .floor_type label {
-    font-size: 13px;
-    font-weight: 700;
-    margin-left: 10px;
-    margin-bottom: 8px;
+    font-size     : 13px;
+    font-weight   : 700;
+    margin-left   : 10px;
+    margin-bottom : 8px;
   }
-  .add_floor_content .floor_type button {
-    width: auto;
-    border: 1px solid #cbd5e1;
-    background-color: #f1f5f9;
-    border-radius: 8px;
-    padding: 10px 12px;
-    text-align: left;
-    cursor: pointer;
-    text-transform: capitalize;
-  }
-  .add_floor_content .floor_type button:hover {
-    border: 1px solid #f97316;
-    outline: 1px solid #f97316;
-  }
-  .add_floor_content .option_container {
+  .add_floor_content .floor_type .option_container {
     width: 100%;
-    position: absolute;
-    top: 70px;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    border-radius: 8px;
-    border: 1px solid #cbd5e1;
-    background-color: #f1f5f9;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
   }
-  .add_floor_content .option_container .option {
+  .add_floor_content .floor_type .option_container .option {
     margin: 0;
     padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background-color: #f1f5f9;
     font-weight: 500;
+    text-align: center;
     cursor: pointer;
   }
-  .add_floor_content .option_container .option:hover {
+  .add_floor_content .floor_type .option_container .option:hover {
+    border: 1px solid #f97316;
     color: #f97316;
   }
+  .add_floor_content .floor_type .option_container .option.clicked {
+    background-color: #f97316;
+    color: white;
+    border: none;
+  }
   .option input[type='radio'] {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
+    position       : absolute;
+    opacity        : 0;
+    pointer-events : none;
   }
 </style>

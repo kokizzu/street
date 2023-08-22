@@ -6,7 +6,7 @@
   import ProfileHeader from '../_components/ProfileHeader.svelte';
   import Footer from '../_components/Footer.svelte';
   import AddFloorDialog from '../_components/AddFloorDialog.svelte';
-  import AddRoomDialog from '../_components/AddRoomDialog.svelte';
+  import AddOrEditRoomDialog from '../_components/AddOrEditRoomDialog.svelte';
   import { RealtorUpsertProperty } from '../jsApi.GEN';
   
   let property = {/* property */};
@@ -489,7 +489,6 @@
       floor_lists = [...floor_lists, floor_attribute];
       floor_type = '';
       floorCount++;
-      console.log(floor_lists);
     }
     add_floor_dialog.hideModal();
     realtorStack[ currentPage ] = {
@@ -498,7 +497,6 @@
         floor_lists: floor_lists,
       },
     };
-    console.log(floor_lists);
     return;
   }
   
@@ -553,7 +551,7 @@
   }
   
   // ________Rooms Edit
-  let add_room_dialog = AddRoomDialog;
+  let add_or_edit_room_dialog = AddOrEditRoomDialog;
   let room_type = '';
   let room_obj = {
     name: '',
@@ -563,75 +561,127 @@
   let size_m2;
   let room_size;
   let unit_mode;
-  let bedroom_total = 0;
-  let bathroom_total = 0;
+  let room_edit_mode = false;
+  let room_index_to_edit = 0;
   
   function showAddRoomDialog() {
-    add_room_dialog.showModal();
+    add_or_edit_room_dialog.showModal();
+  }
+  function showEditRoomDialog( index ) {
+    room_edit_mode = true;
+    room_index_to_edit = index;
+    room_type = floor_lists[floor_index_to_edit].rooms[room_index_to_edit].name;
+    size_m2 = floor_lists[floor_index_to_edit].rooms[room_index_to_edit].sizeM2;
+    room_size = size_m2;
+    unit_mode = 'M2';
+    add_or_edit_room_dialog.showModal();
   }
   
-  function handlerAddRoom( index ) {
+  function handleAddOrEditRoom( index ) {
+    // Note: parameter index indicates which one array (floors/rooms) to edit
+    let living_room_total = 0;
+    for( let i = 0; i < floor_lists[ floor_index_to_edit ][ 'rooms' ].length; i++ ) {
+      if( floor_lists[ floor_index_to_edit ][ 'rooms' ][ i ].name==='living room' ) {
+        living_room_total++;
+      }
+    }
     if( unit_mode==='SqFt' && size_m2===0 ) {
-      size_m2 = add_room_dialog.sqftToM2( room_size );
+      size_m2 = add_or_edit_room_dialog.sqftToM2( room_size );
     } else if( unit_mode==='SqFt' && size_m2!==0 ) {
-      size_m2 = add_room_dialog.sqftToM2( room_size );
+      size_m2 = add_or_edit_room_dialog.sqftToM2( room_size );
     } else {
       size_m2 = room_size;
     }
-    
-    if( room_type==='living room' ) {
-      for( let i = 0; i<floor_lists[ index ][ 'rooms' ].length; i++ ) {
-        if( floor_lists[ index ][ 'rooms' ][ i ].name==='living room' ) {
-          alert( 'Living Room already added' );
-          add_room_dialog.hideModal();
-          room_type = '';
-          room_size = 0;
-          size_m2 = 0;
-          return;
+
+    if (room_edit_mode === true) {
+      if (room_type === 'living room' && floor_lists[floor_index_to_edit].rooms[ index ].name === 'living room') {
+        room_obj = {
+          name: room_type,
+          sizeM2: size_m2,
+          unit: 'm2',
+        };
+        floor_lists[floor_index_to_edit].rooms[ index ] = room_obj;
+        room_type = '';
+        room_size = 0;
+        size_m2 = 0;
+        room_edit_mode = false;
+        add_or_edit_room_dialog.hideModal();
+        return;
+      }
+      if (room_type==='living room' && living_room_total > 0){
+        alert( 'Living Room already added, cannot edit to living room' );
+        room_type = '';
+        room_size = 0;
+        size_m2 = 0;
+        room_edit_mode === false;
+        add_or_edit_room_dialog.hideModal();
+        return;
+      }
+
+      // Check if room type will be edit, its total room type (beds/baths) will be updated
+      if (room_type !== floor_lists[floor_index_to_edit].rooms[ index ].name) {
+        if (floor_lists[floor_index_to_edit].rooms[ index ].name === 'bedroom') {
+          floor_lists[floor_index_to_edit].beds--;
+        } else if (floor_lists[floor_index_to_edit].rooms[ index ].name === 'bathroom') {
+          floor_lists[floor_index_to_edit].baths--;
+        }
+
+        if (room_type === 'bedroom') { floor_lists[floor_index_to_edit].beds++ }
+        if (room_type === 'bathroom') { floor_lists[floor_index_to_edit].baths++}
+      }
+      if (room_type === floor_lists[floor_index_to_edit].rooms[ index ].name) {
+        if (floor_lists[floor_index_to_edit].rooms[ index ].name === 'bedroom') {
+          floor_lists[floor_index_to_edit].beds++;
+        } else if (floor_lists[floor_index_to_edit].rooms[ index ].name === 'bathroom') {
+          floor_lists[floor_index_to_edit].baths++;
         }
       }
       
       room_obj = {
-        name: 'living room',
+        name: room_type,
         sizeM2: size_m2,
         unit: 'm2',
       };
-      floor_lists[ index ].rooms = [...floor_lists[ index ].rooms, room_obj];
+      floor_lists[floor_index_to_edit].rooms[ index ] = room_obj;
       room_type = '';
       room_size = 0;
       size_m2 = 0;
-    }
-    if( room_type==='bedroom' ) {
+      room_edit_mode = false;
+      add_or_edit_room_dialog.hideModal();
+      return;
+    } else {
+      if( room_type==='living room' && living_room_total > 0) {
+        alert( 'Living Room already added' );
+        room_type = '';
+        room_size = 0;
+        size_m2 = 0;
+        add_or_edit_room_dialog.hideModal();
+        return;  
+      }
+      if( room_type==='bedroom' ) { floor_lists[index].beds++; }
+      if( room_type==='bathroom' ) { floor_lists[index].baths++; }
+
       room_obj = {
-        name: 'bedroom',
+        name: room_type,
         sizeM2: size_m2,
         unit: 'm2',
       };
-      bedroom_total++;
       floor_lists[ index ].rooms = [...floor_lists[ index ].rooms, room_obj];
-      floor_lists[ index ].beds = bedroom_total;
       room_type = '';
       room_size = 0;
       size_m2 = 0;
+      add_or_edit_room_dialog.hideModal();
+      return;
     }
-    if( room_type==='bathroom' ) {
-      room_obj = {
-        name: 'bathroom',
-        sizeM2: size_m2,
-        unit: 'm2',
-      };
-      bathroom_total++;
-      floor_lists[ index ].rooms = [...floor_lists[ index ].rooms, room_obj];
-      floor_lists[ index ].baths = bathroom_total;
-      room_type = '';
-      room_size = 0;
-      size_m2 = 0;
-    }
-    add_room_dialog.hideModal();
-    return;
   }
 
   function handleRemoveRoom(roomIndex) {
+    if (floor_lists[floor_index_to_edit].rooms[ roomIndex ].name === 'bedroom') {
+      floor_lists[floor_index_to_edit].beds--;
+    }
+    if (floor_lists[floor_index_to_edit].rooms[ roomIndex ].name === 'bathroom') {
+      floor_lists[floor_index_to_edit].baths--;
+    }
     floor_lists[ floor_index_to_edit ]['rooms'] = floor_lists[ floor_index_to_edit ]['rooms'].filter((_, i) => i !== roomIndex);
   }
   
@@ -853,9 +903,9 @@
                   <input bind:value={feature.baths} type='number' min='0' name='baths' id='baths'>
                   <label for='baths'>Baths</label>
                 </div>
-                <div class='square_foot'>
-                  <input bind:value={feature.area} type='number' min='0' name='square_foot' id='square_foot' step='0.01'>
-                  <label for='square_foot'>Sq Ft</label>
+                <div class='area'>
+                  <input bind:value={feature.area} type='number' min='0' name='area' id='area'>
+                  <label for='area'>M2</label>
                 </div>
               </div>
               <h2>Facility</h2>
@@ -925,9 +975,18 @@
             <button disabled={floor_type === ''} class='add_floor_button' on:click={handlerAddFloor}>Add</button>
           </AddFloorDialog>
           <!-- Add Room Dialog -->
-          <AddRoomDialog bind:this={add_room_dialog} bind:room_type={room_type} bind:room_size={room_size} bind:m2_size={size_m2} bind:unit_mode={unit_mode}>
-            <button disabled={room_type === ''} class='add_room_button' on:click={() => handlerAddRoom(floor_index_to_edit)}>Add</button>
-          </AddRoomDialog>
+          <AddOrEditRoomDialog bind:this={add_or_edit_room_dialog} bind:room_type={room_type} bind:room_size={room_size} bind:m2_size={size_m2} bind:unit_mode={unit_mode}>
+            <button disabled={room_type === ''} class='add_room_button'
+              on:click={() => {
+                if (room_edit_mode === true) {
+                  handleAddOrEditRoom(room_index_to_edit);
+                } else {
+                  handleAddOrEditRoom(floor_index_to_edit);
+                }
+              }}>
+              {room_edit_mode === true ? 'Edit' : 'Add'}
+            </button>
+          </AddOrEditRoomDialog>
           <div class='floor_main_content'>
             <button
               class='back_button'
@@ -939,6 +998,9 @@
                   }
                 }}>
               <i class='gg-chevron-left' />
+              {#if floor_edit_mode===true}
+                <span>Back to floor lists </span>
+              {/if}
             </button>
             <div class='floor_header'>
               {#if floor_edit_mode===true}
@@ -1028,6 +1090,9 @@
                         <span>{room.name}</span>
                         <div class='right_item'>
                           <span>{room.sizeM2} {room.unit}</span>
+                          <button class="edit_room" on:click={() => showEditRoomDialog(index)}>
+                            <i class="gg-pen" />
+                          </button>
                           <button class='remove_room' on:click={() => handleRemoveRoom(index)}>
                             <i class='gg-trash'></i>
                           </button>
@@ -1043,7 +1108,7 @@
               </div>
             {/if}
           </div>
-          <button disabled={imgFlrPlanUploading === true} class='next_button' on:click|preventDefault={handleNextFloor}>
+          <button disabled={imgFlrPlanUploading === true || floor_edit_mode === true} class='next_button' on:click|preventDefault={handleNextFloor}>
             {#if imgFlrPlanUploading===true}
               <i class='gg-disc'></i>
             {:else}
@@ -1078,6 +1143,10 @@
                   <div class='price'>
                     <h3>{formatPrice( infoStack.attrs.price )}</h3>
                     <p>Agency Fee: {infoStack.attrs.agency_fee_percent || '0'}%</p>
+                  </div>
+                  <div class='address'>
+                    <i class='gg-pin'/>
+                    <p>{mapStack.attrs.address}</p>
                   </div>
                 </div>
                 <div class='right_item'>
@@ -1345,11 +1414,18 @@
     border-radius    : 5px;
     font-size        : 14px;
     cursor           : pointer;
+    display          : flex;
+    flex-direction   : row;
+    align-items      : center;
+    gap              : 8px;
   }
 
   .realtor_subpage_container .back_button:hover {
     background-color : rgb(0 0 0 / 0.05);
     color            : #EF4444;
+  }
+  .realtor_subpage_container .back_button span {
+    margin-right      : 5px;
   }
 
   /* +============| SUBPAGE LOCATION |===========+ */
@@ -1521,7 +1597,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    
   }
 
   .about_the_house .option_container .option {
@@ -1666,7 +1741,7 @@
     justify-items     : center;
   }
 
-  .feature_section .beds, .baths, .square_foot {
+  .feature_section .beds, .baths, .area {
     display           : flex;
     flex-direction    : column;
     width             : fit-content;
@@ -1675,7 +1750,7 @@
     align-items       : center;
   }
 
-  .feature_section .beds input, .baths input, .square_foot input {
+  .feature_section .beds input, .baths input, .area input {
     width            : 100%;
     border           : 1px solid #CBD5E1;
     background-color : #F1F5F9;
@@ -1767,6 +1842,9 @@
     cursor           : pointer;
     display          : flex;
     justify-content  : center;
+  }
+  .floor .next_button:disabled {
+    background-color : #f39552;
   }
 
   .floor .next_button:hover {
@@ -2102,8 +2180,17 @@
     flex-direction : row;
     align-items    : center;
   }
+  .floor .edit_floor_container .room_list_container .room_list_item .right_item .edit_room {
+    border        : none;
+    background    : none;
+    padding       : 18px 15px;
+    border-radius : 50%;
+    margin-left   : 8px;
+    cursor        : pointer;
+    color         : #F97316;
+  }
 
-  .floor .edit_floor_container .room_list_container .room_list_item .right_item .remove_room {
+  .floor .edit_floor_container .room_list_container .room_list_item .right_item .remove_room{
     border        : none;
     background    : none;
     padding       : 10px 13px;
@@ -2113,7 +2200,8 @@
     color         : #F97316;
   }
 
-  .floor .edit_floor_container .room_list_container .room_list_item .right_item .remove_room:hover {
+  .floor .edit_floor_container .room_list_container .room_list_item .right_item .remove_room:hover,
+  .floor .edit_floor_container .room_list_container .room_list_item .right_item .edit_room:hover {
     background-color : rgb(0 0 0 / 0.06);
   }
 
@@ -2197,6 +2285,7 @@
   .preview .preview_price_house_type .left_item {
     display        : flex;
     flex-direction : column;
+    gap: 10px;
   }
 
   .preview .preview_price_house_type .left_item span {
@@ -2216,13 +2305,21 @@
   .preview .preview_price_house_type .left_item .price h3 {
     font-size   : 30px;
     font-weight : 700;
-    margin      : 0;
+    margin      : 0 0 10px 0;
   }
 
   .preview .preview_price_house_type .left_item p {
     color     : #64748B;
     font-size : 13px;
-    margin    : 10px 0 0 0;
+    margin: 0;
+  }
+  .preview .preview_price_house_type .left_item .address {
+    display   : flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  .preview .preview_price_house_type .left_item .address i {
+    color: #f97316;
   }
 
   .preview .preview_price_house_type .right_item {

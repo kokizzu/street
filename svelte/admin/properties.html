@@ -349,44 +349,71 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 }
 
 /* fakecss:./_components/TableView.esbuild-svelte-fake-css */
-.table_users.svelte-1gvrrkh.svelte-1gvrrkh {
-  margin-top: 10px;
+.table_container.svelte-k0ggz9.svelte-k0ggz9 {
+  overflow-x: auto;
+}
+.table_container.svelte-k0ggz9.svelte-k0ggz9::-webkit-scrollbar-thumb {
+  background-color: #EF4444;
+  border-radius: 4px;
+}
+.table_container.svelte-k0ggz9.svelte-k0ggz9::-webkit-scrollbar-thumb:hover {
+  background-color: #ec6262;
+}
+.table_container.svelte-k0ggz9.svelte-k0ggz9::-webkit-scrollbar {
+  height: 10px;
+}
+.table_container.svelte-k0ggz9.svelte-k0ggz9::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.table_container.svelte-k0ggz9 .table_users.svelte-k0ggz9 {
+  margin: 10px 1px 10px 0;
   background-color: white;
   border-collapse: collapse;
   font-size: 14px;
   width: 100%;
   color: #475569;
 }
-.table_users.svelte-1gvrrkh .table_header.svelte-1gvrrkh {
-  text-align: left !important;
-  color: #6366F1 !important;
+.table_container.svelte-k0ggz9 .table_users th.svelte-k0ggz9 {
+  color: #6366f1;
+  border: 1px solid #cbd5e1;
+  padding: 12px;
 }
-.table_users.svelte-1gvrrkh .table_header.svelte-1gvrrkh {
-  border-bottom: 1px solid #CBD5E1;
+.table_container.svelte-k0ggz9 .table_users td.svelte-k0ggz9 {
+  border: 1px solid #cbd5e1;
+  padding: 12px;
 }
-.table_users.svelte-1gvrrkh .table_header.svelte-1gvrrkh,
-.table_users.svelte-1gvrrkh .table_data.svelte-1gvrrkh {
-  padding: 12px 5px;
+.table_users.svelte-k0ggz9 .table_header.svelte-k0ggz9 {
+  text-align: left;
+  white-space: nowrap;
 }
-.table_users.svelte-1gvrrkh .table_data .action.svelte-1gvrrkh {
+.table_users.svelte-k0ggz9 .col_action.svelte-k0ggz9 {
+  width: fit-content;
+  max-width: fit-content;
+}
+.table_users.svelte-k0ggz9 .table_header.svelte-k0ggz9,
+.table_users.svelte-k0ggz9 .table_data.svelte-k0ggz9 {
+  min-width: 180px;
+}
+.table_users.svelte-k0ggz9 .col_action .action.svelte-k0ggz9 {
   border: none;
   background: none;
   color: #475569;
   text-align: center;
   margin: auto;
   cursor: pointer;
+  padding: 18px 15px;
+  border-radius: 8px;
 }
-.table_users.svelte-1gvrrkh .table_data .action.svelte-1gvrrkh:hover {
-  color: #EF4444;
+.table_users.svelte-k0ggz9 .col_action .action.svelte-k0ggz9:hover {
+  color: #ef4444;
+  background-color: #f0f0f0;
 }
-.table_users.svelte-1gvrrkh .deleted td.svelte-1gvrrkh {
+.table_users.svelte-k0ggz9 .deleted td.svelte-k0ggz9 {
   text-decoration: line-through;
-  text-decoration-color: #EF4444;
+  text-decoration-color: #ef4444;
 }
-.pages_set.svelte-1gvrrkh.svelte-1gvrrkh {
-  margin-top: 5px;
+.pages_set.svelte-k0ggz9.svelte-k0ggz9 {
   padding-top: 10px;
-  border-top: 1px solid #CBD5E1;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -395,30 +422,30 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   font-size: 15px;
   color: #161616;
 }
-.pages_set.svelte-1gvrrkh .page_and_rows_count.svelte-1gvrrkh {
+.pages_set.svelte-k0ggz9 .page_and_rows_count.svelte-k0ggz9 {
   display: flex;
   flex-direction: row;
   align-content: center;
   align-items: center;
 }
-.pages_set.svelte-1gvrrkh .page_and_rows_count .perPage.svelte-1gvrrkh {
+.pages_set.svelte-k0ggz9 .page_and_rows_count .perPage.svelte-k0ggz9 {
   margin: auto 5px;
   width: 4em;
-  border: 1px solid #CBD5E1;
+  border: 1px solid #cbd5e1;
   border-radius: 4px;
   padding: 5px;
   font-size: 14px;
   text-align: center;
   color: #161616;
-  outline-color: #6366F1;
+  outline-color: #6366f1;
 }
-.pages_set.svelte-1gvrrkh .page_and_rows_count .perPage.svelte-1gvrrkh::-webkit-inner-spin-button,
-.pages_set.svelte-1gvrrkh .page_and_rows_count .perPage.svelte-1gvrrkh::-webkit-outer-spin-button {
+.pages_set.svelte-k0ggz9 .page_and_rows_count .perPage.svelte-k0ggz9::-webkit-inner-spin-button,
+.pages_set.svelte-k0ggz9 .page_and_rows_count .perPage.svelte-k0ggz9::-webkit-outer-spin-button {
   opacity: 1;
 }
-.pagination.svelte-1gvrrkh button.svelte-1gvrrkh {
+.pagination.svelte-k0ggz9 button.svelte-k0ggz9 {
   color: white;
-  background-color: #6366F1;
+  background-color: #6366f1;
   padding: 3px 7px;
   border-radius: 5px;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
@@ -426,16 +453,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   cursor: pointer;
   border: none;
 }
-.pagination.svelte-1gvrrkh button.svelte-1gvrrkh:hover {
-  background-color: #7E80F1;
+.pagination.svelte-k0ggz9 button.svelte-k0ggz9:hover {
+  background-color: #7e80f1;
 }
-.pagination.svelte-1gvrrkh button.svelte-1gvrrkh:disabled {
-  border: 1px solid #CBD5E1 !important;
+.pagination.svelte-k0ggz9 button.svelte-k0ggz9:disabled {
+  border: 1px solid #cbd5e1 !important;
   background: none !important;
-  color: #5C646F;
+  color: #5c646f;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
-.pagination.svelte-1gvrrkh button.svelte-1gvrrkh:disabled:hover {
+.pagination.svelte-k0ggz9 button.svelte-k0ggz9:disabled:hover {
   background: none;
 }
 
@@ -4392,7 +4419,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       c() {
         th = element("th");
         t = text(t_value);
-        attr(th, "class", "table_header svelte-1gvrrkh");
+        attr(th, "class", "table_header svelte-k0ggz9");
       },
       m(target, anchor) {
         insert(target, th, anchor);
@@ -4417,7 +4444,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       c() {
         th = element("th");
         th.textContent = "Action";
-        attr(th, "class", "table_header svelte-1gvrrkh");
+        attr(th, "class", "col_action svelte-k0ggz9");
       },
       m(target, anchor) {
         insert(target, th, anchor);
@@ -4485,7 +4512,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "table_data svelte-1gvrrkh");
+        attr(td, "class", "table_data svelte-k0ggz9");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -4521,7 +4548,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-1gvrrkh");
+        attr(td, "class", "svelte-k0ggz9");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -4557,7 +4584,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "table_data svelte-1gvrrkh");
+        attr(td, "class", "table_data svelte-k0ggz9");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -4593,7 +4620,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "table_data svelte-1gvrrkh");
+        attr(td, "class", "table_data svelte-k0ggz9");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -4640,8 +4667,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         button.innerHTML = `<i class="gg-pen"></i>`;
         t = space();
         c = comment(" {no + 1} ");
-        attr(button, "class", "action svelte-1gvrrkh");
-        attr(td, "class", "table_data svelte-1gvrrkh");
+        attr(button, "class", "action svelte-k0ggz9");
+        attr(td, "class", "col_action svelte-k0ggz9");
         attr(td, "title", "Edit user");
       },
       m(target, anchor) {
@@ -4823,14 +4850,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let i3;
     let button3_disabled_value;
     let t4;
+    let div1;
     let table;
     let thead;
     let tr;
     let t5;
     let tbody;
     let t6;
-    let div3;
-    let div1;
+    let div4;
+    let div2;
     let span0;
     let t7;
     let t8_value = (
@@ -4858,7 +4886,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     );
     let t17;
     let t18;
-    let div2;
+    let div3;
     let button4;
     let i4;
     let button4_disabled_value;
@@ -4923,6 +4951,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         button3 = element("button");
         i3 = element("i");
         t4 = space();
+        div1 = element("div");
         table = element("table");
         thead = element("thead");
         tr = element("tr");
@@ -4935,8 +4964,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           each_blocks[i].c();
         }
         t6 = space();
-        div3 = element("div");
-        div1 = element("div");
+        div4 = element("div");
+        div2 = element("div");
         span0 = element("span");
         t7 = text("Page ");
         t8 = text(t8_value);
@@ -4953,7 +4982,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t16 = text("Total: ");
         t17 = text(t17_value);
         t18 = space();
-        div2 = element("div");
+        div3 = element("div");
         button4 = element("button");
         i4 = element("i");
         t19 = space();
@@ -4969,53 +4998,54 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(button0, "title", "Go to first page");
         button0.disabled = button0_disabled_value = !/*allowPrevPage*/
         ctx[4];
-        attr(button0, "class", "svelte-1gvrrkh");
+        attr(button0, "class", "svelte-k0ggz9");
         attr(i1, "class", "gg-chevron-left");
         attr(button1, "title", "Go to previous page");
         button1.disabled = button1_disabled_value = !/*allowPrevPage*/
         ctx[4];
-        attr(button1, "class", "svelte-1gvrrkh");
+        attr(button1, "class", "svelte-k0ggz9");
         attr(i2, "class", "gg-chevron-right");
         attr(button2, "title", "Go to next page");
         button2.disabled = button2_disabled_value = !/*allowNextPage*/
         ctx[3];
-        attr(button2, "class", "svelte-1gvrrkh");
+        attr(button2, "class", "svelte-k0ggz9");
         attr(i3, "class", "gg-push-chevron-right");
         attr(button3, "title", "Go to last page");
         button3.disabled = button3_disabled_value = !/*allowNextPage*/
         ctx[3];
-        attr(button3, "class", "svelte-1gvrrkh");
-        attr(div0, "class", "pagination svelte-1gvrrkh");
+        attr(button3, "class", "svelte-k0ggz9");
+        attr(div0, "class", "pagination svelte-k0ggz9");
         set_style(div0, "float", "right");
         set_style(div0, "display", "inline-block");
-        attr(table, "class", "table_users svelte-1gvrrkh");
+        attr(table, "class", "table_users svelte-k0ggz9");
+        attr(div1, "class", "table_container svelte-k0ggz9");
         attr(input, "id", "perPage");
-        attr(input, "class", "perPage svelte-1gvrrkh");
+        attr(input, "class", "perPage svelte-k0ggz9");
         attr(input, "type", "number");
         attr(input, "min", "0");
-        attr(div1, "class", "page_and_rows_count svelte-1gvrrkh");
+        attr(div2, "class", "page_and_rows_count svelte-k0ggz9");
         attr(i4, "class", "gg-push-chevron-left");
         attr(button4, "title", "Go to first page");
         button4.disabled = button4_disabled_value = !/*allowPrevPage*/
         ctx[4];
-        attr(button4, "class", "svelte-1gvrrkh");
+        attr(button4, "class", "svelte-k0ggz9");
         attr(i5, "class", "gg-chevron-left");
         attr(button5, "title", "Go to previous page");
         button5.disabled = button5_disabled_value = !/*allowPrevPage*/
         ctx[4];
-        attr(button5, "class", "svelte-1gvrrkh");
+        attr(button5, "class", "svelte-k0ggz9");
         attr(i6, "class", "gg-chevron-right");
         attr(button6, "title", "Go to next page");
         button6.disabled = button6_disabled_value = !/*allowNextPage*/
         ctx[3];
-        attr(button6, "class", "svelte-1gvrrkh");
+        attr(button6, "class", "svelte-k0ggz9");
         attr(i7, "class", "gg-push-chevron-right");
         attr(button7, "title", "Go to last page");
         button7.disabled = button7_disabled_value = !/*allowNextPage*/
         ctx[3];
-        attr(button7, "class", "svelte-1gvrrkh");
-        attr(div2, "class", "pagination svelte-1gvrrkh");
-        attr(div3, "class", "pages_set svelte-1gvrrkh");
+        attr(button7, "class", "svelte-k0ggz9");
+        attr(div3, "class", "pagination svelte-k0ggz9");
+        attr(div4, "class", "pages_set svelte-k0ggz9");
       },
       m(target, anchor) {
         insert(target, section, anchor);
@@ -5036,7 +5066,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div0, button3);
         append(button3, i3);
         append(section, t4);
-        append(section, table);
+        append(section, div1);
+        append(div1, table);
         append(table, thead);
         append(thead, tr);
         for (let i = 0; i < each_blocks_1.length; i += 1) {
@@ -5052,39 +5083,39 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           }
         }
         append(section, t6);
-        append(section, div3);
-        append(div3, div1);
-        append(div1, span0);
+        append(section, div4);
+        append(div4, div2);
+        append(div2, span0);
         append(span0, t7);
         append(span0, t8);
         append(span0, t9);
         append(span0, t10);
         append(span0, t11);
-        append(div1, t12);
-        append(div1, input);
+        append(div2, t12);
+        append(div2, input);
         set_input_value(
           input,
           /*pager*/
           ctx[0].perPage
         );
-        append(div1, t13);
-        append(div1, span1);
-        append(div3, t15);
-        append(div3, p);
+        append(div2, t13);
+        append(div2, span1);
+        append(div4, t15);
+        append(div4, p);
         append(p, t16);
         append(p, t17);
-        append(div3, t18);
-        append(div3, div2);
-        append(div2, button4);
+        append(div4, t18);
+        append(div4, div3);
+        append(div3, button4);
         append(button4, i4);
-        append(div2, t19);
-        append(div2, button5);
+        append(div3, t19);
+        append(div3, button5);
         append(button5, i5);
-        append(div2, t20);
-        append(div2, button6);
+        append(div3, t20);
+        append(div3, button6);
         append(button6, i6);
-        append(div2, t21);
-        append(div2, button7);
+        append(div3, t21);
+        append(div3, button7);
         append(button7, i7);
         current = true;
         if (!mounted) {
