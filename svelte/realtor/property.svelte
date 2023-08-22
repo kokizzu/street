@@ -853,9 +853,9 @@
                   <input bind:value={feature.baths} type='number' min='0' name='baths' id='baths'>
                   <label for='baths'>Baths</label>
                 </div>
-                <div class='square_foot'>
-                  <input bind:value={feature.area} type='number' min='0' name='square_foot' id='square_foot' step='0.01'>
-                  <label for='square_foot'>Sq Ft</label>
+                <div class='area'>
+                  <input bind:value={feature.area} type='number' min='0' name='area' id='area'>
+                  <label for='area'>M2</label>
                 </div>
               </div>
               <h2>Facility</h2>
@@ -1521,7 +1521,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    
   }
 
   .about_the_house .option_container .option {
@@ -1666,7 +1665,7 @@
     justify-items     : center;
   }
 
-  .feature_section .beds, .baths, .square_foot {
+  .feature_section .beds, .baths, .area {
     display           : flex;
     flex-direction    : column;
     width             : fit-content;
@@ -1675,7 +1674,7 @@
     align-items       : center;
   }
 
-  .feature_section .beds input, .baths input, .square_foot input {
+  .feature_section .beds input, .baths input, .area input {
     width            : 100%;
     border           : 1px solid #CBD5E1;
     background-color : #F1F5F9;
