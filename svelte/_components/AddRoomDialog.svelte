@@ -14,11 +14,6 @@
   export let room_size = 0;
   let sqft_size = 0;
   export let m2_size = 0;
-  const room_type_lists = [
-    'bedroom',
-    'bathroom',
-    'living room'
-  ]
   function toggleUnitMode() {
     if (unit_mode == sqft) {
       if (room_size !== 0) {

@@ -489,7 +489,6 @@
       floor_lists = [...floor_lists, floor_attribute];
       floor_type = '';
       floorCount++;
-      console.log(floor_lists);
     }
     add_floor_dialog.hideModal();
     realtorStack[ currentPage ] = {
@@ -498,7 +497,6 @@
         floor_lists: floor_lists,
       },
     };
-    console.log(floor_lists);
     return;
   }
   
@@ -565,6 +563,8 @@
   let unit_mode;
   let bedroom_total = 0;
   let bathroom_total = 0;
+  let room_edit_mode = false;
+  let room_index_to_edit = 0;
   
   function showAddRoomDialog() {
     add_room_dialog.showModal();
@@ -629,6 +629,11 @@
     }
     add_room_dialog.hideModal();
     return;
+  }
+
+  function handleEditRoom( roomIndex ) {
+    room_edit_mode = true;
+    room_index_to_edit = roomIndex;
   }
 
   function handleRemoveRoom(roomIndex) {
@@ -1028,6 +1033,9 @@
                         <span>{room.name}</span>
                         <div class='right_item'>
                           <span>{room.sizeM2} {room.unit}</span>
+                          <button class="edit_room" on:click={() => handleEditRoom(index)}>
+                            <i class="gg-pen" />
+                          </button>
                           <button class='remove_room' on:click={() => handleRemoveRoom(index)}>
                             <i class='gg-trash'></i>
                           </button>
@@ -1078,6 +1086,10 @@
                   <div class='price'>
                     <h3>{formatPrice( infoStack.attrs.price )}</h3>
                     <p>Agency Fee: {infoStack.attrs.agency_fee_percent || '0'}%</p>
+                  </div>
+                  <div class='address'>
+                    <i class='gg-pin'/>
+                    <p>{mapStack.attrs.address}</p>
                   </div>
                 </div>
                 <div class='right_item'>
@@ -2101,8 +2113,17 @@
     flex-direction : row;
     align-items    : center;
   }
+  .floor .edit_floor_container .room_list_container .room_list_item .right_item .edit_room {
+    border        : none;
+    background    : none;
+    padding       : 18px 15px;
+    border-radius : 50%;
+    margin-left   : 8px;
+    cursor        : pointer;
+    color         : #F97316;
+  }
 
-  .floor .edit_floor_container .room_list_container .room_list_item .right_item .remove_room {
+  .floor .edit_floor_container .room_list_container .room_list_item .right_item .remove_room{
     border        : none;
     background    : none;
     padding       : 10px 13px;
@@ -2112,7 +2133,8 @@
     color         : #F97316;
   }
 
-  .floor .edit_floor_container .room_list_container .room_list_item .right_item .remove_room:hover {
+  .floor .edit_floor_container .room_list_container .room_list_item .right_item .remove_room:hover,
+  .floor .edit_floor_container .room_list_container .room_list_item .right_item .edit_room:hover {
     background-color : rgb(0 0 0 / 0.06);
   }
 
@@ -2196,6 +2218,7 @@
   .preview .preview_price_house_type .left_item {
     display        : flex;
     flex-direction : column;
+    gap: 10px;
   }
 
   .preview .preview_price_house_type .left_item span {
@@ -2215,13 +2238,21 @@
   .preview .preview_price_house_type .left_item .price h3 {
     font-size   : 30px;
     font-weight : 700;
-    margin      : 0;
+    margin      : 0 0 10px 0;
   }
 
   .preview .preview_price_house_type .left_item p {
     color     : #64748B;
     font-size : 13px;
-    margin    : 10px 0 0 0;
+    margin: 0;
+  }
+  .preview .preview_price_house_type .left_item .address {
+    display   : flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  .preview .preview_price_house_type .left_item .address i {
+    color: #f97316;
   }
 
   .preview .preview_price_house_type .right_item {
