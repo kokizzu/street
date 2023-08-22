@@ -6,7 +6,7 @@
   import ProfileHeader from '../_components/ProfileHeader.svelte';
   import Footer from '../_components/Footer.svelte';
   import AddFloorDialog from '../_components/AddFloorDialog.svelte';
-  import AddRoomDialog from '../_components/AddRoomDialog.svelte';
+  import AddOrEditRoomDialog from '../_components/AddOrEditRoomDialog.svelte';
   import { RealtorUpsertProperty } from '../jsApi.GEN';
   
   let property = {/* property */};
@@ -551,7 +551,7 @@
   }
   
   // ________Rooms Edit
-  let add_room_dialog = AddRoomDialog;
+  let add_or_edit_room_dialog = AddOrEditRoomDialog;
   let room_type = '';
   let room_obj = {
     name: '',
@@ -561,79 +561,95 @@
   let size_m2;
   let room_size;
   let unit_mode;
-  let bedroom_total = 0;
-  let bathroom_total = 0;
   let room_edit_mode = false;
   let room_index_to_edit = 0;
   
   function showAddRoomDialog() {
-    add_room_dialog.showModal();
+    add_or_edit_room_dialog.showModal();
+  }
+  function showEditRoomDialog( index ) {
+    room_edit_mode = true;
+    room_index_to_edit = index;
+    room_type = floor_lists[floor_index_to_edit].rooms[room_index_to_edit].name;
+    size_m2 = floor_lists[floor_index_to_edit].rooms[room_index_to_edit].sizeM2;
+    room_size = size_m2;
+    unit_mode = 'M2';
+    add_or_edit_room_dialog.showModal();
   }
   
-  function handlerAddRoom( index ) {
+  function handleAddOrEditRoom( index ) {
+    // Note: parameter index indicates which one array (floors/rooms) to edit
+    let living_room_total = 0;
+    for( let i = 0; i < floor_lists[ floor_index_to_edit ][ 'rooms' ].length; i++ ) {
+      if( floor_lists[ floor_index_to_edit ][ 'rooms' ][ i ].name==='living room' ) {
+        living_room_total++;
+      }
+    }
     if( unit_mode==='SqFt' && size_m2===0 ) {
-      size_m2 = add_room_dialog.sqftToM2( room_size );
+      size_m2 = add_or_edit_room_dialog.sqftToM2( room_size );
     } else if( unit_mode==='SqFt' && size_m2!==0 ) {
-      size_m2 = add_room_dialog.sqftToM2( room_size );
+      size_m2 = add_or_edit_room_dialog.sqftToM2( room_size );
     } else {
       size_m2 = room_size;
     }
-    
-    if( room_type==='living room' ) {
-      for( let i = 0; i<floor_lists[ index ][ 'rooms' ].length; i++ ) {
-        if( floor_lists[ index ][ 'rooms' ][ i ].name==='living room' ) {
-          alert( 'Living Room already added' );
-          add_room_dialog.hideModal();
-          room_type = '';
-          room_size = 0;
-          size_m2 = 0;
-          return;
-        }
-      }
-      
-      room_obj = {
-        name: 'living room',
-        sizeM2: size_m2,
-        unit: 'm2',
-      };
-      floor_lists[ index ].rooms = [...floor_lists[ index ].rooms, room_obj];
-      room_type = '';
-      room_size = 0;
-      size_m2 = 0;
-    }
-    if( room_type==='bedroom' ) {
-      room_obj = {
-        name: 'bedroom',
-        sizeM2: size_m2,
-        unit: 'm2',
-      };
-      bedroom_total++;
-      floor_lists[ index ].rooms = [...floor_lists[ index ].rooms, room_obj];
-      floor_lists[ index ].beds = bedroom_total;
-      room_type = '';
-      room_size = 0;
-      size_m2 = 0;
-    }
-    if( room_type==='bathroom' ) {
-      room_obj = {
-        name: 'bathroom',
-        sizeM2: size_m2,
-        unit: 'm2',
-      };
-      bathroom_total++;
-      floor_lists[ index ].rooms = [...floor_lists[ index ].rooms, room_obj];
-      floor_lists[ index ].baths = bathroom_total;
-      room_type = '';
-      room_size = 0;
-      size_m2 = 0;
-    }
-    add_room_dialog.hideModal();
-    return;
-  }
 
-  function handleEditRoom( roomIndex ) {
-    room_edit_mode = true;
-    room_index_to_edit = roomIndex;
+    if (room_edit_mode === true) {
+      if (room_type === 'living room' && floor_lists[floor_index_to_edit].rooms[ index ].name === 'living room') {
+        alert( 'Living Room already added, cannot edit to living room' );
+        room_type = '';
+        room_size = 0;
+        size_m2 = 0;
+        room_edit_mode === false;
+        add_or_edit_room_dialog.hideModal();
+        return;
+      } else if ( room_type==='living room' && living_room_total > 0) {
+        alert( 'Living Room already added, cannot edit to living room' );
+        room_type = '';
+        room_size = 0;
+        size_m2 = 0;
+        room_edit_mode === false;
+        add_or_edit_room_dialog.hideModal();
+        return;
+      }
+      if( room_type==='bedroom' ) { floor_lists[floor_index_to_edit].beds++; }
+      if( room_type==='bathroom' ) { floor_lists[floor_index_to_edit].baths++; }
+
+      room_obj = {
+        name: room_type,
+        sizeM2: size_m2,
+        unit: 'm2',
+      };
+      floor_lists[floor_index_to_edit].rooms[ index ] = room_obj;
+      room_type = '';
+      room_size = 0;
+      size_m2 = 0;
+      room_edit_mode = false;
+      add_or_edit_room_dialog.hideModal();
+      return;
+    } else {
+      if( room_type==='living room' && living_room_total > 0) {
+        alert( 'Living Room already added' );
+        room_type = '';
+        room_size = 0;
+        size_m2 = 0;
+        add_or_edit_room_dialog.hideModal();
+        return;  
+      }
+      if( room_type==='bedroom' ) { floor_lists[index].beds++; }
+      if( room_type==='bathroom' ) { floor_lists[index].baths++; }
+
+      room_obj = {
+        name: room_type,
+        sizeM2: size_m2,
+        unit: 'm2',
+      };
+      floor_lists[ index ].rooms = [...floor_lists[ index ].rooms, room_obj];
+      room_type = '';
+      room_size = 0;
+      size_m2 = 0;
+      add_or_edit_room_dialog.hideModal();
+      return;
+    }
   }
 
   function handleRemoveRoom(roomIndex) {
@@ -930,9 +946,16 @@
             <button disabled={floor_type === ''} class='add_floor_button' on:click={handlerAddFloor}>Add</button>
           </AddFloorDialog>
           <!-- Add Room Dialog -->
-          <AddRoomDialog bind:this={add_room_dialog} bind:room_type={room_type} bind:room_size={room_size} bind:m2_size={size_m2} bind:unit_mode={unit_mode}>
-            <button disabled={room_type === ''} class='add_room_button' on:click={() => handlerAddRoom(floor_index_to_edit)}>Add</button>
-          </AddRoomDialog>
+          <AddOrEditRoomDialog bind:this={add_or_edit_room_dialog} bind:room_type={room_type} bind:room_size={room_size} bind:m2_size={size_m2} bind:unit_mode={unit_mode}>
+            <button disabled={room_type === ''} class='add_room_button'
+              on:click={() => {
+                if (room_edit_mode === true) {
+                  handleAddOrEditRoom(room_index_to_edit);
+                } else {
+                  handleAddOrEditRoom(floor_index_to_edit);
+                }
+              }}>Add</button>
+          </AddOrEditRoomDialog>
           <div class='floor_main_content'>
             <button
               class='back_button'
@@ -944,6 +967,9 @@
                   }
                 }}>
               <i class='gg-chevron-left' />
+              {#if floor_edit_mode===true}
+                <span>Back to floor lists </span>
+              {/if}
             </button>
             <div class='floor_header'>
               {#if floor_edit_mode===true}
@@ -1033,7 +1059,7 @@
                         <span>{room.name}</span>
                         <div class='right_item'>
                           <span>{room.sizeM2} {room.unit}</span>
-                          <button class="edit_room" on:click={() => handleEditRoom(index)}>
+                          <button class="edit_room" on:click={() => showEditRoomDialog(index)}>
                             <i class="gg-pen" />
                           </button>
                           <button class='remove_room' on:click={() => handleRemoveRoom(index)}>
@@ -1051,7 +1077,7 @@
               </div>
             {/if}
           </div>
-          <button disabled={imgFlrPlanUploading === true} class='next_button' on:click|preventDefault={handleNextFloor}>
+          <button disabled={imgFlrPlanUploading === true || floor_edit_mode === true} class='next_button' on:click|preventDefault={handleNextFloor}>
             {#if imgFlrPlanUploading===true}
               <i class='gg-disc'></i>
             {:else}
@@ -1357,11 +1383,18 @@
     border-radius    : 5px;
     font-size        : 14px;
     cursor           : pointer;
+    display          : flex;
+    flex-direction   : row;
+    align-items      : center;
+    gap              : 8px;
   }
 
   .realtor_subpage_container .back_button:hover {
     background-color : rgb(0 0 0 / 0.05);
     color            : #EF4444;
+  }
+  .realtor_subpage_container .back_button span {
+    margin-right      : 5px;
   }
 
   /* +============| SUBPAGE LOCATION |===========+ */
@@ -1778,6 +1811,9 @@
     cursor           : pointer;
     display          : flex;
     justify-content  : center;
+  }
+  .floor .next_button:disabled {
+    background-color : #f39552;
   }
 
   .floor .next_button:hover {
