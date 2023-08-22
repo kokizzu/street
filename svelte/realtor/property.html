@@ -7299,6 +7299,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function create_default_slot(ctx) {
     let button;
+    let t_value = (
+      /*room_edit_mode*/
+      ctx[37] === true ? "Edit" : "Add"
+    );
     let t;
     let button_disabled_value;
     let mounted;
@@ -7306,7 +7310,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return {
       c() {
         button = element("button");
-        t = text("Add");
+        t = text(t_value);
         button.disabled = button_disabled_value = /*room_type*/
         ctx[33] === "";
         attr(button, "class", "add_room_button svelte-1u59ssi");
@@ -7325,6 +7329,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
       },
       p(ctx2, dirty) {
+        if (dirty[1] & /*room_edit_mode*/
+        64 && t_value !== (t_value = /*room_edit_mode*/
+        ctx2[37] === true ? "Edit" : "Add"))
+          set_data(t, t_value);
         if (dirty[1] & /*room_type*/
         4 && button_disabled_value !== (button_disabled_value = /*room_type*/
         ctx2[33] === "")) {
@@ -10556,14 +10564,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
       if (room_edit_mode === true) {
         if (room_type === "living room" && floor_lists[floor_index_to_edit].rooms[index].name === "living room") {
-          alert("Living Room already added, cannot edit to living room");
+          room_obj = {
+            name: room_type,
+            sizeM2: size_m2,
+            unit: "m2"
+          };
+          $invalidate(25, floor_lists[floor_index_to_edit].rooms[index] = room_obj, floor_lists);
           $invalidate(33, room_type = "");
           $invalidate(35, room_size = 0);
           $invalidate(34, size_m2 = 0);
-          room_edit_mode === false;
+          $invalidate(37, room_edit_mode = false);
           add_or_edit_room_dialog.hideModal();
           return;
-        } else if (room_type === "living room" && living_room_total > 0) {
+        }
+        if (room_type === "living room" && living_room_total > 0) {
           alert("Living Room already added, cannot edit to living room");
           $invalidate(33, room_type = "");
           $invalidate(35, room_size = 0);
@@ -10572,11 +10586,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           add_or_edit_room_dialog.hideModal();
           return;
         }
-        if (room_type === "bedroom") {
-          $invalidate(25, floor_lists[floor_index_to_edit].beds++, floor_lists);
+        if (room_type !== floor_lists[floor_index_to_edit].rooms[index].name) {
+          if (floor_lists[floor_index_to_edit].rooms[index].name === "bedroom") {
+            $invalidate(25, floor_lists[floor_index_to_edit].beds--, floor_lists);
+          } else if (floor_lists[floor_index_to_edit].rooms[index].name === "bathroom") {
+            $invalidate(25, floor_lists[floor_index_to_edit].baths--, floor_lists);
+          }
+          if (room_type === "bedroom") {
+            $invalidate(25, floor_lists[floor_index_to_edit].beds++, floor_lists);
+          }
+          if (room_type === "bathroom") {
+            $invalidate(25, floor_lists[floor_index_to_edit].baths++, floor_lists);
+          }
         }
-        if (room_type === "bathroom") {
-          $invalidate(25, floor_lists[floor_index_to_edit].baths++, floor_lists);
+        if (room_type === floor_lists[floor_index_to_edit].rooms[index].name) {
+          if (floor_lists[floor_index_to_edit].rooms[index].name === "bedroom") {
+            $invalidate(25, floor_lists[floor_index_to_edit].beds++, floor_lists);
+          } else if (floor_lists[floor_index_to_edit].rooms[index].name === "bathroom") {
+            $invalidate(25, floor_lists[floor_index_to_edit].baths++, floor_lists);
+          }
         }
         room_obj = {
           name: room_type,
@@ -10619,6 +10647,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     }
     function handleRemoveRoom(roomIndex) {
+      if (floor_lists[floor_index_to_edit].rooms[roomIndex].name === "bedroom") {
+        $invalidate(25, floor_lists[floor_index_to_edit].beds--, floor_lists);
+      }
+      if (floor_lists[floor_index_to_edit].rooms[roomIndex].name === "bathroom") {
+        $invalidate(25, floor_lists[floor_index_to_edit].baths--, floor_lists);
+      }
       $invalidate(25, floor_lists[floor_index_to_edit]["rooms"] = floor_lists[floor_index_to_edit]["rooms"].filter((_, i) => i !== roomIndex), floor_lists);
     }
     function handleNextFloor() {

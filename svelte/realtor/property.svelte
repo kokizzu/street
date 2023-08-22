@@ -595,14 +595,20 @@
 
     if (room_edit_mode === true) {
       if (room_type === 'living room' && floor_lists[floor_index_to_edit].rooms[ index ].name === 'living room') {
-        alert( 'Living Room already added, cannot edit to living room' );
+        room_obj = {
+          name: room_type,
+          sizeM2: size_m2,
+          unit: 'm2',
+        };
+        floor_lists[floor_index_to_edit].rooms[ index ] = room_obj;
         room_type = '';
         room_size = 0;
         size_m2 = 0;
-        room_edit_mode === false;
+        room_edit_mode = false;
         add_or_edit_room_dialog.hideModal();
         return;
-      } else if ( room_type==='living room' && living_room_total > 0) {
+      }
+      if (room_type==='living room' && living_room_total > 0){
         alert( 'Living Room already added, cannot edit to living room' );
         room_type = '';
         room_size = 0;
@@ -611,8 +617,26 @@
         add_or_edit_room_dialog.hideModal();
         return;
       }
-      if( room_type==='bedroom' ) { floor_lists[floor_index_to_edit].beds++; }
-      if( room_type==='bathroom' ) { floor_lists[floor_index_to_edit].baths++; }
+
+      // Check if room type will be edit, its total room type (beds/baths) will be updated
+      if (room_type !== floor_lists[floor_index_to_edit].rooms[ index ].name) {
+        if (floor_lists[floor_index_to_edit].rooms[ index ].name === 'bedroom') {
+          floor_lists[floor_index_to_edit].beds--;
+        } else if (floor_lists[floor_index_to_edit].rooms[ index ].name === 'bathroom') {
+          floor_lists[floor_index_to_edit].baths--;
+        }
+
+        if (room_type === 'bedroom') { floor_lists[floor_index_to_edit].beds++ }
+        if (room_type === 'bathroom') { floor_lists[floor_index_to_edit].baths++}
+      }
+      if (room_type === floor_lists[floor_index_to_edit].rooms[ index ].name) {
+        if (floor_lists[floor_index_to_edit].rooms[ index ].name === 'bedroom') {
+          floor_lists[floor_index_to_edit].beds++;
+        } else if (floor_lists[floor_index_to_edit].rooms[ index ].name === 'bathroom') {
+          floor_lists[floor_index_to_edit].baths++;
+        }
+      }
+      
 
       room_obj = {
         name: room_type,
@@ -653,6 +677,12 @@
   }
 
   function handleRemoveRoom(roomIndex) {
+    if (floor_lists[floor_index_to_edit].rooms[ roomIndex ].name === 'bedroom') {
+      floor_lists[floor_index_to_edit].beds--;
+    }
+    if (floor_lists[floor_index_to_edit].rooms[ roomIndex ].name === 'bathroom') {
+      floor_lists[floor_index_to_edit].baths--;
+    }
     floor_lists[ floor_index_to_edit ]['rooms'] = floor_lists[ floor_index_to_edit ]['rooms'].filter((_, i) => i !== roomIndex);
   }
   
@@ -954,7 +984,9 @@
                 } else {
                   handleAddOrEditRoom(floor_index_to_edit);
                 }
-              }}>Add</button>
+              }}>
+              {room_edit_mode === true ? 'Edit' : 'Add'}
+            </button>
           </AddOrEditRoomDialog>
           <div class='floor_main_content'>
             <button
