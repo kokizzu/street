@@ -637,7 +637,6 @@
         }
       }
       
-
       room_obj = {
         name: room_type,
         sizeM2: size_m2,
