@@ -9,7 +9,7 @@
   import AddOrEditRoomDialog from '../_components/AddOrEditRoomDialog.svelte';
   import { RealtorUpsertProperty } from '../jsApi.GEN';
   
-  let property = {/* property */};
+  let property = {/* property */}
   // ^ if this null = add a new page, if not, convert this to realtorStack
   
   onMount( async () => {
@@ -73,6 +73,44 @@
       },
     },
   ];
+
+  onMount(() => {
+    if (property !== null) {
+      console.log(property);
+      realtorStack = [
+        {
+          subroute: 'location',
+          attrs: {
+            address: property.formattedAddress,
+            long: property.coord[1],
+            lat: property.coord[0],
+          },
+        }, {
+          subroute: 'information',
+          attrs: {
+            house_type: property.houseType,
+            purpose: property.purpose,
+            images: property.images,
+            feature: {
+              beds: property.bedroom,
+              baths: property.bathroom,
+              area: property.sizeM2
+            },
+            facility: property.mainUse,
+            description: property.note,
+            price: property.lastPrice,
+            agency_fee: property.agencyFeePercent
+          },
+        }, {
+          subroute: 'floors',
+          attrs: {
+            floor_lists: property.floorList
+          }
+        },
+      ];
+    }
+  })
+
   let mapStack, infoStack, floorStack, previewStack;
   $: mapStack = realtorStack[ 0 ];
   $: infoStack = realtorStack[ 1 ];
