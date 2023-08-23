@@ -10,7 +10,6 @@
   import { RealtorUpsertProperty } from '../jsApi.GEN';
   
   let property = {/* property */}
-  // ^ if this null = add a new page, if not, convert this to realtorStack
   
   onMount( async () => {
     await initMap();
@@ -76,15 +75,16 @@
   ];
 
   onMount(() => {
-    if (property !== null) {
+    if (Object.keys(property).length!==0) {
       console.log(property);
+      let coord = (property.coord || [23.6978,120.9605])
       realtorStack = [
         {
           subroute: 'location',
           attrs: {
             address: property.formattedAddress,
-            long: property.coord[1],
-            lat: property.coord[0],
+            long: coord[1],
+            lat: coord[0],
           },
         }, {
           subroute: 'information',
@@ -121,22 +121,26 @@
   let cards = [{}, {}, {}, {}];
   
   let payload = {};
-  $: payload = {
-    formattedAddress: mapStack.attrs.address,
-    coord: [mapStack.attrs.lat, mapStack.attrs.long],
-    houseType: infoStack.attrs.house_type,
-    purpose: infoStack.attrs.purpose,
-    images: infoStack.attrs.images,
-    bedroom: infoStack.attrs.feature.beds,
-    bathroom: infoStack.attrs.feature.baths,
-    sizeM2: '' + infoStack.attrs.feature.area, // have to be string because of taiwan data
-    mainUse: infoStack.attrs.facility,
-    note: infoStack.attrs.description,
-    price: infoStack.attrs.property_price,
-    agencyFeePercent: infoStack.attrs.agency_fee_percent,
-    numberOfFloors: '' + floorStack.attrs.floor_lists.length, // have to be string because of taiwan data
-    floorList: floorStack.attrs.floor_lists,
-  };
+  $: () => {
+    let attrs = floorStack.attrs || {}
+    let floorList = attrs.floor_lists || []
+    payload = {
+      formattedAddress: mapStack.attrs.address,
+      coord: [mapStack.attrs.lat, mapStack.attrs.long],
+      houseType: infoStack.attrs.house_type,
+      purpose: infoStack.attrs.purpose,
+      images: infoStack.attrs.images,
+      bedroom: infoStack.attrs.feature.beds,
+      bathroom: infoStack.attrs.feature.baths,
+      sizeM2: '' + infoStack.attrs.feature.area, // have to be string because of taiwan data
+      mainUse: infoStack.attrs.facility,
+      note: infoStack.attrs.description,
+      price: infoStack.attrs.property_price,
+      agencyFeePercent: infoStack.attrs.agency_fee_percent,
+      numberOfFloors: '' + floorList.length, // have to be string because of taiwan data
+      floorList: floorList,
+    };
+  }
   
   async function nextPage() {
     if( currentPage<3 ) {
@@ -695,7 +699,7 @@
         room_size = 0;
         size_m2 = 0;
         add_or_edit_room_dialog.hideModal();
-        return;  
+        return;
       }
       if( room_type==='bedroom' ) { floor_lists[index].beds++; }
       if( room_type==='bathroom' ) { floor_lists[index].baths++; }

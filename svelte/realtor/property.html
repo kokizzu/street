@@ -10132,15 +10132,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     ];
     onMount(() => {
-      if (property !== null) {
+      if (Object.keys(property).length !== 0) {
         console.log(property);
+        let coord = property.coord || [23.6978, 120.9605];
         $invalidate(0, realtorStack = [
           {
             subroute: "location",
             attrs: {
               address: property.formattedAddress,
-              long: property.coord[1],
-              lat: property.coord[0]
+              long: coord[1],
+              lat: coord[0]
             }
           },
           {
@@ -10891,23 +10892,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       6 | $self.$.dirty[2] & /*floorStack*/
       2) {
         $:
-          payload = {
-            formattedAddress: mapStack.attrs.address,
-            coord: [mapStack.attrs.lat, mapStack.attrs.long],
-            houseType: infoStack.attrs.house_type,
-            purpose: infoStack.attrs.purpose,
-            images: infoStack.attrs.images,
-            bedroom: infoStack.attrs.feature.beds,
-            bathroom: infoStack.attrs.feature.baths,
-            sizeM2: "" + infoStack.attrs.feature.area,
-            // have to be string because of taiwan data
-            mainUse: infoStack.attrs.facility,
-            note: infoStack.attrs.description,
-            price: infoStack.attrs.property_price,
-            agencyFeePercent: infoStack.attrs.agency_fee_percent,
-            numberOfFloors: "" + floorStack.attrs.floor_lists.length,
-            // have to be string because of taiwan data
-            floorList: floorStack.attrs.floor_lists
+          () => {
+            let attrs = floorStack.attrs || {};
+            let floorList = attrs.floor_lists || [];
+            payload = {
+              formattedAddress: mapStack.attrs.address,
+              coord: [mapStack.attrs.lat, mapStack.attrs.long],
+              houseType: infoStack.attrs.house_type,
+              purpose: infoStack.attrs.purpose,
+              images: infoStack.attrs.images,
+              bedroom: infoStack.attrs.feature.beds,
+              bathroom: infoStack.attrs.feature.baths,
+              sizeM2: "" + infoStack.attrs.feature.area,
+              // have to be string because of taiwan data
+              mainUse: infoStack.attrs.facility,
+              note: infoStack.attrs.description,
+              price: infoStack.attrs.property_price,
+              agencyFeePercent: infoStack.attrs.agency_fee_percent,
+              numberOfFloors: "" + floorList.length,
+              // have to be string because of taiwan data
+              floorList
+            };
           };
       }
       if ($self.$.dirty[0] & /*house_type*/
