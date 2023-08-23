@@ -305,9 +305,9 @@ func (p *Property) NormalizeFloorList() {
 		    "",
 		}
 	*/
-	amsx := []any{}
+	floorsArr := []any{}
 	for _, floor := range p.FloorList {
-		msx := M.SX{}
+		floorObj := M.SX{}
 		maa, ok := floor.(map[any]any)
 		if !ok {
 			continue
@@ -322,25 +322,27 @@ func (p *Property) NormalizeFloorList() {
 				if !ok {
 					continue
 				}
+				roomsArr := []M.SX{}
 				for _, room := range rooms {
 					room, ok := room.(map[any]any)
 					if !ok {
 						continue
 					}
-					roomsx := map[string]any{}
+					roomObj := M.SX{}
 					for key, val := range room {
 						strKey, ok := key.(string)
 						if !ok {
 							continue
 						}
-						roomsx[strKey] = val
+						roomObj[strKey] = val
 					}
-					val = roomsx
+					roomsArr = append(roomsArr, roomObj)
 				}
+				val = roomsArr
 			}
-			msx[strKey] = val
+			floorObj[strKey] = val
 		}
-		amsx = append(amsx, msx)
+		floorsArr = append(floorsArr, floorObj)
 	}
-	p.FloorList = amsx
+	p.FloorList = floorsArr
 }
