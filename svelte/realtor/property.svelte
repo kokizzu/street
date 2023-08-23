@@ -14,6 +14,7 @@
   
   onMount( async () => {
     await initMap();
+    console.log('property=',property)
   } );
   
   let user = {/* user */};

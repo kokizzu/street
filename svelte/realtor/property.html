@@ -10079,6 +10079,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
+  var property = {/* property */};
   var segments = {/* segments */};
   var ABOUT_THE_HOUSE = "About The House";
   var UPLOAD_HOUSE_PHOTO = "Upload House Photo";
@@ -10091,6 +10092,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function instance6($self, $props, $invalidate) {
     onMount(async () => {
       await initMap();
+      console.log("property=", property);
     });
     let realtorStack = [
       {

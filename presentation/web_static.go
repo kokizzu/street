@@ -140,7 +140,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		return views.RenderRealtorProperty(ctx, M.SX{
 			`title`:    `Realtor Property`,
 			`segments`: segments,
-			`property`: nil,
+			`property`: M.SX{},
 		})
 	})
 	fw.Get(`/realtor/property/:propId`, func(ctx *fiber.Ctx) error {
