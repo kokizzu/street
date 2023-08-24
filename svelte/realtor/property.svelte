@@ -18,20 +18,20 @@
       subroute: 'information',
       attrs: {
         // house_type: '', /*House or Apartment*/
-        purpose: '', /*rent or sell*/
+        // purpose: '', /*rent or sell*/
         images: [
           // "/url/to/images",
           // "/url/to/images"
         ],
-        feature: {
-          beds: 0,
-          baths: 0,
-          area: 0,
-        },
+        // feature: {
+        //   beds: 0,
+        //   baths: 0,
+        //   area: 0,
+        // },
         // facility: '', /*Facility Description*/
-        description: '', /*Description of this property*/
-        price: 0, /*Price*/
-        agency_fee: 0, /*Fee Percentage*/
+        // description: '', /*Description of this property*/
+        // price: 0, /*Price*/
+        // agency_fee: 0, /*Fee Percentage*/
       },
     }, {
       subroute: 'floors',
@@ -70,11 +70,68 @@
         formattedAddress: '',
         lat: defaultLat,
         long: defaultLong,
-        coords: [defaultLat, defaultLong],
+        coord: [defaultLat, defaultLong],
+        //"id": '1234'
+        uniqPropKey: '1_12449819078726277117',
+        serialNumber: '',
+        sizeM2: '0',
+        mainUse: '',
+        mainBuildingMaterial: '',
+        constructCompletedDate: '',
+        // 'numberOfFloors': '0',
+        buildingLamination: '',
+        address: '',
+        district: '',
+        note: '',
+        createdAt: 1692641835,
+        // createdBy: '0',
+        updatedAt: 1692641835,
+        // 'updatedBy': '0',
+        // 'deletedAt': 0,
+        lastPrice: '',
+        priceHistoriesSell: [],
+        priceHistoriesRent: [],
+        purpose: '', // rent, sell
+        houseType: '', // house, apartment
+        images: [
+          // '/guest/files/B-___.jpg',
+        ],
+        bedroom: 0,
+        bathroom: 0,
+        agencyFeePercent: 0,
+        floorList: [
+          // {
+          //   'baths': 2,
+          //   'beds': 1,
+          //   'floor': 1,
+          //   'planImageUrl': '/guest/files/C-___.jpg',
+          //   'rooms': [
+          //     {
+          //       'name': 'bedroom',
+          //       'sizeM2': 1,
+          //       'unit': 'm2',
+          //     },
+          //     {
+          //       'name': 'bathroom',
+          //       'sizeM2': 2,
+          //       'unit': 'm2',
+          //     },
+          //     {
+          //       'name': 'bathroom',
+          //       'sizeM2': 12,
+          //       'unit': 'm2',
+          //     },
+          //   ],
+          //   'type': 'floor',
+          // },
+        ],
+        country: '',
       };
     } else {
       property.lat = property.coord[ 0 ];
       property.long = property.coord[ 1 ];
+      property.lastPrice = +property.lastPrice;
+      property.agencyFeePercent = +property.agencyFeePercent;
       realtorStack = [
         {}, {
           subroute: 'information',
@@ -85,9 +142,6 @@
               baths: property.bathroom,
               area: property.sizeM2,
             },
-            description: property.note,
-            price: property.lastPrice,
-            agency_fee: property.agencyFeePercent,
           },
         }, {
           subroute: 'floors',
@@ -118,13 +172,13 @@
       houseType: property.houseType,
       purpose: property.purpose,
       images: infoStack.attrs.images,
-      bedroom: infoStack.attrs.feature.beds,
-      bathroom: infoStack.attrs.feature.baths,
-      sizeM2: '' + infoStack.attrs.feature.area, // have to be string because of taiwan data
+      bedroom: property.bedroom,
+      bathroom: property.bathroom,
+      sizeM2: '' + property.sizeM2, // have to be string because of taiwan data
       mainUse: property.mainUse,
-      note: infoStack.attrs.description,
-      price: infoStack.attrs.property_price,
-      agencyFeePercent: infoStack.attrs.agency_fee_percent,
+      note: property.note,
+      price: property.lastPrice,
+      agencyFeePercent: property.agencyFeePercent,
       numberOfFloors: '' + floorList.length, // have to be string because of taiwan data
       floorList: floorList,
     };
@@ -276,17 +330,17 @@
     floor: 0,
     // purpose: '',
     images: [],
-    feature: {
-      beds: 0,
-      baths: 0,
-      area: 0,
-    },
-    facility: '',
-    description: '',
-    price: {
-      property_price: 0,
-      agency_fee: 0,
-    },
+    // feature: {
+    //   beds: 0,
+    //   baths: 0,
+    //   area: 0,
+    // },
+    // facility: '',
+    // description: '',
+    // price: {
+    //   property_price: 0,
+    //   agency_fee: 0,
+    // },
   };
   
   let modeHouseInfoCount = 0;
@@ -310,13 +364,9 @@
       modeHouseInfoCount++;
       mode = modeHouseLists[ modeHouseInfoCount ].mode;
       modeSkippable = modeHouseLists[ modeHouseInfoCount ].skip;
-    } else {
-      realtorStack[ currentPage ] = {
-        subroute: 'information',
-        attrs: house_info_obj,
-      };
-      nextPage();
+      return
     }
+      nextPage();
   }
   
   function houseInfoBack() {
@@ -324,9 +374,9 @@
       modeHouseInfoCount--;
       mode = modeHouseLists[ modeHouseInfoCount ].mode;
       modeSkippable = modeHouseLists[ modeHouseInfoCount ].skip;
-    } else {
-      backPage();
+      return
     }
+    backPage();
   }
   
   function houseInfoSkip() {
@@ -334,9 +384,9 @@
       modeHouseInfoCount++;
       mode = modeHouseLists[ modeHouseInfoCount ].mode;
       modeSkippable = modeHouseLists[ modeHouseInfoCount ].skip;
-    } else {
-      nextPage();
+      return
     }
+    nextPage();
   }
   
   // ______About The House
@@ -416,32 +466,20 @@
   };
   
   function handleNextFeatureFacility() {
-    house_info_obj.feature.beds = feature.beds;
-    house_info_obj.feature.baths = feature.baths;
-    house_info_obj.feature.area = feature.area;
     houseInfoNext();
   }
   
   // _______Description of Property
-  let description_of_property = '';
-  
   function handleNextDescriptionProperty() {
-    house_info_obj.description = description_of_property;
     houseInfoNext();
   }
   
   // _______Price of Property
-  let property_price = 0;
-  let agency_fee = 0;
-  
   function handleNextPriceProperty() {
-    if( property_price===0 ) {
-      alert( `Price cannot be "${property_price}"` );
-    } else {
-      house_info_obj.price = property_price;
-      house_info_obj.agency_fee_percent = agency_fee;
-      houseInfoNext();
+    if( !property.lastPrice ) {
+      return alert( `Price cannot be "${property.lastPrice}"` );
     }
+    houseInfoNext();
   }
   
   // +=============| Floors |=============+ //
@@ -921,27 +959,27 @@
               <h2>Feature</h2>
               <div class='feature_section'>
                 <div class='beds'>
-                  <input bind:value={feature.beds} type='number' min='0' name='beds' id='beds'>
+                  <input bind:value={property.bedroom} type='number' min='0' name='beds' id='beds'>
                   <label for='beds'>Beds</label>
                 </div>
                 <div class='baths'>
-                  <input bind:value={feature.baths} type='number' min='0' name='baths' id='baths'>
+                  <input bind:value={property.bathroom} type='number' min='0' name='baths' id='baths'>
                   <label for='baths'>Baths</label>
                 </div>
                 <div class='area'>
-                  <input bind:value={feature.area} type='number' min='0' name='area' id='area'>
+                  <input bind:value={property.sizeM2} type='number' min='0' name='area' id='area'>
                   <label for='area'>M2</label>
                 </div>
               </div>
               <h2>Facility</h2>
               <div class='facility_section'>
-                <textarea bind:value={property.facility} rows='10' placeholder='Type the facility in the property.' name='facility' id='facility'></textarea>
+                <textarea bind:value={property.mainUse} rows='10' placeholder='Type the facility in the property.' name='facility' id='facility'></textarea>
               </div>
             {/if}
             {#if mode===DESCRIPTION_PROPERTY}
               <h2>{mode}</h2>
               <div class='description_of_property'>
-                  <textarea bind:value={description_of_property} rows='20'
+                  <textarea bind:value={property.note} rows='20'
                             placeholder='Writing a description can help potential buyers become more interested in your property.' name='description'
                             id='description'></textarea>
               </div>
@@ -951,12 +989,12 @@
               <div class='price'>
                 <div class='property_price'>
                   <label for='property_price'>Property Price</label>
-                  <input bind:value={property_price} type='number' min='0' name='property_price' id='property_price' />
+                  <input bind:value={property.lastPrice} type='number' min='0' name='property_price' id='property_price' />
                 </div>
                 <div class='agency_fee'>
                   <label for='agency_fee'>Agency Fee</label>
                   <div>
-                    <input bind:value={agency_fee} type='number' min='0' max='100' name='agency_fee' id='agency_fee'>
+                    <input bind:value={property.agencyFeePercent} type='number' min='0' max='100' name='agency_fee' id='agency_fee'>
                     <span>%</span>
                   </div>
                 </div>
@@ -1167,8 +1205,8 @@
                 <div class='left_item'>
                   <span>On Sale</span>
                   <div class='price'>
-                    <h3>{formatPrice( infoStack.attrs.price )}</h3>
-                    <p>Agency Fee: {infoStack.attrs.agency_fee_percent || '0'}%</p>
+                    <h3>{formatPrice( property.lastPrice || 0 )}</h3>
+                    <p>Agency Fee: {property.agencyFeePercent || '0'}%</p>
                   </div>
                   <div class='address'>
                     <i class='gg-pin' />
@@ -1187,26 +1225,26 @@
               </div>
               <div class='preview_feature'>
                 <div>
-                  <b>{infoStack.attrs.feature.beds}</b>
+                  <b>{property.bedroom}</b>
                   <p>Beds</p>
                 </div>
                 <div>
-                  <b>{infoStack.attrs.feature.baths}</b>
+                  <b>{property.bathroom}</b>
                   <p>Baths</p>
                 </div>
                 <div>
-                  <b>{infoStack.attrs.feature.area}</b>
-                  <p>Sq Ft</p>
+                  <b>{property.sizeM2}</b>
+                  <p>M<sup>2</sup></p>
                 </div>
               </div>
               <article class='preview_description'>
                 <div class='preview_facility'>
                   <h3>Facility</h3>
-                  <p>{property.mainUse!=='' ? infoStack.attrs.facility : '--'}</p>
+                  <p>{property.mainUse || '--'}</p>
                 </div>
                 <div class='preview_about'>
                   <h3>About</h3>
-                  <p>{infoStack.attrs.description!=='' ? infoStack.attrs.description : '--'}</p>
+                  <p>{property.note || '--'}</p>
                 </div>
               </article>
               <div class='preview_floors'>
