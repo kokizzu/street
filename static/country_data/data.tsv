@@ -29,219 +29,213 @@ Botswana	BW	BWA	72	Africa	2	m2	-22.0	24.0
 Bouvet Island	BV	BVT	74	Americas	19	m2	-544.333	3.4
 Brazil	BR	BRA	76	Americas	19	m2	 -10.0	 -55.0
 British Indian Ocean Territory	IO	IOT	86	Africa	2	m2	 -6.0	 71.5
-Brunei Darussalam	BN	BRN	96	Asia	142	m2		
-Bulgaria	BG	BGR	100	Europe	150	m2		
-Burkina Faso	BF	BFA	854	Africa	2	m2		
-Burundi	BI	BDI	108	Africa	2	m2		
-Cabo Verde	CV	CPV	132	Africa	2	m2		
-Cambodia	KH	KHM	116	Asia	142	m2		
-Cameroon	CM	CMR	120	Africa	2	m2		
-Canada	CA	CAN	124	Americas	19	m2		
-Cayman Islands	KY	CYM	136	Americas	19	m2		
-Central African Republic	CF	CAF	140	Africa	2	m2		
-Chad	TD	TCD	148	Africa	2	m2		
-Chile	CL	CHL	152	Americas	19	m2		
-China	CN	CHN	156	Asia	142	m2		
-Christmas Island	CX	CXR	162	Oceania	9	m2		
-Cocos (Keeling) Islands	CC	CCK	166	Oceania	9	m2		
-Colombia	CO	COL	170	Americas	19	m2		
-Comoros	KM	COM	174	Africa	2	m2		
-Congo	CG	COG	178	Africa	2	m2		
-Congo, Democratic Republic of the	CD	COD	180	Africa	2	m2		
-Cook Islands	CK	COK	184	Oceania	9	m2		
-Costa Rica	CR	CRI	188	Americas	19	m2		
-Côte d'Ivoire	CI	CIV	384	Africa	2	m2		
-Croatia	HR	HRV	191	Europe	150	m2		
-Cuba	CU	CUB	192	Americas	19	m2		
-Curaçao	CW	CUW	531	Americas	19	m2		
-Cyprus	CY	CYP	196	Asia	142	m2		
-Czechia	CZ	CZE	203	Europe	150	m2		
-Denmark	DK	DNK	208	Europe	150	m2		
-Djibouti	DJ	DJI	262	Africa	2	m2		
-Dominica	DM	DMA	212	Americas	19	m2		
-Dominican Republic	DO	DOM	214	Americas	19	m2		
-Ecuador	EC	ECU	218	Americas	19	m2		
-Egypt	EG	EGY	818	Africa	2	m2		
-El Salvador	SV	SLV	222	Americas	19	m2		
-Equatorial Guinea	GQ	GNQ	226	Africa	2	m2		
-Eritrea	ER	ERI	232	Africa	2	m2		
-Estonia	EE	EST	233	Europe	150	m2		
-Eswatini	SZ	SWZ	748	Africa	2	m2		
-Ethiopia	ET	ETH	231	Africa	2	m2		
-Falkland Islands (Malvinas)	FK	FLK	238	Americas	19	m2		
-Faroe Islands	FO	FRO	234	Europe	150	m2		
-Fiji	FJ	FJI	242	Oceania	9	m2		
-Finland	FI	FIN	246	Europe	150	m2		
-France	FR	FRA	250	Europe	150	m2		
-French Guiana	GF	GUF	254	Americas	19	m2		
-French Polynesia	PF	PYF	258	Oceania	9	m2		
-French Southern Territories	TF	ATF	260	Africa	2	m2		
-Gabon	GA	GAB	266	Africa	2	m2		
-Gambia	GM	GMB	270	Africa	2	m2		
-Georgia	GE	GEO	268	Asia	142	m2		
-Germany	DE	DEU	276	Europe	150	m2		
-Ghana	GH	GHA	288	Africa	2	m2		
-Gibraltar	GI	GIB	292	Europe	150	m2		
-Greece	GR	GRC	300	Europe	150	m2		
-Greenland	GL	GRL	304	Americas	19	m2		
-Grenada	GD	GRD	308	Americas	19	m2		
-Guadeloupe	GP	GLP	312	Americas	19	m2		
-Guam	GU	GUM	316	Oceania	9	m2		
-Guatemala	GT	GTM	320	Americas	19	m2		
-Guernsey	GG	GGY	831	Europe	150	m2		
-Guinea	GN	GIN	324	Africa	2	m2		
-Guinea-Bissau	GW	GNB	624	Africa	2	m2		
-Guyana	GY	GUY	328	Americas	19	m2		
-Haiti	HT	HTI	332	Americas	19	m2		
-Heard Island and McDonald Islands	HM	HMD	334	Oceania	9	m2		
-Holy See	VA	VAT	336	Europe	150	m2		
-Honduras	HN	HND	340	Americas	19	m2		
-Hong Kong	HK	HKG	344	Asia	142	m2		
-Hungary	HU	HUN	348	Europe	150	m2		
-Iceland	IS	ISL	352	Europe	150	m2		
-India	IN	IND	356	Asia	142	m2		
-Indonesia	ID	IDN	360	Asia	142	m2		
-Iran (Islamic Republic of)	IR	IRN	364	Asia	142	m2		
-Iraq	IQ	IRQ	368	Asia	142	m2		
-Ireland	IE	IRL	372	Europe	150	m2		
-Isle of Man	IM	IMN	833	Europe	150	m2		
-Israel	IL	ISR	376	Asia	142	m2		
-Italy	IT	ITA	380	Europe	150	m2		
-Jamaica	JM	JAM	388	Americas	19	m2		
-Japan	JP	JPN	392	Asia	142	jo		
-Jersey	JE	JEY	832	Europe	150	m2		
-Jordan	JO	JOR	400	Asia	142	m2		
-Kazakhstan	KZ	KAZ	398	Asia	142	m2		
-Kenya	KE	KEN	404	Africa	2	m2		
-Kiribati	KI	KIR	296	Oceania	9	m2		
-Korea (Democratic People's Republic of)	KP	PRK	408	Asia	142	m2		
-Korea, Republic of	KR	KOR	410	Asia	142	m2		
-Kuwait	KW	KWT	414	Asia	142	m2		
-Kyrgyzstan	KG	KGZ	417	Asia	142	m2		
-Lao People's Democratic Republic	LA	LAO	418	Asia	142	m2		
-Latvia	LV	LVA	428	Europe	150	m2		
-Lebanon	LB	LBN	422	Asia	142	m2		
-Lesotho	LS	LSO	426	Africa	2	m2		
-Liberia	LR	LBR	430	Africa	2	sqft		
-Libya	LY	LBY	434	Africa	2	m2		
-Liechtenstein	LI	LIE	438	Europe	150	m2		
-Lithuania	LT	LTU	440	Europe	150	m2		
-Luxembourg	LU	LUX	442	Europe	150	m2		
-Macao	MO	MAC	446	Asia	142	m2		
-Madagascar	MG	MDG	450	Africa	2	m2		
-Malawi	MW	MWI	454	Africa	2	m2		
-Malaysia	MY	MYS	458	Asia	142	m2		
-Maldives	MV	MDV	462	Asia	142	m2		
-Mali	ML	MLI	466	Africa	2	m2		
-Malta	MT	MLT	470	Europe	150	m2		
-Marshall Islands	MH	MHL	584	Oceania	9	m2		
-Martinique	MQ	MTQ	474	Americas	19	m2		
-Mauritania	MR	MRT	478	Africa	2	m2		
-Mauritius	MU	MUS	480	Africa	2	m2		
-Mayotte	YT	MYT	175	Africa	2	m2		
-Mexico	MX	MEX	484	Americas	19	m2		
-Micronesia (Federated States of)	FM	FSM	583	Oceania	9	m2		
-Moldova, Republic of	MD	MDA	498	Europe	150	m2		
-Monaco	MC	MCO	492	Europe	150	m2		
-Mongolia	MN	MNG	496	Asia	142	m2		
-Montenegro	ME	MNE	499	Europe	150	m2		
-Montserrat	MS	MSR	500	Americas	19	m2		
-Morocco	MA	MAR	504	Africa	2	m2		
-Mozambique	MZ	MOZ	508	Africa	2	m2		
-Myanmar	MM	MMR	104	Asia	142	sqft		
-Namibia	NA	NAM	516	Africa	2	m2		
-Nauru	NR	NRU	520	Oceania	9	m2		
-Nepal	NP	NPL	524	Asia	142	m2		
-Netherlands	NL	NLD	528	Europe	150	m2		
-New Caledonia	NC	NCL	540	Oceania	9	m2		
-New Zealand	NZ	NZL	554	Oceania	9	m2		
-Nicaragua	NI	NIC	558	Americas	19	m2		
-Niger	NE	NER	562	Africa	2	m2		
-Nigeria	NG	NGA	566	Africa	2	m2		
-Niue	NU	NIU	570	Oceania	9	m2		
-Norfolk Island	NF	NFK	574	Oceania	9	m2		
-North Macedonia	MK	MKD	807	Europe	150	m2		
-Northern Mariana Islands	MP	MNP	580	Oceania	9	m2		
-Norway	NO	NOR	578	Europe	150	m2		
-Oman	OM	OMN	512	Asia	142	m2		
-Pakistan	PK	PAK	586	Asia	142	m2		
-Palau	PW	PLW	585	Oceania	9	m2		
-Palestine, State of	PS	PSE	275	Asia	142	m2		
-Panama	PA	PAN	591	Americas	19	m2		
-Papua New Guinea	PG	PNG	598	Oceania	9	m2		
-Paraguay	PY	PRY	600	Americas	19	m2		
-Peru	PE	PER	604	Americas	19	m2		
-Philippines	PH	PHL	608	Asia	142	m2		
-Pitcairn	PN	PCN	612	Oceania	9	m2		
-Poland	PL	POL	616	Europe	150	m2		
-Portugal	PT	PRT	620	Europe	150	m2		
-Puerto Rico	PR	PRI	630	Americas	19	m2		
-Qatar	QA	QAT	634	Asia	142	m2		
-Réunion	RE	REU	638	Africa	2	m2		
-Romania	RO	ROU	642	Europe	150	m2		
-Russian Federation	RU	RUS	643	Europe	150	m2		
-Rwanda	RW	RWA	646	Africa	2	m2		
-Saint Barthélemy	BL	BLM	652	Americas	19	m2		
-Saint Helena, Ascension and Tristan da Cunha	SH	SHN	654	Africa	2	m2		
-Saint Kitts and Nevis	KN	KNA	659	Americas	19	m2		
-Saint Lucia	LC	LCA	662	Americas	19	m2		
-Saint Martin (French part)	MF	MAF	663	Americas	19	m2		
-Saint Pierre and Miquelon	PM	SPM	666	Americas	19	m2		
-Saint Vincent and the Grenadines	VC	VCT	670	Americas	19	m2		
-Samoa	WS	WSM	882	Oceania	9	m2		
-San Marino	SM	SMR	674	Europe	150	m2		
-Sao Tome and Principe	ST	STP	678	Africa	2	m2		
-Saudi Arabia	SA	SAU	682	Asia	142	m2		
-Senegal	SN	SEN	686	Africa	2	m2		
-Serbia	RS	SRB	688	Europe	150	m2		
-Seychelles	SC	SYC	690	Africa	2	m2		
-Sierra Leone	SL	SLE	694	Africa	2	m2		
-Singapore	SG	SGP	702	Asia	142	m2		
-Sint Maarten (Dutch part)	SX	SXM	534	Americas	19	m2		
-Slovakia	SK	SVK	703	Europe	150	m2		
-Slovenia	SI	SVN	705	Europe	150	m2		
-Solomon Islands	SB	SLB	90	Oceania	9	m2		
-Somalia	SO	SOM	706	Africa	2	m2		
-South Africa	ZA	ZAF	710	Africa	2	m2		
-South Georgia and the South Sandwich Islands	GS	SGS	239	Americas	19	m2		
-South Sudan	SS	SSD	728	Africa	2	m2		
-Spain	ES	ESP	724	Europe	150	m2		
-Sri Lanka	LK	LKA	144	Asia	142	m2		
-Sudan	SD	SDN	729	Africa	2	m2		
-Suriname	SR	SUR	740	Americas	19	m2		
-Svalbard and Jan Mayen	SJ	SJM	744	Europe	150	m2		
-Sweden	SE	SWE	752	Europe	150	m2		
-Switzerland	CH	CHE	756	Europe	150	m2		
-Syrian Arab Republic	SY	SYR	760	Asia	142	m2		
-Taiwan, Province of China	TW	TWN	158	Asia	142	m2		
-Tajikistan	TJ	TJK	762	Asia	142	m2		
-Tanzania, United Republic of	TZ	TZA	834	Africa	2	m2		
-Thailand	TH	THA	764	Asia	142	m2		
-Timor-Leste	TL	TLS	626	Asia	142	m2		
-Togo	TG	TGO	768	Africa	2	m2		
-Tokelau	TK	TKL	772	Oceania	9	m2		
-Tonga	TO	TON	776	Oceania	9	m2		
-Trinidad and Tobago	TT	TTO	780	Americas	19	m2		
-Tunisia	TN	TUN	788	Africa	2	m2		
-Turkey	TR	TUR	792	Asia	142	m2		
-Turkmenistan	TM	TKM	795	Asia	142	m2		
-Turks and Caicos Islands	TC	TCA	796	Americas	19	m2		
-Tuvalu	TV	TUV	798	Oceania	9	m2		
-Uganda	UG	UGA	800	Africa	2	m2		
-Ukraine	UA	UKR	804	Europe	150	m2		
-United Arab Emirates	AE	ARE	784	Asia	142	m2		
-United Kingdom	GB	GBR	826	Europe	150	m2		
-United States of America	US	USA	840	Americas	19	sqft		
-United States Minor Outlying Islands	UM	UMI	581	Oceania	9	m2		
-Uruguay	UY	URY	858	Americas	19	m2		
-Uzbekistan	UZ	UZB	860	Asia	142	m2		
-Vanuatu	VU	VUT	548	Oceania	9	m2		
-Venezuela (Bolivarian Republic of)	VE	VEN	862	Americas	19	m2		
-Viet Nam	VN	VNM	704	Asia	142	m2		
-Virgin Islands (British)	VG	VGB	92	Americas	19	m2		
-Virgin Islands (U.S.)	VI	VIR	850	Americas	19	m2		
-Wallis and Futuna	WF	WLF	876	Oceania	9	m2		
-Western Sahara	EH	ESH	732	Africa	2	m2		
-Yemen	YE	YEM	887	Asia	142	m2		
-Zambia	ZM	ZMB	894	Africa	2	m2		
-Zimbabwe	ZW	ZWE	716	Africa	2	m2		
+Brunei Darussalam	BN	BRN	96	Asia	142	m2	4.5	1.146.667
+Bulgaria	BG	BGR	100	Europe	150	m2	 43.0	25.0
+Burkina Faso	BF	BFA	854	Africa	2	m2	 13.0	-2.0
+Burundi	BI	BDI	108	Africa	2	m2	-3.5	30.0
+Cambodia	KH	KHM	116	Asia	142	m2	13.0	 105.0
+Cameroon	CM	CMR	120	Africa	2	m2	 6.0	12.0
+Canada	CA	CAN	124	Americas	19	m2	 60.0	 -95.0
+Cape Verde	CV	CPV	132	Africa	2	m2	16.0	 -24.0
+Cayman Islands	KY	CYM	136	Americas	19	m2	19.5	-80.5
+Central African Republic	CF	CAF	140	Africa	2	m2	 7.0	21.0
+Chad	TD	TCD	148	Africa	2	m2	15.0	 19.0
+Chile	CL	CHL	152	Americas	19	m2	 -30.0	-71.0
+China	CN	CHN	156	Asia	142	m2	 35.0	105.0
+Christmas Island	CX	CXR	162	Oceania	9	m2	-10.5	1.056.667
+Cocos (Keeling) Islands	CC	CCK	166	Oceania	9	m2	-12.5	968.333
+Colombia	CO	COL	170	Americas	19	m2	 4.0	 -72.0
+Comoros	KM	COM	174	Africa	2	m2	-121.667	44.25
+Congo	CG	COG	178	Africa	2	m2	 -1.0	15.0
+Congo, Democratic Republic of the	CD	COD	180	Africa	2	m2	 0.0	25.0
+Cook Islands	CK	COK	184	Oceania	9	m2	-212.333	-1.597.667
+Costa Rica	CR	CRI	188	Americas	19	m2	 10.0	 -84.0
+Côte d'Ivoire	CI	CIV	384	Africa	2	m2	 8.0	-5.0
+Croatia	HR	HRV	191	Europe	150	m2	451.667	15.5
+Cuba	CU	CUB	192	Americas	19	m2	21.5	-80.0
+Cyprus	CY	CYP	196	Asia	142	m2	 35.0	 33.0
+Czech Republic	CZ	CZE	203	Europe	150	m2	49.75	15.5
+Denmark	DK	DNK	208	Europe	150	m2	56.0	 10.0
+Djibouti	DJ	DJI	262	Africa	2	m2	11.5	 43.0
+Dominica	DM	DMA	212	Americas	19	m2	154.167	-613.333
+Dominican Republic	DO	DOM	214	Americas	19	m2	19.0	-706.667
+Ecuador	EC	ECU	218	Americas	19	m2	-2.0	-77.5
+Egypt	EG	EGY	818	Africa	2	m2	27.0	 30.0
+El Salvador	SV	SLV	222	Americas	19	m2	138.333	-889.167
+Equatorial Guinea	GQ	GNQ	226	Africa	2	m2	2.0	10.0
+Eritrea	ER	ERI	232	Africa	2	m2	 15.0	39.0
+Estonia	EE	EST	233	Europe	150	m2	59.0	26.0
+Ethiopia	ET	ETH	231	Africa	2	m2	8.0	38.0
+Falkland Islands (Malvinas)	FK	FLK	238	Americas	19	m2	 -51.75	-59.0
+Faroe Islands	FO	FRO	234	Europe	150	m2	 62.0	 -7.0
+Fiji	FJ	FJI	242	Oceania	9	m2	-18.0	175.0
+Finland	FI	FIN	246	Europe	150	m2	64.0	26.0
+France	FR	FRA	250	Europe	150	m2	46.0	2.0
+French Guiana	GF	GUF	254	Americas	19	m2	4.0	 -53.0
+French Polynesia	PF	PYF	258	Oceania	9	m2	-15.0	 -140.0
+French Southern Territories	TF	ATF	260	Africa	2	m2	-43.0	67.0
+Gabon	GA	GAB	266	Africa	2	m2	 -1.0	11.75
+Gambia	GM	GMB	270	Africa	2	m2	134.667	-165.667
+Georgia	GE	GEO	268	Asia	142	m2	42.0	43.5
+Germany	DE	DEU	276	Europe	150	m2	 51.0	9.0
+Ghana	GH	GHA	288	Africa	2	m2	8.0	-2.0
+Gibraltar	GI	GIB	292	Europe	150	m2	361.833	-53.667
+Greece	GR	GRC	300	Europe	150	m2	 39.0	 22.0
+Greenland	GL	GRL	304	Americas	19	m2	 72.0	-40.0
+Grenada	GD	GRD	308	Americas	19	m2	12.1167	-616.667
+Guadeloupe	GP	GLP	312	Americas	19	m2	16.25	-615.833
+Guam	GU	GUM	316	Oceania	9	m2	134.667	1.447.833
+Guatemala	GT	GTM	320	Americas	19	m2	15.5	-90.25
+Guernsey	GG	GGY	831	Europe	150	m2	49.5	 -2.56
+Guinea	GN	GIN	324	Africa	2	m2	11.0	-10.0
+Guinea-Bissau	GW	GNB	624	Africa	2	m2	 12.0	-15.0
+Guyana	GY	GUY	328	Americas	19	m2	 5.0	-59.0
+Haiti	HT	HTI	332	Americas	19	m2	19.0	-724.167
+Heard Island and McDonald Islands	HM	HMD	334	Oceania	9	m2	 -53.1	725.167
+Holy See	VA	VAT	336	Europe	150	m2	41.9	12.45
+Honduras	HN	HND	340	Americas	19	m2	15.0	 -86.5
+Hong Kong	HK	HKG	344	Asia	142	m2	22.25	1.141.667
+Hungary	HU	HUN	348	Europe	150	m2	 47.0	20.0
+Iceland	IS	ISL	352	Europe	150	m2	 65.0	-18.0
+India	IN	IND	356	Asia	142	m2	20.0	77.0
+Indonesia	ID	IDN	360	Asia	142	m2	 -5.0	120.0
+Iran (Islamic Republic of)	IR	IRN	364	Asia	142	m2	 32.0	53.0
+Iraq	IQ	IRQ	368	Asia	142	m2	33.0	44.0
+Ireland	IE	IRL	372	Europe	150	m2	 53.0	        -8.0
+Isle of Man	IM	IMN	833	Europe	150	m2	54.23	-4.55
+Israel	IL	ISR	376	Asia	142	m2	31.5	34.75
+Italy	IT	ITA	380	Europe	150	m2	428.333	12.8333
+Jamaica	JM	JAM	388	Americas	19	m2	18.25	-77.5
+Japan	JP	JPN	392	Asia	142	jo	36.0	138.0
+Jersey	JE	JEY	832	Europe	150	m2	49.21	 -2.13
+Jordan	JO	JOR	400	Asia	142	m2	31.0	36.0
+Kazakhstan	KZ	KAZ	398	Asia	142	m2	48.0	 68.0
+Kenya	KE	KEN	404	Africa	2	m2	 1.0	38.0
+Kiribati	KI	KIR	296	Oceania	9	m2	1.4167	 173.0
+Korea (Democratic People's Republic of)	KP	PRK	408	Asia	142	m2	 40.0	127.0
+Korea, Republic of	KR	KOR	410	Asia	142	m2	37.0	127.5
+Kuwait	KW	KWT	414	Asia	142	m2	293.375	476.581
+Kyrgyzstan	KG	KGZ	417	Asia	142	m2	41.0	75.0
+Lao People's Democratic Republic	LA	LAO	418	Asia	142	m2	18.0	105.0
+Latvia	LV	LVA	428	Europe	150	m2	57.0	 25.0
+Lebanon	LB	LBN	422	Asia	142	m2	338.333	358.333
+Lesotho	LS	LSO	426	Africa	2	m2	 -29.5	28.5
+Liberia	LR	LBR	430	Africa	2	sqft	6.5	 -9.5
+Libya	LY	LBY	434	Africa	2	m2	 25.0	17.0
+Liechtenstein	LI	LIE	438	Europe	150	m2	471.667	9.5333
+Lithuania	LT	LTU	440	Europe	150	m2	56.0	 24.0
+Luxembourg	LU	LUX	442	Europe	150	m2	 49.75	6.1667
+Macao	MO	MAC	446	Asia	142	m2	221.667	 113.55
+Madagascar	MG	MDG	450	Africa	2	m2	-20.0	 47.0
+Malawi	MW	MWI	454	Africa	2	m2	 -13.5	34.0
+Malaysia	MY	MYS	458	Asia	142	m2	2.5	112.5
+Maldives	MV	MDV	462	Asia	142	m2	 3.25	 73.0
+Mali	ML	MLI	466	Africa	2	m2	17.0	-4.0
+Malta	MT	MLT	470	Europe	150	m2	358.333	145.833
+Marshall Islands	MH	MHL	584	Oceania	9	m2	 9.0	168.0
+Martinique	MQ	MTQ	474	Americas	19	m2	146.667	 -61.0
+Mauritania	MR	MRT	478	Africa	2	m2	 20.0	-12.0
+Mauritius	MU	MUS	480	Africa	2	m2	-202.833	57.55
+Mayotte	YT	MYT	175	Africa	2	m2	-128.333	451.667
+Mexico	MX	MEX	484	Americas	19	m2	23.0	 -102.0
+Micronesia (Federated States of)	FM	FSM	583	Oceania	9	m2	6.9167	158.25
+Moldova, Republic of	MD	MDA	498	Europe	150	m2	 47.0	29.0
+Monaco	MC	MCO	492	Europe	150	m2	437.333	7.4
+Mongolia	MN	MNG	496	Asia	142	m2	 46.0	 105.0
+Montenegro	ME	MNE	499	Europe	150	m2	42.0	19.0
+Montserrat	MS	MSR	500	Americas	19	m2	 16.75	 -62.2
+Morocco	MA	MAR	504	Africa	2	m2	32.0	 -5.0
+Mozambique	MZ	MOZ	508	Africa	2	m2	 -18.25	 35.0
+Myanmar	MM	MMR	104	Asia	142	sqft	 22.0	98.0
+Namibia	NA	NAM	516	Africa	2	m2	 -22.0	 17.0
+Nauru	NR	NRU	520	Oceania	9	m2	-5.333	1.669.167
+Nepal	NP	NPL	524	Asia	142	m2	 28.0	 84.0
+Netherlands	NL	NLD	528	Europe	150	m2	 52.5	5.75
+New Caledonia	NC	NCL	540	Oceania	9	m2	 -21.5	 165.5
+New Zealand	NZ	NZL	554	Oceania	9	m2	 -41.0	174.0
+Nicaragua	NI	NIC	558	Americas	19	m2	 13.0	 -85.0
+Niger	NE	NER	562	Africa	2	m2	 16.0	 8.0
+Nigeria	NG	NGA	566	Africa	2	m2	 10.0	8.0
+Niue	NU	NIU	570	Oceania	9	m2	-190.333	-1.698.667
+Norfolk Island	NF	NFK	574	Oceania	9	m2	-290.333	 167.95
+Northern Mariana Islands	MP	MNP	580	Oceania	9	m2	15.2	145.75
+Norway	NO	NOR	578	Europe	150	m2	 62.0	 10.0
+Oman	OM	OMN	512	Asia	142	m2	 21.0	57.0
+Pakistan	PK	PAK	586	Asia	142	m2	 30.0	 70.0
+Palau	PW	PLW	585	Oceania	9	m2	7.5	134.5
+Palestine, State of	PS	PSE	275	Asia	142	m2	 32.0	35.25
+Panama	PA	PAN	591	Americas	19	m2	9.0	 -80.0
+Papua New Guinea	PG	PNG	598	Oceania	9	m2	-6.0	147.0
+Paraguay	PY	PRY	600	Americas	19	m2	-23.0	 -58.0
+Peru	PE	PER	604	Americas	19	m2	-10.0	 -76.0
+Philippines	PH	PHL	608	Asia	142	m2	 13.0	122.0
+Pitcairn	PN	PCN	612	Oceania	9	m2	-24.7	 -127.4
+Poland	PL	POL	616	Europe	150	m2	 52.0	 20.0
+Portugal	PT	PRT	620	Europe	150	m2	 39.5	 -8.0
+Puerto Rico	PR	PRI	630	Americas	19	m2	18.25	 -66.5
+Qatar	QA	QAT	634	Asia	142	m2	25.5	 51.25
+Réunion	RE	REU	638	Africa	2	m2	-21.1	55.6
+Romania	RO	ROU	642	Europe	150	m2	46.0	 25.0
+Russian Federation	RU	RUS	643	Europe	150	m2	 60.0	 100.0
+Rwanda	RW	RWA	646	Africa	2	m2	 -2.0	 30.0
+Saint Helena, Ascension and Tristan da Cunha	SH	SHN	654	Africa	2	m2	-159.333	 -5.7
+Saint Kitts and Nevis	KN	KNA	659	Americas	19	m2	173.333	-62.75
+Saint Lucia	LC	LCA	662	Americas	19	m2	138.833	-611.333
+Saint Pierre and Miquelon	PM	SPM	666	Americas	19	m2	468.333	-563.333
+Saint Vincent and the Grenadines	VC	VCT	670	Americas	19	m2	 13.25	-61.2
+Samoa	WS	WSM	882	Oceania	9	m2	-135.833	-1.723.333
+San Marino	SM	SMR	674	Europe	150	m2	437.667	12.4167
+Sao Tome and Principe	ST	STP	678	Africa	2	m2	 1.0	7.0
+Saudi Arabia	SA	SAU	682	Asia	142	m2	 25.0	45.0
+Senegal	SN	SEN	686	Africa	2	m2	 14.0	-14.0
+Serbia	RS	SRB	688	Europe	150	m2	44.0	21.0
+Seychelles	SC	SYC	690	Africa	2	m2	-45.833	556.667
+Sierra Leone	SL	SLE	694	Africa	2	m2	8.5	 -11.5
+Singapore	SG	SGP	702	Asia	142	m2	1.3667	103.8
+Slovakia	SK	SVK	703	Europe	150	m2	486.667	19.5
+Slovenia	SI	SVN	705	Europe	150	m2	 46.0	 15.0
+Solomon Islands	SB	SLB	90	Oceania	9	m2	 -8.0	159.0
+Somalia	SO	SOM	706	Africa	2	m2	10.0	 49.0
+South Africa	ZA	ZAF	710	Africa	2	m2	-29.0	 24.0
+South Georgia and the South Sandwich Islands	GS	SGS	239	Americas	19	m2	 -54.5	 -37.0
+South Sudan	SS	SSD	728	Africa	2	m2	 8.0	30.0
+Spain	ES	ESP	724	Europe	150	m2	 40.0	-4.0
+Sri Lanka	LK	LKA	144	Asia	142	m2	7.0	81.0
+Sudan	SD	SDN	729	Africa	2	m2	 15.0	 30.0
+Suriname	SR	SUR	740	Americas	19	m2	 4.0	-56.0
+Svalbard and Jan Mayen	SJ	SJM	744	Europe	150	m2	 78.0	20.0
+Sweden	SE	SWE	752	Europe	150	m2	 62.0	 15.0
+Switzerland	CH	CHE	756	Europe	150	m2	 47.0	 8.0
+Syrian Arab Republic	SY	SYR	760	Asia	142	m2	35.0	 38.0
+Taiwan, Province of China	TW	TWN	158	Asia	142	m2	23.5	 121.0
+Tajikistan	TJ	TJK	762	Asia	142	m2	 39.0	71.0
+Tanzania, United Republic of	TZ	TZA	834	Africa	2	m2	-6.0	35.0
+Thailand	TH	THA	764	Asia	142	m2	15.0	 100.0
+Timor-Leste	TL	TLS	626	Asia	142	m2	-8.55	1.255.167
+Togo	TG	TGO	768	Africa	2	m2	 8.0	1.1667
+Tokelau	TK	TKL	772	Oceania	9	m2	 -9.0	 -172.0
+Tonga	TO	TON	776	Oceania	9	m2	-20.0	 -175.0
+Trinidad and Tobago	TT	TTO	780	Americas	19	m2	 11.0	-61.0
+Tunisia	TN	TUN	788	Africa	2	m2	 34.0	 9.0
+Turkey	TR	TUR	792	Asia	142	m2	 39.0	35.0
+Turkmenistan	TM	TKM	795	Asia	142	m2	40.0	60.0
+Turks and Caicos Islands	TC	TCA	796	Americas	19	m2	21.75	-715.833
+Tuvalu	TV	TUV	798	Oceania	9	m2	 -8.0	 178.0
+Uganda	UG	UGA	800	Africa	2	m2	1.0	32.0
+Ukraine	UA	UKR	804	Europe	150	m2	 49.0	32.0
+United Arab Emirates	AE	ARE	784	Asia	142	m2	 24.0	54.0
+United Kingdom	GB	GBR	826	Europe	150	m2	54.0	 -2.0
+United States of America	US	USA	840	Americas	19	sqft	 38.0	 -97.0
+United States Minor Outlying Islands	UM	UMI	581	Oceania	9	m2	192.833	 166.6
+Uruguay	UY	URY	858	Americas	19	m2	-33.0	 -56.0
+Uzbekistan	UZ	UZB	860	Asia	142	m2	 41.0	 64.0
+Vanuatu	VU	VUT	548	Oceania	9	m2	 -16.0	167.0
+Venezuela (Bolivarian Republic of)	VE	VEN	862	Americas	19	m2	 8.0	 -66.0
+Viet Nam	VN	VNM	704	Asia	142	m2	16.0	 106.0
+Virgin Islands (British)	VG	VGB	92	Americas	19	m2	18.5	-64.5
+Virgin Islands (U.S.)	VI	VIR	850	Americas	19	m2	183.333	-648.333
+Wallis and Futuna	WF	WLF	876	Oceania	9	m2	-13.3	 -176.2
+Western Sahara	EH	ESH	732	Africa	2	m2	24.5	-13.0
+Yemen	YE	YEM	887	Asia	142	m2	 15.0	 48.0
+Zambia	ZM	ZMB	894	Africa	2	m2	 -15.0	30.0
+Zimbabwe	ZW	ZWE	716	Africa	2	m2	-20.0	30.0
