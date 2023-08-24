@@ -277,7 +277,7 @@
     if( lng===0 || lat===0 || formatted_address==='' ) {
       alert( 'Location must be added' );
     } else {
-      realtorStack[ currentPage ] = {
+      realtorStack[ 0 ] = {
         subroute: 'location',
         attrs: {
           address: formatted_address,
@@ -286,6 +286,7 @@
         },
       };
       nextPage();
+      console.log(realtorStack);
     }
   }
   

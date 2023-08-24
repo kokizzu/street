@@ -10292,7 +10292,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       } else {
         $invalidate(
           0,
-          realtorStack[currentPage] = {
+          realtorStack[0] = {
             subroute: "location",
             attrs: {
               address: formatted_address,
@@ -10303,6 +10303,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           realtorStack
         );
         nextPage();
+        console.log(realtorStack);
       }
     }
     let house_info_obj = {
