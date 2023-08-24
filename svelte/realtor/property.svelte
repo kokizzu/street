@@ -9,28 +9,15 @@
   import AddOrEditRoomDialog from '../_components/AddOrEditRoomDialog.svelte';
   import { RealtorUpsertProperty } from '../jsApi.GEN';
   
-  let property = {/* property */}
-  
-  onMount( async () => {
-    await initMap();
-    console.log('property=',property)
-  } );
-  
+  let property = {/* property */};
   let user = {/* user */};
   let segments = {/* segments */};
   
   let realtorStack = [
-    {
-      subroute: 'location',
-      attrs: {
-        address: '',
-        long: 0,
-        lat: 0,
-      },
-    }, {
+    {}, {
       subroute: 'information',
       attrs: {
-        house_type: '', /*House or Apartment*/
+        // house_type: '', /*House or Apartment*/
         purpose: '', /*rent or sell*/
         images: [
           // "/url/to/images",
@@ -41,7 +28,7 @@
           baths: 0,
           area: 0,
         },
-        facility: '', /*Facility Description*/
+        // facility: '', /*Facility Description*/
         description: '', /*Description of this property*/
         price: 0, /*Price*/
         agency_fee: 0, /*Fee Percentage*/
@@ -73,74 +60,75 @@
       },
     },
   ];
-
-  onMount(() => {
-    if (Object.keys(property).length!==0) {
-      console.log(property);
-      let coord = (property.coord || [23.6978,120.9605])
+  
+  onMount( async () => {
+    console.log( 'property=', property );
+    if( Object.keys( property ).length===0 ) {
+      const defaultLat = 23.6978;
+      const defaultLong = 120.9605;
+      property = {
+        formattedAddress: '',
+        lat: defaultLat,
+        long: defaultLong,
+        coords: [defaultLat, defaultLong],
+      };
+    } else {
+      property.lat = property.coord[ 0 ];
+      property.long = property.coord[ 1 ];
       realtorStack = [
-        {
-          subroute: 'location',
-          attrs: {
-            address: property.formattedAddress,
-            long: coord[1],
-            lat: coord[0],
-          },
-        }, {
+        {}, {
           subroute: 'information',
           attrs: {
-            house_type: property.houseType,
-            purpose: property.purpose,
             images: property.images,
             feature: {
               beds: property.bedroom,
               baths: property.bathroom,
-              area: property.sizeM2
+              area: property.sizeM2,
             },
-            facility: property.mainUse,
             description: property.note,
             price: property.lastPrice,
-            agency_fee: property.agencyFeePercent
+            agency_fee: property.agencyFeePercent,
           },
         }, {
           subroute: 'floors',
           attrs: {
-            floor_lists: property.floorList
-          }
+            floor_lists: property.floorList,
+          },
         },
       ];
+      
     }
-  })
-
-  let mapStack, infoStack, floorStack, previewStack;
-  $: mapStack = realtorStack[ 0 ];
+    await initMap();
+  } );
+  
+  let infoStack, floorStack;
   $: infoStack = realtorStack[ 1 ];
   $: floorStack = realtorStack[ 2 ];
-  $: previewStack = realtorStack[ 3 ];
+  $: console.log( 'realtorStack=', realtorStack );
   let currentPage = 0;
   let cards = [{}, {}, {}, {}];
   
   let payload = {};
   $: () => {
-    let attrs = floorStack.attrs || {}
-    let floorList = attrs.floor_lists || []
+    let attrs = floorStack.attrs || {};
+    let floorList = attrs.floor_lists || [];
     payload = {
-      formattedAddress: mapStack.attrs.address,
-      coord: [mapStack.attrs.lat, mapStack.attrs.long],
-      houseType: infoStack.attrs.house_type,
-      purpose: infoStack.attrs.purpose,
+      formattedAddress: property.formattedAddress,
+      coord: [property.lat, property.long],
+      houseType: property.houseType,
+      purpose: property.purpose,
       images: infoStack.attrs.images,
       bedroom: infoStack.attrs.feature.beds,
       bathroom: infoStack.attrs.feature.baths,
       sizeM2: '' + infoStack.attrs.feature.area, // have to be string because of taiwan data
-      mainUse: infoStack.attrs.facility,
+      mainUse: property.mainUse,
       note: infoStack.attrs.description,
       price: infoStack.attrs.property_price,
       agencyFeePercent: infoStack.attrs.agency_fee_percent,
       numberOfFloors: '' + floorList.length, // have to be string because of taiwan data
       floorList: floorList,
     };
-  }
+  };
   
   async function nextPage() {
     if( currentPage<3 ) {
@@ -157,7 +145,7 @@
       card.scrollIntoView( {behavior: 'smooth'} );
     }
   }
-
+  
   function progressDotHandler( toPage ) {
     let card = cards[ toPage ];
     card.scrollIntoView( {behavior: 'smooth'} );
@@ -167,12 +155,12 @@
   let map;
   let map_container;
   let input_address;
-  let lng = 0;
-  let lat = 0;
-  let formatted_address = '';
   
   async function initMap() {
-    const myLatLng = {lat: 23.6978, lng: 120.9605}; // taiwan
+    const myLatLng = {
+      lat: property.lat,
+      lng: property.long,
+    }; // taiwan
     let markers = [];
     const {Map} = await google.maps.importLibrary( 'maps' );
     const geocoder = new google.maps.Geocoder();
@@ -183,16 +171,16 @@
       mapId: 'street_project',
     } );
     const {SearchBox} = await google.maps.importLibrary( 'places' );
-    const searchBox = new SearchBox( input_address );
+    let searchBox = new SearchBox( input_address );
     map.controls[ google.maps.ControlPosition.TOP_LEFT ].push( input_address );
     // Convert coordinate to formatted_address
     const getAddress = ( latLng ) => {
       geocoder.geocode( {location: latLng}, ( results, status ) => {
         if( status===google.maps.GeocoderStatus.OK && results.length>0 ) {
-          formatted_address = results[ 0 ].formatted_address;
+          property.formattedAddress = results[ 0 ].formatted_address;
         } else {
           console.log( 'Address not found' );
-          formatted_address = 'unknown';
+          property.formattedAddresss = '';
         }
       } );
     };
@@ -210,13 +198,13 @@
         } ),
       );
       // Update data structure
-      lng = event.latLng.lng();
-      lat = event.latLng.lat();
+      property.long = event.latLng.lng();
+      property.lat = event.latLng.lat();
       getAddress( event.latLng );
       // Callback for dragend event
       google.maps.event.addListener( markers[ 0 ], 'dragend', ( event ) => {
-        lng = event.latLng.lng();
-        lat = event.latLng.lat();
+        property.long = event.latLng.lng();
+        property.lat = event.latLng.lat();
         getAddress( event.latLng );
       } );
     } );
@@ -230,9 +218,9 @@
         return;
       }
       // Fill formatted_address, latitude, and longitude as JSON values
-      lng = places[ 0 ].geometry.location.lng();
-      lat = places[ 0 ].geometry.location.lat();
-      formatted_address = places[ 0 ].formatted_address;
+      property.long = places[ 0 ].geometry.location.lng();
+      property.lat = places[ 0 ].geometry.location.lat();
+      property.formattedAddress = places[ 0 ].formatted_address;
       // Clear out the old markers
       markers.forEach( ( marker ) => {
         marker.setMap( null );
@@ -274,27 +262,19 @@
   }
   
   function handlerLocationNext() {
-    if( lng===0 || lat===0 || formatted_address==='' ) {
-      alert( 'Location must be added' );
-    } else {
-      realtorStack[ 0 ] = {
-        subroute: 'location',
-        attrs: {
-          address: formatted_address,
-          long: lng,
-          lat: lat,
-        },
-      };
-      nextPage();
-      console.log(realtorStack);
+    if( !property.long ||
+      !property.lat ||
+      !property.formattedAddress ) {
+      return alert( 'Location must be added' );
     }
+    nextPage();
   }
   
   // +=============| House Info |=============+ //
   let house_info_obj = {
-    house_type: '',
+    // house_type: '',
     floor: 0,
-    purpose: '',
+    // purpose: '',
     images: [],
     feature: {
       beds: 0,
@@ -361,30 +341,14 @@
   
   // ______About The House
   // **** House Type
-  let house_type = '';
-  let isApartment = false;
   let floor = 1;
   
-  $: {
-    if (house_type === 'apartment') {
-      isApartment = true;
-    } else {
-      isApartment = false;
-    }
-  }
-  
   // **** Rent or Sell
-  let rent_or_sell = '';
-  
   function handleNextAboutHouse() {
-    if( house_type==='' || rent_or_sell==='' ) {
-      alert( 'Must fill the form' );
-    } else {
-      house_info_obj.house_type = house_type;
-      house_info_obj.floor = floor;
-      house_info_obj.purpose = rent_or_sell;
-      houseInfoNext();
+    if( !property.houseType || !property.purpose ) {
+      return alert( 'Must fill the form' );
     }
+    houseInfoNext();
   }
   
   // ______Upload House Photo
@@ -450,13 +414,11 @@
     baths: 0,
     area: 0,
   };
-  let facility = '';
   
   function handleNextFeatureFacility() {
     house_info_obj.feature.beds = feature.beds;
     house_info_obj.feature.baths = feature.baths;
     house_info_obj.feature.area = feature.area;
-    house_info_obj.facility = facility;
     houseInfoNext();
   }
   
@@ -611,11 +573,12 @@
   function showAddRoomDialog() {
     add_or_edit_room_dialog.showModal();
   }
+  
   function showEditRoomDialog( index ) {
     room_edit_mode = true;
     room_index_to_edit = index;
-    room_type = floor_lists[floor_index_to_edit].rooms[room_index_to_edit].name;
-    size_m2 = floor_lists[floor_index_to_edit].rooms[room_index_to_edit].sizeM2;
+    room_type = floor_lists[ floor_index_to_edit ].rooms[ room_index_to_edit ].name;
+    size_m2 = floor_lists[ floor_index_to_edit ].rooms[ room_index_to_edit ].sizeM2;
     room_size = size_m2;
     unit_mode = 'M2';
     add_or_edit_room_dialog.showModal();
@@ -624,7 +587,7 @@
   function handleAddOrEditRoom( index ) {
     // Note: parameter index indicates which one array (floors/rooms) to edit
     let living_room_total = 0;
-    for( let i = 0; i < floor_lists[ floor_index_to_edit ][ 'rooms' ].length; i++ ) {
+    for( let i = 0; i<floor_lists[ floor_index_to_edit ][ 'rooms' ].length; i++ ) {
       if( floor_lists[ floor_index_to_edit ][ 'rooms' ][ i ].name==='living room' ) {
         living_room_total++;
       }
@@ -636,15 +599,15 @@
     } else {
       size_m2 = room_size;
     }
-
-    if (room_edit_mode === true) {
-      if (room_type === 'living room' && floor_lists[floor_index_to_edit].rooms[ index ].name === 'living room') {
+    
+    if( room_edit_mode===true ) {
+      if( room_type==='living room' && floor_lists[ floor_index_to_edit ].rooms[ index ].name==='living room' ) {
         room_obj = {
           name: room_type,
           sizeM2: size_m2,
           unit: 'm2',
         };
-        floor_lists[floor_index_to_edit].rooms[ index ] = room_obj;
+        floor_lists[ floor_index_to_edit ].rooms[ index ] = room_obj;
         room_type = '';
         room_size = 0;
         size_m2 = 0;
@@ -652,32 +615,36 @@
         add_or_edit_room_dialog.hideModal();
         return;
       }
-      if (room_type==='living room' && living_room_total > 0){
+      if( room_type==='living room' && living_room_total>0 ) {
         alert( 'Living Room already added, cannot edit to living room' );
         room_type = '';
         room_size = 0;
         size_m2 = 0;
-        room_edit_mode === false;
+        room_edit_mode===false;
         add_or_edit_room_dialog.hideModal();
         return;
       }
-
+      
       // Check if room type will be edit, its total room type (beds/baths) will be updated
-      if (room_type !== floor_lists[floor_index_to_edit].rooms[ index ].name) {
-        if (floor_lists[floor_index_to_edit].rooms[ index ].name === 'bedroom') {
-          floor_lists[floor_index_to_edit].beds--;
-        } else if (floor_lists[floor_index_to_edit].rooms[ index ].name === 'bathroom') {
-          floor_lists[floor_index_to_edit].baths--;
+      if( room_type!==floor_lists[ floor_index_to_edit ].rooms[ index ].name ) {
+        if( floor_lists[ floor_index_to_edit ].rooms[ index ].name==='bedroom' ) {
+          floor_lists[ floor_index_to_edit ].beds--;
+        } else if( floor_lists[ floor_index_to_edit ].rooms[ index ].name==='bathroom' ) {
+          floor_lists[ floor_index_to_edit ].baths--;
         }
-
-        if (room_type === 'bedroom') { floor_lists[floor_index_to_edit].beds++ }
-        if (room_type === 'bathroom') { floor_lists[floor_index_to_edit].baths++}
+        
+        if( room_type==='bedroom' ) {
+          floor_lists[ floor_index_to_edit ].beds++;
+        }
+        if( room_type==='bathroom' ) {
+          floor_lists[ floor_index_to_edit ].baths++;
+        }
       }
-      if (room_type === floor_lists[floor_index_to_edit].rooms[ index ].name) {
-        if (floor_lists[floor_index_to_edit].rooms[ index ].name === 'bedroom') {
-          floor_lists[floor_index_to_edit].beds++;
-        } else if (floor_lists[floor_index_to_edit].rooms[ index ].name === 'bathroom') {
-          floor_lists[floor_index_to_edit].baths++;
+      if( room_type===floor_lists[ floor_index_to_edit ].rooms[ index ].name ) {
+        if( floor_lists[ floor_index_to_edit ].rooms[ index ].name==='bedroom' ) {
+          floor_lists[ floor_index_to_edit ].beds++;
+        } else if( floor_lists[ floor_index_to_edit ].rooms[ index ].name==='bathroom' ) {
+          floor_lists[ floor_index_to_edit ].baths++;
         }
       }
       
@@ -686,7 +653,7 @@
         sizeM2: size_m2,
         unit: 'm2',
       };
-      floor_lists[floor_index_to_edit].rooms[ index ] = room_obj;
+      floor_lists[ floor_index_to_edit ].rooms[ index ] = room_obj;
       room_type = '';
       room_size = 0;
       size_m2 = 0;
@@ -694,7 +661,7 @@
       add_or_edit_room_dialog.hideModal();
       return;
     } else {
-      if( room_type==='living room' && living_room_total > 0) {
+      if( room_type==='living room' && living_room_total>0 ) {
         alert( 'Living Room already added' );
         room_type = '';
         room_size = 0;
@@ -702,9 +669,13 @@
         add_or_edit_room_dialog.hideModal();
         return;
       }
-      if( room_type==='bedroom' ) { floor_lists[index].beds++; }
-      if( room_type==='bathroom' ) { floor_lists[index].baths++; }
-
+      if( room_type==='bedroom' ) {
+        floor_lists[ index ].beds++;
+      }
+      if( room_type==='bathroom' ) {
+        floor_lists[ index ].baths++;
+      }
+      
       room_obj = {
         name: room_type,
         sizeM2: size_m2,
@@ -718,15 +689,15 @@
       return;
     }
   }
-
-  function handleRemoveRoom(roomIndex) {
-    if (floor_lists[floor_index_to_edit].rooms[ roomIndex ].name === 'bedroom') {
-      floor_lists[floor_index_to_edit].beds--;
+  
+  function handleRemoveRoom( roomIndex ) {
+    if( floor_lists[ floor_index_to_edit ].rooms[ roomIndex ].name==='bedroom' ) {
+      floor_lists[ floor_index_to_edit ].beds--;
     }
-    if (floor_lists[floor_index_to_edit].rooms[ roomIndex ].name === 'bathroom') {
-      floor_lists[floor_index_to_edit].baths--;
+    if( floor_lists[ floor_index_to_edit ].rooms[ roomIndex ].name==='bathroom' ) {
+      floor_lists[ floor_index_to_edit ].baths--;
     }
-    floor_lists[ floor_index_to_edit ]['rooms'] = floor_lists[ floor_index_to_edit ]['rooms'].filter((_, i) => i !== roomIndex);
+    floor_lists[ floor_index_to_edit ][ 'rooms' ] = floor_lists[ floor_index_to_edit ][ 'rooms' ].filter( ( _, i ) => i!==roomIndex );
   }
   
   function handleNextFloor() {
@@ -826,6 +797,9 @@
           <div>
             <h2>Type property's address or move the map to autofill it</h2>
             <div class='location_input'>
+              <span>
+                {property.formattedAddress}
+              </span>
               <div class='input_box'>
                 <label for='input_address'></label>
                 <input bind:this={input_address} type='text' id='input_address' />
@@ -845,61 +819,68 @@
             {#if mode===ABOUT_THE_HOUSE}
               <h2>{mode}</h2>
               <div class='about_the_house'>
-                <div class="house_type_container">
-                  <div class="house_type">
-                    <label for="house_type">House Type</label>
-                    <div class="option_container">
-                      <label class={house_type === 'house' ? 'option clicked': 'option'} for="house">
-                        <input type="radio" on:click={() => (house_type = 'house')} id="house" value="house" />
+                <div class='house_type_container'>
+                  <div class='house_type'>
+                    <label for='house_type'>House Type</label>
+                    <div class='option_container'>
+                      <label class={property.houseType === 'house' ? 'option clicked': 'option'} for='house'>
+                        <input type='radio'
+                               name='house_type'
+                               on:click={() => (property.houseType = 'house')}
+                               id='house'
+                               value='house' />
                         House
                       </label>
-                      <label class={house_type === 'apartment' ? 'option clicked': 'option'} for="apartment">
+                      <label class={property.houseType === 'apartment' ? 'option clicked': 'option'} for='apartment'>
                         <input
-                          type="radio"
-                          on:click={() => (house_type = 'apartment')}
-                          id="apartment"
-                          value="apartment"
+                          type='radio'
+                          name='house_type'
+                          on:click={() => (property.houseType = 'apartment')}
+                          id='apartment'
+                          value='apartment'
                         />
                         Apartment
                       </label>
                     </div>
                   </div>
-                  {#if isApartment}
-                    <div class="apartment_floor">
-                      <label for="apartment_floor">Floor</label>
+                  {#if property.houseType==='apartment'}
+                    <div class='apartment_floor'>
+                      <label for='apartment_floor'>Floor</label>
                       <input
-                        type="number"
-                        name="apartment_floor"
-                        id="apartment_floor"
-                        placeholder="Your property based"
-                        min="1"
+                        type='number'
+                        name='apartment_floor'
+                        id='apartment_floor'
+                        placeholder='Your property based'
+                        min='1'
                         bind:value={floor}
                       />
                     </div>
                   {/if}
                 </div>
-                <div class="rent_or_sell">
-                  <label for="rent_or_sell">Rent or Sell</label>
-                  <div class="option_container">
-                    <label class={rent_or_sell === 'rent' ? 'option clicked': 'option'} for="rent">
+                <div class='rent_or_sell'>
+                  <label for='rent_or_sell'>Rent or Sell</label>
+                  <div class='option_container'>
+                    <label class={property.purpose === 'rent' ? 'option clicked': 'option'} for='rent'>
                       <input
-                        type="radio"
-                        on:click={() => (rent_or_sell = 'rent')}
-                        id="rent"
-                        value="rent"
+                        type='radio'
+                        name='rent_or_sell'
+                        on:click={() => (property.purpose = 'rent')}
+                        id='rent'
+                        value='rent'
                       />
                       Rent
                     </label>
-                    <label class={rent_or_sell === 'sell' ? 'option clicked': 'option'} for="sell">
+                    <label class={property.purpose === 'sell' ? 'option clicked': 'option'} for='sell'>
                       <input
-                        type="radio"
-                        on:click={() => (rent_or_sell = 'sell')}
-                        id="sell"
-                        value="sell"
+                        type='radio'
+                        name='rent_or_sell'
+                        on:click={() => (property.purpose = 'sell')}
+                        id='sell'
+                        value='sell'
                       />
                       Sell
                     </label>
-                </div>
+                  </div>
                 </div>
               </div>
             {/if}
@@ -954,7 +935,7 @@
               </div>
               <h2>Facility</h2>
               <div class='facility_section'>
-                <textarea bind:value={facility} rows='10' placeholder='Type the facility in the property.' name='facility' id='facility'></textarea>
+                <textarea bind:value={property.facility} rows='10' placeholder='Type the facility in the property.' name='facility' id='facility'></textarea>
               </div>
             {/if}
             {#if mode===DESCRIPTION_PROPERTY}
@@ -1019,16 +1000,17 @@
             <button disabled={floor_type === ''} class='add_floor_button' on:click={handlerAddFloor}>Add</button>
           </AddFloorDialog>
           <!-- Add Room Dialog -->
-          <AddOrEditRoomDialog bind:this={add_or_edit_room_dialog} bind:room_type={room_type} bind:room_size={room_size} bind:m2_size={size_m2} bind:unit_mode={unit_mode}>
+          <AddOrEditRoomDialog bind:this={add_or_edit_room_dialog} bind:room_type={room_type} bind:room_size={room_size} bind:m2_size={size_m2}
+                               bind:unit_mode={unit_mode}>
             <button disabled={room_type === ''} class='add_room_button'
-              on:click={() => {
+                    on:click={() => {
                 if (room_edit_mode === true) {
                   handleAddOrEditRoom(room_index_to_edit);
                 } else {
                   handleAddOrEditRoom(floor_index_to_edit);
                 }
               }}>
-              {room_edit_mode === true ? 'Edit' : 'Add'}
+              {room_edit_mode===true ? 'Edit' : 'Add'}
             </button>
           </AddOrEditRoomDialog>
           <div class='floor_main_content'>
@@ -1134,8 +1116,8 @@
                         <span>{room.name}</span>
                         <div class='right_item'>
                           <span>{room.sizeM2} {room.unit}</span>
-                          <button class="edit_room" on:click={() => showEditRoomDialog(index)}>
-                            <i class="gg-pen" />
+                          <button class='edit_room' on:click={() => showEditRoomDialog(index)}>
+                            <i class='gg-pen' />
                           </button>
                           <button class='remove_room' on:click={() => handleRemoveRoom(index)}>
                             <i class='gg-trash'></i>
@@ -1189,8 +1171,8 @@
                     <p>Agency Fee: {infoStack.attrs.agency_fee_percent || '0'}%</p>
                   </div>
                   <div class='address'>
-                    <i class='gg-pin'/>
-                    <p>{mapStack.attrs.address}</p>
+                    <i class='gg-pin' />
+                    <p>{property.formattedAddress}</p>
                   </div>
                 </div>
                 <div class='right_item'>
@@ -1199,7 +1181,7 @@
                   </button>
                   <div class='house_type'>
                     <i class='gg-home-alt'></i>
-                    <span>{infoStack.attrs.house_type}</span>
+                    <span>{property.houseType}</span>
                   </div>
                 </div>
               </div>
@@ -1220,7 +1202,7 @@
               <article class='preview_description'>
                 <div class='preview_facility'>
                   <h3>Facility</h3>
-                  <p>{infoStack.attrs.facility!=='' ? infoStack.attrs.facility : '--'}</p>
+                  <p>{property.mainUse!=='' ? infoStack.attrs.facility : '--'}</p>
                 </div>
                 <div class='preview_about'>
                   <h3>About</h3>
@@ -1302,37 +1284,40 @@
   }
 
   .realtor_step_progress_bar .container {
-    width: 70%;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    background-color: white;
-    border-radius: 6px;
-    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    padding: 18px 5%;
+    width            : 70%;
+    margin-left      : auto;
+    margin-right     : auto;
+    display          : flex;
+    flex-direction   : row;
+    justify-content  : space-between;
+    background-color : white;
+    border-radius    : 6px;
+    filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+    padding          : 18px 5%;
   }
+
   .realtor_step_progress_bar .container .back_button {
-    padding   : 8px;
-    background-color: rgb(0 0 0 / 0.06);
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    border: none;
-    text-decoration: none;
-    height: fit-content;
-    color: #334155;
+    padding          : 8px;
+    background-color : rgb(0 0 0 / 0.06);
+    border-radius    : 5px;
+    font-size        : 14px;
+    cursor           : pointer;
+    border           : none;
+    text-decoration  : none;
+    height           : fit-content;
+    color            : #334155;
   }
+
   .realtor_step_progress_bar .container .back_button:hover {
-    color: #EF4444;
+    color : #EF4444;
   }
+
   .realtor_step_progress_bar .step_wrapper {
-    width: 70%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-top: 5px;
+    width           : 70%;
+    display         : flex;
+    flex-direction  : row;
+    justify-content : space-between;
+    padding-top     : 5px;
   }
 
   .realtor_step_progress_bar .step_wrapper .step_item {
@@ -1383,8 +1368,9 @@
     z-index          : 4;
     cursor           : pointer;
   }
+
   .realtor_step_progress_bar .step_wrapper .step_item button:hover {
-    outline          : 5px solid rgb(0 0 0 / 0.09);
+    outline : 5px solid rgb(0 0 0 / 0.09);
   }
 
   .realtor_step_progress_bar .step_wrapper .step_item p {
@@ -1468,8 +1454,9 @@
     background-color : rgb(0 0 0 / 0.05);
     color            : #EF4444;
   }
+
   .realtor_subpage_container .back_button span {
-    margin-right      : 5px;
+    margin-right : 5px;
   }
 
   /* +============| SUBPAGE LOCATION |===========+ */
@@ -1592,75 +1579,78 @@
 
   /* __SUBPAGE INFO - About The House */
   .about_the_house {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    display               : grid;
+    grid-template-columns : 1fr 1fr;
+    gap                   : 20px;
   }
 
   .house_type_container {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    gap: 20px;
+    display            : grid;
+    grid-template-rows : 1fr 1fr;
+    gap                : 20px;
   }
 
   .apartment_floor {
-    width: 50% !important;
+    width : 50% !important;
   }
 
   .house_type,
   .apartment_floor,
   .rent_or_sell {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: fit-content;
+    position       : relative;
+    display        : flex;
+    flex-direction : column;
+    width          : 100%;
+    height         : fit-content;
   }
 
   .apartment_floor input {
-    width: auto;
-    border: 1px solid #cbd5e1;
-    background-color: #f1f5f9;
-    border-radius: 8px;
-    padding: 10px 12px;
-    font-weight: 600;
-    text-align: left;
-    color: #f97316;
-    text-transform: capitalize;
+    width            : auto;
+    border           : 1px solid #CBD5E1;
+    background-color : #F1F5F9;
+    border-radius    : 8px;
+    padding          : 10px 12px;
+    font-weight      : 600;
+    text-align       : left;
+    color            : #F97316;
+    text-transform   : capitalize;
   }
+
   /* .house_type button:hover, .apartment_floor input:hover, .rent_or_sell button:hover {
     border : 1px solid #F97316;
   } */
 
   .apartment_floor input:focus {
-    outline: 1px solid #f97316;
+    outline : 1px solid #F97316;
   }
 
   .about_the_house .option_container {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    width                 : 100%;
+    display               : grid;
+    grid-template-columns : 1fr 1fr;
+    gap                   : 10px;
   }
 
   .about_the_house .option_container .option {
-    margin: 0;
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid #cbd5e1;
-    background-color: #f1f5f9;
-    font-weight: 500;
-    text-align: center;
-    cursor: pointer;
+    margin           : 0;
+    padding          : 10px 12px;
+    border-radius    : 8px;
+    border           : 1px solid #CBD5E1;
+    background-color : #F1F5F9;
+    font-weight      : 500;
+    text-align       : center;
+    cursor           : pointer;
   }
+
   .about_the_house .option_container .option:hover {
-    border: 1px solid #f97316;
-    color: #f97316;
+    border : 1px solid #F97316;
+    color  : #F97316;
   }
+
   .about_the_house .option_container .option.clicked {
-    background-color: #f97316;
-    color: white;
-    border: none;
+    background-color : #F97316;
+    color            : white;
+    border           : none;
   }
 
   .option input[type='radio'] {
@@ -1777,21 +1767,21 @@
 
   /* __SUBPAGE INFO - Feature and Facility */
   .feature_section {
-    display           : flex;
-    grid-column       : auto;
-    gap               : 30px;
-    justify-content   : center;
-    align-items       : center;
-    justify-items     : center;
+    display         : flex;
+    grid-column     : auto;
+    gap             : 30px;
+    justify-content : center;
+    align-items     : center;
+    justify-items   : center;
   }
 
   .feature_section .beds, .baths, .area {
-    display           : flex;
-    flex-direction    : column;
-    width             : fit-content;
-    justify-content   : center;
-    align-content     : center;
-    align-items       : center;
+    display         : flex;
+    flex-direction  : column;
+    width           : fit-content;
+    justify-content : center;
+    align-content   : center;
+    align-items     : center;
   }
 
   .feature_section .beds input, .baths input, .area input {
@@ -1887,8 +1877,9 @@
     display          : flex;
     justify-content  : center;
   }
+
   .floor .next_button:disabled {
-    background-color : #f39552;
+    background-color : #F39552;
   }
 
   .floor .next_button:hover {
@@ -2224,6 +2215,7 @@
     flex-direction : row;
     align-items    : center;
   }
+
   .floor .edit_floor_container .room_list_container .room_list_item .right_item .edit_room {
     border        : none;
     background    : none;
@@ -2234,7 +2226,7 @@
     color         : #F97316;
   }
 
-  .floor .edit_floor_container .room_list_container .room_list_item .right_item .remove_room{
+  .floor .edit_floor_container .room_list_container .room_list_item .right_item .remove_room {
     border        : none;
     background    : none;
     padding       : 10px 13px;
@@ -2275,10 +2267,11 @@
     display        : flex;
     flex-direction : column;
   }
+
   .preview .preview_main .preview_header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display         : flex;
+    justify-content : space-between;
+    align-items     : center;
 
   }
 
@@ -2329,7 +2322,7 @@
   .preview .preview_price_house_type .left_item {
     display        : flex;
     flex-direction : column;
-    gap: 10px;
+    gap            : 10px;
   }
 
   .preview .preview_price_house_type .left_item span {
@@ -2355,15 +2348,17 @@
   .preview .preview_price_house_type .left_item p {
     color     : #64748B;
     font-size : 13px;
-    margin: 0;
+    margin    : 0;
   }
+
   .preview .preview_price_house_type .left_item .address {
-    display   : flex;
-    flex-direction: row;
-    gap: 10px;
+    display        : flex;
+    flex-direction : row;
+    gap            : 10px;
   }
+
   .preview .preview_price_house_type .left_item .address i {
-    color: #f97316;
+    color : #F97316;
   }
 
   .preview .preview_price_house_type .right_item {
