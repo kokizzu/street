@@ -459,12 +459,6 @@
   }
   
   // ______Feature and Facility
-  let feature = {
-    beds: 0,
-    baths: 0,
-    area: 0,
-  };
-  
   function handleNextFeatureFacility() {
     houseInfoNext();
   }
@@ -860,7 +854,7 @@
                 <div class='house_type_container'>
                   <div class='house_type'>
                     <label for='house_type'>House Type</label>
-                    <div class='option_container'>
+                    <div class='option_container' id='house_type'>
                       <label class={property.houseType === 'house' ? 'option clicked': 'option'} for='house'>
                         <input type='radio'
                                name='house_type'
@@ -897,7 +891,7 @@
                 </div>
                 <div class='rent_or_sell'>
                   <label for='rent_or_sell'>Rent or Sell</label>
-                  <div class='option_container'>
+                  <div class='option_container' id='rent_or_sell'>
                     <label class={property.purpose === 'rent' ? 'option clicked': 'option'} for='rent'>
                       <input
                         type='radio'
@@ -2365,7 +2359,7 @@
 
   .preview .preview_price_house_type .left_item span {
     padding          : 4px 10px;
-    font-size        : 12;
+    font-size        : 12pt;
     background-color : #F97316;
     width            : fit-content;
     color            : white;
