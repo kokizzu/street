@@ -25,11 +25,11 @@
     <div class="content">
       <div class="property_lists_container">
         <div class="property_lists_header">
+          <h1>Owned Properties: {@html ownedProperties.length ? ownedProperties.length : 0}</h1>
           <a href="/realtor/property" class="add_button" style="">
             <i class="gg-add" />
             <span>Add</span>
           </a>
-          <h1>Property owned</h1>
         </div>
         {#if ownedProperties.length}
           <section class="property_lists">

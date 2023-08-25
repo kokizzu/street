@@ -63,6 +63,7 @@
           {#each fields as field}
             {#if field.name === 'id'}
               <th class="col_action">Action</th>
+              <th class="col_action">Property</th>
             {:else}
               <th class="table_header">{field.label}</th>
             {/if}
@@ -74,11 +75,16 @@
           <tr class:deleted={row[deletedAtIdx] > 0}>
             {#each fields as field, i}
               {#if field.name === 'id'}
-                <td class="col_action" title="Edit user">
-                  <button class="action" on:click={() => editRow(row[i])}>
+                <td class="col_action">
+                  <button class="action" title="Edit user" on:click={() => editRow(row[i])}>
                     <i class="gg-pen" />
                   </button>
-                  <!-- {no + 1} -->
+                </td>
+                <!-- TODO: click this button to show or search property history -->
+                <td class="col_action">
+                  <button class="property" title="Search or Show Property">
+                    <i class="gg-eye"/>
+                  </button>
                 </td>
               {:else if field.inputType === 'checkbox'}
                 <td class="table_data">{!!row[i]}</td>
@@ -158,11 +164,11 @@
   .table_container .table_users th {
     color: #6366f1;
     border: 1px solid #cbd5e1;
-    padding: 12px;
+    padding: 10px 7px;
   }
   .table_container .table_users td {
     border: 1px solid #cbd5e1;
-    padding: 12px;
+    padding: 6px;
   }
 
   .table_users .table_header {
@@ -173,6 +179,7 @@
   .table_users .col_action {
     width: fit-content;
     max-width: fit-content;
+    text-align: center;
   }
 
   .table_users .table_header,
@@ -187,11 +194,22 @@
     text-align: center;
     margin: auto;
     cursor: pointer;
-    padding: 18px 15px;
+    padding: 16px 14px;
+    border-radius: 8px;
+  }
+  .table_users .col_action .property {
+    border: none;
+    background: none;
+    color: #475569;
+    text-align: center;
+    margin: auto;
+    cursor: pointer;
+    padding: 10px 7px;
     border-radius: 8px;
   }
 
-  .table_users .col_action .action:hover {
+  .table_users .col_action .action:hover,
+  .table_users .col_action .property:hover {
     color: #ef4444;
     background-color: #f0f0f0;
   }
