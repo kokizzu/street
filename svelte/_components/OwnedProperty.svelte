@@ -403,9 +403,7 @@
     z-index: 90;
     width: -webkit-fill-available;
   }
-  .property_less_more {
-    
-  }
+
   .toggle_show_more {
     color: #f97316;
     border: none;

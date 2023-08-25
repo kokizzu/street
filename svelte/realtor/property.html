@@ -10467,7 +10467,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     let add_floor_dialog = AddFloorDialog_default;
     let floor_type = "";
-    let floor_lists = [];
+    let floor_lists = property.floorList || [];
     let floor_attribute = {
       type: "",
       floor: 0,

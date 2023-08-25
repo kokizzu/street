@@ -479,7 +479,9 @@
   // +=============| Floors |=============+ //
   let add_floor_dialog = AddFloorDialog;
   let floor_type = '';
-  let floor_lists = [];
+  let floor_lists = property.floorList || [
+    
+  ];
   let floor_attribute = {
     type: '',
     floor: 0,
