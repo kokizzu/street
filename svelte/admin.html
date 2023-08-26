@@ -349,7 +349,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 }
 
 /* fakecss:./admin.esbuild-svelte-fake-css */
-.info_card.svelte-120xaut.svelte-120xaut {
+.info_card.svelte-1bihipf.svelte-1bihipf {
   display: flex;
   width: 88%;
   margin: -20px auto 20px auto;
@@ -359,17 +359,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   border-radius: 10px;
   flex-direction: row;
 }
-.total_container.svelte-120xaut.svelte-120xaut {
+.total_container.svelte-1bihipf.svelte-1bihipf {
   flex: auto;
 }
-.chart_container.svelte-120xaut.svelte-120xaut {
+.chart_container.svelte-1bihipf.svelte-1bihipf {
   position: relative;
   width: 88%;
   margin: 20px auto 20px auto;
   display: flex;
   flex-direction: column;
 }
-.chart_container.svelte-120xaut .statistics.svelte-120xaut {
+.chart_container.svelte-1bihipf .statistics.svelte-1bihipf {
   width: 100%;
   height: 400px;
   box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
@@ -377,16 +377,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   border-radius: 8px;
   padding: 16px 16px 25px 16px;
 }
-.chart_container.svelte-120xaut .statistics header h3.svelte-120xaut {
+.chart_container.svelte-1bihipf .statistics header h3.svelte-1bihipf {
   font-size: 20px;
   color: white;
   margin: 0;
 }
-.chart_container.svelte-120xaut .statistics .stats.svelte-120xaut {
+.chart_container.svelte-1bihipf .statistics .stats.svelte-1bihipf {
   height: 92%;
   width: 100%;
 }
-.chart_container.svelte-120xaut .actions.svelte-120xaut {
+.chart_container.svelte-1bihipf .actions.svelte-1bihipf {
   width: 100%;
   margin-top: 30px;
   box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
@@ -395,11 +395,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   height: 500px;
   padding: 16px 16px 25px 16px;
 }
-.chart_container.svelte-120xaut .actions header h3.svelte-120xaut {
+.chart_container.svelte-1bihipf .actions header h3.svelte-1bihipf {
   font-size: 20px;
   margin: 0 0 20px 0;
 }
-.chart_container.svelte-120xaut .actions .action.svelte-120xaut {
+.chart_container.svelte-1bihipf .actions .action.svelte-1bihipf {
   height: 90%;
   width: 100%;
 }
@@ -18387,13 +18387,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         );
         t10 = space();
         div7 = element("div");
-        div7.innerHTML = `<!-- Statistics --> <div class="statistics svelte-120xaut"><header><h3 class="svelte-120xaut">Last 30 days User Statistics</h3></header> <div class="stats svelte-120xaut"><canvas id="stats-chart"></canvas></div></div> <!-- Actions [ Still Dummy Chart]--> <div class="actions svelte-120xaut"><header><h3 class="svelte-120xaut">Last 30 days Actions</h3></header> <div class="action svelte-120xaut"><canvas id="action-chart"></canvas></div></div>`;
+        div7.innerHTML = `<!-- Statistics --> <div class="statistics svelte-1bihipf"><header><h3 class="svelte-1bihipf">Last 30 days User Statistics</h3></header> <div class="stats svelte-1bihipf"><canvas id="stats-chart"></canvas></div></div> <!-- Actions [ Still Dummy Chart]--> <div class="actions svelte-1bihipf"><header><h3 class="svelte-1bihipf">Last 30 days Actions</h3></header> <div class="action svelte-1bihipf"><canvas id="action-chart"></canvas></div></div>`;
         t18 = space();
         create_component(footer.$.fragment);
-        attr(div0, "class", "total_container svelte-120xaut");
-        attr(div1, "class", "total_container svelte-120xaut");
-        attr(div2, "class", "info_card svelte-120xaut");
-        attr(div7, "class", "chart_container svelte-120xaut");
+        attr(div0, "class", "total_container svelte-1bihipf");
+        attr(div1, "class", "total_container svelte-1bihipf");
+        attr(div2, "class", "info_card svelte-1bihipf");
+        attr(div7, "class", "chart_container svelte-1bihipf");
         attr(div8, "class", "content");
         attr(div9, "class", "dashboard_main_content");
         attr(section, "class", "dashboard");
@@ -18452,21 +18452,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  var segments = {
-    /* segments */
-  };
-  var uniqueIpPerDate = {
-    /* uniqueIpPerDate */
-  };
-  var requestsPerDate = {
-    /* requestsPerDate */
-  };
-  var uniqueUserPerDate = {
-    /* uniqueUserPerDate */
-  };
-  var countPerActionsPerDate = {
-    /* countPerActionsPerDate */
-  };
+  var segments = {/* segments */};
+  var uniqueIpPerDate = {/* uniqueIpPerDate */};
+  var requestsPerDate = {/* requestsPerDate */};
+  var uniqueUserPerDate = {/* uniqueUserPerDate */};
+  var countPerActionsPerDate = {/* countPerActionsPerDate */};
   function formatDate(dateString) {
     const options = { day: "numeric", month: "long" };
     const date = new Date(dateString);

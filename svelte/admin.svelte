@@ -2,33 +2,21 @@
   // @ts-nocheck
   import Chart from 'chart.js/auto';
   import { onMount } from 'svelte';
-
+  
   import Menu from './_components/Menu.svelte';
   import AdminSubMenu from './_components/AdminSubMenu.svelte';
   import ProfileHeader from './_components/ProfileHeader.svelte';
   import Footer from './_components/Footer.svelte';
-
-  let user = {
-    /* user */
-  };
-  let segments = {
-    /* segments */
-  };
-
-  let uniqueIpPerDate = {
-    /* uniqueIpPerDate */
-  };
-  let requestsPerDate = {
-    /* requestsPerDate */
-  };
-  let uniqueUserPerDate = {
-    /* uniqueUserPerDate */
-  };
+  
+  let user = {/* user */};
+  let segments = {/* segments */};
+  
+  let uniqueIpPerDate = {/* uniqueIpPerDate */};
+  let requestsPerDate = {/* requestsPerDate */};
+  let uniqueUserPerDate = {/* uniqueUserPerDate */};
   let registeredUserTotal = +'#{registeredUserTotal}';
   let totalRegisteredUserToday = +'#{registeredUserToday}';
-  let countPerActionsPerDate = {
-    /* countPerActionsPerDate */
-  };
+  let countPerActionsPerDate = {/* countPerActionsPerDate */};
   let sortedDate = [];
   // Data to be display on the Charts
   let formattedDates = [];
@@ -37,56 +25,56 @@
   let data_uniqueUserPerDate = [];
   let data_actionLists = [];
   let data_countPerActionsPerDate = [];
-
-  function formatDate(dateString) {
-    const options = { day: 'numeric', month: 'long' };
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', options);
+  
+  function formatDate( dateString ) {
+    const options = {day: 'numeric', month: 'long'};
+    const date = new Date( dateString );
+    return date.toLocaleDateString( 'en-US', options );
   }
-
-  onMount(() => {
+  
+  onMount( () => {
     let uniqueDate = {};
-    for (let i in uniqueIpPerDate) uniqueDate[i] = true;
-    for (let i in requestsPerDate) uniqueDate[i] = true;
-    for (let i in uniqueUserPerDate) uniqueDate[i] = true;
-    sortedDate = Object.keys(uniqueDate).sort();
-    formattedDates = sortedDate.map(date => formatDate(date));
-    data_requestsPerDate = sortedDate.map(date => requestsPerDate[date]);
-    data_uniqueIpPerDate = sortedDate.map(date => uniqueIpPerDate[date]);
-    data_uniqueUserPerDate = sortedDate.map(date => uniqueUserPerDate[date]);
+    for( let i in uniqueIpPerDate ) uniqueDate[ i ] = true;
+    for( let i in requestsPerDate ) uniqueDate[ i ] = true;
+    for( let i in uniqueUserPerDate ) uniqueDate[ i ] = true;
+    sortedDate = Object.keys( uniqueDate ).sort();
+    formattedDates = sortedDate.map( date => formatDate( date ) );
+    data_requestsPerDate = sortedDate.map( date => requestsPerDate[ date ] );
+    data_uniqueIpPerDate = sortedDate.map( date => uniqueIpPerDate[ date ] );
+    data_uniqueUserPerDate = sortedDate.map( date => uniqueUserPerDate[ date ] );
     let datasets = [];
-    data_actionLists = Object.keys(countPerActionsPerDate);
-    for (let action in countPerActionsPerDate) {
+    data_actionLists = Object.keys( countPerActionsPerDate );
+    for( let action in countPerActionsPerDate ) {
       let action_data = [];
-      for (let i = 0; i < sortedDate.length; i++) {
-        let date = sortedDate[i];
-        action_data.push(countPerActionsPerDate[action][date] || 0);
+      for( let i = 0; i<sortedDate.length; i++ ) {
+        let date = sortedDate[ i ];
+        action_data.push( countPerActionsPerDate[ action ][ date ] || 0 );
       }
-      data_countPerActionsPerDate.push(action_data);
+      data_countPerActionsPerDate.push( action_data );
     }
-
+    
     // fill the data
     let total = data_actionLists.length;
-
-    for (let idx = 0; idx < total; ++idx) {
-      const degree = Math.floor((360 * idx) / (total + 1)); // since 360 in hsl = 0
+    
+    for( let idx = 0; idx<total; ++idx ) {
+      const degree = Math.floor( (360 * idx) / (total + 1) ); // since 360 in hsl = 0
       const color = 'hsl(' + degree + ', 100%, 47%)';
       const borderColor = 'hsl(' + degree + ', 100%, 60%)';
-      datasets.push({
-        label: data_actionLists[idx],
+      datasets.push( {
+        label: data_actionLists[ idx ],
         backgroundColor: color,
         borderColor: borderColor,
-        data: data_countPerActionsPerDate[idx],
+        data: data_countPerActionsPerDate[ idx ],
         fill: false,
         barThickness: 20,
-      });
+      } );
     }
-
+    
     // init Chart.js
-    const statsChart = document.getElementById('stats-chart');
-    const actionChart = document.getElementById('action-chart');
-
-    new Chart(statsChart, {
+    const statsChart = document.getElementById( 'stats-chart' );
+    const actionChart = document.getElementById( 'action-chart' );
+    
+    new Chart( statsChart, {
       type: 'line',
       data: {
         labels: formattedDates,
@@ -172,9 +160,9 @@
           },
         },
       },
-    });
-
-    new Chart(actionChart, {
+    } );
+    
+    new Chart( actionChart, {
       type: 'bar',
       data: {
         labels: formattedDates,
@@ -230,41 +218,41 @@
           },
         },
       },
-    });
-  });
+    } );
+  } );
 </script>
 
-<section class="dashboard">
+<section class='dashboard'>
   <Menu access={segments} />
-  <div class="dashboard_main_content">
+  <div class='dashboard_main_content'>
     <ProfileHeader />
     <AdminSubMenu />
-    <div class="content">
-      <div class="info_card">
-        <div class="total_container">
+    <div class='content'>
+      <div class='info_card'>
+        <div class='total_container'>
           <strong>Registered User Total</strong>: {registeredUserTotal}
         </div>
-        <div class="total_container">
+        <div class='total_container'>
           <strong>Registered User Today</strong>: {totalRegisteredUserToday}
         </div>
       </div>
-      <div class="chart_container">
+      <div class='chart_container'>
         <!-- Statistics -->
-        <div class="statistics">
+        <div class='statistics'>
           <header>
             <h3>Last 30 days User Statistics</h3>
           </header>
-          <div class="stats">
-            <canvas id="stats-chart" />
+          <div class='stats'>
+            <canvas id='stats-chart' />
           </div>
         </div>
         <!-- Actions [ Still Dummy Chart]-->
-        <div class="actions">
+        <div class='actions'>
           <header>
             <h3>Last 30 days Actions</h3>
           </header>
-          <div class="action">
-            <canvas id="action-chart" />
+          <div class='action'>
+            <canvas id='action-chart' />
           </div>
         </div>
       </div>
@@ -275,64 +263,65 @@
 
 <style>
   .info_card {
-    display: flex;
-    width: 88%;
-    margin: -20px auto 20px auto;
-    position: relative;
-    background-color: antiquewhite;
-    padding: 1em;
-    border-radius: 10px;
-    flex-direction: row;
+    display          : flex;
+    width            : 88%;
+    margin           : -20px auto 20px auto;
+    position         : relative;
+    background-color : antiquewhite;
+    padding          : 1em;
+    border-radius    : 10px;
+    flex-direction   : row;
   }
+
   .total_container {
-    flex: auto;
+    flex : auto;
   }
 
   .chart_container {
-    position: relative;
-    width: 88%;
-    margin: 20px auto 20px auto;
-    display: flex;
-    flex-direction: column;
+    position       : relative;
+    width          : 88%;
+    margin         : 20px auto 20px auto;
+    display        : flex;
+    flex-direction : column;
   }
 
   .chart_container .statistics {
-    width: 100%;
-    height: 400px;
-    box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
-    background-color: #334155;
-    border-radius: 8px;
-    padding: 16px 16px 25px 16px;
+    width            : 100%;
+    height           : 400px;
+    box-shadow       : 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
+    background-color : #334155;
+    border-radius    : 8px;
+    padding          : 16px 16px 25px 16px;
   }
 
   .chart_container .statistics header h3 {
-    font-size: 20px;
-    color: white;
-    margin: 0;
+    font-size : 20px;
+    color     : white;
+    margin    : 0;
   }
 
   .chart_container .statistics .stats {
-    height: 92%;
-    width: 100%;
+    height : 92%;
+    width  : 100%;
   }
 
   .chart_container .actions {
-    width: 100%;
-    margin-top: 30px;
-    box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
-    background-color: white;
-    border-radius: 8px;
-    height: 500px;
-    padding: 16px 16px 25px 16px;
+    width            : 100%;
+    margin-top       : 30px;
+    box-shadow       : 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
+    background-color : white;
+    border-radius    : 8px;
+    height           : 500px;
+    padding          : 16px 16px 25px 16px;
   }
 
   .chart_container .actions header h3 {
-    font-size: 20px;
-    margin: 0 0 20px 0;
+    font-size : 20px;
+    margin    : 0 0 20px 0;
   }
 
   .chart_container .actions .action {
-    height: 90%;
-    width: 100%;
+    height : 90%;
+    width  : 100%;
   }
 </style>
