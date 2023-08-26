@@ -1,6 +1,10 @@
 package rqAuth
 
 import (
+	"fmt"
+	"strconv"
+	"time"
+
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
@@ -24,6 +28,28 @@ WHERE ` + s.SqlUserId() + ` = ` + I.UToS(userId) + `
 		res = append(res, s.FromArray(row))
 	})
 	return
+}
+
+func (u *Users) CountUserRegisterToday() (res int64) {
+	currentDate := time.Now()
+	beginCurrentDate := time.Date(currentDate.Year(), currentDate.Month(), currentDate.Day(), 0, 0, 0, 0, currentDate.Location())
+	endCurrentDate := beginCurrentDate.AddDate(0, 0, 1).Add(-time.Second)
+
+	beginDateUnix := strconv.FormatUint(uint64(beginCurrentDate.Unix()), 10)
+	endDateUnix := strconv.FormatUint(uint64(endCurrentDate.Unix()), 10)
+
+	queryCountRegisteredToday := `SELECT COUNT(*) FROM ` + u.SqlTableName() +
+		` WHERE ` + u.SqlCreatedAt() + ` >= ` + beginDateUnix + ` and ` +
+		u.SqlCreatedAt() + ` <= ` + endDateUnix
+
+	fmt.Println(beginCurrentDate)
+	fmt.Println(endCurrentDate)
+
+	u.Adapter.QuerySql(queryCountRegisteredToday, func(row []any) {
+		res = X.ToI(row[0])
+	})
+
+	return res
 }
 
 func (u *Users) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {

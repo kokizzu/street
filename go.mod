@@ -3,7 +3,7 @@ module street
 go 1.20
 
 require (
-	github.com/ClickHouse/clickhouse-go/v2 v2.13.0
+	github.com/ClickHouse/clickhouse-go/v2 v2.13.2
 	github.com/allegro/bigcache/v3 v3.1.0
 	github.com/disintegration/imaging v1.6.2
 	github.com/gabriel-vasile/mimetype v1.4.2
@@ -30,7 +30,7 @@ require (
 	github.com/xuri/excelize/v2 v2.7.1
 	github.com/yosuke-furukawa/json5 v0.1.1
 	github.com/zeebo/xxh3 v1.0.2
-	golang.org/x/exp v0.0.0-20230811145659-89c5cff77bcb
+	golang.org/x/exp v0.0.0-20230817173708-d852ddb80c63
 	golang.org/x/oauth2 v0.0.0-20220524215830-622c5d57e401
 	golang.org/x/sync v0.3.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
@@ -39,7 +39,7 @@ require (
 require (
 	cloud.google.com/go v0.67.0 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20230124172434-306776ec8161 // indirect
-	github.com/ClickHouse/ch-go v0.58.0 // indirect
+	github.com/ClickHouse/ch-go v0.58.2 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
 	github.com/OneOfOne/cmap v0.0.0-20170825200327-ccaef7657ab8 // indirect
@@ -130,7 +130,7 @@ require (
 	golang.org/x/net v0.14.0 // indirect
 	golang.org/x/sys v0.11.0 // indirect
 	golang.org/x/text v0.12.0 // indirect
-	golang.org/x/tools v0.12.0 // indirect
+	golang.org/x/tools v0.12.1-0.20230815132531-74c255bcf846 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect

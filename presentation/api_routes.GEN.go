@@ -170,6 +170,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// RealtorProperty
+	fw.Post("/"+domain.RealtorPropertyAction, func(c *fiber.Ctx) error {
+		in := domain.RealtorPropertyIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.RealtorPropertyAction); err != nil {
+			return err
+		}
+		out := d.RealtorProperty(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// RealtorUpsertProperty
 	fw.Post("/"+domain.RealtorUpsertPropertyAction, func(c *fiber.Ctx) error {
 		in := domain.RealtorUpsertPropertyIn{}

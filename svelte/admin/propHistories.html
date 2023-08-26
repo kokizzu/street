@@ -2697,6 +2697,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       exports.RealtorOwnedProperties = async function RealtorOwnedProperties(i, cb) {
         return await axios.post("/realtor/ownedProperties", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.RealtorProperty = async function RealtorProperty(i, cb) {
+        return await axios.post("/realtor/property", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.RealtorUpsertProperty = async function RealtorUpsertProperty(i, cb) {
         return await axios.post("/realtor/upsertProperty", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };

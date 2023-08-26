@@ -349,23 +349,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 }
 
 /* fakecss:./admin.esbuild-svelte-fake-css */
-.total_container.svelte-1rbguq5.svelte-1rbguq5 {
-  display: block;
+.info_card.svelte-120xaut.svelte-120xaut {
+  display: flex;
   width: 88%;
   margin: -20px auto 20px auto;
   position: relative;
   background-color: antiquewhite;
   padding: 1em;
   border-radius: 10px;
+  flex-direction: row;
 }
-.chart_container.svelte-1rbguq5.svelte-1rbguq5 {
+.total_container.svelte-120xaut.svelte-120xaut {
+  flex: auto;
+}
+.chart_container.svelte-120xaut.svelte-120xaut {
   position: relative;
   width: 88%;
   margin: 20px auto 20px auto;
   display: flex;
   flex-direction: column;
 }
-.chart_container.svelte-1rbguq5 .statistics.svelte-1rbguq5 {
+.chart_container.svelte-120xaut .statistics.svelte-120xaut {
   width: 100%;
   height: 400px;
   box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
@@ -373,16 +377,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   border-radius: 8px;
   padding: 16px 16px 25px 16px;
 }
-.chart_container.svelte-1rbguq5 .statistics header h3.svelte-1rbguq5 {
+.chart_container.svelte-120xaut .statistics header h3.svelte-120xaut {
   font-size: 20px;
   color: white;
   margin: 0;
 }
-.chart_container.svelte-1rbguq5 .statistics .stats.svelte-1rbguq5 {
+.chart_container.svelte-120xaut .statistics .stats.svelte-120xaut {
   height: 92%;
   width: 100%;
 }
-.chart_container.svelte-1rbguq5 .actions.svelte-1rbguq5 {
+.chart_container.svelte-120xaut .actions.svelte-120xaut {
   width: 100%;
   margin-top: 30px;
   box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
@@ -391,11 +395,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   height: 500px;
   padding: 16px 16px 25px 16px;
 }
-.chart_container.svelte-1rbguq5 .actions header h3.svelte-1rbguq5 {
+.chart_container.svelte-120xaut .actions header h3.svelte-120xaut {
   font-size: 20px;
   margin: 0 0 20px 0;
 }
-.chart_container.svelte-1rbguq5 .actions .action.svelte-1rbguq5 {
+.chart_container.svelte-120xaut .actions .action.svelte-120xaut {
   height: 90%;
   width: 100%;
 }
@@ -2505,6 +2509,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       };
       exports.RealtorOwnedProperties = async function RealtorOwnedProperties(i, cb) {
         return await axios.post("/realtor/ownedProperties", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.RealtorProperty = async function RealtorProperty(i, cb) {
+        return await axios.post("/realtor/property", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.RealtorUpsertProperty = async function RealtorUpsertProperty(i, cb) {
         return await axios.post("/realtor/upsertProperty", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -18324,19 +18331,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let section;
     let menu;
     let t0;
-    let div7;
+    let div9;
     let profileheader;
     let t1;
     let adminsubmenu;
     let t2;
-    let div6;
+    let div8;
+    let div2;
     let div0;
-    let strong;
+    let strong0;
     let t4;
     let t5;
     let t6;
-    let div5;
-    let t14;
+    let div1;
+    let strong1;
+    let t8;
+    let t9;
+    let t10;
+    let div7;
+    let t18;
     let footer;
     let current;
     menu = new Menu_default({ props: { access: segments } });
@@ -18348,49 +18361,67 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         section = element("section");
         create_component(menu.$.fragment);
         t0 = space();
-        div7 = element("div");
+        div9 = element("div");
         create_component(profileheader.$.fragment);
         t1 = space();
         create_component(adminsubmenu.$.fragment);
         t2 = space();
-        div6 = element("div");
+        div8 = element("div");
+        div2 = element("div");
         div0 = element("div");
-        strong = element("strong");
-        strong.textContent = "Registered User Total";
+        strong0 = element("strong");
+        strong0.textContent = "Registered User Total";
         t4 = text(": ");
         t5 = text(
           /*registeredUserTotal*/
           ctx[0]
         );
         t6 = space();
-        div5 = element("div");
-        div5.innerHTML = `<!-- Statistics --> <div class="statistics svelte-1rbguq5"><header><h3 class="svelte-1rbguq5">Last 30 days User Statistics</h3></header> <div class="stats svelte-1rbguq5"><canvas id="stats-chart"></canvas></div></div> <!-- Actions [ Still Dummy Chart]--> <div class="actions svelte-1rbguq5"><header><h3 class="svelte-1rbguq5">Last 30 days Actions</h3></header> <div class="action svelte-1rbguq5"><canvas id="action-chart"></canvas></div></div>`;
-        t14 = space();
+        div1 = element("div");
+        strong1 = element("strong");
+        strong1.textContent = "Registered User Today";
+        t8 = text(": ");
+        t9 = text(
+          /*totalRegisteredUserToday*/
+          ctx[1]
+        );
+        t10 = space();
+        div7 = element("div");
+        div7.innerHTML = `<!-- Statistics --> <div class="statistics svelte-120xaut"><header><h3 class="svelte-120xaut">Last 30 days User Statistics</h3></header> <div class="stats svelte-120xaut"><canvas id="stats-chart"></canvas></div></div> <!-- Actions [ Still Dummy Chart]--> <div class="actions svelte-120xaut"><header><h3 class="svelte-120xaut">Last 30 days Actions</h3></header> <div class="action svelte-120xaut"><canvas id="action-chart"></canvas></div></div>`;
+        t18 = space();
         create_component(footer.$.fragment);
-        attr(div0, "class", "total_container svelte-1rbguq5");
-        attr(div5, "class", "chart_container svelte-1rbguq5");
-        attr(div6, "class", "content");
-        attr(div7, "class", "dashboard_main_content");
+        attr(div0, "class", "total_container svelte-120xaut");
+        attr(div1, "class", "total_container svelte-120xaut");
+        attr(div2, "class", "info_card svelte-120xaut");
+        attr(div7, "class", "chart_container svelte-120xaut");
+        attr(div8, "class", "content");
+        attr(div9, "class", "dashboard_main_content");
         attr(section, "class", "dashboard");
       },
       m(target, anchor) {
         insert(target, section, anchor);
         mount_component(menu, section, null);
         append(section, t0);
-        append(section, div7);
-        mount_component(profileheader, div7, null);
-        append(div7, t1);
-        mount_component(adminsubmenu, div7, null);
-        append(div7, t2);
-        append(div7, div6);
-        append(div6, div0);
-        append(div0, strong);
+        append(section, div9);
+        mount_component(profileheader, div9, null);
+        append(div9, t1);
+        mount_component(adminsubmenu, div9, null);
+        append(div9, t2);
+        append(div9, div8);
+        append(div8, div2);
+        append(div2, div0);
+        append(div0, strong0);
         append(div0, t4);
         append(div0, t5);
-        append(div6, t6);
-        append(div6, div5);
-        append(div7, t14);
-        mount_component(footer, div7, null);
+        append(div2, t6);
+        append(div2, div1);
+        append(div1, strong1);
+        append(div1, t8);
+        append(div1, t9);
+        append(div8, t10);
+        append(div8, div7);
+        append(div9, t18);
+        mount_component(footer, div9, null);
         current = true;
       },
       p: noop,
@@ -18421,11 +18452,21 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  var segments = {/* segments */};
-  var uniqueIpPerDate = {/* uniqueIpPerDate */};
-  var requestsPerDate = {/* requestsPerDate */};
-  var uniqueUserPerDate = {/* uniqueUserPerDate */};
-  var countPerActionsPerDate = {/* countPerActionsPerDate */};
+  var segments = {
+    /* segments */
+  };
+  var uniqueIpPerDate = {
+    /* uniqueIpPerDate */
+  };
+  var requestsPerDate = {
+    /* requestsPerDate */
+  };
+  var uniqueUserPerDate = {
+    /* uniqueUserPerDate */
+  };
+  var countPerActionsPerDate = {
+    /* countPerActionsPerDate */
+  };
   function formatDate(dateString) {
     const options = { day: "numeric", month: "long" };
     const date = new Date(dateString);
@@ -18433,6 +18474,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function instance5($self) {
     let registeredUserTotal = +'#{registeredUserTotal}';
+    let totalRegisteredUserToday = +'#{registeredUserToday}';
     let sortedDate = [];
     let formattedDates = [];
     let data_requestsPerDate = [];
@@ -18594,7 +18636,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
       );
     });
-    return [registeredUserTotal];
+    return [registeredUserTotal, totalRegisteredUserToday];
   }
   var Admin = class extends SvelteComponent {
     constructor(options) {

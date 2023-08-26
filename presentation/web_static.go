@@ -180,6 +180,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			`requestsPerDate`:        out.RequestsPerDate,
 			`uniqueUserPerDate`:      out.UniqueUserPerDate,
 			`registeredUserTotal`:    out.RegisteredUserTotal,
+			`registeredUserToday`:    out.RegisteredUserToday,
 			`countPerActionsPerDate`: out.CountPerActionsPerDate,
 		})
 	})
