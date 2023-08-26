@@ -116,6 +116,10 @@
                            extraActions={extraActions}
                            bind:pager={pager}
                            rows={properties}
+                           widths={{
+                               mainUse: '320px',
+                               address: '240px',
+                           }}
                            onRefreshTableView={refreshTableView}
                            onEditRow={editRow}
                 >

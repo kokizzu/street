@@ -1,6 +1,6 @@
 <script>
     // @ts-nocheck
-    import { createEventDispatcher, onMount } from 'svelte';
+    import { onMount } from 'svelte';
     import { datetime } from './formatter.js';
 
     import Icon from 'svelte-icons-pack/Icon.svelte';
@@ -19,8 +19,9 @@
         console.log('TableView.onRefreshTableView', pager);
     };
     export let onEditRow = function(id, row) {
-        console.log('TableView.onEditRow', id, row)
-    }
+        console.log('TableView.onEditRow', id, row);
+    };
+    export let widths = {}; // array of key and css width
 
     let deletedAtIdx = -1;
     onMount(() => {
@@ -60,7 +61,7 @@
                 filters[key] = value.split('|');
             }
         }
-        console.log('filters=', filters)
+        console.log('filters=', filters);
         onRefreshTableView({
             ...pager,
             filters: filters,
@@ -114,7 +115,8 @@
                     {#if field.name === 'id'}
                         <th class='col_action'>Action</th>
                     {:else}
-                        <th class='table_header'>
+                        <th class='table_header'
+                        style='{widths[field.name] ? "min-width: "+widths[field.name] : ""}'>
                             <label for='th_{field.name}'>{field.label}</label><br />
                             <input id='th_{field.name}'
                                    title='separate with pipe for multiple values, for example:
@@ -126,7 +128,7 @@
   *jkl* will show values containing jkl substring
 multiple filter from other fields will do AND operation'
                                    type='text'
-                                   style='max-width: 5em'
+                                   style='width: 0; min-width: 100%; box-sizing: border-box;'
                                    bind:value={filtersMap[field.name]}
                                    on:keydown={filterKeyDown}
                             />
@@ -255,9 +257,8 @@ multiple filter from other fields will do AND operation'
         padding    : 0
     }
 
-    .table_users .table_header,
-    .table_users .table_data {
-        min-width : 180px;
+    tr, td {
+        height: 2em;
     }
 
     .table_users .col_action .action {
