@@ -1,4 +1,5 @@
 <script>
+  // @ts-nocheck
   import Menu from '../_components/Menu.svelte';
   import AdminSubMenu from '../_components/AdminSubMenu.svelte';
   import TableView from '../_components/TableView.svelte';
@@ -6,6 +7,9 @@
   import { AdminPropHistories } from '../jsApi.GEN';
   import Footer from '../_components/Footer.svelte';
   import ProfileHeader from '../_components/ProfileHeader.svelte';
+
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import FaSolidPlusCircle from "svelte-icons-pack/fa/FaSolidPlusCircle";
   
   let segments = {/* segments */};
   let fields = [/* fields */];
@@ -92,7 +96,7 @@
                    on:editRow={editRow}
         >
           <button on:click={addRow} class='add_button'>
-            <i class='gg-add'></i>
+            <Icon size={18} color="#FFFF" src={FaSolidPlusCircle} />
             <span>Add</span>
           </button>
         </TableView>
