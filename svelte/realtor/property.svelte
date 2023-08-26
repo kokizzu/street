@@ -33,32 +33,7 @@
         // price: 0, /*Price*/
         // agency_fee: 0, /*Fee Percentage*/
       },
-    }, {
-      subroute: 'floors',
-      attrs: {
-        floor_lists: [
-          // {
-          //   type: '', /*Floor or Basement*/
-          //   floor: 0,
-          //   beds: 0,
-          //   baths: 0,
-          //   rooms: [],
-          // }, {
-          //   type: '', /*Floor or Basement*/
-          //   floor: 0,
-          //   beds: 0,
-          //   baths: 0,
-          //   rooms: [
-          //     {
-          //       name: '',
-          //       sizeM2: 0,
-          //       unit: 'm2',
-          //     },
-          //   ],
-          // },
-        ],
-      },
-    },
+    }, {},
   ];
   
   onMount( async () => {
@@ -88,9 +63,9 @@
         updatedAt: 1692641835,
         // 'updatedBy': '0',
         // 'deletedAt': 0,
-        lastPrice: '',
-        priceHistoriesSell: [],
-        priceHistoriesRent: [],
+        lastPrice: 0,
+        // priceHistoriesSell: [],
+        // priceHistoriesRent: [],
         purpose: '', // rent, sell
         houseType: '', // house, apartment
         images: [
@@ -100,7 +75,26 @@
         bathroom: 0,
         agencyFeePercent: 0,
         floorList: [
-          // {
+          // { // format:
+          //   type: '', /*Floor or Basement*/
+          //   floor: 0,
+          //   beds: 0,
+          //   baths: 0,
+          //   rooms: [],
+          // }, {
+          //   type: '', /*Floor or Basement*/
+          //   floor: 0,
+          //   beds: 0,
+          //   baths: 0,
+          //   rooms: [
+          //     {
+          //       name: '',
+          //       sizeM2: 0,
+          //       unit: 'm2',
+          //     },
+          //   ],
+          // },
+          // { // example
           //   'baths': 2,
           //   'beds': 1,
           //   'floor': 1,
@@ -130,8 +124,9 @@
     } else {
       property.lat = property.coord[ 0 ];
       property.long = property.coord[ 1 ];
-      property.lastPrice = +property.lastPrice;
+      property.lastPrice = +property.lastPrice || 0;
       property.agencyFeePercent = +property.agencyFeePercent;
+      property.floorList = property.floorList || [];
       realtorStack = [
         {}, {
           subroute: 'information',
@@ -143,12 +138,7 @@
               area: property.sizeM2,
             },
           },
-        }, {
-          subroute: 'floors',
-          attrs: {
-            floor_lists: property.floorList,
-          },
-        },
+        }, {},
       ];
       
     }
@@ -164,8 +154,7 @@
   
   let payload = {};
   $: {
-    let attrs = floorStack.attrs || {};
-    let floorList = attrs.floor_lists || [];
+    let floorList = property.floorLIst || [];
     payload = {
       id: property.id || 0,
       formattedAddress: property.formattedAddress,
@@ -178,12 +167,13 @@
       sizeM2: '' + property.sizeM2, // have to be string because of taiwan data
       mainUse: property.mainUse,
       note: property.note,
-      price: property.lastPrice,
+      lastPrice: '' + property.lastPrice,
       agencyFeePercent: property.agencyFeePercent,
       numberOfFloors: '' + floorList.length, // have to be string because of taiwan data
       floorList: floorList,
     };
-  };
+  }
+  ;
   
   async function nextPage() {
     if( currentPage<3 ) {
@@ -216,7 +206,6 @@
       lat: property.lat,
       lng: property.long,
     }; // taiwan
-    let markers = [];
     const {Map} = await google.maps.importLibrary( 'maps' );
     const geocoder = new google.maps.Geocoder();
     map = new Map( map_container, {
@@ -228,13 +217,44 @@
     const {SearchBox} = await google.maps.importLibrary( 'places' );
     let searchBox = new SearchBox( input_address );
     map.controls[ google.maps.ControlPosition.TOP_LEFT ].push( input_address );
+    
+    let markers = [];
+    // listener for marker event
+    const markerEventHandler = ( event ) => {
+      property.long = event.latLng.lng();
+      property.lat = event.latLng.lat();
+      getAddress( event.latLng );
+    };
+    const createMarker = ( map, latLng ) => {
+      let marker = new google.maps.Marker( {
+        map,
+        position: latLng,
+        draggable: true,
+      } );
+      marker.listenerHandle = google.maps.event.addListener( marker, 'dragend', markerEventHandler );
+      return marker;
+    };
+    const clearMarkers = ( markers ) => {
+      markers.forEach( ( marker ) => {
+        marker.setMap( null );
+        marker.listenerHandle.remove();
+      } );
+      markers.length = 0;
+    };
+    // create first marker
+    markers.push(createMarker( map, {
+      lat: property.lat || 0,
+      lng: property.long || 0,
+    } ));
+    
+    
     // Convert coordinate to formatted_address
     const getAddress = ( latLng ) => {
       geocoder.geocode( {location: latLng}, ( results, status ) => {
         if( status===google.maps.GeocoderStatus.OK && results.length>0 ) {
           property.formattedAddress = results[ 0 ].formatted_address;
-          for (let i = 0; i < results[ 0 ].address_components.length; i++) {
-            if (results[ 0 ].address_components[ i ].types.indexOf( 'country' ) !== -1) {
+          for( let i = 0; i<results[ 0 ].address_components.length; i++ ) {
+            if( results[ 0 ].address_components[ i ].types.indexOf( 'country' )!== -1 ) {
               property.country = results[ 0 ].address_components[ i ].long_name;
             }
           }
@@ -247,27 +267,14 @@
     };
     // Clickable Map
     map.addListener( 'click', ( event ) => {
-      markers.forEach( ( marker ) => {
-        marker.setMap( null );
-      } );
-      markers = [];
-      markers.push(
-        new google.maps.Marker( {
-          map,
-          position: event.latLng,
-          draggable: true,
-        } ),
-      );
+      clearMarkers( markers );
+      const latLong = event.latLng;
+      markers = [createMarker( map, latLong )];
       // Update data structure
-      property.long = event.latLng.lng();
-      property.lat = event.latLng.lat();
-      getAddress( event.latLng );
+      property.long = latLong.lng();
+      property.lat = latLong.lat();
+      getAddress( latLong );
       // Callback for dragend event
-      google.maps.event.addListener( markers[ 0 ], 'dragend', ( event ) => {
-        property.long = event.latLng.lng();
-        property.lat = event.latLng.lat();
-        getAddress( event.latLng );
-      } );
     } );
     // Searchable map
     map.addListener( 'bounds_changed', () => {
@@ -283,10 +290,7 @@
       property.lat = places[ 0 ].geometry.location.lat();
       property.formattedAddress = places[ 0 ].formatted_address;
       // Clear out the old markers
-      markers.forEach( ( marker ) => {
-        marker.setMap( null );
-      } );
-      markers = [];
+      clearMarkers( markers );
       // For each place, get the icon, name and location.
       const bounds = new google.maps.LatLngBounds();
       places.forEach( ( place ) => {
@@ -333,21 +337,8 @@
   
   // +=============| House Info |=============+ //
   let house_info_obj = {
-    // house_type: '',
     floor: 0,
-    // purpose: '',
     images: [],
-    // feature: {
-    //   beds: 0,
-    //   baths: 0,
-    //   area: 0,
-    // },
-    // facility: '',
-    // description: '',
-    // price: {
-    //   property_price: 0,
-    //   agency_fee: 0,
-    // },
   };
   
   let modeHouseInfoCount = 0;
@@ -371,9 +362,9 @@
       modeHouseInfoCount++;
       mode = modeHouseLists[ modeHouseInfoCount ].mode;
       modeSkippable = modeHouseLists[ modeHouseInfoCount ].skip;
-      return
+      return;
     }
-      nextPage();
+    nextPage();
   }
   
   function houseInfoBack() {
@@ -381,7 +372,7 @@
       modeHouseInfoCount--;
       mode = modeHouseLists[ modeHouseInfoCount ].mode;
       modeSkippable = modeHouseLists[ modeHouseInfoCount ].skip;
-      return
+      return;
     }
     backPage();
   }
@@ -391,7 +382,7 @@
       modeHouseInfoCount++;
       mode = modeHouseLists[ modeHouseInfoCount ].mode;
       modeSkippable = modeHouseLists[ modeHouseInfoCount ].skip;
-      return
+      return;
     }
     nextPage();
   }
@@ -486,9 +477,6 @@
   // +=============| Floors |=============+ //
   let add_floor_dialog = AddFloorDialog;
   let floor_type = '';
-  let floor_lists = property.floorList || [
-    
-  ];
   let floor_attribute = {
     type: '',
     floor: 0,
@@ -521,7 +509,7 @@
         rooms: [],
         planImageUrl: '',
       };
-      floor_lists = [...floor_lists, floor_attribute];
+      property.floorList = [...property.floorList, floor_attribute];
       basement_added = true;
       floor_type = '';
     } else {
@@ -533,17 +521,11 @@
         rooms: [/*{name, sizeM2, unit}*/],
         planImageUrl: '',
       };
-      floor_lists = [...floor_lists, floor_attribute];
+      property.floorList = [...property.floorList, floor_attribute];
       floor_type = '';
       floorCount++;
     }
     add_floor_dialog.hideModal();
-    realtorStack[ currentPage ] = {
-      subroute: 'floors',
-      attrs: {
-        floor_lists: floor_lists,
-      },
-    };
     return;
   }
   
@@ -576,7 +558,7 @@
         if( ajax.status===200 ) {
           const out = JSON.parse( event.target.responseText );
           if( !out.error ) {
-            floor_lists[ floor_index_to_edit ].planImageUrl = out.urlPattern; // .originalUrl also available
+            property.floorList[ floor_index_to_edit ].planImageUrl = out.urlPattern; // .originalUrl also available
           }
           console.log( 'Upload successful', out );
         } else if( ajax.status===413 ) {
@@ -628,8 +610,8 @@
   function handleAddOrEditRoom( index ) {
     // Note: parameter index indicates which one array (floors/rooms) to edit
     let living_room_total = 0;
-    for( let i = 0; i<floor_lists[ floor_index_to_edit ][ 'rooms' ].length; i++ ) {
-      if( floor_lists[ floor_index_to_edit ][ 'rooms' ][ i ].name==='living room' ) {
+    for( let i = 0; i<property.floorList[ floor_index_to_edit ][ 'rooms' ].length; i++ ) {
+      if( property.floorList[ floor_index_to_edit ][ 'rooms' ][ i ].name==='living room' ) {
         living_room_total++;
       }
     }
@@ -642,13 +624,13 @@
     }
     
     if( room_edit_mode===true ) {
-      if( room_type==='living room' && floor_lists[ floor_index_to_edit ].rooms[ index ].name==='living room' ) {
+      if( room_type==='living room' && property.floorList[ floor_index_to_edit ].rooms[ index ].name==='living room' ) {
         room_obj = {
           name: room_type,
           sizeM2: size_m2,
           unit: 'm2',
         };
-        floor_lists[ floor_index_to_edit ].rooms[ index ] = room_obj;
+        property.floorList[ floor_index_to_edit ].rooms[ index ] = room_obj;
         room_type = '';
         room_size = 0;
         size_m2 = 0;
@@ -667,25 +649,25 @@
       }
       
       // Check if room type will be edit, its total room type (beds/baths) will be updated
-      if( room_type!==floor_lists[ floor_index_to_edit ].rooms[ index ].name ) {
-        if( floor_lists[ floor_index_to_edit ].rooms[ index ].name==='bedroom' ) {
-          floor_lists[ floor_index_to_edit ].beds--;
-        } else if( floor_lists[ floor_index_to_edit ].rooms[ index ].name==='bathroom' ) {
-          floor_lists[ floor_index_to_edit ].baths--;
+      if( room_type!==property.floorList[ floor_index_to_edit ].rooms[ index ].name ) {
+        if( property.floorList[ floor_index_to_edit ].rooms[ index ].name==='bedroom' ) {
+          property.floorList[ floor_index_to_edit ].beds--;
+        } else if( property.floorList[ floor_index_to_edit ].rooms[ index ].name==='bathroom' ) {
+          property.floorList[ floor_index_to_edit ].baths--;
         }
         
         if( room_type==='bedroom' ) {
-          floor_lists[ floor_index_to_edit ].beds++;
+          property.floorList[ floor_index_to_edit ].beds++;
         }
         if( room_type==='bathroom' ) {
-          floor_lists[ floor_index_to_edit ].baths++;
+          property.floorList[ floor_index_to_edit ].baths++;
         }
       }
-      if( room_type===floor_lists[ floor_index_to_edit ].rooms[ index ].name ) {
-        if( floor_lists[ floor_index_to_edit ].rooms[ index ].name==='bedroom' ) {
-          floor_lists[ floor_index_to_edit ].beds++;
-        } else if( floor_lists[ floor_index_to_edit ].rooms[ index ].name==='bathroom' ) {
-          floor_lists[ floor_index_to_edit ].baths++;
+      if( room_type===property.floorList[ floor_index_to_edit ].rooms[ index ].name ) {
+        if( property.floorList[ floor_index_to_edit ].rooms[ index ].name==='bedroom' ) {
+          property.floorList[ floor_index_to_edit ].beds++;
+        } else if( property.floorList[ floor_index_to_edit ].rooms[ index ].name==='bathroom' ) {
+          property.floorList[ floor_index_to_edit ].baths++;
         }
       }
       
@@ -694,7 +676,7 @@
         sizeM2: size_m2,
         unit: 'm2',
       };
-      floor_lists[ floor_index_to_edit ].rooms[ index ] = room_obj;
+      property.floorList[ floor_index_to_edit ].rooms[ index ] = room_obj;
       room_type = '';
       room_size = 0;
       size_m2 = 0;
@@ -711,10 +693,10 @@
         return;
       }
       if( room_type==='bedroom' ) {
-        floor_lists[ index ].beds++;
+        property.floorList[ index ].beds++;
       }
       if( room_type==='bathroom' ) {
-        floor_lists[ index ].baths++;
+        property.floorList[ index ].baths++;
       }
       
       room_obj = {
@@ -722,7 +704,7 @@
         sizeM2: size_m2,
         unit: 'm2',
       };
-      floor_lists[ index ].rooms = [...floor_lists[ index ].rooms, room_obj];
+      property.floorList[ index ].rooms = [...property.floorList[ index ].rooms, room_obj];
       room_type = '';
       room_size = 0;
       size_m2 = 0;
@@ -732,22 +714,16 @@
   }
   
   function handleRemoveRoom( roomIndex ) {
-    if( floor_lists[ floor_index_to_edit ].rooms[ roomIndex ].name==='bedroom' ) {
-      floor_lists[ floor_index_to_edit ].beds--;
+    if( property.floorList[ floor_index_to_edit ].rooms[ roomIndex ].name==='bedroom' ) {
+      property.floorList[ floor_index_to_edit ].beds--;
     }
-    if( floor_lists[ floor_index_to_edit ].rooms[ roomIndex ].name==='bathroom' ) {
-      floor_lists[ floor_index_to_edit ].baths--;
+    if( property.floorList[ floor_index_to_edit ].rooms[ roomIndex ].name==='bathroom' ) {
+      property.floorList[ floor_index_to_edit ].baths--;
     }
-    floor_lists[ floor_index_to_edit ][ 'rooms' ] = floor_lists[ floor_index_to_edit ][ 'rooms' ].filter( ( _, i ) => i!==roomIndex );
+    property.floorList[ floor_index_to_edit ][ 'rooms' ] = property.floorList[ floor_index_to_edit ][ 'rooms' ].filter( ( _, i ) => i!==roomIndex );
   }
   
   function handleNextFloor() {
-    realtorStack[ currentPage ] = {
-      subroute: 'floors',
-      attrs: {
-        floor_lists: floor_lists,
-      },
-    };
     nextPage();
   }
   
@@ -1079,7 +1055,7 @@
             <div class='floor_header'>
               {#if floor_edit_mode===true}
                 <h3>
-                  Edit {floor_lists[ floor_index_to_edit ].type} {floor_lists[ floor_index_to_edit ].type==='basement' ? '' : `#${floor_lists[ floor_index_to_edit ].floor}` }</h3>
+                  Edit {property.floorList[ floor_index_to_edit ].type} {property.floorList[ floor_index_to_edit ].type==='basement' ? '' : `#${property.floorList[ floor_index_to_edit ].floor}` }</h3>
               {:else}
                 <h2>Floors</h2>
                 <button on:click|preventDefault={showAddFloorDialog}>Add</button>
@@ -1087,8 +1063,8 @@
             </div>
             {#if floor_edit_mode===false}
               <div class='floor_items_container'>
-                {#if floor_lists.length}
-                  {#each floor_lists as floor, index}
+                {#if property.floorList.length}
+                  {#each property.floorList as floor, index}
                     <div class='floor_item'>
                       <div class='left_item'>
                         <h4>{floor.type==='basement' ? floor.type : `${floor.type} #${floor.floor}`}</h4>
@@ -1132,7 +1108,7 @@
                     <p>{uploadFlrPlanStatus}</p>
                   </div>
                 {:else}
-                  {#if floor_lists[ floor_index_to_edit ].planImageUrl===''}
+                  {#if property.floorList[ floor_index_to_edit ].planImageUrl===''}
                     <label class='floor_plan_upload' for='floor_plan_upload'>
                       <input
                         bind:this={imageFloorPlanInput}
@@ -1149,7 +1125,7 @@
                     </label>
                   {:else}
                     <div class='floor_plan_preview'>
-                      <img src={floor_lists[floor_index_to_edit].planImageUrl} alt=''>
+                      <img src={property.floorList[floor_index_to_edit].planImageUrl} alt=''>
                     </div>
                   {/if}
                 {/if}
@@ -1158,8 +1134,8 @@
                     <h3>Rooms</h3>
                     <button on:click={showAddRoomDialog}>Add</button>
                   </div>
-                  {#if floor_lists[ floor_index_to_edit ][ 'rooms' ].length}
-                    {#each floor_lists[ floor_index_to_edit ].rooms as room, index}
+                  {#if property.floorList[ floor_index_to_edit ][ 'rooms' ].length}
+                    {#each property.floorList[ floor_index_to_edit ].rooms as room, index}
                       <div class='room_list_item'>
                         <span>{room.name}</span>
                         <div class='right_item'>
@@ -1260,7 +1236,7 @@
               <div class='preview_floors'>
                 <h2>Floors</h2>
                 <div class='floor_container'>
-                  {#each realtorStack[ 2 ].attrs.floor_lists as floors}
+                  {#each property.floorList as floors}
                     <div class='floor_item'>
                       <h3>{floors.type==='basement' ? floors.type : `${floors.type} #${floors.floor}`}</h3>
                       <div class='floor_attr'>
@@ -1541,25 +1517,29 @@
     display        : flex;
     flex-direction : column;
   }
+
   .location_input .address_country_info {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 10px;
+    display         : flex;
+    flex-direction  : row;
+    flex-wrap       : wrap;
+    justify-content : space-between;
+    gap             : 10px;
   }
+
   .location_input .address_country_info .country,
   .location_input .address_country_info .address {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+    display     : flex;
+    gap         : 10px;
+    align-items : center;
   }
+
   .location_input .address_country_info i {
-    color: #F97316;
+    color : #F97316;
   }
+
   .location_input .address_country_info p {
-    margin: 0;
-    font-size: 15px;
+    margin    : 0;
+    font-size : 15px;
   }
 
   .location_input #input_address {
