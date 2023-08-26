@@ -1,11 +1,11 @@
 
 # use this
 
-- https://css.gg/app
-- https://github.com/astrit/css.gg#get-started
+- TODO: remove all https://css.gg/app and https://github.com/astrit/css.gg#get-started
+- TODO: replace icon.gg with https://leshak.github.io/svelte-icons-pack/#/pack/hi
 
 ## tl;dr
 
 ```
-<i class=gg-
+<Icon src={HiIconName} />
 ```
