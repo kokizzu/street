@@ -2,7 +2,6 @@ package domain
 
 import (
 	"context"
-	"fmt"
 	"io"
 	"os"
 	"time"
@@ -101,7 +100,7 @@ func (d *Domain) GuestFiles(in *GuestFilesIn) (out GuestFilesOut) {
 			return
 		}
 		_ = filesCache.Set(fsPath, out.Raw)
-		fmt.Println(`cache`)
+		//fmt.Println(`cache`)
 	}
 
 	go file.DoIncStat(in.UnixNow())

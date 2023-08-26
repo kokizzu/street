@@ -87,7 +87,7 @@ func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon, 
 			return err
 		}
 		// TODO: log size/bytes written
-		if l.Debug {
+		if l.Debug || rc.HasError() {
 			L.Describe(in)
 			log.Print(string(byt))
 		}

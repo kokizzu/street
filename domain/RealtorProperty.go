@@ -1,8 +1,6 @@
 package domain
 
 import (
-	"github.com/kokizzu/gotro/L"
-
 	"street/model/mProperty/rqProperty"
 )
 
@@ -46,7 +44,6 @@ func (d *Domain) RealtorProperty(in *RealtorPropertyIn) (out RealtorPropertyOut)
 		return
 	}
 	r.NormalizeFloorList()
-	L.Describe(`property.lastPrice`, r.LastPrice)
 	out.Property = r
 	return
 }
