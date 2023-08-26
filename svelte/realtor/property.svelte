@@ -1,18 +1,19 @@
 <script>
   // @ts-nocheck
   import { onMount } from 'svelte';
-  
+
   import Menu from '../_components/Menu.svelte';
   import ProfileHeader from '../_components/ProfileHeader.svelte';
   import Footer from '../_components/Footer.svelte';
   import AddFloorDialog from '../_components/AddFloorDialog.svelte';
   import AddOrEditRoomDialog from '../_components/AddOrEditRoomDialog.svelte';
   import { RealtorUpsertProperty } from '../jsApi.GEN';
-  
+  import OptionButtons from '../_components/OptionButtons.svelte';
+
   let property = {/* property */};
   let user = {/* user */};
   let segments = {/* segments */};
-  
+
   onMount( async () => {
     console.log( 'property=', property );
     if( Object.keys( property ).length===0 ) {
@@ -111,10 +112,10 @@
     }
     await initMap();
   } );
-  
+
   let currentPage = 0;
   let cards = [{}, {}, {}, {}];
-  
+
   let payload = {};
   $: {
     let floorList = property.floorList || [];
@@ -137,7 +138,7 @@
     };
   }
   ;
-  
+
   async function nextPage() {
     if( currentPage<3 ) {
       currentPage++;
@@ -145,7 +146,7 @@
       card.scrollIntoView( {behavior: 'smooth'} );
     }
   }
-  
+
   function backPage() {
     if( currentPage>0 ) {
       currentPage--;
@@ -153,17 +154,17 @@
       card.scrollIntoView( {behavior: 'smooth'} );
     }
   }
-  
+
   function progressDotHandler( toPage ) {
     let card = cards[ toPage ];
     card.scrollIntoView( {behavior: 'smooth'} );
   }
-  
+
   // +=============| Location |=============+ //
   let map;
   let map_container;
   let input_address;
-  
+
   async function initMap() {
     const myLatLng = {
       lat: property.lat,
@@ -180,7 +181,7 @@
     const {SearchBox} = await google.maps.importLibrary( 'places' );
     let searchBox = new SearchBox( input_address );
     map.controls[ google.maps.ControlPosition.TOP_LEFT ].push( input_address );
-    
+
     let markers = [];
     // listener for marker event
     const markerEventHandler = ( event ) => {
@@ -209,7 +210,7 @@
       lat: property.lat || 0,
       lng: property.long || 0,
     } ) );
-    
+
     // Convert coordinate to formatted_address
     const getAddress = ( latLng ) => {
       geocoder.geocode( {location: latLng}, ( results, status ) => {
@@ -287,7 +288,7 @@
       map.fitBounds( bounds );
     } );
   }
-  
+
   function handlerLocationNext() {
     if( !property.long ||
       !property.lat ||
@@ -296,7 +297,7 @@
     }
     nextPage();
   }
-  
+
   // +=============| House Info |=============+ //
   let modeHouseInfoCount = 0;
   const ABOUT_THE_HOUSE = 'About The House';
@@ -313,7 +314,7 @@
   ];
   let mode = modeHouseLists[ modeHouseInfoCount ].mode;
   let modeSkippable = modeHouseLists[ modeHouseInfoCount ].skip;
-  
+
   function houseInfoNext() {
     if( modeHouseInfoCount<modeHouseLists.length - 1 ) {
       modeHouseInfoCount++;
@@ -323,7 +324,7 @@
     }
     nextPage();
   }
-  
+
   function houseInfoBack() {
     if( modeHouseInfoCount>0 ) {
       modeHouseInfoCount--;
@@ -333,7 +334,7 @@
     }
     backPage();
   }
-  
+
   function houseInfoSkip() {
     if( modeHouseInfoCount<modeHouseLists.length - 1 ) {
       modeHouseInfoCount++;
@@ -343,11 +344,11 @@
     }
     nextPage();
   }
-  
+
   // ______About The House
   // **** House Type
   let floor = 1;
-  
+
   // **** Rent or Sell
   function handleNextAboutHouse() {
     if( !property.houseType || !property.purpose ) {
@@ -355,13 +356,13 @@
     }
     houseInfoNext();
   }
-  
+
   // ______Upload House Photo
   let imageHouseInput;
   let houseImgUploading = false;
   let uploadHouseStatus = '';
   let uploadHousePercent = 0;
-  
+
   function handlerHouseImage() {
     if( !imageHouseInput ) return;
     const file = imageHouseInput.files[ 0 ];
@@ -389,7 +390,7 @@
         } else {
           alert( 'Error: ' + ajax.status + ' ' + ajax.statusText );
         }
-        
+
       } );
       ajax.addEventListener( 'error', function( event ) {
         alert( 'Network error' );
@@ -402,25 +403,25 @@
     }
     imageHouseInput.value = null;
   }
-  
+
   function removeImage( index ) {
     property.images = property.images.filter( ( _, i ) => i!==index );
   }
-  
+
   function handleNextUploadHouseImage() {
     houseInfoNext();
   }
-  
+
   // ______Feature and Facility
   function handleNextFeatureFacility() {
     houseInfoNext();
   }
-  
+
   // _______Description of Property
   function handleNextDescriptionProperty() {
     houseInfoNext();
   }
-  
+
   // _______Price of Property
   function handleNextPriceProperty() {
     if( !property.lastPrice ) {
@@ -428,7 +429,7 @@
     }
     houseInfoNext();
   }
-  
+
   // +=============| Floors |=============+ //
   let add_floor_dialog = AddFloorDialog;
   let floorType = '';
@@ -436,11 +437,11 @@
   let basement_added = false;
   let floor_edit_mode = false;
   let floor_index_to_edit = 0;
-  
+
   function showAddFloorDialog() {
     add_floor_dialog.showModal();
   }
-  
+
   function handlerAddFloor() {
     if( floorType==='basement' && basement_added===true ) {
       alert( 'basement already added' );
@@ -473,18 +474,18 @@
     add_floor_dialog.hideModal();
     return;
   }
-  
+
   function handlerEditFloor( index ) {
     floor_edit_mode = true;
     floor_index_to_edit = index;
   }
-  
+
   // _______Upload Floor Plan photo
   let imgFlrPlanUploading = false;
   let uploadFlrPlanStatus = '';
   let uploadFlrPlanPercent = 0;
   let imageFloorPlanInput;
-  
+
   function handlerImageFloorPlan() {
     const file = imageFloorPlanInput.files[ 0 ];
     if( file ) {
@@ -523,7 +524,7 @@
     }
     imageFloorPlanInput.value = null;
   }
-  
+
   // ________Rooms Edit
   let add_or_edit_room_dialog = AddOrEditRoomDialog;
   let room_type = '';
@@ -537,21 +538,21 @@
   let unit_mode;
   let room_edit_mode = false;
   let room_index_to_edit = 0;
-  
+
   function showAddRoomDialog() {
     add_or_edit_room_dialog.showModal();
   }
-  
+
   function showEditRoomDialog( index ) {
     room_edit_mode = true;
     room_index_to_edit = index;
-    room_type = floor_lists[ floor_index_to_edit ].rooms[ room_index_to_edit ].name;
-    size_m2 = floor_lists[ floor_index_to_edit ].rooms[ room_index_to_edit ].sizeM2;
+    room_type = property.floorList[ floor_index_to_edit ].rooms[ room_index_to_edit ].name;
+    size_m2 = property.floorList[ floor_index_to_edit ].rooms[ room_index_to_edit ].sizeM2;
     room_size = size_m2;
     unit_mode = 'M2';
     add_or_edit_room_dialog.showModal();
   }
-  
+
   function handleAddOrEditRoom( index ) {
     // Note: parameter index indicates which one array (floors/rooms) to edit
     let living_room_total = 0;
@@ -567,7 +568,7 @@
     } else {
       size_m2 = room_size;
     }
-    
+
     if( room_edit_mode===true ) {
       if( room_type==='living room' && property.floorList[ floor_index_to_edit ].rooms[ index ].name==='living room' ) {
         room_obj = {
@@ -592,7 +593,7 @@
         add_or_edit_room_dialog.hideModal();
         return;
       }
-      
+
       // Check if room type will be edit, its total room type (beds/baths) will be updated
       if( room_type!==property.floorList[ floor_index_to_edit ].rooms[ index ].name ) {
         if( property.floorList[ floor_index_to_edit ].rooms[ index ].name==='bedroom' ) {
@@ -600,7 +601,7 @@
         } else if( property.floorList[ floor_index_to_edit ].rooms[ index ].name==='bathroom' ) {
           property.floorList[ floor_index_to_edit ].baths--;
         }
-        
+
         if( room_type==='bedroom' ) {
           property.floorList[ floor_index_to_edit ].beds++;
         }
@@ -615,7 +616,7 @@
           property.floorList[ floor_index_to_edit ].baths++;
         }
       }
-      
+
       room_obj = {
         name: room_type,
         sizeM2: size_m2,
@@ -643,7 +644,7 @@
       if( room_type==='bathroom' ) {
         property.floorList[ index ].baths++;
       }
-      
+
       room_obj = {
         name: room_type,
         sizeM2: size_m2,
@@ -657,7 +658,7 @@
       return;
     }
   }
-  
+
   function handleRemoveRoom( roomIndex ) {
     if( property.floorList[ floor_index_to_edit ].rooms[ roomIndex ].name==='bedroom' ) {
       property.floorList[ floor_index_to_edit ].beds--;
@@ -667,21 +668,21 @@
     }
     property.floorList[ floor_index_to_edit ][ 'rooms' ] = property.floorList[ floor_index_to_edit ][ 'rooms' ].filter( ( _, i ) => i!==roomIndex );
   }
-  
+
   function handleNextFloor() {
     nextPage();
   }
-  
+
   // +=============| PREVIEW |=============+ //
   let isPropertySubmitted = false;
-  
+
   function formatPrice( price ) {
     return price.toLocaleString( 'en-US', {
       style: 'currency',
       currency: 'USD',
     } );
   }
-  
+
   async function handleSubmit() {
     console.log( 'property=', property, 'payload=', payload );
     const prop = {property: payload};
@@ -965,11 +966,17 @@
         </section>
         <section class='floor' id='subpage_3' bind:this={cards[2]}>
           <!-- Add Floor Dialog -->
-          <AddFloorDialog bind:this={add_floor_dialog} bind:floor_type={floorType}>
-            <button disabled={floorType === ''} class='add_floor_button' on:click={handlerAddFloor}>Add</button>
+          <AddFloorDialog bind:this={add_floor_dialog}
+                          bind:floor_type={floorType}>
+            <button disabled={floorType === ''}
+                    class='add_floor_button'
+                    on:click={handlerAddFloor}>Add</button>
           </AddFloorDialog>
           <!-- Add Room Dialog -->
-          <AddOrEditRoomDialog bind:this={add_or_edit_room_dialog} bind:room_type={room_type} bind:room_size={room_size} bind:m2_size={size_m2}
+          <AddOrEditRoomDialog bind:this={add_or_edit_room_dialog}
+                               bind:room_type={room_type}
+                               bind:room_size={room_size}
+                               bind:m2_size={size_m2}
                                bind:unit_mode={unit_mode}>
             <button disabled={room_type === ''} class='add_room_button'
                     on:click={() => {

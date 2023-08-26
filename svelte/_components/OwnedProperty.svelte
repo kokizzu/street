@@ -422,7 +422,7 @@
     text-align: center;
     width: fit-content;
     bottom: 10px;
-    position: absolute;
+    padding-left: 1em;
   }
   .toggle_show_more:hover {
     color: #F58433;

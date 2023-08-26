@@ -1,12 +1,18 @@
 <script>
   export let options = [];
   export let selected = '';
+  export let onChange = function(newlySelected) {
+    console.log('OptionButtons.onChange',newlySelected)
+  }
 </script>
 
 <div class="option_container">
   {#each options as option}
-    <label class={selected === option ? 'option clicked': 'option'} for={option}>
-      <input type="radio" on:click={() => (selected = option)} id={option} value={option} />
+    <label class='option' class:clicked={selected === option} for={option}>
+      <input type="radio"
+             on:click={()=> onChange(selected=option)}
+             id={option}
+             value={option} />
       {option}
     </label>
   {/each}
