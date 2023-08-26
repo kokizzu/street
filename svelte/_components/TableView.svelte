@@ -1,10 +1,15 @@
 <script>
+    // @ts-nocheck
     import { createEventDispatcher } from 'svelte';
     import { datetime } from './formatter.js';
 
     import Icon from 'svelte-icons-pack/Icon.svelte';
     import HiOutlinePencil from 'svelte-icons-pack/hi/HiOutlinePencil';
     import HiSolidEye from 'svelte-icons-pack/hi/HiSolidEye';
+    import FaSolidAngleRight from "svelte-icons-pack/fa/FaSolidAngleRight";
+    import FaSolidAngleLeft from "svelte-icons-pack/fa/FaSolidAngleLeft";
+    import FaSolidAngleDoubleRight from "svelte-icons-pack/fa/FaSolidAngleDoubleRight";
+    import FaSolidAngleDoubleLeft from "svelte-icons-pack/fa/FaSolidAngleDoubleLeft";
 
     export let fields = []; // array of field object
     export let rows = []; // 2 dimension array
@@ -49,16 +54,16 @@
     <slot />
     <div class='pagination' style='float:right; display: inline-block'>
         <button title='Go to first page' disabled={!allowPrevPage} on:click={() => gotoPage(1)}>
-            <i class='gg-push-chevron-left' />
+            <Icon size={18} color={!allowPrevPage ? '#5C646F' : '#FFFF'} src={FaSolidAngleDoubleLeft} />
         </button>
         <button title='Go to previous page' disabled={!allowPrevPage} on:click={() => gotoPage(pager.page - 1)}>
-            <i class='gg-chevron-left' />
+            <Icon size={18} color={!allowPrevPage ? '#5C646F' : '#FFFF'} src={FaSolidAngleLeft} />
         </button>
         <button title='Go to next page' disabled={!allowNextPage} on:click={() => gotoPage(pager.page + 1)}>
-            <i class='gg-chevron-right' />
+            <Icon size={18} color={!allowNextPage ? '#5C646F' : '#FFFF'} src={FaSolidAngleRight} />
         </button>
         <button title='Go to last page' disabled={!allowNextPage} on:click={() => gotoPage(pager.pages)}>
-            <i class='gg-push-chevron-right' />
+            <Icon size={18} color={!allowNextPage ? '#5C646F' : '#FFFF'} src={FaSolidAngleDoubleRight} />
         </button>
     </div>
     <div class='table_container'>
@@ -257,7 +262,7 @@
     .pagination button {
         color            : white;
         background-color : #6366F1;
-        padding          : 3px 7px;
+        padding          : 8px;
         border-radius    : 5px;
         filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
         margin-left      : 4px;

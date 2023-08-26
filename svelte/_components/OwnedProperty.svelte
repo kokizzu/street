@@ -1,4 +1,10 @@
 <script>
+  // @ts-nocheck
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import FaSolidHome from "svelte-icons-pack/fa/FaSolidHome";
+  import FaSolidPen from "svelte-icons-pack/fa/FaSolidPen";
+  import FaSolidMapMarkerAlt from "svelte-icons-pack/fa/FaSolidMapMarkerAlt";
+
   export let property;
   let showMore = false;
 
@@ -35,12 +41,12 @@
         <div class="left">
           <div class="purpose">On {property.purpose}</div>
           <div class="house_type">
-            <i class="gg-home-alt"></i>
+            <Icon size={18} color="#FFFF" src={FaSolidHome} />
             <span>{property.houseType}</span>
           </div>
         </div>
         <a href='/realtor/property/{property.id}' class="edit_property">
-          <i class="gg-pen"></i>
+          <Icon size={15} color="#FFFF" src={FaSolidPen} />
           <span>Edit Property</span>
         </a>
       </div>
@@ -49,7 +55,7 @@
         <h1>$ {property.lastPrice || '0.00'}</h1>
         <p>Agency Fee : {property.agencyFeePercent}%</p>
         <div class='address'>
-          <i class='gg-pin'/>
+          <Icon size={18} color="#f97316" src={FaSolidMapMarkerAlt} />
           <span>{property.formattedAddress}</span>
         </div>
       </div>
@@ -278,9 +284,6 @@
     flex-direction: row;
     gap: 10px;
     align-items: center;
-  }
-  .property_main .property_info .col2 .address i {
-    color: #f97316;
   }
 
   .property_secondary {

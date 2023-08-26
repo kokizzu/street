@@ -1,7 +1,16 @@
 <script>
-   import { UserLogout } from '../jsApi.GEN.js';
-   import { onMount } from 'svelte';
-   import { isSideMenuOpen } from './uiState.js';
+  // @ts-nocheck
+  import { UserLogout } from '../jsApi.GEN.js';
+  import { onMount } from 'svelte';
+  import { isSideMenuOpen } from './uiState.js';
+
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import FaSolidHome from "svelte-icons-pack/fa/FaSolidHome";
+  import FaSolidShoppingBag from "svelte-icons-pack/fa/FaSolidShoppingBag";
+  import FaSolidBuilding from "svelte-icons-pack/fa/FaSolidBuilding";
+  import FaSolidSlidersH from "svelte-icons-pack/fa/FaSolidSlidersH";
+  import FaSolidUserCircle from "svelte-icons-pack/fa/FaSolidUserCircle";
+  import FaSolidSignInAlt from "svelte-icons-pack/fa/FaSolidSignInAlt";
    
   export let doToggle = function() {
     isSideMenuOpen.set(!$isSideMenuOpen)
@@ -16,7 +25,6 @@
   let segment1;
   onMount( () => {
     segment1 = window.location.pathname.split( '/' )[ 1 ];
-    // console.log( segment1 );
   } );
   
   async function userLogout() {
@@ -26,7 +34,6 @@
       window.location = '/';
     } );
   }
-
 </script>
 
 {#if $isSideMenuOpen}
@@ -44,24 +51,24 @@
         <h6>MENU</h6>
         <nav class='menu'>
           <a href='/' class:active={segment1 === ''}>
-            <i class='gg-home'></i>
+            <Icon size={22} className={segment1 === '' ? 'icon_active' : 'icon_dark'} src={FaSolidHome} />
             <span>HOME</span>
           </a>
           {#if access.buyer }
             <a href='/buyer' class:active={segment1 === 'buyer'}>
-              <i class='gg-shopping-bag'></i>
+              <Icon size={22} className={segment1 === 'buyer' ? 'icon_active' : 'icon_dark'} src={FaSolidShoppingBag} />
               <span>BUYER</span>
             </a>
           {/if}
           {#if access.realtor}
             <a href='/realtor' class:active={segment1 === 'realtor'}>
-              <i class='gg-hello'></i>
+              <Icon size={20} className={segment1 === 'realtor' ? 'icon_active' : 'icon_dark'} src={FaSolidBuilding} />
               <span>REALTOR</span>
             </a>
           {/if}
           {#if access.admin }
             <a href='/admin' class:active={segment1 === 'admin'}>
-              <i class='gg-options' style='margin-left: 5px !important; margin-right: 5px;'></i>
+              <Icon size={20} className={segment1 === 'admin' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH} />
               <span>ADMIN</span>
             </a>
           {/if}
@@ -72,13 +79,13 @@
         <nav class='menu'>
           {#if access.user}
             <a href='/user' class:active={segment1 === 'user'}>
-              <i class='gg-profile'></i>
+              <Icon size={22} className={segment1 === 'user' ? 'icon_active' : 'icon_dark'} src={FaSolidUserCircle} />
               <span>PROFILE</span>
             </a>
           {/if}
           {#if access.user}
             <button on:click={userLogout} class='logout'>
-              <i class='gg-log-out'></i>
+              <Icon size={22} className="icon_dark" src={FaSolidSignInAlt} />
               <span>LOGOUT</span>
             </button>
           {/if}
@@ -88,6 +95,12 @@
   </aside>
 {/if}
 <style>
+  :global(.icon_dark) {
+    fill: #475569;
+  }
+  :global(.icon_active) {
+    fill: #EF4444;
+  }
     .side_menu_admin {
         left             : 0;
         display          : block;
@@ -182,35 +195,22 @@
         display          : flex;
         flex-direction   : row;
         align-items      : center;
-        align-content    : center;
+        gap              : 15px;
     }
 
     .menu_container .menu .logout {
         cursor        : pointer;
-        margin-left   : 4px !important;
         margin-top    : 0;
         margin-bottom : 0;
         margin-right  : 0;
     }
 
-    .menu_container .menu .logout span {
-        margin-left : 25px !important;
-    }
-
-    .menu_container .menu a i, .menu_container .menu .logout i { /*ICON*/
-        margin : 0;
-        color  : #CBD5E1;
-    }
 
     .menu_container .menu a:hover, .menu_container .menu .logout:hover { /*HOVER*/
         color : #64748B;
     }
 
-    .menu_container .menu a span, .menu_container .menu .logout span {
-        margin-left : 15px;
-    }
-
-    .active, .active i { /*ACTIVE Navigation*/
+    .active { /*ACTIVE Navigation*/
         color : #EF4444 !important;
     }
 </style>

@@ -6,6 +6,9 @@
   import Footer from './_components/Footer.svelte';
   import OwnedProperty from '_components/OwnedProperty.svelte';
 
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import FaSolidPlusCircle from "svelte-icons-pack/fa/FaSolidPlusCircle";
+
   let ownedProperties = [/* ownedProperties */];
   let pager = [/* pager */];
 
@@ -29,7 +32,7 @@
         <div class="property_lists_header">
           <h1>Owned Properties: {pager.total}</h1>
           <a href="/realtor/property" class="add_button" style="">
-            <i class="gg-add" />
+            <Icon size={20} color="#FFFF" src={FaSolidPlusCircle} />
             <span>Add</span>
           </a>
         </div>
@@ -83,6 +86,7 @@
     flex-direction: row;
     align-items: center;
     align-content: center;
+    gap: 8px;
     justify-content: center;
     border: none;
     background-color: #6366f1;
@@ -99,10 +103,6 @@
 
   .property_lists_container .property_lists_header .add_button:hover {
     background-color: #7e80f1;
-  }
-
-  .property_lists_container .property_lists_header .add_button i {
-    margin-right: 8px;
   }
 
   .property_lists_container .no_property {
