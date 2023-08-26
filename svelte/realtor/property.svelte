@@ -874,7 +874,7 @@
                       <p>{uploadHouseStatus}</p>
                     {/if}
                   </label>
-                  {#if property.images.length}
+                  {#if property.images && property.images.length}
                     {#each property.images as imgFile, index}
                       <div class='image_card'>
                         <img src={imgFile} alt=''>
@@ -1015,7 +1015,7 @@
             </div>
             {#if floor_edit_mode===false}
               <div class='floor_items_container'>
-                {#if property.floorList.length}
+                {#if property.floorList && property.floorList.length}
                   {#each property.floorList as floor, index}
                     <div class='floor_item'>
                       <div class='left_item'>
@@ -1130,7 +1130,7 @@
                 <h2>Preview Your Property</h2>
               </div>
               <div class='image_preview_wrapper'>
-                {#if property.images.length}
+                {#if property.images && property.images.length}
                   <img src={property.images[0]} alt=''>
                 {:else}
                   <div class='image_preview_empty'>
@@ -1188,19 +1188,17 @@
               <div class='preview_floors'>
                 <h2>Floors</h2>
                 <div class='floor_container'>
-                  {#each property.floorList as floors}
+                  {#each (property.floorList || []) as floors}
                     <div class='floor_item'>
                       <h3>{floors.type==='basement' ? floors.type : `${floors.type} #${floors.floor}`}</h3>
                       <div class='floor_attr'>
                         <div class='floor_rooms'>
-                          {#if floors[ 'rooms' ].length}
-                            {#each floors.rooms as rooms}
-                              <div class='room_item'>
-                                <span>{rooms.name}</span>
-                                <span>{rooms.sizeM2} {rooms.unit}</span>
-                              </div>
-                            {/each}
-                          {/if}
+                          {#each (floors.rooms||[]) as rooms}
+                            <div class='room_item'>
+                              <span>{rooms.name}</span>
+                              <span>{rooms.sizeM2} {rooms.unit}</span>
+                            </div>
+                          {/each}
                         </div>
                         <div class='floor_plan'>
                           {#if floors.planImageUrl===''}

@@ -28,7 +28,7 @@
   <div class="property_main">
     <div class="property_images">
       <!-- TODO: make it as slider, there are more images to display -->
-      {#if property.images.length}
+      {#if property.images && property.images.length}
         <img src={property.images[0]} alt="" />
       {:else}
         <div class="image_empty">
@@ -123,7 +123,7 @@
   </table>
   <div class="property_floors">
     <h3>FLOORS</h3>
-    {#if property.floorList.length}
+    {#if property.floorList && property.floorList.length}
       <div class="floor_lists">
       {#each property.floorList as floors}
         <div class="floor_item">
