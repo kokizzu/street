@@ -232,9 +232,15 @@
       geocoder.geocode( {location: latLng}, ( results, status ) => {
         if( status===google.maps.GeocoderStatus.OK && results.length>0 ) {
           property.formattedAddress = results[ 0 ].formatted_address;
+          for (let i = 0; i < results[ 0 ].address_components.length; i++) {
+            if (results[ 0 ].address_components[ i ].types.indexOf( 'country' ) !== -1) {
+              property.country = results[ 0 ].address_components[ i ].long_name;
+            }
+          }
         } else {
           console.log( 'Address not found' );
           property.formattedAddresss = '';
+          property.country = '';
         }
       } );
     };
@@ -479,7 +485,9 @@
   // +=============| Floors |=============+ //
   let add_floor_dialog = AddFloorDialog;
   let floor_type = '';
-  let floor_lists = [];
+  let floor_lists = property.floorList || [
+    
+  ];
   let floor_attribute = {
     type: '',
     floor: 0,
@@ -829,9 +837,16 @@
           <div>
             <h2>Type property's address or move the map to autofill it</h2>
             <div class='location_input'>
-              <span>
-                {property.formattedAddress}
-              </span>
+              <div class='address_country_info'>
+                <div class='address'>
+                  <i class='gg-pin' />
+                  <p>{property.formattedAddress || 'Address'}</p>
+                </div>
+                <div class='country'>
+                  <i class='gg-flag-alt' />
+                  <p>{property.country || 'Country'}</p>
+                </div>
+              </div>
               <div class='input_box'>
                 <label for='input_address'></label>
                 <input bind:this={input_address} type='text' id='input_address' />
@@ -1524,6 +1539,26 @@
   .location_input {
     display        : flex;
     flex-direction : column;
+  }
+  .location_input .address_country_info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .location_input .address_country_info .country,
+  .location_input .address_country_info .address {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .location_input .address_country_info i {
+    color: #F97316;
+  }
+  .location_input .address_country_info p {
+    margin: 0;
+    font-size: 15px;
   }
 
   .location_input #input_address {
