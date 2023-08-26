@@ -163,10 +163,11 @@
   let cards = [{}, {}, {}, {}];
   
   let payload = {};
-  $: () => {
+  $: {
     let attrs = floorStack.attrs || {};
     let floorList = attrs.floor_lists || [];
     payload = {
+      id: property.id || 0,
       formattedAddress: property.formattedAddress,
       coord: [property.lat, property.long],
       houseType: property.houseType,

@@ -90,8 +90,10 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 	dup := rqProperty.NewProperty(d.PropOltp)
 	dup.UniqPropKey = prop.UniqPropKey
 	if dup.FindByUniqPropKey() {
-		out.SetError(400, ErrRealtorUpsertPropertyAddressAlreadyAdded)
-		return
+		if dup.Id != prop.Id {
+			out.SetError(400, ErrRealtorUpsertPropertyAddressAlreadyAdded)
+			return
+		}
 	}
 
 	if !prop.DoUpsert() {

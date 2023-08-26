@@ -10297,6 +10297,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let currentPage = 0;
     let cards = [{}, {}, {}, {}];
     let payload = {};
+    ;
     async function nextPage() {
       if (currentPage < 3) {
         $invalidate(3, currentPage++, currentPage);
@@ -10969,29 +10970,29 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       if ($self.$.dirty[0] & /*property, infoStack*/
       5 | $self.$.dirty[1] & /*floorStack*/
       16777216) {
-        $:
-          () => {
-            let attrs = floorStack.attrs || {};
-            let floorList = attrs.floor_lists || [];
-            payload = {
-              formattedAddress: property.formattedAddress,
-              coord: [property.lat, property.long],
-              houseType: property.houseType,
-              purpose: property.purpose,
-              images: infoStack.attrs.images,
-              bedroom: property.bedroom,
-              bathroom: property.bathroom,
-              sizeM2: "" + property.sizeM2,
-              // have to be string because of taiwan data
-              mainUse: property.mainUse,
-              note: property.note,
-              price: property.lastPrice,
-              agencyFeePercent: property.agencyFeePercent,
-              numberOfFloors: "" + floorList.length,
-              // have to be string because of taiwan data
-              floorList
-            };
+        $: {
+          let attrs = floorStack.attrs || {};
+          let floorList = attrs.floor_lists || [];
+          payload = {
+            id: property.id || 0,
+            formattedAddress: property.formattedAddress,
+            coord: [property.lat, property.long],
+            houseType: property.houseType,
+            purpose: property.purpose,
+            images: infoStack.attrs.images,
+            bedroom: property.bedroom,
+            bathroom: property.bathroom,
+            sizeM2: "" + property.sizeM2,
+            // have to be string because of taiwan data
+            mainUse: property.mainUse,
+            note: property.note,
+            price: property.lastPrice,
+            agencyFeePercent: property.agencyFeePercent,
+            numberOfFloors: "" + floorList.length,
+            // have to be string because of taiwan data
+            floorList
           };
+        }
       }
     };
     return [

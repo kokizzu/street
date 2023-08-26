@@ -88,6 +88,7 @@ func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon, 
 		}
 		// TODO: log size/bytes written
 		if l.Debug {
+			L.Describe(in)
 			log.Print(string(byt))
 		}
 	case `html`:
