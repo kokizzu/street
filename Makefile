@@ -17,3 +17,6 @@ local-clickhouse:
 	docker exec -it `docker ps | grep clickhouse | cut -d ' ' -f 1` clickhouse-client --host localhost --port 9000 --user userC --password passC
 	# SHOW TABLES -- list all tables
 	# SELECT * FROM "actionLogs" LIMIT 1;
+
+modtidy:
+	sudo chmod -R o+rx tmpdb && go mod tidy
