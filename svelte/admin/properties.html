@@ -5061,8 +5061,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx[34].name);
         attr(input, "title", "separate with pipe for multiple values, for example:\n  >=100|<50|61|72 will show values greater equal to 100, OR less than 50, OR exactly 61 OR 72\n    filtering with greater or less than will only show correct result if data is saved as number\n    currently price and size NOT stored as number\n  <>abc* will show values NOT started with abc*\n  abc*def|ghi will show values started with abc ends with def OR exactly ghi\n  *jkl* will show values containing jkl substring\nmultiple filter from other fields will do AND operation");
         attr(input, "type", "text");
-        set_style(input, "width", "100%");
-        set_style(input, "max-width", "4em");
+        set_style(input, "max-width", "5em");
         attr(th, "class", "table_header svelte-1av9n15");
       },
       m(target, anchor) {
@@ -8583,7 +8582,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             if (res.error)
               alert(res.error);
             propHistoryModal.showModal();
-            $invalidate(2, currentPropHistory = res.History || []);
+            $invalidate(2, currentPropHistory = res.history || []);
           });
         }
       }

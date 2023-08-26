@@ -29,7 +29,7 @@
                 }, function(res) {
                     if (res.error) alert(res.error);
                     propHistoryModal.showModal();
-                    currentPropHistory = res.History || [];
+                    currentPropHistory = res.history || [];
                 });
             },
         },

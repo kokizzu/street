@@ -126,7 +126,7 @@
   *jkl* will show values containing jkl substring
 multiple filter from other fields will do AND operation'
                                    type='text'
-                                   style='width: 100%; max-width: 4em'
+                                   style='max-width: 5em'
                                    bind:value={filtersMap[field.name]}
                                    on:keydown={filterKeyDown}
                             />
