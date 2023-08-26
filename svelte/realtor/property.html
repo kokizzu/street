@@ -5299,7 +5299,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/OptionButtons.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[3] = list[i];
+    child_ctx[4] = list[i];
     return child_ctx;
   }
   function create_each_block(ctx) {
@@ -5310,20 +5310,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t0;
     let t1_value = (
       /*option*/
-      ctx[3] + ""
+      ctx[4] + ""
     );
     let t1;
     let t2;
-    let label_class_value;
     let label_for_value;
     let mounted;
     let dispose;
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[2](
+        ctx[3](
           /*option*/
-          ctx[3]
+          ctx[4]
         )
       );
     }
@@ -5336,17 +5335,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t2 = space();
         attr(input, "type", "radio");
         attr(input, "id", input_id_value = /*option*/
-        ctx[3]);
+        ctx[4]);
         input.value = input_value_value = /*option*/
-        ctx[3];
+        ctx[4];
         attr(input, "class", "svelte-huiw4k");
-        attr(label, "class", label_class_value = null_to_empty(
+        attr(label, "class", "option svelte-huiw4k");
+        attr(label, "for", label_for_value = /*option*/
+        ctx[4]);
+        toggle_class(
+          label,
+          "clicked",
           /*selected*/
           ctx[0] === /*option*/
-          ctx[3] ? "option clicked" : "option"
-        ) + " svelte-huiw4k");
-        attr(label, "for", label_for_value = /*option*/
-        ctx[3]);
+          ctx[4]
+        );
       },
       m(target, anchor) {
         insert(target, label, anchor);
@@ -5363,30 +5365,32 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx = new_ctx;
         if (dirty & /*options*/
         2 && input_id_value !== (input_id_value = /*option*/
-        ctx[3])) {
+        ctx[4])) {
           attr(input, "id", input_id_value);
         }
         if (dirty & /*options*/
         2 && input_value_value !== (input_value_value = /*option*/
-        ctx[3])) {
+        ctx[4])) {
           input.value = input_value_value;
         }
         if (dirty & /*options*/
         2 && t1_value !== (t1_value = /*option*/
-        ctx[3] + ""))
+        ctx[4] + ""))
           set_data(t1, t1_value);
-        if (dirty & /*selected, options*/
-        3 && label_class_value !== (label_class_value = null_to_empty(
-          /*selected*/
-          ctx[0] === /*option*/
-          ctx[3] ? "option clicked" : "option"
-        ) + " svelte-huiw4k")) {
-          attr(label, "class", label_class_value);
-        }
         if (dirty & /*options*/
         2 && label_for_value !== (label_for_value = /*option*/
-        ctx[3])) {
+        ctx[4])) {
           attr(label, "for", label_for_value);
+        }
+        if (dirty & /*selected, options*/
+        3) {
+          toggle_class(
+            label,
+            "clicked",
+            /*selected*/
+            ctx[0] === /*option*/
+            ctx[4]
+          );
         }
       },
       d(detaching) {
@@ -5425,8 +5429,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
       },
       p(ctx2, [dirty]) {
-        if (dirty & /*selected, options*/
-        3) {
+        if (dirty & /*options, selected, onChange*/
+        7) {
           each_value = ensure_array_like(
             /*options*/
             ctx2[1]
@@ -5461,19 +5465,24 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function instance4($self, $props, $invalidate) {
     let { options = [] } = $props;
     let { selected = "" } = $props;
-    const click_handler = (option) => $invalidate(0, selected = option);
+    let { onChange = function(newlySelected) {
+      console.log("OptionButtons.onChange", newlySelected);
+    } } = $props;
+    const click_handler = (option) => onChange($invalidate(0, selected = option));
     $self.$set = ($props2) => {
       if ("options" in $props2)
         $invalidate(1, options = $props2.options);
       if ("selected" in $props2)
         $invalidate(0, selected = $props2.selected);
+      if ("onChange" in $props2)
+        $invalidate(2, onChange = $props2.onChange);
     };
-    return [selected, options, click_handler];
+    return [selected, options, onChange, click_handler];
   }
   var OptionButtons = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance4, create_fragment4, safe_not_equal, { options: 1, selected: 0 });
+      init(this, options, instance4, create_fragment4, safe_not_equal, { options: 1, selected: 0, onChange: 2 });
     }
   };
   var OptionButtons_default = OptionButtons;
@@ -5489,6 +5498,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let label;
     let t3;
     let optionbuttons;
+    let updating_selected;
     let t4;
     let div2;
     let button;
@@ -5496,18 +5506,22 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let current;
     let mounted;
     let dispose;
-    optionbuttons = new OptionButtons_default({
-      props: {
-        selected: (
-          /*floor_type*/
-          ctx[2]
-        ),
-        options: (
-          /*floor_types*/
-          ctx[3]
-        )
-      }
-    });
+    function optionbuttons_selected_binding(value) {
+      ctx[7](value);
+    }
+    let optionbuttons_props = { options: (
+      /*floor_types*/
+      ctx[3]
+    ) };
+    if (
+      /*floor_type*/
+      ctx[1] !== void 0
+    ) {
+      optionbuttons_props.selected = /*floor_type*/
+      ctx[1];
+    }
+    optionbuttons = new OptionButtons_default({ props: optionbuttons_props });
+    binding_callbacks.push(() => bind(optionbuttons, "selected", optionbuttons_selected_binding));
     const default_slot_template = (
       /*#slots*/
       ctx[6].default
@@ -5570,17 +5584,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (!mounted) {
           dispose = listen(button, "click", prevent_default(
             /*click_handler*/
-            ctx[7]
+            ctx[8]
           ));
           mounted = true;
         }
       },
       p(ctx2, dirty) {
         const optionbuttons_changes = {};
-        if (dirty & /*floor_type*/
-        4)
+        if (!updating_selected && dirty & /*floor_type*/
+        2) {
+          updating_selected = true;
           optionbuttons_changes.selected = /*floor_type*/
-          ctx2[2];
+          ctx2[1];
+          add_flush_callback(() => updating_selected = false);
+        }
         optionbuttons.$set(optionbuttons_changes);
         if (default_slot) {
           if (default_slot.p && (!current || dirty & /*$scope*/
@@ -5704,23 +5721,28 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     let { floor_type = "" } = $props;
     let floor_types = ["basement", "floor"];
+    function optionbuttons_selected_binding(value) {
+      floor_type = value;
+      $invalidate(1, floor_type);
+    }
     const click_handler = () => hideModal();
     $self.$set = ($props2) => {
       if ("visible" in $props2)
         $invalidate(0, visible = $props2.visible);
       if ("floor_type" in $props2)
-        $invalidate(2, floor_type = $props2.floor_type);
+        $invalidate(1, floor_type = $props2.floor_type);
       if ("$scope" in $props2)
         $invalidate(5, $scope = $props2.$scope);
     };
     return [
       visible,
-      hideModal,
       floor_type,
+      hideModal,
       floor_types,
       showModal,
       $scope,
       slots,
+      optionbuttons_selected_binding,
       click_handler
     ];
   }
@@ -5730,15 +5752,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       init(this, options, instance5, create_fragment5, safe_not_equal, {
         visible: 0,
         showModal: 4,
-        hideModal: 1,
-        floor_type: 2
+        hideModal: 2,
+        floor_type: 1
       });
     }
     get showModal() {
       return this.$.ctx[4];
     }
     get hideModal() {
-      return this.$.ctx[1];
+      return this.$.ctx[2];
     }
   };
   var AddFloorDialog_default = AddFloorDialog;
@@ -10769,8 +10791,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function showEditRoomDialog(index) {
       $invalidate(25, room_edit_mode = true);
       $invalidate(26, room_index_to_edit = index);
-      $invalidate(21, room_type = floor_lists[floor_index_to_edit].rooms[room_index_to_edit].name);
-      $invalidate(22, size_m2 = floor_lists[floor_index_to_edit].rooms[room_index_to_edit].sizeM2);
+      $invalidate(21, room_type = property.floorList[floor_index_to_edit].rooms[room_index_to_edit].name);
+      $invalidate(22, size_m2 = property.floorList[floor_index_to_edit].rooms[room_index_to_edit].sizeM2);
       $invalidate(23, room_size = size_m2);
       $invalidate(24, unit_mode = "M2");
       add_or_edit_room_dialog.showModal();

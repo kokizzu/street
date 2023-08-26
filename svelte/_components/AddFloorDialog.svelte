@@ -8,6 +8,7 @@
   export function hideModal() {
     visible = false;
   }
+
   export let floor_type = '';
   let floor_types = [
     "basement", "floor"
@@ -21,7 +22,7 @@
       <h3>Add Floor</h3>
       <div class="floor_type">
         <label for="floor_type">House Type</label>
-        <OptionButtons selected={floor_type} options={floor_types}/>
+        <OptionButtons bind:selected={floor_type} options={floor_types}/>
       </div>
     </div>
     <div class='buttons'>
