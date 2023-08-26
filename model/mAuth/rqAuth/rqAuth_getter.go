@@ -1,7 +1,6 @@
 package rqAuth
 
 import (
-	"fmt"
 	"strconv"
 	"time"
 
@@ -41,9 +40,6 @@ func (u *Users) CountUserRegisterToday() (res int64) {
 	queryCountRegisteredToday := `SELECT COUNT(*) FROM ` + u.SqlTableName() +
 		` WHERE ` + u.SqlCreatedAt() + ` >= ` + beginDateUnix + ` and ` +
 		u.SqlCreatedAt() + ` <= ` + endDateUnix
-
-	fmt.Println(beginCurrentDate)
-	fmt.Println(endCurrentDate)
 
 	u.Adapter.QuerySql(queryCountRegisteredToday, func(row []any) {
 		res = X.ToI(row[0])
