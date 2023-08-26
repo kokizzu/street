@@ -82,6 +82,10 @@
         <td class="value">{property.id || '-'}</td>
       </tr>
       <tr>
+        <td class="name">Country</td>
+        <td class="value">{property.country || '-'}</td>
+      </tr>
+      <tr>
         <td class="name">Created At</td>
         <td class="value">{datetime(property.createdAt) || '0'}</td>
       </tr>
@@ -402,6 +406,8 @@
     position: absolute;
     z-index: 90;
     width: -webkit-fill-available;
+    display: flex;
+    justify-content: center;
   }
 
   .toggle_show_more {
@@ -414,7 +420,6 @@
     width: fit-content;
     bottom: 10px;
     position: absolute;
-    width: 100%;
   }
   .toggle_show_more:hover {
     color: #F58433;
