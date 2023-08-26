@@ -5,10 +5,10 @@
 
     import Icon from 'svelte-icons-pack/Icon.svelte';
     import HiOutlinePencil from 'svelte-icons-pack/hi/HiOutlinePencil';
-    import FaSolidAngleRight from "svelte-icons-pack/fa/FaSolidAngleRight";
-    import FaSolidAngleLeft from "svelte-icons-pack/fa/FaSolidAngleLeft";
-    import FaSolidAngleDoubleRight from "svelte-icons-pack/fa/FaSolidAngleDoubleRight";
-    import FaSolidAngleDoubleLeft from "svelte-icons-pack/fa/FaSolidAngleDoubleLeft";
+    import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
+    import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
+    import FaSolidAngleDoubleRight from 'svelte-icons-pack/fa/FaSolidAngleDoubleRight';
+    import FaSolidAngleDoubleLeft from 'svelte-icons-pack/fa/FaSolidAngleDoubleLeft';
 
     export let fields = []; // array of field object
     export let rows = []; // 2 dimension array
@@ -89,7 +89,7 @@
                                 </button>
                                 {#each extraActions as action}
                                     <button class='action' title='{action.label || ""}' on:click={() => action.onClick(row)}>
-                                    <Icon src={action.icon} />
+                                        <Icon src={action.icon} />
                                     </button>
                                 {/each}
                             </td>
@@ -126,16 +126,16 @@
 
         <div class='pagination'>
             <button title='Go to first page' disabled={!allowPrevPage} on:click={() => gotoPage(1)}>
-                <i class='gg-push-chevron-left' />
+                <Icon size={18} color={!allowPrevPage ? '#5C646F' : '#FFF'} src={FaSolidAngleDoubleLeft} />
             </button>
             <button title='Go to previous page' disabled={!allowPrevPage} on:click={() => gotoPage(pager.page - 1)}>
-                <i class='gg-chevron-left' />
+                <Icon size={18} color={!allowPrevPage ? '#5C646F' : '#FFF'} src={FaSolidAngleLeft} />
             </button>
             <button title='Go to next page' disabled={!allowNextPage} on:click={() => gotoPage(pager.page + 1)}>
-                <i class='gg-chevron-right' />
+                <Icon size={18} color={!allowNextPage ? '#5C646F' : '#FFF'} src={FaSolidAngleRight} />
             </button>
             <button title='Go to last page' disabled={!allowNextPage} on:click={() => gotoPage(pager.pages)}>
-                <i class='gg-push-chevron-right' />
+                <Icon size={18} color={!allowNextPage ? '#5C646F' : '#FFF'} src={FaSolidAngleDoubleRight} />
             </button>
         </div>
     </div>
@@ -204,14 +204,15 @@
     }
 
     .table_users .col_action .action {
-        background : none;
-        color      : #475569;
-        text-align : center;
-        cursor     : pointer;
-        height     : auto;
-        width      : 2em;
-        border     : none;
-        display    : inline;
+        background    : none;
+        color         : #475569;
+        text-align    : center;
+        cursor        : pointer;
+        height        : 2.5em;
+        width         : 2em;
+        border        : none;
+        display       : inline;
+        border-radius : 5px;
     }
 
     .table_users .col_action .action:hover {
