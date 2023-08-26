@@ -20,6 +20,7 @@ type (
 		ResponseCommon
 
 		RegisteredUserTotal int64 `json:"registeredUserTotal" form:"registeredUserTotal" query:"registeredUserTotal" long:"registeredUserTotal" msg:"registeredUserTotal"`
+		RegisteredUserToday int64 `json:"registeredUserTotal" form:"registeredUserToday" query:"registeredUserToday" long:"registeredUserToday" msg:"registeredUserToday"`
 
 		RequestsPerDate   map[string]int `json:"requestsPerDate" form:"requestsPerDate" query:"requestsPerDate" long:"requestsPerDate" msg:"requestsPerDate"`
 		UniqueUserPerDate map[string]int `json:"uniqueUserPerDate" form:"uniqueUserPerDate" query:"uniqueUserPerDate" long:"uniqueUserPerDate" msg:"uniqueUserPerDate"`
@@ -38,6 +39,7 @@ func (d *Domain) AdminDashboard(in *AdminDashboardIn) (out AdminDashboardOut) {
 
 	rq := rqAuth.NewUsers(d.AuthOltp)
 	out.RegisteredUserTotal = rq.Total()
+	out.RegisteredUserToday = rq.CountUserRegisterToday()
 
 	sa := saAuth.NewActionLogs(d.AuthOlap)
 	out.RequestsPerDate = sa.StatRequestsPerDate()
