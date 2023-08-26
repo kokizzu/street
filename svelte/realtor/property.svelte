@@ -13,29 +13,6 @@
   let user = {/* user */};
   let segments = {/* segments */};
   
-  let realtorStack = [
-    {}, {
-      subroute: 'information',
-      attrs: {
-        // house_type: '', /*House or Apartment*/
-        // purpose: '', /*rent or sell*/
-        images: [
-          // "/url/to/images",
-          // "/url/to/images"
-        ],
-        // feature: {
-        //   beds: 0,
-        //   baths: 0,
-        //   area: 0,
-        // },
-        // facility: '', /*Facility Description*/
-        // description: '', /*Description of this property*/
-        // price: 0, /*Price*/
-        // agency_fee: 0, /*Fee Percentage*/
-      },
-    }, {},
-  ];
-  
   onMount( async () => {
     console.log( 'property=', property );
     if( Object.keys( property ).length===0 ) {
@@ -50,14 +27,14 @@
         uniqPropKey: '1_12449819078726277117',
         serialNumber: '',
         sizeM2: '0',
-        mainUse: '',
-        mainBuildingMaterial: '',
-        constructCompletedDate: '',
+        mainUse: '', /*Facility Description*/
+        // mainBuildingMaterial: '',
+        // constructCompletedDate: '',
         // 'numberOfFloors': '0',
-        buildingLamination: '',
+        // buildingLamination: '',
         address: '',
         district: '',
-        note: '',
+        note: '', /*Description of this property*/
         createdAt: 1692641835,
         // createdBy: '0',
         updatedAt: 1692641835,
@@ -69,6 +46,8 @@
         purpose: '', // rent, sell
         houseType: '', // house, apartment
         images: [
+          // "/url/to/images",
+          // "/url/to/images"
           // '/guest/files/B-___.jpg',
         ],
         bedroom: 0,
@@ -122,46 +101,30 @@
         country: '',
       };
     } else {
+      console.log(property.lastPrice)
       property.lat = property.coord[ 0 ];
       property.long = property.coord[ 1 ];
       property.lastPrice = +property.lastPrice || 0;
       property.agencyFeePercent = +property.agencyFeePercent;
       property.floorList = property.floorList || [];
-      realtorStack = [
-        {}, {
-          subroute: 'information',
-          attrs: {
-            images: property.images,
-            feature: {
-              beds: property.bedroom,
-              baths: property.bathroom,
-              area: property.sizeM2,
-            },
-          },
-        }, {},
-      ];
-      
+      property.images = property.images || [];
     }
     await initMap();
   } );
   
-  let infoStack, floorStack;
-  $: infoStack = realtorStack[ 1 ];
-  $: floorStack = realtorStack[ 2 ];
-  $: console.log( 'realtorStack=', realtorStack );
   let currentPage = 0;
   let cards = [{}, {}, {}, {}];
   
   let payload = {};
   $: {
-    let floorList = property.floorLIst || [];
+    let floorList = property.floorList || [];
     payload = {
       id: property.id || 0,
       formattedAddress: property.formattedAddress,
       coord: [property.lat, property.long],
       houseType: property.houseType,
       purpose: property.purpose,
-      images: infoStack.attrs.images,
+      images: property.images || [],
       bedroom: property.bedroom,
       bathroom: property.bathroom,
       sizeM2: '' + property.sizeM2, // have to be string because of taiwan data
@@ -242,11 +205,10 @@
       markers.length = 0;
     };
     // create first marker
-    markers.push(createMarker( map, {
+    markers.push( createMarker( map, {
       lat: property.lat || 0,
       lng: property.long || 0,
-    } ));
-    
+    } ) );
     
     // Convert coordinate to formatted_address
     const getAddress = ( latLng ) => {
@@ -336,11 +298,6 @@
   }
   
   // +=============| House Info |=============+ //
-  let house_info_obj = {
-    floor: 0,
-    images: [],
-  };
-  
   let modeHouseInfoCount = 0;
   const ABOUT_THE_HOUSE = 'About The House';
   const UPLOAD_HOUSE_PHOTO = 'Upload House Photo';
@@ -401,7 +358,6 @@
   
   // ______Upload House Photo
   let imageHouseInput;
-  let house_images = [/*"/url/of/house/image"*/];
   let houseImgUploading = false;
   let uploadHouseStatus = '';
   let uploadHousePercent = 0;
@@ -425,7 +381,7 @@
         if( ajax.status===200 ) {
           const out = JSON.parse( event.target.responseText );
           if( !out.error ) {
-            house_images = [...house_images, out.urlPattern]; // push house image url to array
+            property.images = [...property.images, out.urlPattern]; // push house image url to array
           }
           console.log( 'Upload successful', out );
         } else if( ajax.status===413 ) {
@@ -448,11 +404,10 @@
   }
   
   function removeImage( index ) {
-    house_images = house_images.filter( ( _, i ) => i!==index );
+    property.images = property.images.filter( ( _, i ) => i!==index );
   }
   
   function handleNextUploadHouseImage() {
-    house_info_obj.images = house_images;
     houseInfoNext();
   }
   
@@ -476,15 +431,7 @@
   
   // +=============| Floors |=============+ //
   let add_floor_dialog = AddFloorDialog;
-  let floor_type = '';
-  let floor_attribute = {
-    type: '',
-    floor: 0,
-    beds: 0,
-    baths: 0,
-    rooms: [/*{ name, sizeM2, unit }*/],
-    planImageUrl: '',
-  };
+  let floorType = '';
   let floorCount = 1;
   let basement_added = false;
   let floor_edit_mode = false;
@@ -495,34 +442,32 @@
   }
   
   function handlerAddFloor() {
-    if( floor_type==='basement' && basement_added===true ) {
+    if( floorType==='basement' && basement_added===true ) {
       alert( 'basement already added' );
       add_floor_dialog.hideModal();
       return;
     }
-    if( floor_type==='basement' ) {
-      floor_attribute = {
-        type: floor_type,
+    if( floorType==='basement' ) {
+      property.floorList = [...property.floorList, {
+        type: '' + floorType, // create a copy
         floor: 0,
         beds: 0,
         baths: 0,
         rooms: [],
         planImageUrl: '',
-      };
-      property.floorList = [...property.floorList, floor_attribute];
+      }];
       basement_added = true;
-      floor_type = '';
+      floorType = '';
     } else {
-      floor_attribute = {
-        type: floor_type,
-        floor: floorCount,
+      property.floorList = [...property.floorList, {
+        type: '' + floorType, // create a copy
+        floor: floorCount | 0,
         beds: 0,
         baths: 0,
         rooms: [/*{name, sizeM2, unit}*/],
         planImageUrl: '',
-      };
-      property.floorList = [...property.floorList, floor_attribute];
-      floor_type = '';
+      }];
+      floorType = '';
       floorCount++;
     }
     add_floor_dialog.hideModal();
@@ -738,7 +683,7 @@
   }
   
   async function handleSubmit() {
-    console.log( realtorStack, payload );
+    console.log( 'property=', property, 'payload=', payload );
     const prop = {property: payload};
     await RealtorUpsertProperty( prop, function( res ) {
       console.log( res );
@@ -928,8 +873,8 @@
                       <p>{uploadHouseStatus}</p>
                     {/if}
                   </label>
-                  {#if house_images.length}
-                    {#each house_images as imgFile, index}
+                  {#if property.images.length}
+                    {#each property.images as imgFile, index}
                       <div class='image_card'>
                         <img src={imgFile} alt=''>
                         <button on:click={() => removeImage(index)} title='remove this image'>
@@ -1020,8 +965,8 @@
         </section>
         <section class='floor' id='subpage_3' bind:this={cards[2]}>
           <!-- Add Floor Dialog -->
-          <AddFloorDialog bind:this={add_floor_dialog} bind:floor_type={floor_type}>
-            <button disabled={floor_type === ''} class='add_floor_button' on:click={handlerAddFloor}>Add</button>
+          <AddFloorDialog bind:this={add_floor_dialog} bind:floor_type={floorType}>
+            <button disabled={floorType === ''} class='add_floor_button' on:click={handlerAddFloor}>Add</button>
           </AddFloorDialog>
           <!-- Add Room Dialog -->
           <AddOrEditRoomDialog bind:this={add_or_edit_room_dialog} bind:room_type={room_type} bind:room_size={room_size} bind:m2_size={size_m2}
@@ -1178,8 +1123,8 @@
                 <h2>Preview Your Property</h2>
               </div>
               <div class='image_preview_wrapper'>
-                {#if infoStack.attrs.images.length}
-                  <img src={infoStack.attrs.images[0]} alt=''>
+                {#if property.images.length}
+                  <img src={property.images[0]} alt=''>
                 {:else}
                   <div class='image_preview_empty'>
                     <i class='gg-image'></i>
