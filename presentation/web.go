@@ -56,6 +56,9 @@ func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, u
 		// multipart/form-data
 		if retry {
 			if err := ctx.BodyParser(in); L.IsError(err, `ctx.BodyParser failed: `+url) {
+				_ = ctx.JSON(M.SX{
+					`error`: err.Error(),
+				})
 				return err
 			}
 		}

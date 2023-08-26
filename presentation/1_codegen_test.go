@@ -431,7 +431,7 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 	fw.Post("/"+domain.` + name + `Action, func(c *fiber.Ctx) error {
 		in := domain.` + name + `In{}
 		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.` + name + `Action); err != nil {
-			return err
+			return nil
 		}
 		out := d.` + name + `(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
