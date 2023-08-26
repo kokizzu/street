@@ -1,7 +1,6 @@
 package rqAuth
 
 import (
-	"strconv"
 	"time"
 
 	"github.com/kokizzu/gotro/I"
@@ -30,16 +29,19 @@ WHERE ` + s.SqlUserId() + ` = ` + I.UToS(userId) + `
 }
 
 func (u *Users) CountUserRegisterToday() (res int64) {
+	const comment = `-- Users) CountUserRegisterToday`
 	currentDate := time.Now()
 	beginCurrentDate := time.Date(currentDate.Year(), currentDate.Month(), currentDate.Day(), 0, 0, 0, 0, currentDate.Location())
 	endCurrentDate := beginCurrentDate.AddDate(0, 0, 1).Add(-time.Second)
 
-	beginDateUnix := strconv.FormatUint(uint64(beginCurrentDate.Unix()), 10)
-	endDateUnix := strconv.FormatUint(uint64(endCurrentDate.Unix()), 10)
+	beginDateUnix := I.ToS(beginCurrentDate.Unix())
+	endDateUnix := I.ToS(endCurrentDate.Unix())
 
-	queryCountRegisteredToday := `SELECT COUNT(*) FROM ` + u.SqlTableName() +
-		` WHERE ` + u.SqlCreatedAt() + ` >= ` + beginDateUnix + ` and ` +
-		u.SqlCreatedAt() + ` <= ` + endDateUnix
+	queryCountRegisteredToday := `
+SELECT COUNT(*) 
+FROM ` + u.SqlTableName() + `
+WHERE ` + u.SqlCreatedAt() + ` >= ` + beginDateUnix + ` 
+AND ` + u.SqlCreatedAt() + ` <= ` + endDateUnix
 
 	u.Adapter.QuerySql(queryCountRegisteredToday, func(row []any) {
 		res = X.ToI(row[0])
