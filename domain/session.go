@@ -193,7 +193,7 @@ const (
 
 func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session) {
 	if in.SessionToken == `` {
-		out.SetError(403, ErrSessionTokenEmpty)
+		out.SetError(498, ErrSessionTokenEmpty)
 		return nil
 	}
 	defer func() {
@@ -204,23 +204,23 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 	}()
 	sess := &Session{}
 	if !sess.Decrypt(in.SessionToken, in.UserAgent) {
-		out.SetError(403, ErrSessionTokenInvalid)
+		out.SetError(498, ErrSessionTokenInvalid)
 		return nil
 	}
 	now := fastime.UnixNow()
 	if sess.ExpiredAt < now {
-		out.SetError(403, ErrSessionTokenExpired)
+		out.SetError(498, ErrSessionTokenExpired)
 		return nil
 	}
 
 	session := rqAuth.NewSessions(d.AuthOltp)
 	session.SessionToken = in.SessionToken
 	if !session.FindBySessionToken() {
-		out.SetError(403, ErrSessionTokenNotFound)
+		out.SetError(498, ErrSessionTokenNotFound)
 		return nil
 	}
 	if session.ExpiredAt <= now {
-		out.SetError(403, ErrSessionTokenLoggedOut)
+		out.SetError(498, ErrSessionTokenLoggedOut)
 		return nil
 	}
 
