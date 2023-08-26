@@ -5,7 +5,6 @@
 
     import Icon from 'svelte-icons-pack/Icon.svelte';
     import HiOutlinePencil from 'svelte-icons-pack/hi/HiOutlinePencil';
-    import HiSolidEye from 'svelte-icons-pack/hi/HiSolidEye';
     import FaSolidAngleRight from "svelte-icons-pack/fa/FaSolidAngleRight";
     import FaSolidAngleLeft from "svelte-icons-pack/fa/FaSolidAngleLeft";
     import FaSolidAngleDoubleRight from "svelte-icons-pack/fa/FaSolidAngleDoubleRight";
@@ -89,8 +88,8 @@
                                     <Icon src={HiOutlinePencil} />
                                 </button>
                                 {#each extraActions as action}
-                                    <button class='action' title='{action.label || ""}' on:click={() => action.onClick(row[i])}>
-                                    <Icon src={HiSolidEye} />
+                                    <button class='action' title='{action.label || ""}' on:click={() => action.onClick(row)}>
+                                    <Icon src={action.icon} />
                                     </button>
                                 {/each}
                             </td>

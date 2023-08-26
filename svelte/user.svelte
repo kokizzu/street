@@ -4,7 +4,7 @@
    import Footer from './_components/Footer.svelte';
    import { datetime } from './_components/formatter';
    import { onMount } from 'svelte';
-   import { UserChangePassword, UserUpdateProfile } from './jsApi.GEN.js';
+   import { UserChangePassword, UserUpdateProfile } from './jsApi.GEN';
 
    let sideMenuOpen = false;
    function openSideMenu() {

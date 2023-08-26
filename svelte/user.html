@@ -4435,7 +4435,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 
   // user.svelte
   var import_formatter = __toESM(require_formatter());
-  var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
+  var import_jsApi = __toESM(require_jsApi_GEN());
   function create_fragment5(ctx) {
     let section;
     let menu;
@@ -4976,7 +4976,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     async function updateProfile() {
       if (JSON.stringify(user) == oldProfileJson)
         return alert("No changes");
-      (0, import_jsApi_GEN2.UserUpdateProfile)(user, function(res) {
+      (0, import_jsApi.UserUpdateProfile)(user, function(res) {
         if (res.error)
           return alert(res.error);
         oldProfileJson = JSON.stringify(res.user);
@@ -4991,7 +4991,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         oldPass: oldPassword,
         newPass: newPassword
       };
-      (0, import_jsApi_GEN2.UserChangePassword)(input, function(res) {
+      (0, import_jsApi.UserChangePassword)(input, function(res) {
         if (res.error)
           return alert(res.error);
         $invalidate(2, oldPassword = "");

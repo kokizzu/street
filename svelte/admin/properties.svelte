@@ -6,26 +6,38 @@
     import Footer from '../_components/Footer.svelte';
     import TableView from '../_components/TableView.svelte';
     import ModalForm from '../_components/ModalForm.svelte';
-    import { AdminProperties } from '../jsApi.GEN';
+    import HiSolidEye from 'svelte-icons-pack/hi/HiSolidEye';
+    import { AdminProperties, UserPropHistory } from '../jsApi.GEN';
 
     import Icon from 'svelte-icons-pack/Icon.svelte';
-    import FaSolidPlusCircle from "svelte-icons-pack/fa/FaSolidPlusCircle";
+    import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
+    import ModalDialog from '../_components/ModalDialog.svelte';
 
     let segments = {/* segments */};
     let fields = [/* fields */];
     let properties = [/* properties */] || [];
     let pager = {/* pager */};
+    let currentPropHistory = [];
     let extraActions = [
         {
-            icon: 'gg-eye',
+            icon: HiSolidEye,
             tooltip: 'Show Property History',
             onClick: function(item) {
-                alert('show property clicked: ' + JSON.stringify(item));
+                let propertyKey = item[1]; // property key for taiwan data
+                UserPropHistory({
+                    propertyKey: propertyKey,
+                }, function(res) {
+                    if (res.error) alert(res.error);
+                    propHistoryModal.showModal();
+                    currentPropHistory = res.History || [];
+                });
             },
         },
     ];
 
-    $: console.log(properties);
+    $: console.log('properties=', properties);
+
+    let propHistoryModal = ModalDialog;
 
     // return true if got error
     function handleResponse(res) {
@@ -109,7 +121,7 @@
                            on:editRow={editRow}
                 >
                     <button on:click={addRow} class='add_button'>
-                        <Icon size={18} color="#FFFF" src={FaSolidPlusCircle} />
+                        <Icon size={18} color='#FFFF' src={FaSolidPlusCircle} />
                         <span>Add</span>
                     </button>
                 </TableView>
@@ -117,6 +129,18 @@
         </div>
         <Footer></Footer>
     </div>
+    <ModalDialog bind:this={propHistoryModal}>
+        <div slot='content'>
+            <h3>Property History</h3>
+            {#if currentPropHistory && currentPropHistory.length}
+                {#each currentPropHistory as row}
+                    {JSON.stringify(row)}<br />
+                {/each}
+            {:else}
+                no history for this property
+            {/if}
+        </div>
+    </ModalDialog>
 </section>
 
 <style>

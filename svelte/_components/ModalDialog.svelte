@@ -1,5 +1,6 @@
 <script>
     export let visible = false;
+    export let close_label = 'Close'
 
     export function showModal() {
         visible = true;
@@ -19,7 +20,7 @@
             <div class='buttons'>
                 <button
                         on:click|preventDefault={() => hideModal()}
-                        class='cancel_button'>Cancel
+                        class='cancel_button'>{close_label}
                 </button>
                 <slot name='buttons' />
             </div>

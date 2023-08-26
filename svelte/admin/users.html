@@ -4910,15 +4910,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M15.2322 5.23223L18.7677 8.76777M16.7322 3.73223C17.7085 2.75592 19.2914 2.75592 20.2677 3.73223C21.244 4.70854 21.244 6.29146 20.2677 7.26777L6.5 21.0355H3V17.4644L16.7322 3.73223Z" stroke="#4A5568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>'
   };
 
-  // node_modules/svelte-icons-pack/hi/HiSolidEye.js
-  var HiSolidEye_default = {
-    a: {
-      viewBox: "0 0 20 20",
-      fill: "none"
-    },
-    c: '<path d="M10 12C11.1046 12 12 11.1046 12 10C12 8.89543 11.1046 8 10 8C8.89544 8 8.00001 8.89543 8.00001 10C8.00001 11.1046 8.89544 12 10 12Z" fill="#4A5568"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M0.457764 10C1.73202 5.94291 5.52232 3 9.99997 3C14.4776 3 18.2679 5.94288 19.5422 9.99996C18.2679 14.0571 14.4776 17 9.99995 17C5.52232 17 1.73204 14.0571 0.457764 10ZM14 10C14 12.2091 12.2091 14 10 14C7.79087 14 6.00001 12.2091 6.00001 10C6.00001 7.79086 7.79087 6 10 6C12.2091 6 14 7.79086 14 10Z" fill="#4A5568"></path>'
-  };
-
   // node_modules/svelte-icons-pack/fa/FaSolidAngleRight.js
   var FaSolidAngleRight_default = {
     a: {
@@ -5339,7 +5330,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let current;
     let mounted;
     let dispose;
-    icon = new Icon_default({ props: { src: HiSolidEye_default } });
+    icon = new Icon_default({ props: { src: (
+      /*action*/
+      ctx[31].icon
+    ) } });
     function click_handler_5() {
       return (
         /*click_handler_5*/
@@ -5347,9 +5341,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*action*/
           ctx[31],
           /*row*/
-          ctx[25],
-          /*i*/
-          ctx[30]
+          ctx[25]
         )
       );
     }
@@ -5372,6 +5364,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
+        const icon_changes = {};
+        if (dirty[0] & /*extraActions*/
+        8)
+          icon_changes.src = /*action*/
+          ctx[31].icon;
+        icon.$set(icon_changes);
         if (!current || dirty[0] & /*extraActions*/
         8 && button_title_value !== (button_title_value = /*action*/
         ctx[31].label || "")) {
@@ -6198,7 +6196,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     const click_handler_2 = () => gotoPage(pager.page + 1);
     const click_handler_3 = () => gotoPage(pager.pages);
     const click_handler_4 = (row, i) => editRow(row[i]);
-    const click_handler_5 = (action, row, i) => action.onClick(row[i]);
+    const click_handler_5 = (action, row) => action.onClick(row);
     function input_input_handler() {
       pager.perPage = to_number(this.value);
       $invalidate(0, pager);
