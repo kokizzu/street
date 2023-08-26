@@ -1,6 +1,7 @@
 <script>
     export let visible = false;
-    export let close_label = 'Close'
+    export let close_label = 'Close';
+    export let title = '';
 
     export function showModal() {
         visible = true;
@@ -15,6 +16,9 @@
     <div class='backdrop'>
         <div class='modal_dialog'>
             <div class='modal_content'>
+                {#if title}
+                    <h3>{title}</h3>
+                {/if}
                 <slot name='content' />
             </div>
             <div class='buttons'>

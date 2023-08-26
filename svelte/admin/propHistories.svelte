@@ -30,9 +30,8 @@
     if( res.pager && res.pager.page ) pager = res.pager;
   }
   
-  async function refreshTableView( e ) {
-    const pagerIn = e.detail;
-    // console.log( pager );
+  async function refreshTableView( pagerIn ) {
+    // console.log( 'pagerIn=',pagerIn );
     await AdminPropHistories( {
       pager: pagerIn,
       action: 'list',
@@ -43,8 +42,7 @@
   
   let form = ModalForm; // for lookup
   
-  async function editRow( e ) {
-    const id = e.detail;
+  async function editRow(id, row) {
     await AdminPropHistories( {
       propHistory: {id},
       action: 'form',
@@ -92,8 +90,8 @@
         <TableView {fields}
                    bind:pager={pager}
                    rows={propHistories}
-                   on:refreshTableView={refreshTableView}
-                   on:editRow={editRow}
+                   onRefreshTableView={refreshTableView}
+                   onEditRow={editRow}
         >
           <button on:click={addRow} class='add_button'>
             <Icon size={18} color="#FFFF" src={FaSolidPlusCircle} />

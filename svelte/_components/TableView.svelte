@@ -1,6 +1,6 @@
 <script>
     // @ts-nocheck
-    import { createEventDispatcher } from 'svelte';
+    import { createEventDispatcher, onMount } from 'svelte';
     import { datetime } from './formatter.js';
 
     import Icon from 'svelte-icons-pack/Icon.svelte';
@@ -9,40 +9,77 @@
     import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
     import FaSolidAngleDoubleRight from 'svelte-icons-pack/fa/FaSolidAngleDoubleRight';
     import FaSolidAngleDoubleLeft from 'svelte-icons-pack/fa/FaSolidAngleDoubleLeft';
+    import FaSolidFilter from 'svelte-icons-pack/fa/FaSolidFilter';
 
     export let fields = []; // array of field object
     export let rows = []; // 2 dimension array
     export let pager = {}; // pagination
     export let extraActions = []; // array of object {icon, label, onClick}
+    export let onRefreshTableView = function(pager) {
+        console.log('TableView.onRefreshTableView', pager);
+    };
+    export let onEditRow = function(id, row) {
+        console.log('TableView.onEditRow', id, row)
+    }
 
-    $: deletedAtIdx = (function() {
+    let deletedAtIdx = -1;
+    onMount(() => {
+        console.log('fields=', fields);
+        console.log('rows=', rows);
+        console.log('pager=', pager);
+        console.log('extraActions=', extraActions);
+
         for (let z = 0; z < fields.length; z++) {
             let field = fields[z];
+            // find deletedAt index
             if (field.name === 'deletedAt') {
-                return z;
+                console.log('deletedAtIdx', z);
+                deletedAtIdx = z;
+            }
+            // empty all filter at beginning
+            filtersMap[field.name] = '';
+        }
+        oldFilterStr = JSON.stringify(filtersMap);
+    });
+
+    let oldFilterStr = '{}';
+    let newFilterStr = '';
+    $: newFilterStr = JSON.stringify(filtersMap);
+
+    let filtersMap = {};
+
+    function filterKeyDown(event) {
+        if (event.key === 'Enter') applyFilter();
+    }
+
+    function applyFilter() {
+        let filters = {};
+        for (let key in filtersMap) {
+            let value = filtersMap[key];
+            if (value) {
+                filters[key] = value.split('|');
             }
         }
-        return -1;
-    })();
-
-    const dispatch = createEventDispatcher();
+        console.log('filters=', filters)
+        onRefreshTableView({
+            ...pager,
+            filters: filters,
+        });
+        oldFilterStr = newFilterStr;
+    }
 
     function gotoPage(page) {
-        dispatch('refreshTableView', {
+        onRefreshTableView({
             ...pager,
             page,
         });
     }
 
     function changePerPage(perPage) {
-        dispatch('refreshTableView', {
+        onRefreshTableView({
             ...pager,
             perPage,
         });
-    }
-
-    function editRow(row) {
-        dispatch('editRow', row);
     }
 
     $: allowPrevPage = pager.page > 1;
@@ -51,6 +88,10 @@
 
 <section>
     <slot />
+    <button class='apply_filter_button' disabled={oldFilterStr===newFilterStr} onclick={applyFilter}>
+        <Icon size={18} src={FaSolidFilter} />
+        Apply Filter
+    </button>
     <div class='pagination' style='float:right; display: inline-block'>
         <button title='Go to first page' disabled={!allowPrevPage} on:click={() => gotoPage(1)}>
             <Icon size={18} color={!allowPrevPage ? '#5C646F' : '#FFFF'} src={FaSolidAngleDoubleLeft} />
@@ -73,7 +114,23 @@
                     {#if field.name === 'id'}
                         <th class='col_action'>Action</th>
                     {:else}
-                        <th class='table_header'>{field.label}</th>
+                        <th class='table_header'>
+                            <label for='th_{field.name}'>{field.label}</label><br />
+                            <input id='th_{field.name}'
+                                   title='separate with pipe for multiple values, for example:
+  >=100|<50|61|72 will show values greater equal to 100, OR less than 50, OR exactly 61 OR 72
+    filtering with greater or less than will only show correct result if data is saved as number
+    currently price and size NOT stored as number
+  <>abc* will show values NOT started with abc*
+  abc*def|ghi will show values started with abc ends with def OR exactly ghi
+  *jkl* will show values containing jkl substring
+multiple filter from other fields will do AND operation'
+                                   type='text'
+                                   style='width: 100%; max-width: 4em'
+                                   bind:value={filtersMap[field.name]}
+                                   on:keydown={filterKeyDown}
+                            />
+                        </th>
                     {/if}
                 {/each}
             </tr>
@@ -84,7 +141,7 @@
                     {#each fields as field, i}
                         {#if field.name === 'id'}
                             <td class='col_action'>
-                                <button class='action' title='Edit user' on:click={() => editRow(row[i])}>
+                                <button class='action' title='Edit user' on:click={() => onEditRow(row[i], row)}>
                                     <Icon src={HiOutlinePencil} />
                                 </button>
                                 {#each extraActions as action}
@@ -221,8 +278,9 @@
     }
 
     .table_users .deleted td {
-        text-decoration       : line-through;
-        text-decoration-color : #EF4444;
+        text-decoration           : line-through;
+        text-decoration-color     : rgba(239, 68, 68, 0.5);
+        text-decoration-thickness : 5px;
     }
 
     .pages_set {
@@ -248,7 +306,8 @@
         width         : 4em;
         border        : 1px solid #CBD5E1;
         padding       : 5px;
-        font-size     : 14px;
+        font-size     : 14pt;
+        font-weight   : bold;
         text-align    : center;
         color         : #161616;
         outline-color : #6366F1;
@@ -259,7 +318,7 @@
         opacity : 1;
     }
 
-    .pagination button {
+    .pagination button, .apply_filter_button {
         color            : white;
         background-color : #6366F1;
         padding          : 8px;
@@ -270,11 +329,16 @@
         border           : none;
     }
 
-    .pagination button:hover {
+    .pagination button:hover, .apply_filter_button {
         background-color : #7E80F1;
     }
 
-    .pagination button:disabled {
+    .apply_filter_button {
+        font-size   : 14pt;
+        font-weight : bold;
+    }
+
+    .pagination button:disabled, .apply_filter_button:disabled {
         border     : 1px solid #CBD5E1 !important;
         background : none !important;
         color      : #5C646F;

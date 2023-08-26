@@ -49,11 +49,11 @@
         }
         if (res.properties && res.properties.length) properties = res.properties;
         if (res.pager && res.pager.page) pager = res.pager;
+        if (res.pager && res.pager.filters && !res.properties) properties = []; // if nothing found but filter exists, clear table
     }
 
-    async function refreshTableView(e) {
-        const pagerIn = e.detail;
-        // console.log( pager );
+    async function refreshTableView(pagerIn) {
+        // console.log( 'pagerIn=',pagerIn );
         await AdminProperties({
             pager: pagerIn,
             action: 'list',
@@ -64,8 +64,7 @@
 
     let form = ModalForm; // for lookup
 
-    async function editRow(e) {
-        const id = e.detail;
+    async function editRow(id, row) {
         await AdminProperties({
             property: {id},
             action: 'form',
@@ -117,8 +116,8 @@
                            extraActions={extraActions}
                            bind:pager={pager}
                            rows={properties}
-                           on:refreshTableView={refreshTableView}
-                           on:editRow={editRow}
+                           onRefreshTableView={refreshTableView}
+                           onEditRow={editRow}
                 >
                     <button on:click={addRow} class='add_button'>
                         <Icon size={18} color='#FFFF' src={FaSolidPlusCircle} />

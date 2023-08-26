@@ -7,6 +7,7 @@
     import { onMount } from 'svelte';
     import { UserChangePassword, UserUpdateProfile } from './jsApi.GEN';
     import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
+    import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
 
     let sideMenuOpen = false;
 
