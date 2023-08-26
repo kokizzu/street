@@ -129,6 +129,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			`title`:           `Realtor`,
 			`segments`:        segments,
 			`ownedProperties`: out.Properties,
+			`pager`:           out.Pager,
 		})
 	})
 	fw.Get(`/realtor/property`, func(ctx *fiber.Ctx) error {

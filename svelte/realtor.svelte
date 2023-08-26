@@ -7,9 +7,11 @@
   import OwnedProperty from '_components/OwnedProperty.svelte';
 
   let ownedProperties = [/* ownedProperties */];
+  let pager = [/* pager */];
 
   onMount(() => {
-    console.log(ownedProperties);
+    console.log('ownedProperties=',ownedProperties);
+    console.log('pager=',pager);
   });
 
   
@@ -25,7 +27,7 @@
     <div class="content">
       <div class="property_lists_container">
         <div class="property_lists_header">
-          <h1>Owned Properties: {@html ownedProperties.length ? ownedProperties.length : 0}</h1>
+          <h1>Owned Properties: {pager.total}</h1>
           <a href="/realtor/property" class="add_button" style="">
             <i class="gg-add" />
             <span>Add</span>
