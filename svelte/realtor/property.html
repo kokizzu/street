@@ -305,8 +305,41 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   color: #EF4444;
 }
 
+/* fakecss:./_components/OptionButtons.esbuild-svelte-fake-css */
+.option_container.svelte-huiw4k.svelte-huiw4k {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  text-transform: capitalize;
+}
+.option_container.svelte-huiw4k .option.svelte-huiw4k {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background-color: #f1f5f9;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+}
+.option_container.svelte-huiw4k .option.svelte-huiw4k:hover {
+  border: 1px solid #f97316;
+  color: #f97316;
+}
+.option_container.svelte-huiw4k .option.clicked.svelte-huiw4k {
+  background-color: #f97316;
+  color: white;
+  border: none;
+}
+.option.svelte-huiw4k input[type=radio].svelte-huiw4k {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* fakecss:./_components/AddFloorDialog.esbuild-svelte-fake-css */
-.backdrop.svelte-1g372ha.svelte-1g372ha {
+.backdrop.svelte-1av8rsq.svelte-1av8rsq {
   position: absolute;
   z-index: 40;
   background: rgba(41, 41, 41, 0.5);
@@ -320,7 +353,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   justify-content: center;
   align-items: center;
 }
-.add_floor_dialog.svelte-1g372ha.svelte-1g372ha {
+.add_floor_dialog.svelte-1av8rsq.svelte-1av8rsq {
   color: #334155;
   width: 400px;
   height: fit-content;
@@ -332,21 +365,21 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   flex-direction: column;
   justify-content: space-between;
 }
-.add_floor_dialog.svelte-1g372ha h3.svelte-1g372ha {
+.add_floor_dialog.svelte-1av8rsq h3.svelte-1av8rsq {
   font-weight: 600;
   margin: 0;
   font-size: 18px;
   width: 100%;
   text-align: center;
 }
-.add_floor_dialog.svelte-1g372ha .buttons.svelte-1g372ha {
+.add_floor_dialog.svelte-1av8rsq .buttons.svelte-1av8rsq {
   display: flex;
   flex-direction: row;
   align-items: stretch;
   font-weight: 500;
   width: 100%;
 }
-.add_floor_dialog.svelte-1g372ha .buttons button.svelte-1g372ha {
+.add_floor_dialog.svelte-1av8rsq .buttons button.svelte-1av8rsq {
   border-radius: 8px;
   border: none;
   padding: 10px;
@@ -354,57 +387,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   width: 100%;
   text-transform: capitalize;
 }
-.add_floor_dialog.svelte-1g372ha .buttons .cancel_button.svelte-1g372ha {
+.add_floor_dialog.svelte-1av8rsq .buttons .cancel_button.svelte-1av8rsq {
   margin-right: 10px;
   border: 1px solid #cbd5e1;
   background-color: #f1f5f9;
   color: #f97316;
 }
-.add_floor_dialog.svelte-1g372ha .buttons .cancel_button.svelte-1g372ha:hover {
+.add_floor_dialog.svelte-1av8rsq .buttons .cancel_button.svelte-1av8rsq:hover {
   border: 1px solid #f97316;
 }
-.add_floor_content.svelte-1g372ha .floor_type.svelte-1g372ha {
+.add_floor_content.svelte-1av8rsq .floor_type.svelte-1av8rsq {
   position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
   height: fit-content;
 }
-.add_floor_content.svelte-1g372ha .floor_type label.svelte-1g372ha {
+.add_floor_content.svelte-1av8rsq .floor_type label.svelte-1av8rsq {
   font-size: 13px;
   font-weight: 700;
   margin-left: 10px;
   margin-bottom: 8px;
-}
-.add_floor_content.svelte-1g372ha .floor_type .option_container.svelte-1g372ha {
-  width: 100%;
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  gap: 10px;
-}
-.add_floor_content.svelte-1g372ha .floor_type .option_container .option.svelte-1g372ha {
-  margin: 0;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
-  background-color: #f1f5f9;
-  font-weight: 500;
-  text-align: center;
-  cursor: pointer;
-}
-.add_floor_content.svelte-1g372ha .floor_type .option_container .option.svelte-1g372ha:hover {
-  border: 1px solid #f97316;
-  color: #f97316;
-}
-.add_floor_content.svelte-1g372ha .floor_type .option_container .option.clicked.svelte-1g372ha {
-  background-color: #f97316;
-  color: white;
-  border: none;
-}
-.option.svelte-1g372ha input[type=radio].svelte-1g372ha {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
 }
 
 /* fakecss:./_components/AddOrEditRoomDialog.esbuild-svelte-fake-css */
@@ -3704,13 +3707,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance7 = bind2(Axios$1.prototype.request, context);
-        utils.extend(instance7, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance7, context, null, { allOwnKeys: true });
-        instance7.create = function create(instanceConfig) {
+        const instance8 = bind2(Axios$1.prototype.request, context);
+        utils.extend(instance8, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance8, context, null, { allOwnKeys: true });
+        instance8.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance7;
+        return instance8;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -4287,7 +4290,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance7, create_fragment7, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance8, create_fragment8, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -4313,7 +4316,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance7 ? instance7(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance8 ? instance8(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -4326,7 +4329,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment7 ? create_fragment7($.ctx) : false;
+    $.fragment = create_fragment8 ? create_fragment8($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -5293,178 +5296,308 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var Footer_default = Footer;
 
+  // _components/OptionButtons.svelte
+  function get_each_context(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[3] = list[i];
+    return child_ctx;
+  }
+  function create_each_block(ctx) {
+    let label;
+    let input;
+    let input_id_value;
+    let input_value_value;
+    let t0;
+    let t1_value = (
+      /*option*/
+      ctx[3] + ""
+    );
+    let t1;
+    let t2;
+    let label_class_value;
+    let label_for_value;
+    let mounted;
+    let dispose;
+    function click_handler() {
+      return (
+        /*click_handler*/
+        ctx[2](
+          /*option*/
+          ctx[3]
+        )
+      );
+    }
+    return {
+      c() {
+        label = element("label");
+        input = element("input");
+        t0 = space();
+        t1 = text(t1_value);
+        t2 = space();
+        attr(input, "type", "radio");
+        attr(input, "id", input_id_value = /*option*/
+        ctx[3]);
+        input.value = input_value_value = /*option*/
+        ctx[3];
+        attr(input, "class", "svelte-huiw4k");
+        attr(label, "class", label_class_value = null_to_empty(
+          /*selected*/
+          ctx[0] === /*option*/
+          ctx[3] ? "option clicked" : "option"
+        ) + " svelte-huiw4k");
+        attr(label, "for", label_for_value = /*option*/
+        ctx[3]);
+      },
+      m(target, anchor) {
+        insert(target, label, anchor);
+        append(label, input);
+        append(label, t0);
+        append(label, t1);
+        append(label, t2);
+        if (!mounted) {
+          dispose = listen(input, "click", click_handler);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (dirty & /*options*/
+        2 && input_id_value !== (input_id_value = /*option*/
+        ctx[3])) {
+          attr(input, "id", input_id_value);
+        }
+        if (dirty & /*options*/
+        2 && input_value_value !== (input_value_value = /*option*/
+        ctx[3])) {
+          input.value = input_value_value;
+        }
+        if (dirty & /*options*/
+        2 && t1_value !== (t1_value = /*option*/
+        ctx[3] + ""))
+          set_data(t1, t1_value);
+        if (dirty & /*selected, options*/
+        3 && label_class_value !== (label_class_value = null_to_empty(
+          /*selected*/
+          ctx[0] === /*option*/
+          ctx[3] ? "option clicked" : "option"
+        ) + " svelte-huiw4k")) {
+          attr(label, "class", label_class_value);
+        }
+        if (dirty & /*options*/
+        2 && label_for_value !== (label_for_value = /*option*/
+        ctx[3])) {
+          attr(label, "for", label_for_value);
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(label);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_fragment4(ctx) {
+    let div;
+    let each_value = ensure_array_like(
+      /*options*/
+      ctx[1]
+    );
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    }
+    return {
+      c() {
+        div = element("div");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        attr(div, "class", "option_container svelte-huiw4k");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(div, null);
+          }
+        }
+      },
+      p(ctx2, [dirty]) {
+        if (dirty & /*selected, options*/
+        3) {
+          each_value = ensure_array_like(
+            /*options*/
+            ctx2[1]
+          );
+          let i;
+          for (i = 0; i < each_value.length; i += 1) {
+            const child_ctx = get_each_context(ctx2, each_value, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(div, null);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value.length;
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
+  function instance4($self, $props, $invalidate) {
+    let { options = [] } = $props;
+    let { selected = "" } = $props;
+    const click_handler = (option) => $invalidate(0, selected = option);
+    $self.$set = ($props2) => {
+      if ("options" in $props2)
+        $invalidate(1, options = $props2.options);
+      if ("selected" in $props2)
+        $invalidate(0, selected = $props2.selected);
+    };
+    return [selected, options, click_handler];
+  }
+  var OptionButtons = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance4, create_fragment4, safe_not_equal, { options: 1, selected: 0 });
+    }
+  };
+  var OptionButtons_default = OptionButtons;
+
   // _components/AddFloorDialog.svelte
   function create_if_block2(ctx) {
-    let div5;
     let div4;
-    let div2;
+    let div3;
+    let div1;
     let h3;
     let t1;
-    let div1;
-    let label0;
-    let t3;
     let div0;
-    let label1;
-    let input0;
+    let label;
+    let t3;
+    let optionbuttons;
     let t4;
-    let label1_class_value;
-    let t5;
-    let label2;
-    let input1;
-    let t6;
-    let label2_class_value;
-    let t7;
-    let div3;
+    let div2;
     let button;
-    let t9;
+    let t6;
     let current;
     let mounted;
     let dispose;
+    optionbuttons = new OptionButtons_default({
+      props: {
+        selected: (
+          /*floor_type*/
+          ctx[2]
+        ),
+        options: (
+          /*floor_types*/
+          ctx[3]
+        )
+      }
+    });
     const default_slot_template = (
       /*#slots*/
-      ctx[5].default
+      ctx[6].default
     );
     const default_slot = create_slot(
       default_slot_template,
       ctx,
       /*$scope*/
-      ctx[4],
+      ctx[5],
       null
     );
     return {
       c() {
-        div5 = element("div");
         div4 = element("div");
-        div2 = element("div");
+        div3 = element("div");
+        div1 = element("div");
         h3 = element("h3");
         h3.textContent = "Add Floor";
         t1 = space();
-        div1 = element("div");
-        label0 = element("label");
-        label0.textContent = "House Type";
-        t3 = space();
         div0 = element("div");
-        label1 = element("label");
-        input0 = element("input");
-        t4 = text("\n            floor");
-        t5 = space();
-        label2 = element("label");
-        input1 = element("input");
-        t6 = text("\n            Basement");
-        t7 = space();
-        div3 = element("div");
+        label = element("label");
+        label.textContent = "House Type";
+        t3 = space();
+        create_component(optionbuttons.$.fragment);
+        t4 = space();
+        div2 = element("div");
         button = element("button");
         button.textContent = "Cancel";
-        t9 = space();
+        t6 = space();
         if (default_slot)
           default_slot.c();
-        attr(h3, "class", "svelte-1g372ha");
-        attr(label0, "for", "floor_type");
-        attr(label0, "class", "svelte-1g372ha");
-        attr(input0, "type", "radio");
-        attr(input0, "id", "floor");
-        input0.value = "floor";
-        attr(input0, "class", "svelte-1g372ha");
-        attr(label1, "class", label1_class_value = null_to_empty(
-          /*floor_type*/
-          ctx[1] === "floor" ? "option clicked" : "option"
-        ) + " svelte-1g372ha");
-        attr(label1, "for", "floor");
-        attr(input1, "type", "radio");
-        attr(input1, "id", "basement");
-        input1.value = "basement";
-        attr(input1, "class", "svelte-1g372ha");
-        attr(label2, "class", label2_class_value = null_to_empty(
-          /*floor_type*/
-          ctx[1] === "basement" ? "option clicked" : "option"
-        ) + " svelte-1g372ha");
-        attr(label2, "for", "basement");
-        attr(div0, "class", "option_container svelte-1g372ha");
-        attr(div1, "class", "floor_type svelte-1g372ha");
-        attr(div2, "class", "add_floor_content svelte-1g372ha");
-        attr(button, "class", "cancel_button svelte-1g372ha");
-        attr(div3, "class", "buttons svelte-1g372ha");
-        attr(div4, "class", "add_floor_dialog svelte-1g372ha");
-        attr(div5, "class", "backdrop svelte-1g372ha");
+        attr(h3, "class", "svelte-1av8rsq");
+        attr(label, "for", "floor_type");
+        attr(label, "class", "svelte-1av8rsq");
+        attr(div0, "class", "floor_type svelte-1av8rsq");
+        attr(div1, "class", "add_floor_content svelte-1av8rsq");
+        attr(button, "class", "cancel_button svelte-1av8rsq");
+        attr(div2, "class", "buttons svelte-1av8rsq");
+        attr(div3, "class", "add_floor_dialog svelte-1av8rsq");
+        attr(div4, "class", "backdrop svelte-1av8rsq");
       },
       m(target, anchor) {
-        insert(target, div5, anchor);
-        append(div5, div4);
-        append(div4, div2);
-        append(div2, h3);
-        append(div2, t1);
-        append(div2, div1);
-        append(div1, label0);
-        append(div1, t3);
-        append(div1, div0);
-        append(div0, label1);
-        append(label1, input0);
-        append(label1, t4);
-        append(div0, t5);
-        append(div0, label2);
-        append(label2, input1);
-        append(label2, t6);
-        append(div4, t7);
+        insert(target, div4, anchor);
         append(div4, div3);
-        append(div3, button);
-        append(div3, t9);
+        append(div3, div1);
+        append(div1, h3);
+        append(div1, t1);
+        append(div1, div0);
+        append(div0, label);
+        append(div0, t3);
+        mount_component(optionbuttons, div0, null);
+        append(div3, t4);
+        append(div3, div2);
+        append(div2, button);
+        append(div2, t6);
         if (default_slot) {
-          default_slot.m(div3, null);
+          default_slot.m(div2, null);
         }
         current = true;
         if (!mounted) {
-          dispose = [
-            listen(
-              input0,
-              "click",
-              /*click_handler*/
-              ctx[6]
-            ),
-            listen(
-              input1,
-              "click",
-              /*click_handler_1*/
-              ctx[7]
-            ),
-            listen(button, "click", prevent_default(
-              /*click_handler_2*/
-              ctx[8]
-            ))
-          ];
+          dispose = listen(button, "click", prevent_default(
+            /*click_handler*/
+            ctx[7]
+          ));
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (!current || dirty & /*floor_type*/
-        2 && label1_class_value !== (label1_class_value = null_to_empty(
-          /*floor_type*/
-          ctx2[1] === "floor" ? "option clicked" : "option"
-        ) + " svelte-1g372ha")) {
-          attr(label1, "class", label1_class_value);
-        }
-        if (!current || dirty & /*floor_type*/
-        2 && label2_class_value !== (label2_class_value = null_to_empty(
-          /*floor_type*/
-          ctx2[1] === "basement" ? "option clicked" : "option"
-        ) + " svelte-1g372ha")) {
-          attr(label2, "class", label2_class_value);
-        }
+        const optionbuttons_changes = {};
+        if (dirty & /*floor_type*/
+        4)
+          optionbuttons_changes.selected = /*floor_type*/
+          ctx2[2];
+        optionbuttons.$set(optionbuttons_changes);
         if (default_slot) {
           if (default_slot.p && (!current || dirty & /*$scope*/
-          16)) {
+          32)) {
             update_slot_base(
               default_slot,
               default_slot_template,
               ctx2,
               /*$scope*/
-              ctx2[4],
+              ctx2[5],
               !current ? get_all_dirty_from_scope(
                 /*$scope*/
-                ctx2[4]
+                ctx2[5]
               ) : get_slot_changes(
                 default_slot_template,
                 /*$scope*/
-                ctx2[4],
+                ctx2[5],
                 dirty,
                 null
               ),
@@ -5476,25 +5609,28 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       i(local) {
         if (current)
           return;
+        transition_in(optionbuttons.$.fragment, local);
         transition_in(default_slot, local);
         current = true;
       },
       o(local) {
+        transition_out(optionbuttons.$.fragment, local);
         transition_out(default_slot, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(div5);
+          detach(div4);
         }
+        destroy_component(optionbuttons);
         if (default_slot)
           default_slot.d(detaching);
         mounted = false;
-        run_all(dispose);
+        dispose();
       }
     };
   }
-  function create_fragment4(ctx) {
+  function create_fragment5(ctx) {
     let if_block_anchor;
     let current;
     let if_block = (
@@ -5557,7 +5693,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function instance4($self, $props, $invalidate) {
+  function instance5($self, $props, $invalidate) {
     let { $slots: slots = {}, $scope } = $props;
     let { visible = false } = $props;
     function showModal() {
@@ -5567,44 +5703,42 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       $invalidate(0, visible = false);
     }
     let { floor_type = "" } = $props;
-    const click_handler = () => $invalidate(1, floor_type = "floor");
-    const click_handler_1 = () => $invalidate(1, floor_type = "basement");
-    const click_handler_2 = () => hideModal();
+    let floor_types = ["basement", "floor"];
+    const click_handler = () => hideModal();
     $self.$set = ($props2) => {
       if ("visible" in $props2)
         $invalidate(0, visible = $props2.visible);
       if ("floor_type" in $props2)
-        $invalidate(1, floor_type = $props2.floor_type);
+        $invalidate(2, floor_type = $props2.floor_type);
       if ("$scope" in $props2)
-        $invalidate(4, $scope = $props2.$scope);
+        $invalidate(5, $scope = $props2.$scope);
     };
     return [
       visible,
-      floor_type,
       hideModal,
+      floor_type,
+      floor_types,
       showModal,
       $scope,
       slots,
-      click_handler,
-      click_handler_1,
-      click_handler_2
+      click_handler
     ];
   }
   var AddFloorDialog = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance4, create_fragment4, safe_not_equal, {
+      init(this, options, instance5, create_fragment5, safe_not_equal, {
         visible: 0,
-        showModal: 3,
-        hideModal: 2,
-        floor_type: 1
+        showModal: 4,
+        hideModal: 1,
+        floor_type: 2
       });
     }
     get showModal() {
-      return this.$.ctx[3];
+      return this.$.ctx[4];
     }
     get hideModal() {
-      return this.$.ctx[2];
+      return this.$.ctx[1];
     }
   };
   var AddFloorDialog_default = AddFloorDialog;
@@ -5931,7 +6065,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_fragment5(ctx) {
+  function create_fragment6(ctx) {
     let if_block_anchor;
     let current;
     let if_block = (
@@ -6006,7 +6140,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     var minifiedValue = value.toFixed(2);
     return parseFloat(minifiedValue);
   }
-  function instance5($self, $props, $invalidate) {
+  function instance6($self, $props, $invalidate) {
     let { $slots: slots = {}, $scope } = $props;
     let { visible = false } = $props;
     function showModal() {
@@ -6085,7 +6219,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var AddOrEditRoomDialog = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance5, create_fragment5, safe_not_equal, {
+      init(this, options, instance6, create_fragment6, safe_not_equal, {
         visible: 0,
         showModal: 7,
         hideModal: 4,
@@ -6110,7 +6244,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 
   // realtor/property.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
-  function get_each_context(ctx, list, i) {
+  function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[98] = list[i];
     return child_ctx;
@@ -8476,7 +8610,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     );
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
-      each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+      each_blocks[i] = create_each_block2(get_each_context2(ctx, each_value, i));
     }
     return {
       c() {
@@ -8762,11 +8896,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           );
           let i;
           for (i = 0; i < each_value.length; i += 1) {
-            const child_ctx = get_each_context(ctx2, each_value, i);
+            const child_ctx = get_each_context2(ctx2, each_value, i);
             if (each_blocks[i]) {
               each_blocks[i].p(child_ctx, dirty);
             } else {
-              each_blocks[i] = create_each_block(child_ctx);
+              each_blocks[i] = create_each_block2(child_ctx);
               each_blocks[i].c();
               each_blocks[i].m(div14, null);
             }
@@ -9012,7 +9146,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_each_block(ctx) {
+  function create_each_block2(ctx) {
     let div3;
     let h3;
     let t0_value = (
@@ -9143,7 +9277,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_fragment6(ctx) {
+  function create_fragment7(ctx) {
     let c0;
     let script;
     let t1;
@@ -10167,7 +10301,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function formatPrice(price) {
     return price.toLocaleString("en-US", { style: "currency", currency: "USD" });
   }
-  function instance6($self, $props, $invalidate) {
+  function instance7($self, $props, $invalidate) {
     let property = {/* property */};
     onMount(async () => {
       console.log("property=", property);
@@ -11035,7 +11169,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var Property = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance6, create_fragment6, safe_not_equal, {}, null, [-1, -1, -1, -1]);
+      init(this, options, instance7, create_fragment7, safe_not_equal, {}, null, [-1, -1, -1, -1]);
     }
   };
   var property_default = Property;

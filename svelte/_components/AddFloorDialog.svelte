@@ -1,4 +1,6 @@
 <script>
+  import OptionButtons from "./OptionButtons.svelte";
+
   export let visible = false;
   export function showModal() {
     visible = true;
@@ -7,6 +9,9 @@
     visible = false;
   }
   export let floor_type = '';
+  let floor_types = [
+    "basement", "floor"
+  ]
 </script>
 
 {#if visible}
@@ -16,21 +21,7 @@
       <h3>Add Floor</h3>
       <div class="floor_type">
         <label for="floor_type">House Type</label>
-        <div class="option_container">
-          <label class={floor_type === 'floor' ? 'option clicked': 'option'} for="floor">
-            <input type="radio" on:click={() => (floor_type = 'floor')} id="floor" value="floor" />
-            floor
-          </label>
-          <label class={floor_type === 'basement' ? 'option clicked': 'option'} for="basement">
-            <input
-              type="radio"
-              on:click={() => (floor_type = 'basement')}
-              id="basement"
-              value="basement"
-            />
-            Basement
-          </label>
-        </div>
+        <OptionButtons selected={floor_type} options={floor_types}/>
       </div>
     </div>
     <div class='buttons'>
@@ -112,34 +103,5 @@
     margin-left   : 10px;
     margin-bottom : 8px;
   }
-  .add_floor_content .floor_type .option_container {
-    width: 100%;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    gap: 10px;
-  }
-  .add_floor_content .floor_type .option_container .option {
-    margin: 0;
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid #cbd5e1;
-    background-color: #f1f5f9;
-    font-weight: 500;
-    text-align: center;
-    cursor: pointer;
-  }
-  .add_floor_content .floor_type .option_container .option:hover {
-    border: 1px solid #f97316;
-    color: #f97316;
-  }
-  .add_floor_content .floor_type .option_container .option.clicked {
-    background-color: #f97316;
-    color: white;
-    border: none;
-  }
-  .option input[type='radio'] {
-    position       : absolute;
-    opacity        : 0;
-    pointer-events : none;
-  }
+  
 </style>
