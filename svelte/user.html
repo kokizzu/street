@@ -2537,8 +2537,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         const formattedDate = dt.toLocaleDateString(void 0, options);
         return formattedDate;
       }
+      function priceNtd(val) {
+        return new Number(val * 1e3).toLocaleString("zh-TW");
+      }
       module.exports = {
-        datetime: datetime2
+        datetime: datetime2,
+        priceNtd
       };
     }
   });

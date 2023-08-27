@@ -2847,8 +2847,12 @@ input.input_filter.svelte-6kh99g.svelte-6kh99g {
         const formattedDate = dt.toLocaleDateString(void 0, options);
         return formattedDate;
       }
+      function priceNtd2(val) {
+        return new Number(val * 1e3).toLocaleString("zh-TW");
+      }
       module.exports = {
-        datetime: datetime3
+        datetime: datetime3,
+        priceNtd: priceNtd2
       };
     }
   });
@@ -8312,6 +8316,7 @@ input.input_filter.svelte-6kh99g.svelte-6kh99g {
   var PillBox_default = PillBox;
 
   // admin/properties.svelte
+  var import_formatter3 = __toESM(require_formatter());
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[14] = list[i];
@@ -8384,7 +8389,7 @@ input.input_filter.svelte-6kh99g.svelte-6kh99g {
       }
     };
   }
-  function create_else_block3(ctx) {
+  function create_else_block_13(ctx) {
     let t;
     return {
       c() {
@@ -8434,7 +8439,7 @@ input.input_filter.svelte-6kh99g.svelte-6kh99g {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*Object, currentPropHistory*/
+        if (dirty & /*Object, currentPropHistory, Date, priceNtd*/
         4) {
           each_value = ensure_array_like(
             /*currentPropHistory*/
@@ -8483,7 +8488,7 @@ input.input_filter.svelte-6kh99g.svelte-6kh99g {
       }
     };
   }
-  function create_each_block_12(ctx) {
+  function create_else_block3(ctx) {
     let pillbox;
     let current;
     pillbox = new PillBox_default({
@@ -8533,6 +8538,209 @@ input.input_filter.svelte-6kh99g.svelte-6kh99g {
       }
     };
   }
+  function create_if_block_34(ctx) {
+    let pillbox;
+    let current;
+    pillbox = new PillBox_default({
+      props: {
+        label: (
+          /*key*/
+          ctx[17]
+        ),
+        content: (0, import_formatter3.priceNtd)(
+          /*val*/
+          ctx[18]
+        )
+      }
+    });
+    return {
+      c() {
+        create_component(pillbox.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(pillbox, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const pillbox_changes = {};
+        if (dirty & /*currentPropHistory*/
+        4)
+          pillbox_changes.label = /*key*/
+          ctx2[17];
+        if (dirty & /*currentPropHistory*/
+        4)
+          pillbox_changes.content = (0, import_formatter3.priceNtd)(
+            /*val*/
+            ctx2[18]
+          );
+        pillbox.$set(pillbox_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(pillbox.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(pillbox.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(pillbox, detaching);
+      }
+    };
+  }
+  function create_if_block_24(ctx) {
+    let pillbox;
+    let current;
+    pillbox = new PillBox_default({
+      props: {
+        label: (
+          /*key*/
+          ctx[17]
+        ),
+        content: new Date(
+          /*val*/
+          ctx[18] * 1e3
+        )
+      }
+    });
+    return {
+      c() {
+        create_component(pillbox.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(pillbox, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const pillbox_changes = {};
+        if (dirty & /*currentPropHistory*/
+        4)
+          pillbox_changes.label = /*key*/
+          ctx2[17];
+        if (dirty & /*currentPropHistory*/
+        4)
+          pillbox_changes.content = new Date(
+            /*val*/
+            ctx2[18] * 1e3
+          );
+        pillbox.$set(pillbox_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(pillbox.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(pillbox.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(pillbox, detaching);
+      }
+    };
+  }
+  function create_if_block_15(ctx) {
+    let t;
+    return {
+      c() {
+        t = text("\xA0");
+      },
+      m(target, anchor) {
+        insert(target, t, anchor);
+      },
+      p: noop,
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(t);
+        }
+      }
+    };
+  }
+  function create_each_block_12(ctx) {
+    let current_block_type_index;
+    let if_block;
+    let if_block_anchor;
+    let current;
+    const if_block_creators = [create_if_block_15, create_if_block_24, create_if_block_34, create_else_block3];
+    const if_blocks = [];
+    function select_block_type_1(ctx2, dirty) {
+      if (
+        /*val*/
+        ctx2[18] === "0" || !/*val*/
+        ctx2[18]
+      )
+        return 0;
+      if (
+        /*key*/
+        ctx2[17] === "createdAt" || /*key*/
+        ctx2[17] === "updatedAt"
+      )
+        return 1;
+      if (
+        /*key*/
+        ctx2[17] === "priceNtd" || /*key*/
+        ctx2[17] === "pricePerUnit"
+      )
+        return 2;
+      return 3;
+    }
+    current_block_type_index = select_block_type_1(ctx, -1);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_blocks[current_block_type_index].m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type_1(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        } else {
+          group_outros();
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
+          });
+          check_outros();
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
+          } else {
+            if_block.p(ctx2, dirty);
+          }
+          transition_in(if_block, 1);
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if_blocks[current_block_type_index].d(detaching);
+      }
+    };
+  }
   function create_each_block3(ctx) {
     let each_1_anchor;
     let current;
@@ -8564,7 +8772,7 @@ input.input_filter.svelte-6kh99g.svelte-6kh99g {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*Object, currentPropHistory*/
+        if (dirty & /*Object, currentPropHistory, Date, priceNtd*/
         4) {
           each_value_1 = ensure_array_like(Object.entries(
             /*row*/
@@ -8620,7 +8828,7 @@ input.input_filter.svelte-6kh99g.svelte-6kh99g {
     let current_block_type_index;
     let if_block;
     let current;
-    const if_block_creators = [create_if_block5, create_else_block3];
+    const if_block_creators = [create_if_block5, create_else_block_13];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (

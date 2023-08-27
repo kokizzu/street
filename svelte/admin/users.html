@@ -2750,8 +2750,12 @@ input.input_filter.svelte-6kh99g.svelte-6kh99g {
         const formattedDate = dt.toLocaleDateString(void 0, options);
         return formattedDate;
       }
+      function priceNtd(val) {
+        return new Number(val * 1e3).toLocaleString("zh-TW");
+      }
       module.exports = {
-        datetime: datetime3
+        datetime: datetime3,
+        priceNtd
       };
     }
   });

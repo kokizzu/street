@@ -13,6 +13,7 @@
     import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
     import ModalDialog from '../_components/ModalDialog.svelte';
     import PillBox from '../_components/PillBox.svelte';
+    import { priceNtd } from '../_components/formatter';
 
     let segments = {/* segments */};
     let fields = [/* fields */];
@@ -139,7 +140,15 @@
             {#if currentPropHistory && currentPropHistory.length}
                 {#each currentPropHistory as row}
                     {#each Object.entries(row) as [key, val]}
-                        <PillBox label={key} content={val} />
+                        {#if val === '0' || !val}
+                            &nbsp;
+                        {:else if key === 'createdAt' || key === 'updatedAt'}
+                            <PillBox label={key} content={new Date(val*1000)} />
+                        {:else if key === 'priceNtd' || key === 'pricePerUnit'}
+                            <PillBox label={key} content={priceNtd(val)} />
+                        {:else}
+                            <PillBox label={key} content={val} />
+                        {/if}
                     {/each}
                 {/each}
             {:else}
