@@ -154,7 +154,7 @@ multiple filter from other fields will do AND operation'
                             </td>
                         {:else if field.inputType === 'checkbox'}
                             <td class='table_data'>{!!row[i]}</td>
-                        {:else if field.inputType === 'datetime'}
+                        {:else if field.inputType === 'datetime' || field.name === 'deletedAt'}
                             <td class='table_data'>{datetime(row[i])}</td>
                         {:else if field.inputType === 'number'}
                             <td>{(row[i] || 0).toLocaleString()}</td>
@@ -181,7 +181,7 @@ multiple filter from other fields will do AND operation'
             <span>rows per page.</span>
         </div>
 
-        <p>Total: {pager.countResult}</p>
+        <p>Total: {pager.countResult | 0}</p>
 
         <div class='pagination'>
             <button title='Go to first page' disabled={!allowPrevPage} on:click={() => gotoPage(1)}>

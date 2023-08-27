@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"github.com/kokizzu/gotro/M"
+
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
@@ -246,25 +248,10 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 			prop.SetCreatedAt(in.UnixNow())
 		}
 
-		prop.SetUniqPropKey(in.Property.UniqPropKey)
-		prop.SetSerialNumber(in.Property.SerialNumber)
-		prop.SetSizeM2(in.Property.SizeM2)
-		prop.SetMainUse(in.Property.MainUse)
-		prop.SetMainBuildingMaterial(in.Property.MainBuildingMaterial)
-		prop.SetConstructCompletedDate(in.Property.ConstructCompletedDate)
-		prop.SetNumberOfFloors(in.Property.NumberOfFloors)
-		prop.SetBuildingLamination(in.Property.BuildingLamination)
-		prop.SetAddress(in.Property.Address)
-		prop.SetDistrict(in.Property.District)
-		prop.SetNote(in.Property.Note)
-		prop.SetCoord(in.Property.Coord)
-		prop.SetLastPrice(in.Property.LastPrice)
-		prop.SetPurpose(in.Property.Purpose)
-		prop.SetHouseType(in.Property.HouseType)
-		prop.SetBedroom(in.Property.Bedroom)
-		prop.SetBathroom(in.Property.Bathroom)
-		prop.SetAgencyFeePercent(in.Property.AgencyFeePercent)
-		prop.SetCountry(in.Property.Country)
+		prop.SetAll(in.Property, M.SB{
+			`priceHistoriesSell`: true,
+			`priceHistoriesRent`: true,
+		}, M.SB{})
 
 		if prop.HaveMutation() {
 			prop.SetUpdatedAt(in.UnixNow())
@@ -274,7 +261,7 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 				prop.SetCreatedBy(sess.UserId)
 			}
 		}
-		if !prop.DoUpsert() {
+		if !prop.DoUpsert() { // if need the id, split DoInsert and DoUpdateById
 			out.SetError(500, ErrAdminPropertySaveFailed)
 			break
 		}

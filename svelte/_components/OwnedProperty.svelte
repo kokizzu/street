@@ -128,10 +128,7 @@
         {/if}
     </div>
     <div class='property_less_more'>
-        <button
-                on:click={handleShowMore}
-                class='toggle_show_more'
-        >
+        <button on:click={handleShowMore} class='toggle_show_more'>
             Show {showMore === true ? 'Less' : 'More'}
         </button>
     </div>

@@ -5420,7 +5420,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         return 1;
       if (
         /*field*/
-        ctx2[35].inputType === "datetime"
+        ctx2[35].inputType === "datetime" || /*field*/
+        ctx2[35].name === "deletedAt"
       )
         return 2;
       if (
@@ -5644,7 +5645,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t18;
     let t19_value = (
       /*pager*/
-      ctx[0].countResult + ""
+      (ctx[0].countResult | 0) + ""
     );
     let t19;
     let t20;
@@ -6165,7 +6166,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if ((!current || dirty[0] & /*pager*/
         1) && t19_value !== (t19_value = /*pager*/
-        ctx2[0].countResult + ""))
+        (ctx2[0].countResult | 0) + ""))
           set_data(t19, t19_value);
         const icon5_changes = {};
         if (dirty[0] & /*allowPrevPage*/
