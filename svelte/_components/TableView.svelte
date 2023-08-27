@@ -90,8 +90,8 @@
 <section>
     <slot />
     <button class='apply_filter_button' disabled={oldFilterStr===newFilterStr} onclick={applyFilter}>
-        <Icon size={18} src={FaSolidFilter} />
-        Apply Filter
+        <Icon size={18} color={oldFilterStr === newFilterStr ? '#5C646F' : '#FFFF'} src={FaSolidFilter} />
+        <span>Apply Filter</span>
     </button>
     <div class='pagination' style='float:right; display: inline-block'>
         <button title='Go to first page' disabled={!allowPrevPage} on:click={() => gotoPage(1)}>
@@ -330,13 +330,24 @@ multiple filter from other fields will do AND operation'
         border           : none;
     }
 
-    .pagination button:hover, .apply_filter_button {
+    .pagination button:hover, .apply_filter_button:hover {
         background-color : #7E80F1;
     }
 
     .apply_filter_button {
-        font-size   : 14pt;
-        font-weight : bold;
+        padding          : 8px 20px;
+        font-size        : 14pt;
+        font-weight      : bold;
+        display          : inline-flex;
+        flex-direction   : row;
+        align-items      : center;
+        justify-content  : center;
+        border           : none;
+        background-color : #6366F1;
+        border-radius    : 8px;
+        color            : white;
+        cursor           : pointer;
+        gap              : 8px;
     }
 
     .pagination button:disabled, .apply_filter_button:disabled {
