@@ -12,6 +12,7 @@
     import Icon from 'svelte-icons-pack/Icon.svelte';
     import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
     import ModalDialog from '../_components/ModalDialog.svelte';
+    import PillBox from '../_components/PillBox.svelte';
 
     let segments = {/* segments */};
     let fields = [/* fields */];
@@ -137,7 +138,9 @@
             <h3>Property History</h3>
             {#if currentPropHistory && currentPropHistory.length}
                 {#each currentPropHistory as row}
-                    {JSON.stringify(row)}<br />
+                    {#each Object.entries(row) as [key, val]}
+                        <PillBox label={key} content={val} />
+                    {/each}
                 {/each}
             {:else}
                 no history for this property
