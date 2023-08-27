@@ -1134,6 +1134,7 @@ exports.GuestVerifyEmail = async function GuestVerifyEmail( i, cb ) {
  * @property {number} pager.perPage
  * @property {Object} pager.filters
  * @property {Array<String>} pager.order
+ * @property {Object} showMeta
  */
 const RealtorOwnedPropertiesIn = {
   pager: { // zCrud.PagerIn
@@ -1143,10 +1144,12 @@ const RealtorOwnedPropertiesIn = {
     }, // map[string][]string
     order: [], // []string
   }, // zCrud.PagerIn
+  showMeta: false, // bool
 }
 /**
  * @typedef {Object} RealtorOwnedPropertiesOut
  * @property {Object} properties
+ * @property {Object} meta
  * @property {number} pager.page
  * @property {number} pager.perPage
  * @property {number} pager.pages
@@ -1157,6 +1160,8 @@ const RealtorOwnedPropertiesIn = {
 const RealtorOwnedPropertiesOut = {
   properties: { // []rqProperty.Property
   }, // []rqProperty.Property
+  meta: { // []zCrud.Field
+  }, // []zCrud.Field
   pager: { // zCrud.PagerOut
     page: 0, // int
     perPage: 0, // int

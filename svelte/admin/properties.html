@@ -665,36 +665,39 @@ input.input_filter.svelte-6kh99g.svelte-6kh99g {
 }
 
 /* fakecss:./_components/PillBox.esbuild-svelte-fake-css */
-.pill-box.svelte-c3l6b5.svelte-c3l6b5 {
+.pill-box.svelte-1x7s25u.svelte-1x7s25u {
   line-height: 25px;
+  display: inline-flex;
 }
-.pill-box-left.svelte-c3l6b5.svelte-c3l6b5,
-.pill-box-right.svelte-c3l6b5.svelte-c3l6b5 {
+.pill-box-left.svelte-1x7s25u.svelte-1x7s25u,
+.pill-box-right.svelte-1x7s25u.svelte-1x7s25u {
   border: 1px solid #E6E6E6;
   border-radius: 4px;
   color: #666;
   padding: 2px;
+  margin-bottom: 1em;
 }
-.pill-box-left.svelte-c3l6b5.svelte-c3l6b5 {
+.pill-box-left.svelte-1x7s25u.svelte-1x7s25u {
   background-color: #E6E6E6;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   padding-left: 6px;
   text-align: center;
 }
-.pill-box-right.svelte-c3l6b5.svelte-c3l6b5 {
+.pill-box-right.svelte-1x7s25u.svelte-1x7s25u {
   background-color: #FFF;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
   border-left: 0;
   padding-left: 4px;
   padding-right: 6px;
+  margin-right: 1em;
 }
-.pill-blue.svelte-c3l6b5 .pill-box-left.svelte-c3l6b5,
-.pill-blue.svelte-c3l6b5 .pill-box-right.svelte-c3l6b5 {
+.pill-blue.svelte-1x7s25u .pill-box-left.svelte-1x7s25u,
+.pill-blue.svelte-1x7s25u .pill-box-right.svelte-1x7s25u {
   border-color: #4DA6FF;
 }
-.pill-blue.svelte-c3l6b5 .pill-box-left.svelte-c3l6b5 {
+.pill-blue.svelte-1x7s25u .pill-box-left.svelte-1x7s25u {
   background-color: #4DA6FF;
   color: #E5F2FF;
 }
@@ -8232,7 +8235,7 @@ input.input_filter.svelte-6kh99g.svelte-6kh99g {
 
   // _components/PillBox.svelte
   function create_fragment9(ctx) {
-    let div;
+    let span2;
     let span0;
     let t0;
     let t1;
@@ -8240,7 +8243,7 @@ input.input_filter.svelte-6kh99g.svelte-6kh99g {
     let t2;
     return {
       c() {
-        div = element("div");
+        span2 = element("span");
         span0 = element("span");
         t0 = text(
           /*label*/
@@ -8252,16 +8255,16 @@ input.input_filter.svelte-6kh99g.svelte-6kh99g {
           /*content*/
           ctx[1]
         );
-        attr(span0, "class", "pill-box-left svelte-c3l6b5");
-        attr(span1, "class", "pill-box-right svelte-c3l6b5");
-        attr(div, "class", "pill-box pill-blue svelte-c3l6b5");
+        attr(span0, "class", "pill-box-left svelte-1x7s25u");
+        attr(span1, "class", "pill-box-right svelte-1x7s25u");
+        attr(span2, "class", "pill-box pill-blue svelte-1x7s25u");
       },
       m(target, anchor) {
-        insert(target, div, anchor);
-        append(div, span0);
+        insert(target, span2, anchor);
+        append(span2, span0);
         append(span0, t0);
-        append(div, t1);
-        append(div, span1);
+        append(span2, t1);
+        append(span2, span1);
         append(span1, t2);
       },
       p(ctx2, [dirty]) {
@@ -8284,7 +8287,7 @@ input.input_filter.svelte-6kh99g.svelte-6kh99g {
       o: noop,
       d(detaching) {
         if (detaching) {
-          detach(div);
+          detach(span2);
         }
       }
     };

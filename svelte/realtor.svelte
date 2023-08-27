@@ -11,6 +11,7 @@
 
   let ownedProperties = [/* ownedProperties */];
   let pager = [/* pager */];
+  let propertyMeta = [/* propertyMeta */];
 
   onMount(() => {
     console.log('ownedProperties=',ownedProperties);
@@ -39,7 +40,7 @@
         {#if ownedProperties.length}
           <section class="property_lists">
             {#each ownedProperties as property}
-              <OwnedProperty property={property} />
+              <OwnedProperty property={property} meta={propertyMeta} />
             {/each}
           </section>
         {:else}

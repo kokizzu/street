@@ -3,19 +3,16 @@
     export let content = 'content';
 </script>
 
-<div class='pill-box pill-blue'>
-    <span class='pill-box-left'>
-      {label}
-    </span>
-    <span class='pill-box-right'>
-      {content}
-    </span>
-</div>
+<span class='pill-box pill-blue'>
+    <span class='pill-box-left'>{label}</span>
+    <span class='pill-box-right'>{content}</span>
+</span>
 
 <style>
 
     .pill-box {
         line-height : 25px;
+        display     : inline-flex;
     }
 
     .pill-box-left,
@@ -24,6 +21,7 @@
         border-radius : 4px;
         color         : #666;
         padding       : 2px;
+        margin-bottom : 1em;
     }
 
     .pill-box-left {
@@ -41,6 +39,7 @@
         border-left               : 0;
         padding-left              : 4px;
         padding-right             : 6px;
+        margin-right              : 1em;
     }
 
     .pill-blue .pill-box-left,

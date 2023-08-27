@@ -121,6 +121,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		}
 		out := d.RealtorOwnedProperties(&domain.RealtorOwnedPropertiesIn{
 			RequestCommon: in.RequestCommon,
+			ShowMeta:      true,
 		})
 		if len(out.Properties) == 0 {
 			out.Properties = []rqProperty.Property{}
@@ -130,6 +131,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			`segments`:        segments,
 			`ownedProperties`: out.Properties,
 			`pager`:           out.Pager,
+			`propertyMeta`:    out.Meta,
 		})
 	})
 	fw.Get(`/realtor/property`, func(ctx *fiber.Ctx) error {

@@ -79,7 +79,7 @@ var (
 			},
 			{
 				Name:      mProperty.MainUse,
-				Label:     `Main Use`,
+				Label:     `Main Use / Facility`,
 				DataType:  zCrud.DataTypeString,
 				InputType: zCrud.InputTypeText,
 			},
