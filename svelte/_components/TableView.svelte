@@ -116,7 +116,7 @@
                         <th class='col_action'>Action</th>
                     {:else}
                         <th class='table_header'
-                        style='{widths[field.name] ? "min-width: "+widths[field.name] : ""}'>
+                            style='{widths[field.name] ? "min-width: "+widths[field.name] : ""}'>
                             <label for='th_{field.name}'>{field.label}</label><br />
                             <input id='th_{field.name}'
                                    title='separate with pipe for multiple values, for example:
@@ -128,7 +128,7 @@
   *jkl* will show values containing jkl substring
 multiple filter from other fields will do AND operation'
                                    type='text'
-                                   style='width: 0; min-width: 100%; box-sizing: border-box;'
+                                   class='input_filter'
                                    bind:value={filtersMap[field.name]}
                                    on:keydown={filterKeyDown}
                             />
@@ -258,7 +258,7 @@ multiple filter from other fields will do AND operation'
     }
 
     tr, td {
-        height: 2em;
+        height : 2em;
     }
 
     .table_users .col_action .action {
@@ -348,5 +348,11 @@ multiple filter from other fields will do AND operation'
 
     .pagination button:disabled:hover {
         background : none;
+    }
+
+    input.input_filter {
+        width      : 0;
+        min-width  : 100%;
+        box-sizing : border-box;
     }
 </style>
