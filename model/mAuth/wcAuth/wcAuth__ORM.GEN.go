@@ -326,7 +326,13 @@ func (u *UsersMutator) DoInsert() bool { //nolint:dupl false positive
 // replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
 func (u *UsersMutator) DoUpsert() bool { //nolint:dupl false positive
-	_, err := u.Adapter.Replace(u.SpaceName(), u.ToArray())
+	row, err := u.Adapter.Replace(u.SpaceName(), u.ToArray())
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			u.Id = X.ToU(tup[0][0])
+		}
+	}
 	return !L.IsError(err, `Users.DoUpsert failed: `+u.SpaceName())
 }
 

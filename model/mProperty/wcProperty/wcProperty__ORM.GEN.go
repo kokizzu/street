@@ -145,7 +145,13 @@ func (p *PropertyMutator) DoInsert() bool { //nolint:dupl false positive
 // replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
 func (p *PropertyMutator) DoUpsert() bool { //nolint:dupl false positive
-	_, err := p.Adapter.Replace(p.SpaceName(), p.ToArray())
+	row, err := p.Adapter.Replace(p.SpaceName(), p.ToArray())
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			p.Id = X.ToU(tup[0][0])
+		}
+	}
 	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName())
 }
 
@@ -710,7 +716,13 @@ func (p *PropertyHistoryMutator) DoInsert() bool { //nolint:dupl false positive
 // replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
 func (p *PropertyHistoryMutator) DoUpsert() bool { //nolint:dupl false positive
-	_, err := p.Adapter.Replace(p.SpaceName(), p.ToArray())
+	row, err := p.Adapter.Replace(p.SpaceName(), p.ToArray())
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			p.Id = X.ToU(tup[0][0])
+		}
+	}
 	return !L.IsError(err, `PropertyHistory.DoUpsert failed: `+p.SpaceName())
 }
 

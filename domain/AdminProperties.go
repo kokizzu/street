@@ -248,12 +248,12 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 			prop.SetCreatedAt(in.UnixNow())
 		}
 
-		prop.SetAll(in.Property, M.SB{
+		haveMutation := prop.SetAll(in.Property, M.SB{
 			`priceHistoriesSell`: true,
 			`priceHistoriesRent`: true,
 		}, M.SB{})
 
-		if prop.HaveMutation() {
+		if haveMutation {
 			prop.SetUpdatedAt(in.UnixNow())
 			prop.SetUpdatedBy(sess.UserId)
 			if prop.Id == 0 {
@@ -261,7 +261,7 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 				prop.SetCreatedBy(sess.UserId)
 			}
 		}
-		if !prop.DoUpsert() { // if need the id, split DoInsert and DoUpdateById
+		if !prop.DoUpsert() {
 			out.SetError(500, ErrAdminPropertySaveFailed)
 			break
 		}

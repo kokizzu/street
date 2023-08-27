@@ -186,9 +186,9 @@ func (d *Domain) AdminPropHistories(in *AdminPropHistoriesIn) (out AdminPropHist
 			ph.SetCreatedAt(in.UnixNow())
 		}
 
-		ph.SetAll(in.PropHistory, M.SB{}, M.SB{})
+		haveMutation := ph.SetAll(in.PropHistory, M.SB{}, M.SB{})
 
-		if ph.HaveMutation() {
+		if haveMutation {
 			ph.SetUpdatedAt(in.UnixNow())
 			ph.SetUpdatedBy(sess.UserId)
 			if ph.Id == 0 {

@@ -37,8 +37,7 @@ const (
 	ErrRealtorUpsertPropertyEmptyImage          = `property image empty`
 	ErrRealtorUpsertPropertyAddressAlreadyAdded = `property address already added by you in the past`
 	ErrRealtorUpsertPropertyNotOwnedByYou       = `property not owned by you`
-	ErrRealtorUpsertPropertyInsertFailed        = `property save failed`
-	ErrRealtorUpsertPropertyUpdateFailed        = `property update failed`
+	ErrRealtorUpsertPropertySaveFailed          = `property save failed`
 )
 
 func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out RealtorUpsertPropertyOut) {
@@ -97,16 +96,9 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 		}
 	}
 
-	if prop.Id == 0 {
-		if !prop.DoInsert() {
-			out.SetError(500, ErrRealtorUpsertPropertyInsertFailed)
-			return
-		}
-	} else {
-		if !prop.DoUpsert() {
-			out.SetError(500, ErrRealtorUpsertPropertyUpdateFailed)
-			return
-		}
+	if !prop.DoUpsert() {
+		out.SetError(500, ErrRealtorUpsertPropertySaveFailed)
+		return
 	}
 
 	out.Property = &prop.Property
