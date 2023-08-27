@@ -122,6 +122,7 @@ func (p *Property) FindOwnedByPagination(ownerId uint64, in *zCrud.PagerIn, out 
 	}
 	// override owner
 	in.Filters[mProperty.CreatedBy] = []string{`=`, X.ToS(ownerId)}
+	in.Filters[mProperty.DeletedAt] = []string{`=`, `0`}
 	whereAndSql := out.WhereAndSql(in.Filters, validFields)
 
 	queryCount := comment + `
