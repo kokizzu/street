@@ -2761,6 +2761,45 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   });
 
+  // _components/formatter.js
+  var require_formatter = __commonJS({
+    "_components/formatter.js"(exports, module) {
+      function datetime(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = new Date(unixSec * 1e3);
+        const options = { day: "2-digit", month: "long", year: "numeric" };
+        const formattedDate = dt.toLocaleDateString(void 0, options);
+        return formattedDate;
+      }
+      function priceNtd(val) {
+        return new Number(val).toLocaleString("zh-TW");
+      }
+      function localeDatetime2(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = new Date(unixSec * 1e3);
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = dt.getDate();
+        const month = dt.toLocaleDateString("default", { month: "long" });
+        const year = dt.getFullYear();
+        let hh = dt.getHours();
+        if (hh < 10)
+          hh = "0" + hh;
+        let mm = dt.getMinutes();
+        if (mm < 10)
+          mm = "0" + mm;
+        const formattedDate = `${day}, ${date} ${month} ${year} ${hh}:${mm}`;
+        return formattedDate;
+      }
+      module.exports = {
+        datetime,
+        priceNtd,
+        localeDatetime: localeDatetime2
+      };
+    }
+  });
+
   // node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
@@ -4766,6 +4805,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var PillBox_default = PillBox;
 
   // _components/OwnedProperty.svelte
+  var import_formatter = __toESM(require_formatter());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[4] = list[i];
@@ -4961,7 +5001,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*m*/
           ctx[10].label
         ),
-        content: datetime(
+        content: (0, import_formatter.localeDatetime)(
           /*property*/
           ctx[0][
             /*m*/
@@ -4986,7 +5026,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           ctx2[10].label;
         if (dirty & /*property, meta*/
         3)
-          pillbox_changes.content = datetime(
+          pillbox_changes.content = (0, import_formatter.localeDatetime)(
             /*property*/
             ctx2[0][
               /*m*/
@@ -5888,7 +5928,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         1) && t33_value !== (t33_value = /*property*/
         (ctx2[0].sizeM2 || "0") + ""))
           set_data(t33, t33_value);
-        if (dirty & /*meta, datetime, property*/
+        if (dirty & /*meta, localeDatetime, property*/
         3) {
           each_value_2 = ensure_array_like(
             /*meta*/
@@ -5970,23 +6010,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         dispose();
       }
     };
-  }
-  function datetime(unixSec) {
-    if (!unixSec)
-      return "";
-    const dt = new Date(unixSec * 1e3);
-    const day = dt.toLocaleDateString("default", { weekday: "long" });
-    const date = dt.getDate();
-    const month = dt.toLocaleDateString("default", { month: "long" });
-    const year = dt.getFullYear();
-    let hh = dt.getHours();
-    if (hh < 10)
-      hh = "0" + hh;
-    let mm = dt.getMinutes();
-    if (mm < 10)
-      mm = "0" + mm;
-    const formattedDate = `${day}, ${date} ${month} ${year} ${hh}:${mm}`;
-    return formattedDate;
   }
   function instance6($self, $props, $invalidate) {
     let { property } = $props;

@@ -5,25 +5,11 @@
     import FaSolidPen from 'svelte-icons-pack/fa/FaSolidPen';
     import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
     import PillBox from './PillBox.svelte';
+    import { localeDatetime } from './formatter';
 
     export let property;
     export let meta;
     let showMore = false;
-
-    function datetime(unixSec) {
-        if (!unixSec) return '';
-        const dt = new Date(unixSec * 1000);
-        const day = dt.toLocaleDateString('default', {weekday: 'long'});
-        const date = dt.getDate();
-        const month = dt.toLocaleDateString('default', {month: 'long'});
-        const year = dt.getFullYear();
-        let hh = dt.getHours();
-        if (hh < 10) hh = '0' + hh;
-        let mm = dt.getMinutes();
-        if (mm < 10) mm = '0' + mm;
-        const formattedDate = `${day}, ${date} ${month} ${year} ${hh}:${mm}`;
-        return formattedDate;
-    }
 
     function handleShowMore() {
         showMore = !showMore;
@@ -92,7 +78,7 @@
         {#each meta as m}
             {#if property[m.name]}
                 {#if m.inputType === 'datetime'}
-                    <PillBox label={m.label} content={datetime(property[m.name])} />
+                    <PillBox label={m.label} content={localeDatetime(property[m.name])} />
                 {:else}
                     <PillBox label={m.label} content={property[m.name]} />
                 {/if}
