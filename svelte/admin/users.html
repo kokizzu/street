@@ -2739,14 +2739,29 @@ td.svelte-aue75n.svelte-aue75n {
     "_components/formatter.js"(exports, module) {
       function datetime3(unixSec) {
         if (!unixSec)
-          return "";
+          return "-";
         const dt = new Date(unixSec * 1e3);
         const options = { day: "2-digit", month: "long", year: "numeric" };
         const formattedDate = dt.toLocaleDateString(void 0, options);
         return formattedDate;
       }
+      function datetime22(unixSec) {
+        if (!unixSec)
+          return "-";
+        const dt = new Date(unixSec * 1e3);
+        const year = dt.getFullYear();
+        const month = dt.toLocaleDateString("default", { month: "long" });
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = String(dt.getDate()).padStart(2, "0");
+        const hours = String(dt.getHours()).padStart(2, "0");
+        const minutes = String(dt.getMinutes()).padStart(2, "0");
+        const seconds = String(dt.getSeconds()).padStart(2, "0");
+        const formattedDate = `${day}, ${date} ${month} ${year} - ${hours}:${minutes}:${seconds}`;
+        return formattedDate;
+      }
       module.exports = {
-        datetime: datetime3
+        datetime: datetime3,
+        datetime2: datetime22
       };
     }
   });

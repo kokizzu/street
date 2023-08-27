@@ -601,47 +601,60 @@ td.svelte-aue75n.svelte-aue75n {
 }
 
 /* fakecss:./_components/ModalDialog.esbuild-svelte-fake-css */
-.backdrop.svelte-1rp36sr.svelte-1rp36sr {
-  position: absolute;
+.backdrop.svelte-1fw6la4.svelte-1fw6la4 {
+  position: fixed;
   z-index: 40;
-  background: rgba(41, 41, 41, 0.5);
-  width: 100%;
-  left: 0;
   top: 0;
+  left: 0;
   bottom: 0;
-  height: auto;
-  border-radius: 8px;
+  background: rgba(41, 41, 41, 0.9);
+  overflow-y: auto;
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
-.modal_dialog.svelte-1rp36sr.svelte-1rp36sr {
-  color: #334155;
-  width: 400px;
-  height: fit-content;
-  gap: 40px;
+.backdrop.svelte-1fw6la4.svelte-1fw6la4::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+.backdrop.svelte-1fw6la4.svelte-1fw6la4::-webkit-scrollbar {
+  width: 0;
+}
+.backdrop.svelte-1fw6la4.svelte-1fw6la4::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.modal_dialog.svelte-1fw6la4.svelte-1fw6la4 {
   background-color: white;
+  width: 55%;
+  height: fit-content;
+  margin: 50px 0 0 0;
   padding: 20px;
-  border-radius: 8px;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 20px;
+  color: #334155;
 }
-.modal_dialog.svelte-1rp36sr h3.svelte-1rp36sr {
+.modal_dialog.svelte-1fw6la4 .modal_content.svelte-1fw6la4 {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.modal_dialog.svelte-1fw6la4 .modal_content h3.svelte-1fw6la4 {
   font-weight: 600;
   margin: 0;
   font-size: 18px;
   width: 100%;
   text-align: center;
 }
-.modal_dialog.svelte-1rp36sr .buttons.svelte-1rp36sr {
+.modal_dialog.svelte-1fw6la4 .buttons.svelte-1fw6la4 {
   display: flex;
   flex-direction: row;
   align-items: stretch;
   font-weight: 500;
   width: 100%;
 }
-.modal_dialog.svelte-1rp36sr .buttons button.svelte-1rp36sr {
+.modal_dialog.svelte-1fw6la4 .buttons button.svelte-1fw6la4 {
   border-radius: 8px;
   border: none;
   padding: 10px;
@@ -649,14 +662,44 @@ td.svelte-aue75n.svelte-aue75n {
   width: 100%;
   text-transform: capitalize;
 }
-.modal_dialog.svelte-1rp36sr .buttons .cancel_button.svelte-1rp36sr {
+.modal_dialog.svelte-1fw6la4 .buttons .cancel_button.svelte-1fw6la4 {
   margin-right: 10px;
-  border: 1px solid #CBD5E1;
-  background-color: #F1F5F9;
-  color: #F97316;
+  border: 1px solid #cbd5e1;
+  background-color: #f1f5f9;
+  color: #f97316;
 }
-.modal_dialog.svelte-1rp36sr .buttons .cancel_button.svelte-1rp36sr:hover {
-  border: 1px solid #F97316;
+.modal_dialog.svelte-1fw6la4 .buttons .cancel_button.svelte-1fw6la4:hover {
+  border: 1px solid #f97316;
+}
+
+/* fakecss:./admin/properties.esbuild-svelte-fake-css */
+.prop_item.svelte-1254c61.svelte-1254c61 {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  border: 1px solid #cbd5e1;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+}
+.prop_item.svelte-1254c61 .row.svelte-1254c61 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+.prop_item.svelte-1254c61 .row p.svelte-1254c61 {
+  margin: 0;
+}
+.prop_item.svelte-1254c61 .row .name.svelte-1254c61 {
+  width: 35%;
+}
+.prop_item.svelte-1254c61 .row .name.svelte-1254c61,
+.prop_item.svelte-1254c61 .row span.svelte-1254c61 {
+  font-weight: 700;
+}
+.prop_item.svelte-1254c61 .row .value.svelte-1254c61 {
+  flex-grow: 1;
 }
 </style>
 <script>(() => {
@@ -2798,14 +2841,29 @@ td.svelte-aue75n.svelte-aue75n {
     "_components/formatter.js"(exports, module) {
       function datetime3(unixSec) {
         if (!unixSec)
-          return "";
+          return "-";
         const dt = new Date(unixSec * 1e3);
         const options = { day: "2-digit", month: "long", year: "numeric" };
         const formattedDate = dt.toLocaleDateString(void 0, options);
         return formattedDate;
       }
+      function datetime23(unixSec) {
+        if (!unixSec)
+          return "-";
+        const dt = new Date(unixSec * 1e3);
+        const year = dt.getFullYear();
+        const month = dt.toLocaleDateString("default", { month: "long" });
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = String(dt.getDate()).padStart(2, "0");
+        const hours = String(dt.getHours()).padStart(2, "0");
+        const minutes = String(dt.getMinutes()).padStart(2, "0");
+        const seconds = String(dt.getSeconds()).padStart(2, "0");
+        const formattedDate = `${day}, ${date} ${month} ${year} - ${hours}:${minutes}:${seconds}`;
+        return formattedDate;
+      }
       module.exports = {
-        datetime: datetime3
+        datetime: datetime3,
+        datetime2: datetime23
       };
     }
   });
@@ -7841,6 +7899,7 @@ td.svelte-aue75n.svelte-aue75n {
 
   // admin/properties.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
+  var import_formatter3 = __toESM(require_formatter());
 
   // node_modules/svelte-icons-pack/fa/FaSolidPlusCircle.js
   var FaSolidPlusCircle_default = {
@@ -7914,11 +7973,11 @@ td.svelte-aue75n.svelte-aue75n {
         t3 = space();
         if (buttons_slot)
           buttons_slot.c();
-        attr(div0, "class", "modal_content");
-        attr(button, "class", "cancel_button svelte-1rp36sr");
-        attr(div1, "class", "buttons svelte-1rp36sr");
-        attr(div2, "class", "modal_dialog svelte-1rp36sr");
-        attr(div3, "class", "backdrop svelte-1rp36sr");
+        attr(div0, "class", "modal_content svelte-1fw6la4");
+        attr(button, "class", "cancel_button svelte-1fw6la4");
+        attr(div1, "class", "buttons svelte-1fw6la4");
+        attr(div2, "class", "modal_dialog svelte-1fw6la4");
+        attr(div3, "class", "backdrop svelte-1fw6la4");
       },
       m(target, anchor) {
         insert(target, div3, anchor);
@@ -8054,7 +8113,7 @@ td.svelte-aue75n.svelte-aue75n {
           /*title*/
           ctx[2]
         );
-        attr(h3, "class", "svelte-1rp36sr");
+        attr(h3, "class", "svelte-1fw6la4");
       },
       m(target, anchor) {
         insert(target, h3, anchor);
@@ -8302,7 +8361,7 @@ td.svelte-aue75n.svelte-aue75n {
         insert(target, each_1_anchor, anchor);
       },
       p(ctx2, dirty) {
-        if (dirty & /*JSON, currentPropHistory*/
+        if (dirty & /*currentPropHistory, datetime2*/
         4) {
           each_value = ensure_array_like(
             /*currentPropHistory*/
@@ -8334,41 +8393,644 @@ td.svelte-aue75n.svelte-aue75n {
     };
   }
   function create_each_block3(ctx) {
-    let t_value = JSON.stringify(
+    let div19;
+    let div0;
+    let p0;
+    let span0;
+    let p1;
+    let t2_value = (
       /*row*/
-      ctx[14]
+      ctx[14].id + ""
+    );
+    let t2;
+    let t3;
+    let div1;
+    let p2;
+    let span1;
+    let p3;
+    let t6_value = ((0, import_formatter3.datetime2)(
+      /*row*/
+      ctx[14].createdAt
+    ) || "-") + "";
+    let t6;
+    let t7;
+    let div2;
+    let p4;
+    let span2;
+    let p5;
+    let t10_value = (
+      /*row*/
+      ctx[14].createdBy + ""
+    );
+    let t10;
+    let t11;
+    let div3;
+    let p6;
+    let span3;
+    let p7;
+    let t14_value = ((0, import_formatter3.datetime2)(
+      /*row*/
+      ctx[14].deletedAt
+    ) || "-") + "";
+    let t14;
+    let t15;
+    let div4;
+    let p8;
+    let span4;
+    let p9;
+    let t18_value = ((0, import_formatter3.datetime2)(
+      /*row*/
+      ctx[14].updatedAt
+    ) || "-") + "";
+    let t18;
+    let t19;
+    let div5;
+    let p10;
+    let span5;
+    let p11;
+    let t22_value = (0, import_formatter3.datetime2)(
+      /*row*/
+      ctx[14].updatedBy
     ) + "";
-    let t;
-    let br;
+    let t22;
+    let t23;
+    let div6;
+    let p12;
+    let span6;
+    let p13;
+    let t26_value = (
+      /*row*/
+      ctx[14].address + ""
+    );
+    let t26;
+    let t27;
+    let div7;
+    let p14;
+    let span7;
+    let p15;
+    let t30_value = (
+      /*row*/
+      ctx[14].district + ""
+    );
+    let t30;
+    let t31;
+    let div8;
+    let p16;
+    let span8;
+    let p17;
+    let t34_value = (
+      /*row*/
+      ctx[14].price + ""
+    );
+    let t34;
+    let t35;
+    let div9;
+    let p18;
+    let span9;
+    let p19;
+    let t38_value = (
+      /*row*/
+      ctx[14].priceNtd + ""
+    );
+    let t38;
+    let t39;
+    let div10;
+    let p20;
+    let span10;
+    let p21;
+    let t42_value = (
+      /*row*/
+      ctx[14].pricePerUnit + ""
+    );
+    let t42;
+    let t43;
+    let div11;
+    let p22;
+    let span11;
+    let p23;
+    let t46_value = (
+      /*row*/
+      ctx[14].propertyKey + ""
+    );
+    let t46;
+    let t47;
+    let div12;
+    let p24;
+    let span12;
+    let p25;
+    let t50_value = (
+      /*row*/
+      ctx[14].serialNumber + ""
+    );
+    let t50;
+    let t51;
+    let div13;
+    let p26;
+    let span13;
+    let p27;
+    let t54_value = (
+      /*row*/
+      (ctx[14].transactionDateNormal || "-") + ""
+    );
+    let t54;
+    let t55;
+    let div14;
+    let p28;
+    let span14;
+    let p29;
+    let t58_value = (
+      /*row*/
+      ctx[14].transactionKey + ""
+    );
+    let t58;
+    let t59;
+    let div15;
+    let p30;
+    let span15;
+    let p31;
+    let t62_value = (
+      /*row*/
+      ctx[14].transactionNumber + ""
+    );
+    let t62;
+    let t63;
+    let div16;
+    let p32;
+    let span16;
+    let p33;
+    let t66_value = (
+      /*row*/
+      ctx[14].transactionSign + ""
+    );
+    let t66;
+    let t67;
+    let div17;
+    let p34;
+    let span17;
+    let p35;
+    let t70_value = (0, import_formatter3.datetime2)(
+      /*row*/
+      ctx[14].transactionTime
+    ) + "";
+    let t70;
+    let t71;
+    let div18;
+    let p36;
+    let span18;
+    let p37;
+    let t74_value = (
+      /*row*/
+      ctx[14].transactionType + ""
+    );
+    let t74;
+    let t75;
     return {
       c() {
-        t = text(t_value);
-        br = element("br");
+        div19 = element("div");
+        div0 = element("div");
+        p0 = element("p");
+        p0.textContent = "Property ID";
+        span0 = element("span");
+        span0.textContent = ":";
+        p1 = element("p");
+        t2 = text(t2_value);
+        t3 = space();
+        div1 = element("div");
+        p2 = element("p");
+        p2.textContent = "Created At";
+        span1 = element("span");
+        span1.textContent = ":";
+        p3 = element("p");
+        t6 = text(t6_value);
+        t7 = space();
+        div2 = element("div");
+        p4 = element("p");
+        p4.textContent = "Created By";
+        span2 = element("span");
+        span2.textContent = ":";
+        p5 = element("p");
+        t10 = text(t10_value);
+        t11 = space();
+        div3 = element("div");
+        p6 = element("p");
+        p6.textContent = "Deleted At";
+        span3 = element("span");
+        span3.textContent = ":";
+        p7 = element("p");
+        t14 = text(t14_value);
+        t15 = space();
+        div4 = element("div");
+        p8 = element("p");
+        p8.textContent = "Updated At";
+        span4 = element("span");
+        span4.textContent = ":";
+        p9 = element("p");
+        t18 = text(t18_value);
+        t19 = space();
+        div5 = element("div");
+        p10 = element("p");
+        p10.textContent = "Updated By";
+        span5 = element("span");
+        span5.textContent = ":";
+        p11 = element("p");
+        t22 = text(t22_value);
+        t23 = space();
+        div6 = element("div");
+        p12 = element("p");
+        p12.textContent = "Address";
+        span6 = element("span");
+        span6.textContent = ":";
+        p13 = element("p");
+        t26 = text(t26_value);
+        t27 = space();
+        div7 = element("div");
+        p14 = element("p");
+        p14.textContent = "District";
+        span7 = element("span");
+        span7.textContent = ":";
+        p15 = element("p");
+        t30 = text(t30_value);
+        t31 = space();
+        div8 = element("div");
+        p16 = element("p");
+        p16.textContent = "Price";
+        span8 = element("span");
+        span8.textContent = ":";
+        p17 = element("p");
+        t34 = text(t34_value);
+        t35 = space();
+        div9 = element("div");
+        p18 = element("p");
+        p18.textContent = "Price NTD";
+        span9 = element("span");
+        span9.textContent = ":";
+        p19 = element("p");
+        t38 = text(t38_value);
+        t39 = space();
+        div10 = element("div");
+        p20 = element("p");
+        p20.textContent = "Price per Unit";
+        span10 = element("span");
+        span10.textContent = ":";
+        p21 = element("p");
+        t42 = text(t42_value);
+        t43 = space();
+        div11 = element("div");
+        p22 = element("p");
+        p22.textContent = "Property Key";
+        span11 = element("span");
+        span11.textContent = ":";
+        p23 = element("p");
+        t46 = text(t46_value);
+        t47 = space();
+        div12 = element("div");
+        p24 = element("p");
+        p24.textContent = "Serial Number";
+        span12 = element("span");
+        span12.textContent = ":";
+        p25 = element("p");
+        t50 = text(t50_value);
+        t51 = space();
+        div13 = element("div");
+        p26 = element("p");
+        p26.textContent = "Transaction date normal";
+        span13 = element("span");
+        span13.textContent = ":";
+        p27 = element("p");
+        t54 = text(t54_value);
+        t55 = space();
+        div14 = element("div");
+        p28 = element("p");
+        p28.textContent = "Transaction Key";
+        span14 = element("span");
+        span14.textContent = ":";
+        p29 = element("p");
+        t58 = text(t58_value);
+        t59 = space();
+        div15 = element("div");
+        p30 = element("p");
+        p30.textContent = "Transaction Number";
+        span15 = element("span");
+        span15.textContent = ":";
+        p31 = element("p");
+        t62 = text(t62_value);
+        t63 = space();
+        div16 = element("div");
+        p32 = element("p");
+        p32.textContent = "Transaction Sign";
+        span16 = element("span");
+        span16.textContent = ":";
+        p33 = element("p");
+        t66 = text(t66_value);
+        t67 = space();
+        div17 = element("div");
+        p34 = element("p");
+        p34.textContent = "Transaction Time";
+        span17 = element("span");
+        span17.textContent = ":";
+        p35 = element("p");
+        t70 = text(t70_value);
+        t71 = space();
+        div18 = element("div");
+        p36 = element("p");
+        p36.textContent = "Transaction Type";
+        span18 = element("span");
+        span18.textContent = ":";
+        p37 = element("p");
+        t74 = text(t74_value);
+        t75 = space();
+        attr(p0, "class", "name svelte-1254c61");
+        attr(span0, "class", "svelte-1254c61");
+        attr(p1, "class", "value svelte-1254c61");
+        attr(div0, "class", "row svelte-1254c61");
+        attr(p2, "class", "name svelte-1254c61");
+        attr(span1, "class", "svelte-1254c61");
+        attr(p3, "class", "value svelte-1254c61");
+        attr(div1, "class", "row svelte-1254c61");
+        attr(p4, "class", "name svelte-1254c61");
+        attr(span2, "class", "svelte-1254c61");
+        attr(p5, "class", "value svelte-1254c61");
+        attr(div2, "class", "row svelte-1254c61");
+        attr(p6, "class", "name svelte-1254c61");
+        attr(span3, "class", "svelte-1254c61");
+        attr(p7, "class", "value svelte-1254c61");
+        attr(div3, "class", "row svelte-1254c61");
+        attr(p8, "class", "name svelte-1254c61");
+        attr(span4, "class", "svelte-1254c61");
+        attr(p9, "class", "value svelte-1254c61");
+        attr(div4, "class", "row svelte-1254c61");
+        attr(p10, "class", "name svelte-1254c61");
+        attr(span5, "class", "svelte-1254c61");
+        attr(p11, "class", "value svelte-1254c61");
+        attr(div5, "class", "row svelte-1254c61");
+        attr(p12, "class", "name svelte-1254c61");
+        attr(span6, "class", "svelte-1254c61");
+        attr(p13, "class", "value svelte-1254c61");
+        attr(div6, "class", "row svelte-1254c61");
+        attr(p14, "class", "name svelte-1254c61");
+        attr(span7, "class", "svelte-1254c61");
+        attr(p15, "class", "value svelte-1254c61");
+        attr(div7, "class", "row svelte-1254c61");
+        attr(p16, "class", "name svelte-1254c61");
+        attr(span8, "class", "svelte-1254c61");
+        attr(p17, "class", "value svelte-1254c61");
+        attr(div8, "class", "row svelte-1254c61");
+        attr(p18, "class", "name svelte-1254c61");
+        attr(span9, "class", "svelte-1254c61");
+        attr(p19, "class", "value svelte-1254c61");
+        attr(div9, "class", "row svelte-1254c61");
+        attr(p20, "class", "name svelte-1254c61");
+        attr(span10, "class", "svelte-1254c61");
+        attr(p21, "class", "value svelte-1254c61");
+        attr(div10, "class", "row svelte-1254c61");
+        attr(p22, "class", "name svelte-1254c61");
+        attr(span11, "class", "svelte-1254c61");
+        attr(p23, "class", "value svelte-1254c61");
+        attr(div11, "class", "row svelte-1254c61");
+        attr(p24, "class", "name svelte-1254c61");
+        attr(span12, "class", "svelte-1254c61");
+        attr(p25, "class", "value svelte-1254c61");
+        attr(div12, "class", "row svelte-1254c61");
+        attr(p26, "class", "name svelte-1254c61");
+        attr(span13, "class", "svelte-1254c61");
+        attr(p27, "class", "value svelte-1254c61");
+        attr(div13, "class", "row svelte-1254c61");
+        attr(p28, "class", "name svelte-1254c61");
+        attr(span14, "class", "svelte-1254c61");
+        attr(p29, "class", "value svelte-1254c61");
+        attr(div14, "class", "row svelte-1254c61");
+        attr(p30, "class", "name svelte-1254c61");
+        attr(span15, "class", "svelte-1254c61");
+        attr(p31, "class", "value svelte-1254c61");
+        attr(div15, "class", "row svelte-1254c61");
+        attr(p32, "class", "name svelte-1254c61");
+        attr(span16, "class", "svelte-1254c61");
+        attr(p33, "class", "value svelte-1254c61");
+        attr(div16, "class", "row svelte-1254c61");
+        attr(p34, "class", "name svelte-1254c61");
+        attr(span17, "class", "svelte-1254c61");
+        attr(p35, "class", "value svelte-1254c61");
+        attr(div17, "class", "row svelte-1254c61");
+        attr(p36, "class", "name svelte-1254c61");
+        attr(span18, "class", "svelte-1254c61");
+        attr(p37, "class", "value svelte-1254c61");
+        attr(div18, "class", "row svelte-1254c61");
+        attr(div19, "class", "prop_item svelte-1254c61");
       },
       m(target, anchor) {
-        insert(target, t, anchor);
-        insert(target, br, anchor);
+        insert(target, div19, anchor);
+        append(div19, div0);
+        append(div0, p0);
+        append(div0, span0);
+        append(div0, p1);
+        append(p1, t2);
+        append(div19, t3);
+        append(div19, div1);
+        append(div1, p2);
+        append(div1, span1);
+        append(div1, p3);
+        append(p3, t6);
+        append(div19, t7);
+        append(div19, div2);
+        append(div2, p4);
+        append(div2, span2);
+        append(div2, p5);
+        append(p5, t10);
+        append(div19, t11);
+        append(div19, div3);
+        append(div3, p6);
+        append(div3, span3);
+        append(div3, p7);
+        append(p7, t14);
+        append(div19, t15);
+        append(div19, div4);
+        append(div4, p8);
+        append(div4, span4);
+        append(div4, p9);
+        append(p9, t18);
+        append(div19, t19);
+        append(div19, div5);
+        append(div5, p10);
+        append(div5, span5);
+        append(div5, p11);
+        append(p11, t22);
+        append(div19, t23);
+        append(div19, div6);
+        append(div6, p12);
+        append(div6, span6);
+        append(div6, p13);
+        append(p13, t26);
+        append(div19, t27);
+        append(div19, div7);
+        append(div7, p14);
+        append(div7, span7);
+        append(div7, p15);
+        append(p15, t30);
+        append(div19, t31);
+        append(div19, div8);
+        append(div8, p16);
+        append(div8, span8);
+        append(div8, p17);
+        append(p17, t34);
+        append(div19, t35);
+        append(div19, div9);
+        append(div9, p18);
+        append(div9, span9);
+        append(div9, p19);
+        append(p19, t38);
+        append(div19, t39);
+        append(div19, div10);
+        append(div10, p20);
+        append(div10, span10);
+        append(div10, p21);
+        append(p21, t42);
+        append(div19, t43);
+        append(div19, div11);
+        append(div11, p22);
+        append(div11, span11);
+        append(div11, p23);
+        append(p23, t46);
+        append(div19, t47);
+        append(div19, div12);
+        append(div12, p24);
+        append(div12, span12);
+        append(div12, p25);
+        append(p25, t50);
+        append(div19, t51);
+        append(div19, div13);
+        append(div13, p26);
+        append(div13, span13);
+        append(div13, p27);
+        append(p27, t54);
+        append(div19, t55);
+        append(div19, div14);
+        append(div14, p28);
+        append(div14, span14);
+        append(div14, p29);
+        append(p29, t58);
+        append(div19, t59);
+        append(div19, div15);
+        append(div15, p30);
+        append(div15, span15);
+        append(div15, p31);
+        append(p31, t62);
+        append(div19, t63);
+        append(div19, div16);
+        append(div16, p32);
+        append(div16, span16);
+        append(div16, p33);
+        append(p33, t66);
+        append(div19, t67);
+        append(div19, div17);
+        append(div17, p34);
+        append(div17, span17);
+        append(div17, p35);
+        append(p35, t70);
+        append(div19, t71);
+        append(div19, div18);
+        append(div18, p36);
+        append(div18, span18);
+        append(div18, p37);
+        append(p37, t74);
+        append(div19, t75);
       },
       p(ctx2, dirty) {
         if (dirty & /*currentPropHistory*/
-        4 && t_value !== (t_value = JSON.stringify(
+        4 && t2_value !== (t2_value = /*row*/
+        ctx2[14].id + ""))
+          set_data(t2, t2_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t6_value !== (t6_value = ((0, import_formatter3.datetime2)(
           /*row*/
-          ctx2[14]
+          ctx2[14].createdAt
+        ) || "-") + ""))
+          set_data(t6, t6_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t10_value !== (t10_value = /*row*/
+        ctx2[14].createdBy + ""))
+          set_data(t10, t10_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t14_value !== (t14_value = ((0, import_formatter3.datetime2)(
+          /*row*/
+          ctx2[14].deletedAt
+        ) || "-") + ""))
+          set_data(t14, t14_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t18_value !== (t18_value = ((0, import_formatter3.datetime2)(
+          /*row*/
+          ctx2[14].updatedAt
+        ) || "-") + ""))
+          set_data(t18, t18_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t22_value !== (t22_value = (0, import_formatter3.datetime2)(
+          /*row*/
+          ctx2[14].updatedBy
         ) + ""))
-          set_data(t, t_value);
+          set_data(t22, t22_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t26_value !== (t26_value = /*row*/
+        ctx2[14].address + ""))
+          set_data(t26, t26_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t30_value !== (t30_value = /*row*/
+        ctx2[14].district + ""))
+          set_data(t30, t30_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t34_value !== (t34_value = /*row*/
+        ctx2[14].price + ""))
+          set_data(t34, t34_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t38_value !== (t38_value = /*row*/
+        ctx2[14].priceNtd + ""))
+          set_data(t38, t38_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t42_value !== (t42_value = /*row*/
+        ctx2[14].pricePerUnit + ""))
+          set_data(t42, t42_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t46_value !== (t46_value = /*row*/
+        ctx2[14].propertyKey + ""))
+          set_data(t46, t46_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t50_value !== (t50_value = /*row*/
+        ctx2[14].serialNumber + ""))
+          set_data(t50, t50_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t54_value !== (t54_value = /*row*/
+        (ctx2[14].transactionDateNormal || "-") + ""))
+          set_data(t54, t54_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t58_value !== (t58_value = /*row*/
+        ctx2[14].transactionKey + ""))
+          set_data(t58, t58_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t62_value !== (t62_value = /*row*/
+        ctx2[14].transactionNumber + ""))
+          set_data(t62, t62_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t66_value !== (t66_value = /*row*/
+        ctx2[14].transactionSign + ""))
+          set_data(t66, t66_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t70_value !== (t70_value = (0, import_formatter3.datetime2)(
+          /*row*/
+          ctx2[14].transactionTime
+        ) + ""))
+          set_data(t70, t70_value);
+        if (dirty & /*currentPropHistory*/
+        4 && t74_value !== (t74_value = /*row*/
+        ctx2[14].transactionType + ""))
+          set_data(t74, t74_value);
       },
       d(detaching) {
         if (detaching) {
-          detach(t);
-          detach(br);
+          detach(div19);
         }
       }
     };
   }
   function create_content_slot(ctx) {
     let div;
-    let h3;
-    let t1;
     function select_block_type(ctx2, dirty) {
       if (
         /*currentPropHistory*/
@@ -8383,16 +9045,11 @@ td.svelte-aue75n.svelte-aue75n {
     return {
       c() {
         div = element("div");
-        h3 = element("h3");
-        h3.textContent = "Property History";
-        t1 = space();
         if_block.c();
         attr(div, "slot", "content");
       },
       m(target, anchor) {
         insert(target, div, anchor);
-        append(div, h3);
-        append(div, t1);
         if_block.m(div, null);
       },
       p(ctx2, dirty) {
@@ -8484,6 +9141,7 @@ td.svelte-aue75n.svelte-aue75n {
     binding_callbacks.push(() => bind(tableview, "pager", tableview_pager_binding));
     footer = new Footer_default({});
     let modaldialog_props = {
+      title: "Property History",
       $slots: { content: [create_content_slot] },
       $scope: { ctx }
     };
@@ -8615,6 +9273,7 @@ td.svelte-aue75n.svelte-aue75n {
               alert(res.error);
             propHistoryModal.showModal();
             $invalidate(2, currentPropHistory = res.history || []);
+            console.log(res.history);
           });
         }
       }

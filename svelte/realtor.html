@@ -2741,6 +2741,38 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   });
 
+  // _components/formatter.js
+  var require_formatter = __commonJS({
+    "_components/formatter.js"(exports, module) {
+      function datetime(unixSec) {
+        if (!unixSec)
+          return "-";
+        const dt = new Date(unixSec * 1e3);
+        const options = { day: "2-digit", month: "long", year: "numeric" };
+        const formattedDate = dt.toLocaleDateString(void 0, options);
+        return formattedDate;
+      }
+      function datetime22(unixSec) {
+        if (!unixSec)
+          return "-";
+        const dt = new Date(unixSec * 1e3);
+        const year = dt.getFullYear();
+        const month = dt.toLocaleDateString("default", { month: "long" });
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = String(dt.getDate()).padStart(2, "0");
+        const hours = String(dt.getHours()).padStart(2, "0");
+        const minutes = String(dt.getMinutes()).padStart(2, "0");
+        const seconds = String(dt.getSeconds()).padStart(2, "0");
+        const formattedDate = `${day}, ${date} ${month} ${year} - ${hours}:${minutes}:${seconds}`;
+        return formattedDate;
+      }
+      module.exports = {
+        datetime,
+        datetime2: datetime22
+      };
+    }
+  });
+
   // node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
@@ -4755,6 +4787,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
 
   // _components/OwnedProperty.svelte
+  var import_formatter = __toESM(require_formatter());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[3] = list[i];
@@ -5300,7 +5333,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let td4;
     let t47;
     let td5;
-    let t48_value = (datetime(
+    let t48_value = ((0, import_formatter.datetime2)(
       /*property*/
       ctx[0].createdAt
     ) || "0") + "";
@@ -5310,7 +5343,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let td6;
     let t51;
     let td7;
-    let t52_value = (datetime(
+    let t52_value = ((0, import_formatter.datetime2)(
       /*property*/
       ctx[0].updatedAt
     ) || "0") + "";
@@ -5330,7 +5363,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let td10;
     let t59;
     let td11;
-    let t60_value = (datetime(
+    let t60_value = ((0, import_formatter.datetime2)(
       /*property*/
       ctx[0].constructCompletedDate
     ) || "-") + "";
@@ -5340,7 +5373,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let td12;
     let t63;
     let td13;
-    let t64_value = (datetime(
+    let t64_value = ((0, import_formatter.datetime2)(
       /*property*/
       ctx[0].updatedAt
     ) || "0") + "";
@@ -5837,13 +5870,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         (ctx2[0].country || "-") + ""))
           set_data(t44, t44_value);
         if ((!current || dirty & /*property*/
-        1) && t48_value !== (t48_value = (datetime(
+        1) && t48_value !== (t48_value = ((0, import_formatter.datetime2)(
           /*property*/
           ctx2[0].createdAt
         ) || "0") + ""))
           set_data(t48, t48_value);
         if ((!current || dirty & /*property*/
-        1) && t52_value !== (t52_value = (datetime(
+        1) && t52_value !== (t52_value = ((0, import_formatter.datetime2)(
           /*property*/
           ctx2[0].updatedAt
         ) || "0") + ""))
@@ -5853,13 +5886,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         (ctx2[0].buildingLamination || "-") + ""))
           set_data(t56, t56_value);
         if ((!current || dirty & /*property*/
-        1) && t60_value !== (t60_value = (datetime(
+        1) && t60_value !== (t60_value = ((0, import_formatter.datetime2)(
           /*property*/
           ctx2[0].constructCompletedDate
         ) || "-") + ""))
           set_data(t60, t60_value);
         if ((!current || dirty & /*property*/
-        1) && t64_value !== (t64_value = (datetime(
+        1) && t64_value !== (t64_value = ((0, import_formatter.datetime2)(
           /*property*/
           ctx2[0].updatedAt
         ) || "0") + ""))
@@ -5921,17 +5954,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         dispose();
       }
     };
-  }
-  function datetime(unixSec) {
-    if (!unixSec)
-      return "";
-    const dt = new Date(unixSec * 1e3);
-    const day = dt.toLocaleDateString("default", { weekday: "long" });
-    const date = dt.getDay();
-    const month = dt.toLocaleDateString("default", { month: "long" });
-    const year = dt.getFullYear();
-    const formattedDate = `${day}, ${date} ${month} ${year}`;
-    return formattedDate;
   }
   function instance5($self, $props, $invalidate) {
     let { property } = $props;

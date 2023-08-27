@@ -4,20 +4,10 @@
   import FaSolidHome from "svelte-icons-pack/fa/FaSolidHome";
   import FaSolidPen from "svelte-icons-pack/fa/FaSolidPen";
   import FaSolidMapMarkerAlt from "svelte-icons-pack/fa/FaSolidMapMarkerAlt";
+  import { datetime2 } from './formatter';
 
   export let property;
   let showMore = false;
-
-  function datetime( unixSec ) {
-    if( !unixSec ) return '';
-    const dt = new Date( unixSec * 1000 )
-    const day = dt.toLocaleDateString('default', {weekday: 'long'});
-    const date = dt.getDay();
-    const month = dt.toLocaleDateString('default', { month: 'long'});
-    const year = dt.getFullYear()
-    const formattedDate = `${day}, ${date} ${month} ${year}`
-    return formattedDate
-  }
 
   function handleShowMore() {
     showMore = !showMore;
@@ -93,11 +83,11 @@
       </tr>
       <tr>
         <td class="name">Created At</td>
-        <td class="value">{datetime(property.createdAt) || '0'}</td>
+        <td class="value">{datetime2(property.createdAt) || '0'}</td>
       </tr>
       <tr>
         <td class="name">Updated At</td>
-        <td class="value">{datetime(property.updatedAt) || '0'}</td>
+        <td class="value">{datetime2(property.updatedAt) || '0'}</td>
       </tr>
       <tr>
         <td class="name">Building Lamination</td>
@@ -105,11 +95,11 @@
       </tr>
       <tr>
         <td class="name">Construct Completed Date</td>
-        <td class="value">{datetime(property.constructCompletedDate) || '-'}</td>
+        <td class="value">{datetime2(property.constructCompletedDate) || '-'}</td>
       </tr>
       <tr>
         <td class="name">Updated At</td>
-        <td class="value">{datetime(property.updatedAt) || '0'}</td>
+        <td class="value">{datetime2(property.updatedAt) || '0'}</td>
       </tr>
       <tr>
         <td class="name">Main Use</td>
