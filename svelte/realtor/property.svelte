@@ -202,7 +202,7 @@
         const clearMarkers = (markers) => {
             markers.forEach((marker) => {
                 marker.setMap(null);
-                marker.listenerHandle.remove();
+                if(marker.listenerHandle && 'function' === typeof marker.listenerHandle.remove) marker.listenerHandle.remove();
             });
             markers.length = 0;
         };

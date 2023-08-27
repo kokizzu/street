@@ -11020,7 +11020,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       const clearMarkers = (markers2) => {
         markers2.forEach((marker) => {
           marker.setMap(null);
-          marker.listenerHandle.remove();
+          if (marker.listenerHandle && "function" === typeof marker.listenerHandle.remove)
+            marker.listenerHandle.remove();
         });
         markers2.length = 0;
       };
