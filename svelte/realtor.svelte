@@ -18,8 +18,6 @@
     console.log('pager=',pager);
   });
 
-  
-
   let user = {/* user */};
   let segments = {/* segments */};
 </script>
@@ -124,6 +122,4 @@
     gap: 20px;
     width: 100%;
   }
-
-  
 </style>
