@@ -23,7 +23,15 @@ function datetime2( unixSec ) {
   return formattedDate
 }
 
+function formatPrice( price, currency ) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: currency,
+  }).format(price);
+}
+
 module.exports = {
   datetime: datetime,
-  datetime2: datetime2
+  datetime2: datetime2,
+  formatPrice: formatPrice
 };

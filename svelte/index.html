@@ -207,7 +207,7 @@
 }
 
 /* fakecss:./_components/PropertyLocation.esbuild-svelte-fake-css */
-.property_location_container.svelte-1qz9jht.svelte-1qz9jht {
+.property_location_container.svelte-11w6wgb.svelte-11w6wgb {
   position: relative;
   margin-top: -40px;
   margin-left: auto;
@@ -223,17 +223,17 @@
   flex-direction: column;
   gap: 20px;
 }
-.property_location_container.svelte-1qz9jht .header.svelte-1qz9jht {
+.property_location_container.svelte-11w6wgb .header.svelte-11w6wgb {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.property_location_container.svelte-1qz9jht .header .tabs.svelte-1qz9jht {
+.property_location_container.svelte-11w6wgb .header .tabs.svelte-11w6wgb {
   display: flex;
   flex-direction: row;
   gap: 15px;
 }
-.property_location_container.svelte-1qz9jht .header .tabs button.svelte-1qz9jht {
+.property_location_container.svelte-11w6wgb .header .tabs button.svelte-11w6wgb {
   padding: 12px 20px;
   border-radius: 8px;
   border: 1px solid #cbd5e1;
@@ -246,14 +246,14 @@
   align-items: center;
   gap: 8px;
 }
-.property_location_container.svelte-1qz9jht .header .tabs button.active.svelte-1qz9jht {
+.property_location_container.svelte-11w6wgb .header .tabs button.active.svelte-11w6wgb {
   border: 1px solid #3b82f6;
   color: #3b82f6;
 }
-.property_location_container.svelte-1qz9jht .header .tabs button.svelte-1qz9jht:hover {
+.property_location_container.svelte-11w6wgb .header .tabs button.svelte-11w6wgb:hover {
   background-color: #f1f5f9;
 }
-.property_location_container.svelte-1qz9jht .header .search_box.svelte-1qz9jht {
+.property_location_container.svelte-11w6wgb .header .search_box.svelte-11w6wgb {
   position: relative;
   width: 450px;
 }
@@ -265,29 +265,167 @@
   z-index: 40;
   margin: auto 12px;
 }
-.property_location_container.svelte-1qz9jht .header .search_box input.svelte-1qz9jht {
+.property_location_container.svelte-11w6wgb .header .search_box input.svelte-11w6wgb {
   width: 100%;
   border: 1px solid #cbd5e1;
   background-color: #f1f5f9;
   border-radius: 8px;
   padding: 12px 12px 12px 40px;
 }
-.property_location_container.svelte-1qz9jht .header .search_box input.svelte-1qz9jht:focus {
+.property_location_container.svelte-11w6wgb .header .search_box input.svelte-11w6wgb:focus {
   border-color: #3b82f6;
   outline: 1px solid #3b82f6;
 }
-.search_by_location.svelte-1qz9jht.svelte-1qz9jht {
+.search_by_location.svelte-11w6wgb.svelte-11w6wgb {
   display: grid;
   grid-template-columns: auto 500px;
   gap: 20px;
   flex-grow: 1;
   max-width: 100%;
+  overflow-y: scroll;
 }
-.search_by_location.svelte-1qz9jht .right.svelte-1qz9jht {
+.search_by_location.svelte-11w6wgb.svelte-11w6wgb::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+.search_by_location.svelte-11w6wgb.svelte-11w6wgb::-webkit-scrollbar {
+  width: 0;
+}
+.search_by_location.svelte-11w6wgb.svelte-11w6wgb::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.search_by_location.svelte-11w6wgb .left.svelte-11w6wgb {
+  height: 100%;
+  overflow-y: scroll;
+  border-top: 1px solid #cbd5e1;
+  border-bottom: 1px solid #cbd5e1;
+}
+.search_by_location.svelte-11w6wgb .left.svelte-11w6wgb::-webkit-scrollbar-thumb {
+  background-color: #3b82f6;
+}
+.search_by_location.svelte-11w6wgb .left.svelte-11w6wgb::-webkit-scrollbar {
+  width: 8px;
+}
+.search_by_location.svelte-11w6wgb .left.svelte-11w6wgb::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.search_by_location.svelte-11w6wgb .left .props_container.svelte-11w6wgb {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 18px;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item.svelte-11w6wgb {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  padding-right: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item:hover .prop_info .main_info .address.svelte-11w6wgb {
+  text-decoration: underline;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .img_container.svelte-11w6wgb {
+  width: 240px;
+  height: 170px;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .img_container img.svelte-11w6wgb {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .img_container .image_empty.svelte-11w6wgb {
+  border-radius: 8px;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  background-color: #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid #cbd5e1;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .prop_info.svelte-11w6wgb {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .prop_info .main_info.svelte-11w6wgb {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .prop_info .main_info .label_info.svelte-11w6wgb {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .prop_info .main_info .label_info .purpose.svelte-11w6wgb,
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .prop_info .main_info .label_info .house_type.svelte-11w6wgb {
+  padding: 4px 10px;
+  font-size: 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  width: fit-content;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .prop_info .main_info .address.svelte-11w6wgb {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  font-size: 15px;
+  gap: 8px;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .prop_info .main_info .feature.svelte-11w6wgb {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .prop_info .main_info .feature .item.svelte-11w6wgb {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .prop_info .secondary_info.svelte-11w6wgb {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .prop_info .secondary_info .size.svelte-11w6wgb {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .prop_info .secondary_info .price.svelte-11w6wgb {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .prop_info .secondary_info .price .agency_fee.svelte-11w6wgb {
+  font-size: 12px;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .prop_info .secondary_info .price .last_price.svelte-11w6wgb {
+  font-size: 20px;
+  font-weight: 700;
+}
+.search_by_location.svelte-11w6wgb .left .props_container .prop_item .prop_info .secondary_info .search_by_location .right.svelte-11w6wgb {
   border: 1px solid #cbd5e1;
   border-radius: 8px;
 }
-.search_by_location.svelte-1qz9jht .right .map_container.svelte-1qz9jht {
+.search_by_location.svelte-11w6wgb .right .map_container.svelte-11w6wgb {
   display: block;
   width: 100%;
   height: 100%;
@@ -2663,7 +2801,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       exports.UserPropHistory = async function UserPropHistory(i, cb) {
         return await axios.post("/user/propHistory", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserSearchProp = async function UserSearchProp(i, cb) {
+      exports.UserSearchProp = async function UserSearchProp2(i, cb) {
         return await axios.post("/user/searchProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserUpdateProfile = async function UserUpdateProfile(i, cb) {
@@ -2671,6 +2809,45 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       };
       exports.UserUploadFile = async function UserUploadFile(i, cb) {
         return await axios.post("/user/uploadFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+    }
+  });
+
+  // _components/formatter.js
+  var require_formatter = __commonJS({
+    "_components/formatter.js"(exports, module) {
+      function datetime(unixSec) {
+        if (!unixSec)
+          return "-";
+        const dt = new Date(unixSec * 1e3);
+        const options = { day: "2-digit", month: "long", year: "numeric" };
+        const formattedDate = dt.toLocaleDateString(void 0, options);
+        return formattedDate;
+      }
+      function datetime2(unixSec) {
+        if (!unixSec)
+          return "-";
+        const dt = new Date(unixSec * 1e3);
+        const year = dt.getFullYear();
+        const month = dt.toLocaleDateString("default", { month: "long" });
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = String(dt.getDate()).padStart(2, "0");
+        const hours = String(dt.getHours()).padStart(2, "0");
+        const minutes = String(dt.getMinutes()).padStart(2, "0");
+        const seconds = String(dt.getSeconds()).padStart(2, "0");
+        const formattedDate = `${day}, ${date} ${month} ${year} - ${hours}:${minutes}:${seconds}`;
+        return formattedDate;
+      }
+      function formatPrice2(price, currency) {
+        return new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency
+        }).format(price);
+      }
+      module.exports = {
+        datetime,
+        datetime2,
+        formatPrice: formatPrice2
       };
     }
   });
@@ -2795,6 +2972,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function detach(node) {
     if (node.parentNode) {
       node.parentNode.removeChild(node);
+    }
+  }
+  function destroy_each(iterations, detaching) {
+    for (let i = 0; i < iterations.length; i += 1) {
+      if (iterations[i])
+        iterations[i].d(detaching);
     }
   }
   function element(name) {
@@ -2996,6 +3179,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     } else if (callback) {
       callback();
     }
+  }
+
+  // node_modules/svelte/src/runtime/internal/each.js
+  function ensure_array_like(array_like_or_iterator) {
+    return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
 
   // node_modules/svelte/src/runtime/internal/spread.js
@@ -4450,6 +4638,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var Menu_default = Menu;
 
+  // _components/PropertyLocation.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
+  var import_formatter = __toESM(require_formatter());
+
   // node_modules/svelte-icons-pack/fa/FaSolidSearch.js
   var FaSolidSearch_default = {
     a: {
@@ -4474,8 +4666,53 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M288 0c-69.59 0-126 56.41-126 126 0 56.26 82.35 158.8 113.9 196.02 6.39 7.54 17.82 7.54 24.2 0C331.65 284.8 414 182.26 414 126 414 56.41 357.59 0 288 0zm0 168c-23.2 0-42-18.8-42-42s18.8-42 42-42 42 18.8 42 42-18.8 42-42 42zM20.12 215.95A32.006 32.006 0 0 0 0 245.66v250.32c0 11.32 11.43 19.06 21.94 14.86L160 448V214.92c-8.84-15.98-16.07-31.54-21.25-46.42L20.12 215.95zM288 359.67c-14.07 0-27.38-6.18-36.51-16.96-19.66-23.2-40.57-49.62-59.49-76.72v182l192 64V266c-18.92 27.09-39.82 53.52-59.49 76.72-9.13 10.77-22.44 16.95-36.51 16.95zm266.06-198.51L416 224v288l139.88-55.95A31.996 31.996 0 0 0 576 426.34V176.02c0-11.32-11.43-19.06-21.94-14.86z"></path>'
   };
 
+  // node_modules/svelte-icons-pack/fa/FaSolidMapMarkerAlt.js
+  var FaSolidMapMarkerAlt_default = {
+    a: {
+      viewBox: "0 0 384 512"
+    },
+    c: '<path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>'
+  };
+
+  // node_modules/svelte-icons-pack/fa/FaSolidImage.js
+  var FaSolidImage_default = {
+    a: {
+      viewBox: "0 0 512 512"
+    },
+    c: '<path d="M464 448H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h416c26.51 0 48 21.49 48 48v288c0 26.51-21.49 48-48 48zM112 120c-30.928 0-56 25.072-56 56s25.072 56 56 56 56-25.072 56-56-25.072-56-56-56zM64 384h384V272l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L208 320l-55.515-55.515c-4.686-4.686-12.284-4.686-16.971 0L64 336v48z"></path>'
+  };
+
+  // node_modules/svelte-icons-pack/fa/FaSolidRulerCombined.js
+  var FaSolidRulerCombined_default = {
+    a: {
+      viewBox: "0 0 512 512"
+    },
+    c: '<path d="M160 288h-56c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h56v-64h-56c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h56V96h-56c-4.42 0-8-3.58-8-8V72c0-4.42 3.58-8 8-8h56V32c0-17.67-14.33-32-32-32H32C14.33 0 0 14.33 0 32v448c0 2.77.91 5.24 1.57 7.8L160 329.38V288zm320 64h-32v56c0 4.42-3.58 8-8 8h-16c-4.42 0-8-3.58-8-8v-56h-64v56c0 4.42-3.58 8-8 8h-16c-4.42 0-8-3.58-8-8v-56h-64v56c0 4.42-3.58 8-8 8h-16c-4.42 0-8-3.58-8-8v-56h-41.37L24.2 510.43c2.56.66 5.04 1.57 7.8 1.57h448c17.67 0 32-14.33 32-32v-96c0-17.67-14.33-32-32-32z"></path>'
+  };
+
+  // node_modules/svelte-icons-pack/fa/FaSolidBath.js
+  var FaSolidBath_default = {
+    a: {
+      viewBox: "0 0 512 512"
+    },
+    c: '<path d="M32,384a95.4,95.4,0,0,0,32,71.09V496a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V480H384v16a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V455.09A95.4,95.4,0,0,0,480,384V336H32ZM496,256H80V69.25a21.26,21.26,0,0,1,36.28-15l19.27,19.26c-13.13,29.88-7.61,59.11,8.62,79.73l-.17.17A16,16,0,0,0,144,176l11.31,11.31a16,16,0,0,0,22.63,0L283.31,81.94a16,16,0,0,0,0-22.63L272,48a16,16,0,0,0-22.62,0l-.17.17c-20.62-16.23-49.83-21.75-79.73-8.62L150.22,20.28A69.25,69.25,0,0,0,32,69.25V256H16A16,16,0,0,0,0,272v16a16,16,0,0,0,16,16H496a16,16,0,0,0,16-16V272A16,16,0,0,0,496,256Z"></path>'
+  };
+
+  // node_modules/svelte-icons-pack/fa/FaSolidBed.js
+  var FaSolidBed_default = {
+    a: {
+      viewBox: "0 0 640 512"
+    },
+    c: '<path d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z"></path>'
+  };
+
   // _components/PropertyLocation.svelte
-  function create_if_block_12(ctx) {
+  function get_each_context(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[10] = list[i];
+    return child_ctx;
+  }
+  function create_if_block_22(ctx) {
     let div;
     return {
       c() {
@@ -4486,6 +4723,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         insert(target, div, anchor);
       },
       p: noop,
+      i: noop,
+      o: noop,
       d(detaching) {
         if (detaching) {
           detach(div);
@@ -4494,39 +4733,621 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
   }
   function create_if_block2(ctx) {
-    let div3;
-    let div0;
-    let t2;
-    let div2;
+    let div4;
     let div1;
+    let div0;
+    let t;
+    let div3;
+    let div2;
+    let current;
+    let each_value = ensure_array_like(
+      /*random_props*/
+      ctx[0]
+    );
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    }
+    const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
+      each_blocks[i] = null;
+    });
     return {
       c() {
-        div3 = element("div");
-        div0 = element("div");
-        div0.innerHTML = `<!-- TODO: render random properties here --> <p>Property</p>`;
-        t2 = space();
-        div2 = element("div");
+        div4 = element("div");
         div1 = element("div");
-        div1.innerHTML = `<!-- Map goes here, rendered automatically -->`;
-        attr(div0, "class", "left");
-        attr(div1, "class", "map_container svelte-1qz9jht");
-        attr(div2, "class", "right svelte-1qz9jht");
-        attr(div3, "class", "search_by_location svelte-1qz9jht");
+        div0 = element("div");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        t = space();
+        div3 = element("div");
+        div2 = element("div");
+        div2.innerHTML = `<!-- Map goes here, rendered automatically -->`;
+        attr(div0, "class", "props_container svelte-11w6wgb");
+        attr(div1, "class", "left svelte-11w6wgb");
+        attr(div2, "class", "map_container svelte-11w6wgb");
+        attr(div3, "class", "right svelte-11w6wgb");
+        attr(div4, "class", "search_by_location svelte-11w6wgb");
       },
       m(target, anchor) {
-        insert(target, div3, anchor);
-        append(div3, div0);
-        append(div3, t2);
+        insert(target, div4, anchor);
+        append(div4, div1);
+        append(div1, div0);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(div0, null);
+          }
+        }
+        append(div4, t);
+        append(div4, div3);
         append(div3, div2);
-        append(div2, div1);
-        ctx[5](div1);
+        ctx[6](div2);
+        current = true;
       },
-      p: noop,
+      p(ctx2, dirty) {
+        if (dirty & /*formatPrice, random_props, FaSolidRulerCombined, FaSolidBath, FaSolidBed, FaSolidBuilding, FaSolidMapMarkerAlt, FaSolidHome, FaSolidImage*/
+        1) {
+          each_value = ensure_array_like(
+            /*random_props*/
+            ctx2[0]
+          );
+          let i;
+          for (i = 0; i < each_value.length; i += 1) {
+            const child_ctx = get_each_context(ctx2, each_value, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+              transition_in(each_blocks[i], 1);
+            } else {
+              each_blocks[i] = create_each_block(child_ctx);
+              each_blocks[i].c();
+              transition_in(each_blocks[i], 1);
+              each_blocks[i].m(div0, null);
+            }
+          }
+          group_outros();
+          for (i = each_value.length; i < each_blocks.length; i += 1) {
+            out(i);
+          }
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        for (let i = 0; i < each_value.length; i += 1) {
+          transition_in(each_blocks[i]);
+        }
+        current = true;
+      },
+      o(local) {
+        each_blocks = each_blocks.filter(Boolean);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          transition_out(each_blocks[i]);
+        }
+        current = false;
+      },
       d(detaching) {
         if (detaching) {
-          detach(div3);
+          detach(div4);
         }
-        ctx[5](null);
+        destroy_each(each_blocks, detaching);
+        ctx[6](null);
+      }
+    };
+  }
+  function create_else_block(ctx) {
+    let div;
+    let icon;
+    let t0;
+    let span;
+    let current;
+    icon = new Icon_default({
+      props: {
+        size: 40,
+        color: "#475569",
+        src: FaSolidImage_default
+      }
+    });
+    return {
+      c() {
+        div = element("div");
+        create_component(icon.$.fragment);
+        t0 = space();
+        span = element("span");
+        span.textContent = "No Image !";
+        attr(div, "class", "image_empty svelte-11w6wgb");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        mount_component(icon, div, null);
+        append(div, t0);
+        append(div, span);
+        current = true;
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        destroy_component(icon);
+      }
+    };
+  }
+  function create_if_block_12(ctx) {
+    let img;
+    let img_src_value;
+    return {
+      c() {
+        img = element("img");
+        if (!src_url_equal(img.src, img_src_value = /*prop*/
+        ctx[10].images[0]))
+          attr(img, "src", img_src_value);
+        attr(img, "alt", "");
+        attr(img, "class", "svelte-11w6wgb");
+      },
+      m(target, anchor) {
+        insert(target, img, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*random_props*/
+        1 && !src_url_equal(img.src, img_src_value = /*prop*/
+        ctx2[10].images[0])) {
+          attr(img, "src", img_src_value);
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(img);
+        }
+      }
+    };
+  }
+  function create_each_block(ctx) {
+    let div14;
+    let div0;
+    let current_block_type_index;
+    let if_block;
+    let t0;
+    let div13;
+    let div9;
+    let div3;
+    let div1;
+    let t1;
+    let t2_value = (
+      /*prop*/
+      (ctx[10].purpose === "" ? "Sale" : (
+        /*prop*/
+        ctx[10].purpose
+      )) + ""
+    );
+    let t2;
+    let t3;
+    let div2;
+    let icon0;
+    let t4;
+    let span0;
+    let t5_value = (
+      /*prop*/
+      (ctx[10].houseType === "" ? "House" : (
+        /*prop*/
+        ctx[10].houseType
+      )) + ""
+    );
+    let t5;
+    let t6;
+    let div4;
+    let icon1;
+    let t7;
+    let span1;
+    let t8_value = (
+      /*prop*/
+      (ctx[10].formattedAddress === "" ? (
+        /*prop*/
+        ctx[10].address
+      ) : (
+        /*prop*/
+        ctx[10].formattedAddress
+      )) + ""
+    );
+    let t8;
+    let t9;
+    let div8;
+    let div5;
+    let icon2;
+    let t10;
+    let span2;
+    let b0;
+    let t12;
+    let t13_value = (
+      /*prop*/
+      (ctx[10].numberOfFloors || 0) + ""
+    );
+    let t13;
+    let t14;
+    let div6;
+    let icon3;
+    let t15;
+    let span3;
+    let b1;
+    let t17;
+    let t18_value = (
+      /*prop*/
+      (ctx[10].bedroom || 0) + ""
+    );
+    let t18;
+    let t19;
+    let div7;
+    let icon4;
+    let t20;
+    let span4;
+    let b2;
+    let t22;
+    let t23_value = (
+      /*prop*/
+      (ctx[10].bathroom || 0) + ""
+    );
+    let t23;
+    let t24;
+    let div12;
+    let div10;
+    let icon5;
+    let t25;
+    let span5;
+    let t26_value = (
+      /*prop*/
+      ctx[10].sizeM2 + ""
+    );
+    let t26;
+    let t27;
+    let t28;
+    let div11;
+    let span6;
+    let t29;
+    let t30_value = (
+      /*prop*/
+      (ctx[10].agencyFeePercent || "0") + ""
+    );
+    let t30;
+    let t31;
+    let t32;
+    let span7;
+    let t33_value = (0, import_formatter.formatPrice)(
+      /*prop*/
+      ctx[10].lastPrice || 0,
+      "USD"
+    ) + "";
+    let t33;
+    let t34;
+    let current;
+    const if_block_creators = [create_if_block_12, create_else_block];
+    const if_blocks = [];
+    function select_block_type_1(ctx2, dirty) {
+      if (
+        /*prop*/
+        ctx2[10].images && /*prop*/
+        ctx2[10].images.length
+      )
+        return 0;
+      return 1;
+    }
+    current_block_type_index = select_block_type_1(ctx, -1);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    icon0 = new Icon_default({
+      props: {
+        size: 12,
+        color: "#475569",
+        src: FaSolidHome_default
+      }
+    });
+    icon1 = new Icon_default({
+      props: {
+        size: 17,
+        color: "#f97316",
+        src: FaSolidMapMarkerAlt_default
+      }
+    });
+    icon2 = new Icon_default({
+      props: {
+        size: 13,
+        color: "#f97316",
+        src: FaSolidBuilding_default
+      }
+    });
+    icon3 = new Icon_default({
+      props: {
+        size: 14,
+        color: "#f97316",
+        src: FaSolidBed_default
+      }
+    });
+    icon4 = new Icon_default({
+      props: {
+        size: 14,
+        color: "#f97316",
+        src: FaSolidBath_default
+      }
+    });
+    icon5 = new Icon_default({
+      props: {
+        size: 12,
+        color: "#f97316",
+        src: FaSolidRulerCombined_default
+      }
+    });
+    return {
+      c() {
+        div14 = element("div");
+        div0 = element("div");
+        if_block.c();
+        t0 = space();
+        div13 = element("div");
+        div9 = element("div");
+        div3 = element("div");
+        div1 = element("div");
+        t1 = text("On ");
+        t2 = text(t2_value);
+        t3 = space();
+        div2 = element("div");
+        create_component(icon0.$.fragment);
+        t4 = space();
+        span0 = element("span");
+        t5 = text(t5_value);
+        t6 = space();
+        div4 = element("div");
+        create_component(icon1.$.fragment);
+        t7 = space();
+        span1 = element("span");
+        t8 = text(t8_value);
+        t9 = space();
+        div8 = element("div");
+        div5 = element("div");
+        create_component(icon2.$.fragment);
+        t10 = space();
+        span2 = element("span");
+        b0 = element("b");
+        b0.textContent = "Floor";
+        t12 = text(": ");
+        t13 = text(t13_value);
+        t14 = space();
+        div6 = element("div");
+        create_component(icon3.$.fragment);
+        t15 = space();
+        span3 = element("span");
+        b1 = element("b");
+        b1.textContent = "Beds";
+        t17 = text(": ");
+        t18 = text(t18_value);
+        t19 = space();
+        div7 = element("div");
+        create_component(icon4.$.fragment);
+        t20 = space();
+        span4 = element("span");
+        b2 = element("b");
+        b2.textContent = "Baths";
+        t22 = text(": ");
+        t23 = text(t23_value);
+        t24 = space();
+        div12 = element("div");
+        div10 = element("div");
+        create_component(icon5.$.fragment);
+        t25 = space();
+        span5 = element("span");
+        t26 = text(t26_value);
+        t27 = text(" M2");
+        t28 = space();
+        div11 = element("div");
+        span6 = element("span");
+        t29 = text("Agency Fee: ");
+        t30 = text(t30_value);
+        t31 = text("%");
+        t32 = space();
+        span7 = element("span");
+        t33 = text(t33_value);
+        t34 = space();
+        attr(div0, "class", "img_container svelte-11w6wgb");
+        attr(div1, "class", "purpose svelte-11w6wgb");
+        attr(div2, "class", "house_type svelte-11w6wgb");
+        attr(div3, "class", "label_info svelte-11w6wgb");
+        attr(div4, "class", "address svelte-11w6wgb");
+        attr(div5, "class", "item svelte-11w6wgb");
+        attr(div6, "class", "item svelte-11w6wgb");
+        attr(div7, "class", "item svelte-11w6wgb");
+        attr(div8, "class", "feature svelte-11w6wgb");
+        attr(div9, "class", "main_info svelte-11w6wgb");
+        attr(div10, "class", "size svelte-11w6wgb");
+        attr(span6, "class", "agency_fee svelte-11w6wgb");
+        attr(span7, "class", "last_price svelte-11w6wgb");
+        attr(div11, "class", "price svelte-11w6wgb");
+        attr(div12, "class", "secondary_info svelte-11w6wgb");
+        attr(div13, "class", "prop_info svelte-11w6wgb");
+        attr(div14, "class", "prop_item svelte-11w6wgb");
+      },
+      m(target, anchor) {
+        insert(target, div14, anchor);
+        append(div14, div0);
+        if_blocks[current_block_type_index].m(div0, null);
+        append(div14, t0);
+        append(div14, div13);
+        append(div13, div9);
+        append(div9, div3);
+        append(div3, div1);
+        append(div1, t1);
+        append(div1, t2);
+        append(div3, t3);
+        append(div3, div2);
+        mount_component(icon0, div2, null);
+        append(div2, t4);
+        append(div2, span0);
+        append(span0, t5);
+        append(div9, t6);
+        append(div9, div4);
+        mount_component(icon1, div4, null);
+        append(div4, t7);
+        append(div4, span1);
+        append(span1, t8);
+        append(div9, t9);
+        append(div9, div8);
+        append(div8, div5);
+        mount_component(icon2, div5, null);
+        append(div5, t10);
+        append(div5, span2);
+        append(span2, b0);
+        append(span2, t12);
+        append(span2, t13);
+        append(div8, t14);
+        append(div8, div6);
+        mount_component(icon3, div6, null);
+        append(div6, t15);
+        append(div6, span3);
+        append(span3, b1);
+        append(span3, t17);
+        append(span3, t18);
+        append(div8, t19);
+        append(div8, div7);
+        mount_component(icon4, div7, null);
+        append(div7, t20);
+        append(div7, span4);
+        append(span4, b2);
+        append(span4, t22);
+        append(span4, t23);
+        append(div13, t24);
+        append(div13, div12);
+        append(div12, div10);
+        mount_component(icon5, div10, null);
+        append(div10, t25);
+        append(div10, span5);
+        append(span5, t26);
+        append(span5, t27);
+        append(div12, t28);
+        append(div12, div11);
+        append(div11, span6);
+        append(span6, t29);
+        append(span6, t30);
+        append(span6, t31);
+        append(div11, t32);
+        append(div11, span7);
+        append(span7, t33);
+        append(div14, t34);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type_1(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        } else {
+          group_outros();
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
+          });
+          check_outros();
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
+          } else {
+            if_block.p(ctx2, dirty);
+          }
+          transition_in(if_block, 1);
+          if_block.m(div0, null);
+        }
+        if ((!current || dirty & /*random_props*/
+        1) && t2_value !== (t2_value = /*prop*/
+        (ctx2[10].purpose === "" ? "Sale" : (
+          /*prop*/
+          ctx2[10].purpose
+        )) + ""))
+          set_data(t2, t2_value);
+        if ((!current || dirty & /*random_props*/
+        1) && t5_value !== (t5_value = /*prop*/
+        (ctx2[10].houseType === "" ? "House" : (
+          /*prop*/
+          ctx2[10].houseType
+        )) + ""))
+          set_data(t5, t5_value);
+        if ((!current || dirty & /*random_props*/
+        1) && t8_value !== (t8_value = /*prop*/
+        (ctx2[10].formattedAddress === "" ? (
+          /*prop*/
+          ctx2[10].address
+        ) : (
+          /*prop*/
+          ctx2[10].formattedAddress
+        )) + ""))
+          set_data(t8, t8_value);
+        if ((!current || dirty & /*random_props*/
+        1) && t13_value !== (t13_value = /*prop*/
+        (ctx2[10].numberOfFloors || 0) + ""))
+          set_data(t13, t13_value);
+        if ((!current || dirty & /*random_props*/
+        1) && t18_value !== (t18_value = /*prop*/
+        (ctx2[10].bedroom || 0) + ""))
+          set_data(t18, t18_value);
+        if ((!current || dirty & /*random_props*/
+        1) && t23_value !== (t23_value = /*prop*/
+        (ctx2[10].bathroom || 0) + ""))
+          set_data(t23, t23_value);
+        if ((!current || dirty & /*random_props*/
+        1) && t26_value !== (t26_value = /*prop*/
+        ctx2[10].sizeM2 + ""))
+          set_data(t26, t26_value);
+        if ((!current || dirty & /*random_props*/
+        1) && t30_value !== (t30_value = /*prop*/
+        (ctx2[10].agencyFeePercent || "0") + ""))
+          set_data(t30, t30_value);
+        if ((!current || dirty & /*random_props*/
+        1) && t33_value !== (t33_value = (0, import_formatter.formatPrice)(
+          /*prop*/
+          ctx2[10].lastPrice || 0,
+          "USD"
+        ) + ""))
+          set_data(t33, t33_value);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        transition_in(icon0.$.fragment, local);
+        transition_in(icon1.$.fragment, local);
+        transition_in(icon2.$.fragment, local);
+        transition_in(icon3.$.fragment, local);
+        transition_in(icon4.$.fragment, local);
+        transition_in(icon5.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        transition_out(icon0.$.fragment, local);
+        transition_out(icon1.$.fragment, local);
+        transition_out(icon2.$.fragment, local);
+        transition_out(icon3.$.fragment, local);
+        transition_out(icon4.$.fragment, local);
+        transition_out(icon5.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div14);
+        }
+        if_blocks[current_block_type_index].d();
+        destroy_component(icon0);
+        destroy_component(icon1);
+        destroy_component(icon2);
+        destroy_component(icon3);
+        destroy_component(icon4);
+        destroy_component(icon5);
       }
     };
   }
@@ -4553,6 +5374,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t8;
     let input;
     let t9;
+    let current_block_type_index;
+    let if_block;
     let current;
     let mounted;
     let dispose;
@@ -4561,7 +5384,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         size: 15,
         color: (
           /*search_mode*/
-          ctx[0] === srch_loc ? "#3b82f6" : "#475569"
+          ctx[2] === srch_loc ? "#3b82f6" : "#475569"
         ),
         src: FaSolidMapMarkedAlt_default
       }
@@ -4571,7 +5394,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         size: 14,
         color: (
           /*search_mode*/
-          ctx[0] === srch_prop ? "#3b82f6" : "#475569"
+          ctx[2] === srch_prop ? "#3b82f6" : "#475569"
         ),
         src: FaSolidHotel_default
       }
@@ -4584,20 +5407,24 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         src: FaSolidSearch_default
       }
     });
+    const if_block_creators = [create_if_block2, create_if_block_22];
+    const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (
         /*search_mode*/
-        ctx2[0] === srch_loc
+        ctx2[2] === srch_loc
       )
-        return create_if_block2;
+        return 0;
       if (
         /*search_mode*/
-        ctx2[0] === srch_prop
+        ctx2[2] === srch_prop
       )
-        return create_if_block_12;
+        return 1;
+      return -1;
     }
-    let current_block_type = select_block_type(ctx, -1);
-    let if_block = current_block_type && current_block_type(ctx);
+    if (~(current_block_type_index = select_block_type(ctx, -1))) {
+      if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    }
     return {
       c() {
         c = comment(" Google Map SDK ");
@@ -4627,29 +5454,29 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t9 = space();
         if (if_block)
           if_block.c();
-        attr(button0, "class", "svelte-1qz9jht");
+        attr(button0, "class", "svelte-11w6wgb");
         toggle_class(
           button0,
           "active",
           /*search_mode*/
-          ctx[0] === srch_loc
+          ctx[2] === srch_loc
         );
-        attr(button1, "class", "svelte-1qz9jht");
+        attr(button1, "class", "svelte-11w6wgb");
         toggle_class(
           button1,
           "active",
           /*search_mode*/
-          ctx[0] === srch_prop
+          ctx[2] === srch_prop
         );
-        attr(div0, "class", "tabs svelte-1qz9jht");
+        attr(div0, "class", "tabs svelte-11w6wgb");
         attr(label, "for", "search_location");
         attr(input, "type", "text");
         attr(input, "id", "search_location");
         attr(input, "placeholder", "Search property...");
-        attr(input, "class", "svelte-1qz9jht");
-        attr(div1, "class", "search_box svelte-1qz9jht");
-        attr(div2, "class", "header svelte-1qz9jht");
-        attr(div3, "class", "property_location_container svelte-1qz9jht");
+        attr(input, "class", "svelte-11w6wgb");
+        attr(div1, "class", "search_box svelte-11w6wgb");
+        attr(div2, "class", "header svelte-11w6wgb");
+        attr(div3, "class", "property_location_container svelte-11w6wgb");
       },
       m(target, anchor) {
         append(document.head, c);
@@ -4674,8 +5501,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div1, t8);
         append(div1, input);
         append(div3, t9);
-        if (if_block)
-          if_block.m(div3, null);
+        if (~current_block_type_index) {
+          if_blocks[current_block_type_index].m(div3, null);
+        }
         current = true;
         if (!mounted) {
           dispose = [
@@ -4683,13 +5511,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               button0,
               "click",
               /*click_handler*/
-              ctx[3]
+              ctx[4]
             ),
             listen(
               button1,
               "click",
               /*click_handler_1*/
-              ctx[4]
+              ctx[5]
             )
           ];
           mounted = true;
@@ -4698,43 +5526,60 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, [dirty]) {
         const icon0_changes = {};
         if (dirty & /*search_mode*/
-        1)
+        4)
           icon0_changes.color = /*search_mode*/
-          ctx2[0] === srch_loc ? "#3b82f6" : "#475569";
+          ctx2[2] === srch_loc ? "#3b82f6" : "#475569";
         icon0.$set(icon0_changes);
         if (!current || dirty & /*search_mode, srch_loc*/
-        1) {
+        4) {
           toggle_class(
             button0,
             "active",
             /*search_mode*/
-            ctx2[0] === srch_loc
+            ctx2[2] === srch_loc
           );
         }
         const icon1_changes = {};
         if (dirty & /*search_mode*/
-        1)
+        4)
           icon1_changes.color = /*search_mode*/
-          ctx2[0] === srch_prop ? "#3b82f6" : "#475569";
+          ctx2[2] === srch_prop ? "#3b82f6" : "#475569";
         icon1.$set(icon1_changes);
         if (!current || dirty & /*search_mode, srch_prop*/
-        1) {
+        4) {
           toggle_class(
             button1,
             "active",
             /*search_mode*/
-            ctx2[0] === srch_prop
+            ctx2[2] === srch_prop
           );
         }
-        if (current_block_type === (current_block_type = select_block_type(ctx2, dirty)) && if_block) {
-          if_block.p(ctx2, dirty);
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if (~current_block_type_index) {
+            if_blocks[current_block_type_index].p(ctx2, dirty);
+          }
         } else {
-          if (if_block)
-            if_block.d(1);
-          if_block = current_block_type && current_block_type(ctx2);
           if (if_block) {
-            if_block.c();
+            group_outros();
+            transition_out(if_blocks[previous_block_index], 1, 1, () => {
+              if_blocks[previous_block_index] = null;
+            });
+            check_outros();
+          }
+          if (~current_block_type_index) {
+            if_block = if_blocks[current_block_type_index];
+            if (!if_block) {
+              if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+              if_block.c();
+            } else {
+              if_block.p(ctx2, dirty);
+            }
+            transition_in(if_block, 1);
             if_block.m(div3, null);
+          } else {
+            if_block = null;
           }
         }
       },
@@ -4744,12 +5589,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         transition_in(icon0.$.fragment, local);
         transition_in(icon1.$.fragment, local);
         transition_in(icon2.$.fragment, local);
+        transition_in(if_block);
         current = true;
       },
       o(local) {
         transition_out(icon0.$.fragment, local);
         transition_out(icon1.$.fragment, local);
         transition_out(icon2.$.fragment, local);
+        transition_out(if_block);
         current = false;
       },
       d(detaching) {
@@ -4762,8 +5609,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         destroy_component(icon0);
         destroy_component(icon1);
         destroy_component(icon2);
-        if (if_block) {
-          if_block.d();
+        if (~current_block_type_index) {
+          if_blocks[current_block_type_index].d();
         }
         mounted = false;
         run_all(dispose);
@@ -4773,20 +5620,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var srch_loc = "location";
   var srch_prop = "property";
   function instance3($self, $props, $invalidate) {
+    let random_props = [];
     onMount(async () => {
+      await (0, import_jsApi.UserSearchProp)({}, async (res) => {
+        console.log("Property : ", res.properties);
+        $invalidate(0, random_props = res.properties);
+      });
       await initMap();
     });
-    let search_mode = srch_loc;
-    async function toggleSearchMode(srchMode) {
-      $invalidate(0, search_mode = srchMode);
-      if (search_mode === srch_loc) {
-        await initMap();
-      }
-    }
     let map;
     let map_container;
     async function initMap() {
-      const myLatLng = { lat: -34.397, lng: 150.644 };
+      const myLatLng = { lat: 23.6978, lng: 120.9605 };
       let markers = [
         {
           lat: -34.03360401120961,
@@ -4831,21 +5676,30 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         });
       });
     }
+    let search_mode = srch_loc;
+    async function toggleSearchMode(srchMode) {
+      $invalidate(2, search_mode = srchMode);
+      if (search_mode === srch_loc) {
+        await initMap();
+      }
+    }
+    let props_by_loc = [];
     const click_handler = () => toggleSearchMode(srch_loc);
     const click_handler_1 = () => toggleSearchMode(srch_prop);
-    function div1_binding($value) {
+    function div2_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         map_container = $value;
         $invalidate(1, map_container);
       });
     }
     return [
-      search_mode,
+      random_props,
       map_container,
+      search_mode,
       toggleSearchMode,
       click_handler,
       click_handler_1,
-      div1_binding
+      div2_binding
     ];
   }
   var PropertyLocation = class extends SvelteComponent {
@@ -4988,7 +5842,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var Footer_default = Footer;
 
   // index.svelte
-  function create_else_block(ctx) {
+  function create_else_block2(ctx) {
     let section;
     let div5;
     let div0;
@@ -5067,7 +5921,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     );
     let if_block10 = (
       /*mode*/
-      ctx[7] !== LOGIN && create_if_block_22(ctx)
+      ctx[7] !== LOGIN && create_if_block_23(ctx)
     );
     let if_block11 = (
       /*mode*/
@@ -5357,7 +6211,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if (if_block10) {
             if_block10.p(ctx2, dirty);
           } else {
-            if_block10 = create_if_block_22(ctx2);
+            if_block10 = create_if_block_23(ctx2);
             if_block10.c();
             if_block10.m(div3, t16);
           }
@@ -5989,7 +6843,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_22(ctx) {
+  function create_if_block_23(ctx) {
     let p;
     let t0;
     let a;
@@ -6076,7 +6930,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let current;
     let mounted;
     let dispose;
-    const if_block_creators = [create_if_block3, create_else_block];
+    const if_block_creators = [create_if_block3, create_else_block2];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (

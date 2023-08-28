@@ -1,28 +1,35 @@
 <script>
   // @ts-nocheck
   import { onMount } from "svelte";
+  import { UserSearchProp } from "jsApi.GEN";
+  import { formatPrice } from "./formatter";
 
   import Icon from "svelte-icons-pack/Icon.svelte";
   import FaSolidSearch from "svelte-icons-pack/fa/FaSolidSearch";
   import FaSolidHotel from "svelte-icons-pack/fa/FaSolidHotel";
   import FaSolidMapMarkedAlt from "svelte-icons-pack/fa/FaSolidMapMarkedAlt";
+  import FaSolidMapMarkerAlt from "svelte-icons-pack/fa/FaSolidMapMarkerAlt";
+  import FaSolidImage from "svelte-icons-pack/fa/FaSolidImage";
+  import FaSolidHome from "svelte-icons-pack/fa/FaSolidHome";
+  import FaSolidRulerCombined from "svelte-icons-pack/fa/FaSolidRulerCombined";
+  import FaSolidBuilding from "svelte-icons-pack/fa/FaSolidBuilding";
+  import FaSolidBath from "svelte-icons-pack/fa/FaSolidBath";
+  import FaSolidBed from "svelte-icons-pack/fa/FaSolidBed";
 
+  let random_props = [];
   onMount( async () => {
+    await UserSearchProp({}, async res => {
+      console.log("Property : ", res.properties);
+      random_props = res.properties;
+    })
     await initMap();
   } );
-
-  let srch_loc = "location", srch_prop = "property";
-  let search_mode = srch_loc;
-  async function toggleSearchMode( srchMode ) {
-    search_mode = srchMode;
-    if (search_mode === srch_loc) {await initMap()}
-  }
 
   // Maps
   let map;
   let map_container;
   async function initMap() {
-    const myLatLng = {lat: -34.397, lng: 150.644};
+    const myLatLng = {lat: 23.6978, lng: 120.9605};
     // TODO: each coordinate is location of house/apartment for sale
     let markers = [
       {lat: -34.03360401120961, lng: 149.86401361846924},
@@ -48,6 +55,15 @@
       });
     });
   }
+
+  const srch_loc = "location", srch_prop = "property";
+  let search_mode = srch_loc;
+  async function toggleSearchMode( srchMode ) {
+    search_mode = srchMode;
+    if (search_mode === srch_loc) {await initMap()}
+  }
+
+  let props_by_loc = []; // Fill this array when search by location
 </script>
 
 <svelte:head>
@@ -99,8 +115,61 @@
   {#if search_mode === srch_loc}
     <div class="search_by_location">
       <div class="left">
-        <!-- TODO: render random properties here -->
-        <p>Property</p>
+        <div class="props_container">
+          {#each random_props as prop}
+            <div class="prop_item">
+              <div class="img_container">
+                {#if prop.images && prop.images.length}
+                  <img src={prop.images[0]} alt="" />
+                {:else}
+                  <div class="image_empty">
+                    <Icon size={40} color="#475569" src={FaSolidImage} />
+                    <span>No Image !</span>
+                  </div>
+                {/if}
+              </div>
+              <div class="prop_info">
+                <div class="main_info">
+                  <div class="label_info">
+                    <div class="purpose">On {prop.purpose === "" ? 'Sale' : prop.purpose}</div>
+                    <div class="house_type">
+                      <Icon size={12} color="#475569" src={FaSolidHome} />
+                      <span>{prop.houseType === "" ? 'House' : prop.houseType}</span>
+                    </div>
+                  </div>
+                  <div class="address">
+                    <Icon size={17} color="#f97316" src={FaSolidMapMarkerAlt} />
+                    <span>{prop.formattedAddress === "" ? prop.address : prop.formattedAddress}</span>
+                  </div>
+                  <div class="feature">
+                    <div class="item">
+                      <Icon size={13} color="#f97316" src={FaSolidBuilding} />
+                      <span><b>Floor</b>: {prop.numberOfFloors || 0}</span>
+                    </div>
+                    <div class="item">
+                      <Icon size={14} color="#f97316" src={FaSolidBed} />
+                      <span><b>Beds</b>: {prop.bedroom || 0}</span>
+                    </div>
+                    <div class="item">
+                      <Icon size={14} color="#f97316" src={FaSolidBath} />
+                      <span><b>Baths</b>: {prop.bathroom || 0}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="secondary_info">
+                  <div class="size">
+                    <Icon size={12} color="#f97316" src={FaSolidRulerCombined} />
+                    <span>{prop.sizeM2} M2</span>
+                  </div>
+                  <div class="price">
+                    <span class="agency_fee">Agency Fee: {prop.agencyFeePercent || '0'}%</span>
+                    <span class="last_price">{formatPrice(prop.lastPrice || 0, 'USD')}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {/each}
+        </div>
       </div>
       <div class="right">
         <div class='map_container' bind:this={map_container}>
@@ -190,7 +259,146 @@
     gap: 20px;
     flex-grow: 1;
     max-width: 100%;
+    overflow-y: scroll;
   }
+  .search_by_location::-webkit-scrollbar-thumb {
+    background-color : transparent;
+  }
+  .search_by_location::-webkit-scrollbar {
+    width: 0;
+  }
+  .search_by_location::-webkit-scrollbar-track {
+    background-color : transparent;
+  }
+  .search_by_location .left {
+    height: 100%;
+    overflow-y: scroll;
+    border-top: 1px solid #cbd5e1;
+    border-bottom: 1px solid #cbd5e1;
+  }
+  .search_by_location .left::-webkit-scrollbar-thumb {
+    background-color : #3b82f6;
+  }
+  .search_by_location .left::-webkit-scrollbar {
+    width: 8px;
+  }
+  .search_by_location .left::-webkit-scrollbar-track {
+    background-color : transparent;
+  }
+  .search_by_location .left .props_container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin: 18px;
+  }
+  .search_by_location .left .props_container .prop_item {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding-right: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .search_by_location .left .props_container .prop_item:hover .prop_info .main_info .address {
+    text-decoration: underline;
+  }
+  .search_by_location .left .props_container .prop_item .img_container {
+    width: 240px;
+    height: 170px;
+  }
+  .search_by_location .left .props_container .prop_item .img_container img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+  .search_by_location .left .props_container .prop_item .img_container .image_empty {
+    border-radius: 8px;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    background-color: #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #cbd5e1;
+  }
+  .search_by_location .left .props_container .prop_item .prop_info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .search_by_location .left .props_container .prop_item .prop_info .main_info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .search_by_location .left .props_container .prop_item .prop_info .main_info .label_info {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+  .search_by_location .left .props_container .prop_item .prop_info .main_info .label_info .purpose,
+  .search_by_location .left .props_container .prop_item .prop_info .main_info .label_info .house_type {
+    padding: 4px 10px;
+    font-size: 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 7px;
+    width: fit-content;
+  }
+  .search_by_location .left .props_container .prop_item .prop_info .main_info .address {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    font-size: 15px;
+    gap: 8px;
+  }
+  .search_by_location .left .props_container .prop_item .prop_info .main_info .feature {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+  }
+  .search_by_location .left .props_container .prop_item .prop_info .main_info .feature .item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+  .search_by_location .left .props_container .prop_item .prop_info .secondary_info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .search_by_location .left .props_container .prop_item .prop_info .secondary_info .size {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+  }
+  .search_by_location .left .props_container .prop_item .prop_info .secondary_info .price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+  .search_by_location .left .props_container .prop_item .prop_info .secondary_info .price .agency_fee {
+    font-size: 12px;
+  }
+  .search_by_location .left .props_container .prop_item .prop_info .secondary_info .price .last_price {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .search_by_location .left .props_container .prop_item .prop_info .secondary_info
   .search_by_location .right {
     border: 1px solid #cbd5e1;
     border-radius: 8px;
