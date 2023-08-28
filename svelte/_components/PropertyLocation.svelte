@@ -30,7 +30,6 @@
   let map_container;
   async function initMap() {
     const myLatLng = {lat: 23.6978, lng: 120.9605};
-    // TODO: each coordinate is location of house/apartment for sale
     let markers = [
       {lat: -34.03360401120961, lng: 149.86401361846924},
       {lat: -34.40606480160426, lng: 149.94091791534424},
@@ -272,15 +271,15 @@
   }
   .search_by_location .left {
     height: 100%;
-    overflow-y: scroll;
     border-top: 1px solid #cbd5e1;
     border-bottom: 1px solid #cbd5e1;
+    overflow-y: scroll;
   }
   .search_by_location .left::-webkit-scrollbar-thumb {
-    background-color : #3b82f6;
+    background-color : transparent;
   }
   .search_by_location .left::-webkit-scrollbar {
-    width: 8px;
+    width: 0;
   }
   .search_by_location .left::-webkit-scrollbar-track {
     background-color : transparent;
@@ -290,7 +289,17 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
-    margin: 18px;
+    padding: 18px 0;
+    overflow: auto;
+  }
+  .search_by_location .left .props_container::-webkit-scrollbar-thumb {
+    background-color : #3b82f6;
+  }
+  .search_by_location .left .props_container::-webkit-scrollbar {
+    width: 8px;
+  }
+  .search_by_location .left .props_container::-webkit-scrollbar-track {
+    background-color : transparent;
   }
   .search_by_location .left .props_container .prop_item {
     display: flex;
