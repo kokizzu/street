@@ -4,14 +4,17 @@
   import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
   import FaSolidPen from 'svelte-icons-pack/fa/FaSolidPen';
   import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
-  import { datetime2 } from './formatter';
+  import PillBox from './PillBox.svelte';
+  import { localeDatetime } from './formatter';
   
   export let property;
+  export let meta;
   let showMore = false;
   
   function handleShowMore() {
     showMore = !showMore;
   }
+
 </script>
 
 <div class="{showMore ? 'property_more' : 'property'}">
@@ -55,7 +58,7 @@
     <div class='feature_number'>
       <div class='feature_item'>
         <b>{property.numberOfFloors || '0'}</b>
-        <p>FLoors</p>
+        <p>Floors</p>
       </div>
       <div class='feature_item'>
         <b>{property.bathroom || '0'}</b>
@@ -71,46 +74,17 @@
       </div>
     </div>
   </div>
-  <table class='property_table'>
-    <tbody>
-    <tr>
-      <td class='name'>Property ID</td>
-      <td class='value'>{property.id || '-'}</td>
-    </tr>
-    <tr>
-      <td class='name'>Country</td>
-      <td class='value'>{property.country || '-'}</td>
-    </tr>
-    <tr>
-      <td class='name'>Created At</td>
-      <td class='value'>{datetime2( property.createdAt ) || '0'}</td>
-    </tr>
-    <tr>
-      <td class='name'>Updated At</td>
-      <td class='value'>{datetime2( property.updatedAt ) || '0'}</td>
-    </tr>
-    <tr>
-      <td class='name'>Building Lamination</td>
-      <td class='value'>{property.buildingLamination || '-'}</td>
-    </tr>
-    <tr>
-      <td class='name'>Construct Completed Date</td>
-      <td class='value'>{datetime2( property.constructCompletedDate ) || '-'}</td>
-    </tr>
-    <tr>
-      <td class='name'>Updated At</td>
-      <td class='value'>{datetime2( property.updatedAt ) || '0'}</td>
-    </tr>
-    <tr>
-      <td class='name'>Main Use</td>
-      <td class='value'>{property.mainUse || '-'}</td>
-    </tr>
-    <tr>
-      <td class='name'>Note</td>
-      <td class='value'>{property.note || '-'}</td>
-    </tr>
-    </tbody>
-  </table>
+  <div class='property_attributes'>
+    {#each meta as m}
+      {#if property[ m.name ]}
+        {#if m.inputType==='datetime'}
+          <PillBox label={m.label} content={localeDatetime(property[m.name])} />
+        {:else}
+          <PillBox label={m.label} content={property[m.name]} />
+        {/if}
+      {/if}
+    {/each}
+  </div>
   <div class='property_floors'>
     <h3>FLOORS</h3>
     {#if property.floorList && property.floorList.length}
@@ -126,8 +100,8 @@
                 <div class='room_lists'>
                   {#each floors.rooms as room}
                     <div class='room_item'>
-                      <span>{@html room.name || '-'}</span>
-                      <span>{@html room.sizeM2 || '-'} M2</span>
+                      <span>{room.name || '-'}</span>
+                      <span>{room.sizeM2 || '-'} M2</span>
                     </div>
                   {/each}
                 </div>
@@ -136,10 +110,10 @@
             
             <div class='floor_plan_image'>
               {#if floors.planImageUrl===''}
-              <span>
-                <i class='gg-image'></i>
-                <p>No Image</p>
-              </span>
+                              <span>
+                                <i class='gg-image'></i>
+                                <p>No Image</p>
+                              </span>
               {:else}
                 <img src={floors.planImageUrl} alt='' />
               {/if}
@@ -154,10 +128,7 @@
     {/if}
   </div>
   <div class='property_less_more'>
-    <button
-      on:click={handleShowMore}
-      class='toggle_show_more'
-    >
+    <button on:click={handleShowMore} class='toggle_show_more'>
       Show {showMore===true ? 'Less' : 'More'}
     </button>
   </div>
@@ -315,27 +286,6 @@
 
   .property_secondary b {
     font-size : 22px;
-  }
-
-  .property_table {
-    border-collapse : collapse;
-    font-size       : 14px;
-    width           : 100%;
-    color           : #475569;
-    border          : 1px solid #CBD5E1;
-  }
-
-  .property_table .name {
-    width       : 210px;
-    max-width   : 210px;
-    font-weight : 700;
-  }
-
-  .property_table .name,
-  .property_table .value {
-    border-top    : 1px solid #CBD5E1;
-    border-bottom : 1px solid #CBD5E1;
-    padding       : 12px;
   }
 
   .property_floors {

@@ -120,8 +120,10 @@
     let payload = {};
     $: {
         let floorList = property.floorList || [];
+        let id = '0'
+        if(property.id > 0) id = '' + property.id;
         payload = {
-            id: '' + (+property.id) || '0',
+            id: id,
             formattedAddress: property.formattedAddress,
             coord: [property.lat, property.long],
             houseType: property.houseType,
@@ -202,7 +204,7 @@
         const clearMarkers = (markers) => {
             markers.forEach((marker) => {
                 marker.setMap(null);
-                marker.listenerHandle.remove();
+                if(marker.listenerHandle && 'function' === typeof marker.listenerHandle.remove) marker.listenerHandle.remove();
             });
             markers.length = 0;
         };

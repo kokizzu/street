@@ -116,7 +116,7 @@
                         <th class='col_action'>Action</th>
                     {:else}
                         <th class='table_header'
-                        style='{widths[field.name] ? "min-width: "+widths[field.name] : ""}'>
+                            style='{widths[field.name] ? "min-width: "+widths[field.name] : ""}'>
                             <label for='th_{field.name}'>{field.label}</label><br />
                             <input id='th_{field.name}'
                                    title='separate with pipe for multiple values, for example:
@@ -128,7 +128,7 @@
   *jkl* will show values containing jkl substring
 multiple filter from other fields will do AND operation'
                                    type='text'
-                                   style='width: 0; min-width: 100%; box-sizing: border-box;'
+                                   class='input_filter'
                                    bind:value={filtersMap[field.name]}
                                    on:keydown={filterKeyDown}
                             />
@@ -154,7 +154,7 @@ multiple filter from other fields will do AND operation'
                             </td>
                         {:else if field.inputType === 'checkbox'}
                             <td class='table_data'>{!!row[i]}</td>
-                        {:else if field.inputType === 'datetime'}
+                        {:else if field.inputType === 'datetime' || field.name === 'deletedAt'}
                             <td class='table_data'>{datetime(row[i])}</td>
                         {:else if field.inputType === 'number'}
                             <td>{(row[i] || 0).toLocaleString()}</td>
@@ -181,7 +181,7 @@ multiple filter from other fields will do AND operation'
             <span>rows per page.</span>
         </div>
 
-        <p>Total: {pager.countResult}</p>
+        <p>Total: {pager.countResult | 0}</p>
 
         <div class='pagination'>
             <button title='Go to first page' disabled={!allowPrevPage} on:click={() => gotoPage(1)}>
@@ -258,7 +258,7 @@ multiple filter from other fields will do AND operation'
     }
 
     tr, td {
-        height: 2em;
+        height : 2em;
     }
 
     .table_users .col_action .action {
@@ -359,5 +359,11 @@ multiple filter from other fields will do AND operation'
 
     .pagination button:disabled:hover {
         background : none;
+    }
+
+    input.input_filter {
+        width      : 0;
+        min-width  : 100%;
+        box-sizing : border-box;
     }
 </style>

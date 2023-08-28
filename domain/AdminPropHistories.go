@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"github.com/kokizzu/gotro/M"
+
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
@@ -184,21 +186,9 @@ func (d *Domain) AdminPropHistories(in *AdminPropHistoriesIn) (out AdminPropHist
 			ph.SetCreatedAt(in.UnixNow())
 		}
 
-		ph.SetPropertyKey(in.PropHistory.PropertyKey)
-		ph.SetTransactionKey(in.PropHistory.TransactionKey)
-		ph.SetTransactionSign(in.PropHistory.TransactionSign)
-		ph.SetTransactionType(in.PropHistory.TransactionType)
-		ph.SetTransactionTime(in.PropHistory.TransactionTime)
-		ph.SetTransactionDateNormal(in.PropHistory.TransactionDateNormal)
-		ph.SetTransactionNumber(in.PropHistory.TransactionNumber)
-		ph.SetPriceNtd(in.PropHistory.PriceNtd)
-		ph.SetPricePerUnit(in.PropHistory.PricePerUnit)
-		ph.SetPrice(in.PropHistory.Price)
-		ph.SetAddress(in.PropHistory.Address)
-		ph.SetDistrict(in.PropHistory.District)
-		ph.SetNote(in.PropHistory.Note)
+		haveMutation := ph.SetAll(in.PropHistory, M.SB{}, M.SB{})
 
-		if ph.HaveMutation() {
+		if haveMutation {
 			ph.SetUpdatedAt(in.UnixNow())
 			ph.SetUpdatedBy(sess.UserId)
 			if ph.Id == 0 {

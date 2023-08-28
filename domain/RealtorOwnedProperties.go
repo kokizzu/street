@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/zCrud"
 )
@@ -16,11 +17,15 @@ type (
 		RequestCommon
 
 		Pager zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+
+		ShowMeta bool `json:"showMeta" form:"showMeta" query:"showMeta" long:"showMeta" msg:"showMeta"`
 	}
 	RealtorOwnedPropertiesOut struct {
 		ResponseCommon
 
 		Properties []rqProperty.Property `json:"properties" form:"properties" query:"properties" long:"properties" msg:"properties"`
+
+		Meta []zCrud.Field `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 
 		Pager zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 	}
@@ -28,6 +33,77 @@ type (
 
 const (
 	RealtorOwnedPropertiesAction = `realtor/ownedProperties`
+)
+
+var (
+	RealtorOwnedPropertiesMeta = []zCrud.Field{
+		{
+			Name:      mProperty.SizeM2,
+			Label:     `Size (m2)`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name:      mProperty.MainUse,
+			Label:     `Main Use / Facility`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name:      mProperty.MainBuildingMaterial,
+			Label:     `Main Building Material`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name:      mProperty.ConstructCompletedDate,
+			Label:     `Construct Completed Date`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name:      mProperty.BuildingLamination,
+			Label:     `Building Lamination`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name:      mProperty.Address,
+			Label:     `Address`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name:      mProperty.District,
+			Label:     `District`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name:      mProperty.Note,
+			Label:     `Note`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name:      mProperty.Country,
+			Label:     `Country`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name:      mProperty.CreatedAt,
+			Label:     `Created At`,
+			DataType:  zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeDateTime,
+		},
+		{
+			Name:      mProperty.UpdatedAt,
+			Label:     `Last Update`,
+			DataType:  zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeDateTime,
+		},
+	}
 )
 
 func (d *Domain) RealtorOwnedProperties(in *RealtorOwnedPropertiesIn) (out RealtorOwnedPropertiesOut) {
@@ -41,5 +117,8 @@ func (d *Domain) RealtorOwnedProperties(in *RealtorOwnedPropertiesIn) (out Realt
 
 	r := rqProperty.NewProperty(d.PropOltp)
 	out.Properties = r.FindOwnedByPagination(sess.UserId, &in.Pager, &out.Pager)
+	if in.ShowMeta {
+		out.Meta = RealtorOwnedPropertiesMeta
+	}
 	return
 }

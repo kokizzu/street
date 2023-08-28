@@ -11020,7 +11020,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       const clearMarkers = (markers2) => {
         markers2.forEach((marker) => {
           marker.setMap(null);
-          marker.listenerHandle.remove();
+          if (marker.listenerHandle && "function" === typeof marker.listenerHandle.remove)
+            marker.listenerHandle.remove();
         });
         markers2.length = 0;
       };
@@ -11614,8 +11615,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       1) {
         $: {
           let floorList = property.floorList || [];
+          let id = "0";
+          if (property.id > 0)
+            id = "" + property.id;
           payload = {
-            id: "" + +property.id || "0",
+            id,
             formattedAddress: property.formattedAddress,
             coord: [property.lat, property.long],
             houseType: property.houseType,

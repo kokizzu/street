@@ -2828,10 +2828,30 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     "_components/formatter.js"(exports, module) {
       function datetime(unixSec) {
         if (!unixSec)
-          return "-";
+          return "";
         const dt = new Date(unixSec * 1e3);
         const options = { day: "2-digit", month: "long", year: "numeric" };
         const formattedDate = dt.toLocaleDateString(void 0, options);
+        return formattedDate;
+      }
+      function priceNtd(val) {
+        return new Number(val).toLocaleString("zh-TW");
+      }
+      function localeDatetime(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = new Date(unixSec * 1e3);
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = dt.getDate();
+        const month = dt.toLocaleDateString("default", { month: "long" });
+        const year = dt.getFullYear();
+        let hh = dt.getHours();
+        if (hh < 10)
+          hh = "0" + hh;
+        let mm = dt.getMinutes();
+        if (mm < 10)
+          mm = "0" + mm;
+        const formattedDate = `${day}, ${date} ${month} ${year} ${hh}:${mm}`;
         return formattedDate;
       }
       function datetime2(unixSec) {
@@ -2856,6 +2876,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
       module.exports = {
         datetime,
+        priceNtd,
+        localeDatetime,
         datetime2,
         formatPrice: formatPrice2
       };

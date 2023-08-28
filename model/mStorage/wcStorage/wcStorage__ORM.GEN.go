@@ -122,7 +122,13 @@ func (f *FilesMutator) DoInsert() bool { //nolint:dupl false positive
 // replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
 func (f *FilesMutator) DoUpsert() bool { //nolint:dupl false positive
-	_, err := f.Adapter.Replace(f.SpaceName(), f.ToArray())
+	row, err := f.Adapter.Replace(f.SpaceName(), f.ToArray())
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			f.Id = X.ToU(tup[0][0])
+		}
+	}
 	return !L.IsError(err, `Files.DoUpsert failed: `+f.SpaceName())
 }
 
