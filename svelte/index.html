@@ -4741,7 +4741,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/PropertyLocation.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[10] = list[i];
+    child_ctx[17] = list[i];
     return child_ctx;
   }
   function create_if_block_22(ctx) {
@@ -4813,7 +4813,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div4, t);
         append(div4, div3);
         append(div3, div2);
-        ctx[6](div2);
+        ctx[10](div2);
         current = true;
       },
       p(ctx2, dirty) {
@@ -4863,7 +4863,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           detach(div4);
         }
         destroy_each(each_blocks, detaching);
-        ctx[6](null);
+        ctx[10](null);
       }
     };
   }
@@ -4922,7 +4922,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       c() {
         img = element("img");
         if (!src_url_equal(img.src, img_src_value = /*prop*/
-        ctx[10].images[0]))
+        ctx[17].images[0]))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
         attr(img, "class", "svelte-h328id");
@@ -4933,7 +4933,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (dirty & /*random_props*/
         1 && !src_url_equal(img.src, img_src_value = /*prop*/
-        ctx2[10].images[0])) {
+        ctx2[17].images[0])) {
           attr(img, "src", img_src_value);
         }
       },
@@ -4959,9 +4959,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t1;
     let t2_value = (
       /*prop*/
-      (ctx[10].purpose === "" ? "Sale" : (
+      (ctx[17].purpose === "" ? "Sale" : (
         /*prop*/
-        ctx[10].purpose
+        ctx[17].purpose
       )) + ""
     );
     let t2;
@@ -4972,9 +4972,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span0;
     let t5_value = (
       /*prop*/
-      (ctx[10].houseType === "" ? "House" : (
+      (ctx[17].houseType === "" ? "House" : (
         /*prop*/
-        ctx[10].houseType
+        ctx[17].houseType
       )) + ""
     );
     let t5;
@@ -4985,12 +4985,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span1;
     let t8_value = (
       /*prop*/
-      (ctx[10].formattedAddress === "" ? (
+      (ctx[17].formattedAddress === "" ? (
         /*prop*/
-        ctx[10].address
+        ctx[17].address
       ) : (
         /*prop*/
-        ctx[10].formattedAddress
+        ctx[17].formattedAddress
       )) + ""
     );
     let t8;
@@ -5004,7 +5004,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t12;
     let t13_value = (
       /*prop*/
-      (ctx[10].numberOfFloors || 0) + ""
+      (ctx[17].numberOfFloors || 0) + ""
     );
     let t13;
     let t14;
@@ -5016,7 +5016,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t17;
     let t18_value = (
       /*prop*/
-      (ctx[10].bedroom || 0) + ""
+      (ctx[17].bedroom || 0) + ""
     );
     let t18;
     let t19;
@@ -5028,7 +5028,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t22;
     let t23_value = (
       /*prop*/
-      (ctx[10].bathroom || 0) + ""
+      (ctx[17].bathroom || 0) + ""
     );
     let t23;
     let t24;
@@ -5039,7 +5039,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span5;
     let t26_value = (
       /*prop*/
-      ctx[10].sizeM2 + ""
+      ctx[17].sizeM2 + ""
     );
     let t26;
     let t27;
@@ -5049,7 +5049,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t29;
     let t30_value = (
       /*prop*/
-      (ctx[10].agencyFeePercent || "0") + ""
+      (ctx[17].agencyFeePercent || "0") + ""
     );
     let t30;
     let t31;
@@ -5057,7 +5057,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span7;
     let t33_value = (0, import_formatter.formatPrice)(
       /*prop*/
-      ctx[10].lastPrice || 0,
+      ctx[17].lastPrice || 0,
       "USD"
     ) + "";
     let t33;
@@ -5068,8 +5068,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function select_block_type_1(ctx2, dirty) {
       if (
         /*prop*/
-        ctx2[10].images && /*prop*/
-        ctx2[10].images.length
+        ctx2[17].images && /*prop*/
+        ctx2[17].images.length
       )
         return 0;
       return 1;
@@ -5297,52 +5297,52 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if ((!current || dirty & /*random_props*/
         1) && t2_value !== (t2_value = /*prop*/
-        (ctx2[10].purpose === "" ? "Sale" : (
+        (ctx2[17].purpose === "" ? "Sale" : (
           /*prop*/
-          ctx2[10].purpose
+          ctx2[17].purpose
         )) + ""))
           set_data(t2, t2_value);
         if ((!current || dirty & /*random_props*/
         1) && t5_value !== (t5_value = /*prop*/
-        (ctx2[10].houseType === "" ? "House" : (
+        (ctx2[17].houseType === "" ? "House" : (
           /*prop*/
-          ctx2[10].houseType
+          ctx2[17].houseType
         )) + ""))
           set_data(t5, t5_value);
         if ((!current || dirty & /*random_props*/
         1) && t8_value !== (t8_value = /*prop*/
-        (ctx2[10].formattedAddress === "" ? (
+        (ctx2[17].formattedAddress === "" ? (
           /*prop*/
-          ctx2[10].address
+          ctx2[17].address
         ) : (
           /*prop*/
-          ctx2[10].formattedAddress
+          ctx2[17].formattedAddress
         )) + ""))
           set_data(t8, t8_value);
         if ((!current || dirty & /*random_props*/
         1) && t13_value !== (t13_value = /*prop*/
-        (ctx2[10].numberOfFloors || 0) + ""))
+        (ctx2[17].numberOfFloors || 0) + ""))
           set_data(t13, t13_value);
         if ((!current || dirty & /*random_props*/
         1) && t18_value !== (t18_value = /*prop*/
-        (ctx2[10].bedroom || 0) + ""))
+        (ctx2[17].bedroom || 0) + ""))
           set_data(t18, t18_value);
         if ((!current || dirty & /*random_props*/
         1) && t23_value !== (t23_value = /*prop*/
-        (ctx2[10].bathroom || 0) + ""))
+        (ctx2[17].bathroom || 0) + ""))
           set_data(t23, t23_value);
         if ((!current || dirty & /*random_props*/
         1) && t26_value !== (t26_value = /*prop*/
-        ctx2[10].sizeM2 + ""))
+        ctx2[17].sizeM2 + ""))
           set_data(t26, t26_value);
         if ((!current || dirty & /*random_props*/
         1) && t30_value !== (t30_value = /*prop*/
-        (ctx2[10].agencyFeePercent || "0") + ""))
+        (ctx2[17].agencyFeePercent || "0") + ""))
           set_data(t30, t30_value);
         if ((!current || dirty & /*random_props*/
         1) && t33_value !== (t33_value = (0, import_formatter.formatPrice)(
           /*prop*/
-          ctx2[10].lastPrice || 0,
+          ctx2[17].lastPrice || 0,
           "USD"
         ) + ""))
           set_data(t33, t33_value);
@@ -5385,7 +5385,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function create_fragment3(ctx) {
     let c;
-    let script;
+    let script0;
+    let script1;
+    let script1_src_value;
     let t1;
     let div3;
     let div2;
@@ -5460,8 +5462,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return {
       c() {
         c = comment(" Google Map SDK ");
-        script = element("script");
-        script.textContent = "(g => {\n      var h, a, k, p = 'The Google Maps JavaScript API', c = 'google', l = 'importLibrary', q = '__ib__', m = document, b = window;\n      b = b[ c ] || (b[ c ] = {});\n      var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise( async ( f, n ) => {\n        await (a = m.createElement( 'script' ));\n        e.set( 'libraries', [...r] + '' );\n        for( k in g ) e.set( k.replace( /[A-Z]/g, t => '_' + t[ 0 ].toLowerCase() ), g[ k ] );\n        e.set( 'callback', c + '.maps.' + q );\n        a.src = `https://maps.${c}apis.com/maps/api/js?` + e;\n        d[ q ] = f;\n        a.onerror = () => h = n( Error( p + ' could not load.' ) );\n        a.nonce = m.querySelector( 'script[nonce]' )?.nonce || '';\n        m.head.append( a );\n      } ));\n      d[ l ] ? console.warn( p + ' only loads once. Ignoring:', g ) : d[ l ] = ( f, ...n ) => r.add( f ) && u().then( () => d[ l ]( f, ...n ) );\n    })( {\n      key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',\n      v: 'weekly',\n      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).\n      // Add other bootstrap parameters as needed, using camel case.\n    } );";
+        script0 = element("script");
+        script0.textContent = "(g => {\n      var h, a, k, p = 'The Google Maps JavaScript API', c = 'google', l = 'importLibrary', q = '__ib__', m = document, b = window;\n      b = b[ c ] || (b[ c ] = {});\n      var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise( async ( f, n ) => {\n        await (a = m.createElement( 'script' ));\n        e.set( 'libraries', [...r] + '' );\n        for( k in g ) e.set( k.replace( /[A-Z]/g, t => '_' + t[ 0 ].toLowerCase() ), g[ k ] );\n        e.set( 'callback', c + '.maps.' + q );\n        a.src = `https://maps.${c}apis.com/maps/api/js?` + e;\n        d[ q ] = f;\n        a.onerror = () => h = n( Error( p + ' could not load.' ) );\n        a.nonce = m.querySelector( 'script[nonce]' )?.nonce || '';\n        m.head.append( a );\n      } ));\n      d[ l ] ? console.warn( p + ' only loads once. Ignoring:', g ) : d[ l ] = ( f, ...n ) => r.add( f ) && u().then( () => d[ l ]( f, ...n ) );\n    })( {\n      key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',\n      v: 'weekly',\n      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).\n      // Add other bootstrap parameters as needed, using camel case.\n    } );\n  ";
+        script1 = element("script");
+        script1.innerHTML = ``;
         t1 = space();
         div3 = element("div");
         div2 = element("div");
@@ -5486,6 +5490,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t9 = space();
         if (if_block)
           if_block.c();
+        script1.async = true;
+        if (!src_url_equal(script1.src, script1_src_value = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg&libraries=places&callback=initMap"))
+          attr(script1, "src", script1_src_value);
         attr(button0, "class", "svelte-h328id");
         toggle_class(
           button0,
@@ -5512,7 +5519,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       m(target, anchor) {
         append(document.head, c);
-        append(document.head, script);
+        append(document.head, script0);
+        append(document.head, script1);
         insert(target, t1, anchor);
         insert(target, div3, anchor);
         append(div3, div2);
@@ -5532,6 +5540,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         mount_component(icon2, label, null);
         append(div1, t8);
         append(div1, input);
+        set_input_value(
+          input,
+          /*searchbox_value*/
+          ctx[3]
+        );
         append(div3, t9);
         if (~current_block_type_index) {
           if_blocks[current_block_type_index].m(div3, null);
@@ -5543,13 +5556,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               button0,
               "click",
               /*click_handler*/
-              ctx[4]
+              ctx[6]
             ),
             listen(
               button1,
               "click",
               /*click_handler_1*/
-              ctx[5]
+              ctx[7]
+            ),
+            listen(
+              input,
+              "input",
+              /*input_input_handler*/
+              ctx[8]
+            ),
+            listen(
+              input,
+              "input",
+              /*input_handler*/
+              ctx[9]
             )
           ];
           mounted = true;
@@ -5584,6 +5609,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             "active",
             /*search_mode*/
             ctx2[2] === srch_prop
+          );
+        }
+        if (dirty & /*searchbox_value*/
+        8 && input.value !== /*searchbox_value*/
+        ctx2[3]) {
+          set_input_value(
+            input,
+            /*searchbox_value*/
+            ctx2[3]
           );
         }
         let previous_block_index = current_block_type_index;
@@ -5637,7 +5671,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           detach(div3);
         }
         detach(c);
-        detach(script);
+        detach(script0);
+        detach(script1);
         destroy_component(icon0);
         destroy_component(icon1);
         destroy_component(icon2);
@@ -5649,6 +5684,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
+  var google_map_api_key = "AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg";
   var srch_loc = "location";
   var srch_prop = "property";
   function instance3($self, $props, $invalidate) {
@@ -5662,8 +5698,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     });
     let map;
     let map_container;
+    let myLatLng = { lat: 23.6978, lng: 120.9605 };
     async function initMap() {
-      const myLatLng = { lat: 23.6978, lng: 120.9605 };
       let markers = [
         {
           lat: -34.03360401120961,
@@ -5715,9 +5751,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         await initMap();
       }
     }
+    let searchbox_value;
     let props_by_loc = [];
+    let show_area_lists = false;
+    let area_list_predictions = {};
+    async function AreaListHandler() {
+      show_area_lists = true;
+      const resp = await fetch(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${searchbox_value}&location=${myLatLng.lat}%2C${myLatLng.lng}&types=geocode&key=${google_map_api_key}`, { method: "GET" });
+      area_list_predictions = await resp.json();
+      console.log(area_list_predictions);
+    }
     const click_handler = () => toggleSearchMode(srch_loc);
     const click_handler_1 = () => toggleSearchMode(srch_prop);
+    function input_input_handler() {
+      searchbox_value = this.value;
+      $invalidate(3, searchbox_value);
+    }
+    const input_handler = () => {
+      if (search_mode === srch_loc) {
+        AreaListHandler();
+      }
+    };
     function div2_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         map_container = $value;
@@ -5728,9 +5782,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       random_props,
       map_container,
       search_mode,
+      searchbox_value,
       toggleSearchMode,
+      AreaListHandler,
       click_handler,
       click_handler_1,
+      input_input_handler,
+      input_handler,
       div2_binding
     ];
   }
