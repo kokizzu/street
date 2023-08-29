@@ -26,10 +26,12 @@
   } );
 
   // Maps
+  const google_map_api_key = "AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg";
   let map;
   let map_container;
+  let myLatLng = {lat: 23.6978, lng: 120.9605};
+  
   async function initMap() {
-    const myLatLng = {lat: 23.6978, lng: 120.9605};
     let markers = [
       {lat: -34.03360401120961, lng: 149.86401361846924},
       {lat: -34.40606480160426, lng: 149.94091791534424},
@@ -61,8 +63,28 @@
     search_mode = srchMode;
     if (search_mode === srch_loc) {await initMap()}
   }
-
+  
+  let searchbox_value; // bind value
+  
   let props_by_loc = []; // Fill this array when search by location
+  let show_area_lists = false;
+  let area_list_predictions = {};
+  
+  async function AreaListHandler() {
+    show_area_lists = true;
+    const resp = await fetch(
+      "https://maps.googleapis.com/maps/api/place/autocomplete/json" +
+      `?input=${searchbox_value}` +
+      `&location=${myLatLng.lat}%2C${myLatLng.lng}` +
+      "&types=geocode" +
+      `&key=${google_map_api_key}`,
+      {
+         method: "GET"
+      }
+    );
+    area_list_predictions = await resp.json();
+    console.log(area_list_predictions)
+  }
 </script>
 
 <svelte:head>
@@ -90,6 +112,10 @@
       // Add other bootstrap parameters as needed, using camel case.
     } );
   </script>
+  <script
+	  async
+     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg&libraries=places&callback=initMap">
+  </script>
 </svelte:head>
 
 <div class="property_location_container">
@@ -108,7 +134,11 @@
       <label for="search_location">
         <Icon size={18} className="icon_search_location" color="#9fa9b5" src={FaSolidSearch} />
       </label>
-      <input type="text" id="search_location" placeholder="Search property..." />
+      <input type="text" id="search_location" placeholder="Search property..." bind:value={searchbox_value} on:input={() => {
+        if (search_mode === srch_loc) {
+          AreaListHandler();
+        }
+      }} />
     </div>
   </div>
   {#if search_mode === srch_loc}
