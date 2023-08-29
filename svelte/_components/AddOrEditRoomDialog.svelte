@@ -1,4 +1,7 @@
 <script>
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import FaSolidExchangeAlt from 'svelte-icons-pack/fa/FaSolidExchangeAlt';
+  
   export let visible = false;
   export function showModal() {
     visible = true;
@@ -76,7 +79,7 @@
           <div class='unit_toggle'>
             <p>{unit_mode}</p>
             <button on:click={toggleUnitMode}>
-              <i class='gg-arrows-exchange'></i>
+              <Icon size={16} color='#F97316' src={FaSolidExchangeAlt} />
             </button>
           </div>
         </div>
@@ -239,7 +242,6 @@
     border-radius: 50%;
     margin-left: 8px;
     cursor: pointer;
-    color: #f97316;
   }
   .add_room_content .room_size .room_input_size_box .unit_toggle button:hover {
     background-color: rgb( 0 0 0 / 0.06);

@@ -62,7 +62,7 @@ func (m *Mailjet) SendEmail(toEmailName map[string]string, subject, text, html s
 		messagesInfo[0].To = &to
 	}
 	messages := mailjet.MessagesV31{Info: messagesInfo}
-	
+
 	if res, err := m.client.SendMailV31(&messages); err != nil {
 		L.Print(res)
 		return fmt.Errorf("%w: %v", ErrMailjetSendingEmail, err)

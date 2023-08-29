@@ -10,6 +10,16 @@
     import { RealtorUpsertProperty } from '../jsApi.GEN';
     import Icon from 'svelte-icons-pack/Icon.svelte';
     import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
+    import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
+    import FaSolidFlagUsa from 'svelte-icons-pack/fa/FaSolidFlagUsa';
+    import FaSolidCloudUploadAlt from 'svelte-icons-pack/fa/FaSolidCloudUploadAlt';
+    import FaSolidImage from "svelte-icons-pack/fa/FaSolidImage";
+    import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
+    import FaSolidPen from 'svelte-icons-pack/fa/FaSolidPen';
+    import FaSolidTrashAlt from 'svelte-icons-pack/fa/FaSolidTrashAlt';
+    import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
+    import FaHeart from 'svelte-icons-pack/fa/FaHeart';
+    import FaSolidBan from 'svelte-icons-pack/fa/FaSolidBan';
 
     let property = {/* property */};
     let user = {/* user */};
@@ -571,6 +581,16 @@
         } else {
             size_m2 = room_size;
         }
+        
+        if (size_m2 === 0) {
+            alert('Room size cannot be 0');
+            room_type = '';
+            room_size = 0;
+            size_m2 = 0;
+            room_edit_mode === false;
+            add_or_edit_room_dialog.hideModal();
+            return;
+        }
 
         if (room_edit_mode === true) {
             if (room_type === 'living room' && property.floorList[floor_index_to_edit].rooms[index].name === 'living room') {
@@ -735,7 +755,7 @@
                 <a
                         href='/realtor'
                         class='back_button'>
-                    <Icon size={18} color='#FFF' src={FaSolidAngleLeft} />
+                    <Icon size={18} color='#475569' src={FaSolidAngleLeft} />
                 </a>
                 <div class='step_wrapper'>
                     <div class={currentPage >= 0 ? 'step_item completed' : 'step_item active'}>
@@ -765,11 +785,11 @@
                         <div class='location_input'>
                             <div class='address_country_info'>
                                 <div class='address'>
-                                    <i class='gg-pin' />
+                                    <Icon size={18} color="#f97316" src={FaSolidMapMarkerAlt} />
                                     <p>{property.formattedAddress || 'Address'}</p>
                                 </div>
                                 <div class='country'>
-                                    <i class='gg-flag-alt' />
+                                    <Icon size={15} color="#f97316" src={FaSolidFlagUsa} />
                                     <p>{property.country || 'Country'}</p>
                                 </div>
                             </div>
@@ -787,7 +807,7 @@
                 <section class='info' id='subpage_2' bind:this={cards[1]}>
                     <div class='main_info'>
                         <button class='back_button' on:click|preventDefault={houseInfoBack}>
-                            <Icon size={18} color='#FFF' src={FaSolidAngleLeft} />
+                            <Icon size={18} color='#475569' src={FaSolidAngleLeft} />
                         </button>
                         {#if mode === ABOUT_THE_HOUSE}
                             <h2>{mode}</h2>
@@ -870,7 +890,7 @@
                                                     accept='image/*'
                                                     id='upload_image'
                                             />
-                                            <i class='gg-software-upload'></i>
+                                            <Icon size={25} color='#475569' src={FaSolidCloudUploadAlt} />
                                             <p>Select file to Upload</p>
                                         {:else}
                                             <progress value={uploadHousePercent} max='100'></progress>
@@ -1004,7 +1024,7 @@
                     backPage();
                   }
                 }}>
-                            <Icon size={18} color='#FFF' src={FaSolidAngleLeft} />
+                            <Icon size={18} color='#475569' src={FaSolidAngleLeft} />
                             {#if floor_edit_mode === true}
                                 <span>Back to floor lists </span>
                             {/if}
@@ -1041,7 +1061,7 @@
                                                 <div class='floor_plan'>
                                                     {#if floor.planImageUrl === ''}
                                                       <span>
-                                                        <i class='gg-image'></i>
+                                                        <Icon size={40} color="#475569" src={FaSolidImage} />
                                                       </span>
                                                     {:else}
                                                         <img src={floor.planImageUrl} alt='' />
@@ -1076,7 +1096,7 @@
                                             />
                                             <img src='/assets/img/realtor/floor-plan-pen-ruler.jpg.webp' alt=''>
                                             <div>
-                                                <i class='gg-add'></i>
+                                                <Icon size={25} color='#475569' src={FaSolidPlusCircle} />
                                                 <p>Floor Plan Picture</p>
                                             </div>
                                         </label>
@@ -1098,10 +1118,10 @@
                                                 <div class='right_item'>
                                                     <span>{room.sizeM2} {room.unit}</span>
                                                     <button class='edit_room' on:click={() => showEditRoomDialog(index)}>
-                                                        <i class='gg-pen' />
+                                                        <Icon size={16} color='#F97316' src={FaSolidPen} />
                                                     </button>
                                                     <button class='remove_room' on:click={() => handleRemoveRoom(index)}>
-                                                        <i class='gg-trash'></i>
+                                                        <Icon size={16} color='#F97316' src={FaSolidTrashAlt} />
                                                     </button>
                                                 </div>
                                             </div>
@@ -1118,6 +1138,8 @@
                     <button disabled={imgFlrPlanUploading === true || floor_edit_mode === true} class='next_button' on:click|preventDefault={handleNextFloor}>
                         {#if imgFlrPlanUploading === true}
                             <i class='gg-disc'></i>
+                        {:else if floor_edit_mode === true}
+                            <Icon size={18} color='#FFF' src={FaSolidBan} />
                         {:else}
                             <p>NEXT</p>
                         {/if}
@@ -1130,7 +1152,7 @@
                                 <button
                                         class='back_button'
                                         on:click|preventDefault={backPage}>
-                                    <Icon size={18} color='#FFF' src={FaSolidAngleLeft} />
+                                    <Icon size={18} color='#475569' src={FaSolidAngleLeft} />
                                 </button>
                                 <h2>Preview Your Property</h2>
                             </div>
@@ -1139,7 +1161,7 @@
                                     <img src={property.images[0]} alt=''>
                                 {:else}
                                     <div class='image_preview_empty'>
-                                        <i class='gg-image'></i>
+                                        <Icon size={40} color="#475569" src={FaSolidImage} />
                                         <p>No Image to Preview</p>
                                     </div>
                                 {/if}
@@ -1152,16 +1174,16 @@
                                         <p>Agency Fee: {property.agencyFeePercent || '0'}%</p>
                                     </div>
                                     <div class='address'>
-                                        <i class='gg-pin' />
+                                        <Icon size={18} color="#f97316" src={FaSolidMapMarkerAlt} />
                                         <p>{property.formattedAddress}</p>
                                     </div>
                                 </div>
                                 <div class='right_item'>
                                     <button class='like_button'>
-                                        <i class='gg-heart'></i>
+                                        <Icon size={18} color='#F97316' src={FaHeart} />
                                     </button>
                                     <div class='house_type'>
-                                        <i class='gg-home-alt'></i>
+                                        <Icon size={18} color='#FFFF' src={FaSolidHome} />
                                         <span>{property.houseType}</span>
                                     </div>
                                 </div>
@@ -1268,7 +1290,8 @@
         margin-right     : auto;
         display          : flex;
         flex-direction   : row;
-        justify-content  : space-between;
+        justify-content  : center;
+        align-items      : center;
         background-color : white;
         border-radius    : 6px;
         filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
@@ -1292,7 +1315,7 @@
     }
 
     .realtor_step_progress_bar .step_wrapper {
-        width           : 70%;
+        width           : 500px;
         display         : flex;
         flex-direction  : row;
         justify-content : space-between;
@@ -1488,10 +1511,6 @@
         align-items : center;
     }
 
-    .location_input .address_country_info i {
-        color : #F97316;
-    }
-
     .location_input .address_country_info p {
         margin    : 0;
         font-size : 15px;
@@ -1619,10 +1638,6 @@
         text-transform   : capitalize;
     }
 
-    /* .house_type button:hover, .apartment_floor input:hover, .rent_or_sell button:hover {
-    border : 1px solid #F97316;
-  } */
-
     .apartment_floor input:focus {
         outline : 1px solid #F97316;
     }
@@ -1719,6 +1734,7 @@
         border           : 1px solid #CBD5E1;
         background-color : #F1F5F9;
         border-radius    : 8px;
+        gap              : 8px;
         width            : 100%;
         height           : 110px;
         cursor           : pointer;
@@ -1733,11 +1749,6 @@
         position       : absolute;
         opacity        : 0;
         pointer-events : none;
-    }
-
-    .upload_house_photo .image_upload_button i {
-        font-size     : 60px;
-        margin-bottom : 10px;
     }
 
     .upload_house_photo .image_upload_button p {
@@ -2217,24 +2228,15 @@
         display        : flex;
         flex-direction : row;
         align-items    : center;
+        gap            : 6px;
     }
 
-    .floor .edit_floor_container .room_list_container .room_list_item .right_item .edit_room {
-        border        : none;
-        background    : none;
-        padding       : 18px 15px;
-        border-radius : 50%;
-        margin-left   : 8px;
-        cursor        : pointer;
-        color         : #F97316;
-    }
-
+    .floor .edit_floor_container .room_list_container .room_list_item .right_item .edit_room,
     .floor .edit_floor_container .room_list_container .room_list_item .right_item .remove_room {
         border        : none;
         background    : none;
-        padding       : 10px 13px;
+        padding       : 10px;
         border-radius : 50%;
-        margin-left   : 8px;
         cursor        : pointer;
         color         : #F97316;
     }
