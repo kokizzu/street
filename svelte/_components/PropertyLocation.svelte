@@ -26,10 +26,14 @@
   } );
 
   // Maps
+  // const google_map_api_key = "AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg";
   let map;
+  let autocomplete;
   let map_container;
+  let map_autocomplete;
+  let myLatLng = {lat: 23.6978, lng: 120.9605};
+  
   async function initMap() {
-    const myLatLng = {lat: 23.6978, lng: 120.9605};
     let markers = [
       {lat: -34.03360401120961, lng: 149.86401361846924},
       {lat: -34.40606480160426, lng: 149.94091791534424},
@@ -38,6 +42,15 @@
       {lat: -34.87157170169384, lng: 150.00683588409424},
       {lat: -34.18369473718617, lng: 150.24853510284424},
     ];
+    const { Autocomplete } = await google.maps.importLibrary( 'places');
+    autocomplete = new Autocomplete(
+       map_autocomplete,
+       {
+         types: ['establishment'],
+         componentRestrictions: {'country': ['AU']},
+         fields: ['place_id', 'geometry', 'name']
+       }
+    )
     const {Map} = await google.maps.importLibrary( 'maps' );
     map = new Map( map_container, {
       center: myLatLng,
@@ -61,8 +74,28 @@
     search_mode = srchMode;
     if (search_mode === srch_loc) {await initMap()}
   }
-
+  
+  let searchbox_value; // bind value
+  
   let props_by_loc = []; // Fill this array when search by location
+  let show_area_lists = false;
+  let area_list_predictions = {};
+  
+  // async function AreaListHandler() {
+  //   show_area_lists = true;
+  //   const resp = await fetch(
+  //     "https://maps.googleapis.com/maps/api/place/autocomplete/json" +
+  //     `?input=${searchbox_value}` +
+  //     `&location=${myLatLng.lat}%2C${myLatLng.lng}` +
+  //     "&types=geocode" +
+  //     `&key=${google_map_api_key}`,
+  //     {
+  //        method: "GET"
+  //     }
+  //   );
+  //   area_list_predictions = await resp.json();
+  //   console.log(area_list_predictions)
+  // }
 </script>
 
 <svelte:head>
@@ -85,11 +118,13 @@
       d[ l ] ? console.warn( p + ' only loads once. Ignoring:', g ) : d[ l ] = ( f, ...n ) => r.add( f ) && u().then( () => d[ l ]( f, ...n ) );
     })( {
       key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',
-      v: 'weekly',
-      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
-      // Add other bootstrap parameters as needed, using camel case.
+      v: 'weekly'
     } );
   </script>
+<!--  <script-->
+<!--	  async defer-->
+<!--     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg&libraries=places&callback=initSearchMapAutoComplete">-->
+<!--  </script>-->
 </svelte:head>
 
 <div class="property_location_container">
@@ -108,7 +143,7 @@
       <label for="search_location">
         <Icon size={18} className="icon_search_location" color="#9fa9b5" src={FaSolidSearch} />
       </label>
-      <input type="text" id="search_location" placeholder="Search property..." />
+      <input type="text" id="search_location" placeholder="Search property..." bind:this={map_autocomplete} />
     </div>
   </div>
   {#if search_mode === srch_loc}
