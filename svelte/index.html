@@ -6160,7 +6160,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       );
     }
     function goToPlace(place_id) {
-      console.log(place_id);
+      const request = { placeId: place_id, fields: "geometry" };
+      places_service.getDetails(request, function(place, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          let center = place.geometry.location;
+          map.setCenter(center);
+        }
+      });
       $invalidate(0, show_autocomplete = false);
     }
     let search_mode = srch_loc;
@@ -6178,9 +6184,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       input_search_value = this.value;
       $invalidate(3, input_search_value), $invalidate(0, show_autocomplete);
     }
-    const click_handler_2 = (place) => {
-      goToPlace(place.place_id);
-    };
+    const click_handler_2 = (place) => goToPlace(place.place_id);
     function div_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         map_container = $value;

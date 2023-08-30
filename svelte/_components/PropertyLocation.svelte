@@ -77,16 +77,16 @@
   }
   
   function goToPlace( place_id ) {
-    console.log(place_id)
-    // const request = {
-    //   placeId: place_id,
-    // };
-    // places_service.getDetails(request, function (place, status) {
-    //   if (status === google.maps.places.PlacesServiceStatus.OK) {
-    //     let center = place.geometry.location;
-    //     map.setCenter([center]);
-    //   }
-    // });
+    const request = {
+      placeId: place_id,
+      fields: "geometry"
+    };
+    places_service.getDetails(request, function (place, status) {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        let center = place.geometry.location;
+        map.setCenter(center);
+      }
+    });
     show_autocomplete = false;
   }
 
@@ -216,9 +216,7 @@
           <div class="autocomplete_container">
             {#if autocomplete_lists.length}
               {#each autocomplete_lists as place}
-                <button class="autocomplete_item" on:click={() => {
-                  goToPlace(place.place_id)
-                }}>
+                <button class="autocomplete_item" on:click={() => goToPlace(place.place_id)}>
                   <Icon size={17} color="#9fa9b5" src={FaSolidMapMarkerAlt} />
                   <span>{place.description}</span>
                 </button>
