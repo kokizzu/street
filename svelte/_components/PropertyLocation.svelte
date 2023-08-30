@@ -15,6 +15,7 @@
   import FaSolidBuilding from "svelte-icons-pack/fa/FaSolidBuilding";
   import FaSolidBath from "svelte-icons-pack/fa/FaSolidBath";
   import FaSolidBed from "svelte-icons-pack/fa/FaSolidBed";
+  import FaSolidTimesCircle from "svelte-icons-pack/fa/FaSolidTimesCircle";
 
   let random_props = [];
   onMount( async () => {
@@ -26,31 +27,31 @@
   } );
 
   // Maps
-  // const google_map_api_key = "AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg";
-  let map;
-  let autocomplete;
-  let map_container;
-  let map_autocomplete;
+  let map, map_container, places_service;
   let myLatLng = {lat: 23.6978, lng: 120.9605};
+  // Search Autocomplete
+  let input_search_value, autocomplete_service;
+  let show_autocomplete = false;
+  const autocomplete_event = {
+    focus: function () {
+      show_autocomplete = true;
+    },
+    blur: async function () {
+      show_autocomplete = false;
+      await initMap();
+    }
+  };
+  let autocomplete_lists = [];
+  $: if (show_autocomplete === false) {
+    autocomplete_lists = [];
+    input_search_value = "";
+  }
   
   async function initMap() {
-    let markers = [
-      {lat: -34.03360401120961, lng: 149.86401361846924},
-      {lat: -34.40606480160426, lng: 149.94091791534424},
-      {lat: -34.53286884912313, lng: 149.08398432159424},
-      {lat: -34.242748228904865, lng: 149.32568354034424},
-      {lat: -34.87157170169384, lng: 150.00683588409424},
-      {lat: -34.18369473718617, lng: 150.24853510284424},
-    ];
-    const { Autocomplete } = await google.maps.importLibrary( 'places');
-    autocomplete = new Autocomplete(
-       map_autocomplete,
-       {
-         types: ['establishment'],
-         componentRestrictions: {'country': ['AU']},
-         fields: ['place_id', 'geometry', 'name']
-       }
-    )
+    const { AutocompleteService, PlacesService } = await google.maps.importLibrary( 'places');
+    autocomplete_service = new AutocompleteService();
+    places_service = new PlacesService();
+    
     const {Map} = await google.maps.importLibrary( 'maps' );
     map = new Map( map_container, {
       center: myLatLng,
@@ -58,48 +59,47 @@
       mapTypeId: 'roadmap',
       mapId: 'street_project',
     } );
-
-    markers.forEach((marker) => {
-      new google.maps.Marker({
-        position: { lat: marker.lat, lng: marker.lng },
-        map: map,
-        draggable: true,
-      });
-    });
+  }
+  
+  function searchLocationHandler() {
+    autocomplete_service.getPlacePredictions(
+       {
+         input: input_search_value,
+         types: ["establishment", "geocode"]
+       },
+       function (predictions, status) {
+         if (status === google.maps.places.PlacesServiceStatus.OK) {
+           autocomplete_lists = predictions;
+           console.log(predictions);
+         }
+       }
+    )
+  }
+  
+  function goToPlace( place_id ) {
+    console.log(place_id)
+    // const request = {
+    //   placeId: place_id,
+    // };
+    // places_service.getDetails(request, function (place, status) {
+    //   if (status === google.maps.places.PlacesServiceStatus.OK) {
+    //     let center = place.geometry.location;
+    //     map.setCenter([center]);
+    //   }
+    // });
+    show_autocomplete = false;
   }
 
+  // Toggle search mode, currently focus on `Search by location`
   const srch_loc = "location", srch_prop = "property";
   let search_mode = srch_loc;
   async function toggleSearchMode( srchMode ) {
     search_mode = srchMode;
     if (search_mode === srch_loc) {await initMap()}
   }
-  
-  let searchbox_value; // bind value
-  
-  let props_by_loc = []; // Fill this array when search by location
-  let show_area_lists = false;
-  let area_list_predictions = {};
-  
-  // async function AreaListHandler() {
-  //   show_area_lists = true;
-  //   const resp = await fetch(
-  //     "https://maps.googleapis.com/maps/api/place/autocomplete/json" +
-  //     `?input=${searchbox_value}` +
-  //     `&location=${myLatLng.lat}%2C${myLatLng.lng}` +
-  //     "&types=geocode" +
-  //     `&key=${google_map_api_key}`,
-  //     {
-  //        method: "GET"
-  //     }
-  //   );
-  //   area_list_predictions = await resp.json();
-  //   console.log(area_list_predictions)
-  // }
 </script>
 
 <svelte:head>
-  <!-- Google Map SDK -->
   <script>
     (g => {
       var h, a, k, p = 'The Google Maps JavaScript API', c = 'google', l = 'importLibrary', q = '__ib__', m = document, b = window;
@@ -121,10 +121,6 @@
       v: 'weekly'
     } );
   </script>
-<!--  <script-->
-<!--	  async defer-->
-<!--     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg&libraries=places&callback=initSearchMapAutoComplete">-->
-<!--  </script>-->
 </svelte:head>
 
 <div class="property_location_container">
@@ -142,8 +138,18 @@
     <div class="search_box">
       <label for="search_location">
         <Icon size={18} className="icon_search_location" color="#9fa9b5" src={FaSolidSearch} />
+        {#if show_autocomplete === true}
+          <Icon size={18} className="icon_close_search" color="#9fa9b5" src={FaSolidTimesCircle} on:click={show_autocomplete = false} />
+        {/if}
       </label>
-      <input type="text" id="search_location" placeholder="Search property..." bind:this={map_autocomplete} />
+      <input
+        type="text"
+        id="search_location"
+        placeholder="Search property..."
+        on:focus={() => autocomplete_event.focus()}
+        on:blur={() => autocomplete_event.blur()}
+        on:input={searchLocationHandler}
+        bind:value={input_search_value} />
     </div>
   </div>
   {#if search_mode === srch_loc}
@@ -206,9 +212,25 @@
         </div>
       </div>
       <div class="right">
-        <div class='map_container' bind:this={map_container}>
-          <!-- Map goes here, rendered automatically -->
-        </div>
+        {#if show_autocomplete === true}
+          <div class="autocomplete_container">
+            {#if autocomplete_lists.length}
+              {#each autocomplete_lists as place}
+                <button class="autocomplete_item" on:click={() => {
+                  goToPlace(place.place_id)
+                }}>
+                  <Icon size={17} color="#9fa9b5" src={FaSolidMapMarkerAlt} />
+                  <span>{place.description}</span>
+                </button>
+              {/each}
+            {/if}
+          </div>
+        {:else}
+          <div class='map_container' bind:this={map_container}>
+            <!-- Map goes here, rendered automatically -->
+          </div>
+        {/if}
+        
       </div>
     </div>
   {:else if search_mode === srch_prop}
@@ -265,7 +287,7 @@
   }
   .property_location_container .header .search_box {
     position: relative;
-    width: 450px;
+    width: 500px;
   }
   :global(.icon_search_location) {
     position: absolute;
@@ -274,6 +296,18 @@
     top: 0;
     z-index: 40;
     margin: auto 12px;
+  }
+  :global(.icon_close_search) {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 40;
+    margin: auto 12px;
+    cursor: pointer;
+  }
+  :global(.icon_close_search:hover) {
+    fill: #ef4444;
   }
   .property_location_container .header .search_box input {
     width: 100%;
@@ -295,13 +329,19 @@
     max-width: 100%;
     overflow-y: scroll;
   }
-  .search_by_location::-webkit-scrollbar-thumb {
+  .search_by_location::-webkit-scrollbar-thumb,
+  .search_by_location .left::-webkit-scrollbar-thumb,
+  .search_by_location .right::-webkit-scrollbar-thumb {
     background-color : transparent;
   }
-  .search_by_location::-webkit-scrollbar {
+  .search_by_location::-webkit-scrollbar,
+  .search_by_location .left::-webkit-scrollbar,
+  .search_by_location .right::-webkit-scrollbar {
     width: 0;
   }
-  .search_by_location::-webkit-scrollbar-track {
+  .search_by_location::-webkit-scrollbar-track,
+  .search_by_location .left::-webkit-scrollbar-track,
+  .search_by_location .right::-webkit-scrollbar-track {
     background-color : transparent;
   }
   .search_by_location .left {
@@ -309,15 +349,6 @@
     border-top: 1px solid #cbd5e1;
     border-bottom: 1px solid #cbd5e1;
     overflow-y: scroll;
-  }
-  .search_by_location .left::-webkit-scrollbar-thumb {
-    background-color : transparent;
-  }
-  .search_by_location .left::-webkit-scrollbar {
-    width: 0;
-  }
-  .search_by_location .left::-webkit-scrollbar-track {
-    background-color : transparent;
   }
   .search_by_location .left .props_container {
     height: 100%;
@@ -442,10 +473,47 @@
     font-size: 20px;
     font-weight: 700;
   }
-  .search_by_location .left .props_container .prop_item .prop_info .secondary_info
   .search_by_location .right {
     border: 1px solid #cbd5e1;
     border-radius: 8px;
+    height: 100%;
+    overflow-y: scroll;
+  }
+  .search_by_location .right .autocomplete_container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow: auto;
+  }
+  .search_by_location .right .autocomplete_container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+  }
+  .search_by_location .right .autocomplete_container::-webkit-scrollbar-thumb {
+    background-color : #3b82f6;
+  }
+  .search_by_location .right .autocomplete_container::-webkit-scrollbar {
+    width: 8px;
+  }
+  .search_by_location .right .autocomplete_container::-webkit-scrollbar-track {
+    background-color : transparent;
+  }
+  .search_by_location .right .autocomplete_container .autocomplete_item {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    padding: 10px;
+    border: none;
+    background: none;
+    border-bottom: 1px solid #cbd5e1;
+    cursor: pointer;
+  }
+  .search_by_location .right .autocomplete_container .autocomplete_item:hover {
+    background-color: #f1f5f9;
   }
   .search_by_location .right .map_container {
     display: block;
