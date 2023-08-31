@@ -5,6 +5,7 @@
   import Menu from './_components/Menu.svelte';
   import ProfileHeader from './_components/ProfileHeader.svelte';
   import Footer from './_components/Footer.svelte';
+  import GoogleMap from './_components/GoogleMap/GoogleMap.svelte'
 
   onMount( async () => {
     await initMap();
@@ -82,6 +83,7 @@
         <div class='map_container' bind:this={map_container}>
           <!-- Map goes here, rendered automatically -->
         </div>
+         <GoogleMap apiKey="AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg"/>
       </div>
       <Footer></Footer>
    </div>
