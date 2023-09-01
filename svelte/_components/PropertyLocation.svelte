@@ -25,39 +25,33 @@
       random_props = res.properties;
     })
   } );
-  
   // Maps
   let gmapsComponent;
   let myLatLng = {lat: 23.6978, lng: 120.9605};
   let mapOptions = {
     center: myLatLng,
-    zoom: 8,
+    zoom: 10,
     mapTypeId: 'roadmap',
     mapId: 'street_project',
   }
-  // let google_map = GoogleMap;
   let places_service;
+  let geocoder;
   // Search Autocomplete
   let input_search_value, autocomplete_service;
   let show_autocomplete = false;
-  const autocomplete_event = {
-    focus: function () {
-      show_autocomplete = true;
-    },
-    blur: async function () {
-      show_autocomplete = false;
-    }
-  };
+  function toggleAutoComplete() {
+    show_autocomplete = !show_autocomplete;
+  }
   let autocomplete_lists = [];
   $: if (show_autocomplete === false) {
     autocomplete_lists = [];
     input_search_value = "";
   }
   
-  async function initAutoComplete() {
-    const { AutocompleteService, PlacesService } = await google.maps.importLibrary( 'places');
+  async function initGoogleService() {
+    const { AutocompleteService } = await google.maps.importLibrary('places');
     autocomplete_service = new AutocompleteService();
-    places_service = new PlacesService();
+    geocoder = new google.maps.Geocoder();
   }
   
   function searchLocationHandler() {
@@ -76,16 +70,18 @@
   }
   
   function goToPlace( place_id ) {
-    const request = {
-      placeId: place_id,
-      fields: "geometry"
-    };
-    places_service.getDetails(request, function (place, status) {
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
-        let center = place.geometry.location;
-        gmapsComponent.setCentre(center);
-      }
-    });
+    geocoder
+      .geocode({ placeId: place_id})
+      .then(({ results }) => {
+        if (results[0]) {
+          gmapsComponent.setCentre(results[0].geometry.location);
+        } else {
+          alert("No result found")
+        }
+      }).catch((e) => {
+        alert("Geocoder failed due to: " + e)
+      });
+    console.log(place_id)
     show_autocomplete = false;
   }
 
@@ -97,7 +93,7 @@
   }
 </script>
 
-<GoogleSdk on:ready={initAutoComplete} />
+<GoogleSdk on:ready={initGoogleService} />
 <div class="property_location_container">
   <div class="header">
     <div class="tabs">
@@ -124,7 +120,7 @@
             className="icon_close_search"
             color="#9fa9b5"
             src={FaSolidTimesCircle}
-            on:click={show_autocomplete = false}
+            on:click={toggleAutoComplete}
           />
         {/if}
       </label>
@@ -132,9 +128,11 @@
         type="text"
         id="search_location"
         placeholder="Search property..."
-        on:focus={() => autocomplete_event.focus()}
-        on:blur={() => autocomplete_event.blur()}
-        on:input={searchLocationHandler}
+        on:focus={toggleAutoComplete}
+        on:input={() => {
+          show_autocomplete = true;
+          searchLocationHandler();
+        }}
         bind:value={input_search_value} />
     </div>
   </div>
@@ -202,7 +200,7 @@
           <div class="autocomplete_container">
             {#if autocomplete_lists.length}
               {#each autocomplete_lists as place}
-                <button class="autocomplete_item" on:click={() => goToPlace(place.place_id)}>
+                <button class="autocomplete_item" on:click|preventDefault={() => goToPlace(place.place_id)}>
                   <Icon size={17} color="#9fa9b5" src={FaSolidMapMarkerAlt} />
                   <span>{place.description}</span>
                 </button>

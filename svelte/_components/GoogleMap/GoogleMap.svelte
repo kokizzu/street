@@ -1,9 +1,11 @@
 <script>
-  import GoogleSdk from './GoogleSdk.svelte'
-  import { mapStore} from "./stores";
-
-  let mapElement
-  let map
+  import { createEventDispatcher } from 'svelte';
+  import GoogleSdk from "./GoogleSdk.svelte";
+  
+  const dispatch = createEventDispatcher();
+  let mapElement;
+  let map;
+  
   export let options = {}
   export function setCentre(location) {
     map.setCenter(location)
@@ -11,7 +13,7 @@
   async function initialise () {
     const {Map} = await google.maps.importLibrary( 'maps' );
     map = new Map( mapElement, options);
-    mapStore.set(map);
+    dispatch('ready');
   }
 </script>
 

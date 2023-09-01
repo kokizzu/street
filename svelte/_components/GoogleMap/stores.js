@@ -1,3 +1,4 @@
 import { writable } from 'svelte/store'
 
-export let mapStore = writable(null);
+export const mapsLoaded = writable(false);
+export const mapsLoading = writable(false);

@@ -1,14 +1,24 @@
 <script>
   // @ts-ignore
   import { onMount, createEventDispatcher } from 'svelte';
+  import { mapsLoaded, mapsLoading } from "./stores";
 
   const dispatch = createEventDispatcher();
+  $: $mapsLoaded && dispatch('ready')
+  
   onMount(() => {
-    Init({
-      key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',
-      v: 'weekly'
-    });
-    dispatch( 'ready' );
+    if ($mapsLoaded) {
+      dispatch('ready')
+    }
+    
+    if (!$mapsLoading) {
+      mapsLoading.set( true );
+      Init( {
+        key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',
+        v: 'weekly'
+      } );
+      mapsLoaded.set(true);
+    }
   });
   
   function Init(g) {
