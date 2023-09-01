@@ -3,7 +3,8 @@
   import { onMount } from "svelte";
   import { UserSearchProp } from "jsApi.GEN";
   import { formatPrice } from "./formatter";
-
+  import { GoogleMap, GoogleSdk } from "./GoogleMap/components";
+  
   import Icon from "svelte-icons-pack/Icon.svelte";
   import FaSolidSearch from "svelte-icons-pack/fa/FaSolidSearch";
   import FaSolidHotel from "svelte-icons-pack/fa/FaSolidHotel";
@@ -23,12 +24,19 @@
       console.log("Property : ", res.properties);
       random_props = res.properties;
     })
-    await initMap();
   } );
-
+  
   // Maps
-  let map, map_container, places_service;
+  let gmapsComponent;
   let myLatLng = {lat: 23.6978, lng: 120.9605};
+  let mapOptions = {
+    center: myLatLng,
+    zoom: 8,
+    mapTypeId: 'roadmap',
+    mapId: 'street_project',
+  }
+  // let google_map = GoogleMap;
+  let places_service;
   // Search Autocomplete
   let input_search_value, autocomplete_service;
   let show_autocomplete = false;
@@ -38,7 +46,6 @@
     },
     blur: async function () {
       show_autocomplete = false;
-      await initMap();
     }
   };
   let autocomplete_lists = [];
@@ -47,18 +54,10 @@
     input_search_value = "";
   }
   
-  async function initMap() {
+  async function initAutoComplete() {
     const { AutocompleteService, PlacesService } = await google.maps.importLibrary( 'places');
     autocomplete_service = new AutocompleteService();
     places_service = new PlacesService();
-    
-    const {Map} = await google.maps.importLibrary( 'maps' );
-    map = new Map( map_container, {
-      center: myLatLng,
-      zoom: 8,
-      mapTypeId: 'roadmap',
-      mapId: 'street_project',
-    } );
   }
   
   function searchLocationHandler() {
@@ -84,7 +83,7 @@
     places_service.getDetails(request, function (place, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         let center = place.geometry.location;
-        map.setCenter(center);
+        gmapsComponent.setCentre(center);
       }
     });
     show_autocomplete = false;
@@ -93,36 +92,12 @@
   // Toggle search mode, currently focus on `Search by location`
   const srch_loc = "location", srch_prop = "property";
   let search_mode = srch_loc;
-  async function toggleSearchMode( srchMode ) {
+  function toggleSearchMode( srchMode ) {
     search_mode = srchMode;
-    if (search_mode === srch_loc) {await initMap()}
   }
 </script>
 
-<svelte:head>
-  <script>
-    (g => {
-      var h, a, k, p = 'The Google Maps JavaScript API', c = 'google', l = 'importLibrary', q = '__ib__', m = document, b = window;
-      b = b[ c ] || (b[ c ] = {});
-      var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise( async ( f, n ) => {
-        await (a = m.createElement( 'script' ));
-        e.set( 'libraries', [...r] + '' );
-        for( k in g ) e.set( k.replace( /[A-Z]/g, t => '_' + t[ 0 ].toLowerCase() ), g[ k ] );
-        e.set( 'callback', c + '.maps.' + q );
-        a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
-        d[ q ] = f;
-        a.onerror = () => h = n( Error( p + ' could not load.' ) );
-        a.nonce = m.querySelector( 'script[nonce]' )?.nonce || '';
-        m.head.append( a );
-      } ));
-      d[ l ] ? console.warn( p + ' only loads once. Ignoring:', g ) : d[ l ] = ( f, ...n ) => r.add( f ) && u().then( () => d[ l ]( f, ...n ) );
-    })( {
-      key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',
-      v: 'weekly'
-    } );
-  </script>
-</svelte:head>
-
+<GoogleSdk on:ready={initAutoComplete} />
 <div class="property_location_container">
   <div class="header">
     <div class="tabs">
@@ -137,9 +112,20 @@
     </div>
     <div class="search_box">
       <label for="search_location">
-        <Icon size={18} className="icon_search_location" color="#9fa9b5" src={FaSolidSearch} />
+        <Icon
+          size={18}
+          className="icon_search_location"
+          color="#9fa9b5"
+          src={FaSolidSearch}
+        />
         {#if show_autocomplete === true}
-          <Icon size={18} className="icon_close_search" color="#9fa9b5" src={FaSolidTimesCircle} on:click={show_autocomplete = false} />
+          <Icon
+            size={18}
+            className="icon_close_search"
+            color="#9fa9b5"
+            src={FaSolidTimesCircle}
+            on:click={show_autocomplete = false}
+          />
         {/if}
       </label>
       <input
@@ -224,8 +210,8 @@
             {/if}
           </div>
         {:else}
-          <div class='map_container' bind:this={map_container}>
-            <!-- Map goes here, rendered automatically -->
+          <div class='map_container'>
+            <GoogleMap options={mapOptions} bind:this={gmapsComponent}/>
           </div>
         {/if}
         

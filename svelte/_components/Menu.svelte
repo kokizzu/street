@@ -11,6 +11,7 @@
   import FaSolidSlidersH from "svelte-icons-pack/fa/FaSolidSlidersH";
   import FaSolidUserCircle from "svelte-icons-pack/fa/FaSolidUserCircle";
   import FaSolidSignInAlt from "svelte-icons-pack/fa/FaSolidSignInAlt";
+  import FaSolidTimes from "svelte-icons-pack/fa/FaSolidTimes";
    
   export let doToggle = function() {
     isSideMenuOpen.set(!$isSideMenuOpen)
@@ -42,7 +43,7 @@
       <header>
         <h3>STREET</h3>
         <button on:click|preventDefault={doToggle}>
-          <i class='gg-close'></i>
+          <Icon size={20} color="#475569" src={FaSolidTimes} />
         </button>
       </header>
       <div class='menu_container'>

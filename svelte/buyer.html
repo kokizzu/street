@@ -207,7 +207,7 @@
 }
 
 /* fakecss:./_components/ProfileHeader.esbuild-svelte-fake-css */
-.profile_header.svelte-ubnh3m.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r.svelte-3tn45r.svelte-3tn45r {
   background-color: #EF4444;
   height: fit-content;
   position: relative;
@@ -218,20 +218,20 @@
   display: flex;
   flex-direction: column;
 }
-.profile_header.svelte-ubnh3m .navbar.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar.svelte-3tn45r.svelte-3tn45r {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.profile_header.svelte-ubnh3m .navbar .label_menu.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar .label_menu.svelte-3tn45r.svelte-3tn45r {
   display: flex;
   flex-direction: row;
   align-items: center;
   color: white;
 }
-.profile_header.svelte-ubnh3m .navbar .label_menu button.svelte-ubnh3m.svelte-ubnh3m {
-  padding: 15px 8px;
+.profile_header.svelte-3tn45r .navbar .label_menu button.svelte-3tn45r.svelte-3tn45r {
+  padding: 10px;
   border: none;
   background: none;
   border-radius: 5px;
@@ -239,21 +239,21 @@
   color: white;
   cursor: pointer;
 }
-.profile_header.svelte-ubnh3m .navbar .label_menu button.svelte-ubnh3m.svelte-ubnh3m:hover {
+.profile_header.svelte-3tn45r .navbar .label_menu button.svelte-3tn45r.svelte-3tn45r:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
-.profile_header.svelte-ubnh3m .navbar .label_menu p.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar .label_menu p.svelte-3tn45r.svelte-3tn45r {
   font-size: 17px;
   font-weight: 600;
   line-height: 1.5rem;
   padding: 0;
   margin: 0 0 0 15px;
 }
-.profile_header.svelte-ubnh3m .navbar .right_nav.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar .right_nav.svelte-3tn45r.svelte-3tn45r {
   display: flex;
   flex-direction: row;
 }
-.profile_header.svelte-ubnh3m .navbar .right_nav .profile_button.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar .right_nav .profile_button.svelte-3tn45r.svelte-3tn45r {
   padding: 0;
   border: none;
   margin: 0;
@@ -261,11 +261,11 @@
   height: fit-content;
   border-radius: 9999px;
 }
-.profile_header.svelte-ubnh3m .navbar .right_nav .profile_button.svelte-ubnh3m.svelte-ubnh3m:hover {
+.profile_header.svelte-3tn45r .navbar .right_nav .profile_button.svelte-3tn45r.svelte-3tn45r:hover {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
   cursor: pointer;
 }
-.profile_header.svelte-ubnh3m .navbar .right_nav .profile_button.svelte-ubnh3m > img.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar .right_nav .profile_button.svelte-3tn45r > img.svelte-3tn45r {
   width: 50px;
   height: 50px;
   border-radius: 9999px;
@@ -2489,50 +2489,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function component_subscribe(component, store, callback) {
     component.$.on_destroy.push(subscribe(store, callback));
   }
-  function create_slot(definition, ctx, $scope, fn) {
-    if (definition) {
-      const slot_ctx = get_slot_context(definition, ctx, $scope, fn);
-      return definition[0](slot_ctx);
-    }
-  }
-  function get_slot_context(definition, ctx, $scope, fn) {
-    return definition[1] && fn ? assign($scope.ctx.slice(), definition[1](fn(ctx))) : $scope.ctx;
-  }
-  function get_slot_changes(definition, $scope, dirty, fn) {
-    if (definition[2] && fn) {
-      const lets = definition[2](fn(dirty));
-      if ($scope.dirty === void 0) {
-        return lets;
-      }
-      if (typeof lets === "object") {
-        const merged = [];
-        const len = Math.max($scope.dirty.length, lets.length);
-        for (let i = 0; i < len; i += 1) {
-          merged[i] = $scope.dirty[i] | lets[i];
-        }
-        return merged;
-      }
-      return $scope.dirty | lets;
-    }
-    return $scope.dirty;
-  }
-  function update_slot_base(slot, slot_definition, ctx, $scope, slot_changes, get_slot_context_fn) {
-    if (slot_changes) {
-      const slot_context = get_slot_context(slot_definition, ctx, $scope, get_slot_context_fn);
-      slot.p(slot_context, slot_changes);
-    }
-  }
-  function get_all_dirty_from_scope($scope) {
-    if ($scope.ctx.length > 32) {
-      const dirty = [];
-      const length = $scope.ctx.length / 32;
-      for (let i = 0; i < length; i++) {
-        dirty[i] = -1;
-      }
-      return dirty;
-    }
-    return -1;
-  }
 
   // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
@@ -2695,10 +2651,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
       return true;
     };
-  }
-  function setContext(key2, context) {
-    get_current_component().$.context.set(key2, context);
-    return context;
   }
 
   // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/scheduler.js
@@ -3023,7 +2975,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       async connectedCallback() {
         this.$connected = true;
         if (!this.$component) {
-          let create_slot2 = function(name) {
+          let create_slot = function(name) {
             return () => {
               let node;
               const obj = {
@@ -3057,7 +3009,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           const existing_slots = get_custom_elements_slots(this);
           for (const name of this.$slots) {
             if (name in existing_slots) {
-              $slots[name] = [create_slot2(name)];
+              $slots[name] = [create_slot(name)];
             }
           }
           for (const attribute of this.attributes) {
@@ -3445,6 +3397,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path>'
   };
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidTimes.js
+  var FaSolidTimes_default = {
+    a: {
+      viewBox: "0 0 352 512"
+    },
+    c: '<path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path>'
+  };
+
   // _components/Menu.svelte
   function create_if_block(ctx) {
     let aside;
@@ -3453,6 +3413,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let h3;
     let t1;
     let button;
+    let icon0;
     let t2;
     let div0;
     let c0;
@@ -3463,7 +3424,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t6;
     let nav0;
     let a;
-    let icon;
+    let icon1;
     let t7;
     let span;
     let t9;
@@ -3481,7 +3442,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let current;
     let mounted;
     let dispose;
-    icon = new Icon_default({
+    icon0 = new Icon_default({
+      props: {
+        size: 20,
+        color: "#475569",
+        src: FaSolidTimes_default
+      }
+    });
+    icon1 = new Icon_default({
       props: {
         size: 22,
         className: (
@@ -3520,7 +3488,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         h3.textContent = "STREET";
         t1 = space();
         button = element("button");
-        button.innerHTML = `<i class="gg-close"></i>`;
+        create_component(icon0.$.fragment);
         t2 = space();
         div0 = element("div");
         c0 = comment(" PAGES ");
@@ -3532,7 +3500,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t6 = space();
         nav0 = element("nav");
         a = element("a");
-        create_component(icon.$.fragment);
+        create_component(icon1.$.fragment);
         t7 = space();
         span = element("span");
         span.textContent = "HOME";
@@ -3587,6 +3555,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(header, h3);
         append(header, t1);
         append(header, button);
+        mount_component(icon0, button, null);
         append(div1, t2);
         append(div1, div0);
         append(div0, c0);
@@ -3597,7 +3566,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div0, t6);
         append(div0, nav0);
         append(nav0, a);
-        mount_component(icon, a, null);
+        mount_component(icon1, a, null);
         append(a, t7);
         append(a, span);
         append(nav0, t9);
@@ -3636,12 +3605,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
-        const icon_changes = {};
+        const icon1_changes = {};
         if (dirty & /*segment1*/
         4)
-          icon_changes.className = /*segment1*/
+          icon1_changes.className = /*segment1*/
           ctx[2] === "" ? "icon_active" : "icon_dark";
-        icon.$set(icon_changes);
+        icon1.$set(icon1_changes);
         if (!current || dirty & /*segment1*/
         4) {
           toggle_class(
@@ -3770,7 +3739,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       i(local) {
         if (current)
           return;
-        transition_in(icon.$.fragment, local);
+        transition_in(icon0.$.fragment, local);
+        transition_in(icon1.$.fragment, local);
         transition_in(if_block0);
         transition_in(if_block1);
         transition_in(if_block2);
@@ -3779,7 +3749,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         current = true;
       },
       o(local) {
-        transition_out(icon.$.fragment, local);
+        transition_out(icon0.$.fragment, local);
+        transition_out(icon1.$.fragment, local);
         transition_out(if_block0);
         transition_out(if_block1);
         transition_out(if_block2);
@@ -3791,7 +3762,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (detaching) {
           detach(aside);
         }
-        destroy_component(icon);
+        destroy_component(icon0);
+        destroy_component(icon1);
         if (if_block0)
           if_block0.d();
         if (if_block1)
@@ -4267,55 +4239,74 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var Menu_default = Menu;
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBars.js
+  var FaSolidBars_default = {
+    a: {
+      viewBox: "0 0 448 512"
+    },
+    c: '<path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path>'
+  };
+
   // _components/ProfileHeader.svelte
   function create_fragment3(ctx) {
     let header;
     let nav;
     let div0;
     let button0;
+    let icon;
     let t0;
     let p;
     let t2;
     let div1;
     let t9;
     let div2;
+    let current;
     let mounted;
     let dispose;
+    icon = new Icon_default({
+      props: {
+        size: 20,
+        color: "#FFF",
+        src: FaSolidBars_default
+      }
+    });
     return {
       c() {
         header = element("header");
         nav = element("nav");
         div0 = element("div");
         button0 = element("button");
-        button0.innerHTML = `<i class="gg-menu"></i>`;
+        create_component(icon.$.fragment);
         t0 = space();
         p = element("p");
         p.textContent = "DASHBOARD";
         t2 = space();
         div1 = element("div");
-        div1.innerHTML = `<!--			<form class="search_input">--> <!--				<span>--> <!--					<i class="gg-search"></i>--> <!--				</span>--> <!--				<input type="text" placeholder="Search here..." name="search" />--> <!--			</form>--> <button class="profile_button svelte-ubnh3m"><img src="/assets/img/team-1-200x200.jpg" alt="profile" class="svelte-ubnh3m"/></button>`;
+        div1.innerHTML = `<!--			<form class="search_input">--> <!--				<span>--> <!--					<i class="gg-search"></i>--> <!--				</span>--> <!--				<input type="text" placeholder="Search here..." name="search" />--> <!--			</form>--> <button class="profile_button svelte-3tn45r"><img src="/assets/img/team-1-200x200.jpg" alt="profile" class="svelte-3tn45r"/></button>`;
         t9 = space();
         div2 = element("div");
         div2.innerHTML = `<!-- Chart Goes here -->`;
-        attr(button0, "class", "svelte-ubnh3m");
-        attr(p, "class", "svelte-ubnh3m");
-        attr(div0, "class", "label_menu svelte-ubnh3m");
-        attr(div1, "class", "right_nav svelte-ubnh3m");
-        attr(nav, "class", "navbar svelte-ubnh3m");
+        attr(button0, "class", "svelte-3tn45r");
+        attr(p, "class", "svelte-3tn45r");
+        attr(div0, "class", "label_menu svelte-3tn45r");
+        attr(div1, "class", "right_nav svelte-3tn45r");
+        attr(nav, "class", "navbar svelte-3tn45r");
         attr(div2, "class", "stats");
-        attr(header, "class", "profile_header svelte-ubnh3m");
+        attr(header, "class", "profile_header svelte-3tn45r");
       },
       m(target, anchor) {
         insert(target, header, anchor);
         append(header, nav);
         append(nav, div0);
         append(div0, button0);
+        mount_component(icon, button0, null);
         append(div0, t0);
         append(div0, p);
         append(nav, t2);
         append(nav, div1);
         append(header, t9);
         append(header, div2);
+        current = true;
         if (!mounted) {
           dispose = listen(button0, "click", prevent_default(
             /*openSideMenu*/
@@ -4325,12 +4316,21 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
       },
       p: noop,
-      i: noop,
-      o: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
       d(detaching) {
         if (detaching) {
           detach(header);
         }
+        destroy_component(icon);
         mounted = false;
         dispose();
       }
@@ -4398,246 +4398,82 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var Footer_default = Footer;
 
-  // _components/asyncScriptLoader.js
-  function loader(urls, test, callback) {
-    let remaining = urls.length;
-    function maybeCallback() {
-      remaining = --remaining;
-      if (remaining < 1) {
-        callback();
-      }
-    }
-    if (test()) {
-      return callback();
-    }
-    for (const { type, url, content, options = { async: true, defer: true } } of urls) {
-      const isScript = type === "script";
-      const tag = document.createElement(isScript ? "script" : "link");
-      const attribute = isScript ? "src" : "href";
-      const hasUrl = Boolean(url).valueOf();
-      if (isScript) {
-        tag.async = options.async;
-        tag.defer = options.defer;
-      } else {
-        tag.rel = "stylesheet";
-      }
-      if (hasUrl) {
-        tag[attribute] = url;
-      } else {
-        tag.appendChild(
-          document.createTextNode(content)
-        );
-      }
-      tag.onload = maybeCallback;
-      document.body.appendChild(tag);
-    }
-  }
-  var asyncScriptLoader_default = loader;
-
-  // _components/GoogleMap/stores.js
-  var mapsLoaded = writable(false);
-  var mapsLoading = writable(false);
-
   // _components/GoogleMap/GoogleSdk.svelte
-  function instance5($self, $props, $invalidate) {
-    let $mapsLoaded;
-    let $mapsLoading;
-    component_subscribe($self, mapsLoaded, ($value) => $invalidate(1, $mapsLoaded = $value));
-    component_subscribe($self, mapsLoading, ($value) => $invalidate(2, $mapsLoading = $value));
+  function Init(g) {
+    var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window;
+    b = b[c] || (b[c] = {});
+    var d = b.maps || (b.maps = {}), r = /* @__PURE__ */ new Set(), e = new URLSearchParams(), u = () => h || (h = new Promise(async (f, n) => {
+      await (a = m.createElement("script"));
+      e.set("libraries", [...r] + "");
+      for (k in g)
+        e.set(k.replace(/[A-Z]/g, (t) => "_" + t[0].toLowerCase()), g[k]);
+      e.set("callback", c + ".maps." + q);
+      a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
+      d[q] = f;
+      a.onerror = () => h = n(Error(p + " could not load."));
+      a.nonce = m.querySelector("script[nonce]")?.nonce || "";
+      m.head.append(a);
+    }));
+    d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n));
+  }
+  function instance5($self) {
     const dispatch = createEventDispatcher();
-    let { apiKey } = $props;
     onMount(() => {
-      window.byGmapsReady = () => {
-        mapsLoaded.set(true);
-        delete window.byGmapsReady;
-      };
-      if ($mapsLoaded) {
-        dispatch("ready");
-      }
-      if (!$mapsLoading) {
-        const url = [
-          "//maps.googleapis.com/maps/api/js?",
-          apiKey ? `key=${apiKey}&` : "",
-          "libraries=places&callback=byGmapsReady"
-        ].join("");
-        mapsLoading.set(true);
-        asyncScriptLoader_default(
-          [{ type: "script", url }],
-          () => {
-            return $mapsLoaded;
-          },
-          () => {
-          }
-        );
-      }
+      Init({
+        key: "AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg",
+        v: "weekly"
+      });
+      dispatch("ready");
     });
-    $self.$set = ($props2) => {
-      if ("apiKey" in $props2)
-        $invalidate(0, apiKey = $props2.apiKey);
-    };
-    $self.$.update = () => {
-      if ($self.$.dirty & /*$mapsLoaded*/
-      2) {
-        $:
-          $mapsLoaded && dispatch("ready");
-      }
-    };
-    return [apiKey, $mapsLoaded];
+    return [];
   }
   var GoogleSdk = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance5, null, safe_not_equal, { apiKey: 0 });
+      init(this, options, instance5, null, safe_not_equal, {});
     }
   };
   var GoogleSdk_default = GoogleSdk;
 
-  // _components/GoogleMap/contexts.js
-  var key = {};
+  // _components/GoogleMap/stores.js
+  var mapStore = writable(null);
 
   // _components/GoogleMap/GoogleMap.svelte
-  function create_if_block2(ctx) {
-    let current;
-    const default_slot_template = (
-      /*#slots*/
-      ctx[13].default
-    );
-    const default_slot = create_slot(
-      default_slot_template,
-      ctx,
-      /*$scope*/
-      ctx[12],
-      null
-    );
-    return {
-      c() {
-        if (default_slot)
-          default_slot.c();
-      },
-      m(target, anchor) {
-        if (default_slot) {
-          default_slot.m(target, anchor);
-        }
-        current = true;
-      },
-      p(ctx2, dirty) {
-        if (default_slot) {
-          if (default_slot.p && (!current || dirty & /*$scope*/
-          4096)) {
-            update_slot_base(
-              default_slot,
-              default_slot_template,
-              ctx2,
-              /*$scope*/
-              ctx2[12],
-              !current ? get_all_dirty_from_scope(
-                /*$scope*/
-                ctx2[12]
-              ) : get_slot_changes(
-                default_slot_template,
-                /*$scope*/
-                ctx2[12],
-                dirty,
-                null
-              ),
-              null
-            );
-          }
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(default_slot, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(default_slot, local);
-        current = false;
-      },
-      d(detaching) {
-        if (default_slot)
-          default_slot.d(detaching);
-      }
-    };
-  }
   function create_fragment5(ctx) {
     let googlesdk;
     let t;
     let div;
     let current;
-    googlesdk = new GoogleSdk_default({ props: { apiKey: (
-      /*apiKey*/
-      ctx[0]
-    ) } });
+    googlesdk = new GoogleSdk_default({});
     googlesdk.$on(
       "ready",
       /*initialise*/
-      ctx[3]
-    );
-    let if_block = (
-      /*map*/
-      ctx[2] && create_if_block2(ctx)
+      ctx[1]
     );
     return {
       c() {
         create_component(googlesdk.$.fragment);
         t = space();
         div = element("div");
-        if (if_block)
-          if_block.c();
+        div.innerHTML = `<!--	Maps goes here, will be render automatically -->`;
         attr(div, "class", "map svelte-16q73l0");
       },
       m(target, anchor) {
         mount_component(googlesdk, target, anchor);
         insert(target, t, anchor);
         insert(target, div, anchor);
-        if (if_block)
-          if_block.m(div, null);
-        ctx[14](div);
+        ctx[4](div);
         current = true;
       },
-      p(ctx2, [dirty]) {
-        const googlesdk_changes = {};
-        if (dirty & /*apiKey*/
-        1)
-          googlesdk_changes.apiKey = /*apiKey*/
-          ctx2[0];
-        googlesdk.$set(googlesdk_changes);
-        if (
-          /*map*/
-          ctx2[2]
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*map*/
-            4) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block2(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(div, null);
-          }
-        } else if (if_block) {
-          group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
-          });
-          check_outros();
-        }
-      },
+      p: noop,
       i(local) {
         if (current)
           return;
         transition_in(googlesdk.$.fragment, local);
-        transition_in(if_block);
         current = true;
       },
       o(local) {
         transition_out(googlesdk.$.fragment, local);
-        transition_out(if_block);
         current = false;
       },
       d(detaching) {
@@ -4646,168 +4482,80 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           detach(div);
         }
         destroy_component(googlesdk, detaching);
-        if (if_block)
-          if_block.d();
-        ctx[14](null);
+        ctx[4](null);
       }
     };
   }
   function instance6($self, $props, $invalidate) {
-    let { $slots: slots = {}, $scope } = $props;
-    setContext(key, {
-      getMap: () => map,
-      getGoogleMap: () => mapElement
-    });
-    const dispatch = createEventDispatcher();
-    let { apiKey } = $props;
     let mapElement;
     let map;
-    let { center = null } = $props;
-    let { zoom = 8 } = $props;
     let { options = {} } = $props;
-    function getDomBounds() {
-      return mapElement.getBoundingClientRect();
-    }
-    function getDefaultView() {
-      return mapElement.ownerDocument.defaultView;
-    }
-    function setHeight(height) {
-      $invalidate(1, mapElement.style.height = height, mapElement);
-    }
-    function setMaxHeight(height) {
-      $invalidate(1, mapElement.style.maxHeight = height, mapElement);
-    }
     function setCentre(location) {
       map.setCenter(location);
     }
-    function initialise() {
-      setTimeout(
-        () => {
-          const google2 = window.google;
-          $invalidate(2, map = new google2.maps.Map(mapElement, Object.assign({ center, zoom }, options)));
-          google2.maps.event.addListener(map, "dragend", () => {
-            const location = map.getCenter();
-            $invalidate(4, center = location);
-            dispatch("recentre", { location });
-          });
-          dispatch("ready");
-        },
-        1
-      );
+    async function initialise() {
+      const { Map: Map2 } = await google.maps.importLibrary("maps");
+      map = new Map2(mapElement, options);
+      mapStore.set(map);
     }
     function div_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         mapElement = $value;
-        $invalidate(1, mapElement);
+        $invalidate(0, mapElement);
       });
     }
     $self.$set = ($props2) => {
-      if ("apiKey" in $props2)
-        $invalidate(0, apiKey = $props2.apiKey);
-      if ("center" in $props2)
-        $invalidate(4, center = $props2.center);
-      if ("zoom" in $props2)
-        $invalidate(5, zoom = $props2.zoom);
       if ("options" in $props2)
-        $invalidate(6, options = $props2.options);
-      if ("$scope" in $props2)
-        $invalidate(12, $scope = $props2.$scope);
+        $invalidate(2, options = $props2.options);
     };
-    return [
-      apiKey,
-      mapElement,
-      map,
-      initialise,
-      center,
-      zoom,
-      options,
-      getDomBounds,
-      getDefaultView,
-      setHeight,
-      setMaxHeight,
-      setCentre,
-      $scope,
-      slots,
-      div_binding
-    ];
+    return [mapElement, initialise, options, setCentre, div_binding];
   }
   var GoogleMap = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance6, create_fragment5, safe_not_equal, {
-        apiKey: 0,
-        center: 4,
-        zoom: 5,
-        options: 6,
-        getDomBounds: 7,
-        getDefaultView: 8,
-        setHeight: 9,
-        setMaxHeight: 10,
-        setCentre: 11
-      });
-    }
-    get getDomBounds() {
-      return this.$.ctx[7];
-    }
-    get getDefaultView() {
-      return this.$.ctx[8];
-    }
-    get setHeight() {
-      return this.$.ctx[9];
-    }
-    get setMaxHeight() {
-      return this.$.ctx[10];
+      init(this, options, instance6, create_fragment5, safe_not_equal, { options: 2, setCentre: 3 });
     }
     get setCentre() {
-      return this.$.ctx[11];
+      return this.$.ctx[3];
     }
   };
   var GoogleMap_default = GoogleMap;
 
   // buyer.svelte
   function create_fragment6(ctx) {
-    let c0;
-    let script;
-    let t1;
     let section;
     let menu;
-    let t2;
+    let t0;
     let div2;
     let profileheader;
-    let t3;
+    let t1;
     let div1;
     let div0;
-    let t4;
     let googlemap;
-    let t5;
+    let t2;
     let footer;
     let current;
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({});
     googlemap = new GoogleMap_default({
-      props: {
-        apiKey: "AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg"
-      }
+      props: { options: (
+        /*mapOptions*/
+        ctx[0]
+      ) }
     });
     footer = new Footer_default({});
     return {
       c() {
-        c0 = comment(" Google Map SDK ");
-        script = element("script");
-        script.textContent = "(g => {\n      var h, a, k, p = 'The Google Maps JavaScript API', c = 'google', l = 'importLibrary', q = '__ib__', m = document, b = window;\n      b = b[ c ] || (b[ c ] = {});\n      var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise( async ( f, n ) => {\n        await (a = m.createElement( 'script' ));\n        e.set( 'libraries', [...r] + '' );\n        for( k in g ) e.set( k.replace( /[A-Z]/g, t => '_' + t[ 0 ].toLowerCase() ), g[ k ] );\n        e.set( 'callback', c + '.maps.' + q );\n        a.src = `https://maps.${c}apis.com/maps/api/js?` + e;\n        d[ q ] = f;\n        a.onerror = () => h = n( Error( p + ' could not load.' ) );\n        a.nonce = m.querySelector( 'script[nonce]' )?.nonce || '';\n        m.head.append( a );\n      } ));\n      d[ l ] ? console.warn( p + ' only loads once. Ignoring:', g ) : d[ l ] = ( f, ...n ) => r.add( f ) && u().then( () => d[ l ]( f, ...n ) );\n    })( {\n      key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',\n      v: 'weekly',\n      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).\n      // Add other bootstrap parameters as needed, using camel case.\n    } );";
-        t1 = space();
         section = element("section");
         create_component(menu.$.fragment);
-        t2 = space();
+        t0 = space();
         div2 = element("div");
         create_component(profileheader.$.fragment);
-        t3 = space();
+        t1 = space();
         div1 = element("div");
         div0 = element("div");
-        div0.innerHTML = `<!-- Map goes here, rendered automatically -->`;
-        t4 = space();
         create_component(googlemap.$.fragment);
-        t5 = space();
+        t2 = space();
         create_component(footer.$.fragment);
         attr(div0, "class", "map_container svelte-ijp0ve");
         attr(div1, "class", "content");
@@ -4815,21 +4563,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(section, "class", "dashboard");
       },
       m(target, anchor) {
-        append(document.head, c0);
-        append(document.head, script);
-        insert(target, t1, anchor);
         insert(target, section, anchor);
         mount_component(menu, section, null);
-        append(section, t2);
+        append(section, t0);
         append(section, div2);
         mount_component(profileheader, div2, null);
-        append(div2, t3);
+        append(div2, t1);
         append(div2, div1);
         append(div1, div0);
-        ctx[1](div0);
-        append(div1, t4);
-        mount_component(googlemap, div1, null);
-        append(div2, t5);
+        mount_component(googlemap, div0, null);
+        append(div2, t2);
         mount_component(footer, div2, null);
         current = true;
       },
@@ -4852,79 +4595,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(t1);
           detach(section);
         }
-        detach(c0);
-        detach(script);
         destroy_component(menu);
         destroy_component(profileheader);
-        ctx[1](null);
         destroy_component(googlemap);
         destroy_component(footer);
       }
     };
   }
   var segments = {/* segments */};
-  function instance7($self, $props, $invalidate) {
-    onMount(async () => {
-      await initMap();
-    });
-    let map;
-    let map_container;
-    async function initMap() {
-      const myLatLng = { lat: -34.397, lng: 150.644 };
-      let markers = [
-        {
-          lat: -34.03360401120961,
-          lng: 149.86401361846924
-        },
-        {
-          lat: -34.40606480160426,
-          lng: 149.94091791534424
-        },
-        {
-          lat: -34.53286884912313,
-          lng: 149.08398432159424
-        },
-        {
-          lat: -34.242748228904865,
-          lng: 149.32568354034424
-        },
-        {
-          lat: -34.87157170169384,
-          lng: 150.00683588409424
-        },
-        {
-          lat: -34.18369473718617,
-          lng: 150.24853510284424
-        }
-      ];
-      const { Map: Map2 } = await google.maps.importLibrary("maps");
-      map = new Map2(
-        map_container,
-        {
-          center: myLatLng,
-          zoom: 8,
-          mapTypeId: "roadmap",
-          mapId: "street_project"
-        }
-      );
-      markers.forEach((marker) => {
-        new google.maps.Marker({
-          position: { lat: marker.lat, lng: marker.lng },
-          map,
-          draggable: true
-        });
-      });
-    }
-    function div0_binding($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        map_container = $value;
-        $invalidate(0, map_container);
-      });
-    }
-    return [map_container, div0_binding];
+  function instance7($self) {
+    let myLatLng = { lat: 23.6978, lng: 120.9605 };
+    let mapOptions = {
+      center: myLatLng,
+      zoom: 8,
+      mapTypeId: "roadmap",
+      mapId: "street_project"
+    };
+    return [mapOptions];
   }
   var Buyer = class extends SvelteComponent {
     constructor(options) {
