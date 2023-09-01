@@ -46,7 +46,8 @@ docker compose up # or docker-compose up
 
 # start frontend auto build 
 cd svelte
-npm run watch
+pnpm install # or npm install
+pnpm watch # or npm run watch
 
 # do migration (first time, or everytime tarantool/clickhouse docker deleted, 
 # or when there's new migration)
