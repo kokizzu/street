@@ -91,7 +91,17 @@
     .tableview_container .add_button:hover {
         background-color : #7E80F1;
     }
-
+    
+    .label_rent {
+        background-color: #1080e8 !important;
+        color: #FFF !important;
+        border: none !important;
+    }
+    .label_sale {
+        background-color: #f97316 !important;
+        color: #FFF !important;
+        border: none !important;
+    }
 </style>
 
 
@@ -213,7 +223,7 @@
 }
 
 /* fakecss:./_components/PropertyLocation.esbuild-svelte-fake-css */
-.property_location_container.svelte-1r4os5q.svelte-1r4os5q {
+.property_location_container.svelte-mpszvg.svelte-mpszvg {
   position: relative;
   margin-top: -40px;
   margin-left: auto;
@@ -229,17 +239,17 @@
   flex-direction: column;
   gap: 20px;
 }
-.property_location_container.svelte-1r4os5q .header.svelte-1r4os5q {
+.property_location_container.svelte-mpszvg .header.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.property_location_container.svelte-1r4os5q .header .tabs.svelte-1r4os5q {
+.property_location_container.svelte-mpszvg .header .tabs.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   gap: 15px;
 }
-.property_location_container.svelte-1r4os5q .header .tabs button.svelte-1r4os5q {
+.property_location_container.svelte-mpszvg .header .tabs button.svelte-mpszvg {
   padding: 12px 20px;
   border-radius: 8px;
   border: 1px solid #cbd5e1;
@@ -252,14 +262,14 @@
   align-items: center;
   gap: 8px;
 }
-.property_location_container.svelte-1r4os5q .header .tabs button.active.svelte-1r4os5q {
+.property_location_container.svelte-mpszvg .header .tabs button.active.svelte-mpszvg {
   border: 1px solid #3b82f6;
   color: #3b82f6;
 }
-.property_location_container.svelte-1r4os5q .header .tabs button.svelte-1r4os5q:hover {
+.property_location_container.svelte-mpszvg .header .tabs button.svelte-mpszvg:hover {
   background-color: #f1f5f9;
 }
-.property_location_container.svelte-1r4os5q .header .search_box.svelte-1r4os5q {
+.property_location_container.svelte-mpszvg .header .search_box.svelte-mpszvg {
   position: relative;
   width: 500px;
 }
@@ -283,18 +293,18 @@
 .icon_close_search:hover {
   fill: #ef4444;
 }
-.property_location_container.svelte-1r4os5q .header .search_box input.svelte-1r4os5q {
+.property_location_container.svelte-mpszvg .header .search_box input.svelte-mpszvg {
   width: 100%;
   border: 1px solid #cbd5e1;
   background-color: #f1f5f9;
   border-radius: 8px;
   padding: 12px 12px 12px 40px;
 }
-.property_location_container.svelte-1r4os5q .header .search_box input.svelte-1r4os5q:focus {
+.property_location_container.svelte-mpszvg .header .search_box input.svelte-mpszvg:focus {
   border-color: #3b82f6;
   outline: 1px solid #3b82f6;
 }
-.search_by_location.svelte-1r4os5q.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg.svelte-mpszvg {
   display: grid;
   grid-template-columns: auto 500px;
   gap: 20px;
@@ -302,28 +312,28 @@
   max-width: 100%;
   overflow-y: scroll;
 }
-.search_by_location.svelte-1r4os5q.svelte-1r4os5q::-webkit-scrollbar-thumb,
-.search_by_location.svelte-1r4os5q .left.svelte-1r4os5q::-webkit-scrollbar-thumb,
-.search_by_location.svelte-1r4os5q .right.svelte-1r4os5q::-webkit-scrollbar-thumb {
+.search_by_location.svelte-mpszvg.svelte-mpszvg::-webkit-scrollbar-thumb,
+.search_by_location.svelte-mpszvg .left.svelte-mpszvg::-webkit-scrollbar-thumb,
+.search_by_location.svelte-mpszvg .right.svelte-mpszvg::-webkit-scrollbar-thumb {
   background-color: transparent;
 }
-.search_by_location.svelte-1r4os5q.svelte-1r4os5q::-webkit-scrollbar,
-.search_by_location.svelte-1r4os5q .left.svelte-1r4os5q::-webkit-scrollbar,
-.search_by_location.svelte-1r4os5q .right.svelte-1r4os5q::-webkit-scrollbar {
+.search_by_location.svelte-mpszvg.svelte-mpszvg::-webkit-scrollbar,
+.search_by_location.svelte-mpszvg .left.svelte-mpszvg::-webkit-scrollbar,
+.search_by_location.svelte-mpszvg .right.svelte-mpszvg::-webkit-scrollbar {
   width: 0;
 }
-.search_by_location.svelte-1r4os5q.svelte-1r4os5q::-webkit-scrollbar-track,
-.search_by_location.svelte-1r4os5q .left.svelte-1r4os5q::-webkit-scrollbar-track,
-.search_by_location.svelte-1r4os5q .right.svelte-1r4os5q::-webkit-scrollbar-track {
+.search_by_location.svelte-mpszvg.svelte-mpszvg::-webkit-scrollbar-track,
+.search_by_location.svelte-mpszvg .left.svelte-mpszvg::-webkit-scrollbar-track,
+.search_by_location.svelte-mpszvg .right.svelte-mpszvg::-webkit-scrollbar-track {
   background-color: transparent;
 }
-.search_by_location.svelte-1r4os5q .left.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left.svelte-mpszvg {
   height: 100%;
   border-top: 1px solid #cbd5e1;
   border-bottom: 1px solid #cbd5e1;
   overflow-y: scroll;
 }
-.search_by_location.svelte-1r4os5q .left .props_container.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container.svelte-mpszvg {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -331,16 +341,16 @@
   padding: 18px 0;
   overflow: auto;
 }
-.search_by_location.svelte-1r4os5q .left .props_container.svelte-1r4os5q::-webkit-scrollbar-thumb {
+.search_by_location.svelte-mpszvg .left .props_container.svelte-mpszvg::-webkit-scrollbar-thumb {
   background-color: #3b82f6;
 }
-.search_by_location.svelte-1r4os5q .left .props_container.svelte-1r4os5q::-webkit-scrollbar {
+.search_by_location.svelte-mpszvg .left .props_container.svelte-mpszvg::-webkit-scrollbar {
   width: 8px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container.svelte-1r4os5q::-webkit-scrollbar-track {
+.search_by_location.svelte-mpszvg .left .props_container.svelte-mpszvg::-webkit-scrollbar-track {
   background-color: transparent;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   gap: 15px;
@@ -348,20 +358,27 @@
   border-radius: 8px;
   cursor: pointer;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item:hover .prop_info .main_info .address.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item:hover .prop_info .main_info .address.svelte-mpszvg {
   text-decoration: underline;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .img_container.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item:hover .img_container .image_empty.svelte-mpszvg,
+.search_by_location.svelte-mpszvg .left .props_container .prop_item:hover .img_container img.svelte-mpszvg {
+  transform: scale(1.20);
+}
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .img_container.svelte-mpszvg {
   width: 240px;
   height: 170px;
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .img_container img.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .img_container img.svelte-mpszvg {
   object-fit: cover;
   width: 100%;
   height: 100%;
+  transition-duration: 75ms;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .img_container .image_empty.svelte-1r4os5q {
-  border-radius: 8px;
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .img_container .image_empty.svelte-mpszvg {
   object-fit: cover;
   width: 100%;
   height: 100%;
@@ -371,26 +388,26 @@
   justify-content: center;
   align-items: center;
   gap: 5px;
-  border: 1px solid #cbd5e1;
+  transition-duration: 75ms;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info.svelte-mpszvg {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .main_info.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .main_info.svelte-mpszvg {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .main_info .label_info.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .main_info .label_info.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   gap: 8px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .main_info .label_info .purpose.svelte-1r4os5q,
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .main_info .label_info .house_type.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .main_info .label_info .purpose.svelte-mpszvg,
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .main_info .label_info .house_type.svelte-mpszvg {
   padding: 4px 10px;
   font-size: 13px;
   border: 1px solid #cbd5e1;
@@ -401,80 +418,80 @@
   gap: 7px;
   width: fit-content;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .main_info .address.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .main_info .address.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   font-size: 15px;
   gap: 8px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .main_info .feature.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .main_info .feature.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   font-size: 13px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .main_info .feature .item.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .main_info .feature .item.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .secondary_info.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .secondary_info.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .secondary_info .size.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .secondary_info .size.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 6px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .secondary_info .price.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .secondary_info .price.svelte-mpszvg {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 4px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .secondary_info .price .agency_fee.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .secondary_info .price .agency_fee.svelte-mpszvg {
   font-size: 12px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .secondary_info .price .last_price.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .secondary_info .price .last_price.svelte-mpszvg {
   font-size: 20px;
   font-weight: 700;
 }
-.search_by_location.svelte-1r4os5q .right.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .right.svelte-mpszvg {
   border: 1px solid #cbd5e1;
   border-radius: 8px;
   height: 100%;
   overflow-y: scroll;
 }
-.search_by_location.svelte-1r4os5q .right .autocomplete_container.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .right .autocomplete_container.svelte-mpszvg {
   height: 100%;
   display: flex;
   flex-direction: column;
   padding: 0;
   overflow: auto;
 }
-.search_by_location.svelte-1r4os5q .right .autocomplete_container.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .right .autocomplete_container.svelte-mpszvg {
   height: 100%;
   display: flex;
   flex-direction: column;
   overflow: auto;
 }
-.search_by_location.svelte-1r4os5q .right .autocomplete_container.svelte-1r4os5q::-webkit-scrollbar-thumb {
+.search_by_location.svelte-mpszvg .right .autocomplete_container.svelte-mpszvg::-webkit-scrollbar-thumb {
   background-color: #3b82f6;
 }
-.search_by_location.svelte-1r4os5q .right .autocomplete_container.svelte-1r4os5q::-webkit-scrollbar {
+.search_by_location.svelte-mpszvg .right .autocomplete_container.svelte-mpszvg::-webkit-scrollbar {
   width: 8px;
 }
-.search_by_location.svelte-1r4os5q .right .autocomplete_container.svelte-1r4os5q::-webkit-scrollbar-track {
+.search_by_location.svelte-mpszvg .right .autocomplete_container.svelte-mpszvg::-webkit-scrollbar-track {
   background-color: transparent;
 }
-.search_by_location.svelte-1r4os5q .right .autocomplete_container .autocomplete_item.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .right .autocomplete_container .autocomplete_item.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   gap: 8px;
@@ -485,10 +502,10 @@
   border-bottom: 1px solid #cbd5e1;
   cursor: pointer;
 }
-.search_by_location.svelte-1r4os5q .right .autocomplete_container .autocomplete_item.svelte-1r4os5q:hover {
+.search_by_location.svelte-mpszvg .right .autocomplete_container .autocomplete_item.svelte-mpszvg:hover {
   background-color: #f1f5f9;
 }
-.search_by_location.svelte-1r4os5q .right .map_container.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .right .map_container.svelte-mpszvg {
   display: block;
   width: 100%;
   height: 100%;
@@ -2987,6 +3004,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function component_subscribe(component, store, callback) {
     component.$.on_destroy.push(subscribe(store, callback));
   }
+  function null_to_empty(value) {
+    return value == null ? "" : value;
+  }
 
   // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
@@ -5074,7 +5094,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
       each_blocks[i] = null;
     });
-    const if_block_creators = [create_if_block_12, create_else_block];
+    const if_block_creators = [create_if_block_12, create_else_block_1];
     const if_blocks = [];
     function select_block_type_2(ctx2, dirty) {
       if (
@@ -5097,10 +5117,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t = space();
         div2 = element("div");
         if_block.c();
-        attr(div0, "class", "props_container svelte-1r4os5q");
-        attr(div1, "class", "left svelte-1r4os5q");
-        attr(div2, "class", "right svelte-1r4os5q");
-        attr(div3, "class", "search_by_location svelte-1r4os5q");
+        attr(div0, "class", "props_container svelte-mpszvg");
+        attr(div1, "class", "left svelte-mpszvg");
+        attr(div2, "class", "right svelte-mpszvg");
+        attr(div3, "class", "search_by_location svelte-mpszvg");
       },
       m(target, anchor) {
         insert(target, div3, anchor);
@@ -5189,7 +5209,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_else_block_1(ctx) {
+  function create_else_block_2(ctx) {
     let div;
     let icon;
     let t0;
@@ -5209,7 +5229,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t0 = space();
         span = element("span");
         span.textContent = "No Image !";
-        attr(div, "class", "image_empty svelte-1r4os5q");
+        attr(div, "class", "image_empty svelte-mpszvg");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -5247,7 +5267,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx[25].images[0]))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
-        attr(img, "class", "svelte-1r4os5q");
+        attr(img, "class", "svelte-mpszvg");
       },
       m(target, anchor) {
         insert(target, img, anchor);
@@ -5278,34 +5298,31 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let div9;
     let div3;
     let div1;
-    let t1;
-    let t2_value = (
+    let t1_value = (
       /*prop*/
-      (ctx[25].purpose === "" ? "Sale" : (
-        /*prop*/
-        ctx[25].purpose
-      )) + ""
+      ctx[25].purpose === "sell" ? `On Sale` : `For Rent`
     );
+    let t1;
+    let div1_class_value;
     let t2;
-    let t3;
     let div2;
     let icon0;
-    let t4;
+    let t3;
     let span0;
-    let t5_value = (
+    let t4_value = (
       /*prop*/
       (ctx[25].houseType === "" ? "House" : (
         /*prop*/
         ctx[25].houseType
       )) + ""
     );
+    let t4;
     let t5;
-    let t6;
     let div4;
     let icon1;
-    let t7;
+    let t6;
     let span1;
-    let t8_value = (
+    let t7_value = (
       /*prop*/
       (ctx[25].formattedAddress === "" ? (
         /*prop*/
@@ -5315,77 +5332,77 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx[25].formattedAddress
       )) + ""
     );
+    let t7;
     let t8;
-    let t9;
     let div8;
     let div5;
     let icon2;
-    let t10;
+    let t9;
     let span2;
     let b0;
-    let t12;
-    let t13_value = (
+    let t11;
+    let t12_value = (
       /*prop*/
       (ctx[25].numberOfFloors || 0) + ""
     );
+    let t12;
     let t13;
-    let t14;
     let div6;
     let icon3;
-    let t15;
+    let t14;
     let span3;
     let b1;
-    let t17;
-    let t18_value = (
+    let t16;
+    let t17_value = (
       /*prop*/
       (ctx[25].bedroom || 0) + ""
     );
+    let t17;
     let t18;
-    let t19;
     let div7;
     let icon4;
-    let t20;
+    let t19;
     let span4;
     let b2;
-    let t22;
-    let t23_value = (
+    let t21;
+    let t22_value = (
       /*prop*/
       (ctx[25].bathroom || 0) + ""
     );
+    let t22;
     let t23;
-    let t24;
     let div12;
     let div10;
     let icon5;
-    let t25;
+    let t24;
     let span5;
-    let t26_value = (
+    let t25_value = (
       /*prop*/
       ctx[25].sizeM2 + ""
     );
+    let t25;
     let t26;
     let t27;
-    let t28;
     let div11;
     let span6;
-    let t29;
-    let t30_value = (
+    let t28;
+    let t29_value = (
       /*prop*/
       (ctx[25].agencyFeePercent || "0") + ""
     );
+    let t29;
     let t30;
     let t31;
-    let t32;
     let span7;
-    let t33_value = (0, import_formatter.formatPrice)(
+    let t32_value = (0, import_formatter.formatPrice)(
       /*prop*/
       ctx[25].lastPrice || 0,
       "USD"
     ) + "";
+    let t32;
     let t33;
-    let t34;
     let current;
-    const if_block_creators = [create_if_block_32, create_else_block_1];
+    const if_block_creators = [create_if_block_32, create_else_block_2];
     const if_blocks = [];
     function select_block_type_1(ctx2, dirty) {
       if (
@@ -5450,83 +5467,85 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         div9 = element("div");
         div3 = element("div");
         div1 = element("div");
-        t1 = text("On ");
-        t2 = text(t2_value);
-        t3 = space();
+        t1 = text(t1_value);
+        t2 = space();
         div2 = element("div");
         create_component(icon0.$.fragment);
-        t4 = space();
+        t3 = space();
         span0 = element("span");
-        t5 = text(t5_value);
-        t6 = space();
+        t4 = text(t4_value);
+        t5 = space();
         div4 = element("div");
         create_component(icon1.$.fragment);
-        t7 = space();
+        t6 = space();
         span1 = element("span");
-        t8 = text(t8_value);
-        t9 = space();
+        t7 = text(t7_value);
+        t8 = space();
         div8 = element("div");
         div5 = element("div");
         create_component(icon2.$.fragment);
-        t10 = space();
+        t9 = space();
         span2 = element("span");
         b0 = element("b");
         b0.textContent = "Floor";
-        t12 = text(": ");
-        t13 = text(t13_value);
-        t14 = space();
+        t11 = text(": ");
+        t12 = text(t12_value);
+        t13 = space();
         div6 = element("div");
         create_component(icon3.$.fragment);
-        t15 = space();
+        t14 = space();
         span3 = element("span");
         b1 = element("b");
         b1.textContent = "Beds";
-        t17 = text(": ");
-        t18 = text(t18_value);
-        t19 = space();
+        t16 = text(": ");
+        t17 = text(t17_value);
+        t18 = space();
         div7 = element("div");
         create_component(icon4.$.fragment);
-        t20 = space();
+        t19 = space();
         span4 = element("span");
         b2 = element("b");
         b2.textContent = "Baths";
-        t22 = text(": ");
-        t23 = text(t23_value);
-        t24 = space();
+        t21 = text(": ");
+        t22 = text(t22_value);
+        t23 = space();
         div12 = element("div");
         div10 = element("div");
         create_component(icon5.$.fragment);
-        t25 = space();
+        t24 = space();
         span5 = element("span");
-        t26 = text(t26_value);
-        t27 = text(" M2");
-        t28 = space();
+        t25 = text(t25_value);
+        t26 = text(" M2");
+        t27 = space();
         div11 = element("div");
         span6 = element("span");
-        t29 = text("Agency Fee: ");
-        t30 = text(t30_value);
-        t31 = text("%");
-        t32 = space();
+        t28 = text("Agency Fee: ");
+        t29 = text(t29_value);
+        t30 = text("%");
+        t31 = space();
         span7 = element("span");
-        t33 = text(t33_value);
-        t34 = space();
-        attr(div0, "class", "img_container svelte-1r4os5q");
-        attr(div1, "class", "purpose svelte-1r4os5q");
-        attr(div2, "class", "house_type svelte-1r4os5q");
-        attr(div3, "class", "label_info svelte-1r4os5q");
-        attr(div4, "class", "address svelte-1r4os5q");
-        attr(div5, "class", "item svelte-1r4os5q");
-        attr(div6, "class", "item svelte-1r4os5q");
-        attr(div7, "class", "item svelte-1r4os5q");
-        attr(div8, "class", "feature svelte-1r4os5q");
-        attr(div9, "class", "main_info svelte-1r4os5q");
-        attr(div10, "class", "size svelte-1r4os5q");
-        attr(span6, "class", "agency_fee svelte-1r4os5q");
-        attr(span7, "class", "last_price svelte-1r4os5q");
-        attr(div11, "class", "price svelte-1r4os5q");
-        attr(div12, "class", "secondary_info svelte-1r4os5q");
-        attr(div13, "class", "prop_info svelte-1r4os5q");
-        attr(div14, "class", "prop_item svelte-1r4os5q");
+        t32 = text(t32_value);
+        t33 = space();
+        attr(div0, "class", "img_container svelte-mpszvg");
+        attr(div1, "class", div1_class_value = null_to_empty(
+          /*prop*/
+          ctx[25].purpose === "sell" ? `purpose label_sale` : `purpose label_rent`
+        ) + " svelte-mpszvg");
+        attr(div2, "class", "house_type svelte-mpszvg");
+        attr(div3, "class", "label_info svelte-mpszvg");
+        attr(div4, "class", "address svelte-mpszvg");
+        attr(div5, "class", "item svelte-mpszvg");
+        attr(div6, "class", "item svelte-mpszvg");
+        attr(div7, "class", "item svelte-mpszvg");
+        attr(div8, "class", "feature svelte-mpszvg");
+        attr(div9, "class", "main_info svelte-mpszvg");
+        attr(div10, "class", "size svelte-mpszvg");
+        attr(span6, "class", "agency_fee svelte-mpszvg");
+        attr(span7, "class", "last_price svelte-mpszvg");
+        attr(div11, "class", "price svelte-mpszvg");
+        attr(div12, "class", "secondary_info svelte-mpszvg");
+        attr(div13, "class", "prop_info svelte-mpszvg");
+        attr(div14, "class", "prop_item svelte-mpszvg");
       },
       m(target, anchor) {
         insert(target, div14, anchor);
@@ -5538,62 +5557,61 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div9, div3);
         append(div3, div1);
         append(div1, t1);
-        append(div1, t2);
-        append(div3, t3);
+        append(div3, t2);
         append(div3, div2);
         mount_component(icon0, div2, null);
-        append(div2, t4);
+        append(div2, t3);
         append(div2, span0);
-        append(span0, t5);
-        append(div9, t6);
+        append(span0, t4);
+        append(div9, t5);
         append(div9, div4);
         mount_component(icon1, div4, null);
-        append(div4, t7);
+        append(div4, t6);
         append(div4, span1);
-        append(span1, t8);
-        append(div9, t9);
+        append(span1, t7);
+        append(div9, t8);
         append(div9, div8);
         append(div8, div5);
         mount_component(icon2, div5, null);
-        append(div5, t10);
+        append(div5, t9);
         append(div5, span2);
         append(span2, b0);
+        append(span2, t11);
         append(span2, t12);
-        append(span2, t13);
-        append(div8, t14);
+        append(div8, t13);
         append(div8, div6);
         mount_component(icon3, div6, null);
-        append(div6, t15);
+        append(div6, t14);
         append(div6, span3);
         append(span3, b1);
+        append(span3, t16);
         append(span3, t17);
-        append(span3, t18);
-        append(div8, t19);
+        append(div8, t18);
         append(div8, div7);
         mount_component(icon4, div7, null);
-        append(div7, t20);
+        append(div7, t19);
         append(div7, span4);
         append(span4, b2);
+        append(span4, t21);
         append(span4, t22);
-        append(span4, t23);
-        append(div13, t24);
+        append(div13, t23);
         append(div13, div12);
         append(div12, div10);
         mount_component(icon5, div10, null);
-        append(div10, t25);
+        append(div10, t24);
         append(div10, span5);
+        append(span5, t25);
         append(span5, t26);
-        append(span5, t27);
-        append(div12, t28);
+        append(div12, t27);
         append(div12, div11);
         append(div11, span6);
+        append(span6, t28);
         append(span6, t29);
         append(span6, t30);
-        append(span6, t31);
-        append(div11, t32);
+        append(div11, t31);
         append(div11, span7);
-        append(span7, t33);
-        append(div14, t34);
+        append(span7, t32);
+        append(div14, t33);
         current = true;
       },
       p(ctx2, dirty) {
@@ -5618,21 +5636,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if_block.m(div0, null);
         }
         if ((!current || dirty & /*random_props*/
-        2) && t2_value !== (t2_value = /*prop*/
-        (ctx2[25].purpose === "" ? "Sale" : (
+        2) && t1_value !== (t1_value = /*prop*/
+        ctx2[25].purpose === "sell" ? `On Sale` : `For Rent`))
+          set_data(t1, t1_value);
+        if (!current || dirty & /*random_props*/
+        2 && div1_class_value !== (div1_class_value = null_to_empty(
           /*prop*/
-          ctx2[25].purpose
-        )) + ""))
-          set_data(t2, t2_value);
+          ctx2[25].purpose === "sell" ? `purpose label_sale` : `purpose label_rent`
+        ) + " svelte-mpszvg")) {
+          attr(div1, "class", div1_class_value);
+        }
         if ((!current || dirty & /*random_props*/
-        2) && t5_value !== (t5_value = /*prop*/
+        2) && t4_value !== (t4_value = /*prop*/
         (ctx2[25].houseType === "" ? "House" : (
           /*prop*/
           ctx2[25].houseType
         )) + ""))
-          set_data(t5, t5_value);
+          set_data(t4, t4_value);
         if ((!current || dirty & /*random_props*/
-        2) && t8_value !== (t8_value = /*prop*/
+        2) && t7_value !== (t7_value = /*prop*/
         (ctx2[25].formattedAddress === "" ? (
           /*prop*/
           ctx2[25].address
@@ -5640,34 +5662,34 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*prop*/
           ctx2[25].formattedAddress
         )) + ""))
-          set_data(t8, t8_value);
+          set_data(t7, t7_value);
         if ((!current || dirty & /*random_props*/
-        2) && t13_value !== (t13_value = /*prop*/
+        2) && t12_value !== (t12_value = /*prop*/
         (ctx2[25].numberOfFloors || 0) + ""))
-          set_data(t13, t13_value);
+          set_data(t12, t12_value);
         if ((!current || dirty & /*random_props*/
-        2) && t18_value !== (t18_value = /*prop*/
+        2) && t17_value !== (t17_value = /*prop*/
         (ctx2[25].bedroom || 0) + ""))
-          set_data(t18, t18_value);
+          set_data(t17, t17_value);
         if ((!current || dirty & /*random_props*/
-        2) && t23_value !== (t23_value = /*prop*/
+        2) && t22_value !== (t22_value = /*prop*/
         (ctx2[25].bathroom || 0) + ""))
-          set_data(t23, t23_value);
+          set_data(t22, t22_value);
         if ((!current || dirty & /*random_props*/
-        2) && t26_value !== (t26_value = /*prop*/
+        2) && t25_value !== (t25_value = /*prop*/
         ctx2[25].sizeM2 + ""))
-          set_data(t26, t26_value);
+          set_data(t25, t25_value);
         if ((!current || dirty & /*random_props*/
-        2) && t30_value !== (t30_value = /*prop*/
+        2) && t29_value !== (t29_value = /*prop*/
         (ctx2[25].agencyFeePercent || "0") + ""))
-          set_data(t30, t30_value);
+          set_data(t29, t29_value);
         if ((!current || dirty & /*random_props*/
-        2) && t33_value !== (t33_value = (0, import_formatter.formatPrice)(
+        2) && t32_value !== (t32_value = (0, import_formatter.formatPrice)(
           /*prop*/
           ctx2[25].lastPrice || 0,
           "USD"
         ) + ""))
-          set_data(t33, t33_value);
+          set_data(t32, t32_value);
       },
       i(local) {
         if (current)
@@ -5705,7 +5727,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_else_block(ctx) {
+  function create_else_block_1(ctx) {
     let div;
     let googlemap;
     let current;
@@ -5719,7 +5741,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       c() {
         div = element("div");
         create_component(googlemap.$.fragment);
-        attr(div, "class", "map_container svelte-1r4os5q");
+        attr(div, "class", "map_container svelte-mpszvg");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -5751,47 +5773,52 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function create_if_block_12(ctx) {
     let div;
+    let current_block_type_index;
+    let if_block;
     let current;
-    let if_block = (
-      /*autocomplete_lists*/
-      ctx[4].length && create_if_block_22(ctx)
-    );
+    const if_block_creators = [create_if_block_22, create_else_block];
+    const if_blocks = [];
+    function select_block_type_3(ctx2, dirty) {
+      if (
+        /*autocomplete_lists*/
+        ctx2[4].length
+      )
+        return 0;
+      return 1;
+    }
+    current_block_type_index = select_block_type_3(ctx, -1);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
         div = element("div");
-        if (if_block)
-          if_block.c();
-        attr(div, "class", "autocomplete_container svelte-1r4os5q");
+        if_block.c();
+        attr(div, "class", "autocomplete_container svelte-mpszvg");
       },
       m(target, anchor) {
         insert(target, div, anchor);
-        if (if_block)
-          if_block.m(div, null);
+        if_blocks[current_block_type_index].m(div, null);
         current = true;
       },
       p(ctx2, dirty) {
-        if (
-          /*autocomplete_lists*/
-          ctx2[4].length
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*autocomplete_lists*/
-            16) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block_22(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(div, null);
-          }
-        } else if (if_block) {
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type_3(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        } else {
           group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
           });
           check_outros();
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
+          } else {
+            if_block.p(ctx2, dirty);
+          }
+          transition_in(if_block, 1);
+          if_block.m(div, null);
         }
       },
       i(local) {
@@ -5808,8 +5835,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (detaching) {
           detach(div);
         }
-        if (if_block)
-          if_block.d();
+        if_blocks[current_block_type_index].d();
+      }
+    };
+  }
+  function create_else_block(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Write address...";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      p: noop,
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
       }
     };
   }
@@ -5931,7 +5977,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         span = element("span");
         t1 = text(t1_value);
         t2 = space();
-        attr(button, "class", "autocomplete_item svelte-1r4os5q");
+        attr(button, "class", "autocomplete_item svelte-mpszvg");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -6087,29 +6133,29 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t9 = space();
         if (if_block1)
           if_block1.c();
-        attr(button0, "class", "svelte-1r4os5q");
+        attr(button0, "class", "svelte-mpszvg");
         toggle_class(
           button0,
           "active",
           /*search_mode*/
           ctx[5] === srch_loc
         );
-        attr(button1, "class", "svelte-1r4os5q");
+        attr(button1, "class", "svelte-mpszvg");
         toggle_class(
           button1,
           "active",
           /*search_mode*/
           ctx[5] === srch_prop
         );
-        attr(div0, "class", "tabs svelte-1r4os5q");
+        attr(div0, "class", "tabs svelte-mpszvg");
         attr(label, "for", "search_location");
         attr(input, "type", "text");
         attr(input, "id", "search_location");
         attr(input, "placeholder", "Search property...");
-        attr(input, "class", "svelte-1r4os5q");
-        attr(div1, "class", "search_box svelte-1r4os5q");
-        attr(div2, "class", "header svelte-1r4os5q");
-        attr(div3, "class", "property_location_container svelte-1r4os5q");
+        attr(input, "class", "svelte-mpszvg");
+        attr(div1, "class", "search_box svelte-mpszvg");
+        attr(div2, "class", "header svelte-mpszvg");
+        attr(div3, "class", "property_location_container svelte-mpszvg");
       },
       m(target, anchor) {
         mount_component(googlesdk, target, anchor);

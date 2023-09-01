@@ -32,14 +32,14 @@
     <div class='property_info'>
       <div class='col1'>
         <div class='left'>
-          <div class='purpose'>On {property.purpose}</div>
+          <div class={property.purpose === 'sell' ? `purpose label_sale` : `purpose label_rent`}>{property.purpose === 'sell' ? `On Sale` : `For ${property.purpose}`}</div>
           <div class='house_type'>
-            <Icon size={18} color='#FFFF' src={FaSolidHome} />
+            <Icon size={16} color='#FFFF' src={FaSolidHome} />
             <span>{property.houseType}</span>
           </div>
         </div>
         <a href='/realtor/property/{property.id}' class='edit_property'>
-          <Icon size={15} color='#FFFF' src={FaSolidPen} />
+          <Icon size={13} color='#FFFF' src={FaSolidPen} />
           <span>Edit Property</span>
         </a>
       </div>
@@ -218,7 +218,7 @@
   .property_main .property_info .col1 .left .house_type,
   .property_main .property_info .col1 .edit_property {
     background-color : #F97316;
-    padding          : 10px 25px;
+    padding          : 7px 18px;
     border-radius    : 8px;
     color            : white;
     font-size        : 14px;

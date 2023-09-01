@@ -155,7 +155,7 @@
               <div class="prop_info">
                 <div class="main_info">
                   <div class="label_info">
-                    <div class="purpose">On {prop.purpose === "" ? 'Sale' : prop.purpose}</div>
+                    <div class={prop.purpose === 'sell' ? `purpose label_sale` : `purpose label_rent`}>{prop.purpose === 'sell' ? `On Sale` : `For Rent`}</div>
                     <div class="house_type">
                       <Icon size={12} color="#475569" src={FaSolidHome} />
                       <span>{prop.houseType === "" ? 'House' : prop.houseType}</span>
@@ -205,6 +205,8 @@
                   <span>{place.description}</span>
                 </button>
               {/each}
+            {:else}
+              <span>Write address...</span>
             {/if}
           </div>
         {:else}
@@ -360,17 +362,24 @@
   .search_by_location .left .props_container .prop_item:hover .prop_info .main_info .address {
     text-decoration: underline;
   }
+  .search_by_location .left .props_container .prop_item:hover .img_container .image_empty,
+  .search_by_location .left .props_container .prop_item:hover .img_container img {
+    transform: scale(1.20);
+  }
   .search_by_location .left .props_container .prop_item .img_container {
     width: 240px;
     height: 170px;
+    overflow: hidden;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
   }
   .search_by_location .left .props_container .prop_item .img_container img {
     object-fit: cover;
     width: 100%;
     height: 100%;
+    transition-duration: 75ms;
   }
   .search_by_location .left .props_container .prop_item .img_container .image_empty {
-    border-radius: 8px;
     object-fit: cover;
     width: 100%;
     height: 100%;
@@ -380,7 +389,7 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
-    border: 1px solid #cbd5e1;
+    transition-duration: 75ms;
   }
   .search_by_location .left .props_container .prop_item .prop_info {
     flex-grow: 1;

@@ -91,7 +91,17 @@
     .tableview_container .add_button:hover {
         background-color : #7E80F1;
     }
-
+    
+    .label_rent {
+        background-color: #1080e8 !important;
+        color: #FFF !important;
+        border: none !important;
+    }
+    .label_sale {
+        background-color: #f97316 !important;
+        color: #FFF !important;
+        border: none !important;
+    }
 </style>
 
 
@@ -1197,7 +1207,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   text-transform: capitalize;
   margin: 0;
 }
-.floor.svelte-187mby7 .floor_items_container .floor_item .left_item .rooms_total.svelte-187mby7.svelte-187mby7.svelte-187mby7 {
+.floor.svelte-187mby7 .floor_items_container .floor_item .left_item.svelte-187mby7 .rooms_total.svelte-187mby7.svelte-187mby7 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
@@ -9481,9 +9491,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span0;
     let t4_value = (
       /*property*/
-      ctx[0].purpose + ""
+      ctx[0].purpose === "sell" ? `On Sale` : `For ${/*property*/
+      ctx[0].purpose}`
     );
     let t4;
+    let span0_class_value;
     let t5;
     let div2;
     let h30;
@@ -9727,7 +9739,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(h20, "class", "svelte-187mby7");
         attr(div0, "class", "preview_header svelte-187mby7");
         attr(div1, "class", "image_preview_wrapper svelte-187mby7");
-        attr(span0, "class", "svelte-187mby7");
+        attr(span0, "class", span0_class_value = null_to_empty(
+          /*property*/
+          ctx[0].purpose === "sell" ? `label_sale` : `label_rent`
+        ) + " svelte-187mby7");
         attr(h30, "class", "svelte-187mby7");
         attr(p0, "class", "svelte-187mby7");
         attr(div2, "class", "price svelte-187mby7");
@@ -9884,8 +9899,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if ((!current || dirty[0] & /*property*/
         1) && t4_value !== (t4_value = /*property*/
-        ctx2[0].purpose + ""))
+        ctx2[0].purpose === "sell" ? `On Sale` : `For ${/*property*/
+        ctx2[0].purpose}`))
           set_data(t4, t4_value);
+        if (!current || dirty[0] & /*property*/
+        1 && span0_class_value !== (span0_class_value = null_to_empty(
+          /*property*/
+          ctx2[0].purpose === "sell" ? `label_sale` : `label_rent`
+        ) + " svelte-187mby7")) {
+          attr(span0, "class", span0_class_value);
+        }
         if ((!current || dirty[0] & /*property*/
         1) && t6_value !== (t6_value = formatPrice(
           /*property*/
