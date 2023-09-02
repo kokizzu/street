@@ -34,6 +34,7 @@ const (
 
 func (d *Domain) UserLikeProp(in *UserLikePropIn) (out UserLikePropOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
+	out.refId = in.propId
 
 	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
