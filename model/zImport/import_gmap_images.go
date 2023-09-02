@@ -7,6 +7,7 @@ import (
 
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/X"
+	"golang.org/x/exp/rand"
 
 	"street/conf"
 	"street/domain"
@@ -31,6 +32,9 @@ func ImportStreetViewImage(d *domain.Domain, conf conf.GmapConf) {
 
 	stat := &ImporterStat{}
 	defer stat.Print(`last`)
+
+	// all possible degree to 360, increment by 15
+	degrees := []int{0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 160, 165, 180, 195, 210, 225, 240, 255, 270, 285, 300, 315, 330, 345}
 
 	for { // for all image
 		props := p.FindAllPropertiesOffsetLimit(start, 1000)
@@ -60,10 +64,19 @@ func ImportStreetViewImage(d *domain.Domain, conf conf.GmapConf) {
 
 			//if _, ok := streetViewCache[cacheKey]; !ok { // if not on cache
 
-			// find image, with random id angle
-			reader := StreetViewImageFromLatLong(400, 400, lat, long, 90, int(prop.Id*5%360), 3, conf.PublicApiKey)
+			// find image, from random id angle
+			rand.Shuffle(len(degrees), func(i, j int) { degrees[i], degrees[j] = degrees[j], degrees[i] })
+
+			var reader io.ReadCloser
+			for _, degree := range degrees {
+				reader = StreetViewImageFromLatLong(400, 400, lat, long, 90, degree, 3, conf.PublicApiKey)
+				if reader == nil {
+					continue
+				}
+				break
+			}
 			if reader == nil {
-				stat.Fail(``)
+				stat.Fail(`StreetViewImageFromLatLong.noPossibleDegree`)
 				continue
 			}
 
@@ -103,7 +116,7 @@ func StreetViewImageFromLatLong(width, height int, lat, lng float64, fov, headin
 	// pitch (default is 0) specifies the up or down angle of the camera relative to the Street View vehicle. This is often, but not always, flat horizontal. Positive values angle the camera up (with 90 degrees indicating straight up); negative values angle the camera down (with -90 indicating straight down).
 	// radius (default is 50) sets a radius, specified in meters, in which to search for a panorama, centered on the given latitude and longitude. Valid values are non-negative integers.
 	url := fmt.Sprintf(
-		`https://maps.googleapis.com/maps/api/streetview?size=%dx%d&location=%.15f,%.15f&fov=%d&heading=%d&pitch=%d&key=%s`, // &return_error_code=true
+		`https://maps.googleapis.com/maps/api/streetview?size=%dx%d&location=%.15f,%.15f&fov=%d&heading=%d&pitch=%d&key=%s&return_error_code=true`,
 		width, height, lat, lng, fov, heading, pitch, apiKey,
 	)
 	resp, err := http.Get(url)
@@ -111,7 +124,6 @@ func StreetViewImageFromLatLong(width, height int, lat, lng float64, fov, headin
 		return nil
 	}
 	if resp.StatusCode != http.StatusOK {
-		L.Print(`StreetViewImageFromLatLong.StatusCode.not200`, resp.StatusCode)
 		return nil
 	}
 	return resp.Body
