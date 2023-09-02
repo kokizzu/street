@@ -91,7 +91,17 @@
     .tableview_container .add_button:hover {
         background-color : #7E80F1;
     }
-
+    
+    .label_rent {
+        background-color: #1080e8 !important;
+        color: #FFF !important;
+        border: none !important;
+    }
+    .label_sale {
+        background-color: #f97316 !important;
+        color: #FFF !important;
+        border: none !important;
+    }
 </style>
 
 
@@ -206,8 +216,14 @@
   color: #EF4444 !important;
 }
 
+/* fakecss:./_components/GoogleMap/GoogleMap.esbuild-svelte-fake-css */
+.map.svelte-16q73l0 {
+  height: 100%;
+  width: 100%;
+}
+
 /* fakecss:./_components/PropertyLocation.esbuild-svelte-fake-css */
-.property_location_container.svelte-1r4os5q.svelte-1r4os5q {
+.property_location_container.svelte-mpszvg.svelte-mpszvg {
   position: relative;
   margin-top: -40px;
   margin-left: auto;
@@ -223,17 +239,17 @@
   flex-direction: column;
   gap: 20px;
 }
-.property_location_container.svelte-1r4os5q .header.svelte-1r4os5q {
+.property_location_container.svelte-mpszvg .header.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.property_location_container.svelte-1r4os5q .header .tabs.svelte-1r4os5q {
+.property_location_container.svelte-mpszvg .header .tabs.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   gap: 15px;
 }
-.property_location_container.svelte-1r4os5q .header .tabs button.svelte-1r4os5q {
+.property_location_container.svelte-mpszvg .header .tabs button.svelte-mpszvg {
   padding: 12px 20px;
   border-radius: 8px;
   border: 1px solid #cbd5e1;
@@ -246,14 +262,14 @@
   align-items: center;
   gap: 8px;
 }
-.property_location_container.svelte-1r4os5q .header .tabs button.active.svelte-1r4os5q {
+.property_location_container.svelte-mpszvg .header .tabs button.active.svelte-mpszvg {
   border: 1px solid #3b82f6;
   color: #3b82f6;
 }
-.property_location_container.svelte-1r4os5q .header .tabs button.svelte-1r4os5q:hover {
+.property_location_container.svelte-mpszvg .header .tabs button.svelte-mpszvg:hover {
   background-color: #f1f5f9;
 }
-.property_location_container.svelte-1r4os5q .header .search_box.svelte-1r4os5q {
+.property_location_container.svelte-mpszvg .header .search_box.svelte-mpszvg {
   position: relative;
   width: 500px;
 }
@@ -277,18 +293,18 @@
 .icon_close_search:hover {
   fill: #ef4444;
 }
-.property_location_container.svelte-1r4os5q .header .search_box input.svelte-1r4os5q {
+.property_location_container.svelte-mpszvg .header .search_box input.svelte-mpszvg {
   width: 100%;
   border: 1px solid #cbd5e1;
   background-color: #f1f5f9;
   border-radius: 8px;
   padding: 12px 12px 12px 40px;
 }
-.property_location_container.svelte-1r4os5q .header .search_box input.svelte-1r4os5q:focus {
+.property_location_container.svelte-mpszvg .header .search_box input.svelte-mpszvg:focus {
   border-color: #3b82f6;
   outline: 1px solid #3b82f6;
 }
-.search_by_location.svelte-1r4os5q.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg.svelte-mpszvg {
   display: grid;
   grid-template-columns: auto 500px;
   gap: 20px;
@@ -296,28 +312,28 @@
   max-width: 100%;
   overflow-y: scroll;
 }
-.search_by_location.svelte-1r4os5q.svelte-1r4os5q::-webkit-scrollbar-thumb,
-.search_by_location.svelte-1r4os5q .left.svelte-1r4os5q::-webkit-scrollbar-thumb,
-.search_by_location.svelte-1r4os5q .right.svelte-1r4os5q::-webkit-scrollbar-thumb {
+.search_by_location.svelte-mpszvg.svelte-mpszvg::-webkit-scrollbar-thumb,
+.search_by_location.svelte-mpszvg .left.svelte-mpszvg::-webkit-scrollbar-thumb,
+.search_by_location.svelte-mpszvg .right.svelte-mpszvg::-webkit-scrollbar-thumb {
   background-color: transparent;
 }
-.search_by_location.svelte-1r4os5q.svelte-1r4os5q::-webkit-scrollbar,
-.search_by_location.svelte-1r4os5q .left.svelte-1r4os5q::-webkit-scrollbar,
-.search_by_location.svelte-1r4os5q .right.svelte-1r4os5q::-webkit-scrollbar {
+.search_by_location.svelte-mpszvg.svelte-mpszvg::-webkit-scrollbar,
+.search_by_location.svelte-mpszvg .left.svelte-mpszvg::-webkit-scrollbar,
+.search_by_location.svelte-mpszvg .right.svelte-mpszvg::-webkit-scrollbar {
   width: 0;
 }
-.search_by_location.svelte-1r4os5q.svelte-1r4os5q::-webkit-scrollbar-track,
-.search_by_location.svelte-1r4os5q .left.svelte-1r4os5q::-webkit-scrollbar-track,
-.search_by_location.svelte-1r4os5q .right.svelte-1r4os5q::-webkit-scrollbar-track {
+.search_by_location.svelte-mpszvg.svelte-mpszvg::-webkit-scrollbar-track,
+.search_by_location.svelte-mpszvg .left.svelte-mpszvg::-webkit-scrollbar-track,
+.search_by_location.svelte-mpszvg .right.svelte-mpszvg::-webkit-scrollbar-track {
   background-color: transparent;
 }
-.search_by_location.svelte-1r4os5q .left.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left.svelte-mpszvg {
   height: 100%;
   border-top: 1px solid #cbd5e1;
   border-bottom: 1px solid #cbd5e1;
   overflow-y: scroll;
 }
-.search_by_location.svelte-1r4os5q .left .props_container.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container.svelte-mpszvg {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -325,16 +341,16 @@
   padding: 18px 0;
   overflow: auto;
 }
-.search_by_location.svelte-1r4os5q .left .props_container.svelte-1r4os5q::-webkit-scrollbar-thumb {
+.search_by_location.svelte-mpszvg .left .props_container.svelte-mpszvg::-webkit-scrollbar-thumb {
   background-color: #3b82f6;
 }
-.search_by_location.svelte-1r4os5q .left .props_container.svelte-1r4os5q::-webkit-scrollbar {
+.search_by_location.svelte-mpszvg .left .props_container.svelte-mpszvg::-webkit-scrollbar {
   width: 8px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container.svelte-1r4os5q::-webkit-scrollbar-track {
+.search_by_location.svelte-mpszvg .left .props_container.svelte-mpszvg::-webkit-scrollbar-track {
   background-color: transparent;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   gap: 15px;
@@ -342,20 +358,27 @@
   border-radius: 8px;
   cursor: pointer;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item:hover .prop_info .main_info .address.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item:hover .prop_info .main_info .address.svelte-mpszvg {
   text-decoration: underline;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .img_container.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item:hover .img_container .image_empty.svelte-mpszvg,
+.search_by_location.svelte-mpszvg .left .props_container .prop_item:hover .img_container img.svelte-mpszvg {
+  transform: scale(1.20);
+}
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .img_container.svelte-mpszvg {
   width: 240px;
   height: 170px;
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .img_container img.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .img_container img.svelte-mpszvg {
   object-fit: cover;
   width: 100%;
   height: 100%;
+  transition-duration: 75ms;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .img_container .image_empty.svelte-1r4os5q {
-  border-radius: 8px;
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .img_container .image_empty.svelte-mpszvg {
   object-fit: cover;
   width: 100%;
   height: 100%;
@@ -365,26 +388,26 @@
   justify-content: center;
   align-items: center;
   gap: 5px;
-  border: 1px solid #cbd5e1;
+  transition-duration: 75ms;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info.svelte-mpszvg {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .main_info.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .main_info.svelte-mpszvg {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .main_info .label_info.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .main_info .label_info.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   gap: 8px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .main_info .label_info .purpose.svelte-1r4os5q,
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .main_info .label_info .house_type.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .main_info .label_info .purpose.svelte-mpszvg,
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .main_info .label_info .house_type.svelte-mpszvg {
   padding: 4px 10px;
   font-size: 13px;
   border: 1px solid #cbd5e1;
@@ -395,80 +418,80 @@
   gap: 7px;
   width: fit-content;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .main_info .address.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .main_info .address.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   font-size: 15px;
   gap: 8px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .main_info .feature.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .main_info .feature.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   font-size: 13px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .main_info .feature .item.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .main_info .feature .item.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .secondary_info.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .secondary_info.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .secondary_info .size.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .secondary_info .size.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 6px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .secondary_info .price.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .secondary_info .price.svelte-mpszvg {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 4px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .secondary_info .price .agency_fee.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .secondary_info .price .agency_fee.svelte-mpszvg {
   font-size: 12px;
 }
-.search_by_location.svelte-1r4os5q .left .props_container .prop_item .prop_info .secondary_info .price .last_price.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .left .props_container .prop_item .prop_info .secondary_info .price .last_price.svelte-mpszvg {
   font-size: 20px;
   font-weight: 700;
 }
-.search_by_location.svelte-1r4os5q .right.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .right.svelte-mpszvg {
   border: 1px solid #cbd5e1;
   border-radius: 8px;
   height: 100%;
   overflow-y: scroll;
 }
-.search_by_location.svelte-1r4os5q .right .autocomplete_container.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .right .autocomplete_container.svelte-mpszvg {
   height: 100%;
   display: flex;
   flex-direction: column;
   padding: 0;
   overflow: auto;
 }
-.search_by_location.svelte-1r4os5q .right .autocomplete_container.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .right .autocomplete_container.svelte-mpszvg {
   height: 100%;
   display: flex;
   flex-direction: column;
   overflow: auto;
 }
-.search_by_location.svelte-1r4os5q .right .autocomplete_container.svelte-1r4os5q::-webkit-scrollbar-thumb {
+.search_by_location.svelte-mpszvg .right .autocomplete_container.svelte-mpszvg::-webkit-scrollbar-thumb {
   background-color: #3b82f6;
 }
-.search_by_location.svelte-1r4os5q .right .autocomplete_container.svelte-1r4os5q::-webkit-scrollbar {
+.search_by_location.svelte-mpszvg .right .autocomplete_container.svelte-mpszvg::-webkit-scrollbar {
   width: 8px;
 }
-.search_by_location.svelte-1r4os5q .right .autocomplete_container.svelte-1r4os5q::-webkit-scrollbar-track {
+.search_by_location.svelte-mpszvg .right .autocomplete_container.svelte-mpszvg::-webkit-scrollbar-track {
   background-color: transparent;
 }
-.search_by_location.svelte-1r4os5q .right .autocomplete_container .autocomplete_item.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .right .autocomplete_container .autocomplete_item.svelte-mpszvg {
   display: flex;
   flex-direction: row;
   gap: 8px;
@@ -479,10 +502,10 @@
   border-bottom: 1px solid #cbd5e1;
   cursor: pointer;
 }
-.search_by_location.svelte-1r4os5q .right .autocomplete_container .autocomplete_item.svelte-1r4os5q:hover {
+.search_by_location.svelte-mpszvg .right .autocomplete_container .autocomplete_item.svelte-mpszvg:hover {
   background-color: #f1f5f9;
 }
-.search_by_location.svelte-1r4os5q .right .map_container.svelte-1r4os5q {
+.search_by_location.svelte-mpszvg .right .map_container.svelte-mpszvg {
   display: block;
   width: 100%;
   height: 100%;
@@ -490,7 +513,7 @@
 }
 
 /* fakecss:./_components/ProfileHeader.esbuild-svelte-fake-css */
-.profile_header.svelte-ubnh3m.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r.svelte-3tn45r.svelte-3tn45r {
   background-color: #EF4444;
   height: fit-content;
   position: relative;
@@ -501,20 +524,20 @@
   display: flex;
   flex-direction: column;
 }
-.profile_header.svelte-ubnh3m .navbar.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar.svelte-3tn45r.svelte-3tn45r {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.profile_header.svelte-ubnh3m .navbar .label_menu.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar .label_menu.svelte-3tn45r.svelte-3tn45r {
   display: flex;
   flex-direction: row;
   align-items: center;
   color: white;
 }
-.profile_header.svelte-ubnh3m .navbar .label_menu button.svelte-ubnh3m.svelte-ubnh3m {
-  padding: 15px 8px;
+.profile_header.svelte-3tn45r .navbar .label_menu button.svelte-3tn45r.svelte-3tn45r {
+  padding: 10px;
   border: none;
   background: none;
   border-radius: 5px;
@@ -522,21 +545,21 @@
   color: white;
   cursor: pointer;
 }
-.profile_header.svelte-ubnh3m .navbar .label_menu button.svelte-ubnh3m.svelte-ubnh3m:hover {
+.profile_header.svelte-3tn45r .navbar .label_menu button.svelte-3tn45r.svelte-3tn45r:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
-.profile_header.svelte-ubnh3m .navbar .label_menu p.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar .label_menu p.svelte-3tn45r.svelte-3tn45r {
   font-size: 17px;
   font-weight: 600;
   line-height: 1.5rem;
   padding: 0;
   margin: 0 0 0 15px;
 }
-.profile_header.svelte-ubnh3m .navbar .right_nav.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar .right_nav.svelte-3tn45r.svelte-3tn45r {
   display: flex;
   flex-direction: row;
 }
-.profile_header.svelte-ubnh3m .navbar .right_nav .profile_button.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar .right_nav .profile_button.svelte-3tn45r.svelte-3tn45r {
   padding: 0;
   border: none;
   margin: 0;
@@ -544,11 +567,11 @@
   height: fit-content;
   border-radius: 9999px;
 }
-.profile_header.svelte-ubnh3m .navbar .right_nav .profile_button.svelte-ubnh3m.svelte-ubnh3m:hover {
+.profile_header.svelte-3tn45r .navbar .right_nav .profile_button.svelte-3tn45r.svelte-3tn45r:hover {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
   cursor: pointer;
 }
-.profile_header.svelte-ubnh3m .navbar .right_nav .profile_button.svelte-ubnh3m > img.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar .right_nav .profile_button.svelte-3tn45r > img.svelte-3tn45r {
   width: 50px;
   height: 50px;
   border-radius: 9999px;
@@ -2738,13 +2761,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance7 = bind(Axios$1.prototype.request, context);
-        utils.extend(instance7, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance7, context, null, { allOwnKeys: true });
-        instance7.create = function create(instanceConfig) {
+        const instance9 = bind(Axios$1.prototype.request, context);
+        utils.extend(instance9, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance9, context, null, { allOwnKeys: true });
+        instance9.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance7;
+        return instance9;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2981,6 +3004,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function component_subscribe(component, store, callback) {
     component.$.on_destroy.push(subscribe(store, callback));
   }
+  function null_to_empty(value) {
+    return value == null ? "" : value;
+  }
 
   // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
@@ -3114,6 +3140,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
   }
+  function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
+    return new CustomEvent(type, { detail, bubbles, cancelable });
+  }
   function get_custom_elements_slots(element2) {
     const result = {};
     element2.childNodes.forEach(
@@ -3137,6 +3166,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function onMount(fn) {
     get_current_component().$.on_mount.push(fn);
+  }
+  function createEventDispatcher() {
+    const component = get_current_component();
+    return (type, detail, { cancelable = false } = {}) => {
+      const callbacks = component.$.callbacks[type];
+      if (callbacks) {
+        const event = custom_event(
+          /** @type {string} */
+          type,
+          detail,
+          { cancelable }
+        );
+        callbacks.slice().forEach((fn) => {
+          fn.call(component, event);
+        });
+        return !event.defaultPrevented;
+      }
+      return true;
+    };
   }
 
   // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/scheduler.js
@@ -3368,7 +3416,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance7, create_fragment7, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance9, create_fragment8, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3394,7 +3442,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance7 ? instance7(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance9 ? instance9(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -3407,7 +3455,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment7 ? create_fragment7($.ctx) : false;
+    $.fragment = create_fragment8 ? create_fragment8($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -3895,6 +3943,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path>'
   };
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidTimes.js
+  var FaSolidTimes_default = {
+    a: {
+      viewBox: "0 0 352 512"
+    },
+    c: '<path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path>'
+  };
+
   // _components/Menu.svelte
   function create_if_block(ctx) {
     let aside;
@@ -3903,6 +3959,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let h3;
     let t1;
     let button;
+    let icon0;
     let t2;
     let div0;
     let c0;
@@ -3913,7 +3970,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t6;
     let nav0;
     let a;
-    let icon;
+    let icon1;
     let t7;
     let span;
     let t9;
@@ -3931,7 +3988,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let current;
     let mounted;
     let dispose;
-    icon = new Icon_default({
+    icon0 = new Icon_default({
+      props: {
+        size: 20,
+        color: "#475569",
+        src: FaSolidTimes_default
+      }
+    });
+    icon1 = new Icon_default({
       props: {
         size: 22,
         className: (
@@ -3970,7 +4034,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         h3.textContent = "STREET";
         t1 = space();
         button = element("button");
-        button.innerHTML = `<i class="gg-close"></i>`;
+        create_component(icon0.$.fragment);
         t2 = space();
         div0 = element("div");
         c0 = comment(" PAGES ");
@@ -3982,7 +4046,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t6 = space();
         nav0 = element("nav");
         a = element("a");
-        create_component(icon.$.fragment);
+        create_component(icon1.$.fragment);
         t7 = space();
         span = element("span");
         span.textContent = "HOME";
@@ -4037,6 +4101,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(header, h3);
         append(header, t1);
         append(header, button);
+        mount_component(icon0, button, null);
         append(div1, t2);
         append(div1, div0);
         append(div0, c0);
@@ -4047,7 +4112,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div0, t6);
         append(div0, nav0);
         append(nav0, a);
-        mount_component(icon, a, null);
+        mount_component(icon1, a, null);
         append(a, t7);
         append(a, span);
         append(nav0, t9);
@@ -4086,12 +4151,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
-        const icon_changes = {};
+        const icon1_changes = {};
         if (dirty & /*segment1*/
         4)
-          icon_changes.className = /*segment1*/
+          icon1_changes.className = /*segment1*/
           ctx[2] === "" ? "icon_active" : "icon_dark";
-        icon.$set(icon_changes);
+        icon1.$set(icon1_changes);
         if (!current || dirty & /*segment1*/
         4) {
           toggle_class(
@@ -4220,7 +4285,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       i(local) {
         if (current)
           return;
-        transition_in(icon.$.fragment, local);
+        transition_in(icon0.$.fragment, local);
+        transition_in(icon1.$.fragment, local);
         transition_in(if_block0);
         transition_in(if_block1);
         transition_in(if_block2);
@@ -4229,7 +4295,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         current = true;
       },
       o(local) {
-        transition_out(icon.$.fragment, local);
+        transition_out(icon0.$.fragment, local);
+        transition_out(icon1.$.fragment, local);
         transition_out(if_block0);
         transition_out(if_block1);
         transition_out(if_block2);
@@ -4241,7 +4308,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (detaching) {
           detach(aside);
         }
-        destroy_component(icon);
+        destroy_component(icon0);
+        destroy_component(icon1);
         if (if_block0)
           if_block0.d();
         if (if_block1)
@@ -4721,6 +4789,148 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var import_jsApi = __toESM(require_jsApi_GEN());
   var import_formatter = __toESM(require_formatter());
 
+  // _components/GoogleMap/stores.js
+  var mapsLoaded = writable(false);
+  var mapsLoading = writable(false);
+
+  // _components/GoogleMap/GoogleSdk.svelte
+  function Init(g) {
+    var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window;
+    b = b[c] || (b[c] = {});
+    var d = b.maps || (b.maps = {}), r = /* @__PURE__ */ new Set(), e = new URLSearchParams(), u = () => h || (h = new Promise(async (f, n) => {
+      await (a = m.createElement("script"));
+      e.set("libraries", [...r] + "");
+      for (k in g)
+        e.set(k.replace(/[A-Z]/g, (t) => "_" + t[0].toLowerCase()), g[k]);
+      e.set("callback", c + ".maps." + q);
+      a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
+      d[q] = f;
+      a.onerror = () => h = n(Error(p + " could not load."));
+      a.nonce = m.querySelector("script[nonce]")?.nonce || "";
+      m.head.append(a);
+    }));
+    d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n));
+  }
+  function instance3($self, $props, $invalidate) {
+    let $mapsLoading;
+    let $mapsLoaded;
+    component_subscribe($self, mapsLoading, ($value) => $invalidate(1, $mapsLoading = $value));
+    component_subscribe($self, mapsLoaded, ($value) => $invalidate(0, $mapsLoaded = $value));
+    const dispatch = createEventDispatcher();
+    onMount(() => {
+      if ($mapsLoaded) {
+        dispatch("ready");
+      }
+      if (!$mapsLoading) {
+        mapsLoading.set(true);
+        Init({
+          key: "AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg",
+          v: "weekly"
+        });
+        mapsLoaded.set(true);
+      }
+    });
+    $self.$.update = () => {
+      if ($self.$.dirty & /*$mapsLoaded*/
+      1) {
+        $:
+          $mapsLoaded && dispatch("ready");
+      }
+    };
+    return [$mapsLoaded];
+  }
+  var GoogleSdk = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance3, null, safe_not_equal, {});
+    }
+  };
+  var GoogleSdk_default = GoogleSdk;
+
+  // _components/GoogleMap/GoogleMap.svelte
+  function create_fragment3(ctx) {
+    let googlesdk;
+    let t;
+    let div;
+    let current;
+    googlesdk = new GoogleSdk_default({});
+    googlesdk.$on(
+      "ready",
+      /*initialise*/
+      ctx[1]
+    );
+    return {
+      c() {
+        create_component(googlesdk.$.fragment);
+        t = space();
+        div = element("div");
+        div.innerHTML = `<!--	Maps goes here, will be render automatically -->`;
+        attr(div, "class", "map svelte-16q73l0");
+      },
+      m(target, anchor) {
+        mount_component(googlesdk, target, anchor);
+        insert(target, t, anchor);
+        insert(target, div, anchor);
+        ctx[4](div);
+        current = true;
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(googlesdk.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(googlesdk.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(t);
+          detach(div);
+        }
+        destroy_component(googlesdk, detaching);
+        ctx[4](null);
+      }
+    };
+  }
+  function instance4($self, $props, $invalidate) {
+    const dispatch = createEventDispatcher();
+    let mapElement;
+    let map;
+    let { options = {} } = $props;
+    function setCentre(location2) {
+      map.setCenter(location2);
+    }
+    async function initialise() {
+      const { Map: Map2 } = await google.maps.importLibrary("maps");
+      map = new Map2(mapElement, options);
+      dispatch("ready");
+    }
+    function div_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        mapElement = $value;
+        $invalidate(0, mapElement);
+      });
+    }
+    $self.$set = ($props2) => {
+      if ("options" in $props2)
+        $invalidate(2, options = $props2.options);
+    };
+    return [mapElement, initialise, options, setCentre, div_binding];
+  }
+  var GoogleMap = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance4, create_fragment3, safe_not_equal, { options: 2, setCentre: 3 });
+    }
+    get setCentre() {
+      return this.$.ctx[3];
+    }
+  };
+  var GoogleMap_default = GoogleMap;
+
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSearch.js
   var FaSolidSearch_default = {
     a: {
@@ -4815,14 +5025,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         src: FaSolidTimesCircle_default
       }
     });
-    icon.$on("click", function() {
-      if (is_function(
-        /*show_autocomplete*/
-        ctx[0] = false
-      ))
-        /*show_autocomplete*/
-        (ctx[0] = false).apply(this, arguments);
-    });
+    icon.$on(
+      "click",
+      /*toggleAutoComplete*/
+      ctx[7]
+    );
     return {
       c() {
         create_component(icon.$.fragment);
@@ -4831,9 +5038,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         mount_component(icon, target, anchor);
         current = true;
       },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-      },
+      p: noop,
       i(local) {
         if (current)
           return;
@@ -4889,7 +5094,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
       each_blocks[i] = null;
     });
-    const if_block_creators = [create_if_block_12, create_else_block];
+    const if_block_creators = [create_if_block_12, create_else_block_1];
     const if_blocks = [];
     function select_block_type_2(ctx2, dirty) {
       if (
@@ -4912,10 +5117,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t = space();
         div2 = element("div");
         if_block.c();
-        attr(div0, "class", "props_container svelte-1r4os5q");
-        attr(div1, "class", "left svelte-1r4os5q");
-        attr(div2, "class", "right svelte-1r4os5q");
-        attr(div3, "class", "search_by_location svelte-1r4os5q");
+        attr(div0, "class", "props_container svelte-mpszvg");
+        attr(div1, "class", "left svelte-mpszvg");
+        attr(div2, "class", "right svelte-mpszvg");
+        attr(div3, "class", "search_by_location svelte-mpszvg");
       },
       m(target, anchor) {
         insert(target, div3, anchor);
@@ -5004,7 +5209,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_else_block_1(ctx) {
+  function create_else_block_2(ctx) {
     let div;
     let icon;
     let t0;
@@ -5024,7 +5229,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t0 = space();
         span = element("span");
         span.textContent = "No Image !";
-        attr(div, "class", "image_empty svelte-1r4os5q");
+        attr(div, "class", "image_empty svelte-mpszvg");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -5062,7 +5267,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx[25].images[0]))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
-        attr(img, "class", "svelte-1r4os5q");
+        attr(img, "class", "svelte-mpszvg");
       },
       m(target, anchor) {
         insert(target, img, anchor);
@@ -5093,34 +5298,31 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let div9;
     let div3;
     let div1;
-    let t1;
-    let t2_value = (
+    let t1_value = (
       /*prop*/
-      (ctx[25].purpose === "" ? "Sale" : (
-        /*prop*/
-        ctx[25].purpose
-      )) + ""
+      ctx[25].purpose === "sell" ? `On Sale` : `For Rent`
     );
+    let t1;
+    let div1_class_value;
     let t2;
-    let t3;
     let div2;
     let icon0;
-    let t4;
+    let t3;
     let span0;
-    let t5_value = (
+    let t4_value = (
       /*prop*/
       (ctx[25].houseType === "" ? "House" : (
         /*prop*/
         ctx[25].houseType
       )) + ""
     );
+    let t4;
     let t5;
-    let t6;
     let div4;
     let icon1;
-    let t7;
+    let t6;
     let span1;
-    let t8_value = (
+    let t7_value = (
       /*prop*/
       (ctx[25].formattedAddress === "" ? (
         /*prop*/
@@ -5130,77 +5332,77 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx[25].formattedAddress
       )) + ""
     );
+    let t7;
     let t8;
-    let t9;
     let div8;
     let div5;
     let icon2;
-    let t10;
+    let t9;
     let span2;
     let b0;
-    let t12;
-    let t13_value = (
+    let t11;
+    let t12_value = (
       /*prop*/
       (ctx[25].numberOfFloors || 0) + ""
     );
+    let t12;
     let t13;
-    let t14;
     let div6;
     let icon3;
-    let t15;
+    let t14;
     let span3;
     let b1;
-    let t17;
-    let t18_value = (
+    let t16;
+    let t17_value = (
       /*prop*/
       (ctx[25].bedroom || 0) + ""
     );
+    let t17;
     let t18;
-    let t19;
     let div7;
     let icon4;
-    let t20;
+    let t19;
     let span4;
     let b2;
-    let t22;
-    let t23_value = (
+    let t21;
+    let t22_value = (
       /*prop*/
       (ctx[25].bathroom || 0) + ""
     );
+    let t22;
     let t23;
-    let t24;
     let div12;
     let div10;
     let icon5;
-    let t25;
+    let t24;
     let span5;
-    let t26_value = (
+    let t25_value = (
       /*prop*/
       ctx[25].sizeM2 + ""
     );
+    let t25;
     let t26;
     let t27;
-    let t28;
     let div11;
     let span6;
-    let t29;
-    let t30_value = (
+    let t28;
+    let t29_value = (
       /*prop*/
       (ctx[25].agencyFeePercent || "0") + ""
     );
+    let t29;
     let t30;
     let t31;
-    let t32;
     let span7;
-    let t33_value = (0, import_formatter.formatPrice)(
+    let t32_value = (0, import_formatter.formatPrice)(
       /*prop*/
       ctx[25].lastPrice || 0,
       "USD"
     ) + "";
+    let t32;
     let t33;
-    let t34;
     let current;
-    const if_block_creators = [create_if_block_32, create_else_block_1];
+    const if_block_creators = [create_if_block_32, create_else_block_2];
     const if_blocks = [];
     function select_block_type_1(ctx2, dirty) {
       if (
@@ -5265,83 +5467,85 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         div9 = element("div");
         div3 = element("div");
         div1 = element("div");
-        t1 = text("On ");
-        t2 = text(t2_value);
-        t3 = space();
+        t1 = text(t1_value);
+        t2 = space();
         div2 = element("div");
         create_component(icon0.$.fragment);
-        t4 = space();
+        t3 = space();
         span0 = element("span");
-        t5 = text(t5_value);
-        t6 = space();
+        t4 = text(t4_value);
+        t5 = space();
         div4 = element("div");
         create_component(icon1.$.fragment);
-        t7 = space();
+        t6 = space();
         span1 = element("span");
-        t8 = text(t8_value);
-        t9 = space();
+        t7 = text(t7_value);
+        t8 = space();
         div8 = element("div");
         div5 = element("div");
         create_component(icon2.$.fragment);
-        t10 = space();
+        t9 = space();
         span2 = element("span");
         b0 = element("b");
         b0.textContent = "Floor";
-        t12 = text(": ");
-        t13 = text(t13_value);
-        t14 = space();
+        t11 = text(": ");
+        t12 = text(t12_value);
+        t13 = space();
         div6 = element("div");
         create_component(icon3.$.fragment);
-        t15 = space();
+        t14 = space();
         span3 = element("span");
         b1 = element("b");
         b1.textContent = "Beds";
-        t17 = text(": ");
-        t18 = text(t18_value);
-        t19 = space();
+        t16 = text(": ");
+        t17 = text(t17_value);
+        t18 = space();
         div7 = element("div");
         create_component(icon4.$.fragment);
-        t20 = space();
+        t19 = space();
         span4 = element("span");
         b2 = element("b");
         b2.textContent = "Baths";
-        t22 = text(": ");
-        t23 = text(t23_value);
-        t24 = space();
+        t21 = text(": ");
+        t22 = text(t22_value);
+        t23 = space();
         div12 = element("div");
         div10 = element("div");
         create_component(icon5.$.fragment);
-        t25 = space();
+        t24 = space();
         span5 = element("span");
-        t26 = text(t26_value);
-        t27 = text(" M2");
-        t28 = space();
+        t25 = text(t25_value);
+        t26 = text(" M2");
+        t27 = space();
         div11 = element("div");
         span6 = element("span");
-        t29 = text("Agency Fee: ");
-        t30 = text(t30_value);
-        t31 = text("%");
-        t32 = space();
+        t28 = text("Agency Fee: ");
+        t29 = text(t29_value);
+        t30 = text("%");
+        t31 = space();
         span7 = element("span");
-        t33 = text(t33_value);
-        t34 = space();
-        attr(div0, "class", "img_container svelte-1r4os5q");
-        attr(div1, "class", "purpose svelte-1r4os5q");
-        attr(div2, "class", "house_type svelte-1r4os5q");
-        attr(div3, "class", "label_info svelte-1r4os5q");
-        attr(div4, "class", "address svelte-1r4os5q");
-        attr(div5, "class", "item svelte-1r4os5q");
-        attr(div6, "class", "item svelte-1r4os5q");
-        attr(div7, "class", "item svelte-1r4os5q");
-        attr(div8, "class", "feature svelte-1r4os5q");
-        attr(div9, "class", "main_info svelte-1r4os5q");
-        attr(div10, "class", "size svelte-1r4os5q");
-        attr(span6, "class", "agency_fee svelte-1r4os5q");
-        attr(span7, "class", "last_price svelte-1r4os5q");
-        attr(div11, "class", "price svelte-1r4os5q");
-        attr(div12, "class", "secondary_info svelte-1r4os5q");
-        attr(div13, "class", "prop_info svelte-1r4os5q");
-        attr(div14, "class", "prop_item svelte-1r4os5q");
+        t32 = text(t32_value);
+        t33 = space();
+        attr(div0, "class", "img_container svelte-mpszvg");
+        attr(div1, "class", div1_class_value = null_to_empty(
+          /*prop*/
+          ctx[25].purpose === "sell" ? `purpose label_sale` : `purpose label_rent`
+        ) + " svelte-mpszvg");
+        attr(div2, "class", "house_type svelte-mpszvg");
+        attr(div3, "class", "label_info svelte-mpszvg");
+        attr(div4, "class", "address svelte-mpszvg");
+        attr(div5, "class", "item svelte-mpszvg");
+        attr(div6, "class", "item svelte-mpszvg");
+        attr(div7, "class", "item svelte-mpszvg");
+        attr(div8, "class", "feature svelte-mpszvg");
+        attr(div9, "class", "main_info svelte-mpszvg");
+        attr(div10, "class", "size svelte-mpszvg");
+        attr(span6, "class", "agency_fee svelte-mpszvg");
+        attr(span7, "class", "last_price svelte-mpszvg");
+        attr(div11, "class", "price svelte-mpszvg");
+        attr(div12, "class", "secondary_info svelte-mpszvg");
+        attr(div13, "class", "prop_info svelte-mpszvg");
+        attr(div14, "class", "prop_item svelte-mpszvg");
       },
       m(target, anchor) {
         insert(target, div14, anchor);
@@ -5353,62 +5557,61 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div9, div3);
         append(div3, div1);
         append(div1, t1);
-        append(div1, t2);
-        append(div3, t3);
+        append(div3, t2);
         append(div3, div2);
         mount_component(icon0, div2, null);
-        append(div2, t4);
+        append(div2, t3);
         append(div2, span0);
-        append(span0, t5);
-        append(div9, t6);
+        append(span0, t4);
+        append(div9, t5);
         append(div9, div4);
         mount_component(icon1, div4, null);
-        append(div4, t7);
+        append(div4, t6);
         append(div4, span1);
-        append(span1, t8);
-        append(div9, t9);
+        append(span1, t7);
+        append(div9, t8);
         append(div9, div8);
         append(div8, div5);
         mount_component(icon2, div5, null);
-        append(div5, t10);
+        append(div5, t9);
         append(div5, span2);
         append(span2, b0);
+        append(span2, t11);
         append(span2, t12);
-        append(span2, t13);
-        append(div8, t14);
+        append(div8, t13);
         append(div8, div6);
         mount_component(icon3, div6, null);
-        append(div6, t15);
+        append(div6, t14);
         append(div6, span3);
         append(span3, b1);
+        append(span3, t16);
         append(span3, t17);
-        append(span3, t18);
-        append(div8, t19);
+        append(div8, t18);
         append(div8, div7);
         mount_component(icon4, div7, null);
-        append(div7, t20);
+        append(div7, t19);
         append(div7, span4);
         append(span4, b2);
+        append(span4, t21);
         append(span4, t22);
-        append(span4, t23);
-        append(div13, t24);
+        append(div13, t23);
         append(div13, div12);
         append(div12, div10);
         mount_component(icon5, div10, null);
-        append(div10, t25);
+        append(div10, t24);
         append(div10, span5);
+        append(span5, t25);
         append(span5, t26);
-        append(span5, t27);
-        append(div12, t28);
+        append(div12, t27);
         append(div12, div11);
         append(div11, span6);
+        append(span6, t28);
         append(span6, t29);
         append(span6, t30);
-        append(span6, t31);
-        append(div11, t32);
+        append(div11, t31);
         append(div11, span7);
-        append(span7, t33);
-        append(div14, t34);
+        append(span7, t32);
+        append(div14, t33);
         current = true;
       },
       p(ctx2, dirty) {
@@ -5433,21 +5636,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if_block.m(div0, null);
         }
         if ((!current || dirty & /*random_props*/
-        2) && t2_value !== (t2_value = /*prop*/
-        (ctx2[25].purpose === "" ? "Sale" : (
+        2) && t1_value !== (t1_value = /*prop*/
+        ctx2[25].purpose === "sell" ? `On Sale` : `For Rent`))
+          set_data(t1, t1_value);
+        if (!current || dirty & /*random_props*/
+        2 && div1_class_value !== (div1_class_value = null_to_empty(
           /*prop*/
-          ctx2[25].purpose
-        )) + ""))
-          set_data(t2, t2_value);
+          ctx2[25].purpose === "sell" ? `purpose label_sale` : `purpose label_rent`
+        ) + " svelte-mpszvg")) {
+          attr(div1, "class", div1_class_value);
+        }
         if ((!current || dirty & /*random_props*/
-        2) && t5_value !== (t5_value = /*prop*/
+        2) && t4_value !== (t4_value = /*prop*/
         (ctx2[25].houseType === "" ? "House" : (
           /*prop*/
           ctx2[25].houseType
         )) + ""))
-          set_data(t5, t5_value);
+          set_data(t4, t4_value);
         if ((!current || dirty & /*random_props*/
-        2) && t8_value !== (t8_value = /*prop*/
+        2) && t7_value !== (t7_value = /*prop*/
         (ctx2[25].formattedAddress === "" ? (
           /*prop*/
           ctx2[25].address
@@ -5455,34 +5662,34 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*prop*/
           ctx2[25].formattedAddress
         )) + ""))
-          set_data(t8, t8_value);
+          set_data(t7, t7_value);
         if ((!current || dirty & /*random_props*/
-        2) && t13_value !== (t13_value = /*prop*/
+        2) && t12_value !== (t12_value = /*prop*/
         (ctx2[25].numberOfFloors || 0) + ""))
-          set_data(t13, t13_value);
+          set_data(t12, t12_value);
         if ((!current || dirty & /*random_props*/
-        2) && t18_value !== (t18_value = /*prop*/
+        2) && t17_value !== (t17_value = /*prop*/
         (ctx2[25].bedroom || 0) + ""))
-          set_data(t18, t18_value);
+          set_data(t17, t17_value);
         if ((!current || dirty & /*random_props*/
-        2) && t23_value !== (t23_value = /*prop*/
+        2) && t22_value !== (t22_value = /*prop*/
         (ctx2[25].bathroom || 0) + ""))
-          set_data(t23, t23_value);
+          set_data(t22, t22_value);
         if ((!current || dirty & /*random_props*/
-        2) && t26_value !== (t26_value = /*prop*/
+        2) && t25_value !== (t25_value = /*prop*/
         ctx2[25].sizeM2 + ""))
-          set_data(t26, t26_value);
+          set_data(t25, t25_value);
         if ((!current || dirty & /*random_props*/
-        2) && t30_value !== (t30_value = /*prop*/
+        2) && t29_value !== (t29_value = /*prop*/
         (ctx2[25].agencyFeePercent || "0") + ""))
-          set_data(t30, t30_value);
+          set_data(t29, t29_value);
         if ((!current || dirty & /*random_props*/
-        2) && t33_value !== (t33_value = (0, import_formatter.formatPrice)(
+        2) && t32_value !== (t32_value = (0, import_formatter.formatPrice)(
           /*prop*/
           ctx2[25].lastPrice || 0,
           "USD"
         ) + ""))
-          set_data(t33, t33_value);
+          set_data(t32, t32_value);
       },
       i(local) {
         if (current)
@@ -5520,72 +5727,98 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_else_block(ctx) {
+  function create_else_block_1(ctx) {
     let div;
+    let googlemap;
+    let current;
+    let googlemap_props = { options: (
+      /*mapOptions*/
+      ctx[6]
+    ) };
+    googlemap = new GoogleMap_default({ props: googlemap_props });
+    ctx[17](googlemap);
     return {
       c() {
         div = element("div");
-        div.innerHTML = `<!-- Map goes here, rendered automatically -->`;
-        attr(div, "class", "map_container svelte-1r4os5q");
+        create_component(googlemap.$.fragment);
+        attr(div, "class", "map_container svelte-mpszvg");
       },
       m(target, anchor) {
         insert(target, div, anchor);
-        ctx[16](div);
+        mount_component(googlemap, div, null);
+        current = true;
       },
-      p: noop,
-      i: noop,
-      o: noop,
+      p(ctx2, dirty) {
+        const googlemap_changes = {};
+        googlemap.$set(googlemap_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(googlemap.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(googlemap.$.fragment, local);
+        current = false;
+      },
       d(detaching) {
         if (detaching) {
           detach(div);
         }
-        ctx[16](null);
+        ctx[17](null);
+        destroy_component(googlemap);
       }
     };
   }
   function create_if_block_12(ctx) {
     let div;
+    let current_block_type_index;
+    let if_block;
     let current;
-    let if_block = (
-      /*autocomplete_lists*/
-      ctx[4].length && create_if_block_22(ctx)
-    );
+    const if_block_creators = [create_if_block_22, create_else_block];
+    const if_blocks = [];
+    function select_block_type_3(ctx2, dirty) {
+      if (
+        /*autocomplete_lists*/
+        ctx2[4].length
+      )
+        return 0;
+      return 1;
+    }
+    current_block_type_index = select_block_type_3(ctx, -1);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
         div = element("div");
-        if (if_block)
-          if_block.c();
-        attr(div, "class", "autocomplete_container svelte-1r4os5q");
+        if_block.c();
+        attr(div, "class", "autocomplete_container svelte-mpszvg");
       },
       m(target, anchor) {
         insert(target, div, anchor);
-        if (if_block)
-          if_block.m(div, null);
+        if_blocks[current_block_type_index].m(div, null);
         current = true;
       },
       p(ctx2, dirty) {
-        if (
-          /*autocomplete_lists*/
-          ctx2[4].length
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*autocomplete_lists*/
-            16) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block_22(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(div, null);
-          }
-        } else if (if_block) {
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type_3(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        } else {
           group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
           });
           check_outros();
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
+          } else {
+            if_block.p(ctx2, dirty);
+          }
+          transition_in(if_block, 1);
+          if_block.m(div, null);
         }
       },
       i(local) {
@@ -5602,8 +5835,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (detaching) {
           detach(div);
         }
-        if (if_block)
-          if_block.d();
+        if_blocks[current_block_type_index].d();
+      }
+    };
+  }
+  function create_else_block(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Write address...";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      p: noop,
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
       }
     };
   }
@@ -5639,7 +5891,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty & /*goToPlace, autocomplete_lists, FaSolidMapMarkerAlt*/
-        272) {
+        1040) {
           each_value = ensure_array_like(
             /*autocomplete_lists*/
             ctx2[4]
@@ -5711,7 +5963,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler_2() {
       return (
         /*click_handler_2*/
-        ctx[15](
+        ctx[16](
           /*place*/
           ctx[22]
         )
@@ -5725,7 +5977,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         span = element("span");
         t1 = text(t1_value);
         t2 = space();
-        attr(button, "class", "autocomplete_item svelte-1r4os5q");
+        attr(button, "class", "autocomplete_item svelte-mpszvg");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -5736,7 +5988,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(button, t2);
         current = true;
         if (!mounted) {
-          dispose = listen(button, "click", click_handler_2);
+          dispose = listen(button, "click", prevent_default(click_handler_2));
           mounted = true;
         }
       },
@@ -5767,34 +6019,40 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_fragment3(ctx) {
-    let script;
-    let t1;
+  function create_fragment4(ctx) {
+    let googlesdk;
+    let t0;
     let div3;
     let div2;
     let div0;
     let button0;
     let icon0;
-    let t2;
+    let t1;
     let span0;
-    let t4;
+    let t3;
     let button1;
     let icon1;
-    let t5;
+    let t4;
     let span1;
-    let t7;
+    let t6;
     let div1;
     let label;
     let icon2;
+    let t7;
     let t8;
-    let t9;
     let input;
-    let t10;
+    let t9;
     let current_block_type_index;
     let if_block1;
     let current;
     let mounted;
     let dispose;
+    googlesdk = new GoogleSdk_default({});
+    googlesdk.$on(
+      "ready",
+      /*initGoogleService*/
+      ctx[8]
+    );
     icon0 = new Icon_default({
       props: {
         size: 15,
@@ -5847,89 +6105,88 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     return {
       c() {
-        script = element("script");
-        script.textContent = "(g => {\n      var h, a, k, p = 'The Google Maps JavaScript API', c = 'google', l = 'importLibrary', q = '__ib__', m = document, b = window;\n      b = b[ c ] || (b[ c ] = {});\n      var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise( async ( f, n ) => {\n        await (a = m.createElement( 'script' ));\n        e.set( 'libraries', [...r] + '' );\n        for( k in g ) e.set( k.replace( /[A-Z]/g, t => '_' + t[ 0 ].toLowerCase() ), g[ k ] );\n        e.set( 'callback', c + '.maps.' + q );\n        a.src = `https://maps.${c}apis.com/maps/api/js?` + e;\n        d[ q ] = f;\n        a.onerror = () => h = n( Error( p + ' could not load.' ) );\n        a.nonce = m.querySelector( 'script[nonce]' )?.nonce || '';\n        m.head.append( a );\n      } ));\n      d[ l ] ? console.warn( p + ' only loads once. Ignoring:', g ) : d[ l ] = ( f, ...n ) => r.add( f ) && u().then( () => d[ l ]( f, ...n ) );\n    })( {\n      key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',\n      v: 'weekly'\n    } );";
-        t1 = space();
+        create_component(googlesdk.$.fragment);
+        t0 = space();
         div3 = element("div");
         div2 = element("div");
         div0 = element("div");
         button0 = element("button");
         create_component(icon0.$.fragment);
-        t2 = space();
+        t1 = space();
         span0 = element("span");
         span0.textContent = "Search by Location";
-        t4 = space();
+        t3 = space();
         button1 = element("button");
         create_component(icon1.$.fragment);
-        t5 = space();
+        t4 = space();
         span1 = element("span");
         span1.textContent = "Search by Properties";
-        t7 = space();
+        t6 = space();
         div1 = element("div");
         label = element("label");
         create_component(icon2.$.fragment);
-        t8 = space();
+        t7 = space();
         if (if_block0)
           if_block0.c();
-        t9 = space();
+        t8 = space();
         input = element("input");
-        t10 = space();
+        t9 = space();
         if (if_block1)
           if_block1.c();
-        attr(button0, "class", "svelte-1r4os5q");
+        attr(button0, "class", "svelte-mpszvg");
         toggle_class(
           button0,
           "active",
           /*search_mode*/
           ctx[5] === srch_loc
         );
-        attr(button1, "class", "svelte-1r4os5q");
+        attr(button1, "class", "svelte-mpszvg");
         toggle_class(
           button1,
           "active",
           /*search_mode*/
           ctx[5] === srch_prop
         );
-        attr(div0, "class", "tabs svelte-1r4os5q");
+        attr(div0, "class", "tabs svelte-mpszvg");
         attr(label, "for", "search_location");
         attr(input, "type", "text");
         attr(input, "id", "search_location");
         attr(input, "placeholder", "Search property...");
-        attr(input, "class", "svelte-1r4os5q");
-        attr(div1, "class", "search_box svelte-1r4os5q");
-        attr(div2, "class", "header svelte-1r4os5q");
-        attr(div3, "class", "property_location_container svelte-1r4os5q");
+        attr(input, "class", "svelte-mpszvg");
+        attr(div1, "class", "search_box svelte-mpszvg");
+        attr(div2, "class", "header svelte-mpszvg");
+        attr(div3, "class", "property_location_container svelte-mpszvg");
       },
       m(target, anchor) {
-        append(document.head, script);
-        insert(target, t1, anchor);
+        mount_component(googlesdk, target, anchor);
+        insert(target, t0, anchor);
         insert(target, div3, anchor);
         append(div3, div2);
         append(div2, div0);
         append(div0, button0);
         mount_component(icon0, button0, null);
-        append(button0, t2);
+        append(button0, t1);
         append(button0, span0);
-        append(div0, t4);
+        append(div0, t3);
         append(div0, button1);
         mount_component(icon1, button1, null);
-        append(button1, t5);
+        append(button1, t4);
         append(button1, span1);
-        append(div2, t7);
+        append(div2, t6);
         append(div2, div1);
         append(div1, label);
         mount_component(icon2, label, null);
-        append(label, t8);
+        append(label, t7);
         if (if_block0)
           if_block0.m(label, null);
-        append(div1, t9);
+        append(div1, t8);
         append(div1, input);
         set_input_value(
           input,
           /*input_search_value*/
           ctx[3]
         );
-        append(div3, t10);
+        append(div3, t9);
         if (~current_block_type_index) {
           if_blocks[current_block_type_index].m(div3, null);
         }
@@ -5940,37 +6197,31 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               button0,
               "click",
               /*click_handler*/
-              ctx[10]
+              ctx[12]
             ),
             listen(
               button1,
               "click",
               /*click_handler_1*/
-              ctx[11]
-            ),
-            listen(
-              input,
-              "focus",
-              /*focus_handler*/
-              ctx[12]
-            ),
-            listen(
-              input,
-              "blur",
-              /*blur_handler*/
               ctx[13]
             ),
             listen(
               input,
-              "input",
-              /*searchLocationHandler*/
+              "focus",
+              /*toggleAutoComplete*/
               ctx[7]
             ),
             listen(
               input,
               "input",
-              /*input_input_handler*/
+              /*input_handler*/
               ctx[14]
+            ),
+            listen(
+              input,
+              "input",
+              /*input_input_handler*/
+              ctx[15]
             )
           ];
           mounted = true;
@@ -6071,6 +6322,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       i(local) {
         if (current)
           return;
+        transition_in(googlesdk.$.fragment, local);
         transition_in(icon0.$.fragment, local);
         transition_in(icon1.$.fragment, local);
         transition_in(icon2.$.fragment, local);
@@ -6079,6 +6331,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         current = true;
       },
       o(local) {
+        transition_out(googlesdk.$.fragment, local);
         transition_out(icon0.$.fragment, local);
         transition_out(icon1.$.fragment, local);
         transition_out(icon2.$.fragment, local);
@@ -6088,10 +6341,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(t1);
+          detach(t0);
           detach(div3);
         }
-        detach(script);
+        destroy_component(googlesdk, detaching);
         destroy_component(icon0);
         destroy_component(icon1);
         destroy_component(icon2);
@@ -6107,43 +6360,34 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   var srch_loc = "location";
   var srch_prop = "property";
-  function instance3($self, $props, $invalidate) {
+  function instance5($self, $props, $invalidate) {
     let random_props = [];
     onMount(async () => {
       await (0, import_jsApi.UserSearchProp)({}, async (res) => {
         console.log("Property : ", res.properties);
         $invalidate(1, random_props = res.properties);
       });
-      await initMap();
     });
-    let map, map_container, places_service;
+    let gmapsComponent;
     let myLatLng = { lat: 23.6978, lng: 120.9605 };
+    let mapOptions = {
+      center: myLatLng,
+      zoom: 10,
+      mapTypeId: "roadmap",
+      mapId: "street_project"
+    };
+    let places_service;
+    let geocoder;
     let input_search_value, autocomplete_service;
     let show_autocomplete = false;
-    const autocomplete_event = {
-      focus() {
-        $invalidate(0, show_autocomplete = true);
-      },
-      async blur() {
-        $invalidate(0, show_autocomplete = false);
-        await initMap();
-      }
-    };
+    function toggleAutoComplete() {
+      $invalidate(0, show_autocomplete = !show_autocomplete);
+    }
     let autocomplete_lists = [];
-    async function initMap() {
-      const { AutocompleteService, PlacesService } = await google.maps.importLibrary("places");
+    async function initGoogleService() {
+      const { AutocompleteService } = await google.maps.importLibrary("places");
       autocomplete_service = new AutocompleteService();
-      places_service = new PlacesService();
-      const { Map: Map2 } = await google.maps.importLibrary("maps");
-      map = new Map2(
-        map_container,
-        {
-          center: myLatLng,
-          zoom: 8,
-          mapTypeId: "roadmap",
-          mapId: "street_project"
-        }
-      );
+      geocoder = new google.maps.Geocoder();
     }
     function searchLocationHandler() {
       autocomplete_service.getPlacePredictions(
@@ -6160,35 +6404,37 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       );
     }
     function goToPlace(place_id) {
-      const request = { placeId: place_id, fields: "geometry" };
-      places_service.getDetails(request, function(place, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          let center = place.geometry.location;
-          map.setCenter(center);
+      geocoder.geocode({ placeId: place_id }).then(({ results }) => {
+        if (results[0]) {
+          gmapsComponent.setCentre(results[0].geometry.location);
+        } else {
+          alert("No result found");
         }
+      }).catch((e) => {
+        alert("Geocoder failed due to: " + e);
       });
+      console.log(place_id);
       $invalidate(0, show_autocomplete = false);
     }
     let search_mode = srch_loc;
-    async function toggleSearchMode(srchMode) {
+    function toggleSearchMode(srchMode) {
       $invalidate(5, search_mode = srchMode);
-      if (search_mode === srch_loc) {
-        await initMap();
-      }
     }
     const click_handler = () => toggleSearchMode(srch_loc);
     const click_handler_1 = () => toggleSearchMode(srch_prop);
-    const focus_handler = () => autocomplete_event.focus();
-    const blur_handler = () => autocomplete_event.blur();
+    const input_handler = () => {
+      $invalidate(0, show_autocomplete = true);
+      searchLocationHandler();
+    };
     function input_input_handler() {
       input_search_value = this.value;
       $invalidate(3, input_search_value), $invalidate(0, show_autocomplete);
     }
     const click_handler_2 = (place) => goToPlace(place.place_id);
-    function div_binding($value) {
+    function googlemap_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
-        map_container = $value;
-        $invalidate(2, map_container);
+        gmapsComponent = $value;
+        $invalidate(2, gmapsComponent);
       });
     }
     $self.$.update = () => {
@@ -6204,80 +6450,100 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return [
       show_autocomplete,
       random_props,
-      map_container,
+      gmapsComponent,
       input_search_value,
       autocomplete_lists,
       search_mode,
-      autocomplete_event,
+      mapOptions,
+      toggleAutoComplete,
+      initGoogleService,
       searchLocationHandler,
       goToPlace,
       toggleSearchMode,
       click_handler,
       click_handler_1,
-      focus_handler,
-      blur_handler,
+      input_handler,
       input_input_handler,
       click_handler_2,
-      div_binding
+      googlemap_binding
     ];
   }
   var PropertyLocation = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance3, create_fragment3, safe_not_equal, {});
+      init(this, options, instance5, create_fragment4, safe_not_equal, {});
     }
   };
   var PropertyLocation_default = PropertyLocation;
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBars.js
+  var FaSolidBars_default = {
+    a: {
+      viewBox: "0 0 448 512"
+    },
+    c: '<path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path>'
+  };
+
   // _components/ProfileHeader.svelte
-  function create_fragment4(ctx) {
+  function create_fragment5(ctx) {
     let header;
     let nav;
     let div0;
     let button0;
+    let icon;
     let t0;
     let p;
     let t2;
     let div1;
     let t9;
     let div2;
+    let current;
     let mounted;
     let dispose;
+    icon = new Icon_default({
+      props: {
+        size: 20,
+        color: "#FFF",
+        src: FaSolidBars_default
+      }
+    });
     return {
       c() {
         header = element("header");
         nav = element("nav");
         div0 = element("div");
         button0 = element("button");
-        button0.innerHTML = `<i class="gg-menu"></i>`;
+        create_component(icon.$.fragment);
         t0 = space();
         p = element("p");
         p.textContent = "DASHBOARD";
         t2 = space();
         div1 = element("div");
-        div1.innerHTML = `<!--			<form class="search_input">--> <!--				<span>--> <!--					<i class="gg-search"></i>--> <!--				</span>--> <!--				<input type="text" placeholder="Search here..." name="search" />--> <!--			</form>--> <button class="profile_button svelte-ubnh3m"><img src="/assets/img/team-1-200x200.jpg" alt="profile" class="svelte-ubnh3m"/></button>`;
+        div1.innerHTML = `<!--			<form class="search_input">--> <!--				<span>--> <!--					<i class="gg-search"></i>--> <!--				</span>--> <!--				<input type="text" placeholder="Search here..." name="search" />--> <!--			</form>--> <button class="profile_button svelte-3tn45r"><img src="/assets/img/team-1-200x200.jpg" alt="profile" class="svelte-3tn45r"/></button>`;
         t9 = space();
         div2 = element("div");
         div2.innerHTML = `<!-- Chart Goes here -->`;
-        attr(button0, "class", "svelte-ubnh3m");
-        attr(p, "class", "svelte-ubnh3m");
-        attr(div0, "class", "label_menu svelte-ubnh3m");
-        attr(div1, "class", "right_nav svelte-ubnh3m");
-        attr(nav, "class", "navbar svelte-ubnh3m");
+        attr(button0, "class", "svelte-3tn45r");
+        attr(p, "class", "svelte-3tn45r");
+        attr(div0, "class", "label_menu svelte-3tn45r");
+        attr(div1, "class", "right_nav svelte-3tn45r");
+        attr(nav, "class", "navbar svelte-3tn45r");
         attr(div2, "class", "stats");
-        attr(header, "class", "profile_header svelte-ubnh3m");
+        attr(header, "class", "profile_header svelte-3tn45r");
       },
       m(target, anchor) {
         insert(target, header, anchor);
         append(header, nav);
         append(nav, div0);
         append(div0, button0);
+        mount_component(icon, button0, null);
         append(div0, t0);
         append(div0, p);
         append(nav, t2);
         append(nav, div1);
         append(header, t9);
         append(header, div2);
+        current = true;
         if (!mounted) {
           dispose = listen(button0, "click", prevent_default(
             /*openSideMenu*/
@@ -6287,18 +6553,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
       },
       p: noop,
-      i: noop,
-      o: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
       d(detaching) {
         if (detaching) {
           detach(header);
         }
+        destroy_component(icon);
         mounted = false;
         dispose();
       }
     };
   }
-  function instance4($self, $props, $invalidate) {
+  function instance6($self, $props, $invalidate) {
     let $isSideMenuOpen;
     component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(1, $isSideMenuOpen = $value));
     function openSideMenu() {
@@ -6309,13 +6584,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var ProfileHeader = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance4, create_fragment4, safe_not_equal, {});
+      init(this, options, instance6, create_fragment5, safe_not_equal, {});
     }
   };
   var ProfileHeader_default = ProfileHeader;
 
   // _components/Footer.svelte
-  function create_fragment5(ctx) {
+  function create_fragment6(ctx) {
     let footer;
     let p;
     let t2;
@@ -6348,14 +6623,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function instance5($self) {
+  function instance7($self) {
     const year = new Date().getFullYear();
     return [year];
   }
   var Footer = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance5, create_fragment5, safe_not_equal, {});
+      init(this, options, instance7, create_fragment6, safe_not_equal, {});
     }
   };
   var Footer_default = Footer;
@@ -7442,7 +7717,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_fragment6(ctx) {
+  function create_fragment7(ctx) {
     let current_block_type_index;
     let if_block;
     let if_block_anchor;
@@ -7534,7 +7809,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     if (match)
       return match[2];
   }
-  function instance6($self, $props, $invalidate) {
+  function instance8($self, $props, $invalidate) {
     let sideMenuOpen = false;
     function openSideMenu() {
       $invalidate(0, sideMenuOpen = true);
@@ -7691,7 +7966,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var Index = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance6, create_fragment6, safe_not_equal, {});
+      init(this, options, instance8, create_fragment7, safe_not_equal, {});
     }
   };
   var svelte_default = Index;

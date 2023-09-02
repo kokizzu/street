@@ -3,7 +3,8 @@
   import { onMount } from "svelte";
   import { UserSearchProp } from "jsApi.GEN";
   import { formatPrice } from "./formatter";
-
+  import { GoogleMap, GoogleSdk } from "./GoogleMap/components";
+  
   import Icon from "svelte-icons-pack/Icon.svelte";
   import FaSolidSearch from "svelte-icons-pack/fa/FaSolidSearch";
   import FaSolidHotel from "svelte-icons-pack/fa/FaSolidHotel";
@@ -23,42 +24,34 @@
       console.log("Property : ", res.properties);
       random_props = res.properties;
     })
-    await initMap();
   } );
-
   // Maps
-  let map, map_container, places_service;
+  let gmapsComponent;
   let myLatLng = {lat: 23.6978, lng: 120.9605};
+  let mapOptions = {
+    center: myLatLng,
+    zoom: 10,
+    mapTypeId: 'roadmap',
+    mapId: 'street_project',
+  }
+  let places_service;
+  let geocoder;
   // Search Autocomplete
   let input_search_value, autocomplete_service;
   let show_autocomplete = false;
-  const autocomplete_event = {
-    focus: function () {
-      show_autocomplete = true;
-    },
-    blur: async function () {
-      show_autocomplete = false;
-      await initMap();
-    }
-  };
+  function toggleAutoComplete() {
+    show_autocomplete = !show_autocomplete;
+  }
   let autocomplete_lists = [];
   $: if (show_autocomplete === false) {
     autocomplete_lists = [];
     input_search_value = "";
   }
   
-  async function initMap() {
-    const { AutocompleteService, PlacesService } = await google.maps.importLibrary( 'places');
+  async function initGoogleService() {
+    const { AutocompleteService } = await google.maps.importLibrary('places');
     autocomplete_service = new AutocompleteService();
-    places_service = new PlacesService();
-    
-    const {Map} = await google.maps.importLibrary( 'maps' );
-    map = new Map( map_container, {
-      center: myLatLng,
-      zoom: 8,
-      mapTypeId: 'roadmap',
-      mapId: 'street_project',
-    } );
+    geocoder = new google.maps.Geocoder();
   }
   
   function searchLocationHandler() {
@@ -77,52 +70,30 @@
   }
   
   function goToPlace( place_id ) {
-    const request = {
-      placeId: place_id,
-      fields: "geometry"
-    };
-    places_service.getDetails(request, function (place, status) {
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
-        let center = place.geometry.location;
-        map.setCenter(center);
-      }
-    });
+    geocoder
+      .geocode({ placeId: place_id})
+      .then(({ results }) => {
+        if (results[0]) {
+          gmapsComponent.setCentre(results[0].geometry.location);
+        } else {
+          alert("No result found")
+        }
+      }).catch((e) => {
+        alert("Geocoder failed due to: " + e)
+      });
+    console.log(place_id)
     show_autocomplete = false;
   }
 
   // Toggle search mode, currently focus on `Search by location`
   const srch_loc = "location", srch_prop = "property";
   let search_mode = srch_loc;
-  async function toggleSearchMode( srchMode ) {
+  function toggleSearchMode( srchMode ) {
     search_mode = srchMode;
-    if (search_mode === srch_loc) {await initMap()}
   }
 </script>
 
-<svelte:head>
-  <script>
-    (g => {
-      var h, a, k, p = 'The Google Maps JavaScript API', c = 'google', l = 'importLibrary', q = '__ib__', m = document, b = window;
-      b = b[ c ] || (b[ c ] = {});
-      var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise( async ( f, n ) => {
-        await (a = m.createElement( 'script' ));
-        e.set( 'libraries', [...r] + '' );
-        for( k in g ) e.set( k.replace( /[A-Z]/g, t => '_' + t[ 0 ].toLowerCase() ), g[ k ] );
-        e.set( 'callback', c + '.maps.' + q );
-        a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
-        d[ q ] = f;
-        a.onerror = () => h = n( Error( p + ' could not load.' ) );
-        a.nonce = m.querySelector( 'script[nonce]' )?.nonce || '';
-        m.head.append( a );
-      } ));
-      d[ l ] ? console.warn( p + ' only loads once. Ignoring:', g ) : d[ l ] = ( f, ...n ) => r.add( f ) && u().then( () => d[ l ]( f, ...n ) );
-    })( {
-      key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',
-      v: 'weekly'
-    } );
-  </script>
-</svelte:head>
-
+<GoogleSdk on:ready={initGoogleService} />
 <div class="property_location_container">
   <div class="header">
     <div class="tabs">
@@ -137,18 +108,31 @@
     </div>
     <div class="search_box">
       <label for="search_location">
-        <Icon size={18} className="icon_search_location" color="#9fa9b5" src={FaSolidSearch} />
+        <Icon
+          size={18}
+          className="icon_search_location"
+          color="#9fa9b5"
+          src={FaSolidSearch}
+        />
         {#if show_autocomplete === true}
-          <Icon size={18} className="icon_close_search" color="#9fa9b5" src={FaSolidTimesCircle} on:click={show_autocomplete = false} />
+          <Icon
+            size={18}
+            className="icon_close_search"
+            color="#9fa9b5"
+            src={FaSolidTimesCircle}
+            on:click={toggleAutoComplete}
+          />
         {/if}
       </label>
       <input
         type="text"
         id="search_location"
         placeholder="Search property..."
-        on:focus={() => autocomplete_event.focus()}
-        on:blur={() => autocomplete_event.blur()}
-        on:input={searchLocationHandler}
+        on:focus={toggleAutoComplete}
+        on:input={() => {
+          show_autocomplete = true;
+          searchLocationHandler();
+        }}
         bind:value={input_search_value} />
     </div>
   </div>
@@ -171,7 +155,7 @@
               <div class="prop_info">
                 <div class="main_info">
                   <div class="label_info">
-                    <div class="purpose">On {prop.purpose === "" ? 'Sale' : prop.purpose}</div>
+                    <div class={prop.purpose === 'sell' ? `purpose label_sale` : `purpose label_rent`}>{prop.purpose === 'sell' ? `On Sale` : `For Rent`}</div>
                     <div class="house_type">
                       <Icon size={12} color="#475569" src={FaSolidHome} />
                       <span>{prop.houseType === "" ? 'House' : prop.houseType}</span>
@@ -216,16 +200,18 @@
           <div class="autocomplete_container">
             {#if autocomplete_lists.length}
               {#each autocomplete_lists as place}
-                <button class="autocomplete_item" on:click={() => goToPlace(place.place_id)}>
+                <button class="autocomplete_item" on:click|preventDefault={() => goToPlace(place.place_id)}>
                   <Icon size={17} color="#9fa9b5" src={FaSolidMapMarkerAlt} />
                   <span>{place.description}</span>
                 </button>
               {/each}
+            {:else}
+              <span>Write address...</span>
             {/if}
           </div>
         {:else}
-          <div class='map_container' bind:this={map_container}>
-            <!-- Map goes here, rendered automatically -->
+          <div class='map_container'>
+            <GoogleMap options={mapOptions} bind:this={gmapsComponent}/>
           </div>
         {/if}
         
@@ -376,17 +362,24 @@
   .search_by_location .left .props_container .prop_item:hover .prop_info .main_info .address {
     text-decoration: underline;
   }
+  .search_by_location .left .props_container .prop_item:hover .img_container .image_empty,
+  .search_by_location .left .props_container .prop_item:hover .img_container img {
+    transform: scale(1.20);
+  }
   .search_by_location .left .props_container .prop_item .img_container {
     width: 240px;
     height: 170px;
+    overflow: hidden;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
   }
   .search_by_location .left .props_container .prop_item .img_container img {
     object-fit: cover;
     width: 100%;
     height: 100%;
+    transition-duration: 75ms;
   }
   .search_by_location .left .props_container .prop_item .img_container .image_empty {
-    border-radius: 8px;
     object-fit: cover;
     width: 100%;
     height: 100%;
@@ -396,7 +389,7 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
-    border: 1px solid #cbd5e1;
+    transition-duration: 75ms;
   }
   .search_by_location .left .props_container .prop_item .prop_info {
     flex-grow: 1;

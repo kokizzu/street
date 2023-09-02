@@ -1168,7 +1168,7 @@
                             </div>
                             <div class='preview_price_house_type'>
                                 <div class='left_item'>
-                                    <span>On Sale</span>
+                                    <span class={property.purpose === 'sell' ? `label_sale` : `label_rent`}>{property.purpose === 'sell' ? `On Sale` : `For ${property.purpose}`}</span>
                                     <div class='price'>
                                         <h3>{formatPrice(property.lastPrice || 0)}</h3>
                                         <p>Agency Fee: {property.agencyFeePercent || '0'}%</p>

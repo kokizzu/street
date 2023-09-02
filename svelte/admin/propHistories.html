@@ -91,7 +91,17 @@
     .tableview_container .add_button:hover {
         background-color : #7E80F1;
     }
-
+    
+    .label_rent {
+        background-color: #1080e8 !important;
+        color: #FFF !important;
+        border: none !important;
+    }
+    .label_sale {
+        background-color: #f97316 !important;
+        color: #FFF !important;
+        border: none !important;
+    }
 </style>
 
 
@@ -552,7 +562,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 }
 
 /* fakecss:./_components/ProfileHeader.esbuild-svelte-fake-css */
-.profile_header.svelte-ubnh3m.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r.svelte-3tn45r.svelte-3tn45r {
   background-color: #EF4444;
   height: fit-content;
   position: relative;
@@ -563,20 +573,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   display: flex;
   flex-direction: column;
 }
-.profile_header.svelte-ubnh3m .navbar.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar.svelte-3tn45r.svelte-3tn45r {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.profile_header.svelte-ubnh3m .navbar .label_menu.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar .label_menu.svelte-3tn45r.svelte-3tn45r {
   display: flex;
   flex-direction: row;
   align-items: center;
   color: white;
 }
-.profile_header.svelte-ubnh3m .navbar .label_menu button.svelte-ubnh3m.svelte-ubnh3m {
-  padding: 15px 8px;
+.profile_header.svelte-3tn45r .navbar .label_menu button.svelte-3tn45r.svelte-3tn45r {
+  padding: 10px;
   border: none;
   background: none;
   border-radius: 5px;
@@ -584,21 +594,21 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   color: white;
   cursor: pointer;
 }
-.profile_header.svelte-ubnh3m .navbar .label_menu button.svelte-ubnh3m.svelte-ubnh3m:hover {
+.profile_header.svelte-3tn45r .navbar .label_menu button.svelte-3tn45r.svelte-3tn45r:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
-.profile_header.svelte-ubnh3m .navbar .label_menu p.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar .label_menu p.svelte-3tn45r.svelte-3tn45r {
   font-size: 17px;
   font-weight: 600;
   line-height: 1.5rem;
   padding: 0;
   margin: 0 0 0 15px;
 }
-.profile_header.svelte-ubnh3m .navbar .right_nav.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar .right_nav.svelte-3tn45r.svelte-3tn45r {
   display: flex;
   flex-direction: row;
 }
-.profile_header.svelte-ubnh3m .navbar .right_nav .profile_button.svelte-ubnh3m.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar .right_nav .profile_button.svelte-3tn45r.svelte-3tn45r {
   padding: 0;
   border: none;
   margin: 0;
@@ -606,11 +616,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   height: fit-content;
   border-radius: 9999px;
 }
-.profile_header.svelte-ubnh3m .navbar .right_nav .profile_button.svelte-ubnh3m.svelte-ubnh3m:hover {
+.profile_header.svelte-3tn45r .navbar .right_nav .profile_button.svelte-3tn45r.svelte-3tn45r:hover {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
   cursor: pointer;
 }
-.profile_header.svelte-ubnh3m .navbar .right_nav .profile_button.svelte-ubnh3m > img.svelte-ubnh3m {
+.profile_header.svelte-3tn45r .navbar .right_nav .profile_button.svelte-3tn45r > img.svelte-3tn45r {
   width: 50px;
   height: 50px;
   border-radius: 9999px;
@@ -3824,6 +3834,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path>'
   };
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidTimes.js
+  var FaSolidTimes_default = {
+    a: {
+      viewBox: "0 0 352 512"
+    },
+    c: '<path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path>'
+  };
+
   // _components/Menu.svelte
   function create_if_block(ctx) {
     let aside;
@@ -3832,6 +3850,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let h3;
     let t1;
     let button;
+    let icon0;
     let t2;
     let div0;
     let c0;
@@ -3842,7 +3861,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t6;
     let nav0;
     let a;
-    let icon;
+    let icon1;
     let t7;
     let span;
     let t9;
@@ -3860,7 +3879,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let current;
     let mounted;
     let dispose;
-    icon = new Icon_default({
+    icon0 = new Icon_default({
+      props: {
+        size: 20,
+        color: "#475569",
+        src: FaSolidTimes_default
+      }
+    });
+    icon1 = new Icon_default({
       props: {
         size: 22,
         className: (
@@ -3899,7 +3925,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         h3.textContent = "STREET";
         t1 = space();
         button = element("button");
-        button.innerHTML = `<i class="gg-close"></i>`;
+        create_component(icon0.$.fragment);
         t2 = space();
         div0 = element("div");
         c0 = comment(" PAGES ");
@@ -3911,7 +3937,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t6 = space();
         nav0 = element("nav");
         a = element("a");
-        create_component(icon.$.fragment);
+        create_component(icon1.$.fragment);
         t7 = space();
         span = element("span");
         span.textContent = "HOME";
@@ -3966,6 +3992,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(header, h3);
         append(header, t1);
         append(header, button);
+        mount_component(icon0, button, null);
         append(div1, t2);
         append(div1, div0);
         append(div0, c0);
@@ -3976,7 +4003,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div0, t6);
         append(div0, nav0);
         append(nav0, a);
-        mount_component(icon, a, null);
+        mount_component(icon1, a, null);
         append(a, t7);
         append(a, span);
         append(nav0, t9);
@@ -4015,12 +4042,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
-        const icon_changes = {};
+        const icon1_changes = {};
         if (dirty & /*segment1*/
         4)
-          icon_changes.className = /*segment1*/
+          icon1_changes.className = /*segment1*/
           ctx[2] === "" ? "icon_active" : "icon_dark";
-        icon.$set(icon_changes);
+        icon1.$set(icon1_changes);
         if (!current || dirty & /*segment1*/
         4) {
           toggle_class(
@@ -4149,7 +4176,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       i(local) {
         if (current)
           return;
-        transition_in(icon.$.fragment, local);
+        transition_in(icon0.$.fragment, local);
+        transition_in(icon1.$.fragment, local);
         transition_in(if_block0);
         transition_in(if_block1);
         transition_in(if_block2);
@@ -4158,7 +4186,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         current = true;
       },
       o(local) {
-        transition_out(icon.$.fragment, local);
+        transition_out(icon0.$.fragment, local);
+        transition_out(icon1.$.fragment, local);
         transition_out(if_block0);
         transition_out(if_block1);
         transition_out(if_block2);
@@ -4170,7 +4199,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (detaching) {
           detach(aside);
         }
-        destroy_component(icon);
+        destroy_component(icon0);
+        destroy_component(icon1);
         if (if_block0)
           if_block0.d();
         if (if_block1)
@@ -7769,55 +7799,74 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var Footer_default = Footer;
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBars.js
+  var FaSolidBars_default = {
+    a: {
+      viewBox: "0 0 448 512"
+    },
+    c: '<path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path>'
+  };
+
   // _components/ProfileHeader.svelte
   function create_fragment7(ctx) {
     let header;
     let nav;
     let div0;
     let button0;
+    let icon;
     let t0;
     let p;
     let t2;
     let div1;
     let t9;
     let div2;
+    let current;
     let mounted;
     let dispose;
+    icon = new Icon_default({
+      props: {
+        size: 20,
+        color: "#FFF",
+        src: FaSolidBars_default
+      }
+    });
     return {
       c() {
         header = element("header");
         nav = element("nav");
         div0 = element("div");
         button0 = element("button");
-        button0.innerHTML = `<i class="gg-menu"></i>`;
+        create_component(icon.$.fragment);
         t0 = space();
         p = element("p");
         p.textContent = "DASHBOARD";
         t2 = space();
         div1 = element("div");
-        div1.innerHTML = `<!--			<form class="search_input">--> <!--				<span>--> <!--					<i class="gg-search"></i>--> <!--				</span>--> <!--				<input type="text" placeholder="Search here..." name="search" />--> <!--			</form>--> <button class="profile_button svelte-ubnh3m"><img src="/assets/img/team-1-200x200.jpg" alt="profile" class="svelte-ubnh3m"/></button>`;
+        div1.innerHTML = `<!--			<form class="search_input">--> <!--				<span>--> <!--					<i class="gg-search"></i>--> <!--				</span>--> <!--				<input type="text" placeholder="Search here..." name="search" />--> <!--			</form>--> <button class="profile_button svelte-3tn45r"><img src="/assets/img/team-1-200x200.jpg" alt="profile" class="svelte-3tn45r"/></button>`;
         t9 = space();
         div2 = element("div");
         div2.innerHTML = `<!-- Chart Goes here -->`;
-        attr(button0, "class", "svelte-ubnh3m");
-        attr(p, "class", "svelte-ubnh3m");
-        attr(div0, "class", "label_menu svelte-ubnh3m");
-        attr(div1, "class", "right_nav svelte-ubnh3m");
-        attr(nav, "class", "navbar svelte-ubnh3m");
+        attr(button0, "class", "svelte-3tn45r");
+        attr(p, "class", "svelte-3tn45r");
+        attr(div0, "class", "label_menu svelte-3tn45r");
+        attr(div1, "class", "right_nav svelte-3tn45r");
+        attr(nav, "class", "navbar svelte-3tn45r");
         attr(div2, "class", "stats");
-        attr(header, "class", "profile_header svelte-ubnh3m");
+        attr(header, "class", "profile_header svelte-3tn45r");
       },
       m(target, anchor) {
         insert(target, header, anchor);
         append(header, nav);
         append(nav, div0);
         append(div0, button0);
+        mount_component(icon, button0, null);
         append(div0, t0);
         append(div0, p);
         append(nav, t2);
         append(nav, div1);
         append(header, t9);
         append(header, div2);
+        current = true;
         if (!mounted) {
           dispose = listen(button0, "click", prevent_default(
             /*openSideMenu*/
@@ -7827,12 +7876,21 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
       },
       p: noop,
-      i: noop,
-      o: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
       d(detaching) {
         if (detaching) {
           detach(header);
         }
+        destroy_component(icon);
         mounted = false;
         dispose();
       }

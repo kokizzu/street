@@ -1,3 +1,1 @@
-const key = {}
-
-export { key }
+// Use for store svelte contexts

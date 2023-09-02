@@ -2,6 +2,8 @@
 	// import PieChart from './PieChart.svelte'
 	// import PieLegend from './PieLegend.svelte'
 	import { isSideMenuOpen } from './uiState.js';
+   import Icon from 'svelte-icons-pack/Icon.svelte';
+   import FaSolidBars from 'svelte-icons-pack/fa/FaSolidBars';
 	
 	function openSideMenu() {
     isSideMenuOpen.set(!$isSideMenuOpen)
@@ -12,7 +14,7 @@
 	<nav class="navbar">
 		<div class='label_menu'>
 			<button on:click|preventDefault={openSideMenu}>
-				<i class='gg-menu'></i>
+				<Icon size={20} color="#FFF" src={FaSolidBars} />
 			</button>
 			<p>DASHBOARD</p>
 		</div>
@@ -58,7 +60,7 @@
 		color: white;
 	}
 	.profile_header .navbar .label_menu button {
-		padding: 15px 8px;
+		padding: 10px;
 		border: none;
 		background: none;
 		border-radius: 5px;
