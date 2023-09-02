@@ -14,6 +14,8 @@ import (
 	"street/model/mProperty/wcProperty"
 )
 
+//var streetViewCache = map[string]string{}
+
 func ImportStreetViewImage(d *domain.Domain, conf conf.GmapConf) {
 	p := rqProperty.NewProperty(d.PropOltp)
 	start := 0
@@ -41,11 +43,6 @@ func ImportStreetViewImage(d *domain.Domain, conf conf.GmapConf) {
 		for _, prop := range props {
 
 			stat.Print()
-
-			if len(prop.Images) > 0 { // if already have image
-				stat.Skip()
-				continue
-			}
 			if len(prop.Coord) < 2 { // no lat, long
 				stat.Skip()
 				continue
@@ -53,14 +50,24 @@ func ImportStreetViewImage(d *domain.Domain, conf conf.GmapConf) {
 			lat := X.ToF(prop.Coord[0])
 			long := X.ToF(prop.Coord[1])
 
-			// find image
-			reader := StreetViewImageFromLatLong(400, 400, lat, long, 85, 70, 3, conf.PublicApiKey)
+			//cacheKey := fmt.Sprintf("%.15f,%.15f", lat, long)
+
+			if len(prop.Images) > 0 { // if already have image
+				stat.Skip()
+				//streetViewCache[cacheKey] = X.ToS(prop.Images[0]) // save to cache
+				continue
+			}
+
+			//if _, ok := streetViewCache[cacheKey]; !ok { // if not on cache
+
+			// find image, with random id angle
+			reader := StreetViewImageFromLatLong(400, 400, lat, long, 90, int(prop.Id*5%360), 3, conf.PublicApiKey)
 			if reader == nil {
 				stat.Fail(``)
 				continue
 			}
 
-			// cache to local
+			// save file to local
 			rc.Action = domain.UserUploadFileAction
 			rc.RawFile = domain.NewLocalRawFileFromReader(`streetview.jpg`, reader)
 			out := d.UserUploadFile(&domain.UserUploadFileIn{
@@ -73,11 +80,15 @@ func ImportStreetViewImage(d *domain.Domain, conf conf.GmapConf) {
 				continue
 			}
 
+			//streetViewCache[cacheKey] = out.UrlPattern // cache after save
+			//}
+
 			// save to property
 			prop.Adapter = d.PropOltp
 			updatedProp := wcProperty.PropertyMutator{
 				Property: *prop,
 			}
+			//updatedProp.SetImages([]any{streetViewCache[cacheKey]})
 			updatedProp.SetImages([]any{out.UrlPattern})
 
 			stat.Ok(updatedProp.DoUpdateById())
@@ -86,8 +97,13 @@ func ImportStreetViewImage(d *domain.Domain, conf conf.GmapConf) {
 }
 
 func StreetViewImageFromLatLong(width, height int, lat, lng float64, fov, heading, pitch int, apiKey string) io.ReadCloser {
+	// https://developers.google.com/maps/documentation/streetview/request-streetview
+	// heading indicates the compass heading of the camera. Accepted values are from 0 to 360 (both values indicating North, with 90 indicating East, and 180 South). If no heading is specified, a value will be calculated that directs the camera towards the specified location, from the point at which the closest photograph was taken.
+	// fov (default is 90) determines the horizontal field of view of the image. The field of view is expressed in degrees, with a maximum allowed value of 120. When dealing with a fixed-size viewport, as with a Street View image of a set size, field of view in essence represents zoom, with smaller numbers indicating a higher level of zoom.
+	// pitch (default is 0) specifies the up or down angle of the camera relative to the Street View vehicle. This is often, but not always, flat horizontal. Positive values angle the camera up (with 90 degrees indicating straight up); negative values angle the camera down (with -90 indicating straight down).
+	// radius (default is 50) sets a radius, specified in meters, in which to search for a panorama, centered on the given latitude and longitude. Valid values are non-negative integers.
 	url := fmt.Sprintf(
-		"https://maps.googleapis.com/maps/api/streetview?size=%dx%d&location=%.15f,%.15f&fov=%d&heading=%d&pitch=%d&key=%s",
+		`https://maps.googleapis.com/maps/api/streetview?size=%dx%d&location=%.15f,%.15f&fov=%d&heading=%d&pitch=%d&key=%s`, // &return_error_code=true
 		width, height, lat, lng, fov, heading, pitch, apiKey,
 	)
 	resp, err := http.Get(url)
