@@ -170,6 +170,9 @@ func main() {
 		zImport.PatchPropertiesPrice(tConn)
 	case `import_location`:
 		zImport.ImportHouseLocation(tConn)
+	case `import_streetview_image`:
+		gmapConf := conf.EnvGmap()
+		zImport.ImportStreetViewImage(tConn, gmapConf)
 	//case `upgradememtx`:
 	//	zUpgrade.UserSessionToMemtx(tConn)
 	//case `fix_time`:

@@ -51,6 +51,27 @@ FROM ` + rq.SqlTableName()
 	return res
 }
 
+func (rq *Property) FindAllPropertiesOffsetLimit(offset, limit int) (res []*Property) {
+	const comment = `-- Property) FindAllProperties`
+
+	query := comment + `
+SELECT ` + rq.SqlSelectAllFields() + `
+FROM ` + rq.SqlTableName() + `
+ORDER BY "id"
+OFFSET ` + X.ToS(offset) + `
+LIMIT ` + X.ToS(limit)
+	if conf.IsDebug() {
+		//L.Print(query)
+	}
+	rq.Adapter.QuerySql(query, func(row []any) {
+		obj := &Property{}
+		obj.FromArray(row)
+		obj.NormalizeFloorList()
+		res = append(res, obj)
+	})
+	return res
+}
+
 func (rq *PropertyHistory) FindAllPropertyHistories() (res []*PropertyHistory) {
 	const comment = `-- PropertyHistory) FindAllPropertyHistories`
 

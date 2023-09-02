@@ -1,9 +1,11 @@
 package domain
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"fmt"
+	"io"
 	"mime/multipart"
 	"net/http"
 	"os"
@@ -39,6 +41,44 @@ type RawFile struct {
 	Size     int64  `json:"size" form:"size" query:"size" long:"size" msg:"size"`
 	saveFunc func(string) error
 	openFunc func() (multipart.File, error)
+}
+
+type rawFileReaderCloser struct {
+	*bytes.Reader
+}
+
+func (r rawFileReaderCloser) Close() error {
+	return nil
+}
+
+func NewRawFile(name, mime string, reader io.ReadCloser) *RawFile {
+	buf := bytes.Buffer{}
+	_, _ = io.Copy(&buf, reader)
+	reader.Close()
+	byt := rawFileReaderCloser{bytes.NewReader(buf.Bytes())}
+	return &RawFile{
+		FileName: name,
+		Mime:     mime,
+		Size:     byt.Size(),
+		saveFunc: func(s string) error {
+			fo, err := os.Create(s)
+			if L.IsError(err, `RawFile.safeFunc.os.Create`) {
+				return err
+			}
+			_, err = io.Copy(fo, byt)
+			if L.IsError(err, `RawFile.safeFunc.io.Copy`) {
+				return err
+			}
+			err = fo.Close()
+			if L.IsError(err, `RawFile.safeFunc.fo.Close`) {
+				return err
+			}
+			return nil
+		},
+		openFunc: func() (multipart.File, error) {
+			return byt, nil
+		},
+	}
 }
 
 type RequestCommon struct {
