@@ -298,7 +298,7 @@ func TestLogout(t *testing.T) {
 	})
 }
 
-func TestUserSearchProp(t *testing.T) {
+func TestUserSearchPropAndLikes(t *testing.T) {
 	d, closer := testDomain()
 	defer closer()
 
@@ -307,7 +307,7 @@ func TestUserSearchProp(t *testing.T) {
 		RequestCommon: testAdminRequestCommon(AdminPropertiesAction),
 		Action:        zCrud.ActionUpsert,
 		Property: rqProperty.Property{
-			SerialNumber:           "TEST12321TEST33",
+			UniqPropKey:            "TEST234",
 			SizeM2:                 "200.5",
 			MainUse:                "Residential",
 			MainBuildingMaterial:   "Paper",
@@ -320,13 +320,129 @@ func TestUserSearchProp(t *testing.T) {
 	})
 
 	assert.Empty(t, out1.Error)
+	assert.NotNil(t, out1.Property)
 
 	// find prop as admin
-	out2 := d.UserSearchProp(&UserSearchPropIn{
+	outs1 := d.UserSearchProp(&UserSearchPropIn{
 		RequestCommon: testAdminRequestCommon(UserSearchPropAction),
-		CenterLat:     35.1,
-		CenterLong:    136.8,
+		CenterLat:     35.16,
+		CenterLong:    136.9,
 		Offset:        0,
 	})
+	assert.Empty(t, outs1.Error)
+	assert.Len(t, outs1.Properties, 1)
+
+	// create property as admin 2
+	out2 := d.AdminProperties(&AdminPropertiesIn{
+		RequestCommon: testAdminRequestCommon(AdminPropertiesAction),
+		Action:        zCrud.ActionUpsert,
+		Property: rqProperty.Property{
+			UniqPropKey:            "TEST123",
+			SizeM2:                 "123.5",
+			MainUse:                "Residential",
+			MainBuildingMaterial:   "Cardboard",
+			ConstructCompletedDate: "105年12月4日",
+			NumberOfFloors:         "10",
+			Address:                "1-12 Matsushigecho, Nakamura Ward, Nagoya, Aichi 450-0004",
+			Coord:                  []any{35.165, 136.89},
+		},
+		WithMeta: false,
+	})
+
 	assert.Empty(t, out2.Error)
+	assert.NotNil(t, out2.Property)
+
+	// find prop as admin
+	outs2 := d.UserSearchProp(&UserSearchPropIn{
+		RequestCommon: testAdminRequestCommon(UserSearchPropAction),
+		CenterLat:     35.16,
+		CenterLong:    136.89,
+		Offset:        0,
+	})
+	assert.Empty(t, outs2.Error)
+	assert.Len(t, outs2.Properties, 2)
+
+	fetchLike := func(pid1, pid2 uint64) (likedMap map[uint64]bool, countMap map[uint64]int64) {
+		upl := rqProperty.NewUserPropLikes(d.PropOltp)
+		upl.UserId = testAdmin.Id
+		likedMap = upl.LikedMap([]uint64{pid1, pid2})
+		plc := rqProperty.NewPropLikeCount(d.PropOltp)
+		countMap = plc.CountMap([]uint64{pid1, pid2})
+		return
+
+	}
+
+	propId1 := out1.Property.Id
+	propId2 := out2.Property.Id
+
+	t.Run(`likeProp1`, func(t *testing.T) {
+		in1 := &UserLikePropIn{
+			RequestCommon: testAdminRequestCommon(UserLikePropAction),
+			propId:        propId1,
+			Like:          true,
+		}
+		out := d.UserLikeProp(in1)
+		assert.Empty(t, out.Error)
+
+		// assert like
+		likedMap, countMap := fetchLike(propId1, propId2)
+		assert.Equal(t, likedMap[propId1], true)
+		assert.Equal(t, countMap[propId1], int64(1))
+		assert.Equal(t, likedMap[propId2], false)
+		assert.Equal(t, countMap[propId2], int64(0))
+
+		t.Run(`likeProp2`, func(t *testing.T) {
+			in2 := &UserLikePropIn{
+				RequestCommon: testAdminRequestCommon(UserLikePropAction),
+				propId:        out2.Property.Id,
+				Like:          true,
+			}
+			out := d.UserLikeProp(in2)
+			assert.Empty(t, out.Error)
+
+			// assert like
+			likedMap, countMap := fetchLike(propId1, propId2)
+			assert.Equal(t, likedMap[propId1], true)
+			assert.Equal(t, countMap[propId1], int64(1))
+			assert.Equal(t, likedMap[propId2], true)
+			assert.Equal(t, countMap[propId2], int64(1))
+
+			t.Run(`unlikeProp2`, func(t *testing.T) {
+
+				in := &UserLikePropIn{
+					RequestCommon: testAdminRequestCommon(UserLikePropAction),
+					propId:        out2.Property.Id,
+					Like:          false,
+				}
+				out := d.UserLikeProp(in)
+				assert.Empty(t, out.Error)
+
+				// being liked removed
+				likedMap, countMap := fetchLike(propId1, propId2)
+				assert.Equal(t, likedMap[propId1], true)
+				assert.Equal(t, countMap[propId1], int64(1))
+				assert.Equal(t, likedMap[propId2], false)
+				assert.Equal(t, countMap[propId2], int64(0))
+			})
+		})
+
+		t.Run(`unlikeProp1`, func(t *testing.T) {
+			in := &UserLikePropIn{
+				RequestCommon: testAdminRequestCommon(UserLikePropAction),
+				propId:        out1.Property.Id,
+				Like:          false,
+			}
+			out := d.UserLikeProp(in)
+			assert.Empty(t, out.Error)
+
+			// both like removed
+			likedMap, countMap := fetchLike(propId1, propId2)
+			assert.Equal(t, likedMap[propId1], false)
+			assert.Equal(t, countMap[propId1], int64(0))
+			assert.Equal(t, likedMap[propId2], false)
+			assert.Equal(t, countMap[propId2], int64(0))
+
+		})
+
+	})
 }

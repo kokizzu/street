@@ -12,12 +12,106 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-// PropertyMutator DAO writer/command struct
+// PropLikeCountMutator DAO writer/command struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file wcProperty__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type wcProperty__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type wcProperty__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcProperty__ORM.GEN.go
+type PropLikeCountMutator struct {
+	rqProperty.PropLikeCount
+	mutations []A.X
+	logs      []A.X
+}
+
+// NewPropLikeCountMutator create new ORM writer/command object
+func NewPropLikeCountMutator(adapter *Tt.Adapter) (res *PropLikeCountMutator) {
+	res = &PropLikeCountMutator{PropLikeCount: rqProperty.PropLikeCount{Adapter: adapter}}
+	return
+}
+
+// Logs get array of logs [field, old, new]
+func (p *PropLikeCountMutator) Logs() []A.X { //nolint:dupl false positive
+	return p.logs
+}
+
+// HaveMutation check whether Set* methods ever called
+func (p *PropLikeCountMutator) HaveMutation() bool { //nolint:dupl false positive
+	return len(p.mutations) > 0
+}
+
+// ClearMutations clear all previously called Set* methods
+func (p *PropLikeCountMutator) ClearMutations() { //nolint:dupl false positive
+	p.mutations = []A.X{}
+	p.logs = []A.X{}
+}
+
+// func (p *PropLikeCountMutator) DoUpsert() bool { //nolint:dupl false positive
+//	_, err := p.Adapter.Upsert(p.SpaceName(), p.ToArray(), A.X{
+//		A.X{`=`, 0, p.PropId},
+//		A.X{`=`, 1, p.Count},
+//	})
+//	return !L.IsError(err, `PropLikeCount.DoUpsert failed: `+p.SpaceName())
+// }
+
+// DoInsert insert, error if already exists
+func (p *PropLikeCountMutator) DoInsert() bool { //nolint:dupl false positive
+	_, err := p.Adapter.Insert(p.SpaceName(), p.ToArray())
+	return !L.IsError(err, `PropLikeCount.DoInsert failed: `+p.SpaceName())
+}
+
+// DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
+// replace = upsert, only error when there's unique secondary key
+// previous name: DoReplace
+func (p *PropLikeCountMutator) DoUpsert() bool { //nolint:dupl false positive
+	_, err := p.Adapter.Replace(p.SpaceName(), p.ToArray())
+	return !L.IsError(err, `PropLikeCount.DoUpsert failed: `+p.SpaceName())
+}
+
+// SetPropId create mutations, should not duplicate
+func (p *PropLikeCountMutator) SetPropId(val uint64) bool { //nolint:dupl false positive
+	if val != p.PropId {
+		p.mutations = append(p.mutations, A.X{`=`, 0, val})
+		p.logs = append(p.logs, A.X{`propId`, p.PropId, val})
+		p.PropId = val
+		return true
+	}
+	return false
+}
+
+// SetCount create mutations, should not duplicate
+func (p *PropLikeCountMutator) SetCount(val int64) bool { //nolint:dupl false positive
+	if val != p.Count {
+		p.mutations = append(p.mutations, A.X{`=`, 1, val})
+		p.logs = append(p.logs, A.X{`count`, p.Count, val})
+		p.Count = val
+		return true
+	}
+	return false
+}
+
+// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
+func (p *PropLikeCountMutator) SetAll(from rqProperty.PropLikeCount, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+	if excludeMap == nil { // list of fields to exclude
+		excludeMap = M.SB{}
+	}
+	if forceMap == nil { // list of fields to force overwrite
+		forceMap = M.SB{}
+	}
+	if !excludeMap[`propId`] && (forceMap[`propId`] || from.PropId != 0) {
+		p.PropId = from.PropId
+		changed = true
+	}
+	if !excludeMap[`count`] && (forceMap[`count`] || from.Count != 0) {
+		p.Count = from.Count
+		changed = true
+	}
+	return
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
+// PropertyMutator DAO writer/command struct
 type PropertyMutator struct {
 	rqProperty.Property
 	mutations []A.X
@@ -1032,6 +1126,137 @@ func (p *PropertyHistoryMutator) SetAll(from rqProperty.PropertyHistory, exclude
 	}
 	if !excludeMap[`serialNumber`] && (forceMap[`serialNumber`] || from.SerialNumber != ``) {
 		p.SerialNumber = from.SerialNumber
+		changed = true
+	}
+	return
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
+// UserPropLikesMutator DAO writer/command struct
+type UserPropLikesMutator struct {
+	rqProperty.UserPropLikes
+	mutations []A.X
+	logs      []A.X
+}
+
+// NewUserPropLikesMutator create new ORM writer/command object
+func NewUserPropLikesMutator(adapter *Tt.Adapter) (res *UserPropLikesMutator) {
+	res = &UserPropLikesMutator{UserPropLikes: rqProperty.UserPropLikes{Adapter: adapter}}
+	return
+}
+
+// Logs get array of logs [field, old, new]
+func (u *UserPropLikesMutator) Logs() []A.X { //nolint:dupl false positive
+	return u.logs
+}
+
+// HaveMutation check whether Set* methods ever called
+func (u *UserPropLikesMutator) HaveMutation() bool { //nolint:dupl false positive
+	return len(u.mutations) > 0
+}
+
+// ClearMutations clear all previously called Set* methods
+func (u *UserPropLikesMutator) ClearMutations() { //nolint:dupl false positive
+	u.mutations = []A.X{}
+	u.logs = []A.X{}
+}
+
+// func (u *UserPropLikesMutator) DoUpsert() bool { //nolint:dupl false positive
+//	_, err := u.Adapter.Upsert(u.SpaceName(), u.ToArray(), A.X{
+//		A.X{`=`, 0, u.PropId},
+//		A.X{`=`, 1, u.UserId},
+//		A.X{`=`, 2, u.CreatedAt},
+//	})
+//	return !L.IsError(err, `UserPropLikes.DoUpsert failed: `+u.SpaceName())
+// }
+
+// DoOverwriteByUserIdPropId update all columns, error if not exists, not using mutations/Set*
+func (u *UserPropLikesMutator) DoOverwriteByUserIdPropId() bool { //nolint:dupl false positive
+	_, err := u.Adapter.Update(u.SpaceName(), u.UniqueIndexUserIdPropId(), A.X{u.UserId, u.PropId}, u.ToUpdateArray())
+	return !L.IsError(err, `UserPropLikes.DoOverwriteByUserIdPropId failed: `+u.SpaceName())
+}
+
+// DoUpdateByUserIdPropId update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (u *UserPropLikesMutator) DoUpdateByUserIdPropId() bool { //nolint:dupl false positive
+	if !u.HaveMutation() {
+		return true
+	}
+	_, err := u.Adapter.Update(u.SpaceName(), u.UniqueIndexUserIdPropId(), A.X{u.UserId, u.PropId}, u.mutations)
+	return !L.IsError(err, `UserPropLikes.DoUpdateByUserIdPropId failed: `+u.SpaceName())
+}
+
+// DoDeletePermanentByUserIdPropId permanent delete
+func (u *UserPropLikesMutator) DoDeletePermanentByUserIdPropId() bool { //nolint:dupl false positive
+	_, err := u.Adapter.Delete(u.SpaceName(), u.UniqueIndexUserIdPropId(), A.X{u.UserId, u.PropId})
+	return !L.IsError(err, `UserPropLikes.DoDeletePermanentByUserIdPropId failed: `+u.SpaceName())
+}
+
+// DoInsert insert, error if already exists
+func (u *UserPropLikesMutator) DoInsert() bool { //nolint:dupl false positive
+	_, err := u.Adapter.Insert(u.SpaceName(), u.ToArray())
+	return !L.IsError(err, `UserPropLikes.DoInsert failed: `+u.SpaceName())
+}
+
+// DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
+// replace = upsert, only error when there's unique secondary key
+// previous name: DoReplace
+func (u *UserPropLikesMutator) DoUpsert() bool { //nolint:dupl false positive
+	_, err := u.Adapter.Replace(u.SpaceName(), u.ToArray())
+	return !L.IsError(err, `UserPropLikes.DoUpsert failed: `+u.SpaceName())
+}
+
+// SetPropId create mutations, should not duplicate
+func (u *UserPropLikesMutator) SetPropId(val uint64) bool { //nolint:dupl false positive
+	if val != u.PropId {
+		u.mutations = append(u.mutations, A.X{`=`, 0, val})
+		u.logs = append(u.logs, A.X{`propId`, u.PropId, val})
+		u.PropId = val
+		return true
+	}
+	return false
+}
+
+// SetUserId create mutations, should not duplicate
+func (u *UserPropLikesMutator) SetUserId(val uint64) bool { //nolint:dupl false positive
+	if val != u.UserId {
+		u.mutations = append(u.mutations, A.X{`=`, 1, val})
+		u.logs = append(u.logs, A.X{`userId`, u.UserId, val})
+		u.UserId = val
+		return true
+	}
+	return false
+}
+
+// SetCreatedAt create mutations, should not duplicate
+func (u *UserPropLikesMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
+	if val != u.CreatedAt {
+		u.mutations = append(u.mutations, A.X{`=`, 2, val})
+		u.logs = append(u.logs, A.X{`createdAt`, u.CreatedAt, val})
+		u.CreatedAt = val
+		return true
+	}
+	return false
+}
+
+// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
+func (u *UserPropLikesMutator) SetAll(from rqProperty.UserPropLikes, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+	if excludeMap == nil { // list of fields to exclude
+		excludeMap = M.SB{}
+	}
+	if forceMap == nil { // list of fields to force overwrite
+		forceMap = M.SB{}
+	}
+	if !excludeMap[`propId`] && (forceMap[`propId`] || from.PropId != 0) {
+		u.PropId = from.PropId
+		changed = true
+	}
+	if !excludeMap[`userId`] && (forceMap[`userId`] || from.UserId != 0) {
+		u.UserId = from.UserId
+		changed = true
+	}
+	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
+		u.CreatedAt = from.CreatedAt
 		changed = true
 	}
 	return

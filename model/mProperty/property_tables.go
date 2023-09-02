@@ -53,6 +53,15 @@ const (
 	AgencyFeePercent = `agencyFeePercent`
 	FloorList        = `floorList`
 	Country          = `country`
+
+	TableUserPropLikes Tt.TableName = `userPropLikes`
+
+	PropId = `propId`
+	UserId = `userId`
+
+	TablePropLikeCount Tt.TableName = `propLikeCount`
+
+	Count = `count`
 )
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
@@ -122,6 +131,23 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Unique1:         TransactionKey,
 		Indexes:         []string{PropertyKey},
 		Engine:          Tt.Memtx,
+	},
+	TableUserPropLikes: {
+		Fields: []Tt.Field{
+			{PropId, Tt.Unsigned},
+			{UserId, Tt.Unsigned},
+			{CreatedAt, Tt.Integer},
+		},
+		Engine:  Tt.Vinyl,
+		Uniques: []string{UserId, PropId},
+	},
+	TablePropLikeCount: {
+		Fields: []Tt.Field{
+			{PropId, Tt.Unsigned},
+			{Count, Tt.Integer},
+		},
+		Unique1: PropId,
+		Engine:  Tt.Memtx,
 	},
 }
 

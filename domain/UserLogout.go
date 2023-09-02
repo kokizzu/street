@@ -23,6 +23,7 @@ const (
 )
 
 func (d *Domain) UserLogout(in *UserLogoutIn) (out UserLogoutOut) {
+	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	out.LogoutAt = d.ExpireSession(in.SessionToken, &out.ResponseCommon)
 	return
 }

@@ -27,6 +27,7 @@ var allCommands = []string{
 	domain.RealtorUpsertPropertyAction,
 	domain.UserChangePasswordAction,
 	domain.UserDeactivateAction,
+	domain.UserLikePropAction,
 	domain.UserLogoutAction,
 	domain.UserProfileAction,
 	domain.UserPropHistoryAction,

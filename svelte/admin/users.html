@@ -2739,6 +2739,9 @@ input.input_filter.svelte-1w9ga5v.svelte-1w9ga5v {
       exports.UserDeactivate = async function UserDeactivate(i, cb) {
         return await axios.post("/user/deactivate", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.UserLikeProp = async function UserLikeProp(i, cb) {
+        return await axios.post("/userLikeProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.UserLogout = async function UserLogout2(i, cb) {
         return await axios.post("/user/logout", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };

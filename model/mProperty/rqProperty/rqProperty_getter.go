@@ -1,6 +1,7 @@
 package rqProperty
 
 import (
+	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
@@ -366,4 +367,36 @@ func (p *Property) NormalizeFloorList() {
 		floorsArr = append(floorsArr, floorObj)
 	}
 	p.FloorList = floorsArr
+}
+
+func (p *UserPropLikes) LikedMap(propIds []uint64) (res map[uint64]bool) {
+	query := `-- UserPropLikes) LikedMap
+SELECT ` + p.SqlPropId() + `
+FROM ` + p.SqlTableName() + `
+WHERE ` + p.SqlUserId() + ` = ` + X.ToS(p.UserId) + `
+  AND ` + p.SqlPropId() + ` IN (` + A.UIntJoin(propIds, `,`) + `)`
+
+	res = map[uint64]bool{}
+	p.Adapter.QuerySql(query, func(row []any) {
+		propId := X.ToU(row[0])
+		res[propId] = true
+	})
+
+	return
+}
+
+func (p *PropLikeCount) CountMap(propIds []uint64) (res map[uint64]int64) {
+	query := `-- PropLikeCount) CountMap
+SELECT ` + p.SqlPropId() + `, ` + p.SqlCount() + `
+FROM ` + p.SqlTableName() + `
+WHERE ` + p.SqlPropId() + ` IN (` + A.UIntJoin(propIds, `,`) + `)`
+
+	res = map[uint64]int64{}
+	p.Adapter.QuerySql(query, func(row []any) {
+		propId := X.ToU(row[0])
+		count := X.ToI(row[1])
+		res[propId] = count
+	})
+
+	return
 }

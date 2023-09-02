@@ -21,6 +21,7 @@ import (
 
 	"street/conf"
 	"street/model"
+	"street/model/mAuth/rqAuth"
 	"street/model/mAuth/wcAuth"
 	"street/model/xMailer"
 )
@@ -32,6 +33,7 @@ var testCh *Ch.Adapter
 var testMailer xMailer.Mailer
 var testTime = fastime.Now()
 var testSuperAdminSessionToken string
+var testAdmin *rqAuth.Users
 
 const (
 	testSuperAdminEmail    = `admin@localhost`
@@ -190,6 +192,8 @@ func testDomain() (*Domain, func()) {
 	if !admin.FindByEmail() {
 		admin.DoInsert()
 	}
+	testAdmin = &admin.Users
+	testAdmin.Adapter = nil // prevent modification
 
 	// create session
 	session := wcAuth.NewSessionsMutator(testTt)

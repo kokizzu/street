@@ -210,6 +210,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// UserLikeProp
+	fw.Post("/"+domain.UserLikePropAction, func(c *fiber.Ctx) error {
+		in := domain.UserLikePropIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserLikePropAction); err != nil {
+			return nil
+		}
+		out := d.UserLikeProp(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// UserLogout
 	fw.Post("/"+domain.UserLogoutAction, func(c *fiber.Ctx) error {
 		in := domain.UserLogoutIn{}

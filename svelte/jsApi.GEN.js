@@ -1504,6 +1504,36 @@ exports.UserDeactivate = async function UserDeactivate( i, cb ) {
 }
 
 /**
+ * @typedef {Object} UserLikePropIn
+ * @property {number} propId
+ * @property {Object} like
+ */
+const UserLikePropIn = {
+  propId: 0, // uint64
+  like: false, // bool
+}
+/**
+ * @typedef {Object} UserLikePropOut
+ */
+const UserLikePropOut = {
+}
+/**
+ * @callback UserLikePropCallback
+ * @param {UserLikePropOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserLikePropIn} i
+ * @param {UserLikePropCallback} cb
+ * @returns {Promise}
+ */
+exports.UserLikeProp = async function UserLikeProp( i, cb ) {
+  return await axios.post( '/userLikeProp', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} UserLogoutIn
  */
 const UserLogoutIn = {

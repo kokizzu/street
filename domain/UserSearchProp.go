@@ -38,6 +38,9 @@ type (
 
 		DistanceKM float64 `json:"distanceKM" form:"distanceKM" query:"distanceKM" long:"distanceKM" msg:"distanceKM"`
 
+		Liked     bool  `json:"liked" form:"liked" query:"liked" long:"liked" msg:"liked"`
+		LikeCount int64 `json:"likeCount" form:"likeCount" query:"likeCount" long:"likeCount" msg:"likeCount"`
+
 		id uint64
 	}
 )
@@ -69,6 +72,7 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 	}
 
 	out.Properties = make([]Property, 0, in.Limit)
+	propIds := make([]uint64, 0, in.Limit)
 	ok := prop.FindByLatLong(in.CenterLat, in.CenterLong, in.Limit, in.Offset, func(row []any) bool {
 		item := Property{Property: &rqProperty.Property{}}
 		item.FromArray(row)
@@ -83,11 +87,28 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 			return false
 		}
 		out.Properties = append(out.Properties, item)
+		propIds = append(propIds, item.Id)
 		return true
 	})
 	if !ok {
 		out.SetError(500, ErrSearchPropFailed)
 		return
 	}
+
+	// get liked by this user and like count
+	if len(propIds) > 0 {
+		upl := rqProperty.NewUserPropLikes(d.PropOltp)
+		upl.UserId = sess.UserId
+		likedMap := upl.LikedMap(propIds)
+
+		plc := rqProperty.NewPropLikeCount(d.PropOltp)
+		countMap := plc.CountMap(propIds)
+
+		for i := range out.Properties {
+			out.Properties[i].Liked = likedMap[out.Properties[i].id]
+			out.Properties[i].LikeCount = countMap[out.Properties[i].id]
+		}
+	}
+
 	return
 }
