@@ -30,7 +30,7 @@
   let myLatLng = {lat: 23.6978, lng: 120.9605};
   let mapOptions = {
     center: myLatLng,
-    zoom: 10,
+    zoom: 8,
     mapTypeId: 'roadmap',
     mapId: 'street_project',
   }
