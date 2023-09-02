@@ -57,6 +57,9 @@ const (
 	ErrUserUploadFailedFinalize       = `user upload failed finalize`
 	ErrUserUploadThumbnailFailed      = `user upload failed thumbnail creation`
 	ErrUserUploadThumbnailUnreadable  = `user upload thumbnail unreadable`
+
+	UserUploadFile_PurposeProperty  = `property`
+	UserUploadFile_PurposeFloorPlan = `floorPlan`
 )
 
 func (d *Domain) UserUploadFile(in *UserUploadFileIn) (out UserUploadFileOut) {
@@ -77,7 +80,7 @@ func (d *Domain) UserUploadFile(in *UserUploadFileIn) (out UserUploadFileOut) {
 	}
 
 	switch in.Purpose {
-	case `property`, `floorPlan`:
+	case UserUploadFile_PurposeProperty, UserUploadFile_PurposeFloorPlan:
 	default:
 		out.SetError(400, ErrUserUploadInvalidPurpose)
 		return

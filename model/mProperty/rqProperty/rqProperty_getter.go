@@ -58,8 +58,7 @@ func (rq *Property) FindAllPropertiesOffsetLimit(offset, limit int) (res []*Prop
 SELECT ` + rq.SqlSelectAllFields() + `
 FROM ` + rq.SqlTableName() + `
 ORDER BY "id"
-OFFSET ` + X.ToS(offset) + `
-LIMIT ` + X.ToS(limit)
+LIMIT ` + X.ToS(offset) + `,` + X.ToS(limit)
 	if conf.IsDebug() {
 		//L.Print(query)
 	}

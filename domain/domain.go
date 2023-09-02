@@ -110,3 +110,8 @@ func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 		row.RefId,
 	})
 }
+
+func (d *Domain) CloseTimedBuffer() {
+	go d.authLogs.Close()
+	d.WaitTimedBufferFinalFlush()
+}

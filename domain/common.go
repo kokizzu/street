@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
+	"github.com/gabriel-vasile/mimetype"
 	"github.com/goccy/go-json"
 
 	"github.com/gofiber/fiber/v2"
@@ -51,14 +52,17 @@ func (r rawFileReaderCloser) Close() error {
 	return nil
 }
 
-func NewRawFile(name, mime string, reader io.ReadCloser) *RawFile {
+func NewLocalRawFileFromReader(fileName string, reader io.ReadCloser) *RawFile {
 	buf := bytes.Buffer{}
 	_, _ = io.Copy(&buf, reader)
 	reader.Close()
 	byt := rawFileReaderCloser{bytes.NewReader(buf.Bytes())}
+	mime, err := mimetype.DetectReader(byt.Reader)
+	byt.Reader.Seek(0, io.SeekStart)
+	L.PanicIf(err, `NewLocalRawFile.mimetype.DetectReader`)
 	return &RawFile{
-		FileName: name,
-		Mime:     mime,
+		FileName: fileName,
+		Mime:     mime.String(),
 		Size:     byt.Size(),
 		saveFunc: func(s string) error {
 			fo, err := os.Create(s)
@@ -100,6 +104,15 @@ type RequestCommon struct {
 	// in seconds
 	now   int64     `json:"-" form:"now" query:"now" long:"now" msg:"-"`
 	start time.Time `json:"-"` // for latency measurement
+}
+
+func NewLocalRequestCommon(sessionToken, userAgent string) RequestCommon {
+	return RequestCommon{
+		RequestId:    lexid.ID(),
+		SessionToken: sessionToken,
+		UserAgent:    userAgent,
+		IpAddress:    `127.0.0.1`,
+	}
 }
 
 func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon, in any) error {

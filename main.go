@@ -137,6 +137,8 @@ func main() {
 
 		Superadmins: conf.EnvSuperAdmins(),
 	}
+	d.InitTimedBuffer()
+	defer d.CloseTimedBuffer()
 
 	mode := S.ToLower(os.Args[1])
 
@@ -175,7 +177,7 @@ func main() {
 		zImport.ImportHouseLocation(tConn)
 	case `import_streetview_image`:
 		gmapConf := conf.EnvGmap()
-		zImport.ImportStreetViewImage(tConn, gmapConf)
+		zImport.ImportStreetViewImage(d, gmapConf)
 	//case `upgradememtx`:
 	//	zUpgrade.UserSessionToMemtx(tConn)
 	//case `fix_time`:

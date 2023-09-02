@@ -20,8 +20,5 @@ func (c *CLI) Run(args []string, log *zerolog.Logger) {
 		return
 	}
 
-	c.InitTimedBuffer()
 	cmdRun(c.Domain, args[0], []byte(args[1]))
-	c.Domain.WaitTimedBufferFinalFlush()
-
 }

@@ -146,7 +146,7 @@ func (s *Session) Decrypt(sessionToken, userAgent string) bool {
 	return !L.IsError(err, `enkodo.Unmarshal`)
 }
 
-func (d *Domain) createSession(userId uint64, email string, userAgent string) (*wcAuth.SessionsMutator, *Session) {
+func (d *Domain) CreateSession(userId uint64, email string, userAgent string) (*wcAuth.SessionsMutator, *Session) {
 	session := wcAuth.NewSessionsMutator(d.AuthOltp)
 	session.UserId = userId
 	sess := &Session{
@@ -160,7 +160,7 @@ func (d *Domain) createSession(userId uint64, email string, userAgent string) (*
 	return session, sess
 }
 
-func (d *Domain) expireSession(token string, out *ResponseCommon) int64 {
+func (d *Domain) ExpireSession(token string, out *ResponseCommon) int64 {
 	session := wcAuth.NewSessionsMutator(d.AuthOltp)
 	session.SessionToken = token
 	now := fastime.UnixNow()

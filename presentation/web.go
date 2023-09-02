@@ -84,8 +84,6 @@ func (w *WebServer) Start(log *zerolog.Logger) {
 		ProxyHeader: `X-Real-IP`,
 	})
 
-	w.Domain.InitTimedBuffer()
-
 	// check if actionLogs are there, if error, then you need to run migration: go run main.go migrate
 	w.InsertActionLog(&domain.RequestCommon{
 		UserAgent: "server",
@@ -124,8 +122,6 @@ func (w *WebServer) Start(log *zerolog.Logger) {
 	})
 
 	log.Err(fw.Listen(w.Cfg.ListenAddr()))
-
-	w.Domain.WaitTimedBufferFinalFlush()
 }
 
 type Views struct {

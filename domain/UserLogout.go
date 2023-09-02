@@ -23,6 +23,6 @@ const (
 )
 
 func (d *Domain) UserLogout(in *UserLogoutIn) (out UserLogoutOut) {
-	out.LogoutAt = d.expireSession(in.SessionToken, &out.ResponseCommon)
+	out.LogoutAt = d.ExpireSession(in.SessionToken, &out.ResponseCommon)
 	return
 }
