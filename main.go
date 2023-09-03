@@ -20,6 +20,7 @@ import (
 	"street/conf"
 	"street/domain"
 	"street/model"
+	"street/model/xGmap"
 	"street/model/xMailer"
 	"street/model/zImport"
 	"street/presentation"
@@ -119,6 +120,10 @@ func main() {
 		defer closer()
 	}
 
+	// init gmap
+	gmapConf := conf.EnvGmap()
+	gmap := xGmap.Gmap{gmapConf}
+
 	// create domain object
 	d := &domain.Domain{
 		AuthOltp: tConn,
@@ -131,6 +136,7 @@ func main() {
 		},
 		IsBgSvc: false,
 		Oauth:   oauth,
+		Gmap:    gmap,
 		Log:     log,
 
 		UploadDir: conf.UploadDir(),
@@ -174,10 +180,9 @@ func main() {
 		zImport.PatchPropertiesPrice(tConn)
 		getStreetViewImg("800", "400", "47.5763831", "-122.4211769", "85", "70", "3")
 	case `import_location`:
-		zImport.ImportHouseLocation(tConn)
+		zImport.ImportHouseLocation(tConn, gmap)
 	case `import_streetview_image`:
-		gmapConf := conf.EnvGmap()
-		zImport.ImportStreetViewImage(d, gmapConf)
+		zImport.ImportStreetViewImage(d, gmap)
 	//case `upgradememtx`:
 	//	zUpgrade.UserSessionToMemtx(tConn)
 	//case `fix_time`:

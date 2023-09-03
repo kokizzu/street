@@ -1,4 +1,4 @@
-package mProperty
+package conf
 
 import (
 	"math"
