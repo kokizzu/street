@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/kokizzu/gotro/D/Ch"
@@ -38,6 +39,7 @@ func main() {
 
 	log = conf.InitLogger()
 	conf.LoadEnv()
+	var gMapsApiKey string = os.Getenv("GOOGLE_API_KEY")
 
 	args := os.Args
 	if len(args) < 2 {
@@ -172,7 +174,8 @@ func main() {
 		jsonCoordFile, _ := filepath.Abs(`./static/house_data/coordinates.json`)
 		zImport.ImportExcelData(tConn, excelFile, jsonCoordFile)
 		zImport.PatchPropertiesPrice(tConn)
-		getStreetViewImg("800", "400", "47.5763831", "-122.4211769", "85", "70", "3")
+		getStreetViewImg("800", "400", "47.5763831", "-122.4211769", "85", "70", "3", gMapsApiKey, "SIGNATURE")
+		getLandMarks("23.6978", "120.9605", "500", gMapsApiKey)
 	case `import_location`:
 		zImport.ImportHouseLocation(tConn)
 	case `import_streetview_image`:
@@ -192,12 +195,12 @@ func main() {
 
 }
 
-func getStreetViewImg(width, height, lat, lng, fov, heading, pitch string) {
-	const gMapsApiKey string = "AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg"
+func getStreetViewImg(width, height, lat, lng, fov, heading, pitch, gMapsApiKey, signature string) {
 	url := fmt.Sprintf(
-		"https://maps.googleapis.com/maps/api/streetview?size=%sx%s&location=%s,%s&fov=%s&heading=%s&pitch=%s&key=%s",
-		width, height, lat, lng, fov, heading, pitch, gMapsApiKey,
+		"https://maps.googleapis.com/maps/api/streetview?size=%sx%s&location=%s,%s&fov=%s&heading=%s&pitch=%s&key=%s&signature=%s",
+		width, height, lat, lng, fov, heading, pitch, gMapsApiKey, signature,
 	)
+	fmt.Println(url)
 	resp, err := http.Get(url)
 	if err != nil {
 		fmt.Println("Error: ", err)
@@ -214,6 +217,26 @@ func getStreetViewImg(width, height, lat, lng, fov, heading, pitch string) {
 	_, err = io.Copy(file, resp.Body)
 	if err != nil {
 		fmt.Println("Error", err)
+	} else {
+		fmt.Println("Success")
 	}
-	fmt.Println("Success")
+}
+
+func getLandMarks(lat, lng, radius, gMapsApiKey string) {
+	url := fmt.Sprintf(
+		"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s,%s&radius=%s&key=%s",
+		lat, lng, radius, gMapsApiKey,
+	)
+	resp, err := http.Post(url, "application/json", strings.NewReader(""))
+	if err != nil {
+		fmt.Println("Error")
+	}
+	defer resp.Body.Close()
+	respBody, err := io.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Error")
+	}
+	resultJSON := string(respBody)
+
+	fmt.Println(resultJSON)
 }
