@@ -1,0 +1,20 @@
+{
+  "email": "Email",
+  "emailTW": "信箱",
+  "forgotPassword": "Forgot Passord",
+  "forgotPasswordTW": "忘記密碼",
+  "haveAccount": "Have an Account ",
+  "haveAccountTW": "已是會員？",
+  "key": "EN",
+  "keyTW": "TW",
+  "password": "Password",
+  "passwordTW": "密碼",
+  "signIn": "Sign In",
+  "signInTW": "登入",
+  "signOut": "Sign Out ",
+  "signOutTW": "登出",
+  "signUpEmail": "Sign up with Email ",
+  "signUpEmailTW": "信箱註冊",
+  "welcome": "Welcome to HapSTR ",
+  "welcomeTW": "歡迎使用HapSTR"
+}

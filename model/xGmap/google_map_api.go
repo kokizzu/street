@@ -1,6 +1,7 @@
 package xGmap
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -46,7 +47,7 @@ func (g Gmap) StreetViewImageFromLatLong(width, height int, lat, lng float64, fo
 	if L.IsError(err, `StreetViewImageFromLatLong`) {
 		return nil
 	}
-	if resp.StatusCode != http.StatusOK {
+	if resp.StatusCode != http.StatusOK || resp == nil || resp.Body == nil {
 		return nil
 	}
 	return resp.Body
@@ -132,9 +133,8 @@ func (g Gmap) NearbyFacilities(lat float64, long float64, typ string) (res []Pla
 		return nil, err
 	}
 	// intentionally ignore http status
-
-	if resp != nil && resp.Body != nil {
-		defer resp.Body.Close()
+	if resp == nil || resp.Body == nil {
+		return nil, errors.New(`Gmap) NearbyFacilities.http.EmptyBody`)
 	}
 
 	// read all body

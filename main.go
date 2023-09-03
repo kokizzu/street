@@ -3,8 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"io"
-	"net/http"
 	"os"
 	"path/filepath"
 	"time"
@@ -178,11 +176,12 @@ func main() {
 		jsonCoordFile, _ := filepath.Abs(`./static/house_data/coordinates.json`)
 		zImport.ImportExcelData(tConn, excelFile, jsonCoordFile)
 		zImport.PatchPropertiesPrice(tConn)
-		getStreetViewImg("800", "400", "47.5763831", "-122.4211769", "85", "70", "3")
 	case `import_location`:
 		zImport.ImportHouseLocation(tConn, gmap)
 	case `import_streetview_image`:
 		zImport.ImportStreetViewImage(d, gmap)
+	case `import_translation`:
+		zImport.GoogleSheetTranslationToJson(`1XnbE1ERv-jGjEOh-Feibtlb-drTjgzqOrcHqTCCmE3Y`)
 	//case `upgradememtx`:
 	//	zUpgrade.UserSessionToMemtx(tConn)
 	//case `fix_time`:
@@ -195,30 +194,4 @@ func main() {
 		log.Error().Str(`mode`, mode).Msg(`unknown mode`)
 	}
 
-}
-
-func getStreetViewImg(width, height, lat, lng, fov, heading, pitch string) {
-	const gMapsApiKey string = "AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg"
-	url := fmt.Sprintf(
-		"https://maps.googleapis.com/maps/api/streetview?size=%sx%s&location=%s,%s&fov=%s&heading=%s&pitch=%s&key=%s",
-		width, height, lat, lng, fov, heading, pitch, gMapsApiKey,
-	)
-	resp, err := http.Get(url)
-	if err != nil {
-		fmt.Println("Error: ", err)
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		fmt.Println("HTTP Request failed with status: ", resp.Status)
-	}
-	file, err := os.Create("tmp/streetview_img.png")
-	if err != nil {
-		fmt.Println("Failed")
-	}
-	defer file.Close()
-	_, err = io.Copy(file, resp.Body)
-	if err != nil {
-		fmt.Println("Error", err)
-	}
-	fmt.Println("Success")
 }
