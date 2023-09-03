@@ -27,7 +27,7 @@ func (g Gmap) BuildFullLocationSearchUrl(address string) string {
 	q.Add("fields", listFields)
 	q.Add("input", address)
 	q.Add("inputtype", inputType)
-	q.Add("key", g.GmapConf.PublicApiKey)
+	q.Add("key", g.GmapConf.PrivateApiKey)
 	req.URL.RawQuery = q.Encode()
 
 	return req.URL.String()
@@ -123,41 +123,55 @@ type GmapSearchNearbyResult struct {
 func (g Gmap) NearbyFacilities(lat float64, long float64, typ string) (res []Place, err error) {
 	// https://developers.google.com/maps/documentation/places/web-service/search
 
-	url := fmt.Sprintf(
-		`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%.15f,%.15f&rankby=distance&type=%s&key=%s`,
-		lat, long, typ, g.PublicApiKey,
-	)
+	for z := 0; z < 2; z++ {
+		var url string
+		if z == 0 {
+			url = fmt.Sprintf( // may be failed if google havent set the type: https://stackoverflow.com/questions/16123878/my-places-api-returns-zero-results
+				`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%.15f,%.15f&rankby=distance&type=%s&key=%s`,
+				lat, long, typ, g.PrivateApiKey,
+			)
+		} else {
+			url = fmt.Sprintf( // use keyword search instead
+				`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%.15f,%.15f&rankby=distance&keyword=%s&key=%s`,
+				lat, long, typ, g.PrivateApiKey,
+			)
+		}
 
-	resp, err := http.Get(url)
-	if L.IsError(err, `Gmap) NearbyFacilities.http.Get`) {
-		return nil, err
-	}
-	// intentionally ignore http status
-	if resp == nil || resp.Body == nil {
-		return nil, errors.New(`Gmap) NearbyFacilities.http.EmptyBody`)
-	}
+		resp, err := http.Get(url)
+		if L.IsError(err, `Gmap) NearbyFacilities.http.Get`) {
+			return nil, err
+		}
+		// intentionally ignore http status
+		if resp == nil || resp.Body == nil {
+			return nil, errors.New(`Gmap) NearbyFacilities.http.EmptyBody`)
+		}
 
-	// read all body
-	body, err := io.ReadAll(resp.Body)
-	if L.IsError(err, `Gmap) NearbyFacilities.io.ReadAll`) {
-		return nil, err
-	}
+		// read all body
+		body, err := io.ReadAll(resp.Body)
+		if L.IsError(err, `Gmap) NearbyFacilities.io.ReadAll`) {
+			return nil, err
+		}
 
-	var result GmapSearchNearbyResult
-	err = json.Unmarshal(body, &result)
-	if L.IsError(err, `Gmap) NearbyFacilities.json.Unmarshal`) {
-		return nil, err
-	}
+		var result GmapSearchNearbyResult
+		err = json.Unmarshal(body, &result)
+		if L.IsError(err, `Gmap) NearbyFacilities.json.Unmarshal`) {
+			return nil, err
+		}
 
-	for _, row := range result.Results {
-		res = append(res, Place{
-			Name:       row.Name,
-			Address:    row.Vicinity,
-			Lat:        row.Geometry.Location.Lat,
-			Lng:        row.Geometry.Location.Lng,
-			Type:       typ,
-			DistanceKm: conf.DistanceKm(lat, long, row.Geometry.Location.Lat, row.Geometry.Location.Lng),
-		})
+		for _, row := range result.Results {
+			res = append(res, Place{
+				Name:       row.Name,
+				Address:    row.Vicinity,
+				Lat:        row.Geometry.Location.Lat,
+				Lng:        row.Geometry.Location.Lng,
+				Type:       typ,
+				DistanceKm: conf.DistanceKm(lat, long, row.Geometry.Location.Lat, row.Geometry.Location.Lng),
+			})
+		}
+
+		if result.Status == `ZERO_RESULT` {
+			continue
+		}
 	}
 
 	return res, nil

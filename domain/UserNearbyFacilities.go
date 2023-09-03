@@ -4,6 +4,7 @@ import (
 	"sort"
 	"sync"
 
+	"github.com/kokizzu/gotro/L"
 	"golang.org/x/sync/errgroup"
 
 	"street/model/xGmap"
@@ -56,8 +57,11 @@ func (d *Domain) UserNearbyFacilities(in *UserNearbyFacilitiesIn) (out UserNearb
 		m.Lock()
 		defer m.Unlock()
 		out.Facilities = append(out.Facilities, rows...)
-		errCount++
-		return err
+		if err != nil {
+			L.Print(err)
+			errCount++
+		}
+		return nil
 	}
 
 	const totalCall = 5

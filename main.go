@@ -181,7 +181,28 @@ func main() {
 	case `import_streetview_image`:
 		zImport.ImportStreetViewImage(d, gmap)
 	case `import_translation`:
+		// https://docs.google.com/spreadsheets/d/1XnbE1ERv-jGjEOh-Feibtlb-drTjgzqOrcHqTCCmE3Y/edit#gid=0
 		zImport.GoogleSheetTranslationToJson(`1XnbE1ERv-jGjEOh-Feibtlb-drTjgzqOrcHqTCCmE3Y`)
+	case `manual_test`: // how to manual test, it's better to use unit test, except for third party
+		const UA = `LocalTesting/1.0`
+		const sessionSavePath = `/tmp/session1.txt` // simulate cookie
+		savedSession := L.ReadFile(sessionSavePath)
+		if savedSession == `` { // if expired, please remove that file
+			session, _ := d.CreateSession(1, `admin@localhost`, UA)
+			if !session.DoInsert() {
+				L.Print(`failed inserting session`)
+				return
+			}
+			L.CreateFile(sessionSavePath, session.SessionToken)
+			savedSession = session.SessionToken
+		}
+		rc := domain.NewLocalRequestCommon(savedSession, UA)
+		out := d.UserNearbyFacilities(&domain.UserNearbyFacilitiesIn{
+			RequestCommon: rc,
+			CenterLat:     6.200000,
+			CenterLong:    106.816666,
+		})
+		L.Describe(out)
 	//case `upgradememtx`:
 	//	zUpgrade.UserSessionToMemtx(tConn)
 	//case `fix_time`:
