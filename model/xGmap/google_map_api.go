@@ -62,12 +62,12 @@ const (
 )
 
 type Place struct {
-	Name       string
-	Address    string
-	Lat        float64
-	Lng        float64
-	Type       string
-	DistanceKm float64
+	Name       string  `json:"name,omitempty"`
+	Address    string  `json:"address,omitempty"`
+	Lat        float64 `json:"lat,omitempty"`
+	Lng        float64 `json:"lng,omitempty"`
+	Type       string  `json:"type,omitempty"`
+	DistanceKm float64 `json:"distanceKm,omitempty"`
 }
 
 type GmapSearchNearbyResult struct {
