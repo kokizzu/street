@@ -4531,6 +4531,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     async function initialise() {
       const { Map: Map2 } = await google.maps.importLibrary("maps");
       map = new Map2(mapElement, options);
+      map.addListener("dragend", () => {
+        dispatch("mapDragged", map);
+      });
       dispatch("ready");
     }
     function div_binding($value) {
