@@ -3,8 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"io"
-	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
@@ -21,6 +19,7 @@ import (
 	"street/conf"
 	"street/domain"
 	"street/model"
+	"street/model/xGmap"
 	"street/model/xMailer"
 	"street/model/zImport"
 	"street/presentation"
@@ -121,6 +120,10 @@ func main() {
 		defer closer()
 	}
 
+	// init gmap
+	gmapConf := conf.EnvGmap()
+	gmap := xGmap.Gmap{gmapConf}
+
 	// create domain object
 	d := &domain.Domain{
 		AuthOltp: tConn,
@@ -133,6 +136,7 @@ func main() {
 		},
 		IsBgSvc: false,
 		Oauth:   oauth,
+		Gmap:    gmap,
 		Log:     log,
 
 		UploadDir: conf.UploadDir(),
@@ -174,13 +178,33 @@ func main() {
 		jsonCoordFile, _ := filepath.Abs(`./static/house_data/coordinates.json`)
 		zImport.ImportExcelData(tConn, excelFile, jsonCoordFile)
 		zImport.PatchPropertiesPrice(tConn)
-		getStreetViewImg("800", "400", "47.5763831", "-122.4211769", "85", "70", "3", gMapsApiKey, "SIGNATURE")
-		getLandMarks("23.6978", "120.9605", "500", gMapsApiKey)
 	case `import_location`:
-		zImport.ImportHouseLocation(tConn)
+		zImport.ImportHouseLocation(tConn, gmap)
 	case `import_streetview_image`:
-		gmapConf := conf.EnvGmap()
-		zImport.ImportStreetViewImage(d, gmapConf)
+		zImport.ImportStreetViewImage(d, gmap)
+	case `import_translation`:
+		// https://docs.google.com/spreadsheets/d/1XnbE1ERv-jGjEOh-Feibtlb-drTjgzqOrcHqTCCmE3Y/edit#gid=0
+		zImport.GoogleSheetTranslationToJson(`1XnbE1ERv-jGjEOh-Feibtlb-drTjgzqOrcHqTCCmE3Y`)
+	case `manual_test`: // how to manual test, it's better to use unit test, except for third party
+		const UA = `LocalTesting/1.0`
+		const sessionSavePath = `/tmp/session1.txt` // simulate cookie
+		savedSession := L.ReadFile(sessionSavePath)
+		if savedSession == `` { // if expired, please remove that file
+			session, _ := d.CreateSession(1, `admin@localhost`, UA)
+			if !session.DoInsert() {
+				L.Print(`failed inserting session`)
+				return
+			}
+			L.CreateFile(sessionSavePath, session.SessionToken)
+			savedSession = session.SessionToken
+		}
+		rc := domain.NewLocalRequestCommon(savedSession, UA)
+		out := d.UserNearbyFacilities(&domain.UserNearbyFacilitiesIn{
+			RequestCommon: rc,
+			CenterLat:     40.730610,
+			CenterLong:    -73.935242,
+		})
+		L.Describe(out)
 	//case `upgradememtx`:
 	//	zUpgrade.UserSessionToMemtx(tConn)
 	//case `fix_time`:
@@ -193,50 +217,4 @@ func main() {
 		log.Error().Str(`mode`, mode).Msg(`unknown mode`)
 	}
 
-}
-
-func getStreetViewImg(width, height, lat, lng, fov, heading, pitch, gMapsApiKey, signature string) {
-	url := fmt.Sprintf(
-		"https://maps.googleapis.com/maps/api/streetview?size=%sx%s&location=%s,%s&fov=%s&heading=%s&pitch=%s&key=%s&signature=%s",
-		width, height, lat, lng, fov, heading, pitch, gMapsApiKey, signature,
-	)
-	fmt.Println(url)
-	resp, err := http.Get(url)
-	if err != nil {
-		fmt.Println("Error: ", err)
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		fmt.Println("HTTP Request failed with status: ", resp.Status)
-	}
-	file, err := os.Create("tmp/streetview_img.png")
-	if err != nil {
-		fmt.Println("Failed")
-	}
-	defer file.Close()
-	_, err = io.Copy(file, resp.Body)
-	if err != nil {
-		fmt.Println("Error", err)
-	} else {
-		fmt.Println("Success")
-	}
-}
-
-func getLandMarks(lat, lng, radius, gMapsApiKey string) {
-	url := fmt.Sprintf(
-		"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%s,%s&radius=%s&key=%s",
-		lat, lng, radius, gMapsApiKey,
-	)
-	resp, err := http.Post(url, "application/json", strings.NewReader(""))
-	if err != nil {
-		fmt.Println("Error")
-	}
-	defer resp.Body.Close()
-	respBody, err := io.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Println("Error")
-	}
-	resultJSON := string(respBody)
-
-	fmt.Println(resultJSON)
 }

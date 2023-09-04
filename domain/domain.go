@@ -13,6 +13,7 @@ import (
 	"street/conf"
 	"street/model/mAuth"
 	"street/model/mAuth/saAuth"
+	"street/model/xGmap"
 	"street/model/xMailer"
 )
 
@@ -28,7 +29,10 @@ type Domain struct {
 	Mailer xMailer.Mailer
 
 	IsBgSvc bool // long-running program
-	Oauth   conf.OauthConf
+
+	// 3rd party
+	Oauth conf.OauthConf
+	Gmap  xGmap.Gmap
 
 	// oauth related cache
 	googleUserInfoEndpointCache string
@@ -41,8 +45,7 @@ type Domain struct {
 
 	// list of superadmin emails
 	Superadmins M.SB
-
-	UploadDir string
+	UploadDir   string
 }
 
 // will run in background if background service

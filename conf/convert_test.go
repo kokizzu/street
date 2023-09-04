@@ -1,10 +1,12 @@
-package mProperty
+package conf_test
 
 import (
 	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/require"
+
+	"street/conf"
 )
 
 func TestTaiwanDateToInt(t *testing.T) {
@@ -27,7 +29,7 @@ func TestTaiwanDateToInt(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(fmt.Sprintf("%s -> %d", tt.taiwan, tt.yyyymmdd), func(t *testing.T) {
-			if got := TaiwanDateToInt(tt.taiwan); got != tt.yyyymmdd {
+			if got := conf.TaiwanDateToInt(tt.taiwan); got != tt.yyyymmdd {
 				t.Errorf("TaiwanDateToInt() = %v, yyyymmdd %v", got, tt.yyyymmdd)
 			}
 		})
@@ -49,7 +51,7 @@ func TestDistanceKm(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(fmt.Sprintf("%f,%f -> %f,%f = %f", tt.lat1, tt.lon1, tt.lat2, tt.lon2, tt.distanceKm), func(t *testing.T) {
-			got := DistanceKm(tt.lat1, tt.lon1, tt.lat2, tt.lon2)
+			got := conf.DistanceKm(tt.lat1, tt.lon1, tt.lat2, tt.lon2)
 			require.EqualValuesf(t, got, tt.distanceKm, "DistanceKm() = %v, distanceKm %v", got, tt.distanceKm)
 		})
 	}

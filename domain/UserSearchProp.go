@@ -3,7 +3,7 @@ package domain
 import (
 	"github.com/kokizzu/gotro/X"
 
-	"street/model/mProperty"
+	"street/conf"
 	"street/model/mProperty/rqProperty"
 )
 
@@ -82,7 +82,7 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 		}
 		item.id = item.Id
 		item.NormalizeFloorList()
-		item.DistanceKM = mProperty.DistanceKm(item.Lat, item.Lng, in.CenterLat, in.CenterLong)
+		item.DistanceKM = conf.DistanceKm(item.Lat, item.Lng, in.CenterLat, in.CenterLong)
 		if item.DistanceKM > in.MaxDistanceKM {
 			return false
 		}

@@ -2888,6 +2888,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       exports.UserLogout = async function UserLogout2(i, cb) {
         return await axios.post("/user/logout", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.UserNearbyFacilities = async function UserNearbyFacilities(i, cb) {
+        return await axios.post("/user/nearbyFacilitites", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.UserProfile = async function UserProfile(i, cb) {
         return await axios.post("/user/profile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };

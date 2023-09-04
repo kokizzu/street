@@ -29,6 +29,7 @@ var allCommands = []string{
 	domain.UserDeactivateAction,
 	domain.UserLikePropAction,
 	domain.UserLogoutAction,
+	domain.UserNearbyFacilitiesAction,
 	domain.UserProfileAction,
 	domain.UserPropHistoryAction,
 	domain.UserSearchPropAction,

@@ -1562,6 +1562,39 @@ exports.UserLogout = async function UserLogout( i, cb ) {
 }
 
 /**
+ * @typedef {Object} UserNearbyFacilitiesIn
+ * @property {number} centerLat
+ * @property {number} centerLong
+ */
+const UserNearbyFacilitiesIn = {
+  centerLat: 0, // float64
+  centerLong: 0, // float64
+}
+/**
+ * @typedef {Object} UserNearbyFacilitiesOut
+ * @property {Object} facilities
+ */
+const UserNearbyFacilitiesOut = {
+  facilities: { // []xGmap.Place
+  }, // []xGmap.Place
+}
+/**
+ * @callback UserNearbyFacilitiesCallback
+ * @param {UserNearbyFacilitiesOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserNearbyFacilitiesIn} i
+ * @param {UserNearbyFacilitiesCallback} cb
+ * @returns {Promise}
+ */
+exports.UserNearbyFacilities = async function UserNearbyFacilities( i, cb ) {
+  return await axios.post( '/user/nearbyFacilitites', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} UserProfileIn
  */
 const UserProfileIn = {

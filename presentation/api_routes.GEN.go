@@ -230,6 +230,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// UserNearbyFacilities
+	fw.Post("/"+domain.UserNearbyFacilitiesAction, func(c *fiber.Ctx) error {
+		in := domain.UserNearbyFacilitiesIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserNearbyFacilitiesAction); err != nil {
+			return nil
+		}
+		out := d.UserNearbyFacilities(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// UserProfile
 	fw.Post("/"+domain.UserProfileAction, func(c *fiber.Ctx) error {
 		in := domain.UserProfileIn{}

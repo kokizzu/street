@@ -211,6 +211,15 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 
+	case domain.UserNearbyFacilitiesAction:
+		in := domain.UserNearbyFacilitiesIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.UserNearbyFacilities(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+
 	case domain.UserProfileAction:
 		in := domain.UserProfileIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
