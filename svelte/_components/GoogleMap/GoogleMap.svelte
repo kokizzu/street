@@ -13,6 +13,9 @@
   async function initialise () {
     const {Map} = await google.maps.importLibrary( 'maps' );
     map = new Map( mapElement, options);
+    map.addListener("dragend", () => {
+      dispatch("mapDragged", map);
+    })
     dispatch('ready');
   }
 </script>

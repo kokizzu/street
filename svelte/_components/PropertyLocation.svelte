@@ -16,13 +16,13 @@
   import FaSolidBuilding from "svelte-icons-pack/fa/FaSolidBuilding";
   import FaSolidBath from "svelte-icons-pack/fa/FaSolidBath";
   import FaSolidBed from "svelte-icons-pack/fa/FaSolidBed";
-  import FaSolidTimesCircle from "svelte-icons-pack/fa/FaSolidTimesCircle";
   import FaSolidInfoCircle from "svelte-icons-pack/fa/FaSolidInfoCircle";
+  import FaSolidUndoAlt from "svelte-icons-pack/fa/FaSolidUndoAlt";
+  import FaSolidBan from "svelte-icons-pack/fa/FaSolidBan";
 
   let random_props = [];
   onMount( async () => {
     await UserSearchProp({}, async res => {
-      console.log("Property : ", res.properties);
       random_props = res.properties;
     })
   } );
@@ -62,15 +62,31 @@
     )
   }
   
-  async function goToPlace( place_id ) {
+  function searchByLocationEvent( event ) {
+    console.log(event.detail.center.lat());
+    console.log(event.detail.center.lng());
+    myLatLng.lat = event.detail.center.lat();
+    myLatLng.lng = event.detail.center.lng();
+  }
+  async function searchByLocationHandler() {
+    await UserSearchProp({
+      centerLat: myLatLng.lat, // float64
+      centerLong: myLatLng.lng, // float64
+      offset: 0, // int
+      limit: 0, // int
+      maxDistanceKM: 500, // float64
+    }, async res => {
+      console.log(res)
+      random_props = res.properties || [];
+    });
+  }
+  
+  async function searchByAddressHandler( place_id ) {
     let lat, lng;
     await geocoder
       .geocode({ placeId: place_id})
       .then(({ results }) => {
         if (results[0]) {
-          // gmapsComponent.setCentre(results[0].geometry.location);
-          console.log("Latitude: ", results[0].geometry.location.lat());
-          console.log("Latitude: ", results[0].geometry.location.lng());
           lat = results[0].geometry.location.lat();
           lng = results[0].geometry.location.lng()
         } else {
@@ -86,9 +102,10 @@
       limit: 0, // int
       maxDistanceKM: 500, // float64
     }, async res => {
-      console.log("Property : ", res.properties);
       random_props = res.properties;
-    })
+      autocomplete_lists = [];
+      input_search_value = "";
+    });
   }
 
   // Toggle search mode, currently focus on `Search by location`
@@ -125,6 +142,7 @@
   <div class="content">
     <div class="left">
       <div class="props_container">
+        {#if random_props.length}
         {#each random_props as prop}
           <div class="prop_item">
             <div class="img_container">
@@ -183,12 +201,24 @@
             </div>
           </div>
         {/each}
+        {:else }
+          <div class="no_properties">
+            <div class="warn">
+              <Icon size={17} color="#475569" src={FaSolidBan} />
+              <span>No Properties here</span>
+            </div>
+          </div>
+        {/if}
       </div>
     </div>
     <div class="right">
       {#if search_mode === srch_loc}
         <div class='map_container'>
-          <GoogleMap options={mapOptions} bind:this={gmapsComponent}/>
+          <button class="btn_sync_map" on:click={searchByLocationHandler}>
+            <Icon size={12} color="#475569" src={FaSolidUndoAlt} />
+            <span>Search this area</span>
+          </button>
+          <GoogleMap options={mapOptions} bind:this={gmapsComponent} on:mapDragged={searchByLocationEvent}/>
         </div>
       {/if}
       {#if search_mode === srch_addrs}
@@ -215,7 +245,7 @@
           <div class="autocomplete_container">
             {#if autocomplete_lists.length}
               {#each autocomplete_lists as place}
-                <button class="autocomplete_item" on:click|preventDefault={() => goToPlace(place.place_id)}>
+                <button class="autocomplete_item" on:click|preventDefault={() => searchByAddressHandler(place.place_id)}>
                   <Icon size={17} color="#9fa9b5" src={FaSolidMapMarkerAlt} />
                   <span>{place.description}</span>
                 </button>
@@ -323,6 +353,25 @@
     gap: 18px;
     padding: 18px 0;
     overflow: auto;
+  }
+  .property_location_container .content .left .props_container .no_properties {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  .property_location_container .content .left .props_container .no_properties .warn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    width: fit-content;
+    height: fit-content;
+    background-color: #f1f5f9;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 15px;
   }
   .property_location_container .content .left .props_container::-webkit-scrollbar-thumb {
     background-color : #3b82f6;
@@ -526,8 +575,32 @@
   }
   .property_location_container .content .right .map_container {
     display: block;
+    position: relative;
     width: 100%;
     height: 100%;
     border-radius: 8px;
+  }
+  .property_location_container .content .right .map_container .btn_sync_map {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    width: fit-content;
+    padding: 0 20px;
+    height: 40px;
+    top: 10px;
+    left: 188px;
+    border-radius: 3px;
+    font-size: 15px;
+    background-color: #FFFFFF;
+    border: none;
+    z-index: 20;
+    cursor: pointer;
+    color: #475569;
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.25);
+  }
+  .property_location_container .content .right .map_container .btn_sync_map:hover {
+    background-color: #f1f5f9;
   }
 </style>
