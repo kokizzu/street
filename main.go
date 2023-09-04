@@ -199,8 +199,8 @@ func main() {
 		rc := domain.NewLocalRequestCommon(savedSession, UA)
 		out := d.UserNearbyFacilities(&domain.UserNearbyFacilitiesIn{
 			RequestCommon: rc,
-			CenterLat:     6.200000,
-			CenterLong:    106.816666,
+			CenterLat:     40.730610,
+			CenterLong:    -73.935242,
 		})
 		L.Describe(out)
 	//case `upgradememtx`:
