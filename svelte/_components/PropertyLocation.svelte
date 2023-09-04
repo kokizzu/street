@@ -1,7 +1,7 @@
 <script>
   // @ts-nocheck
   import { onMount } from "svelte";
-  import { UserSearchProp } from "jsApi.GEN";
+  import { UserSearchProp, UserNearbyFacilities } from "jsApi.GEN";
   import { formatPrice } from "./formatter";
   import { GoogleMap, GoogleSdk } from "./GoogleMap/components";
   
@@ -24,7 +24,7 @@
   onMount( async () => {
     await UserSearchProp({}, async res => {
       random_props = res.properties;
-    })
+    });
   } );
   // Maps
   let gmapsComponent;
@@ -63,8 +63,6 @@
   }
   
   function searchByLocationEvent( event ) {
-    console.log(event.detail.center.lat());
-    console.log(event.detail.center.lng());
     myLatLng.lat = event.detail.center.lat();
     myLatLng.lng = event.detail.center.lng();
   }
@@ -76,9 +74,16 @@
       limit: 0, // int
       maxDistanceKM: 500, // float64
     }, async res => {
-      console.log(res)
       random_props = res.properties || [];
     });
+    
+    await UserNearbyFacilities({
+      centerLat: myLatLng.lat,
+      centerLong: myLatLng.lng,
+    }, async res => {
+      // TODO: show facilities
+      console.log(res);
+    })
   }
   
   async function searchByAddressHandler( place_id ) {
@@ -205,7 +210,7 @@
           <div class="no_properties">
             <div class="warn">
               <Icon size={17} color="#475569" src={FaSolidBan} />
-              <span>No Properties here</span>
+              <span>No properties in this area</span>
             </div>
           </div>
         {/if}
@@ -365,7 +370,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 15px;
+    gap: 8px;
     width: fit-content;
     height: fit-content;
     background-color: #f1f5f9;
