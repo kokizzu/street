@@ -32,6 +32,12 @@ func GoogleSheetTranslationToJson(docId string) {
 	m := map[string]string{}
 	for r.Next() {
 		key := r.String()
+		if key == `` { // skip if have no key (haoji make it duplicate)
+			for r.HasCols() {
+				_ = r.String()
+			}
+			continue
+		}
 		en := r.String()
 		tw := r.String()
 		m[key] = en

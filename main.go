@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/kokizzu/gotro/D/Ch"
@@ -37,6 +38,7 @@ func main() {
 
 	log = conf.InitLogger()
 	conf.LoadEnv()
+	var gMapsApiKey string = os.Getenv("GOOGLE_API_KEY")
 
 	args := os.Args
 	if len(args) < 2 {
@@ -199,8 +201,8 @@ func main() {
 		rc := domain.NewLocalRequestCommon(savedSession, UA)
 		out := d.UserNearbyFacilities(&domain.UserNearbyFacilitiesIn{
 			RequestCommon: rc,
-			CenterLat:     6.200000,
-			CenterLong:    106.816666,
+			CenterLat:     40.730610,
+			CenterLong:    -73.935242,
 		})
 		L.Describe(out)
 	//case `upgradememtx`:
