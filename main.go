@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"strings"
 	"time"
 
 	"github.com/kokizzu/gotro/D/Ch"
@@ -38,7 +37,6 @@ func main() {
 
 	log = conf.InitLogger()
 	conf.LoadEnv()
-	var gMapsApiKey string = os.Getenv("GOOGLE_API_KEY")
 
 	args := os.Args
 	if len(args) < 2 {
