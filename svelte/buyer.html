@@ -2505,6 +2505,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function component_subscribe(component, store, callback) {
     component.$.on_destroy.push(subscribe(store, callback));
   }
+  function set_store_value(store, ret, value) {
+    store.set(value);
+    return ret;
+  }
 
   // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
@@ -4417,6 +4421,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/GoogleMap/stores.js
   var mapsLoaded = writable(false);
   var mapsLoading = writable(false);
+  var mapComponent = writable(null);
 
   // _components/GoogleMap/GoogleSdk.svelte
   function Init(g) {
@@ -4496,7 +4501,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         mount_component(googlesdk, target, anchor);
         insert(target, t, anchor);
         insert(target, div, anchor);
-        ctx[4](div);
+        ctx[6](div);
         current = true;
       },
       p: noop,
@@ -4516,11 +4521,23 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           detach(div);
         }
         destroy_component(googlesdk, detaching);
-        ctx[4](null);
+        ctx[6](null);
       }
     };
   }
+  function clearMarkers(markers) {
+    markers.forEach((marker) => {
+      marker.setMap(null);
+      if (marker.listenerHandle && "function" === typeof marker.listenerHandle.remove)
+        marker.listenerHandle.remove();
+    });
+    markers.length = 0;
+    markers = [];
+    return markers;
+  }
   function instance6($self, $props, $invalidate) {
+    let $mapComponent;
+    component_subscribe($self, mapComponent, ($value) => $invalidate(8, $mapComponent = $value));
     const dispatch = createEventDispatcher();
     let mapElement;
     let map;
@@ -4528,12 +4545,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function setCentre(location) {
       map.setCenter(location);
     }
+    function createMarker(latLng) {
+      let marker = new google.maps.Marker({ map, position: latLng, draggable: false });
+      return marker;
+    }
+    ;
     async function initialise() {
       const { Map: Map2 } = await google.maps.importLibrary("maps");
       map = new Map2(mapElement, options);
       map.addListener("dragend", () => {
         dispatch("mapDragged", map);
       });
+      set_store_value(mapComponent, $mapComponent = map, $mapComponent);
       dispatch("ready");
     }
     function div_binding($value) {
@@ -4546,15 +4569,34 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       if ("options" in $props2)
         $invalidate(2, options = $props2.options);
     };
-    return [mapElement, initialise, options, setCentre, div_binding];
+    return [
+      mapElement,
+      initialise,
+      options,
+      setCentre,
+      createMarker,
+      clearMarkers,
+      div_binding
+    ];
   }
   var GoogleMap = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance6, create_fragment5, safe_not_equal, { options: 2, setCentre: 3 });
+      init(this, options, instance6, create_fragment5, safe_not_equal, {
+        options: 2,
+        setCentre: 3,
+        createMarker: 4,
+        clearMarkers: 5
+      });
     }
     get setCentre() {
       return this.$.ctx[3];
+    }
+    get createMarker() {
+      return this.$.ctx[4];
+    }
+    get clearMarkers() {
+      return clearMarkers;
     }
   };
   var GoogleMap_default = GoogleMap;
