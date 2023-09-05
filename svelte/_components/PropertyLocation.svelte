@@ -21,10 +21,25 @@
   import FaSolidBan from "svelte-icons-pack/fa/FaSolidBan";
 
   let random_props = [];
+  let facilities = [];
+  let markers = [];
   onMount( async () => {
     await UserSearchProp({}, async res => {
       random_props = res.properties;
+      console.log(random_props)
     });
+    await UserNearbyFacilities({
+      centerLat: myLatLng.lat,
+      centerLong: myLatLng.lng,
+    }, async res => {
+      facilities = await res.facilities;
+      facilities.forEach(fac => {
+        markers.push(gmapsComponent.createMarker({
+          lat: fac.lat,
+          lng: fac.lng,
+        }));
+      });
+    })
   } );
   // Maps
   let gmapsComponent;
@@ -68,11 +83,11 @@
   }
   async function searchByLocationHandler() {
     await UserSearchProp({
-      centerLat: myLatLng.lat, // float64
-      centerLong: myLatLng.lng, // float64
-      offset: 0, // int
-      limit: 0, // int
-      maxDistanceKM: 500, // float64
+      centerLat: myLatLng.lat,
+      centerLong: myLatLng.lng,
+      offset: 0,
+      limit: 0,
+      maxDistanceKM: 500,
     }, async res => {
       random_props = res.properties || [];
     });
@@ -81,9 +96,15 @@
       centerLat: myLatLng.lat,
       centerLong: myLatLng.lng,
     }, async res => {
-      // TODO: show facilities
-      console.log(res);
-    })
+      facilities = await res.facilities;
+      markers = gmapsComponent.clearMarkers(markers);
+      facilities.forEach(fac => {
+        markers.push(gmapsComponent.createMarker({
+          lat: fac.lat,
+          lng: fac.lng,
+        }));
+      });
+    });
   }
   
   async function searchByAddressHandler( place_id ) {
@@ -101,11 +122,11 @@
         alert("Geocoder failed due to: " + e)
       });
     await UserSearchProp({
-      centerLat: lat, // float64
-      centerLong: lng, // float64
-      offset: 0, // int
-      limit: 0, // int
-      maxDistanceKM: 500, // float64
+      centerLat: lat,
+      centerLong: lng,
+      offset: 0,
+      limit: 0,
+      maxDistanceKM: 500,
     }, async res => {
       random_props = res.properties;
       autocomplete_lists = [];
@@ -138,7 +159,7 @@
       <Icon size={12} color="#475569" src={FaSolidInfoCircle} />
       <span>
         {search_mode === srch_loc
-          ? "Click on the map to find nearby property"
+          ? "Drag map to find nearby property"
           : "Type on search bar to find properties near an address"
         }
       </span>
@@ -267,7 +288,6 @@
 
 <style>
   .property_location_container {
-    position: relative;
     margin-top: -40px;
     margin-left: auto;
     margin-right: auto;
@@ -394,6 +414,8 @@
     padding-right: 15px;
     border-radius: 8px;
     cursor: pointer;
+    height: 190px;
+    min-height: 190px;
   }
   .property_location_container .content .left .props_container .prop_item:hover .prop_info .main_info .address {
     text-decoration: underline;
@@ -403,8 +425,9 @@
     transform: scale(1.20);
   }
   .property_location_container .content .left .props_container .prop_item .img_container {
+    min-width : 240px;
     width: 240px;
-    height: 170px;
+    height: 100%;
     overflow: hidden;
     border: 1px solid #cbd5e1;
     border-radius: 8px;
@@ -504,6 +527,7 @@
     border: 1px solid #cbd5e1;
     border-radius: 8px;
     height: 100%;
+    position: relative;
   }
   .property_location_container .content .right .search_by_address {
     display: flex;
@@ -584,6 +608,7 @@
     width: 100%;
     height: 100%;
     border-radius: 8px;
+    overflow: hidden;
   }
   .property_location_container .content .right .map_container .btn_sync_map {
     position: absolute;
