@@ -1,6 +1,7 @@
 <script>
   import { createEventDispatcher } from 'svelte';
   import GoogleSdk from "./GoogleSdk.svelte";
+  import { mapComponent } from "./stores";
   
   const dispatch = createEventDispatcher();
   let mapElement;
@@ -10,9 +11,30 @@
   export function setCentre(location) {
     map.setCenter(location)
   }
+  export function createMarker(latLng) {
+    let marker = new google.maps.Marker({
+      map,
+      position: latLng,
+      draggable: false,
+    });
+    return marker;
+  }
+  export function clearMarkers(markers) {
+    markers.forEach((marker) => {
+      marker.setMap(null);
+      if(marker.listenerHandle && 'function' === typeof marker.listenerHandle.remove) marker.listenerHandle.remove();
+    });
+    markers.length = 0;
+    markers = [];
+    return markers;
+  };
   async function initialise () {
     const {Map} = await google.maps.importLibrary( 'maps' );
     map = new Map( mapElement, options);
+    map.addListener("dragend", () => {
+      dispatch("mapDragged", map);
+    })
+    $mapComponent = map;
     dispatch('ready');
   }
 </script>
