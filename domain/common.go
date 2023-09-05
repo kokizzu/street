@@ -307,9 +307,10 @@ func (l *ResponseCommon) DecorateSession(ctx *fiber.Ctx) {
 			return
 		}
 		ctx.Cookie(&fiber.Cookie{
-			Name:    conf.CookieName,
-			Value:   l.SessionToken,
-			Expires: time.Now().AddDate(0, 0, conf.CookieDays),
+			Name:     conf.CookieName,
+			Value:    l.SessionToken,
+			HTTPOnly: true,
+			Expires:  time.Now().AddDate(0, 0, conf.CookieDays),
 		})
 	}
 }
