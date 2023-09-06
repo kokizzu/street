@@ -8,6 +8,9 @@
   import Footer from './_components/Footer.svelte';
 
   let sideMenuOpen = false;
+  let randomProps = [/* randomProps */] || [];
+  let initialLatLong = [/* initialLatLong */];
+  let defaultDistanceKm = +'#{defaultDistanceKm}';
 
   function openSideMenu() {
     sideMenuOpen = true;
@@ -132,7 +135,7 @@
     <div class="dashboard_main_content">
       <ProfileHeader on:opensidemenu={openSideMenu} />
       <div class="content">
-        <PropertyLocation />
+        <PropertyLocation initialLatLong={initialLatLong} randomProps={randomProps} />
       </div>
       <Footer />
     </div>
