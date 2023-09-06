@@ -4528,8 +4528,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function clearMarkers(markers) {
     markers.forEach((marker) => {
       marker.setMap(null);
-      if (marker.listenerHandle && "function" === typeof marker.listenerHandle.remove)
+      if (marker.listenerHandle && "function" === typeof marker.listenerHandle.remove) {
         marker.listenerHandle.remove();
+      }
     });
     markers.length = 0;
     markers = [];
@@ -4545,8 +4546,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function setCentre(location) {
       map.setCenter(location);
     }
-    function createMarker(latLng) {
-      let marker = new google.maps.Marker({ map, position: latLng, draggable: false });
+    function createMarker(latitude, longitude, iconPath, iconSize, title) {
+      let marker = new google.maps.Marker({
+        map,
+        icon: {
+          url: iconPath,
+          // URL to your custom icon image
+          scaledSize: new google.maps.Size(iconSize, iconSize)
+        },
+        position: { lat: latitude, lng: longitude },
+        title: title || "",
+        draggable: false
+      });
       return marker;
     }
     ;

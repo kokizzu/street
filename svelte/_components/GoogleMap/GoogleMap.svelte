@@ -6,15 +6,22 @@
   const dispatch = createEventDispatcher();
   let mapElement;
   let map;
-  
   export let options = {}
   export function setCentre(location) {
-    map.setCenter(location)
+    map.setCenter(location);
   }
-  export function createMarker(latLng) {
+  export function createMarker(latitude, longitude, iconPath, iconSize, title) {
     let marker = new google.maps.Marker({
       map,
-      position: latLng,
+      icon: {
+        url: iconPath, // URL to your custom icon image
+        scaledSize: new google.maps.Size(iconSize, iconSize),
+      },
+      position: {
+        lat: latitude,
+        lng: longitude
+      },
+      title: title || "",
       draggable: false,
     });
     return marker;
@@ -22,7 +29,9 @@
   export function clearMarkers(markers) {
     markers.forEach((marker) => {
       marker.setMap(null);
-      if(marker.listenerHandle && 'function' === typeof marker.listenerHandle.remove) marker.listenerHandle.remove();
+      if (marker.listenerHandle && 'function' === typeof marker.listenerHandle.remove) {
+        marker.listenerHandle.remove();
+      }
     });
     markers.length = 0;
     markers = [];
