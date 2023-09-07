@@ -3,6 +3,7 @@
   import { UserSearchProp, UserNearbyFacilities } from 'jsApi.GEN';
   import { formatPrice } from './formatter';
   import { GoogleMap, GoogleSdk } from './GoogleMap/components';
+  import Growl from './Growl.svelte';
   
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidSearch from 'svelte-icons-pack/fa/FaSolidSearch';
@@ -33,6 +34,7 @@
   let geocoder;
   let input_search_value, autocomplete_service;
   let autocomplete_lists = [];
+  // let glowlComponent;
   
   async function initGoogleService() {
     const {AutocompleteService} = await google.maps.importLibrary( 'places' );
@@ -42,18 +44,24 @@
     console.log( 'markersProperty=', markersProperty ); // TODO: find out why this not rendered initially?
     if ( initialLatLong[ 0 ] !== 0 && initialLatLong[ 1 ] !== 0 ) {
       await UserNearbyFacilities( {
-        centerLat: myLatLng.lat,
+        centerLat: 'ffj', // for error handling testing, make it error
         centerLong: myLatLng.lng,
       }, async res => {
-        facilities = await res.facilities;
-        facilities.forEach( fac => {
-          markersFacility.push( gmapsComponent.createMarker(
-            fac.lat,
-            fac.lng,
-            '/assets/icons/marker.svg',
-            32,
-          ) );
-        } );
+        if (res.error) {
+          const errorMsg = await res.error
+          // glowlComponent.showGlowl(errorMsg, 'error', 3000);
+          console.log(res);
+        } else {
+          facilities = await res.facilities;
+          facilities.forEach( fac => {
+            markersFacility.push( gmapsComponent.createMarker(
+               fac.lat,
+               fac.lng,
+               '/assets/icons/marker.svg',
+               32,
+            ) );
+          } );
+        }
       } );
     }
     
@@ -110,6 +118,7 @@
       centerLat: myLatLng.lat,
       centerLong: myLatLng.lng,
     }, async res => {
+      console.log(res)
       if(res.error) return console.log();
       facilities = await res.facilities;
       markersFacility = gmapsComponent.clearMarkers( markersFacility );
@@ -163,6 +172,7 @@
       centerLat: myLatLng.lat,
       centerLong: myLatLng.lng,
     }, async res => {
+      console.log(res)
       facilities = await res.facilities;
       markersFacility = gmapsComponent.clearMarkers( markersFacility );
       facilities.forEach( fac => {
@@ -181,6 +191,7 @@
   }
 </script>
 
+<Growl />
 <GoogleSdk on:ready={initGoogleService} />
 <div class='property_location_container'>
   <div class='left'>
@@ -219,15 +230,15 @@
                 <div class='feature'>
                   <div class='item'>
                     <Icon size={13} color='#f97316' src={FaSolidBuilding} />
-                    <span><b>Floor</b>: {prop.numberOfFloors || 0}</span>
+                    <span><b>Floor</b>: {prop.numberOfFloors === 0 ? 'no-data' : prop.numberOfFloors}</span>
                   </div>
                   <div class='item'>
                     <Icon size={14} color='#f97316' src={FaSolidBed} />
-                    <span><b>Beds</b>: {prop.bedroom || 0}</span>
+                    <span><b>Beds</b>: {prop.bedroom === 0 ? 'no-data' : prop.bedroom}</span>
                   </div>
                   <div class='item'>
                     <Icon size={14} color='#f97316' src={FaSolidBath} />
-                    <span><b>Baths</b>: {prop.bathroom || 0}</span>
+                    <span><b>Baths</b>: {prop.bathroom === 0 ? 'no-data' : prop.bathroom}</span>
                   </div>
                 </div>
               </div>
