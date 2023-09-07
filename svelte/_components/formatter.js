@@ -46,6 +46,8 @@ function formatPrice( price, currency ) {
   return new Intl.NumberFormat( 'en-US', {
     style: 'currency',
     currency: currency,
+    maximumSignificantDigits: 3,
+    
   } ).format( price );
 }
 

@@ -8,9 +8,8 @@
   
   onMount(() => {
     if ($mapsLoaded) {
-      dispatch('ready')
+      dispatch('ready');
     }
-    
     if (!$mapsLoading) {
       mapsLoading.set( true );
       Init( {

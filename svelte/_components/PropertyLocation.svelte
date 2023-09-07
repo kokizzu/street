@@ -1,6 +1,5 @@
 <script>
   // @ts-nocheck
-  import { onMount } from 'svelte';
   import { UserSearchProp, UserNearbyFacilities } from 'jsApi.GEN';
   import { formatPrice } from './formatter';
   import { GoogleMap, GoogleSdk } from './GoogleMap/components';
@@ -40,19 +39,8 @@
     autocomplete_service = new AutocompleteService();
     geocoder = new google.maps.Geocoder();
     
-    // need to be here instead of onMount since marker may be not yet initialized
-    console.log( initialLatLong, randomProps );
-    randomProps.forEach( prop => {
-      markersProperty.push( gmapsComponent.createMarker( // TODO: this is duplicate code
-        prop.lat,
-        prop.lng,
-        '/assets/icons/marker-2.svg',
-        32,
-        prop.uniqPropKey,
-      ) );
-    } );
     console.log( 'markersProperty=', markersProperty ); // TODO: find out why this not rendered initially?
-    if( initialLatLong[ 0 ]!=0 && initialLatLong[ 1 ]!=0 ) {
+    if ( initialLatLong[ 0 ] !== 0 && initialLatLong[ 1 ] !== 0 ) {
       await UserNearbyFacilities( {
         centerLat: myLatLng.lat,
         centerLong: myLatLng.lng,
@@ -68,6 +56,16 @@
         } );
       } );
     }
+    
+    randomProps.forEach( prop => {
+      markersProperty.push( gmapsComponent.createMarker( // TODO: this is duplicate code
+         prop.lat,
+         prop.lng,
+         '/assets/icons/marker-2.svg',
+         32,
+         prop.uniqPropKey,
+      ) );
+    } );
   }
   
   function searchLocationHandler() {
@@ -240,7 +238,7 @@
                 </div>
                 <div class='price'>
                   <span class='agency_fee'>Agency Fee: {prop.agencyFeePercent || '0'}%</span>
-                  <span class='last_price'>{formatPrice( prop.lastPrice || 0, 'USD' )}</span>
+                  <span class='last_price'>{formatPrice( prop.lastPrice || 0, 'TWD' )}</span>
                 </div>
               </div>
             </div>
@@ -281,7 +279,7 @@
         <input
           type='text'
           id='search_location'
-          placeholder='Search property...'
+          placeholder='Search address...'
           on:input={() => {
             searchLocationHandler();
           }}
@@ -314,26 +312,18 @@
 
 <style>
   .property_location_container {
-    margin-top       : -40px;
-    margin-left      : auto;
-    margin-right     : auto;
-    border-radius    : 8px;
-    filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    padding          : 25px;
-    background-color : white;
-    color            : #475569;
-    width            : 90%;
-    height           : 800px;
-    display          : flex;
-    flex-direction   : column;
-    gap              : 10px;
-  }
-
-  .property_location_container {
+    margin                : -40px auto 0 auto;
+    border-radius         : 8px;
+    filter                : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+    padding               : 20px;
+    background-color      : white;
+    color                 : #475569;
+    width                 : 90%;
+    min-height            : 1200px;
+    height                : 1200px;
     display               : grid;
     grid-template-columns : 1.2fr 0.8fr;
-    gap                   : 20px;
-    flex-grow             : 1;
+    gap                   : 10px;
     max-width             : 100%;
     overflow-y            : scroll;
   }
@@ -550,7 +540,7 @@
     height             : 100%;
     position           : relative;
     display            : grid;
-    grid-template-rows : 1fr 1fr;
+    grid-template-rows : 500px auto;
     gap                : 20px;
   }
 
