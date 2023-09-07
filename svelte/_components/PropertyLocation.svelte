@@ -1,9 +1,9 @@
 <script>
   // @ts-nocheck
-  import { onMount } from 'svelte';
   import { UserSearchProp, UserNearbyFacilities } from 'jsApi.GEN';
   import { formatPrice } from './formatter';
   import { GoogleMap, GoogleSdk } from './GoogleMap/components';
+  import Growl from './Growl.svelte';
   
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidSearch from 'svelte-icons-pack/fa/FaSolidSearch';
@@ -34,40 +34,46 @@
   let geocoder;
   let input_search_value, autocomplete_service;
   let autocomplete_lists = [];
+  // let glowlComponent;
   
   async function initGoogleService() {
     const {AutocompleteService} = await google.maps.importLibrary( 'places' );
     autocomplete_service = new AutocompleteService();
     geocoder = new google.maps.Geocoder();
     
-    // need to be here instead of onMount since marker may be not yet initialized
-    console.log( initialLatLong, randomProps );
-    randomProps.forEach( prop => {
-      markersProperty.push( gmapsComponent.createMarker( // TODO: this is duplicate code
-        prop.lat,
-        prop.lng,
-        '/assets/icons/marker-2.svg',
-        32,
-        prop.uniqPropKey,
-      ) );
-    } );
     console.log( 'markersProperty=', markersProperty ); // TODO: find out why this not rendered initially?
-    if( initialLatLong[ 0 ]!=0 && initialLatLong[ 1 ]!=0 ) {
+    if ( initialLatLong[ 0 ] !== 0 && initialLatLong[ 1 ] !== 0 ) {
       await UserNearbyFacilities( {
-        centerLat: myLatLng.lat,
+        centerLat: 'ffj', // for error handling testing, make it error
         centerLong: myLatLng.lng,
       }, async res => {
-        facilities = await res.facilities;
-        facilities.forEach( fac => {
-          markersFacility.push( gmapsComponent.createMarker(
-            fac.lat,
-            fac.lng,
-            '/assets/icons/marker.svg',
-            32,
-          ) );
-        } );
+        if (res.error) {
+          const errorMsg = await res.error
+          // glowlComponent.showGlowl(errorMsg, 'error', 3000);
+          console.log(res);
+        } else {
+          facilities = await res.facilities;
+          facilities.forEach( fac => {
+            markersFacility.push( gmapsComponent.createMarker(
+               fac.lat,
+               fac.lng,
+               '/assets/icons/marker.svg',
+               32,
+            ) );
+          } );
+        }
       } );
     }
+    
+    randomProps.forEach( prop => {
+      markersProperty.push( gmapsComponent.createMarker( // TODO: this is duplicate code
+         prop.lat,
+         prop.lng,
+         '/assets/icons/marker-2.svg',
+         32,
+         prop.uniqPropKey,
+      ) );
+    } );
   }
   
   function searchLocationHandler() {
@@ -112,6 +118,7 @@
       centerLat: myLatLng.lat,
       centerLong: myLatLng.lng,
     }, async res => {
+      console.log(res)
       if(res.error) return console.log();
       facilities = await res.facilities;
       markersFacility = gmapsComponent.clearMarkers( markersFacility );
@@ -165,6 +172,7 @@
       centerLat: myLatLng.lat,
       centerLong: myLatLng.lng,
     }, async res => {
+      console.log(res)
       facilities = await res.facilities;
       markersFacility = gmapsComponent.clearMarkers( markersFacility );
       facilities.forEach( fac => {
@@ -183,6 +191,7 @@
   }
 </script>
 
+<Growl />
 <GoogleSdk on:ready={initGoogleService} />
 <div class='property_location_container'>
   <div class='left'>
@@ -221,15 +230,15 @@
                 <div class='feature'>
                   <div class='item'>
                     <Icon size={13} color='#f97316' src={FaSolidBuilding} />
-                    <span><b>Floor</b>: {prop.numberOfFloors || 0}</span>
+                    <span><b>Floor</b>: {prop.numberOfFloors === 0 ? 'no-data' : prop.numberOfFloors}</span>
                   </div>
                   <div class='item'>
                     <Icon size={14} color='#f97316' src={FaSolidBed} />
-                    <span><b>Beds</b>: {prop.bedroom || 0}</span>
+                    <span><b>Beds</b>: {prop.bedroom === 0 ? 'no-data' : prop.bedroom}</span>
                   </div>
                   <div class='item'>
                     <Icon size={14} color='#f97316' src={FaSolidBath} />
-                    <span><b>Baths</b>: {prop.bathroom || 0}</span>
+                    <span><b>Baths</b>: {prop.bathroom === 0 ? 'no-data' : prop.bathroom}</span>
                   </div>
                 </div>
               </div>
@@ -240,7 +249,7 @@
                 </div>
                 <div class='price'>
                   <span class='agency_fee'>Agency Fee: {prop.agencyFeePercent || '0'}%</span>
-                  <span class='last_price'>{formatPrice( prop.lastPrice || 0, 'USD' )}</span>
+                  <span class='last_price'>{formatPrice( prop.lastPrice || 0, 'TWD' )}</span>
                 </div>
               </div>
             </div>
@@ -281,7 +290,7 @@
         <input
           type='text'
           id='search_location'
-          placeholder='Search property...'
+          placeholder='Search address...'
           on:input={() => {
             searchLocationHandler();
           }}
@@ -314,26 +323,18 @@
 
 <style>
   .property_location_container {
-    margin-top       : -40px;
-    margin-left      : auto;
-    margin-right     : auto;
-    border-radius    : 8px;
-    filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    padding          : 25px;
-    background-color : white;
-    color            : #475569;
-    width            : 90%;
-    height           : 800px;
-    display          : flex;
-    flex-direction   : column;
-    gap              : 10px;
-  }
-
-  .property_location_container {
+    margin                : -40px auto 0 auto;
+    border-radius         : 8px;
+    filter                : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+    padding               : 20px;
+    background-color      : white;
+    color                 : #475569;
+    width                 : 90%;
+    min-height            : 1200px;
+    height                : 1200px;
     display               : grid;
     grid-template-columns : 1.2fr 0.8fr;
-    gap                   : 20px;
-    flex-grow             : 1;
+    gap                   : 10px;
     max-width             : 100%;
     overflow-y            : scroll;
   }
@@ -550,7 +551,7 @@
     height             : 100%;
     position           : relative;
     display            : grid;
-    grid-template-rows : 1fr 1fr;
+    grid-template-rows : 500px auto;
     gap                : 20px;
   }
 
