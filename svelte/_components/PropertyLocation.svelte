@@ -41,6 +41,28 @@
       showGrowl = false;
     }, 3000 );
   }
+  const highLightMapMarker = {
+    enter: (index) => {
+      propItemHighlight = index;
+      setTimeout(() => {
+        markersProperty[ index ].setIcon( {
+          url: '/assets/icons/marker-2.svg', // URL to your custom icon image
+          scaledSize: new google.maps.Size( 40, 40 )
+        } );
+        gmapsComponent.setCentre( {
+          lat: markersProperty[ index ].position.lat(),
+          lng: markersProperty[ index ].position.lng()
+        } );
+      }, 900);
+    },
+    leave: (index) => {
+      markersProperty[index].setIcon({
+        url: '/assets/icons/marker-2.svg', // URL to your custom icon image
+        scaledSize: new google.maps.Size(32, 32)
+      });
+      propItemHighlight = null;
+    }
+  }
   
   async function searchProperty( search ) {
     if (search) {
@@ -82,6 +104,9 @@
         let propItem = propItemBinds[idx];
         propItemHighlight = idx;
         propItem.scrollIntoView({behavior: 'smooth'});
+        setTimeout(() => {
+          propItemHighlight = null;
+        }, 2200)
       });
     });
   }
@@ -94,6 +119,7 @@
       if (res.error) return useGrowl('error', res.error);
       markersFacility = gmapsComponent.clearMarkers( markersFacility );
       facilities = await res.facilities;
+      console.log(facilities)
       facilities.forEach( fac => {
         markersFacility.push( gmapsComponent.createMarker(
            fac.lat,
@@ -173,7 +199,12 @@
     <div class='props_container'>
       {#if randomProps.length}
         {#each randomProps as prop, index}
-          <div class={propItemHighlight === index ? `prop_item highlight` : 'prop_item' } bind:this={propItemBinds[index]}>
+          <button
+             class={propItemHighlight === index ? `prop_item highlight` : 'prop_item' }
+             bind:this={propItemBinds[index]}
+             on:mouseenter={() => highLightMapMarker.enter(index)}
+             on:mouseleave={() => highLightMapMarker.leave(index)}
+          >
             <div class='img_container'>
               {#if prop.images && prop.images.length}
                 <img src={prop.images[0]} alt='' />
@@ -228,7 +259,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </button>
         {/each}
       {:else }
         <div class='no_properties'>
@@ -265,7 +296,7 @@
         <input
           type='text'
           id='search_location'
-          placeholder='Search address...'
+          placeholder='Search for address...'
           on:input={() => {
             searchLocationHandler();
           }}
@@ -392,6 +423,8 @@
     cursor         : pointer;
     height         : 190px;
     min-height     : 190px;
+    border: none;
+    color: #475569;
   }
   .property_location_container .left .props_container .prop_item.highlight {
     border: 2px solid #1080e8;
@@ -399,6 +432,9 @@
 
   .property_location_container .left .props_container .prop_item:nth-child(odd) {
     background-color : #F1F5F9;
+  }
+  .property_location_container .left .props_container .prop_item:nth-child(even) {
+    background-color : transparent;
   }
 
   .property_location_container .left .props_container .prop_item:hover .prop_info .main_info .address {
