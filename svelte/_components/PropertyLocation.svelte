@@ -18,10 +18,10 @@
   import FaSolidBan from 'svelte-icons-pack/fa/FaSolidBan';
   import FaSolidReceipt from 'svelte-icons-pack/fa/FaSolidReceipt';
   
-  export let randomProps = [];
+  export let randomProps = []
   export let defaultDistanceKm = 20;
   export let initialLatLong = [0, 0];
-  let facilities = [], markersFacility = [], markersProperty = [];
+  let facilities = [], markersFacility = [], markersProperty = [], propItemBinds = [], propItemHighlight = null;
   let gmapsComponent; // maps
   let myLatLng = {lat: initialLatLong[ 0 ], lng: initialLatLong[ 1 ]};
   let mapOptions = {
@@ -42,32 +42,22 @@
     }, 3000 );
   }
   
-  async function initGoogleService() {
-    const {AutocompleteService} = await google.maps.importLibrary( 'places' );
-    autocomplete_service = new AutocompleteService();
-    geocoder = new google.maps.Geocoder();
-    
-    console.log( 'markersProperty=', markersProperty ); // TODO: find out why this not rendered initially?
-    if ( initialLatLong[ 0 ] !== 0 && initialLatLong[ 1 ] !== 0 ) {
-      await UserNearbyFacilities( {
-        centerLat: myLatLng.lat, // for error handling testing, make it error
+  async function searchProperty( search ) {
+    if (search) {
+      await UserSearchProp( {
+        centerLat: myLatLng.lat,
         centerLong: myLatLng.lng,
+        offset: 0,
+        limit: 0,
+        maxDistanceKM: defaultDistanceKm,
       }, async res => {
-        if (res.error) return useGrowl('error', res.error);
-        facilities = await res.facilities;
-        facilities.forEach( fac => {
-          markersFacility.push( gmapsComponent.createMarker(
-            fac.lat,
-            fac.lng,
-            '/assets/icons/marker.svg',
-            32,
-          ) );
-        } );
+        if( res.error ) return useGrowl( 'error', res.error );
+        randomProps = res.properties || [];
       } );
+      markersProperty = gmapsComponent.clearMarkers( markersProperty );
     }
-    
     randomProps.forEach( prop => {
-      markersProperty.push( gmapsComponent.createMarker( // TODO: this is duplicate code
+      markersProperty.push( gmapsComponent.createMarker(
          prop.lat,
          prop.lng,
          '/assets/icons/marker-2.svg',
@@ -75,6 +65,56 @@
          prop.uniqPropKey,
       ) );
     } );
+    markersProperty.forEach((marker, idx) => {
+      marker.addListener("mouseover", () => {
+        marker.setIcon({
+          url: '/assets/icons/marker-2.svg', // URL to your custom icon image
+          scaledSize: new google.maps.Size(40, 40)
+        })
+      })
+      marker.addListener("mouseout", () => {
+        marker.setIcon({
+          url: '/assets/icons/marker-2.svg', // URL to your custom icon image
+          scaledSize: new google.maps.Size(32, 32)
+        })
+      })
+      marker.addListener("click", () => {
+        let propItem = propItemBinds[idx];
+        propItemHighlight = idx;
+        propItem.scrollIntoView({behavior: 'smooth'});
+      });
+    });
+  }
+  
+  async function searchNearbyFacility() {
+    return await UserNearbyFacilities( {
+      centerLat: myLatLng.lat,
+      centerLong: myLatLng.lng,
+    }, async res => {
+      if (res.error) return useGrowl('error', res.error);
+      markersFacility = gmapsComponent.clearMarkers( markersFacility );
+      facilities = await res.facilities;
+      facilities.forEach( fac => {
+        markersFacility.push( gmapsComponent.createMarker(
+           fac.lat,
+           fac.lng,
+           '/assets/icons/marker.svg',
+           32,
+        ) );
+      } );
+    } );
+  }
+  
+  async function initGoogleService() {
+    const {AutocompleteService} = await google.maps.importLibrary( 'places' );
+    autocomplete_service = new AutocompleteService();
+    geocoder = new google.maps.Geocoder();
+    
+    console.log( 'markersProperty=', markersProperty ); // TODO: find out why this not rendered initially?
+    if ( initialLatLong[ 0 ] !== 0 && initialLatLong[ 1 ] !== 0 ) {
+      await searchNearbyFacility();
+    }
+    await searchProperty( false );
   }
   
   function searchLocationHandler() {
@@ -96,42 +136,8 @@
   }
   
   async function searchByLocationHandler() {
-    await UserSearchProp( {
-      centerLat: myLatLng.lat,
-      centerLong: myLatLng.lng,
-      offset: 0,
-      limit: 0,
-      maxDistanceKM: defaultDistanceKm,
-    }, async res => {
-      if (res.error) return useGrowl('error', res.error);
-      randomProps = res.properties || [];
-    } );
-    markersProperty = gmapsComponent.clearMarkers( markersProperty );
-    randomProps.forEach( prop => {
-      markersProperty.push( gmapsComponent.createMarker(
-        prop.lat,
-        prop.lng,
-        '/assets/icons/marker-2.svg',
-        32,
-        prop.uniqPropKey,
-      ) );
-    } );
-    await UserNearbyFacilities( {
-      centerLat: myLatLng.lat,
-      centerLong: myLatLng.lng,
-    }, async res => {
-      if (res.error) return useGrowl('error', res.error);
-      facilities = res.facilities;
-      markersFacility = gmapsComponent.clearMarkers( markersFacility );
-      facilities.forEach( fac => {
-        markersFacility.push( gmapsComponent.createMarker(
-          fac.lat,
-          fac.lng,
-          '/assets/icons/marker.svg',
-          32,
-        ) );
-      } );
-    } );
+    await searchProperty( true );
+    await searchNearbyFacility();
   }
   
   async function searchByAddressHandler( place_id ) {
@@ -147,44 +153,10 @@
       } ).catch( ( e ) => {
         alert( 'Geocoder failed due to: ' + e );
       } );
-    await UserSearchProp( {
-      centerLat: myLatLng.lat,
-      centerLong: myLatLng.lng,
-      offset: 0,
-      limit: 0,
-      maxDistanceKM: defaultDistanceKm,
-    }, async res => {
-      if (res.error) return useGrowl('error', res.error);
-      randomProps = res.properties;
-      autocomplete_lists = [];
-      input_search_value = '';
-    } );
-    markersProperty = gmapsComponent.clearMarkers( markersProperty );
-    randomProps.forEach( prop => {
-      markersProperty.push( gmapsComponent.createMarker(
-        prop.lat,
-        prop.lng,
-        '/assets/icons/marker-2.svg',
-        32,
-        prop.uniqPropKey,
-      ) );
-    } );
-    await UserNearbyFacilities( {
-      centerLat: myLatLng.lat,
-      centerLong: myLatLng.lng,
-    }, async res => {
-      if (res.error) return useGrowl('error', res.error);
-      facilities = res.facilities;
-      markersFacility = gmapsComponent.clearMarkers( markersFacility );
-      facilities.forEach( fac => {
-        markersFacility.push( gmapsComponent.createMarker(
-          fac.lat,
-          fac.lng,
-          '/assets/icons/marker.svg',
-          32,
-        ) );
-      } );
-    } );
+    autocomplete_lists = [];
+    input_search_value = '';
+    await searchProperty( true );
+    await searchNearbyFacility();
     await gmapsComponent.setCentre( {
       lat: myLatLng.lat,
       lng: myLatLng.lng,
@@ -200,8 +172,8 @@
   <div class='left'>
     <div class='props_container'>
       {#if randomProps.length}
-        {#each randomProps as prop}
-          <div class='prop_item'>
+        {#each randomProps as prop, index}
+          <div class={propItemHighlight === index ? `prop_item highlight` : 'prop_item' } bind:this={propItemBinds[index]}>
             <div class='img_container'>
               {#if prop.images && prop.images.length}
                 <img src={prop.images[0]} alt='' />
@@ -420,6 +392,9 @@
     cursor         : pointer;
     height         : 190px;
     min-height     : 190px;
+  }
+  .property_location_container .left .props_container .prop_item.highlight {
+    border: 2px solid #1080e8;
   }
 
   .property_location_container .left .props_container .prop_item:nth-child(odd) {
