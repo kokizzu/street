@@ -21,8 +21,7 @@
   export let randomProps = [];
   export let defaultDistanceKm = 20;
   export let initialLatLong = [0, 0];
-  let facilities = [];
-  let markersFacility = [], markersProperty = [];
+  let facilities = [], markersFacility = [], markersProperty = [];
   let gmapsComponent; // maps
   let myLatLng = {lat: initialLatLong[ 0 ], lng: initialLatLong[ 1 ]};
   let mapOptions = {
@@ -31,10 +30,17 @@
     mapTypeId: 'roadmap',
     mapId: 'street_project',
   };
-  let geocoder;
-  let input_search_value, autocomplete_service;
+  let geocoder, input_search_value, autocomplete_service;
   let autocomplete_lists = [];
-  // let glowlComponent;
+  let showGrowl = false, gMsg = '', gType = '';
+  function useGrowl(type, msg) {
+    showGrowl = true;
+    gMsg=msg;
+    gType=type;
+    setTimeout( () => {
+      showGrowl = false;
+    }, 3000 );
+  }
   
   async function initGoogleService() {
     const {AutocompleteService} = await google.maps.importLibrary( 'places' );
@@ -44,24 +50,19 @@
     console.log( 'markersProperty=', markersProperty ); // TODO: find out why this not rendered initially?
     if ( initialLatLong[ 0 ] !== 0 && initialLatLong[ 1 ] !== 0 ) {
       await UserNearbyFacilities( {
-        centerLat: 'ffj', // for error handling testing, make it error
+        centerLat: myLatLng.lat, // for error handling testing, make it error
         centerLong: myLatLng.lng,
       }, async res => {
-        if (res.error) {
-          const errorMsg = await res.error
-          // glowlComponent.showGlowl(errorMsg, 'error', 3000);
-          console.log(res);
-        } else {
-          facilities = await res.facilities;
-          facilities.forEach( fac => {
-            markersFacility.push( gmapsComponent.createMarker(
-               fac.lat,
-               fac.lng,
-               '/assets/icons/marker.svg',
-               32,
-            ) );
-          } );
-        }
+        if (res.error) return useGrowl('error', res.error);
+        facilities = await res.facilities;
+        facilities.forEach( fac => {
+          markersFacility.push( gmapsComponent.createMarker(
+            fac.lat,
+            fac.lng,
+            '/assets/icons/marker.svg',
+            32,
+          ) );
+        } );
       } );
     }
     
@@ -102,6 +103,7 @@
       limit: 0,
       maxDistanceKM: defaultDistanceKm,
     }, async res => {
+      if (res.error) return useGrowl('error', res.error);
       randomProps = res.properties || [];
     } );
     markersProperty = gmapsComponent.clearMarkers( markersProperty );
@@ -118,9 +120,8 @@
       centerLat: myLatLng.lat,
       centerLong: myLatLng.lng,
     }, async res => {
-      console.log(res)
-      if(res.error) return console.log();
-      facilities = await res.facilities;
+      if (res.error) return useGrowl('error', res.error);
+      facilities = res.facilities;
       markersFacility = gmapsComponent.clearMarkers( markersFacility );
       facilities.forEach( fac => {
         markersFacility.push( gmapsComponent.createMarker(
@@ -153,8 +154,8 @@
       limit: 0,
       maxDistanceKM: defaultDistanceKm,
     }, async res => {
+      if (res.error) return useGrowl('error', res.error);
       randomProps = res.properties;
-      console.log( randomProps );
       autocomplete_lists = [];
       input_search_value = '';
     } );
@@ -172,8 +173,8 @@
       centerLat: myLatLng.lat,
       centerLong: myLatLng.lng,
     }, async res => {
-      console.log(res)
-      facilities = await res.facilities;
+      if (res.error) return useGrowl('error', res.error);
+      facilities = res.facilities;
       markersFacility = gmapsComponent.clearMarkers( markersFacility );
       facilities.forEach( fac => {
         markersFacility.push( gmapsComponent.createMarker(
@@ -191,7 +192,9 @@
   }
 </script>
 
-<Growl />
+{#if showGrowl}
+  <Growl message={gMsg} growlType={gType}/>
+{/if}
 <GoogleSdk on:ready={initGoogleService} />
 <div class='property_location_container'>
   <div class='left'>

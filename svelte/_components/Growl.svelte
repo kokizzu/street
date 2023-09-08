@@ -7,88 +7,71 @@
   import FaSolidTimesCircle from 'svelte-icons-pack/fa/FaSolidTimesCircle'; // error
   import FaSolidQuestionCircle from 'svelte-icons-pack/fa/FaSolidQuestionCircle'; // default
   
-  // BUG: get error when calling method
-  
-  let message = 'This is growl, XD';
-  let glowlType = 'default'; // default, info, warning, error, success
-  let duration = 3000;
-  let isVisible = true;
-  setTimeout( () => {
-    isVisible = false;
-  }, duration );
-  // export function showGlowl(msg, type, duration) {
-  //   isVisible = true;
-  //   message = msg;
-  //   glowlType = type;
-  //   setTimeout( () => {
-  //     isVisible = false;
-  //   }, duration );
-  // }
+  export let message = 'This is growl, XD';
+  export let growlType = 'default'; // default, info, warning, error, success
 </script>
 
-{#if isVisible}
-  <div class={`growl ${glowlType}`}>
-	 {#if glowlType === 'default'}
-		<Icon className='icon_growl' size={20} color='#475569' src={FaSolidQuestionCircle} />
-	 {/if}
-	 {#if glowlType === 'info'}
-		<Icon className='icon_growl' size={20} color='#ffff' src={FaSolidInfoCircle} />
-	 {/if}
-	 {#if glowlType === 'success'}
-		<Icon className='icon_growl' size={20} color='#ffff' src={FaSolidCheckCircle} />
-	 {/if}
-	 {#if glowlType === 'error'}
-		<Icon className='icon_growl' size={20} color='#ffff' src={FaSolidTimesCircle} />
-	 {/if}
-	 {#if glowlType === 'warning'}
-		<Icon className='icon_growl' size={19} color='#ffff' src={FaSolidExclamationTriangle} />
-	 {/if}
-	 <span>{message}</span>
-  </div>
-{/if}
+<div class={`growl ${growlType}`}>
+  {#if growlType === 'default'}
+    <Icon className="icon_growl" size={20} color="#475569" src={FaSolidQuestionCircle} />
+  {/if}
+  {#if growlType === 'info'}
+    <Icon className="icon_growl" size={20} color="#ffff" src={FaSolidInfoCircle} />
+  {/if}
+  {#if growlType === 'success'}
+    <Icon className="icon_growl" size={20} color="#ffff" src={FaSolidCheckCircle} />
+  {/if}
+  {#if growlType === 'error'}
+    <Icon className="icon_growl" size={20} color="#ffff" src={FaSolidTimesCircle} />
+  {/if}
+  {#if growlType === 'warning'}
+    <Icon className="icon_growl" size={19} color="#ffff" src={FaSolidExclamationTriangle} />
+  {/if}
+  <span>{message}</span>
+</div>
 
 <style>
   .growl {
-	 position: fixed;
-	 display: flex;
-	 flex-direction: row;
-	 align-items: center;
-	 gap: 8px;
-	 font-size: 14px;
-	 bottom: 20px;
-	 right: 20px;
-	 padding: 10px 20px;
-	 border-radius: 3px;
-	 box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
-	 z-index: 9999;
-	 min-width: 120px;
-	 max-width: 350px;
-	 height: fit-content;
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 3px;
+    box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
+    z-index: 9999;
+    min-width: 120px;
+    max-width: 350px;
+    height: fit-content;
   }
   :global(.icon_growl) {
     flex-shrink: 0;
   }
   .growl span {
-	 flex-shrink: 1;
+    flex-shrink: 1;
   }
   .growl.default {
-	 background-color: #FFFFFF;
-	 color: #475569;
+    background-color: #ffffff;
+    color: #475569;
   }
   .growl.info {
-	 background-color: #1080e8;
-	 color: #FFFFFF;
+    background-color: #1080e8;
+    color: #ffffff;
   }
   .growl.success {
-	 background-color: #059669;
-    color: #FFFFFF;
+    background-color: #059669;
+    color: #ffffff;
   }
   .growl.error {
-	 background-color: #ef4444;
-	 color: #FFFFFF;
+    background-color: #ef4444;
+    color: #ffffff;
   }
   .growl.warning {
-	 background-color: #d97706;
-	 color: #FFFFFF;
+    background-color: #d97706;
+    color: #ffffff;
   }
 </style>
