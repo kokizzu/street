@@ -54,6 +54,27 @@ func (p *PropLikeCountMutator) ClearMutations() { //nolint:dupl false positive
 //	return !L.IsError(err, `PropLikeCount.DoUpsert failed: `+p.SpaceName())
 // }
 
+// DoOverwriteByPropId update all columns, error if not exists, not using mutations/Set*
+func (p *PropLikeCountMutator) DoOverwriteByPropId() bool { //nolint:dupl false positive
+	_, err := p.Adapter.Update(p.SpaceName(), p.UniqueIndexPropId(), A.X{p.PropId}, p.ToUpdateArray())
+	return !L.IsError(err, `PropLikeCount.DoOverwriteByPropId failed: `+p.SpaceName())
+}
+
+// DoUpdateByPropId update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (p *PropLikeCountMutator) DoUpdateByPropId() bool { //nolint:dupl false positive
+	if !p.HaveMutation() {
+		return true
+	}
+	_, err := p.Adapter.Update(p.SpaceName(), p.UniqueIndexPropId(), A.X{p.PropId}, p.mutations)
+	return !L.IsError(err, `PropLikeCount.DoUpdateByPropId failed: `+p.SpaceName())
+}
+
+// DoDeletePermanentByPropId permanent delete
+func (p *PropLikeCountMutator) DoDeletePermanentByPropId() bool { //nolint:dupl false positive
+	_, err := p.Adapter.Delete(p.SpaceName(), p.UniqueIndexPropId(), A.X{p.PropId})
+	return !L.IsError(err, `PropLikeCount.DoDeletePermanentByPropId failed: `+p.SpaceName())
+}
+
 // DoInsert insert, error if already exists
 func (p *PropLikeCountMutator) DoInsert() bool { //nolint:dupl false positive
 	_, err := p.Adapter.Insert(p.SpaceName(), p.ToArray())
