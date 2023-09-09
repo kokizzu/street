@@ -40,6 +40,25 @@ func (p *PropLikeCount) SqlTableName() string { //nolint:dupl false positive
 	return `"propLikeCount"`
 }
 
+// UniqueIndexPropId return unique index name
+func (p *PropLikeCount) UniqueIndexPropId() string { //nolint:dupl false positive
+	return `propId`
+}
+
+// FindByPropId Find one by PropId
+func (p *PropLikeCount) FindByPropId() bool { //nolint:dupl false positive
+	res, err := p.Adapter.Select(p.SpaceName(), p.UniqueIndexPropId(), 0, 1, tarantool.IterEq, A.X{p.PropId})
+	if L.IsError(err, `PropLikeCount.FindByPropId failed: `+p.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		p.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
 // SqlSelectAllFields generate Sql select fields
 func (p *PropLikeCount) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "propId"
