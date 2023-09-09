@@ -18,11 +18,10 @@
   import FaSolidBan from 'svelte-icons-pack/fa/FaSolidBan';
   import FaSolidReceipt from 'svelte-icons-pack/fa/FaSolidReceipt';
   
-  export let randomProps = [];
+  export let randomProps = []
   export let defaultDistanceKm = 20;
   export let initialLatLong = [0, 0];
-  let facilities = [];
-  let markersFacility = [], markersProperty = [];
+  let facilities = [], markersFacility = [], markersProperty = [], propItemBinds = [], propItemHighlight = null;
   let gmapsComponent; // maps
   let myLatLng = {lat: initialLatLong[ 0 ], lng: initialLatLong[ 1 ]};
   let mapOptions = {
@@ -31,10 +30,106 @@
     mapTypeId: 'roadmap',
     mapId: 'street_project',
   };
-  let geocoder;
-  let input_search_value, autocomplete_service;
+  let geocoder, input_search_value, autocomplete_service;
   let autocomplete_lists = [];
-  // let glowlComponent;
+  let showGrowl = false, gMsg = '', gType = '';
+  function useGrowl(type, msg) {
+    showGrowl = true;
+    gMsg=msg;
+    gType=type;
+    setTimeout( () => {
+      showGrowl = false;
+    }, 3000 );
+  }
+  const highLightMapMarker = {
+    enter: (index) => {
+      propItemHighlight = index;
+      setTimeout(() => {
+        markersProperty[ index ].setIcon( {
+          url: '/assets/icons/marker-2.svg', // URL to your custom icon image
+          scaledSize: new google.maps.Size( 40, 40 )
+        } );
+        gmapsComponent.setCentre( {
+          lat: markersProperty[ index ].position.lat(),
+          lng: markersProperty[ index ].position.lng()
+        } );
+      }, 900);
+    },
+    leave: (index) => {
+      markersProperty[index].setIcon({
+        url: '/assets/icons/marker-2.svg', // URL to your custom icon image
+        scaledSize: new google.maps.Size(32, 32)
+      });
+      propItemHighlight = null;
+    }
+  }
+  
+  async function searchProperty( search ) {
+    if (search) {
+      await UserSearchProp( {
+        centerLat: myLatLng.lat,
+        centerLong: myLatLng.lng,
+        offset: 0,
+        limit: 0,
+        maxDistanceKM: defaultDistanceKm,
+      }, async res => {
+        if( res.error ) return useGrowl( 'error', res.error );
+        randomProps = res.properties || [];
+      } );
+      markersProperty = gmapsComponent.clearMarkers( markersProperty );
+    }
+    randomProps.forEach( prop => {
+      markersProperty.push( gmapsComponent.createMarker(
+         prop.lat,
+         prop.lng,
+         '/assets/icons/marker-2.svg',
+         32,
+         prop.uniqPropKey,
+      ) );
+    } );
+    markersProperty.forEach((marker, idx) => {
+      marker.addListener("mouseover", () => {
+        marker.setIcon({
+          url: '/assets/icons/marker-2.svg', // URL to your custom icon image
+          scaledSize: new google.maps.Size(40, 40)
+        })
+      })
+      marker.addListener("mouseout", () => {
+        marker.setIcon({
+          url: '/assets/icons/marker-2.svg', // URL to your custom icon image
+          scaledSize: new google.maps.Size(32, 32)
+        })
+      })
+      marker.addListener("click", () => {
+        let propItem = propItemBinds[idx];
+        propItemHighlight = idx;
+        propItem.scrollIntoView({behavior: 'smooth'});
+        setTimeout(() => {
+          propItemHighlight = null;
+        }, 2200)
+      });
+    });
+  }
+  
+  async function searchNearbyFacility() {
+    return await UserNearbyFacilities( {
+      centerLat: myLatLng.lat,
+      centerLong: myLatLng.lng,
+    }, async res => {
+      if (res.error) return useGrowl('error', res.error);
+      markersFacility = gmapsComponent.clearMarkers( markersFacility );
+      facilities = await res.facilities;
+      console.log(facilities)
+      facilities.forEach( fac => {
+        markersFacility.push( gmapsComponent.createMarker(
+           fac.lat,
+           fac.lng,
+           '/assets/icons/marker.svg',
+           32,
+        ) );
+      } );
+    } );
+  }
   
   async function initGoogleService() {
     const {AutocompleteService} = await google.maps.importLibrary( 'places' );
@@ -43,37 +138,9 @@
     
     console.log( 'markersProperty=', markersProperty ); // TODO: find out why this not rendered initially?
     if ( initialLatLong[ 0 ] !== 0 && initialLatLong[ 1 ] !== 0 ) {
-      await UserNearbyFacilities( {
-        centerLat: 'ffj', // for error handling testing, make it error
-        centerLong: myLatLng.lng,
-      }, async res => {
-        if (res.error) {
-          const errorMsg = await res.error
-          // glowlComponent.showGlowl(errorMsg, 'error', 3000);
-          console.log(res);
-        } else {
-          facilities = await res.facilities;
-          facilities.forEach( fac => {
-            markersFacility.push( gmapsComponent.createMarker(
-               fac.lat,
-               fac.lng,
-               '/assets/icons/marker.svg',
-               32,
-            ) );
-          } );
-        }
-      } );
+      await searchNearbyFacility();
     }
-    
-    randomProps.forEach( prop => {
-      markersProperty.push( gmapsComponent.createMarker( // TODO: this is duplicate code
-         prop.lat,
-         prop.lng,
-         '/assets/icons/marker-2.svg',
-         32,
-         prop.uniqPropKey,
-      ) );
-    } );
+    await searchProperty( false );
   }
   
   function searchLocationHandler() {
@@ -95,42 +162,8 @@
   }
   
   async function searchByLocationHandler() {
-    await UserSearchProp( {
-      centerLat: myLatLng.lat,
-      centerLong: myLatLng.lng,
-      offset: 0,
-      limit: 0,
-      maxDistanceKM: defaultDistanceKm,
-    }, async res => {
-      randomProps = res.properties || [];
-    } );
-    markersProperty = gmapsComponent.clearMarkers( markersProperty );
-    randomProps.forEach( prop => {
-      markersProperty.push( gmapsComponent.createMarker(
-        prop.lat,
-        prop.lng,
-        '/assets/icons/marker-2.svg',
-        32,
-        prop.uniqPropKey,
-      ) );
-    } );
-    await UserNearbyFacilities( {
-      centerLat: myLatLng.lat,
-      centerLong: myLatLng.lng,
-    }, async res => {
-      console.log(res)
-      if(res.error) return console.log();
-      facilities = await res.facilities;
-      markersFacility = gmapsComponent.clearMarkers( markersFacility );
-      facilities.forEach( fac => {
-        markersFacility.push( gmapsComponent.createMarker(
-          fac.lat,
-          fac.lng,
-          '/assets/icons/marker.svg',
-          32,
-        ) );
-      } );
-    } );
+    await searchProperty( true );
+    await searchNearbyFacility();
   }
   
   async function searchByAddressHandler( place_id ) {
@@ -146,44 +179,10 @@
       } ).catch( ( e ) => {
         alert( 'Geocoder failed due to: ' + e );
       } );
-    await UserSearchProp( {
-      centerLat: myLatLng.lat,
-      centerLong: myLatLng.lng,
-      offset: 0,
-      limit: 0,
-      maxDistanceKM: defaultDistanceKm,
-    }, async res => {
-      randomProps = res.properties;
-      console.log( randomProps );
-      autocomplete_lists = [];
-      input_search_value = '';
-    } );
-    markersProperty = gmapsComponent.clearMarkers( markersProperty );
-    randomProps.forEach( prop => {
-      markersProperty.push( gmapsComponent.createMarker(
-        prop.lat,
-        prop.lng,
-        '/assets/icons/marker-2.svg',
-        32,
-        prop.uniqPropKey,
-      ) );
-    } );
-    await UserNearbyFacilities( {
-      centerLat: myLatLng.lat,
-      centerLong: myLatLng.lng,
-    }, async res => {
-      console.log(res)
-      facilities = await res.facilities;
-      markersFacility = gmapsComponent.clearMarkers( markersFacility );
-      facilities.forEach( fac => {
-        markersFacility.push( gmapsComponent.createMarker(
-          fac.lat,
-          fac.lng,
-          '/assets/icons/marker.svg',
-          32,
-        ) );
-      } );
-    } );
+    autocomplete_lists = [];
+    input_search_value = '';
+    await searchProperty( true );
+    await searchNearbyFacility();
     await gmapsComponent.setCentre( {
       lat: myLatLng.lat,
       lng: myLatLng.lng,
@@ -191,14 +190,21 @@
   }
 </script>
 
-<Growl />
+{#if showGrowl}
+  <Growl message={gMsg} growlType={gType}/>
+{/if}
 <GoogleSdk on:ready={initGoogleService} />
 <div class='property_location_container'>
   <div class='left'>
     <div class='props_container'>
       {#if randomProps.length}
-        {#each randomProps as prop}
-          <div class='prop_item'>
+        {#each randomProps as prop, index}
+          <button
+             class={propItemHighlight === index ? `prop_item highlight` : 'prop_item' }
+             bind:this={propItemBinds[index]}
+             on:mouseenter={() => highLightMapMarker.enter(index)}
+             on:mouseleave={() => highLightMapMarker.leave(index)}
+          >
             <div class='img_container'>
               {#if prop.images && prop.images.length}
                 <img src={prop.images[0]} alt='' />
@@ -253,7 +259,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </button>
         {/each}
       {:else }
         <div class='no_properties'>
@@ -290,7 +296,7 @@
         <input
           type='text'
           id='search_location'
-          placeholder='Search address...'
+          placeholder='Search for address...'
           on:input={() => {
             searchLocationHandler();
           }}
@@ -417,10 +423,18 @@
     cursor         : pointer;
     height         : 190px;
     min-height     : 190px;
+    border: none;
+    color: #475569;
+  }
+  .property_location_container .left .props_container .prop_item.highlight {
+    border: 2px solid #1080e8;
   }
 
   .property_location_container .left .props_container .prop_item:nth-child(odd) {
     background-color : #F1F5F9;
+  }
+  .property_location_container .left .props_container .prop_item:nth-child(even) {
+    background-color : transparent;
   }
 
   .property_location_container .left .props_container .prop_item:hover .prop_info .main_info .address {
