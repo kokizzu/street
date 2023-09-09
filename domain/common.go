@@ -14,6 +14,7 @@ import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/gabriel-vasile/mimetype"
 	"github.com/goccy/go-json"
+	"github.com/gofiber/fiber/v2/utils"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/kokizzu/gotro/A"
@@ -170,7 +171,7 @@ func (i *RequestCommon) Latency() float64 {
 func (l *RequestCommon) FromFiberCtx(ctx *fiber.Ctx, tracerCtx context.Context) {
 	l.RequestId = lexid.ID()
 	l.SessionToken = ctx.Cookies(conf.CookieName, l.SessionToken)
-	l.UserAgent = fmt.Sprint(ctx.Request().Header.UserAgent()) // create a copy since we should not use context's buffer
+	l.UserAgent = utils.CopyString(string(ctx.Request().Header.UserAgent()))
 	l.Host = ctx.Protocol() + `://` + ctx.Hostname()
 	// from nginx reverse proxy
 	l.IpAddress = ctx.IP()

@@ -2,6 +2,7 @@ package presentation
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/utils"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/X"
@@ -302,9 +303,9 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			return err
 		}
 
-		in.Base62id = ctx.Params(`base62id`)
-		in.Modifier = ctx.Params(`modifier`)
-		in.Ext = ctx.Params(`ext`)
+		in.Base62id = utils.CopyString(ctx.Params(`base62id`))
+		in.Modifier = utils.CopyString(ctx.Params(`modifier`))
+		in.Ext = utils.CopyString(ctx.Params(`ext`))
 
 		out := d.GuestFiles(&in)
 		ctx.Set("content-type", out.ContentType)
