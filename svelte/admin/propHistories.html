@@ -562,7 +562,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 }
 
 /* fakecss:./_components/ProfileHeader.esbuild-svelte-fake-css */
-.profile_header.svelte-3tn45r.svelte-3tn45r.svelte-3tn45r {
+.profile_header.svelte-1dqst12.svelte-1dqst12.svelte-1dqst12 {
   background-color: #EF4444;
   height: fit-content;
   position: relative;
@@ -573,19 +573,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   display: flex;
   flex-direction: column;
 }
-.profile_header.svelte-3tn45r .navbar.svelte-3tn45r.svelte-3tn45r {
+.profile_header.svelte-1dqst12 .navbar.svelte-1dqst12.svelte-1dqst12 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.profile_header.svelte-3tn45r .navbar .label_menu.svelte-3tn45r.svelte-3tn45r {
+.profile_header.svelte-1dqst12 .navbar .label_menu.svelte-1dqst12.svelte-1dqst12 {
   display: flex;
   flex-direction: row;
   align-items: center;
   color: white;
 }
-.profile_header.svelte-3tn45r .navbar .label_menu button.svelte-3tn45r.svelte-3tn45r {
+.profile_header.svelte-1dqst12 .navbar .label_menu button.svelte-1dqst12.svelte-1dqst12 {
   padding: 10px;
   border: none;
   background: none;
@@ -594,33 +594,63 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   color: white;
   cursor: pointer;
 }
-.profile_header.svelte-3tn45r .navbar .label_menu button.svelte-3tn45r.svelte-3tn45r:hover {
+.profile_header.svelte-1dqst12 .navbar .label_menu button.svelte-1dqst12.svelte-1dqst12:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
-.profile_header.svelte-3tn45r .navbar .label_menu p.svelte-3tn45r.svelte-3tn45r {
+.profile_header.svelte-1dqst12 .navbar .label_menu p.svelte-1dqst12.svelte-1dqst12 {
   font-size: 17px;
   font-weight: 600;
   line-height: 1.5rem;
   padding: 0;
   margin: 0 0 0 15px;
 }
-.profile_header.svelte-3tn45r .navbar .right_nav.svelte-3tn45r.svelte-3tn45r {
+.profile_header.svelte-1dqst12 .navbar .right_nav.svelte-1dqst12.svelte-1dqst12 {
   display: flex;
   flex-direction: row;
+  gap: 30px;
+  align-items: center;
 }
-.profile_header.svelte-3tn45r .navbar .right_nav .profile_button.svelte-3tn45r.svelte-3tn45r {
+.profile_header.svelte-1dqst12 .navbar .right_nav .toggle_lang.svelte-1dqst12.svelte-1dqst12 {
+  border: none;
+  padding: 6px 8px;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  height: fit-content;
+  font-size: 10px;
+  font-weight: 600;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  color: #475569;
+  cursor: pointer;
+}
+.profile_header.svelte-1dqst12 .navbar .right_nav .toggle_lang.svelte-1dqst12.svelte-1dqst12:hover {
+  background-color: #F1F5F9;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+}
+.profile_header.svelte-1dqst12 .navbar .right_nav .toggle_lang span.svelte-1dqst12.svelte-1dqst12 {
+  padding: 5px;
+  background-color: transparent;
+}
+.profile_header.svelte-1dqst12 .navbar .right_nav .toggle_lang span.lang.svelte-1dqst12.svelte-1dqst12 {
+  background-color: #3b82f6;
+  border-radius: 5px;
+  color: #FFFFFF;
+}
+.profile_header.svelte-1dqst12 .navbar .right_nav .profile_button.svelte-1dqst12.svelte-1dqst12 {
   padding: 0;
   border: none;
   margin: 0;
   width: fit-content;
   height: fit-content;
-  border-radius: 9999px;
+  border-radius: 50%;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
-.profile_header.svelte-3tn45r .navbar .right_nav .profile_button.svelte-3tn45r.svelte-3tn45r:hover {
+.profile_header.svelte-1dqst12 .navbar .right_nav .profile_button.svelte-1dqst12.svelte-1dqst12:hover {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
   cursor: pointer;
 }
-.profile_header.svelte-3tn45r .navbar .right_nav .profile_button.svelte-3tn45r > img.svelte-3tn45r {
+.profile_header.svelte-1dqst12 .navbar .right_nav .profile_button.svelte-1dqst12 > img.svelte-1dqst12 {
   width: 50px;
   height: 50px;
   border-radius: 9999px;
@@ -3656,6 +3686,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 
   // _components/uiState.js
   var isSideMenuOpen = writable(false);
+  var uiLangTWN = writable(false);
 
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment(ctx) {
@@ -7825,7 +7856,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let p;
     let t2;
     let div1;
-    let t9;
+    let button1;
+    let span0;
+    let t4;
+    let span1;
+    let t6;
+    let button2;
+    let t7;
     let div2;
     let current;
     let mounted;
@@ -7849,17 +7886,37 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         p.textContent = "DASHBOARD";
         t2 = space();
         div1 = element("div");
-        div1.innerHTML = `<!--			<form class="search_input">--> <!--				<span>--> <!--					<i class="gg-search"></i>--> <!--				</span>--> <!--				<input type="text" placeholder="Search here..." name="search" />--> <!--			</form>--> <button class="profile_button svelte-3tn45r"><img src="/assets/img/team-1-200x200.jpg" alt="profile" class="svelte-3tn45r"/></button>`;
-        t9 = space();
+        button1 = element("button");
+        span0 = element("span");
+        span0.textContent = "TWN";
+        t4 = space();
+        span1 = element("span");
+        span1.textContent = "ENG";
+        t6 = space();
+        button2 = element("button");
+        button2.innerHTML = `<img src="/assets/img/team-1-200x200.jpg" alt="profile" class="svelte-1dqst12"/>`;
+        t7 = space();
         div2 = element("div");
         div2.innerHTML = `<!-- Chart Goes here -->`;
-        attr(button0, "class", "svelte-3tn45r");
-        attr(p, "class", "svelte-3tn45r");
-        attr(div0, "class", "label_menu svelte-3tn45r");
-        attr(div1, "class", "right_nav svelte-3tn45r");
-        attr(nav, "class", "navbar svelte-3tn45r");
+        attr(button0, "class", "svelte-1dqst12");
+        attr(p, "class", "svelte-1dqst12");
+        attr(div0, "class", "label_menu svelte-1dqst12");
+        attr(span0, "class", "svelte-1dqst12");
+        toggle_class(
+          span0,
+          "lang",
+          /*$uiLangTWN*/
+          ctx[0]
+        );
+        attr(span1, "class", "svelte-1dqst12");
+        toggle_class(span1, "lang", !/*$uiLangTWN*/
+        ctx[0]);
+        attr(button1, "class", "toggle_lang svelte-1dqst12");
+        attr(button2, "class", "profile_button svelte-1dqst12");
+        attr(div1, "class", "right_nav svelte-1dqst12");
+        attr(nav, "class", "navbar svelte-1dqst12");
         attr(div2, "class", "stats");
-        attr(header, "class", "profile_header svelte-3tn45r");
+        attr(header, "class", "profile_header svelte-1dqst12");
       },
       m(target, anchor) {
         insert(target, header, anchor);
@@ -7871,18 +7928,47 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div0, p);
         append(nav, t2);
         append(nav, div1);
-        append(header, t9);
+        append(div1, button1);
+        append(button1, span0);
+        append(button1, t4);
+        append(button1, span1);
+        append(div1, t6);
+        append(div1, button2);
+        append(header, t7);
         append(header, div2);
         current = true;
         if (!mounted) {
-          dispose = listen(button0, "click", prevent_default(
-            /*openSideMenu*/
-            ctx[0]
-          ));
+          dispose = [
+            listen(button0, "click", prevent_default(
+              /*openSideMenu*/
+              ctx[1]
+            )),
+            listen(
+              button1,
+              "click",
+              /*toggleLang*/
+              ctx[2]
+            )
+          ];
           mounted = true;
         }
       },
-      p: noop,
+      p(ctx2, [dirty]) {
+        if (!current || dirty & /*$uiLangTWN*/
+        1) {
+          toggle_class(
+            span0,
+            "lang",
+            /*$uiLangTWN*/
+            ctx2[0]
+          );
+        }
+        if (!current || dirty & /*$uiLangTWN*/
+        1) {
+          toggle_class(span1, "lang", !/*$uiLangTWN*/
+          ctx2[0]);
+        }
+      },
       i(local) {
         if (current)
           return;
@@ -7899,17 +7985,22 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         destroy_component(icon);
         mounted = false;
-        dispose();
+        run_all(dispose);
       }
     };
   }
   function instance7($self, $props, $invalidate) {
+    let $uiLangTWN;
     let $isSideMenuOpen;
-    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(1, $isSideMenuOpen = $value));
+    component_subscribe($self, uiLangTWN, ($value) => $invalidate(0, $uiLangTWN = $value));
+    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(3, $isSideMenuOpen = $value));
     function openSideMenu() {
       isSideMenuOpen.set(!$isSideMenuOpen);
     }
-    return [openSideMenu];
+    function toggleLang() {
+      uiLangTWN.set(!$uiLangTWN);
+    }
+    return [$uiLangTWN, openSideMenu, toggleLang];
   }
   var ProfileHeader = class extends SvelteComponent {
     constructor(options) {

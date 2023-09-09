@@ -44,19 +44,13 @@
   const highLightMapMarker = {
     enter: (index) => {
       propItemHighlight = index;
-      setTimeout(() => {
-        markersProperty[ index ].setIcon( {
-          url: '/assets/icons/marker-2.svg', // URL to your custom icon image
-          scaledSize: new google.maps.Size( 40, 40 )
-        } );
-        gmapsComponent.setCentre( {
-          lat: markersProperty[ index ].position.lat(),
-          lng: markersProperty[ index ].position.lng()
-        } );
-      }, 900);
+      markersProperty[ index ].setIcon( {
+        url: '/assets/icons/marker-2.svg', // URL to your custom icon image
+        scaledSize: new google.maps.Size( 40, 40 )
+      } );
     },
     leave: (index) => {
-      markersProperty[index].setIcon({
+      markersProperty[ index ].setIcon({
         url: '/assets/icons/marker-2.svg', // URL to your custom icon image
         scaledSize: new google.maps.Size(32, 32)
       });
@@ -112,7 +106,7 @@
   }
   
   async function searchNearbyFacility() {
-    return await UserNearbyFacilities( {
+    await UserNearbyFacilities( {
       centerLat: myLatLng.lat,
       centerLong: myLatLng.lng,
     }, async res => {
@@ -129,6 +123,20 @@
         ) );
       } );
     } );
+    markersFacility.forEach((marker) => {
+      marker.addListener("mouseover", () => {
+        marker.setIcon({
+          url: '/assets/icons/marker.svg', // URL to your custom icon image
+          scaledSize: new google.maps.Size(40, 40)
+        })
+      })
+      marker.addListener("mouseout", () => {
+        marker.setIcon({
+          url: '/assets/icons/marker.svg', // URL to your custom icon image
+          scaledSize: new google.maps.Size(32, 32)
+        })
+      })
+    })
   }
   
   async function initGoogleService() {
@@ -423,7 +431,7 @@
     cursor         : pointer;
     height         : 190px;
     min-height     : 190px;
-    border: none;
+    border: 2px solid transparent;
     color: #475569;
   }
   .property_location_container .left .props_container .prop_item.highlight {
@@ -480,6 +488,7 @@
     display         : flex;
     flex-direction  : column;
     justify-content : space-between;
+    height: 100%;
   }
 
   .property_location_container .left .props_container .prop_item .prop_info .main_info {
@@ -513,6 +522,7 @@
     align-items    : flex-start;
     font-size      : 15px;
     gap            : 8px;
+    text-align: left;
   }
 
   .property_location_container .left .props_container .prop_item .prop_info .main_info .feature {
