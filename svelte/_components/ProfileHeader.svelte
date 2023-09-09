@@ -1,12 +1,13 @@
 <script>
-	// import PieChart from './PieChart.svelte'
-	// import PieLegend from './PieLegend.svelte'
-	import { isSideMenuOpen } from './uiState.js';
+	import { isSideMenuOpen, uiLangTWN } from './uiState.js';
    import Icon from 'svelte-icons-pack/Icon.svelte';
    import FaSolidBars from 'svelte-icons-pack/fa/FaSolidBars';
 	
 	function openSideMenu() {
-    isSideMenuOpen.set(!$isSideMenuOpen)
+    isSideMenuOpen.set(!$isSideMenuOpen);
+   }
+   function toggleLang() {
+    uiLangTWN.set(!$uiLangTWN);
    }
 </script>
 
@@ -19,12 +20,10 @@
 			<p>DASHBOARD</p>
 		</div>
 		<div class="right_nav">
-<!--			<form class="search_input">-->
-<!--				<span>-->
-<!--					<i class="gg-search"></i>-->
-<!--				</span>-->
-<!--				<input type="text" placeholder="Search here..." name="search" />-->
-<!--			</form>-->
+			<button on:click={toggleLang} class="toggle_lang">
+				<span class:lang={$uiLangTWN}>TWN</span>
+				<span class:lang={!$uiLangTWN}>ENG</span>
+			</button>
 			<button class="profile_button">
 				<img src="/assets/img/team-1-200x200.jpg" alt="profile" />
 			</button>
@@ -81,39 +80,44 @@
    .profile_header .navbar .right_nav {
    	display: flex;
    	flex-direction: row;
+	    gap: 30px;
+	    align-items: center;
    }
-   /*.profile_header .navbar .right_nav .search_input {*/
-   /*	margin-right: 15px;*/
-   /*	margin-top: auto;*/
-   /*	margin-left: 0;*/
-   /*	margin-bottom: auto;*/
-   /*}*/
-   /*.profile_header .navbar .right_nav .search_input > span {*/
-   /*	padding: 13px;*/
-   /*	position: absolute;*/
-   /*	z-index: 10;*/
-   /*	font-size: 16px;*/
-   /*	color: #CBD5E1;*/
-   /*}*/
-   /*.profile_header .navbar .right_nav .search_input > input {*/
-   /*	width: 250px;*/
-   /*	border: none;*/
-   /*	border-radius: 8px;*/
-   /*	padding-top: 12px;*/
-   /*	padding-bottom: 12px;*/
-   /*	padding-left: 40px;*/
-   /*	padding-right: 12px;*/
-   /*}*/
-   /*.profile_header .navbar .right_nav .search_input > input:focus {*/
-   /*	outline: 3px solid #3b82f6;*/
-   /*}*/
+   .profile_header .navbar .right_nav .toggle_lang {
+       border: none;
+       padding: 6px 8px;
+       background-color: #FFFFFF;
+       border-radius: 8px;
+       height: fit-content;
+       font-size: 10px;
+       font-weight: 600;
+       display: flex;
+       gap: 4px;
+       align-items: center;
+	    color: #475569;
+	    cursor: pointer;
+   }
+   .profile_header .navbar .right_nav .toggle_lang:hover {
+	    background-color: #F1F5F9;
+       filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+   }
+   .profile_header .navbar .right_nav .toggle_lang span {
+       padding: 5px;
+	    background-color: transparent;
+   }
+   .profile_header .navbar .right_nav .toggle_lang span.lang {
+	    background-color: #3b82f6;
+	    border-radius: 5px;
+	    color: #FFFFFF;
+   }
    .profile_header .navbar .right_nav .profile_button {
       padding: 0;
     	border: none;
     	margin: 0;
     	width: fit-content;
     	height: fit-content;
-    	border-radius: 9999px;
+    	border-radius: 50%;
+       filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
  	}
  	.profile_header .navbar .right_nav .profile_button:hover {
 	 	box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
