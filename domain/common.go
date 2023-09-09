@@ -170,7 +170,7 @@ func (i *RequestCommon) Latency() float64 {
 func (l *RequestCommon) FromFiberCtx(ctx *fiber.Ctx, tracerCtx context.Context) {
 	l.RequestId = lexid.ID()
 	l.SessionToken = ctx.Cookies(conf.CookieName, l.SessionToken)
-	l.UserAgent = string(ctx.Request().Header.UserAgent())
+	l.UserAgent = fmt.Sprint(ctx.Request().Header.UserAgent()) // create a copy since we should not use context's buffer
 	l.Host = ctx.Protocol() + `://` + ctx.Hostname()
 	// from nginx reverse proxy
 	l.IpAddress = ctx.IP()
