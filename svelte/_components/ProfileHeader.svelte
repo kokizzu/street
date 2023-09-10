@@ -40,9 +40,6 @@
       </button>
     </div>
   </nav>
-  <div class="stats">
-    <!-- Chart Goes here -->
-  </div>
 </header>
 
 <style>

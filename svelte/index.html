@@ -1,6 +1,7 @@
 <html><head>
     <title>/*! title */</title>
     <link href="/css.gg.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
 </head>
 <body>
 <style>
@@ -3842,9 +3843,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // index.svelte
   var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
 
-  // _components/Menu.svelte
-  var import_jsApi_GEN = __toESM(require_jsApi_GEN());
-
   // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/store/index.js
   var subscriber_queue = [];
   function writable(value, start = noop) {
@@ -3892,6 +3890,115 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/uiState.js
   var isSideMenuOpen = writable(false);
   var isLangTWN = writable(false);
+
+  // translation.json
+  var translation_default = {
+    about: "About",
+    aboutTW: "\u6982\u8981",
+    agencyFee: "Agency Fee",
+    agencyFeeTW: "\u4EF2\u4ECB\u8CBB",
+    all: "All",
+    allTW: "\u5168\u90E8",
+    aroundHome: "Around Home",
+    aroundHomeTW: "\u5468\u908A\u8CC7\u8A0A",
+    askByText: "Ask by Text",
+    askByTextTW: "\u50B3\u7C21\u8A0A",
+    basement: "Basement",
+    basementTW: "\u5730\u4E0B\u5BA4",
+    bath: "bath",
+    bathTW: "\u885B",
+    bathroomN: "Bathroom #",
+    bathroomNTW: "\u885B\u6D74 ",
+    bed: "bed",
+    bedTW: "\u623F",
+    bedroomN: "Bedroom #",
+    bedroomNTW: "\u81E5\u5BA4 ",
+    buildingMaterial: "Building Material:",
+    buildingMaterialTW: "\u5EFA\u7BC9\u6750\u6599:",
+    callMe: "Call Me",
+    callMeTW: "\u96FB\u8A71\u806F\u7D61",
+    confirm: "Confirm",
+    confirmTW: "\u518D\u6B21\u78BA\u8A8D\u5BC6\u78BC",
+    constructionDate: "Construction Date:",
+    constructionDateTW: "\u5EFA\u6210\u6642\u9593:",
+    disclaimer1: "Disclaimer: The information provided on this platform is for reference purposes only. We do not guarantee the accuracy or completeness of the information presented. The actual information regarding the property is provided by the seller and should be verified independently. We do not assume any responsibility for any errors or omissions in the information provided. Please be aware of potential scams or frauds. We strongly advise you to conduct your own due diligence and exercise caution when communicating with anyone you meet online. Do not send money or personal information until you have verified the authenticity of the individual or company you are dealing with.",
+    disclaimer1TW: "\u514D\u8CAC\u8072\u660E\uFF1A \u672C\u5E73\u53F0\u63D0\u4F9B\u7684\u8CC7\u8A0A\u50C5\u4F9B\u53C3\u8003\u4E4B\u7528\u3002\u6211\u5011\u4E0D\u4FDD\u8B49\u6240\u63D0\u4F9B\u7684\u8CC7\u8A0A\u7684\u6E96\u78BA\u6027\u6216\u5B8C\u6574\u6027\u3002\u6709\u95DC\u7269\u4EF6\u7684\u5BE6\u969B\u8CC7\u8A0A\u7531\u8CE3\u65B9\u63D0\u4F9B\uFF0C\u61C9\u7368\u7ACB\u9032\u884C\u9A57\u8B49\u3002\u6211\u5011\u4E0D\u627F\u64D4\u4EFB\u4F55\u56E0\u6240\u63D0\u4F9B\u8CC7\u8A0A\u4E2D\u7684\u932F\u8AA4\u6216\u907A\u6F0F\u800C\u5F15\u8D77\u7684\u8CAC\u4EFB\u3002 \u8ACB\u6CE8\u610F\u53EF\u80FD\u5B58\u5728\u7684\u8A50\u9A19\u6216\u6B3A\u8A50\u884C\u70BA\u3002\u6211\u5011\u5F37\u70C8\u5EFA\u8B70\u60A8\u81EA\u884C\u9032\u884C\u5145\u5206\u7684\u5BE9\u614E\u8A55\u4F30\uFF0C\u4E26\u5728\u8207\u60A8\u5728\u7DDA\u4E0A\u9047\u5230\u7684\u4EFB\u4F55\u4EBA\u6E9D\u901A\u6642\u8B39\u614E\u884C\u4E8B\u3002\u5728\u9A57\u8B49\u60A8\u6240\u806F\u7D61\u7684\u500B\u4EBA\u6216\u516C\u53F8\u7684\u771F\u5BE6\u6027\u4E4B\u524D\uFF0C\u8ACB\u52FF\u767C\u9001\u91D1\u9322\u6216\u500B\u4EBA\u8CC7\u8A0A\u3002",
+    email: "Email",
+    emailTW: "\u4FE1\u7BB1",
+    feet: "feet",
+    feetTW: "\u82F1\u5C3A",
+    floorN: "Floor #",
+    floorNTW: "\u6A13\u5C64 ",
+    floors: "Floors",
+    floorsTW: "\u6A13\u5C64",
+    forRent: "For Rent",
+    forRentTW: "\u51FA\u79DF",
+    forgotPassword: "Forgot Password",
+    forgotPasswordTW: "\u5FD8\u8A18\u5BC6\u78BC",
+    haveAccount: "Already have account",
+    haveAccountTW: "\u5DF2\u662F\u6703\u54E1",
+    hospital: "Hospital",
+    hospitalTW: "\u91AB\u9662",
+    information: "Information",
+    informationTW: "\u8CC7\u8A0A",
+    key: "EN",
+    keyTW: "TW",
+    lastPrice: "Last Price",
+    lastPriceTW: "\u6700\u8FD1\u50F9\u683C",
+    lookDown: "Look Down",
+    lookDownTW: "\u5F80\u4E0B\u770B",
+    lookLeft: "Look Left",
+    lookLeftTW: "\u5F80\u5DE6\u770B",
+    lookRight: "Look Right",
+    lookRightTW: "\u5F80\u53F3\u770B",
+    lookTop: "Look Top",
+    lookTopTW: "\u5F80\u4E0A\u770B",
+    m: "m",
+    mTW: "\u516C\u5C3A",
+    miles: "miles",
+    milesTW: "\u82F1\u91CC",
+    moveCamera: "Slowly move the Camera to Look Around ",
+    moveCameraTW: "\u5DE6\u53F3\u79FB\u52D5\u627E\u7269\u4EF6",
+    onSale: "On Sale",
+    onSaleTW: "\u62CD\u8CE3\u4E2D",
+    openMap: "Open Map",
+    openMapTW: "\u67E5\u770B\u4F4D\u7F6E",
+    password: "Password",
+    passwordTW: "\u5BC6\u78BC",
+    ping: "ping",
+    pingTW: "\u576A",
+    priceHistory: "Price History",
+    priceHistoryTW: "\u6B77\u53F2\u50F9\u683C",
+    restaurant: "Restaurant",
+    restaurantTW: "\u9910\u5EF3",
+    scanning: "Scanning...",
+    scanningTW: "\u6383\u63CF\u74B0\u5883\u4E2D...",
+    school: "School",
+    schoolTW: "\u5B78\u6821",
+    seeMore: "See More...",
+    seeMoreTW: "\u67E5\u770B\u66F4\u591A...",
+    signIn: "Sign In",
+    signInTW: "\u767B\u5165",
+    signOut: "Sign Out ",
+    signOutTW: "\u767B\u51FA",
+    signUp: "Sign Up",
+    signUpEmail: "Sign up with Email ",
+    signUpEmailTW: "\u4FE1\u7BB1\u8A3B\u518A",
+    signUpTW: "\u8A3B\u518A",
+    sqft: "sqft",
+    sqftTW: "\u5E73\u65B9\u7C73",
+    store: "Store",
+    storeTW: "\u5546\u5E97",
+    transit: "Transit",
+    transitTW: "\u5927\u773E\u904B\u8F38",
+    usdPerMonth: "$$/mo",
+    usdPerMonthTW: "$$/\u6708",
+    welcome: "Welcome to HapSTR ",
+    welcomeTW: "\u6B61\u8FCE\u4F7F\u7528HapSTR"
+  };
+
+  // _components/Menu.svelte
+  var import_jsApi_GEN = __toESM(require_jsApi_GEN());
 
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment(ctx) {
@@ -4923,112 +5030,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var import_jsApi = __toESM(require_jsApi_GEN());
   var import_formatter = __toESM(require_formatter());
 
-  // translation.json
-  var translation_default = {
-    about: "About",
-    aboutTW: "\u6982\u8981",
-    agencyFee: "Agency Fee",
-    agencyFeeTW: "\u4EF2\u4ECB\u8CBB",
-    all: "All",
-    allTW: "\u5168\u90E8",
-    aroundHome: "Around Home",
-    aroundHomeTW: "\u5468\u908A\u8CC7\u8A0A",
-    askByText: "Ask by Text",
-    askByTextTW: "\u50B3\u7C21\u8A0A",
-    basement: "Basement",
-    basementTW: "\u5730\u4E0B\u5BA4",
-    bath: "bath",
-    bathTW: "\u885B",
-    bathroomN: "Bathroom #",
-    bathroomNTW: "\u885B\u6D74 ",
-    bed: "bed",
-    bedTW: "\u623F",
-    bedroomN: "Bedroom #",
-    bedroomNTW: "\u81E5\u5BA4 ",
-    buildingMaterial: "Building Material:",
-    buildingMaterialTW: "\u5EFA\u7BC9\u6750\u6599:",
-    callMe: "Call Me",
-    callMeTW: "\u96FB\u8A71\u806F\u7D61",
-    confirm: "Confirm",
-    confirmTW: "\u518D\u6B21\u78BA\u8A8D\u5BC6\u78BC",
-    constructionDate: "Construction Date:",
-    constructionDateTW: "\u5EFA\u6210\u6642\u9593:",
-    disclaimer1: "Disclaimer: The information provided on this platform is for reference purposes only. We do not guarantee the accuracy or completeness of the information presented. The actual information regarding the property is provided by the seller and should be verified independently. We do not assume any responsibility for any errors or omissions in the information provided. Please be aware of potential scams or frauds. We strongly advise you to conduct your own due diligence and exercise caution when communicating with anyone you meet online. Do not send money or personal information until you have verified the authenticity of the individual or company you are dealing with.",
-    disclaimer1TW: "\u514D\u8CAC\u8072\u660E\uFF1A \u672C\u5E73\u53F0\u63D0\u4F9B\u7684\u8CC7\u8A0A\u50C5\u4F9B\u53C3\u8003\u4E4B\u7528\u3002\u6211\u5011\u4E0D\u4FDD\u8B49\u6240\u63D0\u4F9B\u7684\u8CC7\u8A0A\u7684\u6E96\u78BA\u6027\u6216\u5B8C\u6574\u6027\u3002\u6709\u95DC\u7269\u4EF6\u7684\u5BE6\u969B\u8CC7\u8A0A\u7531\u8CE3\u65B9\u63D0\u4F9B\uFF0C\u61C9\u7368\u7ACB\u9032\u884C\u9A57\u8B49\u3002\u6211\u5011\u4E0D\u627F\u64D4\u4EFB\u4F55\u56E0\u6240\u63D0\u4F9B\u8CC7\u8A0A\u4E2D\u7684\u932F\u8AA4\u6216\u907A\u6F0F\u800C\u5F15\u8D77\u7684\u8CAC\u4EFB\u3002 \u8ACB\u6CE8\u610F\u53EF\u80FD\u5B58\u5728\u7684\u8A50\u9A19\u6216\u6B3A\u8A50\u884C\u70BA\u3002\u6211\u5011\u5F37\u70C8\u5EFA\u8B70\u60A8\u81EA\u884C\u9032\u884C\u5145\u5206\u7684\u5BE9\u614E\u8A55\u4F30\uFF0C\u4E26\u5728\u8207\u60A8\u5728\u7DDA\u4E0A\u9047\u5230\u7684\u4EFB\u4F55\u4EBA\u6E9D\u901A\u6642\u8B39\u614E\u884C\u4E8B\u3002\u5728\u9A57\u8B49\u60A8\u6240\u806F\u7D61\u7684\u500B\u4EBA\u6216\u516C\u53F8\u7684\u771F\u5BE6\u6027\u4E4B\u524D\uFF0C\u8ACB\u52FF\u767C\u9001\u91D1\u9322\u6216\u500B\u4EBA\u8CC7\u8A0A\u3002",
-    email: "Email",
-    emailTW: "\u4FE1\u7BB1",
-    feet: "feet",
-    feetTW: "\u82F1\u5C3A",
-    floorN: "Floor #",
-    floorNTW: "\u6A13\u5C64 ",
-    floors: "Floors",
-    floorsTW: "\u6A13\u5C64",
-    forRent: "For Rent",
-    forRentTW: "\u51FA\u79DF",
-    forgotPassword: "Forgot Passord",
-    forgotPasswordTW: "\u5FD8\u8A18\u5BC6\u78BC",
-    haveAccount: "Have an Account ",
-    haveAccountTW: "\u5DF2\u662F\u6703\u54E1\uFF1F",
-    hospital: "Hospital",
-    hospitalTW: "\u91AB\u9662",
-    information: "Information",
-    informationTW: "\u8CC7\u8A0A",
-    key: "EN",
-    keyTW: "TW",
-    lastPrice: "Last Price",
-    lastPriceTW: "\u6700\u8FD1\u50F9\u683C",
-    lookDown: "Look Down",
-    lookDownTW: "\u5F80\u4E0B\u770B",
-    lookLeft: "Look Left",
-    lookLeftTW: "\u5F80\u5DE6\u770B",
-    lookRight: "Look Right",
-    lookRightTW: "\u5F80\u53F3\u770B",
-    lookTop: "Look Top",
-    lookTopTW: "\u5F80\u4E0A\u770B",
-    m: "m",
-    mTW: "\u516C\u5C3A",
-    miles: "miles",
-    milesTW: "\u82F1\u91CC",
-    moveCamera: "Slowly move the Camera to Look Around ",
-    moveCameraTW: "\u5DE6\u53F3\u79FB\u52D5\u627E\u7269\u4EF6",
-    onSale: "On Sale",
-    onSaleTW: "\u62CD\u8CE3\u4E2D",
-    openMap: "Open Map",
-    openMapTW: "\u67E5\u770B\u4F4D\u7F6E",
-    password: "Password",
-    passwordTW: "\u5BC6\u78BC",
-    ping: "ping",
-    pingTW: "\u576A",
-    priceHistory: "Price History",
-    priceHistoryTW: "\u6B77\u53F2\u50F9\u683C",
-    restaurant: "Restaurant",
-    restaurantTW: "\u9910\u5EF3",
-    scanning: "Scanning...",
-    scanningTW: "\u6383\u63CF\u74B0\u5883\u4E2D...",
-    school: "School",
-    schoolTW: "\u5B78\u6821",
-    seeMore: "See More...",
-    seeMoreTW: "\u67E5\u770B\u66F4\u591A...",
-    signIn: "Sign In",
-    signInTW: "\u767B\u5165",
-    signOut: "Sign Out ",
-    signOutTW: "\u767B\u51FA",
-    signUp: "Sign Up",
-    signUpEmail: "Sign up with Email ",
-    signUpEmailTW: "\u4FE1\u7BB1\u8A3B\u518A",
-    signUpTW: "\u8A3B\u518A",
-    sqft: "sqft",
-    sqftTW: "\u5E73\u65B9\u7C73",
-    store: "Store",
-    storeTW: "\u5546\u5E97",
-    transit: "Transit",
-    transitTW: "\u5927\u773E\u904B\u8F38",
-    usdPerMonth: "$$/mo",
-    usdPerMonthTW: "$$/\u6708",
-    welcome: "Welcome to HapSTR ",
-    welcomeTW: "\u6B61\u8FCE\u4F7F\u7528HapSTR"
-  };
-
   // _components/GoogleMap/stores.js
   var mapsLoaded = writable(false);
   var mapsLoading = writable(false);
@@ -5160,10 +5161,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function createMarker(latitude, longitude, iconPath, iconSize, title2) {
       let marker = new google.maps.Marker({
         map,
-        icon: {
-          url: iconPath,
-          // URL to your custom icon image
-          scaledSize: new google.maps.Size(iconSize, iconSize)
+        // icon: {
+        //   url: iconPath, // URL to your custom icon image
+        //   scaledSize: new google.maps.Size(iconSize, iconSize),
+        // },
+        label: {
+          text: "\uE80C",
+          fontFamily: "Material Icons",
+          color: "#ffff",
+          fontSize: "18px"
         },
         position: { lat: latitude, lng: longitude },
         title: title2 || "",
@@ -7461,8 +7467,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span1;
     let t6;
     let button2;
-    let t7;
-    let div2;
     let current;
     let mounted;
     let dispose;
@@ -7494,9 +7498,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t6 = space();
         button2 = element("button");
         button2.innerHTML = `<img src="/assets/img/team-1-200x200.jpg" alt="profile" class="svelte-1gl8kn7"/>`;
-        t7 = space();
-        div2 = element("div");
-        div2.innerHTML = `<!-- Chart Goes here -->`;
         attr(button0, "class", "svelte-1gl8kn7");
         attr(p, "class", "svelte-1gl8kn7");
         attr(div0, "class", "label_menu svelte-1gl8kn7");
@@ -7514,7 +7515,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(button2, "class", "profile_button svelte-1gl8kn7");
         attr(div1, "class", "right_nav svelte-1gl8kn7");
         attr(nav, "class", "navbar svelte-1gl8kn7");
-        attr(div2, "class", "stats");
         attr(header, "class", "profile_header svelte-1gl8kn7");
       },
       m(target, anchor) {
@@ -7533,8 +7533,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(button1, span1);
         append(div1, t6);
         append(div1, button2);
-        append(header, t7);
-        append(header, div2);
         current = true;
         if (!mounted) {
           dispose = [
@@ -8117,20 +8115,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     menu.$on(
       "closesidemenu",
       /*closeSideMenu*/
-      ctx[10]
+      ctx[11]
     );
     profileheader = new ProfileHeader_default({});
     profileheader.$on(
       "opensidemenu",
       /*openSideMenu*/
-      ctx[9]
+      ctx[10]
     );
     propertylocation = new PropertyLocation_default({
       props: {
         initialLatLong,
         randomProps: (
           /*randomProps*/
-          ctx[8]
+          ctx[9]
         )
       }
     });
@@ -8234,13 +8232,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*email*/
           ctx[2]
         );
-        ctx[17](input);
+        ctx[18](input);
         if (!mounted) {
           dispose = listen(
             input,
             "input",
             /*input_input_handler*/
-            ctx[16]
+            ctx[17]
           );
           mounted = true;
         }
@@ -8260,7 +8258,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (detaching) {
           detach(div);
         }
-        ctx[17](null);
+        ctx[18](null);
         mounted = false;
         dispose();
       }
@@ -8297,13 +8295,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*password*/
           ctx[3]
         );
-        ctx[19](input);
+        ctx[20](input);
         if (!mounted) {
           dispose = listen(
             input,
             "input",
             /*input_input_handler_1*/
-            ctx[18]
+            ctx[19]
           );
           mounted = true;
         }
@@ -8323,7 +8321,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (detaching) {
           detach(div);
         }
-        ctx[19](null);
+        ctx[20](null);
         mounted = false;
         dispose();
       }
@@ -8365,7 +8363,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             input,
             "input",
             /*input_input_handler_2*/
-            ctx[20]
+            ctx[21]
           );
           mounted = true;
         }
@@ -8392,14 +8390,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function create_if_block_10(ctx) {
     let p;
+    let t0_value = (
+      /*$isLangTWN*/
+      (ctx[8] ? translation_default.forgotPasswordTW : translation_default.forgotPassword) + ""
+    );
     let t0;
+    let t1;
     let a;
     let mounted;
     let dispose;
     return {
       c() {
         p = element("p");
-        t0 = text("Forgot password?\n            ");
+        t0 = text(t0_value);
+        t1 = text("?\n            ");
         a = element("a");
         a.textContent = "Reset here";
         attr(a, "href", "#FORGOT_PASSWORD");
@@ -8409,16 +8413,22 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       m(target, anchor) {
         insert(target, p, anchor);
         append(p, t0);
+        append(p, t1);
         append(p, a);
         if (!mounted) {
           dispose = listen(a, "click", prevent_default(
             /*click_handler*/
-            ctx[21]
+            ctx[22]
           ));
           mounted = true;
         }
       },
-      p: noop,
+      p(ctx2, dirty) {
+        if (dirty & /*$isLangTWN*/
+        256 && t0_value !== (t0_value = /*$isLangTWN*/
+        (ctx2[8] ? translation_default.forgotPasswordTW : translation_default.forgotPassword) + ""))
+          set_data(t0, t0_value);
+      },
       d(detaching) {
         if (detaching) {
           detach(p);
@@ -8445,7 +8455,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             button,
             "click",
             /*guestRegister*/
-            ctx[12]
+            ctx[13]
           );
           mounted = true;
         }
@@ -8477,7 +8487,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             button,
             "click",
             /*guestLogin*/
-            ctx[13]
+            ctx[14]
           );
           mounted = true;
         }
@@ -8509,7 +8519,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             button,
             "click",
             /*guestResendVerificationEmail*/
-            ctx[14]
+            ctx[15]
           );
           mounted = true;
         }
@@ -8541,7 +8551,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             button,
             "click",
             /*guestForgotPassword*/
-            ctx[15]
+            ctx[16]
           );
           mounted = true;
         }
@@ -8658,7 +8668,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             a,
             "click",
             /*click_handler_1*/
-            ctx[22]
+            ctx[23]
           );
           mounted = true;
         }
@@ -8675,14 +8685,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function create_if_block_24(ctx) {
     let p;
+    let t0_value = (
+      /*$isLangTWN*/
+      (ctx[8] ? translation_default.haveAccountTW : translation_default.haveAccount) + ""
+    );
     let t0;
+    let t1;
     let a;
     let mounted;
     let dispose;
     return {
       c() {
         p = element("p");
-        t0 = text("Already have account? ");
+        t0 = text(t0_value);
+        t1 = text("? ");
         a = element("a");
         a.textContent = "login";
         attr(a, "href", "#LOGIN");
@@ -8692,18 +8708,24 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       m(target, anchor) {
         insert(target, p, anchor);
         append(p, t0);
+        append(p, t1);
         append(p, a);
         if (!mounted) {
           dispose = listen(
             a,
             "click",
             /*click_handler_2*/
-            ctx[23]
+            ctx[24]
           );
           mounted = true;
         }
       },
-      p: noop,
+      p(ctx2, dirty) {
+        if (dirty & /*$isLangTWN*/
+        256 && t0_value !== (t0_value = /*$isLangTWN*/
+        (ctx2[8] ? translation_default.haveAccountTW : translation_default.haveAccount) + ""))
+          set_data(t0, t0_value);
+      },
       d(detaching) {
         if (detaching) {
           detach(p);
@@ -8738,7 +8760,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             a,
             "click",
             /*click_handler_3*/
-            ctx[24]
+            ctx[25]
           );
           mounted = true;
         }
@@ -8786,7 +8808,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             window,
             "hashchange",
             /*onHashChange*/
-            ctx[11]
+            ctx[12]
           );
           mounted = true;
         }
@@ -8847,6 +8869,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       return match[2];
   }
   function instance9($self, $props, $invalidate) {
+    let $isLangTWN;
+    component_subscribe($self, isLangTWN, ($value) => $invalidate(8, $isLangTWN = $value));
+    let storedLang = localStorage.getItem("isLangTWN");
     let sideMenuOpen = false;
     let randomProps = [/* randomProps */];
     let defaultDistanceKm = +'#{defaultDistanceKm}';
@@ -8888,7 +8913,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       await tick();
       emailInput.focus();
     }
-    onMount(onHashChange);
+    onMount(() => {
+      onHashChange();
+      if (!storedLang) {
+        localStorage.setItem("isLangTWN", "false");
+      }
+      isLangTWN.set(JSON.parse(storedLang));
+    });
     async function guestRegister() {
       if (!email)
         return alert("email is required");
@@ -8984,6 +9015,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       emailInput,
       passInput,
       mode,
+      $isLangTWN,
       randomProps,
       openSideMenu,
       closeSideMenu,

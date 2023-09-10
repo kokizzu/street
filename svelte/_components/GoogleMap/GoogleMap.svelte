@@ -13,9 +13,15 @@
   export function createMarker(latitude, longitude, iconPath, iconSize, title) {
     let marker = new google.maps.Marker({
       map,
-      icon: {
-        url: iconPath, // URL to your custom icon image
-        scaledSize: new google.maps.Size(iconSize, iconSize),
+      // icon: {
+      //   url: iconPath, // URL to your custom icon image
+      //   scaledSize: new google.maps.Size(iconSize, iconSize),
+      // },
+      label: {
+        text: "\ue80c",
+        fontFamily: "Material Icons",
+        color: "#ffff",
+        fontSize: "18px",
       },
       position: {
         lat: latitude,
