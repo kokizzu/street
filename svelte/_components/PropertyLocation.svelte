@@ -1,7 +1,9 @@
 <script>
   // @ts-nocheck
   import { UserSearchProp, UserNearbyFacilities } from 'jsApi.GEN';
+  import { isLangTWN } from './uiState.js';
   import { formatPrice } from './formatter';
+  import translation from '../translation.json';
   import { GoogleMap, GoogleSdk } from './GoogleMap/components';
   import Growl from './Growl.svelte';
   
@@ -230,7 +232,7 @@
                     ? `purpose label_sale`
                     : `purpose label_rent`
                   }>
-                    {prop.purpose==='sell' ? `On Sale` : `For Rent`}
+                    {prop.purpose==='sell' ? ($isLangTWN ? translation.onSaleTW : translation.onSale) : ($isLangTWN ? translation.forRentTW : translation.forRent)}
                   </div>
                   <div class='house_type'>
                     <Icon size={12} color='#475569' src={FaSolidHome} />
@@ -243,26 +245,35 @@
                 </div>
                 <div class='feature'>
                   <div class='item'>
-                    <Icon size={13} color='#f97316' src={FaSolidBuilding} />
-                    <span><b>Floor</b>: {prop.numberOfFloors === 0 ? 'no-data' : prop.numberOfFloors}</span>
+                    <div>
+                      <Icon size={13} color='#ffff' src={FaSolidBuilding} />
+                      <span>{$isLangTWN ? translation.floorsTW : translation.floors}</span>
+                    </div>
+                    <span class="value">{prop.numberOfFloors === 0 ? 'no-data' : prop.numberOfFloors}</span>
                   </div>
                   <div class='item'>
-                    <Icon size={14} color='#f97316' src={FaSolidBed} />
-                    <span><b>Beds</b>: {prop.bedroom === 0 ? 'no-data' : prop.bedroom}</span>
+                    <div>
+                      <Icon size={14} color='#ffff' src={FaSolidBed} />
+                      <span>{$isLangTWN ? translation.bedTW : translation.bed}</span>
+                    </div>
+                    <span class="value">{prop.bedroom === 0 ? 'no-data' : prop.bedroom}</span>
                   </div>
                   <div class='item'>
-                    <Icon size={14} color='#f97316' src={FaSolidBath} />
-                    <span><b>Baths</b>: {prop.bathroom === 0 ? 'no-data' : prop.bathroom}</span>
+                    <div>
+                      <Icon size={14} color='#ffff' src={FaSolidBath} />
+                      <span>{$isLangTWN ? translation.bathTW : translation.bath}</span>
+                    </div>
+                    <span class="value">{prop.bathroom === 0 ? 'no-data' : prop.bathroom}</span>
                   </div>
                 </div>
               </div>
               <div class='secondary_info'>
                 <div class='size'>
                   <Icon size={12} color='#f97316' src={FaSolidRulerCombined} />
-                  <span>{prop.sizeM2} M2</span>
+                  <span>{prop.sizeM2} {$isLangTWN ? translation.mTW : 'M2'}</span>
                 </div>
                 <div class='price'>
-                  <span class='agency_fee'>Agency Fee: {prop.agencyFeePercent || '0'}%</span>
+                  <span class='agency_fee'>{$isLangTWN ? translation.agencyFeeTW : translation.agencyFee}: {prop.agencyFeePercent || '0'}%</span>
                   <span class='last_price'>{formatPrice( prop.lastPrice || 0, 'TWD' )}</span>
                 </div>
               </div>
@@ -432,6 +443,7 @@
     height         : 190px;
     min-height     : 190px;
     border: 2px solid transparent;
+    text-transform: capitalize;
     color: #475569;
   }
   .property_location_container .left .props_container .prop_item.highlight {
@@ -532,12 +544,30 @@
     align-items     : center;
     font-size       : 13px;
   }
-
   .property_location_container .left .props_container .prop_item .prop_info .main_info .feature .item {
-    display        : flex;
-    flex-direction : row;
-    align-items    : center;
-    gap            : 8px;
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 5px;
+  }
+  .property_location_container .left .props_container .prop_item .prop_info .main_info .feature .item div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 3px 7px;
+    background-color: #f97316;
+    border: 1px solid #f97316;
+    gap: 4px;
+    color: #ffff;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  .property_location_container .left .props_container .prop_item .prop_info .main_info .feature .item .value {
+    padding: 3px 7px;
+    border: 1px solid #CBD5E1;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 
   .property_location_container .left .props_container .prop_item .prop_info .secondary_info {
