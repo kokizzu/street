@@ -190,9 +190,9 @@ func parseMapIntoStruct(inputMap map[string]interface{}) (*PropertyFullResponse,
 	return &result, nil
 }
 
-func ParsePropertyData(adapter *Tt.Adapter, propertyResponse map[string]interface{}) (res *wcProperty.PropertyUsaMutator) {
+func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyResponse map[string]interface{}) (res *wcProperty.PropertyUsaMutator) {
 
-	propertyMutator := wcProperty.NewPropertyUsaMutator(adapter)
+	// propertyMutator := wcProperty.NewPropertyUsaMutator(adapter)
 
 	propertyResponseObject, err := parseMapIntoStruct(propertyResponse)
 	if err != nil {
@@ -380,21 +380,25 @@ func ParsePropertyData(adapter *Tt.Adapter, propertyResponse map[string]interfac
 	propertyMutator.CreatedAt = currentTime
 	propertyMutator.UpdatedAt = currentTime
 
-	return propertyMutator
+	return &propertyMutator
 }
 
-func ImportPropertyUsData(adapter **Tt.Adapter) {
-	baseUrl := "https://www.redfin.com/stingray/api/home/details/belowTheFold"
+func ImportPropertyUsData(adapter **Tt.Adapter, baseUrl string, maxPropertyID int) {
 
-	propertyMaxId := 1000
-
-	stat := &ImporterStat{Total: propertyMaxId}
+	stat := &ImporterStat{Total: maxPropertyID}
 	defer stat.Print(`last`)
 
-	for i := 1; i <= propertyMaxId; i++ {
+	for i := 1; i <= maxPropertyID; i++ {
 		stat.Print()
 
-		fmt.Println("Property ID => ", i)
+		// fmt.Println("Property ID => ", i)
+
+		propertyMutator := wcProperty.NewPropertyUsaMutator(*adapter)
+		propertyMutator.PropertyId = uint64(i)
+		if propertyMutator.FindByPropertyId() {
+			stat.Skip()
+			continue
+		}
 
 		data, err := fetchPropertyUSByPropID(baseUrl, i)
 		if err != nil {
@@ -402,13 +406,8 @@ func ImportPropertyUsData(adapter **Tt.Adapter) {
 		}
 
 		propertyResponse := data["payload"].(map[string]interface{})
-		propertyMutator := ParsePropertyData(*adapter, propertyResponse)
-		propertyMutator.PropertyId = uint64(i)
+		propertyMutator = ParsePropertyData(*propertyMutator, propertyResponse)
 
-		if propertyMutator.FindByPropertyId() {
-			stat.Skip()
-			continue
-		}
 		stat.Ok(propertyMutator.DoInsert())
 	}
 
