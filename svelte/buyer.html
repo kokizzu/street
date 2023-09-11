@@ -1,7 +1,6 @@
 <html><head>
     <title>/*! title */</title>
     <link href="/css.gg.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
 </head>
 <body>
 <style>
@@ -4593,7 +4592,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         mount_component(googlesdk, target, anchor);
         insert(target, t, anchor);
         insert(target, div, anchor);
-        ctx[6](div);
+        ctx[7](div);
         current = true;
       },
       p: noop,
@@ -4613,7 +4612,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           detach(div);
         }
         destroy_component(googlesdk, detaching);
-        ctx[6](null);
+        ctx[7](null);
       }
     };
   }
@@ -4630,10 +4629,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function instance6($self, $props, $invalidate) {
     let $mapComponent;
-    component_subscribe($self, mapComponent, ($value) => $invalidate(8, $mapComponent = $value));
+    component_subscribe($self, mapComponent, ($value) => $invalidate(9, $mapComponent = $value));
     const dispatch = createEventDispatcher();
-    let mapElement;
-    let map;
+    let mapElement, map;
     let { options = {} } = $props;
     function setCentre(location) {
       map.setCenter(location);
@@ -4641,15 +4639,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function createMarker(latitude, longitude, iconPath, iconSize, title) {
       let marker = new google.maps.Marker({
         map,
-        // icon: {
-        //   url: iconPath, // URL to your custom icon image
-        //   scaledSize: new google.maps.Size(iconSize, iconSize),
-        // },
-        label: {
-          text: "\uE80C",
-          fontFamily: "Material Icons",
-          color: "#ffff",
-          fontSize: "18px"
+        icon: {
+          url: iconPath,
+          // URL to your custom icon image
+          scaledSize: new google.maps.Size(iconSize, iconSize)
         },
         position: { lat: latitude, lng: longitude },
         title: title || "",
@@ -4657,7 +4650,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       });
       return marker;
     }
-    ;
+    function infoWindow(marker, name, address, type) {
+      const contentString = `<h3 id="firstHeading" class="firstHeading">${name}</h3><p>${address}</p><p><b>Type:</b> ${type}</p>`;
+      const infowindow = new google.maps.InfoWindow({ content: contentString });
+      infowindow.open({ anchor: marker, map });
+    }
     async function initialise() {
       const { Map: Map2 } = await google.maps.importLibrary("maps");
       map = new Map2(mapElement, options);
@@ -4684,6 +4681,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       setCentre,
       createMarker,
       clearMarkers,
+      infoWindow,
       div_binding
     ];
   }
@@ -4694,7 +4692,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         options: 2,
         setCentre: 3,
         createMarker: 4,
-        clearMarkers: 5
+        clearMarkers: 5,
+        infoWindow: 6
       });
     }
     get setCentre() {
@@ -4705,6 +4704,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     get clearMarkers() {
       return clearMarkers;
+    }
+    get infoWindow() {
+      return this.$.ctx[6];
     }
   };
   var GoogleMap_default = GoogleMap;

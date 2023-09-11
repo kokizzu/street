@@ -19,6 +19,7 @@
   import FaSolidUndoAlt from 'svelte-icons-pack/fa/FaSolidUndoAlt';
   import FaSolidBan from 'svelte-icons-pack/fa/FaSolidBan';
   import FaSolidReceipt from 'svelte-icons-pack/fa/FaSolidReceipt';
+  import FaSolidInfoCircle from 'svelte-icons-pack/fa/FaSolidInfoCircle';
   
   export let randomProps = []
   export let defaultDistanceKm = 20;
@@ -32,6 +33,13 @@
     mapTypeId: 'roadmap',
     mapId: 'street_project',
   };
+  const markers_icon = {
+    school: {path: '/assets/icons/marker-school.svg'},
+    restaurant: {path: '/assets/icons/marker-restaurant.svg'},
+    convenience_store: {path: '/assets/icons/marker-mall.svg'},
+    hospital: {path: '/assets/icons/marker-hospital.svg'},
+    subway_station: {path: '/assets/icons/marker-subway.svg'}
+  }
   let geocoder, input_search_value, autocomplete_service;
   let autocomplete_lists = [];
   let showGrowl = false, gMsg = '', gType = '';
@@ -115,30 +123,18 @@
       if (res.error) return useGrowl('error', res.error);
       markersFacility = gmapsComponent.clearMarkers( markersFacility );
       facilities = await res.facilities;
-      console.log(facilities)
       facilities.forEach( fac => {
-        markersFacility.push( gmapsComponent.createMarker(
-           fac.lat,
-           fac.lng,
-           '/assets/icons/marker.svg',
-           32,
-        ) );
+        let iconmarkerpath = '/assets/icons/marker.svg';
+        if (markers_icon[fac.type]) { iconmarkerpath = markers_icon[fac.type].path }
+        markersFacility.push( gmapsComponent.createMarker( fac.lat, fac.lng, iconmarkerpath, 32, fac.name ) );
+      } );
+      console.log(facilities);
+    } );
+    markersFacility.forEach((marker, idx) => {
+      marker.addListener("click", () => {
+        gmapsComponent.infoWindow(marker, facilities[idx].name, facilities[idx].address, facilities[idx].type);
       } );
     } );
-    markersFacility.forEach((marker) => {
-      marker.addListener("mouseover", () => {
-        marker.setIcon({
-          url: '/assets/icons/marker.svg', // URL to your custom icon image
-          scaledSize: new google.maps.Size(40, 40)
-        })
-      })
-      marker.addListener("mouseout", () => {
-        marker.setIcon({
-          url: '/assets/icons/marker.svg', // URL to your custom icon image
-          scaledSize: new google.maps.Size(32, 32)
-        })
-      })
-    })
   }
   
   async function initGoogleService() {
@@ -701,7 +697,7 @@
     border-radius : 8px;
     overflow      : hidden;
   }
-
+  
   .property_location_container .right .map_container .btn_sync_map {
     position         : absolute;
     display          : flex;
@@ -712,7 +708,7 @@
     padding          : 0 20px;
     height           : 40px;
     top              : 10px;
-    left             : 188px;
+    left             : 40%;
     border-radius    : 3px;
     font-size        : 15px;
     background-color : #FFF;
