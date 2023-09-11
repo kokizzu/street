@@ -88,5 +88,7 @@ func (d *Domain) GuestAutoLogin(in *GuestAutoLoginIn) (out GuestAutoLoginOut) {
 	}
 	out.SessionToken = session.SessionToken
 	out.Segments = d.segmentsFromSession(sess)
+
+	out.SetRedirect(in.Path)
 	return
 }

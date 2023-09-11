@@ -282,6 +282,20 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			`segments`: segments,
 		})
 	})
+	fw.Get(`/`+domain.GuestAutoLoginAction, func(ctx *fiber.Ctx) error {
+		var in domain.GuestAutoLoginIn
+		in.Uid = ctx.Params(`uid`)
+		in.Token = ctx.Params(`token`)
+		in.Path = ctx.Params(`path`)
+		out := d.GuestAutoLogin(&in)
+
+		if out.Error != `` {
+			return views.RenderError(ctx, M.SX{
+				`error`: out.Error,
+			})
+		}
+		return in.ToFiberCtx(ctx, out, &out.ResponseCommon, in)
+	})
 	fw.Get(`/`+domain.AdminFilesAction, func(ctx *fiber.Ctx) error {
 		in, _, segments := userInfoFromContext(ctx, d)
 		if notAdmin(ctx, d, in.RequestCommon) {
