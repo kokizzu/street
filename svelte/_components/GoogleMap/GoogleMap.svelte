@@ -36,7 +36,7 @@
     markers = [];
     return markers;
   }
-  export function infoWindow(marker, name, address, type) {
+  export function infoWindow(name, address, type) {
     const contentString =
       `<h3 id="firstHeading" class="firstHeading">${name}</h3>` +
       `<p>${address}</p>` +
@@ -44,10 +44,11 @@
     const infowindow = new google.maps.InfoWindow({
       content: contentString
     });
-    infowindow.open({
-      anchor: marker,
-      map,
-    });
+    return infowindow;
+  }
+  export function clearInfoWindow( infoWindows ) {
+    infoWindows = null;
+    return infoWindows;
   }
   async function initialise () {
     const {Map} = await google.maps.importLibrary( 'maps' );

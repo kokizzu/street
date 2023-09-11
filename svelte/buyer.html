@@ -4592,7 +4592,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         mount_component(googlesdk, target, anchor);
         insert(target, t, anchor);
         insert(target, div, anchor);
-        ctx[7](div);
+        ctx[8](div);
         current = true;
       },
       p: noop,
@@ -4612,7 +4612,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           detach(div);
         }
         destroy_component(googlesdk, detaching);
-        ctx[7](null);
+        ctx[8](null);
       }
     };
   }
@@ -4627,9 +4627,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     markers = [];
     return markers;
   }
+  function infoWindow(name, address, type) {
+    const contentString = `<h3 id="firstHeading" class="firstHeading">${name}</h3><p>${address}</p><p><b>Type:</b> ${type}</p>`;
+    const infowindow = new google.maps.InfoWindow({ content: contentString });
+    return infowindow;
+  }
+  function clearInfoWindow(infoWindows) {
+    infoWindows = null;
+    return infoWindows;
+  }
   function instance6($self, $props, $invalidate) {
     let $mapComponent;
-    component_subscribe($self, mapComponent, ($value) => $invalidate(9, $mapComponent = $value));
+    component_subscribe($self, mapComponent, ($value) => $invalidate(10, $mapComponent = $value));
     const dispatch = createEventDispatcher();
     let mapElement, map;
     let { options = {} } = $props;
@@ -4649,11 +4658,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         draggable: false
       });
       return marker;
-    }
-    function infoWindow(marker, name, address, type) {
-      const contentString = `<h3 id="firstHeading" class="firstHeading">${name}</h3><p>${address}</p><p><b>Type:</b> ${type}</p>`;
-      const infowindow = new google.maps.InfoWindow({ content: contentString });
-      infowindow.open({ anchor: marker, map });
     }
     async function initialise() {
       const { Map: Map2 } = await google.maps.importLibrary("maps");
@@ -4682,6 +4686,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       createMarker,
       clearMarkers,
       infoWindow,
+      clearInfoWindow,
       div_binding
     ];
   }
@@ -4693,7 +4698,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         setCentre: 3,
         createMarker: 4,
         clearMarkers: 5,
-        infoWindow: 6
+        infoWindow: 6,
+        clearInfoWindow: 7
       });
     }
     get setCentre() {
@@ -4706,7 +4712,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       return clearMarkers;
     }
     get infoWindow() {
-      return this.$.ctx[6];
+      return infoWindow;
+    }
+    get clearInfoWindow() {
+      return clearInfoWindow;
     }
   };
   var GoogleMap_default = GoogleMap;
