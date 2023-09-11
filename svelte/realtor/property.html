@@ -9588,8 +9588,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span0;
     let t4_value = (
       /*property*/
-      ctx[0].purpose === "sell" ? `On Sale` : `For ${/*property*/
-      ctx[0].purpose}`
+      ctx[0].purpose === "rent" ? `For ${/*property*/
+      ctx[0].purpose}` : `On Sale`
     );
     let t4;
     let span0_class_value;
@@ -9838,7 +9838,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(div1, "class", "image_preview_wrapper svelte-187mby7");
         attr(span0, "class", span0_class_value = null_to_empty(
           /*property*/
-          ctx[0].purpose === "sell" ? `label_sale` : `label_rent`
+          ctx[0].purpose === "rent" ? `label_rent` : `label_sale`
         ) + " svelte-187mby7");
         attr(h30, "class", "svelte-187mby7");
         attr(p0, "class", "svelte-187mby7");
@@ -9996,13 +9996,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if ((!current || dirty[0] & /*property*/
         1) && t4_value !== (t4_value = /*property*/
-        ctx2[0].purpose === "sell" ? `On Sale` : `For ${/*property*/
-        ctx2[0].purpose}`))
+        ctx2[0].purpose === "rent" ? `For ${/*property*/
+        ctx2[0].purpose}` : `On Sale`))
           set_data(t4, t4_value);
         if (!current || dirty[0] & /*property*/
         1 && span0_class_value !== (span0_class_value = null_to_empty(
           /*property*/
-          ctx2[0].purpose === "sell" ? `label_sale` : `label_rent`
+          ctx2[0].purpose === "rent" ? `label_rent` : `label_sale`
         ) + " svelte-187mby7")) {
           attr(span0, "class", span0_class_value);
         }

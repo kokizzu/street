@@ -33,13 +33,13 @@
       <div class="col1">
         <div class="left">
           <div class={property.purpose === 'rent' ? `purpose label_rent` : `purpose label_sale`}>
-            {property.purpose === 'sell'
+            {property.purpose === 'rent'
               ? $isLangTWN
-                ? translation.onSaleTW
-                : translation.onSale
+                ? translation.forRentTW
+                : translation.forRent
               : $isLangTWN
-              ? translation.forRentTW
-              : translation.forRent}
+                ? translation.onSaleTW
+                : translation.onSale}
           </div>
           <div class="house_type">
             <Icon size={16} color="#FFFF" src={FaSolidHome} />

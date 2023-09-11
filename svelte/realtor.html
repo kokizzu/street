@@ -5768,12 +5768,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let div1;
     let t1_value = (
       /*property*/
-      (ctx[0].purpose === "sell" ? (
-        /*$isLangTWN*/
-        ctx[3] ? translation_default.onSaleTW : translation_default.onSale
-      ) : (
+      (ctx[0].purpose === "rent" ? (
         /*$isLangTWN*/
         ctx[3] ? translation_default.forRentTW : translation_default.forRent
+      ) : (
+        /*$isLangTWN*/
+        ctx[3] ? translation_default.onSaleTW : translation_default.onSale
       )) + ""
     );
     let t1;
@@ -6049,7 +6049,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(div0, "class", "property_images svelte-11ksx6p");
         attr(div1, "class", div1_class_value = null_to_empty(
           /*property*/
-          ctx[0].purpose === "sell" ? `purpose label_sale` : `purpose label_rent`
+          ctx[0].purpose === "rent" ? `purpose label_rent` : `purpose label_sale`
         ) + " svelte-11ksx6p");
         attr(div2, "class", "house_type svelte-11ksx6p");
         attr(div3, "class", "left svelte-11ksx6p");
@@ -6197,18 +6197,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if ((!current || dirty & /*property, $isLangTWN*/
         9) && t1_value !== (t1_value = /*property*/
-        (ctx2[0].purpose === "sell" ? (
-          /*$isLangTWN*/
-          ctx2[3] ? translation_default.onSaleTW : translation_default.onSale
-        ) : (
+        (ctx2[0].purpose === "rent" ? (
           /*$isLangTWN*/
           ctx2[3] ? translation_default.forRentTW : translation_default.forRent
+        ) : (
+          /*$isLangTWN*/
+          ctx2[3] ? translation_default.onSaleTW : translation_default.onSale
         )) + ""))
           set_data(t1, t1_value);
         if (!current || dirty & /*property*/
         1 && div1_class_value !== (div1_class_value = null_to_empty(
           /*property*/
-          ctx2[0].purpose === "sell" ? `purpose label_sale` : `purpose label_rent`
+          ctx2[0].purpose === "rent" ? `purpose label_rent` : `purpose label_sale`
         ) + " svelte-11ksx6p")) {
           attr(div1, "class", div1_class_value);
         }

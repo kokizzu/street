@@ -224,11 +224,11 @@
             <div class='prop_info'>
               <div class='main_info'>
                 <div class='label_info'>
-                  <div class={prop.purpose === 'sell'
-                    ? `purpose label_sale`
-                    : `purpose label_rent`
+                  <div class={prop.purpose === 'rent'
+                    ? `purpose label_rent`
+                    : `purpose label_sale`
                   }>
-                    {prop.purpose==='sell' ? ($isLangTWN ? translation.onSaleTW : translation.onSale) : ($isLangTWN ? translation.forRentTW : translation.forRent)}
+                    {prop.purpose==='rent' ? ($isLangTWN ? translation.forRentTW : translation.forRent) : ($isLangTWN ? translation.onSaleTW : translation.onSale)}
                   </div>
                   <div class='house_type'>
                     <Icon size={12} color='#475569' src={FaSolidHome} />
