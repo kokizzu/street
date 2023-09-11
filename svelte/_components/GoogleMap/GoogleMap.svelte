@@ -4,8 +4,7 @@
   import { mapComponent } from "./stores";
   
   const dispatch = createEventDispatcher();
-  let mapElement;
-  let map;
+  let mapElement, map;
   export let options = {}
   export function setCentre(location) {
     map.setCenter(location);
@@ -36,13 +35,26 @@
     markers.length = 0;
     markers = [];
     return markers;
-  };
+  }
+  export function infoWindow(marker, name, address, type) {
+    const contentString =
+      `<h3 id="firstHeading" class="firstHeading">${name}</h3>` +
+      `<p>${address}</p>` +
+      `<p><b>Type:</b> ${type}</p>`;
+    const infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+    infowindow.open({
+      anchor: marker,
+      map,
+    });
+  }
   async function initialise () {
     const {Map} = await google.maps.importLibrary( 'maps' );
     map = new Map( mapElement, options);
     map.addListener("dragend", () => {
       dispatch("mapDragged", map);
-    })
+    });
     $mapComponent = map;
     dispatch('ready');
   }

@@ -1,7 +1,9 @@
 <script>
   // @ts-nocheck
   import { UserSearchProp, UserNearbyFacilities } from 'jsApi.GEN';
+  import { isLangTWN } from './uiState.js';
   import { formatPrice } from './formatter';
+  import translation from '../translation.json';
   import { GoogleMap, GoogleSdk } from './GoogleMap/components';
   import Growl from './Growl.svelte';
   
@@ -17,6 +19,7 @@
   import FaSolidUndoAlt from 'svelte-icons-pack/fa/FaSolidUndoAlt';
   import FaSolidBan from 'svelte-icons-pack/fa/FaSolidBan';
   import FaSolidReceipt from 'svelte-icons-pack/fa/FaSolidReceipt';
+  import FaSolidInfoCircle from 'svelte-icons-pack/fa/FaSolidInfoCircle';
   
   export let randomProps = []
   export let defaultDistanceKm = 20;
@@ -30,6 +33,13 @@
     mapTypeId: 'roadmap',
     mapId: 'street_project',
   };
+  const markers_icon = {
+    school: {path: '/assets/icons/marker-school.svg'},
+    restaurant: {path: '/assets/icons/marker-restaurant.svg'},
+    convenience_store: {path: '/assets/icons/marker-mall.svg'},
+    hospital: {path: '/assets/icons/marker-hospital.svg'},
+    subway_station: {path: '/assets/icons/marker-subway.svg'}
+  }
   let geocoder, input_search_value, autocomplete_service;
   let autocomplete_lists = [];
   let showGrowl = false, gMsg = '', gType = '';
@@ -113,30 +123,18 @@
       if (res.error) return useGrowl('error', res.error);
       markersFacility = gmapsComponent.clearMarkers( markersFacility );
       facilities = await res.facilities;
-      console.log(facilities)
       facilities.forEach( fac => {
-        markersFacility.push( gmapsComponent.createMarker(
-           fac.lat,
-           fac.lng,
-           '/assets/icons/marker.svg',
-           32,
-        ) );
+        let iconmarkerpath = '/assets/icons/marker.svg';
+        if (markers_icon[fac.type]) { iconmarkerpath = markers_icon[fac.type].path }
+        markersFacility.push( gmapsComponent.createMarker( fac.lat, fac.lng, iconmarkerpath, 32, fac.name ) );
+      } );
+      console.log(facilities);
+    } );
+    markersFacility.forEach((marker, idx) => {
+      marker.addListener("click", () => {
+        gmapsComponent.infoWindow(marker, facilities[idx].name, facilities[idx].address, facilities[idx].type);
       } );
     } );
-    markersFacility.forEach((marker) => {
-      marker.addListener("mouseover", () => {
-        marker.setIcon({
-          url: '/assets/icons/marker.svg', // URL to your custom icon image
-          scaledSize: new google.maps.Size(40, 40)
-        })
-      })
-      marker.addListener("mouseout", () => {
-        marker.setIcon({
-          url: '/assets/icons/marker.svg', // URL to your custom icon image
-          scaledSize: new google.maps.Size(32, 32)
-        })
-      })
-    })
   }
   
   async function initGoogleService() {
@@ -230,7 +228,7 @@
                     ? `purpose label_sale`
                     : `purpose label_rent`
                   }>
-                    {prop.purpose==='sell' ? `On Sale` : `For Rent`}
+                    {prop.purpose==='sell' ? ($isLangTWN ? translation.onSaleTW : translation.onSale) : ($isLangTWN ? translation.forRentTW : translation.forRent)}
                   </div>
                   <div class='house_type'>
                     <Icon size={12} color='#475569' src={FaSolidHome} />
@@ -243,26 +241,35 @@
                 </div>
                 <div class='feature'>
                   <div class='item'>
-                    <Icon size={13} color='#f97316' src={FaSolidBuilding} />
-                    <span><b>Floor</b>: {prop.numberOfFloors === 0 ? 'no-data' : prop.numberOfFloors}</span>
+                    <div>
+                      <Icon size={13} color='#ffff' src={FaSolidBuilding} />
+                      <span>{$isLangTWN ? translation.floorsTW : translation.floors}</span>
+                    </div>
+                    <span class="value">{prop.numberOfFloors === 0 ? 'no-data' : prop.numberOfFloors}</span>
                   </div>
                   <div class='item'>
-                    <Icon size={14} color='#f97316' src={FaSolidBed} />
-                    <span><b>Beds</b>: {prop.bedroom === 0 ? 'no-data' : prop.bedroom}</span>
+                    <div>
+                      <Icon size={14} color='#ffff' src={FaSolidBed} />
+                      <span>{$isLangTWN ? translation.bedTW : translation.bed}</span>
+                    </div>
+                    <span class="value">{prop.bedroom === 0 ? 'no-data' : prop.bedroom}</span>
                   </div>
                   <div class='item'>
-                    <Icon size={14} color='#f97316' src={FaSolidBath} />
-                    <span><b>Baths</b>: {prop.bathroom === 0 ? 'no-data' : prop.bathroom}</span>
+                    <div>
+                      <Icon size={14} color='#ffff' src={FaSolidBath} />
+                      <span>{$isLangTWN ? translation.bathTW : translation.bath}</span>
+                    </div>
+                    <span class="value">{prop.bathroom === 0 ? 'no-data' : prop.bathroom}</span>
                   </div>
                 </div>
               </div>
               <div class='secondary_info'>
                 <div class='size'>
                   <Icon size={12} color='#f97316' src={FaSolidRulerCombined} />
-                  <span>{prop.sizeM2} M2</span>
+                  <span>{prop.sizeM2} {$isLangTWN ? translation.mTW : 'M2'}</span>
                 </div>
                 <div class='price'>
-                  <span class='agency_fee'>Agency Fee: {prop.agencyFeePercent || '0'}%</span>
+                  <span class='agency_fee'>{$isLangTWN ? translation.agencyFeeTW : translation.agencyFee}: {prop.agencyFeePercent || '0'}%</span>
                   <span class='last_price'>{formatPrice( prop.lastPrice || 0, 'TWD' )}</span>
                 </div>
               </div>
@@ -432,6 +439,7 @@
     height         : 190px;
     min-height     : 190px;
     border: 2px solid transparent;
+    text-transform: capitalize;
     color: #475569;
   }
   .property_location_container .left .props_container .prop_item.highlight {
@@ -532,12 +540,30 @@
     align-items     : center;
     font-size       : 13px;
   }
-
   .property_location_container .left .props_container .prop_item .prop_info .main_info .feature .item {
-    display        : flex;
-    flex-direction : row;
-    align-items    : center;
-    gap            : 8px;
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 5px;
+  }
+  .property_location_container .left .props_container .prop_item .prop_info .main_info .feature .item div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 3px 7px;
+    background-color: #f97316;
+    border: 1px solid #f97316;
+    gap: 4px;
+    color: #ffff;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  .property_location_container .left .props_container .prop_item .prop_info .main_info .feature .item .value {
+    padding: 3px 7px;
+    border: 1px solid #CBD5E1;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 
   .property_location_container .left .props_container .prop_item .prop_info .secondary_info {
@@ -671,7 +697,7 @@
     border-radius : 8px;
     overflow      : hidden;
   }
-
+  
   .property_location_container .right .map_container .btn_sync_map {
     position         : absolute;
     display          : flex;
@@ -682,7 +708,7 @@
     padding          : 0 20px;
     height           : 40px;
     top              : 10px;
-    left             : 188px;
+    left             : 40%;
     border-radius    : 3px;
     font-size        : 15px;
     background-color : #FFF;
