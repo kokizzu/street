@@ -32,7 +32,7 @@
     <div class="property_info">
       <div class="col1">
         <div class="left">
-          <div class={property.purpose === 'sell' ? `purpose label_sale` : `purpose label_rent`}>
+          <div class={property.purpose === 'rent' ? `purpose label_rent` : `purpose label_sale`}>
             {property.purpose === 'sell'
               ? $isLangTWN
                 ? translation.onSaleTW
