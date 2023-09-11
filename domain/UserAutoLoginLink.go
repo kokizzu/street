@@ -51,7 +51,7 @@ func (d *Domain) UserAutoLoginLink(in *UserAutoLoginLinkIn) (out UserAutoLoginLi
 	user.Id = sess.UserId
 	user.FindById() // assume always exists
 
-	out.Link = `?uid=` + S.EncodeCB63(sess.UserId, 1) +
+	out.Link = `/` + GuestAutoLoginAction + `?uid=` + S.EncodeCB63(sess.UserId, 1) +
 		`&token=` + sess.Encrypt(conf.AutoLoginUA+fmt.Sprint(user.UpdatedAt)+in.Path) +
 		`&path=` + in.Path
 	return
