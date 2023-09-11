@@ -1,9 +1,12 @@
 package domain
 
 import (
+	"fmt"
+
 	"github.com/kokizzu/gotro/S"
 
 	"street/conf"
+	"street/model/mAuth/rqAuth"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserAutoLoginLink.go
@@ -26,7 +29,7 @@ type (
 )
 
 const (
-	UserAutoLoginLinkAction = `user/AutoLoginLink`
+	UserAutoLoginLinkAction = `user/autoLoginLink`
 
 	ErrUserAutoLoginLinkInvalidFor = `autologin link invalid path`
 )
@@ -44,7 +47,12 @@ func (d *Domain) UserAutoLoginLink(in *UserAutoLoginLinkIn) (out UserAutoLoginLi
 		return
 	}
 
-	out.Link = `?uid=` + S.EncodeCB63(sess.UserId, 1) + `&token=` + sess.Encrypt(conf.AutoLoginUA)
+	user := rqAuth.NewUsers(d.AuthOltp)
+	user.Id = sess.UserId
+	user.FindById() // assume always exists
 
+	out.Link = `?uid=` + S.EncodeCB63(sess.UserId, 1) +
+		`&token=` + sess.Encrypt(conf.AutoLoginUA+fmt.Sprint(user.UpdatedAt)+in.Path) +
+		`&path=` + in.Path
 	return
 }

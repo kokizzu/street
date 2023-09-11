@@ -2508,6 +2508,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       exports.AdminUsers = async function AdminUsers(i, cb) {
         return await axios.post("/admin/users", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.GuestAutoLogin = async function GuestAutoLogin(i, cb) {
+        return await axios.post("/guest/autoLogin", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.GuestDebug = async function GuestDebug(i, cb) {
         return await axios.post("/guest/debug", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2546,6 +2549,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       };
       exports.RealtorUpsertProperty = async function RealtorUpsertProperty(i, cb) {
         return await axios.post("/realtor/upsertProperty", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
+        return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserChangePassword = async function UserChangePassword(i, cb) {
         return await axios.post("/user/changePassword", i).then(wrapOk(cb)).catch(wrapErr(cb));

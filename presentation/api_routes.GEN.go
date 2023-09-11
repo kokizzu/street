@@ -60,6 +60,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// GuestAutoLogin
+	fw.Post("/"+domain.GuestAutoLoginAction, func(c *fiber.Ctx) error {
+		in := domain.GuestAutoLoginIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.GuestAutoLoginAction); err != nil {
+			return nil
+		}
+		out := d.GuestAutoLogin(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// GuestDebug
 	fw.Post("/"+domain.GuestDebugAction, func(c *fiber.Ctx) error {
 		in := domain.GuestDebugIn{}
@@ -187,6 +197,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.RealtorUpsertProperty(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// UserAutoLoginLink
+	fw.Post("/"+domain.UserAutoLoginLinkAction, func(c *fiber.Ctx) error {
+		in := domain.UserAutoLoginLinkIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserAutoLoginLinkAction); err != nil {
+			return nil
+		}
+		out := d.UserAutoLoginLink(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
