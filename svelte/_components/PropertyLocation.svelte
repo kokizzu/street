@@ -6,6 +6,7 @@
   import translation from '../translation.json';
   import {GoogleMap, GoogleSdk} from './GoogleMap/components';
   import Growl from './Growl.svelte';
+  import {mapComponent} from "./GoogleMap/stores";
   
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidSearch from 'svelte-icons-pack/fa/FaSolidSearch';
@@ -148,6 +149,11 @@
       await searchNearbyFacility();
     }
     await searchProperty( false );
+    $mapComponent.addListener('click', () => {
+      if( infoWindows ) {
+        infoWindows.close();
+      }
+    });
   }
   
   function searchLocationHandler() {
@@ -344,26 +350,43 @@
 </div>
 
 <style>
+    :global(.gm-style-iw) {
+        overflow : visible !important;
+    }
+
+    :global(.gm-style-iw-c) {
+        padding : 0 0 0 10px !important;
+    }
+
     :global(.gm-ui-hover-effect) {
-        background     : #CBD5E1 !important;
-        border-radius  : 8px !important;
-        display        : block !important;
-        border         : 0 !important;
-        margin         : 0 !important;
-        padding        : 0 !important;
-        text-transform : none !important;
-        appearance     : none !important;
-        position       : absolute !important;
-        cursor         : pointer !important;
-        user-select    : none !important;
-        top            : 3px !important;
-        right          : 3px !important;
-        width          : 27px !important;
-        height         : 27px !important;
+        background      : #EF4444 !important;
+        border-radius   : 50% !important;
+        display         : block !important;
+        border          : 0 !important;
+        margin          : 0 !important;
+        padding         : 0 !important;
+        text-transform  : none !important;
+        appearance      : none !important;
+        position        : absolute !important;
+        cursor          : pointer !important;
+        user-select     : none !important;
+        top             : -10px !important;
+        right           : -10px !important;
+        width           : 27px !important;
+        height          : 27px !important;
+        z-index         : 999 !important;
+        backdrop-filter : none !important;
+        opacity         : inherit !important;
+        color           : #FFF !important;
+    }
+
+    :global(.gm-ui-hover-effect:hover) {
+        background : #E55D5D !important;
     }
 
     :global(.gm-ui-hover-effect span) {
-        margin : auto !important;
+        margin           : auto !important;
+        background-color : #FFF !important;
     }
 
     .property_location_container {
