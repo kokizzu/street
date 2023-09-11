@@ -176,6 +176,8 @@ func main() {
 		jsonCoordFile, _ := filepath.Abs(`./static/house_data/coordinates.json`)
 		zImport.ImportExcelData(tConn, excelFile, jsonCoordFile)
 		zImport.PatchPropertiesPrice(tConn)
+	case `import_property_usa`:
+		zImport.ImportPropertyUsData(&tConn)
 	case `import_location`:
 		zImport.ImportHouseLocation(tConn, gmap)
 	case `import_streetview_image`:

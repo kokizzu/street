@@ -6,6 +6,62 @@ import (
 )
 
 const (
+	TablePropertyUsa Tt.TableName = `property_usa`
+
+	Version    = `version`
+	PropertyId = `propertyId` // ID of Property ID in Redfin
+
+	// Basic Info
+	Street                  = `street`
+	City                    = `city`
+	State                   = `state`
+	Zip                     = `zip`
+	CountryCode             = `countryCode`
+	PropertyTypeName        = `propertyTypeName`
+	YearBuilt               = `yearBuilt`
+	YearRenovated           = `yearRenovated`
+	TotalSqft               = `totalSqft`
+	Apn                     = `apn` // APN stands for Assessor’s Parcel Number. It is a unique number assigned by the Tax Assessor to a piece of property or each tract of land within a county. It’s a numbering system that distinguishes one property from the next.
+	PropertyLastUpdatedDate = `propertyLastUpdatedDate`
+	DisplayTimeZone         = `displayTimeZone`
+
+	// Latest tax info
+	TaxableLandValue        = `taxableLandValue`
+	TaxableImprovementValue = `taxableImprovementValue`
+	RollYear                = `rollYear`
+	TaxesDue                = `taxesDue`
+
+	// County
+	CountyUrl      = `countyUrl`
+	CountyName     = `countyName`
+	CountyIsActive = `countyIsActive`
+
+	// Tax notes
+	TaxNote = `taxNote`
+
+	// Amenity
+	AmenitySuperGroups = `amenitySuperGroups`
+
+	// Source photo
+	MediaSource = `mediaSource`
+
+	// Zone data info
+	ZoneName            = `zoneName`            // Ex: Residential Apartment
+	ZoneType            = `zoneType`            // Ex: Residential
+	ZoneSubType         = `zoneSubType`         // Ex: Single Family
+	ZoneDisplay         = `zoneDisplay`         // Ex: Residential Single Family
+	ZoneCode            = `zoneCode`            // Ex: RA-2
+	PermittedLandUse    = `permittedLandUse`    // Ex: ["Single-Family","Multi-Family","Short-Term Rentals","Commercial"]
+	NotPermittedLandUse = `notPermittedLandUse` // Ex: ["Two-Family", "ADU", "Industrial"]
+
+	// Agent & Broker
+	ListingBrokerName   = `listingBrokerName`
+	ListingBrokerNumber = `listingBrokerNumber`
+	ListingAgentName    = `listingAgentName`
+	ListingAgentNumber  = `listingAgentNumber`
+)
+
+const (
 	TableProperty Tt.TableName = `property`
 
 	Id                     = `id`
@@ -148,6 +204,79 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		},
 		Unique1: PropId,
 		Engine:  Tt.Memtx,
+	},
+	TablePropertyUsa: {
+		Fields: []Tt.Field{
+
+			{Id, Tt.Unsigned},
+
+			// Basic info
+			{Version, Tt.Integer},
+			{PropertyId, Tt.Unsigned},
+			{Street, Tt.String},
+			{City, Tt.String},
+			{State, Tt.String},
+			{Zip, Tt.String},
+			{CountryCode, Tt.String},
+			{PropertyTypeName, Tt.String},
+			{YearBuilt, Tt.Integer},
+			{YearRenovated, Tt.Integer},
+			{TotalSqft, Tt.Double},
+			{Apn, Tt.String},
+			{PropertyLastUpdatedDate, Tt.Integer},
+			{DisplayTimeZone, Tt.String},
+			{Coord, Tt.Array},
+			{Bedroom, Tt.Integer},
+			{Bathroom, Tt.Integer},
+
+			// Tax info
+			{TaxableLandValue, Tt.Integer},
+			{TaxableImprovementValue, Tt.Integer},
+			{RollYear, Tt.Integer},
+			{TaxesDue, Tt.Double},
+
+			// Amenity Group
+			{AmenitySuperGroups, Tt.Array},
+
+			// County
+			{CountyUrl, Tt.String},
+			{CountyName, Tt.String},
+			{CountyIsActive, Tt.Boolean},
+
+			// Media sources
+			{MediaSource, Tt.Array},
+
+			// Zone data info
+			{ZoneName, Tt.String},
+			{ZoneType, Tt.String},
+			{ZoneSubType, Tt.String},
+			{ZoneDisplay, Tt.String},
+			{ZoneCode, Tt.String},
+			{PermittedLandUse, Tt.Array},
+			{NotPermittedLandUse, Tt.Array},
+
+			{Note, Tt.String},
+			{TaxNote, Tt.String},
+			{CreatedAt, Tt.Integer},
+			{CreatedBy, Tt.Unsigned},
+			{UpdatedAt, Tt.Integer},
+			{UpdatedBy, Tt.Unsigned},
+			{DeletedAt, Tt.Integer},
+
+			// Agent & Broker
+			{ListingBrokerName, Tt.String},
+			{ListingBrokerNumber, Tt.String},
+			{ListingAgentName, Tt.String},
+			{ListingAgentNumber, Tt.String},
+
+			{AgencyFeePercent, Tt.Double},
+			{Country, Tt.String},
+		},
+		AutoIncrementId: true,
+		Unique1:         PropertyId,
+		Indexes:         []string{PropertyId},
+		Engine:          Tt.Memtx,
+		Spatial:         Coord,
 	},
 }
 
