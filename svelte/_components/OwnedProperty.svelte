@@ -7,11 +7,24 @@
   import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
   import PillBox from './PillBox.svelte';
   import { localeDatetime } from './formatter';
+  import {currentLang} from "./uiState";
 
   export let property;
   export let meta;
   let showMore = false;
-
+  
+  function translate(key) {
+    if( $currentLang==='EN' ) {
+      return translation[ key ]
+    }
+    const keyTranslate = key + $currentLang;
+    console.log( keyTranslate )
+    return translation[ keyTranslate ];
+  }
+  
+  let storedLang = localStorage.getItem( 'lang' );
+  // const keyTranslate = 'basement' + storedLang;
+  console.log(storedLang)
   function handleShowMore() {
     showMore = !showMore;
   }
@@ -94,7 +107,7 @@
           <div class="floor_item">
             <div class="left">
               <h5>
-                {floors.type === 'basement' ? 'Basement' : `Floor #${floors.floor}`}
+                {floors.type === 'basement' ? translate('basement') : `${translate('floorN')}${floors.floor}`}
               </h5>
               <!-- TODO: currently room list only 1 object, fix Tarantool to accept array -->
               {#if floors.rooms}
