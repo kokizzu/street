@@ -1,9 +1,8 @@
 <script>
   // @ts-nocheck
   import {UserNearbyFacilities, UserSearchProp} from 'jsApi.GEN';
-  import {isLangTWN} from './uiState.js';
   import {formatPrice} from './formatter';
-  import translation from '../translation.json';
+  import {currentLang} from "./uiState";
   import {GoogleMap, GoogleSdk} from './GoogleMap/components';
   import Growl from './Growl.svelte';
   import {mapComponent} from "./GoogleMap/stores";
@@ -149,11 +148,11 @@
       await searchNearbyFacility();
     }
     await searchProperty( false );
-    $mapComponent.addListener('click', () => {
+    $mapComponent.addListener( 'click', () => {
       if( infoWindows ) {
         infoWindows.close();
       }
-    });
+    } );
   }
   
   function searchLocationHandler() {
@@ -235,7 +234,7 @@
                     ? `purpose label_rent`
                     : `purpose label_sale`
                   }>
-										{prop.purpose==='rent' ? ($isLangTWN ? translation.forRentTW : translation.forRent) : ($isLangTWN ? translation.onSaleTW : translation.onSale)}
+										{prop.purpose==='rent' ? 'For Rent' : 'On Sale'}
 									</div>
 									<div class='house_type'>
 										<Icon size={12} color='#475569' src={FaSolidHome}/>
@@ -250,21 +249,21 @@
 									<div class='item'>
 										<div>
 											<Icon size={13} color='#ffff' src={FaSolidBuilding}/>
-											<span>{$isLangTWN ? translation.floorsTW : translation.floors}</span>
+											<span>Floors</span>
 										</div>
 										<span class="value">{prop.numberOfFloors===0 ? 'no-data' : prop.numberOfFloors}</span>
 									</div>
 									<div class='item'>
 										<div>
 											<Icon size={14} color='#ffff' src={FaSolidBed}/>
-											<span>{$isLangTWN ? translation.bedTW : translation.bed}</span>
+											<span>Bed</span>
 										</div>
 										<span class="value">{prop.bedroom===0 ? 'no-data' : prop.bedroom}</span>
 									</div>
 									<div class='item'>
 										<div>
-											<Icon size={14} color='#ffff' src={FaSolidBath}/>
-											<span>{$isLangTWN ? translation.bathTW : translation.bath}</span>
+											<Icon size={13} color='#ffff' src={FaSolidBath}/>
+											<span>Bath</span>
 										</div>
 										<span class="value">{prop.bathroom===0 ? 'no-data' : prop.bathroom}</span>
 									</div>
@@ -273,10 +272,10 @@
 							<div class='secondary_info'>
 								<div class='size'>
 									<Icon size={12} color='#f97316' src={FaSolidRulerCombined}/>
-									<span>{prop.sizeM2} {$isLangTWN ? translation.mTW : 'M2'}</span>
+									<span>{prop.sizeM2} M2</span>
 								</div>
 								<div class='price'>
-									<span class='agency_fee'>{$isLangTWN ? translation.agencyFeeTW : translation.agencyFee}: {prop.agencyFeePercent || '0'}%</span>
+									<span class='agency_fee'>Agency Fee: {prop.agencyFeePercent || '0'}%</span>
 									<span class='last_price'>{formatPrice( prop.lastPrice || 0, 'TWD' )}</span>
 								</div>
 							</div>
@@ -586,7 +585,7 @@
         flex-direction  : row;
         justify-content : space-between;
         align-items     : center;
-        font-size       : 13px;
+        font-size       : 11px;
     }
 
     .property_location_container .left .props_container .prop_item .prop_info .main_info .feature .item {

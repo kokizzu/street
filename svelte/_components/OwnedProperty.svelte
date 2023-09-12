@@ -1,7 +1,6 @@
 <script>
   // @ts-nocheck
   import translation from '../translation.json';
-  import { isLangTWN } from './uiState.js';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
   import FaSolidPen from 'svelte-icons-pack/fa/FaSolidPen';
@@ -33,13 +32,7 @@
       <div class="col1">
         <div class="left">
           <div class={property.purpose === 'rent' ? `purpose label_rent` : `purpose label_sale`}>
-            {property.purpose === 'rent'
-              ? $isLangTWN
-                ? translation.forRentTW
-                : translation.forRent
-              : $isLangTWN
-                ? translation.onSaleTW
-                : translation.onSale}
+            {property.purpose==='rent' ? 'For Rent' : 'On Sale'}
           </div>
           <div class="house_type">
             <Icon size={16} color="#FFFF" src={FaSolidHome} />
@@ -54,7 +47,7 @@
 
       <div class="col2">
         <h1>$ {property.lastPrice || '0.00'}</h1>
-        <p>{$isLangTWN ? translation.agencyFeeTW : translation.agencyFee} : {property.agencyFeePercent}%</p>
+        <p>Agency Fee : {property.agencyFeePercent}%</p>
         <div class="address">
           <Icon size={18} color="#f97316" src={FaSolidMapMarkerAlt} />
           <span>{property.formattedAddress}</span>
@@ -66,15 +59,15 @@
     <div class="feature_number">
       <div class="feature_item">
         <b>{property.numberOfFloors || '0'}</b>
-        <p>{$isLangTWN ? translation.floorsTW : translation.floors}</p>
+        <p>Floors</p>
       </div>
       <div class="feature_item">
         <b>{property.bathroom || '0'}</b>
-        <p>{$isLangTWN ? translation.bathTW : translation.bath}</p>
+        <p>Baths</p>
       </div>
       <div class="feature_item">
         <b>{property.bedroom || '0'}</b>
-        <p>{$isLangTWN ? translation.bedTW : translation.bed}</p>
+        <p>Beds</p>
       </div>
       <div class="feature_item">
         <b>{property.sizeM2 || '0'} M2</b>
@@ -101,7 +94,7 @@
           <div class="floor_item">
             <div class="left">
               <h5>
-                {floors.type === 'basement' ? `${$isLangTWN ? translation.basementTW : translation.basement}` : `${$isLangTWN ? translation.floorNTW : translation.floorN}${floors.floor}`}
+                {floors.type === 'basement' ? 'Basement' : `Floor #${floors.floor}`}
               </h5>
               <!-- TODO: currently room list only 1 object, fix Tarantool to accept array -->
               {#if floors.rooms}

@@ -2,14 +2,11 @@
   //@ts-nocheck
   import { GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail } from './jsApi.GEN.js';
   import { onMount, tick } from 'svelte';
-  import { isLangTWN } from './_components/uiState';
-  import translation from './translation.json';
   import Menu from './_components/Menu.svelte';
   import PropertyLocation from '_components/PropertyLocation.svelte';
   import ProfileHeader from './_components/ProfileHeader.svelte';
   import Footer from './_components/Footer.svelte';
   
-  let storedLang = localStorage.getItem('isLangTWN');
   let sideMenuOpen = false;
   let randomProps = [/* randomProps */] || [];
   let initialLatLong = [/* initialLatLong */];
@@ -73,13 +70,7 @@
     emailInput.focus();
   }
 
-  onMount(() => {
-    onHashChange();
-    if (!storedLang) {
-      localStorage.setItem('isLangTWN', 'false');
-    }
-    isLangTWN.set(JSON.parse(storedLang));
-  });
+  onMount(onHashChange)
 
   async function guestRegister() {
     // TODO: replace all alert with growl
@@ -180,7 +171,7 @@
         <!-- Forgot Password -->
         {#if mode === LOGIN}
           <p class="forgot_password">
-            {$isLangTWN ? translation.forgotPasswordTW : translation.forgotPassword}?
+            Forgot Password?
             <a href="#FORGOT_PASSWORD" on:click|preventDefault={() => (mode = FORGOT_PASSWORD)}>Reset here</a>
           </p>
         {/if}
@@ -220,7 +211,7 @@
             <p>Have no account? <a href="#REGISTER" on:click={() => (mode = REGISTER)}>register</a></p>
           {/if}
           {#if mode !== LOGIN}
-            <p>{$isLangTWN ? translation.haveAccountTW : translation.haveAccount}? <a href="#LOGIN" on:click={() => (mode = LOGIN)}>login</a></p>
+            <p>Already have account? <a href="#LOGIN" on:click={() => (mode = LOGIN)}>login</a></p>
           {/if}
           {#if mode !== RESEND_VERIFICATION_EMAIL}
             <p>
