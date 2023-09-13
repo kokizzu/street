@@ -3,6 +3,7 @@
   import {UserNearbyFacilities, UserSearchProp} from 'jsApi.GEN';
   import {formatPrice} from './formatter';
   import {currentLang} from "./uiState";
+  import translation from "../translation.json";
   import {GoogleMap, GoogleSdk} from './GoogleMap/components';
   import Growl from './Growl.svelte';
   import {mapComponent} from "./GoogleMap/stores";
@@ -19,6 +20,16 @@
   import FaSolidUndoAlt from 'svelte-icons-pack/fa/FaSolidUndoAlt';
   import FaSolidBan from 'svelte-icons-pack/fa/FaSolidBan';
   import FaSolidReceipt from 'svelte-icons-pack/fa/FaSolidReceipt';
+  
+  let translate;
+  $: translate = (key) => {
+    console.log( $currentLang )
+    if( $currentLang==='EN' ) {
+      return translation[ key ]
+    }
+    const keyTranslate = key + $currentLang;
+    return translation[ keyTranslate ];
+  }
   
   export let randomProps = []
   export let defaultDistanceKm = 20;
@@ -238,7 +249,7 @@
 									</div>
 									<div class='house_type'>
 										<Icon size={12} color='#475569' src={FaSolidHome}/>
-										<span>{prop.houseType==="" ? 'House' : prop.houseType}</span>
+										<span>{prop.houseType==="" ? 'House' : prop.houseType} {translate( 'basement' )}</span>
 									</div>
 								</div>
 								<div class='address'>

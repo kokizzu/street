@@ -929,9 +929,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     mod
   ));
 
-  // node_modules/axios/dist/browser/axios.cjs
+  // node_modules/.pnpm/axios@1.4.0/node_modules/axios/dist/browser/axios.cjs
   var require_axios = __commonJS({
-    "node_modules/axios/dist/browser/axios.cjs"(exports, module) {
+    "node_modules/.pnpm/axios@1.4.0/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
       "use strict";
       function bind(fn, thisArg) {
         return function wrap() {
@@ -1156,9 +1156,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         const descriptors2 = Object.getOwnPropertyDescriptors(obj);
         const reducedDescriptors = {};
         forEach(descriptors2, (descriptor, name) => {
-          let ret;
-          if ((ret = reducer(descriptor, name, obj)) !== false) {
-            reducedDescriptors[name] = ret || descriptor;
+          if (reducer(descriptor, name, obj) !== false) {
+            reducedDescriptors[name] = descriptor;
           }
         });
         Object.defineProperties(obj, reducedDescriptors);
@@ -1683,6 +1682,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         return null;
       }
+      var DEFAULT_CONTENT_TYPE = {
+        "Content-Type": void 0
+      };
       function stringifySafely(rawValue, parser, encoder) {
         if (utils.isString(rawValue)) {
           try {
@@ -1698,7 +1700,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
       var defaults = {
         transitional: transitionalDefaults,
-        adapter: platform.isNode ? "http" : "xhr",
+        adapter: ["xhr", "http"],
         transformRequest: [function transformRequest(data, headers) {
           const contentType = headers.getContentType() || "";
           const hasJSONContentType = contentType.indexOf("application/json") > -1;
@@ -1781,13 +1783,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         },
         headers: {
           common: {
-            "Accept": "application/json, text/plain, */*",
-            "Content-Type": void 0
+            "Accept": "application/json, text/plain, */*"
           }
         }
       };
-      utils.forEach(["delete", "get", "head", "post", "put", "patch"], (method) => {
+      utils.forEach(["delete", "get", "head"], function forEachMethodNoData(method) {
         defaults.headers[method] = {};
+      });
+      utils.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
+        defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
       });
       var defaults$1 = defaults;
       var ignoreDuplicateOf = utils.toObjectSet([
@@ -2038,15 +2042,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
       };
       AxiosHeaders.accessor(["Content-Type", "Content-Length", "Accept", "Accept-Encoding", "User-Agent", "Authorization"]);
-      utils.reduceDescriptors(AxiosHeaders.prototype, ({ value }, key) => {
-        let mapped = key[0].toUpperCase() + key.slice(1);
-        return {
-          get: () => value,
-          set(headerValue) {
-            this[mapped] = headerValue;
-          }
-        };
-      });
+      utils.freezeMethods(AxiosHeaders.prototype);
       utils.freezeMethods(AxiosHeaders);
       var AxiosHeaders$1 = AxiosHeaders;
       function transformData(fns, response) {
@@ -2542,7 +2538,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         });
         return config;
       }
-      var VERSION2 = "1.5.0";
+      var VERSION2 = "1.4.0";
       var validators$1 = {};
       ["object", "boolean", "number", "function", "string", "symbol"].forEach((type, i) => {
         validators$1[type] = function validator2(thing) {
@@ -2645,11 +2641,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             }
           }
           config.method = (config.method || this.defaults.method || "get").toLowerCase();
-          let contextHeaders = headers && utils.merge(
+          let contextHeaders;
+          contextHeaders = headers && utils.merge(
             headers.common,
             headers[config.method]
           );
-          headers && utils.forEach(
+          contextHeaders && utils.forEach(
             ["delete", "get", "head", "post", "put", "patch", "common"],
             (method) => {
               delete headers[method];
@@ -2932,7 +2929,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       axios.mergeConfig = mergeConfig;
       axios.AxiosHeaders = AxiosHeaders$1;
       axios.formToJSON = (thing) => formDataToJSON(utils.isHTMLForm(thing) ? new FormData(thing) : thing);
-      axios.getAdapter = adapters.getAdapter;
       axios.HttpStatusCode = HttpStatusCode$1;
       axios.default = axios;
       module.exports = axios;
@@ -3114,7 +3110,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   });
 
-  // node_modules/svelte/src/runtime/internal/utils.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
   function assign(tar, src) {
@@ -3142,8 +3138,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   var src_url_equal_anchor;
   function src_url_equal(element_src, url) {
-    if (element_src === url)
-      return true;
     if (!src_url_equal_anchor) {
       src_url_equal_anchor = document.createElement("a");
     }
@@ -3174,13 +3168,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return ret;
   }
 
-  // node_modules/svelte/src/runtime/internal/globals.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
     // @ts-ignore Node typings have this
     global
   );
 
-  // node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
   var ResizeObserverSingleton = class {
     /**
      * @private
@@ -3226,7 +3220,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
 
-  // node_modules/svelte/src/runtime/internal/dom.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/dom.js
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -3336,7 +3330,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return result;
   }
 
-  // node_modules/svelte/src/runtime/internal/lifecycle.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/lifecycle.js
   var current_component;
   function set_current_component(component) {
     current_component = component;
@@ -3375,7 +3369,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   }
 
-  // node_modules/svelte/src/runtime/internal/scheduler.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -3454,7 +3448,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     render_callbacks = filtered;
   }
 
-  // node_modules/svelte/src/runtime/internal/transitions.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   var outros;
   function group_outros() {
@@ -3496,12 +3490,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   }
 
-  // node_modules/svelte/src/runtime/internal/each.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/each.js
   function ensure_array_like(array_like_or_iterator) {
     return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
 
-  // node_modules/svelte/src/runtime/internal/spread.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/spread.js
   function get_spread_update(levels, updates) {
     const update2 = {};
     const to_null_out = {};
@@ -3535,7 +3529,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return update2;
   }
 
-  // node_modules/svelte/src/shared/boolean_attributes.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/shared/boolean_attributes.js
   var _boolean_attributes = (
     /** @type {const} */
     [
@@ -3568,7 +3562,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
-  // node_modules/svelte/src/runtime/internal/Component.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/Component.js
   function create_component(block) {
     block && block.c();
   }
@@ -3664,62 +3658,56 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var SvelteElement;
   if (typeof HTMLElement === "function") {
     SvelteElement = class extends HTMLElement {
-      /** The Svelte component constructor */
-      $ctor;
-      /** Slots */
-      $s;
-      /** The Svelte component instance */
-      $c;
-      /** Whether or not the custom element is connected */
-      $cn = false;
-      /** Component props data */
-      $d = {};
-      /** `true` if currently in the process of reflecting component props back to attributes */
-      $r = false;
-      /** @type {Record<string, CustomElementPropDefinition>} Props definition (name, reflected, type etc) */
-      $p_d = {};
-      /** @type {Record<string, Function[]>} Event listeners */
-      $l = {};
-      /** @type {Map<Function, Function>} Event listener unsubscribe functions */
-      $l_u = /* @__PURE__ */ new Map();
+      $componentCtor;
+      $slots;
+      $component;
+      $connected = false;
+      $data = {};
+      $reflecting = false;
+      /** @type {Record<string, CustomElementPropDefinition>} */
+      $props_definition = {};
+      /** @type {Record<string, Function[]>} */
+      $listeners = {};
+      /** @type {Map<Function, Function>} */
+      $listener_unsubscribe_fns = /* @__PURE__ */ new Map();
       constructor($componentCtor, $slots, use_shadow_dom) {
         super();
-        this.$ctor = $componentCtor;
-        this.$s = $slots;
+        this.$componentCtor = $componentCtor;
+        this.$slots = $slots;
         if (use_shadow_dom) {
           this.attachShadow({ mode: "open" });
         }
       }
       addEventListener(type, listener, options) {
-        this.$l[type] = this.$l[type] || [];
-        this.$l[type].push(listener);
-        if (this.$c) {
-          const unsub = this.$c.$on(type, listener);
-          this.$l_u.set(listener, unsub);
+        this.$listeners[type] = this.$listeners[type] || [];
+        this.$listeners[type].push(listener);
+        if (this.$component) {
+          const unsub = this.$component.$on(type, listener);
+          this.$listener_unsubscribe_fns.set(listener, unsub);
         }
         super.addEventListener(type, listener, options);
       }
       removeEventListener(type, listener, options) {
         super.removeEventListener(type, listener, options);
-        if (this.$c) {
-          const unsub = this.$l_u.get(listener);
+        if (this.$component) {
+          const unsub = this.$listener_unsubscribe_fns.get(listener);
           if (unsub) {
             unsub();
-            this.$l_u.delete(listener);
+            this.$listener_unsubscribe_fns.delete(listener);
           }
         }
       }
       async connectedCallback() {
-        this.$cn = true;
-        if (!this.$c) {
+        this.$connected = true;
+        if (!this.$component) {
           let create_slot = function(name) {
             return () => {
               let node;
               const obj = {
                 c: function create() {
-                  node = element("slot");
+                  node = document.createElement("slot");
                   if (name !== "default") {
-                    attr(node, "name", name);
+                    node.setAttribute("name", name);
                   }
                 },
                 /**
@@ -3739,84 +3727,72 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             };
           };
           await Promise.resolve();
-          if (!this.$cn) {
+          if (!this.$connected) {
             return;
           }
           const $slots = {};
           const existing_slots = get_custom_elements_slots(this);
-          for (const name of this.$s) {
+          for (const name of this.$slots) {
             if (name in existing_slots) {
               $slots[name] = [create_slot(name)];
             }
           }
           for (const attribute of this.attributes) {
-            const name = this.$g_p(attribute.name);
-            if (!(name in this.$d)) {
-              this.$d[name] = get_custom_element_value(name, attribute.value, this.$p_d, "toProp");
+            const name = this.$get_prop_name(attribute.name);
+            if (!(name in this.$data)) {
+              this.$data[name] = get_custom_element_value(
+                name,
+                attribute.value,
+                this.$props_definition,
+                "toProp"
+              );
             }
           }
-          this.$c = new this.$ctor({
+          this.$component = new this.$componentCtor({
             target: this.shadowRoot || this,
             props: {
-              ...this.$d,
+              ...this.$data,
               $slots,
               $scope: {
                 ctx: []
               }
             }
           });
-          const reflect_attributes = () => {
-            this.$r = true;
-            for (const key in this.$p_d) {
-              this.$d[key] = this.$c.$.ctx[this.$c.$.props[key]];
-              if (this.$p_d[key].reflect) {
-                const attribute_value = get_custom_element_value(
-                  key,
-                  this.$d[key],
-                  this.$p_d,
-                  "toAttribute"
-                );
-                if (attribute_value == null) {
-                  this.removeAttribute(key);
-                } else {
-                  this.setAttribute(this.$p_d[key].attribute || key, attribute_value);
-                }
-              }
-            }
-            this.$r = false;
-          };
-          this.$c.$.after_update.push(reflect_attributes);
-          reflect_attributes();
-          for (const type in this.$l) {
-            for (const listener of this.$l[type]) {
-              const unsub = this.$c.$on(type, listener);
-              this.$l_u.set(listener, unsub);
+          for (const type in this.$listeners) {
+            for (const listener of this.$listeners[type]) {
+              const unsub = this.$component.$on(type, listener);
+              this.$listener_unsubscribe_fns.set(listener, unsub);
             }
           }
-          this.$l = {};
+          this.$listeners = {};
         }
       }
       // We don't need this when working within Svelte code, but for compatibility of people using this outside of Svelte
       // and setting attributes through setAttribute etc, this is helpful
       attributeChangedCallback(attr2, _oldValue, newValue) {
-        if (this.$r)
+        if (this.$reflecting)
           return;
-        attr2 = this.$g_p(attr2);
-        this.$d[attr2] = get_custom_element_value(attr2, newValue, this.$p_d, "toProp");
-        this.$c?.$set({ [attr2]: this.$d[attr2] });
+        attr2 = this.$get_prop_name(attr2);
+        this.$data[attr2] = get_custom_element_value(
+          attr2,
+          newValue,
+          this.$props_definition,
+          "toProp"
+        );
+        this.$component?.$set({ [attr2]: this.$data[attr2] });
       }
       disconnectedCallback() {
-        this.$cn = false;
+        this.$connected = false;
         Promise.resolve().then(() => {
-          if (!this.$cn) {
-            this.$c.$destroy();
-            this.$c = void 0;
+          if (!this.$connected) {
+            this.$component.$destroy();
+            this.$component = void 0;
           }
         });
       }
-      $g_p(attribute_name) {
-        return Object.keys(this.$p_d).find(
-          (key) => this.$p_d[key].attribute === attribute_name || !this.$p_d[key].attribute && key.toLowerCase() === attribute_name
+      $get_prop_name(attribute_name) {
+        return Object.keys(this.$props_definition).find(
+          (key) => this.$props_definition[key].attribute === attribute_name || !this.$props_definition[key].attribute && key.toLowerCase() === attribute_name
         ) || attribute_name;
       }
     };
@@ -3905,10 +3881,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   };
 
-  // node_modules/svelte/src/shared/version.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/shared/version.js
   var PUBLIC_VERSION = "4";
 
-  // node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/disclose-version/index.js
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
@@ -3918,7 +3894,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/Menu.svelte
   var import_jsApi_GEN = __toESM(require_jsApi_GEN());
 
-  // node_modules/svelte/src/runtime/store/index.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/store/index.js
   var subscriber_queue = [];
   function writable(value, start = noop) {
     let stop;
@@ -3965,14 +3941,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/uiState.js
   var langOptions = {
     en: "EN",
-    jp: "JP",
     tw: "TW"
     // add more languages here
   };
   var isSideMenuOpen = writable(false);
   var currentLang = writable("EN");
 
-  // node_modules/svelte-icons-pack/Icon.svelte
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment(ctx) {
     let svg;
     let svg_levels = [
@@ -4108,7 +4083,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var Icon_default = Icon;
 
-  // node_modules/svelte-icons-pack/fa/FaSolidHome.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidHome.js
   var FaSolidHome_default = {
     a: {
       viewBox: "0 0 576 512"
@@ -4116,7 +4091,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidShoppingBag.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidShoppingBag.js
   var FaSolidShoppingBag_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -4124,7 +4099,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M352 160v-32C352 57.42 294.579 0 224 0 153.42 0 96 57.42 96 128v32H0v272c0 44.183 35.817 80 80 80h288c44.183 0 80-35.817 80-80V160h-96zm-192-32c0-35.29 28.71-64 64-64s64 28.71 64 64v32H160v-32zm160 120c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zm-192 0c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidBuilding.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBuilding.js
   var FaSolidBuilding_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -4132,7 +4107,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M436 480h-20V24c0-13.255-10.745-24-24-24H56C42.745 0 32 10.745 32 24v456H12c-6.627 0-12 5.373-12 12v20h448v-20c0-6.627-5.373-12-12-12zM128 76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76zm0 96c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40zm52 148h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12zm76 160h-64v-84c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v84zm64-172c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidSlidersH.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSlidersH.js
   var FaSolidSlidersH_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -4140,7 +4115,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M496 384H160v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h80v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h336c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160h-80v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h336v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h80c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160H288V48c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16C7.2 64 0 71.2 0 80v32c0 8.8 7.2 16 16 16h208v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h208c8.8 0 16-7.2 16-16V80c0-8.8-7.2-16-16-16z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidUserCircle.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidUserCircle.js
   var FaSolidUserCircle_default = {
     a: {
       viewBox: "0 0 496 512"
@@ -4148,7 +4123,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidSignInAlt.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSignInAlt.js
   var FaSolidSignInAlt_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -4156,7 +4131,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidTimes.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidTimes.js
   var FaSolidTimes_default = {
     a: {
       viewBox: "0 0 352 512"
@@ -5002,6 +4977,112 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var import_jsApi = __toESM(require_jsApi_GEN());
   var import_formatter = __toESM(require_formatter());
 
+  // translation.json
+  var translation_default = {
+    about: "About",
+    aboutTW: "\u6982\u8981",
+    agencyFee: "Agency Fee",
+    agencyFeeTW: "\u4EF2\u4ECB\u8CBB",
+    all: "All",
+    allTW: "\u5168\u90E8",
+    aroundHome: "Around Home",
+    aroundHomeTW: "\u5468\u908A\u8CC7\u8A0A",
+    askByText: "Ask by Text",
+    askByTextTW: "\u50B3\u7C21\u8A0A",
+    basement: "Basement",
+    basementTW: "\u5730\u4E0B\u5BA4",
+    bath: "bath",
+    bathTW: "\u885B",
+    bathroomN: "Bathroom #",
+    bathroomNTW: "\u885B\u6D74 ",
+    bed: "bed",
+    bedTW: "\u623F",
+    bedroomN: "Bedroom #",
+    bedroomNTW: "\u81E5\u5BA4 ",
+    buildingMaterial: "Building Material:",
+    buildingMaterialTW: "\u5EFA\u7BC9\u6750\u6599:",
+    callMe: "Call Me",
+    callMeTW: "\u96FB\u8A71\u806F\u7D61",
+    confirm: "Confirm",
+    confirmTW: "\u518D\u6B21\u78BA\u8A8D\u5BC6\u78BC",
+    constructionDate: "Construction Date:",
+    constructionDateTW: "\u5EFA\u6210\u6642\u9593:",
+    disclaimer1: "Disclaimer: The information provided on this platform is for reference purposes only. We do not guarantee the accuracy or completeness of the information presented. The actual information regarding the property is provided by the seller and should be verified independently. We do not assume any responsibility for any errors or omissions in the information provided. Please be aware of potential scams or frauds. We strongly advise you to conduct your own due diligence and exercise caution when communicating with anyone you meet online. Do not send money or personal information until you have verified the authenticity of the individual or company you are dealing with.",
+    disclaimer1TW: "\u514D\u8CAC\u8072\u660E\uFF1A \u672C\u5E73\u53F0\u63D0\u4F9B\u7684\u8CC7\u8A0A\u50C5\u4F9B\u53C3\u8003\u4E4B\u7528\u3002\u6211\u5011\u4E0D\u4FDD\u8B49\u6240\u63D0\u4F9B\u7684\u8CC7\u8A0A\u7684\u6E96\u78BA\u6027\u6216\u5B8C\u6574\u6027\u3002\u6709\u95DC\u7269\u4EF6\u7684\u5BE6\u969B\u8CC7\u8A0A\u7531\u8CE3\u65B9\u63D0\u4F9B\uFF0C\u61C9\u7368\u7ACB\u9032\u884C\u9A57\u8B49\u3002\u6211\u5011\u4E0D\u627F\u64D4\u4EFB\u4F55\u56E0\u6240\u63D0\u4F9B\u8CC7\u8A0A\u4E2D\u7684\u932F\u8AA4\u6216\u907A\u6F0F\u800C\u5F15\u8D77\u7684\u8CAC\u4EFB\u3002 \u8ACB\u6CE8\u610F\u53EF\u80FD\u5B58\u5728\u7684\u8A50\u9A19\u6216\u6B3A\u8A50\u884C\u70BA\u3002\u6211\u5011\u5F37\u70C8\u5EFA\u8B70\u60A8\u81EA\u884C\u9032\u884C\u5145\u5206\u7684\u5BE9\u614E\u8A55\u4F30\uFF0C\u4E26\u5728\u8207\u60A8\u5728\u7DDA\u4E0A\u9047\u5230\u7684\u4EFB\u4F55\u4EBA\u6E9D\u901A\u6642\u8B39\u614E\u884C\u4E8B\u3002\u5728\u9A57\u8B49\u60A8\u6240\u806F\u7D61\u7684\u500B\u4EBA\u6216\u516C\u53F8\u7684\u771F\u5BE6\u6027\u4E4B\u524D\uFF0C\u8ACB\u52FF\u767C\u9001\u91D1\u9322\u6216\u500B\u4EBA\u8CC7\u8A0A\u3002",
+    email: "Email",
+    emailTW: "\u4FE1\u7BB1",
+    feet: "feet",
+    feetTW: "\u82F1\u5C3A",
+    floorN: "Floor #",
+    floorNTW: "\u6A13\u5C64 ",
+    floors: "Floors",
+    floorsTW: "\u6A13\u5C64",
+    forRent: "For Rent",
+    forRentTW: "\u51FA\u79DF",
+    forgotPassword: "Forgot Password",
+    forgotPasswordTW: "\u5FD8\u8A18\u5BC6\u78BC",
+    haveAccount: "Already have account",
+    haveAccountTW: "\u5DF2\u662F\u6703\u54E1",
+    hospital: "Hospital",
+    hospitalTW: "\u91AB\u9662",
+    information: "Information",
+    informationTW: "\u8CC7\u8A0A",
+    key: "EN",
+    keyTW: "TW",
+    lastPrice: "Last Price",
+    lastPriceTW: "\u6700\u8FD1\u50F9\u683C",
+    lookDown: "Look Down",
+    lookDownTW: "\u5F80\u4E0B\u770B",
+    lookLeft: "Look Left",
+    lookLeftTW: "\u5F80\u5DE6\u770B",
+    lookRight: "Look Right",
+    lookRightTW: "\u5F80\u53F3\u770B",
+    lookTop: "Look Top",
+    lookTopTW: "\u5F80\u4E0A\u770B",
+    m: "m",
+    mTW: "\u516C\u5C3A",
+    miles: "miles",
+    milesTW: "\u82F1\u91CC",
+    moveCamera: "Slowly move the Camera to Look Around ",
+    moveCameraTW: "\u5DE6\u53F3\u79FB\u52D5\u627E\u7269\u4EF6",
+    onSale: "On Sale",
+    onSaleTW: "\u62CD\u8CE3\u4E2D",
+    openMap: "Open Map",
+    openMapTW: "\u67E5\u770B\u4F4D\u7F6E",
+    password: "Password",
+    passwordTW: "\u5BC6\u78BC",
+    ping: "ping",
+    pingTW: "\u576A",
+    priceHistory: "Price History",
+    priceHistoryTW: "\u6B77\u53F2\u50F9\u683C",
+    restaurant: "Restaurant",
+    restaurantTW: "\u9910\u5EF3",
+    scanning: "Scanning...",
+    scanningTW: "\u6383\u63CF\u74B0\u5883\u4E2D...",
+    school: "School",
+    schoolTW: "\u5B78\u6821",
+    seeMore: "See More...",
+    seeMoreTW: "\u67E5\u770B\u66F4\u591A...",
+    signIn: "Sign In",
+    signInTW: "\u767B\u5165",
+    signOut: "Sign Out ",
+    signOutTW: "\u767B\u51FA",
+    signUp: "Sign Up",
+    signUpEmail: "Sign up with Email ",
+    signUpEmailTW: "\u4FE1\u7BB1\u8A3B\u518A",
+    signUpTW: "\u8A3B\u518A",
+    sqft: "sqft",
+    sqftTW: "\u5E73\u65B9\u7C73",
+    store: "Store",
+    storeTW: "\u5546\u5E97",
+    transit: "Transit",
+    transitTW: "\u5927\u773E\u904B\u8F38",
+    usdPerMonth: "$$/mo",
+    usdPerMonthTW: "$$/\u6708",
+    welcome: "Welcome to HapSTR ",
+    welcomeTW: "\u6B61\u8FCE\u4F7F\u7528HapSTR"
+  };
+
   // _components/GoogleMap/stores.js
   var mapsLoaded = writable(false);
   var mapsLoading = writable(false);
@@ -5213,7 +5294,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var GoogleMap_default = GoogleMap;
 
-  // node_modules/svelte-icons-pack/fa/FaSolidInfoCircle.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidInfoCircle.js
   var FaSolidInfoCircle_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -5221,7 +5302,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidCheckCircle.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidCheckCircle.js
   var FaSolidCheckCircle_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -5229,7 +5310,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidExclamationTriangle.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidExclamationTriangle.js
   var FaSolidExclamationTriangle_default = {
     a: {
       viewBox: "0 0 576 512"
@@ -5237,7 +5318,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidTimesCircle.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidTimesCircle.js
   var FaSolidTimesCircle_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -5245,7 +5326,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidQuestionCircle.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidQuestionCircle.js
   var FaSolidQuestionCircle_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -5273,6 +5354,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         mount_component(icon, target, anchor);
         current = true;
       },
+      p: noop,
       i(local) {
         if (current)
           return;
@@ -5307,6 +5389,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         mount_component(icon, target, anchor);
         current = true;
       },
+      p: noop,
       i(local) {
         if (current)
           return;
@@ -5341,6 +5424,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         mount_component(icon, target, anchor);
         current = true;
       },
+      p: noop,
       i(local) {
         if (current)
           return;
@@ -5375,6 +5459,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         mount_component(icon, target, anchor);
         current = true;
       },
+      p: noop,
       i(local) {
         if (current)
           return;
@@ -5409,6 +5494,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         mount_component(icon, target, anchor);
         current = true;
       },
+      p: noop,
       i(local) {
         if (current)
           return;
@@ -5509,6 +5595,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           ctx2[1] === "default"
         ) {
           if (if_block0) {
+            if_block0.p(ctx2, dirty);
             if (dirty & /*growlType*/
             2) {
               transition_in(if_block0, 1);
@@ -5531,6 +5618,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           ctx2[1] === "info"
         ) {
           if (if_block1) {
+            if_block1.p(ctx2, dirty);
             if (dirty & /*growlType*/
             2) {
               transition_in(if_block1, 1);
@@ -5553,6 +5641,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           ctx2[1] === "success"
         ) {
           if (if_block2) {
+            if_block2.p(ctx2, dirty);
             if (dirty & /*growlType*/
             2) {
               transition_in(if_block2, 1);
@@ -5575,6 +5664,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           ctx2[1] === "error"
         ) {
           if (if_block3) {
+            if_block3.p(ctx2, dirty);
             if (dirty & /*growlType*/
             2) {
               transition_in(if_block3, 1);
@@ -5597,6 +5687,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           ctx2[1] === "warning"
         ) {
           if (if_block4) {
+            if_block4.p(ctx2, dirty);
             if (dirty & /*growlType*/
             2) {
               transition_in(if_block4, 1);
@@ -5681,7 +5772,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var Growl_default = Growl;
 
-  // node_modules/svelte-icons-pack/fa/FaSolidSearch.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSearch.js
   var FaSolidSearch_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -5689,7 +5780,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidMapMarkerAlt.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidMapMarkerAlt.js
   var FaSolidMapMarkerAlt_default = {
     a: {
       viewBox: "0 0 384 512"
@@ -5697,7 +5788,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidImage.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidImage.js
   var FaSolidImage_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -5705,7 +5796,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M464 448H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h416c26.51 0 48 21.49 48 48v288c0 26.51-21.49 48-48 48zM112 120c-30.928 0-56 25.072-56 56s25.072 56 56 56 56-25.072 56-56-25.072-56-56-56zM64 384h384V272l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L208 320l-55.515-55.515c-4.686-4.686-12.284-4.686-16.971 0L64 336v48z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidRulerCombined.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidRulerCombined.js
   var FaSolidRulerCombined_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -5713,7 +5804,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M160 288h-56c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h56v-64h-56c-4.42 0-8-3.58-8-8v-16c0-4.42 3.58-8 8-8h56V96h-56c-4.42 0-8-3.58-8-8V72c0-4.42 3.58-8 8-8h56V32c0-17.67-14.33-32-32-32H32C14.33 0 0 14.33 0 32v448c0 2.77.91 5.24 1.57 7.8L160 329.38V288zm320 64h-32v56c0 4.42-3.58 8-8 8h-16c-4.42 0-8-3.58-8-8v-56h-64v56c0 4.42-3.58 8-8 8h-16c-4.42 0-8-3.58-8-8v-56h-64v56c0 4.42-3.58 8-8 8h-16c-4.42 0-8-3.58-8-8v-56h-41.37L24.2 510.43c2.56.66 5.04 1.57 7.8 1.57h448c17.67 0 32-14.33 32-32v-96c0-17.67-14.33-32-32-32z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidBath.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBath.js
   var FaSolidBath_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -5721,7 +5812,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M32,384a95.4,95.4,0,0,0,32,71.09V496a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V480H384v16a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V455.09A95.4,95.4,0,0,0,480,384V336H32ZM496,256H80V69.25a21.26,21.26,0,0,1,36.28-15l19.27,19.26c-13.13,29.88-7.61,59.11,8.62,79.73l-.17.17A16,16,0,0,0,144,176l11.31,11.31a16,16,0,0,0,22.63,0L283.31,81.94a16,16,0,0,0,0-22.63L272,48a16,16,0,0,0-22.62,0l-.17.17c-20.62-16.23-49.83-21.75-79.73-8.62L150.22,20.28A69.25,69.25,0,0,0,32,69.25V256H16A16,16,0,0,0,0,272v16a16,16,0,0,0,16,16H496a16,16,0,0,0,16-16V272A16,16,0,0,0,496,256Z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidBed.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBed.js
   var FaSolidBed_default = {
     a: {
       viewBox: "0 0 640 512"
@@ -5729,7 +5820,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidUndoAlt.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidUndoAlt.js
   var FaSolidUndoAlt_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -5737,7 +5828,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M255.545 8c-66.269.119-126.438 26.233-170.86 68.685L48.971 40.971C33.851 25.851 8 36.559 8 57.941V192c0 13.255 10.745 24 24 24h134.059c21.382 0 32.09-25.851 16.971-40.971l-41.75-41.75c30.864-28.899 70.801-44.907 113.23-45.273 92.398-.798 170.283 73.977 169.484 169.442C423.236 348.009 349.816 424 256 424c-41.127 0-79.997-14.678-110.63-41.556-4.743-4.161-11.906-3.908-16.368.553L89.34 422.659c-4.872 4.872-4.631 12.815.482 17.433C133.798 479.813 192.074 504 256 504c136.966 0 247.999-111.033 248-247.998C504.001 119.193 392.354 7.755 255.545 8z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidBan.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBan.js
   var FaSolidBan_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -5745,7 +5836,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M256 8C119.034 8 8 119.033 8 256s111.034 248 248 248 248-111.034 248-248S392.967 8 256 8zm130.108 117.892c65.448 65.448 70 165.481 20.677 235.637L150.47 105.216c70.204-49.356 170.226-44.735 235.638 20.676zM125.892 386.108c-65.448-65.448-70-165.481-20.677-235.637L361.53 406.784c-70.203 49.356-170.226 44.736-235.638-20.676z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidReceipt.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidReceipt.js
   var FaSolidReceipt_default = {
     a: {
       viewBox: "0 0 384 512"
@@ -5756,14 +5847,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/PropertyLocation.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[37] = list[i];
+    child_ctx[39] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[40] = list[i];
-    child_ctx[41] = list;
-    child_ctx[42] = i;
+    child_ctx[42] = list[i];
+    child_ctx[43] = list;
+    child_ctx[44] = i;
     return child_ctx;
   }
   function create_if_block_33(ctx) {
@@ -5773,11 +5864,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       props: {
         message: (
           /*gMsg*/
-          ctx[7]
+          ctx[8]
         ),
         growlType: (
           /*gType*/
-          ctx[8]
+          ctx[9]
         )
       }
     });
@@ -5792,13 +5883,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         const growl_changes = {};
         if (dirty[0] & /*gMsg*/
-        128)
-          growl_changes.message = /*gMsg*/
-          ctx2[7];
-        if (dirty[0] & /*gType*/
         256)
-          growl_changes.growlType = /*gType*/
+          growl_changes.message = /*gMsg*/
           ctx2[8];
+        if (dirty[0] & /*gType*/
+        512)
+          growl_changes.growlType = /*gType*/
+          ctx2[9];
         growl.$set(growl_changes);
       },
       i(local) {
@@ -5899,8 +5990,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*propItemHighlight, propItemBinds, highLightMapMarker, randomProps*/
-        1031) {
+        if (dirty[0] & /*propItemHighlight, propItemBinds, highLightMapMarker, randomProps, translate*/
+        2063) {
           each_value_1 = ensure_array_like(
             /*randomProps*/
             ctx2[0]
@@ -6003,7 +6094,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       c() {
         img = element("img");
         if (!src_url_equal(img.src, img_src_value = /*prop*/
-        ctx[40].images[0]))
+        ctx[42].images[0]))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
         attr(img, "class", "svelte-1haisu7");
@@ -6014,7 +6105,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*randomProps*/
         1 && !src_url_equal(img.src, img_src_value = /*prop*/
-        ctx2[40].images[0])) {
+        ctx2[42].images[0])) {
           attr(img, "src", img_src_value);
         }
       },
@@ -6039,7 +6130,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let div1;
     let t1_value = (
       /*prop*/
-      ctx[40].purpose === "rent" ? "For Rent" : "On Sale"
+      ctx[42].purpose === "rent" ? "For Rent" : "On Sale"
     );
     let t1;
     let div1_class_value;
@@ -6050,112 +6141,118 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span0;
     let t4_value = (
       /*prop*/
-      (ctx[40].houseType === "" ? "House" : (
+      (ctx[42].houseType === "" ? "House" : (
         /*prop*/
-        ctx[40].houseType
+        ctx[42].houseType
       )) + ""
     );
     let t4;
     let t5;
+    let t6_value = (
+      /*translate*/
+      ctx[1]("basement") + ""
+    );
+    let t6;
+    let t7;
     let div4;
     let icon1;
-    let t6;
+    let t8;
     let span1;
-    let t7_value = (
+    let t9_value = (
       /*prop*/
-      (ctx[40].formattedAddress === "" ? (
+      (ctx[42].formattedAddress === "" ? (
         /*prop*/
-        ctx[40].address
+        ctx[42].address
       ) : (
         /*prop*/
-        ctx[40].formattedAddress
+        ctx[42].formattedAddress
       )) + ""
     );
-    let t7;
-    let t8;
+    let t9;
+    let t10;
     let div11;
     let div6;
     let div5;
     let icon2;
-    let t9;
-    let span2;
     let t11;
+    let span2;
+    let t13;
     let span3;
-    let t12_value = (
+    let t14_value = (
       /*prop*/
-      (ctx[40].numberOfFloors === 0 ? "no-data" : (
+      (ctx[42].numberOfFloors === 0 ? "no-data" : (
         /*prop*/
-        ctx[40].numberOfFloors
+        ctx[42].numberOfFloors
       )) + ""
     );
-    let t12;
-    let t13;
+    let t14;
+    let t15;
     let div8;
     let div7;
     let icon3;
-    let t14;
-    let span4;
     let t16;
+    let span4;
+    let t18;
     let span5;
-    let t17_value = (
+    let t19_value = (
       /*prop*/
-      (ctx[40].bedroom === 0 ? "no-data" : (
+      (ctx[42].bedroom === 0 ? "no-data" : (
         /*prop*/
-        ctx[40].bedroom
+        ctx[42].bedroom
       )) + ""
     );
-    let t17;
-    let t18;
+    let t19;
+    let t20;
     let div10;
     let div9;
     let icon4;
-    let t19;
-    let span6;
     let t21;
+    let span6;
+    let t23;
     let span7;
-    let t22_value = (
+    let t24_value = (
       /*prop*/
-      (ctx[40].bathroom === 0 ? "no-data" : (
+      (ctx[42].bathroom === 0 ? "no-data" : (
         /*prop*/
-        ctx[40].bathroom
+        ctx[42].bathroom
       )) + ""
     );
-    let t22;
-    let t23;
+    let t24;
+    let t25;
     let div15;
     let div13;
     let icon5;
-    let t24;
-    let span8;
-    let t25_value = (
-      /*prop*/
-      ctx[40].sizeM2 + ""
-    );
-    let t25;
     let t26;
+    let span8;
+    let t27_value = (
+      /*prop*/
+      ctx[42].sizeM2 + ""
+    );
     let t27;
+    let t28;
+    let t29;
     let div14;
     let span9;
-    let t28;
-    let t29_value = (
-      /*prop*/
-      (ctx[40].agencyFeePercent || "0") + ""
-    );
-    let t29;
     let t30;
-    let t31;
-    let span10;
-    let t32_value = (0, import_formatter.formatPrice)(
+    let t31_value = (
       /*prop*/
-      ctx[40].lastPrice || 0,
-      "TWD"
-    ) + "";
+      (ctx[42].agencyFeePercent || "0") + ""
+    );
+    let t31;
     let t32;
     let t33;
+    let span10;
+    let t34_value = (0, import_formatter.formatPrice)(
+      /*prop*/
+      ctx[42].lastPrice || 0,
+      "TWD"
+    ) + "";
+    let t34;
+    let t35;
     let button_class_value;
     let index = (
       /*index*/
-      ctx[42]
+      ctx[44]
     );
     let current;
     let mounted;
@@ -6165,8 +6262,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function select_block_type_1(ctx2, dirty) {
       if (
         /*prop*/
-        ctx2[40].images && /*prop*/
-        ctx2[40].images.length
+        ctx2[42].images && /*prop*/
+        ctx2[42].images.length
       )
         return 0;
       return 1;
@@ -6217,27 +6314,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     });
     const assign_button = () => (
       /*button_binding*/
-      ctx[18](button, index)
+      ctx[20](button, index)
     );
     const unassign_button = () => (
       /*button_binding*/
-      ctx[18](null, index)
+      ctx[20](null, index)
     );
     function mouseenter_handler() {
       return (
         /*mouseenter_handler*/
-        ctx[19](
+        ctx[21](
           /*index*/
-          ctx[42]
+          ctx[44]
         )
       );
     }
     function mouseleave_handler() {
       return (
         /*mouseleave_handler*/
-        ctx[20](
+        ctx[22](
           /*index*/
-          ctx[42]
+          ctx[44]
         )
       );
     }
@@ -6259,64 +6356,66 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         span0 = element("span");
         t4 = text(t4_value);
         t5 = space();
+        t6 = text(t6_value);
+        t7 = space();
         div4 = element("div");
         create_component(icon1.$.fragment);
-        t6 = space();
-        span1 = element("span");
-        t7 = text(t7_value);
         t8 = space();
+        span1 = element("span");
+        t9 = text(t9_value);
+        t10 = space();
         div11 = element("div");
         div6 = element("div");
         div5 = element("div");
         create_component(icon2.$.fragment);
-        t9 = space();
+        t11 = space();
         span2 = element("span");
         span2.textContent = "Floors";
-        t11 = space();
-        span3 = element("span");
-        t12 = text(t12_value);
         t13 = space();
+        span3 = element("span");
+        t14 = text(t14_value);
+        t15 = space();
         div8 = element("div");
         div7 = element("div");
         create_component(icon3.$.fragment);
-        t14 = space();
+        t16 = space();
         span4 = element("span");
         span4.textContent = "Bed";
-        t16 = space();
-        span5 = element("span");
-        t17 = text(t17_value);
         t18 = space();
+        span5 = element("span");
+        t19 = text(t19_value);
+        t20 = space();
         div10 = element("div");
         div9 = element("div");
         create_component(icon4.$.fragment);
-        t19 = space();
+        t21 = space();
         span6 = element("span");
         span6.textContent = "Bath";
-        t21 = space();
-        span7 = element("span");
-        t22 = text(t22_value);
         t23 = space();
+        span7 = element("span");
+        t24 = text(t24_value);
+        t25 = space();
         div15 = element("div");
         div13 = element("div");
         create_component(icon5.$.fragment);
-        t24 = space();
+        t26 = space();
         span8 = element("span");
-        t25 = text(t25_value);
-        t26 = text(" M2");
-        t27 = space();
+        t27 = text(t27_value);
+        t28 = text(" M2");
+        t29 = space();
         div14 = element("div");
         span9 = element("span");
-        t28 = text("Agency Fee: ");
-        t29 = text(t29_value);
-        t30 = text("%");
-        t31 = space();
-        span10 = element("span");
-        t32 = text(t32_value);
+        t30 = text("Agency Fee: ");
+        t31 = text(t31_value);
+        t32 = text("%");
         t33 = space();
+        span10 = element("span");
+        t34 = text(t34_value);
+        t35 = space();
         attr(div0, "class", "img_container svelte-1haisu7");
         attr(div1, "class", div1_class_value = null_to_empty(
           /*prop*/
-          ctx[40].purpose === "rent" ? `purpose label_rent` : `purpose label_sale`
+          ctx[42].purpose === "rent" ? `purpose label_rent` : `purpose label_sale`
         ) + " svelte-1haisu7");
         attr(div2, "class", "house_type svelte-1haisu7");
         attr(div3, "class", "label_info svelte-1haisu7");
@@ -6340,8 +6439,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(div16, "class", "prop_info svelte-1haisu7");
         attr(button, "class", button_class_value = null_to_empty(
           /*propItemHighlight*/
-          ctx[2] === /*index*/
-          ctx[42] ? `prop_item highlight` : "prop_item"
+          ctx[3] === /*index*/
+          ctx[44] ? `prop_item highlight` : "prop_item"
         ) + " svelte-1haisu7");
       },
       m(target, anchor) {
@@ -6360,58 +6459,60 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div2, t3);
         append(div2, span0);
         append(span0, t4);
-        append(div12, t5);
+        append(span0, t5);
+        append(span0, t6);
+        append(div12, t7);
         append(div12, div4);
         mount_component(icon1, div4, null);
-        append(div4, t6);
+        append(div4, t8);
         append(div4, span1);
-        append(span1, t7);
-        append(div12, t8);
+        append(span1, t9);
+        append(div12, t10);
         append(div12, div11);
         append(div11, div6);
         append(div6, div5);
         mount_component(icon2, div5, null);
-        append(div5, t9);
+        append(div5, t11);
         append(div5, span2);
-        append(div6, t11);
+        append(div6, t13);
         append(div6, span3);
-        append(span3, t12);
-        append(div11, t13);
+        append(span3, t14);
+        append(div11, t15);
         append(div11, div8);
         append(div8, div7);
         mount_component(icon3, div7, null);
-        append(div7, t14);
+        append(div7, t16);
         append(div7, span4);
-        append(div8, t16);
+        append(div8, t18);
         append(div8, span5);
-        append(span5, t17);
-        append(div11, t18);
+        append(span5, t19);
+        append(div11, t20);
         append(div11, div10);
         append(div10, div9);
         mount_component(icon4, div9, null);
-        append(div9, t19);
+        append(div9, t21);
         append(div9, span6);
-        append(div10, t21);
+        append(div10, t23);
         append(div10, span7);
-        append(span7, t22);
-        append(div16, t23);
+        append(span7, t24);
+        append(div16, t25);
         append(div16, div15);
         append(div15, div13);
         mount_component(icon5, div13, null);
-        append(div13, t24);
+        append(div13, t26);
         append(div13, span8);
-        append(span8, t25);
-        append(span8, t26);
-        append(div15, t27);
+        append(span8, t27);
+        append(span8, t28);
+        append(div15, t29);
         append(div15, div14);
         append(div14, span9);
-        append(span9, t28);
-        append(span9, t29);
         append(span9, t30);
-        append(div14, t31);
+        append(span9, t31);
+        append(span9, t32);
+        append(div14, t33);
         append(div14, span10);
-        append(span10, t32);
-        append(button, t33);
+        append(span10, t34);
+        append(button, t35);
         assign_button();
         current = true;
         if (!mounted) {
@@ -6446,81 +6547,85 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if ((!current || dirty[0] & /*randomProps*/
         1) && t1_value !== (t1_value = /*prop*/
-        ctx[40].purpose === "rent" ? "For Rent" : "On Sale"))
+        ctx[42].purpose === "rent" ? "For Rent" : "On Sale"))
           set_data(t1, t1_value);
         if (!current || dirty[0] & /*randomProps*/
         1 && div1_class_value !== (div1_class_value = null_to_empty(
           /*prop*/
-          ctx[40].purpose === "rent" ? `purpose label_rent` : `purpose label_sale`
+          ctx[42].purpose === "rent" ? `purpose label_rent` : `purpose label_sale`
         ) + " svelte-1haisu7")) {
           attr(div1, "class", div1_class_value);
         }
         if ((!current || dirty[0] & /*randomProps*/
         1) && t4_value !== (t4_value = /*prop*/
-        (ctx[40].houseType === "" ? "House" : (
+        (ctx[42].houseType === "" ? "House" : (
           /*prop*/
-          ctx[40].houseType
+          ctx[42].houseType
         )) + ""))
           set_data(t4, t4_value);
+        if ((!current || dirty[0] & /*translate*/
+        2) && t6_value !== (t6_value = /*translate*/
+        ctx[1]("basement") + ""))
+          set_data(t6, t6_value);
         if ((!current || dirty[0] & /*randomProps*/
-        1) && t7_value !== (t7_value = /*prop*/
-        (ctx[40].formattedAddress === "" ? (
+        1) && t9_value !== (t9_value = /*prop*/
+        (ctx[42].formattedAddress === "" ? (
           /*prop*/
-          ctx[40].address
+          ctx[42].address
         ) : (
           /*prop*/
-          ctx[40].formattedAddress
+          ctx[42].formattedAddress
         )) + ""))
-          set_data(t7, t7_value);
+          set_data(t9, t9_value);
         if ((!current || dirty[0] & /*randomProps*/
-        1) && t12_value !== (t12_value = /*prop*/
-        (ctx[40].numberOfFloors === 0 ? "no-data" : (
+        1) && t14_value !== (t14_value = /*prop*/
+        (ctx[42].numberOfFloors === 0 ? "no-data" : (
           /*prop*/
-          ctx[40].numberOfFloors
+          ctx[42].numberOfFloors
         )) + ""))
-          set_data(t12, t12_value);
+          set_data(t14, t14_value);
         if ((!current || dirty[0] & /*randomProps*/
-        1) && t17_value !== (t17_value = /*prop*/
-        (ctx[40].bedroom === 0 ? "no-data" : (
+        1) && t19_value !== (t19_value = /*prop*/
+        (ctx[42].bedroom === 0 ? "no-data" : (
           /*prop*/
-          ctx[40].bedroom
+          ctx[42].bedroom
         )) + ""))
-          set_data(t17, t17_value);
+          set_data(t19, t19_value);
         if ((!current || dirty[0] & /*randomProps*/
-        1) && t22_value !== (t22_value = /*prop*/
-        (ctx[40].bathroom === 0 ? "no-data" : (
+        1) && t24_value !== (t24_value = /*prop*/
+        (ctx[42].bathroom === 0 ? "no-data" : (
           /*prop*/
-          ctx[40].bathroom
+          ctx[42].bathroom
         )) + ""))
-          set_data(t22, t22_value);
+          set_data(t24, t24_value);
         if ((!current || dirty[0] & /*randomProps*/
-        1) && t25_value !== (t25_value = /*prop*/
-        ctx[40].sizeM2 + ""))
-          set_data(t25, t25_value);
+        1) && t27_value !== (t27_value = /*prop*/
+        ctx[42].sizeM2 + ""))
+          set_data(t27, t27_value);
         if ((!current || dirty[0] & /*randomProps*/
-        1) && t29_value !== (t29_value = /*prop*/
-        (ctx[40].agencyFeePercent || "0") + ""))
-          set_data(t29, t29_value);
+        1) && t31_value !== (t31_value = /*prop*/
+        (ctx[42].agencyFeePercent || "0") + ""))
+          set_data(t31, t31_value);
         if ((!current || dirty[0] & /*randomProps*/
-        1) && t32_value !== (t32_value = (0, import_formatter.formatPrice)(
+        1) && t34_value !== (t34_value = (0, import_formatter.formatPrice)(
           /*prop*/
-          ctx[40].lastPrice || 0,
+          ctx[42].lastPrice || 0,
           "TWD"
         ) + ""))
-          set_data(t32, t32_value);
+          set_data(t34, t34_value);
         if (!current || dirty[0] & /*propItemHighlight*/
-        4 && button_class_value !== (button_class_value = null_to_empty(
+        8 && button_class_value !== (button_class_value = null_to_empty(
           /*propItemHighlight*/
-          ctx[2] === /*index*/
-          ctx[42] ? `prop_item highlight` : "prop_item"
+          ctx[3] === /*index*/
+          ctx[44] ? `prop_item highlight` : "prop_item"
         ) + " svelte-1haisu7")) {
           attr(button, "class", button_class_value);
         }
         if (index !== /*index*/
-        ctx[42]) {
+        ctx[44]) {
           unassign_button();
           index = /*index*/
-          ctx[42];
+          ctx[44];
           assign_button();
         }
       },
@@ -6621,7 +6726,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let current;
     let each_value = ensure_array_like(
       /*autocomplete_lists*/
-      ctx[5]
+      ctx[6]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
@@ -6648,10 +6753,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*searchByAddressHandler, autocomplete_lists*/
-        32800) {
+        65600) {
           each_value = ensure_array_like(
             /*autocomplete_lists*/
-            ctx2[5]
+            ctx2[6]
           );
           let i;
           for (i = 0; i < each_value.length; i += 1) {
@@ -6703,7 +6808,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span;
     let t1_value = (
       /*place*/
-      ctx[37].description + ""
+      ctx[39].description + ""
     );
     let t1;
     let t2;
@@ -6720,9 +6825,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[24](
+        ctx[26](
           /*place*/
-          ctx[37]
+          ctx[39]
         )
       );
     }
@@ -6752,8 +6857,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if ((!current || dirty[0] & /*autocomplete_lists*/
-        32) && t1_value !== (t1_value = /*place*/
-        ctx[37].description + ""))
+        64) && t1_value !== (t1_value = /*place*/
+        ctx[39].description + ""))
           set_data(t1, t1_value);
       },
       i(local) {
@@ -6810,13 +6915,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let dispose;
     let if_block0 = (
       /*showGrowl*/
-      ctx[6] && create_if_block_33(ctx)
+      ctx[7] && create_if_block_33(ctx)
     );
     googlesdk = new GoogleSdk_default({});
     googlesdk.$on(
       "ready",
       /*initGoogleService*/
-      ctx[11]
+      ctx[12]
     );
     const if_block_creators = [create_if_block_13, create_else_block_2];
     const if_blocks = [];
@@ -6839,14 +6944,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     });
     let googlemap_props = { options: (
       /*mapOptions*/
-      ctx[9]
+      ctx[10]
     ) };
     googlemap = new GoogleMap_default({ props: googlemap_props });
-    ctx[21](googlemap);
+    ctx[23](googlemap);
     googlemap.$on(
       "mapDragged",
       /*searchByLocationEvent*/
-      ctx[13]
+      ctx[14]
     );
     icon1 = new Icon_default({
       props: {
@@ -6861,7 +6966,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function select_block_type_2(ctx2, dirty) {
       if (
         /*autocomplete_lists*/
-        ctx2[5].length
+        ctx2[6].length
       )
         return 0;
       return 1;
@@ -6943,7 +7048,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         set_input_value(
           input,
           /*input_search_value*/
-          ctx[4]
+          ctx[5]
         );
         append(div5, t8);
         append(div5, div4);
@@ -6955,19 +7060,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               button,
               "click",
               /*searchByLocationHandler*/
-              ctx[14]
+              ctx[15]
             ),
             listen(
               input,
               "input",
               /*input_input_handler*/
-              ctx[22]
+              ctx[24]
             ),
             listen(
               input,
               "input",
               /*input_handler*/
-              ctx[23]
+              ctx[25]
             )
           ];
           mounted = true;
@@ -6976,12 +7081,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (
           /*showGrowl*/
-          ctx2[6]
+          ctx2[7]
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
             if (dirty[0] & /*showGrowl*/
-            64) {
+            128) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -7020,12 +7125,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         const googlemap_changes = {};
         googlemap.$set(googlemap_changes);
         if (dirty[0] & /*input_search_value*/
-        16 && input.value !== /*input_search_value*/
-        ctx2[4]) {
+        32 && input.value !== /*input_search_value*/
+        ctx2[5]) {
           set_input_value(
             input,
             /*input_search_value*/
-            ctx2[4]
+            ctx2[5]
           );
         }
         let previous_block_index_1 = current_block_type_index_1;
@@ -7082,7 +7187,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         destroy_component(googlesdk, detaching);
         if_blocks[current_block_type_index].d();
         destroy_component(icon0);
-        ctx[21](null);
+        ctx[23](null);
         destroy_component(googlemap);
         destroy_component(icon1);
         if_blocks_1[current_block_type_index_1].d();
@@ -7093,7 +7198,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function instance6($self, $props, $invalidate) {
     let $mapComponent;
-    component_subscribe($self, mapComponent, ($value) => $invalidate(32, $mapComponent = $value));
+    let $currentLang;
+    component_subscribe($self, mapComponent, ($value) => $invalidate(34, $mapComponent = $value));
+    component_subscribe($self, currentLang, ($value) => $invalidate(19, $currentLang = $value));
+    let translate;
     let { randomProps = [] } = $props;
     let { defaultDistanceKm = 20 } = $props;
     let { initialLatLong: initialLatLong2 = [0, 0] } = $props;
@@ -7124,19 +7232,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let autocomplete_lists = [];
     let showGrowl = false, gMsg = "", gType = "";
     function useGrowl(type, msg) {
-      $invalidate(6, showGrowl = true);
-      $invalidate(7, gMsg = msg);
-      $invalidate(8, gType = type);
+      $invalidate(7, showGrowl = true);
+      $invalidate(8, gMsg = msg);
+      $invalidate(9, gType = type);
       setTimeout(
         () => {
-          $invalidate(6, showGrowl = false);
+          $invalidate(7, showGrowl = false);
         },
         3e3
       );
     }
     const highLightMapMarker = {
       enter: (index) => {
-        $invalidate(2, propItemHighlight = index);
+        $invalidate(3, propItemHighlight = index);
         markersProperty[index].setIcon({
           url: "/assets/icons/marker-2.svg",
           // URL to your custom icon image
@@ -7149,7 +7257,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           // URL to your custom icon image
           scaledSize: new google.maps.Size(32, 32)
         });
-        $invalidate(2, propItemHighlight = null);
+        $invalidate(3, propItemHighlight = null);
       }
     };
     async function searchProperty(search) {
@@ -7190,11 +7298,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         });
         marker.addListener("click", () => {
           let propItem = propItemBinds[idx];
-          $invalidate(2, propItemHighlight = idx);
+          $invalidate(3, propItemHighlight = idx);
           propItem.scrollIntoView({ behavior: "smooth" });
           setTimeout(
             () => {
-              $invalidate(2, propItemHighlight = null);
+              $invalidate(3, propItemHighlight = null);
             },
             2200
           );
@@ -7255,7 +7363,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         },
         function(predictions, status) {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
-            $invalidate(5, autocomplete_lists = predictions);
+            $invalidate(6, autocomplete_lists = predictions);
           }
         }
       );
@@ -7279,8 +7387,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }).catch((e) => {
         alert("Geocoder failed due to: " + e);
       });
-      $invalidate(5, autocomplete_lists = []);
-      $invalidate(4, input_search_value = "");
+      $invalidate(6, autocomplete_lists = []);
+      $invalidate(5, input_search_value = "");
       await searchProperty(true);
       await searchNearbyFacility();
       await gmapsComponent.setCentre({ lat: myLatLng.lat, lng: myLatLng.lng });
@@ -7288,7 +7396,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function button_binding($value, index) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         propItemBinds[index] = $value;
-        $invalidate(1, propItemBinds);
+        $invalidate(2, propItemBinds);
       });
     }
     const mouseenter_handler = (index) => highLightMapMarker.enter(index);
@@ -7296,12 +7404,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function googlemap_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         gmapsComponent = $value;
-        $invalidate(3, gmapsComponent);
+        $invalidate(4, gmapsComponent);
       });
     }
     function input_input_handler() {
       input_search_value = this.value;
-      $invalidate(4, input_search_value);
+      $invalidate(5, input_search_value);
     }
     const input_handler = () => {
       searchLocationHandler();
@@ -7311,12 +7419,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       if ("randomProps" in $props2)
         $invalidate(0, randomProps = $props2.randomProps);
       if ("defaultDistanceKm" in $props2)
-        $invalidate(16, defaultDistanceKm = $props2.defaultDistanceKm);
+        $invalidate(17, defaultDistanceKm = $props2.defaultDistanceKm);
       if ("initialLatLong" in $props2)
-        $invalidate(17, initialLatLong2 = $props2.initialLatLong);
+        $invalidate(18, initialLatLong2 = $props2.initialLatLong);
+    };
+    $self.$.update = () => {
+      if ($self.$.dirty[0] & /*$currentLang*/
+      524288) {
+        $:
+          $invalidate(1, translate = (key) => {
+            console.log($currentLang);
+            if ($currentLang === "EN") {
+              return translation_default[key];
+            }
+            const keyTranslate = key + $currentLang;
+            return translation_default[keyTranslate];
+          });
+      }
     };
     return [
       randomProps,
+      translate,
       propItemBinds,
       propItemHighlight,
       gmapsComponent,
@@ -7334,6 +7457,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       searchByAddressHandler,
       defaultDistanceKm,
       initialLatLong2,
+      $currentLang,
       button_binding,
       mouseenter_handler,
       mouseleave_handler,
@@ -7354,8 +7478,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         safe_not_equal,
         {
           randomProps: 0,
-          defaultDistanceKm: 16,
-          initialLatLong: 17
+          defaultDistanceKm: 17,
+          initialLatLong: 18
         },
         null,
         [-1, -1]
@@ -7364,7 +7488,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var PropertyLocation_default = PropertyLocation;
 
-  // node_modules/svelte-icons-pack/fa/FaSolidBars.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBars.js
   var FaSolidBars_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -7520,7 +7644,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
       },
       p(ctx2, [dirty]) {
-        if (dirty & /*Object*/
+        if (dirty & /*Object, langOptions*/
         0) {
           each_value = ensure_array_like(Object.values(langOptions));
           let i;
@@ -7539,7 +7663,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           }
           each_blocks.length = each_value.length;
         }
-        if (dirty & /*$currentLang, Object*/
+        if (dirty & /*$currentLang, Object, langOptions*/
         1) {
           select_option(
             select,

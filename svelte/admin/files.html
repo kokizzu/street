@@ -412,9 +412,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     mod
   ));
 
-  // node_modules/axios/dist/browser/axios.cjs
+  // node_modules/.pnpm/axios@1.4.0/node_modules/axios/dist/browser/axios.cjs
   var require_axios = __commonJS({
-    "node_modules/axios/dist/browser/axios.cjs"(exports, module) {
+    "node_modules/.pnpm/axios@1.4.0/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
       "use strict";
       function bind(fn, thisArg) {
         return function wrap() {
@@ -639,9 +639,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         const descriptors2 = Object.getOwnPropertyDescriptors(obj);
         const reducedDescriptors = {};
         forEach(descriptors2, (descriptor, name) => {
-          let ret;
-          if ((ret = reducer(descriptor, name, obj)) !== false) {
-            reducedDescriptors[name] = ret || descriptor;
+          if (reducer(descriptor, name, obj) !== false) {
+            reducedDescriptors[name] = descriptor;
           }
         });
         Object.defineProperties(obj, reducedDescriptors);
@@ -1166,6 +1165,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         return null;
       }
+      var DEFAULT_CONTENT_TYPE = {
+        "Content-Type": void 0
+      };
       function stringifySafely(rawValue, parser, encoder) {
         if (utils.isString(rawValue)) {
           try {
@@ -1181,7 +1183,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
       var defaults = {
         transitional: transitionalDefaults,
-        adapter: platform.isNode ? "http" : "xhr",
+        adapter: ["xhr", "http"],
         transformRequest: [function transformRequest(data, headers) {
           const contentType = headers.getContentType() || "";
           const hasJSONContentType = contentType.indexOf("application/json") > -1;
@@ -1264,13 +1266,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         },
         headers: {
           common: {
-            "Accept": "application/json, text/plain, */*",
-            "Content-Type": void 0
+            "Accept": "application/json, text/plain, */*"
           }
         }
       };
-      utils.forEach(["delete", "get", "head", "post", "put", "patch"], (method) => {
+      utils.forEach(["delete", "get", "head"], function forEachMethodNoData(method) {
         defaults.headers[method] = {};
+      });
+      utils.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
+        defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
       });
       var defaults$1 = defaults;
       var ignoreDuplicateOf = utils.toObjectSet([
@@ -1521,15 +1525,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
       };
       AxiosHeaders.accessor(["Content-Type", "Content-Length", "Accept", "Accept-Encoding", "User-Agent", "Authorization"]);
-      utils.reduceDescriptors(AxiosHeaders.prototype, ({ value }, key) => {
-        let mapped = key[0].toUpperCase() + key.slice(1);
-        return {
-          get: () => value,
-          set(headerValue) {
-            this[mapped] = headerValue;
-          }
-        };
-      });
+      utils.freezeMethods(AxiosHeaders.prototype);
       utils.freezeMethods(AxiosHeaders);
       var AxiosHeaders$1 = AxiosHeaders;
       function transformData(fns, response) {
@@ -2025,7 +2021,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         });
         return config;
       }
-      var VERSION2 = "1.5.0";
+      var VERSION2 = "1.4.0";
       var validators$1 = {};
       ["object", "boolean", "number", "function", "string", "symbol"].forEach((type, i) => {
         validators$1[type] = function validator2(thing) {
@@ -2128,11 +2124,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             }
           }
           config.method = (config.method || this.defaults.method || "get").toLowerCase();
-          let contextHeaders = headers && utils.merge(
+          let contextHeaders;
+          contextHeaders = headers && utils.merge(
             headers.common,
             headers[config.method]
           );
-          headers && utils.forEach(
+          contextHeaders && utils.forEach(
             ["delete", "get", "head", "post", "put", "patch", "common"],
             (method) => {
               delete headers[method];
@@ -2415,7 +2412,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       axios.mergeConfig = mergeConfig;
       axios.AxiosHeaders = AxiosHeaders$1;
       axios.formToJSON = (thing) => formDataToJSON(utils.isHTMLForm(thing) ? new FormData(thing) : thing);
-      axios.getAdapter = adapters.getAdapter;
       axios.HttpStatusCode = HttpStatusCode$1;
       axios.default = axios;
       module.exports = axios;
@@ -2535,7 +2531,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   });
 
-  // node_modules/svelte/src/runtime/internal/utils.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
   function assign(tar, src) {
@@ -2563,8 +2559,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   var src_url_equal_anchor;
   function src_url_equal(element_src, url) {
-    if (element_src === url)
-      return true;
     if (!src_url_equal_anchor) {
       src_url_equal_anchor = document.createElement("a");
     }
@@ -2632,13 +2626,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return -1;
   }
 
-  // node_modules/svelte/src/runtime/internal/globals.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
     // @ts-ignore Node typings have this
     global
   );
 
-  // node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
   var ResizeObserverSingleton = class {
     /**
      * @private
@@ -2684,7 +2678,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
 
-  // node_modules/svelte/src/runtime/internal/dom.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/dom.js
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -2801,7 +2795,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return result;
   }
 
-  // node_modules/svelte/src/runtime/internal/lifecycle.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/lifecycle.js
   var current_component;
   function set_current_component(component) {
     current_component = component;
@@ -2843,7 +2837,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   }
 
-  // node_modules/svelte/src/runtime/internal/scheduler.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -2918,7 +2912,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     render_callbacks = filtered;
   }
 
-  // node_modules/svelte/src/runtime/internal/transitions.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   var outros;
   function group_outros() {
@@ -2960,12 +2954,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   }
 
-  // node_modules/svelte/src/runtime/internal/each.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/each.js
   function ensure_array_like(array_like_or_iterator) {
     return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
 
-  // node_modules/svelte/src/runtime/internal/spread.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/spread.js
   function get_spread_update(levels, updates) {
     const update2 = {};
     const to_null_out = {};
@@ -2999,7 +2993,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return update2;
   }
 
-  // node_modules/svelte/src/shared/boolean_attributes.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/shared/boolean_attributes.js
   var _boolean_attributes = (
     /** @type {const} */
     [
@@ -3032,7 +3026,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
-  // node_modules/svelte/src/runtime/internal/Component.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/Component.js
   function create_component(block) {
     block && block.c();
   }
@@ -3128,62 +3122,56 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var SvelteElement;
   if (typeof HTMLElement === "function") {
     SvelteElement = class extends HTMLElement {
-      /** The Svelte component constructor */
-      $ctor;
-      /** Slots */
-      $s;
-      /** The Svelte component instance */
-      $c;
-      /** Whether or not the custom element is connected */
-      $cn = false;
-      /** Component props data */
-      $d = {};
-      /** `true` if currently in the process of reflecting component props back to attributes */
-      $r = false;
-      /** @type {Record<string, CustomElementPropDefinition>} Props definition (name, reflected, type etc) */
-      $p_d = {};
-      /** @type {Record<string, Function[]>} Event listeners */
-      $l = {};
-      /** @type {Map<Function, Function>} Event listener unsubscribe functions */
-      $l_u = /* @__PURE__ */ new Map();
+      $componentCtor;
+      $slots;
+      $component;
+      $connected = false;
+      $data = {};
+      $reflecting = false;
+      /** @type {Record<string, CustomElementPropDefinition>} */
+      $props_definition = {};
+      /** @type {Record<string, Function[]>} */
+      $listeners = {};
+      /** @type {Map<Function, Function>} */
+      $listener_unsubscribe_fns = /* @__PURE__ */ new Map();
       constructor($componentCtor, $slots, use_shadow_dom) {
         super();
-        this.$ctor = $componentCtor;
-        this.$s = $slots;
+        this.$componentCtor = $componentCtor;
+        this.$slots = $slots;
         if (use_shadow_dom) {
           this.attachShadow({ mode: "open" });
         }
       }
       addEventListener(type, listener, options) {
-        this.$l[type] = this.$l[type] || [];
-        this.$l[type].push(listener);
-        if (this.$c) {
-          const unsub = this.$c.$on(type, listener);
-          this.$l_u.set(listener, unsub);
+        this.$listeners[type] = this.$listeners[type] || [];
+        this.$listeners[type].push(listener);
+        if (this.$component) {
+          const unsub = this.$component.$on(type, listener);
+          this.$listener_unsubscribe_fns.set(listener, unsub);
         }
         super.addEventListener(type, listener, options);
       }
       removeEventListener(type, listener, options) {
         super.removeEventListener(type, listener, options);
-        if (this.$c) {
-          const unsub = this.$l_u.get(listener);
+        if (this.$component) {
+          const unsub = this.$listener_unsubscribe_fns.get(listener);
           if (unsub) {
             unsub();
-            this.$l_u.delete(listener);
+            this.$listener_unsubscribe_fns.delete(listener);
           }
         }
       }
       async connectedCallback() {
-        this.$cn = true;
-        if (!this.$c) {
+        this.$connected = true;
+        if (!this.$component) {
           let create_slot2 = function(name) {
             return () => {
               let node;
               const obj = {
                 c: function create() {
-                  node = element("slot");
+                  node = document.createElement("slot");
                   if (name !== "default") {
-                    attr(node, "name", name);
+                    node.setAttribute("name", name);
                   }
                 },
                 /**
@@ -3203,84 +3191,72 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             };
           };
           await Promise.resolve();
-          if (!this.$cn) {
+          if (!this.$connected) {
             return;
           }
           const $slots = {};
           const existing_slots = get_custom_elements_slots(this);
-          for (const name of this.$s) {
+          for (const name of this.$slots) {
             if (name in existing_slots) {
               $slots[name] = [create_slot2(name)];
             }
           }
           for (const attribute of this.attributes) {
-            const name = this.$g_p(attribute.name);
-            if (!(name in this.$d)) {
-              this.$d[name] = get_custom_element_value(name, attribute.value, this.$p_d, "toProp");
+            const name = this.$get_prop_name(attribute.name);
+            if (!(name in this.$data)) {
+              this.$data[name] = get_custom_element_value(
+                name,
+                attribute.value,
+                this.$props_definition,
+                "toProp"
+              );
             }
           }
-          this.$c = new this.$ctor({
+          this.$component = new this.$componentCtor({
             target: this.shadowRoot || this,
             props: {
-              ...this.$d,
+              ...this.$data,
               $slots,
               $scope: {
                 ctx: []
               }
             }
           });
-          const reflect_attributes = () => {
-            this.$r = true;
-            for (const key in this.$p_d) {
-              this.$d[key] = this.$c.$.ctx[this.$c.$.props[key]];
-              if (this.$p_d[key].reflect) {
-                const attribute_value = get_custom_element_value(
-                  key,
-                  this.$d[key],
-                  this.$p_d,
-                  "toAttribute"
-                );
-                if (attribute_value == null) {
-                  this.removeAttribute(key);
-                } else {
-                  this.setAttribute(this.$p_d[key].attribute || key, attribute_value);
-                }
-              }
-            }
-            this.$r = false;
-          };
-          this.$c.$.after_update.push(reflect_attributes);
-          reflect_attributes();
-          for (const type in this.$l) {
-            for (const listener of this.$l[type]) {
-              const unsub = this.$c.$on(type, listener);
-              this.$l_u.set(listener, unsub);
+          for (const type in this.$listeners) {
+            for (const listener of this.$listeners[type]) {
+              const unsub = this.$component.$on(type, listener);
+              this.$listener_unsubscribe_fns.set(listener, unsub);
             }
           }
-          this.$l = {};
+          this.$listeners = {};
         }
       }
       // We don't need this when working within Svelte code, but for compatibility of people using this outside of Svelte
       // and setting attributes through setAttribute etc, this is helpful
       attributeChangedCallback(attr2, _oldValue, newValue) {
-        if (this.$r)
+        if (this.$reflecting)
           return;
-        attr2 = this.$g_p(attr2);
-        this.$d[attr2] = get_custom_element_value(attr2, newValue, this.$p_d, "toProp");
-        this.$c?.$set({ [attr2]: this.$d[attr2] });
+        attr2 = this.$get_prop_name(attr2);
+        this.$data[attr2] = get_custom_element_value(
+          attr2,
+          newValue,
+          this.$props_definition,
+          "toProp"
+        );
+        this.$component?.$set({ [attr2]: this.$data[attr2] });
       }
       disconnectedCallback() {
-        this.$cn = false;
+        this.$connected = false;
         Promise.resolve().then(() => {
-          if (!this.$cn) {
-            this.$c.$destroy();
-            this.$c = void 0;
+          if (!this.$connected) {
+            this.$component.$destroy();
+            this.$component = void 0;
           }
         });
       }
-      $g_p(attribute_name) {
-        return Object.keys(this.$p_d).find(
-          (key) => this.$p_d[key].attribute === attribute_name || !this.$p_d[key].attribute && key.toLowerCase() === attribute_name
+      $get_prop_name(attribute_name) {
+        return Object.keys(this.$props_definition).find(
+          (key) => this.$props_definition[key].attribute === attribute_name || !this.$props_definition[key].attribute && key.toLowerCase() === attribute_name
         ) || attribute_name;
       }
     };
@@ -3369,10 +3345,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   };
 
-  // node_modules/svelte/src/shared/version.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/shared/version.js
   var PUBLIC_VERSION = "4";
 
-  // node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/disclose-version/index.js
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
@@ -3549,7 +3525,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/Menu.svelte
   var import_jsApi_GEN = __toESM(require_jsApi_GEN());
 
-  // node_modules/svelte/src/runtime/store/index.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/store/index.js
   var subscriber_queue = [];
   function writable(value, start = noop) {
     let stop;
@@ -3596,14 +3572,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/uiState.js
   var langOptions = {
     en: "EN",
-    jp: "JP",
     tw: "TW"
     // add more languages here
   };
   var isSideMenuOpen = writable(false);
   var currentLang = writable("EN");
 
-  // node_modules/svelte-icons-pack/Icon.svelte
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment2(ctx) {
     let svg;
     let svg_levels = [
@@ -3739,7 +3714,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var Icon_default = Icon;
 
-  // node_modules/svelte-icons-pack/fa/FaSolidHome.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidHome.js
   var FaSolidHome_default = {
     a: {
       viewBox: "0 0 576 512"
@@ -3747,7 +3722,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidShoppingBag.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidShoppingBag.js
   var FaSolidShoppingBag_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -3755,7 +3730,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M352 160v-32C352 57.42 294.579 0 224 0 153.42 0 96 57.42 96 128v32H0v272c0 44.183 35.817 80 80 80h288c44.183 0 80-35.817 80-80V160h-96zm-192-32c0-35.29 28.71-64 64-64s64 28.71 64 64v32H160v-32zm160 120c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zm-192 0c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidBuilding.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBuilding.js
   var FaSolidBuilding_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -3763,7 +3738,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M436 480h-20V24c0-13.255-10.745-24-24-24H56C42.745 0 32 10.745 32 24v456H12c-6.627 0-12 5.373-12 12v20h448v-20c0-6.627-5.373-12-12-12zM128 76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76zm0 96c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40zm52 148h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12zm76 160h-64v-84c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v84zm64-172c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidSlidersH.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSlidersH.js
   var FaSolidSlidersH_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -3771,7 +3746,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M496 384H160v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h80v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h336c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160h-80v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h336v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h80c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160H288V48c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16C7.2 64 0 71.2 0 80v32c0 8.8 7.2 16 16 16h208v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h208c8.8 0 16-7.2 16-16V80c0-8.8-7.2-16-16-16z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidUserCircle.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidUserCircle.js
   var FaSolidUserCircle_default = {
     a: {
       viewBox: "0 0 496 512"
@@ -3779,7 +3754,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidSignInAlt.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSignInAlt.js
   var FaSolidSignInAlt_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -3787,7 +3762,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidTimes.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidTimes.js
   var FaSolidTimes_default = {
     a: {
       viewBox: "0 0 352 512"
@@ -4629,7 +4604,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var Menu_default = Menu;
 
-  // node_modules/svelte-icons-pack/fa/FaSolidBars.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBars.js
   var FaSolidBars_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -4785,7 +4760,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
       },
       p(ctx2, [dirty]) {
-        if (dirty & /*Object*/
+        if (dirty & /*Object, langOptions*/
         0) {
           each_value = ensure_array_like(Object.values(langOptions));
           let i;
@@ -4804,7 +4779,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           }
           each_blocks.length = each_value.length;
         }
-        if (dirty & /*$currentLang, Object*/
+        if (dirty & /*$currentLang, Object, langOptions*/
         1) {
           select_option(
             select,
@@ -4921,7 +4896,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var Footer_default = Footer;
 
-  // node_modules/tslib/tslib.es6.mjs
+  // node_modules/.pnpm/tslib@2.6.0/node_modules/tslib/tslib.es6.mjs
   function __awaiter(thisArg, _arguments, P, generator) {
     function adopt(value) {
       return value instanceof P ? value : new P(function(resolve) {
@@ -5052,7 +5027,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return ar;
   }
 
-  // node_modules/file-selector/dist/es5/file.js
+  // node_modules/.pnpm/file-selector@0.2.4/node_modules/file-selector/dist/es5/file.js
   var COMMON_MIME_TYPES = /* @__PURE__ */ new Map([
     ["avi", "video/avi"],
     ["gif", "image/gif"],
@@ -5099,7 +5074,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return file;
   }
 
-  // node_modules/file-selector/dist/es5/file-selector.js
+  // node_modules/.pnpm/file-selector@0.2.4/node_modules/file-selector/dist/es5/file-selector.js
   var FILES_TO_IGNORE = [
     // Thumbnail cache files for macOS and Windows
     ".DS_Store",
