@@ -249,7 +249,7 @@
 									</div>
 									<div class='house_type'>
 										<Icon size={12} color='#475569' src={FaSolidHome}/>
-										<span>{prop.houseType==="" ? 'House' : prop.houseType} {translate( 'basement' )}</span>
+										<span>{prop.houseType==="" ? 'House' : prop.houseType}</span>
 									</div>
 								</div>
 								<div class='address'>

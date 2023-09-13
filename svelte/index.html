@@ -929,9 +929,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     mod
   ));
 
-  // node_modules/.pnpm/axios@1.4.0/node_modules/axios/dist/browser/axios.cjs
+  // node_modules/axios/dist/browser/axios.cjs
   var require_axios = __commonJS({
-    "node_modules/.pnpm/axios@1.4.0/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
+    "node_modules/axios/dist/browser/axios.cjs"(exports, module) {
       "use strict";
       function bind(fn, thisArg) {
         return function wrap() {
@@ -1156,8 +1156,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         const descriptors2 = Object.getOwnPropertyDescriptors(obj);
         const reducedDescriptors = {};
         forEach(descriptors2, (descriptor, name) => {
-          if (reducer(descriptor, name, obj) !== false) {
-            reducedDescriptors[name] = descriptor;
+          let ret;
+          if ((ret = reducer(descriptor, name, obj)) !== false) {
+            reducedDescriptors[name] = ret || descriptor;
           }
         });
         Object.defineProperties(obj, reducedDescriptors);
@@ -1682,9 +1683,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         return null;
       }
-      var DEFAULT_CONTENT_TYPE = {
-        "Content-Type": void 0
-      };
       function stringifySafely(rawValue, parser, encoder) {
         if (utils.isString(rawValue)) {
           try {
@@ -1700,7 +1698,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
       var defaults = {
         transitional: transitionalDefaults,
-        adapter: ["xhr", "http"],
+        adapter: platform.isNode ? "http" : "xhr",
         transformRequest: [function transformRequest(data, headers) {
           const contentType = headers.getContentType() || "";
           const hasJSONContentType = contentType.indexOf("application/json") > -1;
@@ -1783,15 +1781,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         },
         headers: {
           common: {
-            "Accept": "application/json, text/plain, */*"
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": void 0
           }
         }
       };
-      utils.forEach(["delete", "get", "head"], function forEachMethodNoData(method) {
+      utils.forEach(["delete", "get", "head", "post", "put", "patch"], (method) => {
         defaults.headers[method] = {};
-      });
-      utils.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
-        defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
       });
       var defaults$1 = defaults;
       var ignoreDuplicateOf = utils.toObjectSet([
@@ -2042,7 +2038,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
       };
       AxiosHeaders.accessor(["Content-Type", "Content-Length", "Accept", "Accept-Encoding", "User-Agent", "Authorization"]);
-      utils.freezeMethods(AxiosHeaders.prototype);
+      utils.reduceDescriptors(AxiosHeaders.prototype, ({ value }, key) => {
+        let mapped = key[0].toUpperCase() + key.slice(1);
+        return {
+          get: () => value,
+          set(headerValue) {
+            this[mapped] = headerValue;
+          }
+        };
+      });
       utils.freezeMethods(AxiosHeaders);
       var AxiosHeaders$1 = AxiosHeaders;
       function transformData(fns, response) {
@@ -2538,7 +2542,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         });
         return config;
       }
-      var VERSION2 = "1.4.0";
+      var VERSION2 = "1.5.0";
       var validators$1 = {};
       ["object", "boolean", "number", "function", "string", "symbol"].forEach((type, i) => {
         validators$1[type] = function validator2(thing) {
@@ -2641,12 +2645,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             }
           }
           config.method = (config.method || this.defaults.method || "get").toLowerCase();
-          let contextHeaders;
-          contextHeaders = headers && utils.merge(
+          let contextHeaders = headers && utils.merge(
             headers.common,
             headers[config.method]
           );
-          contextHeaders && utils.forEach(
+          headers && utils.forEach(
             ["delete", "get", "head", "post", "put", "patch", "common"],
             (method) => {
               delete headers[method];
@@ -2929,6 +2932,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       axios.mergeConfig = mergeConfig;
       axios.AxiosHeaders = AxiosHeaders$1;
       axios.formToJSON = (thing) => formDataToJSON(utils.isHTMLForm(thing) ? new FormData(thing) : thing);
+      axios.getAdapter = adapters.getAdapter;
       axios.HttpStatusCode = HttpStatusCode$1;
       axios.default = axios;
       module.exports = axios;
@@ -3110,7 +3114,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   });
 
-  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/utils.js
+  // node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
   function assign(tar, src) {
@@ -3138,6 +3142,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   var src_url_equal_anchor;
   function src_url_equal(element_src, url) {
+    if (element_src === url)
+      return true;
     if (!src_url_equal_anchor) {
       src_url_equal_anchor = document.createElement("a");
     }
@@ -3168,13 +3174,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return ret;
   }
 
-  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/globals.js
+  // node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
     // @ts-ignore Node typings have this
     global
   );
 
-  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  // node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
   var ResizeObserverSingleton = class {
     /**
      * @private
@@ -3220,7 +3226,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
 
-  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/dom.js
+  // node_modules/svelte/src/runtime/internal/dom.js
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -3330,7 +3336,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return result;
   }
 
-  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/lifecycle.js
+  // node_modules/svelte/src/runtime/internal/lifecycle.js
   var current_component;
   function set_current_component(component) {
     current_component = component;
@@ -3369,7 +3375,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   }
 
-  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/scheduler.js
+  // node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -3448,7 +3454,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     render_callbacks = filtered;
   }
 
-  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/transitions.js
+  // node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   var outros;
   function group_outros() {
@@ -3490,12 +3496,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   }
 
-  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/each.js
+  // node_modules/svelte/src/runtime/internal/each.js
   function ensure_array_like(array_like_or_iterator) {
     return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
 
-  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/spread.js
+  // node_modules/svelte/src/runtime/internal/spread.js
   function get_spread_update(levels, updates) {
     const update2 = {};
     const to_null_out = {};
@@ -3529,7 +3535,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return update2;
   }
 
-  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/shared/boolean_attributes.js
+  // node_modules/svelte/src/shared/boolean_attributes.js
   var _boolean_attributes = (
     /** @type {const} */
     [
@@ -3562,7 +3568,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
-  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/Component.js
+  // node_modules/svelte/src/runtime/internal/Component.js
   function create_component(block) {
     block && block.c();
   }
@@ -3658,56 +3664,62 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var SvelteElement;
   if (typeof HTMLElement === "function") {
     SvelteElement = class extends HTMLElement {
-      $componentCtor;
-      $slots;
-      $component;
-      $connected = false;
-      $data = {};
-      $reflecting = false;
-      /** @type {Record<string, CustomElementPropDefinition>} */
-      $props_definition = {};
-      /** @type {Record<string, Function[]>} */
-      $listeners = {};
-      /** @type {Map<Function, Function>} */
-      $listener_unsubscribe_fns = /* @__PURE__ */ new Map();
+      /** The Svelte component constructor */
+      $ctor;
+      /** Slots */
+      $s;
+      /** The Svelte component instance */
+      $c;
+      /** Whether or not the custom element is connected */
+      $cn = false;
+      /** Component props data */
+      $d = {};
+      /** `true` if currently in the process of reflecting component props back to attributes */
+      $r = false;
+      /** @type {Record<string, CustomElementPropDefinition>} Props definition (name, reflected, type etc) */
+      $p_d = {};
+      /** @type {Record<string, Function[]>} Event listeners */
+      $l = {};
+      /** @type {Map<Function, Function>} Event listener unsubscribe functions */
+      $l_u = /* @__PURE__ */ new Map();
       constructor($componentCtor, $slots, use_shadow_dom) {
         super();
-        this.$componentCtor = $componentCtor;
-        this.$slots = $slots;
+        this.$ctor = $componentCtor;
+        this.$s = $slots;
         if (use_shadow_dom) {
           this.attachShadow({ mode: "open" });
         }
       }
       addEventListener(type, listener, options) {
-        this.$listeners[type] = this.$listeners[type] || [];
-        this.$listeners[type].push(listener);
-        if (this.$component) {
-          const unsub = this.$component.$on(type, listener);
-          this.$listener_unsubscribe_fns.set(listener, unsub);
+        this.$l[type] = this.$l[type] || [];
+        this.$l[type].push(listener);
+        if (this.$c) {
+          const unsub = this.$c.$on(type, listener);
+          this.$l_u.set(listener, unsub);
         }
         super.addEventListener(type, listener, options);
       }
       removeEventListener(type, listener, options) {
         super.removeEventListener(type, listener, options);
-        if (this.$component) {
-          const unsub = this.$listener_unsubscribe_fns.get(listener);
+        if (this.$c) {
+          const unsub = this.$l_u.get(listener);
           if (unsub) {
             unsub();
-            this.$listener_unsubscribe_fns.delete(listener);
+            this.$l_u.delete(listener);
           }
         }
       }
       async connectedCallback() {
-        this.$connected = true;
-        if (!this.$component) {
+        this.$cn = true;
+        if (!this.$c) {
           let create_slot = function(name) {
             return () => {
               let node;
               const obj = {
                 c: function create() {
-                  node = document.createElement("slot");
+                  node = element("slot");
                   if (name !== "default") {
-                    node.setAttribute("name", name);
+                    attr(node, "name", name);
                   }
                 },
                 /**
@@ -3727,72 +3739,84 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             };
           };
           await Promise.resolve();
-          if (!this.$connected) {
+          if (!this.$cn) {
             return;
           }
           const $slots = {};
           const existing_slots = get_custom_elements_slots(this);
-          for (const name of this.$slots) {
+          for (const name of this.$s) {
             if (name in existing_slots) {
               $slots[name] = [create_slot(name)];
             }
           }
           for (const attribute of this.attributes) {
-            const name = this.$get_prop_name(attribute.name);
-            if (!(name in this.$data)) {
-              this.$data[name] = get_custom_element_value(
-                name,
-                attribute.value,
-                this.$props_definition,
-                "toProp"
-              );
+            const name = this.$g_p(attribute.name);
+            if (!(name in this.$d)) {
+              this.$d[name] = get_custom_element_value(name, attribute.value, this.$p_d, "toProp");
             }
           }
-          this.$component = new this.$componentCtor({
+          this.$c = new this.$ctor({
             target: this.shadowRoot || this,
             props: {
-              ...this.$data,
+              ...this.$d,
               $slots,
               $scope: {
                 ctx: []
               }
             }
           });
-          for (const type in this.$listeners) {
-            for (const listener of this.$listeners[type]) {
-              const unsub = this.$component.$on(type, listener);
-              this.$listener_unsubscribe_fns.set(listener, unsub);
+          const reflect_attributes = () => {
+            this.$r = true;
+            for (const key in this.$p_d) {
+              this.$d[key] = this.$c.$.ctx[this.$c.$.props[key]];
+              if (this.$p_d[key].reflect) {
+                const attribute_value = get_custom_element_value(
+                  key,
+                  this.$d[key],
+                  this.$p_d,
+                  "toAttribute"
+                );
+                if (attribute_value == null) {
+                  this.removeAttribute(key);
+                } else {
+                  this.setAttribute(this.$p_d[key].attribute || key, attribute_value);
+                }
+              }
+            }
+            this.$r = false;
+          };
+          this.$c.$.after_update.push(reflect_attributes);
+          reflect_attributes();
+          for (const type in this.$l) {
+            for (const listener of this.$l[type]) {
+              const unsub = this.$c.$on(type, listener);
+              this.$l_u.set(listener, unsub);
             }
           }
-          this.$listeners = {};
+          this.$l = {};
         }
       }
       // We don't need this when working within Svelte code, but for compatibility of people using this outside of Svelte
       // and setting attributes through setAttribute etc, this is helpful
       attributeChangedCallback(attr2, _oldValue, newValue) {
-        if (this.$reflecting)
+        if (this.$r)
           return;
-        attr2 = this.$get_prop_name(attr2);
-        this.$data[attr2] = get_custom_element_value(
-          attr2,
-          newValue,
-          this.$props_definition,
-          "toProp"
-        );
-        this.$component?.$set({ [attr2]: this.$data[attr2] });
+        attr2 = this.$g_p(attr2);
+        this.$d[attr2] = get_custom_element_value(attr2, newValue, this.$p_d, "toProp");
+        this.$c?.$set({ [attr2]: this.$d[attr2] });
       }
       disconnectedCallback() {
-        this.$connected = false;
+        this.$cn = false;
         Promise.resolve().then(() => {
-          if (!this.$connected) {
-            this.$component.$destroy();
-            this.$component = void 0;
+          if (!this.$cn) {
+            this.$c.$destroy();
+            this.$c = void 0;
           }
         });
       }
-      $get_prop_name(attribute_name) {
-        return Object.keys(this.$props_definition).find(
-          (key) => this.$props_definition[key].attribute === attribute_name || !this.$props_definition[key].attribute && key.toLowerCase() === attribute_name
+      $g_p(attribute_name) {
+        return Object.keys(this.$p_d).find(
+          (key) => this.$p_d[key].attribute === attribute_name || !this.$p_d[key].attribute && key.toLowerCase() === attribute_name
         ) || attribute_name;
       }
     };
@@ -3881,10 +3905,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   };
 
-  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/shared/version.js
+  // node_modules/svelte/src/shared/version.js
   var PUBLIC_VERSION = "4";
 
-  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  // node_modules/svelte/src/runtime/internal/disclose-version/index.js
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
@@ -3894,7 +3918,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/Menu.svelte
   var import_jsApi_GEN = __toESM(require_jsApi_GEN());
 
-  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/store/index.js
+  // node_modules/svelte/src/runtime/store/index.js
   var subscriber_queue = [];
   function writable(value, start = noop) {
     let stop;
@@ -5864,11 +5888,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       props: {
         message: (
           /*gMsg*/
-          ctx[8]
+          ctx[7]
         ),
         growlType: (
           /*gType*/
-          ctx[9]
+          ctx[8]
         )
       }
     });
@@ -5883,13 +5907,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         const growl_changes = {};
         if (dirty[0] & /*gMsg*/
-        256)
+        128)
           growl_changes.message = /*gMsg*/
-          ctx2[8];
+          ctx2[7];
         if (dirty[0] & /*gType*/
-        512)
+        256)
           growl_changes.growlType = /*gType*/
-          ctx2[9];
+          ctx2[8];
         growl.$set(growl_changes);
       },
       i(local) {
@@ -5990,8 +6014,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*propItemHighlight, propItemBinds, highLightMapMarker, randomProps, translate*/
-        2063) {
+        if (dirty[0] & /*propItemHighlight, propItemBinds, highLightMapMarker, randomProps*/
+        1031) {
           each_value_1 = ensure_array_like(
             /*randomProps*/
             ctx2[0]
@@ -6148,17 +6172,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     );
     let t4;
     let t5;
-    let t6_value = (
-      /*translate*/
-      ctx[1]("basement") + ""
-    );
-    let t6;
-    let t7;
     let div4;
     let icon1;
-    let t8;
+    let t6;
     let span1;
-    let t9_value = (
+    let t7_value = (
       /*prop*/
       (ctx[42].formattedAddress === "" ? (
         /*prop*/
@@ -6168,87 +6186,87 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx[42].formattedAddress
       )) + ""
     );
-    let t9;
-    let t10;
+    let t7;
+    let t8;
     let div11;
     let div6;
     let div5;
     let icon2;
-    let t11;
+    let t9;
     let span2;
-    let t13;
+    let t11;
     let span3;
-    let t14_value = (
+    let t12_value = (
       /*prop*/
       (ctx[42].numberOfFloors === 0 ? "no-data" : (
         /*prop*/
         ctx[42].numberOfFloors
       )) + ""
     );
-    let t14;
-    let t15;
+    let t12;
+    let t13;
     let div8;
     let div7;
     let icon3;
-    let t16;
+    let t14;
     let span4;
-    let t18;
+    let t16;
     let span5;
-    let t19_value = (
+    let t17_value = (
       /*prop*/
       (ctx[42].bedroom === 0 ? "no-data" : (
         /*prop*/
         ctx[42].bedroom
       )) + ""
     );
-    let t19;
-    let t20;
+    let t17;
+    let t18;
     let div10;
     let div9;
     let icon4;
-    let t21;
+    let t19;
     let span6;
-    let t23;
+    let t21;
     let span7;
-    let t24_value = (
+    let t22_value = (
       /*prop*/
       (ctx[42].bathroom === 0 ? "no-data" : (
         /*prop*/
         ctx[42].bathroom
       )) + ""
     );
-    let t24;
-    let t25;
+    let t22;
+    let t23;
     let div15;
     let div13;
     let icon5;
-    let t26;
+    let t24;
     let span8;
-    let t27_value = (
+    let t25_value = (
       /*prop*/
       ctx[42].sizeM2 + ""
     );
+    let t25;
+    let t26;
     let t27;
-    let t28;
-    let t29;
     let div14;
     let span9;
-    let t30;
-    let t31_value = (
+    let t28;
+    let t29_value = (
       /*prop*/
       (ctx[42].agencyFeePercent || "0") + ""
     );
+    let t29;
+    let t30;
     let t31;
-    let t32;
-    let t33;
     let span10;
-    let t34_value = (0, import_formatter.formatPrice)(
+    let t32_value = (0, import_formatter.formatPrice)(
       /*prop*/
       ctx[42].lastPrice || 0,
       "TWD"
     ) + "";
-    let t34;
-    let t35;
+    let t32;
+    let t33;
     let button_class_value;
     let index = (
       /*index*/
@@ -6314,16 +6332,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     });
     const assign_button = () => (
       /*button_binding*/
-      ctx[20](button, index)
+      ctx[19](button, index)
     );
     const unassign_button = () => (
       /*button_binding*/
-      ctx[20](null, index)
+      ctx[19](null, index)
     );
     function mouseenter_handler() {
       return (
         /*mouseenter_handler*/
-        ctx[21](
+        ctx[20](
           /*index*/
           ctx[44]
         )
@@ -6332,7 +6350,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function mouseleave_handler() {
       return (
         /*mouseleave_handler*/
-        ctx[22](
+        ctx[21](
           /*index*/
           ctx[44]
         )
@@ -6356,62 +6374,60 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         span0 = element("span");
         t4 = text(t4_value);
         t5 = space();
-        t6 = text(t6_value);
-        t7 = space();
         div4 = element("div");
         create_component(icon1.$.fragment);
-        t8 = space();
+        t6 = space();
         span1 = element("span");
-        t9 = text(t9_value);
-        t10 = space();
+        t7 = text(t7_value);
+        t8 = space();
         div11 = element("div");
         div6 = element("div");
         div5 = element("div");
         create_component(icon2.$.fragment);
-        t11 = space();
+        t9 = space();
         span2 = element("span");
         span2.textContent = "Floors";
-        t13 = space();
+        t11 = space();
         span3 = element("span");
-        t14 = text(t14_value);
-        t15 = space();
+        t12 = text(t12_value);
+        t13 = space();
         div8 = element("div");
         div7 = element("div");
         create_component(icon3.$.fragment);
-        t16 = space();
+        t14 = space();
         span4 = element("span");
         span4.textContent = "Bed";
-        t18 = space();
+        t16 = space();
         span5 = element("span");
-        t19 = text(t19_value);
-        t20 = space();
+        t17 = text(t17_value);
+        t18 = space();
         div10 = element("div");
         div9 = element("div");
         create_component(icon4.$.fragment);
-        t21 = space();
+        t19 = space();
         span6 = element("span");
         span6.textContent = "Bath";
-        t23 = space();
+        t21 = space();
         span7 = element("span");
-        t24 = text(t24_value);
-        t25 = space();
+        t22 = text(t22_value);
+        t23 = space();
         div15 = element("div");
         div13 = element("div");
         create_component(icon5.$.fragment);
-        t26 = space();
+        t24 = space();
         span8 = element("span");
-        t27 = text(t27_value);
-        t28 = text(" M2");
-        t29 = space();
+        t25 = text(t25_value);
+        t26 = text(" M2");
+        t27 = space();
         div14 = element("div");
         span9 = element("span");
-        t30 = text("Agency Fee: ");
-        t31 = text(t31_value);
-        t32 = text("%");
-        t33 = space();
+        t28 = text("Agency Fee: ");
+        t29 = text(t29_value);
+        t30 = text("%");
+        t31 = space();
         span10 = element("span");
-        t34 = text(t34_value);
-        t35 = space();
+        t32 = text(t32_value);
+        t33 = space();
         attr(div0, "class", "img_container svelte-1haisu7");
         attr(div1, "class", div1_class_value = null_to_empty(
           /*prop*/
@@ -6439,7 +6455,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(div16, "class", "prop_info svelte-1haisu7");
         attr(button, "class", button_class_value = null_to_empty(
           /*propItemHighlight*/
-          ctx[3] === /*index*/
+          ctx[2] === /*index*/
           ctx[44] ? `prop_item highlight` : "prop_item"
         ) + " svelte-1haisu7");
       },
@@ -6459,60 +6475,58 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div2, t3);
         append(div2, span0);
         append(span0, t4);
-        append(span0, t5);
-        append(span0, t6);
-        append(div12, t7);
+        append(div12, t5);
         append(div12, div4);
         mount_component(icon1, div4, null);
-        append(div4, t8);
+        append(div4, t6);
         append(div4, span1);
-        append(span1, t9);
-        append(div12, t10);
+        append(span1, t7);
+        append(div12, t8);
         append(div12, div11);
         append(div11, div6);
         append(div6, div5);
         mount_component(icon2, div5, null);
-        append(div5, t11);
+        append(div5, t9);
         append(div5, span2);
-        append(div6, t13);
+        append(div6, t11);
         append(div6, span3);
-        append(span3, t14);
-        append(div11, t15);
+        append(span3, t12);
+        append(div11, t13);
         append(div11, div8);
         append(div8, div7);
         mount_component(icon3, div7, null);
-        append(div7, t16);
+        append(div7, t14);
         append(div7, span4);
-        append(div8, t18);
+        append(div8, t16);
         append(div8, span5);
-        append(span5, t19);
-        append(div11, t20);
+        append(span5, t17);
+        append(div11, t18);
         append(div11, div10);
         append(div10, div9);
         mount_component(icon4, div9, null);
-        append(div9, t21);
+        append(div9, t19);
         append(div9, span6);
-        append(div10, t23);
+        append(div10, t21);
         append(div10, span7);
-        append(span7, t24);
-        append(div16, t25);
+        append(span7, t22);
+        append(div16, t23);
         append(div16, div15);
         append(div15, div13);
         mount_component(icon5, div13, null);
-        append(div13, t26);
+        append(div13, t24);
         append(div13, span8);
-        append(span8, t27);
-        append(span8, t28);
-        append(div15, t29);
+        append(span8, t25);
+        append(span8, t26);
+        append(div15, t27);
         append(div15, div14);
         append(div14, span9);
+        append(span9, t28);
+        append(span9, t29);
         append(span9, t30);
-        append(span9, t31);
-        append(span9, t32);
-        append(div14, t33);
+        append(div14, t31);
         append(div14, span10);
-        append(span10, t34);
-        append(button, t35);
+        append(span10, t32);
+        append(button, t33);
         assign_button();
         current = true;
         if (!mounted) {
@@ -6563,12 +6577,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           ctx[42].houseType
         )) + ""))
           set_data(t4, t4_value);
-        if ((!current || dirty[0] & /*translate*/
-        2) && t6_value !== (t6_value = /*translate*/
-        ctx[1]("basement") + ""))
-          set_data(t6, t6_value);
         if ((!current || dirty[0] & /*randomProps*/
-        1) && t9_value !== (t9_value = /*prop*/
+        1) && t7_value !== (t7_value = /*prop*/
         (ctx[42].formattedAddress === "" ? (
           /*prop*/
           ctx[42].address
@@ -6576,47 +6586,47 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*prop*/
           ctx[42].formattedAddress
         )) + ""))
-          set_data(t9, t9_value);
+          set_data(t7, t7_value);
         if ((!current || dirty[0] & /*randomProps*/
-        1) && t14_value !== (t14_value = /*prop*/
+        1) && t12_value !== (t12_value = /*prop*/
         (ctx[42].numberOfFloors === 0 ? "no-data" : (
           /*prop*/
           ctx[42].numberOfFloors
         )) + ""))
-          set_data(t14, t14_value);
+          set_data(t12, t12_value);
         if ((!current || dirty[0] & /*randomProps*/
-        1) && t19_value !== (t19_value = /*prop*/
+        1) && t17_value !== (t17_value = /*prop*/
         (ctx[42].bedroom === 0 ? "no-data" : (
           /*prop*/
           ctx[42].bedroom
         )) + ""))
-          set_data(t19, t19_value);
+          set_data(t17, t17_value);
         if ((!current || dirty[0] & /*randomProps*/
-        1) && t24_value !== (t24_value = /*prop*/
+        1) && t22_value !== (t22_value = /*prop*/
         (ctx[42].bathroom === 0 ? "no-data" : (
           /*prop*/
           ctx[42].bathroom
         )) + ""))
-          set_data(t24, t24_value);
+          set_data(t22, t22_value);
         if ((!current || dirty[0] & /*randomProps*/
-        1) && t27_value !== (t27_value = /*prop*/
+        1) && t25_value !== (t25_value = /*prop*/
         ctx[42].sizeM2 + ""))
-          set_data(t27, t27_value);
+          set_data(t25, t25_value);
         if ((!current || dirty[0] & /*randomProps*/
-        1) && t31_value !== (t31_value = /*prop*/
+        1) && t29_value !== (t29_value = /*prop*/
         (ctx[42].agencyFeePercent || "0") + ""))
-          set_data(t31, t31_value);
+          set_data(t29, t29_value);
         if ((!current || dirty[0] & /*randomProps*/
-        1) && t34_value !== (t34_value = (0, import_formatter.formatPrice)(
+        1) && t32_value !== (t32_value = (0, import_formatter.formatPrice)(
           /*prop*/
           ctx[42].lastPrice || 0,
           "TWD"
         ) + ""))
-          set_data(t34, t34_value);
+          set_data(t32, t32_value);
         if (!current || dirty[0] & /*propItemHighlight*/
-        8 && button_class_value !== (button_class_value = null_to_empty(
+        4 && button_class_value !== (button_class_value = null_to_empty(
           /*propItemHighlight*/
-          ctx[3] === /*index*/
+          ctx[2] === /*index*/
           ctx[44] ? `prop_item highlight` : "prop_item"
         ) + " svelte-1haisu7")) {
           attr(button, "class", button_class_value);
@@ -6726,7 +6736,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let current;
     let each_value = ensure_array_like(
       /*autocomplete_lists*/
-      ctx[6]
+      ctx[5]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
@@ -6753,10 +6763,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*searchByAddressHandler, autocomplete_lists*/
-        65600) {
+        32800) {
           each_value = ensure_array_like(
             /*autocomplete_lists*/
-            ctx2[6]
+            ctx2[5]
           );
           let i;
           for (i = 0; i < each_value.length; i += 1) {
@@ -6825,7 +6835,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[26](
+        ctx[25](
           /*place*/
           ctx[39]
         )
@@ -6857,7 +6867,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if ((!current || dirty[0] & /*autocomplete_lists*/
-        64) && t1_value !== (t1_value = /*place*/
+        32) && t1_value !== (t1_value = /*place*/
         ctx[39].description + ""))
           set_data(t1, t1_value);
       },
@@ -6915,13 +6925,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let dispose;
     let if_block0 = (
       /*showGrowl*/
-      ctx[7] && create_if_block_33(ctx)
+      ctx[6] && create_if_block_33(ctx)
     );
     googlesdk = new GoogleSdk_default({});
     googlesdk.$on(
       "ready",
       /*initGoogleService*/
-      ctx[12]
+      ctx[11]
     );
     const if_block_creators = [create_if_block_13, create_else_block_2];
     const if_blocks = [];
@@ -6944,14 +6954,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     });
     let googlemap_props = { options: (
       /*mapOptions*/
-      ctx[10]
+      ctx[9]
     ) };
     googlemap = new GoogleMap_default({ props: googlemap_props });
-    ctx[23](googlemap);
+    ctx[22](googlemap);
     googlemap.$on(
       "mapDragged",
       /*searchByLocationEvent*/
-      ctx[14]
+      ctx[13]
     );
     icon1 = new Icon_default({
       props: {
@@ -6966,7 +6976,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function select_block_type_2(ctx2, dirty) {
       if (
         /*autocomplete_lists*/
-        ctx2[6].length
+        ctx2[5].length
       )
         return 0;
       return 1;
@@ -7048,7 +7058,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         set_input_value(
           input,
           /*input_search_value*/
-          ctx[5]
+          ctx[4]
         );
         append(div5, t8);
         append(div5, div4);
@@ -7060,19 +7070,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               button,
               "click",
               /*searchByLocationHandler*/
-              ctx[15]
+              ctx[14]
             ),
             listen(
               input,
               "input",
               /*input_input_handler*/
-              ctx[24]
+              ctx[23]
             ),
             listen(
               input,
               "input",
               /*input_handler*/
-              ctx[25]
+              ctx[24]
             )
           ];
           mounted = true;
@@ -7081,12 +7091,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (
           /*showGrowl*/
-          ctx2[7]
+          ctx2[6]
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
             if (dirty[0] & /*showGrowl*/
-            128) {
+            64) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -7125,12 +7135,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         const googlemap_changes = {};
         googlemap.$set(googlemap_changes);
         if (dirty[0] & /*input_search_value*/
-        32 && input.value !== /*input_search_value*/
-        ctx2[5]) {
+        16 && input.value !== /*input_search_value*/
+        ctx2[4]) {
           set_input_value(
             input,
             /*input_search_value*/
-            ctx2[5]
+            ctx2[4]
           );
         }
         let previous_block_index_1 = current_block_type_index_1;
@@ -7187,7 +7197,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         destroy_component(googlesdk, detaching);
         if_blocks[current_block_type_index].d();
         destroy_component(icon0);
-        ctx[23](null);
+        ctx[22](null);
         destroy_component(googlemap);
         destroy_component(icon1);
         if_blocks_1[current_block_type_index_1].d();
@@ -7200,7 +7210,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let $mapComponent;
     let $currentLang;
     component_subscribe($self, mapComponent, ($value) => $invalidate(34, $mapComponent = $value));
-    component_subscribe($self, currentLang, ($value) => $invalidate(19, $currentLang = $value));
+    component_subscribe($self, currentLang, ($value) => $invalidate(18, $currentLang = $value));
     let translate;
     let { randomProps = [] } = $props;
     let { defaultDistanceKm = 20 } = $props;
@@ -7232,19 +7242,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let autocomplete_lists = [];
     let showGrowl = false, gMsg = "", gType = "";
     function useGrowl(type, msg) {
-      $invalidate(7, showGrowl = true);
-      $invalidate(8, gMsg = msg);
-      $invalidate(9, gType = type);
+      $invalidate(6, showGrowl = true);
+      $invalidate(7, gMsg = msg);
+      $invalidate(8, gType = type);
       setTimeout(
         () => {
-          $invalidate(7, showGrowl = false);
+          $invalidate(6, showGrowl = false);
         },
         3e3
       );
     }
     const highLightMapMarker = {
       enter: (index) => {
-        $invalidate(3, propItemHighlight = index);
+        $invalidate(2, propItemHighlight = index);
         markersProperty[index].setIcon({
           url: "/assets/icons/marker-2.svg",
           // URL to your custom icon image
@@ -7257,7 +7267,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           // URL to your custom icon image
           scaledSize: new google.maps.Size(32, 32)
         });
-        $invalidate(3, propItemHighlight = null);
+        $invalidate(2, propItemHighlight = null);
       }
     };
     async function searchProperty(search) {
@@ -7298,11 +7308,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         });
         marker.addListener("click", () => {
           let propItem = propItemBinds[idx];
-          $invalidate(3, propItemHighlight = idx);
+          $invalidate(2, propItemHighlight = idx);
           propItem.scrollIntoView({ behavior: "smooth" });
           setTimeout(
             () => {
-              $invalidate(3, propItemHighlight = null);
+              $invalidate(2, propItemHighlight = null);
             },
             2200
           );
@@ -7363,7 +7373,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         },
         function(predictions, status) {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
-            $invalidate(6, autocomplete_lists = predictions);
+            $invalidate(5, autocomplete_lists = predictions);
           }
         }
       );
@@ -7387,8 +7397,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }).catch((e) => {
         alert("Geocoder failed due to: " + e);
       });
-      $invalidate(6, autocomplete_lists = []);
-      $invalidate(5, input_search_value = "");
+      $invalidate(5, autocomplete_lists = []);
+      $invalidate(4, input_search_value = "");
       await searchProperty(true);
       await searchNearbyFacility();
       await gmapsComponent.setCentre({ lat: myLatLng.lat, lng: myLatLng.lng });
@@ -7396,7 +7406,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function button_binding($value, index) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         propItemBinds[index] = $value;
-        $invalidate(2, propItemBinds);
+        $invalidate(1, propItemBinds);
       });
     }
     const mouseenter_handler = (index) => highLightMapMarker.enter(index);
@@ -7404,12 +7414,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function googlemap_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         gmapsComponent = $value;
-        $invalidate(4, gmapsComponent);
+        $invalidate(3, gmapsComponent);
       });
     }
     function input_input_handler() {
       input_search_value = this.value;
-      $invalidate(5, input_search_value);
+      $invalidate(4, input_search_value);
     }
     const input_handler = () => {
       searchLocationHandler();
@@ -7419,27 +7429,26 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       if ("randomProps" in $props2)
         $invalidate(0, randomProps = $props2.randomProps);
       if ("defaultDistanceKm" in $props2)
-        $invalidate(17, defaultDistanceKm = $props2.defaultDistanceKm);
+        $invalidate(16, defaultDistanceKm = $props2.defaultDistanceKm);
       if ("initialLatLong" in $props2)
-        $invalidate(18, initialLatLong2 = $props2.initialLatLong);
+        $invalidate(17, initialLatLong2 = $props2.initialLatLong);
     };
     $self.$.update = () => {
       if ($self.$.dirty[0] & /*$currentLang*/
-      524288) {
+      262144) {
         $:
-          $invalidate(1, translate = (key) => {
+          translate = (key) => {
             console.log($currentLang);
             if ($currentLang === "EN") {
               return translation_default[key];
             }
             const keyTranslate = key + $currentLang;
             return translation_default[keyTranslate];
-          });
+          };
       }
     };
     return [
       randomProps,
-      translate,
       propItemBinds,
       propItemHighlight,
       gmapsComponent,
@@ -7478,8 +7487,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         safe_not_equal,
         {
           randomProps: 0,
-          defaultDistanceKm: 17,
-          initialLatLong: 18
+          defaultDistanceKm: 16,
+          initialLatLong: 17
         },
         null,
         [-1, -1]
