@@ -274,7 +274,6 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		},
 		AutoIncrementId: true,
 		Unique1:         PropertyId,
-		Indexes:         []string{PropertyId},
 		Engine:          Tt.Memtx,
 		Spatial:         Coord,
 	},

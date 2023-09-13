@@ -132,7 +132,7 @@ func fetchPropertyUSByPropID(baseUrl string, propertyIdNum int) (map[any]interfa
 
 	propertyId := strconv.FormatInt(int64(propertyIdNum), 10)
 
-	url := fmt.Sprintf("%s?prop ertyId=%s&accessLevel=1", baseUrl, propertyId)
+	url := fmt.Sprintf("%s?propertyId=%s&accessLevel=1", baseUrl, propertyId)
 	// fmt.Println("Full URL => ", url)
 
 	// Send an HTTP GET request
@@ -206,6 +206,8 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyRe
 	propertyMutator.Zip = propertyResponseObject.PublicRecordsInfo.AddressInfo.Zip
 	propertyMutator.CountryCode = propertyResponseObject.PublicRecordsInfo.AddressInfo.CountryCode
 
+	propertyMutator.Bathroom = propertyResponseObject.PublicRecordsInfo.BasicInfo.Baths
+	propertyMutator.Bedroom = propertyResponseObject.PublicRecordsInfo.BasicInfo.Beds
 	propertyMutator.PropertyTypeName = propertyResponseObject.PublicRecordsInfo.BasicInfo.PropertyTypeName
 	propertyMutator.YearBuilt = propertyResponseObject.PublicRecordsInfo.BasicInfo.YearBuilt
 	propertyMutator.YearRenovated = propertyResponseObject.PublicRecordsInfo.BasicInfo.YearRenovated
@@ -391,7 +393,7 @@ func ImportPropertyUsData(adapter **Tt.Adapter, baseUrl string, maxPropertyID in
 	for i := 1; i <= maxPropertyID; i++ {
 		stat.Print()
 
-		// fmt.Println("Property ID => ", i)
+		fmt.Println("Property ID => ", i)
 
 		propertyMutator := wcProperty.NewPropertyUsaMutator(*adapter)
 		propertyMutator.PropertyId = uint64(i)
@@ -400,6 +402,7 @@ func ImportPropertyUsData(adapter **Tt.Adapter, baseUrl string, maxPropertyID in
 			continue
 		}
 
+		// fmt.Println("Fetch us data for property ID => ", i)
 		data, err := fetchPropertyUSByPropID(baseUrl, i)
 		if err != nil {
 			fmt.Println("Error has happen for property ID -> ", i)
