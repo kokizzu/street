@@ -7,6 +7,7 @@
   import {GoogleMap, GoogleSdk} from './GoogleMap/components';
   import Growl from './Growl.svelte';
   import {mapComponent} from "./GoogleMap/stores";
+  import Utils from "./Utils.svelte";
   
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidSearch from 'svelte-icons-pack/fa/FaSolidSearch';
@@ -22,7 +23,7 @@
   import FaSolidReceipt from 'svelte-icons-pack/fa/FaSolidReceipt';
   
   let translate;
-  $: translate = (key) => {
+  $: translate = ( key ) => {
     console.log( $currentLang )
     if( $currentLang==='EN' ) {
       return translation[ key ]
@@ -35,7 +36,7 @@
   export let defaultDistanceKm = 20;
   export let initialLatLong = [0, 0];
   let facilities = [], markersFacility = [], markersProperty = [], propItemBinds = [], infoWindows, propItemHighlight = null;
-  let gmapsComponent; // maps
+  let gmapsComponent;
   let myLatLng = {lat: initialLatLong[ 0 ], lng: initialLatLong[ 1 ]};
   let mapOptions = {
     center: myLatLng,
@@ -87,7 +88,7 @@
         centerLong: myLatLng.lng,
         offset: 0,
         limit: 0,
-        maxDistanceKM: defaultDistanceKm,
+        maxDistanceKM: defaultDistanceKm
       }, async res => {
         if( res.error ) return useGrowl( 'error', res.error );
         randomProps = res.properties || [];
@@ -153,8 +154,6 @@
     const {AutocompleteService} = await google.maps.importLibrary( 'places' );
     autocomplete_service = new AutocompleteService();
     geocoder = new google.maps.Geocoder();
-    
-    console.log( 'markersProperty=', markersProperty ); // TODO: find out why this not rendered initially?
     if( initialLatLong[ 0 ]!==0 && initialLatLong[ 1 ]!==0 ) {
       await searchNearbyFacility();
     }
@@ -182,6 +181,10 @@
   function searchByLocationEvent( event ) {
     myLatLng.lat = event.detail.center.lat();
     myLatLng.lng = event.detail.center.lng();
+  }
+  
+  function zoomEvent( event ) {
+    console.log( event.detail.zoom );
   }
   
   async function searchByLocationHandler() {
@@ -241,10 +244,7 @@
 						<div class='prop_info'>
 							<div class='main_info'>
 								<div class='label_info'>
-									<div class={prop.purpose === 'rent'
-                    ? `purpose label_rent`
-                    : `purpose label_sale`
-                  }>
+									<div class={prop.purpose === 'rent' ? 'purpose label_rent' : 'purpose label_sale' }>
 										{prop.purpose==='rent' ? 'For Rent' : 'On Sale'}
 									</div>
 									<div class='house_type'>
@@ -312,6 +312,7 @@
 			<GoogleMap
 				bind:this={gmapsComponent}
 				on:mapDragged={searchByLocationEvent}
+				on:zoomChanged={zoomEvent}
 				options={mapOptions}
 			/>
 		</div>
@@ -343,7 +344,7 @@
 							on:click|preventDefault={() => searchByAddressHandler(place.place_id)}
 						>
 							<Icon size={17} color='#9fa9b5' src={FaSolidMapMarkerAlt}/>
-							<span>{place.description}</span>
+							<span>{place.description} {utilsComponent.translate('basement')}</span>
 						</button>
 					{/each}
 				{:else}

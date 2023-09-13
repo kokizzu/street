@@ -217,7 +217,7 @@
 }
 
 /* fakecss:./_components/GoogleMap/GoogleMap.esbuild-svelte-fake-css */
-.map.svelte-16q73l0 {
+.map.svelte-14mm0to {
   height: 100%;
   width: 100%;
 }
@@ -5184,7 +5184,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t = space();
         div = element("div");
         div.innerHTML = `<!--	Maps goes here, will be render automatically -->`;
-        attr(div, "class", "map svelte-16q73l0");
+        attr(div, "class", "map svelte-14mm0to");
       },
       m(target, anchor) {
         mount_component(googlesdk, target, anchor);
@@ -5262,6 +5262,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       map = new Map2(mapElement, options);
       map.addListener("dragend", () => {
         dispatch("mapDragged", map);
+      });
+      map.addListener("zoom_changed", () => {
+        dispatch("zoomChanged", map);
       });
       set_store_value(mapComponent, $mapComponent = map, $mapComponent);
       dispatch("ready");
@@ -6431,7 +6434,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(div0, "class", "img_container svelte-1haisu7");
         attr(div1, "class", div1_class_value = null_to_empty(
           /*prop*/
-          ctx[42].purpose === "rent" ? `purpose label_rent` : `purpose label_sale`
+          ctx[42].purpose === "rent" ? "purpose label_rent" : "purpose label_sale"
         ) + " svelte-1haisu7");
         attr(div2, "class", "house_type svelte-1haisu7");
         attr(div3, "class", "label_info svelte-1haisu7");
@@ -6566,7 +6569,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (!current || dirty[0] & /*randomProps*/
         1 && div1_class_value !== (div1_class_value = null_to_empty(
           /*prop*/
-          ctx[42].purpose === "rent" ? `purpose label_rent` : `purpose label_sale`
+          ctx[42].purpose === "rent" ? "purpose label_rent" : "purpose label_sale"
         ) + " svelte-1haisu7")) {
           attr(div1, "class", div1_class_value);
         }
@@ -6822,6 +6825,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     );
     let t1;
     let t2;
+    let t3_value = utilsComponent.translate("basement") + "";
+    let t3;
+    let t4;
     let current;
     let mounted;
     let dispose;
@@ -6849,6 +6855,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         span = element("span");
         t1 = text(t1_value);
         t2 = space();
+        t3 = text(t3_value);
+        t4 = space();
         attr(button, "class", "autocomplete_item svelte-1haisu7");
       },
       m(target, anchor) {
@@ -6857,7 +6865,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(button, t0);
         append(button, span);
         append(span, t1);
-        append(button, t2);
+        append(span, t2);
+        append(span, t3);
+        append(button, t4);
         current = true;
         if (!mounted) {
           dispose = listen(button, "click", prevent_default(click_handler));
@@ -6963,6 +6973,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       /*searchByLocationEvent*/
       ctx[13]
     );
+    googlemap.$on("zoomChanged", zoomEvent);
     icon1 = new Icon_default({
       props: {
         className: "icon_search_location",
@@ -7206,6 +7217,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
+  function zoomEvent(event) {
+    console.log(event.detail.zoom);
+  }
   function instance6($self, $props, $invalidate) {
     let $mapComponent;
     let $currentLang;
@@ -7354,7 +7368,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       const { AutocompleteService } = await google.maps.importLibrary("places");
       autocomplete_service = new AutocompleteService();
       geocoder = new google.maps.Geocoder();
-      console.log("markersProperty=", markersProperty);
       if (initialLatLong2[0] !== 0 && initialLatLong2[1] !== 0) {
         await searchNearbyFacility();
       }

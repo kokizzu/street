@@ -323,7 +323,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 }
 
 /* fakecss:./_components/GoogleMap/GoogleMap.esbuild-svelte-fake-css */
-.map.svelte-16q73l0 {
+.map.svelte-14mm0to {
   height: 100%;
   width: 100%;
 }
@@ -4714,7 +4714,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t = space();
         div = element("div");
         div.innerHTML = `<!--	Maps goes here, will be render automatically -->`;
-        attr(div, "class", "map svelte-16q73l0");
+        attr(div, "class", "map svelte-14mm0to");
       },
       m(target, anchor) {
         mount_component(googlesdk, target, anchor);
@@ -4792,6 +4792,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       map = new Map2(mapElement, options);
       map.addListener("dragend", () => {
         dispatch("mapDragged", map);
+      });
+      map.addListener("zoom_changed", () => {
+        dispatch("zoomChanged", map);
       });
       set_store_value(mapComponent, $mapComponent = map, $mapComponent);
       dispatch("ready");
