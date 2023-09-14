@@ -39,7 +39,6 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 				MaxDistanceKM: defaultDistanceKm,
 			})
 		}
-		L.Describe(props)
 		return views.RenderIndex(c, M.SX{
 			`title`:  `Street`,
 			`user`:   user,
