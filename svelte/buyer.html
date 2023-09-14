@@ -2723,12 +2723,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       return true;
     };
   }
-  function bubble(component, event) {
-    const callbacks = component.$.callbacks[event.type];
-    if (callbacks) {
-      callbacks.slice().forEach((fn) => fn.call(this, event));
-    }
-  }
 
   // node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
@@ -4356,14 +4350,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/ProfileHeader.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[6] = list[i];
+    child_ctx[5] = list[i];
     return child_ctx;
   }
   function create_each_block(ctx) {
     let option;
     let t_value = (
       /*lang*/
-      ctx[6] + ""
+      ctx[5] + ""
     );
     let t;
     let option_value_value;
@@ -4372,7 +4366,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*lang*/
-        ctx[6];
+        ctx[5];
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -4446,7 +4440,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         )
           add_render_callback(() => (
             /*select_change_handler*/
-            ctx[3].call(select)
+            ctx[2].call(select)
           ));
         attr(button1, "class", "profile_button svelte-yzo7d9");
         attr(div1, "class", "right_nav svelte-yzo7d9");
@@ -4488,12 +4482,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               select,
               "change",
               /*select_change_handler*/
-              ctx[3]
-            ),
-            listen(
-              select,
-              "click()",
-              /*click_handler*/
               ctx[2]
             )
           ];
@@ -4553,7 +4541,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function instance3($self, $props, $invalidate) {
     let $isSideMenuOpen;
     let $currentLang;
-    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(4, $isSideMenuOpen = $value));
+    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(3, $isSideMenuOpen = $value));
     component_subscribe($self, currentLang, ($value) => $invalidate(0, $currentLang = $value));
     let storedLang = localStorage.getItem("lang");
     onMount(() => {
@@ -4564,9 +4552,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     });
     function openSideMenu() {
       isSideMenuOpen.set(!$isSideMenuOpen);
-    }
-    function click_handler(event) {
-      bubble.call(this, $self, event);
     }
     function select_change_handler() {
       $currentLang = select_value(this);
@@ -4581,7 +4566,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           }
       }
     };
-    return [$currentLang, openSideMenu, click_handler, select_change_handler];
+    return [$currentLang, openSideMenu, select_change_handler];
   }
   var ProfileHeader = class extends SvelteComponent {
     constructor(options) {
