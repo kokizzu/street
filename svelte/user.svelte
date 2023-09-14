@@ -1,129 +1,130 @@
 <script>
-    import Menu from './_components/Menu.svelte';
-    import ProfileHeader from './_components/ProfileHeader.svelte';
-    import Footer from './_components/Footer.svelte';
-    import Icon from 'svelte-icons-pack/Icon.svelte';
-    import { datetime } from './_components/formatter';
-    import { onMount } from 'svelte';
-    import { UserChangePassword, UserUpdateProfile } from './jsApi.GEN';
-    import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
-    import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
-
-    let sideMenuOpen = false;
-
-    function openSideMenu() {
-        sideMenuOpen = true;
-    }
-
-    function closeSideMenu() {
-        sideMenuOpen = false;
-    }
-
-    let user = {/* user */};
-    let segments = {/* segments */};
-
-    let oldPassword = '';
-    let newPassword = '';
-    let repeatNewPassword = '';
-
-    let oldProfileJson = '';
-    onMount(() => {
-        oldProfileJson = JSON.stringify(user);
-    });
-
-    async function updateProfile() {
-        if (JSON.stringify(user) == oldProfileJson) return alert('No changes');
-        UserUpdateProfile(user, function(res) {
-            if (res.error) return alert(res.error);
-            oldProfileJson = JSON.stringify(res.user);
-            user = res.user;
-            alert('profile updated');
-        });
-    }
-
-    async function changePassword() {
-        if (newPassword != repeatNewPassword) return alert('New password and repeat new password must be same');
-        let input = {
-            oldPass: oldPassword,
-            newPass: newPassword,
-        };
-        UserChangePassword(input, function(res) {
-            if (res.error) return alert(res.error);
-            oldPassword = '';
-            newPassword = '';
-            repeatNewPassword = '';
-            alert('password changed');
-        });
-    }
+  // @ts-nocheck
+  import Menu from './_components/Menu.svelte';
+  import ProfileHeader from './_components/ProfileHeader.svelte';
+  import Footer from './_components/Footer.svelte';
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import {datetime} from './_components/formatter';
+  import {onMount} from 'svelte';
+  import {UserChangePassword, UserUpdateProfile} from './jsApi.GEN';
+  import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
+  import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
+  
+  let sideMenuOpen = false;
+  
+  function openSideMenu() {
+    sideMenuOpen = true;
+  }
+  
+  function closeSideMenu() {
+    sideMenuOpen = false;
+  }
+  
+  let user = {/* user */};
+  let segments = {/* segments */};
+  
+  let oldPassword = '';
+  let newPassword = '';
+  let repeatNewPassword = '';
+  
+  let oldProfileJson = '';
+  onMount( () => {
+    oldProfileJson = JSON.stringify( user );
+  } );
+  
+  async function updateProfile() {
+    if( JSON.stringify( user )===oldProfileJson ) return alert( 'No changes' );
+    UserUpdateProfile( user, function( res ) {
+      if( res.error ) return alert( res.error );
+      oldProfileJson = JSON.stringify( res.user );
+      user = res.user;
+      alert( 'profile updated' );
+    } );
+  }
+  
+  async function changePassword() {
+    if( newPassword!==repeatNewPassword ) return alert( 'New password and repeat new password must be same' );
+    let input = {
+      oldPass: oldPassword,
+      newPass: newPassword,
+    };
+    UserChangePassword( input, function( res ) {
+      if( res.error ) return alert( res.error );
+      oldPassword = '';
+      newPassword = '';
+      repeatNewPassword = '';
+      alert( 'password changed' );
+    } );
+  }
 </script>
 
 <section class='dashboard'>
-    <Menu
-            access={segments}
-            isSideMenuOpen={sideMenuOpen}
-            on:closesidemenu={closeSideMenu}
-    />
-    <div class='dashboard_main_content'>
-        <ProfileHeader on:opensidemenu={openSideMenu}></ProfileHeader>
-        <div class='content'>
-            <div class='profile_container'>
-                <div class='profile_set'>
-                    <h2>Update Profile</h2>
-                    <div class='profile_input'>
-                        <label for='email'>Email</label>
-                        <input id='email' type='email' bind:value={user.email} />
-                    </div>
-                    <div class='profile_input'>
-                        <label for='userName'>Username</label>
-                        <input id='userName' type='text' bind:value={user.userName} />
-                    </div>
-                    <div class='profile_input'>
-                        <label for='fullName'>Full Name</label>
-                        <input id='fullName' type='text' bind:value={user.fullName} />
-                    </div>
-                    <div class='profile_info'>
-                        <label for='registered'>Registered</label>
-                        <span id='registered'>{datetime(user.createdAt)}</span>
-                    </div>
-                    <div class='profile_info'>
-                        <label for='lastLogin'>Last login</label>
-                        <span id='lastLogin'>{datetime(user.lastLoginAt)}</span>
-                    </div>
-                    <div class='profile_info'>
-                        <label for='verified'>Verified</label>
-                        <span id='verified'>{datetime(user.verifiedAt) || '0'}</span>
-                    </div>
-                    <label for='updateProfile'></label>
-                    <button id='updateProfile' on:click={updateProfile}>
-                        <span>SUBMIT</span>
-                        <Icon size={18} color='#FFF' src={FaSolidAngleLeft} />
-                    </button>
-                </div>
-
-                <div class='password_set'>
-                    <h2>Change password</h2>
-                    <div class='profile_input'>
-                        <label for='oldPassword'>Old Password</label>
-                        <input id='oldPassword' type='password' bind:value={oldPassword} />
-                    </div>
-                    <div class='profile_input'>
-                        <label for='newPassword'>New Password</label>
-                        <input id='newPassword' type='password' bind:value={newPassword} />
-                    </div>
-                    <div class='profile_input'>
-                        <label for='repeatNewPassword'>Repeat New Password</label>
-                        <input id='repeatNewPassword' type='password' bind:value={repeatNewPassword} />
-                    </div>
-                    <label for='changePassword'></label>
-                    <button id='changePassword' on:click={changePassword}>
-                        <span>SUBMIT</span>
-                        <Icon size={18} color='#FFF' src={FaSolidAngleRight} />
-                    </button>
-                </div>
-            </div>
-        </div>
-        <Footer></Footer>
-    </div>
+	<Menu
+		access={segments}
+		isSideMenuOpen={sideMenuOpen}
+		on:closesidemenu={closeSideMenu}
+	/>
+	<div class='dashboard_main_content'>
+		<ProfileHeader on:opensidemenu={openSideMenu}></ProfileHeader>
+		<div class='content'>
+			<div class='profile_container'>
+				<div class='profile_set'>
+					<h2>Update Profile</h2>
+					<div class='profile_input'>
+						<label for='email'>Email</label>
+						<input bind:value={user.email} id='email' type='email'/>
+					</div>
+					<div class='profile_input'>
+						<label for='userName'>Username</label>
+						<input bind:value={user.userName} id='userName' type='text'/>
+					</div>
+					<div class='profile_input'>
+						<label for='fullName'>Full Name</label>
+						<input bind:value={user.fullName} id='fullName' type='text'/>
+					</div>
+					<div class='profile_info'>
+						<label for='registered'>Registered</label>
+						<span id='registered'>{datetime( user.createdAt )}</span>
+					</div>
+					<div class='profile_info'>
+						<label for='lastLogin'>Last login</label>
+						<span id='lastLogin'>{datetime( user.lastLoginAt )}</span>
+					</div>
+					<div class='profile_info'>
+						<label for='verified'>Verified</label>
+						<span id='verified'>{datetime( user.verifiedAt ) || '0'}</span>
+					</div>
+					<label for='updateProfile'></label>
+					<button id='updateProfile' on:click={updateProfile}>
+						<span>SUBMIT</span>
+						<Icon color='#FFF' size={18} src={FaSolidAngleLeft}/>
+					</button>
+				</div>
+				
+				<div class='password_set'>
+					<h2>Change password</h2>
+					<div class='profile_input'>
+						<label for='oldPassword'>Old Password</label>
+						<input bind:value={oldPassword} id='oldPassword' type='password'/>
+					</div>
+					<div class='profile_input'>
+						<label for='newPassword'>New Password</label>
+						<input bind:value={newPassword} id='newPassword' type='password'/>
+					</div>
+					<div class='profile_input'>
+						<label for='repeatNewPassword'>Repeat New Password</label>
+						<input bind:value={repeatNewPassword} id='repeatNewPassword' type='password'/>
+					</div>
+					<label for='changePassword'></label>
+					<button id='changePassword' on:click={changePassword}>
+						<span>SUBMIT</span>
+						<Icon color='#FFF' size={18} src={FaSolidAngleRight}/>
+					</button>
+				</div>
+			</div>
+		</div>
+		<Footer></Footer>
+	</div>
 </section>
 
 <style>

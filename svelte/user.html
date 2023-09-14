@@ -4895,15 +4895,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     );
     icon0 = new Icon_default({
       props: {
-        size: 18,
         color: "#FFF",
+        size: 18,
         src: FaSolidAngleLeft_default
       }
     });
     icon1 = new Icon_default({
       props: {
-        size: 18,
         color: "#FFF",
+        size: 18,
         src: FaSolidAngleRight_default
       }
     });
@@ -5356,7 +5356,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       oldProfileJson = JSON.stringify(user);
     });
     async function updateProfile() {
-      if (JSON.stringify(user) == oldProfileJson)
+      if (JSON.stringify(user) === oldProfileJson)
         return alert("No changes");
       (0, import_jsApi.UserUpdateProfile)(user, function(res) {
         if (res.error)
@@ -5367,7 +5367,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       });
     }
     async function changePassword() {
-      if (newPassword != repeatNewPassword)
+      if (newPassword !== repeatNewPassword)
         return alert("New password and repeat new password must be same");
       let input = {
         oldPass: oldPassword,
