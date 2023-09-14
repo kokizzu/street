@@ -284,9 +284,10 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 	})
 	fw.Get(`/`+domain.GuestAutoLoginAction, func(ctx *fiber.Ctx) error {
 		var in domain.GuestAutoLoginIn
-		in.Uid = ctx.Params(`uid`)
-		in.Token = ctx.Params(`token`)
-		in.Path = ctx.Params(`path`)
+		_ = webApiParseInput(ctx, &in.RequestCommon, &in, domain.GuestAutoLoginAction)
+		in.Uid = ctx.Query(`uid`)
+		in.Token = ctx.Query(`token`)
+		in.Path = ctx.Query(`path`)
 		out := d.GuestAutoLogin(&in)
 
 		if out.Error != `` {

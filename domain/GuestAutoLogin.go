@@ -3,6 +3,7 @@ package domain
 import (
 	"fmt"
 
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
 
@@ -45,6 +46,7 @@ const (
 func (d *Domain) GuestAutoLogin(in *GuestAutoLoginIn) (out GuestAutoLoginOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
+	L.Describe(in)
 	userId, ok := S.DecodeCB63[uint64](in.Uid)
 	if !ok {
 		out.SetError(400, ErrGuestAutoLoginInvalidUid)
@@ -72,7 +74,7 @@ func (d *Domain) GuestAutoLogin(in *GuestAutoLoginIn) (out GuestAutoLoginOut) {
 	}
 
 	user.SetLastLoginAt(in.UnixNow())
-	user.SetUpdatedAt(in.UnixNow())
+	user.SetUpdatedAt(in.UnixNow()) // to expire the autologin
 	if !user.DoUpsert() {
 		out.AddTrace(WarnFailedSetLastLoginAt)
 		return
