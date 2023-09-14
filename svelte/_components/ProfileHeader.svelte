@@ -31,7 +31,7 @@
 			<p>DASHBOARD</p>
 		</div>
 		<div class="right_nav">
-			<select bind:value={$currentLang} on:click() id="lang" name="lang">
+			<select bind:value={$currentLang} id="lang" name="lang">
 				{#each Object.values( langOptions ) as lang}
 					<option value={lang}>{lang}</option>
 				{/each}

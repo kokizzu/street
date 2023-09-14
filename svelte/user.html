@@ -323,20 +323,28 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 }
 
 /* fakecss:./user.esbuild-svelte-fake-css */
-.profile_container.svelte-15gitu3.svelte-15gitu3 {
+.profile_details_container.svelte-seobwg.svelte-seobwg {
   position: relative;
   margin-top: -40px;
   margin-left: auto;
   margin-right: auto;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 70% auto;
+  gap: 30px;
   width: 88%;
   color: #475569;
   font-size: 14px;
 }
-.profile_set.svelte-15gitu3.svelte-15gitu3,
-.password_set.svelte-15gitu3.svelte-15gitu3 {
-  flex-basis: 50%;
+.profile_details_container.svelte-seobwg h2.svelte-seobwg {
+  font-size: 18px;
+  margin: 0 0 20px 0;
+  font-weight: 700;
+  text-align: center;
+  color: #6366F1;
+}
+.profile_details_container.svelte-seobwg .left .profile_details.svelte-seobwg,
+.profile_details_container.svelte-seobwg .right .password_set.svelte-seobwg,
+.profile_details_container.svelte-seobwg .right .country_details.svelte-seobwg {
   display: flex;
   flex-direction: column;
   border-radius: 8px;
@@ -345,18 +353,113 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   background-color: white;
   height: fit-content;
 }
-.profile_set.svelte-15gitu3 h2.svelte-15gitu3,
-.password_set.svelte-15gitu3 h2.svelte-15gitu3 {
-  font-size: 18px;
-  margin: 0 0 20px 0;
-  font-weight: 700;
-  text-align: center;
-  color: #6366F1;
+.profile_details_container.svelte-seobwg .left.svelte-seobwg,
+.profile_details_container.svelte-seobwg .right.svelte-seobwg {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
-.profile_set.svelte-15gitu3 button.svelte-15gitu3,
-.password_set.svelte-15gitu3 button.svelte-15gitu3 {
+.profile_details_container.svelte-seobwg .left .profile_details .profile_pictures.svelte-seobwg {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 25px;
+  margin: 0 0 20px 0;
+}
+.profile_details_container.svelte-seobwg .left .profile_details .profile_pictures .img_container.svelte-seobwg {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border: 2px solid #86909F;
+  border-radius: 50%;
+}
+.profile_details_container.svelte-seobwg .left .profile_details .profile_pictures .img_container img.svelte-seobwg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.profile_details_container.svelte-seobwg .left .profile_details .profile_pictures .actions.svelte-seobwg {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.profile_details_container.svelte-seobwg .left .profile_details .profile_pictures .actions .btn_upload_photo.svelte-seobwg {
+  width: fit-content;
+  height: fit-content;
+  padding: 7px 15px;
+  border-radius: 8px;
+  border: 2px solid #F1F5F9;
+  background-color: #F1F5F9;
+  color: #3B82F6;
+  font-weight: 700;
+  cursor: pointer;
+}
+.profile_details_container.svelte-seobwg .left .profile_details .profile_pictures .actions .btn_upload_photo.svelte-seobwg:hover {
+  text-decoration: underline;
+}
+.profile_details_container.svelte-seobwg .left .profile_details .profile_pictures .actions .btn_delete.svelte-seobwg {
+  width: fit-content;
+  height: fit-content;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background-color: #EF4444;
+  border: 1px solid #EF4444;
+  cursor: pointer;
+}
+.profile_details_container.svelte-seobwg .left .profile_details .profile_pictures .actions .btn_delete.svelte-seobwg:hover {
+  background-color: #F85454;
+  border: 1px solid #F85454;
+}
+.profile_details_container.svelte-seobwg .left .profile_details .input_container.svelte-seobwg,
+.profile_details_container.svelte-seobwg .right .password_set .input_container.svelte-seobwg {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.profile_details_container.svelte-seobwg .left .profile_details .input_container .name.svelte-seobwg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.profile_details_container.svelte-seobwg .left .profile_details .name .profile_input.svelte-seobwg {
+  width: 100%;
+}
+.profile_details_container.svelte-seobwg .left .profile_details .profile_input.email.svelte-seobwg {
+  width: 49%;
+  margin-right: 10px;
+}
+.profile_details_container.svelte-seobwg .left .profile_details .info_container.svelte-seobwg {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 15px;
+}
+.profile_details_container.svelte-seobwg .left .profile_details .info_container .profile_info.svelte-seobwg {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  margin-left: 10px;
+}
+.profile_details_container.svelte-seobwg .left .profile_details .info_container .profile_info label.svelte-seobwg {
+  font-weight: 700;
+  margin-right: 10px;
+}
+.profile_details_container.svelte-seobwg .right .country_details .country_list #country.svelte-seobwg {
+  width: 100%;
+  border: 1px solid #CBD5E1;
+  background-color: #F1F5F9;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+}
+.profile_details_container.svelte-seobwg .right .country_details .country_list #country.svelte-seobwg:focus {
+  outline: 2px solid #3b82f6;
+}
+.profile_details.svelte-seobwg #updateProfile.svelte-seobwg,
+.password_set.svelte-seobwg #changePassword.svelte-seobwg {
   margin-left: auto;
-  margin-top: 20px;
   width: fit-content;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   padding: 6px 20px;
@@ -373,49 +476,31 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   color: white;
   cursor: pointer;
 }
-.profile_set.svelte-15gitu3 button.svelte-15gitu3:hover,
-.password_set.svelte-15gitu3 button.svelte-15gitu3:hover {
+.profile_details.svelte-seobwg #updateProfile.svelte-seobwg:hover,
+.password_set.svelte-seobwg #changePassword.svelte-seobwg:hover {
   background-color: #7E80F1;
 }
-.profile_set.svelte-15gitu3.svelte-15gitu3 {
-  margin-right: 15px;
-}
-.password_set.svelte-15gitu3.svelte-15gitu3 {
-  margin-left: 15px;
-}
-.profile_input.svelte-15gitu3.svelte-15gitu3 {
+.profile_input.svelte-seobwg.svelte-seobwg {
   display: flex;
   flex-direction: column;
+  gap: 8px;
   width: 100%;
-  margin-bottom: 10px;
 }
-.profile_input.svelte-15gitu3 label.svelte-15gitu3 {
+.profile_input.svelte-seobwg label.svelte-seobwg {
   font-size: 13px;
   font-weight: 700;
   margin-left: 10px;
-  margin-bottom: 8px;
 }
-.profile_input.svelte-15gitu3 input.svelte-15gitu3 {
+.profile_input.svelte-seobwg input.svelte-seobwg {
   width: 100%;
   border: 1px solid #CBD5E1;
   background-color: #F1F5F9;
   border-radius: 8px;
   padding: 12px;
 }
-.profile_input.svelte-15gitu3 input.svelte-15gitu3:focus {
+.profile_input.svelte-seobwg input.svelte-seobwg:focus {
   border-color: #3B82F6;
   outline: 1px solid #3B82F6;
-}
-.profile_info.svelte-15gitu3.svelte-15gitu3 {
-  display: inline-flex;
-  align-items: center;
-  font-size: 13px;
-  margin-left: 10px;
-  margin-bottom: 5px;
-}
-.profile_info.svelte-15gitu3 label.svelte-15gitu3 {
-  font-weight: 700;
-  margin-right: 10px;
 }
 </style>
 <script>(() => {
@@ -2845,12 +2930,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function onMount(fn) {
     get_current_component().$.on_mount.push(fn);
   }
-  function bubble(component, event) {
-    const callbacks = component.$.callbacks[event.type];
-    if (callbacks) {
-      callbacks.slice().forEach((fn) => fn.call(this, event));
-    }
-  }
 
   // node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
@@ -3435,14 +3514,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/uiState.js
   var langOptions = {
     en: "EN",
-    jp: "JP",
     tw: "TW"
     // add more languages here
   };
   var isSideMenuOpen = writable(false);
   var currentLang = writable("EN");
 
-  // node_modules/svelte-icons-pack/Icon.svelte
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment(ctx) {
     let svg;
     let svg_levels = [
@@ -3578,7 +3656,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var Icon_default = Icon;
 
-  // node_modules/svelte-icons-pack/fa/FaSolidHome.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidHome.js
   var FaSolidHome_default = {
     a: {
       viewBox: "0 0 576 512"
@@ -3586,7 +3664,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidShoppingBag.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidShoppingBag.js
   var FaSolidShoppingBag_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -3594,7 +3672,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M352 160v-32C352 57.42 294.579 0 224 0 153.42 0 96 57.42 96 128v32H0v272c0 44.183 35.817 80 80 80h288c44.183 0 80-35.817 80-80V160h-96zm-192-32c0-35.29 28.71-64 64-64s64 28.71 64 64v32H160v-32zm160 120c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zm-192 0c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidBuilding.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBuilding.js
   var FaSolidBuilding_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -3602,7 +3680,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M436 480h-20V24c0-13.255-10.745-24-24-24H56C42.745 0 32 10.745 32 24v456H12c-6.627 0-12 5.373-12 12v20h448v-20c0-6.627-5.373-12-12-12zM128 76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76zm0 96c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40zm52 148h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12zm76 160h-64v-84c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v84zm64-172c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidSlidersH.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSlidersH.js
   var FaSolidSlidersH_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -3610,7 +3688,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M496 384H160v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h80v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h336c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160h-80v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h336v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h80c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160H288V48c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16C7.2 64 0 71.2 0 80v32c0 8.8 7.2 16 16 16h208v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h208c8.8 0 16-7.2 16-16V80c0-8.8-7.2-16-16-16z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidUserCircle.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidUserCircle.js
   var FaSolidUserCircle_default = {
     a: {
       viewBox: "0 0 496 512"
@@ -3618,7 +3696,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidSignInAlt.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSignInAlt.js
   var FaSolidSignInAlt_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -3626,7 +3704,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidTimes.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidTimes.js
   var FaSolidTimes_default = {
     a: {
       viewBox: "0 0 352 512"
@@ -4468,7 +4546,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var Menu_default = Menu;
 
-  // node_modules/svelte-icons-pack/fa/FaSolidBars.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBars.js
   var FaSolidBars_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -4479,14 +4557,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/ProfileHeader.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[6] = list[i];
+    child_ctx[5] = list[i];
     return child_ctx;
   }
   function create_each_block(ctx) {
     let option;
     let t_value = (
       /*lang*/
-      ctx[6] + ""
+      ctx[5] + ""
     );
     let t;
     let option_value_value;
@@ -4495,7 +4573,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*lang*/
-        ctx[6];
+        ctx[5];
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -4569,7 +4647,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         )
           add_render_callback(() => (
             /*select_change_handler*/
-            ctx[3].call(select)
+            ctx[2].call(select)
           ));
         attr(button1, "class", "profile_button svelte-yzo7d9");
         attr(div1, "class", "right_nav svelte-yzo7d9");
@@ -4611,12 +4689,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               select,
               "change",
               /*select_change_handler*/
-              ctx[3]
-            ),
-            listen(
-              select,
-              "click()",
-              /*click_handler*/
               ctx[2]
             )
           ];
@@ -4624,7 +4696,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
       },
       p(ctx2, [dirty]) {
-        if (dirty & /*Object*/
+        if (dirty & /*Object, langOptions*/
         0) {
           each_value = ensure_array_like(Object.values(langOptions));
           let i;
@@ -4643,7 +4715,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           }
           each_blocks.length = each_value.length;
         }
-        if (dirty & /*$currentLang, Object*/
+        if (dirty & /*$currentLang, Object, langOptions*/
         1) {
           select_option(
             select,
@@ -4676,7 +4748,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function instance3($self, $props, $invalidate) {
     let $isSideMenuOpen;
     let $currentLang;
-    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(4, $isSideMenuOpen = $value));
+    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(3, $isSideMenuOpen = $value));
     component_subscribe($self, currentLang, ($value) => $invalidate(0, $currentLang = $value));
     let storedLang = localStorage.getItem("lang");
     onMount(() => {
@@ -4687,9 +4759,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     });
     function openSideMenu() {
       isSideMenuOpen.set(!$isSideMenuOpen);
-    }
-    function click_handler(event) {
-      bubble.call(this, $self, event);
     }
     function select_change_handler() {
       $currentLang = select_value(this);
@@ -4704,7 +4773,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           }
       }
     };
-    return [$currentLang, openSideMenu, click_handler, select_change_handler];
+    return [$currentLang, openSideMenu, select_change_handler];
   }
   var ProfileHeader = class extends SvelteComponent {
     constructor(options) {
@@ -4764,7 +4833,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var import_formatter = __toESM(require_formatter());
   var import_jsApi = __toESM(require_jsApi_GEN());
 
-  // node_modules/svelte-icons-pack/fa/FaSolidAngleLeft.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidAngleLeft.js
   var FaSolidAngleLeft_default = {
     a: {
       viewBox: "0 0 256 512"
@@ -4772,7 +4841,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidAngleRight.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidAngleRight.js
   var FaSolidAngleRight_default = {
     a: {
       viewBox: "0 0 256 512"
@@ -4780,96 +4849,181 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path>'
   };
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidTrashAlt.js
+  var FaSolidTrashAlt_default = {
+    a: {
+      viewBox: "0 0 448 512"
+    },
+    c: '<path d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path>'
+  };
+
   // user.svelte
   function create_fragment5(ctx) {
     let section;
     let menu;
     let t0;
-    let div13;
+    let div24;
     let profileheader;
     let t1;
+    let div23;
+    let div22;
+    let div13;
     let div12;
-    let div11;
-    let div6;
     let h20;
     let t3;
-    let div0;
-    let label0;
-    let t5;
-    let input0;
-    let t6;
-    let div1;
-    let label1;
-    let t8;
-    let input1;
-    let t9;
     let div2;
-    let label2;
-    let t11;
-    let input2;
-    let t12;
+    let div0;
+    let t4;
+    let div1;
+    let button0;
+    let t6;
+    let button1;
+    let icon0;
+    let t7;
+    let div7;
+    let div5;
     let div3;
+    let label0;
+    let t9;
+    let input0;
+    let t10;
+    let div4;
+    let label1;
+    let t12;
+    let input1;
+    let t13;
+    let div6;
+    let label2;
+    let t15;
+    let input2;
+    let t16;
+    let div11;
+    let div8;
     let label3;
-    let t14;
+    let t18;
     let span0;
-    let t15_value = (0, import_formatter.datetime)(
+    let t19_value = (0, import_formatter.datetime)(
       /*user*/
       ctx[1].createdAt
     ) + "";
-    let t15;
-    let t16;
-    let div4;
+    let t19;
+    let t20;
+    let div9;
     let label4;
-    let t18;
+    let t22;
     let span1;
-    let t19_value = (0, import_formatter.datetime)(
+    let t23_value = (0, import_formatter.datetime)(
       /*user*/
       ctx[1].lastLoginAt
     ) + "";
-    let t19;
-    let t20;
-    let div5;
+    let t23;
+    let t24;
+    let div10;
     let label5;
-    let t22;
+    let t26;
     let span2;
-    let t23_value = ((0, import_formatter.datetime)(
+    let t27_value = ((0, import_formatter.datetime)(
       /*user*/
       ctx[1].verifiedAt
     ) || "0") + "";
-    let t23;
-    let t24;
-    let label6;
-    let t25;
-    let button0;
-    let span3;
     let t27;
-    let icon0;
     let t28;
-    let div10;
-    let h21;
-    let t30;
-    let div7;
-    let label7;
-    let t32;
-    let input3;
-    let t33;
-    let div8;
-    let label8;
-    let t35;
-    let input4;
-    let t36;
-    let div9;
-    let label9;
-    let t38;
-    let input5;
-    let t39;
-    let label10;
-    let t40;
-    let button1;
-    let span4;
-    let t42;
+    let label6;
+    let t29;
+    let button2;
+    let span3;
+    let t31;
     let icon1;
+    let t32;
+    let div21;
+    let div18;
+    let h21;
+    let t34;
+    let div17;
+    let div14;
+    let label7;
+    let t36;
+    let input3;
+    let t37;
+    let div15;
+    let label8;
+    let t39;
+    let input4;
+    let t40;
+    let div16;
+    let label9;
+    let t42;
+    let input5;
     let t43;
+    let label10;
+    let t44;
+    let button3;
+    let span4;
+    let t46;
+    let icon2;
+    let t47;
+    let div20;
+    let h22;
+    let t49;
+    let div19;
+    let select;
+    let option0;
+    let option1;
+    let option2;
+    let option3;
+    let option4;
+    let option5;
+    let option6;
+    let option7;
+    let option8;
+    let option9;
+    let option10;
+    let option11;
+    let option12;
+    let option13;
+    let option14;
+    let option15;
+    let option16;
+    let option17;
+    let option18;
+    let option19;
+    let option20;
+    let option21;
+    let option22;
+    let option23;
+    let option24;
+    let option25;
+    let option26;
+    let option27;
+    let option28;
+    let option29;
+    let option30;
+    let option31;
+    let option32;
+    let option33;
+    let option34;
+    let option35;
+    let option36;
+    let option37;
+    let option38;
+    let option39;
+    let option40;
+    let option41;
+    let option42;
+    let option43;
+    let option44;
+    let option45;
+    let option46;
+    let option47;
+    let option48;
+    let option49;
+    let option50;
+    let option51;
+    let option52;
+    let option53;
+    let option54;
+    let option55;
+    let t106;
     let footer;
     let current;
     let mounted;
@@ -4896,15 +5050,22 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     );
     icon0 = new Icon_default({
       props: {
-        size: 18,
         color: "#FFF",
-        src: FaSolidAngleLeft_default
+        size: 15,
+        src: FaSolidTrashAlt_default
       }
     });
     icon1 = new Icon_default({
       props: {
-        size: 18,
         color: "#FFF",
+        size: 18,
+        src: FaSolidAngleLeft_default
+      }
+    });
+    icon2 = new Icon_default({
+      props: {
+        color: "#FFF",
+        size: 18,
         src: FaSolidAngleRight_default
       }
     });
@@ -4914,264 +5075,608 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         section = element("section");
         create_component(menu.$.fragment);
         t0 = space();
-        div13 = element("div");
+        div24 = element("div");
         create_component(profileheader.$.fragment);
         t1 = space();
+        div23 = element("div");
+        div22 = element("div");
+        div13 = element("div");
         div12 = element("div");
-        div11 = element("div");
-        div6 = element("div");
         h20 = element("h2");
-        h20.textContent = "Update Profile";
+        h20.textContent = "Profile Details";
         t3 = space();
-        div0 = element("div");
-        label0 = element("label");
-        label0.textContent = "Email";
-        t5 = space();
-        input0 = element("input");
-        t6 = space();
-        div1 = element("div");
-        label1 = element("label");
-        label1.textContent = "Username";
-        t8 = space();
-        input1 = element("input");
-        t9 = space();
         div2 = element("div");
-        label2 = element("label");
-        label2.textContent = "Full Name";
-        t11 = space();
-        input2 = element("input");
-        t12 = space();
+        div0 = element("div");
+        div0.innerHTML = `<img alt="profile" src="/assets/img/team-1-200x200.jpg" class="svelte-seobwg"/>`;
+        t4 = space();
+        div1 = element("div");
+        button0 = element("button");
+        button0.textContent = "Upload Profile Photo";
+        t6 = space();
+        button1 = element("button");
+        create_component(icon0.$.fragment);
+        t7 = space();
+        div7 = element("div");
+        div5 = element("div");
         div3 = element("div");
-        label3 = element("label");
-        label3.textContent = "Registered";
-        t14 = space();
-        span0 = element("span");
-        t15 = text(t15_value);
-        t16 = space();
+        label0 = element("label");
+        label0.textContent = "Username";
+        t9 = space();
+        input0 = element("input");
+        t10 = space();
         div4 = element("div");
-        label4 = element("label");
-        label4.textContent = "Last login";
+        label1 = element("label");
+        label1.textContent = "Full Name";
+        t12 = space();
+        input1 = element("input");
+        t13 = space();
+        div6 = element("div");
+        label2 = element("label");
+        label2.textContent = "Email";
+        t15 = space();
+        input2 = element("input");
+        t16 = space();
+        div11 = element("div");
+        div8 = element("div");
+        label3 = element("label");
+        label3.textContent = "Registered:";
         t18 = space();
-        span1 = element("span");
+        span0 = element("span");
         t19 = text(t19_value);
         t20 = space();
-        div5 = element("div");
-        label5 = element("label");
-        label5.textContent = "Verified";
+        div9 = element("div");
+        label4 = element("label");
+        label4.textContent = "Last login:";
         t22 = space();
-        span2 = element("span");
+        span1 = element("span");
         t23 = text(t23_value);
         t24 = space();
+        div10 = element("div");
+        label5 = element("label");
+        label5.textContent = "Verified:";
+        t26 = space();
+        span2 = element("span");
+        t27 = text(t27_value);
+        t28 = space();
         label6 = element("label");
-        t25 = space();
-        button0 = element("button");
+        t29 = space();
+        button2 = element("button");
         span3 = element("span");
         span3.textContent = "SUBMIT";
-        t27 = space();
-        create_component(icon0.$.fragment);
-        t28 = space();
-        div10 = element("div");
+        t31 = space();
+        create_component(icon1.$.fragment);
+        t32 = space();
+        div21 = element("div");
+        div18 = element("div");
         h21 = element("h2");
         h21.textContent = "Change password";
-        t30 = space();
-        div7 = element("div");
+        t34 = space();
+        div17 = element("div");
+        div14 = element("div");
         label7 = element("label");
         label7.textContent = "Old Password";
-        t32 = space();
+        t36 = space();
         input3 = element("input");
-        t33 = space();
-        div8 = element("div");
+        t37 = space();
+        div15 = element("div");
         label8 = element("label");
         label8.textContent = "New Password";
-        t35 = space();
+        t39 = space();
         input4 = element("input");
-        t36 = space();
-        div9 = element("div");
+        t40 = space();
+        div16 = element("div");
         label9 = element("label");
         label9.textContent = "Repeat New Password";
-        t38 = space();
+        t42 = space();
         input5 = element("input");
-        t39 = space();
+        t43 = space();
         label10 = element("label");
-        t40 = space();
-        button1 = element("button");
+        t44 = space();
+        button3 = element("button");
         span4 = element("span");
         span4.textContent = "SUBMIT";
-        t42 = space();
-        create_component(icon1.$.fragment);
-        t43 = space();
+        t46 = space();
+        create_component(icon2.$.fragment);
+        t47 = space();
+        div20 = element("div");
+        h22 = element("h2");
+        h22.textContent = "Country Details";
+        t49 = space();
+        div19 = element("div");
+        select = element("select");
+        option0 = element("option");
+        option0.textContent = "Afghanistan";
+        option1 = element("option");
+        option1.textContent = "Albania";
+        option2 = element("option");
+        option2.textContent = "Algeria";
+        option3 = element("option");
+        option3.textContent = "Andorra";
+        option4 = element("option");
+        option4.textContent = "Angola";
+        option5 = element("option");
+        option5.textContent = "Antigua and Barbuda";
+        option6 = element("option");
+        option6.textContent = "Argentina";
+        option7 = element("option");
+        option7.textContent = "Armenia";
+        option8 = element("option");
+        option8.textContent = "Australia";
+        option9 = element("option");
+        option9.textContent = "Austria";
+        option10 = element("option");
+        option10.textContent = "Azerbaijan";
+        option11 = element("option");
+        option11.textContent = "Bahamas";
+        option12 = element("option");
+        option12.textContent = "Bahrain";
+        option13 = element("option");
+        option13.textContent = "Bangladesh";
+        option14 = element("option");
+        option14.textContent = "Barbados";
+        option15 = element("option");
+        option15.textContent = "Belarus";
+        option16 = element("option");
+        option16.textContent = "Belgium";
+        option17 = element("option");
+        option17.textContent = "Belize";
+        option18 = element("option");
+        option18.textContent = "Benin";
+        option19 = element("option");
+        option19.textContent = "Bhutan";
+        option20 = element("option");
+        option20.textContent = "Bolivia";
+        option21 = element("option");
+        option21.textContent = "Bosnia and Herzegovina";
+        option22 = element("option");
+        option22.textContent = "Botswana";
+        option23 = element("option");
+        option23.textContent = "Brazil";
+        option24 = element("option");
+        option24.textContent = "Brunei";
+        option25 = element("option");
+        option25.textContent = "Bulgaria";
+        option26 = element("option");
+        option26.textContent = "Burkina Faso";
+        option27 = element("option");
+        option27.textContent = "Burundi";
+        option28 = element("option");
+        option28.textContent = "C\xF4te d'Ivoire";
+        option29 = element("option");
+        option29.textContent = "Cabo Verde";
+        option30 = element("option");
+        option30.textContent = "Cambodia";
+        option31 = element("option");
+        option31.textContent = "Cameroon";
+        option32 = element("option");
+        option32.textContent = "Canada";
+        option33 = element("option");
+        option33.textContent = "Central African Republic";
+        option34 = element("option");
+        option34.textContent = "Chad";
+        option35 = element("option");
+        option35.textContent = "Chile";
+        option36 = element("option");
+        option36.textContent = "China";
+        option37 = element("option");
+        option37.textContent = "Colombia";
+        option38 = element("option");
+        option38.textContent = "Comoros";
+        option39 = element("option");
+        option39.textContent = "Congo (Congo-Brazzaville)";
+        option40 = element("option");
+        option40.textContent = "Costa Rica";
+        option41 = element("option");
+        option41.textContent = "Croatia";
+        option42 = element("option");
+        option42.textContent = "Cuba";
+        option43 = element("option");
+        option43.textContent = "Cyprus";
+        option44 = element("option");
+        option44.textContent = "Czechia (Czech Republic)";
+        option45 = element("option");
+        option45.textContent = "Democratic Republic of the Congo (Congo-Kinshasa)";
+        option46 = element("option");
+        option46.textContent = "Denmark";
+        option47 = element("option");
+        option47.textContent = "Djibouti";
+        option48 = element("option");
+        option48.textContent = "Dominica";
+        option49 = element("option");
+        option49.textContent = "Dominican Republic";
+        option50 = element("option");
+        option50.textContent = "Ecuador";
+        option51 = element("option");
+        option51.textContent = "Egypt";
+        option52 = element("option");
+        option52.textContent = "El Salvador";
+        option53 = element("option");
+        option53.textContent = "Equatorial Guinea";
+        option54 = element("option");
+        option54.textContent = "Eritrea";
+        option55 = element("option");
+        option55.textContent = "Estonia";
+        t106 = space();
         create_component(footer.$.fragment);
-        attr(h20, "class", "svelte-15gitu3");
-        attr(label0, "for", "email");
-        attr(label0, "class", "svelte-15gitu3");
-        attr(input0, "id", "email");
-        attr(input0, "type", "email");
-        attr(input0, "class", "svelte-15gitu3");
-        attr(div0, "class", "profile_input svelte-15gitu3");
-        attr(label1, "for", "userName");
-        attr(label1, "class", "svelte-15gitu3");
-        attr(input1, "id", "userName");
+        attr(h20, "class", "svelte-seobwg");
+        attr(div0, "class", "img_container svelte-seobwg");
+        attr(button0, "class", "btn_upload_photo svelte-seobwg");
+        attr(button1, "class", "btn_delete svelte-seobwg");
+        attr(div1, "class", "actions svelte-seobwg");
+        attr(div2, "class", "profile_pictures svelte-seobwg");
+        attr(label0, "for", "userName");
+        attr(label0, "class", "svelte-seobwg");
+        attr(input0, "id", "userName");
+        attr(input0, "type", "text");
+        attr(input0, "class", "svelte-seobwg");
+        attr(div3, "class", "profile_input svelte-seobwg");
+        attr(label1, "for", "fullName");
+        attr(label1, "class", "svelte-seobwg");
+        attr(input1, "id", "fullName");
         attr(input1, "type", "text");
-        attr(input1, "class", "svelte-15gitu3");
-        attr(div1, "class", "profile_input svelte-15gitu3");
-        attr(label2, "for", "fullName");
-        attr(label2, "class", "svelte-15gitu3");
-        attr(input2, "id", "fullName");
-        attr(input2, "type", "text");
-        attr(input2, "class", "svelte-15gitu3");
-        attr(div2, "class", "profile_input svelte-15gitu3");
+        attr(input1, "class", "svelte-seobwg");
+        attr(div4, "class", "profile_input svelte-seobwg");
+        attr(div5, "class", "name svelte-seobwg");
+        attr(label2, "for", "email");
+        attr(label2, "class", "svelte-seobwg");
+        attr(input2, "id", "email");
+        attr(input2, "type", "email");
+        attr(input2, "class", "svelte-seobwg");
+        attr(div6, "class", "profile_input email svelte-seobwg");
+        attr(div7, "class", "input_container svelte-seobwg");
         attr(label3, "for", "registered");
-        attr(label3, "class", "svelte-15gitu3");
+        attr(label3, "class", "svelte-seobwg");
         attr(span0, "id", "registered");
-        attr(div3, "class", "profile_info svelte-15gitu3");
+        attr(div8, "class", "profile_info svelte-seobwg");
         attr(label4, "for", "lastLogin");
-        attr(label4, "class", "svelte-15gitu3");
+        attr(label4, "class", "svelte-seobwg");
         attr(span1, "id", "lastLogin");
-        attr(div4, "class", "profile_info svelte-15gitu3");
+        attr(div9, "class", "profile_info svelte-seobwg");
         attr(label5, "for", "verified");
-        attr(label5, "class", "svelte-15gitu3");
+        attr(label5, "class", "svelte-seobwg");
         attr(span2, "id", "verified");
-        attr(div5, "class", "profile_info svelte-15gitu3");
+        attr(div10, "class", "profile_info svelte-seobwg");
+        attr(div11, "class", "info_container svelte-seobwg");
         attr(label6, "for", "updateProfile");
-        attr(button0, "id", "updateProfile");
-        attr(button0, "class", "svelte-15gitu3");
-        attr(div6, "class", "profile_set svelte-15gitu3");
-        attr(h21, "class", "svelte-15gitu3");
+        attr(label6, "class", "svelte-seobwg");
+        attr(button2, "id", "updateProfile");
+        attr(button2, "class", "svelte-seobwg");
+        attr(div12, "class", "profile_details svelte-seobwg");
+        attr(div13, "class", "left svelte-seobwg");
+        attr(h21, "class", "svelte-seobwg");
         attr(label7, "for", "oldPassword");
-        attr(label7, "class", "svelte-15gitu3");
+        attr(label7, "class", "svelte-seobwg");
         attr(input3, "id", "oldPassword");
         attr(input3, "type", "password");
-        attr(input3, "class", "svelte-15gitu3");
-        attr(div7, "class", "profile_input svelte-15gitu3");
+        attr(input3, "class", "svelte-seobwg");
+        attr(div14, "class", "profile_input svelte-seobwg");
         attr(label8, "for", "newPassword");
-        attr(label8, "class", "svelte-15gitu3");
+        attr(label8, "class", "svelte-seobwg");
         attr(input4, "id", "newPassword");
         attr(input4, "type", "password");
-        attr(input4, "class", "svelte-15gitu3");
-        attr(div8, "class", "profile_input svelte-15gitu3");
+        attr(input4, "class", "svelte-seobwg");
+        attr(div15, "class", "profile_input svelte-seobwg");
         attr(label9, "for", "repeatNewPassword");
-        attr(label9, "class", "svelte-15gitu3");
+        attr(label9, "class", "svelte-seobwg");
         attr(input5, "id", "repeatNewPassword");
         attr(input5, "type", "password");
-        attr(input5, "class", "svelte-15gitu3");
-        attr(div9, "class", "profile_input svelte-15gitu3");
+        attr(input5, "class", "svelte-seobwg");
+        attr(div16, "class", "profile_input svelte-seobwg");
         attr(label10, "for", "changePassword");
-        attr(button1, "id", "changePassword");
-        attr(button1, "class", "svelte-15gitu3");
-        attr(div10, "class", "password_set svelte-15gitu3");
-        attr(div11, "class", "profile_container svelte-15gitu3");
-        attr(div12, "class", "content");
-        attr(div13, "class", "dashboard_main_content");
+        attr(label10, "class", "svelte-seobwg");
+        attr(button3, "id", "changePassword");
+        attr(button3, "class", "svelte-seobwg");
+        attr(div17, "class", "input_container svelte-seobwg");
+        attr(div18, "class", "password_set svelte-seobwg");
+        attr(h22, "class", "svelte-seobwg");
+        option0.__value = "Afghanistan";
+        set_input_value(option0, option0.__value);
+        option1.__value = "Albania";
+        set_input_value(option1, option1.__value);
+        option2.__value = "Algeria";
+        set_input_value(option2, option2.__value);
+        option3.__value = "Andorra";
+        set_input_value(option3, option3.__value);
+        option4.__value = "Angola";
+        set_input_value(option4, option4.__value);
+        option5.__value = "Antigua and Barbuda";
+        set_input_value(option5, option5.__value);
+        option6.__value = "Argentina";
+        set_input_value(option6, option6.__value);
+        option7.__value = "Armenia";
+        set_input_value(option7, option7.__value);
+        option8.__value = "Australia";
+        set_input_value(option8, option8.__value);
+        option9.__value = "Austria";
+        set_input_value(option9, option9.__value);
+        option10.__value = "Azerbaijan";
+        set_input_value(option10, option10.__value);
+        option11.__value = "Bahamas";
+        set_input_value(option11, option11.__value);
+        option12.__value = "Bahrain";
+        set_input_value(option12, option12.__value);
+        option13.__value = "Bangladesh";
+        set_input_value(option13, option13.__value);
+        option14.__value = "Barbados";
+        set_input_value(option14, option14.__value);
+        option15.__value = "Belarus";
+        set_input_value(option15, option15.__value);
+        option16.__value = "Belgium";
+        set_input_value(option16, option16.__value);
+        option17.__value = "Belize";
+        set_input_value(option17, option17.__value);
+        option18.__value = "Benin";
+        set_input_value(option18, option18.__value);
+        option19.__value = "Bhutan";
+        set_input_value(option19, option19.__value);
+        option20.__value = "Bolivia";
+        set_input_value(option20, option20.__value);
+        option21.__value = "Bosnia and Herzegovina";
+        set_input_value(option21, option21.__value);
+        option22.__value = "Botswana";
+        set_input_value(option22, option22.__value);
+        option23.__value = "Brazil";
+        set_input_value(option23, option23.__value);
+        option24.__value = "Brunei";
+        set_input_value(option24, option24.__value);
+        option25.__value = "Bulgaria";
+        set_input_value(option25, option25.__value);
+        option26.__value = "Burkina Faso";
+        set_input_value(option26, option26.__value);
+        option27.__value = "Burundi";
+        set_input_value(option27, option27.__value);
+        option28.__value = "C\xF4te d'Ivoire";
+        set_input_value(option28, option28.__value);
+        option29.__value = "Cabo Verde";
+        set_input_value(option29, option29.__value);
+        option30.__value = "Cambodia";
+        set_input_value(option30, option30.__value);
+        option31.__value = "Cameroon";
+        set_input_value(option31, option31.__value);
+        option32.__value = "Canada";
+        set_input_value(option32, option32.__value);
+        option33.__value = "Central African Republic";
+        set_input_value(option33, option33.__value);
+        option34.__value = "Chad";
+        set_input_value(option34, option34.__value);
+        option35.__value = "Chile";
+        set_input_value(option35, option35.__value);
+        option36.__value = "China";
+        set_input_value(option36, option36.__value);
+        option37.__value = "Colombia";
+        set_input_value(option37, option37.__value);
+        option38.__value = "Comoros";
+        set_input_value(option38, option38.__value);
+        option39.__value = "Congo (Congo-Brazzaville)";
+        set_input_value(option39, option39.__value);
+        option40.__value = "Costa Rica";
+        set_input_value(option40, option40.__value);
+        option41.__value = "Croatia";
+        set_input_value(option41, option41.__value);
+        option42.__value = "Cuba";
+        set_input_value(option42, option42.__value);
+        option43.__value = "Cyprus";
+        set_input_value(option43, option43.__value);
+        option44.__value = "Czechia (Czech Republic)";
+        set_input_value(option44, option44.__value);
+        option45.__value = "Democratic Republic of the Congo (Congo-Kinshasa)";
+        set_input_value(option45, option45.__value);
+        option46.__value = "Denmark";
+        set_input_value(option46, option46.__value);
+        option47.__value = "Djibouti";
+        set_input_value(option47, option47.__value);
+        option48.__value = "Dominica";
+        set_input_value(option48, option48.__value);
+        option49.__value = "Dominican Republic";
+        set_input_value(option49, option49.__value);
+        option50.__value = "Ecuador";
+        set_input_value(option50, option50.__value);
+        option51.__value = "Egypt";
+        set_input_value(option51, option51.__value);
+        option52.__value = "El Salvador";
+        set_input_value(option52, option52.__value);
+        option53.__value = "Equatorial Guinea";
+        set_input_value(option53, option53.__value);
+        option54.__value = "Eritrea";
+        set_input_value(option54, option54.__value);
+        option55.__value = "Estonia";
+        set_input_value(option55, option55.__value);
+        attr(select, "id", "country");
+        attr(select, "name", "country");
+        attr(select, "class", "svelte-seobwg");
+        attr(div19, "class", "country_list");
+        attr(div20, "class", "country_details svelte-seobwg");
+        attr(div21, "class", "right svelte-seobwg");
+        attr(div22, "class", "profile_details_container svelte-seobwg");
+        attr(div23, "class", "content");
+        attr(div24, "class", "dashboard_main_content");
         attr(section, "class", "dashboard");
       },
       m(target, anchor) {
         insert(target, section, anchor);
         mount_component(menu, section, null);
         append(section, t0);
-        append(section, div13);
-        mount_component(profileheader, div13, null);
-        append(div13, t1);
+        append(section, div24);
+        mount_component(profileheader, div24, null);
+        append(div24, t1);
+        append(div24, div23);
+        append(div23, div22);
+        append(div22, div13);
         append(div13, div12);
-        append(div12, div11);
-        append(div11, div6);
-        append(div6, h20);
-        append(div6, t3);
-        append(div6, div0);
-        append(div0, label0);
-        append(div0, t5);
-        append(div0, input0);
+        append(div12, h20);
+        append(div12, t3);
+        append(div12, div2);
+        append(div2, div0);
+        append(div2, t4);
+        append(div2, div1);
+        append(div1, button0);
+        append(div1, t6);
+        append(div1, button1);
+        mount_component(icon0, button1, null);
+        append(div12, t7);
+        append(div12, div7);
+        append(div7, div5);
+        append(div5, div3);
+        append(div3, label0);
+        append(div3, t9);
+        append(div3, input0);
         set_input_value(
           input0,
           /*user*/
-          ctx[1].email
+          ctx[1].userName
         );
-        append(div6, t6);
-        append(div6, div1);
-        append(div1, label1);
-        append(div1, t8);
-        append(div1, input1);
+        append(div5, t10);
+        append(div5, div4);
+        append(div4, label1);
+        append(div4, t12);
+        append(div4, input1);
         set_input_value(
           input1,
           /*user*/
-          ctx[1].userName
+          ctx[1].fullName
         );
-        append(div6, t9);
-        append(div6, div2);
-        append(div2, label2);
-        append(div2, t11);
-        append(div2, input2);
+        append(div7, t13);
+        append(div7, div6);
+        append(div6, label2);
+        append(div6, t15);
+        append(div6, input2);
         set_input_value(
           input2,
           /*user*/
-          ctx[1].fullName
+          ctx[1].email
         );
-        append(div6, t12);
-        append(div6, div3);
-        append(div3, label3);
-        append(div3, t14);
-        append(div3, span0);
-        append(span0, t15);
-        append(div6, t16);
-        append(div6, div4);
-        append(div4, label4);
-        append(div4, t18);
-        append(div4, span1);
-        append(span1, t19);
-        append(div6, t20);
-        append(div6, div5);
-        append(div5, label5);
-        append(div5, t22);
-        append(div5, span2);
-        append(span2, t23);
-        append(div6, t24);
-        append(div6, label6);
-        append(div6, t25);
-        append(div6, button0);
-        append(button0, span3);
-        append(button0, t27);
-        mount_component(icon0, button0, null);
-        append(div11, t28);
+        append(div12, t16);
+        append(div12, div11);
+        append(div11, div8);
+        append(div8, label3);
+        append(div8, t18);
+        append(div8, span0);
+        append(span0, t19);
+        append(div11, t20);
+        append(div11, div9);
+        append(div9, label4);
+        append(div9, t22);
+        append(div9, span1);
+        append(span1, t23);
+        append(div11, t24);
         append(div11, div10);
-        append(div10, h21);
-        append(div10, t30);
-        append(div10, div7);
-        append(div7, label7);
-        append(div7, t32);
-        append(div7, input3);
+        append(div10, label5);
+        append(div10, t26);
+        append(div10, span2);
+        append(span2, t27);
+        append(div12, t28);
+        append(div12, label6);
+        append(div12, t29);
+        append(div12, button2);
+        append(button2, span3);
+        append(button2, t31);
+        mount_component(icon1, button2, null);
+        append(div22, t32);
+        append(div22, div21);
+        append(div21, div18);
+        append(div18, h21);
+        append(div18, t34);
+        append(div18, div17);
+        append(div17, div14);
+        append(div14, label7);
+        append(div14, t36);
+        append(div14, input3);
         set_input_value(
           input3,
           /*oldPassword*/
           ctx[2]
         );
-        append(div10, t33);
-        append(div10, div8);
-        append(div8, label8);
-        append(div8, t35);
-        append(div8, input4);
+        append(div17, t37);
+        append(div17, div15);
+        append(div15, label8);
+        append(div15, t39);
+        append(div15, input4);
         set_input_value(
           input4,
           /*newPassword*/
           ctx[3]
         );
-        append(div10, t36);
-        append(div10, div9);
-        append(div9, label9);
-        append(div9, t38);
-        append(div9, input5);
+        append(div17, t40);
+        append(div17, div16);
+        append(div16, label9);
+        append(div16, t42);
+        append(div16, input5);
         set_input_value(
           input5,
           /*repeatNewPassword*/
           ctx[4]
         );
-        append(div10, t39);
-        append(div10, label10);
-        append(div10, t40);
-        append(div10, button1);
-        append(button1, span4);
-        append(button1, t42);
-        mount_component(icon1, button1, null);
-        append(div13, t43);
-        mount_component(footer, div13, null);
+        append(div17, t43);
+        append(div17, label10);
+        append(div17, t44);
+        append(div17, button3);
+        append(button3, span4);
+        append(button3, t46);
+        mount_component(icon2, button3, null);
+        append(div21, t47);
+        append(div21, div20);
+        append(div20, h22);
+        append(div20, t49);
+        append(div20, div19);
+        append(div19, select);
+        append(select, option0);
+        append(select, option1);
+        append(select, option2);
+        append(select, option3);
+        append(select, option4);
+        append(select, option5);
+        append(select, option6);
+        append(select, option7);
+        append(select, option8);
+        append(select, option9);
+        append(select, option10);
+        append(select, option11);
+        append(select, option12);
+        append(select, option13);
+        append(select, option14);
+        append(select, option15);
+        append(select, option16);
+        append(select, option17);
+        append(select, option18);
+        append(select, option19);
+        append(select, option20);
+        append(select, option21);
+        append(select, option22);
+        append(select, option23);
+        append(select, option24);
+        append(select, option25);
+        append(select, option26);
+        append(select, option27);
+        append(select, option28);
+        append(select, option29);
+        append(select, option30);
+        append(select, option31);
+        append(select, option32);
+        append(select, option33);
+        append(select, option34);
+        append(select, option35);
+        append(select, option36);
+        append(select, option37);
+        append(select, option38);
+        append(select, option39);
+        append(select, option40);
+        append(select, option41);
+        append(select, option42);
+        append(select, option43);
+        append(select, option44);
+        append(select, option45);
+        append(select, option46);
+        append(select, option47);
+        append(select, option48);
+        append(select, option49);
+        append(select, option50);
+        append(select, option51);
+        append(select, option52);
+        append(select, option53);
+        append(select, option54);
+        append(select, option55);
+        append(div24, t106);
+        mount_component(footer, div24, null);
         current = true;
         if (!mounted) {
           dispose = [
@@ -5194,7 +5699,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               ctx[11]
             ),
             listen(
-              button0,
+              button2,
               "click",
               /*updateProfile*/
               ctx[7]
@@ -5218,7 +5723,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               ctx[14]
             ),
             listen(
-              button1,
+              button3,
               "click",
               /*changePassword*/
               ctx[8]
@@ -5236,49 +5741,49 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         menu.$set(menu_changes);
         if (dirty & /*user*/
         2 && input0.value !== /*user*/
-        ctx2[1].email) {
-          set_input_value(
-            input0,
-            /*user*/
-            ctx2[1].email
-          );
-        }
-        if (dirty & /*user*/
-        2 && input1.value !== /*user*/
         ctx2[1].userName) {
           set_input_value(
-            input1,
+            input0,
             /*user*/
             ctx2[1].userName
           );
         }
         if (dirty & /*user*/
-        2 && input2.value !== /*user*/
+        2 && input1.value !== /*user*/
         ctx2[1].fullName) {
           set_input_value(
-            input2,
+            input1,
             /*user*/
             ctx2[1].fullName
           );
         }
-        if ((!current || dirty & /*user*/
-        2) && t15_value !== (t15_value = (0, import_formatter.datetime)(
-          /*user*/
-          ctx2[1].createdAt
-        ) + ""))
-          set_data(t15, t15_value);
+        if (dirty & /*user*/
+        2 && input2.value !== /*user*/
+        ctx2[1].email) {
+          set_input_value(
+            input2,
+            /*user*/
+            ctx2[1].email
+          );
+        }
         if ((!current || dirty & /*user*/
         2) && t19_value !== (t19_value = (0, import_formatter.datetime)(
           /*user*/
-          ctx2[1].lastLoginAt
+          ctx2[1].createdAt
         ) + ""))
           set_data(t19, t19_value);
         if ((!current || dirty & /*user*/
-        2) && t23_value !== (t23_value = ((0, import_formatter.datetime)(
+        2) && t23_value !== (t23_value = (0, import_formatter.datetime)(
+          /*user*/
+          ctx2[1].lastLoginAt
+        ) + ""))
+          set_data(t23, t23_value);
+        if ((!current || dirty & /*user*/
+        2) && t27_value !== (t27_value = ((0, import_formatter.datetime)(
           /*user*/
           ctx2[1].verifiedAt
         ) || "0") + ""))
-          set_data(t23, t23_value);
+          set_data(t27, t27_value);
         if (dirty & /*oldPassword*/
         4 && input3.value !== /*oldPassword*/
         ctx2[2]) {
@@ -5314,6 +5819,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         transition_in(profileheader.$.fragment, local);
         transition_in(icon0.$.fragment, local);
         transition_in(icon1.$.fragment, local);
+        transition_in(icon2.$.fragment, local);
         transition_in(footer.$.fragment, local);
         current = true;
       },
@@ -5322,6 +5828,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         transition_out(profileheader.$.fragment, local);
         transition_out(icon0.$.fragment, local);
         transition_out(icon1.$.fragment, local);
+        transition_out(icon2.$.fragment, local);
         transition_out(footer.$.fragment, local);
         current = false;
       },
@@ -5333,6 +5840,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         destroy_component(profileheader);
         destroy_component(icon0);
         destroy_component(icon1);
+        destroy_component(icon2);
         destroy_component(footer);
         mounted = false;
         run_all(dispose);
@@ -5357,7 +5865,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       oldProfileJson = JSON.stringify(user);
     });
     async function updateProfile() {
-      if (JSON.stringify(user) == oldProfileJson)
+      if (JSON.stringify(user) === oldProfileJson)
         return alert("No changes");
       (0, import_jsApi.UserUpdateProfile)(user, function(res) {
         if (res.error)
@@ -5368,7 +5876,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       });
     }
     async function changePassword() {
-      if (newPassword != repeatNewPassword)
+      if (newPassword !== repeatNewPassword)
         return alert("New password and repeat new password must be same");
       let input = {
         oldPass: oldPassword,
@@ -5384,15 +5892,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       });
     }
     function input0_input_handler() {
-      user.email = this.value;
-      $invalidate(1, user);
-    }
-    function input1_input_handler() {
       user.userName = this.value;
       $invalidate(1, user);
     }
-    function input2_input_handler() {
+    function input1_input_handler() {
       user.fullName = this.value;
+      $invalidate(1, user);
+    }
+    function input2_input_handler() {
+      user.email = this.value;
       $invalidate(1, user);
     }
     function input3_input_handler() {

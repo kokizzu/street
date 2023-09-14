@@ -3,9 +3,11 @@
   import {UserNearbyFacilities, UserSearchProp} from 'jsApi.GEN';
   import {formatPrice} from './formatter';
   import {currentLang} from "./uiState";
+  import translation from "../translation.json";
   import {GoogleMap, GoogleSdk} from './GoogleMap/components';
   import Growl from './Growl.svelte';
   import {mapComponent} from "./GoogleMap/stores";
+  import Utils from "./Utils.svelte";
   
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidSearch from 'svelte-icons-pack/fa/FaSolidSearch';
@@ -20,11 +22,21 @@
   import FaSolidBan from 'svelte-icons-pack/fa/FaSolidBan';
   import FaSolidReceipt from 'svelte-icons-pack/fa/FaSolidReceipt';
   
+  let translate;
+  $: translate = ( key ) => {
+    console.log( $currentLang )
+    if( $currentLang==='EN' ) {
+      return translation[ key ]
+    }
+    const keyTranslate = key + $currentLang;
+    return translation[ keyTranslate ];
+  }
+  
   export let randomProps = []
   export let defaultDistanceKm = 20;
   export let initialLatLong = [0, 0];
   let facilities = [], markersFacility = [], markersProperty = [], propItemBinds = [], infoWindows, propItemHighlight = null;
-  let gmapsComponent; // maps
+  let gmapsComponent;
   let myLatLng = {lat: initialLatLong[ 0 ], lng: initialLatLong[ 1 ]};
   let mapOptions = {
     center: myLatLng,
@@ -68,7 +80,7 @@
       propItemHighlight = null;
     }
   }
-  
+
   async function searchProperty( search ) {
     if( search ) {
       await UserSearchProp( {
@@ -76,7 +88,7 @@
         centerLong: myLatLng.lng,
         offset: 0,
         limit: 0,
-        maxDistanceKM: defaultDistanceKm,
+        maxDistanceKM: defaultDistanceKm
       }, async res => {
         if( res.error ) return useGrowl( 'error', res.error );
         randomProps = res.properties || [];
@@ -142,8 +154,6 @@
     const {AutocompleteService} = await google.maps.importLibrary( 'places' );
     autocomplete_service = new AutocompleteService();
     geocoder = new google.maps.Geocoder();
-    
-    console.log( 'markersProperty=', markersProperty ); // TODO: find out why this not rendered initially?
     if( initialLatLong[ 0 ]!==0 && initialLatLong[ 1 ]!==0 ) {
       await searchNearbyFacility();
     }
@@ -171,6 +181,10 @@
   function searchByLocationEvent( event ) {
     myLatLng.lat = event.detail.center.lat();
     myLatLng.lng = event.detail.center.lng();
+  }
+  
+  function zoomEvent( event ) {
+    console.log( event.detail.zoom );
   }
   
   async function searchByLocationHandler() {
@@ -230,11 +244,8 @@
 						<div class='prop_info'>
 							<div class='main_info'>
 								<div class='label_info'>
-									<div class={prop.purpose === 'rent'
-                    ? `purpose label_rent`
-                    : `purpose label_sale`
-                  }>
-										{prop.purpose==='rent' ? 'For Rent' : 'On Sale'}
+									<div class={prop.purpose === 'rent' ? 'purpose label_rent' : 'purpose label_sale' }>
+										{prop.purpose==='rent' ? translate('forRent') : translate('onSale')}
 									</div>
 									<div class='house_type'>
 										<Icon size={12} color='#475569' src={FaSolidHome}/>
@@ -249,21 +260,21 @@
 									<div class='item'>
 										<div>
 											<Icon size={13} color='#ffff' src={FaSolidBuilding}/>
-											<span>Floors</span>
+											<span>{translate('floors')}</span>
 										</div>
 										<span class="value">{prop.numberOfFloors===0 ? 'no-data' : prop.numberOfFloors}</span>
 									</div>
 									<div class='item'>
 										<div>
 											<Icon size={14} color='#ffff' src={FaSolidBed}/>
-											<span>Bed</span>
+											<span>{translate('bed')}</span>
 										</div>
 										<span class="value">{prop.bedroom===0 ? 'no-data' : prop.bedroom}</span>
 									</div>
 									<div class='item'>
 										<div>
 											<Icon size={13} color='#ffff' src={FaSolidBath}/>
-											<span>Bath</span>
+											<span>{translate('bath')}</span>
 										</div>
 										<span class="value">{prop.bathroom===0 ? 'no-data' : prop.bathroom}</span>
 									</div>
@@ -272,10 +283,10 @@
 							<div class='secondary_info'>
 								<div class='size'>
 									<Icon size={12} color='#f97316' src={FaSolidRulerCombined}/>
-									<span>{prop.sizeM2} M2</span>
+									<span>{prop.sizeM2} {translate('m')}2</span>
 								</div>
 								<div class='price'>
-									<span class='agency_fee'>Agency Fee: {prop.agencyFeePercent || '0'}%</span>
+									<span class='agency_fee'>{translate('agencyFee')}: {prop.agencyFeePercent || '0'}%</span>
 									<span class='last_price'>{formatPrice( prop.lastPrice || 0, 'TWD' )}</span>
 								</div>
 							</div>
@@ -301,6 +312,7 @@
 			<GoogleMap
 				bind:this={gmapsComponent}
 				on:mapDragged={searchByLocationEvent}
+				on:zoomChanged={zoomEvent}
 				options={mapOptions}
 			/>
 		</div>
@@ -549,7 +561,7 @@
     .property_location_container .left .props_container .prop_item .prop_info .main_info {
         display        : flex;
         flex-direction : column;
-        gap            : 16px;
+        gap            : 12px;
     }
 
     .property_location_container .left .props_container .prop_item .prop_info .main_info .label_info {
