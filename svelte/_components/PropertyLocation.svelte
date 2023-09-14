@@ -80,7 +80,7 @@
       propItemHighlight = null;
     }
   }
-  
+
   async function searchProperty( search ) {
     if( search ) {
       await UserSearchProp( {
@@ -245,7 +245,7 @@
 							<div class='main_info'>
 								<div class='label_info'>
 									<div class={prop.purpose === 'rent' ? 'purpose label_rent' : 'purpose label_sale' }>
-										{prop.purpose==='rent' ? 'For Rent' : 'On Sale'}
+										{prop.purpose==='rent' ? translate('forRent') : translate('onSale')}
 									</div>
 									<div class='house_type'>
 										<Icon size={12} color='#475569' src={FaSolidHome}/>
@@ -260,21 +260,21 @@
 									<div class='item'>
 										<div>
 											<Icon size={13} color='#ffff' src={FaSolidBuilding}/>
-											<span>Floors</span>
+											<span>{translate('floors')}</span>
 										</div>
 										<span class="value">{prop.numberOfFloors===0 ? 'no-data' : prop.numberOfFloors}</span>
 									</div>
 									<div class='item'>
 										<div>
 											<Icon size={14} color='#ffff' src={FaSolidBed}/>
-											<span>Bed</span>
+											<span>{translate('bed')}</span>
 										</div>
 										<span class="value">{prop.bedroom===0 ? 'no-data' : prop.bedroom}</span>
 									</div>
 									<div class='item'>
 										<div>
 											<Icon size={13} color='#ffff' src={FaSolidBath}/>
-											<span>Bath</span>
+											<span>{translate('bath')}</span>
 										</div>
 										<span class="value">{prop.bathroom===0 ? 'no-data' : prop.bathroom}</span>
 									</div>
@@ -283,10 +283,10 @@
 							<div class='secondary_info'>
 								<div class='size'>
 									<Icon size={12} color='#f97316' src={FaSolidRulerCombined}/>
-									<span>{prop.sizeM2} M2</span>
+									<span>{prop.sizeM2} {translate('m')}2</span>
 								</div>
 								<div class='price'>
-									<span class='agency_fee'>Agency Fee: {prop.agencyFeePercent || '0'}%</span>
+									<span class='agency_fee'>{translate('agencyFee')}: {prop.agencyFeePercent || '0'}%</span>
 									<span class='last_price'>{formatPrice( prop.lastPrice || 0, 'TWD' )}</span>
 								</div>
 							</div>
@@ -344,7 +344,7 @@
 							on:click|preventDefault={() => searchByAddressHandler(place.place_id)}
 						>
 							<Icon size={17} color='#9fa9b5' src={FaSolidMapMarkerAlt}/>
-							<span>{place.description} {utilsComponent.translate('basement')}</span>
+							<span>{place.description}</span>
 						</button>
 					{/each}
 				{:else}
@@ -561,7 +561,7 @@
     .property_location_container .left .props_container .prop_item .prop_info .main_info {
         display        : flex;
         flex-direction : column;
-        gap            : 16px;
+        gap            : 12px;
     }
 
     .property_location_container .left .props_container .prop_item .prop_info .main_info .label_info {

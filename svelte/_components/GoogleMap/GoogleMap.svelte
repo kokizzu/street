@@ -1,4 +1,5 @@
 <script>
+  // @ts-nocheck
   import {createEventDispatcher} from 'svelte';
   import GoogleSdk from "./GoogleSdk.svelte";
   import {mapComponent} from "./stores";
