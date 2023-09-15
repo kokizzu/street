@@ -3,7 +3,7 @@ package zImport
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 	"street/model/mProperty/wcProperty"
@@ -149,7 +149,7 @@ func fetchPropertyUSByPropID(baseUrl string, propertyIdNum int) (map[any]interfa
 		return nil, errors.New("Some error for fetching this property ID " + propertyId)
 	}
 
-	body, err := ioutil.ReadAll(response.Body)
+	body, err := io.ReadAll(response.Body)
 	if err != nil {
 		fmt.Printf("Error reading response body: %v\n", err)
 		return nil, errors.New("Some error for fetching this property ID " + propertyId)
