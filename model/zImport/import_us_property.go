@@ -3,6 +3,7 @@ package zImport
 import (
 	"errors"
 	"fmt"
+	"github.com/kokizzu/gotro/L"
 	"io"
 	"net/http"
 	"strconv"
@@ -133,7 +134,6 @@ func fetchPropertyUSByPropID(baseUrl string, propertyIdNum int) (map[any]interfa
 	propertyId := strconv.FormatInt(int64(propertyIdNum), 10)
 
 	url := fmt.Sprintf("%s?propertyId=%s&accessLevel=1", baseUrl, propertyId)
-	// fmt.Println("Full URL => ", url)
 
 	// Send an HTTP GET request
 	response, err := http.Get(url)
@@ -172,10 +172,8 @@ func fetchPropertyUSByPropID(baseUrl string, propertyIdNum int) (map[any]interfa
 func parseMapIntoStruct(inputMap map[string]interface{}) (*PropertyFullResponse, error) {
 	var result PropertyFullResponse
 
-	// Create a new mapstructure decoder
 	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
-		Result: &result, // Pass a pointer to the struct where you want to store the data
-		// Pass some configuration
+		Result: &result,
 	})
 
 	if err != nil {
@@ -190,13 +188,13 @@ func parseMapIntoStruct(inputMap map[string]interface{}) (*PropertyFullResponse,
 	return &result, nil
 }
 
-func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyResponse map[string]interface{}) (res *wcProperty.PropertyUsaMutator) {
-
-	// propertyMutator := wcProperty.NewPropertyUsaMutator(adapter)
+func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyResponse map[string]interface{}) (res *wcProperty.PropertyUsaMutator, err error) {
 
 	propertyResponseObject, err := parseMapIntoStruct(propertyResponse)
+
 	if err != nil {
 		fmt.Println("Error => ", err)
+		return nil, err
 	}
 
 	// -------- Basic info --------
@@ -239,10 +237,17 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyRe
 	propertyMutator.Coord = []any{0, 0}
 
 	// -------- Build source photo (media-source) --------
+	mediaSourceJson, err := json.Marshal(propertyResponseObject.PropertyHistoryInfo.MediaBrowserInfoBySourceId)
+	if err != nil {
+		fmt.Println("Failed to convert media sources !")
+	}
+	propertyMutator.MediaSourceJson = string(mediaSourceJson)
+
 	mediaSources := propertyResponseObject.PropertyHistoryInfo.MediaBrowserInfoBySourceId
 	var mediaSourceList []interface{}
 
-	var count int64 = 0 // Get latest lat/long from media sources
+	// var count int64 = 0 // Get latest lat/long from media sources
+
 	for key, value := range mediaSources {
 		// fmt.Println("Key: %s, Value: %v\n", key, value)
 
@@ -265,7 +270,7 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyRe
 					long = latLong["longitude"].(float64)
 
 					// Store latest lat/long for property
-					if count == 0 {
+					if propertyMutator.Coord[0] == 0 && propertyMutator.Coord[1] == 0 {
 						propertyMutator.Coord = []any{lat, long}
 					}
 
@@ -286,7 +291,6 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyRe
 						streetViewUrl = streetViewData
 					}
 				}
-
 			} else {
 				fmt.Println("Cant parse street view url")
 			}
@@ -314,7 +318,7 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyRe
 			"assembledAddress":    assembledAddress,
 		}
 		mediaSourceList = append(mediaSourceList, mediaItem)
-		count++
+		// count++
 	}
 
 	if mediaSourceList == nil || len(mediaSourceList) > 0 {
@@ -355,20 +359,20 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyRe
 	propertyMutator.CreatedAt = currentTime
 	propertyMutator.UpdatedAt = currentTime
 
-	return &propertyMutator
+	return &propertyMutator, nil
 }
 
-func ImportPropertyUsData(adapter **Tt.Adapter, baseUrl string, maxPropertyID int) {
+func ImportPropertyUsData(adapter *Tt.Adapter, baseUrl string, minPropId int, maxPropertyID int) {
 
 	stat := &ImporterStat{Total: maxPropertyID}
 	defer stat.Print(`last`)
 
-	for i := 1; i <= maxPropertyID; i++ {
+	for i := minPropId; i <= maxPropertyID; i++ {
 		stat.Print()
 
 		fmt.Println("Property ID => ", i)
 
-		propertyMutator := wcProperty.NewPropertyUsaMutator(*adapter)
+		propertyMutator := wcProperty.NewPropertyUsaMutator(adapter)
 		propertyMutator.PropertyId = uint64(i)
 
 		if propertyMutator.FindByPropertyId() {
@@ -377,14 +381,14 @@ func ImportPropertyUsData(adapter **Tt.Adapter, baseUrl string, maxPropertyID in
 		}
 
 		data, err := fetchPropertyUSByPropID(baseUrl, i)
-		if err != nil {
-			fmt.Println("Error has happen for property ID -> ", i)
-		}
+		L.PanicIf(err, "Error: fetchPropertyUSByPropID", "PropertyID ["+string(i)+"]")
 
 		propertyResponse := data["payload"].(map[string]interface{})
 		propertyVersion := data["version"].(float64)
 
-		propertyMutator = ParsePropertyData(*propertyMutator, propertyResponse)
+		propertyMutator, err = ParsePropertyData(*propertyMutator, propertyResponse)
+		L.PanicIf(err, "ParsePropertyData", "PropertyID ["+string(i)+"]")
+
 		propertyMutator.Version = propertyVersion
 
 		stat.Ok(propertyMutator.DoInsert())

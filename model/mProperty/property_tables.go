@@ -43,7 +43,8 @@ const (
 	AmenitySuperGroups = `amenitySuperGroups`
 
 	// Source photo
-	MediaSource = `mediaSource`
+	MediaSource     = `mediaSource`
+	MediaSourceJson = `mediaSourceJson`
 
 	// Zone data info
 	ZoneName            = `zoneName`            // Ex: Residential Apartment
@@ -245,6 +246,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 
 			// Media sources
 			{MediaSource, Tt.Array},
+			{MediaSourceJson, Tt.String},
 
 			// Zone data info
 			{ZoneName, Tt.String},

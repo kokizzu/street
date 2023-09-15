@@ -1235,26 +1235,27 @@ func (p *PropertyUsaMutator) DoDeletePermanentById() bool { //nolint:dupl false 
 //		A.X{`=`, 24, p.CountyName},
 //		A.X{`=`, 25, p.CountyIsActive},
 //		A.X{`=`, 26, p.MediaSource},
-//		A.X{`=`, 27, p.ZoneName},
-//		A.X{`=`, 28, p.ZoneType},
-//		A.X{`=`, 29, p.ZoneSubType},
-//		A.X{`=`, 30, p.ZoneDisplay},
-//		A.X{`=`, 31, p.ZoneCode},
-//		A.X{`=`, 32, p.PermittedLandUse},
-//		A.X{`=`, 33, p.NotPermittedLandUse},
-//		A.X{`=`, 34, p.Note},
-//		A.X{`=`, 35, p.TaxNote},
-//		A.X{`=`, 36, p.CreatedAt},
-//		A.X{`=`, 37, p.CreatedBy},
-//		A.X{`=`, 38, p.UpdatedAt},
-//		A.X{`=`, 39, p.UpdatedBy},
-//		A.X{`=`, 40, p.DeletedAt},
-//		A.X{`=`, 41, p.ListingBrokerName},
-//		A.X{`=`, 42, p.ListingBrokerNumber},
-//		A.X{`=`, 43, p.ListingAgentName},
-//		A.X{`=`, 44, p.ListingAgentNumber},
-//		A.X{`=`, 45, p.AgencyFeePercent},
-//		A.X{`=`, 46, p.Country},
+//		A.X{`=`, 27, p.MediaSourceJson},
+//		A.X{`=`, 28, p.ZoneName},
+//		A.X{`=`, 29, p.ZoneType},
+//		A.X{`=`, 30, p.ZoneSubType},
+//		A.X{`=`, 31, p.ZoneDisplay},
+//		A.X{`=`, 32, p.ZoneCode},
+//		A.X{`=`, 33, p.PermittedLandUse},
+//		A.X{`=`, 34, p.NotPermittedLandUse},
+//		A.X{`=`, 35, p.Note},
+//		A.X{`=`, 36, p.TaxNote},
+//		A.X{`=`, 37, p.CreatedAt},
+//		A.X{`=`, 38, p.CreatedBy},
+//		A.X{`=`, 39, p.UpdatedAt},
+//		A.X{`=`, 40, p.UpdatedBy},
+//		A.X{`=`, 41, p.DeletedAt},
+//		A.X{`=`, 42, p.ListingBrokerName},
+//		A.X{`=`, 43, p.ListingBrokerNumber},
+//		A.X{`=`, 44, p.ListingAgentName},
+//		A.X{`=`, 45, p.ListingAgentNumber},
+//		A.X{`=`, 46, p.AgencyFeePercent},
+//		A.X{`=`, 47, p.Country},
 //	})
 //	return !L.IsError(err, `PropertyUsa.DoUpsert failed: `+p.SpaceName())
 // }
@@ -1597,10 +1598,21 @@ func (p *PropertyUsaMutator) SetMediaSource(val []any) bool { //nolint:dupl fals
 	return true
 }
 
+// SetMediaSourceJson create mutations, should not duplicate
+func (p *PropertyUsaMutator) SetMediaSourceJson(val string) bool { //nolint:dupl false positive
+	if val != p.MediaSourceJson {
+		p.mutations = append(p.mutations, A.X{`=`, 27, val})
+		p.logs = append(p.logs, A.X{`mediaSourceJson`, p.MediaSourceJson, val})
+		p.MediaSourceJson = val
+		return true
+	}
+	return false
+}
+
 // SetZoneName create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetZoneName(val string) bool { //nolint:dupl false positive
 	if val != p.ZoneName {
-		p.mutations = append(p.mutations, A.X{`=`, 27, val})
+		p.mutations = append(p.mutations, A.X{`=`, 28, val})
 		p.logs = append(p.logs, A.X{`zoneName`, p.ZoneName, val})
 		p.ZoneName = val
 		return true
@@ -1611,7 +1623,7 @@ func (p *PropertyUsaMutator) SetZoneName(val string) bool { //nolint:dupl false 
 // SetZoneType create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetZoneType(val string) bool { //nolint:dupl false positive
 	if val != p.ZoneType {
-		p.mutations = append(p.mutations, A.X{`=`, 28, val})
+		p.mutations = append(p.mutations, A.X{`=`, 29, val})
 		p.logs = append(p.logs, A.X{`zoneType`, p.ZoneType, val})
 		p.ZoneType = val
 		return true
@@ -1622,7 +1634,7 @@ func (p *PropertyUsaMutator) SetZoneType(val string) bool { //nolint:dupl false 
 // SetZoneSubType create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetZoneSubType(val string) bool { //nolint:dupl false positive
 	if val != p.ZoneSubType {
-		p.mutations = append(p.mutations, A.X{`=`, 29, val})
+		p.mutations = append(p.mutations, A.X{`=`, 30, val})
 		p.logs = append(p.logs, A.X{`zoneSubType`, p.ZoneSubType, val})
 		p.ZoneSubType = val
 		return true
@@ -1633,7 +1645,7 @@ func (p *PropertyUsaMutator) SetZoneSubType(val string) bool { //nolint:dupl fal
 // SetZoneDisplay create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetZoneDisplay(val string) bool { //nolint:dupl false positive
 	if val != p.ZoneDisplay {
-		p.mutations = append(p.mutations, A.X{`=`, 30, val})
+		p.mutations = append(p.mutations, A.X{`=`, 31, val})
 		p.logs = append(p.logs, A.X{`zoneDisplay`, p.ZoneDisplay, val})
 		p.ZoneDisplay = val
 		return true
@@ -1644,7 +1656,7 @@ func (p *PropertyUsaMutator) SetZoneDisplay(val string) bool { //nolint:dupl fal
 // SetZoneCode create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetZoneCode(val string) bool { //nolint:dupl false positive
 	if val != p.ZoneCode {
-		p.mutations = append(p.mutations, A.X{`=`, 31, val})
+		p.mutations = append(p.mutations, A.X{`=`, 32, val})
 		p.logs = append(p.logs, A.X{`zoneCode`, p.ZoneCode, val})
 		p.ZoneCode = val
 		return true
@@ -1655,7 +1667,7 @@ func (p *PropertyUsaMutator) SetZoneCode(val string) bool { //nolint:dupl false 
 // SetPermittedLandUse create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetPermittedLandUse(val string) bool { //nolint:dupl false positive
 	if val != p.PermittedLandUse {
-		p.mutations = append(p.mutations, A.X{`=`, 32, val})
+		p.mutations = append(p.mutations, A.X{`=`, 33, val})
 		p.logs = append(p.logs, A.X{`permittedLandUse`, p.PermittedLandUse, val})
 		p.PermittedLandUse = val
 		return true
@@ -1666,7 +1678,7 @@ func (p *PropertyUsaMutator) SetPermittedLandUse(val string) bool { //nolint:dup
 // SetNotPermittedLandUse create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetNotPermittedLandUse(val string) bool { //nolint:dupl false positive
 	if val != p.NotPermittedLandUse {
-		p.mutations = append(p.mutations, A.X{`=`, 33, val})
+		p.mutations = append(p.mutations, A.X{`=`, 34, val})
 		p.logs = append(p.logs, A.X{`notPermittedLandUse`, p.NotPermittedLandUse, val})
 		p.NotPermittedLandUse = val
 		return true
@@ -1677,7 +1689,7 @@ func (p *PropertyUsaMutator) SetNotPermittedLandUse(val string) bool { //nolint:
 // SetNote create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetNote(val string) bool { //nolint:dupl false positive
 	if val != p.Note {
-		p.mutations = append(p.mutations, A.X{`=`, 34, val})
+		p.mutations = append(p.mutations, A.X{`=`, 35, val})
 		p.logs = append(p.logs, A.X{`note`, p.Note, val})
 		p.Note = val
 		return true
@@ -1688,7 +1700,7 @@ func (p *PropertyUsaMutator) SetNote(val string) bool { //nolint:dupl false posi
 // SetTaxNote create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetTaxNote(val string) bool { //nolint:dupl false positive
 	if val != p.TaxNote {
-		p.mutations = append(p.mutations, A.X{`=`, 35, val})
+		p.mutations = append(p.mutations, A.X{`=`, 36, val})
 		p.logs = append(p.logs, A.X{`taxNote`, p.TaxNote, val})
 		p.TaxNote = val
 		return true
@@ -1699,7 +1711,7 @@ func (p *PropertyUsaMutator) SetTaxNote(val string) bool { //nolint:dupl false p
 // SetCreatedAt create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.CreatedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 36, val})
+		p.mutations = append(p.mutations, A.X{`=`, 37, val})
 		p.logs = append(p.logs, A.X{`createdAt`, p.CreatedAt, val})
 		p.CreatedAt = val
 		return true
@@ -1710,7 +1722,7 @@ func (p *PropertyUsaMutator) SetCreatedAt(val int64) bool { //nolint:dupl false 
 // SetCreatedBy create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.CreatedBy {
-		p.mutations = append(p.mutations, A.X{`=`, 37, val})
+		p.mutations = append(p.mutations, A.X{`=`, 38, val})
 		p.logs = append(p.logs, A.X{`createdBy`, p.CreatedBy, val})
 		p.CreatedBy = val
 		return true
@@ -1721,7 +1733,7 @@ func (p *PropertyUsaMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false
 // SetUpdatedAt create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.UpdatedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 38, val})
+		p.mutations = append(p.mutations, A.X{`=`, 39, val})
 		p.logs = append(p.logs, A.X{`updatedAt`, p.UpdatedAt, val})
 		p.UpdatedAt = val
 		return true
@@ -1732,7 +1744,7 @@ func (p *PropertyUsaMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false 
 // SetUpdatedBy create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.UpdatedBy {
-		p.mutations = append(p.mutations, A.X{`=`, 39, val})
+		p.mutations = append(p.mutations, A.X{`=`, 40, val})
 		p.logs = append(p.logs, A.X{`updatedBy`, p.UpdatedBy, val})
 		p.UpdatedBy = val
 		return true
@@ -1743,7 +1755,7 @@ func (p *PropertyUsaMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false
 // SetDeletedAt create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.DeletedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 40, val})
+		p.mutations = append(p.mutations, A.X{`=`, 41, val})
 		p.logs = append(p.logs, A.X{`deletedAt`, p.DeletedAt, val})
 		p.DeletedAt = val
 		return true
@@ -1754,7 +1766,7 @@ func (p *PropertyUsaMutator) SetDeletedAt(val int64) bool { //nolint:dupl false 
 // SetListingBrokerName create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetListingBrokerName(val string) bool { //nolint:dupl false positive
 	if val != p.ListingBrokerName {
-		p.mutations = append(p.mutations, A.X{`=`, 41, val})
+		p.mutations = append(p.mutations, A.X{`=`, 42, val})
 		p.logs = append(p.logs, A.X{`listingBrokerName`, p.ListingBrokerName, val})
 		p.ListingBrokerName = val
 		return true
@@ -1765,7 +1777,7 @@ func (p *PropertyUsaMutator) SetListingBrokerName(val string) bool { //nolint:du
 // SetListingBrokerNumber create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetListingBrokerNumber(val string) bool { //nolint:dupl false positive
 	if val != p.ListingBrokerNumber {
-		p.mutations = append(p.mutations, A.X{`=`, 42, val})
+		p.mutations = append(p.mutations, A.X{`=`, 43, val})
 		p.logs = append(p.logs, A.X{`listingBrokerNumber`, p.ListingBrokerNumber, val})
 		p.ListingBrokerNumber = val
 		return true
@@ -1776,7 +1788,7 @@ func (p *PropertyUsaMutator) SetListingBrokerNumber(val string) bool { //nolint:
 // SetListingAgentName create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetListingAgentName(val string) bool { //nolint:dupl false positive
 	if val != p.ListingAgentName {
-		p.mutations = append(p.mutations, A.X{`=`, 43, val})
+		p.mutations = append(p.mutations, A.X{`=`, 44, val})
 		p.logs = append(p.logs, A.X{`listingAgentName`, p.ListingAgentName, val})
 		p.ListingAgentName = val
 		return true
@@ -1787,7 +1799,7 @@ func (p *PropertyUsaMutator) SetListingAgentName(val string) bool { //nolint:dup
 // SetListingAgentNumber create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetListingAgentNumber(val string) bool { //nolint:dupl false positive
 	if val != p.ListingAgentNumber {
-		p.mutations = append(p.mutations, A.X{`=`, 44, val})
+		p.mutations = append(p.mutations, A.X{`=`, 45, val})
 		p.logs = append(p.logs, A.X{`listingAgentNumber`, p.ListingAgentNumber, val})
 		p.ListingAgentNumber = val
 		return true
@@ -1798,7 +1810,7 @@ func (p *PropertyUsaMutator) SetListingAgentNumber(val string) bool { //nolint:d
 // SetAgencyFeePercent create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetAgencyFeePercent(val float64) bool { //nolint:dupl false positive
 	if val != p.AgencyFeePercent {
-		p.mutations = append(p.mutations, A.X{`=`, 45, val})
+		p.mutations = append(p.mutations, A.X{`=`, 46, val})
 		p.logs = append(p.logs, A.X{`agencyFeePercent`, p.AgencyFeePercent, val})
 		p.AgencyFeePercent = val
 		return true
@@ -1809,7 +1821,7 @@ func (p *PropertyUsaMutator) SetAgencyFeePercent(val float64) bool { //nolint:du
 // SetCountry create mutations, should not duplicate
 func (p *PropertyUsaMutator) SetCountry(val string) bool { //nolint:dupl false positive
 	if val != p.Country {
-		p.mutations = append(p.mutations, A.X{`=`, 46, val})
+		p.mutations = append(p.mutations, A.X{`=`, 47, val})
 		p.logs = append(p.logs, A.X{`country`, p.Country, val})
 		p.Country = val
 		return true
@@ -1931,6 +1943,10 @@ func (p *PropertyUsaMutator) SetAll(from rqProperty.PropertyUsa, excludeMap, for
 	}
 	if !excludeMap[`mediaSource`] && (forceMap[`mediaSource`] || from.MediaSource != nil) {
 		p.MediaSource = from.MediaSource
+		changed = true
+	}
+	if !excludeMap[`mediaSourceJson`] && (forceMap[`mediaSourceJson`] || from.MediaSourceJson != ``) {
+		p.MediaSourceJson = from.MediaSourceJson
 		changed = true
 	}
 	if !excludeMap[`zoneName`] && (forceMap[`zoneName`] || from.ZoneName != ``) {

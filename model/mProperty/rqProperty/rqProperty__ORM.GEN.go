@@ -1378,6 +1378,7 @@ type PropertyUsa struct {
 	CountyName              string      `json:"countyName" form:"countyName" query:"countyName" long:"countyName" msg:"countyName"`
 	CountyIsActive          bool        `json:"countyIsActive" form:"countyIsActive" query:"countyIsActive" long:"countyIsActive" msg:"countyIsActive"`
 	MediaSource             []any       `json:"mediaSource" form:"mediaSource" query:"mediaSource" long:"mediaSource" msg:"mediaSource"`
+	MediaSourceJson         string      `json:"mediaSourceJson" form:"mediaSourceJson" query:"mediaSourceJson" long:"mediaSourceJson" msg:"mediaSourceJson"`
 	ZoneName                string      `json:"zoneName" form:"zoneName" query:"zoneName" long:"zoneName" msg:"zoneName"`
 	ZoneType                string      `json:"zoneType" form:"zoneType" query:"zoneType" long:"zoneType" msg:"zoneType"`
 	ZoneSubType             string      `json:"zoneSubType" form:"zoneSubType" query:"zoneSubType" long:"zoneSubType" msg:"zoneSubType"`
@@ -1486,6 +1487,7 @@ func (p *PropertyUsa) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "countyName"
 	, "countyIsActive"
 	, "mediaSource"
+	, "mediaSourceJson"
 	, "zoneName"
 	, "zoneType"
 	, "zoneSubType"
@@ -1538,6 +1540,7 @@ func (p *PropertyUsa) SqlSelectAllUncensoredFields() string { //nolint:dupl fals
 	, "countyName"
 	, "countyIsActive"
 	, "mediaSource"
+	, "mediaSourceJson"
 	, "zoneName"
 	, "zoneType"
 	, "zoneSubType"
@@ -1591,26 +1594,27 @@ func (p *PropertyUsa) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 24, p.CountyName},
 		A.X{`=`, 25, p.CountyIsActive},
 		A.X{`=`, 26, p.MediaSource},
-		A.X{`=`, 27, p.ZoneName},
-		A.X{`=`, 28, p.ZoneType},
-		A.X{`=`, 29, p.ZoneSubType},
-		A.X{`=`, 30, p.ZoneDisplay},
-		A.X{`=`, 31, p.ZoneCode},
-		A.X{`=`, 32, p.PermittedLandUse},
-		A.X{`=`, 33, p.NotPermittedLandUse},
-		A.X{`=`, 34, p.Note},
-		A.X{`=`, 35, p.TaxNote},
-		A.X{`=`, 36, p.CreatedAt},
-		A.X{`=`, 37, p.CreatedBy},
-		A.X{`=`, 38, p.UpdatedAt},
-		A.X{`=`, 39, p.UpdatedBy},
-		A.X{`=`, 40, p.DeletedAt},
-		A.X{`=`, 41, p.ListingBrokerName},
-		A.X{`=`, 42, p.ListingBrokerNumber},
-		A.X{`=`, 43, p.ListingAgentName},
-		A.X{`=`, 44, p.ListingAgentNumber},
-		A.X{`=`, 45, p.AgencyFeePercent},
-		A.X{`=`, 46, p.Country},
+		A.X{`=`, 27, p.MediaSourceJson},
+		A.X{`=`, 28, p.ZoneName},
+		A.X{`=`, 29, p.ZoneType},
+		A.X{`=`, 30, p.ZoneSubType},
+		A.X{`=`, 31, p.ZoneDisplay},
+		A.X{`=`, 32, p.ZoneCode},
+		A.X{`=`, 33, p.PermittedLandUse},
+		A.X{`=`, 34, p.NotPermittedLandUse},
+		A.X{`=`, 35, p.Note},
+		A.X{`=`, 36, p.TaxNote},
+		A.X{`=`, 37, p.CreatedAt},
+		A.X{`=`, 38, p.CreatedBy},
+		A.X{`=`, 39, p.UpdatedAt},
+		A.X{`=`, 40, p.UpdatedBy},
+		A.X{`=`, 41, p.DeletedAt},
+		A.X{`=`, 42, p.ListingBrokerName},
+		A.X{`=`, 43, p.ListingBrokerNumber},
+		A.X{`=`, 44, p.ListingAgentName},
+		A.X{`=`, 45, p.ListingAgentNumber},
+		A.X{`=`, 46, p.AgencyFeePercent},
+		A.X{`=`, 47, p.Country},
 	}
 }
 
@@ -1884,9 +1888,19 @@ func (p *PropertyUsa) SqlMediaSource() string { //nolint:dupl false positive
 	return `"mediaSource"`
 }
 
+// IdxMediaSourceJson return name of the index
+func (p *PropertyUsa) IdxMediaSourceJson() int { //nolint:dupl false positive
+	return 27
+}
+
+// SqlMediaSourceJson return name of the column being indexed
+func (p *PropertyUsa) SqlMediaSourceJson() string { //nolint:dupl false positive
+	return `"mediaSourceJson"`
+}
+
 // IdxZoneName return name of the index
 func (p *PropertyUsa) IdxZoneName() int { //nolint:dupl false positive
-	return 27
+	return 28
 }
 
 // SqlZoneName return name of the column being indexed
@@ -1896,7 +1910,7 @@ func (p *PropertyUsa) SqlZoneName() string { //nolint:dupl false positive
 
 // IdxZoneType return name of the index
 func (p *PropertyUsa) IdxZoneType() int { //nolint:dupl false positive
-	return 28
+	return 29
 }
 
 // SqlZoneType return name of the column being indexed
@@ -1906,7 +1920,7 @@ func (p *PropertyUsa) SqlZoneType() string { //nolint:dupl false positive
 
 // IdxZoneSubType return name of the index
 func (p *PropertyUsa) IdxZoneSubType() int { //nolint:dupl false positive
-	return 29
+	return 30
 }
 
 // SqlZoneSubType return name of the column being indexed
@@ -1916,7 +1930,7 @@ func (p *PropertyUsa) SqlZoneSubType() string { //nolint:dupl false positive
 
 // IdxZoneDisplay return name of the index
 func (p *PropertyUsa) IdxZoneDisplay() int { //nolint:dupl false positive
-	return 30
+	return 31
 }
 
 // SqlZoneDisplay return name of the column being indexed
@@ -1926,7 +1940,7 @@ func (p *PropertyUsa) SqlZoneDisplay() string { //nolint:dupl false positive
 
 // IdxZoneCode return name of the index
 func (p *PropertyUsa) IdxZoneCode() int { //nolint:dupl false positive
-	return 31
+	return 32
 }
 
 // SqlZoneCode return name of the column being indexed
@@ -1936,7 +1950,7 @@ func (p *PropertyUsa) SqlZoneCode() string { //nolint:dupl false positive
 
 // IdxPermittedLandUse return name of the index
 func (p *PropertyUsa) IdxPermittedLandUse() int { //nolint:dupl false positive
-	return 32
+	return 33
 }
 
 // SqlPermittedLandUse return name of the column being indexed
@@ -1946,7 +1960,7 @@ func (p *PropertyUsa) SqlPermittedLandUse() string { //nolint:dupl false positiv
 
 // IdxNotPermittedLandUse return name of the index
 func (p *PropertyUsa) IdxNotPermittedLandUse() int { //nolint:dupl false positive
-	return 33
+	return 34
 }
 
 // SqlNotPermittedLandUse return name of the column being indexed
@@ -1956,7 +1970,7 @@ func (p *PropertyUsa) SqlNotPermittedLandUse() string { //nolint:dupl false posi
 
 // IdxNote return name of the index
 func (p *PropertyUsa) IdxNote() int { //nolint:dupl false positive
-	return 34
+	return 35
 }
 
 // SqlNote return name of the column being indexed
@@ -1966,7 +1980,7 @@ func (p *PropertyUsa) SqlNote() string { //nolint:dupl false positive
 
 // IdxTaxNote return name of the index
 func (p *PropertyUsa) IdxTaxNote() int { //nolint:dupl false positive
-	return 35
+	return 36
 }
 
 // SqlTaxNote return name of the column being indexed
@@ -1976,7 +1990,7 @@ func (p *PropertyUsa) SqlTaxNote() string { //nolint:dupl false positive
 
 // IdxCreatedAt return name of the index
 func (p *PropertyUsa) IdxCreatedAt() int { //nolint:dupl false positive
-	return 36
+	return 37
 }
 
 // SqlCreatedAt return name of the column being indexed
@@ -1986,7 +2000,7 @@ func (p *PropertyUsa) SqlCreatedAt() string { //nolint:dupl false positive
 
 // IdxCreatedBy return name of the index
 func (p *PropertyUsa) IdxCreatedBy() int { //nolint:dupl false positive
-	return 37
+	return 38
 }
 
 // SqlCreatedBy return name of the column being indexed
@@ -1996,7 +2010,7 @@ func (p *PropertyUsa) SqlCreatedBy() string { //nolint:dupl false positive
 
 // IdxUpdatedAt return name of the index
 func (p *PropertyUsa) IdxUpdatedAt() int { //nolint:dupl false positive
-	return 38
+	return 39
 }
 
 // SqlUpdatedAt return name of the column being indexed
@@ -2006,7 +2020,7 @@ func (p *PropertyUsa) SqlUpdatedAt() string { //nolint:dupl false positive
 
 // IdxUpdatedBy return name of the index
 func (p *PropertyUsa) IdxUpdatedBy() int { //nolint:dupl false positive
-	return 39
+	return 40
 }
 
 // SqlUpdatedBy return name of the column being indexed
@@ -2016,7 +2030,7 @@ func (p *PropertyUsa) SqlUpdatedBy() string { //nolint:dupl false positive
 
 // IdxDeletedAt return name of the index
 func (p *PropertyUsa) IdxDeletedAt() int { //nolint:dupl false positive
-	return 40
+	return 41
 }
 
 // SqlDeletedAt return name of the column being indexed
@@ -2026,7 +2040,7 @@ func (p *PropertyUsa) SqlDeletedAt() string { //nolint:dupl false positive
 
 // IdxListingBrokerName return name of the index
 func (p *PropertyUsa) IdxListingBrokerName() int { //nolint:dupl false positive
-	return 41
+	return 42
 }
 
 // SqlListingBrokerName return name of the column being indexed
@@ -2036,7 +2050,7 @@ func (p *PropertyUsa) SqlListingBrokerName() string { //nolint:dupl false positi
 
 // IdxListingBrokerNumber return name of the index
 func (p *PropertyUsa) IdxListingBrokerNumber() int { //nolint:dupl false positive
-	return 42
+	return 43
 }
 
 // SqlListingBrokerNumber return name of the column being indexed
@@ -2046,7 +2060,7 @@ func (p *PropertyUsa) SqlListingBrokerNumber() string { //nolint:dupl false posi
 
 // IdxListingAgentName return name of the index
 func (p *PropertyUsa) IdxListingAgentName() int { //nolint:dupl false positive
-	return 43
+	return 44
 }
 
 // SqlListingAgentName return name of the column being indexed
@@ -2056,7 +2070,7 @@ func (p *PropertyUsa) SqlListingAgentName() string { //nolint:dupl false positiv
 
 // IdxListingAgentNumber return name of the index
 func (p *PropertyUsa) IdxListingAgentNumber() int { //nolint:dupl false positive
-	return 44
+	return 45
 }
 
 // SqlListingAgentNumber return name of the column being indexed
@@ -2066,7 +2080,7 @@ func (p *PropertyUsa) SqlListingAgentNumber() string { //nolint:dupl false posit
 
 // IdxAgencyFeePercent return name of the index
 func (p *PropertyUsa) IdxAgencyFeePercent() int { //nolint:dupl false positive
-	return 45
+	return 46
 }
 
 // SqlAgencyFeePercent return name of the column being indexed
@@ -2076,7 +2090,7 @@ func (p *PropertyUsa) SqlAgencyFeePercent() string { //nolint:dupl false positiv
 
 // IdxCountry return name of the index
 func (p *PropertyUsa) IdxCountry() int { //nolint:dupl false positive
-	return 46
+	return 47
 }
 
 // SqlCountry return name of the column being indexed
@@ -2118,26 +2132,27 @@ func (p *PropertyUsa) ToArray() A.X { //nolint:dupl false positive
 		p.CountyName,              // 24
 		p.CountyIsActive,          // 25
 		p.MediaSource,             // 26
-		p.ZoneName,                // 27
-		p.ZoneType,                // 28
-		p.ZoneSubType,             // 29
-		p.ZoneDisplay,             // 30
-		p.ZoneCode,                // 31
-		p.PermittedLandUse,        // 32
-		p.NotPermittedLandUse,     // 33
-		p.Note,                    // 34
-		p.TaxNote,                 // 35
-		p.CreatedAt,               // 36
-		p.CreatedBy,               // 37
-		p.UpdatedAt,               // 38
-		p.UpdatedBy,               // 39
-		p.DeletedAt,               // 40
-		p.ListingBrokerName,       // 41
-		p.ListingBrokerNumber,     // 42
-		p.ListingAgentName,        // 43
-		p.ListingAgentNumber,      // 44
-		p.AgencyFeePercent,        // 45
-		p.Country,                 // 46
+		p.MediaSourceJson,         // 27
+		p.ZoneName,                // 28
+		p.ZoneType,                // 29
+		p.ZoneSubType,             // 30
+		p.ZoneDisplay,             // 31
+		p.ZoneCode,                // 32
+		p.PermittedLandUse,        // 33
+		p.NotPermittedLandUse,     // 34
+		p.Note,                    // 35
+		p.TaxNote,                 // 36
+		p.CreatedAt,               // 37
+		p.CreatedBy,               // 38
+		p.UpdatedAt,               // 39
+		p.UpdatedBy,               // 40
+		p.DeletedAt,               // 41
+		p.ListingBrokerName,       // 42
+		p.ListingBrokerNumber,     // 43
+		p.ListingAgentName,        // 44
+		p.ListingAgentNumber,      // 45
+		p.AgencyFeePercent,        // 46
+		p.Country,                 // 47
 	}
 }
 
@@ -2170,26 +2185,27 @@ func (p *PropertyUsa) FromArray(a A.X) *PropertyUsa { //nolint:dupl false positi
 	p.CountyName = X.ToS(a[24])
 	p.CountyIsActive = X.ToBool(a[25])
 	p.MediaSource = X.ToArr(a[26])
-	p.ZoneName = X.ToS(a[27])
-	p.ZoneType = X.ToS(a[28])
-	p.ZoneSubType = X.ToS(a[29])
-	p.ZoneDisplay = X.ToS(a[30])
-	p.ZoneCode = X.ToS(a[31])
-	p.PermittedLandUse = X.ToS(a[32])
-	p.NotPermittedLandUse = X.ToS(a[33])
-	p.Note = X.ToS(a[34])
-	p.TaxNote = X.ToS(a[35])
-	p.CreatedAt = X.ToI(a[36])
-	p.CreatedBy = X.ToU(a[37])
-	p.UpdatedAt = X.ToI(a[38])
-	p.UpdatedBy = X.ToU(a[39])
-	p.DeletedAt = X.ToI(a[40])
-	p.ListingBrokerName = X.ToS(a[41])
-	p.ListingBrokerNumber = X.ToS(a[42])
-	p.ListingAgentName = X.ToS(a[43])
-	p.ListingAgentNumber = X.ToS(a[44])
-	p.AgencyFeePercent = X.ToF(a[45])
-	p.Country = X.ToS(a[46])
+	p.MediaSourceJson = X.ToS(a[27])
+	p.ZoneName = X.ToS(a[28])
+	p.ZoneType = X.ToS(a[29])
+	p.ZoneSubType = X.ToS(a[30])
+	p.ZoneDisplay = X.ToS(a[31])
+	p.ZoneCode = X.ToS(a[32])
+	p.PermittedLandUse = X.ToS(a[33])
+	p.NotPermittedLandUse = X.ToS(a[34])
+	p.Note = X.ToS(a[35])
+	p.TaxNote = X.ToS(a[36])
+	p.CreatedAt = X.ToI(a[37])
+	p.CreatedBy = X.ToU(a[38])
+	p.UpdatedAt = X.ToI(a[39])
+	p.UpdatedBy = X.ToU(a[40])
+	p.DeletedAt = X.ToI(a[41])
+	p.ListingBrokerName = X.ToS(a[42])
+	p.ListingBrokerNumber = X.ToS(a[43])
+	p.ListingAgentName = X.ToS(a[44])
+	p.ListingAgentNumber = X.ToS(a[45])
+	p.AgencyFeePercent = X.ToF(a[46])
+	p.Country = X.ToS(a[47])
 	return p
 }
 
@@ -2222,26 +2238,27 @@ func (p *PropertyUsa) FromUncensoredArray(a A.X) *PropertyUsa { //nolint:dupl fa
 	p.CountyName = X.ToS(a[24])
 	p.CountyIsActive = X.ToBool(a[25])
 	p.MediaSource = X.ToArr(a[26])
-	p.ZoneName = X.ToS(a[27])
-	p.ZoneType = X.ToS(a[28])
-	p.ZoneSubType = X.ToS(a[29])
-	p.ZoneDisplay = X.ToS(a[30])
-	p.ZoneCode = X.ToS(a[31])
-	p.PermittedLandUse = X.ToS(a[32])
-	p.NotPermittedLandUse = X.ToS(a[33])
-	p.Note = X.ToS(a[34])
-	p.TaxNote = X.ToS(a[35])
-	p.CreatedAt = X.ToI(a[36])
-	p.CreatedBy = X.ToU(a[37])
-	p.UpdatedAt = X.ToI(a[38])
-	p.UpdatedBy = X.ToU(a[39])
-	p.DeletedAt = X.ToI(a[40])
-	p.ListingBrokerName = X.ToS(a[41])
-	p.ListingBrokerNumber = X.ToS(a[42])
-	p.ListingAgentName = X.ToS(a[43])
-	p.ListingAgentNumber = X.ToS(a[44])
-	p.AgencyFeePercent = X.ToF(a[45])
-	p.Country = X.ToS(a[46])
+	p.MediaSourceJson = X.ToS(a[27])
+	p.ZoneName = X.ToS(a[28])
+	p.ZoneType = X.ToS(a[29])
+	p.ZoneSubType = X.ToS(a[30])
+	p.ZoneDisplay = X.ToS(a[31])
+	p.ZoneCode = X.ToS(a[32])
+	p.PermittedLandUse = X.ToS(a[33])
+	p.NotPermittedLandUse = X.ToS(a[34])
+	p.Note = X.ToS(a[35])
+	p.TaxNote = X.ToS(a[36])
+	p.CreatedAt = X.ToI(a[37])
+	p.CreatedBy = X.ToU(a[38])
+	p.UpdatedAt = X.ToI(a[39])
+	p.UpdatedBy = X.ToU(a[40])
+	p.DeletedAt = X.ToI(a[41])
+	p.ListingBrokerName = X.ToS(a[42])
+	p.ListingBrokerNumber = X.ToS(a[43])
+	p.ListingAgentName = X.ToS(a[44])
+	p.ListingAgentNumber = X.ToS(a[45])
+	p.AgencyFeePercent = X.ToF(a[46])
+	p.Country = X.ToS(a[47])
 	return p
 }
 
@@ -2312,6 +2329,7 @@ var PropertyUsaFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positi
 	`countyName`:              Tt.String,
 	`countyIsActive`:          Tt.Boolean,
 	`mediaSource`:             Tt.Array,
+	`mediaSourceJson`:         Tt.String,
 	`zoneName`:                Tt.String,
 	`zoneType`:                Tt.String,
 	`zoneSubType`:             Tt.String,
