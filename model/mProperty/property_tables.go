@@ -211,7 +211,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Id, Tt.Unsigned},
 
 			// Basic info
-			{Version, Tt.Integer},
+			{Version, Tt.Double},
 			{PropertyId, Tt.Unsigned},
 			{Street, Tt.String},
 			{City, Tt.String},
@@ -236,7 +236,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{TaxesDue, Tt.Double},
 
 			// Amenity Group
-			{AmenitySuperGroups, Tt.Array},
+			{AmenitySuperGroups, Tt.String},
 
 			// County
 			{CountyUrl, Tt.String},
@@ -252,8 +252,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{ZoneSubType, Tt.String},
 			{ZoneDisplay, Tt.String},
 			{ZoneCode, Tt.String},
-			{PermittedLandUse, Tt.Array},
-			{NotPermittedLandUse, Tt.Array},
+			{PermittedLandUse, Tt.String},
+			{NotPermittedLandUse, Tt.String},
 
 			{Note, Tt.String},
 			{TaxNote, Tt.String},

@@ -229,42 +229,19 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyRe
 	propertyMutator.CountyIsActive = propertyResponseObject.PublicRecordsInfo.CountyIsActive
 
 	// -------- Build amenity list --------
-	amenitySuperGroups := make([]interface{}, len(propertyResponseObject.AmenitiesInfo.SuperGroups))
+	amenityGroupString, err := json.Marshal(propertyResponseObject.AmenitiesInfo.SuperGroups)
 
-	for i, superGroupVal := range propertyResponseObject.AmenitiesInfo.SuperGroups {
-
-		amenityGroups := make([]map[string]interface{}, len(superGroupVal.AmenityGroups))
-
-		for j, groupVal := range superGroupVal.AmenityGroups {
-			amenityEntries := make([]map[string]interface{}, len(groupVal.AmenityEntries))
-
-			for iEntry, entryVal := range groupVal.AmenityEntries {
-
-				entry := map[string]interface{}{
-					"amenityName":   entryVal.AmenityName,
-					"referenceName": entryVal.ReferenceName,
-					"amenityValues": entryVal.AmenityValues,
-				}
-				amenityEntries[iEntry] = entry
-			}
-
-			amenityGroupItem := map[string]interface{}{
-				"groupTitle":     groupVal.GroupTitle,
-				"referenceName":  groupVal.ReferenceName,
-				"amenityEntries": amenityEntries,
-			}
-			amenityGroups[j] = amenityGroupItem
-		}
-		amenitySuperGroups[i] = amenityGroups
+	if err != nil {
+		fmt.Println("Failed to convert amenities group !")
 	}
-	propertyMutator.AmenitySuperGroups = amenitySuperGroups
+
+	propertyMutator.AmenitySuperGroups = string(amenityGroupString)
 	propertyMutator.Coord = []any{0, 0}
 
 	// -------- Build source photo (media-source) --------
 	mediaSources := propertyResponseObject.PropertyHistoryInfo.MediaBrowserInfoBySourceId
 	var mediaSourceList []interface{}
 
-	// fmt.Println("Media sources => ", mediaSources)
 	var count int64 = 0 // Get latest lat/long from media sources
 	for key, value := range mediaSources {
 		// fmt.Println("Key: %s, Value: %v\n", key, value)
@@ -278,7 +255,6 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyRe
 
 		mediaObject, ok := value.(map[string]interface{})
 
-		// fmt.Println("mediaObject => ", mediaObject)
 		if ok {
 			streetViewData, convertedOk1 := mediaObject["streetView"].(map[string]interface{})
 			if convertedOk1 {
@@ -289,7 +265,6 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyRe
 					long = latLong["longitude"].(float64)
 
 					// Store latest lat/long for property
-
 					if count == 0 {
 						propertyMutator.Coord = []any{lat, long}
 					}
@@ -342,7 +317,6 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyRe
 		count++
 	}
 
-	// fmt.Println("Media source list => ", mediaSourceList)
 	if mediaSourceList == nil || len(mediaSourceList) > 0 {
 		propertyMutator.MediaSource = []any{}
 	} else {
@@ -356,20 +330,19 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyRe
 	propertyMutator.ZoneCode = propertyResponseObject.ZoningDataInfo.ZoneCode
 
 	// --------  Build permitted land use --------
-	permittedLandUseArr := make([]interface{}, len(propertyResponseObject.ZoningDataInfo.PermittedLandUse))
+	permittedLandUse, err := json.Marshal(propertyResponseObject.ZoningDataInfo.PermittedLandUse)
 
-	for i, v := range propertyResponseObject.ZoningDataInfo.PermittedLandUse {
-		permittedLandUseArr[i] = v
+	if err != nil {
+		fmt.Println("Failed to convert permittedLandUse !")
 	}
-	propertyMutator.PermittedLandUse = permittedLandUseArr
+	propertyMutator.PermittedLandUse = string(permittedLandUse)
 
-	// -------- Build not permitted land use --------
-	notPermittedLandUseArr := make([]interface{}, len(propertyResponseObject.ZoningDataInfo.NotPermittedLandUse))
+	notPermittedLandUseArr, err := json.Marshal(propertyResponseObject.ZoningDataInfo.NotPermittedLandUse)
 
-	for i, v := range propertyResponseObject.ZoningDataInfo.NotPermittedLandUse {
-		notPermittedLandUseArr[i] = v
+	if err != nil {
+		fmt.Println("Failed to convert notPermittedLandUseArr !")
 	}
-	propertyMutator.NotPermittedLandUse = notPermittedLandUseArr
+	propertyMutator.NotPermittedLandUse = string(notPermittedLandUseArr)
 
 	// -------- Store agent & broker --------
 	propertyMutator.ListingBrokerName = propertyResponseObject.AmenitiesInfo.MlsDisclaimerInfo.ListingBrokerName
@@ -397,19 +370,22 @@ func ImportPropertyUsData(adapter **Tt.Adapter, baseUrl string, maxPropertyID in
 
 		propertyMutator := wcProperty.NewPropertyUsaMutator(*adapter)
 		propertyMutator.PropertyId = uint64(i)
+
 		if propertyMutator.FindByPropertyId() {
 			stat.Skip()
 			continue
 		}
 
-		// fmt.Println("Fetch us data for property ID => ", i)
 		data, err := fetchPropertyUSByPropID(baseUrl, i)
 		if err != nil {
 			fmt.Println("Error has happen for property ID -> ", i)
 		}
 
 		propertyResponse := data["payload"].(map[string]interface{})
+		propertyVersion := data["version"].(float64)
+
 		propertyMutator = ParsePropertyData(*propertyMutator, propertyResponse)
+		propertyMutator.Version = propertyVersion
 
 		stat.Ok(propertyMutator.DoInsert())
 	}

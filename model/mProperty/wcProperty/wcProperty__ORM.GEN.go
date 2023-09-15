@@ -1165,10 +1165,7 @@ type PropertyUsaMutator struct {
 func NewPropertyUsaMutator(adapter *Tt.Adapter) (res *PropertyUsaMutator) {
 	res = &PropertyUsaMutator{PropertyUsa: rqProperty.PropertyUsa{Adapter: adapter}}
 	res.Coord = []any{}
-	res.AmenitySuperGroups = []any{}
 	res.MediaSource = []any{}
-	res.PermittedLandUse = []any{}
-	res.NotPermittedLandUse = []any{}
 	return
 }
 
@@ -1321,7 +1318,7 @@ func (p *PropertyUsaMutator) SetId(val uint64) bool { //nolint:dupl false positi
 }
 
 // SetVersion create mutations, should not duplicate
-func (p *PropertyUsaMutator) SetVersion(val int64) bool { //nolint:dupl false positive
+func (p *PropertyUsaMutator) SetVersion(val float64) bool { //nolint:dupl false positive
 	if val != p.Version {
 		p.mutations = append(p.mutations, A.X{`=`, 1, val})
 		p.logs = append(p.logs, A.X{`version`, p.Version, val})
@@ -1549,11 +1546,14 @@ func (p *PropertyUsaMutator) SetTaxesDue(val float64) bool { //nolint:dupl false
 }
 
 // SetAmenitySuperGroups create mutations, should not duplicate
-func (p *PropertyUsaMutator) SetAmenitySuperGroups(val []any) bool { //nolint:dupl false positive
-	p.mutations = append(p.mutations, A.X{`=`, 22, val})
-	p.logs = append(p.logs, A.X{`amenitySuperGroups`, p.AmenitySuperGroups, val})
-	p.AmenitySuperGroups = val
-	return true
+func (p *PropertyUsaMutator) SetAmenitySuperGroups(val string) bool { //nolint:dupl false positive
+	if val != p.AmenitySuperGroups {
+		p.mutations = append(p.mutations, A.X{`=`, 22, val})
+		p.logs = append(p.logs, A.X{`amenitySuperGroups`, p.AmenitySuperGroups, val})
+		p.AmenitySuperGroups = val
+		return true
+	}
+	return false
 }
 
 // SetCountyUrl create mutations, should not duplicate
@@ -1653,19 +1653,25 @@ func (p *PropertyUsaMutator) SetZoneCode(val string) bool { //nolint:dupl false 
 }
 
 // SetPermittedLandUse create mutations, should not duplicate
-func (p *PropertyUsaMutator) SetPermittedLandUse(val []any) bool { //nolint:dupl false positive
-	p.mutations = append(p.mutations, A.X{`=`, 32, val})
-	p.logs = append(p.logs, A.X{`permittedLandUse`, p.PermittedLandUse, val})
-	p.PermittedLandUse = val
-	return true
+func (p *PropertyUsaMutator) SetPermittedLandUse(val string) bool { //nolint:dupl false positive
+	if val != p.PermittedLandUse {
+		p.mutations = append(p.mutations, A.X{`=`, 32, val})
+		p.logs = append(p.logs, A.X{`permittedLandUse`, p.PermittedLandUse, val})
+		p.PermittedLandUse = val
+		return true
+	}
+	return false
 }
 
 // SetNotPermittedLandUse create mutations, should not duplicate
-func (p *PropertyUsaMutator) SetNotPermittedLandUse(val []any) bool { //nolint:dupl false positive
-	p.mutations = append(p.mutations, A.X{`=`, 33, val})
-	p.logs = append(p.logs, A.X{`notPermittedLandUse`, p.NotPermittedLandUse, val})
-	p.NotPermittedLandUse = val
-	return true
+func (p *PropertyUsaMutator) SetNotPermittedLandUse(val string) bool { //nolint:dupl false positive
+	if val != p.NotPermittedLandUse {
+		p.mutations = append(p.mutations, A.X{`=`, 33, val})
+		p.logs = append(p.logs, A.X{`notPermittedLandUse`, p.NotPermittedLandUse, val})
+		p.NotPermittedLandUse = val
+		return true
+	}
+	return false
 }
 
 // SetNote create mutations, should not duplicate
@@ -1907,7 +1913,7 @@ func (p *PropertyUsaMutator) SetAll(from rqProperty.PropertyUsa, excludeMap, for
 		p.TaxesDue = from.TaxesDue
 		changed = true
 	}
-	if !excludeMap[`amenitySuperGroups`] && (forceMap[`amenitySuperGroups`] || from.AmenitySuperGroups != nil) {
+	if !excludeMap[`amenitySuperGroups`] && (forceMap[`amenitySuperGroups`] || from.AmenitySuperGroups != ``) {
 		p.AmenitySuperGroups = from.AmenitySuperGroups
 		changed = true
 	}
@@ -1947,11 +1953,11 @@ func (p *PropertyUsaMutator) SetAll(from rqProperty.PropertyUsa, excludeMap, for
 		p.ZoneCode = from.ZoneCode
 		changed = true
 	}
-	if !excludeMap[`permittedLandUse`] && (forceMap[`permittedLandUse`] || from.PermittedLandUse != nil) {
+	if !excludeMap[`permittedLandUse`] && (forceMap[`permittedLandUse`] || from.PermittedLandUse != ``) {
 		p.PermittedLandUse = from.PermittedLandUse
 		changed = true
 	}
-	if !excludeMap[`notPermittedLandUse`] && (forceMap[`notPermittedLandUse`] || from.NotPermittedLandUse != nil) {
+	if !excludeMap[`notPermittedLandUse`] && (forceMap[`notPermittedLandUse`] || from.NotPermittedLandUse != ``) {
 		p.NotPermittedLandUse = from.NotPermittedLandUse
 		changed = true
 	}

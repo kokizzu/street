@@ -1352,7 +1352,7 @@ var PropertyHistoryFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false po
 type PropertyUsa struct {
 	Adapter                 *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	Id                      uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
-	Version                 int64       `json:"version" form:"version" query:"version" long:"version" msg:"version"`
+	Version                 float64     `json:"version" form:"version" query:"version" long:"version" msg:"version"`
 	PropertyId              uint64      `json:"propertyId,string" form:"propertyId" query:"propertyId" long:"propertyId" msg:"propertyId"`
 	Street                  string      `json:"street" form:"street" query:"street" long:"street" msg:"street"`
 	City                    string      `json:"city" form:"city" query:"city" long:"city" msg:"city"`
@@ -1373,7 +1373,7 @@ type PropertyUsa struct {
 	TaxableImprovementValue int64       `json:"taxableImprovementValue" form:"taxableImprovementValue" query:"taxableImprovementValue" long:"taxableImprovementValue" msg:"taxableImprovementValue"`
 	RollYear                int64       `json:"rollYear" form:"rollYear" query:"rollYear" long:"rollYear" msg:"rollYear"`
 	TaxesDue                float64     `json:"taxesDue" form:"taxesDue" query:"taxesDue" long:"taxesDue" msg:"taxesDue"`
-	AmenitySuperGroups      []any       `json:"amenitySuperGroups" form:"amenitySuperGroups" query:"amenitySuperGroups" long:"amenitySuperGroups" msg:"amenitySuperGroups"`
+	AmenitySuperGroups      string      `json:"amenitySuperGroups" form:"amenitySuperGroups" query:"amenitySuperGroups" long:"amenitySuperGroups" msg:"amenitySuperGroups"`
 	CountyUrl               string      `json:"countyUrl" form:"countyUrl" query:"countyUrl" long:"countyUrl" msg:"countyUrl"`
 	CountyName              string      `json:"countyName" form:"countyName" query:"countyName" long:"countyName" msg:"countyName"`
 	CountyIsActive          bool        `json:"countyIsActive" form:"countyIsActive" query:"countyIsActive" long:"countyIsActive" msg:"countyIsActive"`
@@ -1383,8 +1383,8 @@ type PropertyUsa struct {
 	ZoneSubType             string      `json:"zoneSubType" form:"zoneSubType" query:"zoneSubType" long:"zoneSubType" msg:"zoneSubType"`
 	ZoneDisplay             string      `json:"zoneDisplay" form:"zoneDisplay" query:"zoneDisplay" long:"zoneDisplay" msg:"zoneDisplay"`
 	ZoneCode                string      `json:"zoneCode" form:"zoneCode" query:"zoneCode" long:"zoneCode" msg:"zoneCode"`
-	PermittedLandUse        []any       `json:"permittedLandUse" form:"permittedLandUse" query:"permittedLandUse" long:"permittedLandUse" msg:"permittedLandUse"`
-	NotPermittedLandUse     []any       `json:"notPermittedLandUse" form:"notPermittedLandUse" query:"notPermittedLandUse" long:"notPermittedLandUse" msg:"notPermittedLandUse"`
+	PermittedLandUse        string      `json:"permittedLandUse" form:"permittedLandUse" query:"permittedLandUse" long:"permittedLandUse" msg:"permittedLandUse"`
+	NotPermittedLandUse     string      `json:"notPermittedLandUse" form:"notPermittedLandUse" query:"notPermittedLandUse" long:"notPermittedLandUse" msg:"notPermittedLandUse"`
 	Note                    string      `json:"note" form:"note" query:"note" long:"note" msg:"note"`
 	TaxNote                 string      `json:"taxNote" form:"taxNote" query:"taxNote" long:"taxNote" msg:"taxNote"`
 	CreatedAt               int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
@@ -2144,7 +2144,7 @@ func (p *PropertyUsa) ToArray() A.X { //nolint:dupl false positive
 // FromArray convert slice to receiver fields
 func (p *PropertyUsa) FromArray(a A.X) *PropertyUsa { //nolint:dupl false positive
 	p.Id = X.ToU(a[0])
-	p.Version = X.ToI(a[1])
+	p.Version = X.ToF(a[1])
 	p.PropertyId = X.ToU(a[2])
 	p.Street = X.ToS(a[3])
 	p.City = X.ToS(a[4])
@@ -2165,7 +2165,7 @@ func (p *PropertyUsa) FromArray(a A.X) *PropertyUsa { //nolint:dupl false positi
 	p.TaxableImprovementValue = X.ToI(a[19])
 	p.RollYear = X.ToI(a[20])
 	p.TaxesDue = X.ToF(a[21])
-	p.AmenitySuperGroups = X.ToArr(a[22])
+	p.AmenitySuperGroups = X.ToS(a[22])
 	p.CountyUrl = X.ToS(a[23])
 	p.CountyName = X.ToS(a[24])
 	p.CountyIsActive = X.ToBool(a[25])
@@ -2175,8 +2175,8 @@ func (p *PropertyUsa) FromArray(a A.X) *PropertyUsa { //nolint:dupl false positi
 	p.ZoneSubType = X.ToS(a[29])
 	p.ZoneDisplay = X.ToS(a[30])
 	p.ZoneCode = X.ToS(a[31])
-	p.PermittedLandUse = X.ToArr(a[32])
-	p.NotPermittedLandUse = X.ToArr(a[33])
+	p.PermittedLandUse = X.ToS(a[32])
+	p.NotPermittedLandUse = X.ToS(a[33])
 	p.Note = X.ToS(a[34])
 	p.TaxNote = X.ToS(a[35])
 	p.CreatedAt = X.ToI(a[36])
@@ -2196,7 +2196,7 @@ func (p *PropertyUsa) FromArray(a A.X) *PropertyUsa { //nolint:dupl false positi
 // FromUncensoredArray convert slice to receiver fields
 func (p *PropertyUsa) FromUncensoredArray(a A.X) *PropertyUsa { //nolint:dupl false positive
 	p.Id = X.ToU(a[0])
-	p.Version = X.ToI(a[1])
+	p.Version = X.ToF(a[1])
 	p.PropertyId = X.ToU(a[2])
 	p.Street = X.ToS(a[3])
 	p.City = X.ToS(a[4])
@@ -2217,7 +2217,7 @@ func (p *PropertyUsa) FromUncensoredArray(a A.X) *PropertyUsa { //nolint:dupl fa
 	p.TaxableImprovementValue = X.ToI(a[19])
 	p.RollYear = X.ToI(a[20])
 	p.TaxesDue = X.ToF(a[21])
-	p.AmenitySuperGroups = X.ToArr(a[22])
+	p.AmenitySuperGroups = X.ToS(a[22])
 	p.CountyUrl = X.ToS(a[23])
 	p.CountyName = X.ToS(a[24])
 	p.CountyIsActive = X.ToBool(a[25])
@@ -2227,8 +2227,8 @@ func (p *PropertyUsa) FromUncensoredArray(a A.X) *PropertyUsa { //nolint:dupl fa
 	p.ZoneSubType = X.ToS(a[29])
 	p.ZoneDisplay = X.ToS(a[30])
 	p.ZoneCode = X.ToS(a[31])
-	p.PermittedLandUse = X.ToArr(a[32])
-	p.NotPermittedLandUse = X.ToArr(a[33])
+	p.PermittedLandUse = X.ToS(a[32])
+	p.NotPermittedLandUse = X.ToS(a[33])
 	p.Note = X.ToS(a[34])
 	p.TaxNote = X.ToS(a[35])
 	p.CreatedAt = X.ToI(a[36])
@@ -2286,7 +2286,7 @@ func (p *PropertyUsa) Total() int64 { //nolint:dupl false positive
 // PropertyUsaFieldTypeMap returns key value of field name and key
 var PropertyUsaFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`id`:                      Tt.Unsigned,
-	`version`:                 Tt.Integer,
+	`version`:                 Tt.Double,
 	`propertyId`:              Tt.Unsigned,
 	`street`:                  Tt.String,
 	`city`:                    Tt.String,
@@ -2307,7 +2307,7 @@ var PropertyUsaFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positi
 	`taxableImprovementValue`: Tt.Integer,
 	`rollYear`:                Tt.Integer,
 	`taxesDue`:                Tt.Double,
-	`amenitySuperGroups`:      Tt.Array,
+	`amenitySuperGroups`:      Tt.String,
 	`countyUrl`:               Tt.String,
 	`countyName`:              Tt.String,
 	`countyIsActive`:          Tt.Boolean,
@@ -2317,8 +2317,8 @@ var PropertyUsaFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positi
 	`zoneSubType`:             Tt.String,
 	`zoneDisplay`:             Tt.String,
 	`zoneCode`:                Tt.String,
-	`permittedLandUse`:        Tt.Array,
-	`notPermittedLandUse`:     Tt.Array,
+	`permittedLandUse`:        Tt.String,
+	`notPermittedLandUse`:     Tt.String,
 	`note`:                    Tt.String,
 	`taxNote`:                 Tt.String,
 	`createdAt`:               Tt.Integer,

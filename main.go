@@ -178,7 +178,7 @@ func main() {
 		zImport.PatchPropertiesPrice(tConn)
 	case `import_property_usa`:
 		baseUrl := "https://www.redfin.com/stingray/api/home/details/belowTheFold"
-		maxPropertyId := int(10000)
+		maxPropertyId := int(1000000)
 		zImport.ImportPropertyUsData(&tConn, baseUrl, maxPropertyId)
 	case `import_location`:
 		zImport.ImportHouseLocation(tConn, gmap)
