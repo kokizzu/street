@@ -10,17 +10,6 @@
   import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
   import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
   import FaSolidTrashAlt from "svelte-icons-pack/fa/FaSolidTrashAlt";
-  import {currentLang, langOptions} from "./_components/uiState";
-  
-  let sideMenuOpen = false;
-  
-  function openSideMenu() {
-    sideMenuOpen = true;
-  }
-  
-  function closeSideMenu() {
-    sideMenuOpen = false;
-  }
   
   let user = {/* user */};
   let segments = {/* segments */};
@@ -61,9 +50,9 @@
 </script>
 
 <section class="dashboard">
-	<Menu access={segments} isSideMenuOpen={sideMenuOpen} on:closesidemenu={closeSideMenu}/>
+	<Menu access={segments}/>
 	<div class="dashboard_main_content">
-		<ProfileHeader on:opensidemenu={openSideMenu}/>
+		<ProfileHeader />
 		<div class="content">
 			<div class="profile_details_container">
 				<div class="left">
@@ -80,7 +69,6 @@
 								</button>
 							</div>
 						</div>
-						
 						<div class="input_container">
 							<div class="name">
 								<div class="profile_input">
@@ -92,13 +80,11 @@
 									<input bind:value={user.fullName} id="fullName" type="text"/>
 								</div>
 							</div>
-							
 							<div class="profile_input email">
 								<label for="email">Email</label>
 								<input bind:value={user.email} id="email" type="email"/>
 							</div>
 						</div>
-						
 						<div class="info_container">
 							<div class="profile_info">
 								<label for="registered">Registered:</label>
@@ -113,14 +99,12 @@
 								<span id="verified">{datetime( user.verifiedAt ) || '0'}</span>
 							</div>
 						</div>
-						
 						<label for="updateProfile"/>
 						<button id="updateProfile" on:click={updateProfile}>
 							<span>SUBMIT</span>
 							<Icon color="#FFF" size={18} src={FaSolidAngleLeft}/>
 						</button>
 					</div>
-				
 				</div>
 				
 				<div class="right">
@@ -367,8 +351,9 @@
         padding          : 12px;
         cursor           : pointer;
     }
+
     .profile_details_container .right .country_details .country_list #country:focus {
-	     outline: 2px solid #3b82f6;
+        outline : 2px solid #3B82F6;
     }
 
     .profile_details #updateProfile,
