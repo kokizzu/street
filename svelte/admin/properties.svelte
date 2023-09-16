@@ -58,7 +58,7 @@
     // console.log( 'pagerIn=',pagerIn );
     await AdminProperties( {
       pager: pagerIn,
-      action: 'list',
+      cmd: 'list',
     }, function( res ) {
       handleResponse( res );
     } );
@@ -69,7 +69,7 @@
   async function editRow( id, row ) {
     await AdminProperties( {
       property: {id},
-      action: 'form',
+      cmd: 'form',
     }, function( res ) {
       if( !handleResponse( res ) )
         form.showModal( res.property );
@@ -91,7 +91,7 @@
     }
     await AdminProperties( {
       property: property,
-      action: action,
+      cmd: action,
       pager: pager, // force refresh page, will be slow
     }, function( res ) {
       if( handleResponse( res ) ) {

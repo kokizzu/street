@@ -34,7 +34,7 @@
     // console.log( 'pagerIn=',pagerIn );
     await AdminUsers( {
       pager: pagerIn,
-      action: 'list',
+      cmd: 'list',
     }, function( res ) {
       handleResponse( res );
     } );
@@ -45,7 +45,7 @@
   async function editRow( id, row ) {
     await AdminUsers( {
       user: {id},
-      action: 'form',
+      cmd: 'form',
     }, function( res ) {
       if( !handleResponse( res ) )
         form.showModal( res.user );
@@ -61,7 +61,7 @@
     if( !user.id ) user.id = '0';
     await AdminUsers( {
       user: user,
-      action: action,
+      cmd: action,
       pager: pager, // force refresh page, will be slow
     }, function( res ) {
       if( handleResponse( res ) ) {

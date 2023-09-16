@@ -8432,13 +8432,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         $invalidate(1, pager = res.pager);
     }
     async function refreshTableView(pagerIn) {
-      await (0, import_jsApi.AdminPropHistories)({ pager: pagerIn, action: "list" }, function(res) {
+      await (0, import_jsApi.AdminPropHistories)({ pager: pagerIn, cmd: "list" }, function(res) {
         handleResponse(res);
       });
     }
     let form = ModalForm_default;
     async function editRow(id, row) {
-      await (0, import_jsApi.AdminPropHistories)({ propHistory: { id }, action: "form" }, function(res) {
+      await (0, import_jsApi.AdminPropHistories)({ propHistory: { id }, cmd: "form" }, function(res) {
         if (!handleResponse(res))
           form.showModal(res.propHistory);
       });
@@ -8454,7 +8454,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       await (0, import_jsApi.AdminPropHistories)(
         {
           propHistory: ph,
-          action,
+          cmd: action,
           pager
           // force refresh page, will be slow
         },

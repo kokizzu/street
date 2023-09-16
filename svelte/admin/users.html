@@ -8432,13 +8432,13 @@ input.input_filter.svelte-somn03.svelte-somn03 {
         $invalidate(1, pager = res.pager);
     }
     async function refreshTableView(pagerIn) {
-      await (0, import_jsApi.AdminUsers)({ pager: pagerIn, action: "list" }, function(res) {
+      await (0, import_jsApi.AdminUsers)({ pager: pagerIn, cmd: "list" }, function(res) {
         handleResponse(res);
       });
     }
     let form = ModalForm_default;
     async function editRow(id, row) {
-      await (0, import_jsApi.AdminUsers)({ user: { id }, action: "form" }, function(res) {
+      await (0, import_jsApi.AdminUsers)({ user: { id }, cmd: "form" }, function(res) {
         if (!handleResponse(res))
           form.showModal(res.user);
       });
@@ -8453,7 +8453,7 @@ input.input_filter.svelte-somn03.svelte-somn03 {
       await (0, import_jsApi.AdminUsers)(
         {
           user,
-          action,
+          cmd: action,
           pager
           // force refresh page, will be slow
         },

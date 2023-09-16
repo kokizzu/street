@@ -218,7 +218,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
-		in.Action = zCrud.ActionList
+		in.Cmd = zCrud.ActionList
 		out := d.AdminUsers(&in)
 		return views.RenderAdminUsers(ctx, M.SX{
 			`title`:    `Users`,
@@ -260,7 +260,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
-		in.Action = zCrud.ActionList
+		in.Cmd = zCrud.ActionList
 		out := d.AdminPropHistories(&in)
 		return views.RenderAdminPropHistories(ctx, M.SX{
 			`title`:         `Prop Histories`,
@@ -301,16 +301,6 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		}
 		return in.ToFiberCtx(ctx, out, &out.ResponseCommon, in)
 	})
-	fw.Get(`/`+domain.AdminFilesAction, func(ctx *fiber.Ctx) error {
-		in, _, segments := userInfoFromContext(ctx, d)
-		if notAdmin(ctx, d, in.RequestCommon) {
-			return ctx.Redirect(`/`, 302)
-		}
-		return views.RenderAdminFiles(ctx, M.SX{
-			`title`:    `Files`,
-			`segments`: segments,
-		})
-	})
 	fw.Get(`/`+domain.AdminAccessLogsAction, func(ctx *fiber.Ctx) error {
 		var in domain.AdminAccessLogsIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminUsersAction)
@@ -321,7 +311,6 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			return ctx.Redirect(`/`, 302)
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
-		in.Action = domain.AdminAccessLogsAction
 		in.WithMeta = true
 		out := d.AdminAccessLogs(&in)
 		return views.RenderAdminAccessLog(ctx, M.SX{
@@ -342,10 +331,10 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			return ctx.Redirect(`/`, 302)
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
-		in.Action = domain.AdminFilesAction
 		in.WithMeta = true
+		in.Cmd = `list`
 		out := d.AdminFiles(&in)
-		return views.RenderAdminAccessLog(ctx, M.SX{
+		return views.RenderAdminFiles(ctx, M.SX{
 			`title`:    `Access Log`,
 			`segments`: segments,
 			`files`:    out.Files,

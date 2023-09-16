@@ -19,7 +19,7 @@ type (
 	AdminPropHistoriesIn struct {
 		RequestCommon
 
-		Action string `json:"action" form:"action" query:"action" long:"action" msg:"action"`
+		Cmd string
 
 		PropHistory rqProperty.PropertyHistory `json:"propHistory" form:"propHistory" query:"propHistory" long:"propHistory" msg:"propHistory"`
 
@@ -150,7 +150,7 @@ func (d *Domain) AdminPropHistories(in *AdminPropHistoriesIn) (out AdminPropHist
 		out.Meta = &AdminPropHistoriesMeta
 	}
 
-	switch in.Action {
+	switch in.Cmd {
 	case zCrud.ActionForm:
 		if in.PropHistory.Id <= 0 {
 			out.Meta = &AdminPropertiesMeta
@@ -173,11 +173,11 @@ func (d *Domain) AdminPropHistories(in *AdminPropHistoriesIn) (out AdminPropHist
 				return
 			}
 
-			if in.Action == zCrud.ActionDelete {
+			if in.Cmd == zCrud.ActionDelete {
 				if ph.DeletedAt == 0 {
 					ph.SetDeletedAt(in.UnixNow())
 				}
-			} else if in.Action == zCrud.ActionRestore {
+			} else if in.Cmd == zCrud.ActionRestore {
 				if ph.DeletedAt > 0 {
 					ph.SetDeletedAt(0)
 				}

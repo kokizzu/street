@@ -17,7 +17,7 @@ type (
 	AdminUsersIn struct {
 		RequestCommon
 
-		Action string `json:"action" form:"action" query:"action" long:"action" msg:"action"`
+		Cmd string
 
 		// for modifying user
 		User rqAuth.Users `json:"user" form:"user" query:"user" long:"user" msg:"user"`
@@ -129,7 +129,7 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 		out.Meta = &AdminUsersMeta
 	}
 
-	switch in.Action {
+	switch in.Cmd {
 	case zCrud.ActionForm:
 		if in.User.Id <= 0 {
 			out.Meta = &AdminUsersMeta
@@ -153,11 +153,11 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 				return
 			}
 
-			if in.Action == zCrud.ActionDelete {
+			if in.Cmd == zCrud.ActionDelete {
 				if user.DeletedAt == 0 {
 					user.SetDeletedAt(in.UnixNow())
 				}
-			} else if in.Action == zCrud.ActionRestore {
+			} else if in.Cmd == zCrud.ActionRestore {
 				if user.DeletedAt > 0 {
 					user.SetDeletedAt(0)
 				}

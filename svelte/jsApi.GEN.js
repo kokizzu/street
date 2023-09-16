@@ -133,7 +133,7 @@ exports.AdminDashboard = async function AdminDashboard( i, cb ) {
 
 /**
  * @typedef {Object} AdminFilesIn
- * @property {String} action
+ * @property {String} cmd
  * @property {number} file.id
  * @property {number} file.createdAt
  * @property {number} file.createdBy
@@ -153,7 +153,7 @@ exports.AdminDashboard = async function AdminDashboard( i, cb ) {
  * @property {Array<String>} pager.order
  */
 const AdminFilesIn = {
-  action: '', // string
+  cmd: '', // string
   file: { // rqStorage.Files
     id: 0, // uint64
     createdAt: 0, // int64
@@ -254,7 +254,7 @@ exports.AdminFiles = async function AdminFiles( i, cb ) {
 
 /**
  * @typedef {Object} AdminPropHistoriesIn
- * @property {String} action
+ * @property {String} cmd
  * @property {number} propHistory.id
  * @property {String} propHistory.propertyKey
  * @property {String} propHistory.transactionKey
@@ -282,7 +282,7 @@ exports.AdminFiles = async function AdminFiles( i, cb ) {
  * @property {Array<String>} pager.order
  */
 const AdminPropHistoriesIn = {
-  action: '', // string
+  cmd: '', // string
   propHistory: { // rqProperty.PropertyHistory
     id: 0, // uint64
     propertyKey: '', // string
@@ -407,7 +407,7 @@ exports.AdminPropHistories = async function AdminPropHistories( i, cb ) {
 
 /**
  * @typedef {Object} AdminPropertiesIn
- * @property {String} action
+ * @property {String} cmd
  * @property {number} property.id
  * @property {String} property.uniqPropKey
  * @property {String} property.serialNumber
@@ -445,7 +445,7 @@ exports.AdminPropHistories = async function AdminPropHistories( i, cb ) {
  * @property {Array<String>} pager.order
  */
 const AdminPropertiesIn = {
-  action: '', // string
+  cmd: '', // string
   property: { // rqProperty.Property
     id: 0, // uint64
     uniqPropKey: '', // string
@@ -610,7 +610,7 @@ exports.AdminProperties = async function AdminProperties( i, cb ) {
 
 /**
  * @typedef {Object} AdminUsersIn
- * @property {String} action
+ * @property {String} cmd
  * @property {number} user.id
  * @property {String} user.email
  * @property {String} user.password
@@ -636,7 +636,7 @@ exports.AdminProperties = async function AdminProperties( i, cb ) {
  * @property {Array<String>} pager.order
  */
 const AdminUsersIn = {
-  action: '', // string
+  cmd: '', // string
   user: { // rqAuth.Users
     id: 0, // uint64
     email: '', // string

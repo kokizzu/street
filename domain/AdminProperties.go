@@ -19,7 +19,7 @@ type (
 	AdminPropertiesIn struct {
 		RequestCommon
 
-		Action string `json:"action" form:"action" query:"action" long:"action" msg:"action"`
+		Cmd string
 
 		// for modifying property
 		Property rqProperty.Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
