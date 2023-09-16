@@ -332,6 +332,27 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			`pager`:    out.Pager,
 		})
 	})
+	fw.Get(`/`+domain.AdminFilesAction, func(ctx *fiber.Ctx) error {
+		var in domain.AdminFilesIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminUsersAction)
+		if err != nil {
+			return err
+		}
+		if notAdmin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.Action = domain.AdminFilesAction
+		in.WithMeta = true
+		out := d.AdminFiles(&in)
+		return views.RenderAdminAccessLog(ctx, M.SX{
+			`title`:    `Access Log`,
+			`segments`: segments,
+			`files`:    out.Files,
+			`fields`:   out.Meta.Fields,
+			`pager`:    out.Pager,
+		})
+	})
 	fw.All(`/guest/files/:base62id-:modifier.:ext`, func(ctx *fiber.Ctx) error {
 		method := ctx.Method()
 		if method != fiber.MethodGet && method != fiber.MethodHead {

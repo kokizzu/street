@@ -73,7 +73,7 @@ var ActionLogsFieldTypeMap = map[string]Ch.DataType{ //nolint:dupl false positiv
 	`refId`:      Ch.UInt64,
 }
 
-func (a ActionLogs) TableName() Ch.TableName { //nolint:dupl false positive
+func (a *ActionLogs) TableName() Ch.TableName { //nolint:dupl false positive
 	return mAuth.TableActionLogs
 }
 

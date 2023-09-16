@@ -263,6 +263,8 @@ github.com/kokizzu/gotro v1.3227.1908-0.20230916173155-e8ecb92b4ae2 h1:cx4Nz9TCQ
 github.com/kokizzu/gotro v1.3227.1908-0.20230916173155-e8ecb92b4ae2/go.mod h1:RSIYnALFXZKv3dL6TJXaQG1jLZzKFgOK7b19owWFlJg=
 github.com/kokizzu/gotro v1.3227.1908-0.20230916173320-39e40c983c18 h1:HvBN6tOrDRkwM3sb5iqxl2OdL0Qr3xerUPwbZqrF4Vw=
 github.com/kokizzu/gotro v1.3227.1908-0.20230916173320-39e40c983c18/go.mod h1:RSIYnALFXZKv3dL6TJXaQG1jLZzKFgOK7b19owWFlJg=
+github.com/kokizzu/gotro v1.3317.148 h1:Ugj/IF6DD2NW6LXt73+g0cr4GvGKlZ2RejC0JxQoVjw=
+github.com/kokizzu/gotro v1.3317.148/go.mod h1:RSIYnALFXZKv3dL6TJXaQG1jLZzKFgOK7b19owWFlJg=
 github.com/kokizzu/id64 v1.2829.1452 h1:d+hbN+0YOX51AUYCU6pIVuLnsKhL1TNDBwBfHKevdX8=
 github.com/kokizzu/id64 v1.2829.1452/go.mod h1:ssdJfBhCjVs02lh6QutYOO8ZH+PWe5MDPh2gehPRgqU=
 github.com/kokizzu/lexid v1.2423.1347 h1:EJl5H+WX9/FC5/lDOjwylTvh7k2IKxaYeV+F6idbLMo=
