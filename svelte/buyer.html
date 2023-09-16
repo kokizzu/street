@@ -329,7 +329,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 }
 
 /* fakecss:./buyer.esbuild-svelte-fake-css */
-.map_container.svelte-ijp0ve {
+.map_container.svelte-xgt21s {
   width: 70%;
   height: 430px;
   position: relative;
@@ -4857,6 +4857,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let div0;
     let googlemap;
     let t2;
+    let h3;
+    let t4;
     let footer;
     let current;
     menu = new Menu_default({ props: { access: segments } });
@@ -4880,8 +4882,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         div0 = element("div");
         create_component(googlemap.$.fragment);
         t2 = space();
+        h3 = element("h3");
+        h3.textContent = "Nothing here for now, we will add some content soon.";
+        t4 = space();
         create_component(footer.$.fragment);
-        attr(div0, "class", "map_container svelte-ijp0ve");
+        attr(div0, "class", "map_container svelte-xgt21s");
         attr(div1, "class", "content");
         attr(div2, "class", "dashboard_main_content");
         attr(section, "class", "dashboard");
@@ -4896,7 +4901,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div2, div1);
         append(div1, div0);
         mount_component(googlemap, div0, null);
-        append(div2, t2);
+        append(div0, t2);
+        append(div0, h3);
+        append(div2, t4);
         mount_component(footer, div2, null);
         current = true;
       },
