@@ -11,16 +11,6 @@
   import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
   import FaSolidTrashAlt from "svelte-icons-pack/fa/FaSolidTrashAlt";
   
-  let sideMenuOpen = false;
-  
-  function openSideMenu() {
-    sideMenuOpen = true;
-  }
-  
-  function closeSideMenu() {
-    sideMenuOpen = false;
-  }
-  
   let user = {/* user */};
   let segments = {/* segments */};
   
@@ -60,26 +50,25 @@
 </script>
 
 <section class="dashboard">
-	<Menu access={segments} isSideMenuOpen={sideMenuOpen} on:closesidemenu={closeSideMenu}/>
+	<Menu access={segments}/>
 	<div class="dashboard_main_content">
-		<ProfileHeader on:opensidemenu={openSideMenu}/>
+		<ProfileHeader />
 		<div class="content">
 			<div class="profile_details_container">
 				<div class="left">
 					<div class="profile_details">
 						<h2>Profile Details</h2>
-						<div class="profile_pictures">
-							<div class="img_container">
-								<img alt="profile" src="/assets/img/team-1-200x200.jpg"/>
-							</div>
-							<div class="actions">
-								<button class='btn_upload_photo'>Upload Profile Photo</button>
-								<button class='btn_delete'>
-									<Icon color="#FFF" size={15} src={FaSolidTrashAlt}/>
-								</button>
-							</div>
-						</div>
-						
+<!--						<div class="profile_pictures">-->
+<!--							<div class="img_container">-->
+<!--								<img alt="profile" src="/assets/img/team-1-200x200.jpg"/>-->
+<!--							</div>-->
+<!--							<div class="actions">-->
+<!--								<button class='btn_upload_photo'>Upload Profile Photo</button>-->
+<!--								<button class='btn_delete'>-->
+<!--									<Icon color="#FFF" size={15} src={FaSolidTrashAlt}/>-->
+<!--								</button>-->
+<!--							</div>-->
+<!--						</div>-->
 						<div class="input_container">
 							<div class="name">
 								<div class="profile_input">
@@ -91,13 +80,11 @@
 									<input bind:value={user.fullName} id="fullName" type="text"/>
 								</div>
 							</div>
-							
 							<div class="profile_input email">
 								<label for="email">Email</label>
 								<input bind:value={user.email} id="email" type="email"/>
 							</div>
 						</div>
-						
 						<div class="info_container">
 							<div class="profile_info">
 								<label for="registered">Registered:</label>
@@ -112,14 +99,12 @@
 								<span id="verified">{datetime( user.verifiedAt ) || '0'}</span>
 							</div>
 						</div>
-						
 						<label for="updateProfile"/>
 						<button id="updateProfile" on:click={updateProfile}>
 							<span>SUBMIT</span>
 							<Icon color="#FFF" size={18} src={FaSolidAngleLeft}/>
 						</button>
 					</div>
-				
 				</div>
 				
 				<div class="right">
@@ -366,8 +351,9 @@
         padding          : 12px;
         cursor           : pointer;
     }
+
     .profile_details_container .right .country_details .country_list #country:focus {
-	     outline: 2px solid #3b82f6;
+        outline : 2px solid #3B82F6;
     }
 
     .profile_details #updateProfile,
