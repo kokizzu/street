@@ -275,10 +275,15 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
+		in.RequestCommon.Action = domain.UserSessionsActiveAction
+		out := d.UserSessionsActive(&domain.UserSessionsActiveIn{
+			RequestCommon: in.RequestCommon,
+		})
 		return views.RenderUser(ctx, M.SX{
-			`title`:    `Profile`,
-			`user`:     user,
-			`segments`: segments,
+			`title`:          `Profile`,
+			`user`:           user,
+			`segments`:       segments,
+			`activeSessions`: out.SessionsActive,
 		})
 	})
 	fw.Get(`/`+domain.GuestAutoLoginAction, func(ctx *fiber.Ctx) error {

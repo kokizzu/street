@@ -264,6 +264,8 @@ func (u *UsersMutator) DoDeletePermanentById() bool { //nolint:dupl false positi
 //		A.X{`=`, 13, u.LastLoginAt},
 //		A.X{`=`, 14, u.FullName},
 //		A.X{`=`, 15, u.UserName},
+//		A.X{`=`, 16, u.Country},
+//		A.X{`=`, 17, u.Language},
 //	})
 //	return !L.IsError(err, `Users.DoUpsert failed: `+u.SpaceName())
 // }
@@ -509,6 +511,28 @@ func (u *UsersMutator) SetUserName(val string) bool { //nolint:dupl false positi
 	return false
 }
 
+// SetCountry create mutations, should not duplicate
+func (u *UsersMutator) SetCountry(val string) bool { //nolint:dupl false positive
+	if val != u.Country {
+		u.mutations = append(u.mutations, A.X{`=`, 16, val})
+		u.logs = append(u.logs, A.X{`country`, u.Country, val})
+		u.Country = val
+		return true
+	}
+	return false
+}
+
+// SetLanguage create mutations, should not duplicate
+func (u *UsersMutator) SetLanguage(val string) bool { //nolint:dupl false positive
+	if val != u.Language {
+		u.mutations = append(u.mutations, A.X{`=`, 17, val})
+		u.logs = append(u.logs, A.X{`language`, u.Language, val})
+		u.Language = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (u *UsersMutator) SetAll(from rqAuth.Users, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -579,6 +603,14 @@ func (u *UsersMutator) SetAll(from rqAuth.Users, excludeMap, forceMap M.SB) (cha
 	}
 	if !excludeMap[`userName`] && (forceMap[`userName`] || from.UserName != ``) {
 		u.UserName = from.UserName
+		changed = true
+	}
+	if !excludeMap[`country`] && (forceMap[`country`] || from.Country != ``) {
+		u.Country = from.Country
+		changed = true
+	}
+	if !excludeMap[`language`] && (forceMap[`language`] || from.Language != ``) {
+		u.Language = from.Language
 		changed = true
 	}
 	return

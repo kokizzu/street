@@ -24,6 +24,8 @@ const (
 	LastLoginAt        = `lastLoginAt`
 	FullName           = `fullName`
 	UserName           = `userName`
+	Country            = `country`  // 2-letters ISO country code
+	Language           = `language` // 2-letters ISO country code (only EN and TW available, if empty assume EN)
 )
 
 const (
@@ -57,6 +59,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{LastLoginAt, Tt.Integer},
 			{FullName, Tt.String},
 			{UserName, Tt.String},
+			{Country, Tt.String},
+			{Language, Tt.String},
 		},
 		AutoIncrementId:  true,
 		Unique1:          Email,

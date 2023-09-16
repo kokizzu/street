@@ -19,6 +19,8 @@ type (
 		UserName string `json:"userName" form:"userName" query:"userName" long:"userName" msg:"userName"`
 		FullName string `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
 		Email    string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
+		Country  string `json:"country" form:"country" query:"country" long:"country" msg:"country"`
+		Language string `json:"language" form:"language" query:"language" long:"language" msg:"language"`
 	}
 
 	UserUpdateProfileOut struct {
@@ -73,6 +75,14 @@ func (d *Domain) UserUpdateProfile(in *UserUpdateProfileIn) (out UserProfileOut)
 
 	if in.FullName != `` && user.FullName != in.FullName {
 		user.SetFullName(in.FullName)
+	}
+
+	if in.Country != `` && user.Country != in.Country { // 2-letter country code
+		user.SetCountry(in.Country)
+	}
+
+	if in.Language != `` && user.Language != in.Language { // 2-letter language code
+		user.SetLanguage(in.Language)
 	}
 
 	if !user.DoUpdateById() {
