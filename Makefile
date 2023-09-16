@@ -5,6 +5,8 @@ setup:
 	go install github.com/fatih/gomodifytags@latest
 	go install github.com/kokizzu/replacer@latest
 	go install github.com/akbarfa49/farify@latest
+	go install golang.org/x/tools/cmd/goimports@latest
+	curl -fsSL https://bun.sh/install | bash
 
 local-tarantool:
 	docker exec -it `docker ps | grep tarantool | cut -d ' ' -f 1` tarantoolctl connect userT:passT@localhost:3301
@@ -20,3 +22,12 @@ local-clickhouse:
 
 modtidy:
 	sudo chmod -R a+rwx tmpdb && go mod tidy
+
+orm:
+	./gen-orm.sh
+
+views:
+	./gen-views.sh
+
+routes:
+	./gen-views.sh

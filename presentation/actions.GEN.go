@@ -35,6 +35,8 @@ var allCommands = []string{
 	domain.UserProfileAction,
 	domain.UserPropHistoryAction,
 	domain.UserSearchPropAction,
+	domain.UserSessionKillAction,
+	domain.UserSessionsActiveAction,
 	domain.UserUpdateProfileAction,
 	domain.UserUploadFileAction,
 }

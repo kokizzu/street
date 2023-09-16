@@ -2783,6 +2783,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       exports.UserSearchProp = async function UserSearchProp(i, cb) {
         return await axios.post("/user/searchProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.UserSessionKill = async function UserSessionKill(i, cb) {
+        return await axios.post("/user/sessionKill", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserSessionsActive = async function UserSessionsActive(i, cb) {
+        return await axios.post("/user/sessionsActive", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.UserUpdateProfile = async function UserUpdateProfile(i, cb) {
         return await axios.post("/user/updateProfile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };

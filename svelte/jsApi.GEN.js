@@ -1827,6 +1827,67 @@ exports.UserSearchProp = async function UserSearchProp( i, cb ) {
 }
 
 /**
+ * @typedef {Object} UserSessionKillIn
+ * @property {String} sessionTokenHash
+ */
+const UserSessionKillIn = {
+  sessionTokenHash: '', // string
+}
+/**
+ * @typedef {Object} UserSessionKillOut
+ * @property {number} logoutAt
+ * @property {number} sessionTerminated
+ */
+const UserSessionKillOut = {
+  logoutAt: 0, // int64
+  sessionTerminated: 0, // int64
+}
+/**
+ * @callback UserSessionKillCallback
+ * @param {UserSessionKillOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserSessionKillIn} i
+ * @param {UserSessionKillCallback} cb
+ * @returns {Promise}
+ */
+exports.UserSessionKill = async function UserSessionKill( i, cb ) {
+  return await axios.post( '/user/sessionKill', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserSessionsActiveIn
+ */
+const UserSessionsActiveIn = {
+}
+/**
+ * @typedef {Object} UserSessionsActiveOut
+ * @property {Object} sessionsActive
+ */
+const UserSessionsActiveOut = {
+  sessionsActive: { // []rqAuth.Sessions
+  }, // []rqAuth.Sessions
+}
+/**
+ * @callback UserSessionsActiveCallback
+ * @param {UserSessionsActiveOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserSessionsActiveIn} i
+ * @param {UserSessionsActiveCallback} cb
+ * @returns {Promise}
+ */
+exports.UserSessionsActive = async function UserSessionsActive( i, cb ) {
+  return await axios.post( '/user/sessionsActive', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} UserUpdateProfileIn
  * @property {String} userName
  * @property {String} fullName
