@@ -151,7 +151,7 @@ func (d *Domain) AdminPropHistories(in *AdminPropHistoriesIn) (out AdminPropHist
 	}
 
 	switch in.Cmd {
-	case zCrud.ActionForm:
+	case zCrud.CmdForm:
 		if in.PropHistory.Id <= 0 {
 			out.Meta = &AdminPropertiesMeta
 			return
@@ -163,7 +163,7 @@ func (d *Domain) AdminPropHistories(in *AdminPropHistoriesIn) (out AdminPropHist
 			out.SetError(400, ErrAdminPropHistoryIdNotFound)
 		}
 		out.PropHistory = ph
-	case zCrud.ActionUpsert, zCrud.ActionDelete, zCrud.ActionRestore:
+	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
 
 		ph := wcProperty.NewPropertyHistoryMutator(d.PropOltp)
 		ph.Id = in.PropHistory.Id
@@ -173,11 +173,11 @@ func (d *Domain) AdminPropHistories(in *AdminPropHistoriesIn) (out AdminPropHist
 				return
 			}
 
-			if in.Cmd == zCrud.ActionDelete {
+			if in.Cmd == zCrud.CmdDelete {
 				if ph.DeletedAt == 0 {
 					ph.SetDeletedAt(in.UnixNow())
 				}
-			} else if in.Cmd == zCrud.ActionRestore {
+			} else if in.Cmd == zCrud.CmdRestore {
 				if ph.DeletedAt > 0 {
 					ph.SetDeletedAt(0)
 				}
@@ -207,7 +207,7 @@ func (d *Domain) AdminPropHistories(in *AdminPropHistoriesIn) (out AdminPropHist
 			break
 		}
 		fallthrough
-	case zCrud.ActionList:
+	case zCrud.CmdList:
 		ph := rqProperty.NewPropertyHistory(d.PropOltp)
 		out.PropHistories = ph.FindByPagination(&AdminPropHistoriesMeta, &in.Pager, &out.Pager)
 	}

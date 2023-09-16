@@ -210,8 +210,8 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		out.Meta = &AdminPropertiesMeta
 	}
 
-	switch in.Action {
-	case zCrud.ActionForm:
+	switch in.Cmd {
+	case zCrud.CmdForm:
 		if in.Property.Id <= 0 {
 			out.Meta = &AdminPropertiesMeta
 			return
@@ -225,7 +225,7 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		}
 		prop.NormalizeFloorList()
 		out.Property = prop
-	case zCrud.ActionUpsert, zCrud.ActionDelete, zCrud.ActionRestore:
+	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
 
 		prop := wcProperty.NewPropertyMutator(d.PropOltp)
 		prop.Id = in.Property.Id
@@ -235,11 +235,11 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 				return
 			}
 
-			if in.Action == zCrud.ActionDelete {
+			if in.Cmd == zCrud.CmdDelete {
 				if prop.DeletedAt == 0 {
 					prop.SetDeletedAt(in.UnixNow())
 				}
-			} else if in.Action == zCrud.ActionRestore {
+			} else if in.Cmd == zCrud.CmdRestore {
 				if prop.DeletedAt > 0 {
 					prop.SetDeletedAt(0)
 				}
@@ -272,7 +272,7 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 			break
 		}
 		fallthrough
-	case zCrud.ActionList:
+	case zCrud.CmdList:
 		r := rqProperty.NewProperty(d.PropOltp)
 		out.Properties = r.FindByPagination(&AdminPropertiesMeta, &in.Pager, &out.Pager)
 	}

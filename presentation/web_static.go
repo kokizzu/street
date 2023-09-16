@@ -218,7 +218,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
-		in.Cmd = zCrud.ActionList
+		in.Cmd = zCrud.CmdList
 		out := d.AdminUsers(&in)
 		return views.RenderAdminUsers(ctx, M.SX{
 			`title`:    `Users`,
@@ -239,7 +239,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
-		in.Action = zCrud.ActionList
+		in.Cmd = zCrud.CmdList
 		out := d.AdminProperties(&in)
 		return views.RenderAdminProperties(ctx, M.SX{
 			`title`:      `Properties`,
@@ -260,7 +260,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
-		in.Cmd = zCrud.ActionList
+		in.Cmd = zCrud.CmdList
 		out := d.AdminPropHistories(&in)
 		return views.RenderAdminPropHistories(ctx, M.SX{
 			`title`:         `Prop Histories`,

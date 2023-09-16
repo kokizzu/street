@@ -130,7 +130,7 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 	}
 
 	switch in.Cmd {
-	case zCrud.ActionForm:
+	case zCrud.CmdForm:
 		if in.User.Id <= 0 {
 			out.Meta = &AdminUsersMeta
 			return
@@ -143,7 +143,7 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 		}
 		user.CensorFields()
 		out.User = user
-	case zCrud.ActionUpsert, zCrud.ActionDelete, zCrud.ActionRestore:
+	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
 
 		user := wcAuth.NewUsersMutator(d.AuthOltp)
 		user.Id = in.User.Id
@@ -153,11 +153,11 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 				return
 			}
 
-			if in.Cmd == zCrud.ActionDelete {
+			if in.Cmd == zCrud.CmdDelete {
 				if user.DeletedAt == 0 {
 					user.SetDeletedAt(in.UnixNow())
 				}
-			} else if in.Cmd == zCrud.ActionRestore {
+			} else if in.Cmd == zCrud.CmdRestore {
 				if user.DeletedAt > 0 {
 					user.SetDeletedAt(0)
 				}
@@ -205,7 +205,7 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 			break
 		}
 		fallthrough
-	case zCrud.ActionList:
+	case zCrud.CmdList:
 		r := rqAuth.NewUsers(d.AuthOltp)
 		out.Users = r.FindByPagination(&AdminUsersMeta, &in.Pager, &out.Pager)
 	}

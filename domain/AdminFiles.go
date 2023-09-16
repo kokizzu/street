@@ -125,7 +125,7 @@ func (d *Domain) AdminFiles(in *AdminFilesIn) (out AdminFilesOut) {
 	}
 
 	switch in.Cmd {
-	case zCrud.ActionList:
+	case zCrud.CmdList:
 		r := rqStorage.NewFiles(d.StorOltp)
 		out.Files = r.FindByPagination(&AdminFilesMeta, &in.Pager, &out.Pager)
 
