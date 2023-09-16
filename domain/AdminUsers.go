@@ -17,7 +17,7 @@ type (
 	AdminUsersIn struct {
 		RequestCommon
 
-		Cmd string
+		Cmd string `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
 
 		// for modifying user
 		User rqAuth.Users `json:"user" form:"user" query:"user" long:"user" msg:"user"`

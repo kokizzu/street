@@ -16,16 +16,16 @@ type (
 	AdminAccessLogsIn struct {
 		RequestCommon
 
-		Pager    zCrud.PagerIn `json:"pager"`
-		WithMeta bool
+		Pager    zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		WithMeta bool          `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
 	}
 
 	AdminAccessLogsOut struct {
 		ResponseCommon
 
-		Pager zCrud.PagerOut      `json:"pager"`
-		Logs  []saAuth.ActionLogs `json:"logs"`
-		Meta  *zCrud.Meta
+		Pager zCrud.PagerOut      `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		Logs  []saAuth.ActionLogs `json:"logs" form:"logs" query:"logs" long:"logs" msg:"logs"`
+		Meta  *zCrud.Meta         `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 	}
 )
 
@@ -152,7 +152,7 @@ func (d *Domain) AdminAccessLogs(in *AdminAccessLogsIn) (out AdminAccessLogsOut)
 
 	// if not set, always override by createdAt descending
 	if len(in.Pager.Order) == 0 {
-		in.Pager.Order = []string{"-createdAt"}
+		in.Pager.Order = []string{`-createdAt`}
 	}
 
 	r := saAuth.NewActionLogs(d.AuthOlap)

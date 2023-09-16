@@ -23,11 +23,14 @@ local-clickhouse:
 modtidy:
 	sudo chmod -R a+rwx tmpdb && go mod tidy
 
+fixtags:
+	# fix struct tags
+	go generate street/domain
+
 orm:
+	# generate ORM
 	./gen-orm.sh
 
 views:
-	./gen-views.sh
-
-routes:
+	# generate views and routes
 	./gen-views.sh

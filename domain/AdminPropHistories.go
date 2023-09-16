@@ -19,7 +19,7 @@ type (
 	AdminPropHistoriesIn struct {
 		RequestCommon
 
-		Cmd string
+		Cmd string `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
 
 		PropHistory rqProperty.PropertyHistory `json:"propHistory" form:"propHistory" query:"propHistory" long:"propHistory" msg:"propHistory"`
 

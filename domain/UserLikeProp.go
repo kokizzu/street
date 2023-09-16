@@ -15,7 +15,7 @@ type (
 	UserLikePropIn struct {
 		RequestCommon
 
-		propId uint64 `json:"propId" form:"propId" query:"propId" long:"propId" msg:"propId"`
+		propId uint64 `json:"propId,string" form:"propId" query:"propId" long:"propId" msg:"propId"`
 		Like   bool   `json:"like" form:"like" query:"like" long:"like" msg:"like"`
 	}
 

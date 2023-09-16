@@ -85,7 +85,7 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 		prop.SetCreatedAt(in.UnixNow())
 		prop.SetCreatedBy(sess.UserId)
 	}
-	prop.SetUniqPropKey(fmt.Sprintf("%d_%d", sess.UserId, fnv1a.HashString64(in.Property.FormattedAddress)))
+	prop.SetUniqPropKey(fmt.Sprintf(`%d_%d`, sess.UserId, fnv1a.HashString64(in.Property.FormattedAddress)))
 
 	dup := rqProperty.NewProperty(d.PropOltp)
 	dup.UniqPropKey = prop.UniqPropKey
