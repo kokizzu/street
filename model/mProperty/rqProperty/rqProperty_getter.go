@@ -110,7 +110,7 @@ func (p *Property) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zC
 	const comment = `-- Property) FindByPagination`
 
 	validFields := PropertyFieldTypeMap
-	whereAndSql := out.WhereAndSql(in.Filters, validFields)
+	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
 
 	queryCount := comment + `
 SELECT COUNT(1)
@@ -120,7 +120,7 @@ LIMIT 1`
 		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
 	})
 
-	orderBySql := out.OrderBySql(in.Order, validFields)
+	orderBySql := out.OrderBySqlTt(in.Order, validFields)
 	limitOffsetSql := out.LimitOffsetSql()
 
 	queryRows := comment + `
@@ -144,7 +144,7 @@ func (p *Property) FindOwnedByPagination(ownerId uint64, in *zCrud.PagerIn, out 
 	// override owner
 	in.Filters[mProperty.CreatedBy] = []string{`=`, X.ToS(ownerId)}
 	in.Filters[mProperty.DeletedAt] = []string{`=`, `0`}
-	whereAndSql := out.WhereAndSql(in.Filters, validFields)
+	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
 
 	queryCount := comment + `
 SELECT COUNT(1)
@@ -154,7 +154,7 @@ LIMIT 1`
 		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
 	})
 
-	orderBySql := out.OrderBySql(in.Order, validFields)
+	orderBySql := out.OrderBySqlTt(in.Order, validFields)
 	limitOffsetSql := out.LimitOffsetSql()
 
 	res = make([]Property, 0, out.PerPage)
@@ -191,7 +191,7 @@ func (p *PropertyHistory) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, 
 	const comment = `-- PropertyHistory) FindByPagination`
 
 	validFields := PropertyHistoryFieldTypeMap
-	whereAndSql := out.WhereAndSql(in.Filters, validFields)
+	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
 
 	queryCount := comment + `
 SELECT COUNT(1)
@@ -201,7 +201,7 @@ LIMIT 1`
 		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
 	})
 
-	orderBySql := out.OrderBySql(in.Order, validFields)
+	orderBySql := out.OrderBySqlTt(in.Order, validFields)
 	limitOffsetSql := out.LimitOffsetSql()
 
 	queryRows := comment + `

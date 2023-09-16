@@ -218,7 +218,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
-		in.Action = zCrud.ActionList
+		in.Cmd = zCrud.CmdList
 		out := d.AdminUsers(&in)
 		return views.RenderAdminUsers(ctx, M.SX{
 			`title`:    `Users`,
@@ -239,7 +239,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
-		in.Action = zCrud.ActionList
+		in.Cmd = zCrud.CmdList
 		out := d.AdminProperties(&in)
 		return views.RenderAdminProperties(ctx, M.SX{
 			`title`:      `Properties`,
@@ -260,7 +260,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
-		in.Action = zCrud.ActionList
+		in.Cmd = zCrud.CmdList
 		out := d.AdminPropHistories(&in)
 		return views.RenderAdminPropHistories(ctx, M.SX{
 			`title`:         `Prop Histories`,
@@ -275,10 +275,15 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
+		in.RequestCommon.Action = domain.UserSessionsActiveAction
+		out := d.UserSessionsActive(&domain.UserSessionsActiveIn{
+			RequestCommon: in.RequestCommon,
+		})
 		return views.RenderUser(ctx, M.SX{
-			`title`:    `Profile`,
-			`user`:     user,
-			`segments`: segments,
+			`title`:          `Profile`,
+			`user`:           user,
+			`segments`:       segments,
+			`activeSessions`: out.SessionsActive,
 		})
 	})
 	fw.Get(`/`+domain.GuestAutoLoginAction, func(ctx *fiber.Ctx) error {
@@ -296,14 +301,45 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		}
 		return in.ToFiberCtx(ctx, out, &out.ResponseCommon, in)
 	})
-	fw.Get(`/`+domain.AdminFilesAction, func(ctx *fiber.Ctx) error {
-		in, _, segments := userInfoFromContext(ctx, d)
+	fw.Get(`/`+domain.AdminAccessLogsAction, func(ctx *fiber.Ctx) error {
+		var in domain.AdminAccessLogsIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminUsersAction)
+		if err != nil {
+			return err
+		}
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		return views.RenderAdminFiles(ctx, M.SX{
-			`title`:    `Files`,
+		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		out := d.AdminAccessLogs(&in)
+		return views.RenderAdminAccessLog(ctx, M.SX{
+			`title`:    `Access Log`,
 			`segments`: segments,
+			`logs`:     out.Logs,
+			`fields`:   out.Meta.Fields,
+			`pager`:    out.Pager,
+		})
+	})
+	fw.Get(`/`+domain.AdminFilesAction, func(ctx *fiber.Ctx) error {
+		var in domain.AdminFilesIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminUsersAction)
+		if err != nil {
+			return err
+		}
+		if notAdmin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Cmd = `list`
+		out := d.AdminFiles(&in)
+		return views.RenderAdminFiles(ctx, M.SX{
+			`title`:    `Access Log`,
+			`segments`: segments,
+			`files`:    out.Files,
+			`fields`:   out.Meta.Fields,
+			`pager`:    out.Pager,
 		})
 	})
 	fw.All(`/guest/files/:base62id-:modifier.:ext`, func(ctx *fiber.Ctx) error {

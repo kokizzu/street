@@ -4,8 +4,10 @@ package saAuth
 
 import (
 	"database/sql"
-	"street/model/mAuth"
+	"net"
 	"time"
+
+	"street/model/mAuth"
 
 	_ "github.com/ClickHouse/clickhouse-go/v2"
 	chBuffer "github.com/kokizzu/ch-timed-buffer"
@@ -40,8 +42,8 @@ type ActionLogs struct {
 	StatusCode int16       `json:"statusCode" form:"statusCode" query:"statusCode" long:"statusCode" msg:"statusCode"`
 	Traces     string      `json:"traces" form:"traces" query:"traces" long:"traces" msg:"traces"`
 	Error      string      `json:"error" form:"error" query:"error" long:"error" msg:"error"`
-	IpAddr4    string      `json:"ipAddr4" form:"ipAddr4" query:"ipAddr4" long:"ipAddr4" msg:"ipAddr4"`
-	IpAddr6    string      `json:"ipAddr6" form:"ipAddr6" query:"ipAddr6" long:"ipAddr6" msg:"ipAddr6"`
+	IpAddr4    net.IP      `json:"ipAddr4" form:"ipAddr4" query:"ipAddr4" long:"ipAddr4" msg:"ipAddr4"`
+	IpAddr6    net.IP      `json:"ipAddr6" form:"ipAddr6" query:"ipAddr6" long:"ipAddr6" msg:"ipAddr6"`
 	UserAgent  string      `json:"userAgent" form:"userAgent" query:"userAgent" long:"userAgent" msg:"userAgent"`
 	Lat        float64     `json:"lat" form:"lat" query:"lat" long:"lat" msg:"lat"`
 	Long       float64     `json:"long" form:"long" query:"long" long:"long" msg:"long"`
@@ -53,12 +55,63 @@ func NewActionLogs(adapter *Ch.Adapter) *ActionLogs {
 	return &ActionLogs{Adapter: adapter}
 }
 
-func (a ActionLogs) TableName() Ch.TableName { //nolint:dupl false positive
+// ActionLogsFieldTypeMap returns key value of field name and key
+var ActionLogsFieldTypeMap = map[string]Ch.DataType{ //nolint:dupl false positive
+	`createdAt`:  Ch.DateTime,
+	`requestId`:  Ch.String,
+	`actorId`:    Ch.UInt64,
+	`action`:     Ch.String,
+	`statusCode`: Ch.Int16,
+	`traces`:     Ch.String,
+	`error`:      Ch.String,
+	`ipAddr4`:    Ch.IPv4,
+	`ipAddr6`:    Ch.IPv6,
+	`userAgent`:  Ch.String,
+	`lat`:        Ch.Float64,
+	`long`:       Ch.Float64,
+	`latency`:    Ch.Float64,
+	`refId`:      Ch.UInt64,
+}
+
+func (a *ActionLogs) TableName() Ch.TableName { //nolint:dupl false positive
 	return mAuth.TableActionLogs
 }
 
 func (a *ActionLogs) SqlTableName() string { //nolint:dupl false positive
 	return `"actionLogs"`
+}
+
+func (a *ActionLogs) ScanRowAllCols(rows *sql.Rows) (err error) { //nolint:dupl false positive
+	return rows.Scan(
+		&a.CreatedAt,
+		&a.RequestId,
+		&a.ActorId,
+		&a.Action,
+		&a.StatusCode,
+		&a.Traces,
+		&a.Error,
+		&a.IpAddr4,
+		&a.IpAddr6,
+		&a.UserAgent,
+		&a.Lat,
+		&a.Long,
+		&a.Latency,
+		&a.RefId,
+	)
+}
+
+func (a *ActionLogs) ScanRowsAllCols(rows *sql.Rows, estimateRows int) (res []ActionLogs, err error) { //nolint:dupl false positive
+	res = make([]ActionLogs, 0, estimateRows)
+	defer rows.Close()
+	for rows.Next() {
+		var row ActionLogs
+		err = row.ScanRowAllCols(rows)
+		if err != nil {
+			return
+		}
+		res = append(res, row)
+	}
+	return
 }
 
 // insert, error if exists

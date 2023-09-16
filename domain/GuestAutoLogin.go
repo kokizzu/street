@@ -61,7 +61,7 @@ func (d *Domain) GuestAutoLogin(in *GuestAutoLoginIn) (out GuestAutoLoginOut) {
 	sess := &Session{
 		UserId:       userId,
 		ExpiredAt:    0,
-		Email:        "",
+		Email:        ``,
 		IsSuperAdmin: false,
 		Segments:     nil,
 	}

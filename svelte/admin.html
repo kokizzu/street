@@ -2483,6 +2483,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           cb(data);
         };
       }
+      exports.AdminAccessLogs = async function AdminAccessLogs(i, cb) {
+        return await axios.post("/admin/accessLogs", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
         return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2566,6 +2569,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       };
       exports.UserSearchProp = async function UserSearchProp(i, cb) {
         return await axios.post("/user/searchProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserSessionKill = async function UserSessionKill(i, cb) {
+        return await axios.post("/user/sessionKill", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserSessionsActive = async function UserSessionsActive(i, cb) {
+        return await axios.post("/user/sessionsActive", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserUpdateProfile = async function UserUpdateProfile(i, cb) {
         return await axios.post("/user/updateProfile", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -18686,8 +18695,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t7;
     let a4;
     let t9;
+    let a5;
+    let t11;
     let c0;
-    let t10;
+    let t12;
     let c1;
     return {
       c() {
@@ -18706,10 +18717,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         a3.textContent = "Prop Histories";
         t7 = space();
         a4 = element("a");
-        a4.textContent = "Files";
+        a4.textContent = "Access Logs";
         t9 = space();
+        a5 = element("a");
+        a5.textContent = "Files";
+        t11 = space();
         c0 = comment(`  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>`);
-        t10 = space();
+        t12 = space();
         c1 = comment(`  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>`);
         attr(a0, "href", "/admin");
         attr(a0, "class", "svelte-ylwlsa");
@@ -18743,10 +18757,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*segment2*/
           ctx[0] === "propHistories"
         );
-        attr(a4, "href", "/admin/files");
+        attr(a4, "href", "/admin/accessLogs");
         attr(a4, "class", "svelte-ylwlsa");
         toggle_class(
           a4,
+          "active",
+          /*segment2*/
+          ctx[0] === "accessLogs"
+        );
+        attr(a5, "href", "/admin/files");
+        attr(a5, "class", "svelte-ylwlsa");
+        toggle_class(
+          a5,
           "active",
           /*segment2*/
           ctx[0] === "files"
@@ -18767,8 +18789,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(nav, t7);
         append(nav, a4);
         append(nav, t9);
+        append(nav, a5);
+        append(nav, t11);
         append(nav, c0);
-        append(nav, t10);
+        append(nav, t12);
         append(nav, c1);
       },
       p(ctx2, [dirty]) {
@@ -18812,6 +18836,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         1) {
           toggle_class(
             a4,
+            "active",
+            /*segment2*/
+            ctx2[0] === "accessLogs"
+          );
+        }
+        if (dirty & /*segment2*/
+        1) {
+          toggle_class(
+            a5,
             "active",
             /*segment2*/
             ctx2[0] === "files"

@@ -2,6 +2,10 @@ package saAuth
 
 import (
 	"database/sql"
+
+	"github.com/kokizzu/gotro/L"
+
+	"street/model/zCrud"
 )
 
 func scanMap(rows *sql.Rows, err error) map[string]int {
@@ -87,4 +91,41 @@ ORDER BY 1, 2 DESC
 		res[action][date] = count
 	}
 	return res
+}
+
+func (a ActionLogs) FindByPagination(in *zCrud.PagerIn, out *zCrud.PagerOut) (res []ActionLogs) {
+	const comment = `-- Property) FindByPagination`
+
+	validFields := ActionLogsFieldTypeMap
+	whereAndSql := out.WhereAndSqlCh(in.Filters, validFields)
+
+	queryCount := comment + `
+SELECT COUNT(1)
+FROM ` + a.SqlTableName() + whereAndSql + `
+LIMIT 1`
+	row := a.Adapter.QueryRow(queryCount)
+	err := row.Err()
+	if L.IsError(err, `FindByPagination.Adapter.QueryRow error: `+queryCount) {
+		return
+	}
+	err = row.Scan(&out.Total)
+	out.CalculatePages(in.Page, in.PerPage, out.Total)
+
+	orderBySql := out.OrderBySqlCh(in.Order, validFields)
+	limitOffsetSql := out.LimitOffsetSql()
+
+	queryRows := comment + `
+SELECT ` + a.SqlAllFields() + `
+FROM ` + a.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+	rows, err := a.Adapter.Query(queryRows)
+	if L.IsError(err, `FindByPagination.Adapter.Query error: `+queryRows) {
+		return
+	}
+
+	res, err = a.ScanRowsAllCols(rows, out.PerPage)
+	if L.IsError(err, `FindByPagination.ScanRowsAllCols error: `+queryRows) {
+		return
+	}
+
+	return
 }

@@ -4,8 +4,9 @@ package saProperty
 
 import (
 	"database/sql"
-	"street/model/mProperty"
 	"time"
+
+	"street/model/mProperty"
 
 	_ "github.com/ClickHouse/clickhouse-go/v2"
 	chBuffer "github.com/kokizzu/ch-timed-buffer"

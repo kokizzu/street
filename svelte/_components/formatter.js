@@ -1,5 +1,6 @@
 function datetime( unixSec ) {
   if( !unixSec ) return '';
+  if( typeof unixSec==='string' ) return unixSec; // might not be unix time
   const dt = new Date( unixSec * 1000 );
   const options = {day: '2-digit', month: 'long', year: 'numeric'};
   const formattedDate = dt.toLocaleDateString( undefined, options );
@@ -46,7 +47,7 @@ function formatPrice( price, currency ) {
   return new Intl.NumberFormat( 'en-US', {
     style: 'currency',
     currency: currency,
-    maximumSignificantDigits: 3
+    maximumSignificantDigits: 3,
   } ).format( price );
 }
 

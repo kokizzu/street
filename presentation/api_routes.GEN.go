@@ -10,6 +10,16 @@ import (
 
 func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 
+	// AdminAccessLogs
+	fw.Post("/"+domain.AdminAccessLogsAction, func(c *fiber.Ctx) error {
+		in := domain.AdminAccessLogsIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.AdminAccessLogsAction); err != nil {
+			return nil
+		}
+		out := d.AdminAccessLogs(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// AdminDashboard
 	fw.Post("/"+domain.AdminDashboardAction, func(c *fiber.Ctx) error {
 		in := domain.AdminDashboardIn{}
@@ -287,6 +297,26 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.UserSearchProp(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// UserSessionKill
+	fw.Post("/"+domain.UserSessionKillAction, func(c *fiber.Ctx) error {
+		in := domain.UserSessionKillIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserSessionKillAction); err != nil {
+			return nil
+		}
+		out := d.UserSessionKill(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// UserSessionsActive
+	fw.Post("/"+domain.UserSessionsActiveAction, func(c *fiber.Ctx) error {
+		in := domain.UserSessionsActiveIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserSessionsActiveAction); err != nil {
+			return nil
+		}
+		out := d.UserSessionsActive(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

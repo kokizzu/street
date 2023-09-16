@@ -1,9 +1,11 @@
 
 # Street Project
 
-People can buy/sell house/building
+People can find house/building to buy/sell
 
-[links](https://docs.google.com/document/d/1ATjUVawcWBM_axQBJU2Xdcu2WkF4sz9-NSGCSDzBHJ8/edit)
+![image](https://github.com/kokizzu/street/assets/1061610/13b2dce6-e6ce-408f-97f5-5baa7c115196)
+
+[stream links](https://docs.google.com/document/d/1ATjUVawcWBM_axQBJU2Xdcu2WkF4sz9-NSGCSDzBHJ8/edit)
 
 ## Architecture
 
@@ -168,6 +170,8 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
   - **A**: install [gomodifytags](//github.com/fatih/gomodifytags) or `make setup`
 - **Q**: got error `Command 'farify' not found`
   - **A**: install [farify](//github.com/akbarfa49/farify) or `make setup`
+- **Q**: got error `Command 'goimports' not found`
+  - **A**: install [goimports](//cs.opensource.google/go/x/tools) or `make setup`
 - **Q**: where to put secret that I don't want to commit?
   - **A**: on `.env.override` file
 - **Q**: got error `.env.override` no such file or directory

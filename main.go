@@ -148,6 +148,7 @@ func main() {
 
 	// check table existence
 	if mode != `migrate` {
+		L.Print(`verifying table schema, if failed, run: go run main.go migrate`)
 		model.VerifyTables(tConn, cConn, tConn, cConn, tConn)
 	}
 

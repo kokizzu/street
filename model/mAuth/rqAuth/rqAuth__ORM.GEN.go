@@ -260,6 +260,8 @@ type Users struct {
 	LastLoginAt        int64       `json:"lastLoginAt" form:"lastLoginAt" query:"lastLoginAt" long:"lastLoginAt" msg:"lastLoginAt"`
 	FullName           string      `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
 	UserName           string      `json:"userName" form:"userName" query:"userName" long:"userName" msg:"userName"`
+	Country            string      `json:"country" form:"country" query:"country" long:"country" msg:"country"`
+	Language           string      `json:"language" form:"language" query:"language" long:"language" msg:"language"`
 }
 
 // NewUsers create new ORM reader/query object
@@ -351,6 +353,8 @@ func (u *Users) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "lastLoginAt"
 	, "fullName"
 	, "userName"
+	, "country"
+	, "language"
 	`
 }
 
@@ -372,6 +376,8 @@ func (u *Users) SqlSelectAllUncensoredFields() string { //nolint:dupl false posi
 	, "lastLoginAt"
 	, "fullName"
 	, "userName"
+	, "country"
+	, "language"
 	`
 }
 
@@ -394,6 +400,8 @@ func (u *Users) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 13, u.LastLoginAt},
 		A.X{`=`, 14, u.FullName},
 		A.X{`=`, 15, u.UserName},
+		A.X{`=`, 16, u.Country},
+		A.X{`=`, 17, u.Language},
 	}
 }
 
@@ -557,6 +565,26 @@ func (u *Users) SqlUserName() string { //nolint:dupl false positive
 	return `"userName"`
 }
 
+// IdxCountry return name of the index
+func (u *Users) IdxCountry() int { //nolint:dupl false positive
+	return 16
+}
+
+// SqlCountry return name of the column being indexed
+func (u *Users) SqlCountry() string { //nolint:dupl false positive
+	return `"country"`
+}
+
+// IdxLanguage return name of the index
+func (u *Users) IdxLanguage() int { //nolint:dupl false positive
+	return 17
+}
+
+// SqlLanguage return name of the column being indexed
+func (u *Users) SqlLanguage() string { //nolint:dupl false positive
+	return `"language"`
+}
+
 // CensorFields remove sensitive fields for output
 func (u *Users) CensorFields() { //nolint:dupl false positive
 	u.Password = ``
@@ -587,6 +615,8 @@ func (u *Users) ToArray() A.X { //nolint:dupl false positive
 		u.LastLoginAt,        // 13
 		u.FullName,           // 14
 		u.UserName,           // 15
+		u.Country,            // 16
+		u.Language,           // 17
 	}
 }
 
@@ -608,6 +638,8 @@ func (u *Users) FromArray(a A.X) *Users { //nolint:dupl false positive
 	u.LastLoginAt = X.ToI(a[13])
 	u.FullName = X.ToS(a[14])
 	u.UserName = X.ToS(a[15])
+	u.Country = X.ToS(a[16])
+	u.Language = X.ToS(a[17])
 	return u
 }
 
@@ -626,6 +658,8 @@ func (u *Users) FromUncensoredArray(a A.X) *Users { //nolint:dupl false positive
 	u.LastLoginAt = X.ToI(a[13])
 	u.FullName = X.ToS(a[14])
 	u.UserName = X.ToS(a[15])
+	u.Country = X.ToS(a[16])
+	u.Language = X.ToS(a[17])
 	return u
 }
 
@@ -685,6 +719,8 @@ var UsersFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`lastLoginAt`:        Tt.Integer,
 	`fullName`:           Tt.String,
 	`userName`:           Tt.String,
+	`country`:            Tt.String,
+	`language`:           Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
