@@ -69,7 +69,6 @@
         });
         map.addListener('idle', () => {
             bounds = map.getBounds();
-            console.log('bounds', bounds);
         });
         $mapComponent = map;
         dispatch('ready');

@@ -362,6 +362,9 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		_, err = ctx.Write(out.Raw)
 		return err
 	})
+	fw.Get(`/debug`, func(ctx *fiber.Ctx) error {
+		return views.RenderDebug(ctx, M.SX{})
+	})
 }
 
 func notLogin(ctx *fiber.Ctx, d *domain.Domain, in domain.RequestCommon) bool {

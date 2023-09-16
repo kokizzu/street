@@ -1,9 +1,8 @@
 <script>
     // @ts-nocheck
-    import { UserNearbyFacilities, UserSearchProp } from 'jsApi.GEN';
-    import { formatPrice } from './formatter';
-    import { currentLang } from './uiState';
-    import translation from '../translation.json';
+    import { UserNearbyFacilities, UserSearchProp } from '../jsApi.GEN.js';
+    import { formatPrice } from './formatter.js';
+    import { T } from './uiState.js';
     import { GoogleMap, GoogleSdk } from './GoogleMap/components';
     import Growl from './Growl.svelte';
     import { mapComponent } from './GoogleMap/stores';
@@ -21,16 +20,6 @@
     import FaSolidBan from 'svelte-icons-pack/fa/FaSolidBan';
     import FaSolidReceipt from 'svelte-icons-pack/fa/FaSolidReceipt';
     import { distanceKM } from './GoogleMap/distance';
-
-    let translate;
-    $: translate = (key) => {
-        console.log($currentLang);
-        if ($currentLang === 'EN') {
-            return translation[key];
-        }
-        const keyTranslate = key + $currentLang;
-        return translation[keyTranslate];
-    };
 
     export let randomProps = [];
     export let defaultDistanceKm = 20;
@@ -89,7 +78,6 @@
     async function searchProperty(search) {
         if (search) {
             let bestDistance = defaultDistanceKm;
-            console.log('gmapBounds', gmapBounds);
             if (gmapBounds && gmapBounds.getNorthEast) {
                 let ne = gmapBounds.getNorthEast();
                 bestDistance = distanceKM(ne.lat(), ne.lng(), myLatLng.lat, myLatLng.lng);
@@ -257,7 +245,7 @@
                             <div class='main_info'>
                                 <div class='label_info'>
                                     <div class={prop.purpose === 'rent' ? 'purpose label_rent' : 'purpose label_sale' }>
-                                        {prop.purpose === 'rent' ? translate('forRent') : translate('onSale')}
+                                        {prop.purpose === 'rent' ? $T.forRent : $T.onSale}
                                     </div>
                                     <div class='house_type'>
                                         <Icon size={12} color='#475569' src={FaSolidHome} />
@@ -272,21 +260,21 @@
                                     <div class='item'>
                                         <div>
                                             <Icon size={13} color='#ffff' src={FaSolidBuilding} />
-                                            <span>{translate('floors')}</span>
+                                            <span>{$T.floors}</span>
                                         </div>
                                         <span class='value'>{prop.numberOfFloors === 0 ? 'no-data' : prop.numberOfFloors}</span>
                                     </div>
                                     <div class='item'>
                                         <div>
                                             <Icon size={14} color='#ffff' src={FaSolidBed} />
-                                            <span>{translate('bed')}</span>
+                                            <span>{$T.bed}</span>
                                         </div>
                                         <span class='value'>{prop.bedroom === 0 ? 'no-data' : prop.bedroom}</span>
                                     </div>
                                     <div class='item'>
                                         <div>
                                             <Icon size={13} color='#ffff' src={FaSolidBath} />
-                                            <span>{translate('bath')}</span>
+                                            <span>{$T.bath}</span>
                                         </div>
                                         <span class='value'>{prop.bathroom === 0 ? 'no-data' : prop.bathroom}</span>
                                     </div>
@@ -295,10 +283,10 @@
                             <div class='secondary_info'>
                                 <div class='size'>
                                     <Icon size={12} color='#f97316' src={FaSolidRulerCombined} />
-                                    <span>{prop.sizeM2} {translate('m')}2</span>
+                                    <span>{prop.sizeM2} {$T.m}2</span>
                                 </div>
                                 <div class='price'>
-                                    <span class='agency_fee'>{translate('agencyFee')}: {prop.agencyFeePercent || '0'}%</span>
+                                    <span class='agency_fee'>{$T.agencyFee}: {prop.agencyFeePercent || '0'}%</span>
                                     <span class='last_price'>{formatPrice(prop.lastPrice || 0, 'TWD')}</span>
                                 </div>
                             </div>
