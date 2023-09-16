@@ -1,9 +1,11 @@
 
 # Street Project
 
-People can buy/sell house/building
+People can find house/building to buy/sell
 
-[links](https://docs.google.com/document/d/1ATjUVawcWBM_axQBJU2Xdcu2WkF4sz9-NSGCSDzBHJ8/edit)
+![image](https://github.com/kokizzu/street/assets/1061610/13b2dce6-e6ce-408f-97f5-5baa7c115196)
+
+[stream links](https://docs.google.com/document/d/1ATjUVawcWBM_axQBJU2Xdcu2WkF4sz9-NSGCSDzBHJ8/edit)
 
 ## Architecture
 
