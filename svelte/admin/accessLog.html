@@ -511,136 +511,6 @@ input.input_filter.svelte-somn03.svelte-somn03 {
   min-width: 100%;
   box-sizing: border-box;
 }
-
-/* fakecss:./_components/ModalForm.esbuild-svelte-fake-css */
-.backdrop.svelte-oq5wkw.svelte-oq5wkw {
-  position: fixed;
-  z-index: 40;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  background: rgba(41, 41, 41, 0.9);
-  overflow-y: auto;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-.backdrop.svelte-oq5wkw.svelte-oq5wkw::-webkit-scrollbar-thumb {
-  background: transparent;
-}
-.backdrop.svelte-oq5wkw.svelte-oq5wkw::-webkit-scrollbar {
-  width: 0;
-}
-.backdrop.svelte-oq5wkw.svelte-oq5wkw::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-.modal_container.svelte-oq5wkw.svelte-oq5wkw {
-  background-color: white;
-  width: 500px;
-  height: fit-content;
-  margin: 30px 0;
-  padding: 20px;
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
-  color: #334155;
-}
-.modal_container.svelte-oq5wkw header.svelte-oq5wkw {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.modal_container.svelte-oq5wkw header h2.svelte-oq5wkw {
-  font-size: 16px;
-  line-height: 1.5rem;
-  padding: 0;
-  margin: 0;
-}
-.modal_container.svelte-oq5wkw header button.svelte-oq5wkw {
-  padding: 5px;
-  border: none;
-  background: none;
-  border-radius: 5px;
-  font-size: 12px;
-  cursor: pointer;
-}
-.modal_container.svelte-oq5wkw header button.svelte-oq5wkw:hover {
-  background-color: rgb(0 0 0 / 0.07);
-  color: #EF4444;
-}
-.input_container.svelte-oq5wkw.svelte-oq5wkw {
-  margin: 0 0 15px 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-.input_container.svelte-oq5wkw .input_box.svelte-oq5wkw {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-  margin-top: 10px;
-}
-.input_container.svelte-oq5wkw .input_box label.svelte-oq5wkw {
-  font-size: 13px;
-  font-weight: 700;
-  margin-left: 10px;
-  flex-grow: 1;
-}
-.input_container.svelte-oq5wkw .input_box input.svelte-oq5wkw {
-  width: 73%;
-  border: 1px solid #CBD5E1;
-  background-color: #F1F5F9;
-  border-radius: 8px;
-  padding: 8px;
-  margin-top: 5px;
-}
-.input_container.svelte-oq5wkw .input_box input.svelte-oq5wkw:focus {
-  border-color: #3b82f6;
-  outline: 1px solid #3b82f6;
-}
-.input_container.svelte-oq5wkw .form_info.svelte-oq5wkw {
-  display: inline-flex;
-  align-items: center;
-  font-size: 13px;
-  margin: 5px 0 0 10px;
-}
-.input_container.svelte-oq5wkw .form_info label.svelte-oq5wkw {
-  font-weight: 700;
-  margin-right: 10px;
-}
-.button_container.svelte-oq5wkw.svelte-oq5wkw {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  align-content: stretch;
-}
-.button_container.svelte-oq5wkw button.svelte-oq5wkw {
-  margin-left: 10px;
-  padding: 8px 10px;
-  font-size: 13px;
-  font-weight: 600;
-  border-radius: 5px;
-  color: white;
-  border: none;
-  cursor: pointer;
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-}
-.button_container.svelte-oq5wkw .cancel.svelte-oq5wkw {
-  background-color: grey;
-}
-.button_container.svelte-oq5wkw .save.svelte-oq5wkw {
-  background-color: #3b82f6;
-}
-.button_container.svelte-oq5wkw .delete.svelte-oq5wkw {
-  background-color: #ec4899;
-}
-.button_container.svelte-oq5wkw .restore.svelte-oq5wkw {
-  background-color: #f97316;
-}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -2647,13 +2517,13 @@ input.input_filter.svelte-somn03.svelte-somn03 {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance9 = bind2(Axios$1.prototype.request, context);
-        utils.extend(instance9, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance9, context, null, { allOwnKeys: true });
-        instance9.create = function create(instanceConfig) {
+        const instance8 = bind2(Axios$1.prototype.request, context);
+        utils.extend(instance8, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance8, context, null, { allOwnKeys: true });
+        instance8.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance9;
+        return instance8;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2699,7 +2569,7 @@ input.input_filter.svelte-somn03.svelte-somn03 {
           cb(data);
         };
       }
-      exports.AdminAccessLogs = async function AdminAccessLogs(i, cb) {
+      exports.AdminAccessLogs = async function AdminAccessLogs2(i, cb) {
         return await axios.post("/admin/accessLogs", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
@@ -2714,7 +2584,7 @@ input.input_filter.svelte-somn03.svelte-somn03 {
       exports.AdminProperties = async function AdminProperties(i, cb) {
         return await axios.post("/admin/properties", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.AdminUsers = async function AdminUsers2(i, cb) {
+      exports.AdminUsers = async function AdminUsers(i, cb) {
         return await axios.post("/admin/users", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.GuestAutoLogin = async function GuestAutoLogin(i, cb) {
@@ -2804,7 +2674,7 @@ input.input_filter.svelte-somn03.svelte-somn03 {
   // _components/formatter.js
   var require_formatter = __commonJS({
     "_components/formatter.js"(exports, module) {
-      function datetime3(unixSec) {
+      function datetime2(unixSec) {
         if (!unixSec)
           return "";
         if (typeof unixSec === "string")
@@ -2856,7 +2726,7 @@ input.input_filter.svelte-somn03.svelte-somn03 {
         }).format(price);
       }
       module.exports = {
-        datetime: datetime3,
+        datetime: datetime2,
         priceNtd,
         localeDatetime,
         datetime2: datetime22,
@@ -3370,7 +3240,7 @@ input.input_filter.svelte-somn03.svelte-somn03 {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance9, create_fragment9, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance8, create_fragment8, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3396,7 +3266,7 @@ input.input_filter.svelte-somn03.svelte-somn03 {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance9 ? instance9(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance8 ? instance8(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -3409,7 +3279,7 @@ input.input_filter.svelte-somn03.svelte-somn03 {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment9 ? create_fragment9($.ctx) : false;
+    $.fragment = create_fragment8 ? create_fragment8($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -6960,1306 +6830,9 @@ input.input_filter.svelte-somn03.svelte-somn03 {
   };
   var TableView_default = TableView;
 
-  // admin/users.svelte
+  // admin/accessLog.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
-
-  // _components/ModalForm.svelte
-  var import_formatter2 = __toESM(require_formatter());
-  function get_each_context3(ctx, list, i) {
-    const child_ctx = ctx.slice();
-    child_ctx[21] = list[i];
-    child_ctx[22] = list;
-    child_ctx[23] = i;
-    return child_ctx;
-  }
-  function create_if_block3(ctx) {
-    let div3;
-    let div2;
-    let header;
-    let t0;
-    let button0;
-    let t1;
-    let div0;
-    let t2;
-    let t3;
-    let div1;
-    let button1;
-    let t5;
-    let current;
-    let mounted;
-    let dispose;
-    function select_block_type(ctx2, dirty) {
-      if (
-        /*row*/
-        ctx2[0].id
-      )
-        return create_if_block_9;
-      return create_else_block_5;
-    }
-    let current_block_type = select_block_type(ctx, -1);
-    let if_block0 = current_block_type(ctx);
-    let each_value = ensure_array_like(
-      /*fields*/
-      ctx[3]
-    );
-    let each_blocks = [];
-    for (let i = 0; i < each_value.length; i += 1) {
-      each_blocks[i] = create_each_block3(get_each_context3(ctx, each_value, i));
-    }
-    const default_slot_template = (
-      /*#slots*/
-      ctx[14].default
-    );
-    const default_slot = create_slot(
-      default_slot_template,
-      ctx,
-      /*$scope*/
-      ctx[13],
-      null
-    );
-    function select_block_type_4(ctx2, dirty) {
-      if (
-        /*loading*/
-        ctx2[2]
-      )
-        return create_if_block_13;
-      return create_else_block2;
-    }
-    let current_block_type_1 = select_block_type_4(ctx, -1);
-    let if_block1 = current_block_type_1(ctx);
-    return {
-      c() {
-        div3 = element("div");
-        div2 = element("div");
-        header = element("header");
-        if_block0.c();
-        t0 = space();
-        button0 = element("button");
-        button0.innerHTML = `<i class="gg-close"></i>`;
-        t1 = space();
-        div0 = element("div");
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].c();
-        }
-        t2 = space();
-        if (default_slot)
-          default_slot.c();
-        t3 = space();
-        div1 = element("div");
-        button1 = element("button");
-        button1.textContent = "Cancel";
-        t5 = space();
-        if_block1.c();
-        attr(button0, "aria-label", "close");
-        attr(button0, "title", "Close");
-        attr(button0, "type", "button");
-        attr(button0, "class", "svelte-oq5wkw");
-        attr(header, "class", "svelte-oq5wkw");
-        attr(div0, "class", "input_container svelte-oq5wkw");
-        attr(button1, "tabindex", "0");
-        set_style(button1, "margin", "0 auto 0 0");
-        attr(button1, "class", "cancel svelte-oq5wkw");
-        attr(div1, "class", "button_container svelte-oq5wkw");
-        attr(div2, "class", "modal_container svelte-oq5wkw");
-        attr(div3, "class", "backdrop svelte-oq5wkw");
-      },
-      m(target, anchor) {
-        insert(target, div3, anchor);
-        append(div3, div2);
-        append(div2, header);
-        if_block0.m(header, null);
-        append(header, t0);
-        append(header, button0);
-        append(div2, t1);
-        append(div2, div0);
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          if (each_blocks[i]) {
-            each_blocks[i].m(div0, null);
-          }
-        }
-        append(div0, t2);
-        if (default_slot) {
-          default_slot.m(div0, null);
-        }
-        append(div2, t3);
-        append(div2, div1);
-        append(div1, button1);
-        append(div1, t5);
-        if_block1.m(div1, null);
-        current = true;
-        if (!mounted) {
-          dispose = [
-            listen(
-              button0,
-              "click",
-              /*cancelPressed*/
-              ctx[8]
-            ),
-            listen(
-              button1,
-              "click",
-              /*cancelPressed*/
-              ctx[8]
-            )
-          ];
-          mounted = true;
-        }
-      },
-      p(ctx2, dirty) {
-        if (current_block_type === (current_block_type = select_block_type(ctx2, dirty)) && if_block0) {
-          if_block0.p(ctx2, dirty);
-        } else {
-          if_block0.d(1);
-          if_block0 = current_block_type(ctx2);
-          if (if_block0) {
-            if_block0.c();
-            if_block0.m(header, t0);
-          }
-        }
-        if (dirty & /*row, fields, datetime*/
-        9) {
-          each_value = ensure_array_like(
-            /*fields*/
-            ctx2[3]
-          );
-          let i;
-          for (i = 0; i < each_value.length; i += 1) {
-            const child_ctx = get_each_context3(ctx2, each_value, i);
-            if (each_blocks[i]) {
-              each_blocks[i].p(child_ctx, dirty);
-            } else {
-              each_blocks[i] = create_each_block3(child_ctx);
-              each_blocks[i].c();
-              each_blocks[i].m(div0, t2);
-            }
-          }
-          for (; i < each_blocks.length; i += 1) {
-            each_blocks[i].d(1);
-          }
-          each_blocks.length = each_value.length;
-        }
-        if (default_slot) {
-          if (default_slot.p && (!current || dirty & /*$scope*/
-          8192)) {
-            update_slot_base(
-              default_slot,
-              default_slot_template,
-              ctx2,
-              /*$scope*/
-              ctx2[13],
-              !current ? get_all_dirty_from_scope(
-                /*$scope*/
-                ctx2[13]
-              ) : get_slot_changes(
-                default_slot_template,
-                /*$scope*/
-                ctx2[13],
-                dirty,
-                null
-              ),
-              null
-            );
-          }
-        }
-        if (current_block_type_1 === (current_block_type_1 = select_block_type_4(ctx2, dirty)) && if_block1) {
-          if_block1.p(ctx2, dirty);
-        } else {
-          if_block1.d(1);
-          if_block1 = current_block_type_1(ctx2);
-          if (if_block1) {
-            if_block1.c();
-            if_block1.m(div1, null);
-          }
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(default_slot, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(default_slot, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(div3);
-        }
-        if_block0.d();
-        destroy_each(each_blocks, detaching);
-        if (default_slot)
-          default_slot.d(detaching);
-        if_block1.d();
-        mounted = false;
-        run_all(dispose);
-      }
-    };
-  }
-  function create_else_block_5(ctx) {
-    let h2;
-    let t0;
-    let t1;
-    return {
-      c() {
-        h2 = element("h2");
-        t0 = text("New ");
-        t1 = text(
-          /*rowType*/
-          ctx[4]
-        );
-        attr(h2, "class", "svelte-oq5wkw");
-      },
-      m(target, anchor) {
-        insert(target, h2, anchor);
-        append(h2, t0);
-        append(h2, t1);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*rowType*/
-        16)
-          set_data(
-            t1,
-            /*rowType*/
-            ctx2[4]
-          );
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(h2);
-        }
-      }
-    };
-  }
-  function create_if_block_9(ctx) {
-    let h2;
-    let t0;
-    let t1;
-    let t2;
-    let t3_value = (
-      /*row*/
-      ctx[0].id + ""
-    );
-    let t3;
-    return {
-      c() {
-        h2 = element("h2");
-        t0 = text("Edit ");
-        t1 = text(
-          /*rowType*/
-          ctx[4]
-        );
-        t2 = text(" ID: ");
-        t3 = text(t3_value);
-        attr(h2, "class", "svelte-oq5wkw");
-      },
-      m(target, anchor) {
-        insert(target, h2, anchor);
-        append(h2, t0);
-        append(h2, t1);
-        append(h2, t2);
-        append(h2, t3);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*rowType*/
-        16)
-          set_data(
-            t1,
-            /*rowType*/
-            ctx2[4]
-          );
-        if (dirty & /*row*/
-        1 && t3_value !== (t3_value = /*row*/
-        ctx2[0].id + ""))
-          set_data(t3, t3_value);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(h2);
-        }
-      }
-    };
-  }
-  function create_else_block_3(ctx) {
-    let div;
-    let label;
-    let t0_value = (
-      /*field*/
-      ctx[21].label + ""
-    );
-    let t0;
-    let label_for_value;
-    let t1;
-    function select_block_type_3(ctx2, dirty) {
-      if (
-        /*field*/
-        ctx2[21].inputType === "textarea"
-      )
-        return create_if_block_7;
-      if (
-        /*field*/
-        ctx2[21].inputType === "number"
-      )
-        return create_if_block_8;
-      return create_else_block_4;
-    }
-    let current_block_type = select_block_type_3(ctx, -1);
-    let if_block = current_block_type(ctx);
-    return {
-      c() {
-        div = element("div");
-        label = element("label");
-        t0 = text(t0_value);
-        t1 = space();
-        if_block.c();
-        attr(label, "for", label_for_value = "modalForm__" + /*field*/
-        ctx[21].name);
-        attr(label, "class", "svelte-oq5wkw");
-        attr(div, "class", "input_box svelte-oq5wkw");
-      },
-      m(target, anchor) {
-        insert(target, div, anchor);
-        append(div, label);
-        append(label, t0);
-        append(div, t1);
-        if_block.m(div, null);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*fields*/
-        8 && t0_value !== (t0_value = /*field*/
-        ctx2[21].label + ""))
-          set_data(t0, t0_value);
-        if (dirty & /*fields*/
-        8 && label_for_value !== (label_for_value = "modalForm__" + /*field*/
-        ctx2[21].name)) {
-          attr(label, "for", label_for_value);
-        }
-        if (current_block_type === (current_block_type = select_block_type_3(ctx2, dirty)) && if_block) {
-          if_block.p(ctx2, dirty);
-        } else {
-          if_block.d(1);
-          if_block = current_block_type(ctx2);
-          if (if_block) {
-            if_block.c();
-            if_block.m(div, null);
-          }
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(div);
-        }
-        if_block.d();
-      }
-    };
-  }
-  function create_if_block_52(ctx) {
-    let div;
-    let label;
-    let t0_value = (
-      /*field*/
-      ctx[21].label + ""
-    );
-    let t0;
-    let label_for_value;
-    let t1;
-    function select_block_type_2(ctx2, dirty) {
-      if (
-        /*field*/
-        ctx2[21].inputType === "datetime"
-      )
-        return create_if_block_6;
-      return create_else_block_2;
-    }
-    let current_block_type = select_block_type_2(ctx, -1);
-    let if_block = current_block_type(ctx);
-    return {
-      c() {
-        div = element("div");
-        label = element("label");
-        t0 = text(t0_value);
-        t1 = space();
-        if_block.c();
-        attr(label, "for", label_for_value = "modalForm__" + /*field*/
-        ctx[21].name);
-        attr(label, "class", "svelte-oq5wkw");
-        attr(div, "class", "form_info svelte-oq5wkw");
-      },
-      m(target, anchor) {
-        insert(target, div, anchor);
-        append(div, label);
-        append(label, t0);
-        append(div, t1);
-        if_block.m(div, null);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*fields*/
-        8 && t0_value !== (t0_value = /*field*/
-        ctx2[21].label + ""))
-          set_data(t0, t0_value);
-        if (dirty & /*fields*/
-        8 && label_for_value !== (label_for_value = "modalForm__" + /*field*/
-        ctx2[21].name)) {
-          attr(label, "for", label_for_value);
-        }
-        if (current_block_type === (current_block_type = select_block_type_2(ctx2, dirty)) && if_block) {
-          if_block.p(ctx2, dirty);
-        } else {
-          if_block.d(1);
-          if_block = current_block_type(ctx2);
-          if (if_block) {
-            if_block.c();
-            if_block.m(div, null);
-          }
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(div);
-        }
-        if_block.d();
-      }
-    };
-  }
-  function create_if_block_43(ctx) {
-    let input;
-    let mounted;
-    let dispose;
-    function input_input_handler() {
-      ctx[15].call(
-        input,
-        /*field*/
-        ctx[21]
-      );
-    }
-    return {
-      c() {
-        input = element("input");
-        attr(input, "type", "hidden");
-        attr(input, "class", "svelte-oq5wkw");
-      },
-      m(target, anchor) {
-        insert(target, input, anchor);
-        set_input_value(
-          input,
-          /*row*/
-          ctx[0][
-            /*field*/
-            ctx[21].name
-          ]
-        );
-        if (!mounted) {
-          dispose = listen(input, "input", input_input_handler);
-          mounted = true;
-        }
-      },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-        if (dirty & /*row, fields*/
-        9) {
-          set_input_value(
-            input,
-            /*row*/
-            ctx[0][
-              /*field*/
-              ctx[21].name
-            ]
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(input);
-        }
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_else_block_4(ctx) {
-    let input;
-    let input_id_value;
-    let mounted;
-    let dispose;
-    function input_input_handler_2() {
-      ctx[18].call(
-        input,
-        /*field*/
-        ctx[21]
-      );
-    }
-    return {
-      c() {
-        input = element("input");
-        attr(input, "id", input_id_value = "modalForm__" + /*field*/
-        ctx[21].name);
-        attr(input, "type", "text");
-        attr(input, "class", "svelte-oq5wkw");
-      },
-      m(target, anchor) {
-        insert(target, input, anchor);
-        set_input_value(
-          input,
-          /*row*/
-          ctx[0][
-            /*field*/
-            ctx[21].name
-          ]
-        );
-        if (!mounted) {
-          dispose = listen(input, "input", input_input_handler_2);
-          mounted = true;
-        }
-      },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-        if (dirty & /*fields*/
-        8 && input_id_value !== (input_id_value = "modalForm__" + /*field*/
-        ctx[21].name)) {
-          attr(input, "id", input_id_value);
-        }
-        if (dirty & /*row, fields*/
-        9 && input.value !== /*row*/
-        ctx[0][
-          /*field*/
-          ctx[21].name
-        ]) {
-          set_input_value(
-            input,
-            /*row*/
-            ctx[0][
-              /*field*/
-              ctx[21].name
-            ]
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(input);
-        }
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block_8(ctx) {
-    let input;
-    let input_id_value;
-    let mounted;
-    let dispose;
-    function input_input_handler_1() {
-      ctx[17].call(
-        input,
-        /*field*/
-        ctx[21]
-      );
-    }
-    return {
-      c() {
-        input = element("input");
-        attr(input, "id", input_id_value = "modalForm__" + /*field*/
-        ctx[21].name);
-        attr(input, "type", "number");
-        attr(input, "class", "svelte-oq5wkw");
-      },
-      m(target, anchor) {
-        insert(target, input, anchor);
-        set_input_value(
-          input,
-          /*row*/
-          ctx[0][
-            /*field*/
-            ctx[21].name
-          ]
-        );
-        if (!mounted) {
-          dispose = listen(input, "input", input_input_handler_1);
-          mounted = true;
-        }
-      },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-        if (dirty & /*fields*/
-        8 && input_id_value !== (input_id_value = "modalForm__" + /*field*/
-        ctx[21].name)) {
-          attr(input, "id", input_id_value);
-        }
-        if (dirty & /*row, fields*/
-        9 && to_number(input.value) !== /*row*/
-        ctx[0][
-          /*field*/
-          ctx[21].name
-        ]) {
-          set_input_value(
-            input,
-            /*row*/
-            ctx[0][
-              /*field*/
-              ctx[21].name
-            ]
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(input);
-        }
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block_7(ctx) {
-    let textarea;
-    let textarea_id_value;
-    let mounted;
-    let dispose;
-    function textarea_input_handler() {
-      ctx[16].call(
-        textarea,
-        /*field*/
-        ctx[21]
-      );
-    }
-    return {
-      c() {
-        textarea = element("textarea");
-        attr(textarea, "id", textarea_id_value = "modalForm__" + /*field*/
-        ctx[21].name);
-      },
-      m(target, anchor) {
-        insert(target, textarea, anchor);
-        set_input_value(
-          textarea,
-          /*row*/
-          ctx[0][
-            /*field*/
-            ctx[21].name
-          ]
-        );
-        if (!mounted) {
-          dispose = listen(textarea, "input", textarea_input_handler);
-          mounted = true;
-        }
-      },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-        if (dirty & /*fields*/
-        8 && textarea_id_value !== (textarea_id_value = "modalForm__" + /*field*/
-        ctx[21].name)) {
-          attr(textarea, "id", textarea_id_value);
-        }
-        if (dirty & /*row, fields*/
-        9) {
-          set_input_value(
-            textarea,
-            /*row*/
-            ctx[0][
-              /*field*/
-              ctx[21].name
-            ]
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(textarea);
-        }
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_else_block_2(ctx) {
-    let span;
-    let t_value = (
-      /*row*/
-      ctx[0][
-        /*field*/
-        ctx[21].name
-      ] + ""
-    );
-    let t;
-    return {
-      c() {
-        span = element("span");
-        t = text(t_value);
-      },
-      m(target, anchor) {
-        insert(target, span, anchor);
-        append(span, t);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*row, fields*/
-        9 && t_value !== (t_value = /*row*/
-        ctx2[0][
-          /*field*/
-          ctx2[21].name
-        ] + ""))
-          set_data(t, t_value);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(span);
-        }
-      }
-    };
-  }
-  function create_if_block_6(ctx) {
-    let span;
-    let t_value = (0, import_formatter2.datetime)(
-      /*row*/
-      ctx[0][
-        /*field*/
-        ctx[21].name
-      ]
-    ) + "";
-    let t;
-    return {
-      c() {
-        span = element("span");
-        t = text(t_value);
-      },
-      m(target, anchor) {
-        insert(target, span, anchor);
-        append(span, t);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*row, fields*/
-        9 && t_value !== (t_value = (0, import_formatter2.datetime)(
-          /*row*/
-          ctx2[0][
-            /*field*/
-            ctx2[21].name
-          ]
-        ) + ""))
-          set_data(t, t_value);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(span);
-        }
-      }
-    };
-  }
-  function create_each_block3(ctx) {
-    let if_block_anchor;
-    function select_block_type_1(ctx2, dirty) {
-      if (
-        /*field*/
-        ctx2[21].inputType === "hidden"
-      )
-        return create_if_block_43;
-      if (
-        /*field*/
-        ctx2[21].readOnly
-      )
-        return create_if_block_52;
-      return create_else_block_3;
-    }
-    let current_block_type = select_block_type_1(ctx, -1);
-    let if_block = current_block_type(ctx);
-    return {
-      c() {
-        if_block.c();
-        if_block_anchor = empty();
-      },
-      m(target, anchor) {
-        if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
-      },
-      p(ctx2, dirty) {
-        if (current_block_type === (current_block_type = select_block_type_1(ctx2, dirty)) && if_block) {
-          if_block.p(ctx2, dirty);
-        } else {
-          if_block.d(1);
-          if_block = current_block_type(ctx2);
-          if (if_block) {
-            if_block.c();
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(if_block_anchor);
-        }
-        if_block.d(detaching);
-      }
-    };
-  }
-  function create_else_block2(ctx) {
-    let t0;
-    let button;
-    let mounted;
-    let dispose;
-    let if_block = (
-      /*row*/
-      ctx[0].id && create_if_block_23(ctx)
-    );
-    return {
-      c() {
-        if (if_block)
-          if_block.c();
-        t0 = space();
-        button = element("button");
-        button.textContent = "Save";
-        attr(button, "tabindex", "0");
-        attr(button, "class", "save svelte-oq5wkw");
-      },
-      m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
-        insert(target, t0, anchor);
-        insert(target, button, anchor);
-        if (!mounted) {
-          dispose = listen(
-            button,
-            "click",
-            /*savePressed*/
-            ctx[7]
-          );
-          mounted = true;
-        }
-      },
-      p(ctx2, dirty) {
-        if (
-          /*row*/
-          ctx2[0].id
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-          } else {
-            if_block = create_if_block_23(ctx2);
-            if_block.c();
-            if_block.m(t0.parentNode, t0);
-          }
-        } else if (if_block) {
-          if_block.d(1);
-          if_block = null;
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(t0);
-          detach(button);
-        }
-        if (if_block)
-          if_block.d(detaching);
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block_13(ctx) {
-    let span;
-    return {
-      c() {
-        span = element("span");
-        span.textContent = "Saving..";
-        attr(span, "class", "right");
-      },
-      m(target, anchor) {
-        insert(target, span, anchor);
-      },
-      p: noop,
-      d(detaching) {
-        if (detaching) {
-          detach(span);
-        }
-      }
-    };
-  }
-  function create_if_block_23(ctx) {
-    let if_block_anchor;
-    function select_block_type_5(ctx2, dirty) {
-      if (
-        /*row*/
-        ctx2[0].deletedAt > 0
-      )
-        return create_if_block_33;
-      return create_else_block_12;
-    }
-    let current_block_type = select_block_type_5(ctx, -1);
-    let if_block = current_block_type(ctx);
-    return {
-      c() {
-        if_block.c();
-        if_block_anchor = empty();
-      },
-      m(target, anchor) {
-        if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
-      },
-      p(ctx2, dirty) {
-        if (current_block_type === (current_block_type = select_block_type_5(ctx2, dirty)) && if_block) {
-          if_block.p(ctx2, dirty);
-        } else {
-          if_block.d(1);
-          if_block = current_block_type(ctx2);
-          if (if_block) {
-            if_block.c();
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(if_block_anchor);
-        }
-        if_block.d(detaching);
-      }
-    };
-  }
-  function create_else_block_12(ctx) {
-    let button;
-    let mounted;
-    let dispose;
-    return {
-      c() {
-        button = element("button");
-        button.textContent = "Delete";
-        attr(button, "tabindex", "0");
-        attr(button, "class", "delete svelte-oq5wkw");
-      },
-      m(target, anchor) {
-        insert(target, button, anchor);
-        if (!mounted) {
-          dispose = listen(
-            button,
-            "click",
-            /*deletePressed*/
-            ctx[5]
-          );
-          mounted = true;
-        }
-      },
-      p: noop,
-      d(detaching) {
-        if (detaching) {
-          detach(button);
-        }
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block_33(ctx) {
-    let button;
-    let mounted;
-    let dispose;
-    return {
-      c() {
-        button = element("button");
-        button.textContent = "Restore";
-        attr(button, "tabindex", "0");
-        attr(button, "class", "restore svelte-oq5wkw");
-      },
-      m(target, anchor) {
-        insert(target, button, anchor);
-        if (!mounted) {
-          dispose = listen(
-            button,
-            "click",
-            /*restorePressed*/
-            ctx[6]
-          );
-          mounted = true;
-        }
-      },
-      p: noop,
-      d(detaching) {
-        if (detaching) {
-          detach(button);
-        }
-        mounted = false;
-        dispose();
-      }
-    };
-  }
   function create_fragment7(ctx) {
-    let if_block_anchor;
-    let current;
-    let if_block = (
-      /*visible*/
-      ctx[1] && create_if_block3(ctx)
-    );
-    return {
-      c() {
-        if (if_block)
-          if_block.c();
-        if_block_anchor = empty();
-      },
-      m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
-        current = true;
-      },
-      p(ctx2, [dirty]) {
-        if (
-          /*visible*/
-          ctx2[1]
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*visible*/
-            2) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block3(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        } else if (if_block) {
-          group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
-          });
-          check_outros();
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(if_block);
-        current = true;
-      },
-      o(local) {
-        transition_out(if_block);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(if_block_anchor);
-        }
-        if (if_block)
-          if_block.d(detaching);
-      }
-    };
-  }
-  function instance7($self, $props, $invalidate) {
-    let { $slots: slots = {}, $scope } = $props;
-    let { fields: fields2 = [] } = $props;
-    let { visible = false } = $props;
-    let { loading = false } = $props;
-    let { row = {} } = $props;
-    let { rowType = "Row" } = $props;
-    let { onConfirm = function(action, row2) {
-      console.log("ModalForm.onConfirm", action, row2);
-    } } = $props;
-    let originalRowJson = "";
-    function showModal(fetchedRow) {
-      $invalidate(1, visible = true);
-      originalRowJson = JSON.stringify(fetchedRow);
-      $invalidate(0, row = fetchedRow);
-      $invalidate(2, loading = false);
-      console.log("ModalForm.showModal", fetchedRow);
-    }
-    function hideModal() {
-      $invalidate(1, visible = false);
-    }
-    function setLoading(to) {
-      $invalidate(2, loading = !!to);
-    }
-    function haveChanges() {
-      return originalRowJson !== JSON.stringify(row);
-    }
-    function deletePressed() {
-      if (confirm("are you sure you want to delete this row?")) {
-        $invalidate(2, loading = true);
-        onConfirm("delete", row);
-      }
-    }
-    function restorePressed() {
-      if (confirm("are you sure you want to restore this row?")) {
-        $invalidate(2, loading = true);
-        onConfirm("restore", row);
-      }
-    }
-    function savePressed() {
-      if (!haveChanges())
-        return cancelPressed();
-      if (confirm("are you sure you want to save this row?")) {
-        $invalidate(2, loading = true);
-        onConfirm("upsert", row);
-      }
-    }
-    function cancelPressed() {
-      if (haveChanges()) {
-        if (confirm("are you sure you want to cancel? changes will be lost."))
-          $invalidate(1, visible = false);
-      } else {
-        $invalidate(1, visible = false);
-      }
-    }
-    function input_input_handler(field) {
-      row[field.name] = this.value;
-      $invalidate(0, row);
-    }
-    function textarea_input_handler(field) {
-      row[field.name] = this.value;
-      $invalidate(0, row);
-    }
-    function input_input_handler_1(field) {
-      row[field.name] = to_number(this.value);
-      $invalidate(0, row);
-    }
-    function input_input_handler_2(field) {
-      row[field.name] = this.value;
-      $invalidate(0, row);
-    }
-    $self.$set = ($props2) => {
-      if ("fields" in $props2)
-        $invalidate(3, fields2 = $props2.fields);
-      if ("visible" in $props2)
-        $invalidate(1, visible = $props2.visible);
-      if ("loading" in $props2)
-        $invalidate(2, loading = $props2.loading);
-      if ("row" in $props2)
-        $invalidate(0, row = $props2.row);
-      if ("rowType" in $props2)
-        $invalidate(4, rowType = $props2.rowType);
-      if ("onConfirm" in $props2)
-        $invalidate(9, onConfirm = $props2.onConfirm);
-      if ("$scope" in $props2)
-        $invalidate(13, $scope = $props2.$scope);
-    };
-    $self.$.update = () => {
-      if ($self.$.dirty & /*row*/
-      1) {
-        $:
-          JSON.stringify(row);
-      }
-      if ($self.$.dirty & /*fields*/
-      8) {
-        $:
-          JSON.stringify(fields2);
-      }
-    };
-    return [
-      row,
-      visible,
-      loading,
-      fields2,
-      rowType,
-      deletePressed,
-      restorePressed,
-      savePressed,
-      cancelPressed,
-      onConfirm,
-      showModal,
-      hideModal,
-      setLoading,
-      $scope,
-      slots,
-      input_input_handler,
-      textarea_input_handler,
-      input_input_handler_1,
-      input_input_handler_2
-    ];
-  }
-  var ModalForm = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(this, options, instance7, create_fragment7, safe_not_equal, {
-        fields: 3,
-        visible: 1,
-        loading: 2,
-        row: 0,
-        rowType: 4,
-        onConfirm: 9,
-        showModal: 10,
-        hideModal: 11,
-        setLoading: 12
-      });
-    }
-    get showModal() {
-      return this.$.ctx[10];
-    }
-    get hideModal() {
-      return this.$.ctx[11];
-    }
-    get setLoading() {
-      return this.$.ctx[12];
-    }
-  };
-  var ModalForm_default = ModalForm;
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidPlusCircle.js
-  var FaSolidPlusCircle_default = {
-    a: {
-      viewBox: "0 0 512 512"
-    },
-    c: '<path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"></path>'
-  };
-
-  // admin/users.svelte
-  function create_default_slot(ctx) {
-    let button;
-    let icon;
-    let t0;
-    let span;
-    let current;
-    let mounted;
-    let dispose;
-    icon = new Icon_default({
-      props: {
-        size: 18,
-        color: "#FFFF",
-        src: FaSolidPlusCircle_default
-      }
-    });
-    return {
-      c() {
-        button = element("button");
-        create_component(icon.$.fragment);
-        t0 = space();
-        span = element("span");
-        span.textContent = "Add";
-        attr(button, "class", "add_button");
-      },
-      m(target, anchor) {
-        insert(target, button, anchor);
-        mount_component(icon, button, null);
-        append(button, t0);
-        append(button, span);
-        current = true;
-        if (!mounted) {
-          dispose = listen(
-            button,
-            "click",
-            /*addRow*/
-            ctx[5]
-          );
-          mounted = true;
-        }
-      },
-      p: noop,
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(button);
-        }
-        destroy_component(icon);
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_fragment8(ctx) {
     let section1;
     let menu;
     let t0;
@@ -8269,46 +6842,29 @@ input.input_filter.svelte-somn03.svelte-somn03 {
     let adminsubmenu;
     let t2;
     let div0;
-    let modalform;
-    let t3;
     let section0;
     let tableview;
     let updating_pager;
-    let t4;
+    let t3;
     let footer;
     let current;
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({});
     adminsubmenu = new AdminSubMenu_default({});
-    let modalform_props = {
-      fields,
-      rowType: "User",
-      onConfirm: (
-        /*saveRow*/
-        ctx[6]
-      )
-    };
-    modalform = new ModalForm_default({ props: modalform_props });
-    ctx[7](modalform);
     function tableview_pager_binding(value) {
-      ctx[8](value);
+      ctx[3](value);
     }
     let tableview_props = {
       fields,
+      arrayOfArray: false,
       rows: (
-        /*users*/
+        /*logs*/
         ctx[0]
       ),
       onRefreshTableView: (
         /*refreshTableView*/
-        ctx[3]
-      ),
-      onEditRow: (
-        /*editRow*/
-        ctx[4]
-      ),
-      $slots: { default: [create_default_slot] },
-      $scope: { ctx }
+        ctx[2]
+      )
     };
     if (
       /*pager*/
@@ -8331,11 +6887,9 @@ input.input_filter.svelte-somn03.svelte-somn03 {
         create_component(adminsubmenu.$.fragment);
         t2 = space();
         div0 = element("div");
-        create_component(modalform.$.fragment);
-        t3 = space();
         section0 = element("section");
         create_component(tableview.$.fragment);
-        t4 = space();
+        t3 = space();
         create_component(footer.$.fragment);
         attr(section0, "class", "tableview_container");
         attr(div0, "class", "content");
@@ -8352,26 +6906,18 @@ input.input_filter.svelte-somn03.svelte-somn03 {
         mount_component(adminsubmenu, div1, null);
         append(div1, t2);
         append(div1, div0);
-        mount_component(modalform, div0, null);
-        append(div0, t3);
         append(div0, section0);
         mount_component(tableview, section0, null);
-        append(div1, t4);
+        append(div1, t3);
         mount_component(footer, div1, null);
         current = true;
       },
       p(ctx2, [dirty]) {
-        const modalform_changes = {};
-        modalform.$set(modalform_changes);
         const tableview_changes = {};
-        if (dirty & /*users*/
+        if (dirty & /*logs*/
         1)
-          tableview_changes.rows = /*users*/
+          tableview_changes.rows = /*logs*/
           ctx2[0];
-        if (dirty & /*$scope*/
-        1024) {
-          tableview_changes.$scope = { dirty, ctx: ctx2 };
-        }
         if (!updating_pager && dirty & /*pager*/
         2) {
           updating_pager = true;
@@ -8387,7 +6933,6 @@ input.input_filter.svelte-somn03.svelte-somn03 {
         transition_in(menu.$.fragment, local);
         transition_in(profileheader.$.fragment, local);
         transition_in(adminsubmenu.$.fragment, local);
-        transition_in(modalform.$.fragment, local);
         transition_in(tableview.$.fragment, local);
         transition_in(footer.$.fragment, local);
         current = true;
@@ -8396,7 +6941,6 @@ input.input_filter.svelte-somn03.svelte-somn03 {
         transition_out(menu.$.fragment, local);
         transition_out(profileheader.$.fragment, local);
         transition_out(adminsubmenu.$.fragment, local);
-        transition_out(modalform.$.fragment, local);
         transition_out(tableview.$.fragment, local);
         transition_out(footer.$.fragment, local);
         current = false;
@@ -8408,8 +6952,6 @@ input.input_filter.svelte-somn03.svelte-somn03 {
         destroy_component(menu);
         destroy_component(profileheader);
         destroy_component(adminsubmenu);
-        ctx[7](null);
-        destroy_component(modalform);
         destroy_component(tableview);
         destroy_component(footer);
       }
@@ -8417,8 +6959,8 @@ input.input_filter.svelte-somn03.svelte-somn03 {
   }
   var segments = {/* segments */};
   var fields = [/* fields */];
-  function instance8($self, $props, $invalidate) {
-    let users = [/* users */];
+  function instance7($self, $props, $invalidate) {
+    let logs = [/* logs */];
     let pager = {/* pager */};
     function handleResponse(res) {
       console.log(res);
@@ -8426,77 +6968,39 @@ input.input_filter.svelte-somn03.svelte-somn03 {
         alert(res.error);
         return true;
       }
-      if (res.users && res.users.length)
-        $invalidate(0, users = res.users);
+      if (res.logs && res.logs.length)
+        $invalidate(0, logs = res.logs);
       if (res.pager && res.pager.page)
         $invalidate(1, pager = res.pager);
     }
     async function refreshTableView(pagerIn) {
-      await (0, import_jsApi.AdminUsers)({ pager: pagerIn, action: "list" }, function(res) {
+      await (0, import_jsApi.AdminAccessLogs)({ pager: pagerIn }, function(res) {
         handleResponse(res);
-      });
-    }
-    let form = ModalForm_default;
-    async function editRow(id, row) {
-      await (0, import_jsApi.AdminUsers)({ user: { id }, action: "form" }, function(res) {
-        if (!handleResponse(res))
-          form.showModal(res.user);
-      });
-    }
-    function addRow() {
-      form.showModal({ id: "" });
-    }
-    async function saveRow(action, row) {
-      let user = { ...row };
-      if (!user.id)
-        user.id = "0";
-      await (0, import_jsApi.AdminUsers)(
-        {
-          user,
-          action,
-          pager
-          // force refresh page, will be slow
-        },
-        function(res) {
-          if (handleResponse(res)) {
-            return form.setLoading(false);
-          }
-          form.hideModal();
-        }
-      );
-    }
-    function modalform_binding($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        form = $value;
-        $invalidate(2, form);
       });
     }
     function tableview_pager_binding(value) {
       pager = value;
       $invalidate(1, pager);
     }
-    return [
-      users,
-      pager,
-      form,
-      refreshTableView,
-      editRow,
-      addRow,
-      saveRow,
-      modalform_binding,
-      tableview_pager_binding
-    ];
+    $self.$.update = () => {
+      if ($self.$.dirty & /*logs, pager*/
+      3) {
+        $:
+          console.log(logs, fields, pager);
+      }
+    };
+    return [logs, pager, refreshTableView, tableview_pager_binding];
   }
-  var Users = class extends SvelteComponent {
+  var AccessLog = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance8, create_fragment8, safe_not_equal, {});
+      init(this, options, instance7, create_fragment7, safe_not_equal, {});
     }
   };
-  var users_default = Users;
+  var accessLog_default = AccessLog;
 
-  // admin/users.svelte.ts
-  var app = new users_default({ target: document.getElementById("app") });
+  // admin/accessLog.svelte.ts
+  var app = new accessLog_default({ target: document.getElementById("app") });
 })();
 </script>
 </body></html>

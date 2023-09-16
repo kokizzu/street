@@ -54,7 +54,7 @@ func (u *Users) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud
 	const comment = `-- Users) FindByPagination`
 
 	validFields := UsersFieldTypeMap
-	whereAndSql := out.WhereAndSql(in.Filters, validFields)
+	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
 
 	queryCount := comment + `
 SELECT COUNT(1)
@@ -64,7 +64,7 @@ LIMIT 1`
 		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
 	})
 
-	orderBySql := out.OrderBySql(in.Order, validFields)
+	orderBySql := out.OrderBySqlTt(in.Order, validFields)
 	limitOffsetSql := out.LimitOffsetSql()
 
 	queryRows := comment + `

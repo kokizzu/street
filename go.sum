@@ -253,6 +253,16 @@ github.com/kokizzu/ch-timed-buffer v1.2025.1416 h1:Zv+qFgHXzbzNuZeZ1T9w0i8EqbAh5
 github.com/kokizzu/ch-timed-buffer v1.2025.1416/go.mod h1:suljwZStFE7EWVhtfVP+QHkgduRFGqXS4kTL22UwTRQ=
 github.com/kokizzu/gotro v1.3227.1907 h1:p9SAVZMvglxbkUhjoczOiKSflpXA1abWn5ioQacLHCU=
 github.com/kokizzu/gotro v1.3227.1907/go.mod h1:v/L8YfIUT+Ha4KjEPcbF2k5ovTbhmI7jgpSlcNUKmFE=
+github.com/kokizzu/gotro v1.3227.1908-0.20230916171252-3ddf68dde4bc h1:fMDUa6ESqByyiUc6afRPjmMeZr4pFYD5va2aGd54jjM=
+github.com/kokizzu/gotro v1.3227.1908-0.20230916171252-3ddf68dde4bc/go.mod h1:RSIYnALFXZKv3dL6TJXaQG1jLZzKFgOK7b19owWFlJg=
+github.com/kokizzu/gotro v1.3227.1908-0.20230916171542-7009bdfa3760 h1:evdUWfKMOANSGBjLomUfLV4OhHmWHBpyJ42jSuDJCEk=
+github.com/kokizzu/gotro v1.3227.1908-0.20230916171542-7009bdfa3760/go.mod h1:RSIYnALFXZKv3dL6TJXaQG1jLZzKFgOK7b19owWFlJg=
+github.com/kokizzu/gotro v1.3227.1908-0.20230916172720-e794d0dd55f9 h1:mDd+u3VedA7ZOY7KUfuavYRjKvKWra1hNL1ifNFI/HE=
+github.com/kokizzu/gotro v1.3227.1908-0.20230916172720-e794d0dd55f9/go.mod h1:RSIYnALFXZKv3dL6TJXaQG1jLZzKFgOK7b19owWFlJg=
+github.com/kokizzu/gotro v1.3227.1908-0.20230916173155-e8ecb92b4ae2 h1:cx4Nz9TCQQsPYp7FUX1uP6eY/rHGRSJze8ez0+Hr6SM=
+github.com/kokizzu/gotro v1.3227.1908-0.20230916173155-e8ecb92b4ae2/go.mod h1:RSIYnALFXZKv3dL6TJXaQG1jLZzKFgOK7b19owWFlJg=
+github.com/kokizzu/gotro v1.3227.1908-0.20230916173320-39e40c983c18 h1:HvBN6tOrDRkwM3sb5iqxl2OdL0Qr3xerUPwbZqrF4Vw=
+github.com/kokizzu/gotro v1.3227.1908-0.20230916173320-39e40c983c18/go.mod h1:RSIYnALFXZKv3dL6TJXaQG1jLZzKFgOK7b19owWFlJg=
 github.com/kokizzu/id64 v1.2829.1452 h1:d+hbN+0YOX51AUYCU6pIVuLnsKhL1TNDBwBfHKevdX8=
 github.com/kokizzu/id64 v1.2829.1452/go.mod h1:ssdJfBhCjVs02lh6QutYOO8ZH+PWe5MDPh2gehPRgqU=
 github.com/kokizzu/lexid v1.2423.1347 h1:EJl5H+WX9/FC5/lDOjwylTvh7k2IKxaYeV+F6idbLMo=

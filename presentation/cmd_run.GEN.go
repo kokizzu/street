@@ -12,6 +12,14 @@ import (
 
 func cmdRun(b *domain.Domain, action string, payload []byte) {
 	switch action {
+	case domain.AdminAccessLogsAction:
+		in := domain.AdminAccessLogsIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.AdminAccessLogs(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.AdminDashboardAction:
 		in := domain.AdminDashboardIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

@@ -7,6 +7,7 @@ import (
 )
 
 var allCommands = []string{
+	domain.AdminAccessLogsAction,
 	domain.AdminDashboardAction,
 	domain.AdminFilesAction,
 	domain.AdminPropHistoriesAction,

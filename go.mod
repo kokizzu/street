@@ -14,7 +14,7 @@ require (
 	github.com/joho/godotenv v1.4.0
 	github.com/jxskiss/base62 v1.1.0
 	github.com/kokizzu/ch-timed-buffer v1.2025.1416
-	github.com/kokizzu/gotro v1.3227.1907
+	github.com/kokizzu/gotro v1.3227.1908-0.20230916173320-39e40c983c18
 	github.com/kokizzu/id64 v1.2829.1452
 	github.com/kokizzu/lexid v1.2423.1347
 	github.com/kpango/fastime v1.1.9

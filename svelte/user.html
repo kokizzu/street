@@ -2560,6 +2560,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           cb(data);
         };
       }
+      exports.AdminAccessLogs = async function AdminAccessLogs(i, cb) {
+        return await axios.post("/admin/accessLogs", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
         return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2665,6 +2668,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       function datetime2(unixSec) {
         if (!unixSec)
           return "";
+        if (typeof unixSec === "string")
+          return unixSec;
         const dt = new Date(unixSec * 1e3);
         const options = { day: "2-digit", month: "long", year: "numeric" };
         const formattedDate = dt.toLocaleDateString(void 0, options);
