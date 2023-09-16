@@ -150,6 +150,11 @@ func (d *Domain) AdminAccessLogs(in *AdminAccessLogsIn) (out AdminAccessLogsOut)
 		out.Meta = &AdminAccessLogsMeta
 	}
 
+	// if not set, always override by createdAt descending
+	if len(in.Pager.Order) == 0 {
+		in.Pager.Order = []string{"-createdAt"}
+	}
+
 	r := saAuth.NewActionLogs(d.AuthOlap)
 	out.Logs = r.FindByPagination(&in.Pager, &out.Pager)
 
