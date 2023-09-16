@@ -4714,7 +4714,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         mount_component(googlesdk, target, anchor);
         insert(target, t, anchor);
         insert(target, div, anchor);
-        ctx[8](div);
+        ctx[9](div);
         current = true;
       },
       p: noop,
@@ -4734,7 +4734,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           detach(div);
         }
         destroy_component(googlesdk, detaching);
-        ctx[8](null);
+        ctx[9](null);
       }
     };
   }
@@ -4750,7 +4750,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return markers;
   }
   function infoWindow(name, address, type) {
-    const contentString = `<h3 style="margin: 0 !important; padding: 15px 5px 10px 0px !important; border-bottom: 1px solid #CBD5E1 !important;">${name}</h3><p style="margin: 6px 0;">${address}</p><p style="margin: 6px 0;"><b>Type:</b> ${type}</p>`;
+    const contentString = `<h3 style='margin: 0 !important; padding: 15px 5px 10px 0px !important; border-bottom: 1px solid #CBD5E1 !important;'>${name}</h3><p style='margin: 6px 0;'>${address}</p><p style='margin: 6px 0;'><b>Type:</b> ${type}</p>`;
     const infowindow = new google.maps.InfoWindow({ content: contentString });
     return infowindow;
   }
@@ -4760,10 +4760,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function instance6($self, $props, $invalidate) {
     let $mapComponent;
-    component_subscribe($self, mapComponent, ($value) => $invalidate(10, $mapComponent = $value));
+    component_subscribe($self, mapComponent, ($value) => $invalidate(11, $mapComponent = $value));
     const dispatch = createEventDispatcher();
     let mapElement, map;
     let { options = {} } = $props;
+    let { bounds = {} } = $props;
     function setCentre(location) {
       map.setCenter(location);
     }
@@ -4790,6 +4791,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       map.addListener("zoom_changed", () => {
         dispatch("zoomChanged", map);
       });
+      map.addListener("idle", () => {
+        $invalidate(2, bounds = map.getBounds());
+        console.log("bounds", bounds);
+      });
       set_store_value(mapComponent, $mapComponent = map, $mapComponent);
       dispatch("ready");
     }
@@ -4801,11 +4806,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     $self.$set = ($props2) => {
       if ("options" in $props2)
-        $invalidate(2, options = $props2.options);
+        $invalidate(3, options = $props2.options);
+      if ("bounds" in $props2)
+        $invalidate(2, bounds = $props2.bounds);
     };
     return [
       mapElement,
       initialise,
+      bounds,
       options,
       setCentre,
       createMarker,
@@ -4819,19 +4827,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     constructor(options) {
       super();
       init(this, options, instance6, create_fragment5, safe_not_equal, {
-        options: 2,
-        setCentre: 3,
-        createMarker: 4,
-        clearMarkers: 5,
-        infoWindow: 6,
-        clearInfoWindow: 7
+        options: 3,
+        bounds: 2,
+        setCentre: 4,
+        createMarker: 5,
+        clearMarkers: 6,
+        infoWindow: 7,
+        clearInfoWindow: 8
       });
     }
     get setCentre() {
-      return this.$.ctx[3];
+      return this.$.ctx[4];
     }
     get createMarker() {
-      return this.$.ctx[4];
+      return this.$.ctx[5];
     }
     get clearMarkers() {
       return clearMarkers;

@@ -1,363 +1,376 @@
 <script>
-  // @ts-nocheck
-  import {UserNearbyFacilities, UserSearchProp} from 'jsApi.GEN';
-  import {formatPrice} from './formatter';
-  import {currentLang} from "./uiState";
-  import translation from "../translation.json";
-  import {GoogleMap, GoogleSdk} from './GoogleMap/components';
-  import Growl from './Growl.svelte';
-  import {mapComponent} from "./GoogleMap/stores";
-  import Utils from "./Utils.svelte";
-  
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidSearch from 'svelte-icons-pack/fa/FaSolidSearch';
-  import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
-  import FaSolidImage from 'svelte-icons-pack/fa/FaSolidImage';
-  import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
-  import FaSolidRulerCombined from 'svelte-icons-pack/fa/FaSolidRulerCombined';
-  import FaSolidBuilding from 'svelte-icons-pack/fa/FaSolidBuilding';
-  import FaSolidBath from 'svelte-icons-pack/fa/FaSolidBath';
-  import FaSolidBed from 'svelte-icons-pack/fa/FaSolidBed';
-  import FaSolidUndoAlt from 'svelte-icons-pack/fa/FaSolidUndoAlt';
-  import FaSolidBan from 'svelte-icons-pack/fa/FaSolidBan';
-  import FaSolidReceipt from 'svelte-icons-pack/fa/FaSolidReceipt';
-  
-  let translate;
-  $: translate = ( key ) => {
-    console.log( $currentLang )
-    if( $currentLang==='EN' ) {
-      return translation[ key ]
-    }
-    const keyTranslate = key + $currentLang;
-    return translation[ keyTranslate ];
-  }
-  
-  export let randomProps = []
-  export let defaultDistanceKm = 20;
-  export let initialLatLong = [0, 0];
-  let facilities = [], markersFacility = [], markersProperty = [], propItemBinds = [], infoWindows, propItemHighlight = null;
-  let gmapsComponent;
-  let myLatLng = {lat: initialLatLong[ 0 ], lng: initialLatLong[ 1 ]};
-  let mapOptions = {
-    center: myLatLng,
-    zoom: 11,
-    mapTypeId: 'roadmap',
-    mapId: "street_project",
-  };
-  const markers_icon = {
-    school: {path: '/assets/icons/marker-school.svg'},
-    restaurant: {path: '/assets/icons/marker-restaurant.svg'},
-    convenience_store: {path: '/assets/icons/marker-mall.svg'},
-    hospital: {path: '/assets/icons/marker-hospital.svg'},
-    subway_station: {path: '/assets/icons/marker-subway.svg'}
-  }
-  let geocoder, input_search_value, autocomplete_service;
-  let autocomplete_lists = [];
-  let showGrowl = false, gMsg = '', gType = '';
-  
-  function useGrowl( type, msg ) {
-    showGrowl = true;
-    gMsg = msg;
-    gType = type;
-    setTimeout( () => {
-      showGrowl = false;
-    }, 3000 );
-  }
-  
-  const highLightMapMarker = {
-    enter: ( index ) => {
-      propItemHighlight = index;
-      markersProperty[ index ].setIcon( {
-        url: '/assets/icons/marker-2.svg', // URL to your custom icon image
-        scaledSize: new google.maps.Size( 40, 40 )
-      } );
-    },
-    leave: ( index ) => {
-      markersProperty[ index ].setIcon( {
-        url: '/assets/icons/marker-2.svg', // URL to your custom icon image
-        scaledSize: new google.maps.Size( 32, 32 )
-      } );
-      propItemHighlight = null;
-    }
-  }
+    // @ts-nocheck
+    import { UserNearbyFacilities, UserSearchProp } from 'jsApi.GEN';
+    import { formatPrice } from './formatter';
+    import { currentLang } from './uiState';
+    import translation from '../translation.json';
+    import { GoogleMap, GoogleSdk } from './GoogleMap/components';
+    import Growl from './Growl.svelte';
+    import { mapComponent } from './GoogleMap/stores';
 
-  async function searchProperty( search ) {
-    if( search ) {
-      await UserSearchProp( {
-        centerLat: myLatLng.lat,
-        centerLong: myLatLng.lng,
-        offset: 0,
-        limit: 0,
-        maxDistanceKM: defaultDistanceKm
-      }, async res => {
-        if( res.error ) return useGrowl( 'error', res.error );
-        randomProps = res.properties || [];
-      } );
-      markersProperty = gmapsComponent.clearMarkers( markersProperty );
+    import Icon from 'svelte-icons-pack/Icon.svelte';
+    import FaSolidSearch from 'svelte-icons-pack/fa/FaSolidSearch';
+    import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
+    import FaSolidImage from 'svelte-icons-pack/fa/FaSolidImage';
+    import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
+    import FaSolidRulerCombined from 'svelte-icons-pack/fa/FaSolidRulerCombined';
+    import FaSolidBuilding from 'svelte-icons-pack/fa/FaSolidBuilding';
+    import FaSolidBath from 'svelte-icons-pack/fa/FaSolidBath';
+    import FaSolidBed from 'svelte-icons-pack/fa/FaSolidBed';
+    import FaSolidUndoAlt from 'svelte-icons-pack/fa/FaSolidUndoAlt';
+    import FaSolidBan from 'svelte-icons-pack/fa/FaSolidBan';
+    import FaSolidReceipt from 'svelte-icons-pack/fa/FaSolidReceipt';
+    import { distanceKM } from './GoogleMap/distance';
+
+    let translate;
+    $: translate = (key) => {
+        console.log($currentLang);
+        if ($currentLang === 'EN') {
+            return translation[key];
+        }
+        const keyTranslate = key + $currentLang;
+        return translation[keyTranslate];
+    };
+
+    export let randomProps = [];
+    export let defaultDistanceKm = 20;
+    export let initialLatLong = [0, 0];
+    let facilities = [], markersFacility = [], markersProperty = [], propItemBinds = [], infoWindows, propItemHighlight = null;
+    let gmapsComponent = GoogleMap;
+    let gmapBounds = {}; // top-left bottom-right of map
+    let myLatLng = {lat: initialLatLong[0], lng: initialLatLong[1]};
+    let mapOptions = {
+        center: myLatLng,
+        zoom: 11,
+        mapTypeId: 'roadmap',
+        mapId: 'street_project',
+    };
+    const markers_icon = {
+        school: {path: '/assets/icons/marker-school.svg'},
+        restaurant: {path: '/assets/icons/marker-restaurant.svg'},
+        convenience_store: {path: '/assets/icons/marker-mall.svg'},
+        hospital: {path: '/assets/icons/marker-hospital.svg'},
+        subway_station: {path: '/assets/icons/marker-subway.svg'},
+    };
+    let geocoder, input_search_value, autocomplete_service;
+    let autocomplete_lists = [];
+    let showGrowl = false, gMsg = '', gType = '';
+
+    function useGrowl(type, msg) {
+        showGrowl = true;
+        gMsg = msg;
+        gType = type;
+        setTimeout(() => {
+            showGrowl = false;
+        }, 3000);
     }
-    randomProps.forEach( prop => {
-      markersProperty.push( gmapsComponent.createMarker( prop.lat, prop.lng, '/assets/icons/marker-2.svg', 32, prop.uniqPropKey ) );
-    } );
-    markersProperty.forEach( ( marker, idx ) => {
-      marker.addListener( "mouseover", () => {
-        marker.setIcon( {
-          url: '/assets/icons/marker-2.svg', // URL to your custom icon image
-          scaledSize: new google.maps.Size( 40, 40 )
-        } )
-      } )
-      marker.addListener( "mouseout", () => {
-        marker.setIcon( {
-          url: '/assets/icons/marker-2.svg', // URL to your custom icon image
-          scaledSize: new google.maps.Size( 32, 32 )
-        } )
-      } )
-      marker.addListener( "click", () => {
-        let propItem = propItemBinds[ idx ];
-        propItemHighlight = idx;
-        propItem.scrollIntoView( {behavior: 'smooth'} );
-        setTimeout( () => {
-          propItemHighlight = null;
-        }, 2200 )
-      } );
-    } );
-  }
-  
-  async function searchNearbyFacility() {
-    await UserNearbyFacilities( {
-      centerLat: myLatLng.lat,
-      centerLong: myLatLng.lng,
-    }, async res => {
-      if( res.error ) return useGrowl( 'error', res.error );
-      markersFacility = gmapsComponent.clearMarkers( markersFacility );
-      facilities = await res.facilities;
-      facilities.forEach( fac => {
-        let iconmarkerpath = '/assets/icons/marker.svg';
-        if( markers_icon[ fac.type ] ) {
-          iconmarkerpath = markers_icon[ fac.type ].path
+
+    const highLightMapMarker = {
+        enter: (index) => {
+            propItemHighlight = index;
+            if (!markersProperty || !markersProperty[index]) return;
+            const marker = markersProperty[index];
+            marker.setIcon({
+                url: '/assets/icons/marker-2.svg', // URL to your custom icon image
+                scaledSize: new google.maps.Size(40, 40),
+            });
+        },
+        leave: (index) => {
+            if (!markersProperty || !markersProperty[index]) return;
+            const marker = markersProperty[index];
+            marker.setIcon({
+                url: '/assets/icons/marker-2.svg', // URL to your custom icon image
+                scaledSize: new google.maps.Size(32, 32),
+            });
+            propItemHighlight = null;
+        },
+    };
+
+    async function searchProperty(search) {
+        if (search) {
+            let bestDistance = defaultDistanceKm;
+            console.log('gmapBounds', gmapBounds);
+            if (gmapBounds && gmapBounds.getNorthEast) {
+                let ne = gmapBounds.getNorthEast();
+                bestDistance = distanceKM(ne.lat(), ne.lng(), myLatLng.lat, myLatLng.lng);
+                console.log('bestDistance', bestDistance);
+            }
+            await UserSearchProp({
+                centerLat: myLatLng.lat,
+                centerLong: myLatLng.lng,
+                offset: 0,
+                limit: 40, // this is apparently the culprit XD if we show too many it would slow, but if it's too little it won't spread
+                maxDistanceKM: bestDistance,
+            }, async res => {
+                if (res.error) return useGrowl('error', res.error);
+                randomProps = res.properties || [];
+            });
+            markersProperty = gmapsComponent.clearMarkers(markersProperty);
         }
-        markersFacility.push( gmapsComponent.createMarker( fac.lat, fac.lng, iconmarkerpath, 32, fac.name ) )
-      } );
-      console.log( facilities );
-    } );
-    markersFacility.forEach( ( marker, idx ) => {
-      marker.addListener( "click", () => {
-        if( infoWindows ) {
-          infoWindows.close();
-        }
-        infoWindows = gmapsComponent.infoWindow( facilities[ idx ].name, facilities[ idx ].address, facilities[ idx ].type )
-        infoWindows.open( {anchor: marker} );
-      } );
-    } );
-  }
-  
-  async function initGoogleService() {
-    const {AutocompleteService} = await google.maps.importLibrary( 'places' );
-    autocomplete_service = new AutocompleteService();
-    geocoder = new google.maps.Geocoder();
-    if( initialLatLong[ 0 ]!==0 && initialLatLong[ 1 ]!==0 ) {
-      await searchNearbyFacility();
+        randomProps.forEach(prop => {
+            markersProperty.push(gmapsComponent.createMarker(prop.lat, prop.lng, '/assets/icons/marker-2.svg', 32, prop.uniqPropKey));
+        });
+        markersProperty.forEach((marker, idx) => {
+            marker.addListener('mouseover', () => {
+                marker.setIcon({
+                    url: '/assets/icons/marker-2.svg', // URL to your custom icon image
+                    scaledSize: new google.maps.Size(40, 40),
+                });
+            });
+            marker.addListener('mouseout', () => {
+                marker.setIcon({
+                    url: '/assets/icons/marker-2.svg', // URL to your custom icon image
+                    scaledSize: new google.maps.Size(32, 32),
+                });
+            });
+            marker.addListener('click', () => {
+                let propItem = propItemBinds[idx];
+                propItemHighlight = idx;
+                propItem.scrollIntoView({behavior: 'smooth'});
+                setTimeout(() => {
+                    propItemHighlight = null;
+                }, 2200);
+            });
+        });
     }
-    await searchProperty( false );
-    $mapComponent.addListener( 'click', () => {
-      if( infoWindows ) {
-        infoWindows.close();
-      }
-    } );
-  }
-  
-  function searchLocationHandler() {
-    autocomplete_service.getPlacePredictions( {
-        input: input_search_value,
-        types: ['establishment', 'geocode'],
-      },
-      function( predictions, status ) {
-        if( status===google.maps.places.PlacesServiceStatus.OK ) {
-          autocomplete_lists = predictions;
+
+    async function searchNearbyFacility() {
+        await UserNearbyFacilities({
+            centerLat: myLatLng.lat,
+            centerLong: myLatLng.lng,
+        }, async res => {
+            if (res.error) return useGrowl('error', res.error);
+            markersFacility = gmapsComponent.clearMarkers(markersFacility);
+            facilities = await res.facilities;
+            facilities.forEach(fac => {
+                let iconmarkerpath = '/assets/icons/marker.svg';
+                if (markers_icon[fac.type]) {
+                    iconmarkerpath = markers_icon[fac.type].path;
+                }
+                markersFacility.push(gmapsComponent.createMarker(fac.lat, fac.lng, iconmarkerpath, 32, fac.name));
+            });
+            console.log(facilities);
+        });
+        markersFacility.forEach((marker, idx) => {
+            marker.addListener('click', () => {
+                if (infoWindows) {
+                    infoWindows.close();
+                }
+                infoWindows = gmapsComponent.infoWindow(facilities[idx].name, facilities[idx].address, facilities[idx].type);
+                infoWindows.open({anchor: marker});
+            });
+        });
+    }
+
+    async function initGoogleService() {
+        const {AutocompleteService} = await google.maps.importLibrary('places');
+        autocomplete_service = new AutocompleteService();
+        geocoder = new google.maps.Geocoder();
+        if (initialLatLong[0] !== 0 && initialLatLong[1] !== 0) {
+            await searchNearbyFacility();
         }
-      },
-    );
-  }
-  
-  function searchByLocationEvent( event ) {
-    myLatLng.lat = event.detail.center.lat();
-    myLatLng.lng = event.detail.center.lng();
-  }
-  
-  function zoomEvent( event ) {
-    console.log( event.detail.zoom );
-  }
-  
-  async function searchByLocationHandler() {
-    await searchProperty( true );
-    await searchNearbyFacility();
-  }
-  
-  async function searchByAddressHandler( place_id ) {
-    await geocoder
-      .geocode( {placeId: place_id} )
-      .then( ( {results} ) => {
-        if( results[ 0 ] ) {
-          myLatLng.lat = results[ 0 ].geometry.location.lat();
-          myLatLng.lng = results[ 0 ].geometry.location.lng();
-        } else {
-          alert( 'No result found' );
-        }
-      } ).catch( ( e ) => {
-        alert( 'Geocoder failed due to: ' + e );
-      } );
-    autocomplete_lists = [];
-    input_search_value = '';
-    await searchProperty( true );
-    await searchNearbyFacility();
-    await gmapsComponent.setCentre( {
-      lat: myLatLng.lat,
-      lng: myLatLng.lng,
-    } );
-  }
+        await searchProperty(false);
+        $mapComponent.addListener('click', () => {
+            if (infoWindows) {
+                infoWindows.close();
+            }
+        });
+    }
+
+    function searchLocationHandler() {
+        autocomplete_service.getPlacePredictions({
+                input: input_search_value,
+                types: ['establishment', 'geocode'],
+            },
+            function(predictions, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    autocomplete_lists = predictions;
+                }
+            },
+        );
+    }
+
+    function searchByLocationEvent(event) {
+        myLatLng.lat = event.detail.center.lat();
+        myLatLng.lng = event.detail.center.lng();
+    }
+
+    function zoomEvent(event) {
+        console.log(event.detail.zoom);
+    }
+
+    async function searchByLocationHandler() {
+        await searchProperty(true);
+        await searchNearbyFacility();
+    }
+
+    async function searchByAddressHandler(place_id) {
+        await geocoder
+            .geocode({placeId: place_id})
+            .then(({results}) => {
+                if (results[0]) {
+                    myLatLng.lat = results[0].geometry.location.lat();
+                    myLatLng.lng = results[0].geometry.location.lng();
+                } else {
+                    alert('No result found');
+                }
+            }).catch((e) => {
+                alert('Geocoder failed due to: ' + e);
+            });
+        autocomplete_lists = [];
+        input_search_value = '';
+        await searchProperty(true);
+        await searchNearbyFacility();
+        await gmapsComponent.setCentre({
+            lat: myLatLng.lat,
+            lng: myLatLng.lng,
+        });
+    }
 </script>
 
 {#if showGrowl}
-	<Growl message={gMsg} growlType={gType}/>
+    <Growl message={gMsg} growlType={gType} />
 {/if}
-<GoogleSdk on:ready={initGoogleService}/>
+<GoogleSdk on:ready={initGoogleService} />
 <div class='property_location_container'>
-	<div class='left'>
-		<div class='props_container'>
-			{#if randomProps.length}
-				{#each randomProps as prop, index}
-					<button
-						class={propItemHighlight === index ? `prop_item highlight` : 'prop_item' }
-						bind:this={propItemBinds[index]}
-						on:mouseenter={() => highLightMapMarker.enter(index)}
-						on:mouseleave={() => highLightMapMarker.leave(index)}
-					>
-						<div class='img_container'>
-							{#if prop.images && prop.images.length}
-								<img src={prop.images[0]} alt=''/>
-							{:else}
-								<div class='image_empty'>
-									<Icon size={40} color='#475569' src={FaSolidImage}/>
-									<span>No Image !</span>
-								</div>
-							{/if}
-						</div>
-						<div class='prop_info'>
-							<div class='main_info'>
-								<div class='label_info'>
-									<div class={prop.purpose === 'rent' ? 'purpose label_rent' : 'purpose label_sale' }>
-										{prop.purpose==='rent' ? translate('forRent') : translate('onSale')}
-									</div>
-									<div class='house_type'>
-										<Icon size={12} color='#475569' src={FaSolidHome}/>
-										<span>{prop.houseType==="" ? 'House' : prop.houseType}</span>
-									</div>
-								</div>
-								<div class='address'>
-									<Icon size={17} color='#f97316' src={FaSolidMapMarkerAlt}/>
-									<span>{prop.formattedAddress==="" ? prop.address : prop.formattedAddress}</span>
-								</div>
-								<div class='feature'>
-									<div class='item'>
-										<div>
-											<Icon size={13} color='#ffff' src={FaSolidBuilding}/>
-											<span>{translate('floors')}</span>
-										</div>
-										<span class="value">{prop.numberOfFloors===0 ? 'no-data' : prop.numberOfFloors}</span>
-									</div>
-									<div class='item'>
-										<div>
-											<Icon size={14} color='#ffff' src={FaSolidBed}/>
-											<span>{translate('bed')}</span>
-										</div>
-										<span class="value">{prop.bedroom===0 ? 'no-data' : prop.bedroom}</span>
-									</div>
-									<div class='item'>
-										<div>
-											<Icon size={13} color='#ffff' src={FaSolidBath}/>
-											<span>{translate('bath')}</span>
-										</div>
-										<span class="value">{prop.bathroom===0 ? 'no-data' : prop.bathroom}</span>
-									</div>
-								</div>
-							</div>
-							<div class='secondary_info'>
-								<div class='size'>
-									<Icon size={12} color='#f97316' src={FaSolidRulerCombined}/>
-									<span>{prop.sizeM2} {translate('m')}2</span>
-								</div>
-								<div class='price'>
-									<span class='agency_fee'>{translate('agencyFee')}: {prop.agencyFeePercent || '0'}%</span>
-									<span class='last_price'>{formatPrice( prop.lastPrice || 0, 'TWD' )}</span>
-								</div>
-							</div>
-						</div>
-					</button>
-				{/each}
-			{:else }
-				<div class='no_properties'>
-					<div class='warn'>
-						<Icon size={17} color='#475569' src={FaSolidBan}/>
-						<span>No properties in this area</span>
-					</div>
-				</div>
-			{/if}
-		</div>
-	</div>
-	<div class='right'>
-		<div class='map_container'>
-			<button class='btn_sync_map' on:click={searchByLocationHandler}>
-				<Icon color='#1080e8' size={12} src={FaSolidUndoAlt}/>
-				<span>Search this area</span>
-			</button>
-			<GoogleMap
-				bind:this={gmapsComponent}
-				on:mapDragged={searchByLocationEvent}
-				on:zoomChanged={zoomEvent}
-				options={mapOptions}
-			/>
-		</div>
-		<div class='search_by_address'>
-			<div class='search_box'>
-				<label for='search_location'>
-					<Icon
-						className='icon_search_location'
-						color='#9fa9b5'
-						size={18}
-						src={FaSolidSearch}
-					/>
-				</label>
-				<input
-					bind:value={input_search_value}
-					id='search_location'
-					on:input={() => {
+    <div class='left'>
+        <div class='props_container'>
+            {#if randomProps.length}
+                {#each randomProps as prop, index}
+                    <button
+                            class={propItemHighlight === index ? `prop_item highlight` : 'prop_item' }
+                            bind:this={propItemBinds[index]}
+                            on:mouseenter={() => highLightMapMarker.enter(index)}
+                            on:mouseleave={() => highLightMapMarker.leave(index)}
+                    >
+                        <div class='img_container'>
+                            {#if prop.images && prop.images.length}
+                                <img src={prop.images[0]} alt='' />
+                            {:else}
+                                <div class='image_empty'>
+                                    <Icon size={40} color='#475569' src={FaSolidImage} />
+                                    <span>No Image !</span>
+                                </div>
+                            {/if}
+                        </div>
+                        <div class='prop_info'>
+                            <div class='main_info'>
+                                <div class='label_info'>
+                                    <div class={prop.purpose === 'rent' ? 'purpose label_rent' : 'purpose label_sale' }>
+                                        {prop.purpose === 'rent' ? translate('forRent') : translate('onSale')}
+                                    </div>
+                                    <div class='house_type'>
+                                        <Icon size={12} color='#475569' src={FaSolidHome} />
+                                        <span>{prop.houseType === "" ? 'House' : prop.houseType}</span>
+                                    </div>
+                                </div>
+                                <div class='address'>
+                                    <Icon size={17} color='#f97316' src={FaSolidMapMarkerAlt} />
+                                    <span>{prop.formattedAddress === "" ? prop.address : prop.formattedAddress}</span>
+                                </div>
+                                <div class='feature'>
+                                    <div class='item'>
+                                        <div>
+                                            <Icon size={13} color='#ffff' src={FaSolidBuilding} />
+                                            <span>{translate('floors')}</span>
+                                        </div>
+                                        <span class='value'>{prop.numberOfFloors === 0 ? 'no-data' : prop.numberOfFloors}</span>
+                                    </div>
+                                    <div class='item'>
+                                        <div>
+                                            <Icon size={14} color='#ffff' src={FaSolidBed} />
+                                            <span>{translate('bed')}</span>
+                                        </div>
+                                        <span class='value'>{prop.bedroom === 0 ? 'no-data' : prop.bedroom}</span>
+                                    </div>
+                                    <div class='item'>
+                                        <div>
+                                            <Icon size={13} color='#ffff' src={FaSolidBath} />
+                                            <span>{translate('bath')}</span>
+                                        </div>
+                                        <span class='value'>{prop.bathroom === 0 ? 'no-data' : prop.bathroom}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='secondary_info'>
+                                <div class='size'>
+                                    <Icon size={12} color='#f97316' src={FaSolidRulerCombined} />
+                                    <span>{prop.sizeM2} {translate('m')}2</span>
+                                </div>
+                                <div class='price'>
+                                    <span class='agency_fee'>{translate('agencyFee')}: {prop.agencyFeePercent || '0'}%</span>
+                                    <span class='last_price'>{formatPrice(prop.lastPrice || 0, 'TWD')}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+                {/each}
+            {:else }
+                <div class='no_properties'>
+                    <div class='warn'>
+                        <Icon size={17} color='#475569' src={FaSolidBan} />
+                        <span>No properties in this area</span>
+                    </div>
+                </div>
+            {/if}
+        </div>
+    </div>
+    <div class='right'>
+        <div class='map_container'>
+            <button class='btn_sync_map' on:click={searchByLocationHandler}>
+                <Icon color='#1080e8' size={12} src={FaSolidUndoAlt} />
+                <span>Search this area</span>
+            </button>
+            <GoogleMap
+                    bind:this={gmapsComponent}
+                    bind:bounds={gmapBounds}
+                    on:mapDragged={searchByLocationEvent}
+                    on:zoomChanged={zoomEvent}
+                    options={mapOptions}
+            />
+        </div>
+        <div class='search_by_address'>
+            <div class='search_box'>
+                <label for='search_location'>
+                    <Icon
+                            className='icon_search_location'
+                            color='#9fa9b5'
+                            size={18}
+                            src={FaSolidSearch}
+                    />
+                </label>
+                <input
+                        bind:value={input_search_value}
+                        id='search_location'
+                        on:input={() => {
             searchLocationHandler();
           }}
-					placeholder='Search for address...'
-					type='text'
-				/>
-			</div>
-			<div class='autocomplete_container'>
-				{#if autocomplete_lists.length}
-					{#each autocomplete_lists as place}
-						<button
-							class='autocomplete_item'
-							on:click|preventDefault={() => searchByAddressHandler(place.place_id)}
-						>
-							<Icon size={17} color='#9fa9b5' src={FaSolidMapMarkerAlt}/>
-							<span>{place.description}</span>
-						</button>
-					{/each}
-				{:else}
-					<div class='no_autocomplete'>
-						<div class='warn'>
-							<Icon size={17} color='#475569' src={FaSolidReceipt}/>
-							<span class='empty'>Address lists will appear here...</span>
-						</div>
-					</div>
-				{/if}
-			</div>
-		</div>
-	</div>
+                        placeholder='Search for address...'
+                        type='text'
+                />
+            </div>
+            <div class='autocomplete_container'>
+                {#if autocomplete_lists.length}
+                    {#each autocomplete_lists as place}
+                        <button
+                                class='autocomplete_item'
+                                on:click|preventDefault={() => searchByAddressHandler(place.place_id)}
+                        >
+                            <Icon size={17} color='#9fa9b5' src={FaSolidMapMarkerAlt} />
+                            <span>{place.description}</span>
+                        </button>
+                    {/each}
+                {:else}
+                    <div class='no_autocomplete'>
+                        <div class='warn'>
+                            <Icon size={17} color='#475569' src={FaSolidReceipt} />
+                            <span class='empty'>Address lists will appear here...</span>
+                        </div>
+                    </div>
+                {/if}
+            </div>
+        </div>
+    </div>
 </div>
 
 <style>
