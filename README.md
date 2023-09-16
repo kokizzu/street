@@ -3,7 +3,10 @@
 
 People can find house/building to buy/sell
 
-![image](https://github.com/kokizzu/street/assets/1061610/13b2dce6-e6ce-408f-97f5-5baa7c115196)
+![admin dashboard](https://github.com/kokizzu/street/assets/1061610/13b2dce6-e6ce-408f-97f5-5baa7c115196)
+![manage user](https://github.com/kokizzu/street/assets/1061610/6b089f3b-ffba-4572-b634-2fdd2acf389d)
+![home](https://github.com/kokizzu/street/assets/1061610/1db79647-1718-4cd9-8e2d-ab9673c5cf3b)
+![managed property](https://github.com/kokizzu/street/assets/1061610/c7d94e17-e538-48d4-b210-19a684b573f7)
 
 [stream links](https://docs.google.com/document/d/1ATjUVawcWBM_axQBJU2Xdcu2WkF4sz9-NSGCSDzBHJ8/edit)
 
