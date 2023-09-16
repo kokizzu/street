@@ -58,17 +58,17 @@
 				<div class="left">
 					<div class="profile_details">
 						<h2>Profile Details</h2>
-						<div class="profile_pictures">
-							<div class="img_container">
-								<img alt="profile" src="/assets/img/team-1-200x200.jpg"/>
-							</div>
-							<div class="actions">
-								<button class='btn_upload_photo'>Upload Profile Photo</button>
-								<button class='btn_delete'>
-									<Icon color="#FFF" size={15} src={FaSolidTrashAlt}/>
-								</button>
-							</div>
-						</div>
+<!--						<div class="profile_pictures">-->
+<!--							<div class="img_container">-->
+<!--								<img alt="profile" src="/assets/img/team-1-200x200.jpg"/>-->
+<!--							</div>-->
+<!--							<div class="actions">-->
+<!--								<button class='btn_upload_photo'>Upload Profile Photo</button>-->
+<!--								<button class='btn_delete'>-->
+<!--									<Icon color="#FFF" size={15} src={FaSolidTrashAlt}/>-->
+<!--								</button>-->
+<!--							</div>-->
+<!--						</div>-->
 						<div class="input_container">
 							<div class="name">
 								<div class="profile_input">
