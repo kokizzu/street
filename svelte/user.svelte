@@ -6,11 +6,10 @@
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import {datetime} from './_components/formatter';
   import {onMount} from 'svelte';
-  import {UserChangePassword, UserUpdateProfile} from './jsApi.GEN';
+  import {UserChangePassword, UserUpdateProfile} from './jsApi.GEN.js';
   import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
   import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
   import FaSolidTrashAlt from "svelte-icons-pack/fa/FaSolidTrashAlt";
-  import {currentLang, langOptions} from "./_components/uiState";
   
   let sideMenuOpen = false;
   

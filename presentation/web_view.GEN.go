@@ -18,6 +18,7 @@ var viewList = map[string]string{
 	`AdminSessions`: `../svelte/admin/sessions.html`, // ../svelte/admin/sessions.svelte
 	`AdminUsers`: `../svelte/admin/users.html`, // ../svelte/admin/users.svelte
 	`Buyer`: `../svelte/buyer.html`, // ../svelte/buyer.svelte
+	`Debug`: `../svelte/debug.html`, // ../svelte/debug.svelte
 	`Error`: `../svelte/error.html`, // ../svelte/error.svelte
 	`GuestOauthCallback`: `../svelte/guest/oauthCallback.html`, // ../svelte/guest/oauthCallback.svelte
 	`GuestResetPassword`: `../svelte/guest/resetPassword.html`, // ../svelte/guest/resetPassword.svelte
@@ -69,6 +70,11 @@ func (v *Views) RenderAdminUsers(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderBuyer(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`Buyer`].Str(m))
+}
+
+func (v *Views) RenderDebug(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`Debug`].Str(m))
 }
 
 func (v *Views) RenderError(c *fiber.Ctx, m M.SX) error {
