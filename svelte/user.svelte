@@ -7,9 +7,10 @@
   import {datetime} from './_components/formatter';
   import {onMount} from 'svelte';
   import {T} from './_components/uiState';
-  import {UserChangePassword, UserUpdateProfile} from './jsApi.GEN.js';
+  import {UserChangePassword, UserUpdateProfile, UserSessionsActive, UserSessionKill} from './jsApi.GEN.js';
   import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
   import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
+  import FaSolidTimes from "svelte-icons-pack/fa/FaSolidTimes";
   // import FaSolidTrashAlt from "svelte-icons-pack/fa/FaSolidTrashAlt";
   
   let user = {/* user */};
@@ -20,8 +21,10 @@
   let repeatNewPassword = '';
   
   let oldProfileJson = '';
-  onMount( () => {
+  let sessionActiveLists = []
+  onMount( async () => {
     oldProfileJson = JSON.stringify( user );
+    await userSessionsActive();
   } );
   
   async function updateProfile() {
@@ -48,28 +51,44 @@
       alert( 'password changed' );
     } );
   }
+  
+  async function userSessionsActive() {
+    await UserSessionsActive( user, async res => {
+      if( res.error ) return alert( res.error )
+      sessionActiveLists = await res.sessionsActive;
+      console.log(sessionActiveLists)
+    } )
+  }
+  
+  async function killSession(sessionToken) {
+    await UserSessionKill(sessionToken, async res => {
+      if( res.error ) return alert( res.error )
+      console.log(res)
+      await userSessionsActive();
+    })
+  }
 </script>
 
 <section class="dashboard">
 	<Menu access={segments}/>
 	<div class="dashboard_main_content">
-		<ProfileHeader />
+		<ProfileHeader/>
 		<div class="content">
 			<div class="profile_details_container">
 				<div class="left">
 					<div class="profile_details">
 						<h2>Profile Details</h2>
-<!--						<div class="profile_pictures">-->
-<!--							<div class="img_container">-->
-<!--								<img alt="profile" src="/assets/img/team-1-200x200.jpg"/>-->
-<!--							</div>-->
-<!--							<div class="actions">-->
-<!--								<button class='btn_upload_photo'>Upload Profile Photo</button>-->
-<!--								<button class='btn_delete'>-->
-<!--									<Icon color="#FFF" size={15} src={FaSolidTrashAlt}/>-->
-<!--								</button>-->
-<!--							</div>-->
-<!--						</div>-->
+						<!--						<div class="profile_pictures">-->
+						<!--							<div class="img_container">-->
+						<!--								<img alt="profile" src="/assets/img/team-1-200x200.jpg"/>-->
+						<!--							</div>-->
+						<!--							<div class="actions">-->
+						<!--								<button class='btn_upload_photo'>Upload Profile Photo</button>-->
+						<!--								<button class='btn_delete'>-->
+						<!--									<Icon color="#FFF" size={15} src={FaSolidTrashAlt}/>-->
+						<!--								</button>-->
+						<!--							</div>-->
+						<!--						</div>-->
 						<div class="input_container">
 							<div class="name">
 								<div class="profile_input">
@@ -105,6 +124,28 @@
 							<span>SUBMIT</span>
 							<Icon color="#FFF" size={18} src={FaSolidAngleLeft}/>
 						</button>
+					</div>
+					<div class="session_list_container">
+						<h2>Active Sessions</h2>
+						<div class="session_list_header">
+							<span>IP Address</span>
+							<span>Expired At</span>
+							<span>Device</span>
+						</div>
+						<div class="session_list">
+							{#if sessionActiveLists.length}
+								{#each sessionActiveLists as session}
+									<div class="session">
+										<span>{session.loginIPs || 'no-data'}</span>
+										<span>{datetime(session.expiredAt) || 0}</span>
+										<span>{session.device || 'no-data'}</span>
+										<button on:click={() => killSession(session.sessionToken)} class="kill_session" title="Kill this session">
+											<Icon color="#FFF" size={12} src={FaSolidTimes}/>
+										</button>
+									</div>
+								{/each}
+							{/if}
+						</div>
 					</div>
 				</div>
 				
@@ -225,7 +266,8 @@
 
     .profile_details_container .left .profile_details,
     .profile_details_container .right .password_set,
-    .profile_details_container .right .country_details {
+    .profile_details_container .right .country_details,
+    .profile_details_container .left .session_list_container {
         display          : flex;
         flex-direction   : column;
         border-radius    : 8px;
@@ -249,7 +291,7 @@
     /*    gap            : 25px;*/
     /*    margin         : 0 0 20px 0;*/
     /*}*/
-	 
+
     /*.profile_details_container .left .profile_details .profile_pictures .img_container {*/
     /*    width         : 60px;*/
     /*    height        : 60px;*/
@@ -257,13 +299,13 @@
     /*    border        : 2px solid #86909F;*/
     /*    border-radius : 50%;*/
     /*}*/
-	 
+
     /*.profile_details_container .left .profile_details .profile_pictures .img_container img {*/
     /*    width      : 100%;*/
     /*    height     : 100%;*/
     /*    object-fit : cover;*/
     /*}*/
-	 
+
     /*.profile_details_container .left .profile_details .profile_pictures .actions {*/
     /*    flex-grow      : 1;*/
     /*    display        : flex;*/
@@ -271,7 +313,7 @@
     /*    align-items    : center;*/
     /*    gap            : 10px;*/
     /*}*/
-	 
+
     /*.profile_details_container .left .profile_details .profile_pictures .actions .btn_upload_photo {*/
     /*    width            : fit-content;*/
     /*    height           : fit-content;*/
@@ -283,11 +325,11 @@
     /*    font-weight      : 700;*/
     /*    cursor           : pointer;*/
     /*}*/
-	 
+
     /*.profile_details_container .left .profile_details .profile_pictures .actions .btn_upload_photo:hover {*/
     /*    text-decoration : underline;*/
     /*}*/
-	 
+
     /*.profile_details_container .left .profile_details .profile_pictures .actions .btn_delete {*/
     /*    width            : fit-content;*/
     /*    height           : fit-content;*/
@@ -297,7 +339,7 @@
     /*    border           : 1px solid #EF4444;*/
     /*    cursor           : pointer;*/
     /*}*/
-	 
+
     /*.profile_details_container .left .profile_details .profile_pictures .actions .btn_delete:hover {*/
     /*    background-color : #F85454;*/
     /*    border           : 1px solid #F85454;*/
@@ -344,6 +386,51 @@
         margin-right : 10px;
     }
 
+    .profile_details_container .left .session_list_container .session_list_header {
+	     display: flex;
+	     flex-direction: row;
+	     justify-content: space-between;
+	     font-weight: bold;
+	     padding: 15px 0;
+	     border-bottom: 1px solid #CBD5E1;
+	     margin-right: 30px;
+    }
+    .profile_details_container .left .session_list_container .session_list {
+	     display: flex;
+	     flex-direction: column;
+	     gap: 5px;
+        margin-right: 30px;
+    }
+    .profile_details_container .left .session_list_container .session_list .session {
+	     text-align: left;
+	     display: flex;
+	     flex-direction: row;
+	     align-items: center;
+        justify-content: space-between;
+	     padding: 15px 0;
+        position : relative;
+    }
+    .profile_details_container .left .session_list_container .session_list .session span:nth-child(3),
+    .profile_details_container .left .session_list_container .session_list_header span:nth-child(3) {
+        flex-grow: 1;
+    }
+    .profile_details_container .left .session_list_container .session_list .session span,
+    .profile_details_container .left .session_list_container .session_list_header span {
+	     
+        width: 200px;
+    }
+    .profile_details_container .left .session_list_container .session_list .session .kill_session {
+	     border: none;
+	     background-color: #ef4444;
+	     padding: 6px;
+	     border-radius: 50%;
+        position : absolute;
+	     right: -30px;
+	     cursor: pointer;
+    }
+    .profile_details_container .left .session_list_container .session_list .session .kill_session:hover {
+	     background-color: #F85454;
+    }
     .profile_details_container .right .country_details .country_list #country {
         width            : 100%;
         border           : 1px solid #CBD5E1;
@@ -408,6 +495,4 @@
         border-color : #3B82F6;
         outline      : 1px solid #3B82F6;
     }
-
-
 </style>
