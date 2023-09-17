@@ -7050,34 +7050,32 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
   }
   function create_fragment5(ctx) {
-    let c;
     let t0;
-    let t1;
     let googlesdk;
-    let t2;
+    let t1;
     let div7;
     let div1;
     let div0;
     let current_block_type_index;
     let if_block1;
-    let t3;
+    let t2;
     let div6;
     let div2;
     let button;
     let icon0;
-    let t4;
+    let t3;
     let span;
-    let t6;
+    let t5;
     let googlemap;
     let updating_bounds;
-    let t7;
+    let t6;
     let div5;
     let div3;
     let label;
     let icon1;
-    let t8;
+    let t7;
     let input;
-    let t9;
+    let t8;
     let div4;
     let current_block_type_index_1;
     let if_block2;
@@ -7114,7 +7112,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     });
     function googlemap_bounds_binding(value) {
-      ctx[24](value);
+      ctx[23](value);
     }
     let googlemap_props = { options: (
       /*mapOptions*/
@@ -7128,8 +7126,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       ctx[4];
     }
     googlemap = new GoogleMap_default({ props: googlemap_props });
-    ctx[23](googlemap);
     binding_callbacks.push(() => bind(googlemap, "bounds", googlemap_bounds_binding));
+    ctx[24](googlemap);
     googlemap.$on(
       "mapDragged",
       /*searchByLocationEvent*/
@@ -7158,35 +7156,33 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     if_block2 = if_blocks_1[current_block_type_index_1] = if_block_creators_1[current_block_type_index_1](ctx);
     return {
       c() {
-        c = comment('<script src="uiState.js"><\/script>');
-        t0 = space();
         if (if_block0)
           if_block0.c();
-        t1 = space();
+        t0 = space();
         create_component(googlesdk.$.fragment);
-        t2 = space();
+        t1 = space();
         div7 = element("div");
         div1 = element("div");
         div0 = element("div");
         if_block1.c();
-        t3 = space();
+        t2 = space();
         div6 = element("div");
         div2 = element("div");
         button = element("button");
         create_component(icon0.$.fragment);
-        t4 = space();
+        t3 = space();
         span = element("span");
         span.textContent = "Search this area";
-        t6 = space();
+        t5 = space();
         create_component(googlemap.$.fragment);
-        t7 = space();
+        t6 = space();
         div5 = element("div");
         div3 = element("div");
         label = element("label");
         create_component(icon1.$.fragment);
-        t8 = space();
+        t7 = space();
         input = element("input");
-        t9 = space();
+        t8 = space();
         div4 = element("div");
         if_block2.c();
         attr(div0, "class", "props_container svelte-17ql3ej");
@@ -7205,39 +7201,37 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(div7, "class", "property_location_container svelte-17ql3ej");
       },
       m(target, anchor) {
-        insert(target, c, anchor);
-        insert(target, t0, anchor);
         if (if_block0)
           if_block0.m(target, anchor);
-        insert(target, t1, anchor);
+        insert(target, t0, anchor);
         mount_component(googlesdk, target, anchor);
-        insert(target, t2, anchor);
+        insert(target, t1, anchor);
         insert(target, div7, anchor);
         append(div7, div1);
         append(div1, div0);
         if_blocks[current_block_type_index].m(div0, null);
-        append(div7, t3);
+        append(div7, t2);
         append(div7, div6);
         append(div6, div2);
         append(div2, button);
         mount_component(icon0, button, null);
-        append(button, t4);
+        append(button, t3);
         append(button, span);
-        append(div2, t6);
+        append(div2, t5);
         mount_component(googlemap, div2, null);
-        append(div6, t7);
+        append(div6, t6);
         append(div6, div5);
         append(div5, div3);
         append(div3, label);
         mount_component(icon1, label, null);
-        append(div3, t8);
+        append(div3, t7);
         append(div3, input);
         set_input_value(
           input,
           /*input_search_value*/
           ctx[5]
         );
-        append(div5, t9);
+        append(div5, t8);
         append(div5, div4);
         if_blocks_1[current_block_type_index_1].m(div4, null);
         current = true;
@@ -7280,7 +7274,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             if_block0 = create_if_block_33(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
-            if_block0.m(t1.parentNode, t1);
+            if_block0.m(t0.parentNode, t0);
           }
         } else if (if_block0) {
           group_outros();
@@ -7372,10 +7366,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(c);
           detach(t0);
           detach(t1);
-          detach(t2);
           detach(div7);
         }
         if (if_block0)
@@ -7383,7 +7375,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         destroy_component(googlesdk, detaching);
         if_blocks[current_block_type_index].d();
         destroy_component(icon0);
-        ctx[23](null);
+        ctx[24](null);
         destroy_component(googlemap);
         destroy_component(icon1);
         if_blocks_1[current_block_type_index_1].d();
@@ -7612,15 +7604,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     const mouseenter_handler = (index) => highLightMapMarker.enter(index);
     const mouseleave_handler = (index) => highLightMapMarker.leave(index);
+    function googlemap_bounds_binding(value) {
+      gmapBounds = value;
+      $invalidate(4, gmapBounds);
+    }
     function googlemap_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         gmapsComponent = $value;
         $invalidate(3, gmapsComponent);
       });
-    }
-    function googlemap_bounds_binding(value) {
-      gmapBounds = value;
-      $invalidate(4, gmapBounds);
     }
     function input_input_handler() {
       input_search_value = this.value;
@@ -7662,8 +7654,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       button_binding,
       mouseenter_handler,
       mouseleave_handler,
-      googlemap_binding,
       googlemap_bounds_binding,
+      googlemap_binding,
       input_input_handler,
       input_handler,
       click_handler

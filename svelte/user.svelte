@@ -6,10 +6,11 @@
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import {datetime} from './_components/formatter';
   import {onMount} from 'svelte';
+  import {T} from './_components/uiState';
   import {UserChangePassword, UserUpdateProfile} from './jsApi.GEN.js';
   import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
   import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
-  import FaSolidTrashAlt from "svelte-icons-pack/fa/FaSolidTrashAlt";
+  // import FaSolidTrashAlt from "svelte-icons-pack/fa/FaSolidTrashAlt";
   
   let user = {/* user */};
   let segments = {/* segments */};
@@ -81,7 +82,7 @@
 								</div>
 							</div>
 							<div class="profile_input email">
-								<label for="email">Email</label>
+								<label for="email">{$T.email}</label>
 								<input bind:value={user.email} id="email" type="email"/>
 							</div>
 						</div>
@@ -109,7 +110,7 @@
 				
 				<div class="right">
 					<div class="password_set">
-						<h2>Change password</h2>
+						<h2>Change {$T.password}</h2>
 						<div class="input_container">
 							<div class="profile_input">
 								<label for="oldPassword">Old Password</label>
@@ -241,66 +242,66 @@
         gap            : 30px;
     }
 
-    .profile_details_container .left .profile_details .profile_pictures {
-        display        : flex;
-        flex-direction : row;
-        align-items    : center;
-        gap            : 25px;
-        margin         : 0 0 20px 0;
-    }
-
-    .profile_details_container .left .profile_details .profile_pictures .img_container {
-        width         : 60px;
-        height        : 60px;
-        overflow      : hidden;
-        border        : 2px solid #86909F;
-        border-radius : 50%;
-    }
-
-    .profile_details_container .left .profile_details .profile_pictures .img_container img {
-        width      : 100%;
-        height     : 100%;
-        object-fit : cover;
-    }
-
-    .profile_details_container .left .profile_details .profile_pictures .actions {
-        flex-grow      : 1;
-        display        : flex;
-        flex-direction : row;
-        align-items    : center;
-        gap            : 10px;
-    }
-
-    .profile_details_container .left .profile_details .profile_pictures .actions .btn_upload_photo {
-        width            : fit-content;
-        height           : fit-content;
-        padding          : 7px 15px;
-        border-radius    : 8px;
-        border           : 2px solid #F1F5F9;
-        background-color : #F1F5F9;
-        color            : #3B82F6;
-        font-weight      : 700;
-        cursor           : pointer;
-    }
-
-    .profile_details_container .left .profile_details .profile_pictures .actions .btn_upload_photo:hover {
-        text-decoration : underline;
-    }
-
-    .profile_details_container .left .profile_details .profile_pictures .actions .btn_delete {
-        width            : fit-content;
-        height           : fit-content;
-        padding          : 6px 10px;
-        border-radius    : 8px;
-        background-color : #EF4444;
-        border           : 1px solid #EF4444;
-        cursor           : pointer;
-    }
-
-    .profile_details_container .left .profile_details .profile_pictures .actions .btn_delete:hover {
-        background-color : #F85454;
-        border           : 1px solid #F85454;
-    }
+    /*.profile_details_container .left .profile_details .profile_pictures {*/
+    /*    display        : flex;*/
+    /*    flex-direction : row;*/
+    /*    align-items    : center;*/
+    /*    gap            : 25px;*/
+    /*    margin         : 0 0 20px 0;*/
+    /*}*/
+	 
+    /*.profile_details_container .left .profile_details .profile_pictures .img_container {*/
+    /*    width         : 60px;*/
+    /*    height        : 60px;*/
+    /*    overflow      : hidden;*/
+    /*    border        : 2px solid #86909F;*/
+    /*    border-radius : 50%;*/
+    /*}*/
+	 
+    /*.profile_details_container .left .profile_details .profile_pictures .img_container img {*/
+    /*    width      : 100%;*/
+    /*    height     : 100%;*/
+    /*    object-fit : cover;*/
+    /*}*/
+	 
+    /*.profile_details_container .left .profile_details .profile_pictures .actions {*/
+    /*    flex-grow      : 1;*/
+    /*    display        : flex;*/
+    /*    flex-direction : row;*/
+    /*    align-items    : center;*/
+    /*    gap            : 10px;*/
+    /*}*/
+	 
+    /*.profile_details_container .left .profile_details .profile_pictures .actions .btn_upload_photo {*/
+    /*    width            : fit-content;*/
+    /*    height           : fit-content;*/
+    /*    padding          : 7px 15px;*/
+    /*    border-radius    : 8px;*/
+    /*    border           : 2px solid #F1F5F9;*/
+    /*    background-color : #F1F5F9;*/
+    /*    color            : #3B82F6;*/
+    /*    font-weight      : 700;*/
+    /*    cursor           : pointer;*/
+    /*}*/
+	 
+    /*.profile_details_container .left .profile_details .profile_pictures .actions .btn_upload_photo:hover {*/
+    /*    text-decoration : underline;*/
+    /*}*/
+	 
+    /*.profile_details_container .left .profile_details .profile_pictures .actions .btn_delete {*/
+    /*    width            : fit-content;*/
+    /*    height           : fit-content;*/
+    /*    padding          : 6px 10px;*/
+    /*    border-radius    : 8px;*/
+    /*    background-color : #EF4444;*/
+    /*    border           : 1px solid #EF4444;*/
+    /*    cursor           : pointer;*/
+    /*}*/
+	 
+    /*.profile_details_container .left .profile_details .profile_pictures .actions .btn_delete:hover {*/
+    /*    background-color : #F85454;*/
+    /*    border           : 1px solid #F85454;*/
+    /*}*/
 
     .profile_details_container .left .profile_details .input_container,
     .profile_details_container .right .password_set .input_container {
