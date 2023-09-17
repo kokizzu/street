@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	TablePropertyUsa Tt.TableName = `property_usa`
+	TablePropertyUs Tt.TableName = `property_us`
 
 	Version    = `version`
 	PropertyId = `propertyId` // ID of Property ID in Redfin
@@ -31,6 +31,9 @@ const (
 	RollYear                = `rollYear`
 	TaxesDue                = `taxesDue`
 
+	TaxInfo        = `taxInfo`
+	HistoryTaxInfo = `historyTaxInfo`
+
 	// County
 	CountyUrl      = `countyUrl`
 	CountyName     = `countyName`
@@ -47,13 +50,7 @@ const (
 	MediaSourceJson = `mediaSourceJson`
 
 	// Zone data info
-	ZoneName            = `zoneName`            // Ex: Residential Apartment
-	ZoneType            = `zoneType`            // Ex: Residential
-	ZoneSubType         = `zoneSubType`         // Ex: Single Family
-	ZoneDisplay         = `zoneDisplay`         // Ex: Residential Single Family
-	ZoneCode            = `zoneCode`            // Ex: RA-2
-	PermittedLandUse    = `permittedLandUse`    // Ex: ["Single-Family","Multi-Family","Short-Term Rentals","Commercial"]
-	NotPermittedLandUse = `notPermittedLandUse` // Ex: ["Two-Family", "ADU", "Industrial"]
+	ZoneDataInfo = `zoneDataInfo` // String - store full json string
 
 	// Agent & Broker
 	ListingBrokerName   = `listingBrokerName`
@@ -121,40 +118,99 @@ const (
 	Count = `count`
 )
 
+func buildStandardPropertySchema() []Tt.Field {
+	schema := map[int]Tt.Field{
+		0: {Id, Tt.Unsigned},
+
+		// Metadata key info
+		30: {Version, Tt.Double}, // Version of data (specific for US)
+		1:  {UniqPropKey, Tt.String},
+		2:  {SerialNumber, Tt.String},
+
+		// Basic Info
+		46: {Street, Tt.String}, // New field based on US data
+		47: {City, Tt.String},   // New field based on US data
+		48: {State, Tt.String},  // New field based on US data
+		49: {Zip, Tt.String},    // New field based on US data
+		9:  {Address, Tt.String},
+		18: {FormattedAddress, Tt.String},
+
+		// County (District)
+		10: {District, Tt.String},
+		12: {Coord, Tt.Array},
+		43: {CountyUrl, Tt.String},
+		44: {CountyName, Tt.String},
+		45: {CountyIsActive, Tt.Boolean},
+		50: {CountryCode, Tt.String}, // New field based on US data
+		29: {Country, Tt.String},
+
+		// Property size area
+		3:  {SizeM2, Tt.String},
+		41: {TotalSqft, Tt.Double}, // Specific for US data
+
+		// Property description
+		4:  {MainUse, Tt.String},
+		5:  {MainBuildingMaterial, Tt.String},
+		6:  {ConstructCompletedDate, Tt.String},
+		7:  {NumberOfFloors, Tt.String},
+		8:  {BuildingLamination, Tt.String},
+		22: {Purpose, Tt.String},
+		23: {HouseType, Tt.String},
+		24: {Images, Tt.Array},
+		25: {Bedroom, Tt.Integer},
+		26: {Bathroom, Tt.Integer},
+		27: {AgencyFeePercent, Tt.Double},
+		28: {FloorList, Tt.Array},
+
+		// Media images
+		31: {MediaSourceJson, Tt.String},
+
+		// Other data
+		32: {ZoneDataInfo, Tt.String},   // Specific for US data
+		33: {TaxInfo, Tt.String},        // Store full json of tax info
+		34: {HistoryTaxInfo, Tt.String}, // Store full json of history tax
+		39: {YearBuilt, Tt.Integer},
+		40: {YearRenovated, Tt.Integer},
+		42: {AmenitySuperGroups, Tt.String},
+		51: {PropertyLastUpdatedDate, Tt.Integer},
+		52: {TaxNote, Tt.String},
+
+		11: {Note, Tt.String},
+
+		// Price related to property
+		19: {LastPrice, Tt.String},
+		20: {PriceHistoriesSell, Tt.Array},
+		21: {PriceHistoriesRent, Tt.Array},
+
+		// Agent & Broker for Realtor
+		35: {ListingBrokerName, Tt.String},
+		36: {ListingBrokerNumber, Tt.String},
+		37: {ListingAgentName, Tt.String},
+		38: {ListingAgentNumber, Tt.String},
+
+		13: {CreatedAt, Tt.Integer},
+		14: {CreatedBy, Tt.Unsigned},
+		15: {UpdatedAt, Tt.Integer},
+		16: {UpdatedBy, Tt.Unsigned},
+		17: {DeletedAt, Tt.Integer},
+	}
+
+	listFieldsInPropScheme := make([]Tt.Field, len(schema))
+	for i := 0; i < len(listFieldsInPropScheme); i++ {
+
+		// fmt.Println(" Field name:  ", schema[i])
+		if schema[i].Name == "" && schema[i].Type == "" {
+			continue
+		} else {
+			listFieldsInPropScheme[i] = schema[i]
+		}
+	}
+	return listFieldsInPropScheme
+}
+
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableProperty: {
-		Fields: []Tt.Field{
-			{Id, Tt.Unsigned},
-			{UniqPropKey, Tt.String},
-			{SerialNumber, Tt.String},
-			{SizeM2, Tt.String},
-			{MainUse, Tt.String},
-			{MainBuildingMaterial, Tt.String},
-			{ConstructCompletedDate, Tt.String},
-			{NumberOfFloors, Tt.String},
-			{BuildingLamination, Tt.String},
-			{Address, Tt.String},
-			{District, Tt.String},
-			{Note, Tt.String},
-			{Coord, Tt.Array},
-			{CreatedAt, Tt.Integer},
-			{CreatedBy, Tt.Unsigned},
-			{UpdatedAt, Tt.Integer},
-			{UpdatedBy, Tt.Unsigned},
-			{DeletedAt, Tt.Integer},
-			{FormattedAddress, Tt.String},
-			{LastPrice, Tt.String},
-			{PriceHistoriesSell, Tt.Array},
-			{PriceHistoriesRent, Tt.Array},
-			{Purpose, Tt.String},
-			{HouseType, Tt.String},
-			{Images, Tt.Array},
-			{Bedroom, Tt.Integer},
-			{Bathroom, Tt.Integer},
-			{AgencyFeePercent, Tt.Double},
-			{FloorList, Tt.Array},
-			{Country, Tt.String},
-		},
+		Fields:          buildStandardPropertySchema(),
 		AutoIncrementId: true,
 		Unique1:         UniqPropKey,
 		Indexes:         []string{SerialNumber},
@@ -206,76 +262,11 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Unique1: PropId,
 		Engine:  Tt.Memtx,
 	},
-	TablePropertyUsa: {
-		Fields: []Tt.Field{
-
-			{Id, Tt.Unsigned},
-
-			// Basic info
-			{Version, Tt.Double},
-			{PropertyId, Tt.Unsigned},
-			{Street, Tt.String},
-			{City, Tt.String},
-			{State, Tt.String},
-			{Zip, Tt.String},
-			{CountryCode, Tt.String},
-			{PropertyTypeName, Tt.String},
-			{YearBuilt, Tt.Integer},
-			{YearRenovated, Tt.Integer},
-			{TotalSqft, Tt.Double},
-			{Apn, Tt.String},
-			{PropertyLastUpdatedDate, Tt.Integer},
-			{DisplayTimeZone, Tt.String},
-			{Coord, Tt.Array},
-			{Bedroom, Tt.Integer},
-			{Bathroom, Tt.Integer},
-
-			// Tax info
-			{TaxableLandValue, Tt.Integer},
-			{TaxableImprovementValue, Tt.Integer},
-			{RollYear, Tt.Integer},
-			{TaxesDue, Tt.Double},
-
-			// Amenity Group
-			{AmenitySuperGroups, Tt.String},
-
-			// County
-			{CountyUrl, Tt.String},
-			{CountyName, Tt.String},
-			{CountyIsActive, Tt.Boolean},
-
-			// Media sources
-			{MediaSource, Tt.Array},
-			{MediaSourceJson, Tt.String},
-
-			// Zone data info
-			{ZoneName, Tt.String},
-			{ZoneType, Tt.String},
-			{ZoneSubType, Tt.String},
-			{ZoneDisplay, Tt.String},
-			{ZoneCode, Tt.String},
-			{PermittedLandUse, Tt.String},
-			{NotPermittedLandUse, Tt.String},
-
-			{Note, Tt.String},
-			{TaxNote, Tt.String},
-			{CreatedAt, Tt.Integer},
-			{CreatedBy, Tt.Unsigned},
-			{UpdatedAt, Tt.Integer},
-			{UpdatedBy, Tt.Unsigned},
-			{DeletedAt, Tt.Integer},
-
-			// Agent & Broker
-			{ListingBrokerName, Tt.String},
-			{ListingBrokerNumber, Tt.String},
-			{ListingAgentName, Tt.String},
-			{ListingAgentNumber, Tt.String},
-
-			{AgencyFeePercent, Tt.Double},
-			{Country, Tt.String},
-		},
+	TablePropertyUs: {
+		Fields:          buildStandardPropertySchema(),
 		AutoIncrementId: true,
-		Unique1:         PropertyId,
+		Unique1:         UniqPropKey,
+		Indexes:         []string{SerialNumber},
 		Engine:          Tt.Memtx,
 		Spatial:         Coord,
 	},

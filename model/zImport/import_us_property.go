@@ -3,7 +3,6 @@ package zImport
 import (
 	"errors"
 	"fmt"
-	"github.com/kokizzu/gotro/L"
 	"io"
 	"net/http"
 	"strconv"
@@ -13,6 +12,7 @@ import (
 
 	"github.com/goccy/go-json"
 	"github.com/kokizzu/gotro/D/Tt"
+	"github.com/kokizzu/gotro/L"
 	"github.com/mitchellh/mapstructure"
 )
 
@@ -188,7 +188,7 @@ func parseMapIntoStruct(inputMap map[string]interface{}) (*PropertyFullResponse,
 	return &result, nil
 }
 
-func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyResponse map[string]interface{}) (res *wcProperty.PropertyUsaMutator, err error) {
+func ParsePropertyData(propertyMutator wcProperty.PropertyUsMutator, propertyResponse map[string]interface{}) (res *wcProperty.PropertyUsMutator, err error) {
 
 	propertyResponseObject, err := parseMapIntoStruct(propertyResponse)
 
@@ -197,36 +197,44 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyRe
 		return nil, err
 	}
 
-	// -------- Basic info --------
+	// // -------- Basic info --------
 	propertyMutator.Street = propertyResponseObject.PublicRecordsInfo.AddressInfo.Street
 	propertyMutator.City = propertyResponseObject.PublicRecordsInfo.AddressInfo.City
 	propertyMutator.State = propertyResponseObject.PublicRecordsInfo.AddressInfo.State
 	propertyMutator.Zip = propertyResponseObject.PublicRecordsInfo.AddressInfo.Zip
-	propertyMutator.CountryCode = propertyResponseObject.PublicRecordsInfo.AddressInfo.CountryCode
 
 	propertyMutator.Bathroom = propertyResponseObject.PublicRecordsInfo.BasicInfo.Baths
 	propertyMutator.Bedroom = propertyResponseObject.PublicRecordsInfo.BasicInfo.Beds
-	propertyMutator.PropertyTypeName = propertyResponseObject.PublicRecordsInfo.BasicInfo.PropertyTypeName
-	propertyMutator.YearBuilt = propertyResponseObject.PublicRecordsInfo.BasicInfo.YearBuilt
+	propertyMutator.HouseType = propertyResponseObject.PublicRecordsInfo.BasicInfo.PropertyTypeName
+	propertyMutator.YearBuilt = propertyResponseObject.PublicRecordsInfo.BasicInfo.YearBuilt // Same with complete construct date
+
 	propertyMutator.YearRenovated = propertyResponseObject.PublicRecordsInfo.BasicInfo.YearRenovated
 	propertyMutator.TotalSqft = float64(propertyResponseObject.PublicRecordsInfo.BasicInfo.TotalSqft)
-	propertyMutator.Apn = propertyResponseObject.PublicRecordsInfo.BasicInfo.Apn
+	propertyMutator.SerialNumber = propertyResponseObject.PublicRecordsInfo.BasicInfo.Apn // Store as serial number
 	propertyMutator.PropertyLastUpdatedDate = propertyResponseObject.PublicRecordsInfo.BasicInfo.PropertyLastUpdatedDate
-	propertyMutator.DisplayTimeZone = propertyResponseObject.PublicRecordsInfo.BasicInfo.DisplayTimeZone
 
-	// -------- Tax info --------
-	propertyMutator.TaxableLandValue = propertyResponseObject.PublicRecordsInfo.TaxInfo.TaxableLandValue
-	propertyMutator.TaxableImprovementValue = propertyResponseObject.PublicRecordsInfo.TaxInfo.TaxableImprovementValue
-	propertyMutator.RollYear = propertyResponseObject.PublicRecordsInfo.TaxInfo.RollYear
-	propertyMutator.TaxesDue = propertyResponseObject.PublicRecordsInfo.TaxInfo.TaxesDue
+	// // -------- Tax info --------
+
+	taxInfoJson, err := json.Marshal(propertyResponseObject.PublicRecordsInfo.TaxInfo)
+	if err != nil {
+		fmt.Println("Failed to convert tax info !")
+	}
+	propertyMutator.TaxInfo = string(taxInfoJson)
 	propertyMutator.TaxNote = propertyResponseObject.PublicRecordsInfo.SectionPreviewText
 
-	// -------- County --------
+	// // -------- County --------
 	propertyMutator.CountyUrl = propertyResponseObject.PublicRecordsInfo.CountyUrl
 	propertyMutator.CountyName = propertyResponseObject.PublicRecordsInfo.CountyName
 	propertyMutator.CountyIsActive = propertyResponseObject.PublicRecordsInfo.CountyIsActive
+	propertyMutator.CountryCode = propertyResponseObject.PublicRecordsInfo.AddressInfo.CountryCode
+	propertyMutator.Country = propertyResponseObject.PublicRecordsInfo.AddressInfo.CountryCode
 
-	// -------- Build amenity list --------
+	// Address
+	propertyMutator.Address = propertyMutator.Street + "," + propertyMutator.City + "," + propertyMutator.CountyName + "," + propertyMutator.State
+	propertyMutator.FormattedAddress = propertyMutator.Street + "," + propertyMutator.City + "," + propertyMutator.CountyName +
+		"," + propertyMutator.State + ", Zip: " + propertyMutator.Zip + "," + propertyMutator.CountryCode
+
+	// // -------- Build amenity list --------
 	amenityGroupString, err := json.Marshal(propertyResponseObject.AmenitiesInfo.SuperGroups)
 
 	if err != nil {
@@ -234,29 +242,22 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyRe
 	}
 
 	propertyMutator.AmenitySuperGroups = string(amenityGroupString)
-	propertyMutator.Coord = []any{0, 0}
 
-	// -------- Build source photo (media-source) --------
+	// // -------- Build source photo (media-source) --------
 	mediaSourceJson, err := json.Marshal(propertyResponseObject.PropertyHistoryInfo.MediaBrowserInfoBySourceId)
 	if err != nil {
 		fmt.Println("Failed to convert media sources !")
 	}
 	propertyMutator.MediaSourceJson = string(mediaSourceJson)
 
+	// Get latest coord from media resources
+	propertyMutator.Coord = []any{0, 0}
 	mediaSources := propertyResponseObject.PropertyHistoryInfo.MediaBrowserInfoBySourceId
-	var mediaSourceList []interface{}
 
-	// var count int64 = 0 // Get latest lat/long from media sources
-
-	for key, value := range mediaSources {
-		// fmt.Println("Key: %s, Value: %v\n", key, value)
+	for _, value := range mediaSources {
 
 		var lat float64
 		var long float64
-		var streetViewUrl string
-		var streetViewAvailable bool
-		var altTextForImage string
-		var assembledAddress string
 
 		mediaObject, ok := value.(map[string]interface{})
 
@@ -273,82 +274,21 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUsaMutator, propertyRe
 					if propertyMutator.Coord[0] == 0 && propertyMutator.Coord[1] == 0 {
 						propertyMutator.Coord = []any{lat, long}
 					}
-
 				} else {
 					fmt.Println("\nCant parse lat/long")
 				}
-
-				streetViewAvailableData, ok := streetViewData["streetViewAvailable"].(bool)
-				if ok {
-					streetViewAvailable = streetViewAvailableData
-				} else {
-					fmt.Println("Unable to parse street view available flag !")
-				}
-
-				if streetViewAvailable == true {
-					streetViewData, ok := streetViewData["streetViewUrl"].(string)
-					if ok {
-						streetViewUrl = streetViewData
-					}
-				}
-			} else {
-				fmt.Println("Cant parse street view url")
 			}
-			altTextForImageData, ok := mediaObject["altTextForImage"].(string)
-			if ok {
-				altTextForImage = altTextForImageData
-			}
-
-			assembledAddressData, ok := mediaObject["assembledAddress"].(string)
-			if ok {
-				assembledAddress = assembledAddressData
-			}
-
-		} else {
-			fmt.Println("No media data for this property")
 		}
-
-		mediaItem := map[string]interface{}{
-			"id":                  key,
-			"latitude":            lat,
-			"longitude":           long,
-			"streetViewUrl":       streetViewUrl,
-			"streetViewAvailable": streetViewAvailable,
-			"altTextForImage":     altTextForImage,
-			"assembledAddress":    assembledAddress,
-		}
-		mediaSourceList = append(mediaSourceList, mediaItem)
-		// count++
 	}
 
-	if mediaSourceList == nil || len(mediaSourceList) > 0 {
-		propertyMutator.MediaSource = []any{}
-	} else {
-		propertyMutator.MediaSource = mediaSourceList
-	}
-
-	// -------- Zone data info --------
-	propertyMutator.ZoneName = propertyResponseObject.ZoningDataInfo.ZoneName
-	propertyMutator.ZoneType = propertyResponseObject.ZoningDataInfo.ZoneType.ZoneType
-	propertyMutator.ZoneSubType = propertyResponseObject.ZoningDataInfo.ZoneType.ZoneSubType
-	propertyMutator.ZoneCode = propertyResponseObject.ZoningDataInfo.ZoneCode
-
-	// --------  Build permitted land use --------
-	permittedLandUse, err := json.Marshal(propertyResponseObject.ZoningDataInfo.PermittedLandUse)
-
+	// // -------- Zone data info & Permitted land to use --------
+	zoneDataInfo, err := json.Marshal(propertyResponseObject.ZoningDataInfo)
 	if err != nil {
-		fmt.Println("Failed to convert permittedLandUse !")
+		fmt.Println("Can't parse Zone Data Info")
 	}
-	propertyMutator.PermittedLandUse = string(permittedLandUse)
+	propertyMutator.ZoneDataInfo = string(zoneDataInfo)
 
-	notPermittedLandUseArr, err := json.Marshal(propertyResponseObject.ZoningDataInfo.NotPermittedLandUse)
-
-	if err != nil {
-		fmt.Println("Failed to convert notPermittedLandUseArr !")
-	}
-	propertyMutator.NotPermittedLandUse = string(notPermittedLandUseArr)
-
-	// -------- Store agent & broker --------
+	// // -------- Store agent & broker --------
 	propertyMutator.ListingBrokerName = propertyResponseObject.AmenitiesInfo.MlsDisclaimerInfo.ListingBrokerName
 	propertyMutator.ListingBrokerNumber = propertyResponseObject.AmenitiesInfo.MlsDisclaimerInfo.ListingBrokerNumber
 	propertyMutator.ListingAgentName = propertyResponseObject.AmenitiesInfo.MlsDisclaimerInfo.ListingAgentName
@@ -372,10 +312,10 @@ func ImportPropertyUsData(adapter *Tt.Adapter, baseUrl string, minPropId int, ma
 
 		fmt.Println("Property ID => ", i)
 
-		propertyMutator := wcProperty.NewPropertyUsaMutator(adapter)
-		propertyMutator.PropertyId = uint64(i)
+		propertyMutator := wcProperty.NewPropertyUsMutator(adapter)
+		propertyMutator.UniqPropKey = strconv.Itoa(i)
 
-		if propertyMutator.FindByPropertyId() {
+		if propertyMutator.FindByUniqPropKey() {
 			stat.Skip()
 			continue
 		}
