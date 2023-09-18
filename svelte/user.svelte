@@ -3,6 +3,7 @@
   import Menu from './_components/Menu.svelte';
   import ProfileHeader from './_components/ProfileHeader.svelte';
   import Footer from './_components/Footer.svelte';
+  import Growl from './_components/Growl.svelte';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import {datetime} from './_components/formatter';
   import {onMount} from 'svelte';
@@ -15,60 +16,76 @@
   
   let user = {/* user */};
   let segments = {/* segments */};
-  
+  let countryData = {/* countryData */}
   let oldPassword = '';
   let newPassword = '';
   let repeatNewPassword = '';
   
   let oldProfileJson = '';
-  let sessionActiveLists = []
+  let sessionActiveLists = [];
+  let showGrowl = false, gMsg = '', gType = '';
   onMount( async () => {
     oldProfileJson = JSON.stringify( user );
     await userSessionsActive();
+    console.log(countryData)
   } );
   
+  function useGrowl( type, msg ) {
+    showGrowl = true;
+    gMsg = msg;
+    gType = type;
+    setTimeout( () => {
+      showGrowl = false;
+    }, 3000 );
+  }
+  
   async function updateProfile() {
-    if( JSON.stringify( user )===oldProfileJson ) return alert( 'No changes' );
+    if( JSON.stringify( user )===oldProfileJson ) return useGrowl( 'error', 'No changes' );
     UserUpdateProfile( user, function( res ) {
-      if( res.error ) return alert( res.error );
+      if( res.error ) return useGrowl( 'error', res.error );
       oldProfileJson = JSON.stringify( res.user );
       user = res.user;
-      alert( 'profile updated' );
+      useGrowl( 'info', 'Profile updated' );
     } );
   }
   
   async function changePassword() {
-    if( newPassword!==repeatNewPassword ) return alert( 'New password and repeat new password must be same' );
+    if( newPassword!==repeatNewPassword ) return useGrowl( 'error', 'New password and repeat new password must be same' );
     let input = {
       oldPass: oldPassword,
       newPass: newPassword,
     };
     UserChangePassword( input, function( res ) {
-      if( res.error ) return alert( res.error );
+      if( res.error ) return useGrowl( 'error', res.error );
       oldPassword = '';
       newPassword = '';
       repeatNewPassword = '';
-      alert( 'password changed' );
+      alert( 'Password updated' );
     } );
   }
   
   async function userSessionsActive() {
     await UserSessionsActive( user, async res => {
-      if( res.error ) return alert( res.error )
+      if( res.error ) return useGrowl( 'error', res.error );
       sessionActiveLists = await res.sessionsActive;
-      console.log(sessionActiveLists)
     } )
   }
   
-  async function killSession(sessionToken) {
-    await UserSessionKill(sessionToken, async res => {
-      if( res.error ) return alert( res.error )
-      console.log(res)
-      await userSessionsActive();
-    })
+  async function killSession( sessionToken ) {
+    await UserSessionKill( sessionToken, async res => {
+      if( res.error ) return useGrowl( 'error', res.error );
+      if( res.sessionTerminated>0 ) {
+        return await userSessionsActive();
+      } else {
+        useGrowl( 'error', 'No session terminated' );
+      }
+    } )
   }
 </script>
 
+{#if showGrowl}
+	<Growl message={gMsg} growlType={gType}/>
+{/if}
 <section class="dashboard">
 	<Menu access={segments}/>
 	<div class="dashboard_main_content">
@@ -137,7 +154,7 @@
 								{#each sessionActiveLists as session}
 									<div class="session">
 										<span>{session.loginIPs || 'no-data'}</span>
-										<span>{datetime(session.expiredAt) || 0}</span>
+										<span>{datetime( session.expiredAt ) || 0}</span>
 										<span>{session.device || 'no-data'}</span>
 										<button on:click={() => killSession(session.sessionToken)} class="kill_session" title="Kill this session">
 											<Icon color="#FFF" size={12} src={FaSolidTimes}/>
@@ -176,62 +193,9 @@
 						<h2>Country Details</h2>
 						<div class="country_list">
 							<select id="country" name="country">
-								<option value="Afghanistan">Afghanistan</option>
-								<option value="Albania">Albania</option>
-								<option value="Algeria">Algeria</option>
-								<option value="Andorra">Andorra</option>
-								<option value="Angola">Angola</option>
-								<option value="Antigua and Barbuda">Antigua and Barbuda</option>
-								<option value="Argentina">Argentina</option>
-								<option value="Armenia">Armenia</option>
-								<option value="Australia">Australia</option>
-								<option value="Austria">Austria</option>
-								<option value="Azerbaijan">Azerbaijan</option>
-								<option value="Bahamas">Bahamas</option>
-								<option value="Bahrain">Bahrain</option>
-								<option value="Bangladesh">Bangladesh</option>
-								<option value="Barbados">Barbados</option>
-								<option value="Belarus">Belarus</option>
-								<option value="Belgium">Belgium</option>
-								<option value="Belize">Belize</option>
-								<option value="Benin">Benin</option>
-								<option value="Bhutan">Bhutan</option>
-								<option value="Bolivia">Bolivia</option>
-								<option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
-								<option value="Botswana">Botswana</option>
-								<option value="Brazil">Brazil</option>
-								<option value="Brunei">Brunei</option>
-								<option value="Bulgaria">Bulgaria</option>
-								<option value="Burkina Faso">Burkina Faso</option>
-								<option value="Burundi">Burundi</option>
-								<option value="Côte d'Ivoire">Côte d'Ivoire</option>
-								<option value="Cabo Verde">Cabo Verde</option>
-								<option value="Cambodia">Cambodia</option>
-								<option value="Cameroon">Cameroon</option>
-								<option value="Canada">Canada</option>
-								<option value="Central African Republic">Central African Republic</option>
-								<option value="Chad">Chad</option>
-								<option value="Chile">Chile</option>
-								<option value="China">China</option>
-								<option value="Colombia">Colombia</option>
-								<option value="Comoros">Comoros</option>
-								<option value="Congo (Congo-Brazzaville)">Congo (Congo-Brazzaville)</option>
-								<option value="Costa Rica">Costa Rica</option>
-								<option value="Croatia">Croatia</option>
-								<option value="Cuba">Cuba</option>
-								<option value="Cyprus">Cyprus</option>
-								<option value="Czechia (Czech Republic)">Czechia (Czech Republic)</option>
-								<option value="Democratic Republic of the Congo (Congo-Kinshasa)">Democratic Republic of the Congo (Congo-Kinshasa)</option>
-								<option value="Denmark">Denmark</option>
-								<option value="Djibouti">Djibouti</option>
-								<option value="Dominica">Dominica</option>
-								<option value="Dominican Republic">Dominican Republic</option>
-								<option value="Ecuador">Ecuador</option>
-								<option value="Egypt">Egypt</option>
-								<option value="El Salvador">El Salvador</option>
-								<option value="Equatorial Guinea">Equatorial Guinea</option>
-								<option value="Eritrea">Eritrea</option>
-								<option value="Estonia">Estonia</option>
+								{#each countryData as country}
+									<option value={country.country}>{country.country}</option>
+								{/each}
 							</select>
 						</div>
 					</div>
@@ -387,50 +351,57 @@
     }
 
     .profile_details_container .left .session_list_container .session_list_header {
-	     display: flex;
-	     flex-direction: row;
-	     justify-content: space-between;
-	     font-weight: bold;
-	     padding: 15px 0;
-	     border-bottom: 1px solid #CBD5E1;
-	     margin-right: 30px;
+        display         : flex;
+        flex-direction  : row;
+        justify-content : space-between;
+        font-weight     : bold;
+        padding         : 15px 0;
+        border-bottom   : 1px solid #CBD5E1;
+        margin-right    : 30px;
     }
+
     .profile_details_container .left .session_list_container .session_list {
-	     display: flex;
-	     flex-direction: column;
-	     gap: 5px;
-        margin-right: 30px;
+        display        : flex;
+        flex-direction : column;
+        gap            : 5px;
+        margin-right   : 30px;
     }
+
     .profile_details_container .left .session_list_container .session_list .session {
-	     text-align: left;
-	     display: flex;
-	     flex-direction: row;
-	     align-items: center;
-        justify-content: space-between;
-	     padding: 15px 0;
-        position : relative;
+        text-align      : left;
+        display         : flex;
+        flex-direction  : row;
+        align-items     : center;
+        justify-content : space-between;
+        padding         : 15px 0;
+        position        : relative;
     }
+
     .profile_details_container .left .session_list_container .session_list .session span:nth-child(3),
     .profile_details_container .left .session_list_container .session_list_header span:nth-child(3) {
-        flex-grow: 1;
+        flex-grow : 1;
     }
+
     .profile_details_container .left .session_list_container .session_list .session span,
     .profile_details_container .left .session_list_container .session_list_header span {
-	     
-        width: 200px;
+
+        width : 200px;
     }
+
     .profile_details_container .left .session_list_container .session_list .session .kill_session {
-	     border: none;
-	     background-color: #ef4444;
-	     padding: 6px;
-	     border-radius: 50%;
-        position : absolute;
-	     right: -30px;
-	     cursor: pointer;
+        border           : none;
+        background-color : #EF4444;
+        padding          : 6px;
+        border-radius    : 50%;
+        position         : absolute;
+        right            : -30px;
+        cursor           : pointer;
     }
+
     .profile_details_container .left .session_list_container .session_list .session .kill_session:hover {
-	     background-color: #F85454;
+        background-color : #F85454;
     }
+
     .profile_details_container .right .country_details .country_list #country {
         width            : 100%;
         border           : 1px solid #CBD5E1;
