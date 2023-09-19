@@ -35,6 +35,8 @@ func GoogleSheetCountryDataToJson(docId string, gId int) ([]CountryData, error) 
 	//}
 	//return CountriesData, nil
 
+	// TODO: replace with static/country_data/data.tsv instead of hitting googlesheets
+
 	fmt.Printf("%v -- %v", docId, gId)
 
 	CountriesData := []CountryData{

@@ -130,20 +130,32 @@ func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon, 
 		if l.Debug {
 			rc.Debug = in
 		}
-		byt, err := json.Marshal(out)
-		if L.IsError(err, `json.Marshal: %#v`, out) {
-			spew.Dump(in)
-			spew.Dump(out)
-			return err
-		}
-		_, err = ctx.Write(byt)
-		if L.IsError(err, `ctx.Write failed: `+string(byt)) {
-			return err
-		}
-		// TODO: log size/bytes written
-		if l.Debug || rc.HasError() {
-			L.Describe(in)
-			log.Print(string(byt))
+		if l.Action == UserAutoLoginLinkAction { // to prevent / became %2f, ? became %3f
+			buffer := &bytes.Buffer{}
+			encoder := json.NewEncoder(buffer)
+			encoder.SetEscapeHTML(false)
+			err := encoder.Encode(out)
+			L.Print(`AutoLoginLink: ` + buffer.String()) // TODO: remove after debugging
+			if L.IsError(err, `json.Encode: %#v`, out) {
+				return err
+			}
+			ctx.Write(buffer.Bytes())
+		} else {
+			byt, err := json.Marshal(out)
+			if L.IsError(err, `json.Marshal: %#v`, out) {
+				spew.Dump(in)
+				spew.Dump(out)
+				return err
+			}
+			_, err = ctx.Write(byt)
+			if L.IsError(err, `ctx.Write failed: `+string(byt)) {
+				return err
+			}
+			// TODO: log size/bytes written
+			if l.Debug || rc.HasError() {
+				L.Describe(in)
+				log.Print(string(byt))
+			}
 		}
 	case `html`:
 		// do nothing
