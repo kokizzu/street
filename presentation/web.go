@@ -112,6 +112,8 @@ func (w *WebServer) Start(log *zerolog.Logger) {
 	// API routes (POST)
 	ApiRoutes(fw, w.Domain)
 
+	//zImport.GoogleSheetCountryDataToJson("1TmAjrclFHUwDA1487ifQjX4FzYt9y7eJ0gwyxtwZMJU")
+
 	// finally serve static files from svelte directory if any
 	fw.Static(`/`, `./svelte`, fiber.Static{
 		Compress:      true,

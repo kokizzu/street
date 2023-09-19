@@ -84,6 +84,10 @@
     } );
   }
   
+  function refreshTable() {
+    window.location.reload();
+  }
+  
   function cell( row, i, field ) {
     if( arrayOfArray ) return row[ i ] || '';
     return row[ field.name ] || '';
@@ -98,6 +102,9 @@
   <button class='apply_filter_button' disabled={oldFilterStr===newFilterStr} onclick={applyFilter}>
     <Icon size={18} color={oldFilterStr === newFilterStr ? '#5C646F' : '#FFFF'} src={FaSolidFilter} />
     <span>Apply Filter</span>
+  </button>
+  <button class="refresh_button" on:click={refreshTable}>
+    Refresh
   </button>
   <div class='pagination' style='float:right; display: inline-block'>
     <button title='Go to first page' disabled={!allowPrevPage} on:click={() => gotoPage(1)}>
@@ -207,6 +214,17 @@ multiple filter from other fields will do AND operation'
 </section>
 
 <style>
+  .refresh_button {
+    color            : white;
+    background-color : #6366F1;
+    padding          : 9px 20px;
+    border-radius    : 5px;
+    filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+    margin-left      : 4px;
+    cursor           : pointer;
+    border           : none;
+    font-size: 14pt;
+  }
   .table_container {
     overflow-x : auto;
   }
@@ -336,7 +354,7 @@ multiple filter from other fields will do AND operation'
     border           : none;
   }
 
-  .pagination button:hover, .apply_filter_button:hover {
+  .pagination button:hover, .apply_filter_button:hover, .refresh_button:hover {
     background-color : #7E80F1;
   }
 
