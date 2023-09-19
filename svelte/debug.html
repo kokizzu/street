@@ -912,6 +912,7 @@
     };
     const { subscribe: subscribe2, set, update: update2 } = writable(kv);
     return {
+      currentLang,
       subscribe: subscribe2,
       changeLanguage: (newV) => {
         if (window && window.localStorage) {

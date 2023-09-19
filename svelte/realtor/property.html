@@ -4889,6 +4889,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
     const { subscribe: subscribe2, set, update: update2 } = writable(kv);
     return {
+      currentLang,
       subscribe: subscribe2,
       changeLanguage: (newV) => {
         if (window && window.localStorage) {
@@ -5943,14 +5944,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/ProfileHeader.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[5] = list[i];
+    child_ctx[4] = list[i];
     return child_ctx;
   }
   function create_each_block(ctx) {
     let option;
     let t_value = (
       /*lang*/
-      ctx[5] + ""
+      ctx[4] + ""
     );
     let t;
     let option_value_value;
@@ -5959,7 +5960,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*lang*/
-        ctx[5];
+        ctx[4];
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -6132,16 +6133,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
   }
   function instance3($self, $props, $invalidate) {
-    let $T;
     let $isSideMenuOpen;
-    component_subscribe($self, T, ($value) => $invalidate(3, $T = $value));
-    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(4, $isSideMenuOpen = $value));
+    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(3, $isSideMenuOpen = $value));
     function openSideMenu() {
       isSideMenuOpen.set(!$isSideMenuOpen);
     }
     let selectedLanguage = "";
     onMount(() => {
-      $invalidate(0, selectedLanguage = $T.currentLang || "EN");
+      $invalidate(0, selectedLanguage = T.currentLang || "EN");
     });
     function select_change_handler() {
       selectedLanguage = select_value(this);

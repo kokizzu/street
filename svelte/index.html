@@ -4154,6 +4154,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
     const { subscribe: subscribe2, set, update: update2 } = writable(kv);
     return {
+      currentLang,
       subscribe: subscribe2,
       changeLanguage: (newV) => {
         if (window && window.localStorage) {
@@ -7127,7 +7128,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     });
     function googlemap_bounds_binding(value) {
-      ctx[24](value);
+      ctx[23](value);
     }
     let googlemap_props = { options: (
       /*mapOptions*/
@@ -7141,8 +7142,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       ctx[4];
     }
     googlemap = new GoogleMap_default({ props: googlemap_props });
-    ctx[23](googlemap);
     binding_callbacks.push(() => bind(googlemap, "bounds", googlemap_bounds_binding));
+    ctx[24](googlemap);
     googlemap.$on(
       "mapDragged",
       /*searchByLocationEvent*/
@@ -7390,7 +7391,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         destroy_component(googlesdk, detaching);
         if_blocks[current_block_type_index].d();
         destroy_component(icon0);
-        ctx[23](null);
+        ctx[24](null);
         destroy_component(googlemap);
         destroy_component(icon1);
         if_blocks_1[current_block_type_index_1].d();
@@ -7454,6 +7455,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (!markersProperty || !markersProperty[index])
           return;
         const marker = markersProperty[index];
+        marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
         marker.setIcon({
           url: "/assets/icons/marker-2.svg",
           // URL to your custom icon image
@@ -7464,6 +7466,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (!markersProperty || !markersProperty[index])
           return;
         const marker = markersProperty[index];
+        marker.setZIndex(google.maps.Marker.MAX_ZINDEX - 1);
         marker.setIcon({
           url: "/assets/icons/marker-2.svg",
           // URL to your custom icon image
@@ -7502,6 +7505,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       });
       markersProperty.forEach((marker, idx) => {
         marker.addListener("mouseover", () => {
+          marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
           marker.setIcon({
             url: "/assets/icons/marker-2.svg",
             // URL to your custom icon image
@@ -7509,6 +7513,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           });
         });
         marker.addListener("mouseout", () => {
+          marker.setZIndex(google.maps.Marker.MAX_ZINDEX - 1);
           marker.setIcon({
             url: "/assets/icons/marker-2.svg",
             // URL to your custom icon image
@@ -7619,15 +7624,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     const mouseenter_handler = (index) => highLightMapMarker.enter(index);
     const mouseleave_handler = (index) => highLightMapMarker.leave(index);
+    function googlemap_bounds_binding(value) {
+      gmapBounds = value;
+      $invalidate(4, gmapBounds);
+    }
     function googlemap_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         gmapsComponent = $value;
         $invalidate(3, gmapsComponent);
       });
-    }
-    function googlemap_bounds_binding(value) {
-      gmapBounds = value;
-      $invalidate(4, gmapBounds);
     }
     function input_input_handler() {
       input_search_value = this.value;
@@ -7669,8 +7674,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       button_binding,
       mouseenter_handler,
       mouseleave_handler,
-      googlemap_binding,
       googlemap_bounds_binding,
+      googlemap_binding,
       input_input_handler,
       input_handler,
       click_handler
@@ -7708,14 +7713,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/ProfileHeader.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[5] = list[i];
+    child_ctx[4] = list[i];
     return child_ctx;
   }
   function create_each_block2(ctx) {
     let option;
     let t_value = (
       /*lang*/
-      ctx[5] + ""
+      ctx[4] + ""
     );
     let t;
     let option_value_value;
@@ -7724,7 +7729,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*lang*/
-        ctx[5];
+        ctx[4];
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -7897,16 +7902,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
   }
   function instance7($self, $props, $invalidate) {
-    let $T;
     let $isSideMenuOpen;
-    component_subscribe($self, T, ($value) => $invalidate(3, $T = $value));
-    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(4, $isSideMenuOpen = $value));
+    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(3, $isSideMenuOpen = $value));
     function openSideMenu() {
       isSideMenuOpen.set(!$isSideMenuOpen);
     }
     let selectedLanguage = "";
     onMount(() => {
-      $invalidate(0, selectedLanguage = $T.currentLang || "EN");
+      $invalidate(0, selectedLanguage = T.currentLang || "EN");
     });
     function select_change_handler() {
       selectedLanguage = select_value(this);

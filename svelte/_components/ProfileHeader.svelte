@@ -11,7 +11,7 @@
 
     let selectedLanguage = '';
     onMount(() => {
-        selectedLanguage = $T.currentLang || 'EN';
+        selectedLanguage = T.currentLang || 'EN';
     });
     $: {
         T.changeLanguage(selectedLanguage);

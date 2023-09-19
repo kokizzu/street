@@ -31,6 +31,7 @@ function translationStore() {
     const {subscribe, set, update} = writable(kv);
 
     return {
+        currentLang,
         subscribe,
         changeLanguage: (newV) => {
             if (window && window.localStorage) {
