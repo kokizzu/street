@@ -6,10 +6,9 @@ import (
 )
 
 const (
-	TablePropertyUs Tt.TableName = `property_us`
+	TablePropertyUs Tt.TableName = `propertyUS`
 
-	Version    = `version`
-	PropertyId = `propertyId` // ID of Property ID in Redfin
+	Version = `version`
 
 	// Basic Info
 	Street                  = `street`
@@ -17,19 +16,10 @@ const (
 	State                   = `state`
 	Zip                     = `zip`
 	CountryCode             = `countryCode`
-	PropertyTypeName        = `propertyTypeName`
 	YearBuilt               = `yearBuilt`
 	YearRenovated           = `yearRenovated`
 	TotalSqft               = `totalSqft`
-	Apn                     = `apn` // APN stands for Assessor’s Parcel Number. It is a unique number assigned by the Tax Assessor to a piece of property or each tract of land within a county. It’s a numbering system that distinguishes one property from the next.
 	PropertyLastUpdatedDate = `propertyLastUpdatedDate`
-	DisplayTimeZone         = `displayTimeZone`
-
-	// Latest tax info
-	TaxableLandValue        = `taxableLandValue`
-	TaxableImprovementValue = `taxableImprovementValue`
-	RollYear                = `rollYear`
-	TaxesDue                = `taxesDue`
 
 	TaxInfo        = `taxInfo`
 	HistoryTaxInfo = `historyTaxInfo`

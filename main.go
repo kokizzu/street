@@ -176,7 +176,7 @@ func main() {
 		jsonCoordFile, _ := filepath.Abs(`./static/house_data/coordinates.json`)
 		zImport.ImportExcelData(tConn, excelFile, jsonCoordFile)
 		zImport.PatchPropertiesPrice(tConn)
-	case `import_property_usa`:
+	case `import_property_us`:
 		baseUrl := "https://www.redfin.com/stingray/api/home/details/belowTheFold"
 		minPropertyId := int(1)
 		maxPropertyId := int(1000000)
