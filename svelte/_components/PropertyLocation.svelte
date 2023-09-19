@@ -59,6 +59,7 @@
       propItemHighlight = index;
       if( !markersProperty || !markersProperty[ index ] ) return;
       const marker = markersProperty[ index ];
+      marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1)
       marker.setIcon( {
         url: '/assets/icons/marker-2.svg', // URL to your custom icon image
         scaledSize: new google.maps.Size( 40, 40 ),
@@ -67,6 +68,7 @@
     leave: ( index ) => {
       if( !markersProperty || !markersProperty[ index ] ) return;
       const marker = markersProperty[ index ];
+      marker.setZIndex(google.maps.Marker.MAX_ZINDEX - 1)
       marker.setIcon( {
         url: '/assets/icons/marker-2.svg', // URL to your custom icon image
         scaledSize: new google.maps.Size( 32, 32 ),
@@ -100,12 +102,14 @@
     } );
     markersProperty.forEach( ( marker, idx ) => {
       marker.addListener( 'mouseover', () => {
+        marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1)
         marker.setIcon( {
           url: '/assets/icons/marker-2.svg', // URL to your custom icon image
           scaledSize: new google.maps.Size( 40, 40 ),
         } );
       } );
       marker.addListener( 'mouseout', () => {
+        marker.setZIndex(google.maps.Marker.MAX_ZINDEX - 1)
         marker.setIcon( {
           url: '/assets/icons/marker-2.svg', // URL to your custom icon image
           scaledSize: new google.maps.Size( 32, 32 ),

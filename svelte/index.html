@@ -7439,6 +7439,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (!markersProperty || !markersProperty[index])
           return;
         const marker = markersProperty[index];
+        marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
         marker.setIcon({
           url: "/assets/icons/marker-2.svg",
           // URL to your custom icon image
@@ -7449,6 +7450,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (!markersProperty || !markersProperty[index])
           return;
         const marker = markersProperty[index];
+        marker.setZIndex(google.maps.Marker.MAX_ZINDEX - 1);
         marker.setIcon({
           url: "/assets/icons/marker-2.svg",
           // URL to your custom icon image
@@ -7487,6 +7489,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       });
       markersProperty.forEach((marker, idx) => {
         marker.addListener("mouseover", () => {
+          marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
           marker.setIcon({
             url: "/assets/icons/marker-2.svg",
             // URL to your custom icon image
@@ -7494,6 +7497,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           });
         });
         marker.addListener("mouseout", () => {
+          marker.setZIndex(google.maps.Marker.MAX_ZINDEX - 1);
           marker.setIcon({
             url: "/assets/icons/marker-2.svg",
             // URL to your custom icon image
