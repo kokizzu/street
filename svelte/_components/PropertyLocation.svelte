@@ -226,14 +226,16 @@
   }
   
   function showShareItems( idx ) {
-    if (idx === shareItemIndex) {
+    if( idx===shareItemIndex ) {
       return shareItemIndex = null;
     }
     return shareItemIndex = idx;
   }
   
-  function copyToClipboard(text) {
-    return navigator.clipboard.writeText(text);
+  function copyToClipboard( text ) {
+    shareItemIndex = null;
+    navigator.clipboard.writeText( text );
+    useGrowl( 'success', 'Link copied to clipboard' );
   }
 </script>
 
@@ -279,7 +281,8 @@
 									</button>
 									{#if shareItemIndex===index}
 										<div class='share_container'>
-											<button class='share_item copy' title='Copy link address' on:click={() => copyToClipboard(`${window.location}property/${prop.id}`)}>
+											<button class='share_item copy' title='Copy link address'
+											        on:click={() => copyToClipboard(`${window.location}property/${prop.id}`)}>
 												<Icon size={14} color='#475569' src={FaCopy}/>
 											</button>
 											<a class='share_item'
