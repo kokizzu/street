@@ -6674,8 +6674,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     async function updateProfile() {
       if (JSON.stringify(user) === oldProfileJson)
         return useGrowl("error", "No changes");
-      (0, import_jsApi_GEN2.UserUpdateProfile)(user, function(res) {
-        if (res.error)
+      await (0, import_jsApi_GEN2.UserUpdateProfile)(user, function(res) {
+        if (res?.error)
           return useGrowl("error", res.error);
         oldProfileJson = JSON.stringify(res.user);
         $invalidate(0, user = res.user);
@@ -6689,8 +6689,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         oldPass: oldPassword,
         newPass: newPassword
       };
-      (0, import_jsApi_GEN2.UserChangePassword)(input, function(res) {
-        if (res.error)
+      await (0, import_jsApi_GEN2.UserChangePassword)(input, function(res) {
+        if (res?.error)
           return useGrowl("error", res.error);
         $invalidate(1, oldPassword = "");
         $invalidate(2, newPassword = "");
@@ -6700,14 +6700,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     async function userSessionsActive() {
       await (0, import_jsApi_GEN2.UserSessionsActive)(user, async (res) => {
-        if (res.error)
+        if (res?.error)
           return useGrowl("error", res.error);
         $invalidate(4, sessionActiveLists = await res.sessionsActive);
       });
     }
     async function killSession(sessionToken) {
       await (0, import_jsApi_GEN2.UserSessionKill)(sessionToken, async (res) => {
-        if (res.error)
+        if (res?.error)
           return useGrowl("error", res.error);
         if (res.sessionTerminated > 0) {
           return await userSessionsActive();
