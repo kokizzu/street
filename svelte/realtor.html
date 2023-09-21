@@ -6553,6 +6553,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let { property } = $props;
     let { meta } = $props;
     let showMore = false;
+    console.log("meta=", meta);
     function handleShowMore() {
       $invalidate(2, showMore = !showMore);
     }

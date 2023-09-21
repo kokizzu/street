@@ -87,7 +87,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 
 	fw.Get(`/`+domain.GuestPropertyAction+`/:propId`, func(ctx *fiber.Ctx) error {
 		in, _, _ := userInfoFromContext(ctx, d)
-		out := d.RealtorProperty(&domain.RealtorPropertyIn{
+		out := d.GuestProperty(&domain.GuestPropertyIn{
 			RequestCommon: in.RequestCommon,
 			Id:            X.ToU(ctx.Params(`propId`)),
 		})
@@ -98,8 +98,8 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			})
 		}
 		return views.RenderGuestProperty(ctx, M.SX{
-			`title`:    `Realtor Property`,
-			`property`: out.Property,
+			`title`:    `Property`,
+			`propItem`: out.Property,
 		})
 	})
 

@@ -1,8 +1,6 @@
 package domain
 
 import (
-	"fmt"
-
 	"street/model/mProperty/rqProperty"
 )
 
@@ -39,6 +37,5 @@ func (d *Domain) GuestProperty(in *GuestPropertyIn) (out GuestPropertyOut) {
 	}
 	r.NormalizeFloorList()
 	out.Property = r
-	fmt.Println(r)
 	return
 }

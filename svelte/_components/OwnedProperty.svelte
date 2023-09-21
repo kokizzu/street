@@ -1,139 +1,138 @@
 <script>
-    // @ts-nocheck
-    import Icon from 'svelte-icons-pack/Icon.svelte';
-    import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
-    import FaSolidPen from 'svelte-icons-pack/fa/FaSolidPen';
-    import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
-    import PillBox from './PillBox.svelte';
-    import { localeDatetime } from './formatter';
-    import { T } from './uiState.js';
-
-    export let property;
-    export let meta;
-    let showMore = false;
-
-    function handleShowMore() {
-        showMore = !showMore;
-    }
-
+  // @ts-nocheck
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
+  import FaSolidPen from 'svelte-icons-pack/fa/FaSolidPen';
+  import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
+  import PillBox from './PillBox.svelte';
+  import {localeDatetime} from './formatter';
+  import {T} from './uiState.js';
+  
+  export let property;
+  export let meta;
+  let showMore = false;
+  
+  console.log('meta=',meta)
+  
+  function handleShowMore() {
+    showMore = !showMore;
+  }
 </script>
 
 <div class={showMore ? 'property_more' : 'property'}>
-    <div class='property_main'>
-        <div class='property_images'>
-            {#if property.images && property.images.length}
-                <img src={property.images[0]} alt='' />
-            {:else}
-                <div class='image_empty'>
-                    <i class='gg-image' />
-                </div>
-            {/if}
-        </div>
-        <div class='property_info'>
-            <div class='col1'>
-                <div class='left'>
-                    <div class={property.purpose === 'rent' ? `purpose label_rent` : `purpose label_sale`}>
-                        {property.purpose === 'rent' ? $T.forRent : $T.onSale}
-                    </div>
-                    <div class='house_type'>
-                        <Icon color='#FFFF' size={16} src={FaSolidHome} />
-                        <span>{property.houseType}</span>
-                    </div>
-                </div>
-                <a class='edit_property' href='/realtor/property/{property.id}'>
-                    <Icon color='#FFFF' size={13} src={FaSolidPen} />
-                    <span>Edit Property</span>
-                </a>
-            </div>
-
-            <div class='col2'>
-                <h1>$ {property.lastPrice || '0.00'}</h1>
-                <p>{$T.agencyFee} : {property.agencyFeePercent}%</p>
-                <div class='address'>
-                    <Icon color='#f97316' size={18} src={FaSolidMapMarkerAlt} />
-                    <span>{property.formattedAddress}</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class='property_secondary'>
-        <div class='feature_number'>
-            <div class='feature_item'>
-                <b>{property.numberOfFloors || '0'}</b>
-                <p>{$T.floors}</p>
-            </div>
-            <div class='feature_item'>
-                <b>{property.bathroom || '0'}</b>
-                <p>{$T.bath}</p>
-            </div>
-            <div class='feature_item'>
-                <b>{property.bedroom || '0'}</b>
-                <p>{$T.bed}</p>
-            </div>
-            <div class='feature_item'>
-                <b>{property.sizeM2 || '0'} {$T.m}2</b>
-                <p>Size</p>
-            </div>
-        </div>
-    </div>
-    <div class='property_attributes'>
-        {#each meta as m}
-            {#if property[m.name]}
-                {#if m.inputType === 'datetime'}
-                    <PillBox label={m.label} content={localeDatetime(property[m.name])} />
-                {:else}
-                    <PillBox label={m.label} content={property[m.name]} />
-                {/if}
-            {/if}
-        {/each}
-    </div>
-    <div class='property_floors'>
-        <h3>{$T.floors}</h3>
-        {#if property.floorList && property.floorList.length}
-            <div class='floor_lists'>
-                {#each property.floorList as floors}
-                    <div class='floor_item'>
-                        <div class='left'>
-                            <h5>
-                                {floors.type === 'basement' ? $T.basement : `${$T.floorN}${floors.floor}`}
-                            </h5>
-                            <!-- TODO: currently room list only 1 object, fix Tarantool to accept array -->
-                            {#if floors.rooms}
-                                <div class='room_lists'>
-                                    {#each floors.rooms as room}
-                                        <div class='room_item'>
-                                            <span>{room.name || '-'}</span>
-                                            <span>{room.sizeM2 || '-'} M2</span>
-                                        </div>
-                                    {/each}
-                                </div>
-                            {/if}
-                        </div>
-
-                        <div class='floor_plan_image'>
-                            {#if floors.planImageUrl === ''}
-                <span>
-                  <i class='gg-image' />
-                  <p>No Image</p>
-                </span>
-                            {:else}
-                                <img src={floors.planImageUrl} alt='' />
-                            {/if}
-                        </div>
-                    </div>
-                {/each}
-            </div>
-        {:else}
-            <div class='no_floors'>
-                <p>No Floors</p>
-            </div>
-        {/if}
-    </div>
-    <div class='property_less_more'>
-        <button class='toggle_show_more' on:click={handleShowMore}>
-            Show {showMore === true ? 'Less' : 'More'}
-        </button>
-    </div>
+	<div class='property_main'>
+		<div class='property_images'>
+			{#if property.images && property.images.length}
+				<img src={property.images[0]} alt=''/>
+			{:else}
+				<div class='image_empty'>
+					<i class='gg-image'/>
+				</div>
+			{/if}
+		</div>
+		<div class='property_info'>
+			<div class='col1'>
+				<div class='left'>
+					<div class={property.purpose === 'rent' ? `purpose label_rent` : `purpose label_sale`}>
+						{property.purpose==='rent' ? $T.forRent : $T.onSale}
+					</div>
+					<div class='house_type'>
+						<Icon color='#FFFF' size={16} src={FaSolidHome}/>
+						<span>{property.houseType}</span>
+					</div>
+				</div>
+				<a class='edit_property' href='/realtor/property/{property.id}'>
+					<Icon color='#FFFF' size={13} src={FaSolidPen}/>
+					<span>Edit Property</span>
+				</a>
+			</div>
+			<div class='col2'>
+				<h1>$ {property.lastPrice || '0.00'}</h1>
+				<p>{$T.agencyFee} : {property.agencyFeePercent}%</p>
+				<div class='address'>
+					<Icon color='#f97316' size={18} src={FaSolidMapMarkerAlt}/>
+					<span>{property.formattedAddress}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class='property_secondary'>
+		<div class='feature_number'>
+			<div class='feature_item'>
+				<b>{property.numberOfFloors || '0'}</b>
+				<p>{$T.floors}</p>
+			</div>
+			<div class='feature_item'>
+				<b>{property.bathroom || '0'}</b>
+				<p>{$T.bath}</p>
+			</div>
+			<div class='feature_item'>
+				<b>{property.bedroom || '0'}</b>
+				<p>{$T.bed}</p>
+			</div>
+			<div class='feature_item'>
+				<b>{property.sizeM2 || '0'} {$T.m}2</b>
+				<p>Size</p>
+			</div>
+		</div>
+	</div>
+	<div class='property_attributes'>
+		{#each meta as m}
+			{#if property[ m.name ]}
+				{#if m.inputType==='datetime'}
+					<PillBox label={m.label} content={localeDatetime(property[m.name])}/>
+				{:else}
+					<PillBox label={m.label} content={property[m.name]}/>
+				{/if}
+			{/if}
+		{/each}
+	</div>
+	<div class='property_floors'>
+		<h3>{$T.floors}</h3>
+		{#if property.floorList && property.floorList.length}
+			<div class='floor_lists'>
+				{#each property.floorList as floors}
+					<div class='floor_item'>
+						<div class='left'>
+							<h5>
+								{floors.type==='basement' ? $T.basement : `${$T.floorN}${floors.floor}`}
+							</h5>
+							<!-- TODO: currently room list only 1 object, fix Tarantool to accept array -->
+							{#if floors.rooms}
+								<div class='room_lists'>
+									{#each floors.rooms as room}
+										<div class='room_item'>
+											<span>{room.name || '-'}</span>
+											<span>{room.sizeM2 || '-'} M2</span>
+										</div>
+									{/each}
+								</div>
+							{/if}
+						</div>
+						<div class='floor_plan_image'>
+							{#if floors.planImageUrl===''}
+                        <span>
+                           <i class='gg-image'/>
+                           <p>No Image</p>
+                        </span>
+							{:else}
+								<img src={floors.planImageUrl} alt=''/>
+							{/if}
+						</div>
+					</div>
+				{/each}
+			</div>
+		{:else}
+			<div class='no_floors'>
+				<p>No Floors</p>
+			</div>
+		{/if}
+	</div>
+	<div class='property_less_more'>
+		<button class='toggle_show_more' on:click={handleShowMore}>
+			Show {showMore===true ? 'Less' : 'More'}
+		</button>
+	</div>
 </div>
 
 <style>
