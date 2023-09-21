@@ -179,7 +179,7 @@ func main() {
 	case `import_property_us`:
 		baseUrl := "https://www.redfin.com/stingray/api/home/details/belowTheFold"
 		minPropertyId := int(1)
-		maxPropertyId := int(1000000)
+		maxPropertyId := int(10000000)
 
 		zImport.ImportPropertyUsData(tConn, baseUrl, minPropertyId, maxPropertyId)
 	case `import_location`:

@@ -201,16 +201,14 @@ type Property struct {
 	Bathroom                int64       `json:"bathroom" form:"bathroom" query:"bathroom" long:"bathroom" msg:"bathroom"`
 	AgencyFeePercent        float64     `json:"agencyFeePercent" form:"agencyFeePercent" query:"agencyFeePercent" long:"agencyFeePercent" msg:"agencyFeePercent"`
 	FloorList               []any       `json:"floorList" form:"floorList" query:"floorList" long:"floorList" msg:"floorList"`
-	Country                 string      `json:"country" form:"country" query:"country" long:"country" msg:"country"`
 	Version                 float64     `json:"version" form:"version" query:"version" long:"version" msg:"version"`
 	MediaSourceJson         string      `json:"mediaSourceJson" form:"mediaSourceJson" query:"mediaSourceJson" long:"mediaSourceJson" msg:"mediaSourceJson"`
 	ZoneDataInfo            string      `json:"zoneDataInfo" form:"zoneDataInfo" query:"zoneDataInfo" long:"zoneDataInfo" msg:"zoneDataInfo"`
 	TaxInfo                 string      `json:"taxInfo" form:"taxInfo" query:"taxInfo" long:"taxInfo" msg:"taxInfo"`
 	HistoryTaxInfo          string      `json:"historyTaxInfo" form:"historyTaxInfo" query:"historyTaxInfo" long:"historyTaxInfo" msg:"historyTaxInfo"`
-	ListingBrokerName       string      `json:"listingBrokerName" form:"listingBrokerName" query:"listingBrokerName" long:"listingBrokerName" msg:"listingBrokerName"`
-	ListingBrokerNumber     string      `json:"listingBrokerNumber" form:"listingBrokerNumber" query:"listingBrokerNumber" long:"listingBrokerNumber" msg:"listingBrokerNumber"`
-	ListingAgentName        string      `json:"listingAgentName" form:"listingAgentName" query:"listingAgentName" long:"listingAgentName" msg:"listingAgentName"`
-	ListingAgentNumber      string      `json:"listingAgentNumber" form:"listingAgentNumber" query:"listingAgentNumber" long:"listingAgentNumber" msg:"listingAgentNumber"`
+	MlsDisclaimerInfo       string      `json:"mlsDisclaimerInfo" form:"mlsDisclaimerInfo" query:"mlsDisclaimerInfo" long:"mlsDisclaimerInfo" msg:"mlsDisclaimerInfo"`
+	FacilityInfo            string      `json:"facilityInfo" form:"facilityInfo" query:"facilityInfo" long:"facilityInfo" msg:"facilityInfo"`
+	RiskInfo                string      `json:"riskInfo" form:"riskInfo" query:"riskInfo" long:"riskInfo" msg:"riskInfo"`
 	YearBuilt               int64       `json:"yearBuilt" form:"yearBuilt" query:"yearBuilt" long:"yearBuilt" msg:"yearBuilt"`
 	YearRenovated           int64       `json:"yearRenovated" form:"yearRenovated" query:"yearRenovated" long:"yearRenovated" msg:"yearRenovated"`
 	TotalSqft               float64     `json:"totalSqft" form:"totalSqft" query:"totalSqft" long:"totalSqft" msg:"totalSqft"`
@@ -315,16 +313,14 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "bathroom"
 	, "agencyFeePercent"
 	, "floorList"
-	, "country"
 	, "version"
 	, "mediaSourceJson"
 	, "zoneDataInfo"
 	, "taxInfo"
 	, "historyTaxInfo"
-	, "listingBrokerName"
-	, "listingBrokerNumber"
-	, "listingAgentName"
-	, "listingAgentNumber"
+	, "mlsDisclaimerInfo"
+	, "facilityInfo"
+	, "riskInfo"
 	, "yearBuilt"
 	, "yearRenovated"
 	, "totalSqft"
@@ -373,16 +369,14 @@ func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 	, "bathroom"
 	, "agencyFeePercent"
 	, "floorList"
-	, "country"
 	, "version"
 	, "mediaSourceJson"
 	, "zoneDataInfo"
 	, "taxInfo"
 	, "historyTaxInfo"
-	, "listingBrokerName"
-	, "listingBrokerNumber"
-	, "listingAgentName"
-	, "listingAgentNumber"
+	, "mlsDisclaimerInfo"
+	, "facilityInfo"
+	, "riskInfo"
 	, "yearBuilt"
 	, "yearRenovated"
 	, "totalSqft"
@@ -432,30 +426,28 @@ func (p *Property) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 26, p.Bathroom},
 		A.X{`=`, 27, p.AgencyFeePercent},
 		A.X{`=`, 28, p.FloorList},
-		A.X{`=`, 29, p.Country},
-		A.X{`=`, 30, p.Version},
-		A.X{`=`, 31, p.MediaSourceJson},
-		A.X{`=`, 32, p.ZoneDataInfo},
-		A.X{`=`, 33, p.TaxInfo},
-		A.X{`=`, 34, p.HistoryTaxInfo},
-		A.X{`=`, 35, p.ListingBrokerName},
-		A.X{`=`, 36, p.ListingBrokerNumber},
-		A.X{`=`, 37, p.ListingAgentName},
-		A.X{`=`, 38, p.ListingAgentNumber},
-		A.X{`=`, 39, p.YearBuilt},
-		A.X{`=`, 40, p.YearRenovated},
-		A.X{`=`, 41, p.TotalSqft},
-		A.X{`=`, 42, p.AmenitySuperGroups},
-		A.X{`=`, 43, p.CountyUrl},
-		A.X{`=`, 44, p.CountyName},
-		A.X{`=`, 45, p.CountyIsActive},
-		A.X{`=`, 46, p.Street},
-		A.X{`=`, 47, p.City},
-		A.X{`=`, 48, p.State},
-		A.X{`=`, 49, p.Zip},
-		A.X{`=`, 50, p.CountryCode},
-		A.X{`=`, 51, p.PropertyLastUpdatedDate},
-		A.X{`=`, 52, p.TaxNote},
+		A.X{`=`, 29, p.Version},
+		A.X{`=`, 30, p.MediaSourceJson},
+		A.X{`=`, 31, p.ZoneDataInfo},
+		A.X{`=`, 32, p.TaxInfo},
+		A.X{`=`, 33, p.HistoryTaxInfo},
+		A.X{`=`, 34, p.MlsDisclaimerInfo},
+		A.X{`=`, 35, p.FacilityInfo},
+		A.X{`=`, 36, p.RiskInfo},
+		A.X{`=`, 37, p.YearBuilt},
+		A.X{`=`, 38, p.YearRenovated},
+		A.X{`=`, 39, p.TotalSqft},
+		A.X{`=`, 40, p.AmenitySuperGroups},
+		A.X{`=`, 41, p.CountyUrl},
+		A.X{`=`, 42, p.CountyName},
+		A.X{`=`, 43, p.CountyIsActive},
+		A.X{`=`, 44, p.Street},
+		A.X{`=`, 45, p.City},
+		A.X{`=`, 46, p.State},
+		A.X{`=`, 47, p.Zip},
+		A.X{`=`, 48, p.CountryCode},
+		A.X{`=`, 49, p.PropertyLastUpdatedDate},
+		A.X{`=`, 50, p.TaxNote},
 	}
 }
 
@@ -749,19 +741,9 @@ func (p *Property) SqlFloorList() string { //nolint:dupl false positive
 	return `"floorList"`
 }
 
-// IdxCountry return name of the index
-func (p *Property) IdxCountry() int { //nolint:dupl false positive
-	return 29
-}
-
-// SqlCountry return name of the column being indexed
-func (p *Property) SqlCountry() string { //nolint:dupl false positive
-	return `"country"`
-}
-
 // IdxVersion return name of the index
 func (p *Property) IdxVersion() int { //nolint:dupl false positive
-	return 30
+	return 29
 }
 
 // SqlVersion return name of the column being indexed
@@ -771,7 +753,7 @@ func (p *Property) SqlVersion() string { //nolint:dupl false positive
 
 // IdxMediaSourceJson return name of the index
 func (p *Property) IdxMediaSourceJson() int { //nolint:dupl false positive
-	return 31
+	return 30
 }
 
 // SqlMediaSourceJson return name of the column being indexed
@@ -781,7 +763,7 @@ func (p *Property) SqlMediaSourceJson() string { //nolint:dupl false positive
 
 // IdxZoneDataInfo return name of the index
 func (p *Property) IdxZoneDataInfo() int { //nolint:dupl false positive
-	return 32
+	return 31
 }
 
 // SqlZoneDataInfo return name of the column being indexed
@@ -791,7 +773,7 @@ func (p *Property) SqlZoneDataInfo() string { //nolint:dupl false positive
 
 // IdxTaxInfo return name of the index
 func (p *Property) IdxTaxInfo() int { //nolint:dupl false positive
-	return 33
+	return 32
 }
 
 // SqlTaxInfo return name of the column being indexed
@@ -801,7 +783,7 @@ func (p *Property) SqlTaxInfo() string { //nolint:dupl false positive
 
 // IdxHistoryTaxInfo return name of the index
 func (p *Property) IdxHistoryTaxInfo() int { //nolint:dupl false positive
-	return 34
+	return 33
 }
 
 // SqlHistoryTaxInfo return name of the column being indexed
@@ -809,49 +791,39 @@ func (p *Property) SqlHistoryTaxInfo() string { //nolint:dupl false positive
 	return `"historyTaxInfo"`
 }
 
-// IdxListingBrokerName return name of the index
-func (p *Property) IdxListingBrokerName() int { //nolint:dupl false positive
+// IdxMlsDisclaimerInfo return name of the index
+func (p *Property) IdxMlsDisclaimerInfo() int { //nolint:dupl false positive
+	return 34
+}
+
+// SqlMlsDisclaimerInfo return name of the column being indexed
+func (p *Property) SqlMlsDisclaimerInfo() string { //nolint:dupl false positive
+	return `"mlsDisclaimerInfo"`
+}
+
+// IdxFacilityInfo return name of the index
+func (p *Property) IdxFacilityInfo() int { //nolint:dupl false positive
 	return 35
 }
 
-// SqlListingBrokerName return name of the column being indexed
-func (p *Property) SqlListingBrokerName() string { //nolint:dupl false positive
-	return `"listingBrokerName"`
+// SqlFacilityInfo return name of the column being indexed
+func (p *Property) SqlFacilityInfo() string { //nolint:dupl false positive
+	return `"facilityInfo"`
 }
 
-// IdxListingBrokerNumber return name of the index
-func (p *Property) IdxListingBrokerNumber() int { //nolint:dupl false positive
+// IdxRiskInfo return name of the index
+func (p *Property) IdxRiskInfo() int { //nolint:dupl false positive
 	return 36
 }
 
-// SqlListingBrokerNumber return name of the column being indexed
-func (p *Property) SqlListingBrokerNumber() string { //nolint:dupl false positive
-	return `"listingBrokerNumber"`
-}
-
-// IdxListingAgentName return name of the index
-func (p *Property) IdxListingAgentName() int { //nolint:dupl false positive
-	return 37
-}
-
-// SqlListingAgentName return name of the column being indexed
-func (p *Property) SqlListingAgentName() string { //nolint:dupl false positive
-	return `"listingAgentName"`
-}
-
-// IdxListingAgentNumber return name of the index
-func (p *Property) IdxListingAgentNumber() int { //nolint:dupl false positive
-	return 38
-}
-
-// SqlListingAgentNumber return name of the column being indexed
-func (p *Property) SqlListingAgentNumber() string { //nolint:dupl false positive
-	return `"listingAgentNumber"`
+// SqlRiskInfo return name of the column being indexed
+func (p *Property) SqlRiskInfo() string { //nolint:dupl false positive
+	return `"riskInfo"`
 }
 
 // IdxYearBuilt return name of the index
 func (p *Property) IdxYearBuilt() int { //nolint:dupl false positive
-	return 39
+	return 37
 }
 
 // SqlYearBuilt return name of the column being indexed
@@ -861,7 +833,7 @@ func (p *Property) SqlYearBuilt() string { //nolint:dupl false positive
 
 // IdxYearRenovated return name of the index
 func (p *Property) IdxYearRenovated() int { //nolint:dupl false positive
-	return 40
+	return 38
 }
 
 // SqlYearRenovated return name of the column being indexed
@@ -871,7 +843,7 @@ func (p *Property) SqlYearRenovated() string { //nolint:dupl false positive
 
 // IdxTotalSqft return name of the index
 func (p *Property) IdxTotalSqft() int { //nolint:dupl false positive
-	return 41
+	return 39
 }
 
 // SqlTotalSqft return name of the column being indexed
@@ -881,7 +853,7 @@ func (p *Property) SqlTotalSqft() string { //nolint:dupl false positive
 
 // IdxAmenitySuperGroups return name of the index
 func (p *Property) IdxAmenitySuperGroups() int { //nolint:dupl false positive
-	return 42
+	return 40
 }
 
 // SqlAmenitySuperGroups return name of the column being indexed
@@ -891,7 +863,7 @@ func (p *Property) SqlAmenitySuperGroups() string { //nolint:dupl false positive
 
 // IdxCountyUrl return name of the index
 func (p *Property) IdxCountyUrl() int { //nolint:dupl false positive
-	return 43
+	return 41
 }
 
 // SqlCountyUrl return name of the column being indexed
@@ -901,7 +873,7 @@ func (p *Property) SqlCountyUrl() string { //nolint:dupl false positive
 
 // IdxCountyName return name of the index
 func (p *Property) IdxCountyName() int { //nolint:dupl false positive
-	return 44
+	return 42
 }
 
 // SqlCountyName return name of the column being indexed
@@ -911,7 +883,7 @@ func (p *Property) SqlCountyName() string { //nolint:dupl false positive
 
 // IdxCountyIsActive return name of the index
 func (p *Property) IdxCountyIsActive() int { //nolint:dupl false positive
-	return 45
+	return 43
 }
 
 // SqlCountyIsActive return name of the column being indexed
@@ -921,7 +893,7 @@ func (p *Property) SqlCountyIsActive() string { //nolint:dupl false positive
 
 // IdxStreet return name of the index
 func (p *Property) IdxStreet() int { //nolint:dupl false positive
-	return 46
+	return 44
 }
 
 // SqlStreet return name of the column being indexed
@@ -931,7 +903,7 @@ func (p *Property) SqlStreet() string { //nolint:dupl false positive
 
 // IdxCity return name of the index
 func (p *Property) IdxCity() int { //nolint:dupl false positive
-	return 47
+	return 45
 }
 
 // SqlCity return name of the column being indexed
@@ -941,7 +913,7 @@ func (p *Property) SqlCity() string { //nolint:dupl false positive
 
 // IdxState return name of the index
 func (p *Property) IdxState() int { //nolint:dupl false positive
-	return 48
+	return 46
 }
 
 // SqlState return name of the column being indexed
@@ -951,7 +923,7 @@ func (p *Property) SqlState() string { //nolint:dupl false positive
 
 // IdxZip return name of the index
 func (p *Property) IdxZip() int { //nolint:dupl false positive
-	return 49
+	return 47
 }
 
 // SqlZip return name of the column being indexed
@@ -961,7 +933,7 @@ func (p *Property) SqlZip() string { //nolint:dupl false positive
 
 // IdxCountryCode return name of the index
 func (p *Property) IdxCountryCode() int { //nolint:dupl false positive
-	return 50
+	return 48
 }
 
 // SqlCountryCode return name of the column being indexed
@@ -971,7 +943,7 @@ func (p *Property) SqlCountryCode() string { //nolint:dupl false positive
 
 // IdxPropertyLastUpdatedDate return name of the index
 func (p *Property) IdxPropertyLastUpdatedDate() int { //nolint:dupl false positive
-	return 51
+	return 49
 }
 
 // SqlPropertyLastUpdatedDate return name of the column being indexed
@@ -981,7 +953,7 @@ func (p *Property) SqlPropertyLastUpdatedDate() string { //nolint:dupl false pos
 
 // IdxTaxNote return name of the index
 func (p *Property) IdxTaxNote() int { //nolint:dupl false positive
-	return 52
+	return 50
 }
 
 // SqlTaxNote return name of the column being indexed
@@ -1025,30 +997,28 @@ func (p *Property) ToArray() A.X { //nolint:dupl false positive
 		p.Bathroom,                // 26
 		p.AgencyFeePercent,        // 27
 		p.FloorList,               // 28
-		p.Country,                 // 29
-		p.Version,                 // 30
-		p.MediaSourceJson,         // 31
-		p.ZoneDataInfo,            // 32
-		p.TaxInfo,                 // 33
-		p.HistoryTaxInfo,          // 34
-		p.ListingBrokerName,       // 35
-		p.ListingBrokerNumber,     // 36
-		p.ListingAgentName,        // 37
-		p.ListingAgentNumber,      // 38
-		p.YearBuilt,               // 39
-		p.YearRenovated,           // 40
-		p.TotalSqft,               // 41
-		p.AmenitySuperGroups,      // 42
-		p.CountyUrl,               // 43
-		p.CountyName,              // 44
-		p.CountyIsActive,          // 45
-		p.Street,                  // 46
-		p.City,                    // 47
-		p.State,                   // 48
-		p.Zip,                     // 49
-		p.CountryCode,             // 50
-		p.PropertyLastUpdatedDate, // 51
-		p.TaxNote,                 // 52
+		p.Version,                 // 29
+		p.MediaSourceJson,         // 30
+		p.ZoneDataInfo,            // 31
+		p.TaxInfo,                 // 32
+		p.HistoryTaxInfo,          // 33
+		p.MlsDisclaimerInfo,       // 34
+		p.FacilityInfo,            // 35
+		p.RiskInfo,                // 36
+		p.YearBuilt,               // 37
+		p.YearRenovated,           // 38
+		p.TotalSqft,               // 39
+		p.AmenitySuperGroups,      // 40
+		p.CountyUrl,               // 41
+		p.CountyName,              // 42
+		p.CountyIsActive,          // 43
+		p.Street,                  // 44
+		p.City,                    // 45
+		p.State,                   // 46
+		p.Zip,                     // 47
+		p.CountryCode,             // 48
+		p.PropertyLastUpdatedDate, // 49
+		p.TaxNote,                 // 50
 	}
 }
 
@@ -1083,30 +1053,28 @@ func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 	p.Bathroom = X.ToI(a[26])
 	p.AgencyFeePercent = X.ToF(a[27])
 	p.FloorList = X.ToArr(a[28])
-	p.Country = X.ToS(a[29])
-	p.Version = X.ToF(a[30])
-	p.MediaSourceJson = X.ToS(a[31])
-	p.ZoneDataInfo = X.ToS(a[32])
-	p.TaxInfo = X.ToS(a[33])
-	p.HistoryTaxInfo = X.ToS(a[34])
-	p.ListingBrokerName = X.ToS(a[35])
-	p.ListingBrokerNumber = X.ToS(a[36])
-	p.ListingAgentName = X.ToS(a[37])
-	p.ListingAgentNumber = X.ToS(a[38])
-	p.YearBuilt = X.ToI(a[39])
-	p.YearRenovated = X.ToI(a[40])
-	p.TotalSqft = X.ToF(a[41])
-	p.AmenitySuperGroups = X.ToS(a[42])
-	p.CountyUrl = X.ToS(a[43])
-	p.CountyName = X.ToS(a[44])
-	p.CountyIsActive = X.ToBool(a[45])
-	p.Street = X.ToS(a[46])
-	p.City = X.ToS(a[47])
-	p.State = X.ToS(a[48])
-	p.Zip = X.ToS(a[49])
-	p.CountryCode = X.ToS(a[50])
-	p.PropertyLastUpdatedDate = X.ToI(a[51])
-	p.TaxNote = X.ToS(a[52])
+	p.Version = X.ToF(a[29])
+	p.MediaSourceJson = X.ToS(a[30])
+	p.ZoneDataInfo = X.ToS(a[31])
+	p.TaxInfo = X.ToS(a[32])
+	p.HistoryTaxInfo = X.ToS(a[33])
+	p.MlsDisclaimerInfo = X.ToS(a[34])
+	p.FacilityInfo = X.ToS(a[35])
+	p.RiskInfo = X.ToS(a[36])
+	p.YearBuilt = X.ToI(a[37])
+	p.YearRenovated = X.ToI(a[38])
+	p.TotalSqft = X.ToF(a[39])
+	p.AmenitySuperGroups = X.ToS(a[40])
+	p.CountyUrl = X.ToS(a[41])
+	p.CountyName = X.ToS(a[42])
+	p.CountyIsActive = X.ToBool(a[43])
+	p.Street = X.ToS(a[44])
+	p.City = X.ToS(a[45])
+	p.State = X.ToS(a[46])
+	p.Zip = X.ToS(a[47])
+	p.CountryCode = X.ToS(a[48])
+	p.PropertyLastUpdatedDate = X.ToI(a[49])
+	p.TaxNote = X.ToS(a[50])
 	return p
 }
 
@@ -1141,30 +1109,28 @@ func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false po
 	p.Bathroom = X.ToI(a[26])
 	p.AgencyFeePercent = X.ToF(a[27])
 	p.FloorList = X.ToArr(a[28])
-	p.Country = X.ToS(a[29])
-	p.Version = X.ToF(a[30])
-	p.MediaSourceJson = X.ToS(a[31])
-	p.ZoneDataInfo = X.ToS(a[32])
-	p.TaxInfo = X.ToS(a[33])
-	p.HistoryTaxInfo = X.ToS(a[34])
-	p.ListingBrokerName = X.ToS(a[35])
-	p.ListingBrokerNumber = X.ToS(a[36])
-	p.ListingAgentName = X.ToS(a[37])
-	p.ListingAgentNumber = X.ToS(a[38])
-	p.YearBuilt = X.ToI(a[39])
-	p.YearRenovated = X.ToI(a[40])
-	p.TotalSqft = X.ToF(a[41])
-	p.AmenitySuperGroups = X.ToS(a[42])
-	p.CountyUrl = X.ToS(a[43])
-	p.CountyName = X.ToS(a[44])
-	p.CountyIsActive = X.ToBool(a[45])
-	p.Street = X.ToS(a[46])
-	p.City = X.ToS(a[47])
-	p.State = X.ToS(a[48])
-	p.Zip = X.ToS(a[49])
-	p.CountryCode = X.ToS(a[50])
-	p.PropertyLastUpdatedDate = X.ToI(a[51])
-	p.TaxNote = X.ToS(a[52])
+	p.Version = X.ToF(a[29])
+	p.MediaSourceJson = X.ToS(a[30])
+	p.ZoneDataInfo = X.ToS(a[31])
+	p.TaxInfo = X.ToS(a[32])
+	p.HistoryTaxInfo = X.ToS(a[33])
+	p.MlsDisclaimerInfo = X.ToS(a[34])
+	p.FacilityInfo = X.ToS(a[35])
+	p.RiskInfo = X.ToS(a[36])
+	p.YearBuilt = X.ToI(a[37])
+	p.YearRenovated = X.ToI(a[38])
+	p.TotalSqft = X.ToF(a[39])
+	p.AmenitySuperGroups = X.ToS(a[40])
+	p.CountyUrl = X.ToS(a[41])
+	p.CountyName = X.ToS(a[42])
+	p.CountyIsActive = X.ToBool(a[43])
+	p.Street = X.ToS(a[44])
+	p.City = X.ToS(a[45])
+	p.State = X.ToS(a[46])
+	p.Zip = X.ToS(a[47])
+	p.CountryCode = X.ToS(a[48])
+	p.PropertyLastUpdatedDate = X.ToI(a[49])
+	p.TaxNote = X.ToS(a[50])
 	return p
 }
 
@@ -1237,16 +1203,1074 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`bathroom`:                Tt.Integer,
 	`agencyFeePercent`:        Tt.Double,
 	`floorList`:               Tt.Array,
-	`country`:                 Tt.String,
 	`version`:                 Tt.Double,
 	`mediaSourceJson`:         Tt.String,
 	`zoneDataInfo`:            Tt.String,
 	`taxInfo`:                 Tt.String,
 	`historyTaxInfo`:          Tt.String,
-	`listingBrokerName`:       Tt.String,
-	`listingBrokerNumber`:     Tt.String,
-	`listingAgentName`:        Tt.String,
-	`listingAgentNumber`:      Tt.String,
+	`mlsDisclaimerInfo`:       Tt.String,
+	`facilityInfo`:            Tt.String,
+	`riskInfo`:                Tt.String,
+	`yearBuilt`:               Tt.Integer,
+	`yearRenovated`:           Tt.Integer,
+	`totalSqft`:               Tt.Double,
+	`amenitySuperGroups`:      Tt.String,
+	`countyUrl`:               Tt.String,
+	`countyName`:              Tt.String,
+	`countyIsActive`:          Tt.Boolean,
+	`street`:                  Tt.String,
+	`city`:                    Tt.String,
+	`state`:                   Tt.String,
+	`zip`:                     Tt.String,
+	`countryCode`:             Tt.String,
+	`propertyLastUpdatedDate`: Tt.Integer,
+	`taxNote`:                 Tt.String,
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
+// PropertyUS DAO reader/query struct
+type PropertyUS struct {
+	Adapter                 *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id                      uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	UniqPropKey             string      `json:"uniqPropKey" form:"uniqPropKey" query:"uniqPropKey" long:"uniqPropKey" msg:"uniqPropKey"`
+	SerialNumber            string      `json:"serialNumber" form:"serialNumber" query:"serialNumber" long:"serialNumber" msg:"serialNumber"`
+	SizeM2                  string      `json:"sizeM2" form:"sizeM2" query:"sizeM2" long:"sizeM2" msg:"sizeM2"`
+	MainUse                 string      `json:"mainUse" form:"mainUse" query:"mainUse" long:"mainUse" msg:"mainUse"`
+	MainBuildingMaterial    string      `json:"mainBuildingMaterial" form:"mainBuildingMaterial" query:"mainBuildingMaterial" long:"mainBuildingMaterial" msg:"mainBuildingMaterial"`
+	ConstructCompletedDate  string      `json:"constructCompletedDate" form:"constructCompletedDate" query:"constructCompletedDate" long:"constructCompletedDate" msg:"constructCompletedDate"`
+	NumberOfFloors          string      `json:"numberOfFloors" form:"numberOfFloors" query:"numberOfFloors" long:"numberOfFloors" msg:"numberOfFloors"`
+	BuildingLamination      string      `json:"buildingLamination" form:"buildingLamination" query:"buildingLamination" long:"buildingLamination" msg:"buildingLamination"`
+	Address                 string      `json:"address" form:"address" query:"address" long:"address" msg:"address"`
+	District                string      `json:"district" form:"district" query:"district" long:"district" msg:"district"`
+	Note                    string      `json:"note" form:"note" query:"note" long:"note" msg:"note"`
+	Coord                   []any       `json:"coord" form:"coord" query:"coord" long:"coord" msg:"coord"`
+	CreatedAt               int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy               uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt               int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy               uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt               int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	FormattedAddress        string      `json:"formattedAddress" form:"formattedAddress" query:"formattedAddress" long:"formattedAddress" msg:"formattedAddress"`
+	LastPrice               string      `json:"lastPrice" form:"lastPrice" query:"lastPrice" long:"lastPrice" msg:"lastPrice"`
+	PriceHistoriesSell      []any       `json:"priceHistoriesSell" form:"priceHistoriesSell" query:"priceHistoriesSell" long:"priceHistoriesSell" msg:"priceHistoriesSell"`
+	PriceHistoriesRent      []any       `json:"priceHistoriesRent" form:"priceHistoriesRent" query:"priceHistoriesRent" long:"priceHistoriesRent" msg:"priceHistoriesRent"`
+	Purpose                 string      `json:"purpose" form:"purpose" query:"purpose" long:"purpose" msg:"purpose"`
+	HouseType               string      `json:"houseType" form:"houseType" query:"houseType" long:"houseType" msg:"houseType"`
+	Images                  []any       `json:"images" form:"images" query:"images" long:"images" msg:"images"`
+	Bedroom                 int64       `json:"bedroom" form:"bedroom" query:"bedroom" long:"bedroom" msg:"bedroom"`
+	Bathroom                int64       `json:"bathroom" form:"bathroom" query:"bathroom" long:"bathroom" msg:"bathroom"`
+	AgencyFeePercent        float64     `json:"agencyFeePercent" form:"agencyFeePercent" query:"agencyFeePercent" long:"agencyFeePercent" msg:"agencyFeePercent"`
+	FloorList               []any       `json:"floorList" form:"floorList" query:"floorList" long:"floorList" msg:"floorList"`
+	Version                 float64     `json:"version" form:"version" query:"version" long:"version" msg:"version"`
+	MediaSourceJson         string      `json:"mediaSourceJson" form:"mediaSourceJson" query:"mediaSourceJson" long:"mediaSourceJson" msg:"mediaSourceJson"`
+	ZoneDataInfo            string      `json:"zoneDataInfo" form:"zoneDataInfo" query:"zoneDataInfo" long:"zoneDataInfo" msg:"zoneDataInfo"`
+	TaxInfo                 string      `json:"taxInfo" form:"taxInfo" query:"taxInfo" long:"taxInfo" msg:"taxInfo"`
+	HistoryTaxInfo          string      `json:"historyTaxInfo" form:"historyTaxInfo" query:"historyTaxInfo" long:"historyTaxInfo" msg:"historyTaxInfo"`
+	MlsDisclaimerInfo       string      `json:"mlsDisclaimerInfo" form:"mlsDisclaimerInfo" query:"mlsDisclaimerInfo" long:"mlsDisclaimerInfo" msg:"mlsDisclaimerInfo"`
+	FacilityInfo            string      `json:"facilityInfo" form:"facilityInfo" query:"facilityInfo" long:"facilityInfo" msg:"facilityInfo"`
+	RiskInfo                string      `json:"riskInfo" form:"riskInfo" query:"riskInfo" long:"riskInfo" msg:"riskInfo"`
+	YearBuilt               int64       `json:"yearBuilt" form:"yearBuilt" query:"yearBuilt" long:"yearBuilt" msg:"yearBuilt"`
+	YearRenovated           int64       `json:"yearRenovated" form:"yearRenovated" query:"yearRenovated" long:"yearRenovated" msg:"yearRenovated"`
+	TotalSqft               float64     `json:"totalSqft" form:"totalSqft" query:"totalSqft" long:"totalSqft" msg:"totalSqft"`
+	AmenitySuperGroups      string      `json:"amenitySuperGroups" form:"amenitySuperGroups" query:"amenitySuperGroups" long:"amenitySuperGroups" msg:"amenitySuperGroups"`
+	CountyUrl               string      `json:"countyUrl" form:"countyUrl" query:"countyUrl" long:"countyUrl" msg:"countyUrl"`
+	CountyName              string      `json:"countyName" form:"countyName" query:"countyName" long:"countyName" msg:"countyName"`
+	CountyIsActive          bool        `json:"countyIsActive" form:"countyIsActive" query:"countyIsActive" long:"countyIsActive" msg:"countyIsActive"`
+	Street                  string      `json:"street" form:"street" query:"street" long:"street" msg:"street"`
+	City                    string      `json:"city" form:"city" query:"city" long:"city" msg:"city"`
+	State                   string      `json:"state" form:"state" query:"state" long:"state" msg:"state"`
+	Zip                     string      `json:"zip" form:"zip" query:"zip" long:"zip" msg:"zip"`
+	CountryCode             string      `json:"countryCode" form:"countryCode" query:"countryCode" long:"countryCode" msg:"countryCode"`
+	PropertyLastUpdatedDate int64       `json:"propertyLastUpdatedDate" form:"propertyLastUpdatedDate" query:"propertyLastUpdatedDate" long:"propertyLastUpdatedDate" msg:"propertyLastUpdatedDate"`
+	TaxNote                 string      `json:"taxNote" form:"taxNote" query:"taxNote" long:"taxNote" msg:"taxNote"`
+}
+
+// NewPropertyUS create new ORM reader/query object
+func NewPropertyUS(adapter *Tt.Adapter) *PropertyUS {
+	return &PropertyUS{Adapter: adapter}
+}
+
+// SpaceName returns full package and table name
+func (p *PropertyUS) SpaceName() string { //nolint:dupl false positive
+	return string(mProperty.TablePropertyUs) // casting required to string from Tt.TableName
+}
+
+// SqlTableName returns quoted table name
+func (p *PropertyUS) SqlTableName() string { //nolint:dupl false positive
+	return `"propertyUS"`
+}
+
+func (p *PropertyUS) UniqueIndexId() string { //nolint:dupl false positive
+	return `id`
+}
+
+// FindById Find one by Id
+func (p *PropertyUS) FindById() bool { //nolint:dupl false positive
+	res, err := p.Adapter.Select(p.SpaceName(), p.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{p.Id})
+	if L.IsError(err, `PropertyUS.FindById failed: `+p.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		p.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
+// SpatialIndexCoord return spatial index name
+func (p *PropertyUS) SpatialIndexCoord() string { //nolint:dupl false positive
+	return `coord`
+}
+
+// UniqueIndexUniqPropKey return unique index name
+func (p *PropertyUS) UniqueIndexUniqPropKey() string { //nolint:dupl false positive
+	return `uniqPropKey`
+}
+
+// FindByUniqPropKey Find one by UniqPropKey
+func (p *PropertyUS) FindByUniqPropKey() bool { //nolint:dupl false positive
+	res, err := p.Adapter.Select(p.SpaceName(), p.UniqueIndexUniqPropKey(), 0, 1, tarantool.IterEq, A.X{p.UniqPropKey})
+	if L.IsError(err, `PropertyUS.FindByUniqPropKey failed: `+p.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		p.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
+// SqlSelectAllFields generate Sql select fields
+func (p *PropertyUS) SqlSelectAllFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "uniqPropKey"
+	, "serialNumber"
+	, "sizeM2"
+	, "mainUse"
+	, "mainBuildingMaterial"
+	, "constructCompletedDate"
+	, "numberOfFloors"
+	, "buildingLamination"
+	, "address"
+	, "district"
+	, "note"
+	, "coord"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	, "formattedAddress"
+	, "lastPrice"
+	, "priceHistoriesSell"
+	, "priceHistoriesRent"
+	, "purpose"
+	, "houseType"
+	, "images"
+	, "bedroom"
+	, "bathroom"
+	, "agencyFeePercent"
+	, "floorList"
+	, "version"
+	, "mediaSourceJson"
+	, "zoneDataInfo"
+	, "taxInfo"
+	, "historyTaxInfo"
+	, "mlsDisclaimerInfo"
+	, "facilityInfo"
+	, "riskInfo"
+	, "yearBuilt"
+	, "yearRenovated"
+	, "totalSqft"
+	, "amenitySuperGroups"
+	, "countyUrl"
+	, "countyName"
+	, "countyIsActive"
+	, "street"
+	, "city"
+	, "state"
+	, "zip"
+	, "countryCode"
+	, "propertyLastUpdatedDate"
+	, "taxNote"
+	`
+}
+
+// SqlSelectAllUncensoredFields generate Sql select fields
+func (p *PropertyUS) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "uniqPropKey"
+	, "serialNumber"
+	, "sizeM2"
+	, "mainUse"
+	, "mainBuildingMaterial"
+	, "constructCompletedDate"
+	, "numberOfFloors"
+	, "buildingLamination"
+	, "address"
+	, "district"
+	, "note"
+	, "coord"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	, "formattedAddress"
+	, "lastPrice"
+	, "priceHistoriesSell"
+	, "priceHistoriesRent"
+	, "purpose"
+	, "houseType"
+	, "images"
+	, "bedroom"
+	, "bathroom"
+	, "agencyFeePercent"
+	, "floorList"
+	, "version"
+	, "mediaSourceJson"
+	, "zoneDataInfo"
+	, "taxInfo"
+	, "historyTaxInfo"
+	, "mlsDisclaimerInfo"
+	, "facilityInfo"
+	, "riskInfo"
+	, "yearBuilt"
+	, "yearRenovated"
+	, "totalSqft"
+	, "amenitySuperGroups"
+	, "countyUrl"
+	, "countyName"
+	, "countyIsActive"
+	, "street"
+	, "city"
+	, "state"
+	, "zip"
+	, "countryCode"
+	, "propertyLastUpdatedDate"
+	, "taxNote"
+	`
+}
+
+// ToUpdateArray generate slice of update command
+func (p *PropertyUS) ToUpdateArray() A.X { //nolint:dupl false positive
+	return A.X{
+		A.X{`=`, 0, p.Id},
+		A.X{`=`, 1, p.UniqPropKey},
+		A.X{`=`, 2, p.SerialNumber},
+		A.X{`=`, 3, p.SizeM2},
+		A.X{`=`, 4, p.MainUse},
+		A.X{`=`, 5, p.MainBuildingMaterial},
+		A.X{`=`, 6, p.ConstructCompletedDate},
+		A.X{`=`, 7, p.NumberOfFloors},
+		A.X{`=`, 8, p.BuildingLamination},
+		A.X{`=`, 9, p.Address},
+		A.X{`=`, 10, p.District},
+		A.X{`=`, 11, p.Note},
+		A.X{`=`, 12, p.Coord},
+		A.X{`=`, 13, p.CreatedAt},
+		A.X{`=`, 14, p.CreatedBy},
+		A.X{`=`, 15, p.UpdatedAt},
+		A.X{`=`, 16, p.UpdatedBy},
+		A.X{`=`, 17, p.DeletedAt},
+		A.X{`=`, 18, p.FormattedAddress},
+		A.X{`=`, 19, p.LastPrice},
+		A.X{`=`, 20, p.PriceHistoriesSell},
+		A.X{`=`, 21, p.PriceHistoriesRent},
+		A.X{`=`, 22, p.Purpose},
+		A.X{`=`, 23, p.HouseType},
+		A.X{`=`, 24, p.Images},
+		A.X{`=`, 25, p.Bedroom},
+		A.X{`=`, 26, p.Bathroom},
+		A.X{`=`, 27, p.AgencyFeePercent},
+		A.X{`=`, 28, p.FloorList},
+		A.X{`=`, 29, p.Version},
+		A.X{`=`, 30, p.MediaSourceJson},
+		A.X{`=`, 31, p.ZoneDataInfo},
+		A.X{`=`, 32, p.TaxInfo},
+		A.X{`=`, 33, p.HistoryTaxInfo},
+		A.X{`=`, 34, p.MlsDisclaimerInfo},
+		A.X{`=`, 35, p.FacilityInfo},
+		A.X{`=`, 36, p.RiskInfo},
+		A.X{`=`, 37, p.YearBuilt},
+		A.X{`=`, 38, p.YearRenovated},
+		A.X{`=`, 39, p.TotalSqft},
+		A.X{`=`, 40, p.AmenitySuperGroups},
+		A.X{`=`, 41, p.CountyUrl},
+		A.X{`=`, 42, p.CountyName},
+		A.X{`=`, 43, p.CountyIsActive},
+		A.X{`=`, 44, p.Street},
+		A.X{`=`, 45, p.City},
+		A.X{`=`, 46, p.State},
+		A.X{`=`, 47, p.Zip},
+		A.X{`=`, 48, p.CountryCode},
+		A.X{`=`, 49, p.PropertyLastUpdatedDate},
+		A.X{`=`, 50, p.TaxNote},
+	}
+}
+
+// IdxId return name of the index
+func (p *PropertyUS) IdxId() int { //nolint:dupl false positive
+	return 0
+}
+
+// SqlId return name of the column being indexed
+func (p *PropertyUS) SqlId() string { //nolint:dupl false positive
+	return `"id"`
+}
+
+// IdxUniqPropKey return name of the index
+func (p *PropertyUS) IdxUniqPropKey() int { //nolint:dupl false positive
+	return 1
+}
+
+// SqlUniqPropKey return name of the column being indexed
+func (p *PropertyUS) SqlUniqPropKey() string { //nolint:dupl false positive
+	return `"uniqPropKey"`
+}
+
+// IdxSerialNumber return name of the index
+func (p *PropertyUS) IdxSerialNumber() int { //nolint:dupl false positive
+	return 2
+}
+
+// SqlSerialNumber return name of the column being indexed
+func (p *PropertyUS) SqlSerialNumber() string { //nolint:dupl false positive
+	return `"serialNumber"`
+}
+
+// IdxSizeM2 return name of the index
+func (p *PropertyUS) IdxSizeM2() int { //nolint:dupl false positive
+	return 3
+}
+
+// SqlSizeM2 return name of the column being indexed
+func (p *PropertyUS) SqlSizeM2() string { //nolint:dupl false positive
+	return `"sizeM2"`
+}
+
+// IdxMainUse return name of the index
+func (p *PropertyUS) IdxMainUse() int { //nolint:dupl false positive
+	return 4
+}
+
+// SqlMainUse return name of the column being indexed
+func (p *PropertyUS) SqlMainUse() string { //nolint:dupl false positive
+	return `"mainUse"`
+}
+
+// IdxMainBuildingMaterial return name of the index
+func (p *PropertyUS) IdxMainBuildingMaterial() int { //nolint:dupl false positive
+	return 5
+}
+
+// SqlMainBuildingMaterial return name of the column being indexed
+func (p *PropertyUS) SqlMainBuildingMaterial() string { //nolint:dupl false positive
+	return `"mainBuildingMaterial"`
+}
+
+// IdxConstructCompletedDate return name of the index
+func (p *PropertyUS) IdxConstructCompletedDate() int { //nolint:dupl false positive
+	return 6
+}
+
+// SqlConstructCompletedDate return name of the column being indexed
+func (p *PropertyUS) SqlConstructCompletedDate() string { //nolint:dupl false positive
+	return `"constructCompletedDate"`
+}
+
+// IdxNumberOfFloors return name of the index
+func (p *PropertyUS) IdxNumberOfFloors() int { //nolint:dupl false positive
+	return 7
+}
+
+// SqlNumberOfFloors return name of the column being indexed
+func (p *PropertyUS) SqlNumberOfFloors() string { //nolint:dupl false positive
+	return `"numberOfFloors"`
+}
+
+// IdxBuildingLamination return name of the index
+func (p *PropertyUS) IdxBuildingLamination() int { //nolint:dupl false positive
+	return 8
+}
+
+// SqlBuildingLamination return name of the column being indexed
+func (p *PropertyUS) SqlBuildingLamination() string { //nolint:dupl false positive
+	return `"buildingLamination"`
+}
+
+// IdxAddress return name of the index
+func (p *PropertyUS) IdxAddress() int { //nolint:dupl false positive
+	return 9
+}
+
+// SqlAddress return name of the column being indexed
+func (p *PropertyUS) SqlAddress() string { //nolint:dupl false positive
+	return `"address"`
+}
+
+// IdxDistrict return name of the index
+func (p *PropertyUS) IdxDistrict() int { //nolint:dupl false positive
+	return 10
+}
+
+// SqlDistrict return name of the column being indexed
+func (p *PropertyUS) SqlDistrict() string { //nolint:dupl false positive
+	return `"district"`
+}
+
+// IdxNote return name of the index
+func (p *PropertyUS) IdxNote() int { //nolint:dupl false positive
+	return 11
+}
+
+// SqlNote return name of the column being indexed
+func (p *PropertyUS) SqlNote() string { //nolint:dupl false positive
+	return `"note"`
+}
+
+// IdxCoord return name of the index
+func (p *PropertyUS) IdxCoord() int { //nolint:dupl false positive
+	return 12
+}
+
+// SqlCoord return name of the column being indexed
+func (p *PropertyUS) SqlCoord() string { //nolint:dupl false positive
+	return `"coord"`
+}
+
+// IdxCreatedAt return name of the index
+func (p *PropertyUS) IdxCreatedAt() int { //nolint:dupl false positive
+	return 13
+}
+
+// SqlCreatedAt return name of the column being indexed
+func (p *PropertyUS) SqlCreatedAt() string { //nolint:dupl false positive
+	return `"createdAt"`
+}
+
+// IdxCreatedBy return name of the index
+func (p *PropertyUS) IdxCreatedBy() int { //nolint:dupl false positive
+	return 14
+}
+
+// SqlCreatedBy return name of the column being indexed
+func (p *PropertyUS) SqlCreatedBy() string { //nolint:dupl false positive
+	return `"createdBy"`
+}
+
+// IdxUpdatedAt return name of the index
+func (p *PropertyUS) IdxUpdatedAt() int { //nolint:dupl false positive
+	return 15
+}
+
+// SqlUpdatedAt return name of the column being indexed
+func (p *PropertyUS) SqlUpdatedAt() string { //nolint:dupl false positive
+	return `"updatedAt"`
+}
+
+// IdxUpdatedBy return name of the index
+func (p *PropertyUS) IdxUpdatedBy() int { //nolint:dupl false positive
+	return 16
+}
+
+// SqlUpdatedBy return name of the column being indexed
+func (p *PropertyUS) SqlUpdatedBy() string { //nolint:dupl false positive
+	return `"updatedBy"`
+}
+
+// IdxDeletedAt return name of the index
+func (p *PropertyUS) IdxDeletedAt() int { //nolint:dupl false positive
+	return 17
+}
+
+// SqlDeletedAt return name of the column being indexed
+func (p *PropertyUS) SqlDeletedAt() string { //nolint:dupl false positive
+	return `"deletedAt"`
+}
+
+// IdxFormattedAddress return name of the index
+func (p *PropertyUS) IdxFormattedAddress() int { //nolint:dupl false positive
+	return 18
+}
+
+// SqlFormattedAddress return name of the column being indexed
+func (p *PropertyUS) SqlFormattedAddress() string { //nolint:dupl false positive
+	return `"formattedAddress"`
+}
+
+// IdxLastPrice return name of the index
+func (p *PropertyUS) IdxLastPrice() int { //nolint:dupl false positive
+	return 19
+}
+
+// SqlLastPrice return name of the column being indexed
+func (p *PropertyUS) SqlLastPrice() string { //nolint:dupl false positive
+	return `"lastPrice"`
+}
+
+// IdxPriceHistoriesSell return name of the index
+func (p *PropertyUS) IdxPriceHistoriesSell() int { //nolint:dupl false positive
+	return 20
+}
+
+// SqlPriceHistoriesSell return name of the column being indexed
+func (p *PropertyUS) SqlPriceHistoriesSell() string { //nolint:dupl false positive
+	return `"priceHistoriesSell"`
+}
+
+// IdxPriceHistoriesRent return name of the index
+func (p *PropertyUS) IdxPriceHistoriesRent() int { //nolint:dupl false positive
+	return 21
+}
+
+// SqlPriceHistoriesRent return name of the column being indexed
+func (p *PropertyUS) SqlPriceHistoriesRent() string { //nolint:dupl false positive
+	return `"priceHistoriesRent"`
+}
+
+// IdxPurpose return name of the index
+func (p *PropertyUS) IdxPurpose() int { //nolint:dupl false positive
+	return 22
+}
+
+// SqlPurpose return name of the column being indexed
+func (p *PropertyUS) SqlPurpose() string { //nolint:dupl false positive
+	return `"purpose"`
+}
+
+// IdxHouseType return name of the index
+func (p *PropertyUS) IdxHouseType() int { //nolint:dupl false positive
+	return 23
+}
+
+// SqlHouseType return name of the column being indexed
+func (p *PropertyUS) SqlHouseType() string { //nolint:dupl false positive
+	return `"houseType"`
+}
+
+// IdxImages return name of the index
+func (p *PropertyUS) IdxImages() int { //nolint:dupl false positive
+	return 24
+}
+
+// SqlImages return name of the column being indexed
+func (p *PropertyUS) SqlImages() string { //nolint:dupl false positive
+	return `"images"`
+}
+
+// IdxBedroom return name of the index
+func (p *PropertyUS) IdxBedroom() int { //nolint:dupl false positive
+	return 25
+}
+
+// SqlBedroom return name of the column being indexed
+func (p *PropertyUS) SqlBedroom() string { //nolint:dupl false positive
+	return `"bedroom"`
+}
+
+// IdxBathroom return name of the index
+func (p *PropertyUS) IdxBathroom() int { //nolint:dupl false positive
+	return 26
+}
+
+// SqlBathroom return name of the column being indexed
+func (p *PropertyUS) SqlBathroom() string { //nolint:dupl false positive
+	return `"bathroom"`
+}
+
+// IdxAgencyFeePercent return name of the index
+func (p *PropertyUS) IdxAgencyFeePercent() int { //nolint:dupl false positive
+	return 27
+}
+
+// SqlAgencyFeePercent return name of the column being indexed
+func (p *PropertyUS) SqlAgencyFeePercent() string { //nolint:dupl false positive
+	return `"agencyFeePercent"`
+}
+
+// IdxFloorList return name of the index
+func (p *PropertyUS) IdxFloorList() int { //nolint:dupl false positive
+	return 28
+}
+
+// SqlFloorList return name of the column being indexed
+func (p *PropertyUS) SqlFloorList() string { //nolint:dupl false positive
+	return `"floorList"`
+}
+
+// IdxVersion return name of the index
+func (p *PropertyUS) IdxVersion() int { //nolint:dupl false positive
+	return 29
+}
+
+// SqlVersion return name of the column being indexed
+func (p *PropertyUS) SqlVersion() string { //nolint:dupl false positive
+	return `"version"`
+}
+
+// IdxMediaSourceJson return name of the index
+func (p *PropertyUS) IdxMediaSourceJson() int { //nolint:dupl false positive
+	return 30
+}
+
+// SqlMediaSourceJson return name of the column being indexed
+func (p *PropertyUS) SqlMediaSourceJson() string { //nolint:dupl false positive
+	return `"mediaSourceJson"`
+}
+
+// IdxZoneDataInfo return name of the index
+func (p *PropertyUS) IdxZoneDataInfo() int { //nolint:dupl false positive
+	return 31
+}
+
+// SqlZoneDataInfo return name of the column being indexed
+func (p *PropertyUS) SqlZoneDataInfo() string { //nolint:dupl false positive
+	return `"zoneDataInfo"`
+}
+
+// IdxTaxInfo return name of the index
+func (p *PropertyUS) IdxTaxInfo() int { //nolint:dupl false positive
+	return 32
+}
+
+// SqlTaxInfo return name of the column being indexed
+func (p *PropertyUS) SqlTaxInfo() string { //nolint:dupl false positive
+	return `"taxInfo"`
+}
+
+// IdxHistoryTaxInfo return name of the index
+func (p *PropertyUS) IdxHistoryTaxInfo() int { //nolint:dupl false positive
+	return 33
+}
+
+// SqlHistoryTaxInfo return name of the column being indexed
+func (p *PropertyUS) SqlHistoryTaxInfo() string { //nolint:dupl false positive
+	return `"historyTaxInfo"`
+}
+
+// IdxMlsDisclaimerInfo return name of the index
+func (p *PropertyUS) IdxMlsDisclaimerInfo() int { //nolint:dupl false positive
+	return 34
+}
+
+// SqlMlsDisclaimerInfo return name of the column being indexed
+func (p *PropertyUS) SqlMlsDisclaimerInfo() string { //nolint:dupl false positive
+	return `"mlsDisclaimerInfo"`
+}
+
+// IdxFacilityInfo return name of the index
+func (p *PropertyUS) IdxFacilityInfo() int { //nolint:dupl false positive
+	return 35
+}
+
+// SqlFacilityInfo return name of the column being indexed
+func (p *PropertyUS) SqlFacilityInfo() string { //nolint:dupl false positive
+	return `"facilityInfo"`
+}
+
+// IdxRiskInfo return name of the index
+func (p *PropertyUS) IdxRiskInfo() int { //nolint:dupl false positive
+	return 36
+}
+
+// SqlRiskInfo return name of the column being indexed
+func (p *PropertyUS) SqlRiskInfo() string { //nolint:dupl false positive
+	return `"riskInfo"`
+}
+
+// IdxYearBuilt return name of the index
+func (p *PropertyUS) IdxYearBuilt() int { //nolint:dupl false positive
+	return 37
+}
+
+// SqlYearBuilt return name of the column being indexed
+func (p *PropertyUS) SqlYearBuilt() string { //nolint:dupl false positive
+	return `"yearBuilt"`
+}
+
+// IdxYearRenovated return name of the index
+func (p *PropertyUS) IdxYearRenovated() int { //nolint:dupl false positive
+	return 38
+}
+
+// SqlYearRenovated return name of the column being indexed
+func (p *PropertyUS) SqlYearRenovated() string { //nolint:dupl false positive
+	return `"yearRenovated"`
+}
+
+// IdxTotalSqft return name of the index
+func (p *PropertyUS) IdxTotalSqft() int { //nolint:dupl false positive
+	return 39
+}
+
+// SqlTotalSqft return name of the column being indexed
+func (p *PropertyUS) SqlTotalSqft() string { //nolint:dupl false positive
+	return `"totalSqft"`
+}
+
+// IdxAmenitySuperGroups return name of the index
+func (p *PropertyUS) IdxAmenitySuperGroups() int { //nolint:dupl false positive
+	return 40
+}
+
+// SqlAmenitySuperGroups return name of the column being indexed
+func (p *PropertyUS) SqlAmenitySuperGroups() string { //nolint:dupl false positive
+	return `"amenitySuperGroups"`
+}
+
+// IdxCountyUrl return name of the index
+func (p *PropertyUS) IdxCountyUrl() int { //nolint:dupl false positive
+	return 41
+}
+
+// SqlCountyUrl return name of the column being indexed
+func (p *PropertyUS) SqlCountyUrl() string { //nolint:dupl false positive
+	return `"countyUrl"`
+}
+
+// IdxCountyName return name of the index
+func (p *PropertyUS) IdxCountyName() int { //nolint:dupl false positive
+	return 42
+}
+
+// SqlCountyName return name of the column being indexed
+func (p *PropertyUS) SqlCountyName() string { //nolint:dupl false positive
+	return `"countyName"`
+}
+
+// IdxCountyIsActive return name of the index
+func (p *PropertyUS) IdxCountyIsActive() int { //nolint:dupl false positive
+	return 43
+}
+
+// SqlCountyIsActive return name of the column being indexed
+func (p *PropertyUS) SqlCountyIsActive() string { //nolint:dupl false positive
+	return `"countyIsActive"`
+}
+
+// IdxStreet return name of the index
+func (p *PropertyUS) IdxStreet() int { //nolint:dupl false positive
+	return 44
+}
+
+// SqlStreet return name of the column being indexed
+func (p *PropertyUS) SqlStreet() string { //nolint:dupl false positive
+	return `"street"`
+}
+
+// IdxCity return name of the index
+func (p *PropertyUS) IdxCity() int { //nolint:dupl false positive
+	return 45
+}
+
+// SqlCity return name of the column being indexed
+func (p *PropertyUS) SqlCity() string { //nolint:dupl false positive
+	return `"city"`
+}
+
+// IdxState return name of the index
+func (p *PropertyUS) IdxState() int { //nolint:dupl false positive
+	return 46
+}
+
+// SqlState return name of the column being indexed
+func (p *PropertyUS) SqlState() string { //nolint:dupl false positive
+	return `"state"`
+}
+
+// IdxZip return name of the index
+func (p *PropertyUS) IdxZip() int { //nolint:dupl false positive
+	return 47
+}
+
+// SqlZip return name of the column being indexed
+func (p *PropertyUS) SqlZip() string { //nolint:dupl false positive
+	return `"zip"`
+}
+
+// IdxCountryCode return name of the index
+func (p *PropertyUS) IdxCountryCode() int { //nolint:dupl false positive
+	return 48
+}
+
+// SqlCountryCode return name of the column being indexed
+func (p *PropertyUS) SqlCountryCode() string { //nolint:dupl false positive
+	return `"countryCode"`
+}
+
+// IdxPropertyLastUpdatedDate return name of the index
+func (p *PropertyUS) IdxPropertyLastUpdatedDate() int { //nolint:dupl false positive
+	return 49
+}
+
+// SqlPropertyLastUpdatedDate return name of the column being indexed
+func (p *PropertyUS) SqlPropertyLastUpdatedDate() string { //nolint:dupl false positive
+	return `"propertyLastUpdatedDate"`
+}
+
+// IdxTaxNote return name of the index
+func (p *PropertyUS) IdxTaxNote() int { //nolint:dupl false positive
+	return 50
+}
+
+// SqlTaxNote return name of the column being indexed
+func (p *PropertyUS) SqlTaxNote() string { //nolint:dupl false positive
+	return `"taxNote"`
+}
+
+// ToArray receiver fields to slice
+func (p *PropertyUS) ToArray() A.X { //nolint:dupl false positive
+	var id any = nil
+	if p.Id != 0 {
+		id = p.Id
+	}
+	return A.X{
+		id,
+		p.UniqPropKey,             // 1
+		p.SerialNumber,            // 2
+		p.SizeM2,                  // 3
+		p.MainUse,                 // 4
+		p.MainBuildingMaterial,    // 5
+		p.ConstructCompletedDate,  // 6
+		p.NumberOfFloors,          // 7
+		p.BuildingLamination,      // 8
+		p.Address,                 // 9
+		p.District,                // 10
+		p.Note,                    // 11
+		p.Coord,                   // 12
+		p.CreatedAt,               // 13
+		p.CreatedBy,               // 14
+		p.UpdatedAt,               // 15
+		p.UpdatedBy,               // 16
+		p.DeletedAt,               // 17
+		p.FormattedAddress,        // 18
+		p.LastPrice,               // 19
+		p.PriceHistoriesSell,      // 20
+		p.PriceHistoriesRent,      // 21
+		p.Purpose,                 // 22
+		p.HouseType,               // 23
+		p.Images,                  // 24
+		p.Bedroom,                 // 25
+		p.Bathroom,                // 26
+		p.AgencyFeePercent,        // 27
+		p.FloorList,               // 28
+		p.Version,                 // 29
+		p.MediaSourceJson,         // 30
+		p.ZoneDataInfo,            // 31
+		p.TaxInfo,                 // 32
+		p.HistoryTaxInfo,          // 33
+		p.MlsDisclaimerInfo,       // 34
+		p.FacilityInfo,            // 35
+		p.RiskInfo,                // 36
+		p.YearBuilt,               // 37
+		p.YearRenovated,           // 38
+		p.TotalSqft,               // 39
+		p.AmenitySuperGroups,      // 40
+		p.CountyUrl,               // 41
+		p.CountyName,              // 42
+		p.CountyIsActive,          // 43
+		p.Street,                  // 44
+		p.City,                    // 45
+		p.State,                   // 46
+		p.Zip,                     // 47
+		p.CountryCode,             // 48
+		p.PropertyLastUpdatedDate, // 49
+		p.TaxNote,                 // 50
+	}
+}
+
+// FromArray convert slice to receiver fields
+func (p *PropertyUS) FromArray(a A.X) *PropertyUS { //nolint:dupl false positive
+	p.Id = X.ToU(a[0])
+	p.UniqPropKey = X.ToS(a[1])
+	p.SerialNumber = X.ToS(a[2])
+	p.SizeM2 = X.ToS(a[3])
+	p.MainUse = X.ToS(a[4])
+	p.MainBuildingMaterial = X.ToS(a[5])
+	p.ConstructCompletedDate = X.ToS(a[6])
+	p.NumberOfFloors = X.ToS(a[7])
+	p.BuildingLamination = X.ToS(a[8])
+	p.Address = X.ToS(a[9])
+	p.District = X.ToS(a[10])
+	p.Note = X.ToS(a[11])
+	p.Coord = X.ToArr(a[12])
+	p.CreatedAt = X.ToI(a[13])
+	p.CreatedBy = X.ToU(a[14])
+	p.UpdatedAt = X.ToI(a[15])
+	p.UpdatedBy = X.ToU(a[16])
+	p.DeletedAt = X.ToI(a[17])
+	p.FormattedAddress = X.ToS(a[18])
+	p.LastPrice = X.ToS(a[19])
+	p.PriceHistoriesSell = X.ToArr(a[20])
+	p.PriceHistoriesRent = X.ToArr(a[21])
+	p.Purpose = X.ToS(a[22])
+	p.HouseType = X.ToS(a[23])
+	p.Images = X.ToArr(a[24])
+	p.Bedroom = X.ToI(a[25])
+	p.Bathroom = X.ToI(a[26])
+	p.AgencyFeePercent = X.ToF(a[27])
+	p.FloorList = X.ToArr(a[28])
+	p.Version = X.ToF(a[29])
+	p.MediaSourceJson = X.ToS(a[30])
+	p.ZoneDataInfo = X.ToS(a[31])
+	p.TaxInfo = X.ToS(a[32])
+	p.HistoryTaxInfo = X.ToS(a[33])
+	p.MlsDisclaimerInfo = X.ToS(a[34])
+	p.FacilityInfo = X.ToS(a[35])
+	p.RiskInfo = X.ToS(a[36])
+	p.YearBuilt = X.ToI(a[37])
+	p.YearRenovated = X.ToI(a[38])
+	p.TotalSqft = X.ToF(a[39])
+	p.AmenitySuperGroups = X.ToS(a[40])
+	p.CountyUrl = X.ToS(a[41])
+	p.CountyName = X.ToS(a[42])
+	p.CountyIsActive = X.ToBool(a[43])
+	p.Street = X.ToS(a[44])
+	p.City = X.ToS(a[45])
+	p.State = X.ToS(a[46])
+	p.Zip = X.ToS(a[47])
+	p.CountryCode = X.ToS(a[48])
+	p.PropertyLastUpdatedDate = X.ToI(a[49])
+	p.TaxNote = X.ToS(a[50])
+	return p
+}
+
+// FromUncensoredArray convert slice to receiver fields
+func (p *PropertyUS) FromUncensoredArray(a A.X) *PropertyUS { //nolint:dupl false positive
+	p.Id = X.ToU(a[0])
+	p.UniqPropKey = X.ToS(a[1])
+	p.SerialNumber = X.ToS(a[2])
+	p.SizeM2 = X.ToS(a[3])
+	p.MainUse = X.ToS(a[4])
+	p.MainBuildingMaterial = X.ToS(a[5])
+	p.ConstructCompletedDate = X.ToS(a[6])
+	p.NumberOfFloors = X.ToS(a[7])
+	p.BuildingLamination = X.ToS(a[8])
+	p.Address = X.ToS(a[9])
+	p.District = X.ToS(a[10])
+	p.Note = X.ToS(a[11])
+	p.Coord = X.ToArr(a[12])
+	p.CreatedAt = X.ToI(a[13])
+	p.CreatedBy = X.ToU(a[14])
+	p.UpdatedAt = X.ToI(a[15])
+	p.UpdatedBy = X.ToU(a[16])
+	p.DeletedAt = X.ToI(a[17])
+	p.FormattedAddress = X.ToS(a[18])
+	p.LastPrice = X.ToS(a[19])
+	p.PriceHistoriesSell = X.ToArr(a[20])
+	p.PriceHistoriesRent = X.ToArr(a[21])
+	p.Purpose = X.ToS(a[22])
+	p.HouseType = X.ToS(a[23])
+	p.Images = X.ToArr(a[24])
+	p.Bedroom = X.ToI(a[25])
+	p.Bathroom = X.ToI(a[26])
+	p.AgencyFeePercent = X.ToF(a[27])
+	p.FloorList = X.ToArr(a[28])
+	p.Version = X.ToF(a[29])
+	p.MediaSourceJson = X.ToS(a[30])
+	p.ZoneDataInfo = X.ToS(a[31])
+	p.TaxInfo = X.ToS(a[32])
+	p.HistoryTaxInfo = X.ToS(a[33])
+	p.MlsDisclaimerInfo = X.ToS(a[34])
+	p.FacilityInfo = X.ToS(a[35])
+	p.RiskInfo = X.ToS(a[36])
+	p.YearBuilt = X.ToI(a[37])
+	p.YearRenovated = X.ToI(a[38])
+	p.TotalSqft = X.ToF(a[39])
+	p.AmenitySuperGroups = X.ToS(a[40])
+	p.CountyUrl = X.ToS(a[41])
+	p.CountyName = X.ToS(a[42])
+	p.CountyIsActive = X.ToBool(a[43])
+	p.Street = X.ToS(a[44])
+	p.City = X.ToS(a[45])
+	p.State = X.ToS(a[46])
+	p.Zip = X.ToS(a[47])
+	p.CountryCode = X.ToS(a[48])
+	p.PropertyLastUpdatedDate = X.ToI(a[49])
+	p.TaxNote = X.ToS(a[50])
+	return p
+}
+
+// FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
+func (p *PropertyUS) FindOffsetLimit(offset, limit uint32, idx string) []PropertyUS { //nolint:dupl false positive
+	var rows []PropertyUS
+	res, err := p.Adapter.Select(p.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `PropertyUS.FindOffsetLimit failed: `+p.SpaceName()) {
+		return rows
+	}
+	for _, row := range res.Tuples() {
+		item := PropertyUS{}
+		rows = append(rows, *item.FromArray(row))
+	}
+	return rows
+}
+
+// FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
+func (p *PropertyUS) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
+	var rows []A.X
+	res, err := p.Adapter.Select(p.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `PropertyUS.FindOffsetLimit failed: `+p.SpaceName()) {
+		return rows, Tt.QueryMetaFrom(res, err)
+	}
+	tuples := res.Tuples()
+	rows = make([]A.X, len(tuples))
+	for z, row := range tuples {
+		rows[z] = row
+	}
+	return rows, Tt.QueryMetaFrom(res, nil)
+}
+
+// Total count number of rows
+func (p *PropertyUS) Total() int64 { //nolint:dupl false positive
+	rows := p.Adapter.CallBoxSpace(p.SpaceName()+`:count`, A.X{})
+	if len(rows) > 0 && len(rows[0]) > 0 {
+		return X.ToI(rows[0][0])
+	}
+	return 0
+}
+
+// PropertyUSFieldTypeMap returns key value of field name and key
+var PropertyUSFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
+	`id`:                      Tt.Unsigned,
+	`uniqPropKey`:             Tt.String,
+	`serialNumber`:            Tt.String,
+	`sizeM2`:                  Tt.String,
+	`mainUse`:                 Tt.String,
+	`mainBuildingMaterial`:    Tt.String,
+	`constructCompletedDate`:  Tt.String,
+	`numberOfFloors`:          Tt.String,
+	`buildingLamination`:      Tt.String,
+	`address`:                 Tt.String,
+	`district`:                Tt.String,
+	`note`:                    Tt.String,
+	`coord`:                   Tt.Array,
+	`createdAt`:               Tt.Integer,
+	`createdBy`:               Tt.Unsigned,
+	`updatedAt`:               Tt.Integer,
+	`updatedBy`:               Tt.Unsigned,
+	`deletedAt`:               Tt.Integer,
+	`formattedAddress`:        Tt.String,
+	`lastPrice`:               Tt.String,
+	`priceHistoriesSell`:      Tt.Array,
+	`priceHistoriesRent`:      Tt.Array,
+	`purpose`:                 Tt.String,
+	`houseType`:               Tt.String,
+	`images`:                  Tt.Array,
+	`bedroom`:                 Tt.Integer,
+	`bathroom`:                Tt.Integer,
+	`agencyFeePercent`:        Tt.Double,
+	`floorList`:               Tt.Array,
+	`version`:                 Tt.Double,
+	`mediaSourceJson`:         Tt.String,
+	`zoneDataInfo`:            Tt.String,
+	`taxInfo`:                 Tt.String,
+	`historyTaxInfo`:          Tt.String,
+	`mlsDisclaimerInfo`:       Tt.String,
+	`facilityInfo`:            Tt.String,
+	`riskInfo`:                Tt.String,
 	`yearBuilt`:               Tt.Integer,
 	`yearRenovated`:           Tt.Integer,
 	`totalSqft`:               Tt.Double,
@@ -1267,27 +2291,28 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 
 // PropertyHistory DAO reader/query struct
 type PropertyHistory struct {
-	Adapter               *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	Id                    uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
-	PropertyKey           string      `json:"propertyKey" form:"propertyKey" query:"propertyKey" long:"propertyKey" msg:"propertyKey"`
-	TransactionKey        string      `json:"transactionKey" form:"transactionKey" query:"transactionKey" long:"transactionKey" msg:"transactionKey"`
-	TransactionType       string      `json:"transactionType" form:"transactionType" query:"transactionType" long:"transactionType" msg:"transactionType"`
-	TransactionSign       string      `json:"transactionSign" form:"transactionSign" query:"transactionSign" long:"transactionSign" msg:"transactionSign"`
-	TransactionTime       string      `json:"transactionTime" form:"transactionTime" query:"transactionTime" long:"transactionTime" msg:"transactionTime"`
-	TransactionDateNormal string      `json:"transactionDateNormal" form:"transactionDateNormal" query:"transactionDateNormal" long:"transactionDateNormal" msg:"transactionDateNormal"`
-	TransactionNumber     string      `json:"transactionNumber" form:"transactionNumber" query:"transactionNumber" long:"transactionNumber" msg:"transactionNumber"`
-	PriceNtd              int64       `json:"priceNtd" form:"priceNtd" query:"priceNtd" long:"priceNtd" msg:"priceNtd"`
-	PricePerUnit          int64       `json:"pricePerUnit" form:"pricePerUnit" query:"pricePerUnit" long:"pricePerUnit" msg:"pricePerUnit"`
-	Price                 int64       `json:"price" form:"price" query:"price" long:"price" msg:"price"`
-	Address               string      `json:"address" form:"address" query:"address" long:"address" msg:"address"`
-	District              string      `json:"district" form:"district" query:"district" long:"district" msg:"district"`
-	Note                  string      `json:"note" form:"note" query:"note" long:"note" msg:"note"`
-	CreatedAt             int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	CreatedBy             uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
-	UpdatedAt             int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
-	UpdatedBy             uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
-	DeletedAt             int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
-	SerialNumber          string      `json:"serialNumber" form:"serialNumber" query:"serialNumber" long:"serialNumber" msg:"serialNumber"`
+	Adapter                *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id                     uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	PropertyKey            string      `json:"propertyKey" form:"propertyKey" query:"propertyKey" long:"propertyKey" msg:"propertyKey"`
+	TransactionKey         string      `json:"transactionKey" form:"transactionKey" query:"transactionKey" long:"transactionKey" msg:"transactionKey"`
+	TransactionType        string      `json:"transactionType" form:"transactionType" query:"transactionType" long:"transactionType" msg:"transactionType"`
+	TransactionSign        string      `json:"transactionSign" form:"transactionSign" query:"transactionSign" long:"transactionSign" msg:"transactionSign"`
+	TransactionTime        string      `json:"transactionTime" form:"transactionTime" query:"transactionTime" long:"transactionTime" msg:"transactionTime"`
+	TransactionDateNormal  string      `json:"transactionDateNormal" form:"transactionDateNormal" query:"transactionDateNormal" long:"transactionDateNormal" msg:"transactionDateNormal"`
+	TransactionNumber      string      `json:"transactionNumber" form:"transactionNumber" query:"transactionNumber" long:"transactionNumber" msg:"transactionNumber"`
+	PriceNtd               int64       `json:"priceNtd" form:"priceNtd" query:"priceNtd" long:"priceNtd" msg:"priceNtd"`
+	PricePerUnit           int64       `json:"pricePerUnit" form:"pricePerUnit" query:"pricePerUnit" long:"pricePerUnit" msg:"pricePerUnit"`
+	Price                  int64       `json:"price" form:"price" query:"price" long:"price" msg:"price"`
+	Address                string      `json:"address" form:"address" query:"address" long:"address" msg:"address"`
+	District               string      `json:"district" form:"district" query:"district" long:"district" msg:"district"`
+	Note                   string      `json:"note" form:"note" query:"note" long:"note" msg:"note"`
+	CreatedAt              int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy              uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt              int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy              uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt              int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	SerialNumber           string      `json:"serialNumber" form:"serialNumber" query:"serialNumber" long:"serialNumber" msg:"serialNumber"`
+	TransactionDescription string      `json:"transactionDescription" form:"transactionDescription" query:"transactionDescription" long:"transactionDescription" msg:"transactionDescription"`
 }
 
 // NewPropertyHistory create new ORM reader/query object
@@ -1364,6 +2389,7 @@ func (p *PropertyHistory) SqlSelectAllFields() string { //nolint:dupl false posi
 	, "updatedBy"
 	, "deletedAt"
 	, "serialNumber"
+	, "transactionDescription"
 	`
 }
 
@@ -1389,6 +2415,7 @@ func (p *PropertyHistory) SqlSelectAllUncensoredFields() string { //nolint:dupl 
 	, "updatedBy"
 	, "deletedAt"
 	, "serialNumber"
+	, "transactionDescription"
 	`
 }
 
@@ -1415,6 +2442,7 @@ func (p *PropertyHistory) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 17, p.UpdatedBy},
 		A.X{`=`, 18, p.DeletedAt},
 		A.X{`=`, 19, p.SerialNumber},
+		A.X{`=`, 20, p.TransactionDescription},
 	}
 }
 
@@ -1618,6 +2646,16 @@ func (p *PropertyHistory) SqlSerialNumber() string { //nolint:dupl false positiv
 	return `"serialNumber"`
 }
 
+// IdxTransactionDescription return name of the index
+func (p *PropertyHistory) IdxTransactionDescription() int { //nolint:dupl false positive
+	return 20
+}
+
+// SqlTransactionDescription return name of the column being indexed
+func (p *PropertyHistory) SqlTransactionDescription() string { //nolint:dupl false positive
+	return `"transactionDescription"`
+}
+
 // ToArray receiver fields to slice
 func (p *PropertyHistory) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -1626,25 +2664,26 @@ func (p *PropertyHistory) ToArray() A.X { //nolint:dupl false positive
 	}
 	return A.X{
 		id,
-		p.PropertyKey,           // 1
-		p.TransactionKey,        // 2
-		p.TransactionType,       // 3
-		p.TransactionSign,       // 4
-		p.TransactionTime,       // 5
-		p.TransactionDateNormal, // 6
-		p.TransactionNumber,     // 7
-		p.PriceNtd,              // 8
-		p.PricePerUnit,          // 9
-		p.Price,                 // 10
-		p.Address,               // 11
-		p.District,              // 12
-		p.Note,                  // 13
-		p.CreatedAt,             // 14
-		p.CreatedBy,             // 15
-		p.UpdatedAt,             // 16
-		p.UpdatedBy,             // 17
-		p.DeletedAt,             // 18
-		p.SerialNumber,          // 19
+		p.PropertyKey,            // 1
+		p.TransactionKey,         // 2
+		p.TransactionType,        // 3
+		p.TransactionSign,        // 4
+		p.TransactionTime,        // 5
+		p.TransactionDateNormal,  // 6
+		p.TransactionNumber,      // 7
+		p.PriceNtd,               // 8
+		p.PricePerUnit,           // 9
+		p.Price,                  // 10
+		p.Address,                // 11
+		p.District,               // 12
+		p.Note,                   // 13
+		p.CreatedAt,              // 14
+		p.CreatedBy,              // 15
+		p.UpdatedAt,              // 16
+		p.UpdatedBy,              // 17
+		p.DeletedAt,              // 18
+		p.SerialNumber,           // 19
+		p.TransactionDescription, // 20
 	}
 }
 
@@ -1670,6 +2709,7 @@ func (p *PropertyHistory) FromArray(a A.X) *PropertyHistory { //nolint:dupl fals
 	p.UpdatedBy = X.ToU(a[17])
 	p.DeletedAt = X.ToI(a[18])
 	p.SerialNumber = X.ToS(a[19])
+	p.TransactionDescription = X.ToS(a[20])
 	return p
 }
 
@@ -1695,6 +2735,7 @@ func (p *PropertyHistory) FromUncensoredArray(a A.X) *PropertyHistory { //nolint
 	p.UpdatedBy = X.ToU(a[17])
 	p.DeletedAt = X.ToI(a[18])
 	p.SerialNumber = X.ToS(a[19])
+	p.TransactionDescription = X.ToS(a[20])
 	return p
 }
 
@@ -1738,1122 +2779,27 @@ func (p *PropertyHistory) Total() int64 { //nolint:dupl false positive
 
 // PropertyHistoryFieldTypeMap returns key value of field name and key
 var PropertyHistoryFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
-	`id`:                    Tt.Unsigned,
-	`propertyKey`:           Tt.String,
-	`transactionKey`:        Tt.String,
-	`transactionType`:       Tt.String,
-	`transactionSign`:       Tt.String,
-	`transactionTime`:       Tt.String,
-	`transactionDateNormal`: Tt.String,
-	`transactionNumber`:     Tt.String,
-	`priceNtd`:              Tt.Integer,
-	`pricePerUnit`:          Tt.Integer,
-	`price`:                 Tt.Integer,
-	`address`:               Tt.String,
-	`district`:              Tt.String,
-	`note`:                  Tt.String,
-	`createdAt`:             Tt.Integer,
-	`createdBy`:             Tt.Unsigned,
-	`updatedAt`:             Tt.Integer,
-	`updatedBy`:             Tt.Unsigned,
-	`deletedAt`:             Tt.Integer,
-	`serialNumber`:          Tt.String,
-}
-
-// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
-
-// PropertyUs DAO reader/query struct
-type PropertyUs struct {
-	Adapter                 *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	Id                      uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
-	UniqPropKey             string      `json:"uniqPropKey" form:"uniqPropKey" query:"uniqPropKey" long:"uniqPropKey" msg:"uniqPropKey"`
-	SerialNumber            string      `json:"serialNumber" form:"serialNumber" query:"serialNumber" long:"serialNumber" msg:"serialNumber"`
-	SizeM2                  string      `json:"sizeM2" form:"sizeM2" query:"sizeM2" long:"sizeM2" msg:"sizeM2"`
-	MainUse                 string      `json:"mainUse" form:"mainUse" query:"mainUse" long:"mainUse" msg:"mainUse"`
-	MainBuildingMaterial    string      `json:"mainBuildingMaterial" form:"mainBuildingMaterial" query:"mainBuildingMaterial" long:"mainBuildingMaterial" msg:"mainBuildingMaterial"`
-	ConstructCompletedDate  string      `json:"constructCompletedDate" form:"constructCompletedDate" query:"constructCompletedDate" long:"constructCompletedDate" msg:"constructCompletedDate"`
-	NumberOfFloors          string      `json:"numberOfFloors" form:"numberOfFloors" query:"numberOfFloors" long:"numberOfFloors" msg:"numberOfFloors"`
-	BuildingLamination      string      `json:"buildingLamination" form:"buildingLamination" query:"buildingLamination" long:"buildingLamination" msg:"buildingLamination"`
-	Address                 string      `json:"address" form:"address" query:"address" long:"address" msg:"address"`
-	District                string      `json:"district" form:"district" query:"district" long:"district" msg:"district"`
-	Note                    string      `json:"note" form:"note" query:"note" long:"note" msg:"note"`
-	Coord                   []any       `json:"coord" form:"coord" query:"coord" long:"coord" msg:"coord"`
-	CreatedAt               int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	CreatedBy               uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
-	UpdatedAt               int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
-	UpdatedBy               uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
-	DeletedAt               int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
-	FormattedAddress        string      `json:"formattedAddress" form:"formattedAddress" query:"formattedAddress" long:"formattedAddress" msg:"formattedAddress"`
-	LastPrice               string      `json:"lastPrice" form:"lastPrice" query:"lastPrice" long:"lastPrice" msg:"lastPrice"`
-	PriceHistoriesSell      []any       `json:"priceHistoriesSell" form:"priceHistoriesSell" query:"priceHistoriesSell" long:"priceHistoriesSell" msg:"priceHistoriesSell"`
-	PriceHistoriesRent      []any       `json:"priceHistoriesRent" form:"priceHistoriesRent" query:"priceHistoriesRent" long:"priceHistoriesRent" msg:"priceHistoriesRent"`
-	Purpose                 string      `json:"purpose" form:"purpose" query:"purpose" long:"purpose" msg:"purpose"`
-	HouseType               string      `json:"houseType" form:"houseType" query:"houseType" long:"houseType" msg:"houseType"`
-	Images                  []any       `json:"images" form:"images" query:"images" long:"images" msg:"images"`
-	Bedroom                 int64       `json:"bedroom" form:"bedroom" query:"bedroom" long:"bedroom" msg:"bedroom"`
-	Bathroom                int64       `json:"bathroom" form:"bathroom" query:"bathroom" long:"bathroom" msg:"bathroom"`
-	AgencyFeePercent        float64     `json:"agencyFeePercent" form:"agencyFeePercent" query:"agencyFeePercent" long:"agencyFeePercent" msg:"agencyFeePercent"`
-	FloorList               []any       `json:"floorList" form:"floorList" query:"floorList" long:"floorList" msg:"floorList"`
-	Country                 string      `json:"country" form:"country" query:"country" long:"country" msg:"country"`
-	Version                 float64     `json:"version" form:"version" query:"version" long:"version" msg:"version"`
-	MediaSourceJson         string      `json:"mediaSourceJson" form:"mediaSourceJson" query:"mediaSourceJson" long:"mediaSourceJson" msg:"mediaSourceJson"`
-	ZoneDataInfo            string      `json:"zoneDataInfo" form:"zoneDataInfo" query:"zoneDataInfo" long:"zoneDataInfo" msg:"zoneDataInfo"`
-	TaxInfo                 string      `json:"taxInfo" form:"taxInfo" query:"taxInfo" long:"taxInfo" msg:"taxInfo"`
-	HistoryTaxInfo          string      `json:"historyTaxInfo" form:"historyTaxInfo" query:"historyTaxInfo" long:"historyTaxInfo" msg:"historyTaxInfo"`
-	ListingBrokerName       string      `json:"listingBrokerName" form:"listingBrokerName" query:"listingBrokerName" long:"listingBrokerName" msg:"listingBrokerName"`
-	ListingBrokerNumber     string      `json:"listingBrokerNumber" form:"listingBrokerNumber" query:"listingBrokerNumber" long:"listingBrokerNumber" msg:"listingBrokerNumber"`
-	ListingAgentName        string      `json:"listingAgentName" form:"listingAgentName" query:"listingAgentName" long:"listingAgentName" msg:"listingAgentName"`
-	ListingAgentNumber      string      `json:"listingAgentNumber" form:"listingAgentNumber" query:"listingAgentNumber" long:"listingAgentNumber" msg:"listingAgentNumber"`
-	YearBuilt               int64       `json:"yearBuilt" form:"yearBuilt" query:"yearBuilt" long:"yearBuilt" msg:"yearBuilt"`
-	YearRenovated           int64       `json:"yearRenovated" form:"yearRenovated" query:"yearRenovated" long:"yearRenovated" msg:"yearRenovated"`
-	TotalSqft               float64     `json:"totalSqft" form:"totalSqft" query:"totalSqft" long:"totalSqft" msg:"totalSqft"`
-	AmenitySuperGroups      string      `json:"amenitySuperGroups" form:"amenitySuperGroups" query:"amenitySuperGroups" long:"amenitySuperGroups" msg:"amenitySuperGroups"`
-	CountyUrl               string      `json:"countyUrl" form:"countyUrl" query:"countyUrl" long:"countyUrl" msg:"countyUrl"`
-	CountyName              string      `json:"countyName" form:"countyName" query:"countyName" long:"countyName" msg:"countyName"`
-	CountyIsActive          bool        `json:"countyIsActive" form:"countyIsActive" query:"countyIsActive" long:"countyIsActive" msg:"countyIsActive"`
-	Street                  string      `json:"street" form:"street" query:"street" long:"street" msg:"street"`
-	City                    string      `json:"city" form:"city" query:"city" long:"city" msg:"city"`
-	State                   string      `json:"state" form:"state" query:"state" long:"state" msg:"state"`
-	Zip                     string      `json:"zip" form:"zip" query:"zip" long:"zip" msg:"zip"`
-	CountryCode             string      `json:"countryCode" form:"countryCode" query:"countryCode" long:"countryCode" msg:"countryCode"`
-	PropertyLastUpdatedDate int64       `json:"propertyLastUpdatedDate" form:"propertyLastUpdatedDate" query:"propertyLastUpdatedDate" long:"propertyLastUpdatedDate" msg:"propertyLastUpdatedDate"`
-	TaxNote                 string      `json:"taxNote" form:"taxNote" query:"taxNote" long:"taxNote" msg:"taxNote"`
-}
-
-// NewPropertyUs create new ORM reader/query object
-func NewPropertyUs(adapter *Tt.Adapter) *PropertyUs {
-	return &PropertyUs{Adapter: adapter}
-}
-
-// SpaceName returns full package and table name
-func (p *PropertyUs) SpaceName() string { //nolint:dupl false positive
-	return string(mProperty.TablePropertyUs) // casting required to string from Tt.TableName
-}
-
-// SqlTableName returns quoted table name
-func (p *PropertyUs) SqlTableName() string { //nolint:dupl false positive
-	return `"property_us"`
-}
-
-func (p *PropertyUs) UniqueIndexId() string { //nolint:dupl false positive
-	return `id`
-}
-
-// FindById Find one by Id
-func (p *PropertyUs) FindById() bool { //nolint:dupl false positive
-	res, err := p.Adapter.Select(p.SpaceName(), p.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{p.Id})
-	if L.IsError(err, `PropertyUs.FindById failed: `+p.SpaceName()) {
-		return false
-	}
-	rows := res.Tuples()
-	if len(rows) == 1 {
-		p.FromArray(rows[0])
-		return true
-	}
-	return false
-}
-
-// SpatialIndexCoord return spatial index name
-func (p *PropertyUs) SpatialIndexCoord() string { //nolint:dupl false positive
-	return `coord`
-}
-
-// UniqueIndexUniqPropKey return unique index name
-func (p *PropertyUs) UniqueIndexUniqPropKey() string { //nolint:dupl false positive
-	return `uniqPropKey`
-}
-
-// FindByUniqPropKey Find one by UniqPropKey
-func (p *PropertyUs) FindByUniqPropKey() bool { //nolint:dupl false positive
-	res, err := p.Adapter.Select(p.SpaceName(), p.UniqueIndexUniqPropKey(), 0, 1, tarantool.IterEq, A.X{p.UniqPropKey})
-	if L.IsError(err, `PropertyUs.FindByUniqPropKey failed: `+p.SpaceName()) {
-		return false
-	}
-	rows := res.Tuples()
-	if len(rows) == 1 {
-		p.FromArray(rows[0])
-		return true
-	}
-	return false
-}
-
-// SqlSelectAllFields generate Sql select fields
-func (p *PropertyUs) SqlSelectAllFields() string { //nolint:dupl false positive
-	return ` "id"
-	, "uniqPropKey"
-	, "serialNumber"
-	, "sizeM2"
-	, "mainUse"
-	, "mainBuildingMaterial"
-	, "constructCompletedDate"
-	, "numberOfFloors"
-	, "buildingLamination"
-	, "address"
-	, "district"
-	, "note"
-	, "coord"
-	, "createdAt"
-	, "createdBy"
-	, "updatedAt"
-	, "updatedBy"
-	, "deletedAt"
-	, "formattedAddress"
-	, "lastPrice"
-	, "priceHistoriesSell"
-	, "priceHistoriesRent"
-	, "purpose"
-	, "houseType"
-	, "images"
-	, "bedroom"
-	, "bathroom"
-	, "agencyFeePercent"
-	, "floorList"
-	, "country"
-	, "version"
-	, "mediaSourceJson"
-	, "zoneDataInfo"
-	, "taxInfo"
-	, "historyTaxInfo"
-	, "listingBrokerName"
-	, "listingBrokerNumber"
-	, "listingAgentName"
-	, "listingAgentNumber"
-	, "yearBuilt"
-	, "yearRenovated"
-	, "totalSqft"
-	, "amenitySuperGroups"
-	, "countyUrl"
-	, "countyName"
-	, "countyIsActive"
-	, "street"
-	, "city"
-	, "state"
-	, "zip"
-	, "countryCode"
-	, "propertyLastUpdatedDate"
-	, "taxNote"
-	`
-}
-
-// SqlSelectAllUncensoredFields generate Sql select fields
-func (p *PropertyUs) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
-	return ` "id"
-	, "uniqPropKey"
-	, "serialNumber"
-	, "sizeM2"
-	, "mainUse"
-	, "mainBuildingMaterial"
-	, "constructCompletedDate"
-	, "numberOfFloors"
-	, "buildingLamination"
-	, "address"
-	, "district"
-	, "note"
-	, "coord"
-	, "createdAt"
-	, "createdBy"
-	, "updatedAt"
-	, "updatedBy"
-	, "deletedAt"
-	, "formattedAddress"
-	, "lastPrice"
-	, "priceHistoriesSell"
-	, "priceHistoriesRent"
-	, "purpose"
-	, "houseType"
-	, "images"
-	, "bedroom"
-	, "bathroom"
-	, "agencyFeePercent"
-	, "floorList"
-	, "country"
-	, "version"
-	, "mediaSourceJson"
-	, "zoneDataInfo"
-	, "taxInfo"
-	, "historyTaxInfo"
-	, "listingBrokerName"
-	, "listingBrokerNumber"
-	, "listingAgentName"
-	, "listingAgentNumber"
-	, "yearBuilt"
-	, "yearRenovated"
-	, "totalSqft"
-	, "amenitySuperGroups"
-	, "countyUrl"
-	, "countyName"
-	, "countyIsActive"
-	, "street"
-	, "city"
-	, "state"
-	, "zip"
-	, "countryCode"
-	, "propertyLastUpdatedDate"
-	, "taxNote"
-	`
-}
-
-// ToUpdateArray generate slice of update command
-func (p *PropertyUs) ToUpdateArray() A.X { //nolint:dupl false positive
-	return A.X{
-		A.X{`=`, 0, p.Id},
-		A.X{`=`, 1, p.UniqPropKey},
-		A.X{`=`, 2, p.SerialNumber},
-		A.X{`=`, 3, p.SizeM2},
-		A.X{`=`, 4, p.MainUse},
-		A.X{`=`, 5, p.MainBuildingMaterial},
-		A.X{`=`, 6, p.ConstructCompletedDate},
-		A.X{`=`, 7, p.NumberOfFloors},
-		A.X{`=`, 8, p.BuildingLamination},
-		A.X{`=`, 9, p.Address},
-		A.X{`=`, 10, p.District},
-		A.X{`=`, 11, p.Note},
-		A.X{`=`, 12, p.Coord},
-		A.X{`=`, 13, p.CreatedAt},
-		A.X{`=`, 14, p.CreatedBy},
-		A.X{`=`, 15, p.UpdatedAt},
-		A.X{`=`, 16, p.UpdatedBy},
-		A.X{`=`, 17, p.DeletedAt},
-		A.X{`=`, 18, p.FormattedAddress},
-		A.X{`=`, 19, p.LastPrice},
-		A.X{`=`, 20, p.PriceHistoriesSell},
-		A.X{`=`, 21, p.PriceHistoriesRent},
-		A.X{`=`, 22, p.Purpose},
-		A.X{`=`, 23, p.HouseType},
-		A.X{`=`, 24, p.Images},
-		A.X{`=`, 25, p.Bedroom},
-		A.X{`=`, 26, p.Bathroom},
-		A.X{`=`, 27, p.AgencyFeePercent},
-		A.X{`=`, 28, p.FloorList},
-		A.X{`=`, 29, p.Country},
-		A.X{`=`, 30, p.Version},
-		A.X{`=`, 31, p.MediaSourceJson},
-		A.X{`=`, 32, p.ZoneDataInfo},
-		A.X{`=`, 33, p.TaxInfo},
-		A.X{`=`, 34, p.HistoryTaxInfo},
-		A.X{`=`, 35, p.ListingBrokerName},
-		A.X{`=`, 36, p.ListingBrokerNumber},
-		A.X{`=`, 37, p.ListingAgentName},
-		A.X{`=`, 38, p.ListingAgentNumber},
-		A.X{`=`, 39, p.YearBuilt},
-		A.X{`=`, 40, p.YearRenovated},
-		A.X{`=`, 41, p.TotalSqft},
-		A.X{`=`, 42, p.AmenitySuperGroups},
-		A.X{`=`, 43, p.CountyUrl},
-		A.X{`=`, 44, p.CountyName},
-		A.X{`=`, 45, p.CountyIsActive},
-		A.X{`=`, 46, p.Street},
-		A.X{`=`, 47, p.City},
-		A.X{`=`, 48, p.State},
-		A.X{`=`, 49, p.Zip},
-		A.X{`=`, 50, p.CountryCode},
-		A.X{`=`, 51, p.PropertyLastUpdatedDate},
-		A.X{`=`, 52, p.TaxNote},
-	}
-}
-
-// IdxId return name of the index
-func (p *PropertyUs) IdxId() int { //nolint:dupl false positive
-	return 0
-}
-
-// SqlId return name of the column being indexed
-func (p *PropertyUs) SqlId() string { //nolint:dupl false positive
-	return `"id"`
-}
-
-// IdxUniqPropKey return name of the index
-func (p *PropertyUs) IdxUniqPropKey() int { //nolint:dupl false positive
-	return 1
-}
-
-// SqlUniqPropKey return name of the column being indexed
-func (p *PropertyUs) SqlUniqPropKey() string { //nolint:dupl false positive
-	return `"uniqPropKey"`
-}
-
-// IdxSerialNumber return name of the index
-func (p *PropertyUs) IdxSerialNumber() int { //nolint:dupl false positive
-	return 2
-}
-
-// SqlSerialNumber return name of the column being indexed
-func (p *PropertyUs) SqlSerialNumber() string { //nolint:dupl false positive
-	return `"serialNumber"`
-}
-
-// IdxSizeM2 return name of the index
-func (p *PropertyUs) IdxSizeM2() int { //nolint:dupl false positive
-	return 3
-}
-
-// SqlSizeM2 return name of the column being indexed
-func (p *PropertyUs) SqlSizeM2() string { //nolint:dupl false positive
-	return `"sizeM2"`
-}
-
-// IdxMainUse return name of the index
-func (p *PropertyUs) IdxMainUse() int { //nolint:dupl false positive
-	return 4
-}
-
-// SqlMainUse return name of the column being indexed
-func (p *PropertyUs) SqlMainUse() string { //nolint:dupl false positive
-	return `"mainUse"`
-}
-
-// IdxMainBuildingMaterial return name of the index
-func (p *PropertyUs) IdxMainBuildingMaterial() int { //nolint:dupl false positive
-	return 5
-}
-
-// SqlMainBuildingMaterial return name of the column being indexed
-func (p *PropertyUs) SqlMainBuildingMaterial() string { //nolint:dupl false positive
-	return `"mainBuildingMaterial"`
-}
-
-// IdxConstructCompletedDate return name of the index
-func (p *PropertyUs) IdxConstructCompletedDate() int { //nolint:dupl false positive
-	return 6
-}
-
-// SqlConstructCompletedDate return name of the column being indexed
-func (p *PropertyUs) SqlConstructCompletedDate() string { //nolint:dupl false positive
-	return `"constructCompletedDate"`
-}
-
-// IdxNumberOfFloors return name of the index
-func (p *PropertyUs) IdxNumberOfFloors() int { //nolint:dupl false positive
-	return 7
-}
-
-// SqlNumberOfFloors return name of the column being indexed
-func (p *PropertyUs) SqlNumberOfFloors() string { //nolint:dupl false positive
-	return `"numberOfFloors"`
-}
-
-// IdxBuildingLamination return name of the index
-func (p *PropertyUs) IdxBuildingLamination() int { //nolint:dupl false positive
-	return 8
-}
-
-// SqlBuildingLamination return name of the column being indexed
-func (p *PropertyUs) SqlBuildingLamination() string { //nolint:dupl false positive
-	return `"buildingLamination"`
-}
-
-// IdxAddress return name of the index
-func (p *PropertyUs) IdxAddress() int { //nolint:dupl false positive
-	return 9
-}
-
-// SqlAddress return name of the column being indexed
-func (p *PropertyUs) SqlAddress() string { //nolint:dupl false positive
-	return `"address"`
-}
-
-// IdxDistrict return name of the index
-func (p *PropertyUs) IdxDistrict() int { //nolint:dupl false positive
-	return 10
-}
-
-// SqlDistrict return name of the column being indexed
-func (p *PropertyUs) SqlDistrict() string { //nolint:dupl false positive
-	return `"district"`
-}
-
-// IdxNote return name of the index
-func (p *PropertyUs) IdxNote() int { //nolint:dupl false positive
-	return 11
-}
-
-// SqlNote return name of the column being indexed
-func (p *PropertyUs) SqlNote() string { //nolint:dupl false positive
-	return `"note"`
-}
-
-// IdxCoord return name of the index
-func (p *PropertyUs) IdxCoord() int { //nolint:dupl false positive
-	return 12
-}
-
-// SqlCoord return name of the column being indexed
-func (p *PropertyUs) SqlCoord() string { //nolint:dupl false positive
-	return `"coord"`
-}
-
-// IdxCreatedAt return name of the index
-func (p *PropertyUs) IdxCreatedAt() int { //nolint:dupl false positive
-	return 13
-}
-
-// SqlCreatedAt return name of the column being indexed
-func (p *PropertyUs) SqlCreatedAt() string { //nolint:dupl false positive
-	return `"createdAt"`
-}
-
-// IdxCreatedBy return name of the index
-func (p *PropertyUs) IdxCreatedBy() int { //nolint:dupl false positive
-	return 14
-}
-
-// SqlCreatedBy return name of the column being indexed
-func (p *PropertyUs) SqlCreatedBy() string { //nolint:dupl false positive
-	return `"createdBy"`
-}
-
-// IdxUpdatedAt return name of the index
-func (p *PropertyUs) IdxUpdatedAt() int { //nolint:dupl false positive
-	return 15
-}
-
-// SqlUpdatedAt return name of the column being indexed
-func (p *PropertyUs) SqlUpdatedAt() string { //nolint:dupl false positive
-	return `"updatedAt"`
-}
-
-// IdxUpdatedBy return name of the index
-func (p *PropertyUs) IdxUpdatedBy() int { //nolint:dupl false positive
-	return 16
-}
-
-// SqlUpdatedBy return name of the column being indexed
-func (p *PropertyUs) SqlUpdatedBy() string { //nolint:dupl false positive
-	return `"updatedBy"`
-}
-
-// IdxDeletedAt return name of the index
-func (p *PropertyUs) IdxDeletedAt() int { //nolint:dupl false positive
-	return 17
-}
-
-// SqlDeletedAt return name of the column being indexed
-func (p *PropertyUs) SqlDeletedAt() string { //nolint:dupl false positive
-	return `"deletedAt"`
-}
-
-// IdxFormattedAddress return name of the index
-func (p *PropertyUs) IdxFormattedAddress() int { //nolint:dupl false positive
-	return 18
-}
-
-// SqlFormattedAddress return name of the column being indexed
-func (p *PropertyUs) SqlFormattedAddress() string { //nolint:dupl false positive
-	return `"formattedAddress"`
-}
-
-// IdxLastPrice return name of the index
-func (p *PropertyUs) IdxLastPrice() int { //nolint:dupl false positive
-	return 19
-}
-
-// SqlLastPrice return name of the column being indexed
-func (p *PropertyUs) SqlLastPrice() string { //nolint:dupl false positive
-	return `"lastPrice"`
-}
-
-// IdxPriceHistoriesSell return name of the index
-func (p *PropertyUs) IdxPriceHistoriesSell() int { //nolint:dupl false positive
-	return 20
-}
-
-// SqlPriceHistoriesSell return name of the column being indexed
-func (p *PropertyUs) SqlPriceHistoriesSell() string { //nolint:dupl false positive
-	return `"priceHistoriesSell"`
-}
-
-// IdxPriceHistoriesRent return name of the index
-func (p *PropertyUs) IdxPriceHistoriesRent() int { //nolint:dupl false positive
-	return 21
-}
-
-// SqlPriceHistoriesRent return name of the column being indexed
-func (p *PropertyUs) SqlPriceHistoriesRent() string { //nolint:dupl false positive
-	return `"priceHistoriesRent"`
-}
-
-// IdxPurpose return name of the index
-func (p *PropertyUs) IdxPurpose() int { //nolint:dupl false positive
-	return 22
-}
-
-// SqlPurpose return name of the column being indexed
-func (p *PropertyUs) SqlPurpose() string { //nolint:dupl false positive
-	return `"purpose"`
-}
-
-// IdxHouseType return name of the index
-func (p *PropertyUs) IdxHouseType() int { //nolint:dupl false positive
-	return 23
-}
-
-// SqlHouseType return name of the column being indexed
-func (p *PropertyUs) SqlHouseType() string { //nolint:dupl false positive
-	return `"houseType"`
-}
-
-// IdxImages return name of the index
-func (p *PropertyUs) IdxImages() int { //nolint:dupl false positive
-	return 24
-}
-
-// SqlImages return name of the column being indexed
-func (p *PropertyUs) SqlImages() string { //nolint:dupl false positive
-	return `"images"`
-}
-
-// IdxBedroom return name of the index
-func (p *PropertyUs) IdxBedroom() int { //nolint:dupl false positive
-	return 25
-}
-
-// SqlBedroom return name of the column being indexed
-func (p *PropertyUs) SqlBedroom() string { //nolint:dupl false positive
-	return `"bedroom"`
-}
-
-// IdxBathroom return name of the index
-func (p *PropertyUs) IdxBathroom() int { //nolint:dupl false positive
-	return 26
-}
-
-// SqlBathroom return name of the column being indexed
-func (p *PropertyUs) SqlBathroom() string { //nolint:dupl false positive
-	return `"bathroom"`
-}
-
-// IdxAgencyFeePercent return name of the index
-func (p *PropertyUs) IdxAgencyFeePercent() int { //nolint:dupl false positive
-	return 27
-}
-
-// SqlAgencyFeePercent return name of the column being indexed
-func (p *PropertyUs) SqlAgencyFeePercent() string { //nolint:dupl false positive
-	return `"agencyFeePercent"`
-}
-
-// IdxFloorList return name of the index
-func (p *PropertyUs) IdxFloorList() int { //nolint:dupl false positive
-	return 28
-}
-
-// SqlFloorList return name of the column being indexed
-func (p *PropertyUs) SqlFloorList() string { //nolint:dupl false positive
-	return `"floorList"`
-}
-
-// IdxCountry return name of the index
-func (p *PropertyUs) IdxCountry() int { //nolint:dupl false positive
-	return 29
-}
-
-// SqlCountry return name of the column being indexed
-func (p *PropertyUs) SqlCountry() string { //nolint:dupl false positive
-	return `"country"`
-}
-
-// IdxVersion return name of the index
-func (p *PropertyUs) IdxVersion() int { //nolint:dupl false positive
-	return 30
-}
-
-// SqlVersion return name of the column being indexed
-func (p *PropertyUs) SqlVersion() string { //nolint:dupl false positive
-	return `"version"`
-}
-
-// IdxMediaSourceJson return name of the index
-func (p *PropertyUs) IdxMediaSourceJson() int { //nolint:dupl false positive
-	return 31
-}
-
-// SqlMediaSourceJson return name of the column being indexed
-func (p *PropertyUs) SqlMediaSourceJson() string { //nolint:dupl false positive
-	return `"mediaSourceJson"`
-}
-
-// IdxZoneDataInfo return name of the index
-func (p *PropertyUs) IdxZoneDataInfo() int { //nolint:dupl false positive
-	return 32
-}
-
-// SqlZoneDataInfo return name of the column being indexed
-func (p *PropertyUs) SqlZoneDataInfo() string { //nolint:dupl false positive
-	return `"zoneDataInfo"`
-}
-
-// IdxTaxInfo return name of the index
-func (p *PropertyUs) IdxTaxInfo() int { //nolint:dupl false positive
-	return 33
-}
-
-// SqlTaxInfo return name of the column being indexed
-func (p *PropertyUs) SqlTaxInfo() string { //nolint:dupl false positive
-	return `"taxInfo"`
-}
-
-// IdxHistoryTaxInfo return name of the index
-func (p *PropertyUs) IdxHistoryTaxInfo() int { //nolint:dupl false positive
-	return 34
-}
-
-// SqlHistoryTaxInfo return name of the column being indexed
-func (p *PropertyUs) SqlHistoryTaxInfo() string { //nolint:dupl false positive
-	return `"historyTaxInfo"`
-}
-
-// IdxListingBrokerName return name of the index
-func (p *PropertyUs) IdxListingBrokerName() int { //nolint:dupl false positive
-	return 35
-}
-
-// SqlListingBrokerName return name of the column being indexed
-func (p *PropertyUs) SqlListingBrokerName() string { //nolint:dupl false positive
-	return `"listingBrokerName"`
-}
-
-// IdxListingBrokerNumber return name of the index
-func (p *PropertyUs) IdxListingBrokerNumber() int { //nolint:dupl false positive
-	return 36
-}
-
-// SqlListingBrokerNumber return name of the column being indexed
-func (p *PropertyUs) SqlListingBrokerNumber() string { //nolint:dupl false positive
-	return `"listingBrokerNumber"`
-}
-
-// IdxListingAgentName return name of the index
-func (p *PropertyUs) IdxListingAgentName() int { //nolint:dupl false positive
-	return 37
-}
-
-// SqlListingAgentName return name of the column being indexed
-func (p *PropertyUs) SqlListingAgentName() string { //nolint:dupl false positive
-	return `"listingAgentName"`
-}
-
-// IdxListingAgentNumber return name of the index
-func (p *PropertyUs) IdxListingAgentNumber() int { //nolint:dupl false positive
-	return 38
-}
-
-// SqlListingAgentNumber return name of the column being indexed
-func (p *PropertyUs) SqlListingAgentNumber() string { //nolint:dupl false positive
-	return `"listingAgentNumber"`
-}
-
-// IdxYearBuilt return name of the index
-func (p *PropertyUs) IdxYearBuilt() int { //nolint:dupl false positive
-	return 39
-}
-
-// SqlYearBuilt return name of the column being indexed
-func (p *PropertyUs) SqlYearBuilt() string { //nolint:dupl false positive
-	return `"yearBuilt"`
-}
-
-// IdxYearRenovated return name of the index
-func (p *PropertyUs) IdxYearRenovated() int { //nolint:dupl false positive
-	return 40
-}
-
-// SqlYearRenovated return name of the column being indexed
-func (p *PropertyUs) SqlYearRenovated() string { //nolint:dupl false positive
-	return `"yearRenovated"`
-}
-
-// IdxTotalSqft return name of the index
-func (p *PropertyUs) IdxTotalSqft() int { //nolint:dupl false positive
-	return 41
-}
-
-// SqlTotalSqft return name of the column being indexed
-func (p *PropertyUs) SqlTotalSqft() string { //nolint:dupl false positive
-	return `"totalSqft"`
-}
-
-// IdxAmenitySuperGroups return name of the index
-func (p *PropertyUs) IdxAmenitySuperGroups() int { //nolint:dupl false positive
-	return 42
-}
-
-// SqlAmenitySuperGroups return name of the column being indexed
-func (p *PropertyUs) SqlAmenitySuperGroups() string { //nolint:dupl false positive
-	return `"amenitySuperGroups"`
-}
-
-// IdxCountyUrl return name of the index
-func (p *PropertyUs) IdxCountyUrl() int { //nolint:dupl false positive
-	return 43
-}
-
-// SqlCountyUrl return name of the column being indexed
-func (p *PropertyUs) SqlCountyUrl() string { //nolint:dupl false positive
-	return `"countyUrl"`
-}
-
-// IdxCountyName return name of the index
-func (p *PropertyUs) IdxCountyName() int { //nolint:dupl false positive
-	return 44
-}
-
-// SqlCountyName return name of the column being indexed
-func (p *PropertyUs) SqlCountyName() string { //nolint:dupl false positive
-	return `"countyName"`
-}
-
-// IdxCountyIsActive return name of the index
-func (p *PropertyUs) IdxCountyIsActive() int { //nolint:dupl false positive
-	return 45
-}
-
-// SqlCountyIsActive return name of the column being indexed
-func (p *PropertyUs) SqlCountyIsActive() string { //nolint:dupl false positive
-	return `"countyIsActive"`
-}
-
-// IdxStreet return name of the index
-func (p *PropertyUs) IdxStreet() int { //nolint:dupl false positive
-	return 46
-}
-
-// SqlStreet return name of the column being indexed
-func (p *PropertyUs) SqlStreet() string { //nolint:dupl false positive
-	return `"street"`
-}
-
-// IdxCity return name of the index
-func (p *PropertyUs) IdxCity() int { //nolint:dupl false positive
-	return 47
-}
-
-// SqlCity return name of the column being indexed
-func (p *PropertyUs) SqlCity() string { //nolint:dupl false positive
-	return `"city"`
-}
-
-// IdxState return name of the index
-func (p *PropertyUs) IdxState() int { //nolint:dupl false positive
-	return 48
-}
-
-// SqlState return name of the column being indexed
-func (p *PropertyUs) SqlState() string { //nolint:dupl false positive
-	return `"state"`
-}
-
-// IdxZip return name of the index
-func (p *PropertyUs) IdxZip() int { //nolint:dupl false positive
-	return 49
-}
-
-// SqlZip return name of the column being indexed
-func (p *PropertyUs) SqlZip() string { //nolint:dupl false positive
-	return `"zip"`
-}
-
-// IdxCountryCode return name of the index
-func (p *PropertyUs) IdxCountryCode() int { //nolint:dupl false positive
-	return 50
-}
-
-// SqlCountryCode return name of the column being indexed
-func (p *PropertyUs) SqlCountryCode() string { //nolint:dupl false positive
-	return `"countryCode"`
-}
-
-// IdxPropertyLastUpdatedDate return name of the index
-func (p *PropertyUs) IdxPropertyLastUpdatedDate() int { //nolint:dupl false positive
-	return 51
-}
-
-// SqlPropertyLastUpdatedDate return name of the column being indexed
-func (p *PropertyUs) SqlPropertyLastUpdatedDate() string { //nolint:dupl false positive
-	return `"propertyLastUpdatedDate"`
-}
-
-// IdxTaxNote return name of the index
-func (p *PropertyUs) IdxTaxNote() int { //nolint:dupl false positive
-	return 52
-}
-
-// SqlTaxNote return name of the column being indexed
-func (p *PropertyUs) SqlTaxNote() string { //nolint:dupl false positive
-	return `"taxNote"`
-}
-
-// ToArray receiver fields to slice
-func (p *PropertyUs) ToArray() A.X { //nolint:dupl false positive
-	var id any = nil
-	if p.Id != 0 {
-		id = p.Id
-	}
-	return A.X{
-		id,
-		p.UniqPropKey,             // 1
-		p.SerialNumber,            // 2
-		p.SizeM2,                  // 3
-		p.MainUse,                 // 4
-		p.MainBuildingMaterial,    // 5
-		p.ConstructCompletedDate,  // 6
-		p.NumberOfFloors,          // 7
-		p.BuildingLamination,      // 8
-		p.Address,                 // 9
-		p.District,                // 10
-		p.Note,                    // 11
-		p.Coord,                   // 12
-		p.CreatedAt,               // 13
-		p.CreatedBy,               // 14
-		p.UpdatedAt,               // 15
-		p.UpdatedBy,               // 16
-		p.DeletedAt,               // 17
-		p.FormattedAddress,        // 18
-		p.LastPrice,               // 19
-		p.PriceHistoriesSell,      // 20
-		p.PriceHistoriesRent,      // 21
-		p.Purpose,                 // 22
-		p.HouseType,               // 23
-		p.Images,                  // 24
-		p.Bedroom,                 // 25
-		p.Bathroom,                // 26
-		p.AgencyFeePercent,        // 27
-		p.FloorList,               // 28
-		p.Country,                 // 29
-		p.Version,                 // 30
-		p.MediaSourceJson,         // 31
-		p.ZoneDataInfo,            // 32
-		p.TaxInfo,                 // 33
-		p.HistoryTaxInfo,          // 34
-		p.ListingBrokerName,       // 35
-		p.ListingBrokerNumber,     // 36
-		p.ListingAgentName,        // 37
-		p.ListingAgentNumber,      // 38
-		p.YearBuilt,               // 39
-		p.YearRenovated,           // 40
-		p.TotalSqft,               // 41
-		p.AmenitySuperGroups,      // 42
-		p.CountyUrl,               // 43
-		p.CountyName,              // 44
-		p.CountyIsActive,          // 45
-		p.Street,                  // 46
-		p.City,                    // 47
-		p.State,                   // 48
-		p.Zip,                     // 49
-		p.CountryCode,             // 50
-		p.PropertyLastUpdatedDate, // 51
-		p.TaxNote,                 // 52
-	}
-}
-
-// FromArray convert slice to receiver fields
-func (p *PropertyUs) FromArray(a A.X) *PropertyUs { //nolint:dupl false positive
-	p.Id = X.ToU(a[0])
-	p.UniqPropKey = X.ToS(a[1])
-	p.SerialNumber = X.ToS(a[2])
-	p.SizeM2 = X.ToS(a[3])
-	p.MainUse = X.ToS(a[4])
-	p.MainBuildingMaterial = X.ToS(a[5])
-	p.ConstructCompletedDate = X.ToS(a[6])
-	p.NumberOfFloors = X.ToS(a[7])
-	p.BuildingLamination = X.ToS(a[8])
-	p.Address = X.ToS(a[9])
-	p.District = X.ToS(a[10])
-	p.Note = X.ToS(a[11])
-	p.Coord = X.ToArr(a[12])
-	p.CreatedAt = X.ToI(a[13])
-	p.CreatedBy = X.ToU(a[14])
-	p.UpdatedAt = X.ToI(a[15])
-	p.UpdatedBy = X.ToU(a[16])
-	p.DeletedAt = X.ToI(a[17])
-	p.FormattedAddress = X.ToS(a[18])
-	p.LastPrice = X.ToS(a[19])
-	p.PriceHistoriesSell = X.ToArr(a[20])
-	p.PriceHistoriesRent = X.ToArr(a[21])
-	p.Purpose = X.ToS(a[22])
-	p.HouseType = X.ToS(a[23])
-	p.Images = X.ToArr(a[24])
-	p.Bedroom = X.ToI(a[25])
-	p.Bathroom = X.ToI(a[26])
-	p.AgencyFeePercent = X.ToF(a[27])
-	p.FloorList = X.ToArr(a[28])
-	p.Country = X.ToS(a[29])
-	p.Version = X.ToF(a[30])
-	p.MediaSourceJson = X.ToS(a[31])
-	p.ZoneDataInfo = X.ToS(a[32])
-	p.TaxInfo = X.ToS(a[33])
-	p.HistoryTaxInfo = X.ToS(a[34])
-	p.ListingBrokerName = X.ToS(a[35])
-	p.ListingBrokerNumber = X.ToS(a[36])
-	p.ListingAgentName = X.ToS(a[37])
-	p.ListingAgentNumber = X.ToS(a[38])
-	p.YearBuilt = X.ToI(a[39])
-	p.YearRenovated = X.ToI(a[40])
-	p.TotalSqft = X.ToF(a[41])
-	p.AmenitySuperGroups = X.ToS(a[42])
-	p.CountyUrl = X.ToS(a[43])
-	p.CountyName = X.ToS(a[44])
-	p.CountyIsActive = X.ToBool(a[45])
-	p.Street = X.ToS(a[46])
-	p.City = X.ToS(a[47])
-	p.State = X.ToS(a[48])
-	p.Zip = X.ToS(a[49])
-	p.CountryCode = X.ToS(a[50])
-	p.PropertyLastUpdatedDate = X.ToI(a[51])
-	p.TaxNote = X.ToS(a[52])
-	return p
-}
-
-// FromUncensoredArray convert slice to receiver fields
-func (p *PropertyUs) FromUncensoredArray(a A.X) *PropertyUs { //nolint:dupl false positive
-	p.Id = X.ToU(a[0])
-	p.UniqPropKey = X.ToS(a[1])
-	p.SerialNumber = X.ToS(a[2])
-	p.SizeM2 = X.ToS(a[3])
-	p.MainUse = X.ToS(a[4])
-	p.MainBuildingMaterial = X.ToS(a[5])
-	p.ConstructCompletedDate = X.ToS(a[6])
-	p.NumberOfFloors = X.ToS(a[7])
-	p.BuildingLamination = X.ToS(a[8])
-	p.Address = X.ToS(a[9])
-	p.District = X.ToS(a[10])
-	p.Note = X.ToS(a[11])
-	p.Coord = X.ToArr(a[12])
-	p.CreatedAt = X.ToI(a[13])
-	p.CreatedBy = X.ToU(a[14])
-	p.UpdatedAt = X.ToI(a[15])
-	p.UpdatedBy = X.ToU(a[16])
-	p.DeletedAt = X.ToI(a[17])
-	p.FormattedAddress = X.ToS(a[18])
-	p.LastPrice = X.ToS(a[19])
-	p.PriceHistoriesSell = X.ToArr(a[20])
-	p.PriceHistoriesRent = X.ToArr(a[21])
-	p.Purpose = X.ToS(a[22])
-	p.HouseType = X.ToS(a[23])
-	p.Images = X.ToArr(a[24])
-	p.Bedroom = X.ToI(a[25])
-	p.Bathroom = X.ToI(a[26])
-	p.AgencyFeePercent = X.ToF(a[27])
-	p.FloorList = X.ToArr(a[28])
-	p.Country = X.ToS(a[29])
-	p.Version = X.ToF(a[30])
-	p.MediaSourceJson = X.ToS(a[31])
-	p.ZoneDataInfo = X.ToS(a[32])
-	p.TaxInfo = X.ToS(a[33])
-	p.HistoryTaxInfo = X.ToS(a[34])
-	p.ListingBrokerName = X.ToS(a[35])
-	p.ListingBrokerNumber = X.ToS(a[36])
-	p.ListingAgentName = X.ToS(a[37])
-	p.ListingAgentNumber = X.ToS(a[38])
-	p.YearBuilt = X.ToI(a[39])
-	p.YearRenovated = X.ToI(a[40])
-	p.TotalSqft = X.ToF(a[41])
-	p.AmenitySuperGroups = X.ToS(a[42])
-	p.CountyUrl = X.ToS(a[43])
-	p.CountyName = X.ToS(a[44])
-	p.CountyIsActive = X.ToBool(a[45])
-	p.Street = X.ToS(a[46])
-	p.City = X.ToS(a[47])
-	p.State = X.ToS(a[48])
-	p.Zip = X.ToS(a[49])
-	p.CountryCode = X.ToS(a[50])
-	p.PropertyLastUpdatedDate = X.ToI(a[51])
-	p.TaxNote = X.ToS(a[52])
-	return p
-}
-
-// FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
-func (p *PropertyUs) FindOffsetLimit(offset, limit uint32, idx string) []PropertyUs { //nolint:dupl false positive
-	var rows []PropertyUs
-	res, err := p.Adapter.Select(p.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
-	if L.IsError(err, `PropertyUs.FindOffsetLimit failed: `+p.SpaceName()) {
-		return rows
-	}
-	for _, row := range res.Tuples() {
-		item := PropertyUs{}
-		rows = append(rows, *item.FromArray(row))
-	}
-	return rows
-}
-
-// FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
-func (p *PropertyUs) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
-	var rows []A.X
-	res, err := p.Adapter.Select(p.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
-	if L.IsError(err, `PropertyUs.FindOffsetLimit failed: `+p.SpaceName()) {
-		return rows, Tt.QueryMetaFrom(res, err)
-	}
-	tuples := res.Tuples()
-	rows = make([]A.X, len(tuples))
-	for z, row := range tuples {
-		rows[z] = row
-	}
-	return rows, Tt.QueryMetaFrom(res, nil)
-}
-
-// Total count number of rows
-func (p *PropertyUs) Total() int64 { //nolint:dupl false positive
-	rows := p.Adapter.CallBoxSpace(p.SpaceName()+`:count`, A.X{})
-	if len(rows) > 0 && len(rows[0]) > 0 {
-		return X.ToI(rows[0][0])
-	}
-	return 0
-}
-
-// PropertyUsFieldTypeMap returns key value of field name and key
-var PropertyUsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
-	`id`:                      Tt.Unsigned,
-	`uniqPropKey`:             Tt.String,
-	`serialNumber`:            Tt.String,
-	`sizeM2`:                  Tt.String,
-	`mainUse`:                 Tt.String,
-	`mainBuildingMaterial`:    Tt.String,
-	`constructCompletedDate`:  Tt.String,
-	`numberOfFloors`:          Tt.String,
-	`buildingLamination`:      Tt.String,
-	`address`:                 Tt.String,
-	`district`:                Tt.String,
-	`note`:                    Tt.String,
-	`coord`:                   Tt.Array,
-	`createdAt`:               Tt.Integer,
-	`createdBy`:               Tt.Unsigned,
-	`updatedAt`:               Tt.Integer,
-	`updatedBy`:               Tt.Unsigned,
-	`deletedAt`:               Tt.Integer,
-	`formattedAddress`:        Tt.String,
-	`lastPrice`:               Tt.String,
-	`priceHistoriesSell`:      Tt.Array,
-	`priceHistoriesRent`:      Tt.Array,
-	`purpose`:                 Tt.String,
-	`houseType`:               Tt.String,
-	`images`:                  Tt.Array,
-	`bedroom`:                 Tt.Integer,
-	`bathroom`:                Tt.Integer,
-	`agencyFeePercent`:        Tt.Double,
-	`floorList`:               Tt.Array,
-	`country`:                 Tt.String,
-	`version`:                 Tt.Double,
-	`mediaSourceJson`:         Tt.String,
-	`zoneDataInfo`:            Tt.String,
-	`taxInfo`:                 Tt.String,
-	`historyTaxInfo`:          Tt.String,
-	`listingBrokerName`:       Tt.String,
-	`listingBrokerNumber`:     Tt.String,
-	`listingAgentName`:        Tt.String,
-	`listingAgentNumber`:      Tt.String,
-	`yearBuilt`:               Tt.Integer,
-	`yearRenovated`:           Tt.Integer,
-	`totalSqft`:               Tt.Double,
-	`amenitySuperGroups`:      Tt.String,
-	`countyUrl`:               Tt.String,
-	`countyName`:              Tt.String,
-	`countyIsActive`:          Tt.Boolean,
-	`street`:                  Tt.String,
-	`city`:                    Tt.String,
-	`state`:                   Tt.String,
-	`zip`:                     Tt.String,
-	`countryCode`:             Tt.String,
-	`propertyLastUpdatedDate`: Tt.Integer,
-	`taxNote`:                 Tt.String,
+	`id`:                     Tt.Unsigned,
+	`propertyKey`:            Tt.String,
+	`transactionKey`:         Tt.String,
+	`transactionType`:        Tt.String,
+	`transactionSign`:        Tt.String,
+	`transactionTime`:        Tt.String,
+	`transactionDateNormal`:  Tt.String,
+	`transactionNumber`:      Tt.String,
+	`priceNtd`:               Tt.Integer,
+	`pricePerUnit`:           Tt.Integer,
+	`price`:                  Tt.Integer,
+	`address`:                Tt.String,
+	`district`:               Tt.String,
+	`note`:                   Tt.String,
+	`createdAt`:              Tt.Integer,
+	`createdBy`:              Tt.Unsigned,
+	`updatedAt`:              Tt.Integer,
+	`updatedBy`:              Tt.Unsigned,
+	`deletedAt`:              Tt.Integer,
+	`serialNumber`:           Tt.String,
+	`transactionDescription`: Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
