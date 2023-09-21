@@ -42,7 +42,7 @@
   async function updateProfile() {
     if( JSON.stringify( user )===oldProfileJson ) return useGrowl( 'error', 'No changes' );
     await UserUpdateProfile( user, function( res ) {
-      if( res?.error ) return useGrowl( 'error', res.error );
+      if( res.error ) return useGrowl( 'error', res.error );
       oldProfileJson = JSON.stringify( res.user );
       user = res.user;
       useGrowl( 'info', 'Profile updated' );
@@ -56,7 +56,7 @@
       newPass: newPassword,
     };
     await UserChangePassword( input, function( res ) {
-      if( res?.error ) return useGrowl( 'error', res.error );
+      if( res.error ) return useGrowl( 'error', res.error );
       oldPassword = '';
       newPassword = '';
       repeatNewPassword = '';
@@ -66,14 +66,14 @@
   
   async function userSessionsActive() {
     await UserSessionsActive( user, async res => {
-      if( res?.error ) return useGrowl( 'error', res.error );
+      if( res.error ) return useGrowl( 'error', res.error );
       sessionActiveLists = await res.sessionsActive;
     } )
   }
   
   async function killSession( sessionToken ) {
     await UserSessionKill( sessionToken, async res => {
-      if( res?.error ) return useGrowl( 'error', res.error );
+      if( res.error ) return useGrowl( 'error', res.error );
       if( res.sessionTerminated>0 ) {
         return await userSessionsActive();
       } else {

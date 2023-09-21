@@ -2636,6 +2636,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       exports.GuestOauthCallback = async function GuestOauthCallback(i, cb) {
         return await axios.post("/guest/oauthCallback", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.GuestProperty = async function GuestProperty(i, cb) {
+        return await axios.post("/guestProperty", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.GuestRegister = async function GuestRegister(i, cb) {
         return await axios.post("/guest/register", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -6675,7 +6678,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       if (JSON.stringify(user) === oldProfileJson)
         return useGrowl("error", "No changes");
       await (0, import_jsApi_GEN2.UserUpdateProfile)(user, function(res) {
-        if (res?.error)
+        if (res.error)
           return useGrowl("error", res.error);
         oldProfileJson = JSON.stringify(res.user);
         $invalidate(0, user = res.user);
@@ -6690,7 +6693,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         newPass: newPassword
       };
       await (0, import_jsApi_GEN2.UserChangePassword)(input, function(res) {
-        if (res?.error)
+        if (res.error)
           return useGrowl("error", res.error);
         $invalidate(1, oldPassword = "");
         $invalidate(2, newPassword = "");
@@ -6700,14 +6703,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     async function userSessionsActive() {
       await (0, import_jsApi_GEN2.UserSessionsActive)(user, async (res) => {
-        if (res?.error)
+        if (res.error)
           return useGrowl("error", res.error);
         $invalidate(4, sessionActiveLists = await res.sessionsActive);
       });
     }
     async function killSession(sessionToken) {
       await (0, import_jsApi_GEN2.UserSessionKill)(sessionToken, async (res) => {
-        if (res?.error)
+        if (res.error)
           return useGrowl("error", res.error);
         if (res.sessionTerminated > 0) {
           return await userSessionsActive();

@@ -85,6 +85,24 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		})
 	})
 
+	fw.Get(`/`+domain.GuestPropertyAction+`/:propId`, func(ctx *fiber.Ctx) error {
+		in, _, _ := userInfoFromContext(ctx, d)
+		out := d.RealtorProperty(&domain.RealtorPropertyIn{
+			RequestCommon: in.RequestCommon,
+			Id:            X.ToU(ctx.Params(`propId`)),
+		})
+		if out.Error != `` {
+			L.Print(out.Error)
+			return views.RenderError(ctx, M.SX{
+				`error`: out.Error,
+			})
+		}
+		return views.RenderGuestProperty(ctx, M.SX{
+			`title`:    `Realtor Property`,
+			`property`: out.Property,
+		})
+	})
+
 	fw.Get(`/`+domain.GuestVerifyEmailAction, func(c *fiber.Ctx) error {
 		var in domain.GuestVerifyEmailIn
 		err := webApiParseInput(c, &in.RequestCommon, &in, domain.GuestVerifyEmailAction)
