@@ -33,21 +33,21 @@ const (
 	TaxNote = `taxNote`
 
 	// Amenity
-	AmenitySuperGroups = `amenitySuperGroups`
+	AmenitySuperGroupsJson = `amenitySuperGroups`
 
 	// Source photo
 	MediaSource     = `mediaSource`
 	MediaSourceJson = `mediaSourceJson`
 
 	// Zone data info
-	ZoneDataInfo = `zoneDataInfo` // String - store full json string
+	ZoneDataInfoJson = `zoneDataInfo` // String - store full json string
 
 	// Agent & Broker (Disclaimed info)
-	MlsDisclaimerInfo = `mlsDisclaimerInfo`
+	MlsDisclaimerInfoJson = `mlsDisclaimerInfo`
 
 	// Facilitates Nearby
-	FacilityInfo = `facilityInfo`
-	RiskInfo     = `riskInfo`
+	FacilityInfoJson = `facilityInfo`
+	RiskInfoJson     = `riskInfo`
 )
 
 const (
@@ -157,12 +157,12 @@ func buildStandardPropertySchema() []Tt.Field {
 		30: {MediaSourceJson, Tt.String},
 
 		// Other data
-		31: {ZoneDataInfo, Tt.String},   // Specific for US data
-		32: {TaxInfo, Tt.String},        // Tax info
-		33: {HistoryTaxInfo, Tt.String}, // Full history tax of tax info
+		31: {ZoneDataInfoJson, Tt.String}, // Specific for US data
+		32: {TaxInfo, Tt.String},          // Tax info
+		33: {HistoryTaxInfo, Tt.String},   // Full history tax of tax info
 		37: {YearBuilt, Tt.Integer},
 		38: {YearRenovated, Tt.Integer},
-		40: {AmenitySuperGroups, Tt.String}, // Amenity super groups and health condition/quality of equipments and property in general
+		40: {AmenitySuperGroupsJson, Tt.String}, // Amenity super groups and health condition/quality of equipments and property in general
 		49: {PropertyLastUpdatedDate, Tt.Integer},
 		50: {TaxNote, Tt.String},
 
@@ -174,9 +174,9 @@ func buildStandardPropertySchema() []Tt.Field {
 		21: {PriceHistoriesRent, Tt.Array},
 
 		// Agent & Broker for Realtor
-		34: {MlsDisclaimerInfo, Tt.String},
-		35: {FacilityInfo, Tt.String},
-		36: {RiskInfo, Tt.String},
+		34: {MlsDisclaimerInfoJson, Tt.String},
+		35: {FacilityInfoJson, Tt.String},
+		36: {RiskInfoJson, Tt.String},
 
 		13: {CreatedAt, Tt.Integer},
 		14: {CreatedBy, Tt.Unsigned},
