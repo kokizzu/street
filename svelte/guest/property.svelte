@@ -1,17 +1,42 @@
 <script>
   import {onMount} from "svelte";
-  import {T} from "../_components/uiState";
+  import Growl from "../_components/Growl.svelte";
+  import {formatPrice} from '../_components/formatter.js';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidHome from "svelte-icons-pack/fa/FaSolidHome";
   import FaSolidMapMarkerAlt from "svelte-icons-pack/fa/FaSolidMapMarkerAlt";
+  import FaSolidArrowRight from "svelte-icons-pack/fa/FaSolidArrowRight";
+  import FaSolidShareAlt from "svelte-icons-pack/fa/FaSolidShareAlt";
+  import FaCopy from "svelte-icons-pack/fa/FaCopy";
+  import FaBrandsFacebook from "svelte-icons-pack/fa/FaBrandsFacebook";
+  import FaBrandsLinkedin from "svelte-icons-pack/fa/FaBrandsLinkedin";
+  import FaBrandsTwitter from "svelte-icons-pack/fa/FaBrandsTwitter";
   
   let propItem = {/* propItem */};
   onMount( () => {
-    console.log( `Property Item = ${propItem}` )
-  } )
-
+    console.log( `Property Item = ${JSON.stringify( propItem )}` )
+  } );
+  
+  let showGrowl = false, gMsg = '', gType = '';
+  
+  function useGrowl( type, msg ) {
+    showGrowl = true;
+    gMsg = msg;
+    gType = type;
+    setTimeout( () => {
+      showGrowl = false;
+    }, 2000 );
+  }
+  
+  function copyToClipboard( text ) {
+    navigator.clipboard.writeText( text );
+    useGrowl( 'success', 'Link copied to clipboard' );
+  }
 </script>
 
+{#if showGrowl}
+	<Growl message={gMsg} growlType={gType}/>
+{/if}
 <section class="property_container">
 	<div class='property'>
 		<div class='property_main'>
@@ -28,7 +53,7 @@
 				<div class='col1'>
 					<div class='left'>
 						<div class={propItem.purpose === 'rent' ? `purpose label_rent` : `purpose label_sale`}>
-							{propItem.purpose==='rent' ? $T.forRent : $T.onSale}
+							{propItem.purpose==='rent' ? 'For Rent' : 'On Sale'}
 						</div>
 						<div class='house_type'>
 							<Icon color='#FFFF' size={16} src={FaSolidHome}/>
@@ -37,10 +62,10 @@
 					</div>
 				</div>
 				<div class='col2'>
-					<h1>$ {propItem.lastPrice || '0.00'}</h1>
-					<p>{$T.agencyFee} : {propItem.agencyFeePercent}%</p>
+					<h1>{formatPrice( propItem.lastPrice, 'TWD' ) || '0.00'}</h1>
+					<p>Agency Fee : {propItem.agencyFeePercent}%</p>
 					<div class='address'>
-						<Icon color='#f97316' size={18} src={FaSolidMapMarkerAlt}/>
+						<Icon className='icon_address' color='#f97316' size={18} src={FaSolidMapMarkerAlt}/>
 						<span>{propItem.formattedAddress}</span>
 					</div>
 				</div>
@@ -50,31 +75,31 @@
 			<div class='feature_number'>
 				<div class='feature_item'>
 					<b>{propItem.numberOfFloors || '0'}</b>
-					<p>{$T.floors}</p>
+					<p>Floors</p>
 				</div>
 				<div class='feature_item'>
 					<b>{propItem.bathroom || '0'}</b>
-					<p>{$T.bath}</p>
+					<p>Baths</p>
 				</div>
 				<div class='feature_item'>
 					<b>{propItem.bedroom || '0'}</b>
-					<p>{$T.bed}</p>
+					<p>Beds</p>
 				</div>
 				<div class='feature_item'>
-					<b>{propItem.sizeM2 || '0'} {$T.m}2</b>
+					<b>{propItem.sizeM2 || '0'} M2</b>
 					<p>Size</p>
 				</div>
 			</div>
 		</div>
 		<div class='property_floors'>
-			<h3>{$T.floors}</h3>
+			<h3>Floors</h3>
 			{#if propItem.floorList && propItem.floorList.length}
 				<div class='floor_lists'>
 					{#each propItem.floorList as floors}
 						<div class='floor_item'>
 							<div class='left'>
 								<h5>
-									{floors.type==='basement' ? $T.basement : `${$T.floorN}${floors.floor}`}
+									{floors.type==='basement' ? 'Basement' : `Floor #${floors.floor}`}
 								</h5>
 								<!-- TODO: currently room list only 1 object, fix Tarantool to accept array -->
 								{#if floors.rooms}
@@ -108,15 +133,68 @@
 			{/if}
 		</div>
 	</div>
+	<div class='side_attribute'>
+		<div class='login_container'>
+			<div>
+				<h3>Login to</h3>
+				<h3>HapSTR</h3>
+			</div>
+			<a class='login_btn' href='/'>
+				<span>Login</span>
+				<Icon color='#FFFF' size={13} src={FaSolidArrowRight}/>
+			</a>
+		</div>
+		<div class='share_container'>
+			<header>
+				<span>Share this</span>
+				<Icon size={14} color='#9fa9b5' className='share_icon' src={FaSolidShareAlt}/>
+			</header>
+			<div class='share_options'>
+				<button class='share_item' title='Copy link address' on:click={() => copyToClipboard(`${window.location}`)}>
+					<Icon size={25} className='share_icon' color='#475569' src={FaCopy}/>
+				</button>
+				<a class='share_item'
+				   aria-label="Share to Facebook"
+				   href={`https://www.facebook.com/sharer/sharer.php?u=${window.location}?utm_source=facebook&utm_medium=social&utm_campaign=user-share`}
+				   target="_blank"
+				   rel="noopener"
+				>
+					<Icon size={25} className='share_icon' color='#475569' src={FaBrandsFacebook}/>
+				</a>
+				<a class='share_item'
+				   aria-label="Share to LinkedIn"
+				   href={`http://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${propItem.id}`}
+				   target="_blank"
+				   rel="noopener"
+				>
+					<Icon size={25} className='share_icon' color='#475569' src={FaBrandsLinkedin}/>
+				</a>
+				<a class='share_item'
+				   aria-label="Share to Twitter"
+				   href={`https://twitter.com/intent/tweet?text=I%20Found%20Awesome%House ${window.location}property/${propItem.id}`}
+				   target="_blank"
+				   rel="noopener"
+				>
+					<Icon size={25} className='share_icon' color='#475569' src={FaBrandsTwitter}/>
+				</a>
+			</div>
+		</div>
+	</div>
 </section>
 
 <style>
     .property_container {
-        width  : 70%;
-        margin : 70px auto 50px auto;
+        width           : 100%;
+        margin          : 30px auto 50px auto;
+        color           : #475569;
+        display         : flex;
+        flex-direction  : row;
+        justify-content : center;
+        gap             : 30px;
     }
 
     .property {
+        width            : 60%;
         height           : fit-content;
         background-color : #F0F0F0;
         border-radius    : 8px;
@@ -134,12 +212,12 @@
         align-content   : flex-start;
         justify-content : flex-start;
         align-items     : flex-start;
-        gap             : 15px;
+        gap             : 20px;
     }
 
     .property_main .property_images {
-        width         : 260px;
-        height        : 160px;
+        width         : 340px;
+        height        : 190px;
         flex          : none;
         overflow      : hidden;
         border-radius : 8px;
@@ -167,6 +245,7 @@
         display        : flex;
         flex-direction : column;
         gap            : 10px;
+        margin-top     : 20px;
     }
 
     .property_main .property_info .col1 {
@@ -225,6 +304,14 @@
         flex-direction : row;
         gap            : 10px;
         align-items    : center;
+    }
+
+    :global(.icon_address) {
+        flex-shrink : 0;
+    }
+
+    .property_main .property_info .col2 .address span {
+        flex-shrink : 1;
     }
 
     .property_secondary {
@@ -340,14 +427,77 @@
         margin : 0;
     }
 
-    .property_less_more {
-        height          : 50px;
-        background      : linear-gradient(to top, #F0F0F0, #F0F0F0, #F0F0F0, transparent);
-        bottom          : 0;
-        position        : absolute;
-        z-index         : 90;
-        width           : -webkit-fill-available;
-        display         : flex;
-        justify-content : center;
+    .side_attribute {
+        width          : 250px;
+        height         : fit-content;
+        display        : flex;
+        flex-direction : column;
+        gap            : 20px;
+    }
+
+    .side_attribute .login_container,
+    .side_attribute .share_container {
+        text-align       : center;
+        height           : fit-content;
+        background-color : #F0F0F0;
+        border-radius    : 8px;
+        padding          : 15px;
+        display          : flex;
+        flex-direction   : column;
+        gap              : 10px;
+    }
+
+    .side_attribute .login_container h3 {
+        margin    : 0 0 10px 0;
+        font-size : 24px;
+    }
+
+    .side_attribute .login_container .login_btn {
+        background-color : #6366F1;
+        width            : 100%;
+        height           : fit-content;
+        padding          : 12px;
+        text-align       : center;
+        border-radius    : 8px;
+        color            : #FFF;
+        font-size        : 13px;
+	     display: flex;
+	     flex-direction: row;
+	     gap: 6px;
+	     justify-content: center;
+	     align-items: center;
+	     text-decoration: none;
+    }
+
+    .side_attribute .login_container .login_btn:hover {
+        background-color: #7e80f1;
+    }
+
+    .side_attribute .share_container header{
+	     display: flex;
+	     flex-direction: row;
+	     justify-content: center;
+	     gap: 7px;
+	     align-items: center;
+	     font-size: 15px;
+    }
+    
+    .side_attribute .share_container .share_options {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        align-items: center;
+        justify-items: center;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .side_attribute .share_container .share_options .share_item {
+        border        : none;
+        background    : none;
+        cursor        : pointer;
+    }
+    
+    :global(.side_attribute .share_container .share_options .share_item:hover .share_icon) {
+	     fill: #57667a !important;
     }
 </style>

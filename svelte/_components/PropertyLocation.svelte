@@ -295,7 +295,7 @@
 											</a>
 											<a class='share_item'
 											   aria-label="Share to LinkedIn"
-											   href={`http://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20`}
+											   href={`http://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${prop.id}`}
 											   target="_blank"
 											   rel="noopener"
 											>
