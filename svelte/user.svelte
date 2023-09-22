@@ -23,11 +23,21 @@
   
   let oldProfileJson = '';
   let sessionActiveLists = [];
+  
+  let selectedCountry;
+  let lang = {
+    TW: {language: 'Chinese'},
+    ID: {language: 'Indonesian'},
+    US: {language: 'English'},
+    JP: {language: 'Japanese'},
+    VN: {language: 'Vietnamese'}
+  }
   let showGrowl = false, gMsg = '', gType = '';
   onMount( async () => {
     oldProfileJson = JSON.stringify( user );
     await userSessionsActive();
-    console.log(countryData)
+    console.log( countryData )
+    console.log( user )
   } );
   
   function useGrowl( type, msg ) {
@@ -41,6 +51,8 @@
   
   async function updateProfile() {
     if( JSON.stringify( user )===oldProfileJson ) return useGrowl( 'error', 'No changes' );
+    user.country = selectedCountry;
+    user.language = lang[selectedCountry].language;
     await UserUpdateProfile( user, function( res ) {
       if( res.error ) return useGrowl( 'error', res.error );
       oldProfileJson = JSON.stringify( res.user );
@@ -191,12 +203,29 @@
 					</div>
 					<div class="country_details">
 						<h2>Country Details</h2>
-						<div class="country_list">
-							<select id="country" name="country">
-								{#each countryData as country}
-									<option value={country.country}>{country.country}</option>
-								{/each}
-							</select>
+						<div class='country_input_container'>
+							<div class="country_list">
+								<label for="country">Select Country by alpha-2 code</label>
+								<select id="country" name="country" bind:value={selectedCountry}>
+									{#each countryData as country}
+										<option value={country.country}>{country.country}</option>
+									{/each}
+								</select>
+							</div>
+							<div class="info_container">
+								<div class="profile_info">
+									<label for="country_name">Country:</label>
+									<span id="country_name">{user.country}</span>
+								</div>
+								<div class="profile_info">
+									<label for="language">Language:</label>
+									<span id="language">{user.language}</span>
+								</div>
+							</div>
+							<button id="updateCountry" on:click={updateProfile}>
+								<span>SUBMIT</span>
+								<Icon color="#FFF" size={18} src={FaSolidAngleRight}/>
+							</button>
 						</div>
 					</div>
 				</div>
@@ -331,21 +360,21 @@
         margin-right : 10px;
     }
 
-    .profile_details_container .left .profile_details .info_container {
+    .profile_details_container .info_container {
         display        : flex;
         flex-direction : column;
         gap            : 5px;
         margin-top     : 15px;
     }
 
-    .profile_details_container .left .profile_details .info_container .profile_info {
+    .profile_details_container .info_container .profile_info {
         display     : inline-flex;
         align-items : center;
         font-size   : 13px;
         margin-left : 10px;
     }
 
-    .profile_details_container .left .profile_details .info_container .profile_info label {
+    .profile_details_container .info_container .profile_info label {
         font-weight  : 700;
         margin-right : 10px;
     }
@@ -402,21 +431,29 @@
         background-color : #F85454;
     }
 
-    .profile_details_container .right .country_details .country_list #country {
+    .profile_details_container .right .country_details .country_input_container {
+        display        : flex;
+        flex-direction : column;
+        gap            : 8px;
+    }
+
+    .profile_details_container .right .country_details .country_input_container .country_list #country {
         width            : 100%;
         border           : 1px solid #CBD5E1;
         background-color : #F1F5F9;
         border-radius    : 8px;
         padding          : 12px;
         cursor           : pointer;
+        margin-top       : 8px;
     }
 
-    .profile_details_container .right .country_details .country_list #country:focus {
+    .profile_details_container .right .country_details .country_input_container .country_list #country:focus {
         outline : 2px solid #3B82F6;
     }
 
     .profile_details #updateProfile,
-    .password_set #changePassword {
+    .password_set #changePassword,
+    .country_details #updateCountry {
         margin-left      : auto;
         width            : fit-content;
         filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
@@ -436,7 +473,8 @@
     }
 
     .profile_details #updateProfile:hover,
-    .password_set #changePassword:hover {
+    .password_set #changePassword:hover,
+    .country_details #updateCountry:hover {
         background-color : #7E80F1;
     }
 
@@ -448,7 +486,8 @@
         width          : 100%;
     }
 
-    .profile_input label {
+    .profile_input label,
+    .country_list label {
         font-size   : 13px;
         font-weight : 700;
         margin-left : 10px;

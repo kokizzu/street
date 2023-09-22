@@ -2618,13 +2618,10 @@
     let meta14_content_value;
     let meta15;
     let meta16;
-    let meta16_content_value;
     let meta17;
+    let meta17_content_value;
     let meta18;
-    let meta19;
-    let meta19_content_value;
-    let meta20;
-    let meta20_content_value;
+    let meta18_content_value;
     let c0;
     let c1;
     let t0;
@@ -2827,8 +2824,6 @@
         meta16 = element("meta");
         meta17 = element("meta");
         meta18 = element("meta");
-        meta19 = element("meta");
-        meta20 = element("meta");
         c0 = comment('	<meta name="twitter:site" content="@xd"/>');
         c1 = comment('	<meta name="twitter:creator" content="@xd"/>');
         t0 = space();
@@ -2969,16 +2964,12 @@
         attr(meta14, "property", "article:updated_time");
         attr(meta15, "content", "summary_large_image");
         attr(meta15, "name", "twitter:card");
-        attr(meta16, "content", meta16_content_value = `${getBaseURL()}${propItem.images[0]}`);
-        attr(meta16, "name", "twitter:image");
-        attr(meta17, "content", "summary");
-        attr(meta17, "name", "twitter:card");
-        attr(meta18, "content", "I found an awesome house");
-        attr(meta18, "name", "twitter:title");
-        attr(meta19, "content", meta19_content_value = propItem.note);
-        attr(meta19, "name", "twitter:description");
-        attr(meta20, "content", meta20_content_value = `${getBaseURL()}${propItem.images[0]}`);
-        attr(meta20, "name", "twitter:image");
+        attr(meta16, "content", "I found an awesome house");
+        attr(meta16, "name", "twitter:title");
+        attr(meta17, "content", meta17_content_value = propItem.note);
+        attr(meta17, "name", "twitter:description");
+        attr(meta18, "content", meta18_content_value = `${getBaseURL()}${propItem.images[0]}`);
+        attr(meta18, "name", "twitter:image");
         attr(div0, "class", "property_images svelte-vbnkcm");
         attr(div1, "class", div1_class_value = null_to_empty(propItem.purpose === "rent" ? `purpose label_rent` : `purpose label_sale`) + " svelte-vbnkcm");
         attr(span0, "class", "svelte-vbnkcm");
@@ -3056,8 +3047,6 @@
         append(document.head, meta16);
         append(document.head, meta17);
         append(document.head, meta18);
-        append(document.head, meta19);
-        append(document.head, meta20);
         append(document.head, c0);
         append(document.head, c1);
         insert(target, t0, anchor);
@@ -3270,8 +3259,6 @@
         detach(meta16);
         detach(meta17);
         detach(meta18);
-        detach(meta19);
-        detach(meta20);
         detach(c0);
         detach(c1);
         if (if_block0)

@@ -9536,7 +9536,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       await tick();
       emailInput.focus();
     }
-    onMount(onHashChange);
+    onMount(() => {
+      onHashChange();
+      console.log("User = ", user);
+    });
     async function guestRegister() {
       if (!email)
         return alert("email is required");

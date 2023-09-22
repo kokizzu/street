@@ -58,9 +58,6 @@
 	<meta content={propItem.updatedAt} property="article:updated_time"/>
 	
 	<meta content="summary_large_image" name="twitter:card"/>
-	<meta content={`${getBaseURL()}${propItem.images[0]}`} name="twitter:image"/>
-	<meta content="summary" name="twitter:card"/>
-	
 	<meta content="I found an awesome house" name="twitter:title"/>
 	<meta content={propItem.note} name="twitter:description"/>
 	<meta content={`${getBaseURL()}${propItem.images[0]}`} name="twitter:image"/>

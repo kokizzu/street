@@ -70,7 +70,10 @@
     emailInput.focus();
   }
   
-  onMount( onHashChange )
+  onMount(() => {
+    onHashChange();
+    console.log("User = ", user)
+  } )
   
   async function guestRegister() {
     // TODO: replace all alert with growl
