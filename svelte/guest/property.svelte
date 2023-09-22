@@ -1,7 +1,6 @@
 <script>
-  import {onMount} from "svelte";
   import Growl from "../_components/Growl.svelte";
-  import {formatPrice} from '../_components/formatter.js';
+  import {formatPrice, localeDatetime} from '../_components/formatter.js';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidHome from "svelte-icons-pack/fa/FaSolidHome";
   import FaSolidMapMarkerAlt from "svelte-icons-pack/fa/FaSolidMapMarkerAlt";
@@ -11,12 +10,10 @@
   import FaBrandsFacebook from "svelte-icons-pack/fa/FaBrandsFacebook";
   import FaBrandsLinkedin from "svelte-icons-pack/fa/FaBrandsLinkedin";
   import FaBrandsTwitter from "svelte-icons-pack/fa/FaBrandsTwitter";
+  import PillBox from "../_components/PillBox.svelte";
   
   let propItem = {/* propItem */};
-  onMount( () => {
-    console.log( `Property Item = ${JSON.stringify( propItem )}` )
-  } );
-  
+  let meta = {/* propertyMeta */}
   let showGrowl = false, gMsg = '', gType = '';
   
   function useGrowl( type, msg ) {
@@ -32,7 +29,44 @@
     navigator.clipboard.writeText( text );
     useGrowl( 'success', 'Link copied to clipboard' );
   }
+  
+  function getBaseURL() {
+    const url = `${window.location}`
+    const regex = /^.+?[^\/:](?=[?\/]|$)/gm;
+    const match = url.match( regex );
+    const result = match;
+    
+    return result;
+  }
 </script>
+
+<svelte:head>
+	<meta content="HapSTR" property="og:site_name"/>
+	<meta content="Property" property="og:title"/>
+	<meta content={propItem.note} property="og:description"/>
+	<meta content='tw_TW' property='og:locale'/>
+	<meta content='en_EN' property='og:locale:alternate'/>
+	<meta content="website" property="og:type"/>
+	<meta content={`${window.location}`} property="og:url"/>
+	<meta content={`${getBaseURL()}${propItem.images[0]}`} property="og:image"/>
+	<meta content={`${getBaseURL()}${propItem.images[0]}`} property="og:image:secure_url"/>
+	<meta content="1200" property="og:image:width"/>
+	<meta content="630" property="og:image:height"/>
+	<meta content="Property Image" property="og:image:alt"/>
+	<meta content={propItem.createdAt} property="article:published_time"/>
+	<meta content={propItem.updatedAt} property="article:modified_time"/>
+	<meta content={propItem.updatedAt} property="article:updated_time"/>
+	
+	<meta content="summary_large_image" name="twitter:card"/>
+	<meta content={`${getBaseURL()}${propItem.images[0]}`} name="twitter:image"/>
+	<meta content="summary" name="twitter:card"/>
+	
+	<meta content="I found an awesome house" name="twitter:title"/>
+	<meta content={propItem.note} name="twitter:description"/>
+	<meta content={`${getBaseURL()}${propItem.images[0]}`} name="twitter:image"/>
+	<!--	<meta name="twitter:site" content="@xd"/>-->
+	<!--	<meta name="twitter:creator" content="@xd"/>-->
+</svelte:head>
 
 {#if showGrowl}
 	<Growl message={gMsg} growlType={gType}/>
@@ -91,6 +125,17 @@
 				</div>
 			</div>
 		</div>
+		<div class='property_attributes'>
+			{#each meta as m}
+				{#if propItem[ m.name ]}
+					{#if m.inputType==='datetime'}
+						<PillBox label={m.label} content={localeDatetime(propItem[m.name])}/>
+					{:else}
+						<PillBox label={m.label} content={propItem[m.name]}/>
+					{/if}
+				{/if}
+			{/each}
+		</div>
 		<div class='property_floors'>
 			<h3>Floors</h3>
 			{#if propItem.floorList && propItem.floorList.length}
@@ -147,35 +192,35 @@
 		<div class='share_container'>
 			<header>
 				<span>Share this</span>
-				<Icon size={14} color='#9fa9b5' className='share_icon' src={FaSolidShareAlt}/>
+				<Icon className='share_icon' color='#9fa9b5' size={14} src={FaSolidShareAlt}/>
 			</header>
 			<div class='share_options'>
-				<button class='share_item' title='Copy link address' on:click={() => copyToClipboard(`${window.location}`)}>
-					<Icon size={25} className='share_icon' color='#475569' src={FaCopy}/>
+				<button class='share_item' on:click={() => copyToClipboard(`${window.location}`)} title='Copy link address'>
+					<Icon className='share_icon' color='#475569' size={25} src={FaCopy}/>
 				</button>
-				<a class='share_item'
-				   aria-label="Share to Facebook"
+				<a aria-label="Share to Facebook"
+				   class='share_item'
 				   href={`https://www.facebook.com/sharer/sharer.php?u=${window.location}?utm_source=facebook&utm_medium=social&utm_campaign=user-share`}
-				   target="_blank"
 				   rel="noopener"
+				   target="_blank"
 				>
-					<Icon size={25} className='share_icon' color='#475569' src={FaBrandsFacebook}/>
+					<Icon className='share_icon' color='#475569' size={25} src={FaBrandsFacebook}/>
 				</a>
-				<a class='share_item'
-				   aria-label="Share to LinkedIn"
+				<a aria-label="Share to LinkedIn"
+				   class='share_item'
 				   href={`http://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${propItem.id}`}
-				   target="_blank"
 				   rel="noopener"
+				   target="_blank"
 				>
-					<Icon size={25} className='share_icon' color='#475569' src={FaBrandsLinkedin}/>
+					<Icon className='share_icon' color='#475569' size={25} src={FaBrandsLinkedin}/>
 				</a>
-				<a class='share_item'
-				   aria-label="Share to Twitter"
+				<a aria-label="Share to Twitter"
+				   class='share_item'
 				   href={`https://twitter.com/intent/tweet?text=I%20Found%20Awesome%House ${window.location}property/${propItem.id}`}
-				   target="_blank"
 				   rel="noopener"
+				   target="_blank"
 				>
-					<Icon size={25} className='share_icon' color='#475569' src={FaBrandsTwitter}/>
+					<Icon className='share_icon' color='#475569' size={25} src={FaBrandsTwitter}/>
 				</a>
 			</div>
 		</div>
@@ -461,43 +506,43 @@
         border-radius    : 8px;
         color            : #FFF;
         font-size        : 13px;
-	     display: flex;
-	     flex-direction: row;
-	     gap: 6px;
-	     justify-content: center;
-	     align-items: center;
-	     text-decoration: none;
+        display          : flex;
+        flex-direction   : row;
+        gap              : 6px;
+        justify-content  : center;
+        align-items      : center;
+        text-decoration  : none;
     }
 
     .side_attribute .login_container .login_btn:hover {
-        background-color: #7e80f1;
+        background-color : #7E80F1;
     }
 
-    .side_attribute .share_container header{
-	     display: flex;
-	     flex-direction: row;
-	     justify-content: center;
-	     gap: 7px;
-	     align-items: center;
-	     font-size: 15px;
+    .side_attribute .share_container header {
+        display         : flex;
+        flex-direction  : row;
+        justify-content : center;
+        gap             : 7px;
+        align-items     : center;
+        font-size       : 15px;
     }
-    
+
     .side_attribute .share_container .share_options {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        align-items: center;
-        justify-items: center;
-        justify-content: center;
-        align-content: center;
+        display               : grid;
+        grid-template-columns : repeat(4, minmax(0, 1fr));
+        align-items           : center;
+        justify-items         : center;
+        justify-content       : center;
+        align-content         : center;
     }
 
     .side_attribute .share_container .share_options .share_item {
-        border        : none;
-        background    : none;
-        cursor        : pointer;
+        border     : none;
+        background : none;
+        cursor     : pointer;
     }
-    
+
     :global(.side_attribute .share_container .share_options .share_item:hover .share_icon) {
-	     fill: #57667a !important;
+        fill : #57667A !important;
     }
 </style>
