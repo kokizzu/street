@@ -189,7 +189,7 @@ func main() {
 		const sessionSavePath = `/tmp/session1.txt` // simulate cookie
 		savedSession := L.ReadFile(sessionSavePath)
 		if savedSession == `` { // if expired, please remove that file
-			session, _ := d.CreateSession(1, `admin@localhost`, UA)
+			session, _ := d.CreateSession(1, `admin@localhost`, UA, `127.0.0.1`)
 			if !session.DoInsert() {
 				L.Print(`failed inserting session`)
 				return

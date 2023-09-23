@@ -5614,7 +5614,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let each_1_anchor;
     let current;
     let each_value_1 = ensure_array_like(
-      /*sessionActiveLists*/
+      /*activeSessions*/
       ctx[4]
     );
     let each_blocks = [];
@@ -5641,10 +5641,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*killSession, sessionActiveLists, FaSolidTimes, datetime*/
+        if (dirty & /*killSession, activeSessions, FaSolidTimes, datetime*/
         4112) {
           each_value_1 = ensure_array_like(
-            /*sessionActiveLists*/
+            /*activeSessions*/
             ctx2[4]
           );
           let i;
@@ -5779,17 +5779,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
-        if ((!current || dirty & /*sessionActiveLists*/
+        if ((!current || dirty & /*activeSessions*/
         16) && t0_value !== (t0_value = /*session*/
         (ctx[28].loginIPs || "no-data") + ""))
           set_data(t0, t0_value);
-        if ((!current || dirty & /*sessionActiveLists*/
+        if ((!current || dirty & /*activeSessions*/
         16) && t2_value !== (t2_value = ((0, import_formatter.datetime)(
           /*session*/
           ctx[28].expiredAt
         ) || 0) + ""))
           set_data(t2, t2_value);
-        if ((!current || dirty & /*sessionActiveLists*/
+        if ((!current || dirty & /*activeSessions*/
         16) && t4_value !== (t4_value = /*session*/
         (ctx[28].device || "no-data") + ""))
           set_data(t4, t4_value);
@@ -6031,7 +6031,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     });
     let if_block1 = (
-      /*sessionActiveLists*/
+      /*activeSessions*/
       ctx[4].length && create_if_block3(ctx)
     );
     icon1 = new Icon_default({
@@ -6665,12 +6665,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ) || "0") + ""))
           set_data(t35, t35_value);
         if (
-          /*sessionActiveLists*/
+          /*activeSessions*/
           ctx2[4].length
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
-            if (dirty & /*sessionActiveLists*/
+            if (dirty & /*activeSessions*/
             16) {
               transition_in(if_block1, 1);
             }
@@ -6809,7 +6809,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let newPassword = "";
     let repeatNewPassword = "";
     let oldProfileJson = "";
-    let sessionActiveLists = [];
+    let activeSessions = [/* activeSessions */];
     let selectedCountry;
     let lang = {
       TW: { language: "Chinese" },
@@ -6821,9 +6821,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let showGrowl = false, gMsg = "", gType = "";
     onMount(async () => {
       oldProfileJson = JSON.stringify(user);
-      await userSessionsActive();
-      console.log(countryData);
-      console.log(user);
     });
     function useGrowl(type, msg) {
       $invalidate(6, showGrowl = true);
@@ -6869,7 +6866,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       await (0, import_jsApi_GEN2.UserSessionsActive)(user, async (res) => {
         if (res.error)
           return useGrowl("error", res.error);
-        $invalidate(4, sessionActiveLists = await res.sessionsActive);
+        $invalidate(4, activeSessions = await res.sessionsActive);
       });
     }
     async function killSession(sessionToken) {
@@ -6917,7 +6914,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       oldPassword,
       newPassword,
       repeatNewPassword,
-      sessionActiveLists,
+      activeSessions,
       selectedCountry,
       showGrowl,
       gMsg,

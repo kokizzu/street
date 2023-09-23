@@ -22,7 +22,7 @@
   let repeatNewPassword = '';
   
   let oldProfileJson = '';
-  let sessionActiveLists = [];
+  let activeSessions = [/* activeSessions */];
   
   let selectedCountry;
   let lang = {
@@ -35,9 +35,8 @@
   let showGrowl = false, gMsg = '', gType = '';
   onMount( async () => {
     oldProfileJson = JSON.stringify( user );
-    await userSessionsActive();
-    console.log( countryData )
-    console.log( user )
+    // console.log( countryData )
+    // console.log( user )
   } );
   
   function useGrowl( type, msg ) {
@@ -79,7 +78,7 @@
   async function userSessionsActive() {
     await UserSessionsActive( user, async res => {
       if( res.error ) return useGrowl( 'error', res.error );
-      sessionActiveLists = await res.sessionsActive;
+      activeSessions = await res.sessionsActive;
     } )
   }
   
@@ -162,8 +161,8 @@
 							<span>Device</span>
 						</div>
 						<div class="session_list">
-							{#if sessionActiveLists.length}
-								{#each sessionActiveLists as session}
+							{#if activeSessions.length}
+								{#each activeSessions as session}
 									<div class="session">
 										<span>{session.loginIPs || 'no-data'}</span>
 										<span>{datetime( session.expiredAt ) || 0}</span>
