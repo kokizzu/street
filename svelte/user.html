@@ -6870,7 +6870,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       });
     }
     async function killSession(sessionToken) {
-      await (0, import_jsApi_GEN2.UserSessionKill)(sessionToken, async (res) => {
+      await (0, import_jsApi_GEN2.UserSessionKill)({ sessionTokenHash: sessionToken }, async (res) => {
         if (res.error)
           return useGrowl("error", res.error);
         if (res.sessionTerminated > 0) {

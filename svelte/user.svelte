@@ -83,7 +83,7 @@
   }
   
   async function killSession( sessionToken ) {
-    await UserSessionKill( sessionToken, async res => {
+    await UserSessionKill( {sessionTokenHash:sessionToken}, async res => {
       if( res.error ) return useGrowl( 'error', res.error );
       if( res.sessionTerminated>0 ) {
         return await userSessionsActive();
