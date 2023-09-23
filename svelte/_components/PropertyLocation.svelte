@@ -295,7 +295,7 @@
 											</a>
 											<a class='share_item'
 											   aria-label="Share to LinkedIn"
-											   href={`http://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${prop.id}`}
+											   href={`https://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${prop.id}`}
 											   target="_blank"
 											   rel="noopener"
 											>
@@ -303,7 +303,7 @@
 											</a>
 											<a class='share_item'
 											   aria-label="Share to Twitter"
-											   href={`https://twitter.com/intent/tweet?text=I%20Found%20Awesome%House ${window.location}property/${prop.id}`}
+											   href={`https://twitter.com/intent/tweet?url=${window.location}&text=I%20Found%20Awesome%House ${window.location}property/${prop.id}`}
 											   target="_blank"
 											   rel="noopener"
 											>

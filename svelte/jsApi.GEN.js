@@ -1157,6 +1157,7 @@ const GuestPropertyIn = {
  * @property {number} property.agencyFeePercent
  * @property {Object} property.floorList
  * @property {String} property.country
+ * @property {Object} meta
  */
 const GuestPropertyOut = {
   property: { // rqProperty.Property
@@ -1196,6 +1197,8 @@ const GuestPropertyOut = {
     }, // []any
     country: '', // string
   }, // rqProperty.Property
+  meta: { // []zCrud.Field
+  }, // []zCrud.Field
 }
 /**
  * @callback GuestPropertyCallback
@@ -1208,7 +1211,7 @@ const GuestPropertyOut = {
  * @returns {Promise}
  */
 exports.GuestProperty = async function GuestProperty( i, cb ) {
-  return await axios.post( '/guestProperty', i ).
+  return await axios.post( '/guest/property', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

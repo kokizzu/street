@@ -3045,7 +3045,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         return await axios.post("/guest/oauthCallback", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.GuestProperty = async function GuestProperty(i, cb) {
-        return await axios.post("/guestProperty", i).then(wrapOk(cb)).catch(wrapErr(cb));
+        return await axios.post("/guest/property", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.GuestRegister = async function GuestRegister2(i, cb) {
         return await axios.post("/guest/register", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -6413,13 +6413,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(a0, "rel", "noopener");
         attr(a1, "class", "share_item svelte-1t6h0i4");
         attr(a1, "aria-label", "Share to LinkedIn");
-        attr(a1, "href", a1_href_value = `http://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${/*prop*/
+        attr(a1, "href", a1_href_value = `https://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${/*prop*/
         ctx[48].id}`);
         attr(a1, "target", "_blank");
         attr(a1, "rel", "noopener");
         attr(a2, "class", "share_item svelte-1t6h0i4");
         attr(a2, "aria-label", "Share to Twitter");
-        attr(a2, "href", a2_href_value = `https://twitter.com/intent/tweet?text=I%20Found%20Awesome%House ${window.location}property/${/*prop*/
+        attr(a2, "href", a2_href_value = `https://twitter.com/intent/tweet?url=${window.location}&text=I%20Found%20Awesome%House ${window.location}property/${/*prop*/
         ctx[48].id}`);
         attr(a2, "target", "_blank");
         attr(a2, "rel", "noopener");
@@ -6447,12 +6447,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if (!current || dirty[0] & /*randomProps*/
-        1 && a1_href_value !== (a1_href_value = `http://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${/*prop*/
+        1 && a1_href_value !== (a1_href_value = `https://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${/*prop*/
         ctx[48].id}`)) {
           attr(a1, "href", a1_href_value);
         }
         if (!current || dirty[0] & /*randomProps*/
-        1 && a2_href_value !== (a2_href_value = `https://twitter.com/intent/tweet?text=I%20Found%20Awesome%House ${window.location}property/${/*prop*/
+        1 && a2_href_value !== (a2_href_value = `https://twitter.com/intent/tweet?url=${window.location}&text=I%20Found%20Awesome%House ${window.location}property/${/*prop*/
         ctx[48].id}`)) {
           attr(a2, "href", a2_href_value);
         }
