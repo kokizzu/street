@@ -33,7 +33,7 @@ function translationStore() {
     return {
         currentLang,
         subscribe,
-        changeLanguage: (newV) => {
+        changeLanguage: (newV, cb) => {
             if (window && window.localStorage) {
                 window.localStorage.setItem('lang', newV);
             }
@@ -43,6 +43,7 @@ function translationStore() {
             console.log('kv', kv);
             if (Object.keys(kv).length === 0) return;
             update((el) => kv);
+            cb();
         },
 
     };

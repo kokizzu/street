@@ -82,7 +82,7 @@
 <section class="dashboard">
 	<Menu access={segments}/>
 	<div class="dashboard_main_content">
-		<ProfileHeader/>
+		<ProfileHeader {user}/>
 		<div class="content">
 			<div class="profile_details_container">
 				<div class="left">

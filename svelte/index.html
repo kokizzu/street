@@ -3101,7 +3101,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       exports.UserSessionsActive = async function UserSessionsActive(i, cb) {
         return await axios.post("/user/sessionsActive", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserUpdateProfile = async function UserUpdateProfile(i, cb) {
+      exports.UserUpdateProfile = async function UserUpdateProfile2(i, cb) {
         return await axios.post("/user/updateProfile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserUploadFile = async function UserUploadFile(i, cb) {
@@ -3998,7 +3998,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
   // index.svelte
-  var import_jsApi_GEN3 = __toESM(require_jsApi_GEN());
+  var import_jsApi_GEN4 = __toESM(require_jsApi_GEN());
 
   // _components/Menu.svelte
   var import_jsApi_GEN = __toESM(require_jsApi_GEN());
@@ -4205,7 +4205,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return {
       currentLang,
       subscribe: subscribe2,
-      changeLanguage: (newV) => {
+      changeLanguage: (newV, cb) => {
         if (window && window.localStorage) {
           window.localStorage.setItem("lang", newV);
         }
@@ -4216,6 +4216,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (Object.keys(kv).length === 0)
           return;
         update2((el) => kv);
+        cb();
       }
     };
   }
@@ -7941,7 +7942,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       useGrowl("success", "Link copied to clipboard");
     }
     const click_handler = (index) => showShareItems(index);
-    const click_handler_1 = (prop) => copyToClipboard(`${window.location}property/${prop.id}`);
+    const click_handler_1 = (prop) => copyToClipboard(`${window.location}guest/property/${prop.id}`);
     function button1_binding($value, index) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         propItemBinds[index] = $value;
@@ -8042,16 +8043,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
 
   // _components/ProfileHeader.svelte
+  var import_jsApi_GEN3 = __toESM(require_jsApi_GEN());
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[4] = list[i];
+    child_ctx[6] = list[i];
     return child_ctx;
   }
   function create_each_block2(ctx) {
     let option;
     let t_value = (
       /*lang*/
-      ctx[4] + ""
+      ctx[6] + ""
     );
     let t;
     let option_value_value;
@@ -8060,7 +8062,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*lang*/
-        ctx[4];
+        ctx[6];
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -8134,7 +8136,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         )
           add_render_callback(() => (
             /*select_change_handler*/
-            ctx[2].call(select)
+            ctx[3].call(select)
           ));
         attr(button1, "class", "profile_button svelte-yzo7d9");
         attr(div1, "class", "right_nav svelte-yzo7d9");
@@ -8176,7 +8178,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               select,
               "change",
               /*select_change_handler*/
-              ctx[2]
+              ctx[3]
             )
           ];
           mounted = true;
@@ -8234,32 +8236,48 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function instance7($self, $props, $invalidate) {
     let $isSideMenuOpen;
-    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(3, $isSideMenuOpen = $value));
+    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(4, $isSideMenuOpen = $value));
+    let { user = null } = $props;
     function openSideMenu() {
       isSideMenuOpen.set(!$isSideMenuOpen);
     }
     let selectedLanguage = "";
     onMount(() => {
+      console.log("User, load profile header = ", user);
       $invalidate(0, selectedLanguage = T.currentLang || "EN");
     });
+    async function updateLang() {
+      if (user !== null && user.language !== selectedLanguage) {
+        $invalidate(2, user.language = selectedLanguage, user);
+        await (0, import_jsApi_GEN3.UserUpdateProfile)(user, function(res) {
+          if (res.error)
+            return console.log("error");
+          $invalidate(2, user = res.user);
+        });
+      }
+    }
     function select_change_handler() {
       selectedLanguage = select_value(this);
       $invalidate(0, selectedLanguage);
     }
+    $self.$set = ($props2) => {
+      if ("user" in $props2)
+        $invalidate(2, user = $props2.user);
+    };
     $self.$.update = () => {
       if ($self.$.dirty & /*selectedLanguage*/
       1) {
         $: {
-          T.changeLanguage(selectedLanguage);
+          T.changeLanguage(selectedLanguage, async () => await updateLang());
         }
       }
     };
-    return [selectedLanguage, openSideMenu, select_change_handler];
+    return [selectedLanguage, openSideMenu, user, select_change_handler];
   }
   var ProfileHeader = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance7, create_fragment6, safe_not_equal, {});
+      init(this, options, instance7, create_fragment6, safe_not_equal, { user: 2 });
     }
   };
   var ProfileHeader_default = ProfileHeader;
@@ -8321,7 +8339,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let h1;
     let t2_value = (
       /*mode*/
-      ctx[7].split("_").join(" ") + ""
+      ctx[8].split("_").join(" ") + ""
     );
     let t2;
     let t3;
@@ -8346,56 +8364,56 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t16;
     let if_block0 = (
       /*mode*/
-      (ctx[7] === LOGIN || /*mode*/
-      ctx[7] === REGISTER || /*mode*/
-      ctx[7] === RESEND_VERIFICATION_EMAIL || /*mode*/
-      ctx[7] === FORGOT_PASSWORD) && create_if_block_132(ctx)
+      (ctx[8] === LOGIN || /*mode*/
+      ctx[8] === REGISTER || /*mode*/
+      ctx[8] === RESEND_VERIFICATION_EMAIL || /*mode*/
+      ctx[8] === FORGOT_PASSWORD) && create_if_block_132(ctx)
     );
     let if_block1 = (
       /*mode*/
-      (ctx[7] === LOGIN || /*mode*/
-      ctx[7] === REGISTER) && create_if_block_122(ctx)
+      (ctx[8] === LOGIN || /*mode*/
+      ctx[8] === REGISTER) && create_if_block_122(ctx)
     );
     let if_block2 = (
       /*mode*/
-      ctx[7] === REGISTER && create_if_block_11(ctx)
+      ctx[8] === REGISTER && create_if_block_11(ctx)
     );
     let if_block3 = (
       /*mode*/
-      ctx[7] === LOGIN && create_if_block_10(ctx)
+      ctx[8] === LOGIN && create_if_block_10(ctx)
     );
     let if_block4 = (
       /*mode*/
-      ctx[7] === REGISTER && create_if_block_9(ctx)
+      ctx[8] === REGISTER && create_if_block_9(ctx)
     );
     let if_block5 = (
       /*mode*/
-      ctx[7] === LOGIN && create_if_block_8(ctx)
+      ctx[8] === LOGIN && create_if_block_8(ctx)
     );
     let if_block6 = (
       /*mode*/
-      ctx[7] === RESEND_VERIFICATION_EMAIL && create_if_block_7(ctx)
+      ctx[8] === RESEND_VERIFICATION_EMAIL && create_if_block_7(ctx)
     );
     let if_block7 = (
       /*mode*/
-      ctx[7] === FORGOT_PASSWORD && create_if_block_6(ctx)
+      ctx[8] === FORGOT_PASSWORD && create_if_block_6(ctx)
     );
     let if_block8 = (
       /*mode*/
-      (ctx[7] === REGISTER || /*mode*/
-      ctx[7] === LOGIN) && create_if_block_44(ctx)
+      (ctx[8] === REGISTER || /*mode*/
+      ctx[8] === LOGIN) && create_if_block_44(ctx)
     );
     let if_block9 = (
       /*mode*/
-      ctx[7] !== REGISTER && create_if_block_34(ctx)
+      ctx[8] !== REGISTER && create_if_block_34(ctx)
     );
     let if_block10 = (
       /*mode*/
-      ctx[7] !== LOGIN && create_if_block_24(ctx)
+      ctx[8] !== LOGIN && create_if_block_24(ctx)
     );
     let if_block11 = (
       /*mode*/
-      ctx[7] !== RESEND_VERIFICATION_EMAIL && create_if_block_14(ctx)
+      ctx[8] !== RESEND_VERIFICATION_EMAIL && create_if_block_14(ctx)
     );
     return {
       c() {
@@ -8516,15 +8534,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty & /*mode*/
-        128 && t2_value !== (t2_value = /*mode*/
-        ctx2[7].split("_").join(" ") + ""))
+        256 && t2_value !== (t2_value = /*mode*/
+        ctx2[8].split("_").join(" ") + ""))
           set_data(t2, t2_value);
         if (
           /*mode*/
-          ctx2[7] === LOGIN || /*mode*/
-          ctx2[7] === REGISTER || /*mode*/
-          ctx2[7] === RESEND_VERIFICATION_EMAIL || /*mode*/
-          ctx2[7] === FORGOT_PASSWORD
+          ctx2[8] === LOGIN || /*mode*/
+          ctx2[8] === REGISTER || /*mode*/
+          ctx2[8] === RESEND_VERIFICATION_EMAIL || /*mode*/
+          ctx2[8] === FORGOT_PASSWORD
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
@@ -8539,8 +8557,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*mode*/
-          ctx2[7] === LOGIN || /*mode*/
-          ctx2[7] === REGISTER
+          ctx2[8] === LOGIN || /*mode*/
+          ctx2[8] === REGISTER
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
@@ -8555,7 +8573,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*mode*/
-          ctx2[7] === REGISTER
+          ctx2[8] === REGISTER
         ) {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
@@ -8570,7 +8588,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*mode*/
-          ctx2[7] === LOGIN
+          ctx2[8] === LOGIN
         ) {
           if (if_block3) {
             if_block3.p(ctx2, dirty);
@@ -8585,7 +8603,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*mode*/
-          ctx2[7] === REGISTER
+          ctx2[8] === REGISTER
         ) {
           if (if_block4) {
             if_block4.p(ctx2, dirty);
@@ -8600,7 +8618,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*mode*/
-          ctx2[7] === LOGIN
+          ctx2[8] === LOGIN
         ) {
           if (if_block5) {
             if_block5.p(ctx2, dirty);
@@ -8615,7 +8633,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*mode*/
-          ctx2[7] === RESEND_VERIFICATION_EMAIL
+          ctx2[8] === RESEND_VERIFICATION_EMAIL
         ) {
           if (if_block6) {
             if_block6.p(ctx2, dirty);
@@ -8630,7 +8648,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*mode*/
-          ctx2[7] === FORGOT_PASSWORD
+          ctx2[8] === FORGOT_PASSWORD
         ) {
           if (if_block7) {
             if_block7.p(ctx2, dirty);
@@ -8645,8 +8663,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*mode*/
-          ctx2[7] === REGISTER || /*mode*/
-          ctx2[7] === LOGIN
+          ctx2[8] === REGISTER || /*mode*/
+          ctx2[8] === LOGIN
         ) {
           if (if_block8) {
             if_block8.p(ctx2, dirty);
@@ -8661,7 +8679,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*mode*/
-          ctx2[7] !== REGISTER
+          ctx2[8] !== REGISTER
         ) {
           if (if_block9) {
             if_block9.p(ctx2, dirty);
@@ -8676,7 +8694,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*mode*/
-          ctx2[7] !== LOGIN
+          ctx2[8] !== LOGIN
         ) {
           if (if_block10) {
             if_block10.p(ctx2, dirty);
@@ -8691,7 +8709,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*mode*/
-          ctx2[7] !== RESEND_VERIFICATION_EMAIL
+          ctx2[8] !== RESEND_VERIFICATION_EMAIL
         ) {
           if (if_block11) {
             if_block11.p(ctx2, dirty);
@@ -8754,7 +8772,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       props: {
         access: (
           /*segments*/
-          ctx[1]
+          ctx[2]
         ),
         isSideMenuOpen: (
           /*sideMenuOpen*/
@@ -8767,18 +8785,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       /*closeSideMenu*/
       ctx[10]
     );
-    profileheader = new ProfileHeader_default({});
-    profileheader.$on(
-      "opensidemenu",
-      /*openSideMenu*/
-      ctx[9]
-    );
+    profileheader = new ProfileHeader_default({ props: { user: (
+      /*user*/
+      ctx[1]
+    ) } });
     propertylocation = new PropertyLocation_default({
       props: {
         initialLatLong,
         randomProps: (
           /*randomProps*/
-          ctx[8]
+          ctx[9]
         )
       }
     });
@@ -8815,14 +8831,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         const menu_changes = {};
         if (dirty & /*segments*/
-        2)
+        4)
           menu_changes.access = /*segments*/
-          ctx2[1];
+          ctx2[2];
         if (dirty & /*sideMenuOpen*/
         1)
           menu_changes.isSideMenuOpen = /*sideMenuOpen*/
           ctx2[0];
         menu.$set(menu_changes);
+        const profileheader_changes = {};
+        if (dirty & /*user*/
+        2)
+          profileheader_changes.user = /*user*/
+          ctx2[1];
+        profileheader.$set(profileheader_changes);
       },
       i(local) {
         if (current)
@@ -8880,7 +8902,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         set_input_value(
           input,
           /*email*/
-          ctx[2]
+          ctx[3]
         );
         ctx[17](input);
         if (!mounted) {
@@ -8895,12 +8917,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty & /*email*/
-        4 && input.value !== /*email*/
-        ctx2[2]) {
+        8 && input.value !== /*email*/
+        ctx2[3]) {
           set_input_value(
             input,
             /*email*/
-            ctx2[2]
+            ctx2[3]
           );
         }
       },
@@ -8943,7 +8965,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         set_input_value(
           input,
           /*password*/
-          ctx[3]
+          ctx[4]
         );
         ctx[19](input);
         if (!mounted) {
@@ -8958,12 +8980,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty & /*password*/
-        8 && input.value !== /*password*/
-        ctx2[3]) {
+        16 && input.value !== /*password*/
+        ctx2[4]) {
           set_input_value(
             input,
             /*password*/
-            ctx2[3]
+            ctx2[4]
           );
         }
       },
@@ -9006,7 +9028,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         set_input_value(
           input,
           /*confirmPass*/
-          ctx[4]
+          ctx[5]
         );
         if (!mounted) {
           dispose = listen(
@@ -9020,12 +9042,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty & /*confirmPass*/
-        16 && input.value !== /*confirmPass*/
-        ctx2[4]) {
+        32 && input.value !== /*confirmPass*/
+        ctx2[5]) {
           set_input_value(
             input,
             /*confirmPass*/
-            ctx2[4]
+            ctx2[5]
           );
         }
       },
@@ -9413,7 +9435,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function select_block_type(ctx2, dirty) {
       if (
         /*mode*/
-        ctx2[7] === USER
+        ctx2[8] === USER
       )
         return 0;
       return 1;
@@ -9517,20 +9539,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       console.log(auth, user);
       if (auth && user && !auth.startsWith("TEMP__")) {
         location.hash = "";
-        $invalidate(7, mode = USER);
+        $invalidate(8, mode = USER);
         return;
       }
       let hash = location.hash || "";
       if (hash[0] === "#")
         hash = hash.substring(1);
       if (hash === LOGIN)
-        $invalidate(7, mode = LOGIN);
+        $invalidate(8, mode = LOGIN);
       else if (hash === REGISTER)
-        $invalidate(7, mode = REGISTER);
+        $invalidate(8, mode = REGISTER);
       else if (hash === RESEND_VERIFICATION_EMAIL)
-        $invalidate(7, mode = RESEND_VERIFICATION_EMAIL);
+        $invalidate(8, mode = RESEND_VERIFICATION_EMAIL);
       else if (hash === FORGOT_PASSWORD)
-        $invalidate(7, mode = FORGOT_PASSWORD);
+        $invalidate(8, mode = FORGOT_PASSWORD);
       else
         location.hash = LOGIN;
       await tick();
@@ -9548,13 +9570,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       if (password !== confirmPass)
         return alert("passwords do not match");
       const i = { email, password };
-      await (0, import_jsApi_GEN3.GuestRegister)(i, async function(o) {
+      await (0, import_jsApi_GEN4.GuestRegister)(i, async function(o) {
         console.log(o);
         if (o.error)
           return alert(o.error);
         alert("registered successfully, a registration verification has been sent to your email");
-        $invalidate(7, mode = LOGIN);
-        $invalidate(3, password = "");
+        $invalidate(8, mode = LOGIN);
+        $invalidate(4, password = "");
         await tick();
         passInput.focus();
       });
@@ -9565,12 +9587,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       if (password.length < 12)
         return alert("password must be at least 12 characters");
       const i = { email, password };
-      await (0, import_jsApi_GEN3.GuestLogin)(i, function(o) {
+      await (0, import_jsApi_GEN4.GuestLogin)(i, function(o) {
         console.log(o);
         if (o.error)
           return alert(o.error);
-        user = o.user;
-        $invalidate(1, segments = o.segments);
+        $invalidate(1, user = o.user);
+        $invalidate(2, segments = o.segments);
         onHashChange();
         window.document.location = "/";
       });
@@ -9579,7 +9601,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       if (!email)
         return alert("email is required");
       const i = { email };
-      await (0, import_jsApi_GEN3.GuestResendVerificationEmail)(i, function(o) {
+      await (0, import_jsApi_GEN4.GuestResendVerificationEmail)(i, function(o) {
         console.log(o);
         if (o.error)
           return alert(o.error);
@@ -9591,7 +9613,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       if (!email)
         return alert("email is required");
       const i = { email };
-      await (0, import_jsApi_GEN3.GuestForgotPassword)(i, function(o) {
+      await (0, import_jsApi_GEN4.GuestForgotPassword)(i, function(o) {
         console.log(o);
         if (o.error)
           return alert(o.error);
@@ -9601,34 +9623,35 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     function input_input_handler() {
       email = this.value;
-      $invalidate(2, email);
+      $invalidate(3, email);
     }
     function input_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         emailInput = $value;
-        $invalidate(5, emailInput);
+        $invalidate(6, emailInput);
       });
     }
     function input_input_handler_1() {
       password = this.value;
-      $invalidate(3, password);
+      $invalidate(4, password);
     }
     function input_binding_1($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         passInput = $value;
-        $invalidate(6, passInput);
+        $invalidate(7, passInput);
       });
     }
     function input_input_handler_2() {
       confirmPass = this.value;
-      $invalidate(4, confirmPass);
+      $invalidate(5, confirmPass);
     }
-    const click_handler = () => $invalidate(7, mode = FORGOT_PASSWORD);
-    const click_handler_1 = () => $invalidate(7, mode = REGISTER);
-    const click_handler_2 = () => $invalidate(7, mode = LOGIN);
-    const click_handler_3 = () => $invalidate(7, mode = RESEND_VERIFICATION_EMAIL);
+    const click_handler = () => $invalidate(8, mode = FORGOT_PASSWORD);
+    const click_handler_1 = () => $invalidate(8, mode = REGISTER);
+    const click_handler_2 = () => $invalidate(8, mode = LOGIN);
+    const click_handler_3 = () => $invalidate(8, mode = RESEND_VERIFICATION_EMAIL);
     return [
       sideMenuOpen,
+      user,
       segments,
       email,
       password,
@@ -9637,7 +9660,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       passInput,
       mode,
       randomProps,
-      openSideMenu,
       closeSideMenu,
       onHashChange,
       guestRegister,

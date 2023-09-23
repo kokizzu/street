@@ -2696,7 +2696,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       exports.UserSessionsActive = async function UserSessionsActive(i, cb) {
         return await axios.post("/user/sessionsActive", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserUpdateProfile = async function UserUpdateProfile2(i, cb) {
+      exports.UserUpdateProfile = async function UserUpdateProfile3(i, cb) {
         return await axios.post("/user/updateProfile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserUploadFile = async function UserUploadFile(i, cb) {
@@ -3726,7 +3726,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return {
       currentLang,
       subscribe: subscribe2,
-      changeLanguage: (newV) => {
+      changeLanguage: (newV, cb) => {
         if (window && window.localStorage) {
           window.localStorage.setItem("lang", newV);
         }
@@ -3737,6 +3737,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (Object.keys(kv).length === 0)
           return;
         update2((el) => kv);
+        cb();
       }
     };
   }
@@ -4777,16 +4778,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
 
   // _components/ProfileHeader.svelte
+  var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[4] = list[i];
+    child_ctx[6] = list[i];
     return child_ctx;
   }
   function create_each_block(ctx) {
     let option;
     let t_value = (
       /*lang*/
-      ctx[4] + ""
+      ctx[6] + ""
     );
     let t;
     let option_value_value;
@@ -4795,7 +4797,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*lang*/
-        ctx[4];
+        ctx[6];
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -4869,7 +4871,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         )
           add_render_callback(() => (
             /*select_change_handler*/
-            ctx[2].call(select)
+            ctx[3].call(select)
           ));
         attr(button1, "class", "profile_button svelte-yzo7d9");
         attr(div1, "class", "right_nav svelte-yzo7d9");
@@ -4911,7 +4913,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               select,
               "change",
               /*select_change_handler*/
-              ctx[2]
+              ctx[3]
             )
           ];
           mounted = true;
@@ -4969,32 +4971,48 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function instance3($self, $props, $invalidate) {
     let $isSideMenuOpen;
-    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(3, $isSideMenuOpen = $value));
+    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(4, $isSideMenuOpen = $value));
+    let { user = null } = $props;
     function openSideMenu() {
       isSideMenuOpen.set(!$isSideMenuOpen);
     }
     let selectedLanguage = "";
     onMount(() => {
+      console.log("User, load profile header = ", user);
       $invalidate(0, selectedLanguage = T.currentLang || "EN");
     });
+    async function updateLang() {
+      if (user !== null && user.language !== selectedLanguage) {
+        $invalidate(2, user.language = selectedLanguage, user);
+        await (0, import_jsApi_GEN2.UserUpdateProfile)(user, function(res) {
+          if (res.error)
+            return console.log("error");
+          $invalidate(2, user = res.user);
+        });
+      }
+    }
     function select_change_handler() {
       selectedLanguage = select_value(this);
       $invalidate(0, selectedLanguage);
     }
+    $self.$set = ($props2) => {
+      if ("user" in $props2)
+        $invalidate(2, user = $props2.user);
+    };
     $self.$.update = () => {
       if ($self.$.dirty & /*selectedLanguage*/
       1) {
         $: {
-          T.changeLanguage(selectedLanguage);
+          T.changeLanguage(selectedLanguage, async () => await updateLang());
         }
       }
     };
-    return [selectedLanguage, openSideMenu, select_change_handler];
+    return [selectedLanguage, openSideMenu, user, select_change_handler];
   }
   var ProfileHeader = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance3, create_fragment3, safe_not_equal, {});
+      init(this, options, instance3, create_fragment3, safe_not_equal, { user: 2 });
     }
   };
   var ProfileHeader_default = ProfileHeader;
@@ -5525,7 +5543,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 
   // user.svelte
   var import_formatter = __toESM(require_formatter());
-  var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
+  var import_jsApi_GEN3 = __toESM(require_jsApi_GEN());
 
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidAngleLeft.js
   var FaSolidAngleLeft_default = {
@@ -5955,7 +5973,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       ctx[5] && create_if_block_13(ctx)
     );
     menu = new Menu_default({ props: { access: segments } });
-    profileheader = new ProfileHeader_default({});
+    profileheader = new ProfileHeader_default({ props: { user: (
+      /*user*/
+      ctx[0]
+    ) } });
     let each_value_1 = ensure_array_like(countryData);
     let each_blocks = [];
     for (let i = 0; i < each_value_1.length; i += 1) {
@@ -6473,6 +6494,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           });
           check_outros();
         }
+        const profileheader_changes = {};
+        if (dirty & /*user*/
+        1)
+          profileheader_changes.user = /*user*/
+          ctx2[0];
+        profileheader.$set(profileheader_changes);
         if (dirty & /*user*/
         1 && input0.value !== /*user*/
         ctx2[0].userName) {
@@ -6659,7 +6686,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       $invalidate(0, user.country = selectedCountry, user);
       if (JSON.stringify(user) === oldProfileJson)
         return useGrowl("error", "No changes");
-      await (0, import_jsApi_GEN2.UserUpdateProfile)(user, function(res) {
+      await (0, import_jsApi_GEN3.UserUpdateProfile)(user, function(res) {
         if (res.error)
           return useGrowl("error", res.error);
         oldProfileJson = JSON.stringify(res.user);
@@ -6674,7 +6701,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         oldPass: oldPassword,
         newPass: newPassword
       };
-      await (0, import_jsApi_GEN2.UserChangePassword)(input, function(res) {
+      await (0, import_jsApi_GEN3.UserChangePassword)(input, function(res) {
         if (res.error)
           return useGrowl("error", res.error);
         $invalidate(1, oldPassword = "");
@@ -6684,7 +6711,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       });
     }
     async function killSession(sessionToken) {
-      await (0, import_jsApi_GEN2.UserSessionKill)({ sessionTokenHash: sessionToken }, async (res) => {
+      await (0, import_jsApi_GEN3.UserSessionKill)({ sessionTokenHash: sessionToken }, async (res) => {
         if (res.error)
           return useGrowl("error", res.error);
         if (res.sessionTerminated < 1) {

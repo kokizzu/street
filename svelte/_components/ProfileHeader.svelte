@@ -1,42 +1,57 @@
 <script>
-    // @ts-nocheck
-    import { T, isSideMenuOpen, langOptions } from './uiState.js';
-    import Icon from 'svelte-icons-pack/Icon.svelte';
-    import FaSolidBars from 'svelte-icons-pack/fa/FaSolidBars';
-    import { onMount } from 'svelte';
-
-    function openSideMenu() {
-        isSideMenuOpen.set(!$isSideMenuOpen);
+  // @ts-nocheck
+  import {T, isSideMenuOpen, langOptions} from './uiState.js';
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import FaSolidBars from 'svelte-icons-pack/fa/FaSolidBars';
+  import {onMount} from 'svelte';
+  import {UserUpdateProfile} from '../jsApi.GEN.js';
+  
+  export let user = null;
+  
+  function openSideMenu() {
+    isSideMenuOpen.set( !$isSideMenuOpen );
+  }
+  
+  let selectedLanguage = '';
+  onMount( () => {
+    console.log( 'User, load profile header = ', user )
+    selectedLanguage = T.currentLang || 'EN';
+  } );
+  
+  async function updateLang() {
+    if( user!==null && user.language !== selectedLanguage ) {
+      user.language = selectedLanguage;
+      await UserUpdateProfile( user, function( res ) {
+        if( res.error ) return console.log('error')
+        user = res.user;
+      } );
     }
-
-    let selectedLanguage = '';
-    onMount(() => {
-        selectedLanguage = T.currentLang || 'EN';
-    });
-    $: {
-        T.changeLanguage(selectedLanguage);
-    }
+  }
+  
+  $: {
+    T.changeLanguage( selectedLanguage, async () => await updateLang() );
+  }
 </script>
 
 <header class='profile_header'>
-    <nav class='navbar'>
-        <div class='label_menu'>
-            <button on:click|preventDefault={openSideMenu}>
-                <Icon color='#FFF' size={20} src={FaSolidBars} />
-            </button>
-            <p>DASHBOARD</p>
-        </div>
-        <div class='right_nav'>
-            <select bind:value={selectedLanguage} id='lang' name='lang'>
-                {#each Object.values(langOptions) as lang}
-                    <option value={lang}>{lang}</option>
-                {/each}
-            </select>
-            <button class='profile_button'>
-                <img alt='profile' src='/assets/img/team-1-200x200.jpg' />
-            </button>
-        </div>
-    </nav>
+	<nav class='navbar'>
+		<div class='label_menu'>
+			<button on:click|preventDefault={openSideMenu}>
+				<Icon color='#FFF' size={20} src={FaSolidBars}/>
+			</button>
+			<p>DASHBOARD</p>
+		</div>
+		<div class='right_nav'>
+			<select bind:value={selectedLanguage} id='lang' name='lang'>
+				{#each Object.values( langOptions ) as lang}
+					<option value={lang}>{lang}</option>
+				{/each}
+			</select>
+			<button class='profile_button'>
+				<img alt='profile' src='/assets/img/team-1-200x200.jpg'/>
+			</button>
+		</div>
+	</nav>
 </header>
 
 <style>
