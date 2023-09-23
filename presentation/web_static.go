@@ -87,6 +87,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 
 	fw.Get(`/`+domain.GuestPropertyAction+`/:propId`, func(ctx *fiber.Ctx) error {
 		in, _, _ := userInfoFromContext(ctx, d)
+		in.RequestCommon.Action = domain.GuestPropertyAction
 		out := d.GuestProperty(&domain.GuestPropertyIn{
 			RequestCommon: in.RequestCommon,
 			Id:            X.ToU(ctx.Params(`propId`)),
@@ -174,7 +175,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			`propertyMeta`:    out.Meta,
 		})
 	})
-	fw.Get(`/realtor/property`, func(ctx *fiber.Ctx) error {
+	fw.Get(`/`+domain.RealtorPropertyAction, func(ctx *fiber.Ctx) error {
 		// create new property
 		in, _, segments := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
@@ -186,9 +187,10 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			`property`: M.SX{},
 		})
 	})
-	fw.Get(`/realtor/property/:propId`, func(ctx *fiber.Ctx) error {
+	fw.Get(`/`+domain.RealtorPropertyAction+`/:propId`, func(ctx *fiber.Ctx) error {
 		// edit property
 		in, _, segments := userInfoFromContext(ctx, d)
+		in.RequestCommon.Action = domain.RealtorPropertyAction
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
@@ -364,7 +366,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			`pager`:    out.Pager,
 		})
 	})
-	fw.All(`/guest/files/:base62id-:modifier.:ext`, func(ctx *fiber.Ctx) error {
+	fw.All(`/`+domain.GuestFilesAction+`/:base62id-:modifier.:ext`, func(ctx *fiber.Ctx) error {
 		method := ctx.Method()
 		if method != fiber.MethodGet && method != fiber.MethodHead {
 			return nil
@@ -375,6 +377,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			return err
 		}
 
+		in.RequestCommon.Action = domain.GuestFilesAction
 		in.Base62id = utils.CopyString(ctx.Params(`base62id`))
 		in.Modifier = utils.CopyString(ctx.Params(`modifier`))
 		in.Ext = utils.CopyString(ctx.Params(`ext`))
