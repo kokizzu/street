@@ -19,6 +19,11 @@
   import FaSolidUndoAlt from 'svelte-icons-pack/fa/FaSolidUndoAlt';
   import FaSolidBan from 'svelte-icons-pack/fa/FaSolidBan';
   import FaSolidReceipt from 'svelte-icons-pack/fa/FaSolidReceipt';
+  import FaSolidShareAlt from "svelte-icons-pack/fa/FaSolidShareAlt";
+  import FaBrandsLinkedin from "svelte-icons-pack/fa/FaBrandsLinkedin";
+  import FaBrandsTwitter from "svelte-icons-pack/fa/FaBrandsTwitter";
+  import FaCopy from "svelte-icons-pack/fa/FaCopy";
+  import FaBrandsFacebook from "svelte-icons-pack/fa/FaBrandsFacebook";
   import {distanceKM} from './GoogleMap/distance';
   
   export let randomProps = [];
@@ -44,6 +49,7 @@
   let geocoder, input_search_value, autocomplete_service;
   let autocomplete_lists = [];
   let showGrowl = false, gMsg = '', gType = '';
+  let shareItemIndex = null;
   
   function useGrowl( type, msg ) {
     showGrowl = true;
@@ -59,7 +65,7 @@
       propItemHighlight = index;
       if( !markersProperty || !markersProperty[ index ] ) return;
       const marker = markersProperty[ index ];
-      marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1)
+      marker.setZIndex( google.maps.Marker.MAX_ZINDEX + 1 )
       marker.setIcon( {
         url: '/assets/icons/marker-2.svg', // URL to your custom icon image
         scaledSize: new google.maps.Size( 40, 40 ),
@@ -68,7 +74,7 @@
     leave: ( index ) => {
       if( !markersProperty || !markersProperty[ index ] ) return;
       const marker = markersProperty[ index ];
-      marker.setZIndex(google.maps.Marker.MAX_ZINDEX - 1)
+      marker.setZIndex( google.maps.Marker.MAX_ZINDEX - 1 )
       marker.setIcon( {
         url: '/assets/icons/marker-2.svg', // URL to your custom icon image
         scaledSize: new google.maps.Size( 32, 32 ),
@@ -102,14 +108,14 @@
     } );
     markersProperty.forEach( ( marker, idx ) => {
       marker.addListener( 'mouseover', () => {
-        marker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1)
+        marker.setZIndex( google.maps.Marker.MAX_ZINDEX + 1 )
         marker.setIcon( {
           url: '/assets/icons/marker-2.svg', // URL to your custom icon image
           scaledSize: new google.maps.Size( 40, 40 ),
         } );
       } );
       marker.addListener( 'mouseout', () => {
-        marker.setZIndex(google.maps.Marker.MAX_ZINDEX - 1)
+        marker.setZIndex( google.maps.Marker.MAX_ZINDEX - 1 )
         marker.setIcon( {
           url: '/assets/icons/marker-2.svg', // URL to your custom icon image
           scaledSize: new google.maps.Size( 32, 32 ),
@@ -218,6 +224,19 @@
       lng: myLatLng.lng,
     } );
   }
+  
+  function showShareItems( idx ) {
+    if( idx===shareItemIndex ) {
+      return shareItemIndex = null;
+    }
+    return shareItemIndex = idx;
+  }
+  
+  function copyToClipboard( text ) {
+    shareItemIndex = null;
+    navigator.clipboard.writeText( text );
+    useGrowl( 'success', 'Link copied to clipboard' );
+  }
 </script>
 
 {#if showGrowl}
@@ -235,7 +254,7 @@
 						on:mouseenter={() => highLightMapMarker.enter(index)}
 						on:mouseleave={() => highLightMapMarker.leave(index)}
 					>
-						<div class='img_container'>
+						<picture class='img_container'>
 							{#if prop.images && prop.images.length}
 								<img src={prop.images[0]} alt=''/>
 							{:else}
@@ -244,17 +263,54 @@
 									<span>No Image !</span>
 								</div>
 							{/if}
-						</div>
+						</picture>
 						<div class='prop_info'>
 							<div class='main_info'>
-								<div class='label_info'>
-									<div class={prop.purpose === 'rent' ? 'purpose label_rent' : 'purpose label_sale' }>
-										{prop.purpose==='rent' ? $T.forRent : $T.onSale}
+								<div class='top_xd'>
+									<div class='label_info'>
+										<div class={prop.purpose === 'rent' ? 'purpose label_rent' : 'purpose label_sale' }>
+											{prop.purpose==='rent' ? $T.forRent : $T.onSale}
+										</div>
+										<div class='house_type'>
+											<Icon size={12} color='#475569' src={FaSolidHome}/>
+											<span>{prop.houseType==="" ? 'House' : prop.houseType}</span>
+										</div>
 									</div>
-									<div class='house_type'>
-										<Icon size={12} color='#475569' src={FaSolidHome}/>
-										<span>{prop.houseType==="" ? 'House' : prop.houseType}</span>
-									</div>
+									<button class='share_btn' on:click={() => showShareItems(index)}>
+										<Icon size={14} color='#9fa9b5' className='share_icon' src={FaSolidShareAlt}/>
+									</button>
+									{#if shareItemIndex===index}
+										<div class='share_container'>
+											<button class='share_item copy' title='Copy link address'
+											        on:click={() => copyToClipboard(`${window.location}property/${prop.id}`)}>
+												<Icon size={14} color='#475569' src={FaCopy}/>
+											</button>
+											<a class='share_item'
+											   aria-label="Share to Facebook"
+											   href={`https://www.facebook.com/sharer/sharer.php?u=${window.location}?utm_source=facebook&utm_medium=social&utm_campaign=user-share`}
+											   target="_blank"
+											   rel="noopener"
+											>
+												<Icon size={14} color='#475569' src={FaBrandsFacebook}/>
+											</a>
+											<a class='share_item'
+											   aria-label="Share to LinkedIn"
+											   href={`http://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${prop.id}`}
+											   target="_blank"
+											   rel="noopener"
+											>
+												<Icon size={14} color='#475569' src={FaBrandsLinkedin}/>
+											</a>
+											<a class='share_item'
+											   aria-label="Share to Twitter"
+											   href={`https://twitter.com/intent/tweet?text=I%20Found%20Awesome%House ${window.location}property/${prop.id}`}
+											   target="_blank"
+											   rel="noopener"
+											>
+												<Icon size={14} color='#475569' src={FaBrandsTwitter}/>
+											</a>
+										</div>
+									{/if}
 								</div>
 								<div class='address'>
 									<Icon size={17} color='#f97316' src={FaSolidMapMarkerAlt}/>
@@ -567,6 +623,59 @@
         display        : flex;
         flex-direction : column;
         gap            : 12px;
+    }
+
+    .property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd {
+        display         : flex;
+        flex-direction  : row;
+        justify-content : space-between;
+        align-items     : center;
+        align-content   : center;
+        position        : relative;
+    }
+
+    .share_container {
+        display          : flex;
+        flex-direction   : row;
+        gap              : 8px;
+        position         : absolute;
+        right            : 0;
+        top              : 40px;
+        padding          : 10px;
+        border-radius    : 8px;
+        filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+        background-color : #FFF;
+        height           : fit-content;
+        width            : fit-content;
+        border           : 1px solid #CBD5E1;
+    }
+
+    .share_item {
+        padding       : 5px;
+        border-radius : 5px;
+        border        : none;
+        background    : none;
+        cursor        : pointer;
+    }
+
+    .share_item:hover {
+        background-color : #F1F5F9;
+    }
+
+    .property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd .share_btn {
+        padding       : 6px;
+        border-radius : 6px;
+        border        : 1px solid #9FA9B5;
+        background    : none;
+        cursor        : pointer;
+    }
+
+    .property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd .share_btn:hover {
+        border : 1px solid #F97316;
+    }
+
+    :global(.property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd .share_btn:hover .share_icon) {
+        fill : #F97316;
     }
 
     .property_location_container .left .props_container .prop_item .prop_info .main_info .label_info {
