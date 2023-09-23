@@ -239,7 +239,8 @@
   }
   
   function propertyUrl( id ) {
-	  return window.location.href.split('#')[0] + '/guest/property/'+id;
+		let url = window.location.href.split('#')[0]
+	  return url + 'guest/property/'+id;
   }
 </script>
 

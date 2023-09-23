@@ -7740,7 +7740,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     console.log(event.detail.zoom);
   }
   function propertyUrl(id) {
-    return window.location.href.split("#")[0] + "/guest/property/" + id;
+    let url = window.location.href.split("#")[0];
+    return url + "guest/property/" + id;
   }
   function instance6($self, $props, $invalidate) {
     let $mapComponent;
