@@ -2751,7 +2751,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         return await axios.post("/guest/oauthCallback", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.GuestProperty = async function GuestProperty(i, cb) {
-        return await axios.post("/guestProperty", i).then(wrapOk(cb)).catch(wrapErr(cb));
+        return await axios.post("/guest/property", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.GuestRegister = async function GuestRegister(i, cb) {
         return await axios.post("/guest/register", i).then(wrapOk(cb)).catch(wrapErr(cb));

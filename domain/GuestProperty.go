@@ -25,7 +25,7 @@ type (
 )
 
 const (
-	GuestPropertyAction      = `guestProperty`
+	GuestPropertyAction      = `guest/property`
 	ErrGuestPropertyNotFound = `Property not found`
 )
 
