@@ -219,27 +219,17 @@ func (p *PropertyMutator) DoDeletePermanentById() bool { //nolint:dupl false pos
 //		A.X{`=`, 27, p.AgencyFeePercent},
 //		A.X{`=`, 28, p.FloorList},
 //		A.X{`=`, 29, p.Version},
-//		A.X{`=`, 30, p.MediaSourceJson},
-//		A.X{`=`, 31, p.ZoneDataInfo},
-//		A.X{`=`, 32, p.TaxInfo},
-//		A.X{`=`, 33, p.HistoryTaxInfo},
-//		A.X{`=`, 34, p.MlsDisclaimerInfo},
-//		A.X{`=`, 35, p.FacilityInfo},
-//		A.X{`=`, 36, p.RiskInfo},
-//		A.X{`=`, 37, p.YearBuilt},
-//		A.X{`=`, 38, p.YearRenovated},
-//		A.X{`=`, 39, p.TotalSqft},
-//		A.X{`=`, 40, p.AmenitySuperGroups},
-//		A.X{`=`, 41, p.CountyUrl},
-//		A.X{`=`, 42, p.CountyName},
-//		A.X{`=`, 43, p.CountyIsActive},
-//		A.X{`=`, 44, p.Street},
-//		A.X{`=`, 45, p.City},
-//		A.X{`=`, 46, p.State},
-//		A.X{`=`, 47, p.Zip},
-//		A.X{`=`, 48, p.CountryCode},
-//		A.X{`=`, 49, p.PropertyLastUpdatedDate},
-//		A.X{`=`, 50, p.TaxNote},
+//		A.X{`=`, 30, p.YearBuilt},
+//		A.X{`=`, 31, p.YearRenovated},
+//		A.X{`=`, 32, p.TotalSqft},
+//		A.X{`=`, 33, p.CountyName},
+//		A.X{`=`, 34, p.Street},
+//		A.X{`=`, 35, p.City},
+//		A.X{`=`, 36, p.State},
+//		A.X{`=`, 37, p.Zip},
+//		A.X{`=`, 38, p.CountryCode},
+//		A.X{`=`, 39, p.PropertyLastUpdatedDate},
+//		A.X{`=`, 40, p.TaxNote},
 //	})
 //	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName())
 // }
@@ -606,87 +596,10 @@ func (p *PropertyMutator) SetVersion(val float64) bool { //nolint:dupl false pos
 	return false
 }
 
-// SetMediaSourceJson create mutations, should not duplicate
-func (p *PropertyMutator) SetMediaSourceJson(val string) bool { //nolint:dupl false positive
-	if val != p.MediaSourceJson {
-		p.mutations = append(p.mutations, A.X{`=`, 30, val})
-		p.logs = append(p.logs, A.X{`mediaSourceJson`, p.MediaSourceJson, val})
-		p.MediaSourceJson = val
-		return true
-	}
-	return false
-}
-
-// SetZoneDataInfo create mutations, should not duplicate
-func (p *PropertyMutator) SetZoneDataInfo(val string) bool { //nolint:dupl false positive
-	if val != p.ZoneDataInfo {
-		p.mutations = append(p.mutations, A.X{`=`, 31, val})
-		p.logs = append(p.logs, A.X{`zoneDataInfo`, p.ZoneDataInfo, val})
-		p.ZoneDataInfo = val
-		return true
-	}
-	return false
-}
-
-// SetTaxInfo create mutations, should not duplicate
-func (p *PropertyMutator) SetTaxInfo(val string) bool { //nolint:dupl false positive
-	if val != p.TaxInfo {
-		p.mutations = append(p.mutations, A.X{`=`, 32, val})
-		p.logs = append(p.logs, A.X{`taxInfo`, p.TaxInfo, val})
-		p.TaxInfo = val
-		return true
-	}
-	return false
-}
-
-// SetHistoryTaxInfo create mutations, should not duplicate
-func (p *PropertyMutator) SetHistoryTaxInfo(val string) bool { //nolint:dupl false positive
-	if val != p.HistoryTaxInfo {
-		p.mutations = append(p.mutations, A.X{`=`, 33, val})
-		p.logs = append(p.logs, A.X{`historyTaxInfo`, p.HistoryTaxInfo, val})
-		p.HistoryTaxInfo = val
-		return true
-	}
-	return false
-}
-
-// SetMlsDisclaimerInfo create mutations, should not duplicate
-func (p *PropertyMutator) SetMlsDisclaimerInfo(val string) bool { //nolint:dupl false positive
-	if val != p.MlsDisclaimerInfo {
-		p.mutations = append(p.mutations, A.X{`=`, 34, val})
-		p.logs = append(p.logs, A.X{`mlsDisclaimerInfo`, p.MlsDisclaimerInfo, val})
-		p.MlsDisclaimerInfo = val
-		return true
-	}
-	return false
-}
-
-// SetFacilityInfo create mutations, should not duplicate
-func (p *PropertyMutator) SetFacilityInfo(val string) bool { //nolint:dupl false positive
-	if val != p.FacilityInfo {
-		p.mutations = append(p.mutations, A.X{`=`, 35, val})
-		p.logs = append(p.logs, A.X{`facilityInfo`, p.FacilityInfo, val})
-		p.FacilityInfo = val
-		return true
-	}
-	return false
-}
-
-// SetRiskInfo create mutations, should not duplicate
-func (p *PropertyMutator) SetRiskInfo(val string) bool { //nolint:dupl false positive
-	if val != p.RiskInfo {
-		p.mutations = append(p.mutations, A.X{`=`, 36, val})
-		p.logs = append(p.logs, A.X{`riskInfo`, p.RiskInfo, val})
-		p.RiskInfo = val
-		return true
-	}
-	return false
-}
-
 // SetYearBuilt create mutations, should not duplicate
 func (p *PropertyMutator) SetYearBuilt(val int64) bool { //nolint:dupl false positive
 	if val != p.YearBuilt {
-		p.mutations = append(p.mutations, A.X{`=`, 37, val})
+		p.mutations = append(p.mutations, A.X{`=`, 30, val})
 		p.logs = append(p.logs, A.X{`yearBuilt`, p.YearBuilt, val})
 		p.YearBuilt = val
 		return true
@@ -697,7 +610,7 @@ func (p *PropertyMutator) SetYearBuilt(val int64) bool { //nolint:dupl false pos
 // SetYearRenovated create mutations, should not duplicate
 func (p *PropertyMutator) SetYearRenovated(val int64) bool { //nolint:dupl false positive
 	if val != p.YearRenovated {
-		p.mutations = append(p.mutations, A.X{`=`, 38, val})
+		p.mutations = append(p.mutations, A.X{`=`, 31, val})
 		p.logs = append(p.logs, A.X{`yearRenovated`, p.YearRenovated, val})
 		p.YearRenovated = val
 		return true
@@ -708,31 +621,9 @@ func (p *PropertyMutator) SetYearRenovated(val int64) bool { //nolint:dupl false
 // SetTotalSqft create mutations, should not duplicate
 func (p *PropertyMutator) SetTotalSqft(val float64) bool { //nolint:dupl false positive
 	if val != p.TotalSqft {
-		p.mutations = append(p.mutations, A.X{`=`, 39, val})
+		p.mutations = append(p.mutations, A.X{`=`, 32, val})
 		p.logs = append(p.logs, A.X{`totalSqft`, p.TotalSqft, val})
 		p.TotalSqft = val
-		return true
-	}
-	return false
-}
-
-// SetAmenitySuperGroups create mutations, should not duplicate
-func (p *PropertyMutator) SetAmenitySuperGroups(val string) bool { //nolint:dupl false positive
-	if val != p.AmenitySuperGroups {
-		p.mutations = append(p.mutations, A.X{`=`, 40, val})
-		p.logs = append(p.logs, A.X{`amenitySuperGroups`, p.AmenitySuperGroups, val})
-		p.AmenitySuperGroups = val
-		return true
-	}
-	return false
-}
-
-// SetCountyUrl create mutations, should not duplicate
-func (p *PropertyMutator) SetCountyUrl(val string) bool { //nolint:dupl false positive
-	if val != p.CountyUrl {
-		p.mutations = append(p.mutations, A.X{`=`, 41, val})
-		p.logs = append(p.logs, A.X{`countyUrl`, p.CountyUrl, val})
-		p.CountyUrl = val
 		return true
 	}
 	return false
@@ -741,20 +632,9 @@ func (p *PropertyMutator) SetCountyUrl(val string) bool { //nolint:dupl false po
 // SetCountyName create mutations, should not duplicate
 func (p *PropertyMutator) SetCountyName(val string) bool { //nolint:dupl false positive
 	if val != p.CountyName {
-		p.mutations = append(p.mutations, A.X{`=`, 42, val})
+		p.mutations = append(p.mutations, A.X{`=`, 33, val})
 		p.logs = append(p.logs, A.X{`countyName`, p.CountyName, val})
 		p.CountyName = val
-		return true
-	}
-	return false
-}
-
-// SetCountyIsActive create mutations, should not duplicate
-func (p *PropertyMutator) SetCountyIsActive(val bool) bool { //nolint:dupl false positive
-	if val != p.CountyIsActive {
-		p.mutations = append(p.mutations, A.X{`=`, 43, val})
-		p.logs = append(p.logs, A.X{`countyIsActive`, p.CountyIsActive, val})
-		p.CountyIsActive = val
 		return true
 	}
 	return false
@@ -763,7 +643,7 @@ func (p *PropertyMutator) SetCountyIsActive(val bool) bool { //nolint:dupl false
 // SetStreet create mutations, should not duplicate
 func (p *PropertyMutator) SetStreet(val string) bool { //nolint:dupl false positive
 	if val != p.Street {
-		p.mutations = append(p.mutations, A.X{`=`, 44, val})
+		p.mutations = append(p.mutations, A.X{`=`, 34, val})
 		p.logs = append(p.logs, A.X{`street`, p.Street, val})
 		p.Street = val
 		return true
@@ -774,7 +654,7 @@ func (p *PropertyMutator) SetStreet(val string) bool { //nolint:dupl false posit
 // SetCity create mutations, should not duplicate
 func (p *PropertyMutator) SetCity(val string) bool { //nolint:dupl false positive
 	if val != p.City {
-		p.mutations = append(p.mutations, A.X{`=`, 45, val})
+		p.mutations = append(p.mutations, A.X{`=`, 35, val})
 		p.logs = append(p.logs, A.X{`city`, p.City, val})
 		p.City = val
 		return true
@@ -785,7 +665,7 @@ func (p *PropertyMutator) SetCity(val string) bool { //nolint:dupl false positiv
 // SetState create mutations, should not duplicate
 func (p *PropertyMutator) SetState(val string) bool { //nolint:dupl false positive
 	if val != p.State {
-		p.mutations = append(p.mutations, A.X{`=`, 46, val})
+		p.mutations = append(p.mutations, A.X{`=`, 36, val})
 		p.logs = append(p.logs, A.X{`state`, p.State, val})
 		p.State = val
 		return true
@@ -796,7 +676,7 @@ func (p *PropertyMutator) SetState(val string) bool { //nolint:dupl false positi
 // SetZip create mutations, should not duplicate
 func (p *PropertyMutator) SetZip(val string) bool { //nolint:dupl false positive
 	if val != p.Zip {
-		p.mutations = append(p.mutations, A.X{`=`, 47, val})
+		p.mutations = append(p.mutations, A.X{`=`, 37, val})
 		p.logs = append(p.logs, A.X{`zip`, p.Zip, val})
 		p.Zip = val
 		return true
@@ -807,7 +687,7 @@ func (p *PropertyMutator) SetZip(val string) bool { //nolint:dupl false positive
 // SetCountryCode create mutations, should not duplicate
 func (p *PropertyMutator) SetCountryCode(val string) bool { //nolint:dupl false positive
 	if val != p.CountryCode {
-		p.mutations = append(p.mutations, A.X{`=`, 48, val})
+		p.mutations = append(p.mutations, A.X{`=`, 38, val})
 		p.logs = append(p.logs, A.X{`countryCode`, p.CountryCode, val})
 		p.CountryCode = val
 		return true
@@ -818,7 +698,7 @@ func (p *PropertyMutator) SetCountryCode(val string) bool { //nolint:dupl false 
 // SetPropertyLastUpdatedDate create mutations, should not duplicate
 func (p *PropertyMutator) SetPropertyLastUpdatedDate(val int64) bool { //nolint:dupl false positive
 	if val != p.PropertyLastUpdatedDate {
-		p.mutations = append(p.mutations, A.X{`=`, 49, val})
+		p.mutations = append(p.mutations, A.X{`=`, 39, val})
 		p.logs = append(p.logs, A.X{`propertyLastUpdatedDate`, p.PropertyLastUpdatedDate, val})
 		p.PropertyLastUpdatedDate = val
 		return true
@@ -829,7 +709,7 @@ func (p *PropertyMutator) SetPropertyLastUpdatedDate(val int64) bool { //nolint:
 // SetTaxNote create mutations, should not duplicate
 func (p *PropertyMutator) SetTaxNote(val string) bool { //nolint:dupl false positive
 	if val != p.TaxNote {
-		p.mutations = append(p.mutations, A.X{`=`, 50, val})
+		p.mutations = append(p.mutations, A.X{`=`, 40, val})
 		p.logs = append(p.logs, A.X{`taxNote`, p.TaxNote, val})
 		p.TaxNote = val
 		return true
@@ -965,34 +845,6 @@ func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap 
 		p.Version = from.Version
 		changed = true
 	}
-	if !excludeMap[`mediaSourceJson`] && (forceMap[`mediaSourceJson`] || from.MediaSourceJson != ``) {
-		p.MediaSourceJson = from.MediaSourceJson
-		changed = true
-	}
-	if !excludeMap[`zoneDataInfo`] && (forceMap[`zoneDataInfo`] || from.ZoneDataInfo != ``) {
-		p.ZoneDataInfo = from.ZoneDataInfo
-		changed = true
-	}
-	if !excludeMap[`taxInfo`] && (forceMap[`taxInfo`] || from.TaxInfo != ``) {
-		p.TaxInfo = from.TaxInfo
-		changed = true
-	}
-	if !excludeMap[`historyTaxInfo`] && (forceMap[`historyTaxInfo`] || from.HistoryTaxInfo != ``) {
-		p.HistoryTaxInfo = from.HistoryTaxInfo
-		changed = true
-	}
-	if !excludeMap[`mlsDisclaimerInfo`] && (forceMap[`mlsDisclaimerInfo`] || from.MlsDisclaimerInfo != ``) {
-		p.MlsDisclaimerInfo = from.MlsDisclaimerInfo
-		changed = true
-	}
-	if !excludeMap[`facilityInfo`] && (forceMap[`facilityInfo`] || from.FacilityInfo != ``) {
-		p.FacilityInfo = from.FacilityInfo
-		changed = true
-	}
-	if !excludeMap[`riskInfo`] && (forceMap[`riskInfo`] || from.RiskInfo != ``) {
-		p.RiskInfo = from.RiskInfo
-		changed = true
-	}
 	if !excludeMap[`yearBuilt`] && (forceMap[`yearBuilt`] || from.YearBuilt != 0) {
 		p.YearBuilt = from.YearBuilt
 		changed = true
@@ -1005,20 +857,8 @@ func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap 
 		p.TotalSqft = from.TotalSqft
 		changed = true
 	}
-	if !excludeMap[`amenitySuperGroups`] && (forceMap[`amenitySuperGroups`] || from.AmenitySuperGroups != ``) {
-		p.AmenitySuperGroups = from.AmenitySuperGroups
-		changed = true
-	}
-	if !excludeMap[`countyUrl`] && (forceMap[`countyUrl`] || from.CountyUrl != ``) {
-		p.CountyUrl = from.CountyUrl
-		changed = true
-	}
 	if !excludeMap[`countyName`] && (forceMap[`countyName`] || from.CountyName != ``) {
 		p.CountyName = from.CountyName
-		changed = true
-	}
-	if !excludeMap[`countyIsActive`] && (forceMap[`countyIsActive`] || from.CountyIsActive != false) {
-		p.CountyIsActive = from.CountyIsActive
 		changed = true
 	}
 	if !excludeMap[`street`] && (forceMap[`street`] || from.Street != ``) {
@@ -1047,6 +887,314 @@ func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap 
 	}
 	if !excludeMap[`taxNote`] && (forceMap[`taxNote`] || from.TaxNote != ``) {
 		p.TaxNote = from.TaxNote
+		changed = true
+	}
+	return
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
+// PropertyExtraUSMutator DAO writer/command struct
+type PropertyExtraUSMutator struct {
+	rqProperty.PropertyExtraUS
+	mutations []A.X
+	logs      []A.X
+}
+
+// NewPropertyExtraUSMutator create new ORM writer/command object
+func NewPropertyExtraUSMutator(adapter *Tt.Adapter) (res *PropertyExtraUSMutator) {
+	res = &PropertyExtraUSMutator{PropertyExtraUS: rqProperty.PropertyExtraUS{Adapter: adapter}}
+	return
+}
+
+// Logs get array of logs [field, old, new]
+func (p *PropertyExtraUSMutator) Logs() []A.X { //nolint:dupl false positive
+	return p.logs
+}
+
+// HaveMutation check whether Set* methods ever called
+func (p *PropertyExtraUSMutator) HaveMutation() bool { //nolint:dupl false positive
+	return len(p.mutations) > 0
+}
+
+// ClearMutations clear all previously called Set* methods
+func (p *PropertyExtraUSMutator) ClearMutations() { //nolint:dupl false positive
+	p.mutations = []A.X{}
+	p.logs = []A.X{}
+}
+
+// DoOverwriteById update all columns, error if not exists, not using mutations/Set*
+func (p *PropertyExtraUSMutator) DoOverwriteById() bool { //nolint:dupl false positive
+	_, err := p.Adapter.Update(p.SpaceName(), p.UniqueIndexId(), A.X{p.Id}, p.ToUpdateArray())
+	return !L.IsError(err, `PropertyExtraUS.DoOverwriteById failed: `+p.SpaceName())
+}
+
+// DoUpdateById update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (p *PropertyExtraUSMutator) DoUpdateById() bool { //nolint:dupl false positive
+	if !p.HaveMutation() {
+		return true
+	}
+	_, err := p.Adapter.Update(p.SpaceName(), p.UniqueIndexId(), A.X{p.Id}, p.mutations)
+	return !L.IsError(err, `PropertyExtraUS.DoUpdateById failed: `+p.SpaceName())
+}
+
+// DoDeletePermanentById permanent delete
+func (p *PropertyExtraUSMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
+	_, err := p.Adapter.Delete(p.SpaceName(), p.UniqueIndexId(), A.X{p.Id})
+	return !L.IsError(err, `PropertyExtraUS.DoDeletePermanentById failed: `+p.SpaceName())
+}
+
+// func (p *PropertyExtraUSMutator) DoUpsert() bool { //nolint:dupl false positive
+//	_, err := p.Adapter.Upsert(p.SpaceName(), p.ToArray(), A.X{
+//		A.X{`=`, 0, p.Id},
+//		A.X{`=`, 1, p.PropertyKey},
+//		A.X{`=`, 2, p.CountyUrl},
+//		A.X{`=`, 3, p.CountyIsActive},
+//		A.X{`=`, 4, p.ZoneDataInfo},
+//		A.X{`=`, 5, p.TaxInfo},
+//		A.X{`=`, 6, p.HistoryTaxInfo},
+//		A.X{`=`, 7, p.AmenitySuperGroups},
+//		A.X{`=`, 8, p.MlsDisclaimerInfo},
+//		A.X{`=`, 9, p.FacilityInfo},
+//		A.X{`=`, 10, p.RiskInfo},
+//		A.X{`=`, 11, p.MediaSourceJson},
+//	})
+//	return !L.IsError(err, `PropertyExtraUS.DoUpsert failed: `+p.SpaceName())
+// }
+
+// DoOverwriteByPropertyKey update all columns, error if not exists, not using mutations/Set*
+func (p *PropertyExtraUSMutator) DoOverwriteByPropertyKey() bool { //nolint:dupl false positive
+	_, err := p.Adapter.Update(p.SpaceName(), p.UniqueIndexPropertyKey(), A.X{p.PropertyKey}, p.ToUpdateArray())
+	return !L.IsError(err, `PropertyExtraUS.DoOverwriteByPropertyKey failed: `+p.SpaceName())
+}
+
+// DoUpdateByPropertyKey update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (p *PropertyExtraUSMutator) DoUpdateByPropertyKey() bool { //nolint:dupl false positive
+	if !p.HaveMutation() {
+		return true
+	}
+	_, err := p.Adapter.Update(p.SpaceName(), p.UniqueIndexPropertyKey(), A.X{p.PropertyKey}, p.mutations)
+	return !L.IsError(err, `PropertyExtraUS.DoUpdateByPropertyKey failed: `+p.SpaceName())
+}
+
+// DoDeletePermanentByPropertyKey permanent delete
+func (p *PropertyExtraUSMutator) DoDeletePermanentByPropertyKey() bool { //nolint:dupl false positive
+	_, err := p.Adapter.Delete(p.SpaceName(), p.UniqueIndexPropertyKey(), A.X{p.PropertyKey})
+	return !L.IsError(err, `PropertyExtraUS.DoDeletePermanentByPropertyKey failed: `+p.SpaceName())
+}
+
+// DoInsert insert, error if already exists
+func (p *PropertyExtraUSMutator) DoInsert() bool { //nolint:dupl false positive
+	row, err := p.Adapter.Insert(p.SpaceName(), p.ToArray())
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			p.Id = X.ToU(tup[0][0])
+		}
+	}
+	return !L.IsError(err, `PropertyExtraUS.DoInsert failed: `+p.SpaceName())
+}
+
+// DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
+// replace = upsert, only error when there's unique secondary key
+// previous name: DoReplace
+func (p *PropertyExtraUSMutator) DoUpsert() bool { //nolint:dupl false positive
+	row, err := p.Adapter.Replace(p.SpaceName(), p.ToArray())
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			p.Id = X.ToU(tup[0][0])
+		}
+	}
+	return !L.IsError(err, `PropertyExtraUS.DoUpsert failed: `+p.SpaceName())
+}
+
+// SetId create mutations, should not duplicate
+func (p *PropertyExtraUSMutator) SetId(val uint64) bool { //nolint:dupl false positive
+	if val != p.Id {
+		p.mutations = append(p.mutations, A.X{`=`, 0, val})
+		p.logs = append(p.logs, A.X{`id`, p.Id, val})
+		p.Id = val
+		return true
+	}
+	return false
+}
+
+// SetPropertyKey create mutations, should not duplicate
+func (p *PropertyExtraUSMutator) SetPropertyKey(val string) bool { //nolint:dupl false positive
+	if val != p.PropertyKey {
+		p.mutations = append(p.mutations, A.X{`=`, 1, val})
+		p.logs = append(p.logs, A.X{`propertyKey`, p.PropertyKey, val})
+		p.PropertyKey = val
+		return true
+	}
+	return false
+}
+
+// SetCountyUrl create mutations, should not duplicate
+func (p *PropertyExtraUSMutator) SetCountyUrl(val string) bool { //nolint:dupl false positive
+	if val != p.CountyUrl {
+		p.mutations = append(p.mutations, A.X{`=`, 2, val})
+		p.logs = append(p.logs, A.X{`countyUrl`, p.CountyUrl, val})
+		p.CountyUrl = val
+		return true
+	}
+	return false
+}
+
+// SetCountyIsActive create mutations, should not duplicate
+func (p *PropertyExtraUSMutator) SetCountyIsActive(val bool) bool { //nolint:dupl false positive
+	if val != p.CountyIsActive {
+		p.mutations = append(p.mutations, A.X{`=`, 3, val})
+		p.logs = append(p.logs, A.X{`countyIsActive`, p.CountyIsActive, val})
+		p.CountyIsActive = val
+		return true
+	}
+	return false
+}
+
+// SetZoneDataInfo create mutations, should not duplicate
+func (p *PropertyExtraUSMutator) SetZoneDataInfo(val string) bool { //nolint:dupl false positive
+	if val != p.ZoneDataInfo {
+		p.mutations = append(p.mutations, A.X{`=`, 4, val})
+		p.logs = append(p.logs, A.X{`zoneDataInfo`, p.ZoneDataInfo, val})
+		p.ZoneDataInfo = val
+		return true
+	}
+	return false
+}
+
+// SetTaxInfo create mutations, should not duplicate
+func (p *PropertyExtraUSMutator) SetTaxInfo(val string) bool { //nolint:dupl false positive
+	if val != p.TaxInfo {
+		p.mutations = append(p.mutations, A.X{`=`, 5, val})
+		p.logs = append(p.logs, A.X{`taxInfo`, p.TaxInfo, val})
+		p.TaxInfo = val
+		return true
+	}
+	return false
+}
+
+// SetHistoryTaxInfo create mutations, should not duplicate
+func (p *PropertyExtraUSMutator) SetHistoryTaxInfo(val string) bool { //nolint:dupl false positive
+	if val != p.HistoryTaxInfo {
+		p.mutations = append(p.mutations, A.X{`=`, 6, val})
+		p.logs = append(p.logs, A.X{`historyTaxInfo`, p.HistoryTaxInfo, val})
+		p.HistoryTaxInfo = val
+		return true
+	}
+	return false
+}
+
+// SetAmenitySuperGroups create mutations, should not duplicate
+func (p *PropertyExtraUSMutator) SetAmenitySuperGroups(val string) bool { //nolint:dupl false positive
+	if val != p.AmenitySuperGroups {
+		p.mutations = append(p.mutations, A.X{`=`, 7, val})
+		p.logs = append(p.logs, A.X{`amenitySuperGroups`, p.AmenitySuperGroups, val})
+		p.AmenitySuperGroups = val
+		return true
+	}
+	return false
+}
+
+// SetMlsDisclaimerInfo create mutations, should not duplicate
+func (p *PropertyExtraUSMutator) SetMlsDisclaimerInfo(val string) bool { //nolint:dupl false positive
+	if val != p.MlsDisclaimerInfo {
+		p.mutations = append(p.mutations, A.X{`=`, 8, val})
+		p.logs = append(p.logs, A.X{`mlsDisclaimerInfo`, p.MlsDisclaimerInfo, val})
+		p.MlsDisclaimerInfo = val
+		return true
+	}
+	return false
+}
+
+// SetFacilityInfo create mutations, should not duplicate
+func (p *PropertyExtraUSMutator) SetFacilityInfo(val string) bool { //nolint:dupl false positive
+	if val != p.FacilityInfo {
+		p.mutations = append(p.mutations, A.X{`=`, 9, val})
+		p.logs = append(p.logs, A.X{`facilityInfo`, p.FacilityInfo, val})
+		p.FacilityInfo = val
+		return true
+	}
+	return false
+}
+
+// SetRiskInfo create mutations, should not duplicate
+func (p *PropertyExtraUSMutator) SetRiskInfo(val string) bool { //nolint:dupl false positive
+	if val != p.RiskInfo {
+		p.mutations = append(p.mutations, A.X{`=`, 10, val})
+		p.logs = append(p.logs, A.X{`riskInfo`, p.RiskInfo, val})
+		p.RiskInfo = val
+		return true
+	}
+	return false
+}
+
+// SetMediaSourceJson create mutations, should not duplicate
+func (p *PropertyExtraUSMutator) SetMediaSourceJson(val string) bool { //nolint:dupl false positive
+	if val != p.MediaSourceJson {
+		p.mutations = append(p.mutations, A.X{`=`, 11, val})
+		p.logs = append(p.logs, A.X{`mediaSourceJson`, p.MediaSourceJson, val})
+		p.MediaSourceJson = val
+		return true
+	}
+	return false
+}
+
+// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
+func (p *PropertyExtraUSMutator) SetAll(from rqProperty.PropertyExtraUS, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+	if excludeMap == nil { // list of fields to exclude
+		excludeMap = M.SB{}
+	}
+	if forceMap == nil { // list of fields to force overwrite
+		forceMap = M.SB{}
+	}
+	if !excludeMap[`id`] && (forceMap[`id`] || from.Id != 0) {
+		p.Id = from.Id
+		changed = true
+	}
+	if !excludeMap[`propertyKey`] && (forceMap[`propertyKey`] || from.PropertyKey != ``) {
+		p.PropertyKey = from.PropertyKey
+		changed = true
+	}
+	if !excludeMap[`countyUrl`] && (forceMap[`countyUrl`] || from.CountyUrl != ``) {
+		p.CountyUrl = from.CountyUrl
+		changed = true
+	}
+	if !excludeMap[`countyIsActive`] && (forceMap[`countyIsActive`] || from.CountyIsActive != false) {
+		p.CountyIsActive = from.CountyIsActive
+		changed = true
+	}
+	if !excludeMap[`zoneDataInfo`] && (forceMap[`zoneDataInfo`] || from.ZoneDataInfo != ``) {
+		p.ZoneDataInfo = from.ZoneDataInfo
+		changed = true
+	}
+	if !excludeMap[`taxInfo`] && (forceMap[`taxInfo`] || from.TaxInfo != ``) {
+		p.TaxInfo = from.TaxInfo
+		changed = true
+	}
+	if !excludeMap[`historyTaxInfo`] && (forceMap[`historyTaxInfo`] || from.HistoryTaxInfo != ``) {
+		p.HistoryTaxInfo = from.HistoryTaxInfo
+		changed = true
+	}
+	if !excludeMap[`amenitySuperGroups`] && (forceMap[`amenitySuperGroups`] || from.AmenitySuperGroups != ``) {
+		p.AmenitySuperGroups = from.AmenitySuperGroups
+		changed = true
+	}
+	if !excludeMap[`mlsDisclaimerInfo`] && (forceMap[`mlsDisclaimerInfo`] || from.MlsDisclaimerInfo != ``) {
+		p.MlsDisclaimerInfo = from.MlsDisclaimerInfo
+		changed = true
+	}
+	if !excludeMap[`facilityInfo`] && (forceMap[`facilityInfo`] || from.FacilityInfo != ``) {
+		p.FacilityInfo = from.FacilityInfo
+		changed = true
+	}
+	if !excludeMap[`riskInfo`] && (forceMap[`riskInfo`] || from.RiskInfo != ``) {
+		p.RiskInfo = from.RiskInfo
+		changed = true
+	}
+	if !excludeMap[`mediaSourceJson`] && (forceMap[`mediaSourceJson`] || from.MediaSourceJson != ``) {
+		p.MediaSourceJson = from.MediaSourceJson
 		changed = true
 	}
 	return
@@ -1141,27 +1289,17 @@ func (p *PropertyUSMutator) DoDeletePermanentById() bool { //nolint:dupl false p
 //		A.X{`=`, 27, p.AgencyFeePercent},
 //		A.X{`=`, 28, p.FloorList},
 //		A.X{`=`, 29, p.Version},
-//		A.X{`=`, 30, p.MediaSourceJson},
-//		A.X{`=`, 31, p.ZoneDataInfo},
-//		A.X{`=`, 32, p.TaxInfo},
-//		A.X{`=`, 33, p.HistoryTaxInfo},
-//		A.X{`=`, 34, p.MlsDisclaimerInfo},
-//		A.X{`=`, 35, p.FacilityInfo},
-//		A.X{`=`, 36, p.RiskInfo},
-//		A.X{`=`, 37, p.YearBuilt},
-//		A.X{`=`, 38, p.YearRenovated},
-//		A.X{`=`, 39, p.TotalSqft},
-//		A.X{`=`, 40, p.AmenitySuperGroups},
-//		A.X{`=`, 41, p.CountyUrl},
-//		A.X{`=`, 42, p.CountyName},
-//		A.X{`=`, 43, p.CountyIsActive},
-//		A.X{`=`, 44, p.Street},
-//		A.X{`=`, 45, p.City},
-//		A.X{`=`, 46, p.State},
-//		A.X{`=`, 47, p.Zip},
-//		A.X{`=`, 48, p.CountryCode},
-//		A.X{`=`, 49, p.PropertyLastUpdatedDate},
-//		A.X{`=`, 50, p.TaxNote},
+//		A.X{`=`, 30, p.YearBuilt},
+//		A.X{`=`, 31, p.YearRenovated},
+//		A.X{`=`, 32, p.TotalSqft},
+//		A.X{`=`, 33, p.CountyName},
+//		A.X{`=`, 34, p.Street},
+//		A.X{`=`, 35, p.City},
+//		A.X{`=`, 36, p.State},
+//		A.X{`=`, 37, p.Zip},
+//		A.X{`=`, 38, p.CountryCode},
+//		A.X{`=`, 39, p.PropertyLastUpdatedDate},
+//		A.X{`=`, 40, p.TaxNote},
 //	})
 //	return !L.IsError(err, `PropertyUS.DoUpsert failed: `+p.SpaceName())
 // }
@@ -1528,87 +1666,10 @@ func (p *PropertyUSMutator) SetVersion(val float64) bool { //nolint:dupl false p
 	return false
 }
 
-// SetMediaSourceJson create mutations, should not duplicate
-func (p *PropertyUSMutator) SetMediaSourceJson(val string) bool { //nolint:dupl false positive
-	if val != p.MediaSourceJson {
-		p.mutations = append(p.mutations, A.X{`=`, 30, val})
-		p.logs = append(p.logs, A.X{`mediaSourceJson`, p.MediaSourceJson, val})
-		p.MediaSourceJson = val
-		return true
-	}
-	return false
-}
-
-// SetZoneDataInfo create mutations, should not duplicate
-func (p *PropertyUSMutator) SetZoneDataInfo(val string) bool { //nolint:dupl false positive
-	if val != p.ZoneDataInfo {
-		p.mutations = append(p.mutations, A.X{`=`, 31, val})
-		p.logs = append(p.logs, A.X{`zoneDataInfo`, p.ZoneDataInfo, val})
-		p.ZoneDataInfo = val
-		return true
-	}
-	return false
-}
-
-// SetTaxInfo create mutations, should not duplicate
-func (p *PropertyUSMutator) SetTaxInfo(val string) bool { //nolint:dupl false positive
-	if val != p.TaxInfo {
-		p.mutations = append(p.mutations, A.X{`=`, 32, val})
-		p.logs = append(p.logs, A.X{`taxInfo`, p.TaxInfo, val})
-		p.TaxInfo = val
-		return true
-	}
-	return false
-}
-
-// SetHistoryTaxInfo create mutations, should not duplicate
-func (p *PropertyUSMutator) SetHistoryTaxInfo(val string) bool { //nolint:dupl false positive
-	if val != p.HistoryTaxInfo {
-		p.mutations = append(p.mutations, A.X{`=`, 33, val})
-		p.logs = append(p.logs, A.X{`historyTaxInfo`, p.HistoryTaxInfo, val})
-		p.HistoryTaxInfo = val
-		return true
-	}
-	return false
-}
-
-// SetMlsDisclaimerInfo create mutations, should not duplicate
-func (p *PropertyUSMutator) SetMlsDisclaimerInfo(val string) bool { //nolint:dupl false positive
-	if val != p.MlsDisclaimerInfo {
-		p.mutations = append(p.mutations, A.X{`=`, 34, val})
-		p.logs = append(p.logs, A.X{`mlsDisclaimerInfo`, p.MlsDisclaimerInfo, val})
-		p.MlsDisclaimerInfo = val
-		return true
-	}
-	return false
-}
-
-// SetFacilityInfo create mutations, should not duplicate
-func (p *PropertyUSMutator) SetFacilityInfo(val string) bool { //nolint:dupl false positive
-	if val != p.FacilityInfo {
-		p.mutations = append(p.mutations, A.X{`=`, 35, val})
-		p.logs = append(p.logs, A.X{`facilityInfo`, p.FacilityInfo, val})
-		p.FacilityInfo = val
-		return true
-	}
-	return false
-}
-
-// SetRiskInfo create mutations, should not duplicate
-func (p *PropertyUSMutator) SetRiskInfo(val string) bool { //nolint:dupl false positive
-	if val != p.RiskInfo {
-		p.mutations = append(p.mutations, A.X{`=`, 36, val})
-		p.logs = append(p.logs, A.X{`riskInfo`, p.RiskInfo, val})
-		p.RiskInfo = val
-		return true
-	}
-	return false
-}
-
 // SetYearBuilt create mutations, should not duplicate
 func (p *PropertyUSMutator) SetYearBuilt(val int64) bool { //nolint:dupl false positive
 	if val != p.YearBuilt {
-		p.mutations = append(p.mutations, A.X{`=`, 37, val})
+		p.mutations = append(p.mutations, A.X{`=`, 30, val})
 		p.logs = append(p.logs, A.X{`yearBuilt`, p.YearBuilt, val})
 		p.YearBuilt = val
 		return true
@@ -1619,7 +1680,7 @@ func (p *PropertyUSMutator) SetYearBuilt(val int64) bool { //nolint:dupl false p
 // SetYearRenovated create mutations, should not duplicate
 func (p *PropertyUSMutator) SetYearRenovated(val int64) bool { //nolint:dupl false positive
 	if val != p.YearRenovated {
-		p.mutations = append(p.mutations, A.X{`=`, 38, val})
+		p.mutations = append(p.mutations, A.X{`=`, 31, val})
 		p.logs = append(p.logs, A.X{`yearRenovated`, p.YearRenovated, val})
 		p.YearRenovated = val
 		return true
@@ -1630,31 +1691,9 @@ func (p *PropertyUSMutator) SetYearRenovated(val int64) bool { //nolint:dupl fal
 // SetTotalSqft create mutations, should not duplicate
 func (p *PropertyUSMutator) SetTotalSqft(val float64) bool { //nolint:dupl false positive
 	if val != p.TotalSqft {
-		p.mutations = append(p.mutations, A.X{`=`, 39, val})
+		p.mutations = append(p.mutations, A.X{`=`, 32, val})
 		p.logs = append(p.logs, A.X{`totalSqft`, p.TotalSqft, val})
 		p.TotalSqft = val
-		return true
-	}
-	return false
-}
-
-// SetAmenitySuperGroups create mutations, should not duplicate
-func (p *PropertyUSMutator) SetAmenitySuperGroups(val string) bool { //nolint:dupl false positive
-	if val != p.AmenitySuperGroups {
-		p.mutations = append(p.mutations, A.X{`=`, 40, val})
-		p.logs = append(p.logs, A.X{`amenitySuperGroups`, p.AmenitySuperGroups, val})
-		p.AmenitySuperGroups = val
-		return true
-	}
-	return false
-}
-
-// SetCountyUrl create mutations, should not duplicate
-func (p *PropertyUSMutator) SetCountyUrl(val string) bool { //nolint:dupl false positive
-	if val != p.CountyUrl {
-		p.mutations = append(p.mutations, A.X{`=`, 41, val})
-		p.logs = append(p.logs, A.X{`countyUrl`, p.CountyUrl, val})
-		p.CountyUrl = val
 		return true
 	}
 	return false
@@ -1663,20 +1702,9 @@ func (p *PropertyUSMutator) SetCountyUrl(val string) bool { //nolint:dupl false 
 // SetCountyName create mutations, should not duplicate
 func (p *PropertyUSMutator) SetCountyName(val string) bool { //nolint:dupl false positive
 	if val != p.CountyName {
-		p.mutations = append(p.mutations, A.X{`=`, 42, val})
+		p.mutations = append(p.mutations, A.X{`=`, 33, val})
 		p.logs = append(p.logs, A.X{`countyName`, p.CountyName, val})
 		p.CountyName = val
-		return true
-	}
-	return false
-}
-
-// SetCountyIsActive create mutations, should not duplicate
-func (p *PropertyUSMutator) SetCountyIsActive(val bool) bool { //nolint:dupl false positive
-	if val != p.CountyIsActive {
-		p.mutations = append(p.mutations, A.X{`=`, 43, val})
-		p.logs = append(p.logs, A.X{`countyIsActive`, p.CountyIsActive, val})
-		p.CountyIsActive = val
 		return true
 	}
 	return false
@@ -1685,7 +1713,7 @@ func (p *PropertyUSMutator) SetCountyIsActive(val bool) bool { //nolint:dupl fal
 // SetStreet create mutations, should not duplicate
 func (p *PropertyUSMutator) SetStreet(val string) bool { //nolint:dupl false positive
 	if val != p.Street {
-		p.mutations = append(p.mutations, A.X{`=`, 44, val})
+		p.mutations = append(p.mutations, A.X{`=`, 34, val})
 		p.logs = append(p.logs, A.X{`street`, p.Street, val})
 		p.Street = val
 		return true
@@ -1696,7 +1724,7 @@ func (p *PropertyUSMutator) SetStreet(val string) bool { //nolint:dupl false pos
 // SetCity create mutations, should not duplicate
 func (p *PropertyUSMutator) SetCity(val string) bool { //nolint:dupl false positive
 	if val != p.City {
-		p.mutations = append(p.mutations, A.X{`=`, 45, val})
+		p.mutations = append(p.mutations, A.X{`=`, 35, val})
 		p.logs = append(p.logs, A.X{`city`, p.City, val})
 		p.City = val
 		return true
@@ -1707,7 +1735,7 @@ func (p *PropertyUSMutator) SetCity(val string) bool { //nolint:dupl false posit
 // SetState create mutations, should not duplicate
 func (p *PropertyUSMutator) SetState(val string) bool { //nolint:dupl false positive
 	if val != p.State {
-		p.mutations = append(p.mutations, A.X{`=`, 46, val})
+		p.mutations = append(p.mutations, A.X{`=`, 36, val})
 		p.logs = append(p.logs, A.X{`state`, p.State, val})
 		p.State = val
 		return true
@@ -1718,7 +1746,7 @@ func (p *PropertyUSMutator) SetState(val string) bool { //nolint:dupl false posi
 // SetZip create mutations, should not duplicate
 func (p *PropertyUSMutator) SetZip(val string) bool { //nolint:dupl false positive
 	if val != p.Zip {
-		p.mutations = append(p.mutations, A.X{`=`, 47, val})
+		p.mutations = append(p.mutations, A.X{`=`, 37, val})
 		p.logs = append(p.logs, A.X{`zip`, p.Zip, val})
 		p.Zip = val
 		return true
@@ -1729,7 +1757,7 @@ func (p *PropertyUSMutator) SetZip(val string) bool { //nolint:dupl false positi
 // SetCountryCode create mutations, should not duplicate
 func (p *PropertyUSMutator) SetCountryCode(val string) bool { //nolint:dupl false positive
 	if val != p.CountryCode {
-		p.mutations = append(p.mutations, A.X{`=`, 48, val})
+		p.mutations = append(p.mutations, A.X{`=`, 38, val})
 		p.logs = append(p.logs, A.X{`countryCode`, p.CountryCode, val})
 		p.CountryCode = val
 		return true
@@ -1740,7 +1768,7 @@ func (p *PropertyUSMutator) SetCountryCode(val string) bool { //nolint:dupl fals
 // SetPropertyLastUpdatedDate create mutations, should not duplicate
 func (p *PropertyUSMutator) SetPropertyLastUpdatedDate(val int64) bool { //nolint:dupl false positive
 	if val != p.PropertyLastUpdatedDate {
-		p.mutations = append(p.mutations, A.X{`=`, 49, val})
+		p.mutations = append(p.mutations, A.X{`=`, 39, val})
 		p.logs = append(p.logs, A.X{`propertyLastUpdatedDate`, p.PropertyLastUpdatedDate, val})
 		p.PropertyLastUpdatedDate = val
 		return true
@@ -1751,7 +1779,7 @@ func (p *PropertyUSMutator) SetPropertyLastUpdatedDate(val int64) bool { //nolin
 // SetTaxNote create mutations, should not duplicate
 func (p *PropertyUSMutator) SetTaxNote(val string) bool { //nolint:dupl false positive
 	if val != p.TaxNote {
-		p.mutations = append(p.mutations, A.X{`=`, 50, val})
+		p.mutations = append(p.mutations, A.X{`=`, 40, val})
 		p.logs = append(p.logs, A.X{`taxNote`, p.TaxNote, val})
 		p.TaxNote = val
 		return true
@@ -1887,34 +1915,6 @@ func (p *PropertyUSMutator) SetAll(from rqProperty.PropertyUS, excludeMap, force
 		p.Version = from.Version
 		changed = true
 	}
-	if !excludeMap[`mediaSourceJson`] && (forceMap[`mediaSourceJson`] || from.MediaSourceJson != ``) {
-		p.MediaSourceJson = from.MediaSourceJson
-		changed = true
-	}
-	if !excludeMap[`zoneDataInfo`] && (forceMap[`zoneDataInfo`] || from.ZoneDataInfo != ``) {
-		p.ZoneDataInfo = from.ZoneDataInfo
-		changed = true
-	}
-	if !excludeMap[`taxInfo`] && (forceMap[`taxInfo`] || from.TaxInfo != ``) {
-		p.TaxInfo = from.TaxInfo
-		changed = true
-	}
-	if !excludeMap[`historyTaxInfo`] && (forceMap[`historyTaxInfo`] || from.HistoryTaxInfo != ``) {
-		p.HistoryTaxInfo = from.HistoryTaxInfo
-		changed = true
-	}
-	if !excludeMap[`mlsDisclaimerInfo`] && (forceMap[`mlsDisclaimerInfo`] || from.MlsDisclaimerInfo != ``) {
-		p.MlsDisclaimerInfo = from.MlsDisclaimerInfo
-		changed = true
-	}
-	if !excludeMap[`facilityInfo`] && (forceMap[`facilityInfo`] || from.FacilityInfo != ``) {
-		p.FacilityInfo = from.FacilityInfo
-		changed = true
-	}
-	if !excludeMap[`riskInfo`] && (forceMap[`riskInfo`] || from.RiskInfo != ``) {
-		p.RiskInfo = from.RiskInfo
-		changed = true
-	}
 	if !excludeMap[`yearBuilt`] && (forceMap[`yearBuilt`] || from.YearBuilt != 0) {
 		p.YearBuilt = from.YearBuilt
 		changed = true
@@ -1927,20 +1927,8 @@ func (p *PropertyUSMutator) SetAll(from rqProperty.PropertyUS, excludeMap, force
 		p.TotalSqft = from.TotalSqft
 		changed = true
 	}
-	if !excludeMap[`amenitySuperGroups`] && (forceMap[`amenitySuperGroups`] || from.AmenitySuperGroups != ``) {
-		p.AmenitySuperGroups = from.AmenitySuperGroups
-		changed = true
-	}
-	if !excludeMap[`countyUrl`] && (forceMap[`countyUrl`] || from.CountyUrl != ``) {
-		p.CountyUrl = from.CountyUrl
-		changed = true
-	}
 	if !excludeMap[`countyName`] && (forceMap[`countyName`] || from.CountyName != ``) {
 		p.CountyName = from.CountyName
-		changed = true
-	}
-	if !excludeMap[`countyIsActive`] && (forceMap[`countyIsActive`] || from.CountyIsActive != false) {
-		p.CountyIsActive = from.CountyIsActive
 		changed = true
 	}
 	if !excludeMap[`street`] && (forceMap[`street`] || from.Street != ``) {

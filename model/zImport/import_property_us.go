@@ -18,10 +18,12 @@ import (
 )
 
 type PropertyFullResponse struct {
-	AmenitiesInfo       AmenitiesInfo
-	PublicRecordsInfo   PublicRecordsInfo
-	PropertyHistoryInfo PropertyHistoryInfo
-	ZoningDataInfo      ZoningDataInfo
+	AmenitiesInfo           AmenitiesInfo
+	PublicRecordsInfo       PublicRecordsInfo
+	PropertyHistoryInfo     PropertyHistoryInfo
+	ZoningDataInfo          ZoningDataInfo
+	SchoolsAndDistrictsInfo map[string]interface{}
+	RiskFactorData          map[string]interface{}
 }
 
 type AmenitiesInfo struct {
@@ -205,14 +207,68 @@ func parseMapIntoStruct(inputMap map[string]interface{}) (*PropertyFullResponse,
 	return &result, nil
 }
 
-func ParsePropertyData(propertyMutator wcProperty.PropertyUSMutator, propertyResponse map[string]interface{}) (res *wcProperty.PropertyUSMutator, err error) {
+func ParsePropertyExtraData(propertyMutator wcProperty.PropertyExtraUSMutator, propertyResponseObject PropertyFullResponse) (res *wcProperty.PropertyExtraUSMutator, err error) {
 
-	propertyResponseObject, err := parseMapIntoStruct(propertyResponse)
-
+	// -------- Tax info --------
+	taxInfoJson, err := json.Marshal(propertyResponseObject.PublicRecordsInfo.TaxInfo)
 	if err != nil {
-		L.Print("Error => ", err)
-		return nil, err
+		L.Print("Failed to convert tax info !")
 	}
+	propertyMutator.TaxInfo = string(taxInfoJson)
+
+	// -------- County --------
+	propertyMutator.CountyUrl = propertyResponseObject.PublicRecordsInfo.CountyUrl
+	propertyMutator.CountyIsActive = propertyResponseObject.PublicRecordsInfo.CountyIsActive
+
+	// -------- Build amenity list --------
+	amenityGroupString, err := json.Marshal(propertyResponseObject.AmenitiesInfo.SuperGroups)
+	if err != nil {
+		L.Print("Failed to convert amenities group !")
+	}
+
+	propertyMutator.AmenitySuperGroups = string(amenityGroupString)
+
+	// -------- Build source photo (media-source) --------
+	mediaSourceJson, err := json.Marshal(propertyResponseObject.PropertyHistoryInfo.MediaBrowserInfoBySourceId)
+	if err != nil {
+		L.Print("Failed to convert media sources !")
+	}
+	propertyMutator.MediaSourceJson = string(mediaSourceJson)
+
+	// -------- Zone data info & Permitted land to use --------
+	zoneDataInfo, err := json.Marshal(propertyResponseObject.ZoningDataInfo)
+	if err != nil {
+		L.Print("Can't parse Zone Data Info")
+	}
+	propertyMutator.ZoneDataInfo = string(zoneDataInfo)
+
+	// // -------- Store agent & broker --------
+	mlsDisclaimerInfo, err := json.Marshal(propertyResponseObject.AmenitiesInfo.MlsDisclaimerInfo)
+	if err != nil {
+		L.Print("Can't parse Zone Data Info")
+	}
+	propertyMutator.MlsDisclaimerInfo = string(mlsDisclaimerInfo)
+
+	// // --------Facility Info --------
+	facilityInfo := propertyResponseObject.SchoolsAndDistrictsInfo
+	facilityInfoJson, err := json.Marshal(facilityInfo)
+	if err != nil {
+		L.Print("Can't parse Zone Data Info")
+	}
+	propertyMutator.FacilityInfo = string(facilityInfoJson)
+
+	// // --------Risk Info --------
+	riskInfo := propertyResponseObject.RiskFactorData
+	riskInfoJson, err := json.Marshal(riskInfo)
+	if err != nil {
+		L.Print("Can't parse Zone Data Info")
+	}
+	propertyMutator.RiskInfo = string(riskInfoJson)
+
+	return &propertyMutator, nil
+}
+
+func ParsePropertyData(propertyMutator wcProperty.PropertyUSMutator, propertyResponseObject PropertyFullResponse) (res *wcProperty.PropertyUSMutator, err error) {
 
 	// // -------- Basic info --------
 	propertyMutator.Street = propertyResponseObject.PublicRecordsInfo.AddressInfo.Street
@@ -231,41 +287,16 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUSMutator, propertyRes
 	propertyMutator.SerialNumber = propertyResponseObject.PublicRecordsInfo.BasicInfo.Apn // Store as serial number
 	propertyMutator.PropertyLastUpdatedDate = propertyResponseObject.PublicRecordsInfo.BasicInfo.PropertyLastUpdatedDate
 
-	// // -------- Tax info --------
-
-	taxInfoJson, err := json.Marshal(propertyResponseObject.PublicRecordsInfo.TaxInfo)
-	if err != nil {
-		L.Print("Failed to convert tax info !")
-	}
-	propertyMutator.TaxInfo = string(taxInfoJson)
 	propertyMutator.TaxNote = propertyResponseObject.PublicRecordsInfo.SectionPreviewText
 
-	// // -------- County --------
-	propertyMutator.CountyUrl = propertyResponseObject.PublicRecordsInfo.CountyUrl
 	propertyMutator.CountyName = propertyResponseObject.PublicRecordsInfo.CountyName
-	propertyMutator.CountyIsActive = propertyResponseObject.PublicRecordsInfo.CountyIsActive
+
 	propertyMutator.CountryCode = propertyResponseObject.PublicRecordsInfo.AddressInfo.CountryCode
 
 	// Address
 	propertyMutator.Address = propertyMutator.Street + "," + propertyMutator.City + "," + propertyMutator.CountyName + "," + propertyMutator.State
 	propertyMutator.FormattedAddress = propertyMutator.Street + "," + propertyMutator.City + "," + propertyMutator.CountyName +
 		"," + propertyMutator.State + ", Zip: " + propertyMutator.Zip + "," + propertyMutator.CountryCode
-
-	// // -------- Build amenity list --------
-	amenityGroupString, err := json.Marshal(propertyResponseObject.AmenitiesInfo.SuperGroups)
-
-	if err != nil {
-		L.Print("Failed to convert amenities group !")
-	}
-
-	propertyMutator.AmenitySuperGroups = string(amenityGroupString)
-
-	// // -------- Build source photo (media-source) --------
-	mediaSourceJson, err := json.Marshal(propertyResponseObject.PropertyHistoryInfo.MediaBrowserInfoBySourceId)
-	if err != nil {
-		L.Print("Failed to convert media sources !")
-	}
-	propertyMutator.MediaSourceJson = string(mediaSourceJson)
 
 	// Get latest coord from media resources
 	propertyMutator.Coord = []any{0, 0}
@@ -298,36 +329,6 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUSMutator, propertyRes
 		}
 	}
 
-	// // -------- Zone data info & Permitted land to use --------
-	zoneDataInfo, err := json.Marshal(propertyResponseObject.ZoningDataInfo)
-	if err != nil {
-		L.Print("Can't parse Zone Data Info")
-	}
-	propertyMutator.ZoneDataInfo = string(zoneDataInfo)
-
-	// // -------- Store agent & broker --------
-	mlsDisclaimerInfo, err := json.Marshal(propertyResponseObject.AmenitiesInfo.MlsDisclaimerInfo)
-	if err != nil {
-		L.Print("Can't parse Zone Data Info")
-	}
-	propertyMutator.MlsDisclaimerInfo = string(mlsDisclaimerInfo)
-
-	// // --------Facility Info --------
-	facilityInfo := propertyResponse["schoolsAndDistrictsInfo"].(map[string]interface{})
-	facilityInfoJson, err := json.Marshal(facilityInfo)
-	if err != nil {
-		L.Print("Can't parse Zone Data Info")
-	}
-	propertyMutator.FacilityInfo = string(facilityInfoJson)
-
-	// // --------Risk Info --------
-	riskInfo := propertyResponse["riskFactorData"].(map[string]interface{})
-	riskInfoJson, err := json.Marshal(riskInfo)
-	if err != nil {
-		L.Print("Can't parse Zone Data Info")
-	}
-	propertyMutator.RiskInfo = string(riskInfoJson)
-
 	// -------- Metadata ---------
 	currentTime := time.Now().Unix()
 	propertyMutator.CreatedAt = currentTime
@@ -336,8 +337,7 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUSMutator, propertyRes
 	return &propertyMutator, nil
 }
 
-func ImportPropertyHistories(propertyResponse map[string]interface{}, propertyId string) (res []rqProperty.PropertyHistory, err error) {
-	propertyResponseObject, err := parseMapIntoStruct(propertyResponse)
+func ImportPropertyHistories(propertyResponseObject PropertyFullResponse, propertyId string) (res []rqProperty.PropertyHistory, err error) {
 
 	if err != nil {
 		L.Print("Error => ", err)
@@ -378,6 +378,7 @@ func ImportPropertyHistories(propertyResponse map[string]interface{}, propertyId
 	}
 
 	return propHistories, nil
+
 }
 
 func convertSqftToM2(sqft float64) float64 {
@@ -410,6 +411,7 @@ func ImportPropertyUsData(adapter *Tt.Adapter, baseUrl string, minPropId int, ma
 		stat.Print()
 
 		propertyMutator := wcProperty.NewPropertyUSMutator(adapter)
+		propertyExtraMutator := wcProperty.NewPropertyExtraUSMutator(adapter)
 		propertyMutator.UniqPropKey = strconv.Itoa(i)
 
 		if propertyMutator.FindByUniqPropKey() {
@@ -424,13 +426,20 @@ func ImportPropertyUsData(adapter *Tt.Adapter, baseUrl string, minPropId int, ma
 		propertyResponse := data["payload"].(map[string]interface{})
 		propertyVersion := data["version"].(float64)
 
-		propertyMutator, err = ParsePropertyData(*propertyMutator, propertyResponse)
+		// Property into the struct
+		propertyResponseObject, err := parseMapIntoStruct(propertyResponse)
+
+		if err != nil {
+			L.Print("Error => ", err)
+			L.PanicIf(err, "Parse property response error")
+		}
+
+		propertyMutator, err = ParsePropertyData(*propertyMutator, *propertyResponseObject)
 		L.PanicIf(err, "ParsePropertyData", "PropertyID ["+fmt.Sprint(i)+"]")
 
 		propertyMutator.Version = propertyVersion
 
-		propertyHistories, err := ImportPropertyHistories(propertyResponse, propertyMutator.UniqPropKey)
-
+		propertyHistories, err := ImportPropertyHistories(*propertyResponseObject, propertyMutator.UniqPropKey)
 		if err != nil {
 			L.Print("Parse property history error")
 		}
@@ -442,6 +451,13 @@ func ImportPropertyUsData(adapter *Tt.Adapter, baseUrl string, minPropId int, ma
 			propertyMutator.LastPrice = fmt.Sprint(propertyHistories[0].Price)
 		}
 		stat.Ok(propertyMutator.DoInsert())
+
+		// Store extra
+		fmt.Println("Inserting property extra ....")
+		propertyExtraMutator, err = ParsePropertyExtraData(*propertyExtraMutator, *propertyResponseObject)
+		propertyExtraMutator.PropertyKey = propertyMutator.UniqPropKey
+		propertyExtraMutator.DoInsert()
+		fmt.Println("Finish inserted property extra ....")
 
 		// TODO process property history in the next step
 		// SavePropertyHistories(adapter, propertyHistories)

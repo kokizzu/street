@@ -1,12 +1,15 @@
 package mProperty
 
 import (
+	"sort"
+
 	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
 )
 
 const (
-	TablePropertyUs Tt.TableName = `propertyUS`
+	TablePropertyUs      Tt.TableName = `propertyUS`
+	TablePropertyExtraUs Tt.TableName = `propertyExtraUS`
 
 	Version = `version`
 
@@ -110,6 +113,44 @@ const (
 	Count = `count`
 )
 
+func buildPropertyExtraUs() []Tt.Field {
+
+	schema := map[int]Tt.Field{
+		0: {Id, Tt.Unsigned},
+
+		// Property ID
+		1: {PropertyKey, Tt.String},
+
+		// County
+		2: {CountyUrl, Tt.String},
+		3: {CountyIsActive, Tt.Boolean},
+
+		// Others data
+		4: {ZoneDataInfoJson, Tt.String}, // Specific for US data,
+		5: {TaxInfo, Tt.String},
+		6: {HistoryTaxInfo, Tt.String},
+		7: {AmenitySuperGroupsJson, Tt.String},
+		8: {MlsDisclaimerInfoJson, Tt.String},
+
+		9:  {FacilityInfoJson, Tt.String},
+		10: {RiskInfoJson, Tt.String},
+
+		11: {MediaSourceJson, Tt.String},
+	}
+
+	listFields := make([]Tt.Field, len(schema))
+	for i := 0; i < len(listFields); i++ {
+		if schema[i].Name == "" && schema[i].Type == "" {
+			continue
+		} else {
+			listFields[i] = schema[i]
+		}
+	}
+
+	return listFields
+
+}
+
 func buildStandardPropertySchema() []Tt.Field {
 	schema := map[int]Tt.Field{
 		0: {Id, Tt.Unsigned},
@@ -120,24 +161,22 @@ func buildStandardPropertySchema() []Tt.Field {
 		2:  {SerialNumber, Tt.String},
 
 		// Basic Info
-		44: {Street, Tt.String}, // New field based on US data
-		45: {City, Tt.String},   // New field based on US data
-		46: {State, Tt.String},  // New field based on US data
-		47: {Zip, Tt.String},    // New field based on US data
+		34: {Street, Tt.String}, // Address field based on US data
+		35: {City, Tt.String},   // New field based on US data
+		36: {State, Tt.String},  // New field based on US data
+		37: {Zip, Tt.String},    // New field based on US data
 		9:  {Address, Tt.String},
 		18: {FormattedAddress, Tt.String},
 
 		// County (District)
 		10: {District, Tt.String},
 		12: {Coord, Tt.Array},
-		41: {CountyUrl, Tt.String},
-		42: {CountyName, Tt.String},
-		43: {CountyIsActive, Tt.Boolean},
-		48: {CountryCode, Tt.String}, // New field based on US data
+		33: {CountyName, Tt.String},
+		38: {CountryCode, Tt.String}, // New field based on US data
 
 		// Property size area
 		3:  {SizeM2, Tt.String},
-		39: {TotalSqft, Tt.Double}, // Specific for US data
+		32: {TotalSqft, Tt.Double}, // Specific for US data
 
 		// Property description
 		4:  {MainUse, Tt.String},
@@ -153,18 +192,10 @@ func buildStandardPropertySchema() []Tt.Field {
 		27: {AgencyFeePercent, Tt.Double},
 		28: {FloorList, Tt.Array},
 
-		// Media images
-		30: {MediaSourceJson, Tt.String},
-
-		// Other data
-		31: {ZoneDataInfoJson, Tt.String}, // Specific for US data
-		32: {TaxInfo, Tt.String},          // Tax info
-		33: {HistoryTaxInfo, Tt.String},   // Full history tax of tax info
-		37: {YearBuilt, Tt.Integer},
-		38: {YearRenovated, Tt.Integer},
-		40: {AmenitySuperGroupsJson, Tt.String}, // Amenity super groups and health condition/quality of equipments and property in general
-		49: {PropertyLastUpdatedDate, Tt.Integer},
-		50: {TaxNote, Tt.String},
+		30: {YearBuilt, Tt.Integer},
+		31: {YearRenovated, Tt.Integer},
+		39: {PropertyLastUpdatedDate, Tt.Integer},
+		40: {TaxNote, Tt.String},
 
 		11: {Note, Tt.String},
 
@@ -173,11 +204,6 @@ func buildStandardPropertySchema() []Tt.Field {
 		20: {PriceHistoriesSell, Tt.Array},
 		21: {PriceHistoriesRent, Tt.Array},
 
-		// Agent & Broker for Realtor
-		34: {MlsDisclaimerInfoJson, Tt.String},
-		35: {FacilityInfoJson, Tt.String},
-		36: {RiskInfoJson, Tt.String},
-
 		13: {CreatedAt, Tt.Integer},
 		14: {CreatedBy, Tt.Unsigned},
 		15: {UpdatedAt, Tt.Integer},
@@ -185,16 +211,19 @@ func buildStandardPropertySchema() []Tt.Field {
 		17: {DeletedAt, Tt.Integer},
 	}
 
-	listFieldsInPropScheme := make([]Tt.Field, len(schema))
-	for i := 0; i < len(listFieldsInPropScheme); i++ {
-		if schema[i].Name == "" && schema[i].Type == "" {
-			continue
-		} else {
-			listFieldsInPropScheme[i] = schema[i]
-		}
+	keys := make([]int, 0, len(schema))
+	for k := range schema {
+		keys = append(keys, k)
 	}
 
-	return listFieldsInPropScheme
+	sort.Ints(keys)
+	listPropertyFields := make([]Tt.Field, len(schema))
+
+	for i := 0; i < len(keys); i++ {
+		listPropertyFields[i] = schema[keys[i]]
+	}
+
+	return listPropertyFields
 }
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
@@ -259,6 +288,12 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Indexes:         []string{SerialNumber},
 		Engine:          Tt.Memtx,
 		Spatial:         Coord,
+	},
+	TablePropertyExtraUs: {
+		Fields:          buildPropertyExtraUs(),
+		AutoIncrementId: true,
+		Unique1:         PropertyKey,
+		Engine:          Tt.Vinyl,
 	},
 }
 
