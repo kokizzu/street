@@ -393,12 +393,15 @@ func SavePropertyHistories(adapter *Tt.Adapter, propList []rqProperty.PropertyHi
 	}
 }
 
-func ImportPropertyUsData(adapter *Tt.Adapter, baseUrl string, minPropId int, maxPropertyID int) {
+func ImportPropertyUsData(adapter *Tt.Adapter) {
+	const baseUrl = "https://www.redfin.com/stingray/api/home/details/belowTheFold"
+	const minPropertyId = 1
+	const maxPropertyId = 10000000
 
-	stat := &ImporterStat{Total: maxPropertyID * 2, PrintEvery: 10}
+	stat := &ImporterStat{Total: maxPropertyId * 2, PrintEvery: 10}
 	defer stat.Print(`last`)
 
-	for i := minPropId; i <= maxPropertyID; i++ {
+	for i := minPropertyId; i <= maxPropertyId; i++ {
 		stat.Print()
 
 		redfinKey := `rf` + strconv.Itoa(i)
