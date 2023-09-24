@@ -210,7 +210,6 @@ type Property struct {
 	City                    string      `json:"city" form:"city" query:"city" long:"city" msg:"city"`
 	State                   string      `json:"state" form:"state" query:"state" long:"state" msg:"state"`
 	Zip                     string      `json:"zip" form:"zip" query:"zip" long:"zip" msg:"zip"`
-	CountryCode             string      `json:"countryCode" form:"countryCode" query:"countryCode" long:"countryCode" msg:"countryCode"`
 	PropertyLastUpdatedDate int64       `json:"propertyLastUpdatedDate" form:"propertyLastUpdatedDate" query:"propertyLastUpdatedDate" long:"propertyLastUpdatedDate" msg:"propertyLastUpdatedDate"`
 }
 
@@ -311,7 +310,6 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "city"
 	, "state"
 	, "zip"
-	, "countryCode"
 	, "propertyLastUpdatedDate"
 	`
 }
@@ -356,7 +354,6 @@ func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 	, "city"
 	, "state"
 	, "zip"
-	, "countryCode"
 	, "propertyLastUpdatedDate"
 	`
 }
@@ -402,8 +399,7 @@ func (p *Property) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 35, p.City},
 		A.X{`=`, 36, p.State},
 		A.X{`=`, 37, p.Zip},
-		A.X{`=`, 38, p.CountryCode},
-		A.X{`=`, 39, p.PropertyLastUpdatedDate},
+		A.X{`=`, 38, p.PropertyLastUpdatedDate},
 	}
 }
 
@@ -787,19 +783,9 @@ func (p *Property) SqlZip() string { //nolint:dupl false positive
 	return `"zip"`
 }
 
-// IdxCountryCode return name of the index
-func (p *Property) IdxCountryCode() int { //nolint:dupl false positive
-	return 38
-}
-
-// SqlCountryCode return name of the column being indexed
-func (p *Property) SqlCountryCode() string { //nolint:dupl false positive
-	return `"countryCode"`
-}
-
 // IdxPropertyLastUpdatedDate return name of the index
 func (p *Property) IdxPropertyLastUpdatedDate() int { //nolint:dupl false positive
-	return 39
+	return 38
 }
 
 // SqlPropertyLastUpdatedDate return name of the column being indexed
@@ -852,8 +838,7 @@ func (p *Property) ToArray() A.X { //nolint:dupl false positive
 		p.City,                    // 35
 		p.State,                   // 36
 		p.Zip,                     // 37
-		p.CountryCode,             // 38
-		p.PropertyLastUpdatedDate, // 39
+		p.PropertyLastUpdatedDate, // 38
 	}
 }
 
@@ -897,8 +882,7 @@ func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 	p.City = X.ToS(a[35])
 	p.State = X.ToS(a[36])
 	p.Zip = X.ToS(a[37])
-	p.CountryCode = X.ToS(a[38])
-	p.PropertyLastUpdatedDate = X.ToI(a[39])
+	p.PropertyLastUpdatedDate = X.ToI(a[38])
 	return p
 }
 
@@ -942,8 +926,7 @@ func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false po
 	p.City = X.ToS(a[35])
 	p.State = X.ToS(a[36])
 	p.Zip = X.ToS(a[37])
-	p.CountryCode = X.ToS(a[38])
-	p.PropertyLastUpdatedDate = X.ToI(a[39])
+	p.PropertyLastUpdatedDate = X.ToI(a[38])
 	return p
 }
 
@@ -1025,7 +1008,6 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`city`:                    Tt.String,
 	`state`:                   Tt.String,
 	`zip`:                     Tt.String,
-	`countryCode`:             Tt.String,
 	`propertyLastUpdatedDate`: Tt.Integer,
 }
 
@@ -1443,7 +1425,6 @@ type PropertyUS struct {
 	City                    string      `json:"city" form:"city" query:"city" long:"city" msg:"city"`
 	State                   string      `json:"state" form:"state" query:"state" long:"state" msg:"state"`
 	Zip                     string      `json:"zip" form:"zip" query:"zip" long:"zip" msg:"zip"`
-	CountryCode             string      `json:"countryCode" form:"countryCode" query:"countryCode" long:"countryCode" msg:"countryCode"`
 	PropertyLastUpdatedDate int64       `json:"propertyLastUpdatedDate" form:"propertyLastUpdatedDate" query:"propertyLastUpdatedDate" long:"propertyLastUpdatedDate" msg:"propertyLastUpdatedDate"`
 }
 
@@ -1544,7 +1525,6 @@ func (p *PropertyUS) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "city"
 	, "state"
 	, "zip"
-	, "countryCode"
 	, "propertyLastUpdatedDate"
 	`
 }
@@ -1589,7 +1569,6 @@ func (p *PropertyUS) SqlSelectAllUncensoredFields() string { //nolint:dupl false
 	, "city"
 	, "state"
 	, "zip"
-	, "countryCode"
 	, "propertyLastUpdatedDate"
 	`
 }
@@ -1635,8 +1614,7 @@ func (p *PropertyUS) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 35, p.City},
 		A.X{`=`, 36, p.State},
 		A.X{`=`, 37, p.Zip},
-		A.X{`=`, 38, p.CountryCode},
-		A.X{`=`, 39, p.PropertyLastUpdatedDate},
+		A.X{`=`, 38, p.PropertyLastUpdatedDate},
 	}
 }
 
@@ -2020,19 +1998,9 @@ func (p *PropertyUS) SqlZip() string { //nolint:dupl false positive
 	return `"zip"`
 }
 
-// IdxCountryCode return name of the index
-func (p *PropertyUS) IdxCountryCode() int { //nolint:dupl false positive
-	return 38
-}
-
-// SqlCountryCode return name of the column being indexed
-func (p *PropertyUS) SqlCountryCode() string { //nolint:dupl false positive
-	return `"countryCode"`
-}
-
 // IdxPropertyLastUpdatedDate return name of the index
 func (p *PropertyUS) IdxPropertyLastUpdatedDate() int { //nolint:dupl false positive
-	return 39
+	return 38
 }
 
 // SqlPropertyLastUpdatedDate return name of the column being indexed
@@ -2085,8 +2053,7 @@ func (p *PropertyUS) ToArray() A.X { //nolint:dupl false positive
 		p.City,                    // 35
 		p.State,                   // 36
 		p.Zip,                     // 37
-		p.CountryCode,             // 38
-		p.PropertyLastUpdatedDate, // 39
+		p.PropertyLastUpdatedDate, // 38
 	}
 }
 
@@ -2130,8 +2097,7 @@ func (p *PropertyUS) FromArray(a A.X) *PropertyUS { //nolint:dupl false positive
 	p.City = X.ToS(a[35])
 	p.State = X.ToS(a[36])
 	p.Zip = X.ToS(a[37])
-	p.CountryCode = X.ToS(a[38])
-	p.PropertyLastUpdatedDate = X.ToI(a[39])
+	p.PropertyLastUpdatedDate = X.ToI(a[38])
 	return p
 }
 
@@ -2175,8 +2141,7 @@ func (p *PropertyUS) FromUncensoredArray(a A.X) *PropertyUS { //nolint:dupl fals
 	p.City = X.ToS(a[35])
 	p.State = X.ToS(a[36])
 	p.Zip = X.ToS(a[37])
-	p.CountryCode = X.ToS(a[38])
-	p.PropertyLastUpdatedDate = X.ToI(a[39])
+	p.PropertyLastUpdatedDate = X.ToI(a[38])
 	return p
 }
 
@@ -2258,7 +2223,6 @@ var PropertyUSFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positiv
 	`city`:                    Tt.String,
 	`state`:                   Tt.String,
 	`zip`:                     Tt.String,
-	`countryCode`:             Tt.String,
 	`propertyLastUpdatedDate`: Tt.Integer,
 }
 

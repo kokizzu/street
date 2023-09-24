@@ -289,12 +289,11 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUSMutator, propertyRes
 	propertyMutator.PropertyLastUpdatedDate = propertyResponseObject.PublicRecordsInfo.BasicInfo.PropertyLastUpdatedDate
 
 	propertyMutator.CountyName = propertyResponseObject.PublicRecordsInfo.CountyName
-	propertyMutator.CountryCode = propertyResponseObject.PublicRecordsInfo.AddressInfo.CountryCode
 
 	// Address
 	propertyMutator.Address = propertyMutator.Street + "," + propertyMutator.City + "," + propertyMutator.CountyName + "," + propertyMutator.State
 	propertyMutator.FormattedAddress = propertyMutator.Street + "," + propertyMutator.City + "," + propertyMutator.CountyName +
-		"," + propertyMutator.State + ", Zip: " + propertyMutator.Zip + "," + propertyMutator.CountryCode
+		"," + propertyMutator.State + ", Zip: " + propertyMutator.Zip + ", US"
 
 	// Get latest coord from media resources
 	propertyMutator.Coord = []any{0, 0}

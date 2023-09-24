@@ -172,7 +172,6 @@ func buildStandardPropertySchema() []Tt.Field {
 		10: {District, Tt.String},
 		12: {Coord, Tt.Array},
 		33: {CountyName, Tt.String},
-		38: {CountryCode, Tt.String}, // New field based on US data
 
 		// Property size area
 		3:  {SizeM2, Tt.String},
@@ -194,7 +193,7 @@ func buildStandardPropertySchema() []Tt.Field {
 
 		30: {YearBuilt, Tt.Integer},
 		31: {YearRenovated, Tt.Integer},
-		39: {PropertyLastUpdatedDate, Tt.Integer},
+		38: {PropertyLastUpdatedDate, Tt.Integer},
 
 		11: {Note, Tt.String},
 

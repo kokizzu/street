@@ -227,8 +227,7 @@ func (p *PropertyMutator) DoDeletePermanentById() bool { //nolint:dupl false pos
 //		A.X{`=`, 35, p.City},
 //		A.X{`=`, 36, p.State},
 //		A.X{`=`, 37, p.Zip},
-//		A.X{`=`, 38, p.CountryCode},
-//		A.X{`=`, 39, p.PropertyLastUpdatedDate},
+//		A.X{`=`, 38, p.PropertyLastUpdatedDate},
 //	})
 //	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName())
 // }
@@ -683,21 +682,10 @@ func (p *PropertyMutator) SetZip(val string) bool { //nolint:dupl false positive
 	return false
 }
 
-// SetCountryCode create mutations, should not duplicate
-func (p *PropertyMutator) SetCountryCode(val string) bool { //nolint:dupl false positive
-	if val != p.CountryCode {
-		p.mutations = append(p.mutations, A.X{`=`, 38, val})
-		p.logs = append(p.logs, A.X{`countryCode`, p.CountryCode, val})
-		p.CountryCode = val
-		return true
-	}
-	return false
-}
-
 // SetPropertyLastUpdatedDate create mutations, should not duplicate
 func (p *PropertyMutator) SetPropertyLastUpdatedDate(val int64) bool { //nolint:dupl false positive
 	if val != p.PropertyLastUpdatedDate {
-		p.mutations = append(p.mutations, A.X{`=`, 39, val})
+		p.mutations = append(p.mutations, A.X{`=`, 38, val})
 		p.logs = append(p.logs, A.X{`propertyLastUpdatedDate`, p.PropertyLastUpdatedDate, val})
 		p.PropertyLastUpdatedDate = val
 		return true
@@ -863,10 +851,6 @@ func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap 
 	}
 	if !excludeMap[`zip`] && (forceMap[`zip`] || from.Zip != ``) {
 		p.Zip = from.Zip
-		changed = true
-	}
-	if !excludeMap[`countryCode`] && (forceMap[`countryCode`] || from.CountryCode != ``) {
-		p.CountryCode = from.CountryCode
 		changed = true
 	}
 	if !excludeMap[`propertyLastUpdatedDate`] && (forceMap[`propertyLastUpdatedDate`] || from.PropertyLastUpdatedDate != 0) {
@@ -1297,8 +1281,7 @@ func (p *PropertyUSMutator) DoDeletePermanentById() bool { //nolint:dupl false p
 //		A.X{`=`, 35, p.City},
 //		A.X{`=`, 36, p.State},
 //		A.X{`=`, 37, p.Zip},
-//		A.X{`=`, 38, p.CountryCode},
-//		A.X{`=`, 39, p.PropertyLastUpdatedDate},
+//		A.X{`=`, 38, p.PropertyLastUpdatedDate},
 //	})
 //	return !L.IsError(err, `PropertyUS.DoUpsert failed: `+p.SpaceName())
 // }
@@ -1753,21 +1736,10 @@ func (p *PropertyUSMutator) SetZip(val string) bool { //nolint:dupl false positi
 	return false
 }
 
-// SetCountryCode create mutations, should not duplicate
-func (p *PropertyUSMutator) SetCountryCode(val string) bool { //nolint:dupl false positive
-	if val != p.CountryCode {
-		p.mutations = append(p.mutations, A.X{`=`, 38, val})
-		p.logs = append(p.logs, A.X{`countryCode`, p.CountryCode, val})
-		p.CountryCode = val
-		return true
-	}
-	return false
-}
-
 // SetPropertyLastUpdatedDate create mutations, should not duplicate
 func (p *PropertyUSMutator) SetPropertyLastUpdatedDate(val int64) bool { //nolint:dupl false positive
 	if val != p.PropertyLastUpdatedDate {
-		p.mutations = append(p.mutations, A.X{`=`, 39, val})
+		p.mutations = append(p.mutations, A.X{`=`, 38, val})
 		p.logs = append(p.logs, A.X{`propertyLastUpdatedDate`, p.PropertyLastUpdatedDate, val})
 		p.PropertyLastUpdatedDate = val
 		return true
@@ -1933,10 +1905,6 @@ func (p *PropertyUSMutator) SetAll(from rqProperty.PropertyUS, excludeMap, force
 	}
 	if !excludeMap[`zip`] && (forceMap[`zip`] || from.Zip != ``) {
 		p.Zip = from.Zip
-		changed = true
-	}
-	if !excludeMap[`countryCode`] && (forceMap[`countryCode`] || from.CountryCode != ``) {
-		p.CountryCode = from.CountryCode
 		changed = true
 	}
 	if !excludeMap[`propertyLastUpdatedDate`] && (forceMap[`propertyLastUpdatedDate`] || from.PropertyLastUpdatedDate != 0) {
