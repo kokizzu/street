@@ -91,7 +91,7 @@ func checkClickhouseTables(cConn *Ch.Adapter, tables map[Ch.TableName]*Ch.TableP
 func checkTarantoolTables(tConn *Tt.Adapter, tables map[Tt.TableName]*Tt.TableProp) {
 	for tableName := range tables {
 		tableName := string(tableName)
-		res, err := tConn.Call(`box.space.`+tableName+`:format`, []interface{}{})
+		res, err := tConn.Call(`box.space.`+tableName+`:format`, []any{})
 		if err != nil {
 			log.Fatalf(`please run TABLE migration on %v for tarantool: %v`, tableName, err)
 		}
@@ -101,7 +101,7 @@ func checkTarantoolTables(tConn *Tt.Adapter, tables map[Tt.TableName]*Tt.TablePr
 		}
 		columnNameTypes := map[string]string{}
 		for _, row := range rows[0] {
-			m, ok := row.(map[interface{}]interface{})
+			m, ok := row.(map[any]any)
 			if !ok {
 				log.Fatalf(`please run FIELD migration on %v for tarantool: %v`, tableName, row)
 			}

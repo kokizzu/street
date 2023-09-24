@@ -25,8 +25,8 @@ type PropertyFullResponse struct {
 	PublicRecordsInfo       PublicRecordsInfo
 	PropertyHistoryInfo     PropertyHistoryInfo
 	ZoningDataInfo          ZoningDataInfo
-	SchoolsAndDistrictsInfo map[string]interface{}
-	RiskFactorData          map[string]interface{}
+	SchoolsAndDistrictsInfo map[string]any
+	RiskFactorData          map[string]any
 }
 
 type AmenitiesInfo struct {
@@ -112,7 +112,7 @@ type TaxInfo struct {
 
 type PropertyHistoryInfo struct {
 	HasPropertyHistory         bool
-	MediaBrowserInfoBySourceId map[string]interface{}
+	MediaBrowserInfoBySourceId map[string]any
 	PriceEstimates             PriceEstimates
 	SectionPreviewText         string
 	Events                     []PropertyHistoryEvent
@@ -148,7 +148,7 @@ const (
 	UNKNOWN = "UNKNOWN"
 )
 
-func fetchPropertyUSByPropID(baseUrl string, propertyIdNum int) (map[any]interface{}, error) {
+func fetchPropertyUSByPropID(baseUrl string, propertyIdNum int) (map[any]any, error) {
 
 	// URL to fetch
 	// url := "https://www.redfin.com/stingray/api/home/details/belowTheFold?propertyId=10000000&accessLevel=1"
@@ -180,7 +180,7 @@ func fetchPropertyUSByPropID(baseUrl string, propertyIdNum int) (map[any]interfa
 	formattedResponseStr := strings.Replace(responseString, "{}&&", "", -1)
 
 	// Define a struct to parse the JSON response into
-	var data map[interface{}]interface{}
+	var data map[any]any
 
 	// Parse the JSON response for us property
 	if err := json.Unmarshal([]byte(formattedResponseStr), &data); err != nil {
@@ -191,7 +191,7 @@ func fetchPropertyUSByPropID(baseUrl string, propertyIdNum int) (map[any]interfa
 	return data, nil
 }
 
-func parseMapIntoStruct(inputMap map[string]interface{}) (*PropertyFullResponse, error) {
+func parseMapIntoStruct(inputMap map[string]any) (*PropertyFullResponse, error) {
 	var result PropertyFullResponse
 
 	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
@@ -210,7 +210,7 @@ func parseMapIntoStruct(inputMap map[string]interface{}) (*PropertyFullResponse,
 	return &result, nil
 }
 
-func ParsePropertyExtraData(propertyMutator wcProperty.PropertyExtraUSMutator, propertyResponseObject PropertyFullResponse) (res *wcProperty.PropertyExtraUSMutator, err error) {
+func parsePropertyExtraData(propertyMutator *wcProperty.PropertyExtraUSMutator, propertyResponseObject *PropertyFullResponse) {
 
 	// -------- Tax info --------
 	taxInfoJson, err := json.Marshal(propertyResponseObject.PublicRecordsInfo.TaxInfo)
@@ -268,11 +268,9 @@ func ParsePropertyExtraData(propertyMutator wcProperty.PropertyExtraUSMutator, p
 		L.Print("Can't parse Zone Data Info")
 	}
 	propertyMutator.RiskInfo = string(riskInfoJson)
-
-	return &propertyMutator, nil
 }
 
-func ParsePropertyData(propertyMutator wcProperty.PropertyUSMutator, propertyResponseObject PropertyFullResponse) (res *wcProperty.PropertyUSMutator, err error) {
+func parsePropertyData(propertyMutator *wcProperty.PropertyUSMutator, propertyResponseObject *PropertyFullResponse, stat *ImporterStat) {
 
 	// // -------- Basic info --------
 	propertyMutator.Street = propertyResponseObject.PublicRecordsInfo.AddressInfo.Street
@@ -307,12 +305,12 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUSMutator, propertyRes
 		var lat float64
 		var long float64
 
-		mediaObject, ok := value.(map[string]interface{})
+		mediaObject, ok := value.(map[string]any)
 
 		if ok {
-			streetViewData, convertedOk1 := mediaObject["streetView"].(map[string]interface{})
+			streetViewData, convertedOk1 := mediaObject["streetView"].(map[string]any)
 			if convertedOk1 {
-				latLong, convertedOk2 := streetViewData["latLong"].(map[string]interface{})
+				latLong, convertedOk2 := streetViewData["latLong"].(map[string]any)
 
 				if convertedOk2 {
 					lat = latLong["latitude"].(float64)
@@ -323,7 +321,7 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUSMutator, propertyRes
 						propertyMutator.Coord = []any{lat, long}
 					}
 				} else {
-					fmt.Println("\nCant parse lat/long")
+					stat.Warn(`no lat long`)
 				}
 			}
 		}
@@ -333,19 +331,12 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUSMutator, propertyRes
 	currentTime := time.Now().Unix()
 	propertyMutator.CreatedAt = currentTime
 	propertyMutator.UpdatedAt = currentTime
-
-	return &propertyMutator, nil
 }
 
-func ImportPropertyHistories(propertyResponseObject PropertyFullResponse, propertyId string) (res []rqProperty.PropertyHistory, err error) {
-
-	if err != nil {
-		L.Print("Error => ", err)
-		return nil, err
-	}
+func ImportPropertyHistories(propertyResponseObject *PropertyFullResponse, redFinId string) []rqProperty.PropertyHistory {
 
 	if propertyResponseObject.PropertyHistoryInfo.HasPropertyHistory == false {
-		return []rqProperty.PropertyHistory{}, nil
+		return []rqProperty.PropertyHistory{}
 	}
 
 	propHistories := []rqProperty.PropertyHistory{}
@@ -362,7 +353,7 @@ func ImportPropertyHistories(propertyResponseObject PropertyFullResponse, proper
 		data.TransactionTime = strconv.FormatInt(historyItem.EventDate, 10)
 		data.TransactionKey = historyItem.SourceId
 		data.Price = historyItem.Price
-		data.PropertyKey = propertyId
+		data.PropertyKey = redFinId
 		data.TransactionDescription = historyItem.EventDescription
 		data.TransactionDateNormal = historyItem.EventDateString
 		data.SerialNumber = propertyResponseObject.PublicRecordsInfo.BasicInfo.Apn // Serial number of house
@@ -377,7 +368,7 @@ func ImportPropertyHistories(propertyResponseObject PropertyFullResponse, proper
 		propHistories = append(propHistories, data)
 	}
 
-	return propHistories, nil
+	return propHistories
 
 }
 
@@ -404,48 +395,45 @@ func SavePropertyHistories(adapter *Tt.Adapter, propList []rqProperty.PropertyHi
 
 func ImportPropertyUsData(adapter *Tt.Adapter, baseUrl string, minPropId int, maxPropertyID int) {
 
-	stat := &ImporterStat{Total: maxPropertyID}
+	stat := &ImporterStat{Total: maxPropertyID * 2, PrintEvery: 10}
 	defer stat.Print(`last`)
 
 	for i := minPropId; i <= maxPropertyID; i++ {
 		stat.Print()
 
-		propertyMutator := wcProperty.NewPropertyUSMutator(adapter)
-		propertyExtraMutator := wcProperty.NewPropertyExtraUSMutator(adapter)
-		propertyMutator.UniqPropKey = strconv.Itoa(i)
+		redfinKey := `rf` + strconv.Itoa(i)
 
-		if propertyMutator.FindByUniqPropKey() {
+		// check first whether exists
+		propertyExtraMutator := wcProperty.NewPropertyExtraUSMutator(adapter)
+		propertyExtraMutator.PropertyKey = redfinKey
+		if propertyExtraMutator.FindByPropertyKey() {
 			stat.Skip()
 			continue
 		}
-		fmt.Println("Property ID => ", i)
+
+		propertyMutator := wcProperty.NewPropertyUSMutator(adapter)
+		propertyMutator.UniqPropKey = redfinKey
+		propertyMutator.FindByUniqPropKey()
 
 		data, err := fetchPropertyUSByPropID(baseUrl, i)
-		L.PanicIf(err, "Error: fetchPropertyUSByPropID", "PropertyID ["+string(i)+"]")
+		L.PanicIf(err, "Error: fetchPropertyUSByPropID "+redfinKey)
 
-		propertyResponse := data["payload"].(map[string]interface{})
+		propertyResponse := data["payload"].(map[string]any)
 		propertyVersion := X.ToS(data["version"])
 
 		// Property into the struct
 		propertyResponseObject, err := parseMapIntoStruct(propertyResponse)
+		L.PanicIf(err, "Parse property response error")
 
-		if err != nil {
-			L.Print("Error => ", err)
-			L.PanicIf(err, "Parse property response error")
-		}
-
-		propertyMutator, err = ParsePropertyData(*propertyMutator, *propertyResponseObject)
-		L.PanicIf(err, "ParsePropertyData", "PropertyID ["+fmt.Sprint(i)+"]")
+		parsePropertyData(propertyMutator, propertyResponseObject, stat)
 
 		propertyMutator.Version = propertyVersion
 
-		propertyHistories, err := ImportPropertyHistories(*propertyResponseObject, propertyMutator.UniqPropKey)
-		if err != nil {
-			L.Print("Parse property history error")
-		}
+		propertyHistories := ImportPropertyHistories(propertyResponseObject, strconv.Itoa(i))
 
 		if len(propertyHistories) == 0 {
-			L.Print("There are no properties history")
+			stat.Warn("no prop history")
+			propertyMutator.LastPrice = `0`
 		} else {
 			// Update last price
 			propertyMutator.LastPrice = fmt.Sprint(propertyHistories[0].Price)
@@ -453,14 +441,11 @@ func ImportPropertyUsData(adapter *Tt.Adapter, baseUrl string, minPropId int, ma
 		stat.Ok(propertyMutator.DoInsert())
 
 		// Store extra
-		fmt.Println("Inserting property extra ....")
-		propertyExtraMutator, err = ParsePropertyExtraData(*propertyExtraMutator, *propertyResponseObject)
-		propertyExtraMutator.PropertyKey = propertyMutator.UniqPropKey
-		propertyExtraMutator.DoInsert()
-		fmt.Println("Finish inserted property extra ....")
+		parsePropertyExtraData(propertyExtraMutator, propertyResponseObject)
+		stat.Ok(propertyExtraMutator.DoInsert())
 
-		// TODO process property history in the next step
-		// SavePropertyHistories(adapter, propertyHistories)
+		// TODO: save property history
+		//SavePropertyHistories(adapter, propertyHistories)
 
 	}
 

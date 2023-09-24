@@ -58,7 +58,7 @@ const (
 	Id                     = `id`
 	UniqPropKey            = `uniqPropKey`
 	SerialNumber           = `serialNumber`
-	SizeM2                 = `sizeM2`  // used also for rent/sell
+	SizeM2                 = `sizeM2`  // used also for rent/sell // TODO: deprecate, use totalSqft
 	MainUse                = `mainUse` // this is facilities for rent/sell
 	MainBuildingMaterial   = `mainBuildingMaterial`
 	ConstructCompletedDate = `constructCompletedDate`
@@ -88,7 +88,7 @@ const (
 	TransactionDescription = `transactionDescription`
 	TransactionDateNormal  = `transactionDateNormal`
 	TransactionNumber      = `transactionNumber`
-	PriceNTD               = `priceNtd`
+	PriceNTD               = `priceNtd` // TODO: deprecate
 	PricePerUnit           = `pricePerUnit`
 	Price                  = `price`
 

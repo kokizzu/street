@@ -72,7 +72,7 @@ type Place struct {
 }
 
 type GmapSearchNearbyResult struct {
-	//HTMLAttributions []interface{} `json:"html_attributions"`
+	//HTMLAttributions []any `json:"html_attributions"`
 	Results []struct {
 		//BusinessStatus string `json:"business_status"` // if keyword= not set, business_status of CLOSED_TEMPORARILY or CLOSED_PERMANENTLY will not be returned.
 		Geometry struct {
