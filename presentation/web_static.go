@@ -6,7 +6,6 @@ import (
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/X"
-	"github.com/rs/zerolog"
 
 	"street/domain"
 	"street/model/mAuth/rqAuth"
@@ -15,7 +14,7 @@ import (
 	"street/model/zImport"
 )
 
-func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
+func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 
 	fw.Get(`/`, func(c *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(c, d)

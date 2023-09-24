@@ -107,7 +107,7 @@ func (w *WebServer) Start(log *zerolog.Logger) {
 	}
 
 	// assign static routes (GET)
-	WebStatic(fw, w.Domain, log)
+	w.WebStatic(fw, w.Domain)
 
 	// API routes (POST)
 	ApiRoutes(fw, w.Domain)
