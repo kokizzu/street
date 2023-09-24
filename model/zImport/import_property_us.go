@@ -215,6 +215,7 @@ func ParsePropertyExtraData(propertyMutator wcProperty.PropertyExtraUSMutator, p
 		L.Print("Failed to convert tax info !")
 	}
 	propertyMutator.TaxInfo = string(taxInfoJson)
+	propertyMutator.TaxNote = propertyResponseObject.PublicRecordsInfo.SectionPreviewText
 
 	// -------- County --------
 	propertyMutator.CountyUrl = propertyResponseObject.PublicRecordsInfo.CountyUrl
@@ -287,10 +288,7 @@ func ParsePropertyData(propertyMutator wcProperty.PropertyUSMutator, propertyRes
 	propertyMutator.SerialNumber = propertyResponseObject.PublicRecordsInfo.BasicInfo.Apn // Store as serial number
 	propertyMutator.PropertyLastUpdatedDate = propertyResponseObject.PublicRecordsInfo.BasicInfo.PropertyLastUpdatedDate
 
-	propertyMutator.TaxNote = propertyResponseObject.PublicRecordsInfo.SectionPreviewText
-
 	propertyMutator.CountyName = propertyResponseObject.PublicRecordsInfo.CountyName
-
 	propertyMutator.CountryCode = propertyResponseObject.PublicRecordsInfo.AddressInfo.CountryCode
 
 	// Address

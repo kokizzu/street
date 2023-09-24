@@ -212,7 +212,6 @@ type Property struct {
 	Zip                     string      `json:"zip" form:"zip" query:"zip" long:"zip" msg:"zip"`
 	CountryCode             string      `json:"countryCode" form:"countryCode" query:"countryCode" long:"countryCode" msg:"countryCode"`
 	PropertyLastUpdatedDate int64       `json:"propertyLastUpdatedDate" form:"propertyLastUpdatedDate" query:"propertyLastUpdatedDate" long:"propertyLastUpdatedDate" msg:"propertyLastUpdatedDate"`
-	TaxNote                 string      `json:"taxNote" form:"taxNote" query:"taxNote" long:"taxNote" msg:"taxNote"`
 }
 
 // NewProperty create new ORM reader/query object
@@ -314,7 +313,6 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "zip"
 	, "countryCode"
 	, "propertyLastUpdatedDate"
-	, "taxNote"
 	`
 }
 
@@ -360,7 +358,6 @@ func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 	, "zip"
 	, "countryCode"
 	, "propertyLastUpdatedDate"
-	, "taxNote"
 	`
 }
 
@@ -407,7 +404,6 @@ func (p *Property) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 37, p.Zip},
 		A.X{`=`, 38, p.CountryCode},
 		A.X{`=`, 39, p.PropertyLastUpdatedDate},
-		A.X{`=`, 40, p.TaxNote},
 	}
 }
 
@@ -811,16 +807,6 @@ func (p *Property) SqlPropertyLastUpdatedDate() string { //nolint:dupl false pos
 	return `"propertyLastUpdatedDate"`
 }
 
-// IdxTaxNote return name of the index
-func (p *Property) IdxTaxNote() int { //nolint:dupl false positive
-	return 40
-}
-
-// SqlTaxNote return name of the column being indexed
-func (p *Property) SqlTaxNote() string { //nolint:dupl false positive
-	return `"taxNote"`
-}
-
 // ToArray receiver fields to slice
 func (p *Property) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -868,7 +854,6 @@ func (p *Property) ToArray() A.X { //nolint:dupl false positive
 		p.Zip,                     // 37
 		p.CountryCode,             // 38
 		p.PropertyLastUpdatedDate, // 39
-		p.TaxNote,                 // 40
 	}
 }
 
@@ -914,7 +899,6 @@ func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 	p.Zip = X.ToS(a[37])
 	p.CountryCode = X.ToS(a[38])
 	p.PropertyLastUpdatedDate = X.ToI(a[39])
-	p.TaxNote = X.ToS(a[40])
 	return p
 }
 
@@ -960,7 +944,6 @@ func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false po
 	p.Zip = X.ToS(a[37])
 	p.CountryCode = X.ToS(a[38])
 	p.PropertyLastUpdatedDate = X.ToI(a[39])
-	p.TaxNote = X.ToS(a[40])
 	return p
 }
 
@@ -1044,7 +1027,6 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`zip`:                     Tt.String,
 	`countryCode`:             Tt.String,
 	`propertyLastUpdatedDate`: Tt.Integer,
-	`taxNote`:                 Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
@@ -1064,6 +1046,7 @@ type PropertyExtraUS struct {
 	FacilityInfo       string      `json:"facilityInfo" form:"facilityInfo" query:"facilityInfo" long:"facilityInfo" msg:"facilityInfo"`
 	RiskInfo           string      `json:"riskInfo" form:"riskInfo" query:"riskInfo" long:"riskInfo" msg:"riskInfo"`
 	MediaSourceJson    string      `json:"mediaSourceJson" form:"mediaSourceJson" query:"mediaSourceJson" long:"mediaSourceJson" msg:"mediaSourceJson"`
+	TaxNote            string      `json:"taxNote" form:"taxNote" query:"taxNote" long:"taxNote" msg:"taxNote"`
 }
 
 // NewPropertyExtraUS create new ORM reader/query object
@@ -1073,7 +1056,7 @@ func NewPropertyExtraUS(adapter *Tt.Adapter) *PropertyExtraUS {
 
 // SpaceName returns full package and table name
 func (p *PropertyExtraUS) SpaceName() string { //nolint:dupl false positive
-	return string(mProperty.TablePropertyExtraUs) // casting required to string from Tt.TableName
+	return string(mProperty.TablePropertyExtraUS) // casting required to string from Tt.TableName
 }
 
 // SqlTableName returns quoted table name
@@ -1132,6 +1115,7 @@ func (p *PropertyExtraUS) SqlSelectAllFields() string { //nolint:dupl false posi
 	, "facilityInfo"
 	, "riskInfo"
 	, "mediaSourceJson"
+	, "taxNote"
 	`
 }
 
@@ -1149,6 +1133,7 @@ func (p *PropertyExtraUS) SqlSelectAllUncensoredFields() string { //nolint:dupl 
 	, "facilityInfo"
 	, "riskInfo"
 	, "mediaSourceJson"
+	, "taxNote"
 	`
 }
 
@@ -1167,6 +1152,7 @@ func (p *PropertyExtraUS) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 9, p.FacilityInfo},
 		A.X{`=`, 10, p.RiskInfo},
 		A.X{`=`, 11, p.MediaSourceJson},
+		A.X{`=`, 12, p.TaxNote},
 	}
 }
 
@@ -1290,6 +1276,16 @@ func (p *PropertyExtraUS) SqlMediaSourceJson() string { //nolint:dupl false posi
 	return `"mediaSourceJson"`
 }
 
+// IdxTaxNote return name of the index
+func (p *PropertyExtraUS) IdxTaxNote() int { //nolint:dupl false positive
+	return 12
+}
+
+// SqlTaxNote return name of the column being indexed
+func (p *PropertyExtraUS) SqlTaxNote() string { //nolint:dupl false positive
+	return `"taxNote"`
+}
+
 // ToArray receiver fields to slice
 func (p *PropertyExtraUS) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -1309,6 +1305,7 @@ func (p *PropertyExtraUS) ToArray() A.X { //nolint:dupl false positive
 		p.FacilityInfo,       // 9
 		p.RiskInfo,           // 10
 		p.MediaSourceJson,    // 11
+		p.TaxNote,            // 12
 	}
 }
 
@@ -1326,6 +1323,7 @@ func (p *PropertyExtraUS) FromArray(a A.X) *PropertyExtraUS { //nolint:dupl fals
 	p.FacilityInfo = X.ToS(a[9])
 	p.RiskInfo = X.ToS(a[10])
 	p.MediaSourceJson = X.ToS(a[11])
+	p.TaxNote = X.ToS(a[12])
 	return p
 }
 
@@ -1343,6 +1341,7 @@ func (p *PropertyExtraUS) FromUncensoredArray(a A.X) *PropertyExtraUS { //nolint
 	p.FacilityInfo = X.ToS(a[9])
 	p.RiskInfo = X.ToS(a[10])
 	p.MediaSourceJson = X.ToS(a[11])
+	p.TaxNote = X.ToS(a[12])
 	return p
 }
 
@@ -1398,6 +1397,7 @@ var PropertyExtraUSFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false po
 	`facilityInfo`:       Tt.String,
 	`riskInfo`:           Tt.String,
 	`mediaSourceJson`:    Tt.String,
+	`taxNote`:            Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
@@ -1445,7 +1445,6 @@ type PropertyUS struct {
 	Zip                     string      `json:"zip" form:"zip" query:"zip" long:"zip" msg:"zip"`
 	CountryCode             string      `json:"countryCode" form:"countryCode" query:"countryCode" long:"countryCode" msg:"countryCode"`
 	PropertyLastUpdatedDate int64       `json:"propertyLastUpdatedDate" form:"propertyLastUpdatedDate" query:"propertyLastUpdatedDate" long:"propertyLastUpdatedDate" msg:"propertyLastUpdatedDate"`
-	TaxNote                 string      `json:"taxNote" form:"taxNote" query:"taxNote" long:"taxNote" msg:"taxNote"`
 }
 
 // NewPropertyUS create new ORM reader/query object
@@ -1455,7 +1454,7 @@ func NewPropertyUS(adapter *Tt.Adapter) *PropertyUS {
 
 // SpaceName returns full package and table name
 func (p *PropertyUS) SpaceName() string { //nolint:dupl false positive
-	return string(mProperty.TablePropertyUs) // casting required to string from Tt.TableName
+	return string(mProperty.TablePropertyUS) // casting required to string from Tt.TableName
 }
 
 // SqlTableName returns quoted table name
@@ -1547,7 +1546,6 @@ func (p *PropertyUS) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "zip"
 	, "countryCode"
 	, "propertyLastUpdatedDate"
-	, "taxNote"
 	`
 }
 
@@ -1593,7 +1591,6 @@ func (p *PropertyUS) SqlSelectAllUncensoredFields() string { //nolint:dupl false
 	, "zip"
 	, "countryCode"
 	, "propertyLastUpdatedDate"
-	, "taxNote"
 	`
 }
 
@@ -1640,7 +1637,6 @@ func (p *PropertyUS) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 37, p.Zip},
 		A.X{`=`, 38, p.CountryCode},
 		A.X{`=`, 39, p.PropertyLastUpdatedDate},
-		A.X{`=`, 40, p.TaxNote},
 	}
 }
 
@@ -2044,16 +2040,6 @@ func (p *PropertyUS) SqlPropertyLastUpdatedDate() string { //nolint:dupl false p
 	return `"propertyLastUpdatedDate"`
 }
 
-// IdxTaxNote return name of the index
-func (p *PropertyUS) IdxTaxNote() int { //nolint:dupl false positive
-	return 40
-}
-
-// SqlTaxNote return name of the column being indexed
-func (p *PropertyUS) SqlTaxNote() string { //nolint:dupl false positive
-	return `"taxNote"`
-}
-
 // ToArray receiver fields to slice
 func (p *PropertyUS) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -2101,7 +2087,6 @@ func (p *PropertyUS) ToArray() A.X { //nolint:dupl false positive
 		p.Zip,                     // 37
 		p.CountryCode,             // 38
 		p.PropertyLastUpdatedDate, // 39
-		p.TaxNote,                 // 40
 	}
 }
 
@@ -2147,7 +2132,6 @@ func (p *PropertyUS) FromArray(a A.X) *PropertyUS { //nolint:dupl false positive
 	p.Zip = X.ToS(a[37])
 	p.CountryCode = X.ToS(a[38])
 	p.PropertyLastUpdatedDate = X.ToI(a[39])
-	p.TaxNote = X.ToS(a[40])
 	return p
 }
 
@@ -2193,7 +2177,6 @@ func (p *PropertyUS) FromUncensoredArray(a A.X) *PropertyUS { //nolint:dupl fals
 	p.Zip = X.ToS(a[37])
 	p.CountryCode = X.ToS(a[38])
 	p.PropertyLastUpdatedDate = X.ToI(a[39])
-	p.TaxNote = X.ToS(a[40])
 	return p
 }
 
@@ -2277,7 +2260,6 @@ var PropertyUSFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positiv
 	`zip`:                     Tt.String,
 	`countryCode`:             Tt.String,
 	`propertyLastUpdatedDate`: Tt.Integer,
-	`taxNote`:                 Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

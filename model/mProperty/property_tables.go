@@ -135,6 +135,7 @@ func buildPropertyExtraUs() []Tt.Field {
 		10: {RiskInfoJson, Tt.String},
 
 		11: {MediaSourceJson, Tt.String},
+		12: {TaxNote, Tt.String},
 	}
 
 	listFields := make([]Tt.Field, len(schema))
@@ -194,7 +195,6 @@ func buildStandardPropertySchema() []Tt.Field {
 		30: {YearBuilt, Tt.Integer},
 		31: {YearRenovated, Tt.Integer},
 		39: {PropertyLastUpdatedDate, Tt.Integer},
-		40: {TaxNote, Tt.String},
 
 		11: {Note, Tt.String},
 
