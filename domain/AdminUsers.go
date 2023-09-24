@@ -17,7 +17,7 @@ type (
 	AdminUsersIn struct {
 		RequestCommon
 
-		Action string `json:"action" form:"action" query:"action" long:"action" msg:"action"`
+		Cmd string `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
 
 		// for modifying user
 		User rqAuth.Users `json:"user" form:"user" query:"user" long:"user" msg:"user"`
@@ -129,8 +129,8 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 		out.Meta = &AdminUsersMeta
 	}
 
-	switch in.Action {
-	case zCrud.ActionForm:
+	switch in.Cmd {
+	case zCrud.CmdForm:
 		if in.User.Id <= 0 {
 			out.Meta = &AdminUsersMeta
 			return
@@ -143,7 +143,7 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 		}
 		user.CensorFields()
 		out.User = user
-	case zCrud.ActionUpsert, zCrud.ActionDelete, zCrud.ActionRestore:
+	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
 
 		user := wcAuth.NewUsersMutator(d.AuthOltp)
 		user.Id = in.User.Id
@@ -153,11 +153,11 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 				return
 			}
 
-			if in.Action == zCrud.ActionDelete {
+			if in.Cmd == zCrud.CmdDelete {
 				if user.DeletedAt == 0 {
 					user.SetDeletedAt(in.UnixNow())
 				}
-			} else if in.Action == zCrud.ActionRestore {
+			} else if in.Cmd == zCrud.CmdRestore {
 				if user.DeletedAt > 0 {
 					user.SetDeletedAt(0)
 				}
@@ -205,7 +205,7 @@ func (d *Domain) AdminUsers(in *AdminUsersIn) (out AdminUsersOut) {
 			break
 		}
 		fallthrough
-	case zCrud.ActionList:
+	case zCrud.CmdList:
 		r := rqAuth.NewUsers(d.AuthOltp)
 		out.Users = r.FindByPagination(&AdminUsersMeta, &in.Pager, &out.Pager)
 	}

@@ -305,7 +305,7 @@ func TestUserSearchPropAndLikes(t *testing.T) {
 	// create property as admin
 	out1 := d.AdminProperties(&AdminPropertiesIn{
 		RequestCommon: testAdminRequestCommon(AdminPropertiesAction),
-		Action:        zCrud.ActionUpsert,
+		Cmd:           zCrud.CmdUpsert,
 		Property: rqProperty.Property{
 			UniqPropKey:            "TEST234",
 			SizeM2:                 "200.5",
@@ -335,7 +335,7 @@ func TestUserSearchPropAndLikes(t *testing.T) {
 	// create property as admin 2
 	out2 := d.AdminProperties(&AdminPropertiesIn{
 		RequestCommon: testAdminRequestCommon(AdminPropertiesAction),
-		Action:        zCrud.ActionUpsert,
+		Cmd:           zCrud.CmdUpsert,
 		Property: rqProperty.Property{
 			UniqPropKey:            "TEST123",
 			SizeM2:                 "123.5",

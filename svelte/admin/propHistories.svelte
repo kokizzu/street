@@ -34,7 +34,7 @@
     // console.log( 'pagerIn=',pagerIn );
     await AdminPropHistories( {
       pager: pagerIn,
-      action: 'list',
+      cmd: 'list',
     }, function( res ) {
       handleResponse( res );
     } );
@@ -45,7 +45,7 @@
   async function editRow(id, row) {
     await AdminPropHistories( {
       propHistory: {id},
-      action: 'form',
+      cmd: 'form',
     }, function( res ) {
       if( !handleResponse( res ) )
         form.showModal( res.propHistory );
@@ -62,7 +62,7 @@
     console.log( ph );
     await AdminPropHistories( {
       propHistory: ph,
-      action: action,
+      cmd: action,
       pager: pager, // force refresh page, will be slow
     }, function( res ) {
       if( handleResponse( res ) ) {

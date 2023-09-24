@@ -606,7 +606,6 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 	switch action {`)
 	c.domains.eachSortedHandler(func(name string, handler tmethod) {
 		b.WriteString(`
-
 	case domain.` + name + `Action:
 		in := domain.` + name + `In{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

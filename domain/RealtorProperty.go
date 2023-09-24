@@ -14,7 +14,7 @@ type (
 	RealtorPropertyIn struct {
 		RequestCommon
 
-		Id uint64 `json:"id" form:"id" query:"id" long:"id" msg:"id"`
+		Id uint64 `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
 	}
 	RealtorPropertyOut struct {
 		ResponseCommon

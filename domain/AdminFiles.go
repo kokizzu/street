@@ -16,7 +16,7 @@ type (
 	AdminFilesIn struct {
 		RequestCommon
 
-		Action string `json:"action" form:"action" query:"action" long:"action" msg:"action"`
+		Cmd string `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
 
 		// for modifying files
 		File rqStorage.Files `json:"file" form:"file" query:"file" long:"file" msg:"file"`
@@ -121,11 +121,11 @@ func (d *Domain) AdminFiles(in *AdminFilesIn) (out AdminFilesOut) {
 	}
 
 	if in.WithMeta {
-		out.Meta = &AdminPropertiesMeta
+		out.Meta = &AdminFilesMeta
 	}
 
-	switch in.Action {
-	case zCrud.ActionList:
+	switch in.Cmd {
+	case zCrud.CmdList:
 		r := rqStorage.NewFiles(d.StorOltp)
 		out.Files = r.FindByPagination(&AdminFilesMeta, &in.Pager, &out.Pager)
 

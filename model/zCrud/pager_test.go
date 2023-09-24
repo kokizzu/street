@@ -549,10 +549,10 @@ WHERE ("name" IN ('&apos;; DROP TABLE users; --','&apos;) OR 1=1; --'))`),
 			limitOffsetSql := out.LimitOffsetSql()
 			tc.limitOffsetSql.Equal(t, limitOffsetSql)
 
-			whereAndSql := out.WhereAndSql(tc.in.Filters, tc.fieldToType)
+			whereAndSql := out.WhereAndSqlTt(tc.in.Filters, tc.fieldToType)
 			tc.whereAndSql.Equal(t, whereAndSql)
 
-			orderBySql := out.OrderBySql(tc.in.Order, tc.fieldToType)
+			orderBySql := out.OrderBySqlTt(tc.in.Order, tc.fieldToType)
 			tc.orderBySql.Equal(t, orderBySql)
 
 			tc.expectOut.Equal(t, out)

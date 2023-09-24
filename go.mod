@@ -3,7 +3,7 @@ module street
 go 1.20
 
 require (
-	github.com/ClickHouse/clickhouse-go/v2 v2.13.4
+	github.com/ClickHouse/clickhouse-go/v2 v2.14.1
 	github.com/allegro/bigcache/v3 v3.1.0
 	github.com/davecgh/go-spew v1.1.1
 	github.com/disintegration/imaging v1.6.2
@@ -14,7 +14,7 @@ require (
 	github.com/joho/godotenv v1.4.0
 	github.com/jxskiss/base62 v1.1.0
 	github.com/kokizzu/ch-timed-buffer v1.2025.1416
-	github.com/kokizzu/gotro v1.3227.1907
+	github.com/kokizzu/gotro v1.3317.148
 	github.com/kokizzu/id64 v1.2829.1452
 	github.com/kokizzu/lexid v1.2423.1347
 	github.com/kpango/fastime v1.1.9
@@ -57,7 +57,7 @@ require (
 	github.com/fatih/color v1.15.0 // indirect
 	github.com/go-faster/city v1.0.1 // indirect
 	github.com/go-faster/errors v0.6.1 // indirect
-	github.com/goccy/go-yaml v1.11.0 // indirect
+	github.com/goccy/go-yaml v1.11.2 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/go-cmp v0.5.9 // indirect
@@ -89,7 +89,7 @@ require (
 	github.com/nightlyone/lockfile v1.0.0 // indirect
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
-	github.com/opencontainers/image-spec v1.1.0-rc4 // indirect
+	github.com/opencontainers/image-spec v1.1.0-rc5 // indirect
 	github.com/opencontainers/runc v1.1.9 // indirect
 	github.com/orcaman/concurrent-map v1.0.0 // indirect
 	github.com/paulmach/orb v0.10.0 // indirect
@@ -97,7 +97,7 @@ require (
 	github.com/pierrec/lz4/v4 v4.1.18 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/redis/rueidis v1.0.17 // indirect
+	github.com/redis/rueidis v1.0.18 // indirect
 	github.com/richardlehane/mscfb v1.0.4 // indirect
 	github.com/richardlehane/msoleps v1.0.3 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
@@ -114,7 +114,7 @@ require (
 	github.com/tdewolff/parse v2.3.4+incompatible // indirect
 	github.com/tinylib/msgp v1.1.8 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
-	github.com/valyala/fasthttp v1.49.0 // indirect
+	github.com/valyala/fasthttp v1.50.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
@@ -123,8 +123,8 @@ require (
 	github.com/xeipuuv/gojsonschema v1.2.0 // indirect
 	github.com/xuri/efp v0.0.0-20220603152613-6918739fd470 // indirect
 	github.com/xuri/nfp v0.0.0-20220409054826-5e722a1d9e22 // indirect
-	go.opentelemetry.io/otel v1.17.0 // indirect
-	go.opentelemetry.io/otel/trace v1.17.0 // indirect
+	go.opentelemetry.io/otel v1.18.0 // indirect
+	go.opentelemetry.io/otel/trace v1.18.0 // indirect
 	golang.org/x/crypto v0.13.0 // indirect
 	golang.org/x/image v0.5.0 // indirect
 	golang.org/x/mod v0.12.0 // indirect

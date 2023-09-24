@@ -66,20 +66,18 @@ func (d *Domain) WaitTimedBufferFinalFlush() {
 	d.Log.Debug().Msg(`timed buffer flushed`)
 }
 
+var defaultIP4 net.IP = net.ParseIP(`0.0.0.0`).To4()
+var defaultIP6 net.IP = net.ParseIP(`0:0:0:0:0:0:0:0`).To16()
+
 func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 	ip := net.ParseIP(in.IpAddress)
-	v4 := ip.To4()
-	var ip4, ip6 string
-	if v4 == nil {
-		ip4 = `0.0.0.0`
-	} else {
-		ip4 = v4.String()
+	ip4 := ip.To4()
+	if ip4 == nil {
+		ip4 = defaultIP4
 	}
-	v6 := ip.To16()
-	if v6 == nil {
-		ip6 = `0:0:0:0:0:0:0:0`
-	} else {
-		ip6 = v6.String()
+	ip6 := ip.To16()
+	if ip6 == nil {
+		ip6 = defaultIP6
 	}
 	row := saAuth.ActionLogs{
 		CreatedAt:  in.TimeNow(),

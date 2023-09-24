@@ -14,6 +14,7 @@ import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/gabriel-vasile/mimetype"
 	"github.com/goccy/go-json"
+	"github.com/gofiber/fiber/v2/utils"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/kokizzu/gotro/A"
@@ -129,20 +130,32 @@ func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon, 
 		if l.Debug {
 			rc.Debug = in
 		}
-		byt, err := json.Marshal(out)
-		if L.IsError(err, `json.Marshal: %#v`, out) {
-			spew.Dump(in)
-			spew.Dump(out)
-			return err
-		}
-		_, err = ctx.Write(byt)
-		if L.IsError(err, `ctx.Write failed: `+string(byt)) {
-			return err
-		}
-		// TODO: log size/bytes written
-		if l.Debug || rc.HasError() {
-			L.Describe(in)
-			log.Print(string(byt))
+		if l.Action == UserAutoLoginLinkAction { // to prevent / became %2f, ? became %3f
+			buffer := &bytes.Buffer{}
+			encoder := json.NewEncoder(buffer)
+			encoder.SetEscapeHTML(false)
+			err := encoder.Encode(out)
+			L.Print(`AutoLoginLink: ` + buffer.String()) // TODO: remove after debugging
+			if L.IsError(err, `json.Encode: %#v`, out) {
+				return err
+			}
+			ctx.Write(buffer.Bytes())
+		} else {
+			byt, err := json.Marshal(out)
+			if L.IsError(err, `json.Marshal: %#v`, out) {
+				spew.Dump(in)
+				spew.Dump(out)
+				return err
+			}
+			_, err = ctx.Write(byt)
+			if L.IsError(err, `ctx.Write failed: `+string(byt)) {
+				return err
+			}
+			// TODO: log size/bytes written
+			if l.Debug || rc.HasError() {
+				L.Describe(in)
+				log.Print(string(byt))
+			}
 		}
 	case `html`:
 		// do nothing
@@ -170,7 +183,7 @@ func (i *RequestCommon) Latency() float64 {
 func (l *RequestCommon) FromFiberCtx(ctx *fiber.Ctx, tracerCtx context.Context) {
 	l.RequestId = lexid.ID()
 	l.SessionToken = ctx.Cookies(conf.CookieName, l.SessionToken)
-	l.UserAgent = string(ctx.Request().Header.UserAgent())
+	l.UserAgent = utils.CopyString(string(ctx.Request().Header.UserAgent()))
 	l.Host = ctx.Protocol() + `://` + ctx.Hostname()
 	// from nginx reverse proxy
 	l.IpAddress = ctx.IP()

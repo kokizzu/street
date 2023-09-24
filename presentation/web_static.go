@@ -2,6 +2,7 @@ package presentation
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/utils"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/X"
@@ -11,6 +12,7 @@ import (
 	"street/model/mAuth/rqAuth"
 	"street/model/mProperty/rqProperty"
 	"street/model/zCrud"
+	"street/model/zImport"
 )
 
 func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
@@ -38,7 +40,6 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 				MaxDistanceKM: defaultDistanceKm,
 			})
 		}
-		L.Describe(props)
 		return views.RenderIndex(c, M.SX{
 			`title`:  `Street`,
 			`user`:   user,
@@ -81,6 +82,26 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			`email`:     email,
 			`error`:     errStr,
 			`createdAt`: createdAt,
+		})
+	})
+
+	fw.Get(`/`+domain.GuestPropertyAction+`/:propId`, func(ctx *fiber.Ctx) error {
+		in, _, _ := userInfoFromContext(ctx, d)
+		in.RequestCommon.Action = domain.GuestPropertyAction
+		out := d.GuestProperty(&domain.GuestPropertyIn{
+			RequestCommon: in.RequestCommon,
+			Id:            X.ToU(ctx.Params(`propId`)),
+		})
+		if out.Error != `` {
+			L.Print(out.Error)
+			return views.RenderError(ctx, M.SX{
+				`error`: out.Error,
+			})
+		}
+		return views.RenderGuestProperty(ctx, M.SX{
+			`title`:        `Property`,
+			`propItem`:     out.Property,
+			`propertyMeta`: out.Meta,
 		})
 	})
 
@@ -154,7 +175,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			`propertyMeta`:    out.Meta,
 		})
 	})
-	fw.Get(`/realtor/property`, func(ctx *fiber.Ctx) error {
+	fw.Get(`/`+domain.RealtorPropertyAction, func(ctx *fiber.Ctx) error {
 		// create new property
 		in, _, segments := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
@@ -166,9 +187,10 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			`property`: M.SX{},
 		})
 	})
-	fw.Get(`/realtor/property/:propId`, func(ctx *fiber.Ctx) error {
+	fw.Get(`/`+domain.RealtorPropertyAction+`/:propId`, func(ctx *fiber.Ctx) error {
 		// edit property
 		in, _, segments := userInfoFromContext(ctx, d)
+		in.RequestCommon.Action = domain.RealtorPropertyAction
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
@@ -218,7 +240,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
-		in.Action = zCrud.ActionList
+		in.Cmd = zCrud.CmdList
 		out := d.AdminUsers(&in)
 		return views.RenderAdminUsers(ctx, M.SX{
 			`title`:    `Users`,
@@ -239,7 +261,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
-		in.Action = zCrud.ActionList
+		in.Cmd = zCrud.CmdList
 		out := d.AdminProperties(&in)
 		return views.RenderAdminProperties(ctx, M.SX{
 			`title`:      `Properties`,
@@ -260,7 +282,7 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
-		in.Action = zCrud.ActionList
+		in.Cmd = zCrud.CmdList
 		out := d.AdminPropHistories(&in)
 		return views.RenderAdminPropHistories(ctx, M.SX{
 			`title`:         `Prop Histories`,
@@ -271,27 +293,80 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 		})
 	})
 	fw.Get(`/user`, func(ctx *fiber.Ctx) error {
+		countriesData, _ := zImport.GoogleSheetCountryDataToJson("1TmAjrclFHUwDA1487ifQjX4FzYt9y7eJ0gwyxtwZMJU", 522117981)
 		in, user, segments := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
+		in.RequestCommon.Action = domain.UserSessionsActiveAction
+		out := d.UserSessionsActive(&domain.UserSessionsActiveIn{
+			RequestCommon: in.RequestCommon,
+		})
 		return views.RenderUser(ctx, M.SX{
-			`title`:    `Profile`,
-			`user`:     user,
-			`segments`: segments,
+			`title`:          `Profile`,
+			`user`:           user,
+			`segments`:       segments,
+			`activeSessions`: out.SessionsActive,
+			`countryData`:    countriesData,
 		})
 	})
-	fw.Get(`/`+domain.AdminFilesAction, func(ctx *fiber.Ctx) error {
-		in, _, segments := userInfoFromContext(ctx, d)
+	fw.Get(`/`+domain.GuestAutoLoginAction, func(ctx *fiber.Ctx) error {
+		var in domain.GuestAutoLoginIn
+		_ = webApiParseInput(ctx, &in.RequestCommon, &in, domain.GuestAutoLoginAction)
+		in.Uid = ctx.Query(`uid`)
+		in.Token = ctx.Query(`token`)
+		in.Path = ctx.Query(`path`)
+		out := d.GuestAutoLogin(&in)
+
+		if out.Error != `` {
+			return views.RenderError(ctx, M.SX{
+				`error`: out.Error,
+			})
+		}
+		return in.ToFiberCtx(ctx, out, &out.ResponseCommon, in)
+	})
+	fw.Get(`/`+domain.AdminAccessLogsAction, func(ctx *fiber.Ctx) error {
+		var in domain.AdminAccessLogsIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminUsersAction)
+		if err != nil {
+			return err
+		}
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		return views.RenderAdminFiles(ctx, M.SX{
-			`title`:    `Files`,
+		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		out := d.AdminAccessLogs(&in)
+		return views.RenderAdminAccessLog(ctx, M.SX{
+			`title`:    `Access Log`,
 			`segments`: segments,
+			`logs`:     out.Logs,
+			`fields`:   out.Meta.Fields,
+			`pager`:    out.Pager,
 		})
 	})
-	fw.All(`/guest/files/:base62id-:modifier.:ext`, func(ctx *fiber.Ctx) error {
+	fw.Get(`/`+domain.AdminFilesAction, func(ctx *fiber.Ctx) error {
+		var in domain.AdminFilesIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminUsersAction)
+		if err != nil {
+			return err
+		}
+		if notAdmin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Cmd = `list`
+		out := d.AdminFiles(&in)
+		return views.RenderAdminFiles(ctx, M.SX{
+			`title`:    `Access Log`,
+			`segments`: segments,
+			`files`:    out.Files,
+			`fields`:   out.Meta.Fields,
+			`pager`:    out.Pager,
+		})
+	})
+	fw.All(`/`+domain.GuestFilesAction+`/:base62id-:modifier.:ext`, func(ctx *fiber.Ctx) error {
 		method := ctx.Method()
 		if method != fiber.MethodGet && method != fiber.MethodHead {
 			return nil
@@ -302,14 +377,18 @@ func WebStatic(fw *fiber.App, d *domain.Domain, log *zerolog.Logger) {
 			return err
 		}
 
-		in.Base62id = ctx.Params(`base62id`)
-		in.Modifier = ctx.Params(`modifier`)
-		in.Ext = ctx.Params(`ext`)
+		in.RequestCommon.Action = domain.GuestFilesAction
+		in.Base62id = utils.CopyString(ctx.Params(`base62id`))
+		in.Modifier = utils.CopyString(ctx.Params(`modifier`))
+		in.Ext = utils.CopyString(ctx.Params(`ext`))
 
 		out := d.GuestFiles(&in)
 		ctx.Set("content-type", out.ContentType)
 		_, err = ctx.Write(out.Raw)
 		return err
+	})
+	fw.Get(`/debug`, func(ctx *fiber.Ctx) error {
+		return views.RenderDebug(ctx, M.SX{})
 	})
 }
 

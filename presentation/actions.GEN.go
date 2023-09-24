@@ -7,17 +7,20 @@ import (
 )
 
 var allCommands = []string{
+	domain.AdminAccessLogsAction,
 	domain.AdminDashboardAction,
 	domain.AdminFilesAction,
 	domain.AdminPropHistoriesAction,
 	domain.AdminPropertiesAction,
 	domain.AdminUsersAction,
+	domain.GuestAutoLoginAction,
 	domain.GuestDebugAction,
 	domain.GuestExternalAuthAction,
 	domain.GuestFilesAction,
 	domain.GuestForgotPasswordAction,
 	domain.GuestLoginAction,
 	domain.GuestOauthCallbackAction,
+	domain.GuestPropertyAction,
 	domain.GuestRegisterAction,
 	domain.GuestResendVerificationEmailAction,
 	domain.GuestResetPasswordAction,
@@ -25,6 +28,7 @@ var allCommands = []string{
 	domain.RealtorOwnedPropertiesAction,
 	domain.RealtorPropertyAction,
 	domain.RealtorUpsertPropertyAction,
+	domain.UserAutoLoginLinkAction,
 	domain.UserChangePasswordAction,
 	domain.UserDeactivateAction,
 	domain.UserLikePropAction,
@@ -33,6 +37,8 @@ var allCommands = []string{
 	domain.UserProfileAction,
 	domain.UserPropHistoryAction,
 	domain.UserSearchPropAction,
+	domain.UserSessionKillAction,
+	domain.UserSessionsActiveAction,
 	domain.UserUpdateProfileAction,
 	domain.UserUploadFileAction,
 }

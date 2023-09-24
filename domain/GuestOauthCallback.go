@@ -143,7 +143,7 @@ func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCal
 	d.ExpireSession(in.SessionToken, &out.ResponseCommon)
 
 	// create new session
-	session, sess := d.CreateSession(user.Id, user.Email, in.UserAgent)
+	session, sess := d.CreateSession(user.Id, user.Email, in.UserAgent, in.IpAddress)
 	if !session.DoInsert() {
 		out.SetError(500, ErrGuestOauthCallbackFailedStoringSession)
 		return
