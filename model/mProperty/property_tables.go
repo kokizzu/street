@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	TablePropertyUs      Tt.TableName = `propertyUS`
-	TablePropertyExtraUs Tt.TableName = `propertyExtraUS`
+	TablePropertyUS      Tt.TableName = `propertyUS`
+	TablePropertyExtraUS Tt.TableName = `propertyExtraUS`
 
 	Version = `version`
 
@@ -279,7 +279,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Unique1: PropId,
 		Engine:  Tt.Memtx,
 	},
-	TablePropertyUs: {
+	TablePropertyUS: {
 		Fields:          buildStandardPropertySchema(),
 		AutoIncrementId: true,
 		Unique1:         UniqPropKey,
@@ -287,7 +287,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Engine:          Tt.Memtx,
 		Spatial:         Coord,
 	},
-	TablePropertyExtraUs: {
+	TablePropertyExtraUS: {
 		Fields:          buildPropertyExtraUs(),
 		AutoIncrementId: true,
 		Unique1:         PropertyKey,

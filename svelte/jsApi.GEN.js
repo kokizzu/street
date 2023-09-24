@@ -275,6 +275,7 @@ exports.AdminFiles = async function AdminFiles( i, cb ) {
  * @property {number} propHistory.updatedBy
  * @property {number} propHistory.deletedAt
  * @property {String} propHistory.serialNumber
+ * @property {String} propHistory.transactionDescription
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -304,6 +305,7 @@ const AdminPropHistoriesIn = {
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
     serialNumber: '', // string
+    transactionDescription: '', // string
   }, // rqProperty.PropertyHistory
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -345,6 +347,7 @@ const AdminPropHistoriesIn = {
  * @property {number} propHistory.updatedBy
  * @property {number} propHistory.deletedAt
  * @property {String} propHistory.serialNumber
+ * @property {String} propHistory.transactionDescription
  * @property {Object} propHistories
  */
 const AdminPropHistoriesOut = {
@@ -385,6 +388,7 @@ const AdminPropHistoriesOut = {
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
     serialNumber: '', // string
+    transactionDescription: '', // string
   }, // rqProperty.PropertyHistory
   propHistories: { // [][]any
   }, // [][]any
@@ -437,7 +441,16 @@ exports.AdminPropHistories = async function AdminPropHistories( i, cb ) {
  * @property {number} property.bathroom
  * @property {number} property.agencyFeePercent
  * @property {Object} property.floorList
- * @property {String} property.country
+ * @property {number} property.version
+ * @property {number} property.yearBuilt
+ * @property {number} property.yearRenovated
+ * @property {number} property.totalSqft
+ * @property {String} property.countyName
+ * @property {String} property.street
+ * @property {String} property.city
+ * @property {String} property.state
+ * @property {String} property.zip
+ * @property {number} property.propertyLastUpdatedDate
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -481,7 +494,16 @@ const AdminPropertiesIn = {
     agencyFeePercent: 0, // float64
     floorList: { // []any
     }, // []any
-    country: '', // string
+    version: 0, // float64
+    yearBuilt: 0, // int64
+    yearRenovated: 0, // int64
+    totalSqft: 0, // float64
+    countyName: '', // string
+    street: '', // string
+    city: '', // string
+    state: '', // string
+    zip: '', // string
+    propertyLastUpdatedDate: 0, // int64
   }, // rqProperty.Property
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -532,7 +554,16 @@ const AdminPropertiesIn = {
  * @property {number} property.bathroom
  * @property {number} property.agencyFeePercent
  * @property {Object} property.floorList
- * @property {String} property.country
+ * @property {number} property.version
+ * @property {number} property.yearBuilt
+ * @property {number} property.yearRenovated
+ * @property {number} property.totalSqft
+ * @property {String} property.countyName
+ * @property {String} property.street
+ * @property {String} property.city
+ * @property {String} property.state
+ * @property {String} property.zip
+ * @property {number} property.propertyLastUpdatedDate
  * @property {Object} properties
  */
 const AdminPropertiesOut = {
@@ -587,7 +618,16 @@ const AdminPropertiesOut = {
     agencyFeePercent: 0, // float64
     floorList: { // []any
     }, // []any
-    country: '', // string
+    version: 0, // float64
+    yearBuilt: 0, // int64
+    yearRenovated: 0, // int64
+    totalSqft: 0, // float64
+    countyName: '', // string
+    street: '', // string
+    city: '', // string
+    state: '', // string
+    zip: '', // string
+    propertyLastUpdatedDate: 0, // int64
   }, // rqProperty.Property
   properties: { // [][]any
   }, // [][]any
@@ -1156,7 +1196,16 @@ const GuestPropertyIn = {
  * @property {number} property.bathroom
  * @property {number} property.agencyFeePercent
  * @property {Object} property.floorList
- * @property {String} property.country
+ * @property {number} property.version
+ * @property {number} property.yearBuilt
+ * @property {number} property.yearRenovated
+ * @property {number} property.totalSqft
+ * @property {String} property.countyName
+ * @property {String} property.street
+ * @property {String} property.city
+ * @property {String} property.state
+ * @property {String} property.zip
+ * @property {number} property.propertyLastUpdatedDate
  * @property {Object} meta
  */
 const GuestPropertyOut = {
@@ -1195,7 +1244,16 @@ const GuestPropertyOut = {
     agencyFeePercent: 0, // float64
     floorList: { // []any
     }, // []any
-    country: '', // string
+    version: 0, // float64
+    yearBuilt: 0, // int64
+    yearRenovated: 0, // int64
+    totalSqft: 0, // float64
+    countyName: '', // string
+    street: '', // string
+    city: '', // string
+    state: '', // string
+    zip: '', // string
+    propertyLastUpdatedDate: 0, // int64
   }, // rqProperty.Property
   meta: { // []zCrud.Field
   }, // []zCrud.Field
@@ -1484,7 +1542,16 @@ const RealtorPropertyIn = {
  * @property {number} property.bathroom
  * @property {number} property.agencyFeePercent
  * @property {Object} property.floorList
- * @property {String} property.country
+ * @property {number} property.version
+ * @property {number} property.yearBuilt
+ * @property {number} property.yearRenovated
+ * @property {number} property.totalSqft
+ * @property {String} property.countyName
+ * @property {String} property.street
+ * @property {String} property.city
+ * @property {String} property.state
+ * @property {String} property.zip
+ * @property {number} property.propertyLastUpdatedDate
  */
 const RealtorPropertyOut = {
   property: { // rqProperty.Property
@@ -1522,7 +1589,16 @@ const RealtorPropertyOut = {
     agencyFeePercent: 0, // float64
     floorList: { // []any
     }, // []any
-    country: '', // string
+    version: 0, // float64
+    yearBuilt: 0, // int64
+    yearRenovated: 0, // int64
+    totalSqft: 0, // float64
+    countyName: '', // string
+    street: '', // string
+    city: '', // string
+    state: '', // string
+    zip: '', // string
+    propertyLastUpdatedDate: 0, // int64
   }, // rqProperty.Property
 }
 /**
@@ -1572,7 +1648,16 @@ exports.RealtorProperty = async function RealtorProperty( i, cb ) {
  * @property {number} property.bathroom
  * @property {number} property.agencyFeePercent
  * @property {Object} property.floorList
- * @property {String} property.country
+ * @property {number} property.version
+ * @property {number} property.yearBuilt
+ * @property {number} property.yearRenovated
+ * @property {number} property.totalSqft
+ * @property {String} property.countyName
+ * @property {String} property.street
+ * @property {String} property.city
+ * @property {String} property.state
+ * @property {String} property.zip
+ * @property {number} property.propertyLastUpdatedDate
  */
 const RealtorUpsertPropertyIn = {
   property: { // rqProperty.Property
@@ -1610,7 +1695,16 @@ const RealtorUpsertPropertyIn = {
     agencyFeePercent: 0, // float64
     floorList: { // []any
     }, // []any
-    country: '', // string
+    version: 0, // float64
+    yearBuilt: 0, // int64
+    yearRenovated: 0, // int64
+    totalSqft: 0, // float64
+    countyName: '', // string
+    street: '', // string
+    city: '', // string
+    state: '', // string
+    zip: '', // string
+    propertyLastUpdatedDate: 0, // int64
   }, // rqProperty.Property
 }
 /**
@@ -1644,7 +1738,16 @@ const RealtorUpsertPropertyIn = {
  * @property {number} property.bathroom
  * @property {number} property.agencyFeePercent
  * @property {Object} property.floorList
- * @property {String} property.country
+ * @property {number} property.version
+ * @property {number} property.yearBuilt
+ * @property {number} property.yearRenovated
+ * @property {number} property.totalSqft
+ * @property {String} property.countyName
+ * @property {String} property.street
+ * @property {String} property.city
+ * @property {String} property.state
+ * @property {String} property.zip
+ * @property {number} property.propertyLastUpdatedDate
  */
 const RealtorUpsertPropertyOut = {
   property: { // rqProperty.Property
@@ -1682,7 +1785,16 @@ const RealtorUpsertPropertyOut = {
     agencyFeePercent: 0, // float64
     floorList: { // []any
     }, // []any
-    country: '', // string
+    version: 0, // float64
+    yearBuilt: 0, // int64
+    yearRenovated: 0, // int64
+    totalSqft: 0, // float64
+    countyName: '', // string
+    street: '', // string
+    city: '', // string
+    state: '', // string
+    zip: '', // string
+    propertyLastUpdatedDate: 0, // int64
   }, // rqProperty.Property
 }
 /**

@@ -303,6 +303,10 @@ func getType(expr ast.Expr) string {
 	if _, ok := expr.(*ast.StructType); ok {
 		return `struct{}`
 	}
+	// method, eg. func () func(){}
+	if _, ok := expr.(*ast.InterfaceType); ok {
+		return `any`
+	}
 	panic(fmt.Sprintf(`unhandled type: %T %#v`, expr, expr))
 }
 
