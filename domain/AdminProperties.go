@@ -182,12 +182,6 @@ var (
 			//	InputType: zCrud.InputTypeText, // TODO: change to json editor
 			//},
 			{
-				Name:      mProperty.Country,
-				Label:     `Country`,
-				DataType:  zCrud.DataTypeString,
-				InputType: zCrud.InputTypeText, // TODO: change to select
-			},
-			{
 				Name:      mProperty.DeletedAt,
 				Label:     `Deleted At`,
 				DataType:  zCrud.DataTypeInt,
