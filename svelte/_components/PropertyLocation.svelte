@@ -239,6 +239,11 @@
     navigator.clipboard.writeText( text );
     useGrowl( 'success', 'Link copied to clipboard' );
   }
+  
+  function propertyUrl( id ) {
+		let url = window.location.href.split('#')[0]
+	  return url + 'guest/property/'+id;
+  }
 </script>
 
 {#if showGrowl}
@@ -284,12 +289,12 @@
 									{#if shareItemIndex===index}
 										<div class='share_container'>
 											<button class='share_item copy' title='Copy link address'
-											        on:click={() => copyToClipboard(`${window.location}guest/property/${prop.id}`)}>
+											        on:click={() => copyToClipboard(propertyUrl(prop.id))}>
 												<Icon size={14} color='#475569' src={FaCopy}/>
 											</button>
 											<a class='share_item'
 											   aria-label="Share to Facebook"
-											   href={`https://www.facebook.com/sharer/sharer.php?u=${window.location}?utm_source=facebook&utm_medium=social&utm_campaign=user-share`}
+											   href={'https://www.facebook.com/sharer/sharer.php?u='+propertyUrl(prop.id)+'?utm_source=facebook&utm_medium=social&utm_campaign=user-share'}
 											   target="_blank"
 											   rel="noopener"
 											>
@@ -297,7 +302,7 @@
 											</a>
 											<a class='share_item'
 											   aria-label="Share to LinkedIn"
-											   href={`https://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${prop.id}`}
+											   href={'http://www.linkedin.com/shareArticle?mini=true&url='+propertyUrl(prop.id)+'&title=I%20Found%20Awesome%House%20'+propertyUrl(prop.id)}
 											   target="_blank"
 											   rel="noopener"
 											>
@@ -305,7 +310,7 @@
 											</a>
 											<a class='share_item'
 											   aria-label="Share to Twitter"
-											   href={`https://twitter.com/intent/tweet?url=${window.location}property/${prop.id}&text=I%20Found%20Awesome%20House`}
+											   href={'https://twitter.com/intent/tweet?text=I%20Found%20Awesome%House%20'+propertyUrl(prop.id)}
 											   target="_blank"
 											   rel="noopener"
 											>
@@ -313,7 +318,7 @@
 											</a>
 											<a class='share_item'
 											   aria-label="Share to Telegram"
-											   href={`https://t.me/share/url?url=${window.location}property/${prop.id}`}
+											   href={'https://t.me/share/url?url='+propertyUrl(prop.id)}
 											   target="_blank"
 											   rel="noopener"
 											>
@@ -321,7 +326,7 @@
 											</a>
 											<a class='share_item'
 											   aria-label="Share to WhatsApp"
-											   href={`https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House`}
+											   href={'https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House%20'+propertyUrl(prop.id)}
 											   target="_blank"
 											   rel="noopener"
 											>

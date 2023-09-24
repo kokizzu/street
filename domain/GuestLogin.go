@@ -73,7 +73,7 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 	}
 	user.CensorFields()
 	out.User = &user.Users
-	session, sess := d.CreateSession(user.Id, user.Email, in.UserAgent)
+	session, sess := d.CreateSession(user.Id, user.Email, in.UserAgent, in.IpAddress)
 
 	// TODO: set list of roles in the session
 	if !session.DoInsert() {

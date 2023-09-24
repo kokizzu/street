@@ -20,7 +20,7 @@ func ImportStreetViewImage(d *domain.Domain, gmap xGmap.Gmap) {
 	start := 0
 
 	const UA = `ServiceAccount/1.0`
-	session, _ := d.CreateSession(1, `admin@localhost`, UA)
+	session, _ := d.CreateSession(1, `admin@localhost`, UA, `127.0.0.1`)
 	if !session.DoInsert() {
 		L.Print(`failed inserting session`)
 		return

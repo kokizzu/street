@@ -6453,30 +6453,45 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(button, "title", "Copy link address");
         attr(a0, "class", "share_item svelte-1t6h0i4");
         attr(a0, "aria-label", "Share to Facebook");
-        attr(a0, "href", a0_href_value = `https://www.facebook.com/sharer/sharer.php?u=${window.location}?utm_source=facebook&utm_medium=social&utm_campaign=user-share`);
+        attr(a0, "href", a0_href_value = "https://www.facebook.com/sharer/sharer.php?u=" + propertyUrl(
+          /*prop*/
+          ctx[48].id
+        ) + "?utm_source=facebook&utm_medium=social&utm_campaign=user-share");
         attr(a0, "target", "_blank");
         attr(a0, "rel", "noopener");
         attr(a1, "class", "share_item svelte-1t6h0i4");
         attr(a1, "aria-label", "Share to LinkedIn");
-        attr(a1, "href", a1_href_value = `https://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${/*prop*/
-        ctx[48].id}`);
+        attr(a1, "href", a1_href_value = "http://www.linkedin.com/shareArticle?mini=true&url=" + propertyUrl(
+          /*prop*/
+          ctx[48].id
+        ) + "&title=I%20Found%20Awesome%House%20" + propertyUrl(
+          /*prop*/
+          ctx[48].id
+        ));
         attr(a1, "target", "_blank");
         attr(a1, "rel", "noopener");
         attr(a2, "class", "share_item svelte-1t6h0i4");
         attr(a2, "aria-label", "Share to Twitter");
-        attr(a2, "href", a2_href_value = `https://twitter.com/intent/tweet?url=${window.location}property/${/*prop*/
-        ctx[48].id}&text=I%20Found%20Awesome%20House`);
+        attr(a2, "href", a2_href_value = "https://twitter.com/intent/tweet?text=I%20Found%20Awesome%House%20" + propertyUrl(
+          /*prop*/
+          ctx[48].id
+        ));
         attr(a2, "target", "_blank");
         attr(a2, "rel", "noopener");
         attr(a3, "class", "share_item svelte-1t6h0i4");
         attr(a3, "aria-label", "Share to Telegram");
-        attr(a3, "href", a3_href_value = `https://t.me/share/url?url=${window.location}property/${/*prop*/
-        ctx[48].id}`);
+        attr(a3, "href", a3_href_value = "https://t.me/share/url?url=" + propertyUrl(
+          /*prop*/
+          ctx[48].id
+        ));
         attr(a3, "target", "_blank");
         attr(a3, "rel", "noopener");
         attr(a4, "class", "share_item svelte-1t6h0i4");
         attr(a4, "aria-label", "Share to WhatsApp");
-        attr(a4, "href", a4_href_value = `https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House`);
+        attr(a4, "href", a4_href_value = "https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House%20" + propertyUrl(
+          /*prop*/
+          ctx[48].id
+        ));
         attr(a4, "target", "_blank");
         attr(a4, "rel", "noopener");
         attr(div, "class", "share_container svelte-1t6h0i4");
@@ -6509,19 +6524,42 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if (!current || dirty[0] & /*randomProps*/
-        1 && a1_href_value !== (a1_href_value = `https://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${/*prop*/
-        ctx[48].id}`)) {
+        1 && a0_href_value !== (a0_href_value = "https://www.facebook.com/sharer/sharer.php?u=" + propertyUrl(
+          /*prop*/
+          ctx[48].id
+        ) + "?utm_source=facebook&utm_medium=social&utm_campaign=user-share")) {
+          attr(a0, "href", a0_href_value);
+        }
+        if (!current || dirty[0] & /*randomProps*/
+        1 && a1_href_value !== (a1_href_value = "http://www.linkedin.com/shareArticle?mini=true&url=" + propertyUrl(
+          /*prop*/
+          ctx[48].id
+        ) + "&title=I%20Found%20Awesome%House%20" + propertyUrl(
+          /*prop*/
+          ctx[48].id
+        ))) {
           attr(a1, "href", a1_href_value);
         }
         if (!current || dirty[0] & /*randomProps*/
-        1 && a2_href_value !== (a2_href_value = `https://twitter.com/intent/tweet?url=${window.location}property/${/*prop*/
-        ctx[48].id}&text=I%20Found%20Awesome%20House`)) {
+        1 && a2_href_value !== (a2_href_value = "https://twitter.com/intent/tweet?text=I%20Found%20Awesome%House%20" + propertyUrl(
+          /*prop*/
+          ctx[48].id
+        ))) {
           attr(a2, "href", a2_href_value);
         }
         if (!current || dirty[0] & /*randomProps*/
-        1 && a3_href_value !== (a3_href_value = `https://t.me/share/url?url=${window.location}property/${/*prop*/
-        ctx[48].id}`)) {
+        1 && a3_href_value !== (a3_href_value = "https://t.me/share/url?url=" + propertyUrl(
+          /*prop*/
+          ctx[48].id
+        ))) {
           attr(a3, "href", a3_href_value);
+        }
+        if (!current || dirty[0] & /*randomProps*/
+        1 && a4_href_value !== (a4_href_value = "https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House%20" + propertyUrl(
+          /*prop*/
+          ctx[48].id
+        ))) {
+          attr(a4, "href", a4_href_value);
         }
       },
       i(local) {
@@ -7788,6 +7826,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function zoomEvent(event) {
     console.log(event.detail.zoom);
   }
+  function propertyUrl(id) {
+    let url = window.location.href.split("#")[0];
+    return url + "guest/property/" + id;
+  }
   function instance6($self, $props, $invalidate) {
     let $mapComponent;
     let $T;
@@ -8014,7 +8056,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       useGrowl("success", "Link copied to clipboard");
     }
     const click_handler = (index) => showShareItems(index);
-    const click_handler_1 = (prop) => copyToClipboard(`${window.location}guest/property/${prop.id}`);
+    const click_handler_1 = (prop) => copyToClipboard(propertyUrl(prop.id));
     function button1_binding($value, index) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         propItemBinds[index] = $value;
