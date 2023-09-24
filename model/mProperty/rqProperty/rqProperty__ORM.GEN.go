@@ -201,7 +201,7 @@ type Property struct {
 	Bathroom                int64       `json:"bathroom" form:"bathroom" query:"bathroom" long:"bathroom" msg:"bathroom"`
 	AgencyFeePercent        float64     `json:"agencyFeePercent" form:"agencyFeePercent" query:"agencyFeePercent" long:"agencyFeePercent" msg:"agencyFeePercent"`
 	FloorList               []any       `json:"floorList" form:"floorList" query:"floorList" long:"floorList" msg:"floorList"`
-	Version                 float64     `json:"version" form:"version" query:"version" long:"version" msg:"version"`
+	Version                 string      `json:"version" form:"version" query:"version" long:"version" msg:"version"`
 	YearBuilt               int64       `json:"yearBuilt" form:"yearBuilt" query:"yearBuilt" long:"yearBuilt" msg:"yearBuilt"`
 	YearRenovated           int64       `json:"yearRenovated" form:"yearRenovated" query:"yearRenovated" long:"yearRenovated" msg:"yearRenovated"`
 	TotalSqft               float64     `json:"totalSqft" form:"totalSqft" query:"totalSqft" long:"totalSqft" msg:"totalSqft"`
@@ -873,7 +873,7 @@ func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 	p.Bathroom = X.ToI(a[26])
 	p.AgencyFeePercent = X.ToF(a[27])
 	p.FloorList = X.ToArr(a[28])
-	p.Version = X.ToF(a[29])
+	p.Version = X.ToS(a[29])
 	p.YearBuilt = X.ToI(a[30])
 	p.YearRenovated = X.ToI(a[31])
 	p.TotalSqft = X.ToF(a[32])
@@ -917,7 +917,7 @@ func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false po
 	p.Bathroom = X.ToI(a[26])
 	p.AgencyFeePercent = X.ToF(a[27])
 	p.FloorList = X.ToArr(a[28])
-	p.Version = X.ToF(a[29])
+	p.Version = X.ToS(a[29])
 	p.YearBuilt = X.ToI(a[30])
 	p.YearRenovated = X.ToI(a[31])
 	p.TotalSqft = X.ToF(a[32])
@@ -999,7 +999,7 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`bathroom`:                Tt.Integer,
 	`agencyFeePercent`:        Tt.Double,
 	`floorList`:               Tt.Array,
-	`version`:                 Tt.Double,
+	`version`:                 Tt.String,
 	`yearBuilt`:               Tt.Integer,
 	`yearRenovated`:           Tt.Integer,
 	`totalSqft`:               Tt.Double,
@@ -1416,7 +1416,7 @@ type PropertyUS struct {
 	Bathroom                int64       `json:"bathroom" form:"bathroom" query:"bathroom" long:"bathroom" msg:"bathroom"`
 	AgencyFeePercent        float64     `json:"agencyFeePercent" form:"agencyFeePercent" query:"agencyFeePercent" long:"agencyFeePercent" msg:"agencyFeePercent"`
 	FloorList               []any       `json:"floorList" form:"floorList" query:"floorList" long:"floorList" msg:"floorList"`
-	Version                 float64     `json:"version" form:"version" query:"version" long:"version" msg:"version"`
+	Version                 string      `json:"version" form:"version" query:"version" long:"version" msg:"version"`
 	YearBuilt               int64       `json:"yearBuilt" form:"yearBuilt" query:"yearBuilt" long:"yearBuilt" msg:"yearBuilt"`
 	YearRenovated           int64       `json:"yearRenovated" form:"yearRenovated" query:"yearRenovated" long:"yearRenovated" msg:"yearRenovated"`
 	TotalSqft               float64     `json:"totalSqft" form:"totalSqft" query:"totalSqft" long:"totalSqft" msg:"totalSqft"`
@@ -2088,7 +2088,7 @@ func (p *PropertyUS) FromArray(a A.X) *PropertyUS { //nolint:dupl false positive
 	p.Bathroom = X.ToI(a[26])
 	p.AgencyFeePercent = X.ToF(a[27])
 	p.FloorList = X.ToArr(a[28])
-	p.Version = X.ToF(a[29])
+	p.Version = X.ToS(a[29])
 	p.YearBuilt = X.ToI(a[30])
 	p.YearRenovated = X.ToI(a[31])
 	p.TotalSqft = X.ToF(a[32])
@@ -2132,7 +2132,7 @@ func (p *PropertyUS) FromUncensoredArray(a A.X) *PropertyUS { //nolint:dupl fals
 	p.Bathroom = X.ToI(a[26])
 	p.AgencyFeePercent = X.ToF(a[27])
 	p.FloorList = X.ToArr(a[28])
-	p.Version = X.ToF(a[29])
+	p.Version = X.ToS(a[29])
 	p.YearBuilt = X.ToI(a[30])
 	p.YearRenovated = X.ToI(a[31])
 	p.TotalSqft = X.ToF(a[32])
@@ -2214,7 +2214,7 @@ var PropertyUSFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positiv
 	`bathroom`:                Tt.Integer,
 	`agencyFeePercent`:        Tt.Double,
 	`floorList`:               Tt.Array,
-	`version`:                 Tt.Double,
+	`version`:                 Tt.String,
 	`yearBuilt`:               Tt.Integer,
 	`yearRenovated`:           Tt.Integer,
 	`totalSqft`:               Tt.Double,

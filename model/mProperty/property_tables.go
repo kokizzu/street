@@ -156,7 +156,7 @@ func buildStandardPropertySchema() []Tt.Field {
 		0: {Id, Tt.Unsigned},
 
 		// Metadata key info
-		29: {Version, Tt.Double}, // Version of data (specific for US)
+		29: {Version, Tt.String}, // Version of data (specific for US)
 		1:  {UniqPropKey, Tt.String},
 		2:  {SerialNumber, Tt.String},
 

@@ -6,10 +6,13 @@ import (
 	"io"
 	"net/http"
 	"strconv"
-	"street/model/mProperty/rqProperty"
-	"street/model/mProperty/wcProperty"
 	"strings"
 	"time"
+
+	"github.com/kokizzu/gotro/X"
+
+	"street/model/mProperty/rqProperty"
+	"street/model/mProperty/wcProperty"
 
 	"github.com/goccy/go-json"
 	"github.com/kokizzu/gotro/D/Tt"
@@ -421,7 +424,7 @@ func ImportPropertyUsData(adapter *Tt.Adapter, baseUrl string, minPropId int, ma
 		L.PanicIf(err, "Error: fetchPropertyUSByPropID", "PropertyID ["+string(i)+"]")
 
 		propertyResponse := data["payload"].(map[string]interface{})
-		propertyVersion := data["version"].(float64)
+		propertyVersion := X.ToS(data["version"])
 
 		// Property into the struct
 		propertyResponseObject, err := parseMapIntoStruct(propertyResponse)

@@ -584,7 +584,7 @@ func (p *PropertyMutator) SetFloorList(val []any) bool { //nolint:dupl false pos
 }
 
 // SetVersion create mutations, should not duplicate
-func (p *PropertyMutator) SetVersion(val float64) bool { //nolint:dupl false positive
+func (p *PropertyMutator) SetVersion(val string) bool { //nolint:dupl false positive
 	if val != p.Version {
 		p.mutations = append(p.mutations, A.X{`=`, 29, val})
 		p.logs = append(p.logs, A.X{`version`, p.Version, val})
@@ -817,7 +817,7 @@ func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap 
 		p.FloorList = from.FloorList
 		changed = true
 	}
-	if !excludeMap[`version`] && (forceMap[`version`] || from.Version != 0) {
+	if !excludeMap[`version`] && (forceMap[`version`] || from.Version != ``) {
 		p.Version = from.Version
 		changed = true
 	}
@@ -1638,7 +1638,7 @@ func (p *PropertyUSMutator) SetFloorList(val []any) bool { //nolint:dupl false p
 }
 
 // SetVersion create mutations, should not duplicate
-func (p *PropertyUSMutator) SetVersion(val float64) bool { //nolint:dupl false positive
+func (p *PropertyUSMutator) SetVersion(val string) bool { //nolint:dupl false positive
 	if val != p.Version {
 		p.mutations = append(p.mutations, A.X{`=`, 29, val})
 		p.logs = append(p.logs, A.X{`version`, p.Version, val})
@@ -1871,7 +1871,7 @@ func (p *PropertyUSMutator) SetAll(from rqProperty.PropertyUS, excludeMap, force
 		p.FloorList = from.FloorList
 		changed = true
 	}
-	if !excludeMap[`version`] && (forceMap[`version`] || from.Version != 0) {
+	if !excludeMap[`version`] && (forceMap[`version`] || from.Version != ``) {
 		p.Version = from.Version
 		changed = true
 	}
