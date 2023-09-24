@@ -39,7 +39,6 @@ const (
 	AmenitySuperGroupsJson = `amenitySuperGroups`
 
 	// Source photo
-	MediaSource     = `mediaSource`
 	MediaSourceJson = `mediaSourceJson`
 
 	// Zone data info
