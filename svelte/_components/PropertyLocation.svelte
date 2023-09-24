@@ -24,6 +24,8 @@
   import FaBrandsTwitter from "svelte-icons-pack/fa/FaBrandsTwitter";
   import FaCopy from "svelte-icons-pack/fa/FaCopy";
   import FaBrandsFacebook from "svelte-icons-pack/fa/FaBrandsFacebook";
+  import FaBrandsTelegram from "svelte-icons-pack/fa/FaBrandsTelegram";
+  import FaBrandsWhatsapp from "svelte-icons-pack/fa/FaBrandsWhatsapp";
   import {distanceKM} from './GoogleMap/distance';
   
   export let randomProps = [];
@@ -303,11 +305,27 @@
 											</a>
 											<a class='share_item'
 											   aria-label="Share to Twitter"
-											   href={`https://twitter.com/intent/tweet?url=${window.location}&text=I%20Found%20Awesome%House ${window.location}property/${prop.id}`}
+											   href={`https://twitter.com/intent/tweet?url=${window.location}property/${prop.id}&text=I%20Found%20Awesome%20House`}
 											   target="_blank"
 											   rel="noopener"
 											>
 												<Icon size={14} color='#475569' src={FaBrandsTwitter}/>
+											</a>
+											<a class='share_item'
+											   aria-label="Share to Telegram"
+											   href={`https://t.me/share/url?url=${window.location}property/${prop.id}`}
+											   target="_blank"
+											   rel="noopener"
+											>
+												<Icon size={14} color='#475569' src={FaBrandsTelegram}/>
+											</a>
+											<a class='share_item'
+											   aria-label="Share to WhatsApp"
+											   href={`https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House`}
+											   target="_blank"
+											   rel="noopener"
+											>
+												<Icon size={16} color='#475569' src={FaBrandsWhatsapp}/>
 											</a>
 										</div>
 									{/if}
