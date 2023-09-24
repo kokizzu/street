@@ -1,6 +1,26 @@
 <html><head>
-    <title>/*! title */</title>
-    <link href="/css.gg.css" rel="stylesheet">
+	<title>/*! title */</title>
+	<meta content="#{ogURL}" property="og:url">
+	<meta content="HapSTR" property="og:site_name">
+	<meta content="Property" property="og:title">
+	<meta content="#{ogDescription}" property="og:description">
+	<meta content="tw_TW" property="og:locale">
+	<meta content="en_EN" property="og:locale:alternate">
+	<meta content="website" property="og:type">
+	<meta content="#{ogImgURL}" property="og:image">
+	<meta content="#{ogImgURL}" property="og:image:secure_url">
+	<meta content="1200" property="og:image:width">
+	<meta content="630" property="og:image:height">
+	<meta content="Property Image" property="og:image:alt">
+	<meta content="#{ogCreatedAt}" property="article:published_time">
+	<meta content="#{ogUpdatedAt}" property="article:modified_time">
+	<meta content="#{ogUpdatedAt}" property="article:updated_time">
+	<meta content="summary_large_image" name="twitter:card">
+	<meta content="I found an awesome house" name="twitter:title">
+	<meta content="#{ogDescription}" name="twitter:description">
+	<meta content="#{ogImgURL}" name="twitter:image">
+	<!--	<meta name="twitter:site" content="@xd"/>-->
+	<!--	<meta name="twitter:creator" content="@xd"/>-->
 </head>
 <body>
 <style>
@@ -38,69 +58,17 @@
         margin           : 0;
     }
 
-    /* Dashboard */
-    section.dashboard {
-        display        : flex;
-        flex-direction : row;
-    }
 
-    .dashboard_main_content {
-        background-color : #F1F5F9;
-        min-height       : 100vh;
-        width            : 100%;
-    }
-
-    .dashboard_main_content .content {
-        min-height : 900px;
-    }
-
-
-    .tableview_container {
-        position         : relative;
-        z-index          : 30;
-        margin-top       : -40px;
-        margin-left      : auto;
-        margin-right     : auto;
-        border-radius    : 8px;
-        filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-        padding          : 20px;
-        background-color : white;
-        width            : 88%;
-        height           : fit-content;
-        color            : #475569;
-        font-size        : 16px;
-    }
-
-    .tableview_container .add_button {
-        padding          : 8px 20px;
-        font-size        : 14pt;
-        font-weight      : bold;
-        display          : inline-flex;
-        flex-direction   : row;
-        align-items      : center;
-        align-content    : center;
-        justify-content  : center;
-        border           : none;
-        background-color : #6366F1;
-        border-radius    : 8px;
-        color            : white;
-        cursor           : pointer;
-        gap              : 8px;
-    }
-
-    .tableview_container .add_button:hover {
-        background-color : #7E80F1;
-    }
-    
     .label_rent {
-        background-color: #1080e8 !important;
-        color: #FFF !important;
-        border: none !important;
+        background-color : #1080E8 !important;
+        color            : #FFF !important;
+        border           : none !important;
     }
+
     .label_sale {
-        background-color: #f97316 !important;
-        color: #FFF !important;
-        border: none !important;
+        background-color : #F97316 !important;
+        color            : #FFF !important;
+        border           : none !important;
     }
 </style>
 
@@ -191,7 +159,7 @@
   color: #E5F2FF;
 }
 
-/* fakecss:./guest/property.esbuild-svelte-fake-css */
+/* fakecss:./guest/property/public.esbuild-svelte-fake-css */
 .property_container.svelte-1hy4xk9.svelte-1hy4xk9.svelte-1hy4xk9 {
   width: 100%;
   margin: 30px auto 50px auto;
@@ -738,6 +706,14 @@
   var current_component;
   function set_current_component(component) {
     current_component = component;
+  }
+  function get_current_component() {
+    if (!current_component)
+      throw new Error("Function called outside component initialization");
+    return current_component;
+  }
+  function onMount(fn) {
+    get_current_component().$.on_mount.push(fn);
   }
 
   // node_modules/svelte/src/runtime/internal/scheduler.js
@@ -1887,7 +1863,7 @@
   };
   var Growl_default = Growl;
 
-  // guest/property.svelte
+  // guest/property/public.svelte
   var import_formatter = __toESM(require_formatter());
 
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidHome.js
@@ -2048,7 +2024,7 @@
     c: '<path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.4-1.1-6.9-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4 20.8 2.7 17.2 19.5z"></path>'
   };
 
-  // guest/property.svelte
+  // guest/property/public.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[6] = list[i];
@@ -2612,129 +2588,98 @@
     };
   }
   function create_fragment4(ctx) {
-    let meta0;
-    let meta1;
-    let meta2;
-    let meta2_content_value;
-    let meta3;
-    let meta4;
-    let meta5;
-    let meta6;
-    let meta6_content_value;
-    let meta7;
-    let meta7_content_value;
-    let meta8;
-    let meta8_content_value;
-    let meta9;
-    let meta10;
-    let meta11;
-    let meta12;
-    let meta12_content_value;
-    let meta13;
-    let meta13_content_value;
-    let meta14;
-    let meta14_content_value;
-    let meta15;
-    let meta16;
-    let meta17;
-    let meta17_content_value;
-    let meta18;
-    let meta18_content_value;
-    let c0;
-    let c1;
     let t0;
-    let t1;
     let section;
     let div17;
     let div8;
     let div0;
-    let t2;
+    let t1;
     let div7;
     let div4;
     let div3;
     let div1;
-    let t3_value = propItem.purpose === "rent" ? "For Rent" : "On Sale";
-    let t3;
+    let t2_value = propItem.purpose === "rent" ? "For Rent" : "On Sale";
+    let t2;
     let div1_class_value;
-    let t4;
+    let t3;
     let div2;
     let icon0;
-    let t5;
+    let t4;
     let span0;
-    let t7;
+    let t6;
     let div6;
     let h1;
-    let t9;
+    let t8;
     let p0;
-    let t13;
+    let t12;
     let div5;
     let icon1;
-    let t14;
+    let t13;
     let span1;
-    let t16;
+    let t15;
     let div14;
     let div13;
     let div9;
     let b0;
-    let t18;
+    let t17;
     let p1;
-    let t20;
+    let t19;
     let div10;
     let b1;
-    let t22;
+    let t21;
     let p2;
-    let t24;
+    let t23;
     let div11;
     let b2;
-    let t26;
+    let t25;
     let p3;
-    let t28;
+    let t27;
     let div12;
     let b3;
-    let t31;
+    let t30;
     let p4;
-    let t33;
+    let t32;
     let div15;
-    let t34;
+    let t33;
     let div16;
     let h30;
+    let t35;
     let t36;
-    let t37;
     let div22;
     let div19;
     let div18;
-    let t41;
+    let t40;
     let a0;
     let span2;
-    let t43;
+    let t42;
     let icon2;
-    let t44;
+    let t43;
     let div21;
     let header;
     let span3;
-    let t46;
+    let t45;
     let icon3;
-    let t47;
+    let t46;
     let div20;
     let button;
     let icon4;
-    let t48;
+    let t47;
     let a1;
     let icon5;
     let a1_href_value;
-    let t49;
+    let t48;
     let a2;
     let icon6;
     let a2_href_value;
-    let t50;
+    let t49;
     let a3;
     let icon7;
     let a3_href_value;
-    let t51;
+    let t50;
     let a4;
     let icon8;
     let a4_href_value;
-    let t52;
+    let t51;
     let a5;
     let icon9;
     let a5_href_value;
@@ -2847,177 +2792,117 @@
     });
     return {
       c() {
-        meta0 = element("meta");
-        meta1 = element("meta");
-        meta2 = element("meta");
-        meta3 = element("meta");
-        meta4 = element("meta");
-        meta5 = element("meta");
-        meta6 = element("meta");
-        meta7 = element("meta");
-        meta8 = element("meta");
-        meta9 = element("meta");
-        meta10 = element("meta");
-        meta11 = element("meta");
-        meta12 = element("meta");
-        meta13 = element("meta");
-        meta14 = element("meta");
-        meta15 = element("meta");
-        meta16 = element("meta");
-        meta17 = element("meta");
-        meta18 = element("meta");
-        c0 = comment('	<meta name="twitter:site" content="@xd"/>');
-        c1 = comment('	<meta name="twitter:creator" content="@xd"/>');
-        t0 = space();
         if (if_block0)
           if_block0.c();
-        t1 = space();
+        t0 = space();
         section = element("section");
         div17 = element("div");
         div8 = element("div");
         div0 = element("div");
         if_block1.c();
-        t2 = space();
+        t1 = space();
         div7 = element("div");
         div4 = element("div");
         div3 = element("div");
         div1 = element("div");
-        t3 = text(t3_value);
-        t4 = space();
+        t2 = text(t2_value);
+        t3 = space();
         div2 = element("div");
         create_component(icon0.$.fragment);
-        t5 = space();
+        t4 = space();
         span0 = element("span");
         span0.textContent = `${propItem.houseType}`;
-        t7 = space();
+        t6 = space();
         div6 = element("div");
         h1 = element("h1");
         h1.textContent = `${(0, import_formatter.formatPrice)(propItem.lastPrice, "TWD") || "0.00"}`;
-        t9 = space();
+        t8 = space();
         p0 = element("p");
         p0.textContent = `Agency Fee : ${propItem.agencyFeePercent}%`;
-        t13 = space();
+        t12 = space();
         div5 = element("div");
         create_component(icon1.$.fragment);
-        t14 = space();
+        t13 = space();
         span1 = element("span");
         span1.textContent = `${propItem.formattedAddress}`;
-        t16 = space();
+        t15 = space();
         div14 = element("div");
         div13 = element("div");
         div9 = element("div");
         b0 = element("b");
         b0.textContent = `${propItem.numberOfFloors || "0"}`;
-        t18 = space();
+        t17 = space();
         p1 = element("p");
         p1.textContent = "Floors";
-        t20 = space();
+        t19 = space();
         div10 = element("div");
         b1 = element("b");
         b1.textContent = `${propItem.bathroom || "0"}`;
-        t22 = space();
+        t21 = space();
         p2 = element("p");
         p2.textContent = "Baths";
-        t24 = space();
+        t23 = space();
         div11 = element("div");
         b2 = element("b");
         b2.textContent = `${propItem.bedroom || "0"}`;
-        t26 = space();
+        t25 = space();
         p3 = element("p");
         p3.textContent = "Beds";
-        t28 = space();
+        t27 = space();
         div12 = element("div");
         b3 = element("b");
         b3.textContent = `${propItem.sizeM2 || "0"} M2`;
-        t31 = space();
+        t30 = space();
         p4 = element("p");
         p4.textContent = "Size";
-        t33 = space();
+        t32 = space();
         div15 = element("div");
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        t34 = space();
+        t33 = space();
         div16 = element("div");
         h30 = element("h3");
         h30.textContent = "Floors";
-        t36 = space();
+        t35 = space();
         if_block2.c();
-        t37 = space();
+        t36 = space();
         div22 = element("div");
         div19 = element("div");
         div18 = element("div");
         div18.innerHTML = `<h3 class="svelte-1hy4xk9">Login to</h3> <h3 class="svelte-1hy4xk9">HapSTR</h3>`;
-        t41 = space();
+        t40 = space();
         a0 = element("a");
         span2 = element("span");
         span2.textContent = "Login";
-        t43 = space();
+        t42 = space();
         create_component(icon2.$.fragment);
-        t44 = space();
+        t43 = space();
         div21 = element("div");
         header = element("header");
         span3 = element("span");
         span3.textContent = "Share this";
-        t46 = space();
+        t45 = space();
         create_component(icon3.$.fragment);
-        t47 = space();
+        t46 = space();
         div20 = element("div");
         button = element("button");
         create_component(icon4.$.fragment);
-        t48 = space();
+        t47 = space();
         a1 = element("a");
         create_component(icon5.$.fragment);
-        t49 = space();
+        t48 = space();
         a2 = element("a");
         create_component(icon6.$.fragment);
-        t50 = space();
+        t49 = space();
         a3 = element("a");
         create_component(icon7.$.fragment);
-        t51 = space();
+        t50 = space();
         a4 = element("a");
         create_component(icon8.$.fragment);
-        t52 = space();
+        t51 = space();
         a5 = element("a");
         create_component(icon9.$.fragment);
-        attr(meta0, "content", "HapSTR");
-        attr(meta0, "property", "og:site_name");
-        attr(meta1, "content", "Property");
-        attr(meta1, "property", "og:title");
-        attr(meta2, "content", meta2_content_value = propItem.note);
-        attr(meta2, "property", "og:description");
-        attr(meta3, "content", "tw_TW");
-        attr(meta3, "property", "og:locale");
-        attr(meta4, "content", "en_EN");
-        attr(meta4, "property", "og:locale:alternate");
-        attr(meta5, "content", "website");
-        attr(meta5, "property", "og:type");
-        attr(meta6, "content", meta6_content_value = `${window.location}`);
-        attr(meta6, "property", "og:url");
-        attr(meta7, "content", meta7_content_value = `${getBaseURL()}${propItem.images[0]}`);
-        attr(meta7, "property", "og:image");
-        attr(meta8, "content", meta8_content_value = `${getBaseURL()}${propItem.images[0]}`);
-        attr(meta8, "property", "og:image:secure_url");
-        attr(meta9, "content", "1200");
-        attr(meta9, "property", "og:image:width");
-        attr(meta10, "content", "630");
-        attr(meta10, "property", "og:image:height");
-        attr(meta11, "content", "Property Image");
-        attr(meta11, "property", "og:image:alt");
-        attr(meta12, "content", meta12_content_value = propItem.createdAt);
-        attr(meta12, "property", "article:published_time");
-        attr(meta13, "content", meta13_content_value = propItem.updatedAt);
-        attr(meta13, "property", "article:modified_time");
-        attr(meta14, "content", meta14_content_value = propItem.updatedAt);
-        attr(meta14, "property", "article:updated_time");
-        attr(meta15, "content", "summary_large_image");
-        attr(meta15, "name", "twitter:card");
-        attr(meta16, "content", "I found an awesome house");
-        attr(meta16, "name", "twitter:title");
-        attr(meta17, "content", meta17_content_value = propItem.note);
-        attr(meta17, "name", "twitter:description");
-        attr(meta18, "content", meta18_content_value = `${getBaseURL()}${propItem.images[0]}`);
-        attr(meta18, "name", "twitter:image");
         attr(div0, "class", "property_images svelte-1hy4xk9");
         attr(div1, "class", div1_class_value = null_to_empty(propItem.purpose === "rent" ? `purpose label_rent` : `purpose label_sale`) + " svelte-1hy4xk9");
         attr(span0, "class", "svelte-1hy4xk9");
@@ -3086,123 +2971,101 @@
         attr(section, "class", "property_container svelte-1hy4xk9");
       },
       m(target, anchor) {
-        append(document.head, meta0);
-        append(document.head, meta1);
-        append(document.head, meta2);
-        append(document.head, meta3);
-        append(document.head, meta4);
-        append(document.head, meta5);
-        append(document.head, meta6);
-        append(document.head, meta7);
-        append(document.head, meta8);
-        append(document.head, meta9);
-        append(document.head, meta10);
-        append(document.head, meta11);
-        append(document.head, meta12);
-        append(document.head, meta13);
-        append(document.head, meta14);
-        append(document.head, meta15);
-        append(document.head, meta16);
-        append(document.head, meta17);
-        append(document.head, meta18);
-        append(document.head, c0);
-        append(document.head, c1);
-        insert(target, t0, anchor);
         if (if_block0)
           if_block0.m(target, anchor);
-        insert(target, t1, anchor);
+        insert(target, t0, anchor);
         insert(target, section, anchor);
         append(section, div17);
         append(div17, div8);
         append(div8, div0);
         if_block1.m(div0, null);
-        append(div8, t2);
+        append(div8, t1);
         append(div8, div7);
         append(div7, div4);
         append(div4, div3);
         append(div3, div1);
-        append(div1, t3);
-        append(div3, t4);
+        append(div1, t2);
+        append(div3, t3);
         append(div3, div2);
         mount_component(icon0, div2, null);
-        append(div2, t5);
+        append(div2, t4);
         append(div2, span0);
-        append(div7, t7);
+        append(div7, t6);
         append(div7, div6);
         append(div6, h1);
-        append(div6, t9);
+        append(div6, t8);
         append(div6, p0);
-        append(div6, t13);
+        append(div6, t12);
         append(div6, div5);
         mount_component(icon1, div5, null);
-        append(div5, t14);
+        append(div5, t13);
         append(div5, span1);
-        append(div17, t16);
+        append(div17, t15);
         append(div17, div14);
         append(div14, div13);
         append(div13, div9);
         append(div9, b0);
-        append(div9, t18);
+        append(div9, t17);
         append(div9, p1);
-        append(div13, t20);
+        append(div13, t19);
         append(div13, div10);
         append(div10, b1);
-        append(div10, t22);
+        append(div10, t21);
         append(div10, p2);
-        append(div13, t24);
+        append(div13, t23);
         append(div13, div11);
         append(div11, b2);
-        append(div11, t26);
+        append(div11, t25);
         append(div11, p3);
-        append(div13, t28);
+        append(div13, t27);
         append(div13, div12);
         append(div12, b3);
-        append(div12, t31);
+        append(div12, t30);
         append(div12, p4);
-        append(div17, t33);
+        append(div17, t32);
         append(div17, div15);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
             each_blocks[i].m(div15, null);
           }
         }
-        append(div17, t34);
+        append(div17, t33);
         append(div17, div16);
         append(div16, h30);
-        append(div16, t36);
+        append(div16, t35);
         if_block2.m(div16, null);
-        append(section, t37);
+        append(section, t36);
         append(section, div22);
         append(div22, div19);
         append(div19, div18);
-        append(div19, t41);
+        append(div19, t40);
         append(div19, a0);
         append(a0, span2);
-        append(a0, t43);
+        append(a0, t42);
         mount_component(icon2, a0, null);
-        append(div22, t44);
+        append(div22, t43);
         append(div22, div21);
         append(div21, header);
         append(header, span3);
-        append(header, t46);
+        append(header, t45);
         mount_component(icon3, header, null);
-        append(div21, t47);
+        append(div21, t46);
         append(div21, div20);
         append(div20, button);
         mount_component(icon4, button, null);
-        append(div20, t48);
+        append(div20, t47);
         append(div20, a1);
         mount_component(icon5, a1, null);
-        append(div20, t49);
+        append(div20, t48);
         append(div20, a2);
         mount_component(icon6, a2, null);
-        append(div20, t50);
+        append(div20, t49);
         append(div20, a3);
         mount_component(icon7, a3, null);
-        append(div20, t51);
+        append(div20, t50);
         append(div20, a4);
         mount_component(icon8, a4, null);
-        append(div20, t52);
+        append(div20, t51);
         append(div20, a5);
         mount_component(icon9, a5, null);
         current = true;
@@ -3231,7 +3094,7 @@
             if_block0 = create_if_block_6(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
-            if_block0.m(t1.parentNode, t1);
+            if_block0.m(t0.parentNode, t0);
           }
         } else if (if_block0) {
           group_outros();
@@ -3305,30 +3168,8 @@
       d(detaching) {
         if (detaching) {
           detach(t0);
-          detach(t1);
           detach(section);
         }
-        detach(meta0);
-        detach(meta1);
-        detach(meta2);
-        detach(meta3);
-        detach(meta4);
-        detach(meta5);
-        detach(meta6);
-        detach(meta7);
-        detach(meta8);
-        detach(meta9);
-        detach(meta10);
-        detach(meta11);
-        detach(meta12);
-        detach(meta13);
-        detach(meta14);
-        detach(meta15);
-        detach(meta16);
-        detach(meta17);
-        detach(meta18);
-        detach(c0);
-        detach(c1);
         if (if_block0)
           if_block0.d(detaching);
         if_block1.d();
@@ -3351,15 +3192,11 @@
   }
   var propItem = {/* propItem */};
   var meta = {/* propertyMeta */};
-  function getBaseURL() {
-    const url = `${window.location}`;
-    const regex = /^.+?[^\/:](?=[?\/]|$)/gm;
-    const match = url.match(regex);
-    const result = match;
-    return result;
-  }
   function instance4($self, $props, $invalidate) {
     let showGrowl = false, gMsg = "", gType = "";
+    onMount(() => {
+      console.log(propItem);
+    });
     function useGrowl(type, msg) {
       $invalidate(0, showGrowl = true);
       $invalidate(1, gMsg = msg);
@@ -3378,16 +3215,16 @@
     const click_handler = () => copyToClipboard(`${window.location}`);
     return [showGrowl, gMsg, gType, copyToClipboard, click_handler];
   }
-  var Property = class extends SvelteComponent {
+  var Public = class extends SvelteComponent {
     constructor(options) {
       super();
       init(this, options, instance4, create_fragment4, safe_not_equal, {});
     }
   };
-  var property_default = Property;
+  var public_default = Public;
 
-  // guest/property.svelte.ts
-  var app = new property_default({ target: document.getElementById("app") });
+  // guest/property/public.svelte.ts
+  var app = new public_default({ target: document.getElementById("app") });
 })();
 </script>
 </body></html>

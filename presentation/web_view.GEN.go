@@ -21,7 +21,7 @@ var viewList = map[string]string{
 	`Debug`: `../svelte/debug.html`, // ../svelte/debug.svelte
 	`Error`: `../svelte/error.html`, // ../svelte/error.svelte
 	`GuestOauthCallback`: `../svelte/guest/oauthCallback.html`, // ../svelte/guest/oauthCallback.svelte
-	`GuestProperty`: `../svelte/guest/property.html`, // ../svelte/guest/property.svelte
+	`GuestPropertyPublic`: `../svelte/guest/property/public.html`, // ../svelte/guest/property/public.svelte
 	`GuestResetPassword`: `../svelte/guest/resetPassword.html`, // ../svelte/guest/resetPassword.svelte
 	`GuestVerifyEmail`: `../svelte/guest/verifyEmail.html`, // ../svelte/guest/verifyEmail.svelte
 	`Index`: `../svelte/index.html`, // ../svelte/index.svelte
@@ -88,9 +88,9 @@ func (v *Views) RenderGuestOauthCallback(c *fiber.Ctx, m M.SX) error {
 	return c.SendString(v.cache[`GuestOauthCallback`].Str(m))
 }
 
-func (v *Views) RenderGuestProperty(c *fiber.Ctx, m M.SX) error {
+func (v *Views) RenderGuestPropertyPublic(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
-	return c.SendString(v.cache[`GuestProperty`].Str(m))
+	return c.SendString(v.cache[`GuestPropertyPublic`].Str(m))
 }
 
 func (v *Views) RenderGuestResetPassword(c *fiber.Ctx, m M.SX) error {

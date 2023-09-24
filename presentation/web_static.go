@@ -97,10 +97,15 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 				`error`: out.Error,
 			})
 		}
-		return views.RenderGuestProperty(ctx, M.SX{
-			`title`:        `Property`,
-			`propItem`:     out.Property,
-			`propertyMeta`: out.Meta,
+		return views.RenderGuestPropertyPublic(ctx, M.SX{
+			`title`:         `Property`,
+			`propItem`:      out.Property,
+			`propertyMeta`:  out.Meta,
+			`ogURL`:         out.OgURL,
+			`ogImgURL`:      out.OgImgURL,
+			`ogDescription`: out.OgDescription,
+			`ogCreatedAt`:   out.OgCreatedAt,
+			`ogUpdatedAt`:   out.OgUpdatedAt,
 		})
 	})
 

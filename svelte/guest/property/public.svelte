@@ -1,6 +1,6 @@
 <script>
-  import Growl from "../_components/Growl.svelte";
-  import {formatPrice, localeDatetime} from '../_components/formatter.js';
+  import Growl from "../../_components/Growl.svelte";
+  import {formatPrice, localeDatetime} from '../../_components/formatter.js';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidHome from "svelte-icons-pack/fa/FaSolidHome";
   import FaSolidMapMarkerAlt from "svelte-icons-pack/fa/FaSolidMapMarkerAlt";
@@ -10,7 +10,7 @@
   import FaBrandsFacebook from "svelte-icons-pack/fa/FaBrandsFacebook";
   import FaBrandsLinkedin from "svelte-icons-pack/fa/FaBrandsLinkedin";
   import FaBrandsTwitter from "svelte-icons-pack/fa/FaBrandsTwitter";
-  import PillBox from "../_components/PillBox.svelte";
+  import PillBox from "../../_components/PillBox.svelte";
   import FaBrandsWhatsapp from "svelte-icons-pack/fa/FaBrandsWhatsapp";
   import FaBrandsTelegram from "svelte-icons-pack/fa/FaBrandsTelegram";
   
@@ -31,41 +31,7 @@
     navigator.clipboard.writeText( text );
     useGrowl( 'success', 'Link copied to clipboard' );
   }
-  
-  function getBaseURL() {
-    const url = `${window.location}`
-    const regex = /^.+?[^\/:](?=[?\/]|$)/gm;
-    const match = url.match( regex );
-    const result = match;
-    
-    return result;
-  }
 </script>
-
-<svelte:head>
-	<meta content="HapSTR" property="og:site_name"/>
-	<meta content="Property" property="og:title"/>
-	<meta content={propItem.note} property="og:description"/>
-	<meta content='tw_TW' property='og:locale'/>
-	<meta content='en_EN' property='og:locale:alternate'/>
-	<meta content="website" property="og:type"/>
-	<meta content={`${window.location}`} property="og:url"/>
-	<meta content={`${getBaseURL()}${propItem.images[0]}`} property="og:image"/>
-	<meta content={`${getBaseURL()}${propItem.images[0]}`} property="og:image:secure_url"/>
-	<meta content="1200" property="og:image:width"/>
-	<meta content="630" property="og:image:height"/>
-	<meta content="Property Image" property="og:image:alt"/>
-	<meta content={propItem.createdAt} property="article:published_time"/>
-	<meta content={propItem.updatedAt} property="article:modified_time"/>
-	<meta content={propItem.updatedAt} property="article:updated_time"/>
-	
-	<meta content="summary_large_image" name="twitter:card"/>
-	<meta content="I found an awesome house" name="twitter:title"/>
-	<meta content={propItem.note} name="twitter:description"/>
-	<meta content={`${getBaseURL()}${propItem.images[0]}`} name="twitter:image"/>
-	<!--	<meta name="twitter:site" content="@xd"/>-->
-	<!--	<meta name="twitter:creator" content="@xd"/>-->
-</svelte:head>
 
 {#if showGrowl}
 	<Growl message={gMsg} growlType={gType}/>

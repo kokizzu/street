@@ -441,7 +441,7 @@ exports.AdminPropHistories = async function AdminPropHistories( i, cb ) {
  * @property {number} property.bathroom
  * @property {number} property.agencyFeePercent
  * @property {Object} property.floorList
- * @property {number} property.version
+ * @property {String} property.version
  * @property {number} property.yearBuilt
  * @property {number} property.yearRenovated
  * @property {number} property.totalSqft
@@ -494,7 +494,7 @@ const AdminPropertiesIn = {
     agencyFeePercent: 0, // float64
     floorList: { // []any
     }, // []any
-    version: 0, // float64
+    version: '', // string
     yearBuilt: 0, // int64
     yearRenovated: 0, // int64
     totalSqft: 0, // float64
@@ -554,7 +554,7 @@ const AdminPropertiesIn = {
  * @property {number} property.bathroom
  * @property {number} property.agencyFeePercent
  * @property {Object} property.floorList
- * @property {number} property.version
+ * @property {String} property.version
  * @property {number} property.yearBuilt
  * @property {number} property.yearRenovated
  * @property {number} property.totalSqft
@@ -618,7 +618,7 @@ const AdminPropertiesOut = {
     agencyFeePercent: 0, // float64
     floorList: { // []any
     }, // []any
-    version: 0, // float64
+    version: '', // string
     yearBuilt: 0, // int64
     yearRenovated: 0, // int64
     totalSqft: 0, // float64
@@ -1196,7 +1196,7 @@ const GuestPropertyIn = {
  * @property {number} property.bathroom
  * @property {number} property.agencyFeePercent
  * @property {Object} property.floorList
- * @property {number} property.version
+ * @property {String} property.version
  * @property {number} property.yearBuilt
  * @property {number} property.yearRenovated
  * @property {number} property.totalSqft
@@ -1207,6 +1207,7 @@ const GuestPropertyIn = {
  * @property {String} property.zip
  * @property {number} property.propertyLastUpdatedDate
  * @property {Object} meta
+ * @property {String} oGPropertyURL
  */
 const GuestPropertyOut = {
   property: { // rqProperty.Property
@@ -1244,7 +1245,7 @@ const GuestPropertyOut = {
     agencyFeePercent: 0, // float64
     floorList: { // []any
     }, // []any
-    version: 0, // float64
+    version: '', // string
     yearBuilt: 0, // int64
     yearRenovated: 0, // int64
     totalSqft: 0, // float64
@@ -1257,6 +1258,7 @@ const GuestPropertyOut = {
   }, // rqProperty.Property
   meta: { // []zCrud.Field
   }, // []zCrud.Field
+  oGPropertyURL: '', // string
 }
 /**
  * @callback GuestPropertyCallback
@@ -1542,7 +1544,7 @@ const RealtorPropertyIn = {
  * @property {number} property.bathroom
  * @property {number} property.agencyFeePercent
  * @property {Object} property.floorList
- * @property {number} property.version
+ * @property {String} property.version
  * @property {number} property.yearBuilt
  * @property {number} property.yearRenovated
  * @property {number} property.totalSqft
@@ -1589,7 +1591,7 @@ const RealtorPropertyOut = {
     agencyFeePercent: 0, // float64
     floorList: { // []any
     }, // []any
-    version: 0, // float64
+    version: '', // string
     yearBuilt: 0, // int64
     yearRenovated: 0, // int64
     totalSqft: 0, // float64
@@ -1648,7 +1650,7 @@ exports.RealtorProperty = async function RealtorProperty( i, cb ) {
  * @property {number} property.bathroom
  * @property {number} property.agencyFeePercent
  * @property {Object} property.floorList
- * @property {number} property.version
+ * @property {String} property.version
  * @property {number} property.yearBuilt
  * @property {number} property.yearRenovated
  * @property {number} property.totalSqft
@@ -1695,7 +1697,7 @@ const RealtorUpsertPropertyIn = {
     agencyFeePercent: 0, // float64
     floorList: { // []any
     }, // []any
-    version: 0, // float64
+    version: '', // string
     yearBuilt: 0, // int64
     yearRenovated: 0, // int64
     totalSqft: 0, // float64
@@ -1738,7 +1740,7 @@ const RealtorUpsertPropertyIn = {
  * @property {number} property.bathroom
  * @property {number} property.agencyFeePercent
  * @property {Object} property.floorList
- * @property {number} property.version
+ * @property {String} property.version
  * @property {number} property.yearBuilt
  * @property {number} property.yearRenovated
  * @property {number} property.totalSqft
@@ -1785,7 +1787,7 @@ const RealtorUpsertPropertyOut = {
     agencyFeePercent: 0, // float64
     floorList: { // []any
     }, // []any
-    version: 0, // float64
+    version: '', // string
     yearBuilt: 0, // int64
     yearRenovated: 0, // int64
     totalSqft: 0, // float64

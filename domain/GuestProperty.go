@@ -1,6 +1,9 @@
 package domain
 
 import (
+	"fmt"
+	"os"
+
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/zCrud"
@@ -19,8 +22,13 @@ type (
 	}
 	GuestPropertyOut struct {
 		ResponseCommon
-		Property *rqProperty.Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
-		Meta     []zCrud.Field        `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
+		Property      *rqProperty.Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
+		Meta          []zCrud.Field        `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
+		OgURL         string               `json:"og_url" form:"og_url" query:"og_url" long:"og_url" msg:"og_url"`
+		OgImgURL      string               `json:"og_imgUrl" form:"og_imgUrl" query:"og_imgUrl" long:"og_imgUrl" msg:"og_imgUrl"`
+		OgDescription string               `json:"og_description" form:"og_description" query:"og_description" long:"og_description" msg:"og_description"`
+		OgCreatedAt   int64                `json:"og_createdAt" form:"og_createdAt" query:"og_createdAt" long:"og_createdAt" msg:"og_createdAt"`
+		OgUpdatedAt   int64                `json:"og_updatedAt" form:"og_updatedAt" query:"og_updatedAt" long:"og_updatedAt" msg:"og_updatedAt"`
 	}
 )
 
@@ -97,6 +105,7 @@ var (
 func (d *Domain) GuestProperty(in *GuestPropertyIn) (out GuestPropertyOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
+	domainName := os.Getenv("WEB_PROTO_DOMAIN")
 	r := rqProperty.NewProperty(d.PropOltp)
 	r.Id = in.Id
 	if !r.FindById() {
@@ -106,5 +115,10 @@ func (d *Domain) GuestProperty(in *GuestPropertyIn) (out GuestPropertyOut) {
 	r.NormalizeFloorList()
 	out.Property = r
 	out.Meta = GuestPropertiesMeta
+	out.OgURL = fmt.Sprintf("%s/%s/%d", domainName, GuestPropertyAction, r.Id)
+	out.OgImgURL = fmt.Sprintf("%s%s", domainName, r.Images[0])
+	out.OgDescription = r.Note
+	out.OgCreatedAt = r.CreatedAt
+	out.OgUpdatedAt = r.UpdatedAt
 	return
 }
