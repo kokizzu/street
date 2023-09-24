@@ -8,7 +8,7 @@
   import {datetime} from './_components/formatter';
   import {onMount} from 'svelte';
   import {T} from './_components/uiState';
-  import {UserChangePassword, UserUpdateProfile, UserSessionsActive, UserSessionKill} from './jsApi.GEN.js';
+  import {UserChangePassword, UserUpdateProfile, UserSessionKill} from './jsApi.GEN.js';
   import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
   import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
   import FaSolidTimes from "svelte-icons-pack/fa/FaSolidTimes";
@@ -17,26 +17,18 @@
   let user = {/* user */};
   let segments = {/* segments */};
   let countryData = {/* countryData */}
+  let sessionActiveLists = {/* activeSessions */};
   let oldPassword = '';
   let newPassword = '';
   let repeatNewPassword = '';
-  
   let oldProfileJson = '';
-  let activeSessions = [/* activeSessions */];
-  
   let selectedCountry;
-  let lang = {
-    TW: {language: 'Chinese'},
-    ID: {language: 'Indonesian'},
-    US: {language: 'English'},
-    JP: {language: 'Japanese'},
-    VN: {language: 'Vietnamese'}
-  }
   let showGrowl = false, gMsg = '', gType = '';
   onMount( async () => {
     oldProfileJson = JSON.stringify( user );
-    // console.log( countryData )
-    // console.log( user )
+    console.log( 'Country data = ', countryData );
+    console.log( 'User data = ', user );
+    console.log( 'Active Sessions = ', sessionActiveLists);
   } );
   
   function useGrowl( type, msg ) {
@@ -49,9 +41,8 @@
   }
   
   async function updateProfile() {
-    if( JSON.stringify( user )===oldProfileJson ) return useGrowl( 'error', 'No changes' );
     user.country = selectedCountry;
-    user.language = lang[selectedCountry].language;
+    if( JSON.stringify( user )===oldProfileJson ) return useGrowl( 'error', 'No changes' );
     await UserUpdateProfile( user, function( res ) {
       if( res.error ) return useGrowl( 'error', res.error );
       oldProfileJson = JSON.stringify( res.user );
@@ -75,19 +66,10 @@
     } );
   }
   
-  async function userSessionsActive() {
-    await UserSessionsActive( user, async res => {
-      if( res.error ) return useGrowl( 'error', res.error );
-      activeSessions = await res.sessionsActive;
-    } )
-  }
-  
   async function killSession( sessionToken ) {
-    await UserSessionKill( {sessionTokenHash:sessionToken}, async res => {
+    await UserSessionKill({sessionTokenHash: sessionToken }, async res => {
       if( res.error ) return useGrowl( 'error', res.error );
-      if( res.sessionTerminated>0 ) {
-        return await userSessionsActive();
-      } else {
+      if( res.sessionTerminated < 1 ) {
         useGrowl( 'error', 'No session terminated' );
       }
     } )
@@ -100,7 +82,7 @@
 <section class="dashboard">
 	<Menu access={segments}/>
 	<div class="dashboard_main_content">
-		<ProfileHeader/>
+		<ProfileHeader {user}/>
 		<div class="content">
 			<div class="profile_details_container">
 				<div class="left">
@@ -128,9 +110,20 @@
 									<input bind:value={user.fullName} id="fullName" type="text"/>
 								</div>
 							</div>
+							<div class="">
+							
+							</div>
 							<div class="profile_input email">
 								<label for="email">{$T.email}</label>
 								<input bind:value={user.email} id="email" type="email"/>
+							</div>
+							<div class="profile_input country_list">
+								<label for="country">Select Country by alpha-2 code</label>
+								<select id="country" name="country" bind:value={selectedCountry}>
+									{#each countryData as country}
+										<option value={country.country}>{country.country}</option>
+									{/each}
+								</select>
 							</div>
 						</div>
 						<div class="info_container">
@@ -161,8 +154,8 @@
 							<span>Device</span>
 						</div>
 						<div class="session_list">
-							{#if activeSessions.length}
-								{#each activeSessions as session}
+							{#if sessionActiveLists.length}
+								{#each sessionActiveLists as session}
 									<div class="session">
 										<span>{session.loginIPs || 'no-data'}</span>
 										<span>{datetime( session.expiredAt ) || 0}</span>
@@ -200,33 +193,6 @@
 							</button>
 						</div>
 					</div>
-					<div class="country_details">
-						<h2>Country Details</h2>
-						<div class='country_input_container'>
-							<div class="country_list">
-								<label for="country">Select Country by alpha-2 code</label>
-								<select id="country" name="country" bind:value={selectedCountry}>
-									{#each countryData as country}
-										<option value={country.country}>{country.country}</option>
-									{/each}
-								</select>
-							</div>
-							<div class="info_container">
-								<div class="profile_info">
-									<label for="country_name">Country:</label>
-									<span id="country_name">{user.country}</span>
-								</div>
-								<div class="profile_info">
-									<label for="language">Language:</label>
-									<span id="language">{user.language}</span>
-								</div>
-							</div>
-							<button id="updateCountry" on:click={updateProfile}>
-								<span>SUBMIT</span>
-								<Icon color="#FFF" size={18} src={FaSolidAngleRight}/>
-							</button>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -258,7 +224,6 @@
 
     .profile_details_container .left .profile_details,
     .profile_details_container .right .password_set,
-    .profile_details_container .right .country_details,
     .profile_details_container .left .session_list_container {
         display          : flex;
         flex-direction   : column;
@@ -430,12 +395,6 @@
         background-color : #F85454;
     }
 
-    .profile_details_container .right .country_details .country_input_container {
-        display        : flex;
-        flex-direction : column;
-        gap            : 8px;
-    }
-
     .profile_details_container .right .country_details .country_input_container .country_list #country {
         width            : 100%;
         border           : 1px solid #CBD5E1;
@@ -451,8 +410,7 @@
     }
 
     .profile_details #updateProfile,
-    .password_set #changePassword,
-    .country_details #updateCountry {
+    .password_set #changePassword {
         margin-left      : auto;
         width            : fit-content;
         filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
@@ -472,8 +430,7 @@
     }
 
     .profile_details #updateProfile:hover,
-    .password_set #changePassword:hover,
-    .country_details #updateCountry:hover {
+    .password_set #changePassword:hover {
         background-color : #7E80F1;
     }
 
@@ -492,7 +449,8 @@
         margin-left : 10px;
     }
 
-    .profile_input input {
+    .profile_input input,
+    .profile_input select {
         width            : 100%;
         border           : 1px solid #CBD5E1;
         background-color : #F1F5F9;
@@ -500,7 +458,8 @@
         padding          : 12px;
     }
 
-    .profile_input input:focus {
+    .profile_input input:focus,
+    .profile_input select:focus  {
         border-color : #3B82F6;
         outline      : 1px solid #3B82F6;
     }

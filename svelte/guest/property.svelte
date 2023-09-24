@@ -11,6 +11,8 @@
   import FaBrandsLinkedin from "svelte-icons-pack/fa/FaBrandsLinkedin";
   import FaBrandsTwitter from "svelte-icons-pack/fa/FaBrandsTwitter";
   import PillBox from "../_components/PillBox.svelte";
+  import FaBrandsWhatsapp from "svelte-icons-pack/fa/FaBrandsWhatsapp";
+  import FaBrandsTelegram from "svelte-icons-pack/fa/FaBrandsTelegram";
   
   let propItem = {/* propItem */};
   let meta = {/* propertyMeta */}
@@ -193,7 +195,7 @@
 			</header>
 			<div class='share_options'>
 				<button class='share_item' on:click={() => copyToClipboard(`${window.location}`)} title='Copy link address'>
-					<Icon className='share_icon' color='#475569' size={25} src={FaCopy}/>
+					<Icon className='share_icon' color='#475569' size={28} src={FaCopy}/>
 				</button>
 				<a aria-label="Share to Facebook"
 				   class='share_item'
@@ -201,23 +203,39 @@
 				   rel="noopener"
 				   target="_blank"
 				>
-					<Icon className='share_icon' color='#475569' size={25} src={FaBrandsFacebook}/>
+					<Icon className='share_icon' color='#475569' size={30} src={FaBrandsFacebook}/>
 				</a>
 				<a aria-label="Share to LinkedIn"
 				   class='share_item'
-				   href={`http://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${propItem.id}`}
+				   href={`https://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${propItem.id}`}
 				   rel="noopener"
 				   target="_blank"
 				>
-					<Icon className='share_icon' color='#475569' size={25} src={FaBrandsLinkedin}/>
+					<Icon className='share_icon' color='#475569' size={30} src={FaBrandsLinkedin}/>
 				</a>
 				<a aria-label="Share to Twitter"
 				   class='share_item'
-				   href={`https://twitter.com/intent/tweet?text=I%20Found%20Awesome%House ${window.location}property/${propItem.id}`}
+				   href={`https://twitter.com/intent/tweet?url=${window.location}&text=I%20Found%20Awesome%20House`}
 				   rel="noopener"
 				   target="_blank"
 				>
-					<Icon className='share_icon' color='#475569' size={25} src={FaBrandsTwitter}/>
+					<Icon className='share_icon' color='#475569' size={30} src={FaBrandsTwitter}/>
+				</a>
+				<a aria-label="Share to Telegram"
+				   class='share_item'
+				   href={`https://t.me/share/url?url=${window.location}`}
+				   rel="noopener"
+				   target="_blank"
+				>
+					<Icon className='share_icon' color='#475569' size={30} src={FaBrandsTelegram}/>
+				</a>
+				<a aria-label="Share to WhatsApp"
+				   class='share_item'
+				   href={`https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House`}
+				   rel="noopener"
+				   target="_blank"
+				>
+					<Icon className='share_icon' color='#475569' size={33} src={FaBrandsWhatsapp}/>
 				</a>
 			</div>
 		</div>
@@ -527,10 +545,12 @@
     .side_attribute .share_container .share_options {
         display               : grid;
         grid-template-columns : repeat(4, minmax(0, 1fr));
+        grid-template-rows    : repeat(2, minmax(0, 1fr));
         align-items           : center;
         justify-items         : center;
         justify-content       : center;
         align-content         : center;
+        row-gap: 12px;
     }
 
     .side_attribute .share_container .share_options .share_item {
