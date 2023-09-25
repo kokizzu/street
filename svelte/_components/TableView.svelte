@@ -84,10 +84,6 @@
     } );
   }
   
-  function refreshTable() {
-    window.location.reload();
-  }
-  
   function cell( row, i, field ) {
     if( arrayOfArray ) return row[ i ] || '';
     return row[ field.name ] || '';
@@ -103,7 +99,7 @@
     <Icon size={18} color={oldFilterStr === newFilterStr ? '#5C646F' : '#FFFF'} src={FaSolidFilter} />
     <span>Apply Filter</span>
   </button>
-  <button class="refresh_button" on:click={refreshTable}>
+  <button class="refresh_button" on:click={() => gotoPage(pager.page)}>
     Refresh
   </button>
   <div class='pagination' style='float:right; display: inline-block'>
