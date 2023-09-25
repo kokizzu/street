@@ -100,6 +100,10 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 				`error`: out.Error,
 			})
 		}
+		imgUrl := ""
+		if len(out.Property.Images) != 0 {
+			imgUrl = fmt.Sprintf("%s%s", w.Cfg.WebProtoDomain, out.Property.Images[0])
+		}
 		const ISO8601 = "2006-01-02T15:04:05Z07:00"
 		descr := out.Property.SizeM2 + ` m2`
 		if out.Property.Bedroom > 0 {
@@ -123,7 +127,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`propItem`:      out.Property,
 			`propertyMeta`:  out.Meta,
 			`ogURL`:         fmt.Sprintf("%s/%s/%d", w.Cfg.WebProtoDomain, domain.GuestPropertyAction, out.Property.Id),
-			`ogImgURL`:      fmt.Sprintf("%s%s", w.Cfg.WebProtoDomain, out.Property.Images[0]),
+			`ogImgURL`:      imgUrl,
 			`ogDescription`: descr,
 			`ogCreatedAt`:   time.Unix(out.Property.CreatedAt, 0).Format(ISO8601),
 			`ogUpdatedAt`:   time.Unix(out.Property.UpdatedAt, 0).Format(ISO8601),

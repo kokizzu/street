@@ -5190,26 +5190,26 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/TableView.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[34] = list[i];
-    child_ctx[36] = i;
+    child_ctx[35] = list[i];
+    child_ctx[37] = i;
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[37] = list[i];
-    child_ctx[39] = i;
+    child_ctx[38] = list[i];
+    child_ctx[40] = i;
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[40] = list[i];
+    child_ctx[41] = list[i];
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[37] = list[i];
-    child_ctx[43] = list;
-    child_ctx[44] = i;
+    child_ctx[38] = list[i];
+    child_ctx[44] = list;
+    child_ctx[45] = i;
     return child_ctx;
   }
   function create_else_block_1(ctx) {
@@ -5217,7 +5217,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let label;
     let t0_value = (
       /*field*/
-      ctx[37].label + ""
+      ctx[38].label + ""
     );
     let t0;
     let label_for_value;
@@ -5230,10 +5230,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let mounted;
     let dispose;
     function input_input_handler() {
-      ctx[25].call(
+      ctx[26].call(
         input,
         /*field*/
-        ctx[37]
+        ctx[38]
       );
     }
     return {
@@ -5246,9 +5246,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         input = element("input");
         t2 = space();
         attr(label, "for", label_for_value = "th_" + /*field*/
-        ctx[37].name);
+        ctx[38].name);
         attr(input, "id", input_id_value = "th_" + /*field*/
-        ctx[37].name);
+        ctx[38].name);
         attr(input, "title", "separate with pipe for multiple values, for example:\n  >=100|<50|61|72 will show values greater equal to 100, OR less than 50, OR exactly 61 OR 72\n    filtering with greater or less than will only show correct result if data is saved as number\n    currently price and size NOT stored as number\n  <>abc* will show values NOT started with abc*\n  abc*def|ghi will show values started with abc ends with def OR exactly ghi\n  *jkl* will show values containing jkl substring\nmultiple filter from other fields will do AND operation");
         attr(input, "type", "text");
         attr(input, "class", "input_filter svelte-1p7wx4f");
@@ -5256,11 +5256,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(th, "style", th_style_value = /*widths*/
         ctx[5][
           /*field*/
-          ctx[37].name
+          ctx[38].name
         ] ? "min-width: " + /*widths*/
         ctx[5][
           /*field*/
-          ctx[37].name
+          ctx[38].name
         ] : "");
       },
       m(target, anchor) {
@@ -5275,7 +5275,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*filtersMap*/
           ctx[6][
             /*field*/
-            ctx[37].name
+            ctx[38].name
           ]
         );
         append(th, t2);
@@ -5296,30 +5296,30 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx = new_ctx;
         if (dirty[0] & /*fields*/
         2 && t0_value !== (t0_value = /*field*/
-        ctx[37].label + ""))
+        ctx[38].label + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*fields*/
         2 && label_for_value !== (label_for_value = "th_" + /*field*/
-        ctx[37].name)) {
+        ctx[38].name)) {
           attr(label, "for", label_for_value);
         }
         if (dirty[0] & /*fields*/
         2 && input_id_value !== (input_id_value = "th_" + /*field*/
-        ctx[37].name)) {
+        ctx[38].name)) {
           attr(input, "id", input_id_value);
         }
         if (dirty[0] & /*filtersMap, fields*/
         66 && input.value !== /*filtersMap*/
         ctx[6][
           /*field*/
-          ctx[37].name
+          ctx[38].name
         ]) {
           set_input_value(
             input,
             /*filtersMap*/
             ctx[6][
               /*field*/
-              ctx[37].name
+              ctx[38].name
             ]
           );
         }
@@ -5327,11 +5327,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         34 && th_style_value !== (th_style_value = /*widths*/
         ctx[5][
           /*field*/
-          ctx[37].name
+          ctx[38].name
         ] ? "min-width: " + /*widths*/
         ctx[5][
           /*field*/
-          ctx[37].name
+          ctx[38].name
         ] : "")) {
           attr(th, "style", th_style_value);
         }
@@ -5369,7 +5369,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function select_block_type(ctx2, dirty) {
       if (
         /*field*/
-        ctx2[37].name === "id"
+        ctx2[38].name === "id"
       )
         return create_if_block_42;
       return create_else_block_1;
@@ -5411,11 +5411,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       /*cell*/
       ctx[16](
         /*row*/
-        ctx[34],
+        ctx[35],
         /*i*/
-        ctx[39],
+        ctx[40],
         /*field*/
-        ctx[37]
+        ctx[38]
       ) + ""
     );
     let t;
@@ -5434,11 +5434,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         6 && t_value !== (t_value = /*cell*/
         ctx2[16](
           /*row*/
-          ctx2[34],
+          ctx2[35],
           /*i*/
-          ctx2[39],
+          ctx2[40],
           /*field*/
-          ctx2[37]
+          ctx2[38]
         ) + ""))
           set_data(t, t_value);
       },
@@ -5457,11 +5457,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       /*cell*/
       (ctx[16](
         /*row*/
-        ctx[34],
+        ctx[35],
         /*i*/
-        ctx[39],
+        ctx[40],
         /*field*/
-        ctx[37]
+        ctx[38]
       ) || 0).toLocaleString() + ""
     );
     let t;
@@ -5480,11 +5480,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         6 && t_value !== (t_value = /*cell*/
         (ctx2[16](
           /*row*/
-          ctx2[34],
+          ctx2[35],
           /*i*/
-          ctx2[39],
+          ctx2[40],
           /*field*/
-          ctx2[37]
+          ctx2[38]
         ) || 0).toLocaleString() + ""))
           set_data(t, t_value);
       },
@@ -5503,11 +5503,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       /*cell*/
       ctx[16](
         /*row*/
-        ctx[34],
+        ctx[35],
         /*i*/
-        ctx[39],
+        ctx[40],
         /*field*/
-        ctx[37]
+        ctx[38]
       )
     ) + "";
     let t;
@@ -5527,11 +5527,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*cell*/
           ctx2[16](
             /*row*/
-            ctx2[34],
+            ctx2[35],
             /*i*/
-            ctx2[39],
+            ctx2[40],
             /*field*/
-            ctx2[37]
+            ctx2[38]
           )
         ) + ""))
           set_data(t, t_value);
@@ -5550,11 +5550,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t_value = !!/*cell*/
     ctx[16](
       /*row*/
-      ctx[34],
+      ctx[35],
       /*i*/
-      ctx[39],
+      ctx[40],
       /*field*/
-      ctx[37]
+      ctx[38]
     ) + "";
     let t;
     return {
@@ -5572,11 +5572,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         6 && t_value !== (t_value = !!/*cell*/
         ctx2[16](
           /*row*/
-          ctx2[34],
+          ctx2[35],
           /*i*/
-          ctx2[39],
+          ctx2[40],
           /*field*/
-          ctx2[37]
+          ctx2[38]
         ) + ""))
           set_data(t, t_value);
       },
@@ -5598,16 +5598,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let mounted;
     let dispose;
     icon = new Icon_default({ props: { src: HiOutlinePencil_default } });
-    function click_handler_4() {
+    function click_handler_5() {
       return (
-        /*click_handler_4*/
-        ctx[26](
+        /*click_handler_5*/
+        ctx[27](
           /*row*/
-          ctx[34],
+          ctx[35],
           /*i*/
-          ctx[39],
+          ctx[40],
           /*field*/
-          ctx[37]
+          ctx[38]
         )
       );
     }
@@ -5647,7 +5647,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         current = true;
         if (!mounted) {
-          dispose = listen(button, "click", click_handler_4);
+          dispose = listen(button, "click", click_handler_5);
           mounted = true;
         }
       },
@@ -5716,16 +5716,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let dispose;
     icon = new Icon_default({ props: { src: (
       /*action*/
-      ctx[40].icon
+      ctx[41].icon
     ) } });
-    function click_handler_5() {
+    function click_handler_6() {
       return (
-        /*click_handler_5*/
-        ctx[27](
+        /*click_handler_6*/
+        ctx[28](
           /*action*/
-          ctx[40],
+          ctx[41],
           /*row*/
-          ctx[34]
+          ctx[35]
         )
       );
     }
@@ -5735,14 +5735,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         create_component(icon.$.fragment);
         attr(button, "class", "action svelte-1p7wx4f");
         attr(button, "title", button_title_value = /*action*/
-        ctx[40].label || "");
+        ctx[41].label || "");
       },
       m(target, anchor) {
         insert(target, button, anchor);
         mount_component(icon, button, null);
         current = true;
         if (!mounted) {
-          dispose = listen(button, "click", click_handler_5);
+          dispose = listen(button, "click", click_handler_6);
           mounted = true;
         }
       },
@@ -5752,11 +5752,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (dirty[0] & /*extraActions*/
         8)
           icon_changes.src = /*action*/
-          ctx[40].icon;
+          ctx[41].icon;
         icon.$set(icon_changes);
         if (!current || dirty[0] & /*extraActions*/
         8 && button_title_value !== (button_title_value = /*action*/
-        ctx[40].label || "")) {
+        ctx[41].label || "")) {
           attr(button, "title", button_title_value);
         }
       },
@@ -5796,23 +5796,23 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function select_block_type_1(ctx2, dirty) {
       if (
         /*field*/
-        ctx2[37].name === "id"
+        ctx2[38].name === "id"
       )
         return 0;
       if (
         /*field*/
-        ctx2[37].inputType === "checkbox"
+        ctx2[38].inputType === "checkbox"
       )
         return 1;
       if (
         /*field*/
-        ctx2[37].inputType === "datetime" || /*field*/
-        ctx2[37].name === "deletedAt"
+        ctx2[38].inputType === "datetime" || /*field*/
+        ctx2[38].name === "deletedAt"
       )
         return 2;
       if (
         /*field*/
-        ctx2[37].inputType === "number"
+        ctx2[38].inputType === "number"
       )
         return 3;
       return 4;
@@ -5896,7 +5896,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           tr,
           "deleted",
           /*row*/
-          ctx[34][
+          ctx[35][
             /*deletedAtIdx*/
             ctx[7]
           ] > 0
@@ -5944,7 +5944,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             tr,
             "deleted",
             /*row*/
-            ctx2[34][
+            ctx2[35][
               /*deletedAtIdx*/
               ctx2[7]
             ] > 0
@@ -6370,66 +6370,71 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         current = true;
         if (!mounted) {
           dispose = [
-            listen(button1, "click", refreshTable),
             listen(
-              button2,
+              button1,
               "click",
               /*click_handler*/
               ctx[21]
             ),
             listen(
-              button3,
+              button2,
               "click",
               /*click_handler_1*/
               ctx[22]
             ),
             listen(
-              button4,
+              button3,
               "click",
               /*click_handler_2*/
               ctx[23]
             ),
             listen(
-              button5,
+              button4,
               "click",
               /*click_handler_3*/
               ctx[24]
             ),
             listen(
+              button5,
+              "click",
+              /*click_handler_4*/
+              ctx[25]
+            ),
+            listen(
               input,
               "input",
               /*input_input_handler_1*/
-              ctx[28]
+              ctx[29]
             ),
             listen(
               input,
               "change",
               /*change_handler*/
-              ctx[29]
-            ),
-            listen(
-              button6,
-              "click",
-              /*click_handler_6*/
               ctx[30]
             ),
             listen(
-              button7,
+              button6,
               "click",
               /*click_handler_7*/
               ctx[31]
             ),
             listen(
-              button8,
+              button7,
               "click",
               /*click_handler_8*/
               ctx[32]
             ),
             listen(
-              button9,
+              button8,
               "click",
               /*click_handler_9*/
               ctx[33]
+            ),
+            listen(
+              button9,
+              "click",
+              /*click_handler_10*/
+              ctx[34]
             )
           ];
           mounted = true;
@@ -6686,9 +6691,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function refreshTable() {
-    window.location.reload();
-  }
   function instance4($self, $props, $invalidate) {
     let allowPrevPage;
     let allowNextPage;
@@ -6751,25 +6753,26 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         return row[i] || "";
       return row[field.name] || "";
     }
-    const click_handler = () => gotoPage(1);
-    const click_handler_1 = () => gotoPage(pager.page - 1);
-    const click_handler_2 = () => gotoPage(pager.page + 1);
-    const click_handler_3 = () => gotoPage(pager.pages);
+    const click_handler = () => gotoPage(pager.page);
+    const click_handler_1 = () => gotoPage(1);
+    const click_handler_2 = () => gotoPage(pager.page - 1);
+    const click_handler_3 = () => gotoPage(pager.page + 1);
+    const click_handler_4 = () => gotoPage(pager.pages);
     function input_input_handler(field) {
       filtersMap[field.name] = this.value;
       $invalidate(6, filtersMap);
     }
-    const click_handler_4 = (row, i, field) => onEditRow(cell(row, i, field), row);
-    const click_handler_5 = (action, row) => action.onClick(row);
+    const click_handler_5 = (row, i, field) => onEditRow(cell(row, i, field), row);
+    const click_handler_6 = (action, row) => action.onClick(row);
     function input_input_handler_1() {
       pager.perPage = to_number(this.value);
       $invalidate(0, pager);
     }
     const change_handler = () => changePerPage(pager.perPage);
-    const click_handler_6 = () => gotoPage(1);
-    const click_handler_7 = () => gotoPage(pager.page - 1);
-    const click_handler_8 = () => gotoPage(pager.page + 1);
-    const click_handler_9 = () => gotoPage(pager.pages);
+    const click_handler_7 = () => gotoPage(1);
+    const click_handler_8 = () => gotoPage(pager.page - 1);
+    const click_handler_9 = () => gotoPage(pager.page + 1);
+    const click_handler_10 = () => gotoPage(pager.pages);
     $self.$set = ($props2) => {
       if ("arrayOfArray" in $props2)
         $invalidate(17, arrayOfArray = $props2.arrayOfArray);
@@ -6833,15 +6836,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       click_handler_1,
       click_handler_2,
       click_handler_3,
-      input_input_handler,
       click_handler_4,
+      input_input_handler,
       click_handler_5,
+      click_handler_6,
       input_input_handler_1,
       change_handler,
-      click_handler_6,
       click_handler_7,
       click_handler_8,
-      click_handler_9
+      click_handler_9,
+      click_handler_10
     ];
   }
   var TableView = class extends SvelteComponent {
