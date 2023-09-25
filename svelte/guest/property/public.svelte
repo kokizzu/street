@@ -13,6 +13,7 @@
   import PillBox from "../../_components/PillBox.svelte";
   import FaBrandsWhatsapp from "svelte-icons-pack/fa/FaBrandsWhatsapp";
   import FaBrandsTelegram from "svelte-icons-pack/fa/FaBrandsTelegram";
+  import FaSolidImage from "svelte-icons-pack/fa/FaSolidImage";
   
   let propItem = {/* propItem */};
   let meta = {/* propertyMeta */}
@@ -44,7 +45,8 @@
 					<img src={propItem.images[0]} alt=''/>
 				{:else}
 					<div class='image_empty'>
-						<i class='gg-image'/>
+						<Icon size={40} color='#475569' src={FaSolidImage}/>
+						<span>No Image !</span>
 					</div>
 				{/if}
 			</div>
@@ -125,10 +127,10 @@
 							</div>
 							<div class='floor_plan_image'>
 								{#if floors.planImageUrl===''}
-                        <span>
-                           <i class='gg-image'/>
-                           <p>No Image</p>
-                        </span>
+									<div class='image_empty'>
+										<Icon size={30} color='#475569' src={FaSolidImage}/>
+										<span>No Image !</span>
+									</div>
 								{:else}
 									<img src={floors.planImageUrl} alt=''/>
 								{/if}
@@ -262,6 +264,9 @@
         height           : 100%;
         background-color : rgb(0 0 0 / 0.06);
         display          : flex;
+        flex-direction   : column;
+        gap              : 10px;
+        font-size        : 18px;
         justify-content  : center;
         align-items      : center;
     }
@@ -437,7 +442,7 @@
         object-fit : cover;
     }
 
-    .property_floors .floor_lists .floor_item .floor_plan_image span {
+    .property_floors .floor_lists .floor_item .floor_plan_image .image_empty{
         border-radius   : 8px;
         object-fit      : cover;
         width           : 100%;
@@ -516,7 +521,7 @@
         justify-items         : center;
         justify-content       : center;
         align-content         : center;
-        row-gap: 12px;
+        row-gap               : 12px;
     }
 
     .side_attribute .share_container .share_options .share_item {
