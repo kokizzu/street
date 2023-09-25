@@ -105,13 +105,30 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			imgUrl = fmt.Sprintf("%s%s", w.Cfg.WebProtoDomain, out.Property.Images[0])
 		}
 		const ISO8601 = "2006-01-02T15:04:05Z07:00"
+		descr := out.Property.SizeM2 + ` m2`
+		if out.Property.Bedroom > 0 {
+			descr += `, ` + X.ToS(out.Property.Bedroom) + ` bedroom`
+		}
+		if out.Property.Bathroom > 0 {
+			descr += `, ` + X.ToS(out.Property.Bathroom) + ` bathroom`
+		}
+		if out.Property.NumberOfFloors != `0` && out.Property.NumberOfFloors != `` {
+			descr += `, ` + X.ToS(out.Property.NumberOfFloors) + ` floor`
+
+		}
+		title := `Property #` + X.ToS(out.Property.Id)
+		if out.Property.Address != `` {
+			title += ` on ` + out.Property.Address
+		} else if out.Property.FormattedAddress != `` {
+			title += ` on ` + out.Property.FormattedAddress
+		}
 		return views.RenderGuestPropertyPublic(ctx, M.SX{
-			`title`:         `Property`,
+			`title`:         title,
 			`propItem`:      out.Property,
 			`propertyMeta`:  out.Meta,
 			`ogURL`:         fmt.Sprintf("%s/%s/%d", w.Cfg.WebProtoDomain, domain.GuestPropertyAction, out.Property.Id),
 			`ogImgURL`:      imgUrl,
-			`ogDescription`: out.Property.Note,
+			`ogDescription`: descr,
 			`ogCreatedAt`:   time.Unix(out.Property.CreatedAt, 0).Format(ISO8601),
 			`ogUpdatedAt`:   time.Unix(out.Property.UpdatedAt, 0).Format(ISO8601),
 		})
