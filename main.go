@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strconv"
 	"time"
 
 	"github.com/kokizzu/gotro/D/Ch"
@@ -178,7 +179,38 @@ func main() {
 		zImport.ImportExcelData(tConn, excelFile, jsonCoordFile)
 		zImport.PatchPropertiesPrice(tConn)
 	case `import_property_us`:
-		zImport.ImportPropertyUsData(tConn)
+		const baseUrl = "https://www.redfin.com/stingray/api/home/details/belowTheFold"
+		// const minPropertyId = 1
+		// const maxPropertyId = 10000000
+		args := os.Args
+		// Check the number of arguments.
+		if len(args) < 2 {
+			fmt.Println("Usage: go run main.go import_property_us -minPropertyId -maxPropertyId")
+			return
+		}
+
+		// Process the arguments
+		minPropertyId := args[2]
+		maxPropertyId := args[3]
+
+		minPropertyIdNumber, err := strconv.Atoi(minPropertyId)
+		if err != nil {
+			fmt.Println("Error: -minPropertyId is required a number and not a string")
+			return
+		}
+
+		maxPropertyIdNumber, err := strconv.Atoi(maxPropertyId)
+		if err != nil {
+			fmt.Println("Error: -maxPropertyIdNumber is required a number and not a string")
+			return
+		}
+
+		if minPropertyIdNumber >= maxPropertyIdNumber {
+			fmt.Println("Error: -minPropertyId is required smaller than -maxPropertyIdNumber")
+			return
+		}
+
+		zImport.ImportPropertyUsData(tConn, baseUrl, minPropertyIdNumber, maxPropertyIdNumber)
 	case `import_location`:
 		zImport.ImportHouseLocation(tConn, gmap)
 	case `import_streetview_image`:
