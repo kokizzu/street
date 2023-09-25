@@ -2,7 +2,7 @@
 	<title>/*! title */</title>
 	<meta content="#{ogURL}" property="og:url">
 	<meta content="HapSTR" property="og:site_name">
-	<meta content="Property" property="og:title">
+	<meta content="#{title}" property="og:title">
 	<meta content="#{ogDescription}" property="og:description">
 	<meta content="tw_TW" property="og:locale">
 	<meta content="en_EN" property="og:locale:alternate">
@@ -706,14 +706,6 @@
   var current_component;
   function set_current_component(component) {
     current_component = component;
-  }
-  function get_current_component() {
-    if (!current_component)
-      throw new Error("Function called outside component initialization");
-    return current_component;
-  }
-  function onMount(fn) {
-    get_current_component().$.on_mount.push(fn);
   }
 
   // node_modules/svelte/src/runtime/internal/scheduler.js
@@ -3194,9 +3186,6 @@
   var meta = {/* propertyMeta */};
   function instance4($self, $props, $invalidate) {
     let showGrowl = false, gMsg = "", gType = "";
-    onMount(() => {
-      console.log(propItem);
-    });
     function useGrowl(type, msg) {
       $invalidate(0, showGrowl = true);
       $invalidate(1, gMsg = msg);
