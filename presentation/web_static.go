@@ -1,6 +1,9 @@
 package presentation
 
 import (
+	"fmt"
+	"time"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/utils"
 	"github.com/kokizzu/gotro/L"
@@ -97,10 +100,16 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 				`error`: out.Error,
 			})
 		}
-		return views.RenderGuestProperty(ctx, M.SX{
-			`title`:        `Property`,
-			`propItem`:     out.Property,
-			`propertyMeta`: out.Meta,
+		const ISO8601 = "2006-01-02T15:04:05Z07:00"
+		return views.RenderGuestPropertyPublic(ctx, M.SX{
+			`title`:         `Property`,
+			`propItem`:      out.Property,
+			`propertyMeta`:  out.Meta,
+			`ogURL`:         fmt.Sprintf("%s/%s/%d", w.Cfg.WebProtoDomain, domain.GuestPropertyAction, out.Property.Id),
+			`ogImgURL`:      fmt.Sprintf("%s%s", w.Cfg.WebProtoDomain, out.Property.Images[0]),
+			`ogDescription`: out.Property.Note,
+			`ogCreatedAt`:   time.Unix(out.Property.CreatedAt, 0).Format(ISO8601),
+			`ogUpdatedAt`:   time.Unix(out.Property.UpdatedAt, 0).Format(ISO8601),
 		})
 	})
 
