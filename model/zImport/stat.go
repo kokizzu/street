@@ -21,6 +21,7 @@ type ImporterStat struct {
 
 	mutex    *sync.Mutex
 	warnings map[string]int
+	last     string
 }
 
 func (s *ImporterStat) Print(opt ...any) {
@@ -36,10 +37,11 @@ func (s *ImporterStat) Print(opt ...any) {
 		return
 	}
 
-	fmt.Printf("\r    Upserted: %d, Skipped: %d, Warn: %d, Failed: %d | %.2f%% | %.1fs",
+	fmt.Printf("\r    Upserted: %d, Skipped: %d, Warn: %d, Failed: %d | %.2f%% | %.1fs | Last %s",
 		s.upserted, s.skipped, s.warn, s.failed,
 		float64(progress*100)/float64(s.Total),
-		fastime.Since(*s.startTime).Seconds())
+		fastime.Since(*s.startTime).Seconds(),
+		s.last)
 
 	if len(opt) > 0 {
 		fmt.Println()
@@ -75,4 +77,9 @@ func (s *ImporterStat) Warn(str string) {
 	s.mutex.Lock()
 	s.warnings[str] += 1
 	s.mutex.Unlock()
+}
+
+func (s *ImporterStat) Last(item string) {
+	// no need for mutex if sequential
+	s.last = item
 }

@@ -398,7 +398,7 @@ func ImportPropertyUsData(adapter *Tt.Adapter, baseUrl string, minPropertyId int
 	// const minPropertyId = 1
 	// const maxPropertyId = 10000000
 
-	stat := &ImporterStat{Total: maxPropertyId * 2, PrintEvery: 10}
+	stat := &ImporterStat{Total: maxPropertyId * 2, PrintEvery: 11}
 	defer stat.Print(`last`)
 
 	for i := minPropertyId; i <= maxPropertyId; i++ {
@@ -414,6 +414,8 @@ func ImportPropertyUsData(adapter *Tt.Adapter, baseUrl string, minPropertyId int
 			continue
 		}
 
+		stat.Last(redfinKey) // so we can continue from the last
+
 		propertyMutator := wcProperty.NewPropertyUSMutator(adapter)
 		propertyMutator.UniqPropKey = redfinKey
 		propertyMutator.FindByUniqPropKey()
@@ -421,7 +423,11 @@ func ImportPropertyUsData(adapter *Tt.Adapter, baseUrl string, minPropertyId int
 		data, err := fetchPropertyUSByPropID(baseUrl, i)
 		L.PanicIf(err, "Error: fetchPropertyUSByPropID "+redfinKey)
 
-		propertyResponse := data["payload"].(map[string]any)
+		propertyResponse, ok := data["payload"].(map[string]any)
+		if !ok {
+			stat.Skip()
+			continue
+		}
 		propertyVersion := X.ToS(data["version"])
 
 		// Property into the struct
@@ -442,6 +448,8 @@ func ImportPropertyUsData(adapter *Tt.Adapter, baseUrl string, minPropertyId int
 			propertyMutator.LastPrice = fmt.Sprint(propertyHistories[0].Price)
 		}
 		stat.Ok(propertyMutator.DoInsert())
+
+		stat.Print()
 
 		// Store extra
 		parsePropertyExtraData(propertyExtraMutator, propertyResponseObject)

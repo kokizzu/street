@@ -8,6 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2/utils"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 
 	"street/domain"
@@ -123,7 +124,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			title += ` on ` + out.Property.FormattedAddress
 		}
 		return views.RenderGuestPropertyPublic(ctx, M.SX{
-			`title`:         title,
+			`title`:         S.Z(title),
 			`propItem`:      out.Property,
 			`propertyMeta`:  out.Meta,
 			`ogURL`:         fmt.Sprintf("%s/%s/%d", w.Cfg.WebProtoDomain, domain.GuestPropertyAction, out.Property.Id),
