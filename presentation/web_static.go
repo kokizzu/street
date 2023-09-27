@@ -239,6 +239,37 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`property`: out.Property,
 		})
 	})
+	fw.Get(`/realtor/ownedProperty/:propId`, func(ctx *fiber.Ctx) error {
+		// edit property
+		in, _, segments := userInfoFromContext(ctx, d)
+		in.RequestCommon.Action = domain.RealtorPropertyAction
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		out := d.GuestProperty(&domain.GuestPropertyIn{
+			RequestCommon: in.RequestCommon,
+			Id:            X.ToU(ctx.Params(`propId`)),
+		})
+		if out.Error != `` {
+			L.Print(out.Error)
+			return views.RenderError(ctx, M.SX{
+				`error`: out.Error,
+			})
+		}
+
+		title := `Property #` + X.ToS(out.Property.Id)
+		if out.Property.Address != `` {
+			title += ` on ` + out.Property.Address
+		} else if out.Property.FormattedAddress != `` {
+			title += ` on ` + out.Property.FormattedAddress
+		}
+		return views.RenderRealtorOwnedProperty(ctx, M.SX{
+			`title`:        title,
+			`segments`:     segments,
+			`property`:     out.Property,
+			`propertyMeta`: out.Meta,
+		})
+	})
 	fw.Get(`/admin`, func(ctx *fiber.Ctx) error {
 		in, _, segments := userInfoFromContext(ctx, d)
 		if notAdmin(ctx, d, in.RequestCommon) {
