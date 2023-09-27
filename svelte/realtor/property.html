@@ -7359,30 +7359,30 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // realtor/property.svelte
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[99] = list[i];
+    child_ctx[101] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[102] = list[i];
+    child_ctx[104] = list[i];
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[105] = list[i];
-    child_ctx[107] = i;
+    child_ctx[107] = list[i];
+    child_ctx[109] = i;
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[28] = list[i];
-    child_ctx[107] = i;
+    child_ctx[109] = i;
     return child_ctx;
   }
   function get_each_context_4(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[109] = list[i];
-    child_ctx[107] = i;
+    child_ctx[111] = list[i];
+    child_ctx[109] = i;
     return child_ctx;
   }
   function create_if_block_23(ctx) {
@@ -7555,25 +7555,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               input0,
               "click",
               /*click_handler_4*/
-              ctx[58]
+              ctx[59]
             ),
             listen(
               input1,
               "click",
               /*click_handler_5*/
-              ctx[59]
+              ctx[60]
             ),
             listen(
               input2,
               "click",
               /*click_handler_6*/
-              ctx[61]
+              ctx[62]
             ),
             listen(
               input3,
               "click",
               /*click_handler_7*/
-              ctx[62]
+              ctx[63]
             )
           ];
           mounted = true;
@@ -7683,7 +7683,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             input,
             "input",
             /*input_input_handler*/
-            ctx[60]
+            ctx[61]
           );
           mounted = true;
         }
@@ -7918,7 +7918,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       m(target, anchor) {
         insert(target, input, anchor);
-        ctx[63](input);
+        ctx[64](input);
         insert(target, t0, anchor);
         mount_component(icon, target, anchor);
         insert(target, t1, anchor);
@@ -7952,7 +7952,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           detach(t1);
           detach(p);
         }
-        ctx[63](null);
+        ctx[64](null);
         destroy_component(icon, detaching);
         mounted = false;
         dispose();
@@ -8029,9 +8029,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler_8() {
       return (
         /*click_handler_8*/
-        ctx[64](
+        ctx[65](
           /*index*/
-          ctx[107]
+          ctx[109]
         )
       );
     }
@@ -8044,7 +8044,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         button.innerHTML = `<i class="gg-close svelte-8yuw6z"></i>`;
         t1 = space();
         if (!src_url_equal(img.src, img_src_value = /*imgFile*/
-        ctx[109]))
+        ctx[111]))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
         attr(img, "class", "svelte-8yuw6z");
@@ -8067,7 +8067,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx = new_ctx;
         if (dirty[0] & /*property*/
         1 && !src_url_equal(img.src, img_src_value = /*imgFile*/
-        ctx[109])) {
+        ctx[111])) {
           attr(img, "src", img_src_value);
         }
       },
@@ -8214,25 +8214,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               input0,
               "input",
               /*input0_input_handler*/
-              ctx[65]
+              ctx[66]
             ),
             listen(
               input1,
               "input",
               /*input1_input_handler*/
-              ctx[66]
+              ctx[67]
             ),
             listen(
               input2,
               "input",
               /*input2_input_handler*/
-              ctx[67]
+              ctx[68]
             ),
             listen(
               textarea,
               "input",
               /*textarea_input_handler*/
-              ctx[68]
+              ctx[69]
             )
           ];
           mounted = true;
@@ -8332,7 +8332,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             textarea,
             "input",
             /*textarea_input_handler_1*/
-            ctx[69]
+            ctx[70]
           );
           mounted = true;
         }
@@ -8463,13 +8463,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               input0,
               "input",
               /*input0_input_handler_1*/
-              ctx[70]
+              ctx[71]
             ),
             listen(
               input1,
               "input",
               /*input1_input_handler_1*/
-              ctx[71]
+              ctx[72]
             )
           ];
           mounted = true;
@@ -8647,7 +8647,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             button,
             "click",
             /*click_handler_10*/
-            ctx[76]
+            ctx[77]
           );
           mounted = true;
         }
@@ -9089,9 +9089,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler_12() {
       return (
         /*click_handler_12*/
-        ctx[83](
+        ctx[84](
           /*index*/
-          ctx[107]
+          ctx[109]
         )
       );
     }
@@ -9489,7 +9489,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       m(target, anchor) {
         insert(target, label, anchor);
         append(label, input);
-        ctx[84](input);
+        ctx[85](input);
         append(label, t0);
         append(label, img);
         append(label, t1);
@@ -9523,7 +9523,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (detaching) {
           detach(label);
         }
-        ctx[84](null);
+        ctx[85](null);
         destroy_component(icon);
         mounted = false;
         dispose();
@@ -9696,7 +9696,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span0;
     let t0_value = (
       /*room*/
-      ctx[105].name + ""
+      ctx[107].name + ""
     );
     let t0;
     let t1;
@@ -9704,13 +9704,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span1;
     let t2_value = (
       /*room*/
-      ctx[105].sizeM2 + ""
+      ctx[107].sizeM2 + ""
     );
     let t2;
     let t3;
     let t4_value = (
       /*room*/
-      ctx[105].unit + ""
+      ctx[107].unit + ""
     );
     let t4;
     let t5;
@@ -9733,9 +9733,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler_13() {
       return (
         /*click_handler_13*/
-        ctx[85](
+        ctx[86](
           /*index*/
-          ctx[107]
+          ctx[109]
         )
       );
     }
@@ -9749,9 +9749,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler_14() {
       return (
         /*click_handler_14*/
-        ctx[86](
+        ctx[87](
           /*index*/
-          ctx[107]
+          ctx[109]
         )
       );
     }
@@ -9810,15 +9810,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx = new_ctx;
         if ((!current || dirty[0] & /*property, floor_index_to_edit*/
         32769) && t0_value !== (t0_value = /*room*/
-        ctx[105].name + ""))
+        ctx[107].name + ""))
           set_data(t0, t0_value);
         if ((!current || dirty[0] & /*property, floor_index_to_edit*/
         32769) && t2_value !== (t2_value = /*room*/
-        ctx[105].sizeM2 + ""))
+        ctx[107].sizeM2 + ""))
           set_data(t2, t2_value);
         if ((!current || dirty[0] & /*property, floor_index_to_edit*/
         32769) && t4_value !== (t4_value = /*room*/
-        ctx[105].unit + ""))
+        ctx[107].unit + ""))
           set_data(t4, t4_value);
       },
       i(local) {
@@ -10545,20 +10545,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span0;
     let t0_value = (
       /*rooms*/
-      ctx[102].name + ""
+      ctx[104].name + ""
     );
     let t0;
     let t1;
     let span1;
     let t2_value = (
       /*rooms*/
-      ctx[102].sizeM2 + ""
+      ctx[104].sizeM2 + ""
     );
     let t2;
     let t3;
     let t4_value = (
       /*rooms*/
-      ctx[102].unit + ""
+      ctx[104].unit + ""
     );
     let t4;
     let t5;
@@ -10591,15 +10591,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*property*/
         1 && t0_value !== (t0_value = /*rooms*/
-        ctx2[102].name + ""))
+        ctx2[104].name + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*property*/
         1 && t2_value !== (t2_value = /*rooms*/
-        ctx2[102].sizeM2 + ""))
+        ctx2[104].sizeM2 + ""))
           set_data(t2, t2_value);
         if (dirty[0] & /*property*/
         1 && t4_value !== (t4_value = /*rooms*/
-        ctx2[102].unit + ""))
+        ctx2[104].unit + ""))
           set_data(t4, t4_value);
       },
       d(detaching) {
@@ -10616,7 +10616,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       c() {
         img = element("img");
         if (!src_url_equal(img.src, img_src_value = /*floors*/
-        ctx[99].planImageUrl))
+        ctx[101].planImageUrl))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
         attr(img, "class", "svelte-8yuw6z");
@@ -10627,7 +10627,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*property*/
         1 && !src_url_equal(img.src, img_src_value = /*floors*/
-        ctx2[99].planImageUrl)) {
+        ctx2[101].planImageUrl)) {
           attr(img, "src", img_src_value);
         }
       },
@@ -10662,12 +10662,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let h3;
     let t0_value = (
       /*floors*/
-      (ctx[99].type === "basement" ? (
+      (ctx[101].type === "basement" ? (
         /*floors*/
-        ctx[99].type
+        ctx[101].type
       ) : `${/*floors*/
-      ctx[99].type} #${/*floors*/
-      ctx[99].floor}`) + ""
+      ctx[101].type} #${/*floors*/
+      ctx[101].floor}`) + ""
     );
     let t0;
     let t1;
@@ -10678,7 +10678,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t3;
     let each_value_1 = ensure_array_like(
       /*floors*/
-      ctx[99].rooms || []
+      ctx[101].rooms || []
     );
     let each_blocks = [];
     for (let i = 0; i < each_value_1.length; i += 1) {
@@ -10687,7 +10687,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function select_block_type_9(ctx2, dirty) {
       if (
         /*floors*/
-        ctx2[99].planImageUrl === ""
+        ctx2[101].planImageUrl === ""
       )
         return create_if_block_25;
       return create_else_block;
@@ -10735,18 +10735,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*property*/
         1 && t0_value !== (t0_value = /*floors*/
-        (ctx2[99].type === "basement" ? (
+        (ctx2[101].type === "basement" ? (
           /*floors*/
-          ctx2[99].type
+          ctx2[101].type
         ) : `${/*floors*/
-        ctx2[99].type} #${/*floors*/
-        ctx2[99].floor}`) + ""))
+        ctx2[101].type} #${/*floors*/
+        ctx2[101].floor}`) + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*property*/
         1) {
           each_value_1 = ensure_array_like(
             /*floors*/
-            ctx2[99].rooms || []
+            ctx2[101].rooms || []
           );
           let i;
           for (i = 0; i < each_value_1.length; i += 1) {
@@ -10844,12 +10844,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div3, button1);
         current = true;
         if (!mounted) {
-          dispose = listen(
-            button0,
-            "click",
-            /*click_handler_15*/
-            ctx[88]
-          );
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*click_handler_15*/
+              ctx[89]
+            ),
+            listen(
+              button1,
+              "click",
+              /*seeProperty*/
+              ctx[51]
+            )
+          ];
           mounted = true;
         }
       },
@@ -10870,7 +10878,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         destroy_component(icon);
         mounted = false;
-        dispose();
+        run_all(dispose);
       }
     };
   }
@@ -11066,7 +11074,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let current_block_type = select_block_type_1(ctx, [-1, -1, -1, -1]);
     let if_block6 = current_block_type(ctx);
     function addfloordialog_floor_type_binding(value) {
-      ctx[74](value);
+      ctx[75](value);
     }
     let addfloordialog_props = {
       $slots: { default: [create_default_slot_1] },
@@ -11081,18 +11089,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     addfloordialog = new AddFloorDialog_default({ props: addfloordialog_props });
     binding_callbacks.push(() => bind(addfloordialog, "floor_type", addfloordialog_floor_type_binding));
-    ctx[75](addfloordialog);
+    ctx[76](addfloordialog);
     function addoreditroomdialog_m2_size_binding(value) {
-      ctx[77](value);
-    }
-    function addoreditroomdialog_room_size_binding(value) {
       ctx[78](value);
     }
-    function addoreditroomdialog_room_type_binding(value) {
+    function addoreditroomdialog_room_size_binding(value) {
       ctx[79](value);
     }
+    function addoreditroomdialog_room_type_binding(value) {
+      ctx[80](value);
+    }
     function addoreditroomdialog_unit_mode_binding(value) {
-      ctx[81](value);
+      ctx[82](value);
     }
     let addoreditroomdialog_props = {
       $slots: { default: [create_default_slot] },
@@ -11130,7 +11138,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     binding_callbacks.push(() => bind(addoreditroomdialog, "m2_size", addoreditroomdialog_m2_size_binding));
     binding_callbacks.push(() => bind(addoreditroomdialog, "room_size", addoreditroomdialog_room_size_binding));
     binding_callbacks.push(() => bind(addoreditroomdialog, "room_type", addoreditroomdialog_room_type_binding));
-    ctx[80](addoreditroomdialog);
+    ctx[81](addoreditroomdialog);
     binding_callbacks.push(() => bind(addoreditroomdialog, "unit_mode", addoreditroomdialog_unit_mode_binding));
     icon4 = new Icon_default({
       props: {
@@ -11454,13 +11462,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div10, label);
         append(div10, t25);
         append(div10, input);
-        ctx[55](input);
+        ctx[56](input);
         append(div12, t26);
         append(div12, div11);
-        ctx[56](div11);
+        ctx[57](div11);
         append(section0, t27);
         append(section0, button4);
-        ctx[57](section0);
+        ctx[58](section0);
         append(div18, t29);
         append(div18, section1);
         append(section1, div14);
@@ -11488,7 +11496,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div15, t36);
         append(div15, button6);
         if_block6.m(button6, null);
-        ctx[73](section1);
+        ctx[74](section1);
         append(div18, t37);
         append(div18, section2);
         append(section2, c2);
@@ -11517,7 +11525,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(section2, t46);
         append(section2, button8);
         if_blocks[current_block_type_index].m(button8, null);
-        ctx[87](section2);
+        ctx[88](section2);
         append(div18, t47);
         append(div18, section3);
         if (if_block12)
@@ -11525,7 +11533,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(section3, t48);
         if (if_block13)
           if_block13.m(section3, null);
-        ctx[89](section3);
+        ctx[90](section3);
         append(div20, t49);
         mount_component(footer, div20, null);
         current = true;
@@ -11535,25 +11543,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               button0,
               "click",
               /*click_handler*/
-              ctx[51]
+              ctx[52]
             ),
             listen(
               button1,
               "click",
               /*click_handler_1*/
-              ctx[52]
+              ctx[53]
             ),
             listen(
               button2,
               "click",
               /*click_handler_2*/
-              ctx[53]
+              ctx[54]
             ),
             listen(
               button3,
               "click",
               /*click_handler_3*/
-              ctx[54]
+              ctx[55]
             ),
             listen(button4, "click", prevent_default(
               /*handlerLocationNext*/
@@ -11565,11 +11573,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             )),
             listen(button6, "click", prevent_default(
               /*click_handler_9*/
-              ctx[72]
+              ctx[73]
             )),
             listen(button7, "click", prevent_default(
               /*click_handler_11*/
-              ctx[82]
+              ctx[83]
             )),
             listen(button8, "click", prevent_default(
               /*handleNextFloor*/
@@ -11730,7 +11738,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         const addfloordialog_changes = {};
         if (dirty[0] & /*floorType*/
         8192 | dirty[3] & /*$scope*/
-        262144) {
+        1048576) {
           addfloordialog_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_floor_type && dirty[0] & /*floorType*/
@@ -11744,7 +11752,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         const addoreditroomdialog_changes = {};
         if (dirty[0] & /*room_type, room_edit_mode, room_index_to_edit, floor_index_to_edit*/
         102793216 | dirty[3] & /*$scope*/
-        262144) {
+        1048576) {
           addoreditroomdialog_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_m2_size && dirty[0] & /*size_m2*/
@@ -11971,9 +11979,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         destroy_component(icon0);
         destroy_component(icon1);
         destroy_component(icon2);
-        ctx[55](null);
         ctx[56](null);
         ctx[57](null);
+        ctx[58](null);
         destroy_component(icon3);
         if (if_block0)
           if_block0.d();
@@ -11988,10 +11996,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (if_block5)
           if_block5.d();
         if_block6.d();
-        ctx[73](null);
-        ctx[75](null);
+        ctx[74](null);
+        ctx[76](null);
         destroy_component(addfloordialog);
-        ctx[80](null);
+        ctx[81](null);
         destroy_component(addoreditroomdialog);
         destroy_component(icon4);
         if (if_block7)
@@ -12002,12 +12010,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (if_block10)
           if_block10.d();
         if_blocks[current_block_type_index].d();
-        ctx[87](null);
+        ctx[88](null);
         if (if_block12)
           if_block12.d();
         if (if_block13)
           if_block13.d();
-        ctx[89](null);
+        ctx[90](null);
         destroy_component(footer);
         mounted = false;
         run_all(dispose);
@@ -12614,15 +12622,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       nextPage();
     }
     let isPropertySubmitted = false;
+    let res_propId;
     async function handleSubmit() {
       console.log("property=", property, "payload=", payload);
       const prop = { property: payload };
       await (0, import_jsApi.RealtorUpsertProperty)(prop, function(res) {
-        console.log(res);
         if (res.error)
           return alert(res.error);
+        res_propId = res.property.id;
         $invalidate(27, isPropertySubmitted = true);
       });
+    }
+    function seeProperty() {
+      window.location.href = `/realtor/ownedProperty/${res_propId}`;
     }
     const click_handler = () => progressDotHandler(0);
     const click_handler_1 = () => progressDotHandler(1);
@@ -12860,6 +12872,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       handleRemoveRoom,
       handleNextFloor,
       handleSubmit,
+      seeProperty,
       click_handler,
       click_handler_1,
       click_handler_2,

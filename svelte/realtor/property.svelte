@@ -705,14 +705,19 @@
     } );
   }
   
+  let res_propId;
   async function handleSubmit() {
     console.log( 'property=', property, 'payload=', payload );
     const prop = {property: payload};
     await RealtorUpsertProperty( prop, function( res ) {
-      console.log( res );
       if( res.error ) return alert( res.error );
+      res_propId = res.property.id;
       isPropertySubmitted = true; // uncomment when debugging so can back to previous screen
     } );
+  }
+  
+  function seeProperty() {
+    window.location.href = `/realtor/ownedProperty/${res_propId}`
   }
 </script>
 
@@ -1266,7 +1271,7 @@
 							</div>
 							<div class="actions">
 								<button class="new" on:click={() =>{window.location.href = "/realtor/property"}}>Create New one</button>
-								<button class="see">See the property</button>
+								<button class="see" on:click={seeProperty}>See the property</button>
 							</div>
 						</div>
 					{/if}
