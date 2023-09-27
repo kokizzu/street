@@ -8,10 +8,10 @@ services:
       TARANTOOL_USER_NAME: "userT"
       TARANTOOL_USER_PASSWORD: "passT"
       TT_READAHEAD: '1632000' # 10x
-      TT_VINYL_MEMORY: '2684354560' # 20x
+      TT_VINYL_MEMORY: '8589934592' # 80x
       TT_VINYL_CACHE: '2684354560' # 20x
       TT_NET_MSG_MAX: '76800' # 100x
-      TT_MEMTX_MEMORY: '268435456' # 1x
+      TT_MEMTX_MEMORY: '8589934592' # 32x
       TT_VINYL_PAGE_SIZE: '8192' # 1x
     volumes:
         - ./var_lib_tarantool:/var/lib/tarantool
