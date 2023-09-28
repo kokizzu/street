@@ -108,10 +108,74 @@
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style></style>
+<style>/* fakecss:./error.esbuild-svelte-fake-css */
+.error_container.svelte-1986fc8.svelte-1986fc8 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  width: fit-content;
+  height: fit-content;
+  margin: 100px auto auto auto;
+  color: #475569;
+}
+.error_container.svelte-1986fc8 header.svelte-1986fc8 {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: center;
+}
+.error_container.svelte-1986fc8 header h1.svelte-1986fc8 {
+  margin: 0;
+  font-size: 80px;
+}
+.error_container.svelte-1986fc8 header h2.svelte-1986fc8 {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 500;
+}
+.error_container.svelte-1986fc8 .back_home.svelte-1986fc8 {
+  position: relative;
+  width: fit-content;
+  padding: 20px 50px 20px 30px;
+  background-color: #3b82f6;
+  border: none;
+  border-radius: 9999px;
+  font-size: 18px;
+  cursor: pointer;
+}
+.error_container.svelte-1986fc8 .back_home.svelte-1986fc8:hover {
+  background-color: #2C74EA;
+}
+.error_container.svelte-1986fc8 .back_home span.svelte-1986fc8 {
+  color: #FFFFFF;
+}
+.arrow_backhome {
+  position: absolute;
+  right: 22px;
+  top: auto;
+  bottom: auto;
+  margin-top: 2px;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.error_container .back_home:hover .arrow_backhome {
+  right: 16px;
+}
+</style>
 <script>(() => {
   // node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
+  }
+  function assign(tar, src) {
+    for (const k in src)
+      tar[k] = src[k];
+    return (
+      /** @type {T & S} */
+      tar
+    );
   }
   function run(fn) {
     return fn();
@@ -192,6 +256,9 @@
   function end_hydrating() {
     is_hydrating = false;
   }
+  function append(target, node) {
+    target.appendChild(node);
+  }
   function insert(target, node, anchor) {
     target.insertBefore(node, anchor || null);
   }
@@ -203,20 +270,29 @@
   function element(name) {
     return document.createElement(name);
   }
+  function svg_element(name) {
+    return document.createElementNS("http://www.w3.org/2000/svg", name);
+  }
   function text(data) {
     return document.createTextNode(data);
   }
   function space() {
     return text(" ");
   }
-  function comment(content) {
-    return document.createComment(content);
+  function listen(node, event, handler, options) {
+    node.addEventListener(event, handler, options);
+    return () => node.removeEventListener(event, handler, options);
   }
   function attr(node, attribute, value) {
     if (value == null)
       node.removeAttribute(attribute);
     else if (node.getAttribute(attribute) !== value)
       node.setAttribute(attribute, value);
+  }
+  function set_svg_attributes(node, attributes) {
+    for (const key in attributes) {
+      attr(node, key, attributes[key]);
+    }
   }
   function children(element2) {
     return Array.from(element2.childNodes);
@@ -315,11 +391,64 @@
 
   // node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
+  var outros;
   function transition_in(block, local) {
     if (block && block.i) {
       outroing.delete(block);
       block.i(local);
     }
+  }
+  function transition_out(block, local, detach2, callback) {
+    if (block && block.o) {
+      if (outroing.has(block))
+        return;
+      outroing.add(block);
+      outros.c.push(() => {
+        outroing.delete(block);
+        if (callback) {
+          if (detach2)
+            block.d(1);
+          callback();
+        }
+      });
+      block.o(local);
+    } else if (callback) {
+      callback();
+    }
+  }
+
+  // node_modules/svelte/src/runtime/internal/spread.js
+  function get_spread_update(levels, updates) {
+    const update2 = {};
+    const to_null_out = {};
+    const accounted_for = { $scope: 1 };
+    let i = levels.length;
+    while (i--) {
+      const o = levels[i];
+      const n = updates[i];
+      if (n) {
+        for (const key in o) {
+          if (!(key in n))
+            to_null_out[key] = 1;
+        }
+        for (const key in n) {
+          if (!accounted_for[key]) {
+            update2[key] = n[key];
+            accounted_for[key] = 1;
+          }
+        }
+        levels[i] = n;
+      } else {
+        for (const key in o) {
+          accounted_for[key] = 1;
+        }
+      }
+    }
+    for (const key in to_null_out) {
+      if (!(key in update2))
+        update2[key] = void 0;
+    }
+    return update2;
   }
 
   // node_modules/svelte/src/shared/boolean_attributes.js
@@ -356,6 +485,9 @@
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
   // node_modules/svelte/src/runtime/internal/Component.js
+  function create_component(block) {
+    block && block.c();
+  }
   function mount_component(component, target, anchor) {
     const { fragment, after_update } = component.$;
     fragment && fragment.m(target, anchor);
@@ -388,7 +520,7 @@
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance, create_fragment2, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance2, create_fragment3, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -414,7 +546,7 @@
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance ? instance(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance2 ? instance2(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -427,7 +559,7 @@
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment2 ? create_fragment2($.ctx) : false;
+    $.fragment = create_fragment3 ? create_fragment3($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -696,40 +828,241 @@
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
-  // error.svelte
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment(ctx) {
-    let h1;
-    let t1;
-    let c;
+    let svg;
+    let svg_levels = [
+      { width: (
+        /*size*/
+        ctx[1]
+      ) },
+      { height: (
+        /*size*/
+        ctx[1]
+      ) },
+      { "stroke-width": "0" },
+      { class: (
+        /*className*/
+        ctx[2]
+      ) },
+      /*src*/
+      ctx[0].a,
+      /*attr*/
+      ctx[4],
+      { xmlns: "http://www.w3.org/2000/svg" }
+    ];
+    let svg_data = {};
+    for (let i = 0; i < svg_levels.length; i += 1) {
+      svg_data = assign(svg_data, svg_levels[i]);
+    }
     return {
       c() {
-        h1 = element("h1");
-        h1.textContent = `${error}`;
-        t1 = space();
-        c = comment(" TODO: add back button ");
+        svg = svg_element("svg");
+        set_svg_attributes(svg, svg_data);
       },
       m(target, anchor) {
-        insert(target, h1, anchor);
-        insert(target, t1, anchor);
-        insert(target, c, anchor);
+        insert(target, svg, anchor);
+        svg.innerHTML = /*innerHtml*/
+        ctx[3];
       },
-      p: noop,
+      p(ctx2, [dirty]) {
+        if (dirty & /*innerHtml*/
+        8)
+          svg.innerHTML = /*innerHtml*/
+          ctx2[3];
+        ;
+        set_svg_attributes(svg, svg_data = get_spread_update(svg_levels, [
+          dirty & /*size*/
+          2 && { width: (
+            /*size*/
+            ctx2[1]
+          ) },
+          dirty & /*size*/
+          2 && { height: (
+            /*size*/
+            ctx2[1]
+          ) },
+          { "stroke-width": "0" },
+          dirty & /*className*/
+          4 && { class: (
+            /*className*/
+            ctx2[2]
+          ) },
+          dirty & /*src*/
+          1 && /*src*/
+          ctx2[0].a,
+          dirty & /*attr*/
+          16 && /*attr*/
+          ctx2[4],
+          { xmlns: "http://www.w3.org/2000/svg" }
+        ]));
+      },
       i: noop,
       o: noop,
       d(detaching) {
         if (detaching) {
-          detach(h1);
-          detach(t1);
-          detach(c);
+          detach(svg);
         }
       }
     };
   }
+  function instance($self, $props, $invalidate) {
+    let { src } = $props;
+    let { size = "1em" } = $props;
+    let { color = void 0 } = $props;
+    let { title = void 0 } = $props;
+    let { className = "" } = $props;
+    let innerHtml;
+    let attr2;
+    $self.$set = ($props2) => {
+      if ("src" in $props2)
+        $invalidate(0, src = $props2.src);
+      if ("size" in $props2)
+        $invalidate(1, size = $props2.size);
+      if ("color" in $props2)
+        $invalidate(5, color = $props2.color);
+      if ("title" in $props2)
+        $invalidate(6, title = $props2.title);
+      if ("className" in $props2)
+        $invalidate(2, className = $props2.className);
+    };
+    $self.$.update = () => {
+      if ($self.$.dirty & /*color, src*/
+      33) {
+        $: {
+          $invalidate(4, attr2 = {});
+          if (color) {
+            if (src.a.stroke !== "none") {
+              $invalidate(4, attr2.stroke = color, attr2);
+            }
+            if (src.a.fill !== "none") {
+              $invalidate(4, attr2.fill = color, attr2);
+            }
+          }
+        }
+      }
+      if ($self.$.dirty & /*title, src*/
+      65) {
+        $: {
+          $invalidate(3, innerHtml = (title ? `<title>${title}</title>` : "") + src.c);
+        }
+      }
+    };
+    return [src, size, className, innerHtml, attr2, color, title];
+  }
+  var Icon = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance, create_fragment, safe_not_equal, {
+        src: 0,
+        size: 1,
+        color: 5,
+        title: 6,
+        className: 2
+      });
+    }
+  };
+  var Icon_default = Icon;
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidArrowRight.js
+  var FaSolidArrowRight_default = {
+    a: {
+      viewBox: "0 0 448 512"
+    },
+    c: '<path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path>'
+  };
+
+  // error.svelte
+  function create_fragment2(ctx) {
+    let div;
+    let header;
+    let h1;
+    let t1;
+    let h2;
+    let t3;
+    let button;
+    let span;
+    let t5;
+    let icon;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        className: "arrow_backhome",
+        color: "#FFFF",
+        size: 18,
+        src: FaSolidArrowRight_default
+      }
+    });
+    return {
+      c() {
+        div = element("div");
+        header = element("header");
+        h1 = element("h1");
+        h1.textContent = "Error";
+        t1 = space();
+        h2 = element("h2");
+        h2.textContent = `${error}`;
+        t3 = space();
+        button = element("button");
+        span = element("span");
+        span.textContent = "Back to home";
+        t5 = space();
+        create_component(icon.$.fragment);
+        attr(h1, "class", "svelte-1986fc8");
+        attr(h2, "class", "svelte-1986fc8");
+        attr(header, "class", "svelte-1986fc8");
+        attr(span, "class", "svelte-1986fc8");
+        attr(button, "class", "back_home svelte-1986fc8");
+        attr(div, "class", "error_container svelte-1986fc8");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        append(div, header);
+        append(header, h1);
+        append(header, t1);
+        append(header, h2);
+        append(div, t3);
+        append(div, button);
+        append(button, span);
+        append(button, t5);
+        mount_component(icon, button, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(button, "click", backHome);
+          mounted = true;
+        }
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        destroy_component(icon);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
   var error = '#{error}';
+  function backHome() {
+    window.location.href = "/";
+  }
   var Error2 = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment, safe_not_equal, {});
+      init(this, options, null, create_fragment2, safe_not_equal, {});
     }
   };
   var error_default = Error2;
