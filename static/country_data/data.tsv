@@ -1,241 +1,241 @@
-country_name	iso_2	iso_3	country_code	region	region_code	unit_measurement	coordinate.latitude	coordinate.longitude	currency.name
-Afghanistan	AF	AFG	4	Asia	142	m2	33.0	65.0	Afghani
-Albania	AL	ALB	8	Europe	150	m2	41.0	20.0	Lek
-Algeria	DZ	DZA	12	Africa	2	m2	28.0	3.0	Algerian Dinar
-American Samoa	AS	ASM	16	Oceania	9	m2	-143.333	-170.0	US Dollar
-Andorra	AD	AND	20	Europe	150	m2	42.5	1.6	Euro
-Angola	AO	AGO	24	Africa	2	m2	 -12.5	18.5	Kwanza
-Anguilla	AI	AIA	660	Americas	19	m2	18.25	-631.667	East Caribbean Dollar
-Antigua and Barbuda	AG	ATG	28	Americas	19	m2	17.05	-61.8	East Caribbean Dollar
-Argentina	AR	ARG	32	Americas	19	m2	-34.0	-64.0	Argentine Peso
-Armenia	AM	ARM	51	Asia	142	m2	40.0	45.0	Armenian Dram
-Aruba	AW	ABW	533	Americas	19	m2	12.5	-699.667	Aruban Florin
-Australia	AU	AUS	36	Oceania	9	m2	-27.0	133.0	Australian Dollar
-Austria	AT	AUT	40	Europe	150	m2	473.333	133.333	Euro
-Azerbaijan	AZ	AZE	31	Asia	142	m2	40.5	 47.5	Azerbaijan Manat
-Bahamas	BS	BHS	44	Americas	19	m2	 24.25	 -76.0	Bahamian Dollar
-Bahrain	BH	BHR	48	Asia	142	m2	 26.0	50.55	Bahraini Dinar
-Bangladesh	BD	BGD	50	Asia	142	m2	24.0	 90.0	Taka
-Barbados	BB	BRB	52	Americas	19	m2	131.667	-595.333	Barbados Dollar
-Belarus	BY	BLR	112	Europe	150	m2	 53.0	28.0	Belarusian Ruble
-Belgium	BE	BEL	56	Europe	150	m2	508.333	 4.0	Euro
-Belize	BZ	BLZ	84	Americas	19	m2	17.25	-88.75	Belize Dollar
-Benin	BJ	BEN	204	Africa	2	m2	9.5	2.25	CFA Franc BCEAO
-Bermuda	BM	BMU	60	Americas	19	m2	323.333	-64.75	Bermudian Dollar
-Bhutan	BT	BTN	64	Asia	142	m2	27.5	 90.5	Ngultrum
-Bolivia (Plurinational State of)	BO	BOL	68	Americas	19	m2	-17.0	-65.0	Boliviano
-Bosnia and Herzegovina	BA	BIH	70	Europe	150	m2	 44.0	18.0	Convertible Mark
-Botswana	BW	BWA	72	Africa	2	m2	-22.0	24.0	Pula
-Bouvet Island	BV	BVT	74	Americas	19	m2	-544.333	3.4	Norwegian Krone
-Brazil	BR	BRA	76	Americas	19	m2	 -10.0	 -55.0	Brazilian Real
-British Indian Ocean Territory	IO	IOT	86	Africa	2	m2	 -6.0	 71.5	US Dollar
-Brunei Darussalam	BN	BRN	96	Asia	142	m2	4.5	1.146.667	Brunei Dollar
-Bulgaria	BG	BGR	100	Europe	150	m2	 43.0	25.0	Bulgarian Lev
-Burkina Faso	BF	BFA	854	Africa	2	m2	 13.0	-2.0	CFA Franc BCEAO
-Burundi	BI	BDI	108	Africa	2	m2	-3.5	30.0	Burundi Franc
-Cambodia	KH	KHM	116	Asia	142	m2	13.0	 105.0	Riel
-Cameroon	CM	CMR	120	Africa	2	m2	 6.0	12.0	CFA Franc BEAC
-Canada	CA	CAN	124	Americas	19	m2	 60.0	 -95.0	Canadian Dollar
-Cape Verde	CV	CPV	132	Africa	2	m2	16.0	 -24.0	Escudo
-Cayman Islands	KY	CYM	136	Americas	19	m2	19.5	-80.5	Cayman Islands Dollar
-Central African Republic	CF	CAF	140	Africa	2	m2	 7.0	21.0	CFA Franc BEAC
-Chad	TD	TCD	148	Africa	2	m2	15.0	 19.0	CFA Franc BEAC
-Chile	CL	CHL	152	Americas	19	m2	 -30.0	-71.0	Chilean Peso
-China	CN	CHN	156	Asia	142	m2	 35.0	105.0	Yuan Renminbi
-Christmas Island	CX	CXR	162	Oceania	9	m2	-10.5	1.056.667	Australian Dollar
-Cocos (Keeling) Islands	CC	CCK	166	Oceania	9	m2	-12.5	968.333	Australian Dollar
-Colombia	CO	COL	170	Americas	19	m2	 4.0	 -72.0	Colombian Peso
-Comoros	KM	COM	174	Africa	2	m2	-121.667	44.25	Comorian Franc
-Congo	CG	COG	178	Africa	2	m2	 -1.0	15.0	CFA Franc BEAC
-Congo, Democratic Republic of the	CD	COD	180	Africa	2	m2	 0.0	25.0	Congolese Franc
-Cook Islands	CK	COK	184	Oceania	9	m2	-212.333	-1.597.667	New Zealand Dollar
-Costa Rica	CR	CRI	188	Americas	19	m2	 10.0	 -84.0	Costa Rican Colon
-Côte d'Ivoire	CI	CIV	384	Africa	2	m2	 8.0	-5.0	CFA Franc BCEAO
-Croatia	HR	HRV	191	Europe	150	m2	451.667	15.5	Kuna
-Cuba	CU	CUB	192	Americas	19	m2	21.5	-80.0	Cuban Peso
-Cyprus	CY	CYP	196	Asia	142	m2	 35.0	 33.0	Euro
-Czech Republic	CZ	CZE	203	Europe	150	m2	49.75	15.5	Czech Koruna
-Denmark	DK	DNK	208	Europe	150	m2	56.0	 10.0	Danish Krone
-Djibouti	DJ	DJI	262	Africa	2	m2	11.5	 43.0	Djibouti Franc
-Dominica	DM	DMA	212	Americas	19	m2	154.167	-613.333	East Caribbean Dollar
-Dominican Republic	DO	DOM	214	Americas	19	m2	19.0	-706.667	Dominican Peso
-Ecuador	EC	ECU	218	Americas	19	m2	-2.0	-77.5	US Dollar
-Egypt	EG	EGY	818	Africa	2	m2	27.0	 30.0	Egyptian Pound
-El Salvador	SV	SLV	222	Americas	19	m2	138.333	-889.167	El Salvador Colon
-Equatorial Guinea	GQ	GNQ	226	Africa	2	m2	2.0	10.0	CFA Franc BEAC
-Eritrea	ER	ERI	232	Africa	2	m2	 15.0	39.0	Nakfa
-Estonia	EE	EST	233	Europe	150	m2	59.0	26.0	Euro
-Ethiopia	ET	ETH	231	Africa	2	m2	8.0	38.0	Ethiopian Birr
-Falkland Islands (Malvinas)	FK	FLK	238	Americas	19	m2	 -51.75	-59.0	Falkland Islands Pound
-Faroe Islands	FO	FRO	234	Europe	150	m2	 62.0	 -7.0	Danish Krone
-Fiji	FJ	FJI	242	Oceania	9	m2	-18.0	175.0	Fiji Dollar
-Finland	FI	FIN	246	Europe	150	m2	64.0	26.0	Euro
-France	FR	FRA	250	Europe	150	m2	46.0	2.0	Euro
-French Guiana	GF	GUF	254	Americas	19	m2	4.0	 -53.0	Euro
-French Polynesia	PF	PYF	258	Oceania	9	m2	-15.0	 -140.0	CFP Franc
-French Southern Territories	TF	ATF	260	Africa	2	m2	-43.0	67.0	Euro
-Gabon	GA	GAB	266	Africa	2	m2	 -1.0	11.75	CFA Franc BEAC
-Gambia	GM	GMB	270	Africa	2	m2	134.667	-165.667	Dalasi
-Georgia	GE	GEO	268	Asia	142	m2	42.0	43.5	Lari
-Germany	DE	DEU	276	Europe	150	m2	 51.0	9.0	Euro
-Ghana	GH	GHA	288	Africa	2	m2	8.0	-2.0	Ghana Cedi
-Gibraltar	GI	GIB	292	Europe	150	m2	361.833	-53.667	Gibraltar Pound
-Greece	GR	GRC	300	Europe	150	m2	 39.0	 22.0	Euro
-Greenland	GL	GRL	304	Americas	19	m2	 72.0	-40.0	Danish Krone
-Grenada	GD	GRD	308	Americas	19	m2	12.1167	-616.667	East Caribbean Dollar
-Guadeloupe	GP	GLP	312	Americas	19	m2	16.25	-615.833	Euro
-Guam	GU	GUM	316	Oceania	9	m2	134.667	1.447.833	US Dollar
-Guatemala	GT	GTM	320	Americas	19	m2	15.5	-90.25	Quetzal
-Guernsey	GG	GGY	831	Europe	150	m2	49.5	 -2.56	Pound Sterling
-Guinea	GN	GIN	324	Africa	2	m2	11.0	-10.0	Guinean Franc
-Guinea-Bissau	GW	GNB	624	Africa	2	m2	 12.0	-15.0	CFA Franc BCEAO
-Guyana	GY	GUY	328	Americas	19	m2	 5.0	-59.0	Guyana Dollar
-Haiti	HT	HTI	332	Americas	19	m2	19.0	-724.167	Gourde
-Heard Island and McDonald Islands	HM	HMD	334	Oceania	9	m2	 -53.1	725.167	Australian Dollar
-Holy See	VA	VAT	336	Europe	150	m2	41.9	12.45	Euro
-Honduras	HN	HND	340	Americas	19	m2	15.0	 -86.5	Lempira
-Hong Kong	HK	HKG	344	Asia	142	m2	22.25	1.141.667	Hong Kong Dollar
-Hungary	HU	HUN	348	Europe	150	m2	 47.0	20.0	Forint
-Iceland	IS	ISL	352	Europe	150	m2	 65.0	-18.0	Iceland Krona
-India	IN	IND	356	Asia	142	m2	20.0	77.0	Indian Rupee
-Indonesia	ID	IDN	360	Asia	142	m2	 -5.0	120.0	Rupiah
-Iran (Islamic Republic of)	IR	IRN	364	Asia	142	m2	 32.0	53.0	Iranian Rial
-Iraq	IQ	IRQ	368	Asia	142	m2	33.0	44.0	Iraqi Dinar
-Ireland	IE	IRL	372	Europe	150	m2	 53.0	        -8.0	Euro
-Isle of Man	IM	IMN	833	Europe	150	m2	54.23	-4.55	Pound Sterling
-Israel	IL	ISR	376	Asia	142	m2	31.5	34.75	New Israeli Sheqel
-Italy	IT	ITA	380	Europe	150	m2	428.333	12.8333	Euro
-Jamaica	JM	JAM	388	Americas	19	m2	18.25	-77.5	Jamaican Dollar
-Japan	JP	JPN	392	Asia	142	jo	36.0	138.0	Yen
-Jersey	JE	JEY	832	Europe	150	m2	49.21	 -2.13	Pound Sterling
-Jordan	JO	JOR	400	Asia	142	m2	31.0	36.0	Jordanian Dinar
-Kazakhstan	KZ	KAZ	398	Asia	142	m2	48.0	 68.0	Tenge
-Kenya	KE	KEN	404	Africa	2	m2	 1.0	38.0	Kenyan Shilling
-Kiribati	KI	KIR	296	Oceania	9	m2	1.4167	 173.0	Australian Dollar
-Korea (Democratic People's Republic of)	KP	PRK	408	Asia	142	m2	 40.0	127.0	North Korean Won
-Korea, Republic of	KR	KOR	410	Asia	142	m2	37.0	127.5	Won
-Kuwait	KW	KWT	414	Asia	142	m2	293.375	476.581	Kuwaiti Dinar
-Kyrgyzstan	KG	KGZ	417	Asia	142	m2	41.0	75.0	Som
-Lao People's Democratic Republic	LA	LAO	418	Asia	142	m2	18.0	105.0	Lao Kip
-Latvia	LV	LVA	428	Europe	150	m2	57.0	 25.0	Euro
-Lebanon	LB	LBN	422	Asia	142	m2	338.333	358.333	Lebanese Pound
-Lesotho	LS	LSO	426	Africa	2	m2	 -29.5	28.5	Loti
-Liberia	LR	LBR	430	Africa	2	sqft	6.5	 -9.5	Liberian Dollar
-Libya	LY	LBY	434	Africa	2	m2	 25.0	17.0	Libyan Dinar
-Liechtenstein	LI	LIE	438	Europe	150	m2	471.667	9.5333	Swiss Franc
-Lithuania	LT	LTU	440	Europe	150	m2	56.0	 24.0	Euro
-Luxembourg	LU	LUX	442	Europe	150	m2	 49.75	6.1667	Euro
-Macao	MO	MAC	446	Asia	142	m2	221.667	 113.55	Pataca
-Madagascar	MG	MDG	450	Africa	2	m2	-20.0	 47.0	Malagasy Ariary
-Malawi	MW	MWI	454	Africa	2	m2	 -13.5	34.0	Malawi Kwacha
-Malaysia	MY	MYS	458	Asia	142	m2	2.5	112.5	Malaysian Ringgit
-Maldives	MV	MDV	462	Asia	142	m2	 3.25	 73.0	Rufiyaa
-Mali	ML	MLI	466	Africa	2	m2	17.0	-4.0	CFA Franc BCEAO
-Malta	MT	MLT	470	Europe	150	m2	358.333	145.833	Euro
-Marshall Islands	MH	MHL	584	Oceania	9	m2	 9.0	168.0	US Dollar
-Martinique	MQ	MTQ	474	Americas	19	m2	146.667	 -61.0	Euro
-Mauritania	MR	MRT	478	Africa	2	m2	 20.0	-12.0	Ouguiya
-Mauritius	MU	MUS	480	Africa	2	m2	-202.833	57.55	Mauritius Rupee
-Mayotte	YT	MYT	175	Africa	2	m2	-128.333	451.667	Euro
-Mexico	MX	MEX	484	Americas	19	m2	23.0	 -102.0	Mexican Peso
-Micronesia (Federated States of)	FM	FSM	583	Oceania	9	m2	6.9167	158.25	US Dollar
-Moldova, Republic of	MD	MDA	498	Europe	150	m2	 47.0	29.0	Moldovan Leu
-Monaco	MC	MCO	492	Europe	150	m2	437.333	7.4	Euro
-Mongolia	MN	MNG	496	Asia	142	m2	 46.0	 105.0	Tugrik
-Montenegro	ME	MNE	499	Europe	150	m2	42.0	19.0	Euro
-Montserrat	MS	MSR	500	Americas	19	m2	 16.75	 -62.2	East Caribbean Dollar
-Morocco	MA	MAR	504	Africa	2	m2	32.0	 -5.0	Moroccan Dirham
-Mozambique	MZ	MOZ	508	Africa	2	m2	 -18.25	 35.0	Mozambique Metical
-Myanmar	MM	MMR	104	Asia	142	sqft	 22.0	98.0	Kyat
-Namibia	NA	NAM	516	Africa	2	m2	 -22.0	 17.0	Namibia Dollar
-Nauru	NR	NRU	520	Oceania	9	m2	-5.333	1.669.167	Australian Dollar
-Nepal	NP	NPL	524	Asia	142	m2	 28.0	 84.0	Nepalese Rupee
-Netherlands	NL	NLD	528	Europe	150	m2	 52.5	5.75	Euro
-New Caledonia	NC	NCL	540	Oceania	9	m2	 -21.5	 165.5	CFP Franc
-New Zealand	NZ	NZL	554	Oceania	9	m2	 -41.0	174.0	New Zealand Dollar
-Nicaragua	NI	NIC	558	Americas	19	m2	 13.0	 -85.0	Cordoba Oro
-Niger	NE	NER	562	Africa	2	m2	 16.0	 8.0	CFA Franc BCEAO
-Nigeria	NG	NGA	566	Africa	2	m2	 10.0	8.0	Naira
-Niue	NU	NIU	570	Oceania	9	m2	-190.333	-1.698.667	New Zealand Dollar
-Norfolk Island	NF	NFK	574	Oceania	9	m2	-290.333	 167.95	Australian Dollar
-Northern Mariana Islands	MP	MNP	580	Oceania	9	m2	15.2	145.75	US Dollar
-Norway	NO	NOR	578	Europe	150	m2	 62.0	 10.0	Norwegian Krone
-Oman	OM	OMN	512	Asia	142	m2	 21.0	57.0	Rial Omani
-Pakistan	PK	PAK	586	Asia	142	m2	 30.0	 70.0	Pakistan Rupee
-Palau	PW	PLW	585	Oceania	9	m2	7.5	134.5	US Dollar
-Palestine, State of	PS	PSE	275	Asia	142	m2	 32.0	35.25	Palestine pound
-Panama	PA	PAN	591	Americas	19	m2	9.0	 -80.0	Balboa
-Papua New Guinea	PG	PNG	598	Oceania	9	m2	-6.0	147.0	Kina
-Paraguay	PY	PRY	600	Americas	19	m2	-23.0	 -58.0	Guarani
-Peru	PE	PER	604	Americas	19	m2	-10.0	 -76.0	Sol
-Philippines	PH	PHL	608	Asia	142	m2	 13.0	122.0	Philippine Peso
-Pitcairn	PN	PCN	612	Oceania	9	m2	-24.7	 -127.4	New Zealand Dollar
-Poland	PL	POL	616	Europe	150	m2	 52.0	 20.0	Zloty
-Portugal	PT	PRT	620	Europe	150	m2	 39.5	 -8.0	Euro
-Puerto Rico	PR	PRI	630	Americas	19	m2	18.25	 -66.5	US Dollar
-Qatar	QA	QAT	634	Asia	142	m2	25.5	 51.25	Qatari Rial
-Réunion	RE	REU	638	Africa	2	m2	-21.1	55.6	Euro
-Romania	RO	ROU	642	Europe	150	m2	46.0	 25.0	Romanian Leu
-Russian Federation	RU	RUS	643	Europe	150	m2	 60.0	 100.0	Russian Ruble
-Rwanda	RW	RWA	646	Africa	2	m2	 -2.0	 30.0	Rwanda Franc
-Saint Helena, Ascension and Tristan da Cunha	SH	SHN	654	Africa	2	m2	-159.333	 -5.7	Saint Helena Pound
-Saint Kitts and Nevis	KN	KNA	659	Americas	19	m2	173.333	-62.75	East Caribbean Dollar
-Saint Lucia	LC	LCA	662	Americas	19	m2	138.833	-611.333	East Caribbean Dollar
-Saint Pierre and Miquelon	PM	SPM	666	Americas	19	m2	468.333	-563.333	Euro
-Saint Vincent and the Grenadines	VC	VCT	670	Americas	19	m2	 13.25	-61.2	East Caribbean Dollar
-Samoa	WS	WSM	882	Oceania	9	m2	-135.833	-1.723.333	Tala
-San Marino	SM	SMR	674	Europe	150	m2	437.667	12.4167	Euro
-Sao Tome and Principe	ST	STP	678	Africa	2	m2	 1.0	7.0	Dobra
-Saudi Arabia	SA	SAU	682	Asia	142	m2	 25.0	45.0	Saudi Riyal
-Senegal	SN	SEN	686	Africa	2	m2	 14.0	-14.0	CFA Franc BCEAO
-Serbia	RS	SRB	688	Europe	150	m2	44.0	21.0	Serbian Dinar
-Seychelles	SC	SYC	690	Africa	2	m2	-45.833	556.667	Seychelles Rupee
-Sierra Leone	SL	SLE	694	Africa	2	m2	8.5	 -11.5	Leone
-Singapore	SG	SGP	702	Asia	142	m2	1.3667	103.8	Singapore Dollar
-Slovakia	SK	SVK	703	Europe	150	m2	486.667	19.5	Euro
-Slovenia	SI	SVN	705	Europe	150	m2	 46.0	 15.0	Euro
-Solomon Islands	SB	SLB	90	Oceania	9	m2	 -8.0	159.0	Solomon Islands Dollar
-Somalia	SO	SOM	706	Africa	2	m2	10.0	 49.0	Somali Shilling
-South Africa	ZA	ZAF	710	Africa	2	m2	-29.0	 24.0	Rand
-South Georgia and the South Sandwich Islands	GS	SGS	239	Americas	19	m2	 -54.5	 -37.0	No universal currency
-South Sudan	SS	SSD	728	Africa	2	m2	 8.0	30.0	South Sudanese Pound
-Spain	ES	ESP	724	Europe	150	m2	 40.0	-4.0	Euro
-Sri Lanka	LK	LKA	144	Asia	142	m2	7.0	81.0	Sri Lanka Rupee
-Sudan	SD	SDN	729	Africa	2	m2	 15.0	 30.0	Sudanese Pound
-Suriname	SR	SUR	740	Americas	19	m2	 4.0	-56.0	Surinam Dollar
-Svalbard and Jan Mayen	SJ	SJM	744	Europe	150	m2	 78.0	20.0	Norwegian Krone
-Sweden	SE	SWE	752	Europe	150	m2	 62.0	 15.0	Swedish Krona
-Switzerland	CH	CHE	756	Europe	150	m2	 47.0	 8.0	Swiss Franc
-Syrian Arab Republic	SY	SYR	760	Asia	142	m2	35.0	 38.0	Syrian Pound
-Taiwan, Province of China	TW	TWN	158	Asia	142	m2	23.5	 121.0	New Taiwan Dollar
-Tajikistan	TJ	TJK	762	Asia	142	m2	 39.0	71.0	Somoni
-Tanzania, United Republic of	TZ	TZA	834	Africa	2	m2	-6.0	35.0	Tanzanian Shilling
-Thailand	TH	THA	764	Asia	142	m2	15.0	 100.0	Baht
-Timor-Leste	TL	TLS	626	Asia	142	m2	-8.55	1.255.167	US Dollar
-Togo	TG	TGO	768	Africa	2	m2	 8.0	1.1667	CFA Franc BCEAO
-Tokelau	TK	TKL	772	Oceania	9	m2	 -9.0	 -172.0	New Zealand Dollar
-Tonga	TO	TON	776	Oceania	9	m2	-20.0	 -175.0	Pa'anga
-Trinidad and Tobago	TT	TTO	780	Americas	19	m2	 11.0	-61.0	Trinidad and Tobago Dollar
-Tunisia	TN	TUN	788	Africa	2	m2	 34.0	 9.0	Tunisian Dinar
-Turkey	TR	TUR	792	Asia	142	m2	 39.0	35.0	Turkish Lira
-Turkmenistan	TM	TKM	795	Asia	142	m2	40.0	60.0	Turkmenistan New Manat
-Turks and Caicos Islands	TC	TCA	796	Americas	19	m2	21.75	-715.833	US Dollar
-Tuvalu	TV	TUV	798	Oceania	9	m2	 -8.0	 178.0	Australian Dollar
-Uganda	UG	UGA	800	Africa	2	m2	1.0	32.0	Uganda Shilling
-Ukraine	UA	UKR	804	Europe	150	m2	 49.0	32.0	Hryvnia
-United Arab Emirates	AE	ARE	784	Asia	142	m2	 24.0	54.0	UAE Dirham
-United Kingdom	GB	GBR	826	Europe	150	m2	54.0	 -2.0	Pound Sterling
-United States of America	US	USA	840	Americas	19	sqft	 38.0	 -97.0	US Dollar
-United States Minor Outlying Islands	UM	UMI	581	Oceania	9	m2	192.833	 166.6	US Dollar
-Uruguay	UY	URY	858	Americas	19	m2	-33.0	 -56.0	Peso Uruguayo
-Uzbekistan	UZ	UZB	860	Asia	142	m2	 41.0	 64.0	Uzbekistan Sum
-Vanuatu	VU	VUT	548	Oceania	9	m2	 -16.0	167.0	Vatu
-Venezuela (Bolivarian Republic of)	VE	VEN	862	Americas	19	m2	 8.0	 -66.0	Bolívar Soberano
-Viet Nam	VN	VNM	704	Asia	142	m2	16.0	 106.0	Dong
-Virgin Islands (British)	VG	VGB	92	Americas	19	m2	18.5	-64.5	US Dollar
-Virgin Islands (U.S.)	VI	VIR	850	Americas	19	m2	183.333	-648.333	US Dollar
-Wallis and Futuna	WF	WLF	876	Oceania	9	m2	-13.3	 -176.2	CFP Franc
-Western Sahara	EH	ESH	732	Africa	2	m2	24.5	-13.0	Moroccan Dirham
-Yemen	YE	YEM	887	Asia	142	m2	 15.0	 48.0	Yemeni Rial
-Zambia	ZM	ZMB	894	Africa	2	m2	 -15.0	30.0	Zambian Kwacha
-Zimbabwe	ZW	ZWE	716	Africa	2	m2	-20.0	30.0	Zimbabwe Dollar
+country_name	iso_2	iso_3	country_code	region	region_code	unit_measurement	coordinate.latitude	coordinate.longitude	currency.name	currency.code
+Afghanistan	AF	AFG	4	Asia	142	m2	33.0	65.0	Afghani	AFN
+Albania	AL	ALB	8	Europe	150	m2	41.0	20.0	Lek	ALL
+Algeria	DZ	DZA	12	Africa	2	m2	28.0	3.0	Algerian Dinar	DZD
+American Samoa	AS	ASM	16	Oceania	9	m2	-143.333	-170.0	US Dollar	USD
+Andorra	AD	AND	20	Europe	150	m2	42.5	1.6	Euro	EUR
+Angola	AO	AGO	24	Africa	2	m2	 -12.5	18.5	Kwanza	AOA
+Anguilla	AI	AIA	660	Americas	19	m2	18.25	-631.667	East Caribbean Dollar	XCD
+Antigua and Barbuda	AG	ATG	28	Americas	19	m2	17.05	-61.8	East Caribbean Dollar	XCD
+Argentina	AR	ARG	32	Americas	19	m2	-34.0	-64.0	Argentine Peso	ARS
+Armenia	AM	ARM	51	Asia	142	m2	40.0	45.0	Armenian Dram	AMD
+Aruba	AW	ABW	533	Americas	19	m2	12.5	-699.667	Aruban Florin	AWG
+Australia	AU	AUS	36	Oceania	9	m2	-27.0	133.0	Australian Dollar	AUD
+Austria	AT	AUT	40	Europe	150	m2	473.333	133.333	Euro	EUR
+Azerbaijan	AZ	AZE	31	Asia	142	m2	40.5	 47.5	Azerbaijan Manat	AZN
+Bahamas	BS	BHS	44	Americas	19	m2	 24.25	 -76.0	Bahamian Dollar	BSD
+Bahrain	BH	BHR	48	Asia	142	m2	 26.0	50.55	Bahraini Dinar	BHD
+Bangladesh	BD	BGD	50	Asia	142	m2	24.0	 90.0	Taka	BDT
+Barbados	BB	BRB	52	Americas	19	m2	131.667	-595.333	Barbados Dollar	BBD
+Belarus	BY	BLR	112	Europe	150	m2	 53.0	28.0	Belarusian Ruble	BYN
+Belgium	BE	BEL	56	Europe	150	m2	508.333	 4.0	Euro	EUR
+Belize	BZ	BLZ	84	Americas	19	m2	17.25	-88.75	Belize Dollar	BZD
+Benin	BJ	BEN	204	Africa	2	m2	9.5	2.25	CFA Franc BCEAO	XOF
+Bermuda	BM	BMU	60	Americas	19	m2	323.333	-64.75	Bermudian Dollar	BMD
+Bhutan	BT	BTN	64	Asia	142	m2	27.5	 90.5	Ngultrum	BTN
+Bolivia (Plurinational State of)	BO	BOL	68	Americas	19	m2	-17.0	-65.0	Boliviano	BOB
+Bosnia and Herzegovina	BA	BIH	70	Europe	150	m2	 44.0	18.0	Convertible Mark	BAM
+Botswana	BW	BWA	72	Africa	2	m2	-22.0	24.0	Pula	BWP
+Bouvet Island	BV	BVT	74	Americas	19	m2	-544.333	3.4	Norwegian Krone	NOK
+Brazil	BR	BRA	76	Americas	19	m2	 -10.0	 -55.0	Brazilian Real	BRL
+British Indian Ocean Territory	IO	IOT	86	Africa	2	m2	 -6.0	 71.5	US Dollar	USD
+Brunei Darussalam	BN	BRN	96	Asia	142	m2	4.5	1.146.667	Brunei Dollar	BND
+Bulgaria	BG	BGR	100	Europe	150	m2	 43.0	25.0	Bulgarian Lev	BGN
+Burkina Faso	BF	BFA	854	Africa	2	m2	 13.0	-2.0	CFA Franc BCEAO	XOF
+Burundi	BI	BDI	108	Africa	2	m2	-3.5	30.0	Burundi Franc	BIF
+Cambodia	KH	KHM	116	Asia	142	m2	13.0	 105.0	Riel	KHR
+Cameroon	CM	CMR	120	Africa	2	m2	 6.0	12.0	CFA Franc BEAC	XAF
+Canada	CA	CAN	124	Americas	19	m2	 60.0	 -95.0	Canadian Dollar	CAD
+Cape Verde	CV	CPV	132	Africa	2	m2	16.0	 -24.0	Escudo	CVE
+Cayman Islands	KY	CYM	136	Americas	19	m2	19.5	-80.5	Cayman Islands Dollar	KYD
+Central African Republic	CF	CAF	140	Africa	2	m2	 7.0	21.0	CFA Franc BEAC	XAF
+Chad	TD	TCD	148	Africa	2	m2	15.0	 19.0	CFA Franc BEAC	XAF
+Chile	CL	CHL	152	Americas	19	m2	 -30.0	-71.0	Chilean Peso	CLP
+China	CN	CHN	156	Asia	142	m2	 35.0	105.0	Yuan Renminbi	CNY
+Christmas Island	CX	CXR	162	Oceania	9	m2	-10.5	1.056.667	Australian Dollar	AUD
+Cocos (Keeling) Islands	CC	CCK	166	Oceania	9	m2	-12.5	968.333	Australian Dollar	AUD
+Colombia	CO	COL	170	Americas	19	m2	 4.0	 -72.0	Colombian Peso	COP
+Comoros	KM	COM	174	Africa	2	m2	-121.667	44.25	Comorian Franc	KMF
+Congo	CG	COG	178	Africa	2	m2	 -1.0	15.0	CFA Franc BEAC	XAF
+Congo, Democratic Republic of the	CD	COD	180	Africa	2	m2	 0.0	25.0	Congolese Franc	CDF
+Cook Islands	CK	COK	184	Oceania	9	m2	-212.333	-1.597.667	New Zealand Dollar	NZD
+Costa Rica	CR	CRI	188	Americas	19	m2	 10.0	 -84.0	Costa Rican Colon	CRC
+Côte d'Ivoire	CI	CIV	384	Africa	2	m2	 8.0	-5.0	CFA Franc BCEAO	XOF
+Croatia	HR	HRV	191	Europe	150	m2	451.667	15.5	Kuna	HRK
+Cuba	CU	CUB	192	Americas	19	m2	21.5	-80.0	Cuban Peso	CUP
+Cyprus	CY	CYP	196	Asia	142	m2	 35.0	 33.0	Euro	EUR
+Czech Republic	CZ	CZE	203	Europe	150	m2	49.75	15.5	Czech Koruna	CZK
+Denmark	DK	DNK	208	Europe	150	m2	56.0	 10.0	Danish Krone	DKK
+Djibouti	DJ	DJI	262	Africa	2	m2	11.5	 43.0	Djibouti Franc	DJF
+Dominica	DM	DMA	212	Americas	19	m2	154.167	-613.333	East Caribbean Dollar	XCD
+Dominican Republic	DO	DOM	214	Americas	19	m2	19.0	-706.667	Dominican Peso	DOP
+Ecuador	EC	ECU	218	Americas	19	m2	-2.0	-77.5	US Dollar	USD
+Egypt	EG	EGY	818	Africa	2	m2	27.0	 30.0	Egyptian Pound	EGP
+El Salvador	SV	SLV	222	Americas	19	m2	138.333	-889.167	El Salvador Colon	SVC
+Equatorial Guinea	GQ	GNQ	226	Africa	2	m2	2.0	10.0	CFA Franc BEAC	XAF
+Eritrea	ER	ERI	232	Africa	2	m2	 15.0	39.0	Nakfa	ERN
+Estonia	EE	EST	233	Europe	150	m2	59.0	26.0	Euro	EUR
+Ethiopia	ET	ETH	231	Africa	2	m2	8.0	38.0	Ethiopian Birr	ETB
+Falkland Islands (Malvinas)	FK	FLK	238	Americas	19	m2	 -51.75	-59.0	Falkland Islands Pound	FKP
+Faroe Islands	FO	FRO	234	Europe	150	m2	 62.0	 -7.0	Danish Krone	DKK
+Fiji	FJ	FJI	242	Oceania	9	m2	-18.0	175.0	Fiji Dollar	FJD
+Finland	FI	FIN	246	Europe	150	m2	64.0	26.0	Euro	EUR
+France	FR	FRA	250	Europe	150	m2	46.0	2.0	Euro	EUR
+French Guiana	GF	GUF	254	Americas	19	m2	4.0	 -53.0	Euro	EUR
+French Polynesia	PF	PYF	258	Oceania	9	m2	-15.0	 -140.0	CFP Franc	XPF
+French Southern Territories	TF	ATF	260	Africa	2	m2	-43.0	67.0	Euro	EUR
+Gabon	GA	GAB	266	Africa	2	m2	 -1.0	11.75	CFA Franc BEAC	XAF
+Gambia	GM	GMB	270	Africa	2	m2	134.667	-165.667	Dalasi	GMD
+Georgia	GE	GEO	268	Asia	142	m2	42.0	43.5	Lari	GEL
+Germany	DE	DEU	276	Europe	150	m2	 51.0	9.0	Euro	EUR
+Ghana	GH	GHA	288	Africa	2	m2	8.0	-2.0	Ghana Cedi	GHS
+Gibraltar	GI	GIB	292	Europe	150	m2	361.833	-53.667	Gibraltar Pound	GIP
+Greece	GR	GRC	300	Europe	150	m2	 39.0	 22.0	Euro	EUR
+Greenland	GL	GRL	304	Americas	19	m2	 72.0	-40.0	Danish Krone	DKK
+Grenada	GD	GRD	308	Americas	19	m2	12.1167	-616.667	East Caribbean Dollar	XCD
+Guadeloupe	GP	GLP	312	Americas	19	m2	16.25	-615.833	Euro	EUR
+Guam	GU	GUM	316	Oceania	9	m2	134.667	1.447.833	US Dollar	USD
+Guatemala	GT	GTM	320	Americas	19	m2	15.5	-90.25	Quetzal	GTQ
+Guernsey	GG	GGY	831	Europe	150	m2	49.5	 -2.56	Pound Sterling	GBP
+Guinea	GN	GIN	324	Africa	2	m2	11.0	-10.0	Guinean Franc	GNF
+Guinea-Bissau	GW	GNB	624	Africa	2	m2	 12.0	-15.0	CFA Franc BCEAO	XOF
+Guyana	GY	GUY	328	Americas	19	m2	 5.0	-59.0	Guyana Dollar	GYD
+Haiti	HT	HTI	332	Americas	19	m2	19.0	-724.167	Gourde	HTG
+Heard Island and McDonald Islands	HM	HMD	334	Oceania	9	m2	 -53.1	725.167	Australian Dollar	AUD
+Holy See	VA	VAT	336	Europe	150	m2	41.9	12.45	Euro	EUR
+Honduras	HN	HND	340	Americas	19	m2	15.0	 -86.5	Lempira	HNL
+Hong Kong	HK	HKG	344	Asia	142	m2	22.25	1.141.667	Hong Kong Dollar	HKD
+Hungary	HU	HUN	348	Europe	150	m2	 47.0	20.0	Forint	HUF
+Iceland	IS	ISL	352	Europe	150	m2	 65.0	-18.0	Iceland Krona	ISK
+India	IN	IND	356	Asia	142	m2	20.0	77.0	Indian Rupee	INR
+Indonesia	ID	IDN	360	Asia	142	m2	 -5.0	120.0	Rupiah	IDR
+Iran (Islamic Republic of)	IR	IRN	364	Asia	142	m2	 32.0	53.0	Iranian Rial	IRR
+Iraq	IQ	IRQ	368	Asia	142	m2	33.0	44.0	Iraqi Dinar	IQD
+Ireland	IE	IRL	372	Europe	150	m2	 53.0	        -8.0	Euro	EUR
+Isle of Man	IM	IMN	833	Europe	150	m2	54.23	-4.55	Pound Sterling	GBP
+Israel	IL	ISR	376	Asia	142	m2	31.5	34.75	New Israeli Sheqel	ILS
+Italy	IT	ITA	380	Europe	150	m2	428.333	12.8333	Euro	EUR
+Jamaica	JM	JAM	388	Americas	19	m2	18.25	-77.5	Jamaican Dollar	JMD
+Japan	JP	JPN	392	Asia	142	jo	36.0	138.0	Yen	JPY
+Jersey	JE	JEY	832	Europe	150	m2	49.21	 -2.13	Pound Sterling	GBP
+Jordan	JO	JOR	400	Asia	142	m2	31.0	36.0	Jordanian Dinar	JOD
+Kazakhstan	KZ	KAZ	398	Asia	142	m2	48.0	 68.0	Tenge	KZT
+Kenya	KE	KEN	404	Africa	2	m2	 1.0	38.0	Kenyan Shilling	KES
+Kiribati	KI	KIR	296	Oceania	9	m2	1.4167	 173.0	Australian Dollar	AUD
+Korea (Democratic People's Republic of)	KP	PRK	408	Asia	142	m2	 40.0	127.0	North Korean Won	KPW
+Korea, Republic of	KR	KOR	410	Asia	142	m2	37.0	127.5	Won	KRW
+Kuwait	KW	KWT	414	Asia	142	m2	293.375	476.581	Kuwaiti Dinar	KWD
+Kyrgyzstan	KG	KGZ	417	Asia	142	m2	41.0	75.0	Som	KGS
+Lao People's Democratic Republic	LA	LAO	418	Asia	142	m2	18.0	105.0	Lao Kip	LAK
+Latvia	LV	LVA	428	Europe	150	m2	57.0	 25.0	Euro	EUR
+Lebanon	LB	LBN	422	Asia	142	m2	338.333	358.333	Lebanese Pound	LBP
+Lesotho	LS	LSO	426	Africa	2	m2	 -29.5	28.5	Loti	LSL
+Liberia	LR	LBR	430	Africa	2	sqft	6.5	 -9.5	Liberian Dollar	LRD
+Libya	LY	LBY	434	Africa	2	m2	 25.0	17.0	Libyan Dinar	LYD
+Liechtenstein	LI	LIE	438	Europe	150	m2	471.667	9.5333	Swiss Franc	CHF
+Lithuania	LT	LTU	440	Europe	150	m2	56.0	 24.0	Euro	EUR
+Luxembourg	LU	LUX	442	Europe	150	m2	 49.75	6.1667	Euro	EUR
+Macao	MO	MAC	446	Asia	142	m2	221.667	 113.55	Pataca	MOP
+Madagascar	MG	MDG	450	Africa	2	m2	-20.0	 47.0	Malagasy Ariary	MGA
+Malawi	MW	MWI	454	Africa	2	m2	 -13.5	34.0	Malawi Kwacha	MWK
+Malaysia	MY	MYS	458	Asia	142	m2	2.5	112.5	Malaysian Ringgit	MYR
+Maldives	MV	MDV	462	Asia	142	m2	 3.25	 73.0	Rufiyaa	MVR
+Mali	ML	MLI	466	Africa	2	m2	17.0	-4.0	CFA Franc BCEAO	XOF
+Malta	MT	MLT	470	Europe	150	m2	358.333	145.833	Euro	EUR
+Marshall Islands	MH	MHL	584	Oceania	9	m2	 9.0	168.0	US Dollar	USD
+Martinique	MQ	MTQ	474	Americas	19	m2	146.667	 -61.0	Euro	EUR
+Mauritania	MR	MRT	478	Africa	2	m2	 20.0	-12.0	Ouguiya	MRU
+Mauritius	MU	MUS	480	Africa	2	m2	-202.833	57.55	Mauritius Rupee	MUR
+Mayotte	YT	MYT	175	Africa	2	m2	-128.333	451.667	Euro	EUR
+Mexico	MX	MEX	484	Americas	19	m2	23.0	 -102.0	Mexican Peso	MXN
+Micronesia (Federated States of)	FM	FSM	583	Oceania	9	m2	6.9167	158.25	US Dollar	USD
+Moldova, Republic of	MD	MDA	498	Europe	150	m2	 47.0	29.0	Moldovan Leu	MDL
+Monaco	MC	MCO	492	Europe	150	m2	437.333	7.4	Euro	EUR
+Mongolia	MN	MNG	496	Asia	142	m2	 46.0	 105.0	Tugrik	MNT
+Montenegro	ME	MNE	499	Europe	150	m2	42.0	19.0	Euro	EUR
+Montserrat	MS	MSR	500	Americas	19	m2	 16.75	 -62.2	East Caribbean Dollar	XCD
+Morocco	MA	MAR	504	Africa	2	m2	32.0	 -5.0	Moroccan Dirham	MAD
+Mozambique	MZ	MOZ	508	Africa	2	m2	 -18.25	 35.0	Mozambique Metical	MZN
+Myanmar	MM	MMR	104	Asia	142	sqft	 22.0	98.0	Kyat	MMK
+Namibia	NA	NAM	516	Africa	2	m2	 -22.0	 17.0	Namibia Dollar	NAD
+Nauru	NR	NRU	520	Oceania	9	m2	-5.333	1.669.167	Australian Dollar	AUD
+Nepal	NP	NPL	524	Asia	142	m2	 28.0	 84.0	Nepalese Rupee	NPR
+Netherlands	NL	NLD	528	Europe	150	m2	 52.5	5.75	Euro	EUR
+New Caledonia	NC	NCL	540	Oceania	9	m2	 -21.5	 165.5	CFP Franc	XPF
+New Zealand	NZ	NZL	554	Oceania	9	m2	 -41.0	174.0	New Zealand Dollar	NZD
+Nicaragua	NI	NIC	558	Americas	19	m2	 13.0	 -85.0	Cordoba Oro	NIO
+Niger	NE	NER	562	Africa	2	m2	 16.0	 8.0	CFA Franc BCEAO	XOF
+Nigeria	NG	NGA	566	Africa	2	m2	 10.0	8.0	Naira	NGN
+Niue	NU	NIU	570	Oceania	9	m2	-190.333	-1.698.667	New Zealand Dollar	NZD
+Norfolk Island	NF	NFK	574	Oceania	9	m2	-290.333	 167.95	Australian Dollar	AUD
+Northern Mariana Islands	MP	MNP	580	Oceania	9	m2	15.2	145.75	US Dollar	USD
+Norway	NO	NOR	578	Europe	150	m2	 62.0	 10.0	Norwegian Krone	NOK
+Oman	OM	OMN	512	Asia	142	m2	 21.0	57.0	Rial Omani	OMR
+Pakistan	PK	PAK	586	Asia	142	m2	 30.0	 70.0	Pakistan Rupee	PKR
+Palau	PW	PLW	585	Oceania	9	m2	7.5	134.5	US Dollar	USD
+Palestine, State of	PS	PSE	275	Asia	142	m2	 32.0	35.25	Palestine Lira	PAL
+Panama	PA	PAN	591	Americas	19	m2	9.0	 -80.0	Balboa	PAB
+Papua New Guinea	PG	PNG	598	Oceania	9	m2	-6.0	147.0	Kina	PGK
+Paraguay	PY	PRY	600	Americas	19	m2	-23.0	 -58.0	Guarani	PYG
+Peru	PE	PER	604	Americas	19	m2	-10.0	 -76.0	Sol	PEN
+Philippines	PH	PHL	608	Asia	142	m2	 13.0	122.0	Philippine Peso	PHP
+Pitcairn	PN	PCN	612	Oceania	9	m2	-24.7	 -127.4	New Zealand Dollar	NZD
+Poland	PL	POL	616	Europe	150	m2	 52.0	 20.0	Zloty	PLN
+Portugal	PT	PRT	620	Europe	150	m2	 39.5	 -8.0	Euro	EUR
+Puerto Rico	PR	PRI	630	Americas	19	m2	18.25	 -66.5	US Dollar	USD
+Qatar	QA	QAT	634	Asia	142	m2	25.5	 51.25	Qatari Rial	QAR
+Réunion	RE	REU	638	Africa	2	m2	-21.1	55.6	Euro	EUR
+Romania	RO	ROU	642	Europe	150	m2	46.0	 25.0	Romanian Leu	RON
+Russian Federation	RU	RUS	643	Europe	150	m2	 60.0	 100.0	Russian Ruble	RUB
+Rwanda	RW	RWA	646	Africa	2	m2	 -2.0	 30.0	Rwanda Franc	RWF
+Saint Helena, Ascension and Tristan da Cunha	SH	SHN	654	Africa	2	m2	-159.333	 -5.7	Saint Helena Pound	SHP
+Saint Kitts and Nevis	KN	KNA	659	Americas	19	m2	173.333	-62.75	East Caribbean Dollar	XCD
+Saint Lucia	LC	LCA	662	Americas	19	m2	138.833	-611.333	East Caribbean Dollar	XCD
+Saint Pierre and Miquelon	PM	SPM	666	Americas	19	m2	468.333	-563.333	Euro	EUR
+Saint Vincent and the Grenadines	VC	VCT	670	Americas	19	m2	 13.25	-61.2	East Caribbean Dollar	XCD
+Samoa	WS	WSM	882	Oceania	9	m2	-135.833	-1.723.333	Tala	WST
+San Marino	SM	SMR	674	Europe	150	m2	437.667	12.4167	Euro	EUR
+Sao Tome and Principe	ST	STP	678	Africa	2	m2	 1.0	7.0	Dobra	STN
+Saudi Arabia	SA	SAU	682	Asia	142	m2	 25.0	45.0	Saudi Riyal	SAR
+Senegal	SN	SEN	686	Africa	2	m2	 14.0	-14.0	CFA Franc BCEAO	XOF
+Serbia	RS	SRB	688	Europe	150	m2	44.0	21.0	Serbian Dinar	RSD
+Seychelles	SC	SYC	690	Africa	2	m2	-45.833	556.667	Seychelles Rupee	SCR
+Sierra Leone	SL	SLE	694	Africa	2	m2	8.5	 -11.5	Leone	SLL
+Singapore	SG	SGP	702	Asia	142	m2	1.3667	103.8	Singapore Dollar	SGD
+Slovakia	SK	SVK	703	Europe	150	m2	486.667	19.5	Euro	EUR
+Slovenia	SI	SVN	705	Europe	150	m2	 46.0	 15.0	Euro	EUR
+Solomon Islands	SB	SLB	90	Oceania	9	m2	 -8.0	159.0	Solomon Islands Dollar	SBD
+Somalia	SO	SOM	706	Africa	2	m2	10.0	 49.0	Somali Shilling	SOS
+South Africa	ZA	ZAF	710	Africa	2	m2	-29.0	 24.0	Rand	ZAR
+South Georgia and the South Sandwich Islands	GS	SGS	239	Americas	19	m2	 -54.5	 -37.0	No universal currency	
+South Sudan	SS	SSD	728	Africa	2	m2	 8.0	30.0	South Sudanese Pound	SSP
+Spain	ES	ESP	724	Europe	150	m2	 40.0	-4.0	Euro	EUR
+Sri Lanka	LK	LKA	144	Asia	142	m2	7.0	81.0	Sri Lanka Rupee	LKR
+Sudan	SD	SDN	729	Africa	2	m2	 15.0	 30.0	Sudanese Pound	SDG
+Suriname	SR	SUR	740	Americas	19	m2	 4.0	-56.0	Surinam Dollar	SRD
+Svalbard and Jan Mayen	SJ	SJM	744	Europe	150	m2	 78.0	20.0	Norwegian Krone	NOK
+Sweden	SE	SWE	752	Europe	150	m2	 62.0	 15.0	Swedish Krona	SEK
+Switzerland	CH	CHE	756	Europe	150	m2	 47.0	 8.0	Swiss Franc	CHF
+Syrian Arab Republic	SY	SYR	760	Asia	142	m2	35.0	 38.0	Syrian Pound	SYP
+Taiwan, Province of China	TW	TWN	158	Asia	142	m2	23.5	 121.0	New Taiwan Dollar	TWD
+Tajikistan	TJ	TJK	762	Asia	142	m2	 39.0	71.0	Somoni	TJS
+Tanzania, United Republic of	TZ	TZA	834	Africa	2	m2	-6.0	35.0	Tanzanian Shilling	TZS
+Thailand	TH	THA	764	Asia	142	m2	15.0	 100.0	Baht	THB
+Timor-Leste	TL	TLS	626	Asia	142	m2	-8.55	1.255.167	US Dollar	USD
+Togo	TG	TGO	768	Africa	2	m2	 8.0	1.1667	CFA Franc BCEAO	XOF
+Tokelau	TK	TKL	772	Oceania	9	m2	 -9.0	 -172.0	New Zealand Dollar	NZD
+Tonga	TO	TON	776	Oceania	9	m2	-20.0	 -175.0	Pa'anga	TOP
+Trinidad and Tobago	TT	TTO	780	Americas	19	m2	 11.0	-61.0	Trinidad and Tobago Dollar	TTD
+Tunisia	TN	TUN	788	Africa	2	m2	 34.0	 9.0	Tunisian Dinar	TND
+Turkey	TR	TUR	792	Asia	142	m2	 39.0	35.0	Turkish Lira	TRY
+Turkmenistan	TM	TKM	795	Asia	142	m2	40.0	60.0	Turkmenistan New Manat	TMT
+Turks and Caicos Islands	TC	TCA	796	Americas	19	m2	21.75	-715.833	US Dollar	USD
+Tuvalu	TV	TUV	798	Oceania	9	m2	 -8.0	 178.0	Australian Dollar	AUD
+Uganda	UG	UGA	800	Africa	2	m2	1.0	32.0	Uganda Shilling	UGX
+Ukraine	UA	UKR	804	Europe	150	m2	 49.0	32.0	Hryvnia	UAH
+United Arab Emirates	AE	ARE	784	Asia	142	m2	 24.0	54.0	UAE Dirham	AED
+United Kingdom	GB	GBR	826	Europe	150	m2	54.0	 -2.0	Pound Sterling	GBP
+United States of America	US	USA	840	Americas	19	sqft	 38.0	 -97.0	US Dollar	USD
+United States Minor Outlying Islands	UM	UMI	581	Oceania	9	m2	192.833	 166.6	US Dollar	USD
+Uruguay	UY	URY	858	Americas	19	m2	-33.0	 -56.0	Peso Uruguayo	UYU
+Uzbekistan	UZ	UZB	860	Asia	142	m2	 41.0	 64.0	Uzbekistan Sum	UZS
+Vanuatu	VU	VUT	548	Oceania	9	m2	 -16.0	167.0	Vatu	VUV
+Venezuela (Bolivarian Republic of)	VE	VEN	862	Americas	19	m2	 8.0	 -66.0	Bolívar Soberano	VES
+Viet Nam	VN	VNM	704	Asia	142	m2	16.0	 106.0	Dong	VND
+Virgin Islands (British)	VG	VGB	92	Americas	19	m2	18.5	-64.5	US Dollar	USD
+Virgin Islands (U.S.)	VI	VIR	850	Americas	19	m2	183.333	-648.333	US Dollar	USD
+Wallis and Futuna	WF	WLF	876	Oceania	9	m2	-13.3	 -176.2	CFP Franc	XPF
+Western Sahara	EH	ESH	732	Africa	2	m2	24.5	-13.0	Moroccan Dirham	MAD
+Yemen	YE	YEM	887	Asia	142	m2	 15.0	 48.0	Yemeni Rial	YER
+Zambia	ZM	ZMB	894	Africa	2	m2	 -15.0	30.0	Zambian Kwacha	ZMW
+Zimbabwe	ZW	ZWE	716	Africa	2	m2	-20.0	30.0	Zimbabwe Dollar	ZWL
