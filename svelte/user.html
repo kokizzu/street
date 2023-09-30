@@ -4978,7 +4978,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     let selectedLanguage = "";
     onMount(() => {
-      console.log("User, load profile header = ", user);
       $invalidate(0, selectedLanguage = T.currentLang || "EN");
     });
     async function updateLang() {

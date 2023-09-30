@@ -5214,7 +5214,6 @@ input.input_filter.svelte-1p7wx4f.svelte-1p7wx4f {
     }
     let selectedLanguage = "";
     onMount(() => {
-      console.log("User, load profile header = ", user);
       $invalidate(0, selectedLanguage = T.currentLang || "EN");
     });
     async function updateLang() {

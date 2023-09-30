@@ -1,6 +1,6 @@
 <script>
   // @ts-nocheck
-  import {UserNearbyFacilities, UserSearchProp} from '../jsApi.GEN.js';
+  import {UserNearbyFacilities, UserSearchProp, UserLikeProp} from '../jsApi.GEN.js';
   import {formatPrice} from './formatter.js';
   import {T} from './uiState.js';
   import {GoogleMap, GoogleSdk} from './GoogleMap/components';
@@ -27,6 +27,7 @@
   import FaBrandsTelegram from "svelte-icons-pack/fa/FaBrandsTelegram";
   import FaBrandsWhatsapp from "svelte-icons-pack/fa/FaBrandsWhatsapp";
   import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
+  import FaHeart from "svelte-icons-pack/fa/FaHeart";
   import {distanceKM} from './GoogleMap/distance';
   
   export let randomProps = [];
@@ -248,6 +249,16 @@
     let url = window.location.href.split( '#' )[ 0 ]
     return url + 'guest/property/' + id;
   }
+  
+  async function likeProperty( propId ) {
+    await UserLikeProp( {
+      propId: propId, // uint64
+      like: true, // bool
+    }, async res => {
+      if( res.error ) return useGrowl( 'error', res.error );
+      useGrowl( 'info', 'Property liked' );
+    } )
+  }
 </script>
 
 {#if showGrowl}
@@ -287,9 +298,14 @@
 											<span>{prop.houseType==="" ? 'House' : prop.houseType}</span>
 										</div>
 									</div>
-									<button class='share_btn' on:click={() => showShareItems(index)}>
-										<Icon size={14} color='#9fa9b5' className='share_icon' src={FaSolidShareAlt}/>
-									</button>
+									<div class='right_buttons'>
+										<button class="like_btn" on:click={() => likeProperty(prop.id)}>
+											<Icon color='#9fa9b5' className='like_icon' size={18} src={FaHeart}/>
+										</button>
+										<button class='share_btn' on:click={() => showShareItems(index)}>
+											<Icon size={17} color='#9fa9b5' className='share_icon' src={FaSolidShareAlt}/>
+										</button>
+									</div>
 									{#if shareItemIndex===index}
 										<div class='share_container'>
 											<button class='share_item copy' title='Copy link address'
@@ -679,6 +695,14 @@
         position        : relative;
     }
 
+    .property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd .right_buttons {
+	     display: flex;
+	     flex-direction: row;
+	     align-items: center;
+	     margin-right : 4px;
+	     gap: 18px;
+    }
+
     .share_container {
         display          : flex;
         flex-direction   : row;
@@ -708,19 +732,22 @@
     }
 
     .property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd .share_btn {
-        padding       : 6px;
-        border-radius : 6px;
-        border        : 1px solid #9FA9B5;
+        padding       : 0;
+        border        : none;
         background    : none;
         cursor        : pointer;
     }
 
-    .property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd .share_btn:hover {
-        border : 1px solid #F97316;
+    :global(.property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd .share_btn:hover .share_icon),
+    :global(.property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd .like_btn:hover .like_icon) {
+        fill : #F97316;
     }
 
-    :global(.property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd .share_btn:hover .share_icon) {
-        fill : #F97316;
+    .property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd .like_btn {
+        padding       : 0;
+        border        : none;
+        background    : none;
+        cursor        : pointer;
     }
 
     .property_location_container .left .props_container .prop_item .prop_info .main_info .label_info {
