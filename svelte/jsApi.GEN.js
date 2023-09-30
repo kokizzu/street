@@ -1207,7 +1207,6 @@ const GuestPropertyIn = {
  * @property {String} property.zip
  * @property {number} property.propertyLastUpdatedDate
  * @property {Object} meta
- * @property {String} oGPropertyURL
  */
 const GuestPropertyOut = {
   property: { // rqProperty.Property
@@ -1258,7 +1257,6 @@ const GuestPropertyOut = {
   }, // rqProperty.Property
   meta: { // []zCrud.Field
   }, // []zCrud.Field
-  oGPropertyURL: '', // string
 }
 /**
  * @callback GuestPropertyCallback
