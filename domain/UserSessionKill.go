@@ -42,18 +42,18 @@ func (d *Domain) UserSessionKill(in *UserSessionKillIn) (out UserSessionKillOut)
 	}
 
 	logins := rqAuth.NewSessions(d.AuthOltp)
-	sessionKill := logins.AllActiveSession(sess.UserId, in.UnixNow())
+	sessionList := logins.AllActiveSession(sess.UserId, in.UnixNow())
 
 	now := in.UnixNow()
-	for _, session := range sessionKill {
+	for _, session := range sessionList {
 		if I.UToS(S.XXH3(session.SessionToken)) == in.SessionTokenHash {
 
-			// create mutator
-			session.Adapter = d.AuthOltp
-			toUpdate := wcAuth.NewSessionsMutator(d.AuthOltp)
-			toUpdate.Sessions = *session
+			if session.ExpiredAt > now {
 
-			if toUpdate.ExpiredAt > now {
+				// create mutator
+				session.Adapter = d.AuthOltp
+				toUpdate := wcAuth.NewSessionsMutator(d.AuthOltp)
+				toUpdate.Sessions = *session
 				toUpdate.SetExpiredAt(now)
 
 				// make it expired

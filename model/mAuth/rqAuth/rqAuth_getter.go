@@ -23,7 +23,8 @@ FROM ` + s.SqlTableName() + `
 WHERE ` + s.SqlUserId() + ` = ` + I.UToS(userId) + `
 	AND ` + s.SqlExpiredAt() + ` > ` + I.ToS(now)
 	s.Adapter.QuerySql(query, func(row []any) {
-		res = append(res, s.FromArray(row))
+		rec := &Sessions{}
+		res = append(res, rec.FromArray(row))
 	})
 	return
 }
@@ -37,7 +38,7 @@ func (u *Users) CountUserRegisterToday() (res int64) {
 	beginDateUnix := I.ToS(beginCurrentDate.Unix())
 	endDateUnix := I.ToS(endCurrentDate.Unix())
 
-	queryCountRegisteredToday := `
+	queryCountRegisteredToday := comment + `
 SELECT COUNT(*) 
 FROM ` + u.SqlTableName() + `
 WHERE ` + u.SqlCreatedAt() + ` >= ` + beginDateUnix + ` 

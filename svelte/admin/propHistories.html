@@ -2819,12 +2819,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/formatter.js
   var require_formatter = __commonJS({
     "_components/formatter.js"(exports, module) {
-      function datetime3(unixSec) {
+      function datetime3(unixSec, notIso) {
         if (!unixSec)
           return "";
         if (typeof unixSec === "string")
           return unixSec;
-        const dt = new Date(unixSec * 1e3);
+        let dt = new Date(unixSec * 1e3);
+        if (!notIso) {
+          dt = dt.toISOString();
+          return dt.substring(0, 10) + " " + dt.substring(11, 16);
+        }
         const options = { day: "2-digit", month: "long", year: "numeric" };
         const formattedDate = dt.toLocaleDateString(void 0, options);
         return formattedDate;

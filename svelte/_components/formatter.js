@@ -1,10 +1,13 @@
-function datetime( unixSec ) {
+function datetime( unixSec, notIso ) {
   if( !unixSec ) return '';
   if( typeof unixSec==='string' ) return unixSec; // might not be unix time
-  const dt = new Date( unixSec * 1000 );
+  let dt = new Date( unixSec * 1000 );
+  if( !notIso ) {
+    dt = dt.toISOString();
+    return dt.substring( 0, 10 ) + ' ' + dt.substring( 11, 16 );
+  }
   const options = {day: '2-digit', month: 'long', year: 'numeric'};
   const formattedDate = dt.toLocaleDateString( undefined, options );
-  // return dt.substring( 0, 10 ) + ' ' + dt.substring( 11, 16 );
   return formattedDate;
 }
 
