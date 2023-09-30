@@ -298,7 +298,7 @@
 											</button>
 											<a class='share_item'
 											   aria-label="Share to Facebook"
-											   href={'https://www.facebook.com/sharer/sharer.php?u='+propertyUrl(prop.id)+'?utm_source=facebook&utm_medium=social&utm_campaign=user-share'}
+											   href='https://www.facebook.com/sharer/sharer.php?u={propertyUrl(prop.id)}?utm_source=facebook&utm_medium=social&utm_campaign=user-share'
 											   target="_blank"
 											   rel="noopener"
 											>
@@ -306,7 +306,7 @@
 											</a>
 											<a class='share_item'
 											   aria-label="Share to LinkedIn"
-											   href={'http://www.linkedin.com/shareArticle?mini=true&url='+propertyUrl(prop.id)+'&title=I%20Found%20Awesome%House%20'+propertyUrl(prop.id)}
+											   href='https://www.linkedin.com/shareArticle?mini=true&url={propertyUrl(prop.id)}&title=I%20Found%20Awesome%House%20{propertyUrl(prop.id)}'
 											   target="_blank"
 											   rel="noopener"
 											>
@@ -314,7 +314,7 @@
 											</a>
 											<a class='share_item'
 											   aria-label="Share to Twitter"
-											   href={'https://twitter.com/intent/tweet?url='+propertyUrl(prop.id)}
+											   href='https://twitter.com/intent/tweet?url={propertyUrl(prop.id)}'
 											   target="_blank"
 											   rel="noopener"
 											>
@@ -322,7 +322,7 @@
 											</a>
 											<a class='share_item'
 											   aria-label="Share to Telegram"
-											   href={'https://t.me/share/url?url='+propertyUrl(prop.id)}
+											   href='https://t.me/share/url?url={propertyUrl(prop.id)}'
 											   target="_blank"
 											   rel="noopener"
 											>
@@ -330,7 +330,7 @@
 											</a>
 											<a class='share_item'
 											   aria-label="Share to WhatsApp"
-											   href={'https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House%20'+propertyUrl(prop.id)}
+											   href='https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House%20{propertyUrl(prop.id)}'
 											   target="_blank"
 											   rel="noopener"
 											>
