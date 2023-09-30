@@ -26,6 +26,7 @@
   import FaBrandsFacebook from "svelte-icons-pack/fa/FaBrandsFacebook";
   import FaBrandsTelegram from "svelte-icons-pack/fa/FaBrandsTelegram";
   import FaBrandsWhatsapp from "svelte-icons-pack/fa/FaBrandsWhatsapp";
+  import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
   import {distanceKM} from './GoogleMap/distance';
   
   export let randomProps = [];
@@ -52,6 +53,7 @@
   let autocomplete_lists = [];
   let showGrowl = false, gMsg = '', gType = '';
   let shareItemIndex = null;
+  let isSearchingMap = false;
   
   function useGrowl( type, msg ) {
     showGrowl = true;
@@ -200,8 +202,10 @@
   }
   
   async function searchByLocationHandler() {
+    isSearchingMap = true;
     await searchProperty( true );
     await searchNearbyFacility();
+    isSearchingMap = false;
   }
   
   async function searchByAddressHandler( place_id ) {
@@ -241,8 +245,8 @@
   }
   
   function propertyUrl( id ) {
-		let url = window.location.href.split('#')[0]
-	  return url + 'guest/property/'+id;
+    let url = window.location.href.split( '#' )[ 0 ]
+    return url + 'guest/property/' + id;
   }
 </script>
 
@@ -389,7 +393,12 @@
 	<div class='right'>
 		<div class='map_container'>
 			<button class='btn_sync_map' on:click={searchByLocationHandler}>
-				<Icon color='#1080e8' size={12} src={FaSolidUndoAlt}/>
+				{#if !isSearchingMap}
+					<Icon color='#1080e8' size={12} src={FaSolidUndoAlt}/>
+				{/if}
+				{#if isSearchingMap}
+					<Icon className="spin" color='#1080e8' size={12} src={FaSolidCircleNotch}/>
+				{/if}
 				<span>Search this area</span>
 			</button>
 			<GoogleMap
@@ -445,6 +454,19 @@
 </div>
 
 <style>
+    @keyframes spin {
+        from {
+            transform : rotate(0deg);
+        }
+        to {
+            transform : rotate(360deg);
+        }
+    }
+
+    :global(.spin) {
+        animation : spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
     :global(.gm-style-iw) {
         overflow : visible !important;
     }
