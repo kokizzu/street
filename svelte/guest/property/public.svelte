@@ -54,12 +54,12 @@
 				<Icon className='share_icon' color='#9fa9b5' size={14} src={FaSolidShareAlt}/>
 			</header>
 			<div class='share_options'>
-				<button class='share_item' on:click={() => copyToClipboard(`${window.location}`)} title='Copy link address'>
+				<button class='share_item' on:click={() => copyToClipboard(window.location)} title='Copy link address'>
 					<Icon className='share_icon' color='#475569' size={28} src={FaCopy}/>
 				</button>
 				<a aria-label="Share to Facebook"
 				   class='share_item'
-				   href={`https://www.facebook.com/sharer/sharer.php?u=${window.location}?utm_source=facebook&utm_medium=social&utm_campaign=user-share`}
+				   href='https://www.facebook.com/sharer/sharer.php?u={window.location}?utm_source=facebook&utm_medium=social&utm_campaign=user-share'
 				   rel="noopener"
 				   target="_blank"
 				>
@@ -67,7 +67,7 @@
 				</a>
 				<a aria-label="Share to LinkedIn"
 				   class='share_item'
-				   href={`https://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${propItem.id}`}
+				   href='https://www.linkedin.com/shareArticle?mini=true&url={window.location}&title=I%20Found%20Awesome%House%20{window.location}'
 				   rel="noopener"
 				   target="_blank"
 				>
@@ -75,7 +75,7 @@
 				</a>
 				<a aria-label="Share to Twitter"
 				   class='share_item'
-				   href={`https://twitter.com/intent/tweet?url=${window.location}&text=I%20Found%20Awesome%20House`}
+				   href='https://twitter.com/intent/tweet?url={window.location}'
 				   rel="noopener"
 				   target="_blank"
 				>
@@ -83,7 +83,7 @@
 				</a>
 				<a aria-label="Share to Telegram"
 				   class='share_item'
-				   href={`https://t.me/share/url?url=${window.location}`}
+				   href='https://t.me/share/url?url={window.location}'
 				   rel="noopener"
 				   target="_blank"
 				>
@@ -91,7 +91,7 @@
 				</a>
 				<a aria-label="Share to WhatsApp"
 				   class='share_item'
-				   href={`https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House`}
+				   href='https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House%20{window.location}'
 				   rel="noopener"
 				   target="_blank"
 				>

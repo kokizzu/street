@@ -15,8 +15,8 @@
 	<meta content="#{ogCreatedAt}" property="article:published_time">
 	<meta content="#{ogUpdatedAt}" property="article:modified_time">
 	<meta content="#{ogUpdatedAt}" property="article:updated_time">
-	<meta content="summary_large_image" name="twitter:card">
-	<meta content="I found an awesome house" name="twitter:title">
+	<meta content="summary" name="twitter:card">
+	<meta content="I found an awesome property" name="twitter:title">
 	<meta content="#{ogDescription}" name="twitter:description">
 	<meta content="#{ogImgURL}" name="twitter:image">
 	<!--	<meta name="twitter:site" content="@xd"/>-->
@@ -474,13 +474,13 @@
   // _components/formatter.js
   var require_formatter = __commonJS({
     "_components/formatter.js"(exports, module) {
-      function datetime(unixSec, notIso) {
+      function datetime(unixSec, humanize) {
         if (!unixSec)
           return "";
         if (typeof unixSec === "string")
           return unixSec;
         let dt = new Date(unixSec * 1e3);
-        if (!notIso) {
+        if (!humanize) {
           dt = dt.toISOString();
           return dt.substring(0, 10) + " " + dt.substring(11, 16);
         }
@@ -3556,27 +3556,27 @@
         attr(button, "title", "Copy link address");
         attr(a1, "aria-label", "Share to Facebook");
         attr(a1, "class", "share_item svelte-vm9pc0");
-        attr(a1, "href", a1_href_value = `https://www.facebook.com/sharer/sharer.php?u=${window.location}?utm_source=facebook&utm_medium=social&utm_campaign=user-share`);
+        attr(a1, "href", a1_href_value = "https://www.facebook.com/sharer/sharer.php?u=" + window.location + "?utm_source=facebook&utm_medium=social&utm_campaign=user-share");
         attr(a1, "rel", "noopener");
         attr(a1, "target", "_blank");
         attr(a2, "aria-label", "Share to LinkedIn");
         attr(a2, "class", "share_item svelte-vm9pc0");
-        attr(a2, "href", a2_href_value = `https://www.linkedin.com/shareArticle?mini=true&url=${window.location}&title=I%20Found%20Awesome%House%20${window.location}property/${propItem.id}`);
+        attr(a2, "href", a2_href_value = "https://www.linkedin.com/shareArticle?mini=true&url=" + window.location + "&title=I%20Found%20Awesome%House%20" + window.location);
         attr(a2, "rel", "noopener");
         attr(a2, "target", "_blank");
         attr(a3, "aria-label", "Share to Twitter");
         attr(a3, "class", "share_item svelte-vm9pc0");
-        attr(a3, "href", a3_href_value = `https://twitter.com/intent/tweet?url=${window.location}&text=I%20Found%20Awesome%20House`);
+        attr(a3, "href", a3_href_value = "https://twitter.com/intent/tweet?url=" + window.location);
         attr(a3, "rel", "noopener");
         attr(a3, "target", "_blank");
         attr(a4, "aria-label", "Share to Telegram");
         attr(a4, "class", "share_item svelte-vm9pc0");
-        attr(a4, "href", a4_href_value = `https://t.me/share/url?url=${window.location}`);
+        attr(a4, "href", a4_href_value = "https://t.me/share/url?url=" + window.location);
         attr(a4, "rel", "noopener");
         attr(a4, "target", "_blank");
         attr(a5, "aria-label", "Share to WhatsApp");
         attr(a5, "class", "share_item svelte-vm9pc0");
-        attr(a5, "href", a5_href_value = `https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House`);
+        attr(a5, "href", a5_href_value = "https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House%20" + window.location);
         attr(a5, "rel", "noopener");
         attr(a5, "target", "_blank");
         attr(div3, "class", "share_options svelte-vm9pc0");
@@ -3729,7 +3729,7 @@
       navigator.clipboard.writeText(text2);
       useGrowl("success", "Link copied to clipboard");
     }
-    const click_handler = () => copyToClipboard(`${window.location}`);
+    const click_handler = () => copyToClipboard(window.location);
     return [showGrowl, gMsg, gType, copyToClipboard, click_handler];
   }
   var Public = class extends SvelteComponent {

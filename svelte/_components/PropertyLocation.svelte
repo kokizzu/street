@@ -314,7 +314,7 @@
 											</a>
 											<a class='share_item'
 											   aria-label="Share to Twitter"
-											   href={'https://twitter.com/intent/tweet?text=I%20Found%20Awesome%House%20'+propertyUrl(prop.id)}
+											   href={'https://twitter.com/intent/tweet?url='+propertyUrl(prop.id)}
 											   target="_blank"
 											   rel="noopener"
 											>

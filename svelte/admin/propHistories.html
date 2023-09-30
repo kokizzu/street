@@ -2819,13 +2819,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/formatter.js
   var require_formatter = __commonJS({
     "_components/formatter.js"(exports, module) {
-      function datetime3(unixSec, notIso) {
+      function datetime3(unixSec, humanize) {
         if (!unixSec)
           return "";
         if (typeof unixSec === "string")
           return unixSec;
         let dt = new Date(unixSec * 1e3);
-        if (!notIso) {
+        if (!humanize) {
           dt = dt.toISOString();
           return dt.substring(0, 10) + " " + dt.substring(11, 16);
         }

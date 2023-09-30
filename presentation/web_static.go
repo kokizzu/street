@@ -124,12 +124,12 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			title += ` on ` + out.Property.FormattedAddress
 		}
 		return views.RenderGuestPropertyPublic(ctx, M.SX{
-			`title`:         S.Z(title),
+			`title`:         S.XSS(title),
 			`propItem`:      out.Property,
 			`propertyMeta`:  out.Meta,
 			`ogURL`:         fmt.Sprintf("%s/%s/%d", w.Cfg.WebProtoDomain, domain.GuestPropertyAction, out.Property.Id),
 			`ogImgURL`:      imgUrl,
-			`ogDescription`: descr,
+			`ogDescription`: S.XSS(descr),
 			`ogCreatedAt`:   time.Unix(out.Property.CreatedAt, 0).Format(ISO8601),
 			`ogUpdatedAt`:   time.Unix(out.Property.UpdatedAt, 0).Format(ISO8601),
 		})

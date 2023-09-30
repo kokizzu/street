@@ -3124,13 +3124,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // _components/formatter.js
   var require_formatter = __commonJS({
     "_components/formatter.js"(exports, module) {
-      function datetime(unixSec, notIso) {
+      function datetime(unixSec, humanize) {
         if (!unixSec)
           return "";
         if (typeof unixSec === "string")
           return unixSec;
         let dt = new Date(unixSec * 1e3);
-        if (!notIso) {
+        if (!humanize) {
           dt = dt.toISOString();
           return dt.substring(0, 10) + " " + dt.substring(11, 16);
         }
@@ -6495,7 +6495,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(a1, "rel", "noopener");
         attr(a2, "class", "share_item svelte-110n3iw");
         attr(a2, "aria-label", "Share to Twitter");
-        attr(a2, "href", a2_href_value = "https://twitter.com/intent/tweet?text=I%20Found%20Awesome%House%20" + propertyUrl(
+        attr(a2, "href", a2_href_value = "https://twitter.com/intent/tweet?url=" + propertyUrl(
           /*prop*/
           ctx[49].id
         ));
@@ -6564,7 +6564,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           attr(a1, "href", a1_href_value);
         }
         if (!current || dirty[0] & /*randomProps*/
-        1 && a2_href_value !== (a2_href_value = "https://twitter.com/intent/tweet?text=I%20Found%20Awesome%House%20" + propertyUrl(
+        1 && a2_href_value !== (a2_href_value = "https://twitter.com/intent/tweet?url=" + propertyUrl(
           /*prop*/
           ctx[49].id
         ))) {
