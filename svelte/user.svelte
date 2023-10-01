@@ -27,9 +27,7 @@
   const userAgent = navigator.userAgent;
   onMount( async () => {
     oldProfileJson = JSON.stringify( user );
-    console.log( 'Country data = ', countryData );
-    console.log( 'User data = ', user );
-    console.log( 'Active Sessions = ', sessionActiveLists );
+    selectedCountry = user.country
   } );
   
   function useGrowl( type, msg ) {
@@ -114,21 +112,22 @@
 									<input bind:value={user.fullName} id='fullName' type='text'/>
 								</div>
 							</div>
-							<div class=''>
-							
+							<div class='email_country'>
+								<div class='profile_input email'>
+									<label for='email'>{$T.email}</label>
+									<input bind:value={user.email} id='email' type='email'/>
+								</div>
+								<div class='profile_input country_list'>
+									<label for='country'>Select Country by alpha-2 code</label>
+									<select bind:value={selectedCountry} id='country' name='country'>
+										{#each countryData as country}
+											<option value={country.iso_2}>{country.iso_2}</option>
+										{/each}
+									</select>
+								</div>
 							</div>
-							<div class='profile_input email'>
-								<label for='email'>{$T.email}</label>
-								<input bind:value={user.email} id='email' type='email'/>
-							</div>
-							<div class='profile_input country_list'>
-								<label for='country'>Select Country by alpha-2 code</label>
-								<select bind:value={selectedCountry} id='country' name='country'>
-									{#each countryData as country}
-										<option value={country.country}>{country.country}</option>
-									{/each}
-								</select>
-							</div>
+						
+						
 						</div>
 						<div class='info_container'>
 							<div class='profile_info'>
@@ -315,7 +314,8 @@
         gap            : 10px;
     }
 
-    .profile_details_container .left .profile_details .input_container .name {
+    .profile_details_container .left .profile_details .input_container .name,
+    .profile_details_container .left .profile_details .input_container .email_country {
         display               : grid;
         grid-template-columns : 1fr 1fr;
         gap                   : 20px;
@@ -326,8 +326,21 @@
     }
 
     .profile_details_container .left .profile_details .profile_input.email {
-        width        : 49%;
+        width        : 100%;
         margin-right : 10px;
+    }
+
+    .profile_details_container .left .profile_details .input_container .email_country #country {
+        width            : 100%;
+        border           : 1px solid #CBD5E1;
+        background-color : #F1F5F9;
+        border-radius    : 8px;
+        padding          : 12px;
+        cursor           : pointer;
+    }
+
+    .profile_details_container .left .profile_details .input_container .email_country #country:focus {
+        outline : 2px solid #3B82F6;
     }
 
     .profile_details_container .info_container {
@@ -383,7 +396,6 @@
 
     .profile_details_container .left .session_list_container .session_list .session span,
     .profile_details_container .left .session_list_container .session_list_header span {
-
         width : 200px;
     }
 
@@ -401,19 +413,7 @@
         background-color : #F85454;
     }
 
-    .profile_details_container .right .country_details .country_input_container .country_list #country {
-        width            : 100%;
-        border           : 1px solid #CBD5E1;
-        background-color : #F1F5F9;
-        border-radius    : 8px;
-        padding          : 12px;
-        cursor           : pointer;
-        margin-top       : 8px;
-    }
-
-    .profile_details_container .right .country_details .country_input_container .country_list #country:focus {
-        outline : 2px solid #3B82F6;
-    }
+    
 
     .profile_details #updateProfile,
     .password_set #changePassword {

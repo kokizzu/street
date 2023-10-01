@@ -164,6 +164,7 @@ func main() {
 		if err != nil {
 			println(err)
 		}
+		println(conf.CountriesData)
 		ws.Start(log)
 	case `cli`:
 		cli := &presentation.CLI{
