@@ -50,6 +50,10 @@ const (
 	// Facilitates Nearby
 	FacilityInfoJson = `facilityInfo`
 	RiskInfoJson     = `riskInfo`
+
+	// Approval State
+	ApprovalState        = `approvalState` // empty = approved, otherwise it's the reason of rejection
+	ApprovalStatePending = `pending`
 )
 
 const (
@@ -207,6 +211,9 @@ func buildStandardPropertySchema() []Tt.Field {
 		15: {UpdatedAt, Tt.Integer},
 		16: {UpdatedBy, Tt.Unsigned},
 		17: {DeletedAt, Tt.Integer},
+
+		// Approval state
+		39: {ApprovalState, Tt.String},
 	}
 
 	keys := make([]int, 0, len(schema))
@@ -229,7 +236,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Fields:          buildStandardPropertySchema(),
 		AutoIncrementId: true,
 		Unique1:         UniqPropKey,
-		Indexes:         []string{SerialNumber},
+		Indexes:         []string{SerialNumber, ApprovalState},
 		Engine:          Tt.Memtx,
 		Spatial:         Coord,
 	},

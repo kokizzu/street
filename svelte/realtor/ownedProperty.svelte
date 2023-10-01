@@ -11,9 +11,9 @@
   let segments = {/* segments */};
   
   // TODO: render this object from server
-  let approvalStatus = {
+  let approvalState = {
     status: 'waiting',
-    description: 'Waiting for reviewing 🔍',
+    description: 'Waiting for review 🔍',
     reason: 'We are reviewing your property. It will takes 1-3 days.'
   }
 </script>
@@ -27,11 +27,11 @@
 		<div class='content'>
 			<div class="property_container">
 				<div class="property_status">
-					<div class={`status ${approvalStatus.status}`}>
-						<p>{approvalStatus.description}</p>
+					<div class={`status ${approvalState.status}`}>
+						<p>{approvalState.description}</p>
 					</div>
 					<div class="reason">
-						<p>{approvalStatus.reason}</p>
+						<p>{approvalState.reason}</p>
 					</div>
 				</div>
 				<div class='property'>

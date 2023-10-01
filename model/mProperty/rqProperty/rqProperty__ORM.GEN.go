@@ -211,6 +211,7 @@ type Property struct {
 	State                   string      `json:"state" form:"state" query:"state" long:"state" msg:"state"`
 	Zip                     string      `json:"zip" form:"zip" query:"zip" long:"zip" msg:"zip"`
 	PropertyLastUpdatedDate int64       `json:"propertyLastUpdatedDate" form:"propertyLastUpdatedDate" query:"propertyLastUpdatedDate" long:"propertyLastUpdatedDate" msg:"propertyLastUpdatedDate"`
+	ApprovalState           string      `json:"approvalState" form:"approvalState" query:"approvalState" long:"approvalState" msg:"approvalState"`
 }
 
 // NewProperty create new ORM reader/query object
@@ -311,6 +312,7 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "state"
 	, "zip"
 	, "propertyLastUpdatedDate"
+	, "approvalState"
 	`
 }
 
@@ -355,6 +357,7 @@ func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 	, "state"
 	, "zip"
 	, "propertyLastUpdatedDate"
+	, "approvalState"
 	`
 }
 
@@ -400,6 +403,7 @@ func (p *Property) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 36, p.State},
 		A.X{`=`, 37, p.Zip},
 		A.X{`=`, 38, p.PropertyLastUpdatedDate},
+		A.X{`=`, 39, p.ApprovalState},
 	}
 }
 
@@ -793,6 +797,16 @@ func (p *Property) SqlPropertyLastUpdatedDate() string { //nolint:dupl false pos
 	return `"propertyLastUpdatedDate"`
 }
 
+// IdxApprovalState return name of the index
+func (p *Property) IdxApprovalState() int { //nolint:dupl false positive
+	return 39
+}
+
+// SqlApprovalState return name of the column being indexed
+func (p *Property) SqlApprovalState() string { //nolint:dupl false positive
+	return `"approvalState"`
+}
+
 // ToArray receiver fields to slice
 func (p *Property) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -839,6 +853,7 @@ func (p *Property) ToArray() A.X { //nolint:dupl false positive
 		p.State,                   // 36
 		p.Zip,                     // 37
 		p.PropertyLastUpdatedDate, // 38
+		p.ApprovalState,           // 39
 	}
 }
 
@@ -883,6 +898,7 @@ func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 	p.State = X.ToS(a[36])
 	p.Zip = X.ToS(a[37])
 	p.PropertyLastUpdatedDate = X.ToI(a[38])
+	p.ApprovalState = X.ToS(a[39])
 	return p
 }
 
@@ -927,6 +943,7 @@ func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false po
 	p.State = X.ToS(a[36])
 	p.Zip = X.ToS(a[37])
 	p.PropertyLastUpdatedDate = X.ToI(a[38])
+	p.ApprovalState = X.ToS(a[39])
 	return p
 }
 
@@ -1009,6 +1026,7 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`state`:                   Tt.String,
 	`zip`:                     Tt.String,
 	`propertyLastUpdatedDate`: Tt.Integer,
+	`approvalState`:           Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
@@ -1426,6 +1444,7 @@ type PropertyUS struct {
 	State                   string      `json:"state" form:"state" query:"state" long:"state" msg:"state"`
 	Zip                     string      `json:"zip" form:"zip" query:"zip" long:"zip" msg:"zip"`
 	PropertyLastUpdatedDate int64       `json:"propertyLastUpdatedDate" form:"propertyLastUpdatedDate" query:"propertyLastUpdatedDate" long:"propertyLastUpdatedDate" msg:"propertyLastUpdatedDate"`
+	ApprovalState           string      `json:"approvalState" form:"approvalState" query:"approvalState" long:"approvalState" msg:"approvalState"`
 }
 
 // NewPropertyUS create new ORM reader/query object
@@ -1526,6 +1545,7 @@ func (p *PropertyUS) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "state"
 	, "zip"
 	, "propertyLastUpdatedDate"
+	, "approvalState"
 	`
 }
 
@@ -1570,6 +1590,7 @@ func (p *PropertyUS) SqlSelectAllUncensoredFields() string { //nolint:dupl false
 	, "state"
 	, "zip"
 	, "propertyLastUpdatedDate"
+	, "approvalState"
 	`
 }
 
@@ -1615,6 +1636,7 @@ func (p *PropertyUS) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 36, p.State},
 		A.X{`=`, 37, p.Zip},
 		A.X{`=`, 38, p.PropertyLastUpdatedDate},
+		A.X{`=`, 39, p.ApprovalState},
 	}
 }
 
@@ -2008,6 +2030,16 @@ func (p *PropertyUS) SqlPropertyLastUpdatedDate() string { //nolint:dupl false p
 	return `"propertyLastUpdatedDate"`
 }
 
+// IdxApprovalState return name of the index
+func (p *PropertyUS) IdxApprovalState() int { //nolint:dupl false positive
+	return 39
+}
+
+// SqlApprovalState return name of the column being indexed
+func (p *PropertyUS) SqlApprovalState() string { //nolint:dupl false positive
+	return `"approvalState"`
+}
+
 // ToArray receiver fields to slice
 func (p *PropertyUS) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -2054,6 +2086,7 @@ func (p *PropertyUS) ToArray() A.X { //nolint:dupl false positive
 		p.State,                   // 36
 		p.Zip,                     // 37
 		p.PropertyLastUpdatedDate, // 38
+		p.ApprovalState,           // 39
 	}
 }
 
@@ -2098,6 +2131,7 @@ func (p *PropertyUS) FromArray(a A.X) *PropertyUS { //nolint:dupl false positive
 	p.State = X.ToS(a[36])
 	p.Zip = X.ToS(a[37])
 	p.PropertyLastUpdatedDate = X.ToI(a[38])
+	p.ApprovalState = X.ToS(a[39])
 	return p
 }
 
@@ -2142,6 +2176,7 @@ func (p *PropertyUS) FromUncensoredArray(a A.X) *PropertyUS { //nolint:dupl fals
 	p.State = X.ToS(a[36])
 	p.Zip = X.ToS(a[37])
 	p.PropertyLastUpdatedDate = X.ToI(a[38])
+	p.ApprovalState = X.ToS(a[39])
 	return p
 }
 
@@ -2224,6 +2259,7 @@ var PropertyUSFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positiv
 	`state`:                   Tt.String,
 	`zip`:                     Tt.String,
 	`propertyLastUpdatedDate`: Tt.Integer,
+	`approvalState`:           Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

@@ -6142,7 +6142,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     icon0 = new Icon_default({
       props: {
-        color: "#FFFF",
+        color: "#FFF",
         size: 16,
         src: FaSolidHome_default
       }
@@ -6578,12 +6578,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         div2 = element("div");
         div0 = element("div");
         p0 = element("p");
-        p0.textContent = `${/*approvalStatus*/
+        p0.textContent = `${/*approvalState*/
         ctx[0].description}`;
         t3 = space();
         div1 = element("div");
         p1 = element("p");
-        p1.textContent = `${/*approvalStatus*/
+        p1.textContent = `${/*approvalState*/
         ctx[0].reason}`;
         t5 = space();
         div3 = element("div");
@@ -6591,7 +6591,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t6 = space();
         create_component(footer.$.fragment);
         attr(p0, "class", "svelte-17w9bs7");
-        attr(div0, "class", div0_class_value = null_to_empty(`status ${/*approvalStatus*/
+        attr(div0, "class", div0_class_value = null_to_empty(`status ${/*approvalState*/
         ctx[0].status}`) + " svelte-17w9bs7");
         attr(p1, "class", "svelte-17w9bs7");
         attr(div1, "class", "reason");
@@ -6656,12 +6656,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var meta = {/* propertyMeta */};
   var segments = {/* segments */};
   function instance7($self) {
-    let approvalStatus = {
+    let approvalState = {
       status: "waiting",
-      description: "Waiting for reviewing \u{1F50D}",
+      description: "Waiting for review \u{1F50D}",
       reason: "We are reviewing your property. It will takes 1-3 days."
     };
-    return [approvalStatus];
+    return [approvalState];
   }
   var OwnedProperty = class extends SvelteComponent {
     constructor(options) {

@@ -1197,7 +1197,7 @@
 										<Icon size={18} color='#F97316' src={FaHeart}/>
 									</button>
 									<div class='house_type'>
-										<Icon size={18} color='#FFFF' src={FaSolidHome}/>
+										<Icon size={18} color='#FFF' src={FaSolidHome}/>
 										<span>{property.houseType}</span>
 									</div>
 								</div>

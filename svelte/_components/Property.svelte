@@ -29,7 +29,7 @@
 						{propItem.purpose==='rent' ? 'For Rent' : 'On Sale'}
 					</div>
 					<div class='house_type'>
-						<Icon color='#FFFF' size={16} src={FaSolidHome}/>
+						<Icon color='#FFF' size={16} src={FaSolidHome}/>
 						<span>{propItem.houseType === '' ? 'House' : propItem.houseType}</span>
 					</div>
 				</div>

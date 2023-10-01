@@ -37,12 +37,12 @@
 						{property.purpose==='rent' ? $T.forRent : $T.onSale}
 					</div>
 					<div class='house_type'>
-						<Icon color='#FFFF' size={16} src={FaSolidHome}/>
+						<Icon color='#FFF' size={16} src={FaSolidHome}/>
 						<span>{property.houseType}</span>
 					</div>
 				</div>
 				<a class='edit_property' href='/realtor/property/{property.id}'>
-					<Icon color='#FFFF' size={13} src={FaSolidPen}/>
+					<Icon color='#FFF' size={13} src={FaSolidPen}/>
 					<span>Edit Property</span>
 				</a>
 			</div>

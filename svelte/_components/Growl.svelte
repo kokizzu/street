@@ -16,16 +16,16 @@
     <Icon className="icon_growl" size={20} color="#475569" src={FaSolidQuestionCircle} />
   {/if}
   {#if growlType === 'info'}
-    <Icon className="icon_growl" size={20} color="#ffff" src={FaSolidInfoCircle} />
+    <Icon className="icon_growl" size={20} color='#FFF' src={FaSolidInfoCircle} />
   {/if}
   {#if growlType === 'success'}
-    <Icon className="icon_growl" size={20} color="#ffff" src={FaSolidCheckCircle} />
+    <Icon className="icon_growl" size={20} color='#FFF' src={FaSolidCheckCircle} />
   {/if}
   {#if growlType === 'error'}
-    <Icon className="icon_growl" size={20} color="#ffff" src={FaSolidTimesCircle} />
+    <Icon className="icon_growl" size={20} color='#FFF' src={FaSolidTimesCircle} />
   {/if}
   {#if growlType === 'warning'}
-    <Icon className="icon_growl" size={19} color="#ffff" src={FaSolidExclamationTriangle} />
+    <Icon className="icon_growl" size={19} color='#FFF' src={FaSolidExclamationTriangle} />
   {/if}
   <span>{message}</span>
 </div>
@@ -55,23 +55,23 @@
     flex-shrink: 1;
   }
   .growl.default {
-    background-color: #ffffff;
+    background-color: #FFF;
     color: #475569;
   }
   .growl.info {
     background-color: #1080e8;
-    color: #ffffff;
+    color: #FFF;
   }
   .growl.success {
     background-color: #059669;
-    color: #ffffff;
+    color: #FFF;
   }
   .growl.error {
     background-color: #ef4444;
-    color: #ffffff;
+    color: #FFF;
   }
   .growl.warning {
     background-color: #d97706;
-    color: #ffffff;
+    color: #FFF;
   }
 </style>

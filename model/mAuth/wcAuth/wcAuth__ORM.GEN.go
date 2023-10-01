@@ -9,6 +9,7 @@ import (
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 )
 
@@ -168,7 +169,7 @@ func (s *SessionsMutator) SetAll(from rqAuth.Sessions, excludeMap, forceMap M.SB
 		forceMap = M.SB{}
 	}
 	if !excludeMap[`sessionToken`] && (forceMap[`sessionToken`] || from.SessionToken != ``) {
-		s.SessionToken = from.SessionToken
+		s.SessionToken = S.Trim(from.SessionToken)
 		changed = true
 	}
 	if !excludeMap[`userId`] && (forceMap[`userId`] || from.UserId != 0) {
@@ -180,7 +181,7 @@ func (s *SessionsMutator) SetAll(from rqAuth.Sessions, excludeMap, forceMap M.SB
 		changed = true
 	}
 	if !excludeMap[`device`] && (forceMap[`device`] || from.Device != ``) {
-		s.Device = from.Device
+		s.Device = S.Trim(from.Device)
 		changed = true
 	}
 	if !excludeMap[`loginAt`] && (forceMap[`loginAt`] || from.LoginAt != 0) {
@@ -188,7 +189,7 @@ func (s *SessionsMutator) SetAll(from rqAuth.Sessions, excludeMap, forceMap M.SB
 		changed = true
 	}
 	if !excludeMap[`loginIPs`] && (forceMap[`loginIPs`] || from.LoginIPs != ``) {
-		s.LoginIPs = from.LoginIPs
+		s.LoginIPs = S.Trim(from.LoginIPs)
 		changed = true
 	}
 	return
@@ -546,11 +547,11 @@ func (u *UsersMutator) SetAll(from rqAuth.Users, excludeMap, forceMap M.SB) (cha
 		changed = true
 	}
 	if !excludeMap[`email`] && (forceMap[`email`] || from.Email != ``) {
-		u.Email = from.Email
+		u.Email = S.Trim(from.Email)
 		changed = true
 	}
 	if !excludeMap[`password`] && (forceMap[`password`] || from.Password != ``) {
-		u.Password = from.Password
+		u.Password = S.Trim(from.Password)
 		changed = true
 	}
 	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
@@ -578,7 +579,7 @@ func (u *UsersMutator) SetAll(from rqAuth.Users, excludeMap, forceMap M.SB) (cha
 		changed = true
 	}
 	if !excludeMap[`secretCode`] && (forceMap[`secretCode`] || from.SecretCode != ``) {
-		u.SecretCode = from.SecretCode
+		u.SecretCode = S.Trim(from.SecretCode)
 		changed = true
 	}
 	if !excludeMap[`secretCodeAt`] && (forceMap[`secretCodeAt`] || from.SecretCodeAt != 0) {
@@ -598,19 +599,19 @@ func (u *UsersMutator) SetAll(from rqAuth.Users, excludeMap, forceMap M.SB) (cha
 		changed = true
 	}
 	if !excludeMap[`fullName`] && (forceMap[`fullName`] || from.FullName != ``) {
-		u.FullName = from.FullName
+		u.FullName = S.Trim(from.FullName)
 		changed = true
 	}
 	if !excludeMap[`userName`] && (forceMap[`userName`] || from.UserName != ``) {
-		u.UserName = from.UserName
+		u.UserName = S.Trim(from.UserName)
 		changed = true
 	}
 	if !excludeMap[`country`] && (forceMap[`country`] || from.Country != ``) {
-		u.Country = from.Country
+		u.Country = S.Trim(from.Country)
 		changed = true
 	}
 	if !excludeMap[`language`] && (forceMap[`language`] || from.Language != ``) {
-		u.Language = from.Language
+		u.Language = S.Trim(from.Language)
 		changed = true
 	}
 	return

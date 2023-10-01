@@ -45,7 +45,7 @@
 			</div>
 			<a class='login_btn' href='/'>
 				<span>Login</span>
-				<Icon color='#FFFF' size={13} src={FaSolidArrowRight}/>
+				<Icon color='#FFF' size={13} src={FaSolidArrowRight}/>
 			</a>
 		</div>
 		<div class='share_container'>

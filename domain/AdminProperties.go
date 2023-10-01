@@ -187,6 +187,12 @@ var (
 				DataType:  zCrud.DataTypeInt,
 				InputType: zCrud.InputTypeHidden,
 			},
+			{
+				Name:      mProperty.ApprovalState,
+				Label:     `Approval State`,
+				DataType:  zCrud.DataTypeString,
+				InputType: zCrud.InputTypeText,
+			},
 		},
 	}
 )
@@ -243,8 +249,8 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		}
 
 		haveMutation := prop.SetAll(in.Property, M.SB{
-			`priceHistoriesSell`: true,
-			`priceHistoriesRent`: true,
+			mProperty.PriceHistoriesSell: true,
+			mProperty.PriceHistoriesRent: true,
 		}, M.SB{})
 
 		if haveMutation {

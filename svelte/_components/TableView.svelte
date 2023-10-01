@@ -96,24 +96,24 @@
 <section>
   <slot />
   <button class='apply_filter_button' disabled={oldFilterStr===newFilterStr} onclick={applyFilter}>
-    <Icon size={18} color={oldFilterStr === newFilterStr ? '#5C646F' : '#FFFF'} src={FaSolidFilter} />
+    <Icon size={18} color={oldFilterStr === newFilterStr ? '#5C646F' : '#FFF'} src={FaSolidFilter} />
     <span>Apply Filter</span>
   </button>
-  <button class="refresh_button" on:click={() => gotoPage(pager.page)}>
+  <button class='refresh_button' on:click={() => gotoPage(pager.page)}>
     Refresh
   </button>
   <div class='pagination' style='float:right; display: inline-block'>
     <button title='Go to first page' disabled={!allowPrevPage} on:click={() => gotoPage(1)}>
-      <Icon size={18} color={!allowPrevPage ? '#5C646F' : '#FFFF'} src={FaSolidAngleDoubleLeft} />
+      <Icon size={18} color={!allowPrevPage ? '#5C646F' : '#FFF'} src={FaSolidAngleDoubleLeft} />
     </button>
     <button title='Go to previous page' disabled={!allowPrevPage} on:click={() => gotoPage(pager.page - 1)}>
-      <Icon size={18} color={!allowPrevPage ? '#5C646F' : '#FFFF'} src={FaSolidAngleLeft} />
+      <Icon size={18} color={!allowPrevPage ? '#5C646F' : '#FFF'} src={FaSolidAngleLeft} />
     </button>
     <button title='Go to next page' disabled={!allowNextPage} on:click={() => gotoPage(pager.page + 1)}>
-      <Icon size={18} color={!allowNextPage ? '#5C646F' : '#FFFF'} src={FaSolidAngleRight} />
+      <Icon size={18} color={!allowNextPage ? '#5C646F' : '#FFF'} src={FaSolidAngleRight} />
     </button>
     <button title='Go to last page' disabled={!allowNextPage} on:click={() => gotoPage(pager.pages)}>
-      <Icon size={18} color={!allowNextPage ? '#5C646F' : '#FFFF'} src={FaSolidAngleDoubleRight} />
+      <Icon size={18} color={!allowNextPage ? '#5C646F' : '#FFF'} src={FaSolidAngleDoubleRight} />
     </button>
   </div>
   <div class='table_container'>
@@ -156,9 +156,11 @@ multiple filter from other fields will do AND operation'
                   <Icon src={HiOutlinePencil} />
                 </button>
                 {#each extraActions as action}
-                  <button class='action' title='{action.label || ""}' on:click={() => action.onClick(row)}>
-                    <Icon src={action.icon} />
-                  </button>
+                  {#if !action.showIf || action.showIf( row, i )}
+                    <button class='action' title='{action.label || ""}' on:click={() => action.onClick(row)}>
+                      <Icon src={action.icon} />
+                    </button>
+                  {/if}
                 {/each}
               </td>
             {:else if field.inputType==='checkbox'}
@@ -219,8 +221,9 @@ multiple filter from other fields will do AND operation'
     margin-left      : 4px;
     cursor           : pointer;
     border           : none;
-    font-size: 14pt;
+    font-size        : 14pt;
   }
+
   .table_container {
     overflow-x : auto;
   }

@@ -346,21 +346,21 @@
 								<div class='feature'>
 									<div class='item'>
 										<div>
-											<Icon size={13} color='#ffff' src={FaSolidBuilding}/>
+											<Icon size={13} color='#FFF' src={FaSolidBuilding}/>
 											<span>{$T.floors}</span>
 										</div>
 										<span class='value'>{prop.numberOfFloors===0 ? 'no-data' : prop.numberOfFloors}</span>
 									</div>
 									<div class='item'>
 										<div>
-											<Icon size={14} color='#ffff' src={FaSolidBed}/>
+											<Icon size={14} color='#FFF' src={FaSolidBed}/>
 											<span>{$T.bed}</span>
 										</div>
 										<span class='value'>{prop.bedroom===0 ? 'no-data' : prop.bedroom}</span>
 									</div>
 									<div class='item'>
 										<div>
-											<Icon size={13} color='#ffff' src={FaSolidBath}/>
+											<Icon size={13} color='#FFF' src={FaSolidBath}/>
 											<span>{$T.bath}</span>
 										</div>
 										<span class='value'>{prop.bathroom===0 ? 'no-data' : prop.bathroom}</span>

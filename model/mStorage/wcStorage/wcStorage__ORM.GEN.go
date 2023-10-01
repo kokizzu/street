@@ -9,6 +9,7 @@ import (
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 )
 
@@ -285,11 +286,11 @@ func (f *FilesMutator) SetAll(from rqStorage.Files, excludeMap, forceMap M.SB) (
 		changed = true
 	}
 	if !excludeMap[`mime`] && (forceMap[`mime`] || from.Mime != ``) {
-		f.Mime = from.Mime
+		f.Mime = S.Trim(from.Mime)
 		changed = true
 	}
 	if !excludeMap[`purpose`] && (forceMap[`purpose`] || from.Purpose != ``) {
-		f.Purpose = from.Purpose
+		f.Purpose = S.Trim(from.Purpose)
 		changed = true
 	}
 	if !excludeMap[`refId`] && (forceMap[`refId`] || from.RefId != 0) {
@@ -305,7 +306,7 @@ func (f *FilesMutator) SetAll(from rqStorage.Files, excludeMap, forceMap M.SB) (
 		changed = true
 	}
 	if !excludeMap[`originalPath`] && (forceMap[`originalPath`] || from.OriginalPath != ``) {
-		f.OriginalPath = from.OriginalPath
+		f.OriginalPath = S.Trim(from.OriginalPath)
 		changed = true
 	}
 	if !excludeMap[`originalSize`] && (forceMap[`originalSize`] || from.OriginalSize != 0) {
@@ -313,7 +314,7 @@ func (f *FilesMutator) SetAll(from rqStorage.Files, excludeMap, forceMap M.SB) (
 		changed = true
 	}
 	if !excludeMap[`resizedPath`] && (forceMap[`resizedPath`] || from.ResizedPath != ``) {
-		f.ResizedPath = from.ResizedPath
+		f.ResizedPath = S.Trim(from.ResizedPath)
 		changed = true
 	}
 	if !excludeMap[`resizedSize`] && (forceMap[`resizedSize`] || from.ResizedSize != 0) {

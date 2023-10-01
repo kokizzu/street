@@ -115,7 +115,7 @@
           legend: {
             rtl: true,
             labels: {
-              color: '#ffff',
+              color: '#FFF',
               textAlign: 'right',
             },
           },
@@ -138,7 +138,7 @@
         scales: {
           x: {
             ticks: {
-              color: '#ffff',
+              color: '#FFF',
             },
             grid: {
               tickColor: 'transparent',
@@ -149,7 +149,7 @@
             beginAtZero: true,
             ticks: {
               stepSize: 100,
-              color: '#ffff',
+              color: '#FFF',
             },
             border: {
               dash: [4],

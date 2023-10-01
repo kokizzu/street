@@ -127,6 +127,29 @@ AND ("name" IN ('23'))`),
 			}),
 		},
 		{
+			name: `filterNeqEmpty`,
+			in: PagerIn{
+				Filters: map[string][]string{
+					`name`: {`<>`},
+				},
+			},
+			countResult: 100,
+			fieldToType: map[string]Tt.DataType{
+				`name`: Tt.String,
+			},
+
+			limitOffsetSql: autogold.Expect("\nLIMIT 10"),
+			whereAndSql: autogold.Expect(`
+WHERE ("name" NOT IN (''))`),
+			orderBySql: autogold.Expect(""),
+			expectOut: autogold.Expect(PagerOut{
+				Page: 1, PerPage: 10, Pages: 10, Total: 100,
+				Filters: map[string][]string{
+					"name": {"<>"},
+				},
+			}),
+		},
+		{
 			name: `filterInvalidField`,
 			in: PagerIn{
 				Filters: map[string][]string{
@@ -214,7 +237,7 @@ AND ("name" NOT IN ('abc',''))`),
 			}),
 		},
 		{
-			name: `filterLtGt`,
+			name: `filterLtGe`,
 			in: PagerIn{
 				Filters: map[string][]string{
 					`id`:   {`>1`},

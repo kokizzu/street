@@ -9,6 +9,7 @@ import (
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 )
 
@@ -228,6 +229,7 @@ func (p *PropertyMutator) DoDeletePermanentById() bool { //nolint:dupl false pos
 //		A.X{`=`, 36, p.State},
 //		A.X{`=`, 37, p.Zip},
 //		A.X{`=`, 38, p.PropertyLastUpdatedDate},
+//		A.X{`=`, 39, p.ApprovalState},
 //	})
 //	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName())
 // }
@@ -693,6 +695,17 @@ func (p *PropertyMutator) SetPropertyLastUpdatedDate(val int64) bool { //nolint:
 	return false
 }
 
+// SetApprovalState create mutations, should not duplicate
+func (p *PropertyMutator) SetApprovalState(val string) bool { //nolint:dupl false positive
+	if val != p.ApprovalState {
+		p.mutations = append(p.mutations, A.X{`=`, 39, val})
+		p.logs = append(p.logs, A.X{`approvalState`, p.ApprovalState, val})
+		p.ApprovalState = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -706,47 +719,47 @@ func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap 
 		changed = true
 	}
 	if !excludeMap[`uniqPropKey`] && (forceMap[`uniqPropKey`] || from.UniqPropKey != ``) {
-		p.UniqPropKey = from.UniqPropKey
+		p.UniqPropKey = S.Trim(from.UniqPropKey)
 		changed = true
 	}
 	if !excludeMap[`serialNumber`] && (forceMap[`serialNumber`] || from.SerialNumber != ``) {
-		p.SerialNumber = from.SerialNumber
+		p.SerialNumber = S.Trim(from.SerialNumber)
 		changed = true
 	}
 	if !excludeMap[`sizeM2`] && (forceMap[`sizeM2`] || from.SizeM2 != ``) {
-		p.SizeM2 = from.SizeM2
+		p.SizeM2 = S.Trim(from.SizeM2)
 		changed = true
 	}
 	if !excludeMap[`mainUse`] && (forceMap[`mainUse`] || from.MainUse != ``) {
-		p.MainUse = from.MainUse
+		p.MainUse = S.Trim(from.MainUse)
 		changed = true
 	}
 	if !excludeMap[`mainBuildingMaterial`] && (forceMap[`mainBuildingMaterial`] || from.MainBuildingMaterial != ``) {
-		p.MainBuildingMaterial = from.MainBuildingMaterial
+		p.MainBuildingMaterial = S.Trim(from.MainBuildingMaterial)
 		changed = true
 	}
 	if !excludeMap[`constructCompletedDate`] && (forceMap[`constructCompletedDate`] || from.ConstructCompletedDate != ``) {
-		p.ConstructCompletedDate = from.ConstructCompletedDate
+		p.ConstructCompletedDate = S.Trim(from.ConstructCompletedDate)
 		changed = true
 	}
 	if !excludeMap[`numberOfFloors`] && (forceMap[`numberOfFloors`] || from.NumberOfFloors != ``) {
-		p.NumberOfFloors = from.NumberOfFloors
+		p.NumberOfFloors = S.Trim(from.NumberOfFloors)
 		changed = true
 	}
 	if !excludeMap[`buildingLamination`] && (forceMap[`buildingLamination`] || from.BuildingLamination != ``) {
-		p.BuildingLamination = from.BuildingLamination
+		p.BuildingLamination = S.Trim(from.BuildingLamination)
 		changed = true
 	}
 	if !excludeMap[`address`] && (forceMap[`address`] || from.Address != ``) {
-		p.Address = from.Address
+		p.Address = S.Trim(from.Address)
 		changed = true
 	}
 	if !excludeMap[`district`] && (forceMap[`district`] || from.District != ``) {
-		p.District = from.District
+		p.District = S.Trim(from.District)
 		changed = true
 	}
 	if !excludeMap[`note`] && (forceMap[`note`] || from.Note != ``) {
-		p.Note = from.Note
+		p.Note = S.Trim(from.Note)
 		changed = true
 	}
 	if !excludeMap[`coord`] && (forceMap[`coord`] || from.Coord != nil) {
@@ -774,11 +787,11 @@ func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap 
 		changed = true
 	}
 	if !excludeMap[`formattedAddress`] && (forceMap[`formattedAddress`] || from.FormattedAddress != ``) {
-		p.FormattedAddress = from.FormattedAddress
+		p.FormattedAddress = S.Trim(from.FormattedAddress)
 		changed = true
 	}
 	if !excludeMap[`lastPrice`] && (forceMap[`lastPrice`] || from.LastPrice != ``) {
-		p.LastPrice = from.LastPrice
+		p.LastPrice = S.Trim(from.LastPrice)
 		changed = true
 	}
 	if !excludeMap[`priceHistoriesSell`] && (forceMap[`priceHistoriesSell`] || from.PriceHistoriesSell != nil) {
@@ -790,11 +803,11 @@ func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap 
 		changed = true
 	}
 	if !excludeMap[`purpose`] && (forceMap[`purpose`] || from.Purpose != ``) {
-		p.Purpose = from.Purpose
+		p.Purpose = S.Trim(from.Purpose)
 		changed = true
 	}
 	if !excludeMap[`houseType`] && (forceMap[`houseType`] || from.HouseType != ``) {
-		p.HouseType = from.HouseType
+		p.HouseType = S.Trim(from.HouseType)
 		changed = true
 	}
 	if !excludeMap[`images`] && (forceMap[`images`] || from.Images != nil) {
@@ -818,7 +831,7 @@ func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap 
 		changed = true
 	}
 	if !excludeMap[`version`] && (forceMap[`version`] || from.Version != ``) {
-		p.Version = from.Version
+		p.Version = S.Trim(from.Version)
 		changed = true
 	}
 	if !excludeMap[`yearBuilt`] && (forceMap[`yearBuilt`] || from.YearBuilt != 0) {
@@ -834,27 +847,31 @@ func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap 
 		changed = true
 	}
 	if !excludeMap[`countyName`] && (forceMap[`countyName`] || from.CountyName != ``) {
-		p.CountyName = from.CountyName
+		p.CountyName = S.Trim(from.CountyName)
 		changed = true
 	}
 	if !excludeMap[`street`] && (forceMap[`street`] || from.Street != ``) {
-		p.Street = from.Street
+		p.Street = S.Trim(from.Street)
 		changed = true
 	}
 	if !excludeMap[`city`] && (forceMap[`city`] || from.City != ``) {
-		p.City = from.City
+		p.City = S.Trim(from.City)
 		changed = true
 	}
 	if !excludeMap[`state`] && (forceMap[`state`] || from.State != ``) {
-		p.State = from.State
+		p.State = S.Trim(from.State)
 		changed = true
 	}
 	if !excludeMap[`zip`] && (forceMap[`zip`] || from.Zip != ``) {
-		p.Zip = from.Zip
+		p.Zip = S.Trim(from.Zip)
 		changed = true
 	}
 	if !excludeMap[`propertyLastUpdatedDate`] && (forceMap[`propertyLastUpdatedDate`] || from.PropertyLastUpdatedDate != 0) {
 		p.PropertyLastUpdatedDate = from.PropertyLastUpdatedDate
+		changed = true
+	}
+	if !excludeMap[`approvalState`] && (forceMap[`approvalState`] || from.ApprovalState != ``) {
+		p.ApprovalState = S.Trim(from.ApprovalState)
 		changed = true
 	}
 	return
@@ -1134,11 +1151,11 @@ func (p *PropertyExtraUSMutator) SetAll(from rqProperty.PropertyExtraUS, exclude
 		changed = true
 	}
 	if !excludeMap[`propertyKey`] && (forceMap[`propertyKey`] || from.PropertyKey != ``) {
-		p.PropertyKey = from.PropertyKey
+		p.PropertyKey = S.Trim(from.PropertyKey)
 		changed = true
 	}
 	if !excludeMap[`countyUrl`] && (forceMap[`countyUrl`] || from.CountyUrl != ``) {
-		p.CountyUrl = from.CountyUrl
+		p.CountyUrl = S.Trim(from.CountyUrl)
 		changed = true
 	}
 	if !excludeMap[`countyIsActive`] && (forceMap[`countyIsActive`] || from.CountyIsActive != false) {
@@ -1146,39 +1163,39 @@ func (p *PropertyExtraUSMutator) SetAll(from rqProperty.PropertyExtraUS, exclude
 		changed = true
 	}
 	if !excludeMap[`zoneDataInfo`] && (forceMap[`zoneDataInfo`] || from.ZoneDataInfo != ``) {
-		p.ZoneDataInfo = from.ZoneDataInfo
+		p.ZoneDataInfo = S.Trim(from.ZoneDataInfo)
 		changed = true
 	}
 	if !excludeMap[`taxInfo`] && (forceMap[`taxInfo`] || from.TaxInfo != ``) {
-		p.TaxInfo = from.TaxInfo
+		p.TaxInfo = S.Trim(from.TaxInfo)
 		changed = true
 	}
 	if !excludeMap[`historyTaxInfo`] && (forceMap[`historyTaxInfo`] || from.HistoryTaxInfo != ``) {
-		p.HistoryTaxInfo = from.HistoryTaxInfo
+		p.HistoryTaxInfo = S.Trim(from.HistoryTaxInfo)
 		changed = true
 	}
 	if !excludeMap[`amenitySuperGroups`] && (forceMap[`amenitySuperGroups`] || from.AmenitySuperGroups != ``) {
-		p.AmenitySuperGroups = from.AmenitySuperGroups
+		p.AmenitySuperGroups = S.Trim(from.AmenitySuperGroups)
 		changed = true
 	}
 	if !excludeMap[`mlsDisclaimerInfo`] && (forceMap[`mlsDisclaimerInfo`] || from.MlsDisclaimerInfo != ``) {
-		p.MlsDisclaimerInfo = from.MlsDisclaimerInfo
+		p.MlsDisclaimerInfo = S.Trim(from.MlsDisclaimerInfo)
 		changed = true
 	}
 	if !excludeMap[`facilityInfo`] && (forceMap[`facilityInfo`] || from.FacilityInfo != ``) {
-		p.FacilityInfo = from.FacilityInfo
+		p.FacilityInfo = S.Trim(from.FacilityInfo)
 		changed = true
 	}
 	if !excludeMap[`riskInfo`] && (forceMap[`riskInfo`] || from.RiskInfo != ``) {
-		p.RiskInfo = from.RiskInfo
+		p.RiskInfo = S.Trim(from.RiskInfo)
 		changed = true
 	}
 	if !excludeMap[`mediaSourceJson`] && (forceMap[`mediaSourceJson`] || from.MediaSourceJson != ``) {
-		p.MediaSourceJson = from.MediaSourceJson
+		p.MediaSourceJson = S.Trim(from.MediaSourceJson)
 		changed = true
 	}
 	if !excludeMap[`taxNote`] && (forceMap[`taxNote`] || from.TaxNote != ``) {
-		p.TaxNote = from.TaxNote
+		p.TaxNote = S.Trim(from.TaxNote)
 		changed = true
 	}
 	return
@@ -1282,6 +1299,7 @@ func (p *PropertyUSMutator) DoDeletePermanentById() bool { //nolint:dupl false p
 //		A.X{`=`, 36, p.State},
 //		A.X{`=`, 37, p.Zip},
 //		A.X{`=`, 38, p.PropertyLastUpdatedDate},
+//		A.X{`=`, 39, p.ApprovalState},
 //	})
 //	return !L.IsError(err, `PropertyUS.DoUpsert failed: `+p.SpaceName())
 // }
@@ -1747,6 +1765,17 @@ func (p *PropertyUSMutator) SetPropertyLastUpdatedDate(val int64) bool { //nolin
 	return false
 }
 
+// SetApprovalState create mutations, should not duplicate
+func (p *PropertyUSMutator) SetApprovalState(val string) bool { //nolint:dupl false positive
+	if val != p.ApprovalState {
+		p.mutations = append(p.mutations, A.X{`=`, 39, val})
+		p.logs = append(p.logs, A.X{`approvalState`, p.ApprovalState, val})
+		p.ApprovalState = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (p *PropertyUSMutator) SetAll(from rqProperty.PropertyUS, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -1760,47 +1789,47 @@ func (p *PropertyUSMutator) SetAll(from rqProperty.PropertyUS, excludeMap, force
 		changed = true
 	}
 	if !excludeMap[`uniqPropKey`] && (forceMap[`uniqPropKey`] || from.UniqPropKey != ``) {
-		p.UniqPropKey = from.UniqPropKey
+		p.UniqPropKey = S.Trim(from.UniqPropKey)
 		changed = true
 	}
 	if !excludeMap[`serialNumber`] && (forceMap[`serialNumber`] || from.SerialNumber != ``) {
-		p.SerialNumber = from.SerialNumber
+		p.SerialNumber = S.Trim(from.SerialNumber)
 		changed = true
 	}
 	if !excludeMap[`sizeM2`] && (forceMap[`sizeM2`] || from.SizeM2 != ``) {
-		p.SizeM2 = from.SizeM2
+		p.SizeM2 = S.Trim(from.SizeM2)
 		changed = true
 	}
 	if !excludeMap[`mainUse`] && (forceMap[`mainUse`] || from.MainUse != ``) {
-		p.MainUse = from.MainUse
+		p.MainUse = S.Trim(from.MainUse)
 		changed = true
 	}
 	if !excludeMap[`mainBuildingMaterial`] && (forceMap[`mainBuildingMaterial`] || from.MainBuildingMaterial != ``) {
-		p.MainBuildingMaterial = from.MainBuildingMaterial
+		p.MainBuildingMaterial = S.Trim(from.MainBuildingMaterial)
 		changed = true
 	}
 	if !excludeMap[`constructCompletedDate`] && (forceMap[`constructCompletedDate`] || from.ConstructCompletedDate != ``) {
-		p.ConstructCompletedDate = from.ConstructCompletedDate
+		p.ConstructCompletedDate = S.Trim(from.ConstructCompletedDate)
 		changed = true
 	}
 	if !excludeMap[`numberOfFloors`] && (forceMap[`numberOfFloors`] || from.NumberOfFloors != ``) {
-		p.NumberOfFloors = from.NumberOfFloors
+		p.NumberOfFloors = S.Trim(from.NumberOfFloors)
 		changed = true
 	}
 	if !excludeMap[`buildingLamination`] && (forceMap[`buildingLamination`] || from.BuildingLamination != ``) {
-		p.BuildingLamination = from.BuildingLamination
+		p.BuildingLamination = S.Trim(from.BuildingLamination)
 		changed = true
 	}
 	if !excludeMap[`address`] && (forceMap[`address`] || from.Address != ``) {
-		p.Address = from.Address
+		p.Address = S.Trim(from.Address)
 		changed = true
 	}
 	if !excludeMap[`district`] && (forceMap[`district`] || from.District != ``) {
-		p.District = from.District
+		p.District = S.Trim(from.District)
 		changed = true
 	}
 	if !excludeMap[`note`] && (forceMap[`note`] || from.Note != ``) {
-		p.Note = from.Note
+		p.Note = S.Trim(from.Note)
 		changed = true
 	}
 	if !excludeMap[`coord`] && (forceMap[`coord`] || from.Coord != nil) {
@@ -1828,11 +1857,11 @@ func (p *PropertyUSMutator) SetAll(from rqProperty.PropertyUS, excludeMap, force
 		changed = true
 	}
 	if !excludeMap[`formattedAddress`] && (forceMap[`formattedAddress`] || from.FormattedAddress != ``) {
-		p.FormattedAddress = from.FormattedAddress
+		p.FormattedAddress = S.Trim(from.FormattedAddress)
 		changed = true
 	}
 	if !excludeMap[`lastPrice`] && (forceMap[`lastPrice`] || from.LastPrice != ``) {
-		p.LastPrice = from.LastPrice
+		p.LastPrice = S.Trim(from.LastPrice)
 		changed = true
 	}
 	if !excludeMap[`priceHistoriesSell`] && (forceMap[`priceHistoriesSell`] || from.PriceHistoriesSell != nil) {
@@ -1844,11 +1873,11 @@ func (p *PropertyUSMutator) SetAll(from rqProperty.PropertyUS, excludeMap, force
 		changed = true
 	}
 	if !excludeMap[`purpose`] && (forceMap[`purpose`] || from.Purpose != ``) {
-		p.Purpose = from.Purpose
+		p.Purpose = S.Trim(from.Purpose)
 		changed = true
 	}
 	if !excludeMap[`houseType`] && (forceMap[`houseType`] || from.HouseType != ``) {
-		p.HouseType = from.HouseType
+		p.HouseType = S.Trim(from.HouseType)
 		changed = true
 	}
 	if !excludeMap[`images`] && (forceMap[`images`] || from.Images != nil) {
@@ -1872,7 +1901,7 @@ func (p *PropertyUSMutator) SetAll(from rqProperty.PropertyUS, excludeMap, force
 		changed = true
 	}
 	if !excludeMap[`version`] && (forceMap[`version`] || from.Version != ``) {
-		p.Version = from.Version
+		p.Version = S.Trim(from.Version)
 		changed = true
 	}
 	if !excludeMap[`yearBuilt`] && (forceMap[`yearBuilt`] || from.YearBuilt != 0) {
@@ -1888,27 +1917,31 @@ func (p *PropertyUSMutator) SetAll(from rqProperty.PropertyUS, excludeMap, force
 		changed = true
 	}
 	if !excludeMap[`countyName`] && (forceMap[`countyName`] || from.CountyName != ``) {
-		p.CountyName = from.CountyName
+		p.CountyName = S.Trim(from.CountyName)
 		changed = true
 	}
 	if !excludeMap[`street`] && (forceMap[`street`] || from.Street != ``) {
-		p.Street = from.Street
+		p.Street = S.Trim(from.Street)
 		changed = true
 	}
 	if !excludeMap[`city`] && (forceMap[`city`] || from.City != ``) {
-		p.City = from.City
+		p.City = S.Trim(from.City)
 		changed = true
 	}
 	if !excludeMap[`state`] && (forceMap[`state`] || from.State != ``) {
-		p.State = from.State
+		p.State = S.Trim(from.State)
 		changed = true
 	}
 	if !excludeMap[`zip`] && (forceMap[`zip`] || from.Zip != ``) {
-		p.Zip = from.Zip
+		p.Zip = S.Trim(from.Zip)
 		changed = true
 	}
 	if !excludeMap[`propertyLastUpdatedDate`] && (forceMap[`propertyLastUpdatedDate`] || from.PropertyLastUpdatedDate != 0) {
 		p.PropertyLastUpdatedDate = from.PropertyLastUpdatedDate
+		changed = true
+	}
+	if !excludeMap[`approvalState`] && (forceMap[`approvalState`] || from.ApprovalState != ``) {
+		p.ApprovalState = S.Trim(from.ApprovalState)
 		changed = true
 	}
 	return
@@ -2284,31 +2317,31 @@ func (p *PropertyHistoryMutator) SetAll(from rqProperty.PropertyHistory, exclude
 		changed = true
 	}
 	if !excludeMap[`propertyKey`] && (forceMap[`propertyKey`] || from.PropertyKey != ``) {
-		p.PropertyKey = from.PropertyKey
+		p.PropertyKey = S.Trim(from.PropertyKey)
 		changed = true
 	}
 	if !excludeMap[`transactionKey`] && (forceMap[`transactionKey`] || from.TransactionKey != ``) {
-		p.TransactionKey = from.TransactionKey
+		p.TransactionKey = S.Trim(from.TransactionKey)
 		changed = true
 	}
 	if !excludeMap[`transactionType`] && (forceMap[`transactionType`] || from.TransactionType != ``) {
-		p.TransactionType = from.TransactionType
+		p.TransactionType = S.Trim(from.TransactionType)
 		changed = true
 	}
 	if !excludeMap[`transactionSign`] && (forceMap[`transactionSign`] || from.TransactionSign != ``) {
-		p.TransactionSign = from.TransactionSign
+		p.TransactionSign = S.Trim(from.TransactionSign)
 		changed = true
 	}
 	if !excludeMap[`transactionTime`] && (forceMap[`transactionTime`] || from.TransactionTime != ``) {
-		p.TransactionTime = from.TransactionTime
+		p.TransactionTime = S.Trim(from.TransactionTime)
 		changed = true
 	}
 	if !excludeMap[`transactionDateNormal`] && (forceMap[`transactionDateNormal`] || from.TransactionDateNormal != ``) {
-		p.TransactionDateNormal = from.TransactionDateNormal
+		p.TransactionDateNormal = S.Trim(from.TransactionDateNormal)
 		changed = true
 	}
 	if !excludeMap[`transactionNumber`] && (forceMap[`transactionNumber`] || from.TransactionNumber != ``) {
-		p.TransactionNumber = from.TransactionNumber
+		p.TransactionNumber = S.Trim(from.TransactionNumber)
 		changed = true
 	}
 	if !excludeMap[`priceNtd`] && (forceMap[`priceNtd`] || from.PriceNtd != 0) {
@@ -2324,15 +2357,15 @@ func (p *PropertyHistoryMutator) SetAll(from rqProperty.PropertyHistory, exclude
 		changed = true
 	}
 	if !excludeMap[`address`] && (forceMap[`address`] || from.Address != ``) {
-		p.Address = from.Address
+		p.Address = S.Trim(from.Address)
 		changed = true
 	}
 	if !excludeMap[`district`] && (forceMap[`district`] || from.District != ``) {
-		p.District = from.District
+		p.District = S.Trim(from.District)
 		changed = true
 	}
 	if !excludeMap[`note`] && (forceMap[`note`] || from.Note != ``) {
-		p.Note = from.Note
+		p.Note = S.Trim(from.Note)
 		changed = true
 	}
 	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
@@ -2356,11 +2389,11 @@ func (p *PropertyHistoryMutator) SetAll(from rqProperty.PropertyHistory, exclude
 		changed = true
 	}
 	if !excludeMap[`serialNumber`] && (forceMap[`serialNumber`] || from.SerialNumber != ``) {
-		p.SerialNumber = from.SerialNumber
+		p.SerialNumber = S.Trim(from.SerialNumber)
 		changed = true
 	}
 	if !excludeMap[`transactionDescription`] && (forceMap[`transactionDescription`] || from.TransactionDescription != ``) {
-		p.TransactionDescription = from.TransactionDescription
+		p.TransactionDescription = S.Trim(from.TransactionDescription)
 		changed = true
 	}
 	return

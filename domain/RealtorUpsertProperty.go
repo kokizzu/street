@@ -6,6 +6,7 @@ import (
 	"github.com/kokizzu/gotro/M"
 	"github.com/segmentio/fasthash/fnv1a"
 
+	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
 )
@@ -75,10 +76,12 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 	}
 
 	prop.SetAll(in.Property, M.SB{
-		`priceHistoriesSell`: true,
-		`priceHistoriesRent`: true,
+		mProperty.PriceHistoriesSell: true,
+		mProperty.PriceHistoriesRent: true,
+		mProperty.ApprovalState:      true,
 	}, M.SB{}) // TODO: add list of fields to exclude
 
+	prop.SetApprovalState(mProperty.ApprovalStatePending)
 	prop.SetUpdatedAt(in.UnixNow())
 	prop.SetUpdatedBy(sess.UserId)
 	if prop.Id == 0 {

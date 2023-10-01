@@ -94,7 +94,7 @@
                    onEditRow={editRow}
         >
           <button on:click={addRow} class='add_button'>
-            <Icon size={18} color="#FFFF" src={FaSolidPlusCircle} />
+            <Icon size={18} color='#FFF' src={FaSolidPlusCircle} />
             <span>Add</span>
           </button>
         </TableView>

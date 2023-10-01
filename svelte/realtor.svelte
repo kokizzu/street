@@ -31,7 +31,7 @@
         <div class="property_lists_header">
           <h1>Owned/Managed Properties: {pager.countResult}</h1>
           <a href="/realtor/property" class="add_button" style="">
-            <Icon size={20} color="#FFFF" src={FaSolidPlusCircle} />
+            <Icon size={20} color='#FFF' src={FaSolidPlusCircle} />
             <span>Add</span>
           </a>
         </div>
