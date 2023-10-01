@@ -11,11 +11,11 @@ import (
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 
+	"street/conf"
 	"street/domain"
 	"street/model/mAuth/rqAuth"
 	"street/model/mProperty/rqProperty"
 	"street/model/zCrud"
-	"street/model/zImport"
 )
 
 func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
@@ -354,7 +354,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 	fw.Get(`/user`, func(ctx *fiber.Ctx) error {
-		countriesData, _ := zImport.GoogleSheetCountryDataToJson("1TmAjrclFHUwDA1487ifQjX4FzYt9y7eJ0gwyxtwZMJU", 522117981)
 		in, user, segments := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
@@ -368,7 +367,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`user`:           user,
 			`segments`:       segments,
 			`activeSessions`: out.SessionsActive,
-			`countryData`:    countriesData,
+			`countryData`:    conf.CountriesData,
 		})
 	})
 	fw.Get(`/`+domain.GuestAutoLoginAction, func(ctx *fiber.Ctx) error {

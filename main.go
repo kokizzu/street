@@ -160,6 +160,10 @@ func main() {
 			Domain: d,
 			Cfg:    conf.EnvWebConf(),
 		}
+		err := conf.GoogleSheetCountryDataToJson("1TmAjrclFHUwDA1487ifQjX4FzYt9y7eJ0gwyxtwZMJU", 522117981)
+		if err != nil {
+			println(err)
+		}
 		ws.Start(log)
 	case `cli`:
 		cli := &presentation.CLI{
