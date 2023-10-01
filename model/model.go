@@ -26,6 +26,8 @@ type Migrator struct {
 }
 
 func RunMigration(logger *zerolog.Logger, authOltp *Tt.Adapter, authOlap *Ch.Adapter, propOltp *Tt.Adapter, propOlap *Ch.Adapter, storOltp *Tt.Adapter) {
+	Tt.DEBUG = true
+	Ch.DEBUG = true
 	L.Print(`run migration..`)
 	m := Migrator{
 		AuthOltp: authOltp,
