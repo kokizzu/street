@@ -25,7 +25,6 @@
   let oldProfileJson = '';
   let selectedCountry;
   let showGrowl = false, gMsg = '', gType = '';
-  const userAgent = navigator.userAgent;
   let profileSubmit = false, passwordSubmit = false;
   onMount( async () => {
     oldProfileJson = JSON.stringify( user );
@@ -196,11 +195,9 @@
 										<span>{session.loginIPs || 'no-data'}</span>
 										<span>{datetime( session.expiredAt ) || 0}</span>
 										<span>{session.device || 'no-data'}</span>
-										{#if session.device!==userAgent}
-											<button on:click={() => killSession(session.sessionToken)} class='kill_session' title='Kill this session'>
-												<Icon color='#FFF' size={12} src={FaSolidTimes}/>
-											</button>
-										{/if}
+										<button on:click={() => killSession(session.sessionToken)} class='kill_session' title='Kill this session'>
+											<Icon color='#FFF' size={12} src={FaSolidTimes}/>
+										</button>
 									</div>
 								{/each}
 							{/if}

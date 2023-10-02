@@ -5587,15 +5587,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // user.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[26] = list[i];
+    child_ctx[25] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[29] = list[i];
+    child_ctx[28] = list[i];
     return child_ctx;
   }
-  function create_if_block_6(ctx) {
+  function create_if_block_52(ctx) {
     let growl;
     let current;
     growl = new Growl_default({
@@ -5620,11 +5620,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         const growl_changes = {};
-        if (dirty[0] & /*gMsg*/
+        if (dirty & /*gMsg*/
         128)
           growl_changes.message = /*gMsg*/
           ctx2[7];
-        if (dirty[0] & /*gType*/
+        if (dirty & /*gType*/
         256)
           growl_changes.growlType = /*gType*/
           ctx2[8];
@@ -5649,7 +5649,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let option;
     let t_value = (
       /*country*/
-      ctx[29].country + ""
+      ctx[28].country + ""
     );
     let t;
     let option_value_value;
@@ -5658,7 +5658,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*country*/
-        ctx[29].country;
+        ctx[28].country;
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -5673,7 +5673,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_52(ctx) {
+  function create_if_block_43(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -5707,7 +5707,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_43(ctx) {
+  function create_if_block_33(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -5773,8 +5773,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*killSession, sessionActiveLists, userAgent*/
-        36866) {
+        if (dirty & /*killSession, sessionActiveLists, FaSolidTimes, datetime*/
+        16386) {
           each_value = ensure_array_like(
             /*sessionActiveLists*/
             ctx2[1]
@@ -5822,9 +5822,32 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_33(ctx) {
+  function create_each_block2(ctx) {
+    let div;
+    let span0;
+    let t0_value = (
+      /*session*/
+      (ctx[25].loginIPs || "no-data") + ""
+    );
+    let t0;
+    let t1;
+    let span1;
+    let t2_value = ((0, import_formatter.datetime)(
+      /*session*/
+      ctx[25].expiredAt
+    ) || 0) + "";
+    let t2;
+    let t3;
+    let span2;
+    let t4_value = (
+      /*session*/
+      (ctx[25].device || "no-data") + ""
+    );
+    let t4;
+    let t5;
     let button;
     let icon;
+    let t6;
     let current;
     let mounted;
     let dispose;
@@ -5838,81 +5861,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[20](
+        ctx[19](
           /*session*/
-          ctx[26]
+          ctx[25]
         )
       );
     }
-    return {
-      c() {
-        button = element("button");
-        create_component(icon.$.fragment);
-        attr(button, "class", "kill_session svelte-16pay0v");
-        attr(button, "title", "Kill this session");
-      },
-      m(target, anchor) {
-        insert(target, button, anchor);
-        mount_component(icon, button, null);
-        current = true;
-        if (!mounted) {
-          dispose = listen(button, "click", click_handler);
-          mounted = true;
-        }
-      },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(button);
-        }
-        destroy_component(icon);
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_each_block2(ctx) {
-    let div;
-    let span0;
-    let t0_value = (
-      /*session*/
-      (ctx[26].loginIPs || "no-data") + ""
-    );
-    let t0;
-    let t1;
-    let span1;
-    let t2_value = ((0, import_formatter.datetime)(
-      /*session*/
-      ctx[26].expiredAt
-    ) || 0) + "";
-    let t2;
-    let t3;
-    let span2;
-    let t4_value = (
-      /*session*/
-      (ctx[26].device || "no-data") + ""
-    );
-    let t4;
-    let t5;
-    let t6;
-    let current;
-    let if_block = (
-      /*session*/
-      ctx[26].device !== /*userAgent*/
-      ctx[12] && create_if_block_33(ctx)
-    );
     return {
       c() {
         div = element("div");
@@ -5925,12 +5879,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         span2 = element("span");
         t4 = text(t4_value);
         t5 = space();
-        if (if_block)
-          if_block.c();
+        button = element("button");
+        create_component(icon.$.fragment);
         t6 = space();
         attr(span0, "class", "svelte-16pay0v");
         attr(span1, "class", "svelte-16pay0v");
         attr(span2, "class", "svelte-16pay0v");
+        attr(button, "class", "kill_session svelte-16pay0v");
+        attr(button, "title", "Kill this session");
         attr(div, "class", "session svelte-16pay0v");
       },
       m(target, anchor) {
@@ -5944,67 +5900,49 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div, span2);
         append(span2, t4);
         append(div, t5);
-        if (if_block)
-          if_block.m(div, null);
+        append(div, button);
+        mount_component(icon, button, null);
         append(div, t6);
         current = true;
+        if (!mounted) {
+          dispose = listen(button, "click", click_handler);
+          mounted = true;
+        }
       },
-      p(ctx2, dirty) {
-        if ((!current || dirty[0] & /*sessionActiveLists*/
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if ((!current || dirty & /*sessionActiveLists*/
         2) && t0_value !== (t0_value = /*session*/
-        (ctx2[26].loginIPs || "no-data") + ""))
+        (ctx[25].loginIPs || "no-data") + ""))
           set_data(t0, t0_value);
-        if ((!current || dirty[0] & /*sessionActiveLists*/
+        if ((!current || dirty & /*sessionActiveLists*/
         2) && t2_value !== (t2_value = ((0, import_formatter.datetime)(
           /*session*/
-          ctx2[26].expiredAt
+          ctx[25].expiredAt
         ) || 0) + ""))
           set_data(t2, t2_value);
-        if ((!current || dirty[0] & /*sessionActiveLists*/
+        if ((!current || dirty & /*sessionActiveLists*/
         2) && t4_value !== (t4_value = /*session*/
-        (ctx2[26].device || "no-data") + ""))
+        (ctx[25].device || "no-data") + ""))
           set_data(t4, t4_value);
-        if (
-          /*session*/
-          ctx2[26].device !== /*userAgent*/
-          ctx2[12]
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty[0] & /*sessionActiveLists*/
-            2) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block_33(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(div, t6);
-          }
-        } else if (if_block) {
-          group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
-          });
-          check_outros();
-        }
       },
       i(local) {
         if (current)
           return;
-        transition_in(if_block);
+        transition_in(icon.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(if_block);
+        transition_out(icon.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(div);
         }
-        if (if_block)
-          if_block.d();
+        destroy_component(icon);
+        mounted = false;
+        dispose();
       }
     };
   }
@@ -6225,7 +6163,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let dispose;
     let if_block0 = (
       /*showGrowl*/
-      ctx[6] && create_if_block_6(ctx)
+      ctx[6] && create_if_block_52(ctx)
     );
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({ props: { user: (
@@ -6238,10 +6176,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
     }
     let if_block1 = !/*profileSubmit*/
-    ctx[9] && create_if_block_52(ctx);
+    ctx[9] && create_if_block_43(ctx);
     let if_block2 = (
       /*profileSubmit*/
-      ctx[9] && create_if_block_43(ctx)
+      ctx[9] && create_if_block_33(ctx)
     );
     let if_block3 = (
       /*sessionActiveLists*/
@@ -6438,7 +6376,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         )
           add_render_callback(() => (
             /*select_change_handler*/
-            ctx[19].call(select)
+            ctx[18].call(select)
           ));
         attr(div4, "class", "profile_input country_list svelte-16pay0v");
         attr(div5, "class", "email_country svelte-16pay0v");
@@ -6685,73 +6623,73 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               input0,
               "input",
               /*input0_input_handler*/
-              ctx[16]
+              ctx[15]
             ),
             listen(
               input1,
               "input",
               /*input1_input_handler*/
-              ctx[17]
+              ctx[16]
             ),
             listen(
               input2,
               "input",
               /*input2_input_handler*/
-              ctx[18]
+              ctx[17]
             ),
             listen(
               select,
               "change",
               /*select_change_handler*/
-              ctx[19]
+              ctx[18]
             ),
             listen(
               button0,
               "click",
               /*updateProfile*/
-              ctx[13]
+              ctx[12]
             ),
             listen(
               input3,
               "input",
               /*input3_input_handler*/
-              ctx[21]
+              ctx[20]
             ),
             listen(
               input4,
               "input",
               /*input4_input_handler*/
-              ctx[22]
+              ctx[21]
             ),
             listen(
               input5,
               "input",
               /*input5_input_handler*/
-              ctx[23]
+              ctx[22]
             ),
             listen(
               button1,
               "click",
               /*changePassword*/
-              ctx[14]
+              ctx[13]
             )
           ];
           mounted = true;
         }
       },
-      p(ctx2, dirty) {
+      p(ctx2, [dirty]) {
         if (
           /*showGrowl*/
           ctx2[6]
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
-            if (dirty[0] & /*showGrowl*/
+            if (dirty & /*showGrowl*/
             64) {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_6(ctx2);
+            if_block0 = create_if_block_52(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(t0.parentNode, t0);
@@ -6764,12 +6702,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           check_outros();
         }
         const profileheader_changes = {};
-        if (dirty[0] & /*user*/
+        if (dirty & /*user*/
         1)
           profileheader_changes.user = /*user*/
           ctx2[0];
         profileheader.$set(profileheader_changes);
-        if (dirty[0] & /*user*/
+        if (dirty & /*user*/
         1 && input0.value !== /*user*/
         ctx2[0].userName) {
           set_input_value(
@@ -6778,7 +6716,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             ctx2[0].userName
           );
         }
-        if (dirty[0] & /*user*/
+        if (dirty & /*user*/
         1 && input1.value !== /*user*/
         ctx2[0].fullName) {
           set_input_value(
@@ -6787,11 +6725,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             ctx2[0].fullName
           );
         }
-        if ((!current || dirty[0] & /*$T*/
+        if ((!current || dirty & /*$T*/
         2048) && t22_value !== (t22_value = /*$T*/
         ctx2[11].email + ""))
           set_data(t22, t22_value);
-        if (dirty[0] & /*user*/
+        if (dirty & /*user*/
         1 && input2.value !== /*user*/
         ctx2[0].email) {
           set_input_value(
@@ -6819,7 +6757,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           }
           each_blocks.length = each_value_1.length;
         }
-        if (dirty[0] & /*selectedCountry*/
+        if (dirty & /*selectedCountry, countryData*/
         32) {
           select_option(
             select,
@@ -6827,19 +6765,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             ctx2[5]
           );
         }
-        if ((!current || dirty[0] & /*user*/
+        if ((!current || dirty & /*user*/
         1) && t30_value !== (t30_value = (0, import_formatter.datetime)(
           /*user*/
           ctx2[0].createdAt
         ) + ""))
           set_data(t30, t30_value);
-        if ((!current || dirty[0] & /*user*/
+        if ((!current || dirty & /*user*/
         1) && t34_value !== (t34_value = (0, import_formatter.datetime)(
           /*user*/
           ctx2[0].lastLoginAt
         ) + ""))
           set_data(t34, t34_value);
-        if ((!current || dirty[0] & /*user*/
+        if ((!current || dirty & /*user*/
         1) && t38_value !== (t38_value = ((0, import_formatter.datetime)(
           /*user*/
           ctx2[0].verifiedAt
@@ -6849,12 +6787,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx2[9]) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
-            if (dirty[0] & /*profileSubmit*/
+            if (dirty & /*profileSubmit*/
             512) {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_52(ctx2);
+            if_block1 = create_if_block_43(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(button0, t43);
@@ -6872,12 +6810,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ) {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
-            if (dirty[0] & /*profileSubmit*/
+            if (dirty & /*profileSubmit*/
             512) {
               transition_in(if_block2, 1);
             }
           } else {
-            if_block2 = create_if_block_43(ctx2);
+            if_block2 = create_if_block_33(ctx2);
             if_block2.c();
             transition_in(if_block2, 1);
             if_block2.m(button0, null);
@@ -6895,7 +6833,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ) {
           if (if_block3) {
             if_block3.p(ctx2, dirty);
-            if (dirty[0] & /*sessionActiveLists*/
+            if (dirty & /*sessionActiveLists*/
             2) {
               transition_in(if_block3, 1);
             }
@@ -6912,11 +6850,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           });
           check_outros();
         }
-        if ((!current || dirty[0] & /*$T*/
+        if ((!current || dirty & /*$T*/
         2048) && t55_value !== (t55_value = /*$T*/
         ctx2[11].password + ""))
           set_data(t55, t55_value);
-        if (dirty[0] & /*oldPassword*/
+        if (dirty & /*oldPassword*/
         4 && input3.value !== /*oldPassword*/
         ctx2[2]) {
           set_input_value(
@@ -6925,7 +6863,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             ctx2[2]
           );
         }
-        if (dirty[0] & /*newPassword*/
+        if (dirty & /*newPassword*/
         8 && input4.value !== /*newPassword*/
         ctx2[3]) {
           set_input_value(
@@ -6934,7 +6872,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             ctx2[3]
           );
         }
-        if (dirty[0] & /*repeatNewPassword*/
+        if (dirty & /*repeatNewPassword*/
         16 && input5.value !== /*repeatNewPassword*/
         ctx2[4]) {
           set_input_value(
@@ -6947,7 +6885,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx2[10]) {
           if (if_block4) {
             if_block4.p(ctx2, dirty);
-            if (dirty[0] & /*passwordSubmit*/
+            if (dirty & /*passwordSubmit*/
             1024) {
               transition_in(if_block4, 1);
             }
@@ -6970,7 +6908,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ) {
           if (if_block5) {
             if_block5.p(ctx2, dirty);
-            if (dirty[0] & /*passwordSubmit*/
+            if (dirty & /*passwordSubmit*/
             1024) {
               transition_in(if_block5, 1);
             }
@@ -7053,7 +6991,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let oldProfileJson = "";
     let selectedCountry;
     let showGrowl = false, gMsg = "", gType = "";
-    const userAgent = navigator.userAgent;
     let profileSubmit = false, passwordSubmit = false;
     onMount(async () => {
       oldProfileJson = JSON.stringify(user);
@@ -7177,7 +7114,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       profileSubmit,
       passwordSubmit,
       $T,
-      userAgent,
       updateProfile,
       changePassword,
       killSession,
@@ -7194,7 +7130,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var User = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance6, create_fragment6, safe_not_equal, {}, null, [-1, -1]);
+      init(this, options, instance6, create_fragment6, safe_not_equal, {});
     }
   };
   var user_default = User;
