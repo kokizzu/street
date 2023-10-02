@@ -12,6 +12,7 @@
   import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
   import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
   import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
+  import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
   // import FaSolidTrashAlt from "svelte-icons-pack/fa/FaSolidTrashAlt";
   
   let user = {/* user */};
@@ -25,10 +26,16 @@
   let selectedCountry;
   let showGrowl = false, gMsg = '', gType = '';
   const userAgent = navigator.userAgent;
+  let profileSubmit = false, passwordSubmit = false;
   onMount( async () => {
     oldProfileJson = JSON.stringify( user );
-    selectedCountry = user.country
-    console.log('Country data = ', countryData)
+    for( let i = 0; i<countryData.length; i++ ) {
+      if( countryData[ i ].iso_2===user.country ) {
+        selectedCountry = countryData[ i ].country
+      }
+    }
+    console.log( 'Country data = ', countryData )
+    console.log( 'User data = ', user )
   } );
   
   function useGrowl( type, msg ) {
@@ -41,28 +48,48 @@
   }
   
   async function updateProfile() {
-    user.country = selectedCountry;
+    profileSubmit = true
+    for( let i = 0; i<countryData.length; i++ ) {
+      if( countryData[ i ].country===selectedCountry ) {
+        user.country = countryData[ i ].iso_2;
+      }
+    }
     if( JSON.stringify( user )===oldProfileJson ) return useGrowl( 'error', 'No changes' );
     await UserUpdateProfile( user, function( res ) {
-      if( res.error ) return useGrowl( 'error', res.error );
+      if( res.error ) {
+        useGrowl( 'error', res.error );
+        profileSubmit = false;
+        return;
+      }
       oldProfileJson = JSON.stringify( res.user );
       user = res.user;
       useGrowl( 'info', 'Profile updated' );
+      profileSubmit = false;
     } );
   }
   
   async function changePassword() {
-    if( newPassword!==repeatNewPassword ) return useGrowl( 'error', 'New password and repeat new password must be same' );
+    passwordSubmit = true;
+    if( newPassword!==repeatNewPassword ) {
+      useGrowl( 'error', 'New password and repeat new password must be same' );
+      passwordSubmit = false;
+      return
+    }
     let input = {
       oldPass: oldPassword,
       newPass: newPassword,
     };
     await UserChangePassword( input, function( res ) {
-      if( res.error ) return useGrowl( 'error', res.error );
+      if( res.error ) {
+        useGrowl( 'error', res.error );
+        passwordSubmit = false;
+        return
+      }
       oldPassword = '';
       newPassword = '';
       repeatNewPassword = '';
       alert( 'Password updated' );
+      passwordSubmit = false;
     } );
   }
   
@@ -119,10 +146,10 @@
 									<input bind:value={user.email} id='email' type='email'/>
 								</div>
 								<div class='profile_input country_list'>
-									<label for='country'>Select Country by alpha-2 code</label>
+									<label for='country'>Country</label>
 									<select bind:value={selectedCountry} id='country' name='country'>
 										{#each countryData as country}
-											<option value={country.iso_2}>{country.iso_2}</option>
+											<option value={country.country}>{country.country}</option>
 										{/each}
 									</select>
 								</div>
@@ -147,7 +174,12 @@
 						<label for='updateProfile'/>
 						<button id='updateProfile' on:click={updateProfile}>
 							<span>SUBMIT</span>
-							<Icon color='#FFF' size={18} src={FaSolidAngleLeft}/>
+							{#if !profileSubmit}
+								<Icon color='#FFF' size={18} src={FaSolidAngleLeft}/>
+							{/if}
+							{#if profileSubmit}
+								<Icon className="spin" color='#FFF' size={18} src={FaSolidCircleNotch}/>
+							{/if}
 						</button>
 					</div>
 					<div class='session_list_container'>
@@ -195,7 +227,12 @@
 							<label for='changePassword'/>
 							<button id='changePassword' on:click={changePassword}>
 								<span>SUBMIT</span>
-								<Icon color='#FFF' size={18} src={FaSolidAngleRight}/>
+								{#if !passwordSubmit}
+									<Icon color='#FFF' size={18} src={FaSolidAngleRight}/>
+								{/if}
+								{#if passwordSubmit}
+									<Icon className="spin" color='#FFF' size={18} src={FaSolidCircleNotch}/>
+								{/if}
 							</button>
 						</div>
 					</div>
@@ -207,6 +244,19 @@
 </section>
 
 <style>
+    @keyframes spin {
+        from {
+            transform : rotate(0deg);
+        }
+        to {
+            transform : rotate(360deg);
+        }
+    }
+
+    :global(.spin) {
+        animation : spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
     .profile_details_container {
         position              : relative;
         margin-top            : -40px;
@@ -415,7 +465,6 @@
     }
 
 
-
     .profile_details #updateProfile,
     .password_set #changePassword {
         margin-left      : auto;
@@ -434,6 +483,7 @@
         border-radius    : 8px;
         color            : white;
         cursor           : pointer;
+        gap              : 6px;
     }
 
     .profile_details #updateProfile:hover,
