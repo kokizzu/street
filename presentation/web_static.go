@@ -212,9 +212,10 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`, 302)
 		}
 		return views.RenderRealtorProperty(ctx, M.SX{
-			`title`:    `Realtor Property`,
-			`segments`: segments,
-			`property`: M.SX{},
+			`title`:       `Realtor Property`,
+			`segments`:    segments,
+			`property`:    M.SX{},
+			`countryData`: conf.CountriesData,
 		})
 	})
 	fw.Get(`/`+domain.RealtorPropertyAction+`/:propId`, func(ctx *fiber.Ctx) error {
