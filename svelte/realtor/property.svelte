@@ -7,6 +7,8 @@
   import AddFloorDialog from '../_components/AddFloorDialog.svelte';
   import AddOrEditRoomDialog from '../_components/AddOrEditRoomDialog.svelte';
   import {RealtorUpsertProperty} from '../jsApi.GEN';
+  import Growl from '../_components/Growl.svelte'
+  
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
   import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
@@ -29,6 +31,16 @@
   let countryData = {/* countryData */}
   let currentPage = 0;
   let cards = [{}, {}, {}, {}];
+  let showGrowl = false, gMsg = '', gType = '';
+  
+  function useGrowl( type, msg ) {
+    showGrowl = true;
+    gMsg = msg;
+    gType = type;
+    setTimeout( () => {
+      showGrowl = false;
+    }, 3000 );
+  }
   
   function progressDotHandler( toPage ) {
     let card = cards[ toPage ];
@@ -51,11 +63,16 @@
     }
   }
   
+  onMount( () => {
+    console.log( 'Country data = ', countryData )
+  } )
+  let payload = {};
+  
   // +=============| Location and Signage |=============+ //
   const LOC_ADDR = 'Address';
   const LOC_MAP = 'Put the pin on your house location by clicking the map';
   const LOC_STREETVIEW = 'Put signage on your house location';
-  let modeLocationCount = 0, nextLocationLocked = true;
+  let modeLocationCount = 0;
   const modeLocationLists = [
     {mode: LOC_ADDR},
     {mode: LOC_MAP},
@@ -68,36 +85,159 @@
     street1: '',
     street2: '',
     floors: 0,
+    formattedAddress: '',
     coord: {
       lat: 0,
       lng: 0
     }
   }
-  $: if( locationObj.country==='' || locationObj.city==='' || locationObj.street1==='' ) {
-    nextLocationLocked = true;
-  } else {
-    nextLocationLocked = false;
+  let map, map_container;
+  let myLatLng = {lat: -34.397, lng: 150.644};
+  
+  async function initMap() {
+    const {Map} = await google.maps.importLibrary( 'maps' );
+    const geocoder = new google.maps.Geocoder();
+    map = new Map( map_container, {
+      center: myLatLng,
+      zoom: 8,
+      mapTypeId: 'roadmap',
+      mapId: 'street_project',
+    } );
+    let markers = [];
+    const markerEventHandler = ( event ) => {
+      locationObj.coord = {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng()
+      }
+      getAddress( event.latLng );
+    };
+    const createMarker = ( map, latLng ) => {
+      let marker = new google.maps.Marker( {
+        map,
+        position: latLng,
+        draggable: true,
+      } );
+      marker.listenerHandle = google.maps.event.addListener( marker, 'dragend', markerEventHandler );
+      return marker;
+    };
+    const clearMarkers = ( markers ) => {
+      markers.forEach( ( marker ) => {
+        marker.setMap( null );
+        if( marker.listenerHandle && 'function'=== typeof marker.listenerHandle.remove ) marker.listenerHandle.remove();
+      } );
+      markers.length = 0;
+    };
+    // create first marker
+    markers.push( createMarker( map, {
+      lat: locationObj.coord.lat || 0,
+      lng: locationObj.coord.lng || 0,
+    } ) );
+    
+    // Convert coordinate to formatted_address
+    const getAddress = ( latLng ) => {
+      geocoder.geocode( {location: latLng}, ( results, status ) => {
+        if( status===google.maps.GeocoderStatus.OK && results.length>0 ) {
+          locationObj.formattedAddress = results[ 0 ].formatted_address;
+          for( let i = 0; i<results[ 0 ].address_components.length; i++ ) {
+            if( results[ 0 ].address_components[ i ].types.indexOf( 'country' )!== -1 ) {
+              locationObj.country = results[ 0 ].address_components[ i ].long_name;
+            }
+          }
+        } else {
+          console.log( 'Address not found' );
+          locationObj.formattedAddresss = '';
+          locationObj.country = '';
+        }
+      } );
+    };
+    // Clickable Map
+    map.addListener( 'click', ( event ) => {
+      clearMarkers( markers );
+      const latLong = event.latLng;
+      markers = [createMarker( map, latLong )];
+      // Update data structure
+      locationObj.coord = {
+        lat: latLong.lat(),
+        lng: latLong.lng()
+      }
+      getAddress( latLong );
+      // Callback for dragend event
+    } );
+  }
+  
+  async function handleBackLocation() {
+    if( modeLocationCount<modeLocationLists.length ) {
+      modeLocationCount -= 1;
+      modeLocation = modeLocationLists[ modeLocationCount ].mode;
+      if( modeLocation===LOC_MAP ) {
+        await initMap();
+      }
+    }
   }
   
   const handleNextLocation = {
-    'LOC_ADDR': () => {
+    'LOC_ADDR': async () => {
       if( locationObj.country==='' || locationObj.city==='' || locationObj.street1==='' ) {
-        alert( 'Please fill required field' );
+        useGrowl( 'error', 'Please fill required form' );
         return
       }
-      modeLocationCount++;
+      countryData.forEach( ( c ) => {
+        if( c.country===locationObj.country ) {
+          myLatLng = {
+            lat: parseInt( c.coordinate.lat ),
+            lng: parseInt( c.coordinate.lng )
+          }
+        }
+      } )
+      modeLocationCount += 1;
       modeLocation = modeLocationLists[ modeLocationCount ].mode;
+      await initMap();
     },
     'LOC_MAP': () => {
+      if( locationObj.formattedAddress==='' || locationObj.coord.lat===0 || locationObj.coord.lng===0 ) {
+        useGrowl( 'error', 'Please mark location on map' )
+        return
+      }
+      modeLocationCount += 1;
+      modeLocation = modeLocationLists[ modeLocationCount ].mode;
+    },
+    'LOC_STREETVIEW': () => {
       nextPage();
     }
   }
 </script>
 
+<svelte:head>
+	<!-- Google Map SDK -->
+	<script>
+     (g => {
+       var h, a, k, p = 'The Google Maps JavaScript API', c = 'google', l = 'importLibrary', q = '__ib__', m = document, b = window;
+       b = b[ c ] || (b[ c ] = {});
+       var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise( async ( f, n ) => {
+         await (a = m.createElement( 'script' ));
+         e.set( 'libraries', [...r] + '' );
+         for( k in g ) e.set( k.replace( /[A-Z]/g, t => '_' + t[ 0 ].toLowerCase() ), g[ k ] );
+         e.set( 'callback', c + '.maps.' + q );
+         a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
+         d[ q ] = f;
+         a.onerror = () => h = n( Error( p + ' could not load.' ) );
+         a.nonce = m.querySelector( 'script[nonce]' )?.nonce || '';
+         m.head.append( a );
+       } ));
+       d[ l ] ? console.warn( p + ' only loads once. Ignoring:', g ) : d[ l ] = ( f, ...n ) => r.add( f ) && u().then( () => d[ l ]( f, ...n ) );
+     })( {
+       key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',
+       v: 'weekly',
+       // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+       // Add other bootstrap parameters as needed, using camel case.
+     } );
+	</script>
+</svelte:head>
+{#if showGrowl}
+	<Growl message={gMsg} growlType={gType}/>
+{/if}
 <section class='dashboard'>
-	<Menu
-		access={segments}
-	/>
+	<Menu access={segments}/>
 	<div class='dashboard_main_content'>
 		<ProfileHeader></ProfileHeader>
 		<div class='realtor_step_progress_bar'>
@@ -128,8 +268,16 @@
 		<div class='content'>
 			<div class='realtor_subpage_container'>
 				<section bind:this={cards[0]} class='location' id='subpage_1'>
-					{#if currentPage!==0}
-						<button class='back_button' on:click={backPage}>
+					{#if modeLocation!==LOC_ADDR}
+						<button
+							class='back_button'
+							on:click={() => {
+                        if (currentPage === 0) {
+                          handleBackLocation();
+                        } else {
+                          backPage()
+                        }
+							}}>
 							<Icon className="iconBack" color='#475569' size={18} src={FaSolidAngleLeft}/>
 						</button>
 					{/if}
@@ -170,35 +318,28 @@
 							</div>
 						{/if}
 						{#if modeLocation===LOC_MAP}
-							<div class='address'>
-								<div class='row'>
-									<div class='input_box'>
-										<label for='country'>Country or Region <span class='asterisk'>*</span></label>
-										<select id='country' name='country'>
-											{#each countryData as country}
-												<option value={country.country}>{country.country}</option>
-											{/each}
-										</select>
+							<div class='location_map'>
+								<div class='address_country_info'>
+									<div class='address'>
+										<Icon color="#f97316" size={18} src={FaSolidMapMarkerAlt}/>
+										<p>{locationObj.formattedAddress || 'Address'}</p>
 									</div>
-									<div class='input_box'>
-										<label for='city'>City or County <span class='asterisk'>*</span></label>
-										<input id='city' type='text' placeholder='Required'/>
+									<div class='country'>
+										<Icon color="#f97316" size={15} src={FaSolidFlagUsa}/>
+										<p>{locationObj.country || 'Country'}</p>
 									</div>
 								</div>
-								<div class='row'>
-									<div class='input_box'>
-										<label for='street1'>Street 1 <span class='asterisk'>*</span></label>
-										<input id='street1' type='text' placeholder='Required'/>
-									</div>
-									<div class='input_box'>
-										<label for='street2'>Street 2</label>
-										<input id='street2' type='text' placeholder='Optional'/>
-									</div>
+								<div bind:this={map_container} class='map_container'>
+									<!-- Map goes here, rendered automatically -->
 								</div>
-								<div class='row'>
-									<div class='input_box'>
-										<label for='floors'>Floors</label>
-										<input id='floors' type='number' placeholder='10' min='0'/>
+							</div>
+						{/if}
+						{#if modeLocation===LOC_STREETVIEW}
+							<div class='location_streetview'>
+								<p class='description'>Let buyers find your house on camera.</p>
+								<div class='streetview_container'>
+									<div class='img_container'>
+										<img src="/assets/img/street-view.jpeg" alt=""/>
 									</div>
 								</div>
 							</div>
@@ -206,18 +347,16 @@
 					</div>
 					<button
 						class='next_button'
-						disabled={nextLocationLocked === true}
-						on:click={() => {
+						on:click|preventDefault={() => {
                      if (modeLocationCount === 0) {
                        handleNextLocation.LOC_ADDR()
+                     } else if (modeLocationCount === 1) {
+                       handleNextLocation.LOC_MAP()
+                     } else if (modeLocationCount === 2) {
+                       handleNextLocation.LOC_STREETVIEW()
                      }
                   }}>
-						{#if nextLocationLocked===true}
-							<Icon size={16} color='#FFF' src={FaSolidBan}/>
-						{/if}
-						{#if nextLocationLocked===false}
-							<span>NEXT</span>
-						{/if}
+						<span>NEXT</span>
 					</button>
 				</section>
 				<section bind:this={cards[1]} class='info' id='subpage_2'>
@@ -500,6 +639,7 @@
         scroll-snap-align : start;
         position          : relative;
         display           : flex;
+        gap               : 20px;
         flex-direction    : column;
         justify-content   : space-between;
     }
@@ -508,7 +648,7 @@
     .realtor_subpage_container section.location .subpage_content {
         display        : flex;
         flex-direction : column;
-        height         : fit-content !important;
+        flex-grow      : 1;
     }
 
     .realtor_subpage_container section.location .subpage_content h3 {
@@ -529,5 +669,79 @@
         display               : grid;
         grid-template-columns : 1fr 1fr;
         gap                   : 20px;
+    }
+
+    .realtor_subpage_container section.location .location_map {
+        height         : 100%;
+        width          : 100%;
+        display        : flex;
+        flex-direction : column;
+        gap            : 10px;
+        margin-top     : 20px;
+    }
+
+    .realtor_subpage_container section.location .location_map .address_country_info {
+        display         : flex;
+        flex-direction  : row;
+        flex-wrap       : wrap;
+        justify-content : space-between;
+        gap             : 10px;
+    }
+
+    .realtor_subpage_container section.location .location_map .address_country_info .country,
+    .realtor_subpage_container section.location .location_map .address_country_info .address {
+        display        : flex;
+        flex-direction : row;
+        gap            : 10px;
+        align-items    : center;
+        margin         : 0 !important;
+    }
+
+    .realtor_subpage_container section.location .location_map .address_country_info p {
+        margin    : 0;
+        font-size : 15px;
+    }
+
+    .realtor_subpage_container section.location .location_map .map_container {
+        border        : 1px solid #CBD5E1;
+        display       : block;
+        position      : relative;
+        width         : 100%;
+        height        : 100%;
+        flex-grow     : 1;
+        border-radius : 8px;
+        overflow      : hidden;
+    }
+
+    .realtor_subpage_container section.location .location_streetview {
+        display        : flex;
+        flex-direction : column;
+        gap            : 20px;
+    }
+
+    .realtor_subpage_container section.location .location_streetview .description {
+        font-size   : 17px;
+        text-align  : center;
+        color       : #636C77;
+        line-height : 1em;
+        margin      : 0;
+    }
+
+    .realtor_subpage_container section.location .location_streetview .streetview_container {
+        flex-grow : 1;
+    }
+
+    .realtor_subpage_container section.location .location_streetview .streetview_container .img_container {
+        height        : 500px;
+        width         : 100%;
+        overflow      : hidden;
+        border        : 1px solid #CBD5E1;
+        border-radius : 8px;
+    }
+
+    .realtor_subpage_container section.location .location_streetview .streetview_container .img_container img {
+        object-fit : cover;
+        width      : 100%;
+        height     : 100%;
     }
 </style>
