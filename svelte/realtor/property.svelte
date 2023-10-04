@@ -20,6 +20,7 @@
   import FaHeart from 'svelte-icons-pack/fa/FaHeart';
   import FaSolidBan from 'svelte-icons-pack/fa/FaSolidBan';
   import FaCheckCircle from 'svelte-icons-pack/fa/FaCheckCircle';
+  import siElsevier from "svelte-icons-pack/si/SiElsevier";
   
   // Use property from backend if backend is ready
   let property = {/* property */};
@@ -34,17 +35,63 @@
     card.scrollIntoView( {behavior: 'smooth'} );
   }
   
+  function nextPage() {
+    if( currentPage<3 ) {
+      currentPage++;
+      let card = cards[ currentPage ];
+      card.scrollIntoView( {behavior: 'smooth'} );
+    }
+  }
+  
+  function backPage() {
+    if( currentPage>0 ) {
+      currentPage--;
+      let card = cards[ currentPage ];
+      card.scrollIntoView( {behavior: 'smooth'} );
+    }
+  }
+  
   // +=============| Location and Signage |=============+ //
   const LOC_ADDR = 'Address';
   const LOC_MAP = 'Put the pin on your house location by clicking the map';
   const LOC_STREETVIEW = 'Put signage on your house location';
-  let modeLocationCount = 0;
+  let modeLocationCount = 0, nextLocationLocked = true;
   const modeLocationLists = [
     {mode: LOC_ADDR},
     {mode: LOC_MAP},
     {mode: LOC_STREETVIEW}
   ];
   let modeLocation = modeLocationLists[ modeLocationCount ].mode;
+  let locationObj = {
+    country: 'Afghanistan',
+    city: '',
+    street1: '',
+    street2: '',
+    floors: 0,
+    coord: {
+      lat: 0,
+      lng: 0
+    }
+  }
+  $: if( locationObj.country==='' || locationObj.city==='' || locationObj.street1==='' ) {
+    nextLocationLocked = true;
+  } else {
+    nextLocationLocked = false;
+  }
+  
+  const handleNextLocation = {
+    'LOC_ADDR': () => {
+      if( locationObj.country==='' || locationObj.city==='' || locationObj.street1==='' ) {
+        alert( 'Please fill required field' );
+        return
+      }
+      modeLocationCount++;
+      modeLocation = modeLocationLists[ modeLocationCount ].mode;
+    },
+    'LOC_MAP': () => {
+      nextPage();
+    }
+  }
 </script>
 
 <section class='dashboard'>
@@ -81,12 +128,48 @@
 		<div class='content'>
 			<div class='realtor_subpage_container'>
 				<section bind:this={cards[0]} class='location' id='subpage_1'>
-					<button class='back_button'>
-						<Icon className="iconBack" color='#475569' size={18} src={FaSolidAngleLeft}/>
-					</button>
+					{#if currentPage!==0}
+						<button class='back_button' on:click={backPage}>
+							<Icon className="iconBack" color='#475569' size={18} src={FaSolidAngleLeft}/>
+						</button>
+					{/if}
 					<div class='subpage_content'>
 						<h3>{ modeLocation }</h3>
 						{#if modeLocation===LOC_ADDR}
+							<div class='address'>
+								<div class='row'>
+									<div class='input_box'>
+										<label for='country'>Country or Region <span class='asterisk'>*</span></label>
+										<select id='country' name='country' bind:value={locationObj.country}>
+											{#each countryData as country}
+												<option value={country.country}>{country.country}</option>
+											{/each}
+										</select>
+									</div>
+									<div class='input_box'>
+										<label for='city'>City or County <span class='asterisk'>*</span></label>
+										<input id='city' type='text' placeholder='Required' bind:value={locationObj.city}/>
+									</div>
+								</div>
+								<div class='row'>
+									<div class='input_box'>
+										<label for='street1'>Street 1 <span class='asterisk'>*</span></label>
+										<input id='street1' type='text' placeholder='Required' bind:value={locationObj.street1}/>
+									</div>
+									<div class='input_box'>
+										<label for='street2'>Street 2</label>
+										<input id='street2' type='text' placeholder='Optional' bind:value={locationObj.street2}/>
+									</div>
+								</div>
+								<div class='row'>
+									<div class='input_box'>
+										<label for='floors'>Floors</label>
+										<input id='floors' type='number' placeholder='10' min='0' bind:value={locationObj.floors}/>
+									</div>
+								</div>
+							</div>
+						{/if}
+						{#if modeLocation===LOC_MAP}
 							<div class='address'>
 								<div class='row'>
 									<div class='input_box'>
@@ -115,14 +198,26 @@
 								<div class='row'>
 									<div class='input_box'>
 										<label for='floors'>Floors</label>
-										<input id='floors' type='number'/>
+										<input id='floors' type='number' placeholder='10' min='0'/>
 									</div>
 								</div>
 							</div>
 						{/if}
 					</div>
-					<button class='next_button'>
-						<span>NEXT</span>
+					<button
+						class='next_button'
+						disabled={nextLocationLocked === true}
+						on:click={() => {
+                     if (modeLocationCount === 0) {
+                       handleNextLocation.LOC_ADDR()
+                     }
+                  }}>
+						{#if nextLocationLocked===true}
+							<Icon size={16} color='#FFF' src={FaSolidBan}/>
+						{/if}
+						{#if nextLocationLocked===false}
+							<span>NEXT</span>
+						{/if}
 					</button>
 				</section>
 				<section bind:this={cards[1]} class='info' id='subpage_2'>
@@ -227,12 +322,13 @@
     .next_button:hover {
         background-color : #F58433;
     }
-    
+
     .asterisk {
-	     color: #EF4444;
-	     font-size: 14px;
-	     margin-top: -3px;
+        color      : #EF4444;
+        font-size  : 14px;
+        margin-top : -3px;
     }
+
     /* =========================*/
 
     .realtor_step_progress_bar {
