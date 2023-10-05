@@ -237,7 +237,7 @@
     }
   }
   
-  // +=============| Info |=============+ //
+  // +================| Info |=================+ //
   const INFO_FEAT = 'Feature', INFO_PRICE = 'Price';
   const m2 = 'M2', ping = 'Ping'
   let modeInfoCount = 0, infoUnitMode = ping, houseSize = 0, houseSizeM2 = 0, houseSizePing = 0;
@@ -252,7 +252,13 @@
     bathroom: 0,
     livingroom: 0,
     sizeM2: 0,
-    parking: 'no'
+    parking: 'false',
+    price: 0,
+    purpose: 'sell',
+    agencyFee: 'false',
+    agencyFeePercent: 0,
+    deposit: 'false',
+    depositFee: 0
   }
   $: infoObj.sizeM2 = houseSizeM2;
   const handleInfoUnitMode = {
@@ -470,9 +476,9 @@
 						<Icon className="iconBack" color='#475569' size={18} src={FaSolidAngleLeft}/>
 					</button>
 					<div class='subpage_content'>
+						<h3>{ modeInfo }</h3>
 						{#if modeInfo===INFO_FEAT}
 							<div class='feature'>
-								<h4>{ modeInfo }</h4>
 								<div class='inputs'>
 									<div class='row'>
 										<div class='input_box'>
@@ -487,8 +493,8 @@
 											<div class='input_box'>
 												<label for='parking'>Parking <span class='asterisk'>*</span></label>
 												<select id='parking' name='parking' bind:value={infoObj.parking}>
-													<option value='yes'>Yes</option>
-													<option value='no'>No</option>
+													<option value='true'>Yes</option>
+													<option value='false'>No</option>
 												</select>
 											</div>
 										{/if}
@@ -534,7 +540,71 @@
 						{/if}
 						{#if modeInfo===INFO_PRICE}
 							<div class='price'>
-								<h4>{modeInfo}</h4>
+								<div class='rent_or_sell'>
+									<label class={infoObj.purpose === 'sell' ? 'option clicked': 'option'} for='sell'>
+										<input
+											type='radio'
+											name='rent_or_sell'
+											on:click={() => (infoObj.purpose = 'sell')}
+											id='sell'
+											value='sell'
+										/>
+										Sell
+									</label>
+									<label class={infoObj.purpose === 'rent' ? 'option clicked': 'option'} for='rent'>
+										<input
+											type='radio'
+											name='rent_or_sell'
+											on:click={() => (infoObj.purpose = 'rent')}
+											id='rent'
+											value='rent'
+										/>
+										Rent
+									</label>
+								</div>
+								<div class='row'>
+									<div class='input_box'>
+										<label for='price'>{infoObj.purpose==='sell' ? 'Property Price' : 'Rent'}</label>
+										<input id='price' type='number' min='0' bind:value={infoObj.price}/>
+									</div>
+									{#if infoObj.purpose==='rent'}
+										<p class='permonth'>/month</p>
+									{/if}
+								</div>
+								<div class='row'>
+									<div class='input_box'>
+										<label for='agency_fee'>Agency Fee</label>
+										<select id='agency_fee' bind:value={infoObj.agencyFee}>
+											<option value='true'>Yes</option>
+											<option value='false'>No</option>
+										</select>
+									</div>
+									{#if infoObj.agencyFee==='true'}
+										<div class='input_box agency_fee'>
+											<label for='agency_fee_percent'>Charge to Buyer</label>
+											<input id='agency_fee_percent' type='number' min='0' bind:value={infoObj.agencyFeePercent}/>
+											<span>%</span>
+										</div>
+									{/if}
+								</div>
+								{#if infoObj.purpose==='rent'}
+									<div class='row'>
+										<div class='input_box'>
+											<label for='deposit'>Deposit Fee</label>
+											<select id='deposit' bind:value={infoObj.deposit}>
+												<option value='true'>Yes</option>
+												<option value='false'>No</option>
+											</select>
+										</div>
+										{#if infoObj.deposit==='true'}
+											<div class='input_box deposit_fee'>
+												<label for='deposit_fee'>Fee</label>
+												<input id='deposit_fee' type='number' min='0' bind:value={infoObj.depositFee}/>
+												<span>$</span> <!-- TODO: Use current country currency sign -->
+											</div>
+										{/if}
+									</div>
+								{/if}
 							</div>
 						{/if}
 					</div>
@@ -934,40 +1004,35 @@
         margin-top : 50px;
     }
 
-    .realtor_subpage_container section.info .subpage_content h4 {
-        margin     : 8px 0 15px 0;
-        text-align : left;
-        font-size  : 20px;
-    }
-
-    .realtor_subpage_container section.info .subpage_content .inputs {
+    .realtor_subpage_container section.info .subpage_content .feature .inputs {
         display        : flex;
         flex-direction : column;
-        gap            : 15px;
+        gap            : 30px;
+        margin-top     : 20px;
     }
 
-    .realtor_subpage_container section.info .subpage_content .inputs .row {
+    .realtor_subpage_container section.info .subpage_content .feature .inputs .row {
         display               : grid;
         grid-template-columns : 1fr 1fr;
         gap                   : 20px;
     }
 
-    .realtor_subpage_container section.info .subpage_content .inputs .room_area {
+    .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area {
         display        : flex;
         flex-direction : row;
         gap            : 20px;
     }
 
-    .realtor_subpage_container section.info .subpage_content .inputs .room_area .beds,
-    .realtor_subpage_container section.info .subpage_content .inputs .room_area .baths,
-    .realtor_subpage_container section.info .subpage_content .inputs .room_area .livings {
+    .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area .beds,
+    .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area .baths,
+    .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area .livings {
         flex-basis : 20%;
     }
 
-    .realtor_subpage_container section.info .subpage_content .inputs .room_area .beds label,
-    .realtor_subpage_container section.info .subpage_content .inputs .room_area .baths label,
-    .realtor_subpage_container section.info .subpage_content .inputs .room_area .livings label,
-    .realtor_subpage_container section.info .subpage_content .inputs .room_area .area label {
+    .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area .beds label,
+    .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area .baths label,
+    .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area .livings label,
+    .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area .area label {
         display         : flex !important;
         flex-direction  : row !important;
         justify-content : left !important;
@@ -975,18 +1040,18 @@
         gap             : 8px !important;
     }
 
-    .realtor_subpage_container section.info .subpage_content .inputs .room_area .area {
+    .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area .area {
         flex-basis : 40%;
     }
 
-    .realtor_subpage_container section.info .subpage_content .inputs .room_area .area .unit_toggle {
+    .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area .area .unit_toggle {
         border     : none;
         background : transparent;
         position   : relative;
         cursor     : pointer;
     }
 
-    .realtor_subpage_container section.info .subpage_content .inputs .room_area .area .unit_toggle .bg {
+    .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area .area .unit_toggle .bg {
         width            : 0;
         height           : 0;
         border-radius    : 50%;
@@ -997,8 +1062,102 @@
         left             : 1px;
     }
 
-    .realtor_subpage_container section.info .subpage_content .inputs .room_area .area .unit_toggle:hover .bg {
+    .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area .area .unit_toggle:hover .bg {
         width  : 24px;
         height : 24px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price {
+        margin-top     : 30px;
+        display        : flex;
+        flex-direction : column;
+        gap            : 20px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .permonth {
+        line-height : 1em;
+        margin      : 20px 0 0;
+        font-size   : 17px;
+        font-weight : 500
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .rent_or_sell {
+        width                 : 100%;
+        display               : grid;
+        grid-template-columns : 1fr 1fr;
+        border-collapse       : collapse;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .rent_or_sell .option {
+        margin           : 0;
+        padding          : 10px 12px;
+        border           : 1px solid #CBD5E1;
+        background-color : #F1F5F9;
+        font-weight      : 500;
+        text-align       : center;
+        cursor           : pointer;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .rent_or_sell .option:nth-child(1) {
+        border-top-left-radius    : 8px;
+        border-bottom-left-radius : 8px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .rent_or_sell .option:nth-child(2) {
+        border-top-right-radius    : 8px;
+        border-bottom-right-radius : 8px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .rent_or_sell .option:hover {
+        border : 1px solid #F97316;
+        color  : #F97316;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .rent_or_sell .option.clicked {
+        background-color : #F97316;
+        color            : white;
+        border           : none;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .rent_or_sell .option input[type='radio'] {
+        position       : absolute;
+        opacity        : 0;
+        pointer-events : none;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .row {
+        display               : grid;
+        grid-template-columns : 1fr 1fr;
+        gap                   : 20px;
+        align-items           : center;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .row .agency_fee,
+    .realtor_subpage_container section.info .subpage_content .price .row .deposit_fee {
+        position : relative;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .row .agency_fee input {
+        padding : 12px 25px 12px 12px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .row .agency_fee span {
+        position  : absolute;
+        right     : 10px;
+        top       : 35px;
+        font-size : 15px;
+        color     : black;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .row .deposit_fee input {
+        padding : 12px 12px 12px 25px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .row .deposit_fee span {
+        position  : absolute;
+        left      : 10px;
+        top       : 35px;
+        font-size : 14px;
+        color     : black;
     }
 </style>
