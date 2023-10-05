@@ -28,6 +28,7 @@
   import FaSolidExchangeAlt from 'svelte-icons-pack/fa/FaSolidExchangeAlt';
   import FaSolidBath from "svelte-icons-pack/fa/FaSolidBath";
   import FaSolidChair from "svelte-icons-pack/fa/FaSolidChair";
+  import FaSolidCamera from "svelte-icons-pack/fa/FaSolidCamera";
   
   // Use property from backend if backend is ready
   let property = {/* property */};
@@ -258,7 +259,13 @@
     agencyFee: 'false',
     agencyFeePercent: 0,
     deposit: 'false',
-    depositFee: 0
+    depositFee: 0,
+    minimumDurationYear: 0,
+    otherFee: []
+  }
+  let otherFeeObj = {
+    name: '',
+    fee: 0
   }
   $: infoObj.sizeM2 = houseSizeM2;
   const handleInfoUnitMode = {
@@ -314,8 +321,59 @@
       modeInfo = modeInfoLists[ modeInfoCount ].mode;
     },
     'INFO_PRICE': () => {
+      if( infoObj.price===0 ) return useGrowl( 'error', 'Price cannot be 0' );
       nextPage()
     }
+  }
+  
+  // +================| Picture |=================+ //
+  let pictureObj = {
+    images: [],
+    imageDescriptions: []
+  }
+  let imageHouseInput;
+  let houseImgUploading = false;
+  let uploadHouseStatus = '';
+  let uploadHousePercent = 0;
+  
+  function handlerHouseImage() {
+    if( !imageHouseInput ) return;
+    const file = imageHouseInput.files[ 0 ];
+    if( file ) {
+      let formData = new FormData();
+      formData.append( 'rawFile', file );
+      formData.append( 'purpose', 'property' ); // property or floorPlan
+      let ajax = new XMLHttpRequest();
+      ajax.addEventListener( 'progress', function( event ) {
+        houseImgUploading = true;
+        let percent = (event.loaded / event.total) * 100;
+        uploadHousePercent = Math.round( percent );
+        uploadHouseStatus = `${uploadHousePercent}% uploaded... please wait`;
+      } );
+      ajax.addEventListener( 'load', function( event ) {
+        houseImgUploading = false;
+        if( ajax.status===200 ) {
+          const out = JSON.parse( event.target.responseText );
+          if( !out.error ) {
+            pictureObj.images = [...property.images, out.urlPattern]; // push house image url to array
+          }
+          console.log( 'Upload successful', out );
+        } else if( ajax.status===413 ) {
+          alert( 'Image too large' );
+        } else {
+          alert( 'Error: ' + ajax.status + ' ' + ajax.statusText );
+        }
+      } );
+      ajax.addEventListener( 'error', function( event ) {
+        alert( 'Network error' );
+      } );
+      ajax.addEventListener( 'abort', function( event ) {
+        alert( 'Upload aborted' );
+      }, false );
+      ajax.open( 'POST', '/user/uploadFile' );
+      ajax.send( formData );
+    }
+    imageHouseInput.value = null;
   }
 </script>
 
@@ -563,9 +621,10 @@
 									</label>
 								</div>
 								<div class='row'>
-									<div class='input_box'>
+									<div class='input_box prop_price'>
 										<label for='price'>{infoObj.purpose==='sell' ? 'Property Price' : 'Rent'}</label>
 										<input id='price' type='number' min='0' bind:value={infoObj.price}/>
+										<span>$</span> <!-- TODO: Use current country currency sign -->
 									</div>
 									{#if infoObj.purpose==='rent'}
 										<p class='permonth'>/month</p>
@@ -604,6 +663,13 @@
 											</div>
 										{/if}
 									</div>
+									<div class='row'>
+										<div class='input_box min_duration'>
+											<label for='minimum_duration'>Minimum Duration</label>
+											<input id='minimum_duration' type='number' min='0' max='100' bind:value={infoObj.minimumDurationYear}/>
+											<span>Year</span>
+										</div>
+									</div>
 								{/if}
 							</div>
 						{/if}
@@ -621,8 +687,37 @@
 					</button>
 				</section>
 				<section bind:this={cards[2]} class='picture' id='subpage_3'>
-					<button class='back_button'>
+					<button class='back_button' on:click={backPage}>
 						<Icon className="iconBack" color='#475569' size={18} src={FaSolidAngleLeft}/>
+					</button>
+					<div class='subpage_content'>
+						<h3>Upload house photo</h3>
+						<div class='upload_picture'>
+							<div class='upload_container'>
+								<label class='image_upload_button' for='upload_image'>
+									{#if !houseImgUploading}
+										<input
+											bind:this={imageHouseInput}
+											on:change={handlerHouseImage}
+											type='file'
+											accept='image/*'
+											id='upload_image'
+										/>
+										<Icon size={35} className='upload_icon' color='#475569' src={FaSolidCamera}/>
+										<p>Select file to Upload</p>
+									{:else}
+										<progress value={uploadHousePercent} max='100'></progress>
+										<p>{uploadHouseStatus}</p>
+									{/if}
+								</label>
+							</div>
+							<div class='image_lists'>
+								<p>TODO: Image here</p>
+							</div>
+						</div>
+					</div>
+					<button class='next_button' on:click={nextPage}>
+						<span>NEXT</span>
 					</button>
 				</section>
 				<section bind:this={cards[3]} class='preview' id='subpage_4'>
@@ -1132,8 +1227,10 @@
         align-items           : center;
     }
 
+    .realtor_subpage_container section.info .subpage_content .price .row .prop_price,
     .realtor_subpage_container section.info .subpage_content .price .row .agency_fee,
-    .realtor_subpage_container section.info .subpage_content .price .row .deposit_fee {
+    .realtor_subpage_container section.info .subpage_content .price .row .deposit_fee,
+    .realtor_subpage_container section.info .subpage_content .price .row .min_duration {
         position : relative;
     }
 
@@ -1149,15 +1246,98 @@
         color     : black;
     }
 
+    .realtor_subpage_container section.info .subpage_content .price .row .prop_price input,
     .realtor_subpage_container section.info .subpage_content .price .row .deposit_fee input {
         padding : 12px 12px 12px 25px;
     }
 
+    .realtor_subpage_container section.info .subpage_content .price .row .prop_price span,
     .realtor_subpage_container section.info .subpage_content .price .row .deposit_fee span {
         position  : absolute;
         left      : 10px;
         top       : 35px;
         font-size : 14px;
         color     : black;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .row .min_duration input {
+        padding : 12px 42px 12px 12px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .row .min_duration span {
+        position  : absolute;
+        right     : 10px;
+        top       : 35px;
+        font-size : 15px;
+        color     : #F97316;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture {
+        margin-top     : 30px;
+        display        : flex;
+        flex-direction : column;
+        gap            : 20px;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .upload_container {
+        width  : 100%;
+        height : fit-content;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .upload_container .image_upload_button {
+        display          : flex;
+        flex-direction   : column;
+        justify-content  : center;
+        align-items      : center;
+        border           : 1px solid #CBD5E1;
+        background-color : #F1F5F9;
+        border-radius    : 8px;
+        gap              : 8px;
+        width            : 100%;
+        height           : 110px;
+        cursor           : pointer;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .upload_container .image_upload_button:hover {
+        border : 1px solid #F97316;
+        color  : #F97316;
+    }
+
+    :global(.realtor_subpage_container section.picture .subpage_content .upload_picture .upload_container .image_upload_button:hover .upload_icon) {
+        fill : #F97316;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .upload_container .image_upload_button input {
+        position       : absolute;
+        opacity        : 0;
+        pointer-events : none;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .upload_container .image_upload_button p {
+        font-size : 16px;
+        margin    : 0;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .upload_container .image_upload_button progress {
+        appearance    : none;
+        border-radius : 8px;
+        height        : 13px;
+        overflow      : hidden;
+        margin-bottom : 8px;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .upload_container .image_upload_button progress::-webkit-progress-bar {
+        background-color   : aliceblue;
+        box-shadow         : -1px 1px 10px 0 rgba(0, 0, 0, 0.3) inset;
+        -webkit-box-shadow : -1px 1px 10px 0 rgba(0, 0, 0, 0.3) inset;
+        -moz-box-shadow    : -1px 1px 10px 0 rgba(0, 0, 0, 0.3) inset;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .upload_container .image_upload_button progress::-webkit-progress-value {
+        background-color : #F97316;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .upload_container .image_upload_button progress::-moz-progress-bar {
+        background-color : #F97316;
     }
 </style>
