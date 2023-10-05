@@ -23,6 +23,11 @@
   import FaSolidBan from 'svelte-icons-pack/fa/FaSolidBan';
   import FaCheckCircle from 'svelte-icons-pack/fa/FaCheckCircle';
   import siElsevier from "svelte-icons-pack/si/SiElsevier";
+  import FaSolidBorderStyle from "svelte-icons-pack/fa/FaSolidBorderStyle";
+  import FaSolidBed from "svelte-icons-pack/fa/FaSolidBed";
+  import FaSolidExchangeAlt from 'svelte-icons-pack/fa/FaSolidExchangeAlt';
+  import FaSolidBath from "svelte-icons-pack/fa/FaSolidBath";
+  import FaSolidChair from "svelte-icons-pack/fa/FaSolidChair";
   
   // Use property from backend if backend is ready
   let property = {/* property */};
@@ -32,6 +37,42 @@
   let currentPage = 0;
   let cards = [{}, {}, {}, {}];
   let showGrowl = false, gMsg = '', gType = '';
+  let myLatLng = {lat: -34.397, lng: 150.644};
+  // Use it later
+  let propertyItem = {
+    formattedAddress: '',
+    lat: myLatLng.lat,
+    long: myLatLng.lng,
+    coord: [myLatLng.lat, myLatLng.lng],
+    //"id": '1234'
+    uniqPropKey: '1_12449819078726277117',
+    serialNumber: '',
+    sizeM2: '0',
+    mainUse: '', /*Facility Description*/
+    // mainBuildingMaterial: '',
+    // constructCompletedDate: '',
+    // 'numberOfFloors': '0',
+    // buildingLamination: '',
+    address: '',
+    district: '',
+    note: '', /*Description of this property*/
+    createdAt: 1692641835,
+    // createdBy: '0',
+    updatedAt: 1692641835,
+    // 'updatedBy': '0',
+    // 'deletedAt': 0,
+    lastPrice: 0,
+    // priceHistoriesSell: [],
+    // priceHistoriesRent: [],
+    purpose: '', // rent, sell
+    houseType: '', // house, apartment
+    images: [],
+    bedroom: 0,
+    bathroom: 0,
+    agencyFeePercent: 0,
+    floorList: [],
+    country: '',
+  };
   
   function useGrowl( type, msg ) {
     showGrowl = true;
@@ -63,11 +104,6 @@
     }
   }
   
-  onMount( () => {
-    console.log( 'Country data = ', countryData )
-  } )
-  let payload = {};
-  
   // +=============| Location and Signage |=============+ //
   const LOC_ADDR = 'Address';
   const LOC_MAP = 'Put the pin on your house location by clicking the map';
@@ -92,7 +128,6 @@
     }
   }
   let map, map_container;
-  let myLatLng = {lat: -34.397, lng: 150.644};
   
   async function initMap() {
     const {Map} = await google.maps.importLibrary( 'maps' );
@@ -127,13 +162,10 @@
       } );
       markers.length = 0;
     };
-    // create first marker
     markers.push( createMarker( map, {
       lat: locationObj.coord.lat || 0,
       lng: locationObj.coord.lng || 0,
     } ) );
-    
-    // Convert coordinate to formatted_address
     const getAddress = ( latLng ) => {
       geocoder.geocode( {location: latLng}, ( results, status ) => {
         if( status===google.maps.GeocoderStatus.OK && results.length>0 ) {
@@ -150,7 +182,6 @@
         }
       } );
     };
-    // Clickable Map
     map.addListener( 'click', ( event ) => {
       clearMarkers( markers );
       const latLong = event.latLng;
@@ -203,6 +234,81 @@
     },
     'LOC_STREETVIEW': () => {
       nextPage();
+    }
+  }
+  
+  // +=============| Info |=============+ //
+  const INFO_FEAT = 'Feature', INFO_PRICE = 'Price';
+  const m2 = 'M2', ping = 'Ping'
+  let modeInfoCount = 0, infoUnitMode = ping, houseSize = 0, houseSizeM2 = 0, houseSizePing = 0;
+  const modeInfoLists = [
+    {mode: INFO_FEAT},
+    {mode: INFO_PRICE}
+  ];
+  let modeInfo = modeInfoLists[ modeInfoCount ].mode;
+  let infoObj = {
+    houseType: 'house',
+    bedroom: 0,
+    bathroom: 0,
+    livingroom: 0,
+    sizeM2: 0,
+    parking: 'no'
+  }
+  $: infoObj.sizeM2 = houseSizeM2;
+  const handleInfoUnitMode = {
+    'toggle': () => {
+      if( infoUnitMode===ping ) {
+        if( houseSize!==0 ) {
+          houseSizePing = houseSize;
+          houseSizeM2 = handleInfoUnitMode.pingToM2( houseSize );
+          infoUnitMode = m2;
+          houseSize = houseSizeM2;
+        } else {
+          infoUnitMode = m2;
+        }
+      } else if( infoUnitMode===m2 ) {
+        if( houseSize!==0 ) {
+          houseSizeM2 = houseSize;
+          houseSizePing = handleInfoUnitMode.m2ToPing( houseSize );
+          infoUnitMode = ping;
+          houseSize = houseSizePing;
+        } else {
+          infoUnitMode = ping;
+        }
+      }
+    },
+    'm2ToPing': ( m2 ) => {
+      const value = m2 / 3.30579;
+      const minifiedValue = value.toFixed( 2 );
+      return parseFloat( minifiedValue );
+    },
+    'pingToM2': ( ping ) => {
+      const value = ping * 3.30579;
+      const minifiedValue = value.toFixed( 2 );
+      return parseFloat( minifiedValue );
+    }
+  }
+  
+  function handleBackInfo() {
+    if( modeInfoCount>0 ) {
+      modeInfoCount -= 1;
+      modeInfo = modeInfoLists[ modeInfoCount ].mode;
+      return
+    }
+    backPage();
+  }
+  
+  const handleNextInfo = {
+    'INFO_FEAT': () => {
+      if( infoUnitMode===ping ) {
+        infoObj.sizeM2 = handleInfoUnitMode.pingToM2( houseSize );
+      }
+      if( infoObj.sizeM2===0 ) return useGrowl( 'error', 'Please fill required form' );
+      modeInfoCount += 1;
+      modeInfo = modeInfoLists[ modeInfoCount ].mode;
+    },
+    'INFO_PRICE': () => {
+      nextPage()
     }
   }
 </script>
@@ -360,8 +466,88 @@
 					</button>
 				</section>
 				<section bind:this={cards[1]} class='info' id='subpage_2'>
-					<button class='back_button'>
+					<button class='back_button' on:click={handleBackInfo}>
 						<Icon className="iconBack" color='#475569' size={18} src={FaSolidAngleLeft}/>
+					</button>
+					<div class='subpage_content'>
+						{#if modeInfo===INFO_FEAT}
+							<div class='feature'>
+								<h4>{ modeInfo }</h4>
+								<div class='inputs'>
+									<div class='row'>
+										<div class='input_box'>
+											<label for='houseType'>House type <span class='asterisk'>*</span></label>
+											<select id='houseType' name='houseType' bind:value={infoObj.houseType}>
+												<option value='house'>House</option>
+												<option value='land'>Land</option>
+												<option value='apartment'>Apartment</option>
+											</select>
+										</div>
+										{#if infoObj.houseType==='house' || infoObj.houseType==='apartment'}
+											<div class='input_box'>
+												<label for='parking'>Parking <span class='asterisk'>*</span></label>
+												<select id='parking' name='parking' bind:value={infoObj.parking}>
+													<option value='yes'>Yes</option>
+													<option value='no'>No</option>
+												</select>
+											</div>
+										{/if}
+									</div>
+									<div class='room_area'>
+										{#if infoObj.houseType==='house' || infoObj.houseType==='apartment'}
+											<div class='input_box beds'>
+												<label for='beds'>
+													<Icon color='#475569' size={16} src={FaSolidBed}/>
+													<span>Beds</span>
+												</label>
+												<input id='beds' type='number' min='0' bind:value={infoObj.bedroom}/>
+											</div>
+											<div class='input_box baths'>
+												<label for='baths'>
+													<Icon color='#475569' size={13} src={FaSolidBath}/>
+													<span>Baths</span>
+												</label>
+												<input id='baths' type='number' min='0' bind:value={infoObj.bathroom}/>
+											</div>
+											<div class='input_box livings'>
+												<label for='livings'>
+													<Icon color='#475569' size={13} src={FaSolidChair}/>
+													<span>Livings</span>
+												</label>
+												<input id='livings' type='number' min='0' bind:value={infoObj.livingroom}/>
+											</div>
+										{/if}
+										<div class='input_box area'>
+											<label for='area'>
+												<Icon color='#475569' size={13} src={FaSolidBorderStyle}/>
+												<span>{infoUnitMode}</span>
+												<button class='unit_toggle' on:click|preventDefault={handleInfoUnitMode.toggle}>
+													<span class='bg'></span>
+													<Icon color='#F97316' size={13} src={FaSolidExchangeAlt}/>
+												</button>
+											</label>
+											<input id='area' type='number' min='0' bind:value={houseSize}/>
+										</div>
+									</div>
+								</div>
+							</div>
+						{/if}
+						{#if modeInfo===INFO_PRICE}
+							<div class='price'>
+								<h4>{modeInfo}</h4>
+							</div>
+						{/if}
+					</div>
+					<button
+						class='next_button'
+						on:click|preventDefault={() => {
+                     if (modeInfoCount === 0) {
+                       handleNextInfo.INFO_FEAT();
+                     } else if (modeInfoCount === 1) {
+                       handleNextInfo.INFO_PRICE();
+                     }
+                  }}>
+						<span>NEXT</span>
 					</button>
 				</section>
 				<section bind:this={cards[2]} class='picture' id='subpage_3'>
@@ -414,6 +600,12 @@
     .realtor_subpage_container section .back_button:hover {
         background-color : rgb(0 0 0 / 0.05);
         color            : #EF4444;
+    }
+
+    .realtor_subpage_container section .subpage_content h3 {
+        margin     : 8px 0;
+        text-align : center;
+        font-size  : 20px;
     }
 
     .input_box {
@@ -651,13 +843,6 @@
         flex-grow      : 1;
     }
 
-    .realtor_subpage_container section.location .subpage_content h3 {
-        margin     : 8px 0;
-
-        text-align : center;
-        font-size  : 20px;
-    }
-
     .realtor_subpage_container section.location .subpage_content .address {
         margin-top     : 20px;
         display        : flex;
@@ -743,5 +928,77 @@
         object-fit : cover;
         width      : 100%;
         height     : 100%;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .feature {
+        margin-top : 50px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content h4 {
+        margin     : 8px 0 15px 0;
+        text-align : left;
+        font-size  : 20px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .inputs {
+        display        : flex;
+        flex-direction : column;
+        gap            : 15px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .inputs .row {
+        display               : grid;
+        grid-template-columns : 1fr 1fr;
+        gap                   : 20px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .inputs .room_area {
+        display        : flex;
+        flex-direction : row;
+        gap            : 20px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .inputs .room_area .beds,
+    .realtor_subpage_container section.info .subpage_content .inputs .room_area .baths,
+    .realtor_subpage_container section.info .subpage_content .inputs .room_area .livings {
+        flex-basis : 20%;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .inputs .room_area .beds label,
+    .realtor_subpage_container section.info .subpage_content .inputs .room_area .baths label,
+    .realtor_subpage_container section.info .subpage_content .inputs .room_area .livings label,
+    .realtor_subpage_container section.info .subpage_content .inputs .room_area .area label {
+        display         : flex !important;
+        flex-direction  : row !important;
+        justify-content : left !important;
+        align-items     : center !important;
+        gap             : 8px !important;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .inputs .room_area .area {
+        flex-basis : 40%;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .inputs .room_area .area .unit_toggle {
+        border     : none;
+        background : transparent;
+        position   : relative;
+        cursor     : pointer;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .inputs .room_area .area .unit_toggle .bg {
+        width            : 0;
+        height           : 0;
+        border-radius    : 50%;
+        background-color : rgb(0 0 0 / 0.06);
+        z-index          : 1;
+        position         : absolute;
+        top              : -4px;
+        left             : 1px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .inputs .room_area .area .unit_toggle:hover .bg {
+        width  : 24px;
+        height : 24px;
     }
 </style>
