@@ -527,6 +527,7 @@
 							<div class='location_streetview'>
 								<p class='description'>Let buyers find your house on camera.</p>
 								<div class='streetview_container'>
+									<!-- TODO: render streetview here -->
 									<div class='img_container'>
 										<img src="/assets/img/street-view.jpeg" alt=""/>
 									</div>
@@ -796,6 +797,30 @@
 				<section bind:this={cards[3]} class='preview' id='subpage_4'>
 					<button class='back_button'>
 						<Icon className="iconBack" color='#475569' size={18} src={FaSolidAngleLeft}/>
+					</button>
+					<div class='subpage_content'>
+						<div class='preview_content'>
+							<h3>Preview your property</h3>
+							<div class='streetview_container'>
+								<!-- TODO: render streetview here -->
+								<div class='img_container'>
+									<img alt="" src="/assets/img/street-view.jpeg"/>
+								</div>
+							</div>
+							<h4>Property Detail</h4>
+							<div class='image_properties'>
+								{#if pictureObj.images && pictureObj.images.length}
+									<!-- TODO: render property images as slide? -->
+									<div class='img_container'>
+										<!-- TODO: click image to zoom -->
+										<img alt="" src={pictureObj.images[0]}/>
+									</div>
+								{/if}
+							</div>
+						</div>
+					</div>
+					<button class='next_button'>
+						<span>SUBMIT</span>
 					</button>
 				</section>
 			</div>
@@ -1168,6 +1193,8 @@
         height     : 100%;
     }
 
+    /* +============| SUBPAGE INFO |===========+ */
+
     .realtor_subpage_container section.info .add_fee_btn {
         background-color : #F97316;
         color            : white;
@@ -1408,6 +1435,8 @@
         font-weight     : 500;
     }
 
+    /* +============| SUBPAGE PICTURE |===========+ */
+
     .realtor_subpage_container section.picture .subpage_content .upload_picture {
         margin-top     : 30px;
         display        : flex;
@@ -1478,9 +1507,11 @@
     }
 
     .realtor_subpage_container section.picture .subpage_content .upload_picture .image_lists {
-        display   : flex;
-        gap       : 20px;
-        flex-wrap : wrap;
+        display               : grid;
+        gap                   : 20px;
+        grid-auto-columns     : 1fr 1fr;
+        grid-auto-rows        : 1fr 1fr;
+        grid-template-columns : 1fr 1fr;
     }
 
     .realtor_subpage_container section.picture .subpage_content .upload_picture .image_lists .image_card {
@@ -1490,9 +1521,9 @@
         padding          : 15px;
         background-color : #F1F5F9;
         border-radius    : 10px;
-        flex-basis       : 50%;
         gap              : 15px;
         border           : 1px solid #CBD5E1;
+        height           : fit-content;
     }
 
     .realtor_subpage_container section.picture .subpage_content .upload_picture .image_lists .image_card .image_container {
@@ -1525,7 +1556,7 @@
 
     .realtor_subpage_container section.picture .subpage_content .upload_picture .image_lists .image_card .image_description input:focus {
         border-color : #3B82F6;
-        outline      : 2px solid #3B82F6;
+        outline      : 1px solid #3B82F6;
     }
 
     .realtor_subpage_container section.picture .subpage_content .upload_picture .image_lists .image_card .remove_image {
@@ -1541,5 +1572,38 @@
 
     .realtor_subpage_container section.picture .subpage_content .upload_picture .image_lists .image_card .remove_image:hover {
         background-color : #F85454;
+    }
+
+    /* +============| SUBPAGE PREVIEW |===========+ */
+
+    .realtor_subpage_container section.preview .subpage_content {
+        display        : flex;
+        flex-direction : column;
+        flex-grow      : 1;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content {
+        display        : flex;
+        flex-direction : column;
+        gap            : 20px;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .img_container {
+        height        : 300px;
+        width         : 100%;
+        overflow      : hidden;
+        border        : 1px solid #CBD5E1;
+        border-radius : 8px;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .img_container img {
+        object-fit : cover;
+        width      : 100%;
+        height     : 100%;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content h4 {
+        margin    : 0;
+        font-size : 18px;
     }
 </style>
