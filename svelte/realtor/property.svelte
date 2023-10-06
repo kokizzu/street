@@ -8,6 +8,7 @@
   import AddOrEditRoomDialog from '../_components/AddOrEditRoomDialog.svelte';
   import {RealtorUpsertProperty} from '../jsApi.GEN';
   import Growl from '../_components/Growl.svelte'
+  import AddOtherFeeDialog from '../_components/AddOtherFeeDialog.svelte';
   
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
@@ -266,8 +267,19 @@
   let otherFeeObj = {
     name: '',
     fee: 0
-  }
+  };
   $: infoObj.sizeM2 = houseSizeM2;
+  let addOtherFeeDialog = AddOtherFeeDialog;
+  
+  function addOtherFee() {
+    infoObj.otherFee = [...infoObj.otherFee, otherFeeObj];
+    otherFeeObj = {
+      name: '',
+      fee: 0
+    };
+    addOtherFeeDialog.hideModal();
+  }
+  
   const handleInfoUnitMode = {
     'toggle': () => {
       if( infoUnitMode===ping ) {
@@ -530,6 +542,15 @@
 					</button>
 				</section>
 				<section bind:this={cards[1]} class='info' id='subpage_2'>
+					<AddOtherFeeDialog
+						bind:fee={otherFeeObj.fee}
+						bind:name={otherFeeObj.name}
+						bind:this={addOtherFeeDialog}
+					>
+						<button class="add_fee_btn" on:click={addOtherFee}>
+							Add
+						</button>
+					</AddOtherFeeDialog>
 					<button class='back_button' on:click={handleBackInfo}>
 						<Icon className="iconBack" color='#475569' size={18} src={FaSolidAngleLeft}/>
 					</button>
@@ -668,6 +689,33 @@
 											<label for='minimum_duration'>Minimum Duration</label>
 											<input id='minimum_duration' type='number' min='0' max='100' bind:value={infoObj.minimumDurationYear}/>
 											<span>Year</span>
+										</div>
+									</div>
+									<div class='other_fee'>
+										<header>
+											<h4>Other Fee</h4>
+											<button class='add_fee' on:click={addOtherFeeDialog.showModal()}>
+												Add
+											</button>
+										</header>
+										<div class='other_fee_lists'>
+											{#if infoObj.otherFee && infoObj.otherFee.length}
+												{#each infoObj.otherFee as otherFee}
+													<div class='fee'>
+														<span>{otherFee.name}</span>
+														<span>${otherFee.fee}/mo</span>
+													</div>
+												{/each}
+											{:else}
+												<div class='fee'>
+													<span>Example Fee #1</span>
+													<span>$$$</span>
+												</div>
+												<div class='fee'>
+													<span>Example Fee #1</span>
+													<span>$$$</span>
+												</div>
+											{/if}
 										</div>
 									</div>
 								{/if}
@@ -1095,6 +1143,16 @@
         height     : 100%;
     }
 
+    .realtor_subpage_container section.info .add_fee_btn {
+        background-color : #F97316;
+        color            : white;
+        border-radius    : 8px;
+        border           : none;
+        padding          : 10px;
+        cursor           : pointer;
+        width            : 100%;
+    }
+
     .realtor_subpage_container section.info .subpage_content .feature {
         margin-top : 50px;
     }
@@ -1270,6 +1328,59 @@
         top       : 35px;
         font-size : 15px;
         color     : #F97316;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .other_fee {
+        display        : flex;
+        flex-direction : column;
+        gap            : 15px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .other_fee header {
+        display         : flex;
+        flex-direction  : row;
+        justify-content : space-between;
+        align-items     : center;
+        margin-top      : 20px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .other_fee header h4 {
+        margin    : 0;
+        font-size : 18px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .other_fee header .add_fee {
+        color            : #F97316;
+        border           : none;
+        padding          : 10px 15px;
+        font-weight      : 600;
+        font-size        : 15px;
+        border-radius    : 8px;
+        cursor           : pointer;
+        background-color : transparent;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .other_fee header .add_fee:hover {
+        background-color : #F1F5F9;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .other_fee .other_fee_lists {
+        padding          : 15px;
+        background-color : #F1F5F9;
+        border-radius    : 8px;
+        display          : flex;
+        flex-direction   : column;
+        min-height       : 200px;
+    }
+
+    .realtor_subpage_container section.info .subpage_content .price .other_fee .other_fee_lists .fee {
+        display         : flex;
+        flex-direction  : row;
+        justify-content : space-between;
+        padding         : 10px 0;
+        border-bottom   : 1px solid #CBD5E1;
+        font-size       : 15px;
+        font-weight     : 500;
     }
 
     .realtor_subpage_container section.picture .subpage_content .upload_picture {
