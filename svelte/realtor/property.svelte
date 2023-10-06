@@ -30,6 +30,7 @@
   import FaSolidBath from "svelte-icons-pack/fa/FaSolidBath";
   import FaSolidChair from "svelte-icons-pack/fa/FaSolidChair";
   import FaSolidCamera from "svelte-icons-pack/fa/FaSolidCamera";
+  import FaSolidTimes from "svelte-icons-pack/fa/FaSolidTimes";
   
   // Use property from backend if backend is ready
   let property = {/* property */};
@@ -367,25 +368,31 @@
         if( ajax.status===200 ) {
           const out = JSON.parse( event.target.responseText );
           if( !out.error ) {
-            pictureObj.images = [...property.images, out.urlPattern]; // push house image url to array
+            pictureObj.images = [...pictureObj.images, out.urlPattern]; // push house image url to array
+            pictureObj.imageDescriptions = [...pictureObj.imageDescriptions, ''];
           }
-          console.log( 'Upload successful', out );
+          useGrowl( 'success', 'Image uploaded' );
         } else if( ajax.status===413 ) {
-          alert( 'Image too large' );
+          useGrowl( 'error', 'Image too large' );
         } else {
-          alert( 'Error: ' + ajax.status + ' ' + ajax.statusText );
+          useGrowl( 'error', `Error: ${ajax.status}  ${ajax.statusText}` );
         }
       } );
       ajax.addEventListener( 'error', function( event ) {
-        alert( 'Network error' );
+        useGrowl( 'error', 'Network error' );
       } );
       ajax.addEventListener( 'abort', function( event ) {
-        alert( 'Upload aborted' );
+        useGrowl( 'error', 'Upload aborted' );
       }, false );
       ajax.open( 'POST', '/user/uploadFile' );
       ajax.send( formData );
     }
     imageHouseInput.value = null;
+  }
+  
+  function removeImage( index ) {
+    pictureObj.images = pictureObj.images.filter( ( _, i ) => i!==index );
+    pictureObj.imageDescriptions = pictureObj.imageDescriptions.filter( ( _, i ) => i!==index );
   }
 </script>
 
@@ -703,7 +710,7 @@
 												{#each infoObj.otherFee as otherFee}
 													<div class='fee'>
 														<span>{otherFee.name}</span>
-														<span>${otherFee.fee}/mo</span>
+														<span><b>$</b>{otherFee.fee}/mo</span>
 													</div>
 												{/each}
 											{:else}
@@ -760,7 +767,25 @@
 								</label>
 							</div>
 							<div class='image_lists'>
-								<p>TODO: Image here</p>
+								{#if pictureObj.images && pictureObj.images.length}
+									{#each pictureObj.images as img, idx}
+										<div class='image_card'>
+											<div class='image_container'>
+												<img alt='' src={img}/>
+											</div>
+											<div class='image_description'>
+												<input placeholder="Description" type="text" bind:value={pictureObj.imageDescriptions[idx]}/>
+											</div>
+											<button
+												class='remove_image'
+												title='remove this image'
+												on:click|preventDefault={() => removeImage(idx)}
+											>
+												<Icon color='#FFF' size={12} src={FaSolidTimes}/>
+											</button>
+										</div>
+									{/each}
+								{/if}
 							</div>
 						</div>
 					</div>
@@ -1450,5 +1475,71 @@
 
     .realtor_subpage_container section.picture .subpage_content .upload_picture .upload_container .image_upload_button progress::-moz-progress-bar {
         background-color : #F97316;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .image_lists {
+        display   : flex;
+        gap       : 20px;
+        flex-wrap : wrap;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .image_lists .image_card {
+        display          : flex;
+        position         : relative;
+        flex-direction   : column;
+        padding          : 15px;
+        background-color : #F1F5F9;
+        border-radius    : 10px;
+        flex-basis       : 50%;
+        gap              : 15px;
+        border           : 1px solid #CBD5E1;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .image_lists .image_card .image_container {
+        width         : 100%;
+        height        : 250px;
+        overflow      : hidden;
+        border-radius : 8px;
+        border        : 1px solid #CBD5E1;
+        cursor        : pointer;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .image_lists .image_card .image_container:hover img {
+        transform : scale(1.20);
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .image_lists .image_card .image_container img {
+        object-fit          : cover;
+        width               : 100%;
+        height              : 100%;
+        transition-duration : 75ms;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .image_lists .image_card .image_description input {
+        width            : 100%;
+        border           : 1px solid #CBD5E1;
+        background-color : #F1F5F9;
+        border-radius    : 8px;
+        padding          : 12px;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .image_lists .image_card .image_description input:focus {
+        border-color : #3B82F6;
+        outline      : 2px solid #3B82F6;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .image_lists .image_card .remove_image {
+        position         : absolute;
+        right            : 10px;
+        top              : 10px;
+        padding          : 8px;
+        border-radius    : 50%;
+        border           : none;
+        background-color : #EF4444;
+        cursor           : pointer;
+    }
+
+    .realtor_subpage_container section.picture .subpage_content .upload_picture .image_lists .image_card .remove_image:hover {
+        background-color : #F85454;
     }
 </style>
