@@ -38,44 +38,54 @@
   let user = {/* user */};
   let segments = {/* segments */};
   let countryData = {/* countryData */}
-  let currentPage = 0;
+  let currentPage = 0, isPropertySubmitted = false;
   let cards = [{}, {}, {}, {}];
   let showGrowl = false, gMsg = '', gType = '';
   let myLatLng = {lat: -34.397, lng: 150.644}, countryCurrency = 'USD';
-  // Use it later
+  
+  onMount( () => {
+    if( property ) {
+      console.log( 'Property = ', property )
+    }
+  } )
+  
+  // Use it later as Payload
   let propertyItem = {
+    country: '',
+    city: '',
+    address: '',
+    district: '',
+    street1: '',
+    street2: '',
+    floors: 0,
     formattedAddress: '',
     lat: myLatLng.lat,
     long: myLatLng.lng,
     coord: [myLatLng.lat, myLatLng.lng],
-    //"id": '1234'
     uniqPropKey: '1_12449819078726277117',
     serialNumber: '',
-    sizeM2: '0',
-    mainUse: '', /*Facility Description*/
-    // mainBuildingMaterial: '',
-    // constructCompletedDate: '',
-    // 'numberOfFloors': '0',
-    // buildingLamination: '',
-    address: '',
-    district: '',
-    note: '', /*Description of this property*/
-    createdAt: 1692641835,
-    // createdBy: '0',
-    updatedAt: 1692641835,
-    // 'updatedBy': '0',
-    // 'deletedAt': 0,
-    lastPrice: 0,
-    // priceHistoriesSell: [],
-    // priceHistoriesRent: [],
-    purpose: '', // rent, sell
-    houseType: '', // house, apartment
-    images: [],
+    houseType: 'house',
     bedroom: 0,
     bathroom: 0,
+    livingroom: 0,
+    sizeM2: '0',
+    parking: 'false',
+    price: 0,
+    purpose: 'sell',
+    agencyFee: 'false',
     agencyFeePercent: 0,
+    deposit: 'false',
+    depositFee: 0,
+    minimumDurationYear: 0,
+    otherFee: [],
+    images: [],
+    imageDescriptions: [],
+    mainUse: '',
+    note: '',
+    createdAt: 1692641835,
+    updatedAt: 1692641835,
+    lastPrice: 0,
     floorList: [],
-    country: '',
   };
   
   function useGrowl( type, msg ) {
@@ -408,6 +418,10 @@
       }
     } )
   }
+  
+  function handleSubmit() {
+    isPropertySubmitted = true;
+  }
 </script>
 
 <svelte:head>
@@ -596,7 +610,7 @@
 												<option value='other'>Other</option>
 											</select>
 										</div>
-										{#if infoObj.houseType !=='land'}
+										{#if infoObj.houseType!=='land'}
 											<div class='input_box'>
 												<label for='parking'>Parking <span class='asterisk'>*</span></label>
 												<select id='parking' name='parking' bind:value={infoObj.parking}>
@@ -607,7 +621,7 @@
 										{/if}
 									</div>
 									<div class='room_area'>
-										{#if infoObj.houseType !=='land'}
+										{#if infoObj.houseType!=='land'}
 											<div class='input_box beds'>
 												<label for='beds'>
 													<Icon color='#475569' size={16} src={FaSolidBed}/>
@@ -731,7 +745,7 @@
 												{#each infoObj.otherFee as otherFee}
 													<div class='fee'>
 														<span>{otherFee.name}</span>
-														<b>{formatPrice(otherFee.fee, countryCurrency)}/mo</b>
+														<b>{formatPrice( otherFee.fee, countryCurrency )}/mo</b>
 													</div>
 												{/each}
 											{:else}
@@ -815,126 +829,145 @@
 					</button>
 				</section>
 				<section bind:this={cards[3]} class='preview' id='subpage_4'>
-					<button class='back_button' on:click={backPage}>
-						<Icon className="iconBack" color='#475569' size={18} src={FaSolidAngleLeft}/>
-					</button>
-					<div class='subpage_content'>
-						<div class='preview_content'>
-							<h3>Preview your property</h3>
-							<div class='streetview_container'>
-								<!-- TODO: render streetview here -->
-								<div class='img_container'>
-									<img alt="" src="/assets/img/street-view.jpeg"/>
-								</div>
-							</div>
-							<h4>Property Detail</h4>
-							{#if pictureObj.images && pictureObj.images.length}
-								<div class='image_properties'>
-									<!-- TODO: render property images as slide? -->
+					{#if isPropertySubmitted===false}
+						<button class='back_button' on:click={backPage}>
+							<Icon className="iconBack" color='#475569' size={18} src={FaSolidAngleLeft}/>
+						</button>
+						<div class='subpage_content'>
+							<div class='preview_content'>
+								<h3>Preview your property</h3>
+								<div class='streetview_container'>
+									<!-- TODO: render streetview here -->
 									<div class='img_container'>
-										<!-- TODO: click image to zoom -->
-										<img alt="" src={pictureObj.images[0]}/>
+										<img alt="" src="/assets/img/street-view.jpeg"/>
 									</div>
 								</div>
-							{/if}
-							<div class='preview_details'>
-								<div class='main_details'>
+								<h4>Property Detail</h4>
+								{#if pictureObj.images && pictureObj.images.length}
+									<div class='image_properties'>
+										<!-- TODO: render property images as slide? -->
+										<div class='img_container'>
+											<!-- TODO: click image to zoom -->
+											<img alt="" src={pictureObj.images[0]}/>
+										</div>
+									</div>
+								{/if}
+								<div class='preview_details'>
+									<div class='main_details'>
 									<span class={infoObj.purpose === 'rent' ? `label_rent purpose` : `label_sale purpose`}>
 										{infoObj.purpose==='rent' ? `For ${infoObj.purpose}` : `On Sale`}
 									</span>
-									<div class='price_house'>
-										<div class='left'>
-											<div class='price'>
-												<h5>{formatPrice( infoObj.price, countryCurrency )}</h5>
-												{ #if infoObj.purpose==='rent'}
-													<span>/mo</span>
-												{/if}
-											</div>
-											<span class='agency_fee'>
+										<div class='price_house'>
+											<div class='left'>
+												<div class='price'>
+													<h5>{formatPrice( infoObj.price, countryCurrency )}</h5>
+													{ #if infoObj.purpose==='rent'}
+														<span>/mo</span>
+													{/if}
+												</div>
+												<span class='agency_fee'>
 												Agency Fee: {infoObj.agencyFeePercent}%
 											</span>
-										</div>
-										<div class='right'>
-											<div class='house_type'>
-												<Icon color='#FFF' size={18} src={FaSolidHome}/>
-												<span>{infoObj.houseType}</span>
+											</div>
+											<div class='right'>
+												<div class='house_type'>
+													<Icon color='#FFF' size={18} src={FaSolidHome}/>
+													<span>{infoObj.houseType}</span>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class='feature_details'>
-									<div class='feature'>
-										<b>{infoObj.bedroom}</b>
-										<div>
-											<Icon color='#475569' size={16} src={FaSolidBed}/>
-											<span>Beds</span>
-										</div>
-									</div>
-									<div class='feature'>
-										<b>{infoObj.bathroom}</b>
-										<div>
-											<Icon color='#475569' size={13} src={FaSolidBath}/>
-											<span>Baths</span>
-										</div>
-									</div>
-									<div class='feature'>
-										<b>{infoObj.livingroom}</b>
-										<div>
-											<Icon color='#475569' size={13} src={FaSolidChair}/>
-											<span>Livings</span>
-										</div>
-									</div>
-									<div class='feature'>
-										<b>{houseSize}</b>
-										<div>
-											<Icon color='#475569' size={13} src={FaSolidBorderStyle}/>
-											<span>{infoUnitMode}</span>
-											<button class='unit_toggle' on:click|preventDefault={handleInfoUnitMode.toggle}>
-												<span class='bg'></span>
-												<Icon color='#F97316' size={13} src={FaSolidExchangeAlt}/>
-											</button>
-										</div>
-									</div>
-								</div>
-								<div class='other_details'>
-									{#if infoObj.purpose==='rent'}
-										<div class='details'>
-											<h5>Rent Detail</h5>
-											<div class='item'>
-												<span>Deposit Fee</span>
-												<b>{formatPrice( infoObj.depositFee, countryCurrency )}</b>
-											</div>
-											<div class='item'>
-												<span>Minimum Duration</span>
-												<b>{infoObj.minimumDurationYear} Year</b>
+									<div class='feature_details'>
+										<div class='feature'>
+											<b>{infoObj.bedroom}</b>
+											<div>
+												<Icon color='#475569' size={16} src={FaSolidBed}/>
+												<span>Beds</span>
 											</div>
 										</div>
-										{#if infoObj.otherFee && infoObj.otherFee.length}
+										<div class='feature'>
+											<b>{infoObj.bathroom}</b>
+											<div>
+												<Icon color='#475569' size={13} src={FaSolidBath}/>
+												<span>Baths</span>
+											</div>
+										</div>
+										<div class='feature'>
+											<b>{infoObj.livingroom}</b>
+											<div>
+												<Icon color='#475569' size={13} src={FaSolidChair}/>
+												<span>Livings</span>
+											</div>
+										</div>
+										<div class='feature'>
+											<b>{houseSize}</b>
+											<div>
+												<Icon color='#475569' size={13} src={FaSolidBorderStyle}/>
+												<span>{infoUnitMode}</span>
+												<button class='unit_toggle' on:click|preventDefault={handleInfoUnitMode.toggle}>
+													<span class='bg'></span>
+													<Icon color='#F97316' size={13} src={FaSolidExchangeAlt}/>
+												</button>
+											</div>
+										</div>
+									</div>
+									<div class='other_details'>
+										{#if infoObj.purpose==='rent'}
 											<div class='details'>
-												<h5>Other Fee</h5>
-												{#each infoObj.otherFee as otherfee}
-													<div class='item'>
-														<span>{otherfee.name}</span>
-														<b>{formatPrice( otherfee.fee, countryCurrency )}/mo</b>
-													</div>
-												{/each}
+												<h5>Rent Detail</h5>
+												<div class='item'>
+													<span>Deposit Fee</span>
+													<b>{formatPrice( infoObj.depositFee, countryCurrency )}</b>
+												</div>
+												<div class='item'>
+													<span>Minimum Duration</span>
+													<b>{infoObj.minimumDurationYear} Year</b>
+												</div>
 											</div>
+											{#if infoObj.otherFee && infoObj.otherFee.length}
+												<div class='details'>
+													<h5>Other Fee</h5>
+													{#each infoObj.otherFee as otherfee}
+														<div class='item'>
+															<span>{otherfee.name}</span>
+															<b>{formatPrice( otherfee.fee, countryCurrency )}/mo</b>
+														</div>
+													{/each}
+												</div>
+											{/if}
 										{/if}
-									{/if}
-									<div class='details'>
-										<h5>Parking</h5>
-										<div class='item'>
-											<span>Parking</span>
-											<b>{infoObj.parking==='true' ? 'Yes' : 'No'}</b>
+										<div class='details'>
+											<h5>Parking</h5>
+											<div class='item'>
+												<span>Parking</span>
+												<b>{infoObj.parking==='true' ? 'Yes' : 'No'}</b>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<button class='next_button'>
-						<span>SUBMIT</span>
-					</button>
+						<button class='next_button' on:click|preventDefault={handleSubmit}>
+							<span>SUBMIT</span>
+						</button>
+					{/if}
+					{#if isPropertySubmitted===true}
+						<div class='property_submitted_container'>
+							<div class='property_submitted'>
+								<div class='icon_submitted'>
+									<Icon size={110} color="#059669" src={FaCheckCircle}/>
+								</div>
+								<div class='message_submmitted'>
+									<b>We will review it soon</b>
+									<p>Thanks you for submitting your property.</p>
+								</div>
+							</div>
+							<div class="actions">
+								<button class="new" on:click={() =>{window.location.href = "/realtor/property"}}>Create New one</button>
+								<button class="see">See the property</button>
+							</div>
+						</div>
+					{/if}
 				</section>
 			</div>
 		</div>
@@ -943,12 +976,12 @@
 </section>
 
 <style>
-    /* General purpose selector*/
+    /* General purpose selector */
     :global(.back_button:hover .iconBack) {
         fill : #EF4444;
     }
 
-    @keyframes spin {
+    @keyframes spin { /* TODO: use it for loading */
         from {
             transform : rotate(0deg);
         }
@@ -1835,5 +1868,67 @@
         font-weight     : 500;
         padding-bottom  : 7px;
         border-bottom   : 1px solid #CBD5E1;
+    }
+
+    .preview .property_submitted_container {
+        display        : flex;
+        flex-direction : column;
+        gap            : 30px;
+        height         : 100%;
+    }
+
+    .preview .property_submitted_container .property_submitted {
+        height          : 100%;
+        width           : 100%;
+        display         : flex;
+        flex-direction  : column;
+        justify-content : center;
+        align-items     : center;
+        text-align      : center;
+        gap             : 20px;
+        flex-grow       : 1;
+    }
+
+    .preview .property_submitted .message_submmitted b {
+        font-weight : 700;
+        font-size   : 20px;
+    }
+
+    .preview .property_submitted_container .actions {
+        display        : flex;
+        flex-direction : column;
+        gap            : 15px;
+        height         : fit-content;
+    }
+
+    .preview .property_submitted_container .actions button {
+        border-radius : 8px;
+        border        : none;
+        padding       : 10px;
+        cursor        : pointer;
+        width         : 100%;
+        font-weight   : 600;
+    }
+
+    .preview .property_submitted_container .actions button.new {
+        background-color : #F97316;
+        color            : white;
+        display          : flex;
+        justify-content  : center;
+    }
+
+    .preview .property_submitted_container .actions button.new:hover {
+        background-color : #F58433;
+    }
+
+    .preview .property_submitted_container .actions button.see {
+        margin-right     : 10px;
+        border           : 1px solid #CBD5E1;
+        background-color : #F1F5F9;
+    }
+
+    .preview .property_submitted_container .actions button.see:hover {
+        border : 1px solid #F97316;
+	     color: #F97316;
     }
 </style>
