@@ -451,6 +451,7 @@ exports.AdminPropHistories = async function AdminPropHistories( i, cb ) {
  * @property {String} property.state
  * @property {String} property.zip
  * @property {number} property.propertyLastUpdatedDate
+ * @property {String} property.approvalState
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -504,6 +505,7 @@ const AdminPropertiesIn = {
     state: '', // string
     zip: '', // string
     propertyLastUpdatedDate: 0, // int64
+    approvalState: '', // string
   }, // rqProperty.Property
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -564,6 +566,7 @@ const AdminPropertiesIn = {
  * @property {String} property.state
  * @property {String} property.zip
  * @property {number} property.propertyLastUpdatedDate
+ * @property {String} property.approvalState
  * @property {Object} properties
  */
 const AdminPropertiesOut = {
@@ -628,6 +631,7 @@ const AdminPropertiesOut = {
     state: '', // string
     zip: '', // string
     propertyLastUpdatedDate: 0, // int64
+    approvalState: '', // string
   }, // rqProperty.Property
   properties: { // [][]any
   }, // [][]any
@@ -1206,6 +1210,7 @@ const GuestPropertyIn = {
  * @property {String} property.state
  * @property {String} property.zip
  * @property {number} property.propertyLastUpdatedDate
+ * @property {String} property.approvalState
  * @property {Object} meta
  */
 const GuestPropertyOut = {
@@ -1254,6 +1259,7 @@ const GuestPropertyOut = {
     state: '', // string
     zip: '', // string
     propertyLastUpdatedDate: 0, // int64
+    approvalState: '', // string
   }, // rqProperty.Property
   meta: { // []zCrud.Field
   }, // []zCrud.Field
@@ -1552,6 +1558,7 @@ const RealtorPropertyIn = {
  * @property {String} property.state
  * @property {String} property.zip
  * @property {number} property.propertyLastUpdatedDate
+ * @property {String} property.approvalState
  */
 const RealtorPropertyOut = {
   property: { // rqProperty.Property
@@ -1599,6 +1606,7 @@ const RealtorPropertyOut = {
     state: '', // string
     zip: '', // string
     propertyLastUpdatedDate: 0, // int64
+    approvalState: '', // string
   }, // rqProperty.Property
 }
 /**
@@ -1658,6 +1666,7 @@ exports.RealtorProperty = async function RealtorProperty( i, cb ) {
  * @property {String} property.state
  * @property {String} property.zip
  * @property {number} property.propertyLastUpdatedDate
+ * @property {String} property.approvalState
  */
 const RealtorUpsertPropertyIn = {
   property: { // rqProperty.Property
@@ -1705,6 +1714,7 @@ const RealtorUpsertPropertyIn = {
     state: '', // string
     zip: '', // string
     propertyLastUpdatedDate: 0, // int64
+    approvalState: '', // string
   }, // rqProperty.Property
 }
 /**
@@ -1748,6 +1758,7 @@ const RealtorUpsertPropertyIn = {
  * @property {String} property.state
  * @property {String} property.zip
  * @property {number} property.propertyLastUpdatedDate
+ * @property {String} property.approvalState
  */
 const RealtorUpsertPropertyOut = {
   property: { // rqProperty.Property
@@ -1795,6 +1806,7 @@ const RealtorUpsertPropertyOut = {
     state: '', // string
     zip: '', // string
     propertyLastUpdatedDate: 0, // int64
+    approvalState: '', // string
   }, // rqProperty.Property
 }
 /**
@@ -1899,6 +1911,38 @@ const UserDeactivateOut = {
  */
 exports.UserDeactivate = async function UserDeactivate( i, cb ) {
   return await axios.post( '/user/deactivate', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserGpsLocationIn
+ * @property {number} centerLat
+ * @property {number} centerLong
+ */
+const UserGpsLocationIn = {
+  centerLat: 0, // float64
+  centerLong: 0, // float64
+}
+/**
+ * @typedef {Object} UserGpsLocationOut
+ * @property {String} country
+ */
+const UserGpsLocationOut = {
+  country: '', // string
+}
+/**
+ * @callback UserGpsLocationCallback
+ * @param {UserGpsLocationOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserGpsLocationIn} i
+ * @param {UserGpsLocationCallback} cb
+ * @returns {Promise}
+ */
+exports.UserGpsLocation = async function UserGpsLocation( i, cb ) {
+  return await axios.post( '/user/gpsLocation', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

@@ -202,6 +202,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.UserDeactivate(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.UserGpsLocationAction:
+		in := domain.UserGpsLocationIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.UserGpsLocation(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.UserLikePropAction:
 		in := domain.UserLikePropIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
