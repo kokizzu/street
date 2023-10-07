@@ -124,8 +124,8 @@ func GetCountryData(file *os.File) {
 				Lng: strings.TrimSpace(coordLng),
 			},
 			Currency: currency{
-				Name: currencyName,
-				Code: countryCode,
+				Name: strings.TrimSpace(currencyName),
+				Code: strings.TrimSpace(currencyCode),
 			},
 		})
 		for tsv.HasCols() {

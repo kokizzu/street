@@ -41,7 +41,7 @@
   let currentPage = 0;
   let cards = [{}, {}, {}, {}];
   let showGrowl = false, gMsg = '', gType = '';
-  let myLatLng = {lat: -34.397, lng: 150.644};
+  let myLatLng = {lat: -34.397, lng: 150.644}, countryCurrency = 'USD';
   // Use it later
   let propertyItem = {
     formattedAddress: '',
@@ -224,6 +224,7 @@
           }
         }
       } )
+      changeCurrency();
       modeLocationCount += 1;
       modeLocation = modeLocationLists[ modeLocationCount ].mode;
       await initMap();
@@ -244,7 +245,7 @@
   // +================| Info |=================+ //
   const INFO_FEAT = 'Feature', INFO_PRICE = 'Price';
   const m2 = 'M2', ping = 'Ping'
-  let modeInfoCount = 0, infoUnitMode = ping, houseSize = 0, houseSizeM2 = 0, houseSizePing = 0;
+  let modeInfoCount = 0, infoUnitMode = m2, houseSize = 0, houseSizeM2 = 0, houseSizePing = 0;
   const modeInfoLists = [
     {mode: INFO_FEAT},
     {mode: INFO_PRICE}
@@ -293,7 +294,8 @@
         } else {
           infoUnitMode = m2;
         }
-      } else if( infoUnitMode===m2 ) {
+      }
+      if( infoUnitMode===m2 ) {
         if( houseSize!==0 ) {
           houseSizeM2 = houseSize;
           houseSizePing = handleInfoUnitMode.m2ToPing( houseSize );
@@ -329,6 +331,9 @@
     'INFO_FEAT': () => {
       if( infoUnitMode===ping ) {
         infoObj.sizeM2 = handleInfoUnitMode.pingToM2( houseSize );
+      }
+      if( infoUnitMode===m2 ) {
+        infoObj.sizeM2 = houseSize;
       }
       if( infoObj.sizeM2===0 ) return useGrowl( 'error', 'Please fill required form' );
       modeInfoCount += 1;
@@ -394,6 +399,14 @@
   function removeImage( index ) {
     pictureObj.images = pictureObj.images.filter( ( _, i ) => i!==index );
     pictureObj.imageDescriptions = pictureObj.imageDescriptions.filter( ( _, i ) => i!==index );
+  }
+  
+  function changeCurrency() {
+    countryData.forEach( c => {
+      if( locationObj.country===c.country ) {
+        countryCurrency = c.currency.code;
+      }
+    } )
   }
 </script>
 
@@ -575,9 +588,15 @@
 												<option value='house'>House</option>
 												<option value='land'>Land</option>
 												<option value='apartment'>Apartment</option>
+												<option value='townhouse'>Townhouse</option>
+												<option value='condo'>Condo</option>
+												<option value='villa'>Villa</option>
+												<option value='factory'>Factory</option>
+												<option value='parking'>Parking</option>
+												<option value='other'>Other</option>
 											</select>
 										</div>
-										{#if infoObj.houseType==='house' || infoObj.houseType==='apartment'}
+										{#if infoObj.houseType !=='land'}
 											<div class='input_box'>
 												<label for='parking'>Parking <span class='asterisk'>*</span></label>
 												<select id='parking' name='parking' bind:value={infoObj.parking}>
@@ -588,7 +607,7 @@
 										{/if}
 									</div>
 									<div class='room_area'>
-										{#if infoObj.houseType==='house' || infoObj.houseType==='apartment'}
+										{#if infoObj.houseType !=='land'}
 											<div class='input_box beds'>
 												<label for='beds'>
 													<Icon color='#475569' size={16} src={FaSolidBed}/>
@@ -712,7 +731,7 @@
 												{#each infoObj.otherFee as otherFee}
 													<div class='fee'>
 														<span>{otherFee.name}</span>
-														<span><b>$</b>{otherFee.fee}/mo</span>
+														<b>{formatPrice(otherFee.fee, countryCurrency)}/mo</b>
 													</div>
 												{/each}
 											{:else}
@@ -826,7 +845,7 @@
 									<div class='price_house'>
 										<div class='left'>
 											<div class='price'>
-												<h5>{formatPrice( infoObj.price, 'USD' )}</h5>
+												<h5>{formatPrice( infoObj.price, countryCurrency )}</h5>
 												{ #if infoObj.purpose==='rent'}
 													<span>/mo</span>
 												{/if}
@@ -883,30 +902,30 @@
 											<h5>Rent Detail</h5>
 											<div class='item'>
 												<span>Deposit Fee</span>
-												<b>$25000</b>
+												<b>{formatPrice( infoObj.depositFee, countryCurrency )}</b>
 											</div>
 											<div class='item'>
 												<span>Minimum Duration</span>
-												<b>1 Year</b>
+												<b>{infoObj.minimumDurationYear} Year</b>
 											</div>
 										</div>
-										<div class='details'>
-											<h5>Other Fee</h5>
-											<div class='item'>
-												<span>Management Fee</span>
-												<b>$1000/mo</b>
+										{#if infoObj.otherFee && infoObj.otherFee.length}
+											<div class='details'>
+												<h5>Other Fee</h5>
+												{#each infoObj.otherFee as otherfee}
+													<div class='item'>
+														<span>{otherfee.name}</span>
+														<b>{formatPrice( otherfee.fee, countryCurrency )}/mo</b>
+													</div>
+												{/each}
 											</div>
-											<div class='item'>
-												<span>Parking Fee</span>
-												<b>$7000/mo</b>
-											</div>
-										</div>
+										{/if}
 									{/if}
 									<div class='details'>
 										<h5>Parking</h5>
 										<div class='item'>
 											<span>Parking</span>
-											<b>Yes</b>
+											<b>{infoObj.parking==='true' ? 'Yes' : 'No'}</b>
 										</div>
 									</div>
 								</div>
@@ -1697,8 +1716,9 @@
     }
 
     .realtor_subpage_container section.preview .subpage_content .preview_content h4 {
-        margin    : 0;
-        font-size : 18px;
+        margin     : 0;
+        font-size  : 20px;
+        text-align : center;
     }
 
     .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details {
