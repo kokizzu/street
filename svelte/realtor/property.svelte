@@ -9,6 +9,7 @@
   import {RealtorUpsertProperty} from '../jsApi.GEN';
   import Growl from '../_components/Growl.svelte'
   import AddOtherFeeDialog from '../_components/AddOtherFeeDialog.svelte';
+  import {formatPrice} from '../_components/formatter'
   
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
@@ -613,7 +614,7 @@
 										<div class='input_box area'>
 											<label for='area'>
 												<Icon color='#475569' size={13} src={FaSolidBorderStyle}/>
-												<span>{infoUnitMode}</span>
+												<span>{infoUnitMode} <span class='asterisk'>*</span></span>
 												<button class='unit_toggle' on:click|preventDefault={handleInfoUnitMode.toggle}>
 													<span class='bg'></span>
 													<Icon color='#F97316' size={13} src={FaSolidExchangeAlt}/>
@@ -795,7 +796,7 @@
 					</button>
 				</section>
 				<section bind:this={cards[3]} class='preview' id='subpage_4'>
-					<button class='back_button'>
+					<button class='back_button' on:click={backPage}>
 						<Icon className="iconBack" color='#475569' size={18} src={FaSolidAngleLeft}/>
 					</button>
 					<div class='subpage_content'>
@@ -808,14 +809,107 @@
 								</div>
 							</div>
 							<h4>Property Detail</h4>
-							<div class='image_properties'>
-								{#if pictureObj.images && pictureObj.images.length}
+							{#if pictureObj.images && pictureObj.images.length}
+								<div class='image_properties'>
 									<!-- TODO: render property images as slide? -->
 									<div class='img_container'>
 										<!-- TODO: click image to zoom -->
 										<img alt="" src={pictureObj.images[0]}/>
 									</div>
-								{/if}
+								</div>
+							{/if}
+							<div class='preview_details'>
+								<div class='main_details'>
+									<span class={infoObj.purpose === 'rent' ? `label_rent purpose` : `label_sale purpose`}>
+										{infoObj.purpose==='rent' ? `For ${infoObj.purpose}` : `On Sale`}
+									</span>
+									<div class='price_house'>
+										<div class='left'>
+											<div class='price'>
+												<h5>{formatPrice( infoObj.price, 'USD' )}</h5>
+												{ #if infoObj.purpose==='rent'}
+													<span>/mo</span>
+												{/if}
+											</div>
+											<span class='agency_fee'>
+												Agency Fee: {infoObj.agencyFeePercent}%
+											</span>
+										</div>
+										<div class='right'>
+											<div class='house_type'>
+												<Icon color='#FFF' size={18} src={FaSolidHome}/>
+												<span>{infoObj.houseType}</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class='feature_details'>
+									<div class='feature'>
+										<b>{infoObj.bedroom}</b>
+										<div>
+											<Icon color='#475569' size={16} src={FaSolidBed}/>
+											<span>Beds</span>
+										</div>
+									</div>
+									<div class='feature'>
+										<b>{infoObj.bathroom}</b>
+										<div>
+											<Icon color='#475569' size={13} src={FaSolidBath}/>
+											<span>Baths</span>
+										</div>
+									</div>
+									<div class='feature'>
+										<b>{infoObj.livingroom}</b>
+										<div>
+											<Icon color='#475569' size={13} src={FaSolidChair}/>
+											<span>Livings</span>
+										</div>
+									</div>
+									<div class='feature'>
+										<b>{houseSize}</b>
+										<div>
+											<Icon color='#475569' size={13} src={FaSolidBorderStyle}/>
+											<span>{infoUnitMode}</span>
+											<button class='unit_toggle' on:click|preventDefault={handleInfoUnitMode.toggle}>
+												<span class='bg'></span>
+												<Icon color='#F97316' size={13} src={FaSolidExchangeAlt}/>
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class='other_details'>
+									{#if infoObj.purpose==='rent'}
+										<div class='details'>
+											<h5>Rent Detail</h5>
+											<div class='item'>
+												<span>Deposit Fee</span>
+												<b>$25000</b>
+											</div>
+											<div class='item'>
+												<span>Minimum Duration</span>
+												<b>1 Year</b>
+											</div>
+										</div>
+										<div class='details'>
+											<h5>Other Fee</h5>
+											<div class='item'>
+												<span>Management Fee</span>
+												<b>$1000/mo</b>
+											</div>
+											<div class='item'>
+												<span>Parking Fee</span>
+												<b>$7000/mo</b>
+											</div>
+										</div>
+									{/if}
+									<div class='details'>
+										<h5>Parking</h5>
+										<div class='item'>
+											<span>Parking</span>
+											<b>Yes</b>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -1249,14 +1343,14 @@
         flex-basis : 40%;
     }
 
-    .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area .area .unit_toggle {
+    .realtor_subpage_container section .unit_toggle {
         border     : none;
         background : transparent;
         position   : relative;
         cursor     : pointer;
     }
 
-    .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area .area .unit_toggle .bg {
+    .realtor_subpage_container section .unit_toggle .bg {
         width            : 0;
         height           : 0;
         border-radius    : 50%;
@@ -1267,7 +1361,7 @@
         left             : 1px;
     }
 
-    .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area .area .unit_toggle:hover .bg {
+    .realtor_subpage_container section .unit_toggle:hover .bg {
         width  : 24px;
         height : 24px;
     }
@@ -1605,5 +1699,121 @@
     .realtor_subpage_container section.preview .subpage_content .preview_content h4 {
         margin    : 0;
         font-size : 18px;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details {
+        display        : flex;
+        flex-direction : column;
+        gap            : 20px;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .main_details {
+        display        : flex;
+        flex-direction : column;
+        gap            : 10px;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .main_details .purpose {
+        width   : fit-content;
+        padding : 4px 10px;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .main_details .price_house {
+        display         : flex;
+        flex-direction  : row;
+        justify-content : space-between;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .main_details .price_house .left {
+        display        : flex;
+        flex-direction : column;
+        gap            : 5px;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .main_details .price_house .left .price {
+        display        : flex;
+        flex-direction : row;
+        gap            : 5px;
+        align-items    : center;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .main_details .price_house .left .price h5 {
+        margin    : 0;
+        font-size : 35px;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .main_details .price_house .left .price span {
+        font-size : 16px;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .main_details .price_house .right {
+        height : fit-content;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .main_details .price_house .right .house_type {
+        background-color : #F97316;
+        display          : flex;
+        flex-direction   : row;
+        gap              : 8px;
+        padding          : 8px 22px;
+        color            : #FFF;
+        font-size        : 16px;
+        font-weight      : 500;
+        text-transform   : capitalize;
+        border-radius    : 999px;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .feature_details {
+        display         : flex;
+        flex-direction  : row;
+        justify-content : space-evenly;
+        align-items     : center;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .feature_details .feature {
+        display         : flex;
+        flex-direction  : column;
+        justify-content : center;
+        align-items     : center;
+        gap             : 5px;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .feature_details .feature div {
+        display        : flex;
+        flex-direction : row;
+        gap            : 5px;
+        align-items    : center;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .feature_details .feature b {
+        font-size : 35px;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .other_details {
+        display        : flex;
+        flex-direction : column;
+        gap            : 15px;
+        width          : 60%;
+        margin         : 20 auto 0;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .other_details .details {
+        display        : flex;
+        flex-direction : column;
+        gap            : 10px;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .other_details .details h5 {
+        margin    : 0;
+        font-size : 22px;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .preview_details .other_details .details .item {
+        display         : flex;
+        flex-direction  : row;
+        justify-content : space-between;
+        font-weight     : 500;
+        padding-bottom  : 7px;
+        border-bottom   : 1px solid #CBD5E1;
     }
 </style>
