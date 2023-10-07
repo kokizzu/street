@@ -31,6 +31,7 @@ var allCommands = []string{
 	domain.UserAutoLoginLinkAction,
 	domain.UserChangePasswordAction,
 	domain.UserDeactivateAction,
+	domain.UserGpsLocationAction,
 	domain.UserLikePropAction,
 	domain.UserLogoutAction,
 	domain.UserNearbyFacilitiesAction,
