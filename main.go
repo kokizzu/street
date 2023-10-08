@@ -237,7 +237,7 @@ func main() {
 			savedSession = session.SessionToken
 		}
 		rc := domain.NewLocalRequestCommon(savedSession, UA)
-		out := d.UserNearbyFacilities(&domain.UserNearbyFacilitiesIn{
+		out := d.UserGpsLocation(&domain.UserGpsLocationIn{
 			RequestCommon: rc,
 			CenterLat:     40.730610,
 			CenterLong:    -73.935242,

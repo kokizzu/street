@@ -8,6 +8,7 @@ import (
 
 	"github.com/goccy/go-json"
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/M"
 
 	"street/conf"
 )
@@ -177,52 +178,73 @@ func (g Gmap) NearbyFacilities(lat float64, long float64, typ string) (res []Pla
 	return res, nil
 }
 
-func (g Gmap) GetCountryByLatLng(lat float64, long float64) (country, iso2 string, err error) {
+var ErrGetCountryByLatLng = errors.New(`gmap) GetCountryByLatLng`)
+
+func (g Gmap) GetCountryByLatLng(lat float64, long float64) (countryName, iso2 string, err error) {
 	url := fmt.Sprintf(
 		`https://maps.googleapis.com/maps/api/geocode/json?latlng=%.15f,%.15f&sensor=false&key=%s`,
 		lat, long, g.PrivateApiKey)
 
 	resp, err := http.Get(url)
 	if L.IsError(err, `Gmap) NearbyFacilities.http.Get`) {
-		return ``, ``, err
+		err = ErrGetCountryByLatLng
+		return
 	}
 	// intentionally ignore http status
-	if resp == nil || resp.Body == nil {
-		return ``, ``, errors.New(`Gmap) NearbyFacilities.http.EmptyBody`)
+	if L.CheckIf(resp == nil || resp.Body == nil, `Gmap) GetCountryByLatLng.http.EmptyBody`) {
+		err = ErrGetCountryByLatLng
+		return
 	}
 
 	// read all body
 	body, err := io.ReadAll(resp.Body)
-	if L.IsError(err, `Gmap) NearbyFacilities.io.ReadAll`) {
-		return ``, ``, err
+	if L.IsError(err, `Gmap) GetCountryByLatLng.io.ReadAll`) {
+		err = ErrGetCountryByLatLng
+		return
 	}
 
-	var data map[string]interface{}
+	data := M.SX{}
 
 	// Unmarshal the JSON into the map
-	if err := json.Unmarshal([]byte(body), &data); err != nil {
-		return ``, ``, errors.New(`Error unmarshaling JSON`)
+	ok := data.FromJson(string(body))
+	if L.CheckIf(!ok, `Gmap) GetCountryByLatLng.FromJson`) {
+		err = ErrGetCountryByLatLng
+		return
 	}
 
-	var (
-		countryName string
-		countryIso2 string
-	)
-	addressComponents := data["results"].([]interface{})[0].(map[string]interface{})["address_components"].([]interface{})
-	for _, component := range addressComponents {
-		componentMap := component.(map[string]interface{})
-		if types, exists := componentMap["types"].([]any); exists {
-			if types[0] == "country" {
-				if longName, exists := componentMap["long_name"].(string); exists {
-					if shortName, exists := componentMap["short_name"].(string); exists {
-						countryName = longName
-						countryIso2 = shortName
-						break
-					}
+	//L.Describe(data)
+
+	// data have 3 keys: plus_code (MSX), results (AX), status (string)
+	results := data.GetAX("results")
+	for _, res := range results {
+		resMap, ok := res.(map[string]any)
+		if !ok {
+			continue
+		}
+		// resMap have keys: address_components, formatted_address, geometry, place_id, plus_code, types
+		addressComponents := M.SX(resMap).GetAX("address_components")
+		for _, ac := range addressComponents {
+			acMap, ok := ac.(map[string]any)
+			if !ok {
+				continue
+			}
+			acMsx := M.SX(acMap)
+			typeArr := acMsx.GetAX(`types`)
+			haveCountry := false
+			for _, typ := range typeArr {
+				if typ == "country" {
+					haveCountry = true
 				}
+			}
+			if haveCountry {
+				countryName = acMsx.GetStr(`long_name`)
+				iso2 = acMsx.GetStr(`short_name`)
+			}
+			if countryName != `` && iso2 != `` {
+				return
 			}
 		}
 	}
 
-	return countryName, countryIso2, nil
+	return // assume success just undetected
 }

@@ -1916,35 +1916,37 @@ exports.UserDeactivate = async function UserDeactivate( i, cb ) {
 }
 
 /**
- * @typedef {Object} UserGpsLocationIn
+ * @typedef {Object} UserGpsCountryIn
  * @property {number} centerLat
  * @property {number} centerLong
+ * @property {Object} checkOnly
  */
-const UserGpsLocationIn = {
+const UserGpsCountryIn = {
   centerLat: 0, // float64
   centerLong: 0, // float64
+  checkOnly: false, // bool
 }
 /**
- * @typedef {Object} UserGpsLocationOut
+ * @typedef {Object} UserGpsCountryOut
  * @property {String} country
  * @property {String} countryCode
  */
-const UserGpsLocationOut = {
+const UserGpsCountryOut = {
   country: '', // string
   countryCode: '', // string
 }
 /**
- * @callback UserGpsLocationCallback
- * @param {UserGpsLocationOut} o
+ * @callback UserGpsCountryCallback
+ * @param {UserGpsCountryOut} o
  * @returns {Promise}
  */
 /**
- * @param  {UserGpsLocationIn} i
- * @param {UserGpsLocationCallback} cb
+ * @param  {UserGpsCountryIn} i
+ * @param {UserGpsCountryCallback} cb
  * @returns {Promise}
  */
-exports.UserGpsLocation = async function UserGpsLocation( i, cb ) {
-  return await axios.post( '/user/gpsLocation', i ).
+exports.UserGpsCountry = async function UserGpsCountry( i, cb ) {
+  return await axios.post( '/user/GpsCountry', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

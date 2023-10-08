@@ -250,13 +250,13 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
-	// UserGpsLocation
-	fw.Post("/"+domain.UserGpsLocationAction, func(c *fiber.Ctx) error {
-		in := domain.UserGpsLocationIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserGpsLocationAction); err != nil {
+	// UserGpsCountry
+	fw.Post("/"+domain.UserGpsCountryAction, func(c *fiber.Ctx) error {
+		in := domain.UserGpsCountryIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserGpsCountryAction); err != nil {
 			return nil
 		}
-		out := d.UserGpsLocation(&in)
+		out := d.UserGpsCountry(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

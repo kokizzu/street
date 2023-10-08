@@ -3653,8 +3653,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       exports.UserDeactivate = async function UserDeactivate(i, cb) {
         return await axios.post("/user/deactivate", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserGpsLocation = async function UserGpsLocation2(i, cb) {
-        return await axios.post("/user/gpsLocation", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      exports.UserGpsCountry = async function UserGpsCountry(i, cb) {
+        return await axios.post("/user/GpsCountry", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserLikeProp = async function UserLikeProp(i, cb) {
         return await axios.post("/userLikeProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -6934,7 +6934,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 
   // realtor/property.svelte
   var import_formatter = __toESM(require_formatter());
-  var import_jsApi2 = __toESM(require_jsApi_GEN());
 
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidAngleLeft.js
   var FaSolidAngleLeft_default = {
@@ -11445,15 +11444,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let cards = [{}, {}, {}, {}];
     let showGrowl = false, gMsg = "", gType = "";
     let myLatLng = { lat: -34.397, lng: 150.644 }, countryCurrency = "TWD";
-    onMount(async () => {
+    onMount(() => {
       if (property) {
         console.log("Property = ", property);
       }
-      await (0, import_jsApi2.UserGpsLocation)({ centerLat: -34.397, centerLong: 150.644 }, function(res) {
-        if (res.error)
-          return alert(res.error);
-        console.log("gps = ", res);
-      });
     });
     let propertyItem = {
       country: "",
