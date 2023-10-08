@@ -237,10 +237,11 @@ func main() {
 			savedSession = session.SessionToken
 		}
 		rc := domain.NewLocalRequestCommon(savedSession, UA)
-		out := d.UserGpsLocation(&domain.UserGpsLocationIn{
+		out := d.UserGpsCountry(&domain.UserGpsCountryIn{
 			RequestCommon: rc,
 			CenterLat:     40.730610,
 			CenterLong:    -73.935242,
+			CheckOnly:     true,
 		})
 		L.Describe(out)
 	//case `upgradememtx`:
