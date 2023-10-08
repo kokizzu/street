@@ -1948,7 +1948,7 @@ const UserGpsCountryOut = {
  * @returns {Promise}
  */
 exports.UserGpsCountry = async function UserGpsCountry( i, cb ) {
-  return await axios.post( '/user/GpsCountry', i ).
+  return await axios.post( '/user/gpsCountry', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

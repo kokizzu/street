@@ -2784,7 +2784,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         return await axios.post("/user/deactivate", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserGpsCountry = async function UserGpsCountry(i, cb) {
-        return await axios.post("/user/GpsCountry", i).then(wrapOk(cb)).catch(wrapErr(cb));
+        return await axios.post("/user/gpsCountry", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserLikeProp = async function UserLikeProp(i, cb) {
         return await axios.post("/userLikeProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
