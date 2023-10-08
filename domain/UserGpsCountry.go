@@ -32,11 +32,13 @@ type (
 
 		CountryName string `json:"countryName" form:"countryName" query:"countryName" long:"countryName" msg:"countryName"`
 		CountryIso2 string `json:"countryIso2" form:"countryIso2" query:"countryIso2" long:"countryIso2" msg:"countryIso2"`
+
+		PrevCountry string `json:"prevCountry" form:"prevCountry" query:"prevCountry" long:"prevCountry" msg:"prevCountry"`
 	}
 )
 
 const (
-	UserGpsCountryAction = `user/GpsCountry`
+	UserGpsCountryAction = `user/gpsCountry`
 
 	ErrUserGpsCountryUserNotFound       = `gps user not found`
 	ErrUserGpsCountryFailedGetCountry   = `failed to get gps country`
@@ -73,10 +75,6 @@ func (d *Domain) UserGpsCountry(in *UserGpsCountryIn) (out UserGpsCountryOut) {
 		_ = userGpsCountryCache.Set(cacheKey, []byte(fmt.Sprintf(`%s|%s`, country, iso2)))
 	}
 
-	if in.CheckOnly {
-		return
-	}
-
 	// set to user profile
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Id = sess.UserId
@@ -85,11 +83,17 @@ func (d *Domain) UserGpsCountry(in *UserGpsCountryIn) (out UserGpsCountryOut) {
 		return
 	}
 
-	user.SetCountry(out.CountryIso2)
+	out.PrevCountry = user.Country
 
-	if !user.DoUpsert() {
-		out.SetError(500, ErrUserGpsCountryFailedStoreCountry)
+	if in.CheckOnly {
 		return
+	}
+
+	if user.SetCountry(out.CountryIso2) { // changed
+		if !user.DoUpsert() {
+			out.SetError(500, ErrUserGpsCountryFailedStoreCountry)
+			return
+		}
 	}
 
 	return

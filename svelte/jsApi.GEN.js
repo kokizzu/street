@@ -1928,12 +1928,14 @@ const UserGpsCountryIn = {
 }
 /**
  * @typedef {Object} UserGpsCountryOut
- * @property {String} country
- * @property {String} countryCode
+ * @property {String} countryName
+ * @property {String} countryIso2
+ * @property {String} prevCountry
  */
 const UserGpsCountryOut = {
-  country: '', // string
-  countryCode: '', // string
+  countryName: '', // string
+  countryIso2: '', // string
+  prevCountry: '', // string
 }
 /**
  * @callback UserGpsCountryCallback
