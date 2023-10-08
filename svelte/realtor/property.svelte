@@ -41,7 +41,7 @@
   let currentPage = 0, isPropertySubmitted = false;
   let cards = [{}, {}, {}, {}];
   let showGrowl = false, gMsg = '', gType = '';
-  let myLatLng = {lat: -34.397, lng: 150.644}, countryCurrency = 'USD';
+  let myLatLng = {lat: -34.397, lng: 150.644}, countryCurrency = 'TWD';
   
   onMount( () => {
     if( property ) {
@@ -80,12 +80,24 @@
     otherFee: [],
     images: [],
     imageDescriptions: [],
-    mainUse: '',
-    note: '',
     createdAt: 1692641835,
     updatedAt: 1692641835,
     lastPrice: 0,
     floorList: [],
+    
+    // mainUse: '', // no longer used
+    // note: '', // no longer used
+    
+    //"id": '1234'
+    // mainBuildingMaterial: '',
+    // constructCompletedDate: '',
+    // 'numberOfFloors': '0',
+    // buildingLamination: '',
+    // createdBy: '0',
+    // 'updatedBy': '0',
+    // 'deletedAt': 0,
+    // priceHistoriesSell: [],
+    // priceHistoriesRent: [],
   };
   
   function useGrowl( type, msg ) {
@@ -190,7 +202,7 @@
             }
           }
         } else {
-          console.log( 'Address not found' );
+          useGrowl('error', 'Address not found' );
           locationObj.formattedAddresss = '';
           locationObj.country = '';
         }
@@ -234,7 +246,6 @@
           }
         }
       } )
-      changeCurrency();
       modeLocationCount += 1;
       modeLocation = modeLocationLists[ modeLocationCount ].mode;
       await initMap();
@@ -409,14 +420,6 @@
   function removeImage( index ) {
     pictureObj.images = pictureObj.images.filter( ( _, i ) => i!==index );
     pictureObj.imageDescriptions = pictureObj.imageDescriptions.filter( ( _, i ) => i!==index );
-  }
-  
-  function changeCurrency() {
-    countryData.forEach( c => {
-      if( locationObj.country===c.country ) {
-        countryCurrency = c.currency.code;
-      }
-    } )
   }
   
   function handleSubmit() {
@@ -704,7 +707,7 @@
 									{#if infoObj.agencyFee==='true'}
 										<div class='input_box agency_fee'>
 											<label for='agency_fee_percent'>Charge to Buyer</label>
-											<input id='agency_fee_percent' type='number' min='0' bind:value={infoObj.agencyFeePercent}/>
+											<input id='agency_fee_percent' type='number' min='0' max='99' bind:value={infoObj.agencyFeePercent}/>
 											<span>%</span>
 										</div>
 									{/if}
@@ -729,7 +732,7 @@
 									<div class='row'>
 										<div class='input_box min_duration'>
 											<label for='minimum_duration'>Minimum Duration</label>
-											<input id='minimum_duration' type='number' min='0' max='100' bind:value={infoObj.minimumDurationYear}/>
+											<input id='minimum_duration' type='number' min='1' bind:value={infoObj.minimumDurationYear}/>
 											<span>Year</span>
 										</div>
 									</div>

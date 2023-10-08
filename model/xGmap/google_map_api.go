@@ -176,3 +176,53 @@ func (g Gmap) NearbyFacilities(lat float64, long float64, typ string) (res []Pla
 
 	return res, nil
 }
+
+func (g Gmap) GetCountryByLatLng(lat float64, long float64) (country, iso2 string, err error) {
+	url := fmt.Sprintf(
+		`https://maps.googleapis.com/maps/api/geocode/json?latlng=%.15f,%.15f&sensor=false&key=%s`,
+		lat, long, g.PrivateApiKey)
+
+	resp, err := http.Get(url)
+	if L.IsError(err, `Gmap) NearbyFacilities.http.Get`) {
+		return ``, ``, err
+	}
+	// intentionally ignore http status
+	if resp == nil || resp.Body == nil {
+		return ``, ``, errors.New(`Gmap) NearbyFacilities.http.EmptyBody`)
+	}
+
+	// read all body
+	body, err := io.ReadAll(resp.Body)
+	if L.IsError(err, `Gmap) NearbyFacilities.io.ReadAll`) {
+		return ``, ``, err
+	}
+
+	var data map[string]interface{}
+
+	// Unmarshal the JSON into the map
+	if err := json.Unmarshal([]byte(body), &data); err != nil {
+		return ``, ``, errors.New(`Error unmarshaling JSON`)
+	}
+
+	var (
+		countryName string
+		countryIso2 string
+	)
+	addressComponents := data["results"].([]interface{})[0].(map[string]interface{})["address_components"].([]interface{})
+	for _, component := range addressComponents {
+		componentMap := component.(map[string]interface{})
+		if types, exists := componentMap["types"].([]any); exists {
+			if types[0] == "country" {
+				if longName, exists := componentMap["long_name"].(string); exists {
+					if shortName, exists := componentMap["short_name"].(string); exists {
+						countryName = longName
+						countryIso2 = shortName
+						break
+					}
+				}
+			}
+		}
+	}
+
+	return countryName, countryIso2, nil
+}

@@ -217,10 +217,10 @@
           myLatLng.lat = results[ 0 ].geometry.location.lat();
           myLatLng.lng = results[ 0 ].geometry.location.lng();
         } else {
-          alert( 'No result found' );
+          useGrowl( 'warning', 'No result found' );
         }
       } ).catch( ( e ) => {
-        alert( 'Geocoder failed due to: ' + e );
+        useGrowl( 'error', `Geocoder failed due to: ${e}` );
       } );
     autocomplete_lists = [];
     input_search_value = '';
@@ -696,11 +696,11 @@
     }
 
     .property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd .right_buttons {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin-right : 4px;
-        gap: 18px;
+        display        : flex;
+        flex-direction : row;
+        align-items    : center;
+        margin-right   : 4px;
+        gap            : 18px;
     }
 
     .share_container {
@@ -732,10 +732,10 @@
     }
 
     .property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd .share_btn {
-        padding       : 0;
-        border        : none;
-        background    : none;
-        cursor        : pointer;
+        padding    : 0;
+        border     : none;
+        background : none;
+        cursor     : pointer;
     }
 
     :global(.property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd .share_btn:hover .share_icon),
@@ -744,10 +744,10 @@
     }
 
     .property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd .like_btn {
-        padding       : 0;
-        border        : none;
-        background    : none;
-        cursor        : pointer;
+        padding    : 0;
+        border     : none;
+        background : none;
+        cursor     : pointer;
     }
 
     .property_location_container .left .props_container .prop_item .prop_info .main_info .label_info {

@@ -21,7 +21,8 @@ type (
 	UserGpsLocationOut struct {
 		ResponseCommon
 
-		Country string `json:"country" form:"country" query:"country" long:"country" msg:"country"`
+		Country     string `json:"country" form:"country" query:"country" long:"country" msg:"country"`
+		CountryCode string `json:"country_code" form:"country_code" query:"country_code" long:"country_code" msg:"country_code"`
 	}
 )
 
@@ -30,6 +31,7 @@ const (
 
 	ErrUserGpsLocationUserNotFound     = `gps user not found`
 	ErrUserGpsLocationFailedSetCountry = `failed to set gps country`
+	ErrUserGpsLocationFailedGetCountry = `failed to get gps country`
 )
 
 func (d *Domain) UserGpsLocation(in *UserGpsLocationIn) (out UserGpsLocationOut) {
@@ -40,8 +42,11 @@ func (d *Domain) UserGpsLocation(in *UserGpsLocationIn) (out UserGpsLocationOut)
 		return
 	}
 
-	var countryCode2digit = `TW`
-	// TODO: call to googlemap api
+	country, iso2, err := d.Gmap.GetCountryByLatLng(in.CenterLat, in.CenterLong)
+	if err != nil {
+		out.SetError(500, ErrUserGpsLocationFailedGetCountry)
+		return
+	}
 
 	// set to user profile
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
@@ -50,11 +55,13 @@ func (d *Domain) UserGpsLocation(in *UserGpsLocationIn) (out UserGpsLocationOut)
 		out.SetError(403, ErrUserGpsLocationUserNotFound)
 		return
 	}
-	user.SetCountry(countryCode2digit)
+	user.SetCountry(iso2)
 	if !user.DoUpsert() {
 		out.SetError(500, ErrUserGpsLocationFailedSetCountry)
 		return
 	}
 
+	out.Country = country
+	out.CountryCode = iso2
 	return
 }

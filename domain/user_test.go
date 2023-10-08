@@ -233,6 +233,18 @@ func TestLogout(t *testing.T) {
 			})
 		})
 
+		t.Run(`userGpsLocation`, func(t *testing.T) {
+			in := &UserGpsLocationIn{
+				RequestCommon: RequestCommon{
+					SessionToken: sessionToken,
+				},
+				CenterLat:  -34.397,
+				CenterLong: 150.644,
+			}
+			out := d.UserGpsLocation(in)
+			assert.Equal(t, out.Error, ErrUserGpsLocationFailedGetCountry)
+		})
+
 		t.Run(`logout`, func(t *testing.T) {
 			in := &UserLogoutIn{
 				RequestCommon: RequestCommon{
