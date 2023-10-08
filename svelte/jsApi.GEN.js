@@ -1927,9 +1927,11 @@ const UserGpsLocationIn = {
 /**
  * @typedef {Object} UserGpsLocationOut
  * @property {String} country
+ * @property {String} countryCode
  */
 const UserGpsLocationOut = {
   country: '', // string
+  countryCode: '', // string
 }
 /**
  * @callback UserGpsLocationCallback

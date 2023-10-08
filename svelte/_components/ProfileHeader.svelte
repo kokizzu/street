@@ -14,7 +14,6 @@
   
   let selectedLanguage = '';
   onMount( () => {
-    console.log( 'User, load profile header = ', user )
     selectedLanguage = T.currentLang || 'EN';
   } );
   

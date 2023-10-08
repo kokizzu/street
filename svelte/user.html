@@ -368,7 +368,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 }
 
 /* fakecss:./user.esbuild-svelte-fake-css */
-.profile_details_container.svelte-1ln4pxh.svelte-1ln4pxh {
+@keyframes svelte-16pay0v-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: svelte-16pay0v-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.profile_details_container.svelte-16pay0v.svelte-16pay0v {
   position: relative;
   margin-top: -40px;
   margin-left: auto;
@@ -380,16 +391,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   color: #475569;
   font-size: 14px;
 }
-.profile_details_container.svelte-1ln4pxh h2.svelte-1ln4pxh {
+.profile_details_container.svelte-16pay0v h2.svelte-16pay0v {
   font-size: 18px;
   margin: 0 0 20px 0;
   font-weight: 700;
   text-align: center;
   color: #6366F1;
 }
-.profile_details_container.svelte-1ln4pxh .left .profile_details.svelte-1ln4pxh,
-.profile_details_container.svelte-1ln4pxh .right .password_set.svelte-1ln4pxh,
-.profile_details_container.svelte-1ln4pxh .left .session_list_container.svelte-1ln4pxh {
+.profile_details_container.svelte-16pay0v .left .profile_details.svelte-16pay0v,
+.profile_details_container.svelte-16pay0v .right .password_set.svelte-16pay0v,
+.profile_details_container.svelte-16pay0v .left .session_list_container.svelte-16pay0v {
   display: flex;
   flex-direction: column;
   border-radius: 8px;
@@ -398,47 +409,59 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   background-color: white;
   height: fit-content;
 }
-.profile_details_container.svelte-1ln4pxh .left.svelte-1ln4pxh,
-.profile_details_container.svelte-1ln4pxh .right.svelte-1ln4pxh {
+.profile_details_container.svelte-16pay0v .left.svelte-16pay0v,
+.profile_details_container.svelte-16pay0v .right.svelte-16pay0v {
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
-.profile_details_container.svelte-1ln4pxh .left .profile_details .input_container.svelte-1ln4pxh,
-.profile_details_container.svelte-1ln4pxh .right .password_set .input_container.svelte-1ln4pxh {
+.profile_details_container.svelte-16pay0v .left .profile_details .input_container.svelte-16pay0v,
+.profile_details_container.svelte-16pay0v .right .password_set .input_container.svelte-16pay0v {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.profile_details_container.svelte-1ln4pxh .left .profile_details .input_container .name.svelte-1ln4pxh {
+.profile_details_container.svelte-16pay0v .left .profile_details .input_container .name.svelte-16pay0v,
+.profile_details_container.svelte-16pay0v .left .profile_details .input_container .email_country.svelte-16pay0v {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
-.profile_details_container.svelte-1ln4pxh .left .profile_details .name .profile_input.svelte-1ln4pxh {
+.profile_details_container.svelte-16pay0v .left .profile_details .name .profile_input.svelte-16pay0v {
   width: 100%;
 }
-.profile_details_container.svelte-1ln4pxh .left .profile_details .profile_input.email.svelte-1ln4pxh {
-  width: 49%;
+.profile_details_container.svelte-16pay0v .left .profile_details .profile_input.email.svelte-16pay0v {
+  width: 100%;
   margin-right: 10px;
 }
-.profile_details_container.svelte-1ln4pxh .info_container.svelte-1ln4pxh {
+.profile_details_container.svelte-16pay0v .left .profile_details .input_container .email_country #country.svelte-16pay0v {
+  width: 100%;
+  border: 1px solid #CBD5E1;
+  background-color: #F1F5F9;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+}
+.profile_details_container.svelte-16pay0v .left .profile_details .input_container .email_country #country.svelte-16pay0v:focus {
+  outline: 2px solid #3B82F6;
+}
+.profile_details_container.svelte-16pay0v .info_container.svelte-16pay0v {
   display: flex;
   flex-direction: column;
   gap: 5px;
   margin-top: 15px;
 }
-.profile_details_container.svelte-1ln4pxh .info_container .profile_info.svelte-1ln4pxh {
+.profile_details_container.svelte-16pay0v .info_container .profile_info.svelte-16pay0v {
   display: inline-flex;
   align-items: center;
   font-size: 13px;
   margin-left: 10px;
 }
-.profile_details_container.svelte-1ln4pxh .info_container .profile_info label.svelte-1ln4pxh {
+.profile_details_container.svelte-16pay0v .info_container .profile_info label.svelte-16pay0v {
   font-weight: 700;
   margin-right: 10px;
 }
-.profile_details_container.svelte-1ln4pxh .left .session_list_container .session_list_header.svelte-1ln4pxh {
+.profile_details_container.svelte-16pay0v .left .session_list_container .session_list_header.svelte-16pay0v {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -447,13 +470,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   border-bottom: 1px solid #CBD5E1;
   margin-right: 30px;
 }
-.profile_details_container.svelte-1ln4pxh .left .session_list_container .session_list.svelte-1ln4pxh {
+.profile_details_container.svelte-16pay0v .left .session_list_container .session_list.svelte-16pay0v {
   display: flex;
   flex-direction: column;
   gap: 5px;
   margin-right: 30px;
 }
-.profile_details_container.svelte-1ln4pxh .left .session_list_container .session_list .session.svelte-1ln4pxh {
+.profile_details_container.svelte-16pay0v .left .session_list_container .session_list .session.svelte-16pay0v {
   text-align: left;
   display: flex;
   flex-direction: row;
@@ -462,15 +485,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   padding: 15px 0;
   position: relative;
 }
-.profile_details_container.svelte-1ln4pxh .left .session_list_container .session_list .session span.svelte-1ln4pxh:nth-child(3),
-.profile_details_container.svelte-1ln4pxh .left .session_list_container .session_list_header span.svelte-1ln4pxh:nth-child(3) {
+.profile_details_container.svelte-16pay0v .left .session_list_container .session_list .session span.svelte-16pay0v:nth-child(3),
+.profile_details_container.svelte-16pay0v .left .session_list_container .session_list_header span.svelte-16pay0v:nth-child(3) {
   flex-grow: 1;
 }
-.profile_details_container.svelte-1ln4pxh .left .session_list_container .session_list .session span.svelte-1ln4pxh,
-.profile_details_container.svelte-1ln4pxh .left .session_list_container .session_list_header span.svelte-1ln4pxh {
+.profile_details_container.svelte-16pay0v .left .session_list_container .session_list .session span.svelte-16pay0v,
+.profile_details_container.svelte-16pay0v .left .session_list_container .session_list_header span.svelte-16pay0v {
   width: 200px;
 }
-.profile_details_container.svelte-1ln4pxh .left .session_list_container .session_list .session .kill_session.svelte-1ln4pxh {
+.profile_details_container.svelte-16pay0v .left .session_list_container .session_list .session .kill_session.svelte-16pay0v {
   border: none;
   background-color: #EF4444;
   padding: 6px;
@@ -479,23 +502,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   right: -30px;
   cursor: pointer;
 }
-.profile_details_container.svelte-1ln4pxh .left .session_list_container .session_list .session .kill_session.svelte-1ln4pxh:hover {
+.profile_details_container.svelte-16pay0v .left .session_list_container .session_list .session .kill_session.svelte-16pay0v:hover {
   background-color: #F85454;
 }
-.profile_details_container.svelte-1ln4pxh .right .country_details .country_input_container .country_list #country.svelte-1ln4pxh {
-  width: 100%;
-  border: 1px solid #CBD5E1;
-  background-color: #F1F5F9;
-  border-radius: 8px;
-  padding: 12px;
-  cursor: pointer;
-  margin-top: 8px;
-}
-.profile_details_container.svelte-1ln4pxh .right .country_details .country_input_container .country_list #country.svelte-1ln4pxh:focus {
-  outline: 2px solid #3B82F6;
-}
-.profile_details.svelte-1ln4pxh #updateProfile.svelte-1ln4pxh,
-.password_set.svelte-1ln4pxh #changePassword.svelte-1ln4pxh {
+.profile_details.svelte-16pay0v #updateProfile.svelte-16pay0v,
+.password_set.svelte-16pay0v #changePassword.svelte-16pay0v {
   margin-left: auto;
   width: fit-content;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
@@ -512,33 +523,34 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   border-radius: 8px;
   color: white;
   cursor: pointer;
+  gap: 6px;
 }
-.profile_details.svelte-1ln4pxh #updateProfile.svelte-1ln4pxh:hover,
-.password_set.svelte-1ln4pxh #changePassword.svelte-1ln4pxh:hover {
+.profile_details.svelte-16pay0v #updateProfile.svelte-16pay0v:hover,
+.password_set.svelte-16pay0v #changePassword.svelte-16pay0v:hover {
   background-color: #7E80F1;
 }
-.profile_input.svelte-1ln4pxh.svelte-1ln4pxh {
+.profile_input.svelte-16pay0v.svelte-16pay0v {
   display: flex;
   flex-direction: column;
   gap: 8px;
   width: 100%;
 }
-.profile_input.svelte-1ln4pxh label.svelte-1ln4pxh,
-.country_list.svelte-1ln4pxh label.svelte-1ln4pxh {
+.profile_input.svelte-16pay0v label.svelte-16pay0v,
+.country_list.svelte-16pay0v label.svelte-16pay0v {
   font-size: 13px;
   font-weight: 700;
   margin-left: 10px;
 }
-.profile_input.svelte-1ln4pxh input.svelte-1ln4pxh,
-.profile_input.svelte-1ln4pxh select.svelte-1ln4pxh {
+.profile_input.svelte-16pay0v input.svelte-16pay0v,
+.profile_input.svelte-16pay0v select.svelte-16pay0v {
   width: 100%;
   border: 1px solid #CBD5E1;
   background-color: #F1F5F9;
   border-radius: 8px;
   padding: 12px;
 }
-.profile_input.svelte-1ln4pxh input.svelte-1ln4pxh:focus,
-.profile_input.svelte-1ln4pxh select.svelte-1ln4pxh:focus {
+.profile_input.svelte-16pay0v input.svelte-16pay0v:focus,
+.profile_input.svelte-16pay0v select.svelte-16pay0v:focus {
   border-color: #3B82F6;
   outline: 1px solid #3B82F6;
 }
@@ -2671,6 +2683,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       };
       exports.UserDeactivate = async function UserDeactivate(i, cb) {
         return await axios.post("/user/deactivate", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserGpsLocation = async function UserGpsLocation(i, cb) {
+        return await axios.post("/user/gpsLocation", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserLikeProp = async function UserLikeProp(i, cb) {
         return await axios.post("/userLikeProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -4982,7 +4997,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     let selectedLanguage = "";
     onMount(() => {
-      console.log("User, load profile header = ", user);
       $invalidate(0, selectedLanguage = T.currentLang || "EN");
     });
     async function updateLang() {
@@ -5565,18 +5579,26 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path>'
   };
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidCircleNotch.js
+  var FaSolidCircleNotch_default = {
+    a: {
+      viewBox: "0 0 512 512"
+    },
+    c: '<path d="M288 39.056v16.659c0 10.804 7.281 20.159 17.686 23.066C383.204 100.434 440 171.518 440 256c0 101.689-82.295 184-184 184-101.689 0-184-82.295-184-184 0-84.47 56.786-155.564 134.312-177.219C216.719 75.874 224 66.517 224 55.712V39.064c0-15.709-14.834-27.153-30.046-23.234C86.603 43.482 7.394 141.206 8.003 257.332c.72 137.052 111.477 246.956 248.531 246.667C393.255 503.711 504 392.788 504 256c0-115.633-79.14-212.779-186.211-240.236C302.678 11.889 288 23.456 288 39.056z"></path>'
+  };
+
   // user.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[23] = list[i];
+    child_ctx[25] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[26] = list[i];
+    child_ctx[28] = list[i];
     return child_ctx;
   }
-  function create_if_block_13(ctx) {
+  function create_if_block_52(ctx) {
     let growl;
     let current;
     growl = new Growl_default({
@@ -5630,7 +5652,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let option;
     let t_value = (
       /*country*/
-      ctx[26].country + ""
+      ctx[28].country + ""
     );
     let t;
     let option_value_value;
@@ -5639,7 +5661,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*country*/
-        ctx[26].country;
+        ctx[28].country;
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -5654,7 +5676,76 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block3(ctx) {
+  function create_if_block_43(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        color: "#FFF",
+        size: 18,
+        src: FaSolidAngleLeft_default
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_if_block_33(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        className: "spin",
+        color: "#FFF",
+        size: 18,
+        src: FaSolidCircleNotch_default
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_if_block_23(ctx) {
     let each_1_anchor;
     let current;
     let each_value = ensure_array_like(
@@ -5686,7 +5777,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty & /*killSession, sessionActiveLists, FaSolidTimes, datetime*/
-        4098) {
+        16386) {
           each_value = ensure_array_like(
             /*sessionActiveLists*/
             ctx2[1]
@@ -5739,21 +5830,21 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span0;
     let t0_value = (
       /*session*/
-      (ctx[23].loginIPs || "no-data") + ""
+      (ctx[25].loginIPs || "no-data") + ""
     );
     let t0;
     let t1;
     let span1;
     let t2_value = ((0, import_formatter.datetime)(
       /*session*/
-      ctx[23].expiredAt
+      ctx[25].expiredAt
     ) || 0) + "";
     let t2;
     let t3;
     let span2;
     let t4_value = (
       /*session*/
-      (ctx[23].device || "no-data") + ""
+      (ctx[25].device || "no-data") + ""
     );
     let t4;
     let t5;
@@ -5773,9 +5864,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[17](
+        ctx[19](
           /*session*/
-          ctx[23]
+          ctx[25]
         )
       );
     }
@@ -5794,12 +5885,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         button = element("button");
         create_component(icon.$.fragment);
         t6 = space();
-        attr(span0, "class", "svelte-1ln4pxh");
-        attr(span1, "class", "svelte-1ln4pxh");
-        attr(span2, "class", "svelte-1ln4pxh");
-        attr(button, "class", "kill_session svelte-1ln4pxh");
+        attr(span0, "class", "svelte-16pay0v");
+        attr(span1, "class", "svelte-16pay0v");
+        attr(span2, "class", "svelte-16pay0v");
+        attr(button, "class", "kill_session svelte-16pay0v");
         attr(button, "title", "Kill this session");
-        attr(div, "class", "session svelte-1ln4pxh");
+        attr(div, "class", "session svelte-16pay0v");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -5825,17 +5916,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx = new_ctx;
         if ((!current || dirty & /*sessionActiveLists*/
         2) && t0_value !== (t0_value = /*session*/
-        (ctx[23].loginIPs || "no-data") + ""))
+        (ctx[25].loginIPs || "no-data") + ""))
           set_data(t0, t0_value);
         if ((!current || dirty & /*sessionActiveLists*/
         2) && t2_value !== (t2_value = ((0, import_formatter.datetime)(
           /*session*/
-          ctx[23].expiredAt
+          ctx[25].expiredAt
         ) || 0) + ""))
           set_data(t2, t2_value);
         if ((!current || dirty & /*sessionActiveLists*/
         2) && t4_value !== (t4_value = /*session*/
-        (ctx[23].device || "no-data") + ""))
+        (ctx[25].device || "no-data") + ""))
           set_data(t4, t4_value);
       },
       i(local) {
@@ -5855,6 +5946,75 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         destroy_component(icon);
         mounted = false;
         dispose();
+      }
+    };
+  }
+  function create_if_block_13(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        color: "#FFF",
+        size: 18,
+        src: FaSolidAngleRight_default
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_if_block3(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        className: "spin",
+        color: "#FFF",
+        size: 18,
+        src: FaSolidCircleNotch_default
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
       }
     };
   }
@@ -5906,60 +6066,59 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t20;
     let input1;
     let t21;
-    let div3;
-    let t22;
-    let div4;
-    let label2;
-    let t23_value = (
-      /*$T*/
-      ctx[9].email + ""
-    );
-    let t23;
-    let t24;
-    let input2;
-    let t25;
     let div5;
+    let div3;
+    let label2;
+    let t22_value = (
+      /*$T*/
+      ctx[11].email + ""
+    );
+    let t22;
+    let t23;
+    let input2;
+    let t24;
+    let div4;
     let label3;
-    let t27;
+    let t26;
     let select;
-    let t28;
+    let t27;
     let div10;
     let div7;
     let label4;
-    let t30;
+    let t29;
     let span0;
-    let t31_value = (0, import_formatter.datetime)(
+    let t30_value = (0, import_formatter.datetime)(
       /*user*/
       ctx[0].createdAt
     ) + "";
+    let t30;
     let t31;
-    let t32;
     let div8;
     let label5;
-    let t34;
+    let t33;
     let span1;
-    let t35_value = (0, import_formatter.datetime)(
+    let t34_value = (0, import_formatter.datetime)(
       /*user*/
       ctx[0].lastLoginAt
     ) + "";
+    let t34;
     let t35;
-    let t36;
     let div9;
     let label6;
-    let t38;
+    let t37;
     let span2;
-    let t39_value = ((0, import_formatter.datetime)(
+    let t38_value = ((0, import_formatter.datetime)(
       /*user*/
       ctx[0].verifiedAt
     ) || "0") + "";
+    let t38;
     let t39;
-    let t40;
     let label7;
-    let t41;
+    let t40;
     let button0;
     let span3;
+    let t42;
     let t43;
-    let icon0;
     let t44;
     let div14;
     let h21;
@@ -5974,7 +6133,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t54;
     let t55_value = (
       /*$T*/
-      ctx[9].password + ""
+      ctx[11].password + ""
     );
     let t55;
     let t56;
@@ -5999,15 +6158,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let button1;
     let span7;
     let t68;
-    let icon1;
     let t69;
+    let t70;
     let footer;
     let current;
     let mounted;
     let dispose;
     let if_block0 = (
       /*showGrowl*/
-      ctx[6] && create_if_block_13(ctx)
+      ctx[6] && create_if_block_52(ctx)
     );
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({ props: { user: (
@@ -6019,24 +6178,22 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     for (let i = 0; i < each_value_1.length; i += 1) {
       each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
     }
-    icon0 = new Icon_default({
-      props: {
-        color: "#FFF",
-        size: 18,
-        src: FaSolidAngleLeft_default
-      }
-    });
-    let if_block1 = (
-      /*sessionActiveLists*/
-      ctx[1].length && create_if_block3(ctx)
+    let if_block1 = !/*profileSubmit*/
+    ctx[9] && create_if_block_43(ctx);
+    let if_block2 = (
+      /*profileSubmit*/
+      ctx[9] && create_if_block_33(ctx)
     );
-    icon1 = new Icon_default({
-      props: {
-        color: "#FFF",
-        size: 18,
-        src: FaSolidAngleRight_default
-      }
-    });
+    let if_block3 = (
+      /*sessionActiveLists*/
+      ctx[1].length && create_if_block_23(ctx)
+    );
+    let if_block4 = !/*passwordSubmit*/
+    ctx[10] && create_if_block_13(ctx);
+    let if_block5 = (
+      /*passwordSubmit*/
+      ctx[10] && create_if_block3(ctx)
+    );
     footer = new Footer_default({});
     return {
       c() {
@@ -6092,64 +6249,66 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t20 = space();
         input1 = element("input");
         t21 = space();
-        div3 = element("div");
-        div3.innerHTML = ``;
-        t22 = space();
-        div4 = element("div");
-        label2 = element("label");
-        t23 = text(t23_value);
-        t24 = space();
-        input2 = element("input");
-        t25 = space();
         div5 = element("div");
+        div3 = element("div");
+        label2 = element("label");
+        t22 = text(t22_value);
+        t23 = space();
+        input2 = element("input");
+        t24 = space();
+        div4 = element("div");
         label3 = element("label");
-        label3.textContent = "Select Country by alpha-2 code";
-        t27 = space();
+        label3.textContent = "Country";
+        t26 = space();
         select = element("select");
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        t28 = space();
+        t27 = space();
         div10 = element("div");
         div7 = element("div");
         label4 = element("label");
         label4.textContent = "Registered:";
-        t30 = space();
+        t29 = space();
         span0 = element("span");
-        t31 = text(t31_value);
-        t32 = space();
+        t30 = text(t30_value);
+        t31 = space();
         div8 = element("div");
         label5 = element("label");
         label5.textContent = "Last login:";
-        t34 = space();
+        t33 = space();
         span1 = element("span");
-        t35 = text(t35_value);
-        t36 = space();
+        t34 = text(t34_value);
+        t35 = space();
         div9 = element("div");
         label6 = element("label");
         label6.textContent = "Verified:";
-        t38 = space();
+        t37 = space();
         span2 = element("span");
-        t39 = text(t39_value);
-        t40 = space();
+        t38 = text(t38_value);
+        t39 = space();
         label7 = element("label");
-        t41 = space();
+        t40 = space();
         button0 = element("button");
         span3 = element("span");
         span3.textContent = "SUBMIT";
+        t42 = space();
+        if (if_block1)
+          if_block1.c();
         t43 = space();
-        create_component(icon0.$.fragment);
+        if (if_block2)
+          if_block2.c();
         t44 = space();
         div14 = element("div");
         h21 = element("h2");
         h21.textContent = "Active Sessions";
         t46 = space();
         div12 = element("div");
-        div12.innerHTML = `<span class="svelte-1ln4pxh">IP Address</span> <span class="svelte-1ln4pxh">Expired At</span> <span class="svelte-1ln4pxh">Device</span>`;
+        div12.innerHTML = `<span class="svelte-16pay0v">IP Address</span> <span class="svelte-16pay0v">Expired At</span> <span class="svelte-16pay0v">Device</span>`;
         t52 = space();
         div13 = element("div");
-        if (if_block1)
-          if_block1.c();
+        if (if_block3)
+          if_block3.c();
         t53 = space();
         div21 = element("div");
         div20 = element("div");
@@ -6182,100 +6341,104 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         span7 = element("span");
         span7.textContent = "SUBMIT";
         t68 = space();
-        create_component(icon1.$.fragment);
+        if (if_block4)
+          if_block4.c();
         t69 = space();
+        if (if_block5)
+          if_block5.c();
+        t70 = space();
         create_component(footer.$.fragment);
-        attr(h20, "class", "svelte-1ln4pxh");
+        attr(h20, "class", "svelte-16pay0v");
         attr(label0, "for", "userName");
-        attr(label0, "class", "svelte-1ln4pxh");
+        attr(label0, "class", "svelte-16pay0v");
         attr(input0, "id", "userName");
         attr(input0, "type", "text");
-        attr(input0, "class", "svelte-1ln4pxh");
-        attr(div0, "class", "profile_input svelte-1ln4pxh");
+        attr(input0, "class", "svelte-16pay0v");
+        attr(div0, "class", "profile_input svelte-16pay0v");
         attr(label1, "for", "fullName");
-        attr(label1, "class", "svelte-1ln4pxh");
+        attr(label1, "class", "svelte-16pay0v");
         attr(input1, "id", "fullName");
         attr(input1, "type", "text");
-        attr(input1, "class", "svelte-1ln4pxh");
-        attr(div1, "class", "profile_input svelte-1ln4pxh");
-        attr(div2, "class", "name svelte-1ln4pxh");
-        attr(div3, "class", "");
+        attr(input1, "class", "svelte-16pay0v");
+        attr(div1, "class", "profile_input svelte-16pay0v");
+        attr(div2, "class", "name svelte-16pay0v");
         attr(label2, "for", "email");
-        attr(label2, "class", "svelte-1ln4pxh");
+        attr(label2, "class", "svelte-16pay0v");
         attr(input2, "id", "email");
         attr(input2, "type", "email");
-        attr(input2, "class", "svelte-1ln4pxh");
-        attr(div4, "class", "profile_input email svelte-1ln4pxh");
+        attr(input2, "class", "svelte-16pay0v");
+        attr(div3, "class", "profile_input email svelte-16pay0v");
         attr(label3, "for", "country");
-        attr(label3, "class", "svelte-1ln4pxh");
+        attr(label3, "class", "svelte-16pay0v");
         attr(select, "id", "country");
         attr(select, "name", "country");
-        attr(select, "class", "svelte-1ln4pxh");
+        attr(select, "class", "svelte-16pay0v");
         if (
           /*selectedCountry*/
           ctx[5] === void 0
         )
           add_render_callback(() => (
             /*select_change_handler*/
-            ctx[16].call(select)
+            ctx[18].call(select)
           ));
-        attr(div5, "class", "profile_input country_list svelte-1ln4pxh");
-        attr(div6, "class", "input_container svelte-1ln4pxh");
+        attr(div4, "class", "profile_input country_list svelte-16pay0v");
+        attr(div5, "class", "email_country svelte-16pay0v");
+        attr(div6, "class", "input_container svelte-16pay0v");
         attr(label4, "for", "registered");
-        attr(label4, "class", "svelte-1ln4pxh");
+        attr(label4, "class", "svelte-16pay0v");
         attr(span0, "id", "registered");
-        attr(span0, "class", "svelte-1ln4pxh");
-        attr(div7, "class", "profile_info svelte-1ln4pxh");
+        attr(span0, "class", "svelte-16pay0v");
+        attr(div7, "class", "profile_info svelte-16pay0v");
         attr(label5, "for", "lastLogin");
-        attr(label5, "class", "svelte-1ln4pxh");
+        attr(label5, "class", "svelte-16pay0v");
         attr(span1, "id", "lastLogin");
-        attr(span1, "class", "svelte-1ln4pxh");
-        attr(div8, "class", "profile_info svelte-1ln4pxh");
+        attr(span1, "class", "svelte-16pay0v");
+        attr(div8, "class", "profile_info svelte-16pay0v");
         attr(label6, "for", "verified");
-        attr(label6, "class", "svelte-1ln4pxh");
+        attr(label6, "class", "svelte-16pay0v");
         attr(span2, "id", "verified");
-        attr(span2, "class", "svelte-1ln4pxh");
-        attr(div9, "class", "profile_info svelte-1ln4pxh");
-        attr(div10, "class", "info_container svelte-1ln4pxh");
+        attr(span2, "class", "svelte-16pay0v");
+        attr(div9, "class", "profile_info svelte-16pay0v");
+        attr(div10, "class", "info_container svelte-16pay0v");
         attr(label7, "for", "updateProfile");
-        attr(label7, "class", "svelte-1ln4pxh");
-        attr(span3, "class", "svelte-1ln4pxh");
+        attr(label7, "class", "svelte-16pay0v");
+        attr(span3, "class", "svelte-16pay0v");
         attr(button0, "id", "updateProfile");
-        attr(button0, "class", "svelte-1ln4pxh");
-        attr(div11, "class", "profile_details svelte-1ln4pxh");
-        attr(h21, "class", "svelte-1ln4pxh");
-        attr(div12, "class", "session_list_header svelte-1ln4pxh");
-        attr(div13, "class", "session_list svelte-1ln4pxh");
-        attr(div14, "class", "session_list_container svelte-1ln4pxh");
-        attr(div15, "class", "left svelte-1ln4pxh");
-        attr(h22, "class", "svelte-1ln4pxh");
+        attr(button0, "class", "svelte-16pay0v");
+        attr(div11, "class", "profile_details svelte-16pay0v");
+        attr(h21, "class", "svelte-16pay0v");
+        attr(div12, "class", "session_list_header svelte-16pay0v");
+        attr(div13, "class", "session_list svelte-16pay0v");
+        attr(div14, "class", "session_list_container svelte-16pay0v");
+        attr(div15, "class", "left svelte-16pay0v");
+        attr(h22, "class", "svelte-16pay0v");
         attr(label8, "for", "oldPassword");
-        attr(label8, "class", "svelte-1ln4pxh");
+        attr(label8, "class", "svelte-16pay0v");
         attr(input3, "id", "oldPassword");
         attr(input3, "type", "password");
-        attr(input3, "class", "svelte-1ln4pxh");
-        attr(div16, "class", "profile_input svelte-1ln4pxh");
+        attr(input3, "class", "svelte-16pay0v");
+        attr(div16, "class", "profile_input svelte-16pay0v");
         attr(label9, "for", "newPassword");
-        attr(label9, "class", "svelte-1ln4pxh");
+        attr(label9, "class", "svelte-16pay0v");
         attr(input4, "id", "newPassword");
         attr(input4, "type", "password");
-        attr(input4, "class", "svelte-1ln4pxh");
-        attr(div17, "class", "profile_input svelte-1ln4pxh");
+        attr(input4, "class", "svelte-16pay0v");
+        attr(div17, "class", "profile_input svelte-16pay0v");
         attr(label10, "for", "repeatNewPassword");
-        attr(label10, "class", "svelte-1ln4pxh");
+        attr(label10, "class", "svelte-16pay0v");
         attr(input5, "id", "repeatNewPassword");
         attr(input5, "type", "password");
-        attr(input5, "class", "svelte-1ln4pxh");
-        attr(div18, "class", "profile_input svelte-1ln4pxh");
+        attr(input5, "class", "svelte-16pay0v");
+        attr(div18, "class", "profile_input svelte-16pay0v");
         attr(label11, "for", "changePassword");
-        attr(label11, "class", "svelte-1ln4pxh");
-        attr(span7, "class", "svelte-1ln4pxh");
+        attr(label11, "class", "svelte-16pay0v");
+        attr(span7, "class", "svelte-16pay0v");
         attr(button1, "id", "changePassword");
-        attr(button1, "class", "svelte-1ln4pxh");
-        attr(div19, "class", "input_container svelte-1ln4pxh");
-        attr(div20, "class", "password_set svelte-1ln4pxh");
-        attr(div21, "class", "right svelte-1ln4pxh");
-        attr(div22, "class", "profile_details_container svelte-1ln4pxh");
+        attr(button1, "class", "svelte-16pay0v");
+        attr(div19, "class", "input_container svelte-16pay0v");
+        attr(div20, "class", "password_set svelte-16pay0v");
+        attr(div21, "class", "right svelte-16pay0v");
+        attr(div22, "class", "profile_details_container svelte-16pay0v");
         attr(div23, "class", "content");
         attr(div24, "class", "dashboard_main_content");
         attr(section, "class", "dashboard");
@@ -6340,23 +6503,22 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           ctx[0].fullName
         );
         append(div6, t21);
-        append(div6, div3);
-        append(div6, t22);
-        append(div6, div4);
-        append(div4, label2);
-        append(label2, t23);
-        append(div4, t24);
-        append(div4, input2);
+        append(div6, div5);
+        append(div5, div3);
+        append(div3, label2);
+        append(label2, t22);
+        append(div3, t23);
+        append(div3, input2);
         set_input_value(
           input2,
           /*user*/
           ctx[0].email
         );
-        append(div6, t25);
-        append(div6, div5);
-        append(div5, label3);
-        append(div5, t27);
-        append(div5, select);
+        append(div5, t24);
+        append(div5, div4);
+        append(div4, label3);
+        append(div4, t26);
+        append(div4, select);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
             each_blocks[i].m(select, null);
@@ -6368,32 +6530,36 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           ctx[5],
           true
         );
-        append(div11, t28);
+        append(div11, t27);
         append(div11, div10);
         append(div10, div7);
         append(div7, label4);
-        append(div7, t30);
+        append(div7, t29);
         append(div7, span0);
-        append(span0, t31);
-        append(div10, t32);
+        append(span0, t30);
+        append(div10, t31);
         append(div10, div8);
         append(div8, label5);
-        append(div8, t34);
+        append(div8, t33);
         append(div8, span1);
-        append(span1, t35);
-        append(div10, t36);
+        append(span1, t34);
+        append(div10, t35);
         append(div10, div9);
         append(div9, label6);
-        append(div9, t38);
+        append(div9, t37);
         append(div9, span2);
-        append(span2, t39);
-        append(div11, t40);
+        append(span2, t38);
+        append(div11, t39);
         append(div11, label7);
-        append(div11, t41);
+        append(div11, t40);
         append(div11, button0);
         append(button0, span3);
+        append(button0, t42);
+        if (if_block1)
+          if_block1.m(button0, null);
         append(button0, t43);
-        mount_component(icon0, button0, null);
+        if (if_block2)
+          if_block2.m(button0, null);
         append(div15, t44);
         append(div15, div14);
         append(div14, h21);
@@ -6401,8 +6567,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div14, div12);
         append(div14, t52);
         append(div14, div13);
-        if (if_block1)
-          if_block1.m(div13, null);
+        if (if_block3)
+          if_block3.m(div13, null);
         append(div22, t53);
         append(div22, div21);
         append(div21, div20);
@@ -6446,8 +6612,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div19, button1);
         append(button1, span7);
         append(button1, t68);
-        mount_component(icon1, button1, null);
-        append(div24, t69);
+        if (if_block4)
+          if_block4.m(button1, null);
+        append(button1, t69);
+        if (if_block5)
+          if_block5.m(button1, null);
+        append(div24, t70);
         mount_component(footer, div24, null);
         current = true;
         if (!mounted) {
@@ -6456,55 +6626,55 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               input0,
               "input",
               /*input0_input_handler*/
-              ctx[13]
+              ctx[15]
             ),
             listen(
               input1,
               "input",
               /*input1_input_handler*/
-              ctx[14]
+              ctx[16]
             ),
             listen(
               input2,
               "input",
               /*input2_input_handler*/
-              ctx[15]
+              ctx[17]
             ),
             listen(
               select,
               "change",
               /*select_change_handler*/
-              ctx[16]
+              ctx[18]
             ),
             listen(
               button0,
               "click",
               /*updateProfile*/
-              ctx[10]
+              ctx[12]
             ),
             listen(
               input3,
               "input",
               /*input3_input_handler*/
-              ctx[18]
+              ctx[20]
             ),
             listen(
               input4,
               "input",
               /*input4_input_handler*/
-              ctx[19]
+              ctx[21]
             ),
             listen(
               input5,
               "input",
               /*input5_input_handler*/
-              ctx[20]
+              ctx[22]
             ),
             listen(
               button1,
               "click",
               /*changePassword*/
-              ctx[11]
+              ctx[13]
             )
           ];
           mounted = true;
@@ -6522,7 +6692,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_13(ctx2);
+            if_block0 = create_if_block_52(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(t0.parentNode, t0);
@@ -6559,9 +6729,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           );
         }
         if ((!current || dirty & /*$T*/
-        512) && t23_value !== (t23_value = /*$T*/
-        ctx2[9].email + ""))
-          set_data(t23, t23_value);
+        2048) && t22_value !== (t22_value = /*$T*/
+        ctx2[11].email + ""))
+          set_data(t22, t22_value);
         if (dirty & /*user*/
         1 && input2.value !== /*user*/
         ctx2[0].email) {
@@ -6599,38 +6769,36 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           );
         }
         if ((!current || dirty & /*user*/
-        1) && t31_value !== (t31_value = (0, import_formatter.datetime)(
+        1) && t30_value !== (t30_value = (0, import_formatter.datetime)(
           /*user*/
           ctx2[0].createdAt
         ) + ""))
-          set_data(t31, t31_value);
+          set_data(t30, t30_value);
         if ((!current || dirty & /*user*/
-        1) && t35_value !== (t35_value = (0, import_formatter.datetime)(
+        1) && t34_value !== (t34_value = (0, import_formatter.datetime)(
           /*user*/
           ctx2[0].lastLoginAt
         ) + ""))
-          set_data(t35, t35_value);
+          set_data(t34, t34_value);
         if ((!current || dirty & /*user*/
-        1) && t39_value !== (t39_value = ((0, import_formatter.datetime)(
+        1) && t38_value !== (t38_value = ((0, import_formatter.datetime)(
           /*user*/
           ctx2[0].verifiedAt
         ) || "0") + ""))
-          set_data(t39, t39_value);
-        if (
-          /*sessionActiveLists*/
-          ctx2[1].length
-        ) {
+          set_data(t38, t38_value);
+        if (!/*profileSubmit*/
+        ctx2[9]) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
-            if (dirty & /*sessionActiveLists*/
-            2) {
+            if (dirty & /*profileSubmit*/
+            512) {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block3(ctx2);
+            if_block1 = create_if_block_43(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
-            if_block1.m(div13, null);
+            if_block1.m(button0, t43);
           }
         } else if (if_block1) {
           group_outros();
@@ -6639,9 +6807,55 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           });
           check_outros();
         }
+        if (
+          /*profileSubmit*/
+          ctx2[9]
+        ) {
+          if (if_block2) {
+            if_block2.p(ctx2, dirty);
+            if (dirty & /*profileSubmit*/
+            512) {
+              transition_in(if_block2, 1);
+            }
+          } else {
+            if_block2 = create_if_block_33(ctx2);
+            if_block2.c();
+            transition_in(if_block2, 1);
+            if_block2.m(button0, null);
+          }
+        } else if (if_block2) {
+          group_outros();
+          transition_out(if_block2, 1, 1, () => {
+            if_block2 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*sessionActiveLists*/
+          ctx2[1].length
+        ) {
+          if (if_block3) {
+            if_block3.p(ctx2, dirty);
+            if (dirty & /*sessionActiveLists*/
+            2) {
+              transition_in(if_block3, 1);
+            }
+          } else {
+            if_block3 = create_if_block_23(ctx2);
+            if_block3.c();
+            transition_in(if_block3, 1);
+            if_block3.m(div13, null);
+          }
+        } else if (if_block3) {
+          group_outros();
+          transition_out(if_block3, 1, 1, () => {
+            if_block3 = null;
+          });
+          check_outros();
+        }
         if ((!current || dirty & /*$T*/
-        512) && t55_value !== (t55_value = /*$T*/
-        ctx2[9].password + ""))
+        2048) && t55_value !== (t55_value = /*$T*/
+        ctx2[11].password + ""))
           set_data(t55, t55_value);
         if (dirty & /*oldPassword*/
         4 && input3.value !== /*oldPassword*/
@@ -6670,6 +6884,50 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             ctx2[4]
           );
         }
+        if (!/*passwordSubmit*/
+        ctx2[10]) {
+          if (if_block4) {
+            if_block4.p(ctx2, dirty);
+            if (dirty & /*passwordSubmit*/
+            1024) {
+              transition_in(if_block4, 1);
+            }
+          } else {
+            if_block4 = create_if_block_13(ctx2);
+            if_block4.c();
+            transition_in(if_block4, 1);
+            if_block4.m(button1, t69);
+          }
+        } else if (if_block4) {
+          group_outros();
+          transition_out(if_block4, 1, 1, () => {
+            if_block4 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*passwordSubmit*/
+          ctx2[10]
+        ) {
+          if (if_block5) {
+            if_block5.p(ctx2, dirty);
+            if (dirty & /*passwordSubmit*/
+            1024) {
+              transition_in(if_block5, 1);
+            }
+          } else {
+            if_block5 = create_if_block3(ctx2);
+            if_block5.c();
+            transition_in(if_block5, 1);
+            if_block5.m(button1, null);
+          }
+        } else if (if_block5) {
+          group_outros();
+          transition_out(if_block5, 1, 1, () => {
+            if_block5 = null;
+          });
+          check_outros();
+        }
       },
       i(local) {
         if (current)
@@ -6677,9 +6935,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         transition_in(if_block0);
         transition_in(menu.$.fragment, local);
         transition_in(profileheader.$.fragment, local);
-        transition_in(icon0.$.fragment, local);
         transition_in(if_block1);
-        transition_in(icon1.$.fragment, local);
+        transition_in(if_block2);
+        transition_in(if_block3);
+        transition_in(if_block4);
+        transition_in(if_block5);
         transition_in(footer.$.fragment, local);
         current = true;
       },
@@ -6687,9 +6947,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         transition_out(if_block0);
         transition_out(menu.$.fragment, local);
         transition_out(profileheader.$.fragment, local);
-        transition_out(icon0.$.fragment, local);
         transition_out(if_block1);
-        transition_out(icon1.$.fragment, local);
+        transition_out(if_block2);
+        transition_out(if_block3);
+        transition_out(if_block4);
+        transition_out(if_block5);
         transition_out(footer.$.fragment, local);
         current = false;
       },
@@ -6703,10 +6965,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         destroy_component(menu);
         destroy_component(profileheader);
         destroy_each(each_blocks, detaching);
-        destroy_component(icon0);
         if (if_block1)
           if_block1.d();
-        destroy_component(icon1);
+        if (if_block2)
+          if_block2.d();
+        if (if_block3)
+          if_block3.d();
+        if (if_block4)
+          if_block4.d();
+        if (if_block5)
+          if_block5.d();
         destroy_component(footer);
         mounted = false;
         run_all(dispose);
@@ -6717,7 +6985,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var countryData = {/* countryData */};
   function instance6($self, $props, $invalidate) {
     let $T;
-    component_subscribe($self, T, ($value) => $invalidate(9, $T = $value));
+    component_subscribe($self, T, ($value) => $invalidate(11, $T = $value));
     let user = {/* user */};
     let sessionActiveLists = {/* activeSessions */};
     let oldPassword = "";
@@ -6726,11 +6994,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let oldProfileJson = "";
     let selectedCountry;
     let showGrowl = false, gMsg = "", gType = "";
+    let profileSubmit = false, passwordSubmit = false;
     onMount(async () => {
       oldProfileJson = JSON.stringify(user);
+      for (let i = 0; i < countryData.length; i++) {
+        if (countryData[i].iso_2 === user.country) {
+          $invalidate(5, selectedCountry = countryData[i].country);
+        }
+      }
       console.log("Country data = ", countryData);
       console.log("User data = ", user);
-      console.log("Active Sessions = ", sessionActiveLists);
     });
     function useGrowl(type, msg) {
       $invalidate(6, showGrowl = true);
@@ -6744,31 +7017,48 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       );
     }
     async function updateProfile() {
-      $invalidate(0, user.country = selectedCountry, user);
+      $invalidate(9, profileSubmit = true);
+      for (let i = 0; i < countryData.length; i++) {
+        if (countryData[i].country === selectedCountry) {
+          $invalidate(0, user.country = countryData[i].iso_2, user);
+        }
+      }
       if (JSON.stringify(user) === oldProfileJson)
         return useGrowl("error", "No changes");
       await (0, import_jsApi_GEN3.UserUpdateProfile)(user, function(res) {
-        if (res.error)
-          return useGrowl("error", res.error);
+        if (res.error) {
+          useGrowl("error", res.error);
+          $invalidate(9, profileSubmit = false);
+          return;
+        }
         oldProfileJson = JSON.stringify(res.user);
         $invalidate(0, user = res.user);
         useGrowl("info", "Profile updated");
+        $invalidate(9, profileSubmit = false);
       });
     }
     async function changePassword() {
-      if (newPassword !== repeatNewPassword)
-        return useGrowl("error", "New password and repeat new password must be same");
+      $invalidate(10, passwordSubmit = true);
+      if (newPassword !== repeatNewPassword) {
+        useGrowl("error", "New password and repeat new password must be same");
+        $invalidate(10, passwordSubmit = false);
+        return;
+      }
       let input = {
         oldPass: oldPassword,
         newPass: newPassword
       };
       await (0, import_jsApi_GEN3.UserChangePassword)(input, function(res) {
-        if (res.error)
-          return useGrowl("error", res.error);
+        if (res.error) {
+          useGrowl("error", res.error);
+          $invalidate(10, passwordSubmit = false);
+          return;
+        }
         $invalidate(2, oldPassword = "");
         $invalidate(3, newPassword = "");
         $invalidate(4, repeatNewPassword = "");
         alert("Password updated");
+        $invalidate(10, passwordSubmit = false);
       });
     }
     async function killSession(sessionToken) {
@@ -6824,6 +7114,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       showGrowl,
       gMsg,
       gType,
+      profileSubmit,
+      passwordSubmit,
       $T,
       updateProfile,
       changePassword,
