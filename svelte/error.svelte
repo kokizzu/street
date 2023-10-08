@@ -15,7 +15,7 @@
 	</header>
 	<button class="back_home" on:click={backHome}>
 		<span>Back to home</span>
-		<Icon className="arrow_backhome" color='#FFFF' size={18} src={FaSolidArrowRight}/>
+		<Icon className="arrow_backhome" color='#FFF' size={18} src={FaSolidArrowRight}/>
 	</button>
 </div>
 

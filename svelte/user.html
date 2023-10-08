@@ -5590,12 +5590,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // user.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[25] = list[i];
+    child_ctx[24] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[28] = list[i];
+    child_ctx[27] = list[i];
     return child_ctx;
   }
   function create_if_block_52(ctx) {
@@ -5605,11 +5605,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       props: {
         message: (
           /*gMsg*/
-          ctx[7]
+          ctx[6]
         ),
         growlType: (
           /*gType*/
-          ctx[8]
+          ctx[7]
         )
       }
     });
@@ -5624,13 +5624,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         const growl_changes = {};
         if (dirty & /*gMsg*/
-        128)
+        64)
           growl_changes.message = /*gMsg*/
-          ctx2[7];
+          ctx2[6];
         if (dirty & /*gType*/
-        256)
+        128)
           growl_changes.growlType = /*gType*/
-          ctx2[8];
+          ctx2[7];
         growl.$set(growl_changes);
       },
       i(local) {
@@ -5652,7 +5652,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let option;
     let t_value = (
       /*country*/
-      ctx[28].country + ""
+      ctx[27].country + ""
     );
     let t;
     let option_value_value;
@@ -5661,7 +5661,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*country*/
-        ctx[28].country;
+        ctx[27].iso_2;
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -5777,7 +5777,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty & /*killSession, sessionActiveLists, FaSolidTimes, datetime*/
-        16386) {
+        8194) {
           each_value = ensure_array_like(
             /*sessionActiveLists*/
             ctx2[1]
@@ -5830,21 +5830,21 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span0;
     let t0_value = (
       /*session*/
-      (ctx[25].loginIPs || "no-data") + ""
+      (ctx[24].loginIPs || "no-data") + ""
     );
     let t0;
     let t1;
     let span1;
     let t2_value = ((0, import_formatter.datetime)(
       /*session*/
-      ctx[25].expiredAt
+      ctx[24].expiredAt
     ) || 0) + "";
     let t2;
     let t3;
     let span2;
     let t4_value = (
       /*session*/
-      (ctx[25].device || "no-data") + ""
+      (ctx[24].device || "no-data") + ""
     );
     let t4;
     let t5;
@@ -5864,9 +5864,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[19](
+        ctx[18](
           /*session*/
-          ctx[25]
+          ctx[24]
         )
       );
     }
@@ -5916,17 +5916,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx = new_ctx;
         if ((!current || dirty & /*sessionActiveLists*/
         2) && t0_value !== (t0_value = /*session*/
-        (ctx[25].loginIPs || "no-data") + ""))
+        (ctx[24].loginIPs || "no-data") + ""))
           set_data(t0, t0_value);
         if ((!current || dirty & /*sessionActiveLists*/
         2) && t2_value !== (t2_value = ((0, import_formatter.datetime)(
           /*session*/
-          ctx[25].expiredAt
+          ctx[24].expiredAt
         ) || 0) + ""))
           set_data(t2, t2_value);
         if ((!current || dirty & /*sessionActiveLists*/
         2) && t4_value !== (t4_value = /*session*/
-        (ctx[25].device || "no-data") + ""))
+        (ctx[24].device || "no-data") + ""))
           set_data(t4, t4_value);
       },
       i(local) {
@@ -6071,7 +6071,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let label2;
     let t22_value = (
       /*$T*/
-      ctx[11].email + ""
+      ctx[10].email + ""
     );
     let t22;
     let t23;
@@ -6133,7 +6133,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t54;
     let t55_value = (
       /*$T*/
-      ctx[11].password + ""
+      ctx[10].password + ""
     );
     let t55;
     let t56;
@@ -6166,33 +6166,33 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let dispose;
     let if_block0 = (
       /*showGrowl*/
-      ctx[6] && create_if_block_52(ctx)
+      ctx[5] && create_if_block_52(ctx)
     );
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({ props: { user: (
       /*user*/
       ctx[0]
     ) } });
-    let each_value_1 = ensure_array_like(countryData);
+    let each_value_1 = ensure_array_like(countries);
     let each_blocks = [];
     for (let i = 0; i < each_value_1.length; i += 1) {
       each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
     }
     let if_block1 = !/*profileSubmit*/
-    ctx[9] && create_if_block_43(ctx);
+    ctx[8] && create_if_block_43(ctx);
     let if_block2 = (
       /*profileSubmit*/
-      ctx[9] && create_if_block_33(ctx)
+      ctx[8] && create_if_block_33(ctx)
     );
     let if_block3 = (
       /*sessionActiveLists*/
       ctx[1].length && create_if_block_23(ctx)
     );
     let if_block4 = !/*passwordSubmit*/
-    ctx[10] && create_if_block_13(ctx);
+    ctx[9] && create_if_block_13(ctx);
     let if_block5 = (
       /*passwordSubmit*/
-      ctx[10] && create_if_block3(ctx)
+      ctx[9] && create_if_block3(ctx)
     );
     footer = new Footer_default({});
     return {
@@ -6374,12 +6374,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(select, "name", "country");
         attr(select, "class", "svelte-16pay0v");
         if (
-          /*selectedCountry*/
-          ctx[5] === void 0
+          /*user*/
+          ctx[0].country === void 0
         )
           add_render_callback(() => (
             /*select_change_handler*/
-            ctx[18].call(select)
+            ctx[17].call(select)
           ));
         attr(div4, "class", "profile_input country_list svelte-16pay0v");
         attr(div5, "class", "email_country svelte-16pay0v");
@@ -6526,8 +6526,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         select_option(
           select,
-          /*selectedCountry*/
-          ctx[5],
+          /*user*/
+          ctx[0].country,
           true
         );
         append(div11, t27);
@@ -6626,55 +6626,55 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               input0,
               "input",
               /*input0_input_handler*/
-              ctx[15]
+              ctx[14]
             ),
             listen(
               input1,
               "input",
               /*input1_input_handler*/
-              ctx[16]
+              ctx[15]
             ),
             listen(
               input2,
               "input",
               /*input2_input_handler*/
-              ctx[17]
+              ctx[16]
             ),
             listen(
               select,
               "change",
               /*select_change_handler*/
-              ctx[18]
+              ctx[17]
             ),
             listen(
               button0,
               "click",
               /*updateProfile*/
-              ctx[12]
+              ctx[11]
             ),
             listen(
               input3,
               "input",
               /*input3_input_handler*/
-              ctx[20]
+              ctx[19]
             ),
             listen(
               input4,
               "input",
               /*input4_input_handler*/
-              ctx[21]
+              ctx[20]
             ),
             listen(
               input5,
               "input",
               /*input5_input_handler*/
-              ctx[22]
+              ctx[21]
             ),
             listen(
               button1,
               "click",
               /*changePassword*/
-              ctx[13]
+              ctx[12]
             )
           ];
           mounted = true;
@@ -6683,12 +6683,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, [dirty]) {
         if (
           /*showGrowl*/
-          ctx2[6]
+          ctx2[5]
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
             if (dirty & /*showGrowl*/
-            64) {
+            32) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -6710,7 +6710,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           profileheader_changes.user = /*user*/
           ctx2[0];
         profileheader.$set(profileheader_changes);
-        if (dirty & /*user*/
+        if (dirty & /*user, countries*/
         1 && input0.value !== /*user*/
         ctx2[0].userName) {
           set_input_value(
@@ -6719,7 +6719,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             ctx2[0].userName
           );
         }
-        if (dirty & /*user*/
+        if (dirty & /*user, countries*/
         1 && input1.value !== /*user*/
         ctx2[0].fullName) {
           set_input_value(
@@ -6729,10 +6729,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           );
         }
         if ((!current || dirty & /*$T*/
-        2048) && t22_value !== (t22_value = /*$T*/
-        ctx2[11].email + ""))
+        1024) && t22_value !== (t22_value = /*$T*/
+        ctx2[10].email + ""))
           set_data(t22, t22_value);
-        if (dirty & /*user*/
+        if (dirty & /*user, countries*/
         1 && input2.value !== /*user*/
         ctx2[0].email) {
           set_input_value(
@@ -6741,9 +6741,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             ctx2[0].email
           );
         }
-        if (dirty & /*countryData*/
+        if (dirty & /*countries*/
         0) {
-          each_value_1 = ensure_array_like(countryData);
+          each_value_1 = ensure_array_like(countries);
           let i;
           for (i = 0; i < each_value_1.length; i += 1) {
             const child_ctx = get_each_context_1(ctx2, each_value_1, i);
@@ -6760,12 +6760,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           }
           each_blocks.length = each_value_1.length;
         }
-        if (dirty & /*selectedCountry, countryData*/
-        32) {
+        if (dirty & /*user, countries*/
+        1) {
           select_option(
             select,
-            /*selectedCountry*/
-            ctx2[5]
+            /*user*/
+            ctx2[0].country
           );
         }
         if ((!current || dirty & /*user*/
@@ -6787,11 +6787,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ) || "0") + ""))
           set_data(t38, t38_value);
         if (!/*profileSubmit*/
-        ctx2[9]) {
+        ctx2[8]) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
             if (dirty & /*profileSubmit*/
-            512) {
+            256) {
               transition_in(if_block1, 1);
             }
           } else {
@@ -6809,12 +6809,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*profileSubmit*/
-          ctx2[9]
+          ctx2[8]
         ) {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
             if (dirty & /*profileSubmit*/
-            512) {
+            256) {
               transition_in(if_block2, 1);
             }
           } else {
@@ -6854,8 +6854,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           check_outros();
         }
         if ((!current || dirty & /*$T*/
-        2048) && t55_value !== (t55_value = /*$T*/
-        ctx2[11].password + ""))
+        1024) && t55_value !== (t55_value = /*$T*/
+        ctx2[10].password + ""))
           set_data(t55, t55_value);
         if (dirty & /*oldPassword*/
         4 && input3.value !== /*oldPassword*/
@@ -6885,11 +6885,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           );
         }
         if (!/*passwordSubmit*/
-        ctx2[10]) {
+        ctx2[9]) {
           if (if_block4) {
             if_block4.p(ctx2, dirty);
             if (dirty & /*passwordSubmit*/
-            1024) {
+            512) {
               transition_in(if_block4, 1);
             }
           } else {
@@ -6907,12 +6907,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*passwordSubmit*/
-          ctx2[10]
+          ctx2[9]
         ) {
           if (if_block5) {
             if_block5.p(ctx2, dirty);
             if (dirty & /*passwordSubmit*/
-            1024) {
+            512) {
               transition_in(if_block5, 1);
             }
           } else {
@@ -6982,66 +6982,55 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
   }
   var segments = {/* segments */};
-  var countryData = {/* countryData */};
+  var countries = [/* countries */];
   function instance6($self, $props, $invalidate) {
     let $T;
-    component_subscribe($self, T, ($value) => $invalidate(11, $T = $value));
+    component_subscribe($self, T, ($value) => $invalidate(10, $T = $value));
     let user = {/* user */};
     let sessionActiveLists = {/* activeSessions */};
     let oldPassword = "";
     let newPassword = "";
     let repeatNewPassword = "";
     let oldProfileJson = "";
-    let selectedCountry;
     let showGrowl = false, gMsg = "", gType = "";
     let profileSubmit = false, passwordSubmit = false;
     onMount(async () => {
       oldProfileJson = JSON.stringify(user);
-      for (let i = 0; i < countryData.length; i++) {
-        if (countryData[i].iso_2 === user.country) {
-          $invalidate(5, selectedCountry = countryData[i].country);
-        }
-      }
-      console.log("Country data = ", countryData);
+      console.log("Country data = ", countries);
       console.log("User data = ", user);
     });
     function useGrowl(type, msg) {
-      $invalidate(6, showGrowl = true);
-      $invalidate(7, gMsg = msg);
-      $invalidate(8, gType = type);
+      $invalidate(5, showGrowl = true);
+      $invalidate(6, gMsg = msg);
+      $invalidate(7, gType = type);
       setTimeout(
         () => {
-          $invalidate(6, showGrowl = false);
+          $invalidate(5, showGrowl = false);
         },
         3e3
       );
     }
     async function updateProfile() {
-      $invalidate(9, profileSubmit = true);
-      for (let i = 0; i < countryData.length; i++) {
-        if (countryData[i].country === selectedCountry) {
-          $invalidate(0, user.country = countryData[i].iso_2, user);
-        }
-      }
+      $invalidate(8, profileSubmit = true);
       if (JSON.stringify(user) === oldProfileJson)
         return useGrowl("error", "No changes");
       await (0, import_jsApi_GEN3.UserUpdateProfile)(user, function(res) {
         if (res.error) {
           useGrowl("error", res.error);
-          $invalidate(9, profileSubmit = false);
+          $invalidate(8, profileSubmit = false);
           return;
         }
         oldProfileJson = JSON.stringify(res.user);
         $invalidate(0, user = res.user);
         useGrowl("info", "Profile updated");
-        $invalidate(9, profileSubmit = false);
+        $invalidate(8, profileSubmit = false);
       });
     }
     async function changePassword() {
-      $invalidate(10, passwordSubmit = true);
+      $invalidate(9, passwordSubmit = true);
       if (newPassword !== repeatNewPassword) {
         useGrowl("error", "New password and repeat new password must be same");
-        $invalidate(10, passwordSubmit = false);
+        $invalidate(9, passwordSubmit = false);
         return;
       }
       let input = {
@@ -7051,14 +7040,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       await (0, import_jsApi_GEN3.UserChangePassword)(input, function(res) {
         if (res.error) {
           useGrowl("error", res.error);
-          $invalidate(10, passwordSubmit = false);
+          $invalidate(9, passwordSubmit = false);
           return;
         }
         $invalidate(2, oldPassword = "");
         $invalidate(3, newPassword = "");
         $invalidate(4, repeatNewPassword = "");
         alert("Password updated");
-        $invalidate(10, passwordSubmit = false);
+        $invalidate(9, passwordSubmit = false);
       });
     }
     async function killSession(sessionToken) {
@@ -7088,8 +7077,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       $invalidate(0, user);
     }
     function select_change_handler() {
-      selectedCountry = select_value(this);
-      $invalidate(5, selectedCountry);
+      user.country = select_value(this);
+      $invalidate(0, user);
     }
     const click_handler = (session) => killSession(session.sessionToken);
     function input3_input_handler() {
@@ -7110,7 +7099,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       oldPassword,
       newPassword,
       repeatNewPassword,
-      selectedCountry,
       showGrowl,
       gMsg,
       gType,

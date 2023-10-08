@@ -1,9 +1,9 @@
 package conf
 
 import (
-	"os"
 	"strings"
 
+	"github.com/kokizzu/gotro/L"
 	"github.com/valyala/tsvreader"
 )
 
@@ -18,8 +18,8 @@ type (
 	}
 	CountryData struct {
 		CountryName     string     `json:"country"`
-		CountryISO2     string     `json:"iso_2"`
-		CountryISO3     string     `json:"iso_3"`
+		ISO2            string     `json:"iso_2"`
+		ISO3            string     `json:"iso_3"`
 		CountryCode     string     `json:"country_code"`
 		Region          string     `json:"region"`
 		RegionCode      string     `json:"region_code"`
@@ -31,8 +31,12 @@ type (
 
 var CountriesData []CountryData
 
-func GetCountryData(file *os.File) {
-	tsv := tsvreader.New(file)
+func LoadCountries(fname string) {
+	tsvStr := L.ReadFile(fname)
+	if tsvStr == `` {
+		panic(`failed to load countries data from ` + fname)
+	}
+	tsv := tsvreader.New(strings.NewReader(tsvStr))
 	for tsv.Next() {
 		countryName := tsv.String()
 		if countryName == `` || countryName == `country_name` {
@@ -113,8 +117,8 @@ func GetCountryData(file *os.File) {
 		}
 		CountriesData = append(CountriesData, CountryData{
 			CountryName:     strings.TrimSpace(countryName),
-			CountryISO2:     strings.TrimSpace(iso2),
-			CountryISO3:     strings.TrimSpace(iso3),
+			ISO2:            strings.TrimSpace(iso2),
+			ISO3:            strings.TrimSpace(iso3),
 			CountryCode:     strings.TrimSpace(countryCode),
 			Region:          strings.TrimSpace(region),
 			RegionCode:      strings.TrimSpace(regionCode),

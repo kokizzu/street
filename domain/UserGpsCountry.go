@@ -1,6 +1,13 @@
 package domain
 
 import (
+	"context"
+	"fmt"
+	"strings"
+	"time"
+
+	"github.com/allegro/bigcache/v3"
+
 	"street/model/mAuth/wcAuth"
 )
 
@@ -23,8 +30,8 @@ type (
 	UserGpsCountryOut struct {
 		ResponseCommon
 
-		Country     string `json:"country" form:"country" query:"country" long:"country" msg:"country"`
-		CountryCode string `json:"country_code" form:"country_code" query:"country_code" long:"country_code" msg:"country_code"`
+		CountryName string `json:"countryName" form:"countryName" query:"countryName" long:"countryName" msg:"countryName"`
+		CountryIso2 string `json:"countryIso2" form:"countryIso2" query:"countryIso2" long:"countryIso2" msg:"countryIso2"`
 	}
 )
 
@@ -36,6 +43,8 @@ const (
 	ErrUserGpsCountryFailedStoreCountry = `failed to store gps country`
 )
 
+var userGpsCountryCache, _ = bigcache.New(context.Background(), bigcache.DefaultConfig(1*time.Hour))
+
 func (d *Domain) UserGpsCountry(in *UserGpsCountryIn) (out UserGpsCountryOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
@@ -44,13 +53,25 @@ func (d *Domain) UserGpsCountry(in *UserGpsCountryIn) (out UserGpsCountryOut) {
 		return
 	}
 
-	country, iso2, err := d.Gmap.GetCountryByLatLng(in.CenterLat, in.CenterLong)
-	if err != nil {
-		out.SetError(500, ErrUserGpsCountryFailedGetCountry)
-		return
+	cacheKey := fmt.Sprintf(`%.3f %.3f`, in.CenterLat, in.CenterLong) // 111 meter difference
+	if latLong, err := userGpsCountryCache.Get(cacheKey); err == nil {
+		str := string(latLong)
+		arr := strings.Split(str, `|`)
+		if len(arr) == 2 {
+			out.CountryName = arr[0]
+			out.CountryIso2 = arr[1]
+		}
 	}
-	out.Country = country
-	out.CountryCode = iso2
+	if out.CountryName == `` || out.CountryIso2 == `` {
+		country, iso2, err := d.Gmap.GetCountryByLatLng(in.CenterLat, in.CenterLong)
+		if err != nil {
+			out.SetError(500, ErrUserGpsCountryFailedGetCountry)
+			return
+		}
+		out.CountryName = country
+		out.CountryIso2 = iso2
+		_ = userGpsCountryCache.Set(cacheKey, []byte(fmt.Sprintf(`%s|%s`, country, iso2)))
+	}
 
 	if in.CheckOnly {
 		return
@@ -64,7 +85,7 @@ func (d *Domain) UserGpsCountry(in *UserGpsCountryIn) (out UserGpsCountryOut) {
 		return
 	}
 
-	user.SetCountry(iso2)
+	user.SetCountry(out.CountryIso2)
 
 	if !user.DoUpsert() {
 		out.SetError(500, ErrUserGpsCountryFailedStoreCountry)

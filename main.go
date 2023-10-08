@@ -160,11 +160,7 @@ func main() {
 			Domain: d,
 			Cfg:    conf.EnvWebConf(),
 		}
-		file, err := os.Open("./static/country_data/data.tsv")
-		if err != nil {
-			L.PanicIf(err, "Cannot open tsv file")
-		}
-		conf.GetCountryData(file)
+		conf.LoadCountries("./static/country_data/countries.tsv")
 		ws.Start(log)
 	case `cli`:
 		cli := &presentation.CLI{

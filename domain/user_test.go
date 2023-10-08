@@ -233,16 +233,17 @@ func TestLogout(t *testing.T) {
 			})
 		})
 
-		t.Run(`userGpsLocation`, func(t *testing.T) {
-			in := &UserGpsLocationIn{
+		t.Run(`userGpsCountry`, func(t *testing.T) {
+			t.Skip(`skip call google API on CI`)
+			in := &UserGpsCountryIn{
 				RequestCommon: RequestCommon{
 					SessionToken: sessionToken,
 				},
 				CenterLat:  -34.397,
 				CenterLong: 150.644,
 			}
-			out := d.UserGpsLocation(in)
-			assert.Equal(t, out.Error, ErrUserGpsLocationFailedGetCountry)
+			out := d.UserGpsCountry(in)
+			assert.Equal(t, out.Error, ErrUserGpsCountryFailedGetCountry)
 		})
 
 		t.Run(`logout`, func(t *testing.T) {

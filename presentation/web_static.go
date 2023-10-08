@@ -207,20 +207,21 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	})
 	fw.Get(`/`+domain.RealtorPropertyAction, func(ctx *fiber.Ctx) error {
 		// create new property
-		in, _, segments := userInfoFromContext(ctx, d)
+		in, user, segments := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
 		return views.RenderRealtorProperty(ctx, M.SX{
-			`title`:       `Realtor Property`,
-			`segments`:    segments,
-			`property`:    M.SX{},
-			`countryData`: conf.CountriesData,
+			`title`:     `Realtor Property`,
+			`segments`:  segments,
+			`user`:      user,
+			`property`:  M.SX{},
+			`countries`: conf.CountriesData,
 		})
 	})
 	fw.Get(`/`+domain.RealtorPropertyAction+`/:propId`, func(ctx *fiber.Ctx) error {
 		// edit property
-		in, _, segments := userInfoFromContext(ctx, d)
+		in, user, segments := userInfoFromContext(ctx, d)
 		in.RequestCommon.Action = domain.RealtorPropertyAction
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
@@ -236,9 +237,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			})
 		}
 		return views.RenderRealtorProperty(ctx, M.SX{
-			`title`:    `Realtor Property`,
-			`segments`: segments,
-			`property`: out.Property,
+			`title`:     `Realtor Property`,
+			`segments`:  segments,
+			`user`:      user,
+			`property`:  out.Property,
+			`countries`: conf.CountriesData,
 		})
 	})
 	fw.Get(`/realtor/ownedProperty/:propId`, func(ctx *fiber.Ctx) error {
@@ -368,7 +371,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`user`:           user,
 			`segments`:       segments,
 			`activeSessions`: out.SessionsActive,
-			`countryData`:    conf.CountriesData,
+			`countries`:      conf.CountriesData,
 		})
 	})
 	fw.Get(`/`+domain.GuestAutoLoginAction, func(ctx *fiber.Ctx) error {

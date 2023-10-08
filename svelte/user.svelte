@@ -17,23 +17,17 @@
   
   let user = {/* user */};
   let segments = {/* segments */};
-  let countryData = {/* countryData */};
+  let countries = [/* countries */];
   let sessionActiveLists = {/* activeSessions */};
   let oldPassword = '';
   let newPassword = '';
   let repeatNewPassword = '';
   let oldProfileJson = '';
-  let selectedCountry;
   let showGrowl = false, gMsg = '', gType = '';
   let profileSubmit = false, passwordSubmit = false;
   onMount( async () => {
     oldProfileJson = JSON.stringify( user );
-    for( let i = 0; i<countryData.length; i++ ) {
-      if( countryData[ i ].iso_2===user.country ) {
-        selectedCountry = countryData[ i ].country
-      }
-    }
-    console.log( 'Country data = ', countryData )
+    console.log( 'Country data = ', countries )
     console.log( 'User data = ', user )
   } );
   
@@ -48,11 +42,6 @@
   
   async function updateProfile() {
     profileSubmit = true
-    for( let i = 0; i<countryData.length; i++ ) {
-      if( countryData[ i ].country===selectedCountry ) {
-        user.country = countryData[ i ].iso_2;
-      }
-    }
     if( JSON.stringify( user )===oldProfileJson ) return useGrowl( 'error', 'No changes' );
     await UserUpdateProfile( user, function( res ) {
       if( res.error ) {
@@ -146,9 +135,9 @@
 								</div>
 								<div class='profile_input country_list'>
 									<label for='country'>Country</label>
-									<select bind:value={selectedCountry} id='country' name='country'>
-										{#each countryData as country}
-											<option value={country.country}>{country.country}</option>
+									<select bind:value={user.country} id='country' name='country'>
+										{#each countries as country}
+											<option value={country.iso_2}>{country.country}</option>
 										{/each}
 									</select>
 								</div>
