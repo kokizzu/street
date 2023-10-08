@@ -47,7 +47,7 @@ func (d *Domain) UserGpsLocation(in *UserGpsLocationIn) (out UserGpsLocationOut)
 		out.SetError(500, ErrUserGpsLocationFailedGetCountry)
 		return
 	}
-
+ 
 	// set to user profile
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Id = sess.UserId
@@ -55,12 +55,14 @@ func (d *Domain) UserGpsLocation(in *UserGpsLocationIn) (out UserGpsLocationOut)
 		out.SetError(403, ErrUserGpsLocationUserNotFound)
 		return
 	}
+  
 	user.SetCountry(iso2)
+  
 	if !user.DoUpsert() {
 		out.SetError(500, ErrUserGpsLocationFailedSetCountry)
 		return
 	}
-
+  
 	out.Country = country
 	out.CountryCode = iso2
 	return
