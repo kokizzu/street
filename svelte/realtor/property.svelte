@@ -257,7 +257,7 @@
   const handleNextLocation = {
     'LOC_ADDR': async () => {
       property.country = countryIso2;
-      if( property.city==='' || property.street1==='' || property.floors === 0 ) {
+      if( property.city==='' || property.street1==='' || property.floors===0 ) {
         useGrowl( 'error', 'Please fill required form' );
         return;
       }
@@ -831,7 +831,11 @@
 												<img alt='' src={img}/>
 											</div>
 											<div class='image_description'>
-												<input placeholder='Description' type='text' bind:value={property.imageDescriptions[idx]}/>
+												{#if property.imageDescriptions && property.imageDescriptions.length}
+													<input placeholder='Description' type='text' bind:value={property.imageDescriptions[idx]}/>
+												{:else}
+													<input placeholder='Description' type='text'/>
+												{/if}
 											</div>
 											<button
 												class='remove_image'
