@@ -25,6 +25,8 @@ type (
 
 		CenterLat  float64 `json:"centerLat" form:"centerLat" query:"centerLat" long:"centerLat" msg:"centerLat"`
 		CenterLong float64 `json:"centerLong" form:"centerLong" query:"centerLong" long:"centerLong" msg:"centerLong"`
+
+		LimitEach int `json:"limitEach" form:"limitEach" query:"limitEach" long:"limitEach" msg:"limitEach"`
 	}
 
 	UserNearbyFacilitiesOut struct {
@@ -50,12 +52,22 @@ func (d *Domain) UserNearbyFacilities(in *UserNearbyFacilitiesIn) (out UserNearb
 
 	eg := errgroup.Group{}
 
+	if in.LimitEach <= 0 {
+		in.LimitEach = 5
+	}
+
 	m := sync.Mutex{}
 	var errCount int
 
 	add := func(rows []xGmap.Place, err error) error {
 		m.Lock()
 		defer m.Unlock()
+		sort.Slice(rows, func(i, j int) bool {
+			return rows[i].DistanceKm < rows[j].DistanceKm
+		})
+		if len(rows) > in.LimitEach {
+			rows = rows[:5]
+		}
 		out.Facilities = append(out.Facilities, rows...)
 		if err != nil {
 			L.Print(err)

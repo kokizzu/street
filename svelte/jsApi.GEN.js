@@ -2015,10 +2015,12 @@ exports.UserLogout = async function UserLogout( i, cb ) {
  * @typedef {Object} UserNearbyFacilitiesIn
  * @property {number} centerLat
  * @property {number} centerLong
+ * @property {number} limitEach
  */
 const UserNearbyFacilitiesIn = {
   centerLat: 0, // float64
   centerLong: 0, // float64
+  limitEach: 0, // int
 }
 /**
  * @typedef {Object} UserNearbyFacilitiesOut
