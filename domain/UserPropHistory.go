@@ -2,6 +2,8 @@ package domain
 
 import (
 	"street/model/mProperty/rqProperty"
+
+	"github.com/kokizzu/gotro/S"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserPropHistory.go
@@ -30,7 +32,6 @@ const (
 
 func (d *Domain) UserPropHistory(in *UserPropHistoryIn) (out UserPropHistoryOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
-
 	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
 		return
@@ -38,7 +39,15 @@ func (d *Domain) UserPropHistory(in *UserPropHistoryIn) (out UserPropHistoryOut)
 
 	hist := rqProperty.NewPropertyHistory(d.PropOltp)
 
-	out.History = hist.FindByPropertyKey(in.PropertyKey)
+	if in.PropertyKey == "" {
+		// throw response error code
+		return
+	}
+
+	// Get property serial number from property key
+	propSerialNumber := S.LeftOf(in.PropertyKey, "#")
+
+	out.History = hist.FindBySerialNumber(propSerialNumber)
 
 	// find property being referenced, since the FK is not prop.Id
 	prop := rqProperty.NewProperty(d.PropOltp)

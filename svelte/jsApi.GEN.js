@@ -1948,7 +1948,7 @@ const UserGpsCountryOut = {
  * @returns {Promise}
  */
 exports.UserGpsCountry = async function UserGpsCountry( i, cb ) {
-  return await axios.post( '/user/GpsCountry', i ).
+  return await axios.post( '/user/gpsCountry', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -2015,10 +2015,12 @@ exports.UserLogout = async function UserLogout( i, cb ) {
  * @typedef {Object} UserNearbyFacilitiesIn
  * @property {number} centerLat
  * @property {number} centerLong
+ * @property {number} limitEach
  */
 const UserNearbyFacilitiesIn = {
   centerLat: 0, // float64
   centerLong: 0, // float64
+  limitEach: 0, // int
 }
 /**
  * @typedef {Object} UserNearbyFacilitiesOut
