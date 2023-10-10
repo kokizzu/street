@@ -8,6 +8,7 @@
   import AddOtherFeeDialog from '../_components/AddOtherFeeDialog.svelte';
   import {formatPrice} from '../_components/formatter';
   import {RealtorUpsertProperty} from '../jsApi.GEN';
+  import {StreetView} from "../_components/GoogleMap/components";
   
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
@@ -329,8 +330,7 @@
         } else {
           infoUnitMode = m2;
         }
-      }
-      if( infoUnitMode===m2 ) {
+      } else if( infoUnitMode===m2 ) {
         if( houseSize!==0 ) {
           houseSizeM2 = houseSize;
           houseSizePing = handleInfoUnitMode.m2ToPing( houseSize );
@@ -586,9 +586,7 @@
 								<p class='description'>Let buyers find your house on camera.</p>
 								<div class='streetview_container'>
 									<!-- TODO: render streetview here -->
-									<div class='img_container'>
-										<img src='/assets/img/street-view.jpeg' alt=''/>
-									</div>
+									<StreetView/>
 								</div>
 							</div>
 						{/if}
@@ -670,7 +668,7 @@
 											<label for='area'>
 												<Icon color='#475569' size={13} src={FaSolidBorderStyle}/>
 												<span>{infoUnitMode} <span class='asterisk'>*</span></span>
-												<button class='unit_toggle' on:click|preventDefault={handleInfoUnitMode.toggle}>
+												<button class='unit_toggle' on:click={handleInfoUnitMode.toggle}>
 													<span class='bg'></span>
 													<Icon color='#F97316' size={13} src={FaSolidExchangeAlt}/>
 												</button>
@@ -1350,6 +1348,7 @@
         display        : flex;
         flex-direction : column;
         gap            : 20px;
+        flex-grow      : 1;
     }
 
     .realtor_subpage_container section.location .location_streetview .description {

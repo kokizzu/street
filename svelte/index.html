@@ -222,6 +222,12 @@
   width: 100%;
 }
 
+/* fakecss:./_components/GoogleMap/StreetView.esbuild-svelte-fake-css */
+#cesiumContainer.svelte-2a20sa {
+  height: 100%;
+  width: 100%;
+}
+
 /* fakecss:./_components/Growl.esbuild-svelte-fake-css */
 .growl.svelte-ctwvto.svelte-ctwvto {
   position: fixed;
@@ -8180,7 +8186,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             }
             markersFacility.push(gmapsComponent.createMarker(fac.lat, fac.lng, iconmarkerpath, 32, fac.name));
           });
-          console.log(facilities);
         }
       );
       markersFacility.forEach((marker, idx) => {
