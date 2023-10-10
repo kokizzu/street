@@ -9981,7 +9981,7 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
         icon: HiSolidEye_default,
         label: "Show Property History",
         onClick(item) {
-          let propertyKey = item[fieldByKey("uniqPropKey").idx];
+          let propertyKey = item[fieldByKey["uniqPropKey"].idx];
           (0, import_jsApi.UserPropHistory)({ propertyKey }, function(res) {
             if (res.error)
               alert(res.error);

@@ -33,7 +33,7 @@
       icon: HiSolidEye,
       label: 'Show Property History',
       onClick: function( item ) {
-        let propertyKey = item[ fieldByKey( 'uniqPropKey' ).idx ]; // property key for taiwan data
+        let propertyKey = item[ fieldByKey[ 'uniqPropKey' ].idx ]; // property key for taiwan data
         UserPropHistory( {
           propertyKey: propertyKey,
         }, function( res ) {
