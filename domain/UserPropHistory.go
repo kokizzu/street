@@ -61,7 +61,12 @@ func (d *Domain) UserPropHistory(in *UserPropHistoryIn) (out UserPropHistoryOut)
 	}
 
 	// Get property serial number from property key
-	propSerialNumber := splitStringWithChars(in.PropertyKey, "#")[0]
+	propKeyArrs := splitStringWithChars(in.PropertyKey, "#")
+
+	if len(propKeyArrs) == 0 {
+		return
+	}
+	propSerialNumber := propKeyArrs[0]
 
 	out.History = hist.FindBySerialNumber(propSerialNumber)
 
