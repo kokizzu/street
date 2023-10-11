@@ -52,6 +52,8 @@
         lat: defaultLat,
         lng: defaultLng,
         coord: [defaultLat, defaultLng],
+        elevation: 0, // new
+        resolution: 0.1, // new
         
         uniqPropKey: '1_12449819078726277117',
         serialNumber: '',
@@ -116,6 +118,8 @@
       minimumDurationYear: property.minimumDurationYear,
       otherFee: property.otherFee || [],
       imageDescriptions: property.imageDescriptions || [],
+      elevation: property.elevation,
+      resolution: property.resolution,
       
       // old
       id: id,
@@ -647,7 +651,7 @@
 								<p class='description'>Let buyers find your house on camera.</p>
 								<div class='streetview_container'>
 									<!-- TODO: render streetview here -->
-									<StreetView/>
+									<StreetView bind:elevation={property.elevation} bind:resolution={property.resolution} />
 								</div>
 							</div>
 						{/if}
@@ -1436,22 +1440,9 @@
 
     .realtor_subpage_container section.location .location_streetview .streetview_container {
         flex-grow : 1;
+	     position: relative;
     }
-
-    .realtor_subpage_container section.location .location_streetview .streetview_container .img_container {
-        height        : 500px;
-        width         : 100%;
-        overflow      : hidden;
-        border        : 1px solid #CBD5E1;
-        border-radius : 8px;
-    }
-
-    .realtor_subpage_container section.location .location_streetview .streetview_container .img_container img {
-        object-fit : cover;
-        width      : 100%;
-        height     : 100%;
-    }
-
+    
     /* +============| SUBPAGE INFO |===========+ */
 
     .realtor_subpage_container section.info .add_fee_btn {

@@ -223,9 +223,78 @@
 }
 
 /* fakecss:./_components/GoogleMap/StreetView.esbuild-svelte-fake-css */
-#cesiumContainer.svelte-2a20sa {
+.streetview_input_box.svelte-97oytu.svelte-97oytu {
+  position: absolute;
+  z-index: 20;
+  left: 20px;
+  top: 10px;
+}
+.icon_search_location {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 10px;
+  z-index: 40;
+  margin: auto 0 auto 13px;
+  cursor: pointer;
+}
+.icon_search_location:hover {
+  fill: #F97316;
+}
+.streetview_input_box.svelte-97oytu #pacViewPlace.svelte-97oytu {
+  margin-top: 10px;
+  padding: 12px 12px 12px 40px;
+  border-radius: 8px;
+  border: none;
+  width: 450px;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+}
+.streetview_input_box.svelte-97oytu #pacViewPlace.svelte-97oytu:focus {
+  border-color: #F97316;
+  outline: 2px solid #F97316;
+}
+.autocomplete_container.svelte-97oytu.svelte-97oytu {
+  position: absolute;
+  z-index: 20;
+  left: 20px;
+  top: 70px;
+  width: 450px;
+  min-height: 200px;
+  max-height: 400px;
+  background-color: #FFF;
+  border-radius: 8px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+.autocomplete_container.svelte-97oytu.svelte-97oytu::-webkit-scrollbar-thumb {
+  background-color: #3B82F6;
+}
+.autocomplete_container.svelte-97oytu.svelte-97oytu::-webkit-scrollbar {
+  width: 8px;
+}
+.autocomplete_container.svelte-97oytu.svelte-97oytu::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.autocomplete_container.svelte-97oytu .autocomplete_item.svelte-97oytu {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  padding: 10px;
+  border: none;
+  background: none;
+  border-bottom: 1px solid #CBD5E1;
+  cursor: pointer;
+}
+.autocomplete_container.svelte-97oytu .autocomplete_item.svelte-97oytu:hover {
+  background-color: #F1F5F9;
+}
+#cesiumContainer.svelte-97oytu.svelte-97oytu {
   height: 100%;
   width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
 /* fakecss:./_components/Growl.esbuild-svelte-fake-css */
@@ -5508,6 +5577,22 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var GoogleMap_default = GoogleMap;
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSearch.js
+  var FaSolidSearch_default = {
+    a: {
+      viewBox: "0 0 512 512"
+    },
+    c: '<path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidMapMarkerAlt.js
+  var FaSolidMapMarkerAlt_default = {
+    a: {
+      viewBox: "0 0 384 512"
+    },
+    c: '<path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>'
+  };
+
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidInfoCircle.js
   var FaSolidInfoCircle_default = {
     a: {
@@ -5985,22 +6070,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   };
   var Growl_default = Growl;
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSearch.js
-  var FaSolidSearch_default = {
-    a: {
-      viewBox: "0 0 512 512"
-    },
-    c: '<path d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidMapMarkerAlt.js
-  var FaSolidMapMarkerAlt_default = {
-    a: {
-      viewBox: "0 0 384 512"
-    },
-    c: '<path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>'
-  };
 
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidImage.js
   var FaSolidImage_default = {
