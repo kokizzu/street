@@ -48,7 +48,6 @@
   document.head.appendChild(linkElement);
 </script>
 
-
 <div id="cesiumContainer"></div>
 
 <style>

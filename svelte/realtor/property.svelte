@@ -32,7 +32,7 @@
   let countries = [/* countries */];
   let currentPage = 0, isPropertySubmitted = false;
   let cards = [{}, {}, {}, {}];
-  let showGrowl = false, gMsg = '', gType = '';
+  let showGrowl = false, gMsg = '', gType = ''; // Growl
   let countryCurrency = 'TWD', payload = {};
   
   onMount( () => {
@@ -176,7 +176,7 @@
     {mode: LOC_STREETVIEW},
   ];
   let modeLocation = modeLocationLists[ modeLocationCount ].mode;
-  let map, map_container;
+  let map, map_container, input_address
   
   async function initMap() {
     const {Map} = await google.maps.importLibrary( 'maps' );
@@ -190,6 +190,9 @@
       mapTypeId: 'roadmap',
       mapId: 'street_project',
     } );
+    const {SearchBox} = await google.maps.importLibrary( 'places' );
+    let searchBox = new SearchBox( input_address );
+    map.controls[ google.maps.ControlPosition.TOP_LEFT ].push( input_address );
     let markers = [];
     const markerEventHandler = ( event ) => {
       property.coord[ 0 ] = event.latLng.lat();
@@ -242,6 +245,60 @@
       property.coord[ 1 ] = latLong.lng();
       getAddress( latLong );
       // Callback for dragend event
+    } );
+    // Searchable map
+    map.addListener( 'bounds_changed', () => {
+      searchBox.setBounds( map.getBounds() );
+    } );
+    searchBox.addListener( 'places_changed', () => {
+      const places = searchBox.getPlaces();
+      if( places.length==0 ) {
+        return;
+      }
+      // Fill formatted_address, latitude, and longitude as JSON values
+      property.lng = places[ 0 ].geometry.location.lng();
+      property.lat = places[ 0 ].geometry.location.lat();
+      property.formattedAddress = places[ 0 ].formatted_address;
+      for( let i = 0; i<places[ 0 ].address_components.length; i++ ) {
+        if( places[ 0 ].address_components[ i ].types.indexOf( 'country' )!== -1 ) {
+          property.country = places[ 0 ].address_components[ i ].short_name;
+          countryName = places[ 0 ].address_components[ i ].long_name;
+        }
+      }
+      // Clear out the old markers
+      clearMarkers( markers );
+      // For each place, get the icon, name and location.
+      const bounds = new google.maps.LatLngBounds();
+      places.forEach( ( place ) => {
+        if( !place.geometry || !place.geometry.location ) {
+          console.log( 'Returned place contains no geometry' );
+          return;
+        }
+        const icon = {
+          url: place.icon,
+          size: new google.maps.Size( 71, 71 ),
+          origin: new google.maps.Point( 0, 0 ),
+          anchor: new google.maps.Point( 17, 34 ),
+          scaledSize: new google.maps.Size( 25, 25 ),
+        };
+        // create marker for each place
+        markers.push(
+          new google.maps.Marker( {
+            map,
+            icon,
+            title: place.name,
+            position: place.geometry.location,
+          } ),
+        );
+        if( place.geometry.viewport ) {
+          // Only geocodes have viewport
+          bounds.union( place.geometry.viewport );
+        } else {
+          bounds.extend( place.geometry.location );
+        }
+        console.log( markers );
+      } );
+      map.fitBounds( bounds );
     } );
   }
   
@@ -566,6 +623,10 @@
 						{/if}
 						{#if modeLocation===LOC_MAP}
 							<div class='location_map'>
+								<div class='input_box'>
+									<label for='input_address'></label>
+									<input bind:this={input_address} id='input_address' type='text'/>
+								</div>
 								<div class='address_country_info'>
 									<div class='address'>
 										<Icon color='#f97316' size={18} src={FaSolidMapMarkerAlt}/>
@@ -1309,6 +1370,20 @@
         flex-direction : column;
         gap            : 10px;
         margin-top     : 20px;
+    }
+
+    .realtor_subpage_container section.location .location_map #input_address {
+        margin-top    : 10px;
+        padding       : 12px 15px;
+        border-radius : 2px;
+        border        : none;
+        width         : 400px;
+        filter        : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+    }
+
+    .realtor_subpage_container section.location .location_map #input_address:focus {
+        border-color : #F97316;
+        outline      : 2px solid #F97316;
     }
 
     .realtor_subpage_container section.location .location_map .address_country_info {
