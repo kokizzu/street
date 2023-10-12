@@ -3,6 +3,7 @@
   import FaSolidSearch from "svelte-icons-pack/fa/FaSolidSearch";
   import GoogleSdk from './GoogleSdk.svelte';
   import FaSolidMapMarkerAlt from "svelte-icons-pack/fa/FaSolidMapMarkerAlt";
+  import Growl from '../Growl.svelte'
   
   // TODO: use it to payload property
   export let elevation;
@@ -10,37 +11,46 @@
   
   let scriptLoaded = false, cssLoaded = false;
   let viewer, tileset;
-  let streetViewInput, streetViewInputValue, autocompleteService, geocoder;
+  let streetViewInput, streetViewInputValue, autocompleteService, geocoder, elevationService;
   let showAutoCompleteList = false, autocompleteLists = [];
+  let showGrowl = false, gMsg = '', gType = ''; // Growl
+  function useGrowl( type, msg ) {
+    showGrowl = true;
+    gMsg = msg;
+    gType = type;
+    setTimeout( () => {
+      showGrowl = false;
+    }, 3000 );
+  }
   
   function init3dTiles() {
     // Enable simultaneous requests.
     Cesium.RequestScheduler.requestsByServer[ "tile.googleapis.com:443" ] = 18;
     
     // Create the viewer.
-    viewer = new Cesium.Viewer( 'cesiumContainer', {
+    viewer = new Cesium.Viewer( "cesiumContainer", {
       imageryProvider: false,
       baseLayerPicker: false,
-      infobox: false,
+      requestRenderMode: true,
       geocoder: false,
       globe: false,
-      // https://cesium.com/blog/2018/01/24/cesium-scene-rendering-performance/#enabling-request-render-mode
-      requestRenderMode: true,
     } );
     
     // Add 3D Tiles tileset.
-    tileset = viewer.scene.primitives.add( new Cesium.Cesium3DTileset( {
-      url: "https://tile.googleapis.com/v1/3dtiles/root.json?key=AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg",
-      // This property is needed to appropriately display attributions
-      // as required.
-      showCreditsOnScreen: true,
-    } ) );
+    tileset = viewer.scene.primitives.add(
+      new Cesium.Cesium3DTileset( {
+        url: "https://tile.googleapis.com/v1/3dtiles/root.json?key=AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg",
+        // This property is required to display attributions as required.
+        showCreditsOnScreen: true,
+      } )
+    );
   }
   
   async function initGoogleSdk() {
     const {AutocompleteService} = await google.maps.importLibrary( 'places' );
     autocompleteService = new AutocompleteService();
     geocoder = new google.maps.Geocoder();
+    elevationService = new google.maps.ElevationService();
   }
   
   // Point the camera at a location and elevation, at a viewport-appropriate distance.
@@ -58,17 +68,12 @@
   }
   
   // Rotate the camera around a location and elevation, at a viewport-appropriate distance.
-  let unsubscribe = null;
-  
   function rotateCameraAround( location, viewport, elevation ) {
-    if( unsubscribe ) unsubscribe();
     pointCameraAt( location, viewport, elevation );
-    unsubscribe = viewer.clock.onTick.addEventListener( () => {
-      viewer.camera.rotate( Cesium.Cartesian3.UNIT_Z );
-    } );
   }
   
   function searchLocationHandler() {
+    showAutoCompleteList = true;
     autocompleteService.getPlacePredictions( {
         input: streetViewInputValue,
         types: ['establishment', 'geocode'],
@@ -76,35 +81,42 @@
       function( predictions, status ) {
         if( status===google.maps.places.PlacesServiceStatus.OK ) {
           autocompleteLists = predictions;
+        } else {
+          useGrowl( 'error', 'Cannot get address' )
         }
       },
     );
   }
+  
+  window.addEventListener( 'click', () => {
+    showAutoCompleteList = false;
+    autocompleteLists = [];
+  } );
   
   async function searchByAddressHandler( place_id ) {
     await geocoder
       .geocode( {placeId: place_id} )
       .then( async ( {results} ) => {
         if( results[ 0 ] ) {
-          // Get place elevation using the ElevationService.
-          const elevatorService = new google.maps.ElevationService();
-          const elevationResponse = await elevatorService.getElevationForLocations( {
+          const elevationResponse = await elevationService.getElevationForLocations( {
             locations: [results[ 0 ].geometry.location],
           } );
           if( !(elevationResponse.results && elevationResponse.results.length) ) {
-            alert( `Insufficient elevation data for place: ${results[ 0 ].formatted_address}` );
+            useGrowl( 'error', `Insufficient elevation data for place: ${results[ 0 ].formatted_address}` )
           }
-          const elevation = elevationResponse.results[ 0 ].elevation || 10;
+          const elv = elevationResponse.results[ 0 ].elevation;
+          elevation = elv;
+          resolution = elevationResponse.results[ 0 ].resolution
           rotateCameraAround(
             results[ 0 ].geometry.location,
             results[ 0 ].geometry.viewport,
-            elevation
+            elv
           );
         } else {
-          alert( 'No result found' );
+          useGrowl( 'error', 'No result found' );
         }
       } ).catch( ( e ) => {
-        alert( `Geocoder failed due to: ${e}` );
+        useGrowl( 'error', `Geocoder failed due to: ${e}` );
       } );
     autocompleteLists = [];
     showAutoCompleteList = false;
@@ -134,6 +146,9 @@
   document.head.appendChild( linkElement );
 </script>
 
+{#if showGrowl}
+	<Growl message={gMsg} growlType={gType}/>
+{/if}
 <GoogleSdk on:ready={initGoogleSdk}/>
 <div class="streetview_input_box">
 	<Icon
@@ -147,7 +162,6 @@
 		bind:value={streetViewInputValue}
 		id="pacViewPlace"
 		name="pacViewPlace"
-		on:click={() => showAutoCompleteList = !showAutoCompleteList}
 		on:input={searchLocationHandler}
 		placeholder="Enter a location..."
 		type="text"
