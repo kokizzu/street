@@ -76,6 +76,9 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 	ok := prop.FindByLatLong(in.CenterLat, in.CenterLong, in.Limit, in.Offset, func(row []any) bool {
 		item := Property{Property: &rqProperty.Property{}}
 		item.FromArray(row)
+		if item.DeletedAt > 0 { // skip deleted property
+			return true
+		}
 		if len(item.Coord) >= 2 {
 			item.Lat = X.ToF(item.Coord[0])
 			item.Lng = X.ToF(item.Coord[1])
