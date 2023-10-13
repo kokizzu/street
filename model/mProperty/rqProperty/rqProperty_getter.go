@@ -240,7 +240,8 @@ func (rq *PropertyHistory) FindBySerialNumber(key string) (res []*PropertyHistor
 SELECT
 ` + rq.SqlSelectAllFields() + `
 FROM ` + rq.SqlTableName() + `
-WHERE ` + rq.SqlSerialNumber() + `=` + S.Z(key) + ``
+WHERE ` + rq.SqlSerialNumber() + `=` + S.Z(key) + `
+  OR ` + rq.SqlPropertyKey() + `=` + S.Z(key)
 	if conf.IsDebug() {
 		//L.Print(query)
 	}
