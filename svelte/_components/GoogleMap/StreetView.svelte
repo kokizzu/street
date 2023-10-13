@@ -5,12 +5,13 @@
   import FaSolidMapMarkerAlt from "svelte-icons-pack/fa/FaSolidMapMarkerAlt";
   import Growl from '../Growl.svelte'
   
-  // TODO: use it to payload property
   export let elevation;
   export let resolution;
+  export let lat;
+  export let lng;
   
   let scriptLoaded = false, cssLoaded = false;
-  let viewer, tileset;
+  let viewer, tileset, handler;
   let streetViewInput, streetViewInputValue, autocompleteService, geocoder, elevationService;
   let showAutoCompleteList = false, autocompleteLists = [];
   let showGrowl = false, gMsg = '', gType = ''; // Growl
@@ -44,6 +45,28 @@
         showCreditsOnScreen: true,
       } )
     );
+    
+    viewer.camera.setView( {
+      destination: Cesium.Cartesian3.fromDegrees( lng, lat, elevation || 15000.0 )
+    } )
+    
+    handler = new Cesium.ScreenSpaceEventHandler( viewer.scene.canvas );
+    handler.setInputAction( async ( click ) => {
+      const pickedObject = viewer.scene.pick( click.position );
+      if( Cesium.defined( pickedObject ) ) {
+        const cartesian = viewer.scene.pickPosition( click.position );
+        const cartographic = Cesium.Cartographic.fromCartesian( cartesian );
+        const elevationResponse = await elevationService.getElevationForLocations( {
+          locations: [{
+            lat: Cesium.Math.toDegrees( cartographic.latitude ),
+            lng: Cesium.Math.toDegrees( cartographic.longitude )
+          }]
+        } );
+        
+        elevation = Cesium.Math.toDegrees( cartographic.height );
+        resolution = elevationResponse.results[ 0 ].resolution;
+      }
+    }, Cesium.ScreenSpaceEventType.LEFT_CLICK );
   }
   
   async function initGoogleSdk() {
@@ -51,25 +74,6 @@
     autocompleteService = new AutocompleteService();
     geocoder = new google.maps.Geocoder();
     elevationService = new google.maps.ElevationService();
-  }
-  
-  // Point the camera at a location and elevation, at a viewport-appropriate distance.
-  function pointCameraAt( location, viewport, elevation ) {
-    const distance = Cesium.Cartesian3.distance(
-      Cesium.Cartesian3.fromDegrees(
-        viewport.getSouthWest().lng(), viewport.getSouthWest().lat(), elevation ),
-      Cesium.Cartesian3.fromDegrees(
-        viewport.getNorthEast().lng(), viewport.getNorthEast().lat(), elevation )
-    ) / 2;
-    const target = new Cesium.Cartesian3.fromDegrees( location.lng(), location.lat(), elevation );
-    const pitch = -Math.PI / 4;
-    const heading = 0;
-    viewer.camera.lookAt( target, new Cesium.HeadingPitchRange( heading, pitch, distance ) );
-  }
-  
-  // Rotate the camera around a location and elevation, at a viewport-appropriate distance.
-  function rotateCameraAround( location, viewport, elevation ) {
-    pointCameraAt( location, viewport, elevation );
   }
   
   function searchLocationHandler() {
@@ -107,11 +111,18 @@
           const elv = elevationResponse.results[ 0 ].elevation;
           elevation = elv;
           resolution = elevationResponse.results[ 0 ].resolution
-          rotateCameraAround(
-            results[ 0 ].geometry.location,
-            results[ 0 ].geometry.viewport,
-            elv
-          );
+          viewer.camera.setView( {
+            destination: Cesium.Cartesian3.fromDegrees(
+              results[ 0 ].geometry.location.lng(),
+              results[ 0 ].geometry.location.lat(),
+              elv || 15000.0
+            )
+          } )
+          // rotateCameraAround(
+          //   results[ 0 ].geometry.location,
+          //   results[ 0 ].geometry.viewport,
+          //   elv
+          // );
         } else {
           useGrowl( 'error', 'No result found' );
         }

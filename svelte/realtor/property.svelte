@@ -37,7 +37,6 @@
   
   onMount( () => {
     console.log( 'property = ', property )
-    console.log( 'country data =', countries )
     const defaultLat = 23.6978, defaultLng = 120.9605;
     if( Object.keys( property ).length===0 ) {
       property = {
@@ -654,7 +653,12 @@
 									<span><b>Resolution</b>: {property.resolution}</span>
 								</div>
 								<div class='streetview_container'>
-									<StreetView bind:elevation={property.elevation} bind:resolution={property.resolution}/>
+									<StreetView
+										bind:elevation={property.elevation}
+										bind:resolution={property.resolution}
+										bind:lat={property.lat}
+										bind:lng={property.lng}
+									/>
 								</div>
 							</div>
 						{/if}
