@@ -9,7 +9,7 @@
   import {formatPrice} from '../_components/formatter';
   import {RealtorUpsertProperty} from '../jsApi.GEN';
   import {StreetView} from "../_components/GoogleMap/components";
-  
+
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
   import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
@@ -24,7 +24,7 @@
   import FaSolidCamera from 'svelte-icons-pack/fa/FaSolidCamera';
   import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
   import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
-  
+
   // Use property from backend if backend is ready
   let property = {/* property */};
   let user = {/* user */};
@@ -34,7 +34,7 @@
   let cards = [{}, {}, {}, {}];
   let showGrowl = false, gMsg = '', gType = ''; // Growl
   let countryCurrency = 'TWD', payload = {};
-  
+
   onMount( () => {
     console.log( 'property = ', property )
     const defaultLat = 23.6978, defaultLng = 120.9605;
@@ -52,10 +52,11 @@
         lng: defaultLng,
         coord: [defaultLat, defaultLng],
         elevation: 0, // new
-        
+        resolution: 0, // new
+
         uniqPropKey: '1_12449819078726277117',
         serialNumber: '',
-        
+
         houseType: '',
         bedroom: 0,
         bathroom: 0,
@@ -68,16 +69,16 @@
         minimumDurationYear: 0, // new
         otherFee: [], // new
         lastPrice: 0,
-        
+
         images: [],
         imageDescriptions: [], // new
         createdAt: 1692641835,
         updatedAt: 1692641835,
-        
+
         // floorList: [], // no longer used
         // mainUse: '', // no longer used
         // note: '', // no longer used
-        
+
         //"id": '1234'
         // mainBuildingMaterial: '',
         // constructCompletedDate: '',
@@ -99,7 +100,7 @@
       property.images = property.images || [];
     }
   } );
-  
+
   $: {
     let id = '0'
     if( property.id>0 ) id = '' + property.id;
@@ -117,7 +118,8 @@
       otherFee: property.otherFee || [],
       imageDescriptions: property.imageDescriptions || [],
       elevation: property.elevation,
-      
+      resolution: property.resolution,
+
       // old
       id: id,
       formattedAddress: property.formattedAddress,
@@ -135,7 +137,7 @@
       numberOfFloors: '' + property.floors
     }
   }
-  
+
   function useGrowl( type, msg ) {
     showGrowl = true;
     gMsg = msg;
@@ -144,12 +146,12 @@
       showGrowl = false;
     }, 3000 );
   }
-  
+
   function progressDotHandler( toPage ) {
     let card = cards[ toPage ];
     card.scrollIntoView( {behavior: 'smooth'} );
   }
-  
+
   function nextPage() {
     if( currentPage<3 ) {
       currentPage++;
@@ -157,7 +159,7 @@
       card.scrollIntoView( {behavior: 'smooth'} );
     }
   }
-  
+
   function backPage() {
     if( currentPage>0 ) {
       currentPage--;
@@ -165,7 +167,7 @@
       card.scrollIntoView( {behavior: 'smooth'} );
     }
   }
-  
+
   // +=============| Location and Signage |=============+ //
   const LOC_ADDR = 'Address';
   const LOC_MAP = 'Put the pin on your house location by clicking the map';
@@ -178,7 +180,7 @@
   ];
   let modeLocation = modeLocationLists[ modeLocationCount ].mode;
   let map, map_container, input_address
-  
+
   async function initMap() {
     const {Map} = await google.maps.importLibrary( 'maps' );
     const geocoder = new google.maps.Geocoder();
@@ -302,7 +304,7 @@
       map.fitBounds( bounds );
     } );
   }
-  
+
   async function handleBackLocation() {
     if( modeLocationCount<modeLocationLists.length ) {
       modeLocationCount -= 1;
@@ -312,7 +314,7 @@
       }
     }
   }
-  
+
   const handleNextLocation = {
     'LOC_ADDR': async () => {
       property.country = countryIso2;
@@ -343,7 +345,7 @@
       nextPage();
     },
   };
-  
+
   // +================| Info |=================+ //
   const INFO_FEAT = 'Feature', INFO_PRICE = 'Price';
   const m2 = 'M2', ping = 'Ping';
@@ -367,7 +369,7 @@
   let houseTypeLists = [
     'house', 'land', 'apartment', 'townhouse', 'condo', 'villa', 'factory', 'parking', 'other'
   ];
-  
+
   function addOtherFee() {
     property.otherFee = [...property.otherFee, otherFeeObj];
     otherFeeObj = {
@@ -376,7 +378,7 @@
     };
     addOtherFeeDialog.hideModal();
   }
-  
+
   const handleInfoUnitMode = {
     'toggle': () => {
       if( infoUnitMode===ping ) {
@@ -410,7 +412,7 @@
       return parseFloat( minifiedValue );
     },
   };
-  
+
   function handleBackInfo() {
     if( modeInfoCount>0 ) {
       modeInfoCount -= 1;
@@ -419,7 +421,7 @@
     }
     backPage();
   }
-  
+
   const handleNextInfo = {
     'INFO_FEAT': () => {
       property.parking = infoObj.parking;
@@ -439,13 +441,13 @@
       nextPage();
     },
   };
-  
+
   // +================| Picture |=================+ //
   let imageHouseInput;
   let houseImgUploading = false;
   let uploadHouseStatus = '';
   let uploadHousePercent = 0;
-  
+
   function handlerHouseImage() {
     if( !imageHouseInput ) return;
     const file = imageHouseInput.files[ 0 ];
@@ -486,15 +488,15 @@
     }
     imageHouseInput.value = null;
   }
-  
+
   function removeImage( index ) {
     property.images = property.images.filter( ( _, i ) => i!==index );
     property.imageDescriptions = property.imageDescriptions.filter( ( _, i ) => i!==index );
   }
-  
+
   // SUBMIT =====================+
   let res_propId, submitLoading = false;
-  
+
   async function handleSubmit() {
     submitLoading = true;
     console.log( 'property=', property, 'payload=', payload );
@@ -646,11 +648,17 @@
 						{#if modeLocation===LOC_STREETVIEW}
 							<div class='location_streetview'>
 								<p class='description'>Let buyers find your house on camera.</p>
+								<div class='info_data'>
+									<span><b>Elevation</b>: {property.elevation}</span>
+									<span><b>Resolution</b>: {property.resolution}</span>
+								</div>
 								<div class='streetview_container'>
-									<div class='input_box'>
-										<label for='elevation'>Estimated distance from floor where you want to put your signage</label>
-										<input id='elevation' type='number' min='0' step="0.1" placeholder='Required' bind:value={property.elevation}/>
-									</div>
+									<StreetView
+										bind:elevation={property.elevation}
+										bind:resolution={property.resolution}
+										bind:lat={property.lat}
+										bind:lng={property.lng}
+									/>
 								</div>
 							</div>
 						{/if}
@@ -1425,7 +1433,7 @@
     .realtor_subpage_container section.location .location_streetview {
         display        : flex;
         flex-direction : column;
-        gap            : 40px;
+        gap            : 15px;
         flex-grow      : 1;
     }
 
@@ -1437,11 +1445,15 @@
         margin      : 0;
     }
 
+    .realtor_subpage_container section.location .location_streetview .info_data {
+        display         : flex;
+        flex-direction  : row;
+        justify-content : space-between;
+    }
+
     .realtor_subpage_container section.location .location_streetview .streetview_container {
         flex-grow : 1;
         position  : relative;
-        width     : 60%;
-        margin    : auto;
     }
 
     /* +============| SUBPAGE INFO |===========+ */
