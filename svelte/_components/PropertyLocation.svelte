@@ -152,7 +152,6 @@
         }
         markersFacility.push( gmapsComponent.createMarker( fac.lat, fac.lng, iconmarkerpath, 32, fac.name ) );
       } );
-      console.log( facilities );
     } );
     markersFacility.forEach( ( marker, idx ) => {
       marker.addListener( 'click', () => {
