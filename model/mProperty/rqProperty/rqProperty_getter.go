@@ -408,7 +408,7 @@ func (p *PropertyExtraUS) Pagination(offset, limit int) []PropertyExtraUS {
 SELECT ` + p.SqlSelectAllFields() + `
 FROM ` + p.SqlTableName() + `
 ORDER BY ` + p.SqlId() + `
-LIMIT ` + X.ToS(offset) + `,` + X.ToS(limit)
+LIMIT ` + X.ToS(limit) + ` OFFSET ` + X.ToS(offset)
 
 	res := make([]PropertyExtraUS, 0, limit)
 	p.Adapter.QuerySql(query, func(row []any) {

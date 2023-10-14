@@ -453,19 +453,26 @@ func CleanExcessiveAttrPropertyExtraUs(adapter *Tt.Adapter) {
 	defer stat.Print(`last`)
 
 	propExtraUS := rqProperty.NewPropertyExtraUS(adapter)
-	count := 0
+	offset := 0
+	const limit = 5000
+
+	reduction := uint64(0)
 
 	for {
-		stat.Print()
 
-		extras := propExtraUS.Pagination(count, 1000)
+		stat.Print()
+		start := time.Now()
+		extras := propExtraUS.Pagination(offset, limit)
 		if len(extras) == 0 {
 			break
 		}
 		stat.Total += len(extras)
-		count += len(extras)
+		offset += len(extras)
+		listDur := time.Since(start)
 
 		for _, extra := range extras {
+			stat.Print()
+
 			mutator := wcProperty.NewPropertyExtraUSMutator(adapter)
 			mutator.PropertyExtraUS = extra
 			mutator.Adapter = adapter
@@ -482,6 +489,7 @@ func CleanExcessiveAttrPropertyExtraUs(adapter *Tt.Adapter) {
 					stat.Warn(`risk marshal error`)
 					continue
 				}
+				reduction += uint64(len(mutator.RiskInfo) - len(riskInfoJson))
 				mutator.SetRiskInfo(string(riskInfoJson))
 			}
 			if extra.FacilityInfo != `` && S.StartsWith(extra.FacilityInfo, `{`) {
@@ -497,10 +505,13 @@ func CleanExcessiveAttrPropertyExtraUs(adapter *Tt.Adapter) {
 					stat.Warn(`facility marshal error`)
 					continue
 				}
+				reduction += uint64(len(mutator.FacilityInfo) - len(facilityInfoJson))
 				mutator.SetFacilityInfo(string(facilityInfoJson))
 			}
 			stat.Ok(mutator.DoUpdateById())
 		}
+
+		stat.Last(fmt.Sprintf("reduction %d last listDur %s", reduction, listDur))
 
 	}
 }
