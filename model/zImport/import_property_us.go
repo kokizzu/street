@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/X"
 
 	"street/model/mProperty/rqProperty"
@@ -254,7 +255,8 @@ func parsePropertyExtraData(propertyMutator *wcProperty.PropertyExtraUSMutator, 
 	propertyMutator.MlsDisclaimerInfo = string(mlsDisclaimerInfo)
 
 	// // --------Facility Info --------
-	facilityInfo := propertyResponseObject.SchoolsAndDistrictsInfo
+	facilityInfo := M.SX(propertyResponseObject.SchoolsAndDistrictsInfo)
+	cleanExcessiveFacilityInfoString(facilityInfo)
 	facilityInfoJson, err := json.Marshal(facilityInfo)
 	if err != nil {
 		L.Print("Can't parse Zone Data Info")
@@ -263,11 +265,62 @@ func parsePropertyExtraData(propertyMutator *wcProperty.PropertyExtraUSMutator, 
 
 	// // --------Risk Info --------
 	riskInfo := propertyResponseObject.RiskFactorData
+	cleanExcessiveRiskInfoString(riskInfo)
 	riskInfoJson, err := json.Marshal(riskInfo)
 	if err != nil {
 		L.Print("Can't parse Zone Data Info")
 	}
 	propertyMutator.RiskInfo = string(riskInfoJson)
+}
+
+func cleanExcessiveRiskInfoString(riskInfo map[string]any) {
+	delete(riskInfo, `fireDataV2`)
+	delete(riskInfo, `floodDataV2`)
+	delete(riskInfo, `heatDataV2`)
+	wind := M.SX(riskInfo).GetMSX(`windData`)
+	delete(wind, `entryPointDescription`)
+	delete(wind, `entryPointFlyout`)
+	delete(wind, `entryPointFlyoutTitle`)
+	delete(wind, `entryPointFlyoutUrl`)
+	delete(wind, `entryPointFlyoutUrlText`)
+	delete(wind, `entryPointTitle`)
+	delete(wind, `entrypointGraphDescription`)
+	delete(wind, `entrypointGraphFlyout`)
+	delete(wind, `entrypointGraphFlyoutTitle`)
+	delete(wind, `entrypointGraphTitle`)
+	delete(wind, `riskFactorHomeURLText`)
+	delete(wind, `scoreDescription`)
+	// only keep fsid, expandableHeading, expandableSummary, riskFactorHomeUrl, and riskFactorScore
+	riskInfo[`windData`] = wind
+	flood := M.SX(riskInfo).GetMSX(`floodData`)
+	delete(flood, `cumulative`)
+	riskInfo[`floodData`] = flood
+}
+
+func cleanExcessiveFacilityInfoString(facilityInfo M.SX) {
+	eraseFacilityInfoReviews(facilityInfo, `elementarySchools`)
+	eraseFacilityInfoReviews(facilityInfo, `highSchools`)
+	eraseFacilityInfoReviews(facilityInfo, `middleSchools`)
+	eraseFacilityInfoReviews(facilityInfo, `servingThisHomeSchools`)
+	eraseFacilityInfoReviews(facilityInfo, `schoolsToShowOnDP`)
+}
+func eraseFacilityInfoReviews(facilityInfo M.SX, key string) {
+	schools := facilityInfo.GetAX(key)
+	for k, v := range schools {
+		vv := X.ToMSX(v)
+		delete(vv, `schoolGranularRatings`)
+		delete(vv, `schoolReviews`)
+		delete(vv, `greatschoolParentReviewsUrl`)
+		district := vv.GetMSX(`schoolDistrict`)
+		districtId := district.GetInt(`id`)
+		if districtId > 0 {
+			vv[`districtId`] = districtId
+		}
+		delete(vv, `schoolDistrict`)
+		delete(vv, `searchUrl`)
+		schools[k] = vv
+	}
+	facilityInfo[key] = schools
 }
 
 func parsePropertyData(propertyMutator *wcProperty.PropertyUSMutator, propertyResponseObject *PropertyFullResponse, stat *ImporterStat) {
