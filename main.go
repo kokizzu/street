@@ -212,6 +212,8 @@ func main() {
 		}
 
 		zImport.ImportPropertyUsData(tConn, baseUrl, minPropertyIdNumber, maxPropertyIdNumber)
+	case `clean_excessive_attr_property_extra_us`:
+		zImport.CleanExcessiveAttrPropertyExtraUs(tConn)
 	case `import_location`:
 		zImport.ImportHouseLocation(tConn, gmap)
 	case `import_streetview_image`:

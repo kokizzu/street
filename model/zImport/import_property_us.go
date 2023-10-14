@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 
 	"street/model/mProperty/rqProperty"
@@ -443,6 +444,64 @@ func SavePropertyHistories(adapter *Tt.Adapter, propList []rqProperty.PropertyHi
 		propertyHistoryMutator.PropertyHistory = pHistory
 		propertyHistoryMutator.UpdatedAt = time.Now().Unix()
 		stat.Ok(propertyHistoryMutator.DoInsert())
+	}
+}
+
+func CleanExcessiveAttrPropertyExtraUs(adapter *Tt.Adapter) {
+
+	stat := &ImporterStat{Total: 10000000}
+	defer stat.Print(`last`)
+
+	propExtraUS := rqProperty.NewPropertyExtraUS(adapter)
+	count := 0
+
+	for {
+		stat.Print()
+
+		extras := propExtraUS.Pagination(count, 1000)
+		if len(extras) == 0 {
+			break
+		}
+		stat.Total += len(extras)
+		count += len(extras)
+
+		for _, extra := range extras {
+			mutator := wcProperty.NewPropertyExtraUSMutator(adapter)
+			mutator.PropertyExtraUS = extra
+			mutator.Adapter = adapter
+			if extra.RiskInfo != `` && S.StartsWith(extra.RiskInfo, `{`) {
+				riskInfo := M.SX{}
+				err := json.Unmarshal([]byte(extra.RiskInfo), &riskInfo)
+				if err != nil {
+					stat.Warn(`risk unmarshal error`)
+					continue
+				}
+				cleanExcessiveRiskInfoString(riskInfo)
+				riskInfoJson, err := json.Marshal(riskInfo)
+				if err != nil {
+					stat.Warn(`risk marshal error`)
+					continue
+				}
+				mutator.SetRiskInfo(string(riskInfoJson))
+			}
+			if extra.FacilityInfo != `` && S.StartsWith(extra.FacilityInfo, `{`) {
+				facilityInfo := M.SX{}
+				err := json.Unmarshal([]byte(extra.FacilityInfo), &facilityInfo)
+				if err != nil {
+					stat.Warn(`facility unmarshal error`)
+					continue
+				}
+				cleanExcessiveFacilityInfoString(facilityInfo)
+				facilityInfoJson, err := json.Marshal(facilityInfo)
+				if err != nil {
+					stat.Warn(`facility marshal error`)
+					continue
+				}
+				mutator.SetFacilityInfo(string(facilityInfoJson))
+			}
+			stat.Ok(mutator.DoUpdateById())
+		}
+
 	}
 }
 
