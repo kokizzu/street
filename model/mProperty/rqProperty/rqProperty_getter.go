@@ -401,3 +401,21 @@ WHERE ` + p.SqlPropId() + ` IN (` + A.UIntJoin(propIds, `,`) + `)`
 
 	return
 }
+
+func (p *PropertyExtraUS) Pagination(offset, limit int) []PropertyExtraUS {
+	query := `-- PropertyExtraUS) Pagination`
+	query += `
+SELECT ` + p.SqlSelectAllFields() + `
+FROM ` + p.SqlTableName() + `
+ORDER BY ` + p.SqlId() + `
+LIMIT ` + X.ToS(limit) + ` OFFSET ` + X.ToS(offset)
+
+	res := make([]PropertyExtraUS, 0, limit)
+	p.Adapter.QuerySql(query, func(row []any) {
+		obj := PropertyExtraUS{}
+		obj.FromArray(row)
+		res = append(res, obj)
+	})
+
+	return res
+}

@@ -9,6 +9,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 
 	"street/model/mProperty/rqProperty"
@@ -254,7 +256,8 @@ func parsePropertyExtraData(propertyMutator *wcProperty.PropertyExtraUSMutator, 
 	propertyMutator.MlsDisclaimerInfo = string(mlsDisclaimerInfo)
 
 	// // --------Facility Info --------
-	facilityInfo := propertyResponseObject.SchoolsAndDistrictsInfo
+	facilityInfo := M.SX(propertyResponseObject.SchoolsAndDistrictsInfo)
+	cleanExcessiveFacilityInfoString(facilityInfo)
 	facilityInfoJson, err := json.Marshal(facilityInfo)
 	if err != nil {
 		L.Print("Can't parse Zone Data Info")
@@ -263,11 +266,62 @@ func parsePropertyExtraData(propertyMutator *wcProperty.PropertyExtraUSMutator, 
 
 	// // --------Risk Info --------
 	riskInfo := propertyResponseObject.RiskFactorData
+	cleanExcessiveRiskInfoString(riskInfo)
 	riskInfoJson, err := json.Marshal(riskInfo)
 	if err != nil {
 		L.Print("Can't parse Zone Data Info")
 	}
 	propertyMutator.RiskInfo = string(riskInfoJson)
+}
+
+func cleanExcessiveRiskInfoString(riskInfo map[string]any) {
+	delete(riskInfo, `fireDataV2`)
+	delete(riskInfo, `floodDataV2`)
+	delete(riskInfo, `heatDataV2`)
+	wind := M.SX(riskInfo).GetMSX(`windData`)
+	delete(wind, `entryPointDescription`)
+	delete(wind, `entryPointFlyout`)
+	delete(wind, `entryPointFlyoutTitle`)
+	delete(wind, `entryPointFlyoutUrl`)
+	delete(wind, `entryPointFlyoutUrlText`)
+	delete(wind, `entryPointTitle`)
+	delete(wind, `entrypointGraphDescription`)
+	delete(wind, `entrypointGraphFlyout`)
+	delete(wind, `entrypointGraphFlyoutTitle`)
+	delete(wind, `entrypointGraphTitle`)
+	delete(wind, `riskFactorHomeURLText`)
+	delete(wind, `scoreDescription`)
+	// only keep fsid, expandableHeading, expandableSummary, riskFactorHomeUrl, and riskFactorScore
+	riskInfo[`windData`] = wind
+	flood := M.SX(riskInfo).GetMSX(`floodData`)
+	delete(flood, `cumulative`)
+	riskInfo[`floodData`] = flood
+}
+
+func cleanExcessiveFacilityInfoString(facilityInfo M.SX) {
+	eraseFacilityInfoReviews(facilityInfo, `elementarySchools`)
+	eraseFacilityInfoReviews(facilityInfo, `highSchools`)
+	eraseFacilityInfoReviews(facilityInfo, `middleSchools`)
+	eraseFacilityInfoReviews(facilityInfo, `servingThisHomeSchools`)
+	eraseFacilityInfoReviews(facilityInfo, `schoolsToShowOnDP`)
+}
+func eraseFacilityInfoReviews(facilityInfo M.SX, key string) {
+	schools := facilityInfo.GetAX(key)
+	for k, v := range schools {
+		vv := X.ToMSX(v)
+		delete(vv, `schoolGranularRatings`)
+		delete(vv, `schoolReviews`)
+		delete(vv, `greatschoolParentReviewsUrl`)
+		district := vv.GetMSX(`schoolDistrict`)
+		districtId := district.GetInt(`id`)
+		if districtId > 0 {
+			vv[`districtId`] = districtId
+		}
+		delete(vv, `schoolDistrict`)
+		delete(vv, `searchUrl`)
+		schools[k] = vv
+	}
+	facilityInfo[key] = schools
 }
 
 func parsePropertyData(propertyMutator *wcProperty.PropertyUSMutator, propertyResponseObject *PropertyFullResponse, stat *ImporterStat) {
@@ -390,6 +444,75 @@ func SavePropertyHistories(adapter *Tt.Adapter, propList []rqProperty.PropertyHi
 		propertyHistoryMutator.PropertyHistory = pHistory
 		propertyHistoryMutator.UpdatedAt = time.Now().Unix()
 		stat.Ok(propertyHistoryMutator.DoInsert())
+	}
+}
+
+func CleanExcessiveAttrPropertyExtraUs(adapter *Tt.Adapter) {
+
+	stat := &ImporterStat{Total: 10000000}
+	defer stat.Print(`last`)
+
+	propExtraUS := rqProperty.NewPropertyExtraUS(adapter)
+	offset := 0
+	const limit = 5000
+
+	reduction := uint64(0)
+
+	for {
+
+		stat.Print()
+		start := time.Now()
+		extras := propExtraUS.Pagination(offset, limit)
+		if len(extras) == 0 {
+			break
+		}
+		stat.Total += len(extras)
+		offset += len(extras)
+		listDur := time.Since(start)
+
+		for _, extra := range extras {
+			stat.Print()
+
+			mutator := wcProperty.NewPropertyExtraUSMutator(adapter)
+			mutator.PropertyExtraUS = extra
+			mutator.Adapter = adapter
+			if extra.RiskInfo != `` && S.StartsWith(extra.RiskInfo, `{`) {
+				riskInfo := M.SX{}
+				err := json.Unmarshal([]byte(extra.RiskInfo), &riskInfo)
+				if err != nil {
+					stat.Warn(`risk unmarshal error`)
+					continue
+				}
+				cleanExcessiveRiskInfoString(riskInfo)
+				riskInfoJson, err := json.Marshal(riskInfo)
+				if err != nil {
+					stat.Warn(`risk marshal error`)
+					continue
+				}
+				reduction += uint64(len(mutator.RiskInfo) - len(riskInfoJson))
+				mutator.SetRiskInfo(string(riskInfoJson))
+			}
+			if extra.FacilityInfo != `` && S.StartsWith(extra.FacilityInfo, `{`) {
+				facilityInfo := M.SX{}
+				err := json.Unmarshal([]byte(extra.FacilityInfo), &facilityInfo)
+				if err != nil {
+					stat.Warn(`facility unmarshal error`)
+					continue
+				}
+				cleanExcessiveFacilityInfoString(facilityInfo)
+				facilityInfoJson, err := json.Marshal(facilityInfo)
+				if err != nil {
+					stat.Warn(`facility marshal error`)
+					continue
+				}
+				reduction += uint64(len(mutator.FacilityInfo) - len(facilityInfoJson))
+				mutator.SetFacilityInfo(string(facilityInfoJson))
+			}
+			stat.Ok(mutator.DoUpdateById())
+		}
+
+		stat.Last(fmt.Sprintf("reduction %d last listDur %s", reduction, listDur))
+
 	}
 }
 
