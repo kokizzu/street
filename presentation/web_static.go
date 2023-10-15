@@ -315,6 +315,27 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`pager`:    out.Pager,
 		})
 	})
+	fw.Get(`/`+domain.AdminPropertiesUSAction, func(ctx *fiber.Ctx) error {
+		var in domain.AdminPropertiesUSIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminPropertiesUSAction)
+		if err != nil {
+			return err
+		}
+		if notAdmin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Cmd = zCrud.CmdList
+		out := d.AdminPropertiesUS(&in)
+		return views.RenderAdminPropertiesUS(ctx, M.SX{
+			`title`:      `Properties US`,
+			`segments`:   segments,
+			`properties`: out.Properties,
+			`fields`:     out.Meta.Fields,
+			`pager`:      out.Pager,
+		})
+	})
 	fw.Get(`/`+domain.AdminPropertiesAction, func(ctx *fiber.Ctx) error {
 		var in domain.AdminPropertiesIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminPropertiesAction)

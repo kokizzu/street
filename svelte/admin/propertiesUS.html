@@ -653,6 +653,138 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
 .button_container.svelte-oq5wkw .restore.svelte-oq5wkw {
   background-color: #f97316;
 }
+
+/* fakecss:./_components/ModalDialog.esbuild-svelte-fake-css */
+.backdrop.svelte-1fw6la4.svelte-1fw6la4 {
+  position: fixed;
+  z-index: 40;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(41, 41, 41, 0.9);
+  overflow-y: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.backdrop.svelte-1fw6la4.svelte-1fw6la4::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+.backdrop.svelte-1fw6la4.svelte-1fw6la4::-webkit-scrollbar {
+  width: 0;
+}
+.backdrop.svelte-1fw6la4.svelte-1fw6la4::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.modal_dialog.svelte-1fw6la4.svelte-1fw6la4 {
+  background-color: white;
+  width: 55%;
+  height: fit-content;
+  margin: 50px 0 0 0;
+  padding: 20px;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #334155;
+}
+.modal_dialog.svelte-1fw6la4 .modal_content.svelte-1fw6la4 {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.modal_dialog.svelte-1fw6la4 .modal_content h3.svelte-1fw6la4 {
+  font-weight: 600;
+  margin: 0;
+  font-size: 18px;
+  width: 100%;
+  text-align: center;
+}
+.modal_dialog.svelte-1fw6la4 .buttons.svelte-1fw6la4 {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  font-weight: 500;
+  width: 100%;
+}
+.modal_dialog.svelte-1fw6la4 .buttons button.svelte-1fw6la4 {
+  border-radius: 8px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+  text-transform: capitalize;
+}
+.modal_dialog.svelte-1fw6la4 .buttons .cancel_button.svelte-1fw6la4 {
+  margin-right: 10px;
+  border: 1px solid #cbd5e1;
+  background-color: #f1f5f9;
+  color: #f97316;
+}
+.modal_dialog.svelte-1fw6la4 .buttons .cancel_button.svelte-1fw6la4:hover {
+  border: 1px solid #f97316;
+}
+
+/* fakecss:./_components/PillBox.esbuild-svelte-fake-css */
+.pill-box.svelte-1x7s25u.svelte-1x7s25u {
+  line-height: 25px;
+  display: inline-flex;
+}
+.pill-box-left.svelte-1x7s25u.svelte-1x7s25u,
+.pill-box-right.svelte-1x7s25u.svelte-1x7s25u {
+  border: 1px solid #E6E6E6;
+  border-radius: 4px;
+  color: #666;
+  padding: 2px;
+  margin-bottom: 1em;
+}
+.pill-box-left.svelte-1x7s25u.svelte-1x7s25u {
+  background-color: #E6E6E6;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  padding-left: 6px;
+  text-align: center;
+}
+.pill-box-right.svelte-1x7s25u.svelte-1x7s25u {
+  background-color: #FFF;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-left: 0;
+  padding-left: 4px;
+  padding-right: 6px;
+  margin-right: 1em;
+}
+.pill-blue.svelte-1x7s25u .pill-box-left.svelte-1x7s25u,
+.pill-blue.svelte-1x7s25u .pill-box-right.svelte-1x7s25u {
+  border-color: #4DA6FF;
+}
+.pill-blue.svelte-1x7s25u .pill-box-left.svelte-1x7s25u {
+  background-color: #4DA6FF;
+  color: #E5F2FF;
+}
+
+/* fakecss:./admin/propertiesUS.esbuild-svelte-fake-css */
+.filter_pending_button.svelte-1waihep {
+  padding: 8px 20px;
+  font-size: 14pt;
+  font-weight: bold;
+  border-radius: 8px;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  margin-left: 4px;
+  cursor: pointer;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  border: 1px solid grey;
+  gap: 8px;
+  display: inline-flex;
+}
+.filter_pending_button.not_filtered.svelte-1waihep {
+  background-color: #6366F1;
+  color: white;
+  flex-direction: row;
+}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -2656,13 +2788,13 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance9 = bind2(Axios$1.prototype.request, context);
-        utils.extend(instance9, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance9, context, null, { allOwnKeys: true });
-        instance9.create = function create(instanceConfig) {
+        const instance11 = bind2(Axios$1.prototype.request, context);
+        utils.extend(instance11, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance11, context, null, { allOwnKeys: true });
+        instance11.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance9;
+        return instance11;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2722,10 +2854,10 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
       exports.AdminProperties = async function AdminProperties(i, cb) {
         return await axios.post("/admin/properties", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.AdminPropertiesUS = async function AdminPropertiesUS(i, cb) {
+      exports.AdminPropertiesUS = async function AdminPropertiesUS2(i, cb) {
         return await axios.post("/admin/properties/US", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.AdminUsers = async function AdminUsers2(i, cb) {
+      exports.AdminUsers = async function AdminUsers(i, cb) {
         return await axios.post("/admin/users", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.GuestAutoLogin = async function GuestAutoLogin(i, cb) {
@@ -2797,7 +2929,7 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
       exports.UserProfile = async function UserProfile(i, cb) {
         return await axios.post("/user/profile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserPropHistory = async function UserPropHistory(i, cb) {
+      exports.UserPropHistory = async function UserPropHistory2(i, cb) {
         return await axios.post("/user/propHistory", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserSearchProp = async function UserSearchProp(i, cb) {
@@ -2835,7 +2967,7 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
         const formattedDate = dt.toLocaleDateString(void 0, options);
         return formattedDate;
       }
-      function priceNtd(val) {
+      function priceNtd2(val) {
         return new Number(val).toLocaleString("zh-TW");
       }
       function localeDatetime(unixSec) {
@@ -2878,10 +3010,29 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
       }
       module.exports = {
         datetime: datetime3,
-        priceNtd,
+        priceNtd: priceNtd2,
         localeDatetime,
         datetime2: datetime22,
         formatPrice
+      };
+    }
+  });
+
+  // _components/mapper.js
+  var require_mapper = __commonJS({
+    "_components/mapper.js"(exports, module) {
+      function fieldsArrToMap2(arr) {
+        let map = {};
+        for (const idx in arr) {
+          let el = arr[idx];
+          console.log(el);
+          map[el.name] = el;
+          el.idx = idx;
+        }
+        return map;
+      }
+      module.exports = {
+        fieldsArrToMap: fieldsArrToMap2
       };
     }
   });
@@ -3391,7 +3542,7 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance9, create_fragment9, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance11, create_fragment11, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3417,7 +3568,7 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance9 ? instance9(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance11 ? instance11(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -3430,7 +3581,7 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment9 ? create_fragment9($.ctx) : false;
+    $.fragment = create_fragment11 ? create_fragment11($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -7254,9 +7405,6 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
   };
   var TableView_default = TableView;
 
-  // admin/users.svelte
-  var import_jsApi = __toESM(require_jsApi_GEN());
-
   // _components/ModalForm.svelte
   var import_formatter2 = __toESM(require_formatter());
   function get_each_context3(ctx, list, i) {
@@ -8483,6 +8631,36 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
   };
   var ModalForm_default = ModalForm;
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/hi/HiSolidEye.js
+  var HiSolidEye_default = {
+    a: {
+      viewBox: "0 0 20 20",
+      fill: "none"
+    },
+    c: '<path d="M10 12C11.1046 12 12 11.1046 12 10C12 8.89543 11.1046 8 10 8C8.89544 8 8.00001 8.89543 8.00001 10C8.00001 11.1046 8.89544 12 10 12Z" fill="#4A5568"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M0.457764 10C1.73202 5.94291 5.52232 3 9.99997 3C14.4776 3 18.2679 5.94288 19.5422 9.99996C18.2679 14.0571 14.4776 17 9.99995 17C5.52232 17 1.73204 14.0571 0.457764 10ZM14 10C14 12.2091 12.2091 14 10 14C7.79087 14 6.00001 12.2091 6.00001 10C6.00001 7.79086 7.79087 6 10 6C12.2091 6 14 7.79086 14 10Z" fill="#4A5568"></path>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/hi/HiSolidXCircle.js
+  var HiSolidXCircle_default = {
+    a: {
+      viewBox: "0 0 20 20",
+      fill: "none"
+    },
+    c: '<path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM8.70711 7.29289C8.31658 6.90237 7.68342 6.90237 7.29289 7.29289C6.90237 7.68342 6.90237 8.31658 7.29289 8.70711L8.58579 10L7.29289 11.2929C6.90237 11.6834 6.90237 12.3166 7.29289 12.7071C7.68342 13.0976 8.31658 13.0976 8.70711 12.7071L10 11.4142L11.2929 12.7071C11.6834 13.0976 12.3166 13.0976 12.7071 12.7071C13.0976 12.3166 13.0976 11.6834 12.7071 11.2929L11.4142 10L12.7071 8.70711C13.0976 8.31658 13.0976 7.68342 12.7071 7.29289C12.3166 6.90237 11.6834 6.90237 11.2929 7.29289L10 8.58579L8.70711 7.29289Z" fill="#4A5568"></path>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/hi/HiSolidCheckCircle.js
+  var HiSolidCheckCircle_default = {
+    a: {
+      viewBox: "0 0 20 20",
+      fill: "none"
+    },
+    c: '<path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM13.7071 8.70711C14.0976 8.31658 14.0976 7.68342 13.7071 7.29289C13.3166 6.90237 12.6834 6.90237 12.2929 7.29289L9 10.5858L7.70711 9.29289C7.31658 8.90237 6.68342 8.90237 6.29289 9.29289C5.90237 9.68342 5.90237 10.3166 6.29289 10.7071L8.29289 12.7071C8.68342 13.0976 9.31658 13.0976 9.70711 12.7071L13.7071 8.70711Z" fill="#4A5568"></path>'
+  };
+
+  // admin/propertiesUS.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
+
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidPlusCircle.js
   var FaSolidPlusCircle_default = {
     a: {
@@ -8491,69 +8669,1127 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
     c: '<path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"></path>'
   };
 
-  // admin/users.svelte
-  function create_default_slot(ctx) {
-    let button;
-    let icon;
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidCheckDouble.js
+  var FaSolidCheckDouble_default = {
+    a: {
+      viewBox: "0 0 512 512"
+    },
+    c: '<path d="M505 174.8l-39.6-39.6c-9.4-9.4-24.6-9.4-33.9 0L192 374.7 80.6 263.2c-9.4-9.4-24.6-9.4-33.9 0L7 302.9c-9.4 9.4-9.4 24.6 0 34L175 505c9.4 9.4 24.6 9.4 33.9 0l296-296.2c9.4-9.5 9.4-24.7.1-34zm-324.3 106c6.2 6.3 16.4 6.3 22.6 0l208-208.2c6.2-6.3 6.2-16.4 0-22.6L366.1 4.7c-6.2-6.3-16.4-6.3-22.6 0L192 156.2l-55.4-55.5c-6.2-6.3-16.4-6.3-22.6 0L68.7 146c-6.2 6.3-6.2 16.4 0 22.6l112 112.2z"></path>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidRecycle.js
+  var FaSolidRecycle_default = {
+    a: {
+      viewBox: "0 0 512 512"
+    },
+    c: '<path d="M184.561 261.903c3.232 13.997-12.123 24.635-24.068 17.168l-40.736-25.455-50.867 81.402C55.606 356.273 70.96 384 96.012 384H148c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12H96.115c-75.334 0-121.302-83.048-81.408-146.88l50.822-81.388-40.725-25.448c-12.081-7.547-8.966-25.961 4.879-29.158l110.237-25.45c8.611-1.988 17.201 3.381 19.189 11.99l25.452 110.237zm98.561-182.915l41.289 66.076-40.74 25.457c-12.051 7.528-9 25.953 4.879 29.158l110.237 25.45c8.672 1.999 17.215-3.438 19.189-11.99l25.45-110.237c3.197-13.844-11.99-24.719-24.068-17.168l-40.687 25.424-41.263-66.082c-37.521-60.033-125.209-60.171-162.816 0l-17.963 28.766c-3.51 5.62-1.8 13.021 3.82 16.533l33.919 21.195c5.62 3.512 13.024 1.803 16.536-3.817l17.961-28.743c12.712-20.341 41.973-19.676 54.257-.022zM497.288 301.12l-27.515-44.065c-3.511-5.623-10.916-7.334-16.538-3.821l-33.861 21.159c-5.62 3.512-7.33 10.915-3.818 16.536l27.564 44.112c13.257 21.211-2.057 48.96-27.136 48.96H320V336.02c0-14.213-17.242-21.383-27.313-11.313l-80 79.981c-6.249 6.248-6.249 16.379 0 22.627l80 79.989C302.689 517.308 320 510.3 320 495.989V448h95.88c75.274 0 121.335-82.997 81.408-146.88z"></path>'
+  };
+
+  // _components/ModalDialog.svelte
+  var get_buttons_slot_changes = (dirty) => ({});
+  var get_buttons_slot_context = (ctx) => ({});
+  var get_content_slot_changes = (dirty) => ({});
+  var get_content_slot_context = (ctx) => ({});
+  function create_if_block4(ctx) {
+    let div3;
+    let div2;
+    let div0;
     let t0;
-    let span;
+    let t1;
+    let div1;
+    let button;
+    let t2;
+    let t3;
     let current;
     let mounted;
     let dispose;
-    icon = new Icon_default({
+    let if_block = (
+      /*title*/
+      ctx[2] && create_if_block_14(ctx)
+    );
+    const content_slot_template = (
+      /*#slots*/
+      ctx[6].content
+    );
+    const content_slot = create_slot(
+      content_slot_template,
+      ctx,
+      /*$scope*/
+      ctx[5],
+      get_content_slot_context
+    );
+    const buttons_slot_template = (
+      /*#slots*/
+      ctx[6].buttons
+    );
+    const buttons_slot = create_slot(
+      buttons_slot_template,
+      ctx,
+      /*$scope*/
+      ctx[5],
+      get_buttons_slot_context
+    );
+    return {
+      c() {
+        div3 = element("div");
+        div2 = element("div");
+        div0 = element("div");
+        if (if_block)
+          if_block.c();
+        t0 = space();
+        if (content_slot)
+          content_slot.c();
+        t1 = space();
+        div1 = element("div");
+        button = element("button");
+        t2 = text(
+          /*close_label*/
+          ctx[1]
+        );
+        t3 = space();
+        if (buttons_slot)
+          buttons_slot.c();
+        attr(div0, "class", "modal_content svelte-1fw6la4");
+        attr(button, "class", "cancel_button svelte-1fw6la4");
+        attr(div1, "class", "buttons svelte-1fw6la4");
+        attr(div2, "class", "modal_dialog svelte-1fw6la4");
+        attr(div3, "class", "backdrop svelte-1fw6la4");
+      },
+      m(target, anchor) {
+        insert(target, div3, anchor);
+        append(div3, div2);
+        append(div2, div0);
+        if (if_block)
+          if_block.m(div0, null);
+        append(div0, t0);
+        if (content_slot) {
+          content_slot.m(div0, null);
+        }
+        append(div2, t1);
+        append(div2, div1);
+        append(div1, button);
+        append(button, t2);
+        append(div1, t3);
+        if (buttons_slot) {
+          buttons_slot.m(div1, null);
+        }
+        current = true;
+        if (!mounted) {
+          dispose = listen(button, "click", prevent_default(
+            /*click_handler*/
+            ctx[7]
+          ));
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (
+          /*title*/
+          ctx2[2]
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+          } else {
+            if_block = create_if_block_14(ctx2);
+            if_block.c();
+            if_block.m(div0, t0);
+          }
+        } else if (if_block) {
+          if_block.d(1);
+          if_block = null;
+        }
+        if (content_slot) {
+          if (content_slot.p && (!current || dirty & /*$scope*/
+          32)) {
+            update_slot_base(
+              content_slot,
+              content_slot_template,
+              ctx2,
+              /*$scope*/
+              ctx2[5],
+              !current ? get_all_dirty_from_scope(
+                /*$scope*/
+                ctx2[5]
+              ) : get_slot_changes(
+                content_slot_template,
+                /*$scope*/
+                ctx2[5],
+                dirty,
+                get_content_slot_changes
+              ),
+              get_content_slot_context
+            );
+          }
+        }
+        if (!current || dirty & /*close_label*/
+        2)
+          set_data(
+            t2,
+            /*close_label*/
+            ctx2[1]
+          );
+        if (buttons_slot) {
+          if (buttons_slot.p && (!current || dirty & /*$scope*/
+          32)) {
+            update_slot_base(
+              buttons_slot,
+              buttons_slot_template,
+              ctx2,
+              /*$scope*/
+              ctx2[5],
+              !current ? get_all_dirty_from_scope(
+                /*$scope*/
+                ctx2[5]
+              ) : get_slot_changes(
+                buttons_slot_template,
+                /*$scope*/
+                ctx2[5],
+                dirty,
+                get_buttons_slot_changes
+              ),
+              get_buttons_slot_context
+            );
+          }
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(content_slot, local);
+        transition_in(buttons_slot, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(content_slot, local);
+        transition_out(buttons_slot, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div3);
+        }
+        if (if_block)
+          if_block.d();
+        if (content_slot)
+          content_slot.d(detaching);
+        if (buttons_slot)
+          buttons_slot.d(detaching);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_14(ctx) {
+    let h3;
+    let t;
+    return {
+      c() {
+        h3 = element("h3");
+        t = text(
+          /*title*/
+          ctx[2]
+        );
+        attr(h3, "class", "svelte-1fw6la4");
+      },
+      m(target, anchor) {
+        insert(target, h3, anchor);
+        append(h3, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*title*/
+        4)
+          set_data(
+            t,
+            /*title*/
+            ctx2[2]
+          );
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(h3);
+        }
+      }
+    };
+  }
+  function create_fragment8(ctx) {
+    let if_block_anchor;
+    let current;
+    let if_block = (
+      /*visible*/
+      ctx[0] && create_if_block4(ctx)
+    );
+    return {
+      c() {
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, [dirty]) {
+        if (
+          /*visible*/
+          ctx2[0]
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*visible*/
+            1) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block4(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
+      }
+    };
+  }
+  function instance8($self, $props, $invalidate) {
+    let { $slots: slots = {}, $scope } = $props;
+    let { visible = false } = $props;
+    let { close_label = "Close" } = $props;
+    let { title = "" } = $props;
+    function showModal() {
+      $invalidate(0, visible = true);
+    }
+    function hideModal() {
+      $invalidate(0, visible = false);
+    }
+    const click_handler = () => hideModal();
+    $self.$set = ($props2) => {
+      if ("visible" in $props2)
+        $invalidate(0, visible = $props2.visible);
+      if ("close_label" in $props2)
+        $invalidate(1, close_label = $props2.close_label);
+      if ("title" in $props2)
+        $invalidate(2, title = $props2.title);
+      if ("$scope" in $props2)
+        $invalidate(5, $scope = $props2.$scope);
+    };
+    return [
+      visible,
+      close_label,
+      title,
+      hideModal,
+      showModal,
+      $scope,
+      slots,
+      click_handler
+    ];
+  }
+  var ModalDialog = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance8, create_fragment8, safe_not_equal, {
+        visible: 0,
+        close_label: 1,
+        title: 2,
+        showModal: 4,
+        hideModal: 3
+      });
+    }
+    get showModal() {
+      return this.$.ctx[4];
+    }
+    get hideModal() {
+      return this.$.ctx[3];
+    }
+  };
+  var ModalDialog_default = ModalDialog;
+
+  // _components/PillBox.svelte
+  function create_fragment9(ctx) {
+    let span2;
+    let span0;
+    let t0;
+    let t1;
+    let span1;
+    let t2;
+    return {
+      c() {
+        span2 = element("span");
+        span0 = element("span");
+        t0 = text(
+          /*label*/
+          ctx[0]
+        );
+        t1 = space();
+        span1 = element("span");
+        t2 = text(
+          /*content*/
+          ctx[1]
+        );
+        attr(span0, "class", "pill-box-left svelte-1x7s25u");
+        attr(span1, "class", "pill-box-right svelte-1x7s25u");
+        attr(span2, "class", "pill-box pill-blue svelte-1x7s25u");
+      },
+      m(target, anchor) {
+        insert(target, span2, anchor);
+        append(span2, span0);
+        append(span0, t0);
+        append(span2, t1);
+        append(span2, span1);
+        append(span1, t2);
+      },
+      p(ctx2, [dirty]) {
+        if (dirty & /*label*/
+        1)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[0]
+          );
+        if (dirty & /*content*/
+        2)
+          set_data(
+            t2,
+            /*content*/
+            ctx2[1]
+          );
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(span2);
+        }
+      }
+    };
+  }
+  function instance9($self, $props, $invalidate) {
+    let { label = "label" } = $props;
+    let { content = "content" } = $props;
+    $self.$set = ($props2) => {
+      if ("label" in $props2)
+        $invalidate(0, label = $props2.label);
+      if ("content" in $props2)
+        $invalidate(1, content = $props2.content);
+    };
+    return [label, content];
+  }
+  var PillBox = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance9, create_fragment9, safe_not_equal, { label: 0, content: 1 });
+    }
+  };
+  var PillBox_default = PillBox;
+
+  // admin/propertiesUS.svelte
+  var import_formatter3 = __toESM(require_formatter());
+  var import_mapper = __toESM(require_mapper());
+  function get_each_context4(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[21] = list[i];
+    return child_ctx;
+  }
+  function get_each_context_12(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[24] = list[i][0];
+    child_ctx[25] = list[i][1];
+    return child_ctx;
+  }
+  function create_default_slot(ctx) {
+    let button0;
+    let icon0;
+    let t0;
+    let span0;
+    let t2;
+    let button1;
+    let icon1;
+    let t3;
+    let span1;
+    let t5;
+    let button2;
+    let icon2;
+    let t6;
+    let span2;
+    let current;
+    let mounted;
+    let dispose;
+    icon0 = new Icon_default({
       props: {
         size: 18,
         color: "#FFF",
         src: FaSolidPlusCircle_default
       }
     });
+    icon1 = new Icon_default({
+      props: {
+        size: 18,
+        color: !/*filterdByPending*/
+        ctx[5] ? "#FFF" : "#000",
+        src: FaSolidCheckDouble_default
+      }
+    });
+    icon2 = new Icon_default({
+      props: {
+        size: 18,
+        color: !/*filterdByRejected*/
+        ctx[6] ? "#FFF" : "#000",
+        src: FaSolidRecycle_default
+      }
+    });
     return {
       c() {
-        button = element("button");
-        create_component(icon.$.fragment);
+        button0 = element("button");
+        create_component(icon0.$.fragment);
         t0 = space();
-        span = element("span");
-        span.textContent = "Add";
-        attr(button, "class", "add_button");
+        span0 = element("span");
+        span0.textContent = "Add";
+        t2 = space();
+        button1 = element("button");
+        create_component(icon1.$.fragment);
+        t3 = space();
+        span1 = element("span");
+        span1.textContent = "Filter Pending";
+        t5 = space();
+        button2 = element("button");
+        create_component(icon2.$.fragment);
+        t6 = space();
+        span2 = element("span");
+        span2.textContent = "Filter Rejected";
+        attr(button0, "class", "add_button");
+        attr(button1, "class", "filter_pending_button svelte-1waihep");
+        toggle_class(button1, "not_filtered", !/*filterdByPending*/
+        ctx[5]);
+        attr(button2, "class", "filter_pending_button svelte-1waihep");
+        toggle_class(button2, "not_filtered", !/*filterdByRejected*/
+        ctx[6]);
       },
       m(target, anchor) {
-        insert(target, button, anchor);
-        mount_component(icon, button, null);
-        append(button, t0);
-        append(button, span);
+        insert(target, button0, anchor);
+        mount_component(icon0, button0, null);
+        append(button0, t0);
+        append(button0, span0);
+        insert(target, t2, anchor);
+        insert(target, button1, anchor);
+        mount_component(icon1, button1, null);
+        append(button1, t3);
+        append(button1, span1);
+        insert(target, t5, anchor);
+        insert(target, button2, anchor);
+        mount_component(icon2, button2, null);
+        append(button2, t6);
+        append(button2, span2);
         current = true;
         if (!mounted) {
-          dispose = listen(
-            button,
-            "click",
-            /*addRow*/
-            ctx[5]
-          );
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*addRow*/
+              ctx[12]
+            ),
+            listen(
+              button1,
+              "click",
+              /*filterPendingApproval*/
+              ctx[10]
+            ),
+            listen(
+              button2,
+              "click",
+              /*filterRejectedApproval*/
+              ctx[11]
+            )
+          ];
           mounted = true;
         }
       },
-      p: noop,
+      p(ctx2, dirty) {
+        const icon1_changes = {};
+        if (dirty & /*filterdByPending*/
+        32)
+          icon1_changes.color = !/*filterdByPending*/
+          ctx2[5] ? "#FFF" : "#000";
+        icon1.$set(icon1_changes);
+        if (!current || dirty & /*filterdByPending*/
+        32) {
+          toggle_class(button1, "not_filtered", !/*filterdByPending*/
+          ctx2[5]);
+        }
+        const icon2_changes = {};
+        if (dirty & /*filterdByRejected*/
+        64)
+          icon2_changes.color = !/*filterdByRejected*/
+          ctx2[6] ? "#FFF" : "#000";
+        icon2.$set(icon2_changes);
+        if (!current || dirty & /*filterdByRejected*/
+        64) {
+          toggle_class(button2, "not_filtered", !/*filterdByRejected*/
+          ctx2[6]);
+        }
+      },
       i(local) {
         if (current)
           return;
-        transition_in(icon.$.fragment, local);
+        transition_in(icon0.$.fragment, local);
+        transition_in(icon1.$.fragment, local);
+        transition_in(icon2.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(icon.$.fragment, local);
+        transition_out(icon0.$.fragment, local);
+        transition_out(icon1.$.fragment, local);
+        transition_out(icon2.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(button);
+          detach(button0);
+          detach(t2);
+          detach(button1);
+          detach(t5);
+          detach(button2);
         }
-        destroy_component(icon);
+        destroy_component(icon0);
+        destroy_component(icon1);
+        destroy_component(icon2);
         mounted = false;
-        dispose();
+        run_all(dispose);
       }
     };
   }
-  function create_fragment8(ctx) {
+  function create_else_block_13(ctx) {
+    let t;
+    return {
+      c() {
+        t = text("no history for this property");
+      },
+      m(target, anchor) {
+        insert(target, t, anchor);
+      },
+      p: noop,
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(t);
+        }
+      }
+    };
+  }
+  function create_if_block5(ctx) {
+    let each_1_anchor;
+    let current;
+    let each_value = ensure_array_like(
+      /*currentPropHistory*/
+      ctx[2]
+    );
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block4(get_each_context4(ctx, each_value, i));
+    }
+    const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
+      each_blocks[i] = null;
+    });
+    return {
+      c() {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        each_1_anchor = empty();
+      },
+      m(target, anchor) {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(target, anchor);
+          }
+        }
+        insert(target, each_1_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*Object, currentPropHistory, Date, priceNtd*/
+        4) {
+          each_value = ensure_array_like(
+            /*currentPropHistory*/
+            ctx2[2]
+          );
+          let i;
+          for (i = 0; i < each_value.length; i += 1) {
+            const child_ctx = get_each_context4(ctx2, each_value, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+              transition_in(each_blocks[i], 1);
+            } else {
+              each_blocks[i] = create_each_block4(child_ctx);
+              each_blocks[i].c();
+              transition_in(each_blocks[i], 1);
+              each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+            }
+          }
+          group_outros();
+          for (i = each_value.length; i < each_blocks.length; i += 1) {
+            out(i);
+          }
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        for (let i = 0; i < each_value.length; i += 1) {
+          transition_in(each_blocks[i]);
+        }
+        current = true;
+      },
+      o(local) {
+        each_blocks = each_blocks.filter(Boolean);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          transition_out(each_blocks[i]);
+        }
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(each_1_anchor);
+        }
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
+  function create_else_block3(ctx) {
+    let pillbox;
+    let current;
+    pillbox = new PillBox_default({
+      props: {
+        label: (
+          /*key*/
+          ctx[24]
+        ),
+        content: (
+          /*val*/
+          ctx[25]
+        )
+      }
+    });
+    return {
+      c() {
+        create_component(pillbox.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(pillbox, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const pillbox_changes = {};
+        if (dirty & /*currentPropHistory*/
+        4)
+          pillbox_changes.label = /*key*/
+          ctx2[24];
+        if (dirty & /*currentPropHistory*/
+        4)
+          pillbox_changes.content = /*val*/
+          ctx2[25];
+        pillbox.$set(pillbox_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(pillbox.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(pillbox.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(pillbox, detaching);
+      }
+    };
+  }
+  function create_if_block_34(ctx) {
+    let pillbox;
+    let current;
+    pillbox = new PillBox_default({
+      props: {
+        label: (
+          /*key*/
+          ctx[24]
+        ),
+        content: (0, import_formatter3.priceNtd)(
+          /*val*/
+          ctx[25]
+        )
+      }
+    });
+    return {
+      c() {
+        create_component(pillbox.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(pillbox, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const pillbox_changes = {};
+        if (dirty & /*currentPropHistory*/
+        4)
+          pillbox_changes.label = /*key*/
+          ctx2[24];
+        if (dirty & /*currentPropHistory*/
+        4)
+          pillbox_changes.content = (0, import_formatter3.priceNtd)(
+            /*val*/
+            ctx2[25]
+          );
+        pillbox.$set(pillbox_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(pillbox.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(pillbox.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(pillbox, detaching);
+      }
+    };
+  }
+  function create_if_block_24(ctx) {
+    let pillbox;
+    let current;
+    pillbox = new PillBox_default({
+      props: {
+        label: (
+          /*key*/
+          ctx[24]
+        ),
+        content: new Date(
+          /*val*/
+          ctx[25] * 1e3
+        )
+      }
+    });
+    return {
+      c() {
+        create_component(pillbox.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(pillbox, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const pillbox_changes = {};
+        if (dirty & /*currentPropHistory*/
+        4)
+          pillbox_changes.label = /*key*/
+          ctx2[24];
+        if (dirty & /*currentPropHistory*/
+        4)
+          pillbox_changes.content = new Date(
+            /*val*/
+            ctx2[25] * 1e3
+          );
+        pillbox.$set(pillbox_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(pillbox.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(pillbox.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(pillbox, detaching);
+      }
+    };
+  }
+  function create_if_block_15(ctx) {
+    let t;
+    return {
+      c() {
+        t = text("\xA0");
+      },
+      m(target, anchor) {
+        insert(target, t, anchor);
+      },
+      p: noop,
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(t);
+        }
+      }
+    };
+  }
+  function create_each_block_12(ctx) {
+    let current_block_type_index;
+    let if_block;
+    let if_block_anchor;
+    let current;
+    const if_block_creators = [create_if_block_15, create_if_block_24, create_if_block_34, create_else_block3];
+    const if_blocks = [];
+    function select_block_type_1(ctx2, dirty) {
+      if (
+        /*val*/
+        ctx2[25] === "0" || !/*val*/
+        ctx2[25]
+      )
+        return 0;
+      if (
+        /*key*/
+        ctx2[24] === "createdAt" || /*key*/
+        ctx2[24] === "updatedAt"
+      )
+        return 1;
+      if (
+        /*key*/
+        ctx2[24] === "priceNtd" || /*key*/
+        ctx2[24] === "pricePerUnit"
+      )
+        return 2;
+      return 3;
+    }
+    current_block_type_index = select_block_type_1(ctx, -1);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_blocks[current_block_type_index].m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type_1(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        } else {
+          group_outros();
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
+          });
+          check_outros();
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
+          } else {
+            if_block.p(ctx2, dirty);
+          }
+          transition_in(if_block, 1);
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if_blocks[current_block_type_index].d(detaching);
+      }
+    };
+  }
+  function create_each_block4(ctx) {
+    let each_1_anchor;
+    let current;
+    let each_value_1 = ensure_array_like(Object.entries(
+      /*row*/
+      ctx[21]
+    ));
+    let each_blocks = [];
+    for (let i = 0; i < each_value_1.length; i += 1) {
+      each_blocks[i] = create_each_block_12(get_each_context_12(ctx, each_value_1, i));
+    }
+    const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
+      each_blocks[i] = null;
+    });
+    return {
+      c() {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        each_1_anchor = empty();
+      },
+      m(target, anchor) {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(target, anchor);
+          }
+        }
+        insert(target, each_1_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*Object, currentPropHistory, Date, priceNtd*/
+        4) {
+          each_value_1 = ensure_array_like(Object.entries(
+            /*row*/
+            ctx2[21]
+          ));
+          let i;
+          for (i = 0; i < each_value_1.length; i += 1) {
+            const child_ctx = get_each_context_12(ctx2, each_value_1, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+              transition_in(each_blocks[i], 1);
+            } else {
+              each_blocks[i] = create_each_block_12(child_ctx);
+              each_blocks[i].c();
+              transition_in(each_blocks[i], 1);
+              each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+            }
+          }
+          group_outros();
+          for (i = each_value_1.length; i < each_blocks.length; i += 1) {
+            out(i);
+          }
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        for (let i = 0; i < each_value_1.length; i += 1) {
+          transition_in(each_blocks[i]);
+        }
+        current = true;
+      },
+      o(local) {
+        each_blocks = each_blocks.filter(Boolean);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          transition_out(each_blocks[i]);
+        }
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(each_1_anchor);
+        }
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
+  function create_content_slot(ctx) {
+    let div;
+    let h3;
+    let t1;
+    let current_block_type_index;
+    let if_block;
+    let current;
+    const if_block_creators = [create_if_block5, create_else_block_13];
+    const if_blocks = [];
+    function select_block_type(ctx2, dirty) {
+      if (
+        /*currentPropHistory*/
+        ctx2[2] && /*currentPropHistory*/
+        ctx2[2].length
+      )
+        return 0;
+      return 1;
+    }
+    current_block_type_index = select_block_type(ctx, -1);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    return {
+      c() {
+        div = element("div");
+        h3 = element("h3");
+        h3.textContent = "Property History";
+        t1 = space();
+        if_block.c();
+        attr(div, "slot", "content");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        append(div, h3);
+        append(div, t1);
+        if_blocks[current_block_type_index].m(div, null);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        } else {
+          group_outros();
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
+          });
+          check_outros();
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
+          } else {
+            if_block.p(ctx2, dirty);
+          }
+          transition_in(if_block, 1);
+          if_block.m(div, null);
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        if_blocks[current_block_type_index].d();
+      }
+    };
+  }
+  function create_fragment10(ctx) {
     let section1;
     let menu;
     let t0;
@@ -8570,36 +9806,49 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
     let updating_pager;
     let t4;
     let footer;
+    let t5;
+    let modaldialog;
     let current;
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({});
     adminsubmenu = new AdminSubMenu_default({});
     let modalform_props = {
       fields,
-      rowType: "User",
+      rowType: "Property",
       onConfirm: (
         /*saveRow*/
-        ctx[6]
+        ctx[13]
       )
     };
     modalform = new ModalForm_default({ props: modalform_props });
-    ctx[7](modalform);
+    ctx[15](modalform);
     function tableview_pager_binding(value) {
-      ctx[8](value);
+      ctx[16](value);
     }
     let tableview_props = {
       fields,
+      extraActions: (
+        /*extraActions*/
+        ctx[7]
+      ),
       rows: (
-        /*users*/
+        /*properties*/
         ctx[0]
       ),
+      widths: {
+        mainUse: "320px",
+        address: "240px",
+        street: "240px",
+        city: "120px",
+        countyName: "120px"
+      },
       onRefreshTableView: (
         /*refreshTableView*/
-        ctx[3]
+        ctx[8]
       ),
       onEditRow: (
         /*editRow*/
-        ctx[4]
+        ctx[9]
       ),
       $slots: { default: [create_default_slot] },
       $scope: { ctx }
@@ -8614,6 +9863,12 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
     tableview = new TableView_default({ props: tableview_props });
     binding_callbacks.push(() => bind(tableview, "pager", tableview_pager_binding));
     footer = new Footer_default({});
+    let modaldialog_props = {
+      $slots: { content: [create_content_slot] },
+      $scope: { ctx }
+    };
+    modaldialog = new ModalDialog_default({ props: modaldialog_props });
+    ctx[17](modaldialog);
     return {
       c() {
         section1 = element("section");
@@ -8631,6 +9886,8 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
         create_component(tableview.$.fragment);
         t4 = space();
         create_component(footer.$.fragment);
+        t5 = space();
+        create_component(modaldialog.$.fragment);
         attr(section0, "class", "tableview_container");
         attr(div0, "class", "content");
         attr(div1, "class", "dashboard_main_content");
@@ -8652,18 +9909,20 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
         mount_component(tableview, section0, null);
         append(div1, t4);
         mount_component(footer, div1, null);
+        append(section1, t5);
+        mount_component(modaldialog, section1, null);
         current = true;
       },
       p(ctx2, [dirty]) {
         const modalform_changes = {};
         modalform.$set(modalform_changes);
         const tableview_changes = {};
-        if (dirty & /*users*/
+        if (dirty & /*properties*/
         1)
-          tableview_changes.rows = /*users*/
+          tableview_changes.rows = /*properties*/
           ctx2[0];
-        if (dirty & /*$scope*/
-        1024) {
+        if (dirty & /*$scope, filterdByRejected, filterdByPending*/
+        268435552) {
           tableview_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_pager && dirty & /*pager*/
@@ -8674,6 +9933,12 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
           add_flush_callback(() => updating_pager = false);
         }
         tableview.$set(tableview_changes);
+        const modaldialog_changes = {};
+        if (dirty & /*$scope, currentPropHistory*/
+        268435460) {
+          modaldialog_changes.$scope = { dirty, ctx: ctx2 };
+        }
+        modaldialog.$set(modaldialog_changes);
       },
       i(local) {
         if (current)
@@ -8684,6 +9949,7 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
         transition_in(modalform.$.fragment, local);
         transition_in(tableview.$.fragment, local);
         transition_in(footer.$.fragment, local);
+        transition_in(modaldialog.$.fragment, local);
         current = true;
       },
       o(local) {
@@ -8693,6 +9959,7 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
         transition_out(modalform.$.fragment, local);
         transition_out(tableview.$.fragment, local);
         transition_out(footer.$.fragment, local);
+        transition_out(modaldialog.$.fragment, local);
         current = false;
       },
       d(detaching) {
@@ -8702,51 +9969,149 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
         destroy_component(menu);
         destroy_component(profileheader);
         destroy_component(adminsubmenu);
-        ctx[7](null);
+        ctx[15](null);
         destroy_component(modalform);
         destroy_component(tableview);
         destroy_component(footer);
+        ctx[17](null);
+        destroy_component(modaldialog);
       }
     };
   }
   var segments = {/* segments */};
   var fields = [/* fields */];
-  function instance8($self, $props, $invalidate) {
-    let users = [/* users */];
+  function instance10($self, $props, $invalidate) {
+    let approvalStateFilter;
+    let fieldByKey = (0, import_mapper.fieldsArrToMap)(fields);
+    console.log(fieldByKey);
+    let properties = [/* properties */];
     let pager = {/* pager */};
+    let currentPropHistory = [];
+    let extraActions = [
+      {
+        icon: HiSolidEye_default,
+        label: "Show Property History",
+        onClick(item) {
+          let propertyKey = item[fieldByKey["uniqPropKey"].idx];
+          (0, import_jsApi.UserPropHistory)({ propertyKey }, function(res) {
+            if (res.error)
+              alert(res.error);
+            propHistoryModal.showModal();
+            $invalidate(2, currentPropHistory = res.history || []);
+          });
+        }
+      },
+      {
+        icon: HiSolidCheckCircle_default,
+        showIf(row) {
+          return !!row[fieldByKey["approvalState"].idx];
+        },
+        label: "approve property",
+        onClick(item) {
+          const id = item[0];
+          (0, import_jsApi.AdminPropertiesUS)(
+            {
+              cmd: "upsert",
+              property: { id, approvalState: " " },
+              // empty is approved, will be trimmed on server side
+              pager
+            },
+            function(res) {
+              if (res.error)
+                alert(res.error);
+              refreshTableView(pager);
+            }
+          );
+        }
+      },
+      {
+        icon: HiSolidXCircle_default,
+        showIf(row) {
+          return !row[fieldByKey["approvalState"].idx];
+        },
+        label: "reject property",
+        onClick(item) {
+          const id = item[0];
+          const reason = prompt("input refusal reason for #" + id + ', use "pending" to set state to pending');
+          if (!reason)
+            return;
+          (0, import_jsApi.AdminPropertiesUS)(
+            {
+              cmd: "upsert",
+              property: { id, approvalState: reason }
+            },
+            function(res) {
+              if (res.error)
+                alert(res.error);
+              refreshTableView(pager);
+            }
+          );
+        }
+      }
+    ];
+    let propHistoryModal = ModalDialog_default;
     function handleResponse(res) {
       console.log(res);
       if (res.error) {
         alert(res.error);
         return true;
       }
-      if (res.users && res.users.length)
-        $invalidate(0, users = res.users);
+      if (res.properties && res.properties.length)
+        $invalidate(0, properties = res.properties);
       if (res.pager && res.pager.page)
         $invalidate(1, pager = res.pager);
+      if (res.pager && res.pager.filters && !res.properties)
+        $invalidate(0, properties = []);
     }
     async function refreshTableView(pagerIn) {
-      await (0, import_jsApi.AdminUsers)({ pager: pagerIn, cmd: "list" }, function(res) {
+      await (0, import_jsApi.AdminPropertiesUS)({ pager: pagerIn, cmd: "list" }, function(res) {
         handleResponse(res);
       });
     }
     let form = ModalForm_default;
     async function editRow(id, row) {
-      await (0, import_jsApi.AdminUsers)({ user: { id }, cmd: "form" }, function(res) {
+      await (0, import_jsApi.AdminPropertiesUS)({ property: { id }, cmd: "form" }, function(res) {
         if (!handleResponse(res))
-          form.showModal(res.user);
+          form.showModal(res.property);
       });
+    }
+    let filterdByPending = false, filterdByRejected = false, filter = [];
+    async function filterPendingApproval() {
+      if (!pager.filters)
+        $invalidate(1, pager.filters = {}, pager);
+      if (filterdByPending) {
+        delete pager.filters["approvalState"];
+      } else {
+        $invalidate(1, pager.filters.approvalState = ["pending"], pager);
+      }
+      await (0, import_jsApi.AdminPropertiesUS)({ cmd: "list", pager }, handleResponse);
+    }
+    async function filterRejectedApproval() {
+      if (!pager.filters)
+        $invalidate(1, pager.filters = {}, pager);
+      if (filterdByRejected) {
+        delete pager.filters["approvalState"];
+      } else {
+        $invalidate(1, pager.filters.approvalState = ["<>", "<>pending"], pager);
+      }
+      await (0, import_jsApi.AdminPropertiesUS)({ cmd: "list", pager }, handleResponse);
     }
     function addRow() {
       form.showModal({ id: "" });
     }
     async function saveRow(action, row) {
-      let user = { ...row };
-      if (!user.id)
-        user.id = "0";
-      await (0, import_jsApi.AdminUsers)(
+      let property = { ...row };
+      if (!property.id)
+        property.id = "0";
+      console.log(property);
+      try {
+        property.coord = JSON.parse("[" + property.coord + "]");
+      } catch (e) {
+        property.coord = [0, 0];
+      }
+      await (0, import_jsApi.AdminPropertiesUS)(
         {
-          user,
+          property,
           cmd: action,
           pager
           // force refresh page, will be slow
@@ -8762,35 +10127,72 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
     function modalform_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         form = $value;
-        $invalidate(2, form);
+        $invalidate(4, form);
       });
     }
     function tableview_pager_binding(value) {
       pager = value;
       $invalidate(1, pager);
     }
+    function modaldialog_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        propHistoryModal = $value;
+        $invalidate(3, propHistoryModal);
+      });
+    }
+    $self.$.update = () => {
+      if ($self.$.dirty & /*properties*/
+      1) {
+        $:
+          console.log("properties=", properties);
+      }
+      if ($self.$.dirty & /*pager*/
+      2) {
+        $:
+          $invalidate(14, approvalStateFilter = (pager.filters || {}).approvalState || []);
+      }
+      if ($self.$.dirty & /*approvalStateFilter*/
+      16384) {
+        $:
+          $invalidate(5, filterdByPending = approvalStateFilter[0] === "pending");
+      }
+      if ($self.$.dirty & /*approvalStateFilter*/
+      16384) {
+        $:
+          $invalidate(6, filterdByRejected = approvalStateFilter[0] === "<>" && approvalStateFilter[1] === "<>pending");
+      }
+    };
     return [
-      users,
+      properties,
       pager,
+      currentPropHistory,
+      propHistoryModal,
       form,
+      filterdByPending,
+      filterdByRejected,
+      extraActions,
       refreshTableView,
       editRow,
+      filterPendingApproval,
+      filterRejectedApproval,
       addRow,
       saveRow,
+      approvalStateFilter,
       modalform_binding,
-      tableview_pager_binding
+      tableview_pager_binding,
+      modaldialog_binding
     ];
   }
-  var Users = class extends SvelteComponent {
+  var PropertiesUS = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance8, create_fragment8, safe_not_equal, {});
+      init(this, options, instance10, create_fragment10, safe_not_equal, {});
     }
   };
-  var users_default = Users;
+  var propertiesUS_default = PropertiesUS;
 
-  // admin/users.svelte.ts
-  var app = new users_default({ target: document.getElementById("app") });
+  // admin/propertiesUS.svelte.ts
+  var app = new propertiesUS_default({ target: document.getElementById("app") });
 })();
 </script>
 </body></html>
