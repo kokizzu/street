@@ -184,7 +184,7 @@ func buildStandardPropertySchema() []Tt.Field {
 		12: {Coord, Tt.Array},
 		42: {Altitude, Tt.Double},
 		33: {CountyName, Tt.String},
-		40: {CountryCode, Tt.String},
+		40: {CountryCode, Tt.String}, // temporary until all records splitted into per country table
 
 		// Property size area
 		3:  {SizeM2, Tt.String},
