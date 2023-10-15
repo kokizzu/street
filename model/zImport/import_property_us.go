@@ -275,6 +275,9 @@ func parsePropertyExtraData(propertyMutator *wcProperty.PropertyExtraUSMutator, 
 }
 
 func cleanExcessiveRiskInfoString(riskInfo map[string]any) {
+	if len(riskInfo) == 0 {
+		return
+	}
 	delete(riskInfo, `fireDataV2`)
 	delete(riskInfo, `floodDataV2`)
 	delete(riskInfo, `heatDataV2`)
@@ -299,6 +302,9 @@ func cleanExcessiveRiskInfoString(riskInfo map[string]any) {
 }
 
 func cleanExcessiveFacilityInfoString(facilityInfo M.SX) {
+	if len(facilityInfo) == 0 {
+		return
+	}
 	eraseFacilityInfoReviews(facilityInfo, `elementarySchools`)
 	eraseFacilityInfoReviews(facilityInfo, `highSchools`)
 	eraseFacilityInfoReviews(facilityInfo, `middleSchools`)
