@@ -43,6 +43,7 @@
       for(let z=0;z<countries.length;z++) {
         if(country === countries[z].iso_2) {
           countryCurrency = countries[ z ].currency;
+          console.log('countryCurrencey=', countryCurrency);
           let c = countries[ z ] || {coordinate: {lat: 0, lng: 0}}
           lat = c.coordinate.lat || 0;
           lng = c.coordinate.lng || 0;

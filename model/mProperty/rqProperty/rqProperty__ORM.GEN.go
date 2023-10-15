@@ -214,7 +214,7 @@ type Property struct {
 	ApprovalState           string      `json:"approvalState" form:"approvalState" query:"approvalState" long:"approvalState" msg:"approvalState"`
 	CountryCode             string      `json:"countryCode" form:"countryCode" query:"countryCode" long:"countryCode" msg:"countryCode"`
 	Livingroom              int64       `json:"livingroom" form:"livingroom" query:"livingroom" long:"livingroom" msg:"livingroom"`
-	Altitude                string      `json:"altitude" form:"altitude" query:"altitude" long:"altitude" msg:"altitude"`
+	Altitude                float64     `json:"altitude" form:"altitude" query:"altitude" long:"altitude" msg:"altitude"`
 	Parking                 float64     `json:"parking" form:"parking" query:"parking" long:"parking" msg:"parking"`
 	DepositFee              float64     `json:"depositFee" form:"depositFee" query:"depositFee" long:"depositFee" msg:"depositFee"`
 	MinimumDurationYear     float64     `json:"minimumDurationYear" form:"minimumDurationYear" query:"minimumDurationYear" long:"minimumDurationYear" msg:"minimumDurationYear"`
@@ -1021,7 +1021,7 @@ func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 	p.ApprovalState = X.ToS(a[39])
 	p.CountryCode = X.ToS(a[40])
 	p.Livingroom = X.ToI(a[41])
-	p.Altitude = X.ToS(a[42])
+	p.Altitude = X.ToF(a[42])
 	p.Parking = X.ToF(a[43])
 	p.DepositFee = X.ToF(a[44])
 	p.MinimumDurationYear = X.ToF(a[45])
@@ -1074,7 +1074,7 @@ func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false po
 	p.ApprovalState = X.ToS(a[39])
 	p.CountryCode = X.ToS(a[40])
 	p.Livingroom = X.ToI(a[41])
-	p.Altitude = X.ToS(a[42])
+	p.Altitude = X.ToF(a[42])
 	p.Parking = X.ToF(a[43])
 	p.DepositFee = X.ToF(a[44])
 	p.MinimumDurationYear = X.ToF(a[45])
@@ -1165,7 +1165,7 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`approvalState`:           Tt.String,
 	`countryCode`:             Tt.String,
 	`livingroom`:              Tt.Integer,
-	`altitude`:                Tt.String,
+	`altitude`:                Tt.Double,
 	`parking`:                 Tt.Double,
 	`depositFee`:              Tt.Double,
 	`minimumDurationYear`:     Tt.Double,
@@ -1591,7 +1591,7 @@ type PropertyUS struct {
 	ApprovalState           string      `json:"approvalState" form:"approvalState" query:"approvalState" long:"approvalState" msg:"approvalState"`
 	CountryCode             string      `json:"countryCode" form:"countryCode" query:"countryCode" long:"countryCode" msg:"countryCode"`
 	Livingroom              int64       `json:"livingroom" form:"livingroom" query:"livingroom" long:"livingroom" msg:"livingroom"`
-	Altitude                string      `json:"altitude" form:"altitude" query:"altitude" long:"altitude" msg:"altitude"`
+	Altitude                float64     `json:"altitude" form:"altitude" query:"altitude" long:"altitude" msg:"altitude"`
 	Parking                 float64     `json:"parking" form:"parking" query:"parking" long:"parking" msg:"parking"`
 	DepositFee              float64     `json:"depositFee" form:"depositFee" query:"depositFee" long:"depositFee" msg:"depositFee"`
 	MinimumDurationYear     float64     `json:"minimumDurationYear" form:"minimumDurationYear" query:"minimumDurationYear" long:"minimumDurationYear" msg:"minimumDurationYear"`
@@ -2398,7 +2398,7 @@ func (p *PropertyUS) FromArray(a A.X) *PropertyUS { //nolint:dupl false positive
 	p.ApprovalState = X.ToS(a[39])
 	p.CountryCode = X.ToS(a[40])
 	p.Livingroom = X.ToI(a[41])
-	p.Altitude = X.ToS(a[42])
+	p.Altitude = X.ToF(a[42])
 	p.Parking = X.ToF(a[43])
 	p.DepositFee = X.ToF(a[44])
 	p.MinimumDurationYear = X.ToF(a[45])
@@ -2451,7 +2451,7 @@ func (p *PropertyUS) FromUncensoredArray(a A.X) *PropertyUS { //nolint:dupl fals
 	p.ApprovalState = X.ToS(a[39])
 	p.CountryCode = X.ToS(a[40])
 	p.Livingroom = X.ToI(a[41])
-	p.Altitude = X.ToS(a[42])
+	p.Altitude = X.ToF(a[42])
 	p.Parking = X.ToF(a[43])
 	p.DepositFee = X.ToF(a[44])
 	p.MinimumDurationYear = X.ToF(a[45])
@@ -2542,7 +2542,7 @@ var PropertyUSFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positiv
 	`approvalState`:           Tt.String,
 	`countryCode`:             Tt.String,
 	`livingroom`:              Tt.Integer,
-	`altitude`:                Tt.String,
+	`altitude`:                Tt.Double,
 	`parking`:                 Tt.Double,
 	`depositFee`:              Tt.Double,
 	`minimumDurationYear`:     Tt.Double,

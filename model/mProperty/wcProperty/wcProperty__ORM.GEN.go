@@ -739,7 +739,7 @@ func (p *PropertyMutator) SetLivingroom(val int64) bool { //nolint:dupl false po
 }
 
 // SetAltitude create mutations, should not duplicate
-func (p *PropertyMutator) SetAltitude(val string) bool { //nolint:dupl false positive
+func (p *PropertyMutator) SetAltitude(val float64) bool { //nolint:dupl false positive
 	if val != p.Altitude {
 		p.mutations = append(p.mutations, A.X{`=`, 42, val})
 		p.logs = append(p.logs, A.X{`altitude`, p.Altitude, val})
@@ -974,8 +974,8 @@ func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap 
 		p.Livingroom = from.Livingroom
 		changed = true
 	}
-	if !excludeMap[`altitude`] && (forceMap[`altitude`] || from.Altitude != ``) {
-		p.Altitude = S.Trim(from.Altitude)
+	if !excludeMap[`altitude`] && (forceMap[`altitude`] || from.Altitude != 0) {
+		p.Altitude = from.Altitude
 		changed = true
 	}
 	if !excludeMap[`parking`] && (forceMap[`parking`] || from.Parking != 0) {
@@ -1933,7 +1933,7 @@ func (p *PropertyUSMutator) SetLivingroom(val int64) bool { //nolint:dupl false 
 }
 
 // SetAltitude create mutations, should not duplicate
-func (p *PropertyUSMutator) SetAltitude(val string) bool { //nolint:dupl false positive
+func (p *PropertyUSMutator) SetAltitude(val float64) bool { //nolint:dupl false positive
 	if val != p.Altitude {
 		p.mutations = append(p.mutations, A.X{`=`, 42, val})
 		p.logs = append(p.logs, A.X{`altitude`, p.Altitude, val})
@@ -2168,8 +2168,8 @@ func (p *PropertyUSMutator) SetAll(from rqProperty.PropertyUS, excludeMap, force
 		p.Livingroom = from.Livingroom
 		changed = true
 	}
-	if !excludeMap[`altitude`] && (forceMap[`altitude`] || from.Altitude != ``) {
-		p.Altitude = S.Trim(from.Altitude)
+	if !excludeMap[`altitude`] && (forceMap[`altitude`] || from.Altitude != 0) {
+		p.Altitude = from.Altitude
 		changed = true
 	}
 	if !excludeMap[`parking`] && (forceMap[`parking`] || from.Parking != 0) {

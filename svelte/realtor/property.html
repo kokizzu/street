@@ -3491,11 +3491,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         return formattedDate;
       }
       function formatPrice2(price, currency) {
-        return new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency,
-          maximumSignificantDigits: 3
-        }).format(price);
+        try {
+          return new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency,
+            maximumSignificantDigits: 3
+          }).format(price);
+        } catch (e) {
+          console.log("formatPrice failed", e, price, currency);
+          return price + " " + currency;
+        }
       }
       module.exports = {
         datetime,
@@ -11463,6 +11468,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         for (let z = 0; z < countries.length; z++) {
           if (country === countries[z].iso_2) {
             $invalidate(7, countryCurrency = countries[z].currency);
+            console.log("countryCurrencey=", countryCurrency);
             let c = countries[z] || { coordinate: { lat: 0, lng: 0 } };
             lat = c.coordinate.lat || 0;
             lng = c.coordinate.lng || 0;
