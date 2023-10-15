@@ -455,11 +455,11 @@ func SavePropertyHistories(adapter *Tt.Adapter, propList []rqProperty.PropertyHi
 
 func CleanExcessiveAttrPropertyExtraUs(adapter *Tt.Adapter) {
 
-	stat := &ImporterStat{Total: 10000000}
+	stat := &ImporterStat{Total: 0}
 	defer stat.Print(`last`)
 
 	propExtraUS := rqProperty.NewPropertyExtraUS(adapter)
-	offset := 0
+	offset := 855000
 	const limit = 5000
 
 	reduction := uint64(0)
