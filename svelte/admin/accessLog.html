@@ -2740,11 +2740,16 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
         return formattedDate;
       }
       function formatPrice(price, currency) {
-        return new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency,
-          maximumSignificantDigits: 3
-        }).format(price);
+        try {
+          return new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency,
+            maximumSignificantDigits: 3
+          }).format(price);
+        } catch (e) {
+          console.log("formatPrice failed", e, price, currency);
+          return price + " " + currency;
+        }
       }
       module.exports = {
         datetime: datetime2,

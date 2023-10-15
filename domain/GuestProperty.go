@@ -74,7 +74,7 @@ var (
 			InputType: zCrud.InputTypeText,
 		},
 		{
-			Name:      mProperty.Country,
+			Name:      mProperty.CountryCode,
 			Label:     `Country`,
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,

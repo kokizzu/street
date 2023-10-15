@@ -5,7 +5,7 @@
   import ProfileHeader from '../_components/ProfileHeader.svelte';
   import Footer from '../_components/Footer.svelte';
   import Growl from '../_components/Growl.svelte';
-  import AddOtherFeeDialog from '../_components/AddOtherFeeDialog.svelte';
+  import AddotherFeesDialog from '../_components/AddotherFeesDialog.svelte';
   import {formatPrice} from '../_components/formatter';
   import {RealtorUpsertProperty} from '../jsApi.GEN';
   import {StreetView} from "../_components/GoogleMap/components";
@@ -67,7 +67,7 @@
         parking: 'false', // new
         depositFee: 0, // new
         minimumDurationYear: 0, // new
-        otherFee: [], // new
+        otherFees: [], // new
         lastPrice: 0,
 
         images: [],
@@ -115,7 +115,7 @@
       parking: property.parking,
       depositFee: property.depositFee,
       minimumDurationYear: property.minimumDurationYear,
-      otherFee: property.otherFee || [],
+      otherFees: property.otherFees || [],
       imageDescriptions: property.imageDescriptions || [],
       elevation: property.elevation,
       resolution: property.resolution,
@@ -361,22 +361,22 @@
     parking: property.parking,
     houseType: property.houseType
   };
-  let otherFeeObj = {
+  let otherFeesObj = {
     name: '',
     fee: 0,
   };
-  let addOtherFeeDialog = AddOtherFeeDialog;
+  let addotherFeesDialog = AddotherFeesDialog;
   let houseTypeLists = [
     'house', 'land', 'apartment', 'townhouse', 'condo', 'villa', 'factory', 'parking', 'other'
   ];
 
-  function addOtherFee() {
-    property.otherFee = [...property.otherFee, otherFeeObj];
-    otherFeeObj = {
+  function addotherFees() {
+    property.otherFees = [...property.otherFees, otherFeesObj];
+    otherFeesObj = {
       name: '',
       fee: 0,
     };
-    addOtherFeeDialog.hideModal();
+    addotherFeesDialog.hideModal();
   }
 
   const handleInfoUnitMode = {
@@ -603,17 +603,17 @@
 									</div>
 									<div class='input_box'>
 										<label for='city'>City or County <span class='asterisk'>*</span></label>
-										<input id='city' type='text' placeholder='Required' bind:value={property.city}/>
+										<input id='city' type='text' placeholder='required' bind:value={property.city}/>
 									</div>
 								</div>
 								<div class='row'>
 									<div class='input_box'>
 										<label for='street1'>Street 1 <span class='asterisk'>*</span></label>
-										<input id='street1' type='text' placeholder='Required' bind:value={property.street1}/>
+										<input id='street1' type='text' placeholder='required' bind:value={property.street1}/>
 									</div>
 									<div class='input_box'>
 										<label for='street2'>Street 2</label>
-										<input id='street2' type='text' placeholder='Optional' bind:value={property.street2}/>
+										<input id='street2' type='text' placeholder='optional' bind:value={property.street2}/>
 									</div>
 								</div>
 								<div class='row'>
@@ -678,15 +678,15 @@
 					</button>
 				</section>
 				<section bind:this={cards[1]} class='info' id='subpage_2'>
-					<AddOtherFeeDialog
-						bind:fee={otherFeeObj.fee}
-						bind:name={otherFeeObj.name}
-						bind:this={addOtherFeeDialog}
+					<AddotherFeesDialog
+						bind:fee={otherFeesObj.fee}
+						bind:name={otherFeesObj.name}
+						bind:this={addotherFeesDialog}
 					>
-						<button class='add_fee_btn' on:click={addOtherFee}>
+						<button class='add_fee_btn' on:click={addotherFees}>
 							Add
 						</button>
-					</AddOtherFeeDialog>
+					</AddotherFeesDialog>
 					<button class='back_button' on:click={handleBackInfo}>
 						<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
 					</button>
@@ -828,16 +828,16 @@
 									<div class='other_fee'>
 										<header>
 											<h4>Other Fee</h4>
-											<button class='add_fee' on:click={addOtherFeeDialog.showModal()}>
+											<button class='add_fee' on:click={addotherFeesDialog.showModal()}>
 												Add
 											</button>
 										</header>
 										<div class='other_fee_lists'>
-											{#if property.otherFee && property.otherFee.length}
-												{#each property.otherFee as otherFee}
+											{#if property.otherFees && property.otherFees.length}
+												{#each property.otherFees as otherFees}
 													<div class='fee'>
-														<span>{otherFee.name}</span>
-														<b>{formatPrice( otherFee.fee, countryCurrency )}/mo</b>
+														<span>{otherFees.name}</span>
+														<b>{formatPrice( otherFees.fee, countryCurrency )}/mo</b>
 													</div>
 												{/each}
 											{:else}
@@ -1020,13 +1020,13 @@
 													<b>{property.minimumDurationYear} Year</b>
 												</div>
 											</div>
-											{#if infoObj.otherFee && infoObj.otherFee.length}
+											{#if infoObj.otherFees && infoObj.otherFees.length}
 												<div class='details'>
 													<h5>Other Fee</h5>
-													{#each infoObj.otherFee as otherfee}
+													{#each infoObj.otherFees as otherFees}
 														<div class='item'>
-															<span>{otherfee.name}</span>
-															<b>{formatPrice( otherfee.fee, countryCurrency )}/mo</b>
+															<span>{otherFees.name}</span>
+															<b>{formatPrice( otherFees.fee, countryCurrency )}/mo</b>
 														</div>
 													{/each}
 												</div>

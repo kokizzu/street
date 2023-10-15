@@ -47,11 +47,16 @@ function datetime2( unixSec ) {
 }
 
 function formatPrice( price, currency ) {
-  return new Intl.NumberFormat( 'en-US', {
-    style: 'currency',
-    currency: currency,
-    maximumSignificantDigits: 3,
-  } ).format( price );
+  try {
+    return new Intl.NumberFormat( 'en-US', {
+      style: 'currency',
+      currency: currency,
+      maximumSignificantDigits: 3,
+    } ).format( price );
+  } catch( e ) {
+    console.log( 'formatPrice failed', e, price, currency );
+    return price + ' ' + currency;
+  }
 }
 
 module.exports = {

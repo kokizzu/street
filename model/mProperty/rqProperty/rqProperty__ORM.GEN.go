@@ -212,6 +212,14 @@ type Property struct {
 	Zip                     string      `json:"zip" form:"zip" query:"zip" long:"zip" msg:"zip"`
 	PropertyLastUpdatedDate int64       `json:"propertyLastUpdatedDate" form:"propertyLastUpdatedDate" query:"propertyLastUpdatedDate" long:"propertyLastUpdatedDate" msg:"propertyLastUpdatedDate"`
 	ApprovalState           string      `json:"approvalState" form:"approvalState" query:"approvalState" long:"approvalState" msg:"approvalState"`
+	CountryCode             string      `json:"countryCode" form:"countryCode" query:"countryCode" long:"countryCode" msg:"countryCode"`
+	Livingroom              int64       `json:"livingroom" form:"livingroom" query:"livingroom" long:"livingroom" msg:"livingroom"`
+	Altitude                float64     `json:"altitude" form:"altitude" query:"altitude" long:"altitude" msg:"altitude"`
+	Parking                 float64     `json:"parking" form:"parking" query:"parking" long:"parking" msg:"parking"`
+	DepositFee              float64     `json:"depositFee" form:"depositFee" query:"depositFee" long:"depositFee" msg:"depositFee"`
+	MinimumDurationYear     float64     `json:"minimumDurationYear" form:"minimumDurationYear" query:"minimumDurationYear" long:"minimumDurationYear" msg:"minimumDurationYear"`
+	OtherFees               []any       `json:"otherFees" form:"otherFees" query:"otherFees" long:"otherFees" msg:"otherFees"`
+	ImageLabels             []any       `json:"imageLabels" form:"imageLabels" query:"imageLabels" long:"imageLabels" msg:"imageLabels"`
 }
 
 // NewProperty create new ORM reader/query object
@@ -313,6 +321,14 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "zip"
 	, "propertyLastUpdatedDate"
 	, "approvalState"
+	, "countryCode"
+	, "livingroom"
+	, "altitude"
+	, "parking"
+	, "depositFee"
+	, "minimumDurationYear"
+	, "otherFees"
+	, "imageLabels"
 	`
 }
 
@@ -358,6 +374,14 @@ func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 	, "zip"
 	, "propertyLastUpdatedDate"
 	, "approvalState"
+	, "countryCode"
+	, "livingroom"
+	, "altitude"
+	, "parking"
+	, "depositFee"
+	, "minimumDurationYear"
+	, "otherFees"
+	, "imageLabels"
 	`
 }
 
@@ -404,6 +428,14 @@ func (p *Property) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 37, p.Zip},
 		A.X{`=`, 38, p.PropertyLastUpdatedDate},
 		A.X{`=`, 39, p.ApprovalState},
+		A.X{`=`, 40, p.CountryCode},
+		A.X{`=`, 41, p.Livingroom},
+		A.X{`=`, 42, p.Altitude},
+		A.X{`=`, 43, p.Parking},
+		A.X{`=`, 44, p.DepositFee},
+		A.X{`=`, 45, p.MinimumDurationYear},
+		A.X{`=`, 46, p.OtherFees},
+		A.X{`=`, 47, p.ImageLabels},
 	}
 }
 
@@ -807,6 +839,86 @@ func (p *Property) SqlApprovalState() string { //nolint:dupl false positive
 	return `"approvalState"`
 }
 
+// IdxCountryCode return name of the index
+func (p *Property) IdxCountryCode() int { //nolint:dupl false positive
+	return 40
+}
+
+// SqlCountryCode return name of the column being indexed
+func (p *Property) SqlCountryCode() string { //nolint:dupl false positive
+	return `"countryCode"`
+}
+
+// IdxLivingroom return name of the index
+func (p *Property) IdxLivingroom() int { //nolint:dupl false positive
+	return 41
+}
+
+// SqlLivingroom return name of the column being indexed
+func (p *Property) SqlLivingroom() string { //nolint:dupl false positive
+	return `"livingroom"`
+}
+
+// IdxAltitude return name of the index
+func (p *Property) IdxAltitude() int { //nolint:dupl false positive
+	return 42
+}
+
+// SqlAltitude return name of the column being indexed
+func (p *Property) SqlAltitude() string { //nolint:dupl false positive
+	return `"altitude"`
+}
+
+// IdxParking return name of the index
+func (p *Property) IdxParking() int { //nolint:dupl false positive
+	return 43
+}
+
+// SqlParking return name of the column being indexed
+func (p *Property) SqlParking() string { //nolint:dupl false positive
+	return `"parking"`
+}
+
+// IdxDepositFee return name of the index
+func (p *Property) IdxDepositFee() int { //nolint:dupl false positive
+	return 44
+}
+
+// SqlDepositFee return name of the column being indexed
+func (p *Property) SqlDepositFee() string { //nolint:dupl false positive
+	return `"depositFee"`
+}
+
+// IdxMinimumDurationYear return name of the index
+func (p *Property) IdxMinimumDurationYear() int { //nolint:dupl false positive
+	return 45
+}
+
+// SqlMinimumDurationYear return name of the column being indexed
+func (p *Property) SqlMinimumDurationYear() string { //nolint:dupl false positive
+	return `"minimumDurationYear"`
+}
+
+// IdxOtherFees return name of the index
+func (p *Property) IdxOtherFees() int { //nolint:dupl false positive
+	return 46
+}
+
+// SqlOtherFees return name of the column being indexed
+func (p *Property) SqlOtherFees() string { //nolint:dupl false positive
+	return `"otherFees"`
+}
+
+// IdxImageLabels return name of the index
+func (p *Property) IdxImageLabels() int { //nolint:dupl false positive
+	return 47
+}
+
+// SqlImageLabels return name of the column being indexed
+func (p *Property) SqlImageLabels() string { //nolint:dupl false positive
+	return `"imageLabels"`
+}
+
 // ToArray receiver fields to slice
 func (p *Property) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -854,6 +966,14 @@ func (p *Property) ToArray() A.X { //nolint:dupl false positive
 		p.Zip,                     // 37
 		p.PropertyLastUpdatedDate, // 38
 		p.ApprovalState,           // 39
+		p.CountryCode,             // 40
+		p.Livingroom,              // 41
+		p.Altitude,                // 42
+		p.Parking,                 // 43
+		p.DepositFee,              // 44
+		p.MinimumDurationYear,     // 45
+		p.OtherFees,               // 46
+		p.ImageLabels,             // 47
 	}
 }
 
@@ -899,6 +1019,14 @@ func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 	p.Zip = X.ToS(a[37])
 	p.PropertyLastUpdatedDate = X.ToI(a[38])
 	p.ApprovalState = X.ToS(a[39])
+	p.CountryCode = X.ToS(a[40])
+	p.Livingroom = X.ToI(a[41])
+	p.Altitude = X.ToF(a[42])
+	p.Parking = X.ToF(a[43])
+	p.DepositFee = X.ToF(a[44])
+	p.MinimumDurationYear = X.ToF(a[45])
+	p.OtherFees = X.ToArr(a[46])
+	p.ImageLabels = X.ToArr(a[47])
 	return p
 }
 
@@ -944,6 +1072,14 @@ func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false po
 	p.Zip = X.ToS(a[37])
 	p.PropertyLastUpdatedDate = X.ToI(a[38])
 	p.ApprovalState = X.ToS(a[39])
+	p.CountryCode = X.ToS(a[40])
+	p.Livingroom = X.ToI(a[41])
+	p.Altitude = X.ToF(a[42])
+	p.Parking = X.ToF(a[43])
+	p.DepositFee = X.ToF(a[44])
+	p.MinimumDurationYear = X.ToF(a[45])
+	p.OtherFees = X.ToArr(a[46])
+	p.ImageLabels = X.ToArr(a[47])
 	return p
 }
 
@@ -1027,6 +1163,14 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`zip`:                     Tt.String,
 	`propertyLastUpdatedDate`: Tt.Integer,
 	`approvalState`:           Tt.String,
+	`countryCode`:             Tt.String,
+	`livingroom`:              Tt.Integer,
+	`altitude`:                Tt.Double,
+	`parking`:                 Tt.Double,
+	`depositFee`:              Tt.Double,
+	`minimumDurationYear`:     Tt.Double,
+	`otherFees`:               Tt.Array,
+	`imageLabels`:             Tt.Array,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
@@ -1445,6 +1589,14 @@ type PropertyUS struct {
 	Zip                     string      `json:"zip" form:"zip" query:"zip" long:"zip" msg:"zip"`
 	PropertyLastUpdatedDate int64       `json:"propertyLastUpdatedDate" form:"propertyLastUpdatedDate" query:"propertyLastUpdatedDate" long:"propertyLastUpdatedDate" msg:"propertyLastUpdatedDate"`
 	ApprovalState           string      `json:"approvalState" form:"approvalState" query:"approvalState" long:"approvalState" msg:"approvalState"`
+	CountryCode             string      `json:"countryCode" form:"countryCode" query:"countryCode" long:"countryCode" msg:"countryCode"`
+	Livingroom              int64       `json:"livingroom" form:"livingroom" query:"livingroom" long:"livingroom" msg:"livingroom"`
+	Altitude                float64     `json:"altitude" form:"altitude" query:"altitude" long:"altitude" msg:"altitude"`
+	Parking                 float64     `json:"parking" form:"parking" query:"parking" long:"parking" msg:"parking"`
+	DepositFee              float64     `json:"depositFee" form:"depositFee" query:"depositFee" long:"depositFee" msg:"depositFee"`
+	MinimumDurationYear     float64     `json:"minimumDurationYear" form:"minimumDurationYear" query:"minimumDurationYear" long:"minimumDurationYear" msg:"minimumDurationYear"`
+	OtherFees               []any       `json:"otherFees" form:"otherFees" query:"otherFees" long:"otherFees" msg:"otherFees"`
+	ImageLabels             []any       `json:"imageLabels" form:"imageLabels" query:"imageLabels" long:"imageLabels" msg:"imageLabels"`
 }
 
 // NewPropertyUS create new ORM reader/query object
@@ -1546,6 +1698,14 @@ func (p *PropertyUS) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "zip"
 	, "propertyLastUpdatedDate"
 	, "approvalState"
+	, "countryCode"
+	, "livingroom"
+	, "altitude"
+	, "parking"
+	, "depositFee"
+	, "minimumDurationYear"
+	, "otherFees"
+	, "imageLabels"
 	`
 }
 
@@ -1591,6 +1751,14 @@ func (p *PropertyUS) SqlSelectAllUncensoredFields() string { //nolint:dupl false
 	, "zip"
 	, "propertyLastUpdatedDate"
 	, "approvalState"
+	, "countryCode"
+	, "livingroom"
+	, "altitude"
+	, "parking"
+	, "depositFee"
+	, "minimumDurationYear"
+	, "otherFees"
+	, "imageLabels"
 	`
 }
 
@@ -1637,6 +1805,14 @@ func (p *PropertyUS) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 37, p.Zip},
 		A.X{`=`, 38, p.PropertyLastUpdatedDate},
 		A.X{`=`, 39, p.ApprovalState},
+		A.X{`=`, 40, p.CountryCode},
+		A.X{`=`, 41, p.Livingroom},
+		A.X{`=`, 42, p.Altitude},
+		A.X{`=`, 43, p.Parking},
+		A.X{`=`, 44, p.DepositFee},
+		A.X{`=`, 45, p.MinimumDurationYear},
+		A.X{`=`, 46, p.OtherFees},
+		A.X{`=`, 47, p.ImageLabels},
 	}
 }
 
@@ -2040,6 +2216,86 @@ func (p *PropertyUS) SqlApprovalState() string { //nolint:dupl false positive
 	return `"approvalState"`
 }
 
+// IdxCountryCode return name of the index
+func (p *PropertyUS) IdxCountryCode() int { //nolint:dupl false positive
+	return 40
+}
+
+// SqlCountryCode return name of the column being indexed
+func (p *PropertyUS) SqlCountryCode() string { //nolint:dupl false positive
+	return `"countryCode"`
+}
+
+// IdxLivingroom return name of the index
+func (p *PropertyUS) IdxLivingroom() int { //nolint:dupl false positive
+	return 41
+}
+
+// SqlLivingroom return name of the column being indexed
+func (p *PropertyUS) SqlLivingroom() string { //nolint:dupl false positive
+	return `"livingroom"`
+}
+
+// IdxAltitude return name of the index
+func (p *PropertyUS) IdxAltitude() int { //nolint:dupl false positive
+	return 42
+}
+
+// SqlAltitude return name of the column being indexed
+func (p *PropertyUS) SqlAltitude() string { //nolint:dupl false positive
+	return `"altitude"`
+}
+
+// IdxParking return name of the index
+func (p *PropertyUS) IdxParking() int { //nolint:dupl false positive
+	return 43
+}
+
+// SqlParking return name of the column being indexed
+func (p *PropertyUS) SqlParking() string { //nolint:dupl false positive
+	return `"parking"`
+}
+
+// IdxDepositFee return name of the index
+func (p *PropertyUS) IdxDepositFee() int { //nolint:dupl false positive
+	return 44
+}
+
+// SqlDepositFee return name of the column being indexed
+func (p *PropertyUS) SqlDepositFee() string { //nolint:dupl false positive
+	return `"depositFee"`
+}
+
+// IdxMinimumDurationYear return name of the index
+func (p *PropertyUS) IdxMinimumDurationYear() int { //nolint:dupl false positive
+	return 45
+}
+
+// SqlMinimumDurationYear return name of the column being indexed
+func (p *PropertyUS) SqlMinimumDurationYear() string { //nolint:dupl false positive
+	return `"minimumDurationYear"`
+}
+
+// IdxOtherFees return name of the index
+func (p *PropertyUS) IdxOtherFees() int { //nolint:dupl false positive
+	return 46
+}
+
+// SqlOtherFees return name of the column being indexed
+func (p *PropertyUS) SqlOtherFees() string { //nolint:dupl false positive
+	return `"otherFees"`
+}
+
+// IdxImageLabels return name of the index
+func (p *PropertyUS) IdxImageLabels() int { //nolint:dupl false positive
+	return 47
+}
+
+// SqlImageLabels return name of the column being indexed
+func (p *PropertyUS) SqlImageLabels() string { //nolint:dupl false positive
+	return `"imageLabels"`
+}
+
 // ToArray receiver fields to slice
 func (p *PropertyUS) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -2087,6 +2343,14 @@ func (p *PropertyUS) ToArray() A.X { //nolint:dupl false positive
 		p.Zip,                     // 37
 		p.PropertyLastUpdatedDate, // 38
 		p.ApprovalState,           // 39
+		p.CountryCode,             // 40
+		p.Livingroom,              // 41
+		p.Altitude,                // 42
+		p.Parking,                 // 43
+		p.DepositFee,              // 44
+		p.MinimumDurationYear,     // 45
+		p.OtherFees,               // 46
+		p.ImageLabels,             // 47
 	}
 }
 
@@ -2132,6 +2396,14 @@ func (p *PropertyUS) FromArray(a A.X) *PropertyUS { //nolint:dupl false positive
 	p.Zip = X.ToS(a[37])
 	p.PropertyLastUpdatedDate = X.ToI(a[38])
 	p.ApprovalState = X.ToS(a[39])
+	p.CountryCode = X.ToS(a[40])
+	p.Livingroom = X.ToI(a[41])
+	p.Altitude = X.ToF(a[42])
+	p.Parking = X.ToF(a[43])
+	p.DepositFee = X.ToF(a[44])
+	p.MinimumDurationYear = X.ToF(a[45])
+	p.OtherFees = X.ToArr(a[46])
+	p.ImageLabels = X.ToArr(a[47])
 	return p
 }
 
@@ -2177,6 +2449,14 @@ func (p *PropertyUS) FromUncensoredArray(a A.X) *PropertyUS { //nolint:dupl fals
 	p.Zip = X.ToS(a[37])
 	p.PropertyLastUpdatedDate = X.ToI(a[38])
 	p.ApprovalState = X.ToS(a[39])
+	p.CountryCode = X.ToS(a[40])
+	p.Livingroom = X.ToI(a[41])
+	p.Altitude = X.ToF(a[42])
+	p.Parking = X.ToF(a[43])
+	p.DepositFee = X.ToF(a[44])
+	p.MinimumDurationYear = X.ToF(a[45])
+	p.OtherFees = X.ToArr(a[46])
+	p.ImageLabels = X.ToArr(a[47])
 	return p
 }
 
@@ -2260,6 +2540,14 @@ var PropertyUSFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positiv
 	`zip`:                     Tt.String,
 	`propertyLastUpdatedDate`: Tt.Integer,
 	`approvalState`:           Tt.String,
+	`countryCode`:             Tt.String,
+	`livingroom`:              Tt.Integer,
+	`altitude`:                Tt.Double,
+	`parking`:                 Tt.Double,
+	`depositFee`:              Tt.Double,
+	`minimumDurationYear`:     Tt.Double,
+	`otherFees`:               Tt.Array,
+	`imageLabels`:             Tt.Array,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
