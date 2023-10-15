@@ -2723,6 +2723,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       exports.AdminProperties = async function AdminProperties(i, cb) {
         return await axios.post("/admin/properties", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.AdminPropertiesUS = async function AdminPropertiesUS(i, cb) {
+        return await axios.post("/admin/properties/US", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminUsers = async function AdminUsers(i, cb) {
         return await axios.post("/admin/users", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };

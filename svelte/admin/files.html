@@ -2612,6 +2612,9 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
       exports.AdminProperties = async function AdminProperties(i, cb) {
         return await axios.post("/admin/properties", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.AdminPropertiesUS = async function AdminPropertiesUS(i, cb) {
+        return await axios.post("/admin/properties/US", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminUsers = async function AdminUsers(i, cb) {
         return await axios.post("/admin/users", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -4865,8 +4868,10 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
     let t9;
     let a5;
     let t11;
+    let a6;
+    let t13;
     let c0;
-    let t12;
+    let t14;
     let c1;
     return {
       c() {
@@ -4879,19 +4884,22 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
         a1.textContent = "Users";
         t3 = space();
         a2 = element("a");
-        a2.textContent = "Properties";
+        a2.textContent = "Properties US";
         t5 = space();
         a3 = element("a");
-        a3.textContent = "Prop Histories";
+        a3.textContent = "Properties";
         t7 = space();
         a4 = element("a");
-        a4.textContent = "Access Logs";
+        a4.textContent = "Prop Histories";
         t9 = space();
         a5 = element("a");
-        a5.textContent = "Files";
+        a5.textContent = "Access Logs";
         t11 = space();
+        a6 = element("a");
+        a6.textContent = "Files";
+        t13 = space();
         c0 = comment(`  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>`);
-        t12 = space();
+        t14 = space();
         c1 = comment(`  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>`);
         attr(a0, "href", "/admin");
         attr(a0, "class", "svelte-ylwlsa");
@@ -4899,7 +4907,7 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
           a0,
           "active",
           /*segment2*/
-          ctx[0] === ""
+          ctx[0] === "admin"
         );
         attr(a1, "href", "/admin/users");
         attr(a1, "class", "svelte-ylwlsa");
@@ -4909,34 +4917,42 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
           /*segment2*/
           ctx[0] === "users"
         );
-        attr(a2, "href", "/admin/properties");
+        attr(a2, "href", "/admin/properties/US");
         attr(a2, "class", "svelte-ylwlsa");
         toggle_class(
           a2,
           "active",
           /*segment2*/
-          ctx[0] === "properties"
+          ctx[0] === "US"
         );
-        attr(a3, "href", "/admin/propHistories");
+        attr(a3, "href", "/admin/properties");
         attr(a3, "class", "svelte-ylwlsa");
         toggle_class(
           a3,
           "active",
           /*segment2*/
-          ctx[0] === "propHistories"
+          ctx[0] === "properties"
         );
-        attr(a4, "href", "/admin/accessLogs");
+        attr(a4, "href", "/admin/propHistories");
         attr(a4, "class", "svelte-ylwlsa");
         toggle_class(
           a4,
           "active",
           /*segment2*/
-          ctx[0] === "accessLogs"
+          ctx[0] === "propHistories"
         );
-        attr(a5, "href", "/admin/files");
+        attr(a5, "href", "/admin/accessLogs");
         attr(a5, "class", "svelte-ylwlsa");
         toggle_class(
           a5,
+          "active",
+          /*segment2*/
+          ctx[0] === "accessLogs"
+        );
+        attr(a6, "href", "/admin/files");
+        attr(a6, "class", "svelte-ylwlsa");
+        toggle_class(
+          a6,
           "active",
           /*segment2*/
           ctx[0] === "files"
@@ -4959,8 +4975,10 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
         append(nav, t9);
         append(nav, a5);
         append(nav, t11);
+        append(nav, a6);
+        append(nav, t13);
         append(nav, c0);
-        append(nav, t12);
+        append(nav, t14);
         append(nav, c1);
       },
       p(ctx2, [dirty]) {
@@ -4970,7 +4988,7 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
             a0,
             "active",
             /*segment2*/
-            ctx2[0] === ""
+            ctx2[0] === "admin"
           );
         }
         if (dirty & /*segment2*/
@@ -4988,7 +5006,7 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
             a2,
             "active",
             /*segment2*/
-            ctx2[0] === "properties"
+            ctx2[0] === "US"
           );
         }
         if (dirty & /*segment2*/
@@ -4997,7 +5015,7 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
             a3,
             "active",
             /*segment2*/
-            ctx2[0] === "propHistories"
+            ctx2[0] === "properties"
           );
         }
         if (dirty & /*segment2*/
@@ -5006,13 +5024,22 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
             a4,
             "active",
             /*segment2*/
-            ctx2[0] === "accessLogs"
+            ctx2[0] === "propHistories"
           );
         }
         if (dirty & /*segment2*/
         1) {
           toggle_class(
             a5,
+            "active",
+            /*segment2*/
+            ctx2[0] === "accessLogs"
+          );
+        }
+        if (dirty & /*segment2*/
+        1) {
+          toggle_class(
+            a6,
             "active",
             /*segment2*/
             ctx2[0] === "files"
@@ -5031,7 +5058,7 @@ input.input_filter.svelte-77nu8z.svelte-77nu8z {
   function instance3($self, $props, $invalidate) {
     let segment2;
     onMount(() => {
-      $invalidate(0, segment2 = window.location.pathname.split("/")[2] || "");
+      $invalidate(0, segment2 = window.location.pathname.split("/").pop() || "");
     });
     return [segment2];
   }

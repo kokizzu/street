@@ -251,7 +251,7 @@ func parsePropertyExtraData(propertyMutator *wcProperty.PropertyExtraUSMutator, 
 	// // -------- Store agent & broker --------
 	mlsDisclaimerInfo, err := json.Marshal(propertyResponseObject.AmenitiesInfo.MlsDisclaimerInfo)
 	if err != nil {
-		L.Print("Can't parse Zone Data Info")
+		L.Print("Can't parse Mls Disclaimer Data Info")
 	}
 	propertyMutator.MlsDisclaimerInfo = string(mlsDisclaimerInfo)
 
@@ -260,7 +260,7 @@ func parsePropertyExtraData(propertyMutator *wcProperty.PropertyExtraUSMutator, 
 	cleanExcessiveFacilityInfoString(facilityInfo)
 	facilityInfoJson, err := json.Marshal(facilityInfo)
 	if err != nil {
-		L.Print("Can't parse Zone Data Info")
+		L.Print("Can't parse Facility Data Info")
 	}
 	propertyMutator.FacilityInfo = string(facilityInfoJson)
 
@@ -269,7 +269,7 @@ func parsePropertyExtraData(propertyMutator *wcProperty.PropertyExtraUSMutator, 
 	cleanExcessiveRiskInfoString(riskInfo)
 	riskInfoJson, err := json.Marshal(riskInfo)
 	if err != nil {
-		L.Print("Can't parse Zone Data Info")
+		L.Print("Can't parse Risk Factor Data Info")
 	}
 	propertyMutator.RiskInfo = string(riskInfoJson)
 }
