@@ -24,6 +24,7 @@
   import FaSolidCamera from 'svelte-icons-pack/fa/FaSolidCamera';
   import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
   import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
+  import FaSolidImage from "svelte-icons-pack/fa/FaSolidImage";
   
   // Use property from backend if backend is ready
   let property = {/* property */};
@@ -37,6 +38,7 @@
   
   onMount( () => {
     console.log( 'property = ', property )
+    console.log( 'Country data = ', countries )
     const defaultLat = 23.6978, defaultLng = 120.9605;
     if( Object.keys( property ).length===0 ) {
       property = {
@@ -89,6 +91,12 @@
         // priceHistoriesSell: [],
         // priceHistoriesRent: [],
       }
+      countries.forEach( ( c ) => {
+        if( c.iso_2===property.country ) {
+          countryCurrency = c.currency.code;
+          console.log('Country currency = ', countryCurrency);
+        }
+      } );
     } else {
       console.log( property.lastPrice );
       property.lat = property.coord[ 0 ];
@@ -303,6 +311,14 @@
     } );
   }
   
+  function changeCurrency() {
+    countries.forEach( ( c ) => {
+      if( c.iso_2===property.country ) {
+        countryCurrency = c.currency.code;
+      }
+    } );
+  }
+  
   async function handleBackLocation() {
     if( modeLocationCount<modeLocationLists.length ) {
       modeLocationCount -= 1;
@@ -322,11 +338,13 @@
       }
       countries.forEach( ( c ) => {
         if( c.iso_2===property.country ) {
-          countryName = c.country
+          countryName = c.country;
+          countryCurrency = c.currency.code;
           property.lat = parseInt( c.coordinate.lat );
           property.lng = parseInt( c.coordinate.lng );
         }
       } );
+      console.log( countryCurrency )
       modeLocationCount += 1;
       modeLocation = modeLocationLists[ modeLocationCount ].mode;
       await initMap();
@@ -435,7 +453,7 @@
       modeInfo = modeInfoLists[ modeInfoCount ].mode;
     },
     'INFO_PRICE': () => {
-      if( property.lastPrice===0 ) return useGrowl( 'error', 'Price cannot be 0' );
+      if( property.lastPrice===0 || property.agencyFee>=99 ) return useGrowl( 'error', 'Price cannot be 0' );
       nextPage();
     },
   };
@@ -593,7 +611,7 @@
 								<div class='row'>
 									<div class='input_box'>
 										<label for='country'>Country or Region <span class='asterisk'>*</span></label>
-										<select id='country' name='country' bind:value={countryIso2}>
+										<select id='country' name='country' bind:value={countryIso2} on:change={changeCurrency}>
 											{#each countries as country}
 												<option value={country.iso_2}>{country.country}</option>
 											{/each}
@@ -924,22 +942,21 @@
 						<div class='subpage_content'>
 							<div class='preview_content'>
 								<h3>Preview your property</h3>
-								<div class='streetview_container'>
-									<!-- TODO: render streetview here -->
-									<div class='img_container'>
-										<img alt='' src='/assets/img/street-view.jpeg'/>
-									</div>
-								</div>
-								<h4>Property Detail</h4>
-								{#if property.images && property.images.length}
-									<div class='image_properties'>
-										<!-- TODO: render property images as slide? -->
+								<div class='image_properties'>
+									{#if property.images && property.images.length}
 										<div class='img_container'>
 											<!-- TODO: click image to zoom -->
 											<img alt='' src={property.images[0]}/>
 										</div>
-									</div>
-								{/if}
+									{:else}
+										<div class='img_container'>
+											<div class='image_empty'>
+												<Icon size={40} color='#475569' src={FaSolidImage}/>
+												<span>No Image !</span>
+											</div>
+										</div>
+									{/if}
+								</div>
 								<div class='preview_details'>
 									<div class='main_details'>
 									<span class={property.purpose === 'rent' ? `label_rent purpose` : `label_sale purpose`}>
@@ -1851,6 +1868,20 @@
         object-fit : cover;
         width      : 100%;
         height     : 100%;
+    }
+
+    .realtor_subpage_container section.preview .subpage_content .preview_content .img_container .image_empty {
+        border-radius    : 8px;
+        object-fit       : cover;
+        width            : 100%;
+        height           : 100%;
+        background-color : rgb(0 0 0 / 0.06);
+        display          : flex;
+        flex-direction   : column;
+        gap              : 10px;
+        font-size        : 18px;
+        justify-content  : center;
+        align-items      : center;
     }
 
     .realtor_subpage_container section.preview .subpage_content .preview_content h4 {
