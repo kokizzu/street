@@ -93,7 +93,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.RequestCommon.Action = domain.GuestPropertyAction
 		out := d.GuestProperty(&domain.GuestPropertyIn{
 			RequestCommon: in.RequestCommon,
-			Id:            X.ToU(ctx.Params(`propId`)),
+			Id:            X.ToS(ctx.Params(`propId`)),
 		})
 		if out.Error != `` {
 			L.Print(out.Error)
@@ -253,7 +253,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		}
 		out := d.GuestProperty(&domain.GuestPropertyIn{
 			RequestCommon: in.RequestCommon,
-			Id:            X.ToU(ctx.Params(`propId`)),
+			Id:            X.ToS(ctx.Params(`propId`)),
 		})
 		if out.Error != `` {
 			L.Print(out.Error)

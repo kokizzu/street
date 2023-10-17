@@ -5,10 +5,9 @@
   import ProfileHeader from '../_components/ProfileHeader.svelte';
   import Footer from '../_components/Footer.svelte';
   import Growl from '../_components/Growl.svelte';
-  import AddOtherFeeDialog from '../_components/AddOtherFeeDialog.svelte';
+  import AddOtherFeesDialog from '../_components/AddOtherFeesDialog.svelte';
   import {formatPrice} from '../_components/formatter';
   import {RealtorUpsertProperty} from '../jsApi.GEN';
-  import {StreetView} from "../_components/GoogleMap/components";
   
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
@@ -91,12 +90,12 @@
         // priceHistoriesSell: [],
         // priceHistoriesRent: [],
       }
-      countries.forEach( ( c ) => {
-        if( c.iso_2===property.country ) {
-          countryCurrency = c.currency.code;
-          console.log('Country currency = ', countryCurrency);
+      for( let i = 0; i<countries.length; i++ ) {
+        if( countries[ i ].iso_2===property.country ) {
+          countryCurrency = countries[ i ].currency.code;
+          console.log( 'Country currency =', countryCurrency );
         }
-      } );
+      }
     } else {
       console.log( property.lastPrice );
       property.lat = property.coord[ 0 ];
@@ -336,15 +335,14 @@
         useGrowl( 'error', 'Please fill required form' );
         return;
       }
-      countries.forEach( ( c ) => {
-        if( c.iso_2===property.country ) {
-          countryName = c.country;
-          countryCurrency = c.currency.code;
-          property.lat = parseInt( c.coordinate.lat );
-          property.lng = parseInt( c.coordinate.lng );
+      for( let i = 0; i<countries.length; i++ ) {
+        if( countries[ i ].iso_2===property.country ) {
+          countryName = countries[ i ].country;
+          countryCurrency = countries[ i ].currency.code;
+          property.lat = parseInt( countries[ i ].coordinate.lat );
+          property.lng = parseInt( countries[ i ].coordinate.lng );
         }
-      } );
-      console.log( countryCurrency )
+      }
       modeLocationCount += 1;
       modeLocation = modeLocationLists[ modeLocationCount ].mode;
       await initMap();
@@ -381,7 +379,7 @@
     name: '',
     fee: 0,
   };
-  let addOtherFeeDialog = AddOtherFeeDialog;
+  let addOtherFeeDialog = AddOtherFeesDialog;
   let houseTypeLists = [
     'house', 'land', 'apartment', 'townhouse', 'condo', 'villa', 'factory', 'parking', 'other'
   ];
@@ -533,27 +531,27 @@
 <svelte:head>
 	<!-- Google Map SDK -->
 	<script>
-     (g => {
-       var h, a, k, p = 'The Google Maps JavaScript API', c = 'google', l = 'importLibrary', q = '__ib__', m = document, b = window;
-       b = b[ c ] || (b[ c ] = {});
-       var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise( async ( f, n ) => {
-         await (a = m.createElement( 'script' ));
-         e.set( 'libraries', [...r] + '' );
-         for( k in g ) e.set( k.replace( /[A-Z]/g, t => '_' + t[ 0 ].toLowerCase() ), g[ k ] );
-         e.set( 'callback', c + '.maps.' + q );
-         a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
-         d[ q ] = f;
-         a.onerror = () => h = n( Error( p + ' could not load.' ) );
-         a.nonce = m.querySelector( 'script[nonce]' )?.nonce || '';
-         m.head.append( a );
-       } ));
-       d[ l ] ? console.warn( p + ' only loads once. Ignoring:', g ) : d[ l ] = ( f, ...n ) => r.add( f ) && u().then( () => d[ l ]( f, ...n ) );
-     })( {
-       key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',
-       v: 'weekly',
-       // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
-       // Add other bootstrap parameters as needed, using camel case.
-     } );
+    (g => {
+      var h, a, k, p = 'The Google Maps JavaScript API', c = 'google', l = 'importLibrary', q = '__ib__', m = document, b = window;
+      b = b[ c ] || (b[ c ] = {});
+      var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise( async ( f, n ) => {
+        await (a = m.createElement( 'script' ));
+        e.set( 'libraries', [...r] + '' );
+        for( k in g ) e.set( k.replace( /[A-Z]/g, t => '_' + t[ 0 ].toLowerCase() ), g[ k ] );
+        e.set( 'callback', c + '.maps.' + q );
+        a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
+        d[ q ] = f;
+        a.onerror = () => h = n( Error( p + ' could not load.' ) );
+        a.nonce = m.querySelector( 'script[nonce]' )?.nonce || '';
+        m.head.append( a );
+      } ));
+      d[ l ] ? console.warn( p + ' only loads once. Ignoring:', g ) : d[ l ] = ( f, ...n ) => r.add( f ) && u().then( () => d[ l ]( f, ...n ) );
+    })( {
+      key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',
+      v: 'weekly',
+      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+      // Add other bootstrap parameters as needed, using camel case.
+    } );
 	</script>
 </svelte:head>
 {#if showGrowl}
@@ -688,7 +686,7 @@
 					</button>
 				</section>
 				<section bind:this={cards[1]} class='info' id='subpage_2'>
-					<AddOtherFeeDialog
+					<AddOtherFeesDialog
 						bind:fee={otherFeeObj.fee}
 						bind:name={otherFeeObj.name}
 						bind:this={addOtherFeeDialog}
@@ -696,7 +694,7 @@
 						<button class='add_fee_btn' on:click={addOtherFee}>
 							Add
 						</button>
-					</AddOtherFeeDialog>
+					</AddOtherFeesDialog>
 					<button class='back_button' on:click={handleBackInfo}>
 						<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
 					</button>

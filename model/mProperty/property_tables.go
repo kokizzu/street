@@ -73,14 +73,12 @@ const (
 	District               = `district`
 	Note                   = `note`  // used also for rent/sell
 	Coord                  = `coord` // [latitude, longitude] used also for rent/sell
+	Altitude               = `altitude`
 	CreatedAt              = `createdAt`
 	CreatedBy              = `createdBy`
 	UpdatedAt              = `updatedAt`
 	UpdatedBy              = `updatedBy`
 	DeletedAt              = `deletedAt`
-	LastPrice              = `lastPrice`
-	PriceHistoriesSell     = `priceHistoriesSell`
-	PriceHistoriesRent     = `priceHistoriesRent`
 
 	TablePropertyHistory Tt.TableName = `property_history`
 
@@ -92,19 +90,28 @@ const (
 	TransactionDescription = `transactionDescription`
 	TransactionDateNormal  = `transactionDateNormal`
 	TransactionNumber      = `transactionNumber`
-	PriceNTD               = `priceNtd` // TODO: deprecate
-	PricePerUnit           = `pricePerUnit`
-	Price                  = `price`
+
+	PriceNTD           = `priceNtd` // TODO: deprecate
+	PricePerUnit       = `pricePerUnit`
+	Price              = `price`
+	LastPrice          = `lastPrice`
+	DepositFee         = `depositFee`
+	OtherFees          = `otherFees` // array of array ['label', fee]
+	PriceHistoriesSell = `priceHistoriesSell`
+	PriceHistoriesRent = `priceHistoriesRent`
 
 	// mostly this one for rent/sell
-	Purpose          = `purpose`   // rent/sell (empty means not for rent/sell)
-	HouseType        = `houseType` // apartment/house
-	Images           = `images`
-	Bedroom          = `bedroom`
-	Bathroom         = `bathroom`
-	AgencyFeePercent = `agencyFeePercent`
-	FloorList        = `floorList`
-	Country          = `country`
+	Purpose             = `purpose`     // rent/sell (empty means not for rent/sell)
+	HouseType           = `houseType`   // apartment/house
+	Images              = `images`      // array of string url
+	ImageLabels         = `imageLabels` // array of string
+	Bedroom             = `bedroom`
+	Bathroom            = `bathroom`
+	Livingroom          = `livingroom`
+	Parking             = `parking`
+	AgencyFeePercent    = `agencyFeePercent`
+	MinimumDurationYear = `minimumDurationYear` // only for rent?
+	FloorList           = `floorList`           // TODO: deprecate
 
 	TableUserPropLikes Tt.TableName = `userPropLikes`
 
@@ -175,7 +182,9 @@ func buildStandardPropertySchema() []Tt.Field {
 		// County (District)
 		10: {District, Tt.String},
 		12: {Coord, Tt.Array},
+		42: {Altitude, Tt.Double},
 		33: {CountyName, Tt.String},
+		40: {CountryCode, Tt.String}, // temporary until all records splitted into per country table
 
 		// Property size area
 		3:  {SizeM2, Tt.String},
@@ -190,8 +199,12 @@ func buildStandardPropertySchema() []Tt.Field {
 		22: {Purpose, Tt.String},
 		23: {HouseType, Tt.String},
 		24: {Images, Tt.Array},
+		47: {ImageLabels, Tt.Array},
+
 		25: {Bedroom, Tt.Integer},
 		26: {Bathroom, Tt.Integer},
+		41: {Livingroom, Tt.Integer},
+		43: {Parking, Tt.Double},
 		27: {AgencyFeePercent, Tt.Double},
 		28: {FloorList, Tt.Array},
 
@@ -203,6 +216,9 @@ func buildStandardPropertySchema() []Tt.Field {
 
 		// Price related to property
 		19: {LastPrice, Tt.String},
+		44: {DepositFee, Tt.Double},
+		46: {OtherFees, Tt.Array},
+		45: {MinimumDurationYear, Tt.Double},
 		20: {PriceHistoriesSell, Tt.Array},
 		21: {PriceHistoriesRent, Tt.Array},
 
@@ -301,9 +317,5 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Engine:          Tt.Vinyl,
 	},
 }
-
-const (
-	TablePropertyLogs Ch.TableName = `propertyLogs`
-)
 
 var ClickhouseTables = map[Ch.TableName]*Ch.TableProp{}

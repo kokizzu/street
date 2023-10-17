@@ -1,6 +1,9 @@
 package domain
 
 import (
+	"strconv"
+	"strings"
+
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/zCrud"
@@ -13,24 +16,25 @@ import (
 //go:generate farify doublequote --file GuestProperty.go
 
 type (
-	GuestPropertyUSIn struct {
+	UserPropertyIn struct {
 		RequestCommon
-		Id uint64 `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+		Id string `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
 	}
-	GuestPropertyUSOut struct {
+	UserPropertyOut struct {
 		ResponseCommon
-		Property *rqProperty.Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
-		Meta     []zCrud.Field        `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
+		Property   *rqProperty.Property   `json:"property" form:"property" query:"property" long:"property" msg:"property"`
+		PropertyUS *rqProperty.PropertyUS `json:"property" form:"property" query:"property" long:"property" msg:"property"`
+		Meta       []zCrud.Field          `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 	}
 )
 
 const (
-	GuestPropertyUSAction      = `guest/property`
-	ErrGuestPropertyUSNotFound = `Property not found`
+	UserPropertyAction      = `user/property`
+	ErrUserPropertyNotFound = `Property not found`
 )
 
 var (
-	GuestPropertiesUSMeta = []zCrud.Field{
+	UserPropertiesMeta = []zCrud.Field{
 		{
 			Name:      mProperty.MainUse,
 			Label:     `Main Use / Facility`,
@@ -74,7 +78,7 @@ var (
 			InputType: zCrud.InputTypeText,
 		},
 		{
-			Name:      mProperty.Country,
+			Name:      mProperty.CountryCode,
 			Label:     `Country`,
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
@@ -94,17 +98,39 @@ var (
 	}
 )
 
-func (d *Domain) GuestPropertyUS(in *GuestPropertyIn) (out GuestPropertyOut) {
+func (d *Domain) UserProperty(in *GuestPropertyIn) (out UserPropertyOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
+	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
+	if sess == nil {
+		return
+	}
+	idSplit := strings.Split(in.Id, "US")
+	if len(idSplit) == 2 {
+		idUint, _ := strconv.ParseUint(idSplit[1], 10, 64)
+		r := rqProperty.NewPropertyUS(d.PropOltp)
+		r.Id = idUint
+		if !r.FindById() {
+			out.SetError(400, ErrUserPropertyNotFound)
+			return
+		}
+		out.PropertyUS = r
+		out.Meta = GuestPropertiesMeta
+		return
+	}
+	idUint, err := strconv.ParseUint(in.Id, 10, 64)
+	if err != nil {
+		out.SetError(400, ErrUserPropertyNotFound)
+		return
+	}
 	r := rqProperty.NewProperty(d.PropOltp)
-	r.Id = in.Id
+	r.Id = idUint
 	if !r.FindById() {
-		out.SetError(400, ErrGuestPropertyNotFound)
+		out.SetError(400, ErrUserPropertyNotFound)
 		return
 	}
 	r.NormalizeFloorList()
 	out.Property = r
-	out.Meta = GuestPropertiesUSMeta
+	out.Meta = UserPropertiesMeta
 	return
 }

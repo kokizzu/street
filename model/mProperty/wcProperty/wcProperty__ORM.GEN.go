@@ -148,6 +148,8 @@ func NewPropertyMutator(adapter *Tt.Adapter) (res *PropertyMutator) {
 	res.PriceHistoriesRent = []any{}
 	res.Images = []any{}
 	res.FloorList = []any{}
+	res.OtherFees = []any{}
+	res.ImageLabels = []any{}
 	return
 }
 
@@ -230,6 +232,14 @@ func (p *PropertyMutator) DoDeletePermanentById() bool { //nolint:dupl false pos
 //		A.X{`=`, 37, p.Zip},
 //		A.X{`=`, 38, p.PropertyLastUpdatedDate},
 //		A.X{`=`, 39, p.ApprovalState},
+//		A.X{`=`, 40, p.CountryCode},
+//		A.X{`=`, 41, p.Livingroom},
+//		A.X{`=`, 42, p.Altitude},
+//		A.X{`=`, 43, p.Parking},
+//		A.X{`=`, 44, p.DepositFee},
+//		A.X{`=`, 45, p.MinimumDurationYear},
+//		A.X{`=`, 46, p.OtherFees},
+//		A.X{`=`, 47, p.ImageLabels},
 //	})
 //	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName())
 // }
@@ -706,6 +716,88 @@ func (p *PropertyMutator) SetApprovalState(val string) bool { //nolint:dupl fals
 	return false
 }
 
+// SetCountryCode create mutations, should not duplicate
+func (p *PropertyMutator) SetCountryCode(val string) bool { //nolint:dupl false positive
+	if val != p.CountryCode {
+		p.mutations = append(p.mutations, A.X{`=`, 40, val})
+		p.logs = append(p.logs, A.X{`countryCode`, p.CountryCode, val})
+		p.CountryCode = val
+		return true
+	}
+	return false
+}
+
+// SetLivingroom create mutations, should not duplicate
+func (p *PropertyMutator) SetLivingroom(val int64) bool { //nolint:dupl false positive
+	if val != p.Livingroom {
+		p.mutations = append(p.mutations, A.X{`=`, 41, val})
+		p.logs = append(p.logs, A.X{`livingroom`, p.Livingroom, val})
+		p.Livingroom = val
+		return true
+	}
+	return false
+}
+
+// SetAltitude create mutations, should not duplicate
+func (p *PropertyMutator) SetAltitude(val float64) bool { //nolint:dupl false positive
+	if val != p.Altitude {
+		p.mutations = append(p.mutations, A.X{`=`, 42, val})
+		p.logs = append(p.logs, A.X{`altitude`, p.Altitude, val})
+		p.Altitude = val
+		return true
+	}
+	return false
+}
+
+// SetParking create mutations, should not duplicate
+func (p *PropertyMutator) SetParking(val float64) bool { //nolint:dupl false positive
+	if val != p.Parking {
+		p.mutations = append(p.mutations, A.X{`=`, 43, val})
+		p.logs = append(p.logs, A.X{`parking`, p.Parking, val})
+		p.Parking = val
+		return true
+	}
+	return false
+}
+
+// SetDepositFee create mutations, should not duplicate
+func (p *PropertyMutator) SetDepositFee(val float64) bool { //nolint:dupl false positive
+	if val != p.DepositFee {
+		p.mutations = append(p.mutations, A.X{`=`, 44, val})
+		p.logs = append(p.logs, A.X{`depositFee`, p.DepositFee, val})
+		p.DepositFee = val
+		return true
+	}
+	return false
+}
+
+// SetMinimumDurationYear create mutations, should not duplicate
+func (p *PropertyMutator) SetMinimumDurationYear(val float64) bool { //nolint:dupl false positive
+	if val != p.MinimumDurationYear {
+		p.mutations = append(p.mutations, A.X{`=`, 45, val})
+		p.logs = append(p.logs, A.X{`minimumDurationYear`, p.MinimumDurationYear, val})
+		p.MinimumDurationYear = val
+		return true
+	}
+	return false
+}
+
+// SetOtherFees create mutations, should not duplicate
+func (p *PropertyMutator) SetOtherFees(val []any) bool { //nolint:dupl false positive
+	p.mutations = append(p.mutations, A.X{`=`, 46, val})
+	p.logs = append(p.logs, A.X{`otherFees`, p.OtherFees, val})
+	p.OtherFees = val
+	return true
+}
+
+// SetImageLabels create mutations, should not duplicate
+func (p *PropertyMutator) SetImageLabels(val []any) bool { //nolint:dupl false positive
+	p.mutations = append(p.mutations, A.X{`=`, 47, val})
+	p.logs = append(p.logs, A.X{`imageLabels`, p.ImageLabels, val})
+	p.ImageLabels = val
+	return true
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -872,6 +964,38 @@ func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap 
 	}
 	if !excludeMap[`approvalState`] && (forceMap[`approvalState`] || from.ApprovalState != ``) {
 		p.ApprovalState = S.Trim(from.ApprovalState)
+		changed = true
+	}
+	if !excludeMap[`countryCode`] && (forceMap[`countryCode`] || from.CountryCode != ``) {
+		p.CountryCode = S.Trim(from.CountryCode)
+		changed = true
+	}
+	if !excludeMap[`livingroom`] && (forceMap[`livingroom`] || from.Livingroom != 0) {
+		p.Livingroom = from.Livingroom
+		changed = true
+	}
+	if !excludeMap[`altitude`] && (forceMap[`altitude`] || from.Altitude != 0) {
+		p.Altitude = from.Altitude
+		changed = true
+	}
+	if !excludeMap[`parking`] && (forceMap[`parking`] || from.Parking != 0) {
+		p.Parking = from.Parking
+		changed = true
+	}
+	if !excludeMap[`depositFee`] && (forceMap[`depositFee`] || from.DepositFee != 0) {
+		p.DepositFee = from.DepositFee
+		changed = true
+	}
+	if !excludeMap[`minimumDurationYear`] && (forceMap[`minimumDurationYear`] || from.MinimumDurationYear != 0) {
+		p.MinimumDurationYear = from.MinimumDurationYear
+		changed = true
+	}
+	if !excludeMap[`otherFees`] && (forceMap[`otherFees`] || from.OtherFees != nil) {
+		p.OtherFees = from.OtherFees
+		changed = true
+	}
+	if !excludeMap[`imageLabels`] && (forceMap[`imageLabels`] || from.ImageLabels != nil) {
+		p.ImageLabels = from.ImageLabels
 		changed = true
 	}
 	return
@@ -1218,6 +1342,8 @@ func NewPropertyUSMutator(adapter *Tt.Adapter) (res *PropertyUSMutator) {
 	res.PriceHistoriesRent = []any{}
 	res.Images = []any{}
 	res.FloorList = []any{}
+	res.OtherFees = []any{}
+	res.ImageLabels = []any{}
 	return
 }
 
@@ -1300,6 +1426,14 @@ func (p *PropertyUSMutator) DoDeletePermanentById() bool { //nolint:dupl false p
 //		A.X{`=`, 37, p.Zip},
 //		A.X{`=`, 38, p.PropertyLastUpdatedDate},
 //		A.X{`=`, 39, p.ApprovalState},
+//		A.X{`=`, 40, p.CountryCode},
+//		A.X{`=`, 41, p.Livingroom},
+//		A.X{`=`, 42, p.Altitude},
+//		A.X{`=`, 43, p.Parking},
+//		A.X{`=`, 44, p.DepositFee},
+//		A.X{`=`, 45, p.MinimumDurationYear},
+//		A.X{`=`, 46, p.OtherFees},
+//		A.X{`=`, 47, p.ImageLabels},
 //	})
 //	return !L.IsError(err, `PropertyUS.DoUpsert failed: `+p.SpaceName())
 // }
@@ -1776,6 +1910,88 @@ func (p *PropertyUSMutator) SetApprovalState(val string) bool { //nolint:dupl fa
 	return false
 }
 
+// SetCountryCode create mutations, should not duplicate
+func (p *PropertyUSMutator) SetCountryCode(val string) bool { //nolint:dupl false positive
+	if val != p.CountryCode {
+		p.mutations = append(p.mutations, A.X{`=`, 40, val})
+		p.logs = append(p.logs, A.X{`countryCode`, p.CountryCode, val})
+		p.CountryCode = val
+		return true
+	}
+	return false
+}
+
+// SetLivingroom create mutations, should not duplicate
+func (p *PropertyUSMutator) SetLivingroom(val int64) bool { //nolint:dupl false positive
+	if val != p.Livingroom {
+		p.mutations = append(p.mutations, A.X{`=`, 41, val})
+		p.logs = append(p.logs, A.X{`livingroom`, p.Livingroom, val})
+		p.Livingroom = val
+		return true
+	}
+	return false
+}
+
+// SetAltitude create mutations, should not duplicate
+func (p *PropertyUSMutator) SetAltitude(val float64) bool { //nolint:dupl false positive
+	if val != p.Altitude {
+		p.mutations = append(p.mutations, A.X{`=`, 42, val})
+		p.logs = append(p.logs, A.X{`altitude`, p.Altitude, val})
+		p.Altitude = val
+		return true
+	}
+	return false
+}
+
+// SetParking create mutations, should not duplicate
+func (p *PropertyUSMutator) SetParking(val float64) bool { //nolint:dupl false positive
+	if val != p.Parking {
+		p.mutations = append(p.mutations, A.X{`=`, 43, val})
+		p.logs = append(p.logs, A.X{`parking`, p.Parking, val})
+		p.Parking = val
+		return true
+	}
+	return false
+}
+
+// SetDepositFee create mutations, should not duplicate
+func (p *PropertyUSMutator) SetDepositFee(val float64) bool { //nolint:dupl false positive
+	if val != p.DepositFee {
+		p.mutations = append(p.mutations, A.X{`=`, 44, val})
+		p.logs = append(p.logs, A.X{`depositFee`, p.DepositFee, val})
+		p.DepositFee = val
+		return true
+	}
+	return false
+}
+
+// SetMinimumDurationYear create mutations, should not duplicate
+func (p *PropertyUSMutator) SetMinimumDurationYear(val float64) bool { //nolint:dupl false positive
+	if val != p.MinimumDurationYear {
+		p.mutations = append(p.mutations, A.X{`=`, 45, val})
+		p.logs = append(p.logs, A.X{`minimumDurationYear`, p.MinimumDurationYear, val})
+		p.MinimumDurationYear = val
+		return true
+	}
+	return false
+}
+
+// SetOtherFees create mutations, should not duplicate
+func (p *PropertyUSMutator) SetOtherFees(val []any) bool { //nolint:dupl false positive
+	p.mutations = append(p.mutations, A.X{`=`, 46, val})
+	p.logs = append(p.logs, A.X{`otherFees`, p.OtherFees, val})
+	p.OtherFees = val
+	return true
+}
+
+// SetImageLabels create mutations, should not duplicate
+func (p *PropertyUSMutator) SetImageLabels(val []any) bool { //nolint:dupl false positive
+	p.mutations = append(p.mutations, A.X{`=`, 47, val})
+	p.logs = append(p.logs, A.X{`imageLabels`, p.ImageLabels, val})
+	p.ImageLabels = val
+	return true
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (p *PropertyUSMutator) SetAll(from rqProperty.PropertyUS, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -1942,6 +2158,38 @@ func (p *PropertyUSMutator) SetAll(from rqProperty.PropertyUS, excludeMap, force
 	}
 	if !excludeMap[`approvalState`] && (forceMap[`approvalState`] || from.ApprovalState != ``) {
 		p.ApprovalState = S.Trim(from.ApprovalState)
+		changed = true
+	}
+	if !excludeMap[`countryCode`] && (forceMap[`countryCode`] || from.CountryCode != ``) {
+		p.CountryCode = S.Trim(from.CountryCode)
+		changed = true
+	}
+	if !excludeMap[`livingroom`] && (forceMap[`livingroom`] || from.Livingroom != 0) {
+		p.Livingroom = from.Livingroom
+		changed = true
+	}
+	if !excludeMap[`altitude`] && (forceMap[`altitude`] || from.Altitude != 0) {
+		p.Altitude = from.Altitude
+		changed = true
+	}
+	if !excludeMap[`parking`] && (forceMap[`parking`] || from.Parking != 0) {
+		p.Parking = from.Parking
+		changed = true
+	}
+	if !excludeMap[`depositFee`] && (forceMap[`depositFee`] || from.DepositFee != 0) {
+		p.DepositFee = from.DepositFee
+		changed = true
+	}
+	if !excludeMap[`minimumDurationYear`] && (forceMap[`minimumDurationYear`] || from.MinimumDurationYear != 0) {
+		p.MinimumDurationYear = from.MinimumDurationYear
+		changed = true
+	}
+	if !excludeMap[`otherFees`] && (forceMap[`otherFees`] || from.OtherFees != nil) {
+		p.OtherFees = from.OtherFees
+		changed = true
+	}
+	if !excludeMap[`imageLabels`] && (forceMap[`imageLabels`] || from.ImageLabels != nil) {
+		p.ImageLabels = from.ImageLabels
 		changed = true
 	}
 	return

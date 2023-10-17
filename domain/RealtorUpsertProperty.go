@@ -104,6 +104,7 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 		return
 	}
 
+	prop.Adapter = nil
 	out.Property = &prop.Property
 
 	return
