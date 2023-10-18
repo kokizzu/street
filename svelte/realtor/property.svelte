@@ -509,7 +509,8 @@
   }
   
   // SUBMIT =====================+
-  let res_propId, submitLoading = false;
+  let res_propId = segment2 = window.location.pathname.split('/property/').pop() || '18643';
+  submitLoading = false;
   
   async function handleSubmit() {
     submitLoading = true;
@@ -521,7 +522,7 @@
         useGrowl( 'error', res.error );
         return
       }
-      res_propId = res.property.id;
+      console.log(res)
       isPropertySubmitted = true;
       submitLoading = false;
     } );

@@ -51,3 +51,20 @@ please click this link to reset your password: <br/>
 please ignore this email if you didn't request reset password link<br/>`,
 	)
 }
+
+func (m *Mailer) SendNotifUpdatePropertyEmail(email, ownedPropertyUrl string) error {
+	if conf.IsDebug() {
+		L.Print(`SendNotifAddPropertyEmail`, email, ownedPropertyUrl)
+	}
+	return m.SendMailFunc(
+		map[string]string{email: ``},
+		`Create/Update Property`,
+		`Hi `+email+`,
+
+Your property has been created or updated, click this link to see your property: 
+`+ownedPropertyUrl,
+		`Hi `+email+`, <br><br>
+Your property has been created or updated, click this link to see your property: <br/>
+<a href="`+ownedPropertyUrl+`">`+ownedPropertyUrl+`</a><br/>`,
+	)
+}
