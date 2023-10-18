@@ -3714,10 +3714,12 @@
       }
     };
   }
+  var propHistory = {/* propHistory */};
   var propItem = {/* propItem */};
   var meta = {/* propertyMeta */};
   function instance5($self, $props, $invalidate) {
     let showGrowl = false, gMsg = "", gType = "";
+    console.log("Property History = ", propHistory);
     function useGrowl(type, msg) {
       $invalidate(0, showGrowl = true);
       $invalidate(1, gMsg = msg);

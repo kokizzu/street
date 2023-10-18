@@ -4,6 +4,8 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/kokizzu/gotro/L"
+
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/zCrud"
@@ -22,15 +24,17 @@ type (
 	}
 	UserPropertyOut struct {
 		ResponseCommon
-		Property   *rqProperty.Property   `json:"property" form:"property" query:"property" long:"property" msg:"property"`
-		PropertyUS *rqProperty.PropertyUS `json:"property" form:"property" query:"property" long:"property" msg:"property"`
-		Meta       []zCrud.Field          `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
+		Property    *rqProperty.Property        `json:"property" form:"property" query:"property" long:"property" msg:"property"`
+		PropertyUS  *rqProperty.PropertyUS      `json:"property" form:"property" query:"property" long:"property" msg:"property"`
+		PropHistory *rqProperty.PropertyHistory `json:"propHistory" form:"propHistory" query:"propHistory" long:"propHistory" msg:"propHistory"`
+		Meta        []zCrud.Field               `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 	}
 )
 
 const (
-	UserPropertyAction      = `user/property`
-	ErrUserPropertyNotFound = `Property not found`
+	UserPropertyAction           = `user/property`
+	ErrUserPropertyNotFound      = `Property not found`
+	ErrUserPropHistoryIdNotFound = `user prop history id not found`
 )
 
 var (
@@ -115,7 +119,7 @@ func (d *Domain) UserProperty(in *GuestPropertyIn) (out UserPropertyOut) {
 			return
 		}
 		out.PropertyUS = r
-		out.Meta = GuestPropertiesMeta
+		out.Meta = UserPropertiesMeta
 		return
 	}
 	idUint, err := strconv.ParseUint(in.Id, 10, 64)
@@ -123,6 +127,11 @@ func (d *Domain) UserProperty(in *GuestPropertyIn) (out UserPropertyOut) {
 		out.SetError(400, ErrUserPropertyNotFound)
 		return
 	}
+
+	ph := rqProperty.NewPropertyHistory(d.PropOltp)
+	ph.Id = idUint
+	out.PropHistory = ph
+	L.Print(ph)
 	r := rqProperty.NewProperty(d.PropOltp)
 	r.Id = idUint
 	if !r.FindById() {

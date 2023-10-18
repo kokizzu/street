@@ -2,6 +2,7 @@ package presentation
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -98,7 +99,43 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if out.Error != `` {
 			L.Print(out.Error)
 			return views.RenderError(ctx, M.SX{
+				`title`: out.Error,
 				`error`: out.Error,
+			})
+		}
+		idSplit := strings.Split(X.ToS(ctx.Params(`propId`)), "US")
+		if len(idSplit) == 2 {
+			imgUrl := ""
+			if len(out.PropertyUS.Images) != 0 {
+				imgUrl = fmt.Sprintf("%s%s", w.Cfg.WebProtoDomain, out.Property.Images[0])
+			}
+			const ISO8601 = "2006-01-02T15:04:05Z07:00"
+			descr := out.PropertyUS.SizeM2 + ` m2`
+			if out.PropertyUS.Bedroom > 0 {
+				descr += `, ` + X.ToS(out.PropertyUS.Bedroom) + ` bedroom`
+			}
+			if out.PropertyUS.Bathroom > 0 {
+				descr += `, ` + X.ToS(out.PropertyUS.Bathroom) + ` bathroom`
+			}
+			if out.PropertyUS.NumberOfFloors != `0` && out.PropertyUS.NumberOfFloors != `` {
+				descr += `, ` + X.ToS(out.PropertyUS.NumberOfFloors) + ` floor`
+
+			}
+			title := `Property #` + X.ToS(out.PropertyUS.Id)
+			if out.PropertyUS.Address != `` {
+				title += ` on ` + out.PropertyUS.Address
+			} else if out.PropertyUS.FormattedAddress != `` {
+				title += ` on ` + out.PropertyUS.FormattedAddress
+			}
+			return views.RenderGuestPropertyPublic(ctx, M.SX{
+				`title`:         S.XSS(title),
+				`propItem`:      out.PropertyUS,
+				`propertyMeta`:  out.Meta,
+				`ogURL`:         fmt.Sprintf("%s/%s/%d", w.Cfg.WebProtoDomain, domain.GuestPropertyAction, out.PropertyUS.Id),
+				`ogImgURL`:      imgUrl,
+				`ogDescription`: S.XSS(descr),
+				`ogCreatedAt`:   time.Unix(out.PropertyUS.CreatedAt, 0).Format(ISO8601),
+				`ogUpdatedAt`:   time.Unix(out.PropertyUS.UpdatedAt, 0).Format(ISO8601),
 			})
 		}
 		imgUrl := ""
@@ -160,6 +197,92 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	fw.Get(`/`+domain.GuestResetPasswordAction, func(c *fiber.Ctx) error {
 		return views.RenderGuestResetPassword(c, M.SX{
 			`title`: `Reset Password`,
+		})
+	})
+
+	fw.Get(`/`+domain.UserPropertyAction+`/:propId`, func(ctx *fiber.Ctx) error {
+		in, _, _ := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		in.RequestCommon.Action = domain.UserPropertyAction
+		out := d.UserProperty(&domain.GuestPropertyIn{
+			RequestCommon: in.RequestCommon,
+			Id:            X.ToS(ctx.Params(`propId`)),
+		})
+		if out.Error != `` {
+			L.Print(out.Error)
+			return views.RenderError(ctx, M.SX{
+				`title`: out.Error,
+				`error`: out.Error,
+			})
+		}
+		idSplit := strings.Split(X.ToS(ctx.Params(`propId`)), "US")
+		if len(idSplit) == 2 {
+			imgUrl := ""
+			if len(out.PropertyUS.Images) != 0 {
+				imgUrl = fmt.Sprintf("%s%s", w.Cfg.WebProtoDomain, out.Property.Images[0])
+			}
+			const ISO8601 = "2006-01-02T15:04:05Z07:00"
+			descr := out.PropertyUS.SizeM2 + ` m2`
+			if out.PropertyUS.Bedroom > 0 {
+				descr += `, ` + X.ToS(out.PropertyUS.Bedroom) + ` bedroom`
+			}
+			if out.PropertyUS.Bathroom > 0 {
+				descr += `, ` + X.ToS(out.PropertyUS.Bathroom) + ` bathroom`
+			}
+			if out.PropertyUS.NumberOfFloors != `0` && out.PropertyUS.NumberOfFloors != `` {
+				descr += `, ` + X.ToS(out.PropertyUS.NumberOfFloors) + ` floor`
+			}
+			title := `Property #` + X.ToS(out.PropertyUS.Id)
+			if out.PropertyUS.Address != `` {
+				title += ` on ` + out.PropertyUS.Address
+			} else if out.PropertyUS.FormattedAddress != `` {
+				title += ` on ` + out.PropertyUS.FormattedAddress
+			}
+			return views.RenderGuestPropertyPublic(ctx, M.SX{
+				`title`:         S.XSS(title),
+				`propItem`:      out.PropertyUS,
+				`propertyMeta`:  out.Meta,
+				`ogURL`:         fmt.Sprintf("%s/%s/%d", w.Cfg.WebProtoDomain, domain.UserPropertyAction, out.PropertyUS.Id),
+				`ogImgURL`:      imgUrl,
+				`ogDescription`: S.XSS(descr),
+				`ogCreatedAt`:   time.Unix(out.PropertyUS.CreatedAt, 0).Format(ISO8601),
+				`ogUpdatedAt`:   time.Unix(out.PropertyUS.UpdatedAt, 0).Format(ISO8601),
+			})
+		}
+		imgUrl := ""
+		if len(out.Property.Images) != 0 {
+			imgUrl = fmt.Sprintf("%s%s", w.Cfg.WebProtoDomain, out.Property.Images[0])
+		}
+		const ISO8601 = "2006-01-02T15:04:05Z07:00"
+		descr := out.Property.SizeM2 + ` m2`
+		if out.Property.Bedroom > 0 {
+			descr += `, ` + X.ToS(out.Property.Bedroom) + ` bedroom`
+		}
+		if out.Property.Bathroom > 0 {
+			descr += `, ` + X.ToS(out.Property.Bathroom) + ` bathroom`
+		}
+		if out.Property.NumberOfFloors != `0` && out.Property.NumberOfFloors != `` {
+			descr += `, ` + X.ToS(out.Property.NumberOfFloors) + ` floor`
+
+		}
+		title := `Property #` + X.ToS(out.Property.Id)
+		if out.Property.Address != `` {
+			title += ` on ` + out.Property.Address
+		} else if out.Property.FormattedAddress != `` {
+			title += ` on ` + out.Property.FormattedAddress
+		}
+		return views.RenderGuestPropertyPublic(ctx, M.SX{
+			`title`:         S.XSS(title),
+			`propItem`:      out.Property,
+			`propertyMeta`:  out.Meta,
+			`propHistory`:   out.PropHistory,
+			`ogURL`:         fmt.Sprintf("%s/%s/%d", w.Cfg.WebProtoDomain, domain.GuestPropertyAction, out.Property.Id),
+			`ogImgURL`:      imgUrl,
+			`ogDescription`: S.XSS(descr),
+			`ogCreatedAt`:   time.Unix(out.Property.CreatedAt, 0).Format(ISO8601),
+			`ogUpdatedAt`:   time.Unix(out.Property.UpdatedAt, 0).Format(ISO8601),
 		})
 	})
 
