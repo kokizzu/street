@@ -12303,6 +12303,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           let id = "0";
           if (property.id > 0)
             id = "" + property.id;
+          if (property.countryCode === "US")
+            $invalidate(0, property.city = property.countyName, property);
           payload = {
             // new
             countryCode: property.countryCode,

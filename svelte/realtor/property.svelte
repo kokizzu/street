@@ -111,6 +111,7 @@
   $: {
     let id = '0'
     if( property.id>0 ) id = '' + property.id;
+    if(property.countryCode === 'US') property.city = property.countyName;
     payload = {
       // new
       countryCode: property.countryCode,
