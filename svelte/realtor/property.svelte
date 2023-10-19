@@ -41,11 +41,12 @@
     const defaultLat = 23.6978, defaultLng = 120.9605;
     if( Object.keys( property ).length===0 ) {
       property = {
-        country: user.country,
+        countryCode: user.countryCode,
         city: '', // new
+        countyName: '', // new
         address: '',
         district: '',
-        street1: '', // new
+        street: '', // new
         street2: '', // new
         floors: 0,
         formattedAddress: '',
@@ -64,14 +65,14 @@
         sizeM2: 0,
         purpose: 'sell',
         agencyFeePercent: 0,
-        parking: 'false', // new
+        parking: 0, // new
         depositFee: 0, // new
         minimumDurationYear: 0, // new
         otherFee: [], // new
         lastPrice: 0,
         
         images: [],
-        imageDescriptions: [], // new
+        imageLabels: [], // new
         createdAt: 1692641835,
         updatedAt: 1692641835,
         
@@ -112,17 +113,18 @@
     if( property.id>0 ) id = '' + property.id;
     payload = {
       // new
-      country: property.country,
+      countryCode: property.countryCode,
       city: property.city,
+      countyName: property.countyName,
       district: property.district,
-      street1: property.street1,
+      street: property.street,
       street2: property.street2 || '', // this means optional
       livingroom: property.livingroom,
-      parking: property.parking,
+      parking: parseFloat(property.parking),
       depositFee: property.depositFee,
       minimumDurationYear: property.minimumDurationYear,
       otherFee: property.otherFee || [],
-      imageDescriptions: property.imageDescriptions || [],
+      imageLabels: property.imageLabels || [],
       elevation: property.elevation,
       
       // old
@@ -177,7 +179,7 @@
   const LOC_ADDR = 'Address';
   const LOC_MAP = 'Put the pin on your house location by clicking the map';
   const LOC_STREETVIEW = 'Put signage on your house location';
-  let modeLocationCount = 0, countryName = 'Country', countryIso2 = user.country;
+  let modeLocationCount = 0, countryName = 'Country', countryIso2 = property.countryCode;
   const modeLocationLists = [
     {mode: LOC_ADDR},
     {mode: LOC_MAP},
@@ -330,13 +332,13 @@
   
   const handleNextLocation = {
     'LOC_ADDR': async () => {
-      property.country = countryIso2;
+      property.countryCode = countryIso2;
       if( property.city==='' || property.street1==='' || property.floors===0 ) {
         useGrowl( 'error', 'Please fill required form' );
         return;
       }
       for( let i = 0; i<countries.length; i++ ) {
-        if( countries[ i ].iso_2===property.country ) {
+        if( countries[ i ].iso_2===property.countryCode ) {
           countryName = countries[ i ].country;
           countryCurrency = countries[ i ].currency.code;
           property.lat = parseInt( countries[ i ].coordinate.lat );
@@ -363,7 +365,7 @@
   // +================| Info |=================+ //
   const INFO_FEAT = 'Feature', INFO_PRICE = 'Price';
   const m2 = 'M2', ping = 'Ping';
-  let modeInfoCount = 0, infoUnitMode = m2, houseSize = parseInt(property.sizeM2), houseSizeM2 = 0, houseSizePing = 0;
+  let modeInfoCount = 0, infoUnitMode = m2, houseSize = parseInt( property.sizeM2 ), houseSizeM2 = 0, houseSizePing = 0;
   const modeInfoLists = [
     {mode: INFO_FEAT},
     {mode: INFO_PRICE},
@@ -482,7 +484,7 @@
           const out = JSON.parse( event.target.responseText );
           if( !out.error ) {
             property.images = [...property.images, out.urlPattern]; // push house image url to array
-            property.imageDescriptions = [...property.imageDescriptions, ''];
+            property.imageLabels = [...property.imageLabels, ''];
           }
           useGrowl( 'success', 'Image uploaded' );
         } else if( ajax.status===413 ) {
@@ -505,7 +507,7 @@
   
   function removeImage( index ) {
     property.images = property.images.filter( ( _, i ) => i!==index );
-    property.imageDescriptions = property.imageDescriptions.filter( ( _, i ) => i!==index );
+    property.imageLabels = property.imageLabels.filter( ( _, i ) => i!==index );
   }
   
   // SUBMIT =====================+
@@ -617,14 +619,19 @@
 										</select>
 									</div>
 									<div class='input_box'>
-										<label for='city'>City or County <span class='asterisk'>*</span></label>
-										<input id='city' type='text' placeholder='Required' bind:value={property.city}/>
+										<label for='city_county'>City or County <span class='asterisk'>*</span></label>
+										{#if property.countryCode==='US'}
+											<input id='city_county' type='text' placeholder='Required' bind:value={property.countyName}/>
+										{/if}
+										{#if property.countryCode !== 'US'}
+											<input id='city_county' type='text' placeholder='Required' bind:value={property.city}/>
+										{/if}
 									</div>
 								</div>
 								<div class='row'>
 									<div class='input_box'>
 										<label for='street1'>Street 1 <span class='asterisk'>*</span></label>
-										<input id='street1' type='text' placeholder='Required' bind:value={property.street1}/>
+										<input id='street1' type='text' placeholder='Required' bind:value={property.street}/>
 									</div>
 									<div class='input_box'>
 										<label for='street2'>Street 2</label>
@@ -716,8 +723,8 @@
 										<div class='input_box'>
 											<label for='parking'>Parking <span class='asterisk'>*</span></label>
 											<select id='parking' name='parking' bind:value={infoObj.parking}>
-												<option value='true'>Yes</option>
-												<option value='false'>No</option>
+												<option value='1'>Yes</option>
+												<option value='0'>No</option>
 											</select>
 										</div>
 									</div>
@@ -910,8 +917,8 @@
 												<img alt='' src={img}/>
 											</div>
 											<div class='image_description'>
-												{#if property.imageDescriptions && property.imageDescriptions.length}
-													<input placeholder='Description' type='text' bind:value={property.imageDescriptions[idx]}/>
+												{#if property.imageLabels && property.imageLabels.length}
+													<input placeholder='Description' type='text' bind:value={property.imageLabels[idx]}/>
 												{:else}
 													<input placeholder='Description' type='text'/>
 												{/if}
