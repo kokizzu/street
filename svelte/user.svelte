@@ -13,7 +13,6 @@
   import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
   import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
   import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
-  // import FaSolidTrashAlt from "svelte-icons-pack/fa/FaSolidTrashAlt";
   
   let user = {/* user */};
   let segments = {/* segments */};

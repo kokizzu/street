@@ -363,7 +363,7 @@
   // +================| Info |=================+ //
   const INFO_FEAT = 'Feature', INFO_PRICE = 'Price';
   const m2 = 'M2', ping = 'Ping';
-  let modeInfoCount = 0, infoUnitMode = m2, houseSize = 0, houseSizeM2 = 0, houseSizePing = 0;
+  let modeInfoCount = 0, infoUnitMode = m2, houseSize = parseInt(property.sizeM2), houseSizeM2 = 0, houseSizePing = 0;
   const modeInfoLists = [
     {mode: INFO_FEAT},
     {mode: INFO_PRICE},
@@ -509,8 +509,8 @@
   }
   
   // SUBMIT =====================+
-  let res_propId = segment2 = window.location.pathname.split('/property/').pop() || '18643';
-  submitLoading = false;
+  let res_propId = segment2 = window.location.pathname.split( '/property/' ).pop() || '18643';
+  let submitLoading = false;
   
   async function handleSubmit() {
     submitLoading = true;
@@ -522,7 +522,7 @@
         useGrowl( 'error', res.error );
         return
       }
-      console.log(res)
+      console.log( res )
       isPropertySubmitted = true;
       submitLoading = false;
     } );

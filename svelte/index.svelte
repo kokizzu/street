@@ -6,6 +6,9 @@
   import PropertyLocation from '_components/PropertyLocation.svelte';
   import ProfileHeader from './_components/ProfileHeader.svelte';
   import Footer from './_components/Footer.svelte';
+  import Growl from './_components/Growl.svelte';
+  import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
+  import Icon from 'svelte-icons-pack/Icon.svelte';
   
   let sideMenuOpen = false;
   let randomProps = [/* randomProps */] || [];
@@ -49,6 +52,17 @@
   const USER = '';
   let mode = LOGIN;
   
+  let isSubmitted = false;
+  let showGrowl = false, gMsg = '', gType = ''; // Growl
+  function useGrowl( type, msg ) {
+    showGrowl = true;
+    gMsg = msg;
+    gType = type;
+    setTimeout( () => {
+      showGrowl = false;
+    }, 3000 );
+  }
+  
   async function onHashChange() {
     const auth = getCookie( 'auth' );
     console.log( auth, user );
@@ -70,24 +84,40 @@
     emailInput.focus();
   }
   
-  onMount(() => {
+  onMount( () => {
     onHashChange();
-    console.log("User = ", user)
+    console.log( "User = ", user )
   } )
   
   async function guestRegister() {
-    // TODO: replace all alert with growl
-    if( !email ) return alert( 'email is required' );
-    if( password.length<12 ) return alert( 'password must be at least 12 characters' );
-    if( password!==confirmPass ) return alert( 'passwords do not match' );
+    isSubmitted = true;
+    if( !email ) {
+      isSubmitted = false;
+      useGrowl( 'error', 'email is required' );
+      return
+    }
+    if( password.length<12 ) {
+      isSubmitted = false;
+      useGrowl( 'warning', 'password must be at least 12 characters' );
+      return
+    }
+    if( password!==confirmPass ) {
+      isSubmitted = false;
+      useGrowl( 'error', 'passwords do not match' );
+      return
+    }
     // TODO: send to backend
     const i = {email, password};
     await GuestRegister( i, async function( o ) {
       // TODO: codegen commonResponse (o.error, etc)
       // TODO: codegen list of possible errors
       console.log( o );
-      if( o.error ) return alert( o.error );
-      alert( 'registered successfully, a registration verification has been sent to your email' );
+      if( o.error ) {
+        isSubmitted = false;
+        useGrowl( 'error', o.error );
+      }
+      isSubmitted = false;
+      useGrowl( 'success', 'registered successfully, a registration verification has been sent to your email' );
       mode = LOGIN;
       password = '';
       await tick();
@@ -96,42 +126,81 @@
   }
   
   async function guestLogin() {
-    if( !email ) return alert( 'email is required' );
-    if( password.length<12 ) return alert( 'password must be at least 12 characters' );
+    isSubmitted = true;
+    if( !email ) {
+      isSubmitted = false;
+      useGrowl( 'error', 'email is required' );
+      return
+    }
+    if( password.length<12 ) {
+      isSubmitted = false;
+      useGrowl( 'warning', 'password must be at least 12 characters' );
+      return
+    }
     const i = {email, password};
     await GuestLogin( i, function( o ) {
       console.log( o );
-      if( o.error ) return alert( o.error );
-      user = o.user;
-      segments = o.segments;
-      onHashChange();
-      window.document.location = '/'
+      if( o.error ) {
+        isSubmitted = false;
+        useGrowl( 'error', o.error );
+        return
+      }
+      isSubmitted = false;
+      useGrowl( 'success', 'Login successfully' );
+      setTimeout( () => {
+        user = o.user;
+        segments = o.segments;
+        onHashChange();
+        window.document.location = '/';
+      }, 1500 );
     } );
   }
   
   async function guestResendVerificationEmail() {
-    if( !email ) return alert( 'email is required' );
+    isSubmitted = true;
+    if( !email ) {
+      isSubmitted = false;
+      useGrowl( 'error', 'email is required' );
+      return
+    }
     const i = {email};
     await GuestResendVerificationEmail( i, function( o ) {
       console.log( o );
-      if( o.error ) return alert( o.error );
+      if( o.error ) {
+        isSubmitted = false;
+        useGrowl( 'error', o.error );
+        return
+      }
+      isSubmitted = false;
       onHashChange();
-      alert( 'a email verification link has been sent to your email' );
+      useGrowl( 'success', 'a email verification link has been sent to your email' );
     } );
   }
   
   async function guestForgotPassword() {
-    if( !email ) return alert( 'email is required' );
+    isSubmitted = true;
+    if( !email ) {
+      isSubmitted = false;
+      useGrowl( 'error', 'email is required' );
+      return
+    }
     const i = {email};
     await GuestForgotPassword( i, function( o ) {
       console.log( o );
-      if( o.error ) return alert( o.error );
+      if( o.error ) {
+        isSubmitted = false;
+        useGrowl( 'error', o.error );
+        return
+      }
       onHashChange();
-      alert( 'a reset password link has been sent to your email' );
+      useGrowl( 'success', 'a reset password link has been sent to your email' );
     } );
   }
 </script>
 
+{#if showGrowl}
+	<Growl message={gMsg} growlType={gType}/>
+{/if}
 <svelte:window on:hashchange={onHashChange}/>
 {#if mode===USER}
 	<section class="dashboard">
@@ -181,16 +250,44 @@
 				{/if}
 				<div class="button_container">
 					{#if mode===REGISTER}
-						<button on:click={guestRegister}>Register</button>
+						<button on:click={guestRegister}>
+							{#if isSubmitted===true}
+								<Icon className="spin" color='#FFF' size={15} src={FaSolidCircleNotch}/>
+							{/if}
+							{#if isSubmitted===false}
+								<span>Register</span>
+							{/if}
+						</button>
 					{/if}
 					{#if mode===LOGIN}
-						<button on:click={guestLogin}>Login</button>
+						<button on:click={guestLogin}>
+							{#if isSubmitted===true}
+								<Icon className="spin" color='#FFF' size={15} src={FaSolidCircleNotch}/>
+							{/if}
+							{#if isSubmitted===false}
+								<span>Login</span>
+							{/if}
+						</button>
 					{/if}
 					{#if mode===RESEND_VERIFICATION_EMAIL}
-						<button on:click={guestResendVerificationEmail}>Resend Verification Email</button>
+						<button on:click={guestResendVerificationEmail}>
+							{#if isSubmitted===true}
+								<Icon className="spin" color='#FFF' size={15} src={FaSolidCircleNotch}/>
+							{/if}
+							{#if isSubmitted===false}
+								<span>Resend Verification Email</span>
+							{/if}
+						</button>
 					{/if}
 					{#if mode===FORGOT_PASSWORD}
-						<button on:click={guestForgotPassword}>Request Reset Password Link</button>
+						<button on:click={guestForgotPassword}>
+							{#if isSubmitted===true}
+								<Icon className="spin" color='#FFF' size={15} src={FaSolidCircleNotch}/>
+							{/if}
+							{#if isSubmitted===false}
+								<span>Request Reset Password Link</span>
+							{/if}
+						</button>
 					{/if}
 				</div>
 				<!-- Oauth Buttons -->
@@ -232,6 +329,19 @@
 {/if}
 
 <style>
+    @keyframes spin { /* TODO: use it for loading */
+        from {
+            transform : rotate(0deg);
+        }
+        to {
+            transform : rotate(360deg);
+        }
+    }
+
+    :global(.spin) {
+        animation : spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
     .auth_section {
         height           : 100%;
         width            : 100%;
