@@ -1,6 +1,8 @@
 package rqProperty
 
 import (
+	"fmt"
+
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
@@ -261,6 +263,23 @@ WHERE ` + rq.SqlPropertyKey() + ` = ` + S.Z(key)
 	return
 }
 
+func ConvertTxTime(input string) string {
+
+	// In case if format time is different, return the original time
+	if len(input) != 7 {
+		return input
+	}
+
+	year := input[:3]
+	month := input[3:5]
+	day := input[5:7]
+
+	// Construct the date string in YYY/MM/DD format
+	standardChineseTime := fmt.Sprintf("%s/%s/%s", year, month, day)
+
+	return standardChineseTime
+}
+
 func (rq *PropertyHistory) FindBySerialNumber(key string) (res []*PropertyHistory) {
 	const comment = `-- PropertyHistory) FindBySerialNumber`
 
@@ -276,6 +295,7 @@ WHERE ` + rq.SqlSerialNumber() + `=` + S.Z(key) + `
 	rq.Adapter.QuerySql(query, func(row []any) {
 		obj := &PropertyHistory{}
 		obj.FromArray(row)
+		obj.TransactionTime = ConvertTxTime(obj.TransactionTime)
 		res = append(res, obj)
 	})
 	return
