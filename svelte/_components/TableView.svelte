@@ -93,8 +93,6 @@
   $: allowPrevPage = pager.page>1;
   $: allowNextPage = pager.page<pager.pages;
   
-  // TODO: use it later
-  let propertyVersion = 'user';
 </script>
 
 <section>
@@ -109,31 +107,6 @@
 				<Icon color='#FFF' size={11} src={FaSolidSyncAlt}/>
 				<span>Refresh</span>
 			</button>
-		</div>
-		
-		<div class="right">
-			<div class='property_version'>
-				<label class={propertyVersion === 'user' ? 'option clicked': 'option'} for='user'>
-					<input
-						id='user'
-						name='rent_or_sell'
-						on:click={() => (propertyVersion = 'user')}
-						type='radio'
-						value='user'
-					/>
-					User
-				</label>
-				<label class={propertyVersion === 'guest' ? 'option clicked': 'option'} for='guest'>
-					<input
-						id='guest'
-						name='rent_or_sell'
-						on:click={() => (propertyVersion = 'guest')}
-						type='radio'
-						value='guest'
-					/>
-					Guest
-				</label>
-			</div>
 		</div>
 	</div>
 	<div class='table_container'>
@@ -277,45 +250,6 @@ multiple filter from other fields will do AND operation'
 
     .action_btn:hover {
         background-color : #7E80F1;
-    }
-
-    .action_options_container .right .property_version {
-        width                 : fit-content;
-        display               : grid;
-        grid-template-columns : 1fr 1fr;
-        border-collapse       : collapse;
-    }
-
-    .action_options_container .right .property_version .option {
-        margin           : 0;
-        padding          : 6px 17px;
-        border           : 1px solid #CBD5E1;
-        background-color : #F1F5F9;
-        font-size        : 13px;
-        font-weight      : 600;
-        text-align       : center;
-        cursor           : pointer;
-    }
-
-    .action_options_container .right .property_version .option:nth-child(1) {
-        border-top-left-radius    : 8px;
-        border-bottom-left-radius : 8px;
-    }
-
-    .action_options_container .right .property_version .option:nth-child(2) {
-        border-top-right-radius    : 8px;
-        border-bottom-right-radius : 8px;
-    }
-
-    .action_options_container .right .property_version .option:hover {
-        border : 1px solid #F97316;
-        color  : #F97316;
-    }
-
-    .action_options_container .right .property_version .option.clicked {
-        background-color : #F97316;
-        color            : white;
-        border           : none;
     }
 
     .action_options_container .right .property_version .option input[type='radio'] {
