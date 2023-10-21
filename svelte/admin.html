@@ -102,6 +102,26 @@
         color: #FFF !important;
         border: none !important;
     }
+    .action_btn {
+        padding          : 7px 20px;
+        font-size        : 13px;
+        font-weight      : 600;
+        display          : inline-flex;
+        flex-direction   : row;
+        align-items      : center;
+        align-content    : center;
+        justify-content  : center;
+        border           : 1px solid #6366F1;
+        background-color : #6366F1;
+        border-radius    : 8px;
+        color            : white;
+        cursor           : pointer;
+        gap              : 8px;
+    }
+    
+    .action_btn:hover {
+        background-color : #7E80F1;
+    }
 </style>
 
 
@@ -453,9 +473,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return value;
   };
 
-  // node_modules/axios/dist/browser/axios.cjs
+  // node_modules/.pnpm/axios@1.4.0/node_modules/axios/dist/browser/axios.cjs
   var require_axios = __commonJS({
-    "node_modules/axios/dist/browser/axios.cjs"(exports, module) {
+    "node_modules/.pnpm/axios@1.4.0/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
       "use strict";
       function bind(fn, thisArg) {
         return function wrap() {
@@ -2590,7 +2610,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   });
 
-  // node_modules/svelte/src/runtime/internal/utils.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
   function assign(tar, src) {
@@ -2633,13 +2653,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     component.$.on_destroy.push(subscribe(store, callback2));
   }
 
-  // node_modules/svelte/src/runtime/internal/globals.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
     // @ts-ignore Node typings have this
     global
   );
 
-  // node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
   var ResizeObserverSingleton = class {
     /**
      * @private
@@ -2685,7 +2705,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
 
-  // node_modules/svelte/src/runtime/internal/dom.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/dom.js
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -2785,7 +2805,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return result;
   }
 
-  // node_modules/svelte/src/runtime/internal/lifecycle.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/lifecycle.js
   var current_component;
   function set_current_component(component) {
     current_component = component;
@@ -2799,7 +2819,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     get_current_component().$.on_mount.push(fn);
   }
 
-  // node_modules/svelte/src/runtime/internal/scheduler.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -2874,7 +2894,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     render_callbacks = filtered;
   }
 
-  // node_modules/svelte/src/runtime/internal/transitions.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   var outros;
   function group_outros() {
@@ -2916,12 +2936,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   }
 
-  // node_modules/svelte/src/runtime/internal/each.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/each.js
   function ensure_array_like(array_like_or_iterator) {
     return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
 
-  // node_modules/svelte/src/runtime/internal/spread.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/spread.js
   function get_spread_update(levels, updates) {
     const update2 = {};
     const to_null_out = {};
@@ -2955,7 +2975,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return update2;
   }
 
-  // node_modules/svelte/src/shared/boolean_attributes.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/shared/boolean_attributes.js
   var _boolean_attributes = (
     /** @type {const} */
     [
@@ -2988,7 +3008,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
-  // node_modules/svelte/src/runtime/internal/Component.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/Component.js
   function create_component(block) {
     block && block.c();
   }
@@ -3307,14 +3327,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   };
 
-  // node_modules/svelte/src/shared/version.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/shared/version.js
   var PUBLIC_VERSION = "4";
 
-  // node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/internal/disclose-version/index.js
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
-  // node_modules/@kurkle/color/dist/color.esm.js
+  // node_modules/.pnpm/@kurkle+color@0.3.2/node_modules/@kurkle/color/dist/color.esm.js
   function round(v) {
     return v + 0.5 | 0;
   }
@@ -3871,7 +3891,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
   };
 
-  // node_modules/chart.js/dist/chunks/helpers.segment.js
+  // node_modules/.pnpm/chart.js@4.3.2/node_modules/chart.js/dist/chunks/helpers.segment.js
   function noop2() {
   }
   var uid = (() => {
@@ -6233,7 +6253,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     return JSON.stringify(style, replacer) !== JSON.stringify(prevStyle, replacer);
   }
 
-  // node_modules/chart.js/dist/chart.js
+  // node_modules/.pnpm/chart.js@4.3.2/node_modules/chart.js/dist/chart.js
   var Animator = class {
     constructor() {
       this._request = null;
@@ -17577,14 +17597,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     scales
   ];
 
-  // node_modules/chart.js/auto/auto.js
+  // node_modules/.pnpm/chart.js@4.3.2/node_modules/chart.js/auto/auto.js
   Chart.register(...registerables);
   var auto_default = Chart;
 
   // _components/Menu.svelte
   var import_jsApi_GEN = __toESM(require_jsApi_GEN());
 
-  // node_modules/svelte/src/runtime/store/index.js
+  // node_modules/.pnpm/svelte@4.0.1/node_modules/svelte/src/runtime/store/index.js
   var subscriber_queue = [];
   function writable(value, start = noop) {
     let stop;
@@ -17803,7 +17823,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   var T = translationStore();
 
-  // node_modules/svelte-icons-pack/Icon.svelte
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment(ctx) {
     let svg;
     let svg_levels = [
@@ -17939,7 +17959,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var Icon_default = Icon;
 
-  // node_modules/svelte-icons-pack/fa/FaSolidHome.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidHome.js
   var FaSolidHome_default = {
     a: {
       viewBox: "0 0 576 512"
@@ -17947,7 +17967,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidShoppingBag.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidShoppingBag.js
   var FaSolidShoppingBag_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -17955,7 +17975,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M352 160v-32C352 57.42 294.579 0 224 0 153.42 0 96 57.42 96 128v32H0v272c0 44.183 35.817 80 80 80h288c44.183 0 80-35.817 80-80V160h-96zm-192-32c0-35.29 28.71-64 64-64s64 28.71 64 64v32H160v-32zm160 120c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zm-192 0c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidBuilding.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBuilding.js
   var FaSolidBuilding_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -17963,7 +17983,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M436 480h-20V24c0-13.255-10.745-24-24-24H56C42.745 0 32 10.745 32 24v456H12c-6.627 0-12 5.373-12 12v20h448v-20c0-6.627-5.373-12-12-12zM128 76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76zm0 96c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40zm52 148h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12zm76 160h-64v-84c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v84zm64-172c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidSlidersH.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSlidersH.js
   var FaSolidSlidersH_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -17971,7 +17991,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M496 384H160v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h80v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h336c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160h-80v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h336v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h80c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160H288V48c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16C7.2 64 0 71.2 0 80v32c0 8.8 7.2 16 16 16h208v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h208c8.8 0 16-7.2 16-16V80c0-8.8-7.2-16-16-16z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidUserCircle.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidUserCircle.js
   var FaSolidUserCircle_default = {
     a: {
       viewBox: "0 0 496 512"
@@ -17979,7 +17999,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidSignInAlt.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSignInAlt.js
   var FaSolidSignInAlt_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -17987,7 +18007,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidTimes.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidTimes.js
   var FaSolidTimes_default = {
     a: {
       viewBox: "0 0 352 512"
@@ -19047,7 +19067,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var AdminSubMenu_default = AdminSubMenu;
 
-  // node_modules/svelte-icons-pack/fa/FaSolidBars.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBars.js
   var FaSolidBars_default = {
     a: {
       viewBox: "0 0 448 512"

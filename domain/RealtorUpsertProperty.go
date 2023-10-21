@@ -3,9 +3,12 @@ package domain
 import (
 	"fmt"
 
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 	"github.com/segmentio/fasthash/fnv1a"
 
+	"street/conf"
+	"street/model/mAuth/rqAuth"
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
@@ -104,8 +107,14 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 		return
 	}
 
+	// Get user email, send message to their email
+	user := rqAuth.NewUsers(d.AuthOltp)
+	err := d.Mailer.SendNotifUpdatePropertyEmail(user.Email,
+		fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
+	)
+	L.IsError(err, `SendNotifUpdatePropertyEmail`)
+
 	prop.Adapter = nil
 	out.Property = &prop.Property
-
 	return
 }

@@ -11,10 +11,12 @@
   import FaBrandsTelegram from "svelte-icons-pack/fa/FaBrandsTelegram";
   import Property from "../../_components/Property.svelte";
   
+  let propHistories = [/* propHistories */]
   let propItem = {/* propItem */};
   let meta = {/* propertyMeta */}
   let showGrowl = false, gMsg = '', gType = '';
   
+  console.log("propHistories = ", propHistories)
   function useGrowl( type, msg ) {
     showGrowl = true;
     gMsg = msg;

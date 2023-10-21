@@ -41,9 +41,8 @@ function datetime2( unixSec ) {
   const hours = String( dt.getHours() ).padStart( 2, '0' );
   const minutes = String( dt.getMinutes() ).padStart( 2, '0' );
   const seconds = String( dt.getSeconds() ).padStart( 2, '0' );
-  
-  const formattedDate = `${day}, ${date} ${month} ${year} - ${hours}:${minutes}:${seconds}`;
-  return formattedDate;
+
+  return `${day}, ${date} ${month} ${year} - ${hours}:${minutes}:${seconds}`;
 }
 
 function formatPrice( price, currency ) {
