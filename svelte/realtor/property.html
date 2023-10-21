@@ -12086,6 +12086,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           return useGrowl("error", res.error);
         console.log(res);
         $invalidate(2, isPropertySubmitted = true);
+        $invalidate(0, property.id = (res.property || {}).id + "", property);
       });
     }
     const click_handler = () => progressDotHandler(0);

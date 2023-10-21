@@ -524,6 +524,8 @@
 	    if( res.error ) return useGrowl( 'error', res.error );
       console.log( res )
       isPropertySubmitted = true;
+			// after save, should retrieve the id so it became update mode, not creating new property
+			property.id = (res.property || {}).id + ''
     } );
   }
 </script>
