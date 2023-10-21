@@ -92,7 +92,7 @@
         // priceHistoriesRent: [],
       }
       for( let i = 0; i<countries.length; i++ ) {
-        if( countries[ i ].iso_2===property.country ) {
+        if( countries[ i ].iso_2===property.countryCode ) {
           countryCurrency = countries[ i ].currency.code;
           console.log( 'Country currency =', countryCurrency );
         }
@@ -105,6 +105,12 @@
       property.agencyFeePercent = +property.agencyFeePercent;
       property.floorList = property.floorList || [];
       property.images = property.images || [];
+      for( let i = 0; i<countries.length; i++ ) {
+        if( countries[ i ].iso_2===property.countryCode ) {
+          countryCurrency = countries[ i ].currency.code;
+          console.log( 'Country currency =', countryCurrency );
+        }
+      }
     }
   } );
   

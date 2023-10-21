@@ -1,26 +1,9 @@
 <html><head>
 	<title>/*! title */</title>
-	<meta content="#{ogURL}" property="og:url">
 	<meta content="HapSTR" property="og:site_name">
 	<meta content="#{title}" property="og:title">
-	<meta content="#{ogDescription}" property="og:description">
 	<meta content="tw_TW" property="og:locale">
 	<meta content="en_EN" property="og:locale:alternate">
-	<meta content="website" property="og:type">
-	<meta content="#{ogImgURL}" property="og:image">
-	<meta content="#{ogImgURL}" property="og:image:secure_url">
-	<meta content="1200" property="og:image:width">
-	<meta content="630" property="og:image:height">
-	<meta content="Property Image" property="og:image:alt">
-	<meta content="#{ogCreatedAt}" property="article:published_time">
-	<meta content="#{ogUpdatedAt}" property="article:modified_time">
-	<meta content="#{ogUpdatedAt}" property="article:updated_time">
-	<meta content="summary" name="twitter:card">
-	<meta content="I found an awesome property" name="twitter:title">
-	<meta content="#{ogDescription}" name="twitter:description">
-	<meta content="#{ogImgURL}" name="twitter:image">
-	<!--	<meta name="twitter:site" content="@xd"/>-->
-	<!--	<meta name="twitter:creator" content="@xd"/>-->
 </head>
 <body>
 <style>
@@ -382,8 +365,8 @@
   font-weight: 600;
 }
 
-/* fakecss:./guest/property/public.esbuild-svelte-fake-css */
-.property_container.svelte-vm9pc0.svelte-vm9pc0 {
+/* fakecss:./user/property/index.esbuild-svelte-fake-css */
+.property_container.svelte-17zv4w0.svelte-17zv4w0 {
   width: 100%;
   margin: 30px auto 50px auto;
   color: #475569;
@@ -392,18 +375,18 @@
   justify-content: center;
   gap: 30px;
 }
-.property.svelte-vm9pc0.svelte-vm9pc0 {
+.property.svelte-17zv4w0.svelte-17zv4w0 {
   width: 60%;
 }
-.side_attribute.svelte-vm9pc0.svelte-vm9pc0 {
+.side_attribute.svelte-17zv4w0.svelte-17zv4w0 {
   width: 250px;
   height: fit-content;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.side_attribute.svelte-vm9pc0 .login_container.svelte-vm9pc0,
-.side_attribute.svelte-vm9pc0 .share_container.svelte-vm9pc0 {
+.side_attribute.svelte-17zv4w0 .login_container.svelte-17zv4w0,
+.side_attribute.svelte-17zv4w0 .share_container.svelte-17zv4w0 {
   text-align: center;
   height: fit-content;
   background-color: #F0F0F0;
@@ -413,11 +396,11 @@
   flex-direction: column;
   gap: 10px;
 }
-.side_attribute.svelte-vm9pc0 .login_container h3.svelte-vm9pc0 {
+.side_attribute.svelte-17zv4w0 .login_container h3.svelte-17zv4w0 {
   margin: 0 0 10px 0;
   font-size: 24px;
 }
-.side_attribute.svelte-vm9pc0 .login_container .login_btn.svelte-vm9pc0 {
+.side_attribute.svelte-17zv4w0 .login_container .login_btn.svelte-17zv4w0 {
   background-color: #6366F1;
   width: 100%;
   height: fit-content;
@@ -433,10 +416,10 @@
   align-items: center;
   text-decoration: none;
 }
-.side_attribute.svelte-vm9pc0 .login_container .login_btn.svelte-vm9pc0:hover {
+.side_attribute.svelte-17zv4w0 .login_container .login_btn.svelte-17zv4w0:hover {
   background-color: #7E80F1;
 }
-.side_attribute.svelte-vm9pc0 .share_container header.svelte-vm9pc0 {
+.side_attribute.svelte-17zv4w0 .share_container header.svelte-17zv4w0 {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -444,7 +427,7 @@
   align-items: center;
   font-size: 15px;
 }
-.side_attribute.svelte-vm9pc0 .share_container .share_options.svelte-vm9pc0 {
+.side_attribute.svelte-17zv4w0 .share_container .share_options.svelte-17zv4w0 {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(0, 1fr));
@@ -454,7 +437,7 @@
   align-content: center;
   row-gap: 12px;
 }
-.side_attribute.svelte-vm9pc0 .share_container .share_options .share_item.svelte-vm9pc0 {
+.side_attribute.svelte-17zv4w0 .share_container .share_options .share_item.svelte-17zv4w0 {
   border: none;
   background: none;
   cursor: pointer;
@@ -740,6 +723,14 @@
   var current_component;
   function set_current_component(component) {
     current_component = component;
+  }
+  function get_current_component() {
+    if (!current_component)
+      throw new Error("Function called outside component initialization");
+    return current_component;
+  }
+  function onMount(fn) {
+    get_current_component().$.on_mount.push(fn);
   }
 
   // node_modules/svelte/src/runtime/internal/scheduler.js
@@ -3507,18 +3498,18 @@
     };
   }
   function instance4($self, $props, $invalidate) {
-    let { propHistories } = $props;
+    let { propHistories: propHistories2 } = $props;
     let { propItem: propItem2 } = $props;
     let { meta: meta2 } = $props;
     $self.$set = ($props2) => {
       if ("propHistories" in $props2)
-        $invalidate(0, propHistories = $props2.propHistories);
+        $invalidate(0, propHistories2 = $props2.propHistories);
       if ("propItem" in $props2)
         $invalidate(1, propItem2 = $props2.propItem);
       if ("meta" in $props2)
         $invalidate(2, meta2 = $props2.meta);
     };
-    return [propHistories, propItem2, meta2];
+    return [propHistories2, propItem2, meta2];
   }
   var Property = class extends SvelteComponent {
     constructor(options) {
@@ -3528,7 +3519,7 @@
   };
   var Property_default = Property;
 
-  // guest/property/public.svelte
+  // user/property/index.svelte
   function create_if_block3(ctx) {
     let growl;
     let current;
@@ -3630,7 +3621,7 @@
       /*showGrowl*/
       ctx[0] && create_if_block3(ctx)
     );
-    property = new Property_default({ props: { propItem, meta } });
+    property = new Property_default({ props: { propItem, meta, propHistories } });
     icon0 = new Icon_default({
       props: {
         color: "#FFF",
@@ -3706,7 +3697,7 @@
         div5 = element("div");
         div2 = element("div");
         div1 = element("div");
-        div1.innerHTML = `<h3 class="svelte-vm9pc0">Login to</h3> <h3 class="svelte-vm9pc0">HapSTR</h3>`;
+        div1.innerHTML = `<h3 class="svelte-17zv4w0">Login to</h3> <h3 class="svelte-17zv4w0">HapSTR</h3>`;
         t5 = space();
         a0 = element("a");
         span0 = element("span");
@@ -3739,42 +3730,47 @@
         t16 = space();
         a5 = element("a");
         create_component(icon7.$.fragment);
-        attr(div0, "class", "property svelte-vm9pc0");
-        attr(a0, "class", "login_btn svelte-vm9pc0");
+        attr(div0, "class", "property svelte-17zv4w0");
+        attr(a0, "class", "login_btn svelte-17zv4w0");
         attr(a0, "href", "/");
-        attr(div2, "class", "login_container svelte-vm9pc0");
-        attr(header, "class", "svelte-vm9pc0");
-        attr(button, "class", "share_item svelte-vm9pc0");
+        attr(div2, "class", "login_container svelte-17zv4w0");
+        attr(header, "class", "svelte-17zv4w0");
+        attr(button, "class", "share_item svelte-17zv4w0");
         attr(button, "title", "Copy link address");
         attr(a1, "aria-label", "Share to Facebook");
-        attr(a1, "class", "share_item svelte-vm9pc0");
-        attr(a1, "href", a1_href_value = "https://www.facebook.com/sharer/sharer.php?u=" + window.location + "?utm_source=facebook&utm_medium=social&utm_campaign=user-share");
+        attr(a1, "class", "share_item svelte-17zv4w0");
+        attr(a1, "href", a1_href_value = "https://www.facebook.com/sharer/sharer.php?u=" + /*toBeUrl*/
+        ctx[3] + "?utm_source=facebook&utm_medium=social&utm_campaign=user-share");
         attr(a1, "rel", "noopener");
         attr(a1, "target", "_blank");
         attr(a2, "aria-label", "Share to LinkedIn");
-        attr(a2, "class", "share_item svelte-vm9pc0");
-        attr(a2, "href", a2_href_value = "https://www.linkedin.com/shareArticle?mini=true&url=" + window.location + "&title=I%20Found%20Awesome%House%20" + window.location);
+        attr(a2, "class", "share_item svelte-17zv4w0");
+        attr(a2, "href", a2_href_value = "https://www.linkedin.com/shareArticle?mini=true&url=" + /*toBeUrl*/
+        ctx[3] + "&title=I%20Found%20Awesome%House%20" + window.location);
         attr(a2, "rel", "noopener");
         attr(a2, "target", "_blank");
         attr(a3, "aria-label", "Share to Twitter");
-        attr(a3, "class", "share_item svelte-vm9pc0");
-        attr(a3, "href", a3_href_value = "https://twitter.com/intent/tweet?url=" + window.location);
+        attr(a3, "class", "share_item svelte-17zv4w0");
+        attr(a3, "href", a3_href_value = "https://twitter.com/intent/tweet?url=" + /*toBeUrl*/
+        ctx[3]);
         attr(a3, "rel", "noopener");
         attr(a3, "target", "_blank");
         attr(a4, "aria-label", "Share to Telegram");
-        attr(a4, "class", "share_item svelte-vm9pc0");
-        attr(a4, "href", a4_href_value = "https://t.me/share/url?url=" + window.location);
+        attr(a4, "class", "share_item svelte-17zv4w0");
+        attr(a4, "href", a4_href_value = "https://t.me/share/url?url=" + /*toBeUrl*/
+        ctx[3]);
         attr(a4, "rel", "noopener");
         attr(a4, "target", "_blank");
         attr(a5, "aria-label", "Share to WhatsApp");
-        attr(a5, "class", "share_item svelte-vm9pc0");
-        attr(a5, "href", a5_href_value = "https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House%20" + window.location);
+        attr(a5, "class", "share_item svelte-17zv4w0");
+        attr(a5, "href", a5_href_value = "https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House%20" + /*toBeUrl*/
+        ctx[3]);
         attr(a5, "rel", "noopener");
         attr(a5, "target", "_blank");
-        attr(div3, "class", "share_options svelte-vm9pc0");
-        attr(div4, "class", "share_container svelte-vm9pc0");
-        attr(div5, "class", "side_attribute svelte-vm9pc0");
-        attr(section, "class", "property_container svelte-vm9pc0");
+        attr(div3, "class", "share_options svelte-17zv4w0");
+        attr(div4, "class", "share_container svelte-17zv4w0");
+        attr(div5, "class", "side_attribute svelte-17zv4w0");
+        attr(section, "class", "property_container svelte-17zv4w0");
       },
       m(target, anchor) {
         if (if_block)
@@ -3823,7 +3819,7 @@
             button,
             "click",
             /*click_handler*/
-            ctx[4]
+            ctx[5]
           );
           mounted = true;
         }
@@ -3902,10 +3898,14 @@
       }
     };
   }
+  var propHistories = [/* propHistories */];
   var propItem = {/* propItem */};
   var meta = {/* propertyMeta */};
   function instance5($self, $props, $invalidate) {
     let showGrowl = false, gMsg = "", gType = "";
+    onMount(() => {
+      console.log("propHistories = ", propHistories);
+    });
     function useGrowl(type, msg) {
       $invalidate(0, showGrowl = true);
       $invalidate(1, gMsg = msg);
@@ -3917,24 +3917,25 @@
         2e3
       );
     }
+    let url = window.location.pathname.split("user/");
+    let toBeUrl = window.location.host + "/guest/" + url[1];
     function copyToClipboard(text2) {
-      console.log(window.location);
       navigator.clipboard.writeText(text2);
       useGrowl("success", "Link copied to clipboard");
     }
-    const click_handler = () => copyToClipboard(window.location);
-    return [showGrowl, gMsg, gType, copyToClipboard, click_handler];
+    const click_handler = () => copyToClipboard(toBeUrl);
+    return [showGrowl, gMsg, gType, toBeUrl, copyToClipboard, click_handler];
   }
-  var Public = class extends SvelteComponent {
+  var Property_1 = class extends SvelteComponent {
     constructor(options) {
       super();
       init(this, options, instance5, create_fragment5, safe_not_equal, {});
     }
   };
-  var public_default = Public;
+  var property_default = Property_1;
 
-  // guest/property/public.svelte.ts
-  var app = new public_default({ target: document.getElementById("app") });
+  // user/property/index.svelte.ts
+  var app = new property_default({ target: document.getElementById("app") });
 })();
 </script>
 </body></html>

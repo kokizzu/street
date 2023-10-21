@@ -6,6 +6,7 @@
   import FaSolidMapMarkerAlt from "svelte-icons-pack/fa/FaSolidMapMarkerAlt";
   import PillBox from "./PillBox.svelte";
   
+  export let propHistories;
   export let propItem;
   export let meta;
 </script>
@@ -30,7 +31,7 @@
 					</div>
 					<div class='house_type'>
 						<Icon color='#FFF' size={16} src={FaSolidHome}/>
-						<span>{propItem.houseType === '' ? 'House' : propItem.houseType}</span>
+						<span>{propItem.houseType==='' ? 'House' : propItem.houseType}</span>
 					</div>
 				</div>
 			</div>
@@ -39,7 +40,7 @@
 				<p>Agency Fee : {propItem.agencyFeePercent}%</p>
 				<div class='address'>
 					<Icon className='icon_address' color='#f97316' size={18} src={FaSolidMapMarkerAlt}/>
-					<span>{propItem.formattedAddress === '' ? propItem.address : propItem.formattedAddress}</span>
+					<span>{propItem.formattedAddress==='' ? propItem.address : propItem.formattedAddress}</span>
 				</div>
 			</div>
 		</div>
@@ -75,9 +76,9 @@
 			{/if}
 		{/each}
 	</div>
-	<div class='property_floors'>
-		<h3>Floors</h3>
-		{#if propItem.floorList && propItem.floorList.length}
+	{#if propItem.floorList && propItem.floorList.length}
+		<div class='property_floors'>
+			<h3>Floors</h3>
 			<div class='floor_lists'>
 				{#each propItem.floorList as floors}
 					<div class='floor_item'>
@@ -110,12 +111,25 @@
 					</div>
 				{/each}
 			</div>
-		{:else}
-			<div class='no_floors'>
-				<p>No Floors</p>
+		</div>
+	{:else}
+		<div class='no_floors'>
+			<p>No Floors</p>
+		</div>
+	{/if}
+	{#if propHistories && propHistories.length}
+		<div class="property_history">
+			<h3>Price History</h3>
+			<div class="history_list">
+				{#each propHistories as ph}
+					<div class="item">
+						<span>{formatPrice( ph.price || ph.priceNtd, 'TWD' )}</span>
+						<span>{localeDatetime( ph.updatedAt )}</span>
+					</div>
+				{/each}
 			</div>
-		{/if}
-	</div>
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -128,6 +142,12 @@
         flex-direction   : column;
         gap              : 20px;
         position         : relative;
+    }
+
+    .property h3 {
+        font-size  : 22px;
+        margin     : 0 0 15px 0;
+        text-align : center;
     }
 
     .property_main {
@@ -351,7 +371,22 @@
         align-items     : center;
     }
 
-    .property_floors .floor_lists .floor_item .floor_plan_image span p {
-        margin : 0;
+    .property_history .history_list {
+        padding          : 15px;
+        background-color : rgb(0 0 0 / 0.06);
+        border-radius    : 8px;
+        display          : flex;
+        flex-direction   : column;
+        min-height       : 200px;
+    }
+
+    .property_history .history_list .item {
+        display         : flex;
+        flex-direction  : row;
+        justify-content : space-between;
+        padding         : 10px 0;
+        border-bottom   : 1px solid #CBD5E1;
+        font-size       : 15px;
+        font-weight     : 600;
     }
 </style>
