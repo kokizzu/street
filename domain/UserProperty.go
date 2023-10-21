@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"github.com/kokizzu/gotro/S"
+
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/zCrud"
@@ -13,26 +15,26 @@ import (
 //go:generate farify doublequote --file GuestProperty.go
 
 type (
-	GuestPropertyIn struct {
+	UserPropertyIn struct {
 		RequestCommon
 		Id          uint64 `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
-		CountryCode string `json:"countryCode" form:"countryCode" query:"countryCode" long:"countryCode" msg:"countryCode"`
+		CountryCode string
 	}
-	GuestPropertyOut struct {
+	UserPropertyOut struct {
 		ResponseCommon
-		Property *rqProperty.Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
-		Meta     []zCrud.Field        `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
+		Property      *rqProperty.Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
+		PropHistories []*rqProperty.PropertyHistory
+		Meta          []zCrud.Field `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 	}
 )
 
 const (
-	GuestPropertyAction             = `guest/property`
-	ErrGuestPropertyNotFound        = `property not found`
-	ErrGuestPropertyCountryNotFound = `property country not found`
+	UserPropertyAction      = `user/property`
+	ErrUserPropertyNotFound = `user property not found`
 )
 
 var (
-	GuestPropertiesMeta = []zCrud.Field{
+	UserPropertiesMeta = []zCrud.Field{
 		{
 			Name:      mProperty.MainUse,
 			Label:     `Main Use / Facility`,
@@ -96,29 +98,35 @@ var (
 	}
 )
 
-func (d *Domain) GuestProperty(in *GuestPropertyIn) (out GuestPropertyOut) {
+func (d *Domain) UserProperty(in *UserPropertyIn) (out UserPropertyOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
-	if in.CountryCode == `US` { // for now there's only US
+	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
+	if sess == nil {
+		return
+	}
+
+	if in.CountryCode == `US` { // for now
 		r := rqProperty.NewPropertyUS(d.PropOltp)
-		r.Id = in.Id
-		if !r.FindById() {
-			out.SetError(400, ErrGuestPropertyCountryNotFound)
-			return
-		}
 		out.Property = r.ToProperty()
-		out.Meta = GuestPropertiesMeta
+		out.Meta = UserPropertiesMeta
 		return
 	}
 
 	r := rqProperty.NewProperty(d.PropOltp)
 	r.Id = in.Id
 	if !r.FindById() {
-		out.SetError(400, ErrGuestPropertyNotFound)
+		out.SetError(400, ErrUserPropertyNotFound)
 		return
 	}
 	r.NormalizeFloorList()
 	out.Property = r
-	out.Meta = GuestPropertiesMeta
+	out.Meta = UserPropertiesMeta
+
+	ph := rqProperty.NewPropertyHistory(d.PropOltp)
+	serialNumber := S.LeftOf(r.UniqPropKey, `#`)
+	hist := ph.FindBySerialNumber(serialNumber)
+	out.PropHistories = hist
+
 	return
 }

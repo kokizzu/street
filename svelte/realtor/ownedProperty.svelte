@@ -4,17 +4,36 @@
   import ProfileHeader from '../_components/ProfileHeader.svelte';
   import Footer from '../_components/Footer.svelte';
   import Property from '../_components/Property.svelte'
+  import {onMount} from "svelte";
   
   let propItem = {/* property */};
   let meta = {/* propertyMeta */}
   let user = {/* user */};
   let segments = {/* segments */};
   
-  // TODO: render this object from server
-  let approvalState = {
-    status: 'waiting',
-    description: 'Waiting for review 🔍',
-    reason: 'We are reviewing your property. It will takes 1-3 days.'
+  let approvalStatus = 'approved';
+  onMount(() => {
+    console.log('Property = ', propItem)
+	  if (propItem.approvalState !== 'pending' && propItem.approvalState !== '') {
+      approvalStatus = 'rejected';
+	  }
+    if (propItem.approvalState === 'pending') {
+      approvalStatus = 'pending'
+    }
+  })
+  let approvalStates = {
+    'pending': {
+      description: 'Waiting for review 🔍',
+      reason: 'We are reviewing your property. It will takes 1-3 days.'
+    },
+    'rejected': {
+      description: 'Sorry, your property information has been rejected 😢',
+      reason: propItem.approvalState
+    },
+    'approved': {
+      description: 'Congratulations, your property has been successfully listed on the App. 😄',
+      reason: ''
+    },
   }
 </script>
 
@@ -27,11 +46,11 @@
 		<div class='content'>
 			<div class="property_container">
 				<div class="property_status">
-					<div class={`status ${approvalState.status}`}>
-						<p>{approvalState.description}</p>
+					<div class={`status ${approvalStatus}`}>
+						<p>{approvalStates[approvalStatus].description}</p>
 					</div>
 					<div class="reason">
-						<p>{approvalState.reason}</p>
+						<p>{approvalStates[approvalStatus].reason}</p>
 					</div>
 				</div>
 				<div class='property'>
@@ -63,7 +82,7 @@
         padding          : 20px;
         border-radius    : 8px;
         background-color : #F0F0F0;
-        border        : 1px solid #D9DDE3;
+        border           : 1px solid #D9DDE3;
         filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
     }
 
@@ -80,8 +99,18 @@
         margin : 0;
     }
 
-    .property_status .status.waiting {
+    .property_status .status.pending {
         background-color : rgba(255, 208, 118, 1);
+    }
+
+    .property_status .status.rejected {
+        background-color : rgba(255, 126, 118, 1);
+		    color: #FFF;
+    }
+
+    .property_status .status.approved {
+        background-color : rgba(140, 216, 107, 1);
+        color: #FFF;
     }
 
     .property {

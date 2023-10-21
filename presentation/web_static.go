@@ -6,6 +6,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/utils"
+	"github.com/kokizzu/gotro/C"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
@@ -91,13 +92,16 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	fw.Get(`/`+domain.GuestPropertyAction+`/:propId`, func(ctx *fiber.Ctx) error {
 		in, _, _ := userInfoFromContext(ctx, d)
 		in.RequestCommon.Action = domain.GuestPropertyAction
+		countryCode, propId := splitCountryPropId(ctx.Params(`propId`))
 		out := d.GuestProperty(&domain.GuestPropertyIn{
 			RequestCommon: in.RequestCommon,
-			Id:            X.ToU(ctx.Params(`propId`)),
+			Id:            propId,
+			CountryCode:   countryCode,
 		})
 		if out.Error != `` {
 			L.Print(out.Error)
 			return views.RenderError(ctx, M.SX{
+				`title`: out.Error,
 				`error`: out.Error,
 			})
 		}
@@ -123,11 +127,12 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		} else if out.Property.FormattedAddress != `` {
 			title += ` on ` + out.Property.FormattedAddress
 		}
+		ogUrl := fmt.Sprintf("%s/%s/%s%d", w.Cfg.WebProtoDomain, domain.GuestPropertyAction, countryCode, out.Property.Id)
 		return views.RenderGuestPropertyPublic(ctx, M.SX{
 			`title`:         S.XSS(title),
 			`propItem`:      out.Property,
 			`propertyMeta`:  out.Meta,
-			`ogURL`:         fmt.Sprintf("%s/%s/%d", w.Cfg.WebProtoDomain, domain.GuestPropertyAction, out.Property.Id),
+			`ogURL`:         ogUrl,
 			`ogImgURL`:      imgUrl,
 			`ogDescription`: S.XSS(descr),
 			`ogCreatedAt`:   time.Unix(out.Property.CreatedAt, 0).Format(ISO8601),
@@ -160,6 +165,50 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	fw.Get(`/`+domain.GuestResetPasswordAction, func(c *fiber.Ctx) error {
 		return views.RenderGuestResetPassword(c, M.SX{
 			`title`: `Reset Password`,
+		})
+	})
+
+	fw.Get(`/`+domain.UserPropertyAction+`/:propId`, func(ctx *fiber.Ctx) error {
+		in, _, _ := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		in.RequestCommon.Action = domain.UserPropertyAction
+		countryCode, propId := splitCountryPropId(ctx.Params(`propId`))
+		out := d.UserProperty(&domain.UserPropertyIn{
+			RequestCommon: in.RequestCommon,
+			Id:            propId,
+			CountryCode:   countryCode,
+		})
+		if out.Error != `` {
+			L.Print(out.Error)
+			return views.RenderError(ctx, M.SX{
+				`title`: out.Error,
+				`error`: out.Error,
+			})
+		}
+		descr := out.Property.SizeM2 + ` m2`
+		if out.Property.Bedroom > 0 {
+			descr += `, ` + X.ToS(out.Property.Bedroom) + ` bedroom`
+		}
+		if out.Property.Bathroom > 0 {
+			descr += `, ` + X.ToS(out.Property.Bathroom) + ` bathroom`
+		}
+		if out.Property.NumberOfFloors != `0` && out.Property.NumberOfFloors != `` {
+			descr += `, ` + X.ToS(out.Property.NumberOfFloors) + ` floor`
+
+		}
+		title := `Property #` + X.ToS(out.Property.Id)
+		if out.Property.Address != `` {
+			title += ` on ` + out.Property.Address
+		} else if out.Property.FormattedAddress != `` {
+			title += ` on ` + out.Property.FormattedAddress
+		}
+		return views.RenderUserPropertyIndex(ctx, M.SX{ // TODO: habibi change to RenderUserProperty (create own view, do not share view)
+			`title`:         S.XSS(title),
+			`propItem`:      out.Property,
+			`propertyMeta`:  out.Meta,
+			`propHistories`: out.PropHistories,
 		})
 	})
 
@@ -251,9 +300,10 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
+		propId := S.ToU(ctx.Params(`propId`))
 		out := d.GuestProperty(&domain.GuestPropertyIn{
 			RequestCommon: in.RequestCommon,
-			Id:            X.ToU(ctx.Params(`propId`)),
+			Id:            propId,
 		})
 		if out.Error != `` {
 			L.Print(out.Error)
@@ -475,6 +525,14 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	fw.Get(`/debug`, func(ctx *fiber.Ctx) error {
 		return views.RenderDebug(ctx, M.SX{})
 	})
+}
+
+func splitCountryPropId(param string) (string, uint64) {
+	// starts with 2 letter country code
+	if len(param) > 2 && C.IsAlpha(param[0]) && C.IsAlpha(param[1]) {
+		return S.ToUpper(param[:2]), S.ToU(param[2:])
+	}
+	return ``, S.ToU(param)
 }
 
 func notLogin(ctx *fiber.Ctx, d *domain.Domain, in domain.RequestCommon) bool {

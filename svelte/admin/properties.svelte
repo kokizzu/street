@@ -9,7 +9,7 @@
   import HiSolidEye from 'svelte-icons-pack/hi/HiSolidEye';
   import HiSolidXCircle from 'svelte-icons-pack/hi/HiSolidXCircle';
   import HiSolidCheckCircle from 'svelte-icons-pack/hi/HiSolidCheckCircle';
-  import { AdminProperties, UserPropHistory } from '../jsApi.GEN';
+  import {AdminProperties, UserPropHistory} from '../jsApi.GEN';
   
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
@@ -18,8 +18,8 @@
   
   import ModalDialog from '../_components/ModalDialog.svelte';
   import PillBox from '../_components/PillBox.svelte';
-  import { priceNtd } from '../_components/formatter.js';
-  import { fieldsArrToMap } from '../_components/mapper.js';
+  import {priceNtd} from '../_components/formatter.js';
+  import {fieldsArrToMap} from '../_components/mapper.js';
   
   let segments = {/* segments */};
   let fields = [/* fields */];
@@ -124,8 +124,8 @@
   
   let filterdByPending = false, filterdByRejected = false, filter = [];
   $: approvalStateFilter = (pager.filters || {}).approvalState || []
-  $: filterdByPending = approvalStateFilter[0] === 'pending';
-  $: filterdByRejected = approvalStateFilter[0] === '<>' && approvalStateFilter[1] === '<>pending'
+  $: filterdByPending = approvalStateFilter[ 0 ]==='pending';
+  $: filterdByRejected = approvalStateFilter[ 0 ]==='<>' && approvalStateFilter[ 1 ]==='<>pending'
   
   async function filterPendingApproval() {
     if( !pager.filters ) pager.filters = {};
@@ -141,7 +141,7 @@
   }
   
   async function filterRejectedApproval() {
-    if(!pager.filters) pager.filters = {};
+    if( !pager.filters ) pager.filters = {};
     if( filterdByRejected ) {
       delete pager.filters[ 'approvalState' ];
     } else {
@@ -180,89 +180,81 @@
 </script>
 
 <section class='dashboard'>
-  <Menu access={segments} />
-  <div class='dashboard_main_content'>
-    <ProfileHeader />
-    <AdminSubMenu></AdminSubMenu>
-    <div class='content'>
-      <ModalForm fields={fields}
-                 rowType='Property'
-                 bind:this={form}
-                 onConfirm={saveRow}
-      ></ModalForm>
-      <section class='tableview_container'>
-        <TableView fields={fields}
-                   extraActions={extraActions}
-                   bind:pager={pager}
-                   rows={properties}
-                   widths={{
-                               mainUse: '320px',
-                               address: '240px',
-                           }}
-                   onRefreshTableView={refreshTableView}
-                   onEditRow={editRow}>
-          <button on:click={addRow} class='add_button'>
-            <Icon size={18} color='#FFF' src={FaSolidPlusCircle} />
-            <span>Add</span>
-          </button>
-          <button on:click={filterPendingApproval} class='filter_pending_button' class:not_filtered={!filterdByPending}>
-            <Icon size={18} color='{!filterdByPending ? "#FFF" : "#000"}' src={FaSolidCheckDouble} />
-            <span>Filter Pending</span>
-          </button>
-          <button on:click={filterRejectedApproval} class='filter_pending_button' class:not_filtered={!filterdByRejected}>
-            <Icon size={18} color='{!filterdByRejected ? "#FFF" : "#000"}' src={FaSolidRecycle} />
-            <span>Filter Rejected</span>
-          </button>
-        </TableView>
-      </section>
-    </div>
-    <Footer></Footer>
-  </div>
-  <ModalDialog bind:this={propHistoryModal}>
-    <div slot='content'>
-      <h3>Property History</h3>
-      {#if currentPropHistory && currentPropHistory.length}
-        {#each currentPropHistory as row}
-          {#each Object.entries( row ) as [key, val]}
-            {#if val==='0' || !val}
-              &nbsp;
-            {:else if key==='createdAt' || key==='updatedAt'}
-              <PillBox label={key} content={new Date(val*1000)} />
-            {:else if key==='priceNtd' || key==='pricePerUnit'}
-              <PillBox label={key} content={priceNtd(val)} />
-            {:else}
-              <PillBox label={key} content={val} />
-            {/if}
-          {/each}
-        {/each}
-      {:else}
-        no history for this property
-      {/if}
-    </div>
-  </ModalDialog>
+	<Menu access={segments}/>
+	<div class='dashboard_main_content'>
+		<ProfileHeader/>
+		<AdminSubMenu></AdminSubMenu>
+		<div class='content'>
+			<ModalForm
+				bind:this={form}
+				fields={fields}
+				onConfirm={saveRow}
+				rowType='Property'
+			>
+			</ModalForm>
+			<section class='tableview_container'>
+				<TableView
+					bind:pager={pager}
+					extraActions={extraActions}
+					fields={fields}
+					onEditRow={editRow}
+					onRefreshTableView={refreshTableView}
+					rows={properties}
+					widths={{mainUse: '320px', address: '240px'}}
+				>
+					<button class='action_btn' on:click={addRow}>
+						<Icon color='#FFF' size={12} src={FaSolidPlusCircle}/>
+						<span>Add</span>
+					</button>
+					<button
+						class='action_btn'
+						class:not_filtered={!filterdByPending}
+						on:click={filterPendingApproval}
+					>
+						<Icon color='{!filterdByPending ? "#FFF" : "#000"}' size={12} src={FaSolidCheckDouble}/>
+						<span>Filter Pending</span>
+					</button>
+					<button
+						class='action_btn'
+						class:not_filtered={!filterdByRejected}
+						on:click={filterRejectedApproval}
+					>
+						<Icon color='{!filterdByRejected ? "#FFF" : "#000"}' size={12} src={FaSolidRecycle}/>
+						<span>Filter Rejected</span>
+					</button>
+				</TableView>
+			</section>
+		</div>
+		<Footer></Footer>
+	</div>
+	<ModalDialog bind:this={propHistoryModal}>
+		<div slot='content'>
+			<h3>Property History</h3>
+			{#if currentPropHistory && currentPropHistory.length}
+				{#each currentPropHistory as row}
+					{#each Object.entries( row ) as [key, val]}
+						{#if val==='0' || !val}
+							&nbsp;
+						{:else if key==='createdAt' || key==='updatedAt'}
+							<PillBox label={key} content={new Date(val*1000)}/>
+						{:else if key==='priceNtd' || key==='pricePerUnit'}
+							<PillBox label={key} content={priceNtd(val)}/>
+						{:else}
+							<PillBox label={key} content={val}/>
+						{/if}
+					{/each}
+				{/each}
+			{:else}
+				no history for this property
+			{/if}
+		</div>
+	</ModalDialog>
 </section>
 
 <style>
-  .filter_pending_button {
-    padding         : 8px 20px;
-    font-size       : 14pt;
-    font-weight     : bold;
-    border-radius   : 8px;
-    filter          : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    margin-left     : 4px;
-    cursor          : pointer;
-    align-items     : center;
-    align-content   : center;
-    justify-content : center;
-    border          : 1px solid grey;
-    gap             : 8px;
-    display         : inline-flex;
-  }
-
-  .filter_pending_button.not_filtered {
-    background-color : #6366F1;
-    color            : white;
-    flex-direction   : row;
-  }
-
+    .action_btn.not_filtered {
+        background-color : #6366F1;
+        color            : white;
+        flex-direction   : row;
+    }
 </style>

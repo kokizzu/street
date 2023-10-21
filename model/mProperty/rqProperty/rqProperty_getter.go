@@ -467,3 +467,12 @@ LIMIT ` + X.ToS(limit) + ` OFFSET ` + X.ToS(offset)
 
 	return res
 }
+
+func (p *PropertyUS) ToProperty() *Property {
+	out := &Property{}
+	backupAdapter := p.Adapter
+	p.Adapter = nil
+	M.FastestCopyStruct(p, out)
+	p.Adapter = backupAdapter
+	return out
+}

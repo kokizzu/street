@@ -10,10 +10,16 @@
   import FaBrandsWhatsapp from "svelte-icons-pack/fa/FaBrandsWhatsapp";
   import FaBrandsTelegram from "svelte-icons-pack/fa/FaBrandsTelegram";
   import Property from "../../_components/Property.svelte";
+  import {onMount} from "svelte";
   
+  let propHistories = [/* propHistories */]
   let propItem = {/* propItem */};
   let meta = {/* propertyMeta */}
   let showGrowl = false, gMsg = '', gType = '';
+  
+  onMount(() => {
+    console.log("propHistories = ", propHistories)
+  })
   
   function useGrowl( type, msg ) {
     showGrowl = true;
@@ -24,8 +30,9 @@
     }, 2000 );
   }
   
+  let url = window.location.pathname.split( 'user/' );
+  let toBeUrl = window.location.host + '/guest/' + url[1];
   function copyToClipboard( text ) {
-    console.log(window.location)
     navigator.clipboard.writeText( text );
     useGrowl( 'success', 'Link copied to clipboard' );
   }
@@ -36,7 +43,7 @@
 {/if}
 <section class="property_container">
 	<div class="property">
-	<Property {propItem} {meta} />
+		<Property {propItem} {meta} {propHistories}/>
 	</div>
 	<div class='side_attribute'>
 		<div class='login_container'>
@@ -55,12 +62,12 @@
 				<Icon className='share_icon' color='#9fa9b5' size={14} src={FaSolidShareAlt}/>
 			</header>
 			<div class='share_options'>
-				<button class='share_item' on:click={() => copyToClipboard(window.location)} title='Copy link address'>
+				<button class='share_item' on:click={() => copyToClipboard(toBeUrl)} title='Copy link address'>
 					<Icon className='share_icon' color='#475569' size={28} src={FaCopy}/>
 				</button>
 				<a aria-label="Share to Facebook"
 				   class='share_item'
-				   href='https://www.facebook.com/sharer/sharer.php?u={window.location}?utm_source=facebook&utm_medium=social&utm_campaign=user-share'
+				   href='https://www.facebook.com/sharer/sharer.php?u={toBeUrl}?utm_source=facebook&utm_medium=social&utm_campaign=user-share'
 				   rel="noopener"
 				   target="_blank"
 				>
@@ -68,7 +75,7 @@
 				</a>
 				<a aria-label="Share to LinkedIn"
 				   class='share_item'
-				   href='https://www.linkedin.com/shareArticle?mini=true&url={window.location}&title=I%20Found%20Awesome%House%20{window.location}'
+				   href='https://www.linkedin.com/shareArticle?mini=true&url={toBeUrl}&title=I%20Found%20Awesome%House%20{window.location}'
 				   rel="noopener"
 				   target="_blank"
 				>
@@ -76,7 +83,7 @@
 				</a>
 				<a aria-label="Share to Twitter"
 				   class='share_item'
-				   href='https://twitter.com/intent/tweet?url={window.location}'
+				   href='https://twitter.com/intent/tweet?url={toBeUrl}'
 				   rel="noopener"
 				   target="_blank"
 				>
@@ -84,7 +91,7 @@
 				</a>
 				<a aria-label="Share to Telegram"
 				   class='share_item'
-				   href='https://t.me/share/url?url={window.location}'
+				   href='https://t.me/share/url?url={toBeUrl}'
 				   rel="noopener"
 				   target="_blank"
 				>
@@ -92,7 +99,7 @@
 				</a>
 				<a aria-label="Share to WhatsApp"
 				   class='share_item'
-				   href='https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House%20{window.location}'
+				   href='https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House%20{toBeUrl}'
 				   rel="noopener"
 				   target="_blank"
 				>
@@ -113,7 +120,7 @@
         justify-content : center;
         gap             : 30px;
     }
-    
+
     .property {
         width            : 60%;
     }

@@ -452,6 +452,14 @@ exports.AdminPropHistories = async function AdminPropHistories( i, cb ) {
  * @property {String} property.zip
  * @property {number} property.propertyLastUpdatedDate
  * @property {String} property.approvalState
+ * @property {String} property.countryCode
+ * @property {number} property.livingroom
+ * @property {number} property.altitude
+ * @property {number} property.parking
+ * @property {number} property.depositFee
+ * @property {number} property.minimumDurationYear
+ * @property {Object} property.otherFees
+ * @property {Object} property.imageLabels
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -506,6 +514,16 @@ const AdminPropertiesIn = {
     zip: '', // string
     propertyLastUpdatedDate: 0, // int64
     approvalState: '', // string
+    countryCode: '', // string
+    livingroom: 0, // int64
+    altitude: 0, // float64
+    parking: 0, // float64
+    depositFee: 0, // float64
+    minimumDurationYear: 0, // float64
+    otherFees: { // []any
+    }, // []any
+    imageLabels: { // []any
+    }, // []any
   }, // rqProperty.Property
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -567,6 +585,14 @@ const AdminPropertiesIn = {
  * @property {String} property.zip
  * @property {number} property.propertyLastUpdatedDate
  * @property {String} property.approvalState
+ * @property {String} property.countryCode
+ * @property {number} property.livingroom
+ * @property {number} property.altitude
+ * @property {number} property.parking
+ * @property {number} property.depositFee
+ * @property {number} property.minimumDurationYear
+ * @property {Object} property.otherFees
+ * @property {Object} property.imageLabels
  * @property {Object} properties
  */
 const AdminPropertiesOut = {
@@ -632,6 +658,16 @@ const AdminPropertiesOut = {
     zip: '', // string
     propertyLastUpdatedDate: 0, // int64
     approvalState: '', // string
+    countryCode: '', // string
+    livingroom: 0, // int64
+    altitude: 0, // float64
+    parking: 0, // float64
+    depositFee: 0, // float64
+    minimumDurationYear: 0, // float64
+    otherFees: { // []any
+    }, // []any
+    imageLabels: { // []any
+    }, // []any
   }, // rqProperty.Property
   properties: { // [][]any
   }, // [][]any
@@ -695,6 +731,14 @@ exports.AdminProperties = async function AdminProperties( i, cb ) {
  * @property {String} property.zip
  * @property {number} property.propertyLastUpdatedDate
  * @property {String} property.approvalState
+ * @property {String} property.countryCode
+ * @property {number} property.livingroom
+ * @property {number} property.altitude
+ * @property {number} property.parking
+ * @property {number} property.depositFee
+ * @property {number} property.minimumDurationYear
+ * @property {Object} property.otherFees
+ * @property {Object} property.imageLabels
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -749,6 +793,16 @@ const AdminPropertiesUSIn = {
     zip: '', // string
     propertyLastUpdatedDate: 0, // int64
     approvalState: '', // string
+    countryCode: '', // string
+    livingroom: 0, // int64
+    altitude: 0, // float64
+    parking: 0, // float64
+    depositFee: 0, // float64
+    minimumDurationYear: 0, // float64
+    otherFees: { // []any
+    }, // []any
+    imageLabels: { // []any
+    }, // []any
   }, // rqProperty.PropertyUS
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -810,6 +864,14 @@ const AdminPropertiesUSIn = {
  * @property {String} property.zip
  * @property {number} property.propertyLastUpdatedDate
  * @property {String} property.approvalState
+ * @property {String} property.countryCode
+ * @property {number} property.livingroom
+ * @property {number} property.altitude
+ * @property {number} property.parking
+ * @property {number} property.depositFee
+ * @property {number} property.minimumDurationYear
+ * @property {Object} property.otherFees
+ * @property {Object} property.imageLabels
  * @property {Object} properties
  */
 const AdminPropertiesUSOut = {
@@ -875,6 +937,16 @@ const AdminPropertiesUSOut = {
     zip: '', // string
     propertyLastUpdatedDate: 0, // int64
     approvalState: '', // string
+    countryCode: '', // string
+    livingroom: 0, // int64
+    altitude: 0, // float64
+    parking: 0, // float64
+    depositFee: 0, // float64
+    minimumDurationYear: 0, // float64
+    otherFees: { // []any
+    }, // []any
+    imageLabels: { // []any
+    }, // []any
   }, // rqProperty.PropertyUS
   properties: { // [][]any
   }, // [][]any
@@ -1408,9 +1480,11 @@ exports.GuestOauthCallback = async function GuestOauthCallback( i, cb ) {
 /**
  * @typedef {Object} GuestPropertyIn
  * @property {number} id
+ * @property {String} countryCode
  */
 const GuestPropertyIn = {
   id: 0, // uint64
+  countryCode: '', // string
 }
 /**
  * @typedef {Object} GuestPropertyOut
@@ -1454,6 +1528,14 @@ const GuestPropertyIn = {
  * @property {String} property.zip
  * @property {number} property.propertyLastUpdatedDate
  * @property {String} property.approvalState
+ * @property {String} property.countryCode
+ * @property {number} property.livingroom
+ * @property {number} property.altitude
+ * @property {number} property.parking
+ * @property {number} property.depositFee
+ * @property {number} property.minimumDurationYear
+ * @property {Object} property.otherFees
+ * @property {Object} property.imageLabels
  * @property {Object} meta
  */
 const GuestPropertyOut = {
@@ -1503,6 +1585,16 @@ const GuestPropertyOut = {
     zip: '', // string
     propertyLastUpdatedDate: 0, // int64
     approvalState: '', // string
+    countryCode: '', // string
+    livingroom: 0, // int64
+    altitude: 0, // float64
+    parking: 0, // float64
+    depositFee: 0, // float64
+    minimumDurationYear: 0, // float64
+    otherFees: { // []any
+    }, // []any
+    imageLabels: { // []any
+    }, // []any
   }, // rqProperty.Property
   meta: { // []zCrud.Field
   }, // []zCrud.Field
@@ -1802,6 +1894,14 @@ const RealtorPropertyIn = {
  * @property {String} property.zip
  * @property {number} property.propertyLastUpdatedDate
  * @property {String} property.approvalState
+ * @property {String} property.countryCode
+ * @property {number} property.livingroom
+ * @property {number} property.altitude
+ * @property {number} property.parking
+ * @property {number} property.depositFee
+ * @property {number} property.minimumDurationYear
+ * @property {Object} property.otherFees
+ * @property {Object} property.imageLabels
  */
 const RealtorPropertyOut = {
   property: { // rqProperty.Property
@@ -1850,6 +1950,16 @@ const RealtorPropertyOut = {
     zip: '', // string
     propertyLastUpdatedDate: 0, // int64
     approvalState: '', // string
+    countryCode: '', // string
+    livingroom: 0, // int64
+    altitude: 0, // float64
+    parking: 0, // float64
+    depositFee: 0, // float64
+    minimumDurationYear: 0, // float64
+    otherFees: { // []any
+    }, // []any
+    imageLabels: { // []any
+    }, // []any
   }, // rqProperty.Property
 }
 /**
@@ -1910,6 +2020,14 @@ exports.RealtorProperty = async function RealtorProperty( i, cb ) {
  * @property {String} property.zip
  * @property {number} property.propertyLastUpdatedDate
  * @property {String} property.approvalState
+ * @property {String} property.countryCode
+ * @property {number} property.livingroom
+ * @property {number} property.altitude
+ * @property {number} property.parking
+ * @property {number} property.depositFee
+ * @property {number} property.minimumDurationYear
+ * @property {Object} property.otherFees
+ * @property {Object} property.imageLabels
  */
 const RealtorUpsertPropertyIn = {
   property: { // rqProperty.Property
@@ -1958,6 +2076,16 @@ const RealtorUpsertPropertyIn = {
     zip: '', // string
     propertyLastUpdatedDate: 0, // int64
     approvalState: '', // string
+    countryCode: '', // string
+    livingroom: 0, // int64
+    altitude: 0, // float64
+    parking: 0, // float64
+    depositFee: 0, // float64
+    minimumDurationYear: 0, // float64
+    otherFees: { // []any
+    }, // []any
+    imageLabels: { // []any
+    }, // []any
   }, // rqProperty.Property
 }
 /**
@@ -2002,6 +2130,14 @@ const RealtorUpsertPropertyIn = {
  * @property {String} property.zip
  * @property {number} property.propertyLastUpdatedDate
  * @property {String} property.approvalState
+ * @property {String} property.countryCode
+ * @property {number} property.livingroom
+ * @property {number} property.altitude
+ * @property {number} property.parking
+ * @property {number} property.depositFee
+ * @property {number} property.minimumDurationYear
+ * @property {Object} property.otherFees
+ * @property {Object} property.imageLabels
  */
 const RealtorUpsertPropertyOut = {
   property: { // rqProperty.Property
@@ -2050,6 +2186,16 @@ const RealtorUpsertPropertyOut = {
     zip: '', // string
     propertyLastUpdatedDate: 0, // int64
     approvalState: '', // string
+    countryCode: '', // string
+    livingroom: 0, // int64
+    altitude: 0, // float64
+    parking: 0, // float64
+    depositFee: 0, // float64
+    minimumDurationYear: 0, // float64
+    otherFees: { // []any
+    }, // []any
+    imageLabels: { // []any
+    }, // []any
   }, // rqProperty.Property
 }
 /**
@@ -2383,6 +2529,147 @@ const UserPropHistoryOut = {
  */
 exports.UserPropHistory = async function UserPropHistory( i, cb ) {
   return await axios.post( '/user/propHistory', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserPropertyIn
+ * @property {number} id
+ * @property {String} countryCode
+ */
+const UserPropertyIn = {
+  id: 0, // uint64
+  countryCode: '', // string
+}
+/**
+ * @typedef {Object} UserPropertyOut
+ * @property {number} property.id
+ * @property {String} property.uniqPropKey
+ * @property {String} property.serialNumber
+ * @property {String} property.sizeM2
+ * @property {String} property.mainUse
+ * @property {String} property.mainBuildingMaterial
+ * @property {String} property.constructCompletedDate
+ * @property {String} property.numberOfFloors
+ * @property {String} property.buildingLamination
+ * @property {String} property.address
+ * @property {String} property.district
+ * @property {String} property.note
+ * @property {Object} property.coord
+ * @property {number} property.createdAt
+ * @property {number} property.createdBy
+ * @property {number} property.updatedAt
+ * @property {number} property.updatedBy
+ * @property {number} property.deletedAt
+ * @property {String} property.formattedAddress
+ * @property {String} property.lastPrice
+ * @property {Object} property.priceHistoriesSell
+ * @property {Object} property.priceHistoriesRent
+ * @property {String} property.purpose
+ * @property {String} property.houseType
+ * @property {Object} property.images
+ * @property {number} property.bedroom
+ * @property {number} property.bathroom
+ * @property {number} property.agencyFeePercent
+ * @property {Object} property.floorList
+ * @property {String} property.version
+ * @property {number} property.yearBuilt
+ * @property {number} property.yearRenovated
+ * @property {number} property.totalSqft
+ * @property {String} property.countyName
+ * @property {String} property.street
+ * @property {String} property.city
+ * @property {String} property.state
+ * @property {String} property.zip
+ * @property {number} property.propertyLastUpdatedDate
+ * @property {String} property.approvalState
+ * @property {String} property.countryCode
+ * @property {number} property.livingroom
+ * @property {number} property.altitude
+ * @property {number} property.parking
+ * @property {number} property.depositFee
+ * @property {number} property.minimumDurationYear
+ * @property {Object} property.otherFees
+ * @property {Object} property.imageLabels
+ * @property {Object} propHistories
+ * @property {Object} meta
+ */
+const UserPropertyOut = {
+  property: { // rqProperty.Property
+    id: 0, // uint64
+    uniqPropKey: '', // string
+    serialNumber: '', // string
+    sizeM2: '', // string
+    mainUse: '', // string
+    mainBuildingMaterial: '', // string
+    constructCompletedDate: '', // string
+    numberOfFloors: '', // string
+    buildingLamination: '', // string
+    address: '', // string
+    district: '', // string
+    note: '', // string
+    coord: { // []any
+    }, // []any
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    formattedAddress: '', // string
+    lastPrice: '', // string
+    priceHistoriesSell: { // []any
+    }, // []any
+    priceHistoriesRent: { // []any
+    }, // []any
+    purpose: '', // string
+    houseType: '', // string
+    images: { // []any
+    }, // []any
+    bedroom: 0, // int64
+    bathroom: 0, // int64
+    agencyFeePercent: 0, // float64
+    floorList: { // []any
+    }, // []any
+    version: '', // string
+    yearBuilt: 0, // int64
+    yearRenovated: 0, // int64
+    totalSqft: 0, // float64
+    countyName: '', // string
+    street: '', // string
+    city: '', // string
+    state: '', // string
+    zip: '', // string
+    propertyLastUpdatedDate: 0, // int64
+    approvalState: '', // string
+    countryCode: '', // string
+    livingroom: 0, // int64
+    altitude: 0, // float64
+    parking: 0, // float64
+    depositFee: 0, // float64
+    minimumDurationYear: 0, // float64
+    otherFees: { // []any
+    }, // []any
+    imageLabels: { // []any
+    }, // []any
+  }, // rqProperty.Property
+  propHistories: { // []rqProperty.PropertyHistory
+  }, // []rqProperty.PropertyHistory
+  meta: { // []zCrud.Field
+  }, // []zCrud.Field
+}
+/**
+ * @callback UserPropertyCallback
+ * @param {UserPropertyOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserPropertyIn} i
+ * @param {UserPropertyCallback} cb
+ * @returns {Promise}
+ */
+exports.UserProperty = async function UserProperty( i, cb ) {
+  return await axios.post( '/user/property', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

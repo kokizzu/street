@@ -93,8 +93,8 @@
                    onRefreshTableView={refreshTableView}
                    onEditRow={editRow}
         >
-          <button on:click={addRow} class='add_button'>
-            <Icon size={18} color='#FFF' src={FaSolidPlusCircle} />
+          <button on:click={addRow} class='action_btn'>
+            <Icon size={12} color='#FFF' src={FaSolidPlusCircle} />
             <span>Add</span>
           </button>
         </TableView>

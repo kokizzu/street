@@ -13,7 +13,6 @@
   import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
   import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
   import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
-  // import FaSolidTrashAlt from "svelte-icons-pack/fa/FaSolidTrashAlt";
   
   let user = {/* user */};
   let segments = {/* segments */};
@@ -44,15 +43,11 @@
     profileSubmit = true
     if( JSON.stringify( user )===oldProfileJson ) return useGrowl( 'error', 'No changes' );
     await UserUpdateProfile( user, function( res ) {
-      if( res.error ) {
-        useGrowl( 'error', res.error );
-        profileSubmit = false;
-        return;
-      }
+	    profileSubmit = false;
+	    if( res.error ) return useGrowl( 'error', res.error );
       oldProfileJson = JSON.stringify( res.user );
       user = res.user;
       useGrowl( 'info', 'Profile updated' );
-      profileSubmit = false;
     } );
   }
   
@@ -68,16 +63,12 @@
       newPass: newPassword,
     };
     await UserChangePassword( input, function( res ) {
-      if( res.error ) {
-        useGrowl( 'error', res.error );
-        passwordSubmit = false;
-        return
-      }
+	    passwordSubmit = false;
+	    if( res.error ) return useGrowl( 'error', res.error );
       oldPassword = '';
       newPassword = '';
       repeatNewPassword = '';
       alert( 'Password updated' );
-      passwordSubmit = false;
     } );
   }
   
