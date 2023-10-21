@@ -62,9 +62,13 @@ func (m *Mailer) SendNotifUpdatePropertyEmail(email, ownedPropertyUrl string) er
 		`Hi `+email+`,
 
 Your property has been created or updated, click this link to see your property: 
-`+ownedPropertyUrl,
+`+ownedPropertyUrl+`
+
+We will review it soon.`,
 		`Hi `+email+`, <br><br>
 Your property has been created or updated, click this link to see your property: <br/>
-<a href="`+ownedPropertyUrl+`">`+ownedPropertyUrl+`</a><br/>`,
+<a href="`+ownedPropertyUrl+`">`+ownedPropertyUrl+`</a><br/>
+<br/>
+We will review it soon.`,
 	)
 }

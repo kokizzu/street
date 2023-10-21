@@ -1,9 +1,6 @@
 package domain
 
 import (
-	"strconv"
-	"strings"
-
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/zCrud"
@@ -18,19 +15,20 @@ import (
 type (
 	GuestPropertyIn struct {
 		RequestCommon
-		Id string `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+		Id          uint64 `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+		CountryCode string `json:"countryCode" form:"countryCode" query:"countryCode" long:"countryCode" msg:"countryCode"`
 	}
 	GuestPropertyOut struct {
 		ResponseCommon
-		Property   *rqProperty.Property   `json:"property" form:"property" query:"property" long:"property" msg:"property"`
-		PropertyUS *rqProperty.PropertyUS `json:"property" form:"property" query:"property" long:"property" msg:"property"`
-		Meta       []zCrud.Field          `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
+		Property *rqProperty.Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
+		Meta     []zCrud.Field        `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 	}
 )
 
 const (
-	GuestPropertyAction      = `guest/property`
-	ErrGuestPropertyNotFound = `Property not found`
+	GuestPropertyAction             = `guest/property`
+	ErrGuestPropertyNotFound        = `property not found`
+	ErrGuestPropertyCountryNotFound = `property country not found`
 )
 
 var (
@@ -101,26 +99,20 @@ var (
 func (d *Domain) GuestProperty(in *GuestPropertyIn) (out GuestPropertyOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
-	idSplit := strings.Split(in.Id, "US")
-	if len(idSplit) == 2 {
-		idUint, _ := strconv.ParseUint(idSplit[1], 10, 64)
+	if in.CountryCode == `US` { // for now there's only US
 		r := rqProperty.NewPropertyUS(d.PropOltp)
-		r.Id = idUint
+		r.Id = in.Id
 		if !r.FindById() {
-			out.SetError(400, ErrGuestPropertyNotFound)
+			out.SetError(400, ErrGuestPropertyCountryNotFound)
 			return
 		}
-		out.PropertyUS = r
+		out.Property = r.ToProperty()
 		out.Meta = GuestPropertiesMeta
 		return
 	}
-	idUint, err := strconv.ParseUint(in.Id, 10, 64)
-	if err != nil {
-		out.SetError(400, ErrGuestPropertyNotFound)
-		return
-	}
+
 	r := rqProperty.NewProperty(d.PropOltp)
-	r.Id = idUint
+	r.Id = in.Id
 	if !r.FindById() {
 		out.SetError(400, ErrGuestPropertyNotFound)
 		return

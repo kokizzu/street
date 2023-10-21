@@ -512,7 +512,7 @@
   }
   
   // SUBMIT =====================+
-  let res_propId = segment2 = window.location.pathname.split( '/property/' ).pop() || '18643';
+  let res_propId = window.location.pathname.split( '/property/' ).pop() || '0';
   let submitLoading = false;
   
   async function handleSubmit() {
@@ -520,14 +520,10 @@
     console.log( 'property=', property, 'payload=', payload );
     const prop = {property: payload};
     await RealtorUpsertProperty( prop, function( res ) {
-      if( res.error ) {
-        submitLoading = false;
-        useGrowl( 'error', res.error );
-        return
-      }
+	    submitLoading = false;
+	    if( res.error ) return useGrowl( 'error', res.error );
       console.log( res )
       isPropertySubmitted = true;
-      submitLoading = false;
     } );
   }
 </script>

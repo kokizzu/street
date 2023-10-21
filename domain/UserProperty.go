@@ -1,10 +1,7 @@
 package domain
 
 import (
-	"strconv"
-	"strings"
-
-	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/S"
 
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
@@ -20,21 +17,20 @@ import (
 type (
 	UserPropertyIn struct {
 		RequestCommon
-		Id string `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+		Id          uint64 `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+		CountryCode string
 	}
 	UserPropertyOut struct {
 		ResponseCommon
-		Property    *rqProperty.Property        `json:"property" form:"property" query:"property" long:"property" msg:"property"`
-		PropertyUS  *rqProperty.PropertyUS      `json:"property" form:"property" query:"property" long:"property" msg:"property"`
-		PropHistory *rqProperty.PropertyHistory `json:"propHistory" form:"propHistory" query:"propHistory" long:"propHistory" msg:"propHistory"`
-		Meta        []zCrud.Field               `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
+		Property      *rqProperty.Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
+		PropHistories []*rqProperty.PropertyHistory
+		Meta          []zCrud.Field `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 	}
 )
 
 const (
-	UserPropertyAction           = `user/property`
-	ErrUserPropertyNotFound      = `Property not found`
-	ErrUserPropHistoryIdNotFound = `user prop history id not found`
+	UserPropertyAction      = `user/property`
+	ErrUserPropertyNotFound = `user property not found`
 )
 
 var (
@@ -102,38 +98,23 @@ var (
 	}
 )
 
-func (d *Domain) UserProperty(in *GuestPropertyIn) (out UserPropertyOut) {
+func (d *Domain) UserProperty(in *UserPropertyIn) (out UserPropertyOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
 	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
 		return
 	}
-	idSplit := strings.Split(in.Id, "US")
-	if len(idSplit) == 2 {
-		idUint, _ := strconv.ParseUint(idSplit[1], 10, 64)
+
+	if in.CountryCode == `US` { // for now
 		r := rqProperty.NewPropertyUS(d.PropOltp)
-		r.Id = idUint
-		if !r.FindById() {
-			out.SetError(400, ErrUserPropertyNotFound)
-			return
-		}
-		out.PropertyUS = r
+		out.Property = r.ToProperty()
 		out.Meta = UserPropertiesMeta
 		return
 	}
-	idUint, err := strconv.ParseUint(in.Id, 10, 64)
-	if err != nil {
-		out.SetError(400, ErrUserPropertyNotFound)
-		return
-	}
 
-	ph := rqProperty.NewPropertyHistory(d.PropOltp)
-	ph.Id = idUint
-	out.PropHistory = ph
-	L.Print(ph)
 	r := rqProperty.NewProperty(d.PropOltp)
-	r.Id = idUint
+	r.Id = in.Id
 	if !r.FindById() {
 		out.SetError(400, ErrUserPropertyNotFound)
 		return
@@ -141,5 +122,11 @@ func (d *Domain) UserProperty(in *GuestPropertyIn) (out UserPropertyOut) {
 	r.NormalizeFloorList()
 	out.Property = r
 	out.Meta = UserPropertiesMeta
+
+	ph := rqProperty.NewPropertyHistory(d.PropOltp)
+	serialNumber := S.LeftOf(r.UniqPropKey, `#`)
+	hist := ph.FindBySerialNumber(serialNumber)
+	out.PropHistories = hist
+
 	return
 }

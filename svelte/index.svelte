@@ -115,6 +115,7 @@
       if( o.error ) {
         isSubmitted = false;
         useGrowl( 'error', o.error );
+				return
       }
       isSubmitted = false;
       useGrowl( 'success', 'registered successfully, a registration verification has been sent to your email' );

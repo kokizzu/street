@@ -109,7 +109,9 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 
 	// Get user email, send message to their email
 	user := rqAuth.NewUsers(d.AuthOltp)
-	err := d.Mailer.SendNotifUpdatePropertyEmail(user.Email, fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id))
+	err := d.Mailer.SendNotifUpdatePropertyEmail(user.Email,
+		fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
+	)
 	L.IsError(err, `SendNotifUpdatePropertyEmail`)
 
 	prop.Adapter = nil
