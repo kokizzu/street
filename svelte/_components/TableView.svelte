@@ -214,8 +214,7 @@ multiple filter from other fields will do AND operation'
         align-items     : center;
     }
 
-    .action_options_container .left,
-    .action_options_container .right {
+    .action_options_container .left {
         display     : flex;
         gap         : 8px;
         align-items : center;
@@ -250,12 +249,6 @@ multiple filter from other fields will do AND operation'
 
     .action_btn:hover {
         background-color : #7E80F1;
-    }
-
-    .action_options_container .right .property_version .option input[type='radio'] {
-        position       : absolute;
-        opacity        : 0;
-        pointer-events : none;
     }
 
     .table_container {

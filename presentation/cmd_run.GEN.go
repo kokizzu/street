@@ -260,6 +260,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.UserPropHistory(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.UserPropertyAction:
+		in := domain.UserPropertyIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.UserProperty(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.UserSearchPropAction:
 		in := domain.UserSearchPropIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

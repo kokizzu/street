@@ -187,11 +187,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 				`error`: out.Error,
 			})
 		}
-		imgUrl := ""
-		if len(out.Property.Images) != 0 {
-			imgUrl = fmt.Sprintf("%s%s", w.Cfg.WebProtoDomain, out.Property.Images[0])
-		}
-		const ISO8601 = "2006-01-02T15:04:05Z07:00"
 		descr := out.Property.SizeM2 + ` m2`
 		if out.Property.Bedroom > 0 {
 			descr += `, ` + X.ToS(out.Property.Bedroom) + ` bedroom`
@@ -209,17 +204,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		} else if out.Property.FormattedAddress != `` {
 			title += ` on ` + out.Property.FormattedAddress
 		}
-		ogUrl := fmt.Sprintf("%s/%s/%s%d", w.Cfg.WebProtoDomain, domain.GuestPropertyAction, countryCode, out.Property.Id)
-		return views.RenderGuestPropertyPublic(ctx, M.SX{ // TODO: habibi change to RenderUserProperty (create own view, do not share view)
+		return views.RenderUserPropertyIndex(ctx, M.SX{ // TODO: habibi change to RenderUserProperty (create own view, do not share view)
 			`title`:         S.XSS(title),
 			`propItem`:      out.Property,
 			`propertyMeta`:  out.Meta,
 			`propHistories`: out.PropHistories,
-			`ogURL`:         ogUrl,
-			`ogImgURL`:      imgUrl,
-			`ogDescription`: S.XSS(descr),
-			`ogCreatedAt`:   time.Unix(out.Property.CreatedAt, 0).Format(ISO8601),
-			`ogUpdatedAt`:   time.Unix(out.Property.UpdatedAt, 0).Format(ISO8601),
 		})
 	})
 
