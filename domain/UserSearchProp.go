@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"strconv"
+
 	"github.com/kokizzu/gotro/X"
 
 	"street/conf"
@@ -53,6 +55,44 @@ const (
 	DefaultLimit = 10
 )
 
+func mergePropertyWithSerialNumber(inputProperties []Property) ([]Property, []uint64) {
+	var filterProperties []Property
+	var filterPropIds []uint64
+
+	// Merge property history with same serial number
+	totalSizePropBySerialNumber := make(map[string]Property)
+
+	for _, prop := range inputProperties {
+		propSize, err := strconv.ParseFloat(prop.SizeM2, 64)
+
+		// Check for errors
+		if err != nil {
+			continue
+		}
+
+		if totalSizePropBySerialNumber[prop.SerialNumber].id == 0 {
+			totalSizePropBySerialNumber[prop.SerialNumber] = prop
+		} else {
+			// Existing size
+			existingPropSize, err := strconv.ParseFloat(totalSizePropBySerialNumber[prop.SerialNumber].SizeM2, 64)
+
+			if err != nil {
+				continue
+			}
+
+			// Accumulate size of property
+			appendSize := existingPropSize + propSize
+			totalSizePropBySerialNumber[prop.SerialNumber].SizeM2 = strconv.FormatFloat(appendSize, 'f', 2, 64)
+		}
+	}
+
+	for _, prop := range totalSizePropBySerialNumber {
+		filterProperties = append(filterProperties, prop)
+		filterPropIds = append(filterPropIds, prop.Id)
+	}
+	return filterProperties, filterPropIds
+}
+
 func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
@@ -73,6 +113,10 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 
 	out.Properties = make([]Property, 0, in.Limit)
 	propIds := make([]uint64, 0, in.Limit)
+
+	// Get satisfied property with expected condition
+	satisfiedProperties := make([]Property, 0, in.Limit)
+
 	ok := prop.FindByLatLong(in.CenterLat, in.CenterLong, in.Limit, in.Offset, func(row []any) bool {
 		item := Property{Property: &rqProperty.Property{}}
 		item.FromArray(row)
@@ -89,10 +133,17 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 		if item.DistanceKM > in.MaxDistanceKM {
 			return false
 		}
-		out.Properties = append(out.Properties, item)
-		propIds = append(propIds, item.Id)
+
+		satisfiedProperties = append(satisfiedProperties, item)
 		return true
 	})
+
+	// Merge property history with same serial number
+	filterProperties, filterPropIds := mergePropertyWithSerialNumber(satisfiedProperties)
+
+	out.Properties = filterProperties
+	propIds = filterPropIds
+
 	if !ok {
 		out.SetError(500, ErrSearchPropFailed)
 		return
