@@ -11,6 +11,7 @@
   import FaSolidAngleDoubleLeft from 'svelte-icons-pack/fa/FaSolidAngleDoubleLeft';
   import FaSolidFilter from 'svelte-icons-pack/fa/FaSolidFilter';
   import FaSolidSyncAlt from "svelte-icons-pack/fa/FaSolidSyncAlt";
+  import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
   
   export let arrayOfArray = true;
   export let fields = []; // array of field object
@@ -92,7 +93,7 @@
   
   $: allowPrevPage = pager.page>1;
   $: allowNextPage = pager.page<pager.pages;
-  
+
 </script>
 
 <section>
@@ -100,11 +101,11 @@
 		<div class="left">
 			<slot/>
 			<button class='action_btn' disabled={oldFilterStr===newFilterStr} onclick={applyFilter}>
-				<Icon color={oldFilterStr === newFilterStr ? '#5C646F' : '#FFF'} size={11} src={FaSolidFilter}/>
+				<Icon color={oldFilterStr === newFilterStr ? '#5C646F' : '#FFF'} size={17} src={FaSolidFilter}/>
 				<span>Apply Filter</span>
 			</button>
 			<button class='action_btn' on:click={() => gotoPage(pager.page)}>
-				<Icon color='#FFF' size={11} src={FaSolidSyncAlt}/>
+				<Icon color='#FFF' size={17} src={FaSolidSyncAlt}/>
 				<span>Refresh</span>
 			</button>
 		</div>
@@ -150,7 +151,11 @@ multiple filter from other fields will do AND operation'
 										<Icon src={HiOutlinePencil}/>
 									</button>
 									{#each extraActions as action}
-										{#if !action.showIf || action.showIf( row, i )}
+										{#if action.link}
+											<a href='{action.link(row)}' class='action' target="_blank" title='{action.label || ""}'>
+												<Icon src={action.icon}/>
+											</a>
+										{:else}
 											<button class='action' title='{action.label || ""}' on:click={() => action.onClick(row)}>
 												<Icon src={action.icon}/>
 											</button>
@@ -220,37 +225,6 @@ multiple filter from other fields will do AND operation'
         align-items : center;
     }
 
-    .action_btn {
-        padding          : 7px 20px;
-        font-size        : 13px;
-        font-weight      : 600;
-        display          : inline-flex;
-        flex-direction   : row;
-        align-items      : center;
-        align-content    : center;
-        justify-content  : center;
-        border           : 1px solid #6366F1;
-        background-color : #6366F1;
-        border-radius    : 8px;
-        color            : white;
-        cursor           : pointer;
-        gap              : 8px;
-    }
-
-    .action_btn:disabled {
-        cursor      : not-allowed;
-        font-size   : 13px;
-        font-weight : 600;
-        border      : 1px solid #CBD5E1 !important;
-        background  : none !important;
-        color       : #5C646F;
-        filter      : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    }
-
-    .action_btn:hover {
-        background-color : #7E80F1;
-    }
-
     .table_container {
         overflow-x : auto;
     }
@@ -299,21 +273,20 @@ multiple filter from other fields will do AND operation'
 
     .table_users .col_action {
         text-align : center;
-        padding    : 0 20px;
-        width      : 200px !important;
+        padding    : 0 10px;
+        width      : fit-content;
     }
 
     .table_users td.col_action {
         text-align : center;
-        padding    : 0 40px;
-        width      : 200px !important;
+        padding    : 0 10px;
+        width      : fit-content;
     }
 
     .table_users td.col_action div {
         display        : flex;
         flex-direction : row;
         align-items    : center;
-        gap            : 8px;
     }
 
     .table_users tr, .table_users td {
@@ -325,9 +298,9 @@ multiple filter from other fields will do AND operation'
         color         : #475569;
         text-align    : center;
         cursor        : pointer;
-	     padding: 8px 10px;
-        height        : 2.5em;
-        width         : 2em;
+        padding       : 8px 10px;
+        height        : fit-content;
+        width         : fit-content;
         border        : none;
         display       : inline;
         border-radius : 5px;

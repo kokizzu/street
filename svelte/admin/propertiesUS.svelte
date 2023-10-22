@@ -205,15 +205,15 @@
                    onRefreshTableView={refreshTableView}
                    onEditRow={editRow}>
           <button on:click={addRow} class='add_button'>
-            <Icon size={18} color='#FFF' src={FaSolidPlusCircle} />
+            <Icon size={17} color='#FFF' src={FaSolidPlusCircle} />
             <span>Add</span>
           </button>
           <button on:click={filterPendingApproval} class='filter_pending_button' class:not_filtered={!filterdByPending}>
-            <Icon size={18} color='{!filterdByPending ? "#FFF" : "#000"}' src={FaSolidCheckDouble} />
+            <Icon size={17} color='{!filterdByPending ? "#FFF" : "#000"}' src={FaSolidCheckDouble} />
             <span>Filter Pending</span>
           </button>
           <button on:click={filterRejectedApproval} class='filter_pending_button' class:not_filtered={!filterdByRejected}>
-            <Icon size={18} color='{!filterdByRejected ? "#FFF" : "#000"}' src={FaSolidRecycle} />
+            <Icon size={17} color='{!filterdByRejected ? "#FFF" : "#000"}' src={FaSolidRecycle} />
             <span>Filter Rejected</span>
           </button>
         </TableView>

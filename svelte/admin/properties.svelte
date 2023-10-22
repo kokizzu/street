@@ -14,7 +14,8 @@
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
   import FaSolidCheckDouble from 'svelte-icons-pack/fa/FaSolidCheckDouble';
-  import FaSolidRecycle from 'svelte-icons-pack/fa/FaSolidRecycle'
+  import FaSolidRecycle from 'svelte-icons-pack/fa/FaSolidRecycle';
+  import HiOutlineLink from "svelte-icons-pack/hi/HiOutlineLink";
   
   import ModalDialog from '../_components/ModalDialog.svelte';
   import PillBox from '../_components/PillBox.svelte';
@@ -80,6 +81,13 @@
           refreshTableView( pager );
         } );
       },
+    },
+    {
+      icon: HiOutlineLink,
+      label: 'Go to property page',
+      link: function(item) {
+        return '/guest/property/' + item[fieldByKey['id'].idx];
+      }
     },
   ];
   
@@ -203,7 +211,7 @@
 					widths={{mainUse: '320px', address: '240px'}}
 				>
 					<button class='action_btn' on:click={addRow}>
-						<Icon color='#FFF' size={12} src={FaSolidPlusCircle}/>
+						<Icon color='#FFF' size={17} src={FaSolidPlusCircle}/>
 						<span>Add</span>
 					</button>
 					<button
@@ -211,7 +219,7 @@
 						class:not_filtered={!filterdByPending}
 						on:click={filterPendingApproval}
 					>
-						<Icon color='{!filterdByPending ? "#FFF" : "#000"}' size={12} src={FaSolidCheckDouble}/>
+						<Icon color='{!filterdByPending ? "#FFF" : "#000"}' size={17} src={FaSolidCheckDouble}/>
 						<span>Filter Pending</span>
 					</button>
 					<button
@@ -219,7 +227,7 @@
 						class:not_filtered={!filterdByRejected}
 						on:click={filterRejectedApproval}
 					>
-						<Icon color='{!filterdByRejected ? "#FFF" : "#000"}' size={12} src={FaSolidRecycle}/>
+						<Icon color='{!filterdByRejected ? "#FFF" : "#000"}' size={17} src={FaSolidRecycle}/>
 						<span>Filter Rejected</span>
 					</button>
 				</TableView>
@@ -256,5 +264,8 @@
         background-color : #6366F1;
         color            : white;
         flex-direction   : row;
+    }
+    .action_btn.not_filtered:hover {
+        background-color : #7E80F1;
     }
 </style>
