@@ -7,6 +7,7 @@
   import { AdminPropHistories } from '../jsApi.GEN';
   import Footer from '../_components/Footer.svelte';
   import ProfileHeader from '../_components/ProfileHeader.svelte';
+  import Growl from '../_components/Growl.svelte';
 
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidPlusCircle from "svelte-icons-pack/fa/FaSolidPlusCircle";
@@ -17,13 +18,13 @@
   let pager = {/* pager */};
   
   $: console.log( propHistories );
-  
+
+  let growl = Growl;
   // return true if got error
   function handleResponse( res ) {
     console.log( res );
     if( res.error ) {
-      // TODO: growl error
-      alert( res.error );
+      growl.showError( res.error );
       return true;
     }
     if( res.propHistories && res.propHistories.length ) propHistories = res.propHistories;
@@ -74,7 +75,7 @@
 
 </script>
 
-
+<Growl bind:this={growl} />
 <section class='dashboard'>
   <Menu access={segments} />
   <div class='dashboard_main_content'>

@@ -1,223 +1,224 @@
 <script>
-  // @ts-nocheck
-  import Menu from './_components/Menu.svelte';
-  import ProfileHeader from './_components/ProfileHeader.svelte';
-  import Footer from './_components/Footer.svelte';
-  import Growl from './_components/Growl.svelte';
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import {datetime} from './_components/formatter';
-  import {onMount} from 'svelte';
-  import {T} from './_components/uiState';
-  import {UserChangePassword, UserSessionKill, UserSessionsActive, UserUpdateProfile} from './jsApi.GEN.js';
-  import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
-  import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
-  import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
-  import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
-  
-  let user = {/* user */};
-  let segments = {/* segments */};
-  let countries = [/* countries */];
-  let sessionActiveLists = {/* activeSessions */};
-  let oldPassword = '';
-  let newPassword = '';
-  let repeatNewPassword = '';
-  let oldProfileJson = '';
-  let showGrowl = false, gMsg = '', gType = '';
-  let profileSubmit = false, passwordSubmit = false;
-  onMount( async () => {
-    oldProfileJson = JSON.stringify( user );
-    console.log( 'Country data = ', countries )
-    console.log( 'User data = ', user )
-  } );
-  
-  function useGrowl( type, msg ) {
-    showGrowl = true;
-    gMsg = msg;
-    gType = type;
-    setTimeout( () => {
-      showGrowl = false;
-    }, 3000 );
-  }
-  
-  async function updateProfile() {
-    profileSubmit = true
-    if( JSON.stringify( user )===oldProfileJson ) return useGrowl( 'error', 'No changes' );
-    await UserUpdateProfile( user, function( res ) {
-	    profileSubmit = false;
-	    if( res.error ) return useGrowl( 'error', res.error );
-      oldProfileJson = JSON.stringify( res.user );
-      user = res.user;
-      useGrowl( 'info', 'Profile updated' );
-    } );
-  }
-  
-  async function changePassword() {
-    passwordSubmit = true;
-    if( newPassword!==repeatNewPassword ) {
-      useGrowl( 'error', 'New password and repeat new password must be same' );
-      passwordSubmit = false;
-      return
+    // @ts-nocheck
+    import Menu from './_components/Menu.svelte';
+    import ProfileHeader from './_components/ProfileHeader.svelte';
+    import Footer from './_components/Footer.svelte';
+    import Growl from './_components/Growl.svelte';
+    import Icon from 'svelte-icons-pack/Icon.svelte';
+    import {datetime} from './_components/formatter';
+    import {onMount} from 'svelte';
+    import {T} from './_components/uiState';
+    import {UserChangePassword, UserSessionKill, UserSessionsActive, UserUpdateProfile} from './jsApi.GEN.js';
+    import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
+    import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
+    import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
+    import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
+
+    let user = {/* user */};
+    let segments = {/* segments */};
+    let countries = [/* countries */];
+    let sessionActiveLists = {/* activeSessions */};
+    let oldPassword = '';
+    let newPassword = '';
+    let repeatNewPassword = '';
+    let oldProfileJson = '';
+    let growl = Growl;
+    let profileSubmit = false, passwordSubmit = false;
+    onMount(async () => {
+        oldProfileJson = JSON.stringify(user);
+        console.log('Country data = ', countries)
+        console.log('User data = ', user)
+    });
+
+    async function updateProfile() {
+        profileSubmit = true
+        if (JSON.stringify(user) === oldProfileJson) return useGrowl('error', 'No changes');
+        await UserUpdateProfile(user, function(res) {
+            profileSubmit = false;
+            if (res.error) {
+                growl.showError(res.error);
+                return
+            }
+            oldProfileJson = JSON.stringify(res.user);
+            user = res.user;
+            growl.showSuccess('Profile updated');
+        });
     }
-    let input = {
-      oldPass: oldPassword,
-      newPass: newPassword,
-    };
-    await UserChangePassword( input, function( res ) {
-	    passwordSubmit = false;
-	    if( res.error ) return useGrowl( 'error', res.error );
-      oldPassword = '';
-      newPassword = '';
-      repeatNewPassword = '';
-      alert( 'Password updated' );
-    } );
-  }
-  
-  async function killSession( sessionToken ) {
-    await UserSessionKill( {sessionTokenHash: sessionToken}, async res => {
-      if( res.error ) return useGrowl( 'error', res.error );
-      if( res.sessionTerminated<1 ) return useGrowl( 'error', 'No session terminated' );
-      useGrowl( 'info', res.sessionTerminated + ' session terminated' );
-      await UserSessionsActive( {userId: user.id}, res => {
-        if( res.error ) return useGrowl( 'error', res.error );
-        sessionActiveLists = res.sessionsActive;
-      } );
-    } );
-  }
+
+    async function changePassword() {
+        passwordSubmit = true;
+        if (newPassword !== repeatNewPassword) {
+            growl.showError('New password and repeat new password must be same');
+            passwordSubmit = false;
+            return
+        }
+        let input = {
+            oldPass: oldPassword,
+            newPass: newPassword,
+        };
+        await UserChangePassword(input, function(res) {
+            passwordSubmit = false;
+            if (res.error) {
+                growl.showError(res.error);
+                return
+            }
+            oldPassword = '';
+            newPassword = '';
+            repeatNewPassword = '';
+            growl.showSuccess('Password updated');
+        });
+    }
+
+    async function killSession(sessionToken) {
+        await UserSessionKill({sessionTokenHash: sessionToken}, async res => {
+            if (res.error) {
+                growl.showError(res.error);
+                return
+            }
+            if (res.sessionTerminated < 1) return useGrowl('error', 'No session terminated');
+            growl.showSuccess(res.sessionTerminated + ' session terminated');
+            await UserSessionsActive({userId: user.id}, res => {
+                if (res.error) {
+                    growl.showError(res.error);
+                    return
+                }
+                sessionActiveLists = res.sessionsActive;
+            });
+        });
+    }
 </script>
 
-{#if showGrowl}
-	<Growl message={gMsg} growlType={gType}/>
-{/if}
+<Growl bind:this={growl}/>
 <section class='dashboard'>
-	<Menu access={segments}/>
-	<div class='dashboard_main_content'>
-		<ProfileHeader {user}/>
-		<div class='content'>
-			<div class='profile_details_container'>
-				<div class='left'>
-					<div class='profile_details'>
-						<h2>Profile Details</h2>
-						<!--						<div class="profile_pictures">-->
-						<!--							<div class="img_container">-->
-						<!--								<img alt="profile" src="/assets/img/team-1-200x200.jpg"/>-->
-						<!--							</div>-->
-						<!--							<div class="actions">-->
-						<!--								<button class='btn_upload_photo'>Upload Profile Photo</button>-->
-						<!--								<button class='btn_delete'>-->
-						<!--									<Icon color="#FFF" size={15} src={FaSolidTrashAlt}/>-->
-						<!--								</button>-->
-						<!--							</div>-->
-						<!--						</div>-->
-						<div class='input_container'>
-							<div class='name'>
-								<div class='profile_input'>
-									<label for='userName'>Username</label>
-									<input bind:value={user.userName} id='userName' type='text'/>
-								</div>
-								<div class='profile_input'>
-									<label for='fullName'>Full Name</label>
-									<input bind:value={user.fullName} id='fullName' type='text'/>
-								</div>
-							</div>
-							<div class='email_country'>
-								<div class='profile_input email'>
-									<label for='email'>{$T.email}</label>
-									<input bind:value={user.email} id='email' type='email'/>
-								</div>
-								<div class='profile_input country_list'>
-									<label for='country'>Country</label>
-									<select bind:value={user.country} id='country' name='country'>
-										{#each countries as country}
-											<option value={country.iso_2}>{country.country}</option>
-										{/each}
-									</select>
-								</div>
-							</div>
-						
-						
-						</div>
-						<div class='info_container'>
-							<div class='profile_info'>
-								<label for='registered'>Registered:</label>
-								<span id='registered'>{datetime( user.createdAt )}</span>
-							</div>
-							<div class='profile_info'>
-								<label for='lastLogin'>Last login:</label>
-								<span id='lastLogin'>{datetime( user.lastLoginAt )}</span>
-							</div>
-							<div class='profile_info'>
-								<label for='verified'>Verified:</label>
-								<span id='verified'>{datetime( user.verifiedAt ) || '0'}</span>
-							</div>
-						</div>
-						<label for='updateProfile'/>
-						<button id='updateProfile' on:click={updateProfile}>
-							<span>SUBMIT</span>
-							{#if !profileSubmit}
-								<Icon color='#FFF' size={18} src={FaSolidAngleLeft}/>
-							{/if}
-							{#if profileSubmit}
-								<Icon className="spin" color='#FFF' size={18} src={FaSolidCircleNotch}/>
-							{/if}
-						</button>
-					</div>
-					<div class='session_list_container'>
-						<h2>Active Sessions</h2>
-						<div class='session_list_header'>
-							<span>IP Address</span>
-							<span>Expired At</span>
-							<span>Device</span>
-						</div>
-						<div class='session_list'>
-							{#if sessionActiveLists.length}
-								{#each sessionActiveLists as session}
-									<div class='session'>
-										<span>{session.loginIPs || 'no-data'}</span>
-										<span>{datetime( session.expiredAt ) || 0}</span>
-										<span>{session.device || 'no-data'}</span>
-										<button on:click={() => killSession(session.sessionToken)} class='kill_session' title='Kill this session'>
-											<Icon color='#FFF' size={12} src={FaSolidTimes}/>
-										</button>
-									</div>
-								{/each}
-							{/if}
-						</div>
-					</div>
-				</div>
-				
-				<div class='right'>
-					<div class='password_set'>
-						<h2>Change {$T.password}</h2>
-						<div class='input_container'>
-							<div class='profile_input'>
-								<label for='oldPassword'>Old Password</label>
-								<input bind:value={oldPassword} id='oldPassword' type='password'/>
-							</div>
-							<div class='profile_input'>
-								<label for='newPassword'>New Password</label>
-								<input bind:value={newPassword} id='newPassword' type='password'/>
-							</div>
-							<div class='profile_input'>
-								<label for='repeatNewPassword'>Repeat New Password</label>
-								<input bind:value={repeatNewPassword} id='repeatNewPassword' type='password'/>
-							</div>
-							<label for='changePassword'/>
-							<button id='changePassword' on:click={changePassword}>
-								<span>SUBMIT</span>
-								{#if !passwordSubmit}
-									<Icon color='#FFF' size={18} src={FaSolidAngleRight}/>
-								{/if}
-								{#if passwordSubmit}
-									<Icon className="spin" color='#FFF' size={18} src={FaSolidCircleNotch}/>
-								{/if}
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<Footer/>
-	</div>
+    <Menu access={segments}/>
+    <div class='dashboard_main_content'>
+        <ProfileHeader {user}/>
+        <div class='content'>
+            <div class='profile_details_container'>
+                <div class='left'>
+                    <div class='profile_details'>
+                        <h2>Profile Details</h2>
+                        <!--						<div class="profile_pictures">-->
+                        <!--							<div class="img_container">-->
+                        <!--								<img alt="profile" src="/assets/img/team-1-200x200.jpg"/>-->
+                        <!--							</div>-->
+                        <!--							<div class="actions">-->
+                        <!--								<button class='btn_upload_photo'>Upload Profile Photo</button>-->
+                        <!--								<button class='btn_delete'>-->
+                        <!--									<Icon color="#FFF" size={15} src={FaSolidTrashAlt}/>-->
+                        <!--								</button>-->
+                        <!--							</div>-->
+                        <!--						</div>-->
+                        <div class='input_container'>
+                            <div class='name'>
+                                <div class='profile_input'>
+                                    <label for='userName'>Username</label>
+                                    <input bind:value={user.userName} id='userName' type='text'/>
+                                </div>
+                                <div class='profile_input'>
+                                    <label for='fullName'>Full Name</label>
+                                    <input bind:value={user.fullName} id='fullName' type='text'/>
+                                </div>
+                            </div>
+                            <div class='email_country'>
+                                <div class='profile_input email'>
+                                    <label for='email'>{$T.email}</label>
+                                    <input bind:value={user.email} id='email' type='email'/>
+                                </div>
+                                <div class='profile_input country_list'>
+                                    <label for='country'>Country</label>
+                                    <select bind:value={user.country} id='country' name='country'>
+                                        {#each countries as country}
+                                            <option value={country.iso_2}>{country.country}</option>
+                                        {/each}
+                                    </select>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class='info_container'>
+                            <div class='profile_info'>
+                                <label for='registered'>Registered:</label>
+                                <span id='registered'>{datetime(user.createdAt)}</span>
+                            </div>
+                            <div class='profile_info'>
+                                <label for='lastLogin'>Last login:</label>
+                                <span id='lastLogin'>{datetime(user.lastLoginAt)}</span>
+                            </div>
+                            <div class='profile_info'>
+                                <label for='verified'>Verified:</label>
+                                <span id='verified'>{datetime(user.verifiedAt) || '0'}</span>
+                            </div>
+                        </div>
+                        <label for='updateProfile'/>
+                        <button id='updateProfile' on:click={updateProfile}>
+                            <span>SUBMIT</span>
+                            {#if !profileSubmit}
+                                <Icon color='#FFF' size={18} src={FaSolidAngleLeft}/>
+                            {/if}
+                            {#if profileSubmit}
+                                <Icon className="spin" color='#FFF' size={18} src={FaSolidCircleNotch}/>
+                            {/if}
+                        </button>
+                    </div>
+                    <div class='session_list_container'>
+                        <h2>Active Sessions</h2>
+                        <div class='session_list_header'>
+                            <span>IP Address</span>
+                            <span>Expired At</span>
+                            <span>Device</span>
+                        </div>
+                        <div class='session_list'>
+                            {#if sessionActiveLists.length}
+                                {#each sessionActiveLists as session}
+                                    <div class='session'>
+                                        <span>{session.loginIPs || 'no-data'}</span>
+                                        <span>{datetime(session.expiredAt) || 0}</span>
+                                        <span>{session.device || 'no-data'}</span>
+                                        <button on:click={() => killSession(session.sessionToken)} class='kill_session' title='Kill this session'>
+                                            <Icon color='#FFF' size={12} src={FaSolidTimes}/>
+                                        </button>
+                                    </div>
+                                {/each}
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+
+                <div class='right'>
+                    <div class='password_set'>
+                        <h2>Change {$T.password}</h2>
+                        <div class='input_container'>
+                            <div class='profile_input'>
+                                <label for='oldPassword'>Old Password</label>
+                                <input bind:value={oldPassword} id='oldPassword' type='password'/>
+                            </div>
+                            <div class='profile_input'>
+                                <label for='newPassword'>New Password</label>
+                                <input bind:value={newPassword} id='newPassword' type='password'/>
+                            </div>
+                            <div class='profile_input'>
+                                <label for='repeatNewPassword'>Repeat New Password</label>
+                                <input bind:value={repeatNewPassword} id='repeatNewPassword' type='password'/>
+                            </div>
+                            <label for='changePassword'/>
+                            <button id='changePassword' on:click={changePassword}>
+                                <span>SUBMIT</span>
+                                {#if !passwordSubmit}
+                                    <Icon color='#FFF' size={18} src={FaSolidAngleRight}/>
+                                {/if}
+                                {#if passwordSubmit}
+                                    <Icon className="spin" color='#FFF' size={18} src={FaSolidCircleNotch}/>
+                                {/if}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <Footer/>
+    </div>
 </section>
 
 <style>

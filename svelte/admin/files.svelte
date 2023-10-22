@@ -7,7 +7,7 @@
     import Footer from '../_components/Footer.svelte';
     import TableView from '../_components/TableView.svelte';
     import { AdminFiles } from '../jsApi.GEN';
-    // file upload handling
+    import Growl from '../_components/Growl.svelte';
     import Dropzone from '../_components/UploadDropzone.svelte';
 
     let segments = {/* segments */};
@@ -16,13 +16,13 @@
     let pager = {/* pager */};
 
     $: console.log(files, fields, pager);
+    let growl = Growl;
 
     // return true if got error
     function handleResponse(res) {
         console.log(res);
         if (res.error) {
-            // TODO: growl error
-            alert(res.error);
+            growl.showError(res.error);
             return true;
         }
         if (res.files && res.files.length) files = res.files;
@@ -95,6 +95,7 @@
     }
 </script>
 
+<Growl bind:this={growl}/>
 <section class='dashboard'>
     <Menu access={segments} />
     <div class='dashboard_main_content'>

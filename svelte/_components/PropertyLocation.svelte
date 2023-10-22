@@ -85,7 +85,6 @@
       if( gmapBounds && gmapBounds.getNorthEast ) {
         let ne = gmapBounds.getNorthEast();
         bestDistance = distanceKM( ne.lat(), ne.lng(), myLatLng.lat, myLatLng.lng );
-        console.log( 'bestDistance', bestDistance );
       }
       await UserSearchProp( {
         centerLat: myLatLng.lat,

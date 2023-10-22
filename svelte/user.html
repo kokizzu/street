@@ -353,7 +353,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 }
 
 /* fakecss:./_components/Growl.esbuild-svelte-fake-css */
-.growl.svelte-zu619y.svelte-zu619y {
+.growl.svelte-smdxqx.svelte-smdxqx {
   position: fixed;
   display: flex;
   flex-direction: row;
@@ -373,26 +373,22 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 .icon_growl {
   flex-shrink: 0;
 }
-.growl.svelte-zu619y span.svelte-zu619y {
+.growl.svelte-smdxqx span.svelte-smdxqx {
   flex-shrink: 1;
 }
-.growl.default.svelte-zu619y.svelte-zu619y {
-  background-color: #FFF;
-  color: #475569;
-}
-.growl.info.svelte-zu619y.svelte-zu619y {
+.growl.info.svelte-smdxqx.svelte-smdxqx {
   background-color: #1080E8;
   color: #FFF;
 }
-.growl.success.svelte-zu619y.svelte-zu619y {
+.growl.success.svelte-smdxqx.svelte-smdxqx {
   background-color: #059669;
   color: #FFF;
 }
-.growl.error.svelte-zu619y.svelte-zu619y {
+.growl.error.svelte-smdxqx.svelte-smdxqx {
   background-color: #EF4444;
   color: #FFF;
 }
-.growl.warning.svelte-zu619y.svelte-zu619y {
+.growl.warning.svelte-smdxqx.svelte-smdxqx {
   background-color: #D97706;
   color: #FFF;
 }
@@ -5153,14 +5149,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidQuestionCircle.js
-  var FaSolidQuestionCircle_default = {
-    a: {
-      viewBox: "0 0 512 512"
-    },
-    c: '<path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path>'
-  };
-
   // _components/Growl.svelte
   function create_if_block2(ctx) {
     let div;
@@ -5168,28 +5156,23 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t1;
     let t2;
     let t3;
-    let t4;
     let span;
-    let t5;
+    let t4;
     let div_class_value;
     let current;
     let if_block0 = (
       /*growlType*/
-      ctx[1] === "default" && create_if_block_52(ctx)
+      ctx[1] === "info" && create_if_block_42(ctx)
     );
     let if_block1 = (
       /*growlType*/
-      ctx[1] === "info" && create_if_block_42(ctx)
+      ctx[1] === "success" && create_if_block_32(ctx)
     );
     let if_block2 = (
       /*growlType*/
-      ctx[1] === "success" && create_if_block_32(ctx)
-    );
-    let if_block3 = (
-      /*growlType*/
       ctx[1] === "error" && create_if_block_22(ctx)
     );
-    let if_block4 = (
+    let if_block3 = (
       /*growlType*/
       ctx[1] === "warning" && create_if_block_12(ctx)
     );
@@ -5208,17 +5191,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (if_block3)
           if_block3.c();
         t3 = space();
-        if (if_block4)
-          if_block4.c();
-        t4 = space();
         span = element("span");
-        t5 = text(
+        t4 = text(
           /*message*/
           ctx[0]
         );
-        attr(span, "class", "svelte-zu619y");
+        attr(span, "class", "svelte-smdxqx");
         attr(div, "class", div_class_value = null_to_empty(`growl ${/*growlType*/
-        ctx[1]}`) + " svelte-zu619y");
+        ctx[1]}`) + " svelte-smdxqx");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -5234,17 +5214,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (if_block3)
           if_block3.m(div, null);
         append(div, t3);
-        if (if_block4)
-          if_block4.m(div, null);
-        append(div, t4);
         append(div, span);
-        append(span, t5);
+        append(span, t4);
         current = true;
       },
       p(ctx2, dirty) {
         if (
           /*growlType*/
-          ctx2[1] === "default"
+          ctx2[1] === "info"
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
@@ -5253,7 +5230,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_52(ctx2);
+            if_block0 = create_if_block_42(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(div, t0);
@@ -5267,7 +5244,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*growlType*/
-          ctx2[1] === "info"
+          ctx2[1] === "success"
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
@@ -5276,7 +5253,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_42(ctx2);
+            if_block1 = create_if_block_32(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(div, t1);
@@ -5290,7 +5267,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*growlType*/
-          ctx2[1] === "success"
+          ctx2[1] === "error"
         ) {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
@@ -5299,7 +5276,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               transition_in(if_block2, 1);
             }
           } else {
-            if_block2 = create_if_block_32(ctx2);
+            if_block2 = create_if_block_22(ctx2);
             if_block2.c();
             transition_in(if_block2, 1);
             if_block2.m(div, t2);
@@ -5313,7 +5290,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*growlType*/
-          ctx2[1] === "error"
+          ctx2[1] === "warning"
         ) {
           if (if_block3) {
             if_block3.p(ctx2, dirty);
@@ -5322,7 +5299,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               transition_in(if_block3, 1);
             }
           } else {
-            if_block3 = create_if_block_22(ctx2);
+            if_block3 = create_if_block_12(ctx2);
             if_block3.c();
             transition_in(if_block3, 1);
             if_block3.m(div, t3);
@@ -5334,39 +5311,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           });
           check_outros();
         }
-        if (
-          /*growlType*/
-          ctx2[1] === "warning"
-        ) {
-          if (if_block4) {
-            if_block4.p(ctx2, dirty);
-            if (dirty & /*growlType*/
-            2) {
-              transition_in(if_block4, 1);
-            }
-          } else {
-            if_block4 = create_if_block_12(ctx2);
-            if_block4.c();
-            transition_in(if_block4, 1);
-            if_block4.m(div, t4);
-          }
-        } else if (if_block4) {
-          group_outros();
-          transition_out(if_block4, 1, 1, () => {
-            if_block4 = null;
-          });
-          check_outros();
-        }
         if (!current || dirty & /*message*/
         1)
           set_data(
-            t5,
+            t4,
             /*message*/
             ctx2[0]
           );
         if (!current || dirty & /*growlType*/
         2 && div_class_value !== (div_class_value = null_to_empty(`growl ${/*growlType*/
-        ctx2[1]}`) + " svelte-zu619y")) {
+        ctx2[1]}`) + " svelte-smdxqx")) {
           attr(div, "class", div_class_value);
         }
       },
@@ -5377,7 +5331,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         transition_in(if_block1);
         transition_in(if_block2);
         transition_in(if_block3);
-        transition_in(if_block4);
         current = true;
       },
       o(local) {
@@ -5385,7 +5338,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         transition_out(if_block1);
         transition_out(if_block2);
         transition_out(if_block3);
-        transition_out(if_block4);
         current = false;
       },
       d(detaching) {
@@ -5400,43 +5352,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if_block2.d();
         if (if_block3)
           if_block3.d();
-        if (if_block4)
-          if_block4.d();
-      }
-    };
-  }
-  function create_if_block_52(ctx) {
-    let icon;
-    let current;
-    icon = new Icon_default({
-      props: {
-        className: "icon_growl",
-        size: 20,
-        color: "#475569",
-        src: FaSolidQuestionCircle_default
-      }
-    });
-    return {
-      c() {
-        create_component(icon.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(icon, target, anchor);
-        current = true;
-      },
-      p: noop,
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(icon, detaching);
       }
     };
   }
@@ -5585,7 +5500,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let current;
     let if_block = (
       /*isShow*/
-      ctx[2] && create_if_block2(ctx)
+      ctx[2] === true && create_if_block2(ctx)
     );
     return {
       c() {
@@ -5602,7 +5517,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, [dirty]) {
         if (
           /*isShow*/
-          ctx2[2]
+          ctx2[2] === true
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
@@ -5644,11 +5559,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
   }
   function instance5($self, $props, $invalidate) {
-    let { message = "This is growl, XD" } = $props;
-    let { growlType = "default" } = $props;
+    let message = "This is growl, XD";
+    let growlType = "info";
     let isShow = false;
     function showInfo(msg) {
-      $invalidate(1, growlType = "default");
+      $invalidate(1, growlType = "info");
       $invalidate(2, isShow = true);
       $invalidate(0, message = msg);
       setTimeout(
@@ -5658,21 +5573,62 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         3e3
       );
     }
-    $self.$set = ($props2) => {
-      if ("message" in $props2)
-        $invalidate(0, message = $props2.message);
-      if ("growlType" in $props2)
-        $invalidate(1, growlType = $props2.growlType);
-    };
-    return [message, growlType, isShow, showInfo];
+    function showWarning(msg) {
+      $invalidate(1, growlType = "warning");
+      $invalidate(2, isShow = true);
+      $invalidate(0, message = msg);
+      setTimeout(
+        () => {
+          $invalidate(2, isShow = false);
+        },
+        3e3
+      );
+    }
+    function showError(msg) {
+      $invalidate(1, growlType = "error");
+      $invalidate(2, isShow = true);
+      $invalidate(0, message = msg);
+      setTimeout(
+        () => {
+          $invalidate(2, isShow = false);
+        },
+        3e3
+      );
+    }
+    function showSuccess(msg) {
+      $invalidate(1, growlType = "success");
+      $invalidate(2, isShow = true);
+      $invalidate(0, message = msg);
+      setTimeout(
+        () => {
+          $invalidate(2, isShow = false);
+        },
+        3e3
+      );
+    }
+    return [message, growlType, isShow, showInfo, showWarning, showError, showSuccess];
   }
   var Growl = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance5, create_fragment5, safe_not_equal, { message: 0, growlType: 1, showInfo: 3 });
+      init(this, options, instance5, create_fragment5, safe_not_equal, {
+        showInfo: 3,
+        showWarning: 4,
+        showError: 5,
+        showSuccess: 6
+      });
     }
     get showInfo() {
       return this.$.ctx[3];
+    }
+    get showWarning() {
+      return this.$.ctx[4];
+    }
+    get showError() {
+      return this.$.ctx[5];
+    }
+    get showSuccess() {
+      return this.$.ctx[6];
     }
   };
   var Growl_default = Growl;
@@ -5708,69 +5664,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // user.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[24] = list[i];
+    child_ctx[22] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[27] = list[i];
+    child_ctx[25] = list[i];
     return child_ctx;
-  }
-  function create_if_block_53(ctx) {
-    let growl;
-    let current;
-    growl = new Growl_default({
-      props: {
-        message: (
-          /*gMsg*/
-          ctx[6]
-        ),
-        growlType: (
-          /*gType*/
-          ctx[7]
-        )
-      }
-    });
-    return {
-      c() {
-        create_component(growl.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(growl, target, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        const growl_changes = {};
-        if (dirty & /*gMsg*/
-        64)
-          growl_changes.message = /*gMsg*/
-          ctx2[6];
-        if (dirty & /*gType*/
-        128)
-          growl_changes.growlType = /*gType*/
-          ctx2[7];
-        growl.$set(growl_changes);
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(growl.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(growl.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(growl, detaching);
-      }
-    };
   }
   function create_each_block_1(ctx) {
     let option;
     let t_value = (
       /*country*/
-      ctx[27].country + ""
+      ctx[25].country + ""
     );
     let t;
     let option_value_value;
@@ -5779,7 +5685,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*country*/
-        ctx[27].iso_2;
+        ctx[25].iso_2;
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -5895,7 +5801,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty & /*killSession, sessionActiveLists, FaSolidTimes, datetime*/
-        8194) {
+        2050) {
           each_value = ensure_array_like(
             /*sessionActiveLists*/
             ctx2[1]
@@ -5948,21 +5854,21 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span0;
     let t0_value = (
       /*session*/
-      (ctx[24].loginIPs || "no-data") + ""
+      (ctx[22].loginIPs || "no-data") + ""
     );
     let t0;
     let t1;
     let span1;
     let t2_value = ((0, import_formatter.datetime)(
       /*session*/
-      ctx[24].expiredAt
+      ctx[22].expiredAt
     ) || 0) + "";
     let t2;
     let t3;
     let span2;
     let t4_value = (
       /*session*/
-      (ctx[24].device || "no-data") + ""
+      (ctx[22].device || "no-data") + ""
     );
     let t4;
     let t5;
@@ -5982,9 +5888,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[18](
+        ctx[17](
           /*session*/
-          ctx[24]
+          ctx[22]
         )
       );
     }
@@ -6034,17 +5940,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx = new_ctx;
         if ((!current || dirty & /*sessionActiveLists*/
         2) && t0_value !== (t0_value = /*session*/
-        (ctx[24].loginIPs || "no-data") + ""))
+        (ctx[22].loginIPs || "no-data") + ""))
           set_data(t0, t0_value);
         if ((!current || dirty & /*sessionActiveLists*/
         2) && t2_value !== (t2_value = ((0, import_formatter.datetime)(
           /*session*/
-          ctx[24].expiredAt
+          ctx[22].expiredAt
         ) || 0) + ""))
           set_data(t2, t2_value);
         if ((!current || dirty & /*sessionActiveLists*/
         2) && t4_value !== (t4_value = /*session*/
-        (ctx[24].device || "no-data") + ""))
+        (ctx[22].device || "no-data") + ""))
           set_data(t4, t4_value);
       },
       i(local) {
@@ -6137,6 +6043,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
   }
   function create_fragment6(ctx) {
+    let growl_1;
     let t0;
     let section;
     let menu;
@@ -6189,7 +6096,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let label2;
     let t22_value = (
       /*$T*/
-      ctx[10].email + ""
+      ctx[8].email + ""
     );
     let t22;
     let t23;
@@ -6251,7 +6158,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t54;
     let t55_value = (
       /*$T*/
-      ctx[10].password + ""
+      ctx[8].password + ""
     );
     let t55;
     let t56;
@@ -6282,10 +6189,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let current;
     let mounted;
     let dispose;
-    let if_block0 = (
-      /*showGrowl*/
-      ctx[5] && create_if_block_53(ctx)
-    );
+    let growl_1_props = {};
+    growl_1 = new Growl_default({ props: growl_1_props });
+    ctx[12](growl_1);
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({ props: { user: (
       /*user*/
@@ -6296,27 +6202,26 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     for (let i = 0; i < each_value_1.length; i += 1) {
       each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
     }
-    let if_block1 = !/*profileSubmit*/
-    ctx[8] && create_if_block_43(ctx);
-    let if_block2 = (
+    let if_block0 = !/*profileSubmit*/
+    ctx[6] && create_if_block_43(ctx);
+    let if_block1 = (
       /*profileSubmit*/
-      ctx[8] && create_if_block_33(ctx)
+      ctx[6] && create_if_block_33(ctx)
     );
-    let if_block3 = (
+    let if_block2 = (
       /*sessionActiveLists*/
       ctx[1].length && create_if_block_23(ctx)
     );
-    let if_block4 = !/*passwordSubmit*/
-    ctx[9] && create_if_block_13(ctx);
-    let if_block5 = (
+    let if_block3 = !/*passwordSubmit*/
+    ctx[7] && create_if_block_13(ctx);
+    let if_block4 = (
       /*passwordSubmit*/
-      ctx[9] && create_if_block3(ctx)
+      ctx[7] && create_if_block3(ctx)
     );
     footer = new Footer_default({});
     return {
       c() {
-        if (if_block0)
-          if_block0.c();
+        create_component(growl_1.$.fragment);
         t0 = space();
         section = element("section");
         create_component(menu.$.fragment);
@@ -6411,11 +6316,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         span3 = element("span");
         span3.textContent = "SUBMIT";
         t42 = space();
+        if (if_block0)
+          if_block0.c();
+        t43 = space();
         if (if_block1)
           if_block1.c();
-        t43 = space();
-        if (if_block2)
-          if_block2.c();
         t44 = space();
         div14 = element("div");
         h21 = element("h2");
@@ -6425,8 +6330,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         div12.innerHTML = `<span class="svelte-16pay0v">IP Address</span> <span class="svelte-16pay0v">Expired At</span> <span class="svelte-16pay0v">Device</span>`;
         t52 = space();
         div13 = element("div");
-        if (if_block3)
-          if_block3.c();
+        if (if_block2)
+          if_block2.c();
         t53 = space();
         div21 = element("div");
         div20 = element("div");
@@ -6459,11 +6364,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         span7 = element("span");
         span7.textContent = "SUBMIT";
         t68 = space();
+        if (if_block3)
+          if_block3.c();
+        t69 = space();
         if (if_block4)
           if_block4.c();
-        t69 = space();
-        if (if_block5)
-          if_block5.c();
         t70 = space();
         create_component(footer.$.fragment);
         attr(h20, "class", "svelte-16pay0v");
@@ -6497,7 +6402,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         )
           add_render_callback(() => (
             /*select_change_handler*/
-            ctx[17].call(select)
+            ctx[16].call(select)
           ));
         attr(div4, "class", "profile_input country_list svelte-16pay0v");
         attr(div5, "class", "email_country svelte-16pay0v");
@@ -6562,8 +6467,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(section, "class", "dashboard");
       },
       m(target, anchor) {
-        if (if_block0)
-          if_block0.m(target, anchor);
+        mount_component(growl_1, target, anchor);
         insert(target, t0, anchor);
         insert(target, section, anchor);
         mount_component(menu, section, null);
@@ -6673,11 +6577,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div11, button0);
         append(button0, span3);
         append(button0, t42);
+        if (if_block0)
+          if_block0.m(button0, null);
+        append(button0, t43);
         if (if_block1)
           if_block1.m(button0, null);
-        append(button0, t43);
-        if (if_block2)
-          if_block2.m(button0, null);
         append(div15, t44);
         append(div15, div14);
         append(div14, h21);
@@ -6685,8 +6589,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div14, div12);
         append(div14, t52);
         append(div14, div13);
-        if (if_block3)
-          if_block3.m(div13, null);
+        if (if_block2)
+          if_block2.m(div13, null);
         append(div22, t53);
         append(div22, div21);
         append(div21, div20);
@@ -6730,11 +6634,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div19, button1);
         append(button1, span7);
         append(button1, t68);
+        if (if_block3)
+          if_block3.m(button1, null);
+        append(button1, t69);
         if (if_block4)
           if_block4.m(button1, null);
-        append(button1, t69);
-        if (if_block5)
-          if_block5.m(button1, null);
         append(div24, t70);
         mount_component(footer, div24, null);
         current = true;
@@ -6744,84 +6648,63 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               input0,
               "input",
               /*input0_input_handler*/
-              ctx[14]
+              ctx[13]
             ),
             listen(
               input1,
               "input",
               /*input1_input_handler*/
-              ctx[15]
+              ctx[14]
             ),
             listen(
               input2,
               "input",
               /*input2_input_handler*/
-              ctx[16]
+              ctx[15]
             ),
             listen(
               select,
               "change",
               /*select_change_handler*/
-              ctx[17]
+              ctx[16]
             ),
             listen(
               button0,
               "click",
               /*updateProfile*/
-              ctx[11]
+              ctx[9]
             ),
             listen(
               input3,
               "input",
               /*input3_input_handler*/
-              ctx[19]
+              ctx[18]
             ),
             listen(
               input4,
               "input",
               /*input4_input_handler*/
-              ctx[20]
+              ctx[19]
             ),
             listen(
               input5,
               "input",
               /*input5_input_handler*/
-              ctx[21]
+              ctx[20]
             ),
             listen(
               button1,
               "click",
               /*changePassword*/
-              ctx[12]
+              ctx[10]
             )
           ];
           mounted = true;
         }
       },
       p(ctx2, [dirty]) {
-        if (
-          /*showGrowl*/
-          ctx2[5]
-        ) {
-          if (if_block0) {
-            if_block0.p(ctx2, dirty);
-            if (dirty & /*showGrowl*/
-            32) {
-              transition_in(if_block0, 1);
-            }
-          } else {
-            if_block0 = create_if_block_53(ctx2);
-            if_block0.c();
-            transition_in(if_block0, 1);
-            if_block0.m(t0.parentNode, t0);
-          }
-        } else if (if_block0) {
-          group_outros();
-          transition_out(if_block0, 1, 1, () => {
-            if_block0 = null;
-          });
-          check_outros();
-        }
+        const growl_1_changes = {};
+        growl_1.$set(growl_1_changes);
         const profileheader_changes = {};
         if (dirty & /*user*/
         1)
@@ -6847,8 +6730,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           );
         }
         if ((!current || dirty & /*$T*/
-        1024) && t22_value !== (t22_value = /*$T*/
-        ctx2[10].email + ""))
+        256) && t22_value !== (t22_value = /*$T*/
+        ctx2[8].email + ""))
           set_data(t22, t22_value);
         if (dirty & /*user, countries*/
         1 && input2.value !== /*user*/
@@ -6905,18 +6788,41 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ) || "0") + ""))
           set_data(t38, t38_value);
         if (!/*profileSubmit*/
-        ctx2[8]) {
+        ctx2[6]) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+            if (dirty & /*profileSubmit*/
+            64) {
+              transition_in(if_block0, 1);
+            }
+          } else {
+            if_block0 = create_if_block_43(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(button0, t43);
+          }
+        } else if (if_block0) {
+          group_outros();
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*profileSubmit*/
+          ctx2[6]
+        ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
             if (dirty & /*profileSubmit*/
-            256) {
+            64) {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_43(ctx2);
+            if_block1 = create_if_block_33(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
-            if_block1.m(button0, t43);
+            if_block1.m(button0, null);
           }
         } else if (if_block1) {
           group_outros();
@@ -6926,20 +6832,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           check_outros();
         }
         if (
-          /*profileSubmit*/
-          ctx2[8]
+          /*sessionActiveLists*/
+          ctx2[1].length
         ) {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
-            if (dirty & /*profileSubmit*/
-            256) {
+            if (dirty & /*sessionActiveLists*/
+            2) {
               transition_in(if_block2, 1);
             }
           } else {
-            if_block2 = create_if_block_33(ctx2);
+            if_block2 = create_if_block_23(ctx2);
             if_block2.c();
             transition_in(if_block2, 1);
-            if_block2.m(button0, null);
+            if_block2.m(div13, null);
           }
         } else if (if_block2) {
           group_outros();
@@ -6948,32 +6854,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           });
           check_outros();
         }
-        if (
-          /*sessionActiveLists*/
-          ctx2[1].length
-        ) {
-          if (if_block3) {
-            if_block3.p(ctx2, dirty);
-            if (dirty & /*sessionActiveLists*/
-            2) {
-              transition_in(if_block3, 1);
-            }
-          } else {
-            if_block3 = create_if_block_23(ctx2);
-            if_block3.c();
-            transition_in(if_block3, 1);
-            if_block3.m(div13, null);
-          }
-        } else if (if_block3) {
-          group_outros();
-          transition_out(if_block3, 1, 1, () => {
-            if_block3 = null;
-          });
-          check_outros();
-        }
         if ((!current || dirty & /*$T*/
-        1024) && t55_value !== (t55_value = /*$T*/
-        ctx2[10].password + ""))
+        256) && t55_value !== (t55_value = /*$T*/
+        ctx2[8].password + ""))
           set_data(t55, t55_value);
         if (dirty & /*oldPassword*/
         4 && input3.value !== /*oldPassword*/
@@ -7003,18 +6886,41 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           );
         }
         if (!/*passwordSubmit*/
-        ctx2[9]) {
+        ctx2[7]) {
+          if (if_block3) {
+            if_block3.p(ctx2, dirty);
+            if (dirty & /*passwordSubmit*/
+            128) {
+              transition_in(if_block3, 1);
+            }
+          } else {
+            if_block3 = create_if_block_13(ctx2);
+            if_block3.c();
+            transition_in(if_block3, 1);
+            if_block3.m(button1, t69);
+          }
+        } else if (if_block3) {
+          group_outros();
+          transition_out(if_block3, 1, 1, () => {
+            if_block3 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*passwordSubmit*/
+          ctx2[7]
+        ) {
           if (if_block4) {
             if_block4.p(ctx2, dirty);
             if (dirty & /*passwordSubmit*/
-            512) {
+            128) {
               transition_in(if_block4, 1);
             }
           } else {
-            if_block4 = create_if_block_13(ctx2);
+            if_block4 = create_if_block3(ctx2);
             if_block4.c();
             transition_in(if_block4, 1);
-            if_block4.m(button1, t69);
+            if_block4.m(button1, null);
           }
         } else if (if_block4) {
           group_outros();
@@ -7023,53 +6929,30 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           });
           check_outros();
         }
-        if (
-          /*passwordSubmit*/
-          ctx2[9]
-        ) {
-          if (if_block5) {
-            if_block5.p(ctx2, dirty);
-            if (dirty & /*passwordSubmit*/
-            512) {
-              transition_in(if_block5, 1);
-            }
-          } else {
-            if_block5 = create_if_block3(ctx2);
-            if_block5.c();
-            transition_in(if_block5, 1);
-            if_block5.m(button1, null);
-          }
-        } else if (if_block5) {
-          group_outros();
-          transition_out(if_block5, 1, 1, () => {
-            if_block5 = null;
-          });
-          check_outros();
-        }
       },
       i(local) {
         if (current)
           return;
-        transition_in(if_block0);
+        transition_in(growl_1.$.fragment, local);
         transition_in(menu.$.fragment, local);
         transition_in(profileheader.$.fragment, local);
+        transition_in(if_block0);
         transition_in(if_block1);
         transition_in(if_block2);
         transition_in(if_block3);
         transition_in(if_block4);
-        transition_in(if_block5);
         transition_in(footer.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(if_block0);
+        transition_out(growl_1.$.fragment, local);
         transition_out(menu.$.fragment, local);
         transition_out(profileheader.$.fragment, local);
+        transition_out(if_block0);
         transition_out(if_block1);
         transition_out(if_block2);
         transition_out(if_block3);
         transition_out(if_block4);
-        transition_out(if_block5);
         transition_out(footer.$.fragment, local);
         current = false;
       },
@@ -7078,11 +6961,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           detach(t0);
           detach(section);
         }
-        if (if_block0)
-          if_block0.d(detaching);
+        ctx[12](null);
+        destroy_component(growl_1, detaching);
         destroy_component(menu);
         destroy_component(profileheader);
         destroy_each(each_blocks, detaching);
+        if (if_block0)
+          if_block0.d();
         if (if_block1)
           if_block1.d();
         if (if_block2)
@@ -7091,8 +6976,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if_block3.d();
         if (if_block4)
           if_block4.d();
-        if (if_block5)
-          if_block5.d();
         destroy_component(footer);
         mounted = false;
         run_all(dispose);
@@ -7103,49 +6986,40 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var countries = [/* countries */];
   function instance6($self, $props, $invalidate) {
     let $T;
-    component_subscribe($self, T, ($value) => $invalidate(10, $T = $value));
+    component_subscribe($self, T, ($value) => $invalidate(8, $T = $value));
     let user = {/* user */};
     let sessionActiveLists = {/* activeSessions */};
     let oldPassword = "";
     let newPassword = "";
     let repeatNewPassword = "";
     let oldProfileJson = "";
-    let showGrowl = false, gMsg = "", gType = "";
+    let growl = Growl_default;
     let profileSubmit = false, passwordSubmit = false;
     onMount(async () => {
       oldProfileJson = JSON.stringify(user);
       console.log("Country data = ", countries);
       console.log("User data = ", user);
     });
-    function useGrowl(type, msg) {
-      $invalidate(5, showGrowl = true);
-      $invalidate(6, gMsg = msg);
-      $invalidate(7, gType = type);
-      setTimeout(
-        () => {
-          $invalidate(5, showGrowl = false);
-        },
-        3e3
-      );
-    }
     async function updateProfile() {
-      $invalidate(8, profileSubmit = true);
+      $invalidate(6, profileSubmit = true);
       if (JSON.stringify(user) === oldProfileJson)
         return useGrowl("error", "No changes");
       await (0, import_jsApi_GEN3.UserUpdateProfile)(user, function(res) {
-        $invalidate(8, profileSubmit = false);
-        if (res.error)
-          return useGrowl("error", res.error);
+        $invalidate(6, profileSubmit = false);
+        if (res.error) {
+          growl.showError(res.error);
+          return;
+        }
         oldProfileJson = JSON.stringify(res.user);
         $invalidate(0, user = res.user);
-        useGrowl("info", "Profile updated");
+        growl.showSuccess("Profile updated");
       });
     }
     async function changePassword() {
-      $invalidate(9, passwordSubmit = true);
+      $invalidate(7, passwordSubmit = true);
       if (newPassword !== repeatNewPassword) {
-        useGrowl("error", "New password and repeat new password must be same");
-        $invalidate(9, passwordSubmit = false);
+        growl.showError("New password and repeat new password must be same");
+        $invalidate(7, passwordSubmit = false);
         return;
       }
       let input = {
@@ -7153,27 +7027,39 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         newPass: newPassword
       };
       await (0, import_jsApi_GEN3.UserChangePassword)(input, function(res) {
-        $invalidate(9, passwordSubmit = false);
-        if (res.error)
-          return useGrowl("error", res.error);
+        $invalidate(7, passwordSubmit = false);
+        if (res.error) {
+          growl.showError(res.error);
+          return;
+        }
         $invalidate(2, oldPassword = "");
         $invalidate(3, newPassword = "");
         $invalidate(4, repeatNewPassword = "");
-        alert("Password updated");
+        growl.showSuccess("Password updated");
       });
     }
     async function killSession(sessionToken) {
       await (0, import_jsApi_GEN3.UserSessionKill)({ sessionTokenHash: sessionToken }, async (res) => {
-        if (res.error)
-          return useGrowl("error", res.error);
+        if (res.error) {
+          growl.showError(res.error);
+          return;
+        }
         if (res.sessionTerminated < 1)
           return useGrowl("error", "No session terminated");
-        useGrowl("info", res.sessionTerminated + " session terminated");
+        growl.showSuccess(res.sessionTerminated + " session terminated");
         await (0, import_jsApi_GEN3.UserSessionsActive)({ userId: user.id }, (res2) => {
-          if (res2.error)
-            return useGrowl("error", res2.error);
+          if (res2.error) {
+            growl.showError(res2.error);
+            return;
+          }
           $invalidate(1, sessionActiveLists = res2.sessionsActive);
         });
+      });
+    }
+    function growl_1_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        growl = $value;
+        $invalidate(5, growl);
       });
     }
     function input0_input_handler() {
@@ -7211,15 +7097,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       oldPassword,
       newPassword,
       repeatNewPassword,
-      showGrowl,
-      gMsg,
-      gType,
+      growl,
       profileSubmit,
       passwordSubmit,
       $T,
       updateProfile,
       changePassword,
       killSession,
+      growl_1_binding,
       input0_input_handler,
       input1_input_handler,
       input2_input_handler,

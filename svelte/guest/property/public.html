@@ -77,7 +77,7 @@
 
 
 <style>/* fakecss:./_components/Growl.esbuild-svelte-fake-css */
-.growl.svelte-zu619y.svelte-zu619y {
+.growl.svelte-smdxqx.svelte-smdxqx {
   position: fixed;
   display: flex;
   flex-direction: row;
@@ -97,26 +97,22 @@
 .icon_growl {
   flex-shrink: 0;
 }
-.growl.svelte-zu619y span.svelte-zu619y {
+.growl.svelte-smdxqx span.svelte-smdxqx {
   flex-shrink: 1;
 }
-.growl.default.svelte-zu619y.svelte-zu619y {
-  background-color: #FFF;
-  color: #475569;
-}
-.growl.info.svelte-zu619y.svelte-zu619y {
+.growl.info.svelte-smdxqx.svelte-smdxqx {
   background-color: #1080E8;
   color: #FFF;
 }
-.growl.success.svelte-zu619y.svelte-zu619y {
+.growl.success.svelte-smdxqx.svelte-smdxqx {
   background-color: #059669;
   color: #FFF;
 }
-.growl.error.svelte-zu619y.svelte-zu619y {
+.growl.error.svelte-smdxqx.svelte-smdxqx {
   background-color: #EF4444;
   color: #FFF;
 }
-.growl.warning.svelte-zu619y.svelte-zu619y {
+.growl.warning.svelte-smdxqx.svelte-smdxqx {
   background-color: #D97706;
   color: #FFF;
 }
@@ -1468,14 +1464,6 @@
     c: '<path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidQuestionCircle.js
-  var FaSolidQuestionCircle_default = {
-    a: {
-      viewBox: "0 0 512 512"
-    },
-    c: '<path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path>'
-  };
-
   // _components/Growl.svelte
   function create_if_block(ctx) {
     let div;
@@ -1483,28 +1471,23 @@
     let t1;
     let t2;
     let t3;
-    let t4;
     let span;
-    let t5;
+    let t4;
     let div_class_value;
     let current;
     let if_block0 = (
       /*growlType*/
-      ctx[1] === "default" && create_if_block_5(ctx)
+      ctx[1] === "info" && create_if_block_4(ctx)
     );
     let if_block1 = (
       /*growlType*/
-      ctx[1] === "info" && create_if_block_4(ctx)
+      ctx[1] === "success" && create_if_block_3(ctx)
     );
     let if_block2 = (
       /*growlType*/
-      ctx[1] === "success" && create_if_block_3(ctx)
-    );
-    let if_block3 = (
-      /*growlType*/
       ctx[1] === "error" && create_if_block_2(ctx)
     );
-    let if_block4 = (
+    let if_block3 = (
       /*growlType*/
       ctx[1] === "warning" && create_if_block_1(ctx)
     );
@@ -1523,17 +1506,14 @@
         if (if_block3)
           if_block3.c();
         t3 = space();
-        if (if_block4)
-          if_block4.c();
-        t4 = space();
         span = element("span");
-        t5 = text(
+        t4 = text(
           /*message*/
           ctx[0]
         );
-        attr(span, "class", "svelte-zu619y");
+        attr(span, "class", "svelte-smdxqx");
         attr(div, "class", div_class_value = null_to_empty(`growl ${/*growlType*/
-        ctx[1]}`) + " svelte-zu619y");
+        ctx[1]}`) + " svelte-smdxqx");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -1549,17 +1529,14 @@
         if (if_block3)
           if_block3.m(div, null);
         append(div, t3);
-        if (if_block4)
-          if_block4.m(div, null);
-        append(div, t4);
         append(div, span);
-        append(span, t5);
+        append(span, t4);
         current = true;
       },
       p(ctx2, dirty) {
         if (
           /*growlType*/
-          ctx2[1] === "default"
+          ctx2[1] === "info"
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
@@ -1568,7 +1545,7 @@
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_5(ctx2);
+            if_block0 = create_if_block_4(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(div, t0);
@@ -1582,7 +1559,7 @@
         }
         if (
           /*growlType*/
-          ctx2[1] === "info"
+          ctx2[1] === "success"
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
@@ -1591,7 +1568,7 @@
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_4(ctx2);
+            if_block1 = create_if_block_3(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(div, t1);
@@ -1605,7 +1582,7 @@
         }
         if (
           /*growlType*/
-          ctx2[1] === "success"
+          ctx2[1] === "error"
         ) {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
@@ -1614,7 +1591,7 @@
               transition_in(if_block2, 1);
             }
           } else {
-            if_block2 = create_if_block_3(ctx2);
+            if_block2 = create_if_block_2(ctx2);
             if_block2.c();
             transition_in(if_block2, 1);
             if_block2.m(div, t2);
@@ -1628,7 +1605,7 @@
         }
         if (
           /*growlType*/
-          ctx2[1] === "error"
+          ctx2[1] === "warning"
         ) {
           if (if_block3) {
             if_block3.p(ctx2, dirty);
@@ -1637,7 +1614,7 @@
               transition_in(if_block3, 1);
             }
           } else {
-            if_block3 = create_if_block_2(ctx2);
+            if_block3 = create_if_block_1(ctx2);
             if_block3.c();
             transition_in(if_block3, 1);
             if_block3.m(div, t3);
@@ -1649,39 +1626,16 @@
           });
           check_outros();
         }
-        if (
-          /*growlType*/
-          ctx2[1] === "warning"
-        ) {
-          if (if_block4) {
-            if_block4.p(ctx2, dirty);
-            if (dirty & /*growlType*/
-            2) {
-              transition_in(if_block4, 1);
-            }
-          } else {
-            if_block4 = create_if_block_1(ctx2);
-            if_block4.c();
-            transition_in(if_block4, 1);
-            if_block4.m(div, t4);
-          }
-        } else if (if_block4) {
-          group_outros();
-          transition_out(if_block4, 1, 1, () => {
-            if_block4 = null;
-          });
-          check_outros();
-        }
         if (!current || dirty & /*message*/
         1)
           set_data(
-            t5,
+            t4,
             /*message*/
             ctx2[0]
           );
         if (!current || dirty & /*growlType*/
         2 && div_class_value !== (div_class_value = null_to_empty(`growl ${/*growlType*/
-        ctx2[1]}`) + " svelte-zu619y")) {
+        ctx2[1]}`) + " svelte-smdxqx")) {
           attr(div, "class", div_class_value);
         }
       },
@@ -1692,7 +1646,6 @@
         transition_in(if_block1);
         transition_in(if_block2);
         transition_in(if_block3);
-        transition_in(if_block4);
         current = true;
       },
       o(local) {
@@ -1700,7 +1653,6 @@
         transition_out(if_block1);
         transition_out(if_block2);
         transition_out(if_block3);
-        transition_out(if_block4);
         current = false;
       },
       d(detaching) {
@@ -1715,43 +1667,6 @@
           if_block2.d();
         if (if_block3)
           if_block3.d();
-        if (if_block4)
-          if_block4.d();
-      }
-    };
-  }
-  function create_if_block_5(ctx) {
-    let icon;
-    let current;
-    icon = new Icon_default({
-      props: {
-        className: "icon_growl",
-        size: 20,
-        color: "#475569",
-        src: FaSolidQuestionCircle_default
-      }
-    });
-    return {
-      c() {
-        create_component(icon.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(icon, target, anchor);
-        current = true;
-      },
-      p: noop,
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(icon, detaching);
       }
     };
   }
@@ -1900,7 +1815,7 @@
     let current;
     let if_block = (
       /*isShow*/
-      ctx[2] && create_if_block(ctx)
+      ctx[2] === true && create_if_block(ctx)
     );
     return {
       c() {
@@ -1917,7 +1832,7 @@
       p(ctx2, [dirty]) {
         if (
           /*isShow*/
-          ctx2[2]
+          ctx2[2] === true
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
@@ -1959,11 +1874,11 @@
     };
   }
   function instance2($self, $props, $invalidate) {
-    let { message = "This is growl, XD" } = $props;
-    let { growlType = "default" } = $props;
+    let message = "This is growl, XD";
+    let growlType = "info";
     let isShow = false;
     function showInfo(msg) {
-      $invalidate(1, growlType = "default");
+      $invalidate(1, growlType = "info");
       $invalidate(2, isShow = true);
       $invalidate(0, message = msg);
       setTimeout(
@@ -1973,21 +1888,62 @@
         3e3
       );
     }
-    $self.$set = ($props2) => {
-      if ("message" in $props2)
-        $invalidate(0, message = $props2.message);
-      if ("growlType" in $props2)
-        $invalidate(1, growlType = $props2.growlType);
-    };
-    return [message, growlType, isShow, showInfo];
+    function showWarning(msg) {
+      $invalidate(1, growlType = "warning");
+      $invalidate(2, isShow = true);
+      $invalidate(0, message = msg);
+      setTimeout(
+        () => {
+          $invalidate(2, isShow = false);
+        },
+        3e3
+      );
+    }
+    function showError(msg) {
+      $invalidate(1, growlType = "error");
+      $invalidate(2, isShow = true);
+      $invalidate(0, message = msg);
+      setTimeout(
+        () => {
+          $invalidate(2, isShow = false);
+        },
+        3e3
+      );
+    }
+    function showSuccess(msg) {
+      $invalidate(1, growlType = "success");
+      $invalidate(2, isShow = true);
+      $invalidate(0, message = msg);
+      setTimeout(
+        () => {
+          $invalidate(2, isShow = false);
+        },
+        3e3
+      );
+    }
+    return [message, growlType, isShow, showInfo, showWarning, showError, showSuccess];
   }
   var Growl = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance2, create_fragment2, safe_not_equal, { message: 0, growlType: 1, showInfo: 3 });
+      init(this, options, instance2, create_fragment2, safe_not_equal, {
+        showInfo: 3,
+        showWarning: 4,
+        showError: 5,
+        showSuccess: 6
+      });
     }
     get showInfo() {
       return this.$.ctx[3];
+    }
+    get showWarning() {
+      return this.$.ctx[4];
+    }
+    get showError() {
+      return this.$.ctx[5];
+    }
+    get showSuccess() {
+      return this.$.ctx[6];
     }
   };
   var Growl_default = Growl;
@@ -2347,7 +2303,7 @@
     let if_block;
     let if_block_anchor;
     let current;
-    const if_block_creators = [create_if_block_52, create_else_block_1];
+    const if_block_creators = [create_if_block_5, create_else_block_1];
     const if_blocks = [];
     function select_block_type_1(ctx2, dirty) {
       if (
@@ -2465,7 +2421,7 @@
       }
     };
   }
-  function create_if_block_52(ctx) {
+  function create_if_block_5(ctx) {
     let pillbox;
     let current;
     pillbox = new PillBox_default({
@@ -3745,57 +3701,8 @@
   var Property_default = Property;
 
   // guest/property/public.svelte
-  function create_if_block3(ctx) {
-    let growl;
-    let current;
-    growl = new Growl_default({
-      props: {
-        message: (
-          /*gMsg*/
-          ctx[1]
-        ),
-        growlType: (
-          /*gType*/
-          ctx[2]
-        )
-      }
-    });
-    return {
-      c() {
-        create_component(growl.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(growl, target, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        const growl_changes = {};
-        if (dirty & /*gMsg*/
-        2)
-          growl_changes.message = /*gMsg*/
-          ctx2[1];
-        if (dirty & /*gType*/
-        4)
-          growl_changes.growlType = /*gType*/
-          ctx2[2];
-        growl.$set(growl_changes);
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(growl.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(growl.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(growl, detaching);
-      }
-    };
-  }
   function create_fragment5(ctx) {
+    let growl;
     let t0;
     let section;
     let div0;
@@ -3842,10 +3749,9 @@
     let current;
     let mounted;
     let dispose;
-    let if_block = (
-      /*showGrowl*/
-      ctx[0] && create_if_block3(ctx)
-    );
+    let growl_props = {};
+    growl = new Growl_default({ props: growl_props });
+    ctx[2](growl);
     property = new Property_default({ props: { propItem, meta } });
     icon0 = new Icon_default({
       props: {
@@ -3912,8 +3818,7 @@
     });
     return {
       c() {
-        if (if_block)
-          if_block.c();
+        create_component(growl.$.fragment);
         t0 = space();
         section = element("section");
         div0 = element("div");
@@ -3993,8 +3898,7 @@
         attr(section, "class", "property_container svelte-vm9pc0");
       },
       m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
+        mount_component(growl, target, anchor);
         insert(target, t0, anchor);
         insert(target, section, anchor);
         append(section, div0);
@@ -4039,40 +3943,19 @@
             button,
             "click",
             /*click_handler*/
-            ctx[4]
+            ctx[3]
           );
           mounted = true;
         }
       },
       p(ctx2, [dirty]) {
-        if (
-          /*showGrowl*/
-          ctx2[0]
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*showGrowl*/
-            1) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block3(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(t0.parentNode, t0);
-          }
-        } else if (if_block) {
-          group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
-          });
-          check_outros();
-        }
+        const growl_changes = {};
+        growl.$set(growl_changes);
       },
       i(local) {
         if (current)
           return;
-        transition_in(if_block);
+        transition_in(growl.$.fragment, local);
         transition_in(property.$.fragment, local);
         transition_in(icon0.$.fragment, local);
         transition_in(icon1.$.fragment, local);
@@ -4085,7 +3968,7 @@
         current = true;
       },
       o(local) {
-        transition_out(if_block);
+        transition_out(growl.$.fragment, local);
         transition_out(property.$.fragment, local);
         transition_out(icon0.$.fragment, local);
         transition_out(icon1.$.fragment, local);
@@ -4102,8 +3985,8 @@
           detach(t0);
           detach(section);
         }
-        if (if_block)
-          if_block.d(detaching);
+        ctx[2](null);
+        destroy_component(growl, detaching);
         destroy_component(property);
         destroy_component(icon0);
         destroy_component(icon1);
@@ -4121,25 +4004,20 @@
   var propItem = {/* propItem */};
   var meta = {/* propertyMeta */};
   function instance5($self, $props, $invalidate) {
-    let showGrowl = false, gMsg = "", gType = "";
-    function useGrowl(type, msg) {
-      $invalidate(0, showGrowl = true);
-      $invalidate(1, gMsg = msg);
-      $invalidate(2, gType = type);
-      setTimeout(
-        () => {
-          $invalidate(0, showGrowl = false);
-        },
-        2e3
-      );
-    }
+    let myGrowl = Growl_default;
     function copyToClipboard(text2) {
       console.log(window.location);
       navigator.clipboard.writeText(text2);
-      useGrowl("success", "Link copied to clipboard");
+      myGrowl.showSuccess("Link copied to clipboard");
+    }
+    function growl_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        myGrowl = $value;
+        $invalidate(0, myGrowl);
+      });
     }
     const click_handler = () => copyToClipboard(window.location);
-    return [showGrowl, gMsg, gType, copyToClipboard, click_handler];
+    return [myGrowl, copyToClipboard, growl_binding, click_handler];
   }
   var Public = class extends SvelteComponent {
     constructor(options) {

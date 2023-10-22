@@ -1,7 +1,8 @@
 <script>
-
     import {T} from './_components/uiState.js';
+    import Growl from './_components/Growl.svelte';
 
+    let myGrowl = Growl;
 </script>
 
 {$T.currentLang}
@@ -9,3 +10,8 @@
 {$T.forSale}
 <button on:click={() => T.changeLanguage('EN')}>EN</button>
 <button on:click={() => T.changeLanguage('TW')}>TW</button>
+<button on:click={() => myGrowl.showInfo('This is Growl')}>
+    Show Growl
+</button>
+
+<Growl bind:this={myGrowl}/>

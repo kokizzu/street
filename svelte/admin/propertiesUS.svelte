@@ -10,6 +10,7 @@
   import HiSolidXCircle from 'svelte-icons-pack/hi/HiSolidXCircle';
   import HiSolidCheckCircle from 'svelte-icons-pack/hi/HiSolidCheckCircle';
   import { AdminPropertiesUS, UserPropHistory } from '../jsApi.GEN';
+  import Growl from '../_components/Growl.svelte';
   
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
@@ -84,15 +85,15 @@
   ];
   
   $: console.log( 'properties=', properties );
-  
+
+  let growl = Growl;
   let propHistoryModal = ModalDialog;
   
   // return true if got error
   function handleResponse( res ) {
     console.log( res );
     if( res.error ) {
-      // TODO: growl error
-      alert( res.error );
+      growl.showError( res.error );
       return true;
     }
     if( res.properties && res.properties.length ) properties = res.properties;
@@ -179,6 +180,7 @@
   }
 </script>
 
+<Growl bind:this={growl}/>
 <section class='dashboard'>
   <Menu access={segments} />
   <div class='dashboard_main_content'>

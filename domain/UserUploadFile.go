@@ -81,6 +81,7 @@ func (d *Domain) UserUploadFile(in *UserUploadFileIn) (out UserUploadFileOut) {
 
 	switch in.Purpose {
 	case UserUploadFile_PurposeProperty, UserUploadFile_PurposeFloorPlan:
+	//TODO: check for ownership of property before processing
 	default:
 		out.SetError(400, ErrUserUploadInvalidPurpose)
 		return

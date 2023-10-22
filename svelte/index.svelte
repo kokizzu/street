@@ -85,17 +85,17 @@
     isSubmitted = true;
     if( !email ) {
       isSubmitted = false;
-      myGrowl.showInfo('email is required' );
+      myGrowl.showError('Email is required' );
       return
     }
     if( password.length<12 ) {
       isSubmitted = false;
-      myGrowl.showInfo('password must be at least 12 characters' );
+      myGrowl.showWarning('Password must be at least 12 characters' );
       return
     }
     if( password!==confirmPass ) {
       isSubmitted = false;
-      myGrowl.showInfo('passwords do not match' );
+      myGrowl.showError('Passwords do not match' );
       return
     }
     // TODO: send to backend
@@ -106,11 +106,11 @@
       console.log( o );
       if( o.error ) {
         isSubmitted = false;
-        myGrowl.showInfo(o.error );
-				return
+        myGrowl.showError(o.error );
+		return
       }
       isSubmitted = false;
-      myGrowl.showInfo('registered successfully, a registration verification has been sent to your email' );
+      myGrowl.showSucess('Registered successfully, a registration verification has been sent to your email' );
       mode = LOGIN;
       password = '';
       await tick();
@@ -122,12 +122,12 @@
     isSubmitted = true;
     if( !email ) {
       isSubmitted = false;
-      myGrowl.showInfo('email is required' );
+      myGrowl.showError('Email is required' );
       return
     }
     if( password.length<12 ) {
       isSubmitted = false;
-      myGrowl.showInfo('password must be at least 12 characters' );
+      myGrowl.showWarning('Password must be at least 12 characters' );
       return
     }
     const i = {email, password};
@@ -135,11 +135,11 @@
       console.log( o );
       if( o.error ) {
         isSubmitted = false;
-        myGrowl.showInfo( o.error );
+        myGrowl.showError( o.error );
         return
       }
       isSubmitted = false;
-      myGrowl.showInfo('Login successfully' );
+      myGrowl.showSuccess('Login successfully' );
       setTimeout( () => {
         user = o.user;
         segments = o.segments;
@@ -153,7 +153,7 @@
     isSubmitted = true;
     if( !email ) {
       isSubmitted = false;
-      myGrowl.showInfo( 'email is required' );
+      myGrowl.showError( 'Email is required' );
       return
     }
     const i = {email};
@@ -161,12 +161,12 @@
       console.log( o );
       if( o.error ) {
         isSubmitted = false;
-        myGrowl.showInfo(o.error );
+        myGrowl.showError(o.error );
         return
       }
       isSubmitted = false;
       onHashChange();
-      myGrowl.showInfo('a email verification link has been sent to your email' );
+      myGrowl.showInfo('An email verification link has been sent to your email' );
     } );
   }
   
@@ -174,7 +174,7 @@
     isSubmitted = true;
     if( !email ) {
       isSubmitted = false;
-      myGrowl.showInfo('email is required' );
+      myGrowl.showError('Email is required' );
       return
     }
     const i = {email};
@@ -182,11 +182,11 @@
       console.log( o );
       if( o.error ) {
         isSubmitted = false;
-        myGrowl.showInfo( o.error );
+        myGrowl.showError( o.error );
         return
       }
       onHashChange();
-      myGrowl.showInfo('a reset password link has been sent to your email' );
+      myGrowl.showInfo('A reset password link has been sent to your email' );
     } );
   }
 </script>
