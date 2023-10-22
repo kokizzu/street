@@ -33,6 +33,7 @@ services:
       - ./var_lib_clickhouse:/var/lib/clickhouse
       # Base Clickhouse cfg
       - ./etc_clickhouse-server:/etc/clickhouse-server
+      # https://kb.altinity.com/altinity-kb-setup-and-maintenance/altinity-kb-system-tables-eat-my-disk/
     ulimits:
       nofile:
         soft: 262144
