@@ -122,6 +122,16 @@
     .action_btn:hover {
         background-color : #7E80F1;
     }
+    
+    .action_btn:disabled {
+        cursor      : not-allowed;
+        font-size   : 13px;
+        font-weight : 600;
+        border      : 1px solid #CBD5E1 !important;
+        background  : none !important;
+        color       : #5C646F;
+        filter      : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+    }
 </style>
 
 
@@ -386,62 +396,34 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 }
 
 /* fakecss:./_components/TableView.esbuild-svelte-fake-css */
-.action_options_container.svelte-10ysrfs.svelte-10ysrfs {
+.action_options_container.svelte-1hhtvg.svelte-1hhtvg {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.action_options_container.svelte-10ysrfs .left.svelte-10ysrfs {
+.action_options_container.svelte-1hhtvg .left.svelte-1hhtvg {
   display: flex;
   gap: 8px;
   align-items: center;
 }
-.action_btn.svelte-10ysrfs.svelte-10ysrfs {
-  padding: 7px 20px;
-  font-size: 13px;
-  font-weight: 600;
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  border: 1px solid #6366F1;
-  background-color: #6366F1;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
-  gap: 8px;
-}
-.action_btn.svelte-10ysrfs.svelte-10ysrfs:disabled {
-  cursor: not-allowed;
-  font-size: 13px;
-  font-weight: 600;
-  border: 1px solid #CBD5E1 !important;
-  background: none !important;
-  color: #5C646F;
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-}
-.action_btn.svelte-10ysrfs.svelte-10ysrfs:hover {
-  background-color: #7E80F1;
-}
-.table_container.svelte-10ysrfs.svelte-10ysrfs {
+.table_container.svelte-1hhtvg.svelte-1hhtvg {
   overflow-x: auto;
 }
-.table_container.svelte-10ysrfs.svelte-10ysrfs::-webkit-scrollbar-thumb {
+.table_container.svelte-1hhtvg.svelte-1hhtvg::-webkit-scrollbar-thumb {
   background-color: #EF4444;
   border-radius: 4px;
 }
-.table_container.svelte-10ysrfs.svelte-10ysrfs::-webkit-scrollbar-thumb:hover {
+.table_container.svelte-1hhtvg.svelte-1hhtvg::-webkit-scrollbar-thumb:hover {
   background-color: #EC6262;
 }
-.table_container.svelte-10ysrfs.svelte-10ysrfs::-webkit-scrollbar {
+.table_container.svelte-1hhtvg.svelte-1hhtvg::-webkit-scrollbar {
   height: 10px;
 }
-.table_container.svelte-10ysrfs.svelte-10ysrfs::-webkit-scrollbar-track {
+.table_container.svelte-1hhtvg.svelte-1hhtvg::-webkit-scrollbar-track {
   background-color: transparent;
 }
-.table_container.svelte-10ysrfs .table_users.svelte-10ysrfs {
+.table_container.svelte-1hhtvg .table_users.svelte-1hhtvg {
   margin: 10px 1px 10px 0;
   background-color: white;
   border-collapse: collapse;
@@ -449,61 +431,60 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   width: 100%;
   color: #475569;
 }
-.table_container.svelte-10ysrfs .table_users th.svelte-10ysrfs {
+.table_container.svelte-1hhtvg .table_users th.svelte-1hhtvg {
   color: #6366F1;
   border: 1px solid #CBD5E1;
   padding: 10px 7px;
 }
-.table_container.svelte-10ysrfs .table_users td.svelte-10ysrfs {
+.table_container.svelte-1hhtvg .table_users td.svelte-1hhtvg {
   border: 1px solid #CBD5E1;
   padding: 2px 3px 2px 3px;
 }
-.table_users.svelte-10ysrfs .table_header.svelte-10ysrfs {
+.table_users.svelte-1hhtvg .table_header.svelte-1hhtvg {
   text-align: left;
   white-space: nowrap;
 }
-.table_users.svelte-10ysrfs .col_action.svelte-10ysrfs {
+.table_users.svelte-1hhtvg .col_action.svelte-1hhtvg {
   text-align: center;
-  padding: 0 20px;
-  width: 200px !important;
+  padding: 0 10px;
+  width: fit-content;
 }
-.table_users.svelte-10ysrfs td.col_action.svelte-10ysrfs {
+.table_users.svelte-1hhtvg td.col_action.svelte-1hhtvg {
   text-align: center;
-  padding: 0 40px;
-  width: 200px !important;
+  padding: 0 10px;
+  width: fit-content;
 }
-.table_users.svelte-10ysrfs td.col_action div.svelte-10ysrfs {
+.table_users.svelte-1hhtvg td.col_action div.svelte-1hhtvg {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 8px;
 }
-.table_users.svelte-10ysrfs tr.svelte-10ysrfs,
-.table_users.svelte-10ysrfs td.svelte-10ysrfs {
+.table_users.svelte-1hhtvg tr.svelte-1hhtvg,
+.table_users.svelte-1hhtvg td.svelte-1hhtvg {
   height: 2em;
 }
-.table_users.svelte-10ysrfs .col_action .action.svelte-10ysrfs {
+.table_users.svelte-1hhtvg .col_action .action.svelte-1hhtvg {
   background: none;
   color: #475569;
   text-align: center;
   cursor: pointer;
   padding: 8px 10px;
-  height: 2.5em;
-  width: 2em;
+  height: fit-content;
+  width: fit-content;
   border: none;
   display: inline;
   border-radius: 5px;
 }
-.table_users.svelte-10ysrfs .col_action .action.svelte-10ysrfs:hover {
+.table_users.svelte-1hhtvg .col_action .action.svelte-1hhtvg:hover {
   color: #EF4444;
   background-color: #F0F0F0;
 }
-.table_users.svelte-10ysrfs .deleted td.svelte-10ysrfs {
+.table_users.svelte-1hhtvg .deleted td.svelte-1hhtvg {
   text-decoration: line-through;
   text-decoration-color: rgba(239, 68, 68, 0.5);
   text-decoration-thickness: 5px;
 }
-.pages_set.svelte-10ysrfs.svelte-10ysrfs {
+.pages_set.svelte-1hhtvg.svelte-1hhtvg {
   padding-top: 10px;
   display: flex;
   flex-direction: row;
@@ -513,13 +494,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   font-size: 15px;
   color: #161616;
 }
-.pages_set.svelte-10ysrfs .page_and_rows_count.svelte-10ysrfs {
+.pages_set.svelte-1hhtvg .page_and_rows_count.svelte-1hhtvg {
   display: flex;
   flex-direction: row;
   align-content: center;
   align-items: center;
 }
-.pages_set.svelte-10ysrfs .page_and_rows_count .perPage.svelte-10ysrfs {
+.pages_set.svelte-1hhtvg .page_and_rows_count .perPage.svelte-1hhtvg {
   margin: auto 5px;
   width: 4em;
   border: 1px solid #CBD5E1;
@@ -530,11 +511,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   color: #161616;
   outline-color: #6366F1;
 }
-.pages_set.svelte-10ysrfs .page_and_rows_count .perPage.svelte-10ysrfs::-webkit-inner-spin-button,
-.pages_set.svelte-10ysrfs .page_and_rows_count .perPage.svelte-10ysrfs::-webkit-outer-spin-button {
+.pages_set.svelte-1hhtvg .page_and_rows_count .perPage.svelte-1hhtvg::-webkit-inner-spin-button,
+.pages_set.svelte-1hhtvg .page_and_rows_count .perPage.svelte-1hhtvg::-webkit-outer-spin-button {
   opacity: 1;
 }
-.pagination.svelte-10ysrfs button.svelte-10ysrfs {
+.pagination.svelte-1hhtvg button.svelte-1hhtvg {
   color: white;
   background-color: #6366F1;
   padding: 8px;
@@ -544,20 +525,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   cursor: pointer;
   border: none;
 }
-.pagination.svelte-10ysrfs button.svelte-10ysrfs:hover {
+.pagination.svelte-1hhtvg button.svelte-1hhtvg:hover {
   background-color: #7E80F1;
 }
-.pagination.svelte-10ysrfs button.svelte-10ysrfs:disabled {
+.pagination.svelte-1hhtvg button.svelte-1hhtvg:disabled {
   cursor: not-allowed;
   border: 1px solid #CBD5E1 !important;
   background: none !important;
   color: #5C646F;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
-.pagination.svelte-10ysrfs button.svelte-10ysrfs:disabled:hover {
+.pagination.svelte-1hhtvg button.svelte-1hhtvg:disabled:hover {
   background: none;
 }
-input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
+input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
   width: 0;
   min-width: 100%;
   box-sizing: border-box;
@@ -5518,7 +5499,7 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
     child_ctx[41] = i;
     return child_ctx;
   }
-  function create_else_block_1(ctx) {
+  function create_else_block_2(ctx) {
     let th;
     let label;
     let t0_value = (
@@ -5557,8 +5538,8 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
         ctx[34].name);
         attr(input, "title", "separate with pipe for multiple values, for example:\n  >=100|<50|61|72 will show values greater equal to 100, OR less than 50, OR exactly 61 OR 72\n    filtering with greater or less than will only show correct result if data is saved as number\n    currently price and size NOT stored as number\n  <>abc* will show values NOT started with abc*\n  abc*def|ghi will show values started with abc ends with def OR exactly ghi\n  *jkl* will show values containing jkl substring\nmultiple filter from other fields will do AND operation");
         attr(input, "type", "text");
-        attr(input, "class", "input_filter svelte-10ysrfs");
-        attr(th, "class", "table_header svelte-10ysrfs");
+        attr(input, "class", "input_filter svelte-1hhtvg");
+        attr(th, "class", "table_header svelte-1hhtvg");
         attr(th, "style", th_style_value = /*widths*/
         ctx[5][
           /*field*/
@@ -5657,7 +5638,7 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
       c() {
         th = element("th");
         th.textContent = "Action";
-        attr(th, "class", "col_action svelte-10ysrfs");
+        attr(th, "class", "col_action svelte-1hhtvg");
       },
       m(target, anchor) {
         insert(target, th, anchor);
@@ -5678,7 +5659,7 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
         ctx2[34].name === "id"
       )
         return create_if_block_52;
-      return create_else_block_1;
+      return create_else_block_2;
     }
     let current_block_type = select_block_type(ctx, [-1, -1]);
     let if_block = current_block_type(ctx);
@@ -5711,7 +5692,7 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
       }
     };
   }
-  function create_else_block(ctx) {
+  function create_else_block_1(ctx) {
     let td;
     let t_value = (
       /*cell*/
@@ -5729,7 +5710,7 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "table_data svelte-10ysrfs");
+        attr(td, "class", "table_data svelte-1hhtvg");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -5775,7 +5756,7 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-10ysrfs");
+        attr(td, "class", "svelte-1hhtvg");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -5821,7 +5802,7 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "table_data svelte-10ysrfs");
+        attr(td, "class", "table_data svelte-1hhtvg");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -5867,7 +5848,7 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "table_data svelte-10ysrfs");
+        attr(td, "class", "table_data svelte-1hhtvg");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -5939,10 +5920,10 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(button, "class", "action svelte-10ysrfs");
+        attr(button, "class", "action svelte-1hhtvg");
         attr(button, "title", "Edit");
-        attr(div, "class", "svelte-10ysrfs");
-        attr(td, "class", "col_action svelte-10ysrfs");
+        attr(div, "class", "svelte-1hhtvg");
+        attr(td, "class", "col_action svelte-1hhtvg");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -6017,7 +5998,7 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
       }
     };
   }
-  function create_if_block_12(ctx) {
+  function create_else_block(ctx) {
     let button;
     let icon;
     let button_title_value;
@@ -6043,7 +6024,7 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
       c() {
         button = element("button");
         create_component(icon.$.fragment);
-        attr(button, "class", "action svelte-10ysrfs");
+        attr(button, "class", "action svelte-1hhtvg");
         attr(button, "title", button_title_value = /*action*/
         ctx[37].label || "");
       },
@@ -6090,60 +6071,121 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
       }
     };
   }
-  function create_each_block_2(ctx) {
-    let show_if = !/*action*/
-    ctx[37].showIf || /*action*/
-    ctx[37].showIf(
-      /*row*/
-      ctx[31],
-      /*i*/
-      ctx[36]
-    );
-    let if_block_anchor;
+  function create_if_block_12(ctx) {
+    let a;
+    let icon;
+    let a_href_value;
+    let a_title_value;
     let current;
-    let if_block = show_if && create_if_block_12(ctx);
+    icon = new Icon_default({ props: { src: (
+      /*action*/
+      ctx[37].icon
+    ) } });
     return {
       c() {
-        if (if_block)
-          if_block.c();
+        a = element("a");
+        create_component(icon.$.fragment);
+        attr(a, "href", a_href_value = /*action*/
+        ctx[37].link(
+          /*row*/
+          ctx[31]
+        ));
+        attr(a, "class", "action svelte-1hhtvg");
+        attr(a, "target", "_blank");
+        attr(a, "title", a_title_value = /*action*/
+        ctx[37].label || "");
+      },
+      m(target, anchor) {
+        insert(target, a, anchor);
+        mount_component(icon, a, null);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const icon_changes = {};
+        if (dirty[0] & /*extraActions*/
+        8)
+          icon_changes.src = /*action*/
+          ctx2[37].icon;
+        icon.$set(icon_changes);
+        if (!current || dirty[0] & /*extraActions, rows*/
+        12 && a_href_value !== (a_href_value = /*action*/
+        ctx2[37].link(
+          /*row*/
+          ctx2[31]
+        ))) {
+          attr(a, "href", a_href_value);
+        }
+        if (!current || dirty[0] & /*extraActions*/
+        8 && a_title_value !== (a_title_value = /*action*/
+        ctx2[37].label || "")) {
+          attr(a, "title", a_title_value);
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(a);
+        }
+        destroy_component(icon);
+      }
+    };
+  }
+  function create_each_block_2(ctx) {
+    let current_block_type_index;
+    let if_block;
+    let if_block_anchor;
+    let current;
+    const if_block_creators = [create_if_block_12, create_else_block];
+    const if_blocks = [];
+    function select_block_type_2(ctx2, dirty) {
+      if (
+        /*action*/
+        ctx2[37].link
+      )
+        return 0;
+      return 1;
+    }
+    current_block_type_index = select_block_type_2(ctx, [-1, -1]);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    return {
+      c() {
+        if_block.c();
         if_block_anchor = empty();
       },
       m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
+        if_blocks[current_block_type_index].m(target, anchor);
         insert(target, if_block_anchor, anchor);
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*extraActions, rows*/
-        12)
-          show_if = !/*action*/
-          ctx2[37].showIf || /*action*/
-          ctx2[37].showIf(
-            /*row*/
-            ctx2[31],
-            /*i*/
-            ctx2[36]
-          );
-        if (show_if) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty[0] & /*extraActions, rows*/
-            12) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block_12(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        } else if (if_block) {
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type_2(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        } else {
           group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
           });
           check_outros();
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
+          } else {
+            if_block.p(ctx2, dirty);
+          }
+          transition_in(if_block, 1);
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
         }
       },
       i(local) {
@@ -6160,8 +6202,7 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
         if (detaching) {
           detach(if_block_anchor);
         }
-        if (if_block)
-          if_block.d(detaching);
+        if_blocks[current_block_type_index].d(detaching);
       }
     };
   }
@@ -6175,7 +6216,7 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
       create_if_block_22,
       create_if_block_32,
       create_if_block_42,
-      create_else_block
+      create_else_block_1
     ];
     const if_blocks = [];
     function select_block_type_1(ctx2, dirty) {
@@ -6276,7 +6317,7 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
           each_blocks[i].c();
         }
         t = space();
-        attr(tr, "class", "svelte-10ysrfs");
+        attr(tr, "class", "svelte-1hhtvg");
         toggle_class(
           tr,
           "deleted",
@@ -6448,14 +6489,14 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
           ctx[8] === /*newFilterStr*/
           ctx[9] ? "#5C646F" : "#FFF"
         ),
-        size: 11,
+        size: 17,
         src: FaSolidFilter_default
       }
     });
     icon1 = new Icon_default({
       props: {
         color: "#FFF",
-        size: 11,
+        size: 17,
         src: FaSolidSyncAlt_default
       }
     });
@@ -6573,7 +6614,7 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
         t23 = space();
         button5 = element("button");
         create_component(icon5.$.fragment);
-        attr(button0, "class", "action_btn svelte-10ysrfs");
+        attr(button0, "class", "action_btn");
         button0.disabled = button0_disabled_value = /*oldFilterStr*/
         ctx[8] === /*newFilterStr*/
         ctx[9];
@@ -6583,35 +6624,35 @@ input.input_filter.svelte-10ysrfs.svelte-10ysrfs {
           /*applyFilter*/
           ctx[13]
         );
-        attr(button1, "class", "action_btn svelte-10ysrfs");
-        attr(div0, "class", "left svelte-10ysrfs");
-        attr(div1, "class", "action_options_container svelte-10ysrfs");
-        attr(tr, "class", "svelte-10ysrfs");
-        attr(table, "class", "table_users svelte-10ysrfs");
-        attr(div2, "class", "table_container svelte-10ysrfs");
-        attr(input, "class", "perPage svelte-10ysrfs");
+        attr(button1, "class", "action_btn");
+        attr(div0, "class", "left svelte-1hhtvg");
+        attr(div1, "class", "action_options_container svelte-1hhtvg");
+        attr(tr, "class", "svelte-1hhtvg");
+        attr(table, "class", "table_users svelte-1hhtvg");
+        attr(div2, "class", "table_container svelte-1hhtvg");
+        attr(input, "class", "perPage svelte-1hhtvg");
         attr(input, "id", "perPage");
         attr(input, "min", "0");
         attr(input, "type", "number");
-        attr(div3, "class", "page_and_rows_count svelte-10ysrfs");
+        attr(div3, "class", "page_and_rows_count svelte-1hhtvg");
         button2.disabled = button2_disabled_value = !/*allowPrevPage*/
         ctx[11];
         attr(button2, "title", "Go to first page");
-        attr(button2, "class", "svelte-10ysrfs");
+        attr(button2, "class", "svelte-1hhtvg");
         button3.disabled = button3_disabled_value = !/*allowPrevPage*/
         ctx[11];
         attr(button3, "title", "Go to previous page");
-        attr(button3, "class", "svelte-10ysrfs");
+        attr(button3, "class", "svelte-1hhtvg");
         button4.disabled = button4_disabled_value = !/*allowNextPage*/
         ctx[10];
         attr(button4, "title", "Go to next page");
-        attr(button4, "class", "svelte-10ysrfs");
+        attr(button4, "class", "svelte-1hhtvg");
         button5.disabled = button5_disabled_value = !/*allowNextPage*/
         ctx[10];
         attr(button5, "title", "Go to last page");
-        attr(button5, "class", "svelte-10ysrfs");
-        attr(div4, "class", "pagination svelte-10ysrfs");
-        attr(div5, "class", "pages_set svelte-10ysrfs");
+        attr(button5, "class", "svelte-1hhtvg");
+        attr(div4, "class", "pagination svelte-1hhtvg");
+        attr(div5, "class", "pages_set svelte-1hhtvg");
       },
       m(target, anchor) {
         insert(target, section, anchor);

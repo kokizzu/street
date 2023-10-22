@@ -112,10 +112,6 @@
 				{/each}
 			</div>
 		</div>
-	{:else}
-		<div class='no_floors'>
-			<p>No Floors</p>
-		</div>
 	{/if}
 	{#if propHistories && propHistories.length}
 		<div class="property_history">
