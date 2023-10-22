@@ -53,15 +53,7 @@
   let mode = LOGIN;
   
   let isSubmitted = false;
-  let showGrowl = false, gMsg = '', gType = ''; // Growl
-  function useGrowl( type, msg ) {
-    showGrowl = true;
-    gMsg = msg;
-    gType = type;
-    setTimeout( () => {
-      showGrowl = false;
-    }, 3000 );
-  }
+  let myGrowl = Growl;
   
   async function onHashChange() {
     const auth = getCookie( 'auth' );
@@ -93,17 +85,17 @@
     isSubmitted = true;
     if( !email ) {
       isSubmitted = false;
-      useGrowl( 'error', 'email is required' );
+      myGrowl.showInfo('email is required' );
       return
     }
     if( password.length<12 ) {
       isSubmitted = false;
-      useGrowl( 'warning', 'password must be at least 12 characters' );
+      myGrowl.showInfo('password must be at least 12 characters' );
       return
     }
     if( password!==confirmPass ) {
       isSubmitted = false;
-      useGrowl( 'error', 'passwords do not match' );
+      myGrowl.showInfo('passwords do not match' );
       return
     }
     // TODO: send to backend
@@ -114,11 +106,11 @@
       console.log( o );
       if( o.error ) {
         isSubmitted = false;
-        useGrowl( 'error', o.error );
+        myGrowl.showInfo(o.error );
 				return
       }
       isSubmitted = false;
-      useGrowl( 'success', 'registered successfully, a registration verification has been sent to your email' );
+      myGrowl.showInfo('registered successfully, a registration verification has been sent to your email' );
       mode = LOGIN;
       password = '';
       await tick();
@@ -130,12 +122,12 @@
     isSubmitted = true;
     if( !email ) {
       isSubmitted = false;
-      useGrowl( 'error', 'email is required' );
+      myGrowl.showInfo('email is required' );
       return
     }
     if( password.length<12 ) {
       isSubmitted = false;
-      useGrowl( 'warning', 'password must be at least 12 characters' );
+      myGrowl.showInfo('password must be at least 12 characters' );
       return
     }
     const i = {email, password};
@@ -143,11 +135,11 @@
       console.log( o );
       if( o.error ) {
         isSubmitted = false;
-        useGrowl( 'error', o.error );
+        myGrowl.showInfo( o.error );
         return
       }
       isSubmitted = false;
-      useGrowl( 'success', 'Login successfully' );
+      myGrowl.showInfo('Login successfully' );
       setTimeout( () => {
         user = o.user;
         segments = o.segments;
@@ -161,7 +153,7 @@
     isSubmitted = true;
     if( !email ) {
       isSubmitted = false;
-      useGrowl( 'error', 'email is required' );
+      myGrowl.showInfo( 'email is required' );
       return
     }
     const i = {email};
@@ -169,12 +161,12 @@
       console.log( o );
       if( o.error ) {
         isSubmitted = false;
-        useGrowl( 'error', o.error );
+        myGrowl.showInfo(o.error );
         return
       }
       isSubmitted = false;
       onHashChange();
-      useGrowl( 'success', 'a email verification link has been sent to your email' );
+      myGrowl.showInfo('a email verification link has been sent to your email' );
     } );
   }
   
@@ -182,7 +174,7 @@
     isSubmitted = true;
     if( !email ) {
       isSubmitted = false;
-      useGrowl( 'error', 'email is required' );
+      myGrowl.showInfo('email is required' );
       return
     }
     const i = {email};
@@ -190,18 +182,16 @@
       console.log( o );
       if( o.error ) {
         isSubmitted = false;
-        useGrowl( 'error', o.error );
+        myGrowl.showInfo( o.error );
         return
       }
       onHashChange();
-      useGrowl( 'success', 'a reset password link has been sent to your email' );
+      myGrowl.showInfo('a reset password link has been sent to your email' );
     } );
   }
 </script>
 
-{#if showGrowl}
-	<Growl message={gMsg} growlType={gType}/>
-{/if}
+<Growl bind:this={myGrowl}/>
 <svelte:window on:hashchange={onHashChange}/>
 {#if mode===USER}
 	<section class="dashboard">
