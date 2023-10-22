@@ -65,7 +65,7 @@
         sizeM2: 0,
         purpose: 'sell',
         agencyFeePercent: 0,
-        parking: 0, // new
+        parking: '0', // new
         depositFee: 0, // new
         minimumDurationYear: 0, // new
         otherFee: [], // new
@@ -105,6 +105,8 @@
       property.agencyFeePercent = +property.agencyFeePercent;
       property.floorList = property.floorList || [];
       property.images = property.images || [];
+      property.parking = property.parking.toString();
+      console.log('Property parking =', property.parking)
       for( let i = 0; i<countries.length; i++ ) {
         if( countries[ i ].iso_2===property.countryCode ) {
           countryCurrency = countries[ i ].currency.code;
@@ -381,7 +383,6 @@
   let infoObj = {
     agencyFee: 'false',
     deposit: 'false',
-    parking: property.parking,
     houseType: property.houseType
   };
   let otherFeeObj = {
@@ -727,7 +728,7 @@
 										</div>
 										<div class='input_box'>
 											<label for='parking'>Parking <span class='asterisk'>*</span></label>
-											<select id='parking' name='parking' bind:value={infoObj.parking}>
+											<select id='parking' name='parking' bind:value={property.parking}>
 												<option value='1'>Yes</option>
 												<option value='0'>No</option>
 											</select>

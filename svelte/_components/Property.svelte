@@ -5,10 +5,34 @@
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidMapMarkerAlt from "svelte-icons-pack/fa/FaSolidMapMarkerAlt";
   import PillBox from "./PillBox.svelte";
+  import {onMount} from "svelte";
   
   export let propHistories;
   export let propItem;
   export let meta;
+  
+  let approvalStatus = 'approved';
+  let signs = [
+    {
+      status: 'approved',
+      sign: '***'
+    }, {
+      status: 'rejected',
+      sign: '**'
+    }, {
+      status: 'pending',
+      sign: '*'
+    }
+  ]
+  onMount( () => {
+    console.log( 'Property = ', propItem )
+    if( propItem.approvalState!=='pending' && propItem.approvalState!=='' ) {
+      approvalStatus = 'rejected';
+    }
+    if( propItem.approvalState==='pending' ) {
+      approvalStatus = 'pending'
+    }
+  } )
 </script>
 
 <div class='property'>
@@ -34,6 +58,11 @@
 						<span>{propItem.houseType==='' ? 'House' : propItem.houseType}</span>
 					</div>
 				</div>
+				{#each signs as s}
+					{#if s.status===approvalStatus && s.status !== 'approved'}
+						<span class={`prop_status ${s.status}`}>{s.sign + ' Property is ' + s.status}</span>
+					{/if}
+				{/each}
 			</div>
 			<div class='col2'>
 				<h1>{formatPrice( propItem.lastPrice, 'TWD' ) || '0.00'}</h1>
@@ -203,6 +232,24 @@
         display     : flex;
         gap         : 15px;
         align-items : center;
+    }
+
+    .property_main .property_info .col1 .prop_status {
+		    padding: 5px 10px;
+		    border-radius: 5px;
+		    font-size: 15px;
+    }
+    .property_main .property_info .col1 .approved {
+		    background-color: rgba(140, 216, 107, 1);
+		    color: #FFFFFF;
+    }
+    .property_main .property_info .col1 .pending {
+        background-color: rgba(255, 208, 118, 1);
+        color: #475569;
+    }
+    .property_main .property_info .col1 .approved {
+        background-color: rgba(140, 216, 107, 1);
+        color: #FFFFFF;
     }
 
     .property_main .property_info .col1 .left .purpose,

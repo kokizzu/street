@@ -7795,8 +7795,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(select1, "name", "parking");
         attr(select1, "class", "svelte-aihip1");
         if (
-          /*infoObj*/
-          ctx[18].parking === void 0
+          /*property*/
+          ctx[0].parking === void 0
         )
           add_render_callback(() => (
             /*select1_change_handler*/
@@ -7847,8 +7847,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(select1, option1);
         select_option(
           select1,
-          /*infoObj*/
-          ctx[18].parking,
+          /*property*/
+          ctx[0].parking,
           true
         );
         append(div5, t9);
@@ -7939,13 +7939,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             ctx2[18].houseType
           );
         }
-        if (dirty[0] & /*infoObj*/
-        262144 | dirty[1] & /*houseTypeLists*/
-        2) {
+        if (dirty[0] & /*property*/
+        1) {
           select_option(
             select1,
-            /*infoObj*/
-            ctx2[18].parking
+            /*property*/
+            ctx2[0].parking
           );
         }
         if (
@@ -11748,7 +11747,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           sizeM2: 0,
           purpose: "sell",
           agencyFeePercent: 0,
-          parking: 0,
+          parking: "0",
           // new
           depositFee: 0,
           // new
@@ -11777,6 +11776,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         $invalidate(0, property.agencyFeePercent = +property.agencyFeePercent, property);
         $invalidate(0, property.floorList = property.floorList || [], property);
         $invalidate(0, property.images = property.images || [], property);
+        $invalidate(0, property.parking = property.parking.toString(), property);
+        console.log("Property parking =", property.parking);
         for (let i = 0; i < countries.length; i++) {
           if (countries[i].iso_2 === property.countryCode) {
             $invalidate(7, countryCurrency = countries[i].currency.code);
@@ -11981,7 +11982,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let infoObj = {
       agencyFee: "false",
       deposit: "false",
-      parking: property.parking,
       houseType: property.houseType
     };
     let otherFeeObj = { name: "", fee: 0 };
@@ -12222,9 +12222,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       $invalidate(32, houseTypeLists);
     }
     function select1_change_handler() {
-      infoObj.parking = select_value(this);
-      $invalidate(18, infoObj);
-      $invalidate(32, houseTypeLists);
+      property.parking = select_value(this);
+      $invalidate(0, property);
     }
     function input0_input_handler_1() {
       property.bedroom = to_number(this.value);
