@@ -253,7 +253,7 @@
 }
 
 /* fakecss:./_components/Growl.esbuild-svelte-fake-css */
-.growl.svelte-ctwvto.svelte-ctwvto {
+.growl.svelte-smdxqx.svelte-smdxqx {
   position: fixed;
   display: flex;
   flex-direction: row;
@@ -273,27 +273,23 @@
 .icon_growl {
   flex-shrink: 0;
 }
-.growl.svelte-ctwvto span.svelte-ctwvto {
+.growl.svelte-smdxqx span.svelte-smdxqx {
   flex-shrink: 1;
 }
-.growl.default.svelte-ctwvto.svelte-ctwvto {
-  background-color: #FFF;
-  color: #475569;
-}
-.growl.info.svelte-ctwvto.svelte-ctwvto {
-  background-color: #1080e8;
+.growl.info.svelte-smdxqx.svelte-smdxqx {
+  background-color: #1080E8;
   color: #FFF;
 }
-.growl.success.svelte-ctwvto.svelte-ctwvto {
+.growl.success.svelte-smdxqx.svelte-smdxqx {
   background-color: #059669;
   color: #FFF;
 }
-.growl.error.svelte-ctwvto.svelte-ctwvto {
-  background-color: #ef4444;
+.growl.error.svelte-smdxqx.svelte-smdxqx {
+  background-color: #EF4444;
   color: #FFF;
 }
-.growl.warning.svelte-ctwvto.svelte-ctwvto {
-  background-color: #d97706;
+.growl.warning.svelte-smdxqx.svelte-smdxqx {
+  background-color: #D97706;
   color: #FFF;
 }
 
@@ -5676,51 +5672,213 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidQuestionCircle.js
-  var FaSolidQuestionCircle_default = {
-    a: {
-      viewBox: "0 0 512 512"
-    },
-    c: '<path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z"></path>'
-  };
-
   // _components/Growl.svelte
-  function create_if_block_42(ctx) {
-    let icon;
+  function create_if_block2(ctx) {
+    let div;
+    let t0;
+    let t1;
+    let t2;
+    let t3;
+    let span;
+    let t4;
+    let div_class_value;
     let current;
-    icon = new Icon_default({
-      props: {
-        className: "icon_growl",
-        size: 20,
-        color: "#475569",
-        src: FaSolidQuestionCircle_default
-      }
-    });
+    let if_block0 = (
+      /*growlType*/
+      ctx[1] === "info" && create_if_block_42(ctx)
+    );
+    let if_block1 = (
+      /*growlType*/
+      ctx[1] === "success" && create_if_block_32(ctx)
+    );
+    let if_block2 = (
+      /*growlType*/
+      ctx[1] === "error" && create_if_block_22(ctx)
+    );
+    let if_block3 = (
+      /*growlType*/
+      ctx[1] === "warning" && create_if_block_12(ctx)
+    );
     return {
       c() {
-        create_component(icon.$.fragment);
+        div = element("div");
+        if (if_block0)
+          if_block0.c();
+        t0 = space();
+        if (if_block1)
+          if_block1.c();
+        t1 = space();
+        if (if_block2)
+          if_block2.c();
+        t2 = space();
+        if (if_block3)
+          if_block3.c();
+        t3 = space();
+        span = element("span");
+        t4 = text(
+          /*message*/
+          ctx[0]
+        );
+        attr(span, "class", "svelte-smdxqx");
+        attr(div, "class", div_class_value = null_to_empty(`growl ${/*growlType*/
+        ctx[1]}`) + " svelte-smdxqx");
       },
       m(target, anchor) {
-        mount_component(icon, target, anchor);
+        insert(target, div, anchor);
+        if (if_block0)
+          if_block0.m(div, null);
+        append(div, t0);
+        if (if_block1)
+          if_block1.m(div, null);
+        append(div, t1);
+        if (if_block2)
+          if_block2.m(div, null);
+        append(div, t2);
+        if (if_block3)
+          if_block3.m(div, null);
+        append(div, t3);
+        append(div, span);
+        append(span, t4);
         current = true;
       },
-      p: noop,
+      p(ctx2, dirty) {
+        if (
+          /*growlType*/
+          ctx2[1] === "info"
+        ) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+            if (dirty & /*growlType*/
+            2) {
+              transition_in(if_block0, 1);
+            }
+          } else {
+            if_block0 = create_if_block_42(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(div, t0);
+          }
+        } else if (if_block0) {
+          group_outros();
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*growlType*/
+          ctx2[1] === "success"
+        ) {
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
+            if (dirty & /*growlType*/
+            2) {
+              transition_in(if_block1, 1);
+            }
+          } else {
+            if_block1 = create_if_block_32(ctx2);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(div, t1);
+          }
+        } else if (if_block1) {
+          group_outros();
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*growlType*/
+          ctx2[1] === "error"
+        ) {
+          if (if_block2) {
+            if_block2.p(ctx2, dirty);
+            if (dirty & /*growlType*/
+            2) {
+              transition_in(if_block2, 1);
+            }
+          } else {
+            if_block2 = create_if_block_22(ctx2);
+            if_block2.c();
+            transition_in(if_block2, 1);
+            if_block2.m(div, t2);
+          }
+        } else if (if_block2) {
+          group_outros();
+          transition_out(if_block2, 1, 1, () => {
+            if_block2 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*growlType*/
+          ctx2[1] === "warning"
+        ) {
+          if (if_block3) {
+            if_block3.p(ctx2, dirty);
+            if (dirty & /*growlType*/
+            2) {
+              transition_in(if_block3, 1);
+            }
+          } else {
+            if_block3 = create_if_block_12(ctx2);
+            if_block3.c();
+            transition_in(if_block3, 1);
+            if_block3.m(div, t3);
+          }
+        } else if (if_block3) {
+          group_outros();
+          transition_out(if_block3, 1, 1, () => {
+            if_block3 = null;
+          });
+          check_outros();
+        }
+        if (!current || dirty & /*message*/
+        1)
+          set_data(
+            t4,
+            /*message*/
+            ctx2[0]
+          );
+        if (!current || dirty & /*growlType*/
+        2 && div_class_value !== (div_class_value = null_to_empty(`growl ${/*growlType*/
+        ctx2[1]}`) + " svelte-smdxqx")) {
+          attr(div, "class", div_class_value);
+        }
+      },
       i(local) {
         if (current)
           return;
-        transition_in(icon.$.fragment, local);
+        transition_in(if_block0);
+        transition_in(if_block1);
+        transition_in(if_block2);
+        transition_in(if_block3);
         current = true;
       },
       o(local) {
-        transition_out(icon.$.fragment, local);
+        transition_out(if_block0);
+        transition_out(if_block1);
+        transition_out(if_block2);
+        transition_out(if_block3);
         current = false;
       },
       d(detaching) {
-        destroy_component(icon, detaching);
+        if (detaching) {
+          detach(div);
+        }
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        if (if_block2)
+          if_block2.d();
+        if (if_block3)
+          if_block3.d();
       }
     };
   }
-  function create_if_block_32(ctx) {
+  function create_if_block_42(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -5755,7 +5913,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_22(ctx) {
+  function create_if_block_32(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -5790,7 +5948,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_12(ctx) {
+  function create_if_block_22(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -5825,7 +5983,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block2(ctx) {
+  function create_if_block_12(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -5861,263 +6019,139 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
   }
   function create_fragment4(ctx) {
-    let div;
-    let t0;
-    let t1;
-    let t2;
-    let t3;
-    let t4;
-    let span;
-    let t5;
-    let div_class_value;
+    let if_block_anchor;
     let current;
-    let if_block0 = (
-      /*growlType*/
-      ctx[1] === "default" && create_if_block_42(ctx)
-    );
-    let if_block1 = (
-      /*growlType*/
-      ctx[1] === "info" && create_if_block_32(ctx)
-    );
-    let if_block2 = (
-      /*growlType*/
-      ctx[1] === "success" && create_if_block_22(ctx)
-    );
-    let if_block3 = (
-      /*growlType*/
-      ctx[1] === "error" && create_if_block_12(ctx)
-    );
-    let if_block4 = (
-      /*growlType*/
-      ctx[1] === "warning" && create_if_block2(ctx)
+    let if_block = (
+      /*isShow*/
+      ctx[2] === true && create_if_block2(ctx)
     );
     return {
       c() {
-        div = element("div");
-        if (if_block0)
-          if_block0.c();
-        t0 = space();
-        if (if_block1)
-          if_block1.c();
-        t1 = space();
-        if (if_block2)
-          if_block2.c();
-        t2 = space();
-        if (if_block3)
-          if_block3.c();
-        t3 = space();
-        if (if_block4)
-          if_block4.c();
-        t4 = space();
-        span = element("span");
-        t5 = text(
-          /*message*/
-          ctx[0]
-        );
-        attr(span, "class", "svelte-ctwvto");
-        attr(div, "class", div_class_value = null_to_empty(`growl ${/*growlType*/
-        ctx[1]}`) + " svelte-ctwvto");
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
       },
       m(target, anchor) {
-        insert(target, div, anchor);
-        if (if_block0)
-          if_block0.m(div, null);
-        append(div, t0);
-        if (if_block1)
-          if_block1.m(div, null);
-        append(div, t1);
-        if (if_block2)
-          if_block2.m(div, null);
-        append(div, t2);
-        if (if_block3)
-          if_block3.m(div, null);
-        append(div, t3);
-        if (if_block4)
-          if_block4.m(div, null);
-        append(div, t4);
-        append(div, span);
-        append(span, t5);
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
         current = true;
       },
       p(ctx2, [dirty]) {
         if (
-          /*growlType*/
-          ctx2[1] === "default"
+          /*isShow*/
+          ctx2[2] === true
         ) {
-          if (if_block0) {
-            if_block0.p(ctx2, dirty);
-            if (dirty & /*growlType*/
-            2) {
-              transition_in(if_block0, 1);
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*isShow*/
+            4) {
+              transition_in(if_block, 1);
             }
           } else {
-            if_block0 = create_if_block_42(ctx2);
-            if_block0.c();
-            transition_in(if_block0, 1);
-            if_block0.m(div, t0);
+            if_block = create_if_block2(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
           }
-        } else if (if_block0) {
+        } else if (if_block) {
           group_outros();
-          transition_out(if_block0, 1, 1, () => {
-            if_block0 = null;
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
           });
           check_outros();
-        }
-        if (
-          /*growlType*/
-          ctx2[1] === "info"
-        ) {
-          if (if_block1) {
-            if_block1.p(ctx2, dirty);
-            if (dirty & /*growlType*/
-            2) {
-              transition_in(if_block1, 1);
-            }
-          } else {
-            if_block1 = create_if_block_32(ctx2);
-            if_block1.c();
-            transition_in(if_block1, 1);
-            if_block1.m(div, t1);
-          }
-        } else if (if_block1) {
-          group_outros();
-          transition_out(if_block1, 1, 1, () => {
-            if_block1 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*growlType*/
-          ctx2[1] === "success"
-        ) {
-          if (if_block2) {
-            if_block2.p(ctx2, dirty);
-            if (dirty & /*growlType*/
-            2) {
-              transition_in(if_block2, 1);
-            }
-          } else {
-            if_block2 = create_if_block_22(ctx2);
-            if_block2.c();
-            transition_in(if_block2, 1);
-            if_block2.m(div, t2);
-          }
-        } else if (if_block2) {
-          group_outros();
-          transition_out(if_block2, 1, 1, () => {
-            if_block2 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*growlType*/
-          ctx2[1] === "error"
-        ) {
-          if (if_block3) {
-            if_block3.p(ctx2, dirty);
-            if (dirty & /*growlType*/
-            2) {
-              transition_in(if_block3, 1);
-            }
-          } else {
-            if_block3 = create_if_block_12(ctx2);
-            if_block3.c();
-            transition_in(if_block3, 1);
-            if_block3.m(div, t3);
-          }
-        } else if (if_block3) {
-          group_outros();
-          transition_out(if_block3, 1, 1, () => {
-            if_block3 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*growlType*/
-          ctx2[1] === "warning"
-        ) {
-          if (if_block4) {
-            if_block4.p(ctx2, dirty);
-            if (dirty & /*growlType*/
-            2) {
-              transition_in(if_block4, 1);
-            }
-          } else {
-            if_block4 = create_if_block2(ctx2);
-            if_block4.c();
-            transition_in(if_block4, 1);
-            if_block4.m(div, t4);
-          }
-        } else if (if_block4) {
-          group_outros();
-          transition_out(if_block4, 1, 1, () => {
-            if_block4 = null;
-          });
-          check_outros();
-        }
-        if (!current || dirty & /*message*/
-        1)
-          set_data(
-            t5,
-            /*message*/
-            ctx2[0]
-          );
-        if (!current || dirty & /*growlType*/
-        2 && div_class_value !== (div_class_value = null_to_empty(`growl ${/*growlType*/
-        ctx2[1]}`) + " svelte-ctwvto")) {
-          attr(div, "class", div_class_value);
         }
       },
       i(local) {
         if (current)
           return;
-        transition_in(if_block0);
-        transition_in(if_block1);
-        transition_in(if_block2);
-        transition_in(if_block3);
-        transition_in(if_block4);
+        transition_in(if_block);
         current = true;
       },
       o(local) {
-        transition_out(if_block0);
-        transition_out(if_block1);
-        transition_out(if_block2);
-        transition_out(if_block3);
-        transition_out(if_block4);
+        transition_out(if_block);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(div);
+          detach(if_block_anchor);
         }
-        if (if_block0)
-          if_block0.d();
-        if (if_block1)
-          if_block1.d();
-        if (if_block2)
-          if_block2.d();
-        if (if_block3)
-          if_block3.d();
-        if (if_block4)
-          if_block4.d();
+        if (if_block)
+          if_block.d(detaching);
       }
     };
   }
   function instance5($self, $props, $invalidate) {
-    let { message = "This is growl, XD" } = $props;
-    let { growlType = "default" } = $props;
-    $self.$set = ($props2) => {
-      if ("message" in $props2)
-        $invalidate(0, message = $props2.message);
-      if ("growlType" in $props2)
-        $invalidate(1, growlType = $props2.growlType);
-    };
-    return [message, growlType];
+    let message = "This is growl, XD";
+    let growlType = "info";
+    let isShow = false;
+    function showInfo(msg) {
+      $invalidate(1, growlType = "info");
+      $invalidate(2, isShow = true);
+      $invalidate(0, message = msg);
+      setTimeout(
+        () => {
+          $invalidate(2, isShow = false);
+        },
+        3e3
+      );
+    }
+    function showWarning(msg) {
+      $invalidate(1, growlType = "warning");
+      $invalidate(2, isShow = true);
+      $invalidate(0, message = msg);
+      setTimeout(
+        () => {
+          $invalidate(2, isShow = false);
+        },
+        3e3
+      );
+    }
+    function showError(msg) {
+      $invalidate(1, growlType = "error");
+      $invalidate(2, isShow = true);
+      $invalidate(0, message = msg);
+      setTimeout(
+        () => {
+          $invalidate(2, isShow = false);
+        },
+        3e3
+      );
+    }
+    function showSuccess(msg) {
+      $invalidate(1, growlType = "success");
+      $invalidate(2, isShow = true);
+      $invalidate(0, message = msg);
+      setTimeout(
+        () => {
+          $invalidate(2, isShow = false);
+        },
+        3e3
+      );
+    }
+    return [message, growlType, isShow, showInfo, showWarning, showError, showSuccess];
   }
   var Growl = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance5, create_fragment4, safe_not_equal, { message: 0, growlType: 1 });
+      init(this, options, instance5, create_fragment4, safe_not_equal, {
+        showInfo: 3,
+        showWarning: 4,
+        showError: 5,
+        showSuccess: 6
+      });
+    }
+    get showInfo() {
+      return this.$.ctx[3];
+    }
+    get showWarning() {
+      return this.$.ctx[4];
+    }
+    get showError() {
+      return this.$.ctx[5];
+    }
+    get showSuccess() {
+      return this.$.ctx[6];
     }
   };
   var Growl_default = Growl;
@@ -6254,65 +6288,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var import_distance = __toESM(require_distance());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[48] = list[i];
+    child_ctx[46] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[51] = list[i];
-    child_ctx[52] = list;
-    child_ctx[53] = i;
+    child_ctx[49] = list[i];
+    child_ctx[50] = list;
+    child_ctx[51] = i;
     return child_ctx;
-  }
-  function create_if_block_6(ctx) {
-    let growl;
-    let current;
-    growl = new Growl_default({
-      props: {
-        message: (
-          /*gMsg*/
-          ctx[8]
-        ),
-        growlType: (
-          /*gType*/
-          ctx[9]
-        )
-      }
-    });
-    return {
-      c() {
-        create_component(growl.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(growl, target, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        const growl_changes = {};
-        if (dirty[0] & /*gMsg*/
-        256)
-          growl_changes.message = /*gMsg*/
-          ctx2[8];
-        if (dirty[0] & /*gType*/
-        512)
-          growl_changes.growlType = /*gType*/
-          ctx2[9];
-        growl.$set(growl_changes);
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(growl.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(growl.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(growl, detaching);
-      }
-    };
   }
   function create_else_block_2(ctx) {
     let div1;
@@ -6398,7 +6382,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*propItemHighlight, propItemBinds, highLightMapMarker, randomProps, $T, copyToClipboard, shareItemIndex, showShareItems, likeProperty*/
-        7361543) {
+        1840391) {
           each_value_1 = ensure_array_like(
             /*randomProps*/
             ctx2[0]
@@ -6501,7 +6485,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       c() {
         img = element("img");
         if (!src_url_equal(img.src, img_src_value = /*prop*/
-        ctx[51].images[0]))
+        ctx[49].images[0]))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
         attr(img, "class", "svelte-1ob2sf2");
@@ -6512,7 +6496,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*randomProps*/
         1 && !src_url_equal(img.src, img_src_value = /*prop*/
-        ctx2[51].images[0])) {
+        ctx2[49].images[0])) {
           attr(img, "src", img_src_value);
         }
       },
@@ -6558,9 +6542,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler_2() {
       return (
         /*click_handler_2*/
-        ctx[27](
+        ctx[26](
           /*prop*/
-          ctx[51]
+          ctx[49]
         )
       );
     }
@@ -6625,7 +6609,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(a0, "aria-label", "Share to Facebook");
         attr(a0, "href", a0_href_value = "https://www.facebook.com/sharer/sharer.php?u=" + propertyUrl(
           /*prop*/
-          ctx[51].id
+          ctx[49].id
         ) + "?utm_source=facebook&utm_medium=social&utm_campaign=user-share");
         attr(a0, "target", "_blank");
         attr(a0, "rel", "noopener");
@@ -6633,10 +6617,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(a1, "aria-label", "Share to LinkedIn");
         attr(a1, "href", a1_href_value = "https://www.linkedin.com/shareArticle?mini=true&url=" + propertyUrl(
           /*prop*/
-          ctx[51].id
+          ctx[49].id
         ) + "&title=I%20Found%20Awesome%House%20" + propertyUrl(
           /*prop*/
-          ctx[51].id
+          ctx[49].id
         ));
         attr(a1, "target", "_blank");
         attr(a1, "rel", "noopener");
@@ -6644,7 +6628,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(a2, "aria-label", "Share to Twitter");
         attr(a2, "href", a2_href_value = "https://twitter.com/intent/tweet?url=" + propertyUrl(
           /*prop*/
-          ctx[51].id
+          ctx[49].id
         ));
         attr(a2, "target", "_blank");
         attr(a2, "rel", "noopener");
@@ -6652,7 +6636,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(a3, "aria-label", "Share to Telegram");
         attr(a3, "href", a3_href_value = "https://t.me/share/url?url=" + propertyUrl(
           /*prop*/
-          ctx[51].id
+          ctx[49].id
         ));
         attr(a3, "target", "_blank");
         attr(a3, "rel", "noopener");
@@ -6660,7 +6644,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(a4, "aria-label", "Share to WhatsApp");
         attr(a4, "href", a4_href_value = "https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House%20" + propertyUrl(
           /*prop*/
-          ctx[51].id
+          ctx[49].id
         ));
         attr(a4, "target", "_blank");
         attr(a4, "rel", "noopener");
@@ -6696,38 +6680,38 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (!current || dirty[0] & /*randomProps*/
         1 && a0_href_value !== (a0_href_value = "https://www.facebook.com/sharer/sharer.php?u=" + propertyUrl(
           /*prop*/
-          ctx[51].id
+          ctx[49].id
         ) + "?utm_source=facebook&utm_medium=social&utm_campaign=user-share")) {
           attr(a0, "href", a0_href_value);
         }
         if (!current || dirty[0] & /*randomProps*/
         1 && a1_href_value !== (a1_href_value = "https://www.linkedin.com/shareArticle?mini=true&url=" + propertyUrl(
           /*prop*/
-          ctx[51].id
+          ctx[49].id
         ) + "&title=I%20Found%20Awesome%House%20" + propertyUrl(
           /*prop*/
-          ctx[51].id
+          ctx[49].id
         ))) {
           attr(a1, "href", a1_href_value);
         }
         if (!current || dirty[0] & /*randomProps*/
         1 && a2_href_value !== (a2_href_value = "https://twitter.com/intent/tweet?url=" + propertyUrl(
           /*prop*/
-          ctx[51].id
+          ctx[49].id
         ))) {
           attr(a2, "href", a2_href_value);
         }
         if (!current || dirty[0] & /*randomProps*/
         1 && a3_href_value !== (a3_href_value = "https://t.me/share/url?url=" + propertyUrl(
           /*prop*/
-          ctx[51].id
+          ctx[49].id
         ))) {
           attr(a3, "href", a3_href_value);
         }
         if (!current || dirty[0] & /*randomProps*/
         1 && a4_href_value !== (a4_href_value = "https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House%20" + propertyUrl(
           /*prop*/
-          ctx[51].id
+          ctx[49].id
         ))) {
           attr(a4, "href", a4_href_value);
         }
@@ -6780,12 +6764,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let div0;
     let t1_value = (
       /*prop*/
-      (ctx[51].purpose === "rent" ? (
+      (ctx[49].purpose === "rent" ? (
         /*$T*/
-        ctx[12].forRent
+        ctx[10].forRent
       ) : (
         /*$T*/
-        ctx[12].onSale
+        ctx[10].onSale
       )) + ""
     );
     let t1;
@@ -6797,9 +6781,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span0;
     let t4_value = (
       /*prop*/
-      (ctx[51].houseType === "" ? "House" : (
+      (ctx[49].houseType === "" ? "House" : (
         /*prop*/
-        ctx[51].houseType
+        ctx[49].houseType
       )) + ""
     );
     let t4;
@@ -6818,12 +6802,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span1;
     let t10_value = (
       /*prop*/
-      (ctx[51].formattedAddress === "" ? (
+      (ctx[49].formattedAddress === "" ? (
         /*prop*/
-        ctx[51].address
+        ctx[49].address
       ) : (
         /*prop*/
-        ctx[51].formattedAddress
+        ctx[49].formattedAddress
       )) + ""
     );
     let t10;
@@ -6836,16 +6820,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span2;
     let t13_value = (
       /*$T*/
-      ctx[12].floors + ""
+      ctx[10].floors + ""
     );
     let t13;
     let t14;
     let span3;
     let t15_value = (
       /*prop*/
-      (ctx[51].numberOfFloors === 0 ? "no-data" : (
+      (ctx[49].numberOfFloors === 0 ? "no-data" : (
         /*prop*/
-        ctx[51].numberOfFloors
+        ctx[49].numberOfFloors
       )) + ""
     );
     let t15;
@@ -6857,16 +6841,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span4;
     let t18_value = (
       /*$T*/
-      ctx[12].bed + ""
+      ctx[10].bed + ""
     );
     let t18;
     let t19;
     let span5;
     let t20_value = (
       /*prop*/
-      (ctx[51].bedroom === 0 ? "no-data" : (
+      (ctx[49].bedroom === 0 ? "no-data" : (
         /*prop*/
-        ctx[51].bedroom
+        ctx[49].bedroom
       )) + ""
     );
     let t20;
@@ -6878,16 +6862,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span6;
     let t23_value = (
       /*$T*/
-      ctx[12].bath + ""
+      ctx[10].bath + ""
     );
     let t23;
     let t24;
     let span7;
     let t25_value = (
       /*prop*/
-      (ctx[51].bathroom === 0 ? "no-data" : (
+      (ctx[49].bathroom === 0 ? "no-data" : (
         /*prop*/
-        ctx[51].bathroom
+        ctx[49].bathroom
       )) + ""
     );
     let t25;
@@ -6899,13 +6883,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span8;
     let t28_value = (
       /*prop*/
-      ctx[51].sizeM2 + ""
+      ctx[49].sizeM2 + ""
     );
     let t28;
     let t29;
     let t30_value = (
       /*$T*/
-      ctx[12].m + ""
+      ctx[10].m + ""
     );
     let t30;
     let t31;
@@ -6914,13 +6898,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span9;
     let t33_value = (
       /*$T*/
-      ctx[12].agencyFee + ""
+      ctx[10].agencyFee + ""
     );
     let t33;
     let t34;
     let t35_value = (
       /*prop*/
-      (ctx[51].agencyFeePercent || "0") + ""
+      (ctx[49].agencyFeePercent || "0") + ""
     );
     let t35;
     let t36;
@@ -6928,7 +6912,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span10;
     let t38_value = (0, import_formatter.formatPrice)(
       /*prop*/
-      ctx[51].lastPrice || 0,
+      ctx[49].lastPrice || 0,
       "TWD"
     ) + "";
     let t38;
@@ -6936,7 +6920,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let button2_class_value;
     let index = (
       /*index*/
-      ctx[53]
+      ctx[51]
     );
     let current;
     let mounted;
@@ -6946,8 +6930,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function select_block_type_1(ctx2, dirty) {
       if (
         /*prop*/
-        ctx2[51].images && /*prop*/
-        ctx2[51].images.length
+        ctx2[49].images && /*prop*/
+        ctx2[49].images.length
       )
         return 0;
       return 1;
@@ -6972,9 +6956,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[25](
+        ctx[24](
           /*prop*/
-          ctx[51]
+          ctx[49]
         )
       );
     }
@@ -6989,16 +6973,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler_1() {
       return (
         /*click_handler_1*/
-        ctx[26](
+        ctx[25](
           /*index*/
-          ctx[53]
+          ctx[51]
         )
       );
     }
     let if_block1 = (
       /*shareItemIndex*/
-      ctx[10] === /*index*/
-      ctx[53] && create_if_block_43(ctx)
+      ctx[8] === /*index*/
+      ctx[51] && create_if_block_43(ctx)
     );
     icon3 = new Icon_default({
       props: {
@@ -7033,27 +7017,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     });
     const assign_button2 = () => (
       /*button2_binding*/
-      ctx[28](button2, index)
+      ctx[27](button2, index)
     );
     const unassign_button2 = () => (
       /*button2_binding*/
-      ctx[28](null, index)
+      ctx[27](null, index)
     );
     function mouseenter_handler() {
       return (
         /*mouseenter_handler*/
-        ctx[29](
+        ctx[28](
           /*index*/
-          ctx[53]
+          ctx[51]
         )
       );
     }
     function mouseleave_handler() {
       return (
         /*mouseleave_handler*/
-        ctx[30](
+        ctx[29](
           /*index*/
-          ctx[53]
+          ctx[51]
         )
       );
     }
@@ -7146,7 +7130,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(picture, "class", "img_container svelte-1ob2sf2");
         attr(div0, "class", div0_class_value = null_to_empty(
           /*prop*/
-          ctx[51].purpose === "rent" ? "purpose label_rent" : "purpose label_sale"
+          ctx[49].purpose === "rent" ? "purpose label_rent" : "purpose label_sale"
         ) + " svelte-1ob2sf2");
         attr(div1, "class", "house_type svelte-1ob2sf2");
         attr(div2, "class", "label_info svelte-1ob2sf2");
@@ -7175,7 +7159,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(button2, "class", button2_class_value = null_to_empty(
           /*propItemHighlight*/
           ctx[2] === /*index*/
-          ctx[53] ? `prop_item highlight` : "prop_item"
+          ctx[51] ? `prop_item highlight` : "prop_item"
         ) + " svelte-1ob2sf2");
       },
       m(target, anchor) {
@@ -7298,38 +7282,38 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if_block0.m(picture, null);
         }
         if ((!current || dirty[0] & /*randomProps, $T*/
-        4097) && t1_value !== (t1_value = /*prop*/
-        (ctx[51].purpose === "rent" ? (
+        1025) && t1_value !== (t1_value = /*prop*/
+        (ctx[49].purpose === "rent" ? (
           /*$T*/
-          ctx[12].forRent
+          ctx[10].forRent
         ) : (
           /*$T*/
-          ctx[12].onSale
+          ctx[10].onSale
         )) + ""))
           set_data(t1, t1_value);
         if (!current || dirty[0] & /*randomProps*/
         1 && div0_class_value !== (div0_class_value = null_to_empty(
           /*prop*/
-          ctx[51].purpose === "rent" ? "purpose label_rent" : "purpose label_sale"
+          ctx[49].purpose === "rent" ? "purpose label_rent" : "purpose label_sale"
         ) + " svelte-1ob2sf2")) {
           attr(div0, "class", div0_class_value);
         }
         if ((!current || dirty[0] & /*randomProps*/
         1) && t4_value !== (t4_value = /*prop*/
-        (ctx[51].houseType === "" ? "House" : (
+        (ctx[49].houseType === "" ? "House" : (
           /*prop*/
-          ctx[51].houseType
+          ctx[49].houseType
         )) + ""))
           set_data(t4, t4_value);
         if (
           /*shareItemIndex*/
-          ctx[10] === /*index*/
-          ctx[53]
+          ctx[8] === /*index*/
+          ctx[51]
         ) {
           if (if_block1) {
             if_block1.p(ctx, dirty);
             if (dirty[0] & /*shareItemIndex*/
-            1024) {
+            256) {
               transition_in(if_block1, 1);
             }
           } else {
@@ -7347,67 +7331,67 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if ((!current || dirty[0] & /*randomProps*/
         1) && t10_value !== (t10_value = /*prop*/
-        (ctx[51].formattedAddress === "" ? (
+        (ctx[49].formattedAddress === "" ? (
           /*prop*/
-          ctx[51].address
+          ctx[49].address
         ) : (
           /*prop*/
-          ctx[51].formattedAddress
+          ctx[49].formattedAddress
         )) + ""))
           set_data(t10, t10_value);
         if ((!current || dirty[0] & /*$T*/
-        4096) && t13_value !== (t13_value = /*$T*/
-        ctx[12].floors + ""))
+        1024) && t13_value !== (t13_value = /*$T*/
+        ctx[10].floors + ""))
           set_data(t13, t13_value);
         if ((!current || dirty[0] & /*randomProps*/
         1) && t15_value !== (t15_value = /*prop*/
-        (ctx[51].numberOfFloors === 0 ? "no-data" : (
+        (ctx[49].numberOfFloors === 0 ? "no-data" : (
           /*prop*/
-          ctx[51].numberOfFloors
+          ctx[49].numberOfFloors
         )) + ""))
           set_data(t15, t15_value);
         if ((!current || dirty[0] & /*$T*/
-        4096) && t18_value !== (t18_value = /*$T*/
-        ctx[12].bed + ""))
+        1024) && t18_value !== (t18_value = /*$T*/
+        ctx[10].bed + ""))
           set_data(t18, t18_value);
         if ((!current || dirty[0] & /*randomProps*/
         1) && t20_value !== (t20_value = /*prop*/
-        (ctx[51].bedroom === 0 ? "no-data" : (
+        (ctx[49].bedroom === 0 ? "no-data" : (
           /*prop*/
-          ctx[51].bedroom
+          ctx[49].bedroom
         )) + ""))
           set_data(t20, t20_value);
         if ((!current || dirty[0] & /*$T*/
-        4096) && t23_value !== (t23_value = /*$T*/
-        ctx[12].bath + ""))
+        1024) && t23_value !== (t23_value = /*$T*/
+        ctx[10].bath + ""))
           set_data(t23, t23_value);
         if ((!current || dirty[0] & /*randomProps*/
         1) && t25_value !== (t25_value = /*prop*/
-        (ctx[51].bathroom === 0 ? "no-data" : (
+        (ctx[49].bathroom === 0 ? "no-data" : (
           /*prop*/
-          ctx[51].bathroom
+          ctx[49].bathroom
         )) + ""))
           set_data(t25, t25_value);
         if ((!current || dirty[0] & /*randomProps*/
         1) && t28_value !== (t28_value = /*prop*/
-        ctx[51].sizeM2 + ""))
+        ctx[49].sizeM2 + ""))
           set_data(t28, t28_value);
         if ((!current || dirty[0] & /*$T*/
-        4096) && t30_value !== (t30_value = /*$T*/
-        ctx[12].m + ""))
+        1024) && t30_value !== (t30_value = /*$T*/
+        ctx[10].m + ""))
           set_data(t30, t30_value);
         if ((!current || dirty[0] & /*$T*/
-        4096) && t33_value !== (t33_value = /*$T*/
-        ctx[12].agencyFee + ""))
+        1024) && t33_value !== (t33_value = /*$T*/
+        ctx[10].agencyFee + ""))
           set_data(t33, t33_value);
         if ((!current || dirty[0] & /*randomProps*/
         1) && t35_value !== (t35_value = /*prop*/
-        (ctx[51].agencyFeePercent || "0") + ""))
+        (ctx[49].agencyFeePercent || "0") + ""))
           set_data(t35, t35_value);
         if ((!current || dirty[0] & /*randomProps*/
         1) && t38_value !== (t38_value = (0, import_formatter.formatPrice)(
           /*prop*/
-          ctx[51].lastPrice || 0,
+          ctx[49].lastPrice || 0,
           "TWD"
         ) + ""))
           set_data(t38, t38_value);
@@ -7415,15 +7399,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         4 && button2_class_value !== (button2_class_value = null_to_empty(
           /*propItemHighlight*/
           ctx[2] === /*index*/
-          ctx[53] ? `prop_item highlight` : "prop_item"
+          ctx[51] ? `prop_item highlight` : "prop_item"
         ) + " svelte-1ob2sf2")) {
           attr(button2, "class", button2_class_value);
         }
         if (index !== /*index*/
-        ctx[53]) {
+        ctx[51]) {
           unassign_button2();
           index = /*index*/
-          ctx[53];
+          ctx[51];
           assign_button2();
         }
       },
@@ -7630,7 +7614,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*searchByAddressHandler, autocomplete_lists*/
-        524352) {
+        131136) {
           each_value = ensure_array_like(
             /*autocomplete_lists*/
             ctx2[6]
@@ -7685,7 +7669,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span;
     let t1_value = (
       /*place*/
-      ctx[48].description + ""
+      ctx[46].description + ""
     );
     let t1;
     let t2;
@@ -7702,9 +7686,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler_3() {
       return (
         /*click_handler_3*/
-        ctx[35](
+        ctx[34](
           /*place*/
-          ctx[48]
+          ctx[46]
         )
       );
     }
@@ -7735,7 +7719,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx = new_ctx;
         if ((!current || dirty[0] & /*autocomplete_lists*/
         64) && t1_value !== (t1_value = /*place*/
-        ctx[48].description + ""))
+        ctx[46].description + ""))
           set_data(t1, t1_value);
       },
       i(local) {
@@ -7759,6 +7743,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
   }
   function create_fragment5(ctx) {
+    let growl;
     let t0;
     let googlesdk;
     let t1;
@@ -7766,7 +7751,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let div1;
     let div0;
     let current_block_type_index;
-    let if_block1;
+    let if_block0;
     let t2;
     let div6;
     let div2;
@@ -7787,19 +7772,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t9;
     let div4;
     let current_block_type_index_1;
-    let if_block4;
+    let if_block3;
     let current;
     let mounted;
     let dispose;
-    let if_block0 = (
-      /*showGrowl*/
-      ctx[7] && create_if_block_6(ctx)
-    );
+    let growl_props = {};
+    growl = new Growl_default({ props: growl_props });
+    ctx[23](growl);
     googlesdk = new GoogleSdk_default({});
     googlesdk.$on(
       "ready",
       /*initGoogleService*/
-      ctx[15]
+      ctx[13]
     );
     const if_block_creators = [create_if_block_33, create_else_block_2];
     const if_blocks = [];
@@ -7812,19 +7796,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       return 1;
     }
     current_block_type_index = select_block_type(ctx, [-1, -1]);
-    if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-    let if_block2 = !/*isSearchingMap*/
-    ctx[11] && create_if_block_23(ctx);
-    let if_block3 = (
+    if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    let if_block1 = !/*isSearchingMap*/
+    ctx[9] && create_if_block_23(ctx);
+    let if_block2 = (
       /*isSearchingMap*/
-      ctx[11] && create_if_block_13(ctx)
+      ctx[9] && create_if_block_13(ctx)
     );
     function googlemap_bounds_binding(value) {
-      ctx[31](value);
+      ctx[30](value);
     }
     let googlemap_props = { options: (
       /*mapOptions*/
-      ctx[13]
+      ctx[11]
     ) };
     if (
       /*gmapBounds*/
@@ -7835,11 +7819,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     googlemap = new GoogleMap_default({ props: googlemap_props });
     binding_callbacks.push(() => bind(googlemap, "bounds", googlemap_bounds_binding));
-    ctx[32](googlemap);
+    ctx[31](googlemap);
     googlemap.$on(
       "mapDragged",
       /*searchByLocationEvent*/
-      ctx[17]
+      ctx[15]
     );
     googlemap.$on("zoomChanged", zoomEvent);
     icon = new Icon_default({
@@ -7861,27 +7845,26 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       return 1;
     }
     current_block_type_index_1 = select_block_type_2(ctx, [-1, -1]);
-    if_block4 = if_blocks_1[current_block_type_index_1] = if_block_creators_1[current_block_type_index_1](ctx);
+    if_block3 = if_blocks_1[current_block_type_index_1] = if_block_creators_1[current_block_type_index_1](ctx);
     return {
       c() {
-        if (if_block0)
-          if_block0.c();
+        create_component(growl.$.fragment);
         t0 = space();
         create_component(googlesdk.$.fragment);
         t1 = space();
         div7 = element("div");
         div1 = element("div");
         div0 = element("div");
-        if_block1.c();
+        if_block0.c();
         t2 = space();
         div6 = element("div");
         div2 = element("div");
         button = element("button");
+        if (if_block1)
+          if_block1.c();
+        t3 = space();
         if (if_block2)
           if_block2.c();
-        t3 = space();
-        if (if_block3)
-          if_block3.c();
         t4 = space();
         span = element("span");
         span.textContent = "Search this area";
@@ -7896,7 +7879,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         input = element("input");
         t9 = space();
         div4 = element("div");
-        if_block4.c();
+        if_block3.c();
         attr(div0, "class", "props_container svelte-1ob2sf2");
         attr(div1, "class", "left svelte-1ob2sf2");
         attr(button, "class", "btn_sync_map svelte-1ob2sf2");
@@ -7913,8 +7896,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(div7, "class", "property_location_container svelte-1ob2sf2");
       },
       m(target, anchor) {
-        if (if_block0)
-          if_block0.m(target, anchor);
+        mount_component(growl, target, anchor);
         insert(target, t0, anchor);
         mount_component(googlesdk, target, anchor);
         insert(target, t1, anchor);
@@ -7926,11 +7908,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div7, div6);
         append(div6, div2);
         append(div2, button);
+        if (if_block1)
+          if_block1.m(button, null);
+        append(button, t3);
         if (if_block2)
           if_block2.m(button, null);
-        append(button, t3);
-        if (if_block3)
-          if_block3.m(button, null);
         append(button, t4);
         append(button, span);
         append(div2, t6);
@@ -7957,48 +7939,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               button,
               "click",
               /*searchByLocationHandler*/
-              ctx[18]
+              ctx[16]
             ),
             listen(
               input,
               "input",
               /*input_input_handler*/
-              ctx[33]
+              ctx[32]
             ),
             listen(
               input,
               "input",
               /*input_handler*/
-              ctx[34]
+              ctx[33]
             )
           ];
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (
-          /*showGrowl*/
-          ctx2[7]
-        ) {
-          if (if_block0) {
-            if_block0.p(ctx2, dirty);
-            if (dirty[0] & /*showGrowl*/
-            128) {
-              transition_in(if_block0, 1);
-            }
-          } else {
-            if_block0 = create_if_block_6(ctx2);
-            if_block0.c();
-            transition_in(if_block0, 1);
-            if_block0.m(t0.parentNode, t0);
-          }
-        } else if (if_block0) {
-          group_outros();
-          transition_out(if_block0, 1, 1, () => {
-            if_block0 = null;
-          });
-          check_outros();
-        }
+        const growl_changes = {};
+        growl.$set(growl_changes);
         let previous_block_index = current_block_type_index;
         current_block_type_index = select_block_type(ctx2, dirty);
         if (current_block_type_index === previous_block_index) {
@@ -8009,57 +7970,57 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             if_blocks[previous_block_index] = null;
           });
           check_outros();
-          if_block1 = if_blocks[current_block_type_index];
-          if (!if_block1) {
-            if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
-            if_block1.c();
+          if_block0 = if_blocks[current_block_type_index];
+          if (!if_block0) {
+            if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block0.c();
           } else {
-            if_block1.p(ctx2, dirty);
+            if_block0.p(ctx2, dirty);
           }
-          transition_in(if_block1, 1);
-          if_block1.m(div0, null);
+          transition_in(if_block0, 1);
+          if_block0.m(div0, null);
         }
         if (!/*isSearchingMap*/
-        ctx2[11]) {
-          if (if_block2) {
-            if_block2.p(ctx2, dirty);
+        ctx2[9]) {
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
             if (dirty[0] & /*isSearchingMap*/
-            2048) {
-              transition_in(if_block2, 1);
+            512) {
+              transition_in(if_block1, 1);
             }
           } else {
-            if_block2 = create_if_block_23(ctx2);
-            if_block2.c();
-            transition_in(if_block2, 1);
-            if_block2.m(button, t3);
+            if_block1 = create_if_block_23(ctx2);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(button, t3);
           }
-        } else if (if_block2) {
+        } else if (if_block1) {
           group_outros();
-          transition_out(if_block2, 1, 1, () => {
-            if_block2 = null;
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
           });
           check_outros();
         }
         if (
           /*isSearchingMap*/
-          ctx2[11]
+          ctx2[9]
         ) {
-          if (if_block3) {
-            if_block3.p(ctx2, dirty);
+          if (if_block2) {
+            if_block2.p(ctx2, dirty);
             if (dirty[0] & /*isSearchingMap*/
-            2048) {
-              transition_in(if_block3, 1);
+            512) {
+              transition_in(if_block2, 1);
             }
           } else {
-            if_block3 = create_if_block_13(ctx2);
-            if_block3.c();
-            transition_in(if_block3, 1);
-            if_block3.m(button, t4);
+            if_block2 = create_if_block_13(ctx2);
+            if_block2.c();
+            transition_in(if_block2, 1);
+            if_block2.m(button, t4);
           }
-        } else if (if_block3) {
+        } else if (if_block2) {
           group_outros();
-          transition_out(if_block3, 1, 1, () => {
-            if_block3 = null;
+          transition_out(if_block2, 1, 1, () => {
+            if_block2 = null;
           });
           check_outros();
         }
@@ -8091,39 +8052,39 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             if_blocks_1[previous_block_index_1] = null;
           });
           check_outros();
-          if_block4 = if_blocks_1[current_block_type_index_1];
-          if (!if_block4) {
-            if_block4 = if_blocks_1[current_block_type_index_1] = if_block_creators_1[current_block_type_index_1](ctx2);
-            if_block4.c();
+          if_block3 = if_blocks_1[current_block_type_index_1];
+          if (!if_block3) {
+            if_block3 = if_blocks_1[current_block_type_index_1] = if_block_creators_1[current_block_type_index_1](ctx2);
+            if_block3.c();
           } else {
-            if_block4.p(ctx2, dirty);
+            if_block3.p(ctx2, dirty);
           }
-          transition_in(if_block4, 1);
-          if_block4.m(div4, null);
+          transition_in(if_block3, 1);
+          if_block3.m(div4, null);
         }
       },
       i(local) {
         if (current)
           return;
-        transition_in(if_block0);
+        transition_in(growl.$.fragment, local);
         transition_in(googlesdk.$.fragment, local);
+        transition_in(if_block0);
         transition_in(if_block1);
         transition_in(if_block2);
-        transition_in(if_block3);
         transition_in(googlemap.$.fragment, local);
         transition_in(icon.$.fragment, local);
-        transition_in(if_block4);
+        transition_in(if_block3);
         current = true;
       },
       o(local) {
-        transition_out(if_block0);
+        transition_out(growl.$.fragment, local);
         transition_out(googlesdk.$.fragment, local);
+        transition_out(if_block0);
         transition_out(if_block1);
         transition_out(if_block2);
-        transition_out(if_block3);
         transition_out(googlemap.$.fragment, local);
         transition_out(icon.$.fragment, local);
-        transition_out(if_block4);
+        transition_out(if_block3);
         current = false;
       },
       d(detaching) {
@@ -8132,15 +8093,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           detach(t1);
           detach(div7);
         }
-        if (if_block0)
-          if_block0.d(detaching);
+        ctx[23](null);
+        destroy_component(growl, detaching);
         destroy_component(googlesdk, detaching);
         if_blocks[current_block_type_index].d();
+        if (if_block1)
+          if_block1.d();
         if (if_block2)
           if_block2.d();
-        if (if_block3)
-          if_block3.d();
-        ctx[32](null);
+        ctx[31](null);
         destroy_component(googlemap);
         destroy_component(icon);
         if_blocks_1[current_block_type_index_1].d();
@@ -8159,8 +8120,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function instance6($self, $props, $invalidate) {
     let $mapComponent;
     let $T;
-    component_subscribe($self, mapComponent, ($value) => $invalidate(43, $mapComponent = $value));
-    component_subscribe($self, T, ($value) => $invalidate(12, $T = $value));
+    component_subscribe($self, mapComponent, ($value) => $invalidate(42, $mapComponent = $value));
+    component_subscribe($self, T, ($value) => $invalidate(10, $T = $value));
     let { randomProps = [] } = $props;
     let { defaultDistanceKm = 20 } = $props;
     let { initialLatLong: initialLatLong2 = [0, 0] } = $props;
@@ -8190,20 +8151,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
     let geocoder, input_search_value, autocomplete_service;
     let autocomplete_lists = [];
-    let showGrowl = false, gMsg = "", gType = "";
+    let myGrowl = Growl_default;
     let shareItemIndex = null;
     let isSearchingMap = false;
-    function useGrowl(type, msg) {
-      $invalidate(7, showGrowl = true);
-      $invalidate(8, gMsg = msg);
-      $invalidate(9, gType = type);
-      setTimeout(
-        () => {
-          $invalidate(7, showGrowl = false);
-        },
-        3e3
-      );
-    }
     const highLightMapMarker = {
       enter: (index) => {
         $invalidate(2, propItemHighlight = index);
@@ -8236,7 +8186,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (gmapBounds && gmapBounds.getNorthEast) {
           let ne = gmapBounds.getNorthEast();
           bestDistance = (0, import_distance.distanceKM)(ne.lat(), ne.lng(), myLatLng.lat, myLatLng.lng);
-          console.log("bestDistance", bestDistance);
         }
         await (0, import_jsApi_GEN2.UserSearchProp)(
           {
@@ -8249,7 +8198,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           },
           async (res) => {
             if (res.error)
-              return useGrowl("error", res.error);
+              return myGrowl.showInfo(res.error);
             $invalidate(0, randomProps = res.properties || []);
           }
         );
@@ -8296,7 +8245,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         },
         async (res) => {
           if (res.error)
-            return useGrowl("error", res.error);
+            return myGrowl.showInfo(res.error);
           markersFacility = gmapsComponent.clearMarkers(markersFacility);
           facilities = await res.facilities;
           facilities.forEach((fac) => {
@@ -8350,10 +8299,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       myLatLng.lng = event.detail.center.lng();
     }
     async function searchByLocationHandler() {
-      $invalidate(11, isSearchingMap = true);
+      $invalidate(9, isSearchingMap = true);
       await searchProperty(true);
       await searchNearbyFacility();
-      $invalidate(11, isSearchingMap = false);
+      $invalidate(9, isSearchingMap = false);
     }
     async function searchByAddressHandler(place_id) {
       await geocoder.geocode({ placeId: place_id }).then(({ results }) => {
@@ -8361,10 +8310,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           myLatLng.lat = results[0].geometry.location.lat();
           myLatLng.lng = results[0].geometry.location.lng();
         } else {
-          useGrowl("warning", "No result found");
+          myGrowl.showInfo("No result found");
         }
       }).catch((e) => {
-        useGrowl("error", `Geocoder failed due to: ${e}`);
+        myGrowl.showInfo(`Geocoder failed due to: ${e}`);
       });
       $invalidate(6, autocomplete_lists = []);
       $invalidate(5, input_search_value = "");
@@ -8374,14 +8323,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     function showShareItems(idx) {
       if (idx === shareItemIndex) {
-        return $invalidate(10, shareItemIndex = null);
+        return $invalidate(8, shareItemIndex = null);
       }
-      return $invalidate(10, shareItemIndex = idx);
+      return $invalidate(8, shareItemIndex = idx);
     }
     function copyToClipboard(text2) {
-      $invalidate(10, shareItemIndex = null);
+      $invalidate(8, shareItemIndex = null);
       navigator.clipboard.writeText(text2);
-      useGrowl("success", "Link copied to clipboard");
+      myGrowl.showInfo("Link copied to clipboard");
     }
     async function likeProperty(propId) {
       await (0, import_jsApi_GEN2.UserLikeProp)(
@@ -8393,10 +8342,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         },
         async (res) => {
           if (res.error)
-            return useGrowl("error", res.error);
-          useGrowl("info", "Property liked");
+            return myGrowl.showInfo(res.error);
+          myGrowl.showInfo("Property liked");
         }
       );
+    }
+    function growl_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        myGrowl = $value;
+        $invalidate(7, myGrowl);
+      });
     }
     const click_handler = (prop) => likeProperty(prop.id);
     const click_handler_1 = (index) => showShareItems(index);
@@ -8431,9 +8386,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       if ("randomProps" in $props2)
         $invalidate(0, randomProps = $props2.randomProps);
       if ("defaultDistanceKm" in $props2)
-        $invalidate(23, defaultDistanceKm = $props2.defaultDistanceKm);
+        $invalidate(21, defaultDistanceKm = $props2.defaultDistanceKm);
       if ("initialLatLong" in $props2)
-        $invalidate(24, initialLatLong2 = $props2.initialLatLong);
+        $invalidate(22, initialLatLong2 = $props2.initialLatLong);
     };
     return [
       randomProps,
@@ -8443,9 +8398,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       gmapBounds,
       input_search_value,
       autocomplete_lists,
-      showGrowl,
-      gMsg,
-      gType,
+      myGrowl,
       shareItemIndex,
       isSearchingMap,
       $T,
@@ -8461,6 +8414,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       likeProperty,
       defaultDistanceKm,
       initialLatLong2,
+      growl_binding,
       click_handler,
       click_handler_1,
       click_handler_2,
@@ -8485,8 +8439,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         safe_not_equal,
         {
           randomProps: 0,
-          defaultDistanceKm: 23,
-          initialLatLong: 24
+          defaultDistanceKm: 21,
+          initialLatLong: 22
         },
         null,
         [-1, -1]
@@ -8790,56 +8744,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 
   // index.svelte
   var { window: window_1 } = globals;
-  function create_if_block_222(ctx) {
-    let growl;
-    let current;
-    growl = new Growl_default({
-      props: {
-        message: (
-          /*gMsg*/
-          ctx[11]
-        ),
-        growlType: (
-          /*gType*/
-          ctx[12]
-        )
-      }
-    });
-    return {
-      c() {
-        create_component(growl.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(growl, target, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        const growl_changes = {};
-        if (dirty[0] & /*gMsg*/
-        2048)
-          growl_changes.message = /*gMsg*/
-          ctx2[11];
-        if (dirty[0] & /*gType*/
-        4096)
-          growl_changes.growlType = /*gType*/
-          ctx2[12];
-        growl.$set(growl_changes);
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(growl.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(growl.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(growl, detaching);
-      }
-    };
-  }
   function create_else_block2(ctx) {
     let section;
     let div5;
@@ -8907,7 +8811,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     );
     let if_block7 = (
       /*mode*/
-      ctx[8] === FORGOT_PASSWORD && create_if_block_62(ctx)
+      ctx[8] === FORGOT_PASSWORD && create_if_block_6(ctx)
     );
     let if_block8 = (
       /*mode*/
@@ -9045,7 +8949,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if ((!current || dirty[0] & /*mode*/
+        if ((!current || dirty & /*mode*/
         256) && t2_value !== (t2_value = /*mode*/
         ctx2[8].split("_").join(" ") + ""))
           set_data(t2, t2_value);
@@ -9119,7 +9023,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ) {
           if (if_block4) {
             if_block4.p(ctx2, dirty);
-            if (dirty[0] & /*mode*/
+            if (dirty & /*mode*/
             256) {
               transition_in(if_block4, 1);
             }
@@ -9142,7 +9046,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ) {
           if (if_block5) {
             if_block5.p(ctx2, dirty);
-            if (dirty[0] & /*mode*/
+            if (dirty & /*mode*/
             256) {
               transition_in(if_block5, 1);
             }
@@ -9165,7 +9069,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ) {
           if (if_block6) {
             if_block6.p(ctx2, dirty);
-            if (dirty[0] & /*mode*/
+            if (dirty & /*mode*/
             256) {
               transition_in(if_block6, 1);
             }
@@ -9188,12 +9092,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ) {
           if (if_block7) {
             if_block7.p(ctx2, dirty);
-            if (dirty[0] & /*mode*/
+            if (dirty & /*mode*/
             256) {
               transition_in(if_block7, 1);
             }
           } else {
-            if_block7 = create_if_block_62(ctx2);
+            if_block7 = create_if_block_6(ctx2);
             if_block7.c();
             transition_in(if_block7, 1);
             if_block7.m(div2, null);
@@ -9341,7 +9245,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     menu.$on(
       "closesidemenu",
       /*closeSideMenu*/
-      ctx[14]
+      ctx[12]
     );
     profileheader = new ProfileHeader_default({ props: { user: (
       /*user*/
@@ -9352,7 +9256,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         initialLatLong,
         randomProps: (
           /*randomProps*/
-          ctx[13]
+          ctx[11]
         )
       }
     });
@@ -9388,17 +9292,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         const menu_changes = {};
-        if (dirty[0] & /*segments*/
+        if (dirty & /*segments*/
         4)
           menu_changes.access = /*segments*/
           ctx2[2];
-        if (dirty[0] & /*sideMenuOpen*/
+        if (dirty & /*sideMenuOpen*/
         1)
           menu_changes.isSideMenuOpen = /*sideMenuOpen*/
           ctx2[0];
         menu.$set(menu_changes);
         const profileheader_changes = {};
-        if (dirty[0] & /*user*/
+        if (dirty & /*user*/
         2)
           profileheader_changes.user = /*user*/
           ctx2[1];
@@ -9462,19 +9366,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*email*/
           ctx[3]
         );
-        ctx[21](input);
+        ctx[20](input);
         if (!mounted) {
           dispose = listen(
             input,
             "input",
             /*input_input_handler*/
-            ctx[20]
+            ctx[19]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*email*/
+        if (dirty & /*email*/
         8 && input.value !== /*email*/
         ctx2[3]) {
           set_input_value(
@@ -9488,7 +9392,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (detaching) {
           detach(div);
         }
-        ctx[21](null);
+        ctx[20](null);
         mounted = false;
         dispose();
       }
@@ -9525,19 +9429,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*password*/
           ctx[4]
         );
-        ctx[23](input);
+        ctx[22](input);
         if (!mounted) {
           dispose = listen(
             input,
             "input",
             /*input_input_handler_1*/
-            ctx[22]
+            ctx[21]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*password*/
+        if (dirty & /*password*/
         16 && input.value !== /*password*/
         ctx2[4]) {
           set_input_value(
@@ -9551,7 +9455,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (detaching) {
           detach(div);
         }
-        ctx[23](null);
+        ctx[22](null);
         mounted = false;
         dispose();
       }
@@ -9593,13 +9497,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             input,
             "input",
             /*input_input_handler_2*/
-            ctx[24]
+            ctx[23]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*confirmPass*/
+        if (dirty & /*confirmPass*/
         32 && input.value !== /*confirmPass*/
         ctx2[5]) {
           set_input_value(
@@ -9641,7 +9545,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (!mounted) {
           dispose = listen(a, "click", prevent_default(
             /*click_handler*/
-            ctx[25]
+            ctx[24]
           ));
           mounted = true;
         }
@@ -9693,7 +9597,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             button,
             "click",
             /*guestRegister*/
-            ctx[16]
+            ctx[14]
           );
           mounted = true;
         }
@@ -9705,7 +9609,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
-            if (dirty[0] & /*isSubmitted*/
+            if (dirty & /*isSubmitted*/
             512) {
               transition_in(if_block0, 1);
             }
@@ -9849,7 +9753,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             button,
             "click",
             /*guestLogin*/
-            ctx[17]
+            ctx[15]
           );
           mounted = true;
         }
@@ -9861,7 +9765,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
-            if (dirty[0] & /*isSubmitted*/
+            if (dirty & /*isSubmitted*/
             512) {
               transition_in(if_block0, 1);
             }
@@ -10005,7 +9909,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             button,
             "click",
             /*guestResendVerificationEmail*/
-            ctx[18]
+            ctx[16]
           );
           mounted = true;
         }
@@ -10017,7 +9921,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
-            if (dirty[0] & /*isSubmitted*/
+            if (dirty & /*isSubmitted*/
             512) {
               transition_in(if_block0, 1);
             }
@@ -10124,7 +10028,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block_62(ctx) {
+  function create_if_block_6(ctx) {
     let button;
     let t;
     let current;
@@ -10161,7 +10065,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             button,
             "click",
             /*guestForgotPassword*/
-            ctx[19]
+            ctx[17]
           );
           mounted = true;
         }
@@ -10173,7 +10077,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
-            if (dirty[0] & /*isSubmitted*/
+            if (dirty & /*isSubmitted*/
             512) {
               transition_in(if_block0, 1);
             }
@@ -10382,7 +10286,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             a,
             "click",
             /*click_handler_1*/
-            ctx[26]
+            ctx[25]
           );
           mounted = true;
         }
@@ -10422,7 +10326,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             a,
             "click",
             /*click_handler_2*/
-            ctx[27]
+            ctx[26]
           );
           mounted = true;
         }
@@ -10462,7 +10366,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             a,
             "click",
             /*click_handler_3*/
-            ctx[28]
+            ctx[27]
           );
           mounted = true;
         }
@@ -10478,17 +10382,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
   }
   function create_fragment8(ctx) {
+    let growl;
     let t;
     let current_block_type_index;
-    let if_block1;
-    let if_block1_anchor;
+    let if_block;
+    let if_block_anchor;
     let current;
     let mounted;
     let dispose;
-    let if_block0 = (
-      /*showGrowl*/
-      ctx[10] && create_if_block_222(ctx)
-    );
+    let growl_props = {};
+    growl = new Growl_default({ props: growl_props });
+    ctx[18](growl);
     const if_block_creators = [create_if_block4, create_else_block2];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
@@ -10499,57 +10403,34 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type(ctx, [-1, -1]);
-    if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    current_block_type_index = select_block_type(ctx, -1);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
-        if (if_block0)
-          if_block0.c();
+        create_component(growl.$.fragment);
         t = space();
-        if_block1.c();
-        if_block1_anchor = empty();
+        if_block.c();
+        if_block_anchor = empty();
       },
       m(target, anchor) {
-        if (if_block0)
-          if_block0.m(target, anchor);
+        mount_component(growl, target, anchor);
         insert(target, t, anchor);
         if_blocks[current_block_type_index].m(target, anchor);
-        insert(target, if_block1_anchor, anchor);
+        insert(target, if_block_anchor, anchor);
         current = true;
         if (!mounted) {
           dispose = listen(
             window_1,
             "hashchange",
             /*onHashChange*/
-            ctx[15]
+            ctx[13]
           );
           mounted = true;
         }
       },
-      p(ctx2, dirty) {
-        if (
-          /*showGrowl*/
-          ctx2[10]
-        ) {
-          if (if_block0) {
-            if_block0.p(ctx2, dirty);
-            if (dirty[0] & /*showGrowl*/
-            1024) {
-              transition_in(if_block0, 1);
-            }
-          } else {
-            if_block0 = create_if_block_222(ctx2);
-            if_block0.c();
-            transition_in(if_block0, 1);
-            if_block0.m(t.parentNode, t);
-          }
-        } else if (if_block0) {
-          group_outros();
-          transition_out(if_block0, 1, 1, () => {
-            if_block0 = null;
-          });
-          check_outros();
-        }
+      p(ctx2, [dirty]) {
+        const growl_changes = {};
+        growl.$set(growl_changes);
         let previous_block_index = current_block_type_index;
         current_block_type_index = select_block_type(ctx2, dirty);
         if (current_block_type_index === previous_block_index) {
@@ -10560,36 +10441,36 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             if_blocks[previous_block_index] = null;
           });
           check_outros();
-          if_block1 = if_blocks[current_block_type_index];
-          if (!if_block1) {
-            if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
-            if_block1.c();
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
           } else {
-            if_block1.p(ctx2, dirty);
+            if_block.p(ctx2, dirty);
           }
-          transition_in(if_block1, 1);
-          if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
+          transition_in(if_block, 1);
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
         }
       },
       i(local) {
         if (current)
           return;
-        transition_in(if_block0);
-        transition_in(if_block1);
+        transition_in(growl.$.fragment, local);
+        transition_in(if_block);
         current = true;
       },
       o(local) {
-        transition_out(if_block0);
-        transition_out(if_block1);
+        transition_out(growl.$.fragment, local);
+        transition_out(if_block);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(t);
-          detach(if_block1_anchor);
+          detach(if_block_anchor);
         }
-        if (if_block0)
-          if_block0.d(detaching);
+        ctx[18](null);
+        destroy_component(growl, detaching);
         if_blocks[current_block_type_index].d(detaching);
         mounted = false;
         dispose();
@@ -10628,18 +10509,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let passInput = {};
     let mode = LOGIN;
     let isSubmitted = false;
-    let showGrowl = false, gMsg = "", gType = "";
-    function useGrowl(type, msg) {
-      $invalidate(10, showGrowl = true);
-      $invalidate(11, gMsg = msg);
-      $invalidate(12, gType = type);
-      setTimeout(
-        () => {
-          $invalidate(10, showGrowl = false);
-        },
-        3e3
-      );
-    }
+    let myGrowl = Growl_default;
     async function onHashChange() {
       const auth = getCookie("auth");
       console.log(auth, user);
@@ -10672,17 +10542,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       $invalidate(9, isSubmitted = true);
       if (!email) {
         $invalidate(9, isSubmitted = false);
-        useGrowl("error", "email is required");
+        myGrowl.showError("Email is required");
         return;
       }
       if (password.length < 12) {
         $invalidate(9, isSubmitted = false);
-        useGrowl("warning", "password must be at least 12 characters");
+        myGrowl.showWarning("Password must be at least 12 characters");
         return;
       }
       if (password !== confirmPass) {
         $invalidate(9, isSubmitted = false);
-        useGrowl("error", "passwords do not match");
+        myGrowl.showError("Passwords do not match");
         return;
       }
       const i = { email, password };
@@ -10690,11 +10560,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         console.log(o);
         if (o.error) {
           $invalidate(9, isSubmitted = false);
-          useGrowl("error", o.error);
+          myGrowl.showError(o.error);
           return;
         }
         $invalidate(9, isSubmitted = false);
-        useGrowl("success", "registered successfully, a registration verification has been sent to your email");
+        myGrowl.showSucess("Registered successfully, a registration verification has been sent to your email");
         $invalidate(8, mode = LOGIN);
         $invalidate(4, password = "");
         await tick();
@@ -10705,12 +10575,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       $invalidate(9, isSubmitted = true);
       if (!email) {
         $invalidate(9, isSubmitted = false);
-        useGrowl("error", "email is required");
+        myGrowl.showError("Email is required");
         return;
       }
       if (password.length < 12) {
         $invalidate(9, isSubmitted = false);
-        useGrowl("warning", "password must be at least 12 characters");
+        myGrowl.showWarning("Password must be at least 12 characters");
         return;
       }
       const i = { email, password };
@@ -10718,11 +10588,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         console.log(o);
         if (o.error) {
           $invalidate(9, isSubmitted = false);
-          useGrowl("error", o.error);
+          myGrowl.showError(o.error);
           return;
         }
         $invalidate(9, isSubmitted = false);
-        useGrowl("success", "Login successfully");
+        myGrowl.showSuccess("Login successfully");
         setTimeout(
           () => {
             $invalidate(1, user = o.user);
@@ -10738,7 +10608,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       $invalidate(9, isSubmitted = true);
       if (!email) {
         $invalidate(9, isSubmitted = false);
-        useGrowl("error", "email is required");
+        myGrowl.showError("Email is required");
         return;
       }
       const i = { email };
@@ -10746,19 +10616,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         console.log(o);
         if (o.error) {
           $invalidate(9, isSubmitted = false);
-          useGrowl("error", o.error);
+          myGrowl.showError(o.error);
           return;
         }
         $invalidate(9, isSubmitted = false);
         onHashChange();
-        useGrowl("success", "a email verification link has been sent to your email");
+        myGrowl.showInfo("An email verification link has been sent to your email");
       });
     }
     async function guestForgotPassword() {
       $invalidate(9, isSubmitted = true);
       if (!email) {
         $invalidate(9, isSubmitted = false);
-        useGrowl("error", "email is required");
+        myGrowl.showError("Email is required");
         return;
       }
       const i = { email };
@@ -10766,11 +10636,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         console.log(o);
         if (o.error) {
           $invalidate(9, isSubmitted = false);
-          useGrowl("error", o.error);
+          myGrowl.showError(o.error);
           return;
         }
         onHashChange();
-        useGrowl("success", "a reset password link has been sent to your email");
+        myGrowl.showInfo("A reset password link has been sent to your email");
+      });
+    }
+    function growl_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        myGrowl = $value;
+        $invalidate(10, myGrowl);
       });
     }
     function input_input_handler() {
@@ -10812,9 +10688,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       passInput,
       mode,
       isSubmitted,
-      showGrowl,
-      gMsg,
-      gType,
+      myGrowl,
       randomProps,
       closeSideMenu,
       onHashChange,
@@ -10822,6 +10696,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       guestLogin,
       guestResendVerificationEmail,
       guestForgotPassword,
+      growl_binding,
       input_input_handler,
       input_binding,
       input_input_handler_1,
@@ -10836,7 +10711,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var Index = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance9, create_fragment8, safe_not_equal, {}, null, [-1, -1]);
+      init(this, options, instance9, create_fragment8, safe_not_equal, {});
     }
   };
   var svelte_default = Index;

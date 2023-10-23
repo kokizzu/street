@@ -1,5 +1,5 @@
 <script>
-  import Growl from "../../_components/Growl.svelte";
+  import Growl from '../../_components/Growl.svelte';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidArrowRight from "svelte-icons-pack/fa/FaSolidArrowRight";
   import FaSolidShareAlt from "svelte-icons-pack/fa/FaSolidShareAlt";
@@ -13,27 +13,16 @@
   
   let propItem = {/* propItem */};
   let meta = {/* propertyMeta */}
-  let showGrowl = false, gMsg = '', gType = '';
-  
-  function useGrowl( type, msg ) {
-    showGrowl = true;
-    gMsg = msg;
-    gType = type;
-    setTimeout( () => {
-      showGrowl = false;
-    }, 2000 );
-  }
+  let myGrowl = Growl;
   
   function copyToClipboard( text ) {
     console.log(window.location)
     navigator.clipboard.writeText( text );
-    useGrowl( 'success', 'Link copied to clipboard' );
+    myGrowl.showSuccess('Link copied to clipboard' );
   }
 </script>
 
-{#if showGrowl}
-	<Growl message={gMsg} growlType={gType}/>
-{/if}
+<Growl bind:this={myGrowl}/>
 <section class="property_container">
 	<div class="property">
 	<Property {propItem} {meta} />

@@ -11,7 +11,6 @@
   import FaSolidAngleDoubleLeft from 'svelte-icons-pack/fa/FaSolidAngleDoubleLeft';
   import FaSolidFilter from 'svelte-icons-pack/fa/FaSolidFilter';
   import FaSolidSyncAlt from "svelte-icons-pack/fa/FaSolidSyncAlt";
-  import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
   
   export let arrayOfArray = true;
   export let fields = []; // array of field object

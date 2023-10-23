@@ -52,18 +52,9 @@
   };
   let geocoder, input_search_value, autocomplete_service;
   let autocomplete_lists = [];
-  let showGrowl = false, gMsg = '', gType = '';
+  let myGrowl = Growl;
   let shareItemIndex = null;
   let isSearchingMap = false;
-  
-  function useGrowl( type, msg ) {
-    showGrowl = true;
-    gMsg = msg;
-    gType = type;
-    setTimeout( () => {
-      showGrowl = false;
-    }, 3000 );
-  }
   
   const highLightMapMarker = {
     enter: ( index ) => {
@@ -94,7 +85,6 @@
       if( gmapBounds && gmapBounds.getNorthEast ) {
         let ne = gmapBounds.getNorthEast();
         bestDistance = distanceKM( ne.lat(), ne.lng(), myLatLng.lat, myLatLng.lng );
-        console.log( 'bestDistance', bestDistance );
       }
       await UserSearchProp( {
         centerLat: myLatLng.lat,
@@ -103,7 +93,7 @@
         limit: 40, // this is apparently the culprit XD if we show too many it would slow, but if it's too little it won't spread
         maxDistanceKM: bestDistance,
       }, async res => {
-        if( res.error ) return useGrowl( 'error', res.error );
+        if( res.error ) return myGrowl.showInfo(res.error );
         randomProps = res.properties || [];
       } );
       markersProperty = gmapsComponent.clearMarkers( markersProperty );
@@ -142,7 +132,7 @@
       centerLat: myLatLng.lat,
       centerLong: myLatLng.lng,
     }, async res => {
-      if( res.error ) return useGrowl( 'error', res.error );
+      if( res.error ) return myGrowl.showInfo(res.error );
       markersFacility = gmapsComponent.clearMarkers( markersFacility );
       facilities = await res.facilities;
       facilities.forEach( fac => {
@@ -216,10 +206,10 @@
           myLatLng.lat = results[ 0 ].geometry.location.lat();
           myLatLng.lng = results[ 0 ].geometry.location.lng();
         } else {
-          useGrowl( 'warning', 'No result found' );
+			myGrowl.showInfo( 'No result found' );
         }
       } ).catch( ( e ) => {
-        useGrowl( 'error', `Geocoder failed due to: ${e}` );
+		  myGrowl.showInfo(`Geocoder failed due to: ${e}` );
       } );
     autocomplete_lists = [];
     input_search_value = '';
@@ -241,7 +231,7 @@
   function copyToClipboard( text ) {
     shareItemIndex = null;
     navigator.clipboard.writeText( text );
-    useGrowl( 'success', 'Link copied to clipboard' );
+	  myGrowl.showInfo('Link copied to clipboard' );
   }
   
   function propertyUrl( id ) {
@@ -254,15 +244,13 @@
       propId: propId, // uint64
       like: true, // bool
     }, async res => {
-      if( res.error ) return useGrowl( 'error', res.error );
-      useGrowl( 'info', 'Property liked' );
+      if( res.error ) return myGrowl.showInfo( res.error );
+		myGrowl.showInfo('Property liked' );
     } )
   }
 </script>
 
-{#if showGrowl}
-	<Growl message={gMsg} growlType={gType}/>
-{/if}
+<Growl bind:this={myGrowl}/>
 <GoogleSdk on:ready={initGoogleService}/>
 <div class='property_location_container'>
 	<div class='left'>
