@@ -22,9 +22,10 @@
     let newPassword = '';
     let repeatNewPassword = '';
     let oldProfileJson = '';
-    let growl = Growl;
+    let growl10 = Growl;
     let profileSubmit = false, passwordSubmit = false;
     onMount(async () => {
+        console.log('onMount.user')
         oldProfileJson = JSON.stringify(user);
         console.log('Country data = ', countries)
         console.log('User data = ', user)
@@ -36,19 +37,19 @@
         await UserUpdateProfile(user, function(res) {
             profileSubmit = false;
             if (res.error) {
-                growl.showError(res.error);
+                growl10.showError(res.error);
                 return
             }
             oldProfileJson = JSON.stringify(res.user);
             user = res.user;
-            growl.showSuccess('Profile updated');
+            growl10.showSuccess('Profile updated');
         });
     }
 
     async function changePassword() {
         passwordSubmit = true;
         if (newPassword !== repeatNewPassword) {
-            growl.showError('New password and repeat new password must be same');
+            growl10.showError('New password and repeat new password must be same');
             passwordSubmit = false;
             return
         }
@@ -59,27 +60,27 @@
         await UserChangePassword(input, function(res) {
             passwordSubmit = false;
             if (res.error) {
-                growl.showError(res.error);
+                growl10.showError(res.error);
                 return
             }
             oldPassword = '';
             newPassword = '';
             repeatNewPassword = '';
-            growl.showSuccess('Password updated');
+            growl10.showSuccess('Password updated');
         });
     }
 
     async function killSession(sessionToken) {
         await UserSessionKill({sessionTokenHash: sessionToken}, async res => {
             if (res.error) {
-                growl.showError(res.error);
+                growl10.showError(res.error);
                 return
             }
             if (res.sessionTerminated < 1) return useGrowl('error', 'No session terminated');
-            growl.showSuccess(res.sessionTerminated + ' session terminated');
+            growl10.showSuccess(res.sessionTerminated + ' session terminated');
             await UserSessionsActive({userId: user.id}, res => {
                 if (res.error) {
-                    growl.showError(res.error);
+                    growl10.showError(res.error);
                     return
                 }
                 sessionActiveLists = res.sessionsActive;
@@ -88,7 +89,7 @@
     }
 </script>
 
-<Growl bind:this={growl}/>
+<Growl bind:this={growl10}/>
 <section class='dashboard'>
     <Menu access={segments}/>
     <div class='dashboard_main_content'>

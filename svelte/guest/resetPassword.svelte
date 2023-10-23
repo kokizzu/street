@@ -5,15 +5,15 @@
 
   let password = '';
   let pass2 = '';
-  let growl = Growl;
+  let growl2 = Growl;
 
   async function resetPassword() {
     if (password.length < 12) {
-      growl.showWarning('password must be at least 12 characters');
+      growl2.showWarning('password must be at least 12 characters');
       return
     }
     if (password !== pass2) {
-      growl.showWarning('password confirmation does not match');
+      growl2.showWarning('password confirmation does not match');
       return
     }
     const queryParam = window.location.href.split('?')[1];
@@ -29,16 +29,16 @@
     await GuestResetPassword(i, function (o) {
       console.log(o);
       if (o.error) {
-        growl.showError(o.error);
+        growl2.showError(o.error);
         return
       }
-      growl.showError('password reset successful');
+      growl2.showError('password reset successful');
       window.location.href = '/';
     });
   }
 </script>
 
-<Growl bind:this={growl}/>
+<Growl bind:this={growl2}/>
 <section class="reset_password_container">
   <div class="main_content">
     <h1>

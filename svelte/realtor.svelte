@@ -14,6 +14,7 @@
   let propertyMeta = [/* propertyMeta */];
 
   onMount(() => {
+    console.log('onMount.realtor')
     console.log('ownedProperties=',ownedProperties);
     console.log('pager=',pager);
   });

@@ -2,6 +2,7 @@
    import { onMount } from 'svelte';
    let segment2;
    onMount(() => {
+      console.log('onMount.AdminSubMenu')
       segment2 = window.location.pathname.split('/').pop() || '';
    });
 </script>

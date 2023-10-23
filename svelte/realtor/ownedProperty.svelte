@@ -13,6 +13,7 @@
   
   let approvalStatus = 'approved';
   onMount(() => {
+    console.log('onMount.realtor/ownedProperty')
     console.log('Property = ', propItem)
 	  if (propItem.approvalState !== 'pending' && propItem.approvalState !== '') {
       approvalStatus = 'rejected';

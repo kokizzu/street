@@ -18,6 +18,7 @@
   let showGrowl = false, gMsg = '', gType = '';
   
   onMount(() => {
+    console.log('onMount.user/property/index')
     console.log("propHistories = ", propHistories)
   })
   

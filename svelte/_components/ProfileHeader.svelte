@@ -14,6 +14,7 @@
   
   let selectedLanguage = '';
   onMount( () => {
+    console.log('onMount.ProfileHeader')
     selectedLanguage = T.currentLang || 'EN';
   } );
   

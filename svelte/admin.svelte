@@ -35,6 +35,7 @@
   }
   
   onMount( () => {
+    console.log('onMount.admin')
     let uniqueDate = {};
     for( let i in uniqueIpPerDate ) uniqueDate[ i ] = true;
     for( let i in requestsPerDate ) uniqueDate[ i ] = true;

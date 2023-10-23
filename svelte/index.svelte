@@ -56,6 +56,7 @@
   let myGrowl = Growl;
   
   async function onHashChange() {
+		console.log('onHashChange.start')
     const auth = getCookie( 'auth' );
     console.log( auth, user );
     if( auth && user && !auth.startsWith( 'TEMP__' ) ) {
@@ -72,11 +73,13 @@
     else if( hash===RESEND_VERIFICATION_EMAIL ) mode = RESEND_VERIFICATION_EMAIL;
     else if( hash===FORGOT_PASSWORD ) mode = FORGOT_PASSWORD;
     else location.hash = LOGIN;
+		console.log('onHashChange.tick')
     await tick();
     emailInput.focus();
   }
   
   onMount( () => {
+		console.log('onMount.index')
     onHashChange();
     console.log( "User = ", user )
   } )
@@ -110,7 +113,7 @@
 		return
       }
       isSubmitted = false;
-      myGrowl.showSucess('Registered successfully, a registration verification has been sent to your email' );
+      myGrowl.showSuccess('Registered successfully, a registration verification has been sent to your email' );
       mode = LOGIN;
       password = '';
       await tick();

@@ -7,6 +7,7 @@
   $: $mapsLoaded && dispatch('ready')
   
   onMount(() => {
+    console.log('onMount.GoogleSdk')
     if ($mapsLoaded) {
       dispatch('ready');
     }

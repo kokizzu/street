@@ -19,12 +19,12 @@
   
   $: console.log( propHistories );
 
-  let growl = Growl;
+  let growl6 = Growl;
   // return true if got error
   function handleResponse( res ) {
     console.log( res );
     if( res.error ) {
-      growl.showError( res.error );
+      growl6.showError( res.error );
       return true;
     }
     if( res.propHistories && res.propHistories.length ) propHistories = res.propHistories;
@@ -75,7 +75,7 @@
 
 </script>
 
-<Growl bind:this={growl} />
+<Growl bind:this={growl6} />
 <section class='dashboard'>
   <Menu access={segments} />
   <div class='dashboard_main_content'>

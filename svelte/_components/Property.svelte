@@ -25,6 +25,7 @@
     }
   ]
   onMount( () => {
+    console.log('onMount.Property')
     console.log( 'Property = ', propItem )
     if( propItem.approvalState!=='pending' && propItem.approvalState!=='' ) {
       approvalStatus = 'rejected';

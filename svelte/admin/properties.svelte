@@ -93,13 +93,13 @@
   
   $: console.log( 'properties=', properties );
 
-  let growl = Growl;
+  let growl7 = Growl;
   let propHistoryModal = ModalDialog;
   
   // return true if got error
   function handleResponse( res ) {
     if( res.error ) {
-      growl.showError( res.error );
+      growl7.showError( res.error );
       return true;
     }
     if( res.properties && res.properties.length ) properties = res.properties;
@@ -186,7 +186,7 @@
   }
 </script>
 
-<Growl bind:this={growl}/>
+<Growl bind:this={growl7}/>
 <section class='dashboard'>
 	<Menu access={segments}/>
 	<div class='dashboard_main_content'>

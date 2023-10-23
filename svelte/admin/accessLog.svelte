@@ -14,12 +14,12 @@
     let pager = {/* pager */};
 
     $: console.log(logs, fields, pager);
-    let growl = Growl;
+    let growl4 = Growl;
 
     // return true if got error
     function handleResponse(res) {
         if (res.error) {
-            growl.showError(res.error);
+            growl4.showError(res.error);
             return true;
         }
         if (res.logs && res.logs.length) logs = res.logs;
@@ -36,7 +36,7 @@
     }
 </script>
 
-<Growl bind:this={growl}/>
+<Growl bind:this={growl4}/>
 <section class='dashboard'>
     <Menu access={segments}/>
     <div class='dashboard_main_content'>

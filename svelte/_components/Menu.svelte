@@ -3,18 +3,18 @@
   import { UserLogout } from '../jsApi.GEN.js';
   import { onMount } from 'svelte';
   import { isSideMenuOpen } from './uiState.js';
-
+  
   import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidHome from "svelte-icons-pack/fa/FaSolidHome";
-  import FaSolidShoppingBag from "svelte-icons-pack/fa/FaSolidShoppingBag";
-  import FaSolidBuilding from "svelte-icons-pack/fa/FaSolidBuilding";
-  import FaSolidSlidersH from "svelte-icons-pack/fa/FaSolidSlidersH";
-  import FaSolidUserCircle from "svelte-icons-pack/fa/FaSolidUserCircle";
-  import FaSolidSignInAlt from "svelte-icons-pack/fa/FaSolidSignInAlt";
-  import FaSolidTimes from "svelte-icons-pack/fa/FaSolidTimes";
-   
+  import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
+  import FaSolidShoppingBag from 'svelte-icons-pack/fa/FaSolidShoppingBag';
+  import FaSolidBuilding from 'svelte-icons-pack/fa/FaSolidBuilding';
+  import FaSolidSlidersH from 'svelte-icons-pack/fa/FaSolidSlidersH';
+  import FaSolidUserCircle from 'svelte-icons-pack/fa/FaSolidUserCircle';
+  import FaSolidSignInAlt from 'svelte-icons-pack/fa/FaSolidSignInAlt';
+  import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
+  
   export let doToggle = function() {
-    isSideMenuOpen.set(!$isSideMenuOpen)
+    isSideMenuOpen.set( !$isSideMenuOpen );
   };
   export let access = {
     'admin': false,
@@ -25,6 +25,7 @@
   
   let segment1;
   onMount( () => {
+    console.log( 'onMount.Menu' );
     segment1 = window.location.pathname.split( '/' )[ 1 ];
   } );
   
@@ -43,7 +44,7 @@
       <header>
         <h3>STREET</h3>
         <button on:click|preventDefault={doToggle}>
-          <Icon size={20} color="#475569" src={FaSolidTimes} />
+          <Icon size={20} color='#475569' src={FaSolidTimes} />
         </button>
       </header>
       <div class='menu_container'>
@@ -86,7 +87,7 @@
           {/if}
           {#if access.user}
             <button on:click={userLogout} class='logout'>
-              <Icon size={22} className="icon_dark" src={FaSolidSignInAlt} />
+              <Icon size={22} className='icon_dark' src={FaSolidSignInAlt} />
               <span>LOGOUT</span>
             </button>
           {/if}
@@ -97,121 +98,123 @@
 {/if}
 <style>
   :global(.icon_dark) {
-    fill: #475569;
+    fill : #475569;
   }
+
   :global(.icon_active) {
-    fill: #EF4444;
+    fill : #EF4444;
   }
-    .side_menu_admin {
-        left             : 0;
-        display          : block;
-        position         : fixed;
-        z-index          : 9999;
-        top              : 0;
-        bottom           : 0;
-        overflow-y       : auto;
-        flex-direction   : row;
-        flex-wrap        : nowrap;
-        overflow         : auto;
-        background-color : white;
-        color            : #475569;
-        padding          : 16px 24px;
-        width            : 300px;
-        filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    }
 
-    .side_menu_admin_container {
-        flex-direction : column;
-        align-items    : stretch;
-        min-height     : 100%;
-        flex-wrap      : nowrap;
-        padding        : 0;
-        display        : flex;
-        width          : 100%;
-        margin         : 0 auto;
-    }
+  .side_menu_admin {
+    left             : 0;
+    display          : block;
+    position         : fixed;
+    z-index          : 9999;
+    top              : 0;
+    bottom           : 0;
+    overflow-y       : auto;
+    flex-direction   : row;
+    flex-wrap        : nowrap;
+    overflow         : auto;
+    background-color : white;
+    color            : #475569;
+    padding          : 16px 24px;
+    width            : 300px;
+    filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  }
 
-    .side_menu_admin_container header {
-        display         : flex;
-        flex-direction  : row;
-        justify-content : space-between;
-        align-items     : center;
-    }
+  .side_menu_admin_container {
+    flex-direction : column;
+    align-items    : stretch;
+    min-height     : 100%;
+    flex-wrap      : nowrap;
+    padding        : 0;
+    display        : flex;
+    width          : 100%;
+    margin         : 0 auto;
+  }
 
-    .side_menu_admin_container header h3 {
-        font-size   : 16px;
-        line-height : 1.5rem;
-        padding     : 0;
-        margin      : 0;
-    }
+  .side_menu_admin_container header {
+    display         : flex;
+    flex-direction  : row;
+    justify-content : space-between;
+    align-items     : center;
+  }
 
-    .side_menu_admin_container header button {
-        padding       : 5px;
-        border        : none;
-        background    : none;
-        border-radius : 5px;
-        font-size     : 14px;
-        cursor        : pointer;
-    }
+  .side_menu_admin_container header h3 {
+    font-size   : 16px;
+    line-height : 1.5rem;
+    padding     : 0;
+    margin      : 0;
+  }
 
-    .side_menu_admin_container header button:hover {
-        background-color : rgb(0 0 0 / 0.07);
-        color            : #EF4444;
-    }
+  .side_menu_admin_container header button {
+    padding       : 5px;
+    border        : none;
+    background    : none;
+    border-radius : 5px;
+    font-size     : 14px;
+    cursor        : pointer;
+  }
 
-    .menu_container {
-        margin-top     : 1rem;
-        align-items    : stretch;
-        flex-direction : column;
-        display        : flex;
-    }
+  .side_menu_admin_container header button:hover {
+    background-color : rgb(0 0 0 / 0.07);
+    color            : #EF4444;
+  }
 
-    .menu_container hr {
-        margin : 1rem 0;
-    }
+  .menu_container {
+    margin-top     : 1rem;
+    align-items    : stretch;
+    flex-direction : column;
+    display        : flex;
+  }
 
-    .menu_container h6 {
-        font-size : 15px;
-        margin    : 12px 0;
-    }
+  .menu_container hr {
+    margin : 1rem 0;
+  }
 
-    .menu_container .menu {
-        display        : flex;
-        flex-direction : column;
-        margin-bottom  : 10px;
-    }
+  .menu_container h6 {
+    font-size : 15px;
+    margin    : 12px 0;
+  }
 
-    .menu_container .menu a, .menu .logout { /*MENU LISTS*/
-        color            : #475569;
-        text-decoration  : none;
-        margin           : 0;
-        padding          : 0.75rem 0;
-        font-size        : 0.875rem !important;
-        line-height      : 1.25rem;
-        font-weight      : 700;
-        text-transform   : uppercase;
-        text-align       : left;
-        background-color : transparent;
-        border           : none;
-        display          : flex;
-        flex-direction   : row;
-        align-items      : center;
-        gap              : 15px;
-    }
+  .menu_container .menu {
+    display        : flex;
+    flex-direction : column;
+    margin-bottom  : 10px;
+  }
 
-    .menu_container .menu .logout {
-        cursor        : pointer;
-        margin-top    : 0;
-        margin-bottom : 0;
-        margin-right  : 0;
-    }
+  .menu_container .menu a, .menu .logout { /*MENU LISTS*/
+    color            : #475569;
+    text-decoration  : none;
+    margin           : 0;
+    padding          : 0.75rem 0;
+    font-size        : 0.875rem !important;
+    line-height      : 1.25rem;
+    font-weight      : 700;
+    text-transform   : uppercase;
+    text-align       : left;
+    background-color : transparent;
+    border           : none;
+    display          : flex;
+    flex-direction   : row;
+    align-items      : center;
+    gap              : 15px;
+  }
+
+  .menu_container .menu .logout {
+    cursor        : pointer;
+    margin-top    : 0;
+    margin-bottom : 0;
+    margin-right  : 0;
+  }
 
 
-    .menu_container .menu a:hover, .menu_container .menu .logout:hover { /*HOVER*/
-        color : #64748B;
-    }
+  .menu_container .menu a:hover, .menu_container .menu .logout:hover { /*HOVER*/
+    color : #64748B;
+  }
 
-    .active { /*ACTIVE Navigation*/
-        color : #EF4444 !important;
-    }
+  .active { /*ACTIVE Navigation*/
+    color : #EF4444 !important;
+  }
 </style>

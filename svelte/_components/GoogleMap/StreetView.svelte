@@ -14,7 +14,7 @@
     let viewer, tileset, handler;
     let streetViewInput, streetViewInputValue, autocompleteService, geocoder, elevationService;
     let showAutoCompleteList = false, autocompleteLists = [];
-    let growl = Growl;
+    let growl1 = Growl;
 
     function init3dTiles() {
         // Enable simultaneous requests.
@@ -78,7 +78,7 @@
                 if (status === google.maps.places.PlacesServiceStatus.OK) {
                     autocompleteLists = predictions;
                 } else {
-                    growl.showError('Cannot get address')
+                    growl1.showError('Cannot get address')
                 }
             },
         );
@@ -98,7 +98,7 @@
                         locations: [results[0].geometry.location],
                     });
                     if (!(elevationResponse.results && elevationResponse.results.length)) {
-                        growl.showError(`Insufficient elevation data for place: ${results[0].formatted_address}`)
+                        growl1.showError(`Insufficient elevation data for place: ${results[0].formatted_address}`)
                     }
                     const elv = elevationResponse.results[0].elevation;
                     elevation = elv;
@@ -116,10 +116,10 @@
                     //   elv
                     // );
                 } else {
-                    growl.showError('No result found');
+                    growl1.showError('No result found');
                 }
             }).catch((e) => {
-                growl.showError(`Geocoder failed due to: ${e}`);
+                growl1.showError(`Geocoder failed due to: ${e}`);
             });
         autocompleteLists = [];
         showAutoCompleteList = false;
@@ -149,7 +149,7 @@
     document.head.appendChild(linkElement);
 </script>
 
-<Growl bind:this={growl}/>
+<Growl bind:this={growl1}/>
 <GoogleSdk on:ready={initGoogleSdk}/>
 <div class="streetview_input_box">
     <Icon

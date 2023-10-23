@@ -16,13 +16,13 @@
     let pager = {/* pager */};
 
     $: console.log(files, fields, pager);
-    let growl = Growl;
+    let growl5 = Growl;
 
     // return true if got error
     function handleResponse(res) {
         console.log(res);
         if (res.error) {
-            growl.showError(res.error);
+            growl5.showError(res.error);
             return true;
         }
         if (res.files && res.files.length) files = res.files;
@@ -95,7 +95,7 @@
     }
 </script>
 
-<Growl bind:this={growl}/>
+<Growl bind:this={growl5}/>
 <section class='dashboard'>
     <Menu access={segments} />
     <div class='dashboard_main_content'>

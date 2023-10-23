@@ -77,7 +77,10 @@
 
 
 <style>/* fakecss:./_components/Growl.esbuild-svelte-fake-css */
-.growl.svelte-smdxqx.svelte-smdxqx {
+.growl.hidden.svelte-1nas9kk.svelte-1nas9kk {
+  display: none;
+}
+.growl.svelte-1nas9kk.svelte-1nas9kk {
   position: fixed;
   display: flex;
   flex-direction: row;
@@ -97,22 +100,22 @@
 .icon_growl {
   flex-shrink: 0;
 }
-.growl.svelte-smdxqx span.svelte-smdxqx {
+.growl.svelte-1nas9kk span.svelte-1nas9kk {
   flex-shrink: 1;
 }
-.growl.info.svelte-smdxqx.svelte-smdxqx {
+.growl.info.svelte-1nas9kk.svelte-1nas9kk {
   background-color: #1080E8;
   color: #FFF;
 }
-.growl.success.svelte-smdxqx.svelte-smdxqx {
+.growl.success.svelte-1nas9kk.svelte-1nas9kk {
   background-color: #059669;
   color: #FFF;
 }
-.growl.error.svelte-smdxqx.svelte-smdxqx {
+.growl.error.svelte-1nas9kk.svelte-1nas9kk {
   background-color: #EF4444;
   color: #FFF;
 }
-.growl.warning.svelte-smdxqx.svelte-smdxqx {
+.growl.warning.svelte-1nas9kk.svelte-1nas9kk {
   background-color: #D97706;
   color: #FFF;
 }
@@ -988,7 +991,7 @@
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance6, create_fragment6, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance6, create_fragment6, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -1161,7 +1164,7 @@
                   "toAttribute"
                 );
                 if (attribute_value == null) {
-                  this.removeAttribute(key);
+                  this.removeAttribute(this.$p_d[key].attribute || key);
                 } else {
                   this.setAttribute(this.$p_d[key].attribute || key, attribute_value);
                 }
@@ -1296,7 +1299,7 @@
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
+  // node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment(ctx) {
     let svg;
     let svg_levels = [
@@ -1432,7 +1435,7 @@
   };
   var Icon_default = Icon;
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidInfoCircle.js
+  // node_modules/svelte-icons-pack/fa/FaSolidInfoCircle.js
   var FaSolidInfoCircle_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -1440,7 +1443,7 @@
     c: '<path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidCheckCircle.js
+  // node_modules/svelte-icons-pack/fa/FaSolidCheckCircle.js
   var FaSolidCheckCircle_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -1448,7 +1451,7 @@
     c: '<path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidExclamationTriangle.js
+  // node_modules/svelte-icons-pack/fa/FaSolidExclamationTriangle.js
   var FaSolidExclamationTriangle_default = {
     a: {
       viewBox: "0 0 576 512"
@@ -1456,7 +1459,7 @@
     c: '<path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidTimesCircle.js
+  // node_modules/svelte-icons-pack/fa/FaSolidTimesCircle.js
   var FaSolidTimesCircle_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -1465,411 +1468,84 @@
   };
 
   // _components/Growl.svelte
-  function create_if_block(ctx) {
+  function create_fragment2(ctx) {
     let div;
+    let icon_1;
     let t0;
-    let t1;
-    let t2;
-    let t3;
     let span;
-    let t4;
+    let t1;
     let div_class_value;
     let current;
-    let if_block0 = (
-      /*growlType*/
-      ctx[1] === "info" && create_if_block_4(ctx)
-    );
-    let if_block1 = (
-      /*growlType*/
-      ctx[1] === "success" && create_if_block_3(ctx)
-    );
-    let if_block2 = (
-      /*growlType*/
-      ctx[1] === "error" && create_if_block_2(ctx)
-    );
-    let if_block3 = (
-      /*growlType*/
-      ctx[1] === "warning" && create_if_block_1(ctx)
-    );
+    icon_1 = new Icon_default({
+      props: {
+        className: "icon_growl",
+        size: 20,
+        color: "#FFF",
+        src: (
+          /*icon*/
+          ctx[3]
+        )
+      }
+    });
     return {
       c() {
         div = element("div");
-        if (if_block0)
-          if_block0.c();
+        create_component(icon_1.$.fragment);
         t0 = space();
-        if (if_block1)
-          if_block1.c();
-        t1 = space();
-        if (if_block2)
-          if_block2.c();
-        t2 = space();
-        if (if_block3)
-          if_block3.c();
-        t3 = space();
         span = element("span");
-        t4 = text(
+        t1 = text(
           /*message*/
           ctx[0]
         );
-        attr(span, "class", "svelte-smdxqx");
+        attr(span, "class", "svelte-1nas9kk");
         attr(div, "class", div_class_value = null_to_empty(`growl ${/*growlType*/
-        ctx[1]}`) + " svelte-smdxqx");
+        ctx[1]} ${/*isShow*/
+        ctx[2] ? "" : "hidden"}`) + " svelte-1nas9kk");
       },
       m(target, anchor) {
         insert(target, div, anchor);
-        if (if_block0)
-          if_block0.m(div, null);
+        mount_component(icon_1, div, null);
         append(div, t0);
-        if (if_block1)
-          if_block1.m(div, null);
-        append(div, t1);
-        if (if_block2)
-          if_block2.m(div, null);
-        append(div, t2);
-        if (if_block3)
-          if_block3.m(div, null);
-        append(div, t3);
         append(div, span);
-        append(span, t4);
+        append(span, t1);
         current = true;
       },
-      p(ctx2, dirty) {
-        if (
-          /*growlType*/
-          ctx2[1] === "info"
-        ) {
-          if (if_block0) {
-            if_block0.p(ctx2, dirty);
-            if (dirty & /*growlType*/
-            2) {
-              transition_in(if_block0, 1);
-            }
-          } else {
-            if_block0 = create_if_block_4(ctx2);
-            if_block0.c();
-            transition_in(if_block0, 1);
-            if_block0.m(div, t0);
-          }
-        } else if (if_block0) {
-          group_outros();
-          transition_out(if_block0, 1, 1, () => {
-            if_block0 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*growlType*/
-          ctx2[1] === "success"
-        ) {
-          if (if_block1) {
-            if_block1.p(ctx2, dirty);
-            if (dirty & /*growlType*/
-            2) {
-              transition_in(if_block1, 1);
-            }
-          } else {
-            if_block1 = create_if_block_3(ctx2);
-            if_block1.c();
-            transition_in(if_block1, 1);
-            if_block1.m(div, t1);
-          }
-        } else if (if_block1) {
-          group_outros();
-          transition_out(if_block1, 1, 1, () => {
-            if_block1 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*growlType*/
-          ctx2[1] === "error"
-        ) {
-          if (if_block2) {
-            if_block2.p(ctx2, dirty);
-            if (dirty & /*growlType*/
-            2) {
-              transition_in(if_block2, 1);
-            }
-          } else {
-            if_block2 = create_if_block_2(ctx2);
-            if_block2.c();
-            transition_in(if_block2, 1);
-            if_block2.m(div, t2);
-          }
-        } else if (if_block2) {
-          group_outros();
-          transition_out(if_block2, 1, 1, () => {
-            if_block2 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*growlType*/
-          ctx2[1] === "warning"
-        ) {
-          if (if_block3) {
-            if_block3.p(ctx2, dirty);
-            if (dirty & /*growlType*/
-            2) {
-              transition_in(if_block3, 1);
-            }
-          } else {
-            if_block3 = create_if_block_1(ctx2);
-            if_block3.c();
-            transition_in(if_block3, 1);
-            if_block3.m(div, t3);
-          }
-        } else if (if_block3) {
-          group_outros();
-          transition_out(if_block3, 1, 1, () => {
-            if_block3 = null;
-          });
-          check_outros();
-        }
+      p(ctx2, [dirty]) {
+        const icon_1_changes = {};
+        if (dirty & /*icon*/
+        8)
+          icon_1_changes.src = /*icon*/
+          ctx2[3];
+        icon_1.$set(icon_1_changes);
         if (!current || dirty & /*message*/
         1)
           set_data(
-            t4,
+            t1,
             /*message*/
             ctx2[0]
           );
-        if (!current || dirty & /*growlType*/
-        2 && div_class_value !== (div_class_value = null_to_empty(`growl ${/*growlType*/
-        ctx2[1]}`) + " svelte-smdxqx")) {
+        if (!current || dirty & /*growlType, isShow*/
+        6 && div_class_value !== (div_class_value = null_to_empty(`growl ${/*growlType*/
+        ctx2[1]} ${/*isShow*/
+        ctx2[2] ? "" : "hidden"}`) + " svelte-1nas9kk")) {
           attr(div, "class", div_class_value);
         }
       },
       i(local) {
         if (current)
           return;
-        transition_in(if_block0);
-        transition_in(if_block1);
-        transition_in(if_block2);
-        transition_in(if_block3);
+        transition_in(icon_1.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(if_block0);
-        transition_out(if_block1);
-        transition_out(if_block2);
-        transition_out(if_block3);
+        transition_out(icon_1.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(div);
         }
-        if (if_block0)
-          if_block0.d();
-        if (if_block1)
-          if_block1.d();
-        if (if_block2)
-          if_block2.d();
-        if (if_block3)
-          if_block3.d();
-      }
-    };
-  }
-  function create_if_block_4(ctx) {
-    let icon;
-    let current;
-    icon = new Icon_default({
-      props: {
-        className: "icon_growl",
-        size: 20,
-        color: "#FFF",
-        src: FaSolidInfoCircle_default
-      }
-    });
-    return {
-      c() {
-        create_component(icon.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(icon, target, anchor);
-        current = true;
-      },
-      p: noop,
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(icon, detaching);
-      }
-    };
-  }
-  function create_if_block_3(ctx) {
-    let icon;
-    let current;
-    icon = new Icon_default({
-      props: {
-        className: "icon_growl",
-        size: 20,
-        color: "#FFF",
-        src: FaSolidCheckCircle_default
-      }
-    });
-    return {
-      c() {
-        create_component(icon.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(icon, target, anchor);
-        current = true;
-      },
-      p: noop,
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(icon, detaching);
-      }
-    };
-  }
-  function create_if_block_2(ctx) {
-    let icon;
-    let current;
-    icon = new Icon_default({
-      props: {
-        className: "icon_growl",
-        size: 20,
-        color: "#FFF",
-        src: FaSolidTimesCircle_default
-      }
-    });
-    return {
-      c() {
-        create_component(icon.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(icon, target, anchor);
-        current = true;
-      },
-      p: noop,
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(icon, detaching);
-      }
-    };
-  }
-  function create_if_block_1(ctx) {
-    let icon;
-    let current;
-    icon = new Icon_default({
-      props: {
-        className: "icon_growl",
-        size: 19,
-        color: "#FFF",
-        src: FaSolidExclamationTriangle_default
-      }
-    });
-    return {
-      c() {
-        create_component(icon.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(icon, target, anchor);
-        current = true;
-      },
-      p: noop,
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(icon, detaching);
-      }
-    };
-  }
-  function create_fragment2(ctx) {
-    let if_block_anchor;
-    let current;
-    let if_block = (
-      /*isShow*/
-      ctx[2] === true && create_if_block(ctx)
-    );
-    return {
-      c() {
-        if (if_block)
-          if_block.c();
-        if_block_anchor = empty();
-      },
-      m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
-        current = true;
-      },
-      p(ctx2, [dirty]) {
-        if (
-          /*isShow*/
-          ctx2[2] === true
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*isShow*/
-            4) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        } else if (if_block) {
-          group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
-          });
-          check_outros();
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(if_block);
-        current = true;
-      },
-      o(local) {
-        transition_out(if_block);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(if_block_anchor);
-        }
-        if (if_block)
-          if_block.d(detaching);
+        destroy_component(icon_1);
       }
     };
   }
@@ -1877,8 +1553,10 @@
     let message = "This is growl, XD";
     let growlType = "info";
     let isShow = false;
-    function showInfo(msg) {
-      $invalidate(1, growlType = "info");
+    let icon = FaSolidInfoCircle_default;
+    function show(msg, typ, ico) {
+      $invalidate(3, icon = ico);
+      $invalidate(1, growlType = typ);
       $invalidate(2, isShow = true);
       $invalidate(0, message = msg);
       setTimeout(
@@ -1888,67 +1566,59 @@
         3e3
       );
     }
-    function showWarning(msg) {
-      $invalidate(1, growlType = "warning");
-      $invalidate(2, isShow = true);
-      $invalidate(0, message = msg);
-      setTimeout(
-        () => {
-          $invalidate(2, isShow = false);
-        },
-        3e3
-      );
-    }
-    function showError(msg) {
-      $invalidate(1, growlType = "error");
-      $invalidate(2, isShow = true);
-      $invalidate(0, message = msg);
-      setTimeout(
-        () => {
-          $invalidate(2, isShow = false);
-        },
-        3e3
-      );
-    }
-    function showSuccess(msg) {
-      $invalidate(1, growlType = "success");
-      $invalidate(2, isShow = true);
-      $invalidate(0, message = msg);
-      setTimeout(
-        () => {
-          $invalidate(2, isShow = false);
-        },
-        3e3
-      );
-    }
-    return [message, growlType, isShow, showInfo, showWarning, showError, showSuccess];
+    const showInfo = function(msg) {
+      console.log("grow.showInfo", msg);
+      show(msg, "info", FaSolidInfoCircle_default);
+    };
+    const showWarning = function(msg) {
+      console.log("grow.showWarning", msg);
+      show(msg, "warning", FaSolidExclamationTriangle_default);
+    };
+    const showError = function(msg) {
+      console.log("grow.showError", msg);
+      show(msg, "error", FaSolidTimesCircle_default);
+    };
+    const showSuccess = function(msg) {
+      console.log("grow.showSuccess", msg);
+      show(msg, "success", FaSolidCheckCircle_default);
+    };
+    return [
+      message,
+      growlType,
+      isShow,
+      icon,
+      showInfo,
+      showWarning,
+      showError,
+      showSuccess
+    ];
   }
   var Growl = class extends SvelteComponent {
     constructor(options) {
       super();
       init(this, options, instance2, create_fragment2, safe_not_equal, {
-        showInfo: 3,
-        showWarning: 4,
-        showError: 5,
-        showSuccess: 6
+        showInfo: 4,
+        showWarning: 5,
+        showError: 6,
+        showSuccess: 7
       });
     }
     get showInfo() {
-      return this.$.ctx[3];
-    }
-    get showWarning() {
       return this.$.ctx[4];
     }
-    get showError() {
+    get showWarning() {
       return this.$.ctx[5];
     }
-    get showSuccess() {
+    get showError() {
       return this.$.ctx[6];
+    }
+    get showSuccess() {
+      return this.$.ctx[7];
     }
   };
   var Growl_default = Growl;
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidArrowRight.js
+  // node_modules/svelte-icons-pack/fa/FaSolidArrowRight.js
   var FaSolidArrowRight_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -1956,7 +1626,7 @@
     c: '<path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidShareAlt.js
+  // node_modules/svelte-icons-pack/fa/FaSolidShareAlt.js
   var FaSolidShareAlt_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -1964,7 +1634,7 @@
     c: '<path d="M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaCopy.js
+  // node_modules/svelte-icons-pack/fa/FaCopy.js
   var FaCopy_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -1972,7 +1642,7 @@
     c: '<path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaBrandsFacebook.js
+  // node_modules/svelte-icons-pack/fa/FaBrandsFacebook.js
   var FaBrandsFacebook_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -1980,7 +1650,7 @@
     c: '<path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaBrandsLinkedin.js
+  // node_modules/svelte-icons-pack/fa/FaBrandsLinkedin.js
   var FaBrandsLinkedin_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -1988,7 +1658,7 @@
     c: '<path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaBrandsTwitter.js
+  // node_modules/svelte-icons-pack/fa/FaBrandsTwitter.js
   var FaBrandsTwitter_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -1996,7 +1666,7 @@
     c: '<path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaBrandsWhatsapp.js
+  // node_modules/svelte-icons-pack/fa/FaBrandsWhatsapp.js
   var FaBrandsWhatsapp_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -2004,7 +1674,7 @@
     c: '<path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaBrandsTelegram.js
+  // node_modules/svelte-icons-pack/fa/FaBrandsTelegram.js
   var FaBrandsTelegram_default = {
     a: {
       viewBox: "0 0 496 512"
@@ -2012,7 +1682,7 @@
     c: '<path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.4-1.1-6.9-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4 20.8 2.7 17.2 19.5z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidImage.js
+  // node_modules/svelte-icons-pack/fa/FaSolidImage.js
   var FaSolidImage_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -2020,7 +1690,7 @@
     c: '<path d="M464 448H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h416c26.51 0 48 21.49 48 48v288c0 26.51-21.49 48-48 48zM112 120c-30.928 0-56 25.072-56 56s25.072 56 56 56 56-25.072 56-56-25.072-56-56-56zM64 384h384V272l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L208 320l-55.515-55.515c-4.686-4.686-12.284-4.686-16.971 0L64 336v48z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidHome.js
+  // node_modules/svelte-icons-pack/fa/FaSolidHome.js
   var FaSolidHome_default = {
     a: {
       viewBox: "0 0 576 512"
@@ -2031,7 +1701,7 @@
   // _components/Property.svelte
   var import_formatter = __toESM(require_formatter());
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidMapMarkerAlt.js
+  // node_modules/svelte-icons-pack/fa/FaSolidMapMarkerAlt.js
   var FaSolidMapMarkerAlt_default = {
     a: {
       viewBox: "0 0 384 512"
@@ -2298,7 +1968,7 @@
       }
     };
   }
-  function create_if_block_42(ctx) {
+  function create_if_block_4(ctx) {
     let current_block_type_index;
     let if_block;
     let if_block_anchor;
@@ -2487,7 +2157,7 @@
       ctx[1][
         /*m*/
         ctx[14].name
-      ] && create_if_block_42(ctx)
+      ] && create_if_block_4(ctx)
     );
     return {
       c() {
@@ -2516,7 +2186,7 @@
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_42(ctx2);
+            if_block = create_if_block_4(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -2548,7 +2218,7 @@
       }
     };
   }
-  function create_if_block_12(ctx) {
+  function create_if_block_1(ctx) {
     let div1;
     let h3;
     let t1;
@@ -2592,7 +2262,7 @@
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*FaSolidImage, propItem*/
+        if (dirty & /*propItem*/
         2) {
           each_value_1 = ensure_array_like(
             /*propItem*/
@@ -2641,7 +2311,7 @@
       }
     };
   }
-  function create_if_block_32(ctx) {
+  function create_if_block_3(ctx) {
     let div;
     let each_value_2 = ensure_array_like(
       /*floors*/
@@ -2786,7 +2456,7 @@
       }
     };
   }
-  function create_if_block_22(ctx) {
+  function create_if_block_2(ctx) {
     let div;
     let icon;
     let t0;
@@ -2855,9 +2525,9 @@
     let current;
     let if_block0 = (
       /*floors*/
-      ctx[8].rooms && create_if_block_32(ctx)
+      ctx[8].rooms && create_if_block_3(ctx)
     );
-    const if_block_creators = [create_if_block_22, create_else_block];
+    const if_block_creators = [create_if_block_2, create_else_block];
     const if_blocks = [];
     function select_block_type_2(ctx2, dirty) {
       if (
@@ -2918,7 +2588,7 @@
           if (if_block0) {
             if_block0.p(ctx2, dirty);
           } else {
-            if_block0 = create_if_block_32(ctx2);
+            if_block0 = create_if_block_3(ctx2);
             if_block0.c();
             if_block0.m(div0, null);
           }
@@ -2967,7 +2637,7 @@
       }
     };
   }
-  function create_if_block2(ctx) {
+  function create_if_block(ctx) {
     let div1;
     let h3;
     let t1;
@@ -3006,7 +2676,7 @@
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*localeDatetime, propHistories, formatPrice*/
+        if (dirty & /*propHistories*/
         1) {
           each_value = ensure_array_like(
             /*propHistories*/
@@ -3261,12 +2931,12 @@
     let if_block1 = (
       /*propItem*/
       ctx[1].floorList && /*propItem*/
-      ctx[1].floorList.length && create_if_block_12(ctx)
+      ctx[1].floorList.length && create_if_block_1(ctx)
     );
     let if_block2 = (
       /*propHistories*/
       ctx[0] && /*propHistories*/
-      ctx[0].length && create_if_block2(ctx)
+      ctx[0].length && create_if_block(ctx)
     );
     return {
       c() {
@@ -3558,7 +3228,7 @@
         2) && t28_value !== (t28_value = /*propItem*/
         (ctx2[1].sizeM2 || "0") + ""))
           set_data(t28, t28_value);
-        if (dirty & /*meta, localeDatetime, propItem*/
+        if (dirty & /*meta, propItem*/
         6) {
           each_value_3 = ensure_array_like(
             /*meta*/
@@ -3595,7 +3265,7 @@
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_12(ctx2);
+            if_block1 = create_if_block_1(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(div16, t34);
@@ -3615,7 +3285,7 @@
           if (if_block2) {
             if_block2.p(ctx2, dirty);
           } else {
-            if_block2 = create_if_block2(ctx2);
+            if_block2 = create_if_block(ctx2);
             if_block2.c();
             if_block2.m(div16, null);
           }
@@ -3674,6 +3344,7 @@
       { status: "pending", sign: "*" }
     ];
     onMount(() => {
+      console.log("onMount.Property");
       console.log("Property = ", propItem2);
       if (propItem2.approvalState !== "pending" && propItem2.approvalState !== "") {
         $invalidate(3, approvalStatus = "rejected");

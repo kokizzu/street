@@ -2,7 +2,7 @@
     import {T} from './_components/uiState.js';
     import Growl from './_components/Growl.svelte';
 
-    let myGrowl = Growl;
+    let myGrowl// = Growl;
 </script>
 
 {$T.currentLang}
