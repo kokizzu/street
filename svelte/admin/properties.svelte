@@ -186,7 +186,7 @@
   }
 </script>
 
-<Growl bind:this={growl7}/>
+
 <section class='dashboard'>
 	<Menu access={segments}/>
 	<div class='dashboard_main_content'>

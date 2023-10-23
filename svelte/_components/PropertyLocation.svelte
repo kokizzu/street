@@ -250,7 +250,7 @@
   }
 </script>
 
-<Growl bind:this={myGrowl}/>
+
 <GoogleSdk on:ready={initGoogleService}/>
 <div class='property_location_container'>
 	<div class='left'>

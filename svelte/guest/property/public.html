@@ -3373,56 +3373,51 @@
 
   // guest/property/public.svelte
   function create_fragment5(ctx) {
-    let growl;
-    let t0;
     let section;
     let div0;
     let property;
-    let t1;
+    let t0;
     let div5;
     let div2;
     let div1;
-    let t5;
+    let t4;
     let a0;
     let span0;
-    let t7;
+    let t6;
     let icon0;
-    let t8;
+    let t7;
     let div4;
     let header;
     let span1;
-    let t10;
+    let t9;
     let icon1;
-    let t11;
+    let t10;
     let div3;
     let button;
     let icon2;
-    let t12;
+    let t11;
     let a1;
     let icon3;
     let a1_href_value;
-    let t13;
+    let t12;
     let a2;
     let icon4;
     let a2_href_value;
-    let t14;
+    let t13;
     let a3;
     let icon5;
     let a3_href_value;
-    let t15;
+    let t14;
     let a4;
     let icon6;
     let a4_href_value;
-    let t16;
+    let t15;
     let a5;
     let icon7;
     let a5_href_value;
     let current;
     let mounted;
     let dispose;
-    let growl_props = {};
-    growl = new Growl_default({ props: growl_props });
-    ctx[1](growl);
     property = new Property_default({ props: { propItem, meta } });
     icon0 = new Icon_default({
       props: {
@@ -3489,46 +3484,44 @@
     });
     return {
       c() {
-        create_component(growl.$.fragment);
-        t0 = space();
         section = element("section");
         div0 = element("div");
         create_component(property.$.fragment);
-        t1 = space();
+        t0 = space();
         div5 = element("div");
         div2 = element("div");
         div1 = element("div");
         div1.innerHTML = `<h3 class="svelte-vm9pc0">Login to</h3> <h3 class="svelte-vm9pc0">HapSTR</h3>`;
-        t5 = space();
+        t4 = space();
         a0 = element("a");
         span0 = element("span");
         span0.textContent = "Login";
-        t7 = space();
+        t6 = space();
         create_component(icon0.$.fragment);
-        t8 = space();
+        t7 = space();
         div4 = element("div");
         header = element("header");
         span1 = element("span");
         span1.textContent = "Share this";
-        t10 = space();
+        t9 = space();
         create_component(icon1.$.fragment);
-        t11 = space();
+        t10 = space();
         div3 = element("div");
         button = element("button");
         create_component(icon2.$.fragment);
-        t12 = space();
+        t11 = space();
         a1 = element("a");
         create_component(icon3.$.fragment);
-        t13 = space();
+        t12 = space();
         a2 = element("a");
         create_component(icon4.$.fragment);
-        t14 = space();
+        t13 = space();
         a3 = element("a");
         create_component(icon5.$.fragment);
-        t15 = space();
+        t14 = space();
         a4 = element("a");
         create_component(icon6.$.fragment);
-        t16 = space();
+        t15 = space();
         a5 = element("a");
         create_component(icon7.$.fragment);
         attr(div0, "class", "property svelte-vm9pc0");
@@ -3569,43 +3562,41 @@
         attr(section, "class", "property_container svelte-vm9pc0");
       },
       m(target, anchor) {
-        mount_component(growl, target, anchor);
-        insert(target, t0, anchor);
         insert(target, section, anchor);
         append(section, div0);
         mount_component(property, div0, null);
-        append(section, t1);
+        append(section, t0);
         append(section, div5);
         append(div5, div2);
         append(div2, div1);
-        append(div2, t5);
+        append(div2, t4);
         append(div2, a0);
         append(a0, span0);
-        append(a0, t7);
+        append(a0, t6);
         mount_component(icon0, a0, null);
-        append(div5, t8);
+        append(div5, t7);
         append(div5, div4);
         append(div4, header);
         append(header, span1);
-        append(header, t10);
+        append(header, t9);
         mount_component(icon1, header, null);
-        append(div4, t11);
+        append(div4, t10);
         append(div4, div3);
         append(div3, button);
         mount_component(icon2, button, null);
-        append(div3, t12);
+        append(div3, t11);
         append(div3, a1);
         mount_component(icon3, a1, null);
-        append(div3, t13);
+        append(div3, t12);
         append(div3, a2);
         mount_component(icon4, a2, null);
-        append(div3, t14);
+        append(div3, t13);
         append(div3, a3);
         mount_component(icon5, a3, null);
-        append(div3, t15);
+        append(div3, t14);
         append(div3, a4);
         mount_component(icon6, a4, null);
-        append(div3, t16);
+        append(div3, t15);
         append(div3, a5);
         mount_component(icon7, a5, null);
         current = true;
@@ -3614,19 +3605,15 @@
             button,
             "click",
             /*click_handler*/
-            ctx[2]
+            ctx[0]
           );
           mounted = true;
         }
       },
-      p(ctx2, [dirty]) {
-        const growl_changes = {};
-        growl.$set(growl_changes);
-      },
+      p: noop,
       i(local) {
         if (current)
           return;
-        transition_in(growl.$.fragment, local);
         transition_in(property.$.fragment, local);
         transition_in(icon0.$.fragment, local);
         transition_in(icon1.$.fragment, local);
@@ -3639,7 +3626,6 @@
         current = true;
       },
       o(local) {
-        transition_out(growl.$.fragment, local);
         transition_out(property.$.fragment, local);
         transition_out(icon0.$.fragment, local);
         transition_out(icon1.$.fragment, local);
@@ -3653,11 +3639,8 @@
       },
       d(detaching) {
         if (detaching) {
-          detach(t0);
           detach(section);
         }
-        ctx[1](null);
-        destroy_component(growl, detaching);
         destroy_component(property);
         destroy_component(icon0);
         destroy_component(icon1);
@@ -3679,16 +3662,10 @@
     navigator.clipboard.writeText(text2);
     alert("Link copied to clipboard");
   }
-  function instance5($self, $props, $invalidate) {
+  function instance5($self) {
     let myGrowl = Growl_default;
-    function growl_binding($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        myGrowl = $value;
-        $invalidate(0, myGrowl);
-      });
-    }
     const click_handler = () => copyToClipboard(window.location);
-    return [myGrowl, growl_binding, click_handler];
+    return [click_handler];
   }
   var Public = class extends SvelteComponent {
     constructor(options) {

@@ -8723,7 +8723,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
             button,
             "click",
             /*addRow*/
-            ctx[6]
+            ctx[5]
           );
           mounted = true;
         }
@@ -8750,28 +8750,23 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     };
   }
   function create_fragment9(ctx) {
-    let growl_1;
-    let t0;
     let section1;
     let menu;
-    let t1;
+    let t0;
     let div1;
     let profileheader;
-    let t2;
+    let t1;
     let adminsubmenu;
-    let t3;
+    let t2;
     let div0;
     let modalform;
-    let t4;
+    let t3;
     let section0;
     let tableview;
     let updating_pager;
-    let t5;
+    let t4;
     let footer;
     let current;
-    let growl_1_props = {};
-    growl_1 = new Growl_default({ props: growl_1_props });
-    ctx[8](growl_1);
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({});
     adminsubmenu = new AdminSubMenu_default({});
@@ -8780,13 +8775,13 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       rowType: "User",
       onConfirm: (
         /*saveRow*/
-        ctx[7]
+        ctx[6]
       )
     };
     modalform = new ModalForm_default({ props: modalform_props });
-    ctx[9](modalform);
+    ctx[7](modalform);
     function tableview_pager_binding(value) {
-      ctx[10](value);
+      ctx[8](value);
     }
     let tableview_props = {
       fields,
@@ -8796,11 +8791,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       ),
       onRefreshTableView: (
         /*refreshTableView*/
-        ctx[4]
+        ctx[3]
       ),
       onEditRow: (
         /*editRow*/
-        ctx[5]
+        ctx[4]
       ),
       $slots: { default: [create_default_slot] },
       $scope: { ctx }
@@ -8817,22 +8812,20 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     footer = new Footer_default({});
     return {
       c() {
-        create_component(growl_1.$.fragment);
-        t0 = space();
         section1 = element("section");
         create_component(menu.$.fragment);
-        t1 = space();
+        t0 = space();
         div1 = element("div");
         create_component(profileheader.$.fragment);
-        t2 = space();
+        t1 = space();
         create_component(adminsubmenu.$.fragment);
-        t3 = space();
+        t2 = space();
         div0 = element("div");
         create_component(modalform.$.fragment);
-        t4 = space();
+        t3 = space();
         section0 = element("section");
         create_component(tableview.$.fragment);
-        t5 = space();
+        t4 = space();
         create_component(footer.$.fragment);
         attr(section0, "class", "tableview_container");
         attr(div0, "class", "content");
@@ -8840,28 +8833,24 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         attr(section1, "class", "dashboard");
       },
       m(target, anchor) {
-        mount_component(growl_1, target, anchor);
-        insert(target, t0, anchor);
         insert(target, section1, anchor);
         mount_component(menu, section1, null);
-        append(section1, t1);
+        append(section1, t0);
         append(section1, div1);
         mount_component(profileheader, div1, null);
-        append(div1, t2);
+        append(div1, t1);
         mount_component(adminsubmenu, div1, null);
-        append(div1, t3);
+        append(div1, t2);
         append(div1, div0);
         mount_component(modalform, div0, null);
-        append(div0, t4);
+        append(div0, t3);
         append(div0, section0);
         mount_component(tableview, section0, null);
-        append(div1, t5);
+        append(div1, t4);
         mount_component(footer, div1, null);
         current = true;
       },
       p(ctx2, [dirty]) {
-        const growl_1_changes = {};
-        growl_1.$set(growl_1_changes);
         const modalform_changes = {};
         modalform.$set(modalform_changes);
         const tableview_changes = {};
@@ -8870,7 +8859,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           tableview_changes.rows = /*users*/
           ctx2[0];
         if (dirty & /*$scope*/
-        4096) {
+        2048) {
           tableview_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_pager && dirty & /*pager*/
@@ -8885,7 +8874,6 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       i(local) {
         if (current)
           return;
-        transition_in(growl_1.$.fragment, local);
         transition_in(menu.$.fragment, local);
         transition_in(profileheader.$.fragment, local);
         transition_in(adminsubmenu.$.fragment, local);
@@ -8895,7 +8883,6 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         current = true;
       },
       o(local) {
-        transition_out(growl_1.$.fragment, local);
         transition_out(menu.$.fragment, local);
         transition_out(profileheader.$.fragment, local);
         transition_out(adminsubmenu.$.fragment, local);
@@ -8906,15 +8893,12 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       },
       d(detaching) {
         if (detaching) {
-          detach(t0);
           detach(section1);
         }
-        ctx[8](null);
-        destroy_component(growl_1, detaching);
         destroy_component(menu);
         destroy_component(profileheader);
         destroy_component(adminsubmenu);
-        ctx[9](null);
+        ctx[7](null);
         destroy_component(modalform);
         destroy_component(tableview);
         destroy_component(footer);
@@ -8972,16 +8956,10 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         }
       );
     }
-    function growl_1_binding($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        growl = $value;
-        $invalidate(2, growl);
-      });
-    }
     function modalform_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         form = $value;
-        $invalidate(3, form);
+        $invalidate(2, form);
       });
     }
     function tableview_pager_binding(value) {
@@ -8991,13 +8969,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     return [
       users,
       pager,
-      growl,
       form,
       refreshTableView,
       editRow,
       addRow,
       saveRow,
-      growl_1_binding,
       modalform_binding,
       tableview_pager_binding
     ];

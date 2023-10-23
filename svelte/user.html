@@ -5332,19 +5332,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // user.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[22] = list[i];
+    child_ctx[21] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[25] = list[i];
+    child_ctx[24] = list[i];
     return child_ctx;
   }
   function create_each_block_1(ctx) {
     let option;
     let t_value = (
       /*country*/
-      ctx[25].country + ""
+      ctx[24].country + ""
     );
     let t;
     let option_value_value;
@@ -5353,7 +5353,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*country*/
-        ctx[25].iso_2;
+        ctx[24].iso_2;
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -5467,7 +5467,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty & /*killSession, sessionActiveLists*/
-        2050) {
+        1026) {
           each_value = ensure_array_like(
             /*sessionActiveLists*/
             ctx2[1]
@@ -5520,21 +5520,21 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span0;
     let t0_value = (
       /*session*/
-      (ctx[22].loginIPs || "no-data") + ""
+      (ctx[21].loginIPs || "no-data") + ""
     );
     let t0;
     let t1;
     let span1;
     let t2_value = ((0, import_formatter.datetime)(
       /*session*/
-      ctx[22].expiredAt
+      ctx[21].expiredAt
     ) || 0) + "";
     let t2;
     let t3;
     let span2;
     let t4_value = (
       /*session*/
-      (ctx[22].device || "no-data") + ""
+      (ctx[21].device || "no-data") + ""
     );
     let t4;
     let t5;
@@ -5554,9 +5554,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[17](
+        ctx[15](
           /*session*/
-          ctx[22]
+          ctx[21]
         )
       );
     }
@@ -5606,17 +5606,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx = new_ctx;
         if ((!current || dirty & /*sessionActiveLists*/
         2) && t0_value !== (t0_value = /*session*/
-        (ctx[22].loginIPs || "no-data") + ""))
+        (ctx[21].loginIPs || "no-data") + ""))
           set_data(t0, t0_value);
         if ((!current || dirty & /*sessionActiveLists*/
         2) && t2_value !== (t2_value = ((0, import_formatter.datetime)(
           /*session*/
-          ctx[22].expiredAt
+          ctx[21].expiredAt
         ) || 0) + ""))
           set_data(t2, t2_value);
         if ((!current || dirty & /*sessionActiveLists*/
         2) && t4_value !== (t4_value = /*session*/
-        (ctx[22].device || "no-data") + ""))
+        (ctx[21].device || "no-data") + ""))
           set_data(t4, t4_value);
       },
       i(local) {
@@ -5707,155 +5707,150 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
   }
   function create_fragment6(ctx) {
-    let growl;
-    let t0;
     let section;
     let menu;
-    let t1;
+    let t0;
     let div24;
     let profileheader;
-    let t2;
+    let t1;
     let div23;
     let div22;
     let div15;
     let div11;
     let h20;
-    let t4;
+    let t3;
     let c0;
-    let t5;
+    let t4;
     let c1;
-    let t6;
+    let t5;
     let c2;
-    let t7;
+    let t6;
     let c3;
-    let t8;
+    let t7;
     let c4;
-    let t9;
+    let t8;
     let c5;
-    let t10;
+    let t9;
     let c6;
-    let t11;
+    let t10;
     let c7;
-    let t12;
+    let t11;
     let c8;
-    let t13;
+    let t12;
     let c9;
-    let t14;
+    let t13;
     let c10;
-    let t15;
+    let t14;
     let div6;
     let div2;
     let div0;
     let label0;
-    let t17;
+    let t16;
     let input0;
-    let t18;
+    let t17;
     let div1;
     let label1;
-    let t20;
+    let t19;
     let input1;
-    let t21;
+    let t20;
     let div5;
     let div3;
     let label2;
-    let t22_value = (
+    let t21_value = (
       /*$T*/
-      ctx[8].email + ""
+      ctx[7].email + ""
     );
+    let t21;
     let t22;
-    let t23;
     let input2;
-    let t24;
+    let t23;
     let div4;
     let label3;
-    let t26;
+    let t25;
     let select;
-    let t27;
+    let t26;
     let div10;
     let div7;
     let label4;
-    let t29;
+    let t28;
     let span0;
-    let t30_value = (0, import_formatter.datetime)(
+    let t29_value = (0, import_formatter.datetime)(
       /*user*/
       ctx[0].createdAt
     ) + "";
+    let t29;
     let t30;
-    let t31;
     let div8;
     let label5;
-    let t33;
+    let t32;
     let span1;
-    let t34_value = (0, import_formatter.datetime)(
+    let t33_value = (0, import_formatter.datetime)(
       /*user*/
       ctx[0].lastLoginAt
     ) + "";
+    let t33;
     let t34;
-    let t35;
     let div9;
     let label6;
-    let t37;
+    let t36;
     let span2;
-    let t38_value = ((0, import_formatter.datetime)(
+    let t37_value = ((0, import_formatter.datetime)(
       /*user*/
       ctx[0].verifiedAt
     ) || "0") + "";
+    let t37;
     let t38;
-    let t39;
     let label7;
-    let t40;
+    let t39;
     let button0;
     let span3;
+    let t41;
     let t42;
     let t43;
-    let t44;
     let div14;
     let h21;
-    let t46;
+    let t45;
     let div12;
-    let t52;
+    let t51;
     let div13;
-    let t53;
+    let t52;
     let div21;
     let div20;
     let h22;
-    let t54;
-    let t55_value = (
+    let t53;
+    let t54_value = (
       /*$T*/
-      ctx[8].password + ""
+      ctx[7].password + ""
     );
+    let t54;
     let t55;
-    let t56;
     let div19;
     let div16;
     let label8;
-    let t58;
+    let t57;
     let input3;
-    let t59;
+    let t58;
     let div17;
     let label9;
-    let t61;
+    let t60;
     let input4;
-    let t62;
+    let t61;
     let div18;
     let label10;
-    let t64;
+    let t63;
     let input5;
-    let t65;
+    let t64;
     let label11;
-    let t66;
+    let t65;
     let button1;
     let span7;
+    let t67;
     let t68;
     let t69;
-    let t70;
     let footer;
     let current;
     let mounted;
     let dispose;
-    let growl_props = {};
-    growl = new Growl_default({ props: growl_props });
-    ctx[12](growl);
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({ props: { user: (
       /*user*/
@@ -5867,173 +5862,171 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
     }
     let if_block0 = !/*profileSubmit*/
-    ctx[6] && create_if_block_42(ctx);
+    ctx[5] && create_if_block_42(ctx);
     let if_block1 = (
       /*profileSubmit*/
-      ctx[6] && create_if_block_32(ctx)
+      ctx[5] && create_if_block_32(ctx)
     );
     let if_block2 = (
       /*sessionActiveLists*/
       ctx[1].length && create_if_block_22(ctx)
     );
     let if_block3 = !/*passwordSubmit*/
-    ctx[7] && create_if_block_12(ctx);
+    ctx[6] && create_if_block_12(ctx);
     let if_block4 = (
       /*passwordSubmit*/
-      ctx[7] && create_if_block2(ctx)
+      ctx[6] && create_if_block2(ctx)
     );
     footer = new Footer_default({});
     return {
       c() {
-        create_component(growl.$.fragment);
-        t0 = space();
         section = element("section");
         create_component(menu.$.fragment);
-        t1 = space();
+        t0 = space();
         div24 = element("div");
         create_component(profileheader.$.fragment);
-        t2 = space();
+        t1 = space();
         div23 = element("div");
         div22 = element("div");
         div15 = element("div");
         div11 = element("div");
         h20 = element("h2");
         h20.textContent = "Profile Details";
-        t4 = space();
+        t3 = space();
         c0 = comment('						<div class="profile_pictures">');
-        t5 = space();
+        t4 = space();
         c1 = comment('							<div class="img_container">');
-        t6 = space();
+        t5 = space();
         c2 = comment('								<img alt="profile" src="/assets/img/team-1-200x200.jpg"/>');
-        t7 = space();
+        t6 = space();
         c3 = comment("							</div>");
-        t8 = space();
+        t7 = space();
         c4 = comment('							<div class="actions">');
-        t9 = space();
+        t8 = space();
         c5 = comment("								<button class='btn_upload_photo'>Upload Profile Photo</button>");
-        t10 = space();
+        t9 = space();
         c6 = comment("								<button class='btn_delete'>");
-        t11 = space();
+        t10 = space();
         c7 = comment('									<Icon color="#FFF" size={15} src={FaSolidTrashAlt}/>');
-        t12 = space();
+        t11 = space();
         c8 = comment("								</button>");
-        t13 = space();
+        t12 = space();
         c9 = comment("							</div>");
-        t14 = space();
+        t13 = space();
         c10 = comment("						</div>");
-        t15 = space();
+        t14 = space();
         div6 = element("div");
         div2 = element("div");
         div0 = element("div");
         label0 = element("label");
         label0.textContent = "Username";
-        t17 = space();
+        t16 = space();
         input0 = element("input");
-        t18 = space();
+        t17 = space();
         div1 = element("div");
         label1 = element("label");
         label1.textContent = "Full Name";
-        t20 = space();
+        t19 = space();
         input1 = element("input");
-        t21 = space();
+        t20 = space();
         div5 = element("div");
         div3 = element("div");
         label2 = element("label");
-        t22 = text(t22_value);
-        t23 = space();
+        t21 = text(t21_value);
+        t22 = space();
         input2 = element("input");
-        t24 = space();
+        t23 = space();
         div4 = element("div");
         label3 = element("label");
         label3.textContent = "Country";
-        t26 = space();
+        t25 = space();
         select = element("select");
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        t27 = space();
+        t26 = space();
         div10 = element("div");
         div7 = element("div");
         label4 = element("label");
         label4.textContent = "Registered:";
-        t29 = space();
+        t28 = space();
         span0 = element("span");
-        t30 = text(t30_value);
-        t31 = space();
+        t29 = text(t29_value);
+        t30 = space();
         div8 = element("div");
         label5 = element("label");
         label5.textContent = "Last login:";
-        t33 = space();
+        t32 = space();
         span1 = element("span");
-        t34 = text(t34_value);
-        t35 = space();
+        t33 = text(t33_value);
+        t34 = space();
         div9 = element("div");
         label6 = element("label");
         label6.textContent = "Verified:";
-        t37 = space();
+        t36 = space();
         span2 = element("span");
-        t38 = text(t38_value);
-        t39 = space();
+        t37 = text(t37_value);
+        t38 = space();
         label7 = element("label");
-        t40 = space();
+        t39 = space();
         button0 = element("button");
         span3 = element("span");
         span3.textContent = "SUBMIT";
-        t42 = space();
+        t41 = space();
         if (if_block0)
           if_block0.c();
-        t43 = space();
+        t42 = space();
         if (if_block1)
           if_block1.c();
-        t44 = space();
+        t43 = space();
         div14 = element("div");
         h21 = element("h2");
         h21.textContent = "Active Sessions";
-        t46 = space();
+        t45 = space();
         div12 = element("div");
         div12.innerHTML = `<span class="svelte-16pay0v">IP Address</span> <span class="svelte-16pay0v">Expired At</span> <span class="svelte-16pay0v">Device</span>`;
-        t52 = space();
+        t51 = space();
         div13 = element("div");
         if (if_block2)
           if_block2.c();
-        t53 = space();
+        t52 = space();
         div21 = element("div");
         div20 = element("div");
         h22 = element("h2");
-        t54 = text("Change ");
-        t55 = text(t55_value);
-        t56 = space();
+        t53 = text("Change ");
+        t54 = text(t54_value);
+        t55 = space();
         div19 = element("div");
         div16 = element("div");
         label8 = element("label");
         label8.textContent = "Old Password";
-        t58 = space();
+        t57 = space();
         input3 = element("input");
-        t59 = space();
+        t58 = space();
         div17 = element("div");
         label9 = element("label");
         label9.textContent = "New Password";
-        t61 = space();
+        t60 = space();
         input4 = element("input");
-        t62 = space();
+        t61 = space();
         div18 = element("div");
         label10 = element("label");
         label10.textContent = "Repeat New Password";
-        t64 = space();
+        t63 = space();
         input5 = element("input");
-        t65 = space();
+        t64 = space();
         label11 = element("label");
-        t66 = space();
+        t65 = space();
         button1 = element("button");
         span7 = element("span");
         span7.textContent = "SUBMIT";
-        t68 = space();
+        t67 = space();
         if (if_block3)
           if_block3.c();
-        t69 = space();
+        t68 = space();
         if (if_block4)
           if_block4.c();
-        t70 = space();
+        t69 = space();
         create_component(footer.$.fragment);
         attr(h20, "class", "svelte-16pay0v");
         attr(label0, "for", "userName");
@@ -6066,7 +6059,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         )
           add_render_callback(() => (
             /*select_change_handler*/
-            ctx[16].call(select)
+            ctx[14].call(select)
           ));
         attr(div4, "class", "profile_input country_list svelte-16pay0v");
         attr(div5, "class", "email_country svelte-16pay0v");
@@ -6131,79 +6124,77 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(section, "class", "dashboard");
       },
       m(target, anchor) {
-        mount_component(growl, target, anchor);
-        insert(target, t0, anchor);
         insert(target, section, anchor);
         mount_component(menu, section, null);
-        append(section, t1);
+        append(section, t0);
         append(section, div24);
         mount_component(profileheader, div24, null);
-        append(div24, t2);
+        append(div24, t1);
         append(div24, div23);
         append(div23, div22);
         append(div22, div15);
         append(div15, div11);
         append(div11, h20);
-        append(div11, t4);
+        append(div11, t3);
         append(div11, c0);
-        append(div11, t5);
+        append(div11, t4);
         append(div11, c1);
-        append(div11, t6);
+        append(div11, t5);
         append(div11, c2);
-        append(div11, t7);
+        append(div11, t6);
         append(div11, c3);
-        append(div11, t8);
+        append(div11, t7);
         append(div11, c4);
-        append(div11, t9);
+        append(div11, t8);
         append(div11, c5);
-        append(div11, t10);
+        append(div11, t9);
         append(div11, c6);
-        append(div11, t11);
+        append(div11, t10);
         append(div11, c7);
-        append(div11, t12);
+        append(div11, t11);
         append(div11, c8);
-        append(div11, t13);
+        append(div11, t12);
         append(div11, c9);
-        append(div11, t14);
+        append(div11, t13);
         append(div11, c10);
-        append(div11, t15);
+        append(div11, t14);
         append(div11, div6);
         append(div6, div2);
         append(div2, div0);
         append(div0, label0);
-        append(div0, t17);
+        append(div0, t16);
         append(div0, input0);
         set_input_value(
           input0,
           /*user*/
           ctx[0].userName
         );
-        append(div2, t18);
+        append(div2, t17);
         append(div2, div1);
         append(div1, label1);
-        append(div1, t20);
+        append(div1, t19);
         append(div1, input1);
         set_input_value(
           input1,
           /*user*/
           ctx[0].fullName
         );
-        append(div6, t21);
+        append(div6, t20);
         append(div6, div5);
         append(div5, div3);
         append(div3, label2);
-        append(label2, t22);
-        append(div3, t23);
+        append(label2, t21);
+        append(div3, t22);
         append(div3, input2);
         set_input_value(
           input2,
           /*user*/
           ctx[0].email
         );
-        append(div5, t24);
+        append(div5, t23);
         append(div5, div4);
         append(div4, label3);
-        append(div4, t26);
+        append(div4, t25);
         append(div4, select);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
@@ -6216,94 +6207,94 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           ctx[0].country,
           true
         );
-        append(div11, t27);
+        append(div11, t26);
         append(div11, div10);
         append(div10, div7);
         append(div7, label4);
-        append(div7, t29);
+        append(div7, t28);
         append(div7, span0);
-        append(span0, t30);
-        append(div10, t31);
+        append(span0, t29);
+        append(div10, t30);
         append(div10, div8);
         append(div8, label5);
-        append(div8, t33);
+        append(div8, t32);
         append(div8, span1);
-        append(span1, t34);
-        append(div10, t35);
+        append(span1, t33);
+        append(div10, t34);
         append(div10, div9);
         append(div9, label6);
-        append(div9, t37);
+        append(div9, t36);
         append(div9, span2);
-        append(span2, t38);
-        append(div11, t39);
+        append(span2, t37);
+        append(div11, t38);
         append(div11, label7);
-        append(div11, t40);
+        append(div11, t39);
         append(div11, button0);
         append(button0, span3);
-        append(button0, t42);
+        append(button0, t41);
         if (if_block0)
           if_block0.m(button0, null);
-        append(button0, t43);
+        append(button0, t42);
         if (if_block1)
           if_block1.m(button0, null);
-        append(div15, t44);
+        append(div15, t43);
         append(div15, div14);
         append(div14, h21);
-        append(div14, t46);
+        append(div14, t45);
         append(div14, div12);
-        append(div14, t52);
+        append(div14, t51);
         append(div14, div13);
         if (if_block2)
           if_block2.m(div13, null);
-        append(div22, t53);
+        append(div22, t52);
         append(div22, div21);
         append(div21, div20);
         append(div20, h22);
+        append(h22, t53);
         append(h22, t54);
-        append(h22, t55);
-        append(div20, t56);
+        append(div20, t55);
         append(div20, div19);
         append(div19, div16);
         append(div16, label8);
-        append(div16, t58);
+        append(div16, t57);
         append(div16, input3);
         set_input_value(
           input3,
           /*oldPassword*/
           ctx[2]
         );
-        append(div19, t59);
+        append(div19, t58);
         append(div19, div17);
         append(div17, label9);
-        append(div17, t61);
+        append(div17, t60);
         append(div17, input4);
         set_input_value(
           input4,
           /*newPassword*/
           ctx[3]
         );
-        append(div19, t62);
+        append(div19, t61);
         append(div19, div18);
         append(div18, label10);
-        append(div18, t64);
+        append(div18, t63);
         append(div18, input5);
         set_input_value(
           input5,
           /*repeatNewPassword*/
           ctx[4]
         );
-        append(div19, t65);
+        append(div19, t64);
         append(div19, label11);
-        append(div19, t66);
+        append(div19, t65);
         append(div19, button1);
         append(button1, span7);
-        append(button1, t68);
+        append(button1, t67);
         if (if_block3)
           if_block3.m(button1, null);
-        append(button1, t69);
+        append(button1, t68);
         if (if_block4)
           if_block4.m(button1, null);
-        append(div24, t70);
+        append(div24, t69);
         mount_component(footer, div24, null);
         current = true;
         if (!mounted) {
@@ -6312,63 +6303,61 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               input0,
               "input",
               /*input0_input_handler*/
-              ctx[13]
+              ctx[11]
             ),
             listen(
               input1,
               "input",
               /*input1_input_handler*/
-              ctx[14]
+              ctx[12]
             ),
             listen(
               input2,
               "input",
               /*input2_input_handler*/
-              ctx[15]
+              ctx[13]
             ),
             listen(
               select,
               "change",
               /*select_change_handler*/
-              ctx[16]
+              ctx[14]
             ),
             listen(
               button0,
               "click",
               /*updateProfile*/
-              ctx[9]
+              ctx[8]
             ),
             listen(
               input3,
               "input",
               /*input3_input_handler*/
-              ctx[18]
+              ctx[16]
             ),
             listen(
               input4,
               "input",
               /*input4_input_handler*/
-              ctx[19]
+              ctx[17]
             ),
             listen(
               input5,
               "input",
               /*input5_input_handler*/
-              ctx[20]
+              ctx[18]
             ),
             listen(
               button1,
               "click",
               /*changePassword*/
-              ctx[10]
+              ctx[9]
             )
           ];
           mounted = true;
         }
       },
       p(ctx2, [dirty]) {
-        const growl_changes = {};
-        growl.$set(growl_changes);
         const profileheader_changes = {};
         if (dirty & /*user*/
         1)
@@ -6394,9 +6383,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           );
         }
         if ((!current || dirty & /*$T*/
-        256) && t22_value !== (t22_value = /*$T*/
-        ctx2[8].email + ""))
-          set_data(t22, t22_value);
+        128) && t21_value !== (t21_value = /*$T*/
+        ctx2[7].email + ""))
+          set_data(t21, t21_value);
         if (dirty & /*user, countries*/
         1 && input2.value !== /*user*/
         ctx2[0].email) {
@@ -6434,35 +6423,35 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           );
         }
         if ((!current || dirty & /*user*/
-        1) && t30_value !== (t30_value = (0, import_formatter.datetime)(
+        1) && t29_value !== (t29_value = (0, import_formatter.datetime)(
           /*user*/
           ctx2[0].createdAt
         ) + ""))
-          set_data(t30, t30_value);
+          set_data(t29, t29_value);
         if ((!current || dirty & /*user*/
-        1) && t34_value !== (t34_value = (0, import_formatter.datetime)(
+        1) && t33_value !== (t33_value = (0, import_formatter.datetime)(
           /*user*/
           ctx2[0].lastLoginAt
         ) + ""))
-          set_data(t34, t34_value);
+          set_data(t33, t33_value);
         if ((!current || dirty & /*user*/
-        1) && t38_value !== (t38_value = ((0, import_formatter.datetime)(
+        1) && t37_value !== (t37_value = ((0, import_formatter.datetime)(
           /*user*/
           ctx2[0].verifiedAt
         ) || "0") + ""))
-          set_data(t38, t38_value);
+          set_data(t37, t37_value);
         if (!/*profileSubmit*/
-        ctx2[6]) {
+        ctx2[5]) {
           if (if_block0) {
             if (dirty & /*profileSubmit*/
-            64) {
+            32) {
               transition_in(if_block0, 1);
             }
           } else {
             if_block0 = create_if_block_42(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
-            if_block0.m(button0, t43);
+            if_block0.m(button0, t42);
           }
         } else if (if_block0) {
           group_outros();
@@ -6473,11 +6462,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*profileSubmit*/
-          ctx2[6]
+          ctx2[5]
         ) {
           if (if_block1) {
             if (dirty & /*profileSubmit*/
-            64) {
+            32) {
               transition_in(if_block1, 1);
             }
           } else {
@@ -6517,9 +6506,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           check_outros();
         }
         if ((!current || dirty & /*$T*/
-        256) && t55_value !== (t55_value = /*$T*/
-        ctx2[8].password + ""))
-          set_data(t55, t55_value);
+        128) && t54_value !== (t54_value = /*$T*/
+        ctx2[7].password + ""))
+          set_data(t54, t54_value);
         if (dirty & /*oldPassword*/
         4 && input3.value !== /*oldPassword*/
         ctx2[2]) {
@@ -6548,17 +6537,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           );
         }
         if (!/*passwordSubmit*/
-        ctx2[7]) {
+        ctx2[6]) {
           if (if_block3) {
             if (dirty & /*passwordSubmit*/
-            128) {
+            64) {
               transition_in(if_block3, 1);
             }
           } else {
             if_block3 = create_if_block_12(ctx2);
             if_block3.c();
             transition_in(if_block3, 1);
-            if_block3.m(button1, t69);
+            if_block3.m(button1, t68);
           }
         } else if (if_block3) {
           group_outros();
@@ -6569,11 +6558,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*passwordSubmit*/
-          ctx2[7]
+          ctx2[6]
         ) {
           if (if_block4) {
             if (dirty & /*passwordSubmit*/
-            128) {
+            64) {
               transition_in(if_block4, 1);
             }
           } else {
@@ -6593,7 +6582,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       i(local) {
         if (current)
           return;
-        transition_in(growl.$.fragment, local);
         transition_in(menu.$.fragment, local);
         transition_in(profileheader.$.fragment, local);
         transition_in(if_block0);
@@ -6605,7 +6593,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         current = true;
       },
       o(local) {
-        transition_out(growl.$.fragment, local);
         transition_out(menu.$.fragment, local);
         transition_out(profileheader.$.fragment, local);
         transition_out(if_block0);
@@ -6618,11 +6605,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(t0);
           detach(section);
         }
-        ctx[12](null);
-        destroy_component(growl, detaching);
         destroy_component(menu);
         destroy_component(profileheader);
         destroy_each(each_blocks, detaching);
@@ -6646,7 +6630,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var countries = [/* countries */];
   function instance6($self, $props, $invalidate) {
     let $T;
-    component_subscribe($self, T, ($value) => $invalidate(8, $T = $value));
+    component_subscribe($self, T, ($value) => $invalidate(7, $T = $value));
     let user = {/* user */};
     let sessionActiveLists = {/* activeSessions */};
     let oldPassword = "";
@@ -6662,11 +6646,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       console.log("User data = ", user);
     });
     async function updateProfile() {
-      $invalidate(6, profileSubmit = true);
+      $invalidate(5, profileSubmit = true);
       if (JSON.stringify(user) === oldProfileJson)
         return useGrowl("error", "No changes");
       await (0, import_jsApi_GEN3.UserUpdateProfile)(user, function(res) {
-        $invalidate(6, profileSubmit = false);
+        $invalidate(5, profileSubmit = false);
         if (res.error) {
           alert(res.error);
           return;
@@ -6677,10 +6661,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       });
     }
     async function changePassword() {
-      $invalidate(7, passwordSubmit = true);
+      $invalidate(6, passwordSubmit = true);
       if (newPassword !== repeatNewPassword) {
         alert("New password and repeat new password must be same");
-        $invalidate(7, passwordSubmit = false);
+        $invalidate(6, passwordSubmit = false);
         return;
       }
       let input = {
@@ -6688,7 +6672,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         newPass: newPassword
       };
       await (0, import_jsApi_GEN3.UserChangePassword)(input, function(res) {
-        $invalidate(7, passwordSubmit = false);
+        $invalidate(6, passwordSubmit = false);
         if (res.error) {
           alert(res.error);
           return;
@@ -6715,12 +6699,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           }
           $invalidate(1, sessionActiveLists = res2.sessionsActive);
         });
-      });
-    }
-    function growl_binding($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        growl10 = $value;
-        $invalidate(5, growl10);
       });
     }
     function input0_input_handler() {
@@ -6758,14 +6736,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       oldPassword,
       newPassword,
       repeatNewPassword,
-      growl10,
       profileSubmit,
       passwordSubmit,
       $T,
       updateProfile,
       changePassword,
       killSession,
-      growl_binding,
       input0_input_handler,
       input1_input_handler,
       input2_input_handler,

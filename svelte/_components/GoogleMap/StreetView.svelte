@@ -149,7 +149,7 @@
     document.head.appendChild(linkElement);
 </script>
 
-<Growl bind:this={growl1}/>
+
 <GoogleSdk on:ready={initGoogleSdk}/>
 <div class="streetview_input_box">
     <Icon

@@ -14,4 +14,3 @@
     Show Growl
 </button>
 
-<Growl bind:this={myGrowl}/>

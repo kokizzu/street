@@ -22,7 +22,7 @@
   }
 </script>
 
-<Growl bind:this={myGrowl}/>
+
 <section class="property_container">
 	<div class="property">
 	<Property {propItem} {meta} />

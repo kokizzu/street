@@ -194,7 +194,7 @@
   }
 </script>
 
-<Growl bind:this={myGrowl}/>
+
 <svelte:window on:hashchange={onHashChange}/>
 {#if mode===USER}
 	<section class="dashboard">

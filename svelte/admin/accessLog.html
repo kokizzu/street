@@ -7318,38 +7318,33 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
 
   // admin/accessLog.svelte
   function create_fragment8(ctx) {
-    let growl;
-    let t0;
     let section1;
     let menu;
-    let t1;
+    let t0;
     let div1;
     let profileheader;
-    let t2;
+    let t1;
     let adminsubmenu;
-    let t3;
+    let t2;
     let div0;
     let section0;
     let tableview;
     let updating_pager;
-    let t4;
+    let t3;
     let footer;
     let current;
-    let growl_props = {};
-    growl = new Growl_default({ props: growl_props });
-    ctx[4](growl);
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({});
     adminsubmenu = new AdminSubMenu_default({});
     function tableview_pager_binding(value) {
-      ctx[5](value);
+      ctx[3](value);
     }
     let tableview_props = {
       arrayOfArray: false,
       fields,
       onRefreshTableView: (
         /*refreshTableView*/
-        ctx[3]
+        ctx[2]
       ),
       rows: (
         /*logs*/
@@ -7368,20 +7363,18 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     footer = new Footer_default({});
     return {
       c() {
-        create_component(growl.$.fragment);
-        t0 = space();
         section1 = element("section");
         create_component(menu.$.fragment);
-        t1 = space();
+        t0 = space();
         div1 = element("div");
         create_component(profileheader.$.fragment);
-        t2 = space();
+        t1 = space();
         create_component(adminsubmenu.$.fragment);
-        t3 = space();
+        t2 = space();
         div0 = element("div");
         section0 = element("section");
         create_component(tableview.$.fragment);
-        t4 = space();
+        t3 = space();
         create_component(footer.$.fragment);
         attr(section0, "class", "tableview_container");
         attr(div0, "class", "content");
@@ -7389,26 +7382,22 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         attr(section1, "class", "dashboard");
       },
       m(target, anchor) {
-        mount_component(growl, target, anchor);
-        insert(target, t0, anchor);
         insert(target, section1, anchor);
         mount_component(menu, section1, null);
-        append(section1, t1);
+        append(section1, t0);
         append(section1, div1);
         mount_component(profileheader, div1, null);
-        append(div1, t2);
+        append(div1, t1);
         mount_component(adminsubmenu, div1, null);
-        append(div1, t3);
+        append(div1, t2);
         append(div1, div0);
         append(div0, section0);
         mount_component(tableview, section0, null);
-        append(div1, t4);
+        append(div1, t3);
         mount_component(footer, div1, null);
         current = true;
       },
       p(ctx2, [dirty]) {
-        const growl_changes = {};
-        growl.$set(growl_changes);
         const tableview_changes = {};
         if (dirty & /*logs*/
         1)
@@ -7426,7 +7415,6 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       i(local) {
         if (current)
           return;
-        transition_in(growl.$.fragment, local);
         transition_in(menu.$.fragment, local);
         transition_in(profileheader.$.fragment, local);
         transition_in(adminsubmenu.$.fragment, local);
@@ -7435,7 +7423,6 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         current = true;
       },
       o(local) {
-        transition_out(growl.$.fragment, local);
         transition_out(menu.$.fragment, local);
         transition_out(profileheader.$.fragment, local);
         transition_out(adminsubmenu.$.fragment, local);
@@ -7445,11 +7432,8 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       },
       d(detaching) {
         if (detaching) {
-          detach(t0);
           detach(section1);
         }
-        ctx[4](null);
-        destroy_component(growl, detaching);
         destroy_component(menu);
         destroy_component(profileheader);
         destroy_component(adminsubmenu);
@@ -7479,12 +7463,6 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         handleResponse(res);
       });
     }
-    function growl_binding($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        growl4 = $value;
-        $invalidate(2, growl4);
-      });
-    }
     function tableview_pager_binding(value) {
       pager = value;
       $invalidate(1, pager);
@@ -7496,7 +7474,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           console.log(logs, fields, pager);
       }
     };
-    return [logs, pager, growl4, refreshTableView, growl_binding, tableview_pager_binding];
+    return [logs, pager, refreshTableView, tableview_pager_binding];
   }
   var AccessLog = class extends SvelteComponent {
     constructor(options) {

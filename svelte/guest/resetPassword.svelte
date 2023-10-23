@@ -38,7 +38,7 @@
   }
 </script>
 
-<Growl bind:this={growl2}/>
+
 <section class="reset_password_container">
   <div class="main_content">
     <h1>

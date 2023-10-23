@@ -9306,13 +9306,13 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
   var import_mapper = __toESM(require_mapper());
   function get_each_context4(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[23] = list[i];
+    child_ctx[22] = list[i];
     return child_ctx;
   }
   function get_each_context_12(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[26] = list[i][0];
-    child_ctx[27] = list[i][1];
+    child_ctx[25] = list[i][0];
+    child_ctx[26] = list[i][1];
     return child_ctx;
   }
   function create_default_slot(ctx) {
@@ -9344,7 +9344,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       props: {
         size: 17,
         color: !/*filterdByPending*/
-        ctx[6] ? "#FFF" : "#000",
+        ctx[5] ? "#FFF" : "#000",
         src: FaSolidCheckDouble_default
       }
     });
@@ -9352,7 +9352,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       props: {
         size: 17,
         color: !/*filterdByRejected*/
-        ctx[7] ? "#FFF" : "#000",
+        ctx[6] ? "#FFF" : "#000",
         src: FaSolidRecycle_default
       }
     });
@@ -9378,10 +9378,10 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         attr(button0, "class", "add_button");
         attr(button1, "class", "filter_pending_button svelte-1waihep");
         toggle_class(button1, "not_filtered", !/*filterdByPending*/
-        ctx[6]);
+        ctx[5]);
         attr(button2, "class", "filter_pending_button svelte-1waihep");
         toggle_class(button2, "not_filtered", !/*filterdByRejected*/
-        ctx[7]);
+        ctx[6]);
       },
       m(target, anchor) {
         insert(target, button0, anchor);
@@ -9405,19 +9405,19 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
               button0,
               "click",
               /*addRow*/
-              ctx[13]
+              ctx[12]
             ),
             listen(
               button1,
               "click",
               /*filterPendingApproval*/
-              ctx[11]
+              ctx[10]
             ),
             listen(
               button2,
               "click",
               /*filterRejectedApproval*/
-              ctx[12]
+              ctx[11]
             )
           ];
           mounted = true;
@@ -9426,25 +9426,25 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       p(ctx2, dirty) {
         const icon1_changes = {};
         if (dirty & /*filterdByPending*/
-        64)
+        32)
           icon1_changes.color = !/*filterdByPending*/
-          ctx2[6] ? "#FFF" : "#000";
+          ctx2[5] ? "#FFF" : "#000";
         icon1.$set(icon1_changes);
         if (!current || dirty & /*filterdByPending*/
-        64) {
+        32) {
           toggle_class(button1, "not_filtered", !/*filterdByPending*/
-          ctx2[6]);
+          ctx2[5]);
         }
         const icon2_changes = {};
         if (dirty & /*filterdByRejected*/
-        128)
+        64)
           icon2_changes.color = !/*filterdByRejected*/
-          ctx2[7] ? "#FFF" : "#000";
+          ctx2[6] ? "#FFF" : "#000";
         icon2.$set(icon2_changes);
         if (!current || dirty & /*filterdByRejected*/
-        128) {
+        64) {
           toggle_class(button2, "not_filtered", !/*filterdByRejected*/
-          ctx2[7]);
+          ctx2[6]);
         }
       },
       i(local) {
@@ -9583,11 +9583,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       props: {
         label: (
           /*key*/
-          ctx[26]
+          ctx[25]
         ),
         content: (
           /*val*/
-          ctx[27]
+          ctx[26]
         )
       }
     });
@@ -9604,11 +9604,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         if (dirty & /*currentPropHistory*/
         4)
           pillbox_changes.label = /*key*/
-          ctx2[26];
+          ctx2[25];
         if (dirty & /*currentPropHistory*/
         4)
           pillbox_changes.content = /*val*/
-          ctx2[27];
+          ctx2[26];
         pillbox.$set(pillbox_changes);
       },
       i(local) {
@@ -9633,11 +9633,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       props: {
         label: (
           /*key*/
-          ctx[26]
+          ctx[25]
         ),
         content: (0, import_formatter3.priceNtd)(
           /*val*/
-          ctx[27]
+          ctx[26]
         )
       }
     });
@@ -9654,12 +9654,12 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         if (dirty & /*currentPropHistory*/
         4)
           pillbox_changes.label = /*key*/
-          ctx2[26];
+          ctx2[25];
         if (dirty & /*currentPropHistory*/
         4)
           pillbox_changes.content = (0, import_formatter3.priceNtd)(
             /*val*/
-            ctx2[27]
+            ctx2[26]
           );
         pillbox.$set(pillbox_changes);
       },
@@ -9685,11 +9685,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       props: {
         label: (
           /*key*/
-          ctx[26]
+          ctx[25]
         ),
         content: new Date(
           /*val*/
-          ctx[27] * 1e3
+          ctx[26] * 1e3
         )
       }
     });
@@ -9706,12 +9706,12 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         if (dirty & /*currentPropHistory*/
         4)
           pillbox_changes.label = /*key*/
-          ctx2[26];
+          ctx2[25];
         if (dirty & /*currentPropHistory*/
         4)
           pillbox_changes.content = new Date(
             /*val*/
-            ctx2[27] * 1e3
+            ctx2[26] * 1e3
           );
         pillbox.$set(pillbox_changes);
       },
@@ -9759,20 +9759,20 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     function select_block_type_1(ctx2, dirty) {
       if (
         /*val*/
-        ctx2[27] === "0" || !/*val*/
-        ctx2[27]
+        ctx2[26] === "0" || !/*val*/
+        ctx2[26]
       )
         return 0;
       if (
         /*key*/
-        ctx2[26] === "createdAt" || /*key*/
-        ctx2[26] === "updatedAt"
+        ctx2[25] === "createdAt" || /*key*/
+        ctx2[25] === "updatedAt"
       )
         return 1;
       if (
         /*key*/
-        ctx2[26] === "priceNtd" || /*key*/
-        ctx2[26] === "pricePerUnit"
+        ctx2[25] === "priceNtd" || /*key*/
+        ctx2[25] === "pricePerUnit"
       )
         return 2;
       return 3;
@@ -9834,7 +9834,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let current;
     let each_value_1 = ensure_array_like(Object.entries(
       /*row*/
-      ctx[23]
+      ctx[22]
     ));
     let each_blocks = [];
     for (let i = 0; i < each_value_1.length; i += 1) {
@@ -9864,7 +9864,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         4) {
           each_value_1 = ensure_array_like(Object.entries(
             /*row*/
-            ctx2[23]
+            ctx2[22]
           ));
           let i;
           for (i = 0; i < each_value_1.length; i += 1) {
@@ -9986,30 +9986,25 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     };
   }
   function create_fragment11(ctx) {
-    let growl;
-    let t0;
     let section1;
     let menu;
-    let t1;
+    let t0;
     let div1;
     let profileheader;
-    let t2;
+    let t1;
     let adminsubmenu;
-    let t3;
+    let t2;
     let div0;
     let modalform;
-    let t4;
+    let t3;
     let section0;
     let tableview;
     let updating_pager;
-    let t5;
+    let t4;
     let footer;
-    let t6;
+    let t5;
     let modaldialog;
     let current;
-    let growl_props = {};
-    growl = new Growl_default({ props: growl_props });
-    ctx[16](growl);
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({});
     adminsubmenu = new AdminSubMenu_default({});
@@ -10018,19 +10013,19 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       rowType: "Property",
       onConfirm: (
         /*saveRow*/
-        ctx[14]
+        ctx[13]
       )
     };
     modalform = new ModalForm_default({ props: modalform_props });
-    ctx[17](modalform);
+    ctx[15](modalform);
     function tableview_pager_binding(value) {
-      ctx[18](value);
+      ctx[16](value);
     }
     let tableview_props = {
       fields,
       extraActions: (
         /*extraActions*/
-        ctx[8]
+        ctx[7]
       ),
       rows: (
         /*properties*/
@@ -10045,11 +10040,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       },
       onRefreshTableView: (
         /*refreshTableView*/
-        ctx[9]
+        ctx[8]
       ),
       onEditRow: (
         /*editRow*/
-        ctx[10]
+        ctx[9]
       ),
       $slots: { default: [create_default_slot] },
       $scope: { ctx }
@@ -10069,27 +10064,25 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       $scope: { ctx }
     };
     modaldialog = new ModalDialog_default({ props: modaldialog_props });
-    ctx[19](modaldialog);
+    ctx[17](modaldialog);
     return {
       c() {
-        create_component(growl.$.fragment);
-        t0 = space();
         section1 = element("section");
         create_component(menu.$.fragment);
-        t1 = space();
+        t0 = space();
         div1 = element("div");
         create_component(profileheader.$.fragment);
-        t2 = space();
+        t1 = space();
         create_component(adminsubmenu.$.fragment);
-        t3 = space();
+        t2 = space();
         div0 = element("div");
         create_component(modalform.$.fragment);
-        t4 = space();
+        t3 = space();
         section0 = element("section");
         create_component(tableview.$.fragment);
-        t5 = space();
+        t4 = space();
         create_component(footer.$.fragment);
-        t6 = space();
+        t5 = space();
         create_component(modaldialog.$.fragment);
         attr(section0, "class", "tableview_container");
         attr(div0, "class", "content");
@@ -10097,30 +10090,26 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         attr(section1, "class", "dashboard");
       },
       m(target, anchor) {
-        mount_component(growl, target, anchor);
-        insert(target, t0, anchor);
         insert(target, section1, anchor);
         mount_component(menu, section1, null);
-        append(section1, t1);
+        append(section1, t0);
         append(section1, div1);
         mount_component(profileheader, div1, null);
-        append(div1, t2);
+        append(div1, t1);
         mount_component(adminsubmenu, div1, null);
-        append(div1, t3);
+        append(div1, t2);
         append(div1, div0);
         mount_component(modalform, div0, null);
-        append(div0, t4);
+        append(div0, t3);
         append(div0, section0);
         mount_component(tableview, section0, null);
-        append(div1, t5);
+        append(div1, t4);
         mount_component(footer, div1, null);
-        append(section1, t6);
+        append(section1, t5);
         mount_component(modaldialog, section1, null);
         current = true;
       },
       p(ctx2, [dirty]) {
-        const growl_changes = {};
-        growl.$set(growl_changes);
         const modalform_changes = {};
         modalform.$set(modalform_changes);
         const tableview_changes = {};
@@ -10129,7 +10118,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           tableview_changes.rows = /*properties*/
           ctx2[0];
         if (dirty & /*$scope, filterdByRejected, filterdByPending*/
-        1073742016) {
+        536871008) {
           tableview_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_pager && dirty & /*pager*/
@@ -10142,7 +10131,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         tableview.$set(tableview_changes);
         const modaldialog_changes = {};
         if (dirty & /*$scope, currentPropHistory*/
-        1073741828) {
+        536870916) {
           modaldialog_changes.$scope = { dirty, ctx: ctx2 };
         }
         modaldialog.$set(modaldialog_changes);
@@ -10150,7 +10139,6 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       i(local) {
         if (current)
           return;
-        transition_in(growl.$.fragment, local);
         transition_in(menu.$.fragment, local);
         transition_in(profileheader.$.fragment, local);
         transition_in(adminsubmenu.$.fragment, local);
@@ -10161,7 +10149,6 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         current = true;
       },
       o(local) {
-        transition_out(growl.$.fragment, local);
         transition_out(menu.$.fragment, local);
         transition_out(profileheader.$.fragment, local);
         transition_out(adminsubmenu.$.fragment, local);
@@ -10173,19 +10160,16 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       },
       d(detaching) {
         if (detaching) {
-          detach(t0);
           detach(section1);
         }
-        ctx[16](null);
-        destroy_component(growl, detaching);
         destroy_component(menu);
         destroy_component(profileheader);
         destroy_component(adminsubmenu);
-        ctx[17](null);
+        ctx[15](null);
         destroy_component(modalform);
         destroy_component(tableview);
         destroy_component(footer);
-        ctx[19](null);
+        ctx[17](null);
         destroy_component(modaldialog);
       }
     };
@@ -10337,16 +10321,10 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         }
       );
     }
-    function growl_binding($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        growl8 = $value;
-        $invalidate(3, growl8);
-      });
-    }
     function modalform_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         form = $value;
-        $invalidate(5, form);
+        $invalidate(4, form);
       });
     }
     function tableview_pager_binding(value) {
@@ -10356,7 +10334,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     function modaldialog_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         propHistoryModal = $value;
-        $invalidate(4, propHistoryModal);
+        $invalidate(3, propHistoryModal);
       });
     }
     $self.$.update = () => {
@@ -10368,24 +10346,23 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       if ($self.$.dirty & /*pager*/
       2) {
         $:
-          $invalidate(15, approvalStateFilter = (pager.filters || {}).approvalState || []);
+          $invalidate(14, approvalStateFilter = (pager.filters || {}).approvalState || []);
       }
       if ($self.$.dirty & /*approvalStateFilter*/
-      32768) {
+      16384) {
         $:
-          $invalidate(6, filterdByPending = approvalStateFilter[0] === "pending");
+          $invalidate(5, filterdByPending = approvalStateFilter[0] === "pending");
       }
       if ($self.$.dirty & /*approvalStateFilter*/
-      32768) {
+      16384) {
         $:
-          $invalidate(7, filterdByRejected = approvalStateFilter[0] === "<>" && approvalStateFilter[1] === "<>pending");
+          $invalidate(6, filterdByRejected = approvalStateFilter[0] === "<>" && approvalStateFilter[1] === "<>pending");
       }
     };
     return [
       properties,
       pager,
       currentPropHistory,
-      growl8,
       propHistoryModal,
       form,
       filterdByPending,
@@ -10398,7 +10375,6 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       addRow,
       saveRow,
       approvalStateFilter,
-      growl_binding,
       modalform_binding,
       tableview_pager_binding,
       modaldialog_binding
