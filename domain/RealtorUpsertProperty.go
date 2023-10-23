@@ -103,17 +103,21 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 		}
 	}
 
+	if prop.DoUpsert() {
+		if in.Property.Id == 0 {
+			// Get user email, send message to their email
+			user := rqAuth.NewUsers(d.AuthOltp)
+			err := d.Mailer.SendNotifCreatePropertyEmail(user.Email,
+				fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
+			)
+			L.IsError(err, `SendNotifUpdatePropertyEmail`)
+		}
+	}
+
 	if !prop.DoUpsert() {
 		out.SetError(500, ErrRealtorUpsertPropertySaveFailed)
 		return
 	}
-
-	// Get user email, send message to their email
-	user := rqAuth.NewUsers(d.AuthOltp)
-	err := d.Mailer.SendNotifUpdatePropertyEmail(user.Email,
-		fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
-	)
-	L.IsError(err, `SendNotifUpdatePropertyEmail`)
 
 	prop.Adapter = nil
 	out.Property = &prop.Property

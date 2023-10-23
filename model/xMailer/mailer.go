@@ -52,7 +52,7 @@ please ignore this email if you didn't request reset password link<br/>`,
 	)
 }
 
-func (m *Mailer) SendNotifUpdatePropertyEmail(email, ownedPropertyUrl string) error {
+func (m *Mailer) SendNotifCreatePropertyEmail(email, ownedPropertyUrl string) error {
 	if conf.IsDebug() {
 		L.Print(`SendNotifAddPropertyEmail`, email, ownedPropertyUrl)
 	}
@@ -61,12 +61,12 @@ func (m *Mailer) SendNotifUpdatePropertyEmail(email, ownedPropertyUrl string) er
 		`Create/Update Property`,
 		`Hi `+email+`,
 
-Your property has been created or updated, click this link to see your property: 
+Your property has been created, click this link to see your property: 
 `+ownedPropertyUrl+`
 
 We will review it soon.`,
 		`Hi `+email+`, <br><br>
-Your property has been created or updated, click this link to see your property: <br/>
+Your property has been created, click this link to see your property: <br/>
 <a href="`+ownedPropertyUrl+`">`+ownedPropertyUrl+`</a><br/>
 <br/>
 We will review it soon.`,
