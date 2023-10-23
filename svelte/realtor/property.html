@@ -6530,29 +6530,29 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   // realtor/property.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[90] = list[i];
+    child_ctx[89] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[93] = list[i];
-    child_ctx[94] = list;
-    child_ctx[95] = i;
+    child_ctx[92] = list[i];
+    child_ctx[93] = list;
+    child_ctx[94] = i;
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[96] = list[i];
+    child_ctx[95] = list[i];
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[99] = list[i];
+    child_ctx[98] = list[i];
     return child_ctx;
   }
   function get_each_context_4(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[102] = list[i];
+    child_ctx[101] = list[i];
     return child_ctx;
   }
   function create_if_block_24(ctx) {
@@ -6584,7 +6584,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             button,
             "click",
             /*click_handler_4*/
-            ctx[44]
+            ctx[42]
           );
           mounted = true;
         }
@@ -6703,11 +6703,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(select, "class", "svelte-omltwl");
         if (
           /*countryIso2*/
-          ctx[8] === void 0
+          ctx[7] === void 0
         )
           add_render_callback(() => (
             /*select_change_handler*/
-            ctx[45].call(select)
+            ctx[43].call(select)
           ));
         attr(div0, "class", "input_box svelte-omltwl");
         attr(label1, "for", "city_county");
@@ -6755,7 +6755,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         select_option(
           select,
           /*countryIso2*/
-          ctx[8],
+          ctx[7],
           true
         );
         append(div2, t3);
@@ -6805,31 +6805,31 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               select,
               "change",
               /*select_change_handler*/
-              ctx[45]
+              ctx[43]
             ),
             listen(
               select,
               "change",
               /*changeCurrency*/
-              ctx[27]
+              ctx[26]
             ),
             listen(
               input0,
               "input",
               /*input0_input_handler*/
-              ctx[48]
+              ctx[46]
             ),
             listen(
               input1,
               "input",
               /*input1_input_handler*/
-              ctx[49]
+              ctx[47]
             ),
             listen(
               input2,
               "input",
               /*input2_input_handler*/
-              ctx[50]
+              ctx[48]
             )
           ];
           mounted = true;
@@ -6856,11 +6856,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           each_blocks.length = each_value_4.length;
         }
         if (dirty[0] & /*countryIso2*/
-        256) {
+        128) {
           select_option(
             select,
             /*countryIso2*/
-            ctx2[8]
+            ctx2[7]
           );
         }
         if (
@@ -6939,7 +6939,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let option;
     let t_1_value = (
       /*country*/
-      ctx[102].country + ""
+      ctx[101].country + ""
     );
     let t_1;
     let option_value_value;
@@ -6948,7 +6948,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         option = element("option");
         t_1 = text(t_1_value);
         option.__value = option_value_value = /*country*/
-        ctx[102].iso_2;
+        ctx[101].iso_2;
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -6987,7 +6987,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             input,
             "input",
             /*input_input_handler*/
-            ctx[46]
+            ctx[44]
           );
           mounted = true;
         }
@@ -7036,7 +7036,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             input,
             "input",
             /*input_input_handler_1*/
-            ctx[47]
+            ctx[45]
           );
           mounted = true;
         }
@@ -7122,7 +7122,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         p1 = element("p");
         t6 = text(
           /*countryName*/
-          ctx[7]
+          ctx[6]
         );
         t7 = space();
         div4 = element("div");
@@ -7147,7 +7147,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(div0, label);
         append(div0, t0);
         append(div0, input);
-        ctx[51](input);
+        ctx[49](input);
         append(div5, t1);
         append(div5, div3);
         append(div3, div1);
@@ -7163,7 +7163,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(p1, t6);
         append(div5, t7);
         append(div5, div4);
-        ctx[52](div4);
+        ctx[50](div4);
         current = true;
       },
       p(ctx2, dirty) {
@@ -7172,11 +7172,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         (ctx2[0].formattedAddress || "Address") + ""))
           set_data(t3, t3_value);
         if (!current || dirty[0] & /*countryName*/
-        128)
+        64)
           set_data(
             t6,
             /*countryName*/
-            ctx2[7]
+            ctx2[6]
           );
       },
       i(local) {
@@ -7195,10 +7195,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (detaching) {
           detach(div5);
         }
-        ctx[51](null);
+        ctx[49](null);
         destroy_component(icon0);
         destroy_component(icon1);
-        ctx[52](null);
+        ctx[50](null);
       }
     };
   }
@@ -7257,7 +7257,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             input,
             "input",
             /*input_input_handler_2*/
-            ctx[53]
+            ctx[51]
           );
           mounted = true;
         }
@@ -7299,7 +7299,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             button,
             "click",
             /*addOtherFee*/
-            ctx[31]
+            ctx[30]
           );
           mounted = true;
         }
@@ -7352,7 +7352,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let dispose;
     let each_value_3 = ensure_array_like(
       /*houseTypeLists*/
-      ctx[30]
+      ctx[29]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value_3.length; i += 1) {
@@ -7411,7 +7411,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         span3 = element("span");
         t12 = text(
           /*infoUnitMode*/
-          ctx[13]
+          ctx[12]
         );
         t13 = space();
         span2 = element("span");
@@ -7430,11 +7430,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(select0, "class", "svelte-omltwl");
         if (
           /*infoObj*/
-          ctx[16].houseType === void 0
+          ctx[15].houseType === void 0
         )
           add_render_callback(() => (
             /*select0_change_handler*/
-            ctx[59].call(select0)
+            ctx[57].call(select0)
           ));
         attr(div0, "class", "input_box svelte-omltwl");
         attr(label1, "for", "parking");
@@ -7452,7 +7452,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         )
           add_render_callback(() => (
             /*select1_change_handler*/
-            ctx[60].call(select1)
+            ctx[58].call(select1)
           ));
         attr(div1, "class", "input_box svelte-omltwl");
         attr(div2, "class", "row svelte-omltwl");
@@ -7487,7 +7487,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         select_option(
           select0,
           /*infoObj*/
-          ctx[16].houseType,
+          ctx[15].houseType,
           true
         );
         append(div2, t3);
@@ -7526,7 +7526,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         set_input_value(
           input,
           /*houseSize*/
-          ctx[14]
+          ctx[13]
         );
         current = true;
         if (!mounted) {
@@ -7535,25 +7535,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               select0,
               "change",
               /*select0_change_handler*/
-              ctx[59]
+              ctx[57]
             ),
             listen(
               select1,
               "change",
               /*select1_change_handler*/
-              ctx[60]
+              ctx[58]
             ),
             listen(
               button,
               "click",
               /*handleInfoUnitMode*/
-              ctx[32].toggle
+              ctx[31].toggle
             ),
             listen(
               input,
               "input",
               /*input_input_handler_3*/
-              ctx[64]
+              ctx[62]
             )
           ];
           mounted = true;
@@ -7561,10 +7561,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*houseTypeLists*/
-        1073741824) {
+        536870912) {
           each_value_3 = ensure_array_like(
             /*houseTypeLists*/
-            ctx2[30]
+            ctx2[29]
           );
           let i;
           for (i = 0; i < each_value_3.length; i += 1) {
@@ -7583,11 +7583,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           each_blocks.length = each_value_3.length;
         }
         if (dirty[0] & /*infoObj, houseTypeLists*/
-        1073807360) {
+        536903680) {
           select_option(
             select0,
             /*infoObj*/
-            ctx2[16].houseType
+            ctx2[15].houseType
           );
         }
         if (dirty[0] & /*property*/
@@ -7622,19 +7622,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           check_outros();
         }
         if (!current || dirty[0] & /*infoUnitMode*/
-        8192)
+        4096)
           set_data(
             t12,
             /*infoUnitMode*/
-            ctx2[13]
+            ctx2[12]
           );
         if (dirty[0] & /*houseSize*/
-        16384 && to_number(input.value) !== /*houseSize*/
-        ctx2[14]) {
+        8192 && to_number(input.value) !== /*houseSize*/
+        ctx2[13]) {
           set_input_value(
             input,
             /*houseSize*/
-            ctx2[14]
+            ctx2[13]
           );
         }
       },
@@ -7670,7 +7670,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let option;
     let t_1_value = (
       /*t*/
-      ctx[99] + ""
+      ctx[98] + ""
     );
     let t_1;
     let option_value_value;
@@ -7679,7 +7679,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         option = element("option");
         t_1 = text(t_1_value);
         option.__value = option_value_value = /*t*/
-        ctx[99];
+        ctx[98];
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -7841,19 +7841,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               input0,
               "input",
               /*input0_input_handler_1*/
-              ctx[61]
+              ctx[59]
             ),
             listen(
               input1,
               "input",
               /*input1_input_handler_1*/
-              ctx[62]
+              ctx[60]
             ),
             listen(
               input2,
               "input",
               /*input2_input_handler_1*/
-              ctx[63]
+              ctx[61]
             )
           ];
           mounted = true;
@@ -7962,7 +7962,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     );
     let if_block1 = (
       /*infoObj*/
-      ctx[16].agencyFee === "true" && create_if_block_15(ctx)
+      ctx[15].agencyFee === "true" && create_if_block_15(ctx)
     );
     let if_block2 = (
       /*property*/
@@ -8049,11 +8049,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(select, "class", "svelte-omltwl");
         if (
           /*infoObj*/
-          ctx[16].agencyFee === void 0
+          ctx[15].agencyFee === void 0
         )
           add_render_callback(() => (
             /*select_change_handler_1*/
-            ctx[68].call(select)
+            ctx[66].call(select)
           ));
         attr(div3, "class", "input_box svelte-omltwl");
         attr(div4, "class", "row svelte-omltwl");
@@ -8097,7 +8097,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         select_option(
           select,
           /*infoObj*/
-          ctx[16].agencyFee,
+          ctx[15].agencyFee,
           true
         );
         append(div4, t14);
@@ -8112,25 +8112,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               input0,
               "click",
               /*click_handler_6*/
-              ctx[65]
+              ctx[63]
             ),
             listen(
               input1,
               "click",
               /*click_handler_7*/
-              ctx[66]
+              ctx[64]
             ),
             listen(
               input2,
               "input",
               /*input2_input_handler_2*/
-              ctx[67]
+              ctx[65]
             ),
             listen(
               select,
               "change",
               /*select_change_handler_1*/
-              ctx[68]
+              ctx[66]
             )
           ];
           mounted = true;
@@ -8179,16 +8179,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if_block0 = null;
         }
         if (dirty[0] & /*infoObj, houseTypeLists*/
-        1073807360) {
+        536903680) {
           select_option(
             select,
             /*infoObj*/
-            ctx2[16].agencyFee
+            ctx2[15].agencyFee
           );
         }
         if (
           /*infoObj*/
-          ctx2[16].agencyFee === "true"
+          ctx2[15].agencyFee === "true"
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
@@ -8296,7 +8296,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             input,
             "input",
             /*input_input_handler_4*/
-            ctx[69]
+            ctx[67]
           );
           mounted = true;
         }
@@ -8350,7 +8350,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let dispose;
     let if_block0 = (
       /*infoObj*/
-      ctx[16].deposit === "true" && create_if_block_14(ctx)
+      ctx[15].deposit === "true" && create_if_block_14(ctx)
     );
     function select_block_type(ctx2, dirty) {
       if (
@@ -8409,11 +8409,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(select, "class", "svelte-omltwl");
         if (
           /*infoObj*/
-          ctx[16].deposit === void 0
+          ctx[15].deposit === void 0
         )
           add_render_callback(() => (
             /*select_change_handler_2*/
-            ctx[70].call(select)
+            ctx[68].call(select)
           ));
         attr(div0, "class", "input_box svelte-omltwl");
         attr(div1, "class", "row svelte-omltwl");
@@ -8443,7 +8443,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         select_option(
           select,
           /*infoObj*/
-          ctx[16].deposit,
+          ctx[15].deposit,
           true
         );
         append(div1, t4);
@@ -8477,20 +8477,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               select,
               "change",
               /*select_change_handler_2*/
-              ctx[70]
+              ctx[68]
             ),
             listen(
               input,
               "input",
               /*input_input_handler_6*/
-              ctx[72]
+              ctx[70]
             ),
             listen(button, "click", function() {
               if (is_function(
                 /*addOtherFeeDialog*/
-                ctx[18].showModal()
+                ctx[17].showModal()
               ))
-                ctx[18].showModal().apply(this, arguments);
+                ctx[17].showModal().apply(this, arguments);
             })
           ];
           mounted = true;
@@ -8499,16 +8499,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if (dirty[0] & /*infoObj, houseTypeLists*/
-        1073807360) {
+        536903680) {
           select_option(
             select,
             /*infoObj*/
-            ctx[16].deposit
+            ctx[15].deposit
           );
         }
         if (
           /*infoObj*/
-          ctx[16].deposit === "true"
+          ctx[15].deposit === "true"
         ) {
           if (if_block0) {
             if_block0.p(ctx, dirty);
@@ -8608,7 +8608,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             input,
             "input",
             /*input_input_handler_5*/
-            ctx[71]
+            ctx[69]
           );
           mounted = true;
         }
@@ -8689,7 +8689,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*property, countryCurrency*/
-        33) {
+        17) {
           each_value_2 = ensure_array_like(
             /*property*/
             ctx2[0].otherFee
@@ -8724,16 +8724,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span;
     let t0_value = (
       /*otherFee*/
-      ctx[96].name + ""
+      ctx[95].name + ""
     );
     let t0;
     let t1;
     let b;
     let t2_value = (0, import_formatter.formatPrice)(
       /*otherFee*/
-      ctx[96].fee,
+      ctx[95].fee,
       /*countryCurrency*/
-      ctx[5]
+      ctx[4]
     ) + "";
     let t2;
     let t3;
@@ -8765,14 +8765,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*property*/
         1 && t0_value !== (t0_value = /*otherFee*/
-        ctx2[96].name + ""))
+        ctx2[95].name + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*property, countryCurrency*/
-        33 && t2_value !== (t2_value = (0, import_formatter.formatPrice)(
+        17 && t2_value !== (t2_value = (0, import_formatter.formatPrice)(
           /*otherFee*/
-          ctx2[96].fee,
+          ctx2[95].fee,
           /*countryCurrency*/
-          ctx2[5]
+          ctx2[4]
         ) + ""))
           set_data(t2, t2_value);
       },
@@ -8795,10 +8795,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         p = element("p");
         t1 = text(
           /*uploadHouseStatus*/
-          ctx[21]
+          ctx[20]
         );
         progress.value = /*uploadHousePercent*/
-        ctx[22];
+        ctx[21];
         attr(progress, "max", "100");
         attr(progress, "class", "svelte-omltwl");
         attr(p, "class", "svelte-omltwl");
@@ -8811,16 +8811,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*uploadHousePercent*/
-        4194304) {
+        2097152) {
           progress.value = /*uploadHousePercent*/
-          ctx2[22];
+          ctx2[21];
         }
         if (dirty[0] & /*uploadHouseStatus*/
-        2097152)
+        1048576)
           set_data(
             t1,
             /*uploadHouseStatus*/
-            ctx2[21]
+            ctx2[20]
           );
       },
       i: noop,
@@ -8867,7 +8867,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       m(target, anchor) {
         insert(target, input, anchor);
-        ctx[75](input);
+        ctx[73](input);
         insert(target, t0, anchor);
         mount_component(icon, target, anchor);
         insert(target, t1, anchor);
@@ -8878,7 +8878,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             input,
             "change",
             /*handlerHouseImage*/
-            ctx[35]
+            ctx[34]
           );
           mounted = true;
         }
@@ -8901,7 +8901,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           detach(t1);
           detach(p);
         }
-        ctx[75](null);
+        ctx[73](null);
         destroy_component(icon, detaching);
         mounted = false;
         dispose();
@@ -8941,7 +8941,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*property*/
         1 | dirty[1] & /*removeImage*/
-        32) {
+        16) {
           each_value_1 = ensure_array_like(
             /*property*/
             ctx2[0].images
@@ -9014,10 +9014,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let mounted;
     let dispose;
     function input_input_handler_7() {
-      ctx[76].call(
+      ctx[74].call(
         input,
         /*idx*/
-        ctx[95]
+        ctx[94]
       );
     }
     return {
@@ -9034,7 +9034,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*property*/
           ctx[0].imageLabels[
             /*idx*/
-            ctx[95]
+            ctx[94]
           ]
         );
         if (!mounted) {
@@ -9048,14 +9048,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         1 && input.value !== /*property*/
         ctx[0].imageLabels[
           /*idx*/
-          ctx[95]
+          ctx[94]
         ]) {
           set_input_value(
             input,
             /*property*/
             ctx[0].imageLabels[
               /*idx*/
-              ctx[95]
+              ctx[94]
             ]
           );
         }
@@ -9104,9 +9104,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function click_handler_9() {
       return (
         /*click_handler_9*/
-        ctx[77](
+        ctx[75](
           /*idx*/
-          ctx[95]
+          ctx[94]
         )
       );
     }
@@ -9124,7 +9124,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t2 = space();
         attr(img_1, "alt", "");
         if (!src_url_equal(img_1.src, img_1_src_value = /*img*/
-        ctx[93]))
+        ctx[92]))
           attr(img_1, "src", img_1_src_value);
         attr(img_1, "class", "svelte-omltwl");
         attr(div0, "class", "image_container svelte-omltwl");
@@ -9154,7 +9154,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx = new_ctx;
         if (!current || dirty[0] & /*property*/
         1 && !src_url_equal(img_1.src, img_1_src_value = /*img*/
-        ctx[93])) {
+        ctx[92])) {
           attr(img_1, "src", img_1_src_value);
         }
         if (current_block_type === (current_block_type = select_block_type_2(ctx, dirty)) && if_block) {
@@ -9220,7 +9220,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       /*property*/
       ctx[0].lastPrice,
       /*countryCurrency*/
-      ctx[5]
+      ctx[4]
     ) + "";
     let t6;
     let t7;
@@ -9393,11 +9393,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     );
     let if_block3 = (
       /*submitLoading*/
-      ctx[23] === false && create_if_block_32(ctx)
+      ctx[22] === false && create_if_block_32(ctx)
     );
     let if_block4 = (
       /*submitLoading*/
-      ctx[23] === true && create_if_block_25(ctx)
+      ctx[22] === true && create_if_block_25(ctx)
     );
     return {
       c() {
@@ -9473,7 +9473,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         b3 = element("b");
         t31 = text(
           /*houseSize*/
-          ctx[14]
+          ctx[13]
         );
         t32 = space();
         div13 = element("div");
@@ -9482,7 +9482,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         span6 = element("span");
         t34 = text(
           /*infoUnitMode*/
-          ctx[13]
+          ctx[12]
         );
         t35 = space();
         button1 = element("button");
@@ -9663,15 +9663,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               button0,
               "click",
               /*backPage*/
-              ctx[26]
+              ctx[25]
             ),
             listen(button1, "click", prevent_default(
               /*handleInfoUnitMode*/
-              ctx[32].toggle
+              ctx[31].toggle
             )),
             listen(button2, "click", prevent_default(
               /*handleSubmit*/
-              ctx[38]
+              ctx[37]
             ))
           ];
           mounted = true;
@@ -9711,11 +9711,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           attr(span0, "class", span0_class_value);
         }
         if ((!current || dirty[0] & /*property, countryCurrency*/
-        33) && t6_value !== (t6_value = (0, import_formatter.formatPrice)(
+        17) && t6_value !== (t6_value = (0, import_formatter.formatPrice)(
           /*property*/
           ctx2[0].lastPrice,
           /*countryCurrency*/
-          ctx2[5]
+          ctx2[4]
         ) + ""))
           set_data(t6, t6_value);
         if (
@@ -9753,18 +9753,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx2[0].livingroom + ""))
           set_data(t26, t26_value);
         if (!current || dirty[0] & /*houseSize*/
-        16384)
+        8192)
           set_data(
             t31,
             /*houseSize*/
-            ctx2[14]
+            ctx2[13]
           );
         if (!current || dirty[0] & /*infoUnitMode*/
-        8192)
+        4096)
           set_data(
             t34,
             /*infoUnitMode*/
-            ctx2[13]
+            ctx2[12]
           );
         if (
           /*property*/
@@ -9787,7 +9787,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           set_data(t43, t43_value);
         if (
           /*submitLoading*/
-          ctx2[23] === false
+          ctx2[22] === false
         ) {
           if (if_block3) {
           } else {
@@ -9801,11 +9801,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*submitLoading*/
-          ctx2[23] === true
+          ctx2[22] === true
         ) {
           if (if_block4) {
             if (dirty[0] & /*submitLoading*/
-            8388608) {
+            4194304) {
               transition_in(if_block4, 1);
             }
           } else {
@@ -10001,7 +10001,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       /*property*/
       ctx[0].depositFee,
       /*countryCurrency*/
-      ctx[5]
+      ctx[4]
     ) + "";
     let t4;
     let t5;
@@ -10019,8 +10019,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let if_block_anchor;
     let if_block = (
       /*infoObj*/
-      ctx[16].otherFee && /*infoObj*/
-      ctx[16].otherFee.length && create_if_block_52(ctx)
+      ctx[15].otherFee && /*infoObj*/
+      ctx[15].otherFee.length && create_if_block_52(ctx)
     );
     return {
       c() {
@@ -10078,11 +10078,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*property, countryCurrency*/
-        33 && t4_value !== (t4_value = (0, import_formatter.formatPrice)(
+        17 && t4_value !== (t4_value = (0, import_formatter.formatPrice)(
           /*property*/
           ctx2[0].depositFee,
           /*countryCurrency*/
-          ctx2[5]
+          ctx2[4]
         ) + ""))
           set_data(t4, t4_value);
         if (dirty[0] & /*property*/
@@ -10091,8 +10091,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           set_data(t8, t8_value);
         if (
           /*infoObj*/
-          ctx2[16].otherFee && /*infoObj*/
-          ctx2[16].otherFee.length
+          ctx2[15].otherFee && /*infoObj*/
+          ctx2[15].otherFee.length
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
@@ -10123,7 +10123,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let t1;
     let each_value = ensure_array_like(
       /*infoObj*/
-      ctx[16].otherFee
+      ctx[15].otherFee
     );
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
@@ -10153,10 +10153,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*infoObj, countryCurrency*/
-        65568) {
+        32784) {
           each_value = ensure_array_like(
             /*infoObj*/
-            ctx2[16].otherFee
+            ctx2[15].otherFee
           );
           let i;
           for (i = 0; i < each_value.length; i += 1) {
@@ -10188,16 +10188,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span;
     let t0_value = (
       /*otherfee*/
-      ctx[90].name + ""
+      ctx[89].name + ""
     );
     let t0;
     let t1;
     let b;
     let t2_value = (0, import_formatter.formatPrice)(
       /*otherfee*/
-      ctx[90].fee,
+      ctx[89].fee,
       /*countryCurrency*/
-      ctx[5]
+      ctx[4]
     ) + "";
     let t2;
     let t3;
@@ -10228,15 +10228,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*infoObj*/
-        65536 && t0_value !== (t0_value = /*otherfee*/
-        ctx2[90].name + ""))
+        32768 && t0_value !== (t0_value = /*otherfee*/
+        ctx2[89].name + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*infoObj, countryCurrency*/
-        65568 && t2_value !== (t2_value = (0, import_formatter.formatPrice)(
+        32784 && t2_value !== (t2_value = (0, import_formatter.formatPrice)(
           /*otherfee*/
-          ctx2[90].fee,
+          ctx2[89].fee,
           /*countryCurrency*/
-          ctx2[5]
+          ctx2[4]
         ) + ""))
           set_data(t2, t2_value);
       },
@@ -10382,19 +10382,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               button0,
               "click",
               /*click_handler_10*/
-              ctx[79]
+              ctx[77]
             ),
             listen(
               button1,
               "click",
               /*click_handler_11*/
-              ctx[80]
+              ctx[78]
             ),
             listen(
               button2,
               "click",
               /*click_handler_12*/
-              ctx[81]
+              ctx[79]
             )
           ];
           mounted = true;
@@ -10430,100 +10430,95 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let c;
     let script;
     let t1;
-    let growl;
-    let t2;
     let section4;
     let menu;
-    let t3;
+    let t2;
     let div15;
     let profileheader;
-    let t4;
+    let t3;
     let div6;
     let div5;
     let a;
     let icon0;
-    let t5;
+    let t4;
     let div4;
     let div0;
     let button0;
-    let t6;
+    let t5;
     let p0;
     let div0_class_value;
-    let t8;
+    let t7;
     let div1;
     let button1;
-    let t9;
+    let t8;
     let p1;
     let div1_class_value;
-    let t11;
+    let t10;
     let div2;
     let button2;
-    let t12;
+    let t11;
     let p2;
     let div2_class_value;
-    let t14;
+    let t13;
     let div3;
     let button3;
-    let t15;
+    let t14;
     let p3;
     let div3_class_value;
-    let t17;
+    let t16;
     let div14;
     let div13;
     let section0;
-    let t18;
+    let t17;
     let div7;
     let h30;
+    let t18;
     let t19;
     let t20;
     let t21;
     let t22;
-    let t23;
     let button4;
-    let t25;
+    let t24;
     let section1;
     let addotherfeesdialog;
     let updating_fee;
     let updating_name;
-    let t26;
+    let t25;
     let button5;
     let icon1;
-    let t27;
+    let t26;
     let div8;
     let h31;
+    let t27;
     let t28;
     let t29;
     let t30;
-    let t31;
     let button6;
-    let t33;
+    let t32;
     let section2;
     let button7;
     let icon2;
-    let t34;
+    let t33;
     let div12;
     let h32;
-    let t36;
+    let t35;
     let div11;
     let div9;
     let label;
     let current_block_type_index;
     let if_block6;
-    let t37;
+    let t36;
     let div10;
-    let t38;
+    let t37;
     let button8;
-    let t40;
+    let t39;
     let section3;
+    let t40;
     let t41;
-    let t42;
     let footer;
     let current;
     let mounted;
     let dispose;
-    let growl_props = {};
-    growl = new Growl_default({ props: growl_props });
-    ctx[39](growl);
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({});
     icon0 = new Icon_default({
@@ -10536,25 +10531,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     });
     let if_block0 = (
       /*modeLocation*/
-      ctx[9] !== LOC_ADDR && create_if_block_24(ctx)
+      ctx[8] !== LOC_ADDR && create_if_block_24(ctx)
     );
     let if_block1 = (
       /*modeLocation*/
-      ctx[9] === LOC_ADDR && create_if_block_21(ctx)
+      ctx[8] === LOC_ADDR && create_if_block_21(ctx)
     );
     let if_block2 = (
       /*modeLocation*/
-      ctx[9] === LOC_MAP && create_if_block_20(ctx)
+      ctx[8] === LOC_MAP && create_if_block_20(ctx)
     );
     let if_block3 = (
       /*modeLocation*/
-      ctx[9] === LOC_STREETVIEW && create_if_block_19(ctx)
+      ctx[8] === LOC_STREETVIEW && create_if_block_19(ctx)
     );
     function addotherfeesdialog_fee_binding(value) {
-      ctx[56](value);
+      ctx[54](value);
     }
     function addotherfeesdialog_name_binding(value) {
-      ctx[57](value);
+      ctx[55](value);
     }
     let addotherfeesdialog_props = {
       $slots: { default: [create_default_slot] },
@@ -10562,22 +10557,22 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
     if (
       /*otherFeeObj*/
-      ctx[17].fee !== void 0
+      ctx[16].fee !== void 0
     ) {
       addotherfeesdialog_props.fee = /*otherFeeObj*/
-      ctx[17].fee;
+      ctx[16].fee;
     }
     if (
       /*otherFeeObj*/
-      ctx[17].name !== void 0
+      ctx[16].name !== void 0
     ) {
       addotherfeesdialog_props.name = /*otherFeeObj*/
-      ctx[17].name;
+      ctx[16].name;
     }
     addotherfeesdialog = new AddOtherFeesDialog_default({ props: addotherfeesdialog_props });
     binding_callbacks.push(() => bind(addotherfeesdialog, "fee", addotherfeesdialog_fee_binding));
     binding_callbacks.push(() => bind(addotherfeesdialog, "name", addotherfeesdialog_name_binding));
-    ctx[58](addotherfeesdialog);
+    ctx[56](addotherfeesdialog);
     icon1 = new Icon_default({
       props: {
         className: "iconBack",
@@ -10588,11 +10583,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     });
     let if_block4 = (
       /*modeInfo*/
-      ctx[15] === INFO_FEAT && create_if_block_17(ctx)
+      ctx[14] === INFO_FEAT && create_if_block_17(ctx)
     );
     let if_block5 = (
       /*modeInfo*/
-      ctx[15] === INFO_PRICE && create_if_block_11(ctx)
+      ctx[14] === INFO_PRICE && create_if_block_11(ctx)
     );
     icon2 = new Icon_default({
       props: {
@@ -10606,7 +10601,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     const if_blocks = [];
     function select_block_type_1(ctx2, dirty) {
       if (!/*houseImgUploading*/
-      ctx2[20])
+      ctx2[19])
         return 0;
       return 1;
     }
@@ -10632,118 +10627,116 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         script = element("script");
         script.textContent = "(g => {\n      var h, a, k, p = 'The Google Maps JavaScript API', c = 'google', l = 'importLibrary', q = '__ib__', m = document, b = window;\n      b = b[ c ] || (b[ c ] = {});\n      var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise( async ( f, n ) => {\n        await (a = m.createElement( 'script' ));\n        e.set( 'libraries', [...r] + '' );\n        for( k in g ) e.set( k.replace( /[A-Z]/g, t => '_' + t[ 0 ].toLowerCase() ), g[ k ] );\n        e.set( 'callback', c + '.maps.' + q );\n        a.src = `https://maps.${c}apis.com/maps/api/js?` + e;\n        d[ q ] = f;\n        a.onerror = () => h = n( Error( p + ' could not load.' ) );\n        a.nonce = m.querySelector( 'script[nonce]' )?.nonce || '';\n        m.head.append( a );\n      } ));\n      d[ l ] ? console.warn( p + ' only loads once. Ignoring:', g ) : d[ l ] = ( f, ...n ) => r.add( f ) && u().then( () => d[ l ]( f, ...n ) );\n    })( {\n      key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',\n      v: 'weekly',\n      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).\n      // Add other bootstrap parameters as needed, using camel case.\n    } );";
         t1 = space();
-        create_component(growl.$.fragment);
-        t2 = space();
         section4 = element("section");
         create_component(menu.$.fragment);
-        t3 = space();
+        t2 = space();
         div15 = element("div");
         create_component(profileheader.$.fragment);
-        t4 = space();
+        t3 = space();
         div6 = element("div");
         div5 = element("div");
         a = element("a");
         create_component(icon0.$.fragment);
-        t5 = space();
+        t4 = space();
         div4 = element("div");
         div0 = element("div");
         button0 = element("button");
-        t6 = space();
+        t5 = space();
         p0 = element("p");
         p0.textContent = "Location";
-        t8 = space();
+        t7 = space();
         div1 = element("div");
         button1 = element("button");
-        t9 = space();
+        t8 = space();
         p1 = element("p");
         p1.textContent = "Info";
-        t11 = space();
+        t10 = space();
         div2 = element("div");
         button2 = element("button");
-        t12 = space();
+        t11 = space();
         p2 = element("p");
         p2.textContent = "Picture";
-        t14 = space();
+        t13 = space();
         div3 = element("div");
         button3 = element("button");
-        t15 = space();
+        t14 = space();
         p3 = element("p");
         p3.textContent = "Preview";
-        t17 = space();
+        t16 = space();
         div14 = element("div");
         div13 = element("div");
         section0 = element("section");
         if (if_block0)
           if_block0.c();
-        t18 = space();
+        t17 = space();
         div7 = element("div");
         h30 = element("h3");
-        t19 = text(
+        t18 = text(
           /*modeLocation*/
-          ctx[9]
+          ctx[8]
         );
-        t20 = space();
+        t19 = space();
         if (if_block1)
           if_block1.c();
-        t21 = space();
+        t20 = space();
         if (if_block2)
           if_block2.c();
-        t22 = space();
+        t21 = space();
         if (if_block3)
           if_block3.c();
-        t23 = space();
+        t22 = space();
         button4 = element("button");
         button4.innerHTML = `<span class="svelte-omltwl">NEXT</span>`;
-        t25 = space();
+        t24 = space();
         section1 = element("section");
         create_component(addotherfeesdialog.$.fragment);
-        t26 = space();
+        t25 = space();
         button5 = element("button");
         create_component(icon1.$.fragment);
-        t27 = space();
+        t26 = space();
         div8 = element("div");
         h31 = element("h3");
-        t28 = text(
+        t27 = text(
           /*modeInfo*/
-          ctx[15]
+          ctx[14]
         );
-        t29 = space();
+        t28 = space();
         if (if_block4)
           if_block4.c();
-        t30 = space();
+        t29 = space();
         if (if_block5)
           if_block5.c();
-        t31 = space();
+        t30 = space();
         button6 = element("button");
         button6.innerHTML = `<span class="svelte-omltwl">NEXT</span>`;
-        t33 = space();
+        t32 = space();
         section2 = element("section");
         button7 = element("button");
         create_component(icon2.$.fragment);
-        t34 = space();
+        t33 = space();
         div12 = element("div");
         h32 = element("h3");
         h32.textContent = "Upload house photo";
-        t36 = space();
+        t35 = space();
         div11 = element("div");
         div9 = element("div");
         label = element("label");
         if_block6.c();
-        t37 = space();
+        t36 = space();
         div10 = element("div");
         if (if_block7)
           if_block7.c();
-        t38 = space();
+        t37 = space();
         button8 = element("button");
         button8.innerHTML = `<span class="svelte-omltwl">NEXT</span>`;
-        t40 = space();
+        t39 = space();
         section3 = element("section");
         if (if_block8)
           if_block8.c();
-        t41 = space();
+        t40 = space();
         if (if_block9)
           if_block9.c();
-        t42 = space();
+        t41 = space();
         create_component(footer.$.fragment);
         attr(a, "class", "back_button svelte-omltwl");
         attr(a, "href", "/realtor");
@@ -10807,108 +10800,106 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         append(document.head, c);
         append(document.head, script);
         insert(target, t1, anchor);
-        mount_component(growl, target, anchor);
-        insert(target, t2, anchor);
         insert(target, section4, anchor);
         mount_component(menu, section4, null);
-        append(section4, t3);
+        append(section4, t2);
         append(section4, div15);
         mount_component(profileheader, div15, null);
-        append(div15, t4);
+        append(div15, t3);
         append(div15, div6);
         append(div6, div5);
         append(div5, a);
         mount_component(icon0, a, null);
-        append(div5, t5);
+        append(div5, t4);
         append(div5, div4);
         append(div4, div0);
         append(div0, button0);
-        append(div0, t6);
+        append(div0, t5);
         append(div0, p0);
-        append(div4, t8);
+        append(div4, t7);
         append(div4, div1);
         append(div1, button1);
-        append(div1, t9);
+        append(div1, t8);
         append(div1, p1);
-        append(div4, t11);
+        append(div4, t10);
         append(div4, div2);
         append(div2, button2);
-        append(div2, t12);
+        append(div2, t11);
         append(div2, p2);
-        append(div4, t14);
+        append(div4, t13);
         append(div4, div3);
         append(div3, button3);
-        append(div3, t15);
+        append(div3, t14);
         append(div3, p3);
-        append(div15, t17);
+        append(div15, t16);
         append(div15, div14);
         append(div14, div13);
         append(div13, section0);
         if (if_block0)
           if_block0.m(section0, null);
-        append(section0, t18);
+        append(section0, t17);
         append(section0, div7);
         append(div7, h30);
-        append(h30, t19);
-        append(div7, t20);
+        append(h30, t18);
+        append(div7, t19);
         if (if_block1)
           if_block1.m(div7, null);
-        append(div7, t21);
+        append(div7, t20);
         if (if_block2)
           if_block2.m(div7, null);
-        append(div7, t22);
+        append(div7, t21);
         if (if_block3)
           if_block3.m(div7, null);
-        append(section0, t23);
+        append(section0, t22);
         append(section0, button4);
-        ctx[55](section0);
-        append(div13, t25);
+        ctx[53](section0);
+        append(div13, t24);
         append(div13, section1);
         mount_component(addotherfeesdialog, section1, null);
-        append(section1, t26);
+        append(section1, t25);
         append(section1, button5);
         mount_component(icon1, button5, null);
-        append(section1, t27);
+        append(section1, t26);
         append(section1, div8);
         append(div8, h31);
-        append(h31, t28);
-        append(div8, t29);
+        append(h31, t27);
+        append(div8, t28);
         if (if_block4)
           if_block4.m(div8, null);
-        append(div8, t30);
+        append(div8, t29);
         if (if_block5)
           if_block5.m(div8, null);
-        append(section1, t31);
+        append(section1, t30);
         append(section1, button6);
-        ctx[74](section1);
-        append(div13, t33);
+        ctx[72](section1);
+        append(div13, t32);
         append(div13, section2);
         append(section2, button7);
         mount_component(icon2, button7, null);
-        append(section2, t34);
+        append(section2, t33);
         append(section2, div12);
         append(div12, h32);
-        append(div12, t36);
+        append(div12, t35);
         append(div12, div11);
         append(div11, div9);
         append(div9, label);
         if_blocks[current_block_type_index].m(label, null);
-        append(div11, t37);
+        append(div11, t36);
         append(div11, div10);
         if (if_block7)
           if_block7.m(div10, null);
-        append(section2, t38);
+        append(section2, t37);
         append(section2, button8);
-        ctx[78](section2);
-        append(div13, t40);
+        ctx[76](section2);
+        append(div13, t39);
         append(div13, section3);
         if (if_block8)
           if_block8.m(section3, null);
-        append(section3, t41);
+        append(section3, t40);
         if (if_block9)
           if_block9.m(section3, null);
-        ctx[82](section3);
-        append(div15, t42);
+        ctx[80](section3);
+        append(div15, t41);
         mount_component(footer, div15, null);
         current = true;
         if (!mounted) {
@@ -10917,59 +10908,57 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               button0,
               "click",
               /*click_handler*/
-              ctx[40]
+              ctx[38]
             ),
             listen(
               button1,
               "click",
               /*click_handler_1*/
-              ctx[41]
+              ctx[39]
             ),
             listen(
               button2,
               "click",
               /*click_handler_2*/
-              ctx[42]
+              ctx[40]
             ),
             listen(
               button3,
               "click",
               /*click_handler_3*/
-              ctx[43]
+              ctx[41]
             ),
             listen(button4, "click", prevent_default(
               /*click_handler_5*/
-              ctx[54]
+              ctx[52]
             )),
             listen(
               button5,
               "click",
               /*handleBackInfo*/
-              ctx[33]
+              ctx[32]
             ),
             listen(button6, "click", prevent_default(
               /*click_handler_8*/
-              ctx[73]
+              ctx[71]
             )),
             listen(
               button7,
               "click",
               /*backPage*/
-              ctx[26]
+              ctx[25]
             ),
             listen(
               button8,
               "click",
               /*nextPage*/
-              ctx[25]
+              ctx[24]
             )
           ];
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        const growl_changes = {};
-        growl.$set(growl_changes);
         if (!current || dirty[0] & /*currentPage*/
         2 && div0_class_value !== (div0_class_value = null_to_empty(
           /*currentPage*/
@@ -11000,19 +10989,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*modeLocation*/
-          ctx2[9] !== LOC_ADDR
+          ctx2[8] !== LOC_ADDR
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
             if (dirty[0] & /*modeLocation*/
-            512) {
+            256) {
               transition_in(if_block0, 1);
             }
           } else {
             if_block0 = create_if_block_24(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
-            if_block0.m(section0, t18);
+            if_block0.m(section0, t17);
           }
         } else if (if_block0) {
           group_outros();
@@ -11022,22 +11011,22 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           check_outros();
         }
         if (!current || dirty[0] & /*modeLocation*/
-        512)
+        256)
           set_data(
-            t19,
+            t18,
             /*modeLocation*/
-            ctx2[9]
+            ctx2[8]
           );
         if (
           /*modeLocation*/
-          ctx2[9] === LOC_ADDR
+          ctx2[8] === LOC_ADDR
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
           } else {
             if_block1 = create_if_block_21(ctx2);
             if_block1.c();
-            if_block1.m(div7, t21);
+            if_block1.m(div7, t20);
           }
         } else if (if_block1) {
           if_block1.d(1);
@@ -11045,19 +11034,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*modeLocation*/
-          ctx2[9] === LOC_MAP
+          ctx2[8] === LOC_MAP
         ) {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
             if (dirty[0] & /*modeLocation*/
-            512) {
+            256) {
               transition_in(if_block2, 1);
             }
           } else {
             if_block2 = create_if_block_20(ctx2);
             if_block2.c();
             transition_in(if_block2, 1);
-            if_block2.m(div7, t22);
+            if_block2.m(div7, t21);
           }
         } else if (if_block2) {
           group_outros();
@@ -11068,7 +11057,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*modeLocation*/
-          ctx2[9] === LOC_STREETVIEW
+          ctx2[8] === LOC_STREETVIEW
         ) {
           if (if_block3) {
             if_block3.p(ctx2, dirty);
@@ -11083,46 +11072,46 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         const addotherfeesdialog_changes = {};
         if (dirty[3] & /*$scope*/
-        4096) {
+        2048) {
           addotherfeesdialog_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_fee && dirty[0] & /*otherFeeObj*/
-        131072) {
+        65536) {
           updating_fee = true;
           addotherfeesdialog_changes.fee = /*otherFeeObj*/
-          ctx2[17].fee;
+          ctx2[16].fee;
           add_flush_callback(() => updating_fee = false);
         }
         if (!updating_name && dirty[0] & /*otherFeeObj*/
-        131072) {
+        65536) {
           updating_name = true;
           addotherfeesdialog_changes.name = /*otherFeeObj*/
-          ctx2[17].name;
+          ctx2[16].name;
           add_flush_callback(() => updating_name = false);
         }
         addotherfeesdialog.$set(addotherfeesdialog_changes);
         if (!current || dirty[0] & /*modeInfo*/
-        32768)
+        16384)
           set_data(
-            t28,
+            t27,
             /*modeInfo*/
-            ctx2[15]
+            ctx2[14]
           );
         if (
           /*modeInfo*/
-          ctx2[15] === INFO_FEAT
+          ctx2[14] === INFO_FEAT
         ) {
           if (if_block4) {
             if_block4.p(ctx2, dirty);
             if (dirty[0] & /*modeInfo*/
-            32768) {
+            16384) {
               transition_in(if_block4, 1);
             }
           } else {
             if_block4 = create_if_block_17(ctx2);
             if_block4.c();
             transition_in(if_block4, 1);
-            if_block4.m(div8, t30);
+            if_block4.m(div8, t29);
           }
         } else if (if_block4) {
           group_outros();
@@ -11133,7 +11122,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*modeInfo*/
-          ctx2[15] === INFO_PRICE
+          ctx2[14] === INFO_PRICE
         ) {
           if (if_block5) {
             if_block5.p(ctx2, dirty);
@@ -11204,7 +11193,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             if_block8 = create_if_block_110(ctx2);
             if_block8.c();
             transition_in(if_block8, 1);
-            if_block8.m(section3, t41);
+            if_block8.m(section3, t40);
           }
         } else if (if_block8) {
           group_outros();
@@ -11240,7 +11229,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       i(local) {
         if (current)
           return;
-        transition_in(growl.$.fragment, local);
         transition_in(menu.$.fragment, local);
         transition_in(profileheader.$.fragment, local);
         transition_in(icon0.$.fragment, local);
@@ -11258,7 +11246,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         current = true;
       },
       o(local) {
-        transition_out(growl.$.fragment, local);
         transition_out(menu.$.fragment, local);
         transition_out(profileheader.$.fragment, local);
         transition_out(icon0.$.fragment, local);
@@ -11278,13 +11265,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       d(detaching) {
         if (detaching) {
           detach(t1);
-          detach(t2);
           detach(section4);
         }
         detach(c);
         detach(script);
-        ctx[39](null);
-        destroy_component(growl, detaching);
         destroy_component(menu);
         destroy_component(profileheader);
         destroy_component(icon0);
@@ -11296,25 +11280,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if_block2.d();
         if (if_block3)
           if_block3.d();
-        ctx[55](null);
-        ctx[58](null);
+        ctx[53](null);
+        ctx[56](null);
         destroy_component(addotherfeesdialog);
         destroy_component(icon1);
         if (if_block4)
           if_block4.d();
         if (if_block5)
           if_block5.d();
-        ctx[74](null);
+        ctx[72](null);
         destroy_component(icon2);
         if_blocks[current_block_type_index].d();
         if (if_block7)
           if_block7.d();
-        ctx[78](null);
+        ctx[76](null);
         if (if_block8)
           if_block8.d();
         if (if_block9)
           if_block9.d();
-        ctx[82](null);
+        ctx[80](null);
         destroy_component(footer);
         mounted = false;
         run_all(dispose);
@@ -11389,7 +11373,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         });
         for (let i = 0; i < countries.length; i++) {
           if (countries[i].iso_2 === property.countryCode) {
-            $invalidate(5, countryCurrency = countries[i].currency.code);
+            $invalidate(4, countryCurrency = countries[i].currency.code);
             console.log("Country currency =", countryCurrency);
           }
         }
@@ -11405,7 +11389,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         console.log("Property parking =", property.parking);
         for (let i = 0; i < countries.length; i++) {
           if (countries[i].iso_2 === property.countryCode) {
-            $invalidate(5, countryCurrency = countries[i].currency.code);
+            $invalidate(4, countryCurrency = countries[i].currency.code);
             console.log("Country currency =", countryCurrency);
           }
         }
@@ -11478,7 +11462,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             for (let i = 0; i < results[0].address_components.length; i++) {
               if (results[0].address_components[i].types.indexOf("country") !== -1) {
                 $invalidate(0, property.country = results[0].address_components[i].short_name, property);
-                $invalidate(7, countryName = results[0].address_components[i].long_name);
+                $invalidate(6, countryName = results[0].address_components[i].long_name);
               }
             }
           } else {
@@ -11510,7 +11494,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         for (let i = 0; i < places[0].address_components.length; i++) {
           if (places[0].address_components[i].types.indexOf("country") !== -1) {
             $invalidate(0, property.country = places[0].address_components[i].short_name, property);
-            $invalidate(7, countryName = places[0].address_components[i].long_name);
+            $invalidate(6, countryName = places[0].address_components[i].long_name);
           }
         }
         clearMarkers(markers);
@@ -11546,14 +11530,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function changeCurrency() {
       countries.forEach((c) => {
         if (c.iso_2 === property.country) {
-          $invalidate(5, countryCurrency = c.currency.code);
+          $invalidate(4, countryCurrency = c.currency.code);
         }
       });
     }
     async function handleBackLocation() {
       if (modeLocationCount < modeLocationLists.length) {
-        $invalidate(6, modeLocationCount -= 1);
-        $invalidate(9, modeLocation = modeLocationLists[modeLocationCount].mode);
+        $invalidate(5, modeLocationCount -= 1);
+        $invalidate(8, modeLocation = modeLocationLists[modeLocationCount].mode);
         if (modeLocation === LOC_MAP) {
           await initMap();
         }
@@ -11568,14 +11552,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         for (let i = 0; i < countries.length; i++) {
           if (countries[i].iso_2 === property.countryCode) {
-            $invalidate(7, countryName = countries[i].country);
-            $invalidate(5, countryCurrency = countries[i].currency.code);
+            $invalidate(6, countryName = countries[i].country);
+            $invalidate(4, countryCurrency = countries[i].currency.code);
             $invalidate(0, property.lat = parseInt(countries[i].coordinate.lat), property);
             $invalidate(0, property.lng = parseInt(countries[i].coordinate.lng), property);
           }
         }
-        $invalidate(6, modeLocationCount += 1);
-        $invalidate(9, modeLocation = modeLocationLists[modeLocationCount].mode);
+        $invalidate(5, modeLocationCount += 1);
+        $invalidate(8, modeLocation = modeLocationLists[modeLocationCount].mode);
         await initMap();
       },
       "LOC_MAP": () => {
@@ -11583,8 +11567,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           alert("Please mark location on map");
           return;
         }
-        $invalidate(6, modeLocationCount += 1);
-        $invalidate(9, modeLocation = modeLocationLists[modeLocationCount].mode);
+        $invalidate(5, modeLocationCount += 1);
+        $invalidate(8, modeLocation = modeLocationLists[modeLocationCount].mode);
       },
       "LOC_STREETVIEW": () => {
         nextPage();
@@ -11613,7 +11597,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     ];
     function addOtherFee() {
       $invalidate(0, property.otherFee = [...property.otherFee, otherFeeObj], property);
-      $invalidate(17, otherFeeObj = { name: "", fee: 0 });
+      $invalidate(16, otherFeeObj = { name: "", fee: 0 });
       addOtherFeeDialog.hideModal();
     }
     const handleInfoUnitMode = {
@@ -11622,19 +11606,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if (houseSize !== 0) {
             houseSizePing = houseSize;
             houseSizeM2 = handleInfoUnitMode.pingToM2(houseSize);
-            $invalidate(13, infoUnitMode = m2);
-            $invalidate(14, houseSize = houseSizeM2);
+            $invalidate(12, infoUnitMode = m2);
+            $invalidate(13, houseSize = houseSizeM2);
           } else {
-            $invalidate(13, infoUnitMode = m2);
+            $invalidate(12, infoUnitMode = m2);
           }
         } else if (infoUnitMode === m2) {
           if (houseSize !== 0) {
             houseSizeM2 = houseSize;
             houseSizePing = handleInfoUnitMode.m2ToPing(houseSize);
-            $invalidate(13, infoUnitMode = ping);
-            $invalidate(14, houseSize = houseSizePing);
+            $invalidate(12, infoUnitMode = ping);
+            $invalidate(13, houseSize = houseSizePing);
           } else {
-            $invalidate(13, infoUnitMode = ping);
+            $invalidate(12, infoUnitMode = ping);
           }
         }
       },
@@ -11651,8 +11635,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
     function handleBackInfo() {
       if (modeInfoCount > 0) {
-        $invalidate(12, modeInfoCount -= 1);
-        $invalidate(15, modeInfo = modeInfoLists[modeInfoCount].mode);
+        $invalidate(11, modeInfoCount -= 1);
+        $invalidate(14, modeInfo = modeInfoLists[modeInfoCount].mode);
         return;
       }
       backPage();
@@ -11671,8 +11655,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           alert("Please fill required form");
           return;
         }
-        $invalidate(12, modeInfoCount += 1);
-        $invalidate(15, modeInfo = modeInfoLists[modeInfoCount].mode);
+        $invalidate(11, modeInfoCount += 1);
+        $invalidate(14, modeInfo = modeInfoLists[modeInfoCount].mode);
       },
       "INFO_PRICE": () => {
         if (property.lastPrice === 0 || property.agencyFee >= 99) {
@@ -11696,13 +11680,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         formData.append("purpose", "property");
         let ajax = new XMLHttpRequest();
         ajax.addEventListener("progress", function(event) {
-          $invalidate(20, houseImgUploading = true);
+          $invalidate(19, houseImgUploading = true);
           let percent = event.loaded / event.total * 100;
-          $invalidate(22, uploadHousePercent = Math.round(percent));
-          $invalidate(21, uploadHouseStatus = `${uploadHousePercent}% uploaded... please wait`);
+          $invalidate(21, uploadHousePercent = Math.round(percent));
+          $invalidate(20, uploadHouseStatus = `${uploadHousePercent}% uploaded... please wait`);
         });
         ajax.addEventListener("load", function(event) {
-          $invalidate(20, houseImgUploading = false);
+          $invalidate(19, houseImgUploading = false);
           if (ajax.status === 200) {
             const out = JSON.parse(event.target.responseText);
             if (!out.error) {
@@ -11729,7 +11713,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ajax.open("POST", "/user/uploadFile");
         ajax.send(formData);
       }
-      $invalidate(19, imageHouseInput.value = null, imageHouseInput);
+      $invalidate(18, imageHouseInput.value = null, imageHouseInput);
     }
     function removeImage(index) {
       $invalidate(0, property.images = property.images.filter((_, i) => i !== index), property);
@@ -11738,11 +11722,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let res_propId = window.location.pathname.split("/property/").pop() || "0";
     let submitLoading = false;
     async function handleSubmit() {
-      $invalidate(23, submitLoading = true);
+      $invalidate(22, submitLoading = true);
       console.log("property=", property, "payload=", payload);
       const prop = { property: payload };
       await (0, import_jsApi.RealtorUpsertProperty)(prop, function(res) {
-        $invalidate(23, submitLoading = false);
+        $invalidate(22, submitLoading = false);
         if (res.error) {
           alert(res.error);
           return;
@@ -11750,12 +11734,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         console.log(res);
         $invalidate(2, isPropertySubmitted = true);
         $invalidate(0, property.id = (res.property || {}).id + "", property);
-      });
-    }
-    function growl_binding($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        growl9 = $value;
-        $invalidate(4, growl9);
       });
     }
     const click_handler = () => progressDotHandler(0);
@@ -11771,7 +11749,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
     function select_change_handler() {
       countryIso2 = select_value(this);
-      $invalidate(8, countryIso2);
+      $invalidate(7, countryIso2);
     }
     function input_input_handler() {
       property.countyName = this.value;
@@ -11796,13 +11774,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function input_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         input_address = $value;
-        $invalidate(11, input_address);
+        $invalidate(10, input_address);
       });
     }
     function div4_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         map_container = $value;
-        $invalidate(10, map_container);
+        $invalidate(9, map_container);
       });
     }
     function input_input_handler_2() {
@@ -11827,25 +11805,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function addotherfeesdialog_fee_binding(value) {
       if ($self.$.not_equal(otherFeeObj.fee, value)) {
         otherFeeObj.fee = value;
-        $invalidate(17, otherFeeObj);
+        $invalidate(16, otherFeeObj);
       }
     }
     function addotherfeesdialog_name_binding(value) {
       if ($self.$.not_equal(otherFeeObj.name, value)) {
         otherFeeObj.name = value;
-        $invalidate(17, otherFeeObj);
+        $invalidate(16, otherFeeObj);
       }
     }
     function addotherfeesdialog_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         addOtherFeeDialog = $value;
-        $invalidate(18, addOtherFeeDialog);
+        $invalidate(17, addOtherFeeDialog);
       });
     }
     function select0_change_handler() {
       infoObj.houseType = select_value(this);
-      $invalidate(16, infoObj);
-      $invalidate(30, houseTypeLists);
+      $invalidate(15, infoObj);
+      $invalidate(29, houseTypeLists);
     }
     function select1_change_handler() {
       property.parking = select_value(this);
@@ -11865,7 +11843,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     function input_input_handler_3() {
       houseSize = to_number(this.value);
-      $invalidate(14, houseSize);
+      $invalidate(13, houseSize);
     }
     const click_handler_6 = () => $invalidate(0, property.purpose = "sell", property);
     const click_handler_7 = () => $invalidate(0, property.purpose = "rent", property);
@@ -11875,8 +11853,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     function select_change_handler_1() {
       infoObj.agencyFee = select_value(this);
-      $invalidate(16, infoObj);
-      $invalidate(30, houseTypeLists);
+      $invalidate(15, infoObj);
+      $invalidate(29, houseTypeLists);
     }
     function input_input_handler_4() {
       property.agencyFeePercent = to_number(this.value);
@@ -11884,8 +11862,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     function select_change_handler_2() {
       infoObj.deposit = select_value(this);
-      $invalidate(16, infoObj);
-      $invalidate(30, houseTypeLists);
+      $invalidate(15, infoObj);
+      $invalidate(29, houseTypeLists);
     }
     function input_input_handler_5() {
       property.depositFee = to_number(this.value);
@@ -11911,7 +11889,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function input_binding_1($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         imageHouseInput = $value;
-        $invalidate(19, imageHouseInput);
+        $invalidate(18, imageHouseInput);
       });
     }
     function input_input_handler_7(idx) {
@@ -11988,7 +11966,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       currentPage,
       isPropertySubmitted,
       cards,
-      growl9,
       countryCurrency,
       modeLocationCount,
       countryName,
@@ -12023,7 +12000,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       removeImage,
       res_propId,
       handleSubmit,
-      growl_binding,
       click_handler,
       click_handler_1,
       click_handler_2,
