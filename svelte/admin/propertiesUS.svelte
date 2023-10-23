@@ -93,7 +93,7 @@
   function handleResponse( res ) {
     console.log( res );
     if( res.error ) {
-      growl8.showError( res.error );
+      alert( res.error );
       return true;
     }
     if( res.properties && res.properties.length ) properties = res.properties;

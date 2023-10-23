@@ -93,7 +93,7 @@
         limit: 40, // this is apparently the culprit XD if we show too many it would slow, but if it's too little it won't spread
         maxDistanceKM: bestDistance,
       }, async res => {
-        if( res.error ) return myGrowl.showInfo(res.error );
+        if( res.error ) return alert(res.error );
         randomProps = res.properties || [];
       } );
       markersProperty = gmapsComponent.clearMarkers( markersProperty );
@@ -132,7 +132,7 @@
       centerLat: myLatLng.lat,
       centerLong: myLatLng.lng,
     }, async res => {
-      if( res.error ) return myGrowl.showInfo(res.error );
+      if( res.error ) return alert(res.error );
       markersFacility = gmapsComponent.clearMarkers( markersFacility );
       facilities = await res.facilities;
       facilities.forEach( fac => {
@@ -206,10 +206,10 @@
           myLatLng.lat = results[ 0 ].geometry.location.lat();
           myLatLng.lng = results[ 0 ].geometry.location.lng();
         } else {
-			myGrowl.showInfo( 'No result found' );
+			alert( 'No result found' );
         }
       } ).catch( ( e ) => {
-		  myGrowl.showInfo(`Geocoder failed due to: ${e}` );
+		  alert(`Geocoder failed due to: ${e}` );
       } );
     autocomplete_lists = [];
     input_search_value = '';
@@ -231,7 +231,7 @@
   function copyToClipboard( text ) {
     shareItemIndex = null;
     navigator.clipboard.writeText( text );
-	  myGrowl.showInfo('Link copied to clipboard' );
+	  alert('Link copied to clipboard' );
   }
   
   function propertyUrl( id ) {
@@ -244,8 +244,8 @@
       propId: propId, // uint64
       like: true, // bool
     }, async res => {
-      if( res.error ) return myGrowl.showInfo( res.error );
-		myGrowl.showInfo('Property liked' );
+      if( res.error ) return alert( res.error );
+		alert('Property liked' );
     } )
   }
 </script>

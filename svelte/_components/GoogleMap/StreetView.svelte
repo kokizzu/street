@@ -78,7 +78,7 @@
                 if (status === google.maps.places.PlacesServiceStatus.OK) {
                     autocompleteLists = predictions;
                 } else {
-                    growl1.showError('Cannot get address')
+                    alert('Cannot get address')
                 }
             },
         );
@@ -98,7 +98,7 @@
                         locations: [results[0].geometry.location],
                     });
                     if (!(elevationResponse.results && elevationResponse.results.length)) {
-                        growl1.showError(`Insufficient elevation data for place: ${results[0].formatted_address}`)
+                        alert(`Insufficient elevation data for place: ${results[0].formatted_address}`)
                     }
                     const elv = elevationResponse.results[0].elevation;
                     elevation = elv;
@@ -116,10 +116,10 @@
                     //   elv
                     // );
                 } else {
-                    growl1.showError('No result found');
+                    alert('No result found');
                 }
             }).catch((e) => {
-                growl1.showError(`Geocoder failed due to: ${e}`);
+                alert(`Geocoder failed due to: ${e}`);
             });
         autocompleteLists = [];
         showAutoCompleteList = false;

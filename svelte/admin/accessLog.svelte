@@ -19,7 +19,7 @@
     // return true if got error
     function handleResponse(res) {
         if (res.error) {
-            growl4.showError(res.error);
+            alert(res.error);
             return true;
         }
         if (res.logs && res.logs.length) logs = res.logs;

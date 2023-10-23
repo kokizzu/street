@@ -8879,7 +8879,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     function handleResponse(res) {
       console.log(res);
       if (res.error) {
-        growl5.showError(res.error);
+        alert(res.error);
         return true;
       }
       if (res.files && res.files.length)

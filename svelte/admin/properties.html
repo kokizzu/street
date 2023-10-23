@@ -10262,7 +10262,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let propHistoryModal = ModalDialog_default;
     function handleResponse(res) {
       if (res.error) {
-        growl7.showError(res.error);
+        alert(res.error);
         return true;
       }
       if (res.properties && res.properties.length)

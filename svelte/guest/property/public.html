@@ -3422,7 +3422,7 @@
     let dispose;
     let growl_props = {};
     growl = new Growl_default({ props: growl_props });
-    ctx[2](growl);
+    ctx[1](growl);
     property = new Property_default({ props: { propItem, meta } });
     icon0 = new Icon_default({
       props: {
@@ -3614,7 +3614,7 @@
             button,
             "click",
             /*click_handler*/
-            ctx[3]
+            ctx[2]
           );
           mounted = true;
         }
@@ -3656,7 +3656,7 @@
           detach(t0);
           detach(section);
         }
-        ctx[2](null);
+        ctx[1](null);
         destroy_component(growl, detaching);
         destroy_component(property);
         destroy_component(icon0);
@@ -3674,13 +3674,13 @@
   }
   var propItem = {/* propItem */};
   var meta = {/* propertyMeta */};
+  function copyToClipboard(text2) {
+    console.log(window.location);
+    navigator.clipboard.writeText(text2);
+    alert("Link copied to clipboard");
+  }
   function instance5($self, $props, $invalidate) {
     let myGrowl = Growl_default;
-    function copyToClipboard(text2) {
-      console.log(window.location);
-      navigator.clipboard.writeText(text2);
-      myGrowl.showSuccess("Link copied to clipboard");
-    }
     function growl_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         myGrowl = $value;
@@ -3688,7 +3688,7 @@
       });
     }
     const click_handler = () => copyToClipboard(window.location);
-    return [myGrowl, copyToClipboard, growl_binding, click_handler];
+    return [myGrowl, growl_binding, click_handler];
   }
   var Public = class extends SvelteComponent {
     constructor(options) {

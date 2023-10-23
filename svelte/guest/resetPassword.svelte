@@ -9,11 +9,11 @@
 
   async function resetPassword() {
     if (password.length < 12) {
-      growl2.showWarning('password must be at least 12 characters');
+      alert('password must be at least 12 characters');
       return
     }
     if (password !== pass2) {
-      growl2.showWarning('password confirmation does not match');
+      alert('password confirmation does not match');
       return
     }
     const queryParam = window.location.href.split('?')[1];
@@ -29,10 +29,10 @@
     await GuestResetPassword(i, function (o) {
       console.log(o);
       if (o.error) {
-        growl2.showError(o.error);
+        alert(o.error);
         return
       }
-      growl2.showError('password reset successful');
+      alert('password reset successful');
       window.location.href = '/';
     });
   }

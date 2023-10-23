@@ -241,7 +241,7 @@
             }
           }
         } else {
-          growl9.showError( 'Address not found' );
+          alert( 'Address not found' );
           property.formattedAddresss = '';
           property.country = '';
         }
@@ -282,7 +282,7 @@
       const bounds = new google.maps.LatLngBounds();
       places.forEach( ( place ) => {
         if( !place.geometry || !place.geometry.location ) {
-          growl9.showWarning( 'Returned place contains no geometry' );
+          alert( 'Returned place contains no geometry' );
           return;
         }
         const icon = {
@@ -335,7 +335,7 @@
     'LOC_ADDR': async () => {
       property.countryCode = countryIso2;
       if( property.city==='' || property.street1==='' || property.floors===0 ) {
-        growl9.showWarning( 'Please fill required form' );
+        alert( 'Please fill required form' );
         return;
       }
       for( let i = 0; i<countries.length; i++ ) {
@@ -352,7 +352,7 @@
     },
     'LOC_MAP': () => {
       if( property.formattedAddress==='' ) {
-        growl9.showWarning( 'Please mark location on map' );
+        alert( 'Please mark location on map' );
         return;
       }
       modeLocationCount += 1;
@@ -449,7 +449,7 @@
         property.sizeM2 = houseSize;
       }
       if( property.sizeM2===0 ) {
-        growl9.showWarning( 'Please fill required form' );
+        alert( 'Please fill required form' );
         return;
       }
       modeInfoCount += 1;
@@ -457,7 +457,7 @@
     },
     'INFO_PRICE': () => {
       if( property.lastPrice===0 || property.agencyFee>=99 ) {
-        growl9.showWarning( 'Price cannot be 0' );
+        alert( 'Price cannot be 0' );
         return;
       }
       nextPage();
@@ -492,18 +492,18 @@
             property.images = [...property.images, out.urlPattern]; // push house image url to array
             property.imageLabels = [...property.imageLabels, ''];
           }
-          growl9.showSuccess( 'Image uploaded' );
+          alert( 'Image uploaded' );
         } else if( ajax.status===413 ) {
-          growl9.showError( 'Image too large' );
+          alert( 'Image too large' );
         } else {
-          growl9.showError( `Error: ${ajax.status}  ${ajax.statusText}` );
+          alert( `Error: ${ajax.status}  ${ajax.statusText}` );
         }
       } );
       ajax.addEventListener( 'error', function( event ) {
-        growl9.showError( 'Network error' );
+        alert( 'Network error' );
       } );
       ajax.addEventListener( 'abort', function( event ) {
-        growl9.showError( 'Upload aborted' );
+        alert( 'Upload aborted' );
       }, false );
       ajax.open( 'POST', '/user/uploadFile' );
       ajax.send( formData );
@@ -527,7 +527,7 @@
     await RealtorUpsertProperty( prop, function( res ) {
       submitLoading = false;
       if( res.error ) {
-        growl9.showError( res.error );
+        alert( res.error );
         return;
       }
       console.log( res );

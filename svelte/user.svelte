@@ -37,19 +37,19 @@
         await UserUpdateProfile(user, function(res) {
             profileSubmit = false;
             if (res.error) {
-                growl10.showError(res.error);
+                alert(res.error);
                 return
             }
             oldProfileJson = JSON.stringify(res.user);
             user = res.user;
-            growl10.showSuccess('Profile updated');
+            alert('Profile updated');
         });
     }
 
     async function changePassword() {
         passwordSubmit = true;
         if (newPassword !== repeatNewPassword) {
-            growl10.showError('New password and repeat new password must be same');
+            alert('New password and repeat new password must be same');
             passwordSubmit = false;
             return
         }
@@ -60,27 +60,27 @@
         await UserChangePassword(input, function(res) {
             passwordSubmit = false;
             if (res.error) {
-                growl10.showError(res.error);
+                alert(res.error);
                 return
             }
             oldPassword = '';
             newPassword = '';
             repeatNewPassword = '';
-            growl10.showSuccess('Password updated');
+            alert('Password updated');
         });
     }
 
     async function killSession(sessionToken) {
         await UserSessionKill({sessionTokenHash: sessionToken}, async res => {
             if (res.error) {
-                growl10.showError(res.error);
+                alert(res.error);
                 return
             }
             if (res.sessionTerminated < 1) return useGrowl('error', 'No session terminated');
-            growl10.showSuccess(res.sessionTerminated + ' session terminated');
+            alert(res.sessionTerminated + ' session terminated');
             await UserSessionsActive({userId: user.id}, res => {
                 if (res.error) {
-                    growl10.showError(res.error);
+                    alert(res.error);
                     return
                 }
                 sessionActiveLists = res.sessionsActive;

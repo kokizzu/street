@@ -24,7 +24,7 @@
   function handleResponse( res ) {
     console.log( res );
     if( res.error ) {
-      growl6.showError( res.error );
+      alert( res.error );
       return true;
     }
     if( res.propHistories && res.propHistories.length ) propHistories = res.propHistories;

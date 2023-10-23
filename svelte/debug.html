@@ -1546,7 +1546,7 @@
     let myGrowl;
     const click_handler = () => T.changeLanguage("EN");
     const click_handler_1 = () => T.changeLanguage("TW");
-    const click_handler_2 = () => myGrowl.showInfo("This is Growl");
+    const click_handler_2 = () => alert("This is Growl");
     function growl_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         myGrowl = $value;

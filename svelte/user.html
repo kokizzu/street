@@ -6668,18 +6668,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       await (0, import_jsApi_GEN3.UserUpdateProfile)(user, function(res) {
         $invalidate(6, profileSubmit = false);
         if (res.error) {
-          growl10.showError(res.error);
+          alert(res.error);
           return;
         }
         oldProfileJson = JSON.stringify(res.user);
         $invalidate(0, user = res.user);
-        growl10.showSuccess("Profile updated");
+        alert("Profile updated");
       });
     }
     async function changePassword() {
       $invalidate(7, passwordSubmit = true);
       if (newPassword !== repeatNewPassword) {
-        growl10.showError("New password and repeat new password must be same");
+        alert("New password and repeat new password must be same");
         $invalidate(7, passwordSubmit = false);
         return;
       }
@@ -6690,27 +6690,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       await (0, import_jsApi_GEN3.UserChangePassword)(input, function(res) {
         $invalidate(7, passwordSubmit = false);
         if (res.error) {
-          growl10.showError(res.error);
+          alert(res.error);
           return;
         }
         $invalidate(2, oldPassword = "");
         $invalidate(3, newPassword = "");
         $invalidate(4, repeatNewPassword = "");
-        growl10.showSuccess("Password updated");
+        alert("Password updated");
       });
     }
     async function killSession(sessionToken) {
       await (0, import_jsApi_GEN3.UserSessionKill)({ sessionTokenHash: sessionToken }, async (res) => {
         if (res.error) {
-          growl10.showError(res.error);
+          alert(res.error);
           return;
         }
         if (res.sessionTerminated < 1)
           return useGrowl("error", "No session terminated");
-        growl10.showSuccess(res.sessionTerminated + " session terminated");
+        alert(res.sessionTerminated + " session terminated");
         await (0, import_jsApi_GEN3.UserSessionsActive)({ userId: user.id }, (res2) => {
           if (res2.error) {
-            growl10.showError(res2.error);
+            alert(res2.error);
             return;
           }
           $invalidate(1, sessionActiveLists = res2.sessionsActive);

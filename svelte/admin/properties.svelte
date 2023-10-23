@@ -99,7 +99,7 @@
   // return true if got error
   function handleResponse( res ) {
     if( res.error ) {
-      growl7.showError( res.error );
+      alert( res.error );
       return true;
     }
     if( res.properties && res.properties.length ) properties = res.properties;

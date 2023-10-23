@@ -7862,7 +7862,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           },
           async (res) => {
             if (res.error)
-              return myGrowl.showInfo(res.error);
+              return alert(res.error);
             $invalidate(0, randomProps = res.properties || []);
           }
         );
@@ -7909,7 +7909,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         },
         async (res) => {
           if (res.error)
-            return myGrowl.showInfo(res.error);
+            return alert(res.error);
           markersFacility = gmapsComponent.clearMarkers(markersFacility);
           facilities = await res.facilities;
           facilities.forEach((fac) => {
@@ -7974,10 +7974,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           myLatLng.lat = results[0].geometry.location.lat();
           myLatLng.lng = results[0].geometry.location.lng();
         } else {
-          myGrowl.showInfo("No result found");
+          alert("No result found");
         }
       }).catch((e) => {
-        myGrowl.showInfo(`Geocoder failed due to: ${e}`);
+        alert(`Geocoder failed due to: ${e}`);
       });
       $invalidate(6, autocomplete_lists = []);
       $invalidate(5, input_search_value = "");
@@ -7994,7 +7994,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function copyToClipboard(text2) {
       $invalidate(8, shareItemIndex = null);
       navigator.clipboard.writeText(text2);
-      myGrowl.showInfo("Link copied to clipboard");
+      alert("Link copied to clipboard");
     }
     async function likeProperty(propId) {
       await (0, import_jsApi_GEN2.UserLikeProp)(
@@ -8006,8 +8006,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         },
         async (res) => {
           if (res.error)
-            return myGrowl.showInfo(res.error);
-          myGrowl.showInfo("Property liked");
+            return alert(res.error);
+          alert("Property liked");
         }
       );
     }
@@ -10202,17 +10202,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       $invalidate(9, isSubmitted = true);
       if (!email) {
         $invalidate(9, isSubmitted = false);
-        myGrowl.showError("Email is required");
+        alert("Email is required");
         return;
       }
       if (password.length < 12) {
         $invalidate(9, isSubmitted = false);
-        myGrowl.showWarning("Password must be at least 12 characters");
+        alert("Password must be at least 12 characters");
         return;
       }
       if (password !== confirmPass) {
         $invalidate(9, isSubmitted = false);
-        myGrowl.showError("Passwords do not match");
+        alert("Passwords do not match");
         return;
       }
       const i = { email, password };
@@ -10220,11 +10220,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         console.log(o);
         if (o.error) {
           $invalidate(9, isSubmitted = false);
-          myGrowl.showError(o.error);
+          alert(o.error);
           return;
         }
         $invalidate(9, isSubmitted = false);
-        myGrowl.showSuccess("Registered successfully, a registration verification has been sent to your email");
+        alert("Registered successfully, a registration verification has been sent to your email");
         $invalidate(8, mode = LOGIN);
         $invalidate(4, password = "");
         await tick();
@@ -10235,12 +10235,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       $invalidate(9, isSubmitted = true);
       if (!email) {
         $invalidate(9, isSubmitted = false);
-        myGrowl.showError("Email is required");
+        alert("Email is required");
         return;
       }
       if (password.length < 12) {
         $invalidate(9, isSubmitted = false);
-        myGrowl.showWarning("Password must be at least 12 characters");
+        alert("Password must be at least 12 characters");
         return;
       }
       const i = { email, password };
@@ -10248,11 +10248,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         console.log(o);
         if (o.error) {
           $invalidate(9, isSubmitted = false);
-          myGrowl.showError(o.error);
+          alert(o.error);
           return;
         }
         $invalidate(9, isSubmitted = false);
-        myGrowl.showSuccess("Login successfully");
+        alert("Login successfully");
         setTimeout(
           () => {
             $invalidate(1, user = o.user);
@@ -10268,7 +10268,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       $invalidate(9, isSubmitted = true);
       if (!email) {
         $invalidate(9, isSubmitted = false);
-        myGrowl.showError("Email is required");
+        alert("Email is required");
         return;
       }
       const i = { email };
@@ -10276,19 +10276,19 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         console.log(o);
         if (o.error) {
           $invalidate(9, isSubmitted = false);
-          myGrowl.showError(o.error);
+          alert(o.error);
           return;
         }
         $invalidate(9, isSubmitted = false);
         onHashChange();
-        myGrowl.showInfo("An email verification link has been sent to your email");
+        alert("An email verification link has been sent to your email");
       });
     }
     async function guestForgotPassword() {
       $invalidate(9, isSubmitted = true);
       if (!email) {
         $invalidate(9, isSubmitted = false);
-        myGrowl.showError("Email is required");
+        alert("Email is required");
         return;
       }
       const i = { email };
@@ -10296,11 +10296,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         console.log(o);
         if (o.error) {
           $invalidate(9, isSubmitted = false);
-          myGrowl.showError(o.error);
+          alert(o.error);
           return;
         }
         onHashChange();
-        myGrowl.showInfo("A reset password link has been sent to your email");
+        alert("A reset password link has been sent to your email");
       });
     }
     function growl_binding($value) {

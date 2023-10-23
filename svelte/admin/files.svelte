@@ -22,7 +22,7 @@
     function handleResponse(res) {
         console.log(res);
         if (res.error) {
-            growl5.showError(res.error);
+            alert(res.error);
             return true;
         }
         if (res.files && res.files.length) files = res.files;

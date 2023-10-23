@@ -18,7 +18,7 @@
   function copyToClipboard( text ) {
     console.log(window.location)
     navigator.clipboard.writeText( text );
-    myGrowl.showSuccess('Link copied to clipboard' );
+    alert('Link copied to clipboard' );
   }
 </script>
 

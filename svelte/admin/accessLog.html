@@ -7466,7 +7466,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let growl4 = Growl_default;
     function handleResponse(res) {
       if (res.error) {
-        growl4.showError(res.error);
+        alert(res.error);
         return true;
       }
       if (res.logs && res.logs.length)

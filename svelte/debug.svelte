@@ -10,7 +10,7 @@
 {$T.forSale}
 <button on:click={() => T.changeLanguage('EN')}>EN</button>
 <button on:click={() => T.changeLanguage('TW')}>TW</button>
-<button on:click={() => myGrowl.showInfo('This is Growl')}>
+<button on:click={() => alert('This is Growl')}>
     Show Growl
 </button>
 

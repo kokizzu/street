@@ -11482,7 +11482,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               }
             }
           } else {
-            growl9.showError("Address not found");
+            alert("Address not found");
             $invalidate(0, property.formattedAddresss = "", property);
             $invalidate(0, property.country = "", property);
           }
@@ -11517,7 +11517,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         const bounds = new google.maps.LatLngBounds();
         places.forEach((place) => {
           if (!place.geometry || !place.geometry.location) {
-            growl9.showWarning("Returned place contains no geometry");
+            alert("Returned place contains no geometry");
             return;
           }
           const icon = {
@@ -11563,7 +11563,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       "LOC_ADDR": async () => {
         $invalidate(0, property.countryCode = countryIso2, property);
         if (property.city === "" || property.street1 === "" || property.floors === 0) {
-          growl9.showWarning("Please fill required form");
+          alert("Please fill required form");
           return;
         }
         for (let i = 0; i < countries.length; i++) {
@@ -11580,7 +11580,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       "LOC_MAP": () => {
         if (property.formattedAddress === "") {
-          growl9.showWarning("Please mark location on map");
+          alert("Please mark location on map");
           return;
         }
         $invalidate(6, modeLocationCount += 1);
@@ -11668,7 +11668,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           $invalidate(0, property.sizeM2 = houseSize, property);
         }
         if (property.sizeM2 === 0) {
-          growl9.showWarning("Please fill required form");
+          alert("Please fill required form");
           return;
         }
         $invalidate(12, modeInfoCount += 1);
@@ -11676,7 +11676,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       "INFO_PRICE": () => {
         if (property.lastPrice === 0 || property.agencyFee >= 99) {
-          growl9.showWarning("Price cannot be 0");
+          alert("Price cannot be 0");
           return;
         }
         nextPage();
@@ -11709,20 +11709,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
               $invalidate(0, property.images = [...property.images, out.urlPattern], property);
               $invalidate(0, property.imageLabels = [...property.imageLabels, ""], property);
             }
-            growl9.showSuccess("Image uploaded");
+            alert("Image uploaded");
           } else if (ajax.status === 413) {
-            growl9.showError("Image too large");
+            alert("Image too large");
           } else {
-            growl9.showError(`Error: ${ajax.status}  ${ajax.statusText}`);
+            alert(`Error: ${ajax.status}  ${ajax.statusText}`);
           }
         });
         ajax.addEventListener("error", function(event) {
-          growl9.showError("Network error");
+          alert("Network error");
         });
         ajax.addEventListener(
           "abort",
           function(event) {
-            growl9.showError("Upload aborted");
+            alert("Upload aborted");
           },
           false
         );
@@ -11744,7 +11744,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       await (0, import_jsApi.RealtorUpsertProperty)(prop, function(res) {
         $invalidate(23, submitLoading = false);
         if (res.error) {
-          growl9.showError(res.error);
+          alert(res.error);
           return;
         }
         console.log(res);
