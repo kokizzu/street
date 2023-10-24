@@ -1,6 +1,5 @@
 <script>
   // @ts-nocheck
-  import {onMount} from 'svelte';
   import Menu from '../_components/Menu.svelte';
   import ProfileHeader from '../_components/ProfileHeader.svelte';
   import Footer from '../_components/Footer.svelte';
@@ -12,91 +11,6 @@
   let user = {/* user */};
   let segments = {/* segments */}
   let countries = [/* countries */];
-  let payload = {}
-  let countryCurrency = 'TWD';
-  onMount( () => {
-    console.log( 'onMount.property' );
-    console.log( 'property = ', property );
-    console.log( 'Country data = ', countries );
-    const defaultLat = 23.6978, defaultLng = 120.9605;
-    if( Object.keys( property ).length===0 ) {
-      property = {
-        countryCode: user.countryCode,
-        city: '', // new
-        countyName: '', // new
-        address: '',
-        district: '',
-        street: '', // new
-        street2: '', // new
-        floors: 0,
-        formattedAddress: '',
-        lat: defaultLat,
-        lng: defaultLng,
-        coord: [defaultLat, defaultLng],
-        elevation: 0, // new
-        
-        uniqPropKey: '1_12449819078726277117',
-        serialNumber: '',
-        
-        houseType: '',
-        bedroom: 0,
-        bathroom: 0,
-        livingroom: 0, // new
-        sizeM2: 0,
-        purpose: 'sell',
-        agencyFeePercent: 0,
-        parking: '0', // new
-        depositFee: 0, // new
-        minimumDurationYear: 0, // new
-        otherFee: [], // new
-        lastPrice: 0,
-        
-        images: [],
-        imageLabels: [], // new
-        createdAt: 1692641835,
-        updatedAt: 1692641835,
-        
-        // floorList: [], // no longer used
-        // mainUse: '', // no longer used
-        // note: '', // no longer used
-        
-        //"id": '1234'
-        // mainBuildingMaterial: '',
-        // constructCompletedDate: '',
-        // 'numberOfFloors': '0',
-        // buildingLamination: '',
-        // createdBy: '0',
-        // 'updatedBy': '0',
-        // 'deletedAt': 0,
-        // priceHistoriesSell: [],
-        // priceHistoriesRent: [],
-      };
-      for( let i = 0; i<countries.length; i++ ) {
-        if( countries[ i ].iso_2===property.countryCode ) {
-          countryCurrency = countries[ i ].currency.code;
-          console.log( 'Country currency =', countryCurrency );
-        }
-      }
-    } else {
-      console.log( property.lastPrice );
-      if( property.coord && property.coord.length ) {
-        property.lat = property.coord[ 0 ];
-        property.lng = property.coord[ 1 ];
-      }
-      property.lastPrice = +property.lastPrice || 0;
-      property.agencyFeePercent = +property.agencyFeePercent;
-      property.floorList = property.floorList || [];
-      property.images = property.images || [];
-      property.parking = property.parking.toString();
-      for( let i = 0; i<countries.length; i++ ) {
-        if( countries[ i ].iso_2===property.countryCode ) {
-          countryCurrency = countries[ i ].currency.code;
-          console.log( 'Country currency =', countryCurrency );
-        }
-      }
-    }
-    console.log( 'Property =', property);
-  } );
 
 </script>
 
@@ -134,7 +48,7 @@
 		{#if property.id}
 			<EditProperty />
 		{:else}
-			<CreateProperty {property} {countryCurrency} {payload} {countries}/>
+			<CreateProperty {property} {user} {countries}/>
 		{/if}
 		<Footer></Footer>
 	</div>

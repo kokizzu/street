@@ -3278,13 +3278,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance8 = bind2(Axios$1.prototype.request, context);
-        utils.extend(instance8, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance8, context, null, { allOwnKeys: true });
-        instance8.create = function create(instanceConfig) {
+        const instance7 = bind2(Axios$1.prototype.request, context);
+        utils.extend(instance7, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance7, context, null, { allOwnKeys: true });
+        instance7.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance8;
+        return instance7;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -4027,7 +4027,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance8, create_fragment9, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance7, create_fragment9, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -4053,7 +4053,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance8 ? instance8(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance7 ? instance7(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -6307,29 +6307,29 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var import_jsApi = __toESM(require_jsApi_GEN());
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[89] = list[i];
+    child_ctx[90] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[92] = list[i];
-    child_ctx[93] = list;
-    child_ctx[94] = i;
+    child_ctx[93] = list[i];
+    child_ctx[94] = list;
+    child_ctx[95] = i;
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[95] = list[i];
+    child_ctx[96] = list[i];
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[98] = list[i];
+    child_ctx[99] = list[i];
     return child_ctx;
   }
   function get_each_context_4(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[101] = list[i];
+    child_ctx[102] = list[i];
     return child_ctx;
   }
   function create_if_block_24(ctx) {
@@ -6420,7 +6420,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let dispose;
     let each_value_4 = ensure_array_like(
       /*countries*/
-      ctx[2]
+      ctx[1]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value_4.length; i += 1) {
@@ -6617,10 +6617,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*countries*/
-        4) {
+        2) {
           each_value_4 = ensure_array_like(
             /*countries*/
-            ctx2[2]
+            ctx2[1]
           );
           let i;
           for (i = 0; i < each_value_4.length; i += 1) {
@@ -6639,7 +6639,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           each_blocks.length = each_value_4.length;
         }
         if (dirty[0] & /*countryIso2, countries*/
-        260) {
+        258) {
           select_option(
             select,
             /*countryIso2*/
@@ -6722,7 +6722,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let option;
     let t_1_value = (
       /*country*/
-      ctx[101].country + ""
+      ctx[102].country + ""
     );
     let t_1;
     let option_value_value;
@@ -6731,7 +6731,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         option = element("option");
         t_1 = text(t_1_value);
         option.__value = option_value_value = /*country*/
-        ctx[101].iso_2;
+        ctx[102].iso_2;
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -6740,12 +6740,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*countries*/
-        4 && t_1_value !== (t_1_value = /*country*/
-        ctx2[101].country + ""))
+        2 && t_1_value !== (t_1_value = /*country*/
+        ctx2[102].country + ""))
           set_data(t_1, t_1_value);
         if (dirty[0] & /*countries*/
-        4 && option_value_value !== (option_value_value = /*country*/
-        ctx2[101].iso_2)) {
+        2 && option_value_value !== (option_value_value = /*country*/
+        ctx2[102].iso_2)) {
           option.__value = option_value_value;
           set_input_value(option, option.__value);
         }
@@ -7020,9 +7020,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t3 = space();
         input = element("input");
         attr(p, "class", "description svelte-aihip1");
-        attr(label, "for", "elevation");
+        attr(label, "for", "altitude");
         attr(label, "class", "svelte-aihip1");
-        attr(input, "id", "elevation");
+        attr(input, "id", "altitude");
         attr(input, "type", "number");
         attr(input, "min", "0");
         attr(input, "step", "0.1");
@@ -7044,7 +7044,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         set_input_value(
           input,
           /*property*/
-          ctx[0].elevation
+          ctx[0].altitude
         );
         if (!mounted) {
           dispose = listen(
@@ -7059,11 +7059,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*property*/
         1 && to_number(input.value) !== /*property*/
-        ctx2[0].elevation) {
+        ctx2[0].altitude) {
           set_input_value(
             input,
             /*property*/
-            ctx2[0].elevation
+            ctx2[0].altitude
           );
         }
       },
@@ -7464,7 +7464,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let option;
     let t_1_value = (
       /*t*/
-      ctx[98] + ""
+      ctx[99] + ""
     );
     let t_1;
     let option_value_value;
@@ -7473,7 +7473,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         option = element("option");
         t_1 = text(t_1_value);
         option.__value = option_value_value = /*t*/
-        ctx[98];
+        ctx[99];
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -8483,7 +8483,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*property, countryCurrency*/
-        3) {
+        33) {
           each_value_2 = ensure_array_like(
             /*property*/
             ctx2[0].otherFee
@@ -8518,16 +8518,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span;
     let t0_value = (
       /*otherFee*/
-      ctx[95].name + ""
+      ctx[96].name + ""
     );
     let t0;
     let t1;
     let b;
     let t2_value = (0, import_formatter.formatPrice)(
       /*otherFee*/
-      ctx[95].fee,
+      ctx[96].fee,
       /*countryCurrency*/
-      ctx[1]
+      ctx[5]
     ) + "";
     let t2;
     let t3;
@@ -8559,14 +8559,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*property*/
         1 && t0_value !== (t0_value = /*otherFee*/
-        ctx2[95].name + ""))
+        ctx2[96].name + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*property, countryCurrency*/
-        3 && t2_value !== (t2_value = (0, import_formatter.formatPrice)(
+        33 && t2_value !== (t2_value = (0, import_formatter.formatPrice)(
           /*otherFee*/
-          ctx2[95].fee,
+          ctx2[96].fee,
           /*countryCurrency*/
-          ctx2[1]
+          ctx2[5]
         ) + ""))
           set_data(t2, t2_value);
       },
@@ -8811,7 +8811,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       ctx[76].call(
         input,
         /*idx*/
-        ctx[94]
+        ctx[95]
       );
     }
     return {
@@ -8828,7 +8828,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           /*property*/
           ctx[0].imageLabels[
             /*idx*/
-            ctx[94]
+            ctx[95]
           ]
         );
         if (!mounted) {
@@ -8842,14 +8842,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         1 && input.value !== /*property*/
         ctx[0].imageLabels[
           /*idx*/
-          ctx[94]
+          ctx[95]
         ]) {
           set_input_value(
             input,
             /*property*/
             ctx[0].imageLabels[
               /*idx*/
-              ctx[94]
+              ctx[95]
             ]
           );
         }
@@ -8900,7 +8900,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         /*click_handler_9*/
         ctx[77](
           /*idx*/
-          ctx[94]
+          ctx[95]
         )
       );
     }
@@ -8918,7 +8918,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         t2 = space();
         attr(img_1, "alt", "");
         if (!src_url_equal(img_1.src, img_1_src_value = /*img*/
-        ctx[92]))
+        ctx[93]))
           attr(img_1, "src", img_1_src_value);
         attr(img_1, "class", "svelte-aihip1");
         attr(div0, "class", "image_container svelte-aihip1");
@@ -8948,7 +8948,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx = new_ctx;
         if (!current || dirty[0] & /*property*/
         1 && !src_url_equal(img_1.src, img_1_src_value = /*img*/
-        ctx[92])) {
+        ctx[93])) {
           attr(img_1, "src", img_1_src_value);
         }
         if (current_block_type === (current_block_type = select_block_type_2(ctx, dirty)) && if_block) {
@@ -9014,7 +9014,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       /*property*/
       ctx[0].lastPrice,
       /*countryCurrency*/
-      ctx[1]
+      ctx[5]
     ) + "";
     let t6;
     let t7;
@@ -9505,11 +9505,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           attr(span0, "class", span0_class_value);
         }
         if ((!current || dirty[0] & /*property, countryCurrency*/
-        3) && t6_value !== (t6_value = (0, import_formatter.formatPrice)(
+        33) && t6_value !== (t6_value = (0, import_formatter.formatPrice)(
           /*property*/
           ctx2[0].lastPrice,
           /*countryCurrency*/
-          ctx2[1]
+          ctx2[5]
         ) + ""))
           set_data(t6, t6_value);
         if (
@@ -9796,7 +9796,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       /*property*/
       ctx[0].depositFee,
       /*countryCurrency*/
-      ctx[1]
+      ctx[5]
     ) + "";
     let t4;
     let t5;
@@ -9873,11 +9873,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*property, countryCurrency*/
-        3 && t4_value !== (t4_value = (0, import_formatter.formatPrice)(
+        33 && t4_value !== (t4_value = (0, import_formatter.formatPrice)(
           /*property*/
           ctx2[0].depositFee,
           /*countryCurrency*/
-          ctx2[1]
+          ctx2[5]
         ) + ""))
           set_data(t4, t4_value);
         if (dirty[0] & /*property*/
@@ -9948,7 +9948,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*infoObj, countryCurrency*/
-        65538) {
+        65568) {
           each_value = ensure_array_like(
             /*infoObj*/
             ctx2[16].otherFee
@@ -9983,16 +9983,16 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let span;
     let t0_value = (
       /*otherfee*/
-      ctx[89].name + ""
+      ctx[90].name + ""
     );
     let t0;
     let t1;
     let b;
     let t2_value = (0, import_formatter.formatPrice)(
       /*otherfee*/
-      ctx[89].fee,
+      ctx[90].fee,
       /*countryCurrency*/
-      ctx[1]
+      ctx[5]
     ) + "";
     let t2;
     let t3;
@@ -10024,14 +10024,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*infoObj*/
         65536 && t0_value !== (t0_value = /*otherfee*/
-        ctx2[89].name + ""))
+        ctx2[90].name + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*infoObj, countryCurrency*/
-        65538 && t2_value !== (t2_value = (0, import_formatter.formatPrice)(
+        65568 && t2_value !== (t2_value = (0, import_formatter.formatPrice)(
           /*otherfee*/
-          ctx2[89].fee,
+          ctx2[90].fee,
           /*countryCurrency*/
-          ctx2[1]
+          ctx2[5]
         ) + ""))
           set_data(t2, t2_value);
       },
@@ -10397,11 +10397,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     );
     let if_block8 = (
       /*isPropertySubmitted*/
-      ctx[4] === false && create_if_block_110(ctx)
+      ctx[3] === false && create_if_block_110(ctx)
     );
     let if_block9 = (
       /*isPropertySubmitted*/
-      ctx[4] === true && create_if_block3(ctx)
+      ctx[3] === true && create_if_block3(ctx)
     );
     return {
       c() {
@@ -10514,25 +10514,25 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         attr(p0, "class", "svelte-aihip1");
         attr(div0, "class", div0_class_value = null_to_empty(
           /*currentPage*/
-          ctx[3] >= 0 ? "step_item completed" : "step_item active"
+          ctx[2] >= 0 ? "step_item completed" : "step_item active"
         ) + " svelte-aihip1");
         attr(button1, "class", "svelte-aihip1");
         attr(p1, "class", "svelte-aihip1");
         attr(div1, "class", div1_class_value = null_to_empty(
           /*currentPage*/
-          ctx[3] === 1 ? "step_item active" : /*currentPage*/ ctx[3] > 1 ? "step_item completed" : "step_item"
+          ctx[2] === 1 ? "step_item active" : /*currentPage*/ ctx[2] > 1 ? "step_item completed" : "step_item"
         ) + " svelte-aihip1");
         attr(button2, "class", "svelte-aihip1");
         attr(p2, "class", "svelte-aihip1");
         attr(div2, "class", div2_class_value = null_to_empty(
           /*currentPage*/
-          ctx[3] === 2 ? "step_item active" : /*currentPage*/ ctx[3] > 2 ? "step_item completed" : "step_item"
+          ctx[2] === 2 ? "step_item active" : /*currentPage*/ ctx[2] > 2 ? "step_item completed" : "step_item"
         ) + " svelte-aihip1");
         attr(button3, "class", "svelte-aihip1");
         attr(p3, "class", "svelte-aihip1");
         attr(div3, "class", div3_class_value = null_to_empty(
           /*currentPage*/
-          ctx[3] === 3 ? "step_item active" : "step_item"
+          ctx[2] === 3 ? "step_item active" : "step_item"
         ) + " svelte-aihip1");
         attr(div4, "class", "step_wrapper svelte-aihip1");
         attr(div5, "class", "container svelte-aihip1");
@@ -10717,30 +10717,30 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       p(ctx2, dirty) {
         if (!current || dirty[0] & /*currentPage*/
-        8 && div0_class_value !== (div0_class_value = null_to_empty(
+        4 && div0_class_value !== (div0_class_value = null_to_empty(
           /*currentPage*/
-          ctx2[3] >= 0 ? "step_item completed" : "step_item active"
+          ctx2[2] >= 0 ? "step_item completed" : "step_item active"
         ) + " svelte-aihip1")) {
           attr(div0, "class", div0_class_value);
         }
         if (!current || dirty[0] & /*currentPage*/
-        8 && div1_class_value !== (div1_class_value = null_to_empty(
+        4 && div1_class_value !== (div1_class_value = null_to_empty(
           /*currentPage*/
-          ctx2[3] === 1 ? "step_item active" : /*currentPage*/ ctx2[3] > 1 ? "step_item completed" : "step_item"
+          ctx2[2] === 1 ? "step_item active" : /*currentPage*/ ctx2[2] > 1 ? "step_item completed" : "step_item"
         ) + " svelte-aihip1")) {
           attr(div1, "class", div1_class_value);
         }
         if (!current || dirty[0] & /*currentPage*/
-        8 && div2_class_value !== (div2_class_value = null_to_empty(
+        4 && div2_class_value !== (div2_class_value = null_to_empty(
           /*currentPage*/
-          ctx2[3] === 2 ? "step_item active" : /*currentPage*/ ctx2[3] > 2 ? "step_item completed" : "step_item"
+          ctx2[2] === 2 ? "step_item active" : /*currentPage*/ ctx2[2] > 2 ? "step_item completed" : "step_item"
         ) + " svelte-aihip1")) {
           attr(div2, "class", div2_class_value);
         }
         if (!current || dirty[0] & /*currentPage*/
-        8 && div3_class_value !== (div3_class_value = null_to_empty(
+        4 && div3_class_value !== (div3_class_value = null_to_empty(
           /*currentPage*/
-          ctx2[3] === 3 ? "step_item active" : "step_item"
+          ctx2[2] === 3 ? "step_item active" : "step_item"
         ) + " svelte-aihip1")) {
           attr(div3, "class", div3_class_value);
         }
@@ -10829,7 +10829,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         const addotherfeesdialog_changes = {};
         if (dirty[3] & /*$scope*/
-        2048) {
+        4096) {
           addotherfeesdialog_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_fee && dirty[0] & /*otherFeeObj*/
@@ -10938,12 +10938,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*isPropertySubmitted*/
-          ctx2[4] === false
+          ctx2[3] === false
         ) {
           if (if_block8) {
             if_block8.p(ctx2, dirty);
             if (dirty[0] & /*isPropertySubmitted*/
-            16) {
+            8) {
               transition_in(if_block8, 1);
             }
           } else {
@@ -10961,12 +10961,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         if (
           /*isPropertySubmitted*/
-          ctx2[4] === true
+          ctx2[3] === true
         ) {
           if (if_block9) {
             if_block9.p(ctx2, dirty);
             if (dirty[0] & /*isPropertySubmitted*/
-            16) {
+            8) {
               transition_in(if_block9, 1);
             }
           } else {
@@ -11060,31 +11060,108 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var m2 = "M2";
   var ping = "Ping";
   function instance6($self, $props, $invalidate) {
-    let { property } = $props;
+    let { user: user2 } = $props;
+    let { property: property2 } = $props;
     let { countries: countries2 } = $props;
-    let { payload } = $props;
     let currentPage = 0, isPropertySubmitted = false;
     let cards = [{}, {}, {}, {}];
-    let { countryCurrency } = $props;
+    let payload = {};
+    let countryCurrency = "TWD";
+    onMount(() => {
+      console.log("onMount.property");
+      console.log("property = ", property2);
+      console.log("Country data = ", countries2);
+      const defaultLat = 23.6978, defaultLng = 120.9605;
+      if (Object.keys(property2).length === 0) {
+        $invalidate(0, property2 = {
+          countryCode: user2.countryCode,
+          city: "",
+          // new
+          countyName: "",
+          // new
+          address: "",
+          district: "",
+          street: "",
+          // new
+          street2: "",
+          // new
+          floors: 0,
+          formattedAddress: "",
+          lat: defaultLat,
+          lng: defaultLng,
+          coord: [defaultLat, defaultLng],
+          altitude: 0,
+          // new
+          uniqPropKey: "1_12449819078726277117",
+          serialNumber: "",
+          houseType: "",
+          bedroom: 0,
+          bathroom: 0,
+          livingroom: 0,
+          // new
+          sizeM2: 0,
+          purpose: "sell",
+          agencyFeePercent: 0,
+          parking: "0",
+          // new
+          depositFee: 0,
+          // new
+          minimumDurationYear: 0,
+          // new
+          otherFee: [],
+          // new
+          lastPrice: 0,
+          images: [],
+          imageLabels: [],
+          // new
+          createdAt: 1692641835,
+          updatedAt: 1692641835
+        });
+        for (let i = 0; i < countries2.length; i++) {
+          if (countries2[i].iso_2 === property2.countryCode) {
+            $invalidate(5, countryCurrency = countries2[i].currency.code);
+            console.log("Country currency =", countryCurrency);
+          }
+        }
+      } else {
+        console.log(property2.lastPrice);
+        if (property2.coord && property2.coord.length) {
+          $invalidate(0, property2.lat = property2.coord[0], property2);
+          $invalidate(0, property2.lng = property2.coord[1], property2);
+        }
+        $invalidate(0, property2.lastPrice = +property2.lastPrice || 0, property2);
+        $invalidate(0, property2.agencyFeePercent = +property2.agencyFeePercent, property2);
+        $invalidate(0, property2.floorList = property2.floorList || [], property2);
+        $invalidate(0, property2.images = property2.images || [], property2);
+        $invalidate(0, property2.parking = property2.parking.toString(), property2);
+        for (let i = 0; i < countries2.length; i++) {
+          if (countries2[i].iso_2 === property2.countryCode) {
+            $invalidate(5, countryCurrency = countries2[i].currency.code);
+            console.log("Country currency =", countryCurrency);
+          }
+        }
+      }
+      console.log("Property =", property2);
+    });
     function progressDotHandler(toPage) {
       let card = cards[toPage];
       card.scrollIntoView({ behavior: "smooth" });
     }
     function nextPage() {
       if (currentPage < 3) {
-        $invalidate(3, currentPage++, currentPage);
+        $invalidate(2, currentPage++, currentPage);
         let card = cards[currentPage];
         card.scrollIntoView({ behavior: "smooth" });
       }
     }
     function backPage() {
       if (currentPage > 0) {
-        $invalidate(3, currentPage--, currentPage);
+        $invalidate(2, currentPage--, currentPage);
         let card = cards[currentPage];
         card.scrollIntoView({ behavior: "smooth" });
       }
     }
-    let modeLocationCount = 0, countryName = "Country", countryIso2 = property.countryCode;
+    let modeLocationCount = 0, countryName = "Country", countryIso2 = property2.countryCode;
     const modeLocationLists = [{ mode: LOC_ADDR }, { mode: LOC_MAP }, { mode: LOC_STREETVIEW }];
     let modeLocation = modeLocationLists[modeLocationCount].mode;
     let map, map_container, input_address;
@@ -11094,7 +11171,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       map = new Map2(
         map_container,
         {
-          center: { lat: property.lat, lng: property.lng },
+          center: { lat: property2.lat, lng: property2.lng },
           zoom: 8,
           mapTypeId: "roadmap",
           mapId: "street_project"
@@ -11105,8 +11182,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       map.controls[google.maps.ControlPosition.TOP_LEFT].push(input_address);
       let markers = [];
       const markerEventHandler = (event) => {
-        $invalidate(0, property.coord[0] = event.latLng.lat(), property);
-        $invalidate(0, property.coord[1] = event.latLng.lng(), property);
+        $invalidate(0, property2.coord[0] = event.latLng.lat(), property2);
+        $invalidate(0, property2.coord[1] = event.latLng.lng(), property2);
         getAddress(event.latLng);
       };
       const createMarker = (map2, latLng) => {
@@ -11122,21 +11199,21 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         });
         markers2.length = 0;
       };
-      markers.push(createMarker(map, { lat: property.lat, lng: property.lng }));
+      markers.push(createMarker(map, { lat: property2.lat, lng: property2.lng }));
       const getAddress = (latLng) => {
         geocoder.geocode({ location: latLng }, (results, status) => {
           if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
-            $invalidate(0, property.formattedAddress = results[0].formatted_address, property);
+            $invalidate(0, property2.formattedAddress = results[0].formatted_address, property2);
             for (let i = 0; i < results[0].address_components.length; i++) {
               if (results[0].address_components[i].types.indexOf("country") !== -1) {
-                $invalidate(0, property.country = results[0].address_components[i].short_name, property);
+                $invalidate(0, property2.country = results[0].address_components[i].short_name, property2);
                 $invalidate(7, countryName = results[0].address_components[i].long_name);
               }
             }
           } else {
             alert("Address not found");
-            $invalidate(0, property.formattedAddresss = "", property);
-            $invalidate(0, property.country = "", property);
+            $invalidate(0, property2.formattedAddresss = "", property2);
+            $invalidate(0, property2.country = "", property2);
           }
         });
       };
@@ -11144,8 +11221,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         clearMarkers(markers);
         const latLong = event.latLng;
         markers = [createMarker(map, latLong)];
-        $invalidate(0, property.coord[0] = latLong.lat(), property);
-        $invalidate(0, property.coord[1] = latLong.lng(), property);
+        $invalidate(0, property2.coord[0] = latLong.lat(), property2);
+        $invalidate(0, property2.coord[1] = latLong.lng(), property2);
         getAddress(latLong);
       });
       map.addListener("bounds_changed", () => {
@@ -11156,12 +11233,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         if (places.length == 0) {
           return;
         }
-        $invalidate(0, property.lng = places[0].geometry.location.lng(), property);
-        $invalidate(0, property.lat = places[0].geometry.location.lat(), property);
-        $invalidate(0, property.formattedAddress = places[0].formatted_address, property);
+        $invalidate(0, property2.lng = places[0].geometry.location.lng(), property2);
+        $invalidate(0, property2.lat = places[0].geometry.location.lat(), property2);
+        $invalidate(0, property2.formattedAddress = places[0].formatted_address, property2);
         for (let i = 0; i < places[0].address_components.length; i++) {
           if (places[0].address_components[i].types.indexOf("country") !== -1) {
-            $invalidate(0, property.country = places[0].address_components[i].short_name, property);
+            $invalidate(0, property2.country = places[0].address_components[i].short_name, property2);
             $invalidate(7, countryName = places[0].address_components[i].long_name);
           }
         }
@@ -11197,8 +11274,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     function changeCurrency() {
       countries2.forEach((c) => {
-        if (c.iso_2 === property.country) {
-          $invalidate(1, countryCurrency = c.currency.code);
+        if (c.iso_2 === property2.country) {
+          $invalidate(5, countryCurrency = c.currency.code);
         }
       });
     }
@@ -11213,18 +11290,18 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     const handleNextLocation = {
       "LOC_ADDR": async () => {
-        console.log("add prop = ", property);
-        $invalidate(0, property.countryCode = countryIso2, property);
-        if (property.city === "" || property.street === "" || property.floors === 0) {
+        console.log("add prop = ", property2);
+        $invalidate(0, property2.countryCode = countryIso2, property2);
+        if (property2.city === "" || property2.street === "" || property2.floors === 0) {
           alert("Please fill required form");
           return;
         }
         for (let i = 0; i < countries2.length; i++) {
-          if (countries2[i].iso_2 === property.countryCode) {
+          if (countries2[i].iso_2 === property2.countryCode) {
             $invalidate(7, countryName = countries2[i].country);
-            $invalidate(1, countryCurrency = countries2[i].currency.code);
-            $invalidate(0, property.lat = parseInt(countries2[i].coordinate.lat), property);
-            $invalidate(0, property.lng = parseInt(countries2[i].coordinate.lng), property);
+            $invalidate(5, countryCurrency = countries2[i].currency.code);
+            $invalidate(0, property2.lat = parseInt(countries2[i].coordinate.lat), property2);
+            $invalidate(0, property2.lng = parseInt(countries2[i].coordinate.lng), property2);
           }
         }
         $invalidate(6, modeLocationCount += 1);
@@ -11232,7 +11309,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         await initMap();
       },
       "LOC_MAP": () => {
-        if (property.formattedAddress === "") {
+        if (property2.formattedAddress === "") {
           alert("Please mark location on map");
           return;
         }
@@ -11243,13 +11320,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         nextPage();
       }
     };
-    let modeInfoCount = 0, infoUnitMode = m2, houseSize = parseInt(property.sizeM2), houseSizeM2 = 0, houseSizePing = 0;
+    let modeInfoCount = 0, infoUnitMode = m2, houseSize = parseInt(property2.sizeM2), houseSizeM2 = 0, houseSizePing = 0;
     const modeInfoLists = [{ mode: INFO_FEAT }, { mode: INFO_PRICE }];
     let modeInfo = modeInfoLists[modeInfoCount].mode;
     let infoObj = {
       agencyFee: "false",
       deposit: "false",
-      houseType: property.houseType
+      houseType: property2.houseType
     };
     let otherFeeObj = { name: "", fee: 0 };
     let addOtherFeeDialog = AddOtherFeesDialog_default;
@@ -11265,7 +11342,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       "other"
     ];
     function addOtherFee() {
-      $invalidate(0, property.otherFee = [...property.otherFee, otherFeeObj], property);
+      $invalidate(0, property2.otherFee = [...property2.otherFee, otherFeeObj], property2);
       $invalidate(17, otherFeeObj = { name: "", fee: 0 });
       addOtherFeeDialog.hideModal();
     }
@@ -11312,15 +11389,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     const handleNextInfo = {
       "INFO_FEAT": () => {
-        $invalidate(0, property.parking = infoObj.parking, property);
-        $invalidate(0, property.houseType = infoObj.houseType, property);
+        $invalidate(0, property2.parking = infoObj.parking, property2);
+        $invalidate(0, property2.houseType = infoObj.houseType, property2);
         if (infoUnitMode === ping) {
-          $invalidate(0, property.sizeM2 = handleInfoUnitMode.pingToM2(houseSize), property);
+          $invalidate(0, property2.sizeM2 = handleInfoUnitMode.pingToM2(houseSize), property2);
         }
         if (infoUnitMode === m2) {
-          $invalidate(0, property.sizeM2 = houseSize, property);
+          $invalidate(0, property2.sizeM2 = houseSize, property2);
         }
-        if (property.sizeM2 === 0) {
+        if (property2.sizeM2 === 0) {
           alert("Please fill required form");
           return;
         }
@@ -11328,7 +11405,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         $invalidate(15, modeInfo = modeInfoLists[modeInfoCount].mode);
       },
       "INFO_PRICE": () => {
-        if (property.lastPrice === 0 || property.agencyFee >= 99) {
+        if (property2.lastPrice === 0 || property2.agencyFee >= 99) {
           alert("Price cannot be 0");
           return;
         }
@@ -11359,8 +11436,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           if (ajax.status === 200) {
             const out = JSON.parse(event.target.responseText);
             if (!out.error) {
-              $invalidate(0, property.images = [...property.images, out.urlPattern], property);
-              $invalidate(0, property.imageLabels = [...property.imageLabels, ""], property);
+              $invalidate(0, property2.images = [...property2.images, out.urlPattern], property2);
+              $invalidate(0, property2.imageLabels = [...property2.imageLabels, ""], property2);
             }
             alert("Image uploaded");
           } else if (ajax.status === 413) {
@@ -11385,14 +11462,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       $invalidate(19, imageHouseInput.value = null, imageHouseInput);
     }
     function removeImage(index) {
-      $invalidate(0, property.images = property.images.filter((_, i) => i !== index), property);
-      $invalidate(0, property.imageLabels = property.imageLabels.filter((_, i) => i !== index), property);
+      $invalidate(0, property2.images = property2.images.filter((_, i) => i !== index), property2);
+      $invalidate(0, property2.imageLabels = property2.imageLabels.filter((_, i) => i !== index), property2);
     }
     let res_propId = window.location.pathname.split("/property/").pop() || "0";
     let submitLoading = false;
     async function handleSubmit() {
       $invalidate(23, submitLoading = true);
-      console.log("property=", property, "payload=", payload);
+      console.log("property=", property2, "payload=", payload);
       const prop = { property: payload };
       await (0, import_jsApi.RealtorUpsertProperty)(prop, function(res) {
         $invalidate(23, submitLoading = false);
@@ -11401,8 +11478,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           return;
         }
         console.log(res);
-        $invalidate(4, isPropertySubmitted = true);
-        $invalidate(0, property.id = (res.property || {}).id + "", property);
+        $invalidate(3, isPropertySubmitted = true);
+        $invalidate(0, property2.id = (res.property || {}).id + "", property2);
       });
     }
     const click_handler = () => progressDotHandler(0);
@@ -11419,27 +11496,27 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function select_change_handler() {
       countryIso2 = select_value(this);
       $invalidate(8, countryIso2);
-      $invalidate(2, countries2);
+      $invalidate(1, countries2);
     }
     function input_input_handler() {
-      property.countyName = this.value;
-      $invalidate(0, property);
+      property2.countyName = this.value;
+      $invalidate(0, property2);
     }
     function input_input_handler_1() {
-      property.city = this.value;
-      $invalidate(0, property);
+      property2.city = this.value;
+      $invalidate(0, property2);
     }
     function input0_input_handler() {
-      property.street = this.value;
-      $invalidate(0, property);
+      property2.street = this.value;
+      $invalidate(0, property2);
     }
     function input1_input_handler() {
-      property.street2 = this.value;
-      $invalidate(0, property);
+      property2.street2 = this.value;
+      $invalidate(0, property2);
     }
     function input2_input_handler() {
-      property.floors = to_number(this.value);
-      $invalidate(0, property);
+      property2.floors = to_number(this.value);
+      $invalidate(0, property2);
     }
     function input_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
@@ -11454,8 +11531,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       });
     }
     function input_input_handler_2() {
-      property.elevation = to_number(this.value);
-      $invalidate(0, property);
+      property2.altitude = to_number(this.value);
+      $invalidate(0, property2);
     }
     const click_handler_5 = () => {
       if (modeLocationCount === 0) {
@@ -11469,7 +11546,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function section0_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         cards[0] = $value;
-        $invalidate(5, cards);
+        $invalidate(4, cards);
       });
     }
     function addotherfeesdialog_fee_binding(value) {
@@ -11496,30 +11573,30 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       $invalidate(30, houseTypeLists);
     }
     function select1_change_handler() {
-      property.parking = select_value(this);
-      $invalidate(0, property);
+      property2.parking = select_value(this);
+      $invalidate(0, property2);
     }
     function input0_input_handler_1() {
-      property.bedroom = to_number(this.value);
-      $invalidate(0, property);
+      property2.bedroom = to_number(this.value);
+      $invalidate(0, property2);
     }
     function input1_input_handler_1() {
-      property.bathroom = to_number(this.value);
-      $invalidate(0, property);
+      property2.bathroom = to_number(this.value);
+      $invalidate(0, property2);
     }
     function input2_input_handler_1() {
-      property.livingroom = to_number(this.value);
-      $invalidate(0, property);
+      property2.livingroom = to_number(this.value);
+      $invalidate(0, property2);
     }
     function input_input_handler_3() {
       houseSize = to_number(this.value);
       $invalidate(14, houseSize);
     }
-    const click_handler_6 = () => $invalidate(0, property.purpose = "sell", property);
-    const click_handler_7 = () => $invalidate(0, property.purpose = "rent", property);
+    const click_handler_6 = () => $invalidate(0, property2.purpose = "sell", property2);
+    const click_handler_7 = () => $invalidate(0, property2.purpose = "rent", property2);
     function input2_input_handler_2() {
-      property.lastPrice = to_number(this.value);
-      $invalidate(0, property);
+      property2.lastPrice = to_number(this.value);
+      $invalidate(0, property2);
     }
     function select_change_handler_1() {
       infoObj.agencyFee = select_value(this);
@@ -11527,8 +11604,8 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       $invalidate(30, houseTypeLists);
     }
     function input_input_handler_4() {
-      property.agencyFeePercent = to_number(this.value);
-      $invalidate(0, property);
+      property2.agencyFeePercent = to_number(this.value);
+      $invalidate(0, property2);
     }
     function select_change_handler_2() {
       infoObj.deposit = select_value(this);
@@ -11536,12 +11613,12 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       $invalidate(30, houseTypeLists);
     }
     function input_input_handler_5() {
-      property.depositFee = to_number(this.value);
-      $invalidate(0, property);
+      property2.depositFee = to_number(this.value);
+      $invalidate(0, property2);
     }
     function input_input_handler_6() {
-      property.minimumDurationYear = to_number(this.value);
-      $invalidate(0, property);
+      property2.minimumDurationYear = to_number(this.value);
+      $invalidate(0, property2);
     }
     const click_handler_8 = () => {
       if (modeInfoCount === 0) {
@@ -11553,7 +11630,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function section1_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         cards[1] = $value;
-        $invalidate(5, cards);
+        $invalidate(4, cards);
       });
     }
     function input_binding_1($value) {
@@ -11563,17 +11640,17 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       });
     }
     function input_input_handler_7(idx) {
-      property.imageLabels[idx] = this.value;
-      $invalidate(0, property);
+      property2.imageLabels[idx] = this.value;
+      $invalidate(0, property2);
     }
     const click_handler_9 = (idx) => removeImage(idx);
     function section2_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         cards[2] = $value;
-        $invalidate(5, cards);
+        $invalidate(4, cards);
       });
     }
-    const click_handler_10 = () => $invalidate(4, isPropertySubmitted = false);
+    const click_handler_10 = () => $invalidate(3, isPropertySubmitted = false);
     const click_handler_11 = () => {
       window.location.href = "/realtor/property";
     };
@@ -11583,71 +11660,69 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     function section3_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         cards[3] = $value;
-        $invalidate(5, cards);
+        $invalidate(4, cards);
       });
     }
     $self.$set = ($props2) => {
+      if ("user" in $props2)
+        $invalidate(39, user2 = $props2.user);
       if ("property" in $props2)
-        $invalidate(0, property = $props2.property);
+        $invalidate(0, property2 = $props2.property);
       if ("countries" in $props2)
-        $invalidate(2, countries2 = $props2.countries);
-      if ("payload" in $props2)
-        $invalidate(39, payload = $props2.payload);
-      if ("countryCurrency" in $props2)
-        $invalidate(1, countryCurrency = $props2.countryCurrency);
+        $invalidate(1, countries2 = $props2.countries);
     };
     $self.$.update = () => {
       if ($self.$.dirty[0] & /*property*/
       1) {
         $: {
           let id = "0";
-          if (property.id > 0)
-            id = "" + property.id;
-          if (property.countryCode === "US")
-            $invalidate(0, property.city = property.countyName, property);
-          $invalidate(39, payload = {
+          if (property2.id > 0)
+            id = "" + property2.id;
+          if (property2.countryCode === "US")
+            $invalidate(0, property2.city = property2.countyName, property2);
+          payload = {
             // new
-            countryCode: property.countryCode,
-            city: property.city,
-            countyName: property.countyName,
-            district: property.district,
-            street: property.street,
-            street2: property.street2 || "",
+            countryCode: property2.countryCode,
+            city: property2.city,
+            countyName: property2.countyName,
+            district: property2.district,
+            street: property2.street,
+            street2: property2.street2 || "",
             // this means optional
-            livingroom: property.livingroom,
-            parking: parseFloat(property.parking),
-            depositFee: property.depositFee,
-            minimumDurationYear: property.minimumDurationYear,
-            otherFee: property.otherFee || [],
-            imageLabels: property.imageLabels || [],
-            elevation: property.elevation,
+            livingroom: property2.livingroom,
+            parking: parseFloat(property2.parking),
+            depositFee: property2.depositFee,
+            minimumDurationYear: property2.minimumDurationYear,
+            otherFee: property2.otherFee || [],
+            imageLabels: property2.imageLabels || [],
+            altitude: property2.altitude,
             // old
             id,
-            formattedAddress: property.formattedAddress,
-            coord: [property.lat, property.lng],
-            houseType: property.houseType,
-            purpose: property.purpose,
-            images: property.images || [],
-            bedroom: property.bedroom,
-            bathroom: property.bathroom,
-            sizeM2: "" + property.sizeM2,
+            formattedAddress: property2.formattedAddress,
+            coord: [property2.lat, property2.lng],
+            houseType: property2.houseType,
+            purpose: property2.purpose,
+            images: property2.images || [],
+            bedroom: property2.bedroom,
+            bathroom: property2.bathroom,
+            sizeM2: "" + property2.sizeM2,
             // have to be string because of taiwan data
-            mainUse: property.mainUse,
-            note: property.note,
-            lastPrice: "" + property.lastPrice,
-            agencyFeePercent: property.agencyFeePercent,
-            numberOfFloors: "" + property.floors
-          });
+            mainUse: property2.mainUse,
+            note: property2.note,
+            lastPrice: "" + property2.lastPrice,
+            agencyFeePercent: property2.agencyFeePercent,
+            numberOfFloors: "" + property2.floors
+          };
         }
       }
     };
     return [
-      property,
-      countryCurrency,
+      property2,
       countries2,
       currentPage,
       isPropertySubmitted,
       cards,
+      countryCurrency,
       modeLocationCount,
       countryName,
       countryIso2,
@@ -11681,7 +11756,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       removeImage,
       res_propId,
       handleSubmit,
-      payload,
+      user2,
       click_handler,
       click_handler_1,
       click_handler_2,
@@ -11730,21 +11805,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   var CreateProperty = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(
-        this,
-        options,
-        instance6,
-        create_fragment6,
-        safe_not_equal,
-        {
-          property: 0,
-          countries: 2,
-          payload: 39,
-          countryCurrency: 1
-        },
-        null,
-        [-1, -1, -1, -1]
-      );
+      init(this, options, instance6, create_fragment6, safe_not_equal, { user: 39, property: 0, countries: 1 }, null, [-1, -1, -1, -1]);
     }
   };
   var CreateProperty_default = CreateProperty;
@@ -11782,23 +11843,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   function create_else_block2(ctx) {
     let createproperty;
     let current;
-    createproperty = new CreateProperty_default({
-      props: {
-        property: (
-          /*property*/
-          ctx[0]
-        ),
-        countryCurrency: (
-          /*countryCurrency*/
-          ctx[1]
-        ),
-        payload: (
-          /*payload*/
-          ctx[2]
-        ),
-        countries
-      }
-    });
+    createproperty = new CreateProperty_default({ props: { property, user, countries } });
     return {
       c() {
         create_component(createproperty.$.fragment);
@@ -11807,18 +11852,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         mount_component(createproperty, target, anchor);
         current = true;
       },
-      p(ctx2, dirty) {
-        const createproperty_changes = {};
-        if (dirty & /*property*/
-        1)
-          createproperty_changes.property = /*property*/
-          ctx2[0];
-        if (dirty & /*countryCurrency*/
-        2)
-          createproperty_changes.countryCurrency = /*countryCurrency*/
-          ctx2[1];
-        createproperty.$set(createproperty_changes);
-      },
+      p: noop,
       i(local) {
         if (current)
           return;
@@ -11882,10 +11916,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     const if_block_creators = [create_if_block4, create_else_block2];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
-      if (
-        /*property*/
-        ctx2[0].id
-      )
+      if (property.id)
         return 0;
       return 1;
     }
@@ -11926,26 +11957,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         current = true;
       },
       p(ctx2, [dirty]) {
-        let previous_block_index = current_block_type_index;
-        current_block_type_index = select_block_type(ctx2, dirty);
-        if (current_block_type_index === previous_block_index) {
-          if_blocks[current_block_type_index].p(ctx2, dirty);
-        } else {
-          group_outros();
-          transition_out(if_blocks[previous_block_index], 1, 1, () => {
-            if_blocks[previous_block_index] = null;
-          });
-          check_outros();
-          if_block = if_blocks[current_block_type_index];
-          if (!if_block) {
-            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
-            if_block.c();
-          } else {
-            if_block.p(ctx2, dirty);
-          }
-          transition_in(if_block, 1);
-          if_block.m(div, t4);
-        }
+        if_block.p(ctx2, dirty);
       },
       i(local) {
         if (current)
@@ -11977,95 +11989,14 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
+  var property = {/* property */};
   var user = {/* user */};
   var segments = {/* segments */};
   var countries = [/* countries */];
-  function instance7($self, $props, $invalidate) {
-    let property = {/* property */};
-    let payload = {};
-    let countryCurrency = "TWD";
-    onMount(() => {
-      console.log("onMount.property");
-      console.log("property = ", property);
-      console.log("Country data = ", countries);
-      const defaultLat = 23.6978, defaultLng = 120.9605;
-      if (Object.keys(property).length === 0) {
-        $invalidate(0, property = {
-          countryCode: user.countryCode,
-          city: "",
-          // new
-          countyName: "",
-          // new
-          address: "",
-          district: "",
-          street: "",
-          // new
-          street2: "",
-          // new
-          floors: 0,
-          formattedAddress: "",
-          lat: defaultLat,
-          lng: defaultLng,
-          coord: [defaultLat, defaultLng],
-          elevation: 0,
-          // new
-          uniqPropKey: "1_12449819078726277117",
-          serialNumber: "",
-          houseType: "",
-          bedroom: 0,
-          bathroom: 0,
-          livingroom: 0,
-          // new
-          sizeM2: 0,
-          purpose: "sell",
-          agencyFeePercent: 0,
-          parking: "0",
-          // new
-          depositFee: 0,
-          // new
-          minimumDurationYear: 0,
-          // new
-          otherFee: [],
-          // new
-          lastPrice: 0,
-          images: [],
-          imageLabels: [],
-          // new
-          createdAt: 1692641835,
-          updatedAt: 1692641835
-        });
-        for (let i = 0; i < countries.length; i++) {
-          if (countries[i].iso_2 === property.countryCode) {
-            $invalidate(1, countryCurrency = countries[i].currency.code);
-            console.log("Country currency =", countryCurrency);
-          }
-        }
-      } else {
-        console.log(property.lastPrice);
-        if (property.coord && property.coord.length) {
-          $invalidate(0, property.lat = property.coord[0], property);
-          $invalidate(0, property.lng = property.coord[1], property);
-        }
-        $invalidate(0, property.lastPrice = +property.lastPrice || 0, property);
-        $invalidate(0, property.agencyFeePercent = +property.agencyFeePercent, property);
-        $invalidate(0, property.floorList = property.floorList || [], property);
-        $invalidate(0, property.images = property.images || [], property);
-        $invalidate(0, property.parking = property.parking.toString(), property);
-        for (let i = 0; i < countries.length; i++) {
-          if (countries[i].iso_2 === property.countryCode) {
-            $invalidate(1, countryCurrency = countries[i].currency.code);
-            console.log("Country currency =", countryCurrency);
-          }
-        }
-      }
-      console.log("Property =", property);
-    });
-    return [property, countryCurrency, payload];
-  }
   var Property = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance7, create_fragment8, safe_not_equal, {});
+      init(this, options, null, create_fragment8, safe_not_equal, {});
     }
   };
   var property_default = Property;

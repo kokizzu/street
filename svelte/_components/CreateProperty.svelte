@@ -18,13 +18,99 @@
   import AddOtherFeesDialog from "./AddOtherFeesDialog.svelte";
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import {RealtorUpsertProperty} from "../jsApi.GEN";
+  import {onMount} from "svelte";
   
+  export let user;
   export let property;
   export let countries;
-  export let payload;
   let currentPage = 0, isPropertySubmitted = false;
   let cards = [{}, {}, {}, {}];
-  export let countryCurrency;
+  
+  let payload = {}
+  let countryCurrency = 'TWD';
+  onMount( () => {
+    console.log( 'onMount.property' );
+    console.log( 'property = ', property );
+    console.log( 'Country data = ', countries );
+    const defaultLat = 23.6978, defaultLng = 120.9605;
+    if( Object.keys( property ).length===0 ) {
+      property = {
+        countryCode: user.countryCode,
+        city: '', // new
+        countyName: '', // new
+        address: '',
+        district: '',
+        street: '', // new
+        street2: '', // new
+        floors: 0,
+        formattedAddress: '',
+        lat: defaultLat,
+        lng: defaultLng,
+        coord: [defaultLat, defaultLng],
+        altitude: 0, // new
+        
+        uniqPropKey: '1_12449819078726277117',
+        serialNumber: '',
+        
+        houseType: '',
+        bedroom: 0,
+        bathroom: 0,
+        livingroom: 0, // new
+        sizeM2: 0,
+        purpose: 'sell',
+        agencyFeePercent: 0,
+        parking: '0', // new
+        depositFee: 0, // new
+        minimumDurationYear: 0, // new
+        otherFee: [], // new
+        lastPrice: 0,
+        
+        images: [],
+        imageLabels: [], // new
+        createdAt: 1692641835,
+        updatedAt: 1692641835,
+        
+        // floorList: [], // no longer used
+        // mainUse: '', // no longer used
+        // note: '', // no longer used
+        
+        //"id": '1234'
+        // mainBuildingMaterial: '',
+        // constructCompletedDate: '',
+        // 'numberOfFloors': '0',
+        // buildingLamination: '',
+        // createdBy: '0',
+        // 'updatedBy': '0',
+        // 'deletedAt': 0,
+        // priceHistoriesSell: [],
+        // priceHistoriesRent: [],
+      };
+      for( let i = 0; i<countries.length; i++ ) {
+        if( countries[ i ].iso_2===property.countryCode ) {
+          countryCurrency = countries[ i ].currency.code;
+          console.log( 'Country currency =', countryCurrency );
+        }
+      }
+    } else {
+      console.log( property.lastPrice );
+      if( property.coord && property.coord.length ) {
+        property.lat = property.coord[ 0 ];
+        property.lng = property.coord[ 1 ];
+      }
+      property.lastPrice = +property.lastPrice || 0;
+      property.agencyFeePercent = +property.agencyFeePercent;
+      property.floorList = property.floorList || [];
+      property.images = property.images || [];
+      property.parking = property.parking.toString();
+      for( let i = 0; i<countries.length; i++ ) {
+        if( countries[ i ].iso_2===property.countryCode ) {
+          countryCurrency = countries[ i ].currency.code;
+          console.log( 'Country currency =', countryCurrency );
+        }
+      }
+    }
+    console.log( 'Property =', property);
+  } );
   
   $: {
     let id = '0';
@@ -44,7 +130,7 @@
       minimumDurationYear: property.minimumDurationYear,
       otherFee: property.otherFee || [],
       imageLabels: property.imageLabels || [],
-      elevation: property.elevation,
+      altitude: property.altitude,
       
       // old
       id: id,
@@ -556,8 +642,8 @@
 						<p class='description'>Let buyers find your house on camera.</p>
 						<div class='streetview_container'>
 							<div class='input_box'>
-								<label for='elevation'>Estimated distance from floor where you want to put your signage</label>
-								<input id='elevation' type='number' min='0' step='0.1' placeholder='Required' bind:value={property.elevation}/>
+								<label for='altitude'>Estimated distance from floor where you want to put your signage</label>
+								<input id='altitude' type='number' min='0' step='0.1' placeholder='Required' bind:value={property.altitude}/>
 							</div>
 						</div>
 					</div>
