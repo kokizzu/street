@@ -1272,6 +1272,36 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   border: 1px solid #F97316;
   color: #F97316;
 }
+
+/* fakecss:./_components/EditProperty.esbuild-svelte-fake-css */
+.back_button:hover .iconBack {
+  fill: #EF4444;
+}
+.upper_action.svelte-1git5nn.svelte-1git5nn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  margin: -40px 0 0 0;
+  padding: 0 55px 70px 55px;
+  position: relative;
+  background-color: #EF4444;
+  font-weight: 600;
+  color: #FFF;
+  z-index: 40;
+}
+.upper_action.svelte-1git5nn .back_button.svelte-1git5nn {
+  padding: 8px;
+  background-color: #FFF;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  height: fit-content;
+  color: #334155;
+}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -3278,13 +3308,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance7 = bind2(Axios$1.prototype.request, context);
-        utils.extend(instance7, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance7, context, null, { allOwnKeys: true });
-        instance7.create = function create(instanceConfig) {
+        const instance8 = bind2(Axios$1.prototype.request, context);
+        utils.extend(instance8, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance8, context, null, { allOwnKeys: true });
+        instance8.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance7;
+        return instance8;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -4027,7 +4057,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance7, create_fragment9, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance8, create_fragment9, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -4053,7 +4083,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance7 ? instance7(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance8 ? instance8(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -11812,29 +11842,83 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 
   // _components/EditProperty.svelte
   function create_fragment7(ctx) {
-    let div;
+    let div0;
+    let a;
+    let icon;
+    let t0;
+    let span;
+    let t2;
+    let div1;
+    let current;
+    icon = new Icon_default({
+      props: {
+        className: "iconBack",
+        color: "#475569",
+        size: 18,
+        src: FaSolidAngleLeft_default
+      }
+    });
     return {
       c() {
-        div = element("div");
-        div.textContent = "Edit property";
+        div0 = element("div");
+        a = element("a");
+        create_component(icon.$.fragment);
+        t0 = space();
+        span = element("span");
+        span.textContent = "Property ID: XXX123XXX";
+        t2 = space();
+        div1 = element("div");
+        div1.innerHTML = ``;
+        attr(a, "class", "back_button svelte-1git5nn");
+        attr(a, "href", "/realtor");
+        attr(div0, "class", "upper_action svelte-1git5nn");
       },
       m(target, anchor) {
-        insert(target, div, anchor);
+        insert(target, div0, anchor);
+        append(div0, a);
+        mount_component(icon, a, null);
+        append(div0, t0);
+        append(div0, span);
+        insert(target, t2, anchor);
+        insert(target, div1, anchor);
+        current = true;
       },
       p: noop,
-      i: noop,
-      o: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
       d(detaching) {
         if (detaching) {
-          detach(div);
+          detach(div0);
+          detach(t2);
+          detach(div1);
         }
+        destroy_component(icon);
       }
     };
+  }
+  function instance7($self, $props, $invalidate) {
+    let { user: user2 } = $props;
+    let { property: property2 } = $props;
+    $self.$set = ($props2) => {
+      if ("user" in $props2)
+        $invalidate(0, user2 = $props2.user);
+      if ("property" in $props2)
+        $invalidate(1, property2 = $props2.property);
+    };
+    return [user2, property2];
   }
   var EditProperty = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment7, safe_not_equal, {});
+      init(this, options, instance7, create_fragment7, safe_not_equal, { user: 0, property: 1 });
     }
   };
   var EditProperty_default = EditProperty;
