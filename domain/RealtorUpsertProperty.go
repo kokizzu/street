@@ -110,7 +110,7 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 			err := d.Mailer.SendNotifCreatePropertyEmail(user.Email,
 				fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
 			)
-			L.IsError(err, `SendNotifUpdatePropertyEmail`)
+			L.IsError(err, `SendNotifAddPropertyEmail`)
 		}
 	}
 
