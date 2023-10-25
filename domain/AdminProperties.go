@@ -244,11 +244,6 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 				if prop.DeletedAt == 0 {
 					prop.SetDeletedAt(in.UnixNow())
 				}
-				// Send notification email
-				err := d.Mailer.SendNotifPropertyRejectedEmail(user.Email,
-					fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
-				)
-				L.IsError(err, `SendNotifPropertyRejectedEmail`)
 			} else if in.Cmd == zCrud.CmdRestore {
 				if prop.DeletedAt > 0 {
 					prop.SetDeletedAt(0)
@@ -257,12 +252,6 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		} else {
 			prop.SetCreatedAt(in.UnixNow())
 		}
-
-		// Send notification email
-		err := d.Mailer.SendNotifPropertyAcceptedEmail(user.Email,
-			fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
-		)
-		L.IsError(err, `SendNotifPropertyAcceptedEmail`)
 
 		haveMutation := prop.SetAll(in.Property, M.SB{
 			mProperty.PriceHistoriesSell: true,
@@ -283,6 +272,18 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		}
 
 		out.Property = &prop.Property
+
+		if prop.ApprovalState == `pending` {
+			err := d.Mailer.SendNotifPropertyAcceptedEmail(user.Email,
+				fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
+			)
+			L.IsError(err, `SendNotifPropertyAcceptedEmail`)
+		} else if prop.ApprovalState != `pending` && prop.ApprovalState != `` {
+			err := d.Mailer.SendNotifPropertyRejectedEmail(user.Email,
+				fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
+			)
+			L.IsError(err, `SendNotifPropertyRejectedEmail`)
+		}
 
 		if in.Pager.Page == 0 {
 			break

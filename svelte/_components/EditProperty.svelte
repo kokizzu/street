@@ -618,6 +618,14 @@
 
         .edit_property_container {
             width : 100%;
+            padding: 15px 0;
+        }
+
+        .edit_property_container .property_status,
+        .edit_property_container .main_details,
+        .edit_property_container .second_details,
+        .edit_property_container .floors {
+            padding: 0 15px;
         }
 
         .edit_property_container .property_images_container {
@@ -640,6 +648,10 @@
             position : absolute;
             top      : 0;
             right    : 15px;
+        }
+
+        .edit_property_container .main_details .col2 {
+            justify-content : space-between;
         }
 
         .edit_property_container .floors .floor_lists .floor_item .floor_details .floor_plan .img_container {

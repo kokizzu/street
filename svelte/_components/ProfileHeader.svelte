@@ -156,5 +156,20 @@
         .profile_header .navbar .label_menu button {
             padding : 0;
         }
+
+        .profile_header .navbar .right_nav {
+            gap : 10px;
+        }
+
+        .profile_header .navbar #lang {
+            padding   : 3px 5px;
+            font-size : 12px;
+            width     : 50px
+        }
+
+        .profile_header .navbar .right_nav .profile_button > img {
+            width  : 40px;
+            height : 40px;
+        }
     }
 </style>
