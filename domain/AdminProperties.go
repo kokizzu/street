@@ -230,9 +230,10 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		}
 		prop.NormalizeFloorList()
 		out.Property = prop
-	case zCrud.CmdUpsert:
+	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
 		prop := wcProperty.NewPropertyMutator(d.PropOltp)
 		prop.Id = in.Property.Id
+		user := rqAuth.NewUsers(d.AuthOltp)
 		if prop.Id > 0 {
 			if !prop.FindById() {
 				out.SetError(400, ErrAdminPropertyIdNotFound)
@@ -243,6 +244,11 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 				if prop.DeletedAt == 0 {
 					prop.SetDeletedAt(in.UnixNow())
 				}
+				// Send notification email
+				err := d.Mailer.SendNotifPropertyRejectedEmail(user.Email,
+					fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
+				)
+				L.IsError(err, `SendNotifPropertyRejectedEmail`)
 			} else if in.Cmd == zCrud.CmdRestore {
 				if prop.DeletedAt > 0 {
 					prop.SetDeletedAt(0)
@@ -252,57 +258,11 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 			prop.SetCreatedAt(in.UnixNow())
 		}
 
-		haveMutation := prop.SetAll(in.Property, M.SB{
-			mProperty.PriceHistoriesSell: true,
-			mProperty.PriceHistoriesRent: true,
-		}, M.SB{})
-
-		if haveMutation {
-			prop.SetUpdatedAt(in.UnixNow())
-			prop.SetUpdatedBy(sess.UserId)
-			if prop.Id == 0 {
-				prop.SetCreatedAt(in.UnixNow())
-				prop.SetCreatedBy(sess.UserId)
-			}
-		}
-		if !prop.DoUpsert() {
-			out.SetError(500, ErrAdminPropertySaveFailed)
-			break
-		}
-
-		out.Property = &prop.Property
-
-		if in.Pager.Page == 0 {
-			break
-		}
-
-		user := rqAuth.NewUsers(d.AuthOltp)
+		// Send notification email
 		err := d.Mailer.SendNotifPropertyAcceptedEmail(user.Email,
 			fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
 		)
 		L.IsError(err, `SendNotifPropertyAcceptedEmail`)
-		fallthrough
-	case zCrud.CmdDelete:
-		prop := wcProperty.NewPropertyMutator(d.PropOltp)
-		prop.Id = in.Property.Id
-		if prop.Id > 0 {
-			if !prop.FindById() {
-				out.SetError(400, ErrAdminPropertyIdNotFound)
-				return
-			}
-
-			if in.Cmd == zCrud.CmdDelete {
-				if prop.DeletedAt == 0 {
-					prop.SetDeletedAt(in.UnixNow())
-				}
-			} else if in.Cmd == zCrud.CmdRestore {
-				if prop.DeletedAt > 0 {
-					prop.SetDeletedAt(0)
-				}
-			}
-		} else {
-			prop.SetCreatedAt(in.UnixNow())
-		}
 
 		haveMutation := prop.SetAll(in.Property, M.SB{
 			mProperty.PriceHistoriesSell: true,
@@ -328,57 +288,6 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 			break
 		}
 
-		user := rqAuth.NewUsers(d.AuthOltp)
-		err := d.Mailer.SendNotifPropertyRejectedEmail(user.Email,
-			fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
-		)
-		L.IsError(err, `SendNotifPropertyRejectedEmail`)
-		fallthrough
-	case zCrud.CmdRestore:
-		prop := wcProperty.NewPropertyMutator(d.PropOltp)
-		prop.Id = in.Property.Id
-		if prop.Id > 0 {
-			if !prop.FindById() {
-				out.SetError(400, ErrAdminPropertyIdNotFound)
-				return
-			}
-
-			if in.Cmd == zCrud.CmdDelete {
-				if prop.DeletedAt == 0 {
-					prop.SetDeletedAt(in.UnixNow())
-				}
-			} else if in.Cmd == zCrud.CmdRestore {
-				if prop.DeletedAt > 0 {
-					prop.SetDeletedAt(0)
-				}
-			}
-		} else {
-			prop.SetCreatedAt(in.UnixNow())
-		}
-
-		haveMutation := prop.SetAll(in.Property, M.SB{
-			mProperty.PriceHistoriesSell: true,
-			mProperty.PriceHistoriesRent: true,
-		}, M.SB{})
-
-		if haveMutation {
-			prop.SetUpdatedAt(in.UnixNow())
-			prop.SetUpdatedBy(sess.UserId)
-			if prop.Id == 0 {
-				prop.SetCreatedAt(in.UnixNow())
-				prop.SetCreatedBy(sess.UserId)
-			}
-		}
-		if !prop.DoUpsert() {
-			out.SetError(500, ErrAdminPropertySaveFailed)
-			break
-		}
-
-		out.Property = &prop.Property
-
-		if in.Pager.Page == 0 {
-			break
-		}
 		fallthrough
 	case zCrud.CmdList:
 		r := rqProperty.NewProperty(d.PropOltp)

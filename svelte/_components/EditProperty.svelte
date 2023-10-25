@@ -107,32 +107,32 @@
                 <div class='feature_item'>
                     <b>{property.bedroom}</b>
                     <div class="labels">
-                        <Icon color='#475569' size={13} src={FaSolidBed}/>
+                        <Icon className="labels_icon" color='#475569' size={13} src={FaSolidBed}/>
                         <span>Beds</span>
                     </div>
                 </div>
                 <div class='feature_item'>
                     <b>{property.bathroom}</b>
                     <div class="labels">
-                        <Icon color='#475569' size={13} src={FaSolidBath}/>
+                        <Icon className="labels_icon" color='#475569' size={13} src={FaSolidBath}/>
                         <span>Baths</span>
                     </div>
                 </div>
                 <div class='feature_item'>
                     <b>{property.livingroom}</b>
                     <div class="labels">
-                        <Icon color='#475569' size={12} src={FaSolidChair}/>
+                        <Icon className="labels_icon" color='#475569' size={12} src={FaSolidChair}/>
                         <span>Livings</span>
                     </div>
                 </div>
                 <div class='feature_item'>
                     <b>{property.sizeM2}</b>
                     <div class="labels">
-                        <Icon color='#475569' size={13} src={FaSolidBorderStyle}/>
+                        <Icon className="labels_icon" color='#475569' size={13} src={FaSolidBorderStyle}/>
                         <span>M2</span>
                         <button class='unit_toggle'>
                             <span class="bg"></span>
-                            <Icon color='#F97316' size={12} src={FaSolidExchangeAlt}/>
+                            <Icon className="labels_icon" color='#F97316' size={12} src={FaSolidExchangeAlt}/>
                         </button>
                     </div>
                 </div>
@@ -286,7 +286,7 @@
     .edit_property_root .upper_action .back_button {
         padding          : 8px;
         background-color : #FFF;
-        border-radius    : 5px;
+        border-radius    : 50%;
         font-size        : 14px;
         cursor           : pointer;
         border           : none;
@@ -330,7 +330,7 @@
         display          : flex;
         flex-direction   : column;
         gap              : 20px;
-        padding          : 20px;
+        padding          : 20px 0;
         border-radius    : 10px;
         min-height       : 700px;
         filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
@@ -342,6 +342,7 @@
         gap            : 8px;
         width          : 100%;
         height         : fit-content;
+        padding        : 0 20px;
     }
 
     .edit_property_container .property_status .status {
@@ -402,7 +403,7 @@
 
     .edit_property_container .property_images_container .edit_btn {
         position : absolute !important;
-        right    : 0;
+        right    : 20px;
         top      : 15px;
     }
 
@@ -410,6 +411,8 @@
         display        : flex;
         flex-direction : column;
         gap            : 15px;
+        padding        : 0 20px;
+        position       : relative;
     }
 
     .edit_property_container .main_details .col1 {
@@ -509,6 +512,7 @@
         display        : flex;
         flex-direction : column;
         gap            : 20px;
+        padding        : 0 20px;
     }
 
     .edit_property_container .second_details div {
@@ -544,6 +548,7 @@
         display        : flex;
         flex-direction : column;
         gap            : 20px;
+        padding        : 0 20px;
     }
 
     .edit_property_container .floors .floor_lists {
@@ -571,6 +576,17 @@
         gap            : 8px;
     }
 
+    .edit_property_container .floors .floor_lists .floor_item .floor_details .room_lists .room span:nth-child(1) {
+        font-weight : 600;
+    }
+
+    .edit_property_container .floors .floor_lists .floor_item .floor_details .room_lists .room {
+        display        : flex;
+        flex-direction : row;
+        align-items    : center;
+        gap            : 20px;
+    }
+
     .edit_property_container .floors .floor_lists .floor_item .floor_details .floor_plan {
         width : fit-content;
     }
@@ -582,5 +598,64 @@
         overflow      : hidden;
         border-radius : 8px;
         border        : 1px solid #CBD5E1;
+    }
+
+    /* Responsive to mobile device */
+    @media (max-width : 768px) {
+        .edit_property_root {
+            margin : -65px 20px 0 20px;
+        }
+
+        .edit_property_root .upper_action {
+            padding   : 0 0 70px 0;
+            font-size : 16px;
+        }
+
+        .edit_property_root .delete_property_container {
+            margin : 20px 0;
+            width  : 100%;
+        }
+
+        .edit_property_container {
+            width : 100%;
+        }
+
+        .edit_property_container .property_images_container {
+            width    : 100%;
+            position : relative;
+        }
+
+        .edit_property_container .property_images_container .property_images {
+            width    : 100%;
+            height   : 190px;
+            flex     : none;
+            overflow : hidden;
+        }
+
+        .edit_property_container .property_images_container .edit_btn {
+            right : 15px;
+        }
+
+        .edit_property_container .main_details .col1 .right {
+            position : absolute;
+            top      : 0;
+            right    : 15px;
+        }
+
+        .edit_property_container .floors .floor_lists .floor_item .floor_details .floor_plan .img_container {
+            width  : 100px;
+            height : 50px;
+            flex   : none;
+        }
+
+        .edit_property_container .main_details .col2 .feature_item .labels {
+            font-size : 10px;
+            gap       : 3px;
+        }
+
+        :global(.labels_icon) {
+            width  : 10px;
+            height : 10px;
+        }
     }
 </style>

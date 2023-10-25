@@ -1,4 +1,6 @@
 <html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>/*! title */</title>
     <link href="/css.gg.css" rel="stylesheet">
 </head>
@@ -139,7 +141,7 @@
 
 
 <style>/* fakecss:./_components/Footer.esbuild-svelte-fake-css */
-footer.svelte-uaahja.svelte-uaahja {
+footer.svelte-kh6p39.svelte-kh6p39 {
   font-size: 16px;
   display: flex;
   flex-direction: row;
@@ -150,17 +152,27 @@ footer.svelte-uaahja.svelte-uaahja {
   border-top: 1px solid #CBD5E1;
   color: #475569;
 }
-footer.svelte-uaahja nav.svelte-uaahja {
+footer.svelte-kh6p39 nav.svelte-kh6p39 {
   display: flex;
   flex-direction: row;
 }
-footer.svelte-uaahja nav a.svelte-uaahja {
+footer.svelte-kh6p39 nav a.svelte-kh6p39 {
   text-decoration: none;
   margin-left: 15px;
   color: #475569;
 }
-footer.svelte-uaahja nav a.svelte-uaahja:hover {
+footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   color: #EF4444;
+}
+@media only screen and (max-width: 768px) {
+  footer.svelte-kh6p39.svelte-kh6p39 {
+    display: flex;
+    flex-direction: column-reverse;
+    margin: 30px 20px 0;
+  }
+  footer.svelte-kh6p39 nav a.svelte-kh6p39 {
+    font-size: 13px;
+  }
 }
 
 /* fakecss:./tos.esbuild-svelte-fake-css */
@@ -810,9 +822,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx[0]}`;
         t2 = space();
         nav = element("nav");
-        nav.innerHTML = `<a href="/privacy" class="svelte-uaahja">Privacy</a> <a href="/tos" class="svelte-uaahja">Terms and Conditions</a> <a href="/about" class="svelte-uaahja">About Us</a>`;
-        attr(nav, "class", "svelte-uaahja");
-        attr(footer, "class", "svelte-uaahja");
+        nav.innerHTML = `<a href="/privacy" class="svelte-kh6p39">Privacy</a> <a href="/tos" class="svelte-kh6p39">Terms and Conditions</a> <a href="/about" class="svelte-kh6p39">About Us</a>`;
+        attr(nav, "class", "svelte-kh6p39");
+        attr(footer, "class", "svelte-kh6p39");
       },
       m(target, anchor) {
         insert(target, footer, anchor);
