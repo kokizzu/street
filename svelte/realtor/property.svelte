@@ -46,7 +46,7 @@
 	<div class='dashboard_main_content'>
 		<ProfileHeader></ProfileHeader>
 		{#if property.id}
-			<EditProperty />
+			<EditProperty {property} {user} {countries} />
 		{:else}
 			<CreateProperty {property} {user} {countries}/>
 		{/if}

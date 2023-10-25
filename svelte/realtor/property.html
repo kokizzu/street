@@ -1277,21 +1277,53 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 .back_button:hover .iconBack {
   fill: #EF4444;
 }
-.upper_action.svelte-1git5nn.svelte-1git5nn {
+.edit_property_root.svelte-1wp4r0i.svelte-1wp4r0i {
+  margin: -40px 0 0 0;
+  position: relative;
+  z-index: 50;
+  padding: 0;
+}
+.edit_property_root.svelte-1wp4r0i h1.svelte-1wp4r0i {
+  margin: 0;
+  font-size: 32px;
+}
+.edit_property_root.svelte-1wp4r0i h3.svelte-1wp4r0i {
+  margin: 0;
+  font-size: 20px;
+}
+.edit_property_root.svelte-1wp4r0i img.svelte-1wp4r0i {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.edit_property_root.svelte-1wp4r0i .delete_property.svelte-1wp4r0i {
+  background-color: #EF4444;
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  color: #FFF;
+  padding: 5px 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.edit_property_root.svelte-1wp4r0i .delete_property.svelte-1wp4r0i:hover {
+  background-color: #F85454;
+}
+.edit_property_root.svelte-1wp4r0i .upper_action.svelte-1wp4r0i {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
   font-size: 20px;
-  margin: -40px 0 0 0;
   padding: 0 55px 70px 55px;
-  position: relative;
   background-color: #EF4444;
   font-weight: 600;
   color: #FFF;
-  z-index: 40;
 }
-.upper_action.svelte-1git5nn .back_button.svelte-1git5nn {
+.edit_property_root.svelte-1wp4r0i .upper_action .back_button.svelte-1wp4r0i {
   padding: 8px;
   background-color: #FFF;
   border-radius: 5px;
@@ -1301,6 +1333,251 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   text-decoration: none;
   height: fit-content;
   color: #334155;
+}
+.edit_property_root.svelte-1wp4r0i .edit_btn.svelte-1wp4r0i {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+  color: #FFF;
+  background-color: #6366F1;
+  padding: 5px 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.edit_property_root.svelte-1wp4r0i .edit_btn.svelte-1wp4r0i:hover {
+  background-color: #7E80F1;
+}
+.edit_property_root.svelte-1wp4r0i .delete_property_container.svelte-1wp4r0i {
+  margin: 20px auto 0 auto;
+  width: 60%;
+}
+.edit_property_container.svelte-1wp4r0i.svelte-1wp4r0i {
+  position: relative;
+  width: 60%;
+  z-index: 60;
+  margin: -50px auto 0 auto;
+  color: #475569;
+  background-color: #FFF;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  min-height: 700px;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+}
+.edit_property_container.svelte-1wp4r0i .property_status.svelte-1wp4r0i {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  height: fit-content;
+}
+.edit_property_container.svelte-1wp4r0i .property_status .status.svelte-1wp4r0i {
+  width: 100%;
+  height: fit-content;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+.edit_property_container.svelte-1wp4r0i .property_status p.svelte-1wp4r0i {
+  margin: 0;
+}
+.edit_property_container.svelte-1wp4r0i .property_status .status.pending.svelte-1wp4r0i {
+  background-color: rgba(255, 208, 118, 1);
+}
+.edit_property_container.svelte-1wp4r0i .property_status .status.rejected.svelte-1wp4r0i {
+  background-color: rgba(255, 126, 118, 1);
+  color: #FFF;
+}
+.edit_property_container.svelte-1wp4r0i .property_status .status.approved.svelte-1wp4r0i {
+  background-color: rgba(140, 216, 107, 1);
+  color: #FFF;
+}
+.edit_property_container.svelte-1wp4r0i .property_images_container.svelte-1wp4r0i {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  width: 100%;
+  position: relative;
+}
+.edit_property_container.svelte-1wp4r0i .property_images_container .property_images.svelte-1wp4r0i {
+  width: 340px;
+  height: 190px;
+  flex: none;
+  overflow: hidden;
+}
+.edit_property_container.svelte-1wp4r0i .property_images_container .property_images .image_empty.svelte-1wp4r0i {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0 0 0 / 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 18px;
+  justify-content: center;
+  align-items: center;
+}
+.edit_property_container.svelte-1wp4r0i .property_images_container .edit_btn.svelte-1wp4r0i {
+  position: absolute !important;
+  right: 0;
+  top: 15px;
+}
+.edit_property_container.svelte-1wp4r0i .main_details.svelte-1wp4r0i {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.edit_property_container.svelte-1wp4r0i .main_details .col1.svelte-1wp4r0i {
+  display: flex;
+  gap: 15px;
+  flex-direction: row;
+}
+.edit_property_container.svelte-1wp4r0i .main_details .col1 .left.svelte-1wp4r0i {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.edit_property_container.svelte-1wp4r0i .main_details .col1 .left .labels.svelte-1wp4r0i {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.edit_property_container.svelte-1wp4r0i .main_details .col1 .left .labels .purpose.svelte-1wp4r0i,
+.edit_property_container.svelte-1wp4r0i .main_details .col1 .left .labels .house_type.svelte-1wp4r0i {
+  padding: 5px 10px;
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  gap: 7px;
+  align-items: center;
+  color: #FFF;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+.edit_property_container.svelte-1wp4r0i .main_details .col1 .left .labels .house_type.svelte-1wp4r0i {
+  background-color: #F97316;
+}
+.edit_property_container.svelte-1wp4r0i .main_details .col1 .left .price_details p.svelte-1wp4r0i {
+  margin: 10px 0 0 0;
+}
+.edit_property_container.svelte-1wp4r0i .main_details .col1 .right.svelte-1wp4r0i {
+  width: fit-content;
+}
+.edit_property_container.svelte-1wp4r0i .main_details .col2.svelte-1wp4r0i {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+.edit_property_container.svelte-1wp4r0i .main_details .col2 .feature_item.svelte-1wp4r0i {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.edit_property_container.svelte-1wp4r0i .main_details .col2 .feature_item b.svelte-1wp4r0i {
+  font-size: 25px;
+}
+.edit_property_container.svelte-1wp4r0i .main_details .col2 .feature_item .labels.svelte-1wp4r0i {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 6px;
+}
+.edit_property_container.svelte-1wp4r0i .main_details .col2 .feature_item .labels .unit_toggle.svelte-1wp4r0i {
+  border: none;
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+}
+.edit_property_container.svelte-1wp4r0i .main_details .col2 .feature_item .labels .unit_toggle .bg.svelte-1wp4r0i {
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background-color: rgb(0 0 0 / 0.06);
+  z-index: 1;
+  position: absolute;
+  top: -4px;
+  left: 0;
+}
+.edit_property_container.svelte-1wp4r0i .main_details .col2 .feature_item .labels .unit_toggle:hover .bg.svelte-1wp4r0i {
+  width: 24px;
+  height: 24px;
+}
+.edit_property_container.svelte-1wp4r0i .second_details.svelte-1wp4r0i {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.edit_property_container.svelte-1wp4r0i .second_details div.svelte-1wp4r0i {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.edit_property_container.svelte-1wp4r0i .second_details div .upper.svelte-1wp4r0i,
+.edit_property_container.svelte-1wp4r0i .floors .upper.svelte-1wp4r0i {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.edit_property_container.svelte-1wp4r0i .second_details div p.svelte-1wp4r0i {
+  margin: 0;
+}
+.edit_property_container.svelte-1wp4r0i .second_details .parking .details.svelte-1wp4r0i {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.edit_property_container.svelte-1wp4r0i .second_details .parking .details span.svelte-1wp4r0i:nth-child(2) {
+  font-weight: 600;
+}
+.edit_property_container.svelte-1wp4r0i .floors.svelte-1wp4r0i {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.edit_property_container.svelte-1wp4r0i .floors .floor_lists.svelte-1wp4r0i {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.edit_property_container.svelte-1wp4r0i .floors .floor_lists .floor_item.svelte-1wp4r0i {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.edit_property_container.svelte-1wp4r0i .floors .floor_lists .floor_item .floor_details.svelte-1wp4r0i {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+.edit_property_container.svelte-1wp4r0i .floors .floor_lists .floor_item .floor_details .room_lists.svelte-1wp4r0i {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.edit_property_container.svelte-1wp4r0i .floors .floor_lists .floor_item .floor_details .floor_plan.svelte-1wp4r0i {
+  width: fit-content;
+}
+.edit_property_container.svelte-1wp4r0i .floors .floor_lists .floor_item .floor_details .floor_plan .img_container.svelte-1wp4r0i {
+  width: 340px;
+  height: 190px;
+  flex: none;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid #CBD5E1;
 }
 </style>
 <script>(() => {
@@ -3524,7 +3801,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         const seconds = String(dt.getSeconds()).padStart(2, "0");
         return `${day}, ${date} ${month} ${year} - ${hours}:${minutes}:${seconds}`;
       }
-      function formatPrice2(price, currency) {
+      function formatPrice3(price, currency) {
         try {
           return new Intl.NumberFormat("en-US", {
             style: "currency",
@@ -3541,7 +3818,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         priceNtd,
         localeDatetime,
         datetime2,
-        formatPrice: formatPrice2
+        formatPrice: formatPrice3
       };
     }
   });
@@ -11840,47 +12117,94 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var CreateProperty_default = CreateProperty;
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidPen.js
+  var FaSolidPen_default = {
+    a: {
+      viewBox: "0 0 512 512"
+    },
+    c: '<path d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z"></path>'
+  };
+
   // _components/EditProperty.svelte
-  function create_fragment7(ctx) {
-    let div0;
-    let a;
+  var import_formatter2 = __toESM(require_formatter());
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaTrashAlt.js
+  var FaTrashAlt_default = {
+    a: {
+      viewBox: "0 0 448 512"
+    },
+    c: '<path d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"></path>'
+  };
+
+  // _components/EditProperty.svelte
+  function create_if_block_111(ctx) {
+    let div;
+    let p;
+    let t_value = (
+      /*approvalStates*/
+      ctx[2][
+        /*approvalStatus*/
+        ctx[1]
+      ].reason + ""
+    );
+    let t;
+    return {
+      c() {
+        div = element("div");
+        p = element("p");
+        t = text(t_value);
+        attr(p, "class", "svelte-1wp4r0i");
+        attr(div, "class", "reason svelte-1wp4r0i");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        append(div, p);
+        append(p, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*approvalStatus*/
+        2 && t_value !== (t_value = /*approvalStates*/
+        ctx2[2][
+          /*approvalStatus*/
+          ctx2[1]
+        ].reason + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+      }
+    };
+  }
+  function create_else_block2(ctx) {
+    let div;
     let icon;
     let t0;
     let span;
-    let t2;
-    let div1;
     let current;
     icon = new Icon_default({
       props: {
-        className: "iconBack",
+        size: 40,
         color: "#475569",
-        size: 18,
-        src: FaSolidAngleLeft_default
+        src: FaSolidImage_default
       }
     });
     return {
       c() {
-        div0 = element("div");
-        a = element("a");
+        div = element("div");
         create_component(icon.$.fragment);
         t0 = space();
         span = element("span");
-        span.textContent = "Property ID: XXX123XXX";
-        t2 = space();
-        div1 = element("div");
-        div1.innerHTML = ``;
-        attr(a, "class", "back_button svelte-1git5nn");
-        attr(a, "href", "/realtor");
-        attr(div0, "class", "upper_action svelte-1git5nn");
+        span.textContent = "No Image !";
+        attr(span, "class", "svelte-1wp4r0i");
+        attr(div, "class", "image_empty svelte-1wp4r0i");
       },
       m(target, anchor) {
-        insert(target, div0, anchor);
-        append(div0, a);
-        mount_component(icon, a, null);
-        append(div0, t0);
-        append(div0, span);
-        insert(target, t2, anchor);
-        insert(target, div1, anchor);
+        insert(target, div, anchor);
+        mount_component(icon, div, null);
+        append(div, t0);
+        append(div, span);
         current = true;
       },
       p: noop,
@@ -11896,35 +12220,936 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(div0);
-          detach(t2);
-          detach(div1);
+          detach(div);
         }
         destroy_component(icon);
+      }
+    };
+  }
+  function create_if_block4(ctx) {
+    let img;
+    let img_src_value;
+    return {
+      c() {
+        img = element("img");
+        if (!src_url_equal(img.src, img_src_value = /*property*/
+        ctx[0].images[0]))
+          attr(img, "src", img_src_value);
+        attr(img, "alt", "");
+        attr(img, "class", "svelte-1wp4r0i");
+      },
+      m(target, anchor) {
+        insert(target, img, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*property*/
+        1 && !src_url_equal(img.src, img_src_value = /*property*/
+        ctx2[0].images[0])) {
+          attr(img, "src", img_src_value);
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(img);
+        }
+      }
+    };
+  }
+  function create_fragment7(ctx) {
+    let div43;
+    let div0;
+    let a;
+    let icon0;
+    let t0;
+    let span0;
+    let t1;
+    let t2_value = (
+      /*property*/
+      ctx[0].id + ""
+    );
+    let t2;
+    let t3;
+    let div41;
+    let div2;
+    let div1;
+    let p0;
+    let t4_value = (
+      /*approvalStates*/
+      ctx[2][
+        /*approvalStatus*/
+        ctx[1]
+      ].description + ""
+    );
+    let t4;
+    let div1_class_value;
+    let t5;
+    let t6;
+    let div4;
+    let div3;
+    let current_block_type_index;
+    let if_block1;
+    let t7;
+    let button0;
+    let icon1;
+    let t8;
+    let span1;
+    let t10;
+    let div21;
+    let div11;
+    let div9;
+    let div7;
+    let div5;
+    let t11_value = (
+      /*property*/
+      ctx[0].purpose === "rent" ? "For Rent" : "On Sale"
+    );
+    let t11;
+    let div5_class_value;
+    let t12;
+    let div6;
+    let icon2;
+    let t13;
+    let span2;
+    let t14_value = (
+      /*property*/
+      (ctx[0].houseType === "" ? "House" : (
+        /*property*/
+        ctx[0].houseType
+      )) + ""
+    );
+    let t14;
+    let t15;
+    let div8;
+    let h10;
+    let t16_value = ((0, import_formatter2.formatPrice)(
+      /*property*/
+      ctx[0].lastPrice,
+      "TWD"
+    ) || "0.00") + "";
+    let t16;
+    let t17;
+    let p1;
+    let t18;
+    let t19_value = (
+      /*property*/
+      ctx[0].agencyFeePercent + ""
+    );
+    let t19;
+    let t20;
+    let t21;
+    let div10;
+    let button1;
+    let icon3;
+    let t22;
+    let span3;
+    let t24;
+    let div20;
+    let div13;
+    let b0;
+    let t25_value = (
+      /*property*/
+      ctx[0].bedroom + ""
+    );
+    let t25;
+    let t26;
+    let div12;
+    let icon4;
+    let t27;
+    let span4;
+    let t29;
+    let div15;
+    let b1;
+    let t30_value = (
+      /*property*/
+      ctx[0].bathroom + ""
+    );
+    let t30;
+    let t31;
+    let div14;
+    let icon5;
+    let t32;
+    let span5;
+    let t34;
+    let div17;
+    let b2;
+    let t35_value = (
+      /*property*/
+      ctx[0].livingroom + ""
+    );
+    let t35;
+    let t36;
+    let div16;
+    let icon6;
+    let t37;
+    let span6;
+    let t39;
+    let div19;
+    let b3;
+    let t40_value = (
+      /*property*/
+      ctx[0].sizeM2 + ""
+    );
+    let t40;
+    let t41;
+    let div18;
+    let icon7;
+    let t42;
+    let span7;
+    let t44;
+    let button2;
+    let span8;
+    let t45;
+    let icon8;
+    let t46;
+    let div29;
+    let div23;
+    let div22;
+    let h30;
+    let t48;
+    let button3;
+    let icon9;
+    let t49;
+    let span9;
+    let t51;
+    let p2;
+    let t53;
+    let div25;
+    let div24;
+    let h31;
+    let t55;
+    let button4;
+    let icon10;
+    let t56;
+    let span10;
+    let t58;
+    let p3;
+    let t60;
+    let div28;
+    let div26;
+    let h32;
+    let t62;
+    let button5;
+    let icon11;
+    let t63;
+    let span11;
+    let t65;
+    let div27;
+    let t69;
+    let div40;
+    let div30;
+    let h11;
+    let t71;
+    let button6;
+    let icon12;
+    let t72;
+    let span14;
+    let t74;
+    let div39;
+    let t89;
+    let div42;
+    let button7;
+    let icon13;
+    let t90;
+    let span21;
+    let current;
+    icon0 = new Icon_default({
+      props: {
+        className: "iconBack",
+        color: "#475569",
+        size: 18,
+        src: FaSolidAngleLeft_default
+      }
+    });
+    let if_block0 = (
+      /*approvalStates*/
+      ctx[2][
+        /*approvalStatus*/
+        ctx[1]
+      ].reason !== "" && create_if_block_111(ctx)
+    );
+    const if_block_creators = [create_if_block4, create_else_block2];
+    const if_blocks = [];
+    function select_block_type(ctx2, dirty) {
+      if (
+        /*property*/
+        ctx2[0].images && /*property*/
+        ctx2[0].images.length
+      )
+        return 0;
+      return 1;
+    }
+    current_block_type_index = select_block_type(ctx, -1);
+    if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    icon1 = new Icon_default({
+      props: { color: "#FFF", size: 10, src: FaSolidPen_default }
+    });
+    icon2 = new Icon_default({
+      props: {
+        color: "#FFF",
+        size: 13,
+        src: FaSolidHome_default
+      }
+    });
+    icon3 = new Icon_default({
+      props: { color: "#FFF", size: 10, src: FaSolidPen_default }
+    });
+    icon4 = new Icon_default({
+      props: {
+        color: "#475569",
+        size: 13,
+        src: FaSolidBed_default
+      }
+    });
+    icon5 = new Icon_default({
+      props: {
+        color: "#475569",
+        size: 13,
+        src: FaSolidBath_default
+      }
+    });
+    icon6 = new Icon_default({
+      props: {
+        color: "#475569",
+        size: 12,
+        src: FaSolidChair_default
+      }
+    });
+    icon7 = new Icon_default({
+      props: {
+        color: "#475569",
+        size: 13,
+        src: FaSolidBorderStyle_default
+      }
+    });
+    icon8 = new Icon_default({
+      props: {
+        color: "#F97316",
+        size: 12,
+        src: FaSolidExchangeAlt_default
+      }
+    });
+    icon9 = new Icon_default({
+      props: { color: "#FFF", size: 10, src: FaSolidPen_default }
+    });
+    icon10 = new Icon_default({
+      props: { color: "#FFF", size: 10, src: FaSolidPen_default }
+    });
+    icon11 = new Icon_default({
+      props: { color: "#FFF", size: 10, src: FaSolidPen_default }
+    });
+    icon12 = new Icon_default({
+      props: { color: "#FFF", size: 10, src: FaSolidPen_default }
+    });
+    icon13 = new Icon_default({
+      props: { color: "#FFF", size: 10, src: FaTrashAlt_default }
+    });
+    return {
+      c() {
+        div43 = element("div");
+        div0 = element("div");
+        a = element("a");
+        create_component(icon0.$.fragment);
+        t0 = space();
+        span0 = element("span");
+        t1 = text("Property ID: ");
+        t2 = text(t2_value);
+        t3 = space();
+        div41 = element("div");
+        div2 = element("div");
+        div1 = element("div");
+        p0 = element("p");
+        t4 = text(t4_value);
+        t5 = space();
+        if (if_block0)
+          if_block0.c();
+        t6 = space();
+        div4 = element("div");
+        div3 = element("div");
+        if_block1.c();
+        t7 = space();
+        button0 = element("button");
+        create_component(icon1.$.fragment);
+        t8 = space();
+        span1 = element("span");
+        span1.textContent = "Edit";
+        t10 = space();
+        div21 = element("div");
+        div11 = element("div");
+        div9 = element("div");
+        div7 = element("div");
+        div5 = element("div");
+        t11 = text(t11_value);
+        t12 = space();
+        div6 = element("div");
+        create_component(icon2.$.fragment);
+        t13 = space();
+        span2 = element("span");
+        t14 = text(t14_value);
+        t15 = space();
+        div8 = element("div");
+        h10 = element("h1");
+        t16 = text(t16_value);
+        t17 = space();
+        p1 = element("p");
+        t18 = text("Agency Fee : ");
+        t19 = text(t19_value);
+        t20 = text("%");
+        t21 = space();
+        div10 = element("div");
+        button1 = element("button");
+        create_component(icon3.$.fragment);
+        t22 = space();
+        span3 = element("span");
+        span3.textContent = "Edit";
+        t24 = space();
+        div20 = element("div");
+        div13 = element("div");
+        b0 = element("b");
+        t25 = text(t25_value);
+        t26 = space();
+        div12 = element("div");
+        create_component(icon4.$.fragment);
+        t27 = space();
+        span4 = element("span");
+        span4.textContent = "Beds";
+        t29 = space();
+        div15 = element("div");
+        b1 = element("b");
+        t30 = text(t30_value);
+        t31 = space();
+        div14 = element("div");
+        create_component(icon5.$.fragment);
+        t32 = space();
+        span5 = element("span");
+        span5.textContent = "Baths";
+        t34 = space();
+        div17 = element("div");
+        b2 = element("b");
+        t35 = text(t35_value);
+        t36 = space();
+        div16 = element("div");
+        create_component(icon6.$.fragment);
+        t37 = space();
+        span6 = element("span");
+        span6.textContent = "Livings";
+        t39 = space();
+        div19 = element("div");
+        b3 = element("b");
+        t40 = text(t40_value);
+        t41 = space();
+        div18 = element("div");
+        create_component(icon7.$.fragment);
+        t42 = space();
+        span7 = element("span");
+        span7.textContent = "M2";
+        t44 = space();
+        button2 = element("button");
+        span8 = element("span");
+        t45 = space();
+        create_component(icon8.$.fragment);
+        t46 = space();
+        div29 = element("div");
+        div23 = element("div");
+        div22 = element("div");
+        h30 = element("h3");
+        h30.textContent = "Facility";
+        t48 = space();
+        button3 = element("button");
+        create_component(icon9.$.fragment);
+        t49 = space();
+        span9 = element("span");
+        span9.textContent = "Edit";
+        t51 = space();
+        p2 = element("p");
+        p2.textContent = "Air conditioning/Heating, Balcony/Patio, Air conditioning/Heating, Balcony/Patio, Air conditioning/Heating, Balcony/Patio, Air\n                    conditioning/Heating, Balcony/Patio, Air conditioning/Heating, Balcony/Patio,";
+        t53 = space();
+        div25 = element("div");
+        div24 = element("div");
+        h31 = element("h3");
+        h31.textContent = "About";
+        t55 = space();
+        button4 = element("button");
+        create_component(icon10.$.fragment);
+        t56 = space();
+        span10 = element("span");
+        span10.textContent = "Edit";
+        t58 = space();
+        p3 = element("p");
+        p3.textContent = "Looking for convenient city living? This spacious apartment is perfectly situated in the heart of the city, with nearby amenities including\n                    grocery stores, restaurants, and shopping. Enjoy plenty of natural light and modern conveniences like updated appliances and ample storage.\n                    This amazing apartment has everything you need for comfortable living in a fantastic location.";
+        t60 = space();
+        div28 = element("div");
+        div26 = element("div");
+        h32 = element("h3");
+        h32.textContent = "Parking";
+        t62 = space();
+        button5 = element("button");
+        create_component(icon11.$.fragment);
+        t63 = space();
+        span11 = element("span");
+        span11.textContent = "Edit";
+        t65 = space();
+        div27 = element("div");
+        div27.innerHTML = `<span class="svelte-1wp4r0i">Parking</span> <span class="svelte-1wp4r0i">Yes</span>`;
+        t69 = space();
+        div40 = element("div");
+        div30 = element("div");
+        h11 = element("h1");
+        h11.textContent = "Floors";
+        t71 = space();
+        button6 = element("button");
+        create_component(icon12.$.fragment);
+        t72 = space();
+        span14 = element("span");
+        span14.textContent = "Edit";
+        t74 = space();
+        div39 = element("div");
+        div39.innerHTML = `<div class="floor_item svelte-1wp4r0i"><h3 class="svelte-1wp4r0i">Floor #1</h3> <div class="floor_details svelte-1wp4r0i"><div class="room_lists svelte-1wp4r0i"><div class="room svelte-1wp4r0i"><span class="svelte-1wp4r0i">Bedroom #1</span> <span class="svelte-1wp4r0i">122.1 sq ft</span></div> <div class="room svelte-1wp4r0i"><span class="svelte-1wp4r0i">Bedroom #1</span> <span class="svelte-1wp4r0i">122.1 sq ft</span></div> <div class="room svelte-1wp4r0i"><span class="svelte-1wp4r0i">Bedroom #1</span> <span class="svelte-1wp4r0i">122.1 sq ft</span></div></div> <div class="floor_plan svelte-1wp4r0i"><div class="img_container svelte-1wp4r0i"><img alt="floor_plan" src="/assets/img/realtor/floor-plan-pen-ruler.webp" class="svelte-1wp4r0i"/></div></div></div></div>`;
+        t89 = space();
+        div42 = element("div");
+        button7 = element("button");
+        create_component(icon13.$.fragment);
+        t90 = space();
+        span21 = element("span");
+        span21.textContent = "Delete Property";
+        attr(a, "class", "back_button svelte-1wp4r0i");
+        attr(a, "href", "/realtor");
+        attr(div0, "class", "upper_action svelte-1wp4r0i");
+        attr(p0, "class", "svelte-1wp4r0i");
+        attr(div1, "class", div1_class_value = null_to_empty(`status ${/*approvalStatus*/
+        ctx[1]}`) + " svelte-1wp4r0i");
+        attr(div2, "class", "property_status svelte-1wp4r0i");
+        attr(div3, "class", "property_images svelte-1wp4r0i");
+        attr(span1, "class", "svelte-1wp4r0i");
+        attr(button0, "class", "edit_btn svelte-1wp4r0i");
+        attr(div4, "class", "property_images_container svelte-1wp4r0i");
+        attr(div5, "class", div5_class_value = null_to_empty(
+          /*property*/
+          ctx[0].purpose === "rent" ? `purpose label_rent` : `purpose label_sale`
+        ) + " svelte-1wp4r0i");
+        attr(span2, "class", "svelte-1wp4r0i");
+        attr(div6, "class", "house_type svelte-1wp4r0i");
+        attr(div7, "class", "labels svelte-1wp4r0i");
+        attr(h10, "class", "svelte-1wp4r0i");
+        attr(p1, "class", "svelte-1wp4r0i");
+        attr(div8, "class", "price_details svelte-1wp4r0i");
+        attr(div9, "class", "left svelte-1wp4r0i");
+        attr(span3, "class", "svelte-1wp4r0i");
+        attr(button1, "class", "edit_btn svelte-1wp4r0i");
+        attr(div10, "class", "right svelte-1wp4r0i");
+        attr(div11, "class", "col1 svelte-1wp4r0i");
+        attr(b0, "class", "svelte-1wp4r0i");
+        attr(span4, "class", "svelte-1wp4r0i");
+        attr(div12, "class", "labels svelte-1wp4r0i");
+        attr(div13, "class", "feature_item svelte-1wp4r0i");
+        attr(b1, "class", "svelte-1wp4r0i");
+        attr(span5, "class", "svelte-1wp4r0i");
+        attr(div14, "class", "labels svelte-1wp4r0i");
+        attr(div15, "class", "feature_item svelte-1wp4r0i");
+        attr(b2, "class", "svelte-1wp4r0i");
+        attr(span6, "class", "svelte-1wp4r0i");
+        attr(div16, "class", "labels svelte-1wp4r0i");
+        attr(div17, "class", "feature_item svelte-1wp4r0i");
+        attr(b3, "class", "svelte-1wp4r0i");
+        attr(span7, "class", "svelte-1wp4r0i");
+        attr(span8, "class", "bg svelte-1wp4r0i");
+        attr(button2, "class", "unit_toggle svelte-1wp4r0i");
+        attr(div18, "class", "labels svelte-1wp4r0i");
+        attr(div19, "class", "feature_item svelte-1wp4r0i");
+        attr(div20, "class", "col2 svelte-1wp4r0i");
+        attr(div21, "class", "main_details svelte-1wp4r0i");
+        attr(h30, "class", "svelte-1wp4r0i");
+        attr(span9, "class", "svelte-1wp4r0i");
+        attr(button3, "class", "edit_btn svelte-1wp4r0i");
+        attr(div22, "class", "upper svelte-1wp4r0i");
+        attr(p2, "class", "svelte-1wp4r0i");
+        attr(div23, "class", "facility svelte-1wp4r0i");
+        attr(h31, "class", "svelte-1wp4r0i");
+        attr(span10, "class", "svelte-1wp4r0i");
+        attr(button4, "class", "edit_btn svelte-1wp4r0i");
+        attr(div24, "class", "upper svelte-1wp4r0i");
+        attr(p3, "class", "svelte-1wp4r0i");
+        attr(div25, "class", "about svelte-1wp4r0i");
+        attr(h32, "class", "svelte-1wp4r0i");
+        attr(span11, "class", "svelte-1wp4r0i");
+        attr(button5, "class", "edit_btn svelte-1wp4r0i");
+        attr(div26, "class", "upper svelte-1wp4r0i");
+        attr(div27, "class", "details svelte-1wp4r0i");
+        attr(div28, "class", "parking svelte-1wp4r0i");
+        attr(div29, "class", "second_details svelte-1wp4r0i");
+        attr(h11, "class", "svelte-1wp4r0i");
+        attr(span14, "class", "svelte-1wp4r0i");
+        attr(button6, "class", "edit_btn svelte-1wp4r0i");
+        attr(div30, "class", "upper svelte-1wp4r0i");
+        attr(div39, "class", "floor_lists svelte-1wp4r0i");
+        attr(div40, "class", "floors svelte-1wp4r0i");
+        attr(div41, "class", "edit_property_container svelte-1wp4r0i");
+        attr(button7, "class", "delete_property svelte-1wp4r0i");
+        attr(div42, "class", "delete_property_container svelte-1wp4r0i");
+        attr(div43, "class", "edit_property_root svelte-1wp4r0i");
+      },
+      m(target, anchor) {
+        insert(target, div43, anchor);
+        append(div43, div0);
+        append(div0, a);
+        mount_component(icon0, a, null);
+        append(div0, t0);
+        append(div0, span0);
+        append(span0, t1);
+        append(span0, t2);
+        append(div43, t3);
+        append(div43, div41);
+        append(div41, div2);
+        append(div2, div1);
+        append(div1, p0);
+        append(p0, t4);
+        append(div2, t5);
+        if (if_block0)
+          if_block0.m(div2, null);
+        append(div41, t6);
+        append(div41, div4);
+        append(div4, div3);
+        if_blocks[current_block_type_index].m(div3, null);
+        append(div4, t7);
+        append(div4, button0);
+        mount_component(icon1, button0, null);
+        append(button0, t8);
+        append(button0, span1);
+        append(div41, t10);
+        append(div41, div21);
+        append(div21, div11);
+        append(div11, div9);
+        append(div9, div7);
+        append(div7, div5);
+        append(div5, t11);
+        append(div7, t12);
+        append(div7, div6);
+        mount_component(icon2, div6, null);
+        append(div6, t13);
+        append(div6, span2);
+        append(span2, t14);
+        append(div9, t15);
+        append(div9, div8);
+        append(div8, h10);
+        append(h10, t16);
+        append(div8, t17);
+        append(div8, p1);
+        append(p1, t18);
+        append(p1, t19);
+        append(p1, t20);
+        append(div11, t21);
+        append(div11, div10);
+        append(div10, button1);
+        mount_component(icon3, button1, null);
+        append(button1, t22);
+        append(button1, span3);
+        append(div21, t24);
+        append(div21, div20);
+        append(div20, div13);
+        append(div13, b0);
+        append(b0, t25);
+        append(div13, t26);
+        append(div13, div12);
+        mount_component(icon4, div12, null);
+        append(div12, t27);
+        append(div12, span4);
+        append(div20, t29);
+        append(div20, div15);
+        append(div15, b1);
+        append(b1, t30);
+        append(div15, t31);
+        append(div15, div14);
+        mount_component(icon5, div14, null);
+        append(div14, t32);
+        append(div14, span5);
+        append(div20, t34);
+        append(div20, div17);
+        append(div17, b2);
+        append(b2, t35);
+        append(div17, t36);
+        append(div17, div16);
+        mount_component(icon6, div16, null);
+        append(div16, t37);
+        append(div16, span6);
+        append(div20, t39);
+        append(div20, div19);
+        append(div19, b3);
+        append(b3, t40);
+        append(div19, t41);
+        append(div19, div18);
+        mount_component(icon7, div18, null);
+        append(div18, t42);
+        append(div18, span7);
+        append(div18, t44);
+        append(div18, button2);
+        append(button2, span8);
+        append(button2, t45);
+        mount_component(icon8, button2, null);
+        append(div41, t46);
+        append(div41, div29);
+        append(div29, div23);
+        append(div23, div22);
+        append(div22, h30);
+        append(div22, t48);
+        append(div22, button3);
+        mount_component(icon9, button3, null);
+        append(button3, t49);
+        append(button3, span9);
+        append(div23, t51);
+        append(div23, p2);
+        append(div29, t53);
+        append(div29, div25);
+        append(div25, div24);
+        append(div24, h31);
+        append(div24, t55);
+        append(div24, button4);
+        mount_component(icon10, button4, null);
+        append(button4, t56);
+        append(button4, span10);
+        append(div25, t58);
+        append(div25, p3);
+        append(div29, t60);
+        append(div29, div28);
+        append(div28, div26);
+        append(div26, h32);
+        append(div26, t62);
+        append(div26, button5);
+        mount_component(icon11, button5, null);
+        append(button5, t63);
+        append(button5, span11);
+        append(div28, t65);
+        append(div28, div27);
+        append(div41, t69);
+        append(div41, div40);
+        append(div40, div30);
+        append(div30, h11);
+        append(div30, t71);
+        append(div30, button6);
+        mount_component(icon12, button6, null);
+        append(button6, t72);
+        append(button6, span14);
+        append(div40, t74);
+        append(div40, div39);
+        append(div43, t89);
+        append(div43, div42);
+        append(div42, button7);
+        mount_component(icon13, button7, null);
+        append(button7, t90);
+        append(button7, span21);
+        current = true;
+      },
+      p(ctx2, [dirty]) {
+        if ((!current || dirty & /*property*/
+        1) && t2_value !== (t2_value = /*property*/
+        ctx2[0].id + ""))
+          set_data(t2, t2_value);
+        if ((!current || dirty & /*approvalStatus*/
+        2) && t4_value !== (t4_value = /*approvalStates*/
+        ctx2[2][
+          /*approvalStatus*/
+          ctx2[1]
+        ].description + ""))
+          set_data(t4, t4_value);
+        if (!current || dirty & /*approvalStatus*/
+        2 && div1_class_value !== (div1_class_value = null_to_empty(`status ${/*approvalStatus*/
+        ctx2[1]}`) + " svelte-1wp4r0i")) {
+          attr(div1, "class", div1_class_value);
+        }
+        if (
+          /*approvalStates*/
+          ctx2[2][
+            /*approvalStatus*/
+            ctx2[1]
+          ].reason !== ""
+        ) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+          } else {
+            if_block0 = create_if_block_111(ctx2);
+            if_block0.c();
+            if_block0.m(div2, null);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        } else {
+          group_outros();
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
+          });
+          check_outros();
+          if_block1 = if_blocks[current_block_type_index];
+          if (!if_block1) {
+            if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block1.c();
+          } else {
+            if_block1.p(ctx2, dirty);
+          }
+          transition_in(if_block1, 1);
+          if_block1.m(div3, null);
+        }
+        if ((!current || dirty & /*property*/
+        1) && t11_value !== (t11_value = /*property*/
+        ctx2[0].purpose === "rent" ? "For Rent" : "On Sale"))
+          set_data(t11, t11_value);
+        if (!current || dirty & /*property*/
+        1 && div5_class_value !== (div5_class_value = null_to_empty(
+          /*property*/
+          ctx2[0].purpose === "rent" ? `purpose label_rent` : `purpose label_sale`
+        ) + " svelte-1wp4r0i")) {
+          attr(div5, "class", div5_class_value);
+        }
+        if ((!current || dirty & /*property*/
+        1) && t14_value !== (t14_value = /*property*/
+        (ctx2[0].houseType === "" ? "House" : (
+          /*property*/
+          ctx2[0].houseType
+        )) + ""))
+          set_data(t14, t14_value);
+        if ((!current || dirty & /*property*/
+        1) && t16_value !== (t16_value = ((0, import_formatter2.formatPrice)(
+          /*property*/
+          ctx2[0].lastPrice,
+          "TWD"
+        ) || "0.00") + ""))
+          set_data(t16, t16_value);
+        if ((!current || dirty & /*property*/
+        1) && t19_value !== (t19_value = /*property*/
+        ctx2[0].agencyFeePercent + ""))
+          set_data(t19, t19_value);
+        if ((!current || dirty & /*property*/
+        1) && t25_value !== (t25_value = /*property*/
+        ctx2[0].bedroom + ""))
+          set_data(t25, t25_value);
+        if ((!current || dirty & /*property*/
+        1) && t30_value !== (t30_value = /*property*/
+        ctx2[0].bathroom + ""))
+          set_data(t30, t30_value);
+        if ((!current || dirty & /*property*/
+        1) && t35_value !== (t35_value = /*property*/
+        ctx2[0].livingroom + ""))
+          set_data(t35, t35_value);
+        if ((!current || dirty & /*property*/
+        1) && t40_value !== (t40_value = /*property*/
+        ctx2[0].sizeM2 + ""))
+          set_data(t40, t40_value);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon0.$.fragment, local);
+        transition_in(if_block1);
+        transition_in(icon1.$.fragment, local);
+        transition_in(icon2.$.fragment, local);
+        transition_in(icon3.$.fragment, local);
+        transition_in(icon4.$.fragment, local);
+        transition_in(icon5.$.fragment, local);
+        transition_in(icon6.$.fragment, local);
+        transition_in(icon7.$.fragment, local);
+        transition_in(icon8.$.fragment, local);
+        transition_in(icon9.$.fragment, local);
+        transition_in(icon10.$.fragment, local);
+        transition_in(icon11.$.fragment, local);
+        transition_in(icon12.$.fragment, local);
+        transition_in(icon13.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon0.$.fragment, local);
+        transition_out(if_block1);
+        transition_out(icon1.$.fragment, local);
+        transition_out(icon2.$.fragment, local);
+        transition_out(icon3.$.fragment, local);
+        transition_out(icon4.$.fragment, local);
+        transition_out(icon5.$.fragment, local);
+        transition_out(icon6.$.fragment, local);
+        transition_out(icon7.$.fragment, local);
+        transition_out(icon8.$.fragment, local);
+        transition_out(icon9.$.fragment, local);
+        transition_out(icon10.$.fragment, local);
+        transition_out(icon11.$.fragment, local);
+        transition_out(icon12.$.fragment, local);
+        transition_out(icon13.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div43);
+        }
+        destroy_component(icon0);
+        if (if_block0)
+          if_block0.d();
+        if_blocks[current_block_type_index].d();
+        destroy_component(icon1);
+        destroy_component(icon2);
+        destroy_component(icon3);
+        destroy_component(icon4);
+        destroy_component(icon5);
+        destroy_component(icon6);
+        destroy_component(icon7);
+        destroy_component(icon8);
+        destroy_component(icon9);
+        destroy_component(icon10);
+        destroy_component(icon11);
+        destroy_component(icon12);
+        destroy_component(icon13);
       }
     };
   }
   function instance7($self, $props, $invalidate) {
     let { user: user2 } = $props;
     let { property: property2 } = $props;
+    let { countries: countries2 } = $props;
+    let approvalStatus = "approved";
+    onMount(() => {
+      console.log("Property = ", property2);
+      if (property2.approvalState !== "pending" && property2.approvalState !== "") {
+        $invalidate(1, approvalStatus = "rejected");
+      }
+      if (property2.approvalState === "pending") {
+        $invalidate(1, approvalStatus = "pending");
+      }
+    });
+    let approvalStates = {
+      "pending": {
+        description: "Waiting for review \u{1F50D}",
+        reason: "We are reviewing your property. It will takes 1-3 days."
+      },
+      "rejected": {
+        description: "Sorry, your property information has been rejected \u{1F622}",
+        reason: property2.approvalState
+      },
+      "approved": {
+        description: "Congratulations, your property has been successfully listed on the App. \u{1F604}",
+        reason: ""
+      }
+    };
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(0, user2 = $props2.user);
+        $invalidate(3, user2 = $props2.user);
       if ("property" in $props2)
-        $invalidate(1, property2 = $props2.property);
+        $invalidate(0, property2 = $props2.property);
+      if ("countries" in $props2)
+        $invalidate(4, countries2 = $props2.countries);
     };
-    return [user2, property2];
+    return [property2, approvalStatus, approvalStates, user2, countries2];
   }
   var EditProperty = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance7, create_fragment7, safe_not_equal, { user: 0, property: 1 });
+      init(this, options, instance7, create_fragment7, safe_not_equal, { user: 3, property: 0, countries: 4 });
     }
   };
   var EditProperty_default = EditProperty;
 
   // realtor/property.svelte
-  function create_else_block2(ctx) {
+  function create_else_block3(ctx) {
     let createproperty;
     let current;
     createproperty = new CreateProperty_default({ props: { property, user, countries } });
@@ -11952,10 +13177,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
     };
   }
-  function create_if_block4(ctx) {
+  function create_if_block5(ctx) {
     let editproperty;
     let current;
-    editproperty = new EditProperty_default({});
+    editproperty = new EditProperty_default({ props: { property, user, countries } });
     return {
       c() {
         create_component(editproperty.$.fragment);
@@ -11997,7 +13222,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     let current;
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({});
-    const if_block_creators = [create_if_block4, create_else_block2];
+    const if_block_creators = [create_if_block5, create_else_block3];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (property.id)
