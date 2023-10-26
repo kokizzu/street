@@ -36,6 +36,7 @@
   
   function GetPayload() {
     if( property.countryCode==='US' ) property.city = property.countyName;
+    if(property.numberOfFloors ==='undefined') property.numberOfFloors = 1;
     return {
       countryCode: property.countryCode,
       city: property.city,
@@ -50,9 +51,9 @@
       otherFee: property.otherFee || [],
       imageLabels: property.imageLabels || [],
       altitude: property.altitude,
-      id: '' + property.id,
+      id: property.id,
       formattedAddress: property.formattedAddress,
-      coord: [property.lat, property.lng],
+      coord: property.coord,
       houseType: property.houseType,
       purpose: property.purpose,
       images: property.images || [],
@@ -62,8 +63,8 @@
       mainUse: property.mainUse,
       note: property.note,
       lastPrice: '' + property.lastPrice,
-      agencyFeePercent: property.agencyFeePercent,
-      numberOfFloors: '' + property.floors,
+      agencyFeePercent: property.agencyFeePercent || 0,
+      numberOfFloors: property.numberOfFloors,
     };
   }
   
@@ -143,7 +144,7 @@
     submitLoading = true;
     property.images = images;
     property.imageLabels = imageLabels;
-    let payload = GetPayload();
+    const payload = GetPayload();
     const prop = {property: payload};
     await RealtorUpsertProperty( prop, function( res ) {
       if( res.error ) {
@@ -156,7 +157,10 @@
     } );
   }
   
-  // +================================================+ //
+  // +================| Edit Feature |===================+ //
+  let houseTypeLists = [
+    'house', 'land', 'apartment', 'townhouse', 'condo', 'villa', 'factory', 'parking', 'other',
+  ];
 </script>
 
 <div class="edit_property_root">
@@ -176,7 +180,9 @@
 				{#if approvalStates[ approvalStatus ].reason!==''}
 					<div class="reason">
 						<p class:text_danger={approvalStatus === 'rejected'}>{approvalStates[ approvalStatus ].reason}</p>
-						<button class="edit_btn">Review again</button>
+						{#if approvalStatus === 'rejected'}
+							<button class="edit_btn">Review again</button>
+						{/if}
 					</div>
 				{/if}
 			</div>
@@ -214,7 +220,7 @@
 						</div>
 					</div>
 					<div class="right">
-						<button class="edit_btn">
+						<button class="edit_btn" on:click={() => PART_TO_EDIT = EDIT_FEATURE}>
 							<Icon color='#FFF' size={10} src={FaSolidPen}/>
 							<span>Edit</span>
 						</button>
@@ -265,8 +271,7 @@
 						</button>
 					</div>
 					<p>
-						Air conditioning/Heating, Balcony/Patio, Air conditioning/Heating, Balcony/Patio, Air conditioning/Heating, Balcony/Patio, Air
-						conditioning/Heating, Balcony/Patio, Air conditioning/Heating, Balcony/Patio,
+						{property.mainUse || '--'}
 					</p>
 				</div>
 				<div class="about">
@@ -278,9 +283,7 @@
 						</button>
 					</div>
 					<p>
-						Looking for convenient city living? This spacious apartment is perfectly situated in the heart of the city, with nearby amenities including
-						grocery stores, restaurants, and shopping. Enjoy plenty of natural light and modern conveniences like updated appliances and ample storage.
-						This amazing apartment has everything you need for comfortable living in a fantastic location.
+						{property.note || '--'}
 					</p>
 				</div>
 				<div class="parking">
@@ -293,7 +296,7 @@
 					</div>
 					<div class="details">
 						<span>Parking</span>
-						<span>Yes</span>
+						<span>{property.parking >= 1 ? 'Yes' : 'No'}</span>
 					</div>
 				</div>
 			</div>
@@ -341,7 +344,7 @@
 					<button class='back_button' on:click={() => PART_TO_EDIT = ''}>
 						<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
 					</button>
-					<h3>Facility</h3>
+					<h3>Upload property photo</h3>
 				</div>
 				<div class="edit_content">
 					<div class="upload_picture">
@@ -400,6 +403,83 @@
 				</div>
 			</div>
 		{/if}
+		{#if PART_TO_EDIT===EDIT_FEATURE}
+			<div class="edit_part">
+				<div class="upper">
+					<button class='back_button' on:click={() => PART_TO_EDIT = ''}>
+						<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
+					</button>
+					<h3>Feature</h3>
+				</div>
+				<div class="edit_content">
+					<div class="feature">
+						<div class='row'>
+							<div class='input_box'>
+								<label for='houseType'>House type <span class='asterisk'>*</span></label>
+								<select id='houseType' name='houseType'>
+									{#each houseTypeLists as t}
+										<option value={t}>{t}</option>
+									{/each}
+								</select>
+							</div>
+						</div>
+						<div class='room_area'>
+							{#if property.houseType!=='land'}
+								<div class='input_box beds'>
+									<label for='beds'>
+										<Icon color='#475569' size={16} src={FaSolidBed}/>
+										<span>Beds</span>
+									</label>
+									<input id='beds' type='number' min='0' bind:value={property.bedroom}/>
+								</div>
+								<div class='input_box baths'>
+									<label for='baths'>
+										<Icon color='#475569' size={13} src={FaSolidBath}/>
+										<span>Baths</span>
+									</label>
+									<input id='baths' type='number' min='0' bind:value={property.bathroom}/>
+								</div>
+								<div class='input_box livings'>
+									<label for='livings'>
+										<Icon color='#475569' size={13} src={FaSolidChair}/>
+										<span>Livings</span>
+									</label>
+									<input id='livings' type='number' min='0' bind:value={property.livingroom}/>
+								</div>
+							{/if}
+							<div class='input_box area'>
+								<label for='area'>
+									<Icon color='#475569' size={13} src={FaSolidBorderStyle}/>
+									<span>M2 <span class='asterisk'>*</span></span>
+									<button class='unit_toggle'>
+										<span class='bg'></span>
+										<Icon color='#F97316' size={13} src={FaSolidExchangeAlt}/>
+									</button>
+								</label>
+								<input id='area' type='number' min='0' bind:value={property.sizeM2}/>
+							</div>
+						</div>
+						<div class='row'>
+							<div class='input_box'>
+								<label for='parking'>Parking <span class='asterisk'>*</span></label>
+								<select id='parking' name='parking' bind:value={property.parking}>
+									<option value='1'>Yes</option>
+									<option value='0'>No</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<button class='next_button' on:click={SaveEditPicture}>
+						{#if submitLoading===false}
+							<span>Save</span>
+						{/if}
+						{#if submitLoading===true}
+							<Icon className='spin' color='#FFF' size={15} src={FaSolidCircleNotch}/>
+						{/if}
+					</button>
+				</div>
+			</div>
+		{/if}
 	</div>
 	<div class="delete_property_container">
 		<button class="delete_property">
@@ -426,6 +506,47 @@
 
     :global(.spin) {
         animation : spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    .room_area {
+        display        : flex;
+        flex-direction : row;
+        gap            : 20px;
+    }
+
+    .input_box {
+        display        : flex;
+        flex-direction : column;
+        gap            : 8px;
+        width          : 100%;
+    }
+
+    .input_box label {
+        font-size   : 13px;
+        font-weight : 700;
+        margin-left : 10px;
+    }
+
+    .input_box input,
+    .input_box select {
+        width            : 100%;
+        border           : 1px solid #CBD5E1;
+        background-color : #F1F5F9;
+        border-radius    : 8px;
+        padding          : 12px;
+        text-transform   : capitalize;
+    }
+
+    .input_box input:focus,
+    .input_box select:focus {
+        border-color : #3B82F6;
+        outline      : 1px solid #3B82F6;
+    }
+
+    .row {
+        display               : grid;
+        grid-template-columns : 1fr 1fr;
+        gap                   : 20px;
     }
 
     .edit_property_root {
@@ -979,6 +1100,12 @@
 
     .edit_property_container .edit_part .upload_picture .image_lists .image_card .remove_image:hover {
         background-color : #F85454;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature {
+		    display: flex;
+		    flex-direction: column;
+		    gap: 20px;
     }
 
     /* Responsive to mobile device */

@@ -103,6 +103,8 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 		}
 	}
 
+	prop.NormalizeFloorList()
+
 	if prop.DoUpsert() {
 		if in.Property.Id == 0 {
 			// Get user email, send message to their email
@@ -112,9 +114,7 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 			)
 			L.IsError(err, `SendNotifAddPropertyEmail`)
 		}
-	}
-
-	if !prop.DoUpsert() {
+	} else {
 		out.SetError(500, ErrRealtorUpsertPropertySaveFailed)
 		return
 	}
