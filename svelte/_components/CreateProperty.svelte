@@ -1136,24 +1136,6 @@
         outline      : 1px solid #3B82F6;
     }
 
-    .next_button {
-        background-color : #F97316;
-        color            : white;
-        display          : flex;
-        justify-content  : center;
-        border-radius    : 8px;
-        border           : none;
-        padding          : 10px;
-        cursor           : pointer;
-        width            : 100%;
-        font-weight      : 600;
-    }
-
-    .next_button:disabled,
-    .next_button:hover {
-        background-color : #F58433;
-    }
-
     .asterisk {
         color      : #EF4444;
         font-size  : 14px;

@@ -253,6 +253,8 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 			prop.SetCreatedAt(in.UnixNow())
 		}
 
+		oldState := prop.ApprovalState
+		newState := in.Property.ApprovalState
 		haveMutation := prop.SetAll(in.Property, M.SB{
 			mProperty.PriceHistoriesSell: true,
 			mProperty.PriceHistoriesRent: true,
@@ -273,20 +275,20 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 
 		out.Property = &prop.Property
 
-		if prop.ApprovalState == `pending` {
+		if in.Pager.Page == 0 {
+			break
+		}
+
+		if newState == `` && oldState != `` {
 			err := d.Mailer.SendNotifPropertyAcceptedEmail(user.Email,
 				fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
 			)
 			L.IsError(err, `SendNotifPropertyAcceptedEmail`)
-		} else if prop.ApprovalState != `pending` && prop.ApprovalState != `` {
+		} else if newState != `` && oldState != `` {
 			err := d.Mailer.SendNotifPropertyRejectedEmail(user.Email,
 				fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
 			)
 			L.IsError(err, `SendNotifPropertyRejectedEmail`)
-		}
-
-		if in.Pager.Page == 0 {
-			break
 		}
 
 		fallthrough
