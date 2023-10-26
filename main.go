@@ -77,6 +77,10 @@ func main() {
 			mj := &xMailer.Mailjet{MailjetConf: conf.EnvMailjet()}
 			L.PanicIf(mj.Connect(), `Mailjet.Connect`)
 			mailer.SendMailFunc = mj.SendEmail
+		case `dockermailserver`:
+			dms, err := xMailer.NewDockermailserver(conf.EnvDockermailserver())
+			L.PanicIf(err, `NewDockermailserver`)
+			mailer.SendMailFunc = dms.SendEmail
 		default: // use mailhog
 			mh, err := xMailer.NewMailhog(conf.EnvMailhog())
 			L.PanicIf(err, `NewMailhog`)
