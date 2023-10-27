@@ -19,8 +19,8 @@
   import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
   import AddOtherFeesDialog from "./AddOtherFeesDialog.svelte";
   
-  export let property;
-  export let countries;
+  export let property
+  export let countries
   
   let approvalStatus = 'approved';
   let submitLoading = false;
@@ -70,7 +70,6 @@
       note: property.note,
       lastPrice: '' + property.lastPrice,
       agencyFeePercent: property.agencyFeePercent || 0,
-      numberOfFloors: property.numberOfFloors,
     };
   }
   
@@ -200,10 +199,8 @@
       property.depositFee = depositFee;
       property.minimumDurationYear = minimumDurationYear;
       property.otherFees = otherFees;
-      
       const payload = GetPayload();
       const prop = {property: payload};
-      console.log('Submitted = ', payload)
       await RealtorUpsertProperty( prop, function( res ) {
         if( res.error ) {
           submitLoading = false;
@@ -215,6 +212,44 @@
       } );
     }
   }
+  
+  // +================| Edit Facility |===================+ //
+  let mainUse = property.mainUse;
+  
+  async function SaveEditFacility() {
+    submitLoading = true;
+    property.mainUse = mainUse;
+    const payload = GetPayload();
+    const prop = {property: payload};
+    await RealtorUpsertProperty( prop, function( res ) {
+      if( res.error ) {
+        submitLoading = false;
+        alert( res.error );
+        return;
+      }
+      console.log( res );
+      submitLoading = false;
+    } );
+  }
+  
+  // +================| Edit About |===================+ //
+  let note = property.note;
+  
+  async function SaveEditAbout() {
+    submitLoading = true;
+    property.note = note;
+    const payload = GetPayload();
+    const prop = {property: payload};
+    await RealtorUpsertProperty( prop, function( res ) {
+      if( res.error ) {
+        submitLoading = false;
+        alert( res.error );
+        return;
+      }
+      console.log( res );
+      submitLoading = false;
+    } );
+  }
 </script>
 
 <div class="edit_property_root">
@@ -225,7 +260,6 @@
 		<span>Property ID: {property.id}</span>
 	</div>
 	<div class="edit_property_container">
-		
 		{#if PART_TO_EDIT===''}
 			<div class="property_status">
 				<div class={`status ${approvalStatus}`}>
@@ -319,7 +353,7 @@
 				<div class="facility">
 					<div class="upper">
 						<h3>Facility</h3>
-						<button class="edit_btn">
+						<button class="edit_btn" on:click={() => PART_TO_EDIT = EDIT_FACILITY}>
 							<Icon color='#FFF' size={10} src={FaSolidPen}/>
 							<span>Edit</span>
 						</button>
@@ -331,7 +365,7 @@
 				<div class="about">
 					<div class="upper">
 						<h3>About</h3>
-						<button class="edit_btn">
+						<button class="edit_btn" on:click={() => PART_TO_EDIT = EDIT_ABOUT}>
 							<Icon color='#FFF' size={10} src={FaSolidPen}/>
 							<span>Edit</span>
 						</button>
@@ -390,7 +424,6 @@
 				</div>
 			</div>
 		{/if}
-		
 		<!-- Edit partials -->
 		{#if PART_TO_EDIT===EDIT_PICTURE}
 			<div class="edit_part">
@@ -646,6 +679,64 @@
 				</div>
 			</div>
 		{/if}
+		{#if PART_TO_EDIT===EDIT_FACILITY}
+			<div class="edit_part">
+				<div class="upper">
+					<button class='back_button' on:click={() => PART_TO_EDIT = ''}>
+						<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
+					</button>
+					<h3>Facility</h3>
+				</div>
+				<div class="edit_content">
+					<div class="facility">
+						<textarea
+							bind:value={mainUse}
+							name="facility"
+							id="facility"
+							placeholder="Facility"
+							class="textarea_input"
+						></textarea>
+					</div>
+					<button disabled={submitLoading===true} class='next_button' on:click={SaveEditFacility}>
+						{#if submitLoading===false}
+							<span>Save</span>
+						{/if}
+						{#if submitLoading===true}
+							<Icon className='spin' color='#FFF' size={15} src={FaSolidCircleNotch}/>
+						{/if}
+					</button>
+				</div>
+			</div>
+		{/if}
+		{#if PART_TO_EDIT===EDIT_ABOUT}
+			<div class="edit_part">
+				<div class="upper">
+					<button class='back_button' on:click={() => PART_TO_EDIT = ''}>
+						<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
+					</button>
+					<h3>Facility</h3>
+				</div>
+				<div class="edit_content">
+					<div class="about">
+						<textarea
+							bind:value={note}
+							name="about"
+							id="about"
+							placeholder="About your property..."
+							class="textarea_input"
+						></textarea>
+					</div>
+					<button disabled={submitLoading===true} class='next_button' on:click={SaveEditAbout}>
+						{#if submitLoading===false}
+							<span>Save</span>
+						{/if}
+						{#if submitLoading===true}
+							<Icon className='spin' color='#FFF' size={15} src={FaSolidCircleNotch}/>
+						{/if}
+					</button>
+				</div>
+			</div>
+		{/if}
 	</div>
 	<div class="delete_property_container">
 		<button class="delete_property">
@@ -673,6 +764,36 @@
     :global(.spin) {
         animation : spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
     }
+
+    .textarea_input {
+        white-space      : normal;
+        height           : 400px;
+        resize           : none;
+        width            : 100%;
+        border           : 1px solid #CBD5E1;
+        background-color : #F1F5F9;
+        border-radius    : 8px;
+        padding          : 12px;
+    }
+
+    .textarea_input:focus {
+        border-color : #3B82F6;
+        outline      : 1px solid #3B82F6;
+    }
+
+    .textarea_input::-webkit-scrollbar {
+        width : 7px;
+    }
+
+    .textarea_input::-webkit-scrollbar-thumb {
+        background-color : #3B82F6;
+        border-radius    : 7px;
+    }
+
+    .textarea_input::-webkit-scrollbar-track {
+        background : transparent;
+    }
+
 
     .add_fee_btn {
         background-color : #F97316;
