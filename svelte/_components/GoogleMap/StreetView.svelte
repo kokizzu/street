@@ -15,10 +15,17 @@
     let streetViewInput, streetViewInputValue, autocompleteService, geocoder, elevationService;
     let showAutoCompleteList = false, autocompleteLists = [];
     let growl1 = Growl;
+    let cameraOrientation;
 
     function init3dTiles() {
         // Enable simultaneous requests.
         Cesium.RequestScheduler.requestsByServer["tile.googleapis.com:443"] = 18;
+
+        cameraOrientation = new Cesium.HeadingPitchRoll(
+            4.6550106925119925,
+            -0.2863894863138836,
+            1.3561760425773173e-7
+        );
 
         // Create the viewer.
         viewer = new Cesium.Viewer("cesiumContainer", {
@@ -52,11 +59,7 @@
                 lng,
                 elevation || 1500.0,
             ),
-            orientation: new Cesium.HeadingPitchRoll(
-                4.6550106925119925,
-                -0.2863894863138836,
-                1.3561760425773173e-7
-            ),
+            orientation: cameraOrientation,
         });
 
         handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
@@ -134,11 +137,7 @@
                             results[0].geometry.location.lat(),
                             elv || 15000.0
                         ),
-                        orientation: new Cesium.HeadingPitchRoll(
-                            4.6550106925119925,
-                            -0.2863894863138836,
-                            1.3561760425773173e-7
-                        ),
+                        orientation: cameraOrientation,
                     })
                     // rotateCameraAround(
                     //   results[ 0 ].geometry.location,
