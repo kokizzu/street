@@ -819,8 +819,8 @@
 									</button>
 								</header>
 								<div class='other_fee_lists'>
-									{#if property.otherFee && property.otherFee.length}
-										{#each property.otherFee as otherFee}
+									{#if property.otherFees && property.otherFees.length}
+										{#each property.otherFees as otherFee}
 											<div class='fee'>
 												<span>{otherFee.name}</span>
 												<b>{formatPrice( otherFee.fee, countryCurrency )}/mo</b>
@@ -1134,12 +1134,6 @@
     .input_box select:focus {
         border-color : #3B82F6;
         outline      : 1px solid #3B82F6;
-    }
-
-    .asterisk {
-        color      : #EF4444;
-        font-size  : 14px;
-        margin-top : -3px;
     }
 
     /* =========================*/

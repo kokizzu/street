@@ -17,13 +17,14 @@
   import FaSolidCamera from "svelte-icons-pack/fa/FaSolidCamera";
   import FaSolidTimes from "svelte-icons-pack/fa/FaSolidTimes";
   import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
+  import AddOtherFeesDialog from "./AddOtherFeesDialog.svelte";
   
-  export let user;
   export let property;
   export let countries;
   
   let approvalStatus = 'approved';
   let submitLoading = false;
+  let countryCurrency = 'TWD';
   onMount( () => {
     console.log( 'Property = ', property )
     if( property.approvalState!=='pending' && property.approvalState!=='' ) {
@@ -32,11 +33,16 @@
     if( property.approvalState==='pending' ) {
       approvalStatus = 'pending'
     }
+    for( let i = 0; i<countries.length; i++ ) {
+      if( countries[ i ].iso_2===property.countryCode ) {
+        countryCurrency = countries[ i ].currency.code;
+      }
+    }
   } )
   
   function GetPayload() {
     if( property.countryCode==='US' ) property.city = property.countyName;
-    if(property.numberOfFloors ==='undefined') property.numberOfFloors = 1;
+    if( property.numberOfFloors==='undefined' ) property.numberOfFloors = 1;
     return {
       countryCode: property.countryCode,
       city: property.city,
@@ -48,7 +54,7 @@
       parking: parseFloat( property.parking ),
       depositFee: property.depositFee,
       minimumDurationYear: property.minimumDurationYear,
-      otherFee: property.otherFee || [],
+      otherFees: property.otherFees || [],
       imageLabels: property.imageLabels || [],
       altitude: property.altitude,
       id: property.id,
@@ -59,7 +65,7 @@
       images: property.images || [],
       bedroom: property.bedroom,
       bathroom: property.bathroom,
-      sizeM2: '' + property.sizeM2, // have to be string because of taiwan data
+      sizeM2: '' + property.sizeM2,
       mainUse: property.mainUse,
       note: property.note,
       lastPrice: '' + property.lastPrice,
@@ -83,16 +89,13 @@
     },
   }
   
-  let EDIT_PICTURE = 'picture', EDIT_FEATURE = 'feature', EDIT_FACILITY = 'facility', EDIT_ABOUT = 'about', EDIT_FLOORS = 'floors';
+  const EDIT_PICTURE = 'picture', EDIT_FEATURE = 'feature', EDIT_FACILITY = 'facility', EDIT_ABOUT = 'about', EDIT_FLOORS = 'floors';
   let PART_TO_EDIT = '';
   
   // +================| Edit Picture |================+ //
   let imageHouseInput;
-  let houseImgUploading = false;
-  let uploadHouseStatus = '';
-  let uploadHousePercent = 0;
-  let images = property.images;
-  let imageLabels = property.imageLabels || [];
+  let houseImgUploading = false, uploadHouseStatus = '', uploadHousePercent = 0;
+  let images = property.images, imageLabels = property.imageLabels || [];
   
   function handlerHouseImage() {
     if( !imageHouseInput ) return;
@@ -160,7 +163,58 @@
   // +================| Edit Feature |===================+ //
   let houseTypeLists = [
     'house', 'land', 'apartment', 'townhouse', 'condo', 'villa', 'factory', 'parking', 'other',
-  ];
+  ], editFeatureCount = 0;
+  let houseType = property.houseType, bedroom = property.bedroom, bathroom = property.bathroom, livingroom = property.livingroom
+  let sizeM2 = property.sizeM2, parking = property.parking.toString();
+  let purpose = property.purpose, lastPrice = property.lastPrice, agencyFeePercent = property.agencyFeePercent;
+  let depositFee = property.depositFee, minimumDurationYear = property.minimumDurationYear, otherFees = property.otherFees;
+  let otherFeeObj = {name: '', fee: 0};
+  let addOtherFeeDialog = AddOtherFeesDialog, agencyFee = 'true';
+  
+  function addOtherFee() {
+    otherFees = [...otherFees, otherFeeObj];
+    otherFeeObj = {
+      name: '',
+      fee: 0,
+    };
+    addOtherFeeDialog.hideModal();
+  }
+  
+  async function SaveEditFeature() {
+    if( editFeatureCount===0 ) {
+      editFeatureCount = 1;
+      console.log( parking )
+      return
+    }
+    if( editFeatureCount===1 ) {
+      submitLoading = true;
+      property.houseType = houseType;
+      property.bedroom = bedroom;
+      property.bathroom = bathroom;
+      property.livingroom = livingroom;
+      property.sizeM2 = sizeM2;
+      property.parking = parking;
+      property.purpose = purpose;
+      property.lastPrice = lastPrice;
+      property.agencyFeePercent = agencyFeePercent;
+      property.depositFee = depositFee;
+      property.minimumDurationYear = minimumDurationYear;
+      property.otherFees = otherFees;
+      
+      const payload = GetPayload();
+      const prop = {property: payload};
+      console.log('Submitted = ', payload)
+      await RealtorUpsertProperty( prop, function( res ) {
+        if( res.error ) {
+          submitLoading = false;
+          alert( res.error );
+          return;
+        }
+        console.log( res );
+        submitLoading = false;
+      } );
+    }
+  }
 </script>
 
 <div class="edit_property_root">
@@ -180,7 +234,7 @@
 				{#if approvalStates[ approvalStatus ].reason!==''}
 					<div class="reason">
 						<p class:text_danger={approvalStatus === 'rejected'}>{approvalStates[ approvalStatus ].reason}</p>
-						{#if approvalStatus === 'rejected'}
+						{#if approvalStatus==='rejected'}
 							<button class="edit_btn">Review again</button>
 						{/if}
 					</div>
@@ -230,28 +284,28 @@
 					<div class='feature_item'>
 						<b>{property.bedroom}</b>
 						<div class="labels">
-							<Icon className="labels_icon" color='#475569' size={13} src={FaSolidBed}/>
+							<Icon className="labels_icon" color='#848D96' size={13} src={FaSolidBed}/>
 							<span>Beds</span>
 						</div>
 					</div>
 					<div class='feature_item'>
 						<b>{property.bathroom}</b>
 						<div class="labels">
-							<Icon className="labels_icon" color='#475569' size={13} src={FaSolidBath}/>
+							<Icon className="labels_icon" color='#848D96' size={13} src={FaSolidBath}/>
 							<span>Baths</span>
 						</div>
 					</div>
 					<div class='feature_item'>
 						<b>{property.livingroom}</b>
 						<div class="labels">
-							<Icon className="labels_icon" color='#475569' size={12} src={FaSolidChair}/>
+							<Icon className="labels_icon" color='#848D96' size={12} src={FaSolidChair}/>
 							<span>Livings</span>
 						</div>
 					</div>
 					<div class='feature_item'>
 						<b>{property.sizeM2}</b>
 						<div class="labels">
-							<Icon className="labels_icon" color='#475569' size={13} src={FaSolidBorderStyle}/>
+							<Icon className="labels_icon" color='#848D96' size={13} src={FaSolidBorderStyle}/>
 							<span>M2</span>
 							<button class='unit_toggle'>
 								<span class="bg"></span>
@@ -296,7 +350,7 @@
 					</div>
 					<div class="details">
 						<span>Parking</span>
-						<span>{property.parking >= 1 ? 'Yes' : 'No'}</span>
+						<span>{property.parking>=1 ? 'Yes' : 'No'}</span>
 					</div>
 				</div>
 			</div>
@@ -392,7 +446,7 @@
 							{/if}
 						</div>
 					</div>
-					<button class='next_button' on:click={SaveEditPicture}>
+					<button disabled={submitLoading===true} class='next_button' on:click={SaveEditPicture}>
 						{#if submitLoading===false}
 							<span>Save</span>
 						{/if}
@@ -404,74 +458,186 @@
 			</div>
 		{/if}
 		{#if PART_TO_EDIT===EDIT_FEATURE}
+			<AddOtherFeesDialog
+				bind:fee={otherFeeObj.fee}
+				bind:name={otherFeeObj.name}
+				bind:this={addOtherFeeDialog}
+			>
+				<button class='add_fee_btn' on:click={addOtherFee}>
+					Add
+				</button>
+			</AddOtherFeesDialog>
 			<div class="edit_part">
 				<div class="upper">
-					<button class='back_button' on:click={() => PART_TO_EDIT = ''}>
+					<button class='back_button' on:click={() => {
+            if( editFeatureCount>0 ) {
+              editFeatureCount = 0;
+            } else if( editFeatureCount===0 ) {
+              PART_TO_EDIT = '';
+            }
+					}}>
 						<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
 					</button>
 					<h3>Feature</h3>
 				</div>
 				<div class="edit_content">
-					<div class="feature">
-						<div class='row'>
-							<div class='input_box'>
-								<label for='houseType'>House type <span class='asterisk'>*</span></label>
-								<select id='houseType' name='houseType'>
-									{#each houseTypeLists as t}
-										<option value={t}>{t}</option>
-									{/each}
-								</select>
+					{#if editFeatureCount===0}
+						<div class="feature">
+							<div class='row'>
+								<div class='input_box'>
+									<label for='houseType'>House type <span class='asterisk'>*</span></label>
+									<select id='houseType' name='houseType' bind:value={houseType}>
+										{#each houseTypeLists as t}
+											<option value={t}>{t}</option>
+										{/each}
+									</select>
+								</div>
+							</div>
+							<div class='room_area'>
+								{#if property.houseType!=='land'}
+									<div class='input_box beds'>
+										<label for='beds' class="labels">
+											<Icon className="labels_icon" color='#848D96' s size={13} src={FaSolidBed}/>
+											<span>Beds</span>
+										</label>
+										<input id='beds' type='number' min='0' bind:value={bedroom}/>
+									</div>
+									<div class='input_box baths'>
+										<label for='baths' class="labels">
+											<Icon className="labels_icon" color='#848D96' size={13} src={FaSolidBath}/>
+											<span>Baths</span>
+										</label>
+										<input id='baths' type='number' min='0' bind:value={bathroom}/>
+									</div>
+									<div class='input_box livings'>
+										<label for='livings' class="labels">
+											<Icon className="labels_icon" color='#848D96' size={13} src={FaSolidChair}/>
+											<span>Livings</span>
+										</label>
+										<input id='livings' type='number' min='0' bind:value={livingroom}/>
+									</div>
+								{/if}
+								<div class='input_box area'>
+									<label for='area' class="labels">
+										<Icon className="labels_icon" color='#848D96' size={13} src={FaSolidBorderStyle}/>
+										<span>M2</span>
+										<button class='unit_toggle'>
+											<span class='bg'></span>
+											<Icon className="labels_icon" color='#F97316' size={13} src={FaSolidExchangeAlt}/>
+										</button>
+									</label>
+									<input id='area' type='number' min='0' bind:value={sizeM2}/>
+								</div>
+							</div>
+							<div class='row'>
+								<div class='input_box'>
+									<label for='parking'>Parking <span class='asterisk'>*</span></label>
+									<select id='parking' name='parking' bind:value={parking}>
+										<option value='1'>Yes</option>
+										<option value='0'>No</option>
+									</select>
+								</div>
 							</div>
 						</div>
-						<div class='room_area'>
-							{#if property.houseType!=='land'}
-								<div class='input_box beds'>
-									<label for='beds'>
-										<Icon color='#475569' size={16} src={FaSolidBed}/>
-										<span>Beds</span>
-									</label>
-									<input id='beds' type='number' min='0' bind:value={property.bedroom}/>
+					{/if}
+					{#if editFeatureCount===1}
+						<div class="feature">
+							<div class='rent_or_sell'>
+								<label class={purpose === 'sell' ? 'option clicked': 'option'} for='sell'>
+									<input
+										type='radio'
+										name='rent_or_sell'
+										on:click={() => (purpose = 'sell')}
+										id='sell'
+										value='sell'
+									/>
+									Sell
+								</label>
+								<label class={purpose === 'rent' ? 'option clicked': 'option'} for='rent'>
+									<input
+										type='radio'
+										name='rent_or_sell'
+										on:click={() => (purpose = 'rent')}
+										id='rent'
+										value='rent'
+									/>
+									Rent
+								</label>
+							</div>
+							<div class='row'>
+								<div class='input_box prop_price'>
+									<label for='price'>{purpose==='sell' ? 'Property Price' : 'Rent'}</label>
+									<input id='price' type='number' min='0' bind:value={lastPrice}/>
+									<span>$</span>
 								</div>
-								<div class='input_box baths'>
-									<label for='baths'>
-										<Icon color='#475569' size={13} src={FaSolidBath}/>
-										<span>Baths</span>
-									</label>
-									<input id='baths' type='number' min='0' bind:value={property.bathroom}/>
+								{#if purpose==='rent'}
+									<p class='permonth'>/month</p>
+								{/if}
+							</div>
+							<div class='row'>
+								<div class='input_box'>
+									<label for='agency_fee'>Agency Fee</label>
+									<select id='agency_fee' bind:value={agencyFee}>
+										<option value='true'>Yes</option>
+										<option value='false'>No</option>
+									</select>
 								</div>
-								<div class='input_box livings'>
-									<label for='livings'>
-										<Icon color='#475569' size={13} src={FaSolidChair}/>
-										<span>Livings</span>
-									</label>
-									<input id='livings' type='number' min='0' bind:value={property.livingroom}/>
+								{#if agencyFee==='true'}
+									<div class='input_box agency_fee'>
+										<label for='agency_fee_percent'>Charge to Buyer</label>
+										<input id='agency_fee_percent' type='number' min='0' max='99' bind:value={agencyFeePercent}/>
+										<span>%</span>
+									</div>
+								{/if}
+							</div>
+							{#if purpose==='rent'}
+								<div class='row'>
+									<div class='input_box deposit_fee'>
+										<label for='deposit_fee'>Deposit Fee</label>
+										<input id='deposit_fee' type='number' min='0' bind:value={depositFee}/>
+										<span>$</span> <!-- TODO: Use current country currency sign -->
+									</div>
+									<div class='input_box min_duration'>
+										<label for='minimum_duration'>Minimum Duration</label>
+										<input id='minimum_duration' type='number' min='1' bind:value={minimumDurationYear}/>
+										<span>Year</span>
+									</div>
+								</div>
+								<div class='other_fee'>
+									<header>
+										<h4>Other Fee</h4>
+										<button class='add_fee' on:click={addOtherFeeDialog.showModal()}>
+											Add
+										</button>
+									</header>
+									<div class='other_fee_lists'>
+										{#if otherFees && otherFees.length}
+											{#each otherFees as otherFee}
+												<div class='fee'>
+													<span>{otherFee.name}</span>
+													<b>{formatPrice( otherFee.fee, countryCurrency )}/mo</b>
+												</div>
+											{/each}
+										{:else}
+											<div class='fee'>
+												<span>Example Fee #1</span>
+												<span>$$$</span>
+											</div>
+											<div class='fee'>
+												<span>Example Fee #1</span>
+												<span>$$$</span>
+											</div>
+										{/if}
+									</div>
 								</div>
 							{/if}
-							<div class='input_box area'>
-								<label for='area'>
-									<Icon color='#475569' size={13} src={FaSolidBorderStyle}/>
-									<span>M2 <span class='asterisk'>*</span></span>
-									<button class='unit_toggle'>
-										<span class='bg'></span>
-										<Icon color='#F97316' size={13} src={FaSolidExchangeAlt}/>
-									</button>
-								</label>
-								<input id='area' type='number' min='0' bind:value={property.sizeM2}/>
-							</div>
 						</div>
-						<div class='row'>
-							<div class='input_box'>
-								<label for='parking'>Parking <span class='asterisk'>*</span></label>
-								<select id='parking' name='parking' bind:value={property.parking}>
-									<option value='1'>Yes</option>
-									<option value='0'>No</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<button class='next_button' on:click={SaveEditPicture}>
+					{/if}
+					<button disabled={submitLoading===true} class='next_button' on:click={SaveEditFeature}>
 						{#if submitLoading===false}
-							<span>Save</span>
+							<span>
+								{editFeatureCount===0 ? 'Next' : 'Save'}
+							</span>
 						{/if}
 						{#if submitLoading===true}
 							<Icon className='spin' color='#FFF' size={15} src={FaSolidCircleNotch}/>
@@ -506,6 +672,16 @@
 
     :global(.spin) {
         animation : spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    .add_fee_btn {
+        background-color : #F97316;
+        color            : white;
+        border-radius    : 8px;
+        border           : none;
+        padding          : 10px;
+        cursor           : pointer;
+        width            : 100%;
     }
 
     .room_area {
@@ -641,6 +817,29 @@
     .edit_property_root .delete_property_container {
         margin : 20px auto 0 auto;
         width  : 60%;
+    }
+
+    .unit_toggle {
+        border     : none;
+        background : transparent;
+        position   : relative;
+        cursor     : pointer;
+    }
+
+    .unit_toggle .bg {
+        width            : 0;
+        height           : 0;
+        border-radius    : 50%;
+        background-color : rgb(0 0 0 / 0.06);
+        z-index          : 1;
+        position         : absolute;
+        top              : -4px;
+        left             : 0;
+    }
+
+    .unit_toggle:hover .bg {
+        width  : 24px;
+        height : 24px;
     }
 
     /* ========================== */
@@ -815,29 +1014,7 @@
         flex-direction  : row;
         justify-content : center;
         gap             : 6px;
-    }
-
-    .edit_property_container .main_details .col2 .feature_item .labels .unit_toggle {
-        border     : none;
-        background : transparent;
-        position   : relative;
-        cursor     : pointer;
-    }
-
-    .edit_property_container .main_details .col2 .feature_item .labels .unit_toggle .bg {
-        width            : 0;
-        height           : 0;
-        border-radius    : 50%;
-        background-color : rgb(0 0 0 / 0.06);
-        z-index          : 1;
-        position         : absolute;
-        top              : -4px;
-        left             : 0;
-    }
-
-    .edit_property_container .main_details .col2 .feature_item .labels .unit_toggle:hover .bg {
-        width  : 24px;
-        height : 24px;
+        color           : #848D96;
     }
 
     .edit_property_container .second_details {
@@ -1102,14 +1279,205 @@
         background-color : #F85454;
     }
 
+    /* +=== UPDATE FEATURE ===+ */
+
     .edit_property_container .edit_part .edit_content .feature {
-		    display: flex;
-		    flex-direction: column;
-		    gap: 20px;
+        display        : flex;
+        flex-direction : column;
+        gap            : 20px;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .room_area {
+        display        : flex;
+        flex-direction : row;
+        align-items    : flex-start;
+        gap            : 20px;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .room_area .input_box {
+        flex-direction : column-reverse !important;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .room_area .beds label,
+    .edit_property_container .edit_part .edit_content .feature .room_area .baths label,
+    .edit_property_container .edit_part .edit_content .feature .room_area .livings label,
+    .edit_property_container .edit_part .edit_content .feature .room_area .area label {
+        display         : flex !important;
+        flex-direction  : row !important;
+        justify-content : left !important;
+        align-items     : center !important;
+        gap             : 8px !important;
+        color           : #848D96;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .permonth {
+        line-height : 1em;
+        margin      : 20px 0 0;
+        font-size   : 17px;
+        font-weight : 500
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .rent_or_sell {
+        width                 : 100%;
+        display               : grid;
+        grid-template-columns : 1fr 1fr;
+        border-collapse       : collapse;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .rent_or_sell .option {
+        margin           : 0;
+        padding          : 10px 12px;
+        border           : 1px solid #CBD5E1;
+        background-color : #F1F5F9;
+        font-weight      : 500;
+        text-align       : center;
+        cursor           : pointer;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .rent_or_sell .option:nth-child(1) {
+        border-top-left-radius    : 8px;
+        border-bottom-left-radius : 8px;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .rent_or_sell .option:nth-child(2) {
+        border-top-right-radius    : 8px;
+        border-bottom-right-radius : 8px;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .rent_or_sell .option:hover {
+        border : 1px solid #F97316;
+        color  : #F97316;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .rent_or_sell .option.clicked {
+        background-color : #F97316;
+        color            : white;
+        border           : none;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .rent_or_sell .option input[type='radio'] {
+        position       : absolute;
+        opacity        : 0;
+        pointer-events : none;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .row {
+        display               : grid;
+        grid-template-columns : 1fr 1fr;
+        gap                   : 20px;
+        align-items           : center;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .row .prop_price,
+    .edit_property_container .edit_part .edit_content .feature .row .agency_fee,
+    .edit_property_container .edit_part .edit_content .feature .row .deposit_fee,
+    .edit_property_container .edit_part .edit_content .feature .row .min_duration {
+        position : relative;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .row .agency_fee input {
+        padding : 12px 25px 12px 12px;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .row .agency_fee span {
+        position  : absolute;
+        right     : 10px;
+        top       : 35px;
+        font-size : 15px;
+        color     : black;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .row .prop_price input,
+    .edit_property_container .edit_part .edit_content .feature .row .deposit_fee input {
+        padding : 12px 12px 12px 25px;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .row .prop_price span,
+    .edit_property_container .edit_part .edit_content .feature .row .deposit_fee span {
+        position  : absolute;
+        left      : 10px;
+        top       : 35px;
+        font-size : 14px;
+        color     : black;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .row .min_duration input {
+        padding : 12px 42px 12px 12px;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .row .min_duration span {
+        position  : absolute;
+        right     : 10px;
+        top       : 35px;
+        font-size : 15px;
+        color     : #F97316;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .other_fee {
+        display        : flex;
+        flex-direction : column;
+        gap            : 15px;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .other_fee header {
+        display         : flex;
+        flex-direction  : row;
+        justify-content : space-between;
+        align-items     : center;
+        margin-top      : 20px;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .other_fee header h4 {
+        margin    : 0;
+        font-size : 18px;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .other_fee header .add_fee {
+        color            : #F97316;
+        border           : none;
+        padding          : 10px 15px;
+        font-weight      : 600;
+        font-size        : 15px;
+        border-radius    : 8px;
+        cursor           : pointer;
+        background-color : transparent;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .other_fee header .add_fee:hover {
+        background-color : #F1F5F9;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .other_fee .other_fee_lists {
+        padding          : 15px;
+        background-color : #F1F5F9;
+        border-radius    : 8px;
+        display          : flex;
+        flex-direction   : column;
+        min-height       : 200px;
+    }
+
+    .edit_property_container .edit_part .edit_content .feature .other_fee .other_fee_lists .fee {
+        display         : flex;
+        flex-direction  : row;
+        justify-content : space-between;
+        padding         : 10px 0;
+        border-bottom   : 1px solid #CBD5E1;
+        font-size       : 15px;
+        font-weight     : 500;
     }
 
     /* Responsive to mobile device */
     @media (max-width : 768px) {
+        .unit_toggle .bg {
+            top  : -4px;
+            left : 1px;
+        }
+
+        .unit_toggle:hover .bg {
+            width  : 20px;
+            height : 20px;
+        }
+
         .edit_property_root {
             margin : -65px 20px 0 20px;
         }
@@ -1168,9 +1536,10 @@
             flex   : none;
         }
 
-        .edit_property_container .main_details .col2 .feature_item .labels {
+        .edit_property_container .main_details .col2 .feature_item .labels,
+        .edit_property_container .edit_part .edit_content .feature .room_area .input_box .labels {
             font-size : 10px;
-            gap       : 3px;
+            gap       : 1px;
         }
 
         :global(.labels_icon) {
@@ -1200,6 +1569,14 @@
         .edit_property_container .edit_part .upload_picture .image_lists .image_card .remove_image {
             right : 5px;
             top   : 5px;
+        }
+
+        .edit_property_container .edit_part .edit_content .feature {
+            gap : 15px;
+        }
+
+        .edit_property_container .edit_part .edit_content .feature .room_area {
+            gap : 10px !important;
         }
     }
 </style>
