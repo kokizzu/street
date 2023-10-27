@@ -26,8 +26,16 @@
             baseLayerPicker: false,
             requestRenderMode: true,
             geocoder: false,
+            timeline: false,
+            animation: false,
+            sceneModePicker: false,
+            homeButton: false,
+            infoBox: false,
             globe: false,
         });
+
+        // Enable rendering the sky
+        viewer.scene.skyAtmosphere.show = true;
 
         // Add 3D Tiles tileset.
         tileset = viewer.scene.primitives.add(
@@ -38,25 +46,40 @@
             })
         );
 
-        viewer.camera.setView({
-            destination: Cesium.Cartesian3.fromDegrees(lng, lat, elevation || 15000.0)
-        })
+        viewer.scene.camera.setView({
+            destination: Cesium.Cartesian3.fromDegrees(
+                lat,
+                lng,
+                elevation || 1500.0,
+            ),
+            orientation: new Cesium.HeadingPitchRoll(
+                4.6550106925119925,
+                -0.2863894863138836,
+                1.3561760425773173e-7
+            ),
+        });
 
         handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
         handler.setInputAction(async (click) => {
-            const pickedObject = viewer.scene.pick(click.position);
-            if (Cesium.defined(pickedObject)) {
-                const cartesian = viewer.scene.pickPosition(click.position);
-                const cartographic = Cesium.Cartographic.fromCartesian(cartesian);
-                const elevationResponse = await elevationService.getElevationForLocations({
-                    locations: [{
-                        lat: Cesium.Math.toDegrees(cartographic.latitude),
-                        lng: Cesium.Math.toDegrees(cartographic.longitude)
-                    }]
-                });
-
-                elevation = Cesium.Math.toDegrees(cartographic.height);
-                resolution = elevationResponse.results[0].resolution;
+            var cartesian = viewer.scene.pickPosition(new Cesium.Cartesian2(click.position.x, click.position.y));
+            var ellipsoid = viewer.scene.primitives.get(0).ellipsoid;
+            if (cartesian) {
+                var cartographic = ellipsoid.cartesianToCartographic(cartesian);
+                lat = Cesium.Math.toDegrees(cartographic.latitude);
+                lng = Cesium.Math.toDegrees(cartographic.longitude);
+                elevationService
+                    .getElevationForLocations({
+                        locations: [{lat, lng}],
+                    })
+                    .then(({ results }) => {
+                        if (results[0]) {
+                            elevation = results[0].elevation;
+                            resolution = results[0].resolution;
+                        }
+                    })
+                    .catch((e) =>
+                        alert('Elevation service failed due to: ' + e),
+                    )
             }
         }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
     }
@@ -102,13 +125,20 @@
                     }
                     const elv = elevationResponse.results[0].elevation;
                     elevation = elv;
-                    resolution = elevationResponse.results[0].resolution
-                    viewer.camera.setView({
+                    resolution = elevationResponse.results[0].resolution;
+                    lat = results[0].geometry.location.lat();
+                    lng = results[0].geometry.location.lng();
+                    viewer.scene.camera.setView({
                         destination: Cesium.Cartesian3.fromDegrees(
                             results[0].geometry.location.lng(),
                             results[0].geometry.location.lat(),
                             elv || 15000.0
-                        )
+                        ),
+                        orientation: new Cesium.HeadingPitchRoll(
+                            4.6550106925119925,
+                            -0.2863894863138836,
+                            1.3561760425773173e-7
+                        ),
                     })
                     // rotateCameraAround(
                     //   results[ 0 ].geometry.location,
