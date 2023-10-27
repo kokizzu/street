@@ -71,7 +71,7 @@ func mergePropertyWithSerialNumber(inputProperties []Property) ([]Property, []ui
 			continue
 		}
 
-		if totalSizePropBySerialNumber[prop.SerialNumber].id == 0 {
+		if totalSizePropBySerialNumber[prop.SerialNumber] == nil {
 			totalSizePropBySerialNumber[prop.SerialNumber] = &prop
 		} else {
 			// Existing size
