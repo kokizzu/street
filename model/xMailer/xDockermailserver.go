@@ -14,14 +14,6 @@ type Dockermailserver struct {
 	client *mail.Client
 }
 
-func NewDockermailserver(cfg conf.DockermailserverConf) (*Dockermailserver, error) {
-	res := &Dockermailserver{
-		DockermailserverConf: cfg,
-	}
-	err := res.Connect()
-	return res, err
-}
-
 func (m *Dockermailserver) Connect() error {
 	if m.client != nil {
 		err := m.client.Close()

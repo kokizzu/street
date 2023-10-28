@@ -39,3 +39,27 @@ services:
         soft: 262144
         hard: 262144
     restart: always
+  docker-mailserver1:
+    image: ghcr.io/docker-mailserver/docker-mailserver:latest
+    hostname: mail.admin.hapstr.xyz
+    ports:
+      - "25:25"
+      - "587:587"
+      - "465:465"
+    volumes:
+      - ./var_mail/:/var/mail/
+      - ./var_mail-state/:/var/mail-state/
+      - ./var_log_mail/:/var/log/mail/
+      - ./tmp_docker-mailserver/:/tmp/docker-mailserver/
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/letsencrypt:/etc/letsencrypt
+    environment:
+      - ENABLE_RSPAMD=1
+      - ENABLE_CLAMAV=1
+      - ENABLE_FAIL2BAN=1
+      - SSL_TYPE=letsencrypt
+      - PERMIT_DOCKER=network
+      - SPOOF_PROTECTION=0
+    cap_add:
+      - NET_ADMIN # For Fail2Ban to work
+    restart: always
