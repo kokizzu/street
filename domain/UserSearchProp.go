@@ -56,13 +56,14 @@ const (
 )
 
 func mergePropertyWithSerialNumber(inputProperties []Property) ([]Property, []uint64) {
-	var filterProperties []Property
-	var filterPropIds []uint64
+	filterProperties := []Property{}
+	filterPropIds := []uint64{}
 
 	// Merge property history with same serial number
-	totalSizePropBySerialNumber := make(map[string]Property)
+	totalSizePropBySerialNumber := make(map[string]*Property)
 
 	for _, prop := range inputProperties {
+		prop := prop
 		propSize, err := strconv.ParseFloat(prop.SizeM2, 64)
 
 		// Check for errors
@@ -70,8 +71,8 @@ func mergePropertyWithSerialNumber(inputProperties []Property) ([]Property, []ui
 			continue
 		}
 
-		if totalSizePropBySerialNumber[prop.SerialNumber].id == 0 {
-			totalSizePropBySerialNumber[prop.SerialNumber] = prop
+		if totalSizePropBySerialNumber[prop.SerialNumber] == nil {
+			totalSizePropBySerialNumber[prop.SerialNumber] = &prop
 		} else {
 			// Existing size
 			existingPropSize, err := strconv.ParseFloat(totalSizePropBySerialNumber[prop.SerialNumber].SizeM2, 64)
@@ -87,9 +88,11 @@ func mergePropertyWithSerialNumber(inputProperties []Property) ([]Property, []ui
 	}
 
 	for _, prop := range totalSizePropBySerialNumber {
-		filterProperties = append(filterProperties, prop)
+		prop := prop
+		filterProperties = append(filterProperties, *prop)
 		filterPropIds = append(filterPropIds, prop.Id)
 	}
+
 	return filterProperties, filterPropIds
 }
 

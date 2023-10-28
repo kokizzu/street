@@ -6702,7 +6702,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   // realtor.svelte
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[0] = list[i];
+    child_ctx[1] = list[i];
     return child_ctx;
   }
   function create_else_block2(ctx) {
@@ -6729,7 +6729,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   function create_if_block3(ctx) {
     let section;
     let current;
-    let each_value = ensure_array_like(ownedProperties);
+    let each_value = ensure_array_like(
+      /*ownedProperties*/
+      ctx[0]
+    );
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
       each_blocks[i] = create_each_block3(get_each_context3(ctx, each_value, i));
@@ -6756,8 +6759,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       },
       p(ctx2, dirty) {
         if (dirty & /*ownedProperties, propertyMeta*/
-        0) {
-          each_value = ensure_array_like(ownedProperties);
+        1) {
+          each_value = ensure_array_like(
+            /*ownedProperties*/
+            ctx2[0]
+          );
           let i;
           for (i = 0; i < each_value.length; i += 1) {
             const child_ctx = get_each_context3(ctx2, each_value, i);
@@ -6808,7 +6814,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       props: {
         property: (
           /*property*/
-          ctx[0]
+          ctx[1]
         ),
         meta: propertyMeta
       }
@@ -6821,7 +6827,14 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         mount_component(ownedproperty, target, anchor);
         current = true;
       },
-      p: noop,
+      p(ctx2, dirty) {
+        const ownedproperty_changes = {};
+        if (dirty & /*ownedProperties*/
+        1)
+          ownedproperty_changes.property = /*property*/
+          ctx2[1];
+        ownedproperty.$set(ownedproperty_changes);
+      },
       i(local) {
         if (current)
           return;
@@ -6871,7 +6884,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     const if_block_creators = [create_if_block3, create_else_block2];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
-      if (ownedProperties.length)
+      if (
+        /*ownedProperties*/
+        ctx2[0] && /*ownedProperties*/
+        ctx2[0].length
+      )
         return 0;
       return 1;
     }
@@ -6934,7 +6951,26 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         current = true;
       },
       p(ctx2, [dirty]) {
-        if_block.p(ctx2, dirty);
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        } else {
+          group_outros();
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
+          });
+          check_outros();
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
+          } else {
+            if_block.p(ctx2, dirty);
+          }
+          transition_in(if_block, 1);
+          if_block.m(div1, null);
+        }
       },
       i(local) {
         if (current)
@@ -6966,17 +7002,20 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       }
     };
   }
-  var ownedProperties = [/* ownedProperties */];
   var pager = [/* pager */];
   var propertyMeta = [/* propertyMeta */];
   var segments = {/* segments */};
-  function instance7($self) {
+  function instance7($self, $props, $invalidate) {
+    let ownedProperties = [/* ownedProperties */];
     onMount(() => {
       console.log("onMount.realtor");
       console.log("ownedProperties=", ownedProperties);
       console.log("pager=", pager);
+      if (!ownedProperties) {
+        $invalidate(0, ownedProperties = []);
+      }
     });
-    return [];
+    return [ownedProperties];
   }
   var Realtor = class extends SvelteComponent {
     constructor(options) {

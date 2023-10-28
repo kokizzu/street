@@ -9,7 +9,7 @@
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidPlusCircle from "svelte-icons-pack/fa/FaSolidPlusCircle";
 
-  let ownedProperties = [/* ownedProperties */];
+  let ownedProperties = [/* ownedProperties */]
   let pager = [/* pager */];
   let propertyMeta = [/* propertyMeta */];
 
@@ -17,6 +17,9 @@
     console.log('onMount.realtor')
     console.log('ownedProperties=',ownedProperties);
     console.log('pager=',pager);
+    if (!ownedProperties) {
+      ownedProperties = [];
+    }
   });
 
   let user = {/* user */};
@@ -36,7 +39,7 @@
             <span>Add</span>
           </a>
         </div>
-        {#if ownedProperties.length}
+        {#if ownedProperties && ownedProperties.length}
           <section class="property_lists">
             {#each ownedProperties as property}
               <OwnedProperty property={property} meta={propertyMeta} />

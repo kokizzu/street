@@ -103,7 +103,9 @@ func (w *WebServer) Start(log *zerolog.Logger) {
 	if conf.IsDebug() { // TODO: use faster logger for production
 		fw.Use(logger.New())
 	} else { // prevent panic on production
-		fw.Use(recover.New())
+		copy := recover.ConfigDefault
+		copy.EnableStackTrace = true
+		fw.Use(recover.New(copy))
 	}
 
 	// assign static routes (GET)

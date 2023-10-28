@@ -146,7 +146,7 @@
       note: property.note,
       lastPrice: '' + property.lastPrice,
       agencyFeePercent: property.agencyFeePercent,
-      numberOfFloors: '' + property.floors,
+      numberOfFloors: '' + property.numberOfFloors,
     };
   }
   

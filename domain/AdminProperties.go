@@ -280,15 +280,19 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		}
 
 		if newState == `` && oldState != `` {
-			err := d.Mailer.SendNotifPropertyAcceptedEmail(user.Email,
-				fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
-			)
-			L.IsError(err, `SendNotifPropertyAcceptedEmail`)
+			d.runSubtask(func() {
+				err := d.Mailer.SendNotifPropertyAcceptedEmail(user.Email,
+					fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
+				)
+				L.IsError(err, `SendNotifPropertyAcceptedEmail`)
+			})
 		} else if newState != `` && oldState != `` {
-			err := d.Mailer.SendNotifPropertyRejectedEmail(user.Email,
-				fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
-			)
-			L.IsError(err, `SendNotifPropertyRejectedEmail`)
+			d.runSubtask(func() {
+				err := d.Mailer.SendNotifPropertyRejectedEmail(user.Email,
+					fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
+				)
+				L.IsError(err, `SendNotifPropertyRejectedEmail`)
+			})
 		}
 
 		fallthrough

@@ -15,8 +15,8 @@
 </script>
 
 <svelte:head>
-	<!-- Google Map SDK -->
-	<script>
+  <!-- Google Map SDK -->
+  <script>
     (g => {
       var h, a, k, p = 'The Google Maps JavaScript API', c = 'google', l = 'importLibrary', q = '__ib__', m = document, b = window;
       b = b[ c ] || (b[ c ] = {});
@@ -38,19 +38,18 @@
       // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
       // Add other bootstrap parameters as needed, using camel case.
     } );
-	</script>
+  </script>
 </svelte:head>
 
 <section class='dashboard'>
-	<Menu access={segments}/>
-	<div class='dashboard_main_content'>
-		<ProfileHeader></ProfileHeader>
-		{#if property.id}
-			<EditProperty {property} {countries} />
-		{:else}
-			<CreateProperty {property} {user} {countries}/>
-		{/if}
-		<Footer></Footer>
-	</div>
+  <Menu access={segments}/>
+  <div class='dashboard_main_content'>
+    <ProfileHeader></ProfileHeader>
+    {#if property.id}
+      <EditProperty {property} {countries} />
+    {:else}
+      <CreateProperty {property} {user} {countries}/>
+    {/if}
+    <Footer></Footer>
+  </div>
 </section>
-
