@@ -445,6 +445,15 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`countries`:      conf.CountriesData,
 		})
 	})
+	// Old version of UserNearbyFacilities with typo (Remove when no longer used)
+	fw.Post("/user/nearbyFacilitites", func(c *fiber.Ctx) error {
+		in := domain.UserNearbyFacilitiesIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserNearbyFacilitiesAction); err != nil {
+			return nil
+		}
+		out := d.UserNearbyFacilities(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
 	fw.Get(`/`+domain.GuestAutoLoginAction, func(ctx *fiber.Ctx) error {
 		var in domain.GuestAutoLoginIn
 		_ = webApiParseInput(ctx, &in.RequestCommon, &in, domain.GuestAutoLoginAction)

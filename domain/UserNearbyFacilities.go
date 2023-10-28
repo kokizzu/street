@@ -37,7 +37,7 @@ type (
 )
 
 const (
-	UserNearbyFacilitiesAction = `user/nearbyFacilitites`
+	UserNearbyFacilitiesAction = `user/nearbyFacilities`
 
 	ErrFailedRetrieveFacilities = `failed to get nearby facilities`
 )
