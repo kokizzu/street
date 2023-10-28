@@ -26,127 +26,77 @@
   let currentPage = 0, isPropertySubmitted = false;
   let cards = [{}, {}, {}, {}];
   
-  let payload = {}
   let countryCurrency = 'TWD';
+  const defaultLat = 23.6978, defaultLng = 120.9605;
+  
   onMount( () => {
-    console.log( 'onMount.property' );
-    console.log( 'property = ', property );
-    console.log( 'Country data = ', countries );
-    const defaultLat = 23.6978, defaultLng = 120.9605;
-    if( Object.keys( property ).length===0 ) {
-      property = {
-        countryCode: user.countryCode,
-        city: '', // new
-        countyName: '', // new
-        address: '',
-        district: '',
-        street: '', // new
-        street2: '', // new
-        floors: 0,
-        formattedAddress: '',
-        lat: defaultLat,
-        lng: defaultLng,
-        coord: [defaultLat, defaultLng],
-        altitude: 0, // new
-        
-        uniqPropKey: '1_12449819078726277117',
-        serialNumber: '',
-        
-        houseType: '',
-        bedroom: 0,
-        bathroom: 0,
-        livingroom: 0, // new
-        sizeM2: 0,
-        purpose: 'sell',
-        agencyFeePercent: 0,
-        parking: '0', // new
-        depositFee: 0, // new
-        minimumDurationYear: 0, // new
-        otherFee: [], // new
-        lastPrice: 0,
-        
-        images: [],
-        imageLabels: [], // new
-        createdAt: 1692641835,
-        updatedAt: 1692641835,
-        
-        // floorList: [], // no longer used
-        // mainUse: '', // no longer used
-        // note: '', // no longer used
-        
-        //"id": '1234'
-        // mainBuildingMaterial: '',
-        // constructCompletedDate: '',
-        // 'numberOfFloors': '0',
-        // buildingLamination: '',
-        // createdBy: '0',
-        // 'updatedBy': '0',
-        // 'deletedAt': 0,
-        // priceHistoriesSell: [],
-        // priceHistoriesRent: [],
-      };
-      for( let i = 0; i<countries.length; i++ ) {
-        if( countries[ i ].iso_2===property.countryCode ) {
-          countryCurrency = countries[ i ].currency.code;
-          console.log( 'Country currency =', countryCurrency );
-        }
-      }
-    } else {
-      console.log( property.lastPrice );
-      if( property.coord && property.coord.length ) {
-        property.lat = property.coord[ 0 ];
-        property.lng = property.coord[ 1 ];
-      }
-      property.lastPrice = +property.lastPrice || 0;
-      property.agencyFeePercent = +property.agencyFeePercent;
-      property.floorList = property.floorList || [];
-      property.images = property.images || [];
-      property.parking = property.parking.toString();
-      for( let i = 0; i<countries.length; i++ ) {
-        if( countries[ i ].iso_2===property.countryCode ) {
-          countryCurrency = countries[ i ].currency.code;
-          console.log( 'Country currency =', countryCurrency );
-        }
+    property = {
+      countryCode: user.countryCode,
+      city: '',
+      countyName: '',
+      address: '',
+      district: '',
+      street: '',
+      street2: '',
+      floors: 0,
+      formattedAddress: '',
+      coord: [defaultLat, defaultLng],
+      altitude: 0,
+      uniqPropKey: '1_12449819078726277117',
+      serialNumber: '',
+      houseType: '',
+      bedroom: 0,
+      bathroom: 0,
+      livingroom: 0, // new
+      sizeM2: 0,
+      purpose: 'sell',
+      agencyFeePercent: 0,
+      parking: '0', // new
+      depositFee: 0, // new
+      minimumDurationYear: 0, // new
+      otherFee: [], // new
+      lastPrice: 0,
+      images: [],
+      imageLabels: [],
+      createdAt: 1692641835,
+      updatedAt: 1692641835,
+    };
+    for( let i = 0; i<countries.length; i++ ) {
+      if( countries[ i ].iso_2===property.countryCode ) {
+        countryCurrency = countries[ i ].currency.code;
       }
     }
-    console.log( 'Property =', property);
   } );
   
-  $: {
-    let id = '0';
-    if( property.id>0 ) id = '' + property.id;
+  function GetPayload() {
     if( property.countryCode==='US' ) property.city = property.countyName;
-    payload = {
-      // new
+    return {
       countryCode: property.countryCode,
       city: property.city,
       countyName: property.countyName,
       district: property.district,
       street: property.street,
-      street2: property.street2 || '', // this means optional
+      street2: property.street2 || '',
       livingroom: property.livingroom,
       parking: parseFloat( property.parking ),
       depositFee: property.depositFee,
       minimumDurationYear: property.minimumDurationYear,
-      otherFee: property.otherFee || [],
+      otherFees: property.otherFees || [],
       imageLabels: property.imageLabels || [],
       altitude: property.altitude,
-      
-      // old
-      id: id,
+      id: property.id,
       formattedAddress: property.formattedAddress,
-      coord: [property.lat, property.lng],
+      coord: property.coord,
       houseType: property.houseType,
       purpose: property.purpose,
       images: property.images || [],
       bedroom: property.bedroom,
       bathroom: property.bathroom,
-      sizeM2: '' + property.sizeM2, // have to be string because of taiwan data
+      sizeM2: '' + property.sizeM2,
       mainUse: property.mainUse,
       note: property.note,
       lastPrice: '' + property.lastPrice,
-      agencyFeePercent: property.agencyFeePercent,
-      numberOfFloors: '' + property.numberOfFloors,
+      agencyFeePercent: property.agencyFeePercent || 0,
     };
   }
   
@@ -258,7 +208,7 @@
     } );
     searchBox.addListener( 'places_changed', () => {
       const places = searchBox.getPlaces();
-      if( places.length==0 ) {
+      if( places.length===0 ) {
         return;
       }
       // Fill formatted_address, latitude, and longitude as JSON values
@@ -328,7 +278,7 @@
   
   const handleNextLocation = {
     'LOC_ADDR': async () => {
-      console.log('add prop = ', property)
+      console.log( 'add prop = ', property )
       property.countryCode = countryIso2;
       if( property.city==='' || property.street==='' || property.floors===0 ) {
         alert( 'Please fill required form' );
@@ -513,26 +463,30 @@
   }
   
   // SUBMIT =====================+
-  let res_propId = window.location.pathname.split( '/property/' ).pop() || '0';
+  let res_propId = '1';
   let submitLoading = false;
   
   async function handleSubmit() {
     submitLoading = true;
+    let payload = GetPayload();
     console.log( 'property=', property, 'payload=', payload );
     const prop = {property: payload};
     await RealtorUpsertProperty( prop, function( res ) {
-      submitLoading = false;
       if( res.error ) {
+        submitLoading = false;
         alert( res.error );
         return;
       }
       console.log( res );
+      submitLoading = false;
       isPropertySubmitted = true;
       // after save, should retrieve the ID, so it became update mode, not creating new property
       property.id = (res.property || {}).id + '';
+      res_propId = (res.property || {}).id + '';
     } );
   }
 </script>
+
 
 <div class='realtor_step_progress_bar'>
 	<div class='container'>
@@ -559,505 +513,507 @@
 		</div>
 	</div>
 </div>
-<div class='content'>
-	<div class='realtor_subpage_container'>
-		<section bind:this={cards[0]} class='location' id='subpage_1'>
-			{#if modeLocation!==LOC_ADDR}
-				<button
-					class='back_button'
-					on:click={() => {
+<div class="create_property_container">
+	<div class='content'>
+		<div class='realtor_subpage_container'>
+			<section bind:this={cards[0]} class='location' id='subpage_1'>
+				{#if modeLocation!==LOC_ADDR}
+					<button
+						class='back_button'
+						on:click={() => {
                         if (currentPage === 0) {
                         handleBackLocation();
                      } else {
                         backPage()
                      }
 						}}>
-					<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
-				</button>
-			{/if}
-			<div class='subpage_content'>
-				<h3>{ modeLocation }</h3>
-				{#if modeLocation===LOC_ADDR}
-					<div class='address'>
-						<div class='row'>
-							<div class='input_box'>
-								<label for='country'>Country or Region <span class='asterisk'>*</span></label>
-								<select id='country' name='country' bind:value={countryIso2} on:change={changeCurrency}>
-									{#each countries as country}
-										<option value={country.iso_2}>{country.country}</option>
-									{/each}
-								</select>
-							</div>
-							<div class='input_box'>
-								<label for='city_county'>City or County <span class='asterisk'>*</span></label>
-								{#if property.countryCode==='US'}
-									<input id='city_county' type='text' placeholder='Required' bind:value={property.countyName}/>
-								{/if}
-								{#if property.countryCode!=='US'}
-									<input id='city_county' type='text' placeholder='Required' bind:value={property.city}/>
-								{/if}
-							</div>
-						</div>
-						<div class='row'>
-							<div class='input_box'>
-								<label for='street1'>Street 1 <span class='asterisk'>*</span></label>
-								<input id='street1' type='text' placeholder='Required' bind:value={property.street}/>
-							</div>
-							<div class='input_box'>
-								<label for='street2'>Street 2</label>
-								<input id='street2' type='text' placeholder='Optional' bind:value={property.street2}/>
-							</div>
-						</div>
-						<div class='row'>
-							<div class='input_box'>
-								<label for='floors'>Floors <span class='asterisk'>*</span></label>
-								<input id='floors' type='number' placeholder='10' min='0' bind:value={property.floors}/>
-							</div>
-						</div>
-					</div>
+						<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
+					</button>
 				{/if}
-				{#if modeLocation===LOC_MAP}
-					<div class='location_map'>
-						<div class='input_box'>
-							<label for='input_address'></label>
-							<input bind:this={input_address} id='input_address' type='text'/>
-						</div>
-						<div class='address_country_info'>
-							<div class='address'>
-								<Icon color='#f97316' size={18} src={FaSolidMapMarkerAlt}/>
-								<p>{property.formattedAddress || 'Address'}</p>
-							</div>
-							<div class='country'>
-								<Icon color='#f97316' size={15} src={FaSolidFlagUsa}/>
-								<p>{countryName}</p>
-							</div>
-						</div>
-						<div bind:this={map_container} class='map_container'>
-							<!-- Map goes here, rendered automatically -->
-						</div>
-					</div>
-				{/if}
-				{#if modeLocation===LOC_STREETVIEW}
-					<div class='location_streetview'>
-						<p class='description'>Let buyers find your house on camera.</p>
-						<div class='streetview_container'>
-							<div class='input_box'>
-								<label for='altitude'>Estimated distance from floor where you want to put your signage</label>
-								<input id='altitude' type='number' min='0' step='0.1' placeholder='Required' bind:value={property.altitude}/>
-							</div>
-						</div>
-					</div>
-				{/if}
-			</div>
-			<button
-				class='next_button'
-				on:click|preventDefault={() => {
-                     if (modeLocationCount === 0) {
-                       handleNextLocation.LOC_ADDR()
-                     } else if (modeLocationCount === 1) {
-                       handleNextLocation.LOC_MAP()
-                     } else if (modeLocationCount === 2) {
-                       handleNextLocation.LOC_STREETVIEW()
-                     }
-                  }}>
-				<span>NEXT</span>
-			</button>
-		</section>
-		<section bind:this={cards[1]} class='info' id='subpage_2'>
-			<AddOtherFeesDialog
-				bind:fee={otherFeeObj.fee}
-				bind:name={otherFeeObj.name}
-				bind:this={addOtherFeeDialog}
-			>
-				<button class='add_fee_btn' on:click={addOtherFee}>
-					Add
-				</button>
-			</AddOtherFeesDialog>
-			<button class='back_button' on:click={handleBackInfo}>
-				<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
-			</button>
-			<div class='subpage_content'>
-				<h3>{ modeInfo }</h3>
-				{#if modeInfo===INFO_FEAT}
-					<div class='feature'>
-						<div class='inputs'>
+				<div class='subpage_content'>
+					<h3>{ modeLocation }</h3>
+					{#if modeLocation===LOC_ADDR}
+						<div class='address'>
 							<div class='row'>
 								<div class='input_box'>
-									<label for='houseType'>House type <span class='asterisk'>*</span></label>
-									<select id='houseType' name='houseType' bind:value={infoObj.houseType}>
-										{#each houseTypeLists as t}
-											<option value={t}>{t}</option>
+									<label for='country'>Country or Region <span class='asterisk'>*</span></label>
+									<select id='country' name='country' bind:value={countryIso2} on:change={changeCurrency}>
+										{#each countries as country}
+											<option value={country.iso_2}>{country.country}</option>
 										{/each}
 									</select>
 								</div>
 								<div class='input_box'>
-									<label for='parking'>Parking <span class='asterisk'>*</span></label>
-									<select id='parking' name='parking' bind:value={property.parking}>
-										<option value='1'>Yes</option>
-										<option value='0'>No</option>
-									</select>
+									<label for='city_county'>City or County <span class='asterisk'>*</span></label>
+									{#if property.countryCode==='US'}
+										<input id='city_county' type='text' placeholder='Required' bind:value={property.countyName}/>
+									{/if}
+									{#if property.countryCode!=='US'}
+										<input id='city_county' type='text' placeholder='Required' bind:value={property.city}/>
+									{/if}
 								</div>
 							</div>
-							<div class='room_area'>
-								{#if property.houseType!=='land'}
-									<div class='input_box beds'>
-										<label for='beds'>
-											<Icon color='#475569' size={16} src={FaSolidBed}/>
-											<span>Beds</span>
-										</label>
-										<input id='beds' type='number' min='0' bind:value={property.bedroom}/>
-									</div>
-									<div class='input_box baths'>
-										<label for='baths'>
-											<Icon color='#475569' size={13} src={FaSolidBath}/>
-											<span>Baths</span>
-										</label>
-										<input id='baths' type='number' min='0' bind:value={property.bathroom}/>
-									</div>
-									<div class='input_box livings'>
-										<label for='livings'>
-											<Icon color='#475569' size={13} src={FaSolidChair}/>
-											<span>Livings</span>
-										</label>
-										<input id='livings' type='number' min='0' bind:value={property.livingroom}/>
-									</div>
-								{/if}
-								<div class='input_box area'>
-									<label for='area'>
-										<Icon color='#475569' size={13} src={FaSolidBorderStyle}/>
-										<span>{infoUnitMode} <span class='asterisk'>*</span></span>
-										<button class='unit_toggle' on:click={handleInfoUnitMode.toggle}>
-											<span class='bg'></span>
-											<Icon color='#F97316' size={13} src={FaSolidExchangeAlt}/>
-										</button>
-									</label>
-									<input id='area' type='number' min='0' bind:value={houseSize}/>
-								</div>
-							</div>
-						</div>
-					</div>
-				{/if}
-				{#if modeInfo===INFO_PRICE}
-					<div class='price'>
-						<div class='rent_or_sell'>
-							<label class={property.purpose === 'sell' ? 'option clicked': 'option'} for='sell'>
-								<input
-									type='radio'
-									name='rent_or_sell'
-									on:click={() => (property.purpose = 'sell')}
-									id='sell'
-									value='sell'
-								/>
-								Sell
-							</label>
-							<label class={property.purpose === 'rent' ? 'option clicked': 'option'} for='rent'>
-								<input
-									type='radio'
-									name='rent_or_sell'
-									on:click={() => (property.purpose = 'rent')}
-									id='rent'
-									value='rent'
-								/>
-								Rent
-							</label>
-						</div>
-						<div class='row'>
-							<div class='input_box prop_price'>
-								<label for='price'>{property.purpose==='sell' ? 'Property Price' : 'Rent'}</label>
-								<input id='price' type='number' min='0' bind:value={property.lastPrice}/>
-								<span>$</span>
-							</div>
-							{#if property.purpose==='rent'}
-								<p class='permonth'>/month</p>
-							{/if}
-						</div>
-						<div class='row'>
-							<div class='input_box'>
-								<label for='agency_fee'>Agency Fee</label>
-								<select id='agency_fee' bind:value={infoObj.agencyFee}>
-									<option value='true'>Yes</option>
-									<option value='false'>No</option>
-								</select>
-							</div>
-							{#if infoObj.agencyFee==='true'}
-								<div class='input_box agency_fee'>
-									<label for='agency_fee_percent'>Charge to Buyer</label>
-									<input id='agency_fee_percent' type='number' min='0' max='99' bind:value={property.agencyFeePercent}/>
-									<span>%</span>
-								</div>
-							{/if}
-						</div>
-						{#if property.purpose==='rent'}
 							<div class='row'>
 								<div class='input_box'>
-									<label for='deposit'>Deposit Fee</label>
-									<select id='deposit' bind:value={infoObj.deposit}>
+									<label for='street1'>Street 1 <span class='asterisk'>*</span></label>
+									<input id='street1' type='text' placeholder='Required' bind:value={property.street}/>
+								</div>
+								<div class='input_box'>
+									<label for='street2'>Street 2</label>
+									<input id='street2' type='text' placeholder='Optional' bind:value={property.street2}/>
+								</div>
+							</div>
+							<div class='row'>
+								<div class='input_box'>
+									<label for='floors'>Floors <span class='asterisk'>*</span></label>
+									<input id='floors' type='number' placeholder='10' min='0' bind:value={property.floors}/>
+								</div>
+							</div>
+						</div>
+					{/if}
+					{#if modeLocation===LOC_MAP}
+						<div class='location_map'>
+							<div class='input_box'>
+								<label for='input_address'></label>
+								<input bind:this={input_address} id='input_address' type='text'/>
+							</div>
+							<div class='address_country_info'>
+								<div class='address'>
+									<Icon color='#f97316' size={18} src={FaSolidMapMarkerAlt}/>
+									<p>{property.formattedAddress || 'Address'}</p>
+								</div>
+								<div class='country'>
+									<Icon color='#f97316' size={15} src={FaSolidFlagUsa}/>
+									<p>{countryName}</p>
+								</div>
+							</div>
+							<div bind:this={map_container} class='map_container'>
+								<!-- Map goes here, rendered automatically -->
+							</div>
+						</div>
+					{/if}
+					{#if modeLocation===LOC_STREETVIEW}
+						<div class='location_streetview'>
+							<p class='description'>Let buyers find your house on camera.</p>
+							<div class='streetview_container'>
+								<div class='input_box'>
+									<label for='altitude'>Estimated distance from floor where you want to put your signage</label>
+									<input id='altitude' type='number' min='0' step='0.1' placeholder='Required' bind:value={property.altitude}/>
+								</div>
+							</div>
+						</div>
+					{/if}
+				</div>
+				<button
+					class='next_button'
+					on:click|preventDefault={() => {
+          if (modeLocationCount === 0) {
+            handleNextLocation.LOC_ADDR()
+          } else if (modeLocationCount === 1) {
+            handleNextLocation.LOC_MAP()
+          } else if (modeLocationCount === 2) {
+            handleNextLocation.LOC_STREETVIEW()
+          }
+        }}>
+					<span>NEXT</span>
+				</button>
+			</section>
+			<section bind:this={cards[1]} class='info' id='subpage_2'>
+				<AddOtherFeesDialog
+					bind:fee={otherFeeObj.fee}
+					bind:name={otherFeeObj.name}
+					bind:this={addOtherFeeDialog}
+				>
+					<button class='add_fee_btn' on:click={addOtherFee}>
+						Add
+					</button>
+				</AddOtherFeesDialog>
+				<button class='back_button' on:click={handleBackInfo}>
+					<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
+				</button>
+				<div class='subpage_content'>
+					<h3>{ modeInfo }</h3>
+					{#if modeInfo===INFO_FEAT}
+						<div class='feature'>
+							<div class='inputs'>
+								<div class='row'>
+									<div class='input_box'>
+										<label for='houseType'>House type <span class='asterisk'>*</span></label>
+										<select id='houseType' name='houseType' bind:value={infoObj.houseType}>
+											{#each houseTypeLists as t}
+												<option value={t}>{t}</option>
+											{/each}
+										</select>
+									</div>
+									<div class='input_box'>
+										<label for='parking'>Parking <span class='asterisk'>*</span></label>
+										<select id='parking' name='parking' bind:value={property.parking}>
+											<option value='1'>Yes</option>
+											<option value='0'>No</option>
+										</select>
+									</div>
+								</div>
+								<div class='room_area'>
+									{#if property.houseType!=='land'}
+										<div class='input_box beds'>
+											<label for='beds'>
+												<Icon color='#475569' size={16} src={FaSolidBed}/>
+												<span>Beds</span>
+											</label>
+											<input id='beds' type='number' min='0' bind:value={property.bedroom}/>
+										</div>
+										<div class='input_box baths'>
+											<label for='baths'>
+												<Icon color='#475569' size={13} src={FaSolidBath}/>
+												<span>Baths</span>
+											</label>
+											<input id='baths' type='number' min='0' bind:value={property.bathroom}/>
+										</div>
+										<div class='input_box livings'>
+											<label for='livings'>
+												<Icon color='#475569' size={13} src={FaSolidChair}/>
+												<span>Livings</span>
+											</label>
+											<input id='livings' type='number' min='0' bind:value={property.livingroom}/>
+										</div>
+									{/if}
+									<div class='input_box area'>
+										<label for='area'>
+											<Icon color='#475569' size={13} src={FaSolidBorderStyle}/>
+											<span>{infoUnitMode} <span class='asterisk'>*</span></span>
+											<button class='unit_toggle' on:click={handleInfoUnitMode.toggle}>
+												<span class='bg'></span>
+												<Icon color='#F97316' size={13} src={FaSolidExchangeAlt}/>
+											</button>
+										</label>
+										<input id='area' type='number' min='0' bind:value={houseSize}/>
+									</div>
+								</div>
+							</div>
+						</div>
+					{/if}
+					{#if modeInfo===INFO_PRICE}
+						<div class='price'>
+							<div class='rent_or_sell'>
+								<label class={property.purpose === 'sell' ? 'option clicked': 'option'} for='sell'>
+									<input
+										type='radio'
+										name='rent_or_sell'
+										on:click={() => (property.purpose = 'sell')}
+										id='sell'
+										value='sell'
+									/>
+									Sell
+								</label>
+								<label class={property.purpose === 'rent' ? 'option clicked': 'option'} for='rent'>
+									<input
+										type='radio'
+										name='rent_or_sell'
+										on:click={() => (property.purpose = 'rent')}
+										id='rent'
+										value='rent'
+									/>
+									Rent
+								</label>
+							</div>
+							<div class='row'>
+								<div class='input_box prop_price'>
+									<label for='price'>{property.purpose==='sell' ? 'Property Price' : 'Rent'}</label>
+									<input id='price' type='number' min='0' bind:value={property.lastPrice}/>
+									<span>$</span>
+								</div>
+								{#if property.purpose==='rent'}
+									<p class='permonth'>/month</p>
+								{/if}
+							</div>
+							<div class='row'>
+								<div class='input_box'>
+									<label for='agency_fee'>Agency Fee</label>
+									<select id='agency_fee' bind:value={infoObj.agencyFee}>
 										<option value='true'>Yes</option>
 										<option value='false'>No</option>
 									</select>
 								</div>
-								{#if infoObj.deposit==='true'}
-									<div class='input_box deposit_fee'>
-										<label for='deposit_fee'>Fee</label>
-										<input id='deposit_fee' type='number' min='0' bind:value={property.depositFee}/>
-										<span>$</span> <!-- TODO: Use current country currency sign -->
+								{#if infoObj.agencyFee==='true'}
+									<div class='input_box agency_fee'>
+										<label for='agency_fee_percent'>Charge to Buyer</label>
+										<input id='agency_fee_percent' type='number' min='0' max='99' bind:value={property.agencyFeePercent}/>
+										<span>%</span>
 									</div>
 								{/if}
 							</div>
-							<div class='row'>
-								<div class='input_box min_duration'>
-									<label for='minimum_duration'>Minimum Duration</label>
-									<input id='minimum_duration' type='number' min='1' bind:value={property.minimumDurationYear}/>
-									<span>Year</span>
-								</div>
-							</div>
-							<div class='other_fee'>
-								<header>
-									<h4>Other Fee</h4>
-									<button class='add_fee' on:click={addOtherFeeDialog.showModal()}>
-										Add
-									</button>
-								</header>
-								<div class='other_fee_lists'>
-									{#if property.otherFees && property.otherFees.length}
-										{#each property.otherFees as otherFee}
-											<div class='fee'>
-												<span>{otherFee.name}</span>
-												<b>{formatPrice( otherFee.fee, countryCurrency )}/mo</b>
-											</div>
-										{/each}
-									{:else}
-										<div class='fee'>
-											<span>Example Fee #1</span>
-											<span>$$$</span>
-										</div>
-										<div class='fee'>
-											<span>Example Fee #1</span>
-											<span>$$$</span>
+							{#if property.purpose==='rent'}
+								<div class='row'>
+									<div class='input_box'>
+										<label for='deposit'>Deposit Fee</label>
+										<select id='deposit' bind:value={infoObj.deposit}>
+											<option value='true'>Yes</option>
+											<option value='false'>No</option>
+										</select>
+									</div>
+									{#if infoObj.deposit==='true'}
+										<div class='input_box deposit_fee'>
+											<label for='deposit_fee'>Fee</label>
+											<input id='deposit_fee' type='number' min='0' bind:value={property.depositFee}/>
+											<span>$</span> <!-- TODO: Use current country currency sign -->
 										</div>
 									{/if}
 								</div>
-							</div>
-						{/if}
-					</div>
-				{/if}
-			</div>
-			<button
-				class='next_button'
-				on:click|preventDefault={() => {
+								<div class='row'>
+									<div class='input_box min_duration'>
+										<label for='minimum_duration'>Minimum Duration</label>
+										<input id='minimum_duration' type='number' min='1' bind:value={property.minimumDurationYear}/>
+										<span>Year</span>
+									</div>
+								</div>
+								<div class='other_fee'>
+									<header>
+										<h4>Other Fee</h4>
+										<button class='add_fee' on:click={addOtherFeeDialog.showModal()}>
+											Add
+										</button>
+									</header>
+									<div class='other_fee_lists'>
+										{#if property.otherFees && property.otherFees.length}
+											{#each property.otherFees as otherFee}
+												<div class='fee'>
+													<span>{otherFee.name}</span>
+													<b>{formatPrice( otherFee.fee, countryCurrency )}/mo</b>
+												</div>
+											{/each}
+										{:else}
+											<div class='fee'>
+												<span>Example Fee #1</span>
+												<span>$$$</span>
+											</div>
+											<div class='fee'>
+												<span>Example Fee #1</span>
+												<span>$$$</span>
+											</div>
+										{/if}
+									</div>
+								</div>
+							{/if}
+						</div>
+					{/if}
+				</div>
+				<button
+					class='next_button'
+					on:click|preventDefault={() => {
                      if (modeInfoCount === 0) {
                        handleNextInfo.INFO_FEAT();
                      } else if (modeInfoCount === 1) {
                        handleNextInfo.INFO_PRICE();
                      }
                   }}>
-				<span>NEXT</span>
-			</button>
-		</section>
-		<section bind:this={cards[2]} class='picture' id='subpage_3'>
-			<button class='back_button' on:click={backPage}>
-				<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
-			</button>
-			<div class='subpage_content'>
-				<h3>Upload house photo</h3>
-				<div class='upload_picture'>
-					<div class='upload_container'>
-						<label class='image_upload_button' for='upload_image'>
-							{#if !houseImgUploading}
-								<input
-									bind:this={imageHouseInput}
-									on:change={handlerHouseImage}
-									type='file'
-									accept='image/*'
-									id='upload_image'
-								/>
-								<Icon size={35} className='upload_icon' color='#475569' src={FaSolidCamera}/>
-								<p>Select file to Upload</p>
-							{:else}
-								<progress value={uploadHousePercent} max='100'></progress>
-								<p>{uploadHouseStatus}</p>
-							{/if}
-						</label>
-					</div>
-					<div class='image_lists'>
-						{#if property.images && property.images.length}
-							{#each property.images as img, idx}
-								<div class='image_card'>
-									<div class='image_container'>
-										<img alt='' src={img}/>
-									</div>
-									<div class='image_description'>
-										{#if property.imageLabels && property.imageLabels.length}
-											<input placeholder='Description' type='text' bind:value={property.imageLabels[idx]}/>
-										{:else}
-											<input placeholder='Description' type='text'/>
-										{/if}
-									</div>
-									<button
-										class='remove_image'
-										title='remove this image'
-										on:click|preventDefault={() => removeImage(idx)}
-									>
-										<Icon color='#FFF' size={12} src={FaSolidTimes}/>
-									</button>
-								</div>
-							{/each}
-						{/if}
-					</div>
-				</div>
-			</div>
-			<button class='next_button' on:click={nextPage}>
-				<span>NEXT</span>
-			</button>
-		</section>
-		<section bind:this={cards[3]} class='preview' id='subpage_4'>
-			{#if isPropertySubmitted===false}
+					<span>NEXT</span>
+				</button>
+			</section>
+			<section bind:this={cards[2]} class='picture' id='subpage_3'>
 				<button class='back_button' on:click={backPage}>
 					<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
 				</button>
 				<div class='subpage_content'>
-					<div class='preview_content'>
-						<h3>Preview your property</h3>
-						<div class='image_properties'>
+					<h3>Upload house photo</h3>
+					<div class='upload_picture'>
+						<div class='upload_container'>
+							<label class='image_upload_button' for='upload_image'>
+								{#if !houseImgUploading}
+									<input
+										bind:this={imageHouseInput}
+										on:change={handlerHouseImage}
+										type='file'
+										accept='image/*'
+										id='upload_image'
+									/>
+									<Icon size={35} className='upload_icon' color='#475569' src={FaSolidCamera}/>
+									<p>Select file to Upload</p>
+								{:else}
+									<progress value={uploadHousePercent} max='100'></progress>
+									<p>{uploadHouseStatus}</p>
+								{/if}
+							</label>
+						</div>
+						<div class='image_lists'>
 							{#if property.images && property.images.length}
-								<div class='img_container'>
-									<!-- TODO: click image to zoom -->
-									<img alt='' src={property.images[0]}/>
-								</div>
-							{:else}
-								<div class='img_container'>
-									<div class='image_empty'>
-										<Icon size={40} color='#475569' src={FaSolidImage}/>
-										<span>No Image !</span>
+								{#each property.images as img, idx}
+									<div class='image_card'>
+										<div class='image_container'>
+											<img alt='' src={img}/>
+										</div>
+										<div class='image_description'>
+											{#if property.imageLabels && property.imageLabels.length}
+												<input placeholder='Description' type='text' bind:value={property.imageLabels[idx]}/>
+											{:else}
+												<input placeholder='Description' type='text'/>
+											{/if}
+										</div>
+										<button
+											class='remove_image'
+											title='remove this image'
+											on:click|preventDefault={() => removeImage(idx)}
+										>
+											<Icon color='#FFF' size={12} src={FaSolidTimes}/>
+										</button>
 									</div>
-								</div>
+								{/each}
 							{/if}
 						</div>
-						<div class='preview_details'>
-							<div class='main_details'>
+					</div>
+				</div>
+				<button class='next_button' on:click={nextPage}>
+					<span>NEXT</span>
+				</button>
+			</section>
+			<section bind:this={cards[3]} class='preview' id='subpage_4'>
+				{#if isPropertySubmitted===false}
+					<button class='back_button' on:click={backPage}>
+						<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
+					</button>
+					<div class='subpage_content'>
+						<div class='preview_content'>
+							<h3>Preview your property</h3>
+							<div class='image_properties'>
+								{#if property.images && property.images.length}
+									<div class='img_container'>
+										<!-- TODO: click image to zoom -->
+										<img alt='' src={property.images[0]}/>
+									</div>
+								{:else}
+									<div class='img_container'>
+										<div class='image_empty'>
+											<Icon size={40} color='#475569' src={FaSolidImage}/>
+											<span>No Image !</span>
+										</div>
+									</div>
+								{/if}
+							</div>
+							<div class='preview_details'>
+								<div class='main_details'>
 									<span class={property.purpose === 'rent' ? `label_rent purpose` : `label_sale purpose`}>
 										{property.purpose==='rent' ? `For ${property.purpose}` : `On Sale`}
 									</span>
-								<div class='price_house'>
-									<div class='left'>
-										<div class='price'>
-											<h5>{formatPrice( property.lastPrice, countryCurrency )}</h5>
-											{ #if property.purpose==='rent'}
-												<span>/mo</span>
-											{/if}
-										</div>
-										<span class='agency_fee'>
+									<div class='price_house'>
+										<div class='left'>
+											<div class='price'>
+												<h5>{formatPrice( property.lastPrice, countryCurrency )}</h5>
+												{ #if property.purpose==='rent'}
+													<span>/mo</span>
+												{/if}
+											</div>
+											<span class='agency_fee'>
 												Agency Fee: {property.agencyFeePercent}%
 											</span>
-									</div>
-									<div class='right'>
-										<div class='house_type'>
-											<Icon color='#FFF' size={18} src={FaSolidHome}/>
-											<span>{property.houseType}</span>
+										</div>
+										<div class='right'>
+											<div class='house_type'>
+												<Icon color='#FFF' size={18} src={FaSolidHome}/>
+												<span>{property.houseType}</span>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class='feature_details'>
-								<div class='feature'>
-									<b>{property.bedroom}</b>
-									<div>
-										<Icon color='#475569' size={16} src={FaSolidBed}/>
-										<span>Beds</span>
-									</div>
-								</div>
-								<div class='feature'>
-									<b>{property.bathroom}</b>
-									<div>
-										<Icon color='#475569' size={13} src={FaSolidBath}/>
-										<span>Baths</span>
-									</div>
-								</div>
-								<div class='feature'>
-									<b>{property.livingroom}</b>
-									<div>
-										<Icon color='#475569' size={13} src={FaSolidChair}/>
-										<span>Livings</span>
-									</div>
-								</div>
-								<div class='feature'>
-									<b>{houseSize}</b>
-									<div>
-										<Icon color='#475569' size={13} src={FaSolidBorderStyle}/>
-										<span>{infoUnitMode}</span>
-										<button class='unit_toggle' on:click|preventDefault={handleInfoUnitMode.toggle}>
-											<span class='bg'></span>
-											<Icon color='#F97316' size={13} src={FaSolidExchangeAlt}/>
-										</button>
-									</div>
-								</div>
-							</div>
-							<div class='other_details'>
-								{#if property.purpose==='rent'}
-									<div class='details'>
-										<h5>Rent Detail</h5>
-										<div class='item'>
-											<span>Deposit Fee</span>
-											<b>{formatPrice( property.depositFee, countryCurrency )}</b>
-										</div>
-										<div class='item'>
-											<span>Minimum Duration</span>
-											<b>{property.minimumDurationYear} Year</b>
+								<div class='feature_details'>
+									<div class='feature'>
+										<b>{property.bedroom}</b>
+										<div>
+											<Icon color='#475569' size={16} src={FaSolidBed}/>
+											<span>Beds</span>
 										</div>
 									</div>
-									{#if infoObj.otherFee && infoObj.otherFee.length}
+									<div class='feature'>
+										<b>{property.bathroom}</b>
+										<div>
+											<Icon color='#475569' size={13} src={FaSolidBath}/>
+											<span>Baths</span>
+										</div>
+									</div>
+									<div class='feature'>
+										<b>{property.livingroom}</b>
+										<div>
+											<Icon color='#475569' size={13} src={FaSolidChair}/>
+											<span>Livings</span>
+										</div>
+									</div>
+									<div class='feature'>
+										<b>{houseSize}</b>
+										<div>
+											<Icon color='#475569' size={13} src={FaSolidBorderStyle}/>
+											<span>{infoUnitMode}</span>
+											<button class='unit_toggle' on:click|preventDefault={handleInfoUnitMode.toggle}>
+												<span class='bg'></span>
+												<Icon color='#F97316' size={13} src={FaSolidExchangeAlt}/>
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class='other_details'>
+									{#if property.purpose==='rent'}
 										<div class='details'>
-											<h5>Other Fee</h5>
-											{#each infoObj.otherFee as otherfee}
-												<div class='item'>
-													<span>{otherfee.name}</span>
-													<b>{formatPrice( otherfee.fee, countryCurrency )}/mo</b>
-												</div>
-											{/each}
+											<h5>Rent Detail</h5>
+											<div class='item'>
+												<span>Deposit Fee</span>
+												<b>{formatPrice( property.depositFee, countryCurrency )}</b>
+											</div>
+											<div class='item'>
+												<span>Minimum Duration</span>
+												<b>{property.minimumDurationYear} Year</b>
+											</div>
 										</div>
+										{#if infoObj.otherFee && infoObj.otherFee.length}
+											<div class='details'>
+												<h5>Other Fee</h5>
+												{#each infoObj.otherFee as otherfee}
+													<div class='item'>
+														<span>{otherfee.name}</span>
+														<b>{formatPrice( otherfee.fee, countryCurrency )}/mo</b>
+													</div>
+												{/each}
+											</div>
+										{/if}
 									{/if}
-								{/if}
-								<div class='details'>
-									<h5>Parking</h5>
-									<div class='item'>
-										<span>Parking</span>
-										<b>{property.parking==='true' ? 'Yes' : 'No'}</b>
+									<div class='details'>
+										<h5>Parking</h5>
+										<div class='item'>
+											<span>Parking</span>
+											<b>{property.parking==='true' ? 'Yes' : 'No'}</b>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<button class='next_button' on:click|preventDefault={handleSubmit}>
-					{#if submitLoading===false}
-						<span>SUBMIT</span>
-					{/if}
-					{#if submitLoading===true}
-						<Icon className='spin' color='#FFF' size={15} src={FaSolidCircleNotch}/>
-					{/if}
-				</button>
-			{/if}
-			{#if isPropertySubmitted===true}
-				<button class='back_button' on:click={() => isPropertySubmitted = false}>
-					<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
-				</button>
-				<div class='property_submitted_container'>
-					<div class='property_submitted'>
-						<div class='icon_submitted'>
-							<Icon size={110} color='#059669' src={FaCheckCircle}/>
+					<button class='next_button' on:click|preventDefault={handleSubmit}>
+						{#if submitLoading===false}
+							<span>SUBMIT</span>
+						{/if}
+						{#if submitLoading===true}
+							<Icon className='spin' color='#FFF' size={15} src={FaSolidCircleNotch}/>
+						{/if}
+					</button>
+				{/if}
+				{#if isPropertySubmitted===true}
+					<button class='back_button' on:click={() => isPropertySubmitted = false}>
+						<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
+					</button>
+					<div class='property_submitted_container'>
+						<div class='property_submitted'>
+							<div class='icon_submitted'>
+								<Icon size={110} color='#059669' src={FaCheckCircle}/>
+							</div>
+							<div class='message_submmitted'>
+								<b>We will review it soon</b>
+								<p>Thanks you for submitting your property.</p>
+							</div>
 						</div>
-						<div class='message_submmitted'>
-							<b>We will review it soon</b>
-							<p>Thanks you for submitting your property.</p>
+						<div class='actions'>
+							<button class='new' on:click={() =>{window.location.href = "/realtor/property"}}>Create New one</button>
+							<button class='see' on:click={() => {window.location.href = `/realtor/ownedProperty/${res_propId}`}}>See the property</button>
 						</div>
 					</div>
-					<div class='actions'>
-						<button class='new' on:click={() =>{window.location.href = "/realtor/property"}}>Create New one</button>
-						<button class='see' on:click={() => {window.location.href = `/realtor/ownedProperty/${res_propId}`}}>See the property</button>
-					</div>
-				</div>
-			{/if}
-		</section>
+				{/if}
+			</section>
+		</div>
 	</div>
 </div>
 
@@ -1267,10 +1223,13 @@
     }
 
     /* Main Container Subpage */
+    .create_property_container {
+        margin : -45px 20px 0 20px;
+    }
+
     .realtor_subpage_container {
         color            : #475569;
         position         : relative;
-        margin-top       : -40px;
         margin-left      : auto;
         margin-right     : auto;
         display          : flex;
@@ -2015,5 +1974,48 @@
     .preview .property_submitted_container .actions button.see:hover {
         border : 1px solid #F97316;
         color  : #F97316;
+    }
+
+    /* Responsive to mobile device */
+    @media (max-width : 768px) {
+        .realtor_step_progress_bar {
+            margin-top     : -50px;
+            padding-left   : 20px;
+            padding-right  : 20px;
+            padding-bottom : 70px;
+        }
+
+        .realtor_step_progress_bar .container {
+            width        : 100%;
+            margin-left  : 20px;
+            margin-right : 20px;
+            padding      : 13px 5%;
+        }
+
+        .create_property_container {
+            margin : -55px 20px 0 20px;
+        }
+
+        .realtor_subpage_container {
+            margin-top   : -40px;
+            margin-left  : auto;
+            margin-right : auto;
+            width        : 100%;
+            min-height   : 400px;
+        }
+
+        .realtor_subpage_container section {
+            padding           : 15px;
+            background-color  : white;
+            border-radius     : 10px;
+            min-height        : 400px;
+            flex              : 0 0 100%;
+            scroll-snap-align : start;
+            position          : relative;
+            display           : flex;
+            gap               : 15px;
+            flex-direction    : column;
+            justify-content   : space-between;
+        }
     }
 </style>
