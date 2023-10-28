@@ -8,6 +8,7 @@
   import AddOtherFeesDialog from '../_components/AddOtherFeesDialog.svelte';
   import { formatPrice } from '../_components/formatter';
   import { RealtorUpsertProperty } from '../jsApi.GEN';
+  import { StreetView } from '../_components/GoogleMap/components';
   
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
@@ -681,6 +682,14 @@
                     <input id='elevation' type='number' min='0' step='0.1' placeholder='Required' bind:value={property.elevation} />
                   </div>
                 </div>
+								<div class='streetview_container'>
+									<StreetView
+										bind:elevation={property.elevation}
+										bind:resolution={property.resolution}
+										bind:lat={property.lat}
+										bind:lng={property.lng}
+									/>
+								</div>
               </div>
             {/if}
           </div>
