@@ -39,6 +39,10 @@ func main() {
 	log = conf.InitLogger()
 	conf.LoadEnv()
 
+	if err := os.MkdirAll(`cache`, 0755); L.IsError(err, "Error creating cache directory") {
+		L.Print(err)
+	}
+
 	args := os.Args
 	if len(args) < 2 {
 		L.Print(`must start with: run, web, cron, migrate, or config as first argument`)
