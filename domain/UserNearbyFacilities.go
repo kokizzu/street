@@ -57,7 +57,7 @@ func (d *Domain) UserNearbyFacilities(in *UserNearbyFacilitiesIn) (out UserNearb
 
 	var facilities []xGmap.Place
 
-	cacheFilename := fmt.Sprintf(`cache/%.0f_%.0f.json`, in.CenterLat*100, in.CenterLong*100)
+	cacheFilename := fmt.Sprintf(`%s/nearbyFacilities_%.0f_%.0f.json`, d.CacheDir, in.CenterLat*100, in.CenterLong*100)
 	if L.FileExists(cacheFilename) {
 		bytes := []byte(L.ReadFile(cacheFilename))
 		err := json.Unmarshal(bytes, &facilities)

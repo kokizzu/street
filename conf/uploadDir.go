@@ -11,22 +11,32 @@ import (
 func UploadDir() string {
 	// upload directory logic
 	uploadDir := os.Getenv(`UPLOAD_DIR`)
-	if !S.StartsWith(uploadDir, `/`) {
+	return createDirIfNotExists(uploadDir, `upload`)
+}
+
+func CacheDir() string {
+	// upload directory logic
+	cacheDir := os.Getenv(`CACHE_DIR`)
+	return createDirIfNotExists(cacheDir, `cache`)
+}
+
+func createDirIfNotExists(dir, what string) string {
+	if !S.StartsWith(dir, `/`) {
 		workdDir, err := os.Getwd()
-		L.PanicIf(err, `failed get working directory`)
-		uploadDir = path.Join(workdDir, uploadDir)
+		L.PanicIf(err, `failed get working directory for `+what)
+		dir = path.Join(workdDir, dir)
 	}
-	dirStat, err := os.Stat(uploadDir)
+	dirStat, err := os.Stat(dir)
 	if err != nil {
-		err = os.MkdirAll(uploadDir, 0770)
-		L.PanicIf(err, `failed create upload directory: `+uploadDir)
-		dirStat, _ = os.Stat(uploadDir)
+		err = os.MkdirAll(dir, 0770)
+		L.PanicIf(err, `failed create `+what+` directory: `+dir)
+		dirStat, _ = os.Stat(dir)
 	}
 	if !dirStat.IsDir() {
-		panic(`upload dir is not a directory: ` + uploadDir)
+		panic(what + ` dir is not a directory: ` + dir)
 	}
-	if !S.EndsWith(uploadDir, `/`) {
-		uploadDir += `/`
+	if !S.EndsWith(dir, `/`) {
+		dir += `/`
 	}
-	return uploadDir
+	return dir
 }

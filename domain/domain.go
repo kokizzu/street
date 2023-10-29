@@ -46,6 +46,7 @@ type Domain struct {
 	// list of superadmin emails
 	Superadmins M.SB
 	UploadDir   string
+	CacheDir    string
 }
 
 // will run in background if background service
