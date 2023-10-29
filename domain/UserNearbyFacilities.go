@@ -64,6 +64,10 @@ func (d *Domain) UserNearbyFacilities(in *UserNearbyFacilitiesIn) (out UserNearb
 		if !L.IsError(err, ErrFailedReadingFacilitiesCache) {
 			d.Gmap.RecalculateFacilitiesDistance(in.CenterLat, in.CenterLong, facilities)
 		}
+
+		sort.Slice(facilities, func(i, j int) bool {
+			return facilities[i].DistanceKm < facilities[j].DistanceKm
+		})
 	}
 
 	if len(facilities) == 0 {

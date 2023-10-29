@@ -445,7 +445,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`countries`:      conf.CountriesData,
 		})
 	})
-	// Old version of UserNearbyFacilities with typo (Remove when no longer used)
+	// TODO: Old version of UserNearbyFacilities with typo (Remove when no longer used)
 	fw.Post("/user/nearbyFacilitites", func(c *fiber.Ctx) error {
 		in := domain.UserNearbyFacilitiesIn{}
 		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserNearbyFacilitiesAction); err != nil {
