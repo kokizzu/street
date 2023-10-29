@@ -55,8 +55,6 @@ func main() {
 			`web`:        conf.EnvWebConf(),
 			`tarantool`:  conf.EnvTarantool(),
 			`clickhouse`: conf.EnvClickhouse(),
-			`sendgrid`:   conf.EnvSendgrid(),
-			`mailjet`:    conf.EnvMailjet(),
 			`mailhog`:    conf.EnvMailhog(),
 		})
 		return
