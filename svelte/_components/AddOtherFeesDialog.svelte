@@ -58,6 +58,7 @@
         gap              : 40px;
         background-color : white;
         padding          : 20px;
+        margin           : 0 15px;
         border-radius    : 8px;
         display          : flex;
         flex-direction   : column;

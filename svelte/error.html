@@ -1,4 +1,6 @@
 <html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>/*! title */</title>
     <link href="/css.gg.css" rel="stylesheet">
 </head>
@@ -131,6 +133,30 @@
         background  : none !important;
         color       : #5C646F;
         filter      : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+    }
+    
+    .next_button {
+        background-color : #F97316;
+        color            : white;
+        display          : flex;
+        justify-content  : center;
+        border-radius    : 8px;
+        border           : none;
+        padding          : 10px;
+        cursor           : pointer;
+        width            : 100%;
+        font-weight      : 600;
+    }
+    
+    .next_button:disabled,
+    .next_button:hover {
+        background-color : #F58433;
+    }
+    
+    .asterisk {
+        color      : #EF4444;
+        font-size  : 14px;
+        margin-top : -3px;
     }
 </style>
 
@@ -550,7 +576,7 @@
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance2, create_fragment3, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance2, create_fragment3, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -723,7 +749,7 @@
                   "toAttribute"
                 );
                 if (attribute_value == null) {
-                  this.removeAttribute(this.$p_d[key].attribute || key);
+                  this.removeAttribute(key);
                 } else {
                   this.setAttribute(this.$p_d[key].attribute || key, attribute_value);
                 }
@@ -858,7 +884,7 @@
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
-  // node_modules/svelte-icons-pack/Icon.svelte
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment(ctx) {
     let svg;
     let svg_levels = [
@@ -994,7 +1020,7 @@
   };
   var Icon_default = Icon;
 
-  // node_modules/svelte-icons-pack/fa/FaSolidArrowRight.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidArrowRight.js
   var FaSolidArrowRight_default = {
     a: {
       viewBox: "0 0 448 512"
