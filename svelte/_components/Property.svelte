@@ -248,8 +248,8 @@
         background-color: rgba(255, 208, 118, 1);
         color: #475569;
     }
-    .property_main .property_info .col1 .approved {
-        background-color: rgba(140, 216, 107, 1);
+    .property_main .property_info .col1 .rejected {
+        background-color: rgba(255, 126, 118, 1);
         color: #FFFFFF;
     }
 

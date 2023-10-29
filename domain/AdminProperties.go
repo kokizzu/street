@@ -1,8 +1,13 @@
 package domain
 
 import (
+	"fmt"
+
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 
+	"street/conf"
+	"street/model/mAuth/rqAuth"
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
@@ -226,9 +231,9 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		prop.NormalizeFloorList()
 		out.Property = prop
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
-
 		prop := wcProperty.NewPropertyMutator(d.PropOltp)
 		prop.Id = in.Property.Id
+		user := rqAuth.NewUsers(d.AuthOltp)
 		if prop.Id > 0 {
 			if !prop.FindById() {
 				out.SetError(400, ErrAdminPropertyIdNotFound)
@@ -248,6 +253,8 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 			prop.SetCreatedAt(in.UnixNow())
 		}
 
+		oldState := prop.ApprovalState
+		newState := in.Property.ApprovalState
 		haveMutation := prop.SetAll(in.Property, M.SB{
 			mProperty.PriceHistoriesSell: true,
 			mProperty.PriceHistoriesRent: true,
@@ -271,6 +278,23 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		if in.Pager.Page == 0 {
 			break
 		}
+
+		if newState == `` && oldState != `` {
+			d.runSubtask(func() {
+				err := d.Mailer.SendNotifPropertyAcceptedEmail(user.Email,
+					fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
+				)
+				L.IsError(err, `SendNotifPropertyAcceptedEmail`)
+			})
+		} else if newState != `` && oldState != `` {
+			d.runSubtask(func() {
+				err := d.Mailer.SendNotifPropertyRejectedEmail(user.Email,
+					fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
+				)
+				L.IsError(err, `SendNotifPropertyRejectedEmail`)
+			})
+		}
+
 		fallthrough
 	case zCrud.CmdList:
 		r := rqProperty.NewProperty(d.PropOltp)

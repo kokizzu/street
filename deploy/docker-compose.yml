@@ -41,7 +41,7 @@ services:
     restart: always
   docker-mailserver1:
     image: ghcr.io/docker-mailserver/docker-mailserver:latest
-    hostname: mail.admin.hapstr.xyz
+    hostname: testmail.benalu.dev
     ports:
       - "25:25"
       - "587:587"
@@ -51,6 +51,7 @@ services:
       - ./var_mail-state/:/var/mail-state/
       - ./var_log_mail/:/var/log/mail/
       - ./tmp_docker-mailserver/:/tmp/docker-mailserver/
+      - ./var_log_letsencrypt/:/var/log/letsencrypt/
       - /etc/localtime:/etc/localtime:ro
       - /etc/letsencrypt:/etc/letsencrypt
     environment:

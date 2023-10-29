@@ -164,60 +164,7 @@
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:./guest/oauthCallback.esbuild-svelte-fake-css */
-.oauth_callback_container.svelte-15c37u2.svelte-15c37u2 {
-  height: 100%;
-  width: 100%;
-  background-color: #F1F5F9;
-  display: flex;
-  color: #475569;
-}
-.main_content.svelte-15c37u2.svelte-15c37u2 {
-  width: 420px;
-  height: fit-content;
-  padding: 20px;
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  margin: 50px auto;
-  border: 1px solid #CBD5E1;
-}
-.main_content.svelte-15c37u2 h1.svelte-15c37u2 {
-  font-weight: 700;
-  font-size: 22px;
-  margin: 0 auto 15px;
-}
-.main_content.svelte-15c37u2 p.svelte-15c37u2 {
-  margin: 0;
-  font-size: 15px;
-  text-align: center;
-}
-.main_content.svelte-15c37u2 a.svelte-15c37u2 {
-  padding: 8px 30px;
-  font-size: 16px;
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  border: none;
-  background-color: #6366F1;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
-  text-decoration: none;
-  width: fit-content;
-  margin: 30px auto 0 auto;
-}
-.main_content.svelte-15c37u2 a.svelte-15c37u2:hover {
-  background-color: #7E80F1;
-}
-.main_content.svelte-15c37u2 a i.svelte-15c37u2 {
-  margin-right: 8px;
-}
-</style>
+<style></style>
 <script>(() => {
   // node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
@@ -301,9 +248,6 @@
   function end_hydrating() {
     is_hydrating = false;
   }
-  function append(target, node) {
-    target.appendChild(node);
-  }
   function insert(target, node, anchor) {
     target.insertBefore(node, anchor || null);
   }
@@ -314,12 +258,6 @@
   }
   function element(name) {
     return document.createElement(name);
-  }
-  function text(data) {
-    return document.createTextNode(data);
-  }
-  function space() {
-    return text(" ");
   }
   function attr(node, attribute, value) {
     if (value == null)
@@ -497,7 +435,7 @@
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance2, create_fragment2, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance, create_fragment2, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -523,7 +461,7 @@
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance2 ? instance2(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance ? instance(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -805,117 +743,37 @@
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
-  // guest/oauthCallback.svelte
-  function create_else_block(ctx) {
-    let p;
-    return {
-      c() {
-        p = element("p");
-        p.textContent = `${email} ${/*recentlyRegistered*/
-        ctx[0] ? "registered and" : ""} logged in successfully`;
-        attr(p, "class", "svelte-15c37u2");
-      },
-      m(target, anchor) {
-        insert(target, p, anchor);
-      },
-      p: noop,
-      d(detaching) {
-        if (detaching) {
-          detach(p);
-        }
-      }
-    };
-  }
-  function create_if_block(ctx) {
-    let p;
-    return {
-      c() {
-        p = element("p");
-        p.textContent = `${error}`;
-        attr(p, "class", "error svelte-15c37u2");
-      },
-      m(target, anchor) {
-        insert(target, p, anchor);
-      },
-      p: noop,
-      d(detaching) {
-        if (detaching) {
-          detach(p);
-        }
-      }
-    };
-  }
+  // admin/property.svelte
   function create_fragment(ctx) {
-    let section;
     let div;
-    let h1;
-    let t1;
-    let t2;
-    let a;
-    function select_block_type(ctx2, dirty) {
-      if (error)
-        return create_if_block;
-      return create_else_block;
-    }
-    let current_block_type = select_block_type(ctx, -1);
-    let if_block = current_block_type(ctx);
     return {
       c() {
-        section = element("section");
         div = element("div");
-        h1 = element("h1");
-        h1.textContent = '/*! title */';
-        t1 = space();
-        if_block.c();
-        t2 = space();
-        a = element("a");
-        a.innerHTML = `<i class="gg-arrow-left-r svelte-15c37u2"></i> <p class="svelte-15c37u2">Back to main page</p>`;
-        attr(h1, "class", "svelte-15c37u2");
-        attr(a, "href", "/");
-        attr(a, "class", "svelte-15c37u2");
-        attr(div, "class", "main_content svelte-15c37u2");
-        attr(section, "class", "oauth_callback_container svelte-15c37u2");
+        div.textContent = "Admin property";
       },
       m(target, anchor) {
-        insert(target, section, anchor);
-        append(section, div);
-        append(div, h1);
-        append(div, t1);
-        if_block.m(div, null);
-        append(div, t2);
-        append(div, a);
+        insert(target, div, anchor);
       },
-      p(ctx2, [dirty]) {
-        if_block.p(ctx2, dirty);
-      },
+      p: noop,
       i: noop,
       o: noop,
       d(detaching) {
         if (detaching) {
-          detach(section);
+          detach(div);
         }
-        if_block.d();
       }
     };
   }
-  var error = '#{error}';
-  var email = '#{email}';
-  function instance($self) {
-    const createdAt = new Date(+'#{createdAt}');
-    const now2 = new Date();
-    const recentlyRegistered = now2 - createdAt < 1e3 * 60 * 10;
-    return [recentlyRegistered];
-  }
-  var OauthCallback = class extends SvelteComponent {
+  var Property = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance, create_fragment, safe_not_equal, {});
+      init(this, options, null, create_fragment, safe_not_equal, {});
     }
   };
-  var oauthCallback_default = OauthCallback;
+  var property_default = Property;
 
-  // guest/oauthCallback.svelte.ts
-  var app = new oauthCallback_default({ target: document.getElementById("app") });
+  // admin/property.svelte.ts
+  var app = new property_default({ target: document.getElementById("app") });
 })();
 </script>
 </body></html>

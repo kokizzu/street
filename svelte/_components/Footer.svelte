@@ -35,4 +35,17 @@
 	footer nav a:hover {
 		color: #EF4444;
 	}
+
+	/* Responsive to mobile device */
+	@media only screen and (max-width: 768px) {
+		footer {
+			display: flex;
+			flex-direction: column-reverse;
+			margin: 30px 20px 0;
+		}
+
+		footer nav a {
+			font-size: 13px;
+		}
+	}
 </style>
