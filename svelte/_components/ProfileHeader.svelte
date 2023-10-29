@@ -1,57 +1,57 @@
 <script>
-  // @ts-nocheck
-  import {T, isSideMenuOpen, langOptions} from './uiState.js';
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidBars from 'svelte-icons-pack/fa/FaSolidBars';
-  import {onMount} from 'svelte';
-  import {UserUpdateProfile} from '../jsApi.GEN.js';
-  
-  export let user = null;
-  
-  function openSideMenu() {
-    isSideMenuOpen.set( !$isSideMenuOpen );
-  }
-  
-  let selectedLanguage = '';
-  onMount( () => {
-    console.log('onMount.ProfileHeader')
-    selectedLanguage = T.currentLang || 'EN';
-  } );
-  
-  async function updateLang() {
-    if( user!==null && user.language !== selectedLanguage ) {
-      user.language = selectedLanguage;
-      await UserUpdateProfile( user, function( res ) {
-        if( res.error ) return console.log('error')
-        user = res.user;
-      } );
+    // @ts-nocheck
+    import {T, isSideMenuOpen, langOptions} from './uiState.js';
+    import Icon from 'svelte-icons-pack/Icon.svelte';
+    import FaSolidBars from 'svelte-icons-pack/fa/FaSolidBars';
+    import {onMount} from 'svelte';
+    import {UserUpdateProfile} from '../jsApi.GEN.js';
+
+    export let user = null;
+
+    function openSideMenu() {
+        isSideMenuOpen.set(!$isSideMenuOpen);
     }
-  }
-  
-  $: {
-    T.changeLanguage( selectedLanguage, async () => await updateLang() );
-  }
+
+    let selectedLanguage = '';
+    onMount(() => {
+        console.log('onMount.ProfileHeader')
+        selectedLanguage = T.currentLang || 'EN';
+    });
+
+    async function updateLang() {
+        if (user !== null && user.language !== selectedLanguage) {
+            user.language = selectedLanguage;
+            await UserUpdateProfile(user, function(res) {
+                if (res.error) return console.log('error')
+                user = res.user;
+            });
+        }
+    }
+
+    $: {
+        T.changeLanguage(selectedLanguage, async () => await updateLang());
+    }
 </script>
 
 <header class='profile_header'>
-	<nav class='navbar'>
-		<div class='label_menu'>
-			<button on:click|preventDefault={openSideMenu}>
-				<Icon color='#FFF' size={20} src={FaSolidBars}/>
-			</button>
-			<p>DASHBOARD</p>
-		</div>
-		<div class='right_nav'>
-			<select bind:value={selectedLanguage} id='lang' name='lang'>
-				{#each Object.values( langOptions ) as lang}
-					<option value={lang}>{lang}</option>
-				{/each}
-			</select>
-			<button class='profile_button'>
-				<img alt='profile' src='/assets/img/team-1-200x200.jpg'/>
-			</button>
-		</div>
-	</nav>
+    <nav class='navbar'>
+        <div class='label_menu'>
+            <button on:click|preventDefault={openSideMenu}>
+                <Icon color='#FFF' size={20} src={FaSolidBars}/>
+            </button>
+            <p>DASHBOARD</p>
+        </div>
+        <div class='right_nav'>
+            <select bind:value={selectedLanguage} id='lang' name='lang'>
+                {#each Object.values(langOptions) as lang}
+                    <option value={lang}>{lang}</option>
+                {/each}
+            </select>
+            <button class='profile_button'>
+                <img alt='profile' src='/assets/img/team-1-200x200.jpg'/>
+            </button>
+        </div>
+    </nav>
 </header>
 
 <style>
@@ -145,5 +145,31 @@
         width         : 50px;
         height        : 50px;
         border-radius : 9999px;
+    }
+
+    /* Responsive to mobile device */
+    @media only screen and (max-width : 768px) {
+        .profile_header {
+            padding : 15px 20px 80px 20px !important;
+        }
+
+        .profile_header .navbar .label_menu button {
+            padding : 0;
+        }
+
+        .profile_header .navbar .right_nav {
+            gap : 10px;
+        }
+
+        .profile_header .navbar #lang {
+            padding   : 3px 5px;
+            font-size : 12px;
+            width     : 50px
+        }
+
+        .profile_header .navbar .right_nav .profile_button > img {
+            width  : 40px;
+            height : 40px;
+        }
     }
 </style>

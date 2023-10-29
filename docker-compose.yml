@@ -40,3 +40,28 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
+
+#  docker-mailserver1:
+#    image: ghcr.io/docker-mailserver/docker-mailserver:latest
+#    hostname: mail.benalu.dev
+#    ports:
+#      - "25:25"
+#      - "587:587"
+#      - "465:465"
+#    volumes:
+#      - ./docker-data/dms/mail-data/:/var/mail/
+#      - ./docker-data/dms/mail-state/:/var/mail-state/
+#      - ./docker-data/dms/mail-logs/:/var/log/mail/
+#      - ./docker-data/dms/config/:/tmp/docker-mailserver/
+#      - /etc/localtime:/etc/localtime:ro
+#      - /etc/letsencrypt:/etc/letsencrypt
+#    environment:
+#      - ENABLE_RSPAMD=1
+#      - ENABLE_CLAMAV=1
+#      - ENABLE_FAIL2BAN=1
+#      - SSL_TYPE=letsencrypt
+#      - PERMIT_DOCKER=network
+#      - SPOOF_PROTECTION=0
+#    cap_add:
+#      - NET_ADMIN # For Fail2Ban to work
+#    restart: always

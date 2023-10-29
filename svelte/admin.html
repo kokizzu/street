@@ -1,4 +1,6 @@
 <html><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>/*! title */</title>
     <link href="/css.gg.css" rel="stylesheet">
 </head>
@@ -131,6 +133,30 @@
         background  : none !important;
         color       : #5C646F;
         filter      : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+    }
+    
+    .next_button {
+        background-color : #F97316;
+        color            : white;
+        display          : flex;
+        justify-content  : center;
+        border-radius    : 8px;
+        border           : none;
+        padding          : 10px;
+        cursor           : pointer;
+        width            : 100%;
+        font-weight      : 600;
+    }
+    
+    .next_button:disabled,
+    .next_button:hover {
+        background-color : #F58433;
+    }
+    
+    .asterisk {
+        color      : #EF4444;
+        font-size  : 14px;
+        margin-top : -3px;
     }
 </style>
 
@@ -290,7 +316,7 @@
 }
 
 /* fakecss:./_components/ProfileHeader.esbuild-svelte-fake-css */
-.profile_header.svelte-yzo7d9.svelte-yzo7d9.svelte-yzo7d9 {
+.profile_header.svelte-7n687l.svelte-7n687l.svelte-7n687l {
   background-color: #EF4444;
   height: fit-content;
   position: relative;
@@ -298,19 +324,19 @@
   display: flex;
   flex-direction: column;
 }
-.profile_header.svelte-yzo7d9 .navbar.svelte-yzo7d9.svelte-yzo7d9 {
+.profile_header.svelte-7n687l .navbar.svelte-7n687l.svelte-7n687l {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.profile_header.svelte-yzo7d9 .navbar .label_menu.svelte-yzo7d9.svelte-yzo7d9 {
+.profile_header.svelte-7n687l .navbar .label_menu.svelte-7n687l.svelte-7n687l {
   display: flex;
   flex-direction: row;
   align-items: center;
   color: white;
 }
-.profile_header.svelte-yzo7d9 .navbar .label_menu button.svelte-yzo7d9.svelte-yzo7d9 {
+.profile_header.svelte-7n687l .navbar .label_menu button.svelte-7n687l.svelte-7n687l {
   padding: 10px;
   border: none;
   background: none;
@@ -319,23 +345,23 @@
   color: white;
   cursor: pointer;
 }
-.profile_header.svelte-yzo7d9 .navbar .label_menu button.svelte-yzo7d9.svelte-yzo7d9:hover {
+.profile_header.svelte-7n687l .navbar .label_menu button.svelte-7n687l.svelte-7n687l:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
-.profile_header.svelte-yzo7d9 .navbar .label_menu p.svelte-yzo7d9.svelte-yzo7d9 {
+.profile_header.svelte-7n687l .navbar .label_menu p.svelte-7n687l.svelte-7n687l {
   font-size: 17px;
   font-weight: 600;
   line-height: 1.5rem;
   padding: 0;
   margin: 0 0 0 15px;
 }
-.profile_header.svelte-yzo7d9 .navbar .right_nav.svelte-yzo7d9.svelte-yzo7d9 {
+.profile_header.svelte-7n687l .navbar .right_nav.svelte-7n687l.svelte-7n687l {
   display: flex;
   flex-direction: row;
   gap: 30px;
   align-items: center;
 }
-.profile_header.svelte-yzo7d9 .navbar #lang.svelte-yzo7d9.svelte-yzo7d9 {
+.profile_header.svelte-7n687l .navbar #lang.svelte-7n687l.svelte-7n687l {
   padding: 6px 8px;
   width: 60px;
   border: none;
@@ -345,13 +371,13 @@
   cursor: pointer;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
-.profile_header.svelte-yzo7d9 .navbar #lang.svelte-yzo7d9.svelte-yzo7d9:hover {
+.profile_header.svelte-7n687l .navbar #lang.svelte-7n687l.svelte-7n687l:hover {
   background-color: #F1F5F9;
 }
-.profile_header.svelte-yzo7d9 .navbar #lang.svelte-yzo7d9.svelte-yzo7d9:focus {
+.profile_header.svelte-7n687l .navbar #lang.svelte-7n687l.svelte-7n687l:focus {
   outline: none;
 }
-.profile_header.svelte-yzo7d9 .navbar .right_nav .profile_button.svelte-yzo7d9.svelte-yzo7d9 {
+.profile_header.svelte-7n687l .navbar .right_nav .profile_button.svelte-7n687l.svelte-7n687l {
   padding: 0;
   border: none;
   margin: 0;
@@ -360,18 +386,38 @@
   border-radius: 50%;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
-.profile_header.svelte-yzo7d9 .navbar .right_nav .profile_button.svelte-yzo7d9.svelte-yzo7d9:hover {
+.profile_header.svelte-7n687l .navbar .right_nav .profile_button.svelte-7n687l.svelte-7n687l:hover {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
   cursor: pointer;
 }
-.profile_header.svelte-yzo7d9 .navbar .right_nav .profile_button.svelte-yzo7d9 > img.svelte-yzo7d9 {
+.profile_header.svelte-7n687l .navbar .right_nav .profile_button.svelte-7n687l > img.svelte-7n687l {
   width: 50px;
   height: 50px;
   border-radius: 9999px;
 }
+@media only screen and (max-width : 768px) {
+  .profile_header.svelte-7n687l.svelte-7n687l.svelte-7n687l {
+    padding: 15px 20px 80px 20px !important;
+  }
+  .profile_header.svelte-7n687l .navbar .label_menu button.svelte-7n687l.svelte-7n687l {
+    padding: 0;
+  }
+  .profile_header.svelte-7n687l .navbar .right_nav.svelte-7n687l.svelte-7n687l {
+    gap: 10px;
+  }
+  .profile_header.svelte-7n687l .navbar #lang.svelte-7n687l.svelte-7n687l {
+    padding: 3px 5px;
+    font-size: 12px;
+    width: 50px;
+  }
+  .profile_header.svelte-7n687l .navbar .right_nav .profile_button.svelte-7n687l > img.svelte-7n687l {
+    width: 40px;
+    height: 40px;
+  }
+}
 
 /* fakecss:./_components/Footer.esbuild-svelte-fake-css */
-footer.svelte-uaahja.svelte-uaahja {
+footer.svelte-kh6p39.svelte-kh6p39 {
   font-size: 16px;
   display: flex;
   flex-direction: row;
@@ -382,17 +428,27 @@ footer.svelte-uaahja.svelte-uaahja {
   border-top: 1px solid #CBD5E1;
   color: #475569;
 }
-footer.svelte-uaahja nav.svelte-uaahja {
+footer.svelte-kh6p39 nav.svelte-kh6p39 {
   display: flex;
   flex-direction: row;
 }
-footer.svelte-uaahja nav a.svelte-uaahja {
+footer.svelte-kh6p39 nav a.svelte-kh6p39 {
   text-decoration: none;
   margin-left: 15px;
   color: #475569;
 }
-footer.svelte-uaahja nav a.svelte-uaahja:hover {
+footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   color: #EF4444;
+}
+@media only screen and (max-width: 768px) {
+  footer.svelte-kh6p39.svelte-kh6p39 {
+    display: flex;
+    flex-direction: column-reverse;
+    margin: 30px 20px 0;
+  }
+  footer.svelte-kh6p39 nav a.svelte-kh6p39 {
+    font-size: 13px;
+  }
 }
 
 /* fakecss:./admin.esbuild-svelte-fake-css */
@@ -710,8 +766,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         const descriptors3 = Object.getOwnPropertyDescriptors(obj);
         const reducedDescriptors = {};
         forEach(descriptors3, (descriptor, name) => {
-          if (reducer(descriptor, name, obj) !== false) {
-            reducedDescriptors[name] = descriptor;
+          let ret;
+          if ((ret = reducer(descriptor, name, obj)) !== false) {
+            reducedDescriptors[name] = ret || descriptor;
           }
         });
         Object.defineProperties(obj, reducedDescriptors);
@@ -1236,9 +1293,6 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         return null;
       }
-      var DEFAULT_CONTENT_TYPE = {
-        "Content-Type": void 0
-      };
       function stringifySafely(rawValue, parser, encoder) {
         if (utils.isString(rawValue)) {
           try {
@@ -1254,7 +1308,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       }
       var defaults2 = {
         transitional: transitionalDefaults,
-        adapter: ["xhr", "http"],
+        adapter: platform.isNode ? "http" : "xhr",
         transformRequest: [function transformRequest(data, headers) {
           const contentType = headers.getContentType() || "";
           const hasJSONContentType = contentType.indexOf("application/json") > -1;
@@ -1337,15 +1391,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         },
         headers: {
           common: {
-            "Accept": "application/json, text/plain, */*"
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": void 0
           }
         }
       };
-      utils.forEach(["delete", "get", "head"], function forEachMethodNoData(method) {
+      utils.forEach(["delete", "get", "head", "post", "put", "patch"], (method) => {
         defaults2.headers[method] = {};
-      });
-      utils.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
-        defaults2.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
       });
       var defaults$1 = defaults2;
       var ignoreDuplicateOf = utils.toObjectSet([
@@ -1596,7 +1648,15 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
       };
       AxiosHeaders.accessor(["Content-Type", "Content-Length", "Accept", "Accept-Encoding", "User-Agent", "Authorization"]);
-      utils.freezeMethods(AxiosHeaders.prototype);
+      utils.reduceDescriptors(AxiosHeaders.prototype, ({ value }, key) => {
+        let mapped = key[0].toUpperCase() + key.slice(1);
+        return {
+          get: () => value,
+          set(headerValue) {
+            this[mapped] = headerValue;
+          }
+        };
+      });
       utils.freezeMethods(AxiosHeaders);
       var AxiosHeaders$1 = AxiosHeaders;
       function transformData(fns, response) {
@@ -2092,7 +2152,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         });
         return config;
       }
-      var VERSION2 = "1.4.0";
+      var VERSION2 = "1.5.0";
       var validators$1 = {};
       ["object", "boolean", "number", "function", "string", "symbol"].forEach((type, i) => {
         validators$1[type] = function validator2(thing) {
@@ -2195,12 +2255,11 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             }
           }
           config.method = (config.method || this.defaults.method || "get").toLowerCase();
-          let contextHeaders;
-          contextHeaders = headers && utils.merge(
+          let contextHeaders = headers && utils.merge(
             headers.common,
             headers[config.method]
           );
-          contextHeaders && utils.forEach(
+          headers && utils.forEach(
             ["delete", "get", "head", "post", "put", "patch", "common"],
             (method) => {
               delete headers[method];
@@ -2483,6 +2542,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       axios.mergeConfig = mergeConfig;
       axios.AxiosHeaders = AxiosHeaders$1;
       axios.formToJSON = (thing) => formDataToJSON(utils.isHTMLForm(thing) ? new FormData(thing) : thing);
+      axios.getAdapter = adapters2.getAdapter;
       axios.HttpStatusCode = HttpStatusCode$1;
       axios.default = axios;
       module.exports = axios;
@@ -3057,7 +3117,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance7, create_fragment7, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance7, create_fragment7, not_equal, props, append_styles, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3230,7 +3290,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
                   "toAttribute"
                 );
                 if (attribute_value == null) {
-                  this.removeAttribute(this.$p_d[key].attribute || key);
+                  this.removeAttribute(key);
                 } else {
                   this.setAttribute(this.$p_d[key].attribute || key, attribute_value);
                 }
@@ -4670,6 +4730,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       reverse: false,
       beginAtZero: false,
       bounds: "ticks",
+      clip: true,
       grace: 0,
       grid: {
         display: true,
@@ -5148,7 +5209,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   function addRoundedRectPath(ctx, rect) {
     const { x, y, w, h, radius } = rect;
-    ctx.arc(x + radius.topLeft, y + radius.topLeft, radius.topLeft, -HALF_PI, PI, true);
+    ctx.arc(x + radius.topLeft, y + radius.topLeft, radius.topLeft, 1.5 * PI, PI, true);
     ctx.lineTo(x, y + h - radius.bottomLeft);
     ctx.arc(x + radius.bottomLeft, y + h - radius.bottomLeft, radius.bottomLeft, PI, HALF_PI, true);
     ctx.lineTo(x + w - radius.bottomRight, y + h);
@@ -8341,7 +8402,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       line._chart = this.chart;
       line._datasetIndex = this.index;
       line._decimated = !!_dataset._decimated;
-      line.points = points.slice(Math.max(this._drawStart - 1, 0), this._drawStart + this._drawCount);
+      line.points = points;
       const options = this.resolveDatasetElementOptions(mode);
       if (!this.options.showLine) {
         options.borderWidth = 0;
@@ -11751,7 +11812,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     return false;
   }
-  var version = "4.3.2";
+  var version = "4.4.0";
   var KNOWN_POSITIONS = [
     "top",
     "bottom",
@@ -11820,16 +11881,20 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     }
     return e;
   }
-  function getDatasetArea(meta) {
+  function getSizeForArea(scale, chartArea, field) {
+    return scale.options.clip ? scale[field] : chartArea[field];
+  }
+  function getDatasetArea(meta, chartArea) {
     const { xScale, yScale } = meta;
     if (xScale && yScale) {
       return {
-        left: xScale.left,
-        right: xScale.right,
-        top: yScale.top,
-        bottom: yScale.bottom
+        left: getSizeForArea(xScale, chartArea, "left"),
+        right: getSizeForArea(xScale, chartArea, "right"),
+        top: getSizeForArea(yScale, chartArea, "top"),
+        bottom: getSizeForArea(yScale, chartArea, "bottom")
       };
     }
+    return chartArea;
   }
   var Chart = class {
     static register(...items) {
@@ -12325,7 +12390,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
       const ctx = this.ctx;
       const clip = meta._clip;
       const useClip = !clip.disabled;
-      const area = getDatasetArea(meta) || this.chartArea;
+      const area = getDatasetArea(meta, this.chartArea);
       const args = {
         meta,
         index: meta.index,
@@ -17854,7 +17919,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   }
   var T = translationStore();
 
-  // node_modules/svelte-icons-pack/Icon.svelte
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment(ctx) {
     let svg;
     let svg_levels = [
@@ -17990,7 +18055,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var Icon_default = Icon;
 
-  // node_modules/svelte-icons-pack/fa/FaSolidHome.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidHome.js
   var FaSolidHome_default = {
     a: {
       viewBox: "0 0 576 512"
@@ -17998,7 +18063,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidShoppingBag.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidShoppingBag.js
   var FaSolidShoppingBag_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -18006,7 +18071,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M352 160v-32C352 57.42 294.579 0 224 0 153.42 0 96 57.42 96 128v32H0v272c0 44.183 35.817 80 80 80h288c44.183 0 80-35.817 80-80V160h-96zm-192-32c0-35.29 28.71-64 64-64s64 28.71 64 64v32H160v-32zm160 120c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zm-192 0c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidBuilding.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBuilding.js
   var FaSolidBuilding_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -18014,7 +18079,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M436 480h-20V24c0-13.255-10.745-24-24-24H56C42.745 0 32 10.745 32 24v456H12c-6.627 0-12 5.373-12 12v20h448v-20c0-6.627-5.373-12-12-12zM128 76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76zm0 96c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40zm52 148h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12zm76 160h-64v-84c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v84zm64-172c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidSlidersH.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSlidersH.js
   var FaSolidSlidersH_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -18022,7 +18087,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M496 384H160v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h80v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h336c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160h-80v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h336v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h80c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160H288V48c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16C7.2 64 0 71.2 0 80v32c0 8.8 7.2 16 16 16h208v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h208c8.8 0 16-7.2 16-16V80c0-8.8-7.2-16-16-16z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidUserCircle.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidUserCircle.js
   var FaSolidUserCircle_default = {
     a: {
       viewBox: "0 0 496 512"
@@ -18030,7 +18095,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidSignInAlt.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSignInAlt.js
   var FaSolidSignInAlt_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -18038,7 +18103,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
     c: '<path d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path>'
   };
 
-  // node_modules/svelte-icons-pack/fa/FaSolidTimes.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidTimes.js
   var FaSolidTimes_default = {
     a: {
       viewBox: "0 0 352 512"
@@ -19100,7 +19165,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
   };
   var AdminSubMenu_default = AdminSubMenu;
 
-  // node_modules/svelte-icons-pack/fa/FaSolidBars.js
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBars.js
   var FaSolidBars_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -19189,13 +19254,13 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
         t3 = space();
         button1 = element("button");
-        button1.innerHTML = `<img alt="profile" src="/assets/img/team-1-200x200.jpg" class="svelte-yzo7d9"/>`;
-        attr(button0, "class", "svelte-yzo7d9");
-        attr(p, "class", "svelte-yzo7d9");
-        attr(div0, "class", "label_menu svelte-yzo7d9");
+        button1.innerHTML = `<img alt="profile" src="/assets/img/team-1-200x200.jpg" class="svelte-7n687l"/>`;
+        attr(button0, "class", "svelte-7n687l");
+        attr(p, "class", "svelte-7n687l");
+        attr(div0, "class", "label_menu svelte-7n687l");
         attr(select, "id", "lang");
         attr(select, "name", "lang");
-        attr(select, "class", "svelte-yzo7d9");
+        attr(select, "class", "svelte-7n687l");
         if (
           /*selectedLanguage*/
           ctx[0] === void 0
@@ -19204,10 +19269,10 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
             /*select_change_handler*/
             ctx[3].call(select)
           ));
-        attr(button1, "class", "profile_button svelte-yzo7d9");
-        attr(div1, "class", "right_nav svelte-yzo7d9");
-        attr(nav, "class", "navbar svelte-yzo7d9");
-        attr(header, "class", "profile_header svelte-yzo7d9");
+        attr(button1, "class", "profile_button svelte-7n687l");
+        attr(div1, "class", "right_nav svelte-7n687l");
+        attr(nav, "class", "navbar svelte-7n687l");
+        attr(header, "class", "profile_header svelte-7n687l");
       },
       m(target, anchor) {
         insert(target, header, anchor);
@@ -19251,7 +19316,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         }
       },
       p(ctx2, [dirty]) {
-        if (dirty & /*Object*/
+        if (dirty & /*Object, langOptions*/
         0) {
           each_value = ensure_array_like(Object.values(langOptions));
           let i;
@@ -19270,7 +19335,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
           }
           each_blocks.length = each_value.length;
         }
-        if (dirty & /*selectedLanguage, Object*/
+        if (dirty & /*selectedLanguage, Object, langOptions*/
         1) {
           select_option(
             select,
@@ -19362,9 +19427,9 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
         ctx[0]}`;
         t2 = space();
         nav = element("nav");
-        nav.innerHTML = `<a href="/privacy" class="svelte-uaahja">Privacy</a> <a href="/tos" class="svelte-uaahja">Terms and Conditions</a> <a href="/about" class="svelte-uaahja">About Us</a>`;
-        attr(nav, "class", "svelte-uaahja");
-        attr(footer, "class", "svelte-uaahja");
+        nav.innerHTML = `<a href="/privacy" class="svelte-kh6p39">Privacy</a> <a href="/tos" class="svelte-kh6p39">Terms and Conditions</a> <a href="/about" class="svelte-kh6p39">About Us</a>`;
+        attr(nav, "class", "svelte-kh6p39");
+        attr(footer, "class", "svelte-kh6p39");
       },
       m(target, anchor) {
         insert(target, footer, anchor);
@@ -19720,7 +19785,7 @@ footer.svelte-uaahja nav a.svelte-uaahja:hover {
 
 chart.js/dist/chunks/helpers.segment.js:
   (*!
-   * Chart.js v4.3.2
+   * Chart.js v4.4.0
    * https://www.chartjs.org
    * (c) 2023 Chart.js Contributors
    * Released under the MIT License
@@ -19728,7 +19793,7 @@ chart.js/dist/chunks/helpers.segment.js:
 
 chart.js/dist/chart.js:
   (*!
-   * Chart.js v4.3.2
+   * Chart.js v4.4.0
    * https://www.chartjs.org
    * (c) 2023 Chart.js Contributors
    * Released under the MIT License
