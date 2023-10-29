@@ -178,6 +178,12 @@ func (g Gmap) NearbyFacilities(lat float64, long float64, typ string) (res []Pla
 	return res, nil
 }
 
+func (g Gmap) RecalculateFacilitiesDistance(lat float64, long float64, facilities []Place) {
+	for _, facility := range facilities {
+		facility.DistanceKm = conf.DistanceKm(lat, long, facility.Lat, facility.Lng)
+	}
+}
+
 var ErrGetCountryByLatLng = errors.New(`gmap) GetCountryByLatLng`)
 
 func (g Gmap) GetCountryByLatLng(lat float64, long float64) (countryName, iso2 string, err error) {
