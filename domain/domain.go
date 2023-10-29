@@ -47,6 +47,9 @@ type Domain struct {
 	Superadmins M.SB
 	UploadDir   string
 	CacheDir    string
+
+	// web related, need to be here so Mailer/CLI also know the domain/urls
+	WebCfg conf.WebConf
 }
 
 // will run in background if background service

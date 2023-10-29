@@ -144,6 +144,8 @@ func main() {
 		CacheDir:  conf.CacheDir(),
 
 		Superadmins: conf.EnvSuperAdmins(),
+
+		WebCfg: conf.EnvWebConf(),
 	}
 	d.InitTimedBuffer()
 	defer d.CloseTimedBuffer()
@@ -161,7 +163,6 @@ func main() {
 	case `web`:
 		ws := &presentation.WebServer{
 			Domain: d,
-			Cfg:    conf.EnvWebConf(),
 		}
 		conf.LoadCountries("./static/country_data/countries.tsv")
 		ws.Start(log)

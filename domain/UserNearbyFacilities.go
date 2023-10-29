@@ -3,11 +3,11 @@ package domain
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 	"sort"
 	"sync"
 
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/X"
 	"golang.org/x/sync/errgroup"
 
 	"street/model/xGmap"
@@ -43,8 +43,9 @@ const (
 	UserNearbyFacilitiesAction = `user/nearbyFacilities`
 
 	ErrFailedRetrieveFacilities     = `failed to get nearby facilities`
-	ErrFailedWritingFacilitiesCache = `failed to write nearby facilities into cache`
 	ErrFailedReadingFacilitiesCache = `failed to read nearby facilities from cache`
+
+	WarnFailedWritingFacilitiesCache = `failed to write nearby facilities cache`
 )
 
 func (d *Domain) UserNearbyFacilities(in *UserNearbyFacilitiesIn) (out UserNearbyFacilitiesOut) {
@@ -57,7 +58,8 @@ func (d *Domain) UserNearbyFacilities(in *UserNearbyFacilitiesIn) (out UserNearb
 
 	var facilities []xGmap.Place
 
-	cacheFilename := fmt.Sprintf(`%s/nearbyFacilities_%.0f_%.0f.json`, d.CacheDir, in.CenterLat*100, in.CenterLong*100)
+	const cacheDistance = 10 // 1 = 111.11 km | 10 = 11.11 km | 100 = 1.11 km
+	cacheFilename := fmt.Sprintf(`%s/nearbyFacilities_%.0f_%.0f.json`, d.CacheDir, in.CenterLat*cacheDistance, in.CenterLong*cacheDistance)
 	if L.FileExists(cacheFilename) {
 		bytes := []byte(L.ReadFile(cacheFilename))
 		err := json.Unmarshal(bytes, &facilities)
@@ -68,6 +70,8 @@ func (d *Domain) UserNearbyFacilities(in *UserNearbyFacilitiesIn) (out UserNearb
 		sort.Slice(facilities, func(i, j int) bool {
 			return facilities[i].DistanceKm < facilities[j].DistanceKm
 		})
+
+		out.AddTrace(`cache hit`)
 	}
 
 	if len(facilities) == 0 {
@@ -128,10 +132,9 @@ func (d *Domain) UserNearbyFacilities(in *UserNearbyFacilitiesIn) (out UserNearb
 		})
 
 		// write to cache
-		bytes, err := json.Marshal(facilities)
-		if !L.IsError(err, `json.Marshal: %#v`, facilities) {
-			err := os.WriteFile(cacheFilename, bytes, 0644)
-			L.IsError(err, ErrFailedWritingFacilitiesCache)
+		jsonStr := X.ToJsonPretty(facilities)
+		if !L.CreateFile(cacheFilename, jsonStr) {
+			out.AddTrace(WarnFailedWritingFacilitiesCache)
 		}
 	}
 

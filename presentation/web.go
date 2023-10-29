@@ -21,7 +21,6 @@ import (
 
 type WebServer struct {
 	*domain.Domain
-	Cfg conf.WebConf
 }
 
 var requiredHeader = M.SS{
@@ -125,7 +124,7 @@ func (w *WebServer) Start(log *zerolog.Logger) {
 		MaxAge:        3600,
 	})
 
-	log.Err(fw.Listen(w.Cfg.ListenAddr()))
+	log.Err(fw.Listen(w.Domain.WebCfg.ListenAddr()))
 }
 
 type Views struct {
