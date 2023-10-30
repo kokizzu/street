@@ -11,6 +11,8 @@
   let user = {/* user */};
   let segments = {/* segments */};
   
+  let isAdmin = false;
+  
   let approvalStatus = 'approved';
   onMount(() => {
     console.log('onMount.realtor/ownedProperty')
@@ -55,7 +57,7 @@
 					</div>
 				</div>
 				<div class='property'>
-					<Property {meta} {propItem}/>
+					<Property {meta} {propItem} {isAdmin}/>
 				</div>
 			</div>
 		</div>
