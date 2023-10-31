@@ -147,7 +147,7 @@
         user = o.user;
         segments = o.segments;
         onHashChange();
-        window.document.location = '/';
+        window.document.location = '/realtor/property';
       }, 1500 );
     } );
   }

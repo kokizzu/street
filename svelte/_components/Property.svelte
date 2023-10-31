@@ -110,19 +110,13 @@
 	</div>
 	<div class='property_attributes'>
 		{#each meta as m}
-			{#if isAdmin===false}
-				{#if m.name!=='createdAt'}
-					{#if m.name!=='updatedAt'}
-						{#if m.name!=='countryCode'}
-							{#if m.inputType==='datetime'}
-								<PillBox label={m.label} content={localeDatetime(propItem[m.name])}/>
-							{:else}
-								<PillBox label={m.label} content={propItem[m.name]}/>
-							{/if}
-						{/if}
-					{/if}
+			{#if !isAdmin && !(m.name==='createdAt' || m.name==='updatedAt' || m.name==='countryCode')}
+				{#if m.inputType==='datetime'}
+					<PillBox label={m.label} content={localeDatetime(propItem[m.name])}/>
+				{:else}
+					<PillBox label={m.label} content={propItem[m.name]}/>
 				{/if}
-			{:else}
+			{:else if isAdmin}
 				{#if m.inputType==='datetime'}
 					<PillBox label={m.label} content={localeDatetime(propItem[m.name])}/>
 				{:else}

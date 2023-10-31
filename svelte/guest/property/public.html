@@ -2,6 +2,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>/*! title */</title>
+	<link rel="shortcut icon" href="/assets/favicons/favicon.ico">
+	<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
 	<meta content="#{ogURL}" property="og:url">
 	<meta content="HapSTR" property="og:site_name">
 	<meta content="#{title}" property="og:title">
@@ -1864,7 +1867,7 @@
       }
     };
   }
-  function create_if_block_12(ctx) {
+  function create_if_block_10(ctx) {
     let img;
     let img_src_value;
     return {
@@ -1895,7 +1898,7 @@
       }
     };
   }
-  function create_if_block_11(ctx) {
+  function create_if_block_9(ctx) {
     let span;
     let t_value = (
       /*s*/
@@ -1929,7 +1932,7 @@
       /*s*/
       ctx[18].status === /*approvalStatus*/
       ctx[4] && /*s*/
-      ctx[18].status !== "approved" && create_if_block_11(ctx)
+      ctx[18].status !== "approved" && create_if_block_9(ctx)
     );
     return {
       c() {
@@ -1952,7 +1955,7 @@
           if (if_block) {
             if_block.p(ctx2, dirty);
           } else {
-            if_block = create_if_block_11(ctx2);
+            if_block = create_if_block_9(ctx2);
             if_block.c();
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
           }
@@ -2003,7 +2006,7 @@
       }
     };
   }
-  function create_if_block_10(ctx) {
+  function create_if_block_8(ctx) {
     let b;
     let t0_value = M2ToPing(
       /*propItem*/
@@ -2038,315 +2041,79 @@
       }
     };
   }
-  function create_else_block_2(ctx) {
-    let pillbox;
-    let current;
-    pillbox = new PillBox_default({
-      props: {
-        label: (
-          /*m*/
-          ctx[15].label
-        ),
-        content: (
-          /*propItem*/
-          ctx[1][
-            /*m*/
-            ctx[15].name
-          ]
-        )
-      }
-    });
-    return {
-      c() {
-        create_component(pillbox.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(pillbox, target, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        const pillbox_changes = {};
-        if (dirty & /*meta*/
-        4)
-          pillbox_changes.label = /*m*/
-          ctx2[15].label;
-        if (dirty & /*propItem, meta*/
-        6)
-          pillbox_changes.content = /*propItem*/
-          ctx2[1][
-            /*m*/
-            ctx2[15].name
-          ];
-        pillbox.$set(pillbox_changes);
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(pillbox.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(pillbox.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(pillbox, detaching);
-      }
-    };
-  }
-  function create_if_block_9(ctx) {
-    let pillbox;
-    let current;
-    pillbox = new PillBox_default({
-      props: {
-        label: (
-          /*m*/
-          ctx[15].label
-        ),
-        content: (0, import_formatter.localeDatetime)(
-          /*propItem*/
-          ctx[1][
-            /*m*/
-            ctx[15].name
-          ]
-        )
-      }
-    });
-    return {
-      c() {
-        create_component(pillbox.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(pillbox, target, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        const pillbox_changes = {};
-        if (dirty & /*meta*/
-        4)
-          pillbox_changes.label = /*m*/
-          ctx2[15].label;
-        if (dirty & /*propItem, meta*/
-        6)
-          pillbox_changes.content = (0, import_formatter.localeDatetime)(
-            /*propItem*/
-            ctx2[1][
-              /*m*/
-              ctx2[15].name
-            ]
-          );
-        pillbox.$set(pillbox_changes);
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(pillbox.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(pillbox.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(pillbox, detaching);
-      }
-    };
-  }
-  function create_if_block_4(ctx) {
-    let if_block_anchor;
-    let current;
-    let if_block = (
-      /*m*/
-      ctx[15].name !== "createdAt" && create_if_block_5(ctx)
-    );
-    return {
-      c() {
-        if (if_block)
-          if_block.c();
-        if_block_anchor = empty();
-      },
-      m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        if (
-          /*m*/
-          ctx2[15].name !== "createdAt"
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*meta*/
-            4) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block_5(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        } else if (if_block) {
-          group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
-          });
-          check_outros();
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(if_block);
-        current = true;
-      },
-      o(local) {
-        transition_out(if_block);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(if_block_anchor);
-        }
-        if (if_block)
-          if_block.d(detaching);
-      }
-    };
-  }
-  function create_if_block_5(ctx) {
-    let if_block_anchor;
-    let current;
-    let if_block = (
-      /*m*/
-      ctx[15].name !== "updatedAt" && create_if_block_6(ctx)
-    );
-    return {
-      c() {
-        if (if_block)
-          if_block.c();
-        if_block_anchor = empty();
-      },
-      m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        if (
-          /*m*/
-          ctx2[15].name !== "updatedAt"
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*meta*/
-            4) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block_6(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        } else if (if_block) {
-          group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
-          });
-          check_outros();
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(if_block);
-        current = true;
-      },
-      o(local) {
-        transition_out(if_block);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(if_block_anchor);
-        }
-        if (if_block)
-          if_block.d(detaching);
-      }
-    };
-  }
   function create_if_block_6(ctx) {
-    let if_block_anchor;
-    let current;
-    let if_block = (
-      /*m*/
-      ctx[15].name !== "countryCode" && create_if_block_7(ctx)
-    );
-    return {
-      c() {
-        if (if_block)
-          if_block.c();
-        if_block_anchor = empty();
-      },
-      m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        if (
-          /*m*/
-          ctx2[15].name !== "countryCode"
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*meta*/
-            4) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block_7(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        } else if (if_block) {
-          group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
-          });
-          check_outros();
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(if_block);
-        current = true;
-      },
-      o(local) {
-        transition_out(if_block);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(if_block_anchor);
-        }
-        if (if_block)
-          if_block.d(detaching);
-      }
-    };
-  }
-  function create_if_block_7(ctx) {
     let current_block_type_index;
     let if_block;
     let if_block_anchor;
     let current;
-    const if_block_creators = [create_if_block_8, create_else_block_1];
+    const if_block_creators = [create_if_block_7, create_else_block_2];
+    const if_blocks = [];
+    function select_block_type_4(ctx2, dirty) {
+      if (
+        /*m*/
+        ctx2[15].inputType === "datetime"
+      )
+        return 0;
+      return 1;
+    }
+    current_block_type_index = select_block_type_4(ctx, -1);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_blocks[current_block_type_index].m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type_4(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        } else {
+          group_outros();
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
+          });
+          check_outros();
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
+          } else {
+            if_block.p(ctx2, dirty);
+          }
+          transition_in(if_block, 1);
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if_blocks[current_block_type_index].d(detaching);
+      }
+    };
+  }
+  function create_if_block_4(ctx) {
+    let current_block_type_index;
+    let if_block;
+    let if_block_anchor;
+    let current;
+    const if_block_creators = [create_if_block_5, create_else_block_1];
     const if_blocks = [];
     function select_block_type_3(ctx2, dirty) {
       if (
@@ -2408,6 +2175,120 @@
       }
     };
   }
+  function create_else_block_2(ctx) {
+    let pillbox;
+    let current;
+    pillbox = new PillBox_default({
+      props: {
+        label: (
+          /*m*/
+          ctx[15].label
+        ),
+        content: (
+          /*propItem*/
+          ctx[1][
+            /*m*/
+            ctx[15].name
+          ]
+        )
+      }
+    });
+    return {
+      c() {
+        create_component(pillbox.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(pillbox, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const pillbox_changes = {};
+        if (dirty & /*meta*/
+        4)
+          pillbox_changes.label = /*m*/
+          ctx2[15].label;
+        if (dirty & /*propItem, meta*/
+        6)
+          pillbox_changes.content = /*propItem*/
+          ctx2[1][
+            /*m*/
+            ctx2[15].name
+          ];
+        pillbox.$set(pillbox_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(pillbox.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(pillbox.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(pillbox, detaching);
+      }
+    };
+  }
+  function create_if_block_7(ctx) {
+    let pillbox;
+    let current;
+    pillbox = new PillBox_default({
+      props: {
+        label: (
+          /*m*/
+          ctx[15].label
+        ),
+        content: (0, import_formatter.localeDatetime)(
+          /*propItem*/
+          ctx[1][
+            /*m*/
+            ctx[15].name
+          ]
+        )
+      }
+    });
+    return {
+      c() {
+        create_component(pillbox.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(pillbox, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const pillbox_changes = {};
+        if (dirty & /*meta*/
+        4)
+          pillbox_changes.label = /*m*/
+          ctx2[15].label;
+        if (dirty & /*propItem, meta*/
+        6)
+          pillbox_changes.content = (0, import_formatter.localeDatetime)(
+            /*propItem*/
+            ctx2[1][
+              /*m*/
+              ctx2[15].name
+            ]
+          );
+        pillbox.$set(pillbox_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(pillbox.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(pillbox.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(pillbox, detaching);
+      }
+    };
+  }
   function create_else_block_1(ctx) {
     let pillbox;
     let current;
@@ -2464,7 +2345,7 @@
       }
     };
   }
-  function create_if_block_8(ctx) {
+  function create_if_block_5(ctx) {
     let pillbox;
     let current;
     pillbox = new PillBox_default({
@@ -2527,30 +2408,35 @@
     let if_block;
     let if_block_anchor;
     let current;
-    const if_block_creators = [create_if_block_4, create_if_block_9, create_else_block_2];
+    const if_block_creators = [create_if_block_4, create_if_block_6];
     const if_blocks = [];
     function select_block_type_2(ctx2, dirty) {
-      if (
-        /*isAdmin*/
-        ctx2[3] === false
-      )
+      if (!/*isAdmin*/
+      ctx2[3] && !/*m*/
+      (ctx2[15].name === "createdAt" || /*m*/
+      ctx2[15].name === "updatedAt" || /*m*/
+      ctx2[15].name === "countryCode"))
         return 0;
       if (
-        /*m*/
-        ctx2[15].inputType === "datetime"
+        /*isAdmin*/
+        ctx2[3]
       )
         return 1;
-      return 2;
+      return -1;
     }
-    current_block_type_index = select_block_type_2(ctx, -1);
-    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    if (~(current_block_type_index = select_block_type_2(ctx, -1))) {
+      if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    }
     return {
       c() {
-        if_block.c();
+        if (if_block)
+          if_block.c();
         if_block_anchor = empty();
       },
       m(target, anchor) {
-        if_blocks[current_block_type_index].m(target, anchor);
+        if (~current_block_type_index) {
+          if_blocks[current_block_type_index].m(target, anchor);
+        }
         insert(target, if_block_anchor, anchor);
         current = true;
       },
@@ -2558,22 +2444,30 @@
         let previous_block_index = current_block_type_index;
         current_block_type_index = select_block_type_2(ctx2, dirty);
         if (current_block_type_index === previous_block_index) {
-          if_blocks[current_block_type_index].p(ctx2, dirty);
-        } else {
-          group_outros();
-          transition_out(if_blocks[previous_block_index], 1, 1, () => {
-            if_blocks[previous_block_index] = null;
-          });
-          check_outros();
-          if_block = if_blocks[current_block_type_index];
-          if (!if_block) {
-            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
-            if_block.c();
-          } else {
-            if_block.p(ctx2, dirty);
+          if (~current_block_type_index) {
+            if_blocks[current_block_type_index].p(ctx2, dirty);
           }
-          transition_in(if_block, 1);
-          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        } else {
+          if (if_block) {
+            group_outros();
+            transition_out(if_blocks[previous_block_index], 1, 1, () => {
+              if_blocks[previous_block_index] = null;
+            });
+            check_outros();
+          }
+          if (~current_block_type_index) {
+            if_block = if_blocks[current_block_type_index];
+            if (!if_block) {
+              if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+              if_block.c();
+            } else {
+              if_block.p(ctx2, dirty);
+            }
+            transition_in(if_block, 1);
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          } else {
+            if_block = null;
+          }
         }
       },
       i(local) {
@@ -2590,7 +2484,9 @@
         if (detaching) {
           detach(if_block_anchor);
         }
-        if_blocks[current_block_type_index].d(detaching);
+        if (~current_block_type_index) {
+          if_blocks[current_block_type_index].d(detaching);
+        }
       }
     };
   }
@@ -2905,7 +2801,7 @@
     );
     const if_block_creators = [create_if_block_2, create_else_block];
     const if_blocks = [];
-    function select_block_type_4(ctx2, dirty) {
+    function select_block_type_5(ctx2, dirty) {
       if (
         /*floors*/
         ctx2[9].planImageUrl === ""
@@ -2913,7 +2809,7 @@
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type_4(ctx, -1);
+    current_block_type_index = select_block_type_5(ctx, -1);
     if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -2973,7 +2869,7 @@
           if_block0 = null;
         }
         let previous_block_index = current_block_type_index;
-        current_block_type_index = select_block_type_4(ctx2, dirty);
+        current_block_type_index = select_block_type_5(ctx2, dirty);
         if (current_block_type_index === previous_block_index) {
           if_blocks[current_block_type_index].p(ctx2, dirty);
         } else {
@@ -3250,7 +3146,7 @@
     let t31;
     let t32;
     let current;
-    const if_block_creators = [create_if_block_12, create_else_block_4];
+    const if_block_creators = [create_if_block_10, create_else_block_4];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (
@@ -3291,7 +3187,7 @@
         /*propItem*/
         ctx2[1].countryCode === "TW"
       )
-        return create_if_block_10;
+        return create_if_block_8;
       return create_else_block_3;
     }
     let current_block_type = select_block_type_1(ctx, -1);

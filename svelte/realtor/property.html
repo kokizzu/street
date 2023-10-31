@@ -7234,29 +7234,29 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   var import_jsApi = __toESM(require_jsApi_GEN());
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[90] = list[i];
+    child_ctx[91] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[93] = list[i];
-    child_ctx[94] = list;
-    child_ctx[95] = i;
+    child_ctx[94] = list[i];
+    child_ctx[95] = list;
+    child_ctx[96] = i;
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[96] = list[i];
+    child_ctx[97] = list[i];
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[99] = list[i];
+    child_ctx[100] = list[i];
     return child_ctx;
   }
   function get_each_context_4(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[102] = list[i];
+    child_ctx[103] = list[i];
     return child_ctx;
   }
   function create_if_block_24(ctx) {
@@ -7409,8 +7409,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         attr(select, "name", "country");
         attr(select, "class", "svelte-1at5ok4");
         if (
-          /*countryIso2*/
-          ctx[8] === void 0
+          /*property*/
+          ctx[0].countryCode === void 0
         )
           add_render_callback(() => (
             /*select_change_handler*/
@@ -7461,8 +7461,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         select_option(
           select,
-          /*countryIso2*/
-          ctx[8],
+          /*property*/
+          ctx[0].countryCode,
           true
         );
         append(div2, t3);
@@ -7565,12 +7565,12 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           }
           each_blocks.length = each_value_4.length;
         }
-        if (dirty[0] & /*countryIso2, countries*/
-        258) {
+        if (dirty[0] & /*property, countries*/
+        3) {
           select_option(
             select,
-            /*countryIso2*/
-            ctx2[8]
+            /*property*/
+            ctx2[0].countryCode
           );
         }
         if (
@@ -7603,8 +7603,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           if_block1.d(1);
           if_block1 = null;
         }
-        if (dirty[0] & /*property*/
-        1 && input0.value !== /*property*/
+        if (dirty[0] & /*property, countries*/
+        3 && input0.value !== /*property*/
         ctx2[0].street) {
           set_input_value(
             input0,
@@ -7612,8 +7612,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             ctx2[0].street
           );
         }
-        if (dirty[0] & /*property*/
-        1 && input1.value !== /*property*/
+        if (dirty[0] & /*property, countries*/
+        3 && input1.value !== /*property*/
         ctx2[0].street2) {
           set_input_value(
             input1,
@@ -7621,8 +7621,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             ctx2[0].street2
           );
         }
-        if (dirty[0] & /*property*/
-        1 && to_number(input2.value) !== /*property*/
+        if (dirty[0] & /*property, countries*/
+        3 && to_number(input2.value) !== /*property*/
         ctx2[0].floors) {
           set_input_value(
             input2,
@@ -7649,7 +7649,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let option;
     let t_1_value = (
       /*country*/
-      ctx[102].country + ""
+      ctx[103].country + ""
     );
     let t_1;
     let option_value_value;
@@ -7658,7 +7658,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         option = element("option");
         t_1 = text(t_1_value);
         option.__value = option_value_value = /*country*/
-        ctx[102].iso_2;
+        ctx[103].iso_2;
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -7668,11 +7668,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*countries*/
         2 && t_1_value !== (t_1_value = /*country*/
-        ctx2[102].country + ""))
+        ctx2[103].country + ""))
           set_data(t_1, t_1_value);
         if (dirty[0] & /*countries*/
         2 && option_value_value !== (option_value_value = /*country*/
-        ctx2[102].iso_2)) {
+        ctx2[103].iso_2)) {
           option.__value = option_value_value;
           set_input_value(option, option.__value);
         }
@@ -7714,8 +7714,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*property*/
-        1 && input.value !== /*property*/
+        if (dirty[0] & /*property, countries*/
+        3 && input.value !== /*property*/
         ctx2[0].countyName) {
           set_input_value(
             input,
@@ -7763,8 +7763,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*property*/
-        1 && input.value !== /*property*/
+        if (dirty[0] & /*property, countries*/
+        3 && input.value !== /*property*/
         ctx2[0].city) {
           set_input_value(
             input,
@@ -7808,6 +7808,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let t7;
     let div4;
     let current;
+    let mounted;
+    let dispose;
     icon0 = new Icon_default({
       props: {
         color: "#f97316",
@@ -7869,6 +7871,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         append(div0, t0);
         append(div0, input);
         ctx[51](input);
+        set_input_value(
+          input,
+          /*input_address_value*/
+          ctx[11]
+        );
         append(div5, t1);
         append(div5, div3);
         append(div3, div1);
@@ -7884,10 +7891,28 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         append(p1, t6);
         append(div5, t7);
         append(div5, div4);
-        ctx[52](div4);
+        ctx[53](div4);
         current = true;
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler_2*/
+            ctx[52]
+          );
+          mounted = true;
+        }
       },
       p(ctx2, dirty) {
+        if (dirty[0] & /*input_address_value*/
+        2048 && input.value !== /*input_address_value*/
+        ctx2[11]) {
+          set_input_value(
+            input,
+            /*input_address_value*/
+            ctx2[11]
+          );
+        }
         if ((!current || dirty[0] & /*property*/
         1) && t3_value !== (t3_value = /*property*/
         (ctx2[0].formattedAddress || "Address") + ""))
@@ -7919,7 +7944,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         ctx[51](null);
         destroy_component(icon0);
         destroy_component(icon1);
-        ctx[52](null);
+        ctx[53](null);
+        mounted = false;
+        dispose();
       }
     };
   }
@@ -7977,15 +8004,15 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           dispose = listen(
             input,
             "input",
-            /*input_input_handler_2*/
-            ctx[53]
+            /*input_input_handler_3*/
+            ctx[54]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*property*/
-        1 && to_number(input.value) !== /*property*/
+        if (dirty[0] & /*property, countries*/
+        3 && to_number(input.value) !== /*property*/
         ctx2[0].altitude) {
           set_input_value(
             input,
@@ -8155,7 +8182,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         )
           add_render_callback(() => (
             /*select0_change_handler*/
-            ctx[59].call(select0)
+            ctx[60].call(select0)
           ));
         attr(div0, "class", "input_box svelte-1at5ok4");
         attr(label1, "for", "parking");
@@ -8173,7 +8200,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         )
           add_render_callback(() => (
             /*select1_change_handler*/
-            ctx[60].call(select1)
+            ctx[61].call(select1)
           ));
         attr(div1, "class", "input_box svelte-1at5ok4");
         attr(div2, "class", "row svelte-1at5ok4");
@@ -8256,13 +8283,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               select0,
               "change",
               /*select0_change_handler*/
-              ctx[59]
+              ctx[60]
             ),
             listen(
               select1,
               "change",
               /*select1_change_handler*/
-              ctx[60]
+              ctx[61]
             ),
             listen(
               button,
@@ -8273,8 +8300,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             listen(
               input,
               "input",
-              /*input_input_handler_3*/
-              ctx[64]
+              /*input_input_handler_4*/
+              ctx[65]
             )
           ];
           mounted = true;
@@ -8312,8 +8339,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             ctx2[16].houseType
           );
         }
-        if (dirty[0] & /*property*/
-        1) {
+        if (dirty[0] & /*property, countries*/
+        3) {
           select_option(
             select1,
             /*property*/
@@ -8392,7 +8419,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let option;
     let t_1_value = (
       /*t*/
-      ctx[99] + ""
+      ctx[100] + ""
     );
     let t_1;
     let option_value_value;
@@ -8401,7 +8428,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         option = element("option");
         t_1 = text(t_1_value);
         option.__value = option_value_value = /*t*/
-        ctx[99];
+        ctx[100];
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -8563,27 +8590,27 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               input0,
               "input",
               /*input0_input_handler_1*/
-              ctx[61]
+              ctx[62]
             ),
             listen(
               input1,
               "input",
               /*input1_input_handler_1*/
-              ctx[62]
+              ctx[63]
             ),
             listen(
               input2,
               "input",
               /*input2_input_handler_1*/
-              ctx[63]
+              ctx[64]
             )
           ];
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*property*/
-        1 && to_number(input0.value) !== /*property*/
+        if (dirty[0] & /*property, countries*/
+        3 && to_number(input0.value) !== /*property*/
         ctx2[0].bedroom) {
           set_input_value(
             input0,
@@ -8591,8 +8618,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             ctx2[0].bedroom
           );
         }
-        if (dirty[0] & /*property*/
-        1 && to_number(input1.value) !== /*property*/
+        if (dirty[0] & /*property, countries*/
+        3 && to_number(input1.value) !== /*property*/
         ctx2[0].bathroom) {
           set_input_value(
             input1,
@@ -8600,8 +8627,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             ctx2[0].bathroom
           );
         }
-        if (dirty[0] & /*property*/
-        1 && to_number(input2.value) !== /*property*/
+        if (dirty[0] & /*property, countries*/
+        3 && to_number(input2.value) !== /*property*/
         ctx2[0].livingroom) {
           set_input_value(
             input2,
@@ -8775,7 +8802,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         )
           add_render_callback(() => (
             /*select_change_handler_1*/
-            ctx[68].call(select)
+            ctx[69].call(select)
           ));
         attr(div3, "class", "input_box svelte-1at5ok4");
         attr(div4, "class", "row svelte-1at5ok4");
@@ -8834,40 +8861,40 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               input0,
               "click",
               /*click_handler_6*/
-              ctx[65]
+              ctx[66]
             ),
             listen(
               input1,
               "click",
               /*click_handler_7*/
-              ctx[66]
+              ctx[67]
             ),
             listen(
               input2,
               "input",
               /*input2_input_handler_2*/
-              ctx[67]
+              ctx[68]
             ),
             listen(
               select,
               "change",
               /*select_change_handler_1*/
-              ctx[68]
+              ctx[69]
             )
           ];
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*property*/
-        1 && label0_class_value !== (label0_class_value = null_to_empty(
+        if (dirty[0] & /*property, countries*/
+        3 && label0_class_value !== (label0_class_value = null_to_empty(
           /*property*/
           ctx2[0].purpose === "sell" ? "option clicked" : "option"
         ) + " svelte-1at5ok4")) {
           attr(label0, "class", label0_class_value);
         }
-        if (dirty[0] & /*property*/
-        1 && label1_class_value !== (label1_class_value = null_to_empty(
+        if (dirty[0] & /*property, countries*/
+        3 && label1_class_value !== (label1_class_value = null_to_empty(
           /*property*/
           ctx2[0].purpose === "rent" ? "option clicked" : "option"
         ) + " svelte-1at5ok4")) {
@@ -8877,8 +8904,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         1 && t4_value !== (t4_value = /*property*/
         ctx2[0].purpose === "sell" ? "Property Price" : "Rent"))
           set_data(t4, t4_value);
-        if (dirty[0] & /*property*/
-        1 && to_number(input2.value) !== /*property*/
+        if (dirty[0] & /*property, countries*/
+        3 && to_number(input2.value) !== /*property*/
         ctx2[0].lastPrice) {
           set_input_value(
             input2,
@@ -9018,15 +9045,15 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           dispose = listen(
             input,
             "input",
-            /*input_input_handler_4*/
-            ctx[69]
+            /*input_input_handler_5*/
+            ctx[70]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*property*/
-        1 && to_number(input.value) !== /*property*/
+        if (dirty[0] & /*property, countries*/
+        3 && to_number(input.value) !== /*property*/
         ctx2[0].agencyFeePercent) {
           set_input_value(
             input,
@@ -9136,7 +9163,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         )
           add_render_callback(() => (
             /*select_change_handler_2*/
-            ctx[70].call(select)
+            ctx[71].call(select)
           ));
         attr(div0, "class", "input_box svelte-1at5ok4");
         attr(div1, "class", "row svelte-1at5ok4");
@@ -9200,13 +9227,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               select,
               "change",
               /*select_change_handler_2*/
-              ctx[70]
+              ctx[71]
             ),
             listen(
               input,
               "input",
-              /*input_input_handler_6*/
-              ctx[72]
+              /*input_input_handler_7*/
+              ctx[73]
             ),
             listen(button, "click", function() {
               if (is_function(
@@ -9245,8 +9272,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           if_block0.d(1);
           if_block0 = null;
         }
-        if (dirty[0] & /*property*/
-        1 && to_number(input.value) !== /*property*/
+        if (dirty[0] & /*property, countries*/
+        3 && to_number(input.value) !== /*property*/
         ctx[0].minimumDurationYear) {
           set_input_value(
             input,
@@ -9331,15 +9358,15 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           dispose = listen(
             input,
             "input",
-            /*input_input_handler_5*/
-            ctx[71]
+            /*input_input_handler_6*/
+            ctx[72]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*property*/
-        1 && to_number(input.value) !== /*property*/
+        if (dirty[0] & /*property, countries*/
+        3 && to_number(input.value) !== /*property*/
         ctx2[0].depositFee) {
           set_input_value(
             input,
@@ -9448,14 +9475,14 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let span;
     let t0_value = (
       /*otherFee*/
-      ctx[96].name + ""
+      ctx[97].name + ""
     );
     let t0;
     let t1;
     let b;
     let t2_value = (0, import_formatter.formatPrice)(
       /*otherFee*/
-      ctx[96].fee,
+      ctx[97].fee,
       /*countryCurrency*/
       ctx[5]
     ) + "";
@@ -9489,12 +9516,12 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*property*/
         1 && t0_value !== (t0_value = /*otherFee*/
-        ctx2[96].name + ""))
+        ctx2[97].name + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*property, countryCurrency*/
         33 && t2_value !== (t2_value = (0, import_formatter.formatPrice)(
           /*otherFee*/
-          ctx2[96].fee,
+          ctx2[97].fee,
           /*countryCurrency*/
           ctx2[5]
         ) + ""))
@@ -9591,7 +9618,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       },
       m(target, anchor) {
         insert(target, input, anchor);
-        ctx[75](input);
+        ctx[76](input);
         insert(target, t0, anchor);
         mount_component(icon, target, anchor);
         insert(target, t1, anchor);
@@ -9625,7 +9652,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           detach(t1);
           detach(p);
         }
-        ctx[75](null);
+        ctx[76](null);
         destroy_component(icon, detaching);
         mounted = false;
         dispose();
@@ -9737,11 +9764,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let input;
     let mounted;
     let dispose;
-    function input_input_handler_7() {
-      ctx[76].call(
+    function input_input_handler_8() {
+      ctx[77].call(
         input,
         /*idx*/
-        ctx[95]
+        ctx[96]
       );
     }
     return {
@@ -9758,28 +9785,28 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           /*property*/
           ctx[0].imageLabels[
             /*idx*/
-            ctx[95]
+            ctx[96]
           ]
         );
         if (!mounted) {
-          dispose = listen(input, "input", input_input_handler_7);
+          dispose = listen(input, "input", input_input_handler_8);
           mounted = true;
         }
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
-        if (dirty[0] & /*property*/
-        1 && input.value !== /*property*/
+        if (dirty[0] & /*property, countries*/
+        3 && input.value !== /*property*/
         ctx[0].imageLabels[
           /*idx*/
-          ctx[95]
+          ctx[96]
         ]) {
           set_input_value(
             input,
             /*property*/
             ctx[0].imageLabels[
               /*idx*/
-              ctx[95]
+              ctx[96]
             ]
           );
         }
@@ -9828,9 +9855,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     function click_handler_9() {
       return (
         /*click_handler_9*/
-        ctx[77](
+        ctx[78](
           /*idx*/
-          ctx[95]
+          ctx[96]
         )
       );
     }
@@ -9848,7 +9875,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         t2 = space();
         attr(img_1, "alt", "");
         if (!src_url_equal(img_1.src, img_1_src_value = /*img*/
-        ctx[93]))
+        ctx[94]))
           attr(img_1, "src", img_1_src_value);
         attr(img_1, "class", "svelte-1at5ok4");
         attr(div0, "class", "image_container svelte-1at5ok4");
@@ -9876,9 +9903,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
-        if (!current || dirty[0] & /*property*/
-        1 && !src_url_equal(img_1.src, img_1_src_value = /*img*/
-        ctx[93])) {
+        if (!current || dirty[0] & /*property, countries*/
+        3 && !src_url_equal(img_1.src, img_1_src_value = /*img*/
+        ctx[94])) {
           attr(img_1, "src", img_1_src_value);
         }
         if (current_block_type === (current_block_type = select_block_type_2(ctx, dirty)) && if_block) {
@@ -10427,8 +10454,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         ctx2[0].purpose === "rent" ? `For ${/*property*/
         ctx2[0].purpose}` : `On Sale`))
           set_data(t4, t4_value);
-        if (!current || dirty[0] & /*property*/
-        1 && span0_class_value !== (span0_class_value = null_to_empty(
+        if (!current || dirty[0] & /*property, countries*/
+        3 && span0_class_value !== (span0_class_value = null_to_empty(
           /*property*/
           ctx2[0].purpose === "rent" ? `label_rent purpose` : `label_sale purpose`
         ) + " svelte-1at5ok4")) {
@@ -10681,8 +10708,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         append(div, img_1);
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*property*/
-        1 && !src_url_equal(img_1.src, img_1_src_value = /*property*/
+        if (dirty[0] & /*property, countries*/
+        3 && !src_url_equal(img_1.src, img_1_src_value = /*property*/
         ctx2[0].images[0])) {
           attr(img_1, "src", img_1_src_value);
         }
@@ -10913,14 +10940,14 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let span;
     let t0_value = (
       /*otherfee*/
-      ctx[90].name + ""
+      ctx[91].name + ""
     );
     let t0;
     let t1;
     let b;
     let t2_value = (0, import_formatter.formatPrice)(
       /*otherfee*/
-      ctx[90].fee,
+      ctx[91].fee,
       /*countryCurrency*/
       ctx[5]
     ) + "";
@@ -10954,12 +10981,12 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*infoObj*/
         65536 && t0_value !== (t0_value = /*otherfee*/
-        ctx2[90].name + ""))
+        ctx2[91].name + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*infoObj, countryCurrency*/
         65568 && t2_value !== (t2_value = (0, import_formatter.formatPrice)(
           /*otherfee*/
-          ctx2[90].fee,
+          ctx2[91].fee,
           /*countryCurrency*/
           ctx2[5]
         ) + ""))
@@ -11108,19 +11135,19 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               button0,
               "click",
               /*click_handler_10*/
-              ctx[79]
+              ctx[80]
             ),
             listen(
               button1,
               "click",
               /*click_handler_11*/
-              ctx[80]
+              ctx[81]
             ),
             listen(
               button2,
               "click",
               /*click_handler_12*/
-              ctx[81]
+              ctx[82]
             )
           ];
           mounted = true;
@@ -11245,25 +11272,25 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     });
     let if_block0 = (
       /*modeLocation*/
-      ctx[9] !== LOC_ADDR && create_if_block_24(ctx)
+      ctx[8] !== LOC_ADDR && create_if_block_24(ctx)
     );
     let if_block1 = (
       /*modeLocation*/
-      ctx[9] === LOC_ADDR && create_if_block_21(ctx)
+      ctx[8] === LOC_ADDR && create_if_block_21(ctx)
     );
     let if_block2 = (
       /*modeLocation*/
-      ctx[9] === LOC_MAP && create_if_block_20(ctx)
+      ctx[8] === LOC_MAP && create_if_block_20(ctx)
     );
     let if_block3 = (
       /*modeLocation*/
-      ctx[9] === LOC_STREETVIEW && create_if_block_19(ctx)
+      ctx[8] === LOC_STREETVIEW && create_if_block_19(ctx)
     );
     function addotherfeesdialog_fee_binding(value) {
-      ctx[56](value);
+      ctx[57](value);
     }
     function addotherfeesdialog_name_binding(value) {
-      ctx[57](value);
+      ctx[58](value);
     }
     let addotherfeesdialog_props = {
       $slots: { default: [create_default_slot] },
@@ -11286,7 +11313,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     addotherfeesdialog = new AddOtherFeesDialog_default({ props: addotherfeesdialog_props });
     binding_callbacks.push(() => bind(addotherfeesdialog, "fee", addotherfeesdialog_fee_binding));
     binding_callbacks.push(() => bind(addotherfeesdialog, "name", addotherfeesdialog_name_binding));
-    ctx[58](addotherfeesdialog);
+    ctx[59](addotherfeesdialog);
     icon1 = new Icon_default({
       props: {
         className: "iconBack",
@@ -11377,7 +11404,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         h30 = element("h3");
         t14 = text(
           /*modeLocation*/
-          ctx[9]
+          ctx[8]
         );
         t15 = space();
         if (if_block1)
@@ -11545,7 +11572,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           if_block3.m(div7, null);
         append(section0, t18);
         append(section0, button4);
-        ctx[55](section0);
+        ctx[56](section0);
         append(div13, t20);
         append(div13, section1);
         mount_component(addotherfeesdialog, section1, null);
@@ -11564,7 +11591,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           if_block5.m(div8, null);
         append(section1, t26);
         append(section1, button6);
-        ctx[74](section1);
+        ctx[75](section1);
         append(div13, t28);
         append(div13, section2);
         append(section2, button7);
@@ -11583,7 +11610,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           if_block7.m(div10, null);
         append(section2, t33);
         append(section2, button8);
-        ctx[78](section2);
+        ctx[79](section2);
         append(div13, t35);
         append(div13, section3);
         if (if_block8)
@@ -11591,7 +11618,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         append(section3, t36);
         if (if_block9)
           if_block9.m(section3, null);
-        ctx[82](section3);
+        ctx[83](section3);
         current = true;
         if (!mounted) {
           dispose = [
@@ -11621,7 +11648,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             ),
             listen(button4, "click", prevent_default(
               /*click_handler_5*/
-              ctx[54]
+              ctx[55]
             )),
             listen(
               button5,
@@ -11631,7 +11658,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             ),
             listen(button6, "click", prevent_default(
               /*click_handler_8*/
-              ctx[73]
+              ctx[74]
             )),
             listen(
               button7,
@@ -11680,12 +11707,12 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*modeLocation*/
-          ctx2[9] !== LOC_ADDR
+          ctx2[8] !== LOC_ADDR
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
             if (dirty[0] & /*modeLocation*/
-            512) {
+            256) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -11702,15 +11729,15 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           check_outros();
         }
         if (!current || dirty[0] & /*modeLocation*/
-        512)
+        256)
           set_data(
             t14,
             /*modeLocation*/
-            ctx2[9]
+            ctx2[8]
           );
         if (
           /*modeLocation*/
-          ctx2[9] === LOC_ADDR
+          ctx2[8] === LOC_ADDR
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
@@ -11725,12 +11752,12 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*modeLocation*/
-          ctx2[9] === LOC_MAP
+          ctx2[8] === LOC_MAP
         ) {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
             if (dirty[0] & /*modeLocation*/
-            512) {
+            256) {
               transition_in(if_block2, 1);
             }
           } else {
@@ -11748,7 +11775,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*modeLocation*/
-          ctx2[9] === LOC_STREETVIEW
+          ctx2[8] === LOC_STREETVIEW
         ) {
           if (if_block3) {
             if_block3.p(ctx2, dirty);
@@ -11763,7 +11790,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         const addotherfeesdialog_changes = {};
         if (dirty[3] & /*$scope*/
-        4096) {
+        8192) {
           addotherfeesdialog_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_fee && dirty[0] & /*otherFeeObj*/
@@ -11962,25 +11989,25 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           if_block2.d();
         if (if_block3)
           if_block3.d();
-        ctx[55](null);
-        ctx[58](null);
+        ctx[56](null);
+        ctx[59](null);
         destroy_component(addotherfeesdialog);
         destroy_component(icon1);
         if (if_block4)
           if_block4.d();
         if (if_block5)
           if_block5.d();
-        ctx[74](null);
+        ctx[75](null);
         destroy_component(icon2);
         if_blocks[current_block_type_index].d();
         if (if_block7)
           if_block7.d();
-        ctx[78](null);
+        ctx[79](null);
         if (if_block8)
           if_block8.d();
         if (if_block9)
           if_block9.d();
-        ctx[82](null);
+        ctx[83](null);
         mounted = false;
         run_all(dispose);
       }
@@ -12003,8 +12030,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let cards = [{}, {}, {}, {}];
     let countryCurrency = "TWD";
     onMount(() => {
+      console.log("User data = ", user2);
       $invalidate(0, property2 = {
-        countryCode: user2.countryCode,
+        countryCode: user2.country,
         city: "",
         countyName: "",
         address: "",
@@ -12044,12 +12072,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           $invalidate(5, countryCurrency = countries2[i].currency.code);
         }
       }
+      console.log("property.countryCode=", property2.countryCode);
     });
     function GetPayload() {
-      if (property2.countryCode === "US")
+      if (user2.country === "US")
         $invalidate(0, property2.city = property2.countyName, property2);
       return {
-        countryCode: property2.countryCode,
+        countryCode: user2.country,
         city: property2.city,
         countyName: property2.countyName,
         district: property2.district,
@@ -12095,10 +12124,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         card.scrollIntoView({ behavior: "smooth" });
       }
     }
-    let modeLocationCount = 0, countryName = "Country", countryIso2 = property2.countryCode;
+    let modeLocationCount = 0, countryName = "Country";
     const modeLocationLists = [{ mode: LOC_ADDR }, { mode: LOC_MAP }, { mode: LOC_STREETVIEW }];
     let modeLocation = modeLocationLists[modeLocationCount].mode;
-    let map, map_container, input_address;
+    let map, map_container, input_address, input_address_value;
     async function initMap() {
       const { Map: Map2 } = await google.maps.importLibrary("maps");
       const geocoder = new google.maps.Geocoder();
@@ -12216,7 +12245,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     async function handleBackLocation() {
       if (modeLocationCount < modeLocationLists.length) {
         $invalidate(6, modeLocationCount -= 1);
-        $invalidate(9, modeLocation = modeLocationLists[modeLocationCount].mode);
+        $invalidate(8, modeLocation = modeLocationLists[modeLocationCount].mode);
         if (modeLocation === LOC_MAP) {
           await initMap();
         }
@@ -12224,8 +12253,6 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     }
     const handleNextLocation = {
       "LOC_ADDR": async () => {
-        console.log("add prop = ", property2);
-        $invalidate(0, property2.countryCode = countryIso2, property2);
         if (property2.city === "" || property2.street === "" || property2.floors === 0) {
           alert("Please fill required form");
           return;
@@ -12238,8 +12265,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             $invalidate(0, property2.lng = parseInt(countries2[i].coordinate.lng), property2);
           }
         }
+        $invalidate(11, input_address_value = property2.street);
         $invalidate(6, modeLocationCount += 1);
-        $invalidate(9, modeLocation = modeLocationLists[modeLocationCount].mode);
+        $invalidate(8, modeLocation = modeLocationLists[modeLocationCount].mode);
         await initMap();
       },
       "LOC_MAP": () => {
@@ -12248,7 +12276,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           return;
         }
         $invalidate(6, modeLocationCount += 1);
-        $invalidate(9, modeLocation = modeLocationLists[modeLocationCount].mode);
+        $invalidate(8, modeLocation = modeLocationLists[modeLocationCount].mode);
       },
       "LOC_STREETVIEW": () => {
         nextPage();
@@ -12431,45 +12459,55 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       }
     };
     function select_change_handler() {
-      countryIso2 = select_value(this);
-      $invalidate(8, countryIso2);
+      property2.countryCode = select_value(this);
+      $invalidate(0, property2);
       $invalidate(1, countries2);
     }
     function input_input_handler() {
       property2.countyName = this.value;
       $invalidate(0, property2);
+      $invalidate(1, countries2);
     }
     function input_input_handler_1() {
       property2.city = this.value;
       $invalidate(0, property2);
+      $invalidate(1, countries2);
     }
     function input0_input_handler() {
       property2.street = this.value;
       $invalidate(0, property2);
+      $invalidate(1, countries2);
     }
     function input1_input_handler() {
       property2.street2 = this.value;
       $invalidate(0, property2);
+      $invalidate(1, countries2);
     }
     function input2_input_handler() {
       property2.floors = to_number(this.value);
       $invalidate(0, property2);
+      $invalidate(1, countries2);
     }
     function input_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         input_address = $value;
-        $invalidate(11, input_address);
+        $invalidate(10, input_address);
       });
+    }
+    function input_input_handler_2() {
+      input_address_value = this.value;
+      $invalidate(11, input_address_value);
     }
     function div4_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         map_container = $value;
-        $invalidate(10, map_container);
+        $invalidate(9, map_container);
       });
     }
-    function input_input_handler_2() {
+    function input_input_handler_3() {
       property2.altitude = to_number(this.value);
       $invalidate(0, property2);
+      $invalidate(1, countries2);
     }
     const click_handler_5 = () => {
       if (modeLocationCount === 0) {
@@ -12512,20 +12550,24 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     function select1_change_handler() {
       property2.parking = select_value(this);
       $invalidate(0, property2);
+      $invalidate(1, countries2);
     }
     function input0_input_handler_1() {
       property2.bedroom = to_number(this.value);
       $invalidate(0, property2);
+      $invalidate(1, countries2);
     }
     function input1_input_handler_1() {
       property2.bathroom = to_number(this.value);
       $invalidate(0, property2);
+      $invalidate(1, countries2);
     }
     function input2_input_handler_1() {
       property2.livingroom = to_number(this.value);
       $invalidate(0, property2);
+      $invalidate(1, countries2);
     }
-    function input_input_handler_3() {
+    function input_input_handler_4() {
       houseSize = to_number(this.value);
       $invalidate(14, houseSize);
     }
@@ -12534,28 +12576,32 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     function input2_input_handler_2() {
       property2.lastPrice = to_number(this.value);
       $invalidate(0, property2);
+      $invalidate(1, countries2);
     }
     function select_change_handler_1() {
       infoObj.agencyFee = select_value(this);
       $invalidate(16, infoObj);
       $invalidate(31, houseTypeLists);
     }
-    function input_input_handler_4() {
+    function input_input_handler_5() {
       property2.agencyFeePercent = to_number(this.value);
       $invalidate(0, property2);
+      $invalidate(1, countries2);
     }
     function select_change_handler_2() {
       infoObj.deposit = select_value(this);
       $invalidate(16, infoObj);
       $invalidate(31, houseTypeLists);
     }
-    function input_input_handler_5() {
+    function input_input_handler_6() {
       property2.depositFee = to_number(this.value);
       $invalidate(0, property2);
+      $invalidate(1, countries2);
     }
-    function input_input_handler_6() {
+    function input_input_handler_7() {
       property2.minimumDurationYear = to_number(this.value);
       $invalidate(0, property2);
+      $invalidate(1, countries2);
     }
     const click_handler_8 = () => {
       if (modeInfoCount === 0) {
@@ -12576,9 +12622,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         $invalidate(19, imageHouseInput);
       });
     }
-    function input_input_handler_7(idx) {
+    function input_input_handler_8(idx) {
       property2.imageLabels[idx] = this.value;
       $invalidate(0, property2);
+      $invalidate(1, countries2);
     }
     const click_handler_9 = (idx) => removeImage(idx);
     function section2_binding($value) {
@@ -12617,10 +12664,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       countryCurrency,
       modeLocationCount,
       countryName,
-      countryIso2,
       modeLocation,
       map_container,
       input_address,
+      input_address_value,
       modeInfoCount,
       infoUnitMode,
       houseSize,
@@ -12661,8 +12708,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       input1_input_handler,
       input2_input_handler,
       input_binding,
-      div4_binding,
       input_input_handler_2,
+      div4_binding,
+      input_input_handler_3,
       click_handler_5,
       section0_binding,
       addotherfeesdialog_fee_binding,
@@ -12673,19 +12721,19 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       input0_input_handler_1,
       input1_input_handler_1,
       input2_input_handler_1,
-      input_input_handler_3,
+      input_input_handler_4,
       click_handler_6,
       click_handler_7,
       input2_input_handler_2,
       select_change_handler_1,
-      input_input_handler_4,
-      select_change_handler_2,
       input_input_handler_5,
+      select_change_handler_2,
       input_input_handler_6,
+      input_input_handler_7,
       click_handler_8,
       section1_binding,
       input_binding_1,
-      input_input_handler_7,
+      input_input_handler_8,
       click_handler_9,
       section2_binding,
       click_handler_10,

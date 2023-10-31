@@ -30,8 +30,9 @@
   const defaultLat = 23.6978, defaultLng = 120.9605;
   
   onMount( () => {
+    console.log("User data = ", user)
     property = {
-      countryCode: user.countryCode,
+      countryCode: user.country,
       city: '',
       countyName: '',
       address: '',
@@ -66,12 +67,13 @@
         countryCurrency = countries[ i ].currency.code;
       }
     }
+    console.log('property.countryCode=',property.countryCode)
   } );
   
   function GetPayload() {
-    if( property.countryCode==='US' ) property.city = property.countyName;
+    if( user.country==='US' ) property.city = property.countyName;
     return {
-      countryCode: property.countryCode,
+      countryCode: user.country,
       city: property.city,
       countyName: property.countyName,
       district: property.district,
@@ -125,14 +127,14 @@
   const LOC_ADDR = 'Address';
   const LOC_MAP = 'Put the pin on your house location by clicking the map';
   const LOC_STREETVIEW = 'Put signage on your house location';
-  let modeLocationCount = 0, countryName = 'Country', countryIso2 = property.countryCode;
+  let modeLocationCount = 0, countryName = 'Country';
   const modeLocationLists = [
     {mode: LOC_ADDR},
     {mode: LOC_MAP},
     {mode: LOC_STREETVIEW},
   ];
   let modeLocation = modeLocationLists[ modeLocationCount ].mode;
-  let map, map_container, input_address;
+  let map, map_container, input_address, input_address_value;
   
   async function initMap() {
     const {Map} = await google.maps.importLibrary( 'maps' );
@@ -278,8 +280,6 @@
   
   const handleNextLocation = {
     'LOC_ADDR': async () => {
-      console.log( 'add prop = ', property )
-      property.countryCode = countryIso2;
       if( property.city==='' || property.street==='' || property.floors===0 ) {
         alert( 'Please fill required form' );
         return;
@@ -292,6 +292,7 @@
           property.lng = parseInt( countries[ i ].coordinate.lng );
         }
       }
+      input_address_value = property.street;
       modeLocationCount += 1;
       modeLocation = modeLocationLists[ modeLocationCount ].mode;
       await initMap();
@@ -537,7 +538,7 @@
 							<div class='row'>
 								<div class='input_box'>
 									<label for='country'>Country or Region <span class='asterisk'>*</span></label>
-									<select id='country' name='country' bind:value={countryIso2} on:change={changeCurrency}>
+									<select id='country' name='country' bind:value={property.countryCode} on:change={changeCurrency}>
 										{#each countries as country}
 											<option value={country.iso_2}>{country.country}</option>
 										{/each}
@@ -575,7 +576,7 @@
 						<div class='location_map'>
 							<div class='input_box'>
 								<label for='input_address'></label>
-								<input bind:this={input_address} id='input_address' type='text'/>
+								<input bind:this={input_address} bind:value={input_address_value} id='input_address' type='text'/>
 							</div>
 							<div class='address_country_info'>
 								<div class='address'>
