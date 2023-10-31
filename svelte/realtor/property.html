@@ -12013,8 +12013,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       }
     };
   }
-  var defaultLat = 23.6978;
-  var defaultLng = 120.9605;
+  var defaultLat = 23.5;
+  var defaultLng = 121;
   var LOC_ADDR = "Address";
   var LOC_MAP = "Put the pin on your house location by clicking the map";
   var LOC_STREETVIEW = "Put signage on your house location";
@@ -12134,7 +12134,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       map = new Map2(
         map_container,
         {
-          center: { lat: property2.lat, lng: property2.lng },
+          center: {
+            lat: property2.coord[0],
+            lng: property2.coord[1]
+          },
           zoom: 8,
           mapTypeId: "roadmap",
           mapId: "street_project"
@@ -12144,6 +12147,19 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       let searchBox = new SearchBox(input_address);
       map.controls[google.maps.ControlPosition.TOP_LEFT].push(input_address);
       let markers = [];
+      await geocoder.geocode({ address: input_address_value }).then(({ results }) => {
+        if (results[0]) {
+          console.log("Result = ", results);
+          $invalidate(0, property2.coord[0] = results[0].geometry.location.lat(), property2);
+          $invalidate(0, property2.coord[1] = results[0].geometry.location.lng(), property2);
+          map.setCenter(results[0].geometry.location);
+        } else {
+          $invalidate(11, input_address_value = "");
+        }
+      }).catch((e) => {
+        $invalidate(11, input_address_value = "");
+      });
+      console.log("current coord =", property2.coord);
       const markerEventHandler = (event) => {
         $invalidate(0, property2.coord[0] = event.latLng.lat(), property2);
         $invalidate(0, property2.coord[1] = event.latLng.lng(), property2);
@@ -12162,7 +12178,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         });
         markers2.length = 0;
       };
-      markers.push(createMarker(map, { lat: property2.lat, lng: property2.lng }));
+      markers.push(createMarker(map, {
+        lat: property2.coord[0],
+        lng: property2.coord[1]
+      }));
       const getAddress = (latLng) => {
         geocoder.geocode({ location: latLng }, (results, status) => {
           if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
@@ -12183,7 +12202,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       map.addListener("click", (event) => {
         clearMarkers(markers);
         const latLong = event.latLng;
-        markers = [createMarker(map, latLong)];
+        markers.push(createMarker(map, latLong));
         $invalidate(0, property2.coord[0] = latLong.lat(), property2);
         $invalidate(0, property2.coord[1] = latLong.lng(), property2);
         getAddress(latLong);
@@ -12196,12 +12215,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         if (places.length === 0) {
           return;
         }
-        $invalidate(0, property2.lng = places[0].geometry.location.lng(), property2);
-        $invalidate(0, property2.lat = places[0].geometry.location.lat(), property2);
+        $invalidate(0, property2.coord[0] = places[0].geometry.location.lat(), property2);
+        $invalidate(0, property2.coord[1] = places[0].geometry.location.lng(), property2);
         $invalidate(0, property2.formattedAddress = places[0].formatted_address, property2);
         for (let i = 0; i < places[0].address_components.length; i++) {
           if (places[0].address_components[i].types.indexOf("country") !== -1) {
-            $invalidate(0, property2.country = places[0].address_components[i].short_name, property2);
             $invalidate(7, countryName = places[0].address_components[i].long_name);
           }
         }
@@ -12212,19 +12230,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             alert("Returned place contains no geometry");
             return;
           }
-          const icon = {
-            url: place.icon,
-            size: new google.maps.Size(71, 71),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(17, 34),
-            scaledSize: new google.maps.Size(25, 25)
-          };
-          markers.push(new google.maps.Marker({
-            map,
-            icon,
-            title: place.name,
-            position: place.geometry.location
-          }));
+          markers.push(createMarker(map, place.geometry.location));
           if (place.geometry.viewport) {
             bounds.union(place.geometry.viewport);
           } else {

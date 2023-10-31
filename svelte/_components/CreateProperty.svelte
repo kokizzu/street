@@ -27,10 +27,10 @@
   let cards = [{}, {}, {}, {}];
   
   let countryCurrency = 'TWD';
-  const defaultLat = 23.6978, defaultLng = 120.9605;
+  const defaultLat = 23.5, defaultLng = 121.0;
   
   onMount( () => {
-    console.log("User data = ", user)
+    console.log( "User data = ", user )
     property = {
       countryCode: user.country,
       city: '',
@@ -67,7 +67,7 @@
         countryCurrency = countries[ i ].currency.code;
       }
     }
-    console.log('property.countryCode=',property.countryCode)
+    console.log( 'property.countryCode=', property.countryCode )
   } );
   
   function GetPayload() {
@@ -141,8 +141,8 @@
     const geocoder = new google.maps.Geocoder();
     map = new Map( map_container, {
       center: {
-        lat: property.lat,
-        lng: property.lng,
+        lat: property.coord[ 0 ],
+        lng: property.coord[ 1 ],
       },
       zoom: 8,
       mapTypeId: 'roadmap',
@@ -152,6 +152,23 @@
     let searchBox = new SearchBox( input_address );
     map.controls[ google.maps.ControlPosition.TOP_LEFT ].push( input_address );
     let markers = [];
+    
+    await geocoder.geocode( {address: input_address_value} )
+      .then( ( {results} ) => {
+        if( results[ 0 ] ) {
+          console.log( 'Result = ', results )
+          property.coord[ 0 ] = results[ 0 ].geometry.location.lat();
+          property.coord[ 1 ] = results[ 0 ].geometry.location.lng();
+          map.setCenter( results[ 0 ].geometry.location );
+        } else {
+          input_address_value = '';
+        }
+      } ).catch( ( e ) => {
+        input_address_value = '';
+      } );
+    
+    console.log( 'current coord =', property.coord )
+    
     const markerEventHandler = ( event ) => {
       property.coord[ 0 ] = event.latLng.lat();
       property.coord[ 1 ] = event.latLng.lng();
@@ -174,9 +191,10 @@
       markers.length = 0;
     };
     markers.push( createMarker( map, {
-      lat: property.lat,
-      lng: property.lng,
+      lat: property.coord[ 0 ],
+      lng: property.coord[ 1 ],
     } ) );
+    
     const getAddress = ( latLng ) => {
       geocoder.geocode( {location: latLng}, ( results, status ) => {
         if( status===google.maps.GeocoderStatus.OK && results.length>0 ) {
@@ -197,7 +215,7 @@
     map.addListener( 'click', ( event ) => {
       clearMarkers( markers );
       const latLong = event.latLng;
-      markers = [createMarker( map, latLong )];
+      markers.push( createMarker( map, latLong ) );
       // Update data structure
       property.coord[ 0 ] = latLong.lat();
       property.coord[ 1 ] = latLong.lng();
@@ -214,12 +232,11 @@
         return;
       }
       // Fill formatted_address, latitude, and longitude as JSON values
-      property.lng = places[ 0 ].geometry.location.lng();
-      property.lat = places[ 0 ].geometry.location.lat();
+      property.coord[ 0 ] = places[ 0 ].geometry.location.lat();
+      property.coord[ 1 ] = places[ 0 ].geometry.location.lng();
       property.formattedAddress = places[ 0 ].formatted_address;
       for( let i = 0; i<places[ 0 ].address_components.length; i++ ) {
         if( places[ 0 ].address_components[ i ].types.indexOf( 'country' )!== -1 ) {
-          property.country = places[ 0 ].address_components[ i ].short_name;
           countryName = places[ 0 ].address_components[ i ].long_name;
         }
       }
@@ -232,22 +249,8 @@
           alert( 'Returned place contains no geometry' );
           return;
         }
-        const icon = {
-          url: place.icon,
-          size: new google.maps.Size( 71, 71 ),
-          origin: new google.maps.Point( 0, 0 ),
-          anchor: new google.maps.Point( 17, 34 ),
-          scaledSize: new google.maps.Size( 25, 25 ),
-        };
         // create marker for each place
-        markers.push(
-          new google.maps.Marker( {
-            map,
-            icon,
-            title: place.name,
-            position: place.geometry.location,
-          } ),
-        );
+        markers.push( createMarker( map, place.geometry.location ) );
         if( place.geometry.viewport ) {
           // Only geocodes have viewport
           bounds.union( place.geometry.viewport );
