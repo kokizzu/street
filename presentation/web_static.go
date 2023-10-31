@@ -107,7 +107,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		}
 		imgUrl := ""
 		if len(out.Property.Images) != 0 {
-			imgUrl = fmt.Sprintf("%s%s", w.Cfg.WebProtoDomain, out.Property.Images[0])
+			imgUrl = fmt.Sprintf("%s%s", w.Domain.WebCfg.WebProtoDomain, out.Property.Images[0])
 		}
 		const ISO8601 = "2006-01-02T15:04:05Z07:00"
 		descr := out.Property.SizeM2 + ` m2`
@@ -127,7 +127,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		} else if out.Property.FormattedAddress != `` {
 			title += ` on ` + out.Property.FormattedAddress
 		}
-		ogUrl := fmt.Sprintf("%s/%s/%s%d", w.Cfg.WebProtoDomain, domain.GuestPropertyAction, countryCode, out.Property.Id)
+		ogUrl := fmt.Sprintf("%s/%s/%s%d", w.Domain.WebCfg.WebProtoDomain, domain.GuestPropertyAction, countryCode, out.Property.Id)
 		return views.RenderGuestPropertyPublic(ctx, M.SX{
 			`title`:         S.XSS(title),
 			`propItem`:      out.Property,
@@ -445,6 +445,15 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`activeSessions`: out.SessionsActive,
 			`countries`:      conf.CountriesData,
 		})
+	})
+	// TODO: Old version of UserNearbyFacilities with typo (Remove when no longer used)
+	fw.Post("/user/nearbyFacilitites", func(c *fiber.Ctx) error {
+		in := domain.UserNearbyFacilitiesIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserNearbyFacilitiesAction); err != nil {
+			return nil
+		}
+		out := d.UserNearbyFacilities(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 	fw.Get(`/`+domain.GuestAutoLoginAction, func(ctx *fiber.Ctx) error {
 		var in domain.GuestAutoLoginIn

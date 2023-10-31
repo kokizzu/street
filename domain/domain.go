@@ -46,6 +46,10 @@ type Domain struct {
 	// list of superadmin emails
 	Superadmins M.SB
 	UploadDir   string
+	CacheDir    string
+
+	// web related, need to be here so Mailer/CLI also know the domain/urls
+	WebCfg conf.WebConf
 }
 
 // will run in background if background service
@@ -66,8 +70,8 @@ func (d *Domain) WaitTimedBufferFinalFlush() {
 	d.Log.Debug().Msg(`timed buffer flushed`)
 }
 
-var defaultIP4 net.IP = net.ParseIP(`0.0.0.0`).To4()
-var defaultIP6 net.IP = net.ParseIP(`0:0:0:0:0:0:0:0`).To16()
+var defaultIP4 = net.ParseIP(`0.0.0.0`).To4()
+var defaultIP6 = net.ParseIP(`0:0:0:0:0:0:0:0`).To16()
 
 func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 	ip := net.ParseIP(in.IpAddress)

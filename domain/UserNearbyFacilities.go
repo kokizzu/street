@@ -1,10 +1,13 @@
 package domain
 
 import (
+	"encoding/json"
+	"fmt"
 	"sort"
 	"sync"
 
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/X"
 	"golang.org/x/sync/errgroup"
 
 	"street/model/xGmap"
@@ -37,9 +40,12 @@ type (
 )
 
 const (
-	UserNearbyFacilitiesAction = `user/nearbyFacilitites`
+	UserNearbyFacilitiesAction = `user/nearbyFacilities`
 
-	ErrFailedRetrieveFacilities = `failed to get nearby facilities`
+	ErrFailedRetrieveFacilities     = `failed to get nearby facilities`
+	ErrFailedReadingFacilitiesCache = `failed to read nearby facilities from cache`
+
+	WarnFailedWritingFacilitiesCache = `failed to write nearby facilities cache`
 )
 
 func (d *Domain) UserNearbyFacilities(in *UserNearbyFacilitiesIn) (out UserNearbyFacilitiesOut) {
@@ -50,70 +56,99 @@ func (d *Domain) UserNearbyFacilities(in *UserNearbyFacilitiesIn) (out UserNearb
 		return
 	}
 
-	eg := errgroup.Group{}
+	var facilities []xGmap.Place
+
+	const cacheDistance = 10 // 1 = 111.11 km | 10 = 11.11 km | 100 = 1.11 km
+	cacheFilename := fmt.Sprintf(`%s/nearbyFacilities_%.0f_%.0f.json`, d.CacheDir, in.CenterLat*cacheDistance, in.CenterLong*cacheDistance)
+	if L.FileExists(cacheFilename) {
+		bytes := []byte(L.ReadFile(cacheFilename))
+		err := json.Unmarshal(bytes, &facilities)
+		if !L.IsError(err, ErrFailedReadingFacilitiesCache) {
+			d.Gmap.RecalculateFacilitiesDistance(in.CenterLat, in.CenterLong, facilities)
+		}
+
+		sort.Slice(facilities, func(i, j int) bool {
+			return facilities[i].DistanceKm < facilities[j].DistanceKm
+		})
+
+		out.AddTrace(`cache hit`)
+	}
+
+	if len(facilities) == 0 {
+		eg := errgroup.Group{}
+
+		m := sync.Mutex{}
+		var errCount int
+
+		add := func(rows []xGmap.Place, err error) error {
+			m.Lock()
+			defer m.Unlock()
+
+			facilities = append(facilities, rows...)
+			if err != nil {
+				L.Print(err)
+				errCount++
+			}
+			return nil
+		}
+
+		const totalCall = 5
+
+		eg.Go(func() error {
+			res, err := d.Gmap.NearbyFacilities(in.CenterLat, in.CenterLong, xGmap.TypeHospital)
+			return add(res, err)
+		})
+
+		eg.Go(func() error {
+			res, err := d.Gmap.NearbyFacilities(in.CenterLat, in.CenterLong, xGmap.TypeSchool)
+			return add(res, err)
+		})
+
+		eg.Go(func() error {
+			res, err := d.Gmap.NearbyFacilities(in.CenterLat, in.CenterLong, xGmap.TypeRestaurant)
+			return add(res, err)
+		})
+
+		eg.Go(func() error {
+			res, err := d.Gmap.NearbyFacilities(in.CenterLat, in.CenterLong, xGmap.TypeSubwayStation)
+			return add(res, err)
+		})
+
+		eg.Go(func() error {
+			res, err := d.Gmap.NearbyFacilities(in.CenterLat, in.CenterLong, xGmap.TypeConvenienceStore)
+			return add(res, err)
+		})
+
+		_ = eg.Wait()
+
+		if errCount == totalCall {
+			out.SetError(500, ErrFailedRetrieveFacilities)
+			return
+		}
+
+		// sort by distance
+		sort.Slice(facilities, func(i, j int) bool {
+			return facilities[i].DistanceKm < facilities[j].DistanceKm
+		})
+
+		// write to cache
+		jsonStr := X.ToJsonPretty(facilities)
+		if !L.CreateFile(cacheFilename, jsonStr) {
+			out.AddTrace(WarnFailedWritingFacilitiesCache)
+		}
+	}
 
 	if in.LimitEach <= 0 {
 		in.LimitEach = 5
 	}
 
-	m := sync.Mutex{}
-	var errCount int
-
-	add := func(rows []xGmap.Place, err error) error {
-		m.Lock()
-		defer m.Unlock()
-		sort.Slice(rows, func(i, j int) bool {
-			return rows[i].DistanceKm < rows[j].DistanceKm
-		})
-		if len(rows) > in.LimitEach {
-			rows = rows[:5]
+	facilitiesCountByType := make(map[string]int)
+	for _, facility := range facilities {
+		if facilitiesCountByType[facility.Type] < in.LimitEach {
+			out.Facilities = append(out.Facilities, facility)
+			facilitiesCountByType[facility.Type] += 1
 		}
-		out.Facilities = append(out.Facilities, rows...)
-		if err != nil {
-			L.Print(err)
-			errCount++
-		}
-		return nil
 	}
-
-	const totalCall = 5
-
-	eg.Go(func() error {
-		res, err := d.Gmap.NearbyFacilities(in.CenterLat, in.CenterLong, xGmap.TypeHospital)
-		return add(res, err)
-	})
-
-	eg.Go(func() error {
-		res, err := d.Gmap.NearbyFacilities(in.CenterLat, in.CenterLong, xGmap.TypeSchool)
-		return add(res, err)
-	})
-
-	eg.Go(func() error {
-		res, err := d.Gmap.NearbyFacilities(in.CenterLat, in.CenterLong, xGmap.TypeRestaurant)
-		return add(res, err)
-	})
-
-	eg.Go(func() error {
-		res, err := d.Gmap.NearbyFacilities(in.CenterLat, in.CenterLong, xGmap.TypeSubwayStation)
-		return add(res, err)
-	})
-
-	eg.Go(func() error {
-		res, err := d.Gmap.NearbyFacilities(in.CenterLat, in.CenterLong, xGmap.TypeConvenienceStore)
-		return add(res, err)
-	})
-
-	_ = eg.Wait()
-
-	if errCount == totalCall {
-		out.SetError(500, ErrFailedRetrieveFacilities)
-		return
-	}
-
-	// sort by distance
-	sort.Slice(out.Facilities, func(i, j int) bool {
-		return out.Facilities[i].DistanceKm < out.Facilities[j].DistanceKm
-	})
 
 	return
 

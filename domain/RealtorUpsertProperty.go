@@ -7,7 +7,6 @@ import (
 	"github.com/kokizzu/gotro/M"
 	"github.com/segmentio/fasthash/fnv1a"
 
-	"street/conf"
 	"street/model/mAuth/rqAuth"
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
@@ -92,7 +91,6 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 		prop.SetCreatedBy(sess.UserId)
 	}
 	prop.SetUniqPropKey(fmt.Sprintf(`%d_%d`, sess.UserId, fnv1a.HashString64(in.Property.FormattedAddress)))
-	fmt.Println("Altitude = ", in.Property.Altitude)
 
 	dup := rqProperty.NewProperty(d.PropOltp)
 	dup.UniqPropKey = prop.UniqPropKey
@@ -110,7 +108,7 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 			// Get user email, send message to their email
 			user := rqAuth.NewUsers(d.AuthOltp)
 			err := d.Mailer.SendNotifCreatePropertyEmail(user.Email,
-				fmt.Sprintf("%s/realtor/ownedProperty/%v", conf.EnvWebConf().WebProtoDomain, in.Property.Id),
+				fmt.Sprintf("%s/realtor/ownedProperty/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
 			)
 			L.IsError(err, `SendNotifAddPropertyEmail`)
 		}
