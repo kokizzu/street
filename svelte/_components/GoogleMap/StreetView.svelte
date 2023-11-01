@@ -1,4 +1,5 @@
 <script>
+    //@ts-nocheck
     import Icon from 'svelte-icons-pack/Icon.svelte';
     import FaSolidSearch from "svelte-icons-pack/fa/FaSolidSearch";
     import GoogleSdk from './GoogleSdk.svelte';

@@ -39,7 +39,7 @@
 </script>
 
 {#if $isSideMenuOpen}
-	<div class="backdrop" on:click={() => $isSideMenuOpen = !$isSideMenuOpen}></div>
+	<button class="backdrop" on:click={() => $isSideMenuOpen = !$isSideMenuOpen}></button>
 {/if}
 <aside class={$isSideMenuOpen ? `side_menu_admin open` : `side_menu_admin`}>
 	<div class='side_menu_admin_container'>
@@ -114,6 +114,8 @@
         bottom           : 0;
         left             : 0;
         right            : 0;
+        border           : none;
+        padding          : 0;
         background-color : rgba(0 0 0 / 20%);
     }
 

@@ -5,6 +5,7 @@ import (
 
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/favicon"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
@@ -93,6 +94,11 @@ func (w *WebServer) Start(log *zerolog.Logger) {
 	// load svelte templates
 	views = &Views{}
 	views.LoadAll()
+
+	fw.Use(favicon.New(favicon.Config{
+		File: "./svelte/assets/favicons/favicon.ico",
+		URL:  "/assets/favicons/favicon.ico",
+	}))
 
 	fw.Use(limiter.New(limiter.Config{
 		Max:               300,

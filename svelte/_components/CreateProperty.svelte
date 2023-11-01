@@ -17,6 +17,7 @@
   import FaCheckCircle from "svelte-icons-pack/fa/FaCheckCircle";
   import AddOtherFeesDialog from "./AddOtherFeesDialog.svelte";
   import Icon from 'svelte-icons-pack/Icon.svelte';
+  import StreetView from "./GoogleMap/StreetView.svelte";
   import {RealtorUpsertProperty} from "../jsApi.GEN";
   import {onMount} from "svelte";
   
@@ -42,7 +43,8 @@
       floors: 0,
       formattedAddress: '',
       coord: [defaultLat, defaultLng],
-      altitude: 0,
+      altitude: 1500,
+      resolution: 120,
       uniqPropKey: '1_12449819078726277117',
       serialNumber: '',
       houseType: '',
@@ -605,6 +607,14 @@
 									<input id='altitude' type='number' min='0' step='0.1' placeholder='Required' bind:value={property.altitude}/>
 								</div>
 							</div>
+              <div class='streetview_container'>
+                <StreetView
+                  bind:elevation={property.altitude}
+                  bind:resolution={property.resolution}
+                  bind:lat={property.coord[0]}
+                  bind:lng={property.coord[1]}
+                />
+              </div>
 						</div>
 					{/if}
 				</div>
