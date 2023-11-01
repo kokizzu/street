@@ -73,7 +73,7 @@
   } );
   
   function GetPayload() {
-    if( user.country==='US' ) property.city = property.countyName;
+    if( property.country==='US' ) property.city = property.countyName;
     return {
       countryCode: user.country,
       city: property.city,
@@ -1072,7 +1072,7 @@
     }
 
     .realtor_subpage_container section .subpage_content h3 {
-        margin     : 8px 0;
+        margin     : 0;
         text-align : center;
         font-size  : 20px;
     }
@@ -1251,7 +1251,8 @@
         gap              : 20px;
         border-radius    : 10px;
         width            : 940px;
-        min-height       : 700px;
+        align-items: flex-start;
+        height: fit-content;
         overflow-x       : scroll;
         scroll-snap-type : x mandatory;
         filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
@@ -1275,7 +1276,7 @@
         padding           : 20px;
         background-color  : white;
         border-radius     : 10px;
-        min-height        : 700px;
+        height: fit-content;
         flex              : 0 0 940px;
         scroll-snap-align : start;
         position          : relative;
@@ -2030,6 +2031,13 @@
             gap               : 15px;
             flex-direction    : column;
             justify-content   : space-between;
+        }
+
+        .realtor_subpage_container section.location .subpage_content .address .row {
+            display               : grid;
+            grid-template-columns : 1fr;
+            grid-template-rows: 1fr auto;
+            gap                   : 20px;
         }
     }
 </style>
