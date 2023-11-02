@@ -147,7 +147,7 @@
         user = o.user;
         segments = o.segments;
         onHashChange();
-        window.document.location = '/';
+        window.document.location = '/realtor/property';
       }, 1500 );
     } );
   }
@@ -517,4 +517,19 @@
         color           : #5892F5;
         text-decoration : underline;
     }
+
+     /* Responsive to mobile device */
+     @media (max-width : 768px) {
+      .main_container {
+        width            : 100%;
+        padding          : 15px;
+        filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+        border-radius    : 15px;
+        display          : flex;
+        flex-direction   : column;
+        background-color : white;
+        margin           : 50px 20px;
+        border           : 1px solid #CBD5E1;
+      }
+     }
 </style>

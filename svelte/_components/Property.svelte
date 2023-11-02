@@ -10,6 +10,7 @@
   export let propHistories;
   export let propItem;
   export let meta;
+  export let isAdmin = false;
   
   let approvalStatus = 'approved';
   let signs = [
@@ -25,8 +26,10 @@
     }
   ]
   onMount( () => {
-    console.log('onMount.Property')
+    console.log( 'onMount.Property' )
     console.log( 'Property = ', propItem )
+    console.log( 'Meta =', meta )
+    console.log( 'IsAdmin =', isAdmin )
     if( propItem.approvalState!=='pending' && propItem.approvalState!=='' ) {
       approvalStatus = 'rejected';
     }
@@ -34,6 +37,12 @@
       approvalStatus = 'pending'
     }
   } )
+  
+  function M2ToPing( sizeM2 ) {
+    const value = sizeM2 / 3.30579;
+    const minifiedValue = value.toFixed( 2 );
+    return parseFloat( minifiedValue );
+  }
 </script>
 
 <div class='property'>
@@ -60,7 +69,7 @@
 					</div>
 				</div>
 				{#each signs as s}
-					{#if s.status===approvalStatus && s.status !== 'approved'}
+					{#if s.status===approvalStatus && s.status!=='approved'}
 						<span class={`prop_status ${s.status}`}>{s.sign + ' Property is ' + s.status}</span>
 					{/if}
 				{/each}
@@ -90,14 +99,24 @@
 				<p>Beds</p>
 			</div>
 			<div class='feature_item'>
-				<b>{propItem.sizeM2 || '0'} M2</b>
+				{#if propItem.countryCode==='TW'}
+					<b>{M2ToPing( propItem.sizeM2 || 0 )} Ping</b>
+				{:else}
+					<b>{propItem.sizeM2 || '0'} M2</b>
+				{/if}
 				<p>Size</p>
 			</div>
 		</div>
 	</div>
 	<div class='property_attributes'>
 		{#each meta as m}
-			{#if propItem[ m.name ]}
+			{#if !isAdmin && !(m.name==='createdAt' || m.name==='updatedAt' || m.name==='countryCode')}
+				{#if m.inputType==='datetime'}
+					<PillBox label={m.label} content={localeDatetime(propItem[m.name])}/>
+				{:else}
+					<PillBox label={m.label} content={propItem[m.name]}/>
+				{/if}
+			{:else if isAdmin}
 				{#if m.inputType==='datetime'}
 					<PillBox label={m.label} content={localeDatetime(propItem[m.name])}/>
 				{:else}
@@ -236,21 +255,24 @@
     }
 
     .property_main .property_info .col1 .prop_status {
-		    padding: 5px 10px;
-		    border-radius: 5px;
-		    font-size: 15px;
+        padding       : 5px 10px;
+        border-radius : 5px;
+        font-size     : 15px;
     }
+
     .property_main .property_info .col1 .approved {
-		    background-color: rgba(140, 216, 107, 1);
-		    color: #FFFFFF;
+        background-color : rgba(140, 216, 107, 1);
+        color            : #FFF;
     }
+
     .property_main .property_info .col1 .pending {
-        background-color: rgba(255, 208, 118, 1);
-        color: #475569;
+        background-color : rgba(255, 208, 118, 1);
+        color            : #475569;
     }
+
     .property_main .property_info .col1 .rejected {
-        background-color: rgba(255, 126, 118, 1);
-        color: #FFFFFF;
+        background-color : rgba(255, 126, 118, 1);
+        color            : #FFF;
     }
 
     .property_main .property_info .col1 .left .purpose,

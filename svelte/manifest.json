@@ -1,0 +1,35 @@
+{
+	"name": "HapSTR",
+	"short_name": "HapSTR",
+	"description": "Happening on the Street",
+	"icons": [
+		{
+			"src": "/assets/favicons/android-chrome-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "/assets/favicons/android-chrome-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		},
+		{
+			"src": "/assets/favicons/maskable_icon_192x192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/assets/favicons/maskable_icon_512x512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any maskable"
+		}
+	],
+	"scope": "/",
+	"start_url": "/index.html",
+	"display": "standalone",
+	"orientation": "portrait",
+	"theme_color": "#475569",
+	"background_color": "#FFF"
+}

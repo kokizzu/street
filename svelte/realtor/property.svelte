@@ -11,7 +11,6 @@
   let user = {/* user */};
   let segments = {/* segments */}
   let countries = [/* countries */];
-
 </script>
 
 <svelte:head>

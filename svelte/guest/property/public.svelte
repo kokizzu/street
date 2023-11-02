@@ -15,6 +15,8 @@
   let meta = {/* propertyMeta */}
   let myGrowl = Growl;
   
+  let isAdmin = false;
+  
   function copyToClipboard( text ) {
     console.log(window.location)
     navigator.clipboard.writeText( text );
@@ -25,7 +27,7 @@
 
 <section class="property_container">
 	<div class="property">
-	<Property {propItem} {meta} />
+	<Property {propItem} {meta} {isAdmin} />
 	</div>
 	<div class='side_attribute'>
 		<div class='login_container'>

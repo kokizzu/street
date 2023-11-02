@@ -3,6 +3,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>/*! title */</title>
     <link href="/css.gg.css" rel="stylesheet">
+    
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#F97316">
+    <link rel="shortcut icon" href="/assets/favicons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="HapSTR">
+    <meta name="application-name" content="HapSTR">
+    <meta name="msapplication-TileColor" content="#F97316">
+    <meta name="msapplication-config" content="/assets/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#FFF">
 </head>
 <body>
 <style>
@@ -159,6 +171,11 @@
         margin-top : -3px;
     }
 </style>
+<script>
+    if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js', { scope: '/' });
+    }
+</script>
 
 
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
@@ -171,8 +188,19 @@
 .icon_active {
   fill: #EF4444;
 }
-.side_menu_admin.svelte-1681hxn.svelte-1681hxn {
+.backdrop.svelte-1aq7k0c.svelte-1aq7k0c {
+  z-index: 8888;
+  position: fixed;
+  padding: 0;
+  border: none;
+  top: 0;
+  bottom: 0;
   left: 0;
+  right: 0;
+  background-color: rgba(0 0 0 / 20%);
+}
+.side_menu_admin.svelte-1aq7k0c.svelte-1aq7k0c {
+  left: -300px;
   display: block;
   position: fixed;
   z-index: 9999;
@@ -181,14 +209,17 @@
   overflow-y: auto;
   flex-direction: row;
   flex-wrap: nowrap;
-  overflow: auto;
   background-color: white;
   color: #475569;
   padding: 16px 24px;
   width: 300px;
+  transition: 0.3s;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
-.side_menu_admin_container.svelte-1681hxn.svelte-1681hxn {
+.side_menu_admin.open.svelte-1aq7k0c.svelte-1aq7k0c {
+  left: 0;
+}
+.side_menu_admin_container.svelte-1aq7k0c.svelte-1aq7k0c {
   flex-direction: column;
   align-items: stretch;
   min-height: 100%;
@@ -198,19 +229,19 @@
   width: 100%;
   margin: 0 auto;
 }
-.side_menu_admin_container.svelte-1681hxn header.svelte-1681hxn {
+.side_menu_admin_container.svelte-1aq7k0c header.svelte-1aq7k0c {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.side_menu_admin_container.svelte-1681hxn header h3.svelte-1681hxn {
+.side_menu_admin_container.svelte-1aq7k0c header h3.svelte-1aq7k0c {
   font-size: 16px;
   line-height: 1.5rem;
   padding: 0;
   margin: 0;
 }
-.side_menu_admin_container.svelte-1681hxn header button.svelte-1681hxn {
+.side_menu_admin_container.svelte-1aq7k0c header button.svelte-1aq7k0c {
   padding: 5px;
   border: none;
   background: none;
@@ -218,30 +249,30 @@
   font-size: 14px;
   cursor: pointer;
 }
-.side_menu_admin_container.svelte-1681hxn header button.svelte-1681hxn:hover {
+.side_menu_admin_container.svelte-1aq7k0c header button.svelte-1aq7k0c:hover {
   background-color: rgb(0 0 0 / 0.07);
   color: #EF4444;
 }
-.menu_container.svelte-1681hxn.svelte-1681hxn {
+.menu_container.svelte-1aq7k0c.svelte-1aq7k0c {
   margin-top: 1rem;
   align-items: stretch;
   flex-direction: column;
   display: flex;
 }
-.menu_container.svelte-1681hxn hr.svelte-1681hxn {
+.menu_container.svelte-1aq7k0c hr.svelte-1aq7k0c {
   margin: 1rem 0;
 }
-.menu_container.svelte-1681hxn h6.svelte-1681hxn {
+.menu_container.svelte-1aq7k0c h6.svelte-1aq7k0c {
   font-size: 15px;
   margin: 12px 0;
 }
-.menu_container.svelte-1681hxn .menu.svelte-1681hxn {
+.menu_container.svelte-1aq7k0c .menu.svelte-1aq7k0c {
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
 }
-.menu_container.svelte-1681hxn .menu a.svelte-1681hxn,
-.menu.svelte-1681hxn .logout.svelte-1681hxn {
+.menu_container.svelte-1aq7k0c .menu a.svelte-1aq7k0c,
+.menu.svelte-1aq7k0c .logout.svelte-1aq7k0c {
   color: #475569;
   text-decoration: none;
   margin: 0;
@@ -258,18 +289,23 @@
   align-items: center;
   gap: 15px;
 }
-.menu_container.svelte-1681hxn .menu .logout.svelte-1681hxn {
+.menu_container.svelte-1aq7k0c .menu .logout.svelte-1aq7k0c {
   cursor: pointer;
   margin-top: 0;
   margin-bottom: 0;
   margin-right: 0;
 }
-.menu_container.svelte-1681hxn .menu a.svelte-1681hxn:hover,
-.menu_container.svelte-1681hxn .menu .logout.svelte-1681hxn:hover {
+.menu_container.svelte-1aq7k0c .menu a.svelte-1aq7k0c:hover,
+.menu_container.svelte-1aq7k0c .menu .logout.svelte-1aq7k0c:hover {
   color: #64748B;
 }
-.active.svelte-1681hxn.svelte-1681hxn {
+.active.svelte-1aq7k0c.svelte-1aq7k0c {
   color: #EF4444 !important;
+}
+@media (max-width : 768px) {
+  .side_menu_admin.svelte-1aq7k0c.svelte-1aq7k0c {
+    width: 240px;
+  }
 }
 
 /* fakecss:./_components/AdminSubMenu.esbuild-svelte-fake-css */
@@ -3245,6 +3281,10 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
   function null_to_empty(value) {
     return value == null ? "" : value;
   }
+  function set_store_value(store, ret, value) {
+    store.set(value);
+    return ret;
+  }
 
   // node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
@@ -4387,380 +4427,38 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
   };
 
   // _components/Menu.svelte
-  function create_if_block(ctx) {
-    let aside;
-    let div1;
-    let header;
-    let h3;
-    let t1;
+  function create_if_block_5(ctx) {
     let button;
-    let icon0;
-    let t2;
-    let div0;
-    let c0;
-    let t3;
-    let hr0;
-    let t4;
-    let h60;
-    let t6;
-    let nav0;
-    let a;
-    let icon1;
-    let t7;
-    let span;
-    let t9;
-    let t10;
-    let t11;
-    let t12;
-    let c1;
-    let t13;
-    let hr1;
-    let t14;
-    let h61;
-    let t16;
-    let nav1;
-    let t17;
-    let current;
     let mounted;
     let dispose;
-    icon0 = new Icon_default({
-      props: {
-        size: 20,
-        color: "#475569",
-        src: FaSolidTimes_default
-      }
-    });
-    icon1 = new Icon_default({
-      props: {
-        size: 22,
-        className: (
-          /*segment1*/
-          ctx[2] === "" ? "icon_active" : "icon_dark"
-        ),
-        src: FaSolidHome_default
-      }
-    });
-    let if_block0 = (
-      /*access*/
-      ctx[1].buyer && create_if_block_5(ctx)
-    );
-    let if_block1 = (
-      /*access*/
-      ctx[1].realtor && create_if_block_4(ctx)
-    );
-    let if_block2 = (
-      /*access*/
-      ctx[1].admin && create_if_block_3(ctx)
-    );
-    let if_block3 = (
-      /*access*/
-      ctx[1].user && create_if_block_2(ctx)
-    );
-    let if_block4 = (
-      /*access*/
-      ctx[1].user && create_if_block_1(ctx)
-    );
     return {
       c() {
-        aside = element("aside");
-        div1 = element("div");
-        header = element("header");
-        h3 = element("h3");
-        h3.textContent = "STREET";
-        t1 = space();
         button = element("button");
-        create_component(icon0.$.fragment);
-        t2 = space();
-        div0 = element("div");
-        c0 = comment(" PAGES ");
-        t3 = space();
-        hr0 = element("hr");
-        t4 = space();
-        h60 = element("h6");
-        h60.textContent = "MENU";
-        t6 = space();
-        nav0 = element("nav");
-        a = element("a");
-        create_component(icon1.$.fragment);
-        t7 = space();
-        span = element("span");
-        span.textContent = "HOME";
-        t9 = space();
-        if (if_block0)
-          if_block0.c();
-        t10 = space();
-        if (if_block1)
-          if_block1.c();
-        t11 = space();
-        if (if_block2)
-          if_block2.c();
-        t12 = space();
-        c1 = comment(" SETTING ");
-        t13 = space();
-        hr1 = element("hr");
-        t14 = space();
-        h61 = element("h6");
-        h61.textContent = "SETTING";
-        t16 = space();
-        nav1 = element("nav");
-        if (if_block3)
-          if_block3.c();
-        t17 = space();
-        if (if_block4)
-          if_block4.c();
-        attr(h3, "class", "svelte-1681hxn");
-        attr(button, "class", "svelte-1681hxn");
-        attr(header, "class", "svelte-1681hxn");
-        attr(hr0, "class", "svelte-1681hxn");
-        attr(h60, "class", "svelte-1681hxn");
-        attr(a, "href", "/");
-        attr(a, "class", "svelte-1681hxn");
-        toggle_class(
-          a,
-          "active",
-          /*segment1*/
-          ctx[2] === ""
-        );
-        attr(nav0, "class", "menu svelte-1681hxn");
-        attr(hr1, "class", "svelte-1681hxn");
-        attr(h61, "class", "svelte-1681hxn");
-        attr(nav1, "class", "menu svelte-1681hxn");
-        attr(div0, "class", "menu_container svelte-1681hxn");
-        attr(div1, "class", "side_menu_admin_container svelte-1681hxn");
-        attr(aside, "class", "side_menu_admin svelte-1681hxn");
+        attr(button, "class", "backdrop svelte-1aq7k0c");
       },
       m(target, anchor) {
-        insert(target, aside, anchor);
-        append(aside, div1);
-        append(div1, header);
-        append(header, h3);
-        append(header, t1);
-        append(header, button);
-        mount_component(icon0, button, null);
-        append(div1, t2);
-        append(div1, div0);
-        append(div0, c0);
-        append(div0, t3);
-        append(div0, hr0);
-        append(div0, t4);
-        append(div0, h60);
-        append(div0, t6);
-        append(div0, nav0);
-        append(nav0, a);
-        mount_component(icon1, a, null);
-        append(a, t7);
-        append(a, span);
-        append(nav0, t9);
-        if (if_block0)
-          if_block0.m(nav0, null);
-        append(nav0, t10);
-        if (if_block1)
-          if_block1.m(nav0, null);
-        append(nav0, t11);
-        if (if_block2)
-          if_block2.m(nav0, null);
-        append(div0, t12);
-        append(div0, c1);
-        append(div0, t13);
-        append(div0, hr1);
-        append(div0, t14);
-        append(div0, h61);
-        append(div0, t16);
-        append(div0, nav1);
-        if (if_block3)
-          if_block3.m(nav1, null);
-        append(nav1, t17);
-        if (if_block4)
-          if_block4.m(nav1, null);
-        current = true;
+        insert(target, button, anchor);
         if (!mounted) {
-          dispose = listen(button, "click", prevent_default(function() {
-            if (is_function(
-              /*doToggle*/
-              ctx[0]
-            ))
-              ctx[0].apply(this, arguments);
-          }));
+          dispose = listen(
+            button,
+            "click",
+            /*click_handler*/
+            ctx[5]
+          );
           mounted = true;
         }
       },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-        const icon1_changes = {};
-        if (dirty & /*segment1*/
-        4)
-          icon1_changes.className = /*segment1*/
-          ctx[2] === "" ? "icon_active" : "icon_dark";
-        icon1.$set(icon1_changes);
-        if (!current || dirty & /*segment1*/
-        4) {
-          toggle_class(
-            a,
-            "active",
-            /*segment1*/
-            ctx[2] === ""
-          );
-        }
-        if (
-          /*access*/
-          ctx[1].buyer
-        ) {
-          if (if_block0) {
-            if_block0.p(ctx, dirty);
-            if (dirty & /*access*/
-            2) {
-              transition_in(if_block0, 1);
-            }
-          } else {
-            if_block0 = create_if_block_5(ctx);
-            if_block0.c();
-            transition_in(if_block0, 1);
-            if_block0.m(nav0, t10);
-          }
-        } else if (if_block0) {
-          group_outros();
-          transition_out(if_block0, 1, 1, () => {
-            if_block0 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*access*/
-          ctx[1].realtor
-        ) {
-          if (if_block1) {
-            if_block1.p(ctx, dirty);
-            if (dirty & /*access*/
-            2) {
-              transition_in(if_block1, 1);
-            }
-          } else {
-            if_block1 = create_if_block_4(ctx);
-            if_block1.c();
-            transition_in(if_block1, 1);
-            if_block1.m(nav0, t11);
-          }
-        } else if (if_block1) {
-          group_outros();
-          transition_out(if_block1, 1, 1, () => {
-            if_block1 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*access*/
-          ctx[1].admin
-        ) {
-          if (if_block2) {
-            if_block2.p(ctx, dirty);
-            if (dirty & /*access*/
-            2) {
-              transition_in(if_block2, 1);
-            }
-          } else {
-            if_block2 = create_if_block_3(ctx);
-            if_block2.c();
-            transition_in(if_block2, 1);
-            if_block2.m(nav0, null);
-          }
-        } else if (if_block2) {
-          group_outros();
-          transition_out(if_block2, 1, 1, () => {
-            if_block2 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*access*/
-          ctx[1].user
-        ) {
-          if (if_block3) {
-            if_block3.p(ctx, dirty);
-            if (dirty & /*access*/
-            2) {
-              transition_in(if_block3, 1);
-            }
-          } else {
-            if_block3 = create_if_block_2(ctx);
-            if_block3.c();
-            transition_in(if_block3, 1);
-            if_block3.m(nav1, t17);
-          }
-        } else if (if_block3) {
-          group_outros();
-          transition_out(if_block3, 1, 1, () => {
-            if_block3 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*access*/
-          ctx[1].user
-        ) {
-          if (if_block4) {
-            if_block4.p(ctx, dirty);
-            if (dirty & /*access*/
-            2) {
-              transition_in(if_block4, 1);
-            }
-          } else {
-            if_block4 = create_if_block_1(ctx);
-            if_block4.c();
-            transition_in(if_block4, 1);
-            if_block4.m(nav1, null);
-          }
-        } else if (if_block4) {
-          group_outros();
-          transition_out(if_block4, 1, 1, () => {
-            if_block4 = null;
-          });
-          check_outros();
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon0.$.fragment, local);
-        transition_in(icon1.$.fragment, local);
-        transition_in(if_block0);
-        transition_in(if_block1);
-        transition_in(if_block2);
-        transition_in(if_block3);
-        transition_in(if_block4);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon0.$.fragment, local);
-        transition_out(icon1.$.fragment, local);
-        transition_out(if_block0);
-        transition_out(if_block1);
-        transition_out(if_block2);
-        transition_out(if_block3);
-        transition_out(if_block4);
-        current = false;
-      },
+      p: noop,
       d(detaching) {
         if (detaching) {
-          detach(aside);
+          detach(button);
         }
-        destroy_component(icon0);
-        destroy_component(icon1);
-        if (if_block0)
-          if_block0.d();
-        if (if_block1)
-          if_block1.d();
-        if (if_block2)
-          if_block2.d();
-        if (if_block3)
-          if_block3.d();
-        if (if_block4)
-          if_block4.d();
         mounted = false;
         dispose();
       }
     };
   }
-  function create_if_block_5(ctx) {
+  function create_if_block_4(ctx) {
     let a;
     let icon;
     let t0;
@@ -4784,7 +4482,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         span = element("span");
         span.textContent = "BUYER";
         attr(a, "href", "/buyer");
-        attr(a, "class", "svelte-1681hxn");
+        attr(a, "class", "svelte-1aq7k0c");
         toggle_class(
           a,
           "active",
@@ -4834,7 +4532,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       }
     };
   }
-  function create_if_block_4(ctx) {
+  function create_if_block_3(ctx) {
     let a;
     let icon;
     let t0;
@@ -4858,7 +4556,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         span = element("span");
         span.textContent = "REALTOR";
         attr(a, "href", "/realtor");
-        attr(a, "class", "svelte-1681hxn");
+        attr(a, "class", "svelte-1aq7k0c");
         toggle_class(
           a,
           "active",
@@ -4908,7 +4606,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       }
     };
   }
-  function create_if_block_3(ctx) {
+  function create_if_block_2(ctx) {
     let a;
     let icon;
     let t0;
@@ -4932,7 +4630,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         span = element("span");
         span.textContent = "ADMIN";
         attr(a, "href", "/admin");
-        attr(a, "class", "svelte-1681hxn");
+        attr(a, "class", "svelte-1aq7k0c");
         toggle_class(
           a,
           "active",
@@ -4982,7 +4680,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       }
     };
   }
-  function create_if_block_2(ctx) {
+  function create_if_block_1(ctx) {
     let a;
     let icon;
     let t0;
@@ -5006,7 +4704,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         span = element("span");
         span.textContent = "PROFILE";
         attr(a, "href", "/user");
-        attr(a, "class", "svelte-1681hxn");
+        attr(a, "class", "svelte-1aq7k0c");
         toggle_class(
           a,
           "active",
@@ -5056,7 +4754,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       }
     };
   }
-  function create_if_block_1(ctx) {
+  function create_if_block(ctx) {
     let button;
     let icon;
     let t0;
@@ -5078,7 +4776,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         t0 = space();
         span = element("span");
         span.textContent = "LOGOUT";
-        attr(button, "class", "logout svelte-1681hxn");
+        attr(button, "class", "logout svelte-1aq7k0c");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -5118,65 +4816,415 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     };
   }
   function create_fragment2(ctx) {
-    let if_block_anchor;
+    let t0;
+    let aside;
+    let div1;
+    let header;
+    let h3;
+    let t2;
+    let button;
+    let icon0;
+    let t3;
+    let div0;
+    let c0;
+    let t4;
+    let hr0;
+    let t5;
+    let h60;
+    let t7;
+    let nav0;
+    let a;
+    let icon1;
+    let t8;
+    let span;
+    let t10;
+    let t11;
+    let t12;
+    let t13;
+    let c1;
+    let t14;
+    let hr1;
+    let t15;
+    let h61;
+    let t17;
+    let nav1;
+    let t18;
+    let aside_class_value;
     let current;
-    let if_block = (
+    let mounted;
+    let dispose;
+    let if_block0 = (
       /*$isSideMenuOpen*/
-      ctx[3] && create_if_block(ctx)
+      ctx[3] && create_if_block_5(ctx)
+    );
+    icon0 = new Icon_default({
+      props: {
+        color: "#475569",
+        size: 20,
+        src: FaSolidTimes_default
+      }
+    });
+    icon1 = new Icon_default({
+      props: {
+        className: (
+          /*segment1*/
+          ctx[2] === "" ? "icon_active" : "icon_dark"
+        ),
+        size: 22,
+        src: FaSolidHome_default
+      }
+    });
+    let if_block1 = (
+      /*access*/
+      ctx[1].buyer && create_if_block_4(ctx)
+    );
+    let if_block2 = (
+      /*access*/
+      ctx[1].realtor && create_if_block_3(ctx)
+    );
+    let if_block3 = (
+      /*access*/
+      ctx[1].admin && create_if_block_2(ctx)
+    );
+    let if_block4 = (
+      /*access*/
+      ctx[1].user && create_if_block_1(ctx)
+    );
+    let if_block5 = (
+      /*access*/
+      ctx[1].user && create_if_block(ctx)
     );
     return {
       c() {
-        if (if_block)
-          if_block.c();
-        if_block_anchor = empty();
+        if (if_block0)
+          if_block0.c();
+        t0 = space();
+        aside = element("aside");
+        div1 = element("div");
+        header = element("header");
+        h3 = element("h3");
+        h3.textContent = "STREET";
+        t2 = space();
+        button = element("button");
+        create_component(icon0.$.fragment);
+        t3 = space();
+        div0 = element("div");
+        c0 = comment(" PAGES ");
+        t4 = space();
+        hr0 = element("hr");
+        t5 = space();
+        h60 = element("h6");
+        h60.textContent = "MENU";
+        t7 = space();
+        nav0 = element("nav");
+        a = element("a");
+        create_component(icon1.$.fragment);
+        t8 = space();
+        span = element("span");
+        span.textContent = "HOME";
+        t10 = space();
+        if (if_block1)
+          if_block1.c();
+        t11 = space();
+        if (if_block2)
+          if_block2.c();
+        t12 = space();
+        if (if_block3)
+          if_block3.c();
+        t13 = space();
+        c1 = comment(" SETTING ");
+        t14 = space();
+        hr1 = element("hr");
+        t15 = space();
+        h61 = element("h6");
+        h61.textContent = "SETTING";
+        t17 = space();
+        nav1 = element("nav");
+        if (if_block4)
+          if_block4.c();
+        t18 = space();
+        if (if_block5)
+          if_block5.c();
+        attr(h3, "class", "svelte-1aq7k0c");
+        attr(button, "class", "svelte-1aq7k0c");
+        attr(header, "class", "svelte-1aq7k0c");
+        attr(hr0, "class", "svelte-1aq7k0c");
+        attr(h60, "class", "svelte-1aq7k0c");
+        attr(a, "href", "/");
+        attr(a, "class", "svelte-1aq7k0c");
+        toggle_class(
+          a,
+          "active",
+          /*segment1*/
+          ctx[2] === ""
+        );
+        attr(nav0, "class", "menu svelte-1aq7k0c");
+        attr(hr1, "class", "svelte-1aq7k0c");
+        attr(h61, "class", "svelte-1aq7k0c");
+        attr(nav1, "class", "menu svelte-1aq7k0c");
+        attr(div0, "class", "menu_container svelte-1aq7k0c");
+        attr(div1, "class", "side_menu_admin_container svelte-1aq7k0c");
+        attr(aside, "class", aside_class_value = null_to_empty(
+          /*$isSideMenuOpen*/
+          ctx[3] ? `side_menu_admin open` : `side_menu_admin`
+        ) + " svelte-1aq7k0c");
       },
       m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
+        if (if_block0)
+          if_block0.m(target, anchor);
+        insert(target, t0, anchor);
+        insert(target, aside, anchor);
+        append(aside, div1);
+        append(div1, header);
+        append(header, h3);
+        append(header, t2);
+        append(header, button);
+        mount_component(icon0, button, null);
+        append(div1, t3);
+        append(div1, div0);
+        append(div0, c0);
+        append(div0, t4);
+        append(div0, hr0);
+        append(div0, t5);
+        append(div0, h60);
+        append(div0, t7);
+        append(div0, nav0);
+        append(nav0, a);
+        mount_component(icon1, a, null);
+        append(a, t8);
+        append(a, span);
+        append(nav0, t10);
+        if (if_block1)
+          if_block1.m(nav0, null);
+        append(nav0, t11);
+        if (if_block2)
+          if_block2.m(nav0, null);
+        append(nav0, t12);
+        if (if_block3)
+          if_block3.m(nav0, null);
+        append(div0, t13);
+        append(div0, c1);
+        append(div0, t14);
+        append(div0, hr1);
+        append(div0, t15);
+        append(div0, h61);
+        append(div0, t17);
+        append(div0, nav1);
+        if (if_block4)
+          if_block4.m(nav1, null);
+        append(nav1, t18);
+        if (if_block5)
+          if_block5.m(nav1, null);
         current = true;
+        if (!mounted) {
+          dispose = listen(button, "click", prevent_default(function() {
+            if (is_function(
+              /*doToggle*/
+              ctx[0]
+            ))
+              ctx[0].apply(this, arguments);
+          }));
+          mounted = true;
+        }
       },
-      p(ctx2, [dirty]) {
+      p(new_ctx, [dirty]) {
+        ctx = new_ctx;
         if (
           /*$isSideMenuOpen*/
-          ctx2[3]
+          ctx[3]
         ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*$isSideMenuOpen*/
-            8) {
-              transition_in(if_block, 1);
+          if (if_block0) {
+            if_block0.p(ctx, dirty);
+          } else {
+            if_block0 = create_if_block_5(ctx);
+            if_block0.c();
+            if_block0.m(t0.parentNode, t0);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        const icon1_changes = {};
+        if (dirty & /*segment1*/
+        4)
+          icon1_changes.className = /*segment1*/
+          ctx[2] === "" ? "icon_active" : "icon_dark";
+        icon1.$set(icon1_changes);
+        if (!current || dirty & /*segment1*/
+        4) {
+          toggle_class(
+            a,
+            "active",
+            /*segment1*/
+            ctx[2] === ""
+          );
+        }
+        if (
+          /*access*/
+          ctx[1].buyer
+        ) {
+          if (if_block1) {
+            if_block1.p(ctx, dirty);
+            if (dirty & /*access*/
+            2) {
+              transition_in(if_block1, 1);
             }
           } else {
-            if_block = create_if_block(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+            if_block1 = create_if_block_4(ctx);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(nav0, t11);
           }
-        } else if (if_block) {
+        } else if (if_block1) {
           group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
           });
           check_outros();
+        }
+        if (
+          /*access*/
+          ctx[1].realtor
+        ) {
+          if (if_block2) {
+            if_block2.p(ctx, dirty);
+            if (dirty & /*access*/
+            2) {
+              transition_in(if_block2, 1);
+            }
+          } else {
+            if_block2 = create_if_block_3(ctx);
+            if_block2.c();
+            transition_in(if_block2, 1);
+            if_block2.m(nav0, t12);
+          }
+        } else if (if_block2) {
+          group_outros();
+          transition_out(if_block2, 1, 1, () => {
+            if_block2 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*access*/
+          ctx[1].admin
+        ) {
+          if (if_block3) {
+            if_block3.p(ctx, dirty);
+            if (dirty & /*access*/
+            2) {
+              transition_in(if_block3, 1);
+            }
+          } else {
+            if_block3 = create_if_block_2(ctx);
+            if_block3.c();
+            transition_in(if_block3, 1);
+            if_block3.m(nav0, null);
+          }
+        } else if (if_block3) {
+          group_outros();
+          transition_out(if_block3, 1, 1, () => {
+            if_block3 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*access*/
+          ctx[1].user
+        ) {
+          if (if_block4) {
+            if_block4.p(ctx, dirty);
+            if (dirty & /*access*/
+            2) {
+              transition_in(if_block4, 1);
+            }
+          } else {
+            if_block4 = create_if_block_1(ctx);
+            if_block4.c();
+            transition_in(if_block4, 1);
+            if_block4.m(nav1, t18);
+          }
+        } else if (if_block4) {
+          group_outros();
+          transition_out(if_block4, 1, 1, () => {
+            if_block4 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*access*/
+          ctx[1].user
+        ) {
+          if (if_block5) {
+            if_block5.p(ctx, dirty);
+            if (dirty & /*access*/
+            2) {
+              transition_in(if_block5, 1);
+            }
+          } else {
+            if_block5 = create_if_block(ctx);
+            if_block5.c();
+            transition_in(if_block5, 1);
+            if_block5.m(nav1, null);
+          }
+        } else if (if_block5) {
+          group_outros();
+          transition_out(if_block5, 1, 1, () => {
+            if_block5 = null;
+          });
+          check_outros();
+        }
+        if (!current || dirty & /*$isSideMenuOpen*/
+        8 && aside_class_value !== (aside_class_value = null_to_empty(
+          /*$isSideMenuOpen*/
+          ctx[3] ? `side_menu_admin open` : `side_menu_admin`
+        ) + " svelte-1aq7k0c")) {
+          attr(aside, "class", aside_class_value);
         }
       },
       i(local) {
         if (current)
           return;
-        transition_in(if_block);
+        transition_in(icon0.$.fragment, local);
+        transition_in(icon1.$.fragment, local);
+        transition_in(if_block1);
+        transition_in(if_block2);
+        transition_in(if_block3);
+        transition_in(if_block4);
+        transition_in(if_block5);
         current = true;
       },
       o(local) {
-        transition_out(if_block);
+        transition_out(icon0.$.fragment, local);
+        transition_out(icon1.$.fragment, local);
+        transition_out(if_block1);
+        transition_out(if_block2);
+        transition_out(if_block3);
+        transition_out(if_block4);
+        transition_out(if_block5);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(if_block_anchor);
+          detach(t0);
+          detach(aside);
         }
-        if (if_block)
-          if_block.d(detaching);
+        if (if_block0)
+          if_block0.d(detaching);
+        destroy_component(icon0);
+        destroy_component(icon1);
+        if (if_block1)
+          if_block1.d();
+        if (if_block2)
+          if_block2.d();
+        if (if_block3)
+          if_block3.d();
+        if (if_block4)
+          if_block4.d();
+        if (if_block5)
+          if_block5.d();
+        mounted = false;
+        dispose();
       }
     };
   }
@@ -5205,13 +5253,14 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         window.location = "/";
       });
     }
+    const click_handler = () => set_store_value(isSideMenuOpen, $isSideMenuOpen = !$isSideMenuOpen, $isSideMenuOpen);
     $self.$set = ($props2) => {
       if ("doToggle" in $props2)
         $invalidate(0, doToggle = $props2.doToggle);
       if ("access" in $props2)
         $invalidate(1, access = $props2.access);
     };
-    return [doToggle, access, segment1, $isSideMenuOpen, userLogout];
+    return [doToggle, access, segment1, $isSideMenuOpen, userLogout, click_handler];
   }
   var Menu = class extends SvelteComponent {
     constructor(options) {

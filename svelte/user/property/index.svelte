@@ -17,6 +17,8 @@
   let meta = {/* propertyMeta */}
   let showGrowl = false, gMsg = '', gType = '';
   
+  let isAdmin = false;
+  
   onMount(() => {
     console.log('onMount.user/property/index')
     console.log("propHistories = ", propHistories)
@@ -44,7 +46,7 @@
 {/if}
 <section class="property_container">
 	<div class="property">
-		<Property {propItem} {meta} {propHistories}/>
+		<Property {propItem} {meta} {propHistories} {isAdmin}/>
 	</div>
 	<div class='side_attribute'>
 		<div class='login_container'>
