@@ -20,6 +20,8 @@ jobs:
     needs: Go-Setup
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - run: go build -v ./...
           
   Go-Test:
@@ -27,6 +29,8 @@ jobs:
     needs: Go-Setup
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - run: go test -v ./...    
           
   Svelte-Test:
