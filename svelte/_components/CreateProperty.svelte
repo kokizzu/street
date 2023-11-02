@@ -74,7 +74,7 @@
   function GetPayload() {
     if( property.countryCode==='US' ) property.city = property.countyName;
     return {
-      countryCode: user.country,
+      countryCode: property.countryCode || user.country,
       city: property.city,
       countyName: property.countyName,
       district: property.district,

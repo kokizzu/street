@@ -188,16 +188,18 @@
 .icon_active {
   fill: #EF4444;
 }
-.backdrop.svelte-1m05hov.svelte-1m05hov {
+.backdrop.svelte-1aq7k0c.svelte-1aq7k0c {
   z-index: 8888;
   position: fixed;
+  padding: 0;
+  border: none;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   background-color: rgba(0 0 0 / 20%);
 }
-.side_menu_admin.svelte-1m05hov.svelte-1m05hov {
+.side_menu_admin.svelte-1aq7k0c.svelte-1aq7k0c {
   left: -300px;
   display: block;
   position: fixed;
@@ -214,10 +216,10 @@
   transition: 0.3s;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
-.side_menu_admin.open.svelte-1m05hov.svelte-1m05hov {
+.side_menu_admin.open.svelte-1aq7k0c.svelte-1aq7k0c {
   left: 0;
 }
-.side_menu_admin_container.svelte-1m05hov.svelte-1m05hov {
+.side_menu_admin_container.svelte-1aq7k0c.svelte-1aq7k0c {
   flex-direction: column;
   align-items: stretch;
   min-height: 100%;
@@ -227,19 +229,19 @@
   width: 100%;
   margin: 0 auto;
 }
-.side_menu_admin_container.svelte-1m05hov header.svelte-1m05hov {
+.side_menu_admin_container.svelte-1aq7k0c header.svelte-1aq7k0c {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.side_menu_admin_container.svelte-1m05hov header h3.svelte-1m05hov {
+.side_menu_admin_container.svelte-1aq7k0c header h3.svelte-1aq7k0c {
   font-size: 16px;
   line-height: 1.5rem;
   padding: 0;
   margin: 0;
 }
-.side_menu_admin_container.svelte-1m05hov header button.svelte-1m05hov {
+.side_menu_admin_container.svelte-1aq7k0c header button.svelte-1aq7k0c {
   padding: 5px;
   border: none;
   background: none;
@@ -247,30 +249,30 @@
   font-size: 14px;
   cursor: pointer;
 }
-.side_menu_admin_container.svelte-1m05hov header button.svelte-1m05hov:hover {
+.side_menu_admin_container.svelte-1aq7k0c header button.svelte-1aq7k0c:hover {
   background-color: rgb(0 0 0 / 0.07);
   color: #EF4444;
 }
-.menu_container.svelte-1m05hov.svelte-1m05hov {
+.menu_container.svelte-1aq7k0c.svelte-1aq7k0c {
   margin-top: 1rem;
   align-items: stretch;
   flex-direction: column;
   display: flex;
 }
-.menu_container.svelte-1m05hov hr.svelte-1m05hov {
+.menu_container.svelte-1aq7k0c hr.svelte-1aq7k0c {
   margin: 1rem 0;
 }
-.menu_container.svelte-1m05hov h6.svelte-1m05hov {
+.menu_container.svelte-1aq7k0c h6.svelte-1aq7k0c {
   font-size: 15px;
   margin: 12px 0;
 }
-.menu_container.svelte-1m05hov .menu.svelte-1m05hov {
+.menu_container.svelte-1aq7k0c .menu.svelte-1aq7k0c {
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
 }
-.menu_container.svelte-1m05hov .menu a.svelte-1m05hov,
-.menu.svelte-1m05hov .logout.svelte-1m05hov {
+.menu_container.svelte-1aq7k0c .menu a.svelte-1aq7k0c,
+.menu.svelte-1aq7k0c .logout.svelte-1aq7k0c {
   color: #475569;
   text-decoration: none;
   margin: 0;
@@ -287,21 +289,21 @@
   align-items: center;
   gap: 15px;
 }
-.menu_container.svelte-1m05hov .menu .logout.svelte-1m05hov {
+.menu_container.svelte-1aq7k0c .menu .logout.svelte-1aq7k0c {
   cursor: pointer;
   margin-top: 0;
   margin-bottom: 0;
   margin-right: 0;
 }
-.menu_container.svelte-1m05hov .menu a.svelte-1m05hov:hover,
-.menu_container.svelte-1m05hov .menu .logout.svelte-1m05hov:hover {
+.menu_container.svelte-1aq7k0c .menu a.svelte-1aq7k0c:hover,
+.menu_container.svelte-1aq7k0c .menu .logout.svelte-1aq7k0c:hover {
   color: #64748B;
 }
-.active.svelte-1m05hov.svelte-1m05hov {
+.active.svelte-1aq7k0c.svelte-1aq7k0c {
   color: #EF4444 !important;
 }
 @media (max-width : 768px) {
-  .side_menu_admin.svelte-1m05hov.svelte-1m05hov {
+  .side_menu_admin.svelte-1aq7k0c.svelte-1aq7k0c {
     width: 240px;
   }
 }
@@ -5810,19 +5812,19 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
 
   // _components/Menu.svelte
   function create_if_block_5(ctx) {
-    let div;
+    let button;
     let mounted;
     let dispose;
     return {
       c() {
-        div = element("div");
-        attr(div, "class", "backdrop svelte-1m05hov");
+        button = element("button");
+        attr(button, "class", "backdrop svelte-1aq7k0c");
       },
       m(target, anchor) {
-        insert(target, div, anchor);
+        insert(target, button, anchor);
         if (!mounted) {
           dispose = listen(
-            div,
+            button,
             "click",
             /*click_handler*/
             ctx[5]
@@ -5833,7 +5835,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       p: noop,
       d(detaching) {
         if (detaching) {
-          detach(div);
+          detach(button);
         }
         mounted = false;
         dispose();
@@ -5864,7 +5866,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         span = element("span");
         span.textContent = "BUYER";
         attr(a, "href", "/buyer");
-        attr(a, "class", "svelte-1m05hov");
+        attr(a, "class", "svelte-1aq7k0c");
         toggle_class(
           a,
           "active",
@@ -5938,7 +5940,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         span = element("span");
         span.textContent = "REALTOR";
         attr(a, "href", "/realtor");
-        attr(a, "class", "svelte-1m05hov");
+        attr(a, "class", "svelte-1aq7k0c");
         toggle_class(
           a,
           "active",
@@ -6012,7 +6014,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         span = element("span");
         span.textContent = "ADMIN";
         attr(a, "href", "/admin");
-        attr(a, "class", "svelte-1m05hov");
+        attr(a, "class", "svelte-1aq7k0c");
         toggle_class(
           a,
           "active",
@@ -6086,7 +6088,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         span = element("span");
         span.textContent = "PROFILE";
         attr(a, "href", "/user");
-        attr(a, "class", "svelte-1m05hov");
+        attr(a, "class", "svelte-1aq7k0c");
         toggle_class(
           a,
           "active",
@@ -6158,7 +6160,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         t0 = space();
         span = element("span");
         span.textContent = "LOGOUT";
-        attr(button, "class", "logout svelte-1m05hov");
+        attr(button, "class", "logout svelte-1aq7k0c");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -6327,29 +6329,29 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         t18 = space();
         if (if_block5)
           if_block5.c();
-        attr(h3, "class", "svelte-1m05hov");
-        attr(button, "class", "svelte-1m05hov");
-        attr(header, "class", "svelte-1m05hov");
-        attr(hr0, "class", "svelte-1m05hov");
-        attr(h60, "class", "svelte-1m05hov");
+        attr(h3, "class", "svelte-1aq7k0c");
+        attr(button, "class", "svelte-1aq7k0c");
+        attr(header, "class", "svelte-1aq7k0c");
+        attr(hr0, "class", "svelte-1aq7k0c");
+        attr(h60, "class", "svelte-1aq7k0c");
         attr(a, "href", "/");
-        attr(a, "class", "svelte-1m05hov");
+        attr(a, "class", "svelte-1aq7k0c");
         toggle_class(
           a,
           "active",
           /*segment1*/
           ctx[2] === ""
         );
-        attr(nav0, "class", "menu svelte-1m05hov");
-        attr(hr1, "class", "svelte-1m05hov");
-        attr(h61, "class", "svelte-1m05hov");
-        attr(nav1, "class", "menu svelte-1m05hov");
-        attr(div0, "class", "menu_container svelte-1m05hov");
-        attr(div1, "class", "side_menu_admin_container svelte-1m05hov");
+        attr(nav0, "class", "menu svelte-1aq7k0c");
+        attr(hr1, "class", "svelte-1aq7k0c");
+        attr(h61, "class", "svelte-1aq7k0c");
+        attr(nav1, "class", "menu svelte-1aq7k0c");
+        attr(div0, "class", "menu_container svelte-1aq7k0c");
+        attr(div1, "class", "side_menu_admin_container svelte-1aq7k0c");
         attr(aside, "class", aside_class_value = null_to_empty(
           /*$isSideMenuOpen*/
           ctx[3] ? `side_menu_admin open` : `side_menu_admin`
-        ) + " svelte-1m05hov");
+        ) + " svelte-1aq7k0c");
       },
       m(target, anchor) {
         if (if_block0)
@@ -6560,7 +6562,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         8 && aside_class_value !== (aside_class_value = null_to_empty(
           /*$isSideMenuOpen*/
           ctx[3] ? `side_menu_admin open` : `side_menu_admin`
-        ) + " svelte-1m05hov")) {
+        ) + " svelte-1aq7k0c")) {
           attr(aside, "class", aside_class_value);
         }
       },
