@@ -7380,6 +7380,12 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   };
   var AddOtherFeesDialog_default = AddOtherFeesDialog;
 
+<<<<<<< HEAD
+=======
+  // _components/CreateProperty.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
+
+>>>>>>> b0f89a5 (fix payload)
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSearch.js
   var FaSolidSearch_default = {
     a: {
@@ -8255,7 +8261,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   var StreetView_default = StreetView;
 
   // _components/CreateProperty.svelte
+<<<<<<< HEAD
   var import_jsApi = __toESM(require_jsApi_GEN());
+=======
+>>>>>>> b0f89a5 (fix payload)
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[95] = list[i];
@@ -8365,7 +8374,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let div7;
     let div6;
     let label4;
-    let t18;
+    let t17;
     let input2;
     let mounted;
     let dispose;
@@ -8424,8 +8433,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         div7 = element("div");
         div6 = element("div");
         label4 = element("label");
+<<<<<<< HEAD
         label4.innerHTML = `Floors <span class="asterisk svelte-15eojia">*</span>`;
         t18 = space();
+=======
+        label4.textContent = "Floors";
+        t17 = space();
+>>>>>>> b0f89a5 (fix payload)
         input2 = element("input");
         attr(label0, "for", "country");
         attr(label0, "class", "svelte-15eojia");
@@ -8523,7 +8537,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         append(div8, div7);
         append(div7, div6);
         append(div6, label4);
-        append(div6, t18);
+        append(div6, t17);
         append(div6, input2);
         set_input_value(
           input2,
@@ -9054,7 +9068,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         t4 = space();
         div2 = element("div");
         create_component(streetview.$.fragment);
+<<<<<<< HEAD
         attr(p, "class", "description svelte-15eojia");
+=======
+        attr(p, "class", "description svelte-1at5ok4");
+>>>>>>> b0f89a5 (fix payload)
         attr(label, "for", "altitude");
         attr(label, "class", "svelte-15eojia");
         attr(input, "id", "altitude");
@@ -9062,11 +9080,19 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         attr(input, "min", "0");
         attr(input, "step", "0.1");
         attr(input, "placeholder", "Required");
+<<<<<<< HEAD
         attr(input, "class", "svelte-15eojia");
         attr(div0, "class", "input_box svelte-15eojia");
         attr(div1, "class", "streetview_container svelte-15eojia");
         attr(div2, "class", "streetview_container svelte-15eojia");
         attr(div3, "class", "location_streetview svelte-15eojia");
+=======
+        attr(input, "class", "svelte-1at5ok4");
+        attr(div0, "class", "input_box svelte-1at5ok4");
+        attr(div1, "class", "streetview_container svelte-1at5ok4");
+        attr(div2, "class", "streetview_container svelte-1at5ok4");
+        attr(div3, "class", "location_streetview svelte-1at5ok4");
+>>>>>>> b0f89a5 (fix payload)
       },
       m(target, anchor) {
         insert(target, div3, anchor);
@@ -13213,7 +13239,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       console.log("property.countryCode=", property2.countryCode);
     });
     function GetPayload() {
+<<<<<<< HEAD
       if (property2.country === "US")
+=======
+      if (property2.countryCode === "US")
+>>>>>>> b0f89a5 (fix payload)
         $invalidate(0, property2.city = property2.countyName, property2);
       return {
         countryCode: user2.country,
@@ -13290,6 +13320,16 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           console.log("Result = ", results);
           $invalidate(0, property2.coord[0] = results[0].geometry.location.lat(), property2);
           $invalidate(0, property2.coord[1] = results[0].geometry.location.lng(), property2);
+<<<<<<< HEAD
+=======
+          $invalidate(0, property2.formattedAddress = results[0].formatted_address, property2);
+          for (let i = 0; i < results[0].address_components.length; i++) {
+            if (results[0].address_components[i].types.indexOf("country") !== -1) {
+              $invalidate(0, property2.countryCode = results[0].address_components[i].short_name, property2);
+              $invalidate(7, countryName = results[0].address_components[i].long_name);
+            }
+          }
+>>>>>>> b0f89a5 (fix payload)
           map.setCenter(results[0].geometry.location);
         } else {
           $invalidate(11, input_address_value = "");
@@ -13326,7 +13366,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             $invalidate(0, property2.formattedAddress = results[0].formatted_address, property2);
             for (let i = 0; i < results[0].address_components.length; i++) {
               if (results[0].address_components[i].types.indexOf("country") !== -1) {
-                $invalidate(0, property2.country = results[0].address_components[i].short_name, property2);
+                $invalidate(0, property2.countryCode = results[0].address_components[i].short_name, property2);
                 $invalidate(7, countryName = results[0].address_components[i].long_name);
               }
             }
@@ -13397,7 +13437,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     }
     const handleNextLocation = {
       "LOC_ADDR": async () => {
-        if (property2.city === "" || property2.street === "" || property2.floors === 0) {
+        if (property2.city === "" || property2.street === "") {
           alert("Please fill required form");
           return;
         }

@@ -19,6 +19,7 @@
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import StreetView from "./GoogleMap/StreetView.svelte";
   import {RealtorUpsertProperty} from "../jsApi.GEN";
+  import StreetView from "./GoogleMap/StreetView.svelte";
   import {onMount} from "svelte";
   
   export let user;
@@ -73,7 +74,11 @@
   } );
   
   function GetPayload() {
+<<<<<<< HEAD
     if( property.country==='US' ) property.city = property.countyName;
+=======
+    if( property.countryCode==='US' ) property.city = property.countyName;
+>>>>>>> b0f89a5 (fix payload)
     return {
       countryCode: user.country,
       city: property.city,
@@ -161,6 +166,16 @@
           console.log( 'Result = ', results )
           property.coord[ 0 ] = results[ 0 ].geometry.location.lat();
           property.coord[ 1 ] = results[ 0 ].geometry.location.lng();
+<<<<<<< HEAD
+=======
+          property.formattedAddress = results[ 0 ].formatted_address;
+          for( let i = 0; i<results[ 0 ].address_components.length; i++ ) {
+            if( results[ 0 ].address_components[ i ].types.indexOf( 'country' )!== -1 ) {
+              property.countryCode = results[ 0 ].address_components[ i ].short_name;
+              countryName = results[ 0 ].address_components[ i ].long_name;
+            }
+          }
+>>>>>>> b0f89a5 (fix payload)
           map.setCenter( results[ 0 ].geometry.location );
         } else {
           input_address_value = '';
@@ -203,7 +218,7 @@
           property.formattedAddress = results[ 0 ].formatted_address;
           for( let i = 0; i<results[ 0 ].address_components.length; i++ ) {
             if( results[ 0 ].address_components[ i ].types.indexOf( 'country' )!== -1 ) {
-              property.country = results[ 0 ].address_components[ i ].short_name;
+              property.countryCode = results[ 0 ].address_components[ i ].short_name;
               countryName = results[ 0 ].address_components[ i ].long_name;
             }
           }
@@ -285,7 +300,7 @@
   
   const handleNextLocation = {
     'LOC_ADDR': async () => {
-      if( property.city==='' || property.street==='' || property.floors===0 ) {
+      if( property.city==='' || property.street==='' ) {
         alert( 'Please fill required form' );
         return;
       }
@@ -571,7 +586,7 @@
 							</div>
 							<div class='row'>
 								<div class='input_box'>
-									<label for='floors'>Floors <span class='asterisk'>*</span></label>
+									<label for='floors'>Floors</label>
 									<input id='floors' type='number' placeholder='10' min='0' bind:value={property.floors}/>
 								</div>
 							</div>

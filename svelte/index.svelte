@@ -532,4 +532,8 @@
         border           : 1px solid #CBD5E1;
       }
      }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> b0f89a5 (fix payload)
