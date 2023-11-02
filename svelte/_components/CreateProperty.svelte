@@ -18,6 +18,7 @@
   import AddOtherFeesDialog from "./AddOtherFeesDialog.svelte";
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import {RealtorUpsertProperty} from "../jsApi.GEN";
+  import StreetView from "./GoogleMap/StreetView.svelte";
   import {onMount} from "svelte";
   
   export let user;
@@ -71,7 +72,7 @@
   } );
   
   function GetPayload() {
-    if( user.country==='US' ) property.city = property.countyName;
+    if( property.countryCode==='US' ) property.city = property.countyName;
     return {
       countryCode: user.country,
       city: property.city,
@@ -141,8 +142,8 @@
     const geocoder = new google.maps.Geocoder();
     map = new Map( map_container, {
       center: {
-        lat: property.lat,
-        lng: property.lng,
+        lat: property.coord[ 0 ],
+        lng: property.coord[ 1 ],
       },
       zoom: 8,
       mapTypeId: 'roadmap',
@@ -152,6 +153,30 @@
     let searchBox = new SearchBox( input_address );
     map.controls[ google.maps.ControlPosition.TOP_LEFT ].push( input_address );
     let markers = [];
+    
+    await geocoder.geocode( {address: input_address_value} )
+      .then( ( {results} ) => {
+        if( results[ 0 ] ) {
+          console.log( 'Result = ', results )
+          property.coord[ 0 ] = results[ 0 ].geometry.location.lat();
+          property.coord[ 1 ] = results[ 0 ].geometry.location.lng();
+          property.formattedAddress = results[ 0 ].formatted_address;
+          for( let i = 0; i<results[ 0 ].address_components.length; i++ ) {
+            if( results[ 0 ].address_components[ i ].types.indexOf( 'country' )!== -1 ) {
+              property.countryCode = results[ 0 ].address_components[ i ].short_name;
+              countryName = results[ 0 ].address_components[ i ].long_name;
+            }
+          }
+          map.setCenter( results[ 0 ].geometry.location );
+        } else {
+          input_address_value = '';
+        }
+      } ).catch( ( e ) => {
+        input_address_value = '';
+      } );
+    
+    console.log( 'current coord =', property.coord )
+    
     const markerEventHandler = ( event ) => {
       property.coord[ 0 ] = event.latLng.lat();
       property.coord[ 1 ] = event.latLng.lng();
@@ -174,16 +199,17 @@
       markers.length = 0;
     };
     markers.push( createMarker( map, {
-      lat: property.lat,
-      lng: property.lng,
+      lat: property.coord[ 0 ],
+      lng: property.coord[ 1 ],
     } ) );
+    
     const getAddress = ( latLng ) => {
       geocoder.geocode( {location: latLng}, ( results, status ) => {
         if( status===google.maps.GeocoderStatus.OK && results.length>0 ) {
           property.formattedAddress = results[ 0 ].formatted_address;
           for( let i = 0; i<results[ 0 ].address_components.length; i++ ) {
             if( results[ 0 ].address_components[ i ].types.indexOf( 'country' )!== -1 ) {
-              property.country = results[ 0 ].address_components[ i ].short_name;
+              property.countryCode = results[ 0 ].address_components[ i ].short_name;
               countryName = results[ 0 ].address_components[ i ].long_name;
             }
           }
@@ -197,7 +223,7 @@
     map.addListener( 'click', ( event ) => {
       clearMarkers( markers );
       const latLong = event.latLng;
-      markers = [createMarker( map, latLong )];
+      markers.push( createMarker( map, latLong ) );
       // Update data structure
       property.coord[ 0 ] = latLong.lat();
       property.coord[ 1 ] = latLong.lng();
@@ -214,12 +240,11 @@
         return;
       }
       // Fill formatted_address, latitude, and longitude as JSON values
-      property.lng = places[ 0 ].geometry.location.lng();
-      property.lat = places[ 0 ].geometry.location.lat();
+      property.coord[ 0 ] = places[ 0 ].geometry.location.lat();
+      property.coord[ 1 ] = places[ 0 ].geometry.location.lng();
       property.formattedAddress = places[ 0 ].formatted_address;
       for( let i = 0; i<places[ 0 ].address_components.length; i++ ) {
         if( places[ 0 ].address_components[ i ].types.indexOf( 'country' )!== -1 ) {
-          property.country = places[ 0 ].address_components[ i ].short_name;
           countryName = places[ 0 ].address_components[ i ].long_name;
         }
       }
@@ -232,22 +257,8 @@
           alert( 'Returned place contains no geometry' );
           return;
         }
-        const icon = {
-          url: place.icon,
-          size: new google.maps.Size( 71, 71 ),
-          origin: new google.maps.Point( 0, 0 ),
-          anchor: new google.maps.Point( 17, 34 ),
-          scaledSize: new google.maps.Size( 25, 25 ),
-        };
         // create marker for each place
-        markers.push(
-          new google.maps.Marker( {
-            map,
-            icon,
-            title: place.name,
-            position: place.geometry.location,
-          } ),
-        );
+        markers.push( createMarker( map, place.geometry.location ) );
         if( place.geometry.viewport ) {
           // Only geocodes have viewport
           bounds.union( place.geometry.viewport );
@@ -280,7 +291,7 @@
   
   const handleNextLocation = {
     'LOC_ADDR': async () => {
-      if( property.city==='' || property.street==='' || property.floors===0 ) {
+      if( property.city==='' || property.street==='' ) {
         alert( 'Please fill required form' );
         return;
       }
@@ -566,7 +577,7 @@
 							</div>
 							<div class='row'>
 								<div class='input_box'>
-									<label for='floors'>Floors <span class='asterisk'>*</span></label>
+									<label for='floors'>Floors</label>
 									<input id='floors' type='number' placeholder='10' min='0' bind:value={property.floors}/>
 								</div>
 							</div>
@@ -602,6 +613,14 @@
 									<input id='altitude' type='number' min='0' step='0.1' placeholder='Required' bind:value={property.altitude}/>
 								</div>
 							</div>
+              <div class='streetview_container'>
+                <StreetView
+                  bind:elevation={property.altitude}
+                  bind:resolution={property.resolution}
+                  bind:lat={property.coord[0]}
+                  bind:lng={property.coord[1]}
+                />
+              </div>
 						</div>
 					{/if}
 				</div>
