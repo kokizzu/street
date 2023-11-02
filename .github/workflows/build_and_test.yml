@@ -6,17 +6,19 @@ name: Build and Test
       - master
 jobs:
   Go-Setup:
-    timeout-minutes: 120
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Go
         uses: actions/setup-go@v4
-      - run: make setup
+      - run: |
+          make setup
+          go mod tidy
       
   Go-Build:
-    timeout-minutes: 120
+    timeout-minutes: 10
     needs: Go-Setup
     runs-on: ubuntu-latest
     steps:
@@ -25,7 +27,7 @@ jobs:
       - run: go build -v ./...
           
   Go-Test:
-    timeout-minutes: 120
+    timeout-minutes: 30
     needs: Go-Setup
     runs-on: ubuntu-latest
     steps:
@@ -34,7 +36,7 @@ jobs:
       - run: go test -v ./...    
           
   Svelte-Test:
-    timeout-minutes: 120
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -43,9 +45,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: |
+      - working-directory: ./svelte
+        run: |
           npm install
           node build.js
-        working-directory: ./svelte
+        
  
            
