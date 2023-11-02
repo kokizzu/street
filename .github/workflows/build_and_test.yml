@@ -1,34 +1,46 @@
-name: Run test on push and pull
-
-on:
-  push:
-    branches: [ "master" ]
+name: Build and Test
+'on':
+  workflow_dispatch: null
   pull_request:
-    branches: [ "master" ]
-
+    branches:
+      - master
 jobs:
-
-  build:
+  Go-Build:
+    timeout-minutes: 120
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.20'
-    - run: make setup
-
-    - name: Build
-      run: go build -v ./...
-      
-    - name: Test
-      run: go test -v ./...
-
-    - name: Set up node
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
-    - run: npm install
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Go
+        uses: actions/setup-go@v4
+      - run: |
+          make setup
+          go build -v ./...
+          
+  Go-Test:
+    timeout-minutes: 120
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Go
+        uses: actions/setup-go@v4
+      - run: |
+          make setup
+          go test -v ./...    
+          
+  Svelte-Test:
+    timeout-minutes: 120
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: |
+          npm install
+          node build.js
  
            
