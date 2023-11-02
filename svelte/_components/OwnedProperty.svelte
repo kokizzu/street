@@ -7,12 +7,23 @@
   import PillBox from './PillBox.svelte';
   import {localeDatetime} from './formatter';
   import {T} from './uiState.js';
+  import { onMount } from 'svelte';
   
   export let property;
   export let meta;
   let showMore = false;
   
   console.log('meta=',meta)
+
+  let approvalStatus = 'approved';
+  onMount(() => {
+    if( property.approvalState!=='pending' && property.approvalState!=='' ) {
+      approvalStatus = 'rejected';
+    }
+    if( property.approvalState==='pending' ) {
+      approvalStatus = 'pending'
+    }
+  })
   
   function handleShowMore() {
     showMore = !showMore;
@@ -40,6 +51,9 @@
 						<Icon color='#FFF' size={16} src={FaSolidHome}/>
 						<span>{property.houseType}</span>
 					</div>
+                    <div class={`approve_status ${approvalStatus}`}>
+                        {approvalStatus}
+                    </div>
 				</div>
 				<a class='edit_property' href='/realtor/property/{property.id}'>
 					<Icon color='#FFF' size={13} src={FaSolidPen}/>
@@ -212,6 +226,29 @@
         display     : flex;
         gap         : 15px;
         align-items : center;
+    }
+
+    .property_main .property_info .col1 .left .approve_status {
+        padding          : 7px 18px;
+        border-radius    : 8px;
+        font-size        : 14px;
+        text-transform   : capitalize;
+        text-decoration  : none;
+    }
+
+    .property_main .property_info .col1 .left .approve_status.approved {
+        background-color : rgba(140, 216, 107, 1);
+        color            : #FFF;
+    }
+
+    .property_main .property_info .col1 .left .approve_status.pending {
+        background-color : rgba(255, 208, 118, 1);
+        color            : #475569;
+    }
+
+    .property_main .property_info .col1 .left .approve_status.rejected {
+        background-color : rgba(255, 126, 118, 1);
+        color            : #FFF;
     }
 
     .property_main .property_info .col1 .left .purpose,

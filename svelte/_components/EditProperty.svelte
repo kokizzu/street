@@ -17,10 +17,13 @@
   import FaSolidCamera from "svelte-icons-pack/fa/FaSolidCamera";
   import FaSolidTimes from "svelte-icons-pack/fa/FaSolidTimes";
   import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
+  import FaCheckCircle from "svelte-icons-pack/fa/FaCheckCircle";
   import AddOtherFeesDialog from "./AddOtherFeesDialog.svelte";
+  import {AdminProperties} from "../jsApi.GEN";
   
   export let property
   export let countries
+  export let isAdmin = false;
   
   let approvalStatus = 'approved';
   let submitLoading = false;
@@ -250,6 +253,29 @@
       submitLoading = false;
     } );
   }
+
+  function ApproveProperty() {
+    AdminProperties( {
+            cmd: 'upsert',
+            property: {id: property.id, approvalState: ' '}, // empty is approved, will be trimmed on server side
+          },
+          function( res ) {
+            if( res.error ) alert( res.error );
+            refreshTableView( pager );
+          } );
+  }
+
+  function RejectProperty() {
+    const reason = prompt( 'input refusal reason for #' + property.id + ', use "pending" to set state to pending' );
+    AdminProperties( {
+            cmd: 'upsert',
+            property: {id: property.id, approvalState: reason},
+          },
+          function( res ) {
+            if( res.error ) alert( res.error );
+            refreshTableView( pager );
+          } );
+  }
 </script>
 
 <div class="edit_property_root">
@@ -271,6 +297,20 @@
 						{#if approvalStatus==='rejected'}
 							<button class="edit_btn">Review again</button>
 						{/if}
+                        {#if isAdmin}
+                            {#if approvalStatus === 'pending'}
+                                <div class="action_btns">
+                                    <button class="approve_btn" on:click={ApproveProperty}>
+                                        <Icon size={10} color='#FFF' src={FaCheckCircle}/>
+                                        <span>Approve</span>
+                                    </button>
+                                    <button class="reject_btn" on:click={RejectProperty}>
+                                        <Icon size={10} color='#FFF' src={FaSolidTimes}/>
+                                        <span>Reject</span>
+                                    </button>
+                                </div>
+                            {/if}
+                        {/if}
 					</div>
 				{/if}
 			</div>
@@ -996,6 +1036,42 @@
         padding       : 15px;
         border-radius : 8px;
         font-weight   : bold;
+    }
+
+    .edit_property_container .property_status .reason .action_btns {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .edit_property_container .property_status .reason .action_btns .approve_btn {
+        display          : flex;
+        flex-direction   : row;
+        gap              : 6px;
+        align-items      : center;
+        color            : #FFF;
+        background-color : rgba(140, 216, 107, 1);
+        padding          : 5px 15px;
+        font-weight      : 600;
+        border           : none;
+        border-radius    : 8px;
+        cursor           : pointer;
+        width            : fit-content;
+    }
+    .edit_property_container .property_status .reason .action_btns .reject_btn {
+        display          : flex;
+        flex-direction   : row;
+        gap              : 6px;
+        align-items      : center;
+        color            : #FFF;
+        background-color : rgba(255, 126, 118, 1);
+        padding          : 5px 15px;
+        font-weight      : 600;
+        border           : none;
+        border-radius    : 8px;
+        cursor           : pointer;
+        width            : fit-content;
     }
 
     .edit_property_container .property_status p {
