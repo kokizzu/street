@@ -321,6 +321,7 @@ func TestUserSearchPropAndLikes(t *testing.T) {
 		Cmd:           zCrud.CmdUpsert,
 		Property: rqProperty.Property{
 			UniqPropKey:            "TEST234",
+			SerialNumber:           "1001",
 			SizeM2:                 "200.5",
 			MainUse:                "Residential",
 			MainBuildingMaterial:   "Paper",
@@ -351,6 +352,7 @@ func TestUserSearchPropAndLikes(t *testing.T) {
 		Cmd:           zCrud.CmdUpsert,
 		Property: rqProperty.Property{
 			UniqPropKey:            "TEST123",
+			SerialNumber:           "1002",
 			SizeM2:                 "123.5",
 			MainUse:                "Residential",
 			MainBuildingMaterial:   "Cardboard",

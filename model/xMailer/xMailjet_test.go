@@ -9,7 +9,7 @@ import (
 )
 
 func TestMailjet(t *testing.T) {
-	//t.Skip() // uncomment if need to check API key
+	t.Skip() // uncomment if need to check API key
 	conf.LoadEnv()
 	c := conf.EnvMailjet()
 	sg, err := NewMailjet(c)

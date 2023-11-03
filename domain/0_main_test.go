@@ -128,10 +128,8 @@ func TestMain(m *testing.M) {
 
 		// mailer
 		eg.Go(func() error {
-			mailhogConf := conf.MailhogConf{
-				MailhogHost: `localhost`,
-				MailhogPort: 1025,
-			}
+			conf.LoadEnv()
+			mailhogConf := conf.EnvMailhog()
 			mailhogPort := fmt.Sprint(mailhogConf.MailhogPort)
 			dockerPool.Spawn(&dockertest.RunOptions{
 				Name:       `dockertest-mailhog-` + dockerPool.Uniq,

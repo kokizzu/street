@@ -27,27 +27,7 @@ func TestRealtorUpsertProperty(t *testing.T) {
   "mainUse": "swimming pool",
   "note": "near railroad",
   "numberOfFloors": "1",
-  "floorList": [
-    {
-      "type": "floor",
-      "floor": 1,
-      "beds": 1,
-      "baths": 1,
-      "rooms": [
-        {
-          "name": "bedroom",
-          "sizeM2": 12,
-          "unit": "m2"
-        },
-        {
-          "name": "bathroom",
-          "sizeM2": 8,
-          "unit": "m2"
-        }
-      ],
-      "planImageUrl": "/guest/files/D-___.jpg"
-    }
-  ]
+  "approvalState": "pending"
 }`
 	d, closer := testDomain()
 	defer closer()
@@ -65,10 +45,27 @@ func TestRealtorUpsertProperty(t *testing.T) {
 		out := d.RealtorUpsertProperty(&in)
 
 		assert.Empty(t, out.Error)
+
+		assert.NotZero(t, out.Property.Id)
+		in.Property.Id = out.Property.Id
+		assert.NotEmpty(t, out.Property.UniqPropKey)
+		in.Property.UniqPropKey = out.Property.UniqPropKey
+		assert.NotZero(t, out.Property.CreatedAt)
+		in.Property.CreatedAt = out.Property.CreatedAt
+		assert.Equal(t, out.Property.Id, out.Property.CreatedBy)
+		in.Property.CreatedBy = out.Property.CreatedBy
+		assert.NotZero(t, out.Property.UpdatedAt)
+		in.Property.UpdatedAt = out.Property.UpdatedAt
+		assert.Equal(t, out.Property.Id, out.Property.UpdatedBy)
+		in.Property.UpdatedBy = out.Property.UpdatedBy
+
 		if assert.NotNil(t, out.Property) {
 			out.Property.Adapter = nil
 			in.Property.PriceHistoriesSell = []any{}
 			in.Property.PriceHistoriesRent = []any{}
+			in.Property.FloorList = []any{}
+			in.Property.OtherFees = []any{}
+			in.Property.ImageLabels = []any{}
 			assert.Equal(t, in.Property, *out.Property)
 		}
 	})

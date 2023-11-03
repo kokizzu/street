@@ -7,7 +7,6 @@ import (
 	"github.com/kokizzu/gotro/M"
 	"github.com/segmentio/fasthash/fnv1a"
 
-	"street/model/mAuth/rqAuth"
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
@@ -106,8 +105,7 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 	if prop.DoUpsert() {
 		if in.Property.Id == 0 {
 			// Get user email, send message to their email
-			user := rqAuth.NewUsers(d.AuthOltp)
-			err := d.Mailer.SendNotifCreatePropertyEmail(user.Email,
+			err := d.Mailer.SendNotifCreatePropertyEmail(sess.Email,
 				fmt.Sprintf("%s/realtor/ownedProperty/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
 			)
 			L.IsError(err, `SendNotifAddPropertyEmail`)

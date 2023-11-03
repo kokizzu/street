@@ -48,11 +48,12 @@ func (p *PropLikeCountMutator) ClearMutations() { //nolint:dupl false positive
 }
 
 // func (p *PropLikeCountMutator) DoUpsert() bool { //nolint:dupl false positive
-//	_, err := p.Adapter.Upsert(p.SpaceName(), p.ToArray(), A.X{
+//	arr := p.ToArray()
+//	_, err := p.Adapter.Upsert(p.SpaceName(), arr, A.X{
 //		A.X{`=`, 0, p.PropId},
 //		A.X{`=`, 1, p.Count},
 //	})
-//	return !L.IsError(err, `PropLikeCount.DoUpsert failed: `+p.SpaceName())
+//	return !L.IsError(err, `PropLikeCount.DoUpsert failed: `+p.SpaceName()+ `\n%#v`, arr)
 // }
 
 // DoOverwriteByPropId update all columns, error if not exists, not using mutations/Set*
@@ -78,16 +79,18 @@ func (p *PropLikeCountMutator) DoDeletePermanentByPropId() bool { //nolint:dupl 
 
 // DoInsert insert, error if already exists
 func (p *PropLikeCountMutator) DoInsert() bool { //nolint:dupl false positive
-	_, err := p.Adapter.Insert(p.SpaceName(), p.ToArray())
-	return !L.IsError(err, `PropLikeCount.DoInsert failed: `+p.SpaceName())
+	arr := p.ToArray()
+	_, err := p.Adapter.Insert(p.SpaceName(), arr)
+	return !L.IsError(err, `PropLikeCount.DoInsert failed: `+p.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
 // replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
 func (p *PropLikeCountMutator) DoUpsert() bool { //nolint:dupl false positive
-	_, err := p.Adapter.Replace(p.SpaceName(), p.ToArray())
-	return !L.IsError(err, `PropLikeCount.DoUpsert failed: `+p.SpaceName())
+	arr := p.ToArray()
+	_, err := p.Adapter.Replace(p.SpaceName(), arr)
+	return !L.IsError(err, `PropLikeCount.DoUpsert failed: `+p.SpaceName()+`\n%#v`, arr)
 }
 
 // SetPropId create mutations, should not duplicate
@@ -191,7 +194,8 @@ func (p *PropertyMutator) DoDeletePermanentById() bool { //nolint:dupl false pos
 }
 
 // func (p *PropertyMutator) DoUpsert() bool { //nolint:dupl false positive
-//	_, err := p.Adapter.Upsert(p.SpaceName(), p.ToArray(), A.X{
+//	arr := p.ToArray()
+//	_, err := p.Adapter.Upsert(p.SpaceName(), arr, A.X{
 //		A.X{`=`, 0, p.Id},
 //		A.X{`=`, 1, p.UniqPropKey},
 //		A.X{`=`, 2, p.SerialNumber},
@@ -241,7 +245,7 @@ func (p *PropertyMutator) DoDeletePermanentById() bool { //nolint:dupl false pos
 //		A.X{`=`, 46, p.OtherFees},
 //		A.X{`=`, 47, p.ImageLabels},
 //	})
-//	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName())
+//	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName()+ `\n%#v`, arr)
 // }
 
 // DoOverwriteByUniqPropKey update all columns, error if not exists, not using mutations/Set*
@@ -267,28 +271,30 @@ func (p *PropertyMutator) DoDeletePermanentByUniqPropKey() bool { //nolint:dupl 
 
 // DoInsert insert, error if already exists
 func (p *PropertyMutator) DoInsert() bool { //nolint:dupl false positive
-	row, err := p.Adapter.Insert(p.SpaceName(), p.ToArray())
+	arr := p.ToArray()
+	row, err := p.Adapter.Insert(p.SpaceName(), arr)
 	if err == nil {
 		tup := row.Tuples()
 		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
 			p.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `Property.DoInsert failed: `+p.SpaceName())
+	return !L.IsError(err, `Property.DoInsert failed: `+p.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
 // replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
 func (p *PropertyMutator) DoUpsert() bool { //nolint:dupl false positive
-	row, err := p.Adapter.Replace(p.SpaceName(), p.ToArray())
+	arr := p.ToArray()
+	row, err := p.Adapter.Replace(p.SpaceName(), arr)
 	if err == nil {
 		tup := row.Tuples()
 		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
 			p.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName())
+	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName()+`\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
@@ -1054,7 +1060,8 @@ func (p *PropertyExtraUSMutator) DoDeletePermanentById() bool { //nolint:dupl fa
 }
 
 // func (p *PropertyExtraUSMutator) DoUpsert() bool { //nolint:dupl false positive
-//	_, err := p.Adapter.Upsert(p.SpaceName(), p.ToArray(), A.X{
+//	arr := p.ToArray()
+//	_, err := p.Adapter.Upsert(p.SpaceName(), arr, A.X{
 //		A.X{`=`, 0, p.Id},
 //		A.X{`=`, 1, p.PropertyKey},
 //		A.X{`=`, 2, p.CountyUrl},
@@ -1069,7 +1076,7 @@ func (p *PropertyExtraUSMutator) DoDeletePermanentById() bool { //nolint:dupl fa
 //		A.X{`=`, 11, p.MediaSourceJson},
 //		A.X{`=`, 12, p.TaxNote},
 //	})
-//	return !L.IsError(err, `PropertyExtraUS.DoUpsert failed: `+p.SpaceName())
+//	return !L.IsError(err, `PropertyExtraUS.DoUpsert failed: `+p.SpaceName()+ `\n%#v`, arr)
 // }
 
 // DoOverwriteByPropertyKey update all columns, error if not exists, not using mutations/Set*
@@ -1095,28 +1102,30 @@ func (p *PropertyExtraUSMutator) DoDeletePermanentByPropertyKey() bool { //nolin
 
 // DoInsert insert, error if already exists
 func (p *PropertyExtraUSMutator) DoInsert() bool { //nolint:dupl false positive
-	row, err := p.Adapter.Insert(p.SpaceName(), p.ToArray())
+	arr := p.ToArray()
+	row, err := p.Adapter.Insert(p.SpaceName(), arr)
 	if err == nil {
 		tup := row.Tuples()
 		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
 			p.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `PropertyExtraUS.DoInsert failed: `+p.SpaceName())
+	return !L.IsError(err, `PropertyExtraUS.DoInsert failed: `+p.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
 // replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
 func (p *PropertyExtraUSMutator) DoUpsert() bool { //nolint:dupl false positive
-	row, err := p.Adapter.Replace(p.SpaceName(), p.ToArray())
+	arr := p.ToArray()
+	row, err := p.Adapter.Replace(p.SpaceName(), arr)
 	if err == nil {
 		tup := row.Tuples()
 		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
 			p.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `PropertyExtraUS.DoUpsert failed: `+p.SpaceName())
+	return !L.IsError(err, `PropertyExtraUS.DoUpsert failed: `+p.SpaceName()+`\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
@@ -1385,7 +1394,8 @@ func (p *PropertyUSMutator) DoDeletePermanentById() bool { //nolint:dupl false p
 }
 
 // func (p *PropertyUSMutator) DoUpsert() bool { //nolint:dupl false positive
-//	_, err := p.Adapter.Upsert(p.SpaceName(), p.ToArray(), A.X{
+//	arr := p.ToArray()
+//	_, err := p.Adapter.Upsert(p.SpaceName(), arr, A.X{
 //		A.X{`=`, 0, p.Id},
 //		A.X{`=`, 1, p.UniqPropKey},
 //		A.X{`=`, 2, p.SerialNumber},
@@ -1435,7 +1445,7 @@ func (p *PropertyUSMutator) DoDeletePermanentById() bool { //nolint:dupl false p
 //		A.X{`=`, 46, p.OtherFees},
 //		A.X{`=`, 47, p.ImageLabels},
 //	})
-//	return !L.IsError(err, `PropertyUS.DoUpsert failed: `+p.SpaceName())
+//	return !L.IsError(err, `PropertyUS.DoUpsert failed: `+p.SpaceName()+ `\n%#v`, arr)
 // }
 
 // DoOverwriteByUniqPropKey update all columns, error if not exists, not using mutations/Set*
@@ -1461,28 +1471,30 @@ func (p *PropertyUSMutator) DoDeletePermanentByUniqPropKey() bool { //nolint:dup
 
 // DoInsert insert, error if already exists
 func (p *PropertyUSMutator) DoInsert() bool { //nolint:dupl false positive
-	row, err := p.Adapter.Insert(p.SpaceName(), p.ToArray())
+	arr := p.ToArray()
+	row, err := p.Adapter.Insert(p.SpaceName(), arr)
 	if err == nil {
 		tup := row.Tuples()
 		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
 			p.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `PropertyUS.DoInsert failed: `+p.SpaceName())
+	return !L.IsError(err, `PropertyUS.DoInsert failed: `+p.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
 // replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
 func (p *PropertyUSMutator) DoUpsert() bool { //nolint:dupl false positive
-	row, err := p.Adapter.Replace(p.SpaceName(), p.ToArray())
+	arr := p.ToArray()
+	row, err := p.Adapter.Replace(p.SpaceName(), arr)
 	if err == nil {
 		tup := row.Tuples()
 		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
 			p.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `PropertyUS.DoUpsert failed: `+p.SpaceName())
+	return !L.IsError(err, `PropertyUS.DoUpsert failed: `+p.SpaceName()+`\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
@@ -2248,7 +2260,8 @@ func (p *PropertyHistoryMutator) DoDeletePermanentById() bool { //nolint:dupl fa
 }
 
 // func (p *PropertyHistoryMutator) DoUpsert() bool { //nolint:dupl false positive
-//	_, err := p.Adapter.Upsert(p.SpaceName(), p.ToArray(), A.X{
+//	arr := p.ToArray()
+//	_, err := p.Adapter.Upsert(p.SpaceName(), arr, A.X{
 //		A.X{`=`, 0, p.Id},
 //		A.X{`=`, 1, p.PropertyKey},
 //		A.X{`=`, 2, p.TransactionKey},
@@ -2271,7 +2284,7 @@ func (p *PropertyHistoryMutator) DoDeletePermanentById() bool { //nolint:dupl fa
 //		A.X{`=`, 19, p.SerialNumber},
 //		A.X{`=`, 20, p.TransactionDescription},
 //	})
-//	return !L.IsError(err, `PropertyHistory.DoUpsert failed: `+p.SpaceName())
+//	return !L.IsError(err, `PropertyHistory.DoUpsert failed: `+p.SpaceName()+ `\n%#v`, arr)
 // }
 
 // DoOverwriteByTransactionKey update all columns, error if not exists, not using mutations/Set*
@@ -2297,28 +2310,30 @@ func (p *PropertyHistoryMutator) DoDeletePermanentByTransactionKey() bool { //no
 
 // DoInsert insert, error if already exists
 func (p *PropertyHistoryMutator) DoInsert() bool { //nolint:dupl false positive
-	row, err := p.Adapter.Insert(p.SpaceName(), p.ToArray())
+	arr := p.ToArray()
+	row, err := p.Adapter.Insert(p.SpaceName(), arr)
 	if err == nil {
 		tup := row.Tuples()
 		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
 			p.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `PropertyHistory.DoInsert failed: `+p.SpaceName())
+	return !L.IsError(err, `PropertyHistory.DoInsert failed: `+p.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
 // replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
 func (p *PropertyHistoryMutator) DoUpsert() bool { //nolint:dupl false positive
-	row, err := p.Adapter.Replace(p.SpaceName(), p.ToArray())
+	arr := p.ToArray()
+	row, err := p.Adapter.Replace(p.SpaceName(), arr)
 	if err == nil {
 		tup := row.Tuples()
 		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
 			p.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `PropertyHistory.DoUpsert failed: `+p.SpaceName())
+	return !L.IsError(err, `PropertyHistory.DoUpsert failed: `+p.SpaceName()+`\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
@@ -2679,12 +2694,13 @@ func (u *UserPropLikesMutator) ClearMutations() { //nolint:dupl false positive
 }
 
 // func (u *UserPropLikesMutator) DoUpsert() bool { //nolint:dupl false positive
-//	_, err := u.Adapter.Upsert(u.SpaceName(), u.ToArray(), A.X{
+//	arr := u.ToArray()
+//	_, err := u.Adapter.Upsert(u.SpaceName(), arr, A.X{
 //		A.X{`=`, 0, u.PropId},
 //		A.X{`=`, 1, u.UserId},
 //		A.X{`=`, 2, u.CreatedAt},
 //	})
-//	return !L.IsError(err, `UserPropLikes.DoUpsert failed: `+u.SpaceName())
+//	return !L.IsError(err, `UserPropLikes.DoUpsert failed: `+u.SpaceName()+ `\n%#v`, arr)
 // }
 
 // DoOverwriteByUserIdPropId update all columns, error if not exists, not using mutations/Set*
@@ -2710,16 +2726,18 @@ func (u *UserPropLikesMutator) DoDeletePermanentByUserIdPropId() bool { //nolint
 
 // DoInsert insert, error if already exists
 func (u *UserPropLikesMutator) DoInsert() bool { //nolint:dupl false positive
-	_, err := u.Adapter.Insert(u.SpaceName(), u.ToArray())
-	return !L.IsError(err, `UserPropLikes.DoInsert failed: `+u.SpaceName())
+	arr := u.ToArray()
+	_, err := u.Adapter.Insert(u.SpaceName(), arr)
+	return !L.IsError(err, `UserPropLikes.DoInsert failed: `+u.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
 // replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
 func (u *UserPropLikesMutator) DoUpsert() bool { //nolint:dupl false positive
-	_, err := u.Adapter.Replace(u.SpaceName(), u.ToArray())
-	return !L.IsError(err, `UserPropLikes.DoUpsert failed: `+u.SpaceName())
+	arr := u.ToArray()
+	_, err := u.Adapter.Replace(u.SpaceName(), arr)
+	return !L.IsError(err, `UserPropLikes.DoUpsert failed: `+u.SpaceName()+`\n%#v`, arr)
 }
 
 // SetPropId create mutations, should not duplicate
