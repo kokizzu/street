@@ -276,6 +276,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.UserSearchProp(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.UserSearchPropUSAction:
+		in := domain.UserSearchPropUSIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.UserSearchPropUS(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.UserSessionKillAction:
 		in := domain.UserSessionKillIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

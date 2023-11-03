@@ -459,8 +459,8 @@ func CleanExcessiveAttrPropertyExtraUs(adapter *Tt.Adapter) {
 	defer stat.Print(`last`)
 
 	propExtraUS := rqProperty.NewPropertyExtraUS(adapter)
-	offset := 855000
-	const limit = 5000
+	offset := 855000 + 3470000
+	const limit = 10000
 
 	reduction := uint64(0)
 
