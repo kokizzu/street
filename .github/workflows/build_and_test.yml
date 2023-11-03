@@ -33,6 +33,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Create .env.override
+        uses: 1arp/create-a-file-action@0.3
+        with:
+          file: '.env.override'
       - run: go test -v ./...    
           
   Svelte-Test:
