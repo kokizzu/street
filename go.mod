@@ -14,7 +14,7 @@ require (
 	github.com/joho/godotenv v1.4.0
 	github.com/jxskiss/base62 v1.1.0
 	github.com/kokizzu/ch-timed-buffer v1.2025.1416
-	github.com/kokizzu/gotro v1.3429.1507
+	github.com/kokizzu/gotro v1.3503.236
 	github.com/kokizzu/id64 v1.2829.1452
 	github.com/kokizzu/lexid v1.2423.1347
 	github.com/kpango/fastime v1.1.9
@@ -91,14 +91,14 @@ require (
 	github.com/op/go-logging v0.0.0-20160315200505-970db520ece7 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.0-rc5 // indirect
-	github.com/opencontainers/runc v1.1.9 // indirect
+	github.com/opencontainers/runc v1.1.10 // indirect
 	github.com/orcaman/concurrent-map v1.0.0 // indirect
 	github.com/paulmach/orb v0.10.0 // indirect
 	github.com/philhofer/fwd v1.1.2 // indirect
 	github.com/pierrec/lz4/v4 v4.1.18 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/redis/rueidis v1.0.20 // indirect
+	github.com/redis/rueidis v1.0.21 // indirect
 	github.com/richardlehane/mscfb v1.0.4 // indirect
 	github.com/richardlehane/msoleps v1.0.3 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
