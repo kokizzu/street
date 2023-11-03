@@ -86,6 +86,7 @@ func (d *Domain) UserGpsCountry(in *UserGpsCountryIn) (out UserGpsCountryOut) {
 	out.PrevCountry = user.Country
 
 	if in.CheckOnly {
+		out.AddTrace(`checkOnly:true`)
 		return
 	}
 
@@ -94,6 +95,8 @@ func (d *Domain) UserGpsCountry(in *UserGpsCountryIn) (out UserGpsCountryOut) {
 			out.SetError(500, ErrUserGpsCountryFailedStoreCountry)
 			return
 		}
+		out.AddTrace(`countryFrom:` + out.PrevCountry)
+		out.AddTrace(`countryTo:` + out.CountryIso2)
 	}
 
 	return
