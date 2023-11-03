@@ -117,6 +117,11 @@ func (d *Domain) GuestProperty(in *GuestPropertyIn) (out GuestPropertyOut) {
 		out.SetError(400, ErrGuestPropertyNotFound)
 		return
 	}
+
+	if r.ApprovalState != `pending` && r.ApprovalState != `` {
+		out.SetError(400, ErrGuestPropertyNotFound)
+		return
+	}
 	r.NormalizeFloorList()
 	out.Property = r
 	out.Meta = GuestPropertiesMeta

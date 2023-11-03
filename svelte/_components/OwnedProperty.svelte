@@ -101,47 +101,43 @@
 			{/if}
 		{/each}
 	</div>
+    {#if property.floorList && property.floorList.length}
 	<div class='property_floors'>
 		<h3>{$T.floors}</h3>
-		{#if property.floorList && property.floorList.length}
-			<div class='floor_lists'>
-				{#each property.floorList as floors}
-					<div class='floor_item'>
-						<div class='left'>
-							<h5>
-								{floors.type==='basement' ? $T.basement : `${$T.floorN}${floors.floor}`}
-							</h5>
-							<!-- TODO: currently room list only 1 object, fix Tarantool to accept array -->
-							{#if floors.rooms}
-								<div class='room_lists'>
-									{#each floors.rooms as room}
-										<div class='room_item'>
-											<span>{room.name || '-'}</span>
-											<span>{room.sizeM2 || '-'} M2</span>
-										</div>
-									{/each}
-								</div>
-							{/if}
-						</div>
-						<div class='floor_plan_image'>
-							{#if floors.planImageUrl===''}
-                        <span>
-                           <i class='gg-image'/>
-                           <p>No Image</p>
-                        </span>
-							{:else}
-								<img src={floors.planImageUrl} alt=''/>
-							{/if}
-						</div>
+		<div class='floor_lists'>
+			{#each property.floorList as floors}
+				<div class='floor_item'>
+					<div class='left'>
+						<h5>
+							{floors.type==='basement' ? $T.basement : `${$T.floorN}${floors.floor}`}
+						</h5>
+						<!-- TODO: currently room list only 1 object, fix Tarantool to accept array -->
+						{#if floors.rooms}
+							<div class='room_lists'>
+								{#each floors.rooms as room}
+									<div class='room_item'>
+										<span>{room.name || '-'}</span>
+										<span>{room.sizeM2 || '-'} M2</span>
+									</div>
+								{/each}
+							</div>
+						{/if}
 					</div>
-				{/each}
-			</div>
-		{:else}
-			<div class='no_floors'>
-				<p>No Floors</p>
-			</div>
-		{/if}
+					<div class='floor_plan_image'>
+						{#if floors.planImageUrl===''}
+                    <span>
+                       <i class='gg-image'/>
+                       <p>No Image</p>
+                    </span>
+						{:else}
+							<img src={floors.planImageUrl} alt=''/>
+						{/if}
+					</div>
+				</div>
+			{/each}
+		</div>
 	</div>
+    {/if}
 	<div class='property_less_more'>
 		<button class='toggle_show_more' on:click={handleShowMore}>
 			Show {showMore===true ? 'Less' : 'More'}

@@ -107,10 +107,12 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 		if in.Property.Id == 0 {
 			// Get user email, send message to their email
 			user := rqAuth.NewUsers(d.AuthOltp)
-			err := d.Mailer.SendNotifCreatePropertyEmail(user.Email,
-				fmt.Sprintf("%s/realtor/ownedProperty/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
-			)
-			L.IsError(err, `SendNotifAddPropertyEmail`)
+			d.runSubtask(func() {
+				err := d.Mailer.SendNotifCreatePropertyEmail(user.Email,
+					fmt.Sprintf("%s/realtor/ownedProperty/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
+				)
+				L.IsError(err, `SendNotifAddPropertyEmail`)
+			})
 		}
 	} else {
 		out.SetError(500, ErrRealtorUpsertPropertySaveFailed)

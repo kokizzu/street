@@ -36,11 +36,13 @@
     if( property.approvalState==='pending' ) {
       approvalStatus = 'pending'
     }
+
     for( let i = 0; i<countries.length; i++ ) {
       if( countries[ i ].iso_2===property.countryCode ) {
         countryCurrency = countries[ i ].currency.code;
       }
     }
+    console.log('Approval status = ', approvalStatus)
   } )
   
   function GetPayload() {
@@ -172,6 +174,7 @@
   let depositFee = property.depositFee, minimumDurationYear = property.minimumDurationYear, otherFees = property.otherFees;
   let otherFeeObj = {name: '', fee: 0};
   let addOtherFeeDialog = AddOtherFeesDialog, agencyFee = 'true';
+  let submitApprove = false, submitReject = false;
   
   function addOtherFee() {
     otherFees = [...otherFees, otherFeeObj];
@@ -255,26 +258,36 @@
   }
 
   function ApproveProperty() {
+    submitApprove = true;
     AdminProperties( {
-            cmd: 'upsert',
-            property: {id: property.id, approvalState: ' '}, // empty is approved, will be trimmed on server side
-          },
-          function( res ) {
-            if( res.error ) alert( res.error );
-            refreshTableView( pager );
-          } );
+        cmd: 'upsert',
+        property: {id: property.id, approvalState: ' '}, // empty is approved, will be trimmed on server side
+    },
+    function( res ) {
+        if( res.error ) {
+            submitApprove = false;
+            alert( res.error );
+            return;
+        }
+        submitApprove = false;
+    } );
   }
 
   function RejectProperty() {
+    submitReject = true;
     const reason = prompt( 'input refusal reason for #' + property.id + ', use "pending" to set state to pending' );
     AdminProperties( {
-            cmd: 'upsert',
-            property: {id: property.id, approvalState: reason},
-          },
-          function( res ) {
-            if( res.error ) alert( res.error );
-            refreshTableView( pager );
-          } );
+        cmd: 'upsert',
+        property: {id: property.id, approvalState: reason},
+    },
+    function( res ) {
+        if( res.error ) {
+            submitReject = false;
+            alert( res.error );
+            return;
+        }
+        submitReject = false;
+    } );
   }
 </script>
 
@@ -291,21 +304,39 @@
 				<div class={`status ${approvalStatus}`}>
 					<p>{approvalStates[ approvalStatus ].description}</p>
 				</div>
+                {#if approvalStatus==='approved'}
+                    <button class="reject_btn" on:click={RejectProperty}>
+                        {#if !submitReject}
+                            <Icon size={10} color='#FFF' src={FaSolidTimes}/>
+                        {/if}
+                        {#if submitReject}
+                            <Icon className='spin' color='#FFF' size={10} src={FaSolidCircleNotch}/>
+                        {/if}
+                        <span>Reject</span>
+                    </button>
+                {/if}
 				{#if approvalStates[ approvalStatus ].reason!==''}
 					<div class="reason">
 						<p class:text_danger={approvalStatus === 'rejected'}>{approvalStates[ approvalStatus ].reason}</p>
-						{#if approvalStatus==='rejected'}
-							<button class="edit_btn">Review again</button>
-						{/if}
                         {#if isAdmin}
-                            {#if approvalStatus === 'pending'}
+                            {#if approvalStatus==='pending'}
                                 <div class="action_btns">
                                     <button class="approve_btn" on:click={ApproveProperty}>
-                                        <Icon size={10} color='#FFF' src={FaCheckCircle}/>
+                                        {#if !submitApprove}
+                                            <Icon size={10} color='#FFF' src={FaCheckCircle}/>
+                                        {/if}
+                                        {#if submitApprove}
+							                <Icon className='spin' color='#FFF' size={10} src={FaSolidCircleNotch}/>
+						                {/if}
                                         <span>Approve</span>
                                     </button>
                                     <button class="reject_btn" on:click={RejectProperty}>
-                                        <Icon size={10} color='#FFF' src={FaSolidTimes}/>
+                                        {#if !submitReject}
+                                            <Icon size={10} color='#FFF' src={FaSolidTimes}/>
+                                        {/if}
+                                        {#if submitReject}
+							                <Icon className='spin' color='#FFF' size={10} src={FaSolidCircleNotch}/>
+						                {/if}
                                         <span>Reject</span>
                                     </button>
                                 </div>
@@ -1045,7 +1076,7 @@
         gap: 10px;
     }
 
-    .edit_property_container .property_status .reason .action_btns .approve_btn {
+    .edit_property_container .property_status .approve_btn {
         display          : flex;
         flex-direction   : row;
         gap              : 6px;
@@ -1059,7 +1090,10 @@
         cursor           : pointer;
         width            : fit-content;
     }
-    .edit_property_container .property_status .reason .action_btns .reject_btn {
+    .edit_property_container .property_status .approve_btn:hover {
+        background-color : rgb(118, 216, 75);
+    }
+    .edit_property_container .property_status .reject_btn {
         display          : flex;
         flex-direction   : row;
         gap              : 6px;
@@ -1072,6 +1106,9 @@
         border-radius    : 8px;
         cursor           : pointer;
         width            : fit-content;
+    }
+    .edit_property_container .property_status .reject_btn:hover {
+        background-color : rgb(248, 106, 96);
     }
 
     .edit_property_container .property_status p {

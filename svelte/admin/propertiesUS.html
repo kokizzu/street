@@ -9333,7 +9333,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
   var ModalDialog_default = ModalDialog;
 
   // _components/PillBox.svelte
-  function create_fragment10(ctx) {
+  function create_if_block5(ctx) {
     let span2;
     let span0;
     let t0;
@@ -9366,7 +9366,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         append(span2, span1);
         append(span1, t2);
       },
-      p(ctx2, [dirty]) {
+      p(ctx2, dirty) {
         if (dirty & /*label*/
         1)
           set_data(
@@ -9382,12 +9382,55 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
             ctx2[1]
           );
       },
-      i: noop,
-      o: noop,
       d(detaching) {
         if (detaching) {
           detach(span2);
         }
+      }
+    };
+  }
+  function create_fragment10(ctx) {
+    let if_block_anchor;
+    let if_block = (
+      /*content*/
+      ctx[1] !== "" && create_if_block5(ctx)
+    );
+    return {
+      c() {
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, [dirty]) {
+        if (
+          /*content*/
+          ctx2[1] !== ""
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+          } else {
+            if_block = create_if_block5(ctx2);
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          if_block.d(1);
+          if_block = null;
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
       }
     };
   }
@@ -9605,7 +9648,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       }
     };
   }
-  function create_if_block5(ctx) {
+  function create_if_block6(ctx) {
     let each_1_anchor;
     let current;
     let each_value = ensure_array_like(
@@ -10025,7 +10068,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let current_block_type_index;
     let if_block;
     let current;
-    const if_block_creators = [create_if_block5, create_else_block_13];
+    const if_block_creators = [create_if_block6, create_else_block_13];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (

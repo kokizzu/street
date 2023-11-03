@@ -3,10 +3,12 @@
     export let content = 'content';
 </script>
 
+{#if content !== ''}
 <span class='pill-box pill-blue'>
     <span class='pill-box-left'>{label}</span>
     <span class='pill-box-right'>{content}</span>
 </span>
+{/if}
 
 <style>
 
