@@ -273,20 +273,21 @@
     } );
   }
 
+  let rejectReason = '', showRejectDialog = false;
   function RejectProperty() {
-    submitReject = true;
-    const reason = prompt( 'input refusal reason for #' + property.id + ', use "pending" to set state to pending' );
+    if (rejectReason === '') return alert('Reason cannot be empty');
     AdminProperties( {
         cmd: 'upsert',
-        property: {id: property.id, approvalState: reason},
+        property: {id: property.id, approvalState: rejectReason},
     },
     function( res ) {
         if( res.error ) {
-            submitReject = false;
+            showRejectDialog = false;
             alert( res.error );
             return;
         }
-        submitReject = false;
+        showRejectDialog = false;
+        console.log(res);
     } );
   }
 </script>
@@ -299,19 +300,35 @@
 		<span>Property ID: {property.id}</span>
 	</div>
 	<div class="edit_property_container">
+            {#if showRejectDialog===true}
+                <div class="backdrop_reject_reason">
+                    <div class="reject_reason">
+                        <div class='reject_reason_content'>
+                            <h3>Reject Reason</h3>
+                            <textarea
+                                bind:value={rejectReason}
+						        name="reject-reason"
+						        id="reject-reason"
+						        placeholder={'input refusal reason for #' + property.id + ', use "pending" to set state to pending'}
+						        class="textarea_input"
+						    ></textarea>
+                        </div>
+                        <div class='buttons'>
+                            <button class="cancel_btn" on:click={()=>showRejectDialog=false}>Cancel</button>
+                            <button class="reject_btn" on:click={RejectProperty}>Reject</button>
+                        </div>
+                    </div>
+                </div>
+            {/if}
+
 		{#if PART_TO_EDIT===''}
 			<div class="property_status">
 				<div class={`status ${approvalStatus}`}>
 					<p>{approvalStates[ approvalStatus ].description}</p>
 				</div>
                 {#if approvalStatus==='approved'}
-                    <button class="reject_btn" on:click={RejectProperty}>
-                        {#if !submitReject}
-                            <Icon size={10} color='#FFF' src={FaSolidTimes}/>
-                        {/if}
-                        {#if submitReject}
-                            <Icon className='spin' color='#FFF' size={10} src={FaSolidCircleNotch}/>
-                        {/if}
+                    <button class="reject_btn" on:click={()=>showRejectDialog=true}>
+                        <Icon size={10} color='#FFF' src={FaSolidTimes}/>
                         <span>Reject</span>
                     </button>
                 {/if}
@@ -330,13 +347,8 @@
 						                {/if}
                                         <span>Approve</span>
                                     </button>
-                                    <button class="reject_btn" on:click={RejectProperty}>
-                                        {#if !submitReject}
-                                            <Icon size={10} color='#FFF' src={FaSolidTimes}/>
-                                        {/if}
-                                        {#if submitReject}
-							                <Icon className='spin' color='#FFF' size={10} src={FaSolidCircleNotch}/>
-						                {/if}
+                                    <button class="reject_btn" on:click={()=>showRejectDialog=true}>
+                                        <Icon size={10} color='#FFF' src={FaSolidTimes}/>
                                         <span>Reject</span>
                                     </button>
                                 </div>
@@ -838,7 +850,7 @@
 
     .textarea_input {
         white-space      : normal;
-        height           : 400px;
+        height           : 300px;
         resize           : none;
         width            : 100%;
         border           : 1px solid #CBD5E1;
@@ -1052,6 +1064,78 @@
         filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
     }
 
+    .edit_property_container .backdrop_reject_reason {
+        position        : absolute;
+        z-index         : 40;
+        background      : rgba(41, 41, 41, 0.5);
+        width           : 100%;
+        left            : 0;
+        top             : 0;
+        bottom          : 0;
+        height          : auto;
+        border-radius   : 8px;
+        display         : flex;
+        justify-content : center;
+    }
+
+    .edit_property_container .backdrop_reject_reason .reject_reason{
+        color            : #334155;
+        width            : 400px;
+        height           : fit-content;
+        gap              : 20px;
+        background-color : white;
+        padding          : 20px;
+        margin           : 40px 15px 0;
+        border-radius    : 8px;
+        display          : flex;
+        flex-direction   : column;
+        justify-content  : space-between;
+    }
+
+    .edit_property_container .backdrop_reject_reason .reject_reason .reject_reason_content {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .edit_property_container .backdrop_reject_reason .reject_reason .reject_reason_content h3 {
+        text-align: center;
+    }
+
+    .edit_property_container .backdrop_reject_reason .reject_reason .buttons {
+        display        : flex;
+        flex-direction : row;
+        gap: 10px;
+        align-items    : stretch;
+        font-weight    : 500;
+        width          : 100%;
+    }
+
+   .edit_property_container .backdrop_reject_reason .reject_reason .buttons button {
+        border-radius  : 8px;
+        border         : none;
+        padding        : 10px;
+        cursor         : pointer;
+        width          : 100%;
+        text-transform : capitalize;
+    }
+
+   .edit_property_container .backdrop_reject_reason .reject_reason .buttons .cancel_btn {
+        border           : 1px solid #CBD5E1;
+        background-color : #F1F5F9;
+        color            : #F97316;
+    }
+
+   .edit_property_container .backdrop_reject_reason .reject_reason .buttons .cancel_btn:hover {
+        border : 1px solid #F97316;
+    }
+
+    .edit_property_container .backdrop_reject_reason .reject_reason .buttons .reject_btn {
+        border           : 1px solid rgba(255, 126, 118, 1);
+        background-color : rgba(255, 126, 118, 1);
+        color            : #FFF;
+    }
+
     .edit_property_container .property_status {
         display        : flex;
         flex-direction : column;
@@ -1107,7 +1191,8 @@
         cursor           : pointer;
         width            : fit-content;
     }
-    .edit_property_container .property_status .reject_btn:hover {
+    .edit_property_container .property_status .reject_btn:hover,
+    .edit_property_container .backdrop_reject_reason .reject_reason .buttons .reject_btn:hover {
         background-color : rgb(248, 106, 96);
     }
 

@@ -6,7 +6,6 @@ import (
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 
-	"street/model/mAuth/rqAuth"
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
@@ -232,7 +231,6 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
 		prop := wcProperty.NewPropertyMutator(d.PropOltp)
 		prop.Id = in.Property.Id
-		user := rqAuth.NewUsers(d.AuthOltp)
 		if prop.Id > 0 {
 			if !prop.FindById() {
 				out.SetError(400, ErrAdminPropertyIdNotFound)
@@ -280,14 +278,14 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 
 		if newState == `` && oldState != `` {
 			d.runSubtask(func() {
-				err := d.Mailer.SendNotifPropertyAcceptedEmail(user.Email,
+				err := d.Mailer.SendNotifPropertyAcceptedEmail(sess.Email,
 					fmt.Sprintf("%s/realtor/ownedProperty/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
 				)
 				L.IsError(err, `SendNotifPropertyAcceptedEmail`)
 			})
 		} else if newState != `` && oldState != `` {
 			d.runSubtask(func() {
-				err := d.Mailer.SendNotifPropertyRejectedEmail(user.Email,
+				err := d.Mailer.SendNotifPropertyRejectedEmail(sess.Email,
 					fmt.Sprintf("%s/realtor/ownedProperty/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
 				)
 				L.IsError(err, `SendNotifPropertyRejectedEmail`)

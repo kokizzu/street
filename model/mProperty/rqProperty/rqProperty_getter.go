@@ -217,6 +217,22 @@ func (p *Property) FindByLatLong(lat float64, long float64, limit int, offset in
 	}
 	return true
 }
+
+func (p *PropertyUS) FindPropUSByLatLong(lat float64, long float64, limit int, offset int, callback func(row []any) bool) bool {
+	const prefix = `PropertyUS) FindByLatLong`
+	p.Coord = []any{lat, long}
+	res, err := p.Adapter.Select(p.SpaceName(), p.SpatialIndexCoord(), uint32(offset), uint32(limit), tarantool.IterNeighbor, p.Coord)
+	if L.IsError(err, prefix+` failed: `+p.SpaceName()) {
+		return false
+	}
+	for _, row := range res.Tuples() {
+		if !callback(row) {
+			break
+		}
+	}
+	return true
+}
+
 func (p *PropertyHistory) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
 	const comment = `-- PropertyHistory) FindByPagination`
 
@@ -376,6 +392,49 @@ func (p *Property) NormalizeFloorList() {
 		    "",
 		}
 	*/
+	floorsArr := []any{}
+	for _, floor := range p.FloorList {
+		floorObj := M.SX{}
+		maa, ok := floor.(map[any]any)
+		if !ok {
+			continue
+		}
+		for key, val := range maa {
+			strKey, ok := key.(string)
+			if !ok {
+				continue
+			}
+			if strKey == `rooms` {
+				rooms, ok := val.([]any)
+				if !ok {
+					continue
+				}
+				roomsArr := []M.SX{}
+				for _, room := range rooms {
+					room, ok := room.(map[any]any)
+					if !ok {
+						continue
+					}
+					roomObj := M.SX{}
+					for key, val := range room {
+						strKey, ok := key.(string)
+						if !ok {
+							continue
+						}
+						roomObj[strKey] = val
+					}
+					roomsArr = append(roomsArr, roomObj)
+				}
+				val = roomsArr
+			}
+			floorObj[strKey] = val
+		}
+		floorsArr = append(floorsArr, floorObj)
+	}
+	p.FloorList = floorsArr
+}
+
+func (p *PropertyUS) NormalizeFloorList() {
 	floorsArr := []any{}
 	for _, floor := range p.FloorList {
 		floorObj := M.SX{}
