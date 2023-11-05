@@ -58,10 +58,21 @@ function formatPrice( price, currency ) {
   }
 }
 
+function getApprovalState(s) {
+  if (s == '') {
+    return 'approved'
+  } else if ( s.startsWith('pending')) {
+    return 'pending'
+  } else {
+    return 'rejected'
+  }
+}
+
 module.exports = {
   datetime: datetime,
   priceNtd: priceNtd,
   localeDatetime: localeDatetime,
   datetime2: datetime2,
   formatPrice: formatPrice,
+  getApprovalState: getApprovalState
 };

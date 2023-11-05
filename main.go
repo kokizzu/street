@@ -65,7 +65,6 @@ func main() {
 	var mailer xMailer.Mailer
 	eg.Go(func() error {
 		mailer.Conf = conf.EnvMailer()
-		fmt.Println(`mailer: ` + mailer.Conf.DefaultMailer)
 		switch mailer.Conf.DefaultMailer {
 		case `sendgrid`:
 			sg := &xMailer.Sengrid{SendgridConf: conf.EnvSendgrid()}
@@ -134,13 +133,11 @@ func main() {
 		PropOltp: tConn,
 		PropOlap: cConn,
 		StorOltp: tConn,
-		Mailer: xMailer.Mailer{
-			SendMailFunc: mailer.SendMailFunc,
-		},
-		IsBgSvc: false,
-		Oauth:   oauth,
-		Gmap:    gmap,
-		Log:     log,
+		Mailer:   mailer,
+		IsBgSvc:  false,
+		Oauth:    oauth,
+		Gmap:     gmap,
+		Log:      log,
 
 		UploadDir: conf.UploadDir(),
 		CacheDir:  conf.CacheDir(),

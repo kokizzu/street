@@ -15,10 +15,13 @@
 
   let isAdmin = false;
 
+  let isOwner = false;
+
   onMount(() => {
     console.log('User = ', user);
     console.log('Segments = ', segments);
     if (segments.admin === true) isAdmin = true;
+    if (user.id == property.createdBy) isOwner = true;
   })
 </script>
 
@@ -54,7 +57,7 @@
   <div class='dashboard_main_content'>
     <ProfileHeader></ProfileHeader>
     {#if property.id}
-      <EditProperty {property} {countries} {isAdmin} />
+      <EditProperty {property} {countries} {isAdmin} {isOwner} />
     {:else}
       <CreateProperty {property} {user} {countries}/>
     {/if}

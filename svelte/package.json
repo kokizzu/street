@@ -2,12 +2,12 @@
 	"name": "svelte-mpa-app",
 	"version": "0.0.0",
 	"scripts": {
-		"start": "npm run dev",
-		"watch": "npm run build -- --watch",
-		"dev": "node build.js --watch --serve",
-		"build": "node build.js",
-		"build:prod": "node build.js --minify",
-		"serve": "node build.js --serve"
+		"start": "bun run dev",
+		"watch": "bun run build -- --watch",
+		"dev": "bun run build.js --watch --serve",
+		"build": "bun run build.js",
+		"build:prod": "bun run build.js --minify",
+		"serve": "bun run build.js --serve"
 	},
 	"dependencies": {
 		"axios": "^1.4.0",

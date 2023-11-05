@@ -5,6 +5,7 @@ import (
 
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/X"
 	"github.com/segmentio/fasthash/fnv1a"
 
 	"street/model/mProperty"
@@ -21,6 +22,8 @@ import (
 type (
 	RealtorUpsertPropertyIn struct {
 		RequestCommon
+
+		AskReview bool `json:"askReview" form:"askReview" query:"askReview" long:"askReview" msg:"askReview"`
 
 		Property rqProperty.Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
 	}
@@ -82,9 +85,6 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 		mProperty.ApprovalState:      true,
 	}, M.SB{}) // TODO: add list of fields to exclude
 
-	if prop.Id == 0 || prop.ApprovalState == `` { // new property or previously accepted
-		prop.SetApprovalState(mProperty.ApprovalStatePending)
-	}
 	prop.SetUpdatedAt(in.UnixNow())
 	prop.SetUpdatedBy(sess.UserId)
 	if prop.Id == 0 {
@@ -104,17 +104,41 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 
 	prop.NormalizeFloorList()
 
+	var prevReview string
+	if in.AskReview || in.Property.Id == 0 {
+		if prop.ApprovalState == `` {
+			prevReview = `previously already approved just updated by realtor`
+		} else {
+			prevReview = `previous review: ` + prop.ApprovalState
+		}
+		in.AskReview = prop.SetApprovalState(mProperty.ApprovalStatePending)
+	} else if prop.ApprovalState == `` {
+		prop.SetApprovalState(`pending, property updated by realtor, need to ask review again`)
+	}
+
 	if prop.DoUpsert() {
 		if in.Property.Id == 0 {
 			// Get user email, send message to their email
-			err := d.Mailer.SendNotifCreatePropertyEmail(sess.Email,
-				fmt.Sprintf("%s/realtor/property/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
-			)
-			L.IsError(err, `SendNotifAddPropertyEmail`)
+			d.runSubtask(func() {
+				err := d.Mailer.SendNotifCreatePropertyEmail(sess.Email,
+					fmt.Sprintf("%s/realtor/property/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
+				)
+				L.IsError(err, `SendNotifAddPropertyEmail`)
+			})
 		}
 	} else {
 		out.SetError(500, ErrRealtorUpsertPropertySaveFailed)
 		return
+	}
+
+	if in.AskReview {
+		d.runSubtask(func() {
+			err := d.Mailer.SendPendingPropertyReviewToAdmin(
+				fmt.Sprintf("%s/realtor/property/%v", d.WebCfg.WebProtoDomain, prop.Id),
+				X.ToS(prop.Id), prevReview,
+			)
+			L.IsError(err, `SendPendingPropertyReviewToAdmin`)
+		})
 	}
 
 	prop.Adapter = nil
