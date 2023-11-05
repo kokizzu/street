@@ -51,7 +51,8 @@ jobs:
           node-version: 18
       - working-directory: ./svelte
         run: |
-          npm install
+          curl -fsSL https://get.pnpm.io/install.sh | sh -
+          pnpm install
           node build.js
         
  
