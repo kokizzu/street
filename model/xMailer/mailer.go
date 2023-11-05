@@ -73,16 +73,17 @@ We will review it soon.`,
 	)
 }
 
-func (m *Mailer) SendNotifPropertyAcceptedEmail(email, link string) error {
+func (m *Mailer) SendNotifPropertyAcceptedEmail(email, subject, link string) error {
 	if conf.IsDebug() {
 		L.Print(`SendNotifPropertyAcceptedEmail`, link)
 	}
 	return m.SendMailFunc(
 		map[string]string{email: ``},
-		`Property Accepted`,
+		`Property `+subject+` Accepted`,
 		`Hi `+email+`,
 
-Your property is accepted, HapSTR users are able to see your property with our AR function. Please click the following link if any further edit is needed. 
+Your property is accepted, HapSTR users are able to see your property with our AR function. 
+Please click the following link if any further edit is needed. 
 
 `+link+`
 
@@ -92,36 +93,39 @@ Your property is accepted, HapSTR users are able to see your property with our A
 
 若需要繼續更新資訊 請點擊以下連結 <provide the link>`,
 		`Hi `+email+`, <br><br>
-Your property is accepted, HapSTR users are able to see your property with our AR function. Please click the following link if any further edit is needed. 
+Your property is accepted, HapSTR users are able to see your property with our AR function.<br/>
+Please click the following link if any further edit is needed.<br/> 
 <br><br>
 <a href="`+link+`">`+link+`</a><br>
+<br><br/>
+成功上架<br/>
 <br>
-成功上架
-<br>
-您的物件已經完成上架，目前使用者都可以在街上看到您的AR招牌囉！
+您的物件已經完成上架，目前使用者都可以在街上看到您的AR招牌囉！<br/>
 <br>
 若需要繼續更新資訊 請點擊以下連結 <a href="`+link+`">`+link+`</a>`,
 	)
 }
 
-func (m *Mailer) SendNotifPropertyRejectedEmail(email, link string) error {
+func (m *Mailer) SendNotifPropertyRejectedEmail(email, number, link string) error {
 	if conf.IsDebug() {
 		L.Print(`SendNotifPropertyRejectedEmail`, link)
 	}
 	return m.SendMailFunc(
 		map[string]string{email: ``},
-		`Property Rejected`,
+		`Property `+number+` Rejected`,
 		`Hi `+email+`,
 
-I am very sorry to inform that your publish has been denied, please correct or input the missing info and submitted again. `+link+` - ensure to leave all the info that users inputted
+I am very sorry to inform that your publish has been denied, please correct or input the missing info and submitted again. 
+`+link+` - ensure to leave all the info that users inputted
 
 上架失敗
 
 抱歉 因為您的物件資訊有誤，或是不夠完整，再請您修改資訊後重新送審`,
 		`Hi `+email+`, <br><br>
-I am very sorry to inform that your publish has been denied, please correct or input the missing info and submitted again. <a href="`+link+`">`+link+`</a> - ensure to leave all the info that users inputted
+I am very sorry to inform that your publish has been denied, please correct or input the missing info and submitted again. <br/>
+<a href="`+link+`">`+link+`</a> - ensure to leave all the info that users inputted<br/>
 <br>
-上架失敗
+上架失敗<br/>
 <br>
 抱歉 因為您的物件資訊有誤，或是不夠完整，再請您修改資訊後重新送審`,
 	)

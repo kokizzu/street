@@ -277,11 +277,7 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		prop.Adapter = nil
 		out.Property = &prop.Property
 
-		if in.Pager.Page == 0 {
-			break
-		}
-
-		var sendMailFunc func(email, link string) error
+		var sendMailFunc func(email, number, link string) error
 		var sendMailName string
 
 		L.Print(newState, oldState)
@@ -302,6 +298,7 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 			if user.FindById() {
 				d.runSubtask(func() {
 					err := sendMailFunc(user.Email,
+						fmt.Sprintf(`#%d`, prop.Id),
 						fmt.Sprintf("%s/realtor/property/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
 					)
 					L.IsError(err, sendMailName)
@@ -310,6 +307,10 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 				out.AddTrace(`failFindRealtor:` + I.UToS(user.Id))
 				// continue anyway if failed to send email
 			}
+		}
+
+		if in.Pager.Page == 0 {
+			break
 		}
 
 		fallthrough

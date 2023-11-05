@@ -30,6 +30,7 @@ rsync --delete -a \
   --include='*.html' \
   --include='*.css' \
   ../svelte/ svelte &&
-cp ../.env.override . &&
 upx $BIN_NAME &&
 rsync -avz --progress . $SERVER:/home/street
+
+# cp ../.env.override . &&
