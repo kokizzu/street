@@ -799,9 +799,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     mod
   ));
 
-  // node_modules/axios/dist/browser/axios.cjs
+  // node_modules/.pnpm/axios@1.4.0/node_modules/axios/dist/browser/axios.cjs
   var require_axios = __commonJS({
-    "node_modules/axios/dist/browser/axios.cjs"(exports, module) {
+    "node_modules/.pnpm/axios@1.4.0/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
       "use strict";
       function bind(fn, thisArg) {
         return function wrap() {
@@ -1026,9 +1026,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         const descriptors2 = Object.getOwnPropertyDescriptors(obj);
         const reducedDescriptors = {};
         forEach(descriptors2, (descriptor, name) => {
-          let ret;
-          if ((ret = reducer(descriptor, name, obj)) !== false) {
-            reducedDescriptors[name] = ret || descriptor;
+          if (reducer(descriptor, name, obj) !== false) {
+            reducedDescriptors[name] = descriptor;
           }
         });
         Object.defineProperties(obj, reducedDescriptors);
@@ -1553,6 +1552,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         return null;
       }
+      var DEFAULT_CONTENT_TYPE = {
+        "Content-Type": void 0
+      };
       function stringifySafely(rawValue, parser, encoder) {
         if (utils.isString(rawValue)) {
           try {
@@ -1568,7 +1570,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       }
       var defaults = {
         transitional: transitionalDefaults,
-        adapter: platform.isNode ? "http" : "xhr",
+        adapter: ["xhr", "http"],
         transformRequest: [function transformRequest(data, headers) {
           const contentType = headers.getContentType() || "";
           const hasJSONContentType = contentType.indexOf("application/json") > -1;
@@ -1651,13 +1653,15 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         },
         headers: {
           common: {
-            "Accept": "application/json, text/plain, */*",
-            "Content-Type": void 0
+            "Accept": "application/json, text/plain, */*"
           }
         }
       };
-      utils.forEach(["delete", "get", "head", "post", "put", "patch"], (method) => {
+      utils.forEach(["delete", "get", "head"], function forEachMethodNoData(method) {
         defaults.headers[method] = {};
+      });
+      utils.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
+        defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
       });
       var defaults$1 = defaults;
       var ignoreDuplicateOf = utils.toObjectSet([
@@ -1908,15 +1912,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
       };
       AxiosHeaders.accessor(["Content-Type", "Content-Length", "Accept", "Accept-Encoding", "User-Agent", "Authorization"]);
-      utils.reduceDescriptors(AxiosHeaders.prototype, ({ value }, key) => {
-        let mapped = key[0].toUpperCase() + key.slice(1);
-        return {
-          get: () => value,
-          set(headerValue) {
-            this[mapped] = headerValue;
-          }
-        };
-      });
+      utils.freezeMethods(AxiosHeaders.prototype);
       utils.freezeMethods(AxiosHeaders);
       var AxiosHeaders$1 = AxiosHeaders;
       function transformData(fns, response) {
@@ -2412,7 +2408,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         });
         return config;
       }
-      var VERSION2 = "1.5.0";
+      var VERSION2 = "1.4.0";
       var validators$1 = {};
       ["object", "boolean", "number", "function", "string", "symbol"].forEach((type, i) => {
         validators$1[type] = function validator2(thing) {
@@ -2515,11 +2511,12 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             }
           }
           config.method = (config.method || this.defaults.method || "get").toLowerCase();
-          let contextHeaders = headers && utils.merge(
+          let contextHeaders;
+          contextHeaders = headers && utils.merge(
             headers.common,
             headers[config.method]
           );
-          headers && utils.forEach(
+          contextHeaders && utils.forEach(
             ["delete", "get", "head", "post", "put", "patch", "common"],
             (method) => {
               delete headers[method];
@@ -2802,7 +2799,6 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       axios.mergeConfig = mergeConfig;
       axios.AxiosHeaders = AxiosHeaders$1;
       axios.formToJSON = (thing) => formDataToJSON(utils.isHTMLForm(thing) ? new FormData(thing) : thing);
-      axios.getAdapter = adapters.getAdapter;
       axios.HttpStatusCode = HttpStatusCode$1;
       axios.default = axios;
       module.exports = axios;
@@ -3015,7 +3011,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     }
   });
 
-  // node_modules/svelte/src/runtime/internal/utils.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
   function assign(tar, src) {
@@ -3075,13 +3071,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     return ret;
   }
 
-  // node_modules/svelte/src/runtime/internal/globals.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
     // @ts-ignore Node typings have this
     global
   );
 
-  // node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
   var ResizeObserverSingleton = class {
     /**
      * @private
@@ -3127,7 +3123,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   };
   ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
 
-  // node_modules/svelte/src/runtime/internal/dom.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/dom.js
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -3234,7 +3230,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     return result;
   }
 
-  // node_modules/svelte/src/runtime/internal/lifecycle.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/lifecycle.js
   var current_component;
   function set_current_component(component) {
     current_component = component;
@@ -3248,7 +3244,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     get_current_component().$.on_mount.push(fn);
   }
 
-  // node_modules/svelte/src/runtime/internal/scheduler.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -3323,7 +3319,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     render_callbacks = filtered;
   }
 
-  // node_modules/svelte/src/runtime/internal/transitions.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   var outros;
   function group_outros() {
@@ -3365,12 +3361,12 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     }
   }
 
-  // node_modules/svelte/src/runtime/internal/each.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/each.js
   function ensure_array_like(array_like_or_iterator) {
     return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
 
-  // node_modules/svelte/src/runtime/internal/spread.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/spread.js
   function get_spread_update(levels, updates) {
     const update2 = {};
     const to_null_out = {};
@@ -3404,7 +3400,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     return update2;
   }
 
-  // node_modules/svelte/src/shared/boolean_attributes.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/boolean_attributes.js
   var _boolean_attributes = (
     /** @type {const} */
     [
@@ -3437,7 +3433,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
-  // node_modules/svelte/src/runtime/internal/Component.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/Component.js
   function create_component(block) {
     block && block.c();
   }
@@ -3473,7 +3469,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance8, create_fragment8, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance8, create_fragment8, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3646,7 +3642,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
                   "toAttribute"
                 );
                 if (attribute_value == null) {
-                  this.removeAttribute(key);
+                  this.removeAttribute(this.$p_d[key].attribute || key);
                 } else {
                   this.setAttribute(this.$p_d[key].attribute || key, attribute_value);
                 }
@@ -3774,17 +3770,17 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     }
   };
 
-  // node_modules/svelte/src/shared/version.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/version.js
   var PUBLIC_VERSION = "4";
 
-  // node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/disclose-version/index.js
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
   // _components/Menu.svelte
   var import_jsApi_GEN = __toESM(require_jsApi_GEN());
 
-  // node_modules/svelte/src/runtime/store/index.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/store/index.js
   var subscriber_queue = [];
   function writable(value, start = noop) {
     let stop;
@@ -5190,7 +5186,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
       },
       p(ctx2, [dirty]) {
-        if (dirty & /*Object, langOptions*/
+        if (dirty & /*Object*/
         0) {
           each_value = ensure_array_like(Object.values(langOptions));
           let i;
@@ -5209,7 +5205,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           }
           each_blocks.length = each_value.length;
         }
-        if (dirty & /*selectedLanguage, Object, langOptions*/
+        if (dirty & /*selectedLanguage, Object*/
         1) {
           select_option(
             select,
@@ -6215,7 +6211,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*FaSolidImage, propItem*/
+        if (dirty & /*propItem*/
         2) {
           each_value_1 = ensure_array_like(
             /*propItem*/
@@ -6629,7 +6625,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*localeDatetime, propHistories, formatPrice*/
+        if (dirty & /*propHistories*/
         1) {
           each_value = ensure_array_like(
             /*propHistories*/
@@ -7186,7 +7182,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             if_block1.m(div12, t28);
           }
         }
-        if (dirty & /*meta, localeDatetime, propItem, isAdmin*/
+        if (dirty & /*meta, propItem, isAdmin*/
         14) {
           each_value_3 = ensure_array_like(
             /*meta*/
