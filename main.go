@@ -64,9 +64,9 @@ func main() {
 	// mailer
 	var mailer xMailer.Mailer
 	eg.Go(func() error {
-		mailerCfg := conf.EnvMailer()
-		fmt.Println(`mailer: ` + mailerCfg.DefaultMailer)
-		switch mailerCfg.DefaultMailer {
+		mailer.Conf = conf.EnvMailer()
+		fmt.Println(`mailer: ` + mailer.Conf.DefaultMailer)
+		switch mailer.Conf.DefaultMailer {
 		case `sendgrid`:
 			sg := &xMailer.Sengrid{SendgridConf: conf.EnvSendgrid()}
 			L.PanicIf(sg.Connect(), `Sengrid.Connect`)
@@ -79,10 +79,12 @@ func main() {
 			dms := xMailer.Dockermailserver{DockermailserverConf: conf.EnvDockermailserver()}
 			L.PanicIf(dms.Connect(), `Dockermailserver.Connect`)
 			mailer.SendMailFunc = dms.SendEmail
-		default: // use mailhog
+		case `mailhog`:
 			mh, err := xMailer.NewMailhog(conf.EnvMailhog())
 			L.PanicIf(err, `NewMailhog`)
 			mailer.SendMailFunc = mh.SendEmail
+		default:
+			L.Panic(`unknown DefaultMailer`)
 		}
 		return nil
 	})

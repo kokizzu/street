@@ -12,6 +12,7 @@ import (
 type SendMailFunc func(toEmailName map[string]string, subject, text, html string) error
 
 type Mailer struct {
+	Conf         conf.MailerConf
 	SendMailFunc SendMailFunc
 }
 
