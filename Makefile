@@ -7,7 +7,6 @@ setup:
 	go install github.com/akbarfa49/farify@latest
 	go install golang.org/x/tools/cmd/goimports@latest
 	curl -fsSL https://bun.sh/install | bash
-	curl -fsSL https://get.pnpm.io/install.sh | bash -
 
 local-tarantool:
 	docker exec -it street-tarantool1-1 tarantoolctl connect userT:passT@127.0.0.1:3301
