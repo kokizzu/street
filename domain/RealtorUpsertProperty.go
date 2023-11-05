@@ -82,7 +82,9 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 		mProperty.ApprovalState:      true,
 	}, M.SB{}) // TODO: add list of fields to exclude
 
-	prop.SetApprovalState(mProperty.ApprovalStatePending)
+	if prop.Id == 0 || prop.ApprovalState == `` { // new property or previously accepted
+		prop.SetApprovalState(mProperty.ApprovalStatePending)
+	}
 	prop.SetUpdatedAt(in.UnixNow())
 	prop.SetUpdatedBy(sess.UserId)
 	if prop.Id == 0 {
