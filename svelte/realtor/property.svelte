@@ -5,12 +5,21 @@
   import Footer from '../_components/Footer.svelte';
   import CreateProperty from "../_components/CreateProperty.svelte";
   import EditProperty from "../_components/EditProperty.svelte";
+    import { onMount } from 'svelte';
   
   // Use property from backend if backend is ready
   let property = {/* property */};
   let user = {/* user */};
   let segments = {/* segments */}
   let countries = [/* countries */];
+
+  let isAdmin = false;
+
+  onMount(() => {
+    console.log('User = ', user);
+    console.log('Segments = ', segments);
+    if (segments.admin === true) isAdmin = true;
+  })
 </script>
 
 <svelte:head>
@@ -45,7 +54,7 @@
   <div class='dashboard_main_content'>
     <ProfileHeader></ProfileHeader>
     {#if property.id}
-      <EditProperty {property} {countries} />
+      <EditProperty {property} {countries} {isAdmin} />
     {:else}
       <CreateProperty {property} {user} {countries}/>
     {/if}

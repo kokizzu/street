@@ -58,7 +58,7 @@ func (m *Mailer) SendNotifCreatePropertyEmail(email, ownedPropertyUrl string) er
 	}
 	return m.SendMailFunc(
 		map[string]string{email: ``},
-		`Create/Update Property`,
+		`Create Property`,
 		`Hi `+email+`,
 
 Your property has been created, click this link to see your property: 

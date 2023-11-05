@@ -99,7 +99,7 @@
 				<p>Beds</p>
 			</div>
 			<div class='feature_item'>
-				{#if propItem.countryCode==='TW'}
+				{#if propItem.countryCode==='TW' || propItem.countryCode===''}
 					<b>{M2ToPing( propItem.sizeM2 || 0 )} Ping</b>
 				{:else}
 					<b>{propItem.sizeM2 || '0'} M2</b>

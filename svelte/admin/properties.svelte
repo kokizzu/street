@@ -59,7 +59,6 @@
           },
           function( res ) {
             if( res.error ) alert( res.error );
-            refreshTableView( pager );
           } );
       },
     },
@@ -78,7 +77,6 @@
           property: {id: id, approvalState: reason},
         }, function( res ) {
           if( res.error ) alert( res.error );
-          refreshTableView( pager );
         } );
       },
     },
