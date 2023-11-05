@@ -277,10 +277,8 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		prop.Adapter = nil
 		out.Property = &prop.Property
 
-		var sendMailFunc func(email, number, link string) error
+		var sendMailFunc func(email, number, lang, link string) error
 		var sendMailName string
-
-		L.Print(newState, oldState)
 
 		if newState == `` && oldState != `` {
 			out.AddTrace(`state:accepted`)
@@ -299,6 +297,7 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 				d.runSubtask(func() {
 					err := sendMailFunc(user.Email,
 						fmt.Sprintf(`#%d`, prop.Id),
+						user.Language,
 						fmt.Sprintf("%s/realtor/property/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
 					)
 					L.IsError(err, sendMailName)
