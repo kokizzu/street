@@ -40,7 +40,7 @@
       district: '',
       street: '',
       street2: '',
-      floors: 0,
+      floors: 1,
       formattedAddress: '',
       coord: [defaultLat, defaultLng],
       altitude: 0,
@@ -78,8 +78,7 @@
       city: property.city,
       countyName: property.countyName,
       district: property.district,
-      street: property.street,
-      street2: property.street2 || '',
+      street: property.street + "\n" + (property.street2 || ''),
       livingroom: property.livingroom,
       parking: parseFloat( property.parking ),
       depositFee: property.depositFee,
@@ -291,6 +290,7 @@
   
   const handleNextLocation = {
     'LOC_ADDR': async () => {
+			console.log('property=',property)
       if( property.city==='' || property.street==='' ) {
         alert( 'Please fill required form' );
         return;
@@ -551,18 +551,13 @@
 									<label for='country'>Country or Region <span class='asterisk'>*</span></label>
 									<select id='country' name='country' bind:value={property.countryCode} on:change={changeCurrency}>
 										{#each countries as country}
-											<option value={country.iso_2}>{country.country}</option>
+											<option value={country.iso_2}>{country.iso_2} {country.country}</option>
 										{/each}
 									</select>
 								</div>
 								<div class='input_box'>
 									<label for='city_county'>City or County <span class='asterisk'>*</span></label>
-									{#if property.countryCode==='US'}
-										<input id='city_county' type='text' placeholder='Required' bind:value={property.countyName}/>
-									{/if}
-									{#if property.countryCode!=='US'}
-										<input id='city_county' type='text' placeholder='Required' bind:value={property.city}/>
-									{/if}
+									<input id='city_county' type='text' placeholder='Required' bind:value={property.city}/>
 								</div>
 							</div>
 							<div class='row'>
@@ -613,15 +608,15 @@
 									<input id='altitude' type='number' min='0' step='0.1' placeholder='Required' bind:value={property.altitude}/>
 								</div>
 							</div>
-              <span>or select on 3d view below if tilemap available for your region</span>
-              <div class='streetview_container'>
-                <StreetView
-                  bind:elevation={property.altitude}
-                  bind:resolution={property.resolution}
-                  bind:lat={property.coord[0]}
-                  bind:lng={property.coord[1]}
-                />
-              </div>
+<!--              <span>or select on 3d view below if tilemap available for your region</span>-->
+<!--              <div class='streetview_container'>-->
+<!--                <StreetView-->
+<!--                  bind:elevation={property.altitude}-->
+<!--                  bind:resolution={property.resolution}-->
+<!--                  bind:lat={property.coord[0]}-->
+<!--                  bind:lng={property.coord[1]}-->
+<!--                />-->
+<!--              </div>-->
 						</div>
 					{/if}
 				</div>

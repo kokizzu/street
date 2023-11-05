@@ -120,7 +120,7 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 	// Get satisfied property with expected condition
 	satisfiedProperties := make([]Property, 0, in.Limit)
 
-	ok := prop.FindByLatLong(in.CenterLat, in.CenterLong, in.Limit, in.Offset, func(row []any) bool {
+	ok := prop.FindByLatLongAndCountry(d.PropOltp, sess.Country, in.CenterLat, in.CenterLong, in.Limit, in.Offset, func(row []any) bool {
 		item := Property{Property: &rqProperty.Property{}}
 		item.FromArray(row)
 		if item.DeletedAt > 0 { // skip deleted property

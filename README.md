@@ -51,7 +51,7 @@ docker compose up # or docker-compose up
 
 # start frontend auto build 
 cd svelte
-npm install 
+pnpm install 
 bun watch 
 
 # do migration (first time, or everytime tarantool/clickhouse docker deleted, 
