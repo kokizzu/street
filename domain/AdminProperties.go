@@ -284,7 +284,7 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 			out.AddTrace(`state:accepted`)
 			sendMailFunc = d.Mailer.SendNotifPropertyAcceptedEmail
 			sendMailName = `SendNotifPropertyAcceptedEmail`
-		} else if newState != `pending` {
+		} else if newState != mProperty.ApprovalStatePending {
 			out.AddTrace(`state:rejected`)
 			sendMailFunc = d.Mailer.SendNotifPropertyRejectedEmail
 			sendMailName = `SendNotifPropertyRejectedEmail`

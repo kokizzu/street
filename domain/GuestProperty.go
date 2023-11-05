@@ -118,7 +118,7 @@ func (d *Domain) GuestProperty(in *GuestPropertyIn) (out GuestPropertyOut) {
 		return
 	}
 
-	if r.ApprovalState != `pending` && r.ApprovalState != `` {
+	if r.ApprovalState != mProperty.ApprovalStatePending && r.ApprovalState != `` {
 		out.SetError(400, ErrGuestPropertyNotFound)
 		return
 	}
