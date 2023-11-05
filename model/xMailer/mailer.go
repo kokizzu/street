@@ -131,3 +131,23 @@ please correct or input the missing info and submitted again.
 		fmt.Sprintf(htmlFromText(text), anchor(link)),
 	)
 }
+
+func (m *Mailer) SendPendingPropertyReviewToAdmin(propertyUrl, propertyId, prevReview string) error {
+	email := m.Conf.ReplyToEmail
+	if conf.IsDebug() {
+		L.Print(`SendPendingPropertyReviewToAdmin`, email, propertyUrl)
+	}
+	text := `Hi ` + email + `, 
+
+Property with id #` + propertyId + ` requested for review: 
+
+  %s
+
+` + prevReview
+	return m.SendMailFunc(
+		map[string]string{email: ``},
+		`Review Property #`+propertyId,
+		fmt.Sprintf(text, propertyUrl),
+		fmt.Sprintf(htmlFromText(text), anchor(propertyUrl)),
+	)
+}

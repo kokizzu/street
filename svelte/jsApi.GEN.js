@@ -1980,6 +1980,7 @@ exports.RealtorProperty = async function RealtorProperty( i, cb ) {
 
 /**
  * @typedef {Object} RealtorUpsertPropertyIn
+ * @property {Object} askReview
  * @property {number} property.id
  * @property {String} property.uniqPropKey
  * @property {String} property.serialNumber
@@ -2030,6 +2031,7 @@ exports.RealtorProperty = async function RealtorProperty( i, cb ) {
  * @property {Object} property.imageLabels
  */
 const RealtorUpsertPropertyIn = {
+  askReview: false, // bool
   property: { // rqProperty.Property
     id: 0, // uint64
     uniqPropKey: '', // string
@@ -2430,7 +2432,7 @@ const UserNearbyFacilitiesOut = {
  * @returns {Promise}
  */
 exports.UserNearbyFacilities = async function UserNearbyFacilities( i, cb ) {
-  return await axios.post( '/user/nearbyFacilitites', i ).
+  return await axios.post( '/user/nearbyFacilities', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -2709,6 +2711,45 @@ const UserSearchPropOut = {
  */
 exports.UserSearchProp = async function UserSearchProp( i, cb ) {
   return await axios.post( '/user/searchProp', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserSearchPropUSIn
+ * @property {number} centerLat
+ * @property {number} centerLong
+ * @property {number} offset
+ * @property {number} limit
+ * @property {number} maxDistanceKM
+ */
+const UserSearchPropUSIn = {
+  centerLat: 0, // float64
+  centerLong: 0, // float64
+  offset: 0, // int
+  limit: 0, // int
+  maxDistanceKM: 0, // float64
+}
+/**
+ * @typedef {Object} UserSearchPropUSOut
+ * @property {Object} properties
+ */
+const UserSearchPropUSOut = {
+  properties: { // []PropertyUS
+  }, // []PropertyUS
+}
+/**
+ * @callback UserSearchPropUSCallback
+ * @param {UserSearchPropUSOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserSearchPropUSIn} i
+ * @param {UserSearchPropUSCallback} cb
+ * @returns {Promise}
+ */
+exports.UserSearchPropUS = async function UserSearchPropUS( i, cb ) {
+  return await axios.post( '/user/searchProp/US', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

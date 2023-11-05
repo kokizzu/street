@@ -7,7 +7,7 @@
   import FaSolidImage from 'svelte-icons-pack/fa/FaSolidImage';
   import FaSolidPen from 'svelte-icons-pack/fa/FaSolidPen';
   import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
-  import { formatPrice } from './formatter';
+  import { formatPrice, getApprovalState } from './formatter';
   import FaSolidBed from 'svelte-icons-pack/fa/FaSolidBed';
   import FaSolidBath from 'svelte-icons-pack/fa/FaSolidBath';
   import FaSolidChair from 'svelte-icons-pack/fa/FaSolidChair';
@@ -20,6 +20,7 @@
   import FaCheckCircle from 'svelte-icons-pack/fa/FaCheckCircle';
   import AddOtherFeesDialog from './AddOtherFeesDialog.svelte';
   
+  export let isOwner = false;
   export let property;
   export let countries;
   export let isAdmin = false;
@@ -27,15 +28,10 @@
   let approvalStatus = 'approved';
   let submitLoading = false;
   let countryCurrency = 'TWD';
+
   onMount( () => {
     console.log( 'Property = ', property );
-    if( property.approvalState!=='pending' && property.approvalState!=='' ) {
-      approvalStatus = 'rejected';
-    }
-    if( property.approvalState==='pending' ) {
-      approvalStatus = 'pending';
-    }
-    
+    approvalStatus = getApprovalState( property.approvalState );
     for( let i = 0; i<countries.length; i++ ) {
       if( countries[ i ].iso_2===property.countryCode ) {
         countryCurrency = countries[ i ].currency.code;
@@ -290,6 +286,21 @@
         console.log( res );
       } );
   }
+
+  function ReviewProperty() {
+    RealtorUpsertProperty( {
+      askReview: true,
+      property: property
+    },
+    function(res) {
+      if(res.error) {
+        console.log(res);
+        return
+      }
+      console.log(res)
+    }
+    )
+  }
 </script>
 
 <div class='edit_property_root'>
@@ -331,6 +342,11 @@
             <p class:text_danger={approvalStatus === 'rejected'}>{approvalStates[ approvalStatus ].reason}</p>
           </div>
         {/if}
+        {#if isOwner && approvalStatus!==''}
+            <button class='edit_btn' on:click={ReviewProperty}>
+              Review again
+            </button>
+        {/if}
         {#if isAdmin}
           <div class='action_btns'>
             {#if approvalStatus==='pending' || approvalStatus==='rejected'}
@@ -364,10 +380,12 @@
             </div>
           {/if}
         </div>
+        {#if isOwner}
         <button class='edit_btn' on:click={() => PART_TO_EDIT = EDIT_PICTURE}>
           <Icon color='#FFF' size={10} src={FaSolidPen} />
           <span>Edit</span>
         </button>
+        {/if}
       </div>
       <div class='main_details'>
         <div class='col1'>
@@ -387,10 +405,12 @@
             </div>
           </div>
           <div class='right'>
+            {#if isOwner}
             <button class='edit_btn' on:click={() => PART_TO_EDIT = EDIT_FEATURE}>
               <Icon color='#FFF' size={10} src={FaSolidPen} />
               <span>Edit</span>
             </button>
+            {/if}
           </div>
         </div>
         <div class='col2'>
@@ -432,10 +452,12 @@
         <div class='facility'>
           <div class='upper'>
             <h3>Facility</h3>
+            {#if isOwner}
             <button class='edit_btn' on:click={() => PART_TO_EDIT = EDIT_FACILITY}>
               <Icon color='#FFF' size={10} src={FaSolidPen} />
               <span>Edit</span>
             </button>
+            {/if}
           </div>
           <p>
             {property.mainUse || '--'}
@@ -444,10 +466,12 @@
         <div class='about'>
           <div class='upper'>
             <h3>About</h3>
+            {#if isOwner}
             <button class='edit_btn' on:click={() => PART_TO_EDIT = EDIT_ABOUT}>
               <Icon color='#FFF' size={10} src={FaSolidPen} />
               <span>Edit</span>
             </button>
+            {/if}
           </div>
           <p>
             {property.note || '--'}
@@ -456,10 +480,12 @@
         <div class='parking'>
           <div class='upper'>
             <h3>Parking</h3>
+            {#if isOwner}
             <button class='edit_btn'>
               <Icon color='#FFF' size={10} src={FaSolidPen} />
               <span>Edit</span>
             </button>
+            {/if}
           </div>
           <div class='details'>
             <span>Parking</span>
@@ -470,10 +496,12 @@
       <div class='floors'>
         <div class='upper'>
           <h1>Floors</h1>
+          {#if isOwner}
           <button class='edit_btn'>
             <Icon color='#FFF' size={10} src={FaSolidPen} />
             <span>Edit</span>
           </button>
+          {/if}
         </div>
         <div class='floor_lists'>
           <div class='floor_item'>
@@ -1149,7 +1177,7 @@
     font-weight   : bold;
   }
 
-  .edit_property_container .property_status .reason .action_btns {
+  .edit_property_container .property_status .action_btns {
     display        : flex;
     flex-direction : row;
     align-items    : center;
