@@ -286,44 +286,20 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 				`error`: out.Error,
 			})
 		}
-		return views.RenderRealtorProperty(ctx, M.SX{
-			`title`:     `Realtor Property`,
-			`segments`:  segments,
-			`user`:      user,
-			`property`:  out.Property,
-			`countries`: conf.CountriesData,
-		})
-	})
-	fw.Get(`/realtor/ownedProperty/:propId`, func(ctx *fiber.Ctx) error {
-		// edit property
-		in, _, segments := userInfoFromContext(ctx, d)
-		in.RequestCommon.Action = domain.RealtorPropertyAction
-		if notLogin(ctx, d, in.RequestCommon) {
-			return ctx.Redirect(`/`, 302)
-		}
-		propId := S.ToU(ctx.Params(`propId`))
-		out := d.GuestProperty(&domain.GuestPropertyIn{
-			RequestCommon: in.RequestCommon,
-			Id:            propId,
-		})
-		if out.Error != `` {
-			L.Print(out.Error)
-			return views.RenderError(ctx, M.SX{
-				`error`: out.Error,
-			})
-		}
-
 		title := `Property #` + X.ToS(out.Property.Id)
-		if out.Property.Address != `` {
+		if out.Property.Id == 0 {
+			title = `Create a new property`
+		} else if out.Property.Address != `` {
 			title += ` on ` + out.Property.Address
 		} else if out.Property.FormattedAddress != `` {
 			title += ` on ` + out.Property.FormattedAddress
 		}
-		return views.RenderRealtorOwnedProperty(ctx, M.SX{
-			`title`:        title,
-			`segments`:     segments,
-			`property`:     out.Property,
-			`propertyMeta`: out.Meta,
+		return views.RenderRealtorProperty(ctx, M.SX{
+			`title`:     title,
+			`segments`:  segments,
+			`user`:      user,
+			`property`:  out.Property,
+			`countries`: conf.CountriesData,
 		})
 	})
 	fw.Get(`/admin`, func(ctx *fiber.Ctx) error {

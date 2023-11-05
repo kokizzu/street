@@ -281,10 +281,14 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		var sendMailFunc func(email, link string) error
 		var sendMailName string
 
+		L.Print(newState, oldState)
+
 		if newState == `` && oldState != `` {
+			out.AddTrace(`state:accepted`)
 			sendMailFunc = d.Mailer.SendNotifPropertyAcceptedEmail
 			sendMailName = `SendNotifPropertyAcceptedEmail`
-		} else if newState != `` && oldState != `` {
+		} else if newState != `pending` {
+			out.AddTrace(`state:rejected`)
 			sendMailFunc = d.Mailer.SendNotifPropertyRejectedEmail
 			sendMailName = `SendNotifPropertyRejectedEmail`
 		}
@@ -295,7 +299,7 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 			if user.FindById() {
 				d.runSubtask(func() {
 					err := sendMailFunc(user.Email,
-						fmt.Sprintf("%s/realtor/ownedProperty/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
+						fmt.Sprintf("%s/realtor/property/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
 					)
 					L.IsError(err, sendMailName)
 				})

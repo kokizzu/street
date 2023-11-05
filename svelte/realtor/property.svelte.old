@@ -717,7 +717,7 @@
   }
   
   function seeProperty() {
-    window.location.href = `/realtor/ownedProperty/${res_propId}`
+    window.location.href = `/realtor/property/${res_propId}`
   }
 </script>
 

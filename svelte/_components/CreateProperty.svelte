@@ -1029,7 +1029,9 @@
 						</div>
 						<div class='actions'>
 							<button class='new' on:click={() =>{window.location.href = "/realtor/property"}}>Create New one</button>
-							<button class='see' on:click={() => {window.location.href = `/realtor/ownedProperty/${res_propId}`}}>See the property</button>
+							<button class='see' on:click={() => {window.location.href = `/realtor/property/${res_propId}`}}>Edit the property</button>
+							<button class='see' on:click={() => {window.location.href = `/guest/property/${res_propId}`}}>See the property as guest</button>
+							<button class='see' on:click={() => {window.location.href = `/user/property/${res_propId}`}}>See the property as logged in user</button>
 						</div>
 					</div>
 				{/if}

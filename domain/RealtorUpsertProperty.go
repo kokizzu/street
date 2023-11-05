@@ -106,7 +106,7 @@ func (d *Domain) RealtorUpsertProperty(in *RealtorUpsertPropertyIn) (out Realtor
 		if in.Property.Id == 0 {
 			// Get user email, send message to their email
 			err := d.Mailer.SendNotifCreatePropertyEmail(sess.Email,
-				fmt.Sprintf("%s/realtor/ownedProperty/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
+				fmt.Sprintf("%s/realtor/property/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
 			)
 			L.IsError(err, `SendNotifAddPropertyEmail`)
 		}
