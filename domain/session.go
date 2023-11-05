@@ -29,6 +29,8 @@ type Session struct {
 	ExpiredAt int64 // in seconds
 	Email     string
 
+	Country string
+
 	// not saved but retrieved from SUPERADMIN_EMAILS env
 	IsSuperAdmin bool
 
@@ -191,6 +193,8 @@ const (
 	ErrSegmentNotAllowed = `session segment not allowed`
 
 	ErrSessionUserNotSuperAdmin = `session email is not superadmin`
+
+	UserNotFound = `User not found`
 )
 
 func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session) {
@@ -217,6 +221,16 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 
 	session := rqAuth.NewSessions(d.AuthOltp)
 	session.SessionToken = in.SessionToken
+
+	loggedUser := rqAuth.NewUsers(d.AuthOltp)
+	loggedUser.Id = sess.UserId
+	if !loggedUser.FindById() {
+		out.SetError(400, UserNotFound)
+		return nil
+	}
+
+	sess.Country = loggedUser.Country
+
 	if !session.FindBySessionToken() {
 		out.SetError(498, ErrSessionTokenNotFound)
 		return nil

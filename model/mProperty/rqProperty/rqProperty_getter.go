@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/kokizzu/gotro/A"
+	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
@@ -205,6 +206,31 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 
 func (p *Property) FindByLatLong(lat float64, long float64, limit int, offset int, callback func(row []any) bool) bool {
 	const prefix = `Property) FindByLatLong`
+	p.Coord = []any{lat, long}
+	res, err := p.Adapter.Select(p.SpaceName(), p.SpatialIndexCoord(), uint32(offset), uint32(limit), tarantool.IterNeighbor, p.Coord)
+	if L.IsError(err, prefix+` failed: `+p.SpaceName()) {
+		return false
+	}
+	for _, row := range res.Tuples() {
+		if !callback(row) {
+			break
+		}
+	}
+	return true
+}
+
+func (p *Property) FindByLatLongAndCountry(propAdapter *Tt.Adapter, countryCode string, lat float64, long float64, limit int, offset int, callback func(row []any) bool) bool {
+
+	// Default is taiwan property data
+	prefix := `Property) FindByLatLongAndCountry`
+
+	// Switch case if the country code is US
+	if countryCode == "US" {
+		prefix = `PropertyUS) FindByLatLong`
+		prop := NewPropertyUS(propAdapter)
+		return prop.FindPropUSByLatLong(lat, long, limit, offset, callback)
+	}
+
 	p.Coord = []any{lat, long}
 	res, err := p.Adapter.Select(p.SpaceName(), p.SpatialIndexCoord(), uint32(offset), uint32(limit), tarantool.IterNeighbor, p.Coord)
 	if L.IsError(err, prefix+` failed: `+p.SpaceName()) {
