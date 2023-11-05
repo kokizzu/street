@@ -3,6 +3,7 @@ package domain
 import (
 	"fmt"
 
+	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 
@@ -232,7 +233,6 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
 		prop := wcProperty.NewPropertyMutator(d.PropOltp)
 		prop.Id = in.Property.Id
-		user := rqAuth.NewUsers(d.AuthOltp)
 		if prop.Id > 0 {
 			if !prop.FindById() {
 				out.SetError(400, ErrAdminPropertyIdNotFound)
@@ -278,20 +278,31 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 			break
 		}
 
+		var sendMailFunc func(email, link string) error
+		var sendMailName string
+
 		if newState == `` && oldState != `` {
-			d.runSubtask(func() {
-				err := d.Mailer.SendNotifPropertyAcceptedEmail(user.Email,
-					fmt.Sprintf("%s/realtor/ownedProperty/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
-				)
-				L.IsError(err, `SendNotifPropertyAcceptedEmail`)
-			})
+			sendMailFunc = d.Mailer.SendNotifPropertyAcceptedEmail
+			sendMailName = `SendNotifPropertyAcceptedEmail`
 		} else if newState != `` && oldState != `` {
-			d.runSubtask(func() {
-				err := d.Mailer.SendNotifPropertyRejectedEmail(user.Email,
-					fmt.Sprintf("%s/realtor/ownedProperty/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
-				)
-				L.IsError(err, `SendNotifPropertyRejectedEmail`)
-			})
+			sendMailFunc = d.Mailer.SendNotifPropertyRejectedEmail
+			sendMailName = `SendNotifPropertyRejectedEmail`
+		}
+
+		if sendMailFunc != nil {
+			user := rqAuth.NewUsers(d.AuthOltp)
+			user.Id = prop.CreatedBy
+			if user.FindById() {
+				d.runSubtask(func() {
+					err := sendMailFunc(user.Email,
+						fmt.Sprintf("%s/realtor/ownedProperty/%v", d.WebCfg.WebProtoDomain, in.Property.Id),
+					)
+					L.IsError(err, sendMailName)
+				})
+			} else {
+				out.AddTrace(`failFindRealtor:` + I.UToS(user.Id))
+				// continue anyway if failed to send email
+			}
 		}
 
 		fallthrough

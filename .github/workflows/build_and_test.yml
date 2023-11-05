@@ -1,0 +1,58 @@
+name: Build and Test
+'on':
+  workflow_dispatch: null
+  pull_request:
+    branches:
+      - master
+jobs:
+  Go-Setup:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Go
+        uses: actions/setup-go@v4
+      - run: |
+          make setup
+          go mod tidy
+      
+  Go-Build:
+    timeout-minutes: 10
+    needs: Go-Setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - run: go build -v ./...
+          
+  Go-Test:
+    timeout-minutes: 30
+    needs: Go-Setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Create .env.override
+        uses: 1arp/create-a-file-action@0.3
+        with:
+          file: '.env.override'
+      - run: go test -v ./...    
+          
+  Svelte-Test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - working-directory: ./svelte
+        run: |
+          npm install
+          node build.js
+        
+ 
+           

@@ -7,12 +7,23 @@
   import PillBox from './PillBox.svelte';
   import {localeDatetime} from './formatter';
   import {T} from './uiState.js';
+  import { onMount } from 'svelte';
   
   export let property;
   export let meta;
   let showMore = false;
   
   console.log('meta=',meta)
+
+  let approvalStatus = 'approved';
+  onMount(() => {
+    if( property.approvalState!=='pending' && property.approvalState!=='' ) {
+      approvalStatus = 'rejected';
+    }
+    if( property.approvalState==='pending' ) {
+      approvalStatus = 'pending'
+    }
+  })
   
   function handleShowMore() {
     showMore = !showMore;
@@ -40,6 +51,9 @@
 						<Icon color='#FFF' size={16} src={FaSolidHome}/>
 						<span>{property.houseType}</span>
 					</div>
+                    <div class={`approve_status ${approvalStatus}`}>
+                        {approvalStatus}
+                    </div>
 				</div>
 				<a class='edit_property' href='/realtor/property/{property.id}'>
 					<Icon color='#FFF' size={13} src={FaSolidPen}/>
@@ -87,47 +101,43 @@
 			{/if}
 		{/each}
 	</div>
+    {#if property.floorList && property.floorList.length}
 	<div class='property_floors'>
 		<h3>{$T.floors}</h3>
-		{#if property.floorList && property.floorList.length}
-			<div class='floor_lists'>
-				{#each property.floorList as floors}
-					<div class='floor_item'>
-						<div class='left'>
-							<h5>
-								{floors.type==='basement' ? $T.basement : `${$T.floorN}${floors.floor}`}
-							</h5>
-							<!-- TODO: currently room list only 1 object, fix Tarantool to accept array -->
-							{#if floors.rooms}
-								<div class='room_lists'>
-									{#each floors.rooms as room}
-										<div class='room_item'>
-											<span>{room.name || '-'}</span>
-											<span>{room.sizeM2 || '-'} M2</span>
-										</div>
-									{/each}
-								</div>
-							{/if}
-						</div>
-						<div class='floor_plan_image'>
-							{#if floors.planImageUrl===''}
-                        <span>
-                           <i class='gg-image'/>
-                           <p>No Image</p>
-                        </span>
-							{:else}
-								<img src={floors.planImageUrl} alt=''/>
-							{/if}
-						</div>
+		<div class='floor_lists'>
+			{#each property.floorList as floors}
+				<div class='floor_item'>
+					<div class='left'>
+						<h5>
+							{floors.type==='basement' ? $T.basement : `${$T.floorN}${floors.floor}`}
+						</h5>
+						<!-- TODO: currently room list only 1 object, fix Tarantool to accept array -->
+						{#if floors.rooms}
+							<div class='room_lists'>
+								{#each floors.rooms as room}
+									<div class='room_item'>
+										<span>{room.name || '-'}</span>
+										<span>{room.sizeM2 || '-'} M2</span>
+									</div>
+								{/each}
+							</div>
+						{/if}
 					</div>
-				{/each}
-			</div>
-		{:else}
-			<div class='no_floors'>
-				<p>No Floors</p>
-			</div>
-		{/if}
+					<div class='floor_plan_image'>
+						{#if floors.planImageUrl===''}
+                    <span>
+                       <i class='gg-image'/>
+                       <p>No Image</p>
+                    </span>
+						{:else}
+							<img src={floors.planImageUrl} alt=''/>
+						{/if}
+					</div>
+				</div>
+			{/each}
+		</div>
 	</div>
+    {/if}
 	<div class='property_less_more'>
 		<button class='toggle_show_more' on:click={handleShowMore}>
 			Show {showMore===true ? 'Less' : 'More'}
@@ -212,6 +222,29 @@
         display     : flex;
         gap         : 15px;
         align-items : center;
+    }
+
+    .property_main .property_info .col1 .left .approve_status {
+        padding          : 7px 18px;
+        border-radius    : 8px;
+        font-size        : 14px;
+        text-transform   : capitalize;
+        text-decoration  : none;
+    }
+
+    .property_main .property_info .col1 .left .approve_status.approved {
+        background-color : rgba(140, 216, 107, 1);
+        color            : #FFF;
+    }
+
+    .property_main .property_info .col1 .left .approve_status.pending {
+        background-color : rgba(255, 208, 118, 1);
+        color            : #475569;
+    }
+
+    .property_main .property_info .col1 .left .approve_status.rejected {
+        background-color : rgba(255, 126, 118, 1);
+        color            : #FFF;
     }
 
     .property_main .property_info .col1 .left .purpose,

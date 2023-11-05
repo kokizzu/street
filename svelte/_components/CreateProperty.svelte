@@ -613,6 +613,7 @@
 									<input id='altitude' type='number' min='0' step='0.1' placeholder='Required' bind:value={property.altitude}/>
 								</div>
 							</div>
+              <span>or select on 3d view below if tilemap available for your region</span>
               <div class='streetview_container'>
                 <StreetView
                   bind:elevation={property.altitude}
@@ -1370,7 +1371,7 @@
     .realtor_subpage_container section.location .location_streetview {
         display        : flex;
         flex-direction : column;
-        gap            : 40px;
+        gap            : 15px;
         flex-grow      : 1;
     }
 
@@ -1382,10 +1383,21 @@
         margin      : 0;
     }
 
+    .realtor_subpage_container section.location .location_streetview span {
+      font-weight: 600;
+      width: 80%;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
+
+    .streetview_container .input_box {
+      margin-top: 15px !important;
+    }
+
     .realtor_subpage_container section.location .location_streetview .streetview_container {
         flex-grow : 1;
         position  : relative;
-        width     : 60%;
+        width     : 80%;
         margin    : auto;
     }
 

@@ -2,9 +2,19 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>/*! title */</title>
-	<link rel="shortcut icon" href="/assets/favicons/favicon.ico">
-	<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#F97316">
+    <link rel="shortcut icon" href="/assets/favicons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="HapSTR">
+    <meta name="application-name" content="HapSTR">
+    <meta name="msapplication-TileColor" content="#F97316">
+    <meta name="msapplication-config" content="/assets/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#FFF">
+
 	<meta content="#{ogURL}" property="og:url">
 	<meta content="HapSTR" property="og:site_name">
 	<meta content="#{title}" property="og:title">
@@ -1715,7 +1725,7 @@
   };
 
   // _components/PillBox.svelte
-  function create_fragment3(ctx) {
+  function create_if_block(ctx) {
     let span2;
     let span0;
     let t0;
@@ -1748,7 +1758,7 @@
         append(span2, span1);
         append(span1, t2);
       },
-      p(ctx2, [dirty]) {
+      p(ctx2, dirty) {
         if (dirty & /*label*/
         1)
           set_data(
@@ -1764,12 +1774,55 @@
             ctx2[1]
           );
       },
-      i: noop,
-      o: noop,
       d(detaching) {
         if (detaching) {
           detach(span2);
         }
+      }
+    };
+  }
+  function create_fragment3(ctx) {
+    let if_block_anchor;
+    let if_block = (
+      /*content*/
+      ctx[1] !== "" && create_if_block(ctx)
+    );
+    return {
+      c() {
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, [dirty]) {
+        if (
+          /*content*/
+          ctx2[1] !== ""
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+          } else {
+            if_block = create_if_block(ctx2);
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          if_block.d(1);
+          if_block = null;
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
       }
     };
   }
@@ -2909,7 +2962,7 @@
       }
     };
   }
-  function create_if_block(ctx) {
+  function create_if_block2(ctx) {
     let div1;
     let h3;
     let t1;
@@ -3185,7 +3238,8 @@
     function select_block_type_1(ctx2, dirty) {
       if (
         /*propItem*/
-        ctx2[1].countryCode === "TW"
+        ctx2[1].countryCode === "TW" || /*propItem*/
+        ctx2[1].countryCode === ""
       )
         return create_if_block_8;
       return create_else_block_3;
@@ -3211,7 +3265,7 @@
     let if_block3 = (
       /*propHistories*/
       ctx[0] && /*propHistories*/
-      ctx[0].length && create_if_block(ctx)
+      ctx[0].length && create_if_block2(ctx)
     );
     return {
       c() {
@@ -3561,7 +3615,7 @@
           if (if_block3) {
             if_block3.p(ctx2, dirty);
           } else {
-            if_block3 = create_if_block(ctx2);
+            if_block3 = create_if_block2(ctx2);
             if_block3.c();
             if_block3.m(div16, null);
           }
