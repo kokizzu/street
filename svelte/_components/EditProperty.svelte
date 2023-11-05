@@ -466,41 +466,41 @@
           </div>
         </div>
       </div>
-      <div class='floors'>
-        <div class='upper'>
-          <h1>Floors</h1>
-          <button class='edit_btn'>
-            <Icon color='#FFF' size={10} src={FaSolidPen} />
-            <span>Edit</span>
-          </button>
-        </div>
-        <div class='floor_lists'>
-          <div class='floor_item'>
-            <h3>Floor #1</h3>
-            <div class='floor_details'>
-              <div class='room_lists'>
-                <div class='room'>
-                  <span>Bedroom #1</span>
-                  <span>122.1 sq ft</span>
-                </div>
-                <div class='room'>
-                  <span>Bedroom #1</span>
-                  <span>122.1 sq ft</span>
-                </div>
-                <div class='room'>
-                  <span>Bedroom #1</span>
-                  <span>122.1 sq ft</span>
-                </div>
-              </div>
-              <div class='floor_plan'>
-                <div class='img_container'>
-                  <img alt='floor_plan' src='/assets/img/realtor/floor-plan-pen-ruler.webp' />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+<!--      <div class='floors'>-->
+<!--        <div class='upper'>-->
+<!--          <h1>Floors</h1>-->
+<!--          <button class='edit_btn'>-->
+<!--            <Icon color='#FFF' size={10} src={FaSolidPen} />-->
+<!--            <span>Edit</span>-->
+<!--          </button>-->
+<!--        </div>-->
+<!--        <div class='floor_lists'>-->
+<!--          <div class='floor_item'>-->
+<!--            <h3>Floor #1</h3>-->
+<!--            <div class='floor_details'>-->
+<!--              <div class='room_lists'>-->
+<!--                <div class='room'>-->
+<!--                  <span>Bedroom #1</span>-->
+<!--                  <span>122.1 sq ft</span>-->
+<!--                </div>-->
+<!--                <div class='room'>-->
+<!--                  <span>Bedroom #1</span>-->
+<!--                  <span>122.1 sq ft</span>-->
+<!--                </div>-->
+<!--                <div class='room'>-->
+<!--                  <span>Bedroom #1</span>-->
+<!--                  <span>122.1 sq ft</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class='floor_plan'>-->
+<!--                <div class='img_container'>-->
+<!--                  <img alt='floor_plan' src='/assets/img/realtor/floor-plan-pen-ruler.webp' />-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
     {/if}
     <!-- Edit partials -->
     {#if PART_TO_EDIT===EDIT_PICTURE}
