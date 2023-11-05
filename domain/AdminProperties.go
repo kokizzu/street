@@ -6,6 +6,7 @@ import (
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/S"
 
 	"street/model/mAuth/rqAuth"
 	"street/model/mProperty"
@@ -253,7 +254,7 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		}
 
 		oldState := prop.ApprovalState
-		newState := in.Property.ApprovalState
+		newState := S.Trim(in.Property.ApprovalState)
 		haveMutation := prop.SetAll(in.Property, M.SB{
 			mProperty.PriceHistoriesSell: true,
 			mProperty.PriceHistoriesRent: true,
@@ -272,6 +273,8 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 			break
 		}
 
+		prop.NormalizeFloorList()
+		prop.Adapter = nil
 		out.Property = &prop.Property
 
 		if in.Pager.Page == 0 {

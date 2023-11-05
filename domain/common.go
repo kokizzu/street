@@ -142,6 +142,13 @@ func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon, 
 			ctx.Write(buffer.Bytes())
 		} else {
 			byt, err := json.Marshal(out)
+			if errors.Is(err, &json.UnsupportedTypeError{}) {
+				if conf.IsDebug() {
+					L.Describe(err)
+					panic(`forgot to convert map[any]any to map[string]any?`)
+					return err
+				}
+			}
 			if L.IsError(err, `json.Marshal: %#v`, out) {
 				spew.Dump(in)
 				spew.Dump(out)
