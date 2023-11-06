@@ -3187,13 +3187,19 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           return "rejected";
         }
       }
+      function M2ToPing(sizeM2) {
+        const value = sizeM2 / 3.30579;
+        const minifiedValue = value.toFixed(2);
+        return parseFloat(minifiedValue);
+      }
       module.exports = {
         datetime: datetime3,
         priceNtd: priceNtd2,
         localeDatetime,
         datetime2: datetime22,
         formatPrice,
-        getApprovalState
+        getApprovalState,
+        M2ToPing
       };
     }
   });
@@ -3729,7 +3735,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance12, create_fragment12, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance12, create_fragment12, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3902,7 +3908,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
                   "toAttribute"
                 );
                 if (attribute_value == null) {
-                  this.removeAttribute(key);
+                  this.removeAttribute(this.$p_d[key].attribute || key);
                 } else {
                   this.setAttribute(this.$p_d[key].attribute || key, attribute_value);
                 }
@@ -5665,7 +5671,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         }
       },
       p(ctx2, [dirty]) {
-        if (dirty & /*Object, langOptions*/
+        if (dirty & /*Object*/
         0) {
           each_value = ensure_array_like(Object.values(langOptions));
           let i;
@@ -5684,7 +5690,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           }
           each_blocks.length = each_value.length;
         }
-        if (dirty & /*selectedLanguage, Object, langOptions*/
+        if (dirty & /*selectedLanguage, Object*/
         1) {
           select_option(
             select,
@@ -7693,7 +7699,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
             if_block0.m(header, t0);
           }
         }
-        if (dirty & /*row, fields, datetime*/
+        if (dirty & /*row, fields*/
         9) {
           each_value = ensure_array_like(
             /*fields*/
@@ -9692,7 +9698,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*Object, currentPropHistory, Date, priceNtd*/
+        if (dirty & /*Object, currentPropHistory, Date*/
         4) {
           each_value = ensure_array_like(
             /*currentPropHistory*/
@@ -10025,7 +10031,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*Object, currentPropHistory, Date, priceNtd*/
+        if (dirty & /*Object, currentPropHistory, Date*/
         4) {
           each_value_1 = ensure_array_like(Object.entries(
             /*row*/

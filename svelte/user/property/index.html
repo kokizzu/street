@@ -574,13 +574,19 @@
           return "rejected";
         }
       }
+      function M2ToPing2(sizeM2) {
+        const value = sizeM2 / 3.30579;
+        const minifiedValue = value.toFixed(2);
+        return parseFloat(minifiedValue);
+      }
       module.exports = {
         datetime,
         priceNtd,
         localeDatetime: localeDatetime2,
         datetime2,
         formatPrice: formatPrice2,
-        getApprovalState
+        getApprovalState,
+        M2ToPing: M2ToPing2
       };
     }
   });
@@ -998,7 +1004,7 @@
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance6, create_fragment6, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance6, create_fragment6, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -1171,7 +1177,7 @@
                   "toAttribute"
                 );
                 if (attribute_value == null) {
-                  this.removeAttribute(key);
+                  this.removeAttribute(this.$p_d[key].attribute || key);
                 } else {
                   this.setAttribute(this.$p_d[key].attribute || key, attribute_value);
                 }
@@ -2053,7 +2059,7 @@
   }
   function create_if_block_8(ctx) {
     let b;
-    let t0_value = M2ToPing(
+    let t0_value = (0, import_formatter.M2ToPing)(
       /*propItem*/
       ctx[1].sizeM2 || 0
     ) + "";
@@ -2073,7 +2079,7 @@
       },
       p(ctx2, dirty) {
         if (dirty & /*propItem*/
-        2 && t0_value !== (t0_value = M2ToPing(
+        2 && t0_value !== (t0_value = (0, import_formatter.M2ToPing)(
           /*propItem*/
           ctx2[1].sizeM2 || 0
         ) + ""))
@@ -2579,7 +2585,7 @@
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*FaSolidImage, propItem*/
+        if (dirty & /*propItem*/
         2) {
           each_value_1 = ensure_array_like(
             /*propItem*/
@@ -2993,7 +2999,7 @@
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*localeDatetime, propHistories, formatPrice*/
+        if (dirty & /*propHistories*/
         1) {
           each_value = ensure_array_like(
             /*propHistories*/
@@ -3550,7 +3556,7 @@
             if_block1.m(div12, t28);
           }
         }
-        if (dirty & /*meta, localeDatetime, propItem, isAdmin*/
+        if (dirty & /*meta, propItem, isAdmin*/
         14) {
           each_value_3 = ensure_array_like(
             /*meta*/
@@ -3655,11 +3661,6 @@
           if_block3.d();
       }
     };
-  }
-  function M2ToPing(sizeM2) {
-    const value = sizeM2 / 3.30579;
-    const minifiedValue = value.toFixed(2);
-    return parseFloat(minifiedValue);
   }
   function instance4($self, $props, $invalidate) {
     let { propHistories: propHistories2 } = $props;

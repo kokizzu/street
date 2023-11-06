@@ -483,7 +483,27 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
 }
 
 /* fakecss:./_components/OwnedProperty.esbuild-svelte-fake-css */
-.property.svelte-19ys2ol.svelte-19ys2ol.svelte-19ys2ol {
+.unit_toggle.svelte-1lthe4f.svelte-1lthe4f.svelte-1lthe4f {
+  border: none;
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+}
+.unit_toggle.svelte-1lthe4f .bg.svelte-1lthe4f.svelte-1lthe4f {
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background-color: rgb(0 0 0 / 0.06);
+  z-index: 1;
+  position: absolute;
+  top: -4px;
+  left: 0;
+}
+.unit_toggle.svelte-1lthe4f:hover .bg.svelte-1lthe4f.svelte-1lthe4f {
+  width: 24px;
+  height: 24px;
+}
+.property.svelte-1lthe4f.svelte-1lthe4f.svelte-1lthe4f {
   background-color: #F0F0F0;
   border-radius: 8px;
   height: 250px;
@@ -494,7 +514,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   gap: 20px;
   position: relative;
 }
-.property_more.svelte-19ys2ol.svelte-19ys2ol.svelte-19ys2ol {
+.property_more.svelte-1lthe4f.svelte-1lthe4f.svelte-1lthe4f {
   height: fit-content;
   background-color: #F0F0F0;
   border-radius: 8px;
@@ -504,7 +524,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   gap: 20px;
   position: relative;
 }
-.property_main.svelte-19ys2ol.svelte-19ys2ol.svelte-19ys2ol {
+.property_main.svelte-1lthe4f.svelte-1lthe4f.svelte-1lthe4f {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -513,19 +533,38 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   align-items: flex-start;
   gap: 15px;
 }
-.property_main.svelte-19ys2ol .property_images.svelte-19ys2ol.svelte-19ys2ol {
+.approve_status.svelte-1lthe4f.svelte-1lthe4f.svelte-1lthe4f {
+  padding: 7px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-transform: capitalize;
+  text-decoration: none;
+}
+.approve_status.approved.svelte-1lthe4f.svelte-1lthe4f.svelte-1lthe4f {
+  background-color: rgba(140, 216, 107, 1);
+  color: #FFF;
+}
+.approve_status.pending.svelte-1lthe4f.svelte-1lthe4f.svelte-1lthe4f {
+  background-color: rgba(255, 208, 118, 1);
+  color: #475569;
+}
+.approve_status.rejected.svelte-1lthe4f.svelte-1lthe4f.svelte-1lthe4f {
+  background-color: rgba(255, 126, 118, 1);
+  color: #FFF;
+}
+.property_main.svelte-1lthe4f .property_images.svelte-1lthe4f.svelte-1lthe4f {
   width: 260px;
   height: 160px;
   flex: none;
   overflow: hidden;
   border-radius: 8px;
 }
-.property_main.svelte-19ys2ol .property_images img.svelte-19ys2ol.svelte-19ys2ol {
+.property_main.svelte-1lthe4f .property_images img.svelte-1lthe4f.svelte-1lthe4f {
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
-.property_main.svelte-19ys2ol .property_images .image_empty.svelte-19ys2ol.svelte-19ys2ol {
+.property_main.svelte-1lthe4f .property_images .image_empty.svelte-1lthe4f.svelte-1lthe4f {
   border-radius: 8px;
   object-fit: cover;
   width: 100%;
@@ -535,45 +574,26 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   justify-content: center;
   align-items: center;
 }
-.property_main.svelte-19ys2ol .property_info.svelte-19ys2ol.svelte-19ys2ol {
+.property_main.svelte-1lthe4f .property_info.svelte-1lthe4f.svelte-1lthe4f {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.property_main.svelte-19ys2ol .property_info .col1.svelte-19ys2ol.svelte-19ys2ol {
+.property_main.svelte-1lthe4f .property_info .col1.svelte-1lthe4f.svelte-1lthe4f {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
 }
-.property_main.svelte-19ys2ol .property_info .col1 .left.svelte-19ys2ol.svelte-19ys2ol {
+.property_main.svelte-1lthe4f .property_info .col1 .left.svelte-1lthe4f.svelte-1lthe4f {
   display: flex;
   gap: 15px;
   align-items: center;
 }
-.property_main.svelte-19ys2ol .property_info .col1 .left .approve_status.svelte-19ys2ol.svelte-19ys2ol {
-  padding: 7px 18px;
-  border-radius: 8px;
-  font-size: 14px;
-  text-transform: capitalize;
-  text-decoration: none;
-}
-.property_main.svelte-19ys2ol .property_info .col1 .left .approve_status.approved.svelte-19ys2ol.svelte-19ys2ol {
-  background-color: rgba(140, 216, 107, 1);
-  color: #FFF;
-}
-.property_main.svelte-19ys2ol .property_info .col1 .left .approve_status.pending.svelte-19ys2ol.svelte-19ys2ol {
-  background-color: rgba(255, 208, 118, 1);
-  color: #475569;
-}
-.property_main.svelte-19ys2ol .property_info .col1 .left .approve_status.rejected.svelte-19ys2ol.svelte-19ys2ol {
-  background-color: rgba(255, 126, 118, 1);
-  color: #FFF;
-}
-.property_main.svelte-19ys2ol .property_info .col1 .left .purpose.svelte-19ys2ol.svelte-19ys2ol,
-.property_main.svelte-19ys2ol .property_info .col1 .left .house_type.svelte-19ys2ol.svelte-19ys2ol,
-.property_main.svelte-19ys2ol .property_info .col1 .edit_property.svelte-19ys2ol.svelte-19ys2ol {
+.property_main.svelte-1lthe4f .property_info .col1 .left .purpose.svelte-1lthe4f.svelte-1lthe4f,
+.property_main.svelte-1lthe4f .property_info .col1 .left .house_type.svelte-1lthe4f.svelte-1lthe4f,
+.property_main.svelte-1lthe4f .property_info .col1 .edit_property.svelte-1lthe4f.svelte-1lthe4f {
   background-color: #F97316;
   padding: 7px 18px;
   border-radius: 8px;
@@ -582,94 +602,102 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   text-transform: capitalize;
   text-decoration: none;
 }
-.property_main.svelte-19ys2ol .property_info .col1 .left .house_type.svelte-19ys2ol.svelte-19ys2ol,
-.property_main.svelte-19ys2ol .property_info .col1 .edit_property.svelte-19ys2ol.svelte-19ys2ol {
+.property_main.svelte-1lthe4f .property_info .col1 .left .house_type.svelte-1lthe4f.svelte-1lthe4f,
+.property_main.svelte-1lthe4f .property_info .col1 .edit_property.svelte-1lthe4f.svelte-1lthe4f {
   display: flex;
   gap: 10px;
   align-items: center;
 }
-.property_main.svelte-19ys2ol .property_info .col1 .edit_property.svelte-19ys2ol.svelte-19ys2ol:hover {
+.property_main.svelte-1lthe4f .property_info .col1 .edit_property.svelte-1lthe4f.svelte-1lthe4f:hover {
   background-color: #F58433;
 }
-.property_main.svelte-19ys2ol .property_info .col2.svelte-19ys2ol.svelte-19ys2ol {
+.property_main.svelte-1lthe4f .property_info .col2.svelte-1lthe4f.svelte-1lthe4f {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.property_main.svelte-19ys2ol .property_info .col2 h1.svelte-19ys2ol.svelte-19ys2ol {
+.property_main.svelte-1lthe4f .property_info .col2 h1.svelte-1lthe4f.svelte-1lthe4f {
   margin: 0;
   font-size: 32px;
 }
-.property_main.svelte-19ys2ol .property_info .col2 p.svelte-19ys2ol.svelte-19ys2ol {
+.property_main.svelte-1lthe4f .property_info .col2 p.svelte-1lthe4f.svelte-1lthe4f {
   margin: 0 0 10px 0;
 }
-.property_main.svelte-19ys2ol .property_info .col2 .address.svelte-19ys2ol.svelte-19ys2ol {
+.icon_address {
+  flex-shrink: 0;
+}
+.property_main.svelte-1lthe4f .property_info .col2.svelte-1lthe4f .address span.svelte-1lthe4f {
+  flex-shrink: 1;
+}
+.property_main.svelte-1lthe4f .property_info .col2 .address.svelte-1lthe4f.svelte-1lthe4f {
   display: flex;
   flex-direction: row;
   gap: 10px;
   align-items: center;
 }
-.property_secondary.svelte-19ys2ol.svelte-19ys2ol.svelte-19ys2ol {
+.property_secondary.svelte-1lthe4f.svelte-1lthe4f.svelte-1lthe4f {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-.property_secondary.svelte-19ys2ol .feature_number.svelte-19ys2ol.svelte-19ys2ol {
+.property_secondary.svelte-1lthe4f .col2.svelte-1lthe4f.svelte-1lthe4f {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
+  text-align: center;
 }
-.property_secondary.svelte-19ys2ol .feature_number .feature_item.svelte-19ys2ol.svelte-19ys2ol {
+.property_secondary.svelte-1lthe4f .col2 .feature_item.svelte-1lthe4f.svelte-1lthe4f {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 8px;
-  text-transform: capitalize;
 }
-.property_secondary.svelte-19ys2ol p.svelte-19ys2ol.svelte-19ys2ol {
-  margin: 0;
+.property_secondary.svelte-1lthe4f .col2 .feature_item b.svelte-1lthe4f.svelte-1lthe4f {
+  font-size: 25px;
 }
-.property_secondary.svelte-19ys2ol b.svelte-19ys2ol.svelte-19ys2ol {
-  font-size: 22px;
+.property_secondary.svelte-1lthe4f .col2 .feature_item .labels.svelte-1lthe4f.svelte-1lthe4f {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 6px;
+  color: #848D96;
 }
-.property_floors.svelte-19ys2ol.svelte-19ys2ol.svelte-19ys2ol {
+.property_floors.svelte-1lthe4f.svelte-1lthe4f.svelte-1lthe4f {
   width: 70%;
   margin: 0 auto;
 }
-.property_floors.svelte-19ys2ol h3.svelte-19ys2ol.svelte-19ys2ol {
+.property_floors.svelte-1lthe4f h3.svelte-1lthe4f.svelte-1lthe4f {
   font-size: 22px;
   margin: 0 0 15px 0;
   text-align: center;
 }
-.property_floors.svelte-19ys2ol .floor_lists.svelte-19ys2ol.svelte-19ys2ol {
+.property_floors.svelte-1lthe4f .floor_lists.svelte-1lthe4f.svelte-1lthe4f {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.property_floors.svelte-19ys2ol .floor_lists .floor_item.svelte-19ys2ol.svelte-19ys2ol {
+.property_floors.svelte-1lthe4f .floor_lists .floor_item.svelte-1lthe4f.svelte-1lthe4f {
   display: flex;
   align-items: flex-start;
   gap: 35px;
 }
-.property_floors.svelte-19ys2ol .floor_lists .floor_item .left.svelte-19ys2ol.svelte-19ys2ol {
+.property_floors.svelte-1lthe4f .floor_lists .floor_item .left.svelte-1lthe4f.svelte-1lthe4f {
   flex-grow: 1;
 }
-.property_floors.svelte-19ys2ol .floor_lists .floor_item .left h5.svelte-19ys2ol.svelte-19ys2ol {
+.property_floors.svelte-1lthe4f .floor_lists .floor_item .left h5.svelte-1lthe4f.svelte-1lthe4f {
   font-size: 22px;
   text-transform: capitalize;
   font-weight: normal;
   margin: 0 0 15px 0;
   width: 100%;
 }
-.property_floors.svelte-19ys2ol .floor_lists .floor_lists .floor_item .left.svelte-19ys2ol .room_lists.svelte-19ys2ol {
+.property_floors.svelte-1lthe4f .floor_lists .floor_lists .floor_item .left.svelte-1lthe4f .room_lists.svelte-1lthe4f {
   font-size: 14px;
   width: 100%;
   color: #475569;
   border: 1px solid #CBD5E1;
 }
-.property_floors.svelte-19ys2ol .floor_lists .floor_item .left.svelte-19ys2ol .room_lists .room_item.svelte-19ys2ol {
+.property_floors.svelte-1lthe4f .floor_lists .floor_item .left.svelte-1lthe4f .room_lists .room_item.svelte-1lthe4f {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -677,7 +705,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   border-bottom: 1px solid #CBD5E1;
   padding: 5px 0;
 }
-.property_floors.svelte-19ys2ol .floor_lists .floor_item .floor_plan_image.svelte-19ys2ol.svelte-19ys2ol {
+.property_floors.svelte-1lthe4f .floor_lists .floor_item .floor_plan_image.svelte-1lthe4f.svelte-1lthe4f {
   width: 240px;
   height: 140px;
   position: relative;
@@ -686,12 +714,12 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   border: 1px solid #CBD5E1;
   margin-top: 45px;
 }
-.property_floors.svelte-19ys2ol .floor_lists .floor_item .floor_plan_image img.svelte-19ys2ol.svelte-19ys2ol {
+.property_floors.svelte-1lthe4f .floor_lists .floor_item .floor_plan_image img.svelte-1lthe4f.svelte-1lthe4f {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.property_floors.svelte-19ys2ol .floor_lists .floor_item .floor_plan_image span.svelte-19ys2ol.svelte-19ys2ol {
+.property_floors.svelte-1lthe4f .floor_lists .floor_item .floor_plan_image span.svelte-1lthe4f.svelte-1lthe4f {
   border-radius: 8px;
   object-fit: cover;
   width: 100%;
@@ -702,10 +730,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   justify-content: center;
   align-items: center;
 }
-.property_floors.svelte-19ys2ol .floor_lists .floor_item .floor_plan_image span p.svelte-19ys2ol.svelte-19ys2ol {
+.property_floors.svelte-1lthe4f .floor_lists .floor_item .floor_plan_image span p.svelte-1lthe4f.svelte-1lthe4f {
   margin: 0;
 }
-.property_less_more.svelte-19ys2ol.svelte-19ys2ol.svelte-19ys2ol {
+.property_less_more.svelte-1lthe4f.svelte-1lthe4f.svelte-1lthe4f {
   height: 50px;
   background: linear-gradient(to top, #F0F0F0, #F0F0F0, #F0F0F0, transparent);
   bottom: 0;
@@ -715,7 +743,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   display: flex;
   justify-content: center;
 }
-.toggle_show_more.svelte-19ys2ol.svelte-19ys2ol.svelte-19ys2ol {
+.toggle_show_more.svelte-1lthe4f.svelte-1lthe4f.svelte-1lthe4f {
   color: #F97316;
   border: none;
   cursor: pointer;
@@ -726,13 +754,48 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   bottom: 10px;
   padding-left: 1em;
 }
-.toggle_show_more.svelte-19ys2ol.svelte-19ys2ol.svelte-19ys2ol:hover {
+.toggle_show_more.svelte-1lthe4f.svelte-1lthe4f.svelte-1lthe4f:hover {
   color: #F58433;
   text-decoration: underline;
 }
+@media (max-width: 768px) {
+  .property_main.svelte-1lthe4f.svelte-1lthe4f.svelte-1lthe4f {
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .property_main.svelte-1lthe4f .property_images.svelte-1lthe4f.svelte-1lthe4f {
+    width: 100%;
+    height: 180px;
+  }
+  .property_main.svelte-1lthe4f .property_info.svelte-1lthe4f.svelte-1lthe4f {
+    width: 100%;
+  }
+  .property_main.svelte-1lthe4f .property_info .col1.svelte-1lthe4f.svelte-1lthe4f {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    font-size: 10px;
+    width: 100%;
+  }
+  .property_main.svelte-1lthe4f .property_info .col1 .left.svelte-1lthe4f.svelte-1lthe4f {
+    gap: 10px;
+  }
+  .property_main.svelte-1lthe4f .property_info .col1 .left .purpose.svelte-1lthe4f.svelte-1lthe4f,
+  .property_main.svelte-1lthe4f .property_info .col1 .left .house_type.svelte-1lthe4f.svelte-1lthe4f,
+  .property_main.svelte-1lthe4f .property_info .col1 .edit_property.svelte-1lthe4f.svelte-1lthe4f {
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+  }
+  .property_main.svelte-1lthe4f .property_info .col1 .edit_property span.svelte-1lthe4f.svelte-1lthe4f {
+    display: none;
+  }
+}
 
 /* fakecss:./realtor.esbuild-svelte-fake-css */
-.property_lists_container.svelte-1977nsn.svelte-1977nsn {
+.property_lists_container.svelte-12f4480.svelte-12f4480 {
   position: relative;
   margin-top: -40px;
   margin-left: auto;
@@ -747,15 +810,16 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   width: 70%;
   color: #475569;
 }
-.property_lists_container.svelte-1977nsn .property_lists_header.svelte-1977nsn {
+.property_lists_container.svelte-12f4480 .property_lists_header.svelte-12f4480 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   height: fit-content;
   width: 100%;
+  gap: 20px;
 }
-.property_lists_container.svelte-1977nsn .property_lists_header .add_button.svelte-1977nsn {
+.property_lists_container.svelte-12f4480 .property_lists_header .add_button.svelte-12f4480 {
   padding: 8px 20px;
   font-size: 16px;
   display: inline-flex;
@@ -771,14 +835,14 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   cursor: pointer;
   text-decoration: none;
 }
-.property_lists_container.svelte-1977nsn .property_lists_header h1.svelte-1977nsn {
+.property_lists_container.svelte-12f4480 .property_lists_header h1.svelte-12f4480 {
   font-size: 18px;
   margin: 0;
 }
-.property_lists_container.svelte-1977nsn .property_lists_header .add_button.svelte-1977nsn:hover {
+.property_lists_container.svelte-12f4480 .property_lists_header .add_button.svelte-12f4480:hover {
   background-color: #7e80f1;
 }
-.property_lists_container.svelte-1977nsn .no_property.svelte-1977nsn {
+.property_lists_container.svelte-12f4480 .no_property.svelte-12f4480 {
   background-color: #f0f0f0;
   border-radius: 8px;
   height: fit-content;
@@ -789,11 +853,30 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   font-size: 15px;
   font-weight: 600;
 }
-.property_lists_container.svelte-1977nsn .property_lists.svelte-1977nsn {
+.property_lists_container.svelte-12f4480 .property_lists.svelte-12f4480 {
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 100%;
+}
+@media (max-width: 768px) {
+  .add_icon {
+    width: 15px;
+    height: 15px;
+  }
+  .property_lists_container.svelte-12f4480.svelte-12f4480 {
+    margin: -40px 20px 0 20px;
+    padding: 15px;
+    width: auto;
+  }
+  .property_lists_container.svelte-12f4480 .property_lists_header h1.svelte-12f4480 {
+    font-size: 16px !important;
+  }
+  .property_lists_container.svelte-12f4480 .property_lists_header .add_button.svelte-12f4480 {
+    padding: 5px 15px !important;
+    font-size: 14px !important;
+    gap: 8px !important;
+  }
 }
 </style>
 <script>(() => {
@@ -3041,13 +3124,19 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           return "rejected";
         }
       }
+      function M2ToPing2(sizeM2) {
+        const value = sizeM2 / 3.30579;
+        const minifiedValue = value.toFixed(2);
+        return parseFloat(minifiedValue);
+      }
       module.exports = {
         datetime,
         priceNtd,
         localeDatetime: localeDatetime2,
         datetime2,
         formatPrice,
-        getApprovalState
+        getApprovalState,
+        M2ToPing: M2ToPing2
       };
     }
   });
@@ -3510,7 +3599,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance8, create_fragment8, not_equal, props, append_styles, dirty = [-1]) {
+  function init(component, options, instance8, create_fragment8, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3683,7 +3772,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
                   "toAttribute"
                 );
                 if (attribute_value == null) {
-                  this.removeAttribute(key);
+                  this.removeAttribute(this.$p_d[key].attribute || key);
                 } else {
                   this.setAttribute(this.$p_d[key].attribute || key, attribute_value);
                 }
@@ -5227,7 +5316,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
       },
       p(ctx2, [dirty]) {
-        if (dirty & /*Object, langOptions*/
+        if (dirty & /*Object*/
         0) {
           each_value = ensure_array_like(Object.values(langOptions));
           let i;
@@ -5246,7 +5335,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           }
           each_blocks.length = each_value.length;
         }
-        if (dirty & /*selectedLanguage, Object, langOptions*/
+        if (dirty & /*selectedLanguage, Object*/
         1) {
           select_option(
             select,
@@ -5376,6 +5465,46 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       viewBox: "0 0 512 512"
     },
     c: '<path d="M290.74 93.24l128.02 128.02-277.99 277.99-114.14 12.6C11.35 513.54-1.56 500.62.14 485.34l12.7-114.22 277.9-277.88zm207.2-19.06l-60.11-60.11c-18.75-18.75-49.16-18.75-67.91 0l-56.55 56.55 128.02 128.02 56.55-56.55c18.75-18.76 18.75-49.16 0-67.91z"></path>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBed.js
+  var FaSolidBed_default = {
+    a: {
+      viewBox: "0 0 640 512"
+    },
+    c: '<path d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z"></path>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBath.js
+  var FaSolidBath_default = {
+    a: {
+      viewBox: "0 0 512 512"
+    },
+    c: '<path d="M32,384a95.4,95.4,0,0,0,32,71.09V496a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V480H384v16a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V455.09A95.4,95.4,0,0,0,480,384V336H32ZM496,256H80V69.25a21.26,21.26,0,0,1,36.28-15l19.27,19.26c-13.13,29.88-7.61,59.11,8.62,79.73l-.17.17A16,16,0,0,0,144,176l11.31,11.31a16,16,0,0,0,22.63,0L283.31,81.94a16,16,0,0,0,0-22.63L272,48a16,16,0,0,0-22.62,0l-.17.17c-20.62-16.23-49.83-21.75-79.73-8.62L150.22,20.28A69.25,69.25,0,0,0,32,69.25V256H16A16,16,0,0,0,0,272v16a16,16,0,0,0,16,16H496a16,16,0,0,0,16-16V272A16,16,0,0,0,496,256Z"></path>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidChair.js
+  var FaSolidChair_default = {
+    a: {
+      viewBox: "0 0 448 512"
+    },
+    c: '<path d="M112 128c0-29.5 16.2-55 40-68.9V256h48V48h48v208h48V59.1c23.8 13.9 40 39.4 40 68.9v128h48V128C384 57.3 326.7 0 256 0h-64C121.3 0 64 57.3 64 128v128h48zm334.3 213.9l-10.7-32c-4.4-13.1-16.6-21.9-30.4-21.9H42.7c-13.8 0-26 8.8-30.4 21.9l-10.7 32C-5.2 362.6 10.2 384 32 384v112c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V384h256v112c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V384c21.8 0 37.2-21.4 30.3-42.1z"></path>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBorderStyle.js
+  var FaSolidBorderStyle_default = {
+    a: {
+      viewBox: "0 0 448 512"
+    },
+    c: '<path d="M240 416h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm-96 0h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm192 0h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm96-192h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0 96h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0 96h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-288h-32a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-96H32A32 32 0 0 0 0 64v400a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16V96h368a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidExchangeAlt.js
+  var FaSolidExchangeAlt_default = {
+    a: {
+      viewBox: "0 0 512 512"
+    },
+    c: '<path d="M0 168v-16c0-13.255 10.745-24 24-24h360V80c0-21.367 25.899-32.042 40.971-16.971l80 80c9.372 9.373 9.372 24.569 0 33.941l-80 80C409.956 271.982 384 261.456 384 240v-48H24c-13.255 0-24-10.745-24-24zm488 152H128v-48c0-21.314-25.862-32.08-40.971-16.971l-80 80c-9.372 9.373-9.372 24.569 0 33.941l80 80C102.057 463.997 128 453.437 128 432v-48h360c13.255 0 24-10.745 24-24v-16c0-13.255-10.745-24-24-24z"></path>'
   };
 
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidMapMarkerAlt.js
@@ -5530,7 +5659,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       c() {
         div = element("div");
         div.innerHTML = `<i class="gg-image"></i>`;
-        attr(div, "class", "image_empty svelte-19ys2ol");
+        attr(div, "class", "image_empty svelte-1lthe4f");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -5553,7 +5682,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         ctx[0].images[0]))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
-        attr(img, "class", "svelte-19ys2ol");
+        attr(img, "class", "svelte-1lthe4f");
       },
       m(target, anchor) {
         insert(target, img, anchor);
@@ -5850,9 +5979,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(h3, "class", "svelte-19ys2ol");
-        attr(div0, "class", "floor_lists svelte-19ys2ol");
-        attr(div1, "class", "property_floors svelte-19ys2ol");
+        attr(h3, "class", "svelte-1lthe4f");
+        attr(div0, "class", "floor_lists svelte-1lthe4f");
+        attr(div1, "class", "property_floors svelte-1lthe4f");
       },
       m(target, anchor) {
         insert(target, div1, anchor);
@@ -5918,7 +6047,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(div, "class", "room_lists svelte-19ys2ol");
+        attr(div, "class", "room_lists svelte-1lthe4f");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -5987,9 +6116,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         t2 = text(t2_value);
         t3 = text(" M2");
         t4 = space();
-        attr(span0, "class", "svelte-19ys2ol");
-        attr(span1, "class", "svelte-19ys2ol");
-        attr(div, "class", "room_item svelte-19ys2ol");
+        attr(span0, "class", "svelte-1lthe4f");
+        attr(span1, "class", "svelte-1lthe4f");
+        attr(div, "class", "room_item svelte-1lthe4f");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -6028,7 +6157,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         ctx[6].planImageUrl))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
-        attr(img, "class", "svelte-19ys2ol");
+        attr(img, "class", "svelte-1lthe4f");
       },
       m(target, anchor) {
         insert(target, img, anchor);
@@ -6052,8 +6181,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     return {
       c() {
         span = element("span");
-        span.innerHTML = `<i class="gg-image"></i> <p class="svelte-19ys2ol">No Image</p>`;
-        attr(span, "class", "svelte-19ys2ol");
+        span.innerHTML = `<i class="gg-image"></i> <p class="svelte-1lthe4f">No Image</p>`;
+        attr(span, "class", "svelte-1lthe4f");
       },
       m(target, anchor) {
         insert(target, span, anchor);
@@ -6115,10 +6244,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         div1 = element("div");
         if_block1.c();
         t4 = space();
-        attr(h5, "class", "svelte-19ys2ol");
-        attr(div0, "class", "left svelte-19ys2ol");
-        attr(div1, "class", "floor_plan_image svelte-19ys2ol");
-        attr(div2, "class", "floor_item svelte-19ys2ol");
+        attr(h5, "class", "svelte-1lthe4f");
+        attr(div0, "class", "left svelte-1lthe4f");
+        attr(div1, "class", "floor_plan_image svelte-1lthe4f");
+        attr(div2, "class", "floor_item svelte-1lthe4f");
       },
       m(target, anchor) {
         insert(target, div2, anchor);
@@ -6182,15 +6311,19 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     };
   }
   function create_fragment6(ctx) {
-    let div18;
-    let div9;
+    let div22;
     let div0;
     let t0;
+    let div0_class_value;
+    let t1;
+    let div9;
+    let div1;
+    let t2;
     let div8;
     let div5;
     let div4;
-    let div1;
-    let t1_value = (
+    let div2;
+    let t3_value = (
       /*property*/
       (ctx[0].purpose === "rent" ? (
         /*$T*/
@@ -6200,22 +6333,18 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         ctx[4].onSale
       )) + ""
     );
-    let t1;
-    let div1_class_value;
-    let t2;
-    let div2;
-    let icon0;
     let t3;
+    let div2_class_value;
+    let t4;
+    let div3;
+    let icon0;
+    let t5;
     let span0;
-    let t4_value = (
+    let t6_value = (
       /*property*/
       ctx[0].houseType + ""
     );
-    let t4;
-    let t5;
-    let div3;
     let t6;
-    let div3_class_value;
     let t7;
     let a;
     let icon1;
@@ -6232,7 +6361,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     );
     let t12;
     let t13;
-    let p0;
+    let p;
     let t14_value = (
       /*$T*/
       ctx[4].agencyFee + ""
@@ -6256,82 +6385,77 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     );
     let t20;
     let t21;
-    let div15;
-    let div14;
-    let div10;
+    let div19;
+    let div18;
+    let div11;
     let b0;
     let t22_value = (
       /*property*/
-      (ctx[0].numberOfFloors || "0") + ""
+      ctx[0].bedroom + ""
     );
     let t22;
     let t23;
-    let p1;
-    let t24_value = (
-      /*$T*/
-      ctx[4].floors + ""
-    );
+    let div10;
+    let icon3;
     let t24;
-    let t25;
-    let div11;
-    let b1;
-    let t26_value = (
-      /*property*/
-      (ctx[0].bathroom || "0") + ""
-    );
+    let span3;
     let t26;
-    let t27;
-    let p2;
-    let t28_value = (
-      /*$T*/
-      ctx[4].bath + ""
-    );
-    let t28;
-    let t29;
-    let div12;
-    let b2;
-    let t30_value = (
+    let div13;
+    let b1;
+    let t27_value = (
       /*property*/
-      (ctx[0].bedroom || "0") + ""
+      ctx[0].bathroom + ""
     );
-    let t30;
+    let t27;
+    let t28;
+    let div12;
+    let icon4;
+    let t29;
+    let span4;
     let t31;
-    let p3;
+    let div15;
+    let b2;
     let t32_value = (
-      /*$T*/
-      ctx[4].bed + ""
+      /*property*/
+      ctx[0].livingroom + ""
     );
     let t32;
     let t33;
-    let div13;
-    let b3;
-    let t34_value = (
-      /*property*/
-      (ctx[0].sizeM2 || "0") + ""
-    );
+    let div14;
+    let icon5;
     let t34;
-    let t35;
-    let t36_value = (
-      /*$T*/
-      ctx[4].m + ""
-    );
+    let span5;
     let t36;
+    let div17;
+    let b3;
+    let t37_value = (
+      /*property*/
+      ctx[0].sizeM2 + ""
+    );
     let t37;
     let t38;
-    let p4;
-    let t40;
     let div16;
+    let icon6;
+    let t39;
+    let span6;
     let t41;
+    let button0;
+    let span7;
     let t42;
-    let div17;
-    let button;
+    let icon7;
     let t43;
-    let t44_value = (
+    let div20;
+    let t44;
+    let t45;
+    let div21;
+    let button1;
+    let t46;
+    let t47_value = (
       /*showMore*/
       ctx[2] === true ? "Less" : "More"
     );
-    let t44;
-    let div18_class_value;
+    let t47;
+    let div22_class_value;
     let current;
     let mounted;
     let dispose;
@@ -6349,7 +6473,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     icon0 = new Icon_default({
       props: {
         color: "#FFF",
-        size: 16,
+        size: 14,
         src: FaSolidHome_default
       }
     });
@@ -6359,8 +6483,49 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     icon2 = new Icon_default({
       props: {
         color: "#f97316",
+        className: "icon_address",
         size: 18,
         src: FaSolidMapMarkerAlt_default
+      }
+    });
+    icon3 = new Icon_default({
+      props: {
+        className: "labels_icon",
+        color: "#848D96",
+        size: 13,
+        src: FaSolidBed_default
+      }
+    });
+    icon4 = new Icon_default({
+      props: {
+        className: "labels_icon",
+        color: "#848D96",
+        size: 13,
+        src: FaSolidBath_default
+      }
+    });
+    icon5 = new Icon_default({
+      props: {
+        className: "labels_icon",
+        color: "#848D96",
+        size: 12,
+        src: FaSolidChair_default
+      }
+    });
+    icon6 = new Icon_default({
+      props: {
+        className: "labels_icon",
+        color: "#848D96",
+        size: 13,
+        src: FaSolidBorderStyle_default
+      }
+    });
+    icon7 = new Icon_default({
+      props: {
+        className: "labels_icon",
+        color: "#F97316",
+        size: 12,
+        src: FaSolidExchangeAlt_default
       }
     });
     let each_value_2 = ensure_array_like(
@@ -6381,28 +6546,28 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     );
     return {
       c() {
-        div18 = element("div");
-        div9 = element("div");
+        div22 = element("div");
         div0 = element("div");
-        if_block0.c();
-        t0 = space();
-        div8 = element("div");
-        div5 = element("div");
-        div4 = element("div");
-        div1 = element("div");
-        t1 = text(t1_value);
-        t2 = space();
-        div2 = element("div");
-        create_component(icon0.$.fragment);
-        t3 = space();
-        span0 = element("span");
-        t4 = text(t4_value);
-        t5 = space();
-        div3 = element("div");
-        t6 = text(
+        t0 = text(
           /*approvalStatus*/
           ctx[3]
         );
+        t1 = space();
+        div9 = element("div");
+        div1 = element("div");
+        if_block0.c();
+        t2 = space();
+        div8 = element("div");
+        div5 = element("div");
+        div4 = element("div");
+        div2 = element("div");
+        t3 = text(t3_value);
+        t4 = space();
+        div3 = element("div");
+        create_component(icon0.$.fragment);
+        t5 = space();
+        span0 = element("span");
+        t6 = text(t6_value);
         t7 = space();
         a = element("a");
         create_component(icon1.$.fragment);
@@ -6415,7 +6580,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         t11 = text("$ ");
         t12 = text(t12_value);
         t13 = space();
-        p0 = element("p");
+        p = element("p");
         t14 = text(t14_value);
         t15 = text(" : ");
         t16 = text(t16_value);
@@ -6427,112 +6592,135 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         span2 = element("span");
         t20 = text(t20_value);
         t21 = space();
-        div15 = element("div");
-        div14 = element("div");
-        div10 = element("div");
+        div19 = element("div");
+        div18 = element("div");
+        div11 = element("div");
         b0 = element("b");
         t22 = text(t22_value);
         t23 = space();
-        p1 = element("p");
-        t24 = text(t24_value);
-        t25 = space();
-        div11 = element("div");
+        div10 = element("div");
+        create_component(icon3.$.fragment);
+        t24 = space();
+        span3 = element("span");
+        span3.textContent = "Beds";
+        t26 = space();
+        div13 = element("div");
         b1 = element("b");
-        t26 = text(t26_value);
-        t27 = space();
-        p2 = element("p");
-        t28 = text(t28_value);
-        t29 = space();
+        t27 = text(t27_value);
+        t28 = space();
         div12 = element("div");
-        b2 = element("b");
-        t30 = text(t30_value);
+        create_component(icon4.$.fragment);
+        t29 = space();
+        span4 = element("span");
+        span4.textContent = "Baths";
         t31 = space();
-        p3 = element("p");
+        div15 = element("div");
+        b2 = element("b");
         t32 = text(t32_value);
         t33 = space();
-        div13 = element("div");
+        div14 = element("div");
+        create_component(icon5.$.fragment);
+        t34 = space();
+        span5 = element("span");
+        span5.textContent = "Livings";
+        t36 = space();
+        div17 = element("div");
         b3 = element("b");
-        t34 = text(t34_value);
-        t35 = space();
-        t36 = text(t36_value);
-        t37 = text("2");
+        t37 = text(t37_value);
         t38 = space();
-        p4 = element("p");
-        p4.textContent = "Size";
-        t40 = space();
         div16 = element("div");
+        create_component(icon6.$.fragment);
+        t39 = space();
+        span6 = element("span");
+        span6.textContent = "M2";
+        t41 = space();
+        button0 = element("button");
+        span7 = element("span");
+        t42 = space();
+        create_component(icon7.$.fragment);
+        t43 = space();
+        div20 = element("div");
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        t41 = space();
+        t44 = space();
         if (if_block1)
           if_block1.c();
-        t42 = space();
-        div17 = element("div");
-        button = element("button");
-        t43 = text("Show ");
-        t44 = text(t44_value);
-        attr(div0, "class", "property_images svelte-19ys2ol");
-        attr(div1, "class", div1_class_value = null_to_empty(
+        t45 = space();
+        div21 = element("div");
+        button1 = element("button");
+        t46 = text("Show ");
+        t47 = text(t47_value);
+        attr(div0, "class", div0_class_value = null_to_empty(`approve_status ${/*approvalStatus*/
+        ctx[3]}`) + " svelte-1lthe4f");
+        attr(div1, "class", "property_images svelte-1lthe4f");
+        attr(div2, "class", div2_class_value = null_to_empty(
           /*property*/
           ctx[0].purpose === "rent" ? `purpose label_rent` : `purpose label_sale`
-        ) + " svelte-19ys2ol");
-        attr(div2, "class", "house_type svelte-19ys2ol");
-        attr(div3, "class", div3_class_value = null_to_empty(`approve_status ${/*approvalStatus*/
-        ctx[3]}`) + " svelte-19ys2ol");
-        attr(div4, "class", "left svelte-19ys2ol");
-        attr(a, "class", "edit_property svelte-19ys2ol");
+        ) + " svelte-1lthe4f");
+        attr(span0, "class", "svelte-1lthe4f");
+        attr(div3, "class", "house_type svelte-1lthe4f");
+        attr(div4, "class", "left svelte-1lthe4f");
+        attr(span1, "class", "svelte-1lthe4f");
+        attr(a, "class", "edit_property svelte-1lthe4f");
         attr(a, "href", a_href_value = "/realtor/property/" + /*property*/
         ctx[0].id);
-        attr(div5, "class", "col1 svelte-19ys2ol");
-        attr(h1, "class", "svelte-19ys2ol");
-        attr(p0, "class", "svelte-19ys2ol");
-        attr(div6, "class", "address svelte-19ys2ol");
-        attr(div7, "class", "col2 svelte-19ys2ol");
-        attr(div8, "class", "property_info svelte-19ys2ol");
-        attr(div9, "class", "property_main svelte-19ys2ol");
-        attr(b0, "class", "svelte-19ys2ol");
-        attr(p1, "class", "svelte-19ys2ol");
-        attr(div10, "class", "feature_item svelte-19ys2ol");
-        attr(b1, "class", "svelte-19ys2ol");
-        attr(p2, "class", "svelte-19ys2ol");
-        attr(div11, "class", "feature_item svelte-19ys2ol");
-        attr(b2, "class", "svelte-19ys2ol");
-        attr(p3, "class", "svelte-19ys2ol");
-        attr(div12, "class", "feature_item svelte-19ys2ol");
-        attr(b3, "class", "svelte-19ys2ol");
-        attr(p4, "class", "svelte-19ys2ol");
-        attr(div13, "class", "feature_item svelte-19ys2ol");
-        attr(div14, "class", "feature_number svelte-19ys2ol");
-        attr(div15, "class", "property_secondary svelte-19ys2ol");
-        attr(div16, "class", "property_attributes");
-        attr(button, "class", "toggle_show_more svelte-19ys2ol");
-        attr(div17, "class", "property_less_more svelte-19ys2ol");
-        attr(div18, "class", div18_class_value = null_to_empty(
+        attr(div5, "class", "col1 svelte-1lthe4f");
+        attr(h1, "class", "svelte-1lthe4f");
+        attr(p, "class", "svelte-1lthe4f");
+        attr(span2, "class", "svelte-1lthe4f");
+        attr(div6, "class", "address svelte-1lthe4f");
+        attr(div7, "class", "col2 svelte-1lthe4f");
+        attr(div8, "class", "property_info svelte-1lthe4f");
+        attr(div9, "class", "property_main svelte-1lthe4f");
+        attr(b0, "class", "svelte-1lthe4f");
+        attr(span3, "class", "svelte-1lthe4f");
+        attr(div10, "class", "labels svelte-1lthe4f");
+        attr(div11, "class", "feature_item svelte-1lthe4f");
+        attr(b1, "class", "svelte-1lthe4f");
+        attr(span4, "class", "svelte-1lthe4f");
+        attr(div12, "class", "labels svelte-1lthe4f");
+        attr(div13, "class", "feature_item svelte-1lthe4f");
+        attr(b2, "class", "svelte-1lthe4f");
+        attr(span5, "class", "svelte-1lthe4f");
+        attr(div14, "class", "labels svelte-1lthe4f");
+        attr(div15, "class", "feature_item svelte-1lthe4f");
+        attr(b3, "class", "svelte-1lthe4f");
+        attr(span6, "class", "svelte-1lthe4f");
+        attr(span7, "class", "bg svelte-1lthe4f");
+        attr(button0, "class", "unit_toggle svelte-1lthe4f");
+        attr(div16, "class", "labels svelte-1lthe4f");
+        attr(div17, "class", "feature_item svelte-1lthe4f");
+        attr(div18, "class", "col2 svelte-1lthe4f");
+        attr(div19, "class", "property_secondary svelte-1lthe4f");
+        attr(div20, "class", "property_attributes");
+        attr(button1, "class", "toggle_show_more svelte-1lthe4f");
+        attr(div21, "class", "property_less_more svelte-1lthe4f");
+        attr(div22, "class", div22_class_value = null_to_empty(
           /*showMore*/
           ctx[2] ? "property_more" : "property"
-        ) + " svelte-19ys2ol");
+        ) + " svelte-1lthe4f");
       },
       m(target, anchor) {
-        insert(target, div18, anchor);
-        append(div18, div9);
-        append(div9, div0);
-        if_block0.m(div0, null);
-        append(div9, t0);
+        insert(target, div22, anchor);
+        append(div22, div0);
+        append(div0, t0);
+        append(div22, t1);
+        append(div22, div9);
+        append(div9, div1);
+        if_block0.m(div1, null);
+        append(div9, t2);
         append(div9, div8);
         append(div8, div5);
         append(div5, div4);
-        append(div4, div1);
-        append(div1, t1);
-        append(div4, t2);
         append(div4, div2);
-        mount_component(icon0, div2, null);
         append(div2, t3);
-        append(div2, span0);
-        append(span0, t4);
-        append(div4, t5);
+        append(div4, t4);
         append(div4, div3);
-        append(div3, t6);
+        mount_component(icon0, div3, null);
+        append(div3, t5);
+        append(div3, span0);
+        append(span0, t6);
         append(div5, t7);
         append(div5, a);
         mount_component(icon1, a, null);
@@ -6544,68 +6732,79 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         append(h1, t11);
         append(h1, t12);
         append(div7, t13);
-        append(div7, p0);
-        append(p0, t14);
-        append(p0, t15);
-        append(p0, t16);
-        append(p0, t17);
+        append(div7, p);
+        append(p, t14);
+        append(p, t15);
+        append(p, t16);
+        append(p, t17);
         append(div7, t18);
         append(div7, div6);
         mount_component(icon2, div6, null);
         append(div6, t19);
         append(div6, span2);
         append(span2, t20);
-        append(div18, t21);
-        append(div18, div15);
-        append(div15, div14);
-        append(div14, div10);
-        append(div10, b0);
+        append(div22, t21);
+        append(div22, div19);
+        append(div19, div18);
+        append(div18, div11);
+        append(div11, b0);
         append(b0, t22);
-        append(div10, t23);
-        append(div10, p1);
-        append(p1, t24);
-        append(div14, t25);
-        append(div14, div11);
-        append(div11, b1);
-        append(b1, t26);
-        append(div11, t27);
-        append(div11, p2);
-        append(p2, t28);
-        append(div14, t29);
-        append(div14, div12);
-        append(div12, b2);
-        append(b2, t30);
-        append(div12, t31);
-        append(div12, p3);
-        append(p3, t32);
-        append(div14, t33);
-        append(div14, div13);
-        append(div13, b3);
-        append(b3, t34);
-        append(b3, t35);
-        append(b3, t36);
+        append(div11, t23);
+        append(div11, div10);
+        mount_component(icon3, div10, null);
+        append(div10, t24);
+        append(div10, span3);
+        append(div18, t26);
+        append(div18, div13);
+        append(div13, b1);
+        append(b1, t27);
+        append(div13, t28);
+        append(div13, div12);
+        mount_component(icon4, div12, null);
+        append(div12, t29);
+        append(div12, span4);
+        append(div18, t31);
+        append(div18, div15);
+        append(div15, b2);
+        append(b2, t32);
+        append(div15, t33);
+        append(div15, div14);
+        mount_component(icon5, div14, null);
+        append(div14, t34);
+        append(div14, span5);
+        append(div18, t36);
+        append(div18, div17);
+        append(div17, b3);
         append(b3, t37);
-        append(div13, t38);
-        append(div13, p4);
-        append(div18, t40);
-        append(div18, div16);
+        append(div17, t38);
+        append(div17, div16);
+        mount_component(icon6, div16, null);
+        append(div16, t39);
+        append(div16, span6);
+        append(div16, t41);
+        append(div16, button0);
+        append(button0, span7);
+        append(button0, t42);
+        mount_component(icon7, button0, null);
+        append(div22, t43);
+        append(div22, div20);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
-            each_blocks[i].m(div16, null);
+            each_blocks[i].m(div20, null);
           }
         }
-        append(div18, t41);
+        append(div22, t44);
         if (if_block1)
-          if_block1.m(div18, null);
-        append(div18, t42);
-        append(div18, div17);
-        append(div17, button);
-        append(button, t43);
-        append(button, t44);
+          if_block1.m(div22, null);
+        append(div22, t45);
+        append(div22, div21);
+        append(div21, button1);
+        append(button1, t46);
+        append(button1, t47);
         current = true;
         if (!mounted) {
           dispose = listen(
-            button,
+            button1,
             "click",
             /*handleShowMore*/
             ctx[5]
@@ -6614,6 +6813,18 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
       },
       p(ctx2, [dirty]) {
+        if (!current || dirty & /*approvalStatus*/
+        8)
+          set_data(
+            t0,
+            /*approvalStatus*/
+            ctx2[3]
+          );
+        if (!current || dirty & /*approvalStatus*/
+        8 && div0_class_value !== (div0_class_value = null_to_empty(`approve_status ${/*approvalStatus*/
+        ctx2[3]}`) + " svelte-1lthe4f")) {
+          attr(div0, "class", div0_class_value);
+        }
         if (current_block_type === (current_block_type = select_block_type(ctx2, dirty)) && if_block0) {
           if_block0.p(ctx2, dirty);
         } else {
@@ -6621,11 +6832,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           if_block0 = current_block_type(ctx2);
           if (if_block0) {
             if_block0.c();
-            if_block0.m(div0, null);
+            if_block0.m(div1, null);
           }
         }
         if ((!current || dirty & /*property, $T*/
-        17) && t1_value !== (t1_value = /*property*/
+        17) && t3_value !== (t3_value = /*property*/
         (ctx2[0].purpose === "rent" ? (
           /*$T*/
           ctx2[4].forRent
@@ -6633,30 +6844,18 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           /*$T*/
           ctx2[4].onSale
         )) + ""))
-          set_data(t1, t1_value);
+          set_data(t3, t3_value);
         if (!current || dirty & /*property*/
-        1 && div1_class_value !== (div1_class_value = null_to_empty(
+        1 && div2_class_value !== (div2_class_value = null_to_empty(
           /*property*/
           ctx2[0].purpose === "rent" ? `purpose label_rent` : `purpose label_sale`
-        ) + " svelte-19ys2ol")) {
-          attr(div1, "class", div1_class_value);
+        ) + " svelte-1lthe4f")) {
+          attr(div2, "class", div2_class_value);
         }
         if ((!current || dirty & /*property*/
-        1) && t4_value !== (t4_value = /*property*/
+        1) && t6_value !== (t6_value = /*property*/
         ctx2[0].houseType + ""))
-          set_data(t4, t4_value);
-        if (!current || dirty & /*approvalStatus*/
-        8)
-          set_data(
-            t6,
-            /*approvalStatus*/
-            ctx2[3]
-          );
-        if (!current || dirty & /*approvalStatus*/
-        8 && div3_class_value !== (div3_class_value = null_to_empty(`approve_status ${/*approvalStatus*/
-        ctx2[3]}`) + " svelte-19ys2ol")) {
-          attr(div3, "class", div3_class_value);
-        }
+          set_data(t6, t6_value);
         if (!current || dirty & /*property*/
         1 && a_href_value !== (a_href_value = "/realtor/property/" + /*property*/
         ctx2[0].id)) {
@@ -6680,37 +6879,21 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           set_data(t20, t20_value);
         if ((!current || dirty & /*property*/
         1) && t22_value !== (t22_value = /*property*/
-        (ctx2[0].numberOfFloors || "0") + ""))
+        ctx2[0].bedroom + ""))
           set_data(t22, t22_value);
-        if ((!current || dirty & /*$T*/
-        16) && t24_value !== (t24_value = /*$T*/
-        ctx2[4].floors + ""))
-          set_data(t24, t24_value);
         if ((!current || dirty & /*property*/
-        1) && t26_value !== (t26_value = /*property*/
-        (ctx2[0].bathroom || "0") + ""))
-          set_data(t26, t26_value);
-        if ((!current || dirty & /*$T*/
-        16) && t28_value !== (t28_value = /*$T*/
-        ctx2[4].bath + ""))
-          set_data(t28, t28_value);
+        1) && t27_value !== (t27_value = /*property*/
+        ctx2[0].bathroom + ""))
+          set_data(t27, t27_value);
         if ((!current || dirty & /*property*/
-        1) && t30_value !== (t30_value = /*property*/
-        (ctx2[0].bedroom || "0") + ""))
-          set_data(t30, t30_value);
-        if ((!current || dirty & /*$T*/
-        16) && t32_value !== (t32_value = /*$T*/
-        ctx2[4].bed + ""))
+        1) && t32_value !== (t32_value = /*property*/
+        ctx2[0].livingroom + ""))
           set_data(t32, t32_value);
         if ((!current || dirty & /*property*/
-        1) && t34_value !== (t34_value = /*property*/
-        (ctx2[0].sizeM2 || "0") + ""))
-          set_data(t34, t34_value);
-        if ((!current || dirty & /*$T*/
-        16) && t36_value !== (t36_value = /*$T*/
-        ctx2[4].m + ""))
-          set_data(t36, t36_value);
-        if (dirty & /*meta, localeDatetime, property*/
+        1) && t37_value !== (t37_value = /*property*/
+        ctx2[0].sizeM2 + ""))
+          set_data(t37, t37_value);
+        if (dirty & /*meta, property*/
         3) {
           each_value_2 = ensure_array_like(
             /*meta*/
@@ -6726,7 +6909,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               each_blocks[i] = create_each_block_2(child_ctx);
               each_blocks[i].c();
               transition_in(each_blocks[i], 1);
-              each_blocks[i].m(div16, null);
+              each_blocks[i].m(div20, null);
             }
           }
           group_outros();
@@ -6745,22 +6928,22 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           } else {
             if_block1 = create_if_block3(ctx2);
             if_block1.c();
-            if_block1.m(div18, t42);
+            if_block1.m(div22, t45);
           }
         } else if (if_block1) {
           if_block1.d(1);
           if_block1 = null;
         }
         if ((!current || dirty & /*showMore*/
-        4) && t44_value !== (t44_value = /*showMore*/
+        4) && t47_value !== (t47_value = /*showMore*/
         ctx2[2] === true ? "Less" : "More"))
-          set_data(t44, t44_value);
+          set_data(t47, t47_value);
         if (!current || dirty & /*showMore*/
-        4 && div18_class_value !== (div18_class_value = null_to_empty(
+        4 && div22_class_value !== (div22_class_value = null_to_empty(
           /*showMore*/
           ctx2[2] ? "property_more" : "property"
-        ) + " svelte-19ys2ol")) {
-          attr(div18, "class", div18_class_value);
+        ) + " svelte-1lthe4f")) {
+          attr(div22, "class", div22_class_value);
         }
       },
       i(local) {
@@ -6769,6 +6952,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         transition_in(icon0.$.fragment, local);
         transition_in(icon1.$.fragment, local);
         transition_in(icon2.$.fragment, local);
+        transition_in(icon3.$.fragment, local);
+        transition_in(icon4.$.fragment, local);
+        transition_in(icon5.$.fragment, local);
+        transition_in(icon6.$.fragment, local);
+        transition_in(icon7.$.fragment, local);
         for (let i = 0; i < each_value_2.length; i += 1) {
           transition_in(each_blocks[i]);
         }
@@ -6778,6 +6966,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         transition_out(icon0.$.fragment, local);
         transition_out(icon1.$.fragment, local);
         transition_out(icon2.$.fragment, local);
+        transition_out(icon3.$.fragment, local);
+        transition_out(icon4.$.fragment, local);
+        transition_out(icon5.$.fragment, local);
+        transition_out(icon6.$.fragment, local);
+        transition_out(icon7.$.fragment, local);
         each_blocks = each_blocks.filter(Boolean);
         for (let i = 0; i < each_blocks.length; i += 1) {
           transition_out(each_blocks[i]);
@@ -6786,12 +6979,17 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(div18);
+          detach(div22);
         }
         if_block0.d();
         destroy_component(icon0);
         destroy_component(icon1);
         destroy_component(icon2);
+        destroy_component(icon3);
+        destroy_component(icon4);
+        destroy_component(icon5);
+        destroy_component(icon6);
+        destroy_component(icon7);
         destroy_each(each_blocks, detaching);
         if (if_block1)
           if_block1.d();
@@ -6855,7 +7053,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       c() {
         div = element("div");
         div.innerHTML = `<p>No Property</p>`;
-        attr(div, "class", "no_property svelte-1977nsn");
+        attr(div, "class", "no_property svelte-12f4480");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -6890,7 +7088,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(section, "class", "property_lists svelte-1977nsn");
+        attr(section, "class", "property_lists svelte-12f4480");
       },
       m(target, anchor) {
         insert(target, section, anchor);
@@ -7021,6 +7219,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     icon = new Icon_default({
       props: {
         size: 20,
+        className: "add_icon",
         color: "#FFF",
         src: FaSolidPlusCircle_default
       }
@@ -7062,12 +7261,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         if_block.c();
         t8 = space();
         create_component(footer.$.fragment);
-        attr(h1, "class", "svelte-1977nsn");
+        attr(h1, "class", "svelte-12f4480");
         attr(a, "href", "/realtor/property");
-        attr(a, "class", "add_button svelte-1977nsn");
-        attr(a, "style", "");
-        attr(div0, "class", "property_lists_header svelte-1977nsn");
-        attr(div1, "class", "property_lists_container svelte-1977nsn");
+        attr(a, "class", "add_button svelte-12f4480");
+        attr(div0, "class", "property_lists_header svelte-12f4480");
+        attr(div1, "class", "property_lists_container svelte-12f4480");
         attr(div2, "class", "content");
         attr(div3, "class", "dashboard_main_content");
         attr(section, "class", "dashboard");
