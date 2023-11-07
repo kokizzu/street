@@ -253,6 +253,27 @@
 
 <GoogleSdk on:ready={initGoogleService}/>
 <div class='property_location_container'>
+  <div class="search_mobile">
+    <div class='search_box'>
+      <label for='search_location'>
+        <Icon
+          className='icon_search_location'
+          color='#9fa9b5'
+          size={18}
+          src={FaSolidSearch}
+        />
+      </label>
+      <input
+        bind:value={input_search_value}
+        id='search_location'
+        on:input={() => {
+          searchLocationHandler();
+        }}
+        placeholder='Search for address...'
+        type='text'
+      />
+    </div>
+  </div>
 	<div class='left'>
 		<div class='props_container'>
 			{#if randomProps.length}
@@ -268,7 +289,7 @@
 								<img src={prop.images[0]} alt=''/>
 							{:else}
 								<div class='image_empty'>
-									<Icon size={40} color='#475569' src={FaSolidImage}/>
+									<Icon size={40} className='no_image_icon' color='#848d96' src={FaSolidImage}/>
 									<span>No Image !</span>
 								</div>
 							{/if}
@@ -281,7 +302,7 @@
 											{prop.purpose==='rent' ? $T.forRent : $T.onSale}
 										</div>
 										<div class='house_type'>
-											<Icon size={12} color='#475569' src={FaSolidHome}/>
+											<Icon size={12} className='house_type_icon' color='#475569' src={FaSolidHome}/>
 											<span>{prop.houseType==="" ? 'House' : prop.houseType}</span>
 										</div>
 									</div>
@@ -509,6 +530,32 @@
         background-color : #FFF !important;
     }
 
+    .search_box {
+        position : relative;
+        width    : 100%;
+        height   : fit-content;
+        padding  : 20px 20px 0 20px;
+    }
+
+    .search_box input {
+        width            : 100%;
+        border           : 1px solid #CBD5E1;
+        background-color : #F1F5F9;
+        border-radius    : 8px;
+        padding          : 12px 12px 12px 40px;
+    }
+
+    .search_box input:focus {
+        border-color : #3B82F6;
+        outline      : 1px solid #3B82F6;
+    }
+
+    .search_mobile {
+      display: none;
+    }
+
+    /* ================================ */
+
     .property_location_container {
         margin                : -40px auto 0 auto;
         border-radius         : 8px;
@@ -656,6 +703,7 @@
         justify-content     : center;
         align-items         : center;
         gap                 : 5px;
+        color: #848d96;
         transition-duration : 75ms;
     }
 
@@ -850,26 +898,6 @@
         gap            : 20px;
     }
 
-    .property_location_container .right .search_by_address .search_box {
-        position : relative;
-        width    : 100%;
-        height   : fit-content;
-        padding  : 20px 20px 0 20px;
-    }
-
-    .property_location_container .right .search_by_address .search_box input {
-        width            : 100%;
-        border           : 1px solid #CBD5E1;
-        background-color : #F1F5F9;
-        border-radius    : 8px;
-        padding          : 12px 12px 12px 40px;
-    }
-
-    .property_location_container .right .search_by_address .search_box input:focus {
-        border-color : #3B82F6;
-        outline      : 1px solid #3B82F6;
-    }
-
     :global(.icon_search_location) {
         position : absolute;
         left     : 0;
@@ -957,5 +985,120 @@
 
     .property_location_container .right .map_container .btn_sync_map:hover {
         background-color : #F1F5F9;
+    }
+
+    /* Responsive to mobile device */
+    @media (max-width: 768px) {
+      .property_location_container {
+        margin                : -40px auto 0 auto;
+        padding               : 15px;
+        min-height            : 700px;
+        height                : 1200px;
+        display               : flex;
+        flex-direction: column;
+        gap: 15px;
+        max-width             : 100%;
+        overflow-y            : scroll;
+      }
+
+      .search_mobile {
+        display: block;
+      }
+
+      .search_box {
+        padding  : 0;
+      }
+      :global(.icon_search_location) {
+        left     : 0;
+        bottom   : 0;
+        top      : 0;
+        margin   : auto 0 auto 15px;
+      }
+      .property_location_container .left .props_container::-webkit-scrollbar-thumb {
+        background: transparent;
+      }
+
+      .property_location_container .left .props_container::-webkit-scrollbar {
+        width : 0;
+      }
+
+      .property_location_container .left .props_container::-webkit-scrollbar-track {
+        background-color : transparent;
+      }
+      .property_location_container .right {
+        display: none;
+      }
+
+      .property_location_container .left .props_container .prop_item .img_container {
+        min-width     : 70px;
+        width         : 70px;
+        height        : 100%;
+      }
+
+      .property_location_container .left .props_container .prop_item {
+        gap            : 10px;
+        padding        : 20px 0 0 0;
+        border-top        : 1px solid #CBD5E1;
+        border-bottom: none;
+        border-left: none;
+        border-right: none;
+        margin-right   : 0;
+        border-radius  : 0;
+        cursor         : pointer;
+      }
+
+      .property_location_container .left .props_container .prop_item:nth-child(1) {
+        padding-top: 0;
+        border-top: none;
+      }
+
+      .property_location_container .left .props_container .prop_item:nth-child(odd) {
+        background-color : transparent;
+      }
+
+      .property_location_container .left .props_container .prop_item.highlight {
+        border : none;
+      }
+
+      :global(.no_image_icon) {
+        width: 35px;
+        height: auto;
+      }
+
+      .property_location_container .left .props_container .prop_item .img_container .image_empty span {
+        display: none;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .main_info .label_info {
+        gap            : 4px;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .main_info .label_info .purpose,
+      .property_location_container .left .props_container .prop_item .prop_info .main_info .label_info .house_type {
+        padding        : 3px 7px;
+        font-size      : 9px;
+        border         : 1px solid #CBD5E1;
+        border-radius  : 5px;
+        display        : flex;
+        flex-direction : row;
+        align-items    : center;
+        gap            : 4px;
+        width          : fit-content;
+      }
+
+      :global(.house_type_icon) {
+        width: 9px;
+        height: auto;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd .right_buttons {
+        gap            : 10px;
+      }
+
+      :global(.share_icon),
+      :global(.like_icon) {
+        width: 13px;
+        height: auto;
+      }
     }
 </style>
