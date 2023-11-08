@@ -27,6 +27,7 @@
   import FaBrandsTelegram from "svelte-icons-pack/fa/FaBrandsTelegram";
   import FaBrandsWhatsapp from "svelte-icons-pack/fa/FaBrandsWhatsapp";
   import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
+  import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
   import FaHeart from "svelte-icons-pack/fa/FaHeart";
   import {distanceKM} from './GoogleMap/distance';
   
@@ -55,11 +56,6 @@
   let myGrowl = Growl;
   let shareItemIndex = null;
   let isSearchingMap = false;
-
-  let scWidth = window.innerWidth;
-  $: if (scWidth < 768) {
-    console.log('Screen width =', scWidth)
-  }
   
   const highLightMapMarker = {
     enter: ( index ) => {
@@ -253,13 +249,68 @@
 		alert('Property liked' );
     } )
   }
+
+  let mobileClickSearchLocation = false;
 </script>
 
 
 <GoogleSdk on:ready={initGoogleService}/>
+
+{#if mobileClickSearchLocation}
+  <div class='mobile_autocomplete_container'>
+    <header>
+      <button class="back_button" on:click={() => mobileClickSearchLocation = false}>
+        <Icon color='#475569' size={27} src={FaSolidAngleLeft} />
+      </button>
+      <div class='search_box'>
+				<label for='search_location'>
+					<Icon
+						className='icon_search_location'
+						color='#9fa9b5'
+						size={18}
+						src={FaSolidSearch}
+					/>
+				</label>
+				<input
+					bind:value={input_search_value}
+					id='search_location'
+					on:input={() => {
+            searchLocationHandler();
+          }}
+					placeholder='Search for address...'
+					type='text'
+				/>
+			</div>
+    </header>
+    <div class='autocomplete_container'>
+      {#if autocomplete_lists.length}
+        {#each autocomplete_lists as place}
+          <button
+            class='autocomplete_item'
+            on:click|preventDefault={() => {
+              mobileClickSearchLocation = false;
+              searchByAddressHandler(place.place_id)
+            }}
+          >
+            <Icon size={17} color='#9fa9b5' src={FaSolidMapMarkerAlt}/>
+            <span>{place.description}</span>
+          </button>
+        {/each}
+      {:else}
+        <div class='no_autocomplete'>
+          <div class='warn'>
+            <Icon size={17} color='#475569' src={FaSolidReceipt}/>
+            <span class='empty'>Address lists will appear here...</span>
+          </div>
+        </div>
+      {/if}
+    </div>
+  </div>
+{/if}
+
 <div class='property_location_container'>
   <div class="search_mobile">
-    <button class='search_location_btn'>
+    <button class='search_location_btn' on:click={() => mobileClickSearchLocation = true}>
       <Icon
         color='#475569'
         size={18}
@@ -551,7 +602,7 @@
         outline      : 1px solid #3B82F6;
     }
 
-    .search_mobile {
+    .search_mobile, .mobile_autocomplete_container {
       display: none;
     }
 
@@ -606,7 +657,7 @@
     }
 
     .property_location_container .left .props_container .no_properties,
-    .property_location_container .right .autocomplete_container .no_autocomplete {
+    .autocomplete_container .no_autocomplete {
         display         : flex;
         justify-content : center;
         align-items     : center;
@@ -615,7 +666,7 @@
     }
 
     .property_location_container .left .props_container .no_properties .warn,
-    .property_location_container .right .autocomplete_container .no_autocomplete .warn {
+    .autocomplete_container .no_autocomplete .warn {
         display          : flex;
         flex-direction   : row;
         align-items      : center;
@@ -913,7 +964,7 @@
         margin   : auto 0 auto 32px;
     }
 
-    .property_location_container .right .autocomplete_container {
+    .autocomplete_container {
         height         : 100%;
         display        : flex;
         flex-direction : column;
@@ -922,26 +973,26 @@
         border-top     : 1px solid #CBD5E1;
     }
 
-    .property_location_container .right .autocomplete_container {
+    .autocomplete_container {
         height         : 100%;
         display        : flex;
         flex-direction : column;
         overflow       : auto;
     }
 
-    .property_location_container .right .autocomplete_container::-webkit-scrollbar-thumb {
+    .autocomplete_container::-webkit-scrollbar-thumb {
         background-color : #3B82F6;
     }
 
-    .property_location_container .right .autocomplete_container::-webkit-scrollbar {
+    .autocomplete_container::-webkit-scrollbar {
         width : 8px;
     }
 
-    .property_location_container .right .autocomplete_container::-webkit-scrollbar-track {
+    .autocomplete_container::-webkit-scrollbar-track {
         background-color : transparent;
     }
 
-    .property_location_container .right .autocomplete_container .autocomplete_item {
+    .autocomplete_container .autocomplete_item {
         display        : flex;
         flex-direction : row;
         gap            : 8px;
@@ -953,7 +1004,7 @@
         cursor         : pointer;
     }
 
-    .property_location_container .right .autocomplete_container .autocomplete_item:hover {
+    .autocomplete_container .autocomplete_item:hover {
         background-color : #F1F5F9;
     }
 
@@ -1007,6 +1058,45 @@
         overflow-y            : scroll;
       }
 
+      .mobile_autocomplete_container {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        top: 0;
+        background-color: #FFF;
+        z-index: 9999;
+        overflow-y: scroll;
+        padding: 20px;
+        gap: 15px;
+      }
+
+      .mobile_autocomplete_container header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .mobile_autocomplete_container header .back_button {
+        width: fit-content;
+        padding: 0;
+        background: transparent;
+        border: none;
+      }
+
+      .mobile_autocomplete_container header .search_box {
+        padding: 0;
+        flex-grow: 1;
+      }
+
+      :global(.icon_search_location) {
+        top: 0;
+        margin: auto 0 auto 15px;
+      }
+
       .search_mobile {
         display: block;
       }
@@ -1025,16 +1115,20 @@
         gap: 12px;
         color: #475569;
         align-items: center;
+        cursor: pointer;
       }
-      .property_location_container .left .props_container::-webkit-scrollbar-thumb {
+      .property_location_container .left .props_container::-webkit-scrollbar-thumb,
+      .mobile_autocomplete_container::-webkit-scrollbar-thumb {
         background: transparent;
       }
 
-      .property_location_container .left .props_container::-webkit-scrollbar {
+      .property_location_container .left .props_container::-webkit-scrollbar,
+      .mobile_autocomplete_container::-webkit-scrollbar {
         width : 0;
       }
 
-      .property_location_container .left .props_container::-webkit-scrollbar-track {
+      .property_location_container .left .props_container::-webkit-scrollbar-track,
+      .mobile_autocomplete_container::-webkit-scrollbar-track {
         background-color : transparent;
       }
       .property_location_container .right {
