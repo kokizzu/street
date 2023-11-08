@@ -55,6 +55,11 @@
   let myGrowl = Growl;
   let shareItemIndex = null;
   let isSearchingMap = false;
+
+  let scWidth = window.innerWidth;
+  $: if (scWidth < 768) {
+    console.log('Screen width =', scWidth)
+  }
   
   const highLightMapMarker = {
     enter: ( index ) => {
@@ -254,25 +259,14 @@
 <GoogleSdk on:ready={initGoogleService}/>
 <div class='property_location_container'>
   <div class="search_mobile">
-    <div class='search_box'>
-      <label for='search_location'>
-        <Icon
-          className='icon_search_location'
-          color='#9fa9b5'
-          size={18}
-          src={FaSolidSearch}
-        />
-      </label>
-      <input
-        bind:value={input_search_value}
-        id='search_location'
-        on:input={() => {
-          searchLocationHandler();
-        }}
-        placeholder='Search for address...'
-        type='text'
+    <button class='search_location_btn'>
+      <Icon
+        color='#475569'
+        size={18}
+        src={FaSolidSearch}
       />
-    </div>
+      <span>Search for address...</span>
+    </button>
   </div>
 	<div class='left'>
 		<div class='props_container'>
@@ -364,30 +358,37 @@
 									{/if}
 								</div>
 								<div class='address'>
-									<Icon size={17} color='#f97316' src={FaSolidMapMarkerAlt}/>
+									<Icon size={17} className='icon_address' color='#f97316' src={FaSolidMapMarkerAlt}/>
 									<span>{prop.formattedAddress==="" ? prop.address : prop.formattedAddress}</span>
 								</div>
 								<div class='feature'>
 									<div class='item'>
 										<div>
-											<Icon size={13} color='#FFF' src={FaSolidBuilding}/>
+											<Icon size={13} className='icon_feature' color='#FFF' src={FaSolidBuilding}/>
 											<span>{$T.floors}</span>
 										</div>
 										<span class='value'>{prop.numberOfFloors===0 ? 'no-data' : prop.numberOfFloors}</span>
 									</div>
 									<div class='item'>
 										<div>
-											<Icon size={14} color='#FFF' src={FaSolidBed}/>
+											<Icon size={14} className='icon_feature' color='#FFF' src={FaSolidBed}/>
 											<span>{$T.bed}</span>
 										</div>
 										<span class='value'>{prop.bedroom===0 ? 'no-data' : prop.bedroom}</span>
 									</div>
 									<div class='item'>
 										<div>
-											<Icon size={13} color='#FFF' src={FaSolidBath}/>
+											<Icon size={13} className='icon_feature' color='#FFF' src={FaSolidBath}/>
 											<span>{$T.bath}</span>
 										</div>
 										<span class='value'>{prop.bathroom===0 ? 'no-data' : prop.bathroom}</span>
+									</div>
+                  <div class='item sizeM2'>
+										<div>
+											<Icon size={13} className='icon_feature' color='#FFF' src={FaSolidRulerCombined}/>
+											<span>Size</span>
+										</div>
+										<span class='value'>{prop.sizeM2} {$T.m}2</span>
 									</div>
 								</div>
 							</div>
@@ -824,9 +825,14 @@
     .property_location_container .left .props_container .prop_item .prop_info .main_info .feature .item {
         display        : flex;
         flex-direction : row;
+        align-items: stretch;
         width          : fit-content;
         height         : fit-content;
         border-radius  : 5px;
+    }
+
+    .property_location_container .left .props_container .prop_item .prop_info .main_info .feature .item.sizeM2 {
+        display: none;
     }
 
     .property_location_container .left .props_container .prop_item .prop_info .main_info .feature .item div {
@@ -1005,14 +1011,20 @@
         display: block;
       }
 
-      .search_box {
-        padding  : 0;
-      }
-      :global(.icon_search_location) {
-        left     : 0;
-        bottom   : 0;
-        top      : 0;
-        margin   : auto 0 auto 15px;
+      .search_location_btn {
+        border: none;
+        background: transparent;
+        padding  : 12px;
+        border           : 1px solid #CBD5E1;
+        background-color : #F1F5F9;
+        border-radius    : 8px;
+        width    : 100%;
+        height   : fit-content;
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        color: #475569;
+        align-items: center;
       }
       .property_location_container .left .props_container::-webkit-scrollbar-thumb {
         background: transparent;
@@ -1027,6 +1039,10 @@
       }
       .property_location_container .right {
         display: none;
+      }
+
+      .property_location_container .left .props_container .prop_item:hover .prop_info .main_info .address {
+        text-decoration : none;
       }
 
       .property_location_container .left .props_container .prop_item .img_container {
@@ -1099,6 +1115,47 @@
       :global(.like_icon) {
         width: 13px;
         height: auto;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .main_info .address {
+        font-size      : 10px;
+        align-items: center;
+      }
+
+      :global(.icon_address) {
+        flex-shrink : 0;
+        width: 14px;
+        height: auto;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .main_info .address span {
+        flex-shrink: 1;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .main_info .feature {
+        display         : grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        font-size: 8px;
+        line-height: 1em;
+        gap: 8px;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .main_info .feature .item.sizeM2 {
+        display: flex;
+      }
+
+      :global(.icon_feature) {
+        width: 10px;
+        height: auto;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .secondary_info {
+        justify-content : flex-end;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .secondary_info .size {
+        display        : none;
       }
     }
 </style>

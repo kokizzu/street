@@ -39,7 +39,7 @@
             <button on:click|preventDefault={openSideMenu}>
                 <Icon color='#FFF' size={20} src={FaSolidBars}/>
             </button>
-            <p>DASHBOARD</p>
+            <p>HapSTR</p>
         </div>
         <div class='right_nav'>
             <select bind:value={selectedLanguage} id='lang' name='lang'>
