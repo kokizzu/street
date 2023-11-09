@@ -575,6 +575,10 @@
 									<label for='floors'>Floors</label>
 									<input id='floors' type='number' placeholder='10' min='0' bind:value={property.floors}/>
 								</div>
+                <div class='input_box'>
+									<label for='contact'>Contact</label>
+									<input id='contact' type='text' placeholder='Cellphone/Email' bind:value={property.note}/>
+								</div>
 							</div>
 						</div>
 					{/if}
@@ -1101,7 +1105,6 @@
         background-color : #F1F5F9;
         border-radius    : 8px;
         padding          : 12px;
-        text-transform   : capitalize;
     }
 
     .input_box input:focus,
@@ -2046,5 +2049,11 @@
             flex-direction    : column;
             justify-content   : space-between;
         }
+
+        .realtor_subpage_container section.location .subpage_content .address .row {
+            display               : flex;
+            flex-direction: column;
+            gap                   : 20px;
+          }
     }
 </style>

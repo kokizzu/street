@@ -449,7 +449,7 @@
 									<span>{prop.sizeM2} {$T.m}2</span>
 								</div>
 								<div class='price'>
-									<span class='agency_fee'>{$T.agencyFee}: {prop.agencyFeePercent || '0'}%</span>
+									<span class='agency_fee'>{$T.agencyFee} {prop.agencyFeePercent || '0'}%</span>
 									<span class='last_price'>{formatPrice( prop.lastPrice || 0, 'TWD' )}</span>
 								</div>
 							</div>

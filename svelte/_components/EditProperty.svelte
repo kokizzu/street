@@ -818,7 +818,7 @@
           <button class='back_button' on:click={() => PART_TO_EDIT = ''}>
             <Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft} />
           </button>
-          <h3>Facility</h3>
+          <h3>About</h3>
         </div>
         <div class='edit_content'>
           <div class='about'>
