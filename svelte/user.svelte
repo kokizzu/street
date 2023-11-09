@@ -93,7 +93,7 @@
 <section class='dashboard'>
     <Menu access={segments}/>
     <div class='dashboard_main_content'>
-        <ProfileHeader {user}/>
+        <ProfileHeader {user} access={segments}/>
         <div class='content'>
             <div class='profile_details_container'>
                 <div class='left'>
@@ -498,5 +498,25 @@
     .profile_input select:focus {
         border-color : #3B82F6;
         outline      : 1px solid #3B82F6;
+    }
+
+    /* Responsive to mobile device */
+    @media (max-width: 768px) {
+        .profile_details_container {
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 20px;
+        }
+
+        .profile_details_container .left {
+            gap: 20px;
+        }
+
+        .profile_details_container .left .profile_details .input_container .name,
+        .profile_details_container .left .profile_details .input_container .email_country {
+            display               : flex;
+            flex-direction: column;
+            gap                   : 20px;
+        }
     }
 </style>

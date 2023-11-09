@@ -41,9 +41,6 @@
   }
 </script>
 
-{#if showGrowl}
-	<Growl message={gMsg} growlType={gType}/>
-{/if}
 <section class="property_container">
 	<div class="property">
 		<Property {propItem} {meta} {propHistories} {isAdmin}/>

@@ -68,11 +68,18 @@ function getApprovalState(s) {
   }
 }
 
+function M2ToPing( sizeM2 ) {
+  const value = sizeM2 / 3.30579;
+  const minifiedValue = value.toFixed( 2 );
+  return parseFloat( minifiedValue );
+}
+
 module.exports = {
   datetime: datetime,
   priceNtd: priceNtd,
   localeDatetime: localeDatetime,
   datetime2: datetime2,
   formatPrice: formatPrice,
-  getApprovalState: getApprovalState
+  getApprovalState: getApprovalState,
+  M2ToPing: M2ToPing
 };

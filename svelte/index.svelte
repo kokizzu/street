@@ -200,7 +200,7 @@
 	<section class="dashboard">
 		<Menu access={segments} isSideMenuOpen={sideMenuOpen} on:closesidemenu={closeSideMenu}/>
 		<div class="dashboard_main_content">
-			<ProfileHeader user={user}/>
+			<ProfileHeader {user} access={segments}/>
 			<div class="content">
 				<PropertyLocation initialLatLong={initialLatLong} randomProps={randomProps}/>
 			</div>

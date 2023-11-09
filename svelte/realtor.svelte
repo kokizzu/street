@@ -7,16 +7,16 @@
   import OwnedProperty from '_components/OwnedProperty.svelte';
 
   import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidPlusCircle from "svelte-icons-pack/fa/FaSolidPlusCircle";
+  import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
 
-  let ownedProperties = [/* ownedProperties */]
+  let ownedProperties = [/* ownedProperties */];
   let pager = [/* pager */];
   let propertyMeta = [/* propertyMeta */];
 
   onMount(() => {
-    console.log('onMount.realtor')
-    console.log('ownedProperties=',ownedProperties);
-    console.log('pager=',pager);
+    console.log('onMount.realtor');
+    console.log('ownedProperties=', ownedProperties);
+    console.log('pager=', pager);
     if (!ownedProperties) {
       ownedProperties = [];
     }
@@ -29,20 +29,20 @@
 <section class="dashboard">
   <Menu access={segments} />
   <div class="dashboard_main_content">
-    <ProfileHeader />
+    <ProfileHeader {user} access={segments}/>
     <div class="content">
       <div class="property_lists_container">
         <div class="property_lists_header">
           <h1>Owned/Managed Properties: {pager.countResult}</h1>
-          <a href="/realtor/property" class="add_button" style="">
-            <Icon size={20} color='#FFF' src={FaSolidPlusCircle} />
+          <a href="/realtor/property" class="add_button">
+            <Icon size={20} className="add_icon" color="#FFF" src={FaSolidPlusCircle} />
             <span>Add</span>
           </a>
         </div>
         {#if ownedProperties && ownedProperties.length}
           <section class="property_lists">
             {#each ownedProperties as property}
-              <OwnedProperty property={property} meta={propertyMeta} />
+              <OwnedProperty {property} meta={propertyMeta} />
             {/each}
           </section>
         {:else}
@@ -80,6 +80,7 @@
     align-items: center;
     height: fit-content;
     width: 100%;
+    gap: 20px;
   }
 
   .property_lists_container .property_lists_header .add_button {
@@ -125,5 +126,28 @@
     flex-direction: column;
     gap: 20px;
     width: 100%;
+  }
+
+  /* Responsive to mobile device */
+  @media (max-width: 768px) {
+    :global(.add_icon) {
+      width: 15px;
+      height: 15px;
+    }
+    .property_lists_container {
+      margin: -40px 20px 0 20px;
+      padding: 15px;
+      width: auto;
+    }
+
+    .property_lists_container .property_lists_header h1 {
+      font-size: 16px !important;
+    }
+
+    .property_lists_container .property_lists_header .add_button {
+      padding: 5px 15px !important;
+      font-size: 14px !important;
+      gap: 8px !important;
+    }
   }
 </style>

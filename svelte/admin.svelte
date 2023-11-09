@@ -228,7 +228,7 @@
 <section class='dashboard'>
   <Menu access={segments} />
   <div class='dashboard_main_content'>
-    <ProfileHeader />
+    <ProfileHeader {user} access={segments}/>
     <AdminSubMenu />
     <div class='content'>
       <div class='info_card'>

@@ -40,7 +40,7 @@
 <section class='dashboard'>
     <Menu access={segments}/>
     <div class='dashboard_main_content'>
-        <ProfileHeader></ProfileHeader>
+        <ProfileHeader access={segments}/>
         <AdminSubMenu></AdminSubMenu>
         <div class='content'>
             <section class='tableview_container'>

@@ -1,7 +1,7 @@
 <script>
   import FaSolidImage from "svelte-icons-pack/fa/FaSolidImage";
   import FaSolidHome from "svelte-icons-pack/fa/FaSolidHome";
-  import {formatPrice, localeDatetime} from "./formatter";
+  import {formatPrice, localeDatetime, M2ToPing} from "./formatter";
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidMapMarkerAlt from "svelte-icons-pack/fa/FaSolidMapMarkerAlt";
   import PillBox from "./PillBox.svelte";
@@ -38,11 +38,7 @@
     }
   } )
   
-  function M2ToPing( sizeM2 ) {
-    const value = sizeM2 / 3.30579;
-    const minifiedValue = value.toFixed( 2 );
-    return parseFloat( minifiedValue );
-  }
+  
 </script>
 
 <div class='property'>

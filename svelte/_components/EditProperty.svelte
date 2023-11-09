@@ -818,7 +818,7 @@
           <button class='back_button' on:click={() => PART_TO_EDIT = ''}>
             <Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft} />
           </button>
-          <h3>Facility</h3>
+          <h3>About</h3>
         </div>
         <div class='edit_content'>
           <div class='about'>
@@ -842,12 +842,12 @@
       </div>
     {/if}
   </div>
-  <div class='delete_property_container'>
+  <!-- <div class='delete_property_container'>
     <button class='delete_property'>
       <Icon color='#FFF' size={10} src={FaTrashAlt} />
       <span>Delete Property</span>
     </button>
-  </div>
+  </div> -->
 </div>
 
 <style>
@@ -977,7 +977,7 @@
     color : rgba(255, 126, 118, 1);
   }
 
-  .edit_property_root .delete_property {
+  /* .edit_property_root .delete_property {
     background-color : #EF4444;
     display          : flex;
     flex-direction   : row;
@@ -993,7 +993,7 @@
 
   .edit_property_root .delete_property:hover {
     background-color : #F85454;
-  }
+  } */
 
   .edit_property_root .upper_action {
     display          : flex;
@@ -1039,10 +1039,10 @@
     background-color : #7E80F1;
   }
 
-  .edit_property_root .delete_property_container {
+  /* .edit_property_root .delete_property_container {
     margin : 20px auto 0 auto;
     width  : 60%;
-  }
+  } */
 
   .unit_toggle {
     border     : none;

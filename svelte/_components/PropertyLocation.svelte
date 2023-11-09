@@ -27,6 +27,7 @@
   import FaBrandsTelegram from "svelte-icons-pack/fa/FaBrandsTelegram";
   import FaBrandsWhatsapp from "svelte-icons-pack/fa/FaBrandsWhatsapp";
   import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
+  import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
   import FaHeart from "svelte-icons-pack/fa/FaHeart";
   import {distanceKM} from './GoogleMap/distance';
   
@@ -248,11 +249,76 @@
 		alert('Property liked' );
     } )
   }
+
+  let mobileClickSearchLocation = false;
 </script>
 
 
 <GoogleSdk on:ready={initGoogleService}/>
+
+{#if mobileClickSearchLocation}
+  <div class='mobile_autocomplete_container'>
+    <header>
+      <button class="back_button" on:click={() => mobileClickSearchLocation = false}>
+        <Icon color='#475569' size={27} src={FaSolidAngleLeft} />
+      </button>
+      <div class='search_box'>
+				<label for='search_location'>
+					<Icon
+						className='icon_search_location'
+						color='#9fa9b5'
+						size={18}
+						src={FaSolidSearch}
+					/>
+				</label>
+				<input
+					bind:value={input_search_value}
+					id='search_location'
+					on:input={() => {
+            searchLocationHandler();
+          }}
+					placeholder='Search for address...'
+					type='text'
+				/>
+			</div>
+    </header>
+    <div class='autocomplete_container'>
+      {#if autocomplete_lists.length}
+        {#each autocomplete_lists as place}
+          <button
+            class='autocomplete_item'
+            on:click|preventDefault={() => {
+              mobileClickSearchLocation = false;
+              searchByAddressHandler(place.place_id)
+            }}
+          >
+            <Icon size={17} color='#9fa9b5' src={FaSolidMapMarkerAlt}/>
+            <span>{place.description}</span>
+          </button>
+        {/each}
+      {:else}
+        <div class='no_autocomplete'>
+          <div class='warn'>
+            <Icon size={17} color='#475569' src={FaSolidReceipt}/>
+            <span class='empty'>Address lists will appear here...</span>
+          </div>
+        </div>
+      {/if}
+    </div>
+  </div>
+{/if}
+
 <div class='property_location_container'>
+  <div class="search_mobile">
+    <button class='search_location_btn' on:click={() => mobileClickSearchLocation = true}>
+      <Icon
+        color='#475569'
+        size={18}
+        src={FaSolidSearch}
+      />
+      <span>Search for address...</span>
+    </button>
+  </div>
 	<div class='left'>
 		<div class='props_container'>
 			{#if randomProps.length}
@@ -268,7 +334,7 @@
 								<img src={prop.images[0]} alt=''/>
 							{:else}
 								<div class='image_empty'>
-									<Icon size={40} color='#475569' src={FaSolidImage}/>
+									<Icon size={40} className='no_image_icon' color='#848d96' src={FaSolidImage}/>
 									<span>No Image !</span>
 								</div>
 							{/if}
@@ -281,7 +347,7 @@
 											{prop.purpose==='rent' ? $T.forRent : $T.onSale}
 										</div>
 										<div class='house_type'>
-											<Icon size={12} color='#475569' src={FaSolidHome}/>
+											<Icon size={12} className='house_type_icon' color='#475569' src={FaSolidHome}/>
 											<span>{prop.houseType==="" ? 'House' : prop.houseType}</span>
 										</div>
 									</div>
@@ -343,30 +409,37 @@
 									{/if}
 								</div>
 								<div class='address'>
-									<Icon size={17} color='#f97316' src={FaSolidMapMarkerAlt}/>
+									<Icon size={17} className='icon_address' color='#f97316' src={FaSolidMapMarkerAlt}/>
 									<span>{prop.formattedAddress==="" ? prop.address : prop.formattedAddress}</span>
 								</div>
 								<div class='feature'>
 									<div class='item'>
 										<div>
-											<Icon size={13} color='#FFF' src={FaSolidBuilding}/>
+											<Icon size={13} className='icon_feature' color='#FFF' src={FaSolidBuilding}/>
 											<span>{$T.floors}</span>
 										</div>
 										<span class='value'>{prop.numberOfFloors===0 ? 'no-data' : prop.numberOfFloors}</span>
 									</div>
 									<div class='item'>
 										<div>
-											<Icon size={14} color='#FFF' src={FaSolidBed}/>
+											<Icon size={14} className='icon_feature' color='#FFF' src={FaSolidBed}/>
 											<span>{$T.bed}</span>
 										</div>
 										<span class='value'>{prop.bedroom===0 ? 'no-data' : prop.bedroom}</span>
 									</div>
 									<div class='item'>
 										<div>
-											<Icon size={13} color='#FFF' src={FaSolidBath}/>
+											<Icon size={13} className='icon_feature' color='#FFF' src={FaSolidBath}/>
 											<span>{$T.bath}</span>
 										</div>
 										<span class='value'>{prop.bathroom===0 ? 'no-data' : prop.bathroom}</span>
+									</div>
+                  <div class='item sizeM2'>
+										<div>
+											<Icon size={13} className='icon_feature' color='#FFF' src={FaSolidRulerCombined}/>
+											<span>Size</span>
+										</div>
+										<span class='value'>{prop.sizeM2} {$T.m}2</span>
 									</div>
 								</div>
 							</div>
@@ -376,7 +449,7 @@
 									<span>{prop.sizeM2} {$T.m}2</span>
 								</div>
 								<div class='price'>
-									<span class='agency_fee'>{$T.agencyFee}: {prop.agencyFeePercent || '0'}%</span>
+									<span class='agency_fee'>{$T.agencyFee} {prop.agencyFeePercent || '0'}%</span>
 									<span class='last_price'>{formatPrice( prop.lastPrice || 0, 'TWD' )}</span>
 								</div>
 							</div>
@@ -509,6 +582,32 @@
         background-color : #FFF !important;
     }
 
+    .search_box {
+        position : relative;
+        width    : 100%;
+        height   : fit-content;
+        padding  : 20px 20px 0 20px;
+    }
+
+    .search_box input {
+        width            : 100%;
+        border           : 1px solid #CBD5E1;
+        background-color : #F1F5F9;
+        border-radius    : 8px;
+        padding          : 12px 12px 12px 40px;
+    }
+
+    .search_box input:focus {
+        border-color : #3B82F6;
+        outline      : 1px solid #3B82F6;
+    }
+
+    .search_mobile, .mobile_autocomplete_container {
+      display: none;
+    }
+
+    /* ================================ */
+
     .property_location_container {
         margin                : -40px auto 0 auto;
         border-radius         : 8px;
@@ -558,7 +657,7 @@
     }
 
     .property_location_container .left .props_container .no_properties,
-    .property_location_container .right .autocomplete_container .no_autocomplete {
+    .autocomplete_container .no_autocomplete {
         display         : flex;
         justify-content : center;
         align-items     : center;
@@ -567,7 +666,7 @@
     }
 
     .property_location_container .left .props_container .no_properties .warn,
-    .property_location_container .right .autocomplete_container .no_autocomplete .warn {
+    .autocomplete_container .no_autocomplete .warn {
         display          : flex;
         flex-direction   : row;
         align-items      : center;
@@ -656,6 +755,7 @@
         justify-content     : center;
         align-items         : center;
         gap                 : 5px;
+        color: #848d96;
         transition-duration : 75ms;
     }
 
@@ -776,9 +876,14 @@
     .property_location_container .left .props_container .prop_item .prop_info .main_info .feature .item {
         display        : flex;
         flex-direction : row;
+        align-items: stretch;
         width          : fit-content;
         height         : fit-content;
         border-radius  : 5px;
+    }
+
+    .property_location_container .left .props_container .prop_item .prop_info .main_info .feature .item.sizeM2 {
+        display: none;
     }
 
     .property_location_container .left .props_container .prop_item .prop_info .main_info .feature .item div {
@@ -850,26 +955,6 @@
         gap            : 20px;
     }
 
-    .property_location_container .right .search_by_address .search_box {
-        position : relative;
-        width    : 100%;
-        height   : fit-content;
-        padding  : 20px 20px 0 20px;
-    }
-
-    .property_location_container .right .search_by_address .search_box input {
-        width            : 100%;
-        border           : 1px solid #CBD5E1;
-        background-color : #F1F5F9;
-        border-radius    : 8px;
-        padding          : 12px 12px 12px 40px;
-    }
-
-    .property_location_container .right .search_by_address .search_box input:focus {
-        border-color : #3B82F6;
-        outline      : 1px solid #3B82F6;
-    }
-
     :global(.icon_search_location) {
         position : absolute;
         left     : 0;
@@ -879,7 +964,7 @@
         margin   : auto 0 auto 32px;
     }
 
-    .property_location_container .right .autocomplete_container {
+    .autocomplete_container {
         height         : 100%;
         display        : flex;
         flex-direction : column;
@@ -888,26 +973,26 @@
         border-top     : 1px solid #CBD5E1;
     }
 
-    .property_location_container .right .autocomplete_container {
+    .autocomplete_container {
         height         : 100%;
         display        : flex;
         flex-direction : column;
         overflow       : auto;
     }
 
-    .property_location_container .right .autocomplete_container::-webkit-scrollbar-thumb {
+    .autocomplete_container::-webkit-scrollbar-thumb {
         background-color : #3B82F6;
     }
 
-    .property_location_container .right .autocomplete_container::-webkit-scrollbar {
+    .autocomplete_container::-webkit-scrollbar {
         width : 8px;
     }
 
-    .property_location_container .right .autocomplete_container::-webkit-scrollbar-track {
+    .autocomplete_container::-webkit-scrollbar-track {
         background-color : transparent;
     }
 
-    .property_location_container .right .autocomplete_container .autocomplete_item {
+    .autocomplete_container .autocomplete_item {
         display        : flex;
         flex-direction : row;
         gap            : 8px;
@@ -919,7 +1004,7 @@
         cursor         : pointer;
     }
 
-    .property_location_container .right .autocomplete_container .autocomplete_item:hover {
+    .autocomplete_container .autocomplete_item:hover {
         background-color : #F1F5F9;
     }
 
@@ -957,5 +1042,214 @@
 
     .property_location_container .right .map_container .btn_sync_map:hover {
         background-color : #F1F5F9;
+    }
+
+    /* Responsive to mobile device */
+    @media (max-width: 768px) {
+      .property_location_container {
+        margin                : -40px auto 0 auto;
+        padding               : 15px;
+        min-height            : 700px;
+        height                : 1200px;
+        display               : flex;
+        flex-direction: column;
+        gap: 15px;
+        max-width             : 100%;
+        overflow-y            : scroll;
+      }
+
+      .mobile_autocomplete_container {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        top: 0;
+        background-color: #FFF;
+        z-index: 9999;
+        overflow-y: scroll;
+        padding: 20px;
+        gap: 15px;
+      }
+
+      .mobile_autocomplete_container header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .mobile_autocomplete_container header .back_button {
+        width: fit-content;
+        padding: 0;
+        background: transparent;
+        border: none;
+      }
+
+      .mobile_autocomplete_container header .search_box {
+        padding: 0;
+        flex-grow: 1;
+      }
+
+      :global(.icon_search_location) {
+        top: 0;
+        margin: auto 0 auto 15px;
+      }
+
+      .search_mobile {
+        display: block;
+      }
+
+      .search_location_btn {
+        border: none;
+        background: transparent;
+        padding  : 12px;
+        border           : 1px solid #CBD5E1;
+        background-color : #F1F5F9;
+        border-radius    : 8px;
+        width    : 100%;
+        height   : fit-content;
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        color: #475569;
+        align-items: center;
+        cursor: pointer;
+      }
+      .property_location_container .left .props_container::-webkit-scrollbar-thumb,
+      .mobile_autocomplete_container::-webkit-scrollbar-thumb {
+        background: transparent;
+      }
+
+      .property_location_container .left .props_container::-webkit-scrollbar,
+      .mobile_autocomplete_container::-webkit-scrollbar {
+        width : 0;
+      }
+
+      .property_location_container .left .props_container::-webkit-scrollbar-track,
+      .mobile_autocomplete_container::-webkit-scrollbar-track {
+        background-color : transparent;
+      }
+      .property_location_container .right {
+        display: none;
+      }
+
+      .property_location_container .left .props_container .prop_item:hover .prop_info .main_info .address {
+        text-decoration : none;
+      }
+
+      .property_location_container .left .props_container .prop_item .img_container {
+        min-width     : 70px;
+        width         : 70px;
+        height        : 100%;
+      }
+
+      .property_location_container .left .props_container .prop_item {
+        gap            : 10px;
+        padding        : 20px 0 0 0;
+        border-top        : 1px solid #CBD5E1;
+        border-bottom: none;
+        border-left: none;
+        border-right: none;
+        margin-right   : 0;
+        border-radius  : 0;
+        cursor         : pointer;
+      }
+
+      .property_location_container .left .props_container .prop_item:nth-child(1) {
+        padding-top: 0;
+        border-top: none;
+      }
+
+      .property_location_container .left .props_container .prop_item:nth-child(odd) {
+        background-color : transparent;
+      }
+
+      .property_location_container .left .props_container .prop_item.highlight {
+        border : none;
+      }
+
+      :global(.no_image_icon) {
+        width: 35px;
+        height: auto;
+      }
+
+      .property_location_container .left .props_container .prop_item .img_container .image_empty span {
+        display: none;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .main_info .label_info {
+        gap            : 4px;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .main_info .label_info .purpose,
+      .property_location_container .left .props_container .prop_item .prop_info .main_info .label_info .house_type {
+        padding        : 3px 7px;
+        font-size      : 9px;
+        border         : 1px solid #CBD5E1;
+        border-radius  : 5px;
+        display        : flex;
+        flex-direction : row;
+        align-items    : center;
+        gap            : 4px;
+        width          : fit-content;
+      }
+
+      :global(.house_type_icon) {
+        width: 9px;
+        height: auto;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .main_info .top_xd .right_buttons {
+        gap            : 10px;
+      }
+
+      :global(.share_icon),
+      :global(.like_icon) {
+        width: 13px;
+        height: auto;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .main_info .address {
+        font-size      : 10px;
+        align-items: center;
+      }
+
+      :global(.icon_address) {
+        flex-shrink : 0;
+        width: 14px;
+        height: auto;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .main_info .address span {
+        flex-shrink: 1;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .main_info .feature {
+        display         : grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        font-size: 8px;
+        line-height: 1em;
+        gap: 8px;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .main_info .feature .item.sizeM2 {
+        display: flex;
+      }
+
+      :global(.icon_feature) {
+        width: 10px;
+        height: auto;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .secondary_info {
+        justify-content : flex-end;
+      }
+
+      .property_location_container .left .props_container .prop_item .prop_info .secondary_info .size {
+        display        : none;
+      }
     }
 </style>

@@ -3,9 +3,14 @@
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
   import FaSolidPen from 'svelte-icons-pack/fa/FaSolidPen';
+  import FaSolidBed from 'svelte-icons-pack/fa/FaSolidBed';
+  import FaSolidBath from 'svelte-icons-pack/fa/FaSolidBath';
+  import FaSolidChair from 'svelte-icons-pack/fa/FaSolidChair';
+  import FaSolidBorderStyle from 'svelte-icons-pack/fa/FaSolidBorderStyle';
+  import FaSolidExchangeAlt from 'svelte-icons-pack/fa/FaSolidExchangeAlt';
   import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
   import PillBox from './PillBox.svelte';
-  import {localeDatetime} from './formatter';
+  import {localeDatetime, M2ToPing} from './formatter';
   import {T} from './uiState.js';
   import { onMount } from 'svelte';
   
@@ -31,6 +36,9 @@
 </script>
 
 <div class={showMore ? 'property_more' : 'property'}>
+    <div class={`approve_status ${approvalStatus}`}>
+        {approvalStatus}
+    </div>
 	<div class='property_main'>
 		<div class='property_images'>
 			{#if property.images && property.images.length}
@@ -48,12 +56,9 @@
 						{property.purpose==='rent' ? $T.forRent : $T.onSale}
 					</div>
 					<div class='house_type'>
-						<Icon color='#FFF' size={16} src={FaSolidHome}/>
+						<Icon color='#FFF' size={14} src={FaSolidHome}/>
 						<span>{property.houseType}</span>
 					</div>
-                    <div class={`approve_status ${approvalStatus}`}>
-                        {approvalStatus}
-                    </div>
 				</div>
 				<a class='edit_property' href='/realtor/property/{property.id}'>
 					<Icon color='#FFF' size={13} src={FaSolidPen}/>
@@ -64,31 +69,47 @@
 				<h1>$ {property.lastPrice || '0.00'}</h1>
 				<p>{$T.agencyFee} : {property.agencyFeePercent}%</p>
 				<div class='address'>
-					<Icon color='#f97316' size={18} src={FaSolidMapMarkerAlt}/>
+					<Icon color='#f97316' className="icon_address" size={18} src={FaSolidMapMarkerAlt}/>
 					<span>{property.formattedAddress}</span>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class='property_secondary'>
-		<div class='feature_number'>
-			<div class='feature_item'>
-				<b>{property.numberOfFloors || '0'}</b>
-				<p>{$T.floors}</p>
-			</div>
-			<div class='feature_item'>
-				<b>{property.bathroom || '0'}</b>
-				<p>{$T.bath}</p>
-			</div>
-			<div class='feature_item'>
-				<b>{property.bedroom || '0'}</b>
-				<p>{$T.bed}</p>
-			</div>
-			<div class='feature_item'>
-				<b>{property.sizeM2 || '0'} {$T.m}2</b>
-				<p>Size</p>
-			</div>
-		</div>
+		<div class='col2'>
+            <div class='feature_item'>
+              <b>{property.bedroom}</b>
+              <div class='labels'>
+                <Icon className='labels_icon' color='#848D96' size={13} src={FaSolidBed} />
+                <span>Beds</span>
+              </div>
+            </div>
+            <div class='feature_item'>
+              <b>{property.bathroom}</b>
+              <div class='labels'>
+                <Icon className='labels_icon' color='#848D96' size={13} src={FaSolidBath} />
+                <span>Baths</span>
+              </div>
+            </div>
+            <div class='feature_item'>
+              <b>{property.livingroom}</b>
+              <div class='labels'>
+                <Icon className='labels_icon' color='#848D96' size={12} src={FaSolidChair} />
+                <span>Livings</span>
+              </div>
+            </div>
+            <div class='feature_item'>
+              <b>{property.sizeM2}</b>
+              <div class='labels'>
+                <Icon className='labels_icon' color='#848D96' size={13} src={FaSolidBorderStyle} />
+                <span>M2</span>
+                <button class='unit_toggle'>
+                  <span class='bg'></span>
+                  <Icon className='labels_icon' color='#F97316' size={12} src={FaSolidExchangeAlt} />
+                </button>
+              </div>
+            </div>
+          </div>
 	</div>
 	<div class='property_attributes'>
 		{#each meta as m}
@@ -146,6 +167,29 @@
 </div>
 
 <style>
+    .unit_toggle {
+    border     : none;
+    background : transparent;
+    position   : relative;
+    cursor     : pointer;
+  }
+
+  .unit_toggle .bg {
+    width            : 0;
+    height           : 0;
+    border-radius    : 50%;
+    background-color : rgb(0 0 0 / 0.06);
+    z-index          : 1;
+    position         : absolute;
+    top              : -4px;
+    left             : 0;
+  }
+
+  .unit_toggle:hover .bg {
+    width  : 24px;
+    height : 24px;
+  }
+  
     .property {
         background-color : #F0F0F0;
         border-radius    : 8px;
@@ -177,6 +221,29 @@
         justify-content : flex-start;
         align-items     : flex-start;
         gap             : 15px;
+    }
+
+    .approve_status {
+        padding          : 7px 18px;
+        border-radius    : 8px;
+        font-size        : 14px;
+        text-transform   : capitalize;
+        text-decoration  : none;
+    }
+
+    .approve_status.approved {
+        background-color : rgba(140, 216, 107, 1);
+        color            : #FFF;
+    }
+
+    .approve_status.pending {
+        background-color : rgba(255, 208, 118, 1);
+        color            : #475569;
+    }
+
+    .approve_status.rejected {
+        background-color : rgba(255, 126, 118, 1);
+        color            : #FFF;
     }
 
     .property_main .property_images {
@@ -224,29 +291,6 @@
         align-items : center;
     }
 
-    .property_main .property_info .col1 .left .approve_status {
-        padding          : 7px 18px;
-        border-radius    : 8px;
-        font-size        : 14px;
-        text-transform   : capitalize;
-        text-decoration  : none;
-    }
-
-    .property_main .property_info .col1 .left .approve_status.approved {
-        background-color : rgba(140, 216, 107, 1);
-        color            : #FFF;
-    }
-
-    .property_main .property_info .col1 .left .approve_status.pending {
-        background-color : rgba(255, 208, 118, 1);
-        color            : #475569;
-    }
-
-    .property_main .property_info .col1 .left .approve_status.rejected {
-        background-color : rgba(255, 126, 118, 1);
-        color            : #FFF;
-    }
-
     .property_main .property_info .col1 .left .purpose,
     .property_main .property_info .col1 .left .house_type,
     .property_main .property_info .col1 .edit_property {
@@ -285,6 +329,14 @@
         margin : 0 0 10px 0;
     }
 
+    :global(.icon_address) {
+        flex-shrink : 0;
+    }
+
+    .property_main .property_info .col2 .address span {
+        flex-shrink: 1;
+    }
+
     .property_main .property_info .col2 .address {
         display        : flex;
         flex-direction : row;
@@ -298,29 +350,32 @@
         gap            : 15px;
     }
 
-    .property_secondary .feature_number {
-        display         : flex;
-        flex-direction  : row;
-        align-items     : center;
-        justify-content : space-evenly;
-        width           : 100%;
-    }
+    .property_secondary .col2 {
+    display         : flex;
+    flex-direction  : row;
+    justify-content : space-around;
+    align-items     : center;
+    text-align      : center;
+  }
 
-    .property_secondary .feature_number .feature_item {
-        display        : flex;
-        flex-direction : column;
-        align-items    : center;
-        gap            : 8px;
-        text-transform : capitalize;
-    }
+  .property_secondary .col2 .feature_item {
+    display        : flex;
+    flex-direction : column;
+    gap            : 8px;
+  }
 
-    .property_secondary p {
-        margin : 0;
-    }
+  .property_secondary .col2 .feature_item b {
+    font-size : 25px;
+  }
 
-    .property_secondary b {
-        font-size : 22px;
-    }
+  .property_secondary .col2 .feature_item .labels {
+    display         : flex;
+    flex-direction  : row;
+    justify-content : center;
+    gap             : 6px;
+    color           : #848D96;
+  }
+
 
     .property_floors {
         width  : 70%;
@@ -431,5 +486,48 @@
     .toggle_show_more:hover {
         color           : #F58433;
         text-decoration : underline;
+    }
+
+    /* Responsive to mobile device */
+    @media (max-width: 768px) {
+        .property_main {
+            flex-direction  : column;
+            flex-wrap       : wrap;
+            gap             : 15px;
+        }
+
+        .property_main .property_images {
+            width         : 100%;
+            height        : 180px;
+        }
+
+        .property_main .property_info {
+            width: 100%;
+        }
+
+        .property_main .property_info .col1 {
+            display         : flex;
+            justify-content : space-between;
+            align-items     : center;
+            flex-direction  : row;
+            font-size: 10px;
+            width: 100%;
+        }
+
+        .property_main .property_info .col1 .left {
+            gap         : 10px;
+        }
+
+        .property_main .property_info .col1 .left .purpose,
+        .property_main .property_info .col1 .left .house_type,
+        .property_main .property_info .col1 .edit_property {
+            padding          : 8px 10px;
+            border-radius    : 8px;
+            font-size        : 12px;
+        }
+
+        .property_main .property_info .col1 .edit_property span {
+            display : none;
+        }
     }
 </style>

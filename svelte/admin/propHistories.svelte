@@ -78,7 +78,7 @@
 <section class='dashboard'>
   <Menu access={segments} />
   <div class='dashboard_main_content'>
-    <ProfileHeader />
+    <ProfileHeader  access={segments}/>
     <AdminSubMenu></AdminSubMenu>
     <div class='content'>
       <ModalForm {fields}
