@@ -22,7 +22,7 @@
             access={segments}
     />
     <div class='dashboard_main_content'>
-        <ProfileHeader></ProfileHeader>
+        <ProfileHeader {user} access={segments}/>
         <div class='content'>
             <div class='map_container'>
                 <GoogleMap options={mapOptions} />

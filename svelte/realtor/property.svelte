@@ -55,7 +55,7 @@
 <section class='dashboard'>
   <Menu access={segments}/>
   <div class='dashboard_main_content'>
-    <ProfileHeader></ProfileHeader>
+    <ProfileHeader {user} access={segments}/>
     {#if property.id}
       <EditProperty {property} {countries} {isAdmin} {isOwner} />
     {:else}

@@ -93,7 +93,7 @@
 <section class='dashboard'>
     <Menu access={segments}/>
     <div class='dashboard_main_content'>
-        <ProfileHeader {user}/>
+        <ProfileHeader {user} access={segments}/>
         <div class='content'>
             <div class='profile_details_container'>
                 <div class='left'>

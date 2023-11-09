@@ -7,6 +7,12 @@
     import {UserUpdateProfile} from '../jsApi.GEN.js';
 
     export let user = null;
+    export let access = {
+        'admin': false,
+        'buyer': false,
+        'realtor': false,
+        'user': false,
+    };
 
     function openSideMenu() {
         isSideMenuOpen.set(!$isSideMenuOpen);
@@ -14,7 +20,7 @@
 
     let selectedLanguage = '';
     onMount(() => {
-        console.log('onMount.ProfileHeader')
+        console.log('onMount.ProfileHeader =', user)
         selectedLanguage = T.currentLang || 'EN';
     });
 
@@ -36,9 +42,11 @@
 <header class='profile_header'>
     <nav class='navbar'>
         <div class='label_menu'>
-            <button on:click|preventDefault={openSideMenu}>
-                <Icon color='#FFF' size={20} src={FaSolidBars}/>
-            </button>
+            {#if access.admin}
+                <button on:click|preventDefault={openSideMenu}>
+                    <Icon color='#FFF' size={20} src={FaSolidBars}/>
+                </button>
+            {/if}
             <p>HapSTR</p>
         </div>
         <div class='right_nav'>

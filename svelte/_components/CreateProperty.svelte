@@ -126,7 +126,7 @@
   // +=============| Location and Signage |=============+ //
   const LOC_ADDR = 'Address';
   const LOC_MAP = 'Put the pin on your house location by clicking the map';
-  const LOC_STREETVIEW = 'Put signage on your house location';
+  const LOC_STREETVIEW = 'Please input the height of your floor';
   let modeLocationCount = 0, countryName = 'Country';
   const modeLocationLists = [
     {mode: LOC_ADDR},

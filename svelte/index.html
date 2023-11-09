@@ -5694,7 +5694,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     } } = $props;
     let segment1;
     onMount(() => {
-      console.log("onMount.Menu");
+      console.log("onMount.Menu =", access);
       $invalidate(2, segment1 = window.location.pathname.split("/")[1]);
     });
     async function userLogout() {
@@ -9008,14 +9008,66 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   var import_jsApi_GEN3 = __toESM(require_jsApi_GEN());
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[6] = list[i];
+    child_ctx[7] = list[i];
     return child_ctx;
+  }
+  function create_if_block3(ctx) {
+    let button;
+    let icon;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        color: "#FFF",
+        size: 20,
+        src: FaSolidBars_default
+      }
+    });
+    return {
+      c() {
+        button = element("button");
+        create_component(icon.$.fragment);
+        attr(button, "class", "svelte-7n687l");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        mount_component(icon, button, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(button, "click", prevent_default(
+            /*openSideMenu*/
+            ctx[2]
+          ));
+          mounted = true;
+        }
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        destroy_component(icon);
+        mounted = false;
+        dispose();
+      }
+    };
   }
   function create_each_block2(ctx) {
     let option;
     let t_value = (
       /*lang*/
-      ctx[6] + ""
+      ctx[7] + ""
     );
     let t;
     let option_value_value;
@@ -9024,7 +9076,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*lang*/
-        ctx[6];
+        ctx[7];
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -9043,25 +9095,20 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let header;
     let nav;
     let div0;
-    let button0;
-    let icon;
     let t0;
     let p;
     let t2;
     let div1;
     let select;
     let t3;
-    let button1;
+    let button;
     let current;
     let mounted;
     let dispose;
-    icon = new Icon_default({
-      props: {
-        color: "#FFF",
-        size: 20,
-        src: FaSolidBars_default
-      }
-    });
+    let if_block = (
+      /*access*/
+      ctx[0].admin && create_if_block3(ctx)
+    );
     let each_value = ensure_array_like(Object.values(langOptions));
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
@@ -9072,8 +9119,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         header = element("header");
         nav = element("nav");
         div0 = element("div");
-        button0 = element("button");
-        create_component(icon.$.fragment);
+        if (if_block)
+          if_block.c();
         t0 = space();
         p = element("p");
         p.textContent = "HapSTR";
@@ -9084,9 +9131,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           each_blocks[i].c();
         }
         t3 = space();
-        button1 = element("button");
-        button1.innerHTML = `<img alt="profile" src="/assets/img/team-1-200x200.jpg" class="svelte-7n687l"/>`;
-        attr(button0, "class", "svelte-7n687l");
+        button = element("button");
+        button.innerHTML = `<img alt="profile" src="/assets/img/team-1-200x200.jpg" class="svelte-7n687l"/>`;
         attr(p, "class", "svelte-7n687l");
         attr(div0, "class", "label_menu svelte-7n687l");
         attr(select, "id", "lang");
@@ -9094,13 +9140,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         attr(select, "class", "svelte-7n687l");
         if (
           /*selectedLanguage*/
-          ctx[0] === void 0
+          ctx[1] === void 0
         )
           add_render_callback(() => (
             /*select_change_handler*/
-            ctx[3].call(select)
+            ctx[4].call(select)
           ));
-        attr(button1, "class", "profile_button svelte-7n687l");
+        attr(button, "class", "profile_button svelte-7n687l");
         attr(div1, "class", "right_nav svelte-7n687l");
         attr(nav, "class", "navbar svelte-7n687l");
         attr(header, "class", "profile_header svelte-7n687l");
@@ -9109,8 +9155,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         insert(target, header, anchor);
         append(header, nav);
         append(nav, div0);
-        append(div0, button0);
-        mount_component(icon, button0, null);
+        if (if_block)
+          if_block.m(div0, null);
         append(div0, t0);
         append(div0, p);
         append(nav, t2);
@@ -9124,29 +9170,46 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         select_option(
           select,
           /*selectedLanguage*/
-          ctx[0],
+          ctx[1],
           true
         );
         append(div1, t3);
-        append(div1, button1);
+        append(div1, button);
         current = true;
         if (!mounted) {
-          dispose = [
-            listen(button0, "click", prevent_default(
-              /*openSideMenu*/
-              ctx[1]
-            )),
-            listen(
-              select,
-              "change",
-              /*select_change_handler*/
-              ctx[3]
-            )
-          ];
+          dispose = listen(
+            select,
+            "change",
+            /*select_change_handler*/
+            ctx[4]
+          );
           mounted = true;
         }
       },
       p(ctx2, [dirty]) {
+        if (
+          /*access*/
+          ctx2[0].admin
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*access*/
+            1) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block3(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(div0, t0);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
         if (dirty & /*Object*/
         0) {
           each_value = ensure_array_like(Object.values(langOptions));
@@ -9167,79 +9230,88 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           each_blocks.length = each_value.length;
         }
         if (dirty & /*selectedLanguage, Object*/
-        1) {
+        2) {
           select_option(
             select,
             /*selectedLanguage*/
-            ctx2[0]
+            ctx2[1]
           );
         }
       },
       i(local) {
         if (current)
           return;
-        transition_in(icon.$.fragment, local);
+        transition_in(if_block);
         current = true;
       },
       o(local) {
-        transition_out(icon.$.fragment, local);
+        transition_out(if_block);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(header);
         }
-        destroy_component(icon);
+        if (if_block)
+          if_block.d();
         destroy_each(each_blocks, detaching);
         mounted = false;
-        run_all(dispose);
+        dispose();
       }
     };
   }
   function instance7($self, $props, $invalidate) {
     let $isSideMenuOpen;
-    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(4, $isSideMenuOpen = $value));
+    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(5, $isSideMenuOpen = $value));
     let { user = null } = $props;
+    let { access = {
+      "admin": false,
+      "buyer": false,
+      "realtor": false,
+      "user": false
+    } } = $props;
     function openSideMenu() {
       isSideMenuOpen.set(!$isSideMenuOpen);
     }
     let selectedLanguage = "";
     onMount(() => {
-      console.log("onMount.ProfileHeader");
-      $invalidate(0, selectedLanguage = T.currentLang || "EN");
+      console.log("onMount.ProfileHeader =", user);
+      $invalidate(1, selectedLanguage = T.currentLang || "EN");
     });
     async function updateLang() {
       if (user !== null && user.language !== selectedLanguage) {
-        $invalidate(2, user.language = selectedLanguage, user);
+        $invalidate(3, user.language = selectedLanguage, user);
         await (0, import_jsApi_GEN3.UserUpdateProfile)(user, function(res) {
           if (res.error)
             return console.log("error");
-          $invalidate(2, user = res.user);
+          $invalidate(3, user = res.user);
         });
       }
     }
     function select_change_handler() {
       selectedLanguage = select_value(this);
-      $invalidate(0, selectedLanguage);
+      $invalidate(1, selectedLanguage);
     }
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(2, user = $props2.user);
+        $invalidate(3, user = $props2.user);
+      if ("access" in $props2)
+        $invalidate(0, access = $props2.access);
     };
     $self.$.update = () => {
       if ($self.$.dirty & /*selectedLanguage*/
-      1) {
+      2) {
         $: {
           T.changeLanguage(selectedLanguage, async () => await updateLang());
         }
       }
     };
-    return [selectedLanguage, openSideMenu, user, select_change_handler];
+    return [access, selectedLanguage, openSideMenu, user, select_change_handler];
   }
   var ProfileHeader = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance7, create_fragment6, safe_not_equal, { user: 2 });
+      init(this, options, instance7, create_fragment6, safe_not_equal, { user: 3, access: 0 });
     }
   };
   var ProfileHeader_default = ProfileHeader;
@@ -9766,7 +9838,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       }
     };
   }
-  function create_if_block3(ctx) {
+  function create_if_block4(ctx) {
     let section;
     let menu;
     let t0;
@@ -9795,10 +9867,18 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       /*closeSideMenu*/
       ctx[11]
     );
-    profileheader = new ProfileHeader_default({ props: { user: (
-      /*user*/
-      ctx[1]
-    ) } });
+    profileheader = new ProfileHeader_default({
+      props: {
+        user: (
+          /*user*/
+          ctx[1]
+        ),
+        access: (
+          /*segments*/
+          ctx[2]
+        )
+      }
+    });
     propertylocation = new PropertyLocation_default({
       props: {
         initialLatLong,
@@ -9854,6 +9934,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         2)
           profileheader_changes.user = /*user*/
           ctx2[1];
+        if (dirty & /*segments*/
+        4)
+          profileheader_changes.access = /*segments*/
+          ctx2[2];
         profileheader.$set(profileheader_changes);
       },
       i(local) {
@@ -10928,7 +11012,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let current;
     let mounted;
     let dispose;
-    const if_block_creators = [create_if_block3, create_else_block2];
+    const if_block_creators = [create_if_block4, create_else_block2];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (

@@ -45,7 +45,7 @@
 		access={segments}
 	/>
 	<div class='dashboard_main_content'>
-		<ProfileHeader></ProfileHeader>
+		<ProfileHeader {user} access={segments}/>
 		<div class='content'>
 			<div class="property_container">
 				<div class="property_status">
