@@ -3,7 +3,7 @@
     import {T, isSideMenuOpen, langOptions} from './uiState.js';
     import Icon from 'svelte-icons-pack/Icon.svelte';
     import FaSolidBars from 'svelte-icons-pack/fa/FaSolidBars';
-    import FaSolidSignInAlt from 'svelte-icons-pack/fa/FaSolidSignInAlt';
+    import FaSolidPowerOff from "svelte-icons-pack/fa/FaSolidPowerOff";
     import {onMount} from 'svelte';
     import {UserUpdateProfile, UserLogout} from '../jsApi.GEN.js';
 
@@ -39,6 +39,7 @@
         T.changeLanguage(selectedLanguage, async () => await updateLang());
     }
 
+    let showLogoutMenu = false;
     async function userLogout() {
         await UserLogout( {}, function( o ) {
             console.log( o );
@@ -57,11 +58,21 @@
                 </button>
             {/if}
             {#if !access.admin}
-                <button on:click|preventDefault={userLogout}>
-                    <Icon color='#FFF' size={20} src={FaSolidSignInAlt}/>
+                <button on:click|preventDefault={() => showLogoutMenu = !showLogoutMenu}>
+                    <Icon color='#FFF' size={20} src={FaSolidPowerOff}/>
                 </button>
             {/if}
             <p>HapSTR</p>
+            {#if showLogoutMenu}
+            <div class="logout_menu">
+                <button on:click|preventDefault={userLogout}>
+                    Logout
+                </button>
+                <button on:click|preventDefault={() => showLogoutMenu = !showLogoutMenu}>
+                    Cancel
+                </button>
+            </div>
+            {/if}
         </div>
         <div class='right_nav'>
             <select bind:value={selectedLanguage} id='lang' name='lang'>
@@ -98,6 +109,40 @@
         flex-direction : row;
         align-items    : center;
         color          : white;
+        position: relative;
+    }
+
+    .profile_header .navbar .label_menu .logout_menu {
+        display: flex;
+        flex-direction: column;
+        border-radius: 8px;
+        filter        : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+        
+        background-color: #FFF;
+        color: #475569;
+        position: absolute;
+        z-index: 800;
+        border: 1px solid #CBD5E1;
+        height: fit-content;
+        width: fit-content;
+        top: 50px;
+    }
+
+    .profile_header .navbar .label_menu .logout_menu button {
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        color: #475569;
+        font-weight: 600;
+        padding: 9px 17px;
+    }
+
+    .profile_header .navbar .label_menu .logout_menu button:nth-child(1) {
+        color: #EF4444;
+    }
+
+    .profile_header .navbar .label_menu .logout_menu button:hover {
+        background-color: #F1F5F9;
     }
 
     .profile_header .navbar .label_menu button {
@@ -192,6 +237,10 @@
         .profile_header .navbar .right_nav .profile_button > img {
             width  : 40px;
             height : 40px;
+        }
+
+        .profile_header .navbar .label_menu .logout_menu {
+            top: 30px;
         }
     }
 </style>
