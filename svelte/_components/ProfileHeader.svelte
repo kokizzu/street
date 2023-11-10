@@ -3,8 +3,9 @@
     import {T, isSideMenuOpen, langOptions} from './uiState.js';
     import Icon from 'svelte-icons-pack/Icon.svelte';
     import FaSolidBars from 'svelte-icons-pack/fa/FaSolidBars';
+    import FaSolidSignInAlt from 'svelte-icons-pack/fa/FaSolidSignInAlt';
     import {onMount} from 'svelte';
-    import {UserUpdateProfile} from '../jsApi.GEN.js';
+    import {UserUpdateProfile, UserLogout} from '../jsApi.GEN.js';
 
     export let user = null;
     export let access = {
@@ -37,6 +38,14 @@
     $: {
         T.changeLanguage(selectedLanguage, async () => await updateLang());
     }
+
+    async function userLogout() {
+        await UserLogout( {}, function( o ) {
+            console.log( o );
+            if( o.error ) return alert( o.error );
+            window.location = '/';
+        } );
+    }
 </script>
 
 <header class='profile_header'>
@@ -47,6 +56,11 @@
                     <Icon color='#FFF' size={20} src={FaSolidBars}/>
                 </button>
             {/if}
+            {#if !access.admin}
+                <button on:click|preventDefault={userLogout}>
+                    <Icon color='#FFF' size={20} src={FaSolidSignInAlt}/>
+                </button>
+            {/if}
             <p>HapSTR</p>
         </div>
         <div class='right_nav'>
@@ -55,7 +69,7 @@
                     <option value={lang}>{lang}</option>
                 {/each}
             </select>
-            <button class='profile_button'>
+            <button class='profile_button' on:click={userLogout} title='Click to logout'>
                 <img alt='profile' src='/assets/img/team-1-200x200.jpg'/>
             </button>
         </div>

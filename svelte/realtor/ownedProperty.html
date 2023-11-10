@@ -2910,7 +2910,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       exports.UserLikeProp = async function UserLikeProp(i, cb) {
         return await axios.post("/userLikeProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserLogout = async function UserLogout2(i, cb) {
+      exports.UserLogout = async function UserLogout3(i, cb) {
         return await axios.post("/user/logout", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserNearbyFacilities = async function UserNearbyFacilities(i, cb) {
@@ -5070,10 +5070,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[7] = list[i];
+    child_ctx[8] = list[i];
     return child_ctx;
   }
-  function create_if_block2(ctx) {
+  function create_if_block_12(ctx) {
     let button;
     let icon;
     let current;
@@ -5125,11 +5125,63 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       }
     };
   }
+  function create_if_block2(ctx) {
+    let button;
+    let icon;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        color: "#FFF",
+        size: 20,
+        src: FaSolidSignInAlt_default
+      }
+    });
+    return {
+      c() {
+        button = element("button");
+        create_component(icon.$.fragment);
+        attr(button, "class", "svelte-7n687l");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        mount_component(icon, button, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(button, "click", prevent_default(
+            /*userLogout*/
+            ctx[3]
+          ));
+          mounted = true;
+        }
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        destroy_component(icon);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
   function create_each_block(ctx) {
     let option;
     let t_value = (
       /*lang*/
-      ctx[7] + ""
+      ctx[8] + ""
     );
     let t;
     let option_value_value;
@@ -5138,7 +5190,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*lang*/
-        ctx[7];
+        ctx[8];
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -5158,19 +5210,22 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let nav;
     let div0;
     let t0;
+    let t1;
     let p;
-    let t2;
+    let t3;
     let div1;
     let select;
-    let t3;
+    let t4;
     let button;
     let current;
     let mounted;
     let dispose;
-    let if_block = (
+    let if_block0 = (
       /*access*/
-      ctx[0].admin && create_if_block2(ctx)
+      ctx[0].admin && create_if_block_12(ctx)
     );
+    let if_block1 = !/*access*/
+    ctx[0].admin && create_if_block2(ctx);
     let each_value = ensure_array_like(Object.values(langOptions));
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
@@ -5181,18 +5236,21 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         header = element("header");
         nav = element("nav");
         div0 = element("div");
-        if (if_block)
-          if_block.c();
+        if (if_block0)
+          if_block0.c();
         t0 = space();
+        if (if_block1)
+          if_block1.c();
+        t1 = space();
         p = element("p");
         p.textContent = "HapSTR";
-        t2 = space();
+        t3 = space();
         div1 = element("div");
         select = element("select");
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        t3 = space();
+        t4 = space();
         button = element("button");
         button.innerHTML = `<img alt="profile" src="/assets/img/team-1-200x200.jpg" class="svelte-7n687l"/>`;
         attr(p, "class", "svelte-7n687l");
@@ -5206,9 +5264,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         )
           add_render_callback(() => (
             /*select_change_handler*/
-            ctx[4].call(select)
+            ctx[5].call(select)
           ));
         attr(button, "class", "profile_button svelte-7n687l");
+        attr(button, "title", "Click to logout");
         attr(div1, "class", "right_nav svelte-7n687l");
         attr(nav, "class", "navbar svelte-7n687l");
         attr(header, "class", "profile_header svelte-7n687l");
@@ -5217,11 +5276,14 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         insert(target, header, anchor);
         append(header, nav);
         append(nav, div0);
-        if (if_block)
-          if_block.m(div0, null);
+        if (if_block0)
+          if_block0.m(div0, null);
         append(div0, t0);
+        if (if_block1)
+          if_block1.m(div0, null);
+        append(div0, t1);
         append(div0, p);
-        append(nav, t2);
+        append(nav, t3);
         append(nav, div1);
         append(div1, select);
         for (let i = 0; i < each_blocks.length; i += 1) {
@@ -5235,16 +5297,24 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           ctx[1],
           true
         );
-        append(div1, t3);
+        append(div1, t4);
         append(div1, button);
         current = true;
         if (!mounted) {
-          dispose = listen(
-            select,
-            "change",
-            /*select_change_handler*/
-            ctx[4]
-          );
+          dispose = [
+            listen(
+              select,
+              "change",
+              /*select_change_handler*/
+              ctx[5]
+            ),
+            listen(
+              button,
+              "click",
+              /*userLogout*/
+              ctx[3]
+            )
+          ];
           mounted = true;
         }
       },
@@ -5253,22 +5323,43 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           /*access*/
           ctx2[0].admin
         ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
             if (dirty & /*access*/
             1) {
-              transition_in(if_block, 1);
+              transition_in(if_block0, 1);
             }
           } else {
-            if_block = create_if_block2(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(div0, t0);
+            if_block0 = create_if_block_12(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(div0, t0);
           }
-        } else if (if_block) {
+        } else if (if_block0) {
           group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
+        }
+        if (!/*access*/
+        ctx2[0].admin) {
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
+            if (dirty & /*access*/
+            1) {
+              transition_in(if_block1, 1);
+            }
+          } else {
+            if_block1 = create_if_block2(ctx2);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(div0, t1);
+          }
+        } else if (if_block1) {
+          group_outros();
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
           });
           check_outros();
         }
@@ -5303,28 +5394,32 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       i(local) {
         if (current)
           return;
-        transition_in(if_block);
+        transition_in(if_block0);
+        transition_in(if_block1);
         current = true;
       },
       o(local) {
-        transition_out(if_block);
+        transition_out(if_block0);
+        transition_out(if_block1);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(header);
         }
-        if (if_block)
-          if_block.d();
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
         destroy_each(each_blocks, detaching);
         mounted = false;
-        dispose();
+        run_all(dispose);
       }
     };
   }
   function instance3($self, $props, $invalidate) {
     let $isSideMenuOpen;
-    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(5, $isSideMenuOpen = $value));
+    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(6, $isSideMenuOpen = $value));
     let { user: user2 = null } = $props;
     let { access = {
       "admin": false,
@@ -5342,13 +5437,21 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     });
     async function updateLang() {
       if (user2 !== null && user2.language !== selectedLanguage) {
-        $invalidate(3, user2.language = selectedLanguage, user2);
+        $invalidate(4, user2.language = selectedLanguage, user2);
         await (0, import_jsApi_GEN2.UserUpdateProfile)(user2, function(res) {
           if (res.error)
             return console.log("error");
-          $invalidate(3, user2 = res.user);
+          $invalidate(4, user2 = res.user);
         });
       }
+    }
+    async function userLogout() {
+      await (0, import_jsApi_GEN2.UserLogout)({}, function(o) {
+        console.log(o);
+        if (o.error)
+          return alert(o.error);
+        window.location = "/";
+      });
     }
     function select_change_handler() {
       selectedLanguage = select_value(this);
@@ -5356,7 +5459,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     }
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(3, user2 = $props2.user);
+        $invalidate(4, user2 = $props2.user);
       if ("access" in $props2)
         $invalidate(0, access = $props2.access);
     };
@@ -5368,12 +5471,19 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
       }
     };
-    return [access, selectedLanguage, openSideMenu, user2, select_change_handler];
+    return [
+      access,
+      selectedLanguage,
+      openSideMenu,
+      userLogout,
+      user2,
+      select_change_handler
+    ];
   }
   var ProfileHeader = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance3, create_fragment3, safe_not_equal, { user: 3, access: 0 });
+      init(this, options, instance3, create_fragment3, safe_not_equal, { user: 4, access: 0 });
     }
   };
   var ProfileHeader_default = ProfileHeader;
@@ -6262,7 +6372,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       }
     };
   }
-  function create_if_block_12(ctx) {
+  function create_if_block_13(ctx) {
     let div1;
     let h3;
     let t1;
@@ -6979,7 +7089,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let if_block2 = (
       /*propItem*/
       ctx[1].floorList && /*propItem*/
-      ctx[1].floorList.length && create_if_block_12(ctx)
+      ctx[1].floorList.length && create_if_block_13(ctx)
     );
     let if_block3 = (
       /*propHistories*/
@@ -7314,7 +7424,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               transition_in(if_block2, 1);
             }
           } else {
-            if_block2 = create_if_block_12(ctx2);
+            if_block2 = create_if_block_13(ctx2);
             if_block2.c();
             transition_in(if_block2, 1);
             if_block2.m(div16, t32);
