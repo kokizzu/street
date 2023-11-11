@@ -302,7 +302,7 @@
   }
   
   function DeleteProperty() {
-    if( !prompt( 'Are you sure you want to delete this property?' ) ) return;
+    if( !confirm( 'Are you sure you want to delete this property?' ) ) return;
     RealtorDeleteProperty(
       {id: '' + property.id},
       function( res ) {

@@ -19014,7 +19014,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       });
     }
     function DeleteProperty() {
-      if (!prompt("Are you sure you want to delete this property?"))
+      if (!confirm("Are you sure you want to delete this property?"))
         return;
       (0, import_jsApi2.RealtorDeleteProperty)({ id: "" + property2.id }, function(res) {
         if (res.error) {
