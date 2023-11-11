@@ -3,7 +3,7 @@
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
   import { onMount } from 'svelte';
-  import { AdminProperties, RealtorUpsertProperty } from '../jsApi.GEN';
+  import { AdminProperties, RealtorDeleteProperty, RealtorUpsertProperty } from '../jsApi.GEN';
   import FaSolidImage from 'svelte-icons-pack/fa/FaSolidImage';
   import FaSolidPen from 'svelte-icons-pack/fa/FaSolidPen';
   import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
@@ -300,6 +300,22 @@
     }
     )
   }
+  
+  function DeleteProperty() {
+    if(!prompt('Are you sure you want to delete this property?')) return;
+    RealtorDeleteProperty(
+      {id: ''+property.id},
+      function( res ) {
+        if( res.error ) {
+          alert( res.error );
+          return;
+        }
+        alert('property deleted')
+        window.location.href = '/realtor';
+        console.log( res );
+      }
+    )
+  }
 </script>
 
 <div class='edit_property_root'>
@@ -307,7 +323,7 @@
     <a class='back_button' href='/realtor'>
       <Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft} />
     </a>
-    <span>Property ID: {property.id}</span>
+    <span> {property.deletedAt > 0 ? '[DELETED]' : ''} Property ID: {property.id}</span>
   </div>
   <div class='edit_property_container'>
     {#if showRejectDialog===true}
@@ -842,12 +858,12 @@
       </div>
     {/if}
   </div>
-  <!-- <div class='delete_property_container'>
-    <button class='delete_property'>
+  <div class='delete_property_container'>
+    <button class='delete_property' on:click={DeleteProperty}>
       <Icon color='#FFF' size={10} src={FaTrashAlt} />
       <span>Delete Property</span>
     </button>
-  </div> -->
+  </div>
 </div>
 
 <style>

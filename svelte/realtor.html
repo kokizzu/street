@@ -805,7 +805,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
 }
 
 /* fakecss:./realtor.esbuild-svelte-fake-css */
-.property_lists_container.svelte-12f4480.svelte-12f4480 {
+.property_lists_container.svelte-1t7ijk0.svelte-1t7ijk0 {
   position: relative;
   margin-top: -40px;
   margin-left: auto;
@@ -820,7 +820,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   width: 70%;
   color: #475569;
 }
-.property_lists_container.svelte-12f4480 .property_lists_header.svelte-12f4480 {
+.property_lists_container.svelte-1t7ijk0 .property_lists_header.svelte-1t7ijk0 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -829,7 +829,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   width: 100%;
   gap: 20px;
 }
-.property_lists_container.svelte-12f4480 .property_lists_header .add_button.svelte-12f4480 {
+.property_lists_container.svelte-1t7ijk0 .property_lists_header .add_button.svelte-1t7ijk0 {
   padding: 8px 20px;
   font-size: 16px;
   display: inline-flex;
@@ -839,21 +839,21 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   gap: 8px;
   justify-content: center;
   border: none;
-  background-color: #6366f1;
+  background-color: #6366F1;
   border-radius: 8px;
   color: white;
   cursor: pointer;
   text-decoration: none;
 }
-.property_lists_container.svelte-12f4480 .property_lists_header h1.svelte-12f4480 {
+.property_lists_container.svelte-1t7ijk0 .property_lists_header h1.svelte-1t7ijk0 {
   font-size: 18px;
   margin: 0;
 }
-.property_lists_container.svelte-12f4480 .property_lists_header .add_button.svelte-12f4480:hover {
-  background-color: #7e80f1;
+.property_lists_container.svelte-1t7ijk0 .property_lists_header .add_button.svelte-1t7ijk0:hover {
+  background-color: #7E80F1;
 }
-.property_lists_container.svelte-12f4480 .no_property.svelte-12f4480 {
-  background-color: #f0f0f0;
+.property_lists_container.svelte-1t7ijk0 .no_property.svelte-1t7ijk0 {
+  background-color: #F0F0F0;
   border-radius: 8px;
   height: fit-content;
   flex-grow: 1;
@@ -863,26 +863,26 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   font-size: 15px;
   font-weight: 600;
 }
-.property_lists_container.svelte-12f4480 .property_lists.svelte-12f4480 {
+.property_lists_container.svelte-1t7ijk0 .property_lists.svelte-1t7ijk0 {
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 100%;
 }
-@media (max-width: 768px) {
+@media (max-width : 768px) {
   .add_icon {
     width: 15px;
     height: 15px;
   }
-  .property_lists_container.svelte-12f4480.svelte-12f4480 {
+  .property_lists_container.svelte-1t7ijk0.svelte-1t7ijk0 {
     margin: -40px 20px 0 20px;
     padding: 15px;
     width: auto;
   }
-  .property_lists_container.svelte-12f4480 .property_lists_header h1.svelte-12f4480 {
+  .property_lists_container.svelte-1t7ijk0 .property_lists_header h1.svelte-1t7ijk0 {
     font-size: 16px !important;
   }
-  .property_lists_container.svelte-12f4480 .property_lists_header .add_button.svelte-12f4480 {
+  .property_lists_container.svelte-1t7ijk0 .property_lists_header .add_button.svelte-1t7ijk0 {
     padding: 5px 15px !important;
     font-size: 14px !important;
     gap: 8px !important;
@@ -2998,6 +2998,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       };
       exports.GuestVerifyEmail = async function GuestVerifyEmail(i, cb) {
         return await axios.post("/guest/verifyEmail", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.RealtorDeleteProperty = async function RealtorDeleteProperty(i, cb) {
+        return await axios.post("/realtor/deleteProperty", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.RealtorOwnedProperties = async function RealtorOwnedProperties(i, cb) {
         return await axios.post("/realtor/ownedProperties", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -7332,7 +7335,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       c() {
         div = element("div");
         div.innerHTML = `<p>No Property</p>`;
-        attr(div, "class", "no_property svelte-12f4480");
+        attr(div, "class", "no_property svelte-1t7ijk0");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -7367,7 +7370,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(section, "class", "property_lists svelte-12f4480");
+        attr(section, "class", "property_lists svelte-1t7ijk0");
       },
       m(target, anchor) {
         insert(target, section, anchor);
@@ -7428,7 +7431,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       }
     };
   }
-  function create_each_block3(ctx) {
+  function create_if_block_14(ctx) {
     let ownedproperty;
     let current;
     ownedproperty = new OwnedProperty_default({
@@ -7468,6 +7471,69 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       },
       d(detaching) {
         destroy_component(ownedproperty, detaching);
+      }
+    };
+  }
+  function create_each_block3(ctx) {
+    let if_block_anchor;
+    let current;
+    let if_block = (
+      /*property*/
+      ctx[1].deletedAt <= 0 && create_if_block_14(ctx)
+    );
+    return {
+      c() {
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (
+          /*property*/
+          ctx2[1].deletedAt <= 0
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*ownedProperties*/
+            1) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block_14(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
       }
     };
   }
@@ -7540,11 +7606,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         if_block.c();
         t8 = space();
         create_component(footer.$.fragment);
-        attr(h1, "class", "svelte-12f4480");
+        attr(h1, "class", "svelte-1t7ijk0");
         attr(a, "href", "/realtor/property");
-        attr(a, "class", "add_button svelte-12f4480");
-        attr(div0, "class", "property_lists_header svelte-12f4480");
-        attr(div1, "class", "property_lists_container svelte-12f4480");
+        attr(a, "class", "add_button svelte-1t7ijk0");
+        attr(div0, "class", "property_lists_header svelte-1t7ijk0");
+        attr(div1, "class", "property_lists_container svelte-1t7ijk0");
         attr(div2, "class", "content");
         attr(div3, "class", "dashboard_main_content");
         attr(section, "class", "dashboard");

@@ -164,6 +164,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.GuestVerifyEmail(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.RealtorDeletePropertyAction:
+		in := domain.RealtorDeletePropertyIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.RealtorDeleteProperty(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.RealtorOwnedPropertiesAction:
 		in := domain.RealtorOwnedPropertiesIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

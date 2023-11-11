@@ -73,51 +73,7 @@
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:./_components/Growl.esbuild-svelte-fake-css */
-.growl.hidden.svelte-1nas9kk.svelte-1nas9kk {
-  display: none;
-}
-.growl.svelte-1nas9kk.svelte-1nas9kk {
-  position: fixed;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  border-radius: 3px;
-  box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
-  z-index: 9999;
-  min-width: 120px;
-  max-width: 350px;
-  height: fit-content;
-}
-.icon_growl {
-  flex-shrink: 0;
-}
-.growl.svelte-1nas9kk span.svelte-1nas9kk {
-  flex-shrink: 1;
-}
-.growl.info.svelte-1nas9kk.svelte-1nas9kk {
-  background-color: #1080E8;
-  color: #FFF;
-}
-.growl.success.svelte-1nas9kk.svelte-1nas9kk {
-  background-color: #059669;
-  color: #FFF;
-}
-.growl.error.svelte-1nas9kk.svelte-1nas9kk {
-  background-color: #EF4444;
-  color: #FFF;
-}
-.growl.warning.svelte-1nas9kk.svelte-1nas9kk {
-  background-color: #D97706;
-  color: #FFF;
-}
-
-/* fakecss:./_components/PillBox.esbuild-svelte-fake-css */
+<style>/* fakecss:./_components/PillBox.esbuild-svelte-fake-css */
 .pill-box.svelte-1x7s25u.svelte-1x7s25u {
   line-height: 25px;
   display: inline-flex;
@@ -396,7 +352,7 @@
 }
 
 /* fakecss:./user/property/index.esbuild-svelte-fake-css */
-.property_container.svelte-17zv4w0.svelte-17zv4w0 {
+.property_container.svelte-2tq1rc.svelte-2tq1rc {
   width: 100%;
   margin: 30px auto 50px auto;
   color: #475569;
@@ -405,18 +361,18 @@
   justify-content: center;
   gap: 30px;
 }
-.property.svelte-17zv4w0.svelte-17zv4w0 {
+.property.svelte-2tq1rc.svelte-2tq1rc {
   width: 60%;
 }
-.side_attribute.svelte-17zv4w0.svelte-17zv4w0 {
+.side_attribute.svelte-2tq1rc.svelte-2tq1rc {
   width: 250px;
   height: fit-content;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.side_attribute.svelte-17zv4w0 .login_container.svelte-17zv4w0,
-.side_attribute.svelte-17zv4w0 .share_container.svelte-17zv4w0 {
+.side_attribute.svelte-2tq1rc .login_container.svelte-2tq1rc,
+.side_attribute.svelte-2tq1rc .share_container.svelte-2tq1rc {
   text-align: center;
   height: fit-content;
   background-color: #F0F0F0;
@@ -426,11 +382,11 @@
   flex-direction: column;
   gap: 10px;
 }
-.side_attribute.svelte-17zv4w0 .login_container h3.svelte-17zv4w0 {
+.side_attribute.svelte-2tq1rc .login_container h3.svelte-2tq1rc {
   margin: 0 0 10px 0;
   font-size: 24px;
 }
-.side_attribute.svelte-17zv4w0 .login_container .login_btn.svelte-17zv4w0 {
+.side_attribute.svelte-2tq1rc .login_container .login_btn.svelte-2tq1rc {
   background-color: #6366F1;
   width: 100%;
   height: fit-content;
@@ -446,10 +402,10 @@
   align-items: center;
   text-decoration: none;
 }
-.side_attribute.svelte-17zv4w0 .login_container .login_btn.svelte-17zv4w0:hover {
+.side_attribute.svelte-2tq1rc .login_container .login_btn.svelte-2tq1rc:hover {
   background-color: #7E80F1;
 }
-.side_attribute.svelte-17zv4w0 .share_container header.svelte-17zv4w0 {
+.side_attribute.svelte-2tq1rc .share_container header.svelte-2tq1rc {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -457,7 +413,7 @@
   align-items: center;
   font-size: 15px;
 }
-.side_attribute.svelte-17zv4w0 .share_container .share_options.svelte-17zv4w0 {
+.side_attribute.svelte-2tq1rc .share_container .share_options.svelte-2tq1rc {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(0, 1fr));
@@ -467,7 +423,7 @@
   align-content: center;
   row-gap: 12px;
 }
-.side_attribute.svelte-17zv4w0 .share_container .share_options .share_item.svelte-17zv4w0 {
+.side_attribute.svelte-2tq1rc .share_container .share_options .share_item.svelte-2tq1rc {
   border: none;
   background: none;
   cursor: pointer;
@@ -3528,8 +3484,7 @@
   var Property_default = Property;
 
   // user/property/index.svelte
-  function create_fragment4(ctx) {
-    let section;
+  function create_else_block2(ctx) {
     let div0;
     let property;
     let t0;
@@ -3642,14 +3597,13 @@
     });
     return {
       c() {
-        section = element("section");
         div0 = element("div");
         create_component(property.$.fragment);
         t0 = space();
         div5 = element("div");
         div2 = element("div");
         div1 = element("div");
-        div1.innerHTML = `<h3 class="svelte-17zv4w0">Login to</h3> <h3 class="svelte-17zv4w0">HapSTR</h3>`;
+        div1.innerHTML = `<h3 class="svelte-2tq1rc">Login to</h3> <h3 class="svelte-2tq1rc">HapSTR</h3>`;
         t4 = space();
         a0 = element("a");
         span0 = element("span");
@@ -3682,54 +3636,52 @@
         t15 = space();
         a5 = element("a");
         create_component(icon7.$.fragment);
-        attr(div0, "class", "property svelte-17zv4w0");
-        attr(a0, "class", "login_btn svelte-17zv4w0");
+        attr(div0, "class", "property svelte-2tq1rc");
+        attr(a0, "class", "login_btn svelte-2tq1rc");
         attr(a0, "href", "/");
-        attr(div2, "class", "login_container svelte-17zv4w0");
-        attr(header, "class", "svelte-17zv4w0");
-        attr(button, "class", "share_item svelte-17zv4w0");
+        attr(div2, "class", "login_container svelte-2tq1rc");
+        attr(header, "class", "svelte-2tq1rc");
+        attr(button, "class", "share_item svelte-2tq1rc");
         attr(button, "title", "Copy link address");
         attr(a1, "aria-label", "Share to Facebook");
-        attr(a1, "class", "share_item svelte-17zv4w0");
+        attr(a1, "class", "share_item svelte-2tq1rc");
         attr(a1, "href", a1_href_value = "https://www.facebook.com/sharer/sharer.php?u=" + /*toBeUrl*/
         ctx[0] + "?utm_source=facebook&utm_medium=social&utm_campaign=user-share");
         attr(a1, "rel", "noopener");
         attr(a1, "target", "_blank");
         attr(a2, "aria-label", "Share to LinkedIn");
-        attr(a2, "class", "share_item svelte-17zv4w0");
+        attr(a2, "class", "share_item svelte-2tq1rc");
         attr(a2, "href", a2_href_value = "https://www.linkedin.com/shareArticle?mini=true&url=" + /*toBeUrl*/
         ctx[0] + "&title=I%20Found%20Awesome%House%20" + window.location);
         attr(a2, "rel", "noopener");
         attr(a2, "target", "_blank");
         attr(a3, "aria-label", "Share to Twitter");
-        attr(a3, "class", "share_item svelte-17zv4w0");
+        attr(a3, "class", "share_item svelte-2tq1rc");
         attr(a3, "href", a3_href_value = "https://twitter.com/intent/tweet?url=" + /*toBeUrl*/
         ctx[0]);
         attr(a3, "rel", "noopener");
         attr(a3, "target", "_blank");
         attr(a4, "aria-label", "Share to Telegram");
-        attr(a4, "class", "share_item svelte-17zv4w0");
+        attr(a4, "class", "share_item svelte-2tq1rc");
         attr(a4, "href", a4_href_value = "https://t.me/share/url?url=" + /*toBeUrl*/
         ctx[0]);
         attr(a4, "rel", "noopener");
         attr(a4, "target", "_blank");
         attr(a5, "aria-label", "Share to WhatsApp");
-        attr(a5, "class", "share_item svelte-17zv4w0");
+        attr(a5, "class", "share_item svelte-2tq1rc");
         attr(a5, "href", a5_href_value = "https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House%20" + /*toBeUrl*/
         ctx[0]);
         attr(a5, "rel", "noopener");
         attr(a5, "target", "_blank");
-        attr(div3, "class", "share_options svelte-17zv4w0");
-        attr(div4, "class", "share_container svelte-17zv4w0");
-        attr(div5, "class", "side_attribute svelte-17zv4w0");
-        attr(section, "class", "property_container svelte-17zv4w0");
+        attr(div3, "class", "share_options svelte-2tq1rc");
+        attr(div4, "class", "share_container svelte-2tq1rc");
+        attr(div5, "class", "side_attribute svelte-2tq1rc");
       },
       m(target, anchor) {
-        insert(target, section, anchor);
-        append(section, div0);
+        insert(target, div0, anchor);
         mount_component(property, div0, null);
-        append(section, t0);
-        append(section, div5);
+        insert(target, t0, anchor);
+        insert(target, div5, anchor);
         append(div5, div2);
         append(div2, div1);
         append(div2, t4);
@@ -3802,7 +3754,9 @@
       },
       d(detaching) {
         if (detaching) {
-          detach(section);
+          detach(div0);
+          detach(t0);
+          detach(div5);
         }
         destroy_component(property);
         destroy_component(icon0);
@@ -3815,6 +3769,71 @@
         destroy_component(icon7);
         mounted = false;
         dispose();
+      }
+    };
+  }
+  function create_if_block3(ctx) {
+    let t;
+    return {
+      c() {
+        t = text("this property has been deleted");
+      },
+      m(target, anchor) {
+        insert(target, t, anchor);
+      },
+      p: noop,
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(t);
+        }
+      }
+    };
+  }
+  function create_fragment4(ctx) {
+    let section;
+    let current_block_type_index;
+    let if_block;
+    let current;
+    const if_block_creators = [create_if_block3, create_else_block2];
+    const if_blocks = [];
+    function select_block_type(ctx2, dirty) {
+      if (propItem.deletedAt <= 0)
+        return 0;
+      return 1;
+    }
+    current_block_type_index = select_block_type(ctx, -1);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    return {
+      c() {
+        section = element("section");
+        if_block.c();
+        attr(section, "class", "property_container svelte-2tq1rc");
+      },
+      m(target, anchor) {
+        insert(target, section, anchor);
+        if_blocks[current_block_type_index].m(section, null);
+        current = true;
+      },
+      p(ctx2, [dirty]) {
+        if_block.p(ctx2, dirty);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(section);
+        }
+        if_blocks[current_block_type_index].d();
       }
     };
   }

@@ -2668,6 +2668,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       exports.GuestVerifyEmail = async function GuestVerifyEmail(i, cb) {
         return await axios.post("/guest/verifyEmail", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.RealtorDeleteProperty = async function RealtorDeleteProperty(i, cb) {
+        return await axios.post("/realtor/deleteProperty", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.RealtorOwnedProperties = async function RealtorOwnedProperties(i, cb) {
         return await axios.post("/realtor/ownedProperties", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };

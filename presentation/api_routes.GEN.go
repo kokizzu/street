@@ -200,6 +200,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// RealtorDeleteProperty
+	fw.Post("/"+domain.RealtorDeletePropertyAction, func(c *fiber.Ctx) error {
+		in := domain.RealtorDeletePropertyIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.RealtorDeletePropertyAction); err != nil {
+			return nil
+		}
+		out := d.RealtorDeleteProperty(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// RealtorOwnedProperties
 	fw.Post("/"+domain.RealtorOwnedPropertiesAction, func(c *fiber.Ctx) error {
 		in := domain.RealtorOwnedPropertiesIn{}

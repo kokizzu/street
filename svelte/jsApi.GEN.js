@@ -1786,6 +1786,36 @@ exports.GuestVerifyEmail = async function GuestVerifyEmail( i, cb ) {
 }
 
 /**
+ * @typedef {Object} RealtorDeletePropertyIn
+ * @property {number} id
+ */
+const RealtorDeletePropertyIn = {
+  id: 0, // uint64
+}
+/**
+ * @typedef {Object} RealtorDeletePropertyOut
+ * @property {Object} ok
+ */
+const RealtorDeletePropertyOut = {
+  ok: false, // bool
+}
+/**
+ * @callback RealtorDeletePropertyCallback
+ * @param {RealtorDeletePropertyOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {RealtorDeletePropertyIn} i
+ * @param {RealtorDeletePropertyCallback} cb
+ * @returns {Promise}
+ */
+exports.RealtorDeleteProperty = async function RealtorDeleteProperty( i, cb ) {
+  return await axios.post( '/realtor/deleteProperty', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} RealtorOwnedPropertiesIn
  * @property {number} pager.page
  * @property {number} pager.perPage
