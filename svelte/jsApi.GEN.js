@@ -132,6 +132,114 @@ exports.AdminDashboard = async function AdminDashboard( i, cb ) {
 }
 
 /**
+ * @typedef {Object} AdminFeedbacksIn
+ * @property {String} cmd
+ * @property {number} feedback.id
+ * @property {number} feedback.createdBy
+ * @property {number} feedback.createdAt
+ * @property {number} feedback.updatedBy
+ * @property {number} feedback.updatedAt
+ * @property {number} feedback.deletedAt
+ * @property {String} feedback.userMessage
+ * @property {String} feedback.adminReply
+ * @property {Object} withMeta
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ */
+const AdminFeedbacksIn = {
+  cmd: '', // string
+  feedback: { // rqAuth.Feedbacks
+    id: 0, // uint64
+    createdBy: 0, // uint64
+    createdAt: 0, // int64
+    updatedBy: 0, // uint64
+    updatedAt: 0, // int64
+    deletedAt: 0, // int64
+    userMessage: '', // string
+    adminReply: '', // string
+  }, // rqAuth.Feedbacks
+  withMeta: false, // bool
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
+}
+/**
+ * @typedef {Object} AdminFeedbacksOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
+ * @property {number} feedback.id
+ * @property {number} feedback.createdBy
+ * @property {number} feedback.createdAt
+ * @property {number} feedback.updatedBy
+ * @property {number} feedback.updatedAt
+ * @property {number} feedback.deletedAt
+ * @property {String} feedback.userMessage
+ * @property {String} feedback.adminReply
+ * @property {Object} feedbacks
+ * @property {Object} users
+ */
+const AdminFeedbacksOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
+  feedback: { // rqAuth.Feedbacks
+    id: 0, // uint64
+    createdBy: 0, // uint64
+    createdAt: 0, // int64
+    updatedBy: 0, // uint64
+    updatedAt: 0, // int64
+    deletedAt: 0, // int64
+    userMessage: '', // string
+    adminReply: '', // string
+  }, // rqAuth.Feedbacks
+  feedbacks: { // [][]any
+  }, // [][]any
+  users: { // map[string]string
+  }, // map[string]string
+}
+/**
+ * @callback AdminFeedbacksCallback
+ * @param {AdminFeedbacksOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {AdminFeedbacksIn} i
+ * @param {AdminFeedbacksCallback} cb
+ * @returns {Promise}
+ */
+exports.AdminFeedbacks = async function AdminFeedbacks( i, cb ) {
+  return await axios.post( '/admin/feedbacks', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} AdminFilesIn
  * @property {String} cmd
  * @property {number} file.id
@@ -2780,6 +2888,34 @@ const UserSearchPropUSOut = {
  */
 exports.UserSearchPropUS = async function UserSearchPropUS( i, cb ) {
   return await axios.post( '/user/searchProp/US', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserSendFeedbackIn
+ * @property {String} userMessage
+ */
+const UserSendFeedbackIn = {
+  userMessage: '', // string
+}
+/**
+ * @typedef {Object} UserSendFeedbackOut
+ */
+const UserSendFeedbackOut = {
+}
+/**
+ * @callback UserSendFeedbackCallback
+ * @param {UserSendFeedbackOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserSendFeedbackIn} i
+ * @param {UserSendFeedbackCallback} cb
+ * @returns {Promise}
+ */
+exports.UserSendFeedback = async function UserSendFeedback( i, cb ) {
+  return await axios.post( '/user/sendFeedback', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

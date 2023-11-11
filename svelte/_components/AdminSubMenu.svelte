@@ -10,6 +10,7 @@
 <div class="admin_submenu">
    <nav class='menu'>
       <a href="/admin" class:active={segment2==='admin'}>Dashboard</a>
+      <a href="/admin/feedbacks" class:active={segment2==='feedbacks'}>Feedbacks</a>
       <a href="/admin/users" class:active={segment2==='users'}>Users</a>
       <a href="/admin/properties/US" class:active={segment2==='US'}>Properties US</a>
       <a href="/admin/properties" class:active={segment2==='properties'}>Properties</a>

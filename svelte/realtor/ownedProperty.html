@@ -2841,6 +2841,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
         return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.AdminFeedbacks = async function AdminFeedbacks(i, cb) {
+        return await axios.post("/admin/feedbacks", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminFiles = async function AdminFiles(i, cb) {
         return await axios.post("/admin/files", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2939,6 +2942,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       };
       exports.UserSearchPropUS = async function UserSearchPropUS(i, cb) {
         return await axios.post("/user/searchProp/US", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserSendFeedback = async function UserSendFeedback(i, cb) {
+        return await axios.post("/user/sendFeedback", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserSessionKill = async function UserSessionKill(i, cb) {
         return await axios.post("/user/sessionKill", i).then(wrapOk(cb)).catch(wrapErr(cb));

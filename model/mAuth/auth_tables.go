@@ -40,6 +40,13 @@ const (
 	LoginIPs = `loginIPs`
 )
 
+const (
+	TableFeedbacks Tt.TableName = `feedbacks`
+
+	UserMessage = `userMessage`
+	AdminReply  = `adminReply`
+)
+
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableUsers: {
 		Fields: []Tt.Field{
@@ -79,6 +86,20 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		},
 		Unique1: SessionToken,
 		Engine:  Tt.Memtx,
+	},
+	TableFeedbacks: {
+		Fields: []Tt.Field{
+			{Id, Tt.Unsigned},
+			{CreatedBy, Tt.Unsigned}, // user
+			{CreatedAt, Tt.Integer},
+			{UpdatedBy, Tt.Unsigned}, // admin
+			{UpdatedAt, Tt.Integer},
+			{DeletedAt, Tt.Integer}, // solved or invalid
+			{UserMessage, Tt.String},
+			{AdminReply, Tt.String},
+		},
+		AutoIncrementId: true,
+		Engine:          Tt.Vinyl,
 	},
 }
 

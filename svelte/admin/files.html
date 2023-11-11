@@ -2769,6 +2769,9 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
         return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.AdminFeedbacks = async function AdminFeedbacks(i, cb) {
+        return await axios.post("/admin/feedbacks", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminFiles = async function AdminFiles2(i, cb) {
         return await axios.post("/admin/files", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2867,6 +2870,9 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       };
       exports.UserSearchPropUS = async function UserSearchPropUS(i, cb) {
         return await axios.post("/user/searchProp/US", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserSendFeedback = async function UserSendFeedback(i, cb) {
+        return await axios.post("/user/sendFeedback", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserSessionKill = async function UserSessionKill(i, cb) {
         return await axios.post("/user/sessionKill", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -5102,8 +5108,10 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let t11;
     let a6;
     let t13;
+    let a7;
+    let t15;
     let c0;
-    let t14;
+    let t16;
     let c1;
     return {
       c() {
@@ -5113,25 +5121,28 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         a0.textContent = "Dashboard";
         t1 = space();
         a1 = element("a");
-        a1.textContent = "Users";
+        a1.textContent = "Feedbacks";
         t3 = space();
         a2 = element("a");
-        a2.textContent = "Properties US";
+        a2.textContent = "Users";
         t5 = space();
         a3 = element("a");
-        a3.textContent = "Properties";
+        a3.textContent = "Properties US";
         t7 = space();
         a4 = element("a");
-        a4.textContent = "Prop Histories";
+        a4.textContent = "Properties";
         t9 = space();
         a5 = element("a");
-        a5.textContent = "Access Logs";
+        a5.textContent = "Prop Histories";
         t11 = space();
         a6 = element("a");
-        a6.textContent = "Files";
+        a6.textContent = "Access Logs";
         t13 = space();
+        a7 = element("a");
+        a7.textContent = "Files";
+        t15 = space();
         c0 = comment(`  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>`);
-        t14 = space();
+        t16 = space();
         c1 = comment(`  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>`);
         attr(a0, "href", "/admin");
         attr(a0, "class", "svelte-ylwlsa");
@@ -5141,50 +5152,58 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           /*segment2*/
           ctx[0] === "admin"
         );
-        attr(a1, "href", "/admin/users");
+        attr(a1, "href", "/admin/feedbacks");
         attr(a1, "class", "svelte-ylwlsa");
         toggle_class(
           a1,
           "active",
           /*segment2*/
-          ctx[0] === "users"
+          ctx[0] === "feedbacks"
         );
-        attr(a2, "href", "/admin/properties/US");
+        attr(a2, "href", "/admin/users");
         attr(a2, "class", "svelte-ylwlsa");
         toggle_class(
           a2,
           "active",
           /*segment2*/
-          ctx[0] === "US"
+          ctx[0] === "users"
         );
-        attr(a3, "href", "/admin/properties");
+        attr(a3, "href", "/admin/properties/US");
         attr(a3, "class", "svelte-ylwlsa");
         toggle_class(
           a3,
           "active",
           /*segment2*/
-          ctx[0] === "properties"
+          ctx[0] === "US"
         );
-        attr(a4, "href", "/admin/propHistories");
+        attr(a4, "href", "/admin/properties");
         attr(a4, "class", "svelte-ylwlsa");
         toggle_class(
           a4,
           "active",
           /*segment2*/
-          ctx[0] === "propHistories"
+          ctx[0] === "properties"
         );
-        attr(a5, "href", "/admin/accessLogs");
+        attr(a5, "href", "/admin/propHistories");
         attr(a5, "class", "svelte-ylwlsa");
         toggle_class(
           a5,
           "active",
           /*segment2*/
-          ctx[0] === "accessLogs"
+          ctx[0] === "propHistories"
         );
-        attr(a6, "href", "/admin/files");
+        attr(a6, "href", "/admin/accessLogs");
         attr(a6, "class", "svelte-ylwlsa");
         toggle_class(
           a6,
+          "active",
+          /*segment2*/
+          ctx[0] === "accessLogs"
+        );
+        attr(a7, "href", "/admin/files");
+        attr(a7, "class", "svelte-ylwlsa");
+        toggle_class(
+          a7,
           "active",
           /*segment2*/
           ctx[0] === "files"
@@ -5209,8 +5228,10 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         append(nav, t11);
         append(nav, a6);
         append(nav, t13);
+        append(nav, a7);
+        append(nav, t15);
         append(nav, c0);
-        append(nav, t14);
+        append(nav, t16);
         append(nav, c1);
       },
       p(ctx2, [dirty]) {
@@ -5229,7 +5250,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
             a1,
             "active",
             /*segment2*/
-            ctx2[0] === "users"
+            ctx2[0] === "feedbacks"
           );
         }
         if (dirty & /*segment2*/
@@ -5238,7 +5259,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
             a2,
             "active",
             /*segment2*/
-            ctx2[0] === "US"
+            ctx2[0] === "users"
           );
         }
         if (dirty & /*segment2*/
@@ -5247,7 +5268,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
             a3,
             "active",
             /*segment2*/
-            ctx2[0] === "properties"
+            ctx2[0] === "US"
           );
         }
         if (dirty & /*segment2*/
@@ -5256,7 +5277,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
             a4,
             "active",
             /*segment2*/
-            ctx2[0] === "propHistories"
+            ctx2[0] === "properties"
           );
         }
         if (dirty & /*segment2*/
@@ -5265,13 +5286,22 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
             a5,
             "active",
             /*segment2*/
-            ctx2[0] === "accessLogs"
+            ctx2[0] === "propHistories"
           );
         }
         if (dirty & /*segment2*/
         1) {
           toggle_class(
             a6,
+            "active",
+            /*segment2*/
+            ctx2[0] === "accessLogs"
+          );
+        }
+        if (dirty & /*segment2*/
+        1) {
+          toggle_class(
+            a7,
             "active",
             /*segment2*/
             ctx2[0] === "files"

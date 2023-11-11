@@ -78,3 +78,31 @@ FROM ` + u.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 
 	return
 }
+
+func (f *Feedbacks) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
+	const comment = `-- Feedbacks) FindByPagination`
+
+	validFields := FeedbacksFieldTypeMap
+	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
+
+	queryCount := comment + `
+SELECT COUNT(1)
+FROM ` + f.SqlTableName() + whereAndSql + `
+LIMIT 1`
+	f.Adapter.QuerySql(queryCount, func(row []any) {
+		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
+	})
+
+	orderBySql := out.OrderBySqlTt(in.Order, validFields)
+	limitOffsetSql := out.LimitOffsetSql()
+
+	queryRows := comment + `
+SELECT ` + meta.ToSelect() + `
+FROM ` + f.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+	f.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	return
+}

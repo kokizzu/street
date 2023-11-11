@@ -151,3 +151,24 @@ Property with id #` + propertyId + ` requested for review:
 		fmt.Sprintf(htmlFromText(text), anchor(propertyUrl)),
 	)
 }
+
+func (m *Mailer) SendNotifReplyFeedback(userEmail, feedbackId, reply string) error {
+	if conf.IsDebug() {
+		L.Print(`SendNotifReplyFeedback`, userEmail, reply)
+	}
+	text := `Hi ` + userEmail + `,
+
+` + reply + `
+
+Thank you for your feedback.
+
+-- HapStr Admin
+`
+
+	return m.SendMailFunc(
+		map[string]string{userEmail: ``},
+		`Reply Feedback #`+feedbackId,
+		text,
+		fmt.Sprintf(htmlFromText(text)),
+	)
+}

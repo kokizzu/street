@@ -9,6 +9,7 @@ import (
 var allCommands = []string{
 	domain.AdminAccessLogsAction,
 	domain.AdminDashboardAction,
+	domain.AdminFeedbacksAction,
 	domain.AdminFilesAction,
 	domain.AdminPropHistoriesAction,
 	domain.AdminPropertiesAction,
@@ -42,6 +43,7 @@ var allCommands = []string{
 	domain.UserPropertyAction,
 	domain.UserSearchPropAction,
 	domain.UserSearchPropUSAction,
+	domain.UserSendFeedbackAction,
 	domain.UserSessionKillAction,
 	domain.UserSessionsActiveAction,
 	domain.UserUpdateProfileAction,

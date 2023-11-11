@@ -69,7 +69,8 @@ func (f *FilesMutator) DoDeletePermanentById() bool { //nolint:dupl false positi
 }
 
 // func (f *FilesMutator) DoUpsert() bool { //nolint:dupl false positive
-//	_, err := f.Adapter.Upsert(f.SpaceName(), f.ToArray(), A.X{
+//	arr := f.ToArray()
+//	_, err := f.Adapter.Upsert(f.SpaceName(), arr, A.X{
 //		A.X{`=`, 0, f.Id},
 //		A.X{`=`, 1, f.CreatedAt},
 //		A.X{`=`, 2, f.CreatedBy},
@@ -83,7 +84,7 @@ func (f *FilesMutator) DoDeletePermanentById() bool { //nolint:dupl false positi
 //		A.X{`=`, 10, f.ResizedPath},
 //		A.X{`=`, 11, f.ResizedSize},
 //	})
-//	return !L.IsError(err, `Files.DoUpsert failed: `+f.SpaceName())
+//	return !L.IsError(err, `Files.DoUpsert failed: `+f.SpaceName()+ `\n%#v`, arr)
 // }
 
 // DoOverwriteByOriginalPath update all columns, error if not exists, not using mutations/Set*
@@ -109,28 +110,30 @@ func (f *FilesMutator) DoDeletePermanentByOriginalPath() bool { //nolint:dupl fa
 
 // DoInsert insert, error if already exists
 func (f *FilesMutator) DoInsert() bool { //nolint:dupl false positive
-	row, err := f.Adapter.Insert(f.SpaceName(), f.ToArray())
+	arr := f.ToArray()
+	row, err := f.Adapter.Insert(f.SpaceName(), arr)
 	if err == nil {
 		tup := row.Tuples()
 		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
 			f.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `Files.DoInsert failed: `+f.SpaceName())
+	return !L.IsError(err, `Files.DoInsert failed: `+f.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
 // replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
 func (f *FilesMutator) DoUpsert() bool { //nolint:dupl false positive
-	row, err := f.Adapter.Replace(f.SpaceName(), f.ToArray())
+	arr := f.ToArray()
+	row, err := f.Adapter.Replace(f.SpaceName(), arr)
 	if err == nil {
 		tup := row.Tuples()
 		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
 			f.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `Files.DoUpsert failed: `+f.SpaceName())
+	return !L.IsError(err, `Files.DoUpsert failed: `+f.SpaceName()+`\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate

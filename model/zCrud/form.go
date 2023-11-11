@@ -19,10 +19,11 @@ type InputType string
 type Validation string
 
 const (
-	DataTypeString DataType = `string`
-	DataTypeInt    DataType = `int`
-	DataTypeFloat  DataType = `float`
-	DataTypeIntArr DataType = `intArr`
+	DataTypeString  DataType = `string`
+	DataTypeInt     DataType = `int`
+	DataTypeFloat   DataType = `float`
+	DataTypeIntArr  DataType = `intArr`
+	DataTypeMapping DataType = `mapping`
 
 	InputTypeText     InputType = `text`
 	InputTypeTextArea InputType = `textarea`
@@ -47,6 +48,8 @@ type Field struct {
 	DataType    DataType  `json:"type" form:"type" query:"type" long:"type" msg:"type"`
 	InputType   InputType `json:"inputType" form:"inputType" query:"inputType" long:"inputType" msg:"inputType"`
 	ReadOnly    bool      `json:"readOnly" form:"readOnly" query:"readOnly" long:"readOnly" msg:"readOnly"`
+
+	Mapping string `json:"mapping" form:"mapping" query:"mapping" long:"mapping" msg:"mapping"`
 
 	Validations map[Validation]any `json:"validations" form:"validations" query:"validations" long:"validations" msg:"validations"`
 

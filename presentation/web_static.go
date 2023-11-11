@@ -336,6 +336,27 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`countPerActionsPerDate`: out.CountPerActionsPerDate,
 		})
 	})
+	fw.Get(`/`+domain.AdminFeedbacksAction, func(ctx *fiber.Ctx) error {
+		var in domain.AdminFeedbacksIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminFeedbacksAction)
+		if err != nil {
+			return err
+		}
+		if notAdmin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Cmd = zCrud.CmdList
+		out := d.AdminFeedbacks(&in)
+		return views.RenderAdminFeedbacks(ctx, M.SX{
+			`title`:     `Feedbacks`,
+			`segments`:  segments,
+			`feedbacks`: out.Feedbacks,
+			`fields`:    out.Meta.Fields,
+			`pager`:     out.Pager,
+		})
+	})
 	fw.Get(`/`+domain.AdminUsersAction, func(ctx *fiber.Ctx) error {
 		var in domain.AdminUsersIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminUsersAction)

@@ -28,6 +28,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.AdminDashboard(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.AdminFeedbacksAction:
+		in := domain.AdminFeedbacksIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.AdminFeedbacks(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.AdminFilesAction:
 		in := domain.AdminFilesIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
@@ -290,6 +298,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.UserSearchPropUS(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.UserSendFeedbackAction:
+		in := domain.UserSendFeedbackIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.UserSendFeedback(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.UserSessionKillAction:
