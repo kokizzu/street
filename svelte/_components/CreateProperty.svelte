@@ -576,7 +576,7 @@
 									<input id='floors' type='number' placeholder='10' min='0' bind:value={property.floors}/>
 								</div>
                 <div class='input_box'>
-									<label for='contact'>Contact</label>
+									<label for='contact'>Description / Contact</label>
 									<input id='contact' type='text' placeholder='Cellphone/Email' bind:value={property.note}/>
 								</div>
 							</div>

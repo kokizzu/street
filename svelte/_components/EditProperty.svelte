@@ -28,7 +28,7 @@
   let approvalStatus = 'approved';
   let submitLoading = false;
   let countryCurrency = 'TWD';
-
+  
   onMount( () => {
     console.log( 'Property = ', property );
     approvalStatus = getApprovalState( property.approvalState );
@@ -48,7 +48,7 @@
       city: property.city,
       countyName: property.countyName,
       district: property.district,
-      street: property.street + "\n" + (property.street2 || ''),
+      street: property.street + '\n' + (property.street2 || ''),
       livingroom: property.livingroom,
       parking: parseFloat( property.parking ),
       depositFee: property.depositFee,
@@ -285,36 +285,36 @@
         console.log( res );
       } );
   }
-
+  
   function ReviewProperty() {
     RealtorUpsertProperty( {
-      askReview: true,
-      property: property
-    },
-    function(res) {
-      if(res.error) {
-        console.log(res);
-        return
-      }
-      console.log(res)
-    }
-    )
+        askReview: true,
+        property: property,
+      },
+      function( res ) {
+        if( res.error ) {
+          console.log( res );
+          return;
+        }
+        console.log( res );
+      },
+    );
   }
   
   function DeleteProperty() {
-    if(!prompt('Are you sure you want to delete this property?')) return;
+    if( !prompt( 'Are you sure you want to delete this property?' ) ) return;
     RealtorDeleteProperty(
-      {id: ''+property.id},
+      {id: '' + property.id},
       function( res ) {
         if( res.error ) {
           alert( res.error );
           return;
         }
-        alert('property deleted')
+        alert( 'property deleted' );
         window.location.href = '/realtor';
         console.log( res );
-      }
-    )
+      },
+    );
   }
 </script>
 
@@ -323,7 +323,7 @@
     <a class='back_button' href='/realtor'>
       <Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft} />
     </a>
-    <span> {property.deletedAt > 0 ? '[DELETED]' : ''} Property ID: {property.id}</span>
+    <span> {property.deletedAt>0 ? '[DELETED]' : ''} Property ID: {property.id}</span>
   </div>
   <div class='edit_property_container'>
     {#if showRejectDialog===true}
@@ -358,9 +358,9 @@
           </div>
         {/if}
         {#if isOwner && approvalStatus!==''}
-            <button class='edit_btn' on:click={ReviewProperty}>
-              Review again
-            </button>
+          <button class='edit_btn' on:click={ReviewProperty}>
+            Review again
+          </button>
         {/if}
         {#if isAdmin}
           <div class='action_btns'>
@@ -396,10 +396,10 @@
           {/if}
         </div>
         {#if isOwner}
-        <button class='edit_btn' on:click={() => PART_TO_EDIT = EDIT_PICTURE}>
-          <Icon color='#FFF' size={10} src={FaSolidPen} />
-          <span>Edit</span>
-        </button>
+          <button class='edit_btn' on:click={() => PART_TO_EDIT = EDIT_PICTURE}>
+            <Icon color='#FFF' size={10} src={FaSolidPen} />
+            <span>Edit</span>
+          </button>
         {/if}
       </div>
       <div class='main_details'>
@@ -421,10 +421,10 @@
           </div>
           <div class='right'>
             {#if isOwner}
-            <button class='edit_btn' on:click={() => PART_TO_EDIT = EDIT_FEATURE}>
-              <Icon color='#FFF' size={10} src={FaSolidPen} />
-              <span>Edit</span>
-            </button>
+              <button class='edit_btn' on:click={() => PART_TO_EDIT = EDIT_FEATURE}>
+                <Icon color='#FFF' size={10} src={FaSolidPen} />
+                <span>Edit</span>
+              </button>
             {/if}
           </div>
         </div>
@@ -468,10 +468,10 @@
           <div class='upper'>
             <h3>Facility</h3>
             {#if isOwner}
-            <button class='edit_btn' on:click={() => PART_TO_EDIT = EDIT_FACILITY}>
-              <Icon color='#FFF' size={10} src={FaSolidPen} />
-              <span>Edit</span>
-            </button>
+              <button class='edit_btn' on:click={() => PART_TO_EDIT = EDIT_FACILITY}>
+                <Icon color='#FFF' size={10} src={FaSolidPen} />
+                <span>Edit</span>
+              </button>
             {/if}
           </div>
           <p>
@@ -482,10 +482,10 @@
           <div class='upper'>
             <h3>About</h3>
             {#if isOwner}
-            <button class='edit_btn' on:click={() => PART_TO_EDIT = EDIT_ABOUT}>
-              <Icon color='#FFF' size={10} src={FaSolidPen} />
-              <span>Edit</span>
-            </button>
+              <button class='edit_btn' on:click={() => PART_TO_EDIT = EDIT_ABOUT}>
+                <Icon color='#FFF' size={10} src={FaSolidPen} />
+                <span>Edit</span>
+              </button>
             {/if}
           </div>
           <p>
@@ -496,10 +496,10 @@
           <div class='upper'>
             <h3>Parking</h3>
             {#if isOwner}
-            <button class='edit_btn'>
-              <Icon color='#FFF' size={10} src={FaSolidPen} />
-              <span>Edit</span>
-            </button>
+              <button class='edit_btn'>
+                <Icon color='#FFF' size={10} src={FaSolidPen} />
+                <span>Edit</span>
+              </button>
             {/if}
           </div>
           <div class='details'>
@@ -508,41 +508,41 @@
           </div>
         </div>
       </div>
-<!--      <div class='floors'>-->
-<!--        <div class='upper'>-->
-<!--          <h1>Floors</h1>-->
-<!--          <button class='edit_btn'>-->
-<!--            <Icon color='#FFF' size={10} src={FaSolidPen} />-->
-<!--            <span>Edit</span>-->
-<!--          </button>-->
-<!--        </div>-->
-<!--        <div class='floor_lists'>-->
-<!--          <div class='floor_item'>-->
-<!--            <h3>Floor #1</h3>-->
-<!--            <div class='floor_details'>-->
-<!--              <div class='room_lists'>-->
-<!--                <div class='room'>-->
-<!--                  <span>Bedroom #1</span>-->
-<!--                  <span>122.1 sq ft</span>-->
-<!--                </div>-->
-<!--                <div class='room'>-->
-<!--                  <span>Bedroom #1</span>-->
-<!--                  <span>122.1 sq ft</span>-->
-<!--                </div>-->
-<!--                <div class='room'>-->
-<!--                  <span>Bedroom #1</span>-->
-<!--                  <span>122.1 sq ft</span>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class='floor_plan'>-->
-<!--                <div class='img_container'>-->
-<!--                  <img alt='floor_plan' src='/assets/img/realtor/floor-plan-pen-ruler.webp' />-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div class='floors'>-->
+      <!--        <div class='upper'>-->
+      <!--          <h1>Floors</h1>-->
+      <!--          <button class='edit_btn'>-->
+      <!--            <Icon color='#FFF' size={10} src={FaSolidPen} />-->
+      <!--            <span>Edit</span>-->
+      <!--          </button>-->
+      <!--        </div>-->
+      <!--        <div class='floor_lists'>-->
+      <!--          <div class='floor_item'>-->
+      <!--            <h3>Floor #1</h3>-->
+      <!--            <div class='floor_details'>-->
+      <!--              <div class='room_lists'>-->
+      <!--                <div class='room'>-->
+      <!--                  <span>Bedroom #1</span>-->
+      <!--                  <span>122.1 sq ft</span>-->
+      <!--                </div>-->
+      <!--                <div class='room'>-->
+      <!--                  <span>Bedroom #1</span>-->
+      <!--                  <span>122.1 sq ft</span>-->
+      <!--                </div>-->
+      <!--                <div class='room'>-->
+      <!--                  <span>Bedroom #1</span>-->
+      <!--                  <span>122.1 sq ft</span>-->
+      <!--                </div>-->
+      <!--              </div>-->
+      <!--              <div class='floor_plan'>-->
+      <!--                <div class='img_container'>-->
+      <!--                  <img alt='floor_plan' src='/assets/img/realtor/floor-plan-pen-ruler.webp' />-->
+      <!--                </div>-->
+      <!--              </div>-->
+      <!--            </div>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
     {/if}
     <!-- Edit partials -->
     {#if PART_TO_EDIT===EDIT_PICTURE}
@@ -993,7 +993,7 @@
     color : rgba(255, 126, 118, 1);
   }
 
-  /* .edit_property_root .delete_property {
+  .edit_property_root .delete_property {
     background-color : #EF4444;
     display          : flex;
     flex-direction   : row;
@@ -1009,7 +1009,7 @@
 
   .edit_property_root .delete_property:hover {
     background-color : #F85454;
-  } */
+  }
 
   .edit_property_root .upper_action {
     display          : flex;
@@ -1055,10 +1055,10 @@
     background-color : #7E80F1;
   }
 
-  /* .edit_property_root .delete_property_container {
+  .edit_property_root .delete_property_container {
     margin : 20px auto 0 auto;
     width  : 60%;
-  } */
+  }
 
   .unit_toggle {
     border     : none;
