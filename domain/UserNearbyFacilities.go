@@ -110,7 +110,22 @@ func (d *Domain) UserNearbyFacilities(in *UserNearbyFacilitiesIn) (out UserNearb
 		})
 
 		eg.Go(func() error {
+			res, err := d.Gmap.NearbyFacilities(in.CenterLat, in.CenterLong, xGmap.TypeBusStation)
+			return add(res, err)
+		})
+
+		eg.Go(func() error {
 			res, err := d.Gmap.NearbyFacilities(in.CenterLat, in.CenterLong, xGmap.TypeSubwayStation)
+			return add(res, err)
+		})
+
+		eg.Go(func() error {
+			res, err := d.Gmap.NearbyFacilities(in.CenterLat, in.CenterLong, xGmap.TypeAirport)
+			return add(res, err)
+		})
+
+		eg.Go(func() error {
+			res, err := d.Gmap.NearbyFacilities(in.CenterLat, in.CenterLong, xGmap.TypeTrainStation)
 			return add(res, err)
 		})
 

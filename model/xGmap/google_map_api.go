@@ -59,9 +59,23 @@ const (
 	TypeRestaurant       = `restaurant`
 	TypeSchool           = `school`
 	TypeHospital         = `hospital`
+	TypeBusStation       = `bus_station`
+	TypeTrainStation     = `train_station`
+	TypeAirport          = `airport`
 	TypeSubwayStation    = `subway_station`
 	TypeConvenienceStore = `convenience_store`
 )
+
+var typeMapping = map[string]string{
+	TypeRestaurant:       `restaurant`,
+	TypeSchool:           `school`,
+	TypeHospital:         `hospital`,
+	TypeBusStation:       `transport`,
+	TypeTrainStation:     `transport`,
+	TypeAirport:          `transport`,
+	TypeSubwayStation:    `transport`,
+	TypeConvenienceStore: `convenience_store`,
+}
 
 type Place struct {
 	Name       string  `json:"name,omitempty"`
@@ -165,7 +179,7 @@ func (g Gmap) NearbyFacilities(lat float64, long float64, typ string) (res []Pla
 				Address:    row.Vicinity,
 				Lat:        row.Geometry.Location.Lat,
 				Lng:        row.Geometry.Location.Lng,
-				Type:       typ,
+				Type:       typeMapping[typ],
 				DistanceKm: conf.DistanceKm(lat, long, row.Geometry.Location.Lat, row.Geometry.Location.Lng),
 			})
 		}
