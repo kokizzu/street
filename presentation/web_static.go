@@ -98,6 +98,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			Id:            propId,
 			CountryCode:   countryCode,
 		})
+		if out.Property.DeletedAt > 0 {
+			return views.RenderError(ctx, M.SX{
+				`error`: `property deleted`,
+			})
+		}
 		if out.Error != `` {
 			L.Print(out.Error)
 			return views.RenderError(ctx, M.SX{
@@ -180,6 +185,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			Id:            propId,
 			CountryCode:   countryCode,
 		})
+		if out.Property.DeletedAt > 0 {
+			return views.RenderError(ctx, M.SX{
+				`error`: `property deleted`,
+			})
+		}
 		if out.Error != `` {
 			L.Print(out.Error)
 			return views.RenderError(ctx, M.SX{
@@ -280,6 +290,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			RequestCommon: in.RequestCommon,
 			Id:            X.ToU(ctx.Params(`propId`)),
 		})
+		if out.Property.DeletedAt > 0 {
+			return views.RenderError(ctx, M.SX{
+				`error`: `property deleted`,
+			})
+		}
 		if out.Error != `` {
 			L.Print(out.Error)
 			return views.RenderError(ctx, M.SX{
