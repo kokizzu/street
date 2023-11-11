@@ -106,3 +106,20 @@ FROM ` + f.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 
 	return
 }
+
+// EmailMapByIds if using this function, please make sure the string is not from frontend/user
+// if from frontend, please do check for sql injection
+func (u *Users) EmailMapByIds(keys string) map[string]string {
+	const comment = `-- Users) EmailMapByIds`
+	queryRows := comment + `
+SELECT ` + u.SqlId() + `
+	, ` + u.SqlEmail() + `
+FROM ` + u.SqlTableName() + `
+WHERE ` + u.SqlId() + ` IN (` + keys + `)`
+
+	res := map[string]string{}
+	u.Adapter.QuerySql(queryRows, func(row []any) {
+		res[X.ToS(row[0])] = X.ToS(row[1])
+	})
+	return res
+}

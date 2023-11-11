@@ -69,7 +69,7 @@ var (
 				Label:     `Created At`,
 				ReadOnly:  true,
 				DataType:  zCrud.DataTypeInt,
-				InputType: zCrud.InputTypeHidden,
+				InputType: zCrud.InputTypeDateTime,
 			},
 			{
 				Name:      mAuth.CreatedBy,
@@ -99,7 +99,7 @@ var (
 				Label:     `Updated At`,
 				ReadOnly:  true,
 				DataType:  zCrud.DataTypeInt,
-				InputType: zCrud.InputTypeHidden,
+				InputType: zCrud.InputTypeDateTime,
 			},
 			{
 				Name:      mAuth.DeletedAt,
@@ -214,6 +214,18 @@ func (d *Domain) AdminFeedbacks(in *AdminFeedbacksIn) (out AdminFeedbacksOut) {
 	case zCrud.CmdList:
 		fbs := rqAuth.NewFeedbacks(d.AuthOltp)
 		out.Feedbacks = fbs.FindByPagination(&AdminFeedbacksMeta, &in.Pager, &out.Pager)
+
+		fb := rqAuth.NewFeedbacks(nil)
+
+		uniqUsers := M.SB{}
+		for _, row := range out.Feedbacks {
+			uniqUsers[X.ToS(row[fb.IdxCreatedBy()])] = true
+			uniqUsers[X.ToS(row[fb.IdxCreatedAt()])] = true
+		}
+
+		users := rqAuth.NewUsers(d.AuthOltp)
+		out.Users = users.EmailMapByIds(uniqUsers.KeysConcat(`,`))
+
 	}
 
 	return

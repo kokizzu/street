@@ -12,6 +12,7 @@
   import FaSolidFilter from 'svelte-icons-pack/fa/FaSolidFilter';
   import FaSolidSyncAlt from 'svelte-icons-pack/fa/FaSolidSyncAlt';
   
+  export let renderFuncs = {};
   export let arrayOfArray = true;
   export let fields = []; // array of field object
   export let rows = []; // 2 dimension array or array of object if arrayOfArray = false
@@ -163,6 +164,8 @@ multiple filter from other fields will do AND operation'
                   {/each}
                 </div>
               </td>
+            {:else if renderFuncs[ field.name ]}
+              <td class='table_data'>{renderFuncs[ field.name ]( cell( row, i, field ) ) }</td>
             {:else if field.inputType==='checkbox'}
               <td class='table_data'>{!!cell( row, i, field )}</td>
             {:else if field.inputType==='datetime' || field.name==='deletedAt'}

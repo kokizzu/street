@@ -355,6 +355,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`feedbacks`: out.Feedbacks,
 			`fields`:    out.Meta.Fields,
 			`pager`:     out.Pager,
+			`users`:     out.Users,
 		})
 	})
 	fw.Get(`/`+domain.AdminUsersAction, func(ctx *fiber.Ctx) error {

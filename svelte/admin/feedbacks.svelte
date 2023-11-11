@@ -1,28 +1,20 @@
 <script>
-	// @ts-nocheck
-	import Menu from '../_components/Menu.svelte';
-	import AdminSubMenu from '../_components/AdminSubMenu.svelte';
-	import ProfileHeader from '../_components/ProfileHeader.svelte';
-	import Footer from '../_components/Footer.svelte';
-	import TableView from '../_components/TableView.svelte';
-	import ModalForm from '../_components/ModalForm.svelte';
-	import HiSolidEye from 'svelte-icons-pack/hi/HiSolidEye';
-	import HiSolidXCircle from 'svelte-icons-pack/hi/HiSolidXCircle';
-	import HiSolidCheckCircle from 'svelte-icons-pack/hi/HiSolidCheckCircle';
-	import { AdminFeedbacks, AdminProperties, UserPropHistory } from '../jsApi.GEN';
-	
-	import Icon from 'svelte-icons-pack/Icon.svelte';
-	import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
-	import HiOutlineLink from 'svelte-icons-pack/hi/HiOutlineLink';
-	
-	import ModalDialog from '../_components/ModalDialog.svelte';
-	import { fieldsArrToMap } from '../_components/mapper.js';
-	
-	let segments = {/* segments */};
+  // @ts-nocheck
+  import Menu from '../_components/Menu.svelte';
+  import AdminSubMenu from '../_components/AdminSubMenu.svelte';
+  import ProfileHeader from '../_components/ProfileHeader.svelte';
+  import Footer from '../_components/Footer.svelte';
+  import TableView from '../_components/TableView.svelte';
+  import ModalForm from '../_components/ModalForm.svelte';
+  import { AdminFeedbacks } from '../jsApi.GEN';
+  import { fieldsArrToMap } from '../_components/mapper.js';
+  
+  let segments = {/* segments */};
   let fields = [/* fields */];
   let fieldByKey = fieldsArrToMap( fields );
   let feedbacks = [/* feedbacks */] || [];
   let pager = {/* pager */};
+  let users = {/* users */} || {};
   $: console.log( 'feedbacks=', feedbacks );
   
   // return true if got error
@@ -34,7 +26,18 @@
     if( res.feedbacks && res.feedbacks.length ) feedbacks = res.feedbacks;
     if( res.pager && res.pager.page ) pager = res.pager;
     if( res.pager && res.pager.filters && !res.feedbacks ) feedbacks = []; // if nothing found but filter exists, clear table
+    if( res.users && res.users.length ) users = res.users;
   }
+  
+  const userFunc = ( userId, row ) => {
+    if(!users) return userId;
+    return (users[ userId ] + ' (' + userId + ')') || 'unknown';
+  }
+  
+  const renderMap = {
+    createdBy: userFunc,
+    updatedBy: userFunc,
+  };
   
   async function refreshTableView( pagerIn ) {
     // console.log( 'pagerIn=',pagerIn );
@@ -49,7 +52,7 @@
   let form = ModalForm; // for lookup
   
   async function editRow( id, row ) {
-    console.log('editRow', id, row)
+    console.log( 'editRow', id, row );
     await AdminFeedbacks( {
       feedback: {id},
       cmd: 'form',
@@ -102,8 +105,10 @@
           onEditRow={editRow}
           onRefreshTableView={refreshTableView}
           rows={feedbacks || []}
+          renderFuncs={renderMap}
           widths={{mainUse: '320px', address: '240px'}}
         >
+          Editing a feedback's admin's reply will send email to the user.
         </TableView>
       </section>
     </div>

@@ -5963,26 +5963,26 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
   // _components/TableView.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[31] = list[i];
-    child_ctx[33] = i;
+    child_ctx[32] = list[i];
+    child_ctx[34] = i;
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[34] = list[i];
-    child_ctx[36] = i;
+    child_ctx[35] = list[i];
+    child_ctx[37] = i;
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[37] = list[i];
+    child_ctx[38] = list[i];
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[34] = list[i];
-    child_ctx[40] = list;
-    child_ctx[41] = i;
+    child_ctx[35] = list[i];
+    child_ctx[41] = list;
+    child_ctx[42] = i;
     return child_ctx;
   }
   function create_else_block_2(ctx) {
@@ -5990,7 +5990,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let label;
     let t0_value = (
       /*field*/
-      ctx[34].label + ""
+      ctx[35].label + ""
     );
     let t0;
     let label_for_value;
@@ -6003,10 +6003,10 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let mounted;
     let dispose;
     function input_input_handler() {
-      ctx[22].call(
+      ctx[23].call(
         input,
         /*field*/
-        ctx[34]
+        ctx[35]
       );
     }
     return {
@@ -6019,21 +6019,21 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         input = element("input");
         t2 = space();
         attr(label, "for", label_for_value = "th_" + /*field*/
-        ctx[34].name);
+        ctx[35].name);
         attr(input, "id", input_id_value = "th_" + /*field*/
-        ctx[34].name);
+        ctx[35].name);
         attr(input, "title", "separate with pipe for multiple values, for example:\n  >=100|<50|61|72 will show values greater equal to 100, OR less than 50, OR exactly 61 OR 72\n    filtering with greater or less than will only show correct result if data is saved as number\n    currently price and size NOT stored as number\n  <>abc* will show values NOT started with abc*\n  abc*def|ghi will show values started with abc ends with def OR exactly ghi\n  *jkl* will show values containing jkl substring\nmultiple filter from other fields will do AND operation");
         attr(input, "type", "text");
         attr(input, "class", "input_filter svelte-1wffgsc");
         attr(th, "class", "table_header svelte-1wffgsc");
         attr(th, "style", th_style_value = /*widths*/
-        ctx[5][
+        ctx[6][
           /*field*/
-          ctx[34].name
+          ctx[35].name
         ] ? "min-width: " + /*widths*/
-        ctx[5][
+        ctx[6][
           /*field*/
-          ctx[34].name
+          ctx[35].name
         ] : "");
       },
       m(target, anchor) {
@@ -6046,9 +6046,9 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         set_input_value(
           input,
           /*filtersMap*/
-          ctx[6][
+          ctx[7][
             /*field*/
-            ctx[34].name
+            ctx[35].name
           ]
         );
         append(th, t2);
@@ -6059,7 +6059,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
               input,
               "keydown",
               /*filterKeyDown*/
-              ctx[12]
+              ctx[13]
             )
           ];
           mounted = true;
@@ -6068,43 +6068,43 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if (dirty[0] & /*fields*/
-        2 && t0_value !== (t0_value = /*field*/
-        ctx[34].label + ""))
+        4 && t0_value !== (t0_value = /*field*/
+        ctx[35].label + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*fields*/
-        2 && label_for_value !== (label_for_value = "th_" + /*field*/
-        ctx[34].name)) {
+        4 && label_for_value !== (label_for_value = "th_" + /*field*/
+        ctx[35].name)) {
           attr(label, "for", label_for_value);
         }
         if (dirty[0] & /*fields*/
-        2 && input_id_value !== (input_id_value = "th_" + /*field*/
-        ctx[34].name)) {
+        4 && input_id_value !== (input_id_value = "th_" + /*field*/
+        ctx[35].name)) {
           attr(input, "id", input_id_value);
         }
         if (dirty[0] & /*filtersMap, fields*/
-        66 && input.value !== /*filtersMap*/
-        ctx[6][
+        132 && input.value !== /*filtersMap*/
+        ctx[7][
           /*field*/
-          ctx[34].name
+          ctx[35].name
         ]) {
           set_input_value(
             input,
             /*filtersMap*/
-            ctx[6][
+            ctx[7][
               /*field*/
-              ctx[34].name
+              ctx[35].name
             ]
           );
         }
         if (dirty[0] & /*widths, fields*/
-        34 && th_style_value !== (th_style_value = /*widths*/
-        ctx[5][
+        68 && th_style_value !== (th_style_value = /*widths*/
+        ctx[6][
           /*field*/
-          ctx[34].name
+          ctx[35].name
         ] ? "min-width: " + /*widths*/
-        ctx[5][
+        ctx[6][
           /*field*/
-          ctx[34].name
+          ctx[35].name
         ] : "")) {
           attr(th, "style", th_style_value);
         }
@@ -6118,7 +6118,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       }
     };
   }
-  function create_if_block_52(ctx) {
+  function create_if_block_6(ctx) {
     let th;
     return {
       c() {
@@ -6142,9 +6142,9 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     function select_block_type(ctx2, dirty) {
       if (
         /*field*/
-        ctx2[34].name === "id"
+        ctx2[35].name === "id"
       )
-        return create_if_block_52;
+        return create_if_block_6;
       return create_else_block_2;
     }
     let current_block_type = select_block_type(ctx, [-1, -1]);
@@ -6182,13 +6182,13 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let td;
     let t_value = (
       /*cell*/
-      ctx[16](
+      ctx[17](
         /*row*/
-        ctx[31],
+        ctx[32],
         /*i*/
-        ctx[36],
+        ctx[37],
         /*field*/
-        ctx[34]
+        ctx[35]
       ) + ""
     );
     let t;
@@ -6204,14 +6204,14 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*rows, fields*/
-        6 && t_value !== (t_value = /*cell*/
-        ctx2[16](
+        12 && t_value !== (t_value = /*cell*/
+        ctx2[17](
           /*row*/
-          ctx2[31],
+          ctx2[32],
           /*i*/
-          ctx2[36],
+          ctx2[37],
           /*field*/
-          ctx2[34]
+          ctx2[35]
         ) + ""))
           set_data(t, t_value);
       },
@@ -6224,17 +6224,17 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       }
     };
   }
-  function create_if_block_42(ctx) {
+  function create_if_block_52(ctx) {
     let td;
     let t_value = (
       /*cell*/
-      (ctx[16](
+      (ctx[17](
         /*row*/
-        ctx[31],
+        ctx[32],
         /*i*/
-        ctx[36],
+        ctx[37],
         /*field*/
-        ctx[34]
+        ctx[35]
       ) || 0).toLocaleString() + ""
     );
     let t;
@@ -6250,14 +6250,14 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*rows, fields*/
-        6 && t_value !== (t_value = /*cell*/
-        (ctx2[16](
+        12 && t_value !== (t_value = /*cell*/
+        (ctx2[17](
           /*row*/
-          ctx2[31],
+          ctx2[32],
           /*i*/
-          ctx2[36],
+          ctx2[37],
           /*field*/
-          ctx2[34]
+          ctx2[35]
         ) || 0).toLocaleString() + ""))
           set_data(t, t_value);
       },
@@ -6270,17 +6270,17 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       }
     };
   }
-  function create_if_block_32(ctx) {
+  function create_if_block_42(ctx) {
     let td;
     let t_value = (0, import_formatter.datetime)(
       /*cell*/
-      ctx[16](
+      ctx[17](
         /*row*/
-        ctx[31],
+        ctx[32],
         /*i*/
-        ctx[36],
+        ctx[37],
         /*field*/
-        ctx[34]
+        ctx[35]
       )
     ) + "";
     let t;
@@ -6296,15 +6296,15 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*rows, fields*/
-        6 && t_value !== (t_value = (0, import_formatter.datetime)(
+        12 && t_value !== (t_value = (0, import_formatter.datetime)(
           /*cell*/
-          ctx2[16](
+          ctx2[17](
             /*row*/
-            ctx2[31],
+            ctx2[32],
             /*i*/
-            ctx2[36],
+            ctx2[37],
             /*field*/
-            ctx2[34]
+            ctx2[35]
           )
         ) + ""))
           set_data(t, t_value);
@@ -6318,16 +6318,16 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       }
     };
   }
-  function create_if_block_23(ctx) {
+  function create_if_block_32(ctx) {
     let td;
     let t_value = !!/*cell*/
-    ctx[16](
+    ctx[17](
       /*row*/
-      ctx[31],
+      ctx[32],
       /*i*/
-      ctx[36],
+      ctx[37],
       /*field*/
-      ctx[34]
+      ctx[35]
     ) + "";
     let t;
     return {
@@ -6342,14 +6342,72 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*rows, fields*/
-        6 && t_value !== (t_value = !!/*cell*/
-        ctx2[16](
+        12 && t_value !== (t_value = !!/*cell*/
+        ctx2[17](
           /*row*/
-          ctx2[31],
+          ctx2[32],
           /*i*/
-          ctx2[36],
+          ctx2[37],
           /*field*/
-          ctx2[34]
+          ctx2[35]
+        ) + ""))
+          set_data(t, t_value);
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+      }
+    };
+  }
+  function create_if_block_23(ctx) {
+    let td;
+    let t_value = (
+      /*renderFuncs*/
+      ctx[1][
+        /*field*/
+        ctx[35].name
+      ](
+        /*cell*/
+        ctx[17](
+          /*row*/
+          ctx[32],
+          /*i*/
+          ctx[37],
+          /*field*/
+          ctx[35]
+        )
+      ) + ""
+    );
+    let t;
+    return {
+      c() {
+        td = element("td");
+        t = text(t_value);
+        attr(td, "class", "table_data svelte-1wffgsc");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty[0] & /*renderFuncs, fields, rows*/
+        14 && t_value !== (t_value = /*renderFuncs*/
+        ctx2[1][
+          /*field*/
+          ctx2[35].name
+        ](
+          /*cell*/
+          ctx2[17](
+            /*row*/
+            ctx2[32],
+            /*i*/
+            ctx2[37],
+            /*field*/
+            ctx2[35]
+          )
         ) + ""))
           set_data(t, t_value);
       },
@@ -6375,19 +6433,19 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     function click_handler_1() {
       return (
         /*click_handler_1*/
-        ctx[23](
+        ctx[24](
           /*row*/
-          ctx[31],
+          ctx[32],
           /*i*/
-          ctx[36],
+          ctx[37],
           /*field*/
-          ctx[34]
+          ctx[35]
         )
       );
     }
     let each_value_2 = ensure_array_like(
       /*extraActions*/
-      ctx[3]
+      ctx[4]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value_2.length; i += 1) {
@@ -6431,10 +6489,10 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if (dirty[0] & /*extraActions, rows*/
-        12) {
+        24) {
           each_value_2 = ensure_array_like(
             /*extraActions*/
-            ctx[3]
+            ctx[4]
           );
           let i;
           for (i = 0; i < each_value_2.length; i += 1) {
@@ -6493,16 +6551,16 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let dispose;
     icon = new Icon_default({ props: { src: (
       /*action*/
-      ctx[37].icon
+      ctx[38].icon
     ) } });
     function click_handler_2() {
       return (
         /*click_handler_2*/
-        ctx[24](
+        ctx[25](
           /*action*/
-          ctx[37],
+          ctx[38],
           /*row*/
-          ctx[31]
+          ctx[32]
         )
       );
     }
@@ -6512,7 +6570,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         create_component(icon.$.fragment);
         attr(button, "class", "action svelte-1wffgsc");
         attr(button, "title", button_title_value = /*action*/
-        ctx[37].label || "");
+        ctx[38].label || "");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -6527,13 +6585,13 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         ctx = new_ctx;
         const icon_changes = {};
         if (dirty[0] & /*extraActions*/
-        8)
+        16)
           icon_changes.src = /*action*/
-          ctx[37].icon;
+          ctx[38].icon;
         icon.$set(icon_changes);
         if (!current || dirty[0] & /*extraActions*/
-        8 && button_title_value !== (button_title_value = /*action*/
-        ctx[37].label || "")) {
+        16 && button_title_value !== (button_title_value = /*action*/
+        ctx[38].label || "")) {
           attr(button, "title", button_title_value);
         }
       },
@@ -6565,21 +6623,21 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let current;
     icon = new Icon_default({ props: { src: (
       /*action*/
-      ctx[37].icon
+      ctx[38].icon
     ) } });
     return {
       c() {
         a = element("a");
         create_component(icon.$.fragment);
         attr(a, "href", a_href_value = /*action*/
-        ctx[37].link(
+        ctx[38].link(
           /*row*/
-          ctx[31]
+          ctx[32]
         ));
         attr(a, "class", "action svelte-1wffgsc");
         attr(a, "target", "_blank");
         attr(a, "title", a_title_value = /*action*/
-        ctx[37].label || "");
+        ctx[38].label || "");
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -6589,21 +6647,21 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       p(ctx2, dirty) {
         const icon_changes = {};
         if (dirty[0] & /*extraActions*/
-        8)
+        16)
           icon_changes.src = /*action*/
-          ctx2[37].icon;
+          ctx2[38].icon;
         icon.$set(icon_changes);
         if (!current || dirty[0] & /*extraActions, rows*/
-        12 && a_href_value !== (a_href_value = /*action*/
-        ctx2[37].link(
+        24 && a_href_value !== (a_href_value = /*action*/
+        ctx2[38].link(
           /*row*/
-          ctx2[31]
+          ctx2[32]
         ))) {
           attr(a, "href", a_href_value);
         }
         if (!current || dirty[0] & /*extraActions*/
-        8 && a_title_value !== (a_title_value = /*action*/
-        ctx2[37].label || "")) {
+        16 && a_title_value !== (a_title_value = /*action*/
+        ctx2[38].label || "")) {
           attr(a, "title", a_title_value);
         }
       },
@@ -6635,7 +6693,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     function select_block_type_2(ctx2, dirty) {
       if (
         /*action*/
-        ctx2[37].link
+        ctx2[38].link
       )
         return 0;
       return 1;
@@ -6702,32 +6760,41 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       create_if_block_23,
       create_if_block_32,
       create_if_block_42,
+      create_if_block_52,
       create_else_block_1
     ];
     const if_blocks = [];
     function select_block_type_1(ctx2, dirty) {
       if (
         /*field*/
-        ctx2[34].name === "id"
+        ctx2[35].name === "id"
       )
         return 0;
       if (
-        /*field*/
-        ctx2[34].inputType === "checkbox"
+        /*renderFuncs*/
+        ctx2[1][
+          /*field*/
+          ctx2[35].name
+        ]
       )
         return 1;
       if (
         /*field*/
-        ctx2[34].inputType === "datetime" || /*field*/
-        ctx2[34].name === "deletedAt"
+        ctx2[35].inputType === "checkbox"
       )
         return 2;
       if (
         /*field*/
-        ctx2[34].inputType === "number"
+        ctx2[35].inputType === "datetime" || /*field*/
+        ctx2[35].name === "deletedAt"
       )
         return 3;
-      return 4;
+      if (
+        /*field*/
+        ctx2[35].inputType === "number"
+      )
+        return 4;
+      return 5;
     }
     current_block_type_index = select_block_type_1(ctx, [-1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
@@ -6787,7 +6854,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let current;
     let each_value_1 = ensure_array_like(
       /*fields*/
-      ctx[1]
+      ctx[2]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value_1.length; i += 1) {
@@ -6808,9 +6875,9 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           tr,
           "deleted",
           /*row*/
-          ctx[31][
+          ctx[32][
             /*deletedAtIdx*/
-            ctx[7]
+            ctx[8]
           ] > 0
         );
       },
@@ -6825,11 +6892,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*extraActions, rows, onEditRow, cell, fields*/
-        65566) {
+        if (dirty[0] & /*extraActions, rows, onEditRow, cell, fields, renderFuncs*/
+        131134) {
           each_value_1 = ensure_array_like(
             /*fields*/
-            ctx2[1]
+            ctx2[2]
           );
           let i;
           for (i = 0; i < each_value_1.length; i += 1) {
@@ -6851,14 +6918,14 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           check_outros();
         }
         if (!current || dirty[0] & /*rows, deletedAtIdx*/
-        132) {
+        264) {
           toggle_class(
             tr,
             "deleted",
             /*row*/
-            ctx2[31][
+            ctx2[32][
               /*deletedAtIdx*/
-              ctx2[7]
+              ctx2[8]
             ] > 0
           );
         }
@@ -6959,21 +7026,21 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let dispose;
     const default_slot_template = (
       /*#slots*/
-      ctx[20].default
+      ctx[21].default
     );
     const default_slot = create_slot(
       default_slot_template,
       ctx,
       /*$scope*/
-      ctx[19],
+      ctx[20],
       null
     );
     icon0 = new Icon_default({
       props: {
         color: (
           /*oldFilterStr*/
-          ctx[8] === /*newFilterStr*/
-          ctx[9] ? "#5C646F" : "#FFF"
+          ctx[9] === /*newFilterStr*/
+          ctx[10] ? "#5C646F" : "#FFF"
         ),
         size: 17,
         src: FaSolidFilter_default
@@ -6988,7 +7055,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     });
     let each_value_3 = ensure_array_like(
       /*fields*/
-      ctx[1]
+      ctx[2]
     );
     let each_blocks_1 = [];
     for (let i = 0; i < each_value_3.length; i += 1) {
@@ -6996,7 +7063,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     }
     let each_value = ensure_array_like(
       /*rows*/
-      ctx[2]
+      ctx[3]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
@@ -7008,7 +7075,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     icon2 = new Icon_default({
       props: {
         color: !/*allowPrevPage*/
-        ctx[11] ? "#5C646F" : "#FFF",
+        ctx[12] ? "#5C646F" : "#FFF",
         size: 18,
         src: FaSolidAngleDoubleLeft_default
       }
@@ -7016,7 +7083,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     icon3 = new Icon_default({
       props: {
         color: !/*allowPrevPage*/
-        ctx[11] ? "#5C646F" : "#FFF",
+        ctx[12] ? "#5C646F" : "#FFF",
         size: 18,
         src: FaSolidAngleLeft_default
       }
@@ -7024,7 +7091,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     icon4 = new Icon_default({
       props: {
         color: !/*allowNextPage*/
-        ctx[10] ? "#5C646F" : "#FFF",
+        ctx[11] ? "#5C646F" : "#FFF",
         size: 18,
         src: FaSolidAngleRight_default
       }
@@ -7032,7 +7099,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     icon5 = new Icon_default({
       props: {
         color: !/*allowNextPage*/
-        ctx[10] ? "#5C646F" : "#FFF",
+        ctx[11] ? "#5C646F" : "#FFF",
         size: 18,
         src: FaSolidAngleDoubleRight_default
       }
@@ -7102,13 +7169,13 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         create_component(icon5.$.fragment);
         attr(button0, "class", "action_btn");
         button0.disabled = button0_disabled_value = /*oldFilterStr*/
-        ctx[8] === /*newFilterStr*/
-        ctx[9];
+        ctx[9] === /*newFilterStr*/
+        ctx[10];
         attr(
           button0,
           "onclick",
           /*applyFilter*/
-          ctx[13]
+          ctx[14]
         );
         attr(button1, "class", "action_btn");
         attr(div0, "class", "left svelte-1wffgsc");
@@ -7122,19 +7189,19 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         attr(input, "type", "number");
         attr(div3, "class", "page_and_rows_count svelte-1wffgsc");
         button2.disabled = button2_disabled_value = !/*allowPrevPage*/
-        ctx[11];
+        ctx[12];
         attr(button2, "title", "Go to first page");
         attr(button2, "class", "svelte-1wffgsc");
         button3.disabled = button3_disabled_value = !/*allowPrevPage*/
-        ctx[11];
+        ctx[12];
         attr(button3, "title", "Go to previous page");
         attr(button3, "class", "svelte-1wffgsc");
         button4.disabled = button4_disabled_value = !/*allowNextPage*/
-        ctx[10];
+        ctx[11];
         attr(button4, "title", "Go to next page");
         attr(button4, "class", "svelte-1wffgsc");
         button5.disabled = button5_disabled_value = !/*allowNextPage*/
-        ctx[10];
+        ctx[11];
         attr(button5, "title", "Go to last page");
         attr(button5, "class", "svelte-1wffgsc");
         attr(div4, "class", "pagination svelte-1wffgsc");
@@ -7216,43 +7283,43 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
               button1,
               "click",
               /*click_handler*/
-              ctx[21]
+              ctx[22]
             ),
             listen(
               input,
               "input",
               /*input_input_handler_1*/
-              ctx[25]
+              ctx[26]
             ),
             listen(
               input,
               "change",
               /*change_handler*/
-              ctx[26]
+              ctx[27]
             ),
             listen(
               button2,
               "click",
               /*click_handler_3*/
-              ctx[27]
+              ctx[28]
             ),
             listen(
               button3,
               "click",
               /*click_handler_4*/
-              ctx[28]
+              ctx[29]
             ),
             listen(
               button4,
               "click",
               /*click_handler_5*/
-              ctx[29]
+              ctx[30]
             ),
             listen(
               button5,
               "click",
               /*click_handler_6*/
-              ctx[30]
+              ctx[31]
             )
           ];
           mounted = true;
@@ -7261,20 +7328,20 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       p(ctx2, dirty) {
         if (default_slot) {
           if (default_slot.p && (!current || dirty[0] & /*$scope*/
-          524288)) {
+          1048576)) {
             update_slot_base(
               default_slot,
               default_slot_template,
               ctx2,
               /*$scope*/
-              ctx2[19],
+              ctx2[20],
               !current ? get_all_dirty_from_scope(
                 /*$scope*/
-                ctx2[19]
+                ctx2[20]
               ) : get_slot_changes(
                 default_slot_template,
                 /*$scope*/
-                ctx2[19],
+                ctx2[20],
                 dirty,
                 null
               ),
@@ -7284,22 +7351,22 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         }
         const icon0_changes = {};
         if (dirty[0] & /*oldFilterStr, newFilterStr*/
-        768)
+        1536)
           icon0_changes.color = /*oldFilterStr*/
-          ctx2[8] === /*newFilterStr*/
-          ctx2[9] ? "#5C646F" : "#FFF";
+          ctx2[9] === /*newFilterStr*/
+          ctx2[10] ? "#5C646F" : "#FFF";
         icon0.$set(icon0_changes);
         if (!current || dirty[0] & /*oldFilterStr, newFilterStr*/
-        768 && button0_disabled_value !== (button0_disabled_value = /*oldFilterStr*/
-        ctx2[8] === /*newFilterStr*/
-        ctx2[9])) {
+        1536 && button0_disabled_value !== (button0_disabled_value = /*oldFilterStr*/
+        ctx2[9] === /*newFilterStr*/
+        ctx2[10])) {
           button0.disabled = button0_disabled_value;
         }
         if (dirty[0] & /*fields, widths, filtersMap, filterKeyDown*/
-        4194) {
+        8388) {
           each_value_3 = ensure_array_like(
             /*fields*/
-            ctx2[1]
+            ctx2[2]
           );
           let i;
           for (i = 0; i < each_value_3.length; i += 1) {
@@ -7317,11 +7384,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           }
           each_blocks_1.length = each_value_3.length;
         }
-        if (dirty[0] & /*rows, deletedAtIdx, fields, extraActions, onEditRow, cell*/
-        65694) {
+        if (dirty[0] & /*rows, deletedAtIdx, fields, extraActions, onEditRow, cell, renderFuncs*/
+        131390) {
           each_value = ensure_array_like(
             /*rows*/
-            ctx2[2]
+            ctx2[3]
           );
           let i;
           for (i = 0; i < each_value.length; i += 1) {
@@ -7365,46 +7432,46 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           set_data(t19, t19_value);
         const icon2_changes = {};
         if (dirty[0] & /*allowPrevPage*/
-        2048)
+        4096)
           icon2_changes.color = !/*allowPrevPage*/
-          ctx2[11] ? "#5C646F" : "#FFF";
+          ctx2[12] ? "#5C646F" : "#FFF";
         icon2.$set(icon2_changes);
         if (!current || dirty[0] & /*allowPrevPage*/
-        2048 && button2_disabled_value !== (button2_disabled_value = !/*allowPrevPage*/
-        ctx2[11])) {
+        4096 && button2_disabled_value !== (button2_disabled_value = !/*allowPrevPage*/
+        ctx2[12])) {
           button2.disabled = button2_disabled_value;
         }
         const icon3_changes = {};
         if (dirty[0] & /*allowPrevPage*/
-        2048)
+        4096)
           icon3_changes.color = !/*allowPrevPage*/
-          ctx2[11] ? "#5C646F" : "#FFF";
+          ctx2[12] ? "#5C646F" : "#FFF";
         icon3.$set(icon3_changes);
         if (!current || dirty[0] & /*allowPrevPage*/
-        2048 && button3_disabled_value !== (button3_disabled_value = !/*allowPrevPage*/
-        ctx2[11])) {
+        4096 && button3_disabled_value !== (button3_disabled_value = !/*allowPrevPage*/
+        ctx2[12])) {
           button3.disabled = button3_disabled_value;
         }
         const icon4_changes = {};
         if (dirty[0] & /*allowNextPage*/
-        1024)
+        2048)
           icon4_changes.color = !/*allowNextPage*/
-          ctx2[10] ? "#5C646F" : "#FFF";
+          ctx2[11] ? "#5C646F" : "#FFF";
         icon4.$set(icon4_changes);
         if (!current || dirty[0] & /*allowNextPage*/
-        1024 && button4_disabled_value !== (button4_disabled_value = !/*allowNextPage*/
-        ctx2[10])) {
+        2048 && button4_disabled_value !== (button4_disabled_value = !/*allowNextPage*/
+        ctx2[11])) {
           button4.disabled = button4_disabled_value;
         }
         const icon5_changes = {};
         if (dirty[0] & /*allowNextPage*/
-        1024)
+        2048)
           icon5_changes.color = !/*allowNextPage*/
-          ctx2[10] ? "#5C646F" : "#FFF";
+          ctx2[11] ? "#5C646F" : "#FFF";
         icon5.$set(icon5_changes);
         if (!current || dirty[0] & /*allowNextPage*/
-        1024 && button5_disabled_value !== (button5_disabled_value = !/*allowNextPage*/
-        ctx2[10])) {
+        2048 && button5_disabled_value !== (button5_disabled_value = !/*allowNextPage*/
+        ctx2[11])) {
           button5.disabled = button5_disabled_value;
         }
       },
@@ -7460,6 +7527,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let allowPrevPage;
     let allowNextPage;
     let { $slots: slots = {}, $scope } = $props;
+    let { renderFuncs = {} } = $props;
     let { arrayOfArray = true } = $props;
     let { fields: fields2 = [] } = $props;
     let { rows = [] } = $props;
@@ -7483,11 +7551,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         let field = fields2[z];
         if (field.name === "deletedAt") {
           console.log("deletedAtIdx", z);
-          $invalidate(7, deletedAtIdx = z);
+          $invalidate(8, deletedAtIdx = z);
         }
-        $invalidate(6, filtersMap[field.name] = "", filtersMap);
+        $invalidate(7, filtersMap[field.name] = "", filtersMap);
       }
-      $invalidate(8, oldFilterStr = JSON.stringify(filtersMap));
+      $invalidate(9, oldFilterStr = JSON.stringify(filtersMap));
     });
     let oldFilterStr = "{}";
     let newFilterStr = "";
@@ -7506,7 +7574,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       }
       console.log("filters=", filters);
       onRefreshTableView({ ...pager, filters });
-      $invalidate(8, oldFilterStr = newFilterStr);
+      $invalidate(9, oldFilterStr = newFilterStr);
     }
     function gotoPage(page) {
       onRefreshTableView({ ...pager, page });
@@ -7522,7 +7590,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     const click_handler = () => gotoPage(pager.page);
     function input_input_handler(field) {
       filtersMap[field.name] = this.value;
-      $invalidate(6, filtersMap);
+      $invalidate(7, filtersMap);
     }
     const click_handler_1 = (row, i, field) => onEditRow(cell(row, i, field), row);
     const click_handler_2 = (action, row) => action.onClick(row);
@@ -7536,44 +7604,47 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     const click_handler_5 = () => gotoPage(pager.page + 1);
     const click_handler_6 = () => gotoPage(pager.pages);
     $self.$set = ($props2) => {
+      if ("renderFuncs" in $props2)
+        $invalidate(1, renderFuncs = $props2.renderFuncs);
       if ("arrayOfArray" in $props2)
-        $invalidate(17, arrayOfArray = $props2.arrayOfArray);
+        $invalidate(18, arrayOfArray = $props2.arrayOfArray);
       if ("fields" in $props2)
-        $invalidate(1, fields2 = $props2.fields);
+        $invalidate(2, fields2 = $props2.fields);
       if ("rows" in $props2)
-        $invalidate(2, rows = $props2.rows);
+        $invalidate(3, rows = $props2.rows);
       if ("pager" in $props2)
         $invalidate(0, pager = $props2.pager);
       if ("extraActions" in $props2)
-        $invalidate(3, extraActions = $props2.extraActions);
+        $invalidate(4, extraActions = $props2.extraActions);
       if ("onRefreshTableView" in $props2)
-        $invalidate(18, onRefreshTableView = $props2.onRefreshTableView);
+        $invalidate(19, onRefreshTableView = $props2.onRefreshTableView);
       if ("onEditRow" in $props2)
-        $invalidate(4, onEditRow = $props2.onEditRow);
+        $invalidate(5, onEditRow = $props2.onEditRow);
       if ("widths" in $props2)
-        $invalidate(5, widths = $props2.widths);
+        $invalidate(6, widths = $props2.widths);
       if ("$scope" in $props2)
-        $invalidate(19, $scope = $props2.$scope);
+        $invalidate(20, $scope = $props2.$scope);
     };
     $self.$.update = () => {
       if ($self.$.dirty[0] & /*filtersMap*/
-      64) {
+      128) {
         $:
-          $invalidate(9, newFilterStr = JSON.stringify(filtersMap));
+          $invalidate(10, newFilterStr = JSON.stringify(filtersMap));
       }
       if ($self.$.dirty[0] & /*pager*/
       1) {
         $:
-          $invalidate(11, allowPrevPage = pager.page > 1);
+          $invalidate(12, allowPrevPage = pager.page > 1);
       }
       if ($self.$.dirty[0] & /*pager*/
       1) {
         $:
-          $invalidate(10, allowNextPage = pager.page < pager.pages);
+          $invalidate(11, allowNextPage = pager.page < pager.pages);
       }
     };
     return [
       pager,
+      renderFuncs,
       fields2,
       rows,
       extraActions,
@@ -7616,14 +7687,15 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         create_fragment6,
         safe_not_equal,
         {
-          arrayOfArray: 17,
-          fields: 1,
-          rows: 2,
+          renderFuncs: 1,
+          arrayOfArray: 18,
+          fields: 2,
+          rows: 3,
           pager: 0,
-          extraActions: 3,
-          onRefreshTableView: 18,
-          onEditRow: 4,
-          widths: 5
+          extraActions: 4,
+          onRefreshTableView: 19,
+          onEditRow: 5,
+          widths: 6
         },
         null,
         [-1, -1]
