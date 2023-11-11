@@ -80,9 +80,9 @@
                     <option value={lang}>{lang}</option>
                 {/each}
             </select>
-            <button class='profile_button' on:click={userLogout} title='Click to logout'>
-                <img alt='profile' src='/assets/img/team-1-200x200.jpg'/>
-            </button>
+<!--            <button class='profile_button' on:click={userLogout} title='Click to logout'>-->
+<!--                <img alt='profile' src='/assets/img/team-1-200x200.jpg'/>-->
+<!--            </button>-->
         </div>
     </nav>
 </header>
@@ -193,26 +193,26 @@
         outline : none;
     }
 
-    .profile_header .navbar .right_nav .profile_button {
-        padding       : 0;
-        border        : none;
-        margin        : 0;
-        width         : fit-content;
-        height        : fit-content;
-        border-radius : 50%;
-        filter        : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    }
-
-    .profile_header .navbar .right_nav .profile_button:hover {
-        box-shadow : 0 0 0 3px rgba(255, 255, 255, 0.5);
-        cursor     : pointer;
-    }
-
-    .profile_header .navbar .right_nav .profile_button > img {
-        width         : 50px;
-        height        : 50px;
-        border-radius : 9999px;
-    }
+    /*.profile_header .navbar .right_nav .profile_button {*/
+    /*    padding       : 0;*/
+    /*    border        : none;*/
+    /*    margin        : 0;*/
+    /*    width         : fit-content;*/
+    /*    height        : fit-content;*/
+    /*    border-radius : 50%;*/
+    /*    filter        : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));*/
+    /*}*/
+    
+    /*.profile_header .navbar .right_nav .profile_button:hover {*/
+    /*    box-shadow : 0 0 0 3px rgba(255, 255, 255, 0.5);*/
+    /*    cursor     : pointer;*/
+    /*}*/
+    
+    /*.profile_header .navbar .right_nav .profile_button > img {*/
+    /*    width         : 50px;*/
+    /*    height        : 50px;*/
+    /*    border-radius : 9999px;*/
+    /*}*/
 
     /* Responsive to mobile device */
     @media only screen and (max-width : 768px) {
@@ -234,10 +234,10 @@
             width     : 50px
         }
 
-        .profile_header .navbar .right_nav .profile_button > img {
-            width  : 40px;
-            height : 40px;
-        }
+        /*.profile_header .navbar .right_nav .profile_button > img {*/
+        /*    width  : 40px;*/
+        /*    height : 40px;*/
+        /*}*/
 
         .profile_header .navbar .label_menu .logout_menu {
             top: 30px;
