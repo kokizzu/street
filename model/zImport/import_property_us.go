@@ -393,64 +393,8 @@ func parsePropertyData(propertyMutator *wcProperty.PropertyUSMutator, propertyRe
 	propertyMutator.UpdatedAt = currentTime
 }
 
-func ImportPropertyHistories(propertyResponseObject *PropertyFullResponse, redFinId string) []rqProperty.PropertyHistory {
-
-	if propertyResponseObject.PropertyHistoryInfo.HasPropertyHistory == false {
-		return []rqProperty.PropertyHistory{}
-	}
-
-	propHistories := []rqProperty.PropertyHistory{}
-
-	for _, historyItem := range propertyResponseObject.PropertyHistoryInfo.Events {
-
-		// Tracking only history have price
-		if historyItem.Price == 0 && strings.ContainsAny(historyItem.EventDescription, "Pending") {
-			continue
-		}
-
-		data := rqProperty.PropertyHistory{}
-
-		data.TransactionTime = strconv.FormatInt(historyItem.EventDate, 10)
-		data.TransactionKey = historyItem.SourceId
-		data.Price = historyItem.Price
-		data.PropertyKey = redFinId
-		data.TransactionDescription = historyItem.EventDescription
-		data.TransactionDateNormal = historyItem.EventDateString
-		data.SerialNumber = propertyResponseObject.PublicRecordsInfo.BasicInfo.Apn // Serial number of house
-
-		// Check sell transaction
-		if strings.ContainsAny(historyItem.EventDescription, "Sold") || strings.ContainsAny(historyItem.EventDescription, "Listed") {
-			data.TransactionType = SELL
-		} else {
-			data.TransactionType = UNKNOWN
-		}
-
-		propHistories = append(propHistories, data)
-	}
-
-	return propHistories
-
-}
-
 func convertSqftToM2(sqft float64) float64 {
 	return sqft * 0.092903
-}
-
-func SavePropertyHistories(adapter *Tt.Adapter, propList []rqProperty.PropertyHistory) {
-
-	stat := &ImporterStat{Total: len(propList)}
-	defer stat.Print(`last`)
-
-	for _, pHistory := range propList {
-
-		stat.Print()
-
-		propertyHistoryMutator := wcProperty.NewPropertyHistoryMutator(adapter)
-		propertyHistoryMutator.Adapter = adapter
-		propertyHistoryMutator.PropertyHistory = pHistory
-		propertyHistoryMutator.UpdatedAt = time.Now().Unix()
-		stat.Ok(propertyHistoryMutator.DoInsert())
-	}
 }
 
 func CleanExcessiveAttrPropertyExtraUs(adapter *Tt.Adapter) {
@@ -567,15 +511,6 @@ func ImportPropertyUsData(adapter *Tt.Adapter, baseUrl string, minPropertyId int
 
 		propertyMutator.Version = propertyVersion
 
-		propertyHistories := ImportPropertyHistories(propertyResponseObject, strconv.Itoa(i))
-
-		if len(propertyHistories) == 0 {
-			stat.Warn("no prop history")
-			propertyMutator.LastPrice = `0`
-		} else {
-			// Update last price
-			propertyMutator.LastPrice = fmt.Sprint(propertyHistories[0].Price)
-		}
 		stat.Ok(propertyMutator.DoInsert())
 
 		stat.Print()

@@ -80,7 +80,8 @@ const (
 	UpdatedBy              = `updatedBy`
 	DeletedAt              = `deletedAt`
 
-	TablePropertyHistory Tt.TableName = `property_history`
+	TablePropertyHistory   Tt.TableName = `property_history`
+	TablePropertyHistoryUS Tt.TableName = `property_historyUS`
 
 	PropertyKey            = `propertyKey` // refer to UniqPropKey?
 	TransactionKey         = `transactionKey`
@@ -159,7 +160,44 @@ func buildPropertyExtraUs() []Tt.Field {
 	}
 
 	return listFields
+}
 
+func buildPropertyHistorySchema() []Tt.Field {
+
+	schema := map[int]Tt.Field{
+		0:  {Id, Tt.Unsigned},
+		1:  {PropertyKey, Tt.String},
+		2:  {TransactionKey, Tt.String},
+		3:  {TransactionType, Tt.String},
+		4:  {TransactionSign, Tt.String},
+		5:  {TransactionTime, Tt.String},
+		6:  {TransactionDateNormal, Tt.String},
+		7:  {TransactionNumber, Tt.String},
+		8:  {PriceNTD, Tt.Integer},
+		9:  {PricePerUnit, Tt.Integer},
+		10: {Price, Tt.Integer},
+		11: {Address, Tt.String},
+		12: {District, Tt.String},
+		13: {Note, Tt.String},
+		14: {CreatedAt, Tt.Integer},
+		15: {CreatedBy, Tt.Unsigned},
+		16: {UpdatedAt, Tt.Integer},
+		17: {UpdatedBy, Tt.Unsigned},
+		18: {DeletedAt, Tt.Integer},
+		19: {SerialNumber, Tt.String},
+		20: {TransactionDescription, Tt.String},
+	}
+
+	listFields := make([]Tt.Field, len(schema))
+	for i := 0; i < len(listFields); i++ {
+		if schema[i].Name == "" && schema[i].Type == "" {
+			continue
+		} else {
+			listFields[i] = schema[i]
+		}
+	}
+
+	return listFields
 }
 
 func buildStandardPropertySchema() []Tt.Field {
@@ -257,29 +295,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Spatial:         Coord,
 	},
 	TablePropertyHistory: {
-		Fields: []Tt.Field{
-			{Id, Tt.Unsigned},
-			{PropertyKey, Tt.String},
-			{TransactionKey, Tt.String},
-			{TransactionType, Tt.String},
-			{TransactionSign, Tt.String},
-			{TransactionTime, Tt.String},
-			{TransactionDateNormal, Tt.String},
-			{TransactionNumber, Tt.String},
-			{PriceNTD, Tt.Integer},
-			{PricePerUnit, Tt.Integer},
-			{Price, Tt.Integer},
-			{Address, Tt.String},
-			{District, Tt.String},
-			{Note, Tt.String},
-			{CreatedAt, Tt.Integer},
-			{CreatedBy, Tt.Unsigned},
-			{UpdatedAt, Tt.Integer},
-			{UpdatedBy, Tt.Unsigned},
-			{DeletedAt, Tt.Integer},
-			{SerialNumber, Tt.String},
-			{TransactionDescription, Tt.String},
-		},
+		Fields:          buildPropertyHistorySchema(),
 		AutoIncrementId: true,
 		Unique1:         TransactionKey,
 		Indexes:         []string{PropertyKey},
@@ -315,6 +331,13 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		AutoIncrementId: true,
 		Unique1:         PropertyKey,
 		Engine:          Tt.Vinyl,
+	},
+	TablePropertyHistoryUS: {
+		Fields:          buildPropertyHistorySchema(),
+		AutoIncrementId: true,
+		Unique1:         TransactionKey,
+		Indexes:         []string{PropertyKey},
+		Engine:          Tt.Memtx,
 	},
 }
 
