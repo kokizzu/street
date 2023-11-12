@@ -7,7 +7,6 @@ import (
 
 	"github.com/goccy/go-json"
 	"github.com/kokizzu/gotro/D/Tt"
-	"github.com/kokizzu/gotro/L"
 )
 
 type PhotoUrls struct {
@@ -51,7 +50,6 @@ func MigratePropertyUSImage(adapter *Tt.Adapter, minPropertyId int, maxPropertyI
 
 		propertyUSMutator.UniqPropKey = propKey
 		if !propertyUSMutator.FindByUniqPropKey() {
-			L.Print("There are no prop with unique prop key", propKey)
 			stat.Skip()
 			continue
 		}
@@ -61,12 +59,12 @@ func MigratePropertyUSImage(adapter *Tt.Adapter, minPropertyId int, maxPropertyI
 		var propertyUSMedia PropertyUSMedia
 		err := json.Unmarshal(jsonData, &propertyUSMedia.PropertyMap)
 		if err != nil {
-			L.Print("Error unmarshaling JSON:", err)
+			stat.Skip()
 			return
 		}
 
 		if len(propertyUSMedia.PropertyMap) == 0 {
-			L.Print("There are no images for this property")
+			stat.Warn("There are no images for property")
 			stat.Skip()
 			continue
 		}
@@ -78,6 +76,12 @@ func MigratePropertyUSImage(adapter *Tt.Adapter, minPropertyId int, maxPropertyI
 			for _, photo := range property.Photos {
 				images = append(images, photo.PhotoUrls.FullScreenPhotoUrl)
 			}
+		}
+
+		if len(images) == 0 {
+			stat.Warn("There are no images/photos for property")
+			stat.Skip()
+			continue
 		}
 
 		propertyUSMutator.Images = images
