@@ -215,6 +215,34 @@ func main() {
 		}
 
 		zImport.ImportPropertyUsData(tConn, baseUrl, minPropertyIdNumber, maxPropertyIdNumber)
+	case `import_property_history_us`:
+		const baseUrl = "https://www.redfin.com/stingray/api/home/details/belowTheFold"
+		args := os.Args
+		// Check the number of arguments.
+		if len(args) < 2 {
+			fmt.Println("Usage: go run main.go import_property_us -minPropertyId -maxPropertyId")
+			return
+		}
+
+		// Process the arguments
+		minPropertyId := args[2]
+		maxPropertyId := args[3]
+
+		minPropertyIdNumber, err := strconv.Atoi(minPropertyId)
+		if err != nil {
+			fmt.Println("Error: -minPropertyId is required a number and not a string")
+			return
+		}
+
+		maxPropertyIdNumber, err := strconv.Atoi(maxPropertyId)
+		if err != nil {
+			fmt.Println("Error: -maxPropertyIdNumber is required a number and not a string")
+			return
+		}
+		zImport.ImportPropertyHistoryUsData(tConn, baseUrl, minPropertyIdNumber, maxPropertyIdNumber)
+
+	case `migrate_property_us_image`:
+		zImport.MigratePropertyUSImage(tConn, 1, 1000000)
 	case `clean_excessive_attr_property_extra_us`:
 		zImport.CleanExcessiveAttrPropertyExtraUs(tConn)
 	case `import_location`:

@@ -3067,6 +3067,521 @@ var PropertyHistoryFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false po
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
+// PropertyHistoryUS DAO reader/query struct
+type PropertyHistoryUS struct {
+	Adapter                *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id                     uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	PropertyKey            string      `json:"propertyKey" form:"propertyKey" query:"propertyKey" long:"propertyKey" msg:"propertyKey"`
+	TransactionKey         string      `json:"transactionKey" form:"transactionKey" query:"transactionKey" long:"transactionKey" msg:"transactionKey"`
+	TransactionType        string      `json:"transactionType" form:"transactionType" query:"transactionType" long:"transactionType" msg:"transactionType"`
+	TransactionSign        string      `json:"transactionSign" form:"transactionSign" query:"transactionSign" long:"transactionSign" msg:"transactionSign"`
+	TransactionTime        string      `json:"transactionTime" form:"transactionTime" query:"transactionTime" long:"transactionTime" msg:"transactionTime"`
+	TransactionDateNormal  string      `json:"transactionDateNormal" form:"transactionDateNormal" query:"transactionDateNormal" long:"transactionDateNormal" msg:"transactionDateNormal"`
+	TransactionNumber      string      `json:"transactionNumber" form:"transactionNumber" query:"transactionNumber" long:"transactionNumber" msg:"transactionNumber"`
+	PriceNtd               int64       `json:"priceNtd" form:"priceNtd" query:"priceNtd" long:"priceNtd" msg:"priceNtd"`
+	PricePerUnit           int64       `json:"pricePerUnit" form:"pricePerUnit" query:"pricePerUnit" long:"pricePerUnit" msg:"pricePerUnit"`
+	Price                  int64       `json:"price" form:"price" query:"price" long:"price" msg:"price"`
+	Address                string      `json:"address" form:"address" query:"address" long:"address" msg:"address"`
+	District               string      `json:"district" form:"district" query:"district" long:"district" msg:"district"`
+	Note                   string      `json:"note" form:"note" query:"note" long:"note" msg:"note"`
+	CreatedAt              int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy              uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt              int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy              uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt              int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	SerialNumber           string      `json:"serialNumber" form:"serialNumber" query:"serialNumber" long:"serialNumber" msg:"serialNumber"`
+	TransactionDescription string      `json:"transactionDescription" form:"transactionDescription" query:"transactionDescription" long:"transactionDescription" msg:"transactionDescription"`
+}
+
+// NewPropertyHistoryUS create new ORM reader/query object
+func NewPropertyHistoryUS(adapter *Tt.Adapter) *PropertyHistoryUS {
+	return &PropertyHistoryUS{Adapter: adapter}
+}
+
+// SpaceName returns full package and table name
+func (p *PropertyHistoryUS) SpaceName() string { //nolint:dupl false positive
+	return string(mProperty.TablePropertyHistoryUS) // casting required to string from Tt.TableName
+}
+
+// SqlTableName returns quoted table name
+func (p *PropertyHistoryUS) SqlTableName() string { //nolint:dupl false positive
+	return `"property_historyUS"`
+}
+
+func (p *PropertyHistoryUS) UniqueIndexId() string { //nolint:dupl false positive
+	return `id`
+}
+
+// FindById Find one by Id
+func (p *PropertyHistoryUS) FindById() bool { //nolint:dupl false positive
+	res, err := p.Adapter.Select(p.SpaceName(), p.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{p.Id})
+	if L.IsError(err, `PropertyHistoryUS.FindById failed: `+p.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		p.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
+// UniqueIndexTransactionKey return unique index name
+func (p *PropertyHistoryUS) UniqueIndexTransactionKey() string { //nolint:dupl false positive
+	return `transactionKey`
+}
+
+// FindByTransactionKey Find one by TransactionKey
+func (p *PropertyHistoryUS) FindByTransactionKey() bool { //nolint:dupl false positive
+	res, err := p.Adapter.Select(p.SpaceName(), p.UniqueIndexTransactionKey(), 0, 1, tarantool.IterEq, A.X{p.TransactionKey})
+	if L.IsError(err, `PropertyHistoryUS.FindByTransactionKey failed: `+p.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		p.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
+// SqlSelectAllFields generate Sql select fields
+func (p *PropertyHistoryUS) SqlSelectAllFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "propertyKey"
+	, "transactionKey"
+	, "transactionType"
+	, "transactionSign"
+	, "transactionTime"
+	, "transactionDateNormal"
+	, "transactionNumber"
+	, "priceNtd"
+	, "pricePerUnit"
+	, "price"
+	, "address"
+	, "district"
+	, "note"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	, "serialNumber"
+	, "transactionDescription"
+	`
+}
+
+// SqlSelectAllUncensoredFields generate Sql select fields
+func (p *PropertyHistoryUS) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "propertyKey"
+	, "transactionKey"
+	, "transactionType"
+	, "transactionSign"
+	, "transactionTime"
+	, "transactionDateNormal"
+	, "transactionNumber"
+	, "priceNtd"
+	, "pricePerUnit"
+	, "price"
+	, "address"
+	, "district"
+	, "note"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	, "serialNumber"
+	, "transactionDescription"
+	`
+}
+
+// ToUpdateArray generate slice of update command
+func (p *PropertyHistoryUS) ToUpdateArray() A.X { //nolint:dupl false positive
+	return A.X{
+		A.X{`=`, 0, p.Id},
+		A.X{`=`, 1, p.PropertyKey},
+		A.X{`=`, 2, p.TransactionKey},
+		A.X{`=`, 3, p.TransactionType},
+		A.X{`=`, 4, p.TransactionSign},
+		A.X{`=`, 5, p.TransactionTime},
+		A.X{`=`, 6, p.TransactionDateNormal},
+		A.X{`=`, 7, p.TransactionNumber},
+		A.X{`=`, 8, p.PriceNtd},
+		A.X{`=`, 9, p.PricePerUnit},
+		A.X{`=`, 10, p.Price},
+		A.X{`=`, 11, p.Address},
+		A.X{`=`, 12, p.District},
+		A.X{`=`, 13, p.Note},
+		A.X{`=`, 14, p.CreatedAt},
+		A.X{`=`, 15, p.CreatedBy},
+		A.X{`=`, 16, p.UpdatedAt},
+		A.X{`=`, 17, p.UpdatedBy},
+		A.X{`=`, 18, p.DeletedAt},
+		A.X{`=`, 19, p.SerialNumber},
+		A.X{`=`, 20, p.TransactionDescription},
+	}
+}
+
+// IdxId return name of the index
+func (p *PropertyHistoryUS) IdxId() int { //nolint:dupl false positive
+	return 0
+}
+
+// SqlId return name of the column being indexed
+func (p *PropertyHistoryUS) SqlId() string { //nolint:dupl false positive
+	return `"id"`
+}
+
+// IdxPropertyKey return name of the index
+func (p *PropertyHistoryUS) IdxPropertyKey() int { //nolint:dupl false positive
+	return 1
+}
+
+// SqlPropertyKey return name of the column being indexed
+func (p *PropertyHistoryUS) SqlPropertyKey() string { //nolint:dupl false positive
+	return `"propertyKey"`
+}
+
+// IdxTransactionKey return name of the index
+func (p *PropertyHistoryUS) IdxTransactionKey() int { //nolint:dupl false positive
+	return 2
+}
+
+// SqlTransactionKey return name of the column being indexed
+func (p *PropertyHistoryUS) SqlTransactionKey() string { //nolint:dupl false positive
+	return `"transactionKey"`
+}
+
+// IdxTransactionType return name of the index
+func (p *PropertyHistoryUS) IdxTransactionType() int { //nolint:dupl false positive
+	return 3
+}
+
+// SqlTransactionType return name of the column being indexed
+func (p *PropertyHistoryUS) SqlTransactionType() string { //nolint:dupl false positive
+	return `"transactionType"`
+}
+
+// IdxTransactionSign return name of the index
+func (p *PropertyHistoryUS) IdxTransactionSign() int { //nolint:dupl false positive
+	return 4
+}
+
+// SqlTransactionSign return name of the column being indexed
+func (p *PropertyHistoryUS) SqlTransactionSign() string { //nolint:dupl false positive
+	return `"transactionSign"`
+}
+
+// IdxTransactionTime return name of the index
+func (p *PropertyHistoryUS) IdxTransactionTime() int { //nolint:dupl false positive
+	return 5
+}
+
+// SqlTransactionTime return name of the column being indexed
+func (p *PropertyHistoryUS) SqlTransactionTime() string { //nolint:dupl false positive
+	return `"transactionTime"`
+}
+
+// IdxTransactionDateNormal return name of the index
+func (p *PropertyHistoryUS) IdxTransactionDateNormal() int { //nolint:dupl false positive
+	return 6
+}
+
+// SqlTransactionDateNormal return name of the column being indexed
+func (p *PropertyHistoryUS) SqlTransactionDateNormal() string { //nolint:dupl false positive
+	return `"transactionDateNormal"`
+}
+
+// IdxTransactionNumber return name of the index
+func (p *PropertyHistoryUS) IdxTransactionNumber() int { //nolint:dupl false positive
+	return 7
+}
+
+// SqlTransactionNumber return name of the column being indexed
+func (p *PropertyHistoryUS) SqlTransactionNumber() string { //nolint:dupl false positive
+	return `"transactionNumber"`
+}
+
+// IdxPriceNtd return name of the index
+func (p *PropertyHistoryUS) IdxPriceNtd() int { //nolint:dupl false positive
+	return 8
+}
+
+// SqlPriceNtd return name of the column being indexed
+func (p *PropertyHistoryUS) SqlPriceNtd() string { //nolint:dupl false positive
+	return `"priceNtd"`
+}
+
+// IdxPricePerUnit return name of the index
+func (p *PropertyHistoryUS) IdxPricePerUnit() int { //nolint:dupl false positive
+	return 9
+}
+
+// SqlPricePerUnit return name of the column being indexed
+func (p *PropertyHistoryUS) SqlPricePerUnit() string { //nolint:dupl false positive
+	return `"pricePerUnit"`
+}
+
+// IdxPrice return name of the index
+func (p *PropertyHistoryUS) IdxPrice() int { //nolint:dupl false positive
+	return 10
+}
+
+// SqlPrice return name of the column being indexed
+func (p *PropertyHistoryUS) SqlPrice() string { //nolint:dupl false positive
+	return `"price"`
+}
+
+// IdxAddress return name of the index
+func (p *PropertyHistoryUS) IdxAddress() int { //nolint:dupl false positive
+	return 11
+}
+
+// SqlAddress return name of the column being indexed
+func (p *PropertyHistoryUS) SqlAddress() string { //nolint:dupl false positive
+	return `"address"`
+}
+
+// IdxDistrict return name of the index
+func (p *PropertyHistoryUS) IdxDistrict() int { //nolint:dupl false positive
+	return 12
+}
+
+// SqlDistrict return name of the column being indexed
+func (p *PropertyHistoryUS) SqlDistrict() string { //nolint:dupl false positive
+	return `"district"`
+}
+
+// IdxNote return name of the index
+func (p *PropertyHistoryUS) IdxNote() int { //nolint:dupl false positive
+	return 13
+}
+
+// SqlNote return name of the column being indexed
+func (p *PropertyHistoryUS) SqlNote() string { //nolint:dupl false positive
+	return `"note"`
+}
+
+// IdxCreatedAt return name of the index
+func (p *PropertyHistoryUS) IdxCreatedAt() int { //nolint:dupl false positive
+	return 14
+}
+
+// SqlCreatedAt return name of the column being indexed
+func (p *PropertyHistoryUS) SqlCreatedAt() string { //nolint:dupl false positive
+	return `"createdAt"`
+}
+
+// IdxCreatedBy return name of the index
+func (p *PropertyHistoryUS) IdxCreatedBy() int { //nolint:dupl false positive
+	return 15
+}
+
+// SqlCreatedBy return name of the column being indexed
+func (p *PropertyHistoryUS) SqlCreatedBy() string { //nolint:dupl false positive
+	return `"createdBy"`
+}
+
+// IdxUpdatedAt return name of the index
+func (p *PropertyHistoryUS) IdxUpdatedAt() int { //nolint:dupl false positive
+	return 16
+}
+
+// SqlUpdatedAt return name of the column being indexed
+func (p *PropertyHistoryUS) SqlUpdatedAt() string { //nolint:dupl false positive
+	return `"updatedAt"`
+}
+
+// IdxUpdatedBy return name of the index
+func (p *PropertyHistoryUS) IdxUpdatedBy() int { //nolint:dupl false positive
+	return 17
+}
+
+// SqlUpdatedBy return name of the column being indexed
+func (p *PropertyHistoryUS) SqlUpdatedBy() string { //nolint:dupl false positive
+	return `"updatedBy"`
+}
+
+// IdxDeletedAt return name of the index
+func (p *PropertyHistoryUS) IdxDeletedAt() int { //nolint:dupl false positive
+	return 18
+}
+
+// SqlDeletedAt return name of the column being indexed
+func (p *PropertyHistoryUS) SqlDeletedAt() string { //nolint:dupl false positive
+	return `"deletedAt"`
+}
+
+// IdxSerialNumber return name of the index
+func (p *PropertyHistoryUS) IdxSerialNumber() int { //nolint:dupl false positive
+	return 19
+}
+
+// SqlSerialNumber return name of the column being indexed
+func (p *PropertyHistoryUS) SqlSerialNumber() string { //nolint:dupl false positive
+	return `"serialNumber"`
+}
+
+// IdxTransactionDescription return name of the index
+func (p *PropertyHistoryUS) IdxTransactionDescription() int { //nolint:dupl false positive
+	return 20
+}
+
+// SqlTransactionDescription return name of the column being indexed
+func (p *PropertyHistoryUS) SqlTransactionDescription() string { //nolint:dupl false positive
+	return `"transactionDescription"`
+}
+
+// ToArray receiver fields to slice
+func (p *PropertyHistoryUS) ToArray() A.X { //nolint:dupl false positive
+	var id any = nil
+	if p.Id != 0 {
+		id = p.Id
+	}
+	return A.X{
+		id,
+		p.PropertyKey,            // 1
+		p.TransactionKey,         // 2
+		p.TransactionType,        // 3
+		p.TransactionSign,        // 4
+		p.TransactionTime,        // 5
+		p.TransactionDateNormal,  // 6
+		p.TransactionNumber,      // 7
+		p.PriceNtd,               // 8
+		p.PricePerUnit,           // 9
+		p.Price,                  // 10
+		p.Address,                // 11
+		p.District,               // 12
+		p.Note,                   // 13
+		p.CreatedAt,              // 14
+		p.CreatedBy,              // 15
+		p.UpdatedAt,              // 16
+		p.UpdatedBy,              // 17
+		p.DeletedAt,              // 18
+		p.SerialNumber,           // 19
+		p.TransactionDescription, // 20
+	}
+}
+
+// FromArray convert slice to receiver fields
+func (p *PropertyHistoryUS) FromArray(a A.X) *PropertyHistoryUS { //nolint:dupl false positive
+	p.Id = X.ToU(a[0])
+	p.PropertyKey = X.ToS(a[1])
+	p.TransactionKey = X.ToS(a[2])
+	p.TransactionType = X.ToS(a[3])
+	p.TransactionSign = X.ToS(a[4])
+	p.TransactionTime = X.ToS(a[5])
+	p.TransactionDateNormal = X.ToS(a[6])
+	p.TransactionNumber = X.ToS(a[7])
+	p.PriceNtd = X.ToI(a[8])
+	p.PricePerUnit = X.ToI(a[9])
+	p.Price = X.ToI(a[10])
+	p.Address = X.ToS(a[11])
+	p.District = X.ToS(a[12])
+	p.Note = X.ToS(a[13])
+	p.CreatedAt = X.ToI(a[14])
+	p.CreatedBy = X.ToU(a[15])
+	p.UpdatedAt = X.ToI(a[16])
+	p.UpdatedBy = X.ToU(a[17])
+	p.DeletedAt = X.ToI(a[18])
+	p.SerialNumber = X.ToS(a[19])
+	p.TransactionDescription = X.ToS(a[20])
+	return p
+}
+
+// FromUncensoredArray convert slice to receiver fields
+func (p *PropertyHistoryUS) FromUncensoredArray(a A.X) *PropertyHistoryUS { //nolint:dupl false positive
+	p.Id = X.ToU(a[0])
+	p.PropertyKey = X.ToS(a[1])
+	p.TransactionKey = X.ToS(a[2])
+	p.TransactionType = X.ToS(a[3])
+	p.TransactionSign = X.ToS(a[4])
+	p.TransactionTime = X.ToS(a[5])
+	p.TransactionDateNormal = X.ToS(a[6])
+	p.TransactionNumber = X.ToS(a[7])
+	p.PriceNtd = X.ToI(a[8])
+	p.PricePerUnit = X.ToI(a[9])
+	p.Price = X.ToI(a[10])
+	p.Address = X.ToS(a[11])
+	p.District = X.ToS(a[12])
+	p.Note = X.ToS(a[13])
+	p.CreatedAt = X.ToI(a[14])
+	p.CreatedBy = X.ToU(a[15])
+	p.UpdatedAt = X.ToI(a[16])
+	p.UpdatedBy = X.ToU(a[17])
+	p.DeletedAt = X.ToI(a[18])
+	p.SerialNumber = X.ToS(a[19])
+	p.TransactionDescription = X.ToS(a[20])
+	return p
+}
+
+// FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
+func (p *PropertyHistoryUS) FindOffsetLimit(offset, limit uint32, idx string) []PropertyHistoryUS { //nolint:dupl false positive
+	var rows []PropertyHistoryUS
+	res, err := p.Adapter.Select(p.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `PropertyHistoryUS.FindOffsetLimit failed: `+p.SpaceName()) {
+		return rows
+	}
+	for _, row := range res.Tuples() {
+		item := PropertyHistoryUS{}
+		rows = append(rows, *item.FromArray(row))
+	}
+	return rows
+}
+
+// FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
+func (p *PropertyHistoryUS) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
+	var rows []A.X
+	res, err := p.Adapter.Select(p.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `PropertyHistoryUS.FindOffsetLimit failed: `+p.SpaceName()) {
+		return rows, Tt.QueryMetaFrom(res, err)
+	}
+	tuples := res.Tuples()
+	rows = make([]A.X, len(tuples))
+	for z, row := range tuples {
+		rows[z] = row
+	}
+	return rows, Tt.QueryMetaFrom(res, nil)
+}
+
+// Total count number of rows
+func (p *PropertyHistoryUS) Total() int64 { //nolint:dupl false positive
+	rows := p.Adapter.CallBoxSpace(p.SpaceName()+`:count`, A.X{})
+	if len(rows) > 0 && len(rows[0]) > 0 {
+		return X.ToI(rows[0][0])
+	}
+	return 0
+}
+
+// PropertyHistoryUSFieldTypeMap returns key value of field name and key
+var PropertyHistoryUSFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
+	`id`:                     Tt.Unsigned,
+	`propertyKey`:            Tt.String,
+	`transactionKey`:         Tt.String,
+	`transactionType`:        Tt.String,
+	`transactionSign`:        Tt.String,
+	`transactionTime`:        Tt.String,
+	`transactionDateNormal`:  Tt.String,
+	`transactionNumber`:      Tt.String,
+	`priceNtd`:               Tt.Integer,
+	`pricePerUnit`:           Tt.Integer,
+	`price`:                  Tt.Integer,
+	`address`:                Tt.String,
+	`district`:               Tt.String,
+	`note`:                   Tt.String,
+	`createdAt`:              Tt.Integer,
+	`createdBy`:              Tt.Unsigned,
+	`updatedAt`:              Tt.Integer,
+	`updatedBy`:              Tt.Unsigned,
+	`deletedAt`:              Tt.Integer,
+	`serialNumber`:           Tt.String,
+	`transactionDescription`: Tt.String,
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
 // UserPropLikes DAO reader/query struct
 type UserPropLikes struct {
 	Adapter   *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
