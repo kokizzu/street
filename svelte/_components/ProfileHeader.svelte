@@ -4,8 +4,9 @@
     import Icon from 'svelte-icons-pack/Icon.svelte';
     import FaSolidBars from 'svelte-icons-pack/fa/FaSolidBars';
     import FaSolidPowerOff from "svelte-icons-pack/fa/FaSolidPowerOff";
+    import FaCommentDots from "svelte-icons-pack/fa/FaCommentDots";
     import {onMount} from 'svelte';
-    import {UserUpdateProfile, UserLogout} from '../jsApi.GEN.js';
+    import {UserUpdateProfile, UserLogout, UserSendFeedback} from '../jsApi.GEN.js';
 
     export let user = null;
     export let access = {
@@ -47,8 +48,40 @@
             window.location = '/';
         } );
     }
+
+    let userMessage = '', showFeedbackDialog = false;
+    function sendFeedback() {
+        if (userMessage === '') {
+            alert('Please enter your feedback');
+            return
+        }
+        UserSendFeedback({userMessage}, function( res ){
+            if(res.error) {
+                userMessage = '';
+                showFeedbackDialog = false;
+                alert(res.error);
+                return
+            }
+            userMessage = '';
+            console.log(res);
+            alert('success')
+            showFeedbackDialog = false;
+        })
+    }
 </script>
 
+{#if showFeedbackDialog}
+<div class="backdrop">
+    <div class="feedback_dialog">
+        <h3>Feedback</h3>
+        <textarea bind:value={userMessage} name="feedback" id="feedback" cols="30" rows="10" placeholder="your feedback here"></textarea>
+        <div class="buttons">
+            <button class="cancel_btn" on:click={() => showFeedbackDialog = false}>Cancel</button>
+            <button class="submit_btn" on:click={sendFeedback}>Submit</button>
+        </div>
+    </div>
+</div>
+{/if}
 <header class='profile_header'>
     <nav class='navbar'>
         <div class='label_menu'>
@@ -75,6 +108,10 @@
             {/if}
         </div>
         <div class='right_nav'>
+            <button class="feedback_btn" on:click={() => showFeedbackDialog = true}>
+                <Icon className="feedback_icon" color='#475569' size={16} src={FaCommentDots}/>
+                <span>Feedback</span>
+            </button>
             <select bind:value={selectedLanguage} id='lang' name='lang'>
                 {#each Object.values(langOptions) as lang}
                     <option value={lang}>{lang}</option>
@@ -88,6 +125,88 @@
 </header>
 
 <style>
+
+    .backdrop {
+        position: fixed;
+        z-index: 40;
+        background: rgba(41, 41, 41, 0.5);
+        width: 100%;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .feedback_dialog {
+        padding: 20px;
+        border-radius: 8px;
+        background-color: #FFF;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        color: #475569;
+        width: 500px;
+    }
+
+    .feedback_dialog h3 {
+        margin: 0;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .feedback_dialog textarea {
+        border           : 1px solid #CBD5E1;
+        background-color : #F1F5F9;
+        border-radius    : 8px;
+        padding          : 12px;
+        resize: none;
+    }
+
+    .feedback_dialog textarea:focus {
+        border-color : #3B82F6;
+        outline      : 1px solid #3B82F6;
+    }
+
+    .feedback_dialog .buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        font-weight: 500;
+        width: 100%;
+        gap: 20px;
+    }
+    .feedback_dialog .buttons button {
+        border-radius: 8px;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        width: 100%;
+        text-transform: capitalize;
+    }
+    .feedback_dialog .buttons .cancel_btn {
+        border: 1px solid #cbd5e1;
+        background-color: #f1f5f9;
+        color: #f97316;
+    }
+    .feedback_dialog .buttons .cancel_btn:hover {
+        border: 1px solid #f97316;
+    }
+
+    .feedback_dialog .buttons .submit_btn {
+        background-color : #F97316;
+        color            : white;
+    }
+
+    .feedback_dialog .buttons .submit_btn:hover {
+        background-color : #F58433;
+    }
+
+    /* +=========== ==============+ */
+
     .profile_header {
         background-color : #EF4444;
         height           : fit-content;
@@ -170,8 +289,23 @@
     .profile_header .navbar .right_nav {
         display        : flex;
         flex-direction : row;
-        gap            : 30px;
+        gap            : 20px;
+        align-items    : stretch;
+    }
+
+    .profile_header .navbar .right_nav .feedback_btn {
+        display        : flex;
+        flex-direction: row;
+        gap: 5px;
         align-items    : center;
+        background-color: #FFF;
+        border-radius: 5px;
+        padding       : 6px 8px;
+        border: none;
+        color: #475569;
+        font-weight: 600;
+        cursor: pointer;
+        filter        : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
     }
 
     .profile_header .navbar #lang {
@@ -182,10 +316,12 @@
         color         : #1080E8;
         font-weight   : 600;
         cursor        : pointer;
+        background-color: #FFF;
         filter        : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
     }
 
-    .profile_header .navbar #lang:hover {
+    .profile_header .navbar #lang:hover,
+    .profile_header .navbar .right_nav .feedback_btn:hover {
         background-color : #F1F5F9;
     }
 
@@ -216,6 +352,12 @@
 
     /* Responsive to mobile device */
     @media only screen and (max-width : 768px) {
+
+        .feedback_dialog {
+            width: 100%;
+            margin: auto 20px;
+        }
+
         .profile_header {
             padding : 15px 20px 80px 20px !important;
         }
@@ -231,7 +373,17 @@
         .profile_header .navbar #lang {
             padding   : 3px 5px;
             font-size : 12px;
-            width     : 50px
+            width     : 50px;
+        }
+
+        .profile_header .navbar .feedback_btn {
+            padding   : 3px 5px;
+            font-size : 12px;
+        }
+
+        :global(.feedback_icon) {
+            width: 12px;
+            height: 12px;
         }
 
         /*.profile_header .navbar .right_nav .profile_button > img {*/
