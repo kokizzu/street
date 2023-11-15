@@ -28,8 +28,20 @@
   let approvalStatus = 'approved';
   let submitLoading = false;
   let countryCurrency = 'TWD';
+
+  let noteObj;
   
   onMount( () => {
+    try {
+      noteObj = JSON.parse( property.note );
+    } catch (e) {
+      noteObj = {
+        contactPhone:"",
+        contactEmail: "",
+        about: ""
+      }
+      console.log('Error convert string to object =', e)
+    }
     console.log( 'Property = ', property );
     approvalStatus = getApprovalState( property.approvalState );
     for( let i = 0; i<countries.length; i++ ) {
@@ -233,11 +245,9 @@
   }
   
   // +================| Edit About |===================+ //
-  let note = property.note;
-  
   async function SaveEditAbout() {
     submitLoading = true;
-    property.note = note;
+    property.note = JSON.stringify(noteObj);
     const payload = GetPayload();
     const prop = {property: payload};
     await RealtorUpsertProperty( prop, function( res ) {
@@ -357,13 +367,13 @@
             <p class:text_danger={approvalStatus === 'rejected'}>{approvalStates[ approvalStatus ].reason}</p>
           </div>
         {/if}
-        {#if isOwner && approvalStatus!==''}
-          <button class='edit_btn' on:click={ReviewProperty}>
-            Review again
-          </button>
-        {/if}
-        {#if isAdmin}
-          <div class='action_btns'>
+        <div class='action_btns'>
+          {#if isOwner && approvalStatus!==''}
+            <button class='edit_btn' on:click={ReviewProperty}>
+              Review again
+            </button>
+          {/if}
+          {#if isAdmin}
             {#if approvalStatus==='pending' || approvalStatus==='rejected'}
               <button class='approve_btn' on:click={ApproveProperty}>
                 {#if !submitApprove}
@@ -381,8 +391,8 @@
                 <span>Reject</span>
               </button>
             {/if}
-          </div>
-        {/if}
+          {/if}
+        </div>
       </div>
       <div class='property_images_container'>
         <div class='property_images'>
@@ -488,9 +498,11 @@
               </button>
             {/if}
           </div>
+          {#if noteObj && noteObj.about}
           <p>
-            {property.note || '--'}
+            {noteObj.about || "--"}
           </p>
+          {/if}
         </div>
         <div class='parking'>
           <div class='upper'>
@@ -839,7 +851,7 @@
         <div class='edit_content'>
           <div class='about'>
 						<textarea
-              bind:value={note}
+              bind:value={noteObj.about}
               name='about'
               id='about'
               placeholder='About your property...'

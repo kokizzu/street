@@ -72,6 +72,7 @@
   } );
   
   function GetPayload() {
+    property.note = JSON.stringify(noteObj);
     if( property.countryCode==='US' ) property.city = property.countyName;
     return {
       countryCode: property.countryCode || user.country,
@@ -135,6 +136,12 @@
   ];
   let modeLocation = modeLocationLists[ modeLocationCount ].mode;
   let map, map_container, input_address, input_address_value;
+
+  let noteObj = {
+    contactPhone:"",
+    contactEmail: "",
+    about: ""
+  }
   
   async function initMap() {
     const {Map} = await google.maps.importLibrary( 'maps' );
@@ -576,8 +583,12 @@
 									<input id='floors' type='number' placeholder='10' min='0' bind:value={property.floors}/>
 								</div>
                 <div class='input_box'>
-									<label for='contact'>Description / Contact</label>
-									<input id='contact' type='text' placeholder='Cellphone/Email' bind:value={property.note}/>
+									<label for='contact'>Email</label>
+									<input id='contact' type='text' placeholder='johndoe@example.com' bind:value={noteObj.contactEmail}/>
+								</div>
+                <div class='input_box'>
+									<label for='contact'>Cellphone</label>
+									<input id='contact' type='number' placeholder='+1 (555) 555-5555' bind:value={noteObj.contactPhone}/>
 								</div>
 							</div>
 						</div>
