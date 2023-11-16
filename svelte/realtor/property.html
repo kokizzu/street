@@ -13723,19 +13723,19 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   // _components/EditProperty.svelte
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[82] = list[i];
+    child_ctx[83] = list[i];
     return child_ctx;
   }
   function get_each_context_12(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[85] = list[i];
+    child_ctx[86] = list[i];
     return child_ctx;
   }
   function get_each_context_22(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[88] = list[i];
-    child_ctx[89] = list;
-    child_ctx[90] = i;
+    child_ctx[89] = list[i];
+    child_ctx[90] = list;
+    child_ctx[91] = i;
     return child_ctx;
   }
   function create_if_block_37(ctx) {
@@ -13805,13 +13805,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               textarea,
               "input",
               /*textarea_input_handler*/
-              ctx[48]
+              ctx[49]
             ),
             listen(
               button0,
               "click",
               /*click_handler*/
-              ctx[49]
+              ctx[50]
             ),
             listen(
               button1,
@@ -15462,7 +15462,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             button,
             "click",
             /*click_handler_1*/
-            ctx[50]
+            ctx[51]
           );
           mounted = true;
         }
@@ -15600,7 +15600,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             button,
             "click",
             /*click_handler_2*/
-            ctx[51]
+            ctx[52]
           );
           mounted = true;
         }
@@ -15658,7 +15658,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             button,
             "click",
             /*click_handler_3*/
-            ctx[52]
+            ctx[53]
           );
           mounted = true;
         }
@@ -15716,7 +15716,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             button,
             "click",
             /*click_handler_4*/
-            ctx[53]
+            ctx[54]
           );
           mounted = true;
         }
@@ -15774,7 +15774,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             button,
             "click",
             /*click_handler_5*/
-            ctx[54]
+            ctx[55]
           );
           mounted = true;
         }
@@ -15999,7 +15999,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               button0,
               "click",
               /*click_handler_6*/
-              ctx[55]
+              ctx[56]
             ),
             listen(
               button1,
@@ -16215,7 +16215,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       },
       m(target, anchor) {
         insert(target, input, anchor);
-        ctx[56](input);
+        ctx[57](input);
         insert(target, t0, anchor);
         mount_component(icon, target, anchor);
         insert(target, t1, anchor);
@@ -16249,7 +16249,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           detach(t1);
           detach(p);
         }
-        ctx[56](null);
+        ctx[57](null);
         destroy_component(icon, detaching);
         mounted = false;
         dispose();
@@ -16362,10 +16362,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let mounted;
     let dispose;
     function input_input_handler() {
-      ctx[57].call(
+      ctx[58].call(
         input,
         /*idx*/
-        ctx[90]
+        ctx[91]
       );
     }
     return {
@@ -16382,7 +16382,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           /*imageLabels*/
           ctx[13][
             /*idx*/
-            ctx[90]
+            ctx[91]
           ]
         );
         if (!mounted) {
@@ -16396,14 +16396,14 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         8192 && input.value !== /*imageLabels*/
         ctx[13][
           /*idx*/
-          ctx[90]
+          ctx[91]
         ]) {
           set_input_value(
             input,
             /*imageLabels*/
             ctx[13][
               /*idx*/
-              ctx[90]
+              ctx[91]
             ]
           );
         }
@@ -16452,9 +16452,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     function click_handler_7() {
       return (
         /*click_handler_7*/
-        ctx[58](
+        ctx[59](
           /*idx*/
-          ctx[90]
+          ctx[91]
         )
       );
     }
@@ -16472,7 +16472,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         t2 = space();
         attr(img_1, "alt", "");
         if (!src_url_equal(img_1.src, img_1_src_value = /*img*/
-        ctx[88]))
+        ctx[89]))
           attr(img_1, "src", img_1_src_value);
         attr(img_1, "class", "svelte-1wtjk7f");
         attr(div0, "class", "image_container svelte-1wtjk7f");
@@ -16502,7 +16502,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         ctx = new_ctx;
         if (!current || dirty[0] & /*images*/
         4096 && !src_url_equal(img_1.src, img_1_src_value = /*img*/
-        ctx[88])) {
+        ctx[89])) {
           attr(img_1, "src", img_1_src_value);
         }
         if (current_block_type === (current_block_type = select_block_type_2(ctx, dirty)) && if_block) {
@@ -16611,10 +16611,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let mounted;
     let dispose;
     function addotherfeesdialog_fee_binding(value) {
-      ctx[59](value);
+      ctx[60](value);
     }
     function addotherfeesdialog_name_binding(value) {
-      ctx[60](value);
+      ctx[61](value);
     }
     let addotherfeesdialog_props = {
       $slots: { default: [create_default_slot2] },
@@ -16637,7 +16637,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     addotherfeesdialog = new AddOtherFeesDialog_default({ props: addotherfeesdialog_props });
     binding_callbacks.push(() => bind(addotherfeesdialog, "fee", addotherfeesdialog_fee_binding));
     binding_callbacks.push(() => bind(addotherfeesdialog, "name", addotherfeesdialog_name_binding));
-    ctx[61](addotherfeesdialog);
+    ctx[62](addotherfeesdialog);
     icon = new Icon_default({
       props: {
         className: "iconBack",
@@ -16726,7 +16726,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               button0,
               "click",
               /*click_handler_8*/
-              ctx[62]
+              ctx[63]
             ),
             listen(
               button1,
@@ -16741,7 +16741,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       p(ctx2, dirty) {
         const addotherfeesdialog_changes = {};
         if (dirty[2] & /*$scope*/
-        536870912) {
+        1073741824) {
           addotherfeesdialog_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_fee && dirty[0] & /*otherFeeObj*/
@@ -16861,7 +16861,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           detach(t0);
           detach(div2);
         }
-        ctx[61](null);
+        ctx[62](null);
         destroy_component(addotherfeesdialog, detaching);
         destroy_component(icon);
         if (if_block0)
@@ -17022,7 +17022,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         )
           add_render_callback(() => (
             /*select0_change_handler*/
-            ctx[63].call(select0)
+            ctx[64].call(select0)
           ));
         attr(div0, "class", "input_box svelte-1wtjk7f");
         attr(div1, "class", "row svelte-1wtjk7f");
@@ -17052,7 +17052,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         )
           add_render_callback(() => (
             /*select1_change_handler*/
-            ctx[68].call(select1)
+            ctx[69].call(select1)
           ));
         attr(div4, "class", "input_box svelte-1wtjk7f");
         attr(div5, "class", "row svelte-1wtjk7f");
@@ -17119,19 +17119,19 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               select0,
               "change",
               /*select0_change_handler*/
-              ctx[63]
+              ctx[64]
             ),
             listen(
               input,
               "input",
               /*input_input_handler_1*/
-              ctx[67]
+              ctx[68]
             ),
             listen(
               select1,
               "change",
               /*select1_change_handler*/
-              ctx[68]
+              ctx[69]
             )
           ];
           mounted = true;
@@ -17242,7 +17242,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let option;
     let t_1_value = (
       /*t*/
-      ctx[85] + ""
+      ctx[86] + ""
     );
     let t_1;
     let option_value_value;
@@ -17251,7 +17251,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         option = element("option");
         t_1 = text(t_1_value);
         option.__value = option_value_value = /*t*/
-        ctx[85];
+        ctx[86];
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -17417,19 +17417,19 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               input0,
               "input",
               /*input0_input_handler*/
-              ctx[64]
+              ctx[65]
             ),
             listen(
               input1,
               "input",
               /*input1_input_handler*/
-              ctx[65]
+              ctx[66]
             ),
             listen(
               input2,
               "input",
               /*input2_input_handler*/
-              ctx[66]
+              ctx[67]
             )
           ];
           mounted = true;
@@ -17629,7 +17629,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         )
           add_render_callback(() => (
             /*select_change_handler*/
-            ctx[72].call(select)
+            ctx[73].call(select)
           ));
         attr(div3, "class", "input_box svelte-1wtjk7f");
         attr(div4, "class", "row svelte-1wtjk7f");
@@ -17688,25 +17688,25 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               input0,
               "click",
               /*click_handler_9*/
-              ctx[69]
+              ctx[70]
             ),
             listen(
               input1,
               "click",
               /*click_handler_10*/
-              ctx[70]
+              ctx[71]
             ),
             listen(
               input2,
               "input",
               /*input2_input_handler_1*/
-              ctx[71]
+              ctx[72]
             ),
             listen(
               select,
               "change",
               /*select_change_handler*/
-              ctx[72]
+              ctx[73]
             )
           ];
           mounted = true;
@@ -17872,7 +17872,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             input,
             "input",
             /*input_input_handler_2*/
-            ctx[73]
+            ctx[74]
           );
           mounted = true;
         }
@@ -18033,13 +18033,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               input0,
               "input",
               /*input0_input_handler_1*/
-              ctx[74]
+              ctx[75]
             ),
             listen(
               input1,
               "input",
               /*input1_input_handler_1*/
-              ctx[75]
+              ctx[76]
             ),
             listen(button, "click", function() {
               if (is_function(
@@ -18186,14 +18186,14 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let span;
     let t0_value = (
       /*otherFee*/
-      ctx[82].name + ""
+      ctx[83].name + ""
     );
     let t0;
     let t1;
     let b;
     let t2_value = (0, import_formatter2.formatPrice)(
       /*otherFee*/
-      ctx[82].fee,
+      ctx[83].fee,
       /*countryCurrency*/
       ctx[5]
     ) + "";
@@ -18227,12 +18227,12 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*otherFees*/
         67108864 && t0_value !== (t0_value = /*otherFee*/
-        ctx2[82].name + ""))
+        ctx2[83].name + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*otherFees, countryCurrency*/
         67108896 && t2_value !== (t2_value = (0, import_formatter2.formatPrice)(
           /*otherFee*/
-          ctx2[82].fee,
+          ctx2[83].fee,
           /*countryCurrency*/
           ctx2[5]
         ) + ""))
@@ -18407,13 +18407,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               button0,
               "click",
               /*click_handler_11*/
-              ctx[76]
+              ctx[77]
             ),
             listen(
               textarea,
               "input",
               /*textarea_input_handler_1*/
-              ctx[77]
+              ctx[78]
             ),
             listen(
               button1,
@@ -18652,13 +18652,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               button0,
               "click",
               /*click_handler_12*/
-              ctx[78]
+              ctx[79]
             ),
             listen(
               textarea,
               "input",
               /*textarea_input_handler_2*/
-              ctx[79]
+              ctx[80]
             ),
             listen(
               button1,
@@ -19159,14 +19159,15 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let { property: property2 } = $props;
     let { countries: countries2 } = $props;
     let { isAdmin = false } = $props;
+    let { propertyWithNote: propertyWithNote2 } = $props;
     let approvalStatus = "approved";
     let submitLoading = false;
     let countryCurrency = "TWD";
     let noteObj;
     onMount(() => {
+      console.info("Property with note = ", propertyWithNote2);
       try {
         $invalidate(6, noteObj = JSON.parse(property2.note));
-        console.log("noteObj = ", noteObj);
       } catch (e) {
         $invalidate(6, noteObj = {
           contactPhone: "",
@@ -19563,6 +19564,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         $invalidate(47, countries2 = $props2.countries);
       if ("isAdmin" in $props2)
         $invalidate(2, isAdmin = $props2.isAdmin);
+      if ("propertyWithNote" in $props2)
+        $invalidate(48, propertyWithNote2 = $props2.propertyWithNote);
     };
     return [
       property2,
@@ -19613,6 +19616,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       ReviewProperty,
       DeleteProperty,
       countries2,
+      propertyWithNote2,
       textarea_input_handler,
       click_handler,
       click_handler_1,
@@ -19660,7 +19664,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           isOwner: 1,
           property: 0,
           countries: 47,
-          isAdmin: 2
+          isAdmin: 2,
+          propertyWithNote: 48
         },
         null,
         [-1, -1, -1]
@@ -19712,7 +19717,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         isOwner: (
           /*isOwner*/
           ctx[1]
-        )
+        ),
+        propertyWithNote
       }
     });
     return {
@@ -19847,6 +19853,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   var user = {/* user */};
   var segments = {/* segments */};
   var countries = [/* countries */];
+  var propertyWithNote = {/* propertyWithNote */};
   function instance8($self, $props, $invalidate) {
     let isAdmin = false;
     let isOwner = false;

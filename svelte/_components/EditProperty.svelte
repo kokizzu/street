@@ -24,6 +24,7 @@
   export let property;
   export let countries;
   export let isAdmin = false;
+  export let propertyWithNote;
   
   let approvalStatus = 'approved';
   let submitLoading = false;
@@ -32,6 +33,7 @@
   let noteObj;
   
   onMount( () => {
+    console.info( 'Property with note = ', propertyWithNote );
     try {
       noteObj = JSON.parse( property.note );
     } catch (e) {

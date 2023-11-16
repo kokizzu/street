@@ -310,11 +310,12 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			title += ` on ` + out.Property.FormattedAddress
 		}
 		return views.RenderRealtorProperty(ctx, M.SX{
-			`title`:     title,
-			`segments`:  segments,
-			`user`:      user,
-			`property`:  out.Property,
-			`countries`: conf.CountriesData,
+			`title`:            title,
+			`segments`:         segments,
+			`user`:             user,
+			`property`:         out.Property,
+			`propertyWithNote`: out.PropertyWithNote,
+			`countries`:        conf.CountriesData,
 		})
 	})
 	fw.Get(`/admin`, func(ctx *fiber.Ctx) error {

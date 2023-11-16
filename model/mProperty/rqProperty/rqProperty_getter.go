@@ -10,6 +10,7 @@ import (
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 	"github.com/tarantool/go-tarantool"
+	"github.com/tidwall/gjson"
 
 	"street/conf"
 	"street/model/mProperty"
@@ -17,6 +18,22 @@ import (
 )
 
 // TODO: this is slow, use tarantool-go api instead
+
+type PropertyWithNote struct {
+	Property     *Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
+	ContactEmail string    `json:"contactEmail" form:"contactEmail" query:"contactEmail" long:"contactEmail" msg:"contactEmail"`
+	ContactPhone int64     `json:"contactPhone" form:"contactPhone" query:"contactPhone" long:"contactPhone" msg:"contactPhone"`
+	About        string    `json:"about" form:"about" query:"about" long:"about" msg:"about"`
+}
+
+func (rq *Property) ToPropertyWithNote() PropertyWithNote {
+	return PropertyWithNote{
+		Property:     rq,
+		ContactEmail: gjson.Get(rq.Note, `contactEmail`).String(),
+		ContactPhone: int64(gjson.Get(rq.Note, `contactPhone`).Num),
+		About:        gjson.Get(rq.Note, `about`).String(),
+	}
+}
 
 func (rq *Property) FindPropertiesBySerialNumber(serialNumber string) (res []*Property) {
 	const comment = `-- Property) FindPropertiesBySerialNumber`
