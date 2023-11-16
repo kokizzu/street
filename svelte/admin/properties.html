@@ -11115,6 +11115,9 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         $invalidate(1, pager = res.pager);
       if (res.pager && res.pager.filters && !res.properties)
         $invalidate(0, properties = []);
+      if (res.propertiesWithNote) {
+        console.log("propertiesWithNote=", res.propertiesWithNote);
+      }
     }
     async function refreshTableView(pagerIn) {
       await (0, import_jsApi.AdminProperties)({ pager: pagerIn, cmd: "list" }, function(res) {

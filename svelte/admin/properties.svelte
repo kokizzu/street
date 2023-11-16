@@ -103,6 +103,9 @@
     if( res.properties && res.properties.length ) properties = res.properties;
     if( res.pager && res.pager.page ) pager = res.pager;
     if( res.pager && res.pager.filters && !res.properties ) properties = []; // if nothing found but filter exists, clear table
+    if(res.propertiesWithNote) {
+      console.log( 'propertiesWithNote=', res.propertiesWithNote );
+    }
   }
   
   async function refreshTableView( pagerIn ) {

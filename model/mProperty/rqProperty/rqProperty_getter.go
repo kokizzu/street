@@ -3,6 +3,7 @@ package rqProperty
 import (
 	"fmt"
 
+	"github.com/goccy/go-json"
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
@@ -148,6 +149,47 @@ SELECT ` + meta.ToSelect() + `
 FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	p.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	return
+}
+
+type note struct {
+	ContactEmail string `json:"contactEmail" form:"contactEmail" query:"contactEmail" long:"contactEmail" msg:"contactEmail"`
+	ContactPhone int64  `json:"contactPhone" form:"contactPhone" query:"contactPhone" long:"contactPhone" msg:"contactPhone"`
+	About        string `json:"about" form:"about" query:"about" long:"about" msg:"about"`
+}
+
+func (p *Property) FindByPaginationWithNote(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
+	const comment = `-- Property) FindByPagination`
+
+	validFields := PropertyFieldTypeMap
+	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
+
+	queryCount := comment + `
+SELECT COUNT(1)
+FROM ` + p.SqlTableName() + whereAndSql + `
+LIMIT 1`
+	p.Adapter.QuerySql(queryCount, func(row []any) {
+		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
+	})
+
+	orderBySql := out.OrderBySqlTt(in.Order, validFields)
+	limitOffsetSql := out.LimitOffsetSql()
+
+	queryRows := comment + `
+SELECT ` + meta.ToSelect() + `
+FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+	p.Adapter.QuerySql(queryRows, func(row []any) {
+		var nt note
+		row[0] = X.ToS(row[0]) // ensure id is string
+		err := json.Unmarshal([]byte(X.ToS(row[11])), &nt)
+		if err != nil {
+			L.Print(`Error unmarshall string to JSON for properties with note`, err)
+		} else {
+			row[11] = nt
+		}
 		res = append(res, row)
 	})
 

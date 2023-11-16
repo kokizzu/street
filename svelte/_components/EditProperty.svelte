@@ -40,7 +40,7 @@
       noteObj = {
         contactPhone:"",
         contactEmail: "",
-        about: ""
+        about: property.note
       }
       console.log('Error convert string to object =', e)
     }

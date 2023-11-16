@@ -10,7 +10,7 @@
   import FaSolidExchangeAlt from 'svelte-icons-pack/fa/FaSolidExchangeAlt';
   import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
   import PillBox from './PillBox.svelte';
-  import {localeDatetime, M2ToPing} from './formatter';
+  import {localeDatetime, M2ToPing, getApprovalState} from './formatter';
   import {T} from './uiState.js';
   import { onMount } from 'svelte';
   
@@ -21,12 +21,21 @@
   console.log('meta=',meta)
 
   let approvalStatus = 'approved';
+  let noteObj;
   onMount(() => {
-    if( property.approvalState!=='pending' && property.approvalState!=='' ) {
-      approvalStatus = 'rejected';
+    try {
+      noteObj = JSON.parse( property.note );
+    } catch (e) {
+      noteObj = {
+        contactPhone:"",
+        contactEmail: "",
+        about: property.note
+      }
+      console.log('Error convert string to object =', e)
     }
-    if( property.approvalState==='pending' ) {
-      approvalStatus = 'pending'
+    approvalStatus = getApprovalState( property.approvalState );
+    if (property.countryCode==='TW' || property.countryCode==='') {
+        property.sizeM2 = M2ToPing(property.sizeM2);
     }
   })
   
@@ -102,11 +111,7 @@
               <b>{property.sizeM2}</b>
               <div class='labels'>
                 <Icon className='labels_icon' color='#848D96' size={13} src={FaSolidBorderStyle} />
-                <span>M2</span>
-                <button class='unit_toggle'>
-                  <span class='bg'></span>
-                  <Icon className='labels_icon' color='#F97316' size={12} src={FaSolidExchangeAlt} />
-                </button>
+                <span>{property.countryCode==='TW' || property.countryCode==='' ? 'Ping' : 'M2'}</span>
               </div>
             </div>
           </div>
@@ -117,7 +122,11 @@
 				{#if m.inputType==='datetime'}
 					<PillBox label={m.label} content={localeDatetime(property[m.name])}/>
 				{:else}
-					<PillBox label={m.label} content={property[m.name]}/>
+                    {#if m.name==='note' && ( noteObj && noteObj.about)}
+					    <PillBox label={m.label} content={noteObj.about}/>
+                    {:else}
+                        <PillBox label={m.label} content={property[m.name]}/>
+                    {/if}
 				{/if}
 			{/if}
 		{/each}
