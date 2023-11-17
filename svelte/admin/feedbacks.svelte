@@ -115,15 +115,3 @@
     <Footer></Footer>
   </div>
 </section>
-
-<style>
-  .action_btn.not_filtered {
-    background-color : #6366F1;
-    color            : white;
-    flex-direction   : row;
-  }
-
-  .action_btn.not_filtered:hover {
-    background-color : #7E80F1;
-  }
-</style>

@@ -186,7 +186,7 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 		row[0] = X.ToS(row[0]) // ensure id is string
 		err := json.Unmarshal([]byte(X.ToS(row[11])), &nt)
 		if err != nil {
-			L.Print(`Error unmarshall string to JSON for properties with note`, err)
+			L.Print(`Error unmarshall string to JSON for properties with note:`, err)
 		} else {
 			row[11] = nt
 		}

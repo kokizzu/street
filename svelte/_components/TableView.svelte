@@ -91,6 +91,19 @@
     if( arrayOfArray ) return row[ i ] || '';
     return row[ field.name ] || '';
   }
+  function cellWithNote( row, i, field ) {
+    let note = {}
+    if( arrayOfArray ) {
+      if ( row[ i ] ) {
+        const nt = JSON.stringify( row[ i ] )
+        note = JSON.parse( nt )
+        return note[ 'about' ]
+      } else {
+        return '';
+      }
+    }
+    return row[ field.name ] || '';
+  }
   
   $: allowPrevPage = pager.page>1;
   $: allowNextPage = pager.page<pager.pages;
@@ -172,6 +185,8 @@ multiple filter from other fields will do AND operation'
               <td class='table_data'>{datetime( cell( row, i, field ) )}</td>
             {:else if field.inputType==='number'}
               <td>{(cell( row, i, field ) || 0).toLocaleString()}</td>
+            {:else if field.name==='note'}
+              <td class='table_data'>{cellWithNote( row, i, field )}</td>
             {:else}
               <td class='table_data'>{cell( row, i, field )}</td>
             {/if}

@@ -182,22 +182,6 @@
     position   : relative;
     cursor     : pointer;
   }
-
-  .unit_toggle .bg {
-    width            : 0;
-    height           : 0;
-    border-radius    : 50%;
-    background-color : rgb(0 0 0 / 0.06);
-    z-index          : 1;
-    position         : absolute;
-    top              : -4px;
-    left             : 0;
-  }
-
-  .unit_toggle:hover .bg {
-    width  : 24px;
-    height : 24px;
-  }
   
     .property {
         background-color : #F0F0F0;

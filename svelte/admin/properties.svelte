@@ -100,11 +100,12 @@
       alert( res.error );
       return true;
     }
-    if( res.properties && res.properties.length ) properties = res.properties;
+    // if( res.properties && res.properties.length ) properties = res.properties;
     if( res.pager && res.pager.page ) pager = res.pager;
     if( res.pager && res.pager.filters && !res.properties ) properties = []; // if nothing found but filter exists, clear table
-    if(res.propertiesWithNote) {
+    if(res.propertiesWithNote && res.propertiesWithNote.length) {
       console.log( 'propertiesWithNote=', res.propertiesWithNote );
+      properties = res.propertiesWithNote;
     }
   }
   

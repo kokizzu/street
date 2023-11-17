@@ -6484,26 +6484,26 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
   // _components/TableView.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[32] = list[i];
-    child_ctx[34] = i;
+    child_ctx[33] = list[i];
+    child_ctx[35] = i;
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[35] = list[i];
-    child_ctx[37] = i;
+    child_ctx[36] = list[i];
+    child_ctx[38] = i;
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[38] = list[i];
+    child_ctx[39] = list[i];
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[35] = list[i];
-    child_ctx[41] = list;
-    child_ctx[42] = i;
+    child_ctx[36] = list[i];
+    child_ctx[42] = list;
+    child_ctx[43] = i;
     return child_ctx;
   }
   function create_else_block_2(ctx) {
@@ -6511,7 +6511,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let label;
     let t0_value = (
       /*field*/
-      ctx[35].label + ""
+      ctx[36].label + ""
     );
     let t0;
     let label_for_value;
@@ -6524,10 +6524,10 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let mounted;
     let dispose;
     function input_input_handler() {
-      ctx[23].call(
+      ctx[24].call(
         input,
         /*field*/
-        ctx[35]
+        ctx[36]
       );
     }
     return {
@@ -6540,9 +6540,9 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         input = element("input");
         t2 = space();
         attr(label, "for", label_for_value = "th_" + /*field*/
-        ctx[35].name);
+        ctx[36].name);
         attr(input, "id", input_id_value = "th_" + /*field*/
-        ctx[35].name);
+        ctx[36].name);
         attr(input, "title", "separate with pipe for multiple values, for example:\n  >=100|<50|61|72 will show values greater equal to 100, OR less than 50, OR exactly 61 OR 72\n    filtering with greater or less than will only show correct result if data is saved as number\n    currently price and size NOT stored as number\n  <>abc* will show values NOT started with abc*\n  abc*def|ghi will show values started with abc ends with def OR exactly ghi\n  *jkl* will show values containing jkl substring\nmultiple filter from other fields will do AND operation");
         attr(input, "type", "text");
         attr(input, "class", "input_filter svelte-1wffgsc");
@@ -6550,11 +6550,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         attr(th, "style", th_style_value = /*widths*/
         ctx[6][
           /*field*/
-          ctx[35].name
+          ctx[36].name
         ] ? "min-width: " + /*widths*/
         ctx[6][
           /*field*/
-          ctx[35].name
+          ctx[36].name
         ] : "");
       },
       m(target, anchor) {
@@ -6569,7 +6569,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           /*filtersMap*/
           ctx[7][
             /*field*/
-            ctx[35].name
+            ctx[36].name
           ]
         );
         append(th, t2);
@@ -6590,30 +6590,30 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         ctx = new_ctx;
         if (dirty[0] & /*fields*/
         4 && t0_value !== (t0_value = /*field*/
-        ctx[35].label + ""))
+        ctx[36].label + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*fields*/
         4 && label_for_value !== (label_for_value = "th_" + /*field*/
-        ctx[35].name)) {
+        ctx[36].name)) {
           attr(label, "for", label_for_value);
         }
         if (dirty[0] & /*fields*/
         4 && input_id_value !== (input_id_value = "th_" + /*field*/
-        ctx[35].name)) {
+        ctx[36].name)) {
           attr(input, "id", input_id_value);
         }
         if (dirty[0] & /*filtersMap, fields*/
         132 && input.value !== /*filtersMap*/
         ctx[7][
           /*field*/
-          ctx[35].name
+          ctx[36].name
         ]) {
           set_input_value(
             input,
             /*filtersMap*/
             ctx[7][
               /*field*/
-              ctx[35].name
+              ctx[36].name
             ]
           );
         }
@@ -6621,11 +6621,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         68 && th_style_value !== (th_style_value = /*widths*/
         ctx[6][
           /*field*/
-          ctx[35].name
+          ctx[36].name
         ] ? "min-width: " + /*widths*/
         ctx[6][
           /*field*/
-          ctx[35].name
+          ctx[36].name
         ] : "")) {
           attr(th, "style", th_style_value);
         }
@@ -6639,7 +6639,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       }
     };
   }
-  function create_if_block_6(ctx) {
+  function create_if_block_7(ctx) {
     let th;
     return {
       c() {
@@ -6663,9 +6663,9 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     function select_block_type(ctx2, dirty) {
       if (
         /*field*/
-        ctx2[35].name === "id"
+        ctx2[36].name === "id"
       )
-        return create_if_block_6;
+        return create_if_block_7;
       return create_else_block_2;
     }
     let current_block_type = select_block_type(ctx, [-1, -1]);
@@ -6705,11 +6705,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       /*cell*/
       ctx[17](
         /*row*/
-        ctx[32],
+        ctx[33],
         /*i*/
-        ctx[37],
+        ctx[38],
         /*field*/
-        ctx[35]
+        ctx[36]
       ) + ""
     );
     let t;
@@ -6728,11 +6728,57 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         12 && t_value !== (t_value = /*cell*/
         ctx2[17](
           /*row*/
-          ctx2[32],
+          ctx2[33],
           /*i*/
-          ctx2[37],
+          ctx2[38],
           /*field*/
-          ctx2[35]
+          ctx2[36]
+        ) + ""))
+          set_data(t, t_value);
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+      }
+    };
+  }
+  function create_if_block_6(ctx) {
+    let td;
+    let t_value = (
+      /*cellWithNote*/
+      ctx[18](
+        /*row*/
+        ctx[33],
+        /*i*/
+        ctx[38],
+        /*field*/
+        ctx[36]
+      ) + ""
+    );
+    let t;
+    return {
+      c() {
+        td = element("td");
+        t = text(t_value);
+        attr(td, "class", "table_data svelte-1wffgsc");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty[0] & /*rows, fields*/
+        12 && t_value !== (t_value = /*cellWithNote*/
+        ctx2[18](
+          /*row*/
+          ctx2[33],
+          /*i*/
+          ctx2[38],
+          /*field*/
+          ctx2[36]
         ) + ""))
           set_data(t, t_value);
       },
@@ -6751,11 +6797,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       /*cell*/
       (ctx[17](
         /*row*/
-        ctx[32],
+        ctx[33],
         /*i*/
-        ctx[37],
+        ctx[38],
         /*field*/
-        ctx[35]
+        ctx[36]
       ) || 0).toLocaleString() + ""
     );
     let t;
@@ -6774,11 +6820,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         12 && t_value !== (t_value = /*cell*/
         (ctx2[17](
           /*row*/
-          ctx2[32],
+          ctx2[33],
           /*i*/
-          ctx2[37],
+          ctx2[38],
           /*field*/
-          ctx2[35]
+          ctx2[36]
         ) || 0).toLocaleString() + ""))
           set_data(t, t_value);
       },
@@ -6797,11 +6843,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       /*cell*/
       ctx[17](
         /*row*/
-        ctx[32],
+        ctx[33],
         /*i*/
-        ctx[37],
+        ctx[38],
         /*field*/
-        ctx[35]
+        ctx[36]
       )
     ) + "";
     let t;
@@ -6821,11 +6867,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           /*cell*/
           ctx2[17](
             /*row*/
-            ctx2[32],
+            ctx2[33],
             /*i*/
-            ctx2[37],
+            ctx2[38],
             /*field*/
-            ctx2[35]
+            ctx2[36]
           )
         ) + ""))
           set_data(t, t_value);
@@ -6844,11 +6890,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let t_value = !!/*cell*/
     ctx[17](
       /*row*/
-      ctx[32],
+      ctx[33],
       /*i*/
-      ctx[37],
+      ctx[38],
       /*field*/
-      ctx[35]
+      ctx[36]
     ) + "";
     let t;
     return {
@@ -6866,11 +6912,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         12 && t_value !== (t_value = !!/*cell*/
         ctx2[17](
           /*row*/
-          ctx2[32],
+          ctx2[33],
           /*i*/
-          ctx2[37],
+          ctx2[38],
           /*field*/
-          ctx2[35]
+          ctx2[36]
         ) + ""))
           set_data(t, t_value);
       },
@@ -6889,16 +6935,16 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       /*renderFuncs*/
       ctx[1][
         /*field*/
-        ctx[35].name
+        ctx[36].name
       ](
         /*cell*/
         ctx[17](
           /*row*/
-          ctx[32],
+          ctx[33],
           /*i*/
-          ctx[37],
+          ctx[38],
           /*field*/
-          ctx[35]
+          ctx[36]
         )
       ) + ""
     );
@@ -6918,16 +6964,16 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         14 && t_value !== (t_value = /*renderFuncs*/
         ctx2[1][
           /*field*/
-          ctx2[35].name
+          ctx2[36].name
         ](
           /*cell*/
           ctx2[17](
             /*row*/
-            ctx2[32],
+            ctx2[33],
             /*i*/
-            ctx2[37],
+            ctx2[38],
             /*field*/
-            ctx2[35]
+            ctx2[36]
           )
         ) + ""))
           set_data(t, t_value);
@@ -6954,13 +7000,13 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     function click_handler_1() {
       return (
         /*click_handler_1*/
-        ctx[24](
+        ctx[25](
           /*row*/
-          ctx[32],
+          ctx[33],
           /*i*/
-          ctx[37],
+          ctx[38],
           /*field*/
-          ctx[35]
+          ctx[36]
         )
       );
     }
@@ -7072,16 +7118,16 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let dispose;
     icon = new Icon_default({ props: { src: (
       /*action*/
-      ctx[38].icon
+      ctx[39].icon
     ) } });
     function click_handler_2() {
       return (
         /*click_handler_2*/
-        ctx[25](
+        ctx[26](
           /*action*/
-          ctx[38],
+          ctx[39],
           /*row*/
-          ctx[32]
+          ctx[33]
         )
       );
     }
@@ -7091,7 +7137,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         create_component(icon.$.fragment);
         attr(button, "class", "action svelte-1wffgsc");
         attr(button, "title", button_title_value = /*action*/
-        ctx[38].label || "");
+        ctx[39].label || "");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -7108,11 +7154,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         if (dirty[0] & /*extraActions*/
         16)
           icon_changes.src = /*action*/
-          ctx[38].icon;
+          ctx[39].icon;
         icon.$set(icon_changes);
         if (!current || dirty[0] & /*extraActions*/
         16 && button_title_value !== (button_title_value = /*action*/
-        ctx[38].label || "")) {
+        ctx[39].label || "")) {
           attr(button, "title", button_title_value);
         }
       },
@@ -7144,21 +7190,21 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let current;
     icon = new Icon_default({ props: { src: (
       /*action*/
-      ctx[38].icon
+      ctx[39].icon
     ) } });
     return {
       c() {
         a = element("a");
         create_component(icon.$.fragment);
         attr(a, "href", a_href_value = /*action*/
-        ctx[38].link(
+        ctx[39].link(
           /*row*/
-          ctx[32]
+          ctx[33]
         ));
         attr(a, "class", "action svelte-1wffgsc");
         attr(a, "target", "_blank");
         attr(a, "title", a_title_value = /*action*/
-        ctx[38].label || "");
+        ctx[39].label || "");
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -7170,19 +7216,19 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         if (dirty[0] & /*extraActions*/
         16)
           icon_changes.src = /*action*/
-          ctx2[38].icon;
+          ctx2[39].icon;
         icon.$set(icon_changes);
         if (!current || dirty[0] & /*extraActions, rows*/
         24 && a_href_value !== (a_href_value = /*action*/
-        ctx2[38].link(
+        ctx2[39].link(
           /*row*/
-          ctx2[32]
+          ctx2[33]
         ))) {
           attr(a, "href", a_href_value);
         }
         if (!current || dirty[0] & /*extraActions*/
         16 && a_title_value !== (a_title_value = /*action*/
-        ctx2[38].label || "")) {
+        ctx2[39].label || "")) {
           attr(a, "title", a_title_value);
         }
       },
@@ -7214,7 +7260,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     function select_block_type_2(ctx2, dirty) {
       if (
         /*action*/
-        ctx2[38].link
+        ctx2[39].link
       )
         return 0;
       return 1;
@@ -7282,40 +7328,46 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       create_if_block_33,
       create_if_block_42,
       create_if_block_52,
+      create_if_block_6,
       create_else_block_1
     ];
     const if_blocks = [];
     function select_block_type_1(ctx2, dirty) {
       if (
         /*field*/
-        ctx2[35].name === "id"
+        ctx2[36].name === "id"
       )
         return 0;
       if (
         /*renderFuncs*/
         ctx2[1][
           /*field*/
-          ctx2[35].name
+          ctx2[36].name
         ]
       )
         return 1;
       if (
         /*field*/
-        ctx2[35].inputType === "checkbox"
+        ctx2[36].inputType === "checkbox"
       )
         return 2;
       if (
         /*field*/
-        ctx2[35].inputType === "datetime" || /*field*/
-        ctx2[35].name === "deletedAt"
+        ctx2[36].inputType === "datetime" || /*field*/
+        ctx2[36].name === "deletedAt"
       )
         return 3;
       if (
         /*field*/
-        ctx2[35].inputType === "number"
+        ctx2[36].inputType === "number"
       )
         return 4;
-      return 5;
+      if (
+        /*field*/
+        ctx2[36].name === "note"
+      )
+        return 5;
+      return 6;
     }
     current_block_type_index = select_block_type_1(ctx, [-1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
@@ -7396,7 +7448,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           tr,
           "deleted",
           /*row*/
-          ctx[32][
+          ctx[33][
             /*deletedAtIdx*/
             ctx[8]
           ] > 0
@@ -7413,8 +7465,8 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*extraActions, rows, onEditRow, cell, fields, renderFuncs*/
-        131134) {
+        if (dirty[0] & /*extraActions, rows, onEditRow, cell, fields, renderFuncs, cellWithNote*/
+        393278) {
           each_value_1 = ensure_array_like(
             /*fields*/
             ctx2[2]
@@ -7444,7 +7496,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
             tr,
             "deleted",
             /*row*/
-            ctx2[32][
+            ctx2[33][
               /*deletedAtIdx*/
               ctx2[8]
             ] > 0
@@ -7547,13 +7599,13 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let dispose;
     const default_slot_template = (
       /*#slots*/
-      ctx[21].default
+      ctx[22].default
     );
     const default_slot = create_slot(
       default_slot_template,
       ctx,
       /*$scope*/
-      ctx[20],
+      ctx[21],
       null
     );
     icon0 = new Icon_default({
@@ -7804,43 +7856,43 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
               button1,
               "click",
               /*click_handler*/
-              ctx[22]
+              ctx[23]
             ),
             listen(
               input,
               "input",
               /*input_input_handler_1*/
-              ctx[26]
+              ctx[27]
             ),
             listen(
               input,
               "change",
               /*change_handler*/
-              ctx[27]
+              ctx[28]
             ),
             listen(
               button2,
               "click",
               /*click_handler_3*/
-              ctx[28]
+              ctx[29]
             ),
             listen(
               button3,
               "click",
               /*click_handler_4*/
-              ctx[29]
+              ctx[30]
             ),
             listen(
               button4,
               "click",
               /*click_handler_5*/
-              ctx[30]
+              ctx[31]
             ),
             listen(
               button5,
               "click",
               /*click_handler_6*/
-              ctx[31]
+              ctx[32]
             )
           ];
           mounted = true;
@@ -7849,20 +7901,20 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       p(ctx2, dirty) {
         if (default_slot) {
           if (default_slot.p && (!current || dirty[0] & /*$scope*/
-          1048576)) {
+          2097152)) {
             update_slot_base(
               default_slot,
               default_slot_template,
               ctx2,
               /*$scope*/
-              ctx2[20],
+              ctx2[21],
               !current ? get_all_dirty_from_scope(
                 /*$scope*/
-                ctx2[20]
+                ctx2[21]
               ) : get_slot_changes(
                 default_slot_template,
                 /*$scope*/
-                ctx2[20],
+                ctx2[21],
                 dirty,
                 null
               ),
@@ -7905,8 +7957,8 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           }
           each_blocks_1.length = each_value_3.length;
         }
-        if (dirty[0] & /*rows, deletedAtIdx, fields, extraActions, onEditRow, cell, renderFuncs*/
-        131390) {
+        if (dirty[0] & /*rows, deletedAtIdx, fields, extraActions, onEditRow, cell, renderFuncs, cellWithNote*/
+        393534) {
           each_value = ensure_array_like(
             /*rows*/
             ctx2[3]
@@ -8108,6 +8160,19 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         return row[i] || "";
       return row[field.name] || "";
     }
+    function cellWithNote(row, i, field) {
+      let note = {};
+      if (arrayOfArray) {
+        if (row[i]) {
+          const nt = JSON.stringify(row[i]);
+          note = JSON.parse(nt);
+          return note["about"];
+        } else {
+          return "";
+        }
+      }
+      return row[field.name] || "";
+    }
     const click_handler = () => gotoPage(pager.page);
     function input_input_handler(field) {
       filtersMap[field.name] = this.value;
@@ -8128,7 +8193,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       if ("renderFuncs" in $props2)
         $invalidate(1, renderFuncs = $props2.renderFuncs);
       if ("arrayOfArray" in $props2)
-        $invalidate(18, arrayOfArray = $props2.arrayOfArray);
+        $invalidate(19, arrayOfArray = $props2.arrayOfArray);
       if ("fields" in $props2)
         $invalidate(2, fields2 = $props2.fields);
       if ("rows" in $props2)
@@ -8138,13 +8203,13 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       if ("extraActions" in $props2)
         $invalidate(4, extraActions = $props2.extraActions);
       if ("onRefreshTableView" in $props2)
-        $invalidate(19, onRefreshTableView = $props2.onRefreshTableView);
+        $invalidate(20, onRefreshTableView = $props2.onRefreshTableView);
       if ("onEditRow" in $props2)
         $invalidate(5, onEditRow = $props2.onEditRow);
       if ("widths" in $props2)
         $invalidate(6, widths = $props2.widths);
       if ("$scope" in $props2)
-        $invalidate(20, $scope = $props2.$scope);
+        $invalidate(21, $scope = $props2.$scope);
     };
     $self.$.update = () => {
       if ($self.$.dirty[0] & /*filtersMap*/
@@ -8182,6 +8247,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       gotoPage,
       changePerPage,
       cell,
+      cellWithNote,
       arrayOfArray,
       onRefreshTableView,
       $scope,
@@ -8209,12 +8275,12 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         safe_not_equal,
         {
           renderFuncs: 1,
-          arrayOfArray: 18,
+          arrayOfArray: 19,
           fields: 2,
           rows: 3,
           pager: 0,
           extraActions: 4,
-          onRefreshTableView: 19,
+          onRefreshTableView: 20,
           onEditRow: 5,
           widths: 6
         },
@@ -8557,7 +8623,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         /*field*/
         ctx2[21].inputType === "textarea"
       )
-        return create_if_block_7;
+        return create_if_block_72;
       if (
         /*field*/
         ctx2[21].inputType === "number"
@@ -8872,7 +8938,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       }
     };
   }
-  function create_if_block_7(ctx) {
+  function create_if_block_72(ctx) {
     let textarea;
     let textarea_id_value;
     let mounted;
@@ -11109,14 +11175,13 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         alert(res.error);
         return true;
       }
-      if (res.properties && res.properties.length)
-        $invalidate(0, properties = res.properties);
       if (res.pager && res.pager.page)
         $invalidate(1, pager = res.pager);
       if (res.pager && res.pager.filters && !res.properties)
         $invalidate(0, properties = []);
-      if (res.propertiesWithNote) {
+      if (res.propertiesWithNote && res.propertiesWithNote.length) {
         console.log("propertiesWithNote=", res.propertiesWithNote);
+        $invalidate(0, properties = res.propertiesWithNote);
       }
     }
     async function refreshTableView(pagerIn) {
