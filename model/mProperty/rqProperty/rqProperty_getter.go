@@ -23,7 +23,7 @@ import (
 type PropertyWithNote struct {
 	*Property
 	ContactEmail string `json:"contactEmail" form:"contactEmail" query:"contactEmail" long:"contactEmail" msg:"contactEmail"`
-	ContactPhone int64  `json:"contactPhone" form:"contactPhone" query:"contactPhone" long:"contactPhone" msg:"contactPhone"`
+	ContactPhone string `json:"contactPhone" form:"contactPhone" query:"contactPhone" long:"contactPhone" msg:"contactPhone"`
 	About        string `json:"about" form:"about" query:"about" long:"about" msg:"about"`
 }
 
@@ -31,7 +31,7 @@ func (rq *Property) ToPropertyWithNote() PropertyWithNote {
 	return PropertyWithNote{
 		Property:     rq,
 		ContactEmail: gjson.Get(rq.Note, `contactEmail`).String(),
-		ContactPhone: int64(gjson.Get(rq.Note, `contactPhone`).Num),
+		ContactPhone: gjson.Get(rq.Note, `contactPhone`).String(),
 		About:        gjson.Get(rq.Note, `about`).String(),
 	}
 }
@@ -155,14 +155,14 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	return
 }
 
-type note struct {
+type PropertyNote struct {
 	ContactEmail string `json:"contactEmail" form:"contactEmail" query:"contactEmail" long:"contactEmail" msg:"contactEmail"`
-	ContactPhone int64  `json:"contactPhone" form:"contactPhone" query:"contactPhone" long:"contactPhone" msg:"contactPhone"`
+	ContactPhone string `json:"contactPhone" form:"contactPhone" query:"contactPhone" long:"contactPhone" msg:"contactPhone"`
 	About        string `json:"about" form:"about" query:"about" long:"about" msg:"about"`
 }
 
 func (p *Property) FindByPaginationWithNote(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
-	const comment = `-- Property) FindByPagination`
+	const comment = `-- Property) FindByPaginationWithNote`
 
 	validFields := PropertyFieldTypeMap
 	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
@@ -182,12 +182,10 @@ LIMIT 1`
 SELECT ` + meta.ToSelect() + `
 FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	p.Adapter.QuerySql(queryRows, func(row []any) {
-		var nt note
+		var nt PropertyNote
 		row[0] = X.ToS(row[0]) // ensure id is string
 		err := json.Unmarshal([]byte(X.ToS(row[p.IdxNote()])), &nt)
-		if err != nil {
-			L.Print(`Error unmarshall string to JSON for properties with note:`, err)
-		} else {
+		if !L.IsError(err, `Property) FindByPaginationWithNote json.Unmarshal`) {
 			row[p.IdxNote()] = nt
 		}
 		res = append(res, row)
@@ -255,15 +253,13 @@ SELECT ` + p.SqlSelectAllFields() + `
 FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 
 	p.Adapter.QuerySql(queryRows, func(row []any) {
-		res = append(res, PropertyWithNote{})
+		res = append(res, PropertyWithNote{Property: &Property{}})
 		res[count].FromArray(row)
 		res[count].NormalizeFloorList()
 
-		var nt note
+		var nt PropertyNote
 		err := json.Unmarshal([]byte(X.ToS(row[p.IdxNote()])), &nt)
-		if err != nil {
-			L.Print(`Error unmarshall string to JSON for properties with note:`, err)
-		} else {
+		if !L.IsError(err, `roperty) FindOwnedByPagination json.Unmarshal`) {
 			res[count].About = nt.About
 			res[count].ContactEmail = nt.ContactEmail
 			res[count].ContactPhone = nt.ContactPhone

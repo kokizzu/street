@@ -42,7 +42,7 @@
 </script>
 
 <section class='property_container'>
-  {#if propItem.deletedAt<=0}
+  {#if propItem.deletedAt>0}
     this property has been deleted
   {:else}
     <div class='property'>
