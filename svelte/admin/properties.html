@@ -11175,14 +11175,12 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         alert(res.error);
         return true;
       }
+      if (res.properties && res.properties.length)
+        $invalidate(0, properties = res.properties);
       if (res.pager && res.pager.page)
         $invalidate(1, pager = res.pager);
       if (res.pager && res.pager.filters && !res.properties)
         $invalidate(0, properties = []);
-      if (res.propertiesWithNote && res.propertiesWithNote.length) {
-        console.log("propertiesWithNote=", res.propertiesWithNote);
-        $invalidate(0, properties = res.propertiesWithNote);
-      }
     }
     async function refreshTableView(pagerIn) {
       await (0, import_jsApi.AdminProperties)({ pager: pagerIn, cmd: "list" }, function(res) {

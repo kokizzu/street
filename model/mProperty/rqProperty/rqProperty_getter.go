@@ -21,10 +21,10 @@ import (
 // TODO: this is slow, use tarantool-go api instead
 
 type PropertyWithNote struct {
-	Property     *Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
-	ContactEmail string    `json:"contactEmail" form:"contactEmail" query:"contactEmail" long:"contactEmail" msg:"contactEmail"`
-	ContactPhone int64     `json:"contactPhone" form:"contactPhone" query:"contactPhone" long:"contactPhone" msg:"contactPhone"`
-	About        string    `json:"about" form:"about" query:"about" long:"about" msg:"about"`
+	*Property
+	ContactEmail string `json:"contactEmail" form:"contactEmail" query:"contactEmail" long:"contactEmail" msg:"contactEmail"`
+	ContactPhone int64  `json:"contactPhone" form:"contactPhone" query:"contactPhone" long:"contactPhone" msg:"contactPhone"`
+	About        string `json:"about" form:"about" query:"about" long:"about" msg:"about"`
 }
 
 func (rq *Property) ToPropertyWithNote() PropertyWithNote {
@@ -184,11 +184,11 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	p.Adapter.QuerySql(queryRows, func(row []any) {
 		var nt note
 		row[0] = X.ToS(row[0]) // ensure id is string
-		err := json.Unmarshal([]byte(X.ToS(row[11])), &nt)
+		err := json.Unmarshal([]byte(X.ToS(row[p.IdxNote()])), &nt)
 		if err != nil {
 			L.Print(`Error unmarshall string to JSON for properties with note:`, err)
 		} else {
-			row[11] = nt
+			row[p.IdxNote()] = nt
 		}
 		res = append(res, row)
 	})

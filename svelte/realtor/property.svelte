@@ -12,7 +12,6 @@
   let user = {/* user */};
   let segments = {/* segments */}
   let countries = [/* countries */];
-  let propertyWithNote = {/* propertyWithNote */};
 
   let isAdmin = false;
 
@@ -58,7 +57,7 @@
   <div class='dashboard_main_content'>
     <ProfileHeader {user} access={segments}/>
     {#if property.id}
-      <EditProperty {property} {countries} {isAdmin} {isOwner} {propertyWithNote} />
+      <EditProperty {property} {countries} {isAdmin} {isOwner} />
     {:else}
       <CreateProperty {property} {user} {countries}/>
     {/if}

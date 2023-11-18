@@ -46,8 +46,7 @@ type (
 		Property *rqProperty.Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
 
 		// listing
-		Properties         [][]any `json:"properties" form:"properties" query:"properties" long:"properties" msg:"properties"`
-		PropertiesWithNote [][]any `json:"propertiesWithNote" form:"propertiesWithNote" query:"propertiesWithNote" long:"propertiesWithNote" msg:"propertiesWithNote"`
+		Properties [][]any `json:"properties" form:"properties" query:"properties" long:"properties" msg:"properties"`
 	}
 )
 
@@ -316,8 +315,7 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		fallthrough
 	case zCrud.CmdList:
 		r := rqProperty.NewProperty(d.PropOltp)
-		out.PropertiesWithNote = r.FindByPaginationWithNote(&AdminPropertiesMeta, &in.Pager, &out.Pager)
-		out.Properties = r.FindByPagination(&AdminPropertiesMeta, &in.Pager, &out.Pager)
+		out.Properties = r.FindByPaginationWithNote(&AdminPropertiesMeta, &in.Pager, &out.Pager)
 	}
 
 	return

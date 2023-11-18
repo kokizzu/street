@@ -19,8 +19,7 @@ type (
 	RealtorPropertyOut struct {
 		ResponseCommon
 
-		Property         *rqProperty.Property         `json:"property" form:"property" query:"property" long:"property" msg:"property"`
-		PropertyWithNote *rqProperty.PropertyWithNote `json:"propertyWithNote" form:"propertyWithNote" query:"propertyWithNote" long:"propertyWithNote" msg:"propertyWithNote"`
+		Property *rqProperty.PropertyWithNote `json:"property" form:"property" query:"property" long:"property" msg:"property"`
 	}
 )
 
@@ -47,7 +46,6 @@ func (d *Domain) RealtorProperty(in *RealtorPropertyIn) (out RealtorPropertyOut)
 	r.NormalizeFloorList()
 
 	propertyWithNote := r.ToPropertyWithNote()
-	out.PropertyWithNote = &propertyWithNote
-	out.Property = r
+	out.Property = &propertyWithNote
 	return
 }
