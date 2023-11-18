@@ -1,180 +1,281 @@
 <html><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>/*! title */</title>
-    <link href="/css.gg.css" rel="stylesheet">
-    
-    <link rel="manifest" href="/manifest.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
-    <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#F97316">
-    <link rel="shortcut icon" href="/assets/favicons/favicon.ico">
-    <meta name="apple-mobile-web-app-title" content="HapSTR">
-    <meta name="application-name" content="HapSTR">
-    <meta name="msapplication-TileColor" content="#F97316">
-    <meta name="msapplication-config" content="/assets/favicons/browserconfig.xml">
-    <meta name="theme-color" content="#FFF">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>/*! title */</title>
+  <link href="/css.gg.css" rel="stylesheet">
+  
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+  <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#F97316">
+  <link rel="shortcut icon" href="/assets/favicons/favicon.ico">
+  <meta name="apple-mobile-web-app-title" content="HapSTR">
+  <meta name="application-name" content="HapSTR">
+  <meta name="msapplication-TileColor" content="#F97316">
+  <meta name="msapplication-config" content="/assets/favicons/browserconfig.xml">
+  <meta name="theme-color" content="#FFF">
 </head>
 <body>
 <style>
-    *,
-    *::before,
-    *::after {
-        box-sizing : border-box;
-    }
+  *,
+  *::before,
+  *::after {
+    box-sizing : border-box;
+  }
 
-    :root {
-        -moz-tab-size : 4;
-        -o-tab-size   : 4;
-        tab-size      : 4;
-    }
+  :root {
+    -moz-tab-size : 4;
+    -o-tab-size   : 4;
+    tab-size      : 4;
+  }
 
-    html {
-        max-width                : 100%;
-        margin                   : auto;
-        line-height-step         : 1.15;
-        -webkit-text-size-adjust : 100%;
-        font-size                : 13px;
-    }
+  html {
+    max-width                : 100%;
+    margin                   : auto;
+    line-height-step         : 1.15;
+    -webkit-text-size-adjust : 100%;
+    font-size                : 13px;
+  }
 
-    body {
-        font-family : Roboto, Helvetica, Arial, sans-serif;
-        margin      : 0;
-    }
+  body {
+    font-family : Roboto, Helvetica, Arial, sans-serif;
+    margin      : 0;
+  }
 
-    hr {
-        height           : 0;
-        border-top-width : 1px;
-        width            : 100%;
-        overflow         : hidden;
-        color            : inherit;
-        margin           : 0;
-    }
+  hr {
+    height           : 0;
+    border-top-width : 1px;
+    width            : 100%;
+    overflow         : hidden;
+    color            : inherit;
+    margin           : 0;
+  }
 
-    /* Dashboard */
-    section.dashboard {
-        display        : flex;
-        flex-direction : row;
-    }
+  /* Dashboard */
+  section.dashboard {
+    display        : flex;
+    flex-direction : row;
+  }
 
-    .dashboard_main_content {
-        background-color : #F1F5F9;
-        min-height       : 100vh;
-        width            : 100%;
-    }
+  .dashboard_main_content {
+    background-color : #F1F5F9;
+    min-height       : 100vh;
+    width            : 100%;
+  }
 
-    .dashboard_main_content .content {
-        min-height : 900px;
-    }
+  .dashboard_main_content .content {
+    min-height : 900px;
+  }
 
 
-    .tableview_container {
-        position         : relative;
-        z-index          : 30;
-        margin-top       : -40px;
-        margin-left      : auto;
-        margin-right     : auto;
-        border-radius    : 8px;
-        filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-        padding          : 20px;
-        background-color : white;
-        width            : 88%;
-        height           : fit-content;
-        color            : #475569;
-        font-size        : 16px;
-    }
+  .tableview_container {
+    position         : relative;
+    z-index          : 30;
+    margin-top       : -40px;
+    margin-left      : auto;
+    margin-right     : auto;
+    border-radius    : 8px;
+    filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+    padding          : 20px;
+    background-color : white;
+    width            : 88%;
+    height           : fit-content;
+    color            : #475569;
+    font-size        : 16px;
+  }
 
-    .tableview_container .add_button {
-        padding          : 8px 20px;
-        font-size        : 14pt;
-        font-weight      : bold;
-        display          : inline-flex;
-        flex-direction   : row;
-        align-items      : center;
-        align-content    : center;
-        justify-content  : center;
-        border           : none;
-        background-color : #6366F1;
-        border-radius    : 8px;
-        color            : white;
-        cursor           : pointer;
-        gap              : 8px;
-    }
+  .tableview_container .add_button {
+    padding          : 8px 20px;
+    font-size        : 14pt;
+    font-weight      : bold;
+    display          : inline-flex;
+    flex-direction   : row;
+    align-items      : center;
+    align-content    : center;
+    justify-content  : center;
+    border           : none;
+    background-color : #6366F1;
+    border-radius    : 8px;
+    color            : white;
+    cursor           : pointer;
+    gap              : 8px;
+  }
 
-    .tableview_container .add_button:hover {
-        background-color : #7E80F1;
-    }
-    
-    .label_rent {
-        background-color: #1080e8 !important;
-        color: #FFF !important;
-        border: none !important;
-    }
-    .label_sale {
-        background-color: #f97316 !important;
-        color: #FFF !important;
-        border: none !important;
-    }
-    .action_btn {
-        padding          : 7px 20px;
-        font-size        : 13px;
-        font-weight      : 600;
-        display          : inline-flex;
-        flex-direction   : row;
-        align-items      : center;
-        align-content    : center;
-        justify-content  : center;
-        border           : 1px solid #6366F1;
-        background-color : #6366F1;
-        border-radius    : 8px;
-        color            : white;
-        cursor           : pointer;
-        gap              : 8px;
-    }
-    
-    .action_btn:hover {
-        background-color : #7E80F1;
-    }
-    
-    .action_btn:disabled {
-        cursor      : not-allowed;
-        font-size   : 13px;
-        font-weight : 600;
-        border      : 1px solid #CBD5E1 !important;
-        background  : none !important;
-        color       : #5C646F;
-        filter      : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    }
-    
-    .next_button {
-        background-color : #F97316;
-        color            : white;
-        display          : flex;
-        justify-content  : center;
-        border-radius    : 8px;
-        border           : none;
-        padding          : 10px;
-        cursor           : pointer;
-        width            : 100%;
-        font-weight      : 600;
-    }
-    
-    .next_button:disabled,
-    .next_button:hover {
-        background-color : #F58433;
-    }
-    
-    .asterisk {
-        color      : #EF4444;
-        font-size  : 14px;
-        margin-top : -3px;
-    }
+  .tableview_container .add_button:hover {
+    background-color : #7E80F1;
+  }
+
+  .label_rent {
+    background-color : #1080E8 !important;
+    color            : #FFF !important;
+    border           : none !important;
+  }
+
+  .label_sale {
+    background-color : #F97316 !important;
+    color            : #FFF !important;
+    border           : none !important;
+  }
+
+  .action_btn {
+    padding          : 7px 20px;
+    font-size        : 13px;
+    font-weight      : 600;
+    display          : inline-flex;
+    flex-direction   : row;
+    align-items      : center;
+    align-content    : center;
+    justify-content  : center;
+    border           : 1px solid #6366F1;
+    background-color : #6366F1;
+    border-radius    : 8px;
+    color            : white;
+    cursor           : pointer;
+    gap              : 8px;
+  }
+
+  .action_btn:hover {
+    background-color : #7E80F1;
+  }
+
+  .action_btn:disabled {
+    cursor      : not-allowed;
+    font-size   : 13px;
+    font-weight : 600;
+    border      : 1px solid #CBD5E1 !important;
+    background  : none !important;
+    color       : #5C646F;
+    filter      : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  }
+
+  .next_button {
+    background-color : #F97316;
+    color            : white;
+    display          : flex;
+    justify-content  : center;
+    border-radius    : 8px;
+    border           : none;
+    padding          : 10px;
+    cursor           : pointer;
+    width            : 100%;
+    font-weight      : 600;
+  }
+
+  .next_button:disabled,
+  .next_button:hover {
+    background-color : #F58433;
+  }
+
+  .asterisk {
+    color      : #EF4444;
+    font-size  : 14px;
+    margin-top : -3px;
+  }
+
+  /* notifier */
+  .notifyjs-container {
+    z-index   : 100;
+    position  : fixed;
+    bottom    : 0;
+    right     : .5em;
+    max-width : 304px;
+    width     : 100%
+  }
+
+  .notifyjs-container .notifyjs-notification {
+    display       : none;
+    position      : relative;
+    padding       : 1em 2em 1em 2.5em;
+    margin-bottom : .5em;
+    width         : 100%;
+    border-width  : 1px;
+    border-style  : solid;
+    box-sizing    : border-box
+  }
+
+  .notifyjs-container .notifyjs-notification p.progress {
+    position      : absolute;
+    bottom        : 0;
+    left          : 0;
+    right         : 100%;
+    height        : 2px;
+    content       : ' ';
+    margin-bottom : 0
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-success {
+    color            : #155724;
+    background-color : #D4EDDA;
+    border-color     : #C3E6CB
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-danger {
+    color            : #721C24;
+    background-color : #F8D7DA;
+    border-color     : #F5C6CB
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-warning {
+    color            : #856404;
+    background-color : #FFF3CD;
+    border-color     : #FFEEBA
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-info {
+    color            : #0C5460;
+    background-color : #D1ECF1;
+    border-color     : #BEE5EB
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-success p.progress {
+    background : #155724
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-danger p.progress {
+    background : #721C24
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-warning p.progress {
+    background : #856404
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-info p.progress {
+    background : #0C5460
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-success .notifyjs-icon svg {
+    fill : #155724
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-danger .notifyjs-icon svg {
+    fill : #721C24
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-warning .notifyjs-icon svg {
+    fill : #856404
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-info .notifyjs-icon svg {
+    fill : #0C5460
+  }
+
+  .notifyjs-container .notifyjs-notification .notifyjs-icon {
+    position  : absolute;
+    top       : 50%;
+    transform : translateY(-50%);
+    left      : 10px
+  }
+
+  .notifyjs-container .notifyjs-notification .notifyjs-icon img, .notifyjs-container .notifyjs-notification .notifyjs-icon svg {
+    width  : 16px;
+    height : 16px
+  }
 </style>
 <script>
-    if('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js', { scope: '/' });
-    }
+  if( 'serviceWorker' in navigator ) {
+    navigator.serviceWorker.register( '/service-worker.js', {scope: '/'} );
+  }
 </script>
 
 
@@ -436,9 +537,8 @@
         const descriptors2 = Object.getOwnPropertyDescriptors(obj);
         const reducedDescriptors = {};
         forEach(descriptors2, (descriptor, name) => {
-          let ret;
-          if ((ret = reducer(descriptor, name, obj)) !== false) {
-            reducedDescriptors[name] = ret || descriptor;
+          if (reducer(descriptor, name, obj) !== false) {
+            reducedDescriptors[name] = descriptor;
           }
         });
         Object.defineProperties(obj, reducedDescriptors);
@@ -963,6 +1063,9 @@
         }
         return null;
       }
+      var DEFAULT_CONTENT_TYPE = {
+        "Content-Type": void 0
+      };
       function stringifySafely(rawValue, parser, encoder) {
         if (utils.isString(rawValue)) {
           try {
@@ -978,7 +1081,7 @@
       }
       var defaults = {
         transitional: transitionalDefaults,
-        adapter: platform.isNode ? "http" : "xhr",
+        adapter: ["xhr", "http"],
         transformRequest: [function transformRequest(data, headers) {
           const contentType = headers.getContentType() || "";
           const hasJSONContentType = contentType.indexOf("application/json") > -1;
@@ -1061,13 +1164,15 @@
         },
         headers: {
           common: {
-            "Accept": "application/json, text/plain, */*",
-            "Content-Type": void 0
+            "Accept": "application/json, text/plain, */*"
           }
         }
       };
-      utils.forEach(["delete", "get", "head", "post", "put", "patch"], (method) => {
+      utils.forEach(["delete", "get", "head"], function forEachMethodNoData(method) {
         defaults.headers[method] = {};
+      });
+      utils.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
+        defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
       });
       var defaults$1 = defaults;
       var ignoreDuplicateOf = utils.toObjectSet([
@@ -1318,15 +1423,7 @@
         }
       };
       AxiosHeaders.accessor(["Content-Type", "Content-Length", "Accept", "Accept-Encoding", "User-Agent", "Authorization"]);
-      utils.reduceDescriptors(AxiosHeaders.prototype, ({ value }, key) => {
-        let mapped = key[0].toUpperCase() + key.slice(1);
-        return {
-          get: () => value,
-          set(headerValue) {
-            this[mapped] = headerValue;
-          }
-        };
-      });
+      utils.freezeMethods(AxiosHeaders.prototype);
       utils.freezeMethods(AxiosHeaders);
       var AxiosHeaders$1 = AxiosHeaders;
       function transformData(fns, response) {
@@ -1822,7 +1919,7 @@
         });
         return config;
       }
-      var VERSION2 = "1.5.0";
+      var VERSION2 = "1.4.0";
       var validators$1 = {};
       ["object", "boolean", "number", "function", "string", "symbol"].forEach((type, i) => {
         validators$1[type] = function validator2(thing) {
@@ -1925,11 +2022,12 @@
             }
           }
           config.method = (config.method || this.defaults.method || "get").toLowerCase();
-          let contextHeaders = headers && utils.merge(
+          let contextHeaders;
+          contextHeaders = headers && utils.merge(
             headers.common,
             headers[config.method]
           );
-          headers && utils.forEach(
+          contextHeaders && utils.forEach(
             ["delete", "get", "head", "post", "put", "patch", "common"],
             (method) => {
               delete headers[method];
@@ -2187,13 +2285,13 @@
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance2 = bind(Axios$1.prototype.request, context);
-        utils.extend(instance2, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance2, context, null, { allOwnKeys: true });
-        instance2.create = function create(instanceConfig) {
+        const instance3 = bind(Axios$1.prototype.request, context);
+        utils.extend(instance3, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance3, context, null, { allOwnKeys: true });
+        instance3.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance2;
+        return instance3;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2212,7 +2310,6 @@
       axios.mergeConfig = mergeConfig;
       axios.AxiosHeaders = AxiosHeaders$1;
       axios.formToJSON = (thing) => formDataToJSON(utils.isHTMLForm(thing) ? new FormData(thing) : thing);
-      axios.getAdapter = adapters.getAdapter;
       axios.HttpStatusCode = HttpStatusCode$1;
       axios.default = axios;
       module.exports = axios;
@@ -2594,10 +2691,29 @@
 
   // node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
+  var outros;
   function transition_in(block, local) {
     if (block && block.i) {
       outroing.delete(block);
       block.i(local);
+    }
+  }
+  function transition_out(block, local, detach2, callback) {
+    if (block && block.o) {
+      if (outroing.has(block))
+        return;
+      outroing.add(block);
+      outros.c.push(() => {
+        outroing.delete(block);
+        if (callback) {
+          if (detach2)
+            block.d(1);
+          callback();
+        }
+      });
+      block.o(local);
+    } else if (callback) {
+      callback();
     }
   }
 
@@ -2635,6 +2751,9 @@
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
   // node_modules/svelte/src/runtime/internal/Component.js
+  function create_component(block) {
+    block && block.c();
+  }
   function mount_component(component, target, anchor) {
     const { fragment, after_update } = component.$;
     fragment && fragment.m(target, anchor);
@@ -2667,7 +2786,7 @@
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance2, create_fragment2, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance3, create_fragment3, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -2693,7 +2812,7 @@
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance2 ? instance2(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance3 ? instance3(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -2706,7 +2825,7 @@
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment2 ? create_fragment2($.ctx) : false;
+    $.fragment = create_fragment3 ? create_fragment3($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -3191,7 +3310,186 @@
 
   // debug.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
+
+  // _components/notifier.js
+  var Notifier = function() {
+    let a = {
+      container: null,
+      default_time: 4500,
+      vanish_time: 300,
+      fps: 30,
+      success: {
+        classes: "alert-success",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
+      },
+      error: {
+        classes: "alert-danger",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
+      },
+      warning: {
+        classes: "alert-warning",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
+      },
+      info: {
+        classes: "alert-info",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
+      }
+    }, b = function(a2, b2, c, d, e, f, g) {
+      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
+      let h = document.createElement("p");
+      h.className = "progress", this.element.appendChild(h), this.callback = g;
+      let j = this;
+      this.push = function() {
+        if (!j.pushed) {
+          j.pushed = true;
+          let a3 = 0, b3 = 1e3 / f;
+          j.element.style.display = "block", j.interval = setInterval(function() {
+            a3++;
+            let c2 = 100 * (1 - b3 * a3 / d);
+            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
+          }, b3);
+        }
+      }, this.clear = function() {
+        if (j.pushed) {
+          let a3 = 1e3 / f, b3 = 1;
+          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
+            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
+          }, a3);
+        }
+      }, this.destroy = function() {
+        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
+      };
+    };
+    return function Notifier2(c) {
+      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
+        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
+      };
+      this.showInfo = function(infoMsg) {
+        let notification = this.notify("info", infoMsg);
+        notification.push();
+      };
+      this.showSuccess = function(okMsg) {
+        let notification = this.notify("success", okMsg);
+        notification.push();
+      };
+      this.showError = function(errMsg) {
+        let notification = this.notify("error", errMsg);
+        notification.push();
+      };
+      this.showWarning = function(warnMsg) {
+        let notification = this.notify("warning", warnMsg);
+        notification.push();
+      };
+    };
+  }();
+  var notifier = new Notifier();
+
+  // _components/DebugComponent.svelte
   function create_fragment(ctx) {
+    let hr;
+    let t0;
+    let button0;
+    let t2;
+    let button1;
+    let t4;
+    let button2;
+    let t6;
+    let button3;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        hr = element("hr");
+        t0 = text("\nchecking whether component conflict or not\n");
+        button0 = element("button");
+        button0.textContent = "Notify";
+        t2 = space();
+        button1 = element("button");
+        button1.textContent = "Success";
+        t4 = space();
+        button2 = element("button");
+        button2.textContent = "Error";
+        t6 = space();
+        button3 = element("button");
+        button3.textContent = "Warn";
+      },
+      m(target, anchor) {
+        insert(target, hr, anchor);
+        insert(target, t0, anchor);
+        insert(target, button0, anchor);
+        insert(target, t2, anchor);
+        insert(target, button1, anchor);
+        insert(target, t4, anchor);
+        insert(target, button2, anchor);
+        insert(target, t6, anchor);
+        insert(target, button3, anchor);
+        if (!mounted) {
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*click_handler*/
+              ctx[0]
+            ),
+            listen(
+              button1,
+              "click",
+              /*click_handler_1*/
+              ctx[1]
+            ),
+            listen(
+              button2,
+              "click",
+              /*click_handler_2*/
+              ctx[2]
+            ),
+            listen(
+              button3,
+              "click",
+              /*click_handler_3*/
+              ctx[3]
+            )
+          ];
+          mounted = true;
+        }
+      },
+      p: noop,
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(hr);
+          detach(t0);
+          detach(button0);
+          detach(t2);
+          detach(button1);
+          detach(t4);
+          detach(button2);
+          detach(t6);
+          detach(button3);
+        }
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function instance($self) {
+    const click_handler = () => notifier.showInfo("test");
+    const click_handler_1 = () => notifier.showSuccess("test");
+    const click_handler_2 = () => notifier.showError("test");
+    const click_handler_3 = () => notifier.showWarning("test");
+    return [click_handler, click_handler_1, click_handler_2, click_handler_3];
+  }
+  var DebugComponent = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance, create_fragment, safe_not_equal, {});
+    }
+  };
+  var DebugComponent_default = DebugComponent;
+
+  // debug.svelte
+  function create_fragment2(ctx) {
     let t0_value = (
       /*$T*/
       ctx[1].currentLang + ""
@@ -3224,8 +3522,20 @@
     let br1;
     let t14;
     let button2;
+    let t16;
+    let button3;
+    let t18;
+    let button4;
+    let t20;
+    let button5;
+    let t22;
+    let button6;
+    let t24;
+    let debugcomponent;
+    let current;
     let mounted;
     let dispose;
+    debugcomponent = new DebugComponent_default({});
     return {
       c() {
         t0 = text(t0_value);
@@ -3252,6 +3562,20 @@
         t14 = space();
         button2 = element("button");
         button2.textContent = "Send Feedback";
+        t16 = space();
+        button3 = element("button");
+        button3.textContent = "Notify";
+        t18 = space();
+        button4 = element("button");
+        button4.textContent = "Success";
+        t20 = space();
+        button5 = element("button");
+        button5.textContent = "Error";
+        t22 = space();
+        button6 = element("button");
+        button6.textContent = "Warn";
+        t24 = space();
+        create_component(debugcomponent.$.fragment);
         attr(label, "for", "userMessage");
         attr(textarea, "id", "userMessage");
         attr(textarea, "cols", "40");
@@ -3284,6 +3608,17 @@
         insert(target, br1, anchor);
         insert(target, t14, anchor);
         insert(target, button2, anchor);
+        insert(target, t16, anchor);
+        insert(target, button3, anchor);
+        insert(target, t18, anchor);
+        insert(target, button4, anchor);
+        insert(target, t20, anchor);
+        insert(target, button5, anchor);
+        insert(target, t22, anchor);
+        insert(target, button6, anchor);
+        insert(target, t24, anchor);
+        mount_component(debugcomponent, target, anchor);
+        current = true;
         if (!mounted) {
           dispose = [
             listen(
@@ -3309,22 +3644,46 @@
               "click",
               /*sendFeedback*/
               ctx[2]
+            ),
+            listen(
+              button3,
+              "click",
+              /*click_handler_2*/
+              ctx[6]
+            ),
+            listen(
+              button4,
+              "click",
+              /*click_handler_3*/
+              ctx[7]
+            ),
+            listen(
+              button5,
+              "click",
+              /*click_handler_4*/
+              ctx[8]
+            ),
+            listen(
+              button6,
+              "click",
+              /*click_handler_5*/
+              ctx[9]
             )
           ];
           mounted = true;
         }
       },
       p(ctx2, [dirty]) {
-        if (dirty & /*$T*/
-        2 && t0_value !== (t0_value = /*$T*/
+        if ((!current || dirty & /*$T*/
+        2) && t0_value !== (t0_value = /*$T*/
         ctx2[1].currentLang + ""))
           set_data(t0, t0_value);
-        if (dirty & /*$T*/
-        2 && t2_value !== (t2_value = /*$T*/
+        if ((!current || dirty & /*$T*/
+        2) && t2_value !== (t2_value = /*$T*/
         ctx2[1].forRent + ""))
           set_data(t2, t2_value);
-        if (dirty & /*$T*/
-        2 && t4_value !== (t4_value = /*$T*/
+        if ((!current || dirty & /*$T*/
+        2) && t4_value !== (t4_value = /*$T*/
         ctx2[1].forSale + ""))
           set_data(t4, t4_value);
         if (dirty & /*userMessage*/
@@ -3336,8 +3695,16 @@
           );
         }
       },
-      i: noop,
-      o: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(debugcomponent.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(debugcomponent.$.fragment, local);
+        current = false;
+      },
       d(detaching) {
         if (detaching) {
           detach(t0);
@@ -3360,13 +3727,23 @@
           detach(br1);
           detach(t14);
           detach(button2);
+          detach(t16);
+          detach(button3);
+          detach(t18);
+          detach(button4);
+          detach(t20);
+          detach(button5);
+          detach(t22);
+          detach(button6);
+          detach(t24);
         }
+        destroy_component(debugcomponent, detaching);
         mounted = false;
         run_all(dispose);
       }
     };
   }
-  function instance($self, $props, $invalidate) {
+  function instance2($self, $props, $invalidate) {
     let $T;
     component_subscribe($self, T, ($value) => $invalidate(1, $T = $value));
     let userMessage = "";
@@ -3384,19 +3761,27 @@
       userMessage = this.value;
       $invalidate(0, userMessage);
     }
+    const click_handler_2 = () => notifier.showInfo("test");
+    const click_handler_3 = () => notifier.showSuccess("test");
+    const click_handler_4 = () => notifier.showError("test");
+    const click_handler_5 = () => notifier.showWarning("test");
     return [
       userMessage,
       $T,
       sendFeedback,
       click_handler,
       click_handler_1,
-      textarea_input_handler
+      textarea_input_handler,
+      click_handler_2,
+      click_handler_3,
+      click_handler_4,
+      click_handler_5
     ];
   }
   var Debug = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance, create_fragment, safe_not_equal, {});
+      init(this, options, instance2, create_fragment2, safe_not_equal, {});
     }
   };
   var debug_default = Debug;

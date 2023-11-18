@@ -1,6 +1,8 @@
 <script>
     import {T} from './_components/uiState.js';
     import { UserSendFeedback } from './jsApi.GEN';
+    import {notifier} from './_components/notifier.js';
+    import DebugComponent from './_components/DebugComponent.svelte';
 
     let userMessage = '';
     function sendFeedback() {
@@ -24,3 +26,9 @@
 
 
 <button on:click={sendFeedback}>Send Feedback</button>
+<button on:click={() => notifier.showInfo('test')}>Notify</button>
+<button on:click={() => notifier.showSuccess('test')}>Success</button>
+<button on:click={() => notifier.showError('test')}>Error</button>
+<button on:click={() => notifier.showWarning('test')}>Warn</button>
+
+<DebugComponent/>
