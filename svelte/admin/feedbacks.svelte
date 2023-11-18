@@ -115,7 +115,3 @@
     <Footer></Footer>
   </div>
 </section>
-
-<style>
-
-</style>

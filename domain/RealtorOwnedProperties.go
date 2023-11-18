@@ -23,7 +23,7 @@ type (
 	RealtorOwnedPropertiesOut struct {
 		ResponseCommon
 
-		Properties []rqProperty.Property `json:"properties" form:"properties" query:"properties" long:"properties" msg:"properties"`
+		Properties []rqProperty.PropertyWithNote `json:"properties" form:"properties" query:"properties" long:"properties" msg:"properties"`
 
 		Meta []zCrud.Field `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 
@@ -80,10 +80,22 @@ var (
 			InputType: zCrud.InputTypeText,
 		},
 		{
-			Name:      mProperty.Note,
-			Label:     `Note`,
+			Name:      mProperty.About,
+			Label:     `About`,
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name:      mProperty.ContactEmail,
+			Label:     `ContactEmail`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeEmail,
+		},
+		{
+			Name:      mProperty.ContactPhone,
+			Label:     `ContactPhone`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeNumber,
 		},
 		{
 			Name:      mProperty.CountryCode,

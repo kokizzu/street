@@ -1131,12 +1131,12 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
 }
 
 /* fakecss:./admin/properties.esbuild-svelte-fake-css */
-.action_btn.not_filtered.svelte-1r7zdb7 {
+.action_btn.not_filtered.svelte-13q73it {
   background-color: #6366F1;
   color: white;
   flex-direction: row;
 }
-.action_btn.not_filtered.svelte-1r7zdb7:hover {
+.action_btn.not_filtered.svelte-13q73it:hover {
   background-color: #7E80F1;
 }
 </style>
@@ -10197,7 +10197,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let if_block_anchor;
     let if_block = (
       /*content*/
-      ctx[1] !== "" && create_if_block6(ctx)
+      ctx[1] && create_if_block6(ctx)
     );
     return {
       c() {
@@ -10213,7 +10213,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       p(ctx2, [dirty]) {
         if (
           /*content*/
-          ctx2[1] !== ""
+          ctx2[1]
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
@@ -10240,7 +10240,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
   }
   function instance10($self, $props, $invalidate) {
     let { label = "label" } = $props;
-    let { content = "content" } = $props;
+    let { content = "" } = $props;
     $self.$set = ($props2) => {
       if ("label" in $props2)
         $invalidate(0, label = $props2.label);
@@ -10262,13 +10262,13 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
   var import_mapper = __toESM(require_mapper());
   function get_each_context4(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[22] = list[i];
+    child_ctx[23] = list[i];
     return child_ctx;
   }
   function get_each_context_12(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[25] = list[i][0];
-    child_ctx[26] = list[i][1];
+    child_ctx[26] = list[i][0];
+    child_ctx[27] = list[i][1];
     return child_ctx;
   }
   function create_default_slot(ctx) {
@@ -10332,10 +10332,10 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         span2 = element("span");
         span2.textContent = "Filter Rejected";
         attr(button0, "class", "action_btn");
-        attr(button1, "class", "action_btn svelte-1r7zdb7");
+        attr(button1, "class", "action_btn svelte-13q73it");
         toggle_class(button1, "not_filtered", !/*filterdByPending*/
         ctx[5]);
-        attr(button2, "class", "action_btn svelte-1r7zdb7");
+        attr(button2, "class", "action_btn svelte-13q73it");
         toggle_class(button2, "not_filtered", !/*filterdByRejected*/
         ctx[6]);
       },
@@ -10539,11 +10539,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       props: {
         label: (
           /*key*/
-          ctx[25]
+          ctx[26]
         ),
         content: (
           /*val*/
-          ctx[26]
+          ctx[27]
         )
       }
     });
@@ -10560,11 +10560,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         if (dirty & /*currentPropHistory*/
         4)
           pillbox_changes.label = /*key*/
-          ctx2[25];
+          ctx2[26];
         if (dirty & /*currentPropHistory*/
         4)
           pillbox_changes.content = /*val*/
-          ctx2[26];
+          ctx2[27];
         pillbox.$set(pillbox_changes);
       },
       i(local) {
@@ -10589,11 +10589,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       props: {
         label: (
           /*key*/
-          ctx[25]
+          ctx[26]
         ),
         content: (0, import_formatter3.priceNtd)(
           /*val*/
-          ctx[26]
+          ctx[27]
         )
       }
     });
@@ -10610,12 +10610,12 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         if (dirty & /*currentPropHistory*/
         4)
           pillbox_changes.label = /*key*/
-          ctx2[25];
+          ctx2[26];
         if (dirty & /*currentPropHistory*/
         4)
           pillbox_changes.content = (0, import_formatter3.priceNtd)(
             /*val*/
-            ctx2[26]
+            ctx2[27]
           );
         pillbox.$set(pillbox_changes);
       },
@@ -10641,11 +10641,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       props: {
         label: (
           /*key*/
-          ctx[25]
+          ctx[26]
         ),
         content: new Date(
           /*val*/
-          ctx[26] * 1e3
+          ctx[27] * 1e3
         )
       }
     });
@@ -10662,12 +10662,12 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         if (dirty & /*currentPropHistory*/
         4)
           pillbox_changes.label = /*key*/
-          ctx2[25];
+          ctx2[26];
         if (dirty & /*currentPropHistory*/
         4)
           pillbox_changes.content = new Date(
             /*val*/
-            ctx2[26] * 1e3
+            ctx2[27] * 1e3
           );
         pillbox.$set(pillbox_changes);
       },
@@ -10715,20 +10715,20 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     function select_block_type_1(ctx2, dirty) {
       if (
         /*val*/
-        ctx2[26] === "0" || !/*val*/
-        ctx2[26]
+        ctx2[27] === "0" || !/*val*/
+        ctx2[27]
       )
         return 0;
       if (
         /*key*/
-        ctx2[25] === "createdAt" || /*key*/
-        ctx2[25] === "updatedAt"
+        ctx2[26] === "createdAt" || /*key*/
+        ctx2[26] === "updatedAt"
       )
         return 1;
       if (
         /*key*/
-        ctx2[25] === "priceNtd" || /*key*/
-        ctx2[25] === "pricePerUnit"
+        ctx2[26] === "priceNtd" || /*key*/
+        ctx2[26] === "pricePerUnit"
       )
         return 2;
       return 3;
@@ -10790,7 +10790,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let current;
     let each_value_1 = ensure_array_like(Object.entries(
       /*row*/
-      ctx[22]
+      ctx[23]
     ));
     let each_blocks = [];
     for (let i = 0; i < each_value_1.length; i += 1) {
@@ -10820,7 +10820,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         4) {
           each_value_1 = ensure_array_like(Object.entries(
             /*row*/
-            ctx2[22]
+            ctx2[23]
           ));
           let i;
           for (i = 0; i < each_value_1.length; i += 1) {
@@ -10973,9 +10973,9 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       rowType: "Property"
     };
     modalform = new ModalForm_default({ props: modalform_props });
-    ctx[15](modalform);
+    ctx[16](modalform);
     function tableview_pager_binding(value) {
-      ctx[16](value);
+      ctx[17](value);
     }
     let tableview_props = {
       extraActions: (
@@ -10994,6 +10994,10 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       rows: (
         /*properties*/
         ctx[0]
+      ),
+      renderFuncs: (
+        /*renderMap*/
+        ctx[14]
       ),
       widths: { mainUse: "320px", address: "240px" },
       $slots: { default: [create_default_slot] },
@@ -11014,7 +11018,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       $scope: { ctx }
     };
     modaldialog = new ModalDialog_default({ props: modaldialog_props });
-    ctx[17](modaldialog);
+    ctx[18](modaldialog);
     return {
       c() {
         section1 = element("section");
@@ -11068,7 +11072,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           tableview_changes.rows = /*properties*/
           ctx2[0];
         if (dirty & /*$scope, filterdByRejected, filterdByPending*/
-        536871008) {
+        1073741920) {
           tableview_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_pager && dirty & /*pager*/
@@ -11081,7 +11085,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         tableview.$set(tableview_changes);
         const modaldialog_changes = {};
         if (dirty & /*$scope, currentPropHistory*/
-        536870916) {
+        1073741828) {
           modaldialog_changes.$scope = { dirty, ctx: ctx2 };
         }
         modaldialog.$set(modaldialog_changes);
@@ -11115,11 +11119,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         destroy_component(menu);
         destroy_component(profileheader);
         destroy_component(adminsubmenu);
-        ctx[15](null);
+        ctx[16](null);
         destroy_component(modalform);
         destroy_component(tableview);
         destroy_component(footer);
-        ctx[17](null);
+        ctx[18](null);
         destroy_component(modaldialog);
       }
     };
@@ -11274,6 +11278,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         }
       );
     }
+    let renderMap = {
+      note(note) {
+        return JSON.stringify(note);
+      }
+    };
     function modalform_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         form = $value;
@@ -11299,15 +11308,15 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       if ($self.$.dirty & /*pager*/
       2) {
         $:
-          $invalidate(14, approvalStateFilter = (pager.filters || {}).approvalState || []);
+          $invalidate(15, approvalStateFilter = (pager.filters || {}).approvalState || []);
       }
       if ($self.$.dirty & /*approvalStateFilter*/
-      16384) {
+      32768) {
         $:
           $invalidate(5, filterdByPending = approvalStateFilter[0] === "pending");
       }
       if ($self.$.dirty & /*approvalStateFilter*/
-      16384) {
+      32768) {
         $:
           $invalidate(6, filterdByRejected = approvalStateFilter[0] === "<>" && approvalStateFilter[1] === "<>pending");
       }
@@ -11327,6 +11336,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       filterRejectedApproval,
       addRow,
       saveRow,
+      renderMap,
       approvalStateFilter,
       modalform_binding,
       tableview_pager_binding,

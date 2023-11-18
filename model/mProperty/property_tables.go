@@ -79,6 +79,9 @@ const (
 	UpdatedAt              = `updatedAt`
 	UpdatedBy              = `updatedBy`
 	DeletedAt              = `deletedAt`
+	About                  = `about`
+	ContactEmail           = `contactEmail`
+	ContactPhone           = `contactPhone`
 
 	TablePropertyHistory   Tt.TableName = `property_history`
 	TablePropertyHistoryUS Tt.TableName = `property_historyUS`
