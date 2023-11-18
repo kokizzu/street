@@ -9,19 +9,19 @@
   import HiSolidEye from 'svelte-icons-pack/hi/HiSolidEye';
   import HiSolidXCircle from 'svelte-icons-pack/hi/HiSolidXCircle';
   import HiSolidCheckCircle from 'svelte-icons-pack/hi/HiSolidCheckCircle';
-  import {AdminProperties, UserPropHistory} from '../jsApi.GEN';
+  import { AdminProperties, UserPropHistory } from '../jsApi.GEN';
   import Growl from '../_components/Growl.svelte';
-  
+
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
   import FaSolidCheckDouble from 'svelte-icons-pack/fa/FaSolidCheckDouble';
   import FaSolidRecycle from 'svelte-icons-pack/fa/FaSolidRecycle';
-  import HiOutlineLink from "svelte-icons-pack/hi/HiOutlineLink";
-  
+  import HiOutlineLink from 'svelte-icons-pack/hi/HiOutlineLink';
+
   import ModalDialog from '../_components/ModalDialog.svelte';
   import PillBox from '../_components/PillBox.svelte';
-  import {priceNtd} from '../_components/formatter.js';
-  import {fieldsArrToMap} from '../_components/mapper.js';
+  import { priceNtd } from '../_components/formatter.js';
+  import { fieldsArrToMap } from '../_components/mapper.js';
   
   let segments = {/* segments */};
   let fields = [/* fields */];
@@ -83,14 +83,14 @@
     {
       icon: HiOutlineLink,
       label: 'Go to property page',
-      link: function(item) {
-        return '/guest/property/' + item[fieldByKey['id'].idx];
-      }
+      link: function( item ) {
+        return '/guest/property/' + item[ fieldByKey[ 'id' ].idx ];
+      },
     },
   ];
   
   $: console.log( 'properties=', properties );
-
+  
   let growl7 = Growl;
   let propHistoryModal = ModalDialog;
   
@@ -128,9 +128,9 @@
   }
   
   let filterdByPending = false, filterdByRejected = false, filter = [];
-  $: approvalStateFilter = (pager.filters || {}).approvalState || []
+  $: approvalStateFilter = (pager.filters || {}).approvalState || [];
   $: filterdByPending = approvalStateFilter[ 0 ]==='pending';
-  $: filterdByRejected = approvalStateFilter[ 0 ]==='<>' && approvalStateFilter[ 1 ]==='<>pending'
+  $: filterdByRejected = approvalStateFilter[ 0 ]==='<>' && approvalStateFilter[ 1 ]==='<>pending';
   
   async function filterPendingApproval() {
     if( !pager.filters ) pager.filters = {};
@@ -182,88 +182,96 @@
       form.hideModal(); // success
     } );
   }
+  
+  let renderMap = {
+    note: function( note ) {
+      return JSON.stringify( note );
+    },
+  };
 </script>
 
 
 <section class='dashboard'>
-	<Menu access={segments}/>
-	<div class='dashboard_main_content'>
-		<ProfileHeader access={segments}/>
-		<AdminSubMenu></AdminSubMenu>
-		<div class='content'>
-			<ModalForm
-				bind:this={form}
-				fields={fields}
-				onConfirm={saveRow}
-				rowType='Property'
-			>
-			</ModalForm>
-			<section class='tableview_container'>
-				<TableView
-					bind:pager={pager}
-					extraActions={extraActions}
-					fields={fields}
-					onEditRow={editRow}
-					onRefreshTableView={refreshTableView}
-					rows={properties}
-					widths={{mainUse: '320px', address: '240px'}}
-				>
-					<button class='action_btn' on:click={addRow}>
-						<Icon color='#FFF' size={17} src={FaSolidPlusCircle}/>
-						<span>Add</span>
-					</button>
-					<button
-						class='action_btn'
-						class:not_filtered={!filterdByPending}
-						on:click={filterPendingApproval}
-					>
-						<Icon color='{!filterdByPending ? "#FFF" : "#000"}' size={17} src={FaSolidCheckDouble}/>
-						<span>Filter Pending</span>
-					</button>
-					<button
-						class='action_btn'
-						class:not_filtered={!filterdByRejected}
-						on:click={filterRejectedApproval}
-					>
-						<Icon color='{!filterdByRejected ? "#FFF" : "#000"}' size={17} src={FaSolidRecycle}/>
-						<span>Filter Rejected</span>
-					</button>
-				</TableView>
-			</section>
-		</div>
-		<Footer></Footer>
-	</div>
-	<ModalDialog bind:this={propHistoryModal}>
-		<div slot='content'>
-			<h3>Property History</h3>
-			{#if currentPropHistory && currentPropHistory.length}
-				{#each currentPropHistory as row}
-					{#each Object.entries( row ) as [key, val]}
-						{#if val==='0' || !val}
-							&nbsp;
-						{:else if key==='createdAt' || key==='updatedAt'}
-							<PillBox label={key} content={new Date(val*1000)}/>
-						{:else if key==='priceNtd' || key==='pricePerUnit'}
-							<PillBox label={key} content={priceNtd(val)}/>
-						{:else}
-							<PillBox label={key} content={val}/>
-						{/if}
-					{/each}
-				{/each}
-			{:else}
-				no history for this property
-			{/if}
-		</div>
-	</ModalDialog>
+  <Menu access={segments} />
+  <div class='dashboard_main_content'>
+    <ProfileHeader access={segments} />
+    <AdminSubMenu></AdminSubMenu>
+    <div class='content'>
+      <ModalForm
+        bind:this={form}
+        fields={fields}
+        onConfirm={saveRow}
+        rowType='Property'
+      >
+      </ModalForm>
+      <section class='tableview_container'>
+        <TableView
+          bind:pager={pager}
+          extraActions={extraActions}
+          fields={fields}
+          onEditRow={editRow}
+          onRefreshTableView={refreshTableView}
+          rows={properties}
+          renderFuncs={renderMap}
+          widths={{mainUse: '320px', address: '240px'}}
+        >
+          <button class='action_btn' on:click={addRow}>
+            <Icon color='#FFF' size={17} src={FaSolidPlusCircle} />
+            <span>Add</span>
+          </button>
+          <button
+            class='action_btn'
+            class:not_filtered={!filterdByPending}
+            on:click={filterPendingApproval}
+          >
+            <Icon color='{!filterdByPending ? "#FFF" : "#000"}' size={17} src={FaSolidCheckDouble} />
+            <span>Filter Pending</span>
+          </button>
+          <button
+            class='action_btn'
+            class:not_filtered={!filterdByRejected}
+            on:click={filterRejectedApproval}
+          >
+            <Icon color='{!filterdByRejected ? "#FFF" : "#000"}' size={17} src={FaSolidRecycle} />
+            <span>Filter Rejected</span>
+          </button>
+        </TableView>
+      </section>
+    </div>
+    <Footer></Footer>
+  </div>
+  <ModalDialog bind:this={propHistoryModal}>
+    <div slot='content'>
+      <h3>Property History</h3>
+      {#if currentPropHistory && currentPropHistory.length}
+        {#each currentPropHistory as row}
+          {#each Object.entries( row ) as [key, val]}
+            {#if val==='0' || !val}
+              &nbsp;
+            {:else if key==='createdAt' || key==='updatedAt'}
+              <PillBox label={key} content={new Date(val*1000)} />
+            {:else if key==='priceNtd' || key==='pricePerUnit'}
+              <PillBox label={key} content={priceNtd(val)} />
+            {:else}
+              <PillBox label={key} content={val} />
+            {/if}
+          {/each}
+        {/each}
+      {:else}
+        no history for this property
+      {/if}
+    </div>
+  </ModalDialog>
 </section>
 
 <style>
-    .action_btn.not_filtered {
-        background-color : #6366F1;
-        color            : white;
-        flex-direction   : row;
-    }
-    .action_btn.not_filtered:hover {
-        background-color : #7E80F1;
-    }
+  .action_btn.not_filtered {
+    background-color : #6366F1;
+    color            : white;
+    flex-direction   : row;
+  }
+
+  .action_btn.not_filtered:hover {
+    background-color : #7E80F1;
+  }
 </style>

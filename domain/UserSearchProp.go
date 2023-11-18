@@ -34,7 +34,8 @@ type (
 	}
 
 	Property struct {
-		*rqProperty.Property
+		*rqProperty.PropertyWithNote
+
 		Lat float64 `json:"lat" form:"lat" query:"lat" long:"lat" msg:"lat"`
 		Lng float64 `json:"lng" form:"lng" query:"lng" long:"lng" msg:"lng"`
 
@@ -121,7 +122,7 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 	satisfiedProperties := make([]Property, 0, in.Limit)
 
 	ok := prop.FindByLatLongAndCountry(d.PropOltp, sess.Country, in.CenterLat, in.CenterLong, in.Limit, in.Offset, func(row []any) bool {
-		item := Property{Property: &rqProperty.Property{}}
+		item := Property{PropertyWithNote: &rqProperty.PropertyWithNote{Property: &rqProperty.Property{}}}
 		item.FromArray(row)
 		if item.DeletedAt > 0 { // skip deleted property
 			return true
@@ -131,7 +132,6 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 			item.Lng = X.ToF(item.Coord[1])
 		}
 		item.id = item.Id
-		item.NormalizeFloorList()
 		item.DistanceKM = conf.DistanceKm(item.Lat, item.Lng, in.CenterLat, in.CenterLong)
 		if item.DistanceKM > in.MaxDistanceKM {
 			return false

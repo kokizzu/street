@@ -315,7 +315,7 @@ func (d *Domain) AdminProperties(in *AdminPropertiesIn) (out AdminPropertiesOut)
 		fallthrough
 	case zCrud.CmdList:
 		r := rqProperty.NewProperty(d.PropOltp)
-		out.Properties = r.FindByPagination(&AdminPropertiesMeta, &in.Pager, &out.Pager)
+		out.Properties = r.FindByPaginationWithNote(&AdminPropertiesMeta, &in.Pager, &out.Pager)
 	}
 
 	return

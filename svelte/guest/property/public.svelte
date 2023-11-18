@@ -14,7 +14,7 @@
   let meta = {/* propertyMeta */};
   
   let isAdmin = false;
-  
+
   function copyToClipboard( text ) {
     console.log( window.location );
     navigator.clipboard.writeText( text );
@@ -23,11 +23,11 @@
 </script>
 
 <section class='property_container'>
-  {#if propItem.deletedAt<=0}
+  {#if propItem.deletedAt>0}
     this property has been deleted
   {:else}
     <div class='property'>
-      <Property {propItem} {meta} {isAdmin} />
+      <Property {propItem} {meta} {isAdmin} isGuest={true}/>
     </div>
     <div class='side_attribute'>
       <div class='login_container'>

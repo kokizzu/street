@@ -3,6 +3,7 @@ package rqProperty
 import (
 	"fmt"
 
+	"github.com/goccy/go-json"
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
@@ -10,6 +11,7 @@ import (
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 	"github.com/tarantool/go-tarantool"
+	"github.com/tidwall/gjson"
 
 	"street/conf"
 	"street/model/mProperty"
@@ -17,6 +19,33 @@ import (
 )
 
 // TODO: this is slow, use tarantool-go api instead
+
+type PropertyWithNote struct {
+	*Property
+	ContactEmail string `json:"contactEmail" form:"contactEmail" query:"contactEmail" long:"contactEmail" msg:"contactEmail"`
+	ContactPhone string `json:"contactPhone" form:"contactPhone" query:"contactPhone" long:"contactPhone" msg:"contactPhone"`
+	About        string `json:"about" form:"about" query:"about" long:"about" msg:"about"`
+}
+
+func (pwn *PropertyWithNote) FromArray(row []any) {
+	pwn.Property.FromArray(row)
+	pwn.NormalizeFloorList()
+	var nt PropertyNote
+	if json.Unmarshal([]byte(pwn.Property.Note), &nt) != nil {
+		pwn.About = nt.About
+		pwn.ContactEmail = nt.ContactEmail
+		pwn.ContactPhone = nt.ContactPhone
+	}
+}
+
+func (rq *Property) ToPropertyWithNote() PropertyWithNote {
+	return PropertyWithNote{
+		Property:     rq,
+		ContactEmail: gjson.Get(rq.Note, `contactEmail`).String(),
+		ContactPhone: gjson.Get(rq.Note, `contactPhone`).String(),
+		About:        gjson.Get(rq.Note, `about`).String(),
+	}
+}
 
 func (rq *Property) FindPropertiesBySerialNumber(serialNumber string) (res []*Property) {
 	const comment = `-- Property) FindPropertiesBySerialNumber`
@@ -137,6 +166,44 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	return
 }
 
+type PropertyNote struct {
+	ContactEmail string `json:"contactEmail" form:"contactEmail" query:"contactEmail" long:"contactEmail" msg:"contactEmail"`
+	ContactPhone string `json:"contactPhone" form:"contactPhone" query:"contactPhone" long:"contactPhone" msg:"contactPhone"`
+	About        string `json:"about" form:"about" query:"about" long:"about" msg:"about"`
+}
+
+func (p *Property) FindByPaginationWithNote(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
+	const comment = `-- Property) FindByPaginationWithNote`
+
+	validFields := PropertyFieldTypeMap
+	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
+
+	queryCount := comment + `
+SELECT COUNT(1)
+FROM ` + p.SqlTableName() + whereAndSql + `
+LIMIT 1`
+	p.Adapter.QuerySql(queryCount, func(row []any) {
+		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
+	})
+
+	orderBySql := out.OrderBySqlTt(in.Order, validFields)
+	limitOffsetSql := out.LimitOffsetSql()
+
+	queryRows := comment + `
+SELECT ` + meta.ToSelect() + `
+FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+	p.Adapter.QuerySql(queryRows, func(row []any) {
+		var nt PropertyNote
+		row[0] = X.ToS(row[0]) // ensure id is string
+		if nil != json.Unmarshal([]byte(X.ToS(row[p.IdxNote()])), &nt) {
+			row[p.IdxNote()] = nt
+		}
+		res = append(res, row)
+	})
+
+	return
+}
+
 func (p *PropertyUS) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
 	const comment = `-- PropertyUS) FindByPagination`
 
@@ -165,7 +232,7 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	return
 }
 
-func (p *Property) FindOwnedByPagination(ownerId uint64, in *zCrud.PagerIn, out *zCrud.PagerOut) (res []Property) {
+func (p *Property) FindOwnedByPagination(ownerId uint64, in *zCrud.PagerIn, out *zCrud.PagerOut) (res []PropertyWithNote) {
 	const comment = `-- Property) FindOwnedByPagination`
 
 	validFields := PropertyFieldTypeMap
@@ -188,7 +255,7 @@ LIMIT 1`
 	orderBySql := out.OrderBySqlTt(in.Order, validFields)
 	limitOffsetSql := out.LimitOffsetSql()
 
-	res = make([]Property, 0, out.PerPage)
+	res = make([]PropertyWithNote, 0, out.PerPage)
 	count := 0
 
 	queryRows := comment + `
@@ -196,9 +263,8 @@ SELECT ` + p.SqlSelectAllFields() + `
 FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 
 	p.Adapter.QuerySql(queryRows, func(row []any) {
-		res = append(res, Property{})
+		res = append(res, PropertyWithNote{Property: &Property{}})
 		res[count].FromArray(row)
-		res[count].NormalizeFloorList()
 		count++
 	})
 	return
