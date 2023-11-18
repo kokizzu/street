@@ -44,6 +44,7 @@ func (d *Domain) RealtorProperty(in *RealtorPropertyIn) (out RealtorPropertyOut)
 		return
 	}
 	r.NormalizeFloorList()
+	r.Adapter = nil
 
 	propertyWithNote := r.ToPropertyWithNote()
 	out.Property = &propertyWithNote

@@ -224,7 +224,7 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	return
 }
 
-func (p *Property) FindOwnedByPagination(ownerId uint64, in *zCrud.PagerIn, out *zCrud.PagerOut) (res []Property) {
+func (p *Property) FindOwnedByPagination(ownerId uint64, in *zCrud.PagerIn, out *zCrud.PagerOut) (res []PropertyWithNote) {
 	const comment = `-- Property) FindOwnedByPagination`
 
 	validFields := PropertyFieldTypeMap
@@ -247,7 +247,7 @@ LIMIT 1`
 	orderBySql := out.OrderBySqlTt(in.Order, validFields)
 	limitOffsetSql := out.LimitOffsetSql()
 
-	res = make([]Property, 0, out.PerPage)
+	res = make([]PropertyWithNote, 0, out.PerPage)
 	count := 0
 
 	queryRows := comment + `
@@ -255,9 +255,19 @@ SELECT ` + p.SqlSelectAllFields() + `
 FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 
 	p.Adapter.QuerySql(queryRows, func(row []any) {
-		res = append(res, Property{})
+		res = append(res, PropertyWithNote{})
 		res[count].FromArray(row)
 		res[count].NormalizeFloorList()
+
+		var nt note
+		err := json.Unmarshal([]byte(X.ToS(row[p.IdxNote()])), &nt)
+		if err != nil {
+			L.Print(`Error unmarshall string to JSON for properties with note:`, err)
+		} else {
+			res[count].About = nt.About
+			res[count].ContactEmail = nt.ContactEmail
+			res[count].ContactPhone = nt.ContactPhone
+		}
 		count++
 	})
 	return
