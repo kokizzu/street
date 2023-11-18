@@ -1,9 +1,9 @@
 <script>
     export let label = 'label';
-    export let content = 'content';
+    export let content = '';
 </script>
 
-{#if content !== ''}
+{#if content}
 <span class='pill-box pill-blue'>
     <span class='pill-box-left'>{label}</span>
     <span class='pill-box-right'>{content}</span>

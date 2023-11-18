@@ -27,6 +27,17 @@ type PropertyWithNote struct {
 	About        string `json:"about" form:"about" query:"about" long:"about" msg:"about"`
 }
 
+func (pwn *PropertyWithNote) FromArray(row []any) {
+	pwn.Property.FromArray(row)
+	pwn.NormalizeFloorList()
+	var nt PropertyNote
+	if json.Unmarshal([]byte(pwn.Property.Note), &nt) != nil {
+		pwn.About = nt.About
+		pwn.ContactEmail = nt.ContactEmail
+		pwn.ContactPhone = nt.ContactPhone
+	}
+}
+
 func (rq *Property) ToPropertyWithNote() PropertyWithNote {
 	return PropertyWithNote{
 		Property:     rq,
@@ -184,8 +195,7 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	p.Adapter.QuerySql(queryRows, func(row []any) {
 		var nt PropertyNote
 		row[0] = X.ToS(row[0]) // ensure id is string
-		err := json.Unmarshal([]byte(X.ToS(row[p.IdxNote()])), &nt)
-		if !L.IsError(err, `Property) FindByPaginationWithNote json.Unmarshal`) {
+		if nil != json.Unmarshal([]byte(X.ToS(row[p.IdxNote()])), &nt) {
 			row[p.IdxNote()] = nt
 		}
 		res = append(res, row)
@@ -255,15 +265,6 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	p.Adapter.QuerySql(queryRows, func(row []any) {
 		res = append(res, PropertyWithNote{Property: &Property{}})
 		res[count].FromArray(row)
-		res[count].NormalizeFloorList()
-
-		var nt PropertyNote
-		err := json.Unmarshal([]byte(X.ToS(row[p.IdxNote()])), &nt)
-		if !L.IsError(err, `roperty) FindOwnedByPagination json.Unmarshal`) {
-			res[count].About = nt.About
-			res[count].ContactEmail = nt.ContactEmail
-			res[count].ContactPhone = nt.ContactPhone
-		}
 		count++
 	})
 	return

@@ -6145,7 +6145,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let if_block_anchor;
     let if_block = (
       /*content*/
-      ctx[1] !== "" && create_if_block3(ctx)
+      ctx[1] && create_if_block3(ctx)
     );
     return {
       c() {
@@ -6161,7 +6161,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       p(ctx2, [dirty]) {
         if (
           /*content*/
-          ctx2[1] !== ""
+          ctx2[1]
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
@@ -6188,7 +6188,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   }
   function instance5($self, $props, $invalidate) {
     let { label = "label" } = $props;
-    let { content = "content" } = $props;
+    let { content = "" } = $props;
     $self.$set = ($props2) => {
       if ("label" in $props2)
         $invalidate(0, label = $props2.label);

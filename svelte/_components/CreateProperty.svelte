@@ -583,11 +583,11 @@
 									<input id='floors' type='number' placeholder='10' min='0' bind:value={property.floors}/>
 								</div>
                 <div class='input_box'>
-									<label for='contact'>Email</label>
+									<label for='contact'>Seller/Broker Email</label>
 									<input id='contact' type='text' placeholder='johndoe@example.com' bind:value={noteObj.contactEmail}/>
 								</div>
                 <div class='input_box'>
-									<label for='contact'>Cellphone</label>
+									<label for='contact'>Seller/Broker Cellphone</label>
 									<input id='contact' type='number' placeholder='+1 (555) 555-5555' bind:value={noteObj.contactPhone}/>
 								</div>
 							</div>
@@ -1038,10 +1038,10 @@
 							</div>
 						</div>
 						<div class='actions'>
-							<button class='new' on:click={() =>{window.location.href = "/realtor/property"}}>Create New one</button>
-							<button class='see' on:click={() => {window.location.href = `/realtor/property/${res_propId}`}}>Edit the property</button>
-							<button class='see' on:click={() => {window.location.href = `/guest/property/${res_propId}`}}>See the property as guest</button>
-							<button class='see' on:click={() => {window.location.href = `/user/property/${res_propId}`}}>See the property as logged in user</button>
+							<a class='new' href="/realtor/property">Create New one</a>
+							<a class='see' href="/realtor/property/{res_propId}">Edit the property</a>
+							<a class='see' href="/guest/property/{res_propId}" target='_blank'>See the property as guest</a>
+							<a class='see' href="/user/property/{res_propId}" target='_blank'>See the property as logged in user</a>
 						</div>
 					</div>
 				{/if}
@@ -1997,24 +1997,24 @@
         font-weight   : 600;
     }
 
-    .preview .property_submitted_container .actions button.new {
+    .preview .property_submitted_container .actions a.new {
         background-color : #F97316;
         color            : white;
         display          : flex;
         justify-content  : center;
     }
 
-    .preview .property_submitted_container .actions button.new:hover {
+    .preview .property_submitted_container .actions a.new:hover {
         background-color : #F58433;
     }
 
-    .preview .property_submitted_container .actions button.see {
+    .preview .property_submitted_container .actions a.see {
         margin-right     : 10px;
         border           : 1px solid #CBD5E1;
         background-color : #F1F5F9;
     }
 
-    .preview .property_submitted_container .actions button.see:hover {
+    .preview .property_submitted_container .actions a.see:hover {
         border : 1px solid #F97316;
         color  : #F97316;
     }

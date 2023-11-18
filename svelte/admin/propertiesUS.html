@@ -10099,7 +10099,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let if_block_anchor;
     let if_block = (
       /*content*/
-      ctx[1] !== "" && create_if_block6(ctx)
+      ctx[1] && create_if_block6(ctx)
     );
     return {
       c() {
@@ -10115,7 +10115,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       p(ctx2, [dirty]) {
         if (
           /*content*/
-          ctx2[1] !== ""
+          ctx2[1]
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
@@ -10142,7 +10142,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
   }
   function instance10($self, $props, $invalidate) {
     let { label = "label" } = $props;
-    let { content = "content" } = $props;
+    let { content = "" } = $props;
     $self.$set = ($props2) => {
       if ("label" in $props2)
         $invalidate(0, label = $props2.label);
