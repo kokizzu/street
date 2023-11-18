@@ -6,7 +6,7 @@ setup:
 	go install github.com/kokizzu/replacer@latest
 	go install github.com/akbarfa49/farify@latest
 	go install golang.org/x/tools/cmd/goimports@latest
-	curl -fsSL https://get.pnpm.io/install.sh | bash -
+	#curl -fsSL https://get.pnpm.io/install.sh | bash -
 	curl -fsSL https://bun.sh/install | bash
 
 local-tarantool:
