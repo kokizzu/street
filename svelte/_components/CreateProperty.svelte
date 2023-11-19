@@ -18,13 +18,12 @@
   import AddOtherFeesDialog from "./AddOtherFeesDialog.svelte";
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import {RealtorUpsertProperty} from "../jsApi.GEN";
-  import StreetView from "./GoogleMap/StreetView.svelte";
   import {onMount} from "svelte";
   
   export let user;
   export let property;
   export let countries;
-  let currentPage = 0, isPropertySubmitted = false;
+  let currentPage = 0, isPropertySubmitted = true;
   let cards = [{}, {}, {}, {}];
   
   let countryCurrency = 'TWD';
@@ -104,6 +103,7 @@
   }
   
   function progressDotHandler( toPage ) {
+    currentPage = toPage;
     let card = cards[ toPage ];
     card.scrollIntoView( {behavior: 'smooth'} );
   }
@@ -138,7 +138,7 @@
   let map, map_container, input_address, input_address_value;
 
   let noteObj = {
-    contactPhone:"",
+    contactPhone: "",
     contactEmail: "",
     about: ""
   }
@@ -687,30 +687,30 @@
 								<div class='room_area'>
 									{#if property.houseType!=='land'}
 										<div class='input_box beds'>
-											<label for='beds'>
-												<Icon color='#475569' size={16} src={FaSolidBed}/>
+											<label for='beds' class="with_icon">
+												<Icon className="labels_icon" color='#475569' size={16} src={FaSolidBed}/>
 												<span>Beds</span>
 											</label>
 											<input id='beds' type='number' min='0' bind:value={property.bedroom}/>
 										</div>
 										<div class='input_box baths'>
-											<label for='baths'>
-												<Icon color='#475569' size={13} src={FaSolidBath}/>
+											<label for='baths' class="with_icon">
+												<Icon className="labels_icon" color='#475569' size={13} src={FaSolidBath}/>
 												<span>Baths</span>
 											</label>
 											<input id='baths' type='number' min='0' bind:value={property.bathroom}/>
 										</div>
 										<div class='input_box livings'>
-											<label for='livings'>
-												<Icon color='#475569' size={13} src={FaSolidChair}/>
+											<label for='livings' class="with_icon">
+												<Icon className="labels_icon" color='#475569' size={13} src={FaSolidChair}/>
 												<span>Livings</span>
 											</label>
 											<input id='livings' type='number' min='0' bind:value={property.livingroom}/>
 										</div>
 									{/if}
 									<div class='input_box area'>
-										<label for='area'>
-											<Icon color='#475569' size={13} src={FaSolidBorderStyle}/>
+										<label for='area' class="with_icon">
+											<Icon className="labels_icon" color='#475569' size={13} src={FaSolidBorderStyle}/>
 											<span>{infoUnitMode} <span class='asterisk'>*</span></span>
 											<button class='unit_toggle' on:click={handleInfoUnitMode.toggle}>
 												<span class='bg'></span>
@@ -1068,6 +1068,8 @@
     :global(.spin) {
         animation : spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
     }
+
+    
 
     .realtor_subpage_container section .back_button {
         padding          : 8px;
@@ -1988,13 +1990,16 @@
         height         : fit-content;
     }
 
-    .preview .property_submitted_container .actions button {
+    .preview .property_submitted_container .actions a {
         border-radius : 8px;
         border        : none;
         padding       : 10px;
         cursor        : pointer;
         width         : 100%;
         font-weight   : 600;
+        text-decoration: none;
+        text-align: center;
+        color: #475569;
     }
 
     .preview .property_submitted_container .actions a.new {
@@ -2066,5 +2071,22 @@
             flex-direction: column;
             gap                   : 20px;
           }
+        
+          :global(.labels_icon) {
+            width  : 10px;
+            height : 10px;
+          }
+
+        .input_box .with_icon {
+          font-size: 11px;
+        }
+
+        .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area {
+          gap            : 10px;
+        }
+
+        .realtor_subpage_container section.info .subpage_content .feature .inputs .room_area .input_box {
+          justify-content: space-between !important;
+        }
     }
 </style>
