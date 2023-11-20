@@ -25,11 +25,30 @@
   export let countries;
   let currentPage = 0, isPropertySubmitted = true;
   let cards = [{}, {}, {}, {}];
+  let stackContainerElm, stacks, observer;
   
   let countryCurrency = 'TWD';
   const defaultLat = 23.6978, defaultLng = 120.9605;
   
   onMount( () => {
+    stacks = document.querySelectorAll('#subpage_container .subpage');
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.intersectionRatio === 1) {
+          const elementId = entry.target.id;
+          const matchNum = elementId.match(/\d+/);
+          if (matchNum) {
+            currentPage = parseInt(matchNum[0]);
+          }
+          console.log( 'onIntersect', entry );
+        }
+      })
+    }, {
+      root: stackContainerElm,
+      rootMargin: '0px',
+      threshold: 1.0,
+    });
+
     console.log("User data = ", user)
     property = {
       countryCode: user.country,
@@ -69,6 +88,12 @@
     }
     console.log('property.countryCode=',property.countryCode)
   } );
+
+  function subpageScroll() {
+    stacks.forEach( stack => {
+      observer.observe(stack);
+    })
+  }
   
   function GetPayload() {
     property.note = JSON.stringify(noteObj);
@@ -506,7 +531,6 @@
   }
 </script>
 
-
 <div class='realtor_step_progress_bar'>
 	<div class='container'>
 		<a class='back_button' href='/realtor'>
@@ -534,8 +558,8 @@
 </div>
 <div class="create_property_container">
 	<div class='content'>
-		<div class='realtor_subpage_container'>
-			<section bind:this={cards[0]} class='location' id='subpage_1'>
+		<div class='realtor_subpage_container' on:scroll={subpageScroll} id='subpage_container' bind:this={stackContainerElm}>
+			<section bind:this={cards[0]} class='subpage location' id='subpage_1'>
 				{#if modeLocation!==LOC_ADDR}
 					<button
 						class='back_button'
@@ -649,7 +673,7 @@
 					<span>NEXT</span>
 				</button>
 			</section>
-			<section bind:this={cards[1]} class='info' id='subpage_2'>
+			<section bind:this={cards[1]} class='subpage info' id='subpage_2'>
 				<AddOtherFeesDialog
 					bind:fee={otherFeeObj.fee}
 					bind:name={otherFeeObj.name}
@@ -840,7 +864,7 @@
 					<span>NEXT</span>
 				</button>
 			</section>
-			<section bind:this={cards[2]} class='picture' id='subpage_3'>
+			<section bind:this={cards[2]} class='subpage picture' id='subpage_3'>
 				<button class='back_button' on:click={backPage}>
 					<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
 				</button>
@@ -896,7 +920,7 @@
 					<span>NEXT</span>
 				</button>
 			</section>
-			<section bind:this={cards[3]} class='preview' id='subpage_4'>
+			<section bind:this={cards[3]} class='subpage preview' id='subpage_4'>
 				{#if isPropertySubmitted===false}
 					<button class='back_button' on:click={backPage}>
 						<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
