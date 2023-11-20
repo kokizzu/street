@@ -242,7 +242,7 @@ func main() {
 		zImport.ImportPropertyHistoryUsData(tConn, baseUrl, minPropertyIdNumber, maxPropertyIdNumber)
 
 	case `migrate_property_us_image`:
-		zImport.MigratePropertyUSImage(tConn, 1, 4000000)
+		zImport.MigratePropertyUSImage(tConn, 4000001, 8000000)
 	case `clean_excessive_attr_property_extra_us`:
 		zImport.CleanExcessiveAttrPropertyExtraUs(tConn)
 	case `import_location`:
