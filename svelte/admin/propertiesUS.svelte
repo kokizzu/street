@@ -10,7 +10,7 @@
   import HiSolidXCircle from 'svelte-icons-pack/hi/HiSolidXCircle';
   import HiSolidCheckCircle from 'svelte-icons-pack/hi/HiSolidCheckCircle';
   import { AdminPropertiesUS, UserPropHistory } from '../jsApi.GEN';
-  import Growl from '../_components/Growl.svelte';
+  import {notifier} from '_components/notifier.js';
   
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
@@ -25,7 +25,6 @@
   let segments = {/* segments */};
   let fields = [/* fields */];
   let fieldByKey = fieldsArrToMap( fields );
-  console.log( fieldByKey );
   let properties = [/* properties */] || [];
   let pager = {/* pager */};
   let currentPropHistory = [];
@@ -38,7 +37,10 @@
         UserPropHistory( {
           propertyKey: propertyKey,
         }, function( res ) {
-          if( res.error ) alert( res.error );
+          if( res.error ) {
+            notifier.showError( res.error );
+            return;
+          }
           propHistoryModal.showModal();
           currentPropHistory = res.history || [];
         } );
@@ -58,7 +60,10 @@
             pager: pager,
           },
           function( res ) {
-            if( res.error ) alert( res.error );
+            if( res.error ) {
+              notifier.showError( res.error );
+              return;
+            }
             refreshTableView( pager );
           } );
       },
@@ -77,7 +82,10 @@
           cmd: 'upsert',
           property: {id: id, approvalState: reason},
         }, function( res ) {
-          if( res.error ) alert( res.error );
+          if( res.error ) {
+            notifier.showError( res.error );
+            return;
+          }
           refreshTableView( pager );
         } );
       },
@@ -86,14 +94,13 @@
   
   $: console.log( 'properties=', properties );
 
-  let growl8 = Growl;
   let propHistoryModal = ModalDialog;
   
   // return true if got error
   function handleResponse( res ) {
     console.log( res );
     if( res.error ) {
-      alert( res.error );
+      notifier.showError( res.error );
       return true;
     }
     if( res.properties && res.properties.length ) properties = res.properties;

@@ -1,19 +1,19 @@
 <script>
   //@ts-nocheck
   import { GuestResetPassword } from '../jsApi.GEN';
-  import Growl from '../_components/Growl.svelte'
+  import Growl from '../_components/Growl.svelte';
+  import {notifier} from '../_components/notifier.js';
 
   let password = '';
   let pass2 = '';
-  let growl2 = Growl;
 
   async function resetPassword() {
     if (password.length < 12) {
-      alert('password must be at least 12 characters');
+      notifier.showError('password must be at least 12 characters');
       return
     }
     if (password !== pass2) {
-      alert('password confirmation does not match');
+      notifier.showError('password confirmation does not match');
       return
     }
     const queryParam = window.location.href.split('?')[1];
@@ -27,12 +27,11 @@
     }
     let i = { secretCode, hash, password };
     await GuestResetPassword(i, function (o) {
-      console.log(o);
       if (o.error) {
-        alert(o.error);
+        notifier.showError(o.error);
         return
       }
-      alert('password reset successful');
+      notifier.showSuccess('password reset successful');
       window.location.href = '/';
     });
   }

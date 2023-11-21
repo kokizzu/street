@@ -6040,6 +6040,79 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     c: '<path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path>'
   };
 
+  // _components/notifier.js
+  var Notifier = function() {
+    let a = {
+      container: null,
+      default_time: 4500,
+      vanish_time: 300,
+      fps: 30,
+      success: {
+        classes: "alert-success",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
+      },
+      error: {
+        classes: "alert-danger",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
+      },
+      warning: {
+        classes: "alert-warning",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
+      },
+      info: {
+        classes: "alert-info",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
+      }
+    }, b = function(a2, b2, c, d, e, f, g) {
+      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
+      let h = document.createElement("p");
+      h.className = "progress", this.element.appendChild(h), this.callback = g;
+      let j = this;
+      this.push = function() {
+        if (!j.pushed) {
+          j.pushed = true;
+          let a3 = 0, b3 = 1e3 / f;
+          j.element.style.display = "block", j.interval = setInterval(function() {
+            a3++;
+            let c2 = 100 * (1 - b3 * a3 / d);
+            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
+          }, b3);
+        }
+      }, this.clear = function() {
+        if (j.pushed) {
+          let a3 = 1e3 / f, b3 = 1;
+          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
+            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
+          }, a3);
+        }
+      }, this.destroy = function() {
+        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
+      };
+    };
+    return function Notifier2(c) {
+      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
+        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
+      };
+      this.showInfo = function(infoMsg) {
+        let notification = this.notify("info", infoMsg);
+        notification.push();
+      };
+      this.showSuccess = function(okMsg) {
+        let notification = this.notify("success", okMsg);
+        notification.push();
+      };
+      this.showError = function(errMsg) {
+        let notification = this.notify("error", errMsg);
+        notification.push();
+      };
+      this.showWarning = function(warnMsg) {
+        let notification = this.notify("warning", warnMsg);
+        notification.push();
+      };
+    };
+  }();
+  var notifier = new Notifier();
+
   // _components/Menu.svelte
   function create_if_block_5(ctx) {
     let button;
@@ -6861,9 +6934,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     });
     async function userLogout() {
       await (0, import_jsApi_GEN.UserLogout)({}, function(o) {
-        console.log(o);
-        if (o.error)
-          return alert(o.error);
+        if (o.error) {
+          notifier.showError(o.error);
+          return;
+        }
+        notifier.showSuccess("Logged out");
         window.location = "/";
       });
     }
@@ -7523,8 +7598,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       if (user2 !== null && user2.language !== selectedLanguage) {
         $invalidate(8, user2.language = selectedLanguage, user2);
         await (0, import_jsApi_GEN2.UserUpdateProfile)(user2, function(res) {
-          if (res.error)
-            return console.log("error");
+          if (res.error) {
+            notifier.showError(res.error);
+            return;
+          }
           $invalidate(8, user2 = res.user);
         });
       }
@@ -7533,27 +7610,29 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     async function userLogout() {
       await (0, import_jsApi_GEN2.UserLogout)({}, function(o) {
         console.log(o);
-        if (o.error)
-          return alert(o.error);
+        if (o.error) {
+          notifier.showError(o.error);
+          return;
+        }
+        notifier.showSuccess("Logged out");
         window.location = "/";
       });
     }
     let userMessage = "", showFeedbackDialog = false;
     function sendFeedback() {
       if (userMessage === "") {
-        alert("Please enter your feedback");
+        notifier.showError("Please enter your feedback");
         return;
       }
       (0, import_jsApi_GEN2.UserSendFeedback)({ userMessage }, function(res) {
         if (res.error) {
           $invalidate(3, userMessage = "");
           $invalidate(4, showFeedbackDialog = false);
-          alert(res.error);
+          notifier.showError(res.error);
           return;
         }
         $invalidate(3, userMessage = "");
-        console.log(res);
-        alert("success");
+        notifier.showSuccess("feedback sent");
         $invalidate(4, showFeedbackDialog = false);
       });
     }
@@ -12953,7 +13032,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let { user: user2 } = $props;
     let { property: property2 } = $props;
     let { countries: countries2 } = $props;
-    let currentPage = 0, isPropertySubmitted = true;
+    let currentPage = 0, isPropertySubmitted = false;
     let cards = [{}, {}, {}, {}];
     let stackContainerElm, stacks, observer;
     let countryCurrency = "TWD";
@@ -12968,7 +13047,6 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               if (matchNum) {
                 $invalidate(2, currentPage = parseInt(matchNum[0]));
               }
-              console.log("onIntersect", entry);
             }
           });
         },
@@ -13124,8 +13202,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
       }).catch((e) => {
         $invalidate(12, input_address_value = "");
+        notifier.showError("cannot get address");
       });
-      console.log("current coord =", property2.coord);
       const markerEventHandler = (event) => {
         $invalidate(0, property2.coord[0] = event.latLng.lat(), property2);
         $invalidate(0, property2.coord[1] = event.latLng.lng(), property2);
@@ -13159,7 +13237,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               }
             }
           } else {
-            alert("Address not found");
+            notifier.showError("Address not found");
             $invalidate(0, property2.formattedAddresss = "", property2);
             $invalidate(0, property2.country = "", property2);
           }
@@ -13193,7 +13271,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         const bounds = new google.maps.LatLngBounds();
         places.forEach((place) => {
           if (!place.geometry || !place.geometry.location) {
-            alert("Returned place contains no geometry");
+            notifier.showError("Returned place contains no geometry");
             return;
           }
           markers.push(createMarker(map, place.geometry.location));
@@ -13202,7 +13280,6 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           } else {
             bounds.extend(place.geometry.location);
           }
-          console.log(markers);
         });
         map.fitBounds(bounds);
       });
@@ -13225,9 +13302,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     }
     const handleNextLocation = {
       "LOC_ADDR": async () => {
-        console.log("property=", property2);
         if (property2.city === "" || property2.street === "") {
-          alert("Please fill required form");
+          notifier.showError("Please fill required form");
           return;
         }
         for (let i = 0; i < countries2.length; i++) {
@@ -13245,7 +13321,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       },
       "LOC_MAP": () => {
         if (property2.formattedAddress === "") {
-          alert("Please mark location on map");
+          notifier.showError("Please mark location on map");
           return;
         }
         $invalidate(7, modeLocationCount += 1);
@@ -13333,7 +13409,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           $invalidate(0, property2.sizeM2 = houseSize, property2);
         }
         if (property2.sizeM2 === 0) {
-          alert("Please fill required form");
+          notifier.showError("Please fill required form");
           return;
         }
         $invalidate(14, modeInfoCount += 1);
@@ -13341,7 +13417,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       },
       "INFO_PRICE": () => {
         if (property2.lastPrice === 0 || property2.agencyFee >= 99) {
-          alert("Price cannot be 0");
+          notifier.showWarning("Price cannot be 0");
           return;
         }
         nextPage();
@@ -13374,20 +13450,20 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               $invalidate(0, property2.images = [...property2.images, out.urlPattern], property2);
               $invalidate(0, property2.imageLabels = [...property2.imageLabels, ""], property2);
             }
-            alert("Image uploaded");
+            notifier.showSuccess("Image uploaded");
           } else if (ajax.status === 413) {
-            alert("Image too large");
+            notifier.showError("Image too large");
           } else {
-            alert(`Error: ${ajax.status}  ${ajax.statusText}`);
+            notifier.showError(`Error: ${ajax.status}  ${ajax.statusText}`);
           }
         });
         ajax.addEventListener("error", function(event) {
-          alert("Network error");
+          notifier.showError("Network error");
         });
         ajax.addEventListener(
           "abort",
           function(event) {
-            alert("Upload aborted");
+            notifier.showWarning("Upload aborted");
           },
           false
         );
@@ -13399,25 +13475,25 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     function removeImage(index) {
       $invalidate(0, property2.images = property2.images.filter((_, i) => i !== index), property2);
       $invalidate(0, property2.imageLabels = property2.imageLabels.filter((_, i) => i !== index), property2);
+      notifier.showSuccess("Image removed");
     }
     let res_propId = "1";
     let submitLoading = false;
     async function handleSubmit() {
       $invalidate(26, submitLoading = true);
       let payload = GetPayload();
-      console.log("property=", property2, "payload=", payload);
       const prop = { property: payload };
       await (0, import_jsApi.RealtorUpsertProperty)(prop, function(res) {
         if (res.error) {
           $invalidate(26, submitLoading = false);
-          alert(res.error);
+          notifier.showError(res.error);
           return;
         }
-        console.log(res);
         $invalidate(26, submitLoading = false);
         $invalidate(3, isPropertySubmitted = true);
         $invalidate(0, property2.id = (res.property || {}).id + "", property2);
         $invalidate(25, res_propId = (res.property || {}).id + "");
+        notifier.showSuccess("Property created");
       });
     }
     const click_handler = () => progressDotHandler(0);
@@ -19161,16 +19237,14 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           contactEmail: "",
           about: property2.note
         });
-        console.log("Error convert string to object =", e);
+        notifier.showError(`Error convert string to object = ${e}`);
       }
-      console.log("Property = ", property2);
       $invalidate(3, approvalStatus = (0, import_formatter2.getApprovalState)(property2.approvalState));
       for (let i = 0; i < countries2.length; i++) {
         if (countries2[i].iso_2 === property2.countryCode) {
           $invalidate(5, countryCurrency = countries2[i].currency.code);
         }
       }
-      console.log("Approval status = ", approvalStatus);
     });
     function GetPayload() {
       if (property2.countryCode === "US")
@@ -19246,20 +19320,20 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               $invalidate(12, images = [...images, out.urlPattern]);
               $invalidate(13, imageLabels = [...imageLabels, ""]);
             }
-            alert("Image uploaded");
+            notifier.showSuccess("Image uploaded");
           } else if (ajax.status === 413) {
-            alert("Image too large");
+            notifier.showError("Image too large");
           } else {
-            alert(`Error: ${ajax.status}  ${ajax.statusText}`);
+            notifier.showError(`Error: ${ajax.status}  ${ajax.statusText}`);
           }
         });
         ajax.addEventListener("error", function(event) {
-          alert("Network error");
+          notifier.showError("Network error");
         });
         ajax.addEventListener(
           "abort",
           function(event) {
-            alert("Upload aborted");
+            notifier.showWarning("Upload aborted");
           },
           false
         );
@@ -19271,6 +19345,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     function removeImage(index) {
       $invalidate(12, images = images.filter((_, i) => i !== index));
       $invalidate(13, imageLabels = imageLabels.filter((_, i) => i !== index));
+      notifier.showSuccess("Image removed");
     }
     async function SaveEditPicture() {
       $invalidate(4, submitLoading = true);
@@ -19281,10 +19356,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       await (0, import_jsApi2.RealtorUpsertProperty)(prop, function(res) {
         if (res.error) {
           $invalidate(4, submitLoading = false);
-          alert(res.error);
+          notifier.showError(res.error);
           return;
         }
-        console.log(res);
+        notifier.showSuccess(res.message);
         $invalidate(4, submitLoading = false);
       });
     }
@@ -19314,7 +19389,6 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     async function SaveEditFeature() {
       if (editFeatureCount === 0) {
         $invalidate(14, editFeatureCount = 1);
-        console.log(parking);
         return;
       }
       if (editFeatureCount === 1) {
@@ -19336,10 +19410,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         await (0, import_jsApi2.RealtorUpsertProperty)(prop, function(res) {
           if (res.error) {
             $invalidate(4, submitLoading = false);
-            alert(res.error);
+            notifier.showError(res.error);
             return;
           }
-          console.log(res);
+          notifier.showSuccess("Property updated");
           $invalidate(4, submitLoading = false);
         });
       }
@@ -19353,10 +19427,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       await (0, import_jsApi2.RealtorUpsertProperty)(prop, function(res) {
         if (res.error) {
           $invalidate(4, submitLoading = false);
-          alert(res.error);
+          notifier.showError(res.error);
           return;
         }
-        console.log(res);
+        notifier.showSuccess("Property updated");
         $invalidate(4, submitLoading = false);
       });
     }
@@ -19368,10 +19442,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       await (0, import_jsApi2.RealtorUpsertProperty)(prop, function(res) {
         if (res.error) {
           $invalidate(4, submitLoading = false);
-          alert(res.error);
+          notifier.showError(res.error);
           return;
         }
-        console.log(res);
+        notifier.showSuccess("Property updated");
         $invalidate(4, submitLoading = false);
       });
     }
@@ -19395,8 +19469,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     }
     let rejectReason = "", showRejectDialog = false;
     function RejectProperty() {
-      if (rejectReason === "")
-        return alert("Reason cannot be empty");
+      if (rejectReason === "") {
+        notifier.showError("Reason cannot be empty");
+        return;
+      }
       (0, import_jsApi2.AdminProperties)(
         {
           cmd: "upsert",
@@ -19408,21 +19484,21 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         function(res) {
           if (res.error) {
             $invalidate(33, showRejectDialog = false);
-            alert(res.error);
+            notifier.showError(res.error);
             return;
           }
           $invalidate(33, showRejectDialog = false);
-          console.log(res);
+          notifier.showSuccess("Property updated");
         }
       );
     }
     function ReviewProperty() {
       (0, import_jsApi2.RealtorUpsertProperty)({ askReview: true, property: property2 }, function(res) {
         if (res.error) {
-          console.log(res);
+          notifier.showError(res.error);
           return;
         }
-        console.log(res);
+        notifier.showSuccess("your review request has been sent");
       });
     }
     function DeleteProperty() {
@@ -19430,12 +19506,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         return;
       (0, import_jsApi2.RealtorDeleteProperty)({ id: "" + property2.id }, function(res) {
         if (res.error) {
-          alert(res.error);
+          notifier.showError(res.error);
           return;
         }
-        alert("property deleted");
+        notifier.showSuccess("property deleted");
         window.location.href = "/realtor";
-        console.log(res);
       });
     }
     function textarea_input_handler() {

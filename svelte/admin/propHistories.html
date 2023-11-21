@@ -975,50 +975,6 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     top: 30px;
   }
 }
-
-/* fakecss:./_components/Growl.esbuild-svelte-fake-css */
-.growl.hidden.svelte-1nas9kk.svelte-1nas9kk {
-  display: none;
-}
-.growl.svelte-1nas9kk.svelte-1nas9kk {
-  position: fixed;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  border-radius: 3px;
-  box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
-  z-index: 9999;
-  min-width: 120px;
-  max-width: 350px;
-  height: fit-content;
-}
-.icon_growl {
-  flex-shrink: 0;
-}
-.growl.svelte-1nas9kk span.svelte-1nas9kk {
-  flex-shrink: 1;
-}
-.growl.info.svelte-1nas9kk.svelte-1nas9kk {
-  background-color: #1080E8;
-  color: #FFF;
-}
-.growl.success.svelte-1nas9kk.svelte-1nas9kk {
-  background-color: #059669;
-  color: #FFF;
-}
-.growl.error.svelte-1nas9kk.svelte-1nas9kk {
-  background-color: #EF4444;
-  color: #FFF;
-}
-.growl.warning.svelte-1nas9kk.svelte-1nas9kk {
-  background-color: #D97706;
-  color: #FFF;
-}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -3025,13 +2981,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance10 = bind2(Axios$1.prototype.request, context);
-        utils.extend(instance10, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance10, context, null, { allOwnKeys: true });
-        instance10.create = function create(instanceConfig) {
+        const instance9 = bind2(Axios$1.prototype.request, context);
+        utils.extend(instance9, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance9, context, null, { allOwnKeys: true });
+        instance9.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance10;
+        return instance9;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -3803,7 +3759,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance10, create_fragment10, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance9, create_fragment9, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3829,7 +3785,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance10 ? instance10(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance9 ? instance9(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -3842,7 +3798,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment10 ? create_fragment10($.ctx) : false;
+    $.fragment = create_fragment9 ? create_fragment9($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -4524,6 +4480,79 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     },
     c: '<path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path>'
   };
+
+  // _components/notifier.js
+  var Notifier = function() {
+    let a = {
+      container: null,
+      default_time: 4500,
+      vanish_time: 300,
+      fps: 30,
+      success: {
+        classes: "alert-success",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
+      },
+      error: {
+        classes: "alert-danger",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
+      },
+      warning: {
+        classes: "alert-warning",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
+      },
+      info: {
+        classes: "alert-info",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
+      }
+    }, b = function(a2, b2, c, d, e, f, g) {
+      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
+      let h = document.createElement("p");
+      h.className = "progress", this.element.appendChild(h), this.callback = g;
+      let j = this;
+      this.push = function() {
+        if (!j.pushed) {
+          j.pushed = true;
+          let a3 = 0, b3 = 1e3 / f;
+          j.element.style.display = "block", j.interval = setInterval(function() {
+            a3++;
+            let c2 = 100 * (1 - b3 * a3 / d);
+            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
+          }, b3);
+        }
+      }, this.clear = function() {
+        if (j.pushed) {
+          let a3 = 1e3 / f, b3 = 1;
+          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
+            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
+          }, a3);
+        }
+      }, this.destroy = function() {
+        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
+      };
+    };
+    return function Notifier2(c) {
+      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
+        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
+      };
+      this.showInfo = function(infoMsg) {
+        let notification = this.notify("info", infoMsg);
+        notification.push();
+      };
+      this.showSuccess = function(okMsg) {
+        let notification = this.notify("success", okMsg);
+        notification.push();
+      };
+      this.showError = function(errMsg) {
+        let notification = this.notify("error", errMsg);
+        notification.push();
+      };
+      this.showWarning = function(warnMsg) {
+        let notification = this.notify("warning", warnMsg);
+        notification.push();
+      };
+    };
+  }();
+  var notifier = new Notifier();
 
   // _components/Menu.svelte
   function create_if_block_5(ctx) {
@@ -5346,9 +5375,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     });
     async function userLogout() {
       await (0, import_jsApi_GEN.UserLogout)({}, function(o) {
-        console.log(o);
-        if (o.error)
-          return alert(o.error);
+        if (o.error) {
+          notifier.showError(o.error);
+          return;
+        }
+        notifier.showSuccess("Logged out");
         window.location = "/";
       });
     }
@@ -9330,8 +9361,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       if (user !== null && user.language !== selectedLanguage) {
         $invalidate(8, user.language = selectedLanguage, user);
         await (0, import_jsApi_GEN2.UserUpdateProfile)(user, function(res) {
-          if (res.error)
-            return console.log("error");
+          if (res.error) {
+            notifier.showError(res.error);
+            return;
+          }
           $invalidate(8, user = res.user);
         });
       }
@@ -9340,27 +9373,29 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     async function userLogout() {
       await (0, import_jsApi_GEN2.UserLogout)({}, function(o) {
         console.log(o);
-        if (o.error)
-          return alert(o.error);
+        if (o.error) {
+          notifier.showError(o.error);
+          return;
+        }
+        notifier.showSuccess("Logged out");
         window.location = "/";
       });
     }
     let userMessage = "", showFeedbackDialog = false;
     function sendFeedback() {
       if (userMessage === "") {
-        alert("Please enter your feedback");
+        notifier.showError("Please enter your feedback");
         return;
       }
       (0, import_jsApi_GEN2.UserSendFeedback)({ userMessage }, function(res) {
         if (res.error) {
           $invalidate(3, userMessage = "");
           $invalidate(4, showFeedbackDialog = false);
-          alert(res.error);
+          notifier.showError(res.error);
           return;
         }
         $invalidate(3, userMessage = "");
-        console.log(res);
-        alert("success");
+        notifier.showSuccess("feedback sent");
         $invalidate(4, showFeedbackDialog = false);
       });
     }
@@ -9415,189 +9450,6 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     }
   };
   var ProfileHeader_default = ProfileHeader;
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidInfoCircle.js
-  var FaSolidInfoCircle_default = {
-    a: {
-      viewBox: "0 0 512 512"
-    },
-    c: '<path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"></path>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidCheckCircle.js
-  var FaSolidCheckCircle_default = {
-    a: {
-      viewBox: "0 0 512 512"
-    },
-    c: '<path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidExclamationTriangle.js
-  var FaSolidExclamationTriangle_default = {
-    a: {
-      viewBox: "0 0 576 512"
-    },
-    c: '<path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"></path>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidTimesCircle.js
-  var FaSolidTimesCircle_default = {
-    a: {
-      viewBox: "0 0 512 512"
-    },
-    c: '<path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"></path>'
-  };
-
-  // _components/Growl.svelte
-  function create_fragment8(ctx) {
-    let div;
-    let icon_1;
-    let t0;
-    let span;
-    let t1;
-    let div_class_value;
-    let current;
-    icon_1 = new Icon_default({
-      props: {
-        className: "icon_growl",
-        size: 20,
-        color: "#FFF",
-        src: (
-          /*icon*/
-          ctx[3]
-        )
-      }
-    });
-    return {
-      c() {
-        div = element("div");
-        create_component(icon_1.$.fragment);
-        t0 = space();
-        span = element("span");
-        t1 = text(
-          /*message*/
-          ctx[0]
-        );
-        attr(span, "class", "svelte-1nas9kk");
-        attr(div, "class", div_class_value = null_to_empty(`growl ${/*growlType*/
-        ctx[1]} ${/*isShow*/
-        ctx[2] ? "" : "hidden"}`) + " svelte-1nas9kk");
-      },
-      m(target, anchor) {
-        insert(target, div, anchor);
-        mount_component(icon_1, div, null);
-        append(div, t0);
-        append(div, span);
-        append(span, t1);
-        current = true;
-      },
-      p(ctx2, [dirty]) {
-        const icon_1_changes = {};
-        if (dirty & /*icon*/
-        8)
-          icon_1_changes.src = /*icon*/
-          ctx2[3];
-        icon_1.$set(icon_1_changes);
-        if (!current || dirty & /*message*/
-        1)
-          set_data(
-            t1,
-            /*message*/
-            ctx2[0]
-          );
-        if (!current || dirty & /*growlType, isShow*/
-        6 && div_class_value !== (div_class_value = null_to_empty(`growl ${/*growlType*/
-        ctx2[1]} ${/*isShow*/
-        ctx2[2] ? "" : "hidden"}`) + " svelte-1nas9kk")) {
-          attr(div, "class", div_class_value);
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon_1.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon_1.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(div);
-        }
-        destroy_component(icon_1);
-      }
-    };
-  }
-  function instance8($self, $props, $invalidate) {
-    let message = "This is growl, XD";
-    let growlType = "info";
-    let isShow = false;
-    let icon = FaSolidInfoCircle_default;
-    function show(msg, typ, ico) {
-      $invalidate(3, icon = ico);
-      $invalidate(1, growlType = typ);
-      $invalidate(2, isShow = true);
-      $invalidate(0, message = msg);
-      setTimeout(
-        () => {
-          $invalidate(2, isShow = false);
-        },
-        3e3
-      );
-    }
-    const showInfo = function(msg) {
-      console.log("grow.showInfo", msg);
-      show(msg, "info", FaSolidInfoCircle_default);
-    };
-    const showWarning = function(msg) {
-      console.log("grow.showWarning", msg);
-      show(msg, "warning", FaSolidExclamationTriangle_default);
-    };
-    const showError = function(msg) {
-      console.log("grow.showError", msg);
-      show(msg, "error", FaSolidTimesCircle_default);
-    };
-    const showSuccess = function(msg) {
-      console.log("grow.showSuccess", msg);
-      show(msg, "success", FaSolidCheckCircle_default);
-    };
-    return [
-      message,
-      growlType,
-      isShow,
-      icon,
-      showInfo,
-      showWarning,
-      showError,
-      showSuccess
-    ];
-  }
-  var Growl = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(this, options, instance8, create_fragment8, safe_not_equal, {
-        showInfo: 4,
-        showWarning: 5,
-        showError: 6,
-        showSuccess: 7
-      });
-    }
-    get showInfo() {
-      return this.$.ctx[4];
-    }
-    get showWarning() {
-      return this.$.ctx[5];
-    }
-    get showError() {
-      return this.$.ctx[6];
-    }
-    get showSuccess() {
-      return this.$.ctx[7];
-    }
-  };
-  var Growl_default = Growl;
 
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidPlusCircle.js
   var FaSolidPlusCircle_default = {
@@ -9669,7 +9521,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       }
     };
   }
-  function create_fragment9(ctx) {
+  function create_fragment8(ctx) {
     let section1;
     let menu;
     let t0;
@@ -9779,7 +9631,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           tableview_changes.rows = /*propHistories*/
           ctx2[0];
         if (dirty & /*$scope*/
-        2048) {
+        1024) {
           tableview_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_pager && dirty & /*pager*/
@@ -9827,14 +9679,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   }
   var segments = {/* segments */};
   var fields = [/* fields */];
-  function instance9($self, $props, $invalidate) {
+  function instance8($self, $props, $invalidate) {
     let propHistories = [/* propHistories */];
     let pager = {/* pager */};
-    let growl6 = Growl_default;
     function handleResponse(res) {
       console.log(res);
       if (res.error) {
-        alert(res.error);
+        notifier.showError(res.error);
         return true;
       }
       if (res.propHistories && res.propHistories.length)
@@ -9909,7 +9760,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   var PropHistories = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance9, create_fragment9, safe_not_equal, {});
+      init(this, options, instance8, create_fragment8, safe_not_equal, {});
     }
   };
   var propHistories_default = PropHistories;

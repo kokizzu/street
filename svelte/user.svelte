@@ -3,7 +3,6 @@
     import Menu from './_components/Menu.svelte';
     import ProfileHeader from './_components/ProfileHeader.svelte';
     import Footer from './_components/Footer.svelte';
-    import Growl from './_components/Growl.svelte';
     import Icon from 'svelte-icons-pack/Icon.svelte';
     import {datetime} from './_components/formatter';
     import {onMount} from 'svelte';
@@ -13,6 +12,7 @@
     import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
     import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
     import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
+    import {notifier} from './_components/notifier.js';
 
     let user = {/* user */};
     let segments = {/* segments */};
@@ -22,7 +22,6 @@
     let newPassword = '';
     let repeatNewPassword = '';
     let oldProfileJson = '';
-    let growl10 = Growl;
     let profileSubmit = false, passwordSubmit = false;
     onMount(async () => {
         console.log('onMount.user')
@@ -37,19 +36,19 @@
         await UserUpdateProfile(user, function(res) {
             profileSubmit = false;
             if (res.error) {
-                alert(res.error);
+                notifier.showError(res.error);
                 return
             }
             oldProfileJson = JSON.stringify(res.user);
             user = res.user;
-            alert('Profile updated');
+            notifier.showSuccess('Profile updated');
         });
     }
 
     async function changePassword() {
         passwordSubmit = true;
         if (newPassword !== repeatNewPassword) {
-            alert('New password and repeat new password must be same');
+            notifier.showError('New password and repeat new password must be same');
             passwordSubmit = false;
             return
         }
@@ -60,27 +59,27 @@
         await UserChangePassword(input, function(res) {
             passwordSubmit = false;
             if (res.error) {
-                alert(res.error);
+                notifier.showError(res.error);
                 return
             }
             oldPassword = '';
             newPassword = '';
             repeatNewPassword = '';
-            alert('Password updated');
+            notifier.showSuccess('Password updated');
         });
     }
 
     async function killSession(sessionToken) {
         await UserSessionKill({sessionTokenHash: sessionToken}, async res => {
             if (res.error) {
-                alert(res.error);
+                notifier.showError(res.error);
                 return
             }
             if (res.sessionTerminated < 1) return useGrowl('error', 'No session terminated');
-            alert(res.sessionTerminated + ' session terminated');
+            notifier.showInfo(res.sessionTerminated + ' session terminated');
             await UserSessionsActive({userId: user.id}, res => {
                 if (res.error) {
-                    alert(res.error);
+                    notifier.showError(res.error);
                     return
                 }
                 sessionActiveLists = res.sessionsActive;

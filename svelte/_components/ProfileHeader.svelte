@@ -7,6 +7,7 @@
     import FaCommentDots from "svelte-icons-pack/fa/FaCommentDots";
     import {onMount} from 'svelte';
     import {UserUpdateProfile, UserLogout, UserSendFeedback} from '../jsApi.GEN.js';
+    import {notifier} from '_components/notifier.js';
 
     export let user = null;
     export let access = {
@@ -30,7 +31,10 @@
         if (user !== null && user.language !== selectedLanguage) {
             user.language = selectedLanguage;
             await UserUpdateProfile(user, function(res) {
-                if (res.error) return console.log('error')
+                if (res.error) {
+                    notifier.showError(res.error);
+                    return;
+                }
                 user = res.user;
             });
         }
@@ -44,7 +48,11 @@
     async function userLogout() {
         await UserLogout( {}, function( o ) {
             console.log( o );
-            if( o.error ) return alert( o.error );
+            if( o.error ) {
+                notifier.showError( o.error );
+                return;
+            }
+            notifier.showSuccess( 'Logged out' );
             window.location = '/';
         } );
     }
@@ -52,19 +60,18 @@
     let userMessage = '', showFeedbackDialog = false;
     function sendFeedback() {
         if (userMessage === '') {
-            alert('Please enter your feedback');
+            notifier.showError( 'Please enter your feedback');
             return
         }
         UserSendFeedback({userMessage}, function( res ){
             if(res.error) {
                 userMessage = '';
                 showFeedbackDialog = false;
-                alert(res.error);
+                notifier.showError(res.error);
                 return
             }
             userMessage = '';
-            console.log(res);
-            alert('success')
+            notifier.showSuccess('feedback sent')
             showFeedbackDialog = false;
         })
     }

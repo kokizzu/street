@@ -19,11 +19,12 @@
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import {RealtorUpsertProperty} from "../jsApi.GEN";
   import {onMount} from "svelte";
+  import {notifier} from '_components/notifier.js';
   
   export let user;
   export let property;
   export let countries;
-  let currentPage = 0, isPropertySubmitted = true;
+  let currentPage = 0, isPropertySubmitted = false;
   let cards = [{}, {}, {}, {}];
   let stackContainerElm, stacks, observer;
   
@@ -40,7 +41,6 @@
           if (matchNum) {
             currentPage = parseInt(matchNum[0]);
           }
-          console.log( 'onIntersect', entry );
         }
       })
     }, {
@@ -204,9 +204,8 @@
         }
       } ).catch( ( e ) => {
         input_address_value = '';
+        notifier.showError('cannot get address');
       } );
-    
-    console.log( 'current coord =', property.coord )
     
     const markerEventHandler = ( event ) => {
       property.coord[ 0 ] = event.latLng.lat();
@@ -245,7 +244,7 @@
             }
           }
         } else {
-          alert( 'Address not found' );
+          notifier.showError( 'Address not found' );
           property.formattedAddresss = '';
           property.country = '';
         }
@@ -285,7 +284,7 @@
       const bounds = new google.maps.LatLngBounds();
       places.forEach( ( place ) => {
         if( !place.geometry || !place.geometry.location ) {
-          alert( 'Returned place contains no geometry' );
+          notifier.showError( 'Returned place contains no geometry' );
           return;
         }
         // create marker for each place
@@ -296,7 +295,6 @@
         } else {
           bounds.extend( place.geometry.location );
         }
-        console.log( markers );
       } );
       map.fitBounds( bounds );
     } );
@@ -322,9 +320,8 @@
   
   const handleNextLocation = {
     'LOC_ADDR': async () => {
-			console.log('property=',property)
       if( property.city==='' || property.street==='' ) {
-        alert( 'Please fill required form' );
+        notifier.showError( 'Please fill required form' );
         return;
       }
       for( let i = 0; i<countries.length; i++ ) {
@@ -342,7 +339,7 @@
     },
     'LOC_MAP': () => {
       if( property.formattedAddress==='' ) {
-        alert( 'Please mark location on map' );
+        notifier.showError('Please mark location on map' );
         return;
       }
       modeLocationCount += 1;
@@ -439,7 +436,7 @@
         property.sizeM2 = houseSize;
       }
       if( property.sizeM2===0 ) {
-        alert( 'Please fill required form' );
+        notifier.showError( 'Please fill required form' );
         return;
       }
       modeInfoCount += 1;
@@ -447,7 +444,7 @@
     },
     'INFO_PRICE': () => {
       if( property.lastPrice===0 || property.agencyFee>=99 ) {
-        alert( 'Price cannot be 0' );
+        notifier.showWarning( 'Price cannot be 0' );
         return;
       }
       nextPage();
@@ -482,18 +479,18 @@
             property.images = [...property.images, out.urlPattern]; // push house image url to array
             property.imageLabels = [...property.imageLabels, ''];
           }
-          alert( 'Image uploaded' );
+          notifier.showSuccess( 'Image uploaded' );
         } else if( ajax.status===413 ) {
-          alert( 'Image too large' );
+          notifier.showError( 'Image too large' );
         } else {
-          alert( `Error: ${ajax.status}  ${ajax.statusText}` );
+          notifier.showError( `Error: ${ajax.status}  ${ajax.statusText}` );
         }
       } );
       ajax.addEventListener( 'error', function( event ) {
-        alert( 'Network error' );
+        notifier.showError( 'Network error' );
       } );
       ajax.addEventListener( 'abort', function( event ) {
-        alert( 'Upload aborted' );
+        notifier.showWarning( 'Upload aborted' );
       }, false );
       ajax.open( 'POST', '/user/uploadFile' );
       ajax.send( formData );
@@ -504,6 +501,7 @@
   function removeImage( index ) {
     property.images = property.images.filter( ( _, i ) => i!==index );
     property.imageLabels = property.imageLabels.filter( ( _, i ) => i!==index );
+    notifier.showSuccess( 'Image removed' );
   }
   
   // SUBMIT =====================+
@@ -513,20 +511,19 @@
   async function handleSubmit() {
     submitLoading = true;
     let payload = GetPayload();
-    console.log( 'property=', property, 'payload=', payload );
     const prop = {property: payload};
     await RealtorUpsertProperty( prop, function( res ) {
       if( res.error ) {
         submitLoading = false;
-        alert( res.error );
+        notifier.showError(res.error );
         return;
       }
-      console.log( res );
       submitLoading = false;
       isPropertySubmitted = true;
       // after save, should retrieve the ID, so it became update mode, not creating new property
       property.id = (res.property || {}).id + '';
       res_propId = (res.property || {}).id + '';
+      notifier.showSuccess( 'Property created' );
     } );
   }
 </script>

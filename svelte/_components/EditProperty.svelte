@@ -19,6 +19,7 @@
   import FaSolidCircleNotch from 'svelte-icons-pack/fa/FaSolidCircleNotch';
   import FaCheckCircle from 'svelte-icons-pack/fa/FaCheckCircle';
   import AddOtherFeesDialog from './AddOtherFeesDialog.svelte';
+  import {notifier} from '_components/notifier.js';
   
   export let isOwner = false;
   export let property;
@@ -40,16 +41,14 @@
         contactEmail: "",
         about: property.note
       }
-      console.log('Error convert string to object =', e)
+      notifier.showError(`Error convert string to object = ${e}`)
     }
-    console.log( 'Property = ', property );
     approvalStatus = getApprovalState( property.approvalState );
     for( let i = 0; i<countries.length; i++ ) {
       if( countries[ i ].iso_2===property.countryCode ) {
         countryCurrency = countries[ i ].currency.code;
       }
     }
-    console.log( 'Approval status = ', approvalStatus );
   } );
   
   function GetPayload() {
@@ -129,18 +128,18 @@
             images = [...images, out.urlPattern]; // push house image url to array
             imageLabels = [...imageLabels, ''];
           }
-          alert( 'Image uploaded' );
+          notifier.showSuccess( 'Image uploaded' );
         } else if( ajax.status===413 ) {
-          alert( 'Image too large' );
+          notifier.showError( 'Image too large' );
         } else {
-          alert( `Error: ${ajax.status}  ${ajax.statusText}` );
+          notifier.showError( `Error: ${ajax.status}  ${ajax.statusText}` );
         }
       } );
       ajax.addEventListener( 'error', function( event ) {
-        alert( 'Network error' );
+        notifier.showError( 'Network error' );
       } );
       ajax.addEventListener( 'abort', function( event ) {
-        alert( 'Upload aborted' );
+        notifier.showWarning( 'Upload aborted' );
       }, false );
       ajax.open( 'POST', '/user/uploadFile' );
       ajax.send( formData );
@@ -151,6 +150,7 @@
   function removeImage( index ) {
     images = images.filter( ( _, i ) => i!==index );
     imageLabels = imageLabels.filter( ( _, i ) => i!==index );
+    notifier.showSuccess( 'Image removed' );
   }
   
   async function SaveEditPicture() {
@@ -162,10 +162,10 @@
     await RealtorUpsertProperty( prop, function( res ) {
       if( res.error ) {
         submitLoading = false;
-        alert( res.error );
+        notifier.showError( res.error );
         return;
       }
-      console.log( res );
+      notifier.showSuccess(res.message);
       submitLoading = false;
     } );
   }
@@ -194,7 +194,6 @@
   async function SaveEditFeature() {
     if( editFeatureCount===0 ) {
       editFeatureCount = 1;
-      console.log( parking );
       return;
     }
     if( editFeatureCount===1 ) {
@@ -216,10 +215,10 @@
       await RealtorUpsertProperty( prop, function( res ) {
         if( res.error ) {
           submitLoading = false;
-          alert( res.error );
+          notifier.showError(res.error );
           return;
         }
-        console.log( res );
+        notifier.showSuccess( 'Property updated' );
         submitLoading = false;
       } );
     }
@@ -236,10 +235,10 @@
     await RealtorUpsertProperty( prop, function( res ) {
       if( res.error ) {
         submitLoading = false;
-        alert( res.error );
+        notifier.showError( res.error );
         return;
       }
-      console.log( res );
+      notifier.showSuccess( 'Property updated' );
       submitLoading = false;
     } );
   }
@@ -253,10 +252,10 @@
     await RealtorUpsertProperty( prop, function( res ) {
       if( res.error ) {
         submitLoading = false;
-        alert( res.error );
+        notifier.showError( res.error );
         return;
       }
-      console.log( res );
+      notifier.showSuccess( 'Property updated' );
       submitLoading = false;
     } );
   }
@@ -280,7 +279,10 @@
   let rejectReason = '', showRejectDialog = false;
   
   function RejectProperty() {
-    if( rejectReason==='' ) return alert( 'Reason cannot be empty' );
+    if( rejectReason==='' ) {
+      notifier.showError( 'Reason cannot be empty' );
+      return;
+    }
     AdminProperties( {
         cmd: 'upsert',
         property: {id: property.id, approvalState: rejectReason},
@@ -288,11 +290,11 @@
       function( res ) {
         if( res.error ) {
           showRejectDialog = false;
-          alert( res.error );
+          notifier.showError( res.error );
           return;
         }
         showRejectDialog = false;
-        console.log( res );
+        notifier.showSuccess( 'Property updated' );
       } );
   }
   
@@ -303,10 +305,10 @@
       },
       function( res ) {
         if( res.error ) {
-          console.log( res );
+          notifier.showError(res.error );
           return;
         }
-        console.log( res );
+        notifier.showSuccess( 'your review request has been sent' );
       },
     );
   }
@@ -317,12 +319,11 @@
       {id: '' + property.id},
       function( res ) {
         if( res.error ) {
-          alert( res.error );
+          notifier.showError( res.error );
           return;
         }
-        alert( 'property deleted' );
+        notifier.showSuccess( 'property deleted' );
         window.location.href = '/realtor';
-        console.log( res );
       },
     );
   }

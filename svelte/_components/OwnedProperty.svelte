@@ -7,12 +7,12 @@
   import FaSolidBath from 'svelte-icons-pack/fa/FaSolidBath';
   import FaSolidChair from 'svelte-icons-pack/fa/FaSolidChair';
   import FaSolidBorderStyle from 'svelte-icons-pack/fa/FaSolidBorderStyle';
-  import FaSolidExchangeAlt from 'svelte-icons-pack/fa/FaSolidExchangeAlt';
   import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
   import PillBox from './PillBox.svelte';
   import {localeDatetime, M2ToPing, getApprovalState} from './formatter';
   import {T} from './uiState.js';
   import { onMount } from 'svelte';
+  import {notifier} from '_components/notifier.js';
   
   export let property;
   export let meta;
@@ -31,7 +31,7 @@
         contactEmail: "",
         about: property.note
       }
-      console.log('Error convert string to object =', e)
+      notifier.showError('Error convert string to object =', e)
     }
     approvalStatus = getApprovalState( property.approvalState );
     if (property.countryCode==='TW' || property.countryCode==='') {

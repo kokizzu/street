@@ -6,9 +6,9 @@
   import PropertyLocation from '_components/PropertyLocation.svelte';
   import ProfileHeader from './_components/ProfileHeader.svelte';
   import Footer from './_components/Footer.svelte';
-  import Growl from './_components/Growl.svelte';
   import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
   import Icon from 'svelte-icons-pack/Icon.svelte';
+  import {notifier} from './_components/notifier.js';
   
   let sideMenuOpen = false;
   let randomProps = [/* randomProps */] || [];
@@ -88,17 +88,17 @@
     isSubmitted = true;
     if( !email ) {
       isSubmitted = false;
-      alert('Email is required' );
+      notifier.showError('Email is required' );
       return
     }
     if( password.length<12 ) {
       isSubmitted = false;
-      alert('Password must be at least 12 characters' );
+      notifier.showError('Password must be at least 12 characters' );
       return
     }
     if( password!==confirmPass ) {
       isSubmitted = false;
-      alert('Passwords do not match' );
+      notifier.showError('Passwords do not match' );
       return
     }
     // TODO: send to backend
@@ -106,14 +106,13 @@
     await GuestRegister( i, async function( o ) {
       // TODO: codegen commonResponse (o.error, etc)
       // TODO: codegen list of possible errors
-      console.log( o );
       if( o.error ) {
         isSubmitted = false;
-        alert(o.error );
+        notifier.showError(o.error );
 		return
       }
       isSubmitted = false;
-      alert('Registered successfully, a registration verification has been sent to your email' );
+      notifier.showSuccess('Registered successfully, a registration verification has been sent to your email' );
       mode = LOGIN;
       password = '';
       await tick();
@@ -125,28 +124,28 @@
     isSubmitted = true;
     if( !email ) {
       isSubmitted = false;
-      alert('Email is required' );
+      notifier.showError('Email is required' );
       return
     }
     if( password.length<12 ) {
       isSubmitted = false;
-      alert('Password must be at least 12 characters' );
+      notifier.showError('Password must be at least 12 characters' );
       return
     }
     const i = {email, password};
     await GuestLogin( i, function( o ) {
-      console.log( o );
       if( o.error ) {
         isSubmitted = false;
-        alert( o.error );
+        notifier.showError( o.error );
         return
       }
       isSubmitted = false;
-      alert('Login successfully' );
+      notifier.showSuccess('Login successfully' );
       setTimeout( () => {
         user = o.user;
         segments = o.segments;
         onHashChange();
+
         window.document.location = '/realtor/property';
       }, 1500 );
     } );
@@ -156,20 +155,19 @@
     isSubmitted = true;
     if( !email ) {
       isSubmitted = false;
-      alert( 'Email is required' );
+      notifier.showError( 'Email is required' );
       return
     }
     const i = {email};
     await GuestResendVerificationEmail( i, function( o ) {
-      console.log( o );
       if( o.error ) {
         isSubmitted = false;
-        alert(o.error );
+        notifier.showError(o.error );
         return
       }
       isSubmitted = false;
       onHashChange();
-      alert('An email verification link has been sent to your email' );
+      notifier.showInfo('An email verification link has been sent to your email' );
     } );
   }
   
@@ -177,19 +175,18 @@
     isSubmitted = true;
     if( !email ) {
       isSubmitted = false;
-      alert('Email is required' );
+      notifier.showError('Email is required' );
       return
     }
     const i = {email};
     await GuestForgotPassword( i, function( o ) {
-      console.log( o );
       if( o.error ) {
         isSubmitted = false;
-        alert( o.error );
+        notifier.showError( o.error );
         return
       }
       onHashChange();
-      alert('A reset password link has been sent to your email' );
+      notifier.showInfo('A reset password link has been sent to your email' );
     } );
   }
 </script>

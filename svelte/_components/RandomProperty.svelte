@@ -8,7 +8,6 @@
   onMount(async () => {
     console.log('onMount.RandomProperty')
     await UserSearchProp({}, async res => {
-      console.log(res);
       props = res.properties;
     });
   });
