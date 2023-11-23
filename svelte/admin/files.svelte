@@ -9,6 +9,7 @@
     import { AdminFiles } from '../jsApi.GEN';
     import Growl from '../_components/Growl.svelte';
     import Dropzone from '../_components/UploadDropzone.svelte';
+    import {notifier} from '../_components/notifier.js';
 
     let segments = {/* segments */};
     let fields = [/* fields */];
@@ -22,7 +23,7 @@
     function handleResponse(res) {
         console.log(res);
         if (res.error) {
-            alert(res.error);
+            notifier.showError(res.error);
             return true;
         }
         if (res.files && res.files.length) files = res.files;

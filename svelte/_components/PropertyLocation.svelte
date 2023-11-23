@@ -30,6 +30,7 @@
   import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
   import FaHeart from "svelte-icons-pack/fa/FaHeart";
   import {distanceKM} from './GoogleMap/distance';
+  import {notifier} from './notifier.js';
   
   export let randomProps = [];
   export let defaultDistanceKm = 20;
@@ -53,7 +54,6 @@
   };
   let geocoder, input_search_value, autocomplete_service;
   let autocomplete_lists = [];
-  let myGrowl = Growl;
   let shareItemIndex = null;
   let isSearchingMap = false;
   
@@ -94,7 +94,10 @@
         limit: 40, // this is apparently the culprit XD if we show too many it would slow, but if it's too little it won't spread
         maxDistanceKM: bestDistance,
       }, async res => {
-        if( res.error ) return alert(res.error );
+        if( res.error ) {
+          notifier.showError(res.error );
+          return;
+        }
         randomProps = res.properties || [];
       } );
       markersProperty = gmapsComponent.clearMarkers( markersProperty );
@@ -133,7 +136,10 @@
       centerLat: myLatLng.lat,
       centerLong: myLatLng.lng,
     }, async res => {
-      if( res.error ) return alert(res.error );
+      if( res.error )  {
+        notifier.showError(res.error );
+        return;
+      }
       markersFacility = gmapsComponent.clearMarkers( markersFacility );
       facilities = await res.facilities;
       facilities.forEach( fac => {
@@ -207,10 +213,10 @@
           myLatLng.lat = results[ 0 ].geometry.location.lat();
           myLatLng.lng = results[ 0 ].geometry.location.lng();
         } else {
-			alert( 'No result found' );
+			    notifier.showError( 'No result found' );
         }
       } ).catch( ( e ) => {
-		  alert(`Geocoder failed due to: ${e}` );
+		    notifier.showError(`Geocoder failed due to: ${e}` );
       } );
     autocomplete_lists = [];
     input_search_value = '';
@@ -232,7 +238,7 @@
   function copyToClipboard( text ) {
     shareItemIndex = null;
     navigator.clipboard.writeText( text );
-	  alert('Link copied to clipboard' );
+	  notifier.showSuccess('Link copied to clipboard' );
   }
   
   function propertyUrl( id ) {
@@ -245,8 +251,11 @@
       propId: propId, // uint64
       like: true, // bool
     }, async res => {
-      if( res.error ) return alert( res.error );
-		alert('Property liked' );
+      if( res.error ) {
+        notifier.showError( res.error );
+        return
+      }
+		  notifier.showSuccess('Property liked' );
     } )
   }
 

@@ -12,6 +12,7 @@
   import FaSolidUserCircle from 'svelte-icons-pack/fa/FaSolidUserCircle';
   import FaSolidSignInAlt from 'svelte-icons-pack/fa/FaSolidSignInAlt';
   import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
+  import { notifier } from './notifier.js';
   
   export let doToggle = function() {
     isSideMenuOpen.set( !$isSideMenuOpen );
@@ -31,8 +32,11 @@
   
   async function userLogout() {
     await UserLogout( {}, function( o ) {
-      console.log( o );
-      if( o.error ) return alert( o.error );
+      if( o.error ) {
+        notifier.showError( o.error );
+        return;
+      }
+      notifier.showSuccess( 'Logged out' );
       window.location = '/';
     } );
   }

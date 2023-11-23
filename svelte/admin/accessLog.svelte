@@ -7,6 +7,7 @@
     import TableView from '../_components/TableView.svelte';
     import {AdminAccessLogs} from '../jsApi.GEN';
     import Growl from '../_components/Growl.svelte';
+    import {notifier} from '../_components/notifier.js';
 
     let segments = {/* segments */};
     let fields = [/* fields */];
@@ -19,7 +20,7 @@
     // return true if got error
     function handleResponse(res) {
         if (res.error) {
-            alert(res.error);
+            notifier.showError(res.error);
             return true;
         }
         if (res.logs && res.logs.length) logs = res.logs;

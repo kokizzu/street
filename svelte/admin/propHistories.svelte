@@ -7,7 +7,7 @@
   import { AdminPropHistories } from '../jsApi.GEN';
   import Footer from '../_components/Footer.svelte';
   import ProfileHeader from '../_components/ProfileHeader.svelte';
-  import Growl from '../_components/Growl.svelte';
+  import {notifier} from '../_components/notifier.js';
 
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidPlusCircle from "svelte-icons-pack/fa/FaSolidPlusCircle";
@@ -19,12 +19,11 @@
   
   $: console.log( propHistories );
 
-  let growl6 = Growl;
   // return true if got error
   function handleResponse( res ) {
     console.log( res );
     if( res.error ) {
-      alert( res.error );
+      notifier.showError( res.error );
       return true;
     }
     if( res.propHistories && res.propHistories.length ) propHistories = res.propHistories;

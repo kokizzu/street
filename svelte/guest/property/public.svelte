@@ -9,6 +9,7 @@
   import FaBrandsWhatsapp from 'svelte-icons-pack/fa/FaBrandsWhatsapp';
   import FaBrandsTelegram from 'svelte-icons-pack/fa/FaBrandsTelegram';
   import Property from '../../_components/Property.svelte';
+  import {notifier} from '../../_components/notifier.js';
   
   let propItem = {/* propItem */};
   let meta = {/* propertyMeta */};
@@ -18,7 +19,7 @@
   function copyToClipboard( text ) {
     console.log( window.location );
     navigator.clipboard.writeText( text );
-    alert( 'Link copied to clipboard' );
+    notifier.showInfo( 'Link copied to clipboard' );
   }
 </script>
 

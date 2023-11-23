@@ -8,6 +8,7 @@
   import ModalForm from '../_components/ModalForm.svelte';
   import { AdminFeedbacks } from '../jsApi.GEN';
   import { fieldsArrToMap } from '../_components/mapper.js';
+  import {notifier} from '../_components/notifier.js';
   
   let segments = {/* segments */};
   let fields = [/* fields */];
@@ -20,7 +21,7 @@
   // return true if got error
   function handleResponse( res ) {
     if( res.error ) {
-      alert( res.error );
+      notifier.showError( res.error );
       return true;
     }
     if( res.feedbacks && res.feedbacks.length ) feedbacks = res.feedbacks;
