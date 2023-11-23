@@ -256,7 +256,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if len(out.Properties) == 0 {
 			out.Properties = []rqProperty.PropertyWithNote{}
 		}
-		L.Print(`Property out = `, out.Properties)
 		return views.RenderRealtor(ctx, M.SX{
 			`title`:           `Realtor`,
 			`segments`:        segments,
