@@ -30,7 +30,7 @@
   import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
   import FaHeart from "svelte-icons-pack/fa/FaHeart";
   import {distanceKM} from './GoogleMap/distance';
-  import {notifier} from '_components/notifier.js';
+  import {notifier} from './notifier.js';
   
   export let randomProps = [];
   export let defaultDistanceKm = 20;
@@ -54,7 +54,6 @@
   };
   let geocoder, input_search_value, autocomplete_service;
   let autocomplete_lists = [];
-  let myGrowl = Growl;
   let shareItemIndex = null;
   let isSearchingMap = false;
   
@@ -97,6 +96,7 @@
       }, async res => {
         if( res.error ) {
           notifier.showError(res.error );
+          return;
         }
         randomProps = res.properties || [];
       } );
@@ -251,7 +251,10 @@
       propId: propId, // uint64
       like: true, // bool
     }, async res => {
-      if( res.error ) return alert( res.error );
+      if( res.error ) {
+        notifier.showError( res.error );
+        return
+      }
 		  notifier.showSuccess('Property liked' );
     } )
   }

@@ -7,7 +7,7 @@
   import { AdminPropHistories } from '../jsApi.GEN';
   import Footer from '../_components/Footer.svelte';
   import ProfileHeader from '../_components/ProfileHeader.svelte';
-  import {notifier} from '_components/notifier.js';
+  import {notifier} from '../_components/notifier.js';
 
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidPlusCircle from "svelte-icons-pack/fa/FaSolidPlusCircle";

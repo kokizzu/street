@@ -19,7 +19,7 @@
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import {RealtorUpsertProperty} from "../jsApi.GEN";
   import {onMount} from "svelte";
-  import {notifier} from '_components/notifier.js';
+  import {notifier} from './notifier.js';
   
   export let user;
   export let property;

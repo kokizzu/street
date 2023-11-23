@@ -10,7 +10,7 @@
   import HiSolidXCircle from 'svelte-icons-pack/hi/HiSolidXCircle';
   import HiSolidCheckCircle from 'svelte-icons-pack/hi/HiSolidCheckCircle';
   import { AdminPropertiesUS, UserPropHistory } from '../jsApi.GEN';
-  import {notifier} from '_components/notifier.js';
+  import {notifier} from '../_components/notifier.js';
   
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';

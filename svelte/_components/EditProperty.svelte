@@ -19,7 +19,7 @@
   import FaSolidCircleNotch from 'svelte-icons-pack/fa/FaSolidCircleNotch';
   import FaCheckCircle from 'svelte-icons-pack/fa/FaCheckCircle';
   import AddOtherFeesDialog from './AddOtherFeesDialog.svelte';
-  import {notifier} from '_components/notifier.js';
+  import {notifier} from './notifier.js';
   
   export let isOwner = false;
   export let property;

@@ -7,7 +7,7 @@
     import TableView from '../_components/TableView.svelte';
     import {AdminAccessLogs} from '../jsApi.GEN';
     import Growl from '../_components/Growl.svelte';
-    import {notifier} from '_components/notifier.js';
+    import {notifier} from '../_components/notifier.js';
 
     let segments = {/* segments */};
     let fields = [/* fields */];

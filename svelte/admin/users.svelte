@@ -7,7 +7,7 @@
   import TableView from '../_components/TableView.svelte';
   import { AdminUsers } from '../jsApi.GEN';
   import ModalForm from '../_components/ModalForm.svelte';
-  import {notifier} from '_components/notifier.js';
+  import {notifier} from '../_components/notifier.js';
 
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidPlusCircle from "svelte-icons-pack/fa/FaSolidPlusCircle";

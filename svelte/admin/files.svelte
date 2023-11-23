@@ -9,7 +9,7 @@
     import { AdminFiles } from '../jsApi.GEN';
     import Growl from '../_components/Growl.svelte';
     import Dropzone from '../_components/UploadDropzone.svelte';
-    import {notifier} from '_components/notifier.js';
+    import {notifier} from '../_components/notifier.js';
 
     let segments = {/* segments */};
     let fields = [/* fields */];

@@ -7,7 +7,7 @@
     import FaCommentDots from "svelte-icons-pack/fa/FaCommentDots";
     import {onMount} from 'svelte';
     import {UserUpdateProfile, UserLogout, UserSendFeedback} from '../jsApi.GEN.js';
-    import {notifier} from '_components/notifier.js';
+    import {notifier} from './notifier.js';
 
     export let user = null;
     export let access = {

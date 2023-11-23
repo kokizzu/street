@@ -12,7 +12,7 @@
   import {localeDatetime, M2ToPing, getApprovalState} from './formatter';
   import {T} from './uiState.js';
   import { onMount } from 'svelte';
-  import {notifier} from '_components/notifier.js';
+  import {notifier} from './notifier.js';
   
   export let property;
   export let meta;

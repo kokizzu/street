@@ -8,7 +8,7 @@
   import ModalForm from '../_components/ModalForm.svelte';
   import { AdminFeedbacks } from '../jsApi.GEN';
   import { fieldsArrToMap } from '../_components/mapper.js';
-  import {notifier} from '_components/notifier.js';
+  import {notifier} from '../_components/notifier.js';
   
   let segments = {/* segments */};
   let fields = [/* fields */];
