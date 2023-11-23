@@ -10,18 +10,9 @@
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import {notifier} from './_components/notifier.js';
   
-  let sideMenuOpen = false;
   let randomProps = [/* randomProps */] || [];
   let initialLatLong = [/* initialLatLong */];
   let defaultDistanceKm = +'#{defaultDistanceKm}';
-  
-  function openSideMenu() {
-    sideMenuOpen = true;
-  }
-  
-  function closeSideMenu() {
-    sideMenuOpen = false;
-  }
   
   let user = {/* user */};
   let segments = {/* segments */};
@@ -53,7 +44,6 @@
   let mode = LOGIN;
   
   let isSubmitted = false;
-  let myGrowl = Growl;
   
   async function onHashChange() {
 		console.log('onHashChange.start')
@@ -195,7 +185,7 @@
 <svelte:window on:hashchange={onHashChange}/>
 {#if mode===USER}
 	<section class="dashboard">
-		<Menu access={segments} isSideMenuOpen={sideMenuOpen} on:closesidemenu={closeSideMenu}/>
+		<Menu access={segments}/>
 		<div class="dashboard_main_content">
 			<ProfileHeader {user} access={segments}/>
 			<div class="content">

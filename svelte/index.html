@@ -6417,7 +6417,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       showSuccess
     ];
   }
-  var Growl2 = class extends SvelteComponent {
+  var Growl = class extends SvelteComponent {
     constructor(options) {
       super();
       init(this, options, instance5, create_fragment4, safe_not_equal, {
@@ -6440,7 +6440,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       return this.$.ctx[7];
     }
   };
-  var Growl_default = Growl2;
+  var Growl_default = Growl;
 
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidImage.js
   var FaSolidImage_default = {
@@ -10079,7 +10079,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let h1;
     let t2_value = (
       /*mode*/
-      ctx[8].split("_").join(" ") + ""
+      ctx[7].split("_").join(" ") + ""
     );
     let t2;
     let t3;
@@ -10105,56 +10105,56 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let current;
     let if_block0 = (
       /*mode*/
-      (ctx[8] === LOGIN || /*mode*/
-      ctx[8] === REGISTER || /*mode*/
-      ctx[8] === RESEND_VERIFICATION_EMAIL || /*mode*/
-      ctx[8] === FORGOT_PASSWORD) && create_if_block_21(ctx)
+      (ctx[7] === LOGIN || /*mode*/
+      ctx[7] === REGISTER || /*mode*/
+      ctx[7] === RESEND_VERIFICATION_EMAIL || /*mode*/
+      ctx[7] === FORGOT_PASSWORD) && create_if_block_21(ctx)
     );
     let if_block1 = (
       /*mode*/
-      (ctx[8] === LOGIN || /*mode*/
-      ctx[8] === REGISTER) && create_if_block_20(ctx)
+      (ctx[7] === LOGIN || /*mode*/
+      ctx[7] === REGISTER) && create_if_block_20(ctx)
     );
     let if_block2 = (
       /*mode*/
-      ctx[8] === REGISTER && create_if_block_19(ctx)
+      ctx[7] === REGISTER && create_if_block_19(ctx)
     );
     let if_block3 = (
       /*mode*/
-      ctx[8] === LOGIN && create_if_block_18(ctx)
+      ctx[7] === LOGIN && create_if_block_18(ctx)
     );
     let if_block4 = (
       /*mode*/
-      ctx[8] === REGISTER && create_if_block_15(ctx)
+      ctx[7] === REGISTER && create_if_block_15(ctx)
     );
     let if_block5 = (
       /*mode*/
-      ctx[8] === LOGIN && create_if_block_122(ctx)
+      ctx[7] === LOGIN && create_if_block_122(ctx)
     );
     let if_block6 = (
       /*mode*/
-      ctx[8] === RESEND_VERIFICATION_EMAIL && create_if_block_9(ctx)
+      ctx[7] === RESEND_VERIFICATION_EMAIL && create_if_block_9(ctx)
     );
     let if_block7 = (
       /*mode*/
-      ctx[8] === FORGOT_PASSWORD && create_if_block_62(ctx)
+      ctx[7] === FORGOT_PASSWORD && create_if_block_62(ctx)
     );
     let if_block8 = (
       /*mode*/
-      (ctx[8] === REGISTER || /*mode*/
-      ctx[8] === LOGIN) && create_if_block_43(ctx)
+      (ctx[7] === REGISTER || /*mode*/
+      ctx[7] === LOGIN) && create_if_block_43(ctx)
     );
     let if_block9 = (
       /*mode*/
-      ctx[8] !== REGISTER && create_if_block_34(ctx)
+      ctx[7] !== REGISTER && create_if_block_34(ctx)
     );
     let if_block10 = (
       /*mode*/
-      ctx[8] !== LOGIN && create_if_block_24(ctx)
+      ctx[7] !== LOGIN && create_if_block_24(ctx)
     );
     let if_block11 = (
       /*mode*/
-      ctx[8] !== RESEND_VERIFICATION_EMAIL && create_if_block_110(ctx)
+      ctx[7] !== RESEND_VERIFICATION_EMAIL && create_if_block_110(ctx)
     );
     return {
       c() {
@@ -10276,15 +10276,15 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       },
       p(ctx2, dirty) {
         if ((!current || dirty & /*mode*/
-        256) && t2_value !== (t2_value = /*mode*/
-        ctx2[8].split("_").join(" ") + ""))
+        128) && t2_value !== (t2_value = /*mode*/
+        ctx2[7].split("_").join(" ") + ""))
           set_data(t2, t2_value);
         if (
           /*mode*/
-          ctx2[8] === LOGIN || /*mode*/
-          ctx2[8] === REGISTER || /*mode*/
-          ctx2[8] === RESEND_VERIFICATION_EMAIL || /*mode*/
-          ctx2[8] === FORGOT_PASSWORD
+          ctx2[7] === LOGIN || /*mode*/
+          ctx2[7] === REGISTER || /*mode*/
+          ctx2[7] === RESEND_VERIFICATION_EMAIL || /*mode*/
+          ctx2[7] === FORGOT_PASSWORD
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
@@ -10299,8 +10299,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*mode*/
-          ctx2[8] === LOGIN || /*mode*/
-          ctx2[8] === REGISTER
+          ctx2[7] === LOGIN || /*mode*/
+          ctx2[7] === REGISTER
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
@@ -10315,7 +10315,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*mode*/
-          ctx2[8] === REGISTER
+          ctx2[7] === REGISTER
         ) {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
@@ -10330,7 +10330,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*mode*/
-          ctx2[8] === LOGIN
+          ctx2[7] === LOGIN
         ) {
           if (if_block3) {
             if_block3.p(ctx2, dirty);
@@ -10345,12 +10345,12 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*mode*/
-          ctx2[8] === REGISTER
+          ctx2[7] === REGISTER
         ) {
           if (if_block4) {
             if_block4.p(ctx2, dirty);
             if (dirty & /*mode*/
-            256) {
+            128) {
               transition_in(if_block4, 1);
             }
           } else {
@@ -10368,12 +10368,12 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*mode*/
-          ctx2[8] === LOGIN
+          ctx2[7] === LOGIN
         ) {
           if (if_block5) {
             if_block5.p(ctx2, dirty);
             if (dirty & /*mode*/
-            256) {
+            128) {
               transition_in(if_block5, 1);
             }
           } else {
@@ -10391,12 +10391,12 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*mode*/
-          ctx2[8] === RESEND_VERIFICATION_EMAIL
+          ctx2[7] === RESEND_VERIFICATION_EMAIL
         ) {
           if (if_block6) {
             if_block6.p(ctx2, dirty);
             if (dirty & /*mode*/
-            256) {
+            128) {
               transition_in(if_block6, 1);
             }
           } else {
@@ -10414,12 +10414,12 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*mode*/
-          ctx2[8] === FORGOT_PASSWORD
+          ctx2[7] === FORGOT_PASSWORD
         ) {
           if (if_block7) {
             if_block7.p(ctx2, dirty);
             if (dirty & /*mode*/
-            256) {
+            128) {
               transition_in(if_block7, 1);
             }
           } else {
@@ -10437,8 +10437,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*mode*/
-          ctx2[8] === REGISTER || /*mode*/
-          ctx2[8] === LOGIN
+          ctx2[7] === REGISTER || /*mode*/
+          ctx2[7] === LOGIN
         ) {
           if (if_block8) {
             if_block8.p(ctx2, dirty);
@@ -10453,7 +10453,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*mode*/
-          ctx2[8] !== REGISTER
+          ctx2[7] !== REGISTER
         ) {
           if (if_block9) {
             if_block9.p(ctx2, dirty);
@@ -10468,7 +10468,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*mode*/
-          ctx2[8] !== LOGIN
+          ctx2[7] !== LOGIN
         ) {
           if (if_block10) {
             if_block10.p(ctx2, dirty);
@@ -10483,7 +10483,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*mode*/
-          ctx2[8] !== RESEND_VERIFICATION_EMAIL
+          ctx2[7] !== RESEND_VERIFICATION_EMAIL
         ) {
           if (if_block11) {
             if_block11.p(ctx2, dirty);
@@ -10556,32 +10556,19 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let t2;
     let footer;
     let current;
-    menu = new Menu_default({
-      props: {
-        access: (
-          /*segments*/
-          ctx[2]
-        ),
-        isSideMenuOpen: (
-          /*sideMenuOpen*/
-          ctx[0]
-        )
-      }
-    });
-    menu.$on(
-      "closesidemenu",
-      /*closeSideMenu*/
-      ctx[11]
-    );
+    menu = new Menu_default({ props: { access: (
+      /*segments*/
+      ctx[1]
+    ) } });
     profileheader = new ProfileHeader_default({
       props: {
         user: (
           /*user*/
-          ctx[1]
+          ctx[0]
         ),
         access: (
           /*segments*/
-          ctx[2]
+          ctx[1]
         )
       }
     });
@@ -10590,7 +10577,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         initialLatLong,
         randomProps: (
           /*randomProps*/
-          ctx[10]
+          ctx[9]
         )
       }
     });
@@ -10627,23 +10614,19 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       p(ctx2, dirty) {
         const menu_changes = {};
         if (dirty & /*segments*/
-        4)
+        2)
           menu_changes.access = /*segments*/
-          ctx2[2];
-        if (dirty & /*sideMenuOpen*/
-        1)
-          menu_changes.isSideMenuOpen = /*sideMenuOpen*/
-          ctx2[0];
+          ctx2[1];
         menu.$set(menu_changes);
         const profileheader_changes = {};
         if (dirty & /*user*/
-        2)
+        1)
           profileheader_changes.user = /*user*/
-          ctx2[1];
+          ctx2[0];
         if (dirty & /*segments*/
-        4)
+        2)
           profileheader_changes.access = /*segments*/
-          ctx2[2];
+          ctx2[1];
         profileheader.$set(profileheader_changes);
       },
       i(local) {
@@ -10702,27 +10685,27 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         set_input_value(
           input,
           /*email*/
-          ctx[3]
+          ctx[2]
         );
-        ctx[18](input);
+        ctx[16](input);
         if (!mounted) {
           dispose = listen(
             input,
             "input",
             /*input_input_handler*/
-            ctx[17]
+            ctx[15]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
         if (dirty & /*email*/
-        8 && input.value !== /*email*/
-        ctx2[3]) {
+        4 && input.value !== /*email*/
+        ctx2[2]) {
           set_input_value(
             input,
             /*email*/
-            ctx2[3]
+            ctx2[2]
           );
         }
       },
@@ -10730,7 +10713,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         if (detaching) {
           detach(div);
         }
-        ctx[18](null);
+        ctx[16](null);
         mounted = false;
         dispose();
       }
@@ -10765,27 +10748,27 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         set_input_value(
           input,
           /*password*/
-          ctx[4]
+          ctx[3]
         );
-        ctx[20](input);
+        ctx[18](input);
         if (!mounted) {
           dispose = listen(
             input,
             "input",
             /*input_input_handler_1*/
-            ctx[19]
+            ctx[17]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
         if (dirty & /*password*/
-        16 && input.value !== /*password*/
-        ctx2[4]) {
+        8 && input.value !== /*password*/
+        ctx2[3]) {
           set_input_value(
             input,
             /*password*/
-            ctx2[4]
+            ctx2[3]
           );
         }
       },
@@ -10793,7 +10776,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         if (detaching) {
           detach(div);
         }
-        ctx[20](null);
+        ctx[18](null);
         mounted = false;
         dispose();
       }
@@ -10828,26 +10811,26 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         set_input_value(
           input,
           /*confirmPass*/
-          ctx[5]
+          ctx[4]
         );
         if (!mounted) {
           dispose = listen(
             input,
             "input",
             /*input_input_handler_2*/
-            ctx[21]
+            ctx[19]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
         if (dirty & /*confirmPass*/
-        32 && input.value !== /*confirmPass*/
-        ctx2[5]) {
+        16 && input.value !== /*confirmPass*/
+        ctx2[4]) {
           set_input_value(
             input,
             /*confirmPass*/
-            ctx2[5]
+            ctx2[4]
           );
         }
       },
@@ -10883,7 +10866,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         if (!mounted) {
           dispose = listen(a, "click", prevent_default(
             /*click_handler*/
-            ctx[22]
+            ctx[20]
           ));
           mounted = true;
         }
@@ -10906,11 +10889,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let dispose;
     let if_block0 = (
       /*isSubmitted*/
-      ctx[9] === true && create_if_block_17(ctx)
+      ctx[8] === true && create_if_block_17(ctx)
     );
     let if_block1 = (
       /*isSubmitted*/
-      ctx[9] === false && create_if_block_16(ctx)
+      ctx[8] === false && create_if_block_16(ctx)
     );
     return {
       c() {
@@ -10935,7 +10918,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             button,
             "click",
             /*guestRegister*/
-            ctx[13]
+            ctx[11]
           );
           mounted = true;
         }
@@ -10943,11 +10926,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       p(ctx2, dirty) {
         if (
           /*isSubmitted*/
-          ctx2[9] === true
+          ctx2[8] === true
         ) {
           if (if_block0) {
             if (dirty & /*isSubmitted*/
-            512) {
+            256) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -10965,7 +10948,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*isSubmitted*/
-          ctx2[9] === false
+          ctx2[8] === false
         ) {
           if (if_block1) {
           } else {
@@ -11060,11 +11043,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let dispose;
     let if_block0 = (
       /*isSubmitted*/
-      ctx[9] === true && create_if_block_14(ctx)
+      ctx[8] === true && create_if_block_14(ctx)
     );
     let if_block1 = (
       /*isSubmitted*/
-      ctx[9] === false && create_if_block_132(ctx)
+      ctx[8] === false && create_if_block_132(ctx)
     );
     return {
       c() {
@@ -11089,7 +11072,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             button,
             "click",
             /*guestLogin*/
-            ctx[14]
+            ctx[12]
           );
           mounted = true;
         }
@@ -11097,11 +11080,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       p(ctx2, dirty) {
         if (
           /*isSubmitted*/
-          ctx2[9] === true
+          ctx2[8] === true
         ) {
           if (if_block0) {
             if (dirty & /*isSubmitted*/
-            512) {
+            256) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -11119,7 +11102,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*isSubmitted*/
-          ctx2[9] === false
+          ctx2[8] === false
         ) {
           if (if_block1) {
           } else {
@@ -11214,11 +11197,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let dispose;
     let if_block0 = (
       /*isSubmitted*/
-      ctx[9] === true && create_if_block_11(ctx)
+      ctx[8] === true && create_if_block_11(ctx)
     );
     let if_block1 = (
       /*isSubmitted*/
-      ctx[9] === false && create_if_block_10(ctx)
+      ctx[8] === false && create_if_block_10(ctx)
     );
     return {
       c() {
@@ -11243,7 +11226,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             button,
             "click",
             /*guestResendVerificationEmail*/
-            ctx[15]
+            ctx[13]
           );
           mounted = true;
         }
@@ -11251,11 +11234,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       p(ctx2, dirty) {
         if (
           /*isSubmitted*/
-          ctx2[9] === true
+          ctx2[8] === true
         ) {
           if (if_block0) {
             if (dirty & /*isSubmitted*/
-            512) {
+            256) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -11273,7 +11256,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*isSubmitted*/
-          ctx2[9] === false
+          ctx2[8] === false
         ) {
           if (if_block1) {
           } else {
@@ -11368,11 +11351,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let dispose;
     let if_block0 = (
       /*isSubmitted*/
-      ctx[9] === true && create_if_block_8(ctx)
+      ctx[8] === true && create_if_block_8(ctx)
     );
     let if_block1 = (
       /*isSubmitted*/
-      ctx[9] === false && create_if_block_72(ctx)
+      ctx[8] === false && create_if_block_72(ctx)
     );
     return {
       c() {
@@ -11397,7 +11380,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             button,
             "click",
             /*guestForgotPassword*/
-            ctx[16]
+            ctx[14]
           );
           mounted = true;
         }
@@ -11405,11 +11388,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       p(ctx2, dirty) {
         if (
           /*isSubmitted*/
-          ctx2[9] === true
+          ctx2[8] === true
         ) {
           if (if_block0) {
             if (dirty & /*isSubmitted*/
-            512) {
+            256) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -11427,7 +11410,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         if (
           /*isSubmitted*/
-          ctx2[9] === false
+          ctx2[8] === false
         ) {
           if (if_block1) {
           } else {
@@ -11616,7 +11599,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             a,
             "click",
             /*click_handler_1*/
-            ctx[23]
+            ctx[21]
           );
           mounted = true;
         }
@@ -11656,7 +11639,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             a,
             "click",
             /*click_handler_2*/
-            ctx[24]
+            ctx[22]
           );
           mounted = true;
         }
@@ -11696,7 +11679,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             a,
             "click",
             /*click_handler_3*/
-            ctx[25]
+            ctx[23]
           );
           mounted = true;
         }
@@ -11723,7 +11706,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     function select_block_type(ctx2, dirty) {
       if (
         /*mode*/
-        ctx2[8] === USER
+        ctx2[7] === USER
       )
         return 0;
       return 1;
@@ -11744,7 +11727,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             window_1,
             "hashchange",
             /*onHashChange*/
-            ctx[12]
+            ctx[10]
           );
           mounted = true;
         }
@@ -11805,15 +11788,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       return match[2];
   }
   function instance9($self, $props, $invalidate) {
-    let sideMenuOpen = false;
     let randomProps = [/* randomProps */];
     let defaultDistanceKm = +'#{defaultDistanceKm}';
-    function openSideMenu() {
-      $invalidate(0, sideMenuOpen = true);
-    }
-    function closeSideMenu() {
-      $invalidate(0, sideMenuOpen = false);
-    }
     let user = {/* user */};
     let segments = {/* segments */};
     let email = "";
@@ -11823,27 +11799,26 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let passInput = {};
     let mode = LOGIN;
     let isSubmitted = false;
-    let myGrowl = Growl;
     async function onHashChange() {
       console.log("onHashChange.start");
       const auth = getCookie("auth");
       console.log(auth, user);
       if (auth && user && !auth.startsWith("TEMP__")) {
         location.hash = "";
-        $invalidate(8, mode = USER);
+        $invalidate(7, mode = USER);
         return;
       }
       let hash = location.hash || "";
       if (hash[0] === "#")
         hash = hash.substring(1);
       if (hash === LOGIN)
-        $invalidate(8, mode = LOGIN);
+        $invalidate(7, mode = LOGIN);
       else if (hash === REGISTER)
-        $invalidate(8, mode = REGISTER);
+        $invalidate(7, mode = REGISTER);
       else if (hash === RESEND_VERIFICATION_EMAIL)
-        $invalidate(8, mode = RESEND_VERIFICATION_EMAIL);
+        $invalidate(7, mode = RESEND_VERIFICATION_EMAIL);
       else if (hash === FORGOT_PASSWORD)
-        $invalidate(8, mode = FORGOT_PASSWORD);
+        $invalidate(7, mode = FORGOT_PASSWORD);
       else
         location.hash = LOGIN;
       console.log("onHashChange.tick");
@@ -11856,62 +11831,62 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       console.log("User = ", user);
     });
     async function guestRegister() {
-      $invalidate(9, isSubmitted = true);
+      $invalidate(8, isSubmitted = true);
       if (!email) {
-        $invalidate(9, isSubmitted = false);
+        $invalidate(8, isSubmitted = false);
         notifier.showError("Email is required");
         return;
       }
       if (password.length < 12) {
-        $invalidate(9, isSubmitted = false);
+        $invalidate(8, isSubmitted = false);
         notifier.showError("Password must be at least 12 characters");
         return;
       }
       if (password !== confirmPass) {
-        $invalidate(9, isSubmitted = false);
+        $invalidate(8, isSubmitted = false);
         notifier.showError("Passwords do not match");
         return;
       }
       const i = { email, password };
       await (0, import_jsApi_GEN4.GuestRegister)(i, async function(o) {
         if (o.error) {
-          $invalidate(9, isSubmitted = false);
+          $invalidate(8, isSubmitted = false);
           notifier.showError(o.error);
           return;
         }
-        $invalidate(9, isSubmitted = false);
+        $invalidate(8, isSubmitted = false);
         notifier.showSuccess("Registered successfully, a registration verification has been sent to your email");
-        $invalidate(8, mode = LOGIN);
-        $invalidate(4, password = "");
+        $invalidate(7, mode = LOGIN);
+        $invalidate(3, password = "");
         await tick();
         passInput.focus();
       });
     }
     async function guestLogin() {
-      $invalidate(9, isSubmitted = true);
+      $invalidate(8, isSubmitted = true);
       if (!email) {
-        $invalidate(9, isSubmitted = false);
+        $invalidate(8, isSubmitted = false);
         notifier.showError("Email is required");
         return;
       }
       if (password.length < 12) {
-        $invalidate(9, isSubmitted = false);
+        $invalidate(8, isSubmitted = false);
         notifier.showError("Password must be at least 12 characters");
         return;
       }
       const i = { email, password };
       await (0, import_jsApi_GEN4.GuestLogin)(i, function(o) {
         if (o.error) {
-          $invalidate(9, isSubmitted = false);
+          $invalidate(8, isSubmitted = false);
           notifier.showError(o.error);
           return;
         }
-        $invalidate(9, isSubmitted = false);
+        $invalidate(8, isSubmitted = false);
         notifier.showSuccess("Login successfully");
         setTimeout(
           () => {
-            $invalidate(1, user = o.user);
-            $invalidate(2, segments = o.segments);
+            $invalidate(0, user = o.user);
+            $invalidate(1, segments = o.segments);
             onHashChange();
             window.document.location = "/realtor/property";
           },
@@ -11920,35 +11895,35 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       });
     }
     async function guestResendVerificationEmail() {
-      $invalidate(9, isSubmitted = true);
+      $invalidate(8, isSubmitted = true);
       if (!email) {
-        $invalidate(9, isSubmitted = false);
+        $invalidate(8, isSubmitted = false);
         notifier.showError("Email is required");
         return;
       }
       const i = { email };
       await (0, import_jsApi_GEN4.GuestResendVerificationEmail)(i, function(o) {
         if (o.error) {
-          $invalidate(9, isSubmitted = false);
+          $invalidate(8, isSubmitted = false);
           notifier.showError(o.error);
           return;
         }
-        $invalidate(9, isSubmitted = false);
+        $invalidate(8, isSubmitted = false);
         onHashChange();
         notifier.showInfo("An email verification link has been sent to your email");
       });
     }
     async function guestForgotPassword() {
-      $invalidate(9, isSubmitted = true);
+      $invalidate(8, isSubmitted = true);
       if (!email) {
-        $invalidate(9, isSubmitted = false);
+        $invalidate(8, isSubmitted = false);
         notifier.showError("Email is required");
         return;
       }
       const i = { email };
       await (0, import_jsApi_GEN4.GuestForgotPassword)(i, function(o) {
         if (o.error) {
-          $invalidate(9, isSubmitted = false);
+          $invalidate(8, isSubmitted = false);
           notifier.showError(o.error);
           return;
         }
@@ -11958,34 +11933,33 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     }
     function input_input_handler() {
       email = this.value;
-      $invalidate(3, email);
+      $invalidate(2, email);
     }
     function input_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         emailInput = $value;
-        $invalidate(6, emailInput);
+        $invalidate(5, emailInput);
       });
     }
     function input_input_handler_1() {
       password = this.value;
-      $invalidate(4, password);
+      $invalidate(3, password);
     }
     function input_binding_1($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         passInput = $value;
-        $invalidate(7, passInput);
+        $invalidate(6, passInput);
       });
     }
     function input_input_handler_2() {
       confirmPass = this.value;
-      $invalidate(5, confirmPass);
+      $invalidate(4, confirmPass);
     }
-    const click_handler = () => $invalidate(8, mode = FORGOT_PASSWORD);
-    const click_handler_1 = () => $invalidate(8, mode = REGISTER);
-    const click_handler_2 = () => $invalidate(8, mode = LOGIN);
-    const click_handler_3 = () => $invalidate(8, mode = RESEND_VERIFICATION_EMAIL);
+    const click_handler = () => $invalidate(7, mode = FORGOT_PASSWORD);
+    const click_handler_1 = () => $invalidate(7, mode = REGISTER);
+    const click_handler_2 = () => $invalidate(7, mode = LOGIN);
+    const click_handler_3 = () => $invalidate(7, mode = RESEND_VERIFICATION_EMAIL);
     return [
-      sideMenuOpen,
       user,
       segments,
       email,
@@ -11996,7 +11970,6 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       mode,
       isSubmitted,
       randomProps,
-      closeSideMenu,
       onHashChange,
       guestRegister,
       guestLogin,
