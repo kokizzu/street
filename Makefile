@@ -26,7 +26,7 @@ modtidy:
 
 fixtags:
 	# fix struct tags
-	go generate street/domain
+	go generate domain
 
 orm:
 	# generate ORM
