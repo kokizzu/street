@@ -640,7 +640,7 @@
 							<p class='description'>Let buyers find your house on camera.</p>
 							<div class='streetview_container'>
 								<div class='input_box'>
-									<label for='altitude'>Estimated distance from floor where you want to put your signage</label>
+									<label for='altitude'>Estimated distance (meter) from floor where you want to put your signage</label>
 									<input id='altitude' type='number' min='0' step='0.1' placeholder='Required' bind:value={property.altitude}/>
 								</div>
 							</div>
