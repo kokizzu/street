@@ -15,7 +15,7 @@
     {:else}
 	    <p>{email} { recentlyRegistered ? 'registered and' : ''} logged in successfully</p>
     {/if}
-    <a href="/">
+    <a href="/realtor">
       <i class="gg-arrow-left-r" />
       <p>Back to main page</p>
     </a>

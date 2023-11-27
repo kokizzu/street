@@ -136,7 +136,7 @@
         segments = o.segments;
         onHashChange();
 
-        window.document.location = '/realtor/property';
+        window.document.location = '/realtor';
       }, 1500 );
     } );
   }
