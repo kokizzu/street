@@ -57,6 +57,10 @@ const (
 )
 
 const (
+	TablePropertyTW Tt.TableName = `propertyTW`
+)
+
+const (
 	TableProperty Tt.TableName = `property`
 
 	Id                     = `id`
@@ -341,6 +345,14 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Unique1:         TransactionKey,
 		Indexes:         []string{PropertyKey},
 		Engine:          Tt.Memtx,
+	},
+	TablePropertyTW: {
+		Fields:          buildStandardPropertySchema(),
+		AutoIncrementId: true,
+		Unique1:         UniqPropKey,
+		Indexes:         []string{SerialNumber},
+		Engine:          Tt.Memtx,
+		Spatial:         Coord,
 	},
 }
 
