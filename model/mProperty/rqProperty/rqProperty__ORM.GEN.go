@@ -1546,6 +1546,1012 @@ var PropertyExtraUSFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false po
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
+// PropertyTW DAO reader/query struct
+type PropertyTW struct {
+	Adapter                 *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id                      uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	UniqPropKey             string      `json:"uniqPropKey" form:"uniqPropKey" query:"uniqPropKey" long:"uniqPropKey" msg:"uniqPropKey"`
+	SerialNumber            string      `json:"serialNumber" form:"serialNumber" query:"serialNumber" long:"serialNumber" msg:"serialNumber"`
+	SizeM2                  string      `json:"sizeM2" form:"sizeM2" query:"sizeM2" long:"sizeM2" msg:"sizeM2"`
+	MainUse                 string      `json:"mainUse" form:"mainUse" query:"mainUse" long:"mainUse" msg:"mainUse"`
+	MainBuildingMaterial    string      `json:"mainBuildingMaterial" form:"mainBuildingMaterial" query:"mainBuildingMaterial" long:"mainBuildingMaterial" msg:"mainBuildingMaterial"`
+	ConstructCompletedDate  string      `json:"constructCompletedDate" form:"constructCompletedDate" query:"constructCompletedDate" long:"constructCompletedDate" msg:"constructCompletedDate"`
+	NumberOfFloors          string      `json:"numberOfFloors" form:"numberOfFloors" query:"numberOfFloors" long:"numberOfFloors" msg:"numberOfFloors"`
+	BuildingLamination      string      `json:"buildingLamination" form:"buildingLamination" query:"buildingLamination" long:"buildingLamination" msg:"buildingLamination"`
+	Address                 string      `json:"address" form:"address" query:"address" long:"address" msg:"address"`
+	District                string      `json:"district" form:"district" query:"district" long:"district" msg:"district"`
+	Note                    string      `json:"note" form:"note" query:"note" long:"note" msg:"note"`
+	Coord                   []any       `json:"coord" form:"coord" query:"coord" long:"coord" msg:"coord"`
+	CreatedAt               int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy               uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt               int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy               uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt               int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	FormattedAddress        string      `json:"formattedAddress" form:"formattedAddress" query:"formattedAddress" long:"formattedAddress" msg:"formattedAddress"`
+	LastPrice               string      `json:"lastPrice" form:"lastPrice" query:"lastPrice" long:"lastPrice" msg:"lastPrice"`
+	PriceHistoriesSell      []any       `json:"priceHistoriesSell" form:"priceHistoriesSell" query:"priceHistoriesSell" long:"priceHistoriesSell" msg:"priceHistoriesSell"`
+	PriceHistoriesRent      []any       `json:"priceHistoriesRent" form:"priceHistoriesRent" query:"priceHistoriesRent" long:"priceHistoriesRent" msg:"priceHistoriesRent"`
+	Purpose                 string      `json:"purpose" form:"purpose" query:"purpose" long:"purpose" msg:"purpose"`
+	HouseType               string      `json:"houseType" form:"houseType" query:"houseType" long:"houseType" msg:"houseType"`
+	Images                  []any       `json:"images" form:"images" query:"images" long:"images" msg:"images"`
+	Bedroom                 int64       `json:"bedroom" form:"bedroom" query:"bedroom" long:"bedroom" msg:"bedroom"`
+	Bathroom                int64       `json:"bathroom" form:"bathroom" query:"bathroom" long:"bathroom" msg:"bathroom"`
+	AgencyFeePercent        float64     `json:"agencyFeePercent" form:"agencyFeePercent" query:"agencyFeePercent" long:"agencyFeePercent" msg:"agencyFeePercent"`
+	FloorList               []any       `json:"floorList" form:"floorList" query:"floorList" long:"floorList" msg:"floorList"`
+	Version                 string      `json:"version" form:"version" query:"version" long:"version" msg:"version"`
+	YearBuilt               int64       `json:"yearBuilt" form:"yearBuilt" query:"yearBuilt" long:"yearBuilt" msg:"yearBuilt"`
+	YearRenovated           int64       `json:"yearRenovated" form:"yearRenovated" query:"yearRenovated" long:"yearRenovated" msg:"yearRenovated"`
+	TotalSqft               float64     `json:"totalSqft" form:"totalSqft" query:"totalSqft" long:"totalSqft" msg:"totalSqft"`
+	CountyName              string      `json:"countyName" form:"countyName" query:"countyName" long:"countyName" msg:"countyName"`
+	Street                  string      `json:"street" form:"street" query:"street" long:"street" msg:"street"`
+	City                    string      `json:"city" form:"city" query:"city" long:"city" msg:"city"`
+	State                   string      `json:"state" form:"state" query:"state" long:"state" msg:"state"`
+	Zip                     string      `json:"zip" form:"zip" query:"zip" long:"zip" msg:"zip"`
+	PropertyLastUpdatedDate int64       `json:"propertyLastUpdatedDate" form:"propertyLastUpdatedDate" query:"propertyLastUpdatedDate" long:"propertyLastUpdatedDate" msg:"propertyLastUpdatedDate"`
+	ApprovalState           string      `json:"approvalState" form:"approvalState" query:"approvalState" long:"approvalState" msg:"approvalState"`
+	CountryCode             string      `json:"countryCode" form:"countryCode" query:"countryCode" long:"countryCode" msg:"countryCode"`
+	Livingroom              int64       `json:"livingroom" form:"livingroom" query:"livingroom" long:"livingroom" msg:"livingroom"`
+	Altitude                float64     `json:"altitude" form:"altitude" query:"altitude" long:"altitude" msg:"altitude"`
+	Parking                 float64     `json:"parking" form:"parking" query:"parking" long:"parking" msg:"parking"`
+	DepositFee              float64     `json:"depositFee" form:"depositFee" query:"depositFee" long:"depositFee" msg:"depositFee"`
+	MinimumDurationYear     float64     `json:"minimumDurationYear" form:"minimumDurationYear" query:"minimumDurationYear" long:"minimumDurationYear" msg:"minimumDurationYear"`
+	OtherFees               []any       `json:"otherFees" form:"otherFees" query:"otherFees" long:"otherFees" msg:"otherFees"`
+	ImageLabels             []any       `json:"imageLabels" form:"imageLabels" query:"imageLabels" long:"imageLabels" msg:"imageLabels"`
+}
+
+// NewPropertyTW create new ORM reader/query object
+func NewPropertyTW(adapter *Tt.Adapter) *PropertyTW {
+	return &PropertyTW{Adapter: adapter}
+}
+
+// SpaceName returns full package and table name
+func (p *PropertyTW) SpaceName() string { //nolint:dupl false positive
+	return string(mProperty.TablePropertyTW) // casting required to string from Tt.TableName
+}
+
+// SqlTableName returns quoted table name
+func (p *PropertyTW) SqlTableName() string { //nolint:dupl false positive
+	return `"propertyTW"`
+}
+
+func (p *PropertyTW) UniqueIndexId() string { //nolint:dupl false positive
+	return `id`
+}
+
+// FindById Find one by Id
+func (p *PropertyTW) FindById() bool { //nolint:dupl false positive
+	res, err := p.Adapter.Select(p.SpaceName(), p.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{p.Id})
+	if L.IsError(err, `PropertyTW.FindById failed: `+p.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		p.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
+// SpatialIndexCoord return spatial index name
+func (p *PropertyTW) SpatialIndexCoord() string { //nolint:dupl false positive
+	return `coord`
+}
+
+// UniqueIndexUniqPropKey return unique index name
+func (p *PropertyTW) UniqueIndexUniqPropKey() string { //nolint:dupl false positive
+	return `uniqPropKey`
+}
+
+// FindByUniqPropKey Find one by UniqPropKey
+func (p *PropertyTW) FindByUniqPropKey() bool { //nolint:dupl false positive
+	res, err := p.Adapter.Select(p.SpaceName(), p.UniqueIndexUniqPropKey(), 0, 1, tarantool.IterEq, A.X{p.UniqPropKey})
+	if L.IsError(err, `PropertyTW.FindByUniqPropKey failed: `+p.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		p.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
+// SqlSelectAllFields generate Sql select fields
+func (p *PropertyTW) SqlSelectAllFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "uniqPropKey"
+	, "serialNumber"
+	, "sizeM2"
+	, "mainUse"
+	, "mainBuildingMaterial"
+	, "constructCompletedDate"
+	, "numberOfFloors"
+	, "buildingLamination"
+	, "address"
+	, "district"
+	, "note"
+	, "coord"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	, "formattedAddress"
+	, "lastPrice"
+	, "priceHistoriesSell"
+	, "priceHistoriesRent"
+	, "purpose"
+	, "houseType"
+	, "images"
+	, "bedroom"
+	, "bathroom"
+	, "agencyFeePercent"
+	, "floorList"
+	, "version"
+	, "yearBuilt"
+	, "yearRenovated"
+	, "totalSqft"
+	, "countyName"
+	, "street"
+	, "city"
+	, "state"
+	, "zip"
+	, "propertyLastUpdatedDate"
+	, "approvalState"
+	, "countryCode"
+	, "livingroom"
+	, "altitude"
+	, "parking"
+	, "depositFee"
+	, "minimumDurationYear"
+	, "otherFees"
+	, "imageLabels"
+	`
+}
+
+// SqlSelectAllUncensoredFields generate Sql select fields
+func (p *PropertyTW) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "uniqPropKey"
+	, "serialNumber"
+	, "sizeM2"
+	, "mainUse"
+	, "mainBuildingMaterial"
+	, "constructCompletedDate"
+	, "numberOfFloors"
+	, "buildingLamination"
+	, "address"
+	, "district"
+	, "note"
+	, "coord"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	, "formattedAddress"
+	, "lastPrice"
+	, "priceHistoriesSell"
+	, "priceHistoriesRent"
+	, "purpose"
+	, "houseType"
+	, "images"
+	, "bedroom"
+	, "bathroom"
+	, "agencyFeePercent"
+	, "floorList"
+	, "version"
+	, "yearBuilt"
+	, "yearRenovated"
+	, "totalSqft"
+	, "countyName"
+	, "street"
+	, "city"
+	, "state"
+	, "zip"
+	, "propertyLastUpdatedDate"
+	, "approvalState"
+	, "countryCode"
+	, "livingroom"
+	, "altitude"
+	, "parking"
+	, "depositFee"
+	, "minimumDurationYear"
+	, "otherFees"
+	, "imageLabels"
+	`
+}
+
+// ToUpdateArray generate slice of update command
+func (p *PropertyTW) ToUpdateArray() A.X { //nolint:dupl false positive
+	return A.X{
+		A.X{`=`, 0, p.Id},
+		A.X{`=`, 1, p.UniqPropKey},
+		A.X{`=`, 2, p.SerialNumber},
+		A.X{`=`, 3, p.SizeM2},
+		A.X{`=`, 4, p.MainUse},
+		A.X{`=`, 5, p.MainBuildingMaterial},
+		A.X{`=`, 6, p.ConstructCompletedDate},
+		A.X{`=`, 7, p.NumberOfFloors},
+		A.X{`=`, 8, p.BuildingLamination},
+		A.X{`=`, 9, p.Address},
+		A.X{`=`, 10, p.District},
+		A.X{`=`, 11, p.Note},
+		A.X{`=`, 12, p.Coord},
+		A.X{`=`, 13, p.CreatedAt},
+		A.X{`=`, 14, p.CreatedBy},
+		A.X{`=`, 15, p.UpdatedAt},
+		A.X{`=`, 16, p.UpdatedBy},
+		A.X{`=`, 17, p.DeletedAt},
+		A.X{`=`, 18, p.FormattedAddress},
+		A.X{`=`, 19, p.LastPrice},
+		A.X{`=`, 20, p.PriceHistoriesSell},
+		A.X{`=`, 21, p.PriceHistoriesRent},
+		A.X{`=`, 22, p.Purpose},
+		A.X{`=`, 23, p.HouseType},
+		A.X{`=`, 24, p.Images},
+		A.X{`=`, 25, p.Bedroom},
+		A.X{`=`, 26, p.Bathroom},
+		A.X{`=`, 27, p.AgencyFeePercent},
+		A.X{`=`, 28, p.FloorList},
+		A.X{`=`, 29, p.Version},
+		A.X{`=`, 30, p.YearBuilt},
+		A.X{`=`, 31, p.YearRenovated},
+		A.X{`=`, 32, p.TotalSqft},
+		A.X{`=`, 33, p.CountyName},
+		A.X{`=`, 34, p.Street},
+		A.X{`=`, 35, p.City},
+		A.X{`=`, 36, p.State},
+		A.X{`=`, 37, p.Zip},
+		A.X{`=`, 38, p.PropertyLastUpdatedDate},
+		A.X{`=`, 39, p.ApprovalState},
+		A.X{`=`, 40, p.CountryCode},
+		A.X{`=`, 41, p.Livingroom},
+		A.X{`=`, 42, p.Altitude},
+		A.X{`=`, 43, p.Parking},
+		A.X{`=`, 44, p.DepositFee},
+		A.X{`=`, 45, p.MinimumDurationYear},
+		A.X{`=`, 46, p.OtherFees},
+		A.X{`=`, 47, p.ImageLabels},
+	}
+}
+
+// IdxId return name of the index
+func (p *PropertyTW) IdxId() int { //nolint:dupl false positive
+	return 0
+}
+
+// SqlId return name of the column being indexed
+func (p *PropertyTW) SqlId() string { //nolint:dupl false positive
+	return `"id"`
+}
+
+// IdxUniqPropKey return name of the index
+func (p *PropertyTW) IdxUniqPropKey() int { //nolint:dupl false positive
+	return 1
+}
+
+// SqlUniqPropKey return name of the column being indexed
+func (p *PropertyTW) SqlUniqPropKey() string { //nolint:dupl false positive
+	return `"uniqPropKey"`
+}
+
+// IdxSerialNumber return name of the index
+func (p *PropertyTW) IdxSerialNumber() int { //nolint:dupl false positive
+	return 2
+}
+
+// SqlSerialNumber return name of the column being indexed
+func (p *PropertyTW) SqlSerialNumber() string { //nolint:dupl false positive
+	return `"serialNumber"`
+}
+
+// IdxSizeM2 return name of the index
+func (p *PropertyTW) IdxSizeM2() int { //nolint:dupl false positive
+	return 3
+}
+
+// SqlSizeM2 return name of the column being indexed
+func (p *PropertyTW) SqlSizeM2() string { //nolint:dupl false positive
+	return `"sizeM2"`
+}
+
+// IdxMainUse return name of the index
+func (p *PropertyTW) IdxMainUse() int { //nolint:dupl false positive
+	return 4
+}
+
+// SqlMainUse return name of the column being indexed
+func (p *PropertyTW) SqlMainUse() string { //nolint:dupl false positive
+	return `"mainUse"`
+}
+
+// IdxMainBuildingMaterial return name of the index
+func (p *PropertyTW) IdxMainBuildingMaterial() int { //nolint:dupl false positive
+	return 5
+}
+
+// SqlMainBuildingMaterial return name of the column being indexed
+func (p *PropertyTW) SqlMainBuildingMaterial() string { //nolint:dupl false positive
+	return `"mainBuildingMaterial"`
+}
+
+// IdxConstructCompletedDate return name of the index
+func (p *PropertyTW) IdxConstructCompletedDate() int { //nolint:dupl false positive
+	return 6
+}
+
+// SqlConstructCompletedDate return name of the column being indexed
+func (p *PropertyTW) SqlConstructCompletedDate() string { //nolint:dupl false positive
+	return `"constructCompletedDate"`
+}
+
+// IdxNumberOfFloors return name of the index
+func (p *PropertyTW) IdxNumberOfFloors() int { //nolint:dupl false positive
+	return 7
+}
+
+// SqlNumberOfFloors return name of the column being indexed
+func (p *PropertyTW) SqlNumberOfFloors() string { //nolint:dupl false positive
+	return `"numberOfFloors"`
+}
+
+// IdxBuildingLamination return name of the index
+func (p *PropertyTW) IdxBuildingLamination() int { //nolint:dupl false positive
+	return 8
+}
+
+// SqlBuildingLamination return name of the column being indexed
+func (p *PropertyTW) SqlBuildingLamination() string { //nolint:dupl false positive
+	return `"buildingLamination"`
+}
+
+// IdxAddress return name of the index
+func (p *PropertyTW) IdxAddress() int { //nolint:dupl false positive
+	return 9
+}
+
+// SqlAddress return name of the column being indexed
+func (p *PropertyTW) SqlAddress() string { //nolint:dupl false positive
+	return `"address"`
+}
+
+// IdxDistrict return name of the index
+func (p *PropertyTW) IdxDistrict() int { //nolint:dupl false positive
+	return 10
+}
+
+// SqlDistrict return name of the column being indexed
+func (p *PropertyTW) SqlDistrict() string { //nolint:dupl false positive
+	return `"district"`
+}
+
+// IdxNote return name of the index
+func (p *PropertyTW) IdxNote() int { //nolint:dupl false positive
+	return 11
+}
+
+// SqlNote return name of the column being indexed
+func (p *PropertyTW) SqlNote() string { //nolint:dupl false positive
+	return `"note"`
+}
+
+// IdxCoord return name of the index
+func (p *PropertyTW) IdxCoord() int { //nolint:dupl false positive
+	return 12
+}
+
+// SqlCoord return name of the column being indexed
+func (p *PropertyTW) SqlCoord() string { //nolint:dupl false positive
+	return `"coord"`
+}
+
+// IdxCreatedAt return name of the index
+func (p *PropertyTW) IdxCreatedAt() int { //nolint:dupl false positive
+	return 13
+}
+
+// SqlCreatedAt return name of the column being indexed
+func (p *PropertyTW) SqlCreatedAt() string { //nolint:dupl false positive
+	return `"createdAt"`
+}
+
+// IdxCreatedBy return name of the index
+func (p *PropertyTW) IdxCreatedBy() int { //nolint:dupl false positive
+	return 14
+}
+
+// SqlCreatedBy return name of the column being indexed
+func (p *PropertyTW) SqlCreatedBy() string { //nolint:dupl false positive
+	return `"createdBy"`
+}
+
+// IdxUpdatedAt return name of the index
+func (p *PropertyTW) IdxUpdatedAt() int { //nolint:dupl false positive
+	return 15
+}
+
+// SqlUpdatedAt return name of the column being indexed
+func (p *PropertyTW) SqlUpdatedAt() string { //nolint:dupl false positive
+	return `"updatedAt"`
+}
+
+// IdxUpdatedBy return name of the index
+func (p *PropertyTW) IdxUpdatedBy() int { //nolint:dupl false positive
+	return 16
+}
+
+// SqlUpdatedBy return name of the column being indexed
+func (p *PropertyTW) SqlUpdatedBy() string { //nolint:dupl false positive
+	return `"updatedBy"`
+}
+
+// IdxDeletedAt return name of the index
+func (p *PropertyTW) IdxDeletedAt() int { //nolint:dupl false positive
+	return 17
+}
+
+// SqlDeletedAt return name of the column being indexed
+func (p *PropertyTW) SqlDeletedAt() string { //nolint:dupl false positive
+	return `"deletedAt"`
+}
+
+// IdxFormattedAddress return name of the index
+func (p *PropertyTW) IdxFormattedAddress() int { //nolint:dupl false positive
+	return 18
+}
+
+// SqlFormattedAddress return name of the column being indexed
+func (p *PropertyTW) SqlFormattedAddress() string { //nolint:dupl false positive
+	return `"formattedAddress"`
+}
+
+// IdxLastPrice return name of the index
+func (p *PropertyTW) IdxLastPrice() int { //nolint:dupl false positive
+	return 19
+}
+
+// SqlLastPrice return name of the column being indexed
+func (p *PropertyTW) SqlLastPrice() string { //nolint:dupl false positive
+	return `"lastPrice"`
+}
+
+// IdxPriceHistoriesSell return name of the index
+func (p *PropertyTW) IdxPriceHistoriesSell() int { //nolint:dupl false positive
+	return 20
+}
+
+// SqlPriceHistoriesSell return name of the column being indexed
+func (p *PropertyTW) SqlPriceHistoriesSell() string { //nolint:dupl false positive
+	return `"priceHistoriesSell"`
+}
+
+// IdxPriceHistoriesRent return name of the index
+func (p *PropertyTW) IdxPriceHistoriesRent() int { //nolint:dupl false positive
+	return 21
+}
+
+// SqlPriceHistoriesRent return name of the column being indexed
+func (p *PropertyTW) SqlPriceHistoriesRent() string { //nolint:dupl false positive
+	return `"priceHistoriesRent"`
+}
+
+// IdxPurpose return name of the index
+func (p *PropertyTW) IdxPurpose() int { //nolint:dupl false positive
+	return 22
+}
+
+// SqlPurpose return name of the column being indexed
+func (p *PropertyTW) SqlPurpose() string { //nolint:dupl false positive
+	return `"purpose"`
+}
+
+// IdxHouseType return name of the index
+func (p *PropertyTW) IdxHouseType() int { //nolint:dupl false positive
+	return 23
+}
+
+// SqlHouseType return name of the column being indexed
+func (p *PropertyTW) SqlHouseType() string { //nolint:dupl false positive
+	return `"houseType"`
+}
+
+// IdxImages return name of the index
+func (p *PropertyTW) IdxImages() int { //nolint:dupl false positive
+	return 24
+}
+
+// SqlImages return name of the column being indexed
+func (p *PropertyTW) SqlImages() string { //nolint:dupl false positive
+	return `"images"`
+}
+
+// IdxBedroom return name of the index
+func (p *PropertyTW) IdxBedroom() int { //nolint:dupl false positive
+	return 25
+}
+
+// SqlBedroom return name of the column being indexed
+func (p *PropertyTW) SqlBedroom() string { //nolint:dupl false positive
+	return `"bedroom"`
+}
+
+// IdxBathroom return name of the index
+func (p *PropertyTW) IdxBathroom() int { //nolint:dupl false positive
+	return 26
+}
+
+// SqlBathroom return name of the column being indexed
+func (p *PropertyTW) SqlBathroom() string { //nolint:dupl false positive
+	return `"bathroom"`
+}
+
+// IdxAgencyFeePercent return name of the index
+func (p *PropertyTW) IdxAgencyFeePercent() int { //nolint:dupl false positive
+	return 27
+}
+
+// SqlAgencyFeePercent return name of the column being indexed
+func (p *PropertyTW) SqlAgencyFeePercent() string { //nolint:dupl false positive
+	return `"agencyFeePercent"`
+}
+
+// IdxFloorList return name of the index
+func (p *PropertyTW) IdxFloorList() int { //nolint:dupl false positive
+	return 28
+}
+
+// SqlFloorList return name of the column being indexed
+func (p *PropertyTW) SqlFloorList() string { //nolint:dupl false positive
+	return `"floorList"`
+}
+
+// IdxVersion return name of the index
+func (p *PropertyTW) IdxVersion() int { //nolint:dupl false positive
+	return 29
+}
+
+// SqlVersion return name of the column being indexed
+func (p *PropertyTW) SqlVersion() string { //nolint:dupl false positive
+	return `"version"`
+}
+
+// IdxYearBuilt return name of the index
+func (p *PropertyTW) IdxYearBuilt() int { //nolint:dupl false positive
+	return 30
+}
+
+// SqlYearBuilt return name of the column being indexed
+func (p *PropertyTW) SqlYearBuilt() string { //nolint:dupl false positive
+	return `"yearBuilt"`
+}
+
+// IdxYearRenovated return name of the index
+func (p *PropertyTW) IdxYearRenovated() int { //nolint:dupl false positive
+	return 31
+}
+
+// SqlYearRenovated return name of the column being indexed
+func (p *PropertyTW) SqlYearRenovated() string { //nolint:dupl false positive
+	return `"yearRenovated"`
+}
+
+// IdxTotalSqft return name of the index
+func (p *PropertyTW) IdxTotalSqft() int { //nolint:dupl false positive
+	return 32
+}
+
+// SqlTotalSqft return name of the column being indexed
+func (p *PropertyTW) SqlTotalSqft() string { //nolint:dupl false positive
+	return `"totalSqft"`
+}
+
+// IdxCountyName return name of the index
+func (p *PropertyTW) IdxCountyName() int { //nolint:dupl false positive
+	return 33
+}
+
+// SqlCountyName return name of the column being indexed
+func (p *PropertyTW) SqlCountyName() string { //nolint:dupl false positive
+	return `"countyName"`
+}
+
+// IdxStreet return name of the index
+func (p *PropertyTW) IdxStreet() int { //nolint:dupl false positive
+	return 34
+}
+
+// SqlStreet return name of the column being indexed
+func (p *PropertyTW) SqlStreet() string { //nolint:dupl false positive
+	return `"street"`
+}
+
+// IdxCity return name of the index
+func (p *PropertyTW) IdxCity() int { //nolint:dupl false positive
+	return 35
+}
+
+// SqlCity return name of the column being indexed
+func (p *PropertyTW) SqlCity() string { //nolint:dupl false positive
+	return `"city"`
+}
+
+// IdxState return name of the index
+func (p *PropertyTW) IdxState() int { //nolint:dupl false positive
+	return 36
+}
+
+// SqlState return name of the column being indexed
+func (p *PropertyTW) SqlState() string { //nolint:dupl false positive
+	return `"state"`
+}
+
+// IdxZip return name of the index
+func (p *PropertyTW) IdxZip() int { //nolint:dupl false positive
+	return 37
+}
+
+// SqlZip return name of the column being indexed
+func (p *PropertyTW) SqlZip() string { //nolint:dupl false positive
+	return `"zip"`
+}
+
+// IdxPropertyLastUpdatedDate return name of the index
+func (p *PropertyTW) IdxPropertyLastUpdatedDate() int { //nolint:dupl false positive
+	return 38
+}
+
+// SqlPropertyLastUpdatedDate return name of the column being indexed
+func (p *PropertyTW) SqlPropertyLastUpdatedDate() string { //nolint:dupl false positive
+	return `"propertyLastUpdatedDate"`
+}
+
+// IdxApprovalState return name of the index
+func (p *PropertyTW) IdxApprovalState() int { //nolint:dupl false positive
+	return 39
+}
+
+// SqlApprovalState return name of the column being indexed
+func (p *PropertyTW) SqlApprovalState() string { //nolint:dupl false positive
+	return `"approvalState"`
+}
+
+// IdxCountryCode return name of the index
+func (p *PropertyTW) IdxCountryCode() int { //nolint:dupl false positive
+	return 40
+}
+
+// SqlCountryCode return name of the column being indexed
+func (p *PropertyTW) SqlCountryCode() string { //nolint:dupl false positive
+	return `"countryCode"`
+}
+
+// IdxLivingroom return name of the index
+func (p *PropertyTW) IdxLivingroom() int { //nolint:dupl false positive
+	return 41
+}
+
+// SqlLivingroom return name of the column being indexed
+func (p *PropertyTW) SqlLivingroom() string { //nolint:dupl false positive
+	return `"livingroom"`
+}
+
+// IdxAltitude return name of the index
+func (p *PropertyTW) IdxAltitude() int { //nolint:dupl false positive
+	return 42
+}
+
+// SqlAltitude return name of the column being indexed
+func (p *PropertyTW) SqlAltitude() string { //nolint:dupl false positive
+	return `"altitude"`
+}
+
+// IdxParking return name of the index
+func (p *PropertyTW) IdxParking() int { //nolint:dupl false positive
+	return 43
+}
+
+// SqlParking return name of the column being indexed
+func (p *PropertyTW) SqlParking() string { //nolint:dupl false positive
+	return `"parking"`
+}
+
+// IdxDepositFee return name of the index
+func (p *PropertyTW) IdxDepositFee() int { //nolint:dupl false positive
+	return 44
+}
+
+// SqlDepositFee return name of the column being indexed
+func (p *PropertyTW) SqlDepositFee() string { //nolint:dupl false positive
+	return `"depositFee"`
+}
+
+// IdxMinimumDurationYear return name of the index
+func (p *PropertyTW) IdxMinimumDurationYear() int { //nolint:dupl false positive
+	return 45
+}
+
+// SqlMinimumDurationYear return name of the column being indexed
+func (p *PropertyTW) SqlMinimumDurationYear() string { //nolint:dupl false positive
+	return `"minimumDurationYear"`
+}
+
+// IdxOtherFees return name of the index
+func (p *PropertyTW) IdxOtherFees() int { //nolint:dupl false positive
+	return 46
+}
+
+// SqlOtherFees return name of the column being indexed
+func (p *PropertyTW) SqlOtherFees() string { //nolint:dupl false positive
+	return `"otherFees"`
+}
+
+// IdxImageLabels return name of the index
+func (p *PropertyTW) IdxImageLabels() int { //nolint:dupl false positive
+	return 47
+}
+
+// SqlImageLabels return name of the column being indexed
+func (p *PropertyTW) SqlImageLabels() string { //nolint:dupl false positive
+	return `"imageLabels"`
+}
+
+// ToArray receiver fields to slice
+func (p *PropertyTW) ToArray() A.X { //nolint:dupl false positive
+	var id any = nil
+	if p.Id != 0 {
+		id = p.Id
+	}
+	return A.X{
+		id,
+		p.UniqPropKey,             // 1
+		p.SerialNumber,            // 2
+		p.SizeM2,                  // 3
+		p.MainUse,                 // 4
+		p.MainBuildingMaterial,    // 5
+		p.ConstructCompletedDate,  // 6
+		p.NumberOfFloors,          // 7
+		p.BuildingLamination,      // 8
+		p.Address,                 // 9
+		p.District,                // 10
+		p.Note,                    // 11
+		p.Coord,                   // 12
+		p.CreatedAt,               // 13
+		p.CreatedBy,               // 14
+		p.UpdatedAt,               // 15
+		p.UpdatedBy,               // 16
+		p.DeletedAt,               // 17
+		p.FormattedAddress,        // 18
+		p.LastPrice,               // 19
+		p.PriceHistoriesSell,      // 20
+		p.PriceHistoriesRent,      // 21
+		p.Purpose,                 // 22
+		p.HouseType,               // 23
+		p.Images,                  // 24
+		p.Bedroom,                 // 25
+		p.Bathroom,                // 26
+		p.AgencyFeePercent,        // 27
+		p.FloorList,               // 28
+		p.Version,                 // 29
+		p.YearBuilt,               // 30
+		p.YearRenovated,           // 31
+		p.TotalSqft,               // 32
+		p.CountyName,              // 33
+		p.Street,                  // 34
+		p.City,                    // 35
+		p.State,                   // 36
+		p.Zip,                     // 37
+		p.PropertyLastUpdatedDate, // 38
+		p.ApprovalState,           // 39
+		p.CountryCode,             // 40
+		p.Livingroom,              // 41
+		p.Altitude,                // 42
+		p.Parking,                 // 43
+		p.DepositFee,              // 44
+		p.MinimumDurationYear,     // 45
+		p.OtherFees,               // 46
+		p.ImageLabels,             // 47
+	}
+}
+
+// FromArray convert slice to receiver fields
+func (p *PropertyTW) FromArray(a A.X) *PropertyTW { //nolint:dupl false positive
+	p.Id = X.ToU(a[0])
+	p.UniqPropKey = X.ToS(a[1])
+	p.SerialNumber = X.ToS(a[2])
+	p.SizeM2 = X.ToS(a[3])
+	p.MainUse = X.ToS(a[4])
+	p.MainBuildingMaterial = X.ToS(a[5])
+	p.ConstructCompletedDate = X.ToS(a[6])
+	p.NumberOfFloors = X.ToS(a[7])
+	p.BuildingLamination = X.ToS(a[8])
+	p.Address = X.ToS(a[9])
+	p.District = X.ToS(a[10])
+	p.Note = X.ToS(a[11])
+	p.Coord = X.ToArr(a[12])
+	p.CreatedAt = X.ToI(a[13])
+	p.CreatedBy = X.ToU(a[14])
+	p.UpdatedAt = X.ToI(a[15])
+	p.UpdatedBy = X.ToU(a[16])
+	p.DeletedAt = X.ToI(a[17])
+	p.FormattedAddress = X.ToS(a[18])
+	p.LastPrice = X.ToS(a[19])
+	p.PriceHistoriesSell = X.ToArr(a[20])
+	p.PriceHistoriesRent = X.ToArr(a[21])
+	p.Purpose = X.ToS(a[22])
+	p.HouseType = X.ToS(a[23])
+	p.Images = X.ToArr(a[24])
+	p.Bedroom = X.ToI(a[25])
+	p.Bathroom = X.ToI(a[26])
+	p.AgencyFeePercent = X.ToF(a[27])
+	p.FloorList = X.ToArr(a[28])
+	p.Version = X.ToS(a[29])
+	p.YearBuilt = X.ToI(a[30])
+	p.YearRenovated = X.ToI(a[31])
+	p.TotalSqft = X.ToF(a[32])
+	p.CountyName = X.ToS(a[33])
+	p.Street = X.ToS(a[34])
+	p.City = X.ToS(a[35])
+	p.State = X.ToS(a[36])
+	p.Zip = X.ToS(a[37])
+	p.PropertyLastUpdatedDate = X.ToI(a[38])
+	p.ApprovalState = X.ToS(a[39])
+	p.CountryCode = X.ToS(a[40])
+	p.Livingroom = X.ToI(a[41])
+	p.Altitude = X.ToF(a[42])
+	p.Parking = X.ToF(a[43])
+	p.DepositFee = X.ToF(a[44])
+	p.MinimumDurationYear = X.ToF(a[45])
+	p.OtherFees = X.ToArr(a[46])
+	p.ImageLabels = X.ToArr(a[47])
+	return p
+}
+
+// FromUncensoredArray convert slice to receiver fields
+func (p *PropertyTW) FromUncensoredArray(a A.X) *PropertyTW { //nolint:dupl false positive
+	p.Id = X.ToU(a[0])
+	p.UniqPropKey = X.ToS(a[1])
+	p.SerialNumber = X.ToS(a[2])
+	p.SizeM2 = X.ToS(a[3])
+	p.MainUse = X.ToS(a[4])
+	p.MainBuildingMaterial = X.ToS(a[5])
+	p.ConstructCompletedDate = X.ToS(a[6])
+	p.NumberOfFloors = X.ToS(a[7])
+	p.BuildingLamination = X.ToS(a[8])
+	p.Address = X.ToS(a[9])
+	p.District = X.ToS(a[10])
+	p.Note = X.ToS(a[11])
+	p.Coord = X.ToArr(a[12])
+	p.CreatedAt = X.ToI(a[13])
+	p.CreatedBy = X.ToU(a[14])
+	p.UpdatedAt = X.ToI(a[15])
+	p.UpdatedBy = X.ToU(a[16])
+	p.DeletedAt = X.ToI(a[17])
+	p.FormattedAddress = X.ToS(a[18])
+	p.LastPrice = X.ToS(a[19])
+	p.PriceHistoriesSell = X.ToArr(a[20])
+	p.PriceHistoriesRent = X.ToArr(a[21])
+	p.Purpose = X.ToS(a[22])
+	p.HouseType = X.ToS(a[23])
+	p.Images = X.ToArr(a[24])
+	p.Bedroom = X.ToI(a[25])
+	p.Bathroom = X.ToI(a[26])
+	p.AgencyFeePercent = X.ToF(a[27])
+	p.FloorList = X.ToArr(a[28])
+	p.Version = X.ToS(a[29])
+	p.YearBuilt = X.ToI(a[30])
+	p.YearRenovated = X.ToI(a[31])
+	p.TotalSqft = X.ToF(a[32])
+	p.CountyName = X.ToS(a[33])
+	p.Street = X.ToS(a[34])
+	p.City = X.ToS(a[35])
+	p.State = X.ToS(a[36])
+	p.Zip = X.ToS(a[37])
+	p.PropertyLastUpdatedDate = X.ToI(a[38])
+	p.ApprovalState = X.ToS(a[39])
+	p.CountryCode = X.ToS(a[40])
+	p.Livingroom = X.ToI(a[41])
+	p.Altitude = X.ToF(a[42])
+	p.Parking = X.ToF(a[43])
+	p.DepositFee = X.ToF(a[44])
+	p.MinimumDurationYear = X.ToF(a[45])
+	p.OtherFees = X.ToArr(a[46])
+	p.ImageLabels = X.ToArr(a[47])
+	return p
+}
+
+// FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
+func (p *PropertyTW) FindOffsetLimit(offset, limit uint32, idx string) []PropertyTW { //nolint:dupl false positive
+	var rows []PropertyTW
+	res, err := p.Adapter.Select(p.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `PropertyTW.FindOffsetLimit failed: `+p.SpaceName()) {
+		return rows
+	}
+	for _, row := range res.Tuples() {
+		item := PropertyTW{}
+		rows = append(rows, *item.FromArray(row))
+	}
+	return rows
+}
+
+// FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
+func (p *PropertyTW) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
+	var rows []A.X
+	res, err := p.Adapter.Select(p.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `PropertyTW.FindOffsetLimit failed: `+p.SpaceName()) {
+		return rows, Tt.QueryMetaFrom(res, err)
+	}
+	tuples := res.Tuples()
+	rows = make([]A.X, len(tuples))
+	for z, row := range tuples {
+		rows[z] = row
+	}
+	return rows, Tt.QueryMetaFrom(res, nil)
+}
+
+// Total count number of rows
+func (p *PropertyTW) Total() int64 { //nolint:dupl false positive
+	rows := p.Adapter.CallBoxSpace(p.SpaceName()+`:count`, A.X{})
+	if len(rows) > 0 && len(rows[0]) > 0 {
+		return X.ToI(rows[0][0])
+	}
+	return 0
+}
+
+// PropertyTWFieldTypeMap returns key value of field name and key
+var PropertyTWFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
+	`id`:                      Tt.Unsigned,
+	`uniqPropKey`:             Tt.String,
+	`serialNumber`:            Tt.String,
+	`sizeM2`:                  Tt.String,
+	`mainUse`:                 Tt.String,
+	`mainBuildingMaterial`:    Tt.String,
+	`constructCompletedDate`:  Tt.String,
+	`numberOfFloors`:          Tt.String,
+	`buildingLamination`:      Tt.String,
+	`address`:                 Tt.String,
+	`district`:                Tt.String,
+	`note`:                    Tt.String,
+	`coord`:                   Tt.Array,
+	`createdAt`:               Tt.Integer,
+	`createdBy`:               Tt.Unsigned,
+	`updatedAt`:               Tt.Integer,
+	`updatedBy`:               Tt.Unsigned,
+	`deletedAt`:               Tt.Integer,
+	`formattedAddress`:        Tt.String,
+	`lastPrice`:               Tt.String,
+	`priceHistoriesSell`:      Tt.Array,
+	`priceHistoriesRent`:      Tt.Array,
+	`purpose`:                 Tt.String,
+	`houseType`:               Tt.String,
+	`images`:                  Tt.Array,
+	`bedroom`:                 Tt.Integer,
+	`bathroom`:                Tt.Integer,
+	`agencyFeePercent`:        Tt.Double,
+	`floorList`:               Tt.Array,
+	`version`:                 Tt.String,
+	`yearBuilt`:               Tt.Integer,
+	`yearRenovated`:           Tt.Integer,
+	`totalSqft`:               Tt.Double,
+	`countyName`:              Tt.String,
+	`street`:                  Tt.String,
+	`city`:                    Tt.String,
+	`state`:                   Tt.String,
+	`zip`:                     Tt.String,
+	`propertyLastUpdatedDate`: Tt.Integer,
+	`approvalState`:           Tt.String,
+	`countryCode`:             Tt.String,
+	`livingroom`:              Tt.Integer,
+	`altitude`:                Tt.Double,
+	`parking`:                 Tt.Double,
+	`depositFee`:              Tt.Double,
+	`minimumDurationYear`:     Tt.Double,
+	`otherFees`:               Tt.Array,
+	`imageLabels`:             Tt.Array,
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
 // PropertyUS DAO reader/query struct
 type PropertyUS struct {
 	Adapter                 *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`

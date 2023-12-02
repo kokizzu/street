@@ -1336,6 +1336,879 @@ func (p *PropertyExtraUSMutator) SetAll(from rqProperty.PropertyExtraUS, exclude
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
+// PropertyTWMutator DAO writer/command struct
+type PropertyTWMutator struct {
+	rqProperty.PropertyTW
+	mutations []A.X
+	logs      []A.X
+}
+
+// NewPropertyTWMutator create new ORM writer/command object
+func NewPropertyTWMutator(adapter *Tt.Adapter) (res *PropertyTWMutator) {
+	res = &PropertyTWMutator{PropertyTW: rqProperty.PropertyTW{Adapter: adapter}}
+	res.Coord = []any{}
+	res.PriceHistoriesSell = []any{}
+	res.PriceHistoriesRent = []any{}
+	res.Images = []any{}
+	res.FloorList = []any{}
+	res.OtherFees = []any{}
+	res.ImageLabels = []any{}
+	return
+}
+
+// Logs get array of logs [field, old, new]
+func (p *PropertyTWMutator) Logs() []A.X { //nolint:dupl false positive
+	return p.logs
+}
+
+// HaveMutation check whether Set* methods ever called
+func (p *PropertyTWMutator) HaveMutation() bool { //nolint:dupl false positive
+	return len(p.mutations) > 0
+}
+
+// ClearMutations clear all previously called Set* methods
+func (p *PropertyTWMutator) ClearMutations() { //nolint:dupl false positive
+	p.mutations = []A.X{}
+	p.logs = []A.X{}
+}
+
+// DoOverwriteById update all columns, error if not exists, not using mutations/Set*
+func (p *PropertyTWMutator) DoOverwriteById() bool { //nolint:dupl false positive
+	_, err := p.Adapter.Update(p.SpaceName(), p.UniqueIndexId(), A.X{p.Id}, p.ToUpdateArray())
+	return !L.IsError(err, `PropertyTW.DoOverwriteById failed: `+p.SpaceName())
+}
+
+// DoUpdateById update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (p *PropertyTWMutator) DoUpdateById() bool { //nolint:dupl false positive
+	if !p.HaveMutation() {
+		return true
+	}
+	_, err := p.Adapter.Update(p.SpaceName(), p.UniqueIndexId(), A.X{p.Id}, p.mutations)
+	return !L.IsError(err, `PropertyTW.DoUpdateById failed: `+p.SpaceName())
+}
+
+// DoDeletePermanentById permanent delete
+func (p *PropertyTWMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
+	_, err := p.Adapter.Delete(p.SpaceName(), p.UniqueIndexId(), A.X{p.Id})
+	return !L.IsError(err, `PropertyTW.DoDeletePermanentById failed: `+p.SpaceName())
+}
+
+// func (p *PropertyTWMutator) DoUpsert() bool { //nolint:dupl false positive
+//	arr := p.ToArray()
+//	_, err := p.Adapter.Upsert(p.SpaceName(), arr, A.X{
+//		A.X{`=`, 0, p.Id},
+//		A.X{`=`, 1, p.UniqPropKey},
+//		A.X{`=`, 2, p.SerialNumber},
+//		A.X{`=`, 3, p.SizeM2},
+//		A.X{`=`, 4, p.MainUse},
+//		A.X{`=`, 5, p.MainBuildingMaterial},
+//		A.X{`=`, 6, p.ConstructCompletedDate},
+//		A.X{`=`, 7, p.NumberOfFloors},
+//		A.X{`=`, 8, p.BuildingLamination},
+//		A.X{`=`, 9, p.Address},
+//		A.X{`=`, 10, p.District},
+//		A.X{`=`, 11, p.Note},
+//		A.X{`=`, 12, p.Coord},
+//		A.X{`=`, 13, p.CreatedAt},
+//		A.X{`=`, 14, p.CreatedBy},
+//		A.X{`=`, 15, p.UpdatedAt},
+//		A.X{`=`, 16, p.UpdatedBy},
+//		A.X{`=`, 17, p.DeletedAt},
+//		A.X{`=`, 18, p.FormattedAddress},
+//		A.X{`=`, 19, p.LastPrice},
+//		A.X{`=`, 20, p.PriceHistoriesSell},
+//		A.X{`=`, 21, p.PriceHistoriesRent},
+//		A.X{`=`, 22, p.Purpose},
+//		A.X{`=`, 23, p.HouseType},
+//		A.X{`=`, 24, p.Images},
+//		A.X{`=`, 25, p.Bedroom},
+//		A.X{`=`, 26, p.Bathroom},
+//		A.X{`=`, 27, p.AgencyFeePercent},
+//		A.X{`=`, 28, p.FloorList},
+//		A.X{`=`, 29, p.Version},
+//		A.X{`=`, 30, p.YearBuilt},
+//		A.X{`=`, 31, p.YearRenovated},
+//		A.X{`=`, 32, p.TotalSqft},
+//		A.X{`=`, 33, p.CountyName},
+//		A.X{`=`, 34, p.Street},
+//		A.X{`=`, 35, p.City},
+//		A.X{`=`, 36, p.State},
+//		A.X{`=`, 37, p.Zip},
+//		A.X{`=`, 38, p.PropertyLastUpdatedDate},
+//		A.X{`=`, 39, p.ApprovalState},
+//		A.X{`=`, 40, p.CountryCode},
+//		A.X{`=`, 41, p.Livingroom},
+//		A.X{`=`, 42, p.Altitude},
+//		A.X{`=`, 43, p.Parking},
+//		A.X{`=`, 44, p.DepositFee},
+//		A.X{`=`, 45, p.MinimumDurationYear},
+//		A.X{`=`, 46, p.OtherFees},
+//		A.X{`=`, 47, p.ImageLabels},
+//	})
+//	return !L.IsError(err, `PropertyTW.DoUpsert failed: `+p.SpaceName()+ `\n%#v`, arr)
+// }
+
+// DoOverwriteByUniqPropKey update all columns, error if not exists, not using mutations/Set*
+func (p *PropertyTWMutator) DoOverwriteByUniqPropKey() bool { //nolint:dupl false positive
+	_, err := p.Adapter.Update(p.SpaceName(), p.UniqueIndexUniqPropKey(), A.X{p.UniqPropKey}, p.ToUpdateArray())
+	return !L.IsError(err, `PropertyTW.DoOverwriteByUniqPropKey failed: `+p.SpaceName())
+}
+
+// DoUpdateByUniqPropKey update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (p *PropertyTWMutator) DoUpdateByUniqPropKey() bool { //nolint:dupl false positive
+	if !p.HaveMutation() {
+		return true
+	}
+	_, err := p.Adapter.Update(p.SpaceName(), p.UniqueIndexUniqPropKey(), A.X{p.UniqPropKey}, p.mutations)
+	return !L.IsError(err, `PropertyTW.DoUpdateByUniqPropKey failed: `+p.SpaceName())
+}
+
+// DoDeletePermanentByUniqPropKey permanent delete
+func (p *PropertyTWMutator) DoDeletePermanentByUniqPropKey() bool { //nolint:dupl false positive
+	_, err := p.Adapter.Delete(p.SpaceName(), p.UniqueIndexUniqPropKey(), A.X{p.UniqPropKey})
+	return !L.IsError(err, `PropertyTW.DoDeletePermanentByUniqPropKey failed: `+p.SpaceName())
+}
+
+// DoInsert insert, error if already exists
+func (p *PropertyTWMutator) DoInsert() bool { //nolint:dupl false positive
+	arr := p.ToArray()
+	row, err := p.Adapter.Insert(p.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			p.Id = X.ToU(tup[0][0])
+		}
+	}
+	return !L.IsError(err, `PropertyTW.DoInsert failed: `+p.SpaceName()+`\n%#v`, arr)
+}
+
+// DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
+// replace = upsert, only error when there's unique secondary key
+// previous name: DoReplace
+func (p *PropertyTWMutator) DoUpsert() bool { //nolint:dupl false positive
+	arr := p.ToArray()
+	row, err := p.Adapter.Replace(p.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			p.Id = X.ToU(tup[0][0])
+		}
+	}
+	return !L.IsError(err, `PropertyTW.DoUpsert failed: `+p.SpaceName()+`\n%#v`, arr)
+}
+
+// SetId create mutations, should not duplicate
+func (p *PropertyTWMutator) SetId(val uint64) bool { //nolint:dupl false positive
+	if val != p.Id {
+		p.mutations = append(p.mutations, A.X{`=`, 0, val})
+		p.logs = append(p.logs, A.X{`id`, p.Id, val})
+		p.Id = val
+		return true
+	}
+	return false
+}
+
+// SetUniqPropKey create mutations, should not duplicate
+func (p *PropertyTWMutator) SetUniqPropKey(val string) bool { //nolint:dupl false positive
+	if val != p.UniqPropKey {
+		p.mutations = append(p.mutations, A.X{`=`, 1, val})
+		p.logs = append(p.logs, A.X{`uniqPropKey`, p.UniqPropKey, val})
+		p.UniqPropKey = val
+		return true
+	}
+	return false
+}
+
+// SetSerialNumber create mutations, should not duplicate
+func (p *PropertyTWMutator) SetSerialNumber(val string) bool { //nolint:dupl false positive
+	if val != p.SerialNumber {
+		p.mutations = append(p.mutations, A.X{`=`, 2, val})
+		p.logs = append(p.logs, A.X{`serialNumber`, p.SerialNumber, val})
+		p.SerialNumber = val
+		return true
+	}
+	return false
+}
+
+// SetSizeM2 create mutations, should not duplicate
+func (p *PropertyTWMutator) SetSizeM2(val string) bool { //nolint:dupl false positive
+	if val != p.SizeM2 {
+		p.mutations = append(p.mutations, A.X{`=`, 3, val})
+		p.logs = append(p.logs, A.X{`sizeM2`, p.SizeM2, val})
+		p.SizeM2 = val
+		return true
+	}
+	return false
+}
+
+// SetMainUse create mutations, should not duplicate
+func (p *PropertyTWMutator) SetMainUse(val string) bool { //nolint:dupl false positive
+	if val != p.MainUse {
+		p.mutations = append(p.mutations, A.X{`=`, 4, val})
+		p.logs = append(p.logs, A.X{`mainUse`, p.MainUse, val})
+		p.MainUse = val
+		return true
+	}
+	return false
+}
+
+// SetMainBuildingMaterial create mutations, should not duplicate
+func (p *PropertyTWMutator) SetMainBuildingMaterial(val string) bool { //nolint:dupl false positive
+	if val != p.MainBuildingMaterial {
+		p.mutations = append(p.mutations, A.X{`=`, 5, val})
+		p.logs = append(p.logs, A.X{`mainBuildingMaterial`, p.MainBuildingMaterial, val})
+		p.MainBuildingMaterial = val
+		return true
+	}
+	return false
+}
+
+// SetConstructCompletedDate create mutations, should not duplicate
+func (p *PropertyTWMutator) SetConstructCompletedDate(val string) bool { //nolint:dupl false positive
+	if val != p.ConstructCompletedDate {
+		p.mutations = append(p.mutations, A.X{`=`, 6, val})
+		p.logs = append(p.logs, A.X{`constructCompletedDate`, p.ConstructCompletedDate, val})
+		p.ConstructCompletedDate = val
+		return true
+	}
+	return false
+}
+
+// SetNumberOfFloors create mutations, should not duplicate
+func (p *PropertyTWMutator) SetNumberOfFloors(val string) bool { //nolint:dupl false positive
+	if val != p.NumberOfFloors {
+		p.mutations = append(p.mutations, A.X{`=`, 7, val})
+		p.logs = append(p.logs, A.X{`numberOfFloors`, p.NumberOfFloors, val})
+		p.NumberOfFloors = val
+		return true
+	}
+	return false
+}
+
+// SetBuildingLamination create mutations, should not duplicate
+func (p *PropertyTWMutator) SetBuildingLamination(val string) bool { //nolint:dupl false positive
+	if val != p.BuildingLamination {
+		p.mutations = append(p.mutations, A.X{`=`, 8, val})
+		p.logs = append(p.logs, A.X{`buildingLamination`, p.BuildingLamination, val})
+		p.BuildingLamination = val
+		return true
+	}
+	return false
+}
+
+// SetAddress create mutations, should not duplicate
+func (p *PropertyTWMutator) SetAddress(val string) bool { //nolint:dupl false positive
+	if val != p.Address {
+		p.mutations = append(p.mutations, A.X{`=`, 9, val})
+		p.logs = append(p.logs, A.X{`address`, p.Address, val})
+		p.Address = val
+		return true
+	}
+	return false
+}
+
+// SetDistrict create mutations, should not duplicate
+func (p *PropertyTWMutator) SetDistrict(val string) bool { //nolint:dupl false positive
+	if val != p.District {
+		p.mutations = append(p.mutations, A.X{`=`, 10, val})
+		p.logs = append(p.logs, A.X{`district`, p.District, val})
+		p.District = val
+		return true
+	}
+	return false
+}
+
+// SetNote create mutations, should not duplicate
+func (p *PropertyTWMutator) SetNote(val string) bool { //nolint:dupl false positive
+	if val != p.Note {
+		p.mutations = append(p.mutations, A.X{`=`, 11, val})
+		p.logs = append(p.logs, A.X{`note`, p.Note, val})
+		p.Note = val
+		return true
+	}
+	return false
+}
+
+// SetCoord create mutations, should not duplicate
+func (p *PropertyTWMutator) SetCoord(val []any) bool { //nolint:dupl false positive
+	p.mutations = append(p.mutations, A.X{`=`, 12, val})
+	p.logs = append(p.logs, A.X{`coord`, p.Coord, val})
+	p.Coord = val
+	return true
+}
+
+// SetCreatedAt create mutations, should not duplicate
+func (p *PropertyTWMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
+	if val != p.CreatedAt {
+		p.mutations = append(p.mutations, A.X{`=`, 13, val})
+		p.logs = append(p.logs, A.X{`createdAt`, p.CreatedAt, val})
+		p.CreatedAt = val
+		return true
+	}
+	return false
+}
+
+// SetCreatedBy create mutations, should not duplicate
+func (p *PropertyTWMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != p.CreatedBy {
+		p.mutations = append(p.mutations, A.X{`=`, 14, val})
+		p.logs = append(p.logs, A.X{`createdBy`, p.CreatedBy, val})
+		p.CreatedBy = val
+		return true
+	}
+	return false
+}
+
+// SetUpdatedAt create mutations, should not duplicate
+func (p *PropertyTWMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
+	if val != p.UpdatedAt {
+		p.mutations = append(p.mutations, A.X{`=`, 15, val})
+		p.logs = append(p.logs, A.X{`updatedAt`, p.UpdatedAt, val})
+		p.UpdatedAt = val
+		return true
+	}
+	return false
+}
+
+// SetUpdatedBy create mutations, should not duplicate
+func (p *PropertyTWMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != p.UpdatedBy {
+		p.mutations = append(p.mutations, A.X{`=`, 16, val})
+		p.logs = append(p.logs, A.X{`updatedBy`, p.UpdatedBy, val})
+		p.UpdatedBy = val
+		return true
+	}
+	return false
+}
+
+// SetDeletedAt create mutations, should not duplicate
+func (p *PropertyTWMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
+	if val != p.DeletedAt {
+		p.mutations = append(p.mutations, A.X{`=`, 17, val})
+		p.logs = append(p.logs, A.X{`deletedAt`, p.DeletedAt, val})
+		p.DeletedAt = val
+		return true
+	}
+	return false
+}
+
+// SetFormattedAddress create mutations, should not duplicate
+func (p *PropertyTWMutator) SetFormattedAddress(val string) bool { //nolint:dupl false positive
+	if val != p.FormattedAddress {
+		p.mutations = append(p.mutations, A.X{`=`, 18, val})
+		p.logs = append(p.logs, A.X{`formattedAddress`, p.FormattedAddress, val})
+		p.FormattedAddress = val
+		return true
+	}
+	return false
+}
+
+// SetLastPrice create mutations, should not duplicate
+func (p *PropertyTWMutator) SetLastPrice(val string) bool { //nolint:dupl false positive
+	if val != p.LastPrice {
+		p.mutations = append(p.mutations, A.X{`=`, 19, val})
+		p.logs = append(p.logs, A.X{`lastPrice`, p.LastPrice, val})
+		p.LastPrice = val
+		return true
+	}
+	return false
+}
+
+// SetPriceHistoriesSell create mutations, should not duplicate
+func (p *PropertyTWMutator) SetPriceHistoriesSell(val []any) bool { //nolint:dupl false positive
+	p.mutations = append(p.mutations, A.X{`=`, 20, val})
+	p.logs = append(p.logs, A.X{`priceHistoriesSell`, p.PriceHistoriesSell, val})
+	p.PriceHistoriesSell = val
+	return true
+}
+
+// SetPriceHistoriesRent create mutations, should not duplicate
+func (p *PropertyTWMutator) SetPriceHistoriesRent(val []any) bool { //nolint:dupl false positive
+	p.mutations = append(p.mutations, A.X{`=`, 21, val})
+	p.logs = append(p.logs, A.X{`priceHistoriesRent`, p.PriceHistoriesRent, val})
+	p.PriceHistoriesRent = val
+	return true
+}
+
+// SetPurpose create mutations, should not duplicate
+func (p *PropertyTWMutator) SetPurpose(val string) bool { //nolint:dupl false positive
+	if val != p.Purpose {
+		p.mutations = append(p.mutations, A.X{`=`, 22, val})
+		p.logs = append(p.logs, A.X{`purpose`, p.Purpose, val})
+		p.Purpose = val
+		return true
+	}
+	return false
+}
+
+// SetHouseType create mutations, should not duplicate
+func (p *PropertyTWMutator) SetHouseType(val string) bool { //nolint:dupl false positive
+	if val != p.HouseType {
+		p.mutations = append(p.mutations, A.X{`=`, 23, val})
+		p.logs = append(p.logs, A.X{`houseType`, p.HouseType, val})
+		p.HouseType = val
+		return true
+	}
+	return false
+}
+
+// SetImages create mutations, should not duplicate
+func (p *PropertyTWMutator) SetImages(val []any) bool { //nolint:dupl false positive
+	p.mutations = append(p.mutations, A.X{`=`, 24, val})
+	p.logs = append(p.logs, A.X{`images`, p.Images, val})
+	p.Images = val
+	return true
+}
+
+// SetBedroom create mutations, should not duplicate
+func (p *PropertyTWMutator) SetBedroom(val int64) bool { //nolint:dupl false positive
+	if val != p.Bedroom {
+		p.mutations = append(p.mutations, A.X{`=`, 25, val})
+		p.logs = append(p.logs, A.X{`bedroom`, p.Bedroom, val})
+		p.Bedroom = val
+		return true
+	}
+	return false
+}
+
+// SetBathroom create mutations, should not duplicate
+func (p *PropertyTWMutator) SetBathroom(val int64) bool { //nolint:dupl false positive
+	if val != p.Bathroom {
+		p.mutations = append(p.mutations, A.X{`=`, 26, val})
+		p.logs = append(p.logs, A.X{`bathroom`, p.Bathroom, val})
+		p.Bathroom = val
+		return true
+	}
+	return false
+}
+
+// SetAgencyFeePercent create mutations, should not duplicate
+func (p *PropertyTWMutator) SetAgencyFeePercent(val float64) bool { //nolint:dupl false positive
+	if val != p.AgencyFeePercent {
+		p.mutations = append(p.mutations, A.X{`=`, 27, val})
+		p.logs = append(p.logs, A.X{`agencyFeePercent`, p.AgencyFeePercent, val})
+		p.AgencyFeePercent = val
+		return true
+	}
+	return false
+}
+
+// SetFloorList create mutations, should not duplicate
+func (p *PropertyTWMutator) SetFloorList(val []any) bool { //nolint:dupl false positive
+	p.mutations = append(p.mutations, A.X{`=`, 28, val})
+	p.logs = append(p.logs, A.X{`floorList`, p.FloorList, val})
+	p.FloorList = val
+	return true
+}
+
+// SetVersion create mutations, should not duplicate
+func (p *PropertyTWMutator) SetVersion(val string) bool { //nolint:dupl false positive
+	if val != p.Version {
+		p.mutations = append(p.mutations, A.X{`=`, 29, val})
+		p.logs = append(p.logs, A.X{`version`, p.Version, val})
+		p.Version = val
+		return true
+	}
+	return false
+}
+
+// SetYearBuilt create mutations, should not duplicate
+func (p *PropertyTWMutator) SetYearBuilt(val int64) bool { //nolint:dupl false positive
+	if val != p.YearBuilt {
+		p.mutations = append(p.mutations, A.X{`=`, 30, val})
+		p.logs = append(p.logs, A.X{`yearBuilt`, p.YearBuilt, val})
+		p.YearBuilt = val
+		return true
+	}
+	return false
+}
+
+// SetYearRenovated create mutations, should not duplicate
+func (p *PropertyTWMutator) SetYearRenovated(val int64) bool { //nolint:dupl false positive
+	if val != p.YearRenovated {
+		p.mutations = append(p.mutations, A.X{`=`, 31, val})
+		p.logs = append(p.logs, A.X{`yearRenovated`, p.YearRenovated, val})
+		p.YearRenovated = val
+		return true
+	}
+	return false
+}
+
+// SetTotalSqft create mutations, should not duplicate
+func (p *PropertyTWMutator) SetTotalSqft(val float64) bool { //nolint:dupl false positive
+	if val != p.TotalSqft {
+		p.mutations = append(p.mutations, A.X{`=`, 32, val})
+		p.logs = append(p.logs, A.X{`totalSqft`, p.TotalSqft, val})
+		p.TotalSqft = val
+		return true
+	}
+	return false
+}
+
+// SetCountyName create mutations, should not duplicate
+func (p *PropertyTWMutator) SetCountyName(val string) bool { //nolint:dupl false positive
+	if val != p.CountyName {
+		p.mutations = append(p.mutations, A.X{`=`, 33, val})
+		p.logs = append(p.logs, A.X{`countyName`, p.CountyName, val})
+		p.CountyName = val
+		return true
+	}
+	return false
+}
+
+// SetStreet create mutations, should not duplicate
+func (p *PropertyTWMutator) SetStreet(val string) bool { //nolint:dupl false positive
+	if val != p.Street {
+		p.mutations = append(p.mutations, A.X{`=`, 34, val})
+		p.logs = append(p.logs, A.X{`street`, p.Street, val})
+		p.Street = val
+		return true
+	}
+	return false
+}
+
+// SetCity create mutations, should not duplicate
+func (p *PropertyTWMutator) SetCity(val string) bool { //nolint:dupl false positive
+	if val != p.City {
+		p.mutations = append(p.mutations, A.X{`=`, 35, val})
+		p.logs = append(p.logs, A.X{`city`, p.City, val})
+		p.City = val
+		return true
+	}
+	return false
+}
+
+// SetState create mutations, should not duplicate
+func (p *PropertyTWMutator) SetState(val string) bool { //nolint:dupl false positive
+	if val != p.State {
+		p.mutations = append(p.mutations, A.X{`=`, 36, val})
+		p.logs = append(p.logs, A.X{`state`, p.State, val})
+		p.State = val
+		return true
+	}
+	return false
+}
+
+// SetZip create mutations, should not duplicate
+func (p *PropertyTWMutator) SetZip(val string) bool { //nolint:dupl false positive
+	if val != p.Zip {
+		p.mutations = append(p.mutations, A.X{`=`, 37, val})
+		p.logs = append(p.logs, A.X{`zip`, p.Zip, val})
+		p.Zip = val
+		return true
+	}
+	return false
+}
+
+// SetPropertyLastUpdatedDate create mutations, should not duplicate
+func (p *PropertyTWMutator) SetPropertyLastUpdatedDate(val int64) bool { //nolint:dupl false positive
+	if val != p.PropertyLastUpdatedDate {
+		p.mutations = append(p.mutations, A.X{`=`, 38, val})
+		p.logs = append(p.logs, A.X{`propertyLastUpdatedDate`, p.PropertyLastUpdatedDate, val})
+		p.PropertyLastUpdatedDate = val
+		return true
+	}
+	return false
+}
+
+// SetApprovalState create mutations, should not duplicate
+func (p *PropertyTWMutator) SetApprovalState(val string) bool { //nolint:dupl false positive
+	if val != p.ApprovalState {
+		p.mutations = append(p.mutations, A.X{`=`, 39, val})
+		p.logs = append(p.logs, A.X{`approvalState`, p.ApprovalState, val})
+		p.ApprovalState = val
+		return true
+	}
+	return false
+}
+
+// SetCountryCode create mutations, should not duplicate
+func (p *PropertyTWMutator) SetCountryCode(val string) bool { //nolint:dupl false positive
+	if val != p.CountryCode {
+		p.mutations = append(p.mutations, A.X{`=`, 40, val})
+		p.logs = append(p.logs, A.X{`countryCode`, p.CountryCode, val})
+		p.CountryCode = val
+		return true
+	}
+	return false
+}
+
+// SetLivingroom create mutations, should not duplicate
+func (p *PropertyTWMutator) SetLivingroom(val int64) bool { //nolint:dupl false positive
+	if val != p.Livingroom {
+		p.mutations = append(p.mutations, A.X{`=`, 41, val})
+		p.logs = append(p.logs, A.X{`livingroom`, p.Livingroom, val})
+		p.Livingroom = val
+		return true
+	}
+	return false
+}
+
+// SetAltitude create mutations, should not duplicate
+func (p *PropertyTWMutator) SetAltitude(val float64) bool { //nolint:dupl false positive
+	if val != p.Altitude {
+		p.mutations = append(p.mutations, A.X{`=`, 42, val})
+		p.logs = append(p.logs, A.X{`altitude`, p.Altitude, val})
+		p.Altitude = val
+		return true
+	}
+	return false
+}
+
+// SetParking create mutations, should not duplicate
+func (p *PropertyTWMutator) SetParking(val float64) bool { //nolint:dupl false positive
+	if val != p.Parking {
+		p.mutations = append(p.mutations, A.X{`=`, 43, val})
+		p.logs = append(p.logs, A.X{`parking`, p.Parking, val})
+		p.Parking = val
+		return true
+	}
+	return false
+}
+
+// SetDepositFee create mutations, should not duplicate
+func (p *PropertyTWMutator) SetDepositFee(val float64) bool { //nolint:dupl false positive
+	if val != p.DepositFee {
+		p.mutations = append(p.mutations, A.X{`=`, 44, val})
+		p.logs = append(p.logs, A.X{`depositFee`, p.DepositFee, val})
+		p.DepositFee = val
+		return true
+	}
+	return false
+}
+
+// SetMinimumDurationYear create mutations, should not duplicate
+func (p *PropertyTWMutator) SetMinimumDurationYear(val float64) bool { //nolint:dupl false positive
+	if val != p.MinimumDurationYear {
+		p.mutations = append(p.mutations, A.X{`=`, 45, val})
+		p.logs = append(p.logs, A.X{`minimumDurationYear`, p.MinimumDurationYear, val})
+		p.MinimumDurationYear = val
+		return true
+	}
+	return false
+}
+
+// SetOtherFees create mutations, should not duplicate
+func (p *PropertyTWMutator) SetOtherFees(val []any) bool { //nolint:dupl false positive
+	p.mutations = append(p.mutations, A.X{`=`, 46, val})
+	p.logs = append(p.logs, A.X{`otherFees`, p.OtherFees, val})
+	p.OtherFees = val
+	return true
+}
+
+// SetImageLabels create mutations, should not duplicate
+func (p *PropertyTWMutator) SetImageLabels(val []any) bool { //nolint:dupl false positive
+	p.mutations = append(p.mutations, A.X{`=`, 47, val})
+	p.logs = append(p.logs, A.X{`imageLabels`, p.ImageLabels, val})
+	p.ImageLabels = val
+	return true
+}
+
+// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
+func (p *PropertyTWMutator) SetAll(from rqProperty.PropertyTW, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+	if excludeMap == nil { // list of fields to exclude
+		excludeMap = M.SB{}
+	}
+	if forceMap == nil { // list of fields to force overwrite
+		forceMap = M.SB{}
+	}
+	if !excludeMap[`id`] && (forceMap[`id`] || from.Id != 0) {
+		p.Id = from.Id
+		changed = true
+	}
+	if !excludeMap[`uniqPropKey`] && (forceMap[`uniqPropKey`] || from.UniqPropKey != ``) {
+		p.UniqPropKey = S.Trim(from.UniqPropKey)
+		changed = true
+	}
+	if !excludeMap[`serialNumber`] && (forceMap[`serialNumber`] || from.SerialNumber != ``) {
+		p.SerialNumber = S.Trim(from.SerialNumber)
+		changed = true
+	}
+	if !excludeMap[`sizeM2`] && (forceMap[`sizeM2`] || from.SizeM2 != ``) {
+		p.SizeM2 = S.Trim(from.SizeM2)
+		changed = true
+	}
+	if !excludeMap[`mainUse`] && (forceMap[`mainUse`] || from.MainUse != ``) {
+		p.MainUse = S.Trim(from.MainUse)
+		changed = true
+	}
+	if !excludeMap[`mainBuildingMaterial`] && (forceMap[`mainBuildingMaterial`] || from.MainBuildingMaterial != ``) {
+		p.MainBuildingMaterial = S.Trim(from.MainBuildingMaterial)
+		changed = true
+	}
+	if !excludeMap[`constructCompletedDate`] && (forceMap[`constructCompletedDate`] || from.ConstructCompletedDate != ``) {
+		p.ConstructCompletedDate = S.Trim(from.ConstructCompletedDate)
+		changed = true
+	}
+	if !excludeMap[`numberOfFloors`] && (forceMap[`numberOfFloors`] || from.NumberOfFloors != ``) {
+		p.NumberOfFloors = S.Trim(from.NumberOfFloors)
+		changed = true
+	}
+	if !excludeMap[`buildingLamination`] && (forceMap[`buildingLamination`] || from.BuildingLamination != ``) {
+		p.BuildingLamination = S.Trim(from.BuildingLamination)
+		changed = true
+	}
+	if !excludeMap[`address`] && (forceMap[`address`] || from.Address != ``) {
+		p.Address = S.Trim(from.Address)
+		changed = true
+	}
+	if !excludeMap[`district`] && (forceMap[`district`] || from.District != ``) {
+		p.District = S.Trim(from.District)
+		changed = true
+	}
+	if !excludeMap[`note`] && (forceMap[`note`] || from.Note != ``) {
+		p.Note = S.Trim(from.Note)
+		changed = true
+	}
+	if !excludeMap[`coord`] && (forceMap[`coord`] || from.Coord != nil) {
+		p.Coord = from.Coord
+		changed = true
+	}
+	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
+		p.CreatedAt = from.CreatedAt
+		changed = true
+	}
+	if !excludeMap[`createdBy`] && (forceMap[`createdBy`] || from.CreatedBy != 0) {
+		p.CreatedBy = from.CreatedBy
+		changed = true
+	}
+	if !excludeMap[`updatedAt`] && (forceMap[`updatedAt`] || from.UpdatedAt != 0) {
+		p.UpdatedAt = from.UpdatedAt
+		changed = true
+	}
+	if !excludeMap[`updatedBy`] && (forceMap[`updatedBy`] || from.UpdatedBy != 0) {
+		p.UpdatedBy = from.UpdatedBy
+		changed = true
+	}
+	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
+		p.DeletedAt = from.DeletedAt
+		changed = true
+	}
+	if !excludeMap[`formattedAddress`] && (forceMap[`formattedAddress`] || from.FormattedAddress != ``) {
+		p.FormattedAddress = S.Trim(from.FormattedAddress)
+		changed = true
+	}
+	if !excludeMap[`lastPrice`] && (forceMap[`lastPrice`] || from.LastPrice != ``) {
+		p.LastPrice = S.Trim(from.LastPrice)
+		changed = true
+	}
+	if !excludeMap[`priceHistoriesSell`] && (forceMap[`priceHistoriesSell`] || from.PriceHistoriesSell != nil) {
+		p.PriceHistoriesSell = from.PriceHistoriesSell
+		changed = true
+	}
+	if !excludeMap[`priceHistoriesRent`] && (forceMap[`priceHistoriesRent`] || from.PriceHistoriesRent != nil) {
+		p.PriceHistoriesRent = from.PriceHistoriesRent
+		changed = true
+	}
+	if !excludeMap[`purpose`] && (forceMap[`purpose`] || from.Purpose != ``) {
+		p.Purpose = S.Trim(from.Purpose)
+		changed = true
+	}
+	if !excludeMap[`houseType`] && (forceMap[`houseType`] || from.HouseType != ``) {
+		p.HouseType = S.Trim(from.HouseType)
+		changed = true
+	}
+	if !excludeMap[`images`] && (forceMap[`images`] || from.Images != nil) {
+		p.Images = from.Images
+		changed = true
+	}
+	if !excludeMap[`bedroom`] && (forceMap[`bedroom`] || from.Bedroom != 0) {
+		p.Bedroom = from.Bedroom
+		changed = true
+	}
+	if !excludeMap[`bathroom`] && (forceMap[`bathroom`] || from.Bathroom != 0) {
+		p.Bathroom = from.Bathroom
+		changed = true
+	}
+	if !excludeMap[`agencyFeePercent`] && (forceMap[`agencyFeePercent`] || from.AgencyFeePercent != 0) {
+		p.AgencyFeePercent = from.AgencyFeePercent
+		changed = true
+	}
+	if !excludeMap[`floorList`] && (forceMap[`floorList`] || from.FloorList != nil) {
+		p.FloorList = from.FloorList
+		changed = true
+	}
+	if !excludeMap[`version`] && (forceMap[`version`] || from.Version != ``) {
+		p.Version = S.Trim(from.Version)
+		changed = true
+	}
+	if !excludeMap[`yearBuilt`] && (forceMap[`yearBuilt`] || from.YearBuilt != 0) {
+		p.YearBuilt = from.YearBuilt
+		changed = true
+	}
+	if !excludeMap[`yearRenovated`] && (forceMap[`yearRenovated`] || from.YearRenovated != 0) {
+		p.YearRenovated = from.YearRenovated
+		changed = true
+	}
+	if !excludeMap[`totalSqft`] && (forceMap[`totalSqft`] || from.TotalSqft != 0) {
+		p.TotalSqft = from.TotalSqft
+		changed = true
+	}
+	if !excludeMap[`countyName`] && (forceMap[`countyName`] || from.CountyName != ``) {
+		p.CountyName = S.Trim(from.CountyName)
+		changed = true
+	}
+	if !excludeMap[`street`] && (forceMap[`street`] || from.Street != ``) {
+		p.Street = S.Trim(from.Street)
+		changed = true
+	}
+	if !excludeMap[`city`] && (forceMap[`city`] || from.City != ``) {
+		p.City = S.Trim(from.City)
+		changed = true
+	}
+	if !excludeMap[`state`] && (forceMap[`state`] || from.State != ``) {
+		p.State = S.Trim(from.State)
+		changed = true
+	}
+	if !excludeMap[`zip`] && (forceMap[`zip`] || from.Zip != ``) {
+		p.Zip = S.Trim(from.Zip)
+		changed = true
+	}
+	if !excludeMap[`propertyLastUpdatedDate`] && (forceMap[`propertyLastUpdatedDate`] || from.PropertyLastUpdatedDate != 0) {
+		p.PropertyLastUpdatedDate = from.PropertyLastUpdatedDate
+		changed = true
+	}
+	if !excludeMap[`approvalState`] && (forceMap[`approvalState`] || from.ApprovalState != ``) {
+		p.ApprovalState = S.Trim(from.ApprovalState)
+		changed = true
+	}
+	if !excludeMap[`countryCode`] && (forceMap[`countryCode`] || from.CountryCode != ``) {
+		p.CountryCode = S.Trim(from.CountryCode)
+		changed = true
+	}
+	if !excludeMap[`livingroom`] && (forceMap[`livingroom`] || from.Livingroom != 0) {
+		p.Livingroom = from.Livingroom
+		changed = true
+	}
+	if !excludeMap[`altitude`] && (forceMap[`altitude`] || from.Altitude != 0) {
+		p.Altitude = from.Altitude
+		changed = true
+	}
+	if !excludeMap[`parking`] && (forceMap[`parking`] || from.Parking != 0) {
+		p.Parking = from.Parking
+		changed = true
+	}
+	if !excludeMap[`depositFee`] && (forceMap[`depositFee`] || from.DepositFee != 0) {
+		p.DepositFee = from.DepositFee
+		changed = true
+	}
+	if !excludeMap[`minimumDurationYear`] && (forceMap[`minimumDurationYear`] || from.MinimumDurationYear != 0) {
+		p.MinimumDurationYear = from.MinimumDurationYear
+		changed = true
+	}
+	if !excludeMap[`otherFees`] && (forceMap[`otherFees`] || from.OtherFees != nil) {
+		p.OtherFees = from.OtherFees
+		changed = true
+	}
+	if !excludeMap[`imageLabels`] && (forceMap[`imageLabels`] || from.ImageLabels != nil) {
+		p.ImageLabels = from.ImageLabels
+		changed = true
+	}
+	return
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
 // PropertyUSMutator DAO writer/command struct
 type PropertyUSMutator struct {
 	rqProperty.PropertyUS
