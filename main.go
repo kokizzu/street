@@ -241,7 +241,7 @@ func main() {
 		}
 		zImport.ImportPropertyHistoryUsData(tConn, baseUrl, minPropertyIdNumber, maxPropertyIdNumber)
 	case `import_property_tw`:
-		zImport.ImportPropertyTwData(tConn)
+		zImport.ImportPropertyTwData(tConn, gmap)
 
 	case `migrate_property_us_image`:
 		zImport.MigratePropertyUSImage(tConn, 4000001, 8000000)
