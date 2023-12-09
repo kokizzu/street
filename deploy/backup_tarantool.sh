@@ -12,7 +12,7 @@ TT_USER="userT"
 TT_PASS="passT"
 TT_PORT=3301
 TT_PORT_LOCAL=3302
-TT_DATA_DIR=/home/$SERVER_USER/tmpdb/var_lib_tarantool
+TT_DATA_DIR=/home/$SERVER_USER/_tmpdb/var_lib_tarantool
 CONN_STR=$TT_USER:$TT_PASS@localhost:$TT_PORT_LOCAL
 
 BACKUP_DATE=$(date '+%Y%m%d_%H%M%S')

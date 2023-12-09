@@ -12,7 +12,7 @@ deploy/static
 docker/
 *.upx
 **/*.upx
-tmpdb
+_tmpdb
 .DS_Store
 cache
 docker-data

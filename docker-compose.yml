@@ -14,7 +14,7 @@ services:
       TT_MEMTX_MEMORY: '268435456' # 1x
       TT_VINYL_PAGE_SIZE: '8192' # 1x
     volumes:
-      - ./tmpdb/var_lib_tarantool:/var/lib/tarantool
+      - ./_tmpdb/var_lib_tarantool:/var/lib/tarantool
     ports:
       - "3301:3301"
 
@@ -33,7 +33,7 @@ services:
         soft: 262144
         hard: 262144
     volumes:
-      - ./tmpdb/var_lib_clickhouse:/var/lib/clickhouse
+      - ./_tmpdb/var_lib_clickhouse:/var/lib/clickhouse
 
   mailhog1:
     image: mailhog/mailhog

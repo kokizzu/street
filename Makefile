@@ -22,7 +22,7 @@ local-clickhouse:
 	# SELECT * FROM "actionLogs" LIMIT 1;
 
 modtidy:
-	sudo chmod -R a+rwx tmpdb && go mod tidy
+	sudo chmod -R a+rwx _tmpdb && go mod tidy
 
 fixtags:
 	# fix struct tags

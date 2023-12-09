@@ -239,5 +239,5 @@ alias dockill='docker kill $(docker ps -q); docker container prune -f; docker ne
     that rarely being updated (eg. mutation log, history), `clickhouse` used 
     for analytics queries pattern, anything that will never being updated 
     ever (eg. action logs, events)
-- **Q**: got `street/tmpdb/*: open /*/street/*: permission denied` on `go mod tidy`
-  - **A**: run `sudo chmod a+rwx -R tmpdb` or `make modtidy`
+- **Q**: got `street/_tmpdb/*: open /*/street/*: permission denied` on `go mod tidy`
+  - **A**: run `sudo chmod a+rwx -R _tmpdb` or `make modtidy`
