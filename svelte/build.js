@@ -33,6 +33,11 @@ const ignorePath = new Set( [
   'README.md',
   'build.js',
   'pullpush.sh',
+  'conf',
+  'deploy',
+  'domain',
+  'model',
+  'assets/img' // ENOSPC: System limit for number of file watchers reached
 ] );
 
 // find page candidates

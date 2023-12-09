@@ -41,7 +41,7 @@
         contactEmail: "",
         about: property.note
       }
-      notifier.showError(`Error convert string to object = ${e}`)
+      // notifier.showError(`Error convert string to object = ${e}`)
     }
     approvalStatus = getApprovalState( property.approvalState );
     for( let i = 0; i<countries.length; i++ ) {

@@ -31,7 +31,7 @@
         contactEmail: "",
         about: property.note
       }
-      notifier.showError('Error convert string to object =', e)
+      //notifier.showError('Error convert string to object =', e)
     }
     approvalStatus = getApprovalState( property.approvalState );
     if (property.countryCode==='TW' || property.countryCode==='') {

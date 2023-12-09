@@ -283,14 +283,14 @@
 
 
 <style>/* fakecss:./guest/oauthCallback.esbuild-svelte-fake-css */
-.oauth_callback_container.svelte-15c37u2.svelte-15c37u2 {
+.oauth_callback_container.svelte-1b3v734.svelte-1b3v734 {
   height: 100%;
   width: 100%;
   background-color: #F1F5F9;
   display: flex;
   color: #475569;
 }
-.main_content.svelte-15c37u2.svelte-15c37u2 {
+.main_content.svelte-1b3v734.svelte-1b3v734 {
   width: 420px;
   height: fit-content;
   padding: 20px;
@@ -302,17 +302,17 @@
   margin: 50px auto;
   border: 1px solid #CBD5E1;
 }
-.main_content.svelte-15c37u2 h1.svelte-15c37u2 {
+.main_content.svelte-1b3v734 h1.svelte-1b3v734 {
   font-weight: 700;
   font-size: 22px;
   margin: 0 auto 15px;
 }
-.main_content.svelte-15c37u2 p.svelte-15c37u2 {
+.main_content.svelte-1b3v734 p.svelte-1b3v734 {
   margin: 0;
   font-size: 15px;
   text-align: center;
 }
-.main_content.svelte-15c37u2 a.svelte-15c37u2 {
+.main_content.svelte-1b3v734 a.svelte-1b3v734 {
   padding: 8px 30px;
   font-size: 16px;
   display: inline-flex;
@@ -329,10 +329,10 @@
   width: fit-content;
   margin: 30px auto 0 auto;
 }
-.main_content.svelte-15c37u2 a.svelte-15c37u2:hover {
+.main_content.svelte-1b3v734 a.svelte-1b3v734:hover {
   background-color: #7E80F1;
 }
-.main_content.svelte-15c37u2 a i.svelte-15c37u2 {
+.main_content.svelte-1b3v734 a i.svelte-1b3v734 {
   margin-right: 8px;
 }
 </style>
@@ -463,6 +463,14 @@
   var current_component;
   function set_current_component(component) {
     current_component = component;
+  }
+  function get_current_component() {
+    if (!current_component)
+      throw new Error("Function called outside component initialization");
+    return current_component;
+  }
+  function onMount(fn) {
+    get_current_component().$.on_mount.push(fn);
   }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/scheduler.js
@@ -931,7 +939,7 @@
         p = element("p");
         p.textContent = `${email} ${/*recentlyRegistered*/
         ctx[0] ? "registered and" : ""} logged in successfully`;
-        attr(p, "class", "svelte-15c37u2");
+        attr(p, "class", "svelte-1b3v734");
       },
       m(target, anchor) {
         insert(target, p, anchor);
@@ -950,7 +958,7 @@
       c() {
         p = element("p");
         p.textContent = `${error}`;
-        attr(p, "class", "error svelte-15c37u2");
+        attr(p, "class", "error svelte-1b3v734");
       },
       m(target, anchor) {
         insert(target, p, anchor);
@@ -987,12 +995,12 @@
         if_block.c();
         t2 = space();
         a = element("a");
-        a.innerHTML = `<i class="gg-arrow-left-r svelte-15c37u2"></i> <p class="svelte-15c37u2">Back to main page</p>`;
-        attr(h1, "class", "svelte-15c37u2");
+        a.innerHTML = `<i class="gg-arrow-left-r svelte-1b3v734"></i> <p class="svelte-1b3v734">Back to main page</p>`;
+        attr(h1, "class", "svelte-1b3v734");
         attr(a, "href", "/realtor");
-        attr(a, "class", "svelte-15c37u2");
-        attr(div, "class", "main_content svelte-15c37u2");
-        attr(section, "class", "oauth_callback_container svelte-15c37u2");
+        attr(a, "class", "svelte-1b3v734");
+        attr(div, "class", "main_content svelte-1b3v734");
+        attr(section, "class", "oauth_callback_container svelte-1b3v734");
       },
       m(target, anchor) {
         insert(target, section, anchor);
@@ -1022,6 +1030,16 @@
     const createdAt = new Date(+'#{createdAt}');
     const now2 = new Date();
     const recentlyRegistered = now2 - createdAt < 1e3 * 60 * 10;
+    onMount(() => {
+      setTimeout(
+        () => {
+          console.log(error);
+          if (!error)
+            window.location.href = "/realtor";
+        },
+        1
+      );
+    });
     return [recentlyRegistered];
   }
   var OauthCallback = class extends SvelteComponent {
