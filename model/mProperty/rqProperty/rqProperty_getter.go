@@ -627,3 +627,22 @@ func (p *PropertyUS) ToProperty() *Property {
 	p.Adapter = backupAdapter
 	return out
 }
+
+func (rq *PropertyTW) FindAllPropertiesOffsetLimit(offset, limit int) (res []*PropertyTW) {
+	const comment = `-- PropertyTW) FindAllProperties`
+
+	query := comment + `
+SELECT ` + rq.SqlSelectAllFields() + `
+FROM ` + rq.SqlTableName() + `
+ORDER BY "id"
+LIMIT ` + X.ToS(offset) + `,` + X.ToS(limit)
+	if conf.IsDebug() {
+		//L.Print(query)
+	}
+	rq.Adapter.QuerySql(query, func(row []any) {
+		obj := &PropertyTW{}
+		obj.FromArray(row)
+		res = append(res, obj)
+	})
+	return res
+}

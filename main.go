@@ -251,6 +251,8 @@ func main() {
 		zImport.ImportHouseLocation(tConn, gmap)
 	case `import_streetview_image`:
 		zImport.ImportStreetViewImage(d, gmap)
+	case `import_streetview_image_tw`:
+		zImport.ImportStreetViewImageTW(d, gmap)
 	case `import_translation`:
 		// https://docs.google.com/spreadsheets/d/1XnbE1ERv-jGjEOh-Feibtlb-drTjgzqOrcHqTCCmE3Y/edit#gid=0
 		zImport.GoogleSheetTranslationToJson(`1XnbE1ERv-jGjEOh-Feibtlb-drTjgzqOrcHqTCCmE3Y`)
