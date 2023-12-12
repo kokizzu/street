@@ -15,6 +15,7 @@ import (
 	"github.com/gabriel-vasile/mimetype"
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2/utils"
+	"github.com/rs/zerolog/log"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/kokizzu/gotro/A"
@@ -24,7 +25,6 @@ import (
 	"github.com/kokizzu/gotro/X"
 	"github.com/kokizzu/lexid"
 	"github.com/kpango/fastime"
-	"github.com/rs/zerolog/log"
 	"github.com/yosuke-furukawa/json5/encoding/json5"
 
 	"street/conf"
@@ -160,7 +160,7 @@ func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon, 
 			}
 			// TODO: log size/bytes written
 			if l.Debug || rc.HasError() {
-				L.Describe(X.ToJson5(in))
+				//L.Describe(X.ToJson5(in))
 				log.Print(string(byt))
 			}
 		}
