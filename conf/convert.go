@@ -1,6 +1,8 @@
 package conf
 
 import (
+	"fmt"
+	"io"
 	"math"
 
 	"github.com/kokizzu/gotro/S"
@@ -15,6 +17,18 @@ func TaiwanDateToInt(date string) int {
 	yyyymmdd := 1911_00_00 + yyymmdd
 
 	return yyyymmdd
+}
+
+func TaiwanDateToStr(date string) string {
+	var yy, mm, dd int
+	n, err := fmt.Sscanf(date, "%d-%d-%d", &yy, &mm, &dd)
+	if err == nil {
+		return fmt.Sprintf("%d-%02d-%02d", yy+1911, mm, dd)
+	}
+	if err == io.ErrUnexpectedEOF && n == 2 {
+		return fmt.Sprintf("%d-%02d-01", yy+1911, mm)
+	}
+	return ""
 }
 
 func DistanceKm(lat1, lon1, lat2, lon2 float64) float64 {
