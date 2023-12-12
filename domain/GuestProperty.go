@@ -99,8 +99,20 @@ var (
 func (d *Domain) GuestProperty(in *GuestPropertyIn) (out GuestPropertyOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
-	if in.CountryCode == `US` { // for now there's only US
+	if in.CountryCode == `US` {
 		r := rqProperty.NewPropertyUS(d.PropOltp)
+		r.Id = in.Id
+		if !r.FindById() {
+			out.SetError(400, ErrGuestPropertyCountryNotFound)
+			return
+		}
+		out.Property = r.ToProperty()
+		out.Meta = GuestPropertiesMeta
+		return
+	}
+
+	if in.CountryCode == `TW` {
+		r := rqProperty.NewPropertyTW(d.PropOltp)
 		r.Id = in.Id
 		if !r.FindById() {
 			out.SetError(400, ErrGuestPropertyCountryNotFound)
