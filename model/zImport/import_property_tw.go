@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"street/conf"
 	"street/model/mProperty/wcProperty"
 	"street/model/xGmap"
 	"time"
@@ -54,6 +55,17 @@ type TransInfo struct {
 	TransDate  string    `json:"trans_date"`
 }
 
+type PriceHistoryInfo struct {
+	Price     string
+	TransDate string
+}
+
+const (
+	PropertyTWPurposeSell = `sell`
+	PropertyTWPurposeRent = `rent`
+	PropertyTWCountryCode = `TW`
+)
+
 const PROPERTYTW_FILE = `static/property_tw_data/props_tw.jsonl`
 
 func retrievePropertyTwLatLong(propertyMutator *wcProperty.PropertyTWMutator, gmap xGmap.Gmap) error {
@@ -94,6 +106,7 @@ func retrievePropertyTwLatLong(propertyMutator *wcProperty.PropertyTWMutator, gm
 
 func parsePropertyTwData(propertyMutator *wcProperty.PropertyTWMutator, propertyResponseObject *PropertyTWFullResponse, stat *ImporterStat, gmap xGmap.Gmap) {
 	propertyMutator.Address = propertyResponseObject.Address
+	propertyMutator.CountryCode = PropertyTWCountryCode
 
 	fmt.Sscanf(propertyResponseObject.Layout,
 		"%d房%d廳%d衛",
@@ -102,13 +115,18 @@ func parsePropertyTwData(propertyMutator *wcProperty.PropertyTWMutator, property
 		&propertyMutator.Bathroom)
 	propertyMutator.NumberOfFloors = propertyResponseObject.TotalFloor
 	propertyMutator.HouseType = propertyResponseObject.BuildPurposeStr
+	propertyMutator.Purpose = PropertyTWPurposeSell
 
 	propertyMutator.SizeM2 = propertyResponseObject.BuildAreaV2.Area
 	fmt.Sscanf(propertyResponseObject.RealParkAreaV2.Area, "%f", &propertyMutator.Parking)
 
 	propertyMutator.LastPrice = propertyResponseObject.TotalPrice
 	for _, trans := range propertyResponseObject.HistoryTransLog {
-		propertyMutator.PriceHistoriesSell = append(propertyMutator.PriceHistoriesSell, any(trans))
+		priceHistoryData := []any{
+			trans.TotalPrice.Price + trans.TotalPrice.Unit,
+			conf.TaiwanDateToStr(trans.TransDate),
+		}
+		propertyMutator.PriceHistoriesSell = append(propertyMutator.PriceHistoriesSell, priceHistoryData)
 	}
 
 	err := retrievePropertyTwLatLong(propertyMutator, gmap)
