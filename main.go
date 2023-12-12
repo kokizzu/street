@@ -241,8 +241,10 @@ func main() {
 		}
 		zImport.ImportPropertyHistoryUsData(tConn, baseUrl, minPropertyIdNumber, maxPropertyIdNumber)
 	case `import_property_tw`:
+		// requirement: copy crawled data to static/property_tw_data/props_tw.jsonl
 		zImport.ImportPropertyTwData(tConn, gmap)
-
+	case `import_streetview_image_tw`:
+		zImport.ImportStreetViewImageTW(d, gmap)
 	case `migrate_property_us_image`:
 		zImport.MigratePropertyUSImage(tConn, 4000001, 8000000)
 	case `clean_excessive_attr_property_extra_us`:
@@ -251,8 +253,6 @@ func main() {
 		zImport.ImportHouseLocation(tConn, gmap)
 	case `import_streetview_image`:
 		zImport.ImportStreetViewImage(d, gmap)
-	case `import_streetview_image_tw`:
-		zImport.ImportStreetViewImageTW(d, gmap)
 	case `import_translation`:
 		// https://docs.google.com/spreadsheets/d/1XnbE1ERv-jGjEOh-Feibtlb-drTjgzqOrcHqTCCmE3Y/edit#gid=0
 		zImport.GoogleSheetTranslationToJson(`1XnbE1ERv-jGjEOh-Feibtlb-drTjgzqOrcHqTCCmE3Y`)
