@@ -3,10 +3,14 @@ package zImport
 import (
 	"bufio"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
+	"net/http"
 	"os"
 	"strconv"
 	"street/model/mProperty/wcProperty"
+	"street/model/xGmap"
 	"time"
 
 	"github.com/kokizzu/gotro/D/Tt"
@@ -50,9 +54,45 @@ type TransInfo struct {
 	TransDate  string    `json:"trans_date"`
 }
 
-const PROPERTYTW_FILE = `static/property_tw_data/props_tw.json`
+const PROPERTYTW_FILE = `static/property_tw_data/props_tw.jsonl`
 
-func parsePropertyTwData(propertyMutator *wcProperty.PropertyTWMutator, propertyResponseObject *PropertyTWFullResponse, stat *ImporterStat) {
+func retrievePropertyTwLatLong(propertyMutator *wcProperty.PropertyTWMutator, gmap xGmap.Gmap) error {
+	propertyMutator.Coord = []any{0, 0}
+
+	fullUrl := gmap.BuildFullLocationSearchUrl(propertyMutator.Address)
+	locationResponse, err := http.Get(fullUrl)
+
+	if L.IsError(err, `retrievePropertyTwLatLong: get location response`) {
+		return err
+	}
+
+	responseData, err := io.ReadAll(locationResponse.Body)
+	if L.IsError(err, `retrievePropertyTwLatLong: read response body`) {
+		return err
+	}
+
+	propertyLocation := PlaceResponse{}
+
+	err = json.Unmarshal(responseData, &propertyLocation)
+	if L.IsError(err, `retrievePropertyTwLatLong: unmarshal response data`) {
+		L.Print(propertyMutator.Address)
+		L.Print(string(responseData))
+		return err
+	}
+	if len(propertyLocation.Candidates) == 0 {
+		return errors.New(`property location zero candidates`)
+	}
+
+	propertyMutator.FormattedAddress = propertyLocation.Candidates[0].FormattedAddress
+
+	latitude := propertyLocation.Candidates[0].Geometry.Location.Lat
+	longitude := propertyLocation.Candidates[0].Geometry.Location.Lng
+
+	propertyMutator.Coord = []any{latitude, longitude}
+	return nil
+}
+
+func parsePropertyTwData(propertyMutator *wcProperty.PropertyTWMutator, propertyResponseObject *PropertyTWFullResponse, stat *ImporterStat, gmap xGmap.Gmap) {
 	propertyMutator.Address = propertyResponseObject.Address
 
 	fmt.Sscanf(propertyResponseObject.Layout,
@@ -71,7 +111,10 @@ func parsePropertyTwData(propertyMutator *wcProperty.PropertyTWMutator, property
 		propertyMutator.PriceHistoriesSell = append(propertyMutator.PriceHistoriesSell, any(trans))
 	}
 
-	propertyMutator.Coord = []any{0, 0}
+	err := retrievePropertyTwLatLong(propertyMutator, gmap)
+	if err != nil {
+		stat.Warn(`no lat long`)
+	}
 
 	// -------- Metadata ---------
 	currentTime := time.Now().Unix()
@@ -79,7 +122,7 @@ func parsePropertyTwData(propertyMutator *wcProperty.PropertyTWMutator, property
 	propertyMutator.UpdatedAt = currentTime
 }
 
-func ImportPropertyTwData(adapter *Tt.Adapter) {
+func ImportPropertyTwData(adapter *Tt.Adapter, gmap xGmap.Gmap) {
 	f, err := os.Open(PROPERTYTW_FILE)
 	if L.IsError(err, `failed opening file %s`, PROPERTYTW_FILE) {
 		L.Print(err)
@@ -93,7 +136,11 @@ func ImportPropertyTwData(adapter *Tt.Adapter) {
 	var props []PropertyTWFullResponse
 	for scanner.Scan() {
 		var prop PropertyTWFullResponse
-		err := json.Unmarshal([]byte(scanner.Text()), &prop)
+		line := scanner.Text()
+		if line == "\"\"" {
+			continue
+		}
+		err := json.Unmarshal([]byte(line), &prop)
 		if !L.IsError(err, `failed reading PropertyTW`) {
 			props = append(props, prop)
 		}
@@ -114,7 +161,7 @@ func ImportPropertyTwData(adapter *Tt.Adapter) {
 			continue
 		}
 
-		parsePropertyTwData(propertyMutator, &prop, stat)
+		parsePropertyTwData(propertyMutator, &prop, stat, gmap)
 		stat.Ok(propertyMutator.DoInsert())
 	}
 }
