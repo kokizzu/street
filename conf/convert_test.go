@@ -36,6 +36,37 @@ func TestTaiwanDateToInt(t *testing.T) {
 	}
 }
 
+func TestTaiwanDateToStr(t *testing.T) {
+	tests := []struct {
+		taiwan   string
+		yyyymmdd string
+	}{
+		{
+			taiwan:   "107-01-01",
+			yyyymmdd: "2018-01-01",
+		},
+		{
+			taiwan:   "111-11-21",
+			yyyymmdd: "2022-11-21",
+		},
+		{
+			taiwan:   "112-01-01",
+			yyyymmdd: "2023-01-01",
+		},
+		{
+			taiwan:   "112-12",
+			yyyymmdd: "2023-12-01",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(fmt.Sprintf("%s -> %s", tt.taiwan, tt.yyyymmdd), func(t *testing.T) {
+			if got := conf.TaiwanDateToStr(tt.taiwan); got != tt.yyyymmdd {
+				t.Errorf("TaiwanDateToStr() = %v, yyyymmdd %v", got, tt.yyyymmdd)
+			}
+		})
+	}
+}
+
 func TestDistanceKm(t *testing.T) {
 	tests := []struct {
 		lat1, lon1, lat2, lon2 float64

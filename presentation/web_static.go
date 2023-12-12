@@ -133,6 +133,9 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			title += ` on ` + out.Property.FormattedAddress
 		}
 		ogUrl := fmt.Sprintf("%s/%s/%s%d", w.Domain.WebCfg.WebProtoDomain, domain.GuestPropertyAction, countryCode, out.Property.Id)
+		L.Print(ogUrl)
+		L.Print(descr)
+		L.Print(out.Property)
 		return views.RenderGuestPropertyPublic(ctx, M.SX{
 			`title`:         S.XSS(title),
 			`propItem`:      out.Property,
@@ -393,6 +396,27 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		out := d.AdminPropertiesUS(&in)
 		return views.RenderAdminPropertiesUS(ctx, M.SX{
 			`title`:      `Properties US`,
+			`segments`:   segments,
+			`properties`: out.Properties,
+			`fields`:     out.Meta.Fields,
+			`pager`:      out.Pager,
+		})
+	})
+	fw.Get(`/`+domain.AdminPropertiesTWAction, func(ctx *fiber.Ctx) error {
+		var in domain.AdminPropertiesTWIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminPropertiesTWAction)
+		if err != nil {
+			return err
+		}
+		if notAdmin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Cmd = zCrud.CmdList
+		out := d.AdminPropertiesTW(&in)
+		return views.RenderAdminPropertiesTW(ctx, M.SX{
+			`title`:      `Properties TW`,
 			`segments`:   segments,
 			`properties`: out.Properties,
 			`fields`:     out.Meta.Fields,
