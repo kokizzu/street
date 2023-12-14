@@ -19,7 +19,7 @@ services:
       - "3301:3301"
 
   clickhouse1:
-    image: clickhouse/clickhouse-server:23.9.1.1854
+    image: clickhouse/clickhouse-server:23.11.2.11
     # previously: 23.4.2.11
     ports:
       - "8123:8123"
