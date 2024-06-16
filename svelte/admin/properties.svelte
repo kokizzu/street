@@ -89,7 +89,7 @@
     },
   ];
   
-  $: console.log( 'properties=', properties );
+  $: console.log( 'properties 123 = ', properties );
   
   let propHistoryModal = ModalDialog;
   

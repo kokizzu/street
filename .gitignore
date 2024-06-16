@@ -16,3 +16,4 @@ _tmpdb
 .DS_Store
 cache
 docker-data
+tmpdb

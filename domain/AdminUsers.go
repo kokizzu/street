@@ -107,6 +107,13 @@ var AdminUsersMeta = zCrud.Meta{
 			InputType: zCrud.InputTypeDateTime,
 		},
 		{
+			Name:      mAuth.Country,
+			Label:     `Country`,
+			ReadOnly:  true,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
 			Name:      mAuth.LastLoginAt,
 			Label:     `Last Login At`,
 			ReadOnly:  true,
