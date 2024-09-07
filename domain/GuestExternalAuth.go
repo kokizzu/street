@@ -38,12 +38,19 @@ const (
 
 func (d *Domain) GuestExternalAuth(in *GuestExternalAuthIn) (out GuestExternalAuthOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
-	csrfState := in.Provider + `|`
-	if in.SessionToken == `` {
-		in.SessionToken = `TEMP__` + lexid.ID()
-		out.SessionToken = in.SessionToken
+
+	csrfState := "";
+	if (in.Header == "x-unity-client") {
+		csrfState = `TEMP__` + lexid.ID()
+	} else {
+		csrfState = in.Provider + `|`
+		if in.SessionToken == `` {
+			in.SessionToken = `TEMP__` + lexid.ID()
+			out.SessionToken = in.SessionToken
+		}
+		csrfState += S.Left(in.SessionToken, 20)
 	}
-	csrfState += S.Left(in.SessionToken, 20)
+	
 
 	switch in.Provider {
 	case OauthGoogle:

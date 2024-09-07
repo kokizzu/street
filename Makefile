@@ -1,7 +1,7 @@
 
 setup:
 	go get -u -v github.com/kokizzu/gotro@latest
-	go install github.com/cosmtrek/air@latest
+	go install github.com/air-verse/air@latest
 	go install github.com/fatih/gomodifytags@latest
 	go install github.com/kokizzu/replacer@latest
 	go install github.com/akbarfa49/farify@latest
