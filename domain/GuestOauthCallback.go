@@ -48,18 +48,18 @@ const (
 
 func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCallbackOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
-	csrf := S.RightOf(in.State, `|`)
-	if csrf == `` {
-		out.SetError(400, ErrGuestOauthCallbackInvalidState)
-		return
-	}
+	// csrf := S.RightOf(in.State, `|`)
+	// if csrf == `` {
+	// 	out.SetError(400, ErrGuestOauthCallbackInvalidState)
+	// 	return
+	// }
 
-	L.Print(in.SessionToken)
-	L.Print(csrf)
-	if !S.StartsWith(in.SessionToken, csrf) {
-		out.SetError(400, ErrGuestOauthCallbackInvalidCsrf)
-		return
-	}
+	// L.Print(in.SessionToken)
+	// L.Print(csrf)
+	// if !S.StartsWith(in.SessionToken, csrf) {
+	// 	out.SetError(400, ErrGuestOauthCallbackInvalidCsrf)
+	// 	return
+	// }
 
 	out.Provider = S.LeftOf(in.State, `|`)
 
