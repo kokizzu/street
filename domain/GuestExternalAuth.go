@@ -39,7 +39,6 @@ const (
 func (d *Domain) GuestExternalAuth(in *GuestExternalAuthIn) (out GuestExternalAuthOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
-	// csrfState := "";
 	if in.SessionToken == `` {
 		in.SessionToken = `TEMP__` + lexid.ID()
 		out.SessionToken = in.SessionToken
