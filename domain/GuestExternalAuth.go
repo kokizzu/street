@@ -39,17 +39,21 @@ const (
 func (d *Domain) GuestExternalAuth(in *GuestExternalAuthIn) (out GuestExternalAuthOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
-	csrfState := "";
-	if (in.Header == "x-unity-client") {
-		csrfState = `TEMP__` + lexid.ID()
-	} else {
-		csrfState = in.Provider + `|`
-		if in.SessionToken == `` {
-			in.SessionToken = `TEMP__` + lexid.ID()
-			out.SessionToken = in.SessionToken
-		}
-		csrfState += S.Left(in.SessionToken, 20)
+	// csrfState := "";
+	if in.SessionToken == `` {
+		in.SessionToken = `TEMP__` + lexid.ID()
+		out.SessionToken = in.SessionToken
 	}
+	csrfState := in.Provider + `|`
+	csrfState += S.Left(in.SessionToken, 20)
+
+	
+	// if (in.Header == "x-unity-client") {
+	// 	csrfState = `TEMP__` + lexid.ID()
+	// } else {
+	// 	csrfState = in.Provider + `|`
+	// 	csrfState += S.Left(in.SessionToken, 20)
+	// }
 	
 
 	switch in.Provider {
