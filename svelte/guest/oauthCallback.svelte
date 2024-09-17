@@ -11,7 +11,7 @@
   onMount( () => {
     setTimeout( () => {
       console.log(error)
-      if( !error ) window.location.href = '/realtor';
+      // if( !error ) window.location.href = '/realtor';
     }, 1 );
   } );
 </script>
