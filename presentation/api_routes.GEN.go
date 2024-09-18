@@ -170,6 +170,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// GuestOauthTokenExchange
+	fw.Post("/"+domain.GuestOauthTokenExchangeAction, func(c *fiber.Ctx) error {
+		in := domain.GuestOauthTokenExchangeIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.GuestOauthTokenExchangeAction); err != nil {
+			return nil
+		}
+		out := d.GuestOauthTokenExchange(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// GuestProperty
 	fw.Post("/"+domain.GuestPropertyAction, func(c *fiber.Ctx) error {
 		in := domain.GuestPropertyIn{}

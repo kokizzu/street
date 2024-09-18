@@ -17,6 +17,16 @@
   let user = {/* user */};
   let segments = {/* segments */};
   let google = '#{google}';
+  let apple;
+
+  // Generate Apple OAuth URL
+  const clientId = 'com.hapstr.app'; //
+  const redirectUri = 'https://admin.hapstr.xyz/guest/oauthCallback'; // Your frontend callback URL
+  const state = 'random_state_value'; // Use a random string to prevent CSRF attacks
+  const scope = 'email';
+  const response_mode = 'form_post'
+
+  apple = `https://appleid.apple.com/auth/authorize?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&state=${state}&response_mode=${response_mode}`;
   
   function getCookie( name ) {
     var match = document.cookie.match( new RegExp( '(^| )' + name + '=([^;]+)' ) );
@@ -286,6 +296,18 @@
 								<span>Continue with Google</span>
 							</a>
 						{/if}
+            <div class="or_separator">
+							<span/>
+							<p>or</p>
+							<span/>
+						</div>
+            <!-- Apple OAuth -->
+						{#if apple}
+            <a class="button" href={apple}>
+              <img src="/assets/icons/apple.png" alt="Apple"/>
+              <span>Continue with Apple</span>
+            </a>
+            {/if}
 					</div>
 				{/if}
 				<div class="foot_auth">
