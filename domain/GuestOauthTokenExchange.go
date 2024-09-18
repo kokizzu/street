@@ -1,6 +1,10 @@
 package domain
 
 import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
@@ -16,14 +20,13 @@ import (
 //go:generate farify doublequote --file GuestOauthCallback.go
 
 type (
-	GuestOauthCallbackIn struct {
+	GuestOauthTokenExchangeIn struct {
 		RequestCommon
 		State       string `json:"state" form:"state" query:"state" long:"state" msg:"state"`
-		Code        string `json:"code" form:"code" query:"code" long:"code" msg:"code"`
 		AccessToken string `json:"accessToken" form:"accessToken" query:"accessToken" long:"accessToken" msg:"accessToken"`
 	}
 
-	GuestOauthCallbackOut struct {
+	GuestOauthTokenExchangeOut struct {
 		ResponseCommon
 		OauthUser   M.SX         `json:"oauthUser" form:"oauthUser" query:"oauthUser" long:"oauthUser" msg:"oauthUser"`
 		Email       string       `json:"email" form:"email" query:"email" long:"email" msg:"email"`
@@ -35,31 +38,19 @@ type (
 )
 
 const (
-	GuestOauthCallbackAction = `guest/oauthCallback`
+	GuestOauthTokenExchangeAction = `guest/oauthTokenExchange`
 
-	ErrGuestOauthCallbackInvalidState           = `invalid csrf state`
-	ErrGuestOauthCallbackInvalidCsrf            = `invalid csrf token`
-	ErrGuestOauthCallbackInvalidUrl             = `invalid url`
-	ErrGuestOauthCallbackFailedExchange         = `failed exchange oauth token`
-	ErrGuestOauthCallbackFailedUserCreation     = `failed user creation from oauth`
-	ErrGuestOauthCallbackFailedUserModification = `failed user modification from oauth`
-	ErrGuestOauthCallbackFailedStoringSession   = `failed storing session from oauth`
+	ErrGuestTokenExchangeInvalidState           = `invalid csrf state`
+	ErrGuestTokenExchangeInvalidCsrf            = `invalid csrf token`
+	ErrGuestTokenExchangeInvalidUrl             = `invalid url`
+	ErrGuestTokenExchangeFailedExchange         = `failed exchange oauth token`
+	ErrGuestTokenExchangeFailedUserCreation     = `failed user creation from oauth`
+	ErrGuestTokenExchangeFailedUserModification = `failed user modification from oauth`
+	ErrGuestTokenExchangeFailedStoringSession   = `failed storing session from oauth`
 )
 
-func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCallbackOut) {
+func (d *Domain) GuestOauthTokenExchange(in *GuestOauthTokenExchangeIn) (out GuestOauthTokenExchangeOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
-	// csrf := S.RightOf(in.State, `|`)
-	// if csrf == `` {
-	// 	out.SetError(400, ErrGuestOauthCallbackInvalidState)
-	// 	return
-	// }
-
-	// L.Print(in.SessionToken)
-	// L.Print(csrf)
-	// if !S.StartsWith(in.SessionToken, csrf) {
-	// 	out.SetError(400, ErrGuestOauthCallbackInvalidCsrf)
-	// 	return
-	// }
 
 	out.Provider = S.LeftOf(in.State, `|`)
 
@@ -68,63 +59,43 @@ func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCal
 		provider := d.Oauth.Google[in.Host]
 		if provider == nil {
 			L.Print(in.Host)
-			out.SetError(400, ErrGuestOauthCallbackInvalidUrl)
+			out.SetError(400, ErrGuestTokenExchangeInvalidUrl)
 			return
 		}
 
-		token, err := provider.Exchange(in.TracerContext, in.Code)
-		if L.IsError(err, `google.provider.Exchange`) {
-			out.SetError(400, ErrGuestOauthCallbackFailedExchange)
+		// Verify the access token and fetch user info
+		userInfo, err := fetchGoogleUserInfo(in.AccessToken)
+		if L.IsError(err, `google.fetchGoogleUserInfo`) {
+			out.SetError(400, ErrGuestTokenExchangeFailedExchange)
 			return
 		}
 
-		client := provider.Client(in.TracerContext, token)
-		if d.googleUserInfoEndpointCache == `` {
-			json := fetchJsonMap(client, `https://accounts.google.com/.well-known/openid-configuration`, &out.ResponseCommon)
-			d.googleUserInfoEndpointCache = json.GetStr(`userinfo_endpoint`)
-			if out.HasError() {
-				return
-			}
-		}
-		out.OauthUser = fetchJsonMap(client, d.googleUserInfoEndpointCache, &out.ResponseCommon)
-		/* from google:
-		{
-			"email":			"",
-			"email_verified":	true,
-			"family_name":		"",
-			"gender":			"",
-			"given_name":		"",
-			"locale":			"en-GB",
-			"name":				"",
-			"picture":			"http://",
-			"profile":			"http://",
-			"sub":				"number"
-		} */
+		// Extract user email and other info
+		out.Email = userInfo.GetStr("email")
+		out.OauthUser = userInfo
+
 		if out.HasError() {
 			return
 		}
 		out.Email = out.OauthUser.GetStr(`email`)
+
 	case OauthApple:
 		provider := d.Oauth.Apple[in.Host]
 		if provider == nil {
-			out.SetError(400, ErrGuestOauthCallbackInvalidUrl)
+			L.Print(in.Host)
+			out.SetError(400, ErrGuestTokenExchangeInvalidUrl)
 			return
 		}
-	
-		// Use apple for exchange apple auth code for tokens
-		_, idToken, err := exchangeAppleAuthCodeForToken(in.Code, provider)
-		if err != nil {
-			out.SetError(400, ErrGuestOauthCallbackFailedExchange)
+		// Decode and validate the Apple id_token, and get user info
+		claims, err := validateAppleIDToken(in.AccessToken)
+		if L.IsError(err, `apple.validateAppleIDToken`) {
+			out.SetError(400, ErrGuestTokenExchangeFailedExchange)
 			return
 		}
-	
-		claims, err := validateAppleIDToken(idToken)
-		if err != nil {
-			out.SetError(400, ErrGuestOauthCallbackFailedExchange)
-			return
-		}
-	
+
+		// Extract user email and other info from Apple claims
 		out.Email = claims["email"].(string)
+		out.OauthUser = claims
 	}
 
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
@@ -139,7 +110,7 @@ func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCal
 		user.SetUpdatedAt(in.UnixNow())
 		user.SetCreatedAt(in.UnixNow())
 		if !user.DoInsert() {
-			out.SetError(500, ErrGuestOauthCallbackFailedUserCreation)
+			out.SetError(500, ErrGuestTokenExchangeFailedUserCreation)
 			return
 		}
 		out.actor = user.Id
@@ -156,7 +127,7 @@ func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCal
 
 		user.SetUpdatedAt(in.UnixNow())
 		if !user.DoUpdateById() {
-			out.SetError(500, ErrGuestOauthCallbackFailedUserModification)
+			out.SetError(500, ErrGuestTokenExchangeFailedUserModification)
 			return
 		}
 	}
@@ -166,11 +137,37 @@ func (d *Domain) GuestOauthCallback(in *GuestOauthCallbackIn) (out GuestOauthCal
 	// create new session
 	session, sess := d.CreateSession(user.Id, user.Email, in.UserAgent, in.IpAddress)
 	if !session.DoInsert() {
-		out.SetError(500, ErrGuestOauthCallbackFailedStoringSession)
+		out.SetError(500, ErrGuestTokenExchangeFailedStoringSession)
 		return
 	}
 	out.SessionToken = session.SessionToken
 	out.Segments = sess.Segments
 
 	return
+}
+
+func fetchGoogleUserInfo(accessToken string) (M.SX, error) {
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", "https://www.googleapis.com/oauth2/v2/userinfo", nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Authorization", "Bearer "+accessToken)
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("failed to fetch user info, status code: %d", resp.StatusCode)
+	}
+
+	var userInfo M.SX
+	err = json.NewDecoder(resp.Body).Decode(&userInfo)
+	if err != nil {
+		return nil, err
+	}
+	return userInfo, nil
 }

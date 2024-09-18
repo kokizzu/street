@@ -11,6 +11,7 @@ import (
 
 const (
 	OauthGoogle = `google`
+	OauthApple = `apple`
 )
 
 func fetchJsonMap(client *http.Client, url string, res *ResponseCommon) (json M.SX) {

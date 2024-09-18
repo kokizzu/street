@@ -140,6 +140,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.GuestOauthCallback(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.GuestOauthTokenExchangeAction:
+		in := domain.GuestOauthTokenExchangeIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.GuestOauthTokenExchange(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.GuestPropertyAction:
 		in := domain.GuestPropertyIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

@@ -1865,6 +1865,84 @@ exports.GuestOauthCallback = async function GuestOauthCallback( i, cb ) {
 }
 
 /**
+ * @typedef {Object} GuestOauthTokenExchangeIn
+ * @property {String} state
+ * @property {String} accessToken
+ */
+const GuestOauthTokenExchangeIn = {
+  state: '', // string
+  accessToken: '', // string
+}
+/**
+ * @typedef {Object} GuestOauthTokenExchangeOut
+ * @property {Object} oauthUser
+ * @property {String} email
+ * @property {number} currentUser.id
+ * @property {String} currentUser.email
+ * @property {String} currentUser.password
+ * @property {number} currentUser.createdAt
+ * @property {number} currentUser.createdBy
+ * @property {number} currentUser.updatedAt
+ * @property {number} currentUser.updatedBy
+ * @property {number} currentUser.deletedAt
+ * @property {number} currentUser.passwordSetAt
+ * @property {String} currentUser.secretCode
+ * @property {number} currentUser.secretCodeAt
+ * @property {number} currentUser.verificationSentAt
+ * @property {number} currentUser.verifiedAt
+ * @property {number} currentUser.lastLoginAt
+ * @property {String} currentUser.fullName
+ * @property {String} currentUser.userName
+ * @property {String} currentUser.country
+ * @property {String} currentUser.language
+ * @property {String} provider
+ * @property {Object} segments
+ */
+const GuestOauthTokenExchangeOut = {
+  oauthUser: { // M.SX
+  }, // M.SX
+  email: '', // string
+  currentUser: { // rqAuth.Users
+    id: 0, // uint64
+    email: '', // string
+    password: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    passwordSetAt: 0, // int64
+    secretCode: '', // string
+    secretCodeAt: 0, // int64
+    verificationSentAt: 0, // int64
+    verifiedAt: 0, // int64
+    lastLoginAt: 0, // int64
+    fullName: '', // string
+    userName: '', // string
+    country: '', // string
+    language: '', // string
+  }, // rqAuth.Users
+  provider: '', // string
+  segments: { // M.SB
+  }, // M.SB
+}
+/**
+ * @callback GuestOauthTokenExchangeCallback
+ * @param {GuestOauthTokenExchangeOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {GuestOauthTokenExchangeIn} i
+ * @param {GuestOauthTokenExchangeCallback} cb
+ * @returns {Promise}
+ */
+exports.GuestOauthTokenExchange = async function GuestOauthTokenExchange( i, cb ) {
+  return await axios.post( '/guest/oauthTokenExchange', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} GuestPropertyIn
  * @property {number} id
  * @property {String} countryCode

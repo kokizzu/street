@@ -1,0 +1,153 @@
+package domain
+
+import (
+	"crypto/rsa"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"math/big"
+	"net/http"
+	"net/url"
+	"time"
+	"street/conf"
+
+	"github.com/dgrijalva/jwt-go"
+)
+
+// AppleKey represents a single public key from Apple's JWKS
+type AppleKey struct {
+	Kty string `json:"kty"`
+	Kid string `json:"kid"`
+	Use string `json:"use"`
+	Alg string `json:"alg"`
+	N   string `json:"n"`
+	E   string `json:"e"`
+}
+
+// AppleKeys represents the response containing multiple public keys from Apple
+type AppleKeys struct {
+	Keys []AppleKey `json:"keys"`
+}
+
+// FetchApplePublicKeys fetches the public keys from Apple's endpoint
+func fetchApplePublicKeys() ([]AppleKey, error) {
+	resp, err := http.Get("https://appleid.apple.com/auth/keys")
+	if err != nil {
+		return nil, fmt.Errorf("failed to fetch Apple public keys: %v", err)
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read Apple public keys response: %v", err)
+	}
+
+	var keys AppleKeys
+	err = json.Unmarshal(body, &keys)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse Apple public keys: %v", err)
+	}
+
+	return keys.Keys, nil
+}
+
+// FindApplePublicKeyByKeyID finds the correct public key based on the key ID (kid)
+func findApplePublicKeyByKeyID(keys []AppleKey, kid string) (*AppleKey, error) {
+	for _, key := range keys {
+		if key.Kid == kid {
+			return &key, nil
+		}
+	}
+	return nil, fmt.Errorf("no matching public key found for kid: %s", kid)
+}
+
+// ConvertJWKToPublicKey converts an AppleKey (JWK) to an RSA public key
+func convertJWKToPublicKey(appleKey *AppleKey) (*rsa.PublicKey, error) {
+	// Decode N and E from base64 to big.Int
+	nBytes, err := jwt.DecodeSegment(appleKey.N)
+	if err != nil {
+		return nil, fmt.Errorf("failed to decode 'n' from JWK: %v", err)
+	}
+	eBytes, err := jwt.DecodeSegment(appleKey.E)
+	if err != nil {
+		return nil, fmt.Errorf("failed to decode 'e' from JWK: %v", err)
+	}
+
+	// Convert eBytes to an integer (big-endian)
+	e := 0
+	for _, b := range eBytes {
+		e = e*256 + int(b)
+	}
+
+	pubKey := &rsa.PublicKey{
+		N: new(big.Int).SetBytes(nBytes),
+		E: e,
+	}
+
+	return pubKey, nil
+}
+
+func exchangeAppleAuthCodeForToken(authCode string, config *conf.AppleOAuthConfig) (accessToken string, idToken string, err error) {
+    // Create a JWT for the token request
+    token := jwt.NewWithClaims(jwt.SigningMethodES256, jwt.MapClaims{
+        "iss": config.TeamID,
+        "iat": time.Now().Unix(),
+        "exp": time.Now().Add(time.Minute * 5).Unix(),
+        "aud": "https://appleid.apple.com",
+        "sub": config.ClientID,
+    })
+
+    privateKey, err := jwt.ParseECPrivateKeyFromPEM([]byte(config.PrivateKey))
+    if err != nil {
+        return "", "", err
+    }
+
+    tokenString, err := token.SignedString(privateKey)
+    if err != nil {
+        return "", "", err
+    }
+
+    // Exchange code for access token
+    resp, err := http.PostForm("https://appleid.apple.com/auth/token", url.Values{
+        "grant_type":    {"authorization_code"},
+        "code":          {authCode},
+        "client_id":     {config.ClientID},
+        "client_secret": {tokenString},
+    })
+
+    if err != nil {
+        return "", "", err
+    }
+    defer resp.Body.Close()
+
+    var result map[string]interface{}
+    json.NewDecoder(resp.Body).Decode(&result)
+
+    accessToken = result["access_token"].(string)
+    idToken = result["id_token"].(string)
+
+    return accessToken, idToken, nil
+}
+
+func validateAppleIDToken(idToken string) (map[string]interface{}, error) {
+    token, err := jwt.Parse(idToken, func(token *jwt.Token) (interface{}, error) {
+        // Fetch Apple's public keys and use them to verify the token
+        keys, err := fetchApplePublicKeys()
+        if err != nil {
+            return nil, err
+        }
+
+        // Assuming you extract the correct key from Apple's public keys
+        return keys[0], nil
+    })
+
+    if err != nil {
+        return nil, err
+    }
+
+    if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+        return claims, nil
+    }
+
+    return nil, fmt.Errorf("invalid token")
+}
