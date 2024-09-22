@@ -23,6 +23,7 @@ var allCommands = []string{
 	domain.GuestForgotPasswordAction,
 	domain.GuestLoginAction,
 	domain.GuestOauthCallbackAction,
+	domain.GuestOauthCallbackRedirectAction,
 	domain.GuestOauthTokenExchangeAction,
 	domain.GuestPropertyAction,
 	domain.GuestRegisterAction,

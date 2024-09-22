@@ -89,6 +89,30 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.GuestOauthCallbackRedirectAction, func(c *fiber.Ctx) error {
+		var in domain.GuestOauthCallbackRedirectIn
+		err := webApiParseInput(c, &in.RequestCommon, &in, domain.GuestOauthCallbackRedirectAction)
+		var errStr, email string
+		createdAt := int64(0)
+		provider := `unknown`
+		if err != nil {
+			errStr = err.Error()
+		} else {
+			out := d.GuestOauthCallbackRedirect(&in)
+			errStr = out.Error
+			email = out.Email
+			provider = out.Provider
+			createdAt = out.CurrentUser.CreatedAt
+			out.DecorateSession(c)
+		}
+		return views.RenderGuestOauthCallback(c, M.SX{
+			`title`:     `OAuth from ` + provider,
+			`email`:     email,
+			`error`:     errStr,
+			`createdAt`: createdAt,
+		})
+	})
+
 	fw.Get(`/`+domain.GuestOauthTokenExchangeAction, func(c *fiber.Ctx) error {
 		var in domain.GuestOauthTokenExchangeIn
 		err := webApiParseInput(c, &in.RequestCommon, &in, domain.GuestOauthTokenExchangeAction)
