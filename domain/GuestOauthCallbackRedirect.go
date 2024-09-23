@@ -64,6 +64,8 @@ func (d *Domain) GuestOauthCallbackRedirect(in *GuestOauthCallbackRedirectIn) (o
 	// 	return
 	// }
 
+	providerAccessToken := ""
+
 	out.Provider = S.LeftOf(in.State, `|`)
 
 	switch out.Provider {
@@ -80,6 +82,7 @@ func (d *Domain) GuestOauthCallbackRedirect(in *GuestOauthCallbackRedirectIn) (o
 			out.SetError(400, ErrGuestOauthCallbackRedirectFailedExchange)
 			return
 		}
+		providerAccessToken = string(in.Code)
 
 		client := provider.Client(in.TracerContext, token)
 		if d.googleUserInfoEndpointCache == `` {
@@ -115,11 +118,12 @@ func (d *Domain) GuestOauthCallbackRedirect(in *GuestOauthCallbackRedirectIn) (o
 		}
 	
 		// Use apple for exchange apple auth code for tokens
-		_, idToken, err := exchangeAppleAuthCodeForToken(in.Code, provider)
+		accessToken, idToken, err := exchangeAppleAuthCodeForToken(in.Code, provider)
 		if err != nil {
 			out.SetError(400, ErrGuestOauthCallbackRedirectFailedExchange)
 			return
 		}
+		providerAccessToken = string(accessToken)
 	
 		claims, err := validateAppleIDToken(idToken)
 		if err != nil {
@@ -175,7 +179,7 @@ func (d *Domain) GuestOauthCallbackRedirect(in *GuestOauthCallbackRedirectIn) (o
 
     // Construct JSON data with the session token
 	dataWithSessionToken := M.SX{
-		"sessionToken": session.SessionToken,
+		"sessionToken": providerAccessToken,
 	}
 
 	// Convert data to JSON
