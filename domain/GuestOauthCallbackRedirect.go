@@ -3,6 +3,7 @@ package domain
 import (
     "encoding/json"
 	"fmt"
+	"log"
 
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
@@ -116,14 +117,19 @@ func (d *Domain) GuestOauthCallbackRedirect(in *GuestOauthCallbackRedirectIn) (o
 			out.SetError(400, ErrGuestOauthCallbackRedirectInvalidUrl)
 			return
 		}
+
+		log.Println("In code => ", in.Code)
 	
 		// Use apple for exchange apple auth code for tokens
 		accessToken, idToken, err := exchangeAppleAuthCodeForToken(in.Code, provider)
+		log.Println("Access token => ", string(accessToken))
 		if err != nil {
 			out.SetError(400, ErrGuestOauthCallbackRedirectFailedExchange)
 			return
 		}
 		providerAccessToken = string(accessToken)
+		log.Println("providerAccessToken => ", string(providerAccessToken))
+		log.Println("idToken => ", string(idToken))
 	
 		claims, err := validateAppleIDToken(idToken)
 		if err != nil {

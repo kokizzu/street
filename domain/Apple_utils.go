@@ -10,6 +10,7 @@ import (
 	"net/url"
 	"time"
 	"street/conf"
+	"log"
 
 	"github.com/dgrijalva/jwt-go"
 )
@@ -97,10 +98,14 @@ func exchangeAppleAuthCodeForToken(authCode string, config *conf.AppleOAuthConfi
         "sub": config.ClientID,
     })
 
+	log.Println("authCode => ", authCode)
+
     privateKey, err := jwt.ParseECPrivateKeyFromPEM([]byte(config.PrivateKey))
     if err != nil {
         return "", "", err
     }
+
+	log.Println("PrivateKey => ", privateKey)
 
     tokenString, err := token.SignedString(privateKey)
     if err != nil {
@@ -123,8 +128,12 @@ func exchangeAppleAuthCodeForToken(authCode string, config *conf.AppleOAuthConfi
     var result map[string]interface{}
     json.NewDecoder(resp.Body).Decode(&result)
 
+
     accessToken = result["access_token"].(string)
     idToken = result["id_token"].(string)
+
+	log.Println("accessToken => ", string(accessToken))
+	log.Println("idToken => ", string(idToken))
 
     return accessToken, idToken, nil
 }
