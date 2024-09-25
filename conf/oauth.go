@@ -46,7 +46,9 @@ func EnvOauth() (res OauthConf) {
 	for _, url := range res.Urls {
 		// Load private key from file
 		privateKeyPath := os.Getenv(`OAUTH_APPLE_PRIVATE_KEY_PATH`)
+		log.Println("[Apple] privateKeyPath => ", privateKeyPath)
 		privateKey, err := ioutil.ReadFile(privateKeyPath)
+		log.Println("[Apple] privateKeyPath => ", privateKey)
 		if err != nil {
 			log.Fatalf("Failed to read Apple private key from %s: %v", privateKeyPath, err)
 		}

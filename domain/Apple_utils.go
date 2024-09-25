@@ -99,7 +99,7 @@ func exchangeAppleAuthCodeForToken(authCode string, config *conf.AppleOAuthConfi
     })
 
 	log.Println("authCode => ", authCode)
-
+	log.Println("[exchangeAppleAuthCodeForToken] privateKey => ", config.PrivateKey)
     privateKey, err := jwt.ParseECPrivateKeyFromPEM([]byte(config.PrivateKey))
     if err != nil {
         return "", "", err
