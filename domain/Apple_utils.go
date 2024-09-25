@@ -4,6 +4,7 @@ import (
 	"crypto/rsa"
 	"encoding/json"
 	"fmt"
+	"strings"
 	"io/ioutil"
 	"math/big"
 	"net/http"
@@ -11,8 +12,9 @@ import (
 	"time"
 	"street/conf"
 	"log"
+	"encoding/base64"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v5"
 )
 
 // AppleKey represents a single public key from Apple's JWKS
@@ -62,14 +64,24 @@ func findApplePublicKeyByKeyID(keys []AppleKey, kid string) (*AppleKey, error) {
 	return nil, fmt.Errorf("no matching public key found for kid: %s", kid)
 }
 
+func decodeSegment(segment string) ([]byte, error) {
+	// Base64url decoding (URL safe, no padding)
+	segment = strings.TrimRight(segment, "=")
+	if l := len(segment) % 4; l > 0 {
+		segment += strings.Repeat("=", 4-l)
+	}
+	return base64.URLEncoding.DecodeString(segment)
+}
+
+
 // ConvertJWKToPublicKey converts an AppleKey (JWK) to an RSA public key
 func convertJWKToPublicKey(appleKey *AppleKey) (*rsa.PublicKey, error) {
 	// Decode N and E from base64 to big.Int
-	nBytes, err := jwt.DecodeSegment(appleKey.N)
+	nBytes, err := decodeSegment(appleKey.N)
 	if err != nil {
 		return nil, fmt.Errorf("failed to decode 'n' from JWK: %v", err)
 	}
-	eBytes, err := jwt.DecodeSegment(appleKey.E)
+	eBytes, err := decodeSegment(appleKey.E)
 	if err != nil {
 		return nil, fmt.Errorf("failed to decode 'e' from JWK: %v", err)
 	}
