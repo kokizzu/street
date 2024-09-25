@@ -10,6 +10,7 @@ require (
 	github.com/gabriel-vasile/mimetype v1.4.2
 	github.com/goccy/go-json v0.10.2
 	github.com/gofiber/fiber/v2 v2.50.0
+	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/hexops/autogold/v2 v2.1.0
 	github.com/joho/godotenv v1.4.0
 	github.com/jxskiss/base62 v1.1.0
@@ -52,7 +53,6 @@ require (
 	github.com/andybalholm/brotli v1.0.6 // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
 	github.com/containerd/continuity v0.4.3 // indirect
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/docker/cli v24.0.7+incompatible // indirect
 	github.com/docker/docker v24.0.7+incompatible // indirect
 	github.com/docker/go-connections v0.4.0 // indirect
