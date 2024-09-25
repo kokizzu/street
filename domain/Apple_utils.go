@@ -125,6 +125,7 @@ func exchangeAppleAuthCodeForToken(authCode string, config *conf.AppleOAuthConfi
     }
 
 	log.Println("tokenString => ", tokenString)
+	log.Println("config.ClientID => ", config.ClientID)
 
     // Exchange code for access token
     resp, err := http.PostForm("https://appleid.apple.com/auth/token", url.Values{
@@ -144,6 +145,16 @@ func exchangeAppleAuthCodeForToken(authCode string, config *conf.AppleOAuthConfi
     if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
 		log.Fatalf("Failed to decode JSON response: %v", err)
 	}
+	// Log the entire response
+    log.Printf("Response from Apple: %+v", result)
+
+	if errMsg, ok := result["error"].(string); ok {
+		log.Fatalf("Apple API returned an error: %s", errMsg)
+	}
+	
+	if errDesc, ok := result["error_description"].(string); ok {
+		log.Printf("Error description: %s", errDesc)
+	}
 
 
     // Safely handle the result map
@@ -151,7 +162,10 @@ func exchangeAppleAuthCodeForToken(authCode string, config *conf.AppleOAuthConfi
 	if !ok || accessToken == "" {
 		log.Fatalf("access_token is missing or not a string")
 	}
-    idToken = result["id_token"].(string)
+    idToken, ok = result["id_token"].(string)
+    if !ok || idToken == "" {
+        log.Fatalf("id_token is missing or not a string")
+    }
 
 	log.Println("accessToken => ", string(accessToken))
 	log.Println("idToken => ", string(idToken))

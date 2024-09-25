@@ -53,6 +53,10 @@ func EnvOauth() (res OauthConf) {
 			log.Fatalf("Failed to read Apple private key from %s: %v", privateKeyPath, err)
 		}
 
+		log.Println("OAUTH_APPLE_CLIENT_ID => ", os.Getenv(`OAUTH_APPLE_CLIENT_ID`))
+		log.Println("OAUTH_APPLE_TEAM_ID => ", os.Getenv(`OAUTH_APPLE_TEAM_ID`))
+		log.Println("OAUTH_APPLE_KEY_ID => ", os.Getenv(`OAUTH_APPLE_KEY_ID`))
+
 		// Initialize Apple OAuth config
 		res.Apple[url] = &AppleOAuthConfig{
 			ClientID:    os.Getenv(`OAUTH_APPLE_CLIENT_ID`),       
