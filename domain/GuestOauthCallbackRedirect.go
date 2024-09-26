@@ -127,7 +127,7 @@ func (d *Domain) GuestOauthCallbackRedirect(in *GuestOauthCallbackRedirectIn) (o
 			out.SetError(400, ErrGuestOauthCallbackRedirectFailedExchange)
 			return
 		}
-		providerAccessToken = string(accessToken)
+		providerAccessToken = string(idToken)
 		log.Println("providerAccessToken => ", string(providerAccessToken))
 		log.Println("idToken => ", string(idToken))
 	
