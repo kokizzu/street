@@ -107,8 +107,9 @@ func exchangeAppleAuthCodeForToken(authCode string, config *conf.AppleOAuthConfi
         "iat": time.Now().Unix(),
         "exp": time.Now().Add(time.Minute * 5).Unix(),
         "aud": "https://appleid.apple.com",
-        "sub": config.ClientID,
+        "sub": config.ClientID,	  
     })
+	token.Header["kid"] = "8KGNT7ZA6F"
 
 	log.Println("authCode => ", authCode)
 	log.Println("[exchangeAppleAuthCodeForToken] privateKey => ", config.PrivateKey)
