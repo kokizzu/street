@@ -66,6 +66,7 @@ func (d *Domain) GuestOauthCallbackRedirect(in *GuestOauthCallbackRedirectIn) (o
 	// }
 
 	providerAccessToken := ""
+	fullName := ""
 
 	out.Provider = S.LeftOf(in.State, `|`)
 
@@ -138,10 +139,24 @@ func (d *Domain) GuestOauthCallbackRedirect(in *GuestOauthCallbackRedirectIn) (o
 		}
 	
 		out.Email = claims["email"].(string)
+
+		firstNameData := ""
+		lastNameData := ""
+		if name, ok := claims["name"].(map[string]interface{}); ok {
+			if firstName, exists := name["firstName"].(string); exists {
+				firstNameData = firstName
+			}
+		
+			if lastName, exists := name["lastName"].(string); exists {
+				lastNameData = lastName
+			}
+		}
+		fullName = firstNameData + " " + lastNameData;
 	}
 
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Email = S.ValidateEmail(out.Email)
+	user.FullName = fullName
 
 	if !user.FindByEmail() {
 		// create user if not exists
