@@ -1,6 +1,7 @@
 package zImport
 
 import (
+	"errors"
 	"fmt"
 	"net/url"
 	"os"
@@ -117,6 +118,15 @@ func ReadPropertyUSSheet001(adapter *Tt.Adapter, resourcePath string) {
 
 	for idx, v := range properties {
 		property := wcProperty.NewPropertyUSMutator(adapter)
+		if isValidURL(v.SourceURL) {
+			propKey, err := getSheet001UniqPropKey(v.SourceURL)
+			if err != nil {
+				continue
+			}
+			property.SetUniqPropKey(propKey)
+		} else {
+			continue
+		}
 		property.SetLastPrice(v.MainListedPrice)
 		property.SetPurpose(v.TypePurpose)
 		property.SetFormattedAddress(v.Address1)
@@ -225,6 +235,7 @@ func ReadPropertyUSSheet002(adapter *Tt.Adapter, resourcePath string) {
 	for tsv.Next() {
 		_ = tsv.String()
 
+		sourceUrl := tsv.String()
 		postName := tsv.String()
 		typePurpose := tsv.String()
 		address1 := tsv.String()
@@ -253,6 +264,7 @@ func ReadPropertyUSSheet002(adapter *Tt.Adapter, resourcePath string) {
 		image := tsv.String()
 
 		properties = append(properties, propertyUS{
+			SourceURL: S.Trim(sourceUrl),
 			PostName: S.Trim(postName),
 			TypePurpose: S.Trim(typePurpose),
 			Address1: S.Trim(address1),
@@ -290,6 +302,15 @@ func ReadPropertyUSSheet002(adapter *Tt.Adapter, resourcePath string) {
 
 	for idx, v := range properties {
 		property := wcProperty.NewPropertyUSMutator(adapter)
+		if isValidURL(v.SourceURL) {
+			propKey, err := getSheet002UniqPropKey(v.SourceURL)
+			if err != nil {
+				continue
+			}
+			property.SetUniqPropKey(propKey)
+		} else {
+			continue
+		}
 		property.SetPurpose(v.TypePurpose)
 		property.SetFormattedAddress(v.Address1)
 		property.SetCity(v.City)
@@ -346,6 +367,14 @@ func ReadPropertyUSSheet002(adapter *Tt.Adapter, resourcePath string) {
 			msg := fmt.Sprintf("[%d] failed to insert property us data...", idx)
 			L.Print(msg)
 		}
+
+		propertyExtra := wcProperty.NewPropertyExtraUSMutator(adapter)
+		propertyExtra.SetPropertyKey(property.UniqPropKey)
+		propertyExtra.SetFacilityInfo(v.ParkingFeatures)
+		if !propertyExtra.DoInsert() {
+			msg := fmt.Sprintf("[%d] failed to insert property extra us data...", idx)
+			L.Print(msg)
+		}
 	}
 }
 
@@ -356,6 +385,39 @@ func isValidURL(u string) bool {
 	}
 	
 	return true
+}
+
+func getSheet001UniqPropKey(sourceURL string) (string, error) {
+	parsedUrl, err := url.Parse(sourceURL)
+	if err != nil {
+		return ``, errors.New(`invalid URL`)
+	}
+
+	pathSegments := S.Split(parsedUrl.Path, `/`)
+	if len(pathSegments) != 3 {
+		return ``, errors.New(`cannot find unique property key`)
+	}
+
+	propKey := pathSegments[len(pathSegments)-1]
+	propKeyArr := S.Split(propKey, `-`)
+
+	return propKeyArr[len(propKeyArr)-1], nil
+}
+
+func getSheet002UniqPropKey(sourceURL string) (string, error) {
+	parsedUrl, err := url.Parse(sourceURL)
+	if err != nil {
+		return ``, errors.New(`invalid URL`)
+	}
+
+	pathSegments := S.Split(parsedUrl.Path, `/`)
+	if len(pathSegments) != 5 {
+		return ``, errors.New(`cannot find unique property key`)
+	}
+
+	propKey := pathSegments[len(pathSegments)-2]
+
+	return propKey, nil
 }
 
 func getUSStateByCode(stateCode string) string {
