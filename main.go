@@ -215,6 +215,9 @@ func main() {
 		}
 
 		zImport.ImportPropertyUsData(tConn, baseUrl, minPropertyIdNumber, maxPropertyIdNumber)
+	case `import_property_us_new`:
+		zImport.ReadPropertyUSSheet001(tConn, `./static/house_data/house_data_001.tsv`)
+		zImport.ReadPropertyUSSheet002(tConn, `./static/house_data/house_data_002.tsv`)
 	case `import_property_history_us`:
 		const baseUrl = "https://www.redfin.com/stingray/api/home/details/belowTheFold"
 		args := os.Args

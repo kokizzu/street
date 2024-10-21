@@ -1,10 +1,11 @@
 package conf
 
 import (
-	"os"
 	"io/ioutil"
 	"log"
+	"os"
 
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -46,6 +47,10 @@ func EnvOauth() (res OauthConf) {
 	for _, url := range res.Urls {
 		// Load private key from file
 		privateKeyPath := os.Getenv(`OAUTH_APPLE_PRIVATE_KEY_PATH`)
+		if privateKeyPath == `` {
+			L.Print(`OAUTH_APPLE_PRIVATE_KEY_PATH not set, skipping AppleOauth initialization`)
+			os.Exit(1)
+		}
 		log.Println("[Apple] privateKeyPath => ", privateKeyPath)
 		privateKey, err := ioutil.ReadFile(privateKeyPath)
 		log.Println("[Apple] privateKeyPath => ", privateKey)
