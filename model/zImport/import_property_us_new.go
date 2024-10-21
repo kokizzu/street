@@ -2,12 +2,12 @@ package zImport
 
 import (
 	"errors"
-	"fmt"
 	"net/url"
 	"os"
 	"path/filepath"
 	"street/model/mProperty/wcProperty"
 
+	"github.com/goccy/go-json"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
@@ -15,6 +15,13 @@ import (
 	"github.com/kpango/fastime"
 	"github.com/valyala/tsvreader"
 )
+
+type OtherFacilityInfo struct {
+	ParkingFeatures []string `json:"parkingFeatures"`
+	Gartereg int64 `json:"gartereg"`
+	LotSize string `json:"lotSize"`
+	PostName string `json:"postName"`
+}
 
 func ReadPropertyUSSheet001(adapter *Tt.Adapter, resourcePath string) {
 	defer subTaskPrint(`ReadPropertyUSSheet001: import property data`)()
@@ -116,7 +123,12 @@ func ReadPropertyUSSheet001(adapter *Tt.Adapter, resourcePath string) {
 		return
 	}
 
-	for idx, v := range properties {
+	stat := &ImporterStat{Total: len(properties)}
+	defer stat.Print(`last`)
+
+	for _, v := range properties {
+		stat.Print()
+
 		property := wcProperty.NewPropertyUSMutator(adapter)
 		if isValidURL(v.SourceURL) {
 			propKey, err := getSheet001UniqPropKey(v.SourceURL)
@@ -177,10 +189,8 @@ func ReadPropertyUSSheet001(adapter *Tt.Adapter, resourcePath string) {
 		property.SetCreatedAt(fastime.UnixNow())
 		property.SetUpdatedAt(fastime.UnixNow())
 		property.SetCoord([]any{0, 0})
-		if !property.DoInsert() {
-			msg := fmt.Sprintf("[%d] failed to insert property us data...", idx)
-			L.Print(msg)
-		}
+		
+		stat.Ok(property.DoInsert())
 	}
 }
 
@@ -300,15 +310,22 @@ func ReadPropertyUSSheet002(adapter *Tt.Adapter, resourcePath string) {
 		return
 	}
 
-	for idx, v := range properties {
+	stat := &ImporterStat{Total: len(properties) * 2}
+	defer stat.Print(`last`)
+
+	for _, v := range properties {
+		stat.Print()
+
 		property := wcProperty.NewPropertyUSMutator(adapter)
 		if isValidURL(v.SourceURL) {
 			propKey, err := getSheet002UniqPropKey(v.SourceURL)
 			if err != nil {
+				stat.Skip()
 				continue
 			}
 			property.SetUniqPropKey(propKey)
 		} else {
+			stat.Skip()
 			continue
 		}
 		property.SetPurpose(v.TypePurpose)
@@ -363,18 +380,28 @@ func ReadPropertyUSSheet002(adapter *Tt.Adapter, resourcePath string) {
 		property.SetCreatedAt(fastime.UnixNow())
 		property.SetUpdatedAt(fastime.UnixNow())
 		property.SetCoord([]any{0, 0})
-		if !property.DoInsert() {
-			msg := fmt.Sprintf("[%d] failed to insert property us data...", idx)
-			L.Print(msg)
-		}
 
+		stat.Ok(property.DoInsert())
+
+		stat.Print()
 		propertyExtra := wcProperty.NewPropertyExtraUSMutator(adapter)
 		propertyExtra.SetPropertyKey(property.UniqPropKey)
-		propertyExtra.SetFacilityInfo(v.ParkingFeatures)
-		if !propertyExtra.DoInsert() {
-			msg := fmt.Sprintf("[%d] failed to insert property extra us data...", idx)
-			L.Print(msg)
+
+		facility := OtherFacilityInfo{
+			ParkingFeatures: S.Split(v.ParkingFeatures, `, `),
+			Gartereg: S.ToI(v.Gartereg),
+			LotSize: v.LotSize,
+			PostName: v.PostName,
 		}
+
+		facilityJson, err := json.Marshal(facility)
+		if err != nil {
+			stat.Warn(`facility marshal error`)
+		} else {
+			propertyExtra.SetFacilityInfo(string(facilityJson))
+		}
+
+		stat.Ok(propertyExtra.DoInsert())
 	}
 }
 
