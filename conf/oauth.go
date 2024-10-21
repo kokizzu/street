@@ -1,6 +1,8 @@
 package conf
 
 import (
+	"io/ioutil"
+	"log"
 	"os"
 
 	"github.com/kokizzu/gotro/S"
@@ -40,30 +42,33 @@ func EnvOauth() (res OauthConf) {
 	}
 
 	// Initialize Apple settings
-	// res.Apple = map[string]*AppleOAuthConfig{}
-	// for _, url := range res.Urls {
-	// 	// Load private key from file
-	// 	privateKeyPath := os.Getenv(`OAUTH_APPLE_PRIVATE_KEY_PATH`)
-	// 	log.Println("[Apple] privateKeyPath => ", privateKeyPath)
-	// 	privateKey, err := ioutil.ReadFile(privateKeyPath)
-	// 	log.Println("[Apple] privateKeyPath => ", privateKey)
-	// 	if err != nil {
-	// 		log.Fatalf("Failed to read Apple private key from %s: %v", privateKeyPath, err)
-	// 	}
+	res.Apple = map[string]*AppleOAuthConfig{}
+	for _, url := range res.Urls {
+		// Load private key from file
+		privateKeyPath := os.Getenv(`OAUTH_APPLE_PRIVATE_KEY_PATH`)
+		if privateKeyPath == `` {
+			break
+		}
+		log.Println("[Apple] privateKeyPath => ", privateKeyPath)
+		privateKey, err := ioutil.ReadFile(privateKeyPath)
+		log.Println("[Apple] privateKeyPath => ", privateKey)
+		if err != nil {
+			log.Fatalf("Failed to read Apple private key from %s: %v", privateKeyPath, err)
+		}
 
-	// 	log.Println("OAUTH_APPLE_CLIENT_ID => ", os.Getenv(`OAUTH_APPLE_CLIENT_ID`))
-	// 	log.Println("OAUTH_APPLE_TEAM_ID => ", os.Getenv(`OAUTH_APPLE_TEAM_ID`))
-	// 	log.Println("OAUTH_APPLE_KEY_ID => ", os.Getenv(`OAUTH_APPLE_KEY_ID`))
+		log.Println("OAUTH_APPLE_CLIENT_ID => ", os.Getenv(`OAUTH_APPLE_CLIENT_ID`))
+		log.Println("OAUTH_APPLE_TEAM_ID => ", os.Getenv(`OAUTH_APPLE_TEAM_ID`))
+		log.Println("OAUTH_APPLE_KEY_ID => ", os.Getenv(`OAUTH_APPLE_KEY_ID`))
 
-	// 	// Initialize Apple OAuth config
-	// 	res.Apple[url] = &AppleOAuthConfig{
-	// 		ClientID:    os.Getenv(`OAUTH_APPLE_CLIENT_ID`),       
-	// 		TeamID:      os.Getenv(`OAUTH_APPLE_TEAM_ID`),         
-	// 		KeyID:       os.Getenv(`OAUTH_APPLE_KEY_ID`),          
-	// 		PrivateKey:  string(privateKey),             
-	// 		RedirectURI: url + `/guest/oauthCallback`,
-	// 	}
-	// }
+		// Initialize Apple OAuth config
+		res.Apple[url] = &AppleOAuthConfig{
+			ClientID:    os.Getenv(`OAUTH_APPLE_CLIENT_ID`),       
+			TeamID:      os.Getenv(`OAUTH_APPLE_TEAM_ID`),         
+			KeyID:       os.Getenv(`OAUTH_APPLE_KEY_ID`),          
+			PrivateKey:  string(privateKey),             
+			RedirectURI: url + `/guest/oauthCallback`,
+		}
+	}
 
 	return
 }
