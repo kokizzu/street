@@ -27,8 +27,6 @@
   let fields = [/* fields */];
   let fieldByKey = fieldsArrToMap( fields );
   let properties = [/* properties */] || [];
-  console.log('Properties', properties);
-
   let pager = {/* pager */};
   let currentPropHistory = [];
   let extraActions = [
@@ -90,6 +88,8 @@
       },
     },
   ];
+  
+  $: console.log( 'properties 123 = ', properties );
   
   let propHistoryModal = ModalDialog;
   
@@ -209,7 +209,7 @@
           fields={fields}
           onEditRow={editRow}
           onRefreshTableView={refreshTableView}
-          rows={properties||[]}
+          rows={properties}
           renderFuncs={renderMap}
           widths={{mainUse: '320px', address: '240px'}}
         >

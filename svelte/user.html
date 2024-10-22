@@ -1197,7 +1197,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       };
       var isAsyncFn = kindOfTest("AsyncFunction");
       var isThenable = (thing) => thing && (isObject(thing) || isFunction(thing)) && isFunction(thing.then) && isFunction(thing.catch);
-      var utils = {
+      var utils$1 = {
         isArray,
         isArrayBuffer,
         isBuffer,
@@ -1265,7 +1265,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         request && (this.request = request);
         response && (this.response = response);
       }
-      utils.inherits(AxiosError, Error, {
+      utils$1.inherits(AxiosError, Error, {
         toJSON: function toJSON() {
           return {
             // Standard
@@ -1280,7 +1280,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             columnNumber: this.columnNumber,
             stack: this.stack,
             // Axios
-            config: utils.toJSONObject(this.config),
+            config: utils$1.toJSONObject(this.config),
             code: this.code,
             status: this.response && this.response.status ? this.response.status : null
           };
@@ -1309,7 +1309,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       Object.defineProperty(prototype$1, "isAxiosError", { value: true });
       AxiosError.from = (error, code, config, request, response, customProps) => {
         const axiosError = Object.create(prototype$1);
-        utils.toFlatObject(error, axiosError, function filter(obj) {
+        utils$1.toFlatObject(error, axiosError, function filter(obj) {
           return obj !== Error.prototype;
         }, (prop) => {
           return prop !== "isAxiosError";
@@ -1322,10 +1322,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       };
       var httpAdapter = null;
       function isVisitable(thing) {
-        return utils.isPlainObject(thing) || utils.isArray(thing);
+        return utils$1.isPlainObject(thing) || utils$1.isArray(thing);
       }
       function removeBrackets(key) {
-        return utils.endsWith(key, "[]") ? key.slice(0, -2) : key;
+        return utils$1.endsWith(key, "[]") ? key.slice(0, -2) : key;
       }
       function renderKey(path, key, dots) {
         if (!path)
@@ -1336,42 +1336,42 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }).join(dots ? "." : "");
       }
       function isFlatArray(arr) {
-        return utils.isArray(arr) && !arr.some(isVisitable);
+        return utils$1.isArray(arr) && !arr.some(isVisitable);
       }
-      var predicates = utils.toFlatObject(utils, {}, null, function filter(prop) {
+      var predicates = utils$1.toFlatObject(utils$1, {}, null, function filter(prop) {
         return /^is[A-Z]/.test(prop);
       });
       function toFormData(obj, formData, options) {
-        if (!utils.isObject(obj)) {
+        if (!utils$1.isObject(obj)) {
           throw new TypeError("target must be an object");
         }
         formData = formData || new FormData();
-        options = utils.toFlatObject(options, {
+        options = utils$1.toFlatObject(options, {
           metaTokens: true,
           dots: false,
           indexes: false
         }, false, function defined(option, source) {
-          return !utils.isUndefined(source[option]);
+          return !utils$1.isUndefined(source[option]);
         });
         const metaTokens = options.metaTokens;
         const visitor = options.visitor || defaultVisitor;
         const dots = options.dots;
         const indexes = options.indexes;
         const _Blob = options.Blob || typeof Blob !== "undefined" && Blob;
-        const useBlob = _Blob && utils.isSpecCompliantForm(formData);
-        if (!utils.isFunction(visitor)) {
+        const useBlob = _Blob && utils$1.isSpecCompliantForm(formData);
+        if (!utils$1.isFunction(visitor)) {
           throw new TypeError("visitor must be a function");
         }
         function convertValue(value) {
           if (value === null)
             return "";
-          if (utils.isDate(value)) {
+          if (utils$1.isDate(value)) {
             return value.toISOString();
           }
-          if (!useBlob && utils.isBlob(value)) {
+          if (!useBlob && utils$1.isBlob(value)) {
             throw new AxiosError("Blob is not supported. Use a Buffer instead.");
           }
-          if (utils.isArrayBuffer(value) || utils.isTypedArray(value)) {
+          if (utils$1.isArrayBuffer(value) || utils$1.isTypedArray(value)) {
             return useBlob && typeof Blob === "function" ? new Blob([value]) : Buffer.from(value);
           }
           return value;
@@ -1379,13 +1379,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         function defaultVisitor(value, key, path) {
           let arr = value;
           if (value && !path && typeof value === "object") {
-            if (utils.endsWith(key, "{}")) {
+            if (utils$1.endsWith(key, "{}")) {
               key = metaTokens ? key : key.slice(0, -2);
               value = JSON.stringify(value);
-            } else if (utils.isArray(value) && isFlatArray(value) || (utils.isFileList(value) || utils.endsWith(key, "[]")) && (arr = utils.toArray(value))) {
+            } else if (utils$1.isArray(value) && isFlatArray(value) || (utils$1.isFileList(value) || utils$1.endsWith(key, "[]")) && (arr = utils$1.toArray(value))) {
               key = removeBrackets(key);
               arr.forEach(function each(el, index) {
-                !(utils.isUndefined(el) || el === null) && formData.append(
+                !(utils$1.isUndefined(el) || el === null) && formData.append(
                   // eslint-disable-next-line no-nested-ternary
                   indexes === true ? renderKey([key], index, dots) : indexes === null ? key : key + "[]",
                   convertValue(el)
@@ -1407,17 +1407,17 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           isVisitable
         });
         function build(value, path) {
-          if (utils.isUndefined(value))
+          if (utils$1.isUndefined(value))
             return;
           if (stack.indexOf(value) !== -1) {
             throw Error("Circular reference detected in " + path.join("."));
           }
           stack.push(value);
-          utils.forEach(value, function each(el, key) {
-            const result = !(utils.isUndefined(el) || el === null) && visitor.call(
+          utils$1.forEach(value, function each(el, key) {
+            const result = !(utils$1.isUndefined(el) || el === null) && visitor.call(
               formData,
               el,
-              utils.isString(key) ? key.trim() : key,
+              utils$1.isString(key) ? key.trim() : key,
               path,
               exposedHelpers
             );
@@ -1427,7 +1427,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           });
           stack.pop();
         }
-        if (!utils.isObject(obj)) {
+        if (!utils$1.isObject(obj)) {
           throw new TypeError("data must be an object");
         }
         build(obj);
@@ -1476,7 +1476,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         if (serializeFn) {
           serializedParams = serializeFn(params, options);
         } else {
-          serializedParams = utils.isURLSearchParams(params) ? params.toString() : new AxiosURLSearchParams(params, options).toString(_encode);
+          serializedParams = utils$1.isURLSearchParams(params) ? params.toString() : new AxiosURLSearchParams(params, options).toString(_encode);
         }
         if (serializedParams) {
           const hashmarkIndex = url.indexOf("#");
@@ -1541,7 +1541,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
          * @returns {void}
          */
         forEach(fn) {
-          utils.forEach(this.handlers, function forEachHandler(h) {
+          utils$1.forEach(this.handlers, function forEachHandler(h) {
             if (h !== null) {
               fn(h);
             }
@@ -1557,32 +1557,37 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       var URLSearchParams$1 = typeof URLSearchParams !== "undefined" ? URLSearchParams : AxiosURLSearchParams;
       var FormData$1 = typeof FormData !== "undefined" ? FormData : null;
       var Blob$1 = typeof Blob !== "undefined" ? Blob : null;
-      var isStandardBrowserEnv = (() => {
-        let product;
-        if (typeof navigator !== "undefined" && ((product = navigator.product) === "ReactNative" || product === "NativeScript" || product === "NS")) {
-          return false;
-        }
-        return typeof window !== "undefined" && typeof document !== "undefined";
-      })();
-      var isStandardBrowserWebWorkerEnv = (() => {
-        return typeof WorkerGlobalScope !== "undefined" && // eslint-disable-next-line no-undef
-        self instanceof WorkerGlobalScope && typeof self.importScripts === "function";
-      })();
-      var platform = {
+      var platform$1 = {
         isBrowser: true,
         classes: {
           URLSearchParams: URLSearchParams$1,
           FormData: FormData$1,
           Blob: Blob$1
         },
-        isStandardBrowserEnv,
-        isStandardBrowserWebWorkerEnv,
         protocols: ["http", "https", "file", "blob", "url", "data"]
+      };
+      var hasBrowserEnv = typeof window !== "undefined" && typeof document !== "undefined";
+      var hasStandardBrowserEnv = ((product) => {
+        return hasBrowserEnv && ["ReactNative", "NativeScript", "NS"].indexOf(product) < 0;
+      })(typeof navigator !== "undefined" && navigator.product);
+      var hasStandardBrowserWebWorkerEnv = (() => {
+        return typeof WorkerGlobalScope !== "undefined" && // eslint-disable-next-line no-undef
+        self instanceof WorkerGlobalScope && typeof self.importScripts === "function";
+      })();
+      var utils = /* @__PURE__ */ Object.freeze({
+        __proto__: null,
+        hasBrowserEnv,
+        hasStandardBrowserWebWorkerEnv,
+        hasStandardBrowserEnv
+      });
+      var platform = {
+        ...utils,
+        ...platform$1
       };
       function toURLEncodedForm(data, options) {
         return toFormData(data, new platform.classes.URLSearchParams(), Object.assign({
           visitor: function(value, key, path, helpers) {
-            if (platform.isNode && utils.isBuffer(value)) {
+            if (platform.isNode && utils$1.isBuffer(value)) {
               this.append(key, value.toString("base64"));
               return false;
             }
@@ -1591,7 +1596,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }, options));
       }
       function parsePropPath(name) {
-        return utils.matchAll(/\w+|\[(\w*)]/g, name).map((match) => {
+        return utils$1.matchAll(/\w+|\[(\w*)]/g, name).map((match) => {
           return match[0] === "[]" ? "" : match[1] || match[0];
         });
       }
@@ -1612,27 +1617,27 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           let name = path[index++];
           const isNumericKey = Number.isFinite(+name);
           const isLast = index >= path.length;
-          name = !name && utils.isArray(target) ? target.length : name;
+          name = !name && utils$1.isArray(target) ? target.length : name;
           if (isLast) {
-            if (utils.hasOwnProp(target, name)) {
+            if (utils$1.hasOwnProp(target, name)) {
               target[name] = [target[name], value];
             } else {
               target[name] = value;
             }
             return !isNumericKey;
           }
-          if (!target[name] || !utils.isObject(target[name])) {
+          if (!target[name] || !utils$1.isObject(target[name])) {
             target[name] = [];
           }
           const result = buildPath(path, value, target[name], index);
-          if (result && utils.isArray(target[name])) {
+          if (result && utils$1.isArray(target[name])) {
             target[name] = arrayToObject(target[name]);
           }
           return !isNumericKey;
         }
-        if (utils.isFormData(formData) && utils.isFunction(formData.entries)) {
+        if (utils$1.isFormData(formData) && utils$1.isFunction(formData.entries)) {
           const obj = {};
-          utils.forEachEntry(formData, (name, value) => {
+          utils$1.forEachEntry(formData, (name, value) => {
             buildPath(parsePropPath(name), value, obj, 0);
           });
           return obj;
@@ -1640,10 +1645,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         return null;
       }
       function stringifySafely(rawValue, parser, encoder) {
-        if (utils.isString(rawValue)) {
+        if (utils$1.isString(rawValue)) {
           try {
             (parser || JSON.parse)(rawValue);
-            return utils.trim(rawValue);
+            return utils$1.trim(rawValue);
           } catch (e) {
             if (e.name !== "SyntaxError") {
               throw e;
@@ -1654,28 +1659,28 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       }
       var defaults = {
         transitional: transitionalDefaults,
-        adapter: platform.isNode ? "http" : "xhr",
+        adapter: ["xhr", "http"],
         transformRequest: [function transformRequest(data, headers) {
           const contentType = headers.getContentType() || "";
           const hasJSONContentType = contentType.indexOf("application/json") > -1;
-          const isObjectPayload = utils.isObject(data);
-          if (isObjectPayload && utils.isHTMLForm(data)) {
+          const isObjectPayload = utils$1.isObject(data);
+          if (isObjectPayload && utils$1.isHTMLForm(data)) {
             data = new FormData(data);
           }
-          const isFormData2 = utils.isFormData(data);
+          const isFormData2 = utils$1.isFormData(data);
           if (isFormData2) {
             if (!hasJSONContentType) {
               return data;
             }
             return hasJSONContentType ? JSON.stringify(formDataToJSON(data)) : data;
           }
-          if (utils.isArrayBuffer(data) || utils.isBuffer(data) || utils.isStream(data) || utils.isFile(data) || utils.isBlob(data)) {
+          if (utils$1.isArrayBuffer(data) || utils$1.isBuffer(data) || utils$1.isStream(data) || utils$1.isFile(data) || utils$1.isBlob(data)) {
             return data;
           }
-          if (utils.isArrayBufferView(data)) {
+          if (utils$1.isArrayBufferView(data)) {
             return data.buffer;
           }
-          if (utils.isURLSearchParams(data)) {
+          if (utils$1.isURLSearchParams(data)) {
             headers.setContentType("application/x-www-form-urlencoded;charset=utf-8", false);
             return data.toString();
           }
@@ -1684,7 +1689,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             if (contentType.indexOf("application/x-www-form-urlencoded") > -1) {
               return toURLEncodedForm(data, this.formSerializer).toString();
             }
-            if ((isFileList2 = utils.isFileList(data)) || contentType.indexOf("multipart/form-data") > -1) {
+            if ((isFileList2 = utils$1.isFileList(data)) || contentType.indexOf("multipart/form-data") > -1) {
               const _FormData = this.env && this.env.FormData;
               return toFormData(
                 isFileList2 ? { "files[]": data } : data,
@@ -1703,7 +1708,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           const transitional = this.transitional || defaults.transitional;
           const forcedJSONParsing = transitional && transitional.forcedJSONParsing;
           const JSONRequested = this.responseType === "json";
-          if (data && utils.isString(data) && (forcedJSONParsing && !this.responseType || JSONRequested)) {
+          if (data && utils$1.isString(data) && (forcedJSONParsing && !this.responseType || JSONRequested)) {
             const silentJSONParsing = transitional && transitional.silentJSONParsing;
             const strictJSONParsing = !silentJSONParsing && JSONRequested;
             try {
@@ -1742,11 +1747,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           }
         }
       };
-      utils.forEach(["delete", "get", "head", "post", "put", "patch"], (method) => {
+      utils$1.forEach(["delete", "get", "head", "post", "put", "patch"], (method) => {
         defaults.headers[method] = {};
       });
       var defaults$1 = defaults;
-      var ignoreDuplicateOf = utils.toObjectSet([
+      var ignoreDuplicateOf = utils$1.toObjectSet([
         "age",
         "authorization",
         "content-length",
@@ -1797,7 +1802,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         if (value === false || value == null) {
           return value;
         }
-        return utils.isArray(value) ? value.map(normalizeValue) : String(value);
+        return utils$1.isArray(value) ? value.map(normalizeValue) : String(value);
       }
       function parseTokens(str) {
         const tokens = /* @__PURE__ */ Object.create(null);
@@ -1810,18 +1815,18 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       }
       var isValidHeaderName = (str) => /^[-_a-zA-Z0-9^`|~,!#$%&'*+.]+$/.test(str.trim());
       function matchHeaderValue(context, value, header, filter, isHeaderNameFilter) {
-        if (utils.isFunction(filter)) {
+        if (utils$1.isFunction(filter)) {
           return filter.call(this, value, header);
         }
         if (isHeaderNameFilter) {
           value = header;
         }
-        if (!utils.isString(value))
+        if (!utils$1.isString(value))
           return;
-        if (utils.isString(filter)) {
+        if (utils$1.isString(filter)) {
           return value.indexOf(filter) !== -1;
         }
-        if (utils.isRegExp(filter)) {
+        if (utils$1.isRegExp(filter)) {
           return filter.test(value);
         }
       }
@@ -1831,7 +1836,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         });
       }
       function buildAccessors(obj, header) {
-        const accessorName = utils.toCamelCase(" " + header);
+        const accessorName = utils$1.toCamelCase(" " + header);
         ["get", "set", "has"].forEach((methodName) => {
           Object.defineProperty(obj, methodName + accessorName, {
             value: function(arg1, arg2, arg3) {
@@ -1852,15 +1857,15 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             if (!lHeader) {
               throw new Error("header name must be a non-empty string");
             }
-            const key = utils.findKey(self2, lHeader);
+            const key = utils$1.findKey(self2, lHeader);
             if (!key || self2[key] === void 0 || _rewrite === true || _rewrite === void 0 && self2[key] !== false) {
               self2[key || _header] = normalizeValue(_value);
             }
           }
-          const setHeaders = (headers, _rewrite) => utils.forEach(headers, (_value, _header) => setHeader(_value, _header, _rewrite));
-          if (utils.isPlainObject(header) || header instanceof this.constructor) {
+          const setHeaders = (headers, _rewrite) => utils$1.forEach(headers, (_value, _header) => setHeader(_value, _header, _rewrite));
+          if (utils$1.isPlainObject(header) || header instanceof this.constructor) {
             setHeaders(header, valueOrRewrite);
-          } else if (utils.isString(header) && (header = header.trim()) && !isValidHeaderName(header)) {
+          } else if (utils$1.isString(header) && (header = header.trim()) && !isValidHeaderName(header)) {
             setHeaders(parseHeaders(header), valueOrRewrite);
           } else {
             header != null && setHeader(valueOrRewrite, header, rewrite);
@@ -1870,7 +1875,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         get(header, parser) {
           header = normalizeHeader(header);
           if (header) {
-            const key = utils.findKey(this, header);
+            const key = utils$1.findKey(this, header);
             if (key) {
               const value = this[key];
               if (!parser) {
@@ -1879,10 +1884,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               if (parser === true) {
                 return parseTokens(value);
               }
-              if (utils.isFunction(parser)) {
+              if (utils$1.isFunction(parser)) {
                 return parser.call(this, value, key);
               }
-              if (utils.isRegExp(parser)) {
+              if (utils$1.isRegExp(parser)) {
                 return parser.exec(value);
               }
               throw new TypeError("parser must be boolean|regexp|function");
@@ -1892,7 +1897,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         has(header, matcher) {
           header = normalizeHeader(header);
           if (header) {
-            const key = utils.findKey(this, header);
+            const key = utils$1.findKey(this, header);
             return !!(key && this[key] !== void 0 && (!matcher || matchHeaderValue(this, this[key], key, matcher)));
           }
           return false;
@@ -1903,14 +1908,14 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           function deleteHeader(_header) {
             _header = normalizeHeader(_header);
             if (_header) {
-              const key = utils.findKey(self2, _header);
+              const key = utils$1.findKey(self2, _header);
               if (key && (!matcher || matchHeaderValue(self2, self2[key], key, matcher))) {
                 delete self2[key];
                 deleted = true;
               }
             }
           }
-          if (utils.isArray(header)) {
+          if (utils$1.isArray(header)) {
             header.forEach(deleteHeader);
           } else {
             deleteHeader(header);
@@ -1933,8 +1938,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         normalize(format) {
           const self2 = this;
           const headers = {};
-          utils.forEach(this, (value, header) => {
-            const key = utils.findKey(headers, header);
+          utils$1.forEach(this, (value, header) => {
+            const key = utils$1.findKey(headers, header);
             if (key) {
               self2[key] = normalizeValue(value);
               delete self2[header];
@@ -1954,8 +1959,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         toJSON(asStrings) {
           const obj = /* @__PURE__ */ Object.create(null);
-          utils.forEach(this, (value, header) => {
-            value != null && value !== false && (obj[header] = asStrings && utils.isArray(value) ? value.join(", ") : value);
+          utils$1.forEach(this, (value, header) => {
+            value != null && value !== false && (obj[header] = asStrings && utils$1.isArray(value) ? value.join(", ") : value);
           });
           return obj;
         }
@@ -1989,12 +1994,12 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               accessors[lHeader] = true;
             }
           }
-          utils.isArray(header) ? header.forEach(defineAccessor) : defineAccessor(header);
+          utils$1.isArray(header) ? header.forEach(defineAccessor) : defineAccessor(header);
           return this;
         }
       };
       AxiosHeaders.accessor(["Content-Type", "Content-Length", "Accept", "Accept-Encoding", "User-Agent", "Authorization"]);
-      utils.reduceDescriptors(AxiosHeaders.prototype, ({ value }, key) => {
+      utils$1.reduceDescriptors(AxiosHeaders.prototype, ({ value }, key) => {
         let mapped = key[0].toUpperCase() + key.slice(1);
         return {
           get: () => value,
@@ -2003,14 +2008,14 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           }
         };
       });
-      utils.freezeMethods(AxiosHeaders);
+      utils$1.freezeMethods(AxiosHeaders);
       var AxiosHeaders$1 = AxiosHeaders;
       function transformData(fns, response) {
         const config = this || defaults$1;
         const context = response || config;
         const headers = AxiosHeaders$1.from(context.headers);
         let data = context.data;
-        utils.forEach(fns, function transform(fn) {
+        utils$1.forEach(fns, function transform(fn) {
           data = fn.call(config, data, headers.normalize(), response ? response.status : void 0);
         });
         headers.normalize();
@@ -2023,7 +2028,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         AxiosError.call(this, message == null ? "canceled" : message, AxiosError.ERR_CANCELED, config, request);
         this.name = "CanceledError";
       }
-      utils.inherits(CanceledError, AxiosError, {
+      utils$1.inherits(CanceledError, AxiosError, {
         __CANCEL__: true
       });
       function settle(resolve, reject, response) {
@@ -2040,55 +2045,42 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           ));
         }
       }
-      var cookies = platform.isStandardBrowserEnv ? (
+      var cookies = platform.hasStandardBrowserEnv ? (
         // Standard browser envs support document.cookie
-        function standardBrowserEnv() {
-          return {
-            write: function write(name, value, expires, path, domain, secure) {
-              const cookie = [];
-              cookie.push(name + "=" + encodeURIComponent(value));
-              if (utils.isNumber(expires)) {
-                cookie.push("expires=" + new Date(expires).toGMTString());
-              }
-              if (utils.isString(path)) {
-                cookie.push("path=" + path);
-              }
-              if (utils.isString(domain)) {
-                cookie.push("domain=" + domain);
-              }
-              if (secure === true) {
-                cookie.push("secure");
-              }
-              document.cookie = cookie.join("; ");
-            },
-            read: function read(name) {
-              const match = document.cookie.match(new RegExp("(^|;\\s*)(" + name + ")=([^;]*)"));
-              return match ? decodeURIComponent(match[3]) : null;
-            },
-            remove: function remove(name) {
-              this.write(name, "", Date.now() - 864e5);
-            }
-          };
-        }()
+        {
+          write(name, value, expires, path, domain, secure) {
+            const cookie = [name + "=" + encodeURIComponent(value)];
+            utils$1.isNumber(expires) && cookie.push("expires=" + new Date(expires).toGMTString());
+            utils$1.isString(path) && cookie.push("path=" + path);
+            utils$1.isString(domain) && cookie.push("domain=" + domain);
+            secure === true && cookie.push("secure");
+            document.cookie = cookie.join("; ");
+          },
+          read(name) {
+            const match = document.cookie.match(new RegExp("(^|;\\s*)(" + name + ")=([^;]*)"));
+            return match ? decodeURIComponent(match[3]) : null;
+          },
+          remove(name) {
+            this.write(name, "", Date.now() - 864e5);
+          }
+        }
       ) : (
-        // Non standard browser env (web workers, react-native) lack needed support.
-        function nonStandardBrowserEnv() {
-          return {
-            write: function write() {
-            },
-            read: function read() {
-              return null;
-            },
-            remove: function remove() {
-            }
-          };
-        }()
+        // Non-standard browser env (web workers, react-native) lack needed support.
+        {
+          write() {
+          },
+          read() {
+            return null;
+          },
+          remove() {
+          }
+        }
       );
       function isAbsoluteURL(url) {
         return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
       }
       function combineURLs(baseURL, relativeURL) {
-        return relativeURL ? baseURL.replace(/\/+$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
+        return relativeURL ? baseURL.replace(/\/?\/$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
       }
       function buildFullPath(baseURL, requestedURL) {
         if (baseURL && !isAbsoluteURL(requestedURL)) {
@@ -2096,7 +2088,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         }
         return requestedURL;
       }
-      var isURLSameOrigin = platform.isStandardBrowserEnv ? (
+      var isURLSameOrigin = platform.hasStandardBrowserEnv ? (
         // Standard browser envs have full support of the APIs needed to test
         // whether the request URL is of the same origin as current location.
         function standardBrowserEnv() {
@@ -2123,7 +2115,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           }
           originURL = resolveURL(window.location.href);
           return function isURLSameOrigin2(requestURL) {
-            const parsed = utils.isString(requestURL) ? resolveURL(requestURL) : requestURL;
+            const parsed = utils$1.isString(requestURL) ? resolveURL(requestURL) : requestURL;
             return parsed.protocol === originURL.protocol && parsed.host === originURL.host;
           };
         }()
@@ -2200,7 +2192,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         return new Promise(function dispatchXhrRequest(resolve, reject) {
           let requestData = config.data;
           const requestHeaders = AxiosHeaders$1.from(config.headers).normalize();
-          const responseType = config.responseType;
+          let { responseType, withXSRFToken } = config;
           let onCanceled;
           function done() {
             if (config.cancelToken) {
@@ -2210,11 +2202,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
               config.signal.removeEventListener("abort", onCanceled);
             }
           }
-          if (utils.isFormData(requestData)) {
-            if (platform.isStandardBrowserEnv || platform.isStandardBrowserWebWorkerEnv) {
+          let contentType;
+          if (utils$1.isFormData(requestData)) {
+            if (platform.hasStandardBrowserEnv || platform.hasStandardBrowserWebWorkerEnv) {
               requestHeaders.setContentType(false);
-            } else {
-              requestHeaders.setContentType("multipart/form-data;", false);
+            } else if ((contentType = requestHeaders.getContentType()) !== false) {
+              const [type, ...tokens] = contentType ? contentType.split(";").map((token) => token.trim()).filter(Boolean) : [];
+              requestHeaders.setContentType([type || "multipart/form-data", ...tokens].join("; "));
             }
           }
           let request = new XMLHttpRequest();
@@ -2289,19 +2283,22 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             ));
             request = null;
           };
-          if (platform.isStandardBrowserEnv) {
-            const xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName && cookies.read(config.xsrfCookieName);
-            if (xsrfValue) {
-              requestHeaders.set(config.xsrfHeaderName, xsrfValue);
+          if (platform.hasStandardBrowserEnv) {
+            withXSRFToken && utils$1.isFunction(withXSRFToken) && (withXSRFToken = withXSRFToken(config));
+            if (withXSRFToken || withXSRFToken !== false && isURLSameOrigin(fullPath)) {
+              const xsrfValue = config.xsrfHeaderName && config.xsrfCookieName && cookies.read(config.xsrfCookieName);
+              if (xsrfValue) {
+                requestHeaders.set(config.xsrfHeaderName, xsrfValue);
+              }
             }
           }
           requestData === void 0 && requestHeaders.setContentType(null);
           if ("setRequestHeader" in request) {
-            utils.forEach(requestHeaders.toJSON(), function setRequestHeader(val, key) {
+            utils$1.forEach(requestHeaders.toJSON(), function setRequestHeader(val, key) {
               request.setRequestHeader(key, val);
             });
           }
-          if (!utils.isUndefined(config.withCredentials)) {
+          if (!utils$1.isUndefined(config.withCredentials)) {
             request.withCredentials = !!config.withCredentials;
           }
           if (responseType && responseType !== "json") {
@@ -2339,7 +2336,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         http: httpAdapter,
         xhr: xhrAdapter
       };
-      utils.forEach(knownAdapters, (fn, value) => {
+      utils$1.forEach(knownAdapters, (fn, value) => {
         if (fn) {
           try {
             Object.defineProperty(fn, "name", { value });
@@ -2348,31 +2345,39 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           Object.defineProperty(fn, "adapterName", { value });
         }
       });
+      var renderReason = (reason) => `- ${reason}`;
+      var isResolvedHandle = (adapter) => utils$1.isFunction(adapter) || adapter === null || adapter === false;
       var adapters = {
         getAdapter: (adapters2) => {
-          adapters2 = utils.isArray(adapters2) ? adapters2 : [adapters2];
+          adapters2 = utils$1.isArray(adapters2) ? adapters2 : [adapters2];
           const { length } = adapters2;
           let nameOrAdapter;
           let adapter;
+          const rejectedReasons = {};
           for (let i = 0; i < length; i++) {
             nameOrAdapter = adapters2[i];
-            if (adapter = utils.isString(nameOrAdapter) ? knownAdapters[nameOrAdapter.toLowerCase()] : nameOrAdapter) {
+            let id;
+            adapter = nameOrAdapter;
+            if (!isResolvedHandle(nameOrAdapter)) {
+              adapter = knownAdapters[(id = String(nameOrAdapter)).toLowerCase()];
+              if (adapter === void 0) {
+                throw new AxiosError(`Unknown adapter '${id}'`);
+              }
+            }
+            if (adapter) {
               break;
             }
+            rejectedReasons[id || "#" + i] = adapter;
           }
           if (!adapter) {
-            if (adapter === false) {
-              throw new AxiosError(
-                `Adapter ${nameOrAdapter} is not supported by the environment`,
-                "ERR_NOT_SUPPORT"
-              );
-            }
-            throw new Error(
-              utils.hasOwnProp(knownAdapters, nameOrAdapter) ? `Adapter '${nameOrAdapter}' is not available in the build` : `Unknown adapter '${nameOrAdapter}'`
+            const reasons = Object.entries(rejectedReasons).map(
+              ([id, state]) => `adapter ${id} ` + (state === false ? "is not supported by the environment" : "is not available in the build")
             );
-          }
-          if (!utils.isFunction(adapter)) {
-            throw new TypeError("adapter is not a function");
+            let s = length ? reasons.length > 1 ? "since :\n" + reasons.map(renderReason).join("\n") : " " + renderReason(reasons[0]) : "as no adapter specified";
+            throw new AxiosError(
+              `There is no suitable adapter to dispatch the request ` + s,
+              "ERR_NOT_SUPPORT"
+            );
           }
           return adapter;
         },
@@ -2426,31 +2431,31 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         config2 = config2 || {};
         const config = {};
         function getMergedValue(target, source, caseless) {
-          if (utils.isPlainObject(target) && utils.isPlainObject(source)) {
-            return utils.merge.call({ caseless }, target, source);
-          } else if (utils.isPlainObject(source)) {
-            return utils.merge({}, source);
-          } else if (utils.isArray(source)) {
+          if (utils$1.isPlainObject(target) && utils$1.isPlainObject(source)) {
+            return utils$1.merge.call({ caseless }, target, source);
+          } else if (utils$1.isPlainObject(source)) {
+            return utils$1.merge({}, source);
+          } else if (utils$1.isArray(source)) {
             return source.slice();
           }
           return source;
         }
         function mergeDeepProperties(a, b, caseless) {
-          if (!utils.isUndefined(b)) {
+          if (!utils$1.isUndefined(b)) {
             return getMergedValue(a, b, caseless);
-          } else if (!utils.isUndefined(a)) {
+          } else if (!utils$1.isUndefined(a)) {
             return getMergedValue(void 0, a, caseless);
           }
         }
         function valueFromConfig2(a, b) {
-          if (!utils.isUndefined(b)) {
+          if (!utils$1.isUndefined(b)) {
             return getMergedValue(void 0, b);
           }
         }
         function defaultToConfig2(a, b) {
-          if (!utils.isUndefined(b)) {
+          if (!utils$1.isUndefined(b)) {
             return getMergedValue(void 0, b);
-          } else if (!utils.isUndefined(a)) {
+          } else if (!utils$1.isUndefined(a)) {
             return getMergedValue(void 0, a);
           }
         }
@@ -2472,6 +2477,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           timeout: defaultToConfig2,
           timeoutMessage: defaultToConfig2,
           withCredentials: defaultToConfig2,
+          withXSRFToken: defaultToConfig2,
           adapter: defaultToConfig2,
           responseType: defaultToConfig2,
           xsrfCookieName: defaultToConfig2,
@@ -2491,14 +2497,14 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           validateStatus: mergeDirectKeys,
           headers: (a, b) => mergeDeepProperties(headersToObject(a), headersToObject(b), true)
         };
-        utils.forEach(Object.keys(Object.assign({}, config1, config2)), function computeConfigValue(prop) {
+        utils$1.forEach(Object.keys(Object.assign({}, config1, config2)), function computeConfigValue(prop) {
           const merge2 = mergeMap[prop] || mergeDeepProperties;
           const configValue = merge2(config1[prop], config2[prop], prop);
-          utils.isUndefined(configValue) && merge2 !== mergeDirectKeys || (config[prop] = configValue);
+          utils$1.isUndefined(configValue) && merge2 !== mergeDirectKeys || (config[prop] = configValue);
         });
         return config;
       }
-      var VERSION2 = "1.5.0";
+      var VERSION2 = "1.6.3";
       var validators$1 = {};
       ["object", "boolean", "number", "function", "string", "symbol"].forEach((type, i) => {
         validators$1[type] = function validator2(thing) {
@@ -2589,7 +2595,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             }, false);
           }
           if (paramsSerializer != null) {
-            if (utils.isFunction(paramsSerializer)) {
+            if (utils$1.isFunction(paramsSerializer)) {
               config.paramsSerializer = {
                 serialize: paramsSerializer
               };
@@ -2601,11 +2607,11 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
             }
           }
           config.method = (config.method || this.defaults.method || "get").toLowerCase();
-          let contextHeaders = headers && utils.merge(
+          let contextHeaders = headers && utils$1.merge(
             headers.common,
             headers[config.method]
           );
-          headers && utils.forEach(
+          headers && utils$1.forEach(
             ["delete", "get", "head", "post", "put", "patch", "common"],
             (method) => {
               delete headers[method];
@@ -2670,7 +2676,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           return buildURL(fullPath, config.params, config.paramsSerializer);
         }
       };
-      utils.forEach(["delete", "get", "head", "options"], function forEachMethodNoData(method) {
+      utils$1.forEach(["delete", "get", "head", "options"], function forEachMethodNoData(method) {
         Axios.prototype[method] = function(url, config) {
           return this.request(mergeConfig(config || {}, {
             method,
@@ -2679,7 +2685,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           }));
         };
       });
-      utils.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
+      utils$1.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
         function generateHTTPMethod(isForm) {
           return function httpMethod(url, data, config) {
             return this.request(mergeConfig(config || {}, {
@@ -2790,7 +2796,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         };
       }
       function isAxiosError(payload) {
-        return utils.isObject(payload) && payload.isAxiosError === true;
+        return utils$1.isObject(payload) && payload.isAxiosError === true;
       }
       var HttpStatusCode = {
         Continue: 100,
@@ -2864,8 +2870,8 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
         const instance6 = bind(Axios$1.prototype.request, context);
-        utils.extend(instance6, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance6, context, null, { allOwnKeys: true });
+        utils$1.extend(instance6, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance6, context, null, { allOwnKeys: true });
         instance6.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
@@ -2887,7 +2893,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       axios.isAxiosError = isAxiosError;
       axios.mergeConfig = mergeConfig;
       axios.AxiosHeaders = AxiosHeaders$1;
-      axios.formToJSON = (thing) => formDataToJSON(utils.isHTMLForm(thing) ? new FormData(thing) : thing);
+      axios.formToJSON = (thing) => formDataToJSON(utils$1.isHTMLForm(thing) ? new FormData(thing) : thing);
       axios.getAdapter = adapters.getAdapter;
       axios.HttpStatusCode = HttpStatusCode$1;
       axios.default = axios;
@@ -2962,12 +2968,6 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       };
       exports.GuestOauthCallback = async function GuestOauthCallback(i, cb) {
         return await axios.post("/guest/oauthCallback", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestOauthCallbackRedirect = async function GuestOauthCallbackRedirect(i, cb) {
-        return await axios.post("/guest/oauthCallbackRedirect", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestOauthTokenExchange = async function GuestOauthTokenExchange(i, cb) {
-        return await axios.post("/guest/oauthTokenExchange", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.GuestProperty = async function GuestProperty(i, cb) {
         return await axios.post("/guest/property", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -4120,7 +4120,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   }
   var T = translationStore();
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
+  // node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment(ctx) {
     let svg;
     let svg_levels = [
@@ -4256,7 +4256,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   };
   var Icon_default = Icon;
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidHome.js
+  // node_modules/svelte-icons-pack/fa/FaSolidHome.js
   var FaSolidHome_default = {
     a: {
       viewBox: "0 0 576 512"
@@ -4264,7 +4264,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     c: '<path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidShoppingBag.js
+  // node_modules/svelte-icons-pack/fa/FaSolidShoppingBag.js
   var FaSolidShoppingBag_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -4272,7 +4272,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     c: '<path d="M352 160v-32C352 57.42 294.579 0 224 0 153.42 0 96 57.42 96 128v32H0v272c0 44.183 35.817 80 80 80h288c44.183 0 80-35.817 80-80V160h-96zm-192-32c0-35.29 28.71-64 64-64s64 28.71 64 64v32H160v-32zm160 120c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24zm-192 0c-13.255 0-24-10.745-24-24s10.745-24 24-24 24 10.745 24 24-10.745 24-24 24z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBuilding.js
+  // node_modules/svelte-icons-pack/fa/FaSolidBuilding.js
   var FaSolidBuilding_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -4280,7 +4280,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     c: '<path d="M436 480h-20V24c0-13.255-10.745-24-24-24H56C42.745 0 32 10.745 32 24v456H12c-6.627 0-12 5.373-12 12v20h448v-20c0-6.627-5.373-12-12-12zM128 76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76zm0 96c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40zm52 148h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12zm76 160h-64v-84c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v84zm64-172c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12v-40c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40zm0-96c0 6.627-5.373 12-12 12h-40c-6.627 0-12-5.373-12-12V76c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v40z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSlidersH.js
+  // node_modules/svelte-icons-pack/fa/FaSolidSlidersH.js
   var FaSolidSlidersH_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -4288,7 +4288,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     c: '<path d="M496 384H160v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h80v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h336c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160h-80v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h336v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h80c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160H288V48c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16C7.2 64 0 71.2 0 80v32c0 8.8 7.2 16 16 16h208v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h208c8.8 0 16-7.2 16-16V80c0-8.8-7.2-16-16-16z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidUserCircle.js
+  // node_modules/svelte-icons-pack/fa/FaSolidUserCircle.js
   var FaSolidUserCircle_default = {
     a: {
       viewBox: "0 0 496 512"
@@ -4296,7 +4296,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     c: '<path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSignInAlt.js
+  // node_modules/svelte-icons-pack/fa/FaSolidSignInAlt.js
   var FaSolidSignInAlt_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -4304,7 +4304,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     c: '<path d="M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidTimes.js
+  // node_modules/svelte-icons-pack/fa/FaSolidTimes.js
   var FaSolidTimes_default = {
     a: {
       viewBox: "0 0 352 512"
@@ -5231,7 +5231,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   };
   var Menu_default = Menu;
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBars.js
+  // node_modules/svelte-icons-pack/fa/FaSolidBars.js
   var FaSolidBars_default = {
     a: {
       viewBox: "0 0 448 512"
@@ -5239,7 +5239,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     c: '<path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidPowerOff.js
+  // node_modules/svelte-icons-pack/fa/FaSolidPowerOff.js
   var FaSolidPowerOff_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -5247,7 +5247,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     c: '<path d="M400 54.1c63 45 104 118.6 104 201.9 0 136.8-110.8 247.7-247.5 248C120 504.3 8.2 393 8 256.4 7.9 173.1 48.9 99.3 111.8 54.2c11.7-8.3 28-4.8 35 7.7L162.6 90c5.9 10.5 3.1 23.8-6.6 31-41.5 30.8-68 79.6-68 134.9-.1 92.3 74.5 168.1 168 168.1 91.6 0 168.6-74.2 168-169.1-.3-51.8-24.7-101.8-68.1-134-9.7-7.2-12.4-20.5-6.5-30.9l15.8-28.1c7-12.4 23.2-16.1 34.8-7.8zM296 264V24c0-13.3-10.7-24-24-24h-32c-13.3 0-24 10.7-24 24v240c0 13.3 10.7 24 24 24h32c13.3 0 24-10.7 24-24z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaCommentDots.js
+  // node_modules/svelte-icons-pack/fa/FaCommentDots.js
   var FaCommentDots_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -6010,7 +6010,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   var import_formatter = __toESM(require_formatter());
   var import_jsApi_GEN3 = __toESM(require_jsApi_GEN());
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidAngleLeft.js
+  // node_modules/svelte-icons-pack/fa/FaSolidAngleLeft.js
   var FaSolidAngleLeft_default = {
     a: {
       viewBox: "0 0 256 512"
@@ -6018,7 +6018,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     c: '<path d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidAngleRight.js
+  // node_modules/svelte-icons-pack/fa/FaSolidAngleRight.js
   var FaSolidAngleRight_default = {
     a: {
       viewBox: "0 0 256 512"
@@ -6026,7 +6026,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     c: '<path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidCircleNotch.js
+  // node_modules/svelte-icons-pack/fa/FaSolidCircleNotch.js
   var FaSolidCircleNotch_default = {
     a: {
       viewBox: "0 0 512 512"
