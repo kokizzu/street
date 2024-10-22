@@ -13,6 +13,9 @@
   
   let propItem = {/* propItem */};
   let meta = {/* propertyMeta */};
+  let propExtraUS = {/* propExtraUS */};
+
+  console.log('Property Extra US =', propExtraUS);
   
   let isAdmin = false;
 
@@ -28,7 +31,10 @@
     this property has been deleted
   {:else}
     <div class='property'>
-      <Property {propItem} {meta} {isAdmin} isGuest={true}/>
+      <Property
+        {propItem} {meta} {isAdmin} isGuest={true}
+        {propExtraUS}
+      />
     </div>
     <div class='side_attribute'>
       <div class='login_container'>

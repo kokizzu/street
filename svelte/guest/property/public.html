@@ -1637,17 +1637,17 @@
   // _components/Property.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[7] = list[i];
+    child_ctx[8] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[10] = list[i];
+    child_ctx[11] = list[i];
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[13] = list[i];
+    child_ctx[14] = list[i];
     return child_ctx;
   }
   function get_if_ctx(ctx) {
@@ -1656,17 +1656,17 @@
       /*propItem*/
       child_ctx[1].note
     );
-    child_ctx[16] = constants_0;
+    child_ctx[17] = constants_0;
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[17] = list[i];
+    child_ctx[18] = list[i];
     return child_ctx;
   }
   function get_each_context_4(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[20] = list[i];
+    child_ctx[21] = list[i];
     return child_ctx;
   }
   function create_else_block_2(ctx) {
@@ -1718,7 +1718,7 @@
       }
     };
   }
-  function create_if_block_13(ctx) {
+  function create_if_block_14(ctx) {
     let img;
     let img_src_value;
     return {
@@ -1749,12 +1749,12 @@
       }
     };
   }
-  function create_if_block_12(ctx) {
+  function create_if_block_13(ctx) {
     let span;
     let t_value = (
       /*s*/
-      ctx[20].sign + " Property is " + /*s*/
-      ctx[20].status
+      ctx[21].sign + " Property is " + /*s*/
+      ctx[21].status
     );
     let t;
     let span_class_value;
@@ -1763,7 +1763,7 @@
         span = element("span");
         t = text(t_value);
         attr(span, "class", span_class_value = null_to_empty(`prop_status ${/*s*/
-        ctx[20].status}`) + " svelte-9tzzid");
+        ctx[21].status}`) + " svelte-9tzzid");
       },
       m(target, anchor) {
         insert(target, span, anchor);
@@ -1781,9 +1781,9 @@
     let if_block_anchor;
     let if_block = (
       /*s*/
-      ctx[20].status === /*approvalStatus*/
-      ctx[5] && /*s*/
-      ctx[20].status !== "approved" && create_if_block_12(ctx)
+      ctx[21].status === /*approvalStatus*/
+      ctx[6] && /*s*/
+      ctx[21].status !== "approved" && create_if_block_13(ctx)
     );
     return {
       c() {
@@ -1799,14 +1799,14 @@
       p(ctx2, dirty) {
         if (
           /*s*/
-          ctx2[20].status === /*approvalStatus*/
-          ctx2[5] && /*s*/
-          ctx2[20].status !== "approved"
+          ctx2[21].status === /*approvalStatus*/
+          ctx2[6] && /*s*/
+          ctx2[21].status !== "approved"
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
           } else {
-            if_block = create_if_block_12(ctx2);
+            if_block = create_if_block_13(ctx2);
             if_block.c();
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
           }
@@ -1857,7 +1857,7 @@
       }
     };
   }
-  function create_if_block_11(ctx) {
+  function create_if_block_12(ctx) {
     let b;
     let t0_value = (0, import_formatter.M2ToPing)(
       /*propItem*/
@@ -1892,22 +1892,22 @@
       }
     };
   }
-  function create_if_block_8(ctx) {
+  function create_if_block_9(ctx) {
     let current_block_type_index;
     let if_block;
     let if_block_anchor;
     let current;
-    const if_block_creators = [create_if_block_9, create_if_block_10];
+    const if_block_creators = [create_if_block_10, create_if_block_11];
     const if_blocks = [];
     function select_block_type_4(ctx2, dirty) {
       if (
         /*m*/
-        ctx2[17].inputType === "datetime"
+        ctx2[18].inputType === "datetime"
       )
         return 0;
       if (
         /*m*/
-        ctx2[17].name !== "note"
+        ctx2[18].name !== "note"
       )
         return 1;
       return -1;
@@ -1988,12 +1988,12 @@
     function select_block_type_3(ctx2, dirty) {
       if (
         /*m*/
-        ctx2[17].inputType === "datetime"
+        ctx2[18].inputType === "datetime"
       )
         return 0;
       if (
         /*m*/
-        ctx2[17].name !== "note"
+        ctx2[18].name !== "note"
       )
         return 1;
       return -1;
@@ -2064,20 +2064,20 @@
       }
     };
   }
-  function create_if_block_10(ctx) {
+  function create_if_block_11(ctx) {
     let pillbox;
     let current;
     pillbox = new PillBox_default({
       props: {
         label: (
           /*m*/
-          ctx[17].label
+          ctx[18].label
         ),
         content: (
           /*propItem*/
           ctx[1][
             /*m*/
-            ctx[17].name
+            ctx[18].name
           ]
         )
       }
@@ -2095,13 +2095,13 @@
         if (dirty & /*meta*/
         4)
           pillbox_changes.label = /*m*/
-          ctx2[17].label;
+          ctx2[18].label;
         if (dirty & /*propItem, meta*/
         6)
           pillbox_changes.content = /*propItem*/
           ctx2[1][
             /*m*/
-            ctx2[17].name
+            ctx2[18].name
           ];
         pillbox.$set(pillbox_changes);
       },
@@ -2120,20 +2120,20 @@
       }
     };
   }
-  function create_if_block_9(ctx) {
+  function create_if_block_10(ctx) {
     let pillbox;
     let current;
     pillbox = new PillBox_default({
       props: {
         label: (
           /*m*/
-          ctx[17].label
+          ctx[18].label
         ),
         content: (0, import_formatter.localeDatetime)(
           /*propItem*/
           ctx[1][
             /*m*/
-            ctx[17].name
+            ctx[18].name
           ]
         )
       }
@@ -2151,14 +2151,14 @@
         if (dirty & /*meta*/
         4)
           pillbox_changes.label = /*m*/
-          ctx2[17].label;
+          ctx2[18].label;
         if (dirty & /*propItem, meta*/
         6)
           pillbox_changes.content = (0, import_formatter.localeDatetime)(
             /*propItem*/
             ctx2[1][
               /*m*/
-              ctx2[17].name
+              ctx2[18].name
             ]
           );
         pillbox.$set(pillbox_changes);
@@ -2180,18 +2180,119 @@
   }
   function create_if_block_7(ctx) {
     let pillbox;
+    let t;
+    let if_block_anchor;
     let current;
     pillbox = new PillBox_default({
       props: {
         label: (
           /*m*/
-          ctx[17].label
+          ctx[18].label
         ),
         content: (
           /*propItem*/
           ctx[1][
             /*m*/
-            ctx[17].name
+            ctx[18].name
+          ]
+        )
+      }
+    });
+    let if_block = (
+      /*propExtraUS*/
+      ctx[5] && create_if_block_8(ctx)
+    );
+    return {
+      c() {
+        create_component(pillbox.$.fragment);
+        t = space();
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        mount_component(pillbox, target, anchor);
+        insert(target, t, anchor);
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const pillbox_changes = {};
+        if (dirty & /*meta*/
+        4)
+          pillbox_changes.label = /*m*/
+          ctx2[18].label;
+        if (dirty & /*propItem, meta*/
+        6)
+          pillbox_changes.content = /*propItem*/
+          ctx2[1][
+            /*m*/
+            ctx2[18].name
+          ];
+        pillbox.$set(pillbox_changes);
+        if (
+          /*propExtraUS*/
+          ctx2[5]
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*propExtraUS*/
+            32) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block_8(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(pillbox.$.fragment, local);
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(pillbox.$.fragment, local);
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(t);
+          detach(if_block_anchor);
+        }
+        destroy_component(pillbox, detaching);
+        if (if_block)
+          if_block.d(detaching);
+      }
+    };
+  }
+  function create_if_block_6(ctx) {
+    let pillbox;
+    let current;
+    pillbox = new PillBox_default({
+      props: {
+        label: (
+          /*m*/
+          ctx[18].label
+        ),
+        content: (0, import_formatter.localeDatetime)(
+          /*propItem*/
+          ctx[1][
+            /*m*/
+            ctx[18].name
           ]
         )
       }
@@ -2209,14 +2310,16 @@
         if (dirty & /*meta*/
         4)
           pillbox_changes.label = /*m*/
-          ctx2[17].label;
+          ctx2[18].label;
         if (dirty & /*propItem, meta*/
         6)
-          pillbox_changes.content = /*propItem*/
-          ctx2[1][
-            /*m*/
-            ctx2[17].name
-          ];
+          pillbox_changes.content = (0, import_formatter.localeDatetime)(
+            /*propItem*/
+            ctx2[1][
+              /*m*/
+              ctx2[18].name
+            ]
+          );
         pillbox.$set(pillbox_changes);
       },
       i(local) {
@@ -2234,20 +2337,20 @@
       }
     };
   }
-  function create_if_block_6(ctx) {
+  function create_if_block_8(ctx) {
     let pillbox;
     let current;
     pillbox = new PillBox_default({
       props: {
         label: (
           /*m*/
-          ctx[17].label
+          ctx[18].label
         ),
-        content: (0, import_formatter.localeDatetime)(
-          /*propItem*/
-          ctx[1][
+        content: (
+          /*propExtraUS*/
+          ctx[5][
             /*m*/
-            ctx[17].name
+            ctx[18].name
           ]
         )
       }
@@ -2265,16 +2368,14 @@
         if (dirty & /*meta*/
         4)
           pillbox_changes.label = /*m*/
-          ctx2[17].label;
-        if (dirty & /*propItem, meta*/
-        6)
-          pillbox_changes.content = (0, import_formatter.localeDatetime)(
-            /*propItem*/
-            ctx2[1][
-              /*m*/
-              ctx2[17].name
-            ]
-          );
+          ctx2[18].label;
+        if (dirty & /*propExtraUS, meta*/
+        36)
+          pillbox_changes.content = /*propExtraUS*/
+          ctx2[5][
+            /*m*/
+            ctx2[18].name
+          ];
         pillbox.$set(pillbox_changes);
       },
       i(local) {
@@ -2297,14 +2398,14 @@
     let if_block;
     let if_block_anchor;
     let current;
-    const if_block_creators = [create_if_block_5, create_if_block_8];
+    const if_block_creators = [create_if_block_5, create_if_block_9];
     const if_blocks = [];
     function select_block_type_2(ctx2, dirty) {
       if (!/*isAdmin*/
       ctx2[3] && !/*m*/
-      (ctx2[17].name === "createdAt" || /*m*/
-      ctx2[17].name === "updatedAt" || /*m*/
-      ctx2[17].name === "countryCode"))
+      (ctx2[18].name === "createdAt" || /*m*/
+      ctx2[18].name === "updatedAt" || /*m*/
+      ctx2[18].name === "countryCode"))
         return 0;
       if (
         /*isAdmin*/
@@ -2391,7 +2492,7 @@
         label: "About",
         content: (
           /*note*/
-          ctx[16].about
+          ctx[17].about
         )
       }
     });
@@ -2400,7 +2501,7 @@
         label: "Seller/Broker Email",
         content: (
           /*note*/
-          ctx[16].contactEmail
+          ctx[17].contactEmail
         )
       }
     });
@@ -2409,7 +2510,7 @@
         label: "Seller/Broker Phone",
         content: (
           /*note*/
-          ctx[16].contactPhone
+          ctx[17].contactPhone
         )
       }
     });
@@ -2434,19 +2535,19 @@
         if (dirty & /*propItem*/
         2)
           pillbox0_changes.content = /*note*/
-          ctx2[16].about;
+          ctx2[17].about;
         pillbox0.$set(pillbox0_changes);
         const pillbox1_changes = {};
         if (dirty & /*propItem*/
         2)
           pillbox1_changes.content = /*note*/
-          ctx2[16].contactEmail;
+          ctx2[17].contactEmail;
         pillbox1.$set(pillbox1_changes);
         const pillbox2_changes = {};
         if (dirty & /*propItem*/
         2)
           pillbox2_changes.content = /*note*/
-          ctx2[16].contactPhone;
+          ctx2[17].contactPhone;
         pillbox2.$set(pillbox2_changes);
       },
       i(local) {
@@ -2571,7 +2672,7 @@
     let div;
     let each_value_2 = ensure_array_like(
       /*floors*/
-      ctx[10].rooms
+      ctx[11].rooms
     );
     let each_blocks = [];
     for (let i = 0; i < each_value_2.length; i += 1) {
@@ -2598,7 +2699,7 @@
         2) {
           each_value_2 = ensure_array_like(
             /*floors*/
-            ctx2[10].rooms
+            ctx2[11].rooms
           );
           let i;
           for (i = 0; i < each_value_2.length; i += 1) {
@@ -2630,14 +2731,14 @@
     let span0;
     let t0_value = (
       /*room*/
-      (ctx[13].name || "-") + ""
+      (ctx[14].name || "-") + ""
     );
     let t0;
     let t1;
     let span1;
     let t2_value = (
       /*room*/
-      (ctx[13].sizeM2 || "-") + ""
+      (ctx[14].sizeM2 || "-") + ""
     );
     let t2;
     let t3;
@@ -2667,11 +2768,11 @@
       p(ctx2, dirty) {
         if (dirty & /*propItem*/
         2 && t0_value !== (t0_value = /*room*/
-        (ctx2[13].name || "-") + ""))
+        (ctx2[14].name || "-") + ""))
           set_data(t0, t0_value);
         if (dirty & /*propItem*/
         2 && t2_value !== (t2_value = /*room*/
-        (ctx2[13].sizeM2 || "-") + ""))
+        (ctx2[14].sizeM2 || "-") + ""))
           set_data(t2, t2_value);
       },
       d(detaching) {
@@ -2688,7 +2789,7 @@
       c() {
         img = element("img");
         if (!src_url_equal(img.src, img_src_value = /*floors*/
-        ctx[10].planImageUrl))
+        ctx[11].planImageUrl))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
         attr(img, "class", "svelte-9tzzid");
@@ -2699,7 +2800,7 @@
       p(ctx2, dirty) {
         if (dirty & /*propItem*/
         2 && !src_url_equal(img.src, img_src_value = /*floors*/
-        ctx2[10].planImageUrl)) {
+        ctx2[11].planImageUrl)) {
           attr(img, "src", img_src_value);
         }
       },
@@ -2766,8 +2867,8 @@
     let h5;
     let t0_value = (
       /*floors*/
-      ctx[10].type === "basement" ? "Basement" : `Floor #${/*floors*/
-      ctx[10].floor}`
+      ctx[11].type === "basement" ? "Basement" : `Floor #${/*floors*/
+      ctx[11].floor}`
     );
     let t0;
     let t1;
@@ -2781,14 +2882,14 @@
     let current;
     let if_block0 = (
       /*floors*/
-      ctx[10].rooms && create_if_block_3(ctx)
+      ctx[11].rooms && create_if_block_3(ctx)
     );
     const if_block_creators = [create_if_block_2, create_else_block];
     const if_blocks = [];
     function select_block_type_5(ctx2, dirty) {
       if (
         /*floors*/
-        ctx2[10].planImageUrl === ""
+        ctx2[11].planImageUrl === ""
       )
         return 0;
       return 1;
@@ -2834,12 +2935,12 @@
       p(ctx2, dirty) {
         if ((!current || dirty & /*propItem*/
         2) && t0_value !== (t0_value = /*floors*/
-        ctx2[10].type === "basement" ? "Basement" : `Floor #${/*floors*/
-        ctx2[10].floor}`))
+        ctx2[11].type === "basement" ? "Basement" : `Floor #${/*floors*/
+        ctx2[11].floor}`))
           set_data(t0, t0_value);
         if (
           /*floors*/
-          ctx2[10].rooms
+          ctx2[11].rooms
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
@@ -2968,8 +3069,8 @@
     let span0;
     let t0_value = (0, import_formatter.formatPrice)(
       /*ph*/
-      ctx[7].price || /*ph*/
-      ctx[7].priceNtd,
+      ctx[8].price || /*ph*/
+      ctx[8].priceNtd,
       "TWD"
     ) + "";
     let t0;
@@ -2977,7 +3078,7 @@
     let span1;
     let t2_value = (0, import_formatter.localeDatetime)(
       /*ph*/
-      ctx[7].updatedAt
+      ctx[8].updatedAt
     ) + "";
     let t2;
     let t3;
@@ -3005,15 +3106,15 @@
         if (dirty & /*propHistories*/
         1 && t0_value !== (t0_value = (0, import_formatter.formatPrice)(
           /*ph*/
-          ctx2[7].price || /*ph*/
-          ctx2[7].priceNtd,
+          ctx2[8].price || /*ph*/
+          ctx2[8].priceNtd,
           "TWD"
         ) + ""))
           set_data(t0, t0_value);
         if (dirty & /*propHistories*/
         1 && t2_value !== (t2_value = (0, import_formatter.localeDatetime)(
           /*ph*/
-          ctx2[7].updatedAt
+          ctx2[8].updatedAt
         ) + ""))
           set_data(t2, t2_value);
       },
@@ -3131,7 +3232,7 @@
     let t32;
     let t33;
     let current;
-    const if_block_creators = [create_if_block_13, create_else_block_2];
+    const if_block_creators = [create_if_block_14, create_else_block_2];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (
@@ -3153,7 +3254,7 @@
     });
     let each_value_4 = ensure_array_like(
       /*signs*/
-      ctx[6]
+      ctx[7]
     );
     let each_blocks_1 = [];
     for (let i = 0; i < each_value_4.length; i += 1) {
@@ -3173,7 +3274,7 @@
         ctx2[1].countryCode === "TW" || /*propItem*/
         ctx2[1].countryCode === ""
       )
-        return create_if_block_11;
+        return create_if_block_12;
       return create_else_block_1;
     }
     let current_block_type = select_block_type_1(ctx, -1);
@@ -3435,10 +3536,10 @@
         )) + ""))
           set_data(t4, t4_value);
         if (dirty & /*signs, approvalStatus*/
-        96) {
+        192) {
           each_value_4 = ensure_array_like(
             /*signs*/
-            ctx2[6]
+            ctx2[7]
           );
           let i;
           for (i = 0; i < each_value_4.length; i += 1) {
@@ -3499,8 +3600,8 @@
             if_block1.m(div12, t28);
           }
         }
-        if (dirty & /*meta, propItem, isAdmin*/
-        14) {
+        if (dirty & /*meta, propItem, propExtraUS, isAdmin*/
+        46) {
           each_value_3 = ensure_array_like(
             /*meta*/
             ctx2[2]
@@ -3637,6 +3738,7 @@
     let { meta: meta2 } = $props;
     let { isAdmin: isAdmin2 = false } = $props;
     let { isGuest = false } = $props;
+    let { propExtraUS: propExtraUS2 } = $props;
     let approvalStatus = "approved";
     let signs = [
       { status: "approved", sign: "***" },
@@ -3651,10 +3753,10 @@
       console.log("isGuest =", isGuest);
       console.log("propItem.note =", propItem2.note);
       if (propItem2.approvalState !== "pending" && propItem2.approvalState !== "") {
-        $invalidate(5, approvalStatus = "rejected");
+        $invalidate(6, approvalStatus = "rejected");
       }
       if (propItem2.approvalState === "pending") {
-        $invalidate(5, approvalStatus = "pending");
+        $invalidate(6, approvalStatus = "pending");
       }
     });
     $self.$set = ($props2) => {
@@ -3668,8 +3770,19 @@
         $invalidate(3, isAdmin2 = $props2.isAdmin);
       if ("isGuest" in $props2)
         $invalidate(4, isGuest = $props2.isGuest);
+      if ("propExtraUS" in $props2)
+        $invalidate(5, propExtraUS2 = $props2.propExtraUS);
     };
-    return [propHistories, propItem2, meta2, isAdmin2, isGuest, approvalStatus, signs];
+    return [
+      propHistories,
+      propItem2,
+      meta2,
+      isAdmin2,
+      isGuest,
+      propExtraUS2,
+      approvalStatus,
+      signs
+    ];
   }
   var Property = class extends SvelteComponent {
     constructor(options) {
@@ -3679,7 +3792,8 @@
         propItem: 1,
         meta: 2,
         isAdmin: 3,
-        isGuest: 4
+        isGuest: 4,
+        propExtraUS: 5
       });
     }
   };
@@ -3805,7 +3919,13 @@
     let mounted;
     let dispose;
     property = new Property_default({
-      props: { propItem, meta, isAdmin, isGuest: true }
+      props: {
+        propItem,
+        meta,
+        isAdmin,
+        isGuest: true,
+        propExtraUS
+      }
     });
     icon0 = new Icon_default({
       props: {
@@ -4109,8 +4229,10 @@
   }
   var propItem = {/* propItem */};
   var meta = {/* propertyMeta */};
+  var propExtraUS = {/* propExtraUS */};
   var isAdmin = false;
   function instance4($self) {
+    console.log("Property Extra US =", propExtraUS);
     function copyToClipboard(text2) {
       console.log(window.location);
       navigator.clipboard.writeText(text2);

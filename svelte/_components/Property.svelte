@@ -12,6 +12,7 @@
     export let meta;
     export let isAdmin = false;
     export let isGuest = false;
+    export let propExtraUS;
 
     let approvalStatus = 'approved';
     let signs = [
@@ -114,6 +115,9 @@
                     <PillBox label={m.label} content={localeDatetime(propItem[m.name])} />
                 {:else if m.name !== 'note'}
                     <PillBox label={m.label} content={propItem[m.name]} />
+                    {#if propExtraUS}
+                        <PillBox label={m.label} content={propExtraUS[m.name]} />
+                    {/if}
                 {/if}
             {:else if isAdmin}
                 {#if m.inputType === 'datetime'}

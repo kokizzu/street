@@ -628,6 +628,15 @@ func (p *PropertyUS) ToProperty() *Property {
 	return out
 }
 
+func (p *PropertyExtraUS) ToPropertyExtra() *PropertyExtraUS {
+	out := &PropertyExtraUS{}
+	backupAdapter := p.Adapter
+	p.Adapter = nil
+	M.FastestCopyStruct(p, out)
+	p.Adapter = backupAdapter
+	return out
+}
+
 func (p *PropertyTW) ToProperty() *Property {
 	out := &Property{}
 	backupAdapter := p.Adapter

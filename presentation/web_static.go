@@ -146,11 +146,12 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			Id:            propId,
 			CountryCode:   countryCode,
 		})
-		if out.Property.DeletedAt > 0 {
+		if out.Property != nil && out.Property.DeletedAt > 0 {
 			return views.RenderError(ctx, M.SX{
 				`error`: `property deleted`,
 			})
 		}
+		
 		if out.Error != `` {
 			L.Print(out.Error)
 			return views.RenderError(ctx, M.SX{
@@ -187,6 +188,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		return views.RenderGuestPropertyPublic(ctx, M.SX{
 			`title`:         S.XSS(title),
 			`propItem`:      out.Property,
+			`propExtraUS`: out.PropertyExtraUS,
 			`propertyMeta`:  out.Meta,
 			`ogURL`:         ogUrl,
 			`ogImgURL`:      imgUrl,

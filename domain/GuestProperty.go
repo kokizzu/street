@@ -21,6 +21,7 @@ type (
 	GuestPropertyOut struct {
 		ResponseCommon
 		Property *rqProperty.Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
+		PropertyExtraUS *rqProperty.PropertyExtraUS `json:"propertyExtraUS" form:"propertyExtraUS" query:"propertyExtraUS" long:"propertyExtraUS" msg:"propertyExtraUS"`
 		Meta     []zCrud.Field        `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 	}
 )
@@ -29,6 +30,7 @@ const (
 	GuestPropertyAction             = `guest/property`
 	ErrGuestPropertyNotFound        = `property not found`
 	ErrGuestPropertyCountryNotFound = `property country not found`
+	ErrGuestPropertyExtraUSNotFound = `property extra US not found`
 )
 
 var (
@@ -37,6 +39,12 @@ var (
 			Name:      mProperty.MainUse,
 			Label:     `Main Use / Facility`,
 			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name: mProperty.FacilityInfoJson,
+			Label: `Facility Info`,
+			DataType: zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
 		},
 		{
@@ -107,6 +115,14 @@ func (d *Domain) GuestProperty(in *GuestPropertyIn) (out GuestPropertyOut) {
 			return
 		}
 		out.Property = r.ToProperty()
+
+		rx := rqProperty.NewPropertyExtraUS(d.PropOltp)
+		rx.PropertyKey = r.UniqPropKey
+		if !rx.FindByPropertyKey() {
+			out.SetError(400, ErrGuestPropertyExtraUSNotFound)
+			return
+		}
+		out.PropertyExtraUS = rx.ToPropertyExtra()
 		out.Meta = GuestPropertiesMeta
 		return
 	}
