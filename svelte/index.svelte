@@ -1,21 +1,22 @@
 <script>
-  //@ts-nocheck
+  /** @typedef {import('./_types/master.js').Access} Access */
+
   import {GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail} from './jsApi.GEN.js';
   import {onMount, tick} from 'svelte';
   import Menu from './_components/Menu.svelte';
-  import PropertyLocation from '_components/PropertyLocation.svelte';
+  import PropertyLocation from './_components/PropertyLocation.svelte';
   import ProfileHeader from './_components/ProfileHeader.svelte';
   import Footer from './_components/Footer.svelte';
   import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import {notifier} from './_components/notifier.js';
   
-  let randomProps = [/* randomProps */] || [];
+  let randomProps = [/* randomProps */];
   let initialLatLong = [/* initialLatLong */];
   let defaultDistanceKm = +'#{defaultDistanceKm}';
   
   let user = {/* user */};
-  let segments = {/* segments */};
+  let segments = /** @type {Access} */ ({/* segments */});
   let google = '#{google}';
   let apple;
 
@@ -103,7 +104,7 @@
     }
     // TODO: send to backend
     const i = {email, password};
-    await GuestRegister( i, async function( o ) {
+    await GuestRegister( i, async function( /** @type any */ o ) {
       // TODO: codegen commonResponse (o.error, etc)
       // TODO: codegen list of possible errors
       if( o.error ) {
@@ -133,7 +134,8 @@
       return
     }
     const i = {email, password};
-    await GuestLogin( i, function( o ) {
+    // @ts-ignore
+    await GuestLogin( i, function(/** @type any */ o ) {
       if( o.error ) {
         isSubmitted = false;
         notifier.showError( o.error );
@@ -159,7 +161,9 @@
       return
     }
     const i = {email};
-    await GuestResendVerificationEmail( i, function( o ) {
+
+    // @ts-ignore
+    await GuestResendVerificationEmail( i, function( /** @type any */ o ) {
       if( o.error ) {
         isSubmitted = false;
         notifier.showError(o.error );
@@ -179,7 +183,9 @@
       return
     }
     const i = {email};
-    await GuestForgotPassword( i, function( o ) {
+
+    // @ts-ignore
+    await GuestForgotPassword( i, function(/** @type any */ o  ) {
       if( o.error ) {
         isSubmitted = false;
         notifier.showError( o.error );
@@ -243,7 +249,7 @@
 					{#if mode===REGISTER}
 						<button on:click={guestRegister}>
 							{#if isSubmitted===true}
-								<Icon className="spin" color='#FFF' size={15} src={FaSolidCircleNotch}/>
+								<Icon className="spin" color='#FFF' size="15" src={FaSolidCircleNotch}/>
 							{/if}
 							{#if isSubmitted===false}
 								<span>Register</span>
@@ -253,7 +259,7 @@
 					{#if mode===LOGIN}
 						<button on:click={guestLogin}>
 							{#if isSubmitted===true}
-								<Icon className="spin" color='#FFF' size={15} src={FaSolidCircleNotch}/>
+								<Icon className="spin" color='#FFF' size="15" src={FaSolidCircleNotch}/>
 							{/if}
 							{#if isSubmitted===false}
 								<span>Login</span>
@@ -263,7 +269,7 @@
 					{#if mode===RESEND_VERIFICATION_EMAIL}
 						<button on:click={guestResendVerificationEmail}>
 							{#if isSubmitted===true}
-								<Icon className="spin" color='#FFF' size={15} src={FaSolidCircleNotch}/>
+								<Icon className="spin" color='#FFF' size="15" src={FaSolidCircleNotch}/>
 							{/if}
 							{#if isSubmitted===false}
 								<span>Resend Verification Email</span>
@@ -273,7 +279,7 @@
 					{#if mode===FORGOT_PASSWORD}
 						<button on:click={guestForgotPassword}>
 							{#if isSubmitted===true}
-								<Icon className="spin" color='#FFF' size={15} src={FaSolidCircleNotch}/>
+								<Icon className="spin" color='#FFF' size="15" src={FaSolidCircleNotch}/>
 							{/if}
 							{#if isSubmitted===false}
 								<span>Request Reset Password Link</span>

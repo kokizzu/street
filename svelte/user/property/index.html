@@ -3828,14 +3828,14 @@
   function instance3($self, $props, $invalidate) {
     let { propHistories: propHistories2 } = $props;
     let { propItem: propItem2 = (
-      /** @type {Property} */
+      /** @type {TypeProperty | TypePropertyUS} */
       {}
     ) } = $props;
     let { meta: meta2 } = $props;
     let { isAdmin: isAdmin2 = false } = $props;
     let { isGuest = false } = $props;
     let { propExtraUS = (
-      /** @type {PropertyExtraUS} */
+      /** @type {TypePropertyExtraUS} */
       {}
     ) } = $props;
     let approvalStatus = "approved";
@@ -3847,8 +3847,8 @@
     let facilityInfoJSON;
     let mlsDisclaimerInfo;
     try {
-      facilityInfoJSON = JSON.parse(propExtraUS.facilityInfo);
-      mlsDisclaimerInfo = JSON.parse(propExtraUS.mlsDisclaimerInfo);
+      facilityInfoJSON = JSON.parse(String(propExtraUS.facilityInfo));
+      mlsDisclaimerInfo = JSON.parse(String(propExtraUS.mlsDisclaimerInfo));
     } catch (error) {
       facilityInfoJSON = {};
       mlsDisclaimerInfo = {};

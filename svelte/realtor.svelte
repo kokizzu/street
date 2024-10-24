@@ -1,16 +1,17 @@
 <script>
-  // @ts-nocheck
+  /** @typedef {import('./_types/master.js').Access} Access */
+
   import { onMount } from 'svelte';
   import Menu from './_components/Menu.svelte';
   import ProfileHeader from './_components/ProfileHeader.svelte';
   import Footer from './_components/Footer.svelte';
-  import OwnedProperty from '_components/OwnedProperty.svelte';
+  import OwnedProperty from './_components/OwnedProperty.svelte';
   
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
   
   let ownedProperties = [/* ownedProperties */];
-  let pager = [/* pager */];
+  let pager = /** @type {any} */ ([/* pager */]);
   let propertyMeta = [/* propertyMeta */];
   
   onMount( () => {
@@ -23,7 +24,7 @@
   } );
   
   let user = {/* user */};
-  let segments = {/* segments */};
+  let segments = /** @type {Access} */ ({/* segments */});
 </script>
 
 <section class='dashboard'>
@@ -35,7 +36,7 @@
         <div class='property_lists_header'>
           <h1>Owned/Managed Properties: {pager.countResult}</h1>
           <a href='/realtor/property' class='add_button'>
-            <Icon size={20} className='add_icon' color='#FFF' src={FaSolidPlusCircle} />
+            <Icon size="20" className='add_icon' color='#FFF' src={FaSolidPlusCircle} />
             <span>Add</span>
           </a>
         </div>

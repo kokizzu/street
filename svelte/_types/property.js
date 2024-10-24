@@ -49,9 +49,7 @@
  * @property {any[]} otherFees
  * @property {any[]} imageLabels
  */
-module.exports = {
-  Property: Property
-};
+module.exports = {};
 
 /**
  * @typedef {Object} PropertyUS
@@ -104,10 +102,7 @@ module.exports = {
  * @property {any[]} otherFees
  * @property {any[]} imageLabels
  */
-
-module.exports = {
-  PropertyUS: PropertyUS
-};
+module.exports = {};
 
 /**
  * @typedef {Object} PropertyExtraUS
@@ -125,10 +120,7 @@ module.exports = {
  * @property {Record<string, any> | string} mediaSourceJson
  * @property {string} taxNote
  */
-
-module.exports = {
-  PropertyExtraUS: PropertyExtraUS
-};
+module.exports = {};
 
 /**
  * @typedef {Object} MlsDisclaimerInfo
@@ -137,7 +129,4 @@ module.exports = {
  * @property {string} ListingAgentName
  * @property {string} ListingAgentNumber
  */
-
-module.exports = {
-  MlsDisclaimerInfo: MlsDisclaimerInfo
-};
+module.exports = {};

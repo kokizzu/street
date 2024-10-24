@@ -1,5 +1,4 @@
 <script>
-  // @ts-nocheck
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
   import FaSolidPen from 'svelte-icons-pack/fa/FaSolidPen';
@@ -12,26 +11,24 @@
   import {localeDatetime, M2ToPing, getApprovalState} from './formatter';
   import {T} from './uiState.js';
   import { onMount } from 'svelte';
-  import {notifier} from './notifier.js';
+  import { notifier } from './notifier';
   
   export let property;
   export let meta;
   let showMore = false;
-  
-  console.log('meta=',meta)
 
   let approvalStatus = 'approved';
   let noteObj;
   onMount(() => {
     try {
       noteObj = JSON.parse( property.note );
-    } catch (e) {
+    } catch (/** @type {any | Error} */ e) {
       noteObj = {
         contactPhone:"",
         contactEmail: "",
         about: property.note
       }
-      //notifier.showError('Error convert string to object =', e)
+      notifier.showError('Error convert string to object = ' + e)
     }
     approvalStatus = getApprovalState( property.approvalState );
     if (property.countryCode==='TW' || property.countryCode==='') {
@@ -65,12 +62,12 @@
 						{property.purpose==='rent' ? $T.forRent : $T.onSale}
 					</div>
 					<div class='house_type'>
-						<Icon color='#FFF' size={14} src={FaSolidHome}/>
+						<Icon color='#FFF' size="14" src={FaSolidHome}/>
 						<span>{property.houseType}</span>
 					</div>
 				</div>
 				<a class='edit_property' href='/realtor/property/{property.id}'>
-					<Icon color='#FFF' size={13} src={FaSolidPen}/>
+					<Icon color='#FFF' size="13" src={FaSolidPen}/>
 					<span>Edit Property</span>
 				</a>
 			</div>
@@ -78,7 +75,7 @@
 				<h1>$ {property.lastPrice || '0.00'}</h1>
 				<p>{$T.agencyFee} : {property.agencyFeePercent}%</p>
 				<div class='address'>
-					<Icon color='#f97316' className="icon_address" size={18} src={FaSolidMapMarkerAlt}/>
+					<Icon color='#f97316' className="icon_address" size="18" src={FaSolidMapMarkerAlt}/>
 					<span>{property.formattedAddress}</span>
 				</div>
 			</div>
@@ -89,28 +86,28 @@
             <div class='feature_item'>
               <b>{property.bedroom}</b>
               <div class='labels'>
-                <Icon className='labels_icon' color='#848D96' size={13} src={FaSolidBed} />
+                <Icon className='labels_icon' color='#848D96' size="13" src={FaSolidBed} />
                 <span>Beds</span>
               </div>
             </div>
             <div class='feature_item'>
               <b>{property.bathroom}</b>
               <div class='labels'>
-                <Icon className='labels_icon' color='#848D96' size={13} src={FaSolidBath} />
+                <Icon className='labels_icon' color='#848D96' size="13" src={FaSolidBath} />
                 <span>Baths</span>
               </div>
             </div>
             <div class='feature_item'>
               <b>{property.livingroom}</b>
               <div class='labels'>
-                <Icon className='labels_icon' color='#848D96' size={12} src={FaSolidChair} />
+                <Icon className='labels_icon' color='#848D96' size="12" src={FaSolidChair} />
                 <span>Livings</span>
               </div>
             </div>
             <div class='feature_item'>
               <b>{property.sizeM2}</b>
               <div class='labels'>
-                <Icon className='labels_icon' color='#848D96' size={13} src={FaSolidBorderStyle} />
+                <Icon className='labels_icon' color='#848D96' size="13" src={FaSolidBorderStyle} />
                 <span>{property.countryCode==='TW' || property.countryCode==='' ? 'Ping' : 'M2'}</span>
               </div>
             </div>

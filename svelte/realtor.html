@@ -4652,7 +4652,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let current;
     icon = new Icon_default({
       props: {
-        size: 22,
+        size: "22",
         className: (
           /*segment1*/
           ctx[2] === "buyer" ? "icon_active" : "icon_dark"
@@ -4726,7 +4726,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let current;
     icon = new Icon_default({
       props: {
-        size: 20,
+        size: "20",
         className: (
           /*segment1*/
           ctx[2] === "realtor" ? "icon_active" : "icon_dark"
@@ -4800,7 +4800,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let current;
     icon = new Icon_default({
       props: {
-        size: 20,
+        size: "20",
         className: (
           /*segment1*/
           ctx[2] === "admin" ? "icon_active" : "icon_dark"
@@ -4874,7 +4874,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let current;
     icon = new Icon_default({
       props: {
-        size: 22,
+        size: "22",
         className: (
           /*segment1*/
           ctx[2] === "user" ? "icon_active" : "icon_dark"
@@ -4950,7 +4950,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let dispose;
     icon = new Icon_default({
       props: {
-        size: 22,
+        size: "22",
         className: "icon_dark",
         src: FaSolidSignInAlt_default
       }
@@ -5046,7 +5046,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     icon0 = new Icon_default({
       props: {
         color: "#475569",
-        size: 20,
+        size: "20",
         src: FaSolidTimes_default
       }
     });
@@ -5056,7 +5056,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           /*segment1*/
           ctx[2] === "" ? "icon_active" : "icon_dark"
         ),
-        size: 22,
+        size: "22",
         src: FaSolidHome_default
       }
     });
@@ -5420,12 +5420,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let { doToggle = function() {
       isSideMenuOpen.set(!$isSideMenuOpen);
     } } = $props;
-    let { access = {
-      "admin": false,
-      "buyer": false,
-      "realtor": false,
-      "user": false
-    } } = $props;
+    let { access = (
+      /** @type {Access} */
+      {}
+    ) } = $props;
     let segment1;
     onMount(() => {
       console.log("onMount.Menu =", access);
@@ -5438,7 +5436,16 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           return;
         }
         notifier.showSuccess("Logged out");
-        window.location = "/";
+        window.location = /** @type {Location | (string & Location)} */
+        "/";
+        return new Promise((resolve) => {
+          setTimeout(
+            () => {
+              resolve();
+            },
+            1e3
+          );
+        });
       });
     }
     const click_handler = () => set_store_value(isSideMenuOpen, $isSideMenuOpen = !$isSideMenuOpen, $isSideMenuOpen);
@@ -7297,18 +7304,22 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     icon0 = new Icon_default({
       props: {
         color: "#FFF",
-        size: 14,
+        size: "14",
         src: FaSolidHome_default
       }
     });
     icon1 = new Icon_default({
-      props: { color: "#FFF", size: 13, src: FaSolidPen_default }
+      props: {
+        color: "#FFF",
+        size: "13",
+        src: FaSolidPen_default
+      }
     });
     icon2 = new Icon_default({
       props: {
         color: "#f97316",
         className: "icon_address",
-        size: 18,
+        size: "18",
         src: FaSolidMapMarkerAlt_default
       }
     });
@@ -7316,7 +7327,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       props: {
         className: "labels_icon",
         color: "#848D96",
-        size: 13,
+        size: "13",
         src: FaSolidBed_default
       }
     });
@@ -7324,7 +7335,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       props: {
         className: "labels_icon",
         color: "#848D96",
-        size: 13,
+        size: "13",
         src: FaSolidBath_default
       }
     });
@@ -7332,7 +7343,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       props: {
         className: "labels_icon",
         color: "#848D96",
-        size: 12,
+        size: "12",
         src: FaSolidChair_default
       }
     });
@@ -7340,7 +7351,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       props: {
         className: "labels_icon",
         color: "#848D96",
-        size: 13,
+        size: "13",
         src: FaSolidBorderStyle_default
       }
     });
@@ -7811,7 +7822,6 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let { property } = $props;
     let { meta } = $props;
     let showMore = false;
-    console.log("meta=", meta);
     let approvalStatus = "approved";
     let noteObj;
     onMount(() => {
@@ -7823,6 +7833,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           contactEmail: "",
           about: property.note
         });
+        notifier.showError("Error convert string to object = " + e);
       }
       $invalidate(3, approvalStatus = (0, import_formatter.getApprovalState)(property.approvalState));
       if (property.countryCode === "TW" || property.countryCode === "") {
@@ -8096,7 +8107,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     profileheader = new ProfileHeader_default({ props: { user, access: segments } });
     icon = new Icon_default({
       props: {
-        size: 20,
+        size: "20",
         className: "add_icon",
         color: "#FFF",
         src: FaSolidPlusCircle_default
@@ -8222,10 +8233,16 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       }
     };
   }
-  var pager = [/* pager */];
+  var pager = (
+    /** @type {any} */
+    [/* pager */]
+  );
   var propertyMeta = [/* propertyMeta */];
   var user = {/* user */};
-  var segments = {/* segments */};
+  var segments = (
+    /** @type {Access} */
+    {/* segments */}
+  );
   function instance7($self, $props, $invalidate) {
     let ownedProperties = [/* ownedProperties */];
     onMount(() => {

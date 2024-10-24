@@ -3945,14 +3945,14 @@
   function instance3($self, $props, $invalidate) {
     let { propHistories } = $props;
     let { propItem: propItem2 = (
-      /** @type {Property} */
+      /** @type {TypeProperty | TypePropertyUS} */
       {}
     ) } = $props;
     let { meta: meta2 } = $props;
     let { isAdmin: isAdmin2 = false } = $props;
     let { isGuest = false } = $props;
     let { propExtraUS: propExtraUS2 = (
-      /** @type {PropertyExtraUS} */
+      /** @type {TypePropertyExtraUS} */
       {}
     ) } = $props;
     let approvalStatus = "approved";
@@ -3964,8 +3964,8 @@
     let facilityInfoJSON;
     let mlsDisclaimerInfo;
     try {
-      facilityInfoJSON = JSON.parse(propExtraUS2.facilityInfo);
-      mlsDisclaimerInfo = JSON.parse(propExtraUS2.mlsDisclaimerInfo);
+      facilityInfoJSON = JSON.parse(String(propExtraUS2.facilityInfo));
+      mlsDisclaimerInfo = JSON.parse(String(propExtraUS2.mlsDisclaimerInfo));
     } catch (error) {
       facilityInfoJSON = {};
       mlsDisclaimerInfo = {};
@@ -4151,7 +4151,8 @@
         meta,
         isAdmin,
         isGuest: true,
-        propExtraUS
+        propExtraUS,
+        propHistories: []
       }
     });
     icon0 = new Icon_default({
@@ -4390,20 +4391,21 @@
     };
   }
   function create_if_block3(ctx) {
-    let t;
+    let h2;
     return {
       c() {
-        t = text("this property has been deleted");
+        h2 = element("h2");
+        h2.textContent = "This property has been deleted !!";
       },
       m(target, anchor) {
-        insert(target, t, anchor);
+        insert(target, h2, anchor);
       },
       p: noop,
       i: noop,
       o: noop,
       d(detaching) {
         if (detaching) {
-          detach(t);
+          detach(h2);
         }
       }
     };
@@ -4454,9 +4456,15 @@
       }
     };
   }
-  var propItem = {/* propItem */};
+  var propItem = (
+    /** @type {TypeProperty | TypePropertyUS} */
+    {/* propItem */}
+  );
   var meta = {/* propertyMeta */};
-  var propExtraUS = {/* propExtraUS */};
+  var propExtraUS = (
+    /** @type {TypePropertyExtraUS} */
+    {/* propExtraUS */}
+  );
   var isAdmin = false;
   function instance4($self) {
     console.log("Property Extra US =", propExtraUS);

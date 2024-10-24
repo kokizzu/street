@@ -6166,7 +6166,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let current;
     icon = new Icon_default({
       props: {
-        size: 22,
+        size: "22",
         className: (
           /*segment1*/
           ctx[2] === "buyer" ? "icon_active" : "icon_dark"
@@ -6240,7 +6240,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let current;
     icon = new Icon_default({
       props: {
-        size: 20,
+        size: "20",
         className: (
           /*segment1*/
           ctx[2] === "realtor" ? "icon_active" : "icon_dark"
@@ -6314,7 +6314,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let current;
     icon = new Icon_default({
       props: {
-        size: 20,
+        size: "20",
         className: (
           /*segment1*/
           ctx[2] === "admin" ? "icon_active" : "icon_dark"
@@ -6388,7 +6388,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let current;
     icon = new Icon_default({
       props: {
-        size: 22,
+        size: "22",
         className: (
           /*segment1*/
           ctx[2] === "user" ? "icon_active" : "icon_dark"
@@ -6464,7 +6464,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let dispose;
     icon = new Icon_default({
       props: {
-        size: 22,
+        size: "22",
         className: "icon_dark",
         src: FaSolidSignInAlt_default
       }
@@ -6560,7 +6560,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     icon0 = new Icon_default({
       props: {
         color: "#475569",
-        size: 20,
+        size: "20",
         src: FaSolidTimes_default
       }
     });
@@ -6570,7 +6570,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           /*segment1*/
           ctx[2] === "" ? "icon_active" : "icon_dark"
         ),
-        size: 22,
+        size: "22",
         src: FaSolidHome_default
       }
     });
@@ -6934,12 +6934,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     let { doToggle = function() {
       isSideMenuOpen.set(!$isSideMenuOpen);
     } } = $props;
-    let { access = {
-      "admin": false,
-      "buyer": false,
-      "realtor": false,
-      "user": false
-    } } = $props;
+    let { access = (
+      /** @type {Access} */
+      {}
+    ) } = $props;
     let segment1;
     onMount(() => {
       console.log("onMount.Menu =", access);
@@ -6952,7 +6950,16 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
           return;
         }
         notifier.showSuccess("Logged out");
-        window.location = "/";
+        window.location = /** @type {Location | (string & Location)} */
+        "/";
+        return new Promise((resolve) => {
+          setTimeout(
+            () => {
+              resolve();
+            },
+            1e3
+          );
+        });
       });
     }
     const click_handler = () => set_store_value(isSideMenuOpen, $isSideMenuOpen = !$isSideMenuOpen, $isSideMenuOpen);

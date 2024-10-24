@@ -15,7 +15,7 @@
     if (!$mapsLoading) {
       mapsLoading.set( true );
       Init( {
-        key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',
+        key: 'AIzaSyAB19JBmmsKCtZqOZaMhUew9V5RPgmkSXY',
         v: 'weekly'
       } );
       mapsLoaded.set(true);
