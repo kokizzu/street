@@ -4,6 +4,8 @@ import (
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/zCrud"
+
+	"github.com/kokizzu/gotro/L"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file GuestProperty.go
@@ -46,6 +48,31 @@ var (
 			Label: `Facility Info`,
 			DataType: zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name: `parkingFeatures`,
+			Label: `Parking Features`,
+			DataType: zCrud.DataTypeString,
+		},
+		{
+			Name: `ListingBrokerName`,
+			Label: `Broker Name`,
+			DataType: zCrud.DataTypeString,
+		},
+		{
+			Name: `ListingBrokerNumber`,
+			Label: `Broker Phone`,
+			DataType: zCrud.DataTypeString,
+		},
+		{
+			Name: `ListingAgentName`,
+			Label: `Agent Name`,
+			DataType: zCrud.DataTypeString,
+		},
+		{
+			Name: `ListingAgentNumber`,
+			Label: `Agent Phone`,
+			DataType: zCrud.DataTypeString,
 		},
 		{
 			Name:      mProperty.MainBuildingMaterial,
@@ -119,8 +146,7 @@ func (d *Domain) GuestProperty(in *GuestPropertyIn) (out GuestPropertyOut) {
 		rx := rqProperty.NewPropertyExtraUS(d.PropOltp)
 		rx.PropertyKey = r.UniqPropKey
 		if !rx.FindByPropertyKey() {
-			out.SetError(400, ErrGuestPropertyExtraUSNotFound)
-			return
+			L.Print(ErrGuestPropertyExtraUSNotFound)
 		}
 		out.PropertyExtraUS = rx.ToPropertyExtra()
 		out.Meta = GuestPropertiesMeta

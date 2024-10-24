@@ -85,6 +85,105 @@
         color            : #FFF !important;
         border           : none !important;
     }
+
+    /* notifier */
+  .notifyjs-container {
+    z-index   : 100;
+    position  : fixed;
+    bottom    : 0;
+    right     : .5em;
+    max-width : 304px;
+    width     : 100%
+  }
+
+  .notifyjs-container .notifyjs-notification {
+    display       : none;
+    position      : relative;
+    padding       : 1em 2em 1em 2.5em;
+    margin-bottom : .5em;
+    width         : 100%;
+    border-width  : 1px;
+    border-style  : solid;
+    box-sizing    : border-box
+  }
+
+  .notifyjs-container .notifyjs-notification p.progress {
+    position      : absolute;
+    bottom        : 0;
+    left          : 0;
+    right         : 100%;
+    height        : 2px;
+    content       : ' ';
+    margin-bottom : 0
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-success {
+    color            : #155724;
+    background-color : #D4EDDA;
+    border-color     : #C3E6CB
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-danger {
+    color            : #721C24;
+    background-color : #F8D7DA;
+    border-color     : #F5C6CB
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-warning {
+    color            : #856404;
+    background-color : #FFF3CD;
+    border-color     : #FFEEBA
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-info {
+    color            : #0C5460;
+    background-color : #D1ECF1;
+    border-color     : #BEE5EB
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-success p.progress {
+    background : #155724
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-danger p.progress {
+    background : #721C24
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-warning p.progress {
+    background : #856404
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-info p.progress {
+    background : #0C5460
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-success .notifyjs-icon svg {
+    fill : #155724
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-danger .notifyjs-icon svg {
+    fill : #721C24
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-warning .notifyjs-icon svg {
+    fill : #856404
+  }
+
+  .notifyjs-container .notifyjs-notification.alert-info .notifyjs-icon svg {
+    fill : #0C5460
+  }
+
+  .notifyjs-container .notifyjs-notification .notifyjs-icon {
+    position  : absolute;
+    top       : 50%;
+    transform : translateY(-50%);
+    left      : 10px
+  }
+
+  .notifyjs-container .notifyjs-notification .notifyjs-icon img, .notifyjs-container .notifyjs-notification .notifyjs-icon svg {
+    width  : 16px;
+    height : 16px
+  }
 </style>
 
 
@@ -130,7 +229,7 @@
 }
 
 /* fakecss:./_components/Property.esbuild-svelte-fake-css */
-.property.svelte-9tzzid.svelte-9tzzid.svelte-9tzzid {
+.property.svelte-1198x8l.svelte-1198x8l.svelte-1198x8l {
   height: fit-content;
   background-color: #F0F0F0;
   border-radius: 8px;
@@ -140,12 +239,12 @@
   gap: 20px;
   position: relative;
 }
-.property.svelte-9tzzid h3.svelte-9tzzid.svelte-9tzzid {
+.property.svelte-1198x8l h3.svelte-1198x8l.svelte-1198x8l {
   font-size: 22px;
   margin: 0 0 15px 0;
   text-align: center;
 }
-.property_main.svelte-9tzzid.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l.svelte-1198x8l.svelte-1198x8l {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -154,19 +253,19 @@
   align-items: flex-start;
   gap: 20px;
 }
-.property_main.svelte-9tzzid .property_images.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_images.svelte-1198x8l.svelte-1198x8l {
   width: 340px;
   height: 190px;
   flex: none;
   overflow: hidden;
   border-radius: 8px;
 }
-.property_main.svelte-9tzzid .property_images img.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_images img.svelte-1198x8l.svelte-1198x8l {
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
-.property_main.svelte-9tzzid .property_images .image_empty.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_images .image_empty.svelte-1198x8l.svelte-1198x8l {
   border-radius: 8px;
   object-fit: cover;
   width: 100%;
@@ -179,44 +278,44 @@
   justify-content: center;
   align-items: center;
 }
-.property_main.svelte-9tzzid .property_info.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_info.svelte-1198x8l.svelte-1198x8l {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-top: 20px;
 }
-.property_main.svelte-9tzzid .property_info .col1.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_info .col1.svelte-1198x8l.svelte-1198x8l {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
 }
-.property_main.svelte-9tzzid .property_info .col1 .left.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_info .col1 .left.svelte-1198x8l.svelte-1198x8l {
   display: flex;
   gap: 15px;
   align-items: center;
 }
-.property_main.svelte-9tzzid .property_info .col1 .prop_status.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_info .col1 .prop_status.svelte-1198x8l.svelte-1198x8l {
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 15px;
 }
-.property_main.svelte-9tzzid .property_info .col1 .approved.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_info .col1 .approved.svelte-1198x8l.svelte-1198x8l {
   background-color: rgba(140, 216, 107, 1);
   color: #FFF;
 }
-.property_main.svelte-9tzzid .property_info .col1 .pending.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_info .col1 .pending.svelte-1198x8l.svelte-1198x8l {
   background-color: rgba(255, 208, 118, 1);
   color: #475569;
 }
-.property_main.svelte-9tzzid .property_info .col1 .rejected.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_info .col1 .rejected.svelte-1198x8l.svelte-1198x8l {
   background-color: rgba(255, 126, 118, 1);
   color: #FFF;
 }
-.property_main.svelte-9tzzid .property_info .col1 .left .purpose.svelte-9tzzid.svelte-9tzzid,
-.property_main.svelte-9tzzid .property_info .col1 .left .house_type.svelte-9tzzid.svelte-9tzzid,
-.property_main.svelte-9tzzid .property_info .col1 .edit_property.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_info .col1 .left .purpose.svelte-1198x8l.svelte-1198x8l,
+.property_main.svelte-1198x8l .property_info .col1 .left .house_type.svelte-1198x8l.svelte-1198x8l,
+.property_main.svelte-1198x8l .property_info .col1 .edit_property.svelte-1198x8l.svelte-1198x8l {
   background-color: #F97316;
   padding: 7px 18px;
   border-radius: 8px;
@@ -225,28 +324,28 @@
   text-transform: capitalize;
   text-decoration: none;
 }
-.property_main.svelte-9tzzid .property_info .col1 .left .house_type.svelte-9tzzid.svelte-9tzzid,
-.property_main.svelte-9tzzid .property_info .col1 .edit_property.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_info .col1 .left .house_type.svelte-1198x8l.svelte-1198x8l,
+.property_main.svelte-1198x8l .property_info .col1 .edit_property.svelte-1198x8l.svelte-1198x8l {
   display: flex;
   gap: 10px;
   align-items: center;
 }
-.property_main.svelte-9tzzid .property_info .col1 .edit_property.svelte-9tzzid.svelte-9tzzid:hover {
+.property_main.svelte-1198x8l .property_info .col1 .edit_property.svelte-1198x8l.svelte-1198x8l:hover {
   background-color: #F58433;
 }
-.property_main.svelte-9tzzid .property_info .col2.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_info .col2.svelte-1198x8l.svelte-1198x8l {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.property_main.svelte-9tzzid .property_info .col2 h1.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_info .col2 h1.svelte-1198x8l.svelte-1198x8l {
   margin: 0;
   font-size: 32px;
 }
-.property_main.svelte-9tzzid .property_info .col2 p.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_info .col2 p.svelte-1198x8l.svelte-1198x8l {
   margin: 0 0 10px 0;
 }
-.property_main.svelte-9tzzid .property_info .col2 .address.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_info .col2 .address.svelte-1198x8l.svelte-1198x8l {
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -255,70 +354,70 @@
 .icon_address {
   flex-shrink: 0;
 }
-.property_main.svelte-9tzzid .property_info .col2 .address span.svelte-9tzzid.svelte-9tzzid {
+.property_main.svelte-1198x8l .property_info .col2 .address span.svelte-1198x8l.svelte-1198x8l {
   flex-shrink: 1;
 }
-.property_secondary.svelte-9tzzid.svelte-9tzzid.svelte-9tzzid {
+.property_secondary.svelte-1198x8l.svelte-1198x8l.svelte-1198x8l {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-.property_secondary.svelte-9tzzid .feature_number.svelte-9tzzid.svelte-9tzzid {
+.property_secondary.svelte-1198x8l .feature_number.svelte-1198x8l.svelte-1198x8l {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
 }
-.property_secondary.svelte-9tzzid .feature_number .feature_item.svelte-9tzzid.svelte-9tzzid {
+.property_secondary.svelte-1198x8l .feature_number .feature_item.svelte-1198x8l.svelte-1198x8l {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
   text-transform: capitalize;
 }
-.property_secondary.svelte-9tzzid p.svelte-9tzzid.svelte-9tzzid {
+.property_secondary.svelte-1198x8l p.svelte-1198x8l.svelte-1198x8l {
   margin: 0;
 }
-.property_secondary.svelte-9tzzid b.svelte-9tzzid.svelte-9tzzid {
+.property_secondary.svelte-1198x8l b.svelte-1198x8l.svelte-1198x8l {
   font-size: 22px;
 }
-.property_floors.svelte-9tzzid.svelte-9tzzid.svelte-9tzzid {
+.property_floors.svelte-1198x8l.svelte-1198x8l.svelte-1198x8l {
   width: 70%;
   margin: 0 auto;
 }
-.property_floors.svelte-9tzzid h3.svelte-9tzzid.svelte-9tzzid {
+.property_floors.svelte-1198x8l h3.svelte-1198x8l.svelte-1198x8l {
   font-size: 22px;
   margin: 0 0 15px 0;
   text-align: center;
 }
-.property_floors.svelte-9tzzid .floor_lists.svelte-9tzzid.svelte-9tzzid {
+.property_floors.svelte-1198x8l .floor_lists.svelte-1198x8l.svelte-1198x8l {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.property_floors.svelte-9tzzid .floor_lists .floor_item.svelte-9tzzid.svelte-9tzzid {
+.property_floors.svelte-1198x8l .floor_lists .floor_item.svelte-1198x8l.svelte-1198x8l {
   display: flex;
   align-items: flex-start;
   gap: 35px;
 }
-.property_floors.svelte-9tzzid .floor_lists .floor_item .left.svelte-9tzzid.svelte-9tzzid {
+.property_floors.svelte-1198x8l .floor_lists .floor_item .left.svelte-1198x8l.svelte-1198x8l {
   flex-grow: 1;
 }
-.property_floors.svelte-9tzzid .floor_lists .floor_item .left h5.svelte-9tzzid.svelte-9tzzid {
+.property_floors.svelte-1198x8l .floor_lists .floor_item .left h5.svelte-1198x8l.svelte-1198x8l {
   font-size: 22px;
   text-transform: capitalize;
   font-weight: normal;
   margin: 0 0 15px 0;
   width: 100%;
 }
-.property_floors.svelte-9tzzid .floor_lists .floor_lists .floor_item .left.svelte-9tzzid .room_lists.svelte-9tzzid {
+.property_floors.svelte-1198x8l .floor_lists .floor_lists .floor_item .left.svelte-1198x8l .room_lists.svelte-1198x8l {
   font-size: 14px;
   width: 100%;
   color: #475569;
   border: 1px solid #CBD5E1;
 }
-.property_floors.svelte-9tzzid .floor_lists .floor_item .left.svelte-9tzzid .room_lists .room_item.svelte-9tzzid {
+.property_floors.svelte-1198x8l .floor_lists .floor_item .left.svelte-1198x8l .room_lists .room_item.svelte-1198x8l {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -326,7 +425,7 @@
   border-bottom: 1px solid #CBD5E1;
   padding: 5px 0;
 }
-.property_floors.svelte-9tzzid .floor_lists .floor_item .floor_plan_image.svelte-9tzzid.svelte-9tzzid {
+.property_floors.svelte-1198x8l .floor_lists .floor_item .floor_plan_image.svelte-1198x8l.svelte-1198x8l {
   width: 240px;
   height: 140px;
   position: relative;
@@ -335,12 +434,12 @@
   border: 1px solid #CBD5E1;
   margin-top: 45px;
 }
-.property_floors.svelte-9tzzid .floor_lists .floor_item .floor_plan_image img.svelte-9tzzid.svelte-9tzzid {
+.property_floors.svelte-1198x8l .floor_lists .floor_item .floor_plan_image img.svelte-1198x8l.svelte-1198x8l {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.property_floors.svelte-9tzzid .floor_lists .floor_item .floor_plan_image .image_empty.svelte-9tzzid.svelte-9tzzid {
+.property_floors.svelte-1198x8l .floor_lists .floor_item .floor_plan_image .image_empty.svelte-1198x8l.svelte-1198x8l {
   border-radius: 8px;
   object-fit: cover;
   width: 100%;
@@ -351,7 +450,7 @@
   justify-content: center;
   align-items: center;
 }
-.property_history.svelte-9tzzid .history_list.svelte-9tzzid.svelte-9tzzid {
+.property_history.svelte-1198x8l .history_list.svelte-1198x8l.svelte-1198x8l {
   padding: 15px;
   background-color: rgb(0 0 0 / 0.06);
   border-radius: 8px;
@@ -359,7 +458,7 @@
   flex-direction: column;
   min-height: 200px;
 }
-.property_history.svelte-9tzzid .history_list .item.svelte-9tzzid.svelte-9tzzid {
+.property_history.svelte-1198x8l .history_list .item.svelte-1198x8l.svelte-1198x8l {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -1637,17 +1736,17 @@
   // _components/Property.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[8] = list[i];
+    child_ctx[10] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[11] = list[i];
+    child_ctx[13] = list[i];
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[14] = list[i];
+    child_ctx[16] = list[i];
     return child_ctx;
   }
   function get_if_ctx(ctx) {
@@ -1656,17 +1755,17 @@
       /*propItem*/
       child_ctx[1].note
     );
-    child_ctx[17] = constants_0;
+    child_ctx[19] = constants_0;
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[18] = list[i];
+    child_ctx[20] = list[i];
     return child_ctx;
   }
   function get_each_context_4(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[21] = list[i];
+    child_ctx[23] = list[i];
     return child_ctx;
   }
   function create_else_block_2(ctx) {
@@ -1689,8 +1788,8 @@
         t0 = space();
         span = element("span");
         span.textContent = "No Image !";
-        attr(span, "class", "svelte-9tzzid");
-        attr(div, "class", "image_empty svelte-9tzzid");
+        attr(span, "class", "svelte-1198x8l");
+        attr(div, "class", "image_empty svelte-1198x8l");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -1718,25 +1817,29 @@
       }
     };
   }
-  function create_if_block_14(ctx) {
+  function create_if_block_15(ctx) {
     let img;
     let img_src_value;
     return {
       c() {
         img = element("img");
-        if (!src_url_equal(img.src, img_src_value = /*propItem*/
-        ctx[1].images[0]))
+        if (!src_url_equal(img.src, img_src_value = String(
+          /*propItem*/
+          ctx[1].images[0]
+        ).split(" ")[0]))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
-        attr(img, "class", "svelte-9tzzid");
+        attr(img, "class", "svelte-1198x8l");
       },
       m(target, anchor) {
         insert(target, img, anchor);
       },
       p(ctx2, dirty) {
         if (dirty & /*propItem*/
-        2 && !src_url_equal(img.src, img_src_value = /*propItem*/
-        ctx2[1].images[0])) {
+        2 && !src_url_equal(img.src, img_src_value = String(
+          /*propItem*/
+          ctx2[1].images[0]
+        ).split(" ")[0])) {
           attr(img, "src", img_src_value);
         }
       },
@@ -1749,12 +1852,12 @@
       }
     };
   }
-  function create_if_block_13(ctx) {
+  function create_if_block_14(ctx) {
     let span;
     let t_value = (
       /*s*/
-      ctx[21].sign + " Property is " + /*s*/
-      ctx[21].status
+      ctx[23].sign + " Property is " + /*s*/
+      ctx[23].status
     );
     let t;
     let span_class_value;
@@ -1763,7 +1866,7 @@
         span = element("span");
         t = text(t_value);
         attr(span, "class", span_class_value = null_to_empty(`prop_status ${/*s*/
-        ctx[21].status}`) + " svelte-9tzzid");
+        ctx[23].status}`) + " svelte-1198x8l");
       },
       m(target, anchor) {
         insert(target, span, anchor);
@@ -1781,9 +1884,9 @@
     let if_block_anchor;
     let if_block = (
       /*s*/
-      ctx[21].status === /*approvalStatus*/
-      ctx[6] && /*s*/
-      ctx[21].status !== "approved" && create_if_block_13(ctx)
+      ctx[23].status === /*approvalStatus*/
+      ctx[5] && /*s*/
+      ctx[23].status !== "approved" && create_if_block_14(ctx)
     );
     return {
       c() {
@@ -1799,14 +1902,14 @@
       p(ctx2, dirty) {
         if (
           /*s*/
-          ctx2[21].status === /*approvalStatus*/
-          ctx2[6] && /*s*/
-          ctx2[21].status !== "approved"
+          ctx2[23].status === /*approvalStatus*/
+          ctx2[5] && /*s*/
+          ctx2[23].status !== "approved"
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
           } else {
-            if_block = create_if_block_13(ctx2);
+            if_block = create_if_block_14(ctx2);
             if_block.c();
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
           }
@@ -1837,7 +1940,7 @@
         b = element("b");
         t0 = text(t0_value);
         t1 = text(" M2");
-        attr(b, "class", "svelte-9tzzid");
+        attr(b, "class", "svelte-1198x8l");
       },
       m(target, anchor) {
         insert(target, b, anchor);
@@ -1857,7 +1960,7 @@
       }
     };
   }
-  function create_if_block_12(ctx) {
+  function create_if_block_13(ctx) {
     let b;
     let t0_value = (0, import_formatter.M2ToPing)(
       /*propItem*/
@@ -1870,7 +1973,7 @@
         b = element("b");
         t0 = text(t0_value);
         t1 = text(" Ping");
-        attr(b, "class", "svelte-9tzzid");
+        attr(b, "class", "svelte-1198x8l");
       },
       m(target, anchor) {
         insert(target, b, anchor);
@@ -1892,22 +1995,22 @@
       }
     };
   }
-  function create_if_block_9(ctx) {
+  function create_if_block_10(ctx) {
     let current_block_type_index;
     let if_block;
     let if_block_anchor;
     let current;
-    const if_block_creators = [create_if_block_10, create_if_block_11];
+    const if_block_creators = [create_if_block_11, create_if_block_12];
     const if_blocks = [];
     function select_block_type_4(ctx2, dirty) {
       if (
         /*m*/
-        ctx2[18].inputType === "datetime"
+        ctx2[20].inputType === "datetime"
       )
         return 0;
       if (
         /*m*/
-        ctx2[18].name !== "note"
+        ctx2[20].name !== "note"
       )
         return 1;
       return -1;
@@ -1988,12 +2091,12 @@
     function select_block_type_3(ctx2, dirty) {
       if (
         /*m*/
-        ctx2[18].inputType === "datetime"
+        ctx2[20].inputType === "datetime"
       )
         return 0;
       if (
         /*m*/
-        ctx2[18].name !== "note"
+        ctx2[20].name !== "note"
       )
         return 1;
       return -1;
@@ -2064,20 +2167,20 @@
       }
     };
   }
-  function create_if_block_11(ctx) {
+  function create_if_block_12(ctx) {
     let pillbox;
     let current;
     pillbox = new PillBox_default({
       props: {
         label: (
           /*m*/
-          ctx[18].label
+          ctx[20].label
         ),
         content: (
           /*propItem*/
           ctx[1][
             /*m*/
-            ctx[18].name
+            ctx[20].name
           ]
         )
       }
@@ -2095,13 +2198,13 @@
         if (dirty & /*meta*/
         4)
           pillbox_changes.label = /*m*/
-          ctx2[18].label;
+          ctx2[20].label;
         if (dirty & /*propItem, meta*/
         6)
           pillbox_changes.content = /*propItem*/
           ctx2[1][
             /*m*/
-            ctx2[18].name
+            ctx2[20].name
           ];
         pillbox.$set(pillbox_changes);
       },
@@ -2120,20 +2223,20 @@
       }
     };
   }
-  function create_if_block_10(ctx) {
+  function create_if_block_11(ctx) {
     let pillbox;
     let current;
     pillbox = new PillBox_default({
       props: {
         label: (
           /*m*/
-          ctx[18].label
+          ctx[20].label
         ),
         content: (0, import_formatter.localeDatetime)(
           /*propItem*/
           ctx[1][
             /*m*/
-            ctx[18].name
+            ctx[20].name
           ]
         )
       }
@@ -2151,14 +2254,14 @@
         if (dirty & /*meta*/
         4)
           pillbox_changes.label = /*m*/
-          ctx2[18].label;
+          ctx2[20].label;
         if (dirty & /*propItem, meta*/
         6)
           pillbox_changes.content = (0, import_formatter.localeDatetime)(
             /*propItem*/
             ctx2[1][
               /*m*/
-              ctx2[18].name
+              ctx2[20].name
             ]
           );
         pillbox.$set(pillbox_changes);
@@ -2180,42 +2283,59 @@
   }
   function create_if_block_7(ctx) {
     let pillbox;
-    let t;
-    let if_block_anchor;
+    let t0;
+    let t1;
+    let if_block1_anchor;
     let current;
     pillbox = new PillBox_default({
       props: {
         label: (
           /*m*/
-          ctx[18].label
+          ctx[20].label
         ),
         content: (
           /*propItem*/
           ctx[1][
             /*m*/
-            ctx[18].name
+            ctx[20].name
           ]
         )
       }
     });
-    let if_block = (
-      /*propExtraUS*/
-      ctx[5] && create_if_block_8(ctx)
+    let if_block0 = (
+      /*facilityInfoJSON*/
+      ctx[6][
+        /*m*/
+        ctx[20].name
+      ] != `` && create_if_block_9(ctx)
+    );
+    let if_block1 = (
+      /*mlsDisclaimerInfo*/
+      ctx[7][
+        /*m*/
+        ctx[20].name
+      ] != `` && create_if_block_8(ctx)
     );
     return {
       c() {
         create_component(pillbox.$.fragment);
-        t = space();
-        if (if_block)
-          if_block.c();
-        if_block_anchor = empty();
+        t0 = space();
+        if (if_block0)
+          if_block0.c();
+        t1 = space();
+        if (if_block1)
+          if_block1.c();
+        if_block1_anchor = empty();
       },
       m(target, anchor) {
         mount_component(pillbox, target, anchor);
-        insert(target, t, anchor);
-        if (if_block)
-          if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
+        insert(target, t0, anchor);
+        if (if_block0)
+          if_block0.m(target, anchor);
+        insert(target, t1, anchor);
+        if (if_block1)
+          if_block1.m(target, anchor);
+        insert(target, if_block1_anchor, anchor);
         current = true;
       },
       p(ctx2, dirty) {
@@ -2223,35 +2343,64 @@
         if (dirty & /*meta*/
         4)
           pillbox_changes.label = /*m*/
-          ctx2[18].label;
+          ctx2[20].label;
         if (dirty & /*propItem, meta*/
         6)
           pillbox_changes.content = /*propItem*/
           ctx2[1][
             /*m*/
-            ctx2[18].name
+            ctx2[20].name
           ];
         pillbox.$set(pillbox_changes);
         if (
-          /*propExtraUS*/
-          ctx2[5]
+          /*facilityInfoJSON*/
+          ctx2[6][
+            /*m*/
+            ctx2[20].name
+          ] != ``
         ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*propExtraUS*/
-            32) {
-              transition_in(if_block, 1);
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+            if (dirty & /*facilityInfoJSON, meta*/
+            68) {
+              transition_in(if_block0, 1);
             }
           } else {
-            if_block = create_if_block_8(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+            if_block0 = create_if_block_9(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(t1.parentNode, t1);
           }
-        } else if (if_block) {
+        } else if (if_block0) {
           group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*mlsDisclaimerInfo*/
+          ctx2[7][
+            /*m*/
+            ctx2[20].name
+          ] != ``
+        ) {
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
+            if (dirty & /*mlsDisclaimerInfo, meta*/
+            132) {
+              transition_in(if_block1, 1);
+            }
+          } else {
+            if_block1 = create_if_block_8(ctx2);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
+          }
+        } else if (if_block1) {
+          group_outros();
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
           });
           check_outros();
         }
@@ -2260,22 +2409,27 @@
         if (current)
           return;
         transition_in(pillbox.$.fragment, local);
-        transition_in(if_block);
+        transition_in(if_block0);
+        transition_in(if_block1);
         current = true;
       },
       o(local) {
         transition_out(pillbox.$.fragment, local);
-        transition_out(if_block);
+        transition_out(if_block0);
+        transition_out(if_block1);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(t);
-          detach(if_block_anchor);
+          detach(t0);
+          detach(t1);
+          detach(if_block1_anchor);
         }
         destroy_component(pillbox, detaching);
-        if (if_block)
-          if_block.d(detaching);
+        if (if_block0)
+          if_block0.d(detaching);
+        if (if_block1)
+          if_block1.d(detaching);
       }
     };
   }
@@ -2286,13 +2440,13 @@
       props: {
         label: (
           /*m*/
-          ctx[18].label
+          ctx[20].label
         ),
         content: (0, import_formatter.localeDatetime)(
           /*propItem*/
           ctx[1][
             /*m*/
-            ctx[18].name
+            ctx[20].name
           ]
         )
       }
@@ -2310,16 +2464,72 @@
         if (dirty & /*meta*/
         4)
           pillbox_changes.label = /*m*/
-          ctx2[18].label;
+          ctx2[20].label;
         if (dirty & /*propItem, meta*/
         6)
           pillbox_changes.content = (0, import_formatter.localeDatetime)(
             /*propItem*/
             ctx2[1][
               /*m*/
-              ctx2[18].name
+              ctx2[20].name
             ]
           );
+        pillbox.$set(pillbox_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(pillbox.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(pillbox.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(pillbox, detaching);
+      }
+    };
+  }
+  function create_if_block_9(ctx) {
+    let pillbox;
+    let current;
+    pillbox = new PillBox_default({
+      props: {
+        label: (
+          /*m*/
+          ctx[20].label
+        ),
+        content: (
+          /*facilityInfoJSON*/
+          ctx[6][
+            /*m*/
+            ctx[20].name
+          ]
+        )
+      }
+    });
+    return {
+      c() {
+        create_component(pillbox.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(pillbox, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const pillbox_changes = {};
+        if (dirty & /*meta*/
+        4)
+          pillbox_changes.label = /*m*/
+          ctx2[20].label;
+        if (dirty & /*facilityInfoJSON, meta*/
+        68)
+          pillbox_changes.content = /*facilityInfoJSON*/
+          ctx2[6][
+            /*m*/
+            ctx2[20].name
+          ];
         pillbox.$set(pillbox_changes);
       },
       i(local) {
@@ -2344,13 +2554,13 @@
       props: {
         label: (
           /*m*/
-          ctx[18].label
+          ctx[20].label
         ),
         content: (
-          /*propExtraUS*/
-          ctx[5][
+          /*mlsDisclaimerInfo*/
+          ctx[7][
             /*m*/
-            ctx[18].name
+            ctx[20].name
           ]
         )
       }
@@ -2368,13 +2578,13 @@
         if (dirty & /*meta*/
         4)
           pillbox_changes.label = /*m*/
-          ctx2[18].label;
-        if (dirty & /*propExtraUS, meta*/
-        36)
-          pillbox_changes.content = /*propExtraUS*/
-          ctx2[5][
+          ctx2[20].label;
+        if (dirty & /*mlsDisclaimerInfo, meta*/
+        132)
+          pillbox_changes.content = /*mlsDisclaimerInfo*/
+          ctx2[7][
             /*m*/
-            ctx2[18].name
+            ctx2[20].name
           ];
         pillbox.$set(pillbox_changes);
       },
@@ -2398,14 +2608,14 @@
     let if_block;
     let if_block_anchor;
     let current;
-    const if_block_creators = [create_if_block_5, create_if_block_9];
+    const if_block_creators = [create_if_block_5, create_if_block_10];
     const if_blocks = [];
     function select_block_type_2(ctx2, dirty) {
       if (!/*isAdmin*/
       ctx2[3] && !/*m*/
-      (ctx2[18].name === "createdAt" || /*m*/
-      ctx2[18].name === "updatedAt" || /*m*/
-      ctx2[18].name === "countryCode"))
+      (ctx2[20].name === "createdAt" || /*m*/
+      ctx2[20].name === "updatedAt" || /*m*/
+      ctx2[20].name === "countryCode"))
         return 0;
       if (
         /*isAdmin*/
@@ -2492,7 +2702,7 @@
         label: "About",
         content: (
           /*note*/
-          ctx[17].about
+          ctx[19].about
         )
       }
     });
@@ -2501,7 +2711,7 @@
         label: "Seller/Broker Email",
         content: (
           /*note*/
-          ctx[17].contactEmail
+          ctx[19].contactEmail
         )
       }
     });
@@ -2510,7 +2720,7 @@
         label: "Seller/Broker Phone",
         content: (
           /*note*/
-          ctx[17].contactPhone
+          ctx[19].contactPhone
         )
       }
     });
@@ -2535,19 +2745,19 @@
         if (dirty & /*propItem*/
         2)
           pillbox0_changes.content = /*note*/
-          ctx2[17].about;
+          ctx2[19].about;
         pillbox0.$set(pillbox0_changes);
         const pillbox1_changes = {};
         if (dirty & /*propItem*/
         2)
           pillbox1_changes.content = /*note*/
-          ctx2[17].contactEmail;
+          ctx2[19].contactEmail;
         pillbox1.$set(pillbox1_changes);
         const pillbox2_changes = {};
         if (dirty & /*propItem*/
         2)
           pillbox2_changes.content = /*note*/
-          ctx2[17].contactPhone;
+          ctx2[19].contactPhone;
         pillbox2.$set(pillbox2_changes);
       },
       i(local) {
@@ -2602,9 +2812,9 @@
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(h3, "class", "svelte-9tzzid");
-        attr(div0, "class", "floor_lists svelte-9tzzid");
-        attr(div1, "class", "property_floors svelte-9tzzid");
+        attr(h3, "class", "svelte-1198x8l");
+        attr(div0, "class", "floor_lists svelte-1198x8l");
+        attr(div1, "class", "property_floors svelte-1198x8l");
       },
       m(target, anchor) {
         insert(target, div1, anchor);
@@ -2672,7 +2882,7 @@
     let div;
     let each_value_2 = ensure_array_like(
       /*floors*/
-      ctx[11].rooms
+      ctx[13].rooms
     );
     let each_blocks = [];
     for (let i = 0; i < each_value_2.length; i += 1) {
@@ -2684,7 +2894,7 @@
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(div, "class", "room_lists svelte-9tzzid");
+        attr(div, "class", "room_lists svelte-1198x8l");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -2699,7 +2909,7 @@
         2) {
           each_value_2 = ensure_array_like(
             /*floors*/
-            ctx2[11].rooms
+            ctx2[13].rooms
           );
           let i;
           for (i = 0; i < each_value_2.length; i += 1) {
@@ -2731,14 +2941,14 @@
     let span0;
     let t0_value = (
       /*room*/
-      (ctx[14].name || "-") + ""
+      (ctx[16].name || "-") + ""
     );
     let t0;
     let t1;
     let span1;
     let t2_value = (
       /*room*/
-      (ctx[14].sizeM2 || "-") + ""
+      (ctx[16].sizeM2 || "-") + ""
     );
     let t2;
     let t3;
@@ -2753,7 +2963,7 @@
         t2 = text(t2_value);
         t3 = text(" M2");
         t4 = space();
-        attr(div, "class", "room_item svelte-9tzzid");
+        attr(div, "class", "room_item svelte-1198x8l");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -2768,11 +2978,11 @@
       p(ctx2, dirty) {
         if (dirty & /*propItem*/
         2 && t0_value !== (t0_value = /*room*/
-        (ctx2[14].name || "-") + ""))
+        (ctx2[16].name || "-") + ""))
           set_data(t0, t0_value);
         if (dirty & /*propItem*/
         2 && t2_value !== (t2_value = /*room*/
-        (ctx2[14].sizeM2 || "-") + ""))
+        (ctx2[16].sizeM2 || "-") + ""))
           set_data(t2, t2_value);
       },
       d(detaching) {
@@ -2789,10 +2999,10 @@
       c() {
         img = element("img");
         if (!src_url_equal(img.src, img_src_value = /*floors*/
-        ctx[11].planImageUrl))
+        ctx[13].planImageUrl))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
-        attr(img, "class", "svelte-9tzzid");
+        attr(img, "class", "svelte-1198x8l");
       },
       m(target, anchor) {
         insert(target, img, anchor);
@@ -2800,7 +3010,7 @@
       p(ctx2, dirty) {
         if (dirty & /*propItem*/
         2 && !src_url_equal(img.src, img_src_value = /*floors*/
-        ctx2[11].planImageUrl)) {
+        ctx2[13].planImageUrl)) {
           attr(img, "src", img_src_value);
         }
       },
@@ -2833,7 +3043,7 @@
         t0 = space();
         span = element("span");
         span.textContent = "No Image !";
-        attr(div, "class", "image_empty svelte-9tzzid");
+        attr(div, "class", "image_empty svelte-1198x8l");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -2867,8 +3077,8 @@
     let h5;
     let t0_value = (
       /*floors*/
-      ctx[11].type === "basement" ? "Basement" : `Floor #${/*floors*/
-      ctx[11].floor}`
+      ctx[13].type === "basement" ? "Basement" : `Floor #${/*floors*/
+      ctx[13].floor}`
     );
     let t0;
     let t1;
@@ -2882,14 +3092,14 @@
     let current;
     let if_block0 = (
       /*floors*/
-      ctx[11].rooms && create_if_block_3(ctx)
+      ctx[13].rooms && create_if_block_3(ctx)
     );
     const if_block_creators = [create_if_block_2, create_else_block];
     const if_blocks = [];
     function select_block_type_5(ctx2, dirty) {
       if (
         /*floors*/
-        ctx2[11].planImageUrl === ""
+        ctx2[13].planImageUrl === ""
       )
         return 0;
       return 1;
@@ -2911,10 +3121,10 @@
         div1 = element("div");
         if_block1.c();
         t4 = space();
-        attr(h5, "class", "svelte-9tzzid");
-        attr(div0, "class", "left svelte-9tzzid");
-        attr(div1, "class", "floor_plan_image svelte-9tzzid");
-        attr(div2, "class", "floor_item svelte-9tzzid");
+        attr(h5, "class", "svelte-1198x8l");
+        attr(div0, "class", "left svelte-1198x8l");
+        attr(div1, "class", "floor_plan_image svelte-1198x8l");
+        attr(div2, "class", "floor_item svelte-1198x8l");
       },
       m(target, anchor) {
         insert(target, div2, anchor);
@@ -2935,12 +3145,12 @@
       p(ctx2, dirty) {
         if ((!current || dirty & /*propItem*/
         2) && t0_value !== (t0_value = /*floors*/
-        ctx2[11].type === "basement" ? "Basement" : `Floor #${/*floors*/
-        ctx2[11].floor}`))
+        ctx2[13].type === "basement" ? "Basement" : `Floor #${/*floors*/
+        ctx2[13].floor}`))
           set_data(t0, t0_value);
         if (
           /*floors*/
-          ctx2[11].rooms
+          ctx2[13].rooms
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
@@ -3017,9 +3227,9 @@
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(h3, "class", "svelte-9tzzid");
-        attr(div0, "class", "history_list svelte-9tzzid");
-        attr(div1, "class", "property_history svelte-9tzzid");
+        attr(h3, "class", "svelte-1198x8l");
+        attr(div0, "class", "history_list svelte-1198x8l");
+        attr(div1, "class", "property_history svelte-1198x8l");
       },
       m(target, anchor) {
         insert(target, div1, anchor);
@@ -3069,8 +3279,8 @@
     let span0;
     let t0_value = (0, import_formatter.formatPrice)(
       /*ph*/
-      ctx[8].price || /*ph*/
-      ctx[8].priceNtd,
+      ctx[10].price || /*ph*/
+      ctx[10].priceNtd,
       "TWD"
     ) + "";
     let t0;
@@ -3078,7 +3288,7 @@
     let span1;
     let t2_value = (0, import_formatter.localeDatetime)(
       /*ph*/
-      ctx[8].updatedAt
+      ctx[10].updatedAt
     ) + "";
     let t2;
     let t3;
@@ -3091,7 +3301,7 @@
         span1 = element("span");
         t2 = text(t2_value);
         t3 = space();
-        attr(div, "class", "item svelte-9tzzid");
+        attr(div, "class", "item svelte-1198x8l");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -3106,15 +3316,15 @@
         if (dirty & /*propHistories*/
         1 && t0_value !== (t0_value = (0, import_formatter.formatPrice)(
           /*ph*/
-          ctx2[8].price || /*ph*/
-          ctx2[8].priceNtd,
+          ctx2[10].price || /*ph*/
+          ctx2[10].priceNtd,
           "TWD"
         ) + ""))
           set_data(t0, t0_value);
         if (dirty & /*propHistories*/
         1 && t2_value !== (t2_value = (0, import_formatter.localeDatetime)(
           /*ph*/
-          ctx2[8].updatedAt
+          ctx2[10].updatedAt
         ) + ""))
           set_data(t2, t2_value);
       },
@@ -3232,7 +3442,7 @@
     let t32;
     let t33;
     let current;
-    const if_block_creators = [create_if_block_14, create_else_block_2];
+    const if_block_creators = [create_if_block_15, create_else_block_2];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (
@@ -3254,7 +3464,7 @@
     });
     let each_value_4 = ensure_array_like(
       /*signs*/
-      ctx[7]
+      ctx[8]
     );
     let each_blocks_1 = [];
     for (let i = 0; i < each_value_4.length; i += 1) {
@@ -3274,7 +3484,7 @@
         ctx2[1].countryCode === "TW" || /*propItem*/
         ctx2[1].countryCode === ""
       )
-        return create_if_block_12;
+        return create_if_block_13;
       return create_else_block_1;
     }
     let current_block_type = select_block_type_1(ctx, -1);
@@ -3383,37 +3593,37 @@
         t33 = space();
         if (if_block4)
           if_block4.c();
-        attr(div0, "class", "property_images svelte-9tzzid");
+        attr(div0, "class", "property_images svelte-1198x8l");
         attr(div1, "class", div1_class_value = null_to_empty(
           /*propItem*/
           ctx[1].purpose === "rent" ? `purpose label_rent` : `purpose label_sale`
-        ) + " svelte-9tzzid");
-        attr(span0, "class", "svelte-9tzzid");
-        attr(div2, "class", "house_type svelte-9tzzid");
-        attr(div3, "class", "left svelte-9tzzid");
-        attr(div4, "class", "col1 svelte-9tzzid");
-        attr(h1, "class", "svelte-9tzzid");
-        attr(p0, "class", "svelte-9tzzid");
-        attr(span1, "class", "svelte-9tzzid");
-        attr(div5, "class", "address svelte-9tzzid");
-        attr(div6, "class", "col2 svelte-9tzzid");
-        attr(div7, "class", "property_info svelte-9tzzid");
-        attr(div8, "class", "property_main svelte-9tzzid");
-        attr(b0, "class", "svelte-9tzzid");
-        attr(p1, "class", "svelte-9tzzid");
-        attr(div9, "class", "feature_item svelte-9tzzid");
-        attr(b1, "class", "svelte-9tzzid");
-        attr(p2, "class", "svelte-9tzzid");
-        attr(div10, "class", "feature_item svelte-9tzzid");
-        attr(b2, "class", "svelte-9tzzid");
-        attr(p3, "class", "svelte-9tzzid");
-        attr(div11, "class", "feature_item svelte-9tzzid");
-        attr(p4, "class", "svelte-9tzzid");
-        attr(div12, "class", "feature_item svelte-9tzzid");
-        attr(div13, "class", "feature_number svelte-9tzzid");
-        attr(div14, "class", "property_secondary svelte-9tzzid");
+        ) + " svelte-1198x8l");
+        attr(span0, "class", "svelte-1198x8l");
+        attr(div2, "class", "house_type svelte-1198x8l");
+        attr(div3, "class", "left svelte-1198x8l");
+        attr(div4, "class", "col1 svelte-1198x8l");
+        attr(h1, "class", "svelte-1198x8l");
+        attr(p0, "class", "svelte-1198x8l");
+        attr(span1, "class", "svelte-1198x8l");
+        attr(div5, "class", "address svelte-1198x8l");
+        attr(div6, "class", "col2 svelte-1198x8l");
+        attr(div7, "class", "property_info svelte-1198x8l");
+        attr(div8, "class", "property_main svelte-1198x8l");
+        attr(b0, "class", "svelte-1198x8l");
+        attr(p1, "class", "svelte-1198x8l");
+        attr(div9, "class", "feature_item svelte-1198x8l");
+        attr(b1, "class", "svelte-1198x8l");
+        attr(p2, "class", "svelte-1198x8l");
+        attr(div10, "class", "feature_item svelte-1198x8l");
+        attr(b2, "class", "svelte-1198x8l");
+        attr(p3, "class", "svelte-1198x8l");
+        attr(div11, "class", "feature_item svelte-1198x8l");
+        attr(p4, "class", "svelte-1198x8l");
+        attr(div12, "class", "feature_item svelte-1198x8l");
+        attr(div13, "class", "feature_number svelte-1198x8l");
+        attr(div14, "class", "property_secondary svelte-1198x8l");
         attr(div15, "class", "property_attributes");
-        attr(div16, "class", "property svelte-9tzzid");
+        attr(div16, "class", "property svelte-1198x8l");
       },
       m(target, anchor) {
         insert(target, div16, anchor);
@@ -3525,7 +3735,7 @@
         2 && div1_class_value !== (div1_class_value = null_to_empty(
           /*propItem*/
           ctx2[1].purpose === "rent" ? `purpose label_rent` : `purpose label_sale`
-        ) + " svelte-9tzzid")) {
+        ) + " svelte-1198x8l")) {
           attr(div1, "class", div1_class_value);
         }
         if ((!current || dirty & /*propItem*/
@@ -3536,10 +3746,10 @@
         )) + ""))
           set_data(t4, t4_value);
         if (dirty & /*signs, approvalStatus*/
-        192) {
+        288) {
           each_value_4 = ensure_array_like(
             /*signs*/
-            ctx2[7]
+            ctx2[8]
           );
           let i;
           for (i = 0; i < each_value_4.length; i += 1) {
@@ -3600,8 +3810,8 @@
             if_block1.m(div12, t28);
           }
         }
-        if (dirty & /*meta, propItem, propExtraUS, isAdmin*/
-        46) {
+        if (dirty & /*meta, propItem, mlsDisclaimerInfo, facilityInfoJSON, isAdmin*/
+        206) {
           each_value_3 = ensure_array_like(
             /*meta*/
             ctx2[2]
@@ -3734,17 +3944,32 @@
   }
   function instance3($self, $props, $invalidate) {
     let { propHistories } = $props;
-    let { propItem: propItem2 } = $props;
+    let { propItem: propItem2 = (
+      /** @type {Property} */
+      {}
+    ) } = $props;
     let { meta: meta2 } = $props;
     let { isAdmin: isAdmin2 = false } = $props;
     let { isGuest = false } = $props;
-    let { propExtraUS: propExtraUS2 } = $props;
+    let { propExtraUS: propExtraUS2 = (
+      /** @type {PropertyExtraUS} */
+      {}
+    ) } = $props;
     let approvalStatus = "approved";
     let signs = [
       { status: "approved", sign: "***" },
       { status: "rejected", sign: "**" },
       { status: "pending", sign: "*" }
     ];
+    let facilityInfoJSON;
+    let mlsDisclaimerInfo;
+    try {
+      facilityInfoJSON = JSON.parse(propExtraUS2.facilityInfo);
+      mlsDisclaimerInfo = JSON.parse(propExtraUS2.mlsDisclaimerInfo);
+    } catch (error) {
+      facilityInfoJSON = {};
+      mlsDisclaimerInfo = {};
+    }
     onMount(() => {
       console.log("onMount.Property");
       console.log("Property = ", propItem2);
@@ -3753,10 +3978,10 @@
       console.log("isGuest =", isGuest);
       console.log("propItem.note =", propItem2.note);
       if (propItem2.approvalState !== "pending" && propItem2.approvalState !== "") {
-        $invalidate(6, approvalStatus = "rejected");
+        $invalidate(5, approvalStatus = "rejected");
       }
       if (propItem2.approvalState === "pending") {
-        $invalidate(6, approvalStatus = "pending");
+        $invalidate(5, approvalStatus = "pending");
       }
     });
     $self.$set = ($props2) => {
@@ -3771,7 +3996,7 @@
       if ("isGuest" in $props2)
         $invalidate(4, isGuest = $props2.isGuest);
       if ("propExtraUS" in $props2)
-        $invalidate(5, propExtraUS2 = $props2.propExtraUS);
+        $invalidate(9, propExtraUS2 = $props2.propExtraUS);
     };
     return [
       propHistories,
@@ -3779,9 +4004,11 @@
       meta2,
       isAdmin2,
       isGuest,
-      propExtraUS2,
       approvalStatus,
-      signs
+      facilityInfoJSON,
+      mlsDisclaimerInfo,
+      signs,
+      propExtraUS2
     ];
   }
   var Property = class extends SvelteComponent {
@@ -3793,7 +4020,7 @@
         meta: 2,
         isAdmin: 3,
         isGuest: 4,
-        propExtraUS: 5
+        propExtraUS: 9
       });
     }
   };
@@ -4233,6 +4460,7 @@
   var isAdmin = false;
   function instance4($self) {
     console.log("Property Extra US =", propExtraUS);
+    console.log("Meta =", meta);
     function copyToClipboard(text2) {
       console.log(window.location);
       navigator.clipboard.writeText(text2);

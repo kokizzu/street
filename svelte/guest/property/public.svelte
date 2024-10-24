@@ -1,4 +1,8 @@
 <script>
+  /** @typedef {import('../../_types/property').Property} TypeProperty */
+  /** @typedef {import('../../_types/property').PropertyUS} TypePropertyUS */
+  /** @typedef {import('../../_types/property').PropertyExtraUS} TypePropertyExtraUS */
+
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidArrowRight from 'svelte-icons-pack/fa/FaSolidArrowRight';
   import FaSolidShareAlt from 'svelte-icons-pack/fa/FaSolidShareAlt';
@@ -11,11 +15,12 @@
   import Property from '../../_components/Property.svelte';
   import {notifier} from '../../_components/notifier.js';
   
-  let propItem = {/* propItem */};
-  let meta = {/* propertyMeta */};
-  let propExtraUS = {/* propExtraUS */};
+  let propItem    = /** @type {TypeProperty | TypePropertyUS} */ ({/* propItem */});
+  let meta        = {/* propertyMeta */};
+  let propExtraUS = /** @type {TypePropertyExtraUS} */ ({/* propExtraUS */});
 
   console.log('Property Extra US =', propExtraUS);
+  console.log('Meta =', meta);
   
   let isAdmin = false;
 
@@ -27,13 +32,17 @@
 </script>
 
 <section class='property_container'>
-  {#if propItem.deletedAt>0}
-    this property has been deleted
+  {#if propItem.deletedAt > 0}
+    <h2>This property has been deleted !!</h2>
   {:else}
     <div class='property'>
       <Property
-        {propItem} {meta} {isAdmin} isGuest={true}
-        {propExtraUS}
+        propItem={propItem}
+        meta={meta}
+        isAdmin={isAdmin}
+        isGuest={true}
+        propExtraUS={propExtraUS}
+        propHistories={[]}
       />
     </div>
     <div class='side_attribute'>

@@ -182,9 +182,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			title += ` on ` + out.Property.FormattedAddress
 		}
 		ogUrl := fmt.Sprintf("%s/%s/%s%d", w.Domain.WebCfg.WebProtoDomain, domain.GuestPropertyAction, countryCode, out.Property.Id)
-		L.Print(ogUrl)
-		L.Print(descr)
-		L.Print(out.Property)
 		return views.RenderGuestPropertyPublic(ctx, M.SX{
 			`title`:         S.XSS(title),
 			`propItem`:      out.Property,

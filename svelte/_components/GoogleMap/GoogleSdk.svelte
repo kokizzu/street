@@ -1,5 +1,6 @@
 <script>
-  // @ts-ignore
+  // @ts-nocheck
+  
   import { onMount, createEventDispatcher } from 'svelte';
   import { mapsLoaded, mapsLoading } from "./stores";
 
