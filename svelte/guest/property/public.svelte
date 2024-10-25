@@ -2,6 +2,7 @@
   /** @typedef {import('../../_types/property').Property} TypeProperty */
   /** @typedef {import('../../_types/property').PropertyUS} TypePropertyUS */
   /** @typedef {import('../../_types/property').PropertyExtraUS} TypePropertyExtraUS */
+  /** @typedef {import('../../_types/master').Field} Field */
 
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidArrowRight from 'svelte-icons-pack/fa/FaSolidArrowRight';
@@ -16,16 +17,12 @@
   import {notifier} from '../../_components/notifier.js';
   
   let propItem    = /** @type {TypeProperty | TypePropertyUS} */ ({/* propItem */});
-  let meta        = {/* propertyMeta */};
+  let meta        = /** @type {Field[]}*/ ([/* propertyMeta */]);
   let propExtraUS = /** @type {TypePropertyExtraUS} */ ({/* propExtraUS */});
-
-  console.log('Property Extra US =', propExtraUS);
-  console.log('Meta =', meta);
   
   let isAdmin = false;
 
   function copyToClipboard( text ) {
-    console.log( window.location );
     navigator.clipboard.writeText( text );
     notifier.showInfo( 'Link copied to clipboard' );
   }
@@ -53,17 +50,17 @@
         </div>
         <a class='login_btn' href='/'>
           <span>Login</span>
-          <Icon color='#FFF' size={13} src={FaSolidArrowRight} />
+          <Icon color='#FFF' size="13" src={FaSolidArrowRight} />
         </a>
       </div>
       <div class='share_container'>
         <header>
           <span>Share this</span>
-          <Icon className='share_icon' color='#9fa9b5' size={14} src={FaSolidShareAlt} />
+          <Icon className='share_icon' color='#9fa9b5' size="14" src={FaSolidShareAlt} />
         </header>
         <div class='share_options'>
           <button class='share_item' on:click={() => copyToClipboard(window.location)} title='Copy link address'>
-            <Icon className='share_icon' color='#475569' size={28} src={FaCopy} />
+            <Icon className='share_icon' color='#475569' size="28" src={FaCopy} />
           </button>
           <a aria-label='Share to Facebook'
              class='share_item'
@@ -71,7 +68,7 @@
              rel='noopener'
              target='_blank'
           >
-            <Icon className='share_icon' color='#475569' size={30} src={FaBrandsFacebook} />
+            <Icon className='share_icon' color='#475569' size="30" src={FaBrandsFacebook} />
           </a>
           <a aria-label='Share to LinkedIn'
              class='share_item'
@@ -79,7 +76,7 @@
              rel='noopener'
              target='_blank'
           >
-            <Icon className='share_icon' color='#475569' size={30} src={FaBrandsLinkedin} />
+            <Icon className='share_icon' color='#475569' size="30" src={FaBrandsLinkedin} />
           </a>
           <a aria-label='Share to Twitter'
              class='share_item'
@@ -87,7 +84,7 @@
              rel='noopener'
              target='_blank'
           >
-            <Icon className='share_icon' color='#475569' size={30} src={FaBrandsTwitter} />
+            <Icon className='share_icon' color='#475569' size="30" src={FaBrandsTwitter} />
           </a>
           <a aria-label='Share to Telegram'
              class='share_item'
@@ -95,7 +92,7 @@
              rel='noopener'
              target='_blank'
           >
-            <Icon className='share_icon' color='#475569' size={30} src={FaBrandsTelegram} />
+            <Icon className='share_icon' color='#475569' size="30" src={FaBrandsTelegram} />
           </a>
           <a aria-label='Share to WhatsApp'
              class='share_item'
@@ -103,7 +100,7 @@
              rel='noopener'
              target='_blank'
           >
-            <Icon className='share_icon' color='#475569' size={33} src={FaBrandsWhatsapp} />
+            <Icon className='share_icon' color='#475569' size="33" src={FaBrandsWhatsapp} />
           </a>
         </div>
       </div>

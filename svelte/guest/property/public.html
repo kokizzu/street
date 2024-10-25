@@ -4158,7 +4158,7 @@
     icon0 = new Icon_default({
       props: {
         color: "#FFF",
-        size: 13,
+        size: "13",
         src: FaSolidArrowRight_default
       }
     });
@@ -4166,7 +4166,7 @@
       props: {
         className: "share_icon",
         color: "#9fa9b5",
-        size: 14,
+        size: "14",
         src: FaSolidShareAlt_default
       }
     });
@@ -4174,7 +4174,7 @@
       props: {
         className: "share_icon",
         color: "#475569",
-        size: 28,
+        size: "28",
         src: FaCopy_default
       }
     });
@@ -4182,7 +4182,7 @@
       props: {
         className: "share_icon",
         color: "#475569",
-        size: 30,
+        size: "30",
         src: FaBrandsFacebook_default
       }
     });
@@ -4190,7 +4190,7 @@
       props: {
         className: "share_icon",
         color: "#475569",
-        size: 30,
+        size: "30",
         src: FaBrandsLinkedin_default
       }
     });
@@ -4198,7 +4198,7 @@
       props: {
         className: "share_icon",
         color: "#475569",
-        size: 30,
+        size: "30",
         src: FaBrandsTwitter_default
       }
     });
@@ -4206,7 +4206,7 @@
       props: {
         className: "share_icon",
         color: "#475569",
-        size: 30,
+        size: "30",
         src: FaBrandsTelegram_default
       }
     });
@@ -4214,7 +4214,7 @@
       props: {
         className: "share_icon",
         color: "#475569",
-        size: 33,
+        size: "33",
         src: FaBrandsWhatsapp_default
       }
     });
@@ -4460,17 +4460,17 @@
     /** @type {TypeProperty | TypePropertyUS} */
     {/* propItem */}
   );
-  var meta = {/* propertyMeta */};
+  var meta = (
+    /** @type {Field[]}*/
+    [/* propertyMeta */]
+  );
   var propExtraUS = (
     /** @type {TypePropertyExtraUS} */
     {/* propExtraUS */}
   );
   var isAdmin = false;
   function instance4($self) {
-    console.log("Property Extra US =", propExtraUS);
-    console.log("Meta =", meta);
     function copyToClipboard(text2) {
-      console.log(window.location);
       navigator.clipboard.writeText(text2);
       notifier.showInfo("Link copied to clipboard");
     }

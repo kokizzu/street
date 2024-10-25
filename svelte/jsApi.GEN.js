@@ -2081,6 +2081,19 @@ const GuestPropertyIn = {
  * @property {number} property.minimumDurationYear
  * @property {Object} property.otherFees
  * @property {Object} property.imageLabels
+ * @property {number} propertyExtraUS.id
+ * @property {String} propertyExtraUS.propertyKey
+ * @property {String} propertyExtraUS.countyUrl
+ * @property {Object} propertyExtraUS.countyIsActive
+ * @property {String} propertyExtraUS.zoneDataInfo
+ * @property {String} propertyExtraUS.taxInfo
+ * @property {String} propertyExtraUS.historyTaxInfo
+ * @property {String} propertyExtraUS.amenitySuperGroups
+ * @property {String} propertyExtraUS.mlsDisclaimerInfo
+ * @property {String} propertyExtraUS.facilityInfo
+ * @property {String} propertyExtraUS.riskInfo
+ * @property {String} propertyExtraUS.mediaSourceJson
+ * @property {String} propertyExtraUS.taxNote
  * @property {Object} meta
  */
 const GuestPropertyOut = {
@@ -2141,6 +2154,21 @@ const GuestPropertyOut = {
     imageLabels: { // []any
     }, // []any
   }, // rqProperty.Property
+  propertyExtraUS: { // rqProperty.PropertyExtraUS
+    id: 0, // uint64
+    propertyKey: '', // string
+    countyUrl: '', // string
+    countyIsActive: false, // bool
+    zoneDataInfo: '', // string
+    taxInfo: '', // string
+    historyTaxInfo: '', // string
+    amenitySuperGroups: '', // string
+    mlsDisclaimerInfo: '', // string
+    facilityInfo: '', // string
+    riskInfo: '', // string
+    mediaSourceJson: '', // string
+    taxNote: '', // string
+  }, // rqProperty.PropertyExtraUS
   meta: { // []zCrud.Field
   }, // []zCrud.Field
 }

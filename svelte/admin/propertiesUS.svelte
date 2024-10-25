@@ -1,5 +1,11 @@
 <script>
-  // @ts-nocheck
+  /** @typedef {import('../_types/master').Access} Access */
+  /** @typedef {import('../_types/property').Property} TypeProperty */
+  /** @typedef {import('../_types/property').PropertyUS} TypePropertyUS */
+  /** @typedef {import('../_types/property').PropertyExtraUS} TypePropertyExtraUS */
+  /** @typedef {import('../_types/master').PagerOut} PagerOut */
+  /** @typedef {import('../_types/master').Field} Field */
+
   import Menu from '../_components/Menu.svelte';
   import AdminSubMenu from '../_components/AdminSubMenu.svelte';
   import ProfileHeader from '../_components/ProfileHeader.svelte';
@@ -15,18 +21,29 @@
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
   import FaSolidCheckDouble from 'svelte-icons-pack/fa/FaSolidCheckDouble';
-  import FaSolidRecycle from 'svelte-icons-pack/fa/FaSolidRecycle'
+  import FaSolidRecycle from 'svelte-icons-pack/fa/FaSolidRecycle';
+  import HiOutlineLink from 'svelte-icons-pack/hi/HiOutlineLink';
   
   import ModalDialog from '../_components/ModalDialog.svelte';
   import PillBox from '../_components/PillBox.svelte';
   import { priceNtd } from '../_components/formatter.js';
   import { fieldsArrToMap } from '../_components/mapper.js';
+  import AccessLog from './accessLog.svelte';
+  import AddFloorDialog from '../_components/AddFloorDialog.svelte';
+  import AddOrEditRoomDialog from '../_components/AddOrEditRoomDialog.svelte';
+  import AddOtherFeesDialog from '../_components/AddOtherFeesDialog.svelte';
+  import Admin from '../admin.svelte';
+  import Buyer from '../buyer.svelte';
   
-  let segments = {/* segments */};
-  let fields = [/* fields */];
-  let fieldByKey = fieldsArrToMap( fields );
-  let properties = [/* properties */] || [];
-  let pager = {/* pager */};
+  let segments    = /** @type {Access} */ ({/* segments */});
+  let fields      = /** @type {Field[]} */ ([/* fields */]);
+  let fieldByKey  = /** @type {Object.<string, any>}*/ fieldsArrToMap( fields );
+  let properties  = /** @type {TypeProperty[] | TypePropertyUS[]} */ ([/* properties */]);
+  let pager       = /** @type {PagerOut} */ ({/* pager */});
+
+  /** @type {import('svelte').SvelteComponent}*/
+  let propHistoryModal;
+
   let currentPropHistory = [];
   let extraActions = [
     {
@@ -36,7 +53,8 @@
         let propertyKey = item[ fieldByKey[ 'uniqPropKey' ].idx ]; // property key for taiwan data
         UserPropHistory( {
           propertyKey: propertyKey,
-        }, function( res ) {
+        }, // @ts-ignore
+        function( /** @type {any}*/ res ) {
           if( res.error ) {
             notifier.showError( res.error );
             return;
@@ -54,18 +72,19 @@
       label: 'approve property',
       onClick: function( item ) {
         const id = item[ 0 ];
-        AdminPropertiesUS( {
-            cmd: 'upsert',
-            property: {id: id, approvalState: ' '}, // empty is approved, will be trimmed on server side
-            pager: pager,
-          },
-          function( res ) {
-            if( res.error ) {
-              notifier.showError( res.error );
-              return;
-            }
-            refreshTableView( pager );
-          } );
+        const adminPropUSIn = /** @type {import('../jsApi.GEN').AdminPropertiesUSIn | any} */ ({
+          cmd: 'upsert',
+          property: { id, approvalState: ' ' }, // empty is approved, will be trimmed on server side
+          pager: pager,
+        })
+        AdminPropertiesUS( adminPropUSIn, // @ts-ignore
+        function( /** @type {any}*/ res ) {
+          if( res.error ) {
+            notifier.showError( res.error );
+            return;
+          }
+          refreshTableView( pager );
+        } );
       },
     },
     {
@@ -78,10 +97,14 @@
         const id = item[ 0 ];
         const reason = prompt( 'input refusal reason for #' + id + ', use "pending" to set state to pending' );
         if( !reason ) return;
-        AdminPropertiesUS( {
+
+        const adminPropUSIn = /** @type {import('../jsApi.GEN').AdminPropertiesUSIn | any} */ ({
           cmd: 'upsert',
-          property: {id: id, approvalState: reason},
-        }, function( res ) {
+          property: { id, approvalState: reason },
+          pager: pager,
+        })
+        AdminPropertiesUS( adminPropUSIn, // @ts-ignore
+        function( /** @type {any}*/ res ) {
           if( res.error ) {
             notifier.showError( res.error );
             return;
@@ -90,11 +113,16 @@
         } );
       },
     },
+    {
+      icon: HiOutlineLink,
+      label: 'Go to property page',
+      link: function( item ) {
+        return '/guest/property/US' + item[ fieldByKey[ 'id' ].idx ];
+      },
+    },
   ];
   
   $: console.log( 'properties=', properties );
-
-  let propHistoryModal = ModalDialog;
   
   // return true if got error
   function handleResponse( res ) {
@@ -110,23 +138,30 @@
   
   async function refreshTableView( pagerIn ) {
     // console.log( 'pagerIn=',pagerIn );
-    await AdminPropertiesUS( {
-      pager: pagerIn,
+
+    const adminPropUSIn = /** @type {import('../jsApi.GEN').AdminPropertiesUSIn | any} */ ({
       cmd: 'list',
-    }, function( res ) {
+      pager: pagerIn,
+    })
+    await AdminPropertiesUS( adminPropUSIn, // @ts-ignore
+    function( res ) {
       handleResponse( res );
     } );
   }
   
-  let form = ModalForm; // for lookup
+  /** @type {import('svelte').SvelteComponent} */
+  let form; // for lookup
   
   async function editRow( id, row ) {
-    await AdminPropertiesUS( {
-      property: {id},
+    const adminPropUSIn = /** @type {import('../jsApi.GEN').AdminPropertiesUSIn | any} */ ({
       cmd: 'form',
-    }, function( res ) {
-      if( !handleResponse( res ) )
-        form.showModal( res.property );
+      property: { id },
+    })
+    await AdminPropertiesUS( adminPropUSIn, // @ts-ignore
+    function( /** @type {any}*/ res ) {
+      if( !handleResponse( res ) ) {
+        form.showModal( res.property )
+      };
     } );
   }
   
@@ -142,10 +177,12 @@
     } else {
       pager.filters.approvalState = ['pending'];
     }
-    await AdminPropertiesUS( {
+
+    const adminPropUSIn = /** @type {import('../jsApi.GEN').AdminPropertiesUSIn | any} */ ({
       cmd: 'list',
       pager: pager,
-    }, handleResponse );
+    }) // @ts-ignore
+    await AdminPropertiesUS( adminPropUSIn, handleResponse );
   }
   
   async function filterRejectedApproval() {
@@ -155,10 +192,12 @@
     } else {
       pager.filters.approvalState = ['<>', '<>pending'];
     }
-    await AdminPropertiesUS( {
+
+    const adminPropUSIn = /** @type {import('../jsApi.GEN').AdminPropertiesUSIn | any} */ ({
       cmd: 'list',
       pager: pager,
-    }, handleResponse );
+    }) // @ts-ignore
+    await AdminPropertiesUS( adminPropUSIn, handleResponse );
   }
   
   function addRow() {
@@ -174,11 +213,13 @@
     } catch( e ) {
       property.coord = [0, 0];
     }
-    await AdminPropertiesUS( {
-      property: property,
+
+    const adminPropUSIn = /** @type {import('../jsApi.GEN').AdminPropertiesUSIn | any} */ ({
       cmd: action,
+      property: property,
       pager: pager, // force refresh page, will be slow
-    }, function( res ) {
+    })
+    await AdminPropertiesUS( adminPropUSIn, function( res ) {
       if( handleResponse( res ) ) {
         return form.setLoading( false ); // has error
       }
@@ -214,15 +255,15 @@
                    onRefreshTableView={refreshTableView}
                    onEditRow={editRow}>
           <button on:click={addRow} class='add_button'>
-            <Icon size={17} color='#FFF' src={FaSolidPlusCircle} />
+            <Icon size="17" color='#FFF' src={FaSolidPlusCircle} />
             <span>Add</span>
           </button>
           <button on:click={filterPendingApproval} class='filter_pending_button' class:not_filtered={!filterdByPending}>
-            <Icon size={17} color='{!filterdByPending ? "#FFF" : "#000"}' src={FaSolidCheckDouble} />
+            <Icon size="17" color='{!filterdByPending ? "#FFF" : "#000"}' src={FaSolidCheckDouble} />
             <span>Filter Pending</span>
           </button>
           <button on:click={filterRejectedApproval} class='filter_pending_button' class:not_filtered={!filterdByRejected}>
-            <Icon size={17} color='{!filterdByRejected ? "#FFF" : "#000"}' src={FaSolidRecycle} />
+            <Icon size="17" color='{!filterdByRejected ? "#FFF" : "#000"}' src={FaSolidRecycle} />
             <span>Filter Rejected</span>
           </button>
         </TableView>
@@ -239,7 +280,7 @@
             {#if val==='0' || !val}
               &nbsp;
             {:else if key==='createdAt' || key==='updatedAt'}
-              <PillBox label={key} content={new Date(val*1000)} />
+              <PillBox label={key} content={new Date(val*1000).toString()} />
             {:else if key==='priceNtd' || key==='pricePerUnit'}
               <PillBox label={key} content={priceNtd(val)} />
             {:else}

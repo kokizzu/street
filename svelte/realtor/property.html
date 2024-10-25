@@ -2531,6 +2531,132 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     gap: 10px !important;
   }
 }
+
+/* fakecss:./_components/GoogleMap/GoogleMap.esbuild-svelte-fake-css */
+.map.svelte-14mm0to {
+  height: 100%;
+  width: 100%;
+}
+
+/* fakecss:./_components/Growl.esbuild-svelte-fake-css */
+.growl.hidden.svelte-1nas9kk.svelte-1nas9kk {
+  display: none;
+}
+.growl.svelte-1nas9kk.svelte-1nas9kk {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  border-radius: 3px;
+  box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+  min-width: 120px;
+  max-width: 350px;
+  height: fit-content;
+}
+.icon_growl {
+  flex-shrink: 0;
+}
+.growl.svelte-1nas9kk span.svelte-1nas9kk {
+  flex-shrink: 1;
+}
+.growl.info.svelte-1nas9kk.svelte-1nas9kk {
+  background-color: #1080E8;
+  color: #FFF;
+}
+.growl.success.svelte-1nas9kk.svelte-1nas9kk {
+  background-color: #059669;
+  color: #FFF;
+}
+.growl.error.svelte-1nas9kk.svelte-1nas9kk {
+  background-color: #EF4444;
+  color: #FFF;
+}
+.growl.warning.svelte-1nas9kk.svelte-1nas9kk {
+  background-color: #D97706;
+  color: #FFF;
+}
+
+/* fakecss:./_components/GoogleMap/StreetView.esbuild-svelte-fake-css */
+.streetview_input_box.svelte-wuiab6.svelte-wuiab6 {
+  position: absolute;
+  z-index: 20;
+  left: 20px;
+  top: 10px;
+}
+.icon_search_location {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 10px;
+  z-index: 40;
+  margin: auto 0 auto 13px;
+  cursor: pointer;
+}
+.icon_search_location:hover {
+  fill: #F97316;
+}
+.streetview_input_box.svelte-wuiab6 #pacViewPlace.svelte-wuiab6 {
+  margin-top: 10px;
+  padding: 12px 12px 12px 40px;
+  border-radius: 8px;
+  border: none;
+  width: 450px;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+}
+.streetview_input_box.svelte-wuiab6 #pacViewPlace.svelte-wuiab6:focus {
+  border-color: #F97316;
+  outline: 2px solid #F97316;
+}
+.autocomplete_container.svelte-wuiab6.svelte-wuiab6 {
+  position: absolute;
+  z-index: 20;
+  left: 20px;
+  top: 70px;
+  width: 450px;
+  min-height: 200px;
+  max-height: 400px;
+  background-color: #FFF;
+  border-radius: 8px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+.autocomplete_container.svelte-wuiab6.svelte-wuiab6::-webkit-scrollbar-thumb {
+  background-color: #3B82F6;
+}
+.autocomplete_container.svelte-wuiab6.svelte-wuiab6::-webkit-scrollbar {
+  width: 8px;
+}
+.autocomplete_container.svelte-wuiab6.svelte-wuiab6::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.autocomplete_container.svelte-wuiab6 .autocomplete_item.svelte-wuiab6 {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  padding: 10px;
+  border: none;
+  background: none;
+  border-bottom: 1px solid #CBD5E1;
+  cursor: pointer;
+}
+.autocomplete_container.svelte-wuiab6 .autocomplete_item.svelte-wuiab6:hover {
+  background-color: #F1F5F9;
+}
+#cesiumContainer.svelte-wuiab6.svelte-wuiab6 {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -4537,13 +4663,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance9 = bind2(Axios$1.prototype.request, context);
-        utils.extend(instance9, Axios$1.prototype, context, { allOwnKeys: true });
-        utils.extend(instance9, context, null, { allOwnKeys: true });
-        instance9.create = function create(instanceConfig) {
+        const instance10 = bind2(Axios$1.prototype.request, context);
+        utils.extend(instance10, Axios$1.prototype, context, { allOwnKeys: true });
+        utils.extend(instance10, context, null, { allOwnKeys: true });
+        instance10.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance9;
+        return instance10;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -5067,6 +5193,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
   }
+  function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
+    return new CustomEvent(type, { detail, bubbles, cancelable });
+  }
   function get_custom_elements_slots(element2) {
     const result = {};
     element2.childNodes.forEach(
@@ -5090,6 +5219,25 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   }
   function onMount(fn) {
     get_current_component().$.on_mount.push(fn);
+  }
+  function createEventDispatcher() {
+    const component = get_current_component();
+    return (type, detail, { cancelable = false } = {}) => {
+      const callbacks = component.$.callbacks[type];
+      if (callbacks) {
+        const event = custom_event(
+          /** @type {string} */
+          type,
+          detail,
+          { cancelable }
+        );
+        callbacks.slice().forEach((fn) => {
+          fn.call(component, event);
+        });
+        return !event.defaultPrevented;
+      }
+      return true;
+    };
   }
 
   // node_modules/svelte/src/runtime/internal/scheduler.js
@@ -5327,7 +5475,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance9, create_fragment9, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance10, create_fragment9, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -5353,7 +5501,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance9 ? instance9(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance10 ? instance10(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -19751,7 +19899,112 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   };
   var EditProperty_default = EditProperty;
 
+  // _components/GoogleMap/stores.js
+  var mapsLoaded = writable(false);
+  var mapsLoading = writable(false);
+  var mapComponent = writable(null);
+
+  // _components/GoogleMap/GoogleSdk.svelte
+  function Init(g) {
+    var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window;
+    b = b[c] || (b[c] = {});
+    var d = b.maps || (b.maps = {}), r = /* @__PURE__ */ new Set(), e = new URLSearchParams(), u = () => h || (h = new Promise(async (f, n) => {
+      await (a = m.createElement("script"));
+      e.set("libraries", [...r] + "");
+      for (k in g)
+        e.set(k.replace(/[A-Z]/g, (t) => "_" + t[0].toLowerCase()), g[k]);
+      e.set("callback", c + ".maps." + q);
+      a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
+      d[q] = f;
+      a.onerror = () => h = n(Error(p + " could not load."));
+      a.nonce = m.querySelector("script[nonce]")?.nonce || "";
+      m.head.append(a);
+    }));
+    d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n));
+  }
+  function instance8($self, $props, $invalidate) {
+    let $mapsLoading;
+    let $mapsLoaded;
+    component_subscribe($self, mapsLoading, ($value) => $invalidate(1, $mapsLoading = $value));
+    component_subscribe($self, mapsLoaded, ($value) => $invalidate(0, $mapsLoaded = $value));
+    const dispatch = createEventDispatcher();
+    onMount(() => {
+      console.log("onMount.GoogleSdk");
+      if ($mapsLoaded) {
+        dispatch("ready");
+      }
+      if (!$mapsLoading) {
+        mapsLoading.set(true);
+        Init({
+          key: "AIzaSyAB19JBmmsKCtZqOZaMhUew9V5RPgmkSXY",
+          v: "weekly"
+        });
+        mapsLoaded.set(true);
+      }
+    });
+    $self.$.update = () => {
+      if ($self.$.dirty & /*$mapsLoaded*/
+      1) {
+        $:
+          $mapsLoaded && dispatch("ready");
+      }
+    };
+    return [$mapsLoaded];
+  }
+  var GoogleSdk = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance8, null, safe_not_equal, {});
+    }
+  };
+  var GoogleSdk_default = GoogleSdk;
+
   // realtor/property.svelte
+  function create_if_block6(ctx) {
+    let current_block_type_index;
+    let if_block;
+    let if_block_anchor;
+    let current;
+    const if_block_creators = [create_if_block_113, create_else_block3];
+    const if_blocks = [];
+    function select_block_type(ctx2, dirty) {
+      if (property.id)
+        return 0;
+      return 1;
+    }
+    current_block_type_index = select_block_type(ctx, -1);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_blocks[current_block_type_index].m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if_block.p(ctx2, dirty);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if_blocks[current_block_type_index].d(detaching);
+      }
+    };
+  }
   function create_else_block3(ctx) {
     let createproperty;
     let current;
@@ -19780,7 +20033,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       }
     };
   }
-  function create_if_block6(ctx) {
+  function create_if_block_113(ctx) {
     let editproperty;
     let current;
     editproperty = new EditProperty_default({
@@ -19833,71 +20086,91 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     };
   }
   function create_fragment8(ctx) {
-    let c;
-    let script;
-    let t1;
+    let googlesdk;
+    let t0;
     let section;
     let menu;
-    let t2;
+    let t1;
     let div;
     let profileheader;
+    let t2;
     let t3;
-    let current_block_type_index;
-    let if_block;
-    let t4;
     let footer;
     let current;
+    googlesdk = new GoogleSdk_default({});
+    googlesdk.$on(
+      "ready",
+      /*ready_handler*/
+      ctx[3]
+    );
     menu = new Menu_default({ props: { access: segments } });
     profileheader = new ProfileHeader_default({ props: { user, access: segments } });
-    const if_block_creators = [create_if_block6, create_else_block3];
-    const if_blocks = [];
-    function select_block_type(ctx2, dirty) {
-      if (property.id)
-        return 0;
-      return 1;
-    }
-    current_block_type_index = select_block_type(ctx, -1);
-    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    let if_block = (
+      /*isGoogleReady*/
+      ctx[2] && create_if_block6(ctx)
+    );
     footer = new Footer_default({});
     return {
       c() {
-        c = comment(" Google Map SDK ");
-        script = element("script");
-        script.textContent = "(g => {\n      var h, a, k, p = 'The Google Maps JavaScript API', c = 'google', l = 'importLibrary', q = '__ib__', m = document, b = window;\n      b = b[ c ] || (b[ c ] = {});\n      var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise( async ( f, n ) => {\n        await (a = m.createElement( 'script' ));\n        e.set( 'libraries', [...r] + '' );\n        for( k in g ) e.set( k.replace( /[A-Z]/g, t => '_' + t[ 0 ].toLowerCase() ), g[ k ] );\n        e.set( 'callback', c + '.maps.' + q );\n        a.src = `https://maps.${c}apis.com/maps/api/js?` + e;\n        d[ q ] = f;\n        a.onerror = () => h = n( Error( p + ' could not load.' ) );\n        a.nonce = m.querySelector( 'script[nonce]' )?.nonce || '';\n        m.head.append( a );\n      } ));\n      d[ l ] ? console.warn( p + ' only loads once. Ignoring:', g ) : d[ l ] = ( f, ...n ) => r.add( f ) && u().then( () => d[ l ]( f, ...n ) );\n    })( {\n      key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',\n      v: 'weekly',\n      // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).\n      // Add other bootstrap parameters as needed, using camel case.\n    } );";
-        t1 = space();
+        create_component(googlesdk.$.fragment);
+        t0 = space();
         section = element("section");
         create_component(menu.$.fragment);
-        t2 = space();
+        t1 = space();
         div = element("div");
         create_component(profileheader.$.fragment);
+        t2 = space();
+        if (if_block)
+          if_block.c();
         t3 = space();
-        if_block.c();
-        t4 = space();
         create_component(footer.$.fragment);
         attr(div, "class", "dashboard_main_content");
         attr(section, "class", "dashboard");
       },
       m(target, anchor) {
-        append(document.head, c);
-        append(document.head, script);
-        insert(target, t1, anchor);
+        mount_component(googlesdk, target, anchor);
+        insert(target, t0, anchor);
         insert(target, section, anchor);
         mount_component(menu, section, null);
-        append(section, t2);
+        append(section, t1);
         append(section, div);
         mount_component(profileheader, div, null);
+        append(div, t2);
+        if (if_block)
+          if_block.m(div, null);
         append(div, t3);
-        if_blocks[current_block_type_index].m(div, null);
-        append(div, t4);
         mount_component(footer, div, null);
         current = true;
       },
       p(ctx2, [dirty]) {
-        if_block.p(ctx2, dirty);
+        if (
+          /*isGoogleReady*/
+          ctx2[2]
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*isGoogleReady*/
+            4) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block6(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(div, t3);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
       },
       i(local) {
         if (current)
           return;
+        transition_in(googlesdk.$.fragment, local);
         transition_in(menu.$.fragment, local);
         transition_in(profileheader.$.fragment, local);
         transition_in(if_block);
@@ -19905,6 +20178,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         current = true;
       },
       o(local) {
+        transition_out(googlesdk.$.fragment, local);
         transition_out(menu.$.fragment, local);
         transition_out(profileheader.$.fragment, local);
         transition_out(if_block);
@@ -19913,23 +20187,35 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(t1);
+          detach(t0);
           detach(section);
         }
-        detach(c);
-        detach(script);
+        destroy_component(googlesdk, detaching);
         destroy_component(menu);
         destroy_component(profileheader);
-        if_blocks[current_block_type_index].d();
+        if (if_block)
+          if_block.d();
         destroy_component(footer);
       }
     };
   }
-  var property = {/* property */};
-  var user = {/* user */};
-  var segments = {/* segments */};
-  var countries = [/* countries */];
-  function instance8($self, $props, $invalidate) {
+  var property = (
+    /** @type {TypeProperty} */
+    {/* property */}
+  );
+  var user = (
+    /** @type {User} */
+    {/* user */}
+  );
+  var segments = (
+    /** @type {Access}*/
+    {/* segments */}
+  );
+  var countries = (
+    /** @type {CountryData[]}*/
+    [/* countries */]
+  );
+  function instance9($self, $props, $invalidate) {
     let isAdmin = false;
     let isOwner = false;
     onMount(() => {
@@ -19940,12 +20226,14 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
       if (user.id == property.createdBy)
         $invalidate(1, isOwner = true);
     });
-    return [isAdmin, isOwner];
+    let isGoogleReady = false;
+    const ready_handler = () => $invalidate(2, isGoogleReady = true);
+    return [isAdmin, isOwner, isGoogleReady, ready_handler];
   }
   var Property = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance8, create_fragment8, safe_not_equal, {});
+      init(this, options, instance9, create_fragment8, safe_not_equal, {});
     }
   };
   var property_default = Property;

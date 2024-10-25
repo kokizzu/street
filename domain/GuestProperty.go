@@ -93,6 +93,12 @@ var (
 			InputType: zCrud.InputTypeText,
 		},
 		{
+			Name: `lotSize`,
+			Label: `Lot Size`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
 			Name:      mProperty.Address,
 			Label:     `Address`,
 			DataType:  zCrud.DataTypeString,
