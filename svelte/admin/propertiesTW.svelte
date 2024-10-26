@@ -3,7 +3,7 @@
     import Menu from '../_components/Menu.svelte';
     import AdminSubMenu from '../_components/AdminSubMenu.svelte';
     import ProfileHeader from '../_components/ProfileHeader.svelte';
-    import Footer from '../_components/Footer.svelte';
+    import Footer from '../_components/partials/Footer.svelte';
     import TableView from '../_components/TableView.svelte';
     import ModalForm from '../_components/ModalForm.svelte';
     import HiSolidEye from 'svelte-icons-pack/hi/HiSolidEye';

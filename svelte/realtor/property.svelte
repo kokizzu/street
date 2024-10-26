@@ -6,7 +6,7 @@
 
   import Menu from '../_components/Menu.svelte';
   import ProfileHeader from '../_components/ProfileHeader.svelte';
-  import Footer from '../_components/Footer.svelte';
+  import Footer from '../_components/partials/Footer.svelte';
   import CreateProperty from "../_components/CreateProperty.svelte";
   import EditProperty from "../_components/EditProperty.svelte";
   import { onMount } from 'svelte';

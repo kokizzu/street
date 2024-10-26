@@ -1,6 +1,6 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidExchangeAlt from 'svelte-icons-pack/fa/FaSolidExchangeAlt';
+  import { Icon } from 'svelte-icons-pack';
+  import { RiFinanceExchangeBoxLine } from 'svelte-icons-pack/ri';
   
   export let visible = false;
   export function showModal() {
@@ -79,7 +79,7 @@
           <div class='unit_toggle'>
             <p>{unit_mode}</p>
             <button on:click={toggleUnitMode}>
-              <Icon size={16} color='#F97316' src={FaSolidExchangeAlt} />
+              <Icon size={16} color='#F97316' src={RiFinanceExchangeBoxLine} />
             </button>
           </div>
         </div>

@@ -5,7 +5,7 @@
   import TableView from '../_components/TableView.svelte';
   import ModalForm from '../_components/ModalForm.svelte';
   import { AdminPropHistories } from '../jsApi.GEN';
-  import Footer from '../_components/Footer.svelte';
+  import Footer from '../_components/partials/Footer.svelte';
   import ProfileHeader from '../_components/ProfileHeader.svelte';
   import {notifier} from '../_components/notifier.js';
 

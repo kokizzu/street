@@ -1,8 +1,7 @@
 <script>
-    import Icon from 'svelte-icons-pack/Icon.svelte';
-    import FaSolidSearch from "svelte-icons-pack/fa/FaSolidSearch";
+    import { Icon } from 'svelte-icons-pack';
+    import { RiSystemSearchLine, RiMapMapPin2Line} from 'svelte-icons-pack/ri';
     import GoogleSdk from './GoogleSdk.svelte';
-    import FaSolidMapMarkerAlt from "svelte-icons-pack/fa/FaSolidMapMarkerAlt";
     import Growl from '../Growl.svelte'
 
     export let elevation;
@@ -185,7 +184,7 @@
             className='icon_search_location'
             color='#9fa9b5'
             size={18}
-            src={FaSolidSearch}
+            src={RiSystemSearchLine}
     />
     <input
             bind:this={streetViewInput}
@@ -205,7 +204,7 @@
                         class='autocomplete_item'
                         on:click|preventDefault={() => searchByAddressHandler(place.place_id)}
                 >
-                    <Icon size={17} color='#9fa9b5' src={FaSolidMapMarkerAlt}/>
+                    <Icon size={17} color='#9fa9b5' src={RiMapMapPin2Line}/>
                     <span>{place.description}</span>
                 </button>
             {/each}
@@ -213,7 +212,7 @@
             <button
                     class='autocomplete_item'
             >
-                <Icon size={17} color='#9fa9b5' src={FaSolidMapMarkerAlt}/>
+                <Icon size={17} color='#9fa9b5' src={RiMapMapPin2Line}/>
                 <span>Place name...</span>
             </button>
         {/if}

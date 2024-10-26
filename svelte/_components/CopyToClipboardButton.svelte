@@ -1,7 +1,7 @@
 <script>
+    import { Icon } from 'svelte-icons-pack';
+    import { TrOutlineCopy } from 'svelte-icons-pack/tr';
     import FloatingNotification from './FloatingNotification.svelte';
-    import Icon from 'svelte-icons-pack/Icon.svelte';
-    import HiSolidClipboardCopy from "svelte-icons-pack/hi/HiSolidClipboardCopy";
 
     export let value = '';
     export let title = 'copy to clipboard';
@@ -34,7 +34,7 @@
 </script>
 <button title='{title}' type='button' class='iconButton'
         on:click={copyToClipboard}>
-    <Icon src={HiSolidClipboardCopy} />
+    <Icon src={TrOutlineCopy} />
 </button>
 {#if copied}
     <FloatingNotification icon='copy' text={value} subtext='copied to clipboard' />

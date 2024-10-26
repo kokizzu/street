@@ -6,7 +6,7 @@
   import Menu from './_components/Menu.svelte';
   import PropertyLocation from './_components/PropertyLocation.svelte';
   import ProfileHeader from './_components/ProfileHeader.svelte';
-  import Footer from './_components/Footer.svelte';
+  import Footer from './_components/partials/Footer.svelte';
   import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import {notifier} from './_components/notifier.js';

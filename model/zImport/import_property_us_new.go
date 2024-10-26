@@ -186,7 +186,7 @@ func ReadPropertyUSSheet001(adapter *Tt.Adapter, resourcePath string) {
 		property.SetUpdatedAt(fastime.UnixNow())
 		property.SetCoord([]any{0, 0})
 		
-		stat.Ok(property.DoInsert())
+		stat.Ok(property.DoUpsert())
 
 		stat.Print()
 		propertyExtra := wcProperty.NewPropertyExtraUSMutator(adapter)
@@ -218,7 +218,7 @@ func ReadPropertyUSSheet001(adapter *Tt.Adapter, resourcePath string) {
 			propertyExtra.SetMlsDisclaimerInfo(string(mlsDisclaimerInfoJson))
 		}
 
-		stat.Ok(propertyExtra.DoInsert())
+		stat.Ok(propertyExtra.DoUpsert())
 	}
 }
 
@@ -409,7 +409,7 @@ func ReadPropertyUSSheet002(adapter *Tt.Adapter, resourcePath string) {
 		property.SetUpdatedAt(fastime.UnixNow())
 		property.SetCoord([]any{0, 0})
 
-		stat.Ok(property.DoInsert())
+		stat.Ok(property.DoUpsert())
 
 		stat.Print()
 		propertyExtra := wcProperty.NewPropertyExtraUSMutator(adapter)
@@ -443,7 +443,7 @@ func ReadPropertyUSSheet002(adapter *Tt.Adapter, resourcePath string) {
 			propertyExtra.SetMlsDisclaimerInfo(string(mlsDisclaimerInfoJson))
 		}
 
-		stat.Ok(propertyExtra.DoInsert())
+		stat.Ok(propertyExtra.DoUpsert())
 	}
 }
 
