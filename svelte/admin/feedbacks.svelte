@@ -1,5 +1,4 @@
 <script>
-  // @ts-nocheck
   import Menu from '../_components/Menu.svelte';
   import AdminSubMenu from '../_components/AdminSubMenu.svelte';
   import ProfileHeader from '../_components/ProfileHeader.svelte';
@@ -13,9 +12,9 @@
   let segments = {/* segments */};
   let fields = [/* fields */];
   let fieldByKey = fieldsArrToMap( fields );
-  let feedbacks = [/* feedbacks */] || [];
+  let feedbacks = [/* feedbacks */];
   let pager = {/* pager */};
-  let users = {/* users */} || {};
+  let users = {/* users */};
   $: console.log( 'feedbacks=', feedbacks );
   
   // return true if got error

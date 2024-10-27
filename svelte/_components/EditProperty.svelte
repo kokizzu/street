@@ -1,25 +1,17 @@
 <script>
-  //@ts-nocheck
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import {
+    FaSolidAngleLeft, FaSolidBed, FaSolidBath, FaSolidChair,
+    FaSolidBorderTopLeft, FaClock, FaSolidCamera, FaSolidImage,
+    FaSolidHouse, FaSolidCircleNotch, FaCircleCheck, FaSolidPen,
+    FaTrashCan
+  } from '../node_modules/svelte-icons-pack/dist/fa';
+  import { RiFinanceExchangeLine } from '../node_modules/svelte-icons-pack/dist/ri';
   import { onMount } from 'svelte';
   import { AdminProperties, RealtorDeleteProperty, RealtorUpsertProperty } from '../jsApi.GEN';
-  import FaSolidImage from 'svelte-icons-pack/fa/FaSolidImage';
-  import FaSolidPen from 'svelte-icons-pack/fa/FaSolidPen';
-  import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
   import { formatPrice, getApprovalState } from './formatter';
-  import FaSolidBed from 'svelte-icons-pack/fa/FaSolidBed';
-  import FaSolidBath from 'svelte-icons-pack/fa/FaSolidBath';
-  import FaSolidChair from 'svelte-icons-pack/fa/FaSolidChair';
-  import FaSolidBorderStyle from 'svelte-icons-pack/fa/FaSolidBorderStyle';
-  import FaSolidExchangeAlt from 'svelte-icons-pack/fa/FaSolidExchangeAlt';
-  import FaTrashAlt from 'svelte-icons-pack/fa/FaTrashAlt';
-  import FaSolidCamera from 'svelte-icons-pack/fa/FaSolidCamera';
-  import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
-  import FaSolidCircleNotch from 'svelte-icons-pack/fa/FaSolidCircleNotch';
-  import FaCheckCircle from 'svelte-icons-pack/fa/FaCheckCircle';
   import AddOtherFeesDialog from './AddOtherFeesDialog.svelte';
-  import {notifier} from './notifier.js';
+  import { notifier } from './notifier.js';
   
   export let isOwner = false;
   export let property;
@@ -179,7 +171,11 @@
   let purpose = property.purpose, lastPrice = property.lastPrice, agencyFeePercent = property.agencyFeePercent;
   let depositFee = property.depositFee, minimumDurationYear = property.minimumDurationYear, otherFees = property.otherFees;
   let otherFeeObj = {name: '', fee: 0};
-  let addOtherFeeDialog = AddOtherFeesDialog, agencyFee = 'true';
+
+  /** @type {import('svelte').SvelteComponent} */
+  let addOtherFeeDialog;
+
+  let agencyFee = 'true';
   let submitApprove = false, submitReject = false;
   
   function addOtherFee() {
@@ -378,7 +374,7 @@
             {#if approvalStatus==='pending' || approvalStatus==='rejected'}
               <button class='approve_btn' on:click={ApproveProperty}>
                 {#if !submitApprove}
-                  <Icon size={10} color='#FFF' src={FaCheckCircle} />
+                  <Icon size={10} color='#FFF' src={FaCircleCheck} />
                 {/if}
                 {#if submitApprove}
                   <Icon className='spin' color='#FFF' size={10} src={FaSolidCircleNotch} />
@@ -388,7 +384,7 @@
             {/if}
             {#if approvalStatus==='pending' || approvalStatus==='approved'}
               <button class='reject_btn' on:click={()=>showRejectDialog=true}>
-                <Icon size={10} color='#FFF' src={FaSolidTimes} />
+                <Icon size={10} color='#FFF' src={FaClock} />
                 <span>Reject</span>
               </button>
             {/if}
@@ -421,7 +417,7 @@
                 {property.purpose==='rent' ? 'For Rent' : 'On Sale'}
               </div>
               <div class='house_type'>
-                <Icon color='#FFF' size={13} src={FaSolidHome} />
+                <Icon color='#FFF' size={13} src={FaSolidHouse} />
                 <span>{property.houseType==='' ? 'House' : property.houseType}</span>
               </div>
             </div>
@@ -464,11 +460,11 @@
           <div class='feature_item'>
             <b>{property.sizeM2}</b>
             <div class='labels'>
-              <Icon className='labels_icon' color='#848D96' size={13} src={FaSolidBorderStyle} />
+              <Icon className='labels_icon' color='#848D96' size={13} src={FaSolidBorderTopLeft} />
               <span>M2</span>
               <button class='unit_toggle'>
                 <span class='bg'></span>
-                <Icon className='labels_icon' color='#F97316' size={12} src={FaSolidExchangeAlt} />
+                <Icon className='labels_icon' color='#F97316' size={12} src={RiFinanceExchangeLine} />
               </button>
             </div>
           </div>
@@ -604,7 +600,7 @@
                       title='remove this image'
                       on:click|preventDefault={() => removeImage(idx)}
                     >
-                      <Icon color='#FFF' size={12} src={FaSolidTimes} />
+                      <Icon color='#FFF' size={12} src={FaClock} />
                     </button>
                   </div>
                 {/each}
@@ -684,11 +680,11 @@
                 {/if}
                 <div class='input_box area'>
                   <label for='area' class='labels'>
-                    <Icon className='labels_icon' color='#848D96' size={13} src={FaSolidBorderStyle} />
+                    <Icon className='labels_icon' color='#848D96' size={13} src={FaSolidBorderTopLeft} />
                     <span>M2</span>
                     <button class='unit_toggle'>
                       <span class='bg'></span>
-                      <Icon className='labels_icon' color='#F97316' size={13} src={FaSolidExchangeAlt} />
+                      <Icon className='labels_icon' color='#F97316' size={13} src={RiFinanceExchangeLine} />
                     </button>
                   </label>
                   <input id='area' type='number' min='0' bind:value={sizeM2} />
@@ -872,7 +868,7 @@
   </div>
   <div class='delete_property_container'>
     <button class='delete_property' on:click={DeleteProperty}>
-      <Icon color='#FFF' size={10} src={FaTrashAlt} />
+      <Icon color='#FFF' size={10} src={FaTrashCan} />
       <span>Delete Property</span>
     </button>
   </div>

@@ -1,5 +1,5 @@
 <script>
-   import { Icon } from 'svelte-icons-pack';
+  import { Icon } from '../../node_modules/svelte-icons-pack/dist';
 
   const pathname = /** @type {string}*/ (window.location.pathname);
 

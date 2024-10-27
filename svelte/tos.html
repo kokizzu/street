@@ -1,5 +1,4 @@
 <html><head>
-<<<<<<< HEAD
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>/*! title */</title>
@@ -302,304 +301,15 @@
       }
     </script>
   
-=======
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>/*! title */</title>
-  <link href="/css.gg.css" rel="stylesheet">
-  
-  <link rel="manifest" href="/manifest.json">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
-  <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#F97316">
-  <link rel="shortcut icon" href="/assets/favicons/favicon.ico">
-  <meta name="apple-mobile-web-app-title" content="HapSTR">
-  <meta name="application-name" content="HapSTR">
-  <meta name="msapplication-TileColor" content="#F97316">
-  <meta name="msapplication-config" content="/assets/favicons/browserconfig.xml">
-  <meta name="theme-color" content="#FFF">
-</head>
-<body>
-<style>
-  *,
-  *::before,
-  *::after {
-    box-sizing : border-box;
-  }
-
-  :root {
-    -moz-tab-size : 4;
-    -o-tab-size   : 4;
-    tab-size      : 4;
-  }
-
-  html {
-    max-width                : 100%;
-    margin                   : auto;
-    line-height-step         : 1.15;
-    -webkit-text-size-adjust : 100%;
-    font-size                : 13px;
-  }
-
-  body {
-    font-family : Roboto, Helvetica, Arial, sans-serif;
-    margin      : 0;
-  }
-
-  hr {
-    height           : 0;
-    border-top-width : 1px;
-    width            : 100%;
-    overflow         : hidden;
-    color            : inherit;
-    margin           : 0;
-  }
-
-  /* Dashboard */
-  section.dashboard {
-    display        : flex;
-    flex-direction : row;
-  }
-
-  .dashboard_main_content {
-    background-color : #F1F5F9;
-    min-height       : 100vh;
-    width            : 100%;
-  }
-
-  .dashboard_main_content .content {
-    min-height : 900px;
-  }
-
-
-  .tableview_container {
-    position         : relative;
-    z-index          : 30;
-    margin-top       : -40px;
-    margin-left      : auto;
-    margin-right     : auto;
-    border-radius    : 8px;
-    filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    padding          : 20px;
-    background-color : white;
-    width            : 88%;
-    height           : fit-content;
-    color            : #475569;
-    font-size        : 16px;
-  }
-
-  .tableview_container .add_button {
-    padding          : 8px 20px;
-    font-size        : 14pt;
-    font-weight      : bold;
-    display          : inline-flex;
-    flex-direction   : row;
-    align-items      : center;
-    align-content    : center;
-    justify-content  : center;
-    border           : none;
-    background-color : #6366F1;
-    border-radius    : 8px;
-    color            : white;
-    cursor           : pointer;
-    gap              : 8px;
-  }
-
-  .tableview_container .add_button:hover {
-    background-color : #7E80F1;
-  }
-
-  .label_rent {
-    background-color : #1080E8 !important;
-    color            : #FFF !important;
-    border           : none !important;
-  }
-
-  .label_sale {
-    background-color : #F97316 !important;
-    color            : #FFF !important;
-    border           : none !important;
-  }
-
-  .action_btn {
-    padding          : 7px 20px;
-    font-size        : 13px;
-    font-weight      : 600;
-    display          : inline-flex;
-    flex-direction   : row;
-    align-items      : center;
-    align-content    : center;
-    justify-content  : center;
-    border           : 1px solid #6366F1;
-    background-color : #6366F1;
-    border-radius    : 8px;
-    color            : white;
-    cursor           : pointer;
-    gap              : 8px;
-  }
-
-  .action_btn:hover {
-    background-color : #7E80F1;
-  }
-
-  .action_btn:disabled {
-    cursor      : not-allowed;
-    font-size   : 13px;
-    font-weight : 600;
-    border      : 1px solid #CBD5E1 !important;
-    background  : none !important;
-    color       : #5C646F;
-    filter      : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-  }
-
-  .next_button {
-    background-color : #F97316;
-    color            : white;
-    display          : flex;
-    justify-content  : center;
-    border-radius    : 8px;
-    border           : none;
-    padding          : 10px;
-    cursor           : pointer;
-    width            : 100%;
-    font-weight      : 600;
-  }
-
-  .next_button:disabled,
-  .next_button:hover {
-    background-color : #F58433;
-  }
-
-  .asterisk {
-    color      : #EF4444;
-    font-size  : 14px;
-    margin-top : -3px;
-  }
-
-  /* notifier */
-  .notifyjs-container {
-    z-index   : 100;
-    position  : fixed;
-    bottom    : 0;
-    right     : .5em;
-    max-width : 304px;
-    width     : 100%
-  }
-
-  .notifyjs-container .notifyjs-notification {
-    display       : none;
-    position      : relative;
-    padding       : 1em 2em 1em 2.5em;
-    margin-bottom : .5em;
-    width         : 100%;
-    border-width  : 1px;
-    border-style  : solid;
-    box-sizing    : border-box
-  }
-
-  .notifyjs-container .notifyjs-notification p.progress {
-    position      : absolute;
-    bottom        : 0;
-    left          : 0;
-    right         : 100%;
-    height        : 2px;
-    content       : ' ';
-    margin-bottom : 0
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-success {
-    color            : #155724;
-    background-color : #D4EDDA;
-    border-color     : #C3E6CB
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-danger {
-    color            : #721C24;
-    background-color : #F8D7DA;
-    border-color     : #F5C6CB
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-warning {
-    color            : #856404;
-    background-color : #FFF3CD;
-    border-color     : #FFEEBA
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-info {
-    color            : #0C5460;
-    background-color : #D1ECF1;
-    border-color     : #BEE5EB
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-success p.progress {
-    background : #155724
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-danger p.progress {
-    background : #721C24
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-warning p.progress {
-    background : #856404
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-info p.progress {
-    background : #0C5460
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-success .notifyjs-icon svg {
-    fill : #155724
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-danger .notifyjs-icon svg {
-    fill : #721C24
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-warning .notifyjs-icon svg {
-    fill : #856404
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-info .notifyjs-icon svg {
-    fill : #0C5460
-  }
-
-  .notifyjs-container .notifyjs-notification .notifyjs-icon {
-    position  : absolute;
-    top       : 50%;
-    transform : translateY(-50%);
-    left      : 10px
-  }
-
-  .notifyjs-container .notifyjs-notification .notifyjs-icon img, .notifyjs-container .notifyjs-notification .notifyjs-icon svg {
-    width  : 16px;
-    height : 16px
-  }
-</style>
-<script>
-  if( 'serviceWorker' in navigator ) {
-    navigator.serviceWorker.register( '/service-worker.js', {scope: '/'} );
-  }
-</script>
-
->>>>>>> 0d4f97c (Bump braces from 3.0.2 to 3.0.3 in /svelte (#81))
-
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<<<<<<< HEAD
 <style>/* fakecss:./_components/partials/Footer.esbuild-svelte-fake-css */
 footer.svelte-1tm73ji.svelte-1tm73ji {
-=======
-<style>/* fakecss:./_components/Footer.esbuild-svelte-fake-css */
-footer.svelte-kh6p39.svelte-kh6p39 {
-  font-size: 16px;
->>>>>>> 0d4f97c (Bump braces from 3.0.2 to 3.0.3 in /svelte (#81))
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-<<<<<<< HEAD
   margin: 0;
   padding: 10px 20px;
   border-top: 1px solid var(--gray-002);
@@ -618,34 +328,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji {
 footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   color: var(--orange-005);
   text-decoration: underline;
-=======
-  margin: 30px 50px 0 50px;
-  padding: 16px 0;
-  border-top: 1px solid #CBD5E1;
-  color: #475569;
-}
-footer.svelte-kh6p39 nav.svelte-kh6p39 {
-  display: flex;
-  flex-direction: row;
-}
-footer.svelte-kh6p39 nav a.svelte-kh6p39 {
-  text-decoration: none;
-  margin-left: 15px;
-  color: #475569;
-}
-footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
-  color: #EF4444;
-}
-@media only screen and (max-width: 768px) {
-  footer.svelte-kh6p39.svelte-kh6p39 {
-    display: flex;
-    flex-direction: column-reverse;
-    margin: 30px 20px 0;
-  }
-  footer.svelte-kh6p39 nav a.svelte-kh6p39 {
-    font-size: 13px;
-  }
->>>>>>> 0d4f97c (Bump braces from 3.0.2 to 3.0.3 in /svelte (#81))
 }
 
 /* fakecss:./tos.esbuild-svelte-fake-css */
@@ -673,11 +355,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
 }
 </style>
 <script>(() => {
-<<<<<<< HEAD
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/utils.js
-=======
-  // node_modules/svelte/src/runtime/internal/utils.js
->>>>>>> 0d4f97c (Bump braces from 3.0.2 to 3.0.3 in /svelte (#81))
   function noop() {
   }
   function run(fn) {
@@ -699,21 +377,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     return Object.keys(obj).length === 0;
   }
 
-<<<<<<< HEAD
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/globals.js
-=======
-  // node_modules/svelte/src/runtime/internal/globals.js
->>>>>>> 0d4f97c (Bump braces from 3.0.2 to 3.0.3 in /svelte (#81))
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
     // @ts-ignore Node typings have this
     global
   );
 
-<<<<<<< HEAD
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
-=======
-  // node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
->>>>>>> 0d4f97c (Bump braces from 3.0.2 to 3.0.3 in /svelte (#81))
   var ResizeObserverSingleton = class {
     /**
      * @private
@@ -759,11 +429,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   };
   ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
 
-<<<<<<< HEAD
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/dom.js
-=======
-  // node_modules/svelte/src/runtime/internal/dom.js
->>>>>>> 0d4f97c (Bump braces from 3.0.2 to 3.0.3 in /svelte (#81))
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -811,21 +477,13 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     return result;
   }
 
-<<<<<<< HEAD
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/lifecycle.js
-=======
-  // node_modules/svelte/src/runtime/internal/lifecycle.js
->>>>>>> 0d4f97c (Bump braces from 3.0.2 to 3.0.3 in /svelte (#81))
   var current_component;
   function set_current_component(component) {
     current_component = component;
   }
 
-<<<<<<< HEAD
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/scheduler.js
-=======
-  // node_modules/svelte/src/runtime/internal/scheduler.js
->>>>>>> 0d4f97c (Bump braces from 3.0.2 to 3.0.3 in /svelte (#81))
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -900,11 +558,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     render_callbacks = filtered;
   }
 
-<<<<<<< HEAD
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/transitions.js
-=======
-  // node_modules/svelte/src/runtime/internal/transitions.js
->>>>>>> 0d4f97c (Bump braces from 3.0.2 to 3.0.3 in /svelte (#81))
   var outroing = /* @__PURE__ */ new Set();
   var outros;
   function transition_in(block, local) {
@@ -932,11 +586,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     }
   }
 
-<<<<<<< HEAD
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/boolean_attributes.js
-=======
-  // node_modules/svelte/src/shared/boolean_attributes.js
->>>>>>> 0d4f97c (Bump braces from 3.0.2 to 3.0.3 in /svelte (#81))
   var _boolean_attributes = (
     /** @type {const} */
     [
@@ -969,11 +619,7 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
   );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
-<<<<<<< HEAD
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/Component.js
-=======
-  // node_modules/svelte/src/runtime/internal/Component.js
->>>>>>> 0d4f97c (Bump braces from 3.0.2 to 3.0.3 in /svelte (#81))
   function create_component(block) {
     block && block.c();
   }
@@ -1310,7 +956,6 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     }
   };
 
-<<<<<<< HEAD
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/version.js
   var PUBLIC_VERSION = "4";
 
@@ -1319,16 +964,6 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
   // _components/partials/Footer.svelte
-=======
-  // node_modules/svelte/src/shared/version.js
-  var PUBLIC_VERSION = "4";
-
-  // node_modules/svelte/src/runtime/internal/disclose-version/index.js
-  if (typeof window !== "undefined")
-    (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
-
-  // _components/Footer.svelte
->>>>>>> 0d4f97c (Bump braces from 3.0.2 to 3.0.3 in /svelte (#81))
   function create_fragment(ctx) {
     let footer;
     let p;
@@ -1342,15 +977,9 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
         ctx[0]}`;
         t2 = space();
         nav = element("nav");
-<<<<<<< HEAD
         nav.innerHTML = `<a href="/privacy" class="svelte-1tm73ji">Privacy</a> <a href="/tos" class="svelte-1tm73ji">Terms and Conditions</a> <a href="/about" class="svelte-1tm73ji">About Us</a>`;
         attr(nav, "class", "svelte-1tm73ji");
         attr(footer, "class", "svelte-1tm73ji");
-=======
-        nav.innerHTML = `<a href="/privacy" class="svelte-kh6p39">Privacy</a> <a href="/tos" class="svelte-kh6p39">Terms and Conditions</a> <a href="/about" class="svelte-kh6p39">About Us</a>`;
-        attr(nav, "class", "svelte-kh6p39");
-        attr(footer, "class", "svelte-kh6p39");
->>>>>>> 0d4f97c (Bump braces from 3.0.2 to 3.0.3 in /svelte (#81))
       },
       m(target, anchor) {
         insert(target, footer, anchor);
@@ -1369,14 +998,10 @@ footer.svelte-kh6p39 nav a.svelte-kh6p39:hover {
     };
   }
   function instance($self) {
-<<<<<<< HEAD
     const year = (
       /** @type {number} */
       new Date().getFullYear()
     );
-=======
-    const year = new Date().getFullYear();
->>>>>>> 0d4f97c (Bump braces from 3.0.2 to 3.0.3 in /svelte (#81))
     return [year];
   }
   var Footer = class extends SvelteComponent {

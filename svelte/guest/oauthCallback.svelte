@@ -1,12 +1,11 @@
 <script>
-  //@ts-nocheck
   import { onMount } from 'svelte';
   
   let error = '#{error}';
   let email = '#{email}';
   const createdAt = new Date( +'#{createdAt}' );
   const now = new Date();
-  const recentlyRegistered = now - createdAt<1000 * 60 * 10; // 10 minutes
+  const recentlyRegistered = now - createdAt < 1000 * 60 * 10; // 10 minutes
   
   onMount( () => {
     setTimeout( () => {

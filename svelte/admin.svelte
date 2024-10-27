@@ -1,7 +1,4 @@
 <script>
-  // note: this is admin dashboard
-  
-  // @ts-nocheck
   import Chart from 'chart.js/auto';
   import { onMount } from 'svelte';
   

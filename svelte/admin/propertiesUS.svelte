@@ -12,17 +12,15 @@
   import Footer from '../_components/partials/Footer.svelte';
   import TableView from '../_components/TableView.svelte';
   import ModalForm from '../_components/ModalForm.svelte';
-  import HiSolidEye from 'svelte-icons-pack/hi/HiSolidEye';
-  import HiSolidXCircle from 'svelte-icons-pack/hi/HiSolidXCircle';
-  import HiSolidCheckCircle from 'svelte-icons-pack/hi/HiSolidCheckCircle';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import {
+    HiSolidEye, HiSolidXCircle, HiSolidCheckCircle, HiOutlineLink
+  } from '../node_modules/svelte-icons-pack/dist/hi';
+  import {
+    FaSolidCirclePlus, FaSolidCheckDouble, FaSolidRecycle
+  } from '../node_modules/svelte-icons-pack/dist/fa';
   import { AdminPropertiesUS, UserPropHistory } from '../jsApi.GEN';
   import {notifier} from '../_components/notifier.js';
-  
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
-  import FaSolidCheckDouble from 'svelte-icons-pack/fa/FaSolidCheckDouble';
-  import FaSolidRecycle from 'svelte-icons-pack/fa/FaSolidRecycle';
-  import HiOutlineLink from 'svelte-icons-pack/hi/HiOutlineLink';
   
   import ModalDialog from '../_components/ModalDialog.svelte';
   import PillBox from '../_components/PillBox.svelte';
@@ -255,7 +253,7 @@
                    onRefreshTableView={refreshTableView}
                    onEditRow={editRow}>
           <button on:click={addRow} class='add_button'>
-            <Icon size="17" color='#FFF' src={FaSolidPlusCircle} />
+            <Icon size="17" color='#FFF' src={FaSolidCirclePlus} />
             <span>Add</span>
           </button>
           <button on:click={filterPendingApproval} class='filter_pending_button' class:not_filtered={!filterdByPending}>

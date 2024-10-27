@@ -7,8 +7,8 @@
   import Footer from './_components/partials/Footer.svelte';
   import OwnedProperty from './_components/OwnedProperty.svelte';
   
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
+  import { Icon } from './node_modules/svelte-icons-pack/dist';
+  import { FaSolidCirclePlus } from './node_modules/svelte-icons-pack/dist/fa';
   
   let ownedProperties = [/* ownedProperties */];
   let pager = /** @type {any} */ ([/* pager */]);
@@ -36,7 +36,7 @@
         <div class='property_lists_header'>
           <h1>Owned/Managed Properties: {pager.countResult}</h1>
           <a href='/realtor/property' class='add_button'>
-            <Icon size="20" className='add_icon' color='#FFF' src={FaSolidPlusCircle} />
+            <Icon size="20" className='add_icon' color='#FFF' src={FaSolidCirclePlus} />
             <span>Add</span>
           </a>
         </div>

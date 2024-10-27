@@ -1,22 +1,19 @@
 <script>
-  // @ts-nocheck
   import Menu from '../_components/Menu.svelte';
   import AdminSubMenu from '../_components/AdminSubMenu.svelte';
   import ProfileHeader from '../_components/ProfileHeader.svelte';
   import Footer from '../_components/partials/Footer.svelte';
   import TableView from '../_components/TableView.svelte';
   import ModalForm from '../_components/ModalForm.svelte';
-  import HiSolidEye from 'svelte-icons-pack/hi/HiSolidEye';
-  import HiSolidXCircle from 'svelte-icons-pack/hi/HiSolidXCircle';
-  import HiSolidCheckCircle from 'svelte-icons-pack/hi/HiSolidCheckCircle';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import {
+    HiSolidEye, HiSolidXCircle, HiSolidCheckCircle, HiOutlineLink
+  } from '../node_modules/svelte-icons-pack/dist/hi';
+  import {
+    FaSolidCirclePlus, FaSolidCheckDouble, FaSolidRecycle
+  } from '../node_modules/svelte-icons-pack/dist/fa';
   import { AdminProperties, UserPropHistory } from '../jsApi.GEN';
   import {notifier} from '../_components/notifier.js';
-
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
-  import FaSolidCheckDouble from 'svelte-icons-pack/fa/FaSolidCheckDouble';
-  import FaSolidRecycle from 'svelte-icons-pack/fa/FaSolidRecycle';
-  import HiOutlineLink from 'svelte-icons-pack/hi/HiOutlineLink';
 
   import ModalDialog from '../_components/ModalDialog.svelte';
   import PillBox from '../_components/PillBox.svelte';
@@ -26,7 +23,7 @@
   let segments = {/* segments */};
   let fields = [/* fields */];
   let fieldByKey = fieldsArrToMap( fields );
-  let properties = [/* properties */] || [];
+  let properties = [/* properties */];
   console.log('Properties', properties);
 
   let pager = {/* pager */};
@@ -214,7 +211,7 @@
           widths={{mainUse: '320px', address: '240px'}}
         >
           <button class='action_btn' on:click={addRow}>
-            <Icon color='#FFF' size={17} src={FaSolidPlusCircle} />
+            <Icon color='#FFF' size={17} src={FaSolidCirclePlus} />
             <span>Add</span>
           </button>
           <button

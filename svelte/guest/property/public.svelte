@@ -4,25 +4,21 @@
   /** @typedef {import('../../_types/property').PropertyExtraUS} TypePropertyExtraUS */
   /** @typedef {import('../../_types/master').Field} Field */
 
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidArrowRight from 'svelte-icons-pack/fa/FaSolidArrowRight';
-  import FaSolidShareAlt from 'svelte-icons-pack/fa/FaSolidShareAlt';
-  import FaCopy from 'svelte-icons-pack/fa/FaCopy';
-  import FaBrandsFacebook from 'svelte-icons-pack/fa/FaBrandsFacebook';
-  import FaBrandsLinkedin from 'svelte-icons-pack/fa/FaBrandsLinkedin';
-  import FaBrandsTwitter from 'svelte-icons-pack/fa/FaBrandsTwitter';
-  import FaBrandsWhatsapp from 'svelte-icons-pack/fa/FaBrandsWhatsapp';
-  import FaBrandsTelegram from 'svelte-icons-pack/fa/FaBrandsTelegram';
+  import { Icon } from '../../node_modules/svelte-icons-pack/dist';
+  import {
+    FaSolidArrowRight, FaSolidShareNodes, FaCopy, FaBrandsFacebook,
+    FaBrandsLinkedin, FaBrandsTwitter, FaBrandsWhatsapp,
+    FaBrandsTelegram,
+  } from '../../node_modules/svelte-icons-pack/dist/fa';
   import Property from '../../_components/Property.svelte';
   import {notifier} from '../../_components/notifier.js';
   
   let propItem    = /** @type {TypeProperty | TypePropertyUS} */ ({/* propItem */});
   let meta        = /** @type {Field[]}*/ ([/* propertyMeta */]);
   let propExtraUS = /** @type {TypePropertyExtraUS} */ ({/* propExtraUS */});
-  
-  let isAdmin = false;
+  let isAdmin     = /** @type {boolean} */ (false);
 
-  function copyToClipboard( text ) {
+  function copyToClipboard(/** @type {string} */ text ) {
     navigator.clipboard.writeText( text );
     notifier.showInfo( 'Link copied to clipboard' );
   }
@@ -56,10 +52,10 @@
       <div class='share_container'>
         <header>
           <span>Share this</span>
-          <Icon className='share_icon' color='#9fa9b5' size="14" src={FaSolidShareAlt} />
+          <Icon className='share_icon' color='#9fa9b5' size="14" src={FaSolidShareNodes} />
         </header>
         <div class='share_options'>
-          <button class='share_item' on:click={() => copyToClipboard(window.location)} title='Copy link address'>
+          <button class='share_item' on:click={() => copyToClipboard(String(window.location))} title='Copy link address'>
             <Icon className='share_icon' color='#475569' size="28" src={FaCopy} />
           </button>
           <a aria-label='Share to Facebook'

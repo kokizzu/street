@@ -3,11 +3,11 @@
     /** @typedef {import('../_types/property').PropertyUS} TypePropertyUS */
     /** @typedef {import('../_types/property').PropertyExtraUS} TypePropertyExtraUS */
   
-    import FaSolidImage from 'svelte-icons-pack/fa/FaSolidImage';
-    import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
+    import { Icon } from '../node_modules/svelte-icons-pack/dist';
+    import {
+        FaSolidImage, FaSolidHouse, FaSolidMapLocationDot
+    } from '../node_modules/svelte-icons-pack/dist/fa';
     import { formatPrice, localeDatetime, M2ToPing } from './formatter';
-    import Icon from 'svelte-icons-pack/Icon.svelte';
-    import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
     import PillBox from './PillBox.svelte';
     import { onMount } from 'svelte';
   
@@ -78,7 +78,7 @@
                         {propItem.purpose === 'rent' ? 'For Rent' : 'On Sale'}
                     </div>
                     <div class='house_type'>
-                        <Icon color='#FFF' size={16} src={FaSolidHome} />
+                        <Icon color='#FFF' size={16} src={FaSolidHouse} />
                         <span>{propItem.houseType === '' ? 'House' : propItem.houseType}</span>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                 <h1>{formatPrice(propItem.lastPrice, 'TWD') || '0.00'}</h1>
                 <p>Agency Fee : {propItem.agencyFeePercent}%</p>
                 <div class='address'>
-                    <Icon className='icon_address' color='#f97316' size={18} src={FaSolidMapMarkerAlt} />
+                    <Icon className='icon_address' color='#f97316' size={18} src={FaSolidMapLocationDot} />
                     <span>{propItem.formattedAddress === '' ? propItem.address : propItem.formattedAddress}</span>
                 </div>
             </div>

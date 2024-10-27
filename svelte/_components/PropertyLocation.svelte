@@ -5,28 +5,18 @@
   import { GoogleMap, GoogleSdk } from './GoogleMap/components.js';
   import {mapComponent} from './GoogleMap/stores';
   
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidSearch from 'svelte-icons-pack/fa/FaSolidSearch';
-  import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
-  import FaSolidImage from 'svelte-icons-pack/fa/FaSolidImage';
-  import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
-  import FaSolidRulerCombined from 'svelte-icons-pack/fa/FaSolidRulerCombined';
-  import FaSolidBuilding from 'svelte-icons-pack/fa/FaSolidBuilding';
-  import FaSolidBath from 'svelte-icons-pack/fa/FaSolidBath';
-  import FaSolidBed from 'svelte-icons-pack/fa/FaSolidBed';
-  import FaSolidUndoAlt from 'svelte-icons-pack/fa/FaSolidUndoAlt';
-  import FaSolidBan from 'svelte-icons-pack/fa/FaSolidBan';
-  import FaSolidReceipt from 'svelte-icons-pack/fa/FaSolidReceipt';
-  import FaSolidShareAlt from 'svelte-icons-pack/fa/FaSolidShareAlt';
-  import FaBrandsLinkedin from 'svelte-icons-pack/fa/FaBrandsLinkedin';
-  import FaBrandsTwitter from 'svelte-icons-pack/fa/FaBrandsTwitter';
-  import FaCopy from 'svelte-icons-pack/fa/FaCopy';
-  import FaBrandsFacebook from 'svelte-icons-pack/fa/FaBrandsFacebook';
-  import FaBrandsTelegram from 'svelte-icons-pack/fa/FaBrandsTelegram';
-  import FaBrandsWhatsapp from 'svelte-icons-pack/fa/FaBrandsWhatsapp';
-  import FaSolidCircleNotch from 'svelte-icons-pack/fa/FaSolidCircleNotch';
-  import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
-  import FaHeart from 'svelte-icons-pack/fa/FaHeart';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import {
+    FaSolidImage, FaSolidMapLocationDot,
+    FaSolidHouse, FaSolidRulerCombined,
+    FaSolidBuilding, FaSolidBath, FaSolidBed,
+    FaSolidBan, FaSolidReceipt, FaSolidShareNodes, FaBrandsLinkedin,
+    FaBrandsTwitter, FaCopy, FaBrandsFacebook, FaBrandsTelegram,
+    FaBrandsWhatsapp, FaSolidCircleNotch, FaSolidAngleLeft,
+    FaHeart,
+  } from '../node_modules/svelte-icons-pack/dist/fa';
+  import { FiSearch } from '../node_modules/svelte-icons-pack/dist/fi';
+  import { LuUndo2 } from '../node_modules/svelte-icons-pack/dist/lu';
   import {distanceKM} from './GoogleMap/distance';
   import {notifier} from './notifier.js';
 
@@ -286,7 +276,7 @@
 						className='icon_search_location'
 						color='#9fa9b5'
 						size="18"
-						src={FaSolidSearch}
+						src={FiSearch}
 					/>
 				</label>
 				<input
@@ -310,7 +300,7 @@
               searchByAddressHandler(place.place_id)
             }}
           >
-            <Icon size="17" color='#9fa9b5' src={FaSolidMapMarkerAlt}/>
+            <Icon size="17" color='#9fa9b5' src={FaSolidMapLocationDot}/>
             <span>{place.description}</span>
           </button>
         {/each}
@@ -332,7 +322,7 @@
       <Icon
         color='#475569'
         size="18"
-        src={FaSolidSearch}
+        src={FiSearch}
       />
       <span>Search for address...</span>
     </button>
@@ -365,7 +355,7 @@
 											{prop.purpose==='rent' ? $T.forRent : $T.onSale}
 										</div>
 										<div class='house_type'>
-											<Icon size="12" className='house_type_icon' color='#475569' src={FaSolidHome}/>
+											<Icon size="12" className='house_type_icon' color='#475569' src={FaSolidHouse}/>
 											<span>{prop.houseType==="" ? 'House' : prop.houseType}</span>
 										</div>
 									</div>
@@ -374,7 +364,7 @@
 											<Icon color='#9fa9b5' className='like_icon' size="18" src={FaHeart}/>
 										</button>
 										<button class='share_btn' on:click={() => showShareItems(index)}>
-											<Icon size="17" color='#9fa9b5' className='share_icon' src={FaSolidShareAlt}/>
+											<Icon size="17" color='#9fa9b5' className='share_icon' src={FaSolidShareNodes}/>
 										</button>
 									</div>
 									{#if shareItemIndex===index}
@@ -427,7 +417,7 @@
 									{/if}
 								</div>
 								<div class='address'>
-									<Icon size="17" className='icon_address' color='#f97316' src={FaSolidMapMarkerAlt}/>
+									<Icon size="17" className='icon_address' color='#f97316' src={FaSolidMapLocationDot}/>
 									<span>{prop.formattedAddress==="" ? prop.address : prop.formattedAddress}</span>
 								</div>
 								<div class='feature'>
@@ -488,7 +478,7 @@
 		<div class='map_container'>
 			<button class='btn_sync_map' on:click={searchByLocationHandler}>
 				{#if !isSearchingMap}
-					<Icon color='#1080e8' size="12" src={FaSolidUndoAlt}/>
+					<Icon color='#1080e8' size="12" src={LuUndo2}/>
 				{/if}
 				{#if isSearchingMap}
 					<Icon className="spin" color='#1080e8' size="12" src={FaSolidCircleNotch}/>
@@ -510,7 +500,7 @@
 						className='icon_search_location'
 						color='#9fa9b5'
 						size="18"
-						src={FaSolidSearch}
+						src={FiSearch}
 					/>
 				</label>
 				<input
@@ -530,7 +520,7 @@
 							class='autocomplete_item'
 							on:click|preventDefault={() => searchByAddressHandler(place.place_id)}
 						>
-							<Icon size="17" color='#9fa9b5' src={FaSolidMapMarkerAlt}/>
+							<Icon size="17" color='#9fa9b5' src={FaSolidMapLocationDot}/>
 							<span>{place.description}</span>
 						</button>
 					{/each}

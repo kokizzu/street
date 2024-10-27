@@ -1,5 +1,4 @@
 <script>
-  // @ts-nocheck
   import Menu from '../_components/Menu.svelte';
   import AdminSubMenu from '../_components/AdminSubMenu.svelte';
   import TableView from '../_components/TableView.svelte';
@@ -9,12 +8,12 @@
   import ProfileHeader from '../_components/ProfileHeader.svelte';
   import {notifier} from '../_components/notifier.js';
 
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidPlusCircle from "svelte-icons-pack/fa/FaSolidPlusCircle";
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import { FaSolidCirclePlus } from '../node_modules/svelte-icons-pack/dist/fa';
   
   let segments = {/* segments */};
   let fields = [/* fields */];
-  let propHistories = [/* propHistories */] || [];
+  let propHistories = [/* propHistories */];
   let pager = {/* pager */};
   
   $: console.log( propHistories );
@@ -93,7 +92,7 @@
                    onEditRow={editRow}
         >
           <button on:click={addRow} class='action_btn'>
-            <Icon size={17} color='#FFF' src={FaSolidPlusCircle} />
+            <Icon size={17} color='#FFF' src={FaSolidCirclePlus} />
             <span>Add</span>
           </button>
         </TableView>

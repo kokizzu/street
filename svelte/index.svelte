@@ -7,8 +7,8 @@
   import PropertyLocation from './_components/PropertyLocation.svelte';
   import ProfileHeader from './_components/ProfileHeader.svelte';
   import Footer from './_components/partials/Footer.svelte';
-  import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
-  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import { Icon } from './node_modules/svelte-icons-pack/dist'
+  import { FaSolidCircleNotch } from './node_modules/svelte-icons-pack/dist/fa';
   import {notifier} from './_components/notifier.js';
   
   let randomProps = [/* randomProps */];

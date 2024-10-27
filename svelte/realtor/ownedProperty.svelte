@@ -1,5 +1,4 @@
 <script>
-  // @ts-nocheck
   import Menu from '../_components/Menu.svelte';
   import ProfileHeader from '../_components/ProfileHeader.svelte';
   import Footer from '../_components/partials/Footer.svelte';

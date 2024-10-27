@@ -1,16 +1,13 @@
 <script>
-  // @ts-nocheck
   import { onMount } from 'svelte';
   import { datetime } from './formatter.js';
   
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import HiOutlinePencil from 'svelte-icons-pack/hi/HiOutlinePencil';
-  import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
-  import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
-  import FaSolidAngleDoubleRight from 'svelte-icons-pack/fa/FaSolidAngleDoubleRight';
-  import FaSolidAngleDoubleLeft from 'svelte-icons-pack/fa/FaSolidAngleDoubleLeft';
-  import FaSolidFilter from 'svelte-icons-pack/fa/FaSolidFilter';
-  import FaSolidSyncAlt from 'svelte-icons-pack/fa/FaSolidSyncAlt';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import { BiPencil } from '../node_modules/svelte-icons-pack/dist/bi';
+  import {
+    FaSolidAngleRight, FaSolidAngleLeft,
+    FaSolidAnglesRight, FaSolidFilter, FaSolidArrowsRotate,
+  } from '../node_modules/svelte-icons-pack/dist/fa';
   
   export let renderFuncs = {};
   export let arrayOfArray = true;
@@ -101,12 +98,12 @@
   <div class='action_options_container'>
     <div class='left'>
       <slot />
-      <button class='action_btn' disabled={oldFilterStr===newFilterStr} onclick={applyFilter}>
+      <button class='action_btn' disabled={oldFilterStr===newFilterStr} on:click={applyFilter}>
         <Icon color={oldFilterStr === newFilterStr ? '#5C646F' : '#FFF'} size={17} src={FaSolidFilter} />
         <span>Apply Filter</span>
       </button>
       <button class='action_btn' on:click={() => gotoPage(pager.page)}>
-        <Icon color='#FFF' size={17} src={FaSolidSyncAlt} />
+        <Icon color='#FFF' size={17} src={FaSolidArrowsRotate} />
         <span>Refresh</span>
       </button>
     </div>
@@ -149,7 +146,7 @@ multiple filter from other fields will do AND operation'
               <td class='col_action'>
                 <div>
                   <button class='action' title='Edit' on:click={() => onEditRow(cell(row,i,field), row)}>
-                    <Icon src={HiOutlinePencil} />
+                    <Icon src={BiPencil} />
                   </button>
                   {#each extraActions as action}
                     {#if action.link}
@@ -199,7 +196,7 @@ multiple filter from other fields will do AND operation'
     
     <div class='pagination'>
       <button disabled={!allowPrevPage} on:click={() => gotoPage(1)} title='Go to first page'>
-        <Icon color={!allowPrevPage ? '#5C646F' : '#FFF'} size={18} src={FaSolidAngleDoubleLeft} />
+        <Icon color={!allowPrevPage ? '#5C646F' : '#FFF'} size={18} src={FaSolidAnglesRight} />
       </button>
       <button disabled={!allowPrevPage} on:click={() => gotoPage(pager.page - 1)} title='Go to previous page'>
         <Icon color={!allowPrevPage ? '#5C646F' : '#FFF'} size={18} src={FaSolidAngleLeft} />
@@ -208,7 +205,7 @@ multiple filter from other fields will do AND operation'
         <Icon color={!allowNextPage ? '#5C646F' : '#FFF'} size={18} src={FaSolidAngleRight} />
       </button>
       <button disabled={!allowNextPage} on:click={() => gotoPage(pager.pages)} title='Go to last page'>
-        <Icon color={!allowNextPage ? '#5C646F' : '#FFF'} size={18} src={FaSolidAngleDoubleRight} />
+        <Icon color={!allowNextPage ? '#5C646F' : '#FFF'} size={18} src={FaSolidAnglesRight} />
       </button>
     </div>
   </div>

@@ -1,17 +1,16 @@
 <script>
-    // @ts-nocheck
     import Menu from './_components/Menu.svelte';
     import ProfileHeader from './_components/ProfileHeader.svelte';
     import Footer from './_components/partials/Footer.svelte';
-    import Icon from 'svelte-icons-pack/Icon.svelte';
+    import { Icon } from './node_modules/svelte-icons-pack/dist';
     import {datetime} from './_components/formatter';
     import {onMount} from 'svelte';
     import {T} from './_components/uiState';
     import {UserChangePassword, UserSessionKill, UserSessionsActive, UserUpdateProfile} from './jsApi.GEN.js';
-    import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
-    import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
-    import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
-    import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
+    import {
+        FaSolidAngleLeft, FaSolidAngleRight,
+        FaSolidCircleXmark, FaSolidCircleNotch,
+    } from './node_modules/svelte-icons-pack/dist/fa';
     import {notifier} from './_components/notifier.js';
 
     let user = {/* user */};
@@ -177,7 +176,7 @@
                                         <span>{datetime(session.expiredAt) || 0}</span>
                                         <span>{session.device || 'no-data'}</span>
                                         <button on:click={() => killSession(session.sessionToken)} class='kill_session' title='Kill this session'>
-                                            <Icon color='#FFF' size={12} src={FaSolidTimes}/>
+                                            <Icon color='#FFF' size={12} src={FaSolidCircleXmark}/>
                                         </button>
                                     </div>
                                 {/each}

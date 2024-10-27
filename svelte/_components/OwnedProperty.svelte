@@ -1,12 +1,9 @@
 <script>
-    import Icon from 'svelte-icons-pack/Icon.svelte';
-    import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
-    import FaSolidPen from 'svelte-icons-pack/fa/FaSolidPen';
-    import FaSolidBed from 'svelte-icons-pack/fa/FaSolidBed';
-    import FaSolidBath from 'svelte-icons-pack/fa/FaSolidBath';
-    import FaSolidChair from 'svelte-icons-pack/fa/FaSolidChair';
-    import FaSolidBorderStyle from 'svelte-icons-pack/fa/FaSolidBorderStyle';
-    import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
+    import { Icon } from '../node_modules/svelte-icons-pack/dist';
+    import {
+        FaSolidHouse, FaSolidPen, FaSolidBed, FaSolidBath,
+				FaSolidChair, FaSolidBorderTopLeft, FaSolidMapLocationDot
+    } from '../node_modules/svelte-icons-pack/dist/fa';
     import PillBox from './PillBox.svelte';
     import {localeDatetime, M2ToPing, getApprovalState} from './formatter';
     import {T} from './uiState.js';
@@ -62,7 +59,7 @@
                           {property.purpose==='rent' ? $T.forRent : $T.onSale}
                       </div>
                       <div class='house_type'>
-                          <Icon color='#FFF' size="14" src={FaSolidHome}/>
+                          <Icon color='#FFF' size="14" src={FaSolidHouse}/>
                           <span>{property.houseType}</span>
                       </div>
                   </div>
@@ -75,7 +72,7 @@
                   <h1>$ {property.lastPrice || '0.00'}</h1>
                   <p>{$T.agencyFee} : {property.agencyFeePercent}%</p>
                   <div class='address'>
-                      <Icon color='#f97316' className="icon_address" size="18" src={FaSolidMapMarkerAlt}/>
+                      <Icon color='#f97316' className="icon_address" size="18" src={FaSolidMapLocationDot}/>
                       <span>{property.formattedAddress}</span>
                   </div>
               </div>
@@ -107,7 +104,7 @@
               <div class='feature_item'>
                 <b>{property.sizeM2}</b>
                 <div class='labels'>
-                  <Icon className='labels_icon' color='#848D96' size="13" src={FaSolidBorderStyle} />
+                  <Icon className='labels_icon' color='#848D96' size="13" src={FaSolidBorderTopLeft} />
                   <span>{property.countryCode==='TW' || property.countryCode==='' ? 'Ping' : 'M2'}</span>
                 </div>
               </div>

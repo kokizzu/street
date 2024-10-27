@@ -1,6 +1,6 @@
 <script>
-	import { Icon } from 'svelte-icons-pack';
-	import { RiSystemSearchLine, RiMapMapPin2Line} from 'svelte-icons-pack/ri';
+	import { Icon } from '../../node_modules/svelte-icons-pack/dist';
+	import { RiSystemSearchLine, RiMapMapPin2Line} from '../../node_modules/svelte-icons-pack/dist/ri';
 	import GoogleSdk from './GoogleSdk.svelte';
 	import Growl from '../Growl.svelte'
 

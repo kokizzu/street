@@ -1,6 +1,4 @@
 <script>
-
-    // @ts-nocheck
     import Menu from '../_components/Menu.svelte';
     import AdminSubMenu from '../_components/AdminSubMenu.svelte';
     import ProfileHeader from '../_components/ProfileHeader.svelte';

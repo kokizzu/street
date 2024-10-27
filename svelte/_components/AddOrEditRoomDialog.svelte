@@ -1,6 +1,6 @@
 <script>
-  import { Icon } from 'svelte-icons-pack';
-  import { RiFinanceExchangeBoxLine } from 'svelte-icons-pack/ri';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import { RiFinanceExchangeBoxLine } from '../node_modules/svelte-icons-pack/dist/ri';
   
   export let visible = false;
   export function showModal() {

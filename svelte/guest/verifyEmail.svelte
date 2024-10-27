@@ -1,8 +1,7 @@
 <script>
-  //@ts-nocheck
-  let verified = '#{verified}';
-  let error = '#{error}';
-  let email = '#{email}';
+  let verified  = /** @type {string | boolean}*/ ('#{verified}');
+  let error     = /** @type {string} */ ('#{error}');
+  let email     = /** @type {string} */ ('#{email}');
 </script>
 
 <section class="verify_email_container">
