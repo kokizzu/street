@@ -28,6 +28,7 @@ var viewList = map[string]string{
 	`GuestResetPassword`: `../svelte/guest/resetPassword.html`, // ../svelte/guest/resetPassword.svelte
 	`GuestVerifyEmail`: `../svelte/guest/verifyEmail.html`, // ../svelte/guest/verifyEmail.svelte
 	`Index`: `../svelte/index.html`, // ../svelte/index.svelte
+	`Listings`: `../svelte/listings.html`, // ../svelte/listings.svelte
 	`Privacy`: `../svelte/privacy.html`, // ../svelte/privacy.svelte
 	`Realtor`: `../svelte/realtor.html`, // ../svelte/realtor.svelte
 	`RealtorOwnedProperty`: `../svelte/realtor/ownedProperty.html`, // ../svelte/realtor/ownedProperty.svelte
@@ -126,6 +127,11 @@ func (v *Views) RenderGuestVerifyEmail(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderIndex(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`Index`].Str(m))
+}
+
+func (v *Views) RenderListings(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`Listings`].Str(m))
 }
 
 func (v *Views) RenderPrivacy(c *fiber.Ctx, m M.SX) error {

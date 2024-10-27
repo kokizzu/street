@@ -285,13 +285,46 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	})
 
 	fw.Get(`/buyer`, func(ctx *fiber.Ctx) error {
-		in, _, segments := userInfoFromContext(ctx, d)
+		in, user, segments := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
 		return views.RenderBuyer(ctx, M.SX{
 			`title`:    `Buyer`,
+			`user`: user,
 			`segments`: segments,
+		})
+	})
+
+	fw.Get(`/listings`, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		const lat = 23.708740595481036
+		const lng = 120.78636646165934
+		const defaultDistanceKm = 20
+		var props domain.UserSearchPropOut
+		if user != nil && user.Id > 0 {
+			copy := in.RequestCommon
+			copy.Action = domain.UserSearchPropAction
+			props = d.UserSearchProp(&domain.UserSearchPropIn{
+				RequestCommon: copy,
+				CenterLat:     lat,
+				CenterLong:    lng,
+				Offset:        0,
+				Limit:         0,
+				MaxDistanceKM: defaultDistanceKm,
+			})
+		}
+		return views.RenderListings(ctx, M.SX{
+			`title`:    `Listings`,
+			`user`: user,
+			`segments`: segments,
+			`randomProps`:       props.Properties,
+			`initialLatLong`:    []any{lat, lng},
+			`defaultDistanceKm`: defaultDistanceKm,
 		})
 	})
 	fw.Get(`/realtor`, func(ctx *fiber.Ctx) error {

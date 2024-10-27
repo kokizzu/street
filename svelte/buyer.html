@@ -193,6 +193,7 @@
         overflow: hidden;
         color: inherit;
         margin: 0;
+        border-color: var(--gray-002);
       }
 
       /* notifier */
@@ -305,7 +306,7 @@
 
 
 <style>/* fakecss:./_components/partials/SideMenu.esbuild-svelte-fake-css */
-aside.svelte-1njrvkz {
+aside.svelte-1hfp3dx.svelte-1hfp3dx {
   position: fixed;
   top: var(--navbar-height);
   left: 0;
@@ -315,9 +316,60 @@ aside.svelte-1njrvkz {
   border-right: 1px solid var(--gray-002);
   background-color: #FFF;
 }
+aside.svelte-1hfp3dx .separator.svelte-1hfp3dx {
+  width: 80%;
+  margin: auto;
+  height: 1px;
+  background-color: var(--gray-002);
+}
+aside.svelte-1hfp3dx .container.svelte-1hfp3dx {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: fit-content;
+  width: 100%;
+  margin: 0;
+}
+aside.svelte-1hfp3dx .container .nav-menu.svelte-1hfp3dx {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: fit-content;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin: 0;
+}
+aside.svelte-1hfp3dx .container .nav-menu a.svelte-1hfp3dx,
+aside.svelte-1hfp3dx .container .nav-menu button.svelte-1hfp3dx {
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 17px;
+  color: var(--gray-008);
+  border: none;
+  background-color: transparent;
+}
+aside.svelte-1hfp3dx .container .nav-menu a.svelte-1hfp3dx:hover,
+aside.svelte-1hfp3dx .container .nav-menu button.svelte-1hfp3dx:hover {
+  background-color: var(--gray-001);
+}
+aside.svelte-1hfp3dx .container .nav-menu a.active.svelte-1hfp3dx {
+  background-color: var(--orange-transparent);
+  color: var(--orange-007);
+}
+aside.svelte-1hfp3dx .container .nav-menu button.red.svelte-1hfp3dx:hover {
+  background-color: var(--red-transparent);
+  color: var(--red-007);
+}
 
 /* fakecss:./_components/partials/Navbar.esbuild-svelte-fake-css */
-header.svelte-tqsvzh.svelte-tqsvzh {
+header.svelte-q4cped.svelte-q4cped {
   top: 0;
   left: 0;
   right: 0;
@@ -326,25 +378,47 @@ header.svelte-tqsvzh.svelte-tqsvzh {
   height: var(--navbar-height);
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: space-between;
   padding: 0 20px;
   border-bottom: 1px solid var(--gray-002);
   background-color: #FFF;
 }
-header.svelte-tqsvzh .label.svelte-tqsvzh {
+header.svelte-q4cped .label.svelte-q4cped {
   width: fit-content;
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 0;
   align-items: center;
 }
-header.svelte-tqsvzh .label .logo.svelte-tqsvzh {
+header.svelte-q4cped .label .logo.svelte-q4cped {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   font-size: 17px;
   color: var(--gray-008);
   text-decoration: none;
+  width: calc(var(--sidemenu-width) - 20px);
+}
+header.svelte-q4cped .user-info.svelte-q4cped {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+header.svelte-q4cped .user-info a.user.svelte-q4cped {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--gray-008);
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--gray-002);
+}
+header.svelte-q4cped .user-info a.user.svelte-q4cped:hover {
+  background-color: var(--gray-001);
 }
 
 /* fakecss:./_components/partials/Footer.esbuild-svelte-fake-css */
@@ -574,6 +648,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   function element(name) {
     return document.createElement(name);
   }
+  function svg_element(name) {
+    return document.createElementNS("http://www.w3.org/2000/svg", name);
+  }
   function text(data) {
     return document.createTextNode(data);
   }
@@ -586,8 +663,23 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     else if (node.getAttribute(attribute) !== value)
       node.setAttribute(attribute, value);
   }
+  function set_svg_attributes(node, attributes) {
+    for (const key in attributes) {
+      attr(node, key, attributes[key]);
+    }
+  }
   function children(element2) {
     return Array.from(element2.childNodes);
+  }
+  function set_data(text2, data) {
+    data = "" + data;
+    if (text2.data === data)
+      return;
+    text2.data = /** @type {string} */
+    data;
+  }
+  function toggle_class(element2, name, toggle) {
+    element2.classList.toggle(name, !!toggle);
   }
   function get_custom_elements_slots(element2) {
     const result = {};
@@ -709,6 +801,40 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
   }
 
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/spread.js
+  function get_spread_update(levels, updates) {
+    const update2 = {};
+    const to_null_out = {};
+    const accounted_for = { $scope: 1 };
+    let i = levels.length;
+    while (i--) {
+      const o = levels[i];
+      const n = updates[i];
+      if (n) {
+        for (const key in o) {
+          if (!(key in n))
+            to_null_out[key] = 1;
+        }
+        for (const key in n) {
+          if (!accounted_for[key]) {
+            update2[key] = n[key];
+            accounted_for[key] = 1;
+          }
+        }
+        levels[i] = n;
+      } else {
+        for (const key in o) {
+          accounted_for[key] = 1;
+        }
+      }
+    }
+    for (const key in to_null_out) {
+      if (!(key in update2))
+        update2[key] = void 0;
+    }
+    return update2;
+  }
+
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/boolean_attributes.js
   var _boolean_attributes = (
     /** @type {const} */
@@ -778,7 +904,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance3, create_fragment6, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance6, create_fragment7, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -804,7 +930,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance3 ? instance3(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance6 ? instance6(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -817,7 +943,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment6 ? create_fragment6($.ctx) : false;
+    $.fragment = create_fragment7 ? create_fragment7($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -1089,14 +1215,142 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   // _components/partials/SideMenu.svelte
   function create_fragment(ctx) {
     let aside;
+    let div;
+    let nav0;
+    let a0;
+    let t1;
+    let a1;
+    let t3;
+    let a2;
+    let t5;
+    let a3;
+    let t7;
+    let a4;
+    let t9;
+    let span;
+    let t10;
+    let nav1;
+    let a5;
+    let t12;
+    let a6;
+    let t14;
+    let button;
     return {
       c() {
         aside = element("aside");
-        aside.innerHTML = `<h2>Side Menu</h2>`;
-        attr(aside, "class", "svelte-1njrvkz");
+        div = element("div");
+        nav0 = element("nav");
+        a0 = element("a");
+        a0.textContent = "Home";
+        t1 = space();
+        a1 = element("a");
+        a1.textContent = "Buyers";
+        t3 = space();
+        a2 = element("a");
+        a2.textContent = "Realtors";
+        t5 = space();
+        a3 = element("a");
+        a3.textContent = "Listings";
+        t7 = space();
+        a4 = element("a");
+        a4.textContent = "Revenue";
+        t9 = space();
+        span = element("span");
+        t10 = space();
+        nav1 = element("nav");
+        a5 = element("a");
+        a5.textContent = "Admin";
+        t12 = space();
+        a6 = element("a");
+        a6.textContent = "Profile";
+        t14 = space();
+        button = element("button");
+        button.textContent = "Logout";
+        attr(a0, "href", "/");
+        attr(a0, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a0,
+          "active",
+          /*pathLv1*/
+          ctx[0] === ""
+        );
+        attr(a1, "href", "/buyer");
+        attr(a1, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a1,
+          "active",
+          /*pathLv1*/
+          ctx[0] === "buyer"
+        );
+        attr(a2, "href", "/realtor");
+        attr(a2, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a2,
+          "active",
+          /*pathLv1*/
+          ctx[0] === "realtor"
+        );
+        attr(a3, "href", "/listings");
+        attr(a3, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a3,
+          "active",
+          /*pathLv1*/
+          ctx[0] === "listings"
+        );
+        attr(a4, "href", "/revenue");
+        attr(a4, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a4,
+          "active",
+          /*pathLv1*/
+          ctx[0] === "revenue"
+        );
+        attr(nav0, "class", "nav-menu svelte-1hfp3dx");
+        attr(span, "class", "separator svelte-1hfp3dx");
+        attr(a5, "href", "/admin");
+        attr(a5, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a5,
+          "active",
+          /*pathLv1*/
+          ctx[0] === "admin"
+        );
+        attr(a6, "href", "/user");
+        attr(a6, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a6,
+          "active",
+          /*pathLv1*/
+          ctx[0] === "user"
+        );
+        attr(button, "class", "red svelte-1hfp3dx");
+        attr(nav1, "class", "nav-menu svelte-1hfp3dx");
+        attr(div, "class", "container svelte-1hfp3dx");
+        attr(aside, "class", "svelte-1hfp3dx");
       },
       m(target, anchor) {
         insert(target, aside, anchor);
+        append(aside, div);
+        append(div, nav0);
+        append(nav0, a0);
+        append(nav0, t1);
+        append(nav0, a1);
+        append(nav0, t3);
+        append(nav0, a2);
+        append(nav0, t5);
+        append(nav0, a3);
+        append(nav0, t7);
+        append(nav0, a4);
+        append(div, t9);
+        append(div, span);
+        append(div, t10);
+        append(div, nav1);
+        append(nav1, a5);
+        append(nav1, t12);
+        append(nav1, a6);
+        append(nav1, t14);
+        append(nav1, button);
       },
       p: noop,
       i: noop,
@@ -1108,46 +1362,279 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
+  function instance($self) {
+    const pathLv1 = (
+      /** @type {string}*/
+      window.location.pathname.split("/")[1]
+    );
+    return [pathLv1];
+  }
   var SideMenu = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment, safe_not_equal, {});
+      init(this, options, instance, create_fragment, safe_not_equal, {});
     }
   };
   var SideMenu_default = SideMenu;
 
-  // _components/partials/Navbar.svelte
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/Icon.svelte
   function create_fragment2(ctx) {
-    let header;
+    let svg;
+    let svg_style_value;
+    let svg_levels = [
+      { width: (
+        /*size*/
+        ctx[1]
+      ) },
+      { height: (
+        /*size*/
+        ctx[1]
+      ) },
+      { viewBox: (
+        /*viewBox*/
+        ctx[2]
+      ) },
+      {
+        style: svg_style_value = /*color*/
+        ctx[3] ? "color: " + /*color*/
+        ctx[3] + ";" : ""
+      },
+      { "stroke-width": "0" },
+      { class: (
+        /*className*/
+        ctx[4]
+      ) },
+      /*src*/
+      ctx[0].a,
+      /*attr*/
+      ctx[6],
+      { xmlns: "http://www.w3.org/2000/svg" }
+    ];
+    let svg_data = {};
+    for (let i = 0; i < svg_levels.length; i += 1) {
+      svg_data = assign(svg_data, svg_levels[i]);
+    }
     return {
       c() {
-        header = element("header");
-        header.innerHTML = `<div class="label svelte-tqsvzh"><a href="/" class="logo svelte-tqsvzh"><h2>HapSTR</h2></a></div>`;
-        attr(header, "class", "svelte-tqsvzh");
+        svg = svg_element("svg");
+        set_svg_attributes(svg, svg_data);
       },
       m(target, anchor) {
-        insert(target, header, anchor);
+        insert(target, svg, anchor);
+        svg.innerHTML = /*innerHtml*/
+        ctx[5];
       },
-      p: noop,
+      p(ctx2, [dirty]) {
+        if (dirty & /*innerHtml*/
+        32)
+          svg.innerHTML = /*innerHtml*/
+          ctx2[5];
+        ;
+        set_svg_attributes(svg, svg_data = get_spread_update(svg_levels, [
+          dirty & /*size*/
+          2 && { width: (
+            /*size*/
+            ctx2[1]
+          ) },
+          dirty & /*size*/
+          2 && { height: (
+            /*size*/
+            ctx2[1]
+          ) },
+          dirty & /*viewBox*/
+          4 && { viewBox: (
+            /*viewBox*/
+            ctx2[2]
+          ) },
+          dirty & /*color*/
+          8 && svg_style_value !== (svg_style_value = /*color*/
+          ctx2[3] ? "color: " + /*color*/
+          ctx2[3] + ";" : "") && { style: svg_style_value },
+          { "stroke-width": "0" },
+          dirty & /*className*/
+          16 && { class: (
+            /*className*/
+            ctx2[4]
+          ) },
+          dirty & /*src*/
+          1 && /*src*/
+          ctx2[0].a,
+          dirty & /*attr*/
+          64 && /*attr*/
+          ctx2[6],
+          { xmlns: "http://www.w3.org/2000/svg" }
+        ]));
+      },
       i: noop,
       o: noop,
       d(detaching) {
         if (detaching) {
-          detach(header);
+          detach(svg);
         }
       }
     };
   }
+  function instance2($self, $props, $invalidate) {
+    let { src } = $props;
+    let { size = "1em" } = $props;
+    let { viewBox = void 0 } = $props;
+    let { color = "currentColor" } = $props;
+    let { title = void 0 } = $props;
+    let { className = "" } = $props;
+    let innerHtml;
+    let attr2 = {};
+    $self.$set = ($props2) => {
+      if ("src" in $props2)
+        $invalidate(0, src = $props2.src);
+      if ("size" in $props2)
+        $invalidate(1, size = $props2.size);
+      if ("viewBox" in $props2)
+        $invalidate(2, viewBox = $props2.viewBox);
+      if ("color" in $props2)
+        $invalidate(3, color = $props2.color);
+      if ("title" in $props2)
+        $invalidate(7, title = $props2.title);
+      if ("className" in $props2)
+        $invalidate(4, className = $props2.className);
+    };
+    $self.$.update = () => {
+      if ($self.$.dirty & /*color, src*/
+      9) {
+        $: {
+          $invalidate(6, attr2 = {});
+          if (color) {
+            if (src.a.stroke !== "none") {
+              $invalidate(6, attr2.stroke = "currentColor", attr2);
+            }
+            if (src.a.fill !== "none") {
+              $invalidate(6, attr2.fill = "currentColor", attr2);
+            }
+          }
+        }
+      }
+      if ($self.$.dirty & /*title, src*/
+      129) {
+        $: {
+          $invalidate(5, innerHtml = (title ? `<title>${title}</title>` : "") + src.c);
+        }
+      }
+    };
+    return [src, size, viewBox, color, className, innerHtml, attr2, title];
+  }
+  var Icon = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance2, create_fragment2, safe_not_equal, {
+        src: 0,
+        size: 1,
+        viewBox: 2,
+        color: 3,
+        title: 7,
+        className: 4
+      });
+    }
+  };
+  var Icon_default = Icon;
+
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ri/index.js
+  var RiUserFacesUserLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H18C18 18.6863 15.3137 16 12 16C8.68629 16 6 18.6863 6 22H4ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11Z"></path>' };
+
+  // _components/partials/Navbar.svelte
+  function create_fragment3(ctx) {
+    let header;
+    let div0;
+    let t1;
+    let div1;
+    let a1;
+    let span;
+    let t2;
+    let t3;
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: { src: RiUserFacesUserLine, size: "15" }
+    });
+    return {
+      c() {
+        header = element("header");
+        div0 = element("div");
+        div0.innerHTML = `<a href="/" class="logo svelte-q4cped"><h2>HapSTR</h2></a>`;
+        t1 = space();
+        div1 = element("div");
+        a1 = element("a");
+        span = element("span");
+        t2 = text(
+          /*username*/
+          ctx[0]
+        );
+        t3 = space();
+        create_component(icon.$.fragment);
+        attr(div0, "class", "label svelte-q4cped");
+        attr(a1, "href", "/user");
+        attr(a1, "class", "user svelte-q4cped");
+        attr(div1, "class", "user-info svelte-q4cped");
+        attr(header, "class", "svelte-q4cped");
+      },
+      m(target, anchor) {
+        insert(target, header, anchor);
+        append(header, div0);
+        append(header, t1);
+        append(header, div1);
+        append(div1, a1);
+        append(a1, span);
+        append(span, t2);
+        append(a1, t3);
+        mount_component(icon, a1, null);
+        current = true;
+      },
+      p(ctx2, [dirty]) {
+        if (!current || dirty & /*username*/
+        1)
+          set_data(
+            t2,
+            /*username*/
+            ctx2[0]
+          );
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(header);
+        }
+        destroy_component(icon);
+      }
+    };
+  }
+  function instance3($self, $props, $invalidate) {
+    let { username = (
+      /** @type {string} */
+      "unknown"
+    ) } = $props;
+    $self.$set = ($props2) => {
+      if ("username" in $props2)
+        $invalidate(0, username = $props2.username);
+    };
+    return [username];
+  }
   var Navbar = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment2, safe_not_equal, {});
+      init(this, options, instance3, create_fragment3, safe_not_equal, { username: 0 });
     }
   };
   var Navbar_default = Navbar;
 
   // _components/partials/Footer.svelte
-  function create_fragment3(ctx) {
+  function create_fragment4(ctx) {
     let footer;
     let p;
     let t2;
@@ -1180,7 +1667,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function instance($self) {
+  function instance4($self) {
     const year = (
       /** @type {number} */
       new Date().getFullYear()
@@ -1190,7 +1677,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var Footer = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance, create_fragment3, safe_not_equal, {});
+      init(this, options, instance4, create_fragment4, safe_not_equal, {});
     }
   };
   var Footer_default = Footer;
@@ -1246,7 +1733,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   );
 
   // _layouts/Main.svelte
-  function create_fragment4(ctx) {
+  function create_fragment5(ctx) {
     let div3;
     let div2;
     let navbar;
@@ -1260,17 +1747,22 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let footer;
     let div1_class_value;
     let current;
-    navbar = new Navbar_default({});
+    navbar = new Navbar_default({
+      props: { username: (
+        /*user*/
+        ctx[0].userName
+      ) }
+    });
     sidemenu = new SideMenu_default({});
     const default_slot_template = (
       /*#slots*/
-      ctx[2].default
+      ctx[3].default
     );
     const default_slot = create_slot(
       default_slot_template,
       ctx,
       /*$scope*/
-      ctx[1],
+      ctx[2],
       null
     );
     footer = new Footer_default({});
@@ -1292,7 +1784,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         attr(div0, "class", "slot svelte-104s4c4");
         attr(main, "class", "content svelte-104s4c4");
         attr(div1, "class", div1_class_value = "root_content " + /*$isShrinkMenu*/
-        (ctx[0] ? "shrink" : "expand") + " svelte-104s4c4");
+        (ctx[1] ? "shrink" : "expand") + " svelte-104s4c4");
         attr(div2, "class", "root_container svelte-104s4c4");
         attr(div3, "class", "root_layout svelte-104s4c4");
       },
@@ -1314,22 +1806,28 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         current = true;
       },
       p(ctx2, [dirty]) {
+        const navbar_changes = {};
+        if (dirty & /*user*/
+        1)
+          navbar_changes.username = /*user*/
+          ctx2[0].userName;
+        navbar.$set(navbar_changes);
         if (default_slot) {
           if (default_slot.p && (!current || dirty & /*$scope*/
-          2)) {
+          4)) {
             update_slot_base(
               default_slot,
               default_slot_template,
               ctx2,
               /*$scope*/
-              ctx2[1],
+              ctx2[2],
               !current ? get_all_dirty_from_scope(
                 /*$scope*/
-                ctx2[1]
+                ctx2[2]
               ) : get_slot_changes(
                 default_slot_template,
                 /*$scope*/
-                ctx2[1],
+                ctx2[2],
                 dirty,
                 null
               ),
@@ -1338,8 +1836,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           }
         }
         if (!current || dirty & /*$isShrinkMenu*/
-        1 && div1_class_value !== (div1_class_value = "root_content " + /*$isShrinkMenu*/
-        (ctx2[0] ? "shrink" : "expand") + " svelte-104s4c4")) {
+        2 && div1_class_value !== (div1_class_value = "root_content " + /*$isShrinkMenu*/
+        (ctx2[1] ? "shrink" : "expand") + " svelte-104s4c4")) {
           attr(div1, "class", div1_class_value);
         }
       },
@@ -1371,20 +1869,26 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function instance2($self, $props, $invalidate) {
+  function instance5($self, $props, $invalidate) {
     let $isShrinkMenu;
-    component_subscribe($self, isShrinkMenu, ($value) => $invalidate(0, $isShrinkMenu = $value));
+    component_subscribe($self, isShrinkMenu, ($value) => $invalidate(1, $isShrinkMenu = $value));
     let { $slots: slots = {}, $scope } = $props;
+    let { user: user2 = (
+      /** @type {User} */
+      {}
+    ) } = $props;
     $self.$set = ($props2) => {
+      if ("user" in $props2)
+        $invalidate(0, user2 = $props2.user);
       if ("$scope" in $props2)
-        $invalidate(1, $scope = $props2.$scope);
+        $invalidate(2, $scope = $props2.$scope);
     };
-    return [$isShrinkMenu, $scope, slots];
+    return [user2, $isShrinkMenu, $scope, slots];
   }
   var Main = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance2, create_fragment4, safe_not_equal, {});
+      init(this, options, instance5, create_fragment5, safe_not_equal, { user: 0 });
     }
   };
   var Main_default = Main;
@@ -1408,11 +1912,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_fragment5(ctx) {
+  function create_fragment6(ctx) {
     let main;
     let current;
     main = new Main_default({
       props: {
+        user,
         $slots: { default: [create_default_slot] },
         $scope: { ctx }
       }
@@ -1448,10 +1953,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
+  var user = (
+    /** @type {User} */
+    {/* user */}
+  );
   var Buyer = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment5, safe_not_equal, {});
+      init(this, options, null, create_fragment6, safe_not_equal, {});
     }
   };
   var buyer_default = Buyer;
