@@ -33,6 +33,7 @@
     padding: 0 20px;
     border-bottom: 1px solid var(--gray-002);
     background-color: #FFF;
+    z-index: 100;
   }
 
   header .label {

@@ -15,9 +15,7 @@
     <div class="root_content { $isShrinkMenu ? 'shrink' : 'expand' }">
       <SideMenu />
       <main class="content">
-        <div class="slot">
-          <slot />
-        </div>
+        <slot />
         <Footer />
       </main>
     </div>
@@ -46,24 +44,24 @@
 		flex-direction: column;
 		-webkit-box-orient: vertical;
 		-webkit-box-direction: normal;
-		overflow-y: auto;
 		min-height: calc(100vh - var(--navbar-height));
 		transition: 0.3s;
 		width: 100%;
+    max-width: 100%;
+    margin-top: var(--navbar-height);
+    margin-left: var(--sidemenu-width);
+    margin-right: 0;
+    margin-bottom: 0;
+    overflow: hidden;
   }
 
   .root_layout .root_container .root_content .content {
     display: flex;
-    flex-direction: column;
-    min-height: 100%;
-    overflow: inherit;
-    margin-left: var(--sidemenu-width);
-    margin-top: calc(var(--navbar-height) + 1px);
-  }
-
-  .root_layout .root_container .root_content .content .slot {
-    height: 100%;
-    width: 100%;
-    padding: 20px;
+		flex-direction: column;
+		justify-content: space-between;
+		min-height: 100%;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
   }
 </style>

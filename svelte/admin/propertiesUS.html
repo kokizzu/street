@@ -1608,7 +1608,7 @@ aside.svelte-1hfp3dx .container .nav-menu button.red.svelte-1hfp3dx:hover {
 }
 
 /* fakecss:./_components/partials/Navbar.esbuild-svelte-fake-css */
-header.svelte-q4cped.svelte-q4cped {
+header.svelte-14u710g.svelte-14u710g {
   top: 0;
   left: 0;
   right: 0;
@@ -1621,15 +1621,16 @@ header.svelte-q4cped.svelte-q4cped {
   padding: 0 20px;
   border-bottom: 1px solid var(--gray-002);
   background-color: #FFF;
+  z-index: 100;
 }
-header.svelte-q4cped .label.svelte-q4cped {
+header.svelte-14u710g .label.svelte-14u710g {
   width: fit-content;
   display: flex;
   flex-direction: row;
   gap: 0;
   align-items: center;
 }
-header.svelte-q4cped .label .logo.svelte-q4cped {
+header.svelte-14u710g .label .logo.svelte-14u710g {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -1638,13 +1639,13 @@ header.svelte-q4cped .label .logo.svelte-q4cped {
   text-decoration: none;
   width: calc(var(--sidemenu-width) - 20px);
 }
-header.svelte-q4cped .user-info.svelte-q4cped {
+header.svelte-14u710g .user-info.svelte-14u710g {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
-header.svelte-q4cped .user-info a.user.svelte-q4cped {
+header.svelte-14u710g .user-info a.user.svelte-14u710g {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -1656,12 +1657,12 @@ header.svelte-q4cped .user-info a.user.svelte-q4cped {
   border-radius: 5px;
   border: 1px solid var(--gray-002);
 }
-header.svelte-q4cped .user-info a.user.svelte-q4cped:hover {
+header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
   background-color: var(--gray-001);
 }
 
 /* fakecss:./_layouts/Main.esbuild-svelte-fake-css */
-.root_layout.svelte-104s4c4.svelte-104s4c4 {
+.root_layout.svelte-pbt6ik.svelte-pbt6ik {
   display: block;
   top: 0;
   bottom: 0;
@@ -1670,33 +1671,34 @@ header.svelte-q4cped .user-info a.user.svelte-q4cped:hover {
   height: 100vh;
   width: 100vw;
 }
-.root_layout.svelte-104s4c4 .root_container.svelte-104s4c4 {
+.root_layout.svelte-pbt6ik .root_container.svelte-pbt6ik {
   height: 100%;
   width: 100%;
   display: flex;
 }
-.root_layout.svelte-104s4c4 .root_container .root_content.svelte-104s4c4 {
+.root_layout.svelte-pbt6ik .root_container .root_content.svelte-pbt6ik {
   display: flex;
   flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  overflow-y: auto;
   min-height: calc(100vh - var(--navbar-height));
   transition: 0.3s;
   width: 100%;
+  max-width: 100%;
+  margin-top: var(--navbar-height);
+  margin-left: var(--sidemenu-width);
+  margin-right: 0;
+  margin-bottom: 0;
+  overflow: hidden;
 }
-.root_layout.svelte-104s4c4 .root_container .root_content .content.svelte-104s4c4 {
+.root_layout.svelte-pbt6ik .root_container .root_content .content.svelte-pbt6ik {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   min-height: 100%;
-  overflow: inherit;
-  margin-left: var(--sidemenu-width);
-  margin-top: calc(var(--navbar-height) + 1px);
-}
-.root_layout.svelte-104s4c4 .root_container .root_content .content .slot.svelte-104s4c4 {
-  height: 100%;
-  width: 100%;
-  padding: 20px;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
 }
 
 /* fakecss:./admin/propertiesUS.esbuild-svelte-fake-css */
