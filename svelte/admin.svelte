@@ -1,48 +1,55 @@
 <script>
+  /** @typedef {import('./_types/user').User} User */
+  /** @typedef {import('./_types/master').Access} Access */
+  /** @typedef {import('chart.js').ChartConfiguration} ChartConfiguration */
+
   import Chart from 'chart.js/auto';
   import { onMount } from 'svelte';
-  
-  import Menu from './_components/Menu.svelte';
+  import Main from './_layouts/Main.svelte';
   import AdminSubMenu from './_components/AdminSubMenu.svelte';
-  import ProfileHeader from './_components/ProfileHeader.svelte';
-  import Footer from './_components/partials/Footer.svelte';
+  import { getRequestStatsChartOptions, getRequestActionChartOptions } from './_components/yChartOptions';
   
-  let user = {/* user */};
-  let segments = {/* segments */};
-  
-  let uniqueIpPerDate = {/* uniqueIpPerDate */};
-  let requestsPerDate = {/* requestsPerDate */};
-  let uniqueUserPerDate = {/* uniqueUserPerDate */};
-  let registeredUserTotal = +'#{registeredUserTotal}';
-  let totalRegisteredUserToday = +'#{registeredUserToday}';
-  let countPerActionsPerDate = {/* countPerActionsPerDate */};
-  let sortedDate = [];
+  let user                      = /** @type {User} */ ({/* user */});
+  let uniqueIpPerDate           = /** @type {Record<string, number>} */ ({/* uniqueIpPerDate */});
+  let requestsPerDate           = /** @type {Record<string, number>} */ ({/* requestsPerDate */});
+  let uniqueUserPerDate         = /** @type {Record<string, number>} */ ({/* uniqueUserPerDate */});
+  let registeredUserTotal       = /** @type {number} */ (parseInt('#{registeredUserTotal}') || 0);
+  let totalRegisteredUserToday  = /** @type {number} */ (parseInt('#{registeredUserToday}') || 0);
+  let countPerActionsPerDate    = /** @type {Record<string, Record<string, number>>} */ ({/* countPerActionsPerDate */});
+
+  let sortedDate = /** @type {string[]}*/ ([]);
+
   // Data to be display on the Charts
-  let formattedDates = [];
-  let data_requestsPerDate = [];
-  let data_uniqueIpPerDate = [];
-  let data_uniqueUserPerDate = [];
-  let data_actionLists = [];
+  let formattedDates              = [];
+  let data_requestsPerDate        = [];
+  let data_uniqueIpPerDate        = [];
+  let data_uniqueUserPerDate      = [];
+  let data_actionLists            = [];
   let data_countPerActionsPerDate = [];
   
-  function formatDate( dateString ) {
-    const options = {day: 'numeric', month: 'long'};
+  function formatDate(/** @type {string} */ dateString ) {
     const date = new Date( dateString );
-    return date.toLocaleDateString( 'en-US', options );
+    return date.toLocaleDateString('en-US', {
+      day: 'numeric',
+      month: 'long'
+    });
   }
   
   onMount( () => {
-    console.log('onMount.admin')
     let uniqueDate = {};
     for( let i in uniqueIpPerDate ) uniqueDate[ i ] = true;
     for( let i in requestsPerDate ) uniqueDate[ i ] = true;
     for( let i in uniqueUserPerDate ) uniqueDate[ i ] = true;
+
     sortedDate = Object.keys( uniqueDate ).sort();
+
     formattedDates = sortedDate.map( date => formatDate( date ) );
     data_requestsPerDate = sortedDate.map( date => requestsPerDate[ date ] );
     data_uniqueIpPerDate = sortedDate.map( date => uniqueIpPerDate[ date ] );
     data_uniqueUserPerDate = sortedDate.map( date => uniqueUserPerDate[ date ] );
-    let datasets = [];
+
+    let DatasetsReqActions = /** @type {import('chart.js').ChartDataset[]} */ ([]);
+
     data_actionLists = Object.keys( countPerActionsPerDate );
     for( let action in countPerActionsPerDate ) {
       let action_data = [];
@@ -60,7 +67,7 @@
       const degree = Math.floor( (360 * idx) / (total + 1) ); // since 360 in hsl = 0
       const color = 'hsl(' + degree + ', 100%, 47%)';
       const borderColor = 'hsl(' + degree + ', 100%, 60%)';
-      datasets.push( {
+      DatasetsReqActions.push( {
         label: data_actionLists[ idx ],
         backgroundColor: color,
         borderColor: borderColor,
@@ -70,258 +77,150 @@
       } );
     }
     
-    // init Chart.js
-    const statsChart = document.getElementById( 'stats-chart' );
-    const actionChart = document.getElementById( 'action-chart' );
+    const ElmStatsChart = /** @type {HTMLCanvasElement} */ (document.getElementById('stats-chart'));
+    const ElmActionChart = /** @type {HTMLCanvasElement} */ (document.getElementById( 'action-chart' ));
     
-    new Chart( statsChart, {
-      type: 'line',
-      data: {
-        labels: formattedDates,
-        datasets: [
-          {
-            label: 'Requests',
-            pointRadius: 4,
-            pointBackgroundColor: '#A5B4FC',
-            backgroundColor: '#818CF8',
-            borderColor: '#818CF8',
-            data: data_requestsPerDate,
-            fill: false,
-          },
-          {
-            label: 'Unique IP',
-            pointRadius: 4,
-            pointBackgroundColor: '#FDBA74',
-            backgroundColor: '#FB923C',
-            borderColor: '#FB923C',
-            data: data_uniqueIpPerDate,
-            fill: false,
-          },
-          {
-            label: 'Unique User',
-            pointRadius: 4,
-            pointBackgroundColor: '#5EEAD4',
-            backgroundColor: '#2DD4BF',
-            borderColor: '#2DD4BF',
-            data: data_uniqueUserPerDate,
-            fill: false,
-          },
-        ],
+    const DatasetsStatsChart = /** @type {import('chart.js').ChartDataset[]} */ ([
+      {
+        label: 'Requests',
+        pointRadius: 4,
+        pointBackgroundColor: '#8b5cf6',
+        data: data_requestsPerDate,
+        borderColor: '#8b5cf6',
+        backgroundColor: '#8b5cf620',
+        fill: 'start',
       },
-      options: {
-        plugins: {
-          legend: {
-            rtl: true,
-            labels: {
-              color: '#FFF',
-              textAlign: 'right',
-            },
-          },
-        },
-        maintainAspectRatio: false,
-        responsive: true,
-        title: {
-          display: false,
-          text: 'Sales Charts',
-          fontColor: 'white',
-        },
-        tooltips: {
-          mode: 'index',
-          intersect: false,
-        },
-        hover: {
-          mode: 'nearest',
-          intersect: true,
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: '#FFF',
-            },
-            grid: {
-              tickColor: 'transparent',
-              color: 'transparent',
-            },
-          },
-          y: {
-            beginAtZero: true,
-            ticks: {
-              stepSize: 100,
-              color: '#FFF',
-            },
-            border: {
-              dash: [4],
-            },
-            grid: {
-              tickColor: 'rgb(255, 255, 255, 0.2)',
-              tickBorderDash: [4],
-              color: 'rgb(255, 255, 255, 0.2)',
-            },
-          },
-        },
+      {
+        label: 'Unique IP',
+        pointRadius: 4,
+        pointBackgroundColor: '#eab308',
+        backgroundColor: '#eab30830',
+        borderColor: '#eab308',
+        data: data_uniqueIpPerDate,
+        fill: 'start',
       },
-    } );
+      {
+        label: 'Unique User',
+        pointRadius: 4,
+        pointBackgroundColor: '#22c55e',
+        backgroundColor: '#22c55e30',
+        borderColor: '#22c55e',
+        data: data_uniqueUserPerDate,
+        fill: 'start',
+      }
+    ])
+    new Chart(ElmStatsChart, getRequestStatsChartOptions(formattedDates, DatasetsStatsChart));
     
-    new Chart( actionChart, {
-      type: 'bar',
-      data: {
-        labels: formattedDates,
-        datasets: datasets,
-      },
-      options: {
-        plugins: {
-          legend: {
-            position: 'right',
-            labels: {
-              color: '#475569',
-            },
-          },
-        },
-        maintainAspectRatio: false,
-        responsive: true,
-        title: {
-          display: false,
-          text: 'Orders Chart',
-        },
-        tooltips: {
-          mode: 'index',
-          intersect: false,
-        },
-        hover: {
-          mode: 'nearest',
-          intersect: true,
-        },
-        scales: {
-          x: {
-            stacked: true,
-            ticks: {
-              color: '#475569',
-            },
-            grid: {
-              tickColor: 'transparent',
-              color: 'transparent',
-            },
-          },
-          y: {
-            stacked: true,
-            ticks: {
-              color: '#475569',
-            },
-            border: {
-              dash: [4],
-            },
-            grid: {
-              tickColor: '#D1D5DB',
-              tickBorderDash: [4],
-              color: '#D1D5DB',
-            },
-          },
-        },
-      },
-    } );
+    new Chart( ElmActionChart, getRequestActionChartOptions(formattedDates, DatasetsReqActions));
   } );
 </script>
 
-<section class='dashboard'>
-  <Menu access={segments} />
-  <div class='dashboard_main_content'>
-    <ProfileHeader {user} access={segments}/>
+<Main {user}>
+  <div class="admin-container">
     <AdminSubMenu />
-    <div class='content'>
-      <div class='info_card'>
-        <div class='total_container'>
-          <strong>Registered User Total</strong>: {registeredUserTotal}
+    <div class="admin-content">
+      <div class="info-card">
+        <div class="pill-box">
+          Registered User Total: {registeredUserTotal}
         </div>
-        <div class='total_container'>
-          <strong>Registered User Today</strong>: {totalRegisteredUserToday}
+        <div class="pill-box">
+          Registered User Today: {totalRegisteredUserToday}
         </div>
       </div>
-      <div class='chart_container'>
-        <!-- Statistics -->
-        <div class='statistics'>
+      <div class="charts-container">
+        <div class="statistics">
           <header>
             <h3>Last 30 days User Statistics</h3>
           </header>
-          <div class='stats'>
-            <canvas id='stats-chart' />
+          <div class="stats">
+            <canvas id="stats-chart" />
           </div>
         </div>
-        <!-- Actions [ Still Dummy Chart]-->
-        <div class='actions'>
+        <div class="actions">
           <header>
             <h3>Last 30 days Actions</h3>
           </header>
-          <div class='action'>
-            <canvas id='action-chart' />
+          <div class="action">
+            <canvas id="action-chart" />
           </div>
         </div>
       </div>
     </div>
-    <Footer />
   </div>
-</section>
+</Main>
 
 <style>
-  .info_card {
-    display          : flex;
-    width            : 88%;
-    margin           : -20px auto 20px auto;
-    position         : relative;
-    background-color : antiquewhite;
-    padding          : 1em;
-    border-radius    : 10px;
-    flex-direction   : row;
+  .admin-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    padding: 10px 20px 20px;
   }
 
-  .total_container {
-    flex : auto;
+  .admin-container .admin-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+  }
+  
+  .admin-container .admin-content .info-card {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 10px;
+    flex-wrap: wrap;
   }
 
-  .chart_container {
-    position       : relative;
-    width          : 88%;
-    margin         : 20px auto 20px auto;
-    display        : flex;
-    flex-direction : column;
+  .admin-container .admin-content .info-card .pill-box {
+    width: fit-content;
+    padding: 10px 20px;
+    border: 1px solid var(--gray-003);
+    border-radius: 8px;
   }
 
-  .chart_container .statistics {
-    width            : 100%;
-    height           : 400px;
-    box-shadow       : 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
-    background-color : #334155;
-    border-radius    : 8px;
-    padding          : 16px 16px 25px 16px;
+  .admin-container .admin-content .charts-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 
-  .chart_container .statistics header h3 {
-    font-size : 20px;
-    color     : white;
-    margin    : 0;
+  .admin-container .admin-content .charts-container header h3 {
+    font-size: 20px;
+    margin: 0;
   }
 
-  .chart_container .statistics .stats {
-    height : 92%;
-    width  : 100%;
+  .admin-container .admin-content .charts-container .statistics {
+    width: 100%;
+    height: 450px;
+    border-radius: 8px;
+    padding: 16px 16px 40px 16px;
+    border: 1px solid var(--gray-003);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .chart_container .actions {
-    width            : 100%;
-    margin-top       : 30px;
-    box-shadow       : 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
-    background-color : white;
-    border-radius    : 8px;
-    height           : 500px;
-    padding          : 16px 16px 25px 16px;
+  .admin-container .admin-content .charts-container .statistics .stats {
+    height: 92%;
+    width: 100%;
   }
 
-  .chart_container .actions header h3 {
-    font-size : 20px;
-    margin    : 0 0 20px 0;
+  .admin-container .admin-content .charts-container .actions {
+    width: 100%;
+    border-radius: 8px;
+    height: 450px;
+    padding: 16px 16px 25px 16px;
+    border: 1px solid var(--gray-003);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .chart_container .actions .action {
-    height : 90%;
-    width  : 100%;
+  .charts-container .actions .action {
+    height: 90%;
+    width: 100%;
   }
 </style>

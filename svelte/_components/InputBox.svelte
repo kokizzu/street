@@ -109,7 +109,7 @@
     border: 1px solid var(--gray-003);
     border-radius: 5px;
     background-color: transparent;
-    padding: 10px 12px;
+    padding: 12px 12px;
   }
 
   .input_box input:focus,
@@ -162,6 +162,11 @@
     right: 10px;
     border: none;
     cursor: pointer;
+  }
+
+  .input_box .eye:focus {
+    border: none;
+    outline: none;
   }
 
   :global(.input_box .eye:hover svg) {

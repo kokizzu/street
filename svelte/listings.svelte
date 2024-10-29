@@ -1,21 +1,57 @@
 <script>
 	/** @typedef {import('./_types/user').User} User */
   /** @typedef {import('./_types/property').Property} Property */
+  /**
+   * @typedef {Object} MarkerIcon
+   * @property {string} path
+   * @property {string} alt
+   */
 
   import Main from './_layouts/Main.svelte';
   import { GoogleMap, GoogleSdk } from './_components/GoogleMap/components';
   import { Icon } from './node_modules/svelte-icons-pack/dist';
   import { LuSearch } from './node_modules/svelte-icons-pack/dist/lu';
-  import { FaSolidBan, FaSolidImage } from './node_modules/svelte-icons-pack/dist/fa';
-  import { T } from './_components/uiState';
+  import { FaSolidBan } from './node_modules/svelte-icons-pack/dist/fa';
+  import PropertyImage from './_components/propertyImage.svelte';
+  import { onMount } from 'svelte';
 
 	const user              = /** @type {User} */ ({/* user */});
   const coord             = /** @type {number[]} */ ([/* initialLatLong */]);
   const properties        = /** @type {Property[]} */ ([/* randomProps */]);
+  const defaultDistanceKm = /** @type {number} */ (Number('#{defaultDistanceKm}') || 20);
 
   let gmapsComponent = /** @type {import('svelte').SvelteComponent} */ (null);
 
-  console.log('Properties = ', properties);
+  const markerIcons = /** @type {Record<string, MarkerIcon>} */ ({
+    'school': {
+      path: '/assets/icons/marker-school.svg',
+      alt: 'School',
+    },
+    'restaurant': {
+      path: '/assets/icons/marker-restaurant.svg',
+      alt: 'Restaurant',
+    },
+    'convenience_store': {
+      path: '/assets/icons/marker-mall.svg',
+      alt: 'Convenience Store',
+    },
+    'hospital': {
+      path: '/assets/icons/marker-hospital.svg',
+      alt: 'Hospital',
+    },
+    'subway_station': {
+      path: '/assets/icons/marker-subway.svg',
+      alt: 'Subway Station',
+    }
+  });
+
+  onMount(() => {
+    console.log('user = ', user);
+    console.log('coord = ', coord);
+    console.log('properties = ', properties);
+    console.log('markerIcons = ', markerIcons);
+    console.log('defaultDistanceKm = ', defaultDistanceKm);
+  })
 </script>
 
 <GoogleSdk />
@@ -27,33 +63,36 @@
         {#if properties && properties.length}
           {#each properties as prop, _ (prop.id)}
             <div class="property">
-              <picture class="img-container">
-                {#if prop.images && prop.images.length}
-                  <img
-                    src={prop.images[0]}
-                    alt={prop.formattedAddress}
-                  />
-                {:else}
-                  <div class='image-empty'>
-                    <Icon
-                      size="40"
-                      className="no-image-icon"
-                      color="#848d96"
-                      src={FaSolidImage}
-                    />
-                    <span>No Image !</span>
+              <PropertyImage
+                src={prop.images[0]}
+                alt={prop.address || prop.formattedAddress}
+              />
+              <div class="info">
+                <div class="top">
+                  <b>{prop.address || prop.formattedAddress}</b>
+                  <div class="features">
+                    <div class="pill-box">Floors: {prop.numberOfFloors}</div>
+                    <div class="pill-box">Bed: {prop.bedroom}</div>
+                    <div class="pill-box">Bath: {prop.bathroom}</div>
+                    <div class="pill-box">Size (m2): {prop.sizeM2}</div>
+                    <div class="pill-box">Siz (sqft): {prop.totalSqft}</div>
                   </div>
-                {/if}
-              </picture>
-              <div class="prop_info">
-                <p>Ingformation</p>
+                </div>
+                <div class="actions">
+                  <button>Listing</button>
+                  <button>Upload 3D file</button>
+                </div>
               </div>
             </div>
           {/each}
         {:else}
-          <div class="no_properties">
+          <div class="no-properties">
             <div class="warn">
-              <Icon size="17" color='#475569' src={FaSolidBan}/>
+              <Icon
+                size="17"
+                color="#475569"
+                src={FaSolidBan}
+              />
               <span>No properties in this area</span>
             </div>
           </div>
@@ -103,13 +142,77 @@
 
   .listings-root div.content {
     display: grid;
-    grid-template-columns: auto 60%;
+    grid-template-columns: auto 55%;
     position: relative;
   }
 
   .listings-root .content .properties {
-    height: 4000px;
-    padding: 20px;
+    height: fit-content;
+    width: 100%;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .listings-root .content .properties .property {
+    display: grid;
+    grid-template-columns: 35% auto;
+    border-radius: 10px;
+    border: 1px solid var(--gray-002);
+    overflow: hidden;
+  }
+
+  
+
+  .listings-root .content .properties .property .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .listings-root .content .properties .property .info .top {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .listings-root .content .properties .property .info .top .features {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .listings-root .content .properties .property .info .top .features .pill-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--gray-002);
+    font-size: var(--font-sm);
+  }
+
+  .listings-root .content .properties .property .info .actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .listings-root .content .properties .property .info .actions button {
+    background-color: transparent;
+    border: none;
+    font-weight: 600;
+    color: var(--orange-006);
+    cursor: pointer;
+  }
+
+  .listings-root .content .properties .property .info .actions button:hover {
+    color: var(--orange-005);
   }
 
   .listings-root .content .searcher {

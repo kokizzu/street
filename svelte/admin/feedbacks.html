@@ -433,46 +433,48 @@
 }
 
 /* fakecss:./_components/AdminSubMenu.esbuild-svelte-fake-css */
-.admin_submenu.svelte-ylwlsa.svelte-ylwlsa {
-  position: relative;
-  margin-top: -40px;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  background-color: #EF4444;
-  padding-bottom: 70px;
-}
-.admin_submenu.svelte-ylwlsa .menu.svelte-ylwlsa {
-  width: 88%;
-  margin-left: auto;
-  margin-right: auto;
+.admin-submenu.svelte-1fszk5i.svelte-1fszk5i {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  height: fit-content;
 }
-.admin_submenu.svelte-ylwlsa .menu a.svelte-ylwlsa {
-  flex-grow: 1;
-  color: #475569;
-  background-color: white;
-  border-radius: 6px;
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-  text-transform: uppercase;
-  font-size: 13px;
+.admin-submenu.svelte-1fszk5i nav.svelte-1fszk5i {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: fit-content;
+  gap: 10px;
+}
+.admin-submenu.svelte-1fszk5i nav a.svelte-1fszk5i {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
-  font-weight: 700;
-  padding-top: 11px;
-  padding-bottom: 11px;
-  text-align: center;
-  margin-left: 20px;
+  color: var(--gray-008);
 }
-.admin_submenu.svelte-ylwlsa .menu a.svelte-ylwlsa:hover {
-  color: #EF4444;
+.admin-submenu.svelte-1fszk5i nav a.svelte-1fszk5i:hover {
+  background-color: var(--gray-001);
 }
-.admin_submenu.svelte-ylwlsa .menu a.svelte-ylwlsa:nth-child(1) {
-  margin-left: 0 !important;
+.admin-submenu.svelte-1fszk5i nav a.active.svelte-1fszk5i {
+  color: var(--blue-005);
 }
-.admin_submenu.svelte-ylwlsa .menu .active.svelte-ylwlsa {
-  background-color: #334155 !important;
-  color: white !important;
+.admin-submenu.svelte-1fszk5i nav a .title.svelte-1fszk5i {
+  flex-grow: 1;
+  padding: 15px 10px;
+  display: flex;
+  align-items: center;
+}
+.admin-submenu.svelte-1fszk5i nav a .block.svelte-1fszk5i {
+  height: 3px;
+  background-color: transparent;
+  width: 100%;
+}
+.admin-submenu.svelte-1fszk5i nav a:hover .block.svelte-1fszk5i {
+  background-color: var(--gray-005);
+}
+.admin-submenu.svelte-1fszk5i nav a.active .block.svelte-1fszk5i {
+  background-color: var(--blue-005);
 }
 
 /* fakecss:./_components/ProfileHeader.esbuild-svelte-fake-css */
@@ -5806,57 +5808,49 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let div;
     let nav;
     let a0;
-    let t1;
+    let t2;
     let a1;
-    let t3;
-    let a2;
     let t5;
+    let a2;
+    let t8;
     let a3;
-    let t7;
-    let a4;
-    let t9;
-    let a5;
     let t11;
+    let a4;
+    let t14;
+    let a5;
+    let t17;
     let a6;
-    let t13;
+    let t20;
     let a7;
-    let t15;
-    let c0;
-    let t16;
-    let c1;
     return {
       c() {
         div = element("div");
         nav = element("nav");
         a0 = element("a");
-        a0.textContent = "Dashboard";
-        t1 = space();
+        a0.innerHTML = `<span class="title svelte-1fszk5i">Dashboard</span> <span class="block svelte-1fszk5i"></span>`;
+        t2 = space();
         a1 = element("a");
-        a1.textContent = "Feedbacks";
-        t3 = space();
-        a2 = element("a");
-        a2.textContent = "Users";
+        a1.innerHTML = `<span class="title svelte-1fszk5i">Feedbacks</span> <span class="block svelte-1fszk5i"></span>`;
         t5 = space();
+        a2 = element("a");
+        a2.innerHTML = `<span class="title svelte-1fszk5i">Users</span> <span class="block svelte-1fszk5i"></span>`;
+        t8 = space();
         a3 = element("a");
-        a3.textContent = "Properties US";
-        t7 = space();
-        a4 = element("a");
-        a4.textContent = "Properties";
-        t9 = space();
-        a5 = element("a");
-        a5.textContent = "Prop Histories";
+        a3.innerHTML = `<span class="title svelte-1fszk5i">Properties US</span> <span class="block svelte-1fszk5i"></span>`;
         t11 = space();
+        a4 = element("a");
+        a4.innerHTML = `<span class="title svelte-1fszk5i">Properties</span> <span class="block svelte-1fszk5i"></span>`;
+        t14 = space();
+        a5 = element("a");
+        a5.innerHTML = `<span class="title svelte-1fszk5i">Prop Histories</span> <span class="block svelte-1fszk5i"></span>`;
+        t17 = space();
         a6 = element("a");
-        a6.textContent = "Access Logs";
-        t13 = space();
+        a6.innerHTML = `<span class="title svelte-1fszk5i">Access Logs</span> <span class="block svelte-1fszk5i"></span>`;
+        t20 = space();
         a7 = element("a");
-        a7.textContent = "Files";
-        t15 = space();
-        c0 = comment(`  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>`);
-        t16 = space();
-        c1 = comment(`  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>`);
+        a7.innerHTML = `<span class="title svelte-1fszk5i">Files</span> <span class="block svelte-1fszk5i"></span>`;
         attr(a0, "href", "/admin");
-        attr(a0, "class", "svelte-ylwlsa");
+        attr(a0, "class", "svelte-1fszk5i");
         toggle_class(
           a0,
           "active",
@@ -5864,7 +5858,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           ctx[0] === "admin"
         );
         attr(a1, "href", "/admin/feedbacks");
-        attr(a1, "class", "svelte-ylwlsa");
+        attr(a1, "class", "svelte-1fszk5i");
         toggle_class(
           a1,
           "active",
@@ -5872,7 +5866,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           ctx[0] === "feedbacks"
         );
         attr(a2, "href", "/admin/users");
-        attr(a2, "class", "svelte-ylwlsa");
+        attr(a2, "class", "svelte-1fszk5i");
         toggle_class(
           a2,
           "active",
@@ -5880,7 +5874,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           ctx[0] === "users"
         );
         attr(a3, "href", "/admin/properties/US");
-        attr(a3, "class", "svelte-ylwlsa");
+        attr(a3, "class", "svelte-1fszk5i");
         toggle_class(
           a3,
           "active",
@@ -5888,7 +5882,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           ctx[0] === "US"
         );
         attr(a4, "href", "/admin/properties");
-        attr(a4, "class", "svelte-ylwlsa");
+        attr(a4, "class", "svelte-1fszk5i");
         toggle_class(
           a4,
           "active",
@@ -5896,7 +5890,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           ctx[0] === "properties"
         );
         attr(a5, "href", "/admin/propHistories");
-        attr(a5, "class", "svelte-ylwlsa");
+        attr(a5, "class", "svelte-1fszk5i");
         toggle_class(
           a5,
           "active",
@@ -5904,7 +5898,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           ctx[0] === "propHistories"
         );
         attr(a6, "href", "/admin/accessLogs");
-        attr(a6, "class", "svelte-ylwlsa");
+        attr(a6, "class", "svelte-1fszk5i");
         toggle_class(
           a6,
           "active",
@@ -5912,113 +5906,36 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
           ctx[0] === "accessLogs"
         );
         attr(a7, "href", "/admin/files");
-        attr(a7, "class", "svelte-ylwlsa");
+        attr(a7, "class", "svelte-1fszk5i");
         toggle_class(
           a7,
           "active",
           /*segment2*/
           ctx[0] === "files"
         );
-        attr(nav, "class", "menu svelte-ylwlsa");
-        attr(div, "class", "admin_submenu svelte-ylwlsa");
+        attr(nav, "class", "svelte-1fszk5i");
+        attr(div, "class", "admin-submenu svelte-1fszk5i");
       },
       m(target, anchor) {
         insert(target, div, anchor);
         append(div, nav);
         append(nav, a0);
-        append(nav, t1);
+        append(nav, t2);
         append(nav, a1);
-        append(nav, t3);
-        append(nav, a2);
         append(nav, t5);
+        append(nav, a2);
+        append(nav, t8);
         append(nav, a3);
-        append(nav, t7);
-        append(nav, a4);
-        append(nav, t9);
-        append(nav, a5);
         append(nav, t11);
+        append(nav, a4);
+        append(nav, t14);
+        append(nav, a5);
+        append(nav, t17);
         append(nav, a6);
-        append(nav, t13);
+        append(nav, t20);
         append(nav, a7);
-        append(nav, t15);
-        append(nav, c0);
-        append(nav, t16);
-        append(nav, c1);
       },
-      p(ctx2, [dirty]) {
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a0,
-            "active",
-            /*segment2*/
-            ctx2[0] === "admin"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a1,
-            "active",
-            /*segment2*/
-            ctx2[0] === "feedbacks"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a2,
-            "active",
-            /*segment2*/
-            ctx2[0] === "users"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a3,
-            "active",
-            /*segment2*/
-            ctx2[0] === "US"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a4,
-            "active",
-            /*segment2*/
-            ctx2[0] === "properties"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a5,
-            "active",
-            /*segment2*/
-            ctx2[0] === "propHistories"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a6,
-            "active",
-            /*segment2*/
-            ctx2[0] === "accessLogs"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a7,
-            "active",
-            /*segment2*/
-            ctx2[0] === "files"
-          );
-        }
-      },
+      p: noop,
       i: noop,
       o: noop,
       d(detaching) {
@@ -6028,12 +5945,11 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       }
     };
   }
-  function instance3($self, $props, $invalidate) {
-    let segment2;
-    onMount(() => {
-      console.log("onMount.AdminSubMenu");
-      $invalidate(0, segment2 = window.location.pathname.split("/").pop() || "");
-    });
+  function instance3($self) {
+    let segment2 = (
+      /** @type {string} */
+      window.location.pathname.split("/").pop() || ""
+    );
     return [segment2];
   }
   var AdminSubMenu = class extends SvelteComponent {

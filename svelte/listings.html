@@ -614,47 +614,114 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   cursor: pointer;
 }
 
+/* fakecss:./_components/propertyImage.esbuild-svelte-fake-css */
+picture.svelte-10x01ln.svelte-10x01ln {
+  width: 100%;
+  height: 130px;
+  overflow: hidden;
+}
+picture.svelte-10x01ln img.svelte-10x01ln {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition-duration: 75ms;
+}
+
 /* fakecss:./listings.esbuild-svelte-fake-css */
-.listings-root.svelte-1acxy9g.svelte-1acxy9g {
+.listings-root.svelte-h2bt6n.svelte-h2bt6n {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-.listings-root.svelte-1acxy9g div.content.svelte-1acxy9g {
+.listings-root.svelte-h2bt6n div.content.svelte-h2bt6n {
   display: grid;
-  grid-template-columns: auto 60%;
+  grid-template-columns: auto 55%;
   position: relative;
 }
-.listings-root.svelte-1acxy9g .content .properties.svelte-1acxy9g {
-  height: 4000px;
-  padding: 20px;
+.listings-root.svelte-h2bt6n .content .properties.svelte-h2bt6n {
+  height: fit-content;
+  width: 100%;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
-.listings-root.svelte-1acxy9g .content .searcher.svelte-1acxy9g {
+.listings-root.svelte-h2bt6n .content .properties .property.svelte-h2bt6n {
+  display: grid;
+  grid-template-columns: 35% auto;
+  border-radius: 10px;
+  border: 1px solid var(--gray-002);
+  overflow: hidden;
+}
+.listings-root.svelte-h2bt6n .content .properties .property .info.svelte-h2bt6n {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px;
+}
+.listings-root.svelte-h2bt6n .content .properties .property .info .top.svelte-h2bt6n {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.listings-root.svelte-h2bt6n .content .properties .property .info .top .features.svelte-h2bt6n {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.listings-root.svelte-h2bt6n .content .properties .property .info .top .features .pill-box.svelte-h2bt6n {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-002);
+  font-size: var(--font-sm);
+}
+.listings-root.svelte-h2bt6n .content .properties .property .info .actions.svelte-h2bt6n {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.listings-root.svelte-h2bt6n .content .properties .property .info .actions button.svelte-h2bt6n {
+  background-color: transparent;
+  border: none;
+  font-weight: 600;
+  color: var(--orange-006);
+  cursor: pointer;
+}
+.listings-root.svelte-h2bt6n .content .properties .property .info .actions button.svelte-h2bt6n:hover {
+  color: var(--orange-005);
+}
+.listings-root.svelte-h2bt6n .content .searcher.svelte-h2bt6n {
   display: flex;
   flex-direction: column;
   position: sticky;
   top: 0;
   height: calc(100vh - var(--navbar-height));
 }
-.listings-root.svelte-1acxy9g .content .searcher .search-container.svelte-1acxy9g {
+.listings-root.svelte-h2bt6n .content .searcher .search-container.svelte-h2bt6n {
   display: flex;
   flex-direction: row;
   padding: 15px 0;
 }
-.listings-root.svelte-1acxy9g .content .searcher .search-container .search-form.svelte-1acxy9g {
+.listings-root.svelte-h2bt6n .content .searcher .search-container .search-form.svelte-h2bt6n {
   display: flex;
   flex-direction: row;
   width: 100%;
   gap: 10px;
 }
-.listings-root.svelte-1acxy9g .content .searcher .search-container .search-form .search-box.svelte-1acxy9g {
+.listings-root.svelte-h2bt6n .content .searcher .search-container .search-form .search-box.svelte-h2bt6n {
   display: flex;
   flex-direction: row;
   align-items: center;
   position: relative;
   width: 60%;
 }
-.listings-root.svelte-1acxy9g .content .searcher .search-container .search-form .search-box input.svelte-1acxy9g {
+.listings-root.svelte-h2bt6n .content .searcher .search-container .search-form .search-box input.svelte-h2bt6n {
   width: 100%;
   border: 1px solid var(--gray-003);
   border-radius: 8px;
@@ -662,7 +729,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   padding: 12px 12px 12px 40px;
   width: 100%;
 }
-.listings-root.svelte-1acxy9g .content .searcher .search-container .search-form .search-box input.svelte-1acxy9g:focus {
+.listings-root.svelte-h2bt6n .content .searcher .search-container .search-form .search-box input.svelte-h2bt6n:focus {
   border-color: var(--orange-005);
   outline: 1px solid var(--orange-005);
 }
@@ -673,7 +740,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   transform: translateY(-50%);
   color: var(--gray-003);
 }
-.listings-root.svelte-1acxy9g .content .searcher .search-container .search-form button.search-btn.svelte-1acxy9g {
+.listings-root.svelte-h2bt6n .content .searcher .search-container .search-form button.search-btn.svelte-h2bt6n {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -685,10 +752,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   border: none;
   cursor: pointer;
 }
-.listings-root.svelte-1acxy9g .content .searcher .search-container .search-form button.search-btn.svelte-1acxy9g:hover {
+.listings-root.svelte-h2bt6n .content .searcher .search-container .search-form button.search-btn.svelte-h2bt6n:hover {
   background-color: var(--orange-005);
 }
-.listings-root.svelte-1acxy9g .content .searcher .map-container.svelte-1acxy9g {
+.listings-root.svelte-h2bt6n .content .searcher .map-container.svelte-h2bt6n {
   display: block;
   width: 100%;
   height: 100%;
@@ -882,6 +949,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   }
   function empty() {
     return text("");
+  }
+  function listen(node, event, handler, options) {
+    node.addEventListener(event, handler, options);
+    return () => node.removeEventListener(event, handler, options);
   }
   function attr(node, attribute, value) {
     if (value == null)
@@ -1253,7 +1324,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance9, create_fragment8, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance10, create_fragment9, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -1279,7 +1350,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance9 ? instance9(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance10 ? instance10(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -1292,7 +1363,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment8 ? create_fragment8($.ctx) : false;
+    $.fragment = create_fragment9 ? create_fragment9($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -2464,193 +2535,103 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/fa/index.js
   var FaSolidBan = { a: { viewBox: "0 0 512 512" }, c: '<path d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"></path>' };
-  var FaSolidImage = { a: { viewBox: "0 0 512 512" }, c: '<path d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6h96 32H424c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"></path>' };
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/lu/index.js
   var LuSearch = { a: { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" }, c: '<circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path>' };
 
-  // translation.json
-  var translation_default = {
-    confirm: "Confirm",
-    confirmTW: "\u518D\u6B21\u78BA\u8A8D\u5BC6\u78BC",
-    about: "About",
-    aboutTW: "\u6982\u8981",
-    agencyFee: "Agency Fee:",
-    agencyFeeTW: "\u4EF2\u4ECB\u8CBB:",
-    all: "All",
-    allTW: "\u5168\u90E8",
-    arStreetView: "AR Street view",
-    arStreetViewTW: "\u8857\u666F\u627E\u623F",
-    aroundHome: "Around Home",
-    aroundHomeTW: "\u5468\u908A\u8CC7\u8A0A",
-    askByText: "Ask by Text",
-    askByTextTW: "\u50B3\u7C21\u8A0A",
-    basement: "Basement",
-    basementTW: "\u5730\u4E0B\u5BA4",
-    bath: "bath",
-    bathTW: "\u885B",
-    bathroomN: "Bathroom #",
-    bathroomNTW: "\u885B\u6D74 ",
-    bed: "bed",
-    bedTW: "\u623F",
-    bedroomN: "Bedroom #",
-    bedroomNTW: "\u81E5\u5BA4 ",
-    buildingMaterial: "Building Material",
-    buildingMaterialTW: "\u5EFA\u7BC9\u6750\u6599",
-    callMe: "Call Me",
-    callMeTW: "\u96FB\u8A71\u806F\u7D61",
-    clickVerificationLink: "Please click the link in that email.",
-    clickVerificationLinkTW: "\u8ACB\u81F3\u60A8\u7684\u8A3B\u518AEmail \u4E26\u9EDE\u9078\u9023\u7D50\u4F86\u9A57\u8B49\u4FE1\u7BB1\u3002",
-    confirmPassword: "Confirm Password",
-    confirmPasswordTW: "\u518D\u6B21\u78BA\u8A8D\u5BC6\u78BC",
-    constructionDate: "Construction Date",
-    constructionDateTW: "\u5EFA\u6210\u6642\u9593",
-    disclaimer1: "Disclaimer: The information provided on this platform is for reference purposes only. We do not guarantee the accuracy or completeness of the information presented. The actual information regarding the property is provided by the seller and should be verified independently. We do not assume any responsibility for any errors or omissions in the information provided. Please be aware of potential scams or frauds. We strongly advise you to conduct your own due diligence and exercise caution when communicating with anyone you meet online. Do not send money or personal information until you have verified the authenticity of the individual or company you are dealing with.",
-    disclaimer1TW: "\u514D\u8CAC\u8072\u660E\uFF1A \u672C\u5E73\u53F0\u63D0\u4F9B\u7684\u8CC7\u8A0A\u50C5\u4F9B\u53C3\u8003\u4E4B\u7528\u3002\u6211\u5011\u4E0D\u4FDD\u8B49\u6240\u63D0\u4F9B\u7684\u8CC7\u8A0A\u7684\u6E96\u78BA\u6027\u6216\u5B8C\u6574\u6027\u3002\u6709\u95DC\u7269\u4EF6\u7684\u5BE6\u969B\u8CC7\u8A0A\u7531\u8CE3\u65B9\u63D0\u4F9B\uFF0C\u61C9\u7368\u7ACB\u9032\u884C\u9A57\u8B49\u3002\u6211\u5011\u4E0D\u627F\u64D4\u4EFB\u4F55\u56E0\u6240\u63D0\u4F9B\u8CC7\u8A0A\u4E2D\u7684\u932F\u8AA4\u6216\u907A\u6F0F\u800C\u5F15\u8D77\u7684\u8CAC\u4EFB\u3002 \u8ACB\u6CE8\u610F\u53EF\u80FD\u5B58\u5728\u7684\u8A50\u9A19\u6216\u6B3A\u8A50\u884C\u70BA\u3002\u6211\u5011\u5F37\u70C8\u5EFA\u8B70\u60A8\u81EA\u884C\u9032\u884C\u5145\u5206\u7684\u5BE9\u614E\u8A55\u4F30\uFF0C\u4E26\u5728\u8207\u60A8\u5728\u7DDA\u4E0A\u9047\u5230\u7684\u4EFB\u4F55\u4EBA\u6E9D\u901A\u6642\u8B39\u614E\u884C\u4E8B\u3002\u5728\u9A57\u8B49\u60A8\u6240\u806F\u7D61\u7684\u500B\u4EBA\u6216\u516C\u53F8\u7684\u771F\u5BE6\u6027\u4E4B\u524D\uFF0C\u8ACB\u52FF\u767C\u9001\u91D1\u9322\u6216\u500B\u4EBA\u8CC7\u8A0A\u3002",
-    email: "Email",
-    emailTW: "\u4FE1\u7BB1",
-    facility: "Facility",
-    facilityTW: "\u8A2D\u65BD",
-    feet: "feet",
-    feetTW: "\u82F1\u5C3A",
-    floor: "Floor",
-    floorN: "Floor #",
-    floorNTW: "\u6A13\u5C64 ",
-    floorTW: "\u6A13\u5C64",
-    floors: "Floors",
-    floorsTW: "\u6A13\u5C64",
-    forRent: "For Rent",
-    forRentTW: "\u51FA\u79DF",
-    forgotPassword: "Forgot Password",
-    forgotPasswordTW: "\u5FD8\u8A18\u5BC6\u78BC",
-    haveAccount: "Have an Account ",
-    haveAccountTW: "\u5DF2\u662F\u6703\u54E1\uFF1F",
-    hospital: "Hospital",
-    hospitalTW: "\u91AB\u9662",
-    information: "Information",
-    informationTW: "\u8CC7\u8A0A",
-    key: "EN",
-    keyTW: "TW",
-    km: "km",
-    kmTW: "\u516C\u91CC",
-    lastPrice: "Last Price",
-    lastPriceTW: "\u6700\u8FD1\u50F9\u683C",
-    likedProperty: "Liked Property",
-    likedPropertyTW: "\u559C\u6B61\u7684\u7269\u4EF6",
-    lookDown: "Look Down",
-    lookDownTW: "\u5F80\u4E0B\u770B",
-    lookLeft: "Look Left",
-    lookLeftTW: "\u5F80\u5DE6\u770B",
-    lookRight: "Look Right",
-    lookRightTW: "\u5F80\u53F3\u770B",
-    lookTop: "Look Top",
-    lookTopTW: "\u5F80\u4E0A\u770B",
-    m: "m",
-    m2: "m2",
-    m2TW: "\u5E73\u65B9\u7C73",
-    mTW: "\u516C\u5C3A",
-    miles: "miles",
-    milesTW: "\u82F1\u91CC",
-    moveCamera: "Slowly move the Camera to Look Around ",
-    moveCameraTW: "\u5DE6\u53F3\u79FB\u52D5\u627E\u7269\u4EF6",
-    onSale: "On Sale",
-    onSaleTW: "\u62CD\u8CE3\u4E2D",
-    openMap: "Open Map",
-    openMapTW: "\u67E5\u770B\u4F4D\u7F6E",
-    password: "Password",
-    passwordTW: "\u5BC6\u78BC",
-    ping: "ping",
-    pingTW: "\u576A",
-    pleaseVerify: "Please Verify Your Email",
-    pleaseVerifyTW: "\u9A57\u8B49Email",
-    priceHistory: "Price History",
-    priceHistoryTW: "\u6B77\u53F2\u50F9\u683C",
-    publish: "Publish",
-    publishTW: "\u520A\u767B",
-    resendVerificationLink: "Resend Verification Link",
-    resendVerificationLinkTW: "\u91CD\u5BC4 \u9A57\u8B49\u9023\u7D50",
-    restaurant: "Restaurant",
-    restaurantTW: "\u9910\u5EF3",
-    scanning: "Scanning...",
-    scanningTW: "\u6383\u63CF\u74B0\u5883\u4E2D...",
-    school: "School",
-    schoolTW: "\u5B78\u6821",
-    seeMore: "See More...",
-    seeMoreTW: "\u67E5\u770B\u66F4\u591A...",
-    signIn: "Sign In",
-    signInTW: "\u767B\u5165",
-    signOut: "Sign Out ",
-    signOutTW: "\u767B\u51FA",
-    signUp: "Sign Up",
-    signUpEmail: "Sign up with Email ",
-    signUpEmailTW: "\u4FE1\u7BB1\u8A3B\u518A",
-    signUpTW: "\u8A3B\u518A",
-    size: "Size",
-    sizeTW: "\u5C3A\u5BF8",
-    sqft: "sqft",
-    sqftTW: "\u5E73\u65B9\u7C73",
-    store: "Store",
-    storeTW: "\u5546\u5E97",
-    transit: "Transit",
-    transitTW: "\u5927\u773E\u904B\u8F38",
-    usdPerMonth: "$$/mo",
-    usdPerMonthTW: "$$/\u6708",
-    weSentEmail: "We've sent an email to your email account.",
-    weSentEmailTW: "\u6211\u5011\u5DF2\u5BC4\u4FE1\u81F3\u60A8\u7684Email!",
-    welcome: "Welcome to HapSTR ",
-    welcomeTW: "\u6B61\u8FCE\u4F7F\u7528HapSTR"
-  };
-
-  // _components/uiState.js
-  var isSideMenuOpen = writable(false);
-  var original = translation_default;
-  function translationStore() {
-    let currentLang = "";
-    if (window && window.localStorage) {
-      currentLang = window.localStorage.getItem("lang") || "";
-    }
-    let kv = { currentLang };
-    let switchLang = () => {
-      if (currentLang === "EN" || currentLang === "") {
-        for (let k in original) {
-          kv[k] = original[k];
-        }
-      } else {
-        for (let k in original) {
-          if (original[k + currentLang])
-            kv[k] = original[k + currentLang];
-        }
-      }
-    };
-    const { subscribe: subscribe2, set, update: update2 } = writable(kv);
+  // _components/propertyImage.svelte
+  function create_fragment7(ctx) {
+    let picture;
+    let img;
+    let img_src_value;
+    let mounted;
+    let dispose;
     return {
-      currentLang,
-      subscribe: subscribe2,
-      changeLanguage: (newV, cb) => {
-        if (window && window.localStorage) {
-          window.localStorage.setItem("lang", newV);
+      c() {
+        picture = element("picture");
+        img = element("img");
+        if (!src_url_equal(img.src, img_src_value = /*src*/
+        ctx[0]))
+          attr(img, "src", img_src_value);
+        attr(
+          img,
+          "alt",
+          /*alt*/
+          ctx[1]
+        );
+        attr(img, "class", "svelte-10x01ln");
+        attr(picture, "class", "svelte-10x01ln");
+      },
+      m(target, anchor) {
+        insert(target, picture, anchor);
+        append(picture, img);
+        if (!mounted) {
+          dispose = listen(
+            img,
+            "error",
+            /*onerror*/
+            ctx[2]
+          );
+          mounted = true;
         }
-        currentLang = newV;
-        kv.currentLang = newV;
-        switchLang();
-        console.log("kv", kv);
-        if (Object.keys(kv).length === 0)
-          return;
-        update2((el) => kv);
-        cb();
+      },
+      p(ctx2, [dirty]) {
+        if (dirty & /*src*/
+        1 && !src_url_equal(img.src, img_src_value = /*src*/
+        ctx2[0])) {
+          attr(img, "src", img_src_value);
+        }
+        if (dirty & /*alt*/
+        2) {
+          attr(
+            img,
+            "alt",
+            /*alt*/
+            ctx2[1]
+          );
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(picture);
+        }
+        mounted = false;
+        dispose();
       }
     };
   }
-  var T = translationStore();
+  function instance8($self, $props, $invalidate) {
+    let { src = "/assets/img/placeholder.webp" } = $props;
+    let { alt = "" } = $props;
+    function onerror() {
+      $invalidate(0, src = "/assets/img/placeholder.webp");
+    }
+    $self.$set = ($props2) => {
+      if ("src" in $props2)
+        $invalidate(0, src = $props2.src);
+      if ("alt" in $props2)
+        $invalidate(1, alt = $props2.alt);
+    };
+    return [src, alt, onerror];
+  }
+  var PropertyImage = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance8, create_fragment7, safe_not_equal, { src: 0, alt: 1 });
+    }
+  };
+  var propertyImage_default = PropertyImage;
 
   // listings.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[2] = list[i];
-    child_ctx[4] = i;
+    child_ctx[4] = list[i];
+    child_ctx[6] = i;
     return child_ctx;
   }
-  function create_else_block_1(ctx) {
+  function create_else_block(ctx) {
     let div1;
     let div0;
     let icon;
@@ -2673,7 +2654,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         span = element("span");
         span.textContent = "No properties in this area";
         attr(div0, "class", "warn");
-        attr(div1, "class", "no_properties");
+        attr(div1, "class", "no-properties");
       },
       m(target, anchor) {
         insert(target, div1, anchor);
@@ -2710,7 +2691,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let each_value = ensure_array_like(properties);
     const get_key = (ctx2) => (
       /*prop*/
-      ctx2[2].id
+      ctx2[4].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context(ctx, each_value, i);
@@ -2766,147 +2747,132 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_else_block(ctx) {
-    let div;
-    let icon;
+  function create_each_block(key_1, ctx) {
+    let div9;
+    let propertyimage;
     let t0;
-    let span;
+    let div8;
+    let div6;
+    let b;
+    let t2;
+    let div5;
+    let div0;
+    let t5;
+    let div1;
+    let t8;
+    let div2;
+    let t11;
+    let div3;
+    let t14;
+    let div4;
+    let t17;
+    let div7;
+    let t21;
     let current;
-    icon = new Icon_default({
+    propertyimage = new propertyImage_default({
       props: {
-        size: "40",
-        className: "no-image-icon",
-        color: "#848d96",
-        src: FaSolidImage
+        src: (
+          /*prop*/
+          ctx[4].images[0]
+        ),
+        alt: (
+          /*prop*/
+          ctx[4].address || /*prop*/
+          ctx[4].formattedAddress
+        )
       }
     });
-    return {
-      c() {
-        div = element("div");
-        create_component(icon.$.fragment);
-        t0 = space();
-        span = element("span");
-        span.textContent = "No Image !";
-        attr(div, "class", "image-empty");
-      },
-      m(target, anchor) {
-        insert(target, div, anchor);
-        mount_component(icon, div, null);
-        append(div, t0);
-        append(div, span);
-        current = true;
-      },
-      p: noop,
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(div);
-        }
-        destroy_component(icon);
-      }
-    };
-  }
-  function create_if_block_1(ctx) {
-    let img;
-    let img_src_value;
-    let img_alt_value;
-    return {
-      c() {
-        img = element("img");
-        if (!src_url_equal(img.src, img_src_value = /*prop*/
-        ctx[2].images[0]))
-          attr(img, "src", img_src_value);
-        attr(img, "alt", img_alt_value = /*prop*/
-        ctx[2].formattedAddress);
-      },
-      m(target, anchor) {
-        insert(target, img, anchor);
-      },
-      p: noop,
-      i: noop,
-      o: noop,
-      d(detaching) {
-        if (detaching) {
-          detach(img);
-        }
-      }
-    };
-  }
-  function create_each_block(key_1, ctx) {
-    let div1;
-    let picture;
-    let current_block_type_index;
-    let if_block;
-    let t0;
-    let div0;
-    let t2;
-    let current;
-    const if_block_creators = [create_if_block_1, create_else_block];
-    const if_blocks = [];
-    function select_block_type_1(ctx2, dirty) {
-      if (
-        /*prop*/
-        ctx2[2].images && /*prop*/
-        ctx2[2].images.length
-      )
-        return 0;
-      return 1;
-    }
-    current_block_type_index = select_block_type_1(ctx, -1);
-    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       key: key_1,
       first: null,
       c() {
-        div1 = element("div");
-        picture = element("picture");
-        if_block.c();
+        div9 = element("div");
+        create_component(propertyimage.$.fragment);
         t0 = space();
-        div0 = element("div");
-        div0.innerHTML = `<p>Ingformation</p>`;
+        div8 = element("div");
+        div6 = element("div");
+        b = element("b");
+        b.textContent = `${/*prop*/
+        ctx[4].address || /*prop*/
+        ctx[4].formattedAddress}`;
         t2 = space();
-        attr(picture, "class", "img-container");
-        attr(div0, "class", "prop_info");
-        attr(div1, "class", "property");
-        this.first = div1;
+        div5 = element("div");
+        div0 = element("div");
+        div0.textContent = `Floors: ${/*prop*/
+        ctx[4].numberOfFloors}`;
+        t5 = space();
+        div1 = element("div");
+        div1.textContent = `Bed: ${/*prop*/
+        ctx[4].bedroom}`;
+        t8 = space();
+        div2 = element("div");
+        div2.textContent = `Bath: ${/*prop*/
+        ctx[4].bathroom}`;
+        t11 = space();
+        div3 = element("div");
+        div3.textContent = `Size (m2): ${/*prop*/
+        ctx[4].sizeM2}`;
+        t14 = space();
+        div4 = element("div");
+        div4.textContent = `Siz (sqft): ${/*prop*/
+        ctx[4].totalSqft}`;
+        t17 = space();
+        div7 = element("div");
+        div7.innerHTML = `<button class="svelte-h2bt6n">Listing</button> <button class="svelte-h2bt6n">Upload 3D file</button>`;
+        t21 = space();
+        attr(div0, "class", "pill-box svelte-h2bt6n");
+        attr(div1, "class", "pill-box svelte-h2bt6n");
+        attr(div2, "class", "pill-box svelte-h2bt6n");
+        attr(div3, "class", "pill-box svelte-h2bt6n");
+        attr(div4, "class", "pill-box svelte-h2bt6n");
+        attr(div5, "class", "features svelte-h2bt6n");
+        attr(div6, "class", "top svelte-h2bt6n");
+        attr(div7, "class", "actions svelte-h2bt6n");
+        attr(div8, "class", "info svelte-h2bt6n");
+        attr(div9, "class", "property svelte-h2bt6n");
+        this.first = div9;
       },
       m(target, anchor) {
-        insert(target, div1, anchor);
-        append(div1, picture);
-        if_blocks[current_block_type_index].m(picture, null);
-        append(div1, t0);
-        append(div1, div0);
-        append(div1, t2);
+        insert(target, div9, anchor);
+        mount_component(propertyimage, div9, null);
+        append(div9, t0);
+        append(div9, div8);
+        append(div8, div6);
+        append(div6, b);
+        append(div6, t2);
+        append(div6, div5);
+        append(div5, div0);
+        append(div5, t5);
+        append(div5, div1);
+        append(div5, t8);
+        append(div5, div2);
+        append(div5, t11);
+        append(div5, div3);
+        append(div5, t14);
+        append(div5, div4);
+        append(div8, t17);
+        append(div8, div7);
+        append(div9, t21);
         current = true;
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
-        if_block.p(ctx, dirty);
       },
       i(local) {
         if (current)
           return;
-        transition_in(if_block);
+        transition_in(propertyimage.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(if_block);
+        transition_out(propertyimage.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(div1);
+          detach(div9);
         }
-        if_blocks[current_block_type_index].d();
+        destroy_component(propertyimage);
       }
     };
   }
@@ -2930,7 +2896,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let div4;
     let googlemap;
     let current;
-    const if_block_creators = [create_if_block, create_else_block_1];
+    const if_block_creators = [create_if_block, create_else_block];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (properties && properties.length)
@@ -2976,17 +2942,17 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         t4 = space();
         div4 = element("div");
         create_component(googlemap.$.fragment);
-        attr(div0, "class", "properties svelte-1acxy9g");
+        attr(div0, "class", "properties svelte-h2bt6n");
         attr(input, "type", "text");
-        attr(input, "class", "svelte-1acxy9g");
-        attr(div1, "class", "search-box svelte-1acxy9g");
-        attr(button, "class", "search-btn svelte-1acxy9g");
-        attr(div2, "class", "search-form svelte-1acxy9g");
-        attr(div3, "class", "search-container svelte-1acxy9g");
-        attr(div4, "class", "map-container svelte-1acxy9g");
-        attr(div5, "class", "searcher svelte-1acxy9g");
-        attr(div6, "class", "content svelte-1acxy9g");
-        attr(div7, "class", "listings-root svelte-1acxy9g");
+        attr(input, "class", "svelte-h2bt6n");
+        attr(div1, "class", "search-box svelte-h2bt6n");
+        attr(button, "class", "search-btn svelte-h2bt6n");
+        attr(div2, "class", "search-form svelte-h2bt6n");
+        attr(div3, "class", "search-container svelte-h2bt6n");
+        attr(div4, "class", "map-container svelte-h2bt6n");
+        attr(div5, "class", "searcher svelte-h2bt6n");
+        attr(div6, "class", "content svelte-h2bt6n");
+        attr(div7, "class", "listings-root svelte-h2bt6n");
       },
       m(target, anchor) {
         insert(target, div7, anchor);
@@ -3038,7 +3004,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_fragment7(ctx) {
+  function create_fragment8(ctx) {
     let googlesdk;
     let t;
     let main;
@@ -3066,7 +3032,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       p(ctx2, [dirty]) {
         const main_changes = {};
         if (dirty & /*$scope, gmapsComponent*/
-        33) {
+        129) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -3104,12 +3070,47 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     /** @type {Property[]} */
     [/* randomProps */]
   );
-  function instance8($self, $props, $invalidate) {
+  function instance9($self, $props, $invalidate) {
+    const defaultDistanceKm = (
+      /** @type {number} */
+      Number('#{defaultDistanceKm}') || 20
+    );
     let gmapsComponent = (
       /** @type {import('svelte').SvelteComponent} */
       null
     );
-    console.log("Properties = ", properties);
+    const markerIcons = (
+      /** @type {Record<string, MarkerIcon>} */
+      {
+        "school": {
+          path: "/assets/icons/marker-school.svg",
+          alt: "School"
+        },
+        "restaurant": {
+          path: "/assets/icons/marker-restaurant.svg",
+          alt: "Restaurant"
+        },
+        "convenience_store": {
+          path: "/assets/icons/marker-mall.svg",
+          alt: "Convenience Store"
+        },
+        "hospital": {
+          path: "/assets/icons/marker-hospital.svg",
+          alt: "Hospital"
+        },
+        "subway_station": {
+          path: "/assets/icons/marker-subway.svg",
+          alt: "Subway Station"
+        }
+      }
+    );
+    onMount(() => {
+      console.log("user = ", user);
+      console.log("coord = ", coord);
+      console.log("properties = ", properties);
+      console.log("markerIcons = ", markerIcons);
+      console.log("defaultDistanceKm = ", defaultDistanceKm);
+    });
     function googlemap_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         gmapsComponent = $value;
@@ -3121,7 +3122,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var Listings = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance8, create_fragment7, safe_not_equal, {});
+      init(this, options, instance9, create_fragment8, safe_not_equal, {});
     }
   };
   var listings_default = Listings;

@@ -400,7 +400,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 	fw.Get(`/admin`, func(ctx *fiber.Ctx) error {
-		in, _, segments := userInfoFromContext(ctx, d)
+		in, user, segments := userInfoFromContext(ctx, d)
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
@@ -408,6 +408,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			RequestCommon: in.RequestCommon,
 		})
 		return views.RenderAdmin(ctx, M.SX{
+			`user`: 									user,
 			`title`:                  `Admin`,
 			`segments`:               segments,
 			`uniqueIpPerDate`:        out.UniqueIpPerDate,
@@ -595,10 +596,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
 		out := d.AdminAccessLogs(&in)
 		return views.RenderAdminAccessLog(ctx, M.SX{
+			`user`: user,
 			`title`:    `Access Log`,
 			`segments`: segments,
 			`logs`:     out.Logs,

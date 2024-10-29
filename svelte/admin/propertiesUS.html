@@ -433,46 +433,48 @@
 }
 
 /* fakecss:./_components/AdminSubMenu.esbuild-svelte-fake-css */
-.admin_submenu.svelte-ylwlsa.svelte-ylwlsa {
-  position: relative;
-  margin-top: -40px;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  background-color: #EF4444;
-  padding-bottom: 70px;
-}
-.admin_submenu.svelte-ylwlsa .menu.svelte-ylwlsa {
-  width: 88%;
-  margin-left: auto;
-  margin-right: auto;
+.admin-submenu.svelte-1fszk5i.svelte-1fszk5i {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  height: fit-content;
 }
-.admin_submenu.svelte-ylwlsa .menu a.svelte-ylwlsa {
-  flex-grow: 1;
-  color: #475569;
-  background-color: white;
-  border-radius: 6px;
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-  text-transform: uppercase;
-  font-size: 13px;
+.admin-submenu.svelte-1fszk5i nav.svelte-1fszk5i {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: fit-content;
+  gap: 10px;
+}
+.admin-submenu.svelte-1fszk5i nav a.svelte-1fszk5i {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
-  font-weight: 700;
-  padding-top: 11px;
-  padding-bottom: 11px;
-  text-align: center;
-  margin-left: 20px;
+  color: var(--gray-008);
 }
-.admin_submenu.svelte-ylwlsa .menu a.svelte-ylwlsa:hover {
-  color: #EF4444;
+.admin-submenu.svelte-1fszk5i nav a.svelte-1fszk5i:hover {
+  background-color: var(--gray-001);
 }
-.admin_submenu.svelte-ylwlsa .menu a.svelte-ylwlsa:nth-child(1) {
-  margin-left: 0 !important;
+.admin-submenu.svelte-1fszk5i nav a.active.svelte-1fszk5i {
+  color: var(--blue-005);
 }
-.admin_submenu.svelte-ylwlsa .menu .active.svelte-ylwlsa {
-  background-color: #334155 !important;
-  color: white !important;
+.admin-submenu.svelte-1fszk5i nav a .title.svelte-1fszk5i {
+  flex-grow: 1;
+  padding: 15px 10px;
+  display: flex;
+  align-items: center;
+}
+.admin-submenu.svelte-1fszk5i nav a .block.svelte-1fszk5i {
+  height: 3px;
+  background-color: transparent;
+  width: 100%;
+}
+.admin-submenu.svelte-1fszk5i nav a:hover .block.svelte-1fszk5i {
+  background-color: var(--gray-005);
+}
+.admin-submenu.svelte-1fszk5i nav a.active .block.svelte-1fszk5i {
+  background-color: var(--blue-005);
 }
 
 /* fakecss:./_components/ProfileHeader.esbuild-svelte-fake-css */
@@ -1100,48 +1102,176 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
   color: #E5F2FF;
 }
 
-/* fakecss:./_components/Growl.esbuild-svelte-fake-css */
-.growl.hidden.svelte-1nas9kk.svelte-1nas9kk {
-  display: none;
-}
-.growl.svelte-1nas9kk.svelte-1nas9kk {
+/* fakecss:./_components/partials/SideMenu.esbuild-svelte-fake-css */
+aside.svelte-1hfp3dx.svelte-1hfp3dx {
   position: fixed;
+  top: var(--navbar-height);
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: var(--sidemenu-width);
+  border-right: 1px solid var(--gray-002);
+  background-color: #FFF;
+}
+aside.svelte-1hfp3dx .separator.svelte-1hfp3dx {
+  width: 80%;
+  margin: auto;
+  height: 1px;
+  background-color: var(--gray-002);
+}
+aside.svelte-1hfp3dx .container.svelte-1hfp3dx {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: fit-content;
+  width: 100%;
+  margin: 0;
+}
+aside.svelte-1hfp3dx .container .nav-menu.svelte-1hfp3dx {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: fit-content;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin: 0;
+}
+aside.svelte-1hfp3dx .container .nav-menu a.svelte-1hfp3dx,
+aside.svelte-1hfp3dx .container .nav-menu button.svelte-1hfp3dx {
+  text-decoration: none;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  border-radius: 3px;
-  box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
-  z-index: 9999;
-  min-width: 120px;
-  max-width: 350px;
-  height: fit-content;
+  justify-content: flex-start;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 17px;
+  color: var(--gray-008);
+  border: none;
+  background-color: transparent;
 }
-.icon_growl {
-  flex-shrink: 0;
+aside.svelte-1hfp3dx .container .nav-menu a.svelte-1hfp3dx:hover,
+aside.svelte-1hfp3dx .container .nav-menu button.svelte-1hfp3dx:hover {
+  background-color: var(--gray-001);
 }
-.growl.svelte-1nas9kk span.svelte-1nas9kk {
-  flex-shrink: 1;
+aside.svelte-1hfp3dx .container .nav-menu a.active.svelte-1hfp3dx {
+  background-color: var(--orange-transparent);
+  color: var(--orange-007);
 }
-.growl.info.svelte-1nas9kk.svelte-1nas9kk {
-  background-color: #1080E8;
-  color: #FFF;
+aside.svelte-1hfp3dx .container .nav-menu button.red.svelte-1hfp3dx:hover {
+  background-color: var(--red-transparent);
+  color: var(--red-007);
 }
-.growl.success.svelte-1nas9kk.svelte-1nas9kk {
-  background-color: #059669;
-  color: #FFF;
+
+/* fakecss:./_components/partials/Navbar.esbuild-svelte-fake-css */
+header.svelte-14u710g.svelte-14u710g {
+  top: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  width: 100%;
+  height: var(--navbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--gray-002);
+  background-color: #FFF;
+  z-index: 100;
 }
-.growl.error.svelte-1nas9kk.svelte-1nas9kk {
-  background-color: #EF4444;
-  color: #FFF;
+header.svelte-14u710g .label.svelte-14u710g {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  align-items: center;
 }
-.growl.warning.svelte-1nas9kk.svelte-1nas9kk {
-  background-color: #D97706;
-  color: #FFF;
+header.svelte-14u710g .label .logo.svelte-14u710g {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 17px;
+  color: var(--gray-008);
+  text-decoration: none;
+  width: calc(var(--sidemenu-width) - 20px);
+}
+header.svelte-14u710g .user-info.svelte-14u710g {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+header.svelte-14u710g .user-info a.user.svelte-14u710g {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--gray-008);
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid var(--gray-002);
+}
+header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
+  background-color: var(--gray-001);
+}
+
+/* fakecss:./_layouts/Main.esbuild-svelte-fake-css */
+.root_layout.svelte-pbt6ik.svelte-pbt6ik {
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+}
+.root_layout.svelte-pbt6ik .root_container.svelte-pbt6ik {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+.root_layout.svelte-pbt6ik .root_container .root_content.svelte-pbt6ik {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  min-height: calc(100vh - var(--navbar-height));
+  transition: 0.3s;
+  width: 100%;
+  max-width: 100%;
+  margin-top: var(--navbar-height);
+  margin-left: var(--sidemenu-width);
+  margin-right: 0;
+  margin-bottom: 0;
+  overflow: hidden;
+}
+.root_layout.svelte-pbt6ik .root_container .root_content .content.svelte-pbt6ik {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+}
+
+/* fakecss:./admin/accessLog.esbuild-svelte-fake-css */
+.admin-container.svelte-yvnkd8.svelte-yvnkd8 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+  padding: 10px 20px 20px;
+}
+.admin-container.svelte-yvnkd8 .admin-content.svelte-yvnkd8 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
 }
 
 /* fakecss:./_components/OptionButtons.esbuild-svelte-fake-css */
@@ -1489,216 +1619,69 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
 }
 
 /* fakecss:./admin.esbuild-svelte-fake-css */
-.info_card.svelte-1bihipf.svelte-1bihipf {
-  display: flex;
-  width: 88%;
-  margin: -20px auto 20px auto;
-  position: relative;
-  background-color: antiquewhite;
-  padding: 1em;
-  border-radius: 10px;
-  flex-direction: row;
-}
-.total_container.svelte-1bihipf.svelte-1bihipf {
-  flex: auto;
-}
-.chart_container.svelte-1bihipf.svelte-1bihipf {
-  position: relative;
-  width: 88%;
-  margin: 20px auto 20px auto;
+.admin-container.svelte-1qx6k3c.svelte-1qx6k3c {
   display: flex;
   flex-direction: column;
-}
-.chart_container.svelte-1bihipf .statistics.svelte-1bihipf {
   width: 100%;
-  height: 400px;
-  box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
-  background-color: #334155;
-  border-radius: 8px;
-  padding: 16px 16px 25px 16px;
+  gap: 20px;
+  padding: 10px 20px 20px;
 }
-.chart_container.svelte-1bihipf .statistics header h3.svelte-1bihipf {
+.admin-container.svelte-1qx6k3c .admin-content.svelte-1qx6k3c {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+}
+.admin-container.svelte-1qx6k3c .admin-content .info-card.svelte-1qx6k3c {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.admin-container.svelte-1qx6k3c .admin-content .info-card .pill-box.svelte-1qx6k3c {
+  width: fit-content;
+  padding: 10px 20px;
+  border: 1px solid var(--gray-003);
+  border-radius: 8px;
+}
+.admin-container.svelte-1qx6k3c .admin-content .charts-container.svelte-1qx6k3c {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.admin-container.svelte-1qx6k3c .admin-content .charts-container header h3.svelte-1qx6k3c {
   font-size: 20px;
-  color: white;
   margin: 0;
 }
-.chart_container.svelte-1bihipf .statistics .stats.svelte-1bihipf {
+.admin-container.svelte-1qx6k3c .admin-content .charts-container .statistics.svelte-1qx6k3c {
+  width: 100%;
+  height: 450px;
+  border-radius: 8px;
+  padding: 16px 16px 40px 16px;
+  border: 1px solid var(--gray-003);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.admin-container.svelte-1qx6k3c .admin-content .charts-container .statistics .stats.svelte-1qx6k3c {
   height: 92%;
   width: 100%;
 }
-.chart_container.svelte-1bihipf .actions.svelte-1bihipf {
+.admin-container.svelte-1qx6k3c .admin-content .charts-container .actions.svelte-1qx6k3c {
   width: 100%;
-  margin-top: 30px;
-  box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
-  background-color: white;
   border-radius: 8px;
-  height: 500px;
+  height: 450px;
   padding: 16px 16px 25px 16px;
+  border: 1px solid var(--gray-003);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.chart_container.svelte-1bihipf .actions header h3.svelte-1bihipf {
-  font-size: 20px;
-  margin: 0 0 20px 0;
-}
-.chart_container.svelte-1bihipf .actions .action.svelte-1bihipf {
+.charts-container.svelte-1qx6k3c .actions .action.svelte-1qx6k3c {
   height: 90%;
   width: 100%;
-}
-
-/* fakecss:./_components/partials/SideMenu.esbuild-svelte-fake-css */
-aside.svelte-1hfp3dx.svelte-1hfp3dx {
-  position: fixed;
-  top: var(--navbar-height);
-  left: 0;
-  bottom: 0;
-  height: 100%;
-  width: var(--sidemenu-width);
-  border-right: 1px solid var(--gray-002);
-  background-color: #FFF;
-}
-aside.svelte-1hfp3dx .separator.svelte-1hfp3dx {
-  width: 80%;
-  margin: auto;
-  height: 1px;
-  background-color: var(--gray-002);
-}
-aside.svelte-1hfp3dx .container.svelte-1hfp3dx {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  height: fit-content;
-  width: 100%;
-  margin: 0;
-}
-aside.svelte-1hfp3dx .container .nav-menu.svelte-1hfp3dx {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  height: fit-content;
-  flex-wrap: nowrap;
-  width: 100%;
-  margin: 0;
-}
-aside.svelte-1hfp3dx .container .nav-menu a.svelte-1hfp3dx,
-aside.svelte-1hfp3dx .container .nav-menu button.svelte-1hfp3dx {
-  text-decoration: none;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 17px;
-  color: var(--gray-008);
-  border: none;
-  background-color: transparent;
-}
-aside.svelte-1hfp3dx .container .nav-menu a.svelte-1hfp3dx:hover,
-aside.svelte-1hfp3dx .container .nav-menu button.svelte-1hfp3dx:hover {
-  background-color: var(--gray-001);
-}
-aside.svelte-1hfp3dx .container .nav-menu a.active.svelte-1hfp3dx {
-  background-color: var(--orange-transparent);
-  color: var(--orange-007);
-}
-aside.svelte-1hfp3dx .container .nav-menu button.red.svelte-1hfp3dx:hover {
-  background-color: var(--red-transparent);
-  color: var(--red-007);
-}
-
-/* fakecss:./_components/partials/Navbar.esbuild-svelte-fake-css */
-header.svelte-14u710g.svelte-14u710g {
-  top: 0;
-  left: 0;
-  right: 0;
-  position: fixed;
-  width: 100%;
-  height: var(--navbar-height);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  border-bottom: 1px solid var(--gray-002);
-  background-color: #FFF;
-  z-index: 100;
-}
-header.svelte-14u710g .label.svelte-14u710g {
-  width: fit-content;
-  display: flex;
-  flex-direction: row;
-  gap: 0;
-  align-items: center;
-}
-header.svelte-14u710g .label .logo.svelte-14u710g {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: 17px;
-  color: var(--gray-008);
-  text-decoration: none;
-  width: calc(var(--sidemenu-width) - 20px);
-}
-header.svelte-14u710g .user-info.svelte-14u710g {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-header.svelte-14u710g .user-info a.user.svelte-14u710g {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-  gap: 6px;
-  text-decoration: none;
-  color: var(--gray-008);
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: 1px solid var(--gray-002);
-}
-header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
-  background-color: var(--gray-001);
-}
-
-/* fakecss:./_layouts/Main.esbuild-svelte-fake-css */
-.root_layout.svelte-pbt6ik.svelte-pbt6ik {
-  display: block;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100vh;
-  width: 100vw;
-}
-.root_layout.svelte-pbt6ik .root_container.svelte-pbt6ik {
-  height: 100%;
-  width: 100%;
-  display: flex;
-}
-.root_layout.svelte-pbt6ik .root_container .root_content.svelte-pbt6ik {
-  display: flex;
-  flex-direction: column;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  min-height: calc(100vh - var(--navbar-height));
-  transition: 0.3s;
-  width: 100%;
-  max-width: 100%;
-  margin-top: var(--navbar-height);
-  margin-left: var(--sidemenu-width);
-  margin-right: 0;
-  margin-bottom: 0;
-  overflow: hidden;
-}
-.root_layout.svelte-pbt6ik .root_container .root_content .content.svelte-pbt6ik {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 100%;
-  overflow-y: auto;
-  padding: 0;
-  margin: 0;
 }
 
 /* fakecss:./admin/propertiesUS.esbuild-svelte-fake-css */
@@ -4391,6 +4374,115 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
     }
   });
 
+  // _components/yChartOptions.js
+  var require_yChartOptions = __commonJS({
+    "_components/yChartOptions.js"(exports, module) {
+      function getRequestStatsChartOptions2(labels, datasets) {
+        return {
+          type: "line",
+          data: {
+            labels,
+            datasets
+          },
+          options: {
+            plugins: {
+              legend: {
+                rtl: true,
+                labels: {
+                  usePointStyle: true,
+                  color: "var(--gray-008)",
+                  textAlign: "right"
+                }
+              }
+            },
+            maintainAspectRatio: false,
+            responsive: true,
+            scales: {
+              x: {
+                ticks: {
+                  color: "var(--gray-008)"
+                },
+                grid: {
+                  display: false
+                }
+              },
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  stepSize: 50,
+                  color: "var(--gray-008)"
+                },
+                border: {
+                  dash: [2]
+                },
+                grid: {
+                  tickColor: "var(--orange-005)",
+                  tickBorderDash: [2],
+                  color: "var(--orange-005)"
+                }
+              }
+            }
+          }
+        };
+      }
+      function getRequestActionChartOptions2(labels, datasets) {
+        return {
+          type: "bar",
+          data: {
+            labels,
+            datasets
+          },
+          options: {
+            plugins: {
+              legend: {
+                position: "right",
+                labels: {
+                  color: "#475569"
+                }
+              }
+            },
+            maintainAspectRatio: false,
+            responsive: true,
+            hover: {
+              mode: "nearest",
+              intersect: true
+            },
+            scales: {
+              x: {
+                stacked: true,
+                ticks: {
+                  color: "#475569"
+                },
+                grid: {
+                  tickColor: "transparent",
+                  color: "transparent"
+                }
+              },
+              y: {
+                stacked: true,
+                ticks: {
+                  color: "#475569"
+                },
+                border: {
+                  dash: [4]
+                },
+                grid: {
+                  tickColor: "#D1D5DB",
+                  tickBorderDash: [4],
+                  color: "#D1D5DB"
+                }
+              }
+            }
+          }
+        };
+      }
+      module.exports = {
+        getRequestStatsChartOptions: getRequestStatsChartOptions2,
+        getRequestActionChartOptions: getRequestActionChartOptions2
+      };
+    }
+  });
+
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
@@ -6547,57 +6639,49 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
     let div;
     let nav;
     let a0;
-    let t1;
+    let t2;
     let a1;
-    let t3;
-    let a2;
     let t5;
+    let a2;
+    let t8;
     let a3;
-    let t7;
-    let a4;
-    let t9;
-    let a5;
     let t11;
+    let a4;
+    let t14;
+    let a5;
+    let t17;
     let a6;
-    let t13;
+    let t20;
     let a7;
-    let t15;
-    let c0;
-    let t16;
-    let c1;
     return {
       c() {
         div = element("div");
         nav = element("nav");
         a0 = element("a");
-        a0.textContent = "Dashboard";
-        t1 = space();
+        a0.innerHTML = `<span class="title svelte-1fszk5i">Dashboard</span> <span class="block svelte-1fszk5i"></span>`;
+        t2 = space();
         a1 = element("a");
-        a1.textContent = "Feedbacks";
-        t3 = space();
-        a2 = element("a");
-        a2.textContent = "Users";
+        a1.innerHTML = `<span class="title svelte-1fszk5i">Feedbacks</span> <span class="block svelte-1fszk5i"></span>`;
         t5 = space();
+        a2 = element("a");
+        a2.innerHTML = `<span class="title svelte-1fszk5i">Users</span> <span class="block svelte-1fszk5i"></span>`;
+        t8 = space();
         a3 = element("a");
-        a3.textContent = "Properties US";
-        t7 = space();
-        a4 = element("a");
-        a4.textContent = "Properties";
-        t9 = space();
-        a5 = element("a");
-        a5.textContent = "Prop Histories";
+        a3.innerHTML = `<span class="title svelte-1fszk5i">Properties US</span> <span class="block svelte-1fszk5i"></span>`;
         t11 = space();
+        a4 = element("a");
+        a4.innerHTML = `<span class="title svelte-1fszk5i">Properties</span> <span class="block svelte-1fszk5i"></span>`;
+        t14 = space();
+        a5 = element("a");
+        a5.innerHTML = `<span class="title svelte-1fszk5i">Prop Histories</span> <span class="block svelte-1fszk5i"></span>`;
+        t17 = space();
         a6 = element("a");
-        a6.textContent = "Access Logs";
-        t13 = space();
+        a6.innerHTML = `<span class="title svelte-1fszk5i">Access Logs</span> <span class="block svelte-1fszk5i"></span>`;
+        t20 = space();
         a7 = element("a");
-        a7.textContent = "Files";
-        t15 = space();
-        c0 = comment(`  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>`);
-        t16 = space();
-        c1 = comment(`  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>`);
+        a7.innerHTML = `<span class="title svelte-1fszk5i">Files</span> <span class="block svelte-1fszk5i"></span>`;
         attr(a0, "href", "/admin");
-        attr(a0, "class", "svelte-ylwlsa");
+        attr(a0, "class", "svelte-1fszk5i");
         toggle_class(
           a0,
           "active",
@@ -6605,7 +6689,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
           ctx[0] === "admin"
         );
         attr(a1, "href", "/admin/feedbacks");
-        attr(a1, "class", "svelte-ylwlsa");
+        attr(a1, "class", "svelte-1fszk5i");
         toggle_class(
           a1,
           "active",
@@ -6613,7 +6697,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
           ctx[0] === "feedbacks"
         );
         attr(a2, "href", "/admin/users");
-        attr(a2, "class", "svelte-ylwlsa");
+        attr(a2, "class", "svelte-1fszk5i");
         toggle_class(
           a2,
           "active",
@@ -6621,7 +6705,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
           ctx[0] === "users"
         );
         attr(a3, "href", "/admin/properties/US");
-        attr(a3, "class", "svelte-ylwlsa");
+        attr(a3, "class", "svelte-1fszk5i");
         toggle_class(
           a3,
           "active",
@@ -6629,7 +6713,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
           ctx[0] === "US"
         );
         attr(a4, "href", "/admin/properties");
-        attr(a4, "class", "svelte-ylwlsa");
+        attr(a4, "class", "svelte-1fszk5i");
         toggle_class(
           a4,
           "active",
@@ -6637,7 +6721,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
           ctx[0] === "properties"
         );
         attr(a5, "href", "/admin/propHistories");
-        attr(a5, "class", "svelte-ylwlsa");
+        attr(a5, "class", "svelte-1fszk5i");
         toggle_class(
           a5,
           "active",
@@ -6645,7 +6729,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
           ctx[0] === "propHistories"
         );
         attr(a6, "href", "/admin/accessLogs");
-        attr(a6, "class", "svelte-ylwlsa");
+        attr(a6, "class", "svelte-1fszk5i");
         toggle_class(
           a6,
           "active",
@@ -6653,113 +6737,36 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
           ctx[0] === "accessLogs"
         );
         attr(a7, "href", "/admin/files");
-        attr(a7, "class", "svelte-ylwlsa");
+        attr(a7, "class", "svelte-1fszk5i");
         toggle_class(
           a7,
           "active",
           /*segment2*/
           ctx[0] === "files"
         );
-        attr(nav, "class", "menu svelte-ylwlsa");
-        attr(div, "class", "admin_submenu svelte-ylwlsa");
+        attr(nav, "class", "svelte-1fszk5i");
+        attr(div, "class", "admin-submenu svelte-1fszk5i");
       },
       m(target, anchor) {
         insert(target, div, anchor);
         append(div, nav);
         append(nav, a0);
-        append(nav, t1);
+        append(nav, t2);
         append(nav, a1);
-        append(nav, t3);
-        append(nav, a2);
         append(nav, t5);
+        append(nav, a2);
+        append(nav, t8);
         append(nav, a3);
-        append(nav, t7);
-        append(nav, a4);
-        append(nav, t9);
-        append(nav, a5);
         append(nav, t11);
+        append(nav, a4);
+        append(nav, t14);
+        append(nav, a5);
+        append(nav, t17);
         append(nav, a6);
-        append(nav, t13);
+        append(nav, t20);
         append(nav, a7);
-        append(nav, t15);
-        append(nav, c0);
-        append(nav, t16);
-        append(nav, c1);
       },
-      p(ctx2, [dirty]) {
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a0,
-            "active",
-            /*segment2*/
-            ctx2[0] === "admin"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a1,
-            "active",
-            /*segment2*/
-            ctx2[0] === "feedbacks"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a2,
-            "active",
-            /*segment2*/
-            ctx2[0] === "users"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a3,
-            "active",
-            /*segment2*/
-            ctx2[0] === "US"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a4,
-            "active",
-            /*segment2*/
-            ctx2[0] === "properties"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a5,
-            "active",
-            /*segment2*/
-            ctx2[0] === "propHistories"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a6,
-            "active",
-            /*segment2*/
-            ctx2[0] === "accessLogs"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a7,
-            "active",
-            /*segment2*/
-            ctx2[0] === "files"
-          );
-        }
-      },
+      p: noop,
       i: noop,
       o: noop,
       d(detaching) {
@@ -6769,12 +6776,11 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
       }
     };
   }
-  function instance3($self, $props, $invalidate) {
-    let segment2;
-    onMount(() => {
-      console.log("onMount.AdminSubMenu");
-      $invalidate(0, segment2 = window.location.pathname.split("/").pop() || "");
-    });
+  function instance3($self) {
+    let segment2 = (
+      /** @type {string} */
+      window.location.pathname.split("/").pop() || ""
+    );
     return [segment2];
   }
   var AdminSubMenu = class extends SvelteComponent {
@@ -10990,6 +10996,12 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
   // admin/propertiesUS.svelte
   var import_formatter3 = __toESM(require_formatter());
   var import_mapper = __toESM(require_mapper());
+
+  // _states/page.js
+  var isShrinkMenu = (
+    /** @type {import('svelte/store').Writable<boolean>} */
+    writable(false)
+  );
 
   // admin/accessLog.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
@@ -25260,11 +25272,8 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
   // node_modules/.pnpm/chart.js@4.3.2/node_modules/chart.js/auto/auto.js
   Chart.register(...registerables);
 
-  // _states/page.js
-  var isShrinkMenu = (
-    /** @type {import('svelte/store').Writable<boolean>} */
-    writable(false)
-  );
+  // admin.svelte
+  var import_yChartOptions = __toESM(require_yChartOptions());
 
   // admin/propertiesUS.svelte
   function get_each_context4(ctx, list, i) {

@@ -1,30 +1,26 @@
 <script>
   /** @typedef {import('./_types/master.js').Access} Access */
+  /** @typedef {import('./_types/user.js').User} User */
 
   import {GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail} from './jsApi.GEN.js';
   import {onMount, tick} from 'svelte';
-  import Menu from './_components/Menu.svelte';
-  import PropertyLocation from './_components/PropertyLocation.svelte';
-  import ProfileHeader from './_components/ProfileHeader.svelte';
-  import Footer from './_components/partials/Footer.svelte';
+  import Main from './_layouts/Main.svelte';
   import { Icon } from './node_modules/svelte-icons-pack/dist'
   import { FaSolidCircleNotch } from './node_modules/svelte-icons-pack/dist/fa';
-  import {notifier} from './_components/notifier.js';
+  import { notifier } from './_components/notifier.js';
+  import InputBox from './_components/InputBox.svelte';
   
-  let randomProps = [/* randomProps */];
-  let initialLatLong = [/* initialLatLong */];
-  let defaultDistanceKm = +'#{defaultDistanceKm}';
-  
-  let user = {/* user */};
-  let segments = /** @type {Access} */ ({/* segments */});
-  let google = '#{google}';
-  let apple;
+  let title     = /** @type {string} */ ('#{title}');
+  let user      = /** @type {User} */ ({/* user */});
+  let segments  = /** @type {Access} */ ({/* segments */});
+  let google    = /** @type {string} */ ('#{google}');
+  let apple     = /** @type {string} */ ('#{apple}');
 
   // Generate Apple OAuth URL
-  const clientId = 'com.hapstr.app'; //
-  const redirectUri = 'https://admin.hapstr.xyz/guest/oauthCallback'; // Your frontend callback URL
-  const state = 'random_state_value'; // Use a random string to prevent CSRF attacks
-  const scope = 'email';
+  const clientId      = 'com.hapstr.app'; //
+  const redirectUri   = 'https://admin.hapstr.xyz/guest/oauthCallback'; // Your frontend callback URL
+  const state         = 'random_state_value'; // Use a random string to prevent CSRF attacks
+  const scope         = 'email';
   const response_mode = 'form_post'
 
   apple = `https://appleid.apple.com/auth/authorize?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&state=${state}&response_mode=${response_mode}`;
@@ -34,56 +30,57 @@
     if( match ) return match[ 2 ];
   }
   
-  // server state
-  const title = '#{title}'; // /*! title */ {/* title */} [/* title */]
-  // TODO: print session or fetch from cookie
-  
   // local state
-  let email = '';
-  let password = '';
-  let confirmPass = '';
+  let email       = /** @type {string} */ ('');
+  let password    = /** @type {string} */ ('');
+  let confirmPass = /** @type {string} */ ('');
   
   // binding to element
-  let emailInput = {};
-  let passInput = {};
+  let passInput   = /** @type {HTMLInputElement} */ ({});
   
-  const LOGIN = 'LOGIN';
-  const REGISTER = 'REGISTER';
-  const RESEND_VERIFICATION_EMAIL = 'RESEND_VERIFICATION_EMAIL';
-  const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
-  const USER = '';
-  let mode = LOGIN;
-  
-  let isSubmitted = false;
+  const MODE_LOGIN        = /** @type {string} */ ('LOGIN');
+  const MODE_REGISTER     = /** @type {string} */ ('REGISTER');
+  const MODE_VERIF_EMAIL  = /** @type {string} */ ('RESEND_VERIFICATION_EMAIL');
+  const MODE_FG_PASSWD    = /** @type {string} */ ('FORGOT_PASSWORD');
+  const MODE_USER         = /** @type {string} */ ('');
+
+  let MODE = /** @type {string} */ (MODE_LOGIN);
+
+  let isSubmitted = /** @type {boolean} */ (false);
   
   async function onHashChange() {
-		console.log('onHashChange.start')
     const auth = getCookie( 'auth' );
-    console.log( auth, user );
     if( auth && user && !auth.startsWith( 'TEMP__' ) ) {
-      location.hash = '';
-      mode = USER;
+      location.hash = MODE_USER;
+      MODE = MODE_USER;
       return;
     }
     
-    let hash = location.hash || '';
-    if( hash[ 0 ]==='#' ) hash = hash.substring( 1 );
+    let hash = /** @type {string} */ (location.hash || '');
+
+    if ( hash[ 0 ] === '#' ) hash = hash.substring( 1 );
     
-    if( hash===LOGIN ) mode = LOGIN;
-    else if( hash===REGISTER ) mode = REGISTER;
-    else if( hash===RESEND_VERIFICATION_EMAIL ) mode = RESEND_VERIFICATION_EMAIL;
-    else if( hash===FORGOT_PASSWORD ) mode = FORGOT_PASSWORD;
-    else location.hash = LOGIN;
-		console.log('onHashChange.tick')
+    switch ( hash ) {
+      case MODE_LOGIN:
+        MODE = MODE_LOGIN;
+        break;
+      case MODE_REGISTER:
+        MODE = MODE_REGISTER;
+        break;
+      case MODE_VERIF_EMAIL:
+        MODE = MODE_VERIF_EMAIL;
+        break;
+      case MODE_FG_PASSWD:
+        MODE = MODE_FG_PASSWD;
+        break;
+      default:
+        location.hash = MODE_LOGIN;
+    }
+
     await tick();
-    emailInput.focus();
   }
   
-  onMount( () => {
-		console.log('onMount.index')
-    onHashChange();
-    console.log( "User = ", user )
-  } )
+  onMount(() => onHashChange());
   
   async function guestRegister() {
     isSubmitted = true;
@@ -102,11 +99,9 @@
       notifier.showError('Passwords do not match' );
       return
     }
-    // TODO: send to backend
+
     const i = {email, password};
     await GuestRegister( i, async function( /** @type any */ o ) {
-      // TODO: codegen commonResponse (o.error, etc)
-      // TODO: codegen list of possible errors
       if( o.error ) {
         isSubmitted = false;
         notifier.showError(o.error );
@@ -114,7 +109,7 @@
       }
       isSubmitted = false;
       notifier.showSuccess('Registered successfully, a registration verification has been sent to your email' );
-      mode = LOGIN;
+      MODE = MODE_LOGIN;
       password = '';
       await tick();
       passInput.focus();
@@ -134,8 +129,7 @@
       return
     }
     const i = {email, password};
-    // @ts-ignore
-    await GuestLogin( i, function(/** @type any */ o ) {
+    await GuestLogin( i, async function(/** @type any */ o ) {
       if( o.error ) {
         isSubmitted = false;
         notifier.showError( o.error );
@@ -161,9 +155,7 @@
       return
     }
     const i = {email};
-
-    // @ts-ignore
-    await GuestResendVerificationEmail( i, function( /** @type any */ o ) {
+    await GuestResendVerificationEmail( i, async function( /** @type any */ o ) {
       if( o.error ) {
         isSubmitted = false;
         notifier.showError(o.error );
@@ -183,9 +175,7 @@
       return
     }
     const i = {email};
-
-    // @ts-ignore
-    await GuestForgotPassword( i, function(/** @type any */ o  ) {
+    await GuestForgotPassword( i, async function(/** @type any */ o  ) {
       if( o.error ) {
         isSubmitted = false;
         notifier.showError( o.error );
@@ -197,56 +187,60 @@
   }
 </script>
 
-
 <svelte:window on:hashchange={onHashChange}/>
-{#if mode===USER}
-	<section class="dashboard">
-		<Menu access={segments}/>
-		<div class="dashboard_main_content">
-			<ProfileHeader {user} access={segments}/>
-			<div class="content">
-				<PropertyLocation initialLatLong={initialLatLong} randomProps={randomProps}/>
-			</div>
-			<Footer/>
-		</div>
-	</section>
+{#if MODE === MODE_USER}
+  <Main {user}>
+    <p>Home</p>
+  </Main>
 {:else}
-	<section class="auth_section">
-		<div class="main_container">
-			<div class="title_container">
+	<section class="auth-section">
+		<div class="main-container">
+			<div class="title-container">
 				<p>{title}</p>
-				<h1>{mode.split( '_' ).join( ' ' )}</h1>
+				<h1>{MODE.split( '_' ).join( ' ' )}</h1>
 			</div>
-			<div class="sign_in_container">
-				<div class="input_container">
-					{#if mode===LOGIN || mode===REGISTER || mode===RESEND_VERIFICATION_EMAIL || mode===FORGOT_PASSWORD}
-						<div class="input_box">
-							<label for="email">Email</label>
-							<input type="text" id="email" bind:value={email} bind:this={emailInput}/>
-						</div>
+			<div class="form-container">
+				<div class="input-container">
+					{#if MODE === MODE_LOGIN
+            || MODE === MODE_REGISTER
+            || MODE === MODE_VERIF_EMAIL
+            || MODE === MODE_FG_PASSWD
+          }
+            <InputBox
+              id="email"
+              label="Email"
+              type="text"
+              bind:value={email}
+            />
 					{/if}
-					{#if mode===LOGIN || mode===REGISTER}
-						<div class="input_box">
-							<label for="password">Password</label>
-							<input type="password" id="password" bind:value={password} bind:this={passInput}/>
-						</div>
+
+					{#if MODE === MODE_LOGIN || MODE === MODE_REGISTER}
+            <InputBox
+              id="password"
+              label="Password"
+              type="password"
+              bind:value={password}
+            />
 					{/if}
-					{#if mode===REGISTER}
-						<div class="input_box">
-							<label for="confirmPass">Confirm Password</label>
-							<input type="password" id="confirmPass" bind:value={confirmPass}/>
-						</div>
+
+					{#if MODE === MODE_REGISTER}
+            <InputBox
+              id="confirmPass"
+              label="Confirm Password"
+              type="password"
+              bind:value={confirmPass}
+            />
 					{/if}
 				</div>
 				<!-- Forgot Password -->
-				{#if mode===LOGIN}
-					<p class="forgot_password">
+				{#if MODE===MODE_LOGIN}
+					<p class="forgot-password">
 						Forgot Password?
-						<a href="#FORGOT_PASSWORD" on:click|preventDefault={() => (mode = FORGOT_PASSWORD)}>Reset here</a>
+						<a href="#FORGOT_PASSWORD" on:click|preventDefault={() => (MODE = MODE_FG_PASSWD)}>Reset here</a>
 					</p>
 				{/if}
-				<div class="button_container">
-					{#if mode===REGISTER}
+				<div class="button-container">
+					{#if MODE===MODE_REGISTER}
 						<button on:click={guestRegister}>
 							{#if isSubmitted===true}
 								<Icon className="spin" color='#FFF' size="15" src={FaSolidCircleNotch}/>
@@ -256,7 +250,7 @@
 							{/if}
 						</button>
 					{/if}
-					{#if mode===LOGIN}
+					{#if MODE===MODE_LOGIN}
 						<button on:click={guestLogin}>
 							{#if isSubmitted===true}
 								<Icon className="spin" color='#FFF' size="15" src={FaSolidCircleNotch}/>
@@ -266,7 +260,7 @@
 							{/if}
 						</button>
 					{/if}
-					{#if mode===RESEND_VERIFICATION_EMAIL}
+					{#if MODE=== MODE_VERIF_EMAIL}
 						<button on:click={guestResendVerificationEmail}>
 							{#if isSubmitted===true}
 								<Icon className="spin" color='#FFF' size="15" src={FaSolidCircleNotch}/>
@@ -276,7 +270,7 @@
 							{/if}
 						</button>
 					{/if}
-					{#if mode===FORGOT_PASSWORD}
+					{#if MODE===MODE_FG_PASSWD}
 						<button on:click={guestForgotPassword}>
 							{#if isSubmitted===true}
 								<Icon className="spin" color='#FFF' size="15" src={FaSolidCircleNotch}/>
@@ -288,46 +282,43 @@
 					{/if}
 				</div>
 				<!-- Oauth Buttons -->
-				{#if mode===REGISTER || mode===LOGIN}
-					<div class="oauth_container">
-						<div class="or_separator">
+				{#if MODE===MODE_REGISTER || MODE===MODE_LOGIN}
+					<div class="oauth-container">
+						<div class="or-separator">
 							<span/>
 							<p>or</p>
 							<span/>
 						</div>
-						<!-- Google OAuth -->
-						{#if google}
-							<a class="button" href={google}>
-								<img src="/assets/icons/google.svg" alt="Google"/>
-								<span>Continue with Google</span>
-							</a>
-						{/if}
-            <div class="or_separator">
-							<span/>
-							<p>or</p>
-							<span/>
-						</div>
-            <!-- Apple OAuth -->
-						{#if apple}
-            <a class="button" href={apple}>
-              <img src="/assets/icons/apple.png" alt="Apple"/>
-              <span>Continue with Apple</span>
-            </a>
-            {/if}
+            <div class="oauth-buttons">
+              <!-- Google OAuth -->
+              {#if google}
+                <a class="button" href={google}>
+                  <img src="/assets/icons/google.svg" alt="Google"/>
+                  <span>Continue with Google</span>
+                </a>
+              {/if}
+              <!-- Apple OAuth -->
+              {#if apple}
+                <a class="button" href={apple}>
+                  <img src="/assets/icons/apple.png" alt="Apple"/>
+                  <span>Continue with Apple</span>
+                </a>
+              {/if}
+            </div>
 					</div>
 				{/if}
-				<div class="foot_auth">
-					{#if mode!==REGISTER}
-						<p>Have no account? <a href="#REGISTER" on:click={() => (mode = REGISTER)}>register</a></p>
+				<div class="foot-auth">
+					{#if MODE!==MODE_REGISTER}
+						<p>Have no account? <a href="#REGISTER" on:click={() => (MODE = MODE_REGISTER)}>register</a></p>
 					{/if}
-					{#if mode!==LOGIN}
-						<p>Already have account? <a href="#LOGIN" on:click={() => (mode = LOGIN)}>login</a></p>
+					{#if MODE!==MODE_LOGIN}
+						<p>Already have account? <a href="#LOGIN" on:click={() => (MODE = MODE_LOGIN)}>login</a></p>
 					{/if}
-					{#if mode!==RESEND_VERIFICATION_EMAIL}
+					{#if MODE!==MODE_VERIF_EMAIL}
 						<p>
 							Email not yet verified? <a
 							href="#RESEND_VERIFICATION_EMAIL"
-							on:click={() => (mode = RESEND_VERIFICATION_EMAIL)}>request verification email</a
+							on:click={() => (MODE = MODE_VERIF_EMAIL)}>request verification email</a
 						>
 						</p>
 					{/if}
@@ -338,213 +329,209 @@
 {/if}
 
 <style>
-    @keyframes spin { /* TODO: use it for loading */
-        from {
-            transform : rotate(0deg);
-        }
-        to {
-            transform : rotate(360deg);
-        }
+  @keyframes spin {
+    from {
+      transform : rotate(0deg);
     }
-
-    :global(.spin) {
-        animation : spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    to {
+      transform : rotate(360deg);
     }
+  }
 
-    .auth_section {
-        height           : 100%;
-        width            : 100%;
-        background-color : #F1F5F9;
-        display          : flex;
-        color            : #475569;
+  :global(.spin) {
+    animation : spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  .auth-section {
+    height: 100%;
+    width: 100%;
+    background-color: var(--gray-001);
+    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+    display: flex;
+    color: var(--gray-008);
+  }
+
+  .auth-section .main-container {
+    width: 480px;
+    height: fit-content;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 50px auto;
+    border: 1px solid var(--gray-003);
+    gap: 10px;
+  }
+
+  .auth-section .main-container .title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .auth-section .main-container .title-container p {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--red-005);
+    margin: 0;
+  }
+
+  .auth-section .main-container .title-container h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .auth-section .main-container .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .auth-section .main-container .form-container .input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .auth-section .main-container .form-container .forgot-password {
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .auth-section .main-container .form-container .forgot-password a {
+    color: var(--blue-006);
+    text-decoration: none;
+  }
+
+  .auth-section .main-container .form-container .forgot-password a:hover {
+    color: var(--blue-005);
+    text-decoration: underline;
+  }
+
+  .auth-section .main-container .form-container .button-container {
+    height: fit-content;
+    width: 100%;
+    display: flex;
+  }
+
+  .auth-section .main-container .form-container .button-container button {
+    margin: 0;
+    width: 100%;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: var(--blue-006);
+    border-radius: 5px;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .auth-section .main-container .form-container .button-container button:hover {
+    background-color : var(--blue-005);
+  }
+
+  .auth-section .main-container .form-container .oauth-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .auth-section .main-container .form-container .oauth-container .or-separator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+  }
+
+  .auth-section .main-container .form-container .oauth-container .or-separator span {
+    flex-grow: 1;
+    height: 0;
+    border-top: 1px solid var(--gray-002);
+    padding: 0;
+  }
+
+  .auth-section .main-container .form-container .oauth-container .or-separator p {
+    width       : fit-content;
+    font-weight : 600;
+    padding     : 0 10px;
+    margin: 0;
+  }
+
+  .auth-section .main-container .form-container .oauth-container .oauth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .auth-section .main-container .form-container .oauth-container .button {
+    padding: 10px;
+    background-color: white;
+    border: 1px solid var(--gray-002);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--gray-008);
+  }
+
+  .auth-section .main-container .form-container .oauth-container .button:hover {
+    background-color: var(--gray-001);
+    border: 1px solid var(--gray-003);
+  }
+
+  .auth-section .main-container .form-container .oauth-container .button img {
+    width: 20px;
+    height: auto;
+  }
+
+  .auth-section .main-container .form-container .oauth-container .button span {
+    margin-left: 8px;
+  }
+
+  .auth-section .main-container .form-container .foot-auth {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .auth-section .main-container .form-container .foot-auth p {
+    text-align: center;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .auth-section .main-container .form-container .foot-auth a {
+    color: var(--blue-006);
+    text-decoration: none;
+  }
+
+  .auth-section .main-container .form-container .foot-auth a:hover {
+    color: var(--blue-005);
+    text-decoration: underline;
+  }
+
+  @media (max-width : 768px) {
+    .main-container {
+      width            : 100%;
+      padding          : 15px;
+      filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+      border-radius    : 15px;
+      display          : flex;
+      flex-direction   : column;
+      background-color : white;
+      margin           : 50px 20px;
+      border           : 1px solid var(--gray-002);
     }
-
-    .main_container {
-        width            : 480px;
-        height           : fit-content;
-        padding          : 20px;
-        filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-        border-radius    : 15px;
-        display          : flex;
-        flex-direction   : column;
-        background-color : white;
-        margin           : 50px auto;
-        border           : 1px solid #CBD5E1;
-    }
-
-    .title_container {
-        display        : flex;
-        flex-direction : column;
-        width          : 100%;
-        text-align     : center;
-    }
-
-    .title_container p {
-        font-size   : 16px;
-        font-weight : 600;
-        color       : #EF4444;
-        margin      : 0;
-    }
-
-    .title_container h1 {
-        margin      : 5px 0 0 0;
-        font-size   : 22px;
-        font-weight : 700;
-    }
-
-    .input_container {
-        display        : flex;
-        flex-direction : column;
-        margin-bottom  : 15px;
-    }
-
-    .input_container .input_box {
-        display        : flex;
-        flex-direction : column;
-        width          : 100%;
-        margin-top     : 10px;
-    }
-
-    .input_container .input_box label {
-        font-size     : 13px;
-        font-weight   : 700;
-        margin-left   : 10px;
-        margin-bottom : 8px;
-    }
-
-    .input_container .input_box input {
-        width            : 100%;
-        border           : 1px solid #CBD5E1;
-        background-color : #F1F5F9;
-        border-radius    : 8px;
-        padding          : 12px;
-    }
-
-    .input_container .input_box input:focus {
-        border-color : #3B82F6;
-        outline      : 1px solid #3B82F6;
-    }
-
-    .forgot_password {
-        margin-top    : 7px;
-        margin-bottom : 15px;
-        width         : 100%;
-        text-align    : center;
-        font-size     : 14px;
-        font-weight   : 600;
-    }
-
-    .forgot_password a {
-        color           : #3B82F6;
-        text-decoration : none;
-    }
-
-    .forgot_password a:hover {
-        color           : #5892F5;
-        text-decoration : underline;
-    }
-
-    .button_container button {
-        margin           : 0;
-        width            : 100%;
-        padding          : 10px;
-        font-size        : 16px;
-        font-weight      : 700;
-        background-color : #3B82F6;
-        border-radius    : 8px;
-        color            : white;
-        border           : none;
-        cursor           : pointer;
-        filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    }
-
-    .button_container button:hover {
-        background-color : #5892F5;
-    }
-
-    .oauth_container .or_separator {
-        display        : flex;
-        flex-direction : row;
-        align-items    : center;
-        width          : 100%;
-    }
-
-    .oauth_container .or_separator span {
-        flex-grow  : 1;
-        height     : 0;
-        border-top : 1px solid #CBD5E1;
-        padding    : 0;
-    }
-
-    .oauth_container .or_separator p {
-        width       : fit-content;
-        font-weight : 600;
-        padding     : 0 10px;
-    }
-
-    .oauth_container .button {
-        padding          : 10px;
-        background-color : white;
-        border           : 1px solid #CBD5E1;
-        display          : flex;
-        flex-direction   : row;
-        align-items      : center;
-        justify-content  : center;
-        font-weight      : 600;
-        border-radius    : 8px;
-        text-decoration  : none;
-        color            : #334155;
-    }
-
-    .oauth_container .button:hover {
-        background-color : #F1F5F9;
-        /* #94a3b8 */
-    }
-
-    .oauth_container .button img {
-        width  : 20px;
-        height : auto;
-    }
-
-    .oauth_container .button span {
-        margin-left : 8px;
-    }
-
-    .foot_auth {
-        margin-top     : 10px;
-        display        : flex;
-        flex-direction : column;
-    }
-
-    .foot_auth p {
-        margin-top    : 10px;
-        margin-bottom : 0;
-        text-align    : center;
-        font-weight   : 600;
-    }
-
-    .foot_auth a {
-        color           : #3B82F6;
-        text-decoration : none;
-    }
-
-    .foot_auth a:hover {
-        color           : #5892F5;
-        text-decoration : underline;
-    }
-
-     /* Responsive to mobile device */
-     @media (max-width : 768px) {
-      .main_container {
-        width            : 100%;
-        padding          : 15px;
-        filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-        border-radius    : 15px;
-        display          : flex;
-        flex-direction   : column;
-        background-color : white;
-        margin           : 50px 20px;
-        border           : 1px solid #CBD5E1;
-      }
-     }
+  }
 </style>
