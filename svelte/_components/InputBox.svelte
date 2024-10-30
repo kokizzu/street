@@ -11,6 +11,8 @@
   export let value        = /** @type {string} */ ('');
   export let placeholder  = /** @type {string} */ ('');
   export let type         = /** @type {InputType | string} */ ('text');
+  export let autocomplete = /** @type {('on' | 'off')} */ ('on');
+  export let valuesObj    = /** @type {Record<string, string>} */ ({});
 
   let isShowPassword  = /** @type {boolean} */ (false);
   let inputElm        = /** @type {HTMLInputElement} */ (null);
@@ -27,16 +29,16 @@
 </script>
 
 <div class={className}>
-  <div class="input_box {type == 'password' ? 'with_password' : ''}">
+  <div class="input-box {type == 'password' ? 'with-password' : ''}">
     {#if type === 'textarea'}
       <label class="label" for={id}>{label}</label>
       <textarea bind:value={value} {id} {placeholder}></textarea>
     {:else if type === 'text'}
       <label class="label" for={id}>{label}</label>
-      <input type="text" bind:value={value} {id} {placeholder} autocomplete="on" />
+      <input type="text" bind:value={value} {id} {placeholder} {autocomplete} />
     {:else if type === 'email'}
       <label class="label" for={id}>{label}</label>
-      <input type="email" bind:value={value} {id} {placeholder} autocomplete="on" />
+      <input type="email" bind:value={value} {id} {placeholder} {autocomplete} />
     {:else if type === 'date'}
       <label class="label" for={id}>{label}</label>
       <input type="date" bind:value={value} {id} {placeholder}/>
@@ -58,6 +60,13 @@
       <div class="color_box">
         <input type="color" bind:value={value} {id} class="color-input"/>
       </div>
+    {:else if type === 'combobox-obj'}
+      <label class="label" for={id}>{label}</label>
+      <select bind:value={value} {id} {placeholder}>
+        {#each Object.entries(valuesObj) as [key, value]}
+          <option value={key} selected={value === value}>{value}</option>
+        {/each}
+      </select>
     {:else}
       <label class="label" for={id}>{label}</label>
       <input type="text" bind:value={value} {id} {placeholder}/>
@@ -74,7 +83,7 @@
     display: none;
   }
 
-  .input_box {
+  .input-box {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -85,15 +94,15 @@
     gap: 5px;
   }
 
-  .input_box.with_password input{
+  .input-box.with-password input{
     padding-right: 40px !important;
   }
 
-  .input_box.bool {
+  .input-box.bool {
     width: fit-content;
   }
 
-  .input_box .label {
+  .input-box .label {
     font-size: var(--font-base);
     margin-left: 10px;
     overflow: hidden;
@@ -103,8 +112,9 @@
     line-clamp: 1;
   }
 
-  .input_box input,
-  .input_box textarea {
+  .input-box input,
+  .input-box textarea,
+  .input-box select {
     width: 100%;
     border: 1px solid var(--gray-003);
     border-radius: 8px;
@@ -112,8 +122,9 @@
     padding: 12px 12px;
   }
 
-  .input_box input:focus,
-  .input_box textarea:focus {
+  .input-box input:focus,
+  .input-box textarea:focus,
+  .input-box select:focus {
     border-color: var(--orange-005);
     outline: 1px solid var(--orange-005);
   }
@@ -144,14 +155,14 @@
     border: none;
   }
 
-  .input_box textarea {
+  .input-box textarea {
     resize: vertical;
     height: 90px;
     min-height: 50px;
     max-height: 300px;
   }
 
-  .input_box .eye {
+  .input-box .eye {
     position: absolute;
     height: fit-content;
     width: fit-content;
@@ -164,12 +175,12 @@
     cursor: pointer;
   }
 
-  .input_box .eye:focus {
+  .input-box .eye:focus {
     border: none;
     outline: none;
   }
 
-  :global(.input_box .eye:hover svg) {
+  :global(.input-box .eye:hover svg) {
     fill: var(--orange-005);
   }
 
@@ -179,10 +190,6 @@
   }
 
   .input_percentage input {
-    padding-right: 30px !important;
-  }
-
-  .input_box .options_container .input_container input {
     padding-right: 30px !important;
   }
 </style>

@@ -1,7 +1,6 @@
 <script>
   import { onMount } from 'svelte';
   import { datetime } from './formatter.js';
-  
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { BiPencil } from '../node_modules/svelte-icons-pack/dist/bi';
   import {
@@ -126,13 +125,13 @@ multiple filter from other fields will do AND operation`
       </div>
     </div>
   </div>
-  <div class="table_container">
+  <div class="table-container">
     <table>
       <thead>
         <tr>
           {#each (fields || []) as field}
             {#if field.name==='id'}
-              <th class='col_action'>Action</th>
+              <th class='a-row'>Action</th>
             {:else}
               <th
                 class="
@@ -168,15 +167,15 @@ multiple filter from other fields will do AND operation`
                   </div>
                 </td>
               {:else if renderFuncs[ field.name ]}
-                <td class='table_data'>{renderFuncs[ field.name ]( cell( row, i, field ) ) }</td>
+                <td class='table-data'>{renderFuncs[ field.name ]( cell( row, i, field ) ) }</td>
               {:else if field.inputType==='checkbox'}
-                <td class='table_data'>{!!cell( row, i, field )}</td>
+                <td class='table-data'>{!!cell( row, i, field )}</td>
               {:else if field.inputType==='datetime' || field.name==='deletedAt'}
-                <td class='table_data'>{datetime( cell( row, i, field ) )}</td>
+                <td class='table-data'>{datetime( cell( row, i, field ) )}</td>
               {:else if field.inputType==='number'}
                 <td>{(cell( row, i, field ) || 0).toLocaleString()}</td>
               {:else}
-                <td class='table_data'>{cell( row, i, field )}</td>
+                <td class='table-data'>{cell( row, i, field )}</td>
               {/if}
             {/each}
           </tr>
@@ -218,20 +217,7 @@ multiple filter from other fields will do AND operation`
 </section>
 
 <style>
-  .action_options_container {
-    display         : flex;
-    flex-direction  : row;
-    justify-content : space-between;
-    align-items     : center;
-  }
-
-  .action_options_container .left {
-    display     : flex;
-    gap         : 8px;
-    align-items : center;
-  }
-
-  .table_root {
+  .table-root {
     display: flex;
     flex-direction: column;
     background-color: #fff;
@@ -241,17 +227,17 @@ multiple filter from other fields will do AND operation`
     overflow: hidden;
   }
 
-  .table_root .text-violet {
+  .table-root .text-violet {
     color: var(--violet-005);
     font-weight: 600;
     padding: 5px;
   }
 
-  .table_root p {
+  .table-root p {
     margin: 0;
   }
 
-  .table_root .actions_container {
+  .table-root .actions-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -260,15 +246,15 @@ multiple filter from other fields will do AND operation`
     background-color: #fff;
   }
 
-  .table_root .actions_container .left,
-  .table_root .actions_container .right {
+  .table-root .actions-container .left,
+  .table-root .actions-container .right {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
   }
 
-  .table_root .actions_container .left .debug .btn {
+  .table-root .actions-container .left .debug .btn {
     border: none;
     background-color: var(--violet-006);
     color: #fff;
@@ -283,11 +269,11 @@ multiple filter from other fields will do AND operation`
     cursor: pointer;
   }
 
-  .table_root .actions_container .left .debug .btn:hover {
+  .table-root .actions-container .left .debug .btn:hover {
     background-color: var(--violet-005);
   }
 
-  .table_root .actions_container .right .search_handler {
+  .table-root .actions-container .right .search_handler {
     display: flex;
     flex-direction: row;
     width: fit-content;
@@ -295,7 +281,7 @@ multiple filter from other fields will do AND operation`
     position: relative;
   }
 
-  .table_root .actions_container .right .search_handler input.search {
+  .table-root .actions-container .right .search_handler input.search {
     padding: 12px 40px 12px 15px;
     border-radius: 8px;
     border: none;
@@ -303,13 +289,13 @@ multiple filter from other fields will do AND operation`
     width: 370px;
   }
 
-  .table_root .actions_container .right .search_handler input.search:focus {
+  .table-root .actions-container .right .search_handler input.search:focus {
     border-color: none;
     outline: 1px solid var(--gray-003);
     box-shadow: var(--shadow-md);
   }
 
-  .table_root .actions_container .right .search_handler .search_btn {
+  .table-root .actions-container .right .search_handler .search_btn {
     position: absolute;
     background-color: transparent;
     padding: 8px;
@@ -323,27 +309,27 @@ multiple filter from other fields will do AND operation`
     top: 3px;
   }
 
-  .table_root .actions_container .right .search_handler .search_btn:hover {
+  .table-root .actions-container .right .search_handler .search_btn:hover {
     background-color: var(--violet-transparent);
   }
 
-  :global(.table_root .actions_container .right .search_handler .search_btn:hover svg) {
+  :global(.table-root .actions-container .right .search_handler .search_btn:hover svg) {
     fill: var(--violet-005);
   }
 
-  .table_root .actions_container .actions_btn {
+  .table-root .actions-container .actions-button {
     display: flex;
     flex-direction: row;
     align-items: center;
   }
 
-  .table_root .table_container {
+  .table-root .table-container {
     overflow-x: auto;
     scrollbar-color: var(--gray-003) transparent;
     scrollbar-width: thin;
   }
 
-  .table_root .table_container table {
+  .table-root .table-container table {
     width: 100%;
     background: #fff;
     border-top: 1px solid var(--gray-003);
@@ -355,12 +341,12 @@ multiple filter from other fields will do AND operation`
     overflow: hidden;
   }
 
-  .table_root .table_container table thead {
+  .table-root .table-container table thead {
     box-shadow: none;
     border-bottom: 1px solid var(--gray-003);
   }
 
-  .table_root .table_container table thead tr th {
+  .table-root .table-container table thead tr th {
     padding: 12px;
 		background-color: var(--gray-001);
 		text-transform: capitalize;
@@ -371,83 +357,82 @@ multiple filter from other fields will do AND operation`
     text-wrap: nowrap;
   }
 
-  .table_root .table_container table thead tr th.textarea,
-  .table_root .table_container table thead tr th.staff {
+  .table-root .table-container table thead tr th.textarea {
     min-width: 280px !important;
   }
 
-  .table_root .table_container table thead tr th.datetime {
+  .table-root .table-container table thead tr th.datetime {
     min-width: 140px !important;
   }
 
-  .table_root .table_container table tbody tr.deleted {
+  .table-root .table-container table tbody tr.deleted {
     color: var(--red-005);
   }
 
-  .table_root .table_container table thead tr th.no {
+  .table-root .table-container table thead tr th.no {
     width: 30px;
   }
 
-  .table_root .table_container table thead tr th.a_row {
+  .table-root .table-container table thead tr th.a-row {
     max-width: fit-content;
     min-width: fit-content;
     width: fit-content;
   }
 
-  .table_root .table_container table thead tr th:last-child {
+  .table-root .table-container table thead tr th:last-child {
     border-right: none;
   }
 
-  .table_root .table_container table tbody tr td {
+  .table-root .table-container table tbody tr td {
     padding: 8px 12px;
   }
 
-	.table_root .table_container table tbody tr td {
+	.table-root .table-container table tbody tr td {
     padding: 8px 12px;
 		border-right: 1px solid var(--gray-004);
 		border-bottom: 1px solid var(--gray-004);
   }
 
-	.table_root .table_container table tbody tr:last-child td,
-	.table_root .table_container table tbody tr:last-child th {
+	.table-root .table-container table tbody tr:last-child td,
+	.table-root .table-container table tbody tr:last-child th {
 		border-bottom: none !important;
 	}
 
-  .table_root .table_container table tbody tr:last-child td:last-child {
+  .table-root .table-container table tbody tr:last-child td:last-child {
     border-right: none !important;
   }
 
-	.table_root .table_container table tbody tr td.num_row {
+	.table-root .table-container table tbody tr td.num-row {
 		border-right: 1px solid var(--gray-003);
 		font-weight: 600;
 		text-align: center;
 	}
 
-  .table_root .table_container table tbody tr:last-child td,
-  .table_root .table_container table tbody tr:last-child th {
+  .table-root .table-container table tbody tr:last-child td,
+  .table-root .table-container table tbody tr:last-child th {
     border-bottom: none !important;
   }
 
-  .table_root .table_container table tbody tr:last-child td:last-child {
+  .table-root .table-container table tbody tr:last-child td:last-child {
     border-right: none !important;
   }
 
-  .table_root .table_container table tbody tr td:last-child {
+  .table-root .table-container table tbody tr td:last-child {
     border-right: none !important;
   }
 
-  .table_root .table_container table tbody tr th {
+  .table-root .table-container table tbody tr th {
     text-align: center;
     border-right: 1px solid var(--gray-004);
     border-bottom: 1px solid var(--gray-004);
   }
 
-  .table_root .table_container table tbody tr td .actions {
+  .table-root .table-container table tbody tr td .actions {
     display: flex;
     flex-direction: row;
   }
 
-  .table_root .table_container table tbody tr td .actions .btn {
+  .table-root .table-container table tbody tr td .actions .btn {
     border: none;
     padding: 6px;
     border-radius: 8px;
@@ -458,15 +443,15 @@ multiple filter from other fields will do AND operation`
     align-items: center;
   }
 
-  .table_root .table_container table tbody tr td .actions .btn:hover {
+  .table-root .table-container table tbody tr td .actions .btn:hover {
     background-color: var(--violet-transparent);
   }
 
-  :global(.table_root .table_container table tbody tr td .actions .btn:hover svg) {
+  :global(.table-root .table-container table tbody tr td .actions .btn:hover svg) {
     fill: var(--violet-005);
   }
 
-  .table_root .pagination_container {
+  .table-root .pagination-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -474,20 +459,20 @@ multiple filter from other fields will do AND operation`
     padding: 15px 15px 0 15px;
   }
 
-  .table_root .pagination_container .filter {
+  .table-root .pagination-container .filter {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 8px;
   }
 
-  .table_root .pagination_container .filter .row_to_show {
+  .table-root .pagination-container .filter .row_to_show {
     position: relative;
     width: fit-content;
     height: fit-content;
   }
 
-  .table_root .pagination_container .filter .row_to_show .btn {
+  .table-root .pagination-container .filter .row_to_show .btn {
     border: none;
     background-color: var(--violet-transparent);
     color: var(--violet-005);
@@ -504,11 +489,11 @@ multiple filter from other fields will do AND operation`
     cursor: pointer;
   }
 
-  .table_root .pagination_container .filter .row_to_show .btn:hover {
+  .table-root .pagination-container .filter .row_to_show .btn:hover {
     background-color: var(--violet-002);
   }
 
-  .table_root .pagination_container .filter .row_to_show .rows {
+  .table-root .pagination-container .filter .row_to_show .rows {
     display: flex;
     flex-direction: column-reverse;
     position: absolute;
@@ -519,7 +504,7 @@ multiple filter from other fields will do AND operation`
     background-color: #fff;
   }
 
-  .table_root .pagination_container .filter .row_to_show .rows button {
+  .table-root .pagination-container .filter .row_to_show .rows button {
     border: none;
     background-color: transparent;
     padding: 5px;
@@ -527,12 +512,12 @@ multiple filter from other fields will do AND operation`
     color: var(--gray-007);
   }
 
-  .table_root .pagination_container .filter .row_to_show .rows button:hover {
+  .table-root .pagination-container .filter .row_to_show .rows button:hover {
     background-color: var(--violet-transparent);
     color: var(--violet-007);
   }
 
-  .table_root .pagination_container .pagination {
+  .table-root .pagination-container .pagination {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -540,7 +525,7 @@ multiple filter from other fields will do AND operation`
     overflow: hidden;
   }
 
-  .table_root .pagination_container .pagination .btn {
+  .table-root .pagination-container .pagination .btn {
     border: none;
     background-color: transparent;
     display: flex;
@@ -555,29 +540,29 @@ multiple filter from other fields will do AND operation`
     border: 1px solid transparent;
   }
 
-  .table_root .pagination_container .pagination .btn:hover {
+  .table-root .pagination-container .pagination .btn:hover {
     border: 1px solid var(--gray-004);
   }
 
-  .table_root .pagination_container .pagination .btn.active {
+  .table-root .pagination-container .pagination .btn.active {
     background-color: var(--violet-transparent);
     color: var(--violet-006);
     font-weight: 600;
     border: 1px solid var(--violet-004);
   }
 
-  .table_root .pagination_container .pagination .btn.to {
+  .table-root .pagination-container .pagination .btn.to {
     background-color: var(--violet-006);
     color: #fff;
     font-weight: 600;
     border: none;
   }
 
-  .table_root .pagination_container .pagination .btn.to:hover {
+  .table-root .pagination-container .pagination .btn.to:hover {
     background-color: var(--violet-005);
   }
 
-  .table_root .pagination_container .pagination .btn.to:disabled {
+  .table-root .pagination-container .pagination .btn.to:disabled {
     background-color: var(--gray-002);
     color: var(--gray-006);
     font-weight: 600;

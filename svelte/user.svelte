@@ -1,520 +1,479 @@
 <script>
-    import Menu from './_components/Menu.svelte';
-    import ProfileHeader from './_components/ProfileHeader.svelte';
-    import Footer from './_components/partials/Footer.svelte';
-    import { Icon } from './node_modules/svelte-icons-pack/dist';
-    import {datetime} from './_components/formatter';
-    import {onMount} from 'svelte';
-    import {T} from './_components/uiState';
-    import {UserChangePassword, UserSessionKill, UserSessionsActive, UserUpdateProfile} from './jsApi.GEN.js';
-    import {
-        FaSolidAngleLeft, FaSolidAngleRight,
-        FaSolidCircleXmark, FaSolidCircleNotch,
-    } from './node_modules/svelte-icons-pack/dist/fa';
-    import {notifier} from './_components/notifier.js';
+	/** @typedef {import('./_types/user').User} User */
+	/** @typedef {import('./_types/user').Session} Session */
+	/** @typedef {import('./_types/master').Access} Access */
+	/** @typedef {import('./_types/places').CountryData} CountryData */
+	/** @typedef {import('./_types/places').Currency} Currency */
+	/** @typedef {import('./_types/places').Coordinate} Coordinate */
 
-    let user = {/* user */};
-    let segments = {/* segments */};
-    let countries = [/* countries */];
-    let sessionActiveLists = {/* activeSessions */};
-    let oldPassword = '';
-    let newPassword = '';
-    let repeatNewPassword = '';
-    let oldProfileJson = '';
-    let profileSubmit = false, passwordSubmit = false;
-    onMount(async () => {
-        console.log('onMount.user')
-        oldProfileJson = JSON.stringify(user);
-        console.log('Country data = ', countries)
-        console.log('User data = ', user)
-    });
+	import Main from './_layouts/Main.svelte';
+	import { Icon } from './node_modules/svelte-icons-pack/dist';
+	import { datetime } from './_components/formatter';
+	import { onMount } from 'svelte';
+	import {
+		UserChangePassword, UserSessionKill, UserSessionsActive, UserUpdateProfile
+	} from './jsApi.GEN.js';
+	import { RiSystemDeleteBinLine } from './node_modules/svelte-icons-pack/dist/ri';
+	import { notifier } from './_components/notifier.js';
+	import InputBox from './_components/InputBox.svelte';
+	import SubmitButton from './_components/SubmitButton.svelte';
 
-    async function updateProfile() {
-        profileSubmit = true
-        if (JSON.stringify(user) === oldProfileJson) return useGrowl('error', 'No changes');
-        await UserUpdateProfile(user, function(res) {
-            profileSubmit = false;
-            if (res.error) {
-                notifier.showError(res.error);
-                return
-            }
-            oldProfileJson = JSON.stringify(res.user);
-            user = res.user;
-            notifier.showSuccess('Profile updated');
-        });
-    }
+	let user 						= /** @type {User} */ ({/* user */});
+	let segments				= /** @type {Access} */ ({/* segments */});
+	let countries				= /** @type {CountryData[]} */ ([/* countries */]);
+	let activeSessions	= /** @type {Session[]} */ ({/* activeSessions */});
 
-    async function changePassword() {
-        passwordSubmit = true;
-        if (newPassword !== repeatNewPassword) {
-            notifier.showError('New password and repeat new password must be same');
-            passwordSubmit = false;
-            return
-        }
-        let input = {
-            oldPass: oldPassword,
-            newPass: newPassword,
-        };
-        await UserChangePassword(input, function(res) {
-            passwordSubmit = false;
-            if (res.error) {
-                notifier.showError(res.error);
-                return
-            }
-            oldPassword = '';
-            newPassword = '';
-            repeatNewPassword = '';
-            notifier.showSuccess('Password updated');
-        });
-    }
+	let oldPassword			= /** @type {string} */ ('');
+	let newPassword 		= /** @type {string} */ ('');
+	let confNewPassword	= /** @type {string} */ ('');
+	let oldProfileJson 	= /** @type {string} */ ('');
+	let countriesObj		= /** @type {Record<string, string>} */ ({});
 
-    async function killSession(sessionToken) {
-        await UserSessionKill({sessionTokenHash: sessionToken}, async res => {
-            if (res.error) {
-                notifier.showError(res.error);
-                return
-            }
-            if (res.sessionTerminated < 1) return useGrowl('error', 'No session terminated');
-            notifier.showInfo(res.sessionTerminated + ' session terminated');
-            await UserSessionsActive({userId: user.id}, res => {
-                if (res.error) {
-                    notifier.showError(res.error);
-                    return
-                }
-                sessionActiveLists = res.sessionsActive;
-            });
-        });
-    }
+	onMount(() => {
+		oldProfileJson = JSON.stringify(user);
+
+		let obj = /** @type {Record<string, string>} */ ({});
+		for (const c of (countries || [])) {
+			obj[c.iso_2] = c.country;
+		}
+		countriesObj = obj;
+	});
+
+	let username 	= /** @type {string} */ (user.userName || '');
+	let fullName	= /** @type {string} */ (user.fullName || '');
+	let email 		= /** @type {string} */ (user.email || '');
+	let country		= /** @type {string} */ (user.country || '');
+
+	let isSubmitProfile		= /** @type {boolean} */ (false);
+	async function updateProfile() {
+		user.userName = username;
+		user.fullName = fullName;
+		user.email 		= email;
+		user.country	= country;
+
+		if (JSON.stringify(user) === oldProfileJson) {
+			notifier.showWarning('No changes');
+			return
+		}
+
+		isSubmitProfile = true
+		await UserUpdateProfile(user, async function(/** @type {any} */ res) {
+			isSubmitProfile = false;
+			if (res.error) {
+				notifier.showError(res.error || 'Failed to update profile');
+				return
+			}
+
+			oldProfileJson = JSON.stringify(res.user);
+			user = res.user;
+
+			notifier.showSuccess('Profile updated');
+		});
+	}
+
+	let isSubmitPassword	= /** @type {boolean} */ (false);
+	async function changePassword() {
+		if (newPassword !== confNewPassword) {
+			notifier.showError('New password and repeat new password must be same');
+			return
+		}
+		isSubmitPassword = true;
+		await UserChangePassword({
+			oldPass: oldPassword,
+			newPass: newPassword
+		}, async function(/** @type {any} */ res) {
+			isSubmitPassword = false;
+			if (res.error) {
+				notifier.showError(res.error || 'Failed to update password');
+				return
+			}
+			oldPassword 		= '';
+			newPassword 		= '';
+			confNewPassword = '';
+
+			notifier.showSuccess('Password updated');
+		});
+	}
+
+	async function killSession(/** @type {string} */ sessionToken) {
+		await UserSessionKill({
+			sessionTokenHash: sessionToken
+		}, async function (/** @type {any} */ res) {
+			if (res.error) {
+				notifier.showError(res.error);
+				return
+			}
+
+			if (res.sessionTerminated < 1) {
+				notifier.showWarning('No session terminated');
+				return
+			}
+
+			notifier.showInfo(Number(res.sessionTerminated || 0) + ' session terminated');
+
+			await UserSessionsActive({
+				userId: user.id
+			}, async function(/** @type {any} */ res) {
+				if (res.error) {
+					notifier.showError(res.error);
+					return
+				}
+				
+				activeSessions = res.sessionsActive;
+			});
+		});
+	}
 </script>
 
-
-<section class='dashboard'>
-    <Menu access={segments}/>
-    <div class='dashboard_main_content'>
-        <ProfileHeader {user} access={segments}/>
-        <div class='content'>
-            <div class='profile_details_container'>
-                <div class='left'>
-                    <div class='profile_details'>
-                        <h2>Profile Details</h2>
-                        <!--						<div class="profile_pictures">-->
-                        <!--							<div class="img_container">-->
-                        <!--								<img alt="profile" src="/assets/img/team-1-200x200.jpg"/>-->
-                        <!--							</div>-->
-                        <!--							<div class="actions">-->
-                        <!--								<button class='btn_upload_photo'>Upload Profile Photo</button>-->
-                        <!--								<button class='btn_delete'>-->
-                        <!--									<Icon color="#FFF" size={15} src={FaSolidTrashAlt}/>-->
-                        <!--								</button>-->
-                        <!--							</div>-->
-                        <!--						</div>-->
-                        <div class='input_container'>
-                            <div class='name'>
-                                <div class='profile_input'>
-                                    <label for='userName'>Username</label>
-                                    <input bind:value={user.userName} id='userName' type='text'/>
-                                </div>
-                                <div class='profile_input'>
-                                    <label for='fullName'>Full Name</label>
-                                    <input bind:value={user.fullName} id='fullName' type='text'/>
-                                </div>
-                            </div>
-                            <div class='email_country'>
-                                <div class='profile_input email'>
-                                    <label for='email'>{$T.email}</label>
-                                    <input bind:value={user.email} id='email' type='email'/>
-                                </div>
-                                <div class='profile_input country_list'>
-                                    <label for='country'>Country</label>
-                                    <select bind:value={user.country} id='country' name='country'>
-                                        {#each countries as country}
-                                            <option value={country.iso_2}>{country.country}</option>
-                                        {/each}
-                                    </select>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class='info_container'>
-                            <div class='profile_info'>
-                                <label for='registered'>Registered:</label>
-                                <span id='registered'>{datetime(user.createdAt)}</span>
-                            </div>
-                            <div class='profile_info'>
-                                <label for='lastLogin'>Last login:</label>
-                                <span id='lastLogin'>{datetime(user.lastLoginAt)}</span>
-                            </div>
-                            <div class='profile_info'>
-                                <label for='verified'>Verified:</label>
-                                <span id='verified'>{datetime(user.verifiedAt) || '0'}</span>
-                            </div>
-                        </div>
-                        <label for='updateProfile'/>
-                        <button id='updateProfile' on:click={updateProfile}>
-                            <span>SUBMIT</span>
-                            {#if !profileSubmit}
-                                <Icon color='#FFF' size={18} src={FaSolidAngleLeft}/>
-                            {/if}
-                            {#if profileSubmit}
-                                <Icon className="spin" color='#FFF' size={18} src={FaSolidCircleNotch}/>
-                            {/if}
-                        </button>
-                    </div>
-                    <div class='session_list_container'>
-                        <h2>Active Sessions</h2>
-                        <div class='session_list_header'>
-                            <span>IP Address</span>
-                            <span>Expired At</span>
-                            <span>Device</span>
-                        </div>
-                        <div class='session_list'>
-                            {#if sessionActiveLists.length}
-                                {#each sessionActiveLists as session}
-                                    <div class='session'>
-                                        <span>{session.loginIPs || 'no-data'}</span>
-                                        <span>{datetime(session.expiredAt) || 0}</span>
-                                        <span>{session.device || 'no-data'}</span>
-                                        <button on:click={() => killSession(session.sessionToken)} class='kill_session' title='Kill this session'>
-                                            <Icon color='#FFF' size={12} src={FaSolidCircleXmark}/>
-                                        </button>
-                                    </div>
-                                {/each}
-                            {/if}
-                        </div>
-                    </div>
-                </div>
-
-                <div class='right'>
-                    <div class='password_set'>
-                        <h2>Change {$T.password}</h2>
-                        <div class='input_container'>
-                            <div class='profile_input'>
-                                <label for='oldPassword'>Old Password</label>
-                                <input bind:value={oldPassword} id='oldPassword' type='password'/>
-                            </div>
-                            <div class='profile_input'>
-                                <label for='newPassword'>New Password</label>
-                                <input bind:value={newPassword} id='newPassword' type='password'/>
-                            </div>
-                            <div class='profile_input'>
-                                <label for='repeatNewPassword'>Repeat New Password</label>
-                                <input bind:value={repeatNewPassword} id='repeatNewPassword' type='password'/>
-                            </div>
-                            <label for='changePassword'/>
-                            <button id='changePassword' on:click={changePassword}>
-                                <span>SUBMIT</span>
-                                {#if !passwordSubmit}
-                                    <Icon color='#FFF' size={18} src={FaSolidAngleRight}/>
-                                {/if}
-                                {#if passwordSubmit}
-                                    <Icon className="spin" color='#FFF' size={18} src={FaSolidCircleNotch}/>
-                                {/if}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <Footer/>
-    </div>
-</section>
+<Main {user} >
+	<div class="user-details">
+		<div class="profile-sessions-container">
+			<div class="profile">
+				<h2>Profile</h2>
+				<div class="profile-form">
+					<div class="row">
+						<InputBox
+							label="Username"
+							id="username"
+							autocomplete="on"
+							type="text"
+							bind:value={username}
+						/>
+						<InputBox
+							label="Full Name"
+							id="fullname"
+							autocomplete="on"
+							type="text"
+							bind:value={fullName}
+						/>
+					</div>
+					<div class="row">
+						<InputBox
+							label="Email"
+							id="email"
+							autocomplete="on"
+							type="email"
+							bind:value={email}
+						/>
+						<InputBox
+							label="Country"
+							id="country"
+							type="combobox-obj"
+							bind:value={country}
+							valuesObj={countriesObj}
+						/>
+					</div>
+					<div class="row">
+						<div class="pill-box">Registered At: {
+							(user.createdAt && user.createdAt > 0)
+							? datetime(user.createdAt) : '0'
+						}</div>
+						<div class="pill-box">Last Login: {
+							(user.lastLoginAt && user.lastLoginAt > 0)
+							? datetime(user.lastLoginAt) : '0'
+						}</div>
+					</div>
+					<div class="row">
+						<div class="pill-box">Verified At: {
+							(user.verifiedAt && user.verifiedAt > 0)
+							? datetime(user.verifiedAt) : '0'
+						}</div>
+					</div>
+					<SubmitButton
+						on:click={updateProfile}
+						isSubmitted={isSubmitProfile}
+						label="Update Profile"
+					/>
+				</div>
+			</div>
+			<div class="sessions">
+				<h2>Sessions</h2>
+				<div class="table-root">
+					<div class="table-container">
+						<table>
+							<thead>
+								<tr>
+									<th class="no">No</th>
+									<th class="a-row">Action</th>
+									<th>IP Address</th>
+									<th class="datetime">Expired At</th>
+									<th>Device</th>
+								</tr>
+							</thead>
+							<tbody>
+								{#each (activeSessions || []) as session, i}
+									<tr>
+										<td class="num-row">{i + 1}</td>
+										<td>
+											<div class="actions">
+												<button class="btn" title="Kill Session"
+													on:click={() => killSession(session.sessionToken)}>
+													<Icon
+														size="17"
+														src={RiSystemDeleteBinLine}
+														color="var(--gray-008)"
+													/>
+												</button>
+											</div>
+										</td>
+										<td>{session.loginIPs || '0'}</td>
+										<td class="datetime">{
+											(session.expiredAt && session.expiredAt > 0)
+											? datetime(session.expiredAt) : '0'
+										}</td>
+										<td>{session.device || '--'}</td>
+									</tr>
+								{/each}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="password">
+			<InputBox
+				label="Old Password"
+				id="old-password"
+				autocomplete="off"
+				type="password"
+				bind:value={oldPassword}
+			/>
+			<InputBox
+				label="New Password"
+				id="new-password"
+				autocomplete="off"
+				type="password"
+				bind:value={newPassword}
+			/>
+			<InputBox
+				label="Confirm New Password"
+				id="conf-new-password"
+				autocomplete="off"
+				type="password"
+				bind:value={confNewPassword}
+			/>
+			<div class="submit-btn">
+				<SubmitButton
+					on:click={changePassword}
+					isSubmitted={isSubmitPassword}
+					label="Update Password"
+				/>
+			</div>
+		</div>
+	</div>
+</Main>
 
 <style>
-    @keyframes spin {
-        from {
-            transform : rotate(0deg);
-        }
-        to {
-            transform : rotate(360deg);
-        }
-    }
+	@keyframes spin {
+		from {
+				transform : rotate(0deg);
+		}
+		to {
+				transform : rotate(360deg);
+		}
+	}
 
-    :global(.spin) {
-        animation : spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-    }
+	:global(.spin) {
+		animation : spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+	}
+	
+	.user-details {
+		display: grid;
+		grid-template-columns: 65% auto;
+		gap: 20px;
+		padding: 20px;
+	}
 
-    .profile_details_container {
-        position              : relative;
-        margin-top            : -40px;
-        margin-left           : auto;
-        margin-right          : auto;
-        display               : grid;
-        grid-template-columns : 70% auto;
-        gap                   : 30px;
-        width                 : 88%;
-        color                 : #475569;
-        font-size             : 14px;
-    }
+	.user-details .profile-sessions-container {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
 
-    .profile_details_container h2 {
-        font-size   : 18px;
-        margin      : 0 0 20px 0;
-        font-weight : 700;
-        text-align  : center;
-        color       : #6366F1;
-    }
+	.user-details .profile-sessions-container .profile {
+		display: flex;
+		flex-direction: column;
+		padding: 20px;
+		border: 1px solid var(--gray-002);
+		border-radius: 8px;
+		height: fit-content;
+		gap: 20px;
+	}
 
-    .profile_details_container .left .profile_details,
-    .profile_details_container .right .password_set,
-    .profile_details_container .left .session_list_container {
-        display          : flex;
-        flex-direction   : column;
-        border-radius    : 8px;
-        filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-        padding          : 20px;
-        background-color : white;
-        height           : fit-content;
-    }
+	.user-details .profile-sessions-container .profile h2 {
+		margin: 0;;
+	}
 
-    .profile_details_container .left,
-    .profile_details_container .right {
-        display        : flex;
-        flex-direction : column;
-        gap            : 30px;
-    }
+	.user-details .profile-sessions-container .profile .profile-form {
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+	}
 
-    /*.profile_details_container .left .profile_details .profile_pictures {*/
-    /*    display        : flex;*/
-    /*    flex-direction : row;*/
-    /*    align-items    : center;*/
-    /*    gap            : 25px;*/
-    /*    margin         : 0 0 20px 0;*/
-    /*}*/
+	.user-details .profile-sessions-container .profile .profile-form .row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
 
-    /*.profile_details_container .left .profile_details .profile_pictures .img_container {*/
-    /*    width         : 60px;*/
-    /*    height        : 60px;*/
-    /*    overflow      : hidden;*/
-    /*    border        : 2px solid #86909F;*/
-    /*    border-radius : 50%;*/
-    /*}*/
+	.user-details .profile-sessions-container .profile .profile-form .row .pill-box {
+		display: flex;
+		align-items: center;
+		padding: 12px;
+		border: 1px solid var(--gray-002);
+		border-radius: 8px;
+		background-color: var(--gray-001);
+	}
 
-    /*.profile_details_container .left .profile_details .profile_pictures .img_container img {*/
-    /*    width      : 100%;*/
-    /*    height     : 100%;*/
-    /*    object-fit : cover;*/
-    /*}*/
+	.user-details .password {
+		display: flex;
+		flex-direction: column;
+		padding: 20px;
+		border: 1px solid var(--gray-002);
+		border-radius: 8px;
+		height: fit-content;
+		gap: 10px;
+	}
 
-    /*.profile_details_container .left .profile_details .profile_pictures .actions {*/
-    /*    flex-grow      : 1;*/
-    /*    display        : flex;*/
-    /*    flex-direction : row;*/
-    /*    align-items    : center;*/
-    /*    gap            : 10px;*/
-    /*}*/
+	.user-details .password .submit-btn {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		margin-top: 10px;
+	}
 
-    /*.profile_details_container .left .profile_details .profile_pictures .actions .btn_upload_photo {*/
-    /*    width            : fit-content;*/
-    /*    height           : fit-content;*/
-    /*    padding          : 7px 15px;*/
-    /*    border-radius    : 8px;*/
-    /*    border           : 2px solid #F1F5F9;*/
-    /*    background-color : #F1F5F9;*/
-    /*    color            : #3B82F6;*/
-    /*    font-weight      : 700;*/
-    /*    cursor           : pointer;*/
-    /*}*/
+	.table-root {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid var(--gray-003);
+    padding: 0;
+    overflow: hidden;
+		width: 100%;
+  }
 
-    /*.profile_details_container .left .profile_details .profile_pictures .actions .btn_upload_photo:hover {*/
-    /*    text-decoration : underline;*/
-    /*}*/
+  .table-root .table-container {
+    overflow-x: auto;
+    scrollbar-color: var(--gray-003) transparent;
+    scrollbar-width: thin;
+  }
 
-    /*.profile_details_container .left .profile_details .profile_pictures .actions .btn_delete {*/
-    /*    width            : fit-content;*/
-    /*    height           : fit-content;*/
-    /*    padding          : 6px 10px;*/
-    /*    border-radius    : 8px;*/
-    /*    background-color : #EF4444;*/
-    /*    border           : 1px solid #EF4444;*/
-    /*    cursor           : pointer;*/
-    /*}*/
+  .table-root .table-container table {
+    width: 100%;
+    background: #fff;
+    box-shadow: none;
+    text-align: left;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+		font-size: 13px;
+  }
 
-    /*.profile_details_container .left .profile_details .profile_pictures .actions .btn_delete:hover {*/
-    /*    background-color : #F85454;*/
-    /*    border           : 1px solid #F85454;*/
-    /*}*/
+  .table-root .table-container table thead {
+    box-shadow: none;
+    border-bottom: 1px solid var(--gray-003);
+  }
 
-    .profile_details_container .left .profile_details .input_container,
-    .profile_details_container .right .password_set .input_container {
-        display        : flex;
-        flex-direction : column;
-        gap            : 10px;
-    }
+  .table-root .table-container table thead tr th {
+    padding: 12px;
+		background-color: var(--gray-001);
+		text-transform: capitalize;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-003);
+		min-width: fit-content;
+		width: auto;
+    text-wrap: nowrap;
+  }
 
-    .profile_details_container .left .profile_details .input_container .name,
-    .profile_details_container .left .profile_details .input_container .email_country {
-        display               : grid;
-        grid-template-columns : 1fr 1fr;
-        gap                   : 20px;
-    }
+  .table-root .table-container table thead tr th.datetime {
+    min-width: 140px !important;
+  }
 
-    .profile_details_container .left .profile_details .name .profile_input {
-        width : 100%;
-    }
+  .table-root .table-container table thead tr th.no {
+    width: 30px;
+  }
 
-    .profile_details_container .left .profile_details .profile_input.email {
-        width        : 100%;
-        margin-right : 10px;
-    }
+  .table-root .table-container table thead tr th.a-row {
+    max-width: fit-content;
+    min-width: fit-content;
+    width: fit-content;
+  }
 
-    .profile_details_container .left .profile_details .input_container .email_country #country {
-        width            : 100%;
-        border           : 1px solid #CBD5E1;
-        background-color : #F1F5F9;
-        border-radius    : 8px;
-        padding          : 12px;
-        cursor           : pointer;
-    }
+  .table-root .table-container table thead tr th:last-child {
+    border-right: none;
+  }
 
-    .profile_details_container .left .profile_details .input_container .email_country #country:focus {
-        outline : 2px solid #3B82F6;
-    }
+  .table-root .table-container table tbody tr td {
+    padding: 8px 12px;
+  }
 
-    .profile_details_container .info_container {
-        display        : flex;
-        flex-direction : column;
-        gap            : 5px;
-        margin-top     : 15px;
-    }
+	.table-root .table-container table tbody tr td {
+    padding: 8px 12px;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-004);
+  }
 
-    .profile_details_container .info_container .profile_info {
-        display     : inline-flex;
-        align-items : center;
-        font-size   : 13px;
-        margin-left : 10px;
-    }
+	.table-root .table-container table tbody tr:last-child {
+		border-bottom: none !important;
+  }
 
-    .profile_details_container .info_container .profile_info label {
-        font-weight  : 700;
-        margin-right : 10px;
-    }
+	.table-root .table-container table tbody tr:last-child td,
+	.table-root .table-container table tbody tr:last-child th {
+		border-bottom: none !important;
+	}
 
-    .profile_details_container .left .session_list_container .session_list_header {
-        display         : flex;
-        flex-direction  : row;
-        justify-content : space-between;
-        font-weight     : bold;
-        padding         : 15px 0;
-        border-bottom   : 1px solid #CBD5E1;
-        margin-right    : 30px;
-    }
+  .table-root .table-container table tbody tr:last-child td:last-child {
+    border-right: none !important;
+  }
 
-    .profile_details_container .left .session_list_container .session_list {
-        display        : flex;
-        flex-direction : column;
-        gap            : 5px;
-        margin-right   : 30px;
-    }
+	.table-root .table-container table tbody tr td.num-row {
+		border-right: 1px solid var(--gray-003);
+		font-weight: 600;
+		text-align: center;
+	}
 
-    .profile_details_container .left .session_list_container .session_list .session {
-        text-align      : left;
-        display         : flex;
-        flex-direction  : row;
-        align-items     : center;
-        justify-content : space-between;
-        padding         : 15px 0;
-        position        : relative;
-    }
+  .table-root .table-container table tbody tr:last-child td,
+  .table-root .table-container table tbody tr:last-child th {
+    border-bottom: none !important;
+  }
 
-    .profile_details_container .left .session_list_container .session_list .session span:nth-child(3),
-    .profile_details_container .left .session_list_container .session_list_header span:nth-child(3) {
-        flex-grow : 1;
-    }
+  .table-root .table-container table tbody tr:last-child td:last-child {
+    border-right: none !important;
+  }
 
-    .profile_details_container .left .session_list_container .session_list .session span,
-    .profile_details_container .left .session_list_container .session_list_header span {
-        width : 200px;
-    }
+  .table-root .table-container table tbody tr td:last-child {
+    border-right: none !important;
+  }
 
-    .profile_details_container .left .session_list_container .session_list .session .kill_session {
-        border           : none;
-        background-color : #EF4444;
-        padding          : 6px;
-        border-radius    : 50%;
-        position         : absolute;
-        right            : -30px;
-        cursor           : pointer;
-    }
+  .table-root .table-container table tbody tr th {
+    text-align: center;
+    border-right: 1px solid var(--gray-004);
+    border-bottom: 1px solid var(--gray-004);
+  }
 
-    .profile_details_container .left .session_list_container .session_list .session .kill_session:hover {
-        background-color : #F85454;
-    }
+  .table-root .table-container table tbody tr td .actions {
+    display: flex;
+    flex-direction: row;
+  }
 
+  .table-root .table-container table tbody tr td .actions .btn {
+    border: none;
+    padding: 6px;
+    border-radius: 8px;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .profile_details #updateProfile,
-    .password_set #changePassword {
-        margin-left      : auto;
-        width            : fit-content;
-        filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-        padding          : 6px 20px;
-        font-size        : 13px;
-        display          : inline-flex;
-        font-weight      : 600;
-        flex-direction   : row;
-        align-items      : center;
-        align-content    : center;
-        justify-content  : center;
-        border           : none;
-        background-color : #6366F1;
-        border-radius    : 8px;
-        color            : white;
-        cursor           : pointer;
-        gap              : 6px;
-    }
+  .table-root .table-container table tbody tr td .actions .btn:hover {
+    background-color: var(--red-transparent);
+  }
 
-    .profile_details #updateProfile:hover,
-    .password_set #changePassword:hover {
-        background-color : #7E80F1;
-    }
-
-    /* Input box */
-    .profile_input {
-        display        : flex;
-        flex-direction : column;
-        gap            : 8px;
-        width          : 100%;
-    }
-
-    .profile_input label,
-    .country_list label {
-        font-size   : 13px;
-        font-weight : 700;
-        margin-left : 10px;
-    }
-
-    .profile_input input,
-    .profile_input select {
-        width            : 100%;
-        border           : 1px solid #CBD5E1;
-        background-color : #F1F5F9;
-        border-radius    : 8px;
-        padding          : 12px;
-    }
-
-    .profile_input input:focus,
-    .profile_input select:focus {
-        border-color : #3B82F6;
-        outline      : 1px solid #3B82F6;
-    }
-
-    /* Responsive to mobile device */
-    @media (max-width: 768px) {
-        .profile_details_container {
-            display: flex;
-            flex-direction: column-reverse;
-            gap: 20px;
-        }
-
-        .profile_details_container .left {
-            gap: 20px;
-        }
-
-        .profile_details_container .left .profile_details .input_container .name,
-        .profile_details_container .left .profile_details .input_container .email_country {
-            display               : flex;
-            flex-direction: column;
-            gap                   : 20px;
-        }
-    }
+  :global(.table-root .table-container table tbody tr td .actions .btn:hover svg) {
+    fill: var(--red-005);
+  }
+  
 </style>

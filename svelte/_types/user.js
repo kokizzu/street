@@ -20,3 +20,14 @@
  * @property {string} language
  */
 module.exports = {}
+
+/**
+ * @typedef {Object} Session
+ * @property {string} sessionToken
+ * @property {number | string} userId
+ * @property {number} expiredAt
+ * @property {string} device
+ * @property {number} loginAt
+ * @property {string} loginIPs
+ */
+module.exports = {}
