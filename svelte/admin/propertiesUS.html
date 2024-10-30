@@ -4229,7 +4229,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
       exports.UserLikeProp = async function UserLikeProp(i, cb) {
         return await axios.post("/userLikeProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserLogout = async function UserLogout3(i, cb) {
+      exports.UserLogout = async function UserLogout4(i, cb) {
         return await axios.post("/user/logout", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserNearbyFacilities = async function UserNearbyFacilities(i, cb) {
@@ -10528,7 +10528,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
   var HiOutlineLink = { a: { viewBox: "0 0 24 24", fill: "none" }, c: '<path d="M13.1903 8.68842C13.6393 8.90291 14.0601 9.19611 14.432 9.56802C16.1893 11.3254 16.1893 14.1746 14.432 15.932L9.93198 20.432C8.17462 22.1893 5.32538 22.1893 3.56802 20.432C1.81066 18.6746 1.81066 15.8254 3.56802 14.068L5.32499 12.311M18.675 11.689L20.432 9.93198C22.1893 8.17462 22.1893 5.32538 20.432 3.56802C18.6746 1.81066 15.8254 1.81066 14.068 3.56802L9.56802 8.06802C7.81066 9.82538 7.81066 12.6746 9.56802 14.432C9.93992 14.8039 10.3607 15.0971 10.8097 15.3116" stroke="#0F172A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>' };
 
   // admin/propertiesUS.svelte
-  var import_jsApi2 = __toESM(require_jsApi_GEN());
+  var import_jsApi3 = __toESM(require_jsApi_GEN());
 
   // _components/ModalDialog.svelte
   var get_buttons_slot_changes = (dirty) => ({});
@@ -10997,6 +10997,9 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
   var import_formatter3 = __toESM(require_formatter());
   var import_mapper = __toESM(require_mapper());
 
+  // _components/partials/SideMenu.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
+
   // _states/page.js
   var isShrinkMenu = (
     /** @type {import('svelte/store').Writable<boolean>} */
@@ -11004,7 +11007,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
   );
 
   // admin/accessLog.svelte
-  var import_jsApi = __toESM(require_jsApi_GEN());
+  var import_jsApi2 = __toESM(require_jsApi_GEN());
 
   // node_modules/.pnpm/@kurkle+color@0.3.2/node_modules/@kurkle/color/dist/color.esm.js
   function round(v) {
@@ -26176,7 +26179,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
         label: "Show Property History",
         onClick(item) {
           let propertyKey = item[fieldByKey["uniqPropKey"].idx];
-          (0, import_jsApi2.UserPropHistory)(
+          (0, import_jsApi3.UserPropHistory)(
             { propertyKey },
             // @ts-ignore
             function(res) {
@@ -26207,7 +26210,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
               pager
             }
           );
-          (0, import_jsApi2.AdminPropertiesUS)(
+          (0, import_jsApi3.AdminPropertiesUS)(
             adminPropUSIn,
             // @ts-ignore
             function(res) {
@@ -26239,7 +26242,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
               pager
             }
           );
-          (0, import_jsApi2.AdminPropertiesUS)(
+          (0, import_jsApi3.AdminPropertiesUS)(
             adminPropUSIn,
             // @ts-ignore
             function(res) {
@@ -26278,7 +26281,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
         /** @type {import('../jsApi.GEN').AdminPropertiesUSIn | any} */
         { cmd: "list", pager: pagerIn }
       );
-      await (0, import_jsApi2.AdminPropertiesUS)(
+      await (0, import_jsApi3.AdminPropertiesUS)(
         adminPropUSIn,
         // @ts-ignore
         function(res) {
@@ -26292,7 +26295,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
         /** @type {import('../jsApi.GEN').AdminPropertiesUSIn | any} */
         { cmd: "form", property: { id } }
       );
-      await (0, import_jsApi2.AdminPropertiesUS)(
+      await (0, import_jsApi3.AdminPropertiesUS)(
         adminPropUSIn,
         // @ts-ignore
         function(res) {
@@ -26316,7 +26319,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
         /** @type {import('../jsApi.GEN').AdminPropertiesUSIn | any} */
         { cmd: "list", pager }
       );
-      await (0, import_jsApi2.AdminPropertiesUS)(adminPropUSIn, handleResponse);
+      await (0, import_jsApi3.AdminPropertiesUS)(adminPropUSIn, handleResponse);
     }
     async function filterRejectedApproval() {
       if (!pager.filters)
@@ -26330,7 +26333,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
         /** @type {import('../jsApi.GEN').AdminPropertiesUSIn | any} */
         { cmd: "list", pager }
       );
-      await (0, import_jsApi2.AdminPropertiesUS)(adminPropUSIn, handleResponse);
+      await (0, import_jsApi3.AdminPropertiesUS)(adminPropUSIn, handleResponse);
     }
     function addRow() {
       form.showModal({ id: "" });
@@ -26354,7 +26357,7 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
           // force refresh page, will be slow
         }
       );
-      await (0, import_jsApi2.AdminPropertiesUS)(adminPropUSIn, function(res) {
+      await (0, import_jsApi3.AdminPropertiesUS)(adminPropUSIn, function(res) {
         if (handleResponse(res)) {
           return form.setLoading(false);
         }

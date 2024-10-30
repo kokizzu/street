@@ -375,12 +375,12 @@
   .auth-section .main-container .title-container p {
     font-size: 16px;
     font-weight: 600;
-    color: var(--red-005);
+    color: var(--orange-005);
     margin: 0;
   }
 
   .auth-section .main-container .title-container h1 {
-    margin: 0;
+    margin: 0 0 5px 0;
     font-size: 22px;
     font-weight: 700;
   }
@@ -401,7 +401,7 @@
   .auth-section .main-container .form-container .forgot-password {
     width: 100%;
     text-align: center;
-    font-weight: 600;
+    font-weight: 500;
     margin: 0;
   }
 
@@ -427,15 +427,15 @@
     padding: 12px;
     font-size: 15px;
     font-weight: 600;
-    background-color: var(--blue-006);
-    border-radius: 5px;
+    background-color: var(--orange-006);
+    border-radius: 8px;
     color: white;
     border: none;
     cursor: pointer;
   }
 
   .auth-section .main-container .form-container .button-container button:hover {
-    background-color : var(--blue-005);
+    background-color : var(--orange-005);
   }
 
   .auth-section .main-container .form-container .oauth-container {
@@ -506,8 +506,7 @@
   }
 
   .auth-section .main-container .form-container .foot-auth p {
-    text-align: center;
-    font-weight: 600;
+    font-weight: 500;
     margin: 0;
   }
 
@@ -519,19 +518,5 @@
   .auth-section .main-container .form-container .foot-auth a:hover {
     color: var(--blue-005);
     text-decoration: underline;
-  }
-
-  @media (max-width : 768px) {
-    .main-container {
-      width            : 100%;
-      padding          : 15px;
-      filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-      border-radius    : 15px;
-      display          : flex;
-      flex-direction   : column;
-      background-color : white;
-      margin           : 50px 20px;
-      border           : 1px solid var(--gray-002);
-    }
   }
 </style>

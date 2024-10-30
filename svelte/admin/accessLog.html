@@ -724,94 +724,6 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     mod
   ));
 
-  // _components/formatter.js
-  var require_formatter = __commonJS({
-    "_components/formatter.js"(exports, module) {
-      function datetime2(unixSec, humanize) {
-        if (!unixSec)
-          return "";
-        if (typeof unixSec === "string")
-          return unixSec;
-        let dt = new Date(unixSec * 1e3);
-        if (!humanize) {
-          dt = dt.toISOString();
-          return dt.substring(0, 10) + " " + dt.substring(11, 16);
-        }
-        const options = { day: "2-digit", month: "long", year: "numeric" };
-        const formattedDate = dt.toLocaleDateString(void 0, options);
-        return formattedDate;
-      }
-      function priceNtd(val) {
-        return new Number(val).toLocaleString("zh-TW");
-      }
-      function localeDatetime(unixSec) {
-        if (!unixSec)
-          return "";
-        const dt = new Date(unixSec * 1e3);
-        const day = dt.toLocaleDateString("default", { weekday: "long" });
-        const date = dt.getDate();
-        const month = dt.toLocaleDateString("default", { month: "long" });
-        const year = dt.getFullYear();
-        let hh = dt.getHours();
-        if (hh < 10)
-          hh = "0" + hh;
-        let mm = dt.getMinutes();
-        if (mm < 10)
-          mm = "0" + mm;
-        const formattedDate = `${day}, ${date} ${month} ${year} ${hh}:${mm}`;
-        return formattedDate;
-      }
-      function datetime22(unixSec) {
-        if (!unixSec)
-          return "-";
-        const dt = new Date(unixSec * 1e3);
-        const year = dt.getFullYear();
-        const month = dt.toLocaleDateString("default", { month: "long" });
-        const day = dt.toLocaleDateString("default", { weekday: "long" });
-        const date = String(dt.getDate()).padStart(2, "0");
-        const hours = String(dt.getHours()).padStart(2, "0");
-        const minutes = String(dt.getMinutes()).padStart(2, "0");
-        const seconds = String(dt.getSeconds()).padStart(2, "0");
-        return `${day}, ${date} ${month} ${year} - ${hours}:${minutes}:${seconds}`;
-      }
-      function formatPrice(price, currency) {
-        try {
-          return new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency,
-            maximumSignificantDigits: 3
-          }).format(price);
-        } catch (e) {
-          console.log("formatPrice failed", e, price, currency);
-          return price + " " + currency;
-        }
-      }
-      function getApprovalState(s) {
-        if (s == "") {
-          return "approved";
-        } else if (s.startsWith("pending")) {
-          return "pending";
-        } else {
-          return "rejected";
-        }
-      }
-      function M2ToPing(sizeM2) {
-        const value = sizeM2 / 3.30579;
-        const minifiedValue = value.toFixed(2);
-        return parseFloat(minifiedValue);
-      }
-      module.exports = {
-        datetime: datetime2,
-        priceNtd,
-        localeDatetime,
-        datetime2: datetime22,
-        formatPrice,
-        getApprovalState,
-        M2ToPing
-      };
-    }
-  });
-
   // node_modules/.pnpm/axios@1.7.4/node_modules/axios/dist/browser/axios.cjs
   var require_axios = __commonJS({
     "node_modules/.pnpm/axios@1.7.4/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
@@ -3303,7 +3215,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       exports.UserLikeProp = async function UserLikeProp(i, cb) {
         return await axios.post("/userLikeProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserLogout = async function UserLogout(i, cb) {
+      exports.UserLogout = async function UserLogout2(i, cb) {
         return await axios.post("/user/logout", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserNearbyFacilities = async function UserNearbyFacilities(i, cb) {
@@ -3338,6 +3250,94 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       };
       exports.UserUploadFile = async function UserUploadFile(i, cb) {
         return await axios.post("/user/uploadFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+    }
+  });
+
+  // _components/formatter.js
+  var require_formatter = __commonJS({
+    "_components/formatter.js"(exports, module) {
+      function datetime2(unixSec, humanize) {
+        if (!unixSec)
+          return "";
+        if (typeof unixSec === "string")
+          return unixSec;
+        let dt = new Date(unixSec * 1e3);
+        if (!humanize) {
+          dt = dt.toISOString();
+          return dt.substring(0, 10) + " " + dt.substring(11, 16);
+        }
+        const options = { day: "2-digit", month: "long", year: "numeric" };
+        const formattedDate = dt.toLocaleDateString(void 0, options);
+        return formattedDate;
+      }
+      function priceNtd(val) {
+        return new Number(val).toLocaleString("zh-TW");
+      }
+      function localeDatetime(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = new Date(unixSec * 1e3);
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = dt.getDate();
+        const month = dt.toLocaleDateString("default", { month: "long" });
+        const year = dt.getFullYear();
+        let hh = dt.getHours();
+        if (hh < 10)
+          hh = "0" + hh;
+        let mm = dt.getMinutes();
+        if (mm < 10)
+          mm = "0" + mm;
+        const formattedDate = `${day}, ${date} ${month} ${year} ${hh}:${mm}`;
+        return formattedDate;
+      }
+      function datetime22(unixSec) {
+        if (!unixSec)
+          return "-";
+        const dt = new Date(unixSec * 1e3);
+        const year = dt.getFullYear();
+        const month = dt.toLocaleDateString("default", { month: "long" });
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = String(dt.getDate()).padStart(2, "0");
+        const hours = String(dt.getHours()).padStart(2, "0");
+        const minutes = String(dt.getMinutes()).padStart(2, "0");
+        const seconds = String(dt.getSeconds()).padStart(2, "0");
+        return `${day}, ${date} ${month} ${year} - ${hours}:${minutes}:${seconds}`;
+      }
+      function formatPrice(price, currency) {
+        try {
+          return new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency,
+            maximumSignificantDigits: 3
+          }).format(price);
+        } catch (e) {
+          console.log("formatPrice failed", e, price, currency);
+          return price + " " + currency;
+        }
+      }
+      function getApprovalState(s) {
+        if (s == "") {
+          return "approved";
+        } else if (s.startsWith("pending")) {
+          return "pending";
+        } else {
+          return "rejected";
+        }
+      }
+      function M2ToPing(sizeM2) {
+        const value = sizeM2 / 3.30579;
+        const minifiedValue = value.toFixed(2);
+        return parseFloat(minifiedValue);
+      }
+      module.exports = {
+        datetime: datetime2,
+        priceNtd,
+        localeDatetime,
+        datetime2: datetime22,
+        formatPrice,
+        getApprovalState,
+        M2ToPing
       };
     }
   });
@@ -4124,6 +4124,82 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
   // _components/partials/SideMenu.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
+
+  // _components/notifier.js
+  var Notifier = function() {
+    let a = {
+      container: null,
+      default_time: 4500,
+      vanish_time: 300,
+      fps: 30,
+      success: {
+        classes: "alert-success",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
+      },
+      error: {
+        classes: "alert-danger",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
+      },
+      warning: {
+        classes: "alert-warning",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
+      },
+      info: {
+        classes: "alert-info",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
+      }
+    }, b = function(a2, b2, c, d, e, f, g) {
+      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
+      let h = document.createElement("p");
+      h.className = "progress", this.element.appendChild(h), this.callback = g;
+      let j = this;
+      this.push = function() {
+        if (!j.pushed) {
+          j.pushed = true;
+          let a3 = 0, b3 = 1e3 / f;
+          j.element.style.display = "block", j.interval = setInterval(function() {
+            a3++;
+            let c2 = 100 * (1 - b3 * a3 / d);
+            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
+          }, b3);
+        }
+      }, this.clear = function() {
+        if (j.pushed) {
+          let a3 = 1e3 / f, b3 = 1;
+          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
+            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
+          }, a3);
+        }
+      }, this.destroy = function() {
+        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
+      };
+    };
+    return function Notifier2(c) {
+      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
+        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
+      };
+      this.showInfo = function(infoMsg) {
+        let notification = this.notify("info", infoMsg);
+        notification.push();
+      };
+      this.showSuccess = function(okMsg) {
+        let notification = this.notify("success", okMsg);
+        notification.push();
+      };
+      this.showError = function(errMsg) {
+        let notification = this.notify("error", errMsg);
+        notification.push();
+      };
+      this.showWarning = function(warnMsg) {
+        let notification = this.notify("warning", warnMsg);
+        notification.push();
+      };
+    };
+  }();
+  var notifier = new Notifier();
+
+  // _components/partials/SideMenu.svelte
   function create_fragment(ctx) {
     let aside;
     let div;
@@ -4146,6 +4222,8 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
     let a6;
     let t14;
     let button;
+    let mounted;
+    let dispose;
     return {
       c() {
         aside = element("aside");
@@ -4262,6 +4340,15 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         append(nav1, a6);
         append(nav1, t14);
         append(nav1, button);
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*logout*/
+            ctx[1]
+          );
+          mounted = true;
+        }
       },
       p: noop,
       i: noop,
@@ -4270,6 +4357,8 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         if (detaching) {
           detach(aside);
         }
+        mounted = false;
+        dispose();
       }
     };
   }
@@ -4278,7 +4367,27 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
       /** @type {string}*/
       window.location.pathname.split("/")[1]
     );
-    return [pathLv1];
+    async function logout() {
+      await (0, import_jsApi.UserLogout)({}, function(o) {
+        if (o.error) {
+          notifier.showError(o.error);
+          console.log(o);
+          return;
+        }
+        notifier.showSuccess("Logged out");
+        window.location = /** @type {Location | (string & Location)} */
+        "/";
+        return new Promise((resolve) => {
+          setTimeout(
+            () => {
+              resolve();
+            },
+            1e3
+          );
+        });
+      });
+    }
+    return [pathLv1, logout];
   }
   var SideMenu = class extends SvelteComponent {
     constructor(options) {
@@ -6715,82 +6824,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
   var TableView_default = TableView;
 
   // admin/accessLog.svelte
-  var import_jsApi = __toESM(require_jsApi_GEN());
-
-  // _components/notifier.js
-  var Notifier = function() {
-    let a = {
-      container: null,
-      default_time: 4500,
-      vanish_time: 300,
-      fps: 30,
-      success: {
-        classes: "alert-success",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
-      },
-      error: {
-        classes: "alert-danger",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
-      },
-      warning: {
-        classes: "alert-warning",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
-      },
-      info: {
-        classes: "alert-info",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
-      }
-    }, b = function(a2, b2, c, d, e, f, g) {
-      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
-      let h = document.createElement("p");
-      h.className = "progress", this.element.appendChild(h), this.callback = g;
-      let j = this;
-      this.push = function() {
-        if (!j.pushed) {
-          j.pushed = true;
-          let a3 = 0, b3 = 1e3 / f;
-          j.element.style.display = "block", j.interval = setInterval(function() {
-            a3++;
-            let c2 = 100 * (1 - b3 * a3 / d);
-            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
-          }, b3);
-        }
-      }, this.clear = function() {
-        if (j.pushed) {
-          let a3 = 1e3 / f, b3 = 1;
-          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
-            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
-          }, a3);
-        }
-      }, this.destroy = function() {
-        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
-      };
-    };
-    return function Notifier2(c) {
-      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
-        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
-      };
-      this.showInfo = function(infoMsg) {
-        let notification = this.notify("info", infoMsg);
-        notification.push();
-      };
-      this.showSuccess = function(okMsg) {
-        let notification = this.notify("success", okMsg);
-        notification.push();
-      };
-      this.showError = function(errMsg) {
-        let notification = this.notify("error", errMsg);
-        notification.push();
-      };
-      this.showWarning = function(warnMsg) {
-        let notification = this.notify("warning", warnMsg);
-        notification.push();
-      };
-    };
-  }();
-  var notifier = new Notifier();
-
-  // admin/accessLog.svelte
+  var import_jsApi2 = __toESM(require_jsApi_GEN());
   function create_default_slot(ctx) {
     let div1;
     let adminsubmenu;
@@ -6947,7 +6981,7 @@ input.input_filter.svelte-1wffgsc.svelte-1wffgsc {
         $invalidate(1, pager = res.pager);
     }
     async function refreshTableView(pagerIn) {
-      await (0, import_jsApi.AdminAccessLogs)(
+      await (0, import_jsApi2.AdminAccessLogs)(
         {
           // @ts-ignore
           pager: pagerIn

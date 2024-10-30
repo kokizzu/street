@@ -1,5 +1,27 @@
 <script>
+  import { UserLogout } from '../../jsApi.GEN';
+  import { notifier } from '../notifier';
+
   const pathLv1 = /** @type {string}*/ (window.location.pathname.split( '/' )[ 1 ]);
+
+  async function logout() {
+    await UserLogout( {}, function( /** @type any */ o ) {
+      if( o.error ) {
+        notifier.showError( o.error );
+        console.log( o );
+        return;
+      }
+
+      notifier.showSuccess( 'Logged out' );
+      window.location = /** @type {Location | (string & Location)} */ ('/');
+
+      return new Promise( resolve => {
+        setTimeout( () => {
+          resolve();
+        }, 1000 );
+      });
+    } );
+  }
 </script>
 
 <aside>
@@ -15,7 +37,7 @@
     <nav class="nav-menu">
       <a href="/admin" class:active={pathLv1 === 'admin'}>Admin</a>
       <a href="/user" class:active={pathLv1 === 'user'}>Profile</a>
-      <button class="red">Logout</button>
+      <button class="red" on:click={logout}>Logout</button>
     </nav>
   </div>
 </aside>

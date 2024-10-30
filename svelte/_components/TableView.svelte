@@ -92,89 +92,95 @@
   $: allowPrevPage = pager.page>1;
   $: allowNextPage = pager.page<pager.pages;
 
-</script>
-
-<section>
-  <div class='action_options_container'>
-    <div class='left'>
-      <slot />
-      <button class='action_btn' disabled={oldFilterStr===newFilterStr} on:click={applyFilter}>
-        <Icon color={oldFilterStr === newFilterStr ? '#5C646F' : '#FFF'} size={17} src={FaSolidFilter} />
-        <span>Apply Filter</span>
-      </button>
-      <button class='action_btn' on:click={() => gotoPage(pager.page)}>
-        <Icon color='#FFF' size={17} src={FaSolidArrowsRotate} />
-        <span>Refresh</span>
-      </button>
-    </div>
-  </div>
-  <div class='table_container'>
-    <table class='table_users'>
-      <thead>
-      <tr>
-        {#each fields as field}
-          {#if field.name==='id'}
-            <th class='col_action'>Action</th>
-          {:else}
-            <th class='table_header'
-                style='{widths[field.name] ? "min-width: "+widths[field.name] : ""}'>
-              <label for='th_{field.name}'>{field.label}</label><br />
-              <input id='th_{field.name}'
-                     title='separate with pipe for multiple values, for example:
+  const tableTitle = `separate with pipe for multiple values, for example:
   >=100|<50|61|72 will show values greater equal to 100, OR less than 50, OR exactly 61 OR 72
     filtering with greater or less than will only show correct result if data is saved as number
     currently price and size NOT stored as number
   <>abc* will show values NOT started with abc*
   abc*def|ghi will show values started with abc ends with def OR exactly ghi
   *jkl* will show values containing jkl substring
-multiple filter from other fields will do AND operation'
-                     type='text'
-                     class='input_filter'
-                     bind:value={filtersMap[field.name]}
-                     on:keydown={filterKeyDown}
-              />
-            </th>
-          {/if}
-        {/each}
-      </tr>
-      </thead>
-      <tbody>
-      {#each rows as row, no}
-        <tr class:deleted={row[deletedAtIdx] > 0}>
-          {#each fields as field, i}
+multiple filter from other fields will do AND operation`
+</script>
+
+<section class="table-root">
+  <div class="actions-container">
+    <div class="left">
+      <div class="actions-button">
+        <slot />
+        <button class="btn" disabled={oldFilterStr===newFilterStr} on:click={applyFilter}>
+          <Icon
+            color={oldFilterStr === newFilterStr ? '#5C646F' : '#FFF'}
+            size="17"
+            src={FaSolidFilter}
+          />
+          <span>Apply Filter</span>
+        </button>
+        <button class="btn" on:click={() => gotoPage(pager.page)}>
+          <Icon
+            color="#FFF"
+            size={17}
+            src={FaSolidArrowsRotate}
+          />
+          <span>Refresh</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="table_container">
+    <table>
+      <thead>
+        <tr>
+          {#each (fields || []) as field}
             {#if field.name==='id'}
-              <td class='col_action'>
-                <div>
-                  <button class='action' title='Edit' on:click={() => onEditRow(cell(row,i,field), row)}>
-                    <Icon src={BiPencil} />
-                  </button>
-                  {#each extraActions as action}
-                    {#if action.link}
-                      <a href='{action.link(row)}' class='action' target='_blank' title='{action.label || ""}'>
-                        <Icon src={action.icon} />
-                      </a>
-                    {:else}
-                      <button class='action' title='{action.label || ""}' on:click={() => action.onClick(row)}>
-                        <Icon src={action.icon} />
-                      </button>
-                    {/if}
-                  {/each}
-                </div>
-              </td>
-            {:else if renderFuncs[ field.name ]}
-              <td class='table_data'>{renderFuncs[ field.name ]( cell( row, i, field ) ) }</td>
-            {:else if field.inputType==='checkbox'}
-              <td class='table_data'>{!!cell( row, i, field )}</td>
-            {:else if field.inputType==='datetime' || field.name==='deletedAt'}
-              <td class='table_data'>{datetime( cell( row, i, field ) )}</td>
-            {:else if field.inputType==='number'}
-              <td>{(cell( row, i, field ) || 0).toLocaleString()}</td>
+              <th class='col_action'>Action</th>
             {:else}
-              <td class='table_data'>{cell( row, i, field )}</td>
+              <th
+                class="
+                {field.inputType === 'textarea' ? 'textarea' : ''}
+                {field.inputType === 'datetime' ? 'datetime' : ''}
+              ">{field.label}
+              </th>
             {/if}
           {/each}
         </tr>
-      {/each}
+      </thead>
+      <tbody>
+        {#each (rows || []) as row, idx}
+          <tr class:deleted={row[deletedAtIdx] > 0}>
+            {#each fields as field, i}
+              {#if field.name === 'id'}
+                <td class="a-row">
+                  <div class="actions">
+                    <button class="btn" title="Edit" on:click={() => onEditRow(cell(row,i,field), row)}>
+                      <Icon src={BiPencil} size="15" />
+                    </button>
+                    {#each extraActions as action}
+                      {#if action.link}
+                        <a href='{action.link(row)}' class="action" target="_blank" title={action.label || ''}>
+                          <Icon src={action.icon} />
+                        </a>
+                      {:else}
+                        <button class="action" title='{action.label || ""}' on:click={() => action.onClick(row)}>
+                          <Icon src={action.icon} />
+                        </button>
+                      {/if}
+                    {/each}
+                  </div>
+                </td>
+              {:else if renderFuncs[ field.name ]}
+                <td class='table_data'>{renderFuncs[ field.name ]( cell( row, i, field ) ) }</td>
+              {:else if field.inputType==='checkbox'}
+                <td class='table_data'>{!!cell( row, i, field )}</td>
+              {:else if field.inputType==='datetime' || field.name==='deletedAt'}
+                <td class='table_data'>{datetime( cell( row, i, field ) )}</td>
+              {:else if field.inputType==='number'}
+                <td>{(cell( row, i, field ) || 0).toLocaleString()}</td>
+              {:else}
+                <td class='table_data'>{cell( row, i, field )}</td>
+              {/if}
+            {/each}
+          </tr>
+        {/each}
       </tbody>
     </table>
   </div>
@@ -225,96 +231,358 @@ multiple filter from other fields will do AND operation'
     align-items : center;
   }
 
-  .table_container {
-    overflow-x : auto;
+  .table_root {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid var(--gray-003);
+    padding: 0 0 20px 0;
+    overflow: hidden;
   }
 
-  .table_container::-webkit-scrollbar-thumb {
-    background-color : #EF4444;
-    border-radius    : 4px;
+  .table_root .text-violet {
+    color: var(--violet-005);
+    font-weight: 600;
+    padding: 5px;
   }
 
-  .table_container::-webkit-scrollbar-thumb:hover {
-    background-color : #EC6262;
+  .table_root p {
+    margin: 0;
   }
 
-  .table_container::-webkit-scrollbar {
-    height : 10px;
+  .table_root .actions_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #fff;
   }
 
-  .table_container::-webkit-scrollbar-track {
-    background-color : transparent;
+  .table_root .actions_container .left,
+  .table_root .actions_container .right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
   }
 
-  .table_container .table_users {
-    margin           : 10px 1px 10px 0;
-    background-color : white;
-    border-collapse  : collapse;
-    font-size        : 14px;
-    width            : 100%;
-    color            : #475569;
+  .table_root .actions_container .left .debug .btn {
+    border: none;
+    background-color: var(--violet-006);
+    color: #fff;
+    width: fit-content;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
   }
 
-  .table_container .table_users th {
-    color   : #6366F1;
-    border  : 1px solid #CBD5E1;
-    padding : 10px 7px;
+  .table_root .actions_container .left .debug .btn:hover {
+    background-color: var(--violet-005);
   }
 
-  .table_container .table_users td {
-    border  : 1px solid #CBD5E1;
-    padding : 2px 3px 2px 3px;
+  .table_root .actions_container .right .search_handler {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    height: fit-content;
+    position: relative;
   }
 
-  .table_users .table_header {
-    text-align  : left;
-    white-space : nowrap;
+  .table_root .actions_container .right .search_handler input.search {
+    padding: 12px 40px 12px 15px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--gray-001);
+    width: 370px;
   }
 
-  .table_users .col_action {
-    text-align : center;
-    padding    : 0 10px;
-    width      : fit-content;
+  .table_root .actions_container .right .search_handler input.search:focus {
+    border-color: none;
+    outline: 1px solid var(--gray-003);
+    box-shadow: var(--shadow-md);
   }
 
-  .table_users td.col_action {
-    text-align : center;
-    padding    : 0 10px;
-    width      : fit-content;
+  .table_root .actions_container .right .search_handler .search_btn {
+    position: absolute;
+    background-color: transparent;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    right: 5px;
+    top: 3px;
   }
 
-  .table_users td.col_action div {
-    display        : flex;
-    flex-direction : row;
-    align-items    : center;
+  .table_root .actions_container .right .search_handler .search_btn:hover {
+    background-color: var(--violet-transparent);
   }
 
-  .table_users tr, .table_users td {
-    height : 2em;
+  :global(.table_root .actions_container .right .search_handler .search_btn:hover svg) {
+    fill: var(--violet-005);
   }
 
-  .table_users .col_action .action {
-    background    : none;
-    color         : #475569;
-    text-align    : center;
-    cursor        : pointer;
-    padding       : 8px 10px;
-    height        : fit-content;
-    width         : fit-content;
-    border        : none;
-    display       : inline;
-    border-radius : 5px;
+  .table_root .actions_container .actions_btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 
-  .table_users .col_action .action:hover {
-    color            : #EF4444;
-    background-color : #F0F0F0;
+  .table_root .table_container {
+    overflow-x: auto;
+    scrollbar-color: var(--gray-003) transparent;
+    scrollbar-width: thin;
   }
 
-  .table_users .deleted td {
-    text-decoration           : line-through;
-    text-decoration-color     : rgba(239, 68, 68, 0.5);
-    text-decoration-thickness : 5px;
+  .table_root .table_container table {
+    width: 100%;
+    background: #fff;
+    border-top: 1px solid var(--gray-003);
+    border-bottom: 1px solid var(--gray-003);
+    box-shadow: none;
+    text-align: left;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+  }
+
+  .table_root .table_container table thead {
+    box-shadow: none;
+    border-bottom: 1px solid var(--gray-003);
+  }
+
+  .table_root .table_container table thead tr th {
+    padding: 12px;
+		background-color: var(--gray-001);
+		text-transform: capitalize;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-003);
+		min-width: fit-content;
+		width: auto;
+    text-wrap: nowrap;
+  }
+
+  .table_root .table_container table thead tr th.textarea,
+  .table_root .table_container table thead tr th.staff {
+    min-width: 280px !important;
+  }
+
+  .table_root .table_container table thead tr th.datetime {
+    min-width: 140px !important;
+  }
+
+  .table_root .table_container table tbody tr.deleted {
+    color: var(--red-005);
+  }
+
+  .table_root .table_container table thead tr th.no {
+    width: 30px;
+  }
+
+  .table_root .table_container table thead tr th.a_row {
+    max-width: fit-content;
+    min-width: fit-content;
+    width: fit-content;
+  }
+
+  .table_root .table_container table thead tr th:last-child {
+    border-right: none;
+  }
+
+  .table_root .table_container table tbody tr td {
+    padding: 8px 12px;
+  }
+
+	.table_root .table_container table tbody tr td {
+    padding: 8px 12px;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-004);
+  }
+
+	.table_root .table_container table tbody tr:last-child td,
+	.table_root .table_container table tbody tr:last-child th {
+		border-bottom: none !important;
+	}
+
+  .table_root .table_container table tbody tr:last-child td:last-child {
+    border-right: none !important;
+  }
+
+	.table_root .table_container table tbody tr td.num_row {
+		border-right: 1px solid var(--gray-003);
+		font-weight: 600;
+		text-align: center;
+	}
+
+  .table_root .table_container table tbody tr:last-child td,
+  .table_root .table_container table tbody tr:last-child th {
+    border-bottom: none !important;
+  }
+
+  .table_root .table_container table tbody tr:last-child td:last-child {
+    border-right: none !important;
+  }
+
+  .table_root .table_container table tbody tr td:last-child {
+    border-right: none !important;
+  }
+
+  .table_root .table_container table tbody tr th {
+    text-align: center;
+    border-right: 1px solid var(--gray-004);
+    border-bottom: 1px solid var(--gray-004);
+  }
+
+  .table_root .table_container table tbody tr td .actions {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .table_root .table_container table tbody tr td .actions .btn {
+    border: none;
+    padding: 6px;
+    border-radius: 8px;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .table_root .table_container table tbody tr td .actions .btn:hover {
+    background-color: var(--violet-transparent);
+  }
+
+  :global(.table_root .table_container table tbody tr td .actions .btn:hover svg) {
+    fill: var(--violet-005);
+  }
+
+  .table_root .pagination_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 15px 0 15px;
+  }
+
+  .table_root .pagination_container .filter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .table_root .pagination_container .filter .row_to_show {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+  }
+
+  .table_root .pagination_container .filter .row_to_show .btn {
+    border: none;
+    background-color: var(--violet-transparent);
+    color: var(--violet-005);
+    width: fit-content;
+    padding: 3px 3px 3px 6px;
+    font-weight: 600;
+    border: 1px solid var(--violet-004);
+    border-radius: 9999px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1px;
+    cursor: pointer;
+  }
+
+  .table_root .pagination_container .filter .row_to_show .btn:hover {
+    background-color: var(--violet-002);
+  }
+
+  .table_root .pagination_container .filter .row_to_show .rows {
+    display: flex;
+    flex-direction: column-reverse;
+    position: absolute;
+    width: 100%;
+    top: -180px;
+    border-radius: 5px;
+    border: 1px solid var(--gray-004);
+    background-color: #fff;
+  }
+
+  .table_root .pagination_container .filter .row_to_show .rows button {
+    border: none;
+    background-color: transparent;
+    padding: 5px;
+    cursor: pointer;
+    color: var(--gray-007);
+  }
+
+  .table_root .pagination_container .filter .row_to_show .rows button:hover {
+    background-color: var(--violet-transparent);
+    color: var(--violet-007);
+  }
+
+  .table_root .pagination_container .pagination {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    overflow: hidden;
+  }
+
+  .table_root .pagination_container .pagination .btn {
+    border: none;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 9999px;
+    cursor: pointer;
+    gap: 5px;
+    color: var(--gray-007);
+    border: 1px solid transparent;
+  }
+
+  .table_root .pagination_container .pagination .btn:hover {
+    border: 1px solid var(--gray-004);
+  }
+
+  .table_root .pagination_container .pagination .btn.active {
+    background-color: var(--violet-transparent);
+    color: var(--violet-006);
+    font-weight: 600;
+    border: 1px solid var(--violet-004);
+  }
+
+  .table_root .pagination_container .pagination .btn.to {
+    background-color: var(--violet-006);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+  }
+
+  .table_root .pagination_container .pagination .btn.to:hover {
+    background-color: var(--violet-005);
+  }
+
+  .table_root .pagination_container .pagination .btn.to:disabled {
+    background-color: var(--gray-002);
+    color: var(--gray-006);
+    font-weight: 600;
+    border: 1px solid var(--gray-004);
+    cursor: not-allowed;
   }
 
   .pages_set {

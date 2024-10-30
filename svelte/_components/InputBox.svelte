@@ -33,18 +33,18 @@
       <textarea bind:value={value} {id} {placeholder}></textarea>
     {:else if type === 'text'}
       <label class="label" for={id}>{label}</label>
-      <input type="text" bind:value={value} {id} {placeholder} autocomplete="off" />
+      <input type="text" bind:value={value} {id} {placeholder} autocomplete="on" />
     {:else if type === 'email'}
       <label class="label" for={id}>{label}</label>
-      <input type="email" bind:value={value} {id} {placeholder}/>
+      <input type="email" bind:value={value} {id} {placeholder} autocomplete="on" />
     {:else if type === 'date'}
       <label class="label" for={id}>{label}</label>
       <input type="date" bind:value={value} {id} {placeholder}/>
     {:else if type === 'password'}
       <label class="label" for={id}>{label}</label>
-      <input bind:value={value} {id} bind:this={inputElm} {placeholder}/>
+      <input bind:value={value} {id} bind:this={inputElm} {placeholder} />
       {#if type === 'password'}
-        <button class="eye" on:click={toggleShowPassword}>
+        <button class="eye" on:click={toggleShowPassword} title={isShowPassword ? 'Hide Password' : 'Show Password'}>
           {#if !isShowPassword}
             <Icon color="#495057" size="20" src={AiOutlineEye}/>
           {/if}
@@ -107,7 +107,7 @@
   .input_box textarea {
     width: 100%;
     border: 1px solid var(--gray-003);
-    border-radius: 5px;
+    border-radius: 8px;
     background-color: transparent;
     padding: 12px 12px;
   }

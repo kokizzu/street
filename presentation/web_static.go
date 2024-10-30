@@ -28,31 +28,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			Provider:      domain.OauthGoogle,
 		})
 		google.ResponseCommon.DecorateSession(c)
-		const lat = 23.708740595481036
-		const lng = 120.78636646165934
-		const defaultDistanceKm = 20
-		var props domain.UserSearchPropOut
-		if user != nil && user.Id > 0 {
-			copy := in.RequestCommon
-			copy.Action = domain.UserSearchPropAction
-			props = d.UserSearchProp(&domain.UserSearchPropIn{
-				RequestCommon: copy,
-				CenterLat:     lat,
-				CenterLong:    lng,
-				Offset:        0,
-				Limit:         0,
-				MaxDistanceKM: defaultDistanceKm,
-			})
-		}
 		return views.RenderIndex(c, M.SX{
-			`title`:  `Street`,
+			`title`:  `HapSTR`,
 			`user`:   user,
 			`google`: google.Link,
-
-			`segments`:          segments,
-			`randomProps`:       props.Properties,
-			`initialLatLong`:    []any{lat, lng},
-			`defaultDistanceKm`: defaultDistanceKm,
+			`segments`: segments,
 		})
 	})
 
