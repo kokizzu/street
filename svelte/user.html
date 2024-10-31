@@ -196,6 +196,37 @@
         border-color: var(--gray-002);
       }
 
+      .actions-button .btn {
+        border: none;
+        color: var(--gray-008);
+        background-color: transparent;
+        width: fit-content;
+        padding: 8px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .actions-button .btn:hover {
+        background-color: var(--orange-transparent);
+        color: var(--orange-005);
+      }
+
+      .actions-button .btn:disabled {
+        cursor: not-allowed;
+        background-color: var(--gray-002);
+      }
+
+      .actions-button .btn:hover svg {
+        fill: var(--orange-005);
+      }
+
+      .actions-button .btn:disabled svg {
+        fill: var(--gray-007);
+      }
+
       /* notifier */
       .notifyjs-container {
         z-index: 100;
@@ -626,7 +657,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
 }
 
 /* fakecss:./user.esbuild-svelte-fake-css */
-@keyframes svelte-zkayzj-spin {
+@keyframes svelte-28rafh-spin {
   from {
     transform: rotate(0deg);
   }
@@ -635,20 +666,20 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   }
 }
 .spin {
-  animation: svelte-zkayzj-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: svelte-28rafh-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
-.user-details.svelte-zkayzj.svelte-zkayzj {
+.user-details.svelte-28rafh.svelte-28rafh {
   display: grid;
   grid-template-columns: 65% auto;
   gap: 20px;
   padding: 20px;
 }
-.user-details.svelte-zkayzj .profile-sessions-container.svelte-zkayzj {
+.user-details.svelte-28rafh .profile-sessions-container.svelte-28rafh {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.user-details.svelte-zkayzj .profile-sessions-container .profile.svelte-zkayzj {
+.user-details.svelte-28rafh .profile-sessions-container .profile.svelte-28rafh {
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -657,20 +688,20 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   height: fit-content;
   gap: 20px;
 }
-.user-details.svelte-zkayzj .profile-sessions-container .profile h2.svelte-zkayzj {
+.user-details.svelte-28rafh .profile-sessions-container .profile h2.svelte-28rafh {
   margin: 0;
 }
-.user-details.svelte-zkayzj .profile-sessions-container .profile .profile-form.svelte-zkayzj {
+.user-details.svelte-28rafh .profile-sessions-container .profile .profile-form.svelte-28rafh {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-.user-details.svelte-zkayzj .profile-sessions-container .profile .profile-form .row.svelte-zkayzj {
+.user-details.svelte-28rafh .profile-sessions-container .profile .profile-form .row.svelte-28rafh {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
-.user-details.svelte-zkayzj .profile-sessions-container .profile .profile-form .row .pill-box.svelte-zkayzj {
+.user-details.svelte-28rafh .profile-sessions-container .profile .profile-form .row .pill-box.svelte-28rafh {
   display: flex;
   align-items: center;
   padding: 12px;
@@ -678,7 +709,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   border-radius: 8px;
   background-color: var(--gray-001);
 }
-.user-details.svelte-zkayzj .password.svelte-zkayzj {
+.user-details.svelte-28rafh .password.svelte-28rafh {
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -687,13 +718,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   height: fit-content;
   gap: 10px;
 }
-.user-details.svelte-zkayzj .password .submit-btn.svelte-zkayzj {
+.user-details.svelte-28rafh .password .submit-btn.svelte-28rafh {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  margin-top: 10px;
+  margin-top: 5px;
 }
-.table-root.svelte-zkayzj.svelte-zkayzj {
+.table-root.svelte-28rafh.svelte-28rafh {
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -703,12 +734,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   overflow: hidden;
   width: 100%;
 }
-.table-root.svelte-zkayzj .table-container.svelte-zkayzj {
+.table-root.svelte-28rafh .table-container.svelte-28rafh {
   overflow-x: auto;
   scrollbar-color: var(--gray-003) transparent;
   scrollbar-width: thin;
 }
-.table-root.svelte-zkayzj .table-container table.svelte-zkayzj {
+.table-root.svelte-28rafh .table-container table.svelte-28rafh {
   width: 100%;
   background: #fff;
   box-shadow: none;
@@ -718,11 +749,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   overflow: hidden;
   font-size: 13px;
 }
-.table-root.svelte-zkayzj .table-container table thead.svelte-zkayzj {
+.table-root.svelte-28rafh .table-container table thead.svelte-28rafh {
   box-shadow: none;
   border-bottom: 1px solid var(--gray-003);
 }
-.table-root.svelte-zkayzj .table-container table thead tr th.svelte-zkayzj {
+.table-root.svelte-28rafh .table-container table thead tr th.svelte-28rafh {
   padding: 12px;
   background-color: var(--gray-001);
   text-transform: capitalize;
@@ -732,63 +763,63 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   width: auto;
   text-wrap: nowrap;
 }
-.table-root.svelte-zkayzj .table-container table thead tr th.datetime.svelte-zkayzj {
+.table-root.svelte-28rafh .table-container table thead tr th.datetime.svelte-28rafh {
   min-width: 140px !important;
 }
-.table-root.svelte-zkayzj .table-container table thead tr th.no.svelte-zkayzj {
+.table-root.svelte-28rafh .table-container table thead tr th.no.svelte-28rafh {
   width: 30px;
 }
-.table-root.svelte-zkayzj .table-container table thead tr th.a-row.svelte-zkayzj {
+.table-root.svelte-28rafh .table-container table thead tr th.a-row.svelte-28rafh {
   max-width: fit-content;
   min-width: fit-content;
   width: fit-content;
 }
-.table-root.svelte-zkayzj .table-container table thead tr th.svelte-zkayzj:last-child {
+.table-root.svelte-28rafh .table-container table thead tr th.svelte-28rafh:last-child {
   border-right: none;
 }
-.table-root.svelte-zkayzj .table-container table tbody tr td.svelte-zkayzj {
+.table-root.svelte-28rafh .table-container table tbody tr td.svelte-28rafh {
   padding: 8px 12px;
 }
-.table-root.svelte-zkayzj .table-container table tbody tr td.svelte-zkayzj {
+.table-root.svelte-28rafh .table-container table tbody tr td.svelte-28rafh {
   padding: 8px 12px;
   border-right: 1px solid var(--gray-004);
   border-bottom: 1px solid var(--gray-004);
 }
-.table-root.svelte-zkayzj .table-container table tbody tr.svelte-zkayzj:last-child {
+.table-root.svelte-28rafh .table-container table tbody tr.svelte-28rafh:last-child {
   border-bottom: none !important;
 }
-.table-root.svelte-zkayzj .table-container table tbody tr:last-child td.svelte-zkayzj,
-.table-root.svelte-zkayzj .table-container table tbody tr:last-child th.svelte-zkayzj {
+.table-root.svelte-28rafh .table-container table tbody tr:last-child td.svelte-28rafh,
+.table-root.svelte-28rafh .table-container table tbody tr:last-child th.svelte-28rafh {
   border-bottom: none !important;
 }
-.table-root.svelte-zkayzj .table-container table tbody tr:last-child td.svelte-zkayzj:last-child {
+.table-root.svelte-28rafh .table-container table tbody tr:last-child td.svelte-28rafh:last-child {
   border-right: none !important;
 }
-.table-root.svelte-zkayzj .table-container table tbody tr td.num-row.svelte-zkayzj {
+.table-root.svelte-28rafh .table-container table tbody tr td.num-row.svelte-28rafh {
   border-right: 1px solid var(--gray-003);
   font-weight: 600;
   text-align: center;
 }
-.table-root.svelte-zkayzj .table-container table tbody tr:last-child td.svelte-zkayzj,
-.table-root.svelte-zkayzj .table-container table tbody tr:last-child th.svelte-zkayzj {
+.table-root.svelte-28rafh .table-container table tbody tr:last-child td.svelte-28rafh,
+.table-root.svelte-28rafh .table-container table tbody tr:last-child th.svelte-28rafh {
   border-bottom: none !important;
 }
-.table-root.svelte-zkayzj .table-container table tbody tr:last-child td.svelte-zkayzj:last-child {
+.table-root.svelte-28rafh .table-container table tbody tr:last-child td.svelte-28rafh:last-child {
   border-right: none !important;
 }
-.table-root.svelte-zkayzj .table-container table tbody tr td.svelte-zkayzj:last-child {
+.table-root.svelte-28rafh .table-container table tbody tr td.svelte-28rafh:last-child {
   border-right: none !important;
 }
-.table-root.svelte-zkayzj .table-container table tbody tr th.svelte-zkayzj {
+.table-root.svelte-28rafh .table-container table tbody tr th.svelte-28rafh {
   text-align: center;
   border-right: 1px solid var(--gray-004);
   border-bottom: 1px solid var(--gray-004);
 }
-.table-root.svelte-zkayzj .table-container table tbody tr td .actions.svelte-zkayzj {
+.table-root.svelte-28rafh .table-container table tbody tr td .actions.svelte-28rafh {
   display: flex;
   flex-direction: row;
 }
-.table-root.svelte-zkayzj .table-container table tbody tr td .actions .btn.svelte-zkayzj {
+.table-root.svelte-28rafh .table-container table tbody tr td .actions .btn.svelte-28rafh {
   border: none;
   padding: 6px;
   border-radius: 8px;
@@ -798,7 +829,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   justify-content: center;
   align-items: center;
 }
-.table-root.svelte-zkayzj .table-container table tbody tr td .actions .btn.svelte-zkayzj:hover {
+.table-root.svelte-28rafh .table-container table tbody tr td .actions .btn.svelte-28rafh:hover {
   background-color: var(--red-transparent);
 }
 .table-root .table-container table tbody tr td .actions .btn:hover svg {
@@ -6939,15 +6970,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         td4 = element("td");
         t7 = text(t7_value);
         t8 = space();
-        attr(td0, "class", "num-row svelte-zkayzj");
-        attr(button, "class", "btn svelte-zkayzj");
+        attr(td0, "class", "num-row svelte-28rafh");
+        attr(button, "class", "btn svelte-28rafh");
         attr(button, "title", "Kill Session");
-        attr(div, "class", "actions svelte-zkayzj");
-        attr(td1, "class", "svelte-zkayzj");
-        attr(td2, "class", "svelte-zkayzj");
-        attr(td3, "class", "datetime svelte-zkayzj");
-        attr(td4, "class", "svelte-zkayzj");
-        attr(tr, "class", "svelte-zkayzj");
+        attr(div, "class", "actions svelte-28rafh");
+        attr(td1, "class", "svelte-28rafh");
+        attr(td2, "class", "svelte-28rafh");
+        attr(td3, "class", "datetime svelte-28rafh");
+        attr(td4, "class", "svelte-28rafh");
+        attr(tr, "class", "svelte-28rafh");
       },
       m(target, anchor) {
         insert(target, tr, anchor);
@@ -7307,7 +7338,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         div9 = element("div");
         table = element("table");
         thead = element("thead");
-        thead.innerHTML = `<tr class="svelte-zkayzj"><th class="no svelte-zkayzj">No</th> <th class="a-row svelte-zkayzj">Action</th> <th class="svelte-zkayzj">IP Address</th> <th class="datetime svelte-zkayzj">Expired At</th> <th class="svelte-zkayzj">Device</th></tr>`;
+        thead.innerHTML = `<tr class="svelte-28rafh"><th class="no svelte-28rafh">No</th> <th class="a-row svelte-28rafh">Action</th> <th class="svelte-28rafh">IP Address</th> <th class="datetime svelte-28rafh">Expired At</th> <th class="svelte-28rafh">Device</th></tr>`;
         t27 = space();
         tbody = element("tbody");
         for (let i = 0; i < each_blocks.length; i += 1) {
@@ -7323,26 +7354,26 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         t31 = space();
         div13 = element("div");
         create_component(submitbutton1.$.fragment);
-        attr(h20, "class", "svelte-zkayzj");
-        attr(div0, "class", "row svelte-zkayzj");
-        attr(div1, "class", "row svelte-zkayzj");
-        attr(div2, "class", "pill-box svelte-zkayzj");
-        attr(div3, "class", "pill-box svelte-zkayzj");
-        attr(div4, "class", "row svelte-zkayzj");
-        attr(div5, "class", "pill-box svelte-zkayzj");
-        attr(div6, "class", "row svelte-zkayzj");
-        attr(div7, "class", "profile-form svelte-zkayzj");
-        attr(div8, "class", "profile svelte-zkayzj");
-        attr(h21, "class", "svelte-zkayzj");
-        attr(thead, "class", "svelte-zkayzj");
-        attr(table, "class", "svelte-zkayzj");
-        attr(div9, "class", "table-container svelte-zkayzj");
-        attr(div10, "class", "table-root svelte-zkayzj");
+        attr(h20, "class", "svelte-28rafh");
+        attr(div0, "class", "row svelte-28rafh");
+        attr(div1, "class", "row svelte-28rafh");
+        attr(div2, "class", "pill-box svelte-28rafh");
+        attr(div3, "class", "pill-box svelte-28rafh");
+        attr(div4, "class", "row svelte-28rafh");
+        attr(div5, "class", "pill-box svelte-28rafh");
+        attr(div6, "class", "row svelte-28rafh");
+        attr(div7, "class", "profile-form svelte-28rafh");
+        attr(div8, "class", "profile svelte-28rafh");
+        attr(h21, "class", "svelte-28rafh");
+        attr(thead, "class", "svelte-28rafh");
+        attr(table, "class", "svelte-28rafh");
+        attr(div9, "class", "table-container svelte-28rafh");
+        attr(div10, "class", "table-root svelte-28rafh");
         attr(div11, "class", "sessions");
-        attr(div12, "class", "profile-sessions-container svelte-zkayzj");
-        attr(div13, "class", "submit-btn svelte-zkayzj");
-        attr(div14, "class", "password svelte-zkayzj");
-        attr(div15, "class", "user-details svelte-zkayzj");
+        attr(div12, "class", "profile-sessions-container svelte-28rafh");
+        attr(div13, "class", "submit-btn svelte-28rafh");
+        attr(div14, "class", "password svelte-28rafh");
+        attr(div15, "class", "user-details svelte-28rafh");
       },
       m(target, anchor) {
         insert(target, div15, anchor);

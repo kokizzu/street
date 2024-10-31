@@ -430,12 +430,13 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.AdminUsers(&in)
 		return views.RenderAdminUsers(ctx, M.SX{
 			`title`:    `Users`,
+			`user`: user,
 			`segments`: segments,
 			`users`:    out.Users,
 			`fields`:   out.Meta.Fields,

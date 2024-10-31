@@ -72,8 +72,8 @@
 </script>
 
 {#if visible}
-   <div class='backdrop'>
-   <div class='modal_container'>
+   <div class="backdrop">
+   <div class="modal-container">
       <header>
          {#if row.id}
             <h2>Edit {rowType} ID: {row.id}</h2>
@@ -144,17 +144,17 @@
 <style>
    .backdrop {
       position: fixed;
-      z-index: 40;
+      z-index: 101;
       top: 0;
       left: 0;
       bottom: 0;
-      background: rgba(41, 41, 41, 0.9);
+      background-color: rgba(0 0 0 / 40%);
       overflow-y: auto;
       width: 100%;
       display: flex;
       justify-content: center;
    }
-   /* Hide scrollbar to not make it 2 in right side */
+   
    .backdrop::-webkit-scrollbar-thumb {
       background: transparent;
    }
@@ -165,31 +165,29 @@
       background-color: transparent;
    }
 
-   .modal_container {
-      background-color: white;
+   .modal-container {
+      background-color: #FFF;
       width: 500px;
       height: fit-content;
       margin: 30px 0;
       padding: 20px;
-      filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-      border-radius: 15px;
+      border-radius: 8px;
       display: flex;
       flex-direction: column;
-      color: #334155;
    }
-   .modal_container header {
+   .modal-container header {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
    }
-   .modal_container header h2 {
+   .modal-container header h2 {
       font-size: 16px;
       line-height: 1.5rem;
       padding: 0;
       margin: 0;
    }
-   .modal_container header button {
+   .modal-container header button {
       padding: 5px;
 		border: none;
 		background: none;
@@ -197,7 +195,7 @@
 		font-size: 12px;
 		cursor: pointer;
    }
-   .modal_container header button:hover {
+   .modal-container header button:hover {
       background-color: rgb(0 0 0 / 0.07);
       color: #EF4444;
    }

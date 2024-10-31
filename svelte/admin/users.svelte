@@ -1,24 +1,23 @@
 <script>
-  import Menu from '../_components/Menu.svelte';
+  /** @typedef {import('../_types/user').User} User */
+  /** @typedef {import('../_types/master').PagerIn} PagerIn */
+  /** @typedef {import('../_types/master').PagerOut} PagerOut */
+  /** @typedef {import('../_types/master').Field} Field */
+
+  import Main from '../_layouts/Main.svelte';
   import AdminSubMenu from '../_components/AdminSubMenu.svelte';
-  import ProfileHeader from '../_components/ProfileHeader.svelte';
-  import Footer from '../_components/partials/Footer.svelte';
-  import TableView from '../_components/TableView.svelte';
   import { AdminUsers } from '../jsApi.GEN';
   import ModalForm from '../_components/ModalForm.svelte';
-  import {notifier} from '../_components/notifier.js';
-
+  import { notifier } from '../_components/notifier.js';
+  import TableView from '../_components/TableView.svelte';
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
-  import { FaSolidCirclePlus } from '../node_modules/svelte-icons-pack/dist/fa';
+  import { RiSystemAddBoxLine } from '../node_modules/svelte-icons-pack/dist/ri';
   
-  let segments = {/* segments */};
-  let fields = [/* fields */];
-  let users = [/* users */];
-  let pager = {/* pager */};
-  
-  // $: console.log( users, fields, pager );
-  
-  // return true if got error
+  let user    = /** @type {User} */ ({/* user */});
+  let fields  = /** @type {Field[]} */ ([/* fields */]);
+  let users   = /** @type {User[]} */ ([/* users */]);
+  let pager   = /** @type {PagerOut} */ ({/* pager */});
+
   function handleResponse( res ) {
     console.log( res );
     if( res.error ) {
@@ -29,9 +28,8 @@
     if( res.pager && res.pager.page ) pager = res.pager;
   }
   
-  async function refreshTableView( pagerIn ) {
-    // console.log( 'pagerIn=',pagerIn );
-    await AdminUsers( {
+  async function refreshTableView(/** @type {PagerIn}*/ pagerIn ) {
+    await AdminUsers( { // @ts-ignore
       pager: pagerIn,
       cmd: 'list',
     }, function( res ) {
@@ -39,14 +37,14 @@
     } );
   }
   
-  let form = ModalForm; // for lookup
+  let form = /** @type {import('svelte').SvelteComponent} */ (null);
   
-  async function editRow( id, row ) {
-    await AdminUsers( {
-      user: {id},
+  async function editRow(/** @type {string | number}*/ id, /** @type {any[] | any}*/ row ) {
+    await AdminUsers( { // @ts-ignore
+      user: { id },
       cmd: 'form',
     }, function( res ) {
-      if( !handleResponse( res ) )
+      if( !handleResponse(/** @type {any} */ res ) ) // @ts-ignore
         form.showModal( res.user );
     } );
   }
@@ -58,7 +56,7 @@
   async function saveRow( action, row ) {
     let user = {...row};
     if( !user.id ) user.id = '0';
-    await AdminUsers( {
+    await AdminUsers( { // @ts-ignore
       user: user,
       cmd: action,
       pager: pager, // force refresh page, will be slow
@@ -72,34 +70,56 @@
 </script>
 
 
-<section class='dashboard'>
-  <Menu access={segments} />
-  <div class='dashboard_main_content'>
-    <ProfileHeader access={segments}/>
-    <AdminSubMenu></AdminSubMenu>
-    <div class='content'>
+<Main {user} >
+  <div class="admin-container">
+    <AdminSubMenu />
+    <div class="admin-content">
       <ModalForm {fields}
-                 rowType='User'
-                 bind:this={form}
-                 onConfirm={saveRow}
-      ></ModalForm>
-      <section class='tableview_container'>
-        <TableView {fields}
-                   bind:pager={pager}
-                   rows={users}
-                   onRefreshTableView={refreshTableView}
-                   onEditRow={editRow}
+        rowType="User"
+        bind:this={form}
+        onConfirm={saveRow}
+      />
+      <section class="users-master-container">
+        <TableView
+          fields={fields}
+          bind:pager={pager}
+          rows={users}
+          onRefreshTableView={refreshTableView}
+          onEditRow={editRow}
         >
-          <button on:click={addRow} class='action_btn'>
-            <Icon size={17} color='#FFF' src={FaSolidCirclePlus} />
-            <span>Add</span>
+          <button on:click={addRow} class="btn">
+            <Icon
+              size={17}
+              src={RiSystemAddBoxLine}
+              color="var(--gray-008)"
+            />
           </button>
         </TableView>
       </section>
     </div>
-    <Footer></Footer>
   </div>
-</section>
+</Main>
 
 <style>
+  .admin-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    padding: 10px 20px 20px;
+  }
+
+  .admin-container .admin-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+  }
+
+  .users-master-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+  }
 </style>

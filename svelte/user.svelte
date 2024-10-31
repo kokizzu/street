@@ -339,7 +339,7 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-end;
-		margin-top: 10px;
+		margin-top: 5px;
 	}
 
 	.table-root {

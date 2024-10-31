@@ -2,11 +2,12 @@
   import { onMount } from 'svelte';
   import { datetime } from './formatter.js';
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
-  import { BiPencil } from '../node_modules/svelte-icons-pack/dist/bi';
   import {
-    FaSolidAngleRight, FaSolidAngleLeft,
-    FaSolidAnglesRight, FaSolidFilter, FaSolidArrowsRotate,
-  } from '../node_modules/svelte-icons-pack/dist/fa';
+    RiSystemRefreshLine, RiSystemFilterLine, RiDesignPencilLine
+  } from '../node_modules/svelte-icons-pack/dist/ri';
+  import {
+    CgChevronDoubleLeft, CgChevronLeft, CgChevronRight, CgChevronDoubleRight
+  } from '../node_modules/svelte-icons-pack/dist/cg';
   
   export let renderFuncs = {};
   export let arrayOfArray = true;
@@ -20,7 +21,6 @@
   export let onEditRow = function( id, row ) {
     console.log( 'TableView.onEditRow', id, row );
   };
-  export let widths = {}; // array of key and css width
   
   let deletedAtIdx = -1;
   onMount( () => {
@@ -106,21 +106,25 @@ multiple filter from other fields will do AND operation`
     <div class="left">
       <div class="actions-button">
         <slot />
-        <button class="btn" disabled={oldFilterStr===newFilterStr} on:click={applyFilter}>
+        <button class="btn"
+          disabled={oldFilterStr===newFilterStr} on:click={applyFilter}
+          title="Apply Filter"
+        >
           <Icon
-            color={oldFilterStr === newFilterStr ? '#5C646F' : '#FFF'}
+            color="var(--gray-008)"
             size="17"
-            src={FaSolidFilter}
+            src={RiSystemFilterLine}
           />
-          <span>Apply Filter</span>
         </button>
-        <button class="btn" on:click={() => gotoPage(pager.page)}>
+        <button class="btn"
+          on:click={() => gotoPage(pager.page)}
+          title="Refresh Table"
+        >
           <Icon
-            color="#FFF"
+            color="var(--gray-008)"
             size={17}
-            src={FaSolidArrowsRotate}
+            src={RiSystemRefreshLine}
           />
-          <span>Refresh</span>
         </button>
       </div>
     </div>
@@ -129,6 +133,7 @@ multiple filter from other fields will do AND operation`
     <table>
       <thead>
         <tr>
+          <th class="no">No</th>
           {#each (fields || []) as field}
             {#if field.name==='id'}
               <th class='a-row'>Action</th>
@@ -137,6 +142,8 @@ multiple filter from other fields will do AND operation`
                 class="
                 {field.inputType === 'textarea' ? 'textarea' : ''}
                 {field.inputType === 'datetime' ? 'datetime' : ''}
+                {field.name === 'fullName' ? 'full-name' : ''}
+                {field.name === 'userAgent' ? 'user-agent' : ''}
               ">{field.label}
               </th>
             {/if}
@@ -146,12 +153,17 @@ multiple filter from other fields will do AND operation`
       <tbody>
         {#each (rows || []) as row, idx}
           <tr class:deleted={row[deletedAtIdx] > 0}>
+            <td class="num-row">{(pager.page -1) * pager.perPage + idx + 1}</td>
             {#each fields as field, i}
               {#if field.name === 'id'}
                 <td class="a-row">
                   <div class="actions">
                     <button class="btn" title="Edit" on:click={() => onEditRow(cell(row,i,field), row)}>
-                      <Icon src={BiPencil} size="15" />
+                      <Icon
+                        src={RiDesignPencilLine}
+                        size="17"
+                        color="var(--gray-008)"
+                      />
                     </button>
                     {#each extraActions as action}
                       {#if action.link}
@@ -167,15 +179,15 @@ multiple filter from other fields will do AND operation`
                   </div>
                 </td>
               {:else if renderFuncs[ field.name ]}
-                <td class='table-data'>{renderFuncs[ field.name ]( cell( row, i, field ) ) }</td>
+                <td>{renderFuncs[ field.name ]( cell( row, i, field ) ) }</td>
               {:else if field.inputType==='checkbox'}
-                <td class='table-data'>{!!cell( row, i, field )}</td>
+                <td>{!!cell( row, i, field )}</td>
               {:else if field.inputType==='datetime' || field.name==='deletedAt'}
-                <td class='table-data'>{datetime( cell( row, i, field ) )}</td>
+                <td>{datetime( cell( row, i, field ) )}</td>
               {:else if field.inputType==='number'}
                 <td>{(cell( row, i, field ) || 0).toLocaleString()}</td>
               {:else}
-                <td class='table-data'>{cell( row, i, field )}</td>
+                <td>{cell( row, i, field )}</td>
               {/if}
             {/each}
           </tr>
@@ -183,34 +195,70 @@ multiple filter from other fields will do AND operation`
       </tbody>
     </table>
   </div>
-  <div class='pages_set'>
-    <div class='page_and_rows_count'>
-      <span>Page {pager.page} of {pager.pages},</span>
+  <div class="pagination-container">
+    <div class="pager-info">
+      <span>Page {pager.page} of {pager.pages}</span>
       <input
         bind:value={pager.perPage}
-        class='perPage'
-        id='perPage'
-        min='0'
+        class="per-page"
+        id="perPage"
+        min="0"
         on:change={() => changePerPage(pager.perPage)}
-        type='number'
+        type="number"
       />
       <span>rows per page.</span>
     </div>
-    
-    <p>Total: {pager.countResult | 0}</p>
-    
-    <div class='pagination'>
-      <button disabled={!allowPrevPage} on:click={() => gotoPage(1)} title='Go to first page'>
-        <Icon color={!allowPrevPage ? '#5C646F' : '#FFF'} size={18} src={FaSolidAnglesRight} />
+    <div class="total">
+      <p>Total: {pager.countResult | 0}</p>
+    </div>
+    <div class="pagination">
+      <button
+        class="btn"
+        disabled={!allowPrevPage}
+        on:click={() => gotoPage(1)}
+        title="Go to first page"
+      >
+        <Icon
+          color={!allowPrevPage ? 'var(--gray-007)' : '#FFF'}
+          size="18"
+          src={CgChevronDoubleLeft}
+        />
       </button>
-      <button disabled={!allowPrevPage} on:click={() => gotoPage(pager.page - 1)} title='Go to previous page'>
-        <Icon color={!allowPrevPage ? '#5C646F' : '#FFF'} size={18} src={FaSolidAngleLeft} />
+      <button
+        class="btn"
+        disabled={!allowPrevPage}
+        on:click={() => gotoPage(pager.page - 1)}
+        title="Go to previous page"
+      >
+        <Icon
+          color={!allowPrevPage ? 'var(--gray-007)' : '#FFF'}
+          size="18"
+          src={CgChevronLeft}
+        />
       </button>
-      <button disabled={!allowNextPage} on:click={() => gotoPage(pager.page + 1)} title='Go to next page'>
-        <Icon color={!allowNextPage ? '#5C646F' : '#FFF'} size={18} src={FaSolidAngleRight} />
+      <button
+        class="btn"
+        disabled={!allowNextPage}
+        on:click={() => gotoPage(pager.page + 1)}
+        title="Go to next page"
+      >
+        <Icon
+          color={!allowNextPage ? 'var(--gray-007)' : '#FFF'}
+          size="18"
+          src={CgChevronRight}
+        />
       </button>
-      <button disabled={!allowNextPage} on:click={() => gotoPage(pager.pages)} title='Go to last page'>
-        <Icon color={!allowNextPage ? '#5C646F' : '#FFF'} size={18} src={FaSolidAnglesRight} />
+      <button
+        class="btn"
+        disabled={!allowNextPage}
+        on:click={() => gotoPage(pager.pages)}
+        title="Go to last page"
+      >
+        <Icon
+          color={!allowNextPage ? 'var(--gray-007)' : '#FFF'}
+          size="18"
+          src={CgChevronDoubleRight}
+        />
       </button>
     </div>
   </div>
@@ -227,12 +275,6 @@ multiple filter from other fields will do AND operation`
     overflow: hidden;
   }
 
-  .table-root .text-violet {
-    color: var(--violet-005);
-    font-weight: 600;
-    padding: 5px;
-  }
-
   .table-root p {
     margin: 0;
   }
@@ -246,8 +288,7 @@ multiple filter from other fields will do AND operation`
     background-color: #fff;
   }
 
-  .table-root .actions-container .left,
-  .table-root .actions-container .right {
+  .table-root .actions-container .left {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -273,46 +314,6 @@ multiple filter from other fields will do AND operation`
     background-color: var(--violet-005);
   }
 
-  .table-root .actions-container .right .search_handler {
-    display: flex;
-    flex-direction: row;
-    width: fit-content;
-    height: fit-content;
-    position: relative;
-  }
-
-  .table-root .actions-container .right .search_handler input.search {
-    padding: 12px 40px 12px 15px;
-    border-radius: 8px;
-    border: none;
-    background-color: var(--gray-001);
-    width: 370px;
-  }
-
-  .table-root .actions-container .right .search_handler input.search:focus {
-    border-color: none;
-    outline: 1px solid var(--gray-003);
-    box-shadow: var(--shadow-md);
-  }
-
-  .table-root .actions-container .right .search_handler .search_btn {
-    position: absolute;
-    background-color: transparent;
-    padding: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    right: 5px;
-    top: 3px;
-  }
-
-  .table-root .actions-container .right .search_handler .search_btn:hover {
-    background-color: var(--violet-transparent);
-  }
-
   :global(.table-root .actions-container .right .search_handler .search_btn:hover svg) {
     fill: var(--violet-005);
   }
@@ -321,6 +322,7 @@ multiple filter from other fields will do AND operation`
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 5px;
   }
 
   .table-root .table-container {
@@ -339,6 +341,7 @@ multiple filter from other fields will do AND operation`
     border-collapse: separate;
     border-spacing: 0;
     overflow: hidden;
+    font-size: 13px;
   }
 
   .table-root .table-container table thead {
@@ -361,8 +364,13 @@ multiple filter from other fields will do AND operation`
     min-width: 280px !important;
   }
 
-  .table-root .table-container table thead tr th.datetime {
+  .table-root .table-container table thead tr th.datetime,
+  .table-root .table-container table thead tr th.full-name {
     min-width: 140px !important;
+  }
+
+  .table-root .table-container table thead tr th.user-agent {
+    min-width: 300px !important;
   }
 
   .table-root .table-container table tbody tr.deleted {
@@ -385,9 +393,7 @@ multiple filter from other fields will do AND operation`
 
   .table-root .table-container table tbody tr td {
     padding: 8px 12px;
-  }
-
-	.table-root .table-container table tbody tr td {
+    white-space: nowrap;
     padding: 8px 12px;
 		border-right: 1px solid var(--gray-004);
 		border-bottom: 1px solid var(--gray-004);
@@ -444,11 +450,11 @@ multiple filter from other fields will do AND operation`
   }
 
   .table-root .table-container table tbody tr td .actions .btn:hover {
-    background-color: var(--violet-transparent);
+    background-color: var(--orange-transparent);
   }
 
   :global(.table-root .table-container table tbody tr td .actions .btn:hover svg) {
-    fill: var(--violet-005);
+    fill: var(--orange-005);
   }
 
   .table-root .pagination-container {
@@ -459,62 +465,23 @@ multiple filter from other fields will do AND operation`
     padding: 15px 15px 0 15px;
   }
 
-  .table-root .pagination-container .filter {
+  .table-root .pagination-container .pager-info {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
   }
 
-  .table-root .pagination-container .filter .row_to_show {
-    position: relative;
-    width: fit-content;
-    height: fit-content;
+  .table-root .pagination-container .pager-info input.per-page {
+    padding: 5px 8px;
+    border: 1px solid var(--gray-003);
+    border-radius: 8px;
+    width: 50px;
   }
 
-  .table-root .pagination-container .filter .row_to_show .btn {
-    border: none;
-    background-color: var(--violet-transparent);
-    color: var(--violet-005);
-    width: fit-content;
-    padding: 3px 3px 3px 6px;
-    font-weight: 600;
-    border: 1px solid var(--violet-004);
-    border-radius: 9999px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 1px;
-    cursor: pointer;
-  }
-
-  .table-root .pagination-container .filter .row_to_show .btn:hover {
-    background-color: var(--violet-002);
-  }
-
-  .table-root .pagination-container .filter .row_to_show .rows {
-    display: flex;
-    flex-direction: column-reverse;
-    position: absolute;
-    width: 100%;
-    top: -180px;
-    border-radius: 5px;
-    border: 1px solid var(--gray-004);
-    background-color: #fff;
-  }
-
-  .table-root .pagination-container .filter .row_to_show .rows button {
-    border: none;
-    background-color: transparent;
-    padding: 5px;
-    cursor: pointer;
-    color: var(--gray-007);
-  }
-
-  .table-root .pagination-container .filter .row_to_show .rows button:hover {
-    background-color: var(--violet-transparent);
-    color: var(--violet-007);
+  .table-root .pagination-container .pager-info input.per-page:focus {
+    border-color: var(--orange-005);
+    outline: 1px solid var(--orange-005);
   }
 
   .table-root .pagination-container .pagination {
@@ -527,114 +494,26 @@ multiple filter from other fields will do AND operation`
 
   .table-root .pagination-container .pagination .btn {
     border: none;
-    background-color: transparent;
+    background-color: var(--orange-006);
+    color: #fff;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 6px 10px;
-    border-radius: 9999px;
+    padding: 5px 10px;
+    border-radius: 999px;
     cursor: pointer;
-    gap: 5px;
-    color: var(--gray-007);
     border: 1px solid transparent;
   }
 
   .table-root .pagination-container .pagination .btn:hover {
-    border: 1px solid var(--gray-004);
+    background-color: var(--orange-005);
   }
 
-  .table-root .pagination-container .pagination .btn.active {
-    background-color: var(--violet-transparent);
-    color: var(--violet-006);
-    font-weight: 600;
-    border: 1px solid var(--violet-004);
-  }
-
-  .table-root .pagination-container .pagination .btn.to {
-    background-color: var(--violet-006);
-    color: #fff;
-    font-weight: 600;
-    border: none;
-  }
-
-  .table-root .pagination-container .pagination .btn.to:hover {
-    background-color: var(--violet-005);
-  }
-
-  .table-root .pagination-container .pagination .btn.to:disabled {
+  .table-root .pagination-container .pagination .btn:disabled {
     background-color: var(--gray-002);
     color: var(--gray-006);
     font-weight: 600;
     border: 1px solid var(--gray-004);
     cursor: not-allowed;
-  }
-
-  .pages_set {
-    padding-top     : 10px;
-    display         : flex;
-    flex-direction  : row;
-    align-items     : center;
-    justify-content : space-between;
-    align-content   : center;
-    font-size       : 15px;
-    color           : #161616;
-  }
-
-  .pages_set .page_and_rows_count {
-    display        : flex;
-    flex-direction : row;
-    align-content  : center;
-    align-items    : center;
-  }
-
-  .pages_set .page_and_rows_count .perPage {
-    margin        : auto 5px;
-    width         : 4em;
-    border        : 1px solid #CBD5E1;
-    padding       : 5px;
-    font-size     : 14pt;
-    font-weight   : bold;
-    text-align    : center;
-    color         : #161616;
-    outline-color : #6366F1;
-  }
-
-  .pages_set .page_and_rows_count .perPage::-webkit-inner-spin-button,
-  .pages_set .page_and_rows_count .perPage::-webkit-outer-spin-button {
-    opacity : 1;
-  }
-
-  .pagination button {
-    color            : white;
-    background-color : #6366F1;
-    padding          : 8px;
-    border-radius    : 5px;
-    filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    margin-left      : 4px;
-    cursor           : pointer;
-    border           : none;
-  }
-
-  .pagination button:hover {
-    background-color : #7E80F1;
-  }
-
-  .pagination button:disabled {
-    cursor     : not-allowed;
-    border     : 1px solid #CBD5E1 !important;
-    background : none !important;
-    color      : #5C646F;
-    filter     : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-  }
-
-  .pagination button:disabled:hover {
-    background : none;
-  }
-
-  input.input_filter {
-    width      : 0;
-    min-width  : 100%;
-    box-sizing : border-box;
   }
 </style>

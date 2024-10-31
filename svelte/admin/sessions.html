@@ -196,6 +196,37 @@
         border-color: var(--gray-002);
       }
 
+      .actions-button .btn {
+        border: none;
+        color: var(--gray-008);
+        background-color: transparent;
+        width: fit-content;
+        padding: 8px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .actions-button .btn:hover {
+        background-color: var(--orange-transparent);
+        color: var(--orange-005);
+      }
+
+      .actions-button .btn:disabled {
+        cursor: not-allowed;
+        background-color: var(--gray-002);
+      }
+
+      .actions-button .btn:hover svg {
+        fill: var(--orange-005);
+      }
+
+      .actions-button .btn:disabled svg {
+        fill: var(--gray-007);
+      }
+
       /* notifier */
       .notifyjs-container {
         z-index: 100;
