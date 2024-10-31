@@ -10,6 +10,7 @@
   import { getRequestStatsChartOptions, getRequestActionChartOptions } from './_components/yChartOptions';
   
   let user                      = /** @type {User} */ ({/* user */});
+  let access                    = /** @type {Access} */ ({/* segments */});
   let uniqueIpPerDate           = /** @type {Record<string, number>} */ ({/* uniqueIpPerDate */});
   let requestsPerDate           = /** @type {Record<string, number>} */ ({/* requestsPerDate */});
   let uniqueUserPerDate         = /** @type {Record<string, number>} */ ({/* uniqueUserPerDate */});
@@ -115,7 +116,7 @@
   } );
 </script>
 
-<Main {user}>
+<Main {user} {access}>
   <div class="admin-container">
     <AdminSubMenu />
     <div class="admin-content">

@@ -1,7 +1,10 @@
 <script>
+  /** @typedef {import('../../_types/master.js').Access} Access*/
+
   import { UserLogout } from '../../jsApi.GEN';
   import { notifier } from '../notifier';
 
+  export let access = /** @type {Access} */ ({});
   const pathLv1 = /** @type {string}*/ (window.location.pathname.split( '/' )[ 1 ]);
 
   async function logout() {
@@ -34,11 +37,15 @@
       <a href="/revenue" class:active={pathLv1 === 'revenue'}>Revenue</a>
     </nav>
     <span class="separator" />
-    <nav class="nav-menu">
-      <a href="/admin" class:active={pathLv1 === 'admin'}>Admin</a>
-      <a href="/user" class:active={pathLv1 === 'user'}>Profile</a>
-      <button class="red" on:click={logout}>Logout</button>
-    </nav>
+    {#if access.user}
+      <nav class="nav-menu">
+        {#if access.admin}
+          <a href="/admin" class:active={pathLv1 === 'admin'}>Admin</a>
+        {/if}
+        <a href="/user" class:active={pathLv1 === 'user'}>Profile</a>
+        <button class="red" on:click={logout}>Logout</button>
+      </nav>
+    {/if}
   </div>
 </aside>
 

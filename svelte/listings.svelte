@@ -1,6 +1,7 @@
 <script>
 	/** @typedef {import('./_types/user').User} User */
   /** @typedef {import('./_types/property').Property} Property */
+  /** @typedef {import('./_types/master').Access} Access }*/
   /**
    * @typedef {Object} MarkerIcon
    * @property {string} path
@@ -16,6 +17,7 @@
   import { onMount } from 'svelte';
 
 	const user              = /** @type {User} */ ({/* user */});
+  const access            = /** @type {Access} */ ({/* segments */});
   const coord             = /** @type {number[]} */ ([/* initialLatLong */]);
   const properties        = /** @type {Property[]} */ ([/* randomProps */]);
   const defaultDistanceKm = /** @type {number} */ (Number('#{defaultDistanceKm}') || 20);
@@ -56,7 +58,7 @@
 
 <GoogleSdk />
 
-<Main {user} >
+<Main {user} {access}>
 	<div class="listings-root">
     <div class="content">
       <div class="properties">

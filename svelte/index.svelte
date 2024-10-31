@@ -189,7 +189,7 @@
 
 <svelte:window on:hashchange={onHashChange}/>
 {#if MODE === MODE_USER}
-  <Main {user}>
+  <Main {user} access={segments}>
     <p>Home</p>
   </Main>
 {:else}

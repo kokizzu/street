@@ -19,7 +19,7 @@
 	import SubmitButton from './_components/SubmitButton.svelte';
 
 	let user 						= /** @type {User} */ ({/* user */});
-	let segments				= /** @type {Access} */ ({/* segments */});
+	let access					= /** @type {Access} */ ({/* segments */});
 	let countries				= /** @type {CountryData[]} */ ([/* countries */]);
 	let activeSessions	= /** @type {Session[]} */ ({/* activeSessions */});
 
@@ -125,7 +125,7 @@
 	}
 </script>
 
-<Main {user} >
+<Main {user} {access}>
 	<div class="user-details">
 		<div class="profile-sessions-container">
 			<div class="profile">

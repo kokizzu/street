@@ -1,28 +1,35 @@
 <script>
+  /** @typedef {import('../_types/master.js').Field} Field */
+  /** @typedef {import('../_types/master.js').PagerIn} PagerIn */
+  /** @typedef {import('../_types/master.js').PagerOut} PagerOut */
+  /** @typedef {import('../_types/master.js').ExtendedAction} ExtendedAction */
+
   import { onMount } from 'svelte';
   import { datetime } from './formatter.js';
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import {
-    RiSystemRefreshLine, RiSystemFilterLine, RiDesignPencilLine
+    RiSystemRefreshLine, RiSystemFilterLine, RiDesignPencilLine,
+    RiArrowsArrowRightSLine, RiArrowsArrowRightDoubleFill,
+    RiArrowsArrowLeftSLine, RiArrowsArrowLeftDoubleFill
   } from '../node_modules/svelte-icons-pack/dist/ri';
-  import {
-    CgChevronDoubleLeft, CgChevronLeft, CgChevronRight, CgChevronDoubleRight
-  } from '../node_modules/svelte-icons-pack/dist/cg';
   
-  export let renderFuncs = {};
-  export let arrayOfArray = true;
-  export let fields = []; // array of field object
-  export let rows = []; // 2 dimension array or array of object if arrayOfArray = false
-  export let pager = {}; // pagination
-  export let extraActions = []; // array of object {icon, label, onClick}
-  export let onRefreshTableView = function( pager ) {
+  export let renderFuncs  = /** @type {Record<string, Function>} */ ({});
+  export let arrayOfArray = /** @type {boolean} */ (true);
+  export let fields       = /** @type {Field[]} */ ([]);
+  export let rows         = /** @type {any[] | Record<string, any>[]} */ ([]);
+  export let pager        = /** @type {PagerOut} */ ({});
+  export let extraActions = /** @type {ExtendedAction[]} */ ([]);
+
+  export let onRefreshTableView = function(/** @type {PagerIn} */ pager ) {
     console.log( 'TableView.onRefreshTableView', pager );
   };
-  export let onEditRow = function( id, row ) {
+  export let onEditRow = function(/** @type {number | string} */ id, /** @type {any | any[]} */ row ) {
     console.log( 'TableView.onEditRow', id, row );
   };
   
-  let deletedAtIdx = -1;
+  // Index of deletedAt field
+  let deletedAtIdx = /** @type {number} */ (-1);
+
   onMount( () => {
     console.log( 'onMount.TableView' );
     console.log( 'fields=', fields );
@@ -30,57 +37,56 @@
     console.log( 'pager=', pager );
     console.log( 'extraActions=', extraActions );
     
-    for( let z = 0; z<fields.length; z++ ) {
+    for( let z = 0; z < fields.length; z++ ) {
       let field = fields[ z ];
-      // find deletedAt index
       if( field.name==='deletedAt' ) {
-        console.log( 'deletedAtIdx', z );
         deletedAtIdx = z;
       }
+
       // empty all filter at beginning
       filtersMap[ field.name ] = '';
     }
+
     oldFilterStr = JSON.stringify( filtersMap );
   } );
   
   let oldFilterStr = '{}';
   let newFilterStr = '';
+
   $: newFilterStr = JSON.stringify( filtersMap );
   
   let filtersMap = {};
   
-  function filterKeyDown( event ) {
-    if( event.key==='Enter' ) applyFilter();
+  // TODO: use it
+  function filterKeyDown(/** @type {KeyboardEvent} */ event ) {
+    if( event.key === 'Enter' ) applyFilter();
   }
   
   function applyFilter() {
-    let filters = {};
+    let filters = /** @type {Record<string, string[]>}*/ ({});
     for( let key in filtersMap ) {
       let value = filtersMap[ key ];
       if( value ) {
         filters[ key ] = value.split( '|' );
       }
     }
-    console.log( 'filters=', filters );
+
     onRefreshTableView( {
-      ...pager,
+      page: pager.page,
+      perPage: pager.perPage,
+      order: pager.order,
       filters: filters,
     } );
+
     oldFilterStr = newFilterStr;
   }
   
-  function gotoPage( page ) {
-    onRefreshTableView( {
-      ...pager,
-      page,
-    } );
+  function gotoPage(/** @type {number} */ page ) {
+    onRefreshTableView({ ...pager, page });
   }
   
-  function changePerPage( perPage ) {
-    onRefreshTableView( {
-      ...pager,
-      perPage,
-    } );
+  function changePerPage(/** @type {number} */ perPage ) {
+    onRefreshTableView({ ...pager, perPage});
   }
   
   function cell( row, i, field ) {
@@ -151,47 +157,64 @@ multiple filter from other fields will do AND operation`
         </tr>
       </thead>
       <tbody>
-        {#each (rows || []) as row, idx}
-          <tr class:deleted={row[deletedAtIdx] > 0}>
-            <td class="num-row">{(pager.page -1) * pager.perPage + idx + 1}</td>
-            {#each fields as field, i}
-              {#if field.name === 'id'}
-                <td class="a-row">
-                  <div class="actions">
-                    <button class="btn" title="Edit" on:click={() => onEditRow(cell(row,i,field), row)}>
-                      <Icon
-                        src={RiDesignPencilLine}
-                        size="17"
-                        color="var(--gray-008)"
-                      />
-                    </button>
-                    {#each extraActions as action}
-                      {#if action.link}
-                        <a href='{action.link(row)}' class="action" target="_blank" title={action.label || ''}>
-                          <Icon src={action.icon} />
-                        </a>
-                      {:else}
-                        <button class="action" title='{action.label || ""}' on:click={() => action.onClick(row)}>
-                          <Icon src={action.icon} />
-                        </button>
-                      {/if}
-                    {/each}
-                  </div>
-                </td>
-              {:else if renderFuncs[ field.name ]}
-                <td>{renderFuncs[ field.name ]( cell( row, i, field ) ) }</td>
-              {:else if field.inputType==='checkbox'}
-                <td>{!!cell( row, i, field )}</td>
-              {:else if field.inputType==='datetime' || field.name==='deletedAt'}
-                <td>{datetime( cell( row, i, field ) )}</td>
-              {:else if field.inputType==='number'}
-                <td>{(cell( row, i, field ) || 0).toLocaleString()}</td>
-              {:else}
-                <td>{cell( row, i, field )}</td>
-              {/if}
-            {/each}
+        {#if rows && rows.length > 0}
+          {#each (rows || []) as row, idx}
+            <tr class:deleted={row[deletedAtIdx] > 0}>
+              <td class="num-row">{(pager.page -1) * pager.perPage + idx + 1}</td>
+              {#each fields as field, i}
+                {#if field.name === 'id'}
+                  <td class="a-row">
+                    <div class="actions">
+                      <button class="btn" title="Edit" on:click={() => onEditRow(cell(row,i,field), row)}>
+                        <Icon
+                          src={RiDesignPencilLine}
+                          size="17"
+                          color="var(--gray-008)"
+                        />
+                      </button>
+                      {#each extraActions as action}
+                        {#if action.link}
+                          <a href={action.link(row)} class="btn" target="_blank" title={action.label || ''}>
+                            <Icon
+                              src={action.icon}
+                              size="17"
+                              color="var(--gray-008)"
+                            />
+                          </a>
+                        {:else}
+                          <button class="btn" title={action.label || ""}
+                            on:click={() => action.onClick(row)}
+                          >
+                            <Icon
+                              src={action.icon}
+                              size="17"
+                              color="var(--gray-008)"
+                            />
+                          </button>
+                        {/if}
+                      {/each}
+                    </div>
+                  </td>
+                {:else if renderFuncs[ field.name ]}
+                  <td>{renderFuncs[ field.name ]( cell( row, i, field ) ) }</td>
+                {:else if field.inputType==='checkbox'}
+                  <td>{!!cell( row, i, field )}</td>
+                {:else if field.inputType==='datetime' || field.name==='deletedAt'}
+                  <td>{datetime( cell( row, i, field ) )}</td>
+                {:else if field.inputType==='number'}
+                  <td>{(cell( row, i, field ) || 0).toLocaleString()}</td>
+                {:else}
+                  <td>{cell( row, i, field )}</td>
+                {/if}
+              {/each}
+            </tr>
+          {/each}
+        {:else}
+          <tr>
+            <td class="num-row">0</td>
+            <td colspan={fields.length - 2}>No data</td>
           </tr>
-        {/each}
+        {/if}
       </tbody>
     </table>
   </div>
@@ -219,9 +242,9 @@ multiple filter from other fields will do AND operation`
         title="Go to first page"
       >
         <Icon
-          color={!allowPrevPage ? 'var(--gray-007)' : '#FFF'}
+          color="var(--gray-008)"
           size="18"
-          src={CgChevronDoubleLeft}
+          src={RiArrowsArrowLeftDoubleFill}
         />
       </button>
       <button
@@ -231,9 +254,9 @@ multiple filter from other fields will do AND operation`
         title="Go to previous page"
       >
         <Icon
-          color={!allowPrevPage ? 'var(--gray-007)' : '#FFF'}
+          color="var(--gray-008)"
           size="18"
-          src={CgChevronLeft}
+          src={RiArrowsArrowLeftSLine}
         />
       </button>
       <button
@@ -243,9 +266,9 @@ multiple filter from other fields will do AND operation`
         title="Go to next page"
       >
         <Icon
-          color={!allowNextPage ? 'var(--gray-007)' : '#FFF'}
+          color="var(--gray-008)"
           size="18"
-          src={CgChevronRight}
+          src={RiArrowsArrowRightSLine}
         />
       </button>
       <button
@@ -255,9 +278,9 @@ multiple filter from other fields will do AND operation`
         title="Go to last page"
       >
         <Icon
-          color={!allowNextPage ? 'var(--gray-007)' : '#FFF'}
+          color="var(--gray-008)"
           size="18"
-          src={CgChevronDoubleRight}
+          src={RiArrowsArrowRightDoubleFill}
         />
       </button>
     </div>
@@ -447,6 +470,7 @@ multiple filter from other fields will do AND operation`
     display: flex;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
   }
 
   .table-root .table-container table tbody tr td .actions .btn:hover {
@@ -476,7 +500,7 @@ multiple filter from other fields will do AND operation`
     padding: 5px 8px;
     border: 1px solid var(--gray-003);
     border-radius: 8px;
-    width: 50px;
+    width: 55px;
   }
 
   .table-root .pagination-container .pager-info input.per-page:focus {
@@ -494,26 +518,35 @@ multiple filter from other fields will do AND operation`
 
   .table-root .pagination-container .pagination .btn {
     border: none;
-    background-color: var(--orange-006);
-    color: #fff;
+    background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px 10px;
-    border-radius: 999px;
+    padding: 5px 8px;
+    border-radius: 8px;
     cursor: pointer;
     border: 1px solid transparent;
+    text-decoration: none;
   }
 
   .table-root .pagination-container .pagination .btn:hover {
-    background-color: var(--orange-005);
+    background-color: var(--orange-transparent);
+    color: var(--orange-005);
+  }
+
+  :global(.table-root .pagination-container .pagination .btn:hover svg) {
+    fill: var(--orange-005);
+    outline: var(--orange-005);
+  }
+
+  :global(.table-root .pagination-container .pagination .btn:disabled:hover svg) {
+    fill: var(--gray-008);
+    outline: var(--gray-008);
   }
 
   .table-root .pagination-container .pagination .btn:disabled {
     background-color: var(--gray-002);
-    color: var(--gray-006);
     font-weight: 600;
-    border: 1px solid var(--gray-004);
-    cursor: not-allowed;
+    cursor: default;
   }
 </style>

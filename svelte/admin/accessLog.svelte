@@ -11,6 +11,8 @@
 	import { AdminAccessLogs } from '../jsApi.GEN';
 	import { notifier } from '../_components/notifier.js';
 
+	const access = /** @type {Access} */ ({/* segments */});
+	
 	let user 		= /** @type {User} */ ({/* user */});
 	let fields	= /** @type {Field[]}	*/ ([/* fields */]);
 	let logs 		= /** @type {any[]} */ ([/* logs */]);
@@ -35,7 +37,7 @@
 </script>
 
 
-<Main {user}>
+<Main {user} {access}>
   <div class="admin-container">
     <AdminSubMenu />
     <div class="admin-content">

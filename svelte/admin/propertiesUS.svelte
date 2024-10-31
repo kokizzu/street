@@ -1,24 +1,24 @@
 <script>
+  /** @typedef {import('../_types/user').User} User */
   /** @typedef {import('../_types/master').Access} Access */
   /** @typedef {import('../_types/property').Property} TypeProperty */
   /** @typedef {import('../_types/property').PropertyUS} TypePropertyUS */
   /** @typedef {import('../_types/property').PropertyExtraUS} TypePropertyExtraUS */
+  /** @typedef {import('../_types/master').PagerIn} PagerIn */
   /** @typedef {import('../_types/master').PagerOut} PagerOut */
   /** @typedef {import('../_types/master').Field} Field */
+  /** @typedef {import('../_types/master').ExtendedAction} ExtendedAction*/
 
-  import Menu from '../_components/Menu.svelte';
+  import Main from '../_layouts/Main.svelte';
   import AdminSubMenu from '../_components/AdminSubMenu.svelte';
-  import ProfileHeader from '../_components/ProfileHeader.svelte';
-  import Footer from '../_components/partials/Footer.svelte';
   import TableView from '../_components/TableView.svelte';
   import ModalForm from '../_components/ModalForm.svelte';
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import {
-    HiSolidEye, HiSolidXCircle, HiSolidCheckCircle, HiOutlineLink
-  } from '../node_modules/svelte-icons-pack/dist/hi';
-  import {
-    FaSolidCirclePlus, FaSolidCheckDouble, FaSolidRecycle
-  } from '../node_modules/svelte-icons-pack/dist/fa';
+    RiSystemEyeLine, RiSystemCheckboxCircleLine, RiSystemAddBoxLine,
+    RiSystemCloseCircleLine, RiBusinessLinksLine, RiSystemFilter3Fill,
+    RiSystemProhibitedLine
+  } from '../node_modules/svelte-icons-pack/dist/ri';
   import { AdminPropertiesUS, UserPropHistory } from '../jsApi.GEN';
   import {notifier} from '../_components/notifier.js';
   
@@ -26,49 +26,47 @@
   import PillBox from '../_components/PillBox.svelte';
   import { priceNtd } from '../_components/formatter.js';
   import { fieldsArrToMap } from '../_components/mapper.js';
-  import AccessLog from './accessLog.svelte';
-  import AddFloorDialog from '../_components/AddFloorDialog.svelte';
-  import AddOrEditRoomDialog from '../_components/AddOrEditRoomDialog.svelte';
-  import AddOtherFeesDialog from '../_components/AddOtherFeesDialog.svelte';
-  import Admin from '../admin.svelte';
-  import Buyer from '../buyer.svelte';
   
-  let segments    = /** @type {Access} */ ({/* segments */});
+  let user        = /** @type {User} */ ({/* user */});
+  let access      = /** @type {Access} */ ({/* segments */});
   let fields      = /** @type {Field[]} */ ([/* fields */]);
-  let fieldByKey  = /** @type {Object.<string, any>}*/ fieldsArrToMap( fields );
   let properties  = /** @type {TypeProperty[] | TypePropertyUS[]} */ ([/* properties */]);
   let pager       = /** @type {PagerOut} */ ({/* pager */});
+  let fieldByKey  = /** @type {Object.<string, any>}*/ fieldsArrToMap( fields );
 
-  /** @type {import('svelte').SvelteComponent}*/
-  let propHistoryModal;
+  let propHistoryModal  = /** @type {import('svelte').SvelteComponent}*/ (null);
+  let modalForm         = /** @type {import('svelte').SvelteComponent}*/ (null);
 
   let currentPropHistory = [];
+
+  /** @type {ExtendedAction[]} */
   let extraActions = [
     {
-      icon: HiSolidEye,
+      icon: RiSystemEyeLine,
       label: 'Show Property History',
-      onClick: function( item ) {
-        let propertyKey = item[ fieldByKey[ 'uniqPropKey' ].idx ]; // property key for taiwan data
-        UserPropHistory( {
+      onClick: function (item) {
+        let propertyKey = item[fieldByKey['uniqPropKey'].idx]; // property key for taiwan data
+        UserPropHistory({
           propertyKey: propertyKey,
-        }, // @ts-ignore
-        function( /** @type {any}*/ res ) {
-          if( res.error ) {
-            notifier.showError( res.error );
+        },async function (/** @type {any}*/ res) {
+          if (res.error) {
+            notifier.showError(res.error);
             return;
           }
           propHistoryModal.showModal();
           currentPropHistory = res.history || [];
-        } );
+        });
       },
+      link: null,
+      showIf: null
     },
     {
-      icon: HiSolidCheckCircle,
-      showIf: function( row ) {
+      icon: RiSystemCheckboxCircleLine,
+      showIf: function(/** @type {any}*/ row ) {
         return !!row[ fieldByKey[ 'approvalState' ].idx ];
       },
-      label: 'approve property',
-      onClick: function( item ) {
+      label: 'Approve property',
+      onClick: function(/** @type {any}*/ item ) {
         const id = item[ 0 ];
         const adminPropUSIn = /** @type {import('../jsApi.GEN').AdminPropertiesUSIn | any} */ ({
           cmd: 'upsert',
@@ -84,13 +82,14 @@
           refreshTableView( pager );
         } );
       },
+      link: null,
     },
     {
-      icon: HiSolidXCircle,
-      showIf: function( row ) {
+      icon: RiSystemCloseCircleLine,
+      showIf: function(/** @type {any}*/ row ) {
         return !row[ fieldByKey[ 'approvalState' ].idx ];
       },
-      label: 'reject property',
+      label: 'Reject property',
       onClick: function( item ) {
         const id = item[ 0 ];
         const reason = prompt( 'input refusal reason for #' + id + ', use "pending" to set state to pending' );
@@ -110,21 +109,20 @@
           refreshTableView( pager );
         } );
       },
+      link: null
     },
     {
-      icon: HiOutlineLink,
+      icon: RiBusinessLinksLine,
       label: 'Go to property page',
-      link: function( item ) {
-        return '/guest/property/US' + item[ fieldByKey[ 'id' ].idx ];
+      link: function (item) {
+        return '/guest/property/US' + item[fieldByKey['id'].idx];
       },
+      onClick: null,
+      showIf: null
     },
   ];
   
-  $: console.log( 'properties=', properties );
-  
-  // return true if got error
-  function handleResponse( res ) {
-    console.log( res );
+  function handleResponse(/** @type {any} */ res ) {
     if( res.error ) {
       notifier.showError( res.error );
       return true;
@@ -134,9 +132,7 @@
     if( res.pager && res.pager.filters && !res.properties ) properties = []; // if nothing found but filter exists, clear table
   }
   
-  async function refreshTableView( pagerIn ) {
-    // console.log( 'pagerIn=',pagerIn );
-
+  async function refreshTableView(/** @type {PagerIn} */ pagerIn ) {
     const adminPropUSIn = /** @type {import('../jsApi.GEN').AdminPropertiesUSIn | any} */ ({
       cmd: 'list',
       pager: pagerIn,
@@ -147,10 +143,7 @@
     } );
   }
   
-  /** @type {import('svelte').SvelteComponent} */
-  let form; // for lookup
-  
-  async function editRow( id, row ) {
+  async function editRow(/** @type {number|string}*/ id, /** @type {any[] | any}*/ row ) {
     const adminPropUSIn = /** @type {import('../jsApi.GEN').AdminPropertiesUSIn | any} */ ({
       cmd: 'form',
       property: { id },
@@ -158,7 +151,7 @@
     await AdminPropertiesUS( adminPropUSIn, // @ts-ignore
     function( /** @type {any}*/ res ) {
       if( !handleResponse( res ) ) {
-        form.showModal( res.property )
+        modalForm.showModal( res.property )
       };
     } );
   }
@@ -199,10 +192,10 @@
   }
   
   function addRow() {
-    form.showModal( {id: ''} );
+    modalForm.showModal( {id: ''} );
   }
   
-  async function saveRow( action, row ) {
+  async function saveRow(/** @type {string}*/ action, /** @type {any} */ row ) {
     let property = {...row};
     if( !property.id ) property.id = '0';
     console.log( property );
@@ -219,101 +212,109 @@
     })
     await AdminPropertiesUS( adminPropUSIn, function( res ) {
       if( handleResponse( res ) ) {
-        return form.setLoading( false ); // has error
+        return modalForm.setLoading( false ); // has error
       }
-      form.hideModal(); // success
+      modalForm.hideModal(); // success
     } );
   }
 </script>
 
 
-<section class='dashboard'>
-  <Menu access={segments} />
-  <div class='dashboard_main_content'>
-    <ProfileHeader access={segments}/>
-    <AdminSubMenu></AdminSubMenu>
-    <div class='content'>
-      <ModalForm fields={fields}
-                 rowType='Property'
-                 bind:this={form}
-                 onConfirm={saveRow}
-      ></ModalForm>
-      <section class='tableview_container'>
-        <TableView fields={fields}
-                   extraActions={extraActions}
-                   bind:pager={pager}
-                   rows={properties}
-                   widths={{
-                               mainUse: '320px',
-                               address: '240px',
-                               street: '240px',
-                               city: '120px',
-                               countyName: '120px',
-                           }}
-                   onRefreshTableView={refreshTableView}
-                   onEditRow={editRow}>
-          <button on:click={addRow} class='add_button'>
-            <Icon size="17" color='#FFF' src={FaSolidCirclePlus} />
-            <span>Add</span>
+<Main {user} {access}>
+  <div class="admin-container">
+    <AdminSubMenu />
+    <div class="admin-content">
+      <ModalDialog bind:this={propHistoryModal}>
+        <div slot="content">
+          <h3>Property History</h3>
+          {#if currentPropHistory && currentPropHistory.length}
+            {#each currentPropHistory as row}
+              {#each Object.entries( row ) as [key, val]}
+                {#if val==='0' || !val}
+                  &nbsp;
+                {:else if key==='createdAt' || key==='updatedAt'}
+                  <PillBox label={key} content={new Date(val*1000).toString()} />
+                {:else if key==='priceNtd' || key==='pricePerUnit'}
+                  <PillBox label={key} content={priceNtd(val)} />
+                {:else}
+                  <PillBox label={key} content={val} />
+                {/if}
+              {/each}
+            {/each}
+          {:else}
+            no history for this property
+          {/if}
+        </div>
+      </ModalDialog>
+      <ModalForm
+        bind:this={modalForm}
+        fields={fields}
+        onConfirm={saveRow}
+        rowType="Property"
+      />
+      <section class="tableview-container">
+        <TableView
+          bind:pager={pager}
+          extraActions={extraActions}
+          fields={fields}
+          onEditRow={editRow}
+          onRefreshTableView={refreshTableView}
+          rows={properties||[]}
+        >
+          <button
+            class="btn"
+            on:click={addRow}
+            title="Add property"
+          >
+            <Icon
+              size="17"
+              src={RiSystemAddBoxLine}
+              color="var(--gray-008)"
+            />
           </button>
-          <button on:click={filterPendingApproval} class='filter_pending_button' class:not_filtered={!filterdByPending}>
-            <Icon size="17" color='{!filterdByPending ? "#FFF" : "#000"}' src={FaSolidCheckDouble} />
-            <span>Filter Pending</span>
+          <button
+            class="btn"
+            disabled={!filterdByPending}
+            on:click={filterPendingApproval}
+            title="Filter by pending approval"
+          >
+            <Icon
+              size="17"
+              src={RiSystemFilter3Fill}
+              color="var(--gray-008)"
+            />
           </button>
-          <button on:click={filterRejectedApproval} class='filter_pending_button' class:not_filtered={!filterdByRejected}>
-            <Icon size="17" color='{!filterdByRejected ? "#FFF" : "#000"}' src={FaSolidRecycle} />
-            <span>Filter Rejected</span>
+          <button
+            class="btn"
+            disabled={!filterdByRejected}
+            on:click={filterRejectedApproval}
+            title="Filter by rejected approval"
+          >
+            <Icon
+              size="17"
+              src={RiSystemProhibitedLine}
+              color="var(--gray-008)"
+            />
           </button>
         </TableView>
       </section>
     </div>
-    <Footer></Footer>
   </div>
-  <ModalDialog bind:this={propHistoryModal}>
-    <div slot='content'>
-      <h3>Property History</h3>
-      {#if currentPropHistory && currentPropHistory.length}
-        {#each currentPropHistory as row}
-          {#each Object.entries( row ) as [key, val]}
-            {#if val==='0' || !val}
-              &nbsp;
-            {:else if key==='createdAt' || key==='updatedAt'}
-              <PillBox label={key} content={new Date(val*1000).toString()} />
-            {:else if key==='priceNtd' || key==='pricePerUnit'}
-              <PillBox label={key} content={priceNtd(val)} />
-            {:else}
-              <PillBox label={key} content={val} />
-            {/if}
-          {/each}
-        {/each}
-      {:else}
-        no history for this property
-      {/if}
-    </div>
-  </ModalDialog>
-</section>
+</Main>
 
 <style>
-  .filter_pending_button {
-    padding         : 8px 20px;
-    font-size       : 14pt;
-    font-weight     : bold;
-    border-radius   : 8px;
-    filter          : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    margin-left     : 4px;
-    cursor          : pointer;
-    align-items     : center;
-    align-content   : center;
-    justify-content : center;
-    border          : 1px solid grey;
-    gap             : 8px;
-    display         : inline-flex;
+  .admin-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    padding: 10px 20px 20px;
   }
 
-  .filter_pending_button.not_filtered {
-    background-color : #6366F1;
-    color            : white;
-    flex-direction   : row;
+  .admin-container .admin-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
   }
-
 </style>

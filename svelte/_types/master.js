@@ -21,8 +21,8 @@ module.exports = {};
  * @property {number} page
  * @property {number} perPage
  * @property {number} pages
- * @property {number} total
- * @property {Object.<string, string[]>} filters
+ * @property {number} countResult
+ * @property {Record<string, string[]>} filters
  * @property {string[]} order
  */
 module.exports = {};
@@ -31,7 +31,7 @@ module.exports = {};
  * @typedef {Object} PagerIn
  * @property {number} page
  * @property {number} perPage
- * @property {Object.<string, string[]>} filters
+ * @property {Record<string, string[]>} filters
  * @property {string[]} order
  */
 module.exports = {}
@@ -45,7 +45,7 @@ module.exports = {}
  * @property {string} inputType
  * @property {boolean} readOnly
  * @property {string} mapping
- * @property {Object.<string, any>} validations
+ * @property {Record<string, any>} validations
  * @property {string} refEndpoint
  */
 module.exports = {};
@@ -75,5 +75,15 @@ module.exports = {};
  * @property {string} unit_measurement
  * @property {Coordinate} coordinate
  * @property {Currency} currency
+ */
+module.exports = {};
+
+/**
+ * @typedef {Object} ExtendedAction
+ * @property {import('../node_modules/svelte-icons-pack').IconType} icon?
+ * @property {string} label?
+ * @property {(row: any) => string} link?
+ * @property {(row: any) => any | void} onClick?
+ * @property {() => boolean} showIf?
  */
 module.exports = {};

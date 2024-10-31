@@ -1,5 +1,6 @@
 <script>
   /** @typedef {import('../_types/user').User} User */
+  /** @typedef {import('../_types/master').Access} Access */
   /** @typedef {import('../_types/master').PagerIn} PagerIn */
   /** @typedef {import('../_types/master').PagerOut} PagerOut */
   /** @typedef {import('../_types/master').Field} Field */
@@ -14,11 +15,17 @@
   import { RiSystemAddBoxLine } from '../node_modules/svelte-icons-pack/dist/ri';
   
   let user    = /** @type {User} */ ({/* user */});
+  let access = /** @type {Access} */ ({/* segments */});
   let fields  = /** @type {Field[]} */ ([/* fields */]);
   let users   = /** @type {User[]} */ ([/* users */]);
   let pager   = /** @type {PagerOut} */ ({/* pager */});
 
-  function handleResponse( res ) {
+  /**
+	 * @description Handle AJAX response
+	 * @param res {any}
+	 * @returns {boolean}
+	 */
+	function handleResponse(res) {
     console.log( res );
     if( res.error ) {
       notifier.showError(res.error );
@@ -70,7 +77,7 @@
 </script>
 
 
-<Main {user} >
+<Main {user} {access}>
   <div class="admin-container">
     <AdminSubMenu />
     <div class="admin-content">
@@ -89,7 +96,7 @@
         >
           <button on:click={addRow} class="btn">
             <Icon
-              size={17}
+              size="17"
               src={RiSystemAddBoxLine}
               color="var(--gray-008)"
             />

@@ -452,12 +452,13 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.AdminPropertiesUS(&in)
 		return views.RenderAdminPropertiesUS(ctx, M.SX{
 			`title`:      `Properties US`,
+			`user`: user,
 			`segments`:   segments,
 			`properties`: out.Properties,
 			`fields`:     out.Meta.Fields,
@@ -473,12 +474,13 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.AdminPropertiesTW(&in)
 		return views.RenderAdminPropertiesTW(ctx, M.SX{
 			`title`:      `Properties TW`,
+			`user`: user,
 			`segments`:   segments,
 			`properties`: out.Properties,
 			`fields`:     out.Meta.Fields,
@@ -494,12 +496,13 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.AdminProperties(&in)
 		return views.RenderAdminProperties(ctx, M.SX{
 			`title`:      `Properties`,
+			`user`: user,
 			`segments`:   segments,
 			`properties`: out.Properties,
 			`fields`:     out.Meta.Fields,

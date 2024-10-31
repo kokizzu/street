@@ -1,19 +1,21 @@
 <script>
   /** @typedef {import('../_types/user').User} User */
+  /** @typedef {import('../_types/master').Access} Access */
 
   import SideMenu from '../_components/partials/SideMenu.svelte';
   import Navbar from '../_components/partials/Navbar.svelte';
   import Footer from '../_components/partials/Footer.svelte';
   import { isShrinkMenu } from '../_states/page';
 
-  export let user = /** @type {User} */ ({});
+  export let user   = /** @type {User} */ ({});
+  export let access = /** @type {Access} */ ({});
 </script>
 
 <div class="root_layout">
   <div class="root_container">
     <Navbar username={user.userName}/>
     <div class="root_content { $isShrinkMenu ? 'shrink' : 'expand' }">
-      <SideMenu />
+      <SideMenu {access} />
       <main class="content">
         <slot />
         <Footer />
