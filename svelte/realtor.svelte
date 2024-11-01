@@ -1,154 +1,128 @@
 <script>
   /** @typedef {import('./_types/master.js').Access} Access */
+  /** @typedef {import('./_types/user').User} User */
+  /** @typedef {import('./_types/property').PropertyWithNote} PropertyWithNote */
+  /** @typedef {import('./_types/master').PagerIn} PagerIn */
+  /** @typedef {import('./_types/master').PagerOut} PagerOut */
+  /** @typedef {import('./_types/master').Field} Field */
 
-  import { onMount } from 'svelte';
-  import Menu from './_components/Menu.svelte';
-  import ProfileHeader from './_components/ProfileHeader.svelte';
-  import Footer from './_components/partials/Footer.svelte';
+  import Main from './_layouts/Main.svelte';
   import OwnedProperty from './_components/OwnedProperty.svelte';
-  
   import { Icon } from './node_modules/svelte-icons-pack/dist';
-  import { FaSolidCirclePlus } from './node_modules/svelte-icons-pack/dist/fa';
+  import { RiSystemAddLargeFill } from './node_modules/svelte-icons-pack/dist/ri';
   
-  let ownedProperties = [/* ownedProperties */];
-  let pager = /** @type {any} */ ([/* pager */]);
-  let propertyMeta = [/* propertyMeta */];
-  
-  onMount( () => {
-    console.log( 'onMount.realtor' );
-    console.log( 'ownedProperties=', ownedProperties );
-    console.log( 'pager=', pager );
-    if( !ownedProperties ) {
-      ownedProperties = [];
-    }
-  } );
-  
-  let user = {/* user */};
-  let segments = /** @type {Access} */ ({/* segments */});
+  const user              = /** @type {User} */ ({/* user */});
+  const access            = /** @type {Access} */ ({/* segments */});
+  let ownedProperties     = /** @type {PropertyWithNote[]} */ [/* ownedProperties */];
+  let pager               = /** @type {PagerOut} */ ({/* pager */});
+  let propertyMeta        = /** @type {Field[]} */ ([/* propertyMeta */]);
 </script>
 
-<section class='dashboard'>
-  <Menu access={segments} />
-  <div class='dashboard_main_content'>
-    <ProfileHeader {user} access={segments} />
-    <div class='content'>
-      <div class='property_lists_container'>
-        <div class='property_lists_header'>
-          <h1>Owned/Managed Properties: {pager.countResult}</h1>
-          <a href='/realtor/property' class='add_button'>
-            <Icon size="20" className='add_icon' color='#FFF' src={FaSolidCirclePlus} />
-            <span>Add</span>
-          </a>
-        </div>
-        {#if ownedProperties && ownedProperties.length}
-          <section class='property_lists'>
-            {#each ownedProperties as property}
-              {#if property.deletedAt<=0}
-                <OwnedProperty {property} meta={propertyMeta} />
-              {/if}
-            {/each}
-          </section>
-        {:else}
-          <div class='no_property'>
-            <p>No Property</p>
-          </div>
-        {/if}
-      </div>
+<Main {user} {access}>
+  <div class="properties-container">
+    <div class="info-actions">
+      <h2>Owned/Managed Properties: {pager.countResult}</h2>
+      <a href="/realtor/property" class="add-btn">
+        <Icon
+          size="20"
+          color="#FFF"
+          src={RiSystemAddLargeFill}
+        />
+        <span>Add</span>
+      </a>
     </div>
-    <Footer />
+    {#if ownedProperties && ownedProperties.length}
+      <section class="properties">
+        {#each ownedProperties as property}
+          {#if property.deletedAt<=0}
+            <OwnedProperty {property} meta={propertyMeta} />
+          {/if}
+        {/each}
+      </section>
+    {:else}
+      <div class="no-property">
+        <p>No Property</p>
+      </div>
+    {/if}
   </div>
-</section>
+</Main>
 
 <style>
-  .property_lists_container {
-    position         : relative;
-    margin-top       : -40px;
-    margin-left      : auto;
-    margin-right     : auto;
-    padding          : 20px;
-    display          : flex;
-    flex-direction   : column;
-    gap              : 20px;
-    background-color : white;
-    border-radius    : 8px;
-    min-height       : 500px;
-    width            : 70%;
-    color            : #475569;
+  .properties-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    padding: 20px;
   }
 
-  .property_lists_container .property_lists_header {
-    display         : flex;
-    flex-direction  : row;
-    justify-content : space-between;
-    align-items     : center;
-    height          : fit-content;
-    width           : 100%;
-    gap             : 20px;
+  .properties-container .info-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
   }
 
-  .property_lists_container .property_lists_header .add_button {
-    padding          : 8px 20px;
-    font-size        : 16px;
-    display          : inline-flex;
-    flex-direction   : row;
-    align-items      : center;
-    align-content    : center;
-    gap              : 8px;
-    justify-content  : center;
-    border           : none;
-    background-color : #6366F1;
-    border-radius    : 8px;
-    color            : white;
-    cursor           : pointer;
-    text-decoration  : none;
+  .properties-container .info-actions .add-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--orange-006);
+    border-radius: 9999px;
+    padding: 15px 30px;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
   }
 
-  .property_lists_container .property_lists_header h1 {
-    font-size : 18px;
-    margin    : 0;
+  .properties-container .info-actions .add-btn:hover {
+    background-color: var(--orange-005);
   }
 
-  .property_lists_container .property_lists_header .add_button:hover {
-    background-color : #7E80F1;
+  .properties-container .info-actions h2 {
+    font-size: 18px;
+    margin: 0;
   }
 
-  .property_lists_container .no_property {
-    background-color : #F0F0F0;
-    border-radius    : 8px;
-    height           : fit-content;
-    flex-grow        : 1;
-    display          : flex;
-    align-items      : center;
-    justify-content  : center;
-    font-size        : 15px;
+  .properties-container .no-property {
+    background-color: var(--gray-002);
+    border-radius: 8px;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight      : 600;
   }
 
-  .property_lists_container .property_lists {
-    display        : flex;
-    flex-direction : column;
-    gap            : 20px;
-    width          : 100%;
+  .properties-container .properties {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
   }
 
   /* Responsive to mobile device */
   @media (max-width : 768px) {
-    :global(.add_icon) {
+    :global(.icon) {
       width  : 15px;
       height : 15px;
     }
 
-    .property_lists_container {
+    .properties-container {
       margin  : -40px 20px 0 20px;
       padding : 15px;
       width   : auto;
     }
 
-    .property_lists_container .property_lists_header h1 {
+    .properties-container .info-actions h2 {
       font-size : 16px !important;
     }
 
-    .property_lists_container .property_lists_header .add_button {
+    .properties-container .info-actions .add-btn {
       padding   : 5px 15px !important;
       font-size : 14px !important;
       gap       : 8px !important;

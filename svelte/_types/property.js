@@ -130,3 +130,11 @@ module.exports = {};
  * @property {string} ListingAgentNumber
  */
 module.exports = {};
+
+/**
+ * @typedef {Property} PropertyWithNote
+ * @property {string} contactEmail
+ * @property {string} contactPhone
+ * @property {string} about
+ */
+module.exports = {};

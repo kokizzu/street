@@ -336,341 +336,121 @@
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:./_components/Menu.esbuild-svelte-fake-css */
-.icon_dark {
-  fill: #475569;
-}
-.icon_active {
-  fill: #EF4444;
-}
-.backdrop.svelte-1aq7k0c.svelte-1aq7k0c {
-  z-index: 8888;
+<style>/* fakecss:./_components/partials/SideMenu.esbuild-svelte-fake-css */
+aside.svelte-1hfp3dx.svelte-1hfp3dx {
   position: fixed;
-  padding: 0;
-  border: none;
-  top: 0;
-  bottom: 0;
+  top: var(--navbar-height);
   left: 0;
-  right: 0;
-  background-color: rgba(0 0 0 / 20%);
-}
-.side_menu_admin.svelte-1aq7k0c.svelte-1aq7k0c {
-  left: -300px;
-  display: block;
-  position: fixed;
-  z-index: 9999;
-  top: 0;
   bottom: 0;
-  overflow-y: auto;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  background-color: white;
-  color: #475569;
-  padding: 16px 24px;
-  width: 300px;
-  transition: 0.3s;
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  height: 100%;
+  width: var(--sidemenu-width);
+  border-right: 1px solid var(--gray-002);
+  background-color: #FFF;
 }
-.side_menu_admin.open.svelte-1aq7k0c.svelte-1aq7k0c {
-  left: 0;
+aside.svelte-1hfp3dx .separator.svelte-1hfp3dx {
+  width: 80%;
+  margin: auto;
+  height: 1px;
+  background-color: var(--gray-002);
 }
-.side_menu_admin_container.svelte-1aq7k0c.svelte-1aq7k0c {
-  flex-direction: column;
-  align-items: stretch;
-  min-height: 100%;
-  flex-wrap: nowrap;
-  padding: 0;
+aside.svelte-1hfp3dx .container.svelte-1hfp3dx {
+  padding: 10px;
   display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: fit-content;
   width: 100%;
-  margin: 0 auto;
-}
-.side_menu_admin_container.svelte-1aq7k0c header.svelte-1aq7k0c {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.side_menu_admin_container.svelte-1aq7k0c header h3.svelte-1aq7k0c {
-  font-size: 16px;
-  line-height: 1.5rem;
-  padding: 0;
   margin: 0;
 }
-.side_menu_admin_container.svelte-1aq7k0c header button.svelte-1aq7k0c {
-  padding: 5px;
-  border: none;
-  background: none;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-}
-.side_menu_admin_container.svelte-1aq7k0c header button.svelte-1aq7k0c:hover {
-  background-color: rgb(0 0 0 / 0.07);
-  color: #EF4444;
-}
-.menu_container.svelte-1aq7k0c.svelte-1aq7k0c {
-  margin-top: 1rem;
-  align-items: stretch;
-  flex-direction: column;
-  display: flex;
-}
-.menu_container.svelte-1aq7k0c hr.svelte-1aq7k0c {
-  margin: 1rem 0;
-}
-.menu_container.svelte-1aq7k0c h6.svelte-1aq7k0c {
-  font-size: 15px;
-  margin: 12px 0;
-}
-.menu_container.svelte-1aq7k0c .menu.svelte-1aq7k0c {
+aside.svelte-1hfp3dx .container .nav-menu.svelte-1hfp3dx {
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  gap: 5px;
+  height: fit-content;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin: 0;
 }
-.menu_container.svelte-1aq7k0c .menu a.svelte-1aq7k0c,
-.menu.svelte-1aq7k0c .logout.svelte-1aq7k0c {
-  color: #475569;
+aside.svelte-1hfp3dx .container .nav-menu a.svelte-1hfp3dx,
+aside.svelte-1hfp3dx .container .nav-menu button.svelte-1hfp3dx {
   text-decoration: none;
-  margin: 0;
-  padding: 0.75rem 0;
-  font-size: 0.875rem !important;
-  line-height: 1.25rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  text-align: left;
-  background-color: transparent;
-  border: none;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 15px;
-}
-.menu_container.svelte-1aq7k0c .menu .logout.svelte-1aq7k0c {
+  justify-content: flex-start;
+  padding: 10px 15px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-right: 0;
+  font-size: 17px;
+  color: var(--gray-008);
+  border: none;
+  background-color: transparent;
 }
-.menu_container.svelte-1aq7k0c .menu a.svelte-1aq7k0c:hover,
-.menu_container.svelte-1aq7k0c .menu .logout.svelte-1aq7k0c:hover {
-  color: #64748B;
+aside.svelte-1hfp3dx .container .nav-menu a.svelte-1hfp3dx:hover,
+aside.svelte-1hfp3dx .container .nav-menu button.svelte-1hfp3dx:hover {
+  background-color: var(--gray-001);
 }
-.active.svelte-1aq7k0c.svelte-1aq7k0c {
-  color: #EF4444 !important;
+aside.svelte-1hfp3dx .container .nav-menu a.active.svelte-1hfp3dx {
+  background-color: var(--orange-transparent);
+  color: var(--orange-007);
 }
-@media (max-width : 768px) {
-  .side_menu_admin.svelte-1aq7k0c.svelte-1aq7k0c {
-    width: 240px;
-  }
+aside.svelte-1hfp3dx .container .nav-menu button.red.svelte-1hfp3dx:hover {
+  background-color: var(--red-transparent);
+  color: var(--red-007);
 }
 
-/* fakecss:./_components/ProfileHeader.esbuild-svelte-fake-css */
-.backdrop.svelte-1upfzl4.svelte-1upfzl4 {
-  position: fixed;
-  z-index: 40;
-  background: rgba(41, 41, 41, 0.5);
-  width: 100%;
-  left: 0;
+/* fakecss:./_components/partials/Navbar.esbuild-svelte-fake-css */
+header.svelte-14u710g.svelte-14u710g {
   top: 0;
+  left: 0;
   right: 0;
-  bottom: 0;
-  height: auto;
+  position: fixed;
+  width: 100%;
+  height: var(--navbar-height);
   display: flex;
-  justify-content: center;
   align-items: center;
-}
-.feedback_dialog.svelte-1upfzl4.svelte-1upfzl4 {
-  padding: 20px;
-  border-radius: 8px;
-  background-color: #FFF;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  color: #475569;
-  width: 500px;
-}
-.feedback_dialog.svelte-1upfzl4 h3.svelte-1upfzl4 {
-  margin: 0;
-  text-align: center;
-  font-size: 18px;
-}
-.feedback_dialog.svelte-1upfzl4 textarea.svelte-1upfzl4 {
-  border: 1px solid #CBD5E1;
-  background-color: #F1F5F9;
-  border-radius: 8px;
-  padding: 12px;
-  resize: none;
-}
-.feedback_dialog.svelte-1upfzl4 textarea.svelte-1upfzl4:focus {
-  border-color: #3B82F6;
-  outline: 1px solid #3B82F6;
-}
-.feedback_dialog.svelte-1upfzl4 .buttons.svelte-1upfzl4 {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  font-weight: 500;
-  width: 100%;
-  gap: 20px;
-}
-.feedback_dialog.svelte-1upfzl4 .buttons button.svelte-1upfzl4 {
-  border-radius: 8px;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  width: 100%;
-  text-transform: capitalize;
-}
-.feedback_dialog.svelte-1upfzl4 .buttons .cancel_btn.svelte-1upfzl4 {
-  border: 1px solid #cbd5e1;
-  background-color: #f1f5f9;
-  color: #f97316;
-}
-.feedback_dialog.svelte-1upfzl4 .buttons .cancel_btn.svelte-1upfzl4:hover {
-  border: 1px solid #f97316;
-}
-.feedback_dialog.svelte-1upfzl4 .buttons .submit_btn.svelte-1upfzl4 {
-  background-color: #F97316;
-  color: white;
-}
-.feedback_dialog.svelte-1upfzl4 .buttons .submit_btn.svelte-1upfzl4:hover {
-  background-color: #F58433;
-}
-.profile_header.svelte-1upfzl4.svelte-1upfzl4 {
-  background-color: #EF4444;
-  height: fit-content;
-  position: relative;
-  padding: 18px 50px 80px 50px;
-  display: flex;
-  flex-direction: column;
-}
-.profile_header.svelte-1upfzl4 .navbar.svelte-1upfzl4 {
-  display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-}
-.profile_header.svelte-1upfzl4 .navbar .label_menu.svelte-1upfzl4 {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color: white;
-  position: relative;
-}
-.profile_header.svelte-1upfzl4 .navbar .label_menu .logout_menu.svelte-1upfzl4 {
-  display: flex;
-  flex-direction: column;
-  border-radius: 8px;
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  padding: 0 20px;
+  border-bottom: 1px solid var(--gray-002);
   background-color: #FFF;
-  color: #475569;
-  position: absolute;
-  z-index: 800;
-  border: 1px solid #CBD5E1;
-  height: fit-content;
+  z-index: 100;
+}
+header.svelte-14u710g .label.svelte-14u710g {
   width: fit-content;
-  top: 50px;
-}
-.profile_header.svelte-1upfzl4 .navbar .label_menu .logout_menu button.svelte-1upfzl4 {
-  border: none;
-  background-color: transparent;
-  padding: 0;
-  color: #475569;
-  font-weight: 600;
-  padding: 9px 17px;
-}
-.profile_header.svelte-1upfzl4 .navbar .label_menu .logout_menu button.svelte-1upfzl4:nth-child(1) {
-  color: #EF4444;
-}
-.profile_header.svelte-1upfzl4 .navbar .label_menu .logout_menu button.svelte-1upfzl4:hover {
-  background-color: #F1F5F9;
-}
-.profile_header.svelte-1upfzl4 .navbar .label_menu button.svelte-1upfzl4 {
-  padding: 10px;
-  border: none;
-  background: none;
-  border-radius: 5px;
-  font-size: 14px;
-  color: white;
-  cursor: pointer;
-}
-.profile_header.svelte-1upfzl4 .navbar .label_menu button.svelte-1upfzl4:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-.profile_header.svelte-1upfzl4 .navbar .label_menu p.svelte-1upfzl4 {
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 1.5rem;
-  padding: 0;
-  margin: 0 0 0 15px;
-}
-.profile_header.svelte-1upfzl4 .navbar .right_nav.svelte-1upfzl4 {
   display: flex;
   flex-direction: row;
-  gap: 20px;
-  align-items: stretch;
-}
-.profile_header.svelte-1upfzl4 .navbar .right_nav .feedback_btn.svelte-1upfzl4 {
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
+  gap: 0;
   align-items: center;
-  background-color: #FFF;
+}
+header.svelte-14u710g .label .logo.svelte-14u710g {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 17px;
+  color: var(--gray-008);
+  text-decoration: none;
+  width: calc(var(--sidemenu-width) - 20px);
+}
+header.svelte-14u710g .user-info.svelte-14u710g {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+header.svelte-14u710g .user-info a.user.svelte-14u710g {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--gray-008);
+  padding: 5px 10px;
   border-radius: 5px;
-  padding: 6px 8px;
-  border: none;
-  color: #475569;
-  font-weight: 600;
-  cursor: pointer;
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  border: 1px solid var(--gray-002);
 }
-.profile_header.svelte-1upfzl4 .navbar #lang.svelte-1upfzl4 {
-  padding: 6px 8px;
-  width: 60px;
-  border: none;
-  border-radius: 5px;
-  color: #1080E8;
-  font-weight: 600;
-  cursor: pointer;
-  background-color: #FFF;
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-}
-.profile_header.svelte-1upfzl4 .navbar #lang.svelte-1upfzl4:hover,
-.profile_header.svelte-1upfzl4 .navbar .right_nav .feedback_btn.svelte-1upfzl4:hover {
-  background-color: #F1F5F9;
-}
-.profile_header.svelte-1upfzl4 .navbar #lang.svelte-1upfzl4:focus {
-  outline: none;
-}
-@media only screen and (max-width : 768px) {
-  .feedback_dialog.svelte-1upfzl4.svelte-1upfzl4 {
-    width: 100%;
-    margin: auto 20px;
-  }
-  .profile_header.svelte-1upfzl4.svelte-1upfzl4 {
-    padding: 15px 20px 80px 20px !important;
-  }
-  .profile_header.svelte-1upfzl4 .navbar .label_menu button.svelte-1upfzl4 {
-    padding: 0;
-  }
-  .profile_header.svelte-1upfzl4 .navbar .right_nav.svelte-1upfzl4 {
-    gap: 10px;
-  }
-  .profile_header.svelte-1upfzl4 .navbar #lang.svelte-1upfzl4 {
-    padding: 3px 5px;
-    font-size: 12px;
-    width: 50px;
-  }
-  .profile_header.svelte-1upfzl4 .navbar .feedback_btn.svelte-1upfzl4 {
-    padding: 3px 5px;
-    font-size: 12px;
-  }
-  .feedback_icon {
-    width: 12px;
-    height: 12px;
-  }
-  .profile_header.svelte-1upfzl4 .navbar .label_menu .logout_menu.svelte-1upfzl4 {
-    top: 30px;
-  }
+header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
+  background-color: var(--gray-001);
 }
 
 /* fakecss:./_components/partials/Footer.esbuild-svelte-fake-css */
@@ -697,6 +477,46 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji {
 footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   color: var(--orange-005);
   text-decoration: underline;
+}
+
+/* fakecss:./_layouts/Main.esbuild-svelte-fake-css */
+.root_layout.svelte-pbt6ik.svelte-pbt6ik {
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+}
+.root_layout.svelte-pbt6ik .root_container.svelte-pbt6ik {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+.root_layout.svelte-pbt6ik .root_container .root_content.svelte-pbt6ik {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  min-height: calc(100vh - var(--navbar-height));
+  transition: 0.3s;
+  width: 100%;
+  max-width: 100%;
+  margin-top: var(--navbar-height);
+  margin-left: var(--sidemenu-width);
+  margin-right: 0;
+  margin-bottom: 0;
+  overflow: hidden;
+}
+.root_layout.svelte-pbt6ik .root_container .root_content .content.svelte-pbt6ik {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
 }
 
 /* fakecss:./_components/PillBox.esbuild-svelte-fake-css */
@@ -1036,84 +856,70 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
 }
 
 /* fakecss:./realtor.esbuild-svelte-fake-css */
-.property_lists_container.svelte-1t7ijk0.svelte-1t7ijk0 {
-  position: relative;
-  margin-top: -40px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px;
+.properties-container.svelte-jkrra8.svelte-jkrra8 {
   display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 20px;
-  background-color: white;
-  border-radius: 8px;
-  min-height: 500px;
-  width: 70%;
-  color: #475569;
+  padding: 20px;
 }
-.property_lists_container.svelte-1t7ijk0 .property_lists_header.svelte-1t7ijk0 {
+.properties-container.svelte-jkrra8 .info-actions.svelte-jkrra8 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: fit-content;
-  width: 100%;
   gap: 20px;
+  width: 100%;
 }
-.property_lists_container.svelte-1t7ijk0 .property_lists_header .add_button.svelte-1t7ijk0 {
-  padding: 8px 20px;
-  font-size: 16px;
-  display: inline-flex;
+.properties-container.svelte-jkrra8 .info-actions .add-btn.svelte-jkrra8 {
+  display: flex;
   flex-direction: row;
   align-items: center;
-  align-content: center;
-  gap: 8px;
-  justify-content: center;
-  border: none;
-  background-color: #6366F1;
-  border-radius: 8px;
-  color: white;
-  cursor: pointer;
+  gap: 10px;
+  background-color: var(--orange-006);
+  border-radius: 9999px;
+  padding: 15px 30px;
+  color: #FFF;
+  font-size: 16px;
+  font-weight: 600;
   text-decoration: none;
 }
-.property_lists_container.svelte-1t7ijk0 .property_lists_header h1.svelte-1t7ijk0 {
+.properties-container.svelte-jkrra8 .info-actions .add-btn.svelte-jkrra8:hover {
+  background-color: var(--orange-005);
+}
+.properties-container.svelte-jkrra8 .info-actions h2.svelte-jkrra8 {
   font-size: 18px;
   margin: 0;
 }
-.property_lists_container.svelte-1t7ijk0 .property_lists_header .add_button.svelte-1t7ijk0:hover {
-  background-color: #7E80F1;
-}
-.property_lists_container.svelte-1t7ijk0 .no_property.svelte-1t7ijk0 {
-  background-color: #F0F0F0;
+.properties-container.svelte-jkrra8 .no-property.svelte-jkrra8 {
+  background-color: var(--gray-002);
   border-radius: 8px;
   height: fit-content;
-  flex-grow: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
   font-weight: 600;
 }
-.property_lists_container.svelte-1t7ijk0 .property_lists.svelte-1t7ijk0 {
+.properties-container.svelte-jkrra8 .properties.svelte-jkrra8 {
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 100%;
 }
 @media (max-width : 768px) {
-  .add_icon {
+  .icon {
     width: 15px;
     height: 15px;
   }
-  .property_lists_container.svelte-1t7ijk0.svelte-1t7ijk0 {
+  .properties-container.svelte-jkrra8.svelte-jkrra8 {
     margin: -40px 20px 0 20px;
     padding: 15px;
     width: auto;
   }
-  .property_lists_container.svelte-1t7ijk0 .property_lists_header h1.svelte-1t7ijk0 {
+  .properties-container.svelte-jkrra8 .info-actions h2.svelte-jkrra8 {
     font-size: 16px !important;
   }
-  .property_lists_container.svelte-1t7ijk0 .property_lists_header .add_button.svelte-1t7ijk0 {
+  .properties-container.svelte-jkrra8 .info-actions .add-btn.svelte-jkrra8 {
     padding: 5px 15px !important;
     font-size: 14px !important;
     gap: 8px !important;
@@ -3638,7 +3444,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       exports.UserLikeProp = async function UserLikeProp(i, cb) {
         return await axios.post("/userLikeProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserLogout = async function UserLogout3(i, cb) {
+      exports.UserLogout = async function UserLogout2(i, cb) {
         return await axios.post("/user/logout", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserNearbyFacilities = async function UserNearbyFacilities(i, cb) {
@@ -3659,7 +3465,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       exports.UserSearchPropUS = async function UserSearchPropUS(i, cb) {
         return await axios.post("/user/searchProp/US", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserSendFeedback = async function UserSendFeedback2(i, cb) {
+      exports.UserSendFeedback = async function UserSendFeedback(i, cb) {
         return await axios.post("/user/sendFeedback", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserSessionKill = async function UserSessionKill(i, cb) {
@@ -3668,7 +3474,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       exports.UserSessionsActive = async function UserSessionsActive(i, cb) {
         return await axios.post("/user/sessionsActive", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserUpdateProfile = async function UserUpdateProfile2(i, cb) {
+      exports.UserUpdateProfile = async function UserUpdateProfile(i, cb) {
         return await axios.post("/user/updateProfile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserUploadFile = async function UserUploadFile(i, cb) {
@@ -3817,12 +3623,52 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   function component_subscribe(component, store, callback) {
     component.$.on_destroy.push(subscribe(store, callback));
   }
+  function create_slot(definition, ctx, $scope, fn) {
+    if (definition) {
+      const slot_ctx = get_slot_context(definition, ctx, $scope, fn);
+      return definition[0](slot_ctx);
+    }
+  }
+  function get_slot_context(definition, ctx, $scope, fn) {
+    return definition[1] && fn ? assign($scope.ctx.slice(), definition[1](fn(ctx))) : $scope.ctx;
+  }
+  function get_slot_changes(definition, $scope, dirty, fn) {
+    if (definition[2] && fn) {
+      const lets = definition[2](fn(dirty));
+      if ($scope.dirty === void 0) {
+        return lets;
+      }
+      if (typeof lets === "object") {
+        const merged = [];
+        const len = Math.max($scope.dirty.length, lets.length);
+        for (let i = 0; i < len; i += 1) {
+          merged[i] = $scope.dirty[i] | lets[i];
+        }
+        return merged;
+      }
+      return $scope.dirty | lets;
+    }
+    return $scope.dirty;
+  }
+  function update_slot_base(slot, slot_definition, ctx, $scope, slot_changes, get_slot_context_fn) {
+    if (slot_changes) {
+      const slot_context = get_slot_context(slot_definition, ctx, $scope, get_slot_context_fn);
+      slot.p(slot_context, slot_changes);
+    }
+  }
+  function get_all_dirty_from_scope($scope) {
+    if ($scope.ctx.length > 32) {
+      const dirty = [];
+      const length = $scope.ctx.length / 32;
+      for (let i = 0; i < length; i++) {
+        dirty[i] = -1;
+      }
+      return dirty;
+    }
+    return -1;
+  }
   function null_to_empty(value) {
     return value == null ? "" : value;
-  }
-  function set_store_value(store, ret, value) {
-    store.set(value);
-    return ret;
   }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/globals.js
@@ -3924,12 +3770,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     node.addEventListener(event, handler, options);
     return () => node.removeEventListener(event, handler, options);
   }
-  function prevent_default(fn) {
-    return function(event) {
-      event.preventDefault();
-      return fn.call(this, event);
-    };
-  }
   function attr(node, attribute, value) {
     if (value == null)
       node.removeAttribute(attribute);
@@ -3950,25 +3790,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       return;
     text2.data = /** @type {string} */
     data;
-  }
-  function set_input_value(input, value) {
-    input.value = value == null ? "" : value;
-  }
-  function select_option(select, value, mounting) {
-    for (let i = 0; i < select.options.length; i += 1) {
-      const option = select.options[i];
-      if (option.__value === value) {
-        option.selected = true;
-        return;
-      }
-    }
-    if (!mounting || value !== void 0) {
-      select.selectedIndex = -1;
-    }
-  }
-  function select_value(select) {
-    const selected_option = select.querySelector(":checked");
-    return selected_option && selected_option.__value;
   }
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
@@ -4223,7 +4044,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance8, create_fragment8, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance8, create_fragment9, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -4262,7 +4083,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment8 ? create_fragment8($.ctx) : false;
+    $.fragment = create_fragment9 ? create_fragment9($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -4331,7 +4152,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       async connectedCallback() {
         this.$cn = true;
         if (!this.$c) {
-          let create_slot = function(name) {
+          let create_slot2 = function(name) {
             return () => {
               let node;
               const obj = {
@@ -4365,7 +4186,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           const existing_slots = get_custom_elements_slots(this);
           for (const name of this.$s) {
             if (name in existing_slots) {
-              $slots[name] = [create_slot(name)];
+              $slots[name] = [create_slot2(name)];
             }
           }
           for (const attribute of this.attributes) {
@@ -4531,8 +4352,673 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
-  // _components/Menu.svelte
-  var import_jsApi_GEN = __toESM(require_jsApi_GEN());
+  // _components/partials/SideMenu.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
+
+  // _components/notifier.js
+  var Notifier = function() {
+    let a = {
+      container: null,
+      default_time: 4500,
+      vanish_time: 300,
+      fps: 30,
+      success: {
+        classes: "alert-success",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
+      },
+      error: {
+        classes: "alert-danger",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
+      },
+      warning: {
+        classes: "alert-warning",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
+      },
+      info: {
+        classes: "alert-info",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
+      }
+    }, b = function(a2, b2, c, d, e, f, g) {
+      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
+      let h = document.createElement("p");
+      h.className = "progress", this.element.appendChild(h), this.callback = g;
+      let j = this;
+      this.push = function() {
+        if (!j.pushed) {
+          j.pushed = true;
+          let a3 = 0, b3 = 1e3 / f;
+          j.element.style.display = "block", j.interval = setInterval(function() {
+            a3++;
+            let c2 = 100 * (1 - b3 * a3 / d);
+            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
+          }, b3);
+        }
+      }, this.clear = function() {
+        if (j.pushed) {
+          let a3 = 1e3 / f, b3 = 1;
+          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
+            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
+          }, a3);
+        }
+      }, this.destroy = function() {
+        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
+      };
+    };
+    return function Notifier2(c) {
+      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
+        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
+      };
+      this.showInfo = function(infoMsg) {
+        let notification = this.notify("info", infoMsg);
+        notification.push();
+      };
+      this.showSuccess = function(okMsg) {
+        let notification = this.notify("success", okMsg);
+        notification.push();
+      };
+      this.showError = function(errMsg) {
+        let notification = this.notify("error", errMsg);
+        notification.push();
+      };
+      this.showWarning = function(warnMsg) {
+        let notification = this.notify("warning", warnMsg);
+        notification.push();
+      };
+    };
+  }();
+  var notifier = new Notifier();
+
+  // _components/partials/SideMenu.svelte
+  function create_if_block(ctx) {
+    let nav;
+    let t0;
+    let a;
+    let t2;
+    let button;
+    let mounted;
+    let dispose;
+    let if_block = (
+      /*access*/
+      ctx[0].admin && create_if_block_1(ctx)
+    );
+    return {
+      c() {
+        nav = element("nav");
+        if (if_block)
+          if_block.c();
+        t0 = space();
+        a = element("a");
+        a.textContent = "Profile";
+        t2 = space();
+        button = element("button");
+        button.textContent = "Logout";
+        attr(a, "href", "/user");
+        attr(a, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a,
+          "active",
+          /*pathLv1*/
+          ctx[1] === "user"
+        );
+        attr(button, "class", "red svelte-1hfp3dx");
+        attr(nav, "class", "nav-menu svelte-1hfp3dx");
+      },
+      m(target, anchor) {
+        insert(target, nav, anchor);
+        if (if_block)
+          if_block.m(nav, null);
+        append(nav, t0);
+        append(nav, a);
+        append(nav, t2);
+        append(nav, button);
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*logout*/
+            ctx[2]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (
+          /*access*/
+          ctx2[0].admin
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+          } else {
+            if_block = create_if_block_1(ctx2);
+            if_block.c();
+            if_block.m(nav, t0);
+          }
+        } else if (if_block) {
+          if_block.d(1);
+          if_block = null;
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(nav);
+        }
+        if (if_block)
+          if_block.d();
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_1(ctx) {
+    let a;
+    return {
+      c() {
+        a = element("a");
+        a.textContent = "Admin";
+        attr(a, "href", "/admin");
+        attr(a, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a,
+          "active",
+          /*pathLv1*/
+          ctx[1] === "admin"
+        );
+      },
+      m(target, anchor) {
+        insert(target, a, anchor);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(a);
+        }
+      }
+    };
+  }
+  function create_fragment(ctx) {
+    let aside;
+    let div;
+    let nav;
+    let a0;
+    let t1;
+    let a1;
+    let t3;
+    let a2;
+    let t5;
+    let a3;
+    let t7;
+    let a4;
+    let t9;
+    let span;
+    let t10;
+    let if_block = (
+      /*access*/
+      ctx[0].user && create_if_block(ctx)
+    );
+    return {
+      c() {
+        aside = element("aside");
+        div = element("div");
+        nav = element("nav");
+        a0 = element("a");
+        a0.textContent = "Home";
+        t1 = space();
+        a1 = element("a");
+        a1.textContent = "Buyers";
+        t3 = space();
+        a2 = element("a");
+        a2.textContent = "Realtors";
+        t5 = space();
+        a3 = element("a");
+        a3.textContent = "Listings";
+        t7 = space();
+        a4 = element("a");
+        a4.textContent = "Revenue";
+        t9 = space();
+        span = element("span");
+        t10 = space();
+        if (if_block)
+          if_block.c();
+        attr(a0, "href", "/");
+        attr(a0, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a0,
+          "active",
+          /*pathLv1*/
+          ctx[1] === ""
+        );
+        attr(a1, "href", "/buyer");
+        attr(a1, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a1,
+          "active",
+          /*pathLv1*/
+          ctx[1] === "buyer"
+        );
+        attr(a2, "href", "/realtor");
+        attr(a2, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a2,
+          "active",
+          /*pathLv1*/
+          ctx[1] === "realtor"
+        );
+        attr(a3, "href", "/listings");
+        attr(a3, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a3,
+          "active",
+          /*pathLv1*/
+          ctx[1] === "listings"
+        );
+        attr(a4, "href", "/revenue");
+        attr(a4, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a4,
+          "active",
+          /*pathLv1*/
+          ctx[1] === "revenue"
+        );
+        attr(nav, "class", "nav-menu svelte-1hfp3dx");
+        attr(span, "class", "separator svelte-1hfp3dx");
+        attr(div, "class", "container svelte-1hfp3dx");
+        attr(aside, "class", "svelte-1hfp3dx");
+      },
+      m(target, anchor) {
+        insert(target, aside, anchor);
+        append(aside, div);
+        append(div, nav);
+        append(nav, a0);
+        append(nav, t1);
+        append(nav, a1);
+        append(nav, t3);
+        append(nav, a2);
+        append(nav, t5);
+        append(nav, a3);
+        append(nav, t7);
+        append(nav, a4);
+        append(div, t9);
+        append(div, span);
+        append(div, t10);
+        if (if_block)
+          if_block.m(div, null);
+      },
+      p(ctx2, [dirty]) {
+        if (
+          /*access*/
+          ctx2[0].user
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+          } else {
+            if_block = create_if_block(ctx2);
+            if_block.c();
+            if_block.m(div, null);
+          }
+        } else if (if_block) {
+          if_block.d(1);
+          if_block = null;
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(aside);
+        }
+        if (if_block)
+          if_block.d();
+      }
+    };
+  }
+  function instance($self, $props, $invalidate) {
+    let { access: access2 = (
+      /** @type {Access} */
+      {}
+    ) } = $props;
+    const pathLv1 = (
+      /** @type {string}*/
+      window.location.pathname.split("/")[1]
+    );
+    async function logout() {
+      await (0, import_jsApi.UserLogout)({}, function(o) {
+        if (o.error) {
+          notifier.showError(o.error);
+          console.log(o);
+          return;
+        }
+        notifier.showSuccess("Logged out");
+        window.location = /** @type {Location | (string & Location)} */
+        "/";
+        return new Promise((resolve) => {
+          setTimeout(
+            () => {
+              resolve();
+            },
+            1e3
+          );
+        });
+      });
+    }
+    $self.$set = ($props2) => {
+      if ("access" in $props2)
+        $invalidate(0, access2 = $props2.access);
+    };
+    return [access2, pathLv1, logout];
+  }
+  var SideMenu = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance, create_fragment, safe_not_equal, { access: 0 });
+    }
+  };
+  var SideMenu_default = SideMenu;
+
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/Icon.svelte
+  function create_fragment2(ctx) {
+    let svg;
+    let svg_style_value;
+    let svg_levels = [
+      { width: (
+        /*size*/
+        ctx[1]
+      ) },
+      { height: (
+        /*size*/
+        ctx[1]
+      ) },
+      { viewBox: (
+        /*viewBox*/
+        ctx[2]
+      ) },
+      {
+        style: svg_style_value = /*color*/
+        ctx[3] ? "color: " + /*color*/
+        ctx[3] + ";" : ""
+      },
+      { "stroke-width": "0" },
+      { class: (
+        /*className*/
+        ctx[4]
+      ) },
+      /*src*/
+      ctx[0].a,
+      /*attr*/
+      ctx[6],
+      { xmlns: "http://www.w3.org/2000/svg" }
+    ];
+    let svg_data = {};
+    for (let i = 0; i < svg_levels.length; i += 1) {
+      svg_data = assign(svg_data, svg_levels[i]);
+    }
+    return {
+      c() {
+        svg = svg_element("svg");
+        set_svg_attributes(svg, svg_data);
+      },
+      m(target, anchor) {
+        insert(target, svg, anchor);
+        svg.innerHTML = /*innerHtml*/
+        ctx[5];
+      },
+      p(ctx2, [dirty]) {
+        if (dirty & /*innerHtml*/
+        32)
+          svg.innerHTML = /*innerHtml*/
+          ctx2[5];
+        ;
+        set_svg_attributes(svg, svg_data = get_spread_update(svg_levels, [
+          dirty & /*size*/
+          2 && { width: (
+            /*size*/
+            ctx2[1]
+          ) },
+          dirty & /*size*/
+          2 && { height: (
+            /*size*/
+            ctx2[1]
+          ) },
+          dirty & /*viewBox*/
+          4 && { viewBox: (
+            /*viewBox*/
+            ctx2[2]
+          ) },
+          dirty & /*color*/
+          8 && svg_style_value !== (svg_style_value = /*color*/
+          ctx2[3] ? "color: " + /*color*/
+          ctx2[3] + ";" : "") && { style: svg_style_value },
+          { "stroke-width": "0" },
+          dirty & /*className*/
+          16 && { class: (
+            /*className*/
+            ctx2[4]
+          ) },
+          dirty & /*src*/
+          1 && /*src*/
+          ctx2[0].a,
+          dirty & /*attr*/
+          64 && /*attr*/
+          ctx2[6],
+          { xmlns: "http://www.w3.org/2000/svg" }
+        ]));
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(svg);
+        }
+      }
+    };
+  }
+  function instance2($self, $props, $invalidate) {
+    let { src } = $props;
+    let { size = "1em" } = $props;
+    let { viewBox = void 0 } = $props;
+    let { color = "currentColor" } = $props;
+    let { title = void 0 } = $props;
+    let { className = "" } = $props;
+    let innerHtml;
+    let attr2 = {};
+    $self.$set = ($props2) => {
+      if ("src" in $props2)
+        $invalidate(0, src = $props2.src);
+      if ("size" in $props2)
+        $invalidate(1, size = $props2.size);
+      if ("viewBox" in $props2)
+        $invalidate(2, viewBox = $props2.viewBox);
+      if ("color" in $props2)
+        $invalidate(3, color = $props2.color);
+      if ("title" in $props2)
+        $invalidate(7, title = $props2.title);
+      if ("className" in $props2)
+        $invalidate(4, className = $props2.className);
+    };
+    $self.$.update = () => {
+      if ($self.$.dirty & /*color, src*/
+      9) {
+        $: {
+          $invalidate(6, attr2 = {});
+          if (color) {
+            if (src.a.stroke !== "none") {
+              $invalidate(6, attr2.stroke = "currentColor", attr2);
+            }
+            if (src.a.fill !== "none") {
+              $invalidate(6, attr2.fill = "currentColor", attr2);
+            }
+          }
+        }
+      }
+      if ($self.$.dirty & /*title, src*/
+      129) {
+        $: {
+          $invalidate(5, innerHtml = (title ? `<title>${title}</title>` : "") + src.c);
+        }
+      }
+    };
+    return [src, size, viewBox, color, className, innerHtml, attr2, title];
+  }
+  var Icon = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance2, create_fragment2, safe_not_equal, {
+        src: 0,
+        size: 1,
+        viewBox: 2,
+        color: 3,
+        title: 7,
+        className: 4
+      });
+    }
+  };
+  var Icon_default = Icon;
+
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ri/index.js
+  var RiUserFacesUserLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H18C18 18.6863 15.3137 16 12 16C8.68629 16 6 18.6863 6 22H4ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11Z"></path>' };
+  var RiSystemAddLargeFill = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M11 11.0001L11 2.0005L13 2.00049L13 11.0001L22.0001 10.9999L22.0002 12.9999L13 13.0001L13.0001 22L11.0001 22L11.0001 13.0001L2.00004 13.0003L2 11.0003L11 11.0001Z"></path>' };
+
+  // _components/partials/Navbar.svelte
+  function create_fragment3(ctx) {
+    let header;
+    let div0;
+    let t1;
+    let div1;
+    let a1;
+    let span;
+    let t2;
+    let t3;
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: { src: RiUserFacesUserLine, size: "15" }
+    });
+    return {
+      c() {
+        header = element("header");
+        div0 = element("div");
+        div0.innerHTML = `<a href="/" class="logo svelte-14u710g"><h2>HapSTR</h2></a>`;
+        t1 = space();
+        div1 = element("div");
+        a1 = element("a");
+        span = element("span");
+        t2 = text(
+          /*username*/
+          ctx[0]
+        );
+        t3 = space();
+        create_component(icon.$.fragment);
+        attr(div0, "class", "label svelte-14u710g");
+        attr(a1, "href", "/user");
+        attr(a1, "class", "user svelte-14u710g");
+        attr(div1, "class", "user-info svelte-14u710g");
+        attr(header, "class", "svelte-14u710g");
+      },
+      m(target, anchor) {
+        insert(target, header, anchor);
+        append(header, div0);
+        append(header, t1);
+        append(header, div1);
+        append(div1, a1);
+        append(a1, span);
+        append(span, t2);
+        append(a1, t3);
+        mount_component(icon, a1, null);
+        current = true;
+      },
+      p(ctx2, [dirty]) {
+        if (!current || dirty & /*username*/
+        1)
+          set_data(
+            t2,
+            /*username*/
+            ctx2[0]
+          );
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(header);
+        }
+        destroy_component(icon);
+      }
+    };
+  }
+  function instance3($self, $props, $invalidate) {
+    let { username = (
+      /** @type {string} */
+      "unknown"
+    ) } = $props;
+    $self.$set = ($props2) => {
+      if ("username" in $props2)
+        $invalidate(0, username = $props2.username);
+    };
+    return [username];
+  }
+  var Navbar = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance3, create_fragment3, safe_not_equal, { username: 0 });
+    }
+  };
+  var Navbar_default = Navbar;
+
+  // _components/partials/Footer.svelte
+  function create_fragment4(ctx) {
+    let footer;
+    let p;
+    let t2;
+    let nav;
+    return {
+      c() {
+        footer = element("footer");
+        p = element("p");
+        p.textContent = `Copyright \xA9 ${/*year*/
+        ctx[0]}`;
+        t2 = space();
+        nav = element("nav");
+        nav.innerHTML = `<a href="/privacy" class="svelte-1tm73ji">Privacy</a> <a href="/tos" class="svelte-1tm73ji">Terms and Conditions</a> <a href="/about" class="svelte-1tm73ji">About Us</a>`;
+        attr(nav, "class", "svelte-1tm73ji");
+        attr(footer, "class", "svelte-1tm73ji");
+      },
+      m(target, anchor) {
+        insert(target, footer, anchor);
+        append(footer, p);
+        append(footer, t2);
+        append(footer, nav);
+      },
+      p: noop,
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(footer);
+        }
+      }
+    };
+  }
+  function instance4($self) {
+    const year = (
+      /** @type {number} */
+      new Date().getFullYear()
+    );
+    return [year];
+  }
+  var Footer = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance4, create_fragment4, safe_not_equal, {});
+    }
+  };
+  var Footer_default = Footer;
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/store/index.js
   var subscriber_queue = [];
@@ -4577,6 +5063,317 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     return { set, update: update2, subscribe: subscribe2 };
   }
+
+  // _states/page.js
+  var isShrinkMenu = (
+    /** @type {import('svelte/store').Writable<boolean>} */
+    writable(false)
+  );
+
+  // _layouts/Main.svelte
+  function create_fragment5(ctx) {
+    let div2;
+    let div1;
+    let navbar;
+    let t0;
+    let div0;
+    let sidemenu;
+    let t1;
+    let main;
+    let t2;
+    let footer;
+    let div0_class_value;
+    let current;
+    navbar = new Navbar_default({
+      props: { username: (
+        /*user*/
+        ctx[0].userName
+      ) }
+    });
+    sidemenu = new SideMenu_default({ props: { access: (
+      /*access*/
+      ctx[1]
+    ) } });
+    const default_slot_template = (
+      /*#slots*/
+      ctx[4].default
+    );
+    const default_slot = create_slot(
+      default_slot_template,
+      ctx,
+      /*$scope*/
+      ctx[3],
+      null
+    );
+    footer = new Footer_default({});
+    return {
+      c() {
+        div2 = element("div");
+        div1 = element("div");
+        create_component(navbar.$.fragment);
+        t0 = space();
+        div0 = element("div");
+        create_component(sidemenu.$.fragment);
+        t1 = space();
+        main = element("main");
+        if (default_slot)
+          default_slot.c();
+        t2 = space();
+        create_component(footer.$.fragment);
+        attr(main, "class", "content svelte-pbt6ik");
+        attr(div0, "class", div0_class_value = "root_content " + /*$isShrinkMenu*/
+        (ctx[2] ? "shrink" : "expand") + " svelte-pbt6ik");
+        attr(div1, "class", "root_container svelte-pbt6ik");
+        attr(div2, "class", "root_layout svelte-pbt6ik");
+      },
+      m(target, anchor) {
+        insert(target, div2, anchor);
+        append(div2, div1);
+        mount_component(navbar, div1, null);
+        append(div1, t0);
+        append(div1, div0);
+        mount_component(sidemenu, div0, null);
+        append(div0, t1);
+        append(div0, main);
+        if (default_slot) {
+          default_slot.m(main, null);
+        }
+        append(main, t2);
+        mount_component(footer, main, null);
+        current = true;
+      },
+      p(ctx2, [dirty]) {
+        const navbar_changes = {};
+        if (dirty & /*user*/
+        1)
+          navbar_changes.username = /*user*/
+          ctx2[0].userName;
+        navbar.$set(navbar_changes);
+        const sidemenu_changes = {};
+        if (dirty & /*access*/
+        2)
+          sidemenu_changes.access = /*access*/
+          ctx2[1];
+        sidemenu.$set(sidemenu_changes);
+        if (default_slot) {
+          if (default_slot.p && (!current || dirty & /*$scope*/
+          8)) {
+            update_slot_base(
+              default_slot,
+              default_slot_template,
+              ctx2,
+              /*$scope*/
+              ctx2[3],
+              !current ? get_all_dirty_from_scope(
+                /*$scope*/
+                ctx2[3]
+              ) : get_slot_changes(
+                default_slot_template,
+                /*$scope*/
+                ctx2[3],
+                dirty,
+                null
+              ),
+              null
+            );
+          }
+        }
+        if (!current || dirty & /*$isShrinkMenu*/
+        4 && div0_class_value !== (div0_class_value = "root_content " + /*$isShrinkMenu*/
+        (ctx2[2] ? "shrink" : "expand") + " svelte-pbt6ik")) {
+          attr(div0, "class", div0_class_value);
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(navbar.$.fragment, local);
+        transition_in(sidemenu.$.fragment, local);
+        transition_in(default_slot, local);
+        transition_in(footer.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(navbar.$.fragment, local);
+        transition_out(sidemenu.$.fragment, local);
+        transition_out(default_slot, local);
+        transition_out(footer.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div2);
+        }
+        destroy_component(navbar);
+        destroy_component(sidemenu);
+        if (default_slot)
+          default_slot.d(detaching);
+        destroy_component(footer);
+      }
+    };
+  }
+  function instance5($self, $props, $invalidate) {
+    let $isShrinkMenu;
+    component_subscribe($self, isShrinkMenu, ($value) => $invalidate(2, $isShrinkMenu = $value));
+    let { $slots: slots = {}, $scope } = $props;
+    let { user: user2 = (
+      /** @type {User} */
+      {}
+    ) } = $props;
+    let { access: access2 = (
+      /** @type {Access} */
+      {}
+    ) } = $props;
+    $self.$set = ($props2) => {
+      if ("user" in $props2)
+        $invalidate(0, user2 = $props2.user);
+      if ("access" in $props2)
+        $invalidate(1, access2 = $props2.access);
+      if ("$scope" in $props2)
+        $invalidate(3, $scope = $props2.$scope);
+    };
+    return [user2, access2, $isShrinkMenu, $scope, slots];
+  }
+  var Main = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance5, create_fragment5, safe_not_equal, { user: 0, access: 1 });
+    }
+  };
+  var Main_default = Main;
+
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/fa/index.js
+  var FaSolidMapLocationDot = { a: { viewBox: "0 0 576 512" }, c: '<path d="M408 120c0 54.6-73.1 151.9-105.2 192c-7.7 9.6-22 9.6-29.6 0C241.1 271.9 168 174.6 168 120C168 53.7 221.7 0 288 0s120 53.7 120 120zm8 80.4c3.5-6.9 6.7-13.8 9.6-20.6c.5-1.2 1-2.5 1.5-3.7l116-46.4C558.9 123.4 576 135 576 152V422.8c0 9.8-6 18.6-15.1 22.3L416 503V200.4zM137.6 138.3c2.4 14.1 7.2 28.3 12.8 41.5c2.9 6.8 6.1 13.7 9.6 20.6V451.8L32.9 502.7C17.1 509 0 497.4 0 480.4V209.6c0-9.8 6-18.6 15.1-22.3l122.6-49zM327.8 332c13.9-17.4 35.7-45.7 56.2-77V504.3L192 449.4V255c20.5 31.3 42.3 59.6 56.2 77c20.5 25.6 59.1 25.6 79.6 0zM288 152a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"></path>' };
+  var FaSolidHouse = { a: { viewBox: "0 0 576 512" }, c: '<path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"></path>' };
+  var FaSolidBed = { a: { viewBox: "0 0 640 512" }, c: '<path d="M32 32c17.7 0 32 14.3 32 32V320H288V160c0-17.7 14.3-32 32-32H544c53 0 96 43 96 96V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H352 320 64v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V64C0 46.3 14.3 32 32 32zm144 96a80 80 0 1 1 0 160 80 80 0 1 1 0-160z"></path>' };
+  var FaSolidBath = { a: { viewBox: "0 0 512 512" }, c: '<path d="M96 77.3c0-7.3 5.9-13.3 13.3-13.3c3.5 0 6.9 1.4 9.4 3.9l14.9 14.9C130 91.8 128 101.7 128 112c0 19.9 7.2 38 19.2 52c-5.3 9.2-4 21.1 3.8 29c9.4 9.4 24.6 9.4 33.9 0L289 89c9.4-9.4 9.4-24.6 0-33.9c-7.9-7.9-19.8-9.1-29-3.8C246 39.2 227.9 32 208 32c-10.3 0-20.2 2-29.2 5.5L163.9 22.6C149.4 8.1 129.7 0 109.3 0C66.6 0 32 34.6 32 77.3V256c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H96V77.3zM32 352v16c0 28.4 12.4 54 32 71.6V480c0 17.7 14.3 32 32 32s32-14.3 32-32V464H384v16c0 17.7 14.3 32 32 32s32-14.3 32-32V439.6c19.6-17.6 32-43.1 32-71.6V352H32z"></path>' };
+  var FaSolidPen = { a: { viewBox: "0 0 512 512" }, c: '<path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"></path>' };
+  var FaSolidBorderTopLeft = { a: { viewBox: "0 0 448 512" }, c: '<path d="M0 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-336c0-8.8 7.2-16 16-16l336 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L80 32C35.8 32 0 67.8 0 112L0 448zm160 0a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm192 0a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm-96 0a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm192 0a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM416 288a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm0 32a32 32 0 1 0 0 64 32 32 0 1 0 0-64zm0-128a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"></path>' };
+  var FaSolidChair = { a: { viewBox: "0 0 448 512" }, c: '<path d="M248 48V256h48V58.7c23.9 13.8 40 39.7 40 69.3V256h48V128C384 57.3 326.7 0 256 0H192C121.3 0 64 57.3 64 128V256h48V128c0-29.6 16.1-55.5 40-69.3V256h48V48h48zM48 288c-12.1 0-23.2 6.8-28.6 17.7l-16 32c-5 9.9-4.4 21.7 1.4 31.1S20.9 384 32 384l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32V384H352v96c0 17.7 14.3 32 32 32s32-14.3 32-32V384c11.1 0 21.4-5.7 27.2-15.2s6.4-21.2 1.4-31.1l-16-32C423.2 294.8 412.1 288 400 288H48z"></path>' };
+
+  // _components/PillBox.svelte
+  function create_if_block2(ctx) {
+    let span2;
+    let span0;
+    let t0;
+    let t1;
+    let span1;
+    let t2;
+    return {
+      c() {
+        span2 = element("span");
+        span0 = element("span");
+        t0 = text(
+          /*label*/
+          ctx[0]
+        );
+        t1 = space();
+        span1 = element("span");
+        t2 = text(
+          /*content*/
+          ctx[1]
+        );
+        attr(span0, "class", "pill-box-left svelte-1x7s25u");
+        attr(span1, "class", "pill-box-right svelte-1x7s25u");
+        attr(span2, "class", "pill-box pill-blue svelte-1x7s25u");
+      },
+      m(target, anchor) {
+        insert(target, span2, anchor);
+        append(span2, span0);
+        append(span0, t0);
+        append(span2, t1);
+        append(span2, span1);
+        append(span1, t2);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*label*/
+        1)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[0]
+          );
+        if (dirty & /*content*/
+        2)
+          set_data(
+            t2,
+            /*content*/
+            ctx2[1]
+          );
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span2);
+        }
+      }
+    };
+  }
+  function create_fragment6(ctx) {
+    let if_block_anchor;
+    let if_block = (
+      /*content*/
+      ctx[1] && create_if_block2(ctx)
+    );
+    return {
+      c() {
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, [dirty]) {
+        if (
+          /*content*/
+          ctx2[1]
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+          } else {
+            if_block = create_if_block2(ctx2);
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          if_block.d(1);
+          if_block = null;
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
+      }
+    };
+  }
+  function instance6($self, $props, $invalidate) {
+    let { label = "label" } = $props;
+    let { content = "" } = $props;
+    $self.$set = ($props2) => {
+      if ("label" in $props2)
+        $invalidate(0, label = $props2.label);
+      if ("content" in $props2)
+        $invalidate(1, content = $props2.content);
+    };
+    return [label, content];
+  }
+  var PillBox = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance6, create_fragment6, safe_not_equal, { label: 0, content: 1 });
+    }
+  };
+  var PillBox_default = PillBox;
+
+  // _components/OwnedProperty.svelte
+  var import_formatter = __toESM(require_formatter());
 
   // translation.json
   var translation_default = {
@@ -4713,11 +5510,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   // _components/uiState.js
   var isSideMenuOpen = writable(false);
   var original = translation_default;
-  var langOptions = {
-    en: "EN",
-    tw: "TW"
-    // add more languages here
-  };
   function translationStore() {
     let currentLang = "";
     if (window && window.localStorage) {
@@ -4757,1988 +5549,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   }
   var T = translationStore();
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/Icon.svelte
-  function create_fragment(ctx) {
-    let svg;
-    let svg_style_value;
-    let svg_levels = [
-      { width: (
-        /*size*/
-        ctx[1]
-      ) },
-      { height: (
-        /*size*/
-        ctx[1]
-      ) },
-      { viewBox: (
-        /*viewBox*/
-        ctx[2]
-      ) },
-      {
-        style: svg_style_value = /*color*/
-        ctx[3] ? "color: " + /*color*/
-        ctx[3] + ";" : ""
-      },
-      { "stroke-width": "0" },
-      { class: (
-        /*className*/
-        ctx[4]
-      ) },
-      /*src*/
-      ctx[0].a,
-      /*attr*/
-      ctx[6],
-      { xmlns: "http://www.w3.org/2000/svg" }
-    ];
-    let svg_data = {};
-    for (let i = 0; i < svg_levels.length; i += 1) {
-      svg_data = assign(svg_data, svg_levels[i]);
-    }
-    return {
-      c() {
-        svg = svg_element("svg");
-        set_svg_attributes(svg, svg_data);
-      },
-      m(target, anchor) {
-        insert(target, svg, anchor);
-        svg.innerHTML = /*innerHtml*/
-        ctx[5];
-      },
-      p(ctx2, [dirty]) {
-        if (dirty & /*innerHtml*/
-        32)
-          svg.innerHTML = /*innerHtml*/
-          ctx2[5];
-        ;
-        set_svg_attributes(svg, svg_data = get_spread_update(svg_levels, [
-          dirty & /*size*/
-          2 && { width: (
-            /*size*/
-            ctx2[1]
-          ) },
-          dirty & /*size*/
-          2 && { height: (
-            /*size*/
-            ctx2[1]
-          ) },
-          dirty & /*viewBox*/
-          4 && { viewBox: (
-            /*viewBox*/
-            ctx2[2]
-          ) },
-          dirty & /*color*/
-          8 && svg_style_value !== (svg_style_value = /*color*/
-          ctx2[3] ? "color: " + /*color*/
-          ctx2[3] + ";" : "") && { style: svg_style_value },
-          { "stroke-width": "0" },
-          dirty & /*className*/
-          16 && { class: (
-            /*className*/
-            ctx2[4]
-          ) },
-          dirty & /*src*/
-          1 && /*src*/
-          ctx2[0].a,
-          dirty & /*attr*/
-          64 && /*attr*/
-          ctx2[6],
-          { xmlns: "http://www.w3.org/2000/svg" }
-        ]));
-      },
-      i: noop,
-      o: noop,
-      d(detaching) {
-        if (detaching) {
-          detach(svg);
-        }
-      }
-    };
-  }
-  function instance($self, $props, $invalidate) {
-    let { src } = $props;
-    let { size = "1em" } = $props;
-    let { viewBox = void 0 } = $props;
-    let { color = "currentColor" } = $props;
-    let { title = void 0 } = $props;
-    let { className = "" } = $props;
-    let innerHtml;
-    let attr2 = {};
-    $self.$set = ($props2) => {
-      if ("src" in $props2)
-        $invalidate(0, src = $props2.src);
-      if ("size" in $props2)
-        $invalidate(1, size = $props2.size);
-      if ("viewBox" in $props2)
-        $invalidate(2, viewBox = $props2.viewBox);
-      if ("color" in $props2)
-        $invalidate(3, color = $props2.color);
-      if ("title" in $props2)
-        $invalidate(7, title = $props2.title);
-      if ("className" in $props2)
-        $invalidate(4, className = $props2.className);
-    };
-    $self.$.update = () => {
-      if ($self.$.dirty & /*color, src*/
-      9) {
-        $: {
-          $invalidate(6, attr2 = {});
-          if (color) {
-            if (src.a.stroke !== "none") {
-              $invalidate(6, attr2.stroke = "currentColor", attr2);
-            }
-            if (src.a.fill !== "none") {
-              $invalidate(6, attr2.fill = "currentColor", attr2);
-            }
-          }
-        }
-      }
-      if ($self.$.dirty & /*title, src*/
-      129) {
-        $: {
-          $invalidate(5, innerHtml = (title ? `<title>${title}</title>` : "") + src.c);
-        }
-      }
-    };
-    return [src, size, viewBox, color, className, innerHtml, attr2, title];
-  }
-  var Icon = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(this, options, instance, create_fragment, safe_not_equal, {
-        src: 0,
-        size: 1,
-        viewBox: 2,
-        color: 3,
-        title: 7,
-        className: 4
-      });
-    }
-  };
-  var Icon_default = Icon;
-
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/fa/index.js
-  var FaSolidMapLocationDot = { a: { viewBox: "0 0 576 512" }, c: '<path d="M408 120c0 54.6-73.1 151.9-105.2 192c-7.7 9.6-22 9.6-29.6 0C241.1 271.9 168 174.6 168 120C168 53.7 221.7 0 288 0s120 53.7 120 120zm8 80.4c3.5-6.9 6.7-13.8 9.6-20.6c.5-1.2 1-2.5 1.5-3.7l116-46.4C558.9 123.4 576 135 576 152V422.8c0 9.8-6 18.6-15.1 22.3L416 503V200.4zM137.6 138.3c2.4 14.1 7.2 28.3 12.8 41.5c2.9 6.8 6.1 13.7 9.6 20.6V451.8L32.9 502.7C17.1 509 0 497.4 0 480.4V209.6c0-9.8 6-18.6 15.1-22.3l122.6-49zM327.8 332c13.9-17.4 35.7-45.7 56.2-77V504.3L192 449.4V255c20.5 31.3 42.3 59.6 56.2 77c20.5 25.6 59.1 25.6 79.6 0zM288 152a40 40 0 1 0 0-80 40 40 0 1 0 0 80z"></path>' };
-  var FaSolidHouse = { a: { viewBox: "0 0 576 512" }, c: '<path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"></path>' };
-  var FaSolidBed = { a: { viewBox: "0 0 640 512" }, c: '<path d="M32 32c17.7 0 32 14.3 32 32V320H288V160c0-17.7 14.3-32 32-32H544c53 0 96 43 96 96V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H352 320 64v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V64C0 46.3 14.3 32 32 32zm144 96a80 80 0 1 1 0 160 80 80 0 1 1 0-160z"></path>' };
-  var FaSolidSliders = { a: { viewBox: "0 0 512 512" }, c: '<path d="M0 416c0 17.7 14.3 32 32 32l54.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 448c17.7 0 32-14.3 32-32s-14.3-32-32-32l-246.7 0c-12.3-28.3-40.5-48-73.3-48s-61 19.7-73.3 48L32 384c-17.7 0-32 14.3-32 32zm128 0a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM320 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm32-80c-32.8 0-61 19.7-73.3 48L32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l246.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48l54.7 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-54.7 0c-12.3-28.3-40.5-48-73.3-48zM192 128a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm73.3-64C253 35.7 224.8 16 192 16s-61 19.7-73.3 48L32 64C14.3 64 0 78.3 0 96s14.3 32 32 32l86.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 128c17.7 0 32-14.3 32-32s-14.3-32-32-32L265.3 64z"></path>' };
-  var FaSolidBagShopping = { a: { viewBox: "0 0 448 512" }, c: '<path d="M160 112c0-35.3 28.7-64 64-64s64 28.7 64 64v48H160V112zm-48 48H48c-26.5 0-48 21.5-48 48V416c0 53 43 96 96 96H352c53 0 96-43 96-96V208c0-26.5-21.5-48-48-48H336V112C336 50.1 285.9 0 224 0S112 50.1 112 112v48zm24 48a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm152 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z"></path>' };
-  var FaSolidBath = { a: { viewBox: "0 0 512 512" }, c: '<path d="M96 77.3c0-7.3 5.9-13.3 13.3-13.3c3.5 0 6.9 1.4 9.4 3.9l14.9 14.9C130 91.8 128 101.7 128 112c0 19.9 7.2 38 19.2 52c-5.3 9.2-4 21.1 3.8 29c9.4 9.4 24.6 9.4 33.9 0L289 89c9.4-9.4 9.4-24.6 0-33.9c-7.9-7.9-19.8-9.1-29-3.8C246 39.2 227.9 32 208 32c-10.3 0-20.2 2-29.2 5.5L163.9 22.6C149.4 8.1 129.7 0 109.3 0C66.6 0 32 34.6 32 77.3V256c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H96V77.3zM32 352v16c0 28.4 12.4 54 32 71.6V480c0 17.7 14.3 32 32 32s32-14.3 32-32V464H384v16c0 17.7 14.3 32 32 32s32-14.3 32-32V439.6c19.6-17.6 32-43.1 32-71.6V352H32z"></path>' };
-  var FaSolidPen = { a: { viewBox: "0 0 512 512" }, c: '<path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z"></path>' };
-  var FaSolidCirclePlus = { a: { viewBox: "0 0 512 512" }, c: '<path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"></path>' };
-  var FaSolidBorderTopLeft = { a: { viewBox: "0 0 448 512" }, c: '<path d="M0 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-336c0-8.8 7.2-16 16-16l336 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L80 32C35.8 32 0 67.8 0 112L0 448zm160 0a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm192 0a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm-96 0a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm192 0a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zM416 288a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm0 32a32 32 0 1 0 0 64 32 32 0 1 0 0-64zm0-128a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"></path>' };
-  var FaSolidCircleXmark = { a: { viewBox: "0 0 512 512" }, c: '<path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"></path>' };
-  var FaSolidCircleUser = { a: { viewBox: "0 0 512 512" }, c: '<path d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"></path>' };
-  var FaSolidSignsPost = { a: { viewBox: "0 0 512 512" }, c: '<path d="M224 32H64C46.3 32 32 46.3 32 64v64c0 17.7 14.3 32 32 32H441.4c4.2 0 8.3-1.7 11.3-4.7l48-48c6.2-6.2 6.2-16.4 0-22.6l-48-48c-3-3-7.1-4.7-11.3-4.7H288c0-17.7-14.3-32-32-32s-32 14.3-32 32zM480 256c0-17.7-14.3-32-32-32H288V192H224v32H70.6c-4.2 0-8.3 1.7-11.3 4.7l-48 48c-6.2 6.2-6.2 16.4 0 22.6l48 48c3 3 7.1 4.7 11.3 4.7H448c17.7 0 32-14.3 32-32V256zM288 480V384H224v96c0 17.7 14.3 32 32 32s32-14.3 32-32z"></path>' };
-  var FaSolidPowerOff = { a: { viewBox: "0 0 512 512" }, c: '<path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V256c0 17.7 14.3 32 32 32s32-14.3 32-32V32zM143.5 120.6c13.6-11.3 15.4-31.5 4.1-45.1s-31.5-15.4-45.1-4.1C49.7 115.4 16 181.8 16 256c0 132.5 107.5 240 240 240s240-107.5 240-240c0-74.2-33.8-140.6-86.6-184.6c-13.6-11.3-33.8-9.4-45.1 4.1s-9.4 33.8 4.1 45.1c38.9 32.3 63.5 81 63.5 135.4c0 97.2-78.8 176-176 176s-176-78.8-176-176c0-54.4 24.7-103.1 63.5-135.4z"></path>' };
-  var FaSolidBars = { a: { viewBox: "0 0 448 512" }, c: '<path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"></path>' };
-  var FaSolidChair = { a: { viewBox: "0 0 448 512" }, c: '<path d="M248 48V256h48V58.7c23.9 13.8 40 39.7 40 69.3V256h48V128C384 57.3 326.7 0 256 0H192C121.3 0 64 57.3 64 128V256h48V128c0-29.6 16.1-55.5 40-69.3V256h48V48h48zM48 288c-12.1 0-23.2 6.8-28.6 17.7l-16 32c-5 9.9-4.4 21.7 1.4 31.1S20.9 384 32 384l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32V384H352v96c0 17.7 14.3 32 32 32s32-14.3 32-32V384c11.1 0 21.4-5.7 27.2-15.2s6.4-21.2 1.4-31.1l-16-32C423.2 294.8 412.1 288 400 288H48z"></path>' };
-  var FaSolidBuilding = { a: { viewBox: "0 0 384 512" }, c: '<path d="M48 0C21.5 0 0 21.5 0 48V464c0 26.5 21.5 48 48 48h96V432c0-26.5 21.5-48 48-48s48 21.5 48 48v80h96c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H48zM64 240c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V240zm112-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V240zM80 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16zm80 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H176c-8.8 0-16-7.2-16-16V112zM272 96h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H272c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16z"></path>' };
-  var FaCommentDots = { a: { viewBox: "0 0 512 512" }, c: '<path d="M168.2 384.9c-15-5.4-31.7-3.1-44.6 6.4c-8.2 6-22.3 14.8-39.4 22.7c5.6-14.7 9.9-31.3 11.3-49.4c1-12.9-3.3-25.7-11.8-35.5C60.4 302.8 48 272 48 240c0-79.5 83.3-160 208-160s208 80.5 208 160s-83.3 160-208 160c-31.6 0-61.3-5.5-87.8-15.1zM26.3 423.8c-1.6 2.7-3.3 5.4-5.1 8.1l-.3 .5c-1.6 2.3-3.2 4.6-4.8 6.9c-3.5 4.7-7.3 9.3-11.3 13.5c-4.6 4.6-5.9 11.4-3.4 17.4c2.5 6 8.3 9.9 14.8 9.9c5.1 0 10.2-.3 15.3-.8l.7-.1c4.4-.5 8.8-1.1 13.2-1.9c.8-.1 1.6-.3 2.4-.5c17.8-3.5 34.9-9.5 50.1-16.1c22.9-10 42.4-21.9 54.3-30.6c31.8 11.5 67 17.9 104.1 17.9c141.4 0 256-93.1 256-208S397.4 32 256 32S0 125.1 0 240c0 45.1 17.7 86.8 47.7 120.9c-1.9 24.5-11.4 46.3-21.4 62.9zM144 272a32 32 0 1 0 0-64 32 32 0 1 0 0 64zm144-32a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm80 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"></path>' };
-
-  // _components/notifier.js
-  var Notifier = function() {
-    let a = {
-      container: null,
-      default_time: 4500,
-      vanish_time: 300,
-      fps: 30,
-      success: {
-        classes: "alert-success",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
-      },
-      error: {
-        classes: "alert-danger",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
-      },
-      warning: {
-        classes: "alert-warning",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
-      },
-      info: {
-        classes: "alert-info",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
-      }
-    }, b = function(a2, b2, c, d, e, f, g) {
-      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
-      let h = document.createElement("p");
-      h.className = "progress", this.element.appendChild(h), this.callback = g;
-      let j = this;
-      this.push = function() {
-        if (!j.pushed) {
-          j.pushed = true;
-          let a3 = 0, b3 = 1e3 / f;
-          j.element.style.display = "block", j.interval = setInterval(function() {
-            a3++;
-            let c2 = 100 * (1 - b3 * a3 / d);
-            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
-          }, b3);
-        }
-      }, this.clear = function() {
-        if (j.pushed) {
-          let a3 = 1e3 / f, b3 = 1;
-          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
-            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
-          }, a3);
-        }
-      }, this.destroy = function() {
-        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
-      };
-    };
-    return function Notifier2(c) {
-      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
-        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
-      };
-      this.showInfo = function(infoMsg) {
-        let notification = this.notify("info", infoMsg);
-        notification.push();
-      };
-      this.showSuccess = function(okMsg) {
-        let notification = this.notify("success", okMsg);
-        notification.push();
-      };
-      this.showError = function(errMsg) {
-        let notification = this.notify("error", errMsg);
-        notification.push();
-      };
-      this.showWarning = function(warnMsg) {
-        let notification = this.notify("warning", warnMsg);
-        notification.push();
-      };
-    };
-  }();
-  var notifier = new Notifier();
-
-  // _components/Menu.svelte
-  function create_if_block_5(ctx) {
-    let button;
-    let mounted;
-    let dispose;
-    return {
-      c() {
-        button = element("button");
-        attr(button, "class", "backdrop svelte-1aq7k0c");
-      },
-      m(target, anchor) {
-        insert(target, button, anchor);
-        if (!mounted) {
-          dispose = listen(
-            button,
-            "click",
-            /*click_handler*/
-            ctx[5]
-          );
-          mounted = true;
-        }
-      },
-      p: noop,
-      d(detaching) {
-        if (detaching) {
-          detach(button);
-        }
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block_4(ctx) {
-    let a;
-    let icon;
-    let t0;
-    let span;
-    let current;
-    icon = new Icon_default({
-      props: {
-        size: "22",
-        className: (
-          /*segment1*/
-          ctx[2] === "buyer" ? "icon_active" : "icon_dark"
-        ),
-        src: FaSolidBagShopping
-      }
-    });
-    return {
-      c() {
-        a = element("a");
-        create_component(icon.$.fragment);
-        t0 = space();
-        span = element("span");
-        span.textContent = "BUYER";
-        attr(a, "href", "/buyer");
-        attr(a, "class", "svelte-1aq7k0c");
-        toggle_class(
-          a,
-          "active",
-          /*segment1*/
-          ctx[2] === "buyer"
-        );
-      },
-      m(target, anchor) {
-        insert(target, a, anchor);
-        mount_component(icon, a, null);
-        append(a, t0);
-        append(a, span);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        const icon_changes = {};
-        if (dirty & /*segment1*/
-        4)
-          icon_changes.className = /*segment1*/
-          ctx2[2] === "buyer" ? "icon_active" : "icon_dark";
-        icon.$set(icon_changes);
-        if (!current || dirty & /*segment1*/
-        4) {
-          toggle_class(
-            a,
-            "active",
-            /*segment1*/
-            ctx2[2] === "buyer"
-          );
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(a);
-        }
-        destroy_component(icon);
-      }
-    };
-  }
-  function create_if_block_3(ctx) {
-    let a;
-    let icon;
-    let t0;
-    let span;
-    let current;
-    icon = new Icon_default({
-      props: {
-        size: "20",
-        className: (
-          /*segment1*/
-          ctx[2] === "realtor" ? "icon_active" : "icon_dark"
-        ),
-        src: FaSolidBuilding
-      }
-    });
-    return {
-      c() {
-        a = element("a");
-        create_component(icon.$.fragment);
-        t0 = space();
-        span = element("span");
-        span.textContent = "REALTOR";
-        attr(a, "href", "/realtor");
-        attr(a, "class", "svelte-1aq7k0c");
-        toggle_class(
-          a,
-          "active",
-          /*segment1*/
-          ctx[2] === "realtor"
-        );
-      },
-      m(target, anchor) {
-        insert(target, a, anchor);
-        mount_component(icon, a, null);
-        append(a, t0);
-        append(a, span);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        const icon_changes = {};
-        if (dirty & /*segment1*/
-        4)
-          icon_changes.className = /*segment1*/
-          ctx2[2] === "realtor" ? "icon_active" : "icon_dark";
-        icon.$set(icon_changes);
-        if (!current || dirty & /*segment1*/
-        4) {
-          toggle_class(
-            a,
-            "active",
-            /*segment1*/
-            ctx2[2] === "realtor"
-          );
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(a);
-        }
-        destroy_component(icon);
-      }
-    };
-  }
-  function create_if_block_2(ctx) {
-    let a;
-    let icon;
-    let t0;
-    let span;
-    let current;
-    icon = new Icon_default({
-      props: {
-        size: "20",
-        className: (
-          /*segment1*/
-          ctx[2] === "admin" ? "icon_active" : "icon_dark"
-        ),
-        src: FaSolidSliders
-      }
-    });
-    return {
-      c() {
-        a = element("a");
-        create_component(icon.$.fragment);
-        t0 = space();
-        span = element("span");
-        span.textContent = "ADMIN";
-        attr(a, "href", "/admin");
-        attr(a, "class", "svelte-1aq7k0c");
-        toggle_class(
-          a,
-          "active",
-          /*segment1*/
-          ctx[2] === "admin"
-        );
-      },
-      m(target, anchor) {
-        insert(target, a, anchor);
-        mount_component(icon, a, null);
-        append(a, t0);
-        append(a, span);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        const icon_changes = {};
-        if (dirty & /*segment1*/
-        4)
-          icon_changes.className = /*segment1*/
-          ctx2[2] === "admin" ? "icon_active" : "icon_dark";
-        icon.$set(icon_changes);
-        if (!current || dirty & /*segment1*/
-        4) {
-          toggle_class(
-            a,
-            "active",
-            /*segment1*/
-            ctx2[2] === "admin"
-          );
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(a);
-        }
-        destroy_component(icon);
-      }
-    };
-  }
-  function create_if_block_1(ctx) {
-    let a;
-    let icon;
-    let t0;
-    let span;
-    let current;
-    icon = new Icon_default({
-      props: {
-        size: "22",
-        className: (
-          /*segment1*/
-          ctx[2] === "user" ? "icon_active" : "icon_dark"
-        ),
-        src: FaSolidCircleUser
-      }
-    });
-    return {
-      c() {
-        a = element("a");
-        create_component(icon.$.fragment);
-        t0 = space();
-        span = element("span");
-        span.textContent = "PROFILE";
-        attr(a, "href", "/user");
-        attr(a, "class", "svelte-1aq7k0c");
-        toggle_class(
-          a,
-          "active",
-          /*segment1*/
-          ctx[2] === "user"
-        );
-      },
-      m(target, anchor) {
-        insert(target, a, anchor);
-        mount_component(icon, a, null);
-        append(a, t0);
-        append(a, span);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        const icon_changes = {};
-        if (dirty & /*segment1*/
-        4)
-          icon_changes.className = /*segment1*/
-          ctx2[2] === "user" ? "icon_active" : "icon_dark";
-        icon.$set(icon_changes);
-        if (!current || dirty & /*segment1*/
-        4) {
-          toggle_class(
-            a,
-            "active",
-            /*segment1*/
-            ctx2[2] === "user"
-          );
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(a);
-        }
-        destroy_component(icon);
-      }
-    };
-  }
-  function create_if_block(ctx) {
-    let button;
-    let icon;
-    let t0;
-    let span;
-    let current;
-    let mounted;
-    let dispose;
-    icon = new Icon_default({
-      props: {
-        size: "22",
-        className: "icon_dark",
-        src: FaSolidSignsPost
-      }
-    });
-    return {
-      c() {
-        button = element("button");
-        create_component(icon.$.fragment);
-        t0 = space();
-        span = element("span");
-        span.textContent = "LOGOUT";
-        attr(button, "class", "logout svelte-1aq7k0c");
-      },
-      m(target, anchor) {
-        insert(target, button, anchor);
-        mount_component(icon, button, null);
-        append(button, t0);
-        append(button, span);
-        current = true;
-        if (!mounted) {
-          dispose = listen(
-            button,
-            "click",
-            /*userLogout*/
-            ctx[4]
-          );
-          mounted = true;
-        }
-      },
-      p: noop,
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(button);
-        }
-        destroy_component(icon);
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_fragment2(ctx) {
-    let t0;
-    let aside;
-    let div1;
-    let header;
-    let h3;
-    let t2;
-    let button;
-    let icon0;
-    let t3;
-    let div0;
-    let c0;
-    let t4;
-    let hr0;
-    let t5;
-    let h60;
-    let t7;
-    let nav0;
-    let a;
-    let icon1;
-    let t8;
-    let span;
-    let t10;
-    let t11;
-    let t12;
-    let t13;
-    let c1;
-    let t14;
-    let hr1;
-    let t15;
-    let h61;
-    let t17;
-    let nav1;
-    let t18;
-    let aside_class_value;
-    let current;
-    let mounted;
-    let dispose;
-    let if_block0 = (
-      /*$isSideMenuOpen*/
-      ctx[3] && create_if_block_5(ctx)
-    );
-    icon0 = new Icon_default({
-      props: {
-        color: "#475569",
-        size: "20",
-        src: FaSolidCircleXmark
-      }
-    });
-    icon1 = new Icon_default({
-      props: {
-        className: (
-          /*segment1*/
-          ctx[2] === "" ? "icon_active" : "icon_dark"
-        ),
-        size: "22",
-        src: FaSolidHouse
-      }
-    });
-    let if_block1 = (
-      /*access*/
-      ctx[1].buyer && create_if_block_4(ctx)
-    );
-    let if_block2 = (
-      /*access*/
-      ctx[1].realtor && create_if_block_3(ctx)
-    );
-    let if_block3 = (
-      /*access*/
-      ctx[1].admin && create_if_block_2(ctx)
-    );
-    let if_block4 = (
-      /*access*/
-      ctx[1].user && create_if_block_1(ctx)
-    );
-    let if_block5 = (
-      /*access*/
-      ctx[1].user && create_if_block(ctx)
-    );
-    return {
-      c() {
-        if (if_block0)
-          if_block0.c();
-        t0 = space();
-        aside = element("aside");
-        div1 = element("div");
-        header = element("header");
-        h3 = element("h3");
-        h3.textContent = "STREET";
-        t2 = space();
-        button = element("button");
-        create_component(icon0.$.fragment);
-        t3 = space();
-        div0 = element("div");
-        c0 = comment(" PAGES ");
-        t4 = space();
-        hr0 = element("hr");
-        t5 = space();
-        h60 = element("h6");
-        h60.textContent = "MENU";
-        t7 = space();
-        nav0 = element("nav");
-        a = element("a");
-        create_component(icon1.$.fragment);
-        t8 = space();
-        span = element("span");
-        span.textContent = "HOME";
-        t10 = space();
-        if (if_block1)
-          if_block1.c();
-        t11 = space();
-        if (if_block2)
-          if_block2.c();
-        t12 = space();
-        if (if_block3)
-          if_block3.c();
-        t13 = space();
-        c1 = comment(" SETTING ");
-        t14 = space();
-        hr1 = element("hr");
-        t15 = space();
-        h61 = element("h6");
-        h61.textContent = "SETTING";
-        t17 = space();
-        nav1 = element("nav");
-        if (if_block4)
-          if_block4.c();
-        t18 = space();
-        if (if_block5)
-          if_block5.c();
-        attr(h3, "class", "svelte-1aq7k0c");
-        attr(button, "class", "svelte-1aq7k0c");
-        attr(header, "class", "svelte-1aq7k0c");
-        attr(hr0, "class", "svelte-1aq7k0c");
-        attr(h60, "class", "svelte-1aq7k0c");
-        attr(a, "href", "/");
-        attr(a, "class", "svelte-1aq7k0c");
-        toggle_class(
-          a,
-          "active",
-          /*segment1*/
-          ctx[2] === ""
-        );
-        attr(nav0, "class", "menu svelte-1aq7k0c");
-        attr(hr1, "class", "svelte-1aq7k0c");
-        attr(h61, "class", "svelte-1aq7k0c");
-        attr(nav1, "class", "menu svelte-1aq7k0c");
-        attr(div0, "class", "menu_container svelte-1aq7k0c");
-        attr(div1, "class", "side_menu_admin_container svelte-1aq7k0c");
-        attr(aside, "class", aside_class_value = null_to_empty(
-          /*$isSideMenuOpen*/
-          ctx[3] ? `side_menu_admin open` : `side_menu_admin`
-        ) + " svelte-1aq7k0c");
-      },
-      m(target, anchor) {
-        if (if_block0)
-          if_block0.m(target, anchor);
-        insert(target, t0, anchor);
-        insert(target, aside, anchor);
-        append(aside, div1);
-        append(div1, header);
-        append(header, h3);
-        append(header, t2);
-        append(header, button);
-        mount_component(icon0, button, null);
-        append(div1, t3);
-        append(div1, div0);
-        append(div0, c0);
-        append(div0, t4);
-        append(div0, hr0);
-        append(div0, t5);
-        append(div0, h60);
-        append(div0, t7);
-        append(div0, nav0);
-        append(nav0, a);
-        mount_component(icon1, a, null);
-        append(a, t8);
-        append(a, span);
-        append(nav0, t10);
-        if (if_block1)
-          if_block1.m(nav0, null);
-        append(nav0, t11);
-        if (if_block2)
-          if_block2.m(nav0, null);
-        append(nav0, t12);
-        if (if_block3)
-          if_block3.m(nav0, null);
-        append(div0, t13);
-        append(div0, c1);
-        append(div0, t14);
-        append(div0, hr1);
-        append(div0, t15);
-        append(div0, h61);
-        append(div0, t17);
-        append(div0, nav1);
-        if (if_block4)
-          if_block4.m(nav1, null);
-        append(nav1, t18);
-        if (if_block5)
-          if_block5.m(nav1, null);
-        current = true;
-        if (!mounted) {
-          dispose = listen(button, "click", prevent_default(function() {
-            if (is_function(
-              /*doToggle*/
-              ctx[0]
-            ))
-              ctx[0].apply(this, arguments);
-          }));
-          mounted = true;
-        }
-      },
-      p(new_ctx, [dirty]) {
-        ctx = new_ctx;
-        if (
-          /*$isSideMenuOpen*/
-          ctx[3]
-        ) {
-          if (if_block0) {
-            if_block0.p(ctx, dirty);
-          } else {
-            if_block0 = create_if_block_5(ctx);
-            if_block0.c();
-            if_block0.m(t0.parentNode, t0);
-          }
-        } else if (if_block0) {
-          if_block0.d(1);
-          if_block0 = null;
-        }
-        const icon1_changes = {};
-        if (dirty & /*segment1*/
-        4)
-          icon1_changes.className = /*segment1*/
-          ctx[2] === "" ? "icon_active" : "icon_dark";
-        icon1.$set(icon1_changes);
-        if (!current || dirty & /*segment1*/
-        4) {
-          toggle_class(
-            a,
-            "active",
-            /*segment1*/
-            ctx[2] === ""
-          );
-        }
-        if (
-          /*access*/
-          ctx[1].buyer
-        ) {
-          if (if_block1) {
-            if_block1.p(ctx, dirty);
-            if (dirty & /*access*/
-            2) {
-              transition_in(if_block1, 1);
-            }
-          } else {
-            if_block1 = create_if_block_4(ctx);
-            if_block1.c();
-            transition_in(if_block1, 1);
-            if_block1.m(nav0, t11);
-          }
-        } else if (if_block1) {
-          group_outros();
-          transition_out(if_block1, 1, 1, () => {
-            if_block1 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*access*/
-          ctx[1].realtor
-        ) {
-          if (if_block2) {
-            if_block2.p(ctx, dirty);
-            if (dirty & /*access*/
-            2) {
-              transition_in(if_block2, 1);
-            }
-          } else {
-            if_block2 = create_if_block_3(ctx);
-            if_block2.c();
-            transition_in(if_block2, 1);
-            if_block2.m(nav0, t12);
-          }
-        } else if (if_block2) {
-          group_outros();
-          transition_out(if_block2, 1, 1, () => {
-            if_block2 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*access*/
-          ctx[1].admin
-        ) {
-          if (if_block3) {
-            if_block3.p(ctx, dirty);
-            if (dirty & /*access*/
-            2) {
-              transition_in(if_block3, 1);
-            }
-          } else {
-            if_block3 = create_if_block_2(ctx);
-            if_block3.c();
-            transition_in(if_block3, 1);
-            if_block3.m(nav0, null);
-          }
-        } else if (if_block3) {
-          group_outros();
-          transition_out(if_block3, 1, 1, () => {
-            if_block3 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*access*/
-          ctx[1].user
-        ) {
-          if (if_block4) {
-            if_block4.p(ctx, dirty);
-            if (dirty & /*access*/
-            2) {
-              transition_in(if_block4, 1);
-            }
-          } else {
-            if_block4 = create_if_block_1(ctx);
-            if_block4.c();
-            transition_in(if_block4, 1);
-            if_block4.m(nav1, t18);
-          }
-        } else if (if_block4) {
-          group_outros();
-          transition_out(if_block4, 1, 1, () => {
-            if_block4 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*access*/
-          ctx[1].user
-        ) {
-          if (if_block5) {
-            if_block5.p(ctx, dirty);
-            if (dirty & /*access*/
-            2) {
-              transition_in(if_block5, 1);
-            }
-          } else {
-            if_block5 = create_if_block(ctx);
-            if_block5.c();
-            transition_in(if_block5, 1);
-            if_block5.m(nav1, null);
-          }
-        } else if (if_block5) {
-          group_outros();
-          transition_out(if_block5, 1, 1, () => {
-            if_block5 = null;
-          });
-          check_outros();
-        }
-        if (!current || dirty & /*$isSideMenuOpen*/
-        8 && aside_class_value !== (aside_class_value = null_to_empty(
-          /*$isSideMenuOpen*/
-          ctx[3] ? `side_menu_admin open` : `side_menu_admin`
-        ) + " svelte-1aq7k0c")) {
-          attr(aside, "class", aside_class_value);
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon0.$.fragment, local);
-        transition_in(icon1.$.fragment, local);
-        transition_in(if_block1);
-        transition_in(if_block2);
-        transition_in(if_block3);
-        transition_in(if_block4);
-        transition_in(if_block5);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon0.$.fragment, local);
-        transition_out(icon1.$.fragment, local);
-        transition_out(if_block1);
-        transition_out(if_block2);
-        transition_out(if_block3);
-        transition_out(if_block4);
-        transition_out(if_block5);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(t0);
-          detach(aside);
-        }
-        if (if_block0)
-          if_block0.d(detaching);
-        destroy_component(icon0);
-        destroy_component(icon1);
-        if (if_block1)
-          if_block1.d();
-        if (if_block2)
-          if_block2.d();
-        if (if_block3)
-          if_block3.d();
-        if (if_block4)
-          if_block4.d();
-        if (if_block5)
-          if_block5.d();
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function instance2($self, $props, $invalidate) {
-    let $isSideMenuOpen;
-    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(3, $isSideMenuOpen = $value));
-    let { doToggle = function() {
-      isSideMenuOpen.set(!$isSideMenuOpen);
-    } } = $props;
-    let { access = (
-      /** @type {Access} */
-      {}
-    ) } = $props;
-    let segment1;
-    onMount(() => {
-      console.log("onMount.Menu =", access);
-      $invalidate(2, segment1 = window.location.pathname.split("/")[1]);
-    });
-    async function userLogout() {
-      await (0, import_jsApi_GEN.UserLogout)({}, function(o) {
-        if (o.error) {
-          notifier.showError(o.error);
-          return;
-        }
-        notifier.showSuccess("Logged out");
-        window.location = /** @type {Location | (string & Location)} */
-        "/";
-        return new Promise((resolve) => {
-          setTimeout(
-            () => {
-              resolve();
-            },
-            1e3
-          );
-        });
-      });
-    }
-    const click_handler = () => set_store_value(isSideMenuOpen, $isSideMenuOpen = !$isSideMenuOpen, $isSideMenuOpen);
-    $self.$set = ($props2) => {
-      if ("doToggle" in $props2)
-        $invalidate(0, doToggle = $props2.doToggle);
-      if ("access" in $props2)
-        $invalidate(1, access = $props2.access);
-    };
-    return [doToggle, access, segment1, $isSideMenuOpen, userLogout, click_handler];
-  }
-  var Menu = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(this, options, instance2, create_fragment2, safe_not_equal, { doToggle: 0, access: 1 });
-    }
-  };
-  var Menu_default = Menu;
-
-  // _components/ProfileHeader.svelte
-  var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
-  function get_each_context(ctx, list, i) {
-    const child_ctx = ctx.slice();
-    child_ctx[17] = list[i];
-    return child_ctx;
-  }
-  function create_if_block_32(ctx) {
-    let div2;
-    let div1;
-    let h3;
-    let t1;
-    let textarea;
-    let t2;
-    let div0;
-    let button0;
-    let t4;
-    let button1;
-    let mounted;
-    let dispose;
-    return {
-      c() {
-        div2 = element("div");
-        div1 = element("div");
-        h3 = element("h3");
-        h3.textContent = "Feedback";
-        t1 = space();
-        textarea = element("textarea");
-        t2 = space();
-        div0 = element("div");
-        button0 = element("button");
-        button0.textContent = "Cancel";
-        t4 = space();
-        button1 = element("button");
-        button1.textContent = "Submit";
-        attr(h3, "class", "svelte-1upfzl4");
-        attr(textarea, "name", "feedback");
-        attr(textarea, "id", "feedback");
-        attr(textarea, "cols", "30");
-        attr(textarea, "rows", "10");
-        attr(textarea, "placeholder", "your feedback here");
-        attr(textarea, "class", "svelte-1upfzl4");
-        attr(button0, "class", "cancel_btn svelte-1upfzl4");
-        attr(button1, "class", "submit_btn svelte-1upfzl4");
-        attr(div0, "class", "buttons svelte-1upfzl4");
-        attr(div1, "class", "feedback_dialog svelte-1upfzl4");
-        attr(div2, "class", "backdrop svelte-1upfzl4");
-      },
-      m(target, anchor) {
-        insert(target, div2, anchor);
-        append(div2, div1);
-        append(div1, h3);
-        append(div1, t1);
-        append(div1, textarea);
-        set_input_value(
-          textarea,
-          /*userMessage*/
-          ctx[3]
-        );
-        append(div1, t2);
-        append(div1, div0);
-        append(div0, button0);
-        append(div0, t4);
-        append(div0, button1);
-        if (!mounted) {
-          dispose = [
-            listen(
-              textarea,
-              "input",
-              /*textarea_input_handler*/
-              ctx[9]
-            ),
-            listen(
-              button0,
-              "click",
-              /*click_handler*/
-              ctx[10]
-            ),
-            listen(
-              button1,
-              "click",
-              /*sendFeedback*/
-              ctx[7]
-            )
-          ];
-          mounted = true;
-        }
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*userMessage*/
-        8) {
-          set_input_value(
-            textarea,
-            /*userMessage*/
-            ctx2[3]
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(div2);
-        }
-        mounted = false;
-        run_all(dispose);
-      }
-    };
-  }
-  function create_if_block_22(ctx) {
-    let button;
-    let icon;
-    let current;
-    let mounted;
-    let dispose;
-    icon = new Icon_default({
-      props: {
-        color: "#FFF",
-        size: 20,
-        src: FaSolidBars
-      }
-    });
-    return {
-      c() {
-        button = element("button");
-        create_component(icon.$.fragment);
-        attr(button, "class", "svelte-1upfzl4");
-      },
-      m(target, anchor) {
-        insert(target, button, anchor);
-        mount_component(icon, button, null);
-        current = true;
-        if (!mounted) {
-          dispose = listen(button, "click", prevent_default(
-            /*openSideMenu*/
-            ctx[5]
-          ));
-          mounted = true;
-        }
-      },
-      p: noop,
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(button);
-        }
-        destroy_component(icon);
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block_12(ctx) {
-    let button;
-    let icon;
-    let current;
-    let mounted;
-    let dispose;
-    icon = new Icon_default({
-      props: {
-        color: "#FFF",
-        size: 20,
-        src: FaSolidPowerOff
-      }
-    });
-    return {
-      c() {
-        button = element("button");
-        create_component(icon.$.fragment);
-        attr(button, "class", "svelte-1upfzl4");
-      },
-      m(target, anchor) {
-        insert(target, button, anchor);
-        mount_component(icon, button, null);
-        current = true;
-        if (!mounted) {
-          dispose = listen(button, "click", prevent_default(
-            /*click_handler_1*/
-            ctx[11]
-          ));
-          mounted = true;
-        }
-      },
-      p: noop,
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(button);
-        }
-        destroy_component(icon);
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block2(ctx) {
-    let div;
-    let button0;
-    let t1;
-    let button1;
-    let mounted;
-    let dispose;
-    return {
-      c() {
-        div = element("div");
-        button0 = element("button");
-        button0.textContent = "Logout";
-        t1 = space();
-        button1 = element("button");
-        button1.textContent = "Cancel";
-        attr(button0, "class", "svelte-1upfzl4");
-        attr(button1, "class", "svelte-1upfzl4");
-        attr(div, "class", "logout_menu svelte-1upfzl4");
-      },
-      m(target, anchor) {
-        insert(target, div, anchor);
-        append(div, button0);
-        append(div, t1);
-        append(div, button1);
-        if (!mounted) {
-          dispose = [
-            listen(button0, "click", prevent_default(
-              /*userLogout*/
-              ctx[6]
-            )),
-            listen(button1, "click", prevent_default(
-              /*click_handler_2*/
-              ctx[12]
-            ))
-          ];
-          mounted = true;
-        }
-      },
-      p: noop,
-      d(detaching) {
-        if (detaching) {
-          detach(div);
-        }
-        mounted = false;
-        run_all(dispose);
-      }
-    };
-  }
-  function create_each_block(ctx) {
-    let option;
-    let t_value = (
-      /*lang*/
-      ctx[17] + ""
-    );
-    let t;
-    let option_value_value;
-    return {
-      c() {
-        option = element("option");
-        t = text(t_value);
-        option.__value = option_value_value = /*lang*/
-        ctx[17];
-        set_input_value(option, option.__value);
-      },
-      m(target, anchor) {
-        insert(target, option, anchor);
-        append(option, t);
-      },
-      p: noop,
-      d(detaching) {
-        if (detaching) {
-          detach(option);
-        }
-      }
-    };
-  }
-  function create_fragment3(ctx) {
-    let t0;
-    let header;
-    let nav;
-    let div0;
-    let t1;
-    let t2;
-    let p;
-    let t4;
-    let t5;
-    let div1;
-    let button;
-    let icon;
-    let t6;
-    let span;
-    let t8;
-    let select;
-    let t9;
-    let c0;
-    let t10;
-    let c1;
-    let t11;
-    let c2;
-    let current;
-    let mounted;
-    let dispose;
-    let if_block0 = (
-      /*showFeedbackDialog*/
-      ctx[4] && create_if_block_32(ctx)
-    );
-    let if_block1 = (
-      /*access*/
-      ctx[0].admin && create_if_block_22(ctx)
-    );
-    let if_block2 = !/*access*/
-    ctx[0].admin && create_if_block_12(ctx);
-    let if_block3 = (
-      /*showLogoutMenu*/
-      ctx[2] && create_if_block2(ctx)
-    );
-    icon = new Icon_default({
-      props: {
-        className: "feedback_icon",
-        color: "#475569",
-        size: 16,
-        src: FaCommentDots
-      }
-    });
-    let each_value = ensure_array_like(Object.values(langOptions));
-    let each_blocks = [];
-    for (let i = 0; i < each_value.length; i += 1) {
-      each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
-    }
-    return {
-      c() {
-        if (if_block0)
-          if_block0.c();
-        t0 = space();
-        header = element("header");
-        nav = element("nav");
-        div0 = element("div");
-        if (if_block1)
-          if_block1.c();
-        t1 = space();
-        if (if_block2)
-          if_block2.c();
-        t2 = space();
-        p = element("p");
-        p.textContent = "HapSTR";
-        t4 = space();
-        if (if_block3)
-          if_block3.c();
-        t5 = space();
-        div1 = element("div");
-        button = element("button");
-        create_component(icon.$.fragment);
-        t6 = space();
-        span = element("span");
-        span.textContent = "Feedback";
-        t8 = space();
-        select = element("select");
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].c();
-        }
-        t9 = space();
-        c0 = comment("            <button class='profile_button' on:click={userLogout} title='Click to logout'>");
-        t10 = space();
-        c1 = comment("                <img alt='profile' src='/assets/img/team-1-200x200.jpg'/>");
-        t11 = space();
-        c2 = comment("            </button>");
-        attr(p, "class", "svelte-1upfzl4");
-        attr(div0, "class", "label_menu svelte-1upfzl4");
-        attr(button, "class", "feedback_btn svelte-1upfzl4");
-        attr(select, "id", "lang");
-        attr(select, "name", "lang");
-        attr(select, "class", "svelte-1upfzl4");
-        if (
-          /*selectedLanguage*/
-          ctx[1] === void 0
-        )
-          add_render_callback(() => (
-            /*select_change_handler*/
-            ctx[14].call(select)
-          ));
-        attr(div1, "class", "right_nav svelte-1upfzl4");
-        attr(nav, "class", "navbar svelte-1upfzl4");
-        attr(header, "class", "profile_header svelte-1upfzl4");
-      },
-      m(target, anchor) {
-        if (if_block0)
-          if_block0.m(target, anchor);
-        insert(target, t0, anchor);
-        insert(target, header, anchor);
-        append(header, nav);
-        append(nav, div0);
-        if (if_block1)
-          if_block1.m(div0, null);
-        append(div0, t1);
-        if (if_block2)
-          if_block2.m(div0, null);
-        append(div0, t2);
-        append(div0, p);
-        append(div0, t4);
-        if (if_block3)
-          if_block3.m(div0, null);
-        append(nav, t5);
-        append(nav, div1);
-        append(div1, button);
-        mount_component(icon, button, null);
-        append(button, t6);
-        append(button, span);
-        append(div1, t8);
-        append(div1, select);
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          if (each_blocks[i]) {
-            each_blocks[i].m(select, null);
-          }
-        }
-        select_option(
-          select,
-          /*selectedLanguage*/
-          ctx[1],
-          true
-        );
-        append(div1, t9);
-        append(div1, c0);
-        append(div1, t10);
-        append(div1, c1);
-        append(div1, t11);
-        append(div1, c2);
-        current = true;
-        if (!mounted) {
-          dispose = [
-            listen(
-              button,
-              "click",
-              /*click_handler_3*/
-              ctx[13]
-            ),
-            listen(
-              select,
-              "change",
-              /*select_change_handler*/
-              ctx[14]
-            )
-          ];
-          mounted = true;
-        }
-      },
-      p(ctx2, [dirty]) {
-        if (
-          /*showFeedbackDialog*/
-          ctx2[4]
-        ) {
-          if (if_block0) {
-            if_block0.p(ctx2, dirty);
-          } else {
-            if_block0 = create_if_block_32(ctx2);
-            if_block0.c();
-            if_block0.m(t0.parentNode, t0);
-          }
-        } else if (if_block0) {
-          if_block0.d(1);
-          if_block0 = null;
-        }
-        if (
-          /*access*/
-          ctx2[0].admin
-        ) {
-          if (if_block1) {
-            if_block1.p(ctx2, dirty);
-            if (dirty & /*access*/
-            1) {
-              transition_in(if_block1, 1);
-            }
-          } else {
-            if_block1 = create_if_block_22(ctx2);
-            if_block1.c();
-            transition_in(if_block1, 1);
-            if_block1.m(div0, t1);
-          }
-        } else if (if_block1) {
-          group_outros();
-          transition_out(if_block1, 1, 1, () => {
-            if_block1 = null;
-          });
-          check_outros();
-        }
-        if (!/*access*/
-        ctx2[0].admin) {
-          if (if_block2) {
-            if_block2.p(ctx2, dirty);
-            if (dirty & /*access*/
-            1) {
-              transition_in(if_block2, 1);
-            }
-          } else {
-            if_block2 = create_if_block_12(ctx2);
-            if_block2.c();
-            transition_in(if_block2, 1);
-            if_block2.m(div0, t2);
-          }
-        } else if (if_block2) {
-          group_outros();
-          transition_out(if_block2, 1, 1, () => {
-            if_block2 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*showLogoutMenu*/
-          ctx2[2]
-        ) {
-          if (if_block3) {
-            if_block3.p(ctx2, dirty);
-          } else {
-            if_block3 = create_if_block2(ctx2);
-            if_block3.c();
-            if_block3.m(div0, null);
-          }
-        } else if (if_block3) {
-          if_block3.d(1);
-          if_block3 = null;
-        }
-        if (dirty & /*Object*/
-        0) {
-          each_value = ensure_array_like(Object.values(langOptions));
-          let i;
-          for (i = 0; i < each_value.length; i += 1) {
-            const child_ctx = get_each_context(ctx2, each_value, i);
-            if (each_blocks[i]) {
-              each_blocks[i].p(child_ctx, dirty);
-            } else {
-              each_blocks[i] = create_each_block(child_ctx);
-              each_blocks[i].c();
-              each_blocks[i].m(select, null);
-            }
-          }
-          for (; i < each_blocks.length; i += 1) {
-            each_blocks[i].d(1);
-          }
-          each_blocks.length = each_value.length;
-        }
-        if (dirty & /*selectedLanguage, Object*/
-        2) {
-          select_option(
-            select,
-            /*selectedLanguage*/
-            ctx2[1]
-          );
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(if_block1);
-        transition_in(if_block2);
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(if_block1);
-        transition_out(if_block2);
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(t0);
-          detach(header);
-        }
-        if (if_block0)
-          if_block0.d(detaching);
-        if (if_block1)
-          if_block1.d();
-        if (if_block2)
-          if_block2.d();
-        if (if_block3)
-          if_block3.d();
-        destroy_component(icon);
-        destroy_each(each_blocks, detaching);
-        mounted = false;
-        run_all(dispose);
-      }
-    };
-  }
-  function instance3($self, $props, $invalidate) {
-    let $isSideMenuOpen;
-    component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(15, $isSideMenuOpen = $value));
-    let { user: user2 = null } = $props;
-    let { access = {
-      "admin": false,
-      "buyer": false,
-      "realtor": false,
-      "user": false
-    } } = $props;
-    function openSideMenu() {
-      isSideMenuOpen.set(!$isSideMenuOpen);
-    }
-    let selectedLanguage = "";
-    onMount(() => {
-      console.log("onMount.ProfileHeader =", user2);
-      $invalidate(1, selectedLanguage = T.currentLang || "EN");
-    });
-    async function updateLang() {
-      if (user2 !== null && user2.language !== selectedLanguage) {
-        $invalidate(8, user2.language = selectedLanguage, user2);
-        await (0, import_jsApi_GEN2.UserUpdateProfile)(user2, function(res) {
-          if (res.error) {
-            notifier.showError(res.error);
-            return;
-          }
-          $invalidate(8, user2 = res.user);
-        });
-      }
-    }
-    let showLogoutMenu = false;
-    async function userLogout() {
-      await (0, import_jsApi_GEN2.UserLogout)({}, function(o) {
-        console.log(o);
-        if (o.error) {
-          notifier.showError(o.error);
-          return;
-        }
-        notifier.showSuccess("Logged out");
-        window.location = "/";
-      });
-    }
-    let userMessage = "", showFeedbackDialog = false;
-    function sendFeedback() {
-      if (userMessage === "") {
-        notifier.showError("Please enter your feedback");
-        return;
-      }
-      (0, import_jsApi_GEN2.UserSendFeedback)({ userMessage }, function(res) {
-        if (res.error) {
-          $invalidate(3, userMessage = "");
-          $invalidate(4, showFeedbackDialog = false);
-          notifier.showError(res.error);
-          return;
-        }
-        $invalidate(3, userMessage = "");
-        notifier.showSuccess("feedback sent");
-        $invalidate(4, showFeedbackDialog = false);
-      });
-    }
-    function textarea_input_handler() {
-      userMessage = this.value;
-      $invalidate(3, userMessage);
-    }
-    const click_handler = () => $invalidate(4, showFeedbackDialog = false);
-    const click_handler_1 = () => $invalidate(2, showLogoutMenu = !showLogoutMenu);
-    const click_handler_2 = () => $invalidate(2, showLogoutMenu = !showLogoutMenu);
-    const click_handler_3 = () => $invalidate(4, showFeedbackDialog = true);
-    function select_change_handler() {
-      selectedLanguage = select_value(this);
-      $invalidate(1, selectedLanguage);
-    }
-    $self.$set = ($props2) => {
-      if ("user" in $props2)
-        $invalidate(8, user2 = $props2.user);
-      if ("access" in $props2)
-        $invalidate(0, access = $props2.access);
-    };
-    $self.$.update = () => {
-      if ($self.$.dirty & /*selectedLanguage*/
-      2) {
-        $: {
-          T.changeLanguage(selectedLanguage, async () => await updateLang());
-        }
-      }
-    };
-    return [
-      access,
-      selectedLanguage,
-      showLogoutMenu,
-      userMessage,
-      showFeedbackDialog,
-      openSideMenu,
-      userLogout,
-      sendFeedback,
-      user2,
-      textarea_input_handler,
-      click_handler,
-      click_handler_1,
-      click_handler_2,
-      click_handler_3,
-      select_change_handler
-    ];
-  }
-  var ProfileHeader = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(this, options, instance3, create_fragment3, safe_not_equal, { user: 8, access: 0 });
-    }
-  };
-  var ProfileHeader_default = ProfileHeader;
-
-  // _components/partials/Footer.svelte
-  function create_fragment4(ctx) {
-    let footer;
-    let p;
-    let t2;
-    let nav;
-    return {
-      c() {
-        footer = element("footer");
-        p = element("p");
-        p.textContent = `Copyright \xA9 ${/*year*/
-        ctx[0]}`;
-        t2 = space();
-        nav = element("nav");
-        nav.innerHTML = `<a href="/privacy" class="svelte-1tm73ji">Privacy</a> <a href="/tos" class="svelte-1tm73ji">Terms and Conditions</a> <a href="/about" class="svelte-1tm73ji">About Us</a>`;
-        attr(nav, "class", "svelte-1tm73ji");
-        attr(footer, "class", "svelte-1tm73ji");
-      },
-      m(target, anchor) {
-        insert(target, footer, anchor);
-        append(footer, p);
-        append(footer, t2);
-        append(footer, nav);
-      },
-      p: noop,
-      i: noop,
-      o: noop,
-      d(detaching) {
-        if (detaching) {
-          detach(footer);
-        }
-      }
-    };
-  }
-  function instance4($self) {
-    const year = (
-      /** @type {number} */
-      new Date().getFullYear()
-    );
-    return [year];
-  }
-  var Footer = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(this, options, instance4, create_fragment4, safe_not_equal, {});
-    }
-  };
-  var Footer_default = Footer;
-
-  // _components/PillBox.svelte
-  function create_if_block3(ctx) {
-    let span2;
-    let span0;
-    let t0;
-    let t1;
-    let span1;
-    let t2;
-    return {
-      c() {
-        span2 = element("span");
-        span0 = element("span");
-        t0 = text(
-          /*label*/
-          ctx[0]
-        );
-        t1 = space();
-        span1 = element("span");
-        t2 = text(
-          /*content*/
-          ctx[1]
-        );
-        attr(span0, "class", "pill-box-left svelte-1x7s25u");
-        attr(span1, "class", "pill-box-right svelte-1x7s25u");
-        attr(span2, "class", "pill-box pill-blue svelte-1x7s25u");
-      },
-      m(target, anchor) {
-        insert(target, span2, anchor);
-        append(span2, span0);
-        append(span0, t0);
-        append(span2, t1);
-        append(span2, span1);
-        append(span1, t2);
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*label*/
-        1)
-          set_data(
-            t0,
-            /*label*/
-            ctx2[0]
-          );
-        if (dirty & /*content*/
-        2)
-          set_data(
-            t2,
-            /*content*/
-            ctx2[1]
-          );
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(span2);
-        }
-      }
-    };
-  }
-  function create_fragment5(ctx) {
-    let if_block_anchor;
-    let if_block = (
-      /*content*/
-      ctx[1] && create_if_block3(ctx)
-    );
-    return {
-      c() {
-        if (if_block)
-          if_block.c();
-        if_block_anchor = empty();
-      },
-      m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
-      },
-      p(ctx2, [dirty]) {
-        if (
-          /*content*/
-          ctx2[1]
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-          } else {
-            if_block = create_if_block3(ctx2);
-            if_block.c();
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        } else if (if_block) {
-          if_block.d(1);
-          if_block = null;
-        }
-      },
-      i: noop,
-      o: noop,
-      d(detaching) {
-        if (detaching) {
-          detach(if_block_anchor);
-        }
-        if (if_block)
-          if_block.d(detaching);
-      }
-    };
-  }
-  function instance5($self, $props, $invalidate) {
-    let { label = "label" } = $props;
-    let { content = "" } = $props;
-    $self.$set = ($props2) => {
-      if ("label" in $props2)
-        $invalidate(0, label = $props2.label);
-      if ("content" in $props2)
-        $invalidate(1, content = $props2.content);
-    };
-    return [label, content];
-  }
-  var PillBox = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(this, options, instance5, create_fragment5, safe_not_equal, { label: 0, content: 1 });
-    }
-  };
-  var PillBox_default = PillBox;
-
   // _components/OwnedProperty.svelte
-  var import_formatter = __toESM(require_formatter());
-  function get_each_context2(ctx, list, i) {
+  function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[7] = list[i];
     return child_ctx;
@@ -6801,12 +5613,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_33(ctx) {
+  function create_if_block_3(ctx) {
     let current_block_type_index;
     let if_block;
     let if_block_anchor;
     let current;
-    const if_block_creators = [create_if_block_42, create_if_block_52, create_else_block_1];
+    const if_block_creators = [create_if_block_4, create_if_block_5, create_else_block_1];
     const if_blocks = [];
     function select_block_type_1(ctx2, dirty) {
       if (
@@ -6931,7 +5743,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_52(ctx) {
+  function create_if_block_5(ctx) {
     let pillbox;
     let current;
     pillbox = new PillBox_default({
@@ -6981,7 +5793,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_42(ctx) {
+  function create_if_block_4(ctx) {
     let pillbox;
     let current;
     pillbox = new PillBox_default({
@@ -7047,7 +5859,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       ctx[0][
         /*m*/
         ctx[13].name
-      ] && create_if_block_33(ctx)
+      ] && create_if_block_3(ctx)
     );
     return {
       c() {
@@ -7076,7 +5888,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_33(ctx2);
+            if_block = create_if_block_3(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -7108,7 +5920,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block4(ctx) {
+  function create_if_block3(ctx) {
     let div1;
     let h3;
     let t0_value = (
@@ -7124,7 +5936,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     );
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
-      each_blocks[i] = create_each_block2(get_each_context2(ctx, each_value, i));
+      each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
     }
     return {
       c() {
@@ -7165,11 +5977,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           );
           let i;
           for (i = 0; i < each_value.length; i += 1) {
-            const child_ctx = get_each_context2(ctx2, each_value, i);
+            const child_ctx = get_each_context(ctx2, each_value, i);
             if (each_blocks[i]) {
               each_blocks[i].p(child_ctx, dirty);
             } else {
-              each_blocks[i] = create_each_block2(child_ctx);
+              each_blocks[i] = create_each_block(child_ctx);
               each_blocks[i].c();
               each_blocks[i].m(div0, null);
             }
@@ -7188,7 +6000,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_23(ctx) {
+  function create_if_block_2(ctx) {
     let div;
     let each_value_1 = ensure_array_like(
       /*floors*/
@@ -7333,7 +6145,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_13(ctx) {
+  function create_if_block_12(ctx) {
     let span;
     return {
       c() {
@@ -7352,7 +6164,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_each_block2(ctx) {
+  function create_each_block(ctx) {
     let div2;
     let div0;
     let h5;
@@ -7374,14 +6186,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let t4;
     let if_block0 = (
       /*floors*/
-      ctx[7].rooms && create_if_block_23(ctx)
+      ctx[7].rooms && create_if_block_2(ctx)
     );
     function select_block_type_2(ctx2, dirty) {
       if (
         /*floors*/
         ctx2[7].planImageUrl === ""
       )
-        return create_if_block_13;
+        return create_if_block_12;
       return create_else_block;
     }
     let current_block_type = select_block_type_2(ctx, -1);
@@ -7438,7 +6250,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
           } else {
-            if_block0 = create_if_block_23(ctx2);
+            if_block0 = create_if_block_2(ctx2);
             if_block0.c();
             if_block0.m(div0, null);
           }
@@ -7467,7 +6279,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_fragment6(ctx) {
+  function create_fragment7(ctx) {
     let div22;
     let div0;
     let t0;
@@ -7696,7 +6508,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let if_block1 = (
       /*property*/
       ctx[0].floorList && /*property*/
-      ctx[0].floorList.length && create_if_block4(ctx)
+      ctx[0].floorList.length && create_if_block3(ctx)
     );
     return {
       c() {
@@ -8074,7 +6886,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
           } else {
-            if_block1 = create_if_block4(ctx2);
+            if_block1 = create_if_block3(ctx2);
             if_block1.c();
             if_block1.m(div22, t43);
           }
@@ -8143,7 +6955,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function instance6($self, $props, $invalidate) {
+  function instance7($self, $props, $invalidate) {
     let $T;
     component_subscribe($self, T, ($value) => $invalidate(5, $T = $value));
     let { property } = $props;
@@ -8181,15 +6993,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var OwnedProperty = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance6, create_fragment6, safe_not_equal, { property: 0, meta: 1 });
+      init(this, options, instance7, create_fragment7, safe_not_equal, { property: 0, meta: 1 });
     }
   };
   var OwnedProperty_default = OwnedProperty;
 
   // realtor.svelte
-  function get_each_context3(ctx, list, i) {
+  function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[1] = list[i];
+    child_ctx[0] = list[i];
     return child_ctx;
   }
   function create_else_block2(ctx) {
@@ -8198,7 +7010,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       c() {
         div = element("div");
         div.innerHTML = `<p>No Property</p>`;
-        attr(div, "class", "no_property svelte-1t7ijk0");
+        attr(div, "class", "no-property svelte-jkrra8");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -8213,16 +7025,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block5(ctx) {
+  function create_if_block4(ctx) {
     let section;
     let current;
-    let each_value = ensure_array_like(
-      /*ownedProperties*/
-      ctx[0]
-    );
+    let each_value = ensure_array_like(ownedProperties);
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
-      each_blocks[i] = create_each_block3(get_each_context3(ctx, each_value, i));
+      each_blocks[i] = create_each_block2(get_each_context2(ctx, each_value, i));
     }
     const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
       each_blocks[i] = null;
@@ -8233,7 +7042,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(section, "class", "property_lists svelte-1t7ijk0");
+        attr(section, "class", "properties svelte-jkrra8");
       },
       m(target, anchor) {
         insert(target, section, anchor);
@@ -8246,19 +7055,16 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, dirty) {
         if (dirty & /*ownedProperties, propertyMeta*/
-        1) {
-          each_value = ensure_array_like(
-            /*ownedProperties*/
-            ctx2[0]
-          );
+        0) {
+          each_value = ensure_array_like(ownedProperties);
           let i;
           for (i = 0; i < each_value.length; i += 1) {
-            const child_ctx = get_each_context3(ctx2, each_value, i);
+            const child_ctx = get_each_context2(ctx2, each_value, i);
             if (each_blocks[i]) {
               each_blocks[i].p(child_ctx, dirty);
               transition_in(each_blocks[i], 1);
             } else {
-              each_blocks[i] = create_each_block3(child_ctx);
+              each_blocks[i] = create_each_block2(child_ctx);
               each_blocks[i].c();
               transition_in(each_blocks[i], 1);
               each_blocks[i].m(section, null);
@@ -8294,14 +7100,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_14(ctx) {
+  function create_if_block_13(ctx) {
     let ownedproperty;
     let current;
     ownedproperty = new OwnedProperty_default({
       props: {
         property: (
           /*property*/
-          ctx[1]
+          ctx[0]
         ),
         meta: propertyMeta
       }
@@ -8314,14 +7120,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         mount_component(ownedproperty, target, anchor);
         current = true;
       },
-      p(ctx2, dirty) {
-        const ownedproperty_changes = {};
-        if (dirty & /*ownedProperties*/
-        1)
-          ownedproperty_changes.property = /*property*/
-          ctx2[1];
-        ownedproperty.$set(ownedproperty_changes);
-      },
+      p: noop,
       i(local) {
         if (current)
           return;
@@ -8337,12 +7136,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_each_block3(ctx) {
+  function create_each_block2(ctx) {
     let if_block_anchor;
     let current;
     let if_block = (
       /*property*/
-      ctx[1].deletedAt <= 0 && create_if_block_14(ctx)
+      ctx[0].deletedAt <= 0 && create_if_block_13(ctx)
     );
     return {
       c() {
@@ -8359,27 +7158,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       p(ctx2, dirty) {
         if (
           /*property*/
-          ctx2[1].deletedAt <= 0
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*ownedProperties*/
-            1) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block_14(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        } else if (if_block) {
-          group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
-          });
-          check_outros();
-        }
+          ctx2[0].deletedAt <= 0
+        )
+          if_block.p(ctx2, dirty);
       },
       i(local) {
         if (current)
@@ -8400,184 +7181,158 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_fragment7(ctx) {
-    let section;
-    let menu;
-    let t0;
-    let div3;
-    let profileheader;
-    let t1;
-    let div2;
+  function create_default_slot(ctx) {
     let div1;
     let div0;
-    let h1;
-    let t4;
+    let h2;
+    let t2;
     let a;
     let icon;
-    let t5;
+    let t3;
     let span;
-    let t7;
+    let t5;
     let current_block_type_index;
     let if_block;
-    let t8;
-    let footer;
     let current;
-    menu = new Menu_default({ props: { access: segments } });
-    profileheader = new ProfileHeader_default({ props: { user, access: segments } });
     icon = new Icon_default({
       props: {
         size: "20",
-        className: "add_icon",
         color: "#FFF",
-        src: FaSolidCirclePlus
+        src: RiSystemAddLargeFill
       }
     });
-    const if_block_creators = [create_if_block5, create_else_block2];
+    const if_block_creators = [create_if_block4, create_else_block2];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
-      if (
-        /*ownedProperties*/
-        ctx2[0] && /*ownedProperties*/
-        ctx2[0].length
-      )
+      if (ownedProperties && ownedProperties.length)
         return 0;
       return 1;
     }
     current_block_type_index = select_block_type(ctx, -1);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-    footer = new Footer_default({});
     return {
       c() {
-        section = element("section");
-        create_component(menu.$.fragment);
-        t0 = space();
-        div3 = element("div");
-        create_component(profileheader.$.fragment);
-        t1 = space();
-        div2 = element("div");
         div1 = element("div");
         div0 = element("div");
-        h1 = element("h1");
-        h1.textContent = `Owned/Managed Properties: ${pager.countResult}`;
-        t4 = space();
+        h2 = element("h2");
+        h2.textContent = `Owned/Managed Properties: ${pager.countResult}`;
+        t2 = space();
         a = element("a");
         create_component(icon.$.fragment);
-        t5 = space();
+        t3 = space();
         span = element("span");
         span.textContent = "Add";
-        t7 = space();
+        t5 = space();
         if_block.c();
-        t8 = space();
-        create_component(footer.$.fragment);
-        attr(h1, "class", "svelte-1t7ijk0");
+        attr(h2, "class", "svelte-jkrra8");
         attr(a, "href", "/realtor/property");
-        attr(a, "class", "add_button svelte-1t7ijk0");
-        attr(div0, "class", "property_lists_header svelte-1t7ijk0");
-        attr(div1, "class", "property_lists_container svelte-1t7ijk0");
-        attr(div2, "class", "content");
-        attr(div3, "class", "dashboard_main_content");
-        attr(section, "class", "dashboard");
+        attr(a, "class", "add-btn svelte-jkrra8");
+        attr(div0, "class", "info-actions svelte-jkrra8");
+        attr(div1, "class", "properties-container svelte-jkrra8");
       },
       m(target, anchor) {
-        insert(target, section, anchor);
-        mount_component(menu, section, null);
-        append(section, t0);
-        append(section, div3);
-        mount_component(profileheader, div3, null);
-        append(div3, t1);
-        append(div3, div2);
-        append(div2, div1);
+        insert(target, div1, anchor);
         append(div1, div0);
-        append(div0, h1);
-        append(div0, t4);
+        append(div0, h2);
+        append(div0, t2);
         append(div0, a);
         mount_component(icon, a, null);
-        append(a, t5);
+        append(a, t3);
         append(a, span);
-        append(div1, t7);
+        append(div1, t5);
         if_blocks[current_block_type_index].m(div1, null);
-        append(div3, t8);
-        mount_component(footer, div3, null);
         current = true;
       },
-      p(ctx2, [dirty]) {
-        let previous_block_index = current_block_type_index;
-        current_block_type_index = select_block_type(ctx2, dirty);
-        if (current_block_type_index === previous_block_index) {
-          if_blocks[current_block_type_index].p(ctx2, dirty);
-        } else {
-          group_outros();
-          transition_out(if_blocks[previous_block_index], 1, 1, () => {
-            if_blocks[previous_block_index] = null;
-          });
-          check_outros();
-          if_block = if_blocks[current_block_type_index];
-          if (!if_block) {
-            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
-            if_block.c();
-          } else {
-            if_block.p(ctx2, dirty);
-          }
-          transition_in(if_block, 1);
-          if_block.m(div1, null);
-        }
+      p(ctx2, dirty) {
+        if_block.p(ctx2, dirty);
       },
       i(local) {
         if (current)
           return;
-        transition_in(menu.$.fragment, local);
-        transition_in(profileheader.$.fragment, local);
         transition_in(icon.$.fragment, local);
         transition_in(if_block);
-        transition_in(footer.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(menu.$.fragment, local);
-        transition_out(profileheader.$.fragment, local);
         transition_out(icon.$.fragment, local);
         transition_out(if_block);
-        transition_out(footer.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(section);
+          detach(div1);
         }
-        destroy_component(menu);
-        destroy_component(profileheader);
         destroy_component(icon);
         if_blocks[current_block_type_index].d();
-        destroy_component(footer);
       }
     };
   }
-  var pager = (
-    /** @type {any} */
-    [/* pager */]
+  function create_fragment8(ctx) {
+    let main;
+    let current;
+    main = new Main_default({
+      props: {
+        user,
+        access,
+        $slots: { default: [create_default_slot] },
+        $scope: { ctx }
+      }
+    });
+    return {
+      c() {
+        create_component(main.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(main, target, anchor);
+        current = true;
+      },
+      p(ctx2, [dirty]) {
+        const main_changes = {};
+        if (dirty & /*$scope*/
+        8) {
+          main_changes.$scope = { dirty, ctx: ctx2 };
+        }
+        main.$set(main_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(main.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(main.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(main, detaching);
+      }
+    };
+  }
+  var user = (
+    /** @type {User} */
+    {/* user */}
   );
-  var propertyMeta = [/* propertyMeta */];
-  var user = {/* user */};
-  var segments = (
+  var access = (
     /** @type {Access} */
     {/* segments */}
   );
-  function instance7($self, $props, $invalidate) {
-    let ownedProperties = [/* ownedProperties */];
-    onMount(() => {
-      console.log("onMount.realtor");
-      console.log("ownedProperties=", ownedProperties);
-      console.log("pager=", pager);
-      if (!ownedProperties) {
-        $invalidate(0, ownedProperties = []);
-      }
-    });
-    return [ownedProperties];
-  }
+  var ownedProperties = (
+    /** @type {PropertyWithNote[]} */
+    [/* ownedProperties */]
+  );
+  var pager = (
+    /** @type {PagerOut} */
+    {/* pager */}
+  );
+  var propertyMeta = (
+    /** @type {Field[]} */
+    [/* propertyMeta */]
+  );
   var Realtor = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance7, create_fragment7, safe_not_equal, {});
+      init(this, options, null, create_fragment8, safe_not_equal, {});
     }
   };
   var realtor_default = Realtor;

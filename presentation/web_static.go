@@ -308,7 +308,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 	fw.Get(`/realtor`, func(ctx *fiber.Ctx) error {
-		in, _, segments := userInfoFromContext(ctx, d)
+		in, user, segments := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
@@ -321,6 +321,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		}
 		return views.RenderRealtor(ctx, M.SX{
 			`title`:           `Realtor`,
+			`user`: user,
 			`segments`:        segments,
 			`ownedProperties`: out.Properties,
 			`pager`:           out.Pager,
