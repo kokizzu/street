@@ -101,6 +101,7 @@ type RequestCommon struct {
 	Action        string          `json:"action" form:"action" query:"action" long:"action" msg:"action"`
 	Lat           float64         `json:"lat" form:"lat" query:"lat" long:"lat" msg:"lat"`
 	Long          float64         `json:"long" form:"long" query:"long" long:"long" msg:"long"`
+	RefId					uint64
 
 	// in seconds
 	now   int64     `json:"-" form:"now" query:"now" long:"now" msg:"-"`

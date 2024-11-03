@@ -43,6 +43,7 @@ func (d *Domain) RealtorProperty(in *RealtorPropertyIn) (out RealtorPropertyOut)
 		out.SetError(400, ErrPropertyNotFound)
 		return
 	}
+	in.RefId = in.Id
 	r.NormalizeFloorList()
 	r.Adapter = nil
 

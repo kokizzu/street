@@ -147,6 +147,7 @@ func (d *Domain) GuestProperty(in *GuestPropertyIn) (out GuestPropertyOut) {
 			out.SetError(400, ErrGuestPropertyCountryNotFound)
 			return
 		}
+		in.RefId = in.Id
 		out.Property = r.ToProperty()
 
 		rx := rqProperty.NewPropertyExtraUS(d.PropOltp)
@@ -166,6 +167,7 @@ func (d *Domain) GuestProperty(in *GuestPropertyIn) (out GuestPropertyOut) {
 			out.SetError(400, ErrGuestPropertyCountryNotFound)
 			return
 		}
+		in.RefId = in.Id
 		out.Property = r.ToProperty()
 		out.Meta = GuestPropertiesMeta
 		return
@@ -178,6 +180,7 @@ func (d *Domain) GuestProperty(in *GuestPropertyIn) (out GuestPropertyOut) {
 		return
 	}
 
+	in.RefId = in.Id
 	if r.ApprovalState != mProperty.ApprovalStatePending && r.ApprovalState != `` {
 		out.SetError(400, ErrGuestPropertyNotFound)
 		return

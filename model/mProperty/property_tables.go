@@ -356,4 +356,24 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	},
 }
 
-var ClickhouseTables = map[Ch.TableName]*Ch.TableProp{}
+const (
+	TableViewedRooms Ch.TableName = `viewedRooms`
+
+	ActorId = `actorId`
+	PropertyId = `propertyId`
+	RoomLabel = `roomLabel`
+	Country = `country`
+)
+
+var ClickhouseTables = map[Ch.TableName]*Ch.TableProp{
+	TableViewedRooms: {
+		Fields: []Ch.Field{
+			{ActorId, Ch.UInt64},
+			{CreatedAt, Ch.DateTime},
+			{PropertyId, Ch.UInt64},
+			{RoomLabel, Ch.String},
+			{Country, Ch.String},
+		},
+		Orders: []string{CreatedAt, ActorId},
+	},
+}

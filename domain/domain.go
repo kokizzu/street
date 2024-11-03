@@ -97,6 +97,7 @@ func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 		Lat:        in.Lat,
 		Long:       in.Long,
 		Latency:    in.Latency(),
+		RefId: 			in.RefId,
 	}
 	return d.authLogs.Insert([]any{
 		row.CreatedAt,
