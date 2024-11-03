@@ -12,6 +12,7 @@
     RiArrowsArrowRightSLine, RiArrowsArrowRightDoubleFill,
     RiArrowsArrowLeftSLine, RiArrowsArrowLeftDoubleFill
   } from '../node_modules/svelte-icons-pack/dist/ri';
+  import TableFilterInput from './TableFilterInput.svelte';
   
   export let renderFuncs  = /** @type {Record<string, Function>} */ ({});
   export let arrayOfArray = /** @type {boolean} */ (true);
@@ -55,12 +56,12 @@
 
   $: newFilterStr = JSON.stringify( filtersMap );
   
-  let filtersMap = {};
+  let filtersMap = /** @type {Record<string, string>} */ ({});
   
-  // TODO: use it
-  function filterKeyDown(/** @type {KeyboardEvent} */ event ) {
-    if( event.key === 'Enter' ) applyFilter();
-  }
+  // @deprecated
+  // function filterKeyDown(/** @type {KeyboardEvent} */ event ) {
+  //   if( event.key === 'Enter' ) applyFilter();
+  // }
   
   function applyFilter() {
     let filters = /** @type {Record<string, string[]>}*/ ({});
@@ -97,14 +98,7 @@
   $: allowPrevPage = pager.page>1;
   $: allowNextPage = pager.page<pager.pages;
 
-  const tableTitle = `separate with pipe for multiple values, for example:
-  >=100|<50|61|72 will show values greater equal to 100, OR less than 50, OR exactly 61 OR 72
-    filtering with greater or less than will only show correct result if data is saved as number
-    currently price and size NOT stored as number
-  <>abc* will show values NOT started with abc*
-  abc*def|ghi will show values started with abc ends with def OR exactly ghi
-  *jkl* will show values containing jkl substring
-multiple filter from other fields will do AND operation`
+ 
 </script>
 
 <section class="table-root">
@@ -150,7 +144,11 @@ multiple filter from other fields will do AND operation`
                 {field.inputType === 'datetime' ? 'datetime' : ''}
                 {field.name === 'fullName' ? 'full-name' : ''}
                 {field.name === 'userAgent' ? 'user-agent' : ''}
-              ">{field.label}
+              ">
+               <TableFilterInput
+                label={field.label}
+                bind:value={filtersMap[ field.name ]}
+               />
               </th>
             {/if}
           {/each}
@@ -373,7 +371,7 @@ multiple filter from other fields will do AND operation`
   }
 
   .table-root .table-container table thead tr th {
-    padding: 12px;
+    padding: 5px;
 		background-color: var(--gray-001);
 		text-transform: capitalize;
 		border-right: 1px solid var(--gray-004);
@@ -381,6 +379,11 @@ multiple filter from other fields will do AND operation`
 		min-width: fit-content;
 		width: auto;
     text-wrap: nowrap;
+  }
+
+  .table-root .table-container table thead tr th:nth-child(1),
+  .table-root .table-container table thead tr th:nth-child(2) {
+    padding: 5px 12px !important;
   }
 
   .table-root .table-container table thead tr th.textarea {

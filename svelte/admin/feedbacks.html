@@ -564,8 +564,81 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   background-color: var(--blue-005);
 }
 
+/* fakecss:./_components/TableFilterInput.esbuild-svelte-fake-css */
+.header.svelte-1q1160n.svelte-1q1160n {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+}
+.header.active.svelte-1q1160n.svelte-1q1160n {
+  background-color: var(--orange-transparent);
+  color: var(--orange-005);
+  border-radius: 5px;
+}
+.header.active svg {
+  fill: var(--orange-005);
+}
+.header.svelte-1q1160n .btn.svelte-1q1160n {
+  border: none;
+  color: var(--gray-008);
+  background-color: transparent;
+  width: fit-content;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.header.svelte-1q1160n .btn.svelte-1q1160n:hover {
+  background-color: var(--orange-transparent);
+  color: var(--orange-005);
+}
+.header.svelte-1q1160n .btn.svelte-1q1160n:disabled {
+  cursor: not-allowed;
+  background-color: var(--gray-002);
+}
+.header .btn:hover svg {
+  fill: var(--orange-005);
+}
+.header .btn:disabled svg {
+  fill: var(--gray-007);
+}
+.header.svelte-1q1160n .input-box.svelte-1q1160n {
+  position: absolute;
+  top: 100%;
+  left: -5px;
+  width: 200px;
+  z-index: 100;
+  background-color: #fff;
+  border: 1px solid var(--gray-002);
+  border-radius: 8px;
+  padding: 5px;
+  display: none;
+  height: fit-content;
+}
+.header.svelte-1q1160n .input-box.active.svelte-1q1160n {
+  display: flex;
+}
+.header.svelte-1q1160n .input-box input.svelte-1q1160n {
+  width: 100%;
+  border: 1px solid var(--gray-003);
+  outline: none;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  background-color: transparent;
+}
+.header.svelte-1q1160n .input-box input.svelte-1q1160n:focus {
+  border-color: var(--orange-005);
+  outline: 1px solid var(--orange-005);
+}
+
 /* fakecss:./_components/TableView.esbuild-svelte-fake-css */
-.table-root.svelte-sqp1hi.svelte-sqp1hi {
+.table-root.svelte-cqy32.svelte-cqy32 {
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -574,10 +647,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   padding: 0 0 20px 0;
   overflow: hidden;
 }
-.table-root.svelte-sqp1hi p.svelte-sqp1hi {
+.table-root.svelte-cqy32 p.svelte-cqy32 {
   margin: 0;
 }
-.table-root.svelte-sqp1hi .actions-container.svelte-sqp1hi {
+.table-root.svelte-cqy32 .actions-container.svelte-cqy32 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -585,13 +658,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   padding: 10px 15px;
   background-color: #fff;
 }
-.table-root.svelte-sqp1hi .actions-container .left.svelte-sqp1hi {
+.table-root.svelte-cqy32 .actions-container .left.svelte-cqy32 {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
 }
-.table-root.svelte-sqp1hi .actions-container .left .debug .btn.svelte-sqp1hi {
+.table-root.svelte-cqy32 .actions-container .left .debug .btn.svelte-cqy32 {
   border: none;
   background-color: var(--violet-006);
   color: #fff;
@@ -605,24 +678,24 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   gap: 3px;
   cursor: pointer;
 }
-.table-root.svelte-sqp1hi .actions-container .left .debug .btn.svelte-sqp1hi:hover {
+.table-root.svelte-cqy32 .actions-container .left .debug .btn.svelte-cqy32:hover {
   background-color: var(--violet-005);
 }
 .table-root .actions-container .right .search_handler .search_btn:hover svg {
   fill: var(--violet-005);
 }
-.table-root.svelte-sqp1hi .actions-container .actions-button.svelte-sqp1hi {
+.table-root.svelte-cqy32 .actions-container .actions-button.svelte-cqy32 {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 5px;
 }
-.table-root.svelte-sqp1hi .table-container.svelte-sqp1hi {
+.table-root.svelte-cqy32 .table-container.svelte-cqy32 {
   overflow-x: auto;
   scrollbar-color: var(--gray-003) transparent;
   scrollbar-width: thin;
 }
-.table-root.svelte-sqp1hi .table-container table.svelte-sqp1hi {
+.table-root.svelte-cqy32 .table-container table.svelte-cqy32 {
   width: 100%;
   background: #fff;
   border-top: 1px solid var(--gray-003);
@@ -634,12 +707,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   overflow: hidden;
   font-size: 13px;
 }
-.table-root.svelte-sqp1hi .table-container table thead.svelte-sqp1hi {
+.table-root.svelte-cqy32 .table-container table thead.svelte-cqy32 {
   box-shadow: none;
   border-bottom: 1px solid var(--gray-003);
 }
-.table-root.svelte-sqp1hi .table-container table thead tr th.svelte-sqp1hi {
-  padding: 12px;
+.table-root.svelte-cqy32 .table-container table thead tr th.svelte-cqy32 {
+  padding: 5px;
   background-color: var(--gray-001);
   text-transform: capitalize;
   border-right: 1px solid var(--gray-004);
@@ -648,69 +721,73 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   width: auto;
   text-wrap: nowrap;
 }
-.table-root.svelte-sqp1hi .table-container table thead tr th.textarea.svelte-sqp1hi {
+.table-root.svelte-cqy32 .table-container table thead tr th.svelte-cqy32:nth-child(1),
+.table-root.svelte-cqy32 .table-container table thead tr th.svelte-cqy32:nth-child(2) {
+  padding: 5px 12px !important;
+}
+.table-root.svelte-cqy32 .table-container table thead tr th.textarea.svelte-cqy32 {
   min-width: 280px !important;
 }
-.table-root.svelte-sqp1hi .table-container table thead tr th.datetime.svelte-sqp1hi,
-.table-root.svelte-sqp1hi .table-container table thead tr th.full-name.svelte-sqp1hi {
+.table-root.svelte-cqy32 .table-container table thead tr th.datetime.svelte-cqy32,
+.table-root.svelte-cqy32 .table-container table thead tr th.full-name.svelte-cqy32 {
   min-width: 140px !important;
 }
-.table-root.svelte-sqp1hi .table-container table thead tr th.user-agent.svelte-sqp1hi {
+.table-root.svelte-cqy32 .table-container table thead tr th.user-agent.svelte-cqy32 {
   min-width: 300px !important;
 }
-.table-root.svelte-sqp1hi .table-container table tbody tr.deleted.svelte-sqp1hi {
+.table-root.svelte-cqy32 .table-container table tbody tr.deleted.svelte-cqy32 {
   color: var(--red-005);
 }
-.table-root.svelte-sqp1hi .table-container table thead tr th.no.svelte-sqp1hi {
+.table-root.svelte-cqy32 .table-container table thead tr th.no.svelte-cqy32 {
   width: 30px;
 }
-.table-root.svelte-sqp1hi .table-container table thead tr th.a-row.svelte-sqp1hi {
+.table-root.svelte-cqy32 .table-container table thead tr th.a-row.svelte-cqy32 {
   max-width: fit-content;
   min-width: fit-content;
   width: fit-content;
 }
-.table-root.svelte-sqp1hi .table-container table thead tr th.svelte-sqp1hi:last-child {
+.table-root.svelte-cqy32 .table-container table thead tr th.svelte-cqy32:last-child {
   border-right: none;
 }
-.table-root.svelte-sqp1hi .table-container table tbody tr td.svelte-sqp1hi {
+.table-root.svelte-cqy32 .table-container table tbody tr td.svelte-cqy32 {
   padding: 8px 12px;
   white-space: nowrap;
   padding: 8px 12px;
   border-right: 1px solid var(--gray-004);
   border-bottom: 1px solid var(--gray-004);
 }
-.table-root.svelte-sqp1hi .table-container table tbody tr:last-child td.svelte-sqp1hi,
-.table-root.svelte-sqp1hi .table-container table tbody tr:last-child th.svelte-sqp1hi {
+.table-root.svelte-cqy32 .table-container table tbody tr:last-child td.svelte-cqy32,
+.table-root.svelte-cqy32 .table-container table tbody tr:last-child th.svelte-cqy32 {
   border-bottom: none !important;
 }
-.table-root.svelte-sqp1hi .table-container table tbody tr:last-child td.svelte-sqp1hi:last-child {
+.table-root.svelte-cqy32 .table-container table tbody tr:last-child td.svelte-cqy32:last-child {
   border-right: none !important;
 }
-.table-root.svelte-sqp1hi .table-container table tbody tr td.num-row.svelte-sqp1hi {
+.table-root.svelte-cqy32 .table-container table tbody tr td.num-row.svelte-cqy32 {
   border-right: 1px solid var(--gray-003);
   font-weight: 600;
   text-align: center;
 }
-.table-root.svelte-sqp1hi .table-container table tbody tr:last-child td.svelte-sqp1hi,
-.table-root.svelte-sqp1hi .table-container table tbody tr:last-child th.svelte-sqp1hi {
+.table-root.svelte-cqy32 .table-container table tbody tr:last-child td.svelte-cqy32,
+.table-root.svelte-cqy32 .table-container table tbody tr:last-child th.svelte-cqy32 {
   border-bottom: none !important;
 }
-.table-root.svelte-sqp1hi .table-container table tbody tr:last-child td.svelte-sqp1hi:last-child {
+.table-root.svelte-cqy32 .table-container table tbody tr:last-child td.svelte-cqy32:last-child {
   border-right: none !important;
 }
-.table-root.svelte-sqp1hi .table-container table tbody tr td.svelte-sqp1hi:last-child {
+.table-root.svelte-cqy32 .table-container table tbody tr td.svelte-cqy32:last-child {
   border-right: none !important;
 }
-.table-root.svelte-sqp1hi .table-container table tbody tr th.svelte-sqp1hi {
+.table-root.svelte-cqy32 .table-container table tbody tr th.svelte-cqy32 {
   text-align: center;
   border-right: 1px solid var(--gray-004);
   border-bottom: 1px solid var(--gray-004);
 }
-.table-root.svelte-sqp1hi .table-container table tbody tr td .actions.svelte-sqp1hi {
+.table-root.svelte-cqy32 .table-container table tbody tr td .actions.svelte-cqy32 {
   display: flex;
   flex-direction: row;
 }
-.table-root.svelte-sqp1hi .table-container table tbody tr td .actions .btn.svelte-sqp1hi {
+.table-root.svelte-cqy32 .table-container table tbody tr td .actions .btn.svelte-cqy32 {
   border: none;
   padding: 6px;
   border-radius: 8px;
@@ -721,43 +798,43 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   align-items: center;
   text-decoration: none;
 }
-.table-root.svelte-sqp1hi .table-container table tbody tr td .actions .btn.svelte-sqp1hi:hover {
+.table-root.svelte-cqy32 .table-container table tbody tr td .actions .btn.svelte-cqy32:hover {
   background-color: var(--orange-transparent);
 }
 .table-root .table-container table tbody tr td .actions .btn:hover svg {
   fill: var(--orange-005);
 }
-.table-root.svelte-sqp1hi .pagination-container.svelte-sqp1hi {
+.table-root.svelte-cqy32 .pagination-container.svelte-cqy32 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 15px 15px 0 15px;
 }
-.table-root.svelte-sqp1hi .pagination-container .pager-info.svelte-sqp1hi {
+.table-root.svelte-cqy32 .pagination-container .pager-info.svelte-cqy32 {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 5px;
 }
-.table-root.svelte-sqp1hi .pagination-container .pager-info input.per-page.svelte-sqp1hi {
+.table-root.svelte-cqy32 .pagination-container .pager-info input.per-page.svelte-cqy32 {
   padding: 5px 8px;
   border: 1px solid var(--gray-003);
   border-radius: 8px;
   width: 55px;
 }
-.table-root.svelte-sqp1hi .pagination-container .pager-info input.per-page.svelte-sqp1hi:focus {
+.table-root.svelte-cqy32 .pagination-container .pager-info input.per-page.svelte-cqy32:focus {
   border-color: var(--orange-005);
   outline: 1px solid var(--orange-005);
 }
-.table-root.svelte-sqp1hi .pagination-container .pagination.svelte-sqp1hi {
+.table-root.svelte-cqy32 .pagination-container .pagination.svelte-cqy32 {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 5px;
   overflow: hidden;
 }
-.table-root.svelte-sqp1hi .pagination-container .pagination .btn.svelte-sqp1hi {
+.table-root.svelte-cqy32 .pagination-container .pagination .btn.svelte-cqy32 {
   border: none;
   background-color: transparent;
   display: flex;
@@ -769,7 +846,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   border: 1px solid transparent;
   text-decoration: none;
 }
-.table-root.svelte-sqp1hi .pagination-container .pagination .btn.svelte-sqp1hi:hover {
+.table-root.svelte-cqy32 .pagination-container .pagination .btn.svelte-cqy32:hover {
   background-color: var(--orange-transparent);
   color: var(--orange-005);
 }
@@ -781,7 +858,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   fill: var(--gray-008);
   outline: var(--gray-008);
 }
-.table-root.svelte-sqp1hi .pagination-container .pagination .btn.svelte-sqp1hi:disabled {
+.table-root.svelte-cqy32 .pagination-container .pagination .btn.svelte-cqy32:disabled {
   background-color: var(--gray-002);
   font-weight: 600;
   cursor: default;
@@ -3311,13 +3388,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance10 = bind2(Axios$1.prototype.request, context);
-        utils$1.extend(instance10, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance10, context, null, { allOwnKeys: true });
-        instance10.create = function create(instanceConfig) {
+        const instance11 = bind2(Axios$1.prototype.request, context);
+        utils$1.extend(instance11, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance11, context, null, { allOwnKeys: true });
+        instance11.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance10;
+        return instance11;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -4066,7 +4143,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance10, create_fragment10, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance11, create_fragment11, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -4092,7 +4169,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance10 ? instance10(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance11 ? instance11(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -4105,7 +4182,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment10 ? create_fragment10($.ctx) : false;
+    $.fragment = create_fragment11 ? create_fragment11($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -5430,71 +5507,319 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
 
   // _components/TableView.svelte
   var import_formatter = __toESM(require_formatter());
+
+  // _components/TableFilterInput.svelte
+  function create_fragment7(ctx) {
+    let div1;
+    let span;
+    let t0;
+    let t1;
+    let button;
+    let icon;
+    let t2;
+    let div0;
+    let input;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        src: RiSystemFilterLine,
+        size: "17",
+        color: "var(--gray-008)"
+      }
+    });
+    return {
+      c() {
+        div1 = element("div");
+        span = element("span");
+        t0 = text(
+          /*label*/
+          ctx[1]
+        );
+        t1 = space();
+        button = element("button");
+        create_component(icon.$.fragment);
+        t2 = space();
+        div0 = element("div");
+        input = element("input");
+        attr(button, "class", "btn svelte-1q1160n");
+        attr(input, "type", "text");
+        attr(input, "title", "Separate with pipe for multiple values, for example:\n    >=100|<50|61|72 will show values greater equal to 100, OR less than 50, OR exactly 61 OR 72\n      filtering with greater or less than will only show correct result if data is saved as number\n      currently price and size NOT stored as number\n    <>abc* will show values NOT started with abc*\n    abc*def|ghi will show values started with abc ends with def OR exactly ghi\n    *jkl* will show values containing jkl substring\n  multiple filter from other fields will do AND operation");
+        attr(input, "placeholder", "Input filter here");
+        attr(input, "class", "svelte-1q1160n");
+        attr(div0, "class", "input-box svelte-1q1160n");
+        toggle_class(
+          div0,
+          "active",
+          /*isShowInput*/
+          ctx[2]
+        );
+        attr(div1, "class", "header svelte-1q1160n");
+        toggle_class(
+          div1,
+          "active",
+          /*isFiltering*/
+          ctx[3]
+        );
+      },
+      m(target, anchor) {
+        insert(target, div1, anchor);
+        append(div1, span);
+        append(span, t0);
+        append(div1, t1);
+        append(div1, button);
+        mount_component(icon, button, null);
+        append(div1, t2);
+        append(div1, div0);
+        append(div0, input);
+        set_input_value(
+          input,
+          /*value*/
+          ctx[0]
+        );
+        current = true;
+        if (!mounted) {
+          dispose = [
+            listen(
+              button,
+              "click",
+              /*click_handler*/
+              ctx[4]
+            ),
+            listen(
+              input,
+              "input",
+              /*input_input_handler*/
+              ctx[5]
+            )
+          ];
+          mounted = true;
+        }
+      },
+      p(ctx2, [dirty]) {
+        if (!current || dirty & /*label*/
+        2)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[1]
+          );
+        if (dirty & /*value*/
+        1 && input.value !== /*value*/
+        ctx2[0]) {
+          set_input_value(
+            input,
+            /*value*/
+            ctx2[0]
+          );
+        }
+        if (!current || dirty & /*isShowInput*/
+        4) {
+          toggle_class(
+            div0,
+            "active",
+            /*isShowInput*/
+            ctx2[2]
+          );
+        }
+        if (!current || dirty & /*isFiltering*/
+        8) {
+          toggle_class(
+            div1,
+            "active",
+            /*isFiltering*/
+            ctx2[3]
+          );
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div1);
+        }
+        destroy_component(icon);
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function instance7($self, $props, $invalidate) {
+    let { label = (
+      /** @type {string} */
+      ""
+    ) } = $props;
+    let { value = (
+      /** @type {string} */
+      ""
+    ) } = $props;
+    let isShowInput = (
+      /** @type {boolean} */
+      false
+    );
+    let isFiltering = (
+      /** @type {boolean} */
+      false
+    );
+    const click_handler = () => $invalidate(2, isShowInput = !isShowInput);
+    function input_input_handler() {
+      value = this.value;
+      $invalidate(0, value);
+    }
+    $self.$set = ($props2) => {
+      if ("label" in $props2)
+        $invalidate(1, label = $props2.label);
+      if ("value" in $props2)
+        $invalidate(0, value = $props2.value);
+    };
+    $self.$.update = () => {
+      if ($self.$.dirty & /*value*/
+      1) {
+        $: {
+          if (value !== "") {
+            $invalidate(3, isFiltering = true);
+          } else {
+            $invalidate(3, isFiltering = false);
+          }
+        }
+      }
+    };
+    return [value, label, isShowInput, isFiltering, click_handler, input_input_handler];
+  }
+  var TableFilterInput = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance7, create_fragment7, safe_not_equal, { label: 1, value: 0 });
+    }
+  };
+  var TableFilterInput_default = TableFilterInput;
+
+  // _components/TableView.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[31] = list[i];
-    child_ctx[33] = i;
+    child_ctx[30] = list[i];
+    child_ctx[32] = i;
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[34] = list[i];
-    child_ctx[36] = i;
+    child_ctx[33] = list[i];
+    child_ctx[35] = i;
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[37] = list[i];
+    child_ctx[36] = list[i];
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[34] = list[i];
+    child_ctx[33] = list[i];
+    child_ctx[39] = list;
+    child_ctx[40] = i;
     return child_ctx;
   }
   function create_else_block_3(ctx) {
     let th;
-    let t0_value = (
-      /*field*/
-      ctx[34].label + ""
-    );
-    let t0;
-    let t1;
+    let tablefilterinput;
+    let updating_value;
+    let t;
     let th_class_value;
+    let current;
+    function tablefilterinput_value_binding(value) {
+      ctx[21](
+        value,
+        /*field*/
+        ctx[33]
+      );
+    }
+    let tablefilterinput_props = { label: (
+      /*field*/
+      ctx[33].label
+    ) };
+    if (
+      /*filtersMap*/
+      ctx[6][
+        /*field*/
+        ctx[33].name
+      ] !== void 0
+    ) {
+      tablefilterinput_props.value = /*filtersMap*/
+      ctx[6][
+        /*field*/
+        ctx[33].name
+      ];
+    }
+    tablefilterinput = new TableFilterInput_default({ props: tablefilterinput_props });
+    binding_callbacks.push(() => bind(tablefilterinput, "value", tablefilterinput_value_binding));
     return {
       c() {
         th = element("th");
-        t0 = text(t0_value);
-        t1 = space();
+        create_component(tablefilterinput.$.fragment);
+        t = space();
         attr(th, "class", th_class_value = /*field*/
-        (ctx[34].inputType === "textarea" ? "textarea" : "") + " " + /*field*/
-        (ctx[34].inputType === "datetime" ? "datetime" : "") + " " + /*field*/
-        (ctx[34].name === "fullName" ? "full-name" : "") + " " + /*field*/
-        (ctx[34].name === "userAgent" ? "user-agent" : "") + " svelte-sqp1hi");
+        (ctx[33].inputType === "textarea" ? "textarea" : "") + " " + /*field*/
+        (ctx[33].inputType === "datetime" ? "datetime" : "") + " " + /*field*/
+        (ctx[33].name === "fullName" ? "full-name" : "") + " " + /*field*/
+        (ctx[33].name === "userAgent" ? "user-agent" : "") + " svelte-cqy32");
       },
       m(target, anchor) {
         insert(target, th, anchor);
-        append(th, t0);
-        append(th, t1);
+        mount_component(tablefilterinput, th, null);
+        append(th, t);
+        current = true;
       },
-      p(ctx2, dirty) {
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        const tablefilterinput_changes = {};
         if (dirty[0] & /*fields*/
-        4 && t0_value !== (t0_value = /*field*/
-        ctx2[34].label + ""))
-          set_data(t0, t0_value);
-        if (dirty[0] & /*fields*/
+        4)
+          tablefilterinput_changes.label = /*field*/
+          ctx[33].label;
+        if (!updating_value && dirty[0] & /*filtersMap, fields*/
+        68) {
+          updating_value = true;
+          tablefilterinput_changes.value = /*filtersMap*/
+          ctx[6][
+            /*field*/
+            ctx[33].name
+          ];
+          add_flush_callback(() => updating_value = false);
+        }
+        tablefilterinput.$set(tablefilterinput_changes);
+        if (!current || dirty[0] & /*fields*/
         4 && th_class_value !== (th_class_value = /*field*/
-        (ctx2[34].inputType === "textarea" ? "textarea" : "") + " " + /*field*/
-        (ctx2[34].inputType === "datetime" ? "datetime" : "") + " " + /*field*/
-        (ctx2[34].name === "fullName" ? "full-name" : "") + " " + /*field*/
-        (ctx2[34].name === "userAgent" ? "user-agent" : "") + " svelte-sqp1hi")) {
+        (ctx[33].inputType === "textarea" ? "textarea" : "") + " " + /*field*/
+        (ctx[33].inputType === "datetime" ? "datetime" : "") + " " + /*field*/
+        (ctx[33].name === "fullName" ? "full-name" : "") + " " + /*field*/
+        (ctx[33].name === "userAgent" ? "user-agent" : "") + " svelte-cqy32")) {
           attr(th, "class", th_class_value);
         }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(tablefilterinput.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(tablefilterinput.$.fragment, local);
+        current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(th);
         }
+        destroy_component(tablefilterinput);
       }
     };
   }
@@ -5504,12 +5829,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       c() {
         th = element("th");
         th.textContent = "Action";
-        attr(th, "class", "a-row svelte-sqp1hi");
+        attr(th, "class", "a-row svelte-cqy32");
       },
       m(target, anchor) {
         insert(target, th, anchor);
       },
       p: noop,
+      i: noop,
+      o: noop,
       d(detaching) {
         if (detaching) {
           detach(th);
@@ -5518,43 +5845,69 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     };
   }
   function create_each_block_3(ctx) {
+    let current_block_type_index;
+    let if_block;
     let if_block_anchor;
+    let current;
+    const if_block_creators = [create_if_block_7, create_else_block_3];
+    const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (
         /*field*/
-        ctx2[34].name === "id"
+        ctx2[33].name === "id"
       )
-        return create_if_block_7;
-      return create_else_block_3;
+        return 0;
+      return 1;
     }
-    let current_block_type = select_block_type(ctx, [-1, -1]);
-    let if_block = current_block_type(ctx);
+    current_block_type_index = select_block_type(ctx, [-1, -1]);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
         if_block.c();
         if_block_anchor = empty();
       },
       m(target, anchor) {
-        if_block.m(target, anchor);
+        if_blocks[current_block_type_index].m(target, anchor);
         insert(target, if_block_anchor, anchor);
+        current = true;
       },
       p(ctx2, dirty) {
-        if (current_block_type === (current_block_type = select_block_type(ctx2, dirty)) && if_block) {
-          if_block.p(ctx2, dirty);
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
         } else {
-          if_block.d(1);
-          if_block = current_block_type(ctx2);
-          if (if_block) {
+          group_outros();
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
+          });
+          check_outros();
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
             if_block.c();
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          } else {
+            if_block.p(ctx2, dirty);
           }
+          transition_in(if_block, 1);
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
         }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(if_block_anchor);
         }
-        if_block.d(detaching);
+        if_blocks[current_block_type_index].d(detaching);
       }
     };
   }
@@ -5573,10 +5926,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         t1 = space();
         td1 = element("td");
         t2 = text("No data");
-        attr(td0, "class", "num-row svelte-sqp1hi");
+        attr(td0, "class", "num-row svelte-cqy32");
         attr(td1, "colspan", td1_colspan_value = /*fields*/
         ctx[2].length - 2);
-        attr(td1, "class", "svelte-sqp1hi");
+        attr(td1, "class", "svelte-cqy32");
       },
       m(target, anchor) {
         insert(target, tr, anchor);
@@ -5633,7 +5986,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*rows, deletedAtIdx, fields, extraActions, onEditRow, cell, renderFuncs, pager*/
-        16511) {
+        32959) {
           each_value = ensure_array_like(
             /*rows*/
             ctx2[3] || []
@@ -5685,13 +6038,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let td;
     let t_value = (
       /*cell*/
-      ctx[14](
+      ctx[15](
         /*row*/
-        ctx[31],
+        ctx[30],
         /*i*/
-        ctx[36],
+        ctx[35],
         /*field*/
-        ctx[34]
+        ctx[33]
       ) + ""
     );
     let t;
@@ -5699,7 +6052,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-sqp1hi");
+        attr(td, "class", "svelte-cqy32");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -5708,13 +6061,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*rows, fields*/
         12 && t_value !== (t_value = /*cell*/
-        ctx2[14](
+        ctx2[15](
           /*row*/
-          ctx2[31],
+          ctx2[30],
           /*i*/
-          ctx2[36],
+          ctx2[35],
           /*field*/
-          ctx2[34]
+          ctx2[33]
         ) + ""))
           set_data(t, t_value);
       },
@@ -5731,13 +6084,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let td;
     let t_value = (
       /*cell*/
-      (ctx[14](
+      (ctx[15](
         /*row*/
-        ctx[31],
+        ctx[30],
         /*i*/
-        ctx[36],
+        ctx[35],
         /*field*/
-        ctx[34]
+        ctx[33]
       ) || 0).toLocaleString() + ""
     );
     let t;
@@ -5745,7 +6098,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-sqp1hi");
+        attr(td, "class", "svelte-cqy32");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -5754,13 +6107,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*rows, fields*/
         12 && t_value !== (t_value = /*cell*/
-        (ctx2[14](
+        (ctx2[15](
           /*row*/
-          ctx2[31],
+          ctx2[30],
           /*i*/
-          ctx2[36],
+          ctx2[35],
           /*field*/
-          ctx2[34]
+          ctx2[33]
         ) || 0).toLocaleString() + ""))
           set_data(t, t_value);
       },
@@ -5777,13 +6130,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let td;
     let t_value = (0, import_formatter.datetime)(
       /*cell*/
-      ctx[14](
+      ctx[15](
         /*row*/
-        ctx[31],
+        ctx[30],
         /*i*/
-        ctx[36],
+        ctx[35],
         /*field*/
-        ctx[34]
+        ctx[33]
       )
     ) + "";
     let t;
@@ -5791,7 +6144,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-sqp1hi");
+        attr(td, "class", "svelte-cqy32");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -5801,13 +6154,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (dirty[0] & /*rows, fields*/
         12 && t_value !== (t_value = (0, import_formatter.datetime)(
           /*cell*/
-          ctx2[14](
+          ctx2[15](
             /*row*/
-            ctx2[31],
+            ctx2[30],
             /*i*/
-            ctx2[36],
+            ctx2[35],
             /*field*/
-            ctx2[34]
+            ctx2[33]
           )
         ) + ""))
           set_data(t, t_value);
@@ -5824,20 +6177,20 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   function create_if_block_4(ctx) {
     let td;
     let t_value = !!/*cell*/
-    ctx[14](
+    ctx[15](
       /*row*/
-      ctx[31],
+      ctx[30],
       /*i*/
-      ctx[36],
+      ctx[35],
       /*field*/
-      ctx[34]
+      ctx[33]
     ) + "";
     let t;
     return {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-sqp1hi");
+        attr(td, "class", "svelte-cqy32");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -5846,13 +6199,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*rows, fields*/
         12 && t_value !== (t_value = !!/*cell*/
-        ctx2[14](
+        ctx2[15](
           /*row*/
-          ctx2[31],
+          ctx2[30],
           /*i*/
-          ctx2[36],
+          ctx2[35],
           /*field*/
-          ctx2[34]
+          ctx2[33]
         ) + ""))
           set_data(t, t_value);
       },
@@ -5871,16 +6224,16 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       /*renderFuncs*/
       ctx[1][
         /*field*/
-        ctx[34].name
+        ctx[33].name
       ](
         /*cell*/
-        ctx[14](
+        ctx[15](
           /*row*/
-          ctx[31],
+          ctx[30],
           /*i*/
-          ctx[36],
+          ctx[35],
           /*field*/
-          ctx[34]
+          ctx[33]
         )
       ) + ""
     );
@@ -5889,7 +6242,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-sqp1hi");
+        attr(td, "class", "svelte-cqy32");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -5900,16 +6253,16 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         14 && t_value !== (t_value = /*renderFuncs*/
         ctx2[1][
           /*field*/
-          ctx2[34].name
+          ctx2[33].name
         ](
           /*cell*/
-          ctx2[14](
+          ctx2[15](
             /*row*/
-            ctx2[31],
+            ctx2[30],
             /*i*/
-            ctx2[36],
+            ctx2[35],
             /*field*/
-            ctx2[34]
+            ctx2[33]
           )
         ) + ""))
           set_data(t, t_value);
@@ -5942,13 +6295,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     function click_handler_1() {
       return (
         /*click_handler_1*/
-        ctx[21](
+        ctx[22](
           /*row*/
-          ctx[31],
+          ctx[30],
           /*i*/
-          ctx[36],
+          ctx[35],
           /*field*/
-          ctx[34]
+          ctx[33]
         )
       );
     }
@@ -5973,10 +6326,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(button, "class", "btn svelte-sqp1hi");
+        attr(button, "class", "btn svelte-cqy32");
         attr(button, "title", "Edit");
-        attr(div, "class", "actions svelte-sqp1hi");
-        attr(td, "class", "a-row svelte-sqp1hi");
+        attr(div, "class", "actions svelte-cqy32");
+        attr(td, "class", "a-row svelte-cqy32");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -6062,7 +6415,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       props: {
         src: (
           /*action*/
-          ctx[37].icon
+          ctx[36].icon
         ),
         size: "17",
         color: "var(--gray-008)"
@@ -6071,11 +6424,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     function click_handler_2() {
       return (
         /*click_handler_2*/
-        ctx[22](
+        ctx[23](
           /*action*/
-          ctx[37],
+          ctx[36],
           /*row*/
-          ctx[31]
+          ctx[30]
         )
       );
     }
@@ -6083,9 +6436,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       c() {
         button = element("button");
         create_component(icon.$.fragment);
-        attr(button, "class", "btn svelte-sqp1hi");
+        attr(button, "class", "btn svelte-cqy32");
         attr(button, "title", button_title_value = /*action*/
-        ctx[37].label || "");
+        ctx[36].label || "");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -6102,11 +6455,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (dirty[0] & /*extraActions*/
         16)
           icon_changes.src = /*action*/
-          ctx[37].icon;
+          ctx[36].icon;
         icon.$set(icon_changes);
         if (!current || dirty[0] & /*extraActions*/
         16 && button_title_value !== (button_title_value = /*action*/
-        ctx[37].label || "")) {
+        ctx[36].label || "")) {
           attr(button, "title", button_title_value);
         }
       },
@@ -6140,7 +6493,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       props: {
         src: (
           /*action*/
-          ctx[37].icon
+          ctx[36].icon
         ),
         size: "17",
         color: "var(--gray-008)"
@@ -6151,14 +6504,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         a = element("a");
         create_component(icon.$.fragment);
         attr(a, "href", a_href_value = /*action*/
-        ctx[37].link(
+        ctx[36].link(
           /*row*/
-          ctx[31]
+          ctx[30]
         ));
-        attr(a, "class", "btn svelte-sqp1hi");
+        attr(a, "class", "btn svelte-cqy32");
         attr(a, "target", "_blank");
         attr(a, "title", a_title_value = /*action*/
-        ctx[37].label || "");
+        ctx[36].label || "");
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -6170,19 +6523,19 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (dirty[0] & /*extraActions*/
         16)
           icon_changes.src = /*action*/
-          ctx2[37].icon;
+          ctx2[36].icon;
         icon.$set(icon_changes);
         if (!current || dirty[0] & /*extraActions, rows*/
         24 && a_href_value !== (a_href_value = /*action*/
-        ctx2[37].link(
+        ctx2[36].link(
           /*row*/
-          ctx2[31]
+          ctx2[30]
         ))) {
           attr(a, "href", a_href_value);
         }
         if (!current || dirty[0] & /*extraActions*/
         16 && a_title_value !== (a_title_value = /*action*/
-        ctx2[37].label || "")) {
+        ctx2[36].label || "")) {
           attr(a, "title", a_title_value);
         }
       },
@@ -6214,7 +6567,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     function select_block_type_3(ctx2, dirty) {
       if (
         /*action*/
-        ctx2[37].link
+        ctx2[36].link
       )
         return 0;
       return 1;
@@ -6288,31 +6641,31 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     function select_block_type_2(ctx2, dirty) {
       if (
         /*field*/
-        ctx2[34].name === "id"
+        ctx2[33].name === "id"
       )
         return 0;
       if (
         /*renderFuncs*/
         ctx2[1][
           /*field*/
-          ctx2[34].name
+          ctx2[33].name
         ]
       )
         return 1;
       if (
         /*field*/
-        ctx2[34].inputType === "checkbox"
+        ctx2[33].inputType === "checkbox"
       )
         return 2;
       if (
         /*field*/
-        ctx2[34].inputType === "datetime" || /*field*/
-        ctx2[34].name === "deletedAt"
+        ctx2[33].inputType === "datetime" || /*field*/
+        ctx2[33].name === "deletedAt"
       )
         return 3;
       if (
         /*field*/
-        ctx2[34].inputType === "number"
+        ctx2[33].inputType === "number"
       )
         return 4;
       return 5;
@@ -6376,7 +6729,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       /*pager*/
       (ctx[0].page - 1) * /*pager*/
       ctx[0].perPage + /*idx*/
-      ctx[33] + 1 + ""
+      ctx[32] + 1 + ""
     );
     let t0;
     let t1;
@@ -6403,15 +6756,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           each_blocks[i].c();
         }
         t2 = space();
-        attr(td, "class", "num-row svelte-sqp1hi");
-        attr(tr, "class", "svelte-sqp1hi");
+        attr(td, "class", "num-row svelte-cqy32");
+        attr(tr, "class", "svelte-cqy32");
         toggle_class(
           tr,
           "deleted",
           /*row*/
-          ctx[31][
+          ctx[30][
             /*deletedAtIdx*/
-            ctx[6]
+            ctx[7]
           ] > 0
         );
       },
@@ -6433,10 +6786,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         1) && t0_value !== (t0_value = /*pager*/
         (ctx2[0].page - 1) * /*pager*/
         ctx2[0].perPage + /*idx*/
-        ctx2[33] + 1 + ""))
+        ctx2[32] + 1 + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*extraActions, rows, onEditRow, cell, fields, renderFuncs*/
-        16446) {
+        32830) {
           each_value_1 = ensure_array_like(
             /*fields*/
             ctx2[2]
@@ -6461,14 +6814,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           check_outros();
         }
         if (!current || dirty[0] & /*rows, deletedAtIdx*/
-        72) {
+        136) {
           toggle_class(
             tr,
             "deleted",
             /*row*/
-            ctx2[31][
+            ctx2[30][
               /*deletedAtIdx*/
-              ctx2[6]
+              ctx2[7]
             ] > 0
           );
         }
@@ -6496,7 +6849,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_fragment7(ctx) {
+  function create_fragment8(ctx) {
     let section;
     let div2;
     let div1;
@@ -6601,6 +6954,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     for (let i = 0; i < each_value_3.length; i += 1) {
       each_blocks[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
     }
+    const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
+      each_blocks[i] = null;
+    });
     const if_block_creators = [create_if_block2, create_else_block_2];
     const if_blocks = [];
     function select_block_type_1(ctx2, dirty) {
@@ -6701,46 +7057,46 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         t20 = space();
         button5 = element("button");
         create_component(icon5.$.fragment);
-        attr(button0, "class", "btn svelte-sqp1hi");
+        attr(button0, "class", "btn svelte-cqy32");
         button0.disabled = button0_disabled_value = /*oldFilterStr*/
-        ctx[7] === /*newFilterStr*/
-        ctx[8];
+        ctx[8] === /*newFilterStr*/
+        ctx[9];
         attr(button0, "title", "Apply Filter");
-        attr(button1, "class", "btn svelte-sqp1hi");
+        attr(button1, "class", "btn svelte-cqy32");
         attr(button1, "title", "Refresh Table");
-        attr(div0, "class", "actions-button svelte-sqp1hi");
-        attr(div1, "class", "left svelte-sqp1hi");
-        attr(div2, "class", "actions-container svelte-sqp1hi");
-        attr(th, "class", "no svelte-sqp1hi");
-        attr(thead, "class", "svelte-sqp1hi");
-        attr(table, "class", "svelte-sqp1hi");
-        attr(div3, "class", "table-container svelte-sqp1hi");
-        attr(input, "class", "per-page svelte-sqp1hi");
+        attr(div0, "class", "actions-button svelte-cqy32");
+        attr(div1, "class", "left svelte-cqy32");
+        attr(div2, "class", "actions-container svelte-cqy32");
+        attr(th, "class", "no svelte-cqy32");
+        attr(thead, "class", "svelte-cqy32");
+        attr(table, "class", "svelte-cqy32");
+        attr(div3, "class", "table-container svelte-cqy32");
+        attr(input, "class", "per-page svelte-cqy32");
         attr(input, "id", "perPage");
         attr(input, "min", "0");
         attr(input, "type", "number");
-        attr(div4, "class", "pager-info svelte-sqp1hi");
-        attr(p, "class", "svelte-sqp1hi");
+        attr(div4, "class", "pager-info svelte-cqy32");
+        attr(p, "class", "svelte-cqy32");
         attr(div5, "class", "total");
-        attr(button2, "class", "btn svelte-sqp1hi");
+        attr(button2, "class", "btn svelte-cqy32");
         button2.disabled = button2_disabled_value = !/*allowPrevPage*/
-        ctx[10];
+        ctx[11];
         attr(button2, "title", "Go to first page");
-        attr(button3, "class", "btn svelte-sqp1hi");
+        attr(button3, "class", "btn svelte-cqy32");
         button3.disabled = button3_disabled_value = !/*allowPrevPage*/
-        ctx[10];
+        ctx[11];
         attr(button3, "title", "Go to previous page");
-        attr(button4, "class", "btn svelte-sqp1hi");
+        attr(button4, "class", "btn svelte-cqy32");
         button4.disabled = button4_disabled_value = !/*allowNextPage*/
-        ctx[9];
+        ctx[10];
         attr(button4, "title", "Go to next page");
-        attr(button5, "class", "btn svelte-sqp1hi");
+        attr(button5, "class", "btn svelte-cqy32");
         button5.disabled = button5_disabled_value = !/*allowNextPage*/
-        ctx[9];
+        ctx[10];
         attr(button5, "title", "Go to last page");
-        attr(div6, "class", "pagination svelte-sqp1hi");
-        attr(div7, "class", "pagination-container svelte-sqp1hi");
-        attr(section, "class", "table-root svelte-sqp1hi");
+        attr(div6, "class", "pagination svelte-cqy32");
+        attr(div7, "class", "pagination-container svelte-cqy32");
+        attr(section, "class", "table-root svelte-cqy32");
       },
       m(target, anchor) {
         insert(target, section, anchor);
@@ -6813,7 +7169,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
               button0,
               "click",
               /*applyFilter*/
-              ctx[11]
+              ctx[12]
             ),
             listen(
               button1,
@@ -6825,37 +7181,37 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
               input,
               "input",
               /*input_input_handler*/
-              ctx[23]
+              ctx[24]
             ),
             listen(
               input,
               "change",
               /*change_handler*/
-              ctx[24]
+              ctx[25]
             ),
             listen(
               button2,
               "click",
               /*click_handler_3*/
-              ctx[25]
+              ctx[26]
             ),
             listen(
               button3,
               "click",
               /*click_handler_4*/
-              ctx[26]
+              ctx[27]
             ),
             listen(
               button4,
               "click",
               /*click_handler_5*/
-              ctx[27]
+              ctx[28]
             ),
             listen(
               button5,
               "click",
               /*click_handler_6*/
-              ctx[28]
+              ctx[29]
             )
           ];
           mounted = true;
@@ -6886,13 +7242,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           }
         }
         if (!current || dirty[0] & /*oldFilterStr, newFilterStr*/
-        384 && button0_disabled_value !== (button0_disabled_value = /*oldFilterStr*/
-        ctx2[7] === /*newFilterStr*/
-        ctx2[8])) {
+        768 && button0_disabled_value !== (button0_disabled_value = /*oldFilterStr*/
+        ctx2[8] === /*newFilterStr*/
+        ctx2[9])) {
           button0.disabled = button0_disabled_value;
         }
-        if (dirty[0] & /*fields*/
-        4) {
+        if (dirty[0] & /*fields, filtersMap*/
+        68) {
           each_value_3 = ensure_array_like(
             /*fields*/
             ctx2[2] || []
@@ -6902,16 +7258,19 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             const child_ctx = get_each_context_3(ctx2, each_value_3, i);
             if (each_blocks[i]) {
               each_blocks[i].p(child_ctx, dirty);
+              transition_in(each_blocks[i], 1);
             } else {
               each_blocks[i] = create_each_block_3(child_ctx);
               each_blocks[i].c();
+              transition_in(each_blocks[i], 1);
               each_blocks[i].m(tr, null);
             }
           }
-          for (; i < each_blocks.length; i += 1) {
-            each_blocks[i].d(1);
+          group_outros();
+          for (i = each_value_3.length; i < each_blocks.length; i += 1) {
+            out(i);
           }
-          each_blocks.length = each_value_3.length;
+          check_outros();
         }
         let previous_block_index = current_block_type_index;
         current_block_type_index = select_block_type_1(ctx2, dirty);
@@ -6955,23 +7314,23 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         (ctx2[0].countResult | 0) + ""))
           set_data(t16, t16_value);
         if (!current || dirty[0] & /*allowPrevPage*/
-        1024 && button2_disabled_value !== (button2_disabled_value = !/*allowPrevPage*/
-        ctx2[10])) {
+        2048 && button2_disabled_value !== (button2_disabled_value = !/*allowPrevPage*/
+        ctx2[11])) {
           button2.disabled = button2_disabled_value;
         }
         if (!current || dirty[0] & /*allowPrevPage*/
-        1024 && button3_disabled_value !== (button3_disabled_value = !/*allowPrevPage*/
-        ctx2[10])) {
+        2048 && button3_disabled_value !== (button3_disabled_value = !/*allowPrevPage*/
+        ctx2[11])) {
           button3.disabled = button3_disabled_value;
         }
         if (!current || dirty[0] & /*allowNextPage*/
-        512 && button4_disabled_value !== (button4_disabled_value = !/*allowNextPage*/
-        ctx2[9])) {
+        1024 && button4_disabled_value !== (button4_disabled_value = !/*allowNextPage*/
+        ctx2[10])) {
           button4.disabled = button4_disabled_value;
         }
         if (!current || dirty[0] & /*allowNextPage*/
-        512 && button5_disabled_value !== (button5_disabled_value = !/*allowNextPage*/
-        ctx2[9])) {
+        1024 && button5_disabled_value !== (button5_disabled_value = !/*allowNextPage*/
+        ctx2[10])) {
           button5.disabled = button5_disabled_value;
         }
       },
@@ -6981,6 +7340,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         transition_in(default_slot, local);
         transition_in(icon0.$.fragment, local);
         transition_in(icon1.$.fragment, local);
+        for (let i = 0; i < each_value_3.length; i += 1) {
+          transition_in(each_blocks[i]);
+        }
         transition_in(if_block);
         transition_in(icon2.$.fragment, local);
         transition_in(icon3.$.fragment, local);
@@ -6992,6 +7354,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         transition_out(default_slot, local);
         transition_out(icon0.$.fragment, local);
         transition_out(icon1.$.fragment, local);
+        each_blocks = each_blocks.filter(Boolean);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          transition_out(each_blocks[i]);
+        }
         transition_out(if_block);
         transition_out(icon2.$.fragment, local);
         transition_out(icon3.$.fragment, local);
@@ -7018,7 +7384,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function instance7($self, $props, $invalidate) {
+  function instance8($self, $props, $invalidate) {
     let allowPrevPage;
     let allowNextPage;
     let { $slots: slots = {}, $scope } = $props;
@@ -7070,19 +7436,18 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       for (let z = 0; z < fields2.length; z++) {
         let field = fields2[z];
         if (field.name === "deletedAt") {
-          $invalidate(6, deletedAtIdx = z);
+          $invalidate(7, deletedAtIdx = z);
         }
-        $invalidate(17, filtersMap[field.name] = "", filtersMap);
+        $invalidate(6, filtersMap[field.name] = "", filtersMap);
       }
-      $invalidate(7, oldFilterStr = JSON.stringify(filtersMap));
+      $invalidate(8, oldFilterStr = JSON.stringify(filtersMap));
     });
     let oldFilterStr = "{}";
     let newFilterStr = "";
-    let filtersMap = {};
-    function filterKeyDown(event) {
-      if (event.key === "Enter")
-        applyFilter();
-    }
+    let filtersMap = (
+      /** @type {Record<string, string>} */
+      {}
+    );
     function applyFilter() {
       let filters = (
         /** @type {Record<string, string[]>}*/
@@ -7100,7 +7465,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         order: pager.order,
         filters
       });
-      $invalidate(7, oldFilterStr = newFilterStr);
+      $invalidate(8, oldFilterStr = newFilterStr);
     }
     function gotoPage(page) {
       onRefreshTableView({ ...pager, page });
@@ -7113,15 +7478,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         return row[i] || "";
       return row[field.name] || "";
     }
-    const tableTitle = `separate with pipe for multiple values, for example:
-  >=100|<50|61|72 will show values greater equal to 100, OR less than 50, OR exactly 61 OR 72
-    filtering with greater or less than will only show correct result if data is saved as number
-    currently price and size NOT stored as number
-  <>abc* will show values NOT started with abc*
-  abc*def|ghi will show values started with abc ends with def OR exactly ghi
-  *jkl* will show values containing jkl substring
-multiple filter from other fields will do AND operation`;
     const click_handler = () => gotoPage(pager.page);
+    function tablefilterinput_value_binding(value, field) {
+      if ($self.$.not_equal(filtersMap[field.name], value)) {
+        filtersMap[field.name] = value;
+        $invalidate(6, filtersMap);
+      }
+    }
     const click_handler_1 = (row, i, field) => onEditRow(cell(row, i, field), row);
     const click_handler_2 = (action, row) => action.onClick(row);
     function input_input_handler() {
@@ -7137,7 +7500,7 @@ multiple filter from other fields will do AND operation`;
       if ("renderFuncs" in $props2)
         $invalidate(1, renderFuncs = $props2.renderFuncs);
       if ("arrayOfArray" in $props2)
-        $invalidate(15, arrayOfArray = $props2.arrayOfArray);
+        $invalidate(16, arrayOfArray = $props2.arrayOfArray);
       if ("fields" in $props2)
         $invalidate(2, fields2 = $props2.fields);
       if ("rows" in $props2)
@@ -7147,7 +7510,7 @@ multiple filter from other fields will do AND operation`;
       if ("extraActions" in $props2)
         $invalidate(4, extraActions = $props2.extraActions);
       if ("onRefreshTableView" in $props2)
-        $invalidate(16, onRefreshTableView = $props2.onRefreshTableView);
+        $invalidate(17, onRefreshTableView = $props2.onRefreshTableView);
       if ("onEditRow" in $props2)
         $invalidate(5, onEditRow = $props2.onEditRow);
       if ("$scope" in $props2)
@@ -7155,19 +7518,19 @@ multiple filter from other fields will do AND operation`;
     };
     $self.$.update = () => {
       if ($self.$.dirty[0] & /*filtersMap*/
-      131072) {
+      64) {
         $:
-          $invalidate(8, newFilterStr = JSON.stringify(filtersMap));
+          $invalidate(9, newFilterStr = JSON.stringify(filtersMap));
       }
       if ($self.$.dirty[0] & /*pager*/
       1) {
         $:
-          $invalidate(10, allowPrevPage = pager.page > 1);
+          $invalidate(11, allowPrevPage = pager.page > 1);
       }
       if ($self.$.dirty[0] & /*pager*/
       1) {
         $:
-          $invalidate(9, allowNextPage = pager.page < pager.pages);
+          $invalidate(10, allowNextPage = pager.page < pager.pages);
       }
     };
     return [
@@ -7177,6 +7540,7 @@ multiple filter from other fields will do AND operation`;
       rows,
       extraActions,
       onEditRow,
+      filtersMap,
       deletedAtIdx,
       oldFilterStr,
       newFilterStr,
@@ -7188,10 +7552,10 @@ multiple filter from other fields will do AND operation`;
       cell,
       arrayOfArray,
       onRefreshTableView,
-      filtersMap,
       $scope,
       slots,
       click_handler,
+      tablefilterinput_value_binding,
       click_handler_1,
       click_handler_2,
       input_input_handler,
@@ -7208,17 +7572,17 @@ multiple filter from other fields will do AND operation`;
       init(
         this,
         options,
-        instance7,
-        create_fragment7,
+        instance8,
+        create_fragment8,
         safe_not_equal,
         {
           renderFuncs: 1,
-          arrayOfArray: 15,
+          arrayOfArray: 16,
           fields: 2,
           rows: 3,
           pager: 0,
           extraActions: 4,
-          onRefreshTableView: 16,
+          onRefreshTableView: 17,
           onEditRow: 5
         },
         null,
@@ -8243,7 +8607,7 @@ multiple filter from other fields will do AND operation`;
       }
     };
   }
-  function create_fragment8(ctx) {
+  function create_fragment9(ctx) {
     let if_block_anchor;
     let current;
     let if_block = (
@@ -8306,7 +8670,7 @@ multiple filter from other fields will do AND operation`;
       }
     };
   }
-  function instance8($self, $props, $invalidate) {
+  function instance9($self, $props, $invalidate) {
     let { $slots: slots = {}, $scope } = $props;
     let { fields: fields2 = [] } = $props;
     let { visible = false } = $props;
@@ -8430,7 +8794,7 @@ multiple filter from other fields will do AND operation`;
   var ModalForm = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance8, create_fragment8, safe_not_equal, {
+      init(this, options, instance9, create_fragment9, safe_not_equal, {
         fields: 3,
         visible: 1,
         loading: 2,
@@ -8626,7 +8990,7 @@ multiple filter from other fields will do AND operation`;
       }
     };
   }
-  function create_fragment9(ctx) {
+  function create_fragment10(ctx) {
     let main;
     let current;
     main = new Main_default({
@@ -8680,7 +9044,7 @@ multiple filter from other fields will do AND operation`;
     /** @type {Field[]} */
     [/* fields */]
   );
-  function instance9($self, $props, $invalidate) {
+  function instance10($self, $props, $invalidate) {
     let feedbacks = (
       /** @type {any[][]}*/
       [/* feedbacks */]
@@ -8800,7 +9164,7 @@ multiple filter from other fields will do AND operation`;
   var Feedbacks = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance9, create_fragment9, safe_not_equal, {});
+      init(this, options, instance10, create_fragment10, safe_not_equal, {});
     }
   };
   var feedbacks_default = Feedbacks;
