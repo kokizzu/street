@@ -1375,6 +1375,8 @@ exports.AdminPropertiesUS = async function AdminPropertiesUS( i, cb ) {
  * @property {String} user.userName
  * @property {String} user.country
  * @property {String} user.language
+ * @property {number} user.propertyCount
+ * @property {number} user.propertyBought
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -1402,6 +1404,8 @@ const AdminUsersIn = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -1441,6 +1445,8 @@ const AdminUsersIn = {
  * @property {String} user.userName
  * @property {String} user.country
  * @property {String} user.language
+ * @property {number} user.propertyCount
+ * @property {number} user.propertyBought
  * @property {Object} users
  */
 const AdminUsersOut = {
@@ -1479,6 +1485,8 @@ const AdminUsersOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   users: { // [][]any
   }, // [][]any
@@ -1530,6 +1538,8 @@ const GuestAutoLoginIn = {
  * @property {String} user.userName
  * @property {String} user.country
  * @property {String} user.language
+ * @property {number} user.propertyCount
+ * @property {number} user.propertyBought
  * @property {Object} segments
  */
 const GuestAutoLoginOut = {
@@ -1552,6 +1562,8 @@ const GuestAutoLoginOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   segments: { // M.SB
   }, // M.SB
@@ -1742,6 +1754,8 @@ const GuestLoginIn = {
  * @property {String} user.userName
  * @property {String} user.country
  * @property {String} user.language
+ * @property {number} user.propertyCount
+ * @property {number} user.propertyBought
  * @property {Object} segments
  */
 const GuestLoginOut = {
@@ -1764,6 +1778,8 @@ const GuestLoginOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   segments: { // M.SB
   }, // M.SB
@@ -1817,6 +1833,8 @@ const GuestOauthCallbackIn = {
  * @property {String} currentUser.userName
  * @property {String} currentUser.country
  * @property {String} currentUser.language
+ * @property {number} currentUser.propertyCount
+ * @property {number} currentUser.propertyBought
  * @property {String} provider
  * @property {Object} segments
  */
@@ -1843,6 +1861,8 @@ const GuestOauthCallbackOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   provider: '', // string
   segments: { // M.SB
@@ -1897,6 +1917,8 @@ const GuestOauthCallbackRedirectIn = {
  * @property {String} currentUser.userName
  * @property {String} currentUser.country
  * @property {String} currentUser.language
+ * @property {number} currentUser.propertyCount
+ * @property {number} currentUser.propertyBought
  * @property {String} provider
  * @property {Object} segments
  */
@@ -1923,6 +1945,8 @@ const GuestOauthCallbackRedirectOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   provider: '', // string
   segments: { // M.SB
@@ -1975,6 +1999,8 @@ const GuestOauthTokenExchangeIn = {
  * @property {String} currentUser.userName
  * @property {String} currentUser.country
  * @property {String} currentUser.language
+ * @property {number} currentUser.propertyCount
+ * @property {number} currentUser.propertyBought
  * @property {String} provider
  * @property {Object} segments
  */
@@ -2001,6 +2027,8 @@ const GuestOauthTokenExchangeOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   provider: '', // string
   segments: { // M.SB
@@ -2217,6 +2245,8 @@ const GuestRegisterIn = {
  * @property {String} user.userName
  * @property {String} user.country
  * @property {String} user.language
+ * @property {number} user.propertyCount
+ * @property {number} user.propertyBought
  * @property {String} verifyEmailUrl
  */
 const GuestRegisterOut = {
@@ -2239,6 +2269,8 @@ const GuestRegisterOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   verifyEmailUrl: '', // string
 }
@@ -2968,6 +3000,8 @@ const UserProfileIn = {
  * @property {String} user.userName
  * @property {String} user.country
  * @property {String} user.language
+ * @property {number} user.propertyCount
+ * @property {number} user.propertyBought
  * @property {Object} segments
  */
 const UserProfileOut = {
@@ -2990,6 +3024,8 @@ const UserProfileOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   segments: { // M.SB
   }, // M.SB
@@ -3384,6 +3420,8 @@ const UserUpdateProfileIn = {
  * @property {String} user.userName
  * @property {String} user.country
  * @property {String} user.language
+ * @property {number} user.propertyCount
+ * @property {number} user.propertyBought
  * @property {Object} segments
  */
 const UserUpdateProfileOut = {
@@ -3406,6 +3444,8 @@ const UserUpdateProfileOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   segments: { // M.SB
   }, // M.SB
@@ -3422,6 +3462,38 @@ const UserUpdateProfileOut = {
  */
 exports.UserUpdateProfile = async function UserUpdateProfile( i, cb ) {
   return await axios.post( '/user/updateProfile', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserUpload3DFileIn
+ * @property {String} propertyId
+ * @property {String} country
+ */
+const UserUpload3DFileIn = {
+  propertyId: '', // string
+  country: '', // string
+}
+/**
+ * @typedef {Object} UserUpload3DFileOut
+ * @property {String} imageURL
+ */
+const UserUpload3DFileOut = {
+  imageURL: '', // string
+}
+/**
+ * @callback UserUpload3DFileCallback
+ * @param {UserUpload3DFileOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserUpload3DFileIn} i
+ * @param {UserUpload3DFileCallback} cb
+ * @returns {Promise}
+ */
+exports.UserUpload3DFile = async function UserUpload3DFile( i, cb ) {
+  return await axios.post( '/user/upload3DFile', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

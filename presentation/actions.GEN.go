@@ -50,6 +50,7 @@ var allCommands = []string{
 	domain.UserSessionKillAction,
 	domain.UserSessionsActiveAction,
 	domain.UserUpdateProfileAction,
+	domain.UserUpload3DFileAction,
 	domain.UserUploadFileAction,
 }
 

@@ -440,6 +440,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// UserUpload3DFile
+	fw.Post("/"+domain.UserUpload3DFileAction, func(c *fiber.Ctx) error {
+		in := domain.UserUpload3DFileIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserUpload3DFileAction); err != nil {
+			return nil
+		}
+		out := d.UserUpload3DFile(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// UserUploadFile
 	fw.Post("/"+domain.UserUploadFileAction, func(c *fiber.Ctx) error {
 		in := domain.UserUploadFileIn{}

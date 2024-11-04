@@ -356,6 +356,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.UserUpdateProfile(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.UserUpload3DFileAction:
+		in := domain.UserUpload3DFileIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.UserUpload3DFile(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.UserUploadFileAction:
 		in := domain.UserUploadFileIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
