@@ -524,6 +524,8 @@ type Users struct {
 	UserName           string      `json:"userName" form:"userName" query:"userName" long:"userName" msg:"userName"`
 	Country            string      `json:"country" form:"country" query:"country" long:"country" msg:"country"`
 	Language           string      `json:"language" form:"language" query:"language" long:"language" msg:"language"`
+	PropertyCount      int64       `json:"propertyCount" form:"propertyCount" query:"propertyCount" long:"propertyCount" msg:"propertyCount"`
+	PropertyBought     int64       `json:"propertyBought" form:"propertyBought" query:"propertyBought" long:"propertyBought" msg:"propertyBought"`
 }
 
 // NewUsers create new ORM reader/query object
@@ -617,6 +619,8 @@ func (u *Users) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "userName"
 	, "country"
 	, "language"
+	, "propertyCount"
+	, "propertyBought"
 	`
 }
 
@@ -640,6 +644,8 @@ func (u *Users) SqlSelectAllUncensoredFields() string { //nolint:dupl false posi
 	, "userName"
 	, "country"
 	, "language"
+	, "propertyCount"
+	, "propertyBought"
 	`
 }
 
@@ -664,6 +670,8 @@ func (u *Users) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 15, u.UserName},
 		A.X{`=`, 16, u.Country},
 		A.X{`=`, 17, u.Language},
+		A.X{`=`, 18, u.PropertyCount},
+		A.X{`=`, 19, u.PropertyBought},
 	}
 }
 
@@ -847,6 +855,26 @@ func (u *Users) SqlLanguage() string { //nolint:dupl false positive
 	return `"language"`
 }
 
+// IdxPropertyCount return name of the index
+func (u *Users) IdxPropertyCount() int { //nolint:dupl false positive
+	return 18
+}
+
+// SqlPropertyCount return name of the column being indexed
+func (u *Users) SqlPropertyCount() string { //nolint:dupl false positive
+	return `"propertyCount"`
+}
+
+// IdxPropertyBought return name of the index
+func (u *Users) IdxPropertyBought() int { //nolint:dupl false positive
+	return 19
+}
+
+// SqlPropertyBought return name of the column being indexed
+func (u *Users) SqlPropertyBought() string { //nolint:dupl false positive
+	return `"propertyBought"`
+}
+
 // CensorFields remove sensitive fields for output
 func (u *Users) CensorFields() { //nolint:dupl false positive
 	u.Password = ``
@@ -879,6 +907,8 @@ func (u *Users) ToArray() A.X { //nolint:dupl false positive
 		u.UserName,           // 15
 		u.Country,            // 16
 		u.Language,           // 17
+		u.PropertyCount,      // 18
+		u.PropertyBought,     // 19
 	}
 }
 
@@ -902,6 +932,8 @@ func (u *Users) FromArray(a A.X) *Users { //nolint:dupl false positive
 	u.UserName = X.ToS(a[15])
 	u.Country = X.ToS(a[16])
 	u.Language = X.ToS(a[17])
+	u.PropertyCount = X.ToI(a[18])
+	u.PropertyBought = X.ToI(a[19])
 	return u
 }
 
@@ -922,6 +954,8 @@ func (u *Users) FromUncensoredArray(a A.X) *Users { //nolint:dupl false positive
 	u.UserName = X.ToS(a[15])
 	u.Country = X.ToS(a[16])
 	u.Language = X.ToS(a[17])
+	u.PropertyCount = X.ToI(a[18])
+	u.PropertyBought = X.ToI(a[19])
 	return u
 }
 
@@ -983,6 +1017,8 @@ var UsersFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`userName`:           Tt.String,
 	`country`:            Tt.String,
 	`language`:           Tt.String,
+	`propertyCount`:      Tt.Integer,
+	`propertyBought`:     Tt.Integer,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

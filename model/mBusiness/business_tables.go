@@ -1,4 +1,4 @@
-package mbusiness
+package mBusiness
 
 import "github.com/kokizzu/gotro/D/Tt"
 
@@ -8,10 +8,12 @@ const (
 
 	Id = `id`
 	PropertyId = `propertyId`
+	PropertyBought = `propertyBought`
 	Price = `price`
 	RealtorId = `realtorId`
 	BuyerId = `buyerId` // fill with 0 if user's email is empty
 	BuyerEmail = `buyerEmail`
+	EmailNotFound = `emailNotFound`
 	SalesDate = `salesDate`
 	CreatedAt = `createdAt`
 	CreatedBy = `createdBy`
@@ -38,5 +40,21 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		},
 		Engine:  Tt.Memtx,
 		Uniques: []string{PropertyId, SalesDate},
+	},
+	TableRevenue: {
+		Fields: []Tt.Field{
+			{Id, Tt.Unsigned},
+			{RealtorId, Tt.Unsigned},
+			{PropertyId, Tt.Unsigned},
+			{PropertyBought, Tt.Integer},
+			{BuyerEmail, Tt.String},
+			{CreatedAt, Tt.Integer},
+			{CreatedBy, Tt.Unsigned},
+			{UpdatedAt, Tt.Integer},
+			{UpdatedBy, Tt.Unsigned},
+			{DeletedAt, Tt.Integer},
+		},
+		Engine: Tt.Memtx,
+		Uniques: []string{RealtorId, PropertyId},
 	},
 }
