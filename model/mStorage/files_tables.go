@@ -26,7 +26,7 @@ const (
 	TableDesignFiles Tt.TableName = `designFiles`
 
 	CountryPropId = `countryPropId` // <country_code>:<property_id>
-	FilePath			= `filePath`
+	FilePath      = `filePath`
 )
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
@@ -52,10 +52,13 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	},
 	TableDesignFiles: {
 		Fields: []Tt.Field{
+			{Id, Tt.Unsigned},
 			{CountryPropId, Tt.String},
 			{FilePath, Tt.String},
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},
 		},
+		AutoIncrementId: true,
+		Unique1:         FilePath,
 	},
 }
