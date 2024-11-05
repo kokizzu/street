@@ -1,7 +1,9 @@
 function datetime( unixSec, humanize ) {
   if( !unixSec ) return '';
-  if( typeof unixSec==='string' ) return unixSec; // might not be unix time
   let dt = new Date( unixSec * 1000 );
+  if( typeof unixSec==='string' ) {
+    dt = new Date( unixSec );
+  }
   if( !humanize ) {
     dt = dt.toISOString();
     return dt.substring( 0, 10 ) + ' ' + dt.substring( 11, 16 );

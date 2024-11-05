@@ -90,6 +90,7 @@
         borderColor: '#8b5cf6',
         backgroundColor: '#8b5cf620',
         fill: 'start',
+        tension: 0.4
       },
       {
         label: 'Unique IP',
@@ -99,6 +100,7 @@
         borderColor: '#eab308',
         data: data_uniqueIpPerDate,
         fill: 'start',
+        tension: 0.4
       },
       {
         label: 'Unique User',
@@ -108,6 +110,7 @@
         borderColor: '#22c55e',
         data: data_uniqueUserPerDate,
         fill: 'start',
+        tension: 0.4
       }
     ])
     new Chart(ElmStatsChart, getRequestStatsChartOptions(formattedDates, DatasetsStatsChart));

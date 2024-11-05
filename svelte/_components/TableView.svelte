@@ -20,6 +20,7 @@
   export let rows         = /** @type {any[] | Record<string, any>[]} */ ([]);
   export let pager        = /** @type {PagerOut} */ ({});
   export let extraActions = /** @type {ExtendedAction[]} */ ([]);
+  export let widths       = /** @type {Record<string, string} */ ({});
 
   export let onRefreshTableView = function(/** @type {PagerIn} */ pager ) {
     console.log( 'TableView.onRefreshTableView', pager );
@@ -139,16 +140,17 @@
               <th class='a-row'>Action</th>
             {:else}
               <th
+                style="{widths[field.name] ? '--th-width: ' + widths[field.name] + '' : '--th-width: fit-content'}"
                 class="
                 {field.inputType === 'textarea' ? 'textarea' : ''}
                 {field.inputType === 'datetime' ? 'datetime' : ''}
                 {field.name === 'fullName' ? 'full-name' : ''}
                 {field.name === 'userAgent' ? 'user-agent' : ''}
               ">
-               <TableFilterInput
-                label={field.label}
-                bind:value={filtersMap[ field.name ]}
-               />
+                <TableFilterInput
+                  label={field.label}
+                  bind:value={filtersMap[ field.name ]}
+                />
               </th>
             {/if}
           {/each}
@@ -197,7 +199,7 @@
                   <td>{renderFuncs[ field.name ]( cell( row, i, field ) ) }</td>
                 {:else if field.inputType==='checkbox'}
                   <td>{!!cell( row, i, field )}</td>
-                {:else if field.inputType==='datetime' || field.name==='deletedAt'}
+                {:else if field.inputType==='datetime' || field.name==='deletedAt' || field.name==='createdAt' || field.name==='updatedAt'}
                   <td>{datetime( cell( row, i, field ) )}</td>
                 {:else if field.inputType==='number'}
                   <td>{(cell( row, i, field ) || 0).toLocaleString()}</td>
@@ -376,9 +378,8 @@
 		text-transform: capitalize;
 		border-right: 1px solid var(--gray-004);
 		border-bottom: 1px solid var(--gray-003);
-		min-width: fit-content;
+		min-width: var(--th-width);
 		width: auto;
-    text-wrap: nowrap;
   }
 
   .table-root .table-container table thead tr th:nth-child(1),
@@ -419,7 +420,6 @@
 
   .table-root .table-container table tbody tr td {
     padding: 8px 12px;
-    white-space: nowrap;
     padding: 8px 12px;
 		border-right: 1px solid var(--gray-004);
 		border-bottom: 1px solid var(--gray-004);

@@ -2,13 +2,17 @@
   /** @typedef {import('./_types/master.js').Access} Access */
   /** @typedef {import('./_types/user.js').User} User */
 
-  import {GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail} from './jsApi.GEN.js';
+  import {
+    GuestForgotPassword, GuestLogin, GuestRegister,
+    GuestResendVerificationEmail
+  } from './jsApi.GEN.js';
   import {onMount, tick} from 'svelte';
   import Main from './_layouts/Main.svelte';
   import { Icon } from './node_modules/svelte-icons-pack/dist'
   import { FaSolidCircleNotch } from './node_modules/svelte-icons-pack/dist/fa';
   import { notifier } from './_components/notifier.js';
   import InputBox from './_components/InputBox.svelte';
+  import Chart from 'chart.js/auto';
   
   let title     = /** @type {string} */ ('#{title}');
   let user      = /** @type {User} */ ({/* user */});
@@ -80,7 +84,53 @@
     await tick();
   }
   
-  onMount(() => onHashChange());
+  onMount(() => {
+    onHashChange();
+    if (MODE === MODE_USER) {
+      setTimeout(() => {
+        const ElmRevenueChart = /** @type {HTMLCanvasElement} */ (document.getElementById('revenue-chart'));
+        new Chart(ElmRevenueChart, {
+          type: 'line',
+          data: {
+            labels: ['Jan 31', 'Feb 28', 'Mar 30', 'Apr 30', 'May 30', 'Jun 30'],
+            datasets: [{
+              label: 'Revenue',
+              data: [40000, 130000, 70000, 250000, 145000, 220000],
+              borderColor: '#f97316',
+              backgroundColor: '#f9731630',
+              pointRadius: 0,
+              tension: 0.1
+            }]
+          },
+          options: {
+            plugins: {
+              legend: {
+                rtl: true,
+                labels: {
+                  usePointStyle: true,
+                  color: 'var(--gray-008)',
+                  textAlign: 'right',
+                }
+              }
+            },
+            maintainAspectRatio: false,
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  stepSize: 100000,
+                  callback: function(value) {
+                    return value >= 1000 ? value / 1000 + 'K' : value;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }, 400);
+    }
+  });
   
   async function guestRegister() {
     isSubmitted = true;
@@ -190,7 +240,31 @@
 <svelte:window on:hashchange={onHashChange}/>
 {#if MODE === MODE_USER}
   <Main {user} access={segments}>
-    <p>Home</p>
+    <div class="home-container">
+      <div class="stats-chart">
+        <nav>
+          <button class="active">
+            <span class="block"></span>
+            <span class="title">Revenue</span>
+          </button>
+          <button>
+            <span class="block"></span>
+            <span class="title">Registered</span>
+          </button>
+          <button>
+            <span class="block"></span>
+            <span class="title">Realtors</span>
+          </button>
+          <button>
+            <span class="block"></span>
+            <span class="title">Orders</span>
+          </button>
+        </nav>
+        <div class="chart">
+          <canvas id="revenue-chart"></canvas>
+        </div>
+      </div>
+    </div>
   </Main>
 {:else}
 	<section class="auth-section">
@@ -340,6 +414,87 @@
 
   :global(.spin) {
     animation : spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  .home-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .home-container .stats-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    border: 1px solid var(--gray-003);
+    border-radius: 8px;
+    height: 350px;
+    width: 100%;
+  }
+
+  .home-container .stats-chart nav {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: fit-content;
+    padding: 0 16px;
+  }
+
+  .home-container .stats-chart nav button {
+    border: none;
+    background-color: transparent;
+    color: var(--gray-008);
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+    padding: 0;
+  }
+
+  .home-container .stats-chart nav button:hover {
+    background-color: var(--gray-001);
+  }
+
+  .home-container .stats-chart nav button.active {
+    color: var(--orange-005);
+  }
+
+  .home-container .stats-chart nav button .title {
+    flex-grow: 1;
+    padding: 15px 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .home-container .stats-chart nav button .block {
+    height: 3px;
+		background-color: transparent;
+		width: 100%;
+  }
+
+  .home-container .stats-chart nav button:hover .block {
+		background-color: var(--gray-005);
+	}
+	.home-container .stats-chart nav button.active .block {
+		background-color: var(--orange-005);
+	}
+
+  .home-container .stats-chart .chart {
+    height: 92%;
+    width: 100%;
+    display: flex;
+    width: 100%;
+    padding: 0 16px 45px 16px;
+  }
+
+  .home-container .stats-chart .chart canvas {
+    width: 100% !important;
+    height: 100% !important;
   }
 
   .auth-section {

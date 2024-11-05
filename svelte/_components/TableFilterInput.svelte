@@ -48,6 +48,7 @@
     align-items: center;
     gap: 5px;
     padding: 5px 10px;
+    text-wrap: nowrap;
   }
 
   .header.active {

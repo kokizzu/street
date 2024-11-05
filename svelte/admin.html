@@ -3186,6 +3186,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       exports.UserUpdateProfile = async function UserUpdateProfile(i, cb) {
         return await axios.post("/user/updateProfile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.UserUpload3DFile = async function UserUpload3DFile(i, cb) {
+        return await axios.post("/user/upload3DFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.UserUploadFile = async function UserUploadFile(i, cb) {
         return await axios.post("/user/uploadFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -19569,7 +19572,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             data: data_requestsPerDate,
             borderColor: "#8b5cf6",
             backgroundColor: "#8b5cf620",
-            fill: "start"
+            fill: "start",
+            tension: 0.4
           },
           {
             label: "Unique IP",
@@ -19578,7 +19582,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             backgroundColor: "#eab30830",
             borderColor: "#eab308",
             data: data_uniqueIpPerDate,
-            fill: "start"
+            fill: "start",
+            tension: 0.4
           },
           {
             label: "Unique User",
@@ -19587,7 +19592,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             backgroundColor: "#22c55e30",
             borderColor: "#22c55e",
             data: data_uniqueUserPerDate,
-            fill: "start"
+            fill: "start",
+            tension: 0.4
           }
         ]
       );

@@ -260,6 +260,9 @@
           onEditRow={editRow}
           onRefreshTableView={refreshTableView}
           rows={properties||[]}
+          widths={{
+            'note': '450px'
+          }}
         >
           <button
             class="btn"
