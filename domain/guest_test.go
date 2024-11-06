@@ -129,7 +129,7 @@ func TestGuestRegister(t *testing.T) {
 						Password: oldPass,
 					}
 					out := d.GuestLogin(in)
-					require.Equal(t, out.Error, ErrGuestLoginEmailOrPasswordIncorrect)
+					require.Equal(t, out.Error, ErrGuestLoginEmailIncorrect)
 				})
 
 				t.Run(`canLoginAfterEmailChanged`, func(t *testing.T) {
@@ -237,7 +237,7 @@ func TestGuestLogin(t *testing.T) {
 			Password: "test",
 		}
 		out := d.GuestLogin(&in)
-		assert.Equal(t, out.Error, ErrGuestLoginEmailOrPasswordIncorrect)
+		assert.Equal(t, out.Error, ErrGuestLoginEmailIncorrect)
 	})
 
 	t.Run("validEmail,wrongPass", func(t *testing.T) {
@@ -246,7 +246,7 @@ func TestGuestLogin(t *testing.T) {
 			Password: "test",
 		}
 		out := d.GuestLogin(&in)
-		assert.Equal(t, out.Error, ErrGuestLoginPasswordOrEmailIncorrect)
+		assert.Equal(t, out.Error, ErrGuestLoginPasswordIncorrect)
 	})
 
 	t.Run("validEmail,validPass", func(t *testing.T) {

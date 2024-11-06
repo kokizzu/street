@@ -22751,6 +22751,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     /** @type {string} */
     '#{google}'
   );
+  var usersRegistered = (
+    /** @type {UserRegistered[]} */
+    [/* user_registered */ ]
+  );
   var clientId = "com.hapstr.app";
   var redirectUri = "https://admin.hapstr.xyz/guest/oauthCallback";
   var state = "random_state_value";
@@ -22794,6 +22798,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       /** @type {string} */
       '#{apple}'
     );
+    console.log("usersRegistered=", usersRegistered);
     apple = `https://appleid.apple.com/auth/authorize?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&state=${state}&response_mode=${response_mode}`;
     let email = (
       /** @type {string} */
@@ -22877,16 +22882,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
                   ]
                 },
                 options: {
-                  plugins: {
-                    legend: {
-                      rtl: true,
-                      labels: {
-                        usePointStyle: true,
-                        color: "var(--gray-008)",
-                        textAlign: "right"
-                      }
-                    }
-                  },
+                  plugins: { legend: { display: false } },
                   maintainAspectRatio: false,
                   responsive: true,
                   scales: {
@@ -22895,7 +22891,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
                       ticks: {
                         stepSize: 1e5,
                         callback(value) {
-                          return value >= 1e3 ? value / 1e3 + "K" : value;
+                          return Number(value) >= 1e3 ? Number(value) / 1e3 + "K" : value;
                         }
                       }
                     }

@@ -1,6 +1,11 @@
 <script>
   /** @typedef {import('./_types/master.js').Access} Access */
   /** @typedef {import('./_types/user.js').User} User */
+  /**
+   * @typedef {Object} UserRegistered
+   * @property {string} date
+   * @property {number} count
+   */
 
   import {
     GuestForgotPassword, GuestLogin, GuestRegister,
@@ -19,6 +24,9 @@
   let segments  = /** @type {Access} */ ({/* segments */});
   let google    = /** @type {string} */ ('#{google}');
   let apple     = /** @type {string} */ ('#{apple}');
+
+  const usersRegistered = /** @type {UserRegistered[]} */ ([/* user_registered */ ]);
+  console.log('usersRegistered=', usersRegistered);
 
   // Generate Apple OAuth URL
   const clientId      = 'com.hapstr.app'; //
@@ -105,12 +113,7 @@
           options: {
             plugins: {
               legend: {
-                rtl: true,
-                labels: {
-                  usePointStyle: true,
-                  color: 'var(--gray-008)',
-                  textAlign: 'right',
-                }
+                display: false
               }
             },
             maintainAspectRatio: false,
@@ -121,7 +124,7 @@
                 ticks: {
                   stepSize: 100000,
                   callback: function(value) {
-                    return value >= 1000 ? value / 1000 + 'K' : value;
+                    return Number(value) >= 1000 ? Number(value) / 1000 + 'K' : value;
                   }
                 }
               }

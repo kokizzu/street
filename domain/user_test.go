@@ -192,7 +192,7 @@ func TestLogout(t *testing.T) {
 					Password: pass,
 				}
 				out := d.GuestLogin(in)
-				assert.Equal(t, out.Error, ErrGuestLoginPasswordOrEmailIncorrect)
+				assert.Equal(t, out.Error, ErrGuestLoginPasswordIncorrect)
 			})
 
 			t.Run(`loginAfterChangePass,newPass`, func(t *testing.T) {

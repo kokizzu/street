@@ -15,6 +15,7 @@ import (
 	"street/conf"
 	"street/domain"
 	"street/model/mAuth/rqAuth"
+	"street/model/mAuth/saAuth"
 	"street/model/mProperty/rqProperty"
 	"street/model/zCrud"
 )
@@ -28,11 +29,18 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			Provider:      domain.OauthGoogle,
 		})
 		google.ResponseCommon.DecorateSession(c)
+
+		var userRegistered []M.SX
+		if user != nil {
+			actionLog := saAuth.NewActionLogs(d.AuthOlap)
+			userRegistered = actionLog.FindUserRegistered()
+		}
 		return views.RenderIndex(c, M.SX{
 			`title`:  `HapSTR`,
 			`user`:   user,
 			`google`: google.Link,
 			`segments`: segments,
+			`user_registered`: userRegistered,
 		})
 	})
 
@@ -409,13 +417,14 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.AdminFeedbacks(&in)
 		return views.RenderAdminFeedbacks(ctx, M.SX{
 			`title`:     `Feedbacks`,
 			`segments`:  segments,
+			`user`: user,
 			`feedbacks`: out.Feedbacks,
 			`fields`:    out.Meta.Fields,
 			`pager`:     out.Pager,

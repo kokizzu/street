@@ -252,6 +252,10 @@
           onRefreshTableView={refreshTableView}
           rows={properties||[]}
           renderFuncs={renderMap}
+          widths={{
+            mainUse: '320px',
+            address: '240px'
+          }}
         >
           <button
             class="btn"
