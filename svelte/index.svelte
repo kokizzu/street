@@ -26,7 +26,6 @@
   let apple     = /** @type {string} */ ('#{apple}');
 
   const usersRegistered = /** @type {UserRegistered[]} */ ([/* user_registered */ ]);
-  console.log('usersRegistered=', usersRegistered);
 
   // Generate Apple OAuth URL
   const clientId      = 'com.hapstr.app'; //
@@ -91,13 +90,63 @@
 
     await tick();
   }
+
+  let chart = /** @type {import('chart.js').Chart} */ (null);
+
+  let STAT_REVENUE = `revenue`;
+  let STAT_REGISTERED = `registered`;
+  let STAT_REALTORS = `realtors`;
+  let STAT_ORDERS = `orders`;
+
+  let MODE_STATS = STAT_REVENUE;
+
+  function renderRevenueChart() {
+    MODE_STATS = STAT_REVENUE;
+    if (chart) {
+      chart.data.labels = ['Jan 31', 'Feb 28', 'Mar 30', 'Apr 30', 'May 30', 'Jun 30'];
+      chart.data.datasets[0].data = [40000, 130000, 70000, 250000, 145000, 220000];
+      chart.data.datasets[0].label = 'Revenue';
+      chart.options.scales.y = {
+        ticks: {
+          stepSize: 10000
+        }
+      };
+      chart.update();
+    }
+  }
+
+  function renderRegisteredChart() {
+    MODE_STATS = STAT_REGISTERED;
+    if (chart) {
+      chart.data.labels = (usersRegistered || []).map((i) => {
+        const dt = new Date(i.date);
+
+        return dt.toLocaleDateString('en-US', {
+          month: 'short',
+          day: '2-digit'
+        })
+      });
+      chart.data.datasets[0].data = (usersRegistered || []).map((i) => i.count);
+      chart.data.datasets[0].label = 'Registered';
+      chart.options.scales.y = {
+        ticks: {
+          stepSize: 10
+        }
+      };
+      chart.update();
+    }
+  }
+
+  function renderRealtorsChart() {}
+  
+  function renderOrdersChart() {}
   
   onMount(() => {
     onHashChange();
     if (MODE === MODE_USER) {
       setTimeout(() => {
-        const ElmRevenueChart = /** @type {HTMLCanvasElement} */ (document.getElementById('revenue-chart'));
-        new Chart(ElmRevenueChart, {
+        const ElmChart = /** @type {HTMLCanvasElement} */ (document.getElementById('chart'));
+        chart = new Chart(ElmChart, {
           type: 'line',
           data: {
             labels: ['Jan 31', 'Feb 28', 'Mar 30', 'Apr 30', 'May 30', 'Jun 30'],
@@ -122,7 +171,7 @@
               y: {
                 beginAtZero: true,
                 ticks: {
-                  stepSize: 100000,
+                  stepSize: 10000,
                   callback: function(value) {
                     return Number(value) >= 1000 ? Number(value) / 1000 + 'K' : value;
                   }
@@ -246,25 +295,25 @@
     <div class="home-container">
       <div class="stats-chart">
         <nav>
-          <button class="active">
+          <button on:click={renderRevenueChart} class:active={MODE_STATS===STAT_REVENUE} disabled={MODE_STATS===STAT_REVENUE}>
             <span class="block"></span>
             <span class="title">Revenue</span>
           </button>
-          <button>
+          <button on:click={renderRegisteredChart} class:active={MODE_STATS===STAT_REGISTERED} disabled={MODE_STATS===STAT_REGISTERED}>
             <span class="block"></span>
             <span class="title">Registered</span>
           </button>
-          <button>
+          <button on:click={renderRealtorsChart} class:active={MODE_STATS===STAT_REALTORS} disabled={MODE_STATS===STAT_REALTORS}>
             <span class="block"></span>
             <span class="title">Realtors</span>
           </button>
-          <button>
+          <button on:click={renderOrdersChart} class:active={MODE_STATS===STAT_ORDERS} disabled={MODE_STATS===STAT_ORDERS}>
             <span class="block"></span>
             <span class="title">Orders</span>
           </button>
         </nav>
         <div class="chart">
-          <canvas id="revenue-chart"></canvas>
+          <canvas id="chart"></canvas>
         </div>
       </div>
     </div>

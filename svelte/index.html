@@ -21515,8 +21515,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         2)
           main_changes.access = /*segments*/
           ctx2[1];
-        if (dirty & /*$scope*/
-        2097152) {
+        if (dirty & /*$scope, MODE_STATS*/
+        536871168) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -21541,7 +21541,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let updating_value;
     let current;
     function inputbox_value_binding(value) {
-      ctx[13](value);
+      ctx[20](value);
     }
     let inputbox_props = {
       id: "email",
@@ -21596,7 +21596,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let updating_value;
     let current;
     function inputbox_value_binding_1(value) {
-      ctx[14](value);
+      ctx[21](value);
     }
     let inputbox_props = {
       id: "password",
@@ -21651,7 +21651,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let updating_value;
     let current;
     function inputbox_value_binding_2(value) {
-      ctx[15](value);
+      ctx[22](value);
     }
     let inputbox_props = {
       id: "confirmPass",
@@ -21724,7 +21724,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (!mounted) {
           dispose = listen(a, "click", prevent_default(
             /*click_handler*/
-            ctx[16]
+            ctx[23]
           ));
           mounted = true;
         }
@@ -21776,7 +21776,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             button,
             "click",
             /*guestRegister*/
-            ctx[9]
+            ctx[16]
           );
           mounted = true;
         }
@@ -21931,7 +21931,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             button,
             "click",
             /*guestLogin*/
-            ctx[10]
+            ctx[17]
           );
           mounted = true;
         }
@@ -22086,7 +22086,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             button,
             "click",
             /*guestResendVerificationEmail*/
-            ctx[11]
+            ctx[18]
           );
           mounted = true;
         }
@@ -22241,7 +22241,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             button,
             "click",
             /*guestForgotPassword*/
-            ctx[12]
+            ctx[19]
           );
           mounted = true;
         }
@@ -22549,7 +22549,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             a,
             "click",
             /*click_handler_1*/
-            ctx[17]
+            ctx[24]
           );
           mounted = true;
         }
@@ -22589,7 +22589,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             a,
             "click",
             /*click_handler_2*/
-            ctx[18]
+            ctx[25]
           );
           mounted = true;
         }
@@ -22629,7 +22629,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             a,
             "click",
             /*click_handler_3*/
-            ctx[19]
+            ctx[26]
           );
           mounted = true;
         }
@@ -22646,20 +22646,240 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   }
   function create_default_slot(ctx) {
     let div2;
+    let div1;
+    let nav;
+    let button0;
+    let span0;
+    let t0;
+    let span1;
+    let button0_disabled_value;
+    let t2;
+    let button1;
+    let span2;
+    let t3;
+    let span3;
+    let button1_disabled_value;
+    let t5;
+    let button2;
+    let span4;
+    let t6;
+    let span5;
+    let button2_disabled_value;
+    let t8;
+    let button3;
+    let span6;
+    let t9;
+    let span7;
+    let button3_disabled_value;
+    let t11;
+    let div0;
+    let mounted;
+    let dispose;
     return {
       c() {
         div2 = element("div");
-        div2.innerHTML = `<div class="stats-chart svelte-16zdveq"><nav class="svelte-16zdveq"><button class="active svelte-16zdveq"><span class="block svelte-16zdveq"></span> <span class="title svelte-16zdveq">Revenue</span></button> <button class="svelte-16zdveq"><span class="block svelte-16zdveq"></span> <span class="title svelte-16zdveq">Registered</span></button> <button class="svelte-16zdveq"><span class="block svelte-16zdveq"></span> <span class="title svelte-16zdveq">Realtors</span></button> <button class="svelte-16zdveq"><span class="block svelte-16zdveq"></span> <span class="title svelte-16zdveq">Orders</span></button></nav> <div class="chart svelte-16zdveq"><canvas id="revenue-chart" class="svelte-16zdveq"></canvas></div></div>`;
+        div1 = element("div");
+        nav = element("nav");
+        button0 = element("button");
+        span0 = element("span");
+        t0 = space();
+        span1 = element("span");
+        span1.textContent = "Revenue";
+        t2 = space();
+        button1 = element("button");
+        span2 = element("span");
+        t3 = space();
+        span3 = element("span");
+        span3.textContent = "Registered";
+        t5 = space();
+        button2 = element("button");
+        span4 = element("span");
+        t6 = space();
+        span5 = element("span");
+        span5.textContent = "Realtors";
+        t8 = space();
+        button3 = element("button");
+        span6 = element("span");
+        t9 = space();
+        span7 = element("span");
+        span7.textContent = "Orders";
+        t11 = space();
+        div0 = element("div");
+        div0.innerHTML = `<canvas id="chart" class="svelte-16zdveq"></canvas>`;
+        attr(span0, "class", "block svelte-16zdveq");
+        attr(span1, "class", "title svelte-16zdveq");
+        button0.disabled = button0_disabled_value = /*MODE_STATS*/
+        ctx[8] === /*STAT_REVENUE*/
+        ctx[10];
+        attr(button0, "class", "svelte-16zdveq");
+        toggle_class(
+          button0,
+          "active",
+          /*MODE_STATS*/
+          ctx[8] === /*STAT_REVENUE*/
+          ctx[10]
+        );
+        attr(span2, "class", "block svelte-16zdveq");
+        attr(span3, "class", "title svelte-16zdveq");
+        button1.disabled = button1_disabled_value = /*MODE_STATS*/
+        ctx[8] === /*STAT_REGISTERED*/
+        ctx[11];
+        attr(button1, "class", "svelte-16zdveq");
+        toggle_class(
+          button1,
+          "active",
+          /*MODE_STATS*/
+          ctx[8] === /*STAT_REGISTERED*/
+          ctx[11]
+        );
+        attr(span4, "class", "block svelte-16zdveq");
+        attr(span5, "class", "title svelte-16zdveq");
+        button2.disabled = button2_disabled_value = /*MODE_STATS*/
+        ctx[8] === /*STAT_REALTORS*/
+        ctx[12];
+        attr(button2, "class", "svelte-16zdveq");
+        toggle_class(
+          button2,
+          "active",
+          /*MODE_STATS*/
+          ctx[8] === /*STAT_REALTORS*/
+          ctx[12]
+        );
+        attr(span6, "class", "block svelte-16zdveq");
+        attr(span7, "class", "title svelte-16zdveq");
+        button3.disabled = button3_disabled_value = /*MODE_STATS*/
+        ctx[8] === /*STAT_ORDERS*/
+        ctx[13];
+        attr(button3, "class", "svelte-16zdveq");
+        toggle_class(
+          button3,
+          "active",
+          /*MODE_STATS*/
+          ctx[8] === /*STAT_ORDERS*/
+          ctx[13]
+        );
+        attr(nav, "class", "svelte-16zdveq");
+        attr(div0, "class", "chart svelte-16zdveq");
+        attr(div1, "class", "stats-chart svelte-16zdveq");
         attr(div2, "class", "home-container svelte-16zdveq");
       },
       m(target, anchor) {
         insert(target, div2, anchor);
+        append(div2, div1);
+        append(div1, nav);
+        append(nav, button0);
+        append(button0, span0);
+        append(button0, t0);
+        append(button0, span1);
+        append(nav, t2);
+        append(nav, button1);
+        append(button1, span2);
+        append(button1, t3);
+        append(button1, span3);
+        append(nav, t5);
+        append(nav, button2);
+        append(button2, span4);
+        append(button2, t6);
+        append(button2, span5);
+        append(nav, t8);
+        append(nav, button3);
+        append(button3, span6);
+        append(button3, t9);
+        append(button3, span7);
+        append(div1, t11);
+        append(div1, div0);
+        if (!mounted) {
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*renderRevenueChart*/
+              ctx[14]
+            ),
+            listen(
+              button1,
+              "click",
+              /*renderRegisteredChart*/
+              ctx[15]
+            ),
+            listen(button2, "click", renderRealtorsChart),
+            listen(button3, "click", renderOrdersChart)
+          ];
+          mounted = true;
+        }
       },
-      p: noop,
+      p(ctx2, dirty) {
+        if (dirty & /*MODE_STATS*/
+        256 && button0_disabled_value !== (button0_disabled_value = /*MODE_STATS*/
+        ctx2[8] === /*STAT_REVENUE*/
+        ctx2[10])) {
+          button0.disabled = button0_disabled_value;
+        }
+        if (dirty & /*MODE_STATS, STAT_REVENUE*/
+        1280) {
+          toggle_class(
+            button0,
+            "active",
+            /*MODE_STATS*/
+            ctx2[8] === /*STAT_REVENUE*/
+            ctx2[10]
+          );
+        }
+        if (dirty & /*MODE_STATS*/
+        256 && button1_disabled_value !== (button1_disabled_value = /*MODE_STATS*/
+        ctx2[8] === /*STAT_REGISTERED*/
+        ctx2[11])) {
+          button1.disabled = button1_disabled_value;
+        }
+        if (dirty & /*MODE_STATS, STAT_REGISTERED*/
+        2304) {
+          toggle_class(
+            button1,
+            "active",
+            /*MODE_STATS*/
+            ctx2[8] === /*STAT_REGISTERED*/
+            ctx2[11]
+          );
+        }
+        if (dirty & /*MODE_STATS*/
+        256 && button2_disabled_value !== (button2_disabled_value = /*MODE_STATS*/
+        ctx2[8] === /*STAT_REALTORS*/
+        ctx2[12])) {
+          button2.disabled = button2_disabled_value;
+        }
+        if (dirty & /*MODE_STATS, STAT_REALTORS*/
+        4352) {
+          toggle_class(
+            button2,
+            "active",
+            /*MODE_STATS*/
+            ctx2[8] === /*STAT_REALTORS*/
+            ctx2[12]
+          );
+        }
+        if (dirty & /*MODE_STATS*/
+        256 && button3_disabled_value !== (button3_disabled_value = /*MODE_STATS*/
+        ctx2[8] === /*STAT_ORDERS*/
+        ctx2[13])) {
+          button3.disabled = button3_disabled_value;
+        }
+        if (dirty & /*MODE_STATS, STAT_ORDERS*/
+        8448) {
+          toggle_class(
+            button3,
+            "active",
+            /*MODE_STATS*/
+            ctx2[8] === /*STAT_ORDERS*/
+            ctx2[13]
+          );
+        }
+      },
       d(detaching) {
         if (detaching) {
           detach(div2);
         }
+        mounted = false;
+        run_all(dispose);
       }
     };
   }
@@ -22696,7 +22916,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             window_1,
             "hashchange",
             /*onHashChange*/
-            ctx[8]
+            ctx[9]
           );
           mounted = true;
         }
@@ -22785,6 +23005,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     if (match)
       return match[2];
   }
+  function renderRealtorsChart() {
+  }
+  function renderOrdersChart() {
+  }
   function instance7($self, $props, $invalidate) {
     let user = (
       /** @type {User} */
@@ -22798,7 +23022,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       /** @type {string} */
       '#{apple}'
     );
-    console.log("usersRegistered=", usersRegistered);
     apple = `https://appleid.apple.com/auth/authorize?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&state=${state}&response_mode=${response_mode}`;
     let email = (
       /** @type {string} */
@@ -22855,17 +23078,49 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
       await tick();
     }
+    let chart = (
+      /** @type {import('chart.js').Chart} */
+      null
+    );
+    let STAT_REVENUE = `revenue`;
+    let STAT_REGISTERED = `registered`;
+    let STAT_REALTORS = `realtors`;
+    let STAT_ORDERS = `orders`;
+    let MODE_STATS = STAT_REVENUE;
+    function renderRevenueChart() {
+      $invalidate(8, MODE_STATS = STAT_REVENUE);
+      if (chart) {
+        chart.data.labels = ["Jan 31", "Feb 28", "Mar 30", "Apr 30", "May 30", "Jun 30"];
+        chart.data.datasets[0].data = [4e4, 13e4, 7e4, 25e4, 145e3, 22e4];
+        chart.data.datasets[0].label = "Revenue";
+        chart.options.scales.y = { ticks: { stepSize: 1e4 } };
+        chart.update();
+      }
+    }
+    function renderRegisteredChart() {
+      $invalidate(8, MODE_STATS = STAT_REGISTERED);
+      if (chart) {
+        chart.data.labels = (usersRegistered || []).map((i) => {
+          const dt = new Date(i.date);
+          return dt.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
+        });
+        chart.data.datasets[0].data = (usersRegistered || []).map((i) => i.count);
+        chart.data.datasets[0].label = "Registered";
+        chart.options.scales.y = { ticks: { stepSize: 10 } };
+        chart.update();
+      }
+    }
     onMount(() => {
       onHashChange();
       if (MODE === MODE_USER) {
         setTimeout(
           () => {
-            const ElmRevenueChart = (
+            const ElmChart = (
               /** @type {HTMLCanvasElement} */
-              document.getElementById("revenue-chart")
+              document.getElementById("chart")
             );
-            new auto_default(
-              ElmRevenueChart,
+            chart = new auto_default(
+              ElmChart,
               {
                 type: "line",
                 data: {
@@ -22889,7 +23144,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
                     y: {
                       beginAtZero: true,
                       ticks: {
-                        stepSize: 1e5,
+                        stepSize: 1e4,
                         callback(value) {
                           return Number(value) >= 1e3 ? Number(value) / 1e3 + "K" : value;
                         }
@@ -23030,7 +23285,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       confirmPass,
       MODE,
       isSubmitted,
+      MODE_STATS,
       onHashChange,
+      STAT_REVENUE,
+      STAT_REGISTERED,
+      STAT_REALTORS,
+      STAT_ORDERS,
+      renderRevenueChart,
+      renderRegisteredChart,
       guestRegister,
       guestLogin,
       guestResendVerificationEmail,
