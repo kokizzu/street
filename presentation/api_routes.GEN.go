@@ -90,6 +90,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// AdminRevenue
+	fw.Post("/"+domain.AdminRevenueAction, func(c *fiber.Ctx) error {
+		in := domain.AdminRevenueIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.AdminRevenueAction); err != nil {
+			return nil
+		}
+		out := d.AdminRevenue(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// AdminUsers
 	fw.Post("/"+domain.AdminUsersAction, func(c *fiber.Ctx) error {
 		in := domain.AdminUsersIn{}

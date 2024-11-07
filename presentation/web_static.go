@@ -272,7 +272,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
-	fw.Get(`/buyer`, func(ctx *fiber.Ctx) error {
+	fw.Get(`/`+domain.UserBuyerAction, func(ctx *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
@@ -284,7 +284,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
-	fw.Get(`/listings`, func(ctx *fiber.Ctx) error {
+	fw.Get(`/`+domain.UserListingsAction, func(ctx *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
@@ -406,6 +406,17 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`registeredUserTotal`:    out.RegisteredUserTotal,
 			`registeredUserToday`:    out.RegisteredUserToday,
 			`countPerActionsPerDate`: out.CountPerActionsPerDate,
+		})
+	})
+	fw.Get(`/`+domain.AdminRevenueAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		return views.RenderAdminRevenue(ctx, M.SX{
+			`title`:          `Revenue`,
+			`user`:           user,
+			`segments`:       segments,
 		})
 	})
 	fw.Get(`/`+domain.AdminFeedbacksAction, func(ctx *fiber.Ctx) error {

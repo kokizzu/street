@@ -3344,6 +3344,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       exports.AdminPropertiesUS = async function AdminPropertiesUS(i, cb) {
         return await axios.post("/admin/properties/US", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.AdminRevenue = async function AdminRevenue(i, cb) {
+        return await axios.post("/admin/revenue", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminUsers = async function AdminUsers(i, cb) {
         return await axios.post("/admin/users", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -3414,7 +3417,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         return await axios.post("/user/gpsCountry", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserLikeProp = async function UserLikeProp(i, cb) {
-        return await axios.post("/userLikeProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
+        return await axios.post("/user/likeProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserLogout = async function UserLogout2(i, cb) {
         return await axios.post("/user/logout", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -4476,7 +4479,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           a,
           "active",
           /*pathLv1*/
-          ctx[1] === "user"
+          ctx[2] === "user"
         );
         attr(button, "class", "red svelte-1hfp3dx");
         attr(nav, "class", "nav-menu svelte-1hfp3dx");
@@ -4494,7 +4497,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             button,
             "click",
             /*logout*/
-            ctx[2]
+            ctx[3]
           );
           mounted = true;
         }
@@ -4539,7 +4542,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           a,
           "active",
           /*pathLv1*/
-          ctx[1] === "admin"
+          ctx[2] === "admin" && /*pathAll*/
+          ctx[1] !== "/admin/revenue"
         );
       },
       m(target, anchor) {
@@ -4603,15 +4607,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           a0,
           "active",
           /*pathLv1*/
-          ctx[1] === ""
+          ctx[2] === ""
         );
-        attr(a1, "href", "/buyer");
+        attr(a1, "href", "/user/buyer");
         attr(a1, "class", "svelte-1hfp3dx");
         toggle_class(
           a1,
           "active",
           /*pathLv1*/
-          ctx[1] === "buyer"
+          ctx[2] === "buyer"
         );
         attr(a2, "href", "/realtor");
         attr(a2, "class", "svelte-1hfp3dx");
@@ -4619,23 +4623,23 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           a2,
           "active",
           /*pathLv1*/
-          ctx[1] === "realtor"
+          ctx[2] === "realtor"
         );
-        attr(a3, "href", "/listings");
+        attr(a3, "href", "/user/listings");
         attr(a3, "class", "svelte-1hfp3dx");
         toggle_class(
           a3,
           "active",
           /*pathLv1*/
-          ctx[1] === "listings"
+          ctx[2] === "listings"
         );
-        attr(a4, "href", "/revenue");
+        attr(a4, "href", "/admin/revenue");
         attr(a4, "class", "svelte-1hfp3dx");
         toggle_class(
           a4,
           "active",
-          /*pathLv1*/
-          ctx[1] === "revenue"
+          /*pathAll*/
+          ctx[1] === "/admin/revenue"
         );
         attr(nav, "class", "nav-menu svelte-1hfp3dx");
         attr(span, "class", "separator svelte-1hfp3dx");
@@ -4694,6 +4698,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       /** @type {Access} */
       {}
     ) } = $props;
+    const pathAll = (
+      /** @type {string}*/
+      window.location.pathname
+    );
     const pathLv1 = (
       /** @type {string}*/
       window.location.pathname.split("/")[1]
@@ -4722,7 +4730,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       if ("access" in $props2)
         $invalidate(0, access2 = $props2.access);
     };
-    return [access2, pathLv1, logout];
+    return [access2, pathAll, pathLv1, logout];
   }
   var SideMenu = class extends SvelteComponent {
     constructor(options) {

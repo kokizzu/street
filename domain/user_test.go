@@ -393,7 +393,7 @@ func TestUserSearchPropAndLikes(t *testing.T) {
 	t.Run(`likeProp1`, func(t *testing.T) {
 		in1 := &UserLikePropIn{
 			RequestCommon: testAdminRequestCommon(UserLikePropAction),
-			propId:        propId1,
+			PropId:        propId1,
 			Like:          true,
 		}
 		out := d.UserLikeProp(in1)
@@ -409,7 +409,7 @@ func TestUserSearchPropAndLikes(t *testing.T) {
 		t.Run(`likeProp2`, func(t *testing.T) {
 			in2 := &UserLikePropIn{
 				RequestCommon: testAdminRequestCommon(UserLikePropAction),
-				propId:        out2.Property.Id,
+				PropId:        out2.Property.Id,
 				Like:          true,
 			}
 			out := d.UserLikeProp(in2)
@@ -426,7 +426,7 @@ func TestUserSearchPropAndLikes(t *testing.T) {
 
 				in := &UserLikePropIn{
 					RequestCommon: testAdminRequestCommon(UserLikePropAction),
-					propId:        out2.Property.Id,
+					PropId:        out2.Property.Id,
 					Like:          false,
 				}
 				out := d.UserLikeProp(in)
@@ -444,7 +444,7 @@ func TestUserSearchPropAndLikes(t *testing.T) {
 		t.Run(`unlikeProp1`, func(t *testing.T) {
 			in := &UserLikePropIn{
 				RequestCommon: testAdminRequestCommon(UserLikePropAction),
-				propId:        out1.Property.Id,
+				PropId:        out1.Property.Id,
 				Like:          false,
 			}
 			out := d.UserLikeProp(in)

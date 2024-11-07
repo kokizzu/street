@@ -116,7 +116,7 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 	}
 
 	out.Properties = make([]Property, 0, in.Limit)
-	propIds := make([]uint64, 0, in.Limit)
+	var propIds = make([]uint64, 0, in.Limit)
 
 	// Get satisfied property with expected condition
 	satisfiedProperties := make([]Property, 0, in.Limit)

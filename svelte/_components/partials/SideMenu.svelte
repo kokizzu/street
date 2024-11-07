@@ -5,6 +5,8 @@
   import { notifier } from '../notifier';
 
   export let access = /** @type {Access} */ ({});
+
+  const pathAll = /** @type {string}*/ (window.location.pathname);
   const pathLv1 = /** @type {string}*/ (window.location.pathname.split( '/' )[ 1 ]);
 
   async function logout() {
@@ -31,16 +33,16 @@
   <div class="container">
     <nav class="nav-menu">
       <a href="/" class:active={pathLv1 === ''}>Home</a>
-      <a href="/buyer" class:active={pathLv1 === 'buyer'}>Buyers</a>
+      <a href="/user/buyer" class:active={pathLv1 === 'buyer'}>Buyers</a>
       <a href="/realtor" class:active={pathLv1 === 'realtor'}>Realtors</a>
-      <a href="/listings" class:active={pathLv1 === 'listings'}>Listings</a>
-      <a href="/revenue" class:active={pathLv1 === 'revenue'}>Revenue</a>
+      <a href="/user/listings" class:active={pathLv1 === 'listings'}>Listings</a>
+      <a href="/admin/revenue" class:active={pathAll === '/admin/revenue'}>Revenue</a>
     </nav>
     <span class="separator" />
     {#if access.user}
       <nav class="nav-menu">
         {#if access.admin}
-          <a href="/admin" class:active={pathLv1 === 'admin'}>Admin</a>
+          <a href="/admin" class:active={pathLv1 === 'admin' && pathAll !== '/admin/revenue'}>Admin</a>
         {/if}
         <a href="/user" class:active={pathLv1 === 'user'}>Profile</a>
         <button class="red" on:click={logout}>Logout</button>

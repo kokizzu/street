@@ -3737,6 +3737,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       exports.AdminPropertiesUS = async function AdminPropertiesUS(i, cb) {
         return await axios.post("/admin/properties/US", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.AdminRevenue = async function AdminRevenue(i, cb) {
+        return await axios.post("/admin/revenue", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminUsers = async function AdminUsers(i, cb) {
         return await axios.post("/admin/users", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -3807,7 +3810,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         return await axios.post("/user/gpsCountry", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserLikeProp = async function UserLikeProp(i, cb) {
-        return await axios.post("/userLikeProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
+        return await axios.post("/user/likeProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserLogout = async function UserLogout3(i, cb) {
         return await axios.post("/user/logout", i).then(wrapOk(cb)).catch(wrapErr(cb));

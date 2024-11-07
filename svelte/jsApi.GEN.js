@@ -1355,6 +1355,32 @@ exports.AdminPropertiesUS = async function AdminPropertiesUS( i, cb ) {
 }
 
 /**
+ * @typedef {Object} AdminRevenueIn
+ */
+const AdminRevenueIn = {
+}
+/**
+ * @typedef {Object} AdminRevenueOut
+ */
+const AdminRevenueOut = {
+}
+/**
+ * @callback AdminRevenueCallback
+ * @param {AdminRevenueOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {AdminRevenueIn} i
+ * @param {AdminRevenueCallback} cb
+ * @returns {Promise}
+ */
+exports.AdminRevenue = async function AdminRevenue( i, cb ) {
+  return await axios.post( '/admin/revenue', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} AdminUsersIn
  * @property {String} cmd
  * @property {number} user.id
@@ -2907,7 +2933,7 @@ const UserLikePropOut = {
  * @returns {Promise}
  */
 exports.UserLikeProp = async function UserLikeProp( i, cb ) {
-  return await axios.post( '/userLikeProp', i ).
+  return await axios.post( '/user/likeProp', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -3468,11 +3494,11 @@ exports.UserUpdateProfile = async function UserUpdateProfile( i, cb ) {
 
 /**
  * @typedef {Object} UserUpload3DFileIn
- * @property {String} propertyId
+ * @property {number} propertyId
  * @property {String} country
  */
 const UserUpload3DFileIn = {
-  propertyId: '', // string
+  propertyId: 0, // uint64
   country: '', // string
 }
 /**

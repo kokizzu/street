@@ -34,7 +34,7 @@ import (
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type common.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type common.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type common.go
-// go:generate msgp -tests=false -file common.go -o  common__MSG.GEN.go
+//go:generate msgp -tests=false -file common.go -o  common__MSG.GEN.go
 //go:generate farify doublequote --file common.go
 
 type RawFile struct {
@@ -146,7 +146,7 @@ func (l *RequestCommon) ToFiberCtx(ctx *fiber.Ctx, out any, rc *ResponseCommon, 
 			if errors.Is(err, &json.UnsupportedTypeError{}) {
 				if conf.IsDebug() {
 					L.Describe(err)
-					panic(`forgot to convert map[any]any to map[string]any?`)
+					L.Print(`forgot to convert map[any]any to map[string]any?`)
 					return err
 				}
 			}

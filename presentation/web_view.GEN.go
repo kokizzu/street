@@ -18,6 +18,7 @@ var viewList = map[string]string{
 	`AdminProperties`: `../svelte/admin/properties.html`, // ../svelte/admin/properties.svelte
 	`AdminPropertiesTW`: `../svelte/admin/propertiesTW.html`, // ../svelte/admin/propertiesTW.svelte
 	`AdminPropertiesUS`: `../svelte/admin/propertiesUS.html`, // ../svelte/admin/propertiesUS.svelte
+	`AdminRevenue`: `../svelte/admin/revenue.html`, // ../svelte/admin/revenue.svelte
 	`AdminSessions`: `../svelte/admin/sessions.html`, // ../svelte/admin/sessions.svelte
 	`AdminUsers`: `../svelte/admin/users.html`, // ../svelte/admin/users.svelte
 	`Buyer`: `../svelte/buyer.html`, // ../svelte/buyer.svelte
@@ -77,6 +78,11 @@ func (v *Views) RenderAdminPropertiesTW(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderAdminPropertiesUS(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`AdminPropertiesUS`].Str(m))
+}
+
+func (v *Views) RenderAdminRevenue(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`AdminRevenue`].Str(m))
 }
 
 func (v *Views) RenderAdminSessions(c *fiber.Ctx, m M.SX) error {
