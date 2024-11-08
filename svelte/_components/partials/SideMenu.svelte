@@ -1,5 +1,5 @@
 <script>
-  /** @typedef {import('../../_types/master.js').Access} Access*/
+  /** @typedef {import('../../_types/master.js').Access} Access */
 
   import { UserLogout } from '../../jsApi.GEN';
   import { notifier } from '../notifier';
@@ -25,7 +25,7 @@
           resolve();
         }, 1000 );
       });
-    } );
+    });
   }
 </script>
 
@@ -33,10 +33,14 @@
   <div class="container">
     <nav class="nav-menu">
       <a href="/" class:active={pathLv1 === ''}>Home</a>
-      <a href="/user/buyer" class:active={pathLv1 === 'buyer'}>Buyers</a>
-      <a href="/realtor" class:active={pathLv1 === 'realtor'}>Realtors</a>
-      <a href="/user/listings" class:active={pathLv1 === 'listings'}>Listings</a>
-      <a href="/admin/revenue" class:active={pathAll === '/admin/revenue'}>Revenue</a>
+      <a href="/user/buyer" class:active={pathAll === '/user/buyer'}>Buyers</a>
+      <a href="/realtor" class:active={pathAll === '/realtor'}>Realtors</a>
+      <a href="/user/listings" class:active={pathAll === '/user/listings'}>Listings</a>
+      {#if access.admin}
+        <a href="/admin/revenue" class:active={pathAll === '/admin/revenue'}>Revenue</a>
+      {:else}
+        <a href="/realtor/revenue" class:active={pathAll === '/realtor/revenue'}>Revenue</a>
+      {/if}
     </nav>
     <span class="separator" />
     {#if access.user}
@@ -44,7 +48,7 @@
         {#if access.admin}
           <a href="/admin" class:active={pathLv1 === 'admin' && pathAll !== '/admin/revenue'}>Admin</a>
         {/if}
-        <a href="/user" class:active={pathLv1 === 'user'}>Profile</a>
+        <a href="/user" class:active={pathAll === '/user'}>Profile</a>
         <button class="red" on:click={logout}>Logout</button>
       </nav>
     {/if}

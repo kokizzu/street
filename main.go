@@ -58,7 +58,7 @@ func main() {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	eg, ctx := errgroup.WithContext(ctx)
+	eg, _ := errgroup.WithContext(ctx)
 	var closers []func() error
 
 	// mailer
@@ -132,6 +132,7 @@ func main() {
 		AuthOlap: cConn,
 		PropOltp: tConn,
 		PropOlap: cConn,
+		BusinessOltp: tConn,
 		StorOltp: tConn,
 		Mailer:   mailer,
 		IsBgSvc:  false,

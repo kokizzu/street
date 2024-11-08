@@ -24,6 +24,8 @@ type Domain struct {
 	PropOltp *Tt.Adapter
 	PropOlap *Ch.Adapter
 
+	BusinessOltp *Tt.Adapter
+
 	StorOltp *Tt.Adapter
 
 	Mailer xMailer.Mailer

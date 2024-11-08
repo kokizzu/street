@@ -1,6 +1,10 @@
 package mBusiness
 
-import "github.com/kokizzu/gotro/D/Tt"
+import (
+	"time"
+
+	"github.com/kokizzu/gotro/D/Tt"
+)
 
 const (
 	TableRevenue Tt.TableName = `revenue`
@@ -21,6 +25,11 @@ const (
 	UpdatedBy = `updatedBy`
 	DeletedAt = `deletedAt`
 )
+func IsValidDate(dateStr string) bool {
+	_, err := time.Parse("2006-01-02", dateStr)
+	
+	return err == nil
+}
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableSales: {

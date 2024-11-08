@@ -3,28 +3,14 @@
   /** @typedef {import('../_types/master').Access} Access */
 
   import Main from '../_layouts/Main.svelte';
-  import { Icon } from '../node_modules/svelte-icons-pack/dist';
-  import { RiSystemAddLargeFill } from '../node_modules/svelte-icons-pack/dist/ri';
   
   let user   = /** @type {User} */ ({/* user */});
   let access = /** @type {Access} */ ({/* segments */});
 </script>
 
-
 <Main {user} {access}>
-  <haha class="revenue-container">
-    <hehe class="header">
-      <miaw></miaw>
-      <button class="add-btn">
-        <Icon
-          size="20"
-          color="#FFF"
-          src={RiSystemAddLargeFill}
-        />
-        <span>Add</span>
-      </button>
-    </hehe>
-    <huhu class="table-root">
+  <div class="revenue-container">
+    <div class="table-root">
       <div class="table-container">
         <table>
           <thead>
@@ -51,8 +37,8 @@
           </tbody>
         </table>
       </div>
-    </huhu>
-  </haha>
+    </div>
+  </div>
 </Main>
 
 <style>
@@ -61,33 +47,6 @@
     flex-direction: column;
     gap: 20px;
     padding: 20px;
-  }
-
-  .revenue-container .header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .revenue-container .header .add-btn {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    background-color: var(--orange-006);
-    border-radius: 9999px;
-    border: none;
-    cursor: pointer;
-    padding: 15px 30px;
-    color: #FFF;
-    font-size: 16px;
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .revenue-container .header .add-btn:hover {
-    background-color: var(--orange-005);
   }
 
   .table-root {

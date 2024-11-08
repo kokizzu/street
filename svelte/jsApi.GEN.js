@@ -2543,6 +2543,32 @@ exports.RealtorProperty = async function RealtorProperty( i, cb ) {
 }
 
 /**
+ * @typedef {Object} RealtorRevenueIn
+ */
+const RealtorRevenueIn = {
+}
+/**
+ * @typedef {Object} RealtorRevenueOut
+ */
+const RealtorRevenueOut = {
+}
+/**
+ * @callback RealtorRevenueCallback
+ * @param {RealtorRevenueOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {RealtorRevenueIn} i
+ * @param {RealtorRevenueCallback} cb
+ * @returns {Promise}
+ */
+exports.RealtorRevenue = async function RealtorRevenue( i, cb ) {
+  return await axios.post( '/realtor/revenue', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} RealtorUpsertPropertyIn
  * @property {Object} askReview
  * @property {number} property.id
@@ -2811,6 +2837,32 @@ exports.UserAutoLoginLink = async function UserAutoLoginLink( i, cb ) {
 }
 
 /**
+ * @typedef {Object} UserBuyerIn
+ */
+const UserBuyerIn = {
+}
+/**
+ * @typedef {Object} UserBuyerOut
+ */
+const UserBuyerOut = {
+}
+/**
+ * @callback UserBuyerCallback
+ * @param {UserBuyerOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserBuyerIn} i
+ * @param {UserBuyerCallback} cb
+ * @returns {Promise}
+ */
+exports.UserBuyer = async function UserBuyer( i, cb ) {
+  return await axios.post( '/user/buyer', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} UserChangePasswordIn
  * @property {String} oldPass
  * @property {String} newPass
@@ -2934,6 +2986,32 @@ const UserLikePropOut = {
  */
 exports.UserLikeProp = async function UserLikeProp( i, cb ) {
   return await axios.post( '/user/likeProp', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserListingsIn
+ */
+const UserListingsIn = {
+}
+/**
+ * @typedef {Object} UserListingsOut
+ */
+const UserListingsOut = {
+}
+/**
+ * @callback UserListingsCallback
+ * @param {UserListingsOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserListingsIn} i
+ * @param {UserListingsCallback} cb
+ * @returns {Promise}
+ */
+exports.UserListings = async function UserListings( i, cb ) {
+  return await axios.post( '/user/listings', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

@@ -351,7 +351,7 @@ func (c *codegen) StartCodegen() {
 
 	// parse svelte files
 	start = time.Now()
-	err = filepath.Walk(c.SvelteDir, func(path string, info os.FileInfo, err error) error {
+	filepath.Walk(c.SvelteDir, func(path string, info os.FileInfo, err error) error {
 		if L.IsError(err, `filepath.Walk`) {
 			return err
 		}
@@ -365,7 +365,6 @@ func (c *codegen) StartCodegen() {
 	L.TimeTrack(start, `parsing svelte dir`)
 
 	c.GenerateWebRouteFile()
-
 }
 
 func (d *domains) parseDomainFile(path string) {

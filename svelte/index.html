@@ -624,7 +624,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
 }
 
 /* fakecss:./index.esbuild-svelte-fake-css */
-@keyframes svelte-16zdveq-spin {
+@keyframes svelte-15noryw-spin {
   from {
     transform: rotate(0deg);
   }
@@ -633,16 +633,16 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   }
 }
 .spin {
-  animation: svelte-16zdveq-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: svelte-15noryw-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
-.home-container.svelte-16zdveq.svelte-16zdveq {
+.home-container.svelte-15noryw.svelte-15noryw {
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 100%;
   padding: 20px;
 }
-.home-container.svelte-16zdveq .stats-chart.svelte-16zdveq {
+.home-container.svelte-15noryw .stats-chart.svelte-15noryw {
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -652,14 +652,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   height: 350px;
   width: 100%;
 }
-.home-container.svelte-16zdveq .stats-chart nav.svelte-16zdveq {
+.home-container.svelte-15noryw .stats-chart nav.svelte-15noryw {
   display: flex;
   flex-direction: row;
   gap: 10px;
   height: fit-content;
   padding: 0 16px;
 }
-.home-container.svelte-16zdveq .stats-chart nav button.svelte-16zdveq {
+.home-container.svelte-15noryw .stats-chart nav button.svelte-15noryw {
   border: none;
   background-color: transparent;
   color: var(--gray-008);
@@ -671,41 +671,132 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   height: fit-content;
   padding: 0;
 }
-.home-container.svelte-16zdveq .stats-chart nav button.svelte-16zdveq:hover {
+.home-container.svelte-15noryw .stats-chart nav button.svelte-15noryw:hover {
   background-color: var(--gray-001);
 }
-.home-container.svelte-16zdveq .stats-chart nav button.active.svelte-16zdveq {
+.home-container.svelte-15noryw .stats-chart nav button.active.svelte-15noryw {
   color: var(--orange-005);
 }
-.home-container.svelte-16zdveq .stats-chart nav button .title.svelte-16zdveq {
+.home-container.svelte-15noryw .stats-chart nav button .title.svelte-15noryw {
   flex-grow: 1;
   padding: 15px 10px;
   display: flex;
   align-items: center;
 }
-.home-container.svelte-16zdveq .stats-chart nav button .block.svelte-16zdveq {
+.home-container.svelte-15noryw .stats-chart nav button .block.svelte-15noryw {
   height: 3px;
   background-color: transparent;
   width: 100%;
 }
-.home-container.svelte-16zdveq .stats-chart nav button:hover .block.svelte-16zdveq {
+.home-container.svelte-15noryw .stats-chart nav button:hover .block.svelte-15noryw {
   background-color: var(--gray-005);
 }
-.home-container.svelte-16zdveq .stats-chart nav button.active .block.svelte-16zdveq {
+.home-container.svelte-15noryw .stats-chart nav button.active .block.svelte-15noryw {
   background-color: var(--orange-005);
 }
-.home-container.svelte-16zdveq .stats-chart .chart.svelte-16zdveq {
+.home-container.svelte-15noryw .stats-chart .chart.svelte-15noryw {
   height: 92%;
   width: 100%;
   display: flex;
   width: 100%;
   padding: 0 16px 45px 16px;
 }
-.home-container.svelte-16zdveq .stats-chart .chart canvas.svelte-16zdveq {
+.home-container.svelte-15noryw .stats-chart .chart canvas.svelte-15noryw {
   width: 100% !important;
   height: 100% !important;
 }
-.auth-section.svelte-16zdveq.svelte-16zdveq {
+.home-container.svelte-15noryw .rows-table.svelte-15noryw {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.table-root.svelte-15noryw.svelte-15noryw {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid var(--gray-003);
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+}
+.table-root.svelte-15noryw header.svelte-15noryw {
+  padding: 16px 12px;
+}
+.table-root.svelte-15noryw header span.svelte-15noryw {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--gray-008);
+}
+.table-root.svelte-15noryw .table-container.svelte-15noryw {
+  overflow-x: auto;
+  scrollbar-color: var(--gray-003) transparent;
+  scrollbar-width: thin;
+}
+.table-root.svelte-15noryw .table-container table.svelte-15noryw {
+  width: 100%;
+  background: #fff;
+  box-shadow: none;
+  text-align: left;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  font-size: 13px;
+}
+.table-root.svelte-15noryw .table-container table thead.svelte-15noryw {
+  box-shadow: none;
+  border-bottom: 1px solid var(--gray-003);
+  border-top: 1px solid var(--gray-003);
+}
+.table-root.svelte-15noryw .table-container table thead tr th.svelte-15noryw {
+  padding: 12px;
+  background-color: var(--gray-001);
+  text-transform: capitalize;
+  border-top: 1px solid var(--gray-003);
+  border-right: 1px solid var(--gray-004);
+  border-bottom: 1px solid var(--gray-003);
+  min-width: fit-content;
+  width: auto;
+  text-wrap: nowrap;
+}
+.table-root.svelte-15noryw .table-container table thead tr th.svelte-15noryw:last-child {
+  border-right: none;
+}
+.table-root.svelte-15noryw .table-container table tbody tr td.svelte-15noryw {
+  padding: 8px 12px;
+}
+.table-root.svelte-15noryw .table-container table tbody tr td.svelte-15noryw {
+  padding: 8px 12px;
+  border-right: 1px solid var(--gray-004);
+  border-bottom: 1px solid var(--gray-004);
+}
+.table-root.svelte-15noryw .table-container table tbody tr.svelte-15noryw:last-child {
+  border-bottom: none !important;
+}
+.table-root.svelte-15noryw .table-container table tbody tr:last-child td.svelte-15noryw,
+.table-root.svelte-15noryw .table-container table tbody tr:last-child th.svelte-15noryw {
+  border-bottom: none !important;
+}
+.table-root.svelte-15noryw .table-container table tbody tr:last-child td.svelte-15noryw:last-child {
+  border-right: none !important;
+}
+.table-root.svelte-15noryw .table-container table tbody tr:last-child td.svelte-15noryw,
+.table-root.svelte-15noryw .table-container table tbody tr:last-child th.svelte-15noryw {
+  border-bottom: none !important;
+}
+.table-root.svelte-15noryw .table-container table tbody tr:last-child td.svelte-15noryw:last-child {
+  border-right: none !important;
+}
+.table-root.svelte-15noryw .table-container table tbody tr td.svelte-15noryw:last-child {
+  border-right: none !important;
+}
+.table-root.svelte-15noryw .table-container table tbody tr th.svelte-15noryw {
+  text-align: center;
+  border-right: 1px solid var(--gray-004);
+  border-bottom: 1px solid var(--gray-004);
+}
+.auth-section.svelte-15noryw.svelte-15noryw {
   height: 100%;
   width: 100%;
   background-color: var(--gray-001);
@@ -713,7 +804,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   display: flex;
   color: var(--gray-008);
 }
-.auth-section.svelte-16zdveq .main-container.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container.svelte-15noryw {
   width: 480px;
   height: fit-content;
   padding: 20px;
@@ -725,55 +816,55 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   border: 1px solid var(--gray-003);
   gap: 10px;
 }
-.auth-section.svelte-16zdveq .main-container .title-container.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .title-container.svelte-15noryw {
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: 100%;
   text-align: center;
 }
-.auth-section.svelte-16zdveq .main-container .title-container p.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .title-container p.svelte-15noryw {
   font-size: 16px;
   font-weight: 600;
   color: var(--orange-005);
   margin: 0;
 }
-.auth-section.svelte-16zdveq .main-container .title-container h1.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .title-container h1.svelte-15noryw {
   margin: 0 0 5px 0;
   font-size: 22px;
   font-weight: 700;
 }
-.auth-section.svelte-16zdveq .main-container .form-container.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container.svelte-15noryw {
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 100%;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .input-container.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container .input-container.svelte-15noryw {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .forgot-password.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container .forgot-password.svelte-15noryw {
   width: 100%;
   text-align: center;
   font-weight: 500;
   margin: 0;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .forgot-password a.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container .forgot-password a.svelte-15noryw {
   color: var(--blue-006);
   text-decoration: none;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .forgot-password a.svelte-16zdveq:hover {
+.auth-section.svelte-15noryw .main-container .form-container .forgot-password a.svelte-15noryw:hover {
   color: var(--blue-005);
   text-decoration: underline;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .button-container.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container .button-container.svelte-15noryw {
   height: fit-content;
   width: 100%;
   display: flex;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .button-container button.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container .button-container button.svelte-15noryw {
   margin: 0;
   width: 100%;
   padding: 12px;
@@ -785,38 +876,38 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   border: none;
   cursor: pointer;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .button-container button.svelte-16zdveq:hover {
+.auth-section.svelte-15noryw .main-container .form-container .button-container button.svelte-15noryw:hover {
   background-color: var(--orange-005);
 }
-.auth-section.svelte-16zdveq .main-container .form-container .oauth-container.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container .oauth-container.svelte-15noryw {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .oauth-container .or-separator.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container .oauth-container .or-separator.svelte-15noryw {
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .oauth-container .or-separator span.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container .oauth-container .or-separator span.svelte-15noryw {
   flex-grow: 1;
   height: 0;
   border-top: 1px solid var(--gray-002);
   padding: 0;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .oauth-container .or-separator p.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container .oauth-container .or-separator p.svelte-15noryw {
   width: fit-content;
   font-weight: 600;
   padding: 0 10px;
   margin: 0;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .oauth-container .oauth-buttons.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container .oauth-container .oauth-buttons.svelte-15noryw {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .oauth-container .button.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container .oauth-container .button.svelte-15noryw {
   padding: 10px;
   background-color: white;
   border: 1px solid var(--gray-002);
@@ -829,31 +920,31 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   text-decoration: none;
   color: var(--gray-008);
 }
-.auth-section.svelte-16zdveq .main-container .form-container .oauth-container .button.svelte-16zdveq:hover {
+.auth-section.svelte-15noryw .main-container .form-container .oauth-container .button.svelte-15noryw:hover {
   background-color: var(--gray-001);
   border: 1px solid var(--gray-003);
 }
-.auth-section.svelte-16zdveq .main-container .form-container .oauth-container .button img.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container .oauth-container .button img.svelte-15noryw {
   width: 20px;
   height: auto;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .oauth-container .button span.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container .oauth-container .button span.svelte-15noryw {
   margin-left: 8px;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .foot-auth.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container .foot-auth.svelte-15noryw {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .foot-auth p.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container .foot-auth p.svelte-15noryw {
   font-weight: 500;
   margin: 0;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .foot-auth a.svelte-16zdveq {
+.auth-section.svelte-15noryw .main-container .form-container .foot-auth a.svelte-15noryw {
   color: var(--blue-006);
   text-decoration: none;
 }
-.auth-section.svelte-16zdveq .main-container .form-container .foot-auth a.svelte-16zdveq:hover {
+.auth-section.svelte-15noryw .main-container .form-container .foot-auth a.svelte-15noryw:hover {
   color: var(--blue-005);
   text-decoration: underline;
 }
@@ -3366,11 +3457,17 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       exports.RealtorProperty = async function RealtorProperty(i, cb) {
         return await axios.post("/realtor/property", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.RealtorRevenue = async function RealtorRevenue(i, cb) {
+        return await axios.post("/realtor/revenue", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.RealtorUpsertProperty = async function RealtorUpsertProperty(i, cb) {
         return await axios.post("/realtor/upsertProperty", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserBuyer = async function UserBuyer(i, cb) {
+        return await axios.post("/user/buyer", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserChangePassword = async function UserChangePassword(i, cb) {
         return await axios.post("/user/changePassword", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -3383,6 +3480,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       };
       exports.UserLikeProp = async function UserLikeProp(i, cb) {
         return await axios.post("/user/likeProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserListings = async function UserListings(i, cb) {
+        return await axios.post("/user/listings", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserLogout = async function UserLogout2(i, cb) {
         return await axios.post("/user/logout", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -4326,6 +4426,58 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var notifier = new Notifier();
 
   // _components/partials/SideMenu.svelte
+  function create_else_block(ctx) {
+    let a;
+    return {
+      c() {
+        a = element("a");
+        a.textContent = "Revenue";
+        attr(a, "href", "/realtor/revenue");
+        attr(a, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a,
+          "active",
+          /*pathAll*/
+          ctx[1] === "/realtor/revenue"
+        );
+      },
+      m(target, anchor) {
+        insert(target, a, anchor);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(a);
+        }
+      }
+    };
+  }
+  function create_if_block_2(ctx) {
+    let a;
+    return {
+      c() {
+        a = element("a");
+        a.textContent = "Revenue";
+        attr(a, "href", "/admin/revenue");
+        attr(a, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a,
+          "active",
+          /*pathAll*/
+          ctx[1] === "/admin/revenue"
+        );
+      },
+      m(target, anchor) {
+        insert(target, a, anchor);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(a);
+        }
+      }
+    };
+  }
   function create_if_block(ctx) {
     let nav;
     let t0;
@@ -4354,8 +4506,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         toggle_class(
           a,
           "active",
-          /*pathLv1*/
-          ctx[2] === "user"
+          /*pathAll*/
+          ctx[1] === "/user"
         );
         attr(button, "class", "red svelte-1hfp3dx");
         attr(nav, "class", "nav-menu svelte-1hfp3dx");
@@ -4445,11 +4597,20 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let t5;
     let a3;
     let t7;
-    let a4;
-    let t9;
+    let t8;
     let span;
-    let t10;
-    let if_block = (
+    let t9;
+    function select_block_type(ctx2, dirty) {
+      if (
+        /*access*/
+        ctx2[0].admin
+      )
+        return create_if_block_2;
+      return create_else_block;
+    }
+    let current_block_type = select_block_type(ctx, -1);
+    let if_block0 = current_block_type(ctx);
+    let if_block1 = (
       /*access*/
       ctx[0].user && create_if_block(ctx)
     );
@@ -4470,13 +4631,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         a3 = element("a");
         a3.textContent = "Listings";
         t7 = space();
-        a4 = element("a");
-        a4.textContent = "Revenue";
-        t9 = space();
+        if_block0.c();
+        t8 = space();
         span = element("span");
-        t10 = space();
-        if (if_block)
-          if_block.c();
+        t9 = space();
+        if (if_block1)
+          if_block1.c();
         attr(a0, "href", "/");
         attr(a0, "class", "svelte-1hfp3dx");
         toggle_class(
@@ -4490,32 +4650,24 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         toggle_class(
           a1,
           "active",
-          /*pathLv1*/
-          ctx[2] === "buyer"
+          /*pathAll*/
+          ctx[1] === "/user/buyer"
         );
         attr(a2, "href", "/realtor");
         attr(a2, "class", "svelte-1hfp3dx");
         toggle_class(
           a2,
           "active",
-          /*pathLv1*/
-          ctx[2] === "realtor"
+          /*pathAll*/
+          ctx[1] === "/realtor"
         );
         attr(a3, "href", "/user/listings");
         attr(a3, "class", "svelte-1hfp3dx");
         toggle_class(
           a3,
           "active",
-          /*pathLv1*/
-          ctx[2] === "listings"
-        );
-        attr(a4, "href", "/admin/revenue");
-        attr(a4, "class", "svelte-1hfp3dx");
-        toggle_class(
-          a4,
-          "active",
           /*pathAll*/
-          ctx[1] === "/admin/revenue"
+          ctx[1] === "/user/listings"
         );
         attr(nav, "class", "nav-menu svelte-1hfp3dx");
         attr(span, "class", "separator svelte-1hfp3dx");
@@ -4534,28 +4686,38 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         append(nav, t5);
         append(nav, a3);
         append(nav, t7);
-        append(nav, a4);
-        append(div, t9);
+        if_block0.m(nav, null);
+        append(div, t8);
         append(div, span);
-        append(div, t10);
-        if (if_block)
-          if_block.m(div, null);
+        append(div, t9);
+        if (if_block1)
+          if_block1.m(div, null);
       },
       p(ctx2, [dirty]) {
+        if (current_block_type === (current_block_type = select_block_type(ctx2, dirty)) && if_block0) {
+          if_block0.p(ctx2, dirty);
+        } else {
+          if_block0.d(1);
+          if_block0 = current_block_type(ctx2);
+          if (if_block0) {
+            if_block0.c();
+            if_block0.m(nav, null);
+          }
+        }
         if (
           /*access*/
           ctx2[0].user
         ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
           } else {
-            if_block = create_if_block(ctx2);
-            if_block.c();
-            if_block.m(div, null);
+            if_block1 = create_if_block(ctx2);
+            if_block1.c();
+            if_block1.m(div, null);
           }
-        } else if (if_block) {
-          if_block.d(1);
-          if_block = null;
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
         }
       },
       i: noop,
@@ -4564,8 +4726,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (detaching) {
           detach(aside);
         }
-        if (if_block)
-          if_block.d();
+        if_block0.d();
+        if (if_block1)
+          if_block1.d();
       }
     };
   }
@@ -5157,7 +5320,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     child_ctx[0] = list[i][1];
     return child_ctx;
   }
-  function create_else_block(ctx) {
+  function create_else_block2(ctx) {
     let label_1;
     let t0;
     let t1;
@@ -5822,7 +5985,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_2(ctx) {
+  function create_if_block_22(ctx) {
     let label_1;
     let t0;
     let t1;
@@ -6441,12 +6604,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     const if_block_creators = [
       create_if_block2,
       create_if_block_12,
-      create_if_block_2,
+      create_if_block_22,
       create_if_block_3,
       create_if_block_4,
       create_if_block_8,
       create_if_block_9,
-      create_else_block
+      create_else_block2
     ];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
@@ -20984,7 +21147,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
 
   // index.svelte
   var { window: window_1 } = globals;
-  function create_else_block2(ctx) {
+  function create_else_block3(ctx) {
     let section;
     let div5;
     let div0;
@@ -21022,7 +21185,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       (ctx[6] === MODE_LOGIN || /*MODE*/
       ctx[6] === MODE_REGISTER || /*MODE*/
       ctx[6] === MODE_VERIF_EMAIL || /*MODE*/
-      ctx[6] === MODE_FG_PASSWD) && create_if_block_22(ctx)
+      ctx[6] === MODE_FG_PASSWD) && create_if_block_222(ctx)
     );
     let if_block1 = (
       /*MODE*/
@@ -21124,15 +21287,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         t16 = space();
         if (if_block11)
           if_block11.c();
-        attr(p, "class", "svelte-16zdveq");
-        attr(h12, "class", "svelte-16zdveq");
-        attr(div0, "class", "title-container svelte-16zdveq");
-        attr(div1, "class", "input-container svelte-16zdveq");
-        attr(div2, "class", "button-container svelte-16zdveq");
-        attr(div3, "class", "foot-auth svelte-16zdveq");
-        attr(div4, "class", "form-container svelte-16zdveq");
-        attr(div5, "class", "main-container svelte-16zdveq");
-        attr(section, "class", "auth-section svelte-16zdveq");
+        attr(p, "class", "svelte-15noryw");
+        attr(h12, "class", "svelte-15noryw");
+        attr(div0, "class", "title-container svelte-15noryw");
+        attr(div1, "class", "input-container svelte-15noryw");
+        attr(div2, "class", "button-container svelte-15noryw");
+        attr(div3, "class", "foot-auth svelte-15noryw");
+        attr(div4, "class", "form-container svelte-15noryw");
+        attr(div5, "class", "main-container svelte-15noryw");
+        attr(section, "class", "auth-section svelte-15noryw");
       },
       m(target, anchor) {
         insert(target, section, anchor);
@@ -21207,7 +21370,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_22(ctx2);
+            if_block0 = create_if_block_222(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(div1, t4);
@@ -21544,7 +21707,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_22(ctx) {
+  function create_if_block_222(ctx) {
     let inputbox;
     let updating_value;
     let current;
@@ -21722,8 +21885,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         a = element("a");
         a.textContent = "Reset here";
         attr(a, "href", "#FORGOT_PASSWORD");
-        attr(a, "class", "svelte-16zdveq");
-        attr(p, "class", "forgot-password svelte-16zdveq");
+        attr(a, "class", "svelte-15noryw");
+        attr(p, "class", "forgot-password svelte-15noryw");
       },
       m(target, anchor) {
         insert(target, p, anchor);
@@ -21769,7 +21932,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         t = space();
         if (if_block1)
           if_block1.c();
-        attr(button, "class", "svelte-16zdveq");
+        attr(button, "class", "svelte-15noryw");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -21890,7 +22053,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       c() {
         span = element("span");
         span.textContent = "Register";
-        attr(span, "class", "svelte-16zdveq");
+        attr(span, "class", "svelte-15noryw");
       },
       m(target, anchor) {
         insert(target, span, anchor);
@@ -21924,7 +22087,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         t = space();
         if (if_block1)
           if_block1.c();
-        attr(button, "class", "svelte-16zdveq");
+        attr(button, "class", "svelte-15noryw");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -22045,7 +22208,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       c() {
         span = element("span");
         span.textContent = "Login";
-        attr(span, "class", "svelte-16zdveq");
+        attr(span, "class", "svelte-15noryw");
       },
       m(target, anchor) {
         insert(target, span, anchor);
@@ -22079,7 +22242,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         t = space();
         if (if_block1)
           if_block1.c();
-        attr(button, "class", "svelte-16zdveq");
+        attr(button, "class", "svelte-15noryw");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -22200,7 +22363,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       c() {
         span = element("span");
         span.textContent = "Resend Verification Email";
-        attr(span, "class", "svelte-16zdveq");
+        attr(span, "class", "svelte-15noryw");
       },
       m(target, anchor) {
         insert(target, span, anchor);
@@ -22234,7 +22397,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         t = space();
         if (if_block1)
           if_block1.c();
-        attr(button, "class", "svelte-16zdveq");
+        attr(button, "class", "svelte-15noryw");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -22355,7 +22518,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       c() {
         span = element("span");
         span.textContent = "Request Reset Password Link";
-        attr(span, "class", "svelte-16zdveq");
+        attr(span, "class", "svelte-15noryw");
       },
       m(target, anchor) {
         insert(target, span, anchor);
@@ -22386,7 +22549,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       c() {
         div2 = element("div");
         div0 = element("div");
-        div0.innerHTML = `<span class="svelte-16zdveq"></span> <p class="svelte-16zdveq">or</p> <span class="svelte-16zdveq"></span>`;
+        div0.innerHTML = `<span class="svelte-15noryw"></span> <p class="svelte-15noryw">or</p> <span class="svelte-15noryw"></span>`;
         t3 = space();
         div1 = element("div");
         c0 = comment(" Google OAuth ");
@@ -22398,9 +22561,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         t6 = space();
         if (if_block1)
           if_block1.c();
-        attr(div0, "class", "or-separator svelte-16zdveq");
-        attr(div1, "class", "oauth-buttons svelte-16zdveq");
-        attr(div2, "class", "oauth-container svelte-16zdveq");
+        attr(div0, "class", "or-separator svelte-15noryw");
+        attr(div1, "class", "oauth-buttons svelte-15noryw");
+        attr(div2, "class", "oauth-container svelte-15noryw");
       },
       m(target, anchor) {
         insert(target, div2, anchor);
@@ -22463,9 +22626,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (!src_url_equal(img.src, img_src_value = "/assets/icons/google.svg"))
           attr(img, "src", img_src_value);
         attr(img, "alt", "Google");
-        attr(img, "class", "svelte-16zdveq");
-        attr(span, "class", "svelte-16zdveq");
-        attr(a, "class", "button svelte-16zdveq");
+        attr(img, "class", "svelte-15noryw");
+        attr(span, "class", "svelte-15noryw");
+        attr(a, "class", "button svelte-15noryw");
         attr(a, "href", google);
       },
       m(target, anchor) {
@@ -22498,9 +22661,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (!src_url_equal(img.src, img_src_value = "/assets/icons/apple.png"))
           attr(img, "src", img_src_value);
         attr(img, "alt", "Apple");
-        attr(img, "class", "svelte-16zdveq");
-        attr(span, "class", "svelte-16zdveq");
-        attr(a, "class", "button svelte-16zdveq");
+        attr(img, "class", "svelte-15noryw");
+        attr(span, "class", "svelte-15noryw");
+        attr(a, "class", "button svelte-15noryw");
         attr(
           a,
           "href",
@@ -22545,8 +22708,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         a = element("a");
         a.textContent = "register";
         attr(a, "href", "#REGISTER");
-        attr(a, "class", "svelte-16zdveq");
-        attr(p, "class", "svelte-16zdveq");
+        attr(a, "class", "svelte-15noryw");
+        attr(p, "class", "svelte-15noryw");
       },
       m(target, anchor) {
         insert(target, p, anchor);
@@ -22585,8 +22748,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         a = element("a");
         a.textContent = "login";
         attr(a, "href", "#LOGIN");
-        attr(a, "class", "svelte-16zdveq");
-        attr(p, "class", "svelte-16zdveq");
+        attr(a, "class", "svelte-15noryw");
+        attr(p, "class", "svelte-15noryw");
       },
       m(target, anchor) {
         insert(target, p, anchor);
@@ -22625,8 +22788,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         a = element("a");
         a.textContent = "request verification email";
         attr(a, "href", "#RESEND_VERIFICATION_EMAIL");
-        attr(a, "class", "svelte-16zdveq");
-        attr(p, "class", "svelte-16zdveq");
+        attr(a, "class", "svelte-15noryw");
+        attr(p, "class", "svelte-15noryw");
       },
       m(target, anchor) {
         insert(target, p, anchor);
@@ -22653,7 +22816,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     };
   }
   function create_default_slot(ctx) {
-    let div2;
+    let div9;
     let div1;
     let nav;
     let button0;
@@ -22681,11 +22844,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let button3_disabled_value;
     let t11;
     let div0;
+    let t12;
+    let div6;
+    let t86;
+    let div8;
     let mounted;
     let dispose;
     return {
       c() {
-        div2 = element("div");
+        div9 = element("div");
         div1 = element("div");
         nav = element("nav");
         button0 = element("button");
@@ -22713,13 +22880,19 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         span7.textContent = "Orders";
         t11 = space();
         div0 = element("div");
-        div0.innerHTML = `<canvas id="chart" class="svelte-16zdveq"></canvas>`;
-        attr(span0, "class", "block svelte-16zdveq");
-        attr(span1, "class", "title svelte-16zdveq");
+        div0.innerHTML = `<canvas id="chart" class="svelte-15noryw"></canvas>`;
+        t12 = space();
+        div6 = element("div");
+        div6.innerHTML = `<div class="table-root svelte-15noryw"><header class="svelte-15noryw"><span class="svelte-15noryw">Most Logged in Buyers</span></header> <div class="table-container svelte-15noryw"><table class="svelte-15noryw"><thead class="svelte-15noryw"><tr class="svelte-15noryw"><th class="svelte-15noryw">Time period</th> <th class="svelte-15noryw">Time spent</th> <th class="svelte-15noryw">User</th></tr></thead> <tbody><tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">45mins</td> <td class="svelte-15noryw">Chris Kang</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Monthly</td> <td class="svelte-15noryw">20hrs 2mins</td> <td class="svelte-15noryw">Jennifer Hun</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Quarterly</td> <td class="svelte-15noryw">45mins</td> <td class="svelte-15noryw">Chris Kang</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Annually</td> <td class="svelte-15noryw">321hrs 42mins</td> <td class="svelte-15noryw">Kortin Lopez</td></tr></tbody></table></div></div> <div class="table-root svelte-15noryw"><header class="svelte-15noryw"><span class="svelte-15noryw">Most Scanned Area</span></header> <div class="table-container svelte-15noryw"><table class="svelte-15noryw"><thead class="svelte-15noryw"><tr class="svelte-15noryw"><th class="svelte-15noryw">Time period</th> <th class="svelte-15noryw">Views</th> <th class="svelte-15noryw">City</th> <th class="svelte-15noryw">State</th></tr></thead> <tbody><tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,840,798</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td></tr></tbody></table></div></div>`;
+        t86 = space();
+        div8 = element("div");
+        div8.innerHTML = `<header class="svelte-15noryw"><span class="svelte-15noryw">Most Scanned Listing</span></header> <div class="table-container svelte-15noryw"><table class="svelte-15noryw"><thead class="svelte-15noryw"><tr class="svelte-15noryw"><th class="svelte-15noryw">Time period</th> <th class="svelte-15noryw">Views</th> <th class="svelte-15noryw">Price</th> <th class="svelte-15noryw">Size</th> <th class="svelte-15noryw">City</th> <th class="svelte-15noryw">State</th> <th class="svelte-15noryw">Address</th></tr></thead> <tbody><tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">$4,400,000</td> <td class="svelte-15noryw">40,000 sqm</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td> <td class="svelte-15noryw">99 silverlake dr.</td></tr></tbody></table></div>`;
+        attr(span0, "class", "block svelte-15noryw");
+        attr(span1, "class", "title svelte-15noryw");
         button0.disabled = button0_disabled_value = /*MODE_STATS*/
         ctx[8] === /*STAT_REVENUE*/
         ctx[10];
-        attr(button0, "class", "svelte-16zdveq");
+        attr(button0, "class", "svelte-15noryw");
         toggle_class(
           button0,
           "active",
@@ -22727,12 +22900,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           ctx[8] === /*STAT_REVENUE*/
           ctx[10]
         );
-        attr(span2, "class", "block svelte-16zdveq");
-        attr(span3, "class", "title svelte-16zdveq");
+        attr(span2, "class", "block svelte-15noryw");
+        attr(span3, "class", "title svelte-15noryw");
         button1.disabled = button1_disabled_value = /*MODE_STATS*/
         ctx[8] === /*STAT_REGISTERED*/
         ctx[11];
-        attr(button1, "class", "svelte-16zdveq");
+        attr(button1, "class", "svelte-15noryw");
         toggle_class(
           button1,
           "active",
@@ -22740,12 +22913,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           ctx[8] === /*STAT_REGISTERED*/
           ctx[11]
         );
-        attr(span4, "class", "block svelte-16zdveq");
-        attr(span5, "class", "title svelte-16zdveq");
+        attr(span4, "class", "block svelte-15noryw");
+        attr(span5, "class", "title svelte-15noryw");
         button2.disabled = button2_disabled_value = /*MODE_STATS*/
         ctx[8] === /*STAT_REALTORS*/
         ctx[12];
-        attr(button2, "class", "svelte-16zdveq");
+        attr(button2, "class", "svelte-15noryw");
         toggle_class(
           button2,
           "active",
@@ -22753,12 +22926,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           ctx[8] === /*STAT_REALTORS*/
           ctx[12]
         );
-        attr(span6, "class", "block svelte-16zdveq");
-        attr(span7, "class", "title svelte-16zdveq");
+        attr(span6, "class", "block svelte-15noryw");
+        attr(span7, "class", "title svelte-15noryw");
         button3.disabled = button3_disabled_value = /*MODE_STATS*/
         ctx[8] === /*STAT_ORDERS*/
         ctx[13];
-        attr(button3, "class", "svelte-16zdveq");
+        attr(button3, "class", "svelte-15noryw");
         toggle_class(
           button3,
           "active",
@@ -22766,14 +22939,16 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           ctx[8] === /*STAT_ORDERS*/
           ctx[13]
         );
-        attr(nav, "class", "svelte-16zdveq");
-        attr(div0, "class", "chart svelte-16zdveq");
-        attr(div1, "class", "stats-chart svelte-16zdveq");
-        attr(div2, "class", "home-container svelte-16zdveq");
+        attr(nav, "class", "svelte-15noryw");
+        attr(div0, "class", "chart svelte-15noryw");
+        attr(div1, "class", "stats-chart svelte-15noryw");
+        attr(div6, "class", "rows-table svelte-15noryw");
+        attr(div8, "class", "table-root svelte-15noryw");
+        attr(div9, "class", "home-container svelte-15noryw");
       },
       m(target, anchor) {
-        insert(target, div2, anchor);
-        append(div2, div1);
+        insert(target, div9, anchor);
+        append(div9, div1);
         append(div1, nav);
         append(nav, button0);
         append(button0, span0);
@@ -22796,6 +22971,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         append(button3, span7);
         append(div1, t11);
         append(div1, div0);
+        append(div9, t12);
+        append(div9, div6);
+        append(div9, t86);
+        append(div9, div8);
         if (!mounted) {
           dispose = [
             listen(
@@ -22884,7 +23063,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(div2);
+          detach(div9);
         }
         mounted = false;
         run_all(dispose);
@@ -22898,7 +23077,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let current;
     let mounted;
     let dispose;
-    const if_block_creators = [create_if_block3, create_else_block2];
+    const if_block_creators = [create_if_block3, create_else_block3];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (

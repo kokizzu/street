@@ -290,6 +290,7 @@
 </script>
 
 <svelte:window on:hashchange={onHashChange}/>
+
 {#if MODE === MODE_USER}
   <Main {user} access={segments}>
     <div class="home-container">
@@ -314,6 +315,120 @@
         </nav>
         <div class="chart">
           <canvas id="chart"></canvas>
+        </div>
+      </div>
+      <div class="rows-table">
+        <div class="table-root">
+          <header>
+            <span>Most Logged in Buyers</span>
+          </header>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Time period</th>
+                  <th>Time spent</th>
+                  <th>User</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Daily</td>
+                  <td>45mins</td>
+                  <td>Chris Kang</td>
+                </tr>
+                <tr>
+                  <td>Monthly</td>
+                  <td>20hrs 2mins</td>
+                  <td>Jennifer Hun</td>
+                </tr>
+                <tr>
+                  <td>Quarterly</td>
+                  <td>45mins</td>
+                  <td>Chris Kang</td>
+                </tr>
+                <tr>
+                  <td>Annually</td>
+                  <td>321hrs 42mins</td>
+                  <td>Kortin Lopez</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="table-root">
+          <header>
+            <span>Most Scanned Area</span>
+          </header>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Time period</th>
+                  <th>Views</th>
+                  <th>City</th>
+                  <th>State</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Daily</td>
+                  <td>1,798</td>
+                  <td>Long beach</td>
+                  <td>California</td>
+                </tr>
+                <tr>
+                  <td>Daily</td>
+                  <td>1,798</td>
+                  <td>Long beach</td>
+                  <td>California</td>
+                </tr>
+                <tr>
+                  <td>Daily</td>
+                  <td>1,798</td>
+                  <td>Long beach</td>
+                  <td>California</td>
+                </tr>
+                <tr>
+                  <td>Daily</td>
+                  <td>1,840,798</td>
+                  <td>Long beach</td>
+                  <td>California</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="table-root">
+        <header>
+          <span>Most Scanned Listing</span>
+        </header>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Time period</th>
+                <th>Views</th>
+                <th>Price</th>
+                <th>Size</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Daily</td>
+                <td>1,798</td>
+                <td>$4,400,000</td>
+                <td>40,000 sqm</td>
+                <td>Long beach</td>
+                <td>California</td>
+                <td>99 silverlake dr.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -532,6 +647,7 @@
   .home-container .stats-chart nav button:hover .block {
 		background-color: var(--gray-005);
 	}
+
 	.home-container .stats-chart nav button.active .block {
 		background-color: var(--orange-005);
 	}
@@ -547,6 +663,116 @@
   .home-container .stats-chart .chart canvas {
     width: 100% !important;
     height: 100% !important;
+  }
+
+  .home-container .rows-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+
+  }
+
+  .table-root {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid var(--gray-003);
+    padding: 0;
+    overflow: hidden;
+		width: 100%;
+  }
+
+  .table-root header {
+    padding: 16px 12px;
+  }
+
+  .table-root header span {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--gray-008);
+  }
+
+  .table-root .table-container {
+    overflow-x: auto;
+    scrollbar-color: var(--gray-003) transparent;
+    scrollbar-width: thin;
+  }
+
+  .table-root .table-container table {
+    width: 100%;
+    background: #fff;
+    box-shadow: none;
+    text-align: left;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+		font-size: 13px;
+  }
+
+  .table-root .table-container table thead {
+    box-shadow: none;
+    border-bottom: 1px solid var(--gray-003);
+    border-top: 1px solid var(--gray-003);
+  }
+
+  .table-root .table-container table thead tr th {
+    padding: 12px;
+		background-color: var(--gray-001);
+		text-transform: capitalize;
+    border-top: 1px solid var(--gray-003);
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-003);
+		min-width: fit-content;
+		width: auto;
+    text-wrap: nowrap;
+  }
+
+  .table-root .table-container table thead tr th:last-child {
+    border-right: none;
+  }
+
+  .table-root .table-container table tbody tr td {
+    padding: 8px 12px;
+  }
+
+	.table-root .table-container table tbody tr td {
+    padding: 8px 12px;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-004);
+  }
+
+	.table-root .table-container table tbody tr:last-child {
+		border-bottom: none !important;
+  }
+
+	.table-root .table-container table tbody tr:last-child td,
+	.table-root .table-container table tbody tr:last-child th {
+		border-bottom: none !important;
+	}
+
+  .table-root .table-container table tbody tr:last-child td:last-child {
+    border-right: none !important;
+  }
+
+  .table-root .table-container table tbody tr:last-child td,
+  .table-root .table-container table tbody tr:last-child th {
+    border-bottom: none !important;
+  }
+
+  .table-root .table-container table tbody tr:last-child td:last-child {
+    border-right: none !important;
+  }
+
+  .table-root .table-container table tbody tr td:last-child {
+    border-right: none !important;
+  }
+
+  .table-root .table-container table tbody tr th {
+    text-align: center;
+    border-right: 1px solid var(--gray-004);
+    border-bottom: 1px solid var(--gray-004);
   }
 
   .auth-section {

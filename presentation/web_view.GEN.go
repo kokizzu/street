@@ -34,6 +34,7 @@ var viewList = map[string]string{
 	`Realtor`: `../svelte/realtor.html`, // ../svelte/realtor.svelte
 	`RealtorOwnedProperty`: `../svelte/realtor/ownedProperty.html`, // ../svelte/realtor/ownedProperty.svelte
 	`RealtorProperty`: `../svelte/realtor/property.html`, // ../svelte/realtor/property.svelte
+	`RealtorRevenue`: `../svelte/realtor/revenue.html`, // ../svelte/realtor/revenue.svelte
 	`Tos`: `../svelte/tos.html`, // ../svelte/tos.svelte
 	`User`: `../svelte/user.html`, // ../svelte/user.svelte
 	`UserPropertyIndex`: `../svelte/user/property/index.html`, // ../svelte/user/property/index.svelte
@@ -158,6 +159,11 @@ func (v *Views) RenderRealtorOwnedProperty(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderRealtorProperty(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`RealtorProperty`].Str(m))
+}
+
+func (v *Views) RenderRealtorRevenue(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`RealtorRevenue`].Str(m))
 }
 
 func (v *Views) RenderTos(c *fiber.Ctx, m M.SX) error {

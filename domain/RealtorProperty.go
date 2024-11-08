@@ -26,7 +26,7 @@ type (
 const (
 	RealtorPropertyAction = `realtor/property`
 
-	ErrPropertyNotFound = `realtor property not found`
+	ErrRealtorPropertyNotFound = `realtor property not found`
 )
 
 func (d *Domain) RealtorProperty(in *RealtorPropertyIn) (out RealtorPropertyOut) {
@@ -40,7 +40,7 @@ func (d *Domain) RealtorProperty(in *RealtorPropertyIn) (out RealtorPropertyOut)
 	r := rqProperty.NewProperty(d.PropOltp)
 	r.Id = in.Id
 	if !r.FindById() {
-		out.SetError(400, ErrPropertyNotFound)
+		out.SetError(400, ErrRealtorPropertyNotFound)
 		return
 	}
 	in.RefId = in.Id

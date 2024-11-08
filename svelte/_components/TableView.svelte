@@ -20,7 +20,7 @@
   export let rows         = /** @type {any[] | Record<string, any>[]} */ ([]);
   export let pager        = /** @type {PagerOut} */ ({});
   export let extraActions = /** @type {ExtendedAction[]} */ ([]);
-  export let widths       = /** @type {Record<string, string} */ ({});
+  export let widths       = /** @type {Record<string, string>} */ ({});
 
   export let onRefreshTableView = function(/** @type {PagerIn} */ pager ) {
     console.log( 'TableView.onRefreshTableView', pager );
@@ -98,8 +98,6 @@
   
   $: allowPrevPage = pager.page>1;
   $: allowNextPage = pager.page<pager.pages;
-
- 
 </script>
 
 <section class="table-root">

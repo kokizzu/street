@@ -336,6 +336,17 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`propertyMeta`:    out.Meta,
 		})
 	})
+	fw.Get(`/`+domain.RealtorRevenueAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		return views.RenderRealtorRevenue(ctx, M.SX{
+			`title`:           `Realtor Revenue`,
+			`user`: user,
+			`segments`:        segments,
+		})
+	})
 	fw.Get(`/`+domain.RealtorPropertyAction, func(ctx *fiber.Ctx) error {
 		// create new property
 		in, user, segments := userInfoFromContext(ctx, d)
@@ -410,7 +421,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	})
 	fw.Get(`/`+domain.AdminRevenueAction, func(ctx *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(ctx, d)
-		if notLogin(ctx, d, in.RequestCommon) {
+		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
 		return views.RenderAdminRevenue(ctx, M.SX{
@@ -682,7 +693,7 @@ func notLogin(ctx *fiber.Ctx, d *domain.Domain, in domain.RequestCommon) bool {
 
 func notAdmin(ctx *fiber.Ctx, d *domain.Domain, in domain.RequestCommon) bool {
 	var check domain.ResponseCommon
-	sess := d.MustLogin(in, &check)
+	sess := d.MustAdmin(in, &check)
 	if sess == nil {
 		_ = views.RenderError(ctx, M.SX{
 			`error`: check.Error,
@@ -707,7 +718,7 @@ func userInfoFromContext(c *fiber.Ctx, d *domain.Domain) (domain.UserProfileIn, 
 
 func userInfoFromRequest(rc domain.RequestCommon, d *domain.Domain) (*rqAuth.Users, M.SB) {
 	var user *rqAuth.Users
-	segments := M.SB{}
+	var segments = M.SB{}
 	out := d.UserProfile(&domain.UserProfileIn{
 		RequestCommon: rc,
 	})

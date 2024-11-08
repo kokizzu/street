@@ -518,6 +518,113 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   padding: 0;
   margin: 0;
 }
+
+/* fakecss:./admin/revenue.esbuild-svelte-fake-css */
+.revenue-container.svelte-wxadsq.svelte-wxadsq {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+.revenue-container.svelte-wxadsq .header.svelte-wxadsq {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.revenue-container.svelte-wxadsq .header .add-btn.svelte-wxadsq {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--orange-006);
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  padding: 15px 30px;
+  color: #FFF;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.revenue-container.svelte-wxadsq .header .add-btn.svelte-wxadsq:hover {
+  background-color: var(--orange-005);
+}
+.table-root.svelte-wxadsq.svelte-wxadsq {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid var(--gray-003);
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+}
+.table-root.svelte-wxadsq .table-container.svelte-wxadsq {
+  overflow-x: auto;
+  scrollbar-color: var(--gray-003) transparent;
+  scrollbar-width: thin;
+}
+.table-root.svelte-wxadsq .table-container table.svelte-wxadsq {
+  width: 100%;
+  background: #fff;
+  box-shadow: none;
+  text-align: left;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  font-size: 13px;
+}
+.table-root.svelte-wxadsq .table-container table thead.svelte-wxadsq {
+  box-shadow: none;
+  border-bottom: 1px solid var(--gray-003);
+}
+.table-root.svelte-wxadsq .table-container table thead tr th.svelte-wxadsq {
+  padding: 12px;
+  background-color: var(--gray-001);
+  text-transform: capitalize;
+  border-right: 1px solid var(--gray-004);
+  border-bottom: 1px solid var(--gray-003);
+  min-width: fit-content;
+  width: auto;
+  text-wrap: nowrap;
+}
+.table-root.svelte-wxadsq .table-container table thead tr th.svelte-wxadsq:last-child {
+  border-right: none;
+}
+.table-root.svelte-wxadsq .table-container table tbody tr td.svelte-wxadsq {
+  padding: 8px 12px;
+}
+.table-root.svelte-wxadsq .table-container table tbody tr td.svelte-wxadsq {
+  padding: 8px 12px;
+  border-right: 1px solid var(--gray-004);
+  border-bottom: 1px solid var(--gray-004);
+}
+.table-root.svelte-wxadsq .table-container table tbody tr.svelte-wxadsq:last-child {
+  border-bottom: none !important;
+}
+.table-root.svelte-wxadsq .table-container table tbody tr:last-child td.svelte-wxadsq,
+.table-root.svelte-wxadsq .table-container table tbody tr:last-child th.svelte-wxadsq {
+  border-bottom: none !important;
+}
+.table-root.svelte-wxadsq .table-container table tbody tr:last-child td.svelte-wxadsq:last-child {
+  border-right: none !important;
+}
+.table-root.svelte-wxadsq .table-container table tbody tr:last-child td.svelte-wxadsq,
+.table-root.svelte-wxadsq .table-container table tbody tr:last-child th.svelte-wxadsq {
+  border-bottom: none !important;
+}
+.table-root.svelte-wxadsq .table-container table tbody tr:last-child td.svelte-wxadsq:last-child {
+  border-right: none !important;
+}
+.table-root.svelte-wxadsq .table-container table tbody tr td.svelte-wxadsq:last-child {
+  border-right: none !important;
+}
+.table-root.svelte-wxadsq .table-container table tbody tr th.svelte-wxadsq {
+  text-align: center;
+  border-right: 1px solid var(--gray-004);
+  border-bottom: 1px solid var(--gray-004);
+}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -3022,11 +3129,17 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       exports.RealtorProperty = async function RealtorProperty(i, cb) {
         return await axios.post("/realtor/property", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.RealtorRevenue = async function RealtorRevenue(i, cb) {
+        return await axios.post("/realtor/revenue", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.RealtorUpsertProperty = async function RealtorUpsertProperty(i, cb) {
         return await axios.post("/realtor/upsertProperty", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserBuyer = async function UserBuyer(i, cb) {
+        return await axios.post("/user/buyer", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserChangePassword = async function UserChangePassword(i, cb) {
         return await axios.post("/user/changePassword", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -3039,6 +3152,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       };
       exports.UserLikeProp = async function UserLikeProp(i, cb) {
         return await axios.post("/user/likeProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserListings = async function UserListings(i, cb) {
+        return await axios.post("/user/listings", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserLogout = async function UserLogout2(i, cb) {
         return await axios.post("/user/logout", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -3240,6 +3356,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       node.parentNode.removeChild(node);
     }
   }
+  function destroy_each(iterations, detaching) {
+    for (let i = 0; i < iterations.length; i += 1) {
+      if (iterations[i])
+        iterations[i].d(detaching);
+    }
+  }
   function element(name) {
     return document.createElement(name);
   }
@@ -3398,6 +3520,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     } else if (callback) {
       callback();
     }
+  }
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/each.js
+  function ensure_array_like(array_like_or_iterator) {
+    return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/spread.js
@@ -3888,6 +4015,58 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var notifier = new Notifier();
 
   // _components/partials/SideMenu.svelte
+  function create_else_block(ctx) {
+    let a;
+    return {
+      c() {
+        a = element("a");
+        a.textContent = "Revenue";
+        attr(a, "href", "/realtor/revenue");
+        attr(a, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a,
+          "active",
+          /*pathAll*/
+          ctx[1] === "/realtor/revenue"
+        );
+      },
+      m(target, anchor) {
+        insert(target, a, anchor);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(a);
+        }
+      }
+    };
+  }
+  function create_if_block_2(ctx) {
+    let a;
+    return {
+      c() {
+        a = element("a");
+        a.textContent = "Revenue";
+        attr(a, "href", "/admin/revenue");
+        attr(a, "class", "svelte-1hfp3dx");
+        toggle_class(
+          a,
+          "active",
+          /*pathAll*/
+          ctx[1] === "/admin/revenue"
+        );
+      },
+      m(target, anchor) {
+        insert(target, a, anchor);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(a);
+        }
+      }
+    };
+  }
   function create_if_block(ctx) {
     let nav;
     let t0;
@@ -3916,8 +4095,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         toggle_class(
           a,
           "active",
-          /*pathLv1*/
-          ctx[2] === "user"
+          /*pathAll*/
+          ctx[1] === "/user"
         );
         attr(button, "class", "red svelte-1hfp3dx");
         attr(nav, "class", "nav-menu svelte-1hfp3dx");
@@ -4007,11 +4186,20 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let t5;
     let a3;
     let t7;
-    let a4;
-    let t9;
+    let t8;
     let span;
-    let t10;
-    let if_block = (
+    let t9;
+    function select_block_type(ctx2, dirty) {
+      if (
+        /*access*/
+        ctx2[0].admin
+      )
+        return create_if_block_2;
+      return create_else_block;
+    }
+    let current_block_type = select_block_type(ctx, -1);
+    let if_block0 = current_block_type(ctx);
+    let if_block1 = (
       /*access*/
       ctx[0].user && create_if_block(ctx)
     );
@@ -4032,13 +4220,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         a3 = element("a");
         a3.textContent = "Listings";
         t7 = space();
-        a4 = element("a");
-        a4.textContent = "Revenue";
-        t9 = space();
+        if_block0.c();
+        t8 = space();
         span = element("span");
-        t10 = space();
-        if (if_block)
-          if_block.c();
+        t9 = space();
+        if (if_block1)
+          if_block1.c();
         attr(a0, "href", "/");
         attr(a0, "class", "svelte-1hfp3dx");
         toggle_class(
@@ -4052,32 +4239,24 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         toggle_class(
           a1,
           "active",
-          /*pathLv1*/
-          ctx[2] === "buyer"
+          /*pathAll*/
+          ctx[1] === "/user/buyer"
         );
         attr(a2, "href", "/realtor");
         attr(a2, "class", "svelte-1hfp3dx");
         toggle_class(
           a2,
           "active",
-          /*pathLv1*/
-          ctx[2] === "realtor"
+          /*pathAll*/
+          ctx[1] === "/realtor"
         );
         attr(a3, "href", "/user/listings");
         attr(a3, "class", "svelte-1hfp3dx");
         toggle_class(
           a3,
           "active",
-          /*pathLv1*/
-          ctx[2] === "listings"
-        );
-        attr(a4, "href", "/admin/revenue");
-        attr(a4, "class", "svelte-1hfp3dx");
-        toggle_class(
-          a4,
-          "active",
           /*pathAll*/
-          ctx[1] === "/admin/revenue"
+          ctx[1] === "/user/listings"
         );
         attr(nav, "class", "nav-menu svelte-1hfp3dx");
         attr(span, "class", "separator svelte-1hfp3dx");
@@ -4096,28 +4275,38 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         append(nav, t5);
         append(nav, a3);
         append(nav, t7);
-        append(nav, a4);
-        append(div, t9);
+        if_block0.m(nav, null);
+        append(div, t8);
         append(div, span);
-        append(div, t10);
-        if (if_block)
-          if_block.m(div, null);
+        append(div, t9);
+        if (if_block1)
+          if_block1.m(div, null);
       },
       p(ctx2, [dirty]) {
+        if (current_block_type === (current_block_type = select_block_type(ctx2, dirty)) && if_block0) {
+          if_block0.p(ctx2, dirty);
+        } else {
+          if_block0.d(1);
+          if_block0 = current_block_type(ctx2);
+          if (if_block0) {
+            if_block0.c();
+            if_block0.m(nav, null);
+          }
+        }
         if (
           /*access*/
           ctx2[0].user
         ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
           } else {
-            if_block = create_if_block(ctx2);
-            if_block.c();
-            if_block.m(div, null);
+            if_block1 = create_if_block(ctx2);
+            if_block1.c();
+            if_block1.m(div, null);
           }
-        } else if (if_block) {
-          if_block.d(1);
-          if_block = null;
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
         }
       },
       i: noop,
@@ -4126,8 +4315,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (detaching) {
           detach(aside);
         }
-        if (if_block)
-          if_block.d();
+        if_block0.d();
+        if (if_block1)
+          if_block1.d();
       }
     };
   }
@@ -4339,6 +4529,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ri/index.js
   var RiUserFacesUserLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H18C18 18.6863 15.3137 16 12 16C8.68629 16 6 18.6863 6 22H4ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11Z"></path>' };
+  var RiSystemAddLargeFill = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M11 11.0001L11 2.0005L13 2.00049L13 11.0001L22.0001 10.9999L22.0002 12.9999L13 13.0001L13.0001 22L11.0001 22L11.0001 13.0001L2.00004 13.0003L2 11.0003L11 11.0001Z"></path>' };
 
   // _components/partials/Navbar.svelte
   function create_fragment3(ctx) {
@@ -4706,21 +4897,129 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var Main_default = Main;
 
   // admin/revenue.svelte
-  function create_default_slot(ctx) {
-    let h2;
+  function get_each_context(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[0] = list[i];
+    return child_ctx;
+  }
+  function create_each_block(ctx) {
+    let tr;
     return {
       c() {
-        h2 = element("h2");
-        h2.textContent = "Revenue";
+        tr = element("tr");
+        tr.innerHTML = `<td class="svelte-wxadsq">US9340-A343</td> <td class="svelte-wxadsq">$50,454,899</td> <td class="svelte-wxadsq">Dennis Lowe</td> <td class="svelte-wxadsq">45</td> <td class="svelte-wxadsq">March 34, 2024</td> <td class="svelte-wxadsq">March 34, 2024</td> `;
+        attr(tr, "class", "svelte-wxadsq");
       },
       m(target, anchor) {
-        insert(target, h2, anchor);
+        insert(target, tr, anchor);
       },
       p: noop,
       d(detaching) {
         if (detaching) {
-          detach(h2);
+          detach(tr);
         }
+      }
+    };
+  }
+  function create_default_slot(ctx) {
+    let haha;
+    let hehe;
+    let miaw;
+    let t0;
+    let button;
+    let icon;
+    let t1;
+    let span;
+    let t3;
+    let huhu;
+    let div;
+    let table;
+    let thead;
+    let t15;
+    let tbody;
+    let current;
+    icon = new Icon_default({
+      props: {
+        size: "20",
+        color: "#FFF",
+        src: RiSystemAddLargeFill
+      }
+    });
+    let each_value = ensure_array_like(Array(10));
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    }
+    return {
+      c() {
+        haha = element("haha");
+        hehe = element("hehe");
+        miaw = element("miaw");
+        t0 = space();
+        button = element("button");
+        create_component(icon.$.fragment);
+        t1 = space();
+        span = element("span");
+        span.textContent = "Add";
+        t3 = space();
+        huhu = element("huhu");
+        div = element("div");
+        table = element("table");
+        thead = element("thead");
+        thead.innerHTML = `<tr class="svelte-wxadsq"><th class="svelte-wxadsq">Invoice #</th> <th class="svelte-wxadsq">Revenue</th> <th class="svelte-wxadsq">Realtor</th> <th class="svelte-wxadsq">No. of listings</th> <th class="svelte-wxadsq">Register date</th> <th class="svelte-wxadsq">Purchase date</th></tr>`;
+        t15 = space();
+        tbody = element("tbody");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        attr(button, "class", "add-btn svelte-wxadsq");
+        attr(hehe, "class", "header svelte-wxadsq");
+        attr(thead, "class", "svelte-wxadsq");
+        attr(table, "class", "svelte-wxadsq");
+        attr(div, "class", "table-container svelte-wxadsq");
+        attr(huhu, "class", "table-root svelte-wxadsq");
+        attr(haha, "class", "revenue-container svelte-wxadsq");
+      },
+      m(target, anchor) {
+        insert(target, haha, anchor);
+        append(haha, hehe);
+        append(hehe, miaw);
+        append(hehe, t0);
+        append(hehe, button);
+        mount_component(icon, button, null);
+        append(button, t1);
+        append(button, span);
+        append(haha, t3);
+        append(haha, huhu);
+        append(huhu, div);
+        append(div, table);
+        append(table, thead);
+        append(table, t15);
+        append(table, tbody);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(tbody, null);
+          }
+        }
+        current = true;
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(haha);
+        }
+        destroy_component(icon);
+        destroy_each(each_blocks, detaching);
       }
     };
   }
@@ -4746,7 +5045,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       p(ctx2, [dirty]) {
         const main_changes = {};
         if (dirty & /*$scope*/
-        1) {
+        8) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
