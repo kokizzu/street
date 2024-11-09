@@ -6,8 +6,15 @@ import (
 	"github.com/kokizzu/gotro/D/Tt"
 )
 
+type Revenue struct {
+	Revenue string `json:"revenue"`
+	Realtor string `json:"realtor"`
+	Property string `json:"property"`
+	RegisterDate int64 `json:"registerDate"`
+	PurchaseDate int64 `json:"purchaseDate"`
+}
+
 const (
-	TableRevenue Tt.TableName = `revenue`
 	TableSales Tt.TableName = `sales`
 
 	Id = `id`
@@ -42,6 +49,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{BuyerId, Tt.Unsigned},
 			{Price, Tt.String},
 			{BuyerEmail, Tt.String},
+			{EmailNotFound, Tt.String},
 			{SalesDate, Tt.String},
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},
@@ -51,22 +59,6 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		},
 		Engine:  Tt.Memtx,
 		Uniques: []string{PropertyId, SalesDate},
-	},
-	TableRevenue: {
-		Fields: []Tt.Field{
-			{Id, Tt.Unsigned},
-			{RealtorId, Tt.Unsigned},
-			{PropertyId, Tt.Unsigned},
-			{PropertyBought, Tt.Integer},
-			{PropertyCountry, Tt.String},
-			{BuyerEmail, Tt.String},
-			{CreatedAt, Tt.Integer},
-			{CreatedBy, Tt.Unsigned},
-			{UpdatedAt, Tt.Integer},
-			{UpdatedBy, Tt.Unsigned},
-			{DeletedAt, Tt.Integer},
-		},
-		Engine: Tt.Memtx,
-		Uniques: []string{RealtorId, PropertyId},
+		AutoIncrementId: true,
 	},
 }

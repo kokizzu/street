@@ -29,21 +29,22 @@
 	let oldProfileJson 	= /** @type {string} */ ('');
 	let countriesObj		= /** @type {Record<string, string>} */ ({});
 
+	let isCountriesReady	= /** @type {boolean} */ (false);
+
 	onMount(() => {
 		oldProfileJson = JSON.stringify(user);
 
-		let obj = /** @type {Record<string, string>} */ ({});
 		for (const c of (countries || [])) {
-			obj[c.iso_2] = c.country;
+			countriesObj[c.iso_2] = c.country;
 		}
-		countriesObj = obj;
+
+		isCountriesReady = true;
 	});
 
 	let username 	= /** @type {string} */ (user.userName || '');
 	let fullName	= /** @type {string} */ (user.fullName || '');
 	let email 		= /** @type {string} */ (user.email || '');
 	let country		= /** @type {string} */ (user.country || '');
-	console.log('User =', user);
 
 	let isSubmitProfile		= /** @type {boolean} */ (false);
 	async function updateProfile() {
@@ -156,13 +157,15 @@
 							type="email"
 							bind:value={email}
 						/>
-						<InputBox
-							label="Country"
-							id="country"
-							type="combobox-obj"
-							bind:value={country}
-							valuesObj={countriesObj}
-						/>
+						{#if isCountriesReady}
+							<InputBox
+								label="Country"
+								id="country"
+								type="combobox-obj"
+								bind:value={country}
+								valuesObj={countriesObj}
+							/>
+						{/if}
 					</div>
 					<div class="row">
 						<div class="pill-box">Registered At: {

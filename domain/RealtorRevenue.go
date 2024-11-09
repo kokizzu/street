@@ -26,7 +26,7 @@ type (
 	}
 	RealtorRevenueOut struct {
 		ResponseCommon
-		Revenues []rqBusiness.Revenue `json:"revenues" form:"revenues" query:"revenues" long:"revenues" msg:"revenues"`
+		Revenues *[]mBusiness.Revenue `json:"revenues" form:"revenues" query:"revenues" long:"revenues" msg:"revenues"`
 	}
 )
 
@@ -118,8 +118,14 @@ func (d *Domain) RealtorRevenue(in *RealtorRevenueIn) (out RealtorRevenueOut) {
 			out.SetError(400, ErrRealtorRevenueSaveFailed)
 			return
 		}
-	case zCrud.CmdList:
 
+		
+	case zCrud.CmdList:
+		r := rqBusiness.NewSales(d.BusinessOltp)
+		r.RealtorId = sess.UserId
+		revenues := r.FindRevenuesByRealtorId()
+
+		out.Revenues = revenues
 	}
 	
 	return

@@ -155,7 +155,7 @@ func main() {
 	// check table existence
 	if mode != `migrate` {
 		L.Print(`verifying table schema, if failed, run: go run main.go migrate`)
-		model.VerifyTables(tConn, cConn, tConn, cConn, tConn)
+		model.VerifyTables(tConn, cConn, tConn, cConn, tConn, tConn)
 	}
 
 	// start
@@ -177,7 +177,7 @@ func main() {
 		}
 		cron.Start(log)
 	case `migrate`:
-		model.RunMigration(log, tConn, cConn, tConn, cConn, tConn)
+		model.RunMigration(log, tConn, cConn, tConn, cConn, tConn, tConn)
 	case `import`:
 		excelFile, _ := filepath.Abs(`./static/house_data/House_Data_Full_Version_v1.xlsx`)
 		jsonCoordFile, _ := filepath.Abs(`./static/house_data/coordinates.json`)

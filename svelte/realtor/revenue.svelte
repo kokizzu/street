@@ -2,17 +2,20 @@
   /** @typedef {import('../_types/user').User} User */
   /** @typedef {import('../_types/master').Access} Access */
   /** @typedef {import('../_types/business').Sales} Sales */
+  /** @typedef {import('../_types/business').Revenue} Revenue */
 
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { RiSystemAddLargeFill } from '../node_modules/svelte-icons-pack/dist/ri';
   import PopUpAddSales from '../_components/PopUpAddSales.svelte';
   import { RealtorRevenue } from '../jsApi.GEN';
   import { notifier } from '../_components/notifier';
+  import { datetime } from '../_components/formatter';
 
   import Main from '../_layouts/Main.svelte';
   
-  let user   = /** @type {User} */ ({/* user */});
-  let access = /** @type {Access} */ ({/* segments */});
+  let user      = /** @type {User} */ ({/* user */});
+  let access    = /** @type {Access} */ ({/* segments */});
+  let revenues  = /** @type {Revenue[]} */ ([/* revenues */]);
 
   let popUpAddSales = /** @type {import('svelte').SvelteComponent} */ (null);
   let isSubmitAddSales = /** @type {boolean} */ (false);
@@ -37,6 +40,19 @@
         isSubmitAddSales = false;
         return;
       }
+
+      await RealtorRevenue({
+        cmd: 'list'
+      }, async function(/** @type {any} */ res) {
+        if (res.error) {
+          console.log('error =', res.error);
+          notifier.showError(res.error || 'failed to get revenues');
+          isSubmitAddSales = false;
+          return;
+        }
+
+        revenues = res.revenues;
+      })
       
       popUpAddSales.Hide();
       popUpAddSales.Reset();
@@ -70,25 +86,27 @@
         <table>
           <thead>
             <tr>
-              <th>Invoice #</th>
-              <th>Revenue</th>
-              <th>Realtor</th>
-              <th>No. of listings</th>
+              <th>Property ID</th>
+              <th>Property Bought</th>
+              <th>Buyer Email</th>
               <th>Register date</th>
-              <th>Purchase date</th>
             </tr>
           </thead>
           <tbody>
-            {#each Array(10) as _}
+            {#if revenues && revenues.length > 0}
+              {#each (revenues || []) as rv}
+                <tr>
+                  <td>{rv.propertyId}</td>
+                  <td>{rv.propertyBought}</td>
+                  <td>{rv.buyerEmail}</td>
+                  <td>{datetime(rv.createdAt)}</td>
+                </tr>
+              {/each}
+            {:else}
               <tr>
-                <td>US9340-A343</td>
-                <td>$50,454,899</td>
-                <td>Dennis Lowe</td>
-                <td>45</td>
-                <td>March 34, 2024</td>
-                <td>March 34, 2024</td>
+                <td colspan={5}>No data</td>
               </tr>
-            {/each}
+            {/if}
           </tbody>
         </table>
       </div>

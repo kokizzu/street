@@ -337,14 +337,22 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 	fw.Get(`/`+domain.RealtorRevenueAction, func(ctx *fiber.Ctx) error {
-		in, user, segments := userInfoFromContext(ctx, d)
+		var in domain.RealtorRevenueIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.RealtorRevenueAction)
+		if err != nil {
+			return err
+		}
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.Cmd = zCrud.CmdList
+		out := d.RealtorRevenue(&in)
 		return views.RenderRealtorRevenue(ctx, M.SX{
-			`title`:           `Realtor Revenue`,
+			`title`: `Realtor Revenue`,
 			`user`: user,
-			`segments`:        segments,
+			`segments`: segments,
+			`revenues`: out.Revenues,
 		})
 	})
 	fw.Get(`/`+domain.RealtorPropertyAction, func(ctx *fiber.Ctx) error {
