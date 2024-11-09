@@ -53,12 +53,13 @@ func (r *RevenueMutator) ClearMutations() { //nolint:dupl false positive
 //		A.X{`=`, 1, r.RealtorId},
 //		A.X{`=`, 2, r.PropertyId},
 //		A.X{`=`, 3, r.PropertyBought},
-//		A.X{`=`, 4, r.BuyerEmail},
-//		A.X{`=`, 5, r.CreatedAt},
-//		A.X{`=`, 6, r.CreatedBy},
-//		A.X{`=`, 7, r.UpdatedAt},
-//		A.X{`=`, 8, r.UpdatedBy},
-//		A.X{`=`, 9, r.DeletedAt},
+//		A.X{`=`, 4, r.PropertyCountry},
+//		A.X{`=`, 5, r.BuyerEmail},
+//		A.X{`=`, 6, r.CreatedAt},
+//		A.X{`=`, 7, r.CreatedBy},
+//		A.X{`=`, 8, r.UpdatedAt},
+//		A.X{`=`, 9, r.UpdatedBy},
+//		A.X{`=`, 10, r.DeletedAt},
 //	})
 //	return !L.IsError(err, `Revenue.DoUpsert failed: `+r.SpaceName()+ `\n%#v`, arr)
 // }
@@ -144,10 +145,21 @@ func (r *RevenueMutator) SetPropertyBought(val int64) bool { //nolint:dupl false
 	return false
 }
 
+// SetPropertyCountry create mutations, should not duplicate
+func (r *RevenueMutator) SetPropertyCountry(val string) bool { //nolint:dupl false positive
+	if val != r.PropertyCountry {
+		r.mutations = append(r.mutations, A.X{`=`, 4, val})
+		r.logs = append(r.logs, A.X{`propertyCountry`, r.PropertyCountry, val})
+		r.PropertyCountry = val
+		return true
+	}
+	return false
+}
+
 // SetBuyerEmail create mutations, should not duplicate
 func (r *RevenueMutator) SetBuyerEmail(val string) bool { //nolint:dupl false positive
 	if val != r.BuyerEmail {
-		r.mutations = append(r.mutations, A.X{`=`, 4, val})
+		r.mutations = append(r.mutations, A.X{`=`, 5, val})
 		r.logs = append(r.logs, A.X{`buyerEmail`, r.BuyerEmail, val})
 		r.BuyerEmail = val
 		return true
@@ -158,7 +170,7 @@ func (r *RevenueMutator) SetBuyerEmail(val string) bool { //nolint:dupl false po
 // SetCreatedAt create mutations, should not duplicate
 func (r *RevenueMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != r.CreatedAt {
-		r.mutations = append(r.mutations, A.X{`=`, 5, val})
+		r.mutations = append(r.mutations, A.X{`=`, 6, val})
 		r.logs = append(r.logs, A.X{`createdAt`, r.CreatedAt, val})
 		r.CreatedAt = val
 		return true
@@ -169,7 +181,7 @@ func (r *RevenueMutator) SetCreatedAt(val int64) bool { //nolint:dupl false posi
 // SetCreatedBy create mutations, should not duplicate
 func (r *RevenueMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != r.CreatedBy {
-		r.mutations = append(r.mutations, A.X{`=`, 6, val})
+		r.mutations = append(r.mutations, A.X{`=`, 7, val})
 		r.logs = append(r.logs, A.X{`createdBy`, r.CreatedBy, val})
 		r.CreatedBy = val
 		return true
@@ -180,7 +192,7 @@ func (r *RevenueMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false pos
 // SetUpdatedAt create mutations, should not duplicate
 func (r *RevenueMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != r.UpdatedAt {
-		r.mutations = append(r.mutations, A.X{`=`, 7, val})
+		r.mutations = append(r.mutations, A.X{`=`, 8, val})
 		r.logs = append(r.logs, A.X{`updatedAt`, r.UpdatedAt, val})
 		r.UpdatedAt = val
 		return true
@@ -191,7 +203,7 @@ func (r *RevenueMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false posi
 // SetUpdatedBy create mutations, should not duplicate
 func (r *RevenueMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != r.UpdatedBy {
-		r.mutations = append(r.mutations, A.X{`=`, 8, val})
+		r.mutations = append(r.mutations, A.X{`=`, 9, val})
 		r.logs = append(r.logs, A.X{`updatedBy`, r.UpdatedBy, val})
 		r.UpdatedBy = val
 		return true
@@ -202,7 +214,7 @@ func (r *RevenueMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false pos
 // SetDeletedAt create mutations, should not duplicate
 func (r *RevenueMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != r.DeletedAt {
-		r.mutations = append(r.mutations, A.X{`=`, 9, val})
+		r.mutations = append(r.mutations, A.X{`=`, 10, val})
 		r.logs = append(r.logs, A.X{`deletedAt`, r.DeletedAt, val})
 		r.DeletedAt = val
 		return true
@@ -232,6 +244,10 @@ func (r *RevenueMutator) SetAll(from rqBusiness.Revenue, excludeMap, forceMap M.
 	}
 	if !excludeMap[`propertyBought`] && (forceMap[`propertyBought`] || from.PropertyBought != 0) {
 		r.PropertyBought = from.PropertyBought
+		changed = true
+	}
+	if !excludeMap[`propertyCountry`] && (forceMap[`propertyCountry`] || from.PropertyCountry != ``) {
+		r.PropertyCountry = S.Trim(from.PropertyCountry)
 		changed = true
 	}
 	if !excludeMap[`buyerEmail`] && (forceMap[`buyerEmail`] || from.BuyerEmail != ``) {
@@ -298,15 +314,16 @@ func (s *SalesMutator) ClearMutations() { //nolint:dupl false positive
 //		A.X{`=`, 0, s.Id},
 //		A.X{`=`, 1, s.PropertyId},
 //		A.X{`=`, 2, s.RealtorId},
-//		A.X{`=`, 3, s.BuyerId},
-//		A.X{`=`, 4, s.Price},
-//		A.X{`=`, 5, s.BuyerEmail},
-//		A.X{`=`, 6, s.SalesDate},
-//		A.X{`=`, 7, s.CreatedAt},
-//		A.X{`=`, 8, s.CreatedBy},
-//		A.X{`=`, 9, s.UpdatedAt},
-//		A.X{`=`, 10, s.UpdatedBy},
-//		A.X{`=`, 11, s.DeletedAt},
+//		A.X{`=`, 3, s.PropertyCountry},
+//		A.X{`=`, 4, s.BuyerId},
+//		A.X{`=`, 5, s.Price},
+//		A.X{`=`, 6, s.BuyerEmail},
+//		A.X{`=`, 7, s.SalesDate},
+//		A.X{`=`, 8, s.CreatedAt},
+//		A.X{`=`, 9, s.CreatedBy},
+//		A.X{`=`, 10, s.UpdatedAt},
+//		A.X{`=`, 11, s.UpdatedBy},
+//		A.X{`=`, 12, s.DeletedAt},
 //	})
 //	return !L.IsError(err, `Sales.DoUpsert failed: `+s.SpaceName()+ `\n%#v`, arr)
 // }
@@ -381,10 +398,21 @@ func (s *SalesMutator) SetRealtorId(val uint64) bool { //nolint:dupl false posit
 	return false
 }
 
+// SetPropertyCountry create mutations, should not duplicate
+func (s *SalesMutator) SetPropertyCountry(val string) bool { //nolint:dupl false positive
+	if val != s.PropertyCountry {
+		s.mutations = append(s.mutations, A.X{`=`, 3, val})
+		s.logs = append(s.logs, A.X{`propertyCountry`, s.PropertyCountry, val})
+		s.PropertyCountry = val
+		return true
+	}
+	return false
+}
+
 // SetBuyerId create mutations, should not duplicate
 func (s *SalesMutator) SetBuyerId(val uint64) bool { //nolint:dupl false positive
 	if val != s.BuyerId {
-		s.mutations = append(s.mutations, A.X{`=`, 3, val})
+		s.mutations = append(s.mutations, A.X{`=`, 4, val})
 		s.logs = append(s.logs, A.X{`buyerId`, s.BuyerId, val})
 		s.BuyerId = val
 		return true
@@ -395,7 +423,7 @@ func (s *SalesMutator) SetBuyerId(val uint64) bool { //nolint:dupl false positiv
 // SetPrice create mutations, should not duplicate
 func (s *SalesMutator) SetPrice(val string) bool { //nolint:dupl false positive
 	if val != s.Price {
-		s.mutations = append(s.mutations, A.X{`=`, 4, val})
+		s.mutations = append(s.mutations, A.X{`=`, 5, val})
 		s.logs = append(s.logs, A.X{`price`, s.Price, val})
 		s.Price = val
 		return true
@@ -406,7 +434,7 @@ func (s *SalesMutator) SetPrice(val string) bool { //nolint:dupl false positive
 // SetBuyerEmail create mutations, should not duplicate
 func (s *SalesMutator) SetBuyerEmail(val string) bool { //nolint:dupl false positive
 	if val != s.BuyerEmail {
-		s.mutations = append(s.mutations, A.X{`=`, 5, val})
+		s.mutations = append(s.mutations, A.X{`=`, 6, val})
 		s.logs = append(s.logs, A.X{`buyerEmail`, s.BuyerEmail, val})
 		s.BuyerEmail = val
 		return true
@@ -417,7 +445,7 @@ func (s *SalesMutator) SetBuyerEmail(val string) bool { //nolint:dupl false posi
 // SetSalesDate create mutations, should not duplicate
 func (s *SalesMutator) SetSalesDate(val string) bool { //nolint:dupl false positive
 	if val != s.SalesDate {
-		s.mutations = append(s.mutations, A.X{`=`, 6, val})
+		s.mutations = append(s.mutations, A.X{`=`, 7, val})
 		s.logs = append(s.logs, A.X{`salesDate`, s.SalesDate, val})
 		s.SalesDate = val
 		return true
@@ -428,7 +456,7 @@ func (s *SalesMutator) SetSalesDate(val string) bool { //nolint:dupl false posit
 // SetCreatedAt create mutations, should not duplicate
 func (s *SalesMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != s.CreatedAt {
-		s.mutations = append(s.mutations, A.X{`=`, 7, val})
+		s.mutations = append(s.mutations, A.X{`=`, 8, val})
 		s.logs = append(s.logs, A.X{`createdAt`, s.CreatedAt, val})
 		s.CreatedAt = val
 		return true
@@ -439,7 +467,7 @@ func (s *SalesMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positi
 // SetCreatedBy create mutations, should not duplicate
 func (s *SalesMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != s.CreatedBy {
-		s.mutations = append(s.mutations, A.X{`=`, 8, val})
+		s.mutations = append(s.mutations, A.X{`=`, 9, val})
 		s.logs = append(s.logs, A.X{`createdBy`, s.CreatedBy, val})
 		s.CreatedBy = val
 		return true
@@ -450,7 +478,7 @@ func (s *SalesMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false posit
 // SetUpdatedAt create mutations, should not duplicate
 func (s *SalesMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != s.UpdatedAt {
-		s.mutations = append(s.mutations, A.X{`=`, 9, val})
+		s.mutations = append(s.mutations, A.X{`=`, 10, val})
 		s.logs = append(s.logs, A.X{`updatedAt`, s.UpdatedAt, val})
 		s.UpdatedAt = val
 		return true
@@ -461,7 +489,7 @@ func (s *SalesMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positi
 // SetUpdatedBy create mutations, should not duplicate
 func (s *SalesMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != s.UpdatedBy {
-		s.mutations = append(s.mutations, A.X{`=`, 10, val})
+		s.mutations = append(s.mutations, A.X{`=`, 11, val})
 		s.logs = append(s.logs, A.X{`updatedBy`, s.UpdatedBy, val})
 		s.UpdatedBy = val
 		return true
@@ -472,7 +500,7 @@ func (s *SalesMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false posit
 // SetDeletedAt create mutations, should not duplicate
 func (s *SalesMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != s.DeletedAt {
-		s.mutations = append(s.mutations, A.X{`=`, 11, val})
+		s.mutations = append(s.mutations, A.X{`=`, 12, val})
 		s.logs = append(s.logs, A.X{`deletedAt`, s.DeletedAt, val})
 		s.DeletedAt = val
 		return true
@@ -498,6 +526,10 @@ func (s *SalesMutator) SetAll(from rqBusiness.Sales, excludeMap, forceMap M.SB) 
 	}
 	if !excludeMap[`realtorId`] && (forceMap[`realtorId`] || from.RealtorId != 0) {
 		s.RealtorId = from.RealtorId
+		changed = true
+	}
+	if !excludeMap[`propertyCountry`] && (forceMap[`propertyCountry`] || from.PropertyCountry != ``) {
+		s.PropertyCountry = S.Trim(from.PropertyCountry)
 		changed = true
 	}
 	if !excludeMap[`buyerId`] && (forceMap[`buyerId`] || from.BuyerId != 0) {

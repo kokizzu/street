@@ -22,7 +22,7 @@ type (
 		RequestCommon
 		Cmd string `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
 		Sales rqBusiness.Sales `json:"sales" form:"sales" query:"sales" long:"sales" msg:"sales"`
-		PropCountry string `json:"propCountry" form:"propCountry" query:"propCountry" long:"propCountry" msg:"propCountry"`
+		PropKey string `json:"propKey" form:"propKey" query:"propKey" long:"propKey" msg:"propKey"`
 	}
 	RealtorRevenueOut struct {
 		ResponseCommon
@@ -53,14 +53,16 @@ func (d *Domain) RealtorRevenue(in *RealtorRevenueIn) (out RealtorRevenueOut) {
 		sales := wcBusiness.NewSalesMutator(d.BusinessOltp)
 		sales.SetRealtorId(sess.UserId)
 
-		switch in.PropCountry {
+		switch in.Sales.PropertyCountry {
 		case `US`:
 			propUS := rqProperty.NewPropertyUS(d.PropOltp)
-			propUS.Id = in.Sales.PropertyId
-			if !propUS.FindById() {
+			propUS.UniqPropKey = in.PropKey
+			if !propUS.FindByUniqPropKey() {
 				out.SetError(400, ErrRealtorRevenuePropertyNotFound)
 				return
 			}
+			sales.SetPropertyCountry(`US`)
+			sales.SetPropertyId(propUS.Id)
 		case `TW`:
 			propTW := rqProperty.NewPropertyTW(d.PropOltp)
 			propTW.Id = in.Sales.PropertyId
@@ -68,6 +70,8 @@ func (d *Domain) RealtorRevenue(in *RealtorRevenueIn) (out RealtorRevenueOut) {
 				out.SetError(400, ErrRealtorRevenuePropertyNotFound)
 				return
 			}
+			sales.SetPropertyCountry(`TW`)
+			sales.SetPropertyId(propTW.Id)
 		default:
 			prop := rqProperty.NewProperty(d.PropOltp)
 			prop.Id = in.Sales.PropertyId
@@ -75,8 +79,9 @@ func (d *Domain) RealtorRevenue(in *RealtorRevenueIn) (out RealtorRevenueOut) {
 				out.SetError(400, ErrRealtorRevenuePropertyNotFound)
 				return
 			}
+			sales.SetPropertyCountry(``)
+			sales.SetPropertyId(prop.Id)
 		}
-		sales.SetPropertyId(in.Sales.PropertyId)
 
 		if in.Sales.BuyerEmail != `` {
 			buyer := rqAuth.NewUsers(d.AuthOltp)

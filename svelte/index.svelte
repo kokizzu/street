@@ -427,6 +427,42 @@
                 <td>California</td>
                 <td>99 silverlake dr.</td>
               </tr>
+              <tr>
+                <td>Daily</td>
+                <td>1,798</td>
+                <td>$4,400,000</td>
+                <td>40,000 sqm</td>
+                <td>Long beach</td>
+                <td>California</td>
+                <td>99 silverlake dr.</td>
+              </tr>
+              <tr>
+                <td>Daily</td>
+                <td>1,798</td>
+                <td>$4,400,000</td>
+                <td>40,000 sqm</td>
+                <td>Long beach</td>
+                <td>California</td>
+                <td>99 silverlake dr.</td>
+              </tr>
+              <tr>
+                <td>Daily</td>
+                <td>1,798</td>
+                <td>$4,400,000</td>
+                <td>40,000 sqm</td>
+                <td>Long beach</td>
+                <td>California</td>
+                <td>99 silverlake dr.</td>
+              </tr>
+              <tr>
+                <td>Daily</td>
+                <td>1,798</td>
+                <td>$4,400,000</td>
+                <td>40,000 sqm</td>
+                <td>Long beach</td>
+                <td>California</td>
+                <td>99 silverlake dr.</td>
+              </tr>
             </tbody>
           </table>
         </div>

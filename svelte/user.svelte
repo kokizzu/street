@@ -43,6 +43,7 @@
 	let fullName	= /** @type {string} */ (user.fullName || '');
 	let email 		= /** @type {string} */ (user.email || '');
 	let country		= /** @type {string} */ (user.country || '');
+	console.log('User =', user);
 
 	let isSubmitProfile		= /** @type {boolean} */ (false);
 	async function updateProfile() {

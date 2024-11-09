@@ -18,6 +18,7 @@ const (
 	BuyerId = `buyerId` // fill with 0 if user's email is empty
 	BuyerEmail = `buyerEmail`
 	EmailNotFound = `emailNotFound`
+	PropertyCountry = `propertyCountry`
 	SalesDate = `salesDate`
 	CreatedAt = `createdAt`
 	CreatedBy = `createdBy`
@@ -37,6 +38,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Id, Tt.Unsigned},
 			{PropertyId, Tt.Unsigned},
 			{RealtorId, Tt.Unsigned},
+			{PropertyCountry, Tt.String},
 			{BuyerId, Tt.Unsigned},
 			{Price, Tt.String},
 			{BuyerEmail, Tt.String},
@@ -56,6 +58,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{RealtorId, Tt.Unsigned},
 			{PropertyId, Tt.Unsigned},
 			{PropertyBought, Tt.Integer},
+			{PropertyCountry, Tt.String},
 			{BuyerEmail, Tt.String},
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},

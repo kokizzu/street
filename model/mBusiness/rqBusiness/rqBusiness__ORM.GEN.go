@@ -20,17 +20,18 @@ import (
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type rqBusiness__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type rqBusiness__ORM.GEN.go
 type Revenue struct {
-	Adapter        *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	Id             uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
-	RealtorId      uint64      `json:"realtorId,string" form:"realtorId" query:"realtorId" long:"realtorId" msg:"realtorId"`
-	PropertyId     uint64      `json:"propertyId,string" form:"propertyId" query:"propertyId" long:"propertyId" msg:"propertyId"`
-	PropertyBought int64       `json:"propertyBought" form:"propertyBought" query:"propertyBought" long:"propertyBought" msg:"propertyBought"`
-	BuyerEmail     string      `json:"buyerEmail" form:"buyerEmail" query:"buyerEmail" long:"buyerEmail" msg:"buyerEmail"`
-	CreatedAt      int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	CreatedBy      uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
-	UpdatedAt      int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
-	UpdatedBy      uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
-	DeletedAt      int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	Adapter         *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id              uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	RealtorId       uint64      `json:"realtorId,string" form:"realtorId" query:"realtorId" long:"realtorId" msg:"realtorId"`
+	PropertyId      uint64      `json:"propertyId,string" form:"propertyId" query:"propertyId" long:"propertyId" msg:"propertyId"`
+	PropertyBought  int64       `json:"propertyBought" form:"propertyBought" query:"propertyBought" long:"propertyBought" msg:"propertyBought"`
+	PropertyCountry string      `json:"propertyCountry" form:"propertyCountry" query:"propertyCountry" long:"propertyCountry" msg:"propertyCountry"`
+	BuyerEmail      string      `json:"buyerEmail" form:"buyerEmail" query:"buyerEmail" long:"buyerEmail" msg:"buyerEmail"`
+	CreatedAt       int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy       uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt       int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy       uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt       int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
 }
 
 // NewRevenue create new ORM reader/query object
@@ -73,6 +74,7 @@ func (r *Revenue) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "realtorId"
 	, "propertyId"
 	, "propertyBought"
+	, "propertyCountry"
 	, "buyerEmail"
 	, "createdAt"
 	, "createdBy"
@@ -88,6 +90,7 @@ func (r *Revenue) SqlSelectAllUncensoredFields() string { //nolint:dupl false po
 	, "realtorId"
 	, "propertyId"
 	, "propertyBought"
+	, "propertyCountry"
 	, "buyerEmail"
 	, "createdAt"
 	, "createdBy"
@@ -104,12 +107,13 @@ func (r *Revenue) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 1, r.RealtorId},
 		A.X{`=`, 2, r.PropertyId},
 		A.X{`=`, 3, r.PropertyBought},
-		A.X{`=`, 4, r.BuyerEmail},
-		A.X{`=`, 5, r.CreatedAt},
-		A.X{`=`, 6, r.CreatedBy},
-		A.X{`=`, 7, r.UpdatedAt},
-		A.X{`=`, 8, r.UpdatedBy},
-		A.X{`=`, 9, r.DeletedAt},
+		A.X{`=`, 4, r.PropertyCountry},
+		A.X{`=`, 5, r.BuyerEmail},
+		A.X{`=`, 6, r.CreatedAt},
+		A.X{`=`, 7, r.CreatedBy},
+		A.X{`=`, 8, r.UpdatedAt},
+		A.X{`=`, 9, r.UpdatedBy},
+		A.X{`=`, 10, r.DeletedAt},
 	}
 }
 
@@ -153,9 +157,19 @@ func (r *Revenue) SqlPropertyBought() string { //nolint:dupl false positive
 	return `"propertyBought"`
 }
 
+// IdxPropertyCountry return name of the index
+func (r *Revenue) IdxPropertyCountry() int { //nolint:dupl false positive
+	return 4
+}
+
+// SqlPropertyCountry return name of the column being indexed
+func (r *Revenue) SqlPropertyCountry() string { //nolint:dupl false positive
+	return `"propertyCountry"`
+}
+
 // IdxBuyerEmail return name of the index
 func (r *Revenue) IdxBuyerEmail() int { //nolint:dupl false positive
-	return 4
+	return 5
 }
 
 // SqlBuyerEmail return name of the column being indexed
@@ -165,7 +179,7 @@ func (r *Revenue) SqlBuyerEmail() string { //nolint:dupl false positive
 
 // IdxCreatedAt return name of the index
 func (r *Revenue) IdxCreatedAt() int { //nolint:dupl false positive
-	return 5
+	return 6
 }
 
 // SqlCreatedAt return name of the column being indexed
@@ -175,7 +189,7 @@ func (r *Revenue) SqlCreatedAt() string { //nolint:dupl false positive
 
 // IdxCreatedBy return name of the index
 func (r *Revenue) IdxCreatedBy() int { //nolint:dupl false positive
-	return 6
+	return 7
 }
 
 // SqlCreatedBy return name of the column being indexed
@@ -185,7 +199,7 @@ func (r *Revenue) SqlCreatedBy() string { //nolint:dupl false positive
 
 // IdxUpdatedAt return name of the index
 func (r *Revenue) IdxUpdatedAt() int { //nolint:dupl false positive
-	return 7
+	return 8
 }
 
 // SqlUpdatedAt return name of the column being indexed
@@ -195,7 +209,7 @@ func (r *Revenue) SqlUpdatedAt() string { //nolint:dupl false positive
 
 // IdxUpdatedBy return name of the index
 func (r *Revenue) IdxUpdatedBy() int { //nolint:dupl false positive
-	return 8
+	return 9
 }
 
 // SqlUpdatedBy return name of the column being indexed
@@ -205,7 +219,7 @@ func (r *Revenue) SqlUpdatedBy() string { //nolint:dupl false positive
 
 // IdxDeletedAt return name of the index
 func (r *Revenue) IdxDeletedAt() int { //nolint:dupl false positive
-	return 9
+	return 10
 }
 
 // SqlDeletedAt return name of the column being indexed
@@ -216,16 +230,17 @@ func (r *Revenue) SqlDeletedAt() string { //nolint:dupl false positive
 // ToArray receiver fields to slice
 func (r *Revenue) ToArray() A.X { //nolint:dupl false positive
 	return A.X{
-		r.Id,             // 0
-		r.RealtorId,      // 1
-		r.PropertyId,     // 2
-		r.PropertyBought, // 3
-		r.BuyerEmail,     // 4
-		r.CreatedAt,      // 5
-		r.CreatedBy,      // 6
-		r.UpdatedAt,      // 7
-		r.UpdatedBy,      // 8
-		r.DeletedAt,      // 9
+		r.Id,              // 0
+		r.RealtorId,       // 1
+		r.PropertyId,      // 2
+		r.PropertyBought,  // 3
+		r.PropertyCountry, // 4
+		r.BuyerEmail,      // 5
+		r.CreatedAt,       // 6
+		r.CreatedBy,       // 7
+		r.UpdatedAt,       // 8
+		r.UpdatedBy,       // 9
+		r.DeletedAt,       // 10
 	}
 }
 
@@ -235,12 +250,13 @@ func (r *Revenue) FromArray(a A.X) *Revenue { //nolint:dupl false positive
 	r.RealtorId = X.ToU(a[1])
 	r.PropertyId = X.ToU(a[2])
 	r.PropertyBought = X.ToI(a[3])
-	r.BuyerEmail = X.ToS(a[4])
-	r.CreatedAt = X.ToI(a[5])
-	r.CreatedBy = X.ToU(a[6])
-	r.UpdatedAt = X.ToI(a[7])
-	r.UpdatedBy = X.ToU(a[8])
-	r.DeletedAt = X.ToI(a[9])
+	r.PropertyCountry = X.ToS(a[4])
+	r.BuyerEmail = X.ToS(a[5])
+	r.CreatedAt = X.ToI(a[6])
+	r.CreatedBy = X.ToU(a[7])
+	r.UpdatedAt = X.ToI(a[8])
+	r.UpdatedBy = X.ToU(a[9])
+	r.DeletedAt = X.ToI(a[10])
 	return r
 }
 
@@ -250,12 +266,13 @@ func (r *Revenue) FromUncensoredArray(a A.X) *Revenue { //nolint:dupl false posi
 	r.RealtorId = X.ToU(a[1])
 	r.PropertyId = X.ToU(a[2])
 	r.PropertyBought = X.ToI(a[3])
-	r.BuyerEmail = X.ToS(a[4])
-	r.CreatedAt = X.ToI(a[5])
-	r.CreatedBy = X.ToU(a[6])
-	r.UpdatedAt = X.ToI(a[7])
-	r.UpdatedBy = X.ToU(a[8])
-	r.DeletedAt = X.ToI(a[9])
+	r.PropertyCountry = X.ToS(a[4])
+	r.BuyerEmail = X.ToS(a[5])
+	r.CreatedAt = X.ToI(a[6])
+	r.CreatedBy = X.ToU(a[7])
+	r.UpdatedAt = X.ToI(a[8])
+	r.UpdatedBy = X.ToU(a[9])
+	r.DeletedAt = X.ToI(a[10])
 	return r
 }
 
@@ -299,35 +316,37 @@ func (r *Revenue) Total() int64 { //nolint:dupl false positive
 
 // RevenueFieldTypeMap returns key value of field name and key
 var RevenueFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
-	`id`:             Tt.Unsigned,
-	`realtorId`:      Tt.Unsigned,
-	`propertyId`:     Tt.Unsigned,
-	`propertyBought`: Tt.Integer,
-	`buyerEmail`:     Tt.String,
-	`createdAt`:      Tt.Integer,
-	`createdBy`:      Tt.Unsigned,
-	`updatedAt`:      Tt.Integer,
-	`updatedBy`:      Tt.Unsigned,
-	`deletedAt`:      Tt.Integer,
+	`id`:              Tt.Unsigned,
+	`realtorId`:       Tt.Unsigned,
+	`propertyId`:      Tt.Unsigned,
+	`propertyBought`:  Tt.Integer,
+	`propertyCountry`: Tt.String,
+	`buyerEmail`:      Tt.String,
+	`createdAt`:       Tt.Integer,
+	`createdBy`:       Tt.Unsigned,
+	`updatedAt`:       Tt.Integer,
+	`updatedBy`:       Tt.Unsigned,
+	`deletedAt`:       Tt.Integer,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 // Sales DAO reader/query struct
 type Sales struct {
-	Adapter    *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	Id         uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
-	PropertyId uint64      `json:"propertyId,string" form:"propertyId" query:"propertyId" long:"propertyId" msg:"propertyId"`
-	RealtorId  uint64      `json:"realtorId,string" form:"realtorId" query:"realtorId" long:"realtorId" msg:"realtorId"`
-	BuyerId    uint64      `json:"buyerId,string" form:"buyerId" query:"buyerId" long:"buyerId" msg:"buyerId"`
-	Price      string      `json:"price" form:"price" query:"price" long:"price" msg:"price"`
-	BuyerEmail string      `json:"buyerEmail" form:"buyerEmail" query:"buyerEmail" long:"buyerEmail" msg:"buyerEmail"`
-	SalesDate  string      `json:"salesDate" form:"salesDate" query:"salesDate" long:"salesDate" msg:"salesDate"`
-	CreatedAt  int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	CreatedBy  uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
-	UpdatedAt  int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
-	UpdatedBy  uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
-	DeletedAt  int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	Adapter         *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id              uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	PropertyId      uint64      `json:"propertyId,string" form:"propertyId" query:"propertyId" long:"propertyId" msg:"propertyId"`
+	RealtorId       uint64      `json:"realtorId,string" form:"realtorId" query:"realtorId" long:"realtorId" msg:"realtorId"`
+	PropertyCountry string      `json:"propertyCountry" form:"propertyCountry" query:"propertyCountry" long:"propertyCountry" msg:"propertyCountry"`
+	BuyerId         uint64      `json:"buyerId,string" form:"buyerId" query:"buyerId" long:"buyerId" msg:"buyerId"`
+	Price           string      `json:"price" form:"price" query:"price" long:"price" msg:"price"`
+	BuyerEmail      string      `json:"buyerEmail" form:"buyerEmail" query:"buyerEmail" long:"buyerEmail" msg:"buyerEmail"`
+	SalesDate       string      `json:"salesDate" form:"salesDate" query:"salesDate" long:"salesDate" msg:"salesDate"`
+	CreatedAt       int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy       uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt       int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy       uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt       int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
 }
 
 // NewSales create new ORM reader/query object
@@ -369,6 +388,7 @@ func (s *Sales) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "id"
 	, "propertyId"
 	, "realtorId"
+	, "propertyCountry"
 	, "buyerId"
 	, "price"
 	, "buyerEmail"
@@ -386,6 +406,7 @@ func (s *Sales) SqlSelectAllUncensoredFields() string { //nolint:dupl false posi
 	return ` "id"
 	, "propertyId"
 	, "realtorId"
+	, "propertyCountry"
 	, "buyerId"
 	, "price"
 	, "buyerEmail"
@@ -404,15 +425,16 @@ func (s *Sales) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 0, s.Id},
 		A.X{`=`, 1, s.PropertyId},
 		A.X{`=`, 2, s.RealtorId},
-		A.X{`=`, 3, s.BuyerId},
-		A.X{`=`, 4, s.Price},
-		A.X{`=`, 5, s.BuyerEmail},
-		A.X{`=`, 6, s.SalesDate},
-		A.X{`=`, 7, s.CreatedAt},
-		A.X{`=`, 8, s.CreatedBy},
-		A.X{`=`, 9, s.UpdatedAt},
-		A.X{`=`, 10, s.UpdatedBy},
-		A.X{`=`, 11, s.DeletedAt},
+		A.X{`=`, 3, s.PropertyCountry},
+		A.X{`=`, 4, s.BuyerId},
+		A.X{`=`, 5, s.Price},
+		A.X{`=`, 6, s.BuyerEmail},
+		A.X{`=`, 7, s.SalesDate},
+		A.X{`=`, 8, s.CreatedAt},
+		A.X{`=`, 9, s.CreatedBy},
+		A.X{`=`, 10, s.UpdatedAt},
+		A.X{`=`, 11, s.UpdatedBy},
+		A.X{`=`, 12, s.DeletedAt},
 	}
 }
 
@@ -446,9 +468,19 @@ func (s *Sales) SqlRealtorId() string { //nolint:dupl false positive
 	return `"realtorId"`
 }
 
+// IdxPropertyCountry return name of the index
+func (s *Sales) IdxPropertyCountry() int { //nolint:dupl false positive
+	return 3
+}
+
+// SqlPropertyCountry return name of the column being indexed
+func (s *Sales) SqlPropertyCountry() string { //nolint:dupl false positive
+	return `"propertyCountry"`
+}
+
 // IdxBuyerId return name of the index
 func (s *Sales) IdxBuyerId() int { //nolint:dupl false positive
-	return 3
+	return 4
 }
 
 // SqlBuyerId return name of the column being indexed
@@ -458,7 +490,7 @@ func (s *Sales) SqlBuyerId() string { //nolint:dupl false positive
 
 // IdxPrice return name of the index
 func (s *Sales) IdxPrice() int { //nolint:dupl false positive
-	return 4
+	return 5
 }
 
 // SqlPrice return name of the column being indexed
@@ -468,7 +500,7 @@ func (s *Sales) SqlPrice() string { //nolint:dupl false positive
 
 // IdxBuyerEmail return name of the index
 func (s *Sales) IdxBuyerEmail() int { //nolint:dupl false positive
-	return 5
+	return 6
 }
 
 // SqlBuyerEmail return name of the column being indexed
@@ -478,7 +510,7 @@ func (s *Sales) SqlBuyerEmail() string { //nolint:dupl false positive
 
 // IdxSalesDate return name of the index
 func (s *Sales) IdxSalesDate() int { //nolint:dupl false positive
-	return 6
+	return 7
 }
 
 // SqlSalesDate return name of the column being indexed
@@ -488,7 +520,7 @@ func (s *Sales) SqlSalesDate() string { //nolint:dupl false positive
 
 // IdxCreatedAt return name of the index
 func (s *Sales) IdxCreatedAt() int { //nolint:dupl false positive
-	return 7
+	return 8
 }
 
 // SqlCreatedAt return name of the column being indexed
@@ -498,7 +530,7 @@ func (s *Sales) SqlCreatedAt() string { //nolint:dupl false positive
 
 // IdxCreatedBy return name of the index
 func (s *Sales) IdxCreatedBy() int { //nolint:dupl false positive
-	return 8
+	return 9
 }
 
 // SqlCreatedBy return name of the column being indexed
@@ -508,7 +540,7 @@ func (s *Sales) SqlCreatedBy() string { //nolint:dupl false positive
 
 // IdxUpdatedAt return name of the index
 func (s *Sales) IdxUpdatedAt() int { //nolint:dupl false positive
-	return 9
+	return 10
 }
 
 // SqlUpdatedAt return name of the column being indexed
@@ -518,7 +550,7 @@ func (s *Sales) SqlUpdatedAt() string { //nolint:dupl false positive
 
 // IdxUpdatedBy return name of the index
 func (s *Sales) IdxUpdatedBy() int { //nolint:dupl false positive
-	return 10
+	return 11
 }
 
 // SqlUpdatedBy return name of the column being indexed
@@ -528,7 +560,7 @@ func (s *Sales) SqlUpdatedBy() string { //nolint:dupl false positive
 
 // IdxDeletedAt return name of the index
 func (s *Sales) IdxDeletedAt() int { //nolint:dupl false positive
-	return 11
+	return 12
 }
 
 // SqlDeletedAt return name of the column being indexed
@@ -539,18 +571,19 @@ func (s *Sales) SqlDeletedAt() string { //nolint:dupl false positive
 // ToArray receiver fields to slice
 func (s *Sales) ToArray() A.X { //nolint:dupl false positive
 	return A.X{
-		s.Id,         // 0
-		s.PropertyId, // 1
-		s.RealtorId,  // 2
-		s.BuyerId,    // 3
-		s.Price,      // 4
-		s.BuyerEmail, // 5
-		s.SalesDate,  // 6
-		s.CreatedAt,  // 7
-		s.CreatedBy,  // 8
-		s.UpdatedAt,  // 9
-		s.UpdatedBy,  // 10
-		s.DeletedAt,  // 11
+		s.Id,              // 0
+		s.PropertyId,      // 1
+		s.RealtorId,       // 2
+		s.PropertyCountry, // 3
+		s.BuyerId,         // 4
+		s.Price,           // 5
+		s.BuyerEmail,      // 6
+		s.SalesDate,       // 7
+		s.CreatedAt,       // 8
+		s.CreatedBy,       // 9
+		s.UpdatedAt,       // 10
+		s.UpdatedBy,       // 11
+		s.DeletedAt,       // 12
 	}
 }
 
@@ -559,15 +592,16 @@ func (s *Sales) FromArray(a A.X) *Sales { //nolint:dupl false positive
 	s.Id = X.ToU(a[0])
 	s.PropertyId = X.ToU(a[1])
 	s.RealtorId = X.ToU(a[2])
-	s.BuyerId = X.ToU(a[3])
-	s.Price = X.ToS(a[4])
-	s.BuyerEmail = X.ToS(a[5])
-	s.SalesDate = X.ToS(a[6])
-	s.CreatedAt = X.ToI(a[7])
-	s.CreatedBy = X.ToU(a[8])
-	s.UpdatedAt = X.ToI(a[9])
-	s.UpdatedBy = X.ToU(a[10])
-	s.DeletedAt = X.ToI(a[11])
+	s.PropertyCountry = X.ToS(a[3])
+	s.BuyerId = X.ToU(a[4])
+	s.Price = X.ToS(a[5])
+	s.BuyerEmail = X.ToS(a[6])
+	s.SalesDate = X.ToS(a[7])
+	s.CreatedAt = X.ToI(a[8])
+	s.CreatedBy = X.ToU(a[9])
+	s.UpdatedAt = X.ToI(a[10])
+	s.UpdatedBy = X.ToU(a[11])
+	s.DeletedAt = X.ToI(a[12])
 	return s
 }
 
@@ -576,15 +610,16 @@ func (s *Sales) FromUncensoredArray(a A.X) *Sales { //nolint:dupl false positive
 	s.Id = X.ToU(a[0])
 	s.PropertyId = X.ToU(a[1])
 	s.RealtorId = X.ToU(a[2])
-	s.BuyerId = X.ToU(a[3])
-	s.Price = X.ToS(a[4])
-	s.BuyerEmail = X.ToS(a[5])
-	s.SalesDate = X.ToS(a[6])
-	s.CreatedAt = X.ToI(a[7])
-	s.CreatedBy = X.ToU(a[8])
-	s.UpdatedAt = X.ToI(a[9])
-	s.UpdatedBy = X.ToU(a[10])
-	s.DeletedAt = X.ToI(a[11])
+	s.PropertyCountry = X.ToS(a[3])
+	s.BuyerId = X.ToU(a[4])
+	s.Price = X.ToS(a[5])
+	s.BuyerEmail = X.ToS(a[6])
+	s.SalesDate = X.ToS(a[7])
+	s.CreatedAt = X.ToI(a[8])
+	s.CreatedBy = X.ToU(a[9])
+	s.UpdatedAt = X.ToI(a[10])
+	s.UpdatedBy = X.ToU(a[11])
+	s.DeletedAt = X.ToI(a[12])
 	return s
 }
 
@@ -628,18 +663,19 @@ func (s *Sales) Total() int64 { //nolint:dupl false positive
 
 // SalesFieldTypeMap returns key value of field name and key
 var SalesFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
-	`id`:         Tt.Unsigned,
-	`propertyId`: Tt.Unsigned,
-	`realtorId`:  Tt.Unsigned,
-	`buyerId`:    Tt.Unsigned,
-	`price`:      Tt.String,
-	`buyerEmail`: Tt.String,
-	`salesDate`:  Tt.String,
-	`createdAt`:  Tt.Integer,
-	`createdBy`:  Tt.Unsigned,
-	`updatedAt`:  Tt.Integer,
-	`updatedBy`:  Tt.Unsigned,
-	`deletedAt`:  Tt.Integer,
+	`id`:              Tt.Unsigned,
+	`propertyId`:      Tt.Unsigned,
+	`realtorId`:       Tt.Unsigned,
+	`propertyCountry`: Tt.String,
+	`buyerId`:         Tt.Unsigned,
+	`price`:           Tt.String,
+	`buyerEmail`:      Tt.String,
+	`salesDate`:       Tt.String,
+	`createdAt`:       Tt.Integer,
+	`createdBy`:       Tt.Unsigned,
+	`updatedAt`:       Tt.Integer,
+	`updatedBy`:       Tt.Unsigned,
+	`deletedAt`:       Tt.Integer,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

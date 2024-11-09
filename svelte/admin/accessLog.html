@@ -229,7 +229,7 @@
 
       /* notifier */
       .notifyjs-container {
-        z-index: 100;
+        z-index: 99999;
         position: fixed;
         bottom: 0;
         right: 0.5em;
@@ -3456,17 +3456,25 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       function datetime2(unixSec, humanize) {
         if (!unixSec)
           return "";
-        let dt = new Date(unixSec * 1e3);
+        let dt = (
+          /** @type {Date} */
+          new Date(unixSec * 1e3)
+        );
         if (typeof unixSec === "string") {
           dt = new Date(unixSec);
         }
         if (!humanize) {
-          dt = dt.toISOString();
-          return dt.substring(0, 10) + " " + dt.substring(11, 16);
+          const newDt = (
+            /** @type {string} */
+            dt.toISOString()
+          );
+          return newDt.substring(0, 10) + " " + newDt.substring(11, 16);
         }
-        const options = { day: "2-digit", month: "long", year: "numeric" };
-        const formattedDate = dt.toLocaleDateString(void 0, options);
-        return formattedDate;
+        return dt.toLocaleDateString("default", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric"
+        });
       }
       function priceNtd(val) {
         return new Number(val).toLocaleString("zh-TW");
@@ -3474,31 +3482,83 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       function localeDatetime(unixSec) {
         if (!unixSec)
           return "";
-        const dt = new Date(unixSec * 1e3);
-        const day = dt.toLocaleDateString("default", { weekday: "long" });
-        const date = dt.getDate();
-        const month = dt.toLocaleDateString("default", { month: "long" });
-        const year = dt.getFullYear();
-        let hh = dt.getHours();
-        if (hh < 10)
+        const dt = (
+          /** @type {Date} */
+          new Date(Number(unixSec) * 1e3)
+        );
+        const day = (
+          /** @type {string} */
+          dt.toLocaleDateString("default", {
+            weekday: "long"
+          })
+        );
+        const date = (
+          /** @type {number} */
+          dt.getDate()
+        );
+        const month = (
+          /** @type {string} */
+          dt.toLocaleDateString("default", {
+            month: "long"
+          })
+        );
+        const year = (
+          /** @type {number} */
+          dt.getFullYear()
+        );
+        let hh = (
+          /** @type {string} */
+          String(dt.getHours())
+        );
+        if (Number(hh) < 10)
           hh = "0" + hh;
-        let mm = dt.getMinutes();
-        if (mm < 10)
+        let mm = (
+          /** @type {string} */
+          String(dt.getMinutes())
+        );
+        if (Number(mm) < 10)
           mm = "0" + mm;
-        const formattedDate = `${day}, ${date} ${month} ${year} ${hh}:${mm}`;
-        return formattedDate;
+        return `${day}, ${date} ${month} ${year} ${hh}:${mm}`;
       }
       function datetime22(unixSec) {
         if (!unixSec)
           return "-";
-        const dt = new Date(unixSec * 1e3);
-        const year = dt.getFullYear();
-        const month = dt.toLocaleDateString("default", { month: "long" });
-        const day = dt.toLocaleDateString("default", { weekday: "long" });
-        const date = String(dt.getDate()).padStart(2, "0");
-        const hours = String(dt.getHours()).padStart(2, "0");
-        const minutes = String(dt.getMinutes()).padStart(2, "0");
-        const seconds = String(dt.getSeconds()).padStart(2, "0");
+        const dt = (
+          /** @type {Date} */
+          new Date(Number(unixSec) * 1e3)
+        );
+        const year = (
+          /** @type {number} */
+          dt.getFullYear()
+        );
+        const month = (
+          /** @type {string} */
+          dt.toLocaleDateString("default", {
+            month: "long"
+          })
+        );
+        const day = (
+          /** @type {string} */
+          dt.toLocaleDateString("default", {
+            weekday: "long"
+          })
+        );
+        const date = (
+          /** @type {string} */
+          String(dt.getDate()).padStart(2, "0")
+        );
+        const hours = (
+          /** @type {string} */
+          String(dt.getHours()).padStart(2, "0")
+        );
+        const minutes = (
+          /** @type {string} */
+          String(dt.getMinutes()).padStart(2, "0")
+        );
+        const seconds = (
+          /** @type {string} */
+          String(dt.getSeconds()).padStart(2, "0")
+        );
         return `${day}, ${date} ${month} ${year} - ${hours}:${minutes}:${seconds}`;
       }
       function formatPrice(price, currency) {
@@ -3508,8 +3568,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             currency,
             maximumSignificantDigits: 3
           }).format(price);
-        } catch (e) {
-          console.log("formatPrice failed", e, price, currency);
+        } catch (err) {
+          console.log("formatPrice failed", err, price, currency);
           return price + " " + currency;
         }
       }
@@ -3527,6 +3587,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         const minifiedValue = value.toFixed(2);
         return parseFloat(minifiedValue);
       }
+      function dateISOFormat(dayTo = 0) {
+        const dt = new Date();
+        dt.setDate(dt.getDate() + dayTo);
+        const date = String(dt.getDate()).padStart(2, "0");
+        const month = String(dt.getMonth() + 1).padStart(2, "0");
+        const year = dt.getFullYear();
+        return `${year}-${month}-${date}`;
+      }
       module.exports = {
         datetime: datetime2,
         priceNtd,
@@ -3534,7 +3602,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         datetime2: datetime22,
         formatPrice,
         getApprovalState,
-        M2ToPing
+        M2ToPing,
+        dateISOFormat
       };
     }
   });

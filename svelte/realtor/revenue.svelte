@@ -1,15 +1,70 @@
 <script>
   /** @typedef {import('../_types/user').User} User */
   /** @typedef {import('../_types/master').Access} Access */
+  /** @typedef {import('../_types/business').Sales} Sales */
+
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import { RiSystemAddLargeFill } from '../node_modules/svelte-icons-pack/dist/ri';
+  import PopUpAddSales from '../_components/PopUpAddSales.svelte';
+  import { RealtorRevenue } from '../jsApi.GEN';
+  import { notifier } from '../_components/notifier';
 
   import Main from '../_layouts/Main.svelte';
   
   let user   = /** @type {User} */ ({/* user */});
   let access = /** @type {Access} */ ({/* segments */});
+
+  let popUpAddSales = /** @type {import('svelte').SvelteComponent} */ (null);
+  let isSubmitAddSales = /** @type {boolean} */ (false);
+  /**
+   * @description Submit add sales
+   * @type {Function}
+   * @param salesObj {Sales}
+   * @param propKey {string}
+   * @returns {Promise<void>}
+   */
+  const SubmitAddSales = async (salesObj, propKey) => {
+    console.log('Sales =', salesObj);
+    console.log('Property Key =', propKey);
+    await RealtorRevenue({
+      cmd: 'upsert',
+      sales: salesObj,
+      propKey: propKey
+    }, async function(/** @type {any} */ res) {
+      if (res.error) {
+        console.log('error =', res.error);
+        notifier.showError(res.error || 'failed to add sales');
+        isSubmitAddSales = false;
+        return;
+      }
+      
+      popUpAddSales.Hide();
+      popUpAddSales.Reset();
+      notifier.showSuccess('Sales added');
+    })
+  }
 </script>
+
+<PopUpAddSales
+  bind:this={popUpAddSales}
+  bind:isSubmitted={isSubmitAddSales}
+  heading="Add Sales"
+  OnSubmit={SubmitAddSales}
+/>
 
 <Main {user} {access}>
   <div class="revenue-container">
+    <div class="header">
+      <miaw></miaw>
+      <button class="add-btn" on:click={() => popUpAddSales.Show()}>
+        <Icon
+          size="20"
+          color="#FFF"
+          src={RiSystemAddLargeFill}
+        />
+        <span>Add</span>
+      </button>
+    </div>
     <div class="table-root">
       <div class="table-container">
         <table>
@@ -47,6 +102,33 @@
     flex-direction: column;
     gap: 20px;
     padding: 20px;
+  }
+
+  .revenue-container .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .revenue-container .header .add-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--orange-006);
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    padding: 15px 30px;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .revenue-container .header .add-btn:hover {
+    background-color: var(--orange-005);
   }
 
   .table-root {

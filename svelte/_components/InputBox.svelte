@@ -13,6 +13,7 @@
   export let type         = /** @type {InputType | string} */ ('text');
   export let autocomplete = /** @type {('on' | 'off')} */ ('on');
   export let valuesObj    = /** @type {Record<string, string>} */ ({});
+  export let valuesArr    = /** @type {any[]} */ ([]);
 
   let isShowPassword  = /** @type {boolean} */ (false);
   let inputElm        = /** @type {HTMLInputElement} */ (null);
@@ -67,6 +68,16 @@
           <option value={key} selected={value === value}>{value}</option>
         {/each}
       </select>
+    {:else if type === 'combobox-arr'}
+      <label class="label" for={id}>{label}</label>
+      <select bind:value={value} {id} {placeholder}>
+        {#each valuesArr as value}
+          <option value={value} selected={value === value}>{value}</option>
+        {/each}
+      </select>
+    {:else if type === 'date'}
+      <label class="label" for={id}>{label}</label>
+      <input type="date" bind:value={value} {id} {placeholder}/>
     {:else}
       <label class="label" for={id}>{label}</label>
       <input type="text" bind:value={value} {id} {placeholder}/>
