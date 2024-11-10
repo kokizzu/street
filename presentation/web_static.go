@@ -51,12 +51,12 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			}
 		}
 		return views.RenderIndex(c, M.SX{
-			`title`:  conf.PROJECT_NAME,
-			`user`:   user,
-			`google`: google.Link,
-			`segments`: segments,
+			`title`:           `HapSTR`,
+			`user`:            user,
+			`google`:          google.Link,
+			`segments`:        segments,
 			`user_registered`: userRegistered,
-			`revenues`: revenues,
+			`revenues`:        revenues,
 		})
 	})
 
@@ -155,7 +155,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 				`error`: `property deleted`,
 			})
 		}
-		
+
 		if out.Error != `` {
 			L.Print(out.Error)
 			return views.RenderError(ctx, M.SX{
@@ -189,7 +189,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		return views.RenderGuestPropertyPublic(ctx, M.SX{
 			`title`:         S.XSS(title),
 			`propItem`:      out.Property,
-			`propExtraUS`: out.PropertyExtraUS,
+			`propExtraUS`:   out.PropertyExtraUS,
 			`propertyMeta`:  out.Meta,
 			`ogURL`:         ogUrl,
 			`ogImgURL`:      imgUrl,
@@ -295,7 +295,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		}
 		return views.RenderBuyer(ctx, M.SX{
 			`title`:    `Buyer`,
-			`user`: user,
+			`user`:     user,
 			`segments`: segments,
 		})
 	})
@@ -323,9 +323,9 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			})
 		}
 		return views.RenderListings(ctx, M.SX{
-			`title`:    `Listings`,
-			`user`: user,
-			`segments`: segments,
+			`title`:             `Listings`,
+			`user`:              user,
+			`segments`:          segments,
 			`randomProps`:       props.Properties,
 			`initialLatLong`:    []any{lat, lng},
 			`defaultDistanceKm`: defaultDistanceKm,
@@ -345,7 +345,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		}
 		return views.RenderRealtor(ctx, M.SX{
 			`title`:           `Realtor`,
-			`user`: user,
+			`user`:            user,
 			`segments`:        segments,
 			`ownedProperties`: out.Properties,
 			`pager`:           out.Pager,
@@ -365,8 +365,8 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.Cmd = zCrud.CmdList
 		out := d.RealtorRevenue(&in)
 		return views.RenderRealtorRevenue(ctx, M.SX{
-			`title`: `Realtor Revenue`,
-			`user`: user,
+			`title`:    `Realtor Revenue`,
+			`user`:     user,
 			`segments`: segments,
 			`revenues`: out.Revenues,
 		})
@@ -432,7 +432,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			RequestCommon: in.RequestCommon,
 		})
 		return views.RenderAdmin(ctx, M.SX{
-			`user`: 									user,
+			`user`:                   user,
 			`title`:                  `Admin`,
 			`segments`:               segments,
 			`uniqueIpPerDate`:        out.UniqueIpPerDate,
@@ -456,9 +456,9 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.Cmd = zCrud.CmdList
 		out := d.AdminRevenue(&in)
 		return views.RenderAdminRevenue(ctx, M.SX{
-			`title`:          `Revenue`,
-			`user`:           user,
-			`segments`:       segments,
+			`title`:    `Revenue`,
+			`user`:     user,
+			`segments`: segments,
 			`revenues`: out.Revenues,
 		})
 	})
@@ -478,7 +478,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		return views.RenderAdminFeedbacks(ctx, M.SX{
 			`title`:     `Feedbacks`,
 			`segments`:  segments,
-			`user`: user,
+			`user`:      user,
 			`feedbacks`: out.Feedbacks,
 			`fields`:    out.Meta.Fields,
 			`pager`:     out.Pager,
@@ -500,7 +500,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		out := d.AdminUsers(&in)
 		return views.RenderAdminUsers(ctx, M.SX{
 			`title`:    `Users`,
-			`user`: user,
+			`user`:     user,
 			`segments`: segments,
 			`users`:    out.Users,
 			`fields`:   out.Meta.Fields,
@@ -522,7 +522,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		out := d.AdminPropertiesUS(&in)
 		return views.RenderAdminPropertiesUS(ctx, M.SX{
 			`title`:      `Properties US`,
-			`user`: user,
+			`user`:       user,
 			`segments`:   segments,
 			`properties`: out.Properties,
 			`fields`:     out.Meta.Fields,
@@ -544,7 +544,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		out := d.AdminPropertiesTW(&in)
 		return views.RenderAdminPropertiesTW(ctx, M.SX{
 			`title`:      `Properties TW`,
-			`user`: user,
+			`user`:       user,
 			`segments`:   segments,
 			`properties`: out.Properties,
 			`fields`:     out.Meta.Fields,
@@ -566,7 +566,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		out := d.AdminProperties(&in)
 		return views.RenderAdminProperties(ctx, M.SX{
 			`title`:      `Properties`,
-			`user`: user,
+			`user`:       user,
 			`segments`:   segments,
 			`properties`: out.Properties,
 			`fields`:     out.Meta.Fields,
@@ -648,7 +648,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.WithMeta = true
 		out := d.AdminAccessLogs(&in)
 		return views.RenderAdminAccessLog(ctx, M.SX{
-			`user`: user,
+			`user`:     user,
 			`title`:    `Access Log`,
 			`segments`: segments,
 			`logs`:     out.Logs,
