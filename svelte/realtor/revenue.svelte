@@ -9,7 +9,7 @@
   import PopUpAddSales from '../_components/PopUpAddSales.svelte';
   import { RealtorRevenue } from '../jsApi.GEN';
   import { notifier } from '../_components/notifier';
-  import { formatPrice } from '../_components/formatter';
+  import { formatPrice, datetime } from '../_components/formatter';
 
   import Main from '../_layouts/Main.svelte';
   
@@ -92,6 +92,8 @@
               <th>Revenue</th>
               <th>Property Bought</th>
               <th>Sales Date</th>
+              <th>Created At</th>
+              <th>Updated At</th>
             </tr>
           </thead>
           <tbody>
@@ -102,6 +104,8 @@
                   <td>{formatPrice(Number(rv.revenue), 'USD')}</td>
                   <td>{rv.propertyBought}</td>
                   <td>{rv.salesDate}</td>
+                  <td>{datetime(rv.createdAt)}</td>
+                  <td>{datetime(rv.updatedAt)}</td>
                 </tr>
               {/each}
             {:else}

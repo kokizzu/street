@@ -2996,13 +2996,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance6 = bind(Axios$1.prototype.request, context);
-        utils$1.extend(instance6, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance6, context, null, { allOwnKeys: true });
-        instance6.create = function create(instanceConfig) {
+        const instance7 = bind(Axios$1.prototype.request, context);
+        utils$1.extend(instance7, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance7, context, null, { allOwnKeys: true });
+        instance7.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance6;
+        return instance7;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -3198,6 +3198,164 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
   });
 
+  // _components/formatter.js
+  var require_formatter = __commonJS({
+    "_components/formatter.js"(exports, module) {
+      function datetime2(unixSec, humanize) {
+        if (!unixSec)
+          return "";
+        let dt = (
+          /** @type {Date} */
+          new Date(unixSec * 1e3)
+        );
+        if (typeof unixSec === "string") {
+          dt = new Date(unixSec);
+        }
+        if (!humanize) {
+          const newDt = (
+            /** @type {string} */
+            dt.toISOString()
+          );
+          return newDt.substring(0, 10) + " " + newDt.substring(11, 16);
+        }
+        return dt.toLocaleDateString("default", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric"
+        });
+      }
+      function priceNtd(val) {
+        return new Number(val).toLocaleString("zh-TW");
+      }
+      function localeDatetime(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = (
+          /** @type {Date} */
+          new Date(Number(unixSec) * 1e3)
+        );
+        const day = (
+          /** @type {string} */
+          dt.toLocaleDateString("default", {
+            weekday: "long"
+          })
+        );
+        const date = (
+          /** @type {number} */
+          dt.getDate()
+        );
+        const month = (
+          /** @type {string} */
+          dt.toLocaleDateString("default", {
+            month: "long"
+          })
+        );
+        const year = (
+          /** @type {number} */
+          dt.getFullYear()
+        );
+        let hh = (
+          /** @type {string} */
+          String(dt.getHours())
+        );
+        if (Number(hh) < 10)
+          hh = "0" + hh;
+        let mm = (
+          /** @type {string} */
+          String(dt.getMinutes())
+        );
+        if (Number(mm) < 10)
+          mm = "0" + mm;
+        return `${day}, ${date} ${month} ${year} ${hh}:${mm}`;
+      }
+      function datetime22(unixSec) {
+        if (!unixSec)
+          return "-";
+        const dt = (
+          /** @type {Date} */
+          new Date(Number(unixSec) * 1e3)
+        );
+        const year = (
+          /** @type {number} */
+          dt.getFullYear()
+        );
+        const month = (
+          /** @type {string} */
+          dt.toLocaleDateString("default", {
+            month: "long"
+          })
+        );
+        const day = (
+          /** @type {string} */
+          dt.toLocaleDateString("default", {
+            weekday: "long"
+          })
+        );
+        const date = (
+          /** @type {string} */
+          String(dt.getDate()).padStart(2, "0")
+        );
+        const hours = (
+          /** @type {string} */
+          String(dt.getHours()).padStart(2, "0")
+        );
+        const minutes = (
+          /** @type {string} */
+          String(dt.getMinutes()).padStart(2, "0")
+        );
+        const seconds = (
+          /** @type {string} */
+          String(dt.getSeconds()).padStart(2, "0")
+        );
+        return `${day}, ${date} ${month} ${year} - ${hours}:${minutes}:${seconds}`;
+      }
+      function formatPrice2(price, currency) {
+        try {
+          return new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency,
+            maximumSignificantDigits: 4
+          }).format(price);
+        } catch (err) {
+          console.log("formatPrice failed", err, price, currency);
+          return `${currency} ${price}`;
+        }
+      }
+      function getApprovalState(s) {
+        if (s == "") {
+          return "approved";
+        } else if (s.startsWith("pending")) {
+          return "pending";
+        } else {
+          return "rejected";
+        }
+      }
+      function M2ToPing(sizeM2) {
+        const value = sizeM2 / 3.30579;
+        const minifiedValue = value.toFixed(2);
+        return parseFloat(minifiedValue);
+      }
+      function dateISOFormat(dayTo = 0) {
+        const dt = new Date();
+        dt.setDate(dt.getDate() + dayTo);
+        const date = String(dt.getDate()).padStart(2, "0");
+        const month = String(dt.getMonth() + 1).padStart(2, "0");
+        const year = dt.getFullYear();
+        return `${year}-${month}-${date}`;
+      }
+      module.exports = {
+        datetime: datetime2,
+        priceNtd,
+        localeDatetime,
+        datetime2: datetime22,
+        formatPrice: formatPrice2,
+        getApprovalState,
+        M2ToPing,
+        dateISOFormat
+      };
+    }
+  });
+
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
@@ -3373,6 +3531,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   }
   function space() {
     return text(" ");
+  }
+  function empty() {
+    return text("");
   }
   function listen(node, event, handler, options) {
     node.addEventListener(event, handler, options);
@@ -3630,7 +3791,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance6, create_fragment7, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance7, create_fragment7, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3656,7 +3817,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance6 ? instance6(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance7 ? instance7(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -4897,21 +5058,169 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var Main_default = Main;
 
   // admin/revenue.svelte
+  var import_formatter = __toESM(require_formatter());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[0] = list[i];
     return child_ctx;
   }
-  function create_each_block(ctx) {
+  function create_else_block2(ctx) {
     let tr;
     return {
       c() {
         tr = element("tr");
-        tr.innerHTML = `<td class="svelte-wxadsq">US9340-A343</td> <td class="svelte-wxadsq">$50,454,899</td> <td class="svelte-wxadsq">Dennis Lowe</td> <td class="svelte-wxadsq">45</td> <td class="svelte-wxadsq">March 34, 2024</td> <td class="svelte-wxadsq">March 34, 2024</td> `;
+        tr.innerHTML = `<td colspan="${5}" class="svelte-wxadsq">No data</td>`;
         attr(tr, "class", "svelte-wxadsq");
       },
       m(target, anchor) {
         insert(target, tr, anchor);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(tr);
+        }
+      }
+    };
+  }
+  function create_if_block2(ctx) {
+    let each_1_anchor;
+    let each_value = ensure_array_like(revenues || []);
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    }
+    return {
+      c() {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        each_1_anchor = empty();
+      },
+      m(target, anchor) {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(target, anchor);
+          }
+        }
+        insert(target, each_1_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*revenues, Number*/
+        0) {
+          each_value = ensure_array_like(revenues || []);
+          let i;
+          for (i = 0; i < each_value.length; i += 1) {
+            const child_ctx = get_each_context(ctx2, each_value, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value.length;
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(each_1_anchor);
+        }
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
+  function create_each_block(ctx) {
+    let tr;
+    let td0;
+    let t1;
+    let td1;
+    let t3;
+    let td2;
+    let t5;
+    let td3;
+    let t7;
+    let td4;
+    let t9;
+    let td5;
+    let t11;
+    let td6;
+    let t13;
+    let td7;
+    let t15;
+    return {
+      c() {
+        tr = element("tr");
+        td0 = element("td");
+        td0.textContent = `${/*rv*/
+        ctx[0].propertyId}`;
+        t1 = space();
+        td1 = element("td");
+        td1.textContent = `${/*rv*/
+        ctx[0].realtorId}`;
+        t3 = space();
+        td2 = element("td");
+        td2.textContent = `${/*rv*/
+        ctx[0].propertyCountry || "Default"}`;
+        t5 = space();
+        td3 = element("td");
+        td3.textContent = `${(0, import_formatter.formatPrice)(Number(
+          /*rv*/
+          ctx[0].revenue
+        ), "USD")}`;
+        t7 = space();
+        td4 = element("td");
+        td4.textContent = `${/*rv*/
+        ctx[0].propertyBought}`;
+        t9 = space();
+        td5 = element("td");
+        td5.textContent = `${/*rv*/
+        ctx[0].salesDate}`;
+        t11 = space();
+        td6 = element("td");
+        td6.textContent = `${(0, import_formatter.datetime)(
+          /*rv*/
+          ctx[0].createdAt
+        )}`;
+        t13 = space();
+        td7 = element("td");
+        td7.textContent = `${(0, import_formatter.datetime)(
+          /*rv*/
+          ctx[0].updatedAt
+        )}`;
+        t15 = space();
+        attr(td0, "class", "svelte-wxadsq");
+        attr(td1, "class", "svelte-wxadsq");
+        attr(td2, "class", "svelte-wxadsq");
+        attr(td3, "class", "svelte-wxadsq");
+        attr(td4, "class", "svelte-wxadsq");
+        attr(td5, "class", "svelte-wxadsq");
+        attr(td6, "class", "svelte-wxadsq");
+        attr(td7, "class", "svelte-wxadsq");
+        attr(tr, "class", "svelte-wxadsq");
+      },
+      m(target, anchor) {
+        insert(target, tr, anchor);
+        append(tr, td0);
+        append(tr, t1);
+        append(tr, td1);
+        append(tr, t3);
+        append(tr, td2);
+        append(tr, t5);
+        append(tr, td3);
+        append(tr, t7);
+        append(tr, td4);
+        append(tr, t9);
+        append(tr, td5);
+        append(tr, t11);
+        append(tr, td6);
+        append(tr, t13);
+        append(tr, td7);
+        append(tr, t15);
       },
       p: noop,
       d(detaching) {
@@ -4935,7 +5244,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let div;
     let table;
     let thead;
-    let t15;
+    let t19;
     let tbody;
     let current;
     icon = new Icon_default({
@@ -4945,11 +5254,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         src: RiSystemAddLargeFill
       }
     });
-    let each_value = ensure_array_like(Array(10));
-    let each_blocks = [];
-    for (let i = 0; i < each_value.length; i += 1) {
-      each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    function select_block_type(ctx2, dirty) {
+      if (revenues && revenues.length > 0)
+        return create_if_block2;
+      return create_else_block2;
     }
+    let current_block_type = select_block_type(ctx, -1);
+    let if_block = current_block_type(ctx);
     return {
       c() {
         haha = element("haha");
@@ -4966,12 +5277,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         div = element("div");
         table = element("table");
         thead = element("thead");
-        thead.innerHTML = `<tr class="svelte-wxadsq"><th class="svelte-wxadsq">Invoice #</th> <th class="svelte-wxadsq">Revenue</th> <th class="svelte-wxadsq">Realtor</th> <th class="svelte-wxadsq">No. of listings</th> <th class="svelte-wxadsq">Register date</th> <th class="svelte-wxadsq">Purchase date</th></tr>`;
-        t15 = space();
+        thead.innerHTML = `<tr class="svelte-wxadsq"><th class="svelte-wxadsq">Property ID</th> <th class="svelte-wxadsq">Realtor ID</th> <th class="svelte-wxadsq">Property Country</th> <th class="svelte-wxadsq">Revenue</th> <th class="svelte-wxadsq">Property Bought</th> <th class="svelte-wxadsq">Sales Date</th> <th class="svelte-wxadsq">Created At</th> <th class="svelte-wxadsq">Updated At</th></tr>`;
+        t19 = space();
         tbody = element("tbody");
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].c();
-        }
+        if_block.c();
         attr(button, "class", "add-btn svelte-wxadsq");
         attr(hehe, "class", "header svelte-wxadsq");
         attr(thead, "class", "svelte-wxadsq");
@@ -4994,16 +5303,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         append(huhu, div);
         append(div, table);
         append(table, thead);
-        append(table, t15);
+        append(table, t19);
         append(table, tbody);
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          if (each_blocks[i]) {
-            each_blocks[i].m(tbody, null);
-          }
-        }
+        if_block.m(tbody, null);
         current = true;
       },
-      p: noop,
+      p(ctx2, dirty) {
+        if_block.p(ctx2, dirty);
+      },
       i(local) {
         if (current)
           return;
@@ -5019,7 +5326,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           detach(haha);
         }
         destroy_component(icon);
-        destroy_each(each_blocks, detaching);
+        if_block.d();
       }
     };
   }
@@ -5073,10 +5380,18 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     /** @type {Access} */
     {/* segments */}
   );
+  var revenues = (
+    /** @type {Revenue[]} */
+    [/* revenues */]
+  );
+  function instance6($self) {
+    console.log("revenues =", revenues);
+    return [];
+  }
   var Revenue = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment6, safe_not_equal, {});
+      init(this, options, instance6, create_fragment6, safe_not_equal, {});
     }
   };
   var revenue_default = Revenue;

@@ -428,14 +428,22 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 	fw.Get(`/`+domain.AdminRevenueAction, func(ctx *fiber.Ctx) error {
-		in, user, segments := userInfoFromContext(ctx, d)
+		var in domain.AdminRevenueIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminRevenueAction)
+		if err != nil {
+			return err
+		}
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.Cmd = zCrud.CmdList
+		out := d.AdminRevenue(&in)
 		return views.RenderAdminRevenue(ctx, M.SX{
 			`title`:          `Revenue`,
 			`user`:           user,
 			`segments`:       segments,
+			`revenues`: out.Revenues,
 		})
 	})
 	fw.Get(`/`+domain.AdminFeedbacksAction, func(ctx *fiber.Ctx) error {

@@ -29,6 +29,7 @@ FROM ` + s.SqlTableName() + whereAndSql
 				if r.SalesDate == salesDate  {
 					r.PropertyBought += 1
 					r.Revenue += price
+					r.UpdatedAt = X.ToI(row[4])
 
 					isExist = true
 				}
@@ -42,6 +43,49 @@ FROM ` + s.SqlTableName() + whereAndSql
 					SalesDate: salesDate,
 					CreatedAt: X.ToI(row[3]),
 					UpdatedAt: X.ToI(row[4]),
+				})
+			}
+		}
+	})
+
+	return
+}
+
+func (s *Sales) FindRevenues() (revenues []*mBusiness.AdminRevenue) {
+	const comment = `-- Sales) FindRevenues`
+
+	query := comment + `
+SELECT ` + s.SqlPrice() + `, ` + s.SqlPropertyId() + `, ` + s.SqlPropertyCountry() + `, ` + s.SqlRealtorId() + `, ` + s.SqlSalesDate() + `, ` + s.SqlCreatedAt() + `, ` + s.SqlUpdatedAt() + `
+FROM ` + s.SqlTableName()
+
+	L.Print(`QUERY :`, query)
+	s.Adapter.QuerySql(query, func(row []any) {
+		if len(row) == 7 {
+			price := X.ToI(row[0])
+			salesDate := X.ToS(row[4])
+
+			var isExist bool = false
+
+			for _, r := range revenues {
+				if r.SalesDate == salesDate  {
+					r.PropertyBought += 1
+					r.Revenue += price
+					r.UpdatedAt = X.ToI(row[6])
+
+					isExist = true
+				}
+			}
+
+			if !isExist {
+				revenues = append(revenues, &mBusiness.AdminRevenue{
+					PropertyId: X.ToU(row[1]),
+					PropertyCountry: X.ToS(row[2]),
+					RealtorId: X.ToU(row[3]),
+					Revenue: price,
+					PropertyBought: 1,
+					SalesDate: salesDate,
+					CreatedAt: X.ToI(row[5]),
+					UpdatedAt: X.ToI(row[6]),
 				})
 			}
 		}

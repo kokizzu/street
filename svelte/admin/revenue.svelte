@@ -1,15 +1,19 @@
 <script>
   /** @typedef {import('../_types/user').User} User */
   /** @typedef {import('../_types/master').Access} Access */
+  /** @typedef {import('../_types/business').AdminRevenue} Revenue */
 
   import Main from '../_layouts/Main.svelte';
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { RiSystemAddLargeFill } from '../node_modules/svelte-icons-pack/dist/ri';
+  import { formatPrice, datetime } from '../_components/formatter';
   
-  let user   = /** @type {User} */ ({/* user */});
-  let access = /** @type {Access} */ ({/* segments */});
-</script>
+  let user      = /** @type {User} */ ({/* user */});
+  let access    = /** @type {Access} */ ({/* segments */});
+  let revenues  = /** @type {Revenue[]} */ ([/* revenues */]);
 
+  console.log('revenues =', revenues);
+</script>
 
 <Main {user} {access}>
   <haha class="revenue-container">
@@ -29,25 +33,35 @@
         <table>
           <thead>
             <tr>
-              <th>Invoice #</th>
+              <th>Property ID</th>
+              <th>Realtor ID</th>
+              <th>Property Country</th>
               <th>Revenue</th>
-              <th>Realtor</th>
-              <th>No. of listings</th>
-              <th>Register date</th>
-              <th>Purchase date</th>
+              <th>Property Bought</th>
+              <th>Sales Date</th>
+              <th>Created At</th>
+              <th>Updated At</th>
             </tr>
           </thead>
           <tbody>
-            {#each Array(10) as _}
+            {#if revenues && revenues.length > 0}
+              {#each (revenues || []) as rv}
+                <tr>
+                  <td>{rv.propertyId}</td>
+                  <td>{rv.realtorId}</td>
+                  <td>{rv.propertyCountry || 'Default'}</td>
+                  <td>{formatPrice(Number(rv.revenue), 'USD')}</td>
+                  <td>{rv.propertyBought}</td>
+                  <td>{rv.salesDate}</td>
+                  <td>{datetime(rv.createdAt)}</td>
+                  <td>{datetime(rv.updatedAt)}</td>
+                </tr>
+              {/each}
+            {:else}
               <tr>
-                <td>US9340-A343</td>
-                <td>$50,454,899</td>
-                <td>Dennis Lowe</td>
-                <td>45</td>
-                <td>March 34, 2024</td>
-                <td>March 34, 2024</td>
+                <td colspan={5}>No data</td>
               </tr>
-            {/each}
+            {/if}
           </tbody>
         </table>
       </div>

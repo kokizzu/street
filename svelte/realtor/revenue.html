@@ -883,7 +883,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   // _components/formatter.js
   var require_formatter = __commonJS({
     "_components/formatter.js"(exports, module) {
-      function datetime(unixSec, humanize) {
+      function datetime2(unixSec, humanize) {
         if (!unixSec)
           return "";
         let dt = (
@@ -950,7 +950,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           mm = "0" + mm;
         return `${day}, ${date} ${month} ${year} ${hh}:${mm}`;
       }
-      function datetime2(unixSec) {
+      function datetime22(unixSec) {
         if (!unixSec)
           return "-";
         const dt = (
@@ -1026,10 +1026,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         return `${year}-${month}-${date}`;
       }
       module.exports = {
-        datetime,
+        datetime: datetime2,
         priceNtd,
         localeDatetime,
-        datetime2,
+        datetime2: datetime22,
         formatPrice: formatPrice2,
         getApprovalState,
         M2ToPing,
@@ -8000,6 +8000,20 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     );
     let t6;
     let t7;
+    let td4;
+    let t8_value = (0, import_formatter2.datetime)(
+      /*rv*/
+      ctx[7].createdAt
+    ) + "";
+    let t8;
+    let t9;
+    let td5;
+    let t10_value = (0, import_formatter2.datetime)(
+      /*rv*/
+      ctx[7].updatedAt
+    ) + "";
+    let t10;
+    let t11;
     return {
       c() {
         tr = element("tr");
@@ -8015,10 +8029,18 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         td3 = element("td");
         t6 = text(t6_value);
         t7 = space();
+        td4 = element("td");
+        t8 = text(t8_value);
+        t9 = space();
+        td5 = element("td");
+        t10 = text(t10_value);
+        t11 = space();
         attr(td0, "class", "svelte-wxadsq");
         attr(td1, "class", "svelte-wxadsq");
         attr(td2, "class", "svelte-wxadsq");
         attr(td3, "class", "svelte-wxadsq");
+        attr(td4, "class", "svelte-wxadsq");
+        attr(td5, "class", "svelte-wxadsq");
         attr(tr, "class", "svelte-wxadsq");
       },
       m(target, anchor) {
@@ -8035,6 +8057,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         append(tr, td3);
         append(td3, t6);
         append(tr, t7);
+        append(tr, td4);
+        append(td4, t8);
+        append(tr, t9);
+        append(tr, td5);
+        append(td5, t10);
+        append(tr, t11);
       },
       p(ctx2, dirty) {
         if (dirty & /*revenues*/
@@ -8055,6 +8083,18 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         1 && t6_value !== (t6_value = /*rv*/
         ctx2[7].salesDate + ""))
           set_data(t6, t6_value);
+        if (dirty & /*revenues*/
+        1 && t8_value !== (t8_value = (0, import_formatter2.datetime)(
+          /*rv*/
+          ctx2[7].createdAt
+        ) + ""))
+          set_data(t8, t8_value);
+        if (dirty & /*revenues*/
+        1 && t10_value !== (t10_value = (0, import_formatter2.datetime)(
+          /*rv*/
+          ctx2[7].updatedAt
+        ) + ""))
+          set_data(t10, t10_value);
       },
       d(detaching) {
         if (detaching) {
@@ -8077,7 +8117,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let div1;
     let table;
     let thead;
-    let t11;
+    let t15;
     let tbody;
     let current;
     let mounted;
@@ -8116,8 +8156,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         div1 = element("div");
         table = element("table");
         thead = element("thead");
-        thead.innerHTML = `<tr class="svelte-wxadsq"><th class="svelte-wxadsq">Property ID</th> <th class="svelte-wxadsq">Revenue</th> <th class="svelte-wxadsq">Property Bought</th> <th class="svelte-wxadsq">Sales Date</th></tr>`;
-        t11 = space();
+        thead.innerHTML = `<tr class="svelte-wxadsq"><th class="svelte-wxadsq">Property ID</th> <th class="svelte-wxadsq">Revenue</th> <th class="svelte-wxadsq">Property Bought</th> <th class="svelte-wxadsq">Sales Date</th> <th class="svelte-wxadsq">Created At</th> <th class="svelte-wxadsq">Updated At</th></tr>`;
+        t15 = space();
         tbody = element("tbody");
         if_block.c();
         attr(button, "class", "add-btn svelte-wxadsq");
@@ -8142,7 +8182,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         append(div2, div1);
         append(div1, table);
         append(table, thead);
-        append(table, t11);
+        append(table, t15);
         append(table, tbody);
         if_block.m(tbody, null);
         current = true;
