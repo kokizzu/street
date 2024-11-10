@@ -362,6 +362,7 @@ func (c *codegen) StartCodegen() {
 		}
 		return nil
 	})
+	L.IsError(err, `filepath.Walk svelte `+c.SvelteDir)
 	L.TimeTrack(start, `parsing svelte dir`)
 
 	c.GenerateWebRouteFile()
