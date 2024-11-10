@@ -39,6 +39,7 @@
     buyerEmail = /** @type {string} */ ('');
     price = /** @type {number|string|any} */ ('0');
     salesDate = /** @type {string|Date|any} */ (dateISOFormat(0));
+    realtorEmail = /** @type {string} */ ('');
   }
   export const Show = () => isShow = true;
   export const Hide = () => {

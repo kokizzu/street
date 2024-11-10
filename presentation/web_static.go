@@ -51,7 +51,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			}
 		}
 		return views.RenderIndex(c, M.SX{
-			`title`:  `HapSTR`,
+			`title`:  conf.PROJECT_NAME,
 			`user`:   user,
 			`google`: google.Link,
 			`segments`: segments,

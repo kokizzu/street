@@ -351,7 +351,7 @@ func (c *codegen) StartCodegen() {
 
 	// parse svelte files
 	start = time.Now()
-	filepath.Walk(c.SvelteDir, func(path string, info os.FileInfo, err error) error {
+	err = filepath.Walk(c.SvelteDir, func(path string, info os.FileInfo, err error) error {
 		if L.IsError(err, `filepath.Walk`) {
 			return err
 		}

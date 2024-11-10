@@ -8032,6 +8032,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       "0");
       $invalidate(9, salesDate = /** @type {string|Date|any} */
       (0, import_formatter.dateISOFormat)(0));
+      $invalidate(6, realtorEmail = /** @type {string} */
+      "");
     };
     const Show = () => $invalidate(3, isShow = true);
     const Hide = () => {
@@ -8140,8 +8142,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var import_jsApi2 = __toESM(require_jsApi_GEN());
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[9] = list[i];
-    child_ctx[11] = i;
+    child_ctx[10] = list[i];
+    child_ctx[12] = i;
     return child_ctx;
   }
   function create_else_block3(ctx) {
@@ -8227,21 +8229,21 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let td1;
     let t2_value = (0, import_formatter2.formatPrice)(Number(
       /*rv*/
-      ctx[9].revenue
+      ctx[10].revenue
     ), "USD") + "";
     let t2;
     let t3;
     let td2;
     let t4_value = (
       /*rv*/
-      ctx[9].propertyBought + ""
+      ctx[10].propertyBought + ""
     );
     let t4;
     let t5;
     let td3;
     let t6_value = (
       /*rv*/
-      ctx[9].salesDate + ""
+      ctx[10].salesDate + ""
     );
     let t6;
     let t7;
@@ -8250,7 +8252,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         tr = element("tr");
         td0 = element("td");
         td0.textContent = `${/*idx*/
-        ctx[11] + 1}`;
+        ctx[12] + 1}`;
         t1 = space();
         td1 = element("td");
         t2 = text(t2_value);
@@ -8285,16 +8287,16 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (dirty & /*revenues*/
         1 && t2_value !== (t2_value = (0, import_formatter2.formatPrice)(Number(
           /*rv*/
-          ctx2[9].revenue
+          ctx2[10].revenue
         ), "USD") + ""))
           set_data(t2, t2_value);
         if (dirty & /*revenues*/
         1 && t4_value !== (t4_value = /*rv*/
-        ctx2[9].propertyBought + ""))
+        ctx2[10].propertyBought + ""))
           set_data(t4, t4_value);
         if (dirty & /*revenues*/
         1 && t6_value !== (t6_value = /*rv*/
-        ctx2[9].salesDate + ""))
+        ctx2[10].salesDate + ""))
           set_data(t6, t6_value);
       },
       d(detaching) {
@@ -8414,12 +8416,20 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if_block.m(tbody, null);
         current = true;
         if (!mounted) {
-          dispose = listen(
-            button0,
-            "click",
-            /*applyFilterYearMonth*/
-            ctx[4]
-          );
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*applyFilterYearMonth*/
+              ctx[4]
+            ),
+            listen(
+              button1,
+              "click",
+              /*click_handler*/
+              ctx[9]
+            )
+          ];
           mounted = true;
         }
       },
@@ -8464,7 +8474,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         destroy_component(icon);
         if_block.d();
         mounted = false;
-        dispose();
+        run_all(dispose);
       }
     };
   }
@@ -8525,8 +8535,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }
         popupaddsales.$set(popupaddsales_changes);
         const main_changes = {};
-        if (dirty & /*$scope, revenues, monthFilter*/
-        4099) {
+        if (dirty & /*$scope, revenues, popUpAddSales, monthFilter*/
+        8199) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -8607,6 +8617,28 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           realtorEmail
         },
         async function(res) {
+          if (res.error) {
+            console.log("error =", res.error);
+            notifier.showError(res.error || "failed to add sales");
+            $invalidate(3, isSubmitAddSales = false);
+            return;
+          }
+          const inAdminRevenue = (
+            /** @type {import('../jsApi.GEN').AdminRevenueIn} */
+            { cmd: "list", yearMonth: monthFilter }
+          );
+          await (0, import_jsApi2.AdminRevenue)(inAdminRevenue, async function(res2) {
+            if (res2.error) {
+              console.log("error =", res2.error);
+              notifier.showError(res2.error || "failed to get revenues");
+              $invalidate(3, isSubmitAddSales = false);
+              return;
+            }
+            $invalidate(0, revenues = res2.revenues);
+          });
+          popUpAddSales.Hide();
+          popUpAddSales.Reset();
+          notifier.showSuccess("Sales added");
         }
       );
     };
@@ -8624,6 +8656,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       monthFilter = value;
       $invalidate(1, monthFilter);
     }
+    const click_handler = () => popUpAddSales.Show();
     return [
       revenues,
       monthFilter,
@@ -8633,7 +8666,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       SubmitAddSales,
       popupaddsales_binding,
       popupaddsales_isSubmitted_binding,
-      inputbox_value_binding
+      inputbox_value_binding,
+      click_handler
     ];
   }
   var Revenue = class extends SvelteComponent {
