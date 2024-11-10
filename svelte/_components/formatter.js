@@ -91,11 +91,11 @@ function formatPrice(price, currency) {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: currency,
-      maximumSignificantDigits: 3,
+      maximumSignificantDigits: 4,
     }).format(price);
   } catch(err) {
     console.log('formatPrice failed', err, price, currency);
-    return price + ' ' + currency;
+    return `${currency} ${price}`
   }
 }
 

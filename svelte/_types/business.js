@@ -1,16 +1,9 @@
 /**
- * @typedef {Object} Revenue
- * @property {string|number} id
- * @property {string|number} realtorId
- * @property {string} propertyId
+ * @typedef {Object} RealtorRevenue
+ * @property {string|number} propertyId
+ * @property {string|number} revenue
  * @property {number} propertyBought
- * @property {string} propertyCountry
- * @property {string} buyerEmail
- * @property {number} createdAt
- * @property {string|number} createdBy
- * @property {number} updatedAt
- * @property {string|number} updatedBy
- * @property {number} deletedAt
+ * @property {string} salesDate
  */
 module.exports = {};
 

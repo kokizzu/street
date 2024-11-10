@@ -883,7 +883,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   // _components/formatter.js
   var require_formatter = __commonJS({
     "_components/formatter.js"(exports, module) {
-      function datetime2(unixSec, humanize) {
+      function datetime(unixSec, humanize) {
         if (!unixSec)
           return "";
         let dt = (
@@ -950,7 +950,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           mm = "0" + mm;
         return `${day}, ${date} ${month} ${year} ${hh}:${mm}`;
       }
-      function datetime22(unixSec) {
+      function datetime2(unixSec) {
         if (!unixSec)
           return "-";
         const dt = (
@@ -991,16 +991,16 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         );
         return `${day}, ${date} ${month} ${year} - ${hours}:${minutes}:${seconds}`;
       }
-      function formatPrice(price, currency) {
+      function formatPrice2(price, currency) {
         try {
           return new Intl.NumberFormat("en-US", {
             style: "currency",
             currency,
-            maximumSignificantDigits: 3
+            maximumSignificantDigits: 4
           }).format(price);
         } catch (err) {
           console.log("formatPrice failed", err, price, currency);
-          return price + " " + currency;
+          return `${currency} ${price}`;
         }
       }
       function getApprovalState(s) {
@@ -1026,11 +1026,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         return `${year}-${month}-${date}`;
       }
       module.exports = {
-        datetime: datetime2,
+        datetime,
         priceNtd,
         localeDatetime,
-        datetime2: datetime22,
-        formatPrice,
+        datetime2,
+        formatPrice: formatPrice2,
         getApprovalState,
         M2ToPing,
         dateISOFormat: dateISOFormat2
@@ -7939,7 +7939,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         insert(target, each_1_anchor, anchor);
       },
       p(ctx2, dirty) {
-        if (dirty & /*revenues*/
+        if (dirty & /*revenues, Number*/
         1) {
           each_value = ensure_array_like(
             /*revenues*/
@@ -7980,24 +7980,24 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let t0;
     let t1;
     let td1;
-    let t2_value = (
+    let t2_value = (0, import_formatter2.formatPrice)(Number(
       /*rv*/
-      ctx[7].propertyBought + ""
-    );
+      ctx[7].revenue
+    ), "USD") + "";
     let t2;
     let t3;
     let td2;
     let t4_value = (
       /*rv*/
-      ctx[7].buyerEmail + ""
+      ctx[7].propertyBought + ""
     );
     let t4;
     let t5;
     let td3;
-    let t6_value = (0, import_formatter2.datetime)(
+    let t6_value = (
       /*rv*/
-      ctx[7].createdAt
-    ) + "";
+      ctx[7].salesDate + ""
+    );
     let t6;
     let t7;
     return {
@@ -8042,18 +8042,18 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ctx2[7].propertyId + ""))
           set_data(t0, t0_value);
         if (dirty & /*revenues*/
-        1 && t2_value !== (t2_value = /*rv*/
-        ctx2[7].propertyBought + ""))
+        1 && t2_value !== (t2_value = (0, import_formatter2.formatPrice)(Number(
+          /*rv*/
+          ctx2[7].revenue
+        ), "USD") + ""))
           set_data(t2, t2_value);
         if (dirty & /*revenues*/
         1 && t4_value !== (t4_value = /*rv*/
-        ctx2[7].buyerEmail + ""))
+        ctx2[7].propertyBought + ""))
           set_data(t4, t4_value);
         if (dirty & /*revenues*/
-        1 && t6_value !== (t6_value = (0, import_formatter2.datetime)(
-          /*rv*/
-          ctx2[7].createdAt
-        ) + ""))
+        1 && t6_value !== (t6_value = /*rv*/
+        ctx2[7].salesDate + ""))
           set_data(t6, t6_value);
       },
       d(detaching) {
@@ -8116,7 +8116,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         div1 = element("div");
         table = element("table");
         thead = element("thead");
-        thead.innerHTML = `<tr class="svelte-wxadsq"><th class="svelte-wxadsq">Property ID</th> <th class="svelte-wxadsq">Property Bought</th> <th class="svelte-wxadsq">Buyer Email</th> <th class="svelte-wxadsq">Register date</th></tr>`;
+        thead.innerHTML = `<tr class="svelte-wxadsq"><th class="svelte-wxadsq">Property ID</th> <th class="svelte-wxadsq">Revenue</th> <th class="svelte-wxadsq">Property Bought</th> <th class="svelte-wxadsq">Sales Date</th></tr>`;
         t11 = space();
         tbody = element("tbody");
         if_block.c();
@@ -8287,6 +8287,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       /** @type {Revenue[]} */
       [/* revenues */]
     );
+    console.log("revenues =", revenues);
     let popUpAddSales = (
       /** @type {import('svelte').SvelteComponent} */
       null

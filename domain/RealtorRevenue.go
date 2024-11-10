@@ -26,7 +26,7 @@ type (
 	}
 	RealtorRevenueOut struct {
 		ResponseCommon
-		Revenues *[]mBusiness.Revenue `json:"revenues" form:"revenues" query:"revenues" long:"revenues" msg:"revenues"`
+		Revenues []*mBusiness.RealtorRevenue `json:"revenues" form:"revenues" query:"revenues" long:"revenues" msg:"revenues"`
 	}
 )
 
@@ -37,7 +37,7 @@ const (
 	ErrRealtorRevenuePropertyNotFound = `property not found to add a new sales`
 	ErrRealtorRevenueInvalidPrice = `invalid price, must be a number`
 	ErrRealtorRevenueInvalidSalesDate = `invalid sales date, must be in format YYYY-MM-DD`
-	ErrRealtorRevenueSaveFailed = `failed to save a new sales`
+	ErrRealtorRevenueSaveFailed = `cannot sale property in the same date`
 )
 
 func (d *Domain) RealtorRevenue(in *RealtorRevenueIn) (out RealtorRevenueOut) {
@@ -65,8 +65,8 @@ func (d *Domain) RealtorRevenue(in *RealtorRevenueIn) (out RealtorRevenueOut) {
 			sales.SetPropertyId(propUS.Id)
 		case `TW`:
 			propTW := rqProperty.NewPropertyTW(d.PropOltp)
-			propTW.Id = in.Sales.PropertyId
-			if !propTW.FindById() {
+			propTW.UniqPropKey = in.PropKey
+			if !propTW.FindByUniqPropKey() {
 				out.SetError(400, ErrRealtorRevenuePropertyNotFound)
 				return
 			}
@@ -74,8 +74,8 @@ func (d *Domain) RealtorRevenue(in *RealtorRevenueIn) (out RealtorRevenueOut) {
 			sales.SetPropertyId(propTW.Id)
 		default:
 			prop := rqProperty.NewProperty(d.PropOltp)
-			prop.Id = in.Sales.PropertyId
-			if !prop.FindById() {
+			prop.UniqPropKey = in.PropKey
+			if !prop.FindByUniqPropKey() {
 				out.SetError(400, ErrRealtorRevenuePropertyNotFound)
 				return
 			}
@@ -118,8 +118,6 @@ func (d *Domain) RealtorRevenue(in *RealtorRevenueIn) (out RealtorRevenueOut) {
 			out.SetError(400, ErrRealtorRevenueSaveFailed)
 			return
 		}
-
-		
 	case zCrud.CmdList:
 		r := rqBusiness.NewSales(d.BusinessOltp)
 		r.RealtorId = sess.UserId

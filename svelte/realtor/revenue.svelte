@@ -2,20 +2,22 @@
   /** @typedef {import('../_types/user').User} User */
   /** @typedef {import('../_types/master').Access} Access */
   /** @typedef {import('../_types/business').Sales} Sales */
-  /** @typedef {import('../_types/business').Revenue} Revenue */
+  /** @typedef {import('../_types/business').RealtorRevenue} Revenue */
 
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { RiSystemAddLargeFill } from '../node_modules/svelte-icons-pack/dist/ri';
   import PopUpAddSales from '../_components/PopUpAddSales.svelte';
   import { RealtorRevenue } from '../jsApi.GEN';
   import { notifier } from '../_components/notifier';
-  import { datetime } from '../_components/formatter';
+  import { formatPrice } from '../_components/formatter';
 
   import Main from '../_layouts/Main.svelte';
   
   let user      = /** @type {User} */ ({/* user */});
   let access    = /** @type {Access} */ ({/* segments */});
   let revenues  = /** @type {Revenue[]} */ ([/* revenues */]);
+
+  console.log('revenues =', revenues);
 
   let popUpAddSales = /** @type {import('svelte').SvelteComponent} */ (null);
   let isSubmitAddSales = /** @type {boolean} */ (false);
@@ -87,9 +89,9 @@
           <thead>
             <tr>
               <th>Property ID</th>
+              <th>Revenue</th>
               <th>Property Bought</th>
-              <th>Buyer Email</th>
-              <th>Register date</th>
+              <th>Sales Date</th>
             </tr>
           </thead>
           <tbody>
@@ -97,9 +99,9 @@
               {#each (revenues || []) as rv}
                 <tr>
                   <td>{rv.propertyId}</td>
+                  <td>{formatPrice(Number(rv.revenue), 'USD')}</td>
                   <td>{rv.propertyBought}</td>
-                  <td>{rv.buyerEmail}</td>
-                  <td>{datetime(rv.createdAt)}</td>
+                  <td>{rv.salesDate}</td>
                 </tr>
               {/each}
             {:else}

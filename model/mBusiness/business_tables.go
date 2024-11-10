@@ -6,12 +6,13 @@ import (
 	"github.com/kokizzu/gotro/D/Tt"
 )
 
-type Revenue struct {
-	Revenue string `json:"revenue"`
-	Realtor string `json:"realtor"`
-	Property string `json:"property"`
-	RegisterDate int64 `json:"registerDate"`
-	PurchaseDate int64 `json:"purchaseDate"`
+type RealtorRevenue struct {
+	PropertyId uint64 `json:"propertyId"`
+	Revenue int64 `json:"revenue"`
+	PropertyBought int64 `json:"propertyBought"`
+	SalesDate string `json:"salesDate"`
+	CreatedAt int64 `json:"createdAt"`
+	UpdatedAt int64 `json:"updatedAt"`
 }
 
 const (
