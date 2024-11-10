@@ -1,6 +1,6 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidArrowRight from "svelte-icons-pack/fa/FaSolidArrowRight";
+  import { Icon } from './node_modules/svelte-icons-pack/dist';
+  import { FaSolidArrowRight } from './node_modules/svelte-icons-pack/dist/fa';
   
   let error = '#{error}';
   function backHome() {

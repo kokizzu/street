@@ -32,11 +32,11 @@
 <style>
   .backdrop {
     position: fixed;
-    z-index: 40;
+    z-index: 101;
     top: 0;
     left: 0;
     bottom: 0;
-    background: rgba(41, 41, 41, 0.9);
+    background: rgba(0 0 0 / 40%);
     overflow-y: auto;
     width: 100%;
     display: flex;

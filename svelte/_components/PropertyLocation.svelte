@@ -1,42 +1,33 @@
 <script>
-  // @ts-nocheck
   import {UserNearbyFacilities, UserSearchProp, UserLikeProp} from '../jsApi.GEN.js';
   import {formatPrice} from './formatter.js';
   import {T} from './uiState.js';
-  import {GoogleMap, GoogleSdk} from './GoogleMap/components';
-  import Growl from './Growl.svelte';
+  import { GoogleMap, GoogleSdk } from './GoogleMap/components.js';
   import {mapComponent} from './GoogleMap/stores';
   
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidSearch from 'svelte-icons-pack/fa/FaSolidSearch';
-  import FaSolidMapMarkerAlt from 'svelte-icons-pack/fa/FaSolidMapMarkerAlt';
-  import FaSolidImage from 'svelte-icons-pack/fa/FaSolidImage';
-  import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
-  import FaSolidRulerCombined from 'svelte-icons-pack/fa/FaSolidRulerCombined';
-  import FaSolidBuilding from 'svelte-icons-pack/fa/FaSolidBuilding';
-  import FaSolidBath from 'svelte-icons-pack/fa/FaSolidBath';
-  import FaSolidBed from 'svelte-icons-pack/fa/FaSolidBed';
-  import FaSolidUndoAlt from 'svelte-icons-pack/fa/FaSolidUndoAlt';
-  import FaSolidBan from 'svelte-icons-pack/fa/FaSolidBan';
-  import FaSolidReceipt from 'svelte-icons-pack/fa/FaSolidReceipt';
-  import FaSolidShareAlt from "svelte-icons-pack/fa/FaSolidShareAlt";
-  import FaBrandsLinkedin from "svelte-icons-pack/fa/FaBrandsLinkedin";
-  import FaBrandsTwitter from "svelte-icons-pack/fa/FaBrandsTwitter";
-  import FaCopy from "svelte-icons-pack/fa/FaCopy";
-  import FaBrandsFacebook from "svelte-icons-pack/fa/FaBrandsFacebook";
-  import FaBrandsTelegram from "svelte-icons-pack/fa/FaBrandsTelegram";
-  import FaBrandsWhatsapp from "svelte-icons-pack/fa/FaBrandsWhatsapp";
-  import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
-  import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
-  import FaHeart from "svelte-icons-pack/fa/FaHeart";
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import {
+    FaSolidImage, FaSolidMapLocationDot,
+    FaSolidHouse, FaSolidRulerCombined,
+    FaSolidBuilding, FaSolidBath, FaSolidBed,
+    FaSolidBan, FaSolidReceipt, FaSolidShareNodes, FaBrandsLinkedin,
+    FaBrandsTwitter, FaCopy, FaBrandsFacebook, FaBrandsTelegram,
+    FaBrandsWhatsapp, FaSolidCircleNotch, FaSolidAngleLeft,
+    FaHeart,
+  } from '../node_modules/svelte-icons-pack/dist/fa';
+  import { FiSearch } from '../node_modules/svelte-icons-pack/dist/fi';
+  import { LuUndo2 } from '../node_modules/svelte-icons-pack/dist/lu';
   import {distanceKM} from './GoogleMap/distance';
   import {notifier} from './notifier.js';
-  
+
+  let google = window['google'];
+
   export let randomProps = [];
   export let defaultDistanceKm = 20;
   export let initialLatLong = [0, 0];
   let facilities = [], markersFacility = [], markersProperty = [], propItemBinds = [], infoWindows, propItemHighlight = null;
-  let gmapsComponent = GoogleMap;
+
+  let gmapsComponent;
   let gmapBounds = {}; // top-left bottom-right of map
   let myLatLng = {lat: initialLatLong[ 0 ], lng: initialLatLong[ 1 ]};
   let mapOptions = {
@@ -56,7 +47,7 @@
   let autocomplete_lists = [];
   let shareItemIndex = null;
   let isSearchingMap = false;
-  
+
   const highLightMapMarker = {
     enter: ( index ) => {
       propItemHighlight = index;
@@ -87,19 +78,22 @@
         let ne = gmapBounds.getNorthEast();
         bestDistance = distanceKM( ne.lat(), ne.lng(), myLatLng.lat, myLatLng.lng );
       }
-      await UserSearchProp( {
-        centerLat: myLatLng.lat,
-        centerLong: myLatLng.lng,
-        offset: 0,
-        limit: 40, // this is apparently the culprit XD if we show too many it would slow, but if it's too little it won't spread
-        maxDistanceKM: bestDistance,
-      }, async res => {
-        if( res.error ) {
-          notifier.showError(res.error );
-          return;
+      await UserSearchProp(
+        {
+          centerLat: myLatLng.lat,
+          centerLong: myLatLng.lng,
+          offset: 0,
+          limit: 40, // this is apparently the culprit XD if we show too many it would slow, but if it's too little it won't spread
+          maxDistanceKM: bestDistance,
+        }, // @ts-ignore
+        function( /** @type any */ o) {
+          if( o.error ) {
+            notifier.showError(o.error );
+            return;
+          }
+          randomProps = o.properties || [];
         }
-        randomProps = res.properties || [];
-      } );
+      );
       markersProperty = gmapsComponent.clearMarkers( markersProperty );
     }
     randomProps.forEach( prop => {
@@ -132,24 +126,28 @@
   }
   
   async function searchNearbyFacility() {
-    await UserNearbyFacilities( {
-      centerLat: myLatLng.lat,
-      centerLong: myLatLng.lng,
-    }, async res => {
-      if( res.error )  {
-        notifier.showError(res.error );
-        return;
-      }
-      markersFacility = gmapsComponent.clearMarkers( markersFacility );
-      facilities = await res.facilities;
-      facilities.forEach( fac => {
-        let iconmarkerpath = '/assets/icons/marker.svg';
-        if( markers_icon[ fac.type ] ) {
-          iconmarkerpath = markers_icon[ fac.type ].path;
+    await UserNearbyFacilities(
+      {
+        centerLat: myLatLng.lat,
+        centerLong: myLatLng.lng,
+        limitEach: 0,
+      }, // @ts-ignore
+      function(/** @type any */ o) {
+        if( o.error )  {
+          notifier.showError(o.error );
+          return;
         }
-        markersFacility.push( gmapsComponent.createMarker( fac.lat, fac.lng, iconmarkerpath, 32, fac.name ) );
-      } );
-    } );
+        markersFacility = gmapsComponent.clearMarkers( markersFacility );
+        facilities = o.facilities;
+        facilities.forEach( fac => {
+          let iconmarkerpath = '/assets/icons/marker.svg';
+          if( markers_icon[ fac.type ] ) {
+            iconmarkerpath = markers_icon[ fac.type ].path;
+          }
+          markersFacility.push( gmapsComponent.createMarker( fac.lat, fac.lng, iconmarkerpath, 32, fac.name ) );
+        } );
+      }
+    );
     markersFacility.forEach( ( marker, idx ) => {
       marker.addListener( 'click', () => {
         if( infoWindows ) {
@@ -250,9 +248,10 @@
     await UserLikeProp( {
       propId: propId, // uint64
       like: true, // bool
-    }, async res => {
-      if( res.error ) {
-        notifier.showError( res.error );
+    }, // @ts-ignore
+    function(/** @type any */ o) {
+      if( o.error ) {
+        notifier.showError( o.error );
         return
       }
 		  notifier.showSuccess('Property liked' );
@@ -269,15 +268,15 @@
   <div class='mobile_autocomplete_container'>
     <header>
       <button class="back_button" on:click={() => mobileClickSearchLocation = false}>
-        <Icon color='#475569' size={27} src={FaSolidAngleLeft} />
+        <Icon color='#475569' size="27" src={FaSolidAngleLeft} />
       </button>
       <div class='search_box'>
 				<label for='search_location'>
 					<Icon
 						className='icon_search_location'
 						color='#9fa9b5'
-						size={18}
-						src={FaSolidSearch}
+						size="18"
+						src={FiSearch}
 					/>
 				</label>
 				<input
@@ -301,14 +300,14 @@
               searchByAddressHandler(place.place_id)
             }}
           >
-            <Icon size={17} color='#9fa9b5' src={FaSolidMapMarkerAlt}/>
+            <Icon size="17" color='#9fa9b5' src={FaSolidMapLocationDot}/>
             <span>{place.description}</span>
           </button>
         {/each}
       {:else}
         <div class='no_autocomplete'>
           <div class='warn'>
-            <Icon size={17} color='#475569' src={FaSolidReceipt}/>
+            <Icon size="17" color='#475569' src={FaSolidReceipt}/>
             <span class='empty'>Address lists will appear here...</span>
           </div>
         </div>
@@ -322,8 +321,8 @@
     <button class='search_location_btn' on:click={() => mobileClickSearchLocation = true}>
       <Icon
         color='#475569'
-        size={18}
-        src={FaSolidSearch}
+        size="18"
+        src={FiSearch}
       />
       <span>Search for address...</span>
     </button>
@@ -343,7 +342,7 @@
 								<img src={prop.images[0]} alt=''/>
 							{:else}
 								<div class='image_empty'>
-									<Icon size={40} className='no_image_icon' color='#848d96' src={FaSolidImage}/>
+									<Icon size="40" className='no_image_icon' color='#848d96' src={FaSolidImage}/>
 									<span>No Image !</span>
 								</div>
 							{/if}
@@ -356,23 +355,23 @@
 											{prop.purpose==='rent' ? $T.forRent : $T.onSale}
 										</div>
 										<div class='house_type'>
-											<Icon size={12} className='house_type_icon' color='#475569' src={FaSolidHome}/>
+											<Icon size="12" className='house_type_icon' color='#475569' src={FaSolidHouse}/>
 											<span>{prop.houseType==="" ? 'House' : prop.houseType}</span>
 										</div>
 									</div>
 									<div class='right_buttons'>
 										<button class="like_btn" on:click={() => likeProperty(prop.id)}>
-											<Icon color='#9fa9b5' className='like_icon' size={18} src={FaHeart}/>
+											<Icon color='#9fa9b5' className='like_icon' size="18" src={FaHeart}/>
 										</button>
 										<button class='share_btn' on:click={() => showShareItems(index)}>
-											<Icon size={17} color='#9fa9b5' className='share_icon' src={FaSolidShareAlt}/>
+											<Icon size="17" color='#9fa9b5' className='share_icon' src={FaSolidShareNodes}/>
 										</button>
 									</div>
 									{#if shareItemIndex===index}
 										<div class='share_container'>
 											<button class='share_item copy' title='Copy link address'
 											        on:click={() => copyToClipboard(propertyUrl(prop.id))}>
-												<Icon size={14} color='#475569' src={FaCopy}/>
+												<Icon size="14" color='#475569' src={FaCopy}/>
 											</button>
 											<a class='share_item'
 											   aria-label="Share to Facebook"
@@ -380,7 +379,7 @@
 											   target="_blank"
 											   rel="noopener"
 											>
-												<Icon size={14} color='#475569' src={FaBrandsFacebook}/>
+												<Icon size="14" color='#475569' src={FaBrandsFacebook}/>
 											</a>
 											<a class='share_item'
 											   aria-label="Share to LinkedIn"
@@ -388,7 +387,7 @@
 											   target="_blank"
 											   rel="noopener"
 											>
-												<Icon size={14} color='#475569' src={FaBrandsLinkedin}/>
+												<Icon size="14" color='#475569' src={FaBrandsLinkedin}/>
 											</a>
 											<a class='share_item'
 											   aria-label="Share to Twitter"
@@ -396,7 +395,7 @@
 											   target="_blank"
 											   rel="noopener"
 											>
-												<Icon size={14} color='#475569' src={FaBrandsTwitter}/>
+												<Icon size="14" color='#475569' src={FaBrandsTwitter}/>
 											</a>
 											<a class='share_item'
 											   aria-label="Share to Telegram"
@@ -404,7 +403,7 @@
 											   target="_blank"
 											   rel="noopener"
 											>
-												<Icon size={14} color='#475569' src={FaBrandsTelegram}/>
+												<Icon size="14" color='#475569' src={FaBrandsTelegram}/>
 											</a>
 											<a class='share_item'
 											   aria-label="Share to WhatsApp"
@@ -412,40 +411,40 @@
 											   target="_blank"
 											   rel="noopener"
 											>
-												<Icon size={16} color='#475569' src={FaBrandsWhatsapp}/>
+												<Icon size="16" color='#475569' src={FaBrandsWhatsapp}/>
 											</a>
 										</div>
 									{/if}
 								</div>
 								<div class='address'>
-									<Icon size={17} className='icon_address' color='#f97316' src={FaSolidMapMarkerAlt}/>
+									<Icon size="17" className='icon_address' color='#f97316' src={FaSolidMapLocationDot}/>
 									<span>{prop.formattedAddress==="" ? prop.address : prop.formattedAddress}</span>
 								</div>
 								<div class='feature'>
 									<div class='item'>
 										<div>
-											<Icon size={13} className='icon_feature' color='#FFF' src={FaSolidBuilding}/>
+											<Icon size="13" className='icon_feature' color='#FFF' src={FaSolidBuilding}/>
 											<span>{$T.floors}</span>
 										</div>
 										<span class='value'>{prop.numberOfFloors===0 ? 'no-data' : prop.numberOfFloors}</span>
 									</div>
 									<div class='item'>
 										<div>
-											<Icon size={14} className='icon_feature' color='#FFF' src={FaSolidBed}/>
+											<Icon size="14" className='icon_feature' color='#FFF' src={FaSolidBed}/>
 											<span>{$T.bed}</span>
 										</div>
 										<span class='value'>{prop.bedroom===0 ? 'no-data' : prop.bedroom}</span>
 									</div>
 									<div class='item'>
 										<div>
-											<Icon size={13} className='icon_feature' color='#FFF' src={FaSolidBath}/>
+											<Icon size="13" className='icon_feature' color='#FFF' src={FaSolidBath}/>
 											<span>{$T.bath}</span>
 										</div>
 										<span class='value'>{prop.bathroom===0 ? 'no-data' : prop.bathroom}</span>
 									</div>
                   <div class='item sizeM2'>
 										<div>
-											<Icon size={13} className='icon_feature' color='#FFF' src={FaSolidRulerCombined}/>
+											<Icon size="13" className='icon_feature' color='#FFF' src={FaSolidRulerCombined}/>
 											<span>Size</span>
 										</div>
 										<span class='value'>{prop.sizeM2} {$T.m}2</span>
@@ -454,7 +453,7 @@
 							</div>
 							<div class='secondary_info'>
 								<div class='size'>
-									<Icon size={12} color='#f97316' src={FaSolidRulerCombined}/>
+									<Icon size="12" color='#f97316' src={FaSolidRulerCombined}/>
 									<span>{prop.sizeM2} {$T.m}2</span>
 								</div>
 								<div class='price'>
@@ -468,7 +467,7 @@
 			{:else }
 				<div class='no_properties'>
 					<div class='warn'>
-						<Icon size={17} color='#475569' src={FaSolidBan}/>
+						<Icon size="17" color='#475569' src={FaSolidBan}/>
 						<span>No properties in this area</span>
 					</div>
 				</div>
@@ -479,10 +478,10 @@
 		<div class='map_container'>
 			<button class='btn_sync_map' on:click={searchByLocationHandler}>
 				{#if !isSearchingMap}
-					<Icon color='#1080e8' size={12} src={FaSolidUndoAlt}/>
+					<Icon color='#1080e8' size="12" src={LuUndo2}/>
 				{/if}
 				{#if isSearchingMap}
-					<Icon className="spin" color='#1080e8' size={12} src={FaSolidCircleNotch}/>
+					<Icon className="spin" color='#1080e8' size="12" src={FaSolidCircleNotch}/>
 				{/if}
 				<span>Search this area</span>
 			</button>
@@ -500,8 +499,8 @@
 					<Icon
 						className='icon_search_location'
 						color='#9fa9b5'
-						size={18}
-						src={FaSolidSearch}
+						size="18"
+						src={FiSearch}
 					/>
 				</label>
 				<input
@@ -521,14 +520,14 @@
 							class='autocomplete_item'
 							on:click|preventDefault={() => searchByAddressHandler(place.place_id)}
 						>
-							<Icon size={17} color='#9fa9b5' src={FaSolidMapMarkerAlt}/>
+							<Icon size="17" color='#9fa9b5' src={FaSolidMapLocationDot}/>
 							<span>{place.description}</span>
 						</button>
 					{/each}
 				{:else}
 					<div class='no_autocomplete'>
 						<div class='warn'>
-							<Icon size={17} color='#475569' src={FaSolidReceipt}/>
+							<Icon size="17" color='#475569' src={FaSolidReceipt}/>
 							<span class='empty'>Address lists will appear here...</span>
 						</div>
 					</div>

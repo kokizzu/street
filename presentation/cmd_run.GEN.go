@@ -76,6 +76,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.AdminPropertiesUS(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.AdminRevenueAction:
+		in := domain.AdminRevenueIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.AdminRevenue(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.AdminUsersAction:
 		in := domain.AdminUsersIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
@@ -220,6 +228,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.RealtorProperty(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.RealtorRevenueAction:
+		in := domain.RealtorRevenueIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.RealtorRevenue(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.RealtorUpsertPropertyAction:
 		in := domain.RealtorUpsertPropertyIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
@@ -234,6 +250,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.UserAutoLoginLink(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.UserBuyerAction:
+		in := domain.UserBuyerIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.UserBuyer(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.UserChangePasswordAction:
@@ -266,6 +290,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.UserLikeProp(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.UserListingsAction:
+		in := domain.UserListingsIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.UserListings(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.UserLogoutAction:
@@ -354,6 +386,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.UserUpdateProfile(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.UserUpload3DFileAction:
+		in := domain.UserUpload3DFileIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.UserUpload3DFile(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.UserUploadFileAction:

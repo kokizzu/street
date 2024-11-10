@@ -24,6 +24,8 @@ type Domain struct {
 	PropOltp *Tt.Adapter
 	PropOlap *Ch.Adapter
 
+	BusinessOltp *Tt.Adapter
+
 	StorOltp *Tt.Adapter
 
 	Mailer xMailer.Mailer
@@ -97,6 +99,7 @@ func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 		Lat:        in.Lat,
 		Long:       in.Long,
 		Latency:    in.Latency(),
+		RefId: 			in.RefId,
 	}
 	return d.authLogs.Insert([]any{
 		row.CreatedAt,

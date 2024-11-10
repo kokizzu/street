@@ -2,17 +2,17 @@ package domain
 
 import (
 	"crypto/rsa"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"strings"
 	"io/ioutil"
+	"log"
 	"math/big"
 	"net/http"
 	"net/url"
-	"time"
 	"street/conf"
-	"log"
-	"encoding/base64"
+	"strings"
+	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 )
@@ -55,7 +55,7 @@ func fetchApplePublicKeys() ([]AppleKey, error) {
 }
 
 // FindApplePublicKeyByKeyID finds the correct public key based on the key ID (kid)
-func findApplePublicKeyByKeyID(keys []AppleKey, kid string) (*AppleKey, error) {
+func FindApplePublicKeyByKeyID(keys []AppleKey, kid string) (*AppleKey, error) {
 	for _, key := range keys {
 		if key.Kid == kid {
 			return &key, nil
@@ -75,7 +75,7 @@ func decodeSegment(segment string) ([]byte, error) {
 
 
 // ConvertJWKToPublicKey converts an AppleKey (JWK) to an RSA public key
-func convertJWKToPublicKey(appleKey *AppleKey) (*rsa.PublicKey, error) {
+func ConvertJWKToPublicKey(appleKey *AppleKey) (*rsa.PublicKey, error) {
 	// Decode N and E from base64 to big.Int
 	nBytes, err := decodeSegment(appleKey.N)
 	if err != nil {
@@ -107,8 +107,9 @@ func exchangeAppleAuthCodeForToken(authCode string, config *conf.AppleOAuthConfi
         "iat": time.Now().Unix(),
         "exp": time.Now().Add(time.Minute * 5).Unix(),
         "aud": "https://appleid.apple.com",
-        "sub": config.ClientID,
+        "sub": config.ClientID,	  
     })
+	token.Header["kid"] = "8KGNT7ZA6F"
 
 	log.Println("authCode => ", authCode)
 	log.Println("[exchangeAppleAuthCodeForToken] privateKey => ", config.PrivateKey)
@@ -173,25 +174,55 @@ func exchangeAppleAuthCodeForToken(authCode string, config *conf.AppleOAuthConfi
     return accessToken, idToken, nil
 }
 
-func validateAppleIDToken(idToken string) (map[string]interface{}, error) {
-    token, err := jwt.Parse(idToken, func(token *jwt.Token) (interface{}, error) {
-        // Fetch Apple's public keys and use them to verify the token
-        keys, err := fetchApplePublicKeys()
-        if err != nil {
-            return nil, err
-        }
+func getRSAPublicKey(nStr, eStr string) (*rsa.PublicKey, error) {
+	nBytes, err := base64.RawURLEncoding.DecodeString(nStr)
+	if err != nil {
+		return nil, fmt.Errorf("failed to decode modulus (n): %v", err)
+	}
+	eBytes, err := base64.RawURLEncoding.DecodeString(eStr)
+	if err != nil {
+		return nil, fmt.Errorf("failed to decode exponent (e): %v", err)
+	}
 
-        // Assuming you extract the correct key from Apple's public keys
-        return keys[0], nil
-    })
+	n := new(big.Int).SetBytes(nBytes)
+	e := int(new(big.Int).SetBytes(eBytes).Uint64())
 
-    if err != nil {
-        return nil, err
-    }
-
-    if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-        return claims, nil
-    }
-
-    return nil, fmt.Errorf("invalid token")
+	return &rsa.PublicKey{
+		N: n,
+		E: e,
+	}, nil
 }
+
+func validateAppleIDToken(idToken string) (map[string]interface{}, error) {
+	token, err := jwt.Parse(idToken, func(token *jwt.Token) (interface{}, error) {
+		// Fetch Apple's public keys and use them to verify the token
+		keys, err := fetchApplePublicKeys()
+		if err != nil {
+			return nil, err
+		}
+
+		// Find the key that matches the token's `kid`
+		for _, key := range keys {
+			if key.Kid == token.Header["kid"] {
+				// Convert modulus and exponent to *rsa.PublicKey
+				return getRSAPublicKey(key.N, key.E)
+			}
+		}
+
+		return nil, fmt.Errorf("no matching key found")
+	})
+
+	log.Println("[validateAppleIDToken] token:", token)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		return claims, nil
+	}
+	log.Println("Invalid token")
+
+	return nil, fmt.Errorf("invalid token")
+}
+

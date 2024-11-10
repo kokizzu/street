@@ -4,6 +4,8 @@ import (
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/zCrud"
+
+	"github.com/kokizzu/gotro/L"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file GuestProperty.go
@@ -21,6 +23,7 @@ type (
 	GuestPropertyOut struct {
 		ResponseCommon
 		Property *rqProperty.Property `json:"property" form:"property" query:"property" long:"property" msg:"property"`
+		PropertyExtraUS *rqProperty.PropertyExtraUS `json:"propertyExtraUS" form:"propertyExtraUS" query:"propertyExtraUS" long:"propertyExtraUS" msg:"propertyExtraUS"`
 		Meta     []zCrud.Field        `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 	}
 )
@@ -29,6 +32,7 @@ const (
 	GuestPropertyAction             = `guest/property`
 	ErrGuestPropertyNotFound        = `property not found`
 	ErrGuestPropertyCountryNotFound = `property country not found`
+	ErrGuestPropertyExtraUSNotFound = `property extra US not found`
 )
 
 var (
@@ -38,6 +42,37 @@ var (
 			Label:     `Main Use / Facility`,
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name: mProperty.FacilityInfoJson,
+			Label: `Facility Info`,
+			DataType: zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name: `parkingFeatures`,
+			Label: `Parking Features`,
+			DataType: zCrud.DataTypeString,
+		},
+		{
+			Name: `ListingBrokerName`,
+			Label: `Broker Name`,
+			DataType: zCrud.DataTypeString,
+		},
+		{
+			Name: `ListingBrokerNumber`,
+			Label: `Broker Phone`,
+			DataType: zCrud.DataTypeString,
+		},
+		{
+			Name: `ListingAgentName`,
+			Label: `Agent Name`,
+			DataType: zCrud.DataTypeString,
+		},
+		{
+			Name: `ListingAgentNumber`,
+			Label: `Agent Phone`,
+			DataType: zCrud.DataTypeString,
 		},
 		{
 			Name:      mProperty.MainBuildingMaterial,
@@ -54,6 +89,12 @@ var (
 		{
 			Name:      mProperty.BuildingLamination,
 			Label:     `Building Lamination`,
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name: `lotSize`,
+			Label: `Lot Size`,
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
 		},
@@ -106,7 +147,15 @@ func (d *Domain) GuestProperty(in *GuestPropertyIn) (out GuestPropertyOut) {
 			out.SetError(400, ErrGuestPropertyCountryNotFound)
 			return
 		}
+		in.RefId = in.Id
 		out.Property = r.ToProperty()
+
+		rx := rqProperty.NewPropertyExtraUS(d.PropOltp)
+		rx.PropertyKey = r.UniqPropKey
+		if !rx.FindByPropertyKey() {
+			L.Print(ErrGuestPropertyExtraUSNotFound)
+		}
+		out.PropertyExtraUS = rx.ToPropertyExtra()
 		out.Meta = GuestPropertiesMeta
 		return
 	}
@@ -118,6 +167,7 @@ func (d *Domain) GuestProperty(in *GuestPropertyIn) (out GuestPropertyOut) {
 			out.SetError(400, ErrGuestPropertyCountryNotFound)
 			return
 		}
+		in.RefId = in.Id
 		out.Property = r.ToProperty()
 		out.Meta = GuestPropertiesMeta
 		return
@@ -130,6 +180,7 @@ func (d *Domain) GuestProperty(in *GuestPropertyIn) (out GuestPropertyOut) {
 		return
 	}
 
+	in.RefId = in.Id
 	if r.ApprovalState != mProperty.ApprovalStatePending && r.ApprovalState != `` {
 		out.SetError(400, ErrGuestPropertyNotFound)
 		return

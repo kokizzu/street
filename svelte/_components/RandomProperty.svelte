@@ -1,5 +1,4 @@
 <script>
-  // @ts-nocheck
   import { UserSearchProp } from '../jsApi.GEN';
   import { onMount } from 'svelte';
 

@@ -33,8 +33,8 @@ const (
 
 	ErrGuestLoginEmailInvalid             = `email must be valid`
 	ErrGuestLoginUserDeactivated          = `user deactivated`
-	ErrGuestLoginEmailOrPasswordIncorrect = `incorrect email or password`
-	ErrGuestLoginPasswordOrEmailIncorrect = `incorrect password or email`
+	ErrGuestLoginEmailIncorrect 					= `incorrect email, please check your email or register`
+	ErrGuestLoginPasswordIncorrect 				= `incorrect password, please try again`
 	ErrGuestLoginFailedStoringSession     = `failed storing session for login`
 
 	WarnFailedSetLastLoginAt = `failed setting lastLoginAt`
@@ -50,7 +50,7 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Email = in.Email
 	if !user.FindByEmail() {
-		out.SetError(400, ErrGuestLoginEmailOrPasswordIncorrect)
+		out.SetError(400, ErrGuestLoginEmailIncorrect)
 		return
 	}
 	out.actor = user.Id
@@ -62,7 +62,7 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 	}
 
 	if err := user.CheckPassword(in.Password); err != nil {
-		out.SetError(400, ErrGuestLoginPasswordOrEmailIncorrect)
+		out.SetError(400, ErrGuestLoginPasswordIncorrect)
 		return
 	}
 	user.SetLastLoginAt(in.UnixNow())

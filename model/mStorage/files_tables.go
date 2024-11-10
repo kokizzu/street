@@ -22,6 +22,13 @@ const (
 	ResizedSize  = `resizedSize`
 )
 
+const (
+	TableDesignFiles Tt.TableName = `designFiles`
+
+	CountryPropId = `countryPropId` // <country_code>:<property_id>
+	FilePath      = `filePath`
+)
+
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableFiles: {
 		Fields: []Tt.Field{
@@ -42,5 +49,16 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		AutoIncrementId: true,
 		Unique1:         OriginalPath,
 		Engine:          Tt.Memtx, // memtx for now until it's overcapacity
+	},
+	TableDesignFiles: {
+		Fields: []Tt.Field{
+			{Id, Tt.Unsigned},
+			{CountryPropId, Tt.String},
+			{FilePath, Tt.String},
+			{CreatedAt, Tt.Integer},
+			{CreatedBy, Tt.Unsigned},
+		},
+		AutoIncrementId: true,
+		Unique1:         FilePath,
 	},
 }

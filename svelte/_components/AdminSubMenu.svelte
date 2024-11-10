@@ -1,67 +1,93 @@
 <script>
-   import { onMount } from 'svelte';
-   let segment2;
-   onMount(() => {
-      console.log('onMount.AdminSubMenu')
-      segment2 = window.location.pathname.split('/').pop() || '';
-   });
+	let segment2 = /** @type {string} */ (window.location.pathname.split('/').pop() || '');
 </script>
 
-<div class="admin_submenu">
-   <nav class='menu'>
-      <a href="/admin" class:active={segment2==='admin'}>Dashboard</a>
-      <a href="/admin/feedbacks" class:active={segment2==='feedbacks'}>Feedbacks</a>
-      <a href="/admin/users" class:active={segment2==='users'}>Users</a>
-      <a href="/admin/properties/US" class:active={segment2==='US'}>Properties US</a>
-      <a href="/admin/properties" class:active={segment2==='properties'}>Properties</a>
-      <a href="/admin/propHistories" class:active={segment2==='propHistories'}>Prop Histories</a>
-      <a href="/admin/accessLogs" class:active={segment2==='accessLogs'}>Access Logs</a>
-      <a href="/admin/files" class:active={segment2==='files'}>Files</a>
-      <!--  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>-->
-      <!--  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>-->
-   </nav>
+<div class="admin-submenu">
+	<nav>
+		<a href="/admin" class:active={segment2==='admin'}>
+			<span class="title">Dashboard</span>
+			<span class="block"></span>
+		</a>
+		<a href="/admin/feedbacks" class:active={segment2==='feedbacks'}>
+			<span class="title">Feedbacks</span>
+			<span class="block"></span>
+		</a>
+		<a href="/admin/users" class:active={segment2==='users'}>
+			<span class="title">Users</span>
+			<span class="block"></span>
+		</a>
+		<a href="/admin/properties/US" class:active={segment2==='US'}>
+			<span class="title">Properties US</span>
+			<span class="block"></span>
+		</a>
+		<a href="/admin/properties" class:active={segment2==='properties'}>
+			<span class="title">Properties</span>
+			<span class="block"></span>
+		</a>
+		<a href="/admin/propHistories" class:active={segment2==='propHistories'}>
+			<span class="title">Prop Histories</span>
+			<span class="block"></span>
+		</a>
+		<a href="/admin/accessLogs" class:active={segment2==='accessLogs'}>
+			<span class="title">Access Logs</span>
+			<span class="block"></span>
+		</a>
+		<a href="/admin/files" class:active={segment2==='files'}>
+			<span class="title">Files</span>
+			<span class="block"></span>
+		</a>
+	</nav>
 </div>
 
 <style>
-   .admin_submenu {
-      position: relative;
-      margin-top: -40px;
-      margin-left: auto;
-      margin-right: auto;
-      display: flex;
-      background-color: #EF4444;
-      padding-bottom: 70px;
-   }
-   .admin_submenu .menu {
-      width: 88%;
-      margin-left: auto;
-      margin-right: auto;
-      display: flex;
-      flex-direction: row;
-   }
-   .admin_submenu .menu a {
-      flex-grow: 1;
-      color: #475569;
-      background-color: white;
-      border-radius: 6px;
-      filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-      text-transform: uppercase;
-      font-size: 13px;
-      text-decoration: none;
-      font-weight: 700;
-      padding-top: 11px;
-      padding-bottom: 11px;
-      text-align: center;
-      margin-left: 20px;
-   }
-   .admin_submenu .menu a:hover {
-      color: #EF4444;
-   }
-   .admin_submenu .menu a:nth-child(1) {
-      margin-left: 0 !important;
-   }
-   .admin_submenu .menu .active {
-      background-color : #334155 !important;
-      color: white !important;
-   }
+	.admin-submenu {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		height: fit-content;
+	}
+
+	.admin-submenu nav {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		height: fit-content;
+		gap: 10px;
+	}
+
+	.admin-submenu nav a {
+		height: fit-content;
+		display: flex;
+		flex-direction: column;
+		text-decoration: none;
+		color: var(--gray-008);
+	}
+
+	.admin-submenu nav a:hover {
+		background-color: var(--gray-001);
+	}
+
+	.admin-submenu nav a.active {
+		color: var(--blue-005);
+	}
+
+	.admin-submenu nav a .title {
+		flex-grow: 1;
+		padding: 15px 10px;
+		display: flex;
+		align-items: center;
+	}
+
+	.admin-submenu nav a .block {
+		height: 3px;
+		background-color: transparent;
+		width: 100%;
+	}
+
+	.admin-submenu nav a:hover .block {
+		background-color: var(--gray-005);
+	}
+	.admin-submenu nav a.active .block {
+		background-color: var(--blue-005);
+	}
 </style>

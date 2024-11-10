@@ -2,8 +2,11 @@ package saAuth
 
 import (
 	"database/sql"
+	"time"
 
+	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/M"
 
 	"street/model/zCrud"
 )
@@ -125,6 +128,40 @@ FROM ` + a.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	res, err = a.ScanRowsAllCols(rows, out.PerPage)
 	if L.IsError(err, `FindByPagination.ScanRowsAllCols error: `+queryRows) {
 		return
+	}
+
+	return
+}
+
+func (a ActionLogs) FindUserRegistered() (res []M.SX) {
+	currentYear := I.ToS(int64(time.Now().Year()))
+	query := `-- FindUserRegistered
+	SELECT DISTINCT toDate(createdAt) dt,
+		COUNT(*) OVER (PARTITION BY toDate(createdAt)) AS count
+	FROM actionLogs
+	WHERE action = 'guest/register'
+		AND toYear(createdAt) = '`+ currentYear +`'
+	ORDER BY dt
+	`
+	rows, err := a.Adapter.Query(query)
+	if err != nil {
+		L.IsError(err, `failed to get user registered: `+query)
+		return
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var (
+			dt string
+			count int64
+		)
+
+		rows.Scan(&dt, &count)
+
+		res = append(res, M.SX{
+			`date`: dt,
+			`count`: count,
+		})
 	}
 
 	return

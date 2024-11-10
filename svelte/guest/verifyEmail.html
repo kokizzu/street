@@ -1,284 +1,338 @@
 <html><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>/*! title */</title>
-  <link href="/css.gg.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>/*! title */</title>
+    <link href="/css.gg.css" rel="stylesheet">
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#F97316">
+    <link rel="shortcut icon" href="/assets/favicons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="HapSTR">
+    <meta name="application-name" content="HapSTR">
+    <meta name="msapplication-TileColor" content="#F97316">
+    <meta name="msapplication-config" content="/assets/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#FFF">
+  </head>
+  <body>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      :root {
+        -moz-tab-size: 4;
+        -o-tab-size: 4;
+        tab-size: 4;
+
+        /* Partials sets */
+        --navbar-height: 60px;
+        --sidemenu-width: 240px;
+        --sidemenu-width-sm: 70px;
+
+        /* Font Size */
+        --font-xs: 8px;
+        --font-sm: 10px;
+        --font-base: 13px;
+        --font-md: 16px;
+        --font-lg: 18px;
+        --font-xl: 24px;
+        --font-xxl: 32px;
+
+        /* Colors */
+        --violet-000: #f5f3ff;
+        --violet-001: #ede9fe;
+        --violet-002: #ddd6fe;
+        --violet-003: #c4b5fd;
+        --violet-004: #a78bfa;
+        --violet-005: #8b5cf6;
+        --violet-006: #7c3aed;
+        --violet-007: #6d28d9;
+        --violet-008: #5b21b6;
+        --violet-009: #4c1d95;
+        --violet-010: #2e1065;
+        --violet-transparent: #8b5cf620;
+
+        --blue-000: #eff6ff;
+        --blue-001: #dbeafe;
+        --blue-002: #bfdbfe;
+        --blue-003: #93c5fd;
+        --blue-004: #60a5fa;
+        --blue-005: #3b82f6;
+        --blue-006: #2563eb;
+        --blue-007: #1d4ed8;
+        --blue-008: #1e40af;
+        --blue-009: #1e3a8a;
+        --blue-010: #172554;
+        --blue-transparent: #3b82f630;
+        --blue-gradient: linear-gradient(to bottom, var(--blue-000), var(--blue-002));
+
+        --sky-000: #f0f9ff;
+        --sky-001: #e0f2fe;
+        --sky-002: #bae6fd;
+        --sky-003: #7dd3fc;
+        --sky-004: #38bdf8;
+        --sky-005: #0ea5e9;
+        --sky-006: #0284c7;
+        --sky-007: #0369a1;
+        --sky-008: #075985;
+        --sky-009: #0c4a6e;
+        --sky-010: #082f49;
+        --sky-transparent: #0ea5e930;
+
+        --red-000: #fef2f2;
+        --red-001: #fee2e2;
+        --red-002: #fecaca;
+        --red-003: #fca5a5;
+        --red-004: #f87171;
+        --red-005: #ef4444;
+        --red-006: #dc2626;
+        --red-007: #b91c1c;
+        --red-008: #991b1b;
+        --red-009: #7f1d1d;
+        --red-010: #450a0a;
+        --red-transparent: #ef444430;
+
+        --yellow-000: #fefce8;
+        --yellow-001: #fef9c3;
+        --yellow-002: #fef08a;
+        --yellow-003: #fde047;
+        --yellow-004: #facc15;
+        --yellow-005: #eab308;
+        --yellow-006: #ca8a04;
+        --yellow-007: #a16207;
+        --yellow-008: #854d0e;
+        --yellow-009: #713f12;
+        --yellow-010: #422006;
+        --yellow-transparent: #eab30830;
+
+        --green-000: #f0fdf4;
+        --green-001: #dcfce7;
+        --green-002: #bbf7d0;
+        --green-003: #86efac;
+        --green-004: #4ade80;
+        --green-005: #22c55e;
+        --green-006: #16a34a;
+        --green-007: #15803d;
+        --green-008: #166534;
+        --green-009: #14532d;
+        --green-010: #052e16;
+        --green-transparent: #22c55e30;
+        --green-gradient: linear-gradient(to bottom, var(--green-000), var(--green-002));
+
+        --orange-000: #fff7ed;
+        --orange-001: #ffedd5;
+        --orange-002: #fed7aa;
+        --orange-003: #fdba74;
+        --orange-004: #fb923c;
+        --orange-005: #f97316;
+        --orange-006: #ea580c;
+        --orange-007: #c2410c;
+        --orange-008: #9a3412;
+        --orange-009: #7c2d12;
+        --orange-010: #431407;
+        --orange-transparent: #f9731630;
+        --orange-gradient: linear-gradient(to bottom, var(--orange-000), var(--orange-002));
+
+        --amber-000: #fffbeb;
+        --amber-001: #fef3c7;
+        --amber-002: #fde68a;
+        --amber-003: #fcd34d;
+        --amber-004: #fbbf24;
+        --amber-005: #f59e0b;
+        --amber-006: #d97706;
+        --amber-007: #b45309;
+        --amber-008: #92400e;
+        --amber-009: #78350f;
+        --amber-010: #451a03;
+        --amber-transparent: #fde68a30;
+
+        --gray-000: #f8f9fa;
+        --gray-001: #f8f9fa;
+        --gray-002: #e9ecef;
+        --gray-003: #dee2e6;
+        --gray-004: #ced4da;
+        --gray-005: #adb5bd;
+        --gray-006: #6c757d;
+        --gray-007: #495057;
+        --gray-008: #343a40;
+        --gray-009: #212529;
+        --gray-gradient: linear-gradient(to bottom, var(--gray-000), var(--gray-002));
+
+        --shadow-md: rgba(0, 0, 0, 0.06) 0px 8px 20px;
+      }
+
+      *::selection {
+        background: var(--orange-005);
+        color: #ffff;
+      }
+
+      html {
+        max-width: 100%;
+        margin: auto;
+        line-height-step: 1.15;
+        -webkit-text-size-adjust: 100%;
+        font-size: 13px;
+      }
+
+      body {
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        margin: 0;
+        font-size: var(--font-base);
+        color: var(--gray-008);
+      }
+
+      hr {
+        height: 0;
+        border-top-width: 1px;
+        width: 100%;
+        overflow: hidden;
+        color: inherit;
+        margin: 0;
+        border-color: var(--gray-002);
+      }
+
+      .actions-button .btn {
+        border: none;
+        color: var(--gray-008);
+        background-color: transparent;
+        width: fit-content;
+        padding: 8px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .actions-button .btn:hover {
+        background-color: var(--orange-transparent);
+        color: var(--orange-005);
+      }
+
+      .actions-button .btn:disabled {
+        cursor: not-allowed;
+        background-color: var(--gray-002);
+      }
+
+      .actions-button .btn:hover svg {
+        fill: var(--orange-005);
+      }
+
+      .actions-button .btn:disabled svg {
+        fill: var(--gray-007);
+      }
+
+      /* notifier */
+      .notifyjs-container {
+        z-index: 99999;
+        position: fixed;
+        bottom: 0;
+        right: 0.5em;
+        max-width: 304px;
+        width: 100%;
+      }
+
+      .notifyjs-container .notifyjs-notification {
+        display: none;
+        position: relative;
+        padding: 1em 2em 1em 2.5em;
+        margin-bottom: 0.5em;
+        width: 100%;
+        border-width: 1px;
+        border-style: solid;
+        box-sizing: border-box;
+      }
+
+      .notifyjs-container .notifyjs-notification p.progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 100%;
+        height: 2px;
+        content: ' ';
+        margin-bottom: 0;
+      }
+
+      .notifyjs-container .notifyjs-notification.alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+      }
+
+      .notifyjs-container .notifyjs-notification.alert-danger {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+      }
+
+      .notifyjs-container .notifyjs-notification.alert-warning {
+        color: #856404;
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+      }
+
+      .notifyjs-container .notifyjs-notification.alert-info {
+        color: #0c5460;
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+      }
+
+      .notifyjs-container .notifyjs-notification.alert-success p.progress {
+        background: #155724;
+      }
+
+      .notifyjs-container .notifyjs-notification.alert-danger p.progress {
+        background: #721c24;
+      }
+
+      .notifyjs-container .notifyjs-notification.alert-warning p.progress {
+        background: #856404;
+      }
+
+      .notifyjs-container .notifyjs-notification.alert-info p.progress {
+        background: #0c5460;
+      }
+
+      .notifyjs-container .notifyjs-notification.alert-success .notifyjs-icon svg {
+        fill: #155724;
+      }
+
+      .notifyjs-container .notifyjs-notification.alert-danger .notifyjs-icon svg {
+        fill: #721c24;
+      }
+
+      .notifyjs-container .notifyjs-notification.alert-warning .notifyjs-icon svg {
+        fill: #856404;
+      }
+
+      .notifyjs-container .notifyjs-notification.alert-info .notifyjs-icon svg {
+        fill: #0c5460;
+      }
+
+      .notifyjs-container .notifyjs-notification .notifyjs-icon {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 10px;
+      }
+
+      .notifyjs-container .notifyjs-notification .notifyjs-icon img,
+      .notifyjs-container .notifyjs-notification .notifyjs-icon svg {
+        width: 16px;
+        height: 16px;
+      }
+    </style>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js', { scope: '/' });
+      }
+    </script>
   
-  <link rel="manifest" href="/manifest.json">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
-  <link rel="mask-icon" href="/assets/favicons/safari-pinned-tab.svg" color="#F97316">
-  <link rel="shortcut icon" href="/assets/favicons/favicon.ico">
-  <meta name="apple-mobile-web-app-title" content="HapSTR">
-  <meta name="application-name" content="HapSTR">
-  <meta name="msapplication-TileColor" content="#F97316">
-  <meta name="msapplication-config" content="/assets/favicons/browserconfig.xml">
-  <meta name="theme-color" content="#FFF">
-</head>
-<body>
-<style>
-  *,
-  *::before,
-  *::after {
-    box-sizing : border-box;
-  }
-
-  :root {
-    -moz-tab-size : 4;
-    -o-tab-size   : 4;
-    tab-size      : 4;
-  }
-
-  html {
-    max-width                : 100%;
-    margin                   : auto;
-    line-height-step         : 1.15;
-    -webkit-text-size-adjust : 100%;
-    font-size                : 13px;
-  }
-
-  body {
-    font-family : Roboto, Helvetica, Arial, sans-serif;
-    margin      : 0;
-  }
-
-  hr {
-    height           : 0;
-    border-top-width : 1px;
-    width            : 100%;
-    overflow         : hidden;
-    color            : inherit;
-    margin           : 0;
-  }
-
-  /* Dashboard */
-  section.dashboard {
-    display        : flex;
-    flex-direction : row;
-  }
-
-  .dashboard_main_content {
-    background-color : #F1F5F9;
-    min-height       : 100vh;
-    width            : 100%;
-  }
-
-  .dashboard_main_content .content {
-    min-height : 900px;
-  }
-
-
-  .tableview_container {
-    position         : relative;
-    z-index          : 30;
-    margin-top       : -40px;
-    margin-left      : auto;
-    margin-right     : auto;
-    border-radius    : 8px;
-    filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    padding          : 20px;
-    background-color : white;
-    width            : 88%;
-    height           : fit-content;
-    color            : #475569;
-    font-size        : 16px;
-  }
-
-  .tableview_container .add_button {
-    padding          : 8px 20px;
-    font-size        : 14pt;
-    font-weight      : bold;
-    display          : inline-flex;
-    flex-direction   : row;
-    align-items      : center;
-    align-content    : center;
-    justify-content  : center;
-    border           : none;
-    background-color : #6366F1;
-    border-radius    : 8px;
-    color            : white;
-    cursor           : pointer;
-    gap              : 8px;
-  }
-
-  .tableview_container .add_button:hover {
-    background-color : #7E80F1;
-  }
-
-  .label_rent {
-    background-color : #1080E8 !important;
-    color            : #FFF !important;
-    border           : none !important;
-  }
-
-  .label_sale {
-    background-color : #F97316 !important;
-    color            : #FFF !important;
-    border           : none !important;
-  }
-
-  .action_btn {
-    padding          : 7px 20px;
-    font-size        : 13px;
-    font-weight      : 600;
-    display          : inline-flex;
-    flex-direction   : row;
-    align-items      : center;
-    align-content    : center;
-    justify-content  : center;
-    border           : 1px solid #6366F1;
-    background-color : #6366F1;
-    border-radius    : 8px;
-    color            : white;
-    cursor           : pointer;
-    gap              : 8px;
-  }
-
-  .action_btn:hover {
-    background-color : #7E80F1;
-  }
-
-  .action_btn:disabled {
-    cursor      : not-allowed;
-    font-size   : 13px;
-    font-weight : 600;
-    border      : 1px solid #CBD5E1 !important;
-    background  : none !important;
-    color       : #5C646F;
-    filter      : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-  }
-
-  .next_button {
-    background-color : #F97316;
-    color            : white;
-    display          : flex;
-    justify-content  : center;
-    border-radius    : 8px;
-    border           : none;
-    padding          : 10px;
-    cursor           : pointer;
-    width            : 100%;
-    font-weight      : 600;
-  }
-
-  .next_button:disabled,
-  .next_button:hover {
-    background-color : #F58433;
-  }
-
-  .asterisk {
-    color      : #EF4444;
-    font-size  : 14px;
-    margin-top : -3px;
-  }
-
-  /* notifier */
-  .notifyjs-container {
-    z-index   : 100;
-    position  : fixed;
-    bottom    : 0;
-    right     : .5em;
-    max-width : 304px;
-    width     : 100%
-  }
-
-  .notifyjs-container .notifyjs-notification {
-    display       : none;
-    position      : relative;
-    padding       : 1em 2em 1em 2.5em;
-    margin-bottom : .5em;
-    width         : 100%;
-    border-width  : 1px;
-    border-style  : solid;
-    box-sizing    : border-box
-  }
-
-  .notifyjs-container .notifyjs-notification p.progress {
-    position      : absolute;
-    bottom        : 0;
-    left          : 0;
-    right         : 100%;
-    height        : 2px;
-    content       : ' ';
-    margin-bottom : 0
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-success {
-    color            : #155724;
-    background-color : #D4EDDA;
-    border-color     : #C3E6CB
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-danger {
-    color            : #721C24;
-    background-color : #F8D7DA;
-    border-color     : #F5C6CB
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-warning {
-    color            : #856404;
-    background-color : #FFF3CD;
-    border-color     : #FFEEBA
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-info {
-    color            : #0C5460;
-    background-color : #D1ECF1;
-    border-color     : #BEE5EB
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-success p.progress {
-    background : #155724
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-danger p.progress {
-    background : #721C24
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-warning p.progress {
-    background : #856404
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-info p.progress {
-    background : #0C5460
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-success .notifyjs-icon svg {
-    fill : #155724
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-danger .notifyjs-icon svg {
-    fill : #721C24
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-warning .notifyjs-icon svg {
-    fill : #856404
-  }
-
-  .notifyjs-container .notifyjs-notification.alert-info .notifyjs-icon svg {
-    fill : #0C5460
-  }
-
-  .notifyjs-container .notifyjs-notification .notifyjs-icon {
-    position  : absolute;
-    top       : 50%;
-    transform : translateY(-50%);
-    left      : 10px
-  }
-
-  .notifyjs-container .notifyjs-notification .notifyjs-icon img, .notifyjs-container .notifyjs-notification .notifyjs-icon svg {
-    width  : 16px;
-    height : 16px
-  }
-</style>
-<script>
-  if( 'serviceWorker' in navigator ) {
-    navigator.serviceWorker.register( '/service-worker.js', {scope: '/'} );
-  }
-</script>
-
-
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
@@ -337,7 +391,7 @@
 }
 </style>
 <script>(() => {
-  // node_modules/svelte/src/runtime/internal/utils.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
   function run(fn) {
@@ -359,13 +413,13 @@
     return Object.keys(obj).length === 0;
   }
 
-  // node_modules/svelte/src/runtime/internal/globals.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
     // @ts-ignore Node typings have this
     global
   );
 
-  // node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
   var ResizeObserverSingleton = class {
     /**
      * @private
@@ -411,7 +465,7 @@
   };
   ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
 
-  // node_modules/svelte/src/runtime/internal/dom.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/dom.js
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -459,13 +513,13 @@
     return result;
   }
 
-  // node_modules/svelte/src/runtime/internal/lifecycle.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/lifecycle.js
   var current_component;
   function set_current_component(component) {
     current_component = component;
   }
 
-  // node_modules/svelte/src/runtime/internal/scheduler.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -540,7 +594,7 @@
     render_callbacks = filtered;
   }
 
-  // node_modules/svelte/src/runtime/internal/transitions.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   function transition_in(block, local) {
     if (block && block.i) {
@@ -549,7 +603,7 @@
     }
   }
 
-  // node_modules/svelte/src/shared/boolean_attributes.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/boolean_attributes.js
   var _boolean_attributes = (
     /** @type {const} */
     [
@@ -582,7 +636,7 @@
   );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
-  // node_modules/svelte/src/runtime/internal/Component.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/Component.js
   function mount_component(component, target, anchor) {
     const { fragment, after_update } = component.$;
     fragment && fragment.m(target, anchor);
@@ -916,10 +970,10 @@
     }
   };
 
-  // node_modules/svelte/src/shared/version.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/version.js
   var PUBLIC_VERSION = "4";
 
-  // node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/disclose-version/index.js
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
@@ -1025,9 +1079,18 @@
       }
     };
   }
-  var verified = '#{verified}';
-  var error = '#{error}';
-  var email = '#{email}';
+  var verified = (
+    /** @type {string | boolean}*/
+    '#{verified}'
+  );
+  var error = (
+    /** @type {string} */
+    '#{error}'
+  );
+  var email = (
+    /** @type {string} */
+    '#{email}'
+  );
   var VerifyEmail = class extends SvelteComponent {
     constructor(options) {
       super();

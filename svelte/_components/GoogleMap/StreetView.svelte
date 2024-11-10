@@ -1,223 +1,220 @@
 <script>
-    import Icon from 'svelte-icons-pack/Icon.svelte';
-    import FaSolidSearch from "svelte-icons-pack/fa/FaSolidSearch";
-    import GoogleSdk from './GoogleSdk.svelte';
-    import FaSolidMapMarkerAlt from "svelte-icons-pack/fa/FaSolidMapMarkerAlt";
-    import Growl from '../Growl.svelte'
+	import { Icon } from '../../node_modules/svelte-icons-pack/dist';
+	import { RiSystemSearchLine, RiMapMapPin2Line} from '../../node_modules/svelte-icons-pack/dist/ri';
+	import GoogleSdk from './GoogleSdk.svelte';
+	import Growl from '../Growl.svelte'
 
-    export let elevation;
-    export let resolution;
-    export let lat;
-    export let lng;
+	export let elevation;
+	export let resolution;
+	export let lat;
+	export let lng;
 
-    let scriptLoaded = false, cssLoaded = false;
-    let viewer, tileset, handler;
-    let streetViewInput, streetViewInputValue, autocompleteService, geocoder, elevationService;
-    let showAutoCompleteList = false, autocompleteLists = [];
-    let growl1 = Growl;
-    let cameraOrientation;
+	let scriptLoaded = false, cssLoaded = false;
+	let viewer, tileset, handler;
+	let streetViewInput, streetViewInputValue, autocompleteService, geocoder, elevationService;
+	let showAutoCompleteList = false, autocompleteLists = [];
+	let growl1 = Growl;
+	let cameraOrientation;
 
-    function init3dTiles() {
-        // Enable simultaneous requests.
-        Cesium.RequestScheduler.requestsByServer["tile.googleapis.com:443"] = 18;
+	function init3dTiles() {
+		// Enable simultaneous requests.
+		Cesium.RequestScheduler.requestsByServer["tile.googleapis.com:443"] = 18;
 
-        cameraOrientation = new Cesium.HeadingPitchRoll(
-            4.6550106925119925,
-            -0.2863894863138836,
-            1.3561760425773173e-7
-        );
+		cameraOrientation = new Cesium.HeadingPitchRoll(
+			4.6550106925119925,
+			-0.2863894863138836,
+			1.3561760425773173e-7
+		);
 
-        // Create the viewer.
-        viewer = new Cesium.Viewer("cesiumContainer", {
-            imageryProvider: false,
-            baseLayerPicker: false,
-            requestRenderMode: true,
-            geocoder: false,
-            timeline: false,
-            animation: false,
-            sceneModePicker: false,
-            homeButton: false,
-            infoBox: false,
-            globe: false,
-        });
+		// Create the viewer.
+		viewer = new Cesium.Viewer("cesiumContainer", {
+			imageryProvider: false,
+			baseLayerPicker: false,
+			requestRenderMode: true,
+			geocoder: false,
+			timeline: false,
+			animation: false,
+			sceneModePicker: false,
+			homeButton: false,
+			infoBox: false,
+			globe: false,
+		});
 
-        // Enable rendering the sky
-        viewer.scene.skyAtmosphere.show = true;
+		// Enable rendering the sky
+		viewer.scene.skyAtmosphere.show = true;
 
-        // Add 3D Tiles tileset.
-        tileset = viewer.scene.primitives.add(
-            new Cesium.Cesium3DTileset({
-                url: "https://tile.googleapis.com/v1/3dtiles/root.json?key=AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg",
-                // This property is required to display attributions as required.
-                showCreditsOnScreen: true,
-            })
-        );
+		// Add 3D Tiles tileset.
+		tileset = viewer.scene.primitives.add(
+			new Cesium.Cesium3DTileset({
+				url: "https://tile.googleapis.com/v1/3dtiles/root.json?key=AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg",
+				// This property is required to display attributions as required.
+				showCreditsOnScreen: true,
+			})
+		);
 
-        viewer.scene.camera.setView({
-            destination: Cesium.Cartesian3.fromDegrees(
-                lat,
-                lng,
-                elevation || 1500.0,
-            ),
-            orientation: cameraOrientation,
-        });
+		viewer.scene.camera.setView({
+			destination: Cesium.Cartesian3.fromDegrees(
+				lat,
+				lng,
+				elevation || 1500.0,
+			),
+			orientation: cameraOrientation,
+		});
 
-        handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
-        handler.setInputAction(async (click) => {
-            var cartesian = viewer.scene.pickPosition(new Cesium.Cartesian2(click.position.x, click.position.y));
-            var ellipsoid = viewer.scene.primitives.get(0).ellipsoid;
-            if (cartesian) {
-                var cartographic = ellipsoid.cartesianToCartographic(cartesian);
-                lat = Cesium.Math.toDegrees(cartographic.latitude);
-                lng = Cesium.Math.toDegrees(cartographic.longitude);
-                elevationService
-                    .getElevationForLocations({
-                        locations: [{lat, lng}],
-                    })
-                    .then(({ results }) => {
-                        if (results[0]) {
-                            elevation = results[0].elevation;
-                            resolution = results[0].resolution;
-                        }
-                    })
-                    .catch((e) =>
-                        alert('Elevation service failed due to: ' + e),
-                    )
-            }
-        }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
-    }
+		handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+		handler.setInputAction(async (click) => {
+			var cartesian = viewer.scene.pickPosition(new Cesium.Cartesian2(click.position.x, click.position.y));
+			var ellipsoid = viewer.scene.primitives.get(0).ellipsoid;
+			if (cartesian) {
+				var cartographic = ellipsoid.cartesianToCartographic(cartesian);
+				lat = Cesium.Math.toDegrees(cartographic.latitude);
+				lng = Cesium.Math.toDegrees(cartographic.longitude);
+				elevationService
+					.getElevationForLocations({
+						locations: [{lat, lng}],
+					})
+					.then(({ results }) => {
+						if (results[0]) {
+							elevation = results[0].elevation;
+							resolution = results[0].resolution;
+						}
+				})
+				.catch((e) =>
+					alert('Elevation service failed due to: ' + e),
+				)
+			}
+		}, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+	}
 
-    async function initGoogleSdk() {
-        const {AutocompleteService} = await google.maps.importLibrary('places');
-        autocompleteService = new AutocompleteService();
-        geocoder = new google.maps.Geocoder();
-        elevationService = new google.maps.ElevationService();
-    }
+	async function initGoogleSdk() {
+		const {AutocompleteService} = await google.maps.importLibrary('places');
+		autocompleteService = new AutocompleteService();
+		geocoder = new google.maps.Geocoder();
+		elevationService = new google.maps.ElevationService();
+	}
 
-    function searchLocationHandler() {
-        showAutoCompleteList = true;
-        autocompleteService.getPlacePredictions({
-                input: streetViewInputValue,
-                types: ['establishment', 'geocode'],
-            },
-            function(predictions, status) {
-                if (status === google.maps.places.PlacesServiceStatus.OK) {
-                    autocompleteLists = predictions;
-                } else {
-                    alert('Cannot get address')
-                }
-            },
-        );
-    }
+	function searchLocationHandler() {
+		showAutoCompleteList = true;
+		autocompleteService.getPlacePredictions({
+				input: streetViewInputValue,
+				types: ['establishment', 'geocode'],
+			},
+			function(predictions, status) {
+				if (status === google.maps.places.PlacesServiceStatus.OK) {
+					autocompleteLists = predictions;
+				} else {
+					alert('Cannot get address')
+				}
+			},
+		);
+	}
 
-    window.addEventListener('click', () => {
-        showAutoCompleteList = false;
-        autocompleteLists = [];
-    });
+	window.addEventListener('click', () => {
+		showAutoCompleteList = false;
+		autocompleteLists = [];
+	});
 
-    async function searchByAddressHandler(place_id) {
-        await geocoder
-            .geocode({placeId: place_id})
-            .then(async ({results}) => {
-                if (results[0]) {
-                    const elevationResponse = await elevationService.getElevationForLocations({
-                        locations: [results[0].geometry.location],
-                    });
-                    if (!(elevationResponse.results && elevationResponse.results.length)) {
-                        alert(`Insufficient elevation data for place: ${results[0].formatted_address}`)
-                    }
-                    const elv = elevationResponse.results[0].elevation;
-                    elevation = elv;
-                    resolution = elevationResponse.results[0].resolution;
-                    lat = results[0].geometry.location.lat();
-                    lng = results[0].geometry.location.lng();
-                    viewer.scene.camera.setView({
-                        destination: Cesium.Cartesian3.fromDegrees(
-                            results[0].geometry.location.lng(),
-                            results[0].geometry.location.lat(),
-                            elv || 15000.0
-                        ),
-                        orientation: cameraOrientation,
-                    })
-                    // rotateCameraAround(
-                    //   results[ 0 ].geometry.location,
-                    //   results[ 0 ].geometry.viewport,
-                    //   elv
-                    // );
-                } else {
-                    alert('No result found');
-                }
-            }).catch((e) => {
-                alert(`Geocoder failed due to: ${e}`);
-            });
-        autocompleteLists = [];
-        showAutoCompleteList = false;
-    }
+	async function searchByAddressHandler(place_id) {
+		await geocoder
+			.geocode({placeId: place_id})
+			.then(async ({results}) => {
+				if (results[0]) {
+					const elevationResponse = await elevationService.getElevationForLocations({
+						locations: [results[0].geometry.location],
+					});
+					if (!(elevationResponse.results && elevationResponse.results.length)) {
+						alert(`Insufficient elevation data for place: ${results[0].formatted_address}`)
+					}
+					const elv = elevationResponse.results[0].elevation;
+					elevation = elv;
+					resolution = elevationResponse.results[0].resolution;
+					lat = results[0].geometry.location.lat();
+					lng = results[0].geometry.location.lng();
+					viewer.scene.camera.setView({
+						destination: Cesium.Cartesian3.fromDegrees(
+							results[0].geometry.location.lng(),
+							results[0].geometry.location.lat(),
+							elv || 15000.0
+						),
+						orientation: cameraOrientation,
+					})
+					// rotateCameraAround(
+					//   results[ 0 ].geometry.location,
+					//   results[ 0 ].geometry.viewport,
+					//   elv
+					// );
+				} else {
+					alert('No result found');
+				}
+			}).catch((e) => {
+				alert(`Geocoder failed due to: ${e}`);
+			});
+		autocompleteLists = [];
+		showAutoCompleteList = false;
+	}
 
-    // Cesium file
-    function checkFilesLoaded() {
-        if (scriptLoaded && cssLoaded) {
-            init3dTiles();
-        }
-    }
+	// Cesium file
+	function checkFilesLoaded() {
+		if (scriptLoaded && cssLoaded) {
+			init3dTiles();
+		}
+	}
 
-    const scriptElement = document.createElement("script");
-    scriptElement.src = "https://ajax.googleapis.com/ajax/libs/cesiumjs/1.105/Build/Cesium/Cesium.js";
-    scriptElement.onload = () => {
-        scriptLoaded = true;
-        checkFilesLoaded();
-    };
-    document.body.appendChild(scriptElement);
-    const linkElement = document.createElement("link");
-    linkElement.rel = "stylesheet";
-    linkElement.href = "https://ajax.googleapis.com/ajax/libs/cesiumjs/1.105/Build/Cesium/Widgets/widgets.css";
-    linkElement.onload = () => {
-        cssLoaded = true;
-        checkFilesLoaded();
-    };
-    document.head.appendChild(linkElement);
+	const scriptElement = document.createElement("script");
+	scriptElement.src = "https://ajax.googleapis.com/ajax/libs/cesiumjs/1.105/Build/Cesium/Cesium.js";
+	scriptElement.onload = () => {
+		scriptLoaded = true;
+		checkFilesLoaded();
+	};
+	document.body.appendChild(scriptElement);
+	const linkElement = document.createElement("link");
+	linkElement.rel = "stylesheet";
+	linkElement.href = "https://ajax.googleapis.com/ajax/libs/cesiumjs/1.105/Build/Cesium/Widgets/widgets.css";
+	linkElement.onload = () => {
+		cssLoaded = true;
+		checkFilesLoaded();
+	};
+	document.head.appendChild(linkElement);
 </script>
 
 
 <GoogleSdk on:ready={initGoogleSdk}/>
 <div class="streetview_input_box">
-    <Icon
-            className='icon_search_location'
-            color='#9fa9b5'
-            size={18}
-            src={FaSolidSearch}
-    />
-    <input
-            bind:this={streetViewInput}
-            bind:value={streetViewInputValue}
-            id="pacViewPlace"
-            name="pacViewPlace"
-            on:input={searchLocationHandler}
-            placeholder="Enter a location..."
-            type="text"
-    />
+	<Icon
+		className='icon_search_location'
+		color='#9fa9b5'
+		size={18}
+		src={RiSystemSearchLine}
+	/>
+	<input
+		bind:this={streetViewInput}
+		bind:value={streetViewInputValue}
+		id="pacViewPlace"
+		name="pacViewPlace"
+		on:input={searchLocationHandler}
+		placeholder="Enter a location..."
+		type="text"
+	/>
 </div>
 {#if showAutoCompleteList === true}
-    <div class='autocomplete_container'>
-        {#if autocompleteLists.length}
-            {#each autocompleteLists as place}
-                <button
-                        class='autocomplete_item'
-                        on:click|preventDefault={() => searchByAddressHandler(place.place_id)}
-                >
-                    <Icon size={17} color='#9fa9b5' src={FaSolidMapMarkerAlt}/>
-                    <span>{place.description}</span>
-                </button>
-            {/each}
-        {:else}
-            <button
-                    class='autocomplete_item'
-            >
-                <Icon size={17} color='#9fa9b5' src={FaSolidMapMarkerAlt}/>
-                <span>Place name...</span>
-            </button>
-        {/if}
-    </div>
+	<div class='autocomplete_container'>
+	{#if autocompleteLists.length}
+		{#each autocompleteLists as place}
+			<button
+				class='autocomplete_item'
+				on:click|preventDefault={() => searchByAddressHandler(place.place_id)}
+			>
+				<Icon size={17} color='#9fa9b5' src={RiMapMapPin2Line}/>
+				<span>{place.description}</span>
+			</button>
+		{/each}
+	{:else}
+		<button class='autocomplete_item' >
+			<Icon size={17} color='#9fa9b5' src={RiMapMapPin2Line}/>
+			<span>Place name...</span>
+		</button>
+	{/if}
+	</div>
 {/if}
 <div id="cesiumContainer"></div>
 
