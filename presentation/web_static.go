@@ -15,6 +15,9 @@ import (
 	"street/conf"
 	"street/domain"
 	"street/model/mAuth/rqAuth"
+	"street/model/mAuth/saAuth"
+	"street/model/mBusiness"
+	"street/model/mBusiness/rqBusiness"
 	"street/model/mProperty/rqProperty"
 	"street/model/zCrud"
 )
@@ -28,31 +31,32 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			Provider:      domain.OauthGoogle,
 		})
 		google.ResponseCommon.DecorateSession(c)
-		const lat = 23.708740595481036
-		const lng = 120.78636646165934
-		const defaultDistanceKm = 20
-		var props domain.UserSearchPropOut
-		if user != nil && user.Id > 0 {
-			copy := in.RequestCommon
-			copy.Action = domain.UserSearchPropAction
-			props = d.UserSearchProp(&domain.UserSearchPropIn{
-				RequestCommon: copy,
-				CenterLat:     lat,
-				CenterLong:    lng,
-				Offset:        0,
-				Limit:         0,
-				MaxDistanceKM: defaultDistanceKm,
-			})
+
+		var userRegistered []M.SX
+		if user != nil {
+			actionLog := saAuth.NewActionLogs(d.AuthOlap)
+			userRegistered = actionLog.FindUserRegistered()
+		}
+
+		var revenues []*mBusiness.Revenue
+
+		if segments[domain.UserSegment] {
+			if segments[domain.AdminSegment] {
+				r := rqBusiness.NewSales(d.BusinessOltp)
+				revenues = r.FindRevenuesMonthly("XD")
+			} else {
+				r := rqBusiness.NewSales(d.BusinessOltp)
+				r.RealtorId = user.Id
+				revenues = r.FindRealtorRevenuesMonthlyByRealtorId("XD")
+			}
 		}
 		return views.RenderIndex(c, M.SX{
-			`title`:  `Street`,
-			`user`:   user,
-			`google`: google.Link,
-
-			`segments`:          segments,
-			`randomProps`:       props.Properties,
-			`initialLatLong`:    []any{lat, lng},
-			`defaultDistanceKm`: defaultDistanceKm,
+			`title`:           `HapSTR`,
+			`user`:            user,
+			`google`:          google.Link,
+			`segments`:        segments,
+			`user_registered`: userRegistered,
+			`revenues`:        revenues,
 		})
 	})
 
@@ -146,11 +150,12 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			Id:            propId,
 			CountryCode:   countryCode,
 		})
-		if out.Property.DeletedAt > 0 {
+		if out.Property != nil && out.Property.DeletedAt > 0 {
 			return views.RenderError(ctx, M.SX{
 				`error`: `property deleted`,
 			})
 		}
+
 		if out.Error != `` {
 			L.Print(out.Error)
 			return views.RenderError(ctx, M.SX{
@@ -181,12 +186,10 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			title += ` on ` + out.Property.FormattedAddress
 		}
 		ogUrl := fmt.Sprintf("%s/%s/%s%d", w.Domain.WebCfg.WebProtoDomain, domain.GuestPropertyAction, countryCode, out.Property.Id)
-		L.Print(ogUrl)
-		L.Print(descr)
-		L.Print(out.Property)
 		return views.RenderGuestPropertyPublic(ctx, M.SX{
 			`title`:         S.XSS(title),
 			`propItem`:      out.Property,
+			`propExtraUS`:   out.PropertyExtraUS,
 			`propertyMeta`:  out.Meta,
 			`ogURL`:         ogUrl,
 			`ogImgURL`:      imgUrl,
@@ -285,18 +288,51 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
-	fw.Get(`/buyer`, func(ctx *fiber.Ctx) error {
-		in, _, segments := userInfoFromContext(ctx, d)
+	fw.Get(`/`+domain.UserBuyerAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
 		return views.RenderBuyer(ctx, M.SX{
 			`title`:    `Buyer`,
+			`user`:     user,
 			`segments`: segments,
 		})
 	})
+
+	fw.Get(`/`+domain.UserListingsAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		const lat = 23.708740595481036
+		const lng = 120.78636646165934
+		const defaultDistanceKm = 20
+		var props domain.UserSearchPropOut
+		if user != nil && user.Id > 0 {
+			copy := in.RequestCommon
+			copy.Action = domain.UserSearchPropAction
+			props = d.UserSearchProp(&domain.UserSearchPropIn{
+				RequestCommon: copy,
+				CenterLat:     lat,
+				CenterLong:    lng,
+				Offset:        0,
+				Limit:         0,
+				MaxDistanceKM: defaultDistanceKm,
+			})
+		}
+		return views.RenderListings(ctx, M.SX{
+			`title`:             `Listings`,
+			`user`:              user,
+			`segments`:          segments,
+			`randomProps`:       props.Properties,
+			`initialLatLong`:    []any{lat, lng},
+			`defaultDistanceKm`: defaultDistanceKm,
+		})
+	})
 	fw.Get(`/realtor`, func(ctx *fiber.Ctx) error {
-		in, _, segments := userInfoFromContext(ctx, d)
+		in, user, segments := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
@@ -309,10 +345,30 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		}
 		return views.RenderRealtor(ctx, M.SX{
 			`title`:           `Realtor`,
+			`user`:            user,
 			`segments`:        segments,
 			`ownedProperties`: out.Properties,
 			`pager`:           out.Pager,
 			`propertyMeta`:    out.Meta,
+		})
+	})
+	fw.Get(`/`+domain.RealtorRevenueAction, func(ctx *fiber.Ctx) error {
+		var in domain.RealtorRevenueIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.RealtorRevenueAction)
+		if err != nil {
+			return err
+		}
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.Cmd = zCrud.CmdList
+		out := d.RealtorRevenue(&in)
+		return views.RenderRealtorRevenue(ctx, M.SX{
+			`title`:    `Realtor Revenue`,
+			`user`:     user,
+			`segments`: segments,
+			`revenues`: out.Revenues,
 		})
 	})
 	fw.Get(`/`+domain.RealtorPropertyAction, func(ctx *fiber.Ctx) error {
@@ -368,7 +424,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 	fw.Get(`/admin`, func(ctx *fiber.Ctx) error {
-		in, _, segments := userInfoFromContext(ctx, d)
+		in, user, segments := userInfoFromContext(ctx, d)
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
@@ -376,6 +432,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			RequestCommon: in.RequestCommon,
 		})
 		return views.RenderAdmin(ctx, M.SX{
+			`user`:                   user,
 			`title`:                  `Admin`,
 			`segments`:               segments,
 			`uniqueIpPerDate`:        out.UniqueIpPerDate,
@@ -384,6 +441,25 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`registeredUserTotal`:    out.RegisteredUserTotal,
 			`registeredUserToday`:    out.RegisteredUserToday,
 			`countPerActionsPerDate`: out.CountPerActionsPerDate,
+		})
+	})
+	fw.Get(`/`+domain.AdminRevenueAction, func(ctx *fiber.Ctx) error {
+		var in domain.AdminRevenueIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminRevenueAction)
+		if err != nil {
+			return err
+		}
+		if notAdmin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.Cmd = zCrud.CmdList
+		out := d.AdminRevenue(&in)
+		return views.RenderAdminRevenue(ctx, M.SX{
+			`title`:    `Revenue`,
+			`user`:     user,
+			`segments`: segments,
+			`revenues`: out.Revenues,
 		})
 	})
 	fw.Get(`/`+domain.AdminFeedbacksAction, func(ctx *fiber.Ctx) error {
@@ -395,13 +471,14 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.AdminFeedbacks(&in)
 		return views.RenderAdminFeedbacks(ctx, M.SX{
 			`title`:     `Feedbacks`,
 			`segments`:  segments,
+			`user`:      user,
 			`feedbacks`: out.Feedbacks,
 			`fields`:    out.Meta.Fields,
 			`pager`:     out.Pager,
@@ -417,12 +494,13 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.AdminUsers(&in)
 		return views.RenderAdminUsers(ctx, M.SX{
 			`title`:    `Users`,
+			`user`:     user,
 			`segments`: segments,
 			`users`:    out.Users,
 			`fields`:   out.Meta.Fields,
@@ -438,12 +516,13 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.AdminPropertiesUS(&in)
 		return views.RenderAdminPropertiesUS(ctx, M.SX{
 			`title`:      `Properties US`,
+			`user`:       user,
 			`segments`:   segments,
 			`properties`: out.Properties,
 			`fields`:     out.Meta.Fields,
@@ -459,12 +538,13 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.AdminPropertiesTW(&in)
 		return views.RenderAdminPropertiesTW(ctx, M.SX{
 			`title`:      `Properties TW`,
+			`user`:       user,
 			`segments`:   segments,
 			`properties`: out.Properties,
 			`fields`:     out.Meta.Fields,
@@ -480,12 +560,13 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.AdminProperties(&in)
 		return views.RenderAdminProperties(ctx, M.SX{
 			`title`:      `Properties`,
+			`user`:       user,
 			`segments`:   segments,
 			`properties`: out.Properties,
 			`fields`:     out.Meta.Fields,
@@ -563,10 +644,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notAdmin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
 		out := d.AdminAccessLogs(&in)
 		return views.RenderAdminAccessLog(ctx, M.SX{
+			`user`:     user,
 			`title`:    `Access Log`,
 			`segments`: segments,
 			`logs`:     out.Logs,
@@ -643,7 +725,7 @@ func notLogin(ctx *fiber.Ctx, d *domain.Domain, in domain.RequestCommon) bool {
 
 func notAdmin(ctx *fiber.Ctx, d *domain.Domain, in domain.RequestCommon) bool {
 	var check domain.ResponseCommon
-	sess := d.MustLogin(in, &check)
+	sess := d.MustAdmin(in, &check)
 	if sess == nil {
 		_ = views.RenderError(ctx, M.SX{
 			`error`: check.Error,
@@ -668,7 +750,7 @@ func userInfoFromContext(c *fiber.Ctx, d *domain.Domain) (domain.UserProfileIn, 
 
 func userInfoFromRequest(rc domain.RequestCommon, d *domain.Domain) (*rqAuth.Users, M.SB) {
 	var user *rqAuth.Users
-	segments := M.SB{}
+	var segments = M.SB{}
 	out := d.UserProfile(&domain.UserProfileIn{
 		RequestCommon: rc,
 	})

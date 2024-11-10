@@ -1,13 +1,9 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidArrowRight from 'svelte-icons-pack/fa/FaSolidArrowRight';
-  import FaSolidShareAlt from 'svelte-icons-pack/fa/FaSolidShareAlt';
-  import FaCopy from 'svelte-icons-pack/fa/FaCopy';
-  import FaBrandsFacebook from 'svelte-icons-pack/fa/FaBrandsFacebook';
-  import FaBrandsLinkedin from 'svelte-icons-pack/fa/FaBrandsLinkedin';
-  import FaBrandsTwitter from 'svelte-icons-pack/fa/FaBrandsTwitter';
-  import FaBrandsWhatsapp from 'svelte-icons-pack/fa/FaBrandsWhatsapp';
-  import FaBrandsTelegram from 'svelte-icons-pack/fa/FaBrandsTelegram';
+  import { Icon } from '../../node_modules/svelte-icons-pack/dist';
+  import {
+    FaSolidArrowRight, FaSolidShareNodes, FaCopy, FaBrandsFacebook,
+    FaBrandsLinkedin, FaBrandsTwitter, FaBrandsWhatsapp, FaBrandsTelegram,
+  } from '../../node_modules/svelte-icons-pack/dist/fa';
   import Property from '../../_components/Property.svelte';
   import { onMount } from 'svelte';
   
@@ -62,7 +58,7 @@
       <div class='share_container'>
         <header>
           <span>Share this</span>
-          <Icon className='share_icon' color='#9fa9b5' size={14} src={FaSolidShareAlt} />
+          <Icon className='share_icon' color='#9fa9b5' size={14} src={FaSolidShareNodes} />
         </header>
         <div class='share_options'>
           <button class='share_item' on:click={() => copyToClipboard(toBeUrl)} title='Copy link address'>

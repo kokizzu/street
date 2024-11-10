@@ -15,7 +15,7 @@ type (
 	UserLikePropIn struct {
 		RequestCommon
 
-		propId uint64 `json:"propId,string" form:"propId" query:"propId" long:"propId" msg:"propId"`
+		PropId uint64 `json:"propId,string" form:"propId" query:"propId" long:"propId" msg:"propId"`
 		Like   bool   `json:"like" form:"like" query:"like" long:"like" msg:"like"`
 	}
 
@@ -25,7 +25,7 @@ type (
 )
 
 const (
-	UserLikePropAction = `userLikeProp`
+	UserLikePropAction = `user/likeProp`
 
 	ErrUserLikePropNotFound     = `property to like not found`
 	ErrUserLikePropFailedUnlike = `failed to unlike property`
@@ -34,7 +34,7 @@ const (
 
 func (d *Domain) UserLikeProp(in *UserLikePropIn) (out UserLikePropOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
-	out.refId = in.propId
+	out.refId = in.PropId
 
 	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
@@ -42,7 +42,7 @@ func (d *Domain) UserLikeProp(in *UserLikePropIn) (out UserLikePropOut) {
 	}
 
 	prop := rqProperty.NewProperty(d.PropOltp)
-	prop.Id = in.propId
+	prop.Id = in.PropId
 	if !prop.FindById() {
 		out.SetError(404, ErrUserLikePropNotFound)
 		return
@@ -50,7 +50,7 @@ func (d *Domain) UserLikeProp(in *UserLikePropIn) (out UserLikePropOut) {
 
 	like := wcProperty.NewUserPropLikesMutator(d.PropOltp)
 	like.UserId = sess.UserId
-	like.PropId = in.propId
+	like.PropId = in.PropId
 	like.CreatedAt = in.UnixNow()
 
 	delta := 0
@@ -77,7 +77,7 @@ func (d *Domain) UserLikeProp(in *UserLikePropIn) (out UserLikePropOut) {
 	if delta != 0 {
 		// increase/decrease counter
 		count := wcProperty.NewPropLikeCountMutator(d.PropOltp)
-		count.PropId = in.propId
+		count.PropId = in.PropId
 		count.DoInc(delta) // ignore error we can synchronize by query preriodically
 	}
 

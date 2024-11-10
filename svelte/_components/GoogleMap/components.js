@@ -1,6 +1,8 @@
-'use strict'
+// @ts-nocheck
 
-import GoogleSdk from './GoogleSdk.svelte'
+'use strict';
+
+import GoogleSdk from './GoogleSdk.svelte';
 import GoogleMap from './GoogleMap.svelte'
 import StreetView from './StreetView.svelte';
 

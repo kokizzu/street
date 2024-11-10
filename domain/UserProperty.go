@@ -119,6 +119,7 @@ func (d *Domain) UserProperty(in *UserPropertyIn) (out UserPropertyOut) {
 		out.SetError(400, ErrUserPropertyNotFound)
 		return
 	}
+	in.RefId = in.Id
 	r.NormalizeFloorList()
 	out.Property = r
 	out.Meta = UserPropertiesMeta

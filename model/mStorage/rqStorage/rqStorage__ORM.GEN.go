@@ -13,12 +13,239 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-// Files DAO reader/query struct
+// DesignFiles DAO reader/query struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file rqStorage__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type rqStorage__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type rqStorage__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type rqStorage__ORM.GEN.go
+type DesignFiles struct {
+	Adapter       *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id            uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	CountryPropId string      `json:"countryPropId,string" form:"countryPropId" query:"countryPropId" long:"countryPropId" msg:"countryPropId"`
+	FilePath      string      `json:"filePath" form:"filePath" query:"filePath" long:"filePath" msg:"filePath"`
+	CreatedAt     int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy     uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+}
+
+// NewDesignFiles create new ORM reader/query object
+func NewDesignFiles(adapter *Tt.Adapter) *DesignFiles {
+	return &DesignFiles{Adapter: adapter}
+}
+
+// SpaceName returns full package and table name
+func (d *DesignFiles) SpaceName() string { //nolint:dupl false positive
+	return string(mStorage.TableDesignFiles) // casting required to string from Tt.TableName
+}
+
+// SqlTableName returns quoted table name
+func (d *DesignFiles) SqlTableName() string { //nolint:dupl false positive
+	return `"designFiles"`
+}
+
+func (d *DesignFiles) UniqueIndexId() string { //nolint:dupl false positive
+	return `id`
+}
+
+// FindById Find one by Id
+func (d *DesignFiles) FindById() bool { //nolint:dupl false positive
+	res, err := d.Adapter.Select(d.SpaceName(), d.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{d.Id})
+	if L.IsError(err, `DesignFiles.FindById failed: `+d.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		d.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
+// UniqueIndexFilePath return unique index name
+func (d *DesignFiles) UniqueIndexFilePath() string { //nolint:dupl false positive
+	return `filePath`
+}
+
+// FindByFilePath Find one by FilePath
+func (d *DesignFiles) FindByFilePath() bool { //nolint:dupl false positive
+	res, err := d.Adapter.Select(d.SpaceName(), d.UniqueIndexFilePath(), 0, 1, tarantool.IterEq, A.X{d.FilePath})
+	if L.IsError(err, `DesignFiles.FindByFilePath failed: `+d.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		d.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
+// SqlSelectAllFields generate Sql select fields
+func (d *DesignFiles) SqlSelectAllFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "countryPropId"
+	, "filePath"
+	, "createdAt"
+	, "createdBy"
+	`
+}
+
+// SqlSelectAllUncensoredFields generate Sql select fields
+func (d *DesignFiles) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "countryPropId"
+	, "filePath"
+	, "createdAt"
+	, "createdBy"
+	`
+}
+
+// ToUpdateArray generate slice of update command
+func (d *DesignFiles) ToUpdateArray() A.X { //nolint:dupl false positive
+	return A.X{
+		A.X{`=`, 0, d.Id},
+		A.X{`=`, 1, d.CountryPropId},
+		A.X{`=`, 2, d.FilePath},
+		A.X{`=`, 3, d.CreatedAt},
+		A.X{`=`, 4, d.CreatedBy},
+	}
+}
+
+// IdxId return name of the index
+func (d *DesignFiles) IdxId() int { //nolint:dupl false positive
+	return 0
+}
+
+// SqlId return name of the column being indexed
+func (d *DesignFiles) SqlId() string { //nolint:dupl false positive
+	return `"id"`
+}
+
+// IdxCountryPropId return name of the index
+func (d *DesignFiles) IdxCountryPropId() int { //nolint:dupl false positive
+	return 1
+}
+
+// SqlCountryPropId return name of the column being indexed
+func (d *DesignFiles) SqlCountryPropId() string { //nolint:dupl false positive
+	return `"countryPropId"`
+}
+
+// IdxFilePath return name of the index
+func (d *DesignFiles) IdxFilePath() int { //nolint:dupl false positive
+	return 2
+}
+
+// SqlFilePath return name of the column being indexed
+func (d *DesignFiles) SqlFilePath() string { //nolint:dupl false positive
+	return `"filePath"`
+}
+
+// IdxCreatedAt return name of the index
+func (d *DesignFiles) IdxCreatedAt() int { //nolint:dupl false positive
+	return 3
+}
+
+// SqlCreatedAt return name of the column being indexed
+func (d *DesignFiles) SqlCreatedAt() string { //nolint:dupl false positive
+	return `"createdAt"`
+}
+
+// IdxCreatedBy return name of the index
+func (d *DesignFiles) IdxCreatedBy() int { //nolint:dupl false positive
+	return 4
+}
+
+// SqlCreatedBy return name of the column being indexed
+func (d *DesignFiles) SqlCreatedBy() string { //nolint:dupl false positive
+	return `"createdBy"`
+}
+
+// ToArray receiver fields to slice
+func (d *DesignFiles) ToArray() A.X { //nolint:dupl false positive
+	var id any = nil
+	if d.Id != 0 {
+		id = d.Id
+	}
+	return A.X{
+		id,
+		d.CountryPropId, // 1
+		d.FilePath,      // 2
+		d.CreatedAt,     // 3
+		d.CreatedBy,     // 4
+	}
+}
+
+// FromArray convert slice to receiver fields
+func (d *DesignFiles) FromArray(a A.X) *DesignFiles { //nolint:dupl false positive
+	d.Id = X.ToU(a[0])
+	d.CountryPropId = X.ToS(a[1])
+	d.FilePath = X.ToS(a[2])
+	d.CreatedAt = X.ToI(a[3])
+	d.CreatedBy = X.ToU(a[4])
+	return d
+}
+
+// FromUncensoredArray convert slice to receiver fields
+func (d *DesignFiles) FromUncensoredArray(a A.X) *DesignFiles { //nolint:dupl false positive
+	d.Id = X.ToU(a[0])
+	d.CountryPropId = X.ToS(a[1])
+	d.FilePath = X.ToS(a[2])
+	d.CreatedAt = X.ToI(a[3])
+	d.CreatedBy = X.ToU(a[4])
+	return d
+}
+
+// FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
+func (d *DesignFiles) FindOffsetLimit(offset, limit uint32, idx string) []DesignFiles { //nolint:dupl false positive
+	var rows []DesignFiles
+	res, err := d.Adapter.Select(d.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `DesignFiles.FindOffsetLimit failed: `+d.SpaceName()) {
+		return rows
+	}
+	for _, row := range res.Tuples() {
+		item := DesignFiles{}
+		rows = append(rows, *item.FromArray(row))
+	}
+	return rows
+}
+
+// FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
+func (d *DesignFiles) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
+	var rows []A.X
+	res, err := d.Adapter.Select(d.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `DesignFiles.FindOffsetLimit failed: `+d.SpaceName()) {
+		return rows, Tt.QueryMetaFrom(res, err)
+	}
+	tuples := res.Tuples()
+	rows = make([]A.X, len(tuples))
+	for z, row := range tuples {
+		rows[z] = row
+	}
+	return rows, Tt.QueryMetaFrom(res, nil)
+}
+
+// Total count number of rows
+func (d *DesignFiles) Total() int64 { //nolint:dupl false positive
+	rows := d.Adapter.CallBoxSpace(d.SpaceName()+`:count`, A.X{})
+	if len(rows) > 0 && len(rows[0]) > 0 {
+		return X.ToI(rows[0][0])
+	}
+	return 0
+}
+
+// DesignFilesFieldTypeMap returns key value of field name and key
+var DesignFilesFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
+	`id`:            Tt.Unsigned,
+	`countryPropId`: Tt.String,
+	`filePath`:      Tt.String,
+	`createdAt`:     Tt.Integer,
+	`createdBy`:     Tt.Unsigned,
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
+// Files DAO reader/query struct
 type Files struct {
 	Adapter      *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	Id           uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`

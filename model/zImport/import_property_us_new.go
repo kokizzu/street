@@ -17,10 +17,10 @@ import (
 )
 
 type OtherFacilityInfo struct {
-	ParkingFeatures []string `json:"parkingFeatures"`
-	Gartereg int64 `json:"gartereg"`
-	LotSize string `json:"lotSize"`
-	PostName string `json:"postName"`
+	ParkingFeatures []string `json:"parkingFeatures,omitempty"`
+	Gartereg int64 `json:"gartereg,omitempty"`
+	LotSize string `json:"lotSize,omitempty"`
+	PostName string `json:"postName,omitempty"`
 }
 
 func ReadPropertyUSSheet001(adapter *Tt.Adapter, resourcePath string) {
@@ -158,10 +158,6 @@ func ReadPropertyUSSheet001(adapter *Tt.Adapter, resourcePath string) {
 			property.SetTotalSqft(S.ToF(sqftArr[0]))
 		}
 		property.SetNote(v.Description)
-		if v.Parking != `` {
-			parkingArr := S.Split(v.Parking, ` `)
-			property.SetParking(S.ToF(parkingArr[0]))
-		}
 		property.SetCountryCode(`US`)
 		property.SetHouseType(v.PropertySubtype)
 
@@ -190,7 +186,39 @@ func ReadPropertyUSSheet001(adapter *Tt.Adapter, resourcePath string) {
 		property.SetUpdatedAt(fastime.UnixNow())
 		property.SetCoord([]any{0, 0})
 		
-		stat.Ok(property.DoInsert())
+		stat.Ok(property.DoUpsert())
+
+		stat.Print()
+		propertyExtra := wcProperty.NewPropertyExtraUSMutator(adapter)
+		propertyExtra.SetPropertyKey(property.UniqPropKey)
+
+		facility := OtherFacilityInfo{
+			ParkingFeatures: []string{v.Parking},
+			PostName: v.PostName,
+		}
+
+		facilityJson, err := json.Marshal(facility)
+		if err != nil {
+			stat.Warn(`facility marshal error`)
+		} else {
+			propertyExtra.SetFacilityInfo(string(facilityJson))
+		}
+
+		mlsDisclaimerInfo := MlsDisclaimerInfo{
+			ListingBrokerName: v.BrokerName,
+			ListingBrokerNumber: v.SourceMLSNumbert,
+			ListingAgentName: v.AgentName,
+			ListingAgentNumber: v.Phone,
+		}
+
+		mlsDisclaimerInfoJson, err := json.Marshal(mlsDisclaimerInfo)
+		if err != nil {
+			stat.Warn(`mlsDisclaimerInfo marhsal error`)
+		} else {
+			propertyExtra.SetMlsDisclaimerInfo(string(mlsDisclaimerInfoJson))
+		}
+
+		stat.Ok(propertyExtra.DoUpsert())
 	}
 }
 
@@ -381,7 +409,7 @@ func ReadPropertyUSSheet002(adapter *Tt.Adapter, resourcePath string) {
 		property.SetUpdatedAt(fastime.UnixNow())
 		property.SetCoord([]any{0, 0})
 
-		stat.Ok(property.DoInsert())
+		stat.Ok(property.DoUpsert())
 
 		stat.Print()
 		propertyExtra := wcProperty.NewPropertyExtraUSMutator(adapter)
@@ -401,7 +429,21 @@ func ReadPropertyUSSheet002(adapter *Tt.Adapter, resourcePath string) {
 			propertyExtra.SetFacilityInfo(string(facilityJson))
 		}
 
-		stat.Ok(propertyExtra.DoInsert())
+		mlsDisclaimerInfo := MlsDisclaimerInfo{
+			ListingBrokerName: v.BrokerName,
+			ListingBrokerNumber: v.BrokerNumber,
+			ListingAgentName: v.AgentName,
+			ListingAgentNumber: v.AgentPhone,
+		}
+
+		mlsDisclaimerInfoJson, err := json.Marshal(mlsDisclaimerInfo)
+		if err != nil {
+			stat.Warn(`mlsDisclaimerInfo marhsal error`)
+		} else {
+			propertyExtra.SetMlsDisclaimerInfo(string(mlsDisclaimerInfoJson))
+		}
+
+		stat.Ok(propertyExtra.DoUpsert())
 	}
 }
 

@@ -1355,6 +1355,73 @@ exports.AdminPropertiesUS = async function AdminPropertiesUS( i, cb ) {
 }
 
 /**
+ * @typedef {Object} AdminRevenueIn
+ * @property {String} cmd
+ * @property {number} sales.id
+ * @property {number} sales.propertyId
+ * @property {number} sales.realtorId
+ * @property {String} sales.propertyCountry
+ * @property {number} sales.buyerId
+ * @property {String} sales.price
+ * @property {String} sales.buyerEmail
+ * @property {String} sales.emailNotFound
+ * @property {String} sales.salesDate
+ * @property {number} sales.createdAt
+ * @property {number} sales.createdBy
+ * @property {number} sales.updatedAt
+ * @property {number} sales.updatedBy
+ * @property {number} sales.deletedAt
+ * @property {String} propKey
+ * @property {String} realtorEmail
+ * @property {String} yearMonth
+ */
+const AdminRevenueIn = {
+  cmd: '', // string
+  sales: { // rqBusiness.Sales
+    id: 0, // uint64
+    propertyId: 0, // uint64
+    realtorId: 0, // uint64
+    propertyCountry: '', // string
+    buyerId: 0, // uint64
+    price: '', // string
+    buyerEmail: '', // string
+    emailNotFound: '', // string
+    salesDate: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+  }, // rqBusiness.Sales
+  propKey: '', // string
+  realtorEmail: '', // string
+  yearMonth: '', // string
+}
+/**
+ * @typedef {Object} AdminRevenueOut
+ * @property {Object} revenues
+ */
+const AdminRevenueOut = {
+  revenues: { // []mBusiness.Revenue
+  }, // []mBusiness.Revenue
+}
+/**
+ * @callback AdminRevenueCallback
+ * @param {AdminRevenueOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {AdminRevenueIn} i
+ * @param {AdminRevenueCallback} cb
+ * @returns {Promise}
+ */
+exports.AdminRevenue = async function AdminRevenue( i, cb ) {
+  return await axios.post( '/admin/revenue', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} AdminUsersIn
  * @property {String} cmd
  * @property {number} user.id
@@ -1375,6 +1442,8 @@ exports.AdminPropertiesUS = async function AdminPropertiesUS( i, cb ) {
  * @property {String} user.userName
  * @property {String} user.country
  * @property {String} user.language
+ * @property {number} user.propertyCount
+ * @property {number} user.propertyBought
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -1402,6 +1471,8 @@ const AdminUsersIn = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -1441,6 +1512,8 @@ const AdminUsersIn = {
  * @property {String} user.userName
  * @property {String} user.country
  * @property {String} user.language
+ * @property {number} user.propertyCount
+ * @property {number} user.propertyBought
  * @property {Object} users
  */
 const AdminUsersOut = {
@@ -1479,6 +1552,8 @@ const AdminUsersOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   users: { // [][]any
   }, // [][]any
@@ -1530,6 +1605,8 @@ const GuestAutoLoginIn = {
  * @property {String} user.userName
  * @property {String} user.country
  * @property {String} user.language
+ * @property {number} user.propertyCount
+ * @property {number} user.propertyBought
  * @property {Object} segments
  */
 const GuestAutoLoginOut = {
@@ -1552,6 +1629,8 @@ const GuestAutoLoginOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   segments: { // M.SB
   }, // M.SB
@@ -1742,6 +1821,8 @@ const GuestLoginIn = {
  * @property {String} user.userName
  * @property {String} user.country
  * @property {String} user.language
+ * @property {number} user.propertyCount
+ * @property {number} user.propertyBought
  * @property {Object} segments
  */
 const GuestLoginOut = {
@@ -1764,6 +1845,8 @@ const GuestLoginOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   segments: { // M.SB
   }, // M.SB
@@ -1817,6 +1900,8 @@ const GuestOauthCallbackIn = {
  * @property {String} currentUser.userName
  * @property {String} currentUser.country
  * @property {String} currentUser.language
+ * @property {number} currentUser.propertyCount
+ * @property {number} currentUser.propertyBought
  * @property {String} provider
  * @property {Object} segments
  */
@@ -1843,6 +1928,8 @@ const GuestOauthCallbackOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   provider: '', // string
   segments: { // M.SB
@@ -1897,6 +1984,8 @@ const GuestOauthCallbackRedirectIn = {
  * @property {String} currentUser.userName
  * @property {String} currentUser.country
  * @property {String} currentUser.language
+ * @property {number} currentUser.propertyCount
+ * @property {number} currentUser.propertyBought
  * @property {String} provider
  * @property {Object} segments
  */
@@ -1923,6 +2012,8 @@ const GuestOauthCallbackRedirectOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   provider: '', // string
   segments: { // M.SB
@@ -1975,6 +2066,8 @@ const GuestOauthTokenExchangeIn = {
  * @property {String} currentUser.userName
  * @property {String} currentUser.country
  * @property {String} currentUser.language
+ * @property {number} currentUser.propertyCount
+ * @property {number} currentUser.propertyBought
  * @property {String} provider
  * @property {Object} segments
  */
@@ -2001,6 +2094,8 @@ const GuestOauthTokenExchangeOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   provider: '', // string
   segments: { // M.SB
@@ -2081,6 +2176,19 @@ const GuestPropertyIn = {
  * @property {number} property.minimumDurationYear
  * @property {Object} property.otherFees
  * @property {Object} property.imageLabels
+ * @property {number} propertyExtraUS.id
+ * @property {String} propertyExtraUS.propertyKey
+ * @property {String} propertyExtraUS.countyUrl
+ * @property {Object} propertyExtraUS.countyIsActive
+ * @property {String} propertyExtraUS.zoneDataInfo
+ * @property {String} propertyExtraUS.taxInfo
+ * @property {String} propertyExtraUS.historyTaxInfo
+ * @property {String} propertyExtraUS.amenitySuperGroups
+ * @property {String} propertyExtraUS.mlsDisclaimerInfo
+ * @property {String} propertyExtraUS.facilityInfo
+ * @property {String} propertyExtraUS.riskInfo
+ * @property {String} propertyExtraUS.mediaSourceJson
+ * @property {String} propertyExtraUS.taxNote
  * @property {Object} meta
  */
 const GuestPropertyOut = {
@@ -2141,6 +2249,21 @@ const GuestPropertyOut = {
     imageLabels: { // []any
     }, // []any
   }, // rqProperty.Property
+  propertyExtraUS: { // rqProperty.PropertyExtraUS
+    id: 0, // uint64
+    propertyKey: '', // string
+    countyUrl: '', // string
+    countyIsActive: false, // bool
+    zoneDataInfo: '', // string
+    taxInfo: '', // string
+    historyTaxInfo: '', // string
+    amenitySuperGroups: '', // string
+    mlsDisclaimerInfo: '', // string
+    facilityInfo: '', // string
+    riskInfo: '', // string
+    mediaSourceJson: '', // string
+    taxNote: '', // string
+  }, // rqProperty.PropertyExtraUS
   meta: { // []zCrud.Field
   }, // []zCrud.Field
 }
@@ -2189,6 +2312,8 @@ const GuestRegisterIn = {
  * @property {String} user.userName
  * @property {String} user.country
  * @property {String} user.language
+ * @property {number} user.propertyCount
+ * @property {number} user.propertyBought
  * @property {String} verifyEmailUrl
  */
 const GuestRegisterOut = {
@@ -2211,6 +2336,8 @@ const GuestRegisterOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   verifyEmailUrl: '', // string
 }
@@ -2452,6 +2579,71 @@ const RealtorPropertyOut = {
  */
 exports.RealtorProperty = async function RealtorProperty( i, cb ) {
   return await axios.post( '/realtor/property', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} RealtorRevenueIn
+ * @property {String} cmd
+ * @property {number} sales.id
+ * @property {number} sales.propertyId
+ * @property {number} sales.realtorId
+ * @property {String} sales.propertyCountry
+ * @property {number} sales.buyerId
+ * @property {String} sales.price
+ * @property {String} sales.buyerEmail
+ * @property {String} sales.emailNotFound
+ * @property {String} sales.salesDate
+ * @property {number} sales.createdAt
+ * @property {number} sales.createdBy
+ * @property {number} sales.updatedAt
+ * @property {number} sales.updatedBy
+ * @property {number} sales.deletedAt
+ * @property {String} propKey
+ * @property {String} yearMonth
+ */
+const RealtorRevenueIn = {
+  cmd: '', // string
+  sales: { // rqBusiness.Sales
+    id: 0, // uint64
+    propertyId: 0, // uint64
+    realtorId: 0, // uint64
+    propertyCountry: '', // string
+    buyerId: 0, // uint64
+    price: '', // string
+    buyerEmail: '', // string
+    emailNotFound: '', // string
+    salesDate: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+  }, // rqBusiness.Sales
+  propKey: '', // string
+  yearMonth: '', // string
+}
+/**
+ * @typedef {Object} RealtorRevenueOut
+ * @property {Object} revenues
+ */
+const RealtorRevenueOut = {
+  revenues: { // []mBusiness.Revenue
+  }, // []mBusiness.Revenue
+}
+/**
+ * @callback RealtorRevenueCallback
+ * @param {RealtorRevenueOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {RealtorRevenueIn} i
+ * @param {RealtorRevenueCallback} cb
+ * @returns {Promise}
+ */
+exports.RealtorRevenue = async function RealtorRevenue( i, cb ) {
+  return await axios.post( '/realtor/revenue', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -2725,6 +2917,32 @@ exports.UserAutoLoginLink = async function UserAutoLoginLink( i, cb ) {
 }
 
 /**
+ * @typedef {Object} UserBuyerIn
+ */
+const UserBuyerIn = {
+}
+/**
+ * @typedef {Object} UserBuyerOut
+ */
+const UserBuyerOut = {
+}
+/**
+ * @callback UserBuyerCallback
+ * @param {UserBuyerOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserBuyerIn} i
+ * @param {UserBuyerCallback} cb
+ * @returns {Promise}
+ */
+exports.UserBuyer = async function UserBuyer( i, cb ) {
+  return await axios.post( '/user/buyer', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} UserChangePasswordIn
  * @property {String} oldPass
  * @property {String} newPass
@@ -2847,7 +3065,33 @@ const UserLikePropOut = {
  * @returns {Promise}
  */
 exports.UserLikeProp = async function UserLikeProp( i, cb ) {
-  return await axios.post( '/userLikeProp', i ).
+  return await axios.post( '/user/likeProp', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserListingsIn
+ */
+const UserListingsIn = {
+}
+/**
+ * @typedef {Object} UserListingsOut
+ */
+const UserListingsOut = {
+}
+/**
+ * @callback UserListingsCallback
+ * @param {UserListingsOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserListingsIn} i
+ * @param {UserListingsCallback} cb
+ * @returns {Promise}
+ */
+exports.UserListings = async function UserListings( i, cb ) {
+  return await axios.post( '/user/listings', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -2940,6 +3184,8 @@ const UserProfileIn = {
  * @property {String} user.userName
  * @property {String} user.country
  * @property {String} user.language
+ * @property {number} user.propertyCount
+ * @property {number} user.propertyBought
  * @property {Object} segments
  */
 const UserProfileOut = {
@@ -2962,6 +3208,8 @@ const UserProfileOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   segments: { // M.SB
   }, // M.SB
@@ -3356,6 +3604,8 @@ const UserUpdateProfileIn = {
  * @property {String} user.userName
  * @property {String} user.country
  * @property {String} user.language
+ * @property {number} user.propertyCount
+ * @property {number} user.propertyBought
  * @property {Object} segments
  */
 const UserUpdateProfileOut = {
@@ -3378,6 +3628,8 @@ const UserUpdateProfileOut = {
     userName: '', // string
     country: '', // string
     language: '', // string
+    propertyCount: 0, // int64
+    propertyBought: 0, // int64
   }, // rqAuth.Users
   segments: { // M.SB
   }, // M.SB
@@ -3394,6 +3646,38 @@ const UserUpdateProfileOut = {
  */
 exports.UserUpdateProfile = async function UserUpdateProfile( i, cb ) {
   return await axios.post( '/user/updateProfile', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserUpload3DFileIn
+ * @property {number} propertyId
+ * @property {String} country
+ */
+const UserUpload3DFileIn = {
+  propertyId: 0, // uint64
+  country: '', // string
+}
+/**
+ * @typedef {Object} UserUpload3DFileOut
+ * @property {String} imageURL
+ */
+const UserUpload3DFileOut = {
+  imageURL: '', // string
+}
+/**
+ * @callback UserUpload3DFileCallback
+ * @param {UserUpload3DFileOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserUpload3DFileIn} i
+ * @param {UserUpload3DFileCallback} cb
+ * @returns {Promise}
+ */
+exports.UserUpload3DFile = async function UserUpload3DFile( i, cb ) {
+  return await axios.post( '/user/upload3DFile', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

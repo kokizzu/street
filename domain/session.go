@@ -77,7 +77,7 @@ func createHash(key1, key2 string) string {
 		byte(res.Hi >> (64 - 40) % x),
 		byte(res.Hi >> (64 - 48) % x),
 		byte(res.Hi >> (64 - 56) % x),
-		byte(res.Hi >> (64 - 64) % x), // nolint: staticcheck
+		byte(res.Hi % x),
 		byte(res.Lo >> (64 - 8) % x),
 		byte(res.Lo >> (64 - 16) % x),
 		byte(res.Lo >> (64 - 24) % x),
@@ -85,7 +85,7 @@ func createHash(key1, key2 string) string {
 		byte(res.Lo >> (64 - 40) % x),
 		byte(res.Lo >> (64 - 48) % x),
 		byte(res.Lo >> (64 - 56) % x),
-		byte(res.Lo >> (64 - 64) % x), // nolint: staticcheck
+		byte(res.Lo % x),
 	})
 }
 

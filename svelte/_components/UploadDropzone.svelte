@@ -1,6 +1,9 @@
 <script>
   import { fromEvent } from 'file-selector';
-  import { fileAccepted, fileMatchSize, isEvtWithFiles, isIeOrEdge, isPropagationStopped, TOO_MANY_FILES_REJECTION } from './UploadDropzone.js';
+  import {
+    fileAccepted, fileMatchSize, isEvtWithFiles, isIeOrEdge, isPropagationStopped,
+    TOO_MANY_FILES_REJECTION
+  } from './UploadDropzone.js';
   import { createEventDispatcher, onDestroy } from 'svelte';
   
   //props

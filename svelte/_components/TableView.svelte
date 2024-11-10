@@ -1,32 +1,37 @@
 <script>
-  // @ts-nocheck
+  /** @typedef {import('../_types/master.js').Field} Field */
+  /** @typedef {import('../_types/master.js').PagerIn} PagerIn */
+  /** @typedef {import('../_types/master.js').PagerOut} PagerOut */
+  /** @typedef {import('../_types/master.js').ExtendedAction} ExtendedAction */
+
   import { onMount } from 'svelte';
   import { datetime } from './formatter.js';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import {
+    RiSystemRefreshLine, RiSystemFilterLine, RiDesignPencilLine,
+    RiArrowsArrowRightSLine, RiArrowsArrowRightDoubleFill,
+    RiArrowsArrowLeftSLine, RiArrowsArrowLeftDoubleFill
+  } from '../node_modules/svelte-icons-pack/dist/ri';
+  import TableFilterInput from './TableFilterInput.svelte';
   
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import HiOutlinePencil from 'svelte-icons-pack/hi/HiOutlinePencil';
-  import FaSolidAngleRight from 'svelte-icons-pack/fa/FaSolidAngleRight';
-  import FaSolidAngleLeft from 'svelte-icons-pack/fa/FaSolidAngleLeft';
-  import FaSolidAngleDoubleRight from 'svelte-icons-pack/fa/FaSolidAngleDoubleRight';
-  import FaSolidAngleDoubleLeft from 'svelte-icons-pack/fa/FaSolidAngleDoubleLeft';
-  import FaSolidFilter from 'svelte-icons-pack/fa/FaSolidFilter';
-  import FaSolidSyncAlt from 'svelte-icons-pack/fa/FaSolidSyncAlt';
-  
-  export let renderFuncs = {};
-  export let arrayOfArray = true;
-  export let fields = []; // array of field object
-  export let rows = []; // 2 dimension array or array of object if arrayOfArray = false
-  export let pager = {}; // pagination
-  export let extraActions = []; // array of object {icon, label, onClick}
-  export let onRefreshTableView = function( pager ) {
+  export let renderFuncs  = /** @type {Record<string, Function>} */ ({});
+  export let arrayOfArray = /** @type {boolean} */ (true);
+  export let fields       = /** @type {Field[]} */ ([]);
+  export let rows         = /** @type {any[] | Record<string, any>[]} */ ([]);
+  export let pager        = /** @type {PagerOut} */ ({});
+  export let extraActions = /** @type {ExtendedAction[]} */ ([]);
+  export let widths       = /** @type {Record<string, string>} */ ({});
+
+  export let onRefreshTableView = function(/** @type {PagerIn} */ pager ) {
     console.log( 'TableView.onRefreshTableView', pager );
   };
-  export let onEditRow = function( id, row ) {
+  export let onEditRow = function(/** @type {number | string} */ id, /** @type {any | any[]} */ row ) {
     console.log( 'TableView.onEditRow', id, row );
   };
-  export let widths = {}; // array of key and css width
   
-  let deletedAtIdx = -1;
+  // Index of deletedAt field
+  let deletedAtIdx = /** @type {number} */ (-1);
+
   onMount( () => {
     console.log( 'onMount.TableView' );
     console.log( 'fields=', fields );
@@ -34,57 +39,56 @@
     console.log( 'pager=', pager );
     console.log( 'extraActions=', extraActions );
     
-    for( let z = 0; z<fields.length; z++ ) {
+    for( let z = 0; z < fields.length; z++ ) {
       let field = fields[ z ];
-      // find deletedAt index
       if( field.name==='deletedAt' ) {
-        console.log( 'deletedAtIdx', z );
         deletedAtIdx = z;
       }
+
       // empty all filter at beginning
       filtersMap[ field.name ] = '';
     }
+
     oldFilterStr = JSON.stringify( filtersMap );
   } );
   
   let oldFilterStr = '{}';
   let newFilterStr = '';
+
   $: newFilterStr = JSON.stringify( filtersMap );
   
-  let filtersMap = {};
+  let filtersMap = /** @type {Record<string, string>} */ ({});
   
-  function filterKeyDown( event ) {
-    if( event.key==='Enter' ) applyFilter();
-  }
+  // @deprecated
+  // function filterKeyDown(/** @type {KeyboardEvent} */ event ) {
+  //   if( event.key === 'Enter' ) applyFilter();
+  // }
   
   function applyFilter() {
-    let filters = {};
+    let filters = /** @type {Record<string, string[]>}*/ ({});
     for( let key in filtersMap ) {
       let value = filtersMap[ key ];
       if( value ) {
         filters[ key ] = value.split( '|' );
       }
     }
-    console.log( 'filters=', filters );
+
     onRefreshTableView( {
-      ...pager,
+      page: pager.page,
+      perPage: pager.perPage,
+      order: pager.order,
       filters: filters,
     } );
+
     oldFilterStr = newFilterStr;
   }
   
-  function gotoPage( page ) {
-    onRefreshTableView( {
-      ...pager,
-      page,
-    } );
+  function gotoPage(/** @type {number} */ page ) {
+    onRefreshTableView({ ...pager, page });
   }
   
-  function changePerPage( perPage ) {
-    onRefreshTableView( {
-      ...pager,
-      perPage,
-    } );
+  function changePerPage(/** @type {number} */ perPage ) {
+    onRefreshTableView({ ...pager, perPage});
   }
   
   function cell( row, i, field ) {
@@ -94,297 +98,456 @@
   
   $: allowPrevPage = pager.page>1;
   $: allowNextPage = pager.page<pager.pages;
-
 </script>
 
-<section>
-  <div class='action_options_container'>
-    <div class='left'>
-      <slot />
-      <button class='action_btn' disabled={oldFilterStr===newFilterStr} onclick={applyFilter}>
-        <Icon color={oldFilterStr === newFilterStr ? '#5C646F' : '#FFF'} size={17} src={FaSolidFilter} />
-        <span>Apply Filter</span>
-      </button>
-      <button class='action_btn' on:click={() => gotoPage(pager.page)}>
-        <Icon color='#FFF' size={17} src={FaSolidSyncAlt} />
-        <span>Refresh</span>
-      </button>
+<section class="table-root">
+  <div class="actions-container">
+    <div class="left">
+      <div class="actions-button">
+        <slot />
+        <button class="btn"
+          disabled={oldFilterStr===newFilterStr} on:click={applyFilter}
+          title="Apply Filter"
+        >
+          <Icon
+            color="var(--gray-008)"
+            size="17"
+            src={RiSystemFilterLine}
+          />
+        </button>
+        <button class="btn"
+          on:click={() => gotoPage(pager.page)}
+          title="Refresh Table"
+        >
+          <Icon
+            color="var(--gray-008)"
+            size={17}
+            src={RiSystemRefreshLine}
+          />
+        </button>
+      </div>
     </div>
   </div>
-  <div class='table_container'>
-    <table class='table_users'>
+  <div class="table-container">
+    <table>
       <thead>
-      <tr>
-        {#each fields as field}
-          {#if field.name==='id'}
-            <th class='col_action'>Action</th>
-          {:else}
-            <th class='table_header'
-                style='{widths[field.name] ? "min-width: "+widths[field.name] : ""}'>
-              <label for='th_{field.name}'>{field.label}</label><br />
-              <input id='th_{field.name}'
-                     title='separate with pipe for multiple values, for example:
-  >=100|<50|61|72 will show values greater equal to 100, OR less than 50, OR exactly 61 OR 72
-    filtering with greater or less than will only show correct result if data is saved as number
-    currently price and size NOT stored as number
-  <>abc* will show values NOT started with abc*
-  abc*def|ghi will show values started with abc ends with def OR exactly ghi
-  *jkl* will show values containing jkl substring
-multiple filter from other fields will do AND operation'
-                     type='text'
-                     class='input_filter'
-                     bind:value={filtersMap[field.name]}
-                     on:keydown={filterKeyDown}
-              />
-            </th>
-          {/if}
-        {/each}
-      </tr>
-      </thead>
-      <tbody>
-      {#each rows as row, no}
-        <tr class:deleted={row[deletedAtIdx] > 0}>
-          {#each fields as field, i}
+        <tr>
+          <th class="no">No</th>
+          {#each (fields || []) as field}
             {#if field.name==='id'}
-              <td class='col_action'>
-                <div>
-                  <button class='action' title='Edit' on:click={() => onEditRow(cell(row,i,field), row)}>
-                    <Icon src={HiOutlinePencil} />
-                  </button>
-                  {#each extraActions as action}
-                    {#if action.link}
-                      <a href='{action.link(row)}' class='action' target='_blank' title='{action.label || ""}'>
-                        <Icon src={action.icon} />
-                      </a>
-                    {:else}
-                      <button class='action' title='{action.label || ""}' on:click={() => action.onClick(row)}>
-                        <Icon src={action.icon} />
-                      </button>
-                    {/if}
-                  {/each}
-                </div>
-              </td>
-            {:else if renderFuncs[ field.name ]}
-              <td class='table_data'>{renderFuncs[ field.name ]( cell( row, i, field ) ) }</td>
-            {:else if field.inputType==='checkbox'}
-              <td class='table_data'>{!!cell( row, i, field )}</td>
-            {:else if field.inputType==='datetime' || field.name==='deletedAt'}
-              <td class='table_data'>{datetime( cell( row, i, field ) )}</td>
-            {:else if field.inputType==='number'}
-              <td>{(cell( row, i, field ) || 0).toLocaleString()}</td>
+              <th class='a-row'>Action</th>
             {:else}
-              <td class='table_data'>{cell( row, i, field )}</td>
+              <th
+                style="{widths[field.name] ? '--th-width: ' + widths[field.name] + '' : '--th-width: fit-content'}"
+                class="
+                {field.inputType === 'textarea' ? 'textarea' : ''}
+                {field.inputType === 'datetime' ? 'datetime' : ''}
+                {field.name === 'fullName' ? 'full-name' : ''}
+                {field.name === 'userAgent' ? 'user-agent' : ''}
+              ">
+                <TableFilterInput
+                  label={field.label}
+                  bind:value={filtersMap[ field.name ]}
+                />
+              </th>
             {/if}
           {/each}
         </tr>
-      {/each}
+      </thead>
+      <tbody>
+        {#if rows && rows.length > 0}
+          {#each (rows || []) as row, idx}
+            <tr class:deleted={row[deletedAtIdx] > 0}>
+              <td class="num-row">{(pager.page -1) * pager.perPage + idx + 1}</td>
+              {#each fields as field, i}
+                {#if field.name === 'id'}
+                  <td class="a-row">
+                    <div class="actions">
+                      <button class="btn" title="Edit" on:click={() => onEditRow(cell(row,i,field), row)}>
+                        <Icon
+                          src={RiDesignPencilLine}
+                          size="17"
+                          color="var(--gray-008)"
+                        />
+                      </button>
+                      {#each extraActions as action}
+                        {#if action.link}
+                          <a href={action.link(row)} class="btn" target="_blank" title={action.label || ''}>
+                            <Icon
+                              src={action.icon}
+                              size="17"
+                              color="var(--gray-008)"
+                            />
+                          </a>
+                        {:else}
+                          <button class="btn" title={action.label || ""}
+                            on:click={() => action.onClick(row)}
+                          >
+                            <Icon
+                              src={action.icon}
+                              size="17"
+                              color="var(--gray-008)"
+                            />
+                          </button>
+                        {/if}
+                      {/each}
+                    </div>
+                  </td>
+                {:else if renderFuncs[ field.name ]}
+                  <td>{renderFuncs[ field.name ]( cell( row, i, field ) ) }</td>
+                {:else if field.inputType==='checkbox'}
+                  <td>{!!cell( row, i, field )}</td>
+                {:else if field.inputType==='datetime' || field.name==='deletedAt' || field.name==='createdAt' || field.name==='updatedAt'}
+                  <td>{datetime( cell( row, i, field ) )}</td>
+                {:else if field.inputType==='number'}
+                  <td>{(cell( row, i, field ) || 0).toLocaleString()}</td>
+                {:else}
+                  <td>{cell( row, i, field )}</td>
+                {/if}
+              {/each}
+            </tr>
+          {/each}
+        {:else}
+          <tr>
+            <td class="num-row">0</td>
+            <td colspan={fields.length - 2}>No data</td>
+          </tr>
+        {/if}
       </tbody>
     </table>
   </div>
-  <div class='pages_set'>
-    <div class='page_and_rows_count'>
-      <span>Page {pager.page} of {pager.pages},</span>
+  <div class="pagination-container">
+    <div class="pager-info">
+      <span>Page {pager.page} of {pager.pages}</span>
       <input
         bind:value={pager.perPage}
-        class='perPage'
-        id='perPage'
-        min='0'
+        class="per-page"
+        id="perPage"
+        min="0"
         on:change={() => changePerPage(pager.perPage)}
-        type='number'
+        type="number"
       />
       <span>rows per page.</span>
     </div>
-    
-    <p>Total: {pager.countResult | 0}</p>
-    
-    <div class='pagination'>
-      <button disabled={!allowPrevPage} on:click={() => gotoPage(1)} title='Go to first page'>
-        <Icon color={!allowPrevPage ? '#5C646F' : '#FFF'} size={18} src={FaSolidAngleDoubleLeft} />
+    <div class="total">
+      <p>Total: {pager.countResult | 0}</p>
+    </div>
+    <div class="pagination">
+      <button
+        class="btn"
+        disabled={!allowPrevPage}
+        on:click={() => gotoPage(1)}
+        title="Go to first page"
+      >
+        <Icon
+          color="var(--gray-008)"
+          size="18"
+          src={RiArrowsArrowLeftDoubleFill}
+        />
       </button>
-      <button disabled={!allowPrevPage} on:click={() => gotoPage(pager.page - 1)} title='Go to previous page'>
-        <Icon color={!allowPrevPage ? '#5C646F' : '#FFF'} size={18} src={FaSolidAngleLeft} />
+      <button
+        class="btn"
+        disabled={!allowPrevPage}
+        on:click={() => gotoPage(pager.page - 1)}
+        title="Go to previous page"
+      >
+        <Icon
+          color="var(--gray-008)"
+          size="18"
+          src={RiArrowsArrowLeftSLine}
+        />
       </button>
-      <button disabled={!allowNextPage} on:click={() => gotoPage(pager.page + 1)} title='Go to next page'>
-        <Icon color={!allowNextPage ? '#5C646F' : '#FFF'} size={18} src={FaSolidAngleRight} />
+      <button
+        class="btn"
+        disabled={!allowNextPage}
+        on:click={() => gotoPage(pager.page + 1)}
+        title="Go to next page"
+      >
+        <Icon
+          color="var(--gray-008)"
+          size="18"
+          src={RiArrowsArrowRightSLine}
+        />
       </button>
-      <button disabled={!allowNextPage} on:click={() => gotoPage(pager.pages)} title='Go to last page'>
-        <Icon color={!allowNextPage ? '#5C646F' : '#FFF'} size={18} src={FaSolidAngleDoubleRight} />
+      <button
+        class="btn"
+        disabled={!allowNextPage}
+        on:click={() => gotoPage(pager.pages)}
+        title="Go to last page"
+      >
+        <Icon
+          color="var(--gray-008)"
+          size="18"
+          src={RiArrowsArrowRightDoubleFill}
+        />
       </button>
     </div>
   </div>
 </section>
 
 <style>
-  .action_options_container {
-    display         : flex;
-    flex-direction  : row;
-    justify-content : space-between;
-    align-items     : center;
+  .table-root {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid var(--gray-003);
+    padding: 0 0 20px 0;
+    overflow: hidden;
   }
 
-  .action_options_container .left {
-    display     : flex;
-    gap         : 8px;
-    align-items : center;
+  .table-root p {
+    margin: 0;
   }
 
-  .table_container {
-    overflow-x : auto;
+  .table-root .actions-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #fff;
   }
 
-  .table_container::-webkit-scrollbar-thumb {
-    background-color : #EF4444;
-    border-radius    : 4px;
+  .table-root .actions-container .left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
   }
 
-  .table_container::-webkit-scrollbar-thumb:hover {
-    background-color : #EC6262;
+  .table-root .actions-container .left .debug .btn {
+    border: none;
+    background-color: var(--violet-006);
+    color: #fff;
+    width: fit-content;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
   }
 
-  .table_container::-webkit-scrollbar {
-    height : 10px;
+  .table-root .actions-container .left .debug .btn:hover {
+    background-color: var(--violet-005);
   }
 
-  .table_container::-webkit-scrollbar-track {
-    background-color : transparent;
+  :global(.table-root .actions-container .right .search_handler .search_btn:hover svg) {
+    fill: var(--violet-005);
   }
 
-  .table_container .table_users {
-    margin           : 10px 1px 10px 0;
-    background-color : white;
-    border-collapse  : collapse;
-    font-size        : 14px;
-    width            : 100%;
-    color            : #475569;
+  .table-root .actions-container .actions-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
   }
 
-  .table_container .table_users th {
-    color   : #6366F1;
-    border  : 1px solid #CBD5E1;
-    padding : 10px 7px;
+  .table-root .table-container {
+    overflow-x: auto;
+    scrollbar-color: var(--gray-003) transparent;
+    scrollbar-width: thin;
   }
 
-  .table_container .table_users td {
-    border  : 1px solid #CBD5E1;
-    padding : 2px 3px 2px 3px;
+  .table-root .table-container table {
+    width: 100%;
+    background: #fff;
+    border-top: 1px solid var(--gray-003);
+    border-bottom: 1px solid var(--gray-003);
+    box-shadow: none;
+    text-align: left;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    font-size: 13px;
   }
 
-  .table_users .table_header {
-    text-align  : left;
-    white-space : nowrap;
+  .table-root .table-container table thead {
+    box-shadow: none;
+    border-bottom: 1px solid var(--gray-003);
   }
 
-  .table_users .col_action {
-    text-align : center;
-    padding    : 0 10px;
-    width      : fit-content;
+  .table-root .table-container table thead tr th {
+    padding: 5px;
+		background-color: var(--gray-001);
+		text-transform: capitalize;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-003);
+		min-width: var(--th-width);
+		width: auto;
   }
 
-  .table_users td.col_action {
-    text-align : center;
-    padding    : 0 10px;
-    width      : fit-content;
+  .table-root .table-container table thead tr th:nth-child(1),
+  .table-root .table-container table thead tr th:nth-child(2) {
+    padding: 5px 12px !important;
   }
 
-  .table_users td.col_action div {
-    display        : flex;
-    flex-direction : row;
-    align-items    : center;
+  .table-root .table-container table thead tr th.textarea {
+    min-width: 280px !important;
   }
 
-  .table_users tr, .table_users td {
-    height : 2em;
+  .table-root .table-container table thead tr th.datetime,
+  .table-root .table-container table thead tr th.full-name {
+    min-width: 140px !important;
   }
 
-  .table_users .col_action .action {
-    background    : none;
-    color         : #475569;
-    text-align    : center;
-    cursor        : pointer;
-    padding       : 8px 10px;
-    height        : fit-content;
-    width         : fit-content;
-    border        : none;
-    display       : inline;
-    border-radius : 5px;
+  .table-root .table-container table thead tr th.user-agent {
+    min-width: 300px !important;
   }
 
-  .table_users .col_action .action:hover {
-    color            : #EF4444;
-    background-color : #F0F0F0;
+  .table-root .table-container table tbody tr.deleted {
+    color: var(--red-005);
   }
 
-  .table_users .deleted td {
-    text-decoration           : line-through;
-    text-decoration-color     : rgba(239, 68, 68, 0.5);
-    text-decoration-thickness : 5px;
+  .table-root .table-container table thead tr th.no {
+    width: 30px;
   }
 
-  .pages_set {
-    padding-top     : 10px;
-    display         : flex;
-    flex-direction  : row;
-    align-items     : center;
-    justify-content : space-between;
-    align-content   : center;
-    font-size       : 15px;
-    color           : #161616;
+  .table-root .table-container table thead tr th.a-row {
+    max-width: fit-content;
+    min-width: fit-content;
+    width: fit-content;
   }
 
-  .pages_set .page_and_rows_count {
-    display        : flex;
-    flex-direction : row;
-    align-content  : center;
-    align-items    : center;
+  .table-root .table-container table thead tr th:last-child {
+    border-right: none;
   }
 
-  .pages_set .page_and_rows_count .perPage {
-    margin        : auto 5px;
-    width         : 4em;
-    border        : 1px solid #CBD5E1;
-    padding       : 5px;
-    font-size     : 14pt;
-    font-weight   : bold;
-    text-align    : center;
-    color         : #161616;
-    outline-color : #6366F1;
+  .table-root .table-container table tbody tr td {
+    padding: 8px 12px;
+    padding: 8px 12px;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-004);
   }
 
-  .pages_set .page_and_rows_count .perPage::-webkit-inner-spin-button,
-  .pages_set .page_and_rows_count .perPage::-webkit-outer-spin-button {
-    opacity : 1;
+	.table-root .table-container table tbody tr:last-child td,
+	.table-root .table-container table tbody tr:last-child th {
+		border-bottom: none !important;
+	}
+
+  .table-root .table-container table tbody tr:last-child td:last-child {
+    border-right: none !important;
   }
 
-  .pagination button {
-    color            : white;
-    background-color : #6366F1;
-    padding          : 8px;
-    border-radius    : 5px;
-    filter           : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    margin-left      : 4px;
-    cursor           : pointer;
-    border           : none;
+	.table-root .table-container table tbody tr td.num-row {
+		border-right: 1px solid var(--gray-003);
+		font-weight: 600;
+		text-align: center;
+	}
+
+  .table-root .table-container table tbody tr:last-child td,
+  .table-root .table-container table tbody tr:last-child th {
+    border-bottom: none !important;
   }
 
-  .pagination button:hover {
-    background-color : #7E80F1;
+  .table-root .table-container table tbody tr:last-child td:last-child {
+    border-right: none !important;
   }
 
-  .pagination button:disabled {
-    cursor     : not-allowed;
-    border     : 1px solid #CBD5E1 !important;
-    background : none !important;
-    color      : #5C646F;
-    filter     : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  .table-root .table-container table tbody tr td:last-child {
+    border-right: none !important;
   }
 
-  .pagination button:disabled:hover {
-    background : none;
+  .table-root .table-container table tbody tr th {
+    text-align: center;
+    border-right: 1px solid var(--gray-004);
+    border-bottom: 1px solid var(--gray-004);
   }
 
-  input.input_filter {
-    width      : 0;
-    min-width  : 100%;
-    box-sizing : border-box;
+  .table-root .table-container table tbody tr td .actions {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .table-root .table-container table tbody tr td .actions .btn {
+    border: none;
+    padding: 6px;
+    border-radius: 8px;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .table-root .table-container table tbody tr td .actions .btn:hover {
+    background-color: var(--orange-transparent);
+  }
+
+  :global(.table-root .table-container table tbody tr td .actions .btn:hover svg) {
+    fill: var(--orange-005);
+  }
+
+  .table-root .pagination-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 15px 0 15px;
+  }
+
+  .table-root .pagination-container .pager-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .table-root .pagination-container .pager-info input.per-page {
+    padding: 5px 8px;
+    border: 1px solid var(--gray-003);
+    border-radius: 8px;
+    width: 55px;
+  }
+
+  .table-root .pagination-container .pager-info input.per-page:focus {
+    border-color: var(--orange-005);
+    outline: 1px solid var(--orange-005);
+  }
+
+  .table-root .pagination-container .pagination {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    overflow: hidden;
+  }
+
+  .table-root .pagination-container .pagination .btn {
+    border: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    text-decoration: none;
+  }
+
+  .table-root .pagination-container .pagination .btn:hover {
+    background-color: var(--orange-transparent);
+    color: var(--orange-005);
+  }
+
+  :global(.table-root .pagination-container .pagination .btn:hover svg) {
+    fill: var(--orange-005);
+    outline: var(--orange-005);
+  }
+
+  :global(.table-root .pagination-container .pagination .btn:disabled:hover svg) {
+    fill: var(--gray-008);
+    outline: var(--gray-008);
+  }
+
+  .table-root .pagination-container .pagination .btn:disabled {
+    background-color: var(--gray-002);
+    font-weight: 600;
+    cursor: default;
   }
 </style>

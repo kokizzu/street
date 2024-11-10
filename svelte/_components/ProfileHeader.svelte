@@ -1,10 +1,9 @@
 <script>
-    // @ts-nocheck
     import {T, isSideMenuOpen, langOptions} from './uiState.js';
-    import Icon from 'svelte-icons-pack/Icon.svelte';
-    import FaSolidBars from 'svelte-icons-pack/fa/FaSolidBars';
-    import FaSolidPowerOff from "svelte-icons-pack/fa/FaSolidPowerOff";
-    import FaCommentDots from "svelte-icons-pack/fa/FaCommentDots";
+    import { Icon } from '../node_modules/svelte-icons-pack/dist';
+    import {
+			FaSolidBars, FaSolidPowerOff, FaCommentDots
+    } from '../node_modules/svelte-icons-pack/dist/fa';
     import {onMount} from 'svelte';
     import {UserUpdateProfile, UserLogout, UserSendFeedback} from '../jsApi.GEN.js';
     import {notifier} from './notifier.js';

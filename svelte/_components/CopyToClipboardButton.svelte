@@ -1,7 +1,7 @@
 <script>
+    import { Icon } from '../node_modules/svelte-icons-pack/dist';
+    import { TrOutlineCopy } from '../node_modules/svelte-icons-pack/dist/tr';
     import FloatingNotification from './FloatingNotification.svelte';
-    import Icon from 'svelte-icons-pack/Icon.svelte';
-    import HiSolidClipboardCopy from "svelte-icons-pack/hi/HiSolidClipboardCopy";
 
     export let value = '';
     export let title = 'copy to clipboard';
@@ -10,9 +10,9 @@
     let copied = 0;
 
     function showNotification() {
-        copied = setTimeout(function() {
-            copied = 0;
-        }, 1500);
+    copied = setTimeout(function() {
+        copied = 0;
+    }, 1500);
     }
 
     function copyToClipboard() {
@@ -23,7 +23,7 @@
         // Fall back to document.execCommand (deprecated)
         const el = document.createElement('textarea');
         el.value = value;
-        el.style.opacity = 0;
+        el.style.opacity = '0';
         document.body.append(el);
         el.select();
         document.execCommand('copy');
@@ -34,8 +34,8 @@
 </script>
 <button title='{title}' type='button' class='iconButton'
         on:click={copyToClipboard}>
-    <Icon src={HiSolidClipboardCopy} />
+    <Icon src={TrOutlineCopy} />
 </button>
 {#if copied}
-    <FloatingNotification icon='copy' text={value} subtext='copied to clipboard' />
+    <FloatingNotification text={value} subtext='copied to clipboard' />
 {/if}

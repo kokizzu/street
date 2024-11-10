@@ -1,29 +1,22 @@
 <script>
-  //@ts-nocheck
-  import FaSolidAngleLeft from "svelte-icons-pack/fa/FaSolidAngleLeft";
-  import FaSolidMapMarkerAlt from "svelte-icons-pack/fa/FaSolidMapMarkerAlt";
-  import FaSolidFlagUsa from "svelte-icons-pack/fa/FaSolidFlagUsa";
-  import FaSolidBed from "svelte-icons-pack/fa/FaSolidBed";
-  import FaSolidBath from "svelte-icons-pack/fa/FaSolidBath";
-  import FaSolidChair from "svelte-icons-pack/fa/FaSolidChair";
-  import FaSolidBorderStyle from "svelte-icons-pack/fa/FaSolidBorderStyle";
-  import FaSolidExchangeAlt from "svelte-icons-pack/fa/FaSolidExchangeAlt";
-  import {formatPrice} from "./formatter";
-  import FaSolidCamera from "svelte-icons-pack/fa/FaSolidCamera";
-  import FaSolidTimes from "svelte-icons-pack/fa/FaSolidTimes";
-  import FaSolidImage from "svelte-icons-pack/fa/FaSolidImage";
-  import FaSolidHome from "svelte-icons-pack/fa/FaSolidHome";
-  import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
-  import FaCheckCircle from "svelte-icons-pack/fa/FaCheckCircle";
-  import AddOtherFeesDialog from "./AddOtherFeesDialog.svelte";
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import {RealtorUpsertProperty} from "../jsApi.GEN";
-  import {onMount} from "svelte";
-  import {notifier} from './notifier.js';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import {
+    FaSolidAngleLeft, FaSolidMap, FaSolidFlagUsa,
+    FaSolidBed, FaSolidBath, FaSolidChair, FaSolidBorderTopLeft,
+    FaClock, FaSolidCamera, FaSolidImage, FaSolidHouse,
+    FaSolidCircleNotch, FaCircleCheck
+  } from '../node_modules/svelte-icons-pack/dist/fa';
+  import { RiFinanceExchangeLine } from '../node_modules/svelte-icons-pack/dist/ri';
+  import { formatPrice}  from './formatter';
+  import AddOtherFeesDialog from './AddOtherFeesDialog.svelte';
+  import { RealtorUpsertProperty } from '../jsApi.GEN';
+  import { onMount } from 'svelte';
+  import { notifier } from './notifier.js';
   
   export let user;
   export let property;
   export let countries;
+  
   let currentPage = 0, isPropertySubmitted = false;
   let cards = [{}, {}, {}, {}];
   let stackContainerElm, stacks, observer;
@@ -622,7 +615,7 @@
 							</div>
 							<div class='address_country_info'>
 								<div class='address'>
-									<Icon color='#f97316' size={18} src={FaSolidMapMarkerAlt}/>
+									<Icon color='#f97316' size={18} src={FaSolidMap}/>
 									<p>{property.formattedAddress || 'Address'}</p>
 								</div>
 								<div class='country'>
@@ -731,12 +724,12 @@
 									{/if}
 									<div class='input_box area'>
 										<label for='area' class="with_icon">
-											<Icon className="labels_icon" color='#475569' size={13} src={FaSolidBorderStyle}/>
+											<Icon className="labels_icon" color='#475569' size={13} src={FaSolidBorderTopLeft}/>
 											<span>{infoUnitMode} <span class='asterisk'>*</span></span>
 											<button class='unit_toggle' on:click={handleInfoUnitMode.toggle}>
-												<span class='bg'></span>
-												<Icon color='#F97316' size={13} src={FaSolidExchangeAlt}/>
+												<span class='bg'></span>}/>
 											</button>
+                      import { RiFinanceExchangeLine } from '../node_modules/svelte-icons-pack/dist/ri';
 										</label>
 										<input id='area' type='number' min='0' bind:value={houseSize}/>
 									</div>
@@ -905,7 +898,7 @@
 											title='remove this image'
 											on:click|preventDefault={() => removeImage(idx)}
 										>
-											<Icon color='#FFF' size={12} src={FaSolidTimes}/>
+											<Icon color='#FFF' size={12} src={FaClock}/>
 										</button>
 									</div>
 								{/each}
@@ -959,7 +952,7 @@
 										</div>
 										<div class='right'>
 											<div class='house_type'>
-												<Icon color='#FFF' size={18} src={FaSolidHome}/>
+												<Icon color='#FFF' size={18} src={FaSolidHouse}/>
 												<span>{property.houseType}</span>
 											</div>
 										</div>
@@ -990,12 +983,12 @@
 									<div class='feature'>
 										<b>{houseSize}</b>
 										<div>
-											<Icon color='#475569' size={13} src={FaSolidBorderStyle}/>
+											<Icon color='#475569' size={13} src={FaSolidBorderTopLeft}/>
 											<span>{infoUnitMode}</span>
 											<button class='unit_toggle' on:click|preventDefault={handleInfoUnitMode.toggle}>
-												<span class='bg'></span>
-												<Icon color='#F97316' size={13} src={FaSolidExchangeAlt}/>
+												<span class='bg'></span>}/>
 											</button>
+                      import { RiFinanceExchangeLine } from '../node_modules/svelte-icons-pack/dist/ri';
 										</div>
 									</div>
 								</div>
@@ -1051,7 +1044,7 @@
 					<div class='property_submitted_container'>
 						<div class='property_submitted'>
 							<div class='icon_submitted'>
-								<Icon size={110} color='#059669' src={FaCheckCircle}/>
+								<Icon size={110} color='#059669' src={FaCircleCheck}/>
 							</div>
 							<div class='message_submmitted'>
 								<b>We will review it soon</b>

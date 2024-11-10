@@ -2,17 +2,17 @@ package domain
 
 import (
 	"crypto/rsa"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"strings"
 	"io/ioutil"
+	"log"
 	"math/big"
 	"net/http"
 	"net/url"
-	"time"
 	"street/conf"
-	"log"
-	"encoding/base64"
+	"strings"
+	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 )
@@ -55,7 +55,7 @@ func fetchApplePublicKeys() ([]AppleKey, error) {
 }
 
 // FindApplePublicKeyByKeyID finds the correct public key based on the key ID (kid)
-func findApplePublicKeyByKeyID(keys []AppleKey, kid string) (*AppleKey, error) {
+func FindApplePublicKeyByKeyID(keys []AppleKey, kid string) (*AppleKey, error) {
 	for _, key := range keys {
 		if key.Kid == kid {
 			return &key, nil
@@ -75,7 +75,7 @@ func decodeSegment(segment string) ([]byte, error) {
 
 
 // ConvertJWKToPublicKey converts an AppleKey (JWK) to an RSA public key
-func convertJWKToPublicKey(appleKey *AppleKey) (*rsa.PublicKey, error) {
+func ConvertJWKToPublicKey(appleKey *AppleKey) (*rsa.PublicKey, error) {
 	// Decode N and E from base64 to big.Int
 	nBytes, err := decodeSegment(appleKey.N)
 	if err != nil {

@@ -1,8 +1,6 @@
 <script>
-  //@ts-nocheck
   import { GuestResetPassword } from '../jsApi.GEN';
-  import Growl from '../_components/Growl.svelte';
-  import {notifier} from '../_components/notifier.js';
+  import { notifier } from '../_components/notifier.js';
 
   let password = '';
   let pass2 = '';

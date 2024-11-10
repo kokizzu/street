@@ -1,48 +1,15 @@
 <script>
-    // @ts-nocheck
-    import Menu from './_components/Menu.svelte';
-    import ProfileHeader from './_components/ProfileHeader.svelte';
-    import Footer from './_components/Footer.svelte';
-    import { GoogleMap } from './_components/GoogleMap/components';
+	/** @typedef {import('./_types/user').User} User */
+	/** @typedef {import('./_types/master').Access} Access */
 
-    let user = {/* user */};
-    let segments = {/* segments */};
+  import Main from './_layouts/Main.svelte';
 
-    let myLatLng = {lat: 23.6978, lng: 120.9605};
-    let mapOptions = {
-        center: myLatLng,
-        zoom: 8,
-        mapTypeId: 'roadmap',
-        mapId: 'street_project',
-    };
+	const user = /** @type {User} */ ({/* user */});
+	const access = /** @type {Access} */ ({/* segments */});
 </script>
 
-<section class='dashboard'>
-    <Menu
-            access={segments}
-    />
-    <div class='dashboard_main_content'>
-        <ProfileHeader {user} access={segments}/>
-        <div class='content'>
-            <div class='map_container'>
-                <GoogleMap options={mapOptions} />
-                <h3>
-                    Nothing here for now, we will add some content soon.
-                </h3>
-            </div>
-        </div>
-        <Footer></Footer>
-    </div>
-</section>
-
-<style>
-    .map_container {
-        width         : 70%;
-        height        : 430px;
-        position      : relative;
-        margin-top    : -40px;
-        margin-left   : auto;
-        margin-right  : auto;
-        border-radius : 8px;
-    }
-</style>
+<Main {user} {access}>
+	<div>
+		<span>Buyer</span>
+	</div>
+</Main>

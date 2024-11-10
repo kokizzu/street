@@ -497,6 +497,8 @@ func (u *UsersMutator) DoDeletePermanentById() bool { //nolint:dupl false positi
 //		A.X{`=`, 15, u.UserName},
 //		A.X{`=`, 16, u.Country},
 //		A.X{`=`, 17, u.Language},
+//		A.X{`=`, 18, u.PropertyCount},
+//		A.X{`=`, 19, u.PropertyBought},
 //	})
 //	return !L.IsError(err, `Users.DoUpsert failed: `+u.SpaceName()+ `\n%#v`, arr)
 // }
@@ -766,6 +768,28 @@ func (u *UsersMutator) SetLanguage(val string) bool { //nolint:dupl false positi
 	return false
 }
 
+// SetPropertyCount create mutations, should not duplicate
+func (u *UsersMutator) SetPropertyCount(val int64) bool { //nolint:dupl false positive
+	if val != u.PropertyCount {
+		u.mutations = append(u.mutations, A.X{`=`, 18, val})
+		u.logs = append(u.logs, A.X{`propertyCount`, u.PropertyCount, val})
+		u.PropertyCount = val
+		return true
+	}
+	return false
+}
+
+// SetPropertyBought create mutations, should not duplicate
+func (u *UsersMutator) SetPropertyBought(val int64) bool { //nolint:dupl false positive
+	if val != u.PropertyBought {
+		u.mutations = append(u.mutations, A.X{`=`, 19, val})
+		u.logs = append(u.logs, A.X{`propertyBought`, u.PropertyBought, val})
+		u.PropertyBought = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (u *UsersMutator) SetAll(from rqAuth.Users, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -844,6 +868,14 @@ func (u *UsersMutator) SetAll(from rqAuth.Users, excludeMap, forceMap M.SB) (cha
 	}
 	if !excludeMap[`language`] && (forceMap[`language`] || from.Language != ``) {
 		u.Language = S.Trim(from.Language)
+		changed = true
+	}
+	if !excludeMap[`propertyCount`] && (forceMap[`propertyCount`] || from.PropertyCount != 0) {
+		u.PropertyCount = from.PropertyCount
+		changed = true
+	}
+	if !excludeMap[`propertyBought`] && (forceMap[`propertyBought`] || from.PropertyBought != 0) {
+		u.PropertyBought = from.PropertyBought
 		changed = true
 	}
 	return

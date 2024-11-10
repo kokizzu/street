@@ -13,12 +13,211 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-// FilesMutator DAO writer/command struct
+// DesignFilesMutator DAO writer/command struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file wcStorage__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type wcStorage__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type wcStorage__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcStorage__ORM.GEN.go
+type DesignFilesMutator struct {
+	rqStorage.DesignFiles
+	mutations []A.X
+	logs      []A.X
+}
+
+// NewDesignFilesMutator create new ORM writer/command object
+func NewDesignFilesMutator(adapter *Tt.Adapter) (res *DesignFilesMutator) {
+	res = &DesignFilesMutator{DesignFiles: rqStorage.DesignFiles{Adapter: adapter}}
+	return
+}
+
+// Logs get array of logs [field, old, new]
+func (d *DesignFilesMutator) Logs() []A.X { //nolint:dupl false positive
+	return d.logs
+}
+
+// HaveMutation check whether Set* methods ever called
+func (d *DesignFilesMutator) HaveMutation() bool { //nolint:dupl false positive
+	return len(d.mutations) > 0
+}
+
+// ClearMutations clear all previously called Set* methods
+func (d *DesignFilesMutator) ClearMutations() { //nolint:dupl false positive
+	d.mutations = []A.X{}
+	d.logs = []A.X{}
+}
+
+// DoOverwriteById update all columns, error if not exists, not using mutations/Set*
+func (d *DesignFilesMutator) DoOverwriteById() bool { //nolint:dupl false positive
+	_, err := d.Adapter.Update(d.SpaceName(), d.UniqueIndexId(), A.X{d.Id}, d.ToUpdateArray())
+	return !L.IsError(err, `DesignFiles.DoOverwriteById failed: `+d.SpaceName())
+}
+
+// DoUpdateById update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (d *DesignFilesMutator) DoUpdateById() bool { //nolint:dupl false positive
+	if !d.HaveMutation() {
+		return true
+	}
+	_, err := d.Adapter.Update(d.SpaceName(), d.UniqueIndexId(), A.X{d.Id}, d.mutations)
+	return !L.IsError(err, `DesignFiles.DoUpdateById failed: `+d.SpaceName())
+}
+
+// DoDeletePermanentById permanent delete
+func (d *DesignFilesMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
+	_, err := d.Adapter.Delete(d.SpaceName(), d.UniqueIndexId(), A.X{d.Id})
+	return !L.IsError(err, `DesignFiles.DoDeletePermanentById failed: `+d.SpaceName())
+}
+
+// func (d *DesignFilesMutator) DoUpsert() bool { //nolint:dupl false positive
+//	arr := d.ToArray()
+//	_, err := d.Adapter.Upsert(d.SpaceName(), arr, A.X{
+//		A.X{`=`, 0, d.Id},
+//		A.X{`=`, 1, d.CountryPropId},
+//		A.X{`=`, 2, d.FilePath},
+//		A.X{`=`, 3, d.CreatedAt},
+//		A.X{`=`, 4, d.CreatedBy},
+//	})
+//	return !L.IsError(err, `DesignFiles.DoUpsert failed: `+d.SpaceName()+ `\n%#v`, arr)
+// }
+
+// DoOverwriteByFilePath update all columns, error if not exists, not using mutations/Set*
+func (d *DesignFilesMutator) DoOverwriteByFilePath() bool { //nolint:dupl false positive
+	_, err := d.Adapter.Update(d.SpaceName(), d.UniqueIndexFilePath(), A.X{d.FilePath}, d.ToUpdateArray())
+	return !L.IsError(err, `DesignFiles.DoOverwriteByFilePath failed: `+d.SpaceName())
+}
+
+// DoUpdateByFilePath update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (d *DesignFilesMutator) DoUpdateByFilePath() bool { //nolint:dupl false positive
+	if !d.HaveMutation() {
+		return true
+	}
+	_, err := d.Adapter.Update(d.SpaceName(), d.UniqueIndexFilePath(), A.X{d.FilePath}, d.mutations)
+	return !L.IsError(err, `DesignFiles.DoUpdateByFilePath failed: `+d.SpaceName())
+}
+
+// DoDeletePermanentByFilePath permanent delete
+func (d *DesignFilesMutator) DoDeletePermanentByFilePath() bool { //nolint:dupl false positive
+	_, err := d.Adapter.Delete(d.SpaceName(), d.UniqueIndexFilePath(), A.X{d.FilePath})
+	return !L.IsError(err, `DesignFiles.DoDeletePermanentByFilePath failed: `+d.SpaceName())
+}
+
+// DoInsert insert, error if already exists
+func (d *DesignFilesMutator) DoInsert() bool { //nolint:dupl false positive
+	arr := d.ToArray()
+	row, err := d.Adapter.Insert(d.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			d.Id = X.ToU(tup[0][0])
+		}
+	}
+	return !L.IsError(err, `DesignFiles.DoInsert failed: `+d.SpaceName()+`\n%#v`, arr)
+}
+
+// DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
+// replace = upsert, only error when there's unique secondary key
+// previous name: DoReplace
+func (d *DesignFilesMutator) DoUpsert() bool { //nolint:dupl false positive
+	arr := d.ToArray()
+	row, err := d.Adapter.Replace(d.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			d.Id = X.ToU(tup[0][0])
+		}
+	}
+	return !L.IsError(err, `DesignFiles.DoUpsert failed: `+d.SpaceName()+`\n%#v`, arr)
+}
+
+// SetId create mutations, should not duplicate
+func (d *DesignFilesMutator) SetId(val uint64) bool { //nolint:dupl false positive
+	if val != d.Id {
+		d.mutations = append(d.mutations, A.X{`=`, 0, val})
+		d.logs = append(d.logs, A.X{`id`, d.Id, val})
+		d.Id = val
+		return true
+	}
+	return false
+}
+
+// SetCountryPropId create mutations, should not duplicate
+func (d *DesignFilesMutator) SetCountryPropId(val string) bool { //nolint:dupl false positive
+	if val != d.CountryPropId {
+		d.mutations = append(d.mutations, A.X{`=`, 1, val})
+		d.logs = append(d.logs, A.X{`countryPropId`, d.CountryPropId, val})
+		d.CountryPropId = val
+		return true
+	}
+	return false
+}
+
+// SetFilePath create mutations, should not duplicate
+func (d *DesignFilesMutator) SetFilePath(val string) bool { //nolint:dupl false positive
+	if val != d.FilePath {
+		d.mutations = append(d.mutations, A.X{`=`, 2, val})
+		d.logs = append(d.logs, A.X{`filePath`, d.FilePath, val})
+		d.FilePath = val
+		return true
+	}
+	return false
+}
+
+// SetCreatedAt create mutations, should not duplicate
+func (d *DesignFilesMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
+	if val != d.CreatedAt {
+		d.mutations = append(d.mutations, A.X{`=`, 3, val})
+		d.logs = append(d.logs, A.X{`createdAt`, d.CreatedAt, val})
+		d.CreatedAt = val
+		return true
+	}
+	return false
+}
+
+// SetCreatedBy create mutations, should not duplicate
+func (d *DesignFilesMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != d.CreatedBy {
+		d.mutations = append(d.mutations, A.X{`=`, 4, val})
+		d.logs = append(d.logs, A.X{`createdBy`, d.CreatedBy, val})
+		d.CreatedBy = val
+		return true
+	}
+	return false
+}
+
+// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
+func (d *DesignFilesMutator) SetAll(from rqStorage.DesignFiles, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+	if excludeMap == nil { // list of fields to exclude
+		excludeMap = M.SB{}
+	}
+	if forceMap == nil { // list of fields to force overwrite
+		forceMap = M.SB{}
+	}
+	if !excludeMap[`id`] && (forceMap[`id`] || from.Id != 0) {
+		d.Id = from.Id
+		changed = true
+	}
+	if !excludeMap[`countryPropId`] && (forceMap[`countryPropId`] || from.CountryPropId != ``) {
+		d.CountryPropId = S.Trim(from.CountryPropId)
+		changed = true
+	}
+	if !excludeMap[`filePath`] && (forceMap[`filePath`] || from.FilePath != ``) {
+		d.FilePath = S.Trim(from.FilePath)
+		changed = true
+	}
+	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
+		d.CreatedAt = from.CreatedAt
+		changed = true
+	}
+	if !excludeMap[`createdBy`] && (forceMap[`createdBy`] || from.CreatedBy != 0) {
+		d.CreatedBy = from.CreatedBy
+		changed = true
+	}
+	return
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
+// FilesMutator DAO writer/command struct
 type FilesMutator struct {
 	rqStorage.Files
 	mutations []A.X

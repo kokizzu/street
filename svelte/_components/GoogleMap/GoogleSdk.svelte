@@ -1,5 +1,6 @@
 <script>
-  // @ts-ignore
+  // @ts-nocheck
+  
   import { onMount, createEventDispatcher } from 'svelte';
   import { mapsLoaded, mapsLoading } from "./stores";
 
@@ -14,7 +15,7 @@
     if (!$mapsLoading) {
       mapsLoading.set( true );
       Init( {
-        key: 'AIzaSyBKF5w6NExgYbmNMvlbMqF6sH2X4dFvMBg',
+        key: 'AIzaSyAB19JBmmsKCtZqOZaMhUew9V5RPgmkSXY',
         v: 'weekly'
       } );
       mapsLoaded.set(true);
