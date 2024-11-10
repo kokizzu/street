@@ -1,24 +1,89 @@
 <script>
   /** @typedef {import('../_types/user').User} User */
   /** @typedef {import('../_types/master').Access} Access */
-  /** @typedef {import('../_types/business').AdminRevenue} Revenue */
+  /** @typedef {import('../_types/business').Sales} Sales */
+  /** @typedef {import('../_types/business').Revenue} Revenue */
 
   import Main from '../_layouts/Main.svelte';
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { RiSystemAddLargeFill } from '../node_modules/svelte-icons-pack/dist/ri';
-  import { formatPrice, datetime } from '../_components/formatter';
+  import { formatPrice, getYearMonth } from '../_components/formatter';
+  import PopUpAddSales from '../_components/PopUpAdminAddSales.svelte';
+  import { AdminRevenue } from '../jsApi.GEN';
+  import { notifier } from '../_components/notifier';
+  import InputBox from '../_components/InputBox.svelte';
   
   let user      = /** @type {User} */ ({/* user */});
   let access    = /** @type {Access} */ ({/* segments */});
   let revenues  = /** @type {Revenue[]} */ ([/* revenues */]);
 
   console.log('revenues =', revenues);
+
+  let monthFilter = /** @type {Date|string|any} */ (getYearMonth());
+
+  async function applyFilterYearMonth() {
+    const inAdminRevenue = /** @type {import('../jsApi.GEN').AdminRevenueIn} */ ({
+      cmd: 'list',
+      yearMonth: monthFilter
+    });
+    await AdminRevenue(inAdminRevenue, async function(/** @type {any} */ res) {
+      if (res.error) {
+        console.log('error =', res.error);
+        notifier.showError(res.error || 'failed to get revenues');
+        isSubmitAddSales = false;
+        return;
+      }
+
+      revenues = res.revenues;
+    })
+  }
+
+  let popUpAddSales = /** @type {import('svelte').SvelteComponent} */ (null);
+  let isSubmitAddSales = /** @type {boolean} */ (false);
+
+  /**
+   * @description Submit add sales
+   * @type {Function}
+   * @param salesObj {Sales}
+   * @param propKey {string}
+   * @param realtorEmail {string}
+   * @returns {Promise<void>}
+   */
+  const SubmitAddSales = async function(salesObj, propKey, realtorEmail) {
+    console.log('Sales =', salesObj);
+    console.log('Property Key =', propKey);
+    console.log('Realtor Email =', realtorEmail);
+    await AdminRevenue({
+      cmd: 'upsert', // @ts-ignore
+      sales: salesObj,
+      propKey: propKey,
+      realtorEmail: realtorEmail
+    }, async function(/** @type {any} */ res) {
+      
+    })
+  };
 </script>
 
+<PopUpAddSales
+  bind:this={popUpAddSales}
+  bind:isSubmitted={isSubmitAddSales}
+  heading="Add Sales"
+  OnSubmit={SubmitAddSales}
+/>
+
 <Main {user} {access}>
-  <haha class="revenue-container">
-    <hehe class="header">
-      <miaw></miaw>
+  <div class="revenue-container">
+    <div class="header">
+      <div class="filter">
+        <InputBox
+          type="month"
+          id="month-filter"
+          bind:value={monthFilter}
+        />
+        <button class="btn-filter" on:click={applyFilterYearMonth}>
+          <span>Apply Filter</span>
+        </button>
+      </div>
       <button class="add-btn">
         <Icon
           size="20"
@@ -27,34 +92,26 @@
         />
         <span>Add</span>
       </button>
-    </hehe>
-    <huhu class="table-root">
+    </div>
+    <div class="table-root">
       <div class="table-container">
         <table>
           <thead>
             <tr>
-              <th>Property ID</th>
-              <th>Realtor ID</th>
-              <th>Property Country</th>
+              <th class="no">No</th>
               <th>Revenue</th>
               <th>Property Bought</th>
               <th>Sales Date</th>
-              <th>Created At</th>
-              <th>Updated At</th>
             </tr>
           </thead>
           <tbody>
             {#if revenues && revenues.length > 0}
-              {#each (revenues || []) as rv}
+              {#each (revenues || []) as rv, idx}
                 <tr>
-                  <td>{rv.propertyId}</td>
-                  <td>{rv.realtorId}</td>
-                  <td>{rv.propertyCountry || 'Default'}</td>
+                  <td>{idx + 1}</td>
                   <td>{formatPrice(Number(rv.revenue), 'USD')}</td>
                   <td>{rv.propertyBought}</td>
                   <td>{rv.salesDate}</td>
-                  <td>{datetime(rv.createdAt)}</td>
-                  <td>{datetime(rv.updatedAt)}</td>
                 </tr>
               {/each}
             {:else}
@@ -65,8 +122,8 @@
           </tbody>
         </table>
       </div>
-    </huhu>
-  </haha>
+    </div>
+  </div>
 </Main>
 
 <style>
@@ -82,6 +139,29 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .revenue-container .header .filter {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .revenue-container .header .filter .btn-filter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--orange-006);
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    padding: 10px 30px;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
   }
 
   .revenue-container .header .add-btn {
@@ -100,7 +180,8 @@
     text-decoration: none;
   }
 
-  .revenue-container .header .add-btn:hover {
+  .revenue-container .header .add-btn:hover,
+  .revenue-container .header .filter .btn-filter:hover {
     background-color: var(--orange-005);
   }
 
@@ -146,6 +227,10 @@
 		min-width: fit-content;
 		width: auto;
     text-wrap: nowrap;
+  }
+
+  .table_root .table_container table thead tr th.no {
+    width: 30px;
   }
 
   .table-root .table-container table thead tr th:last-child {

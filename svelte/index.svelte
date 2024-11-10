@@ -1,6 +1,7 @@
 <script>
   /** @typedef {import('./_types/master.js').Access} Access */
   /** @typedef {import('./_types/user.js').User} User */
+  /** @typedef {import('./_types/business.js').Revenue} Revenue */
   /**
    * @typedef {Object} UserRegistered
    * @property {string} date
@@ -24,6 +25,7 @@
   let segments  = /** @type {Access} */ ({/* segments */});
   let google    = /** @type {string} */ ('#{google}');
   let apple     = /** @type {string} */ ('#{apple}');
+  let revenues  = /** @type {Revenue[]} */ ([/* revenues */]);
 
   const usersRegistered = /** @type {UserRegistered[]} */ ([/* user_registered */ ]);
 
@@ -103,12 +105,24 @@
   function renderRevenueChart() {
     MODE_STATS = STAT_REVENUE;
     if (chart) {
-      chart.data.labels = ['Jan 31', 'Feb 28', 'Mar 30', 'Apr 30', 'May 30', 'Jun 30'];
-      chart.data.datasets[0].data = [40000, 130000, 70000, 250000, 145000, 220000];
+      chart.data.labels = (revenues || []).map((/** @type {Revenue} */ i) => {
+        const dt = /** @type {Date} */ (new Date(i.salesDate));
+        return dt.toLocaleDateString('en-US', {
+          month: 'short',
+          day: '2-digit'
+        });
+      });
+      chart.data.datasets[0].data = (revenues || []).map((/** @type {Revenue} */ i) => Number(i.revenue));
       chart.data.datasets[0].label = 'Revenue';
       chart.options.scales.y = {
         ticks: {
-          stepSize: 10000
+          stepSize: 10000000,
+          callback: function(value) {
+            if (Number(value) >= 1000000000) return Number(value) / 1000000000 + 'B';
+            if (Number(value) >= 1000000) return Number(value) / 1000000 + 'M';
+            if (Number(value) >= 1000) return Number(value) / 1000 + 'K';
+            return Number(value);
+          }
         }
       };
       chart.update();
@@ -118,13 +132,12 @@
   function renderRegisteredChart() {
     MODE_STATS = STAT_REGISTERED;
     if (chart) {
-      chart.data.labels = (usersRegistered || []).map((i) => {
-        const dt = new Date(i.date);
-
+      chart.data.labels = (usersRegistered || []).map((/** @type {UserRegistered} */ i) => {
+        const dt = /** @type {Date} */ (new Date(i.date));
         return dt.toLocaleDateString('en-US', {
           month: 'short',
           day: '2-digit'
-        })
+        });
       });
       chart.data.datasets[0].data = (usersRegistered || []).map((i) => i.count);
       chart.data.datasets[0].label = 'Registered';
@@ -149,10 +162,16 @@
         chart = new Chart(ElmChart, {
           type: 'line',
           data: {
-            labels: ['Jan 31', 'Feb 28', 'Mar 30', 'Apr 30', 'May 30', 'Jun 30'],
+            labels: (revenues || []).map((/** @type {Revenue} */ i) => {
+              const dt = /** @type {Date} */ (new Date(i.salesDate));
+              return dt.toLocaleDateString('en-US', {
+                month: 'short',
+                day: '2-digit'
+              });
+            }),
             datasets: [{
               label: 'Revenue',
-              data: [40000, 130000, 70000, 250000, 145000, 220000],
+              data: (revenues || []).map((/** @type {Revenue} */ i) => Number(i.revenue)),
               borderColor: '#f97316',
               backgroundColor: '#f9731630',
               pointRadius: 0,
@@ -171,9 +190,12 @@
               y: {
                 beginAtZero: true,
                 ticks: {
-                  stepSize: 10000,
+                  stepSize: 10000000,
                   callback: function(value) {
-                    return Number(value) >= 1000 ? Number(value) / 1000 + 'K' : value;
+                    if (Number(value) >= 1000000000) return Number(value) / 1000000000 + 'B';
+                    if (Number(value) >= 1000000) return Number(value) / 1000000 + 'M';
+                    if (Number(value) >= 1000) return Number(value) / 1000 + 'K';
+                    return Number(value);
                   }
                 }
               }

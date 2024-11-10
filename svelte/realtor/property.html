@@ -5420,6 +5420,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         const year = dt.getFullYear();
         return `${year}-${month}-${date}`;
       }
+      function getYearMonth() {
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        return `${year}-${month}`;
+      }
       module.exports = {
         datetime,
         priceNtd,
@@ -5428,7 +5434,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         formatPrice: formatPrice3,
         getApprovalState: getApprovalState2,
         M2ToPing,
-        dateISOFormat
+        dateISOFormat,
+        getYearMonth
       };
     }
   });

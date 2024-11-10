@@ -1,24 +1,8 @@
 /**
- * @typedef {Object} RealtorRevenue
- * @property {string|number} propertyId
+ * @typedef {Object} Revenue
  * @property {string|number} revenue
  * @property {number} propertyBought
  * @property {string} salesDate
- * @property {number} createdAt
- * @property {number} updatedAt
- */
-module.exports = {};
-
-/**
- * @typedef {Object} AdminRevenue
- * @property {string|number} propertyId
- * @property {string|number} realtorId
- * @property {string} propertyCountry
- * @property {string|number} revenue
- * @property {number} propertyBought
- * @property {string} salesDate
- * @property {number} createdAt
- * @property {number} updatedAt
  */
 module.exports = {};
 

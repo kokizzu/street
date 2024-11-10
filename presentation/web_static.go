@@ -16,6 +16,8 @@ import (
 	"street/domain"
 	"street/model/mAuth/rqAuth"
 	"street/model/mAuth/saAuth"
+	"street/model/mBusiness"
+	"street/model/mBusiness/rqBusiness"
 	"street/model/mProperty/rqProperty"
 	"street/model/zCrud"
 )
@@ -35,12 +37,26 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			actionLog := saAuth.NewActionLogs(d.AuthOlap)
 			userRegistered = actionLog.FindUserRegistered()
 		}
+
+		var revenues []*mBusiness.Revenue
+
+		if segments[domain.UserSegment] {
+			if segments[domain.AdminSegment] {
+				r := rqBusiness.NewSales(d.BusinessOltp)
+				revenues = r.FindRevenuesMonthly("XD")
+			} else {
+				r := rqBusiness.NewSales(d.BusinessOltp)
+				r.RealtorId = user.Id
+				revenues = r.FindRealtorRevenuesMonthlyByRealtorId("XD")
+			}
+		}
 		return views.RenderIndex(c, M.SX{
 			`title`:  `HapSTR`,
 			`user`:   user,
 			`google`: google.Link,
 			`segments`: segments,
 			`user_registered`: userRegistered,
+			`revenues`: revenues,
 		})
 	})
 

@@ -1356,13 +1356,54 @@ exports.AdminPropertiesUS = async function AdminPropertiesUS( i, cb ) {
 
 /**
  * @typedef {Object} AdminRevenueIn
+ * @property {String} cmd
+ * @property {number} sales.id
+ * @property {number} sales.propertyId
+ * @property {number} sales.realtorId
+ * @property {String} sales.propertyCountry
+ * @property {number} sales.buyerId
+ * @property {String} sales.price
+ * @property {String} sales.buyerEmail
+ * @property {String} sales.emailNotFound
+ * @property {String} sales.salesDate
+ * @property {number} sales.createdAt
+ * @property {number} sales.createdBy
+ * @property {number} sales.updatedAt
+ * @property {number} sales.updatedBy
+ * @property {number} sales.deletedAt
+ * @property {String} propKey
+ * @property {String} realtorEmail
+ * @property {String} yearMonth
  */
 const AdminRevenueIn = {
+  cmd: '', // string
+  sales: { // rqBusiness.Sales
+    id: 0, // uint64
+    propertyId: 0, // uint64
+    realtorId: 0, // uint64
+    propertyCountry: '', // string
+    buyerId: 0, // uint64
+    price: '', // string
+    buyerEmail: '', // string
+    emailNotFound: '', // string
+    salesDate: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+  }, // rqBusiness.Sales
+  propKey: '', // string
+  realtorEmail: '', // string
+  yearMonth: '', // string
 }
 /**
  * @typedef {Object} AdminRevenueOut
+ * @property {Object} revenues
  */
 const AdminRevenueOut = {
+  revenues: { // []mBusiness.Revenue
+  }, // []mBusiness.Revenue
 }
 /**
  * @callback AdminRevenueCallback
@@ -2544,13 +2585,52 @@ exports.RealtorProperty = async function RealtorProperty( i, cb ) {
 
 /**
  * @typedef {Object} RealtorRevenueIn
+ * @property {String} cmd
+ * @property {number} sales.id
+ * @property {number} sales.propertyId
+ * @property {number} sales.realtorId
+ * @property {String} sales.propertyCountry
+ * @property {number} sales.buyerId
+ * @property {String} sales.price
+ * @property {String} sales.buyerEmail
+ * @property {String} sales.emailNotFound
+ * @property {String} sales.salesDate
+ * @property {number} sales.createdAt
+ * @property {number} sales.createdBy
+ * @property {number} sales.updatedAt
+ * @property {number} sales.updatedBy
+ * @property {number} sales.deletedAt
+ * @property {String} propKey
+ * @property {String} yearMonth
  */
 const RealtorRevenueIn = {
+  cmd: '', // string
+  sales: { // rqBusiness.Sales
+    id: 0, // uint64
+    propertyId: 0, // uint64
+    realtorId: 0, // uint64
+    propertyCountry: '', // string
+    buyerId: 0, // uint64
+    price: '', // string
+    buyerEmail: '', // string
+    emailNotFound: '', // string
+    salesDate: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+  }, // rqBusiness.Sales
+  propKey: '', // string
+  yearMonth: '', // string
 }
 /**
  * @typedef {Object} RealtorRevenueOut
+ * @property {Object} revenues
  */
 const RealtorRevenueOut = {
+  revenues: { // []mBusiness.Revenue
+  }, // []mBusiness.Revenue
 }
 /**
  * @callback RealtorRevenueCallback

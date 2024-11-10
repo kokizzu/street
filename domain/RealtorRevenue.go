@@ -23,17 +23,17 @@ type (
 		Cmd string `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
 		Sales rqBusiness.Sales `json:"sales" form:"sales" query:"sales" long:"sales" msg:"sales"`
 		PropKey string `json:"propKey" form:"propKey" query:"propKey" long:"propKey" msg:"propKey"`
+		YearMonth string `json:"yearMonth" form:"yearMonth" query:"yearMonth" long:"yearMonth" msg:"yearMonth"`
 	}
 	RealtorRevenueOut struct {
 		ResponseCommon
-		Revenues []*mBusiness.RealtorRevenue `json:"revenues" form:"revenues" query:"revenues" long:"revenues" msg:"revenues"`
+		Revenues []*mBusiness.Revenue `json:"revenues" form:"revenues" query:"revenues" long:"revenues" msg:"revenues"`
 	}
 )
 
 const (
 	RealtorRevenueAction = `realtor/revenue`
 
-	ErrRealtorRevenueBuyerNotFound = `buyer not found to add a new sales`
 	ErrRealtorRevenuePropertyNotFound = `property not found to add a new sales`
 	ErrRealtorRevenueInvalidPrice = `invalid price, must be a number`
 	ErrRealtorRevenueInvalidSalesDate = `invalid sales date, must be in format YYYY-MM-DD`
@@ -83,18 +83,13 @@ func (d *Domain) RealtorRevenue(in *RealtorRevenueIn) (out RealtorRevenueOut) {
 			sales.SetPropertyId(prop.Id)
 		}
 
-		if in.Sales.BuyerEmail != `` {
-			buyer := rqAuth.NewUsers(d.AuthOltp)
-			buyer.Email = in.Sales.BuyerEmail
-			if !buyer.FindByEmail() {
-				out.SetError(400, ErrRealtorRevenueBuyerNotFound)
-				return
-			}
+		buyer := rqAuth.NewUsers(d.AuthOltp)
+		buyer.Email = in.Sales.BuyerEmail
+		if buyer.FindByEmail() {
 			sales.SetBuyerId(buyer.Id)
 			sales.SetBuyerEmail(buyer.Email)
 		} else {
-			sales.SetBuyerId(0)
-			sales.SetBuyerEmail(``)
+			sales.SetEmailNotFound(in.Sales.BuyerEmail)
 		}
 
 		price := S.ToInt(in.Sales.Price)
@@ -121,7 +116,7 @@ func (d *Domain) RealtorRevenue(in *RealtorRevenueIn) (out RealtorRevenueOut) {
 	case zCrud.CmdList:
 		r := rqBusiness.NewSales(d.BusinessOltp)
 		r.RealtorId = sess.UserId
-		revenues := r.FindRevenuesByRealtorId()
+		revenues := r.FindRealtorRevenuesMonthlyByRealtorId(in.YearMonth)
 
 		out.Revenues = revenues
 	}

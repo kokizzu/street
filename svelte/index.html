@@ -5321,7 +5321,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   }
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[23] = list[i][0];
+    child_ctx[24] = list[i][0];
     child_ctx[0] = list[i][1];
     return child_ctx;
   }
@@ -5377,8 +5377,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           dispose = listen(
             input,
             "input",
-            /*input_input_handler_6*/
-            ctx[22]
+            /*input_input_handler_7*/
+            ctx[23]
           );
           mounted = true;
         }
@@ -5436,6 +5436,115 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           detach(t1);
           detach(input);
         }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_12(ctx) {
+    let t;
+    let input;
+    let mounted;
+    let dispose;
+    let if_block = (
+      /*label*/
+      (ctx[3] || /*label*/
+      ctx[3] !== "") && create_if_block_132(ctx)
+    );
+    return {
+      c() {
+        if (if_block)
+          if_block.c();
+        t = space();
+        input = element("input");
+        attr(input, "type", "month");
+        attr(
+          input,
+          "id",
+          /*id*/
+          ctx[2]
+        );
+        attr(
+          input,
+          "placeholder",
+          /*placeholder*/
+          ctx[4]
+        );
+        attr(input, "class", "svelte-2bfxz1");
+      },
+      m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, t, anchor);
+        insert(target, input, anchor);
+        set_input_value(
+          input,
+          /*value*/
+          ctx[0]
+        );
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler_6*/
+            ctx[22]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (
+          /*label*/
+          ctx2[3] || /*label*/
+          ctx2[3] !== ""
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+          } else {
+            if_block = create_if_block_132(ctx2);
+            if_block.c();
+            if_block.m(t.parentNode, t);
+          }
+        } else if (if_block) {
+          if_block.d(1);
+          if_block = null;
+        }
+        if (dirty & /*id*/
+        4) {
+          attr(
+            input,
+            "id",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*placeholder*/
+        16) {
+          attr(
+            input,
+            "placeholder",
+            /*placeholder*/
+            ctx2[4]
+          );
+        }
+        if (dirty & /*value, valuesArr*/
+        257) {
+          set_input_value(
+            input,
+            /*value*/
+            ctx2[0]
+          );
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(t);
+          detach(input);
+        }
+        if (if_block)
+          if_block.d(detaching);
         mounted = false;
         dispose();
       }
@@ -6398,7 +6507,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_12(ctx) {
+  function create_if_block_13(ctx) {
     let label_1;
     let t0;
     let t1;
@@ -6643,6 +6752,53 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
+  function create_if_block_132(ctx) {
+    let label_1;
+    let t;
+    return {
+      c() {
+        label_1 = element("label");
+        t = text(
+          /*label*/
+          ctx[3]
+        );
+        attr(label_1, "class", "label svelte-2bfxz1");
+        attr(
+          label_1,
+          "for",
+          /*id*/
+          ctx[2]
+        );
+      },
+      m(target, anchor) {
+        insert(target, label_1, anchor);
+        append(label_1, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*label*/
+        8)
+          set_data(
+            t,
+            /*label*/
+            ctx2[3]
+          );
+        if (dirty & /*id*/
+        4) {
+          attr(
+            label_1,
+            "for",
+            /*id*/
+            ctx2[2]
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(label_1);
+        }
+      }
+    };
+  }
   function create_each_block_1(ctx) {
     let option;
     let t_value = (
@@ -6706,7 +6862,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*key*/
-        ctx[23];
+        ctx[24];
         set_input_value(option, option.__value);
         option.selected = option_selected_value = /*value*/
         ctx[0] === /*value*/
@@ -6723,7 +6879,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           set_data(t, t_value);
         if (dirty & /*valuesObj*/
         128 && option_value_value !== (option_value_value = /*key*/
-        ctx2[23])) {
+        ctx2[24])) {
           option.__value = option_value_value;
           set_input_value(option, option.__value);
         }
@@ -6934,7 +7090,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let current;
     const if_block_creators = [
       create_if_block2,
-      create_if_block_12,
+      create_if_block_13,
       create_if_block_22,
       create_if_block_3,
       create_if_block_4,
@@ -6942,6 +7098,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       create_if_block_9,
       create_if_block_10,
       create_if_block_11,
+      create_if_block_12,
       create_else_block2
     ];
     const if_blocks = [];
@@ -6991,7 +7148,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ctx2[5] === "date"
       )
         return 8;
-      return 9;
+      if (
+        /*type*/
+        ctx2[5] === "month"
+      )
+        return 9;
+      return 10;
     }
     current_block_type_index = select_block_type(ctx, -1);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
@@ -7177,6 +7339,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       $invalidate(0, value);
       $invalidate(8, valuesArr);
     }
+    function input_input_handler_7() {
+      value = this.value;
+      $invalidate(0, value);
+      $invalidate(8, valuesArr);
+    }
     $self.$set = ($props2) => {
       if ("className" in $props2)
         $invalidate(1, className = $props2.className);
@@ -7220,7 +7387,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       select_change_handler,
       select_change_handler_1,
       input_input_handler_5,
-      input_input_handler_6
+      input_input_handler_6,
+      input_input_handler_7
     ];
   }
   var InputBox = class extends SvelteComponent {
@@ -21569,7 +21737,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     );
     let if_block5 = (
       /*MODE*/
-      ctx[6] === MODE_LOGIN && create_if_block_13(ctx)
+      ctx[6] === MODE_LOGIN && create_if_block_133(ctx)
     );
     let if_block6 = (
       /*MODE*/
@@ -21841,7 +22009,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
               transition_in(if_block5, 1);
             }
           } else {
-            if_block5 = create_if_block_13(ctx2);
+            if_block5 = create_if_block_133(ctx2);
             if_block5.c();
             transition_in(if_block5, 1);
             if_block5.m(div2, t10);
@@ -22428,7 +22596,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_13(ctx) {
+  function create_if_block_133(ctx) {
     let button;
     let t;
     let current;
@@ -23521,6 +23689,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     /** @type {string} */
     '#{google}'
   );
+  var revenues = (
+    /** @type {Revenue[]} */
+    [/* revenues */]
+  );
   var usersRegistered = (
     /** @type {UserRegistered[]} */
     [/* user_registered */ ]
@@ -23640,20 +23812,51 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     function renderRevenueChart() {
       $invalidate(8, MODE_STATS = STAT_REVENUE);
       if (chart) {
-        chart.data.labels = ["Jan 31", "Feb 28", "Mar 30", "Apr 30", "May 30", "Jun 30"];
-        chart.data.datasets[0].data = [4e4, 13e4, 7e4, 25e4, 145e3, 22e4];
+        chart.data.labels = (revenues || []).map(
+          /** @type {Revenue} */
+          (i) => {
+            const dt = (
+              /** @type {Date} */
+              new Date(i.salesDate)
+            );
+            return dt.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
+          }
+        );
+        chart.data.datasets[0].data = (revenues || []).map(
+          /** @type {Revenue} */
+          (i) => Number(i.revenue)
+        );
         chart.data.datasets[0].label = "Revenue";
-        chart.options.scales.y = { ticks: { stepSize: 1e4 } };
+        chart.options.scales.y = {
+          ticks: {
+            stepSize: 1e7,
+            callback(value) {
+              if (Number(value) >= 1e9)
+                return Number(value) / 1e9 + "B";
+              if (Number(value) >= 1e6)
+                return Number(value) / 1e6 + "M";
+              if (Number(value) >= 1e3)
+                return Number(value) / 1e3 + "K";
+              return Number(value);
+            }
+          }
+        };
         chart.update();
       }
     }
     function renderRegisteredChart() {
       $invalidate(8, MODE_STATS = STAT_REGISTERED);
       if (chart) {
-        chart.data.labels = (usersRegistered || []).map((i) => {
-          const dt = new Date(i.date);
-          return dt.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
-        });
+        chart.data.labels = (usersRegistered || []).map(
+          /** @type {UserRegistered} */
+          (i) => {
+            const dt = (
+              /** @type {Date} */
+              new Date(i.date)
+            );
+            return dt.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
+          }
+        );
         chart.data.datasets[0].data = (usersRegistered || []).map((i) => i.count);
         chart.data.datasets[0].label = "Registered";
         chart.options.scales.y = { ticks: { stepSize: 10 } };
@@ -23674,11 +23877,23 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
               {
                 type: "line",
                 data: {
-                  labels: ["Jan 31", "Feb 28", "Mar 30", "Apr 30", "May 30", "Jun 30"],
+                  labels: (revenues || []).map(
+                    /** @type {Revenue} */
+                    (i) => {
+                      const dt = (
+                        /** @type {Date} */
+                        new Date(i.salesDate)
+                      );
+                      return dt.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
+                    }
+                  ),
                   datasets: [
                     {
                       label: "Revenue",
-                      data: [4e4, 13e4, 7e4, 25e4, 145e3, 22e4],
+                      data: (revenues || []).map(
+                        /** @type {Revenue} */
+                        (i) => Number(i.revenue)
+                      ),
                       borderColor: "#f97316",
                       backgroundColor: "#f9731630",
                       pointRadius: 0,
@@ -23694,9 +23909,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
                     y: {
                       beginAtZero: true,
                       ticks: {
-                        stepSize: 1e4,
+                        stepSize: 1e7,
                         callback(value) {
-                          return Number(value) >= 1e3 ? Number(value) / 1e3 + "K" : value;
+                          if (Number(value) >= 1e9)
+                            return Number(value) / 1e9 + "B";
+                          if (Number(value) >= 1e6)
+                            return Number(value) / 1e6 + "M";
+                          if (Number(value) >= 1e3)
+                            return Number(value) / 1e3 + "K";
+                          return Number(value);
                         }
                       }
                     }

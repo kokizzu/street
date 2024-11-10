@@ -126,6 +126,14 @@ function dateISOFormat(/** @type number */ dayTo = 0) {
   return `${year}-${month}-${date}`;
 }
 
+function getYearMonth() {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+
+  return `${year}-${month}`
+}
+
 module.exports = {
   datetime: datetime,
   priceNtd: priceNtd,
@@ -134,5 +142,6 @@ module.exports = {
   formatPrice: formatPrice,
   getApprovalState: getApprovalState,
   M2ToPing: M2ToPing,
-  dateISOFormat: dateISOFormat
+  dateISOFormat: dateISOFormat,
+  getYearMonth: getYearMonth
 };

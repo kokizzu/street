@@ -78,6 +78,11 @@
     {:else if type === 'date'}
       <label class="label" for={id}>{label}</label>
       <input type="date" bind:value={value} {id} {placeholder}/>
+    {:else if type === 'month'}
+      {#if label || label !== ''}
+        <label class="label" for={id}>{label}</label>
+      {/if}
+      <input type="month" bind:value={value} {id} {placeholder}/>
     {:else}
       <label class="label" for={id}>{label}</label>
       <input type="text" bind:value={value} {id} {placeholder}/>
