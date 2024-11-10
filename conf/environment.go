@@ -7,7 +7,7 @@ import (
 
 var VERSION = ``
 
-const PROJECT_NAME = `street`
+const PROJECT_NAME = `HapSTR`
 
 func IsDebug() bool {
 	return VERSION == ``

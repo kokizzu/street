@@ -59,8 +59,32 @@
       propKey: propKey,
       realtorEmail: realtorEmail
     }, async function(/** @type {any} */ res) {
-      
-    })
+      if (res.error) {
+        console.log('error =', res.error);
+        notifier.showError(res.error || 'failed to add sales');
+        isSubmitAddSales = false;
+        return;
+      }
+
+      const inAdminRevenue = /** @type {import('../jsApi.GEN').AdminRevenueIn} */ ({
+        cmd: 'list',
+        yearMonth: monthFilter
+      });
+      await AdminRevenue(inAdminRevenue, async function(/** @type {any} */ res) {
+        if (res.error) {
+          console.log('error =', res.error);
+          notifier.showError(res.error || 'failed to get revenues');
+          isSubmitAddSales = false;
+          return;
+        }
+
+        revenues = res.revenues;
+      });
+
+      popUpAddSales.Hide();
+      popUpAddSales.Reset();
+      notifier.showSuccess('Sales added');
+    });
   };
 </script>
 
@@ -84,7 +108,7 @@
           <span>Apply Filter</span>
         </button>
       </div>
-      <button class="add-btn">
+      <button class="add-btn" on:click={() => popUpAddSales.Show()}>
         <Icon
           size="20"
           color="#FFF"

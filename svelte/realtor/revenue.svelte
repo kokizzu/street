@@ -76,7 +76,7 @@
         }
 
         revenues = res.revenues;
-      })
+      });
       
       popUpAddSales.Hide();
       popUpAddSales.Reset();
