@@ -166,7 +166,7 @@
   }
 
 	.popup_container .popup {
-		border-radius: 8px;
+		border-radius: 10px;
 		background-color: #FFF;
 		height: fit-content;
 		width: 500px;
@@ -231,7 +231,7 @@
   }
 
 	.popup_container .popup .foot button {
-		padding: 12px 15px;
+		padding: 12px 20px;
 		border-radius: 9999px;
 		border: none;
 		color: #FFF;
@@ -258,12 +258,13 @@
 	}
 
 	.popup_container .popup .foot button.cancel {
-		background-color: #fbbf2430;
-		color: var(--amber-005);
+		background-color: transparent;
+    color: var(--gray-008);
 	}
 
 	.popup_container .popup .foot button.cancel:hover {
-		background-color: #fbbf2450;
+		background-color: var(--orange-transparent);
+    color: var(--orange-005);
 	}
 
   @media only screen and (max-width : 768px) {

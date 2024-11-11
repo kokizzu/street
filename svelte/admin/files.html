@@ -400,7 +400,77 @@ aside.svelte-1hfp3dx .container .nav-menu button.red.svelte-1hfp3dx:hover {
 }
 
 /* fakecss:./_components/partials/Navbar.esbuild-svelte-fake-css */
-header.svelte-14u710g.svelte-14u710g {
+.backdrop.svelte-17dj8x0.svelte-17dj8x0 {
+  position: fixed;
+  z-index: 2001;
+  background: rgba(41, 41, 41, 0.5);
+  width: 100%;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.feedback-dialog.svelte-17dj8x0.svelte-17dj8x0 {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #FFF;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #475569;
+  width: 500px;
+}
+.feedback-dialog.svelte-17dj8x0 h3.svelte-17dj8x0 {
+  margin: 0 0 0 20px;
+  font-size: 18px;
+}
+.feedback-dialog.svelte-17dj8x0 textarea.svelte-17dj8x0 {
+  border: 1px solid var(--gray-002);
+  background-color: var(--gray-001);
+  border-radius: 8px;
+  padding: 12px;
+  resize: none;
+}
+.feedback-dialog.svelte-17dj8x0 textarea.svelte-17dj8x0:focus {
+  border-color: var(--orange-005);
+  outline: 1px solid var(--orange-005);
+}
+.feedback-dialog.svelte-17dj8x0 .buttons.svelte-17dj8x0 {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  font-weight: 500;
+  width: 100%;
+  gap: 10px;
+}
+.feedback-dialog.svelte-17dj8x0 .buttons button.svelte-17dj8x0 {
+  border-radius: 999px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;
+  text-transform: capitalize;
+}
+.feedback-dialog.svelte-17dj8x0 .buttons .cancel-btn.svelte-17dj8x0 {
+  border: none;
+  background-color: transparent;
+}
+.feedback-dialog.svelte-17dj8x0 .buttons .cancel-btn.svelte-17dj8x0:hover {
+  background-color: var(--orange-transparent);
+  color: var(--orange-005);
+}
+.feedback-dialog.svelte-17dj8x0 .buttons .submit-btn.svelte-17dj8x0 {
+  background-color: var(--orange-006);
+  color: #FFF;
+}
+.feedback-dialog.svelte-17dj8x0 .buttons .submit-btn.svelte-17dj8x0:hover {
+  background-color: var(--orange-005);
+}
+header.svelte-17dj8x0.svelte-17dj8x0 {
   top: 0;
   left: 0;
   right: 0;
@@ -415,14 +485,14 @@ header.svelte-14u710g.svelte-14u710g {
   background-color: #FFF;
   z-index: 100;
 }
-header.svelte-14u710g .label.svelte-14u710g {
+header.svelte-17dj8x0 .label.svelte-17dj8x0 {
   width: fit-content;
   display: flex;
   flex-direction: row;
   gap: 0;
   align-items: center;
 }
-header.svelte-14u710g .label .logo.svelte-14u710g {
+header.svelte-17dj8x0 .label .logo.svelte-17dj8x0 {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -431,13 +501,29 @@ header.svelte-14u710g .label .logo.svelte-14u710g {
   text-decoration: none;
   width: calc(var(--sidemenu-width) - 20px);
 }
-header.svelte-14u710g .user-info.svelte-14u710g {
+header.svelte-17dj8x0 .info.svelte-17dj8x0 {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
-header.svelte-14u710g .user-info a.user.svelte-14u710g {
+header.svelte-17dj8x0 .info .feedback-btn.svelte-17dj8x0 {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 9999px;
+  background-color: var(--blue-006);
+  color: #FFF;
+  cursor: pointer;
+}
+header.svelte-17dj8x0 .info .feedback-btn.svelte-17dj8x0:hover {
+  background-color: var(--blue-005);
+}
+header.svelte-17dj8x0 .info a.user.svelte-17dj8x0 {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -445,11 +531,11 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g {
   gap: 6px;
   text-decoration: none;
   color: var(--gray-008);
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 10px 20px;
+  border-radius: 9999px;
   border: 1px solid var(--gray-002);
 }
-header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
+header.svelte-17dj8x0 .info a.user.svelte-17dj8x0:hover {
   background-color: var(--gray-001);
 }
 
@@ -3449,7 +3535,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       exports.UserSearchPropUS = async function UserSearchPropUS(i, cb) {
         return await axios.post("/user/searchProp/US", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserSendFeedback = async function UserSendFeedback(i, cb) {
+      exports.UserSendFeedback = async function UserSendFeedback2(i, cb) {
         return await axios.post("/user/sendFeedback", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserSessionKill = async function UserSessionKill(i, cb) {
@@ -5056,60 +5142,223 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var RiArrowsArrowLeftDoubleFill = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4.83578 12L11.0429 18.2071L12.4571 16.7929L7.66421 12L12.4571 7.20712L11.0429 5.79291L4.83578 12ZM10.4857 12L16.6928 18.2071L18.107 16.7929L13.3141 12L18.107 7.20712L16.6928 5.79291L10.4857 12Z"></path>' };
   var RiArrowsArrowLeftSLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path>' };
   var RiArrowsArrowRightDoubleFill = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M19.1642 12L12.9571 5.79291L11.5429 7.20712L16.3358 12L11.5429 16.7929L12.9571 18.2071L19.1642 12ZM13.5143 12L7.30722 5.79291L5.89301 7.20712L10.6859 12L5.89301 16.7929L7.30722 18.2071L13.5143 12Z"></path>' };
+  var RiCommunicationChatQuoteLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 3C21.5523 3 22 3.44772 22 4V18C22 18.5523 21.5523 19 21 19H6.455L2 22.5V4C2 3.44772 2.44772 3 3 3H21ZM20 5H4V18.385L5.76333 17H20V5ZM10.5153 7.4116L10.9616 8.1004C9.29402 9.0027 9.32317 10.4519 9.32317 10.7645C9.47827 10.7431 9.64107 10.7403 9.80236 10.7553C10.7045 10.8389 11.4156 11.5795 11.4156 12.5C11.4156 13.4665 10.6321 14.25 9.66558 14.25C9.12905 14.25 8.61598 14.0048 8.29171 13.6605C7.77658 13.1137 7.5 12.5 7.5 11.5052C7.5 9.75543 8.72825 8.18684 10.5153 7.4116ZM15.5153 7.4116L15.9616 8.1004C14.294 9.0027 14.3232 10.4519 14.3232 10.7645C14.4783 10.7431 14.6411 10.7403 14.8024 10.7553C15.7045 10.8389 16.4156 11.5795 16.4156 12.5C16.4156 13.4665 15.6321 14.25 14.6656 14.25C14.1291 14.25 13.616 14.0048 13.2917 13.6605C12.7766 13.1137 12.5 12.5 12.5 11.5052C12.5 9.75543 13.7283 8.18684 15.5153 7.4116Z"></path>' };
 
   // _components/partials/Navbar.svelte
+  var import_jsApi2 = __toESM(require_jsApi_GEN());
+  function create_if_block2(ctx) {
+    let div2;
+    let div1;
+    let h3;
+    let t1;
+    let textarea;
+    let t2;
+    let div0;
+    let button0;
+    let t4;
+    let button1;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        div2 = element("div");
+        div1 = element("div");
+        h3 = element("h3");
+        h3.textContent = "Send Feedback";
+        t1 = space();
+        textarea = element("textarea");
+        t2 = space();
+        div0 = element("div");
+        button0 = element("button");
+        button0.textContent = "Cancel";
+        t4 = space();
+        button1 = element("button");
+        button1.textContent = "Submit";
+        attr(h3, "class", "svelte-17dj8x0");
+        attr(textarea, "name", "feedback");
+        attr(textarea, "id", "feedback");
+        attr(textarea, "cols", "30");
+        attr(textarea, "rows", "10");
+        attr(textarea, "placeholder", "Your feedback here");
+        attr(textarea, "class", "svelte-17dj8x0");
+        attr(button0, "class", "cancel-btn svelte-17dj8x0");
+        attr(button1, "class", "submit-btn svelte-17dj8x0");
+        attr(div0, "class", "buttons svelte-17dj8x0");
+        attr(div1, "class", "feedback-dialog svelte-17dj8x0");
+        attr(div2, "class", "backdrop svelte-17dj8x0");
+      },
+      m(target, anchor) {
+        insert(target, div2, anchor);
+        append(div2, div1);
+        append(div1, h3);
+        append(div1, t1);
+        append(div1, textarea);
+        set_input_value(
+          textarea,
+          /*feedbackMessage*/
+          ctx[2]
+        );
+        append(div1, t2);
+        append(div1, div0);
+        append(div0, button0);
+        append(div0, t4);
+        append(div0, button1);
+        if (!mounted) {
+          dispose = [
+            listen(
+              textarea,
+              "input",
+              /*textarea_input_handler*/
+              ctx[4]
+            ),
+            listen(
+              button0,
+              "click",
+              /*click_handler*/
+              ctx[5]
+            ),
+            listen(
+              button1,
+              "click",
+              /*sendFeedback*/
+              ctx[3]
+            )
+          ];
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*feedbackMessage*/
+        4) {
+          set_input_value(
+            textarea,
+            /*feedbackMessage*/
+            ctx2[2]
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div2);
+        }
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
   function create_fragment3(ctx) {
+    let t0;
     let header;
     let div0;
-    let t1;
-    let div1;
-    let a1;
-    let span;
     let t2;
-    let t3;
-    let icon;
+    let div1;
+    let button;
+    let span0;
+    let t4;
+    let icon0;
+    let t5;
+    let a1;
+    let span1;
+    let t6;
+    let t7;
+    let icon1;
     let current;
-    icon = new Icon_default({
+    let mounted;
+    let dispose;
+    let if_block = (
+      /*isShowFeedBackPopUp*/
+      ctx[1] && create_if_block2(ctx)
+    );
+    icon0 = new Icon_default({
+      props: {
+        src: RiCommunicationChatQuoteLine,
+        size: "15",
+        color: "#FFF"
+      }
+    });
+    icon1 = new Icon_default({
       props: { src: RiUserFacesUserLine, size: "15" }
     });
     return {
       c() {
+        if (if_block)
+          if_block.c();
+        t0 = space();
         header = element("header");
         div0 = element("div");
-        div0.innerHTML = `<a href="/" class="logo svelte-14u710g"><h2>HapSTR</h2></a>`;
-        t1 = space();
+        div0.innerHTML = `<a href="/" class="logo svelte-17dj8x0"><h2>HapSTR</h2></a>`;
+        t2 = space();
         div1 = element("div");
+        button = element("button");
+        span0 = element("span");
+        span0.textContent = "Feedback";
+        t4 = space();
+        create_component(icon0.$.fragment);
+        t5 = space();
         a1 = element("a");
-        span = element("span");
-        t2 = text(
+        span1 = element("span");
+        t6 = text(
           /*username*/
           ctx[0]
         );
-        t3 = space();
-        create_component(icon.$.fragment);
-        attr(div0, "class", "label svelte-14u710g");
+        t7 = space();
+        create_component(icon1.$.fragment);
+        attr(div0, "class", "label svelte-17dj8x0");
+        attr(button, "class", "feedback-btn svelte-17dj8x0");
         attr(a1, "href", "/user");
-        attr(a1, "class", "user svelte-14u710g");
-        attr(div1, "class", "user-info svelte-14u710g");
-        attr(header, "class", "svelte-14u710g");
+        attr(a1, "class", "user svelte-17dj8x0");
+        attr(div1, "class", "info svelte-17dj8x0");
+        attr(header, "class", "svelte-17dj8x0");
       },
       m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, t0, anchor);
         insert(target, header, anchor);
         append(header, div0);
-        append(header, t1);
+        append(header, t2);
         append(header, div1);
+        append(div1, button);
+        append(button, span0);
+        append(button, t4);
+        mount_component(icon0, button, null);
+        append(div1, t5);
         append(div1, a1);
-        append(a1, span);
-        append(span, t2);
-        append(a1, t3);
-        mount_component(icon, a1, null);
+        append(a1, span1);
+        append(span1, t6);
+        append(a1, t7);
+        mount_component(icon1, a1, null);
         current = true;
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*click_handler_1*/
+            ctx[6]
+          );
+          mounted = true;
+        }
       },
       p(ctx2, [dirty]) {
+        if (
+          /*isShowFeedBackPopUp*/
+          ctx2[1]
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+          } else {
+            if_block = create_if_block2(ctx2);
+            if_block.c();
+            if_block.m(t0.parentNode, t0);
+          }
+        } else if (if_block) {
+          if_block.d(1);
+          if_block = null;
+        }
         if (!current || dirty & /*username*/
         1)
           set_data(
-            t2,
+            t6,
             /*username*/
             ctx2[0]
           );
@@ -5117,18 +5366,26 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       i(local) {
         if (current)
           return;
-        transition_in(icon.$.fragment, local);
+        transition_in(icon0.$.fragment, local);
+        transition_in(icon1.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(icon.$.fragment, local);
+        transition_out(icon0.$.fragment, local);
+        transition_out(icon1.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
+          detach(t0);
           detach(header);
         }
-        destroy_component(icon);
+        if (if_block)
+          if_block.d(detaching);
+        destroy_component(icon0);
+        destroy_component(icon1);
+        mounted = false;
+        dispose();
       }
     };
   }
@@ -5137,11 +5394,53 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       /** @type {string} */
       "unknown"
     ) } = $props;
+    let isShowFeedBackPopUp = (
+      /** @type {boolean} */
+      false
+    );
+    let feedbackMessage = (
+      /** @type {string} */
+      ""
+    );
+    async function sendFeedback() {
+      if (!feedbackMessage) {
+        notifier.showWarning("Please enter your feedback");
+        return;
+      }
+      const inUserSendFeedback = (
+        /** @type {import('../../jsApi.GEN').UserSendFeedbackIn} */
+        { userMessage: feedbackMessage }
+      );
+      await (0, import_jsApi2.UserSendFeedback)(inUserSendFeedback, async function(res) {
+        if (res.error) {
+          notifier.showError(res.error || "Failed to send feedback");
+          return;
+        }
+        notifier.showSuccess("Feedback sent");
+        $invalidate(1, isShowFeedBackPopUp = false);
+      });
+    }
+    function textarea_input_handler() {
+      feedbackMessage = this.value;
+      $invalidate(2, feedbackMessage);
+    }
+    const click_handler = () => {
+      $invalidate(1, isShowFeedBackPopUp = false);
+    };
+    const click_handler_1 = () => $invalidate(1, isShowFeedBackPopUp = true);
     $self.$set = ($props2) => {
       if ("username" in $props2)
         $invalidate(0, username = $props2.username);
     };
-    return [username];
+    return [
+      username,
+      isShowFeedBackPopUp,
+      feedbackMessage,
+      sendFeedback,
+      textarea_input_handler,
+      click_handler,
+      click_handler_1
+    ];
   }
   var Navbar = class extends SvelteComponent {
     constructor(options) {
@@ -6050,7 +6349,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block2(ctx) {
+  function create_if_block3(ctx) {
     let each_1_anchor;
     let current;
     let each_value = ensure_array_like(
@@ -7055,7 +7354,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
       each_blocks[i] = null;
     });
-    const if_block_creators = [create_if_block2, create_else_block_2];
+    const if_block_creators = [create_if_block3, create_else_block_2];
     const if_blocks = [];
     function select_block_type_1(ctx2, dirty) {
       if (
@@ -7699,7 +7998,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var TableView_default = TableView;
 
   // admin/files.svelte
-  var import_jsApi2 = __toESM(require_jsApi_GEN());
+  var import_jsApi3 = __toESM(require_jsApi_GEN());
 
   // node_modules/.pnpm/tslib@2.6.0/node_modules/tslib/tslib.es6.mjs
   function __awaiter(thisArg, _arguments, P, generator) {
@@ -8869,7 +9168,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block3(ctx) {
+  function create_if_block4(ctx) {
     let hr;
     let t;
     let img;
@@ -8971,7 +9270,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     );
     let if_block1 = (
       /*lastImage*/
-      ctx[4] && create_if_block3(ctx)
+      ctx[4] && create_if_block4(ctx)
     );
     return {
       c() {
@@ -9103,7 +9402,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
           } else {
-            if_block1 = create_if_block3(ctx2);
+            if_block1 = create_if_block4(ctx2);
             if_block1.c();
             if_block1.m(div0, null);
           }
@@ -9216,7 +9515,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         $invalidate(1, pager = res.pager);
     }
     async function refreshTableView(pagerIn) {
-      await (0, import_jsApi2.AdminFiles)(
+      await (0, import_jsApi3.AdminFiles)(
         {
           // @ts-ignore
           pager: pagerIn,
