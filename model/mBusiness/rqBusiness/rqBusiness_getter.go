@@ -134,8 +134,7 @@ func isValidMonthYear(in string) (year int, month time.Month, isValid bool) {
 		return
 	}
 
-	in = in + `-01`
-	if _, err := time.Parse("2006-01-02", in); err != nil {
+	if _, err := time.Parse("2006-01", in); err != nil {
 		return
 	}
 
