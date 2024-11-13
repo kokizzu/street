@@ -23992,6 +23992,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     /** @type {Revenue[]} */
     [/* revenues */]
   );
+  var orders = (
+    /** @type {Order[]} */
+    [/* orders */]
+  );
   var usersRegistered = (
     /** @type {UserRegistered[]} */
     [/* user_registered */ ]
@@ -24163,6 +24167,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     }
     onMount(() => {
+      console.log("Orders = ", orders);
       onHashChange();
       if (MODE === MODE_USER) {
         setTimeout(

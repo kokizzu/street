@@ -115,6 +115,48 @@ FROM ` + s.SqlTableName() + whereAndSql
 	return
 }
 
+func (s *Sales) FindOrdersAnnually() (orders []*mBusiness.Order) {
+	const comment = `-- Sales) FindRevenuesMonthly`
+	
+	now := time.Now()
+	oneYearAgo := now.AddDate(-1, 0, 0)
+	strOneYearAgo := oneYearAgo.Format("2006-01-02")
+
+	whereAndSql := ` WHERE ` + s.SqlSalesDate() + ` >= ` + S.Z(strOneYearAgo)
+
+	query := comment + `
+SELECT ` + s.SqlPrice() + `, ` + s.SqlSalesDate() +`
+FROM ` +s.SqlTableName() + whereAndSql
+
+	L.Print(query)
+	s.Adapter.QuerySql(query, func(row []any) {
+		if len(row) == 2 {
+			price := X.ToI(row[0])
+			salesDate := X.ToS(row[1])
+
+			var isExist bool = false
+
+			for _, r := range orders {
+				if r.SalesDate == salesDate  {
+					r.TotalTransaction += 1
+					r.Revenue += price
+
+					isExist = true
+				}
+			}
+
+			if !isExist {
+				orders = append(orders, &mBusiness.Order{
+					Revenue: price,
+					TotalTransaction: 1,
+					SalesDate: salesDate,
+				})
+			}
+		}
+	})
+	return
+}
+
 func endOfYearMonth(year int, month time.Month) string { // returns: YYYY-MM-DD
 	now := time.Now()
 	firstOfNextMonth := time.Date(year, month+1, 1, 0, 0, 0, 0, now.Location())

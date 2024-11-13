@@ -12,6 +12,12 @@ type Revenue struct {
 	SalesDate string `json:"salesDate"`
 }
 
+type Order struct {
+	Revenue int64 `json:"revenue"`
+	TotalTransaction int64 `json:"totalTransaction"`
+	SalesDate string `json:"salesDate"`
+}
+
 const (
 	TableSales Tt.TableName = `sales`
 

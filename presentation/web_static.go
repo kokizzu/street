@@ -39,8 +39,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		}
 
 		var revenues []*mBusiness.Revenue
+		var orders []*mBusiness.Order
 
 		if segments[domain.UserSegment] {
+			or := rqBusiness.NewSales(d.BusinessOltp)
+			orders = or.FindOrdersAnnually()
 			if segments[domain.AdminSegment] {
 				r := rqBusiness.NewSales(d.BusinessOltp)
 				revenues = r.FindRevenuesMonthly("XD")
@@ -57,6 +60,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`segments`:        segments,
 			`user_registered`: userRegistered,
 			`revenues`:        revenues,
+			`orders`: orders,
 		})
 	})
 

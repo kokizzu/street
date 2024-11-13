@@ -2,6 +2,7 @@
   /** @typedef {import('./_types/master.js').Access} Access */
   /** @typedef {import('./_types/user.js').User} User */
   /** @typedef {import('./_types/business.js').Revenue} Revenue */
+  /** @typedef {import('./_types/business.js').Order} Order */
   /**
    * @typedef {Object} UserRegistered
    * @property {string} date
@@ -26,6 +27,7 @@
   let google    = /** @type {string} */ ('#{google}');
   let apple     = /** @type {string} */ ('#{apple}');
   let revenues  = /** @type {Revenue[]} */ ([/* revenues */]);
+  let orders    = /** @type {Order[]} */ ([/* orders */]);
 
   const usersRegistered = /** @type {UserRegistered[]} */ ([/* user_registered */ ]);
 
@@ -155,6 +157,8 @@
   function renderOrdersChart() {}
   
   onMount(() => {
+    console.log('Orders = ', orders);
+    
     onHashChange();
     if (MODE === MODE_USER) {
       setTimeout(() => {

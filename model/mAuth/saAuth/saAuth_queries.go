@@ -2,9 +2,7 @@ package saAuth
 
 import (
 	"database/sql"
-	"time"
 
-	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 
@@ -134,15 +132,15 @@ FROM ` + a.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 }
 
 func (a ActionLogs) FindUserRegistered() (res []M.SX) {
-	currentYear := I.ToS(int64(time.Now().Year()))
 	query := `-- FindUserRegistered
 	SELECT DISTINCT toDate(createdAt) dt,
 		COUNT(*) OVER (PARTITION BY toDate(createdAt)) AS count
 	FROM actionLogs
 	WHERE action = 'guest/register'
-		AND toYear(createdAt) = '`+ currentYear +`'
+		AND createdAt > (today() - INTERVAL 1 YEAR)
 	ORDER BY dt
 	`
+	L.Print(query)
 	rows, err := a.Adapter.Query(query)
 	if err != nil {
 		L.IsError(err, `failed to get user registered: `+query)
