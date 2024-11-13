@@ -8,6 +8,11 @@
    * @property {string} date
    * @property {number} count
    */
+  /**
+   * @typedef {Object} RealtorStat
+   * @property {string} date
+   * @property {number} totalActivity
+  */
 
   import {
     GuestForgotPassword, GuestLogin, GuestRegister,
@@ -26,10 +31,11 @@
   let segments  = /** @type {Access} */ ({/* segments */});
   let google    = /** @type {string} */ ('#{google}');
   let apple     = /** @type {string} */ ('#{apple}');
-  let revenues  = /** @type {Revenue[]} */ ([/* revenues */]);
-  let orders    = /** @type {Order[]} */ ([/* orders */]);
 
+  const revenues        = /** @type {Revenue[]} */ ([/* revenues */]);
+  const orders          = /** @type {Order[]} */ ([/* orders */]);
   const usersRegistered = /** @type {UserRegistered[]} */ ([/* user_registered */ ]);
+  const realtorStats    = /** @type {RealtorStat[]} */ ([/* realtor_stats */ ]);
 
   // Generate Apple OAuth URL
   const clientId      = 'com.hapstr.app'; //
@@ -97,14 +103,21 @@
 
   let chart = /** @type {import('chart.js').Chart} */ (null);
 
-  let STAT_REVENUE = `revenue`;
-  let STAT_REGISTERED = `registered`;
-  let STAT_REALTORS = `realtors`;
-  let STAT_ORDERS = `orders`;
+  const STAT_REVENUE    = `revenue`;
+  const STAT_REGISTERED = `registered`;
+  const STAT_REALTORS   = `realtors`;
+  const STAT_ORDERS     = `orders`;
 
   let MODE_STATS = STAT_REVENUE;
 
+  function remove2ndOrdersData() {
+    if (MODE_STATS === STAT_ORDERS) {
+      if (chart) chart.data.datasets.pop();
+    }
+  }
+
   function renderRevenueChart() {
+    remove2ndOrdersData()
     MODE_STATS = STAT_REVENUE;
     if (chart) {
       chart.data.labels = (revenues || []).map((/** @type {Revenue} */ i) => {
@@ -132,6 +145,7 @@
   }
 
   function renderRegisteredChart() {
+    remove2ndOrdersData()
     MODE_STATS = STAT_REGISTERED;
     if (chart) {
       chart.data.labels = (usersRegistered || []).map((/** @type {UserRegistered} */ i) => {
@@ -152,13 +166,64 @@
     }
   }
 
-  function renderRealtorsChart() {}
+  function renderRealtorsChart() {
+    remove2ndOrdersData()
+    MODE_STATS = STAT_REALTORS;
+    if (chart) {
+      chart.data.labels = (realtorStats || []).map((/** @type {RealtorStat} */ i) => {
+        const dt = /** @type {Date} */ (new Date(i.date));
+        return dt.toLocaleDateString('en-US', {
+          month: 'short',
+          day: '2-digit'
+        });
+      });
+      chart.data.datasets[0].data = (realtorStats || []).map((i) => i.totalActivity);
+      chart.data.datasets[0].label = 'Realtors';
+      chart.options.scales.y = {
+        ticks: {
+          stepSize: 10
+        }
+      };
+      chart.update();
+    }
+  }
   
-  function renderOrdersChart() {}
+  function renderOrdersChart() {
+    MODE_STATS = STAT_ORDERS;
+    if (chart) {
+      chart.data.labels = (orders || []).map((/** @type {Order} */ i) => {
+        const dt = /** @type {Date} */ (new Date(i.salesDate));
+        return dt.toLocaleDateString('en-US', {
+          month: 'short',
+          day: '2-digit'
+        });
+      });
+      chart.data.datasets[0].data = (orders || []).map((i) => Number(i.revenue));
+      chart.data.datasets[0].label = 'Revenue';
+      chart.options.scales.y = {
+        ticks: {
+          stepSize: 10000000,
+          callback: function(value) {
+            if (Number(value) >= 1000000000) return Number(value) / 1000000000 + 'B';
+            if (Number(value) >= 1000000) return Number(value) / 1000000 + 'M';
+            if (Number(value) >= 1000) return Number(value) / 1000 + 'K';
+            return Number(value);
+          }
+        }
+      };
+      chart.data.datasets.push({
+        label: 'Total Transactions',
+        data: (orders || []).map((i) => i.totalTransaction),
+        borderColor: '#3b82f6',
+        backgroundColor: '#3b82f630',
+        pointRadius: 0,
+        tension: 0.1
+      })
+      chart.update();
+    }
+  }
   
   onMount(() => {
-    console.log('Orders = ', orders);
-    
     onHashChange();
     if (MODE === MODE_USER) {
       setTimeout(() => {

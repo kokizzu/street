@@ -22182,7 +22182,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if ((!current || dirty & /*MODE*/
+        if ((!current || dirty[0] & /*MODE*/
         64) && t2_value !== (t2_value = /*MODE*/
         ctx2[6].split("_").join(" ") + ""))
           set_data(t2, t2_value);
@@ -22195,7 +22195,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
-            if (dirty & /*MODE*/
+            if (dirty[0] & /*MODE*/
             64) {
               transition_in(if_block0, 1);
             }
@@ -22219,7 +22219,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
-            if (dirty & /*MODE*/
+            if (dirty[0] & /*MODE*/
             64) {
               transition_in(if_block1, 1);
             }
@@ -22242,7 +22242,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ) {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
-            if (dirty & /*MODE*/
+            if (dirty[0] & /*MODE*/
             64) {
               transition_in(if_block2, 1);
             }
@@ -22280,7 +22280,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ) {
           if (if_block4) {
             if_block4.p(ctx2, dirty);
-            if (dirty & /*MODE*/
+            if (dirty[0] & /*MODE*/
             64) {
               transition_in(if_block4, 1);
             }
@@ -22303,7 +22303,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ) {
           if (if_block5) {
             if_block5.p(ctx2, dirty);
-            if (dirty & /*MODE*/
+            if (dirty[0] & /*MODE*/
             64) {
               transition_in(if_block5, 1);
             }
@@ -22326,7 +22326,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ) {
           if (if_block6) {
             if_block6.p(ctx2, dirty);
-            if (dirty & /*MODE*/
+            if (dirty[0] & /*MODE*/
             64) {
               transition_in(if_block6, 1);
             }
@@ -22349,7 +22349,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ) {
           if (if_block7) {
             if_block7.p(ctx2, dirty);
-            if (dirty & /*MODE*/
+            if (dirty[0] & /*MODE*/
             64) {
               transition_in(if_block7, 1);
             }
@@ -22508,16 +22508,17 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, dirty) {
         const main_changes = {};
-        if (dirty & /*user*/
+        if (dirty[0] & /*user*/
         1)
           main_changes.user = /*user*/
           ctx2[0];
-        if (dirty & /*segments*/
+        if (dirty[0] & /*segments*/
         2)
           main_changes.access = /*segments*/
           ctx2[1];
-        if (dirty & /*$scope, MODE_STATS*/
-        536871168) {
+        if (dirty[0] & /*MODE_STATS*/
+        256 | dirty[1] & /*$scope*/
+        2) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -22542,7 +22543,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let updating_value;
     let current;
     function inputbox_value_binding(value) {
-      ctx[20](value);
+      ctx[22](value);
     }
     let inputbox_props = {
       id: "email",
@@ -22568,7 +22569,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, dirty) {
         const inputbox_changes = {};
-        if (!updating_value && dirty & /*email*/
+        if (!updating_value && dirty[0] & /*email*/
         8) {
           updating_value = true;
           inputbox_changes.value = /*email*/
@@ -22597,7 +22598,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let updating_value;
     let current;
     function inputbox_value_binding_1(value) {
-      ctx[21](value);
+      ctx[23](value);
     }
     let inputbox_props = {
       id: "password",
@@ -22623,7 +22624,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, dirty) {
         const inputbox_changes = {};
-        if (!updating_value && dirty & /*password*/
+        if (!updating_value && dirty[0] & /*password*/
         16) {
           updating_value = true;
           inputbox_changes.value = /*password*/
@@ -22652,7 +22653,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let updating_value;
     let current;
     function inputbox_value_binding_2(value) {
-      ctx[22](value);
+      ctx[24](value);
     }
     let inputbox_props = {
       id: "confirmPass",
@@ -22678,7 +22679,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, dirty) {
         const inputbox_changes = {};
-        if (!updating_value && dirty & /*confirmPass*/
+        if (!updating_value && dirty[0] & /*confirmPass*/
         32) {
           updating_value = true;
           inputbox_changes.value = /*confirmPass*/
@@ -22725,7 +22726,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (!mounted) {
           dispose = listen(a, "click", prevent_default(
             /*click_handler*/
-            ctx[23]
+            ctx[25]
           ));
           mounted = true;
         }
@@ -22777,7 +22778,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             button,
             "click",
             /*guestRegister*/
-            ctx[16]
+            ctx[18]
           );
           mounted = true;
         }
@@ -22788,7 +22789,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           ctx2[7] === true
         ) {
           if (if_block0) {
-            if (dirty & /*isSubmitted*/
+            if (dirty[0] & /*isSubmitted*/
             128) {
               transition_in(if_block0, 1);
             }
@@ -22932,7 +22933,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             button,
             "click",
             /*guestLogin*/
-            ctx[17]
+            ctx[19]
           );
           mounted = true;
         }
@@ -22943,7 +22944,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           ctx2[7] === true
         ) {
           if (if_block0) {
-            if (dirty & /*isSubmitted*/
+            if (dirty[0] & /*isSubmitted*/
             128) {
               transition_in(if_block0, 1);
             }
@@ -23087,7 +23088,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             button,
             "click",
             /*guestResendVerificationEmail*/
-            ctx[18]
+            ctx[20]
           );
           mounted = true;
         }
@@ -23098,7 +23099,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           ctx2[7] === true
         ) {
           if (if_block0) {
-            if (dirty & /*isSubmitted*/
+            if (dirty[0] & /*isSubmitted*/
             128) {
               transition_in(if_block0, 1);
             }
@@ -23242,7 +23243,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             button,
             "click",
             /*guestForgotPassword*/
-            ctx[19]
+            ctx[21]
           );
           mounted = true;
         }
@@ -23253,7 +23254,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           ctx2[7] === true
         ) {
           if (if_block0) {
-            if (dirty & /*isSubmitted*/
+            if (dirty[0] & /*isSubmitted*/
             128) {
               transition_in(if_block0, 1);
             }
@@ -23508,7 +23509,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         append(a, span);
       },
       p(ctx2, dirty) {
-        if (dirty & /*apple*/
+        if (dirty[0] & /*apple*/
         4) {
           attr(
             a,
@@ -23550,7 +23551,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             a,
             "click",
             /*click_handler_1*/
-            ctx[24]
+            ctx[26]
           );
           mounted = true;
         }
@@ -23590,7 +23591,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             a,
             "click",
             /*click_handler_2*/
-            ctx[25]
+            ctx[27]
           );
           mounted = true;
         }
@@ -23630,7 +23631,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             a,
             "click",
             /*click_handler_3*/
-            ctx[26]
+            ctx[28]
           );
           mounted = true;
         }
@@ -23819,20 +23820,30 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
               /*renderRegisteredChart*/
               ctx[15]
             ),
-            listen(button2, "click", renderRealtorsChart),
-            listen(button3, "click", renderOrdersChart)
+            listen(
+              button2,
+              "click",
+              /*renderRealtorsChart*/
+              ctx[16]
+            ),
+            listen(
+              button3,
+              "click",
+              /*renderOrdersChart*/
+              ctx[17]
+            )
           ];
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*MODE_STATS*/
+        if (dirty[0] & /*MODE_STATS*/
         256 && button0_disabled_value !== (button0_disabled_value = /*MODE_STATS*/
         ctx2[8] === /*STAT_REVENUE*/
         ctx2[10])) {
           button0.disabled = button0_disabled_value;
         }
-        if (dirty & /*MODE_STATS, STAT_REVENUE*/
+        if (dirty[0] & /*MODE_STATS, STAT_REVENUE*/
         1280) {
           toggle_class(
             button0,
@@ -23842,13 +23853,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             ctx2[10]
           );
         }
-        if (dirty & /*MODE_STATS*/
+        if (dirty[0] & /*MODE_STATS*/
         256 && button1_disabled_value !== (button1_disabled_value = /*MODE_STATS*/
         ctx2[8] === /*STAT_REGISTERED*/
         ctx2[11])) {
           button1.disabled = button1_disabled_value;
         }
-        if (dirty & /*MODE_STATS, STAT_REGISTERED*/
+        if (dirty[0] & /*MODE_STATS, STAT_REGISTERED*/
         2304) {
           toggle_class(
             button1,
@@ -23858,13 +23869,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             ctx2[11]
           );
         }
-        if (dirty & /*MODE_STATS*/
+        if (dirty[0] & /*MODE_STATS*/
         256 && button2_disabled_value !== (button2_disabled_value = /*MODE_STATS*/
         ctx2[8] === /*STAT_REALTORS*/
         ctx2[12])) {
           button2.disabled = button2_disabled_value;
         }
-        if (dirty & /*MODE_STATS, STAT_REALTORS*/
+        if (dirty[0] & /*MODE_STATS, STAT_REALTORS*/
         4352) {
           toggle_class(
             button2,
@@ -23874,13 +23885,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             ctx2[12]
           );
         }
-        if (dirty & /*MODE_STATS*/
+        if (dirty[0] & /*MODE_STATS*/
         256 && button3_disabled_value !== (button3_disabled_value = /*MODE_STATS*/
         ctx2[8] === /*STAT_ORDERS*/
         ctx2[13])) {
           button3.disabled = button3_disabled_value;
         }
-        if (dirty & /*MODE_STATS, STAT_ORDERS*/
+        if (dirty[0] & /*MODE_STATS, STAT_ORDERS*/
         8448) {
           toggle_class(
             button3,
@@ -23917,7 +23928,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type(ctx, -1);
+    current_block_type_index = select_block_type(ctx, [-1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -23938,7 +23949,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           mounted = true;
         }
       },
-      p(ctx2, [dirty]) {
+      p(ctx2, dirty) {
         let previous_block_index = current_block_type_index;
         current_block_type_index = select_block_type(ctx2, dirty);
         if (current_block_type_index === previous_block_index) {
@@ -24000,6 +24011,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     /** @type {UserRegistered[]} */
     [/* user_registered */ ]
   );
+  var realtorStats = (
+    /** @type {RealtorStat[]} */
+    [/* realtor_stats */ ]
+  );
   var clientId = "com.hapstr.app";
   var redirectUri = "https://admin.hapstr.xyz/guest/oauthCallback";
   var state = "random_state_value";
@@ -24029,10 +24044,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     var match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
     if (match)
       return match[2];
-  }
-  function renderRealtorsChart() {
-  }
-  function renderOrdersChart() {
   }
   function instance7($self, $props, $invalidate) {
     let user = (
@@ -24107,12 +24118,19 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       /** @type {import('chart.js').Chart} */
       null
     );
-    let STAT_REVENUE = `revenue`;
-    let STAT_REGISTERED = `registered`;
-    let STAT_REALTORS = `realtors`;
-    let STAT_ORDERS = `orders`;
+    const STAT_REVENUE = `revenue`;
+    const STAT_REGISTERED = `registered`;
+    const STAT_REALTORS = `realtors`;
+    const STAT_ORDERS = `orders`;
     let MODE_STATS = STAT_REVENUE;
+    function remove2ndOrdersData() {
+      if (MODE_STATS === STAT_ORDERS) {
+        if (chart)
+          chart.data.datasets.pop();
+      }
+    }
     function renderRevenueChart() {
+      remove2ndOrdersData();
       $invalidate(8, MODE_STATS = STAT_REVENUE);
       if (chart) {
         chart.data.labels = (revenues || []).map(
@@ -24148,6 +24166,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     }
     function renderRegisteredChart() {
+      remove2ndOrdersData();
       $invalidate(8, MODE_STATS = STAT_REGISTERED);
       if (chart) {
         chart.data.labels = (usersRegistered || []).map(
@@ -24166,8 +24185,67 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         chart.update();
       }
     }
+    function renderRealtorsChart() {
+      remove2ndOrdersData();
+      $invalidate(8, MODE_STATS = STAT_REALTORS);
+      if (chart) {
+        chart.data.labels = (realtorStats || []).map(
+          /** @type {RealtorStat} */
+          (i) => {
+            const dt = (
+              /** @type {Date} */
+              new Date(i.date)
+            );
+            return dt.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
+          }
+        );
+        chart.data.datasets[0].data = (realtorStats || []).map((i) => i.totalActivity);
+        chart.data.datasets[0].label = "Realtors";
+        chart.options.scales.y = { ticks: { stepSize: 10 } };
+        chart.update();
+      }
+    }
+    function renderOrdersChart() {
+      $invalidate(8, MODE_STATS = STAT_ORDERS);
+      if (chart) {
+        chart.data.labels = (orders || []).map(
+          /** @type {Order} */
+          (i) => {
+            const dt = (
+              /** @type {Date} */
+              new Date(i.salesDate)
+            );
+            return dt.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
+          }
+        );
+        chart.data.datasets[0].data = (orders || []).map((i) => Number(i.revenue));
+        chart.data.datasets[0].label = "Revenue";
+        chart.options.scales.y = {
+          ticks: {
+            stepSize: 1e7,
+            callback(value) {
+              if (Number(value) >= 1e9)
+                return Number(value) / 1e9 + "B";
+              if (Number(value) >= 1e6)
+                return Number(value) / 1e6 + "M";
+              if (Number(value) >= 1e3)
+                return Number(value) / 1e3 + "K";
+              return Number(value);
+            }
+          }
+        };
+        chart.data.datasets.push({
+          label: "Total Transactions",
+          data: (orders || []).map((i) => i.totalTransaction),
+          borderColor: "#3b82f6",
+          backgroundColor: "#3b82f630",
+          pointRadius: 0,
+          tension: 0.1
+        });
+        chart.update();
+      }
+    }
     onMount(() => {
-      console.log("Orders = ", orders);
       onHashChange();
       if (MODE === MODE_USER) {
         setTimeout(
@@ -24368,6 +24446,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       STAT_ORDERS,
       renderRevenueChart,
       renderRegisteredChart,
+      renderRealtorsChart,
+      renderOrdersChart,
       guestRegister,
       guestLogin,
       guestResendVerificationEmail,
@@ -24384,7 +24464,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var Index = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance7, create_fragment7, safe_not_equal, {});
+      init(this, options, instance7, create_fragment7, safe_not_equal, {}, null, [-1, -1]);
     }
   };
   var svelte_default = Index;

@@ -14,6 +14,7 @@ import (
 
 	"street/conf"
 	"street/domain"
+	"street/model/mAuth"
 	"street/model/mAuth/rqAuth"
 	"street/model/mAuth/saAuth"
 	"street/model/mBusiness"
@@ -32,18 +33,19 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 		google.ResponseCommon.DecorateSession(c)
 
-		var userRegistered []M.SX
-		if user != nil {
-			actionLog := saAuth.NewActionLogs(d.AuthOlap)
-			userRegistered = actionLog.FindUserRegistered()
-		}
-
+		var userRegistered []mAuth.UserRegisterStat
+		var realtorStats []mAuth.RealtorStat
 		var revenues []*mBusiness.Revenue
 		var orders []*mBusiness.Order
 
 		if segments[domain.UserSegment] {
+			actionLog := saAuth.NewActionLogs(d.AuthOlap)
+			userRegistered = actionLog.FindUserRegistered()
+			realtorStats = actionLog.FindRealtorActivity()
+
 			or := rqBusiness.NewSales(d.BusinessOltp)
 			orders = or.FindOrdersAnnually()
+
 			if segments[domain.AdminSegment] {
 				r := rqBusiness.NewSales(d.BusinessOltp)
 				revenues = r.FindRevenuesMonthly("XD")
@@ -59,6 +61,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`google`:          google.Link,
 			`segments`:        segments,
 			`user_registered`: userRegistered,
+			`realtor_stats`: realtorStats,
 			`revenues`:        revenues,
 			`orders`: orders,
 		})

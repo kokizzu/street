@@ -4,8 +4,8 @@ import (
 	"database/sql"
 
 	"github.com/kokizzu/gotro/L"
-	"github.com/kokizzu/gotro/M"
 
+	"street/model/mAuth"
 	"street/model/zCrud"
 )
 
@@ -131,7 +131,7 @@ FROM ` + a.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	return
 }
 
-func (a ActionLogs) FindUserRegistered() (res []M.SX) {
+func (a ActionLogs) FindUserRegistered() (res []mAuth.UserRegisterStat) {
 	query := `-- FindUserRegistered
 	SELECT DISTINCT toDate(createdAt) dt,
 		COUNT(*) OVER (PARTITION BY toDate(createdAt)) AS count
@@ -156,9 +156,43 @@ func (a ActionLogs) FindUserRegistered() (res []M.SX) {
 
 		rows.Scan(&dt, &count)
 
-		res = append(res, M.SX{
-			`date`: dt,
-			`count`: count,
+		res = append(res, mAuth.UserRegisterStat{
+			Date: dt,
+			Count: count,
+		})
+	}
+
+	return
+}
+
+func (a ActionLogs) FindRealtorActivity() (res []mAuth.RealtorStat) {
+	query := `-- FindRealtorActivity
+	SELECT DISTINCT toDate(createdAt) dt,
+		COUNT(*) OVER (PARTITION BY toDate(createdAt)) AS count
+	FROM actionLogs
+	WHERE action = 'realtor/upsertProperty'
+		AND createdAt > (today() - INTERVAL 1 YEAR)
+	ORDER BY dt
+	`
+	L.Print(query)
+	rows, err := a.Adapter.Query(query)
+	if err != nil {
+		L.IsError(err, `failed to get user registered: `+query)
+		return
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var (
+			dt string
+			count int64
+		)
+
+		rows.Scan(&dt, &count)
+
+		res = append(res, mAuth.RealtorStat{
+			Date: dt,
+			TotalActivity: count,
 		})
 	}
 

@@ -5,6 +5,17 @@ import (
 	"github.com/kokizzu/gotro/D/Tt"
 )
 
+type (
+	UserRegisterStat struct {
+		Date string `json:"date"`
+		Count int64 `json:"count"`
+	}
+	RealtorStat struct {
+		Date string `json:"date"`
+		TotalActivity int64 `json:"totalActivity"`
+	}
+)
+
 const (
 	TableUsers Tt.TableName = `users`
 
