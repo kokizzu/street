@@ -5,6 +5,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+
 	"street/model/mProperty/wcProperty"
 
 	"github.com/goccy/go-json"
@@ -18,13 +19,13 @@ import (
 
 type OtherFacilityInfo struct {
 	ParkingFeatures []string `json:"parkingFeatures,omitempty"`
-	Gartereg int64 `json:"gartereg,omitempty"`
-	LotSize string `json:"lotSize,omitempty"`
-	PostName string `json:"postName,omitempty"`
+	Gartereg        int64    `json:"gartereg,omitempty"`
+	LotSize         string   `json:"lotSize,omitempty"`
+	PostName        string   `json:"postName,omitempty"`
 }
 
-func ReadPropertyUSSheet001(adapter *Tt.Adapter, resourcePath string) {
-	defer subTaskPrint(`ReadPropertyUSSheet001: import property data`)()
+func ReadPropertyUS_TruliaCom(adapter *Tt.Adapter, resourcePath string) {
+	defer subTaskPrint(`ReadPropertyUS_TruliaCom: import property data`)()
 
 	path, err := filepath.Abs(resourcePath)
 	if L.IsError(err, `failed to get path to file "`+resourcePath+`"`) {
@@ -38,28 +39,28 @@ func ReadPropertyUSSheet001(adapter *Tt.Adapter, resourcePath string) {
 
 	defer file.Close()
 	type propertyUS struct {
-		SourceURL string
-		PostName string
-		MainListedPrice string
-		TypePurpose string
-		Address1 string
-		City string
-		State string
-		ZipCode string
-		Bed string
-		Baths string
-		Sqft string
-		Description string
-		Parking string
-		TotalSize string
-		PropertySubtype string
-		Listed string
-		AgentName string
-		Phone string
-		BrokerName string
+		SourceURL        string
+		PostName         string
+		MainListedPrice  string
+		TypePurpose      string
+		Address1         string
+		City             string
+		State            string
+		ZipCode          string
+		Bed              string
+		Baths            string
+		Sqft             string
+		Description      string
+		Parking          string
+		TotalSize        string
+		PropertySubtype  string
+		Listed           string
+		AgentName        string
+		Phone            string
+		BrokerName       string
 		SourceMLSNumbert string
-		PriceHistory string
-		Image string
+		PriceHistory     string
+		Image            string
 	}
 
 	var properties []propertyUS
@@ -92,28 +93,28 @@ func ReadPropertyUSSheet001(adapter *Tt.Adapter, resourcePath string) {
 		image := tsv.String()
 
 		properties = append(properties, propertyUS{
-			SourceURL: S.Trim(sourceURL),
-			PostName: S.Trim(postName),
-			MainListedPrice: S.Trim(mainListedPrice),
-			TypePurpose: S.Trim(typeP),
-			Address1: S.Trim(address1),
-			City: S.Trim(city),
-			State: S.Trim(state),
-			ZipCode: S.Trim(zipCode),
-			Bed: S.Trim(bed),
-			Baths: S.Trim(baths),
-			Sqft: S.Trim(sqft),
-			Description: S.Trim(description),
-			Parking: S.Trim(parking),
-			TotalSize: S.Trim(totalSize),
-			PropertySubtype: S.Trim(propertySubtype),
-			Listed: S.Trim(listed),
-			AgentName: S.Trim(agentName),
-			Phone: S.Trim(phone),
-			BrokerName: S.Trim(brokerName),
+			SourceURL:        S.Trim(sourceURL),
+			PostName:         S.Trim(postName),
+			MainListedPrice:  S.Trim(mainListedPrice),
+			TypePurpose:      S.Trim(typeP),
+			Address1:         S.Trim(address1),
+			City:             S.Trim(city),
+			State:            S.Trim(state),
+			ZipCode:          S.Trim(zipCode),
+			Bed:              S.Trim(bed),
+			Baths:            S.Trim(baths),
+			Sqft:             S.Trim(sqft),
+			Description:      S.Trim(description),
+			Parking:          S.Trim(parking),
+			TotalSize:        S.Trim(totalSize),
+			PropertySubtype:  S.Trim(propertySubtype),
+			Listed:           S.Trim(listed),
+			AgentName:        S.Trim(agentName),
+			Phone:            S.Trim(phone),
+			BrokerName:       S.Trim(brokerName),
 			SourceMLSNumbert: S.Trim(sourceMLSNumbert),
-			PriceHistory: S.Trim(priceHistory),
-			Image: S.Trim(image),
+			PriceHistory:     S.Trim(priceHistory),
+			Image:            S.Trim(image),
 		})
 	}
 
@@ -185,7 +186,7 @@ func ReadPropertyUSSheet001(adapter *Tt.Adapter, resourcePath string) {
 		property.SetCreatedAt(fastime.UnixNow())
 		property.SetUpdatedAt(fastime.UnixNow())
 		property.SetCoord([]any{0, 0})
-		
+
 		stat.Ok(property.DoUpsert())
 
 		stat.Print()
@@ -194,7 +195,7 @@ func ReadPropertyUSSheet001(adapter *Tt.Adapter, resourcePath string) {
 
 		facility := OtherFacilityInfo{
 			ParkingFeatures: []string{v.Parking},
-			PostName: v.PostName,
+			PostName:        v.PostName,
 		}
 
 		facilityJson, err := json.Marshal(facility)
@@ -205,10 +206,10 @@ func ReadPropertyUSSheet001(adapter *Tt.Adapter, resourcePath string) {
 		}
 
 		mlsDisclaimerInfo := MlsDisclaimerInfo{
-			ListingBrokerName: v.BrokerName,
+			ListingBrokerName:   v.BrokerName,
 			ListingBrokerNumber: v.SourceMLSNumbert,
-			ListingAgentName: v.AgentName,
-			ListingAgentNumber: v.Phone,
+			ListingAgentName:    v.AgentName,
+			ListingAgentNumber:  v.Phone,
 		}
 
 		mlsDisclaimerInfoJson, err := json.Marshal(mlsDisclaimerInfo)
@@ -222,8 +223,8 @@ func ReadPropertyUSSheet001(adapter *Tt.Adapter, resourcePath string) {
 	}
 }
 
-func ReadPropertyUSSheet002(adapter *Tt.Adapter, resourcePath string) {
-	defer subTaskPrint(`ReadPropertyUSSheet002: import property data`)()
+func ReadPropertyUS_ZillowCom(adapter *Tt.Adapter, resourcePath string) {
+	defer subTaskPrint(`ReadPropertyUS_ZillowCom: import property data`)()
 
 	path, err := filepath.Abs(resourcePath)
 	if L.IsError(err, `failed to get path to file "`+resourcePath+`"`) {
@@ -238,33 +239,33 @@ func ReadPropertyUSSheet002(adapter *Tt.Adapter, resourcePath string) {
 	defer file.Close()
 
 	type propertyUS struct {
-		SourceURL string
-		PostName string
-		TypePurpose string
-		Address1 string
-		City string
-		State string
-		ZipCode string
-		Latitude string
-		Longitude string
-		MainPrice string
-		Bed string
-		Bath string
-		Sqft string
-		AgentName string
-		AgentPhone string
-		BrokerName string
-		BrokerNumber string
-		NMLSId string
-		LotSize string
-		Parking string
+		SourceURL       string
+		PostName        string
+		TypePurpose     string
+		Address1        string
+		City            string
+		State           string
+		ZipCode         string
+		Latitude        string
+		Longitude       string
+		MainPrice       string
+		Bed             string
+		Bath            string
+		Sqft            string
+		AgentName       string
+		AgentPhone      string
+		BrokerName      string
+		BrokerNumber    string
+		NMLSId          string
+		LotSize         string
+		Parking         string
 		ParkingFeatures string
-		Gartereg string
-		PropertyType string
-		LastUpdate string
-		LastChecked string
-		HistoryLited string
-		Image string
+		Gartereg        string
+		PropertyType    string
+		LastUpdate      string
+		LastChecked     string
+		HistoryLited    string
+		Image           string
 	}
 
 	var properties []propertyUS
@@ -302,33 +303,33 @@ func ReadPropertyUSSheet002(adapter *Tt.Adapter, resourcePath string) {
 		image := tsv.String()
 
 		properties = append(properties, propertyUS{
-			SourceURL: S.Trim(sourceUrl),
-			PostName: S.Trim(postName),
-			TypePurpose: S.Trim(typePurpose),
-			Address1: S.Trim(address1),
-			City: S.Trim(city),
-			State: S.Trim(state),
-			ZipCode: S.Trim(zipCode),
-			Latitude: S.Trim(latitude),
-			Longitude: S.Trim(longitude),
-			MainPrice: S.Trim(mainPrice),
-			Bed: S.Trim(bed),
-			Bath: S.Trim(bath),
-			Sqft: S.Trim(sqft),
-			AgentName: S.Trim(agentName),
-			AgentPhone: S.Trim(agentPhone),
-			BrokerName: S.Trim(brokerName),
-			BrokerNumber: S.Trim(brokerNumber),
-			NMLSId: S.Trim(nmlsId),
-			LotSize: S.Trim(lotSize),
-			Parking: S.Trim(parking),
+			SourceURL:       S.Trim(sourceUrl),
+			PostName:        S.Trim(postName),
+			TypePurpose:     S.Trim(typePurpose),
+			Address1:        S.Trim(address1),
+			City:            S.Trim(city),
+			State:           S.Trim(state),
+			ZipCode:         S.Trim(zipCode),
+			Latitude:        S.Trim(latitude),
+			Longitude:       S.Trim(longitude),
+			MainPrice:       S.Trim(mainPrice),
+			Bed:             S.Trim(bed),
+			Bath:            S.Trim(bath),
+			Sqft:            S.Trim(sqft),
+			AgentName:       S.Trim(agentName),
+			AgentPhone:      S.Trim(agentPhone),
+			BrokerName:      S.Trim(brokerName),
+			BrokerNumber:    S.Trim(brokerNumber),
+			NMLSId:          S.Trim(nmlsId),
+			LotSize:         S.Trim(lotSize),
+			Parking:         S.Trim(parking),
 			ParkingFeatures: S.Trim(parkingFeatures),
-			Gartereg: S.Trim(gartereg),
-			PropertyType: S.Trim(propertyType),
-			LastUpdate: S.Trim(lastUpdate),
-			LastChecked: S.Trim(lastChecked),
-			HistoryLited: S.Trim(historyLited),
-			Image: S.Trim(image),
+			Gartereg:        S.Trim(gartereg),
+			PropertyType:    S.Trim(propertyType),
+			LastUpdate:      S.Trim(lastUpdate),
+			LastChecked:     S.Trim(lastChecked),
+			HistoryLited:    S.Trim(historyLited),
+			Image:           S.Trim(image),
 		})
 	}
 
@@ -363,7 +364,7 @@ func ReadPropertyUSSheet002(adapter *Tt.Adapter, resourcePath string) {
 		property.SetZip(v.ZipCode)
 
 		coord := [2]any{0, 0}
-		
+
 		if v.Latitude != `` {
 			latitude := S.Replace(v.Latitude, `,`, `.`)
 			coord[0] = S.ToF(latitude)
@@ -417,9 +418,9 @@ func ReadPropertyUSSheet002(adapter *Tt.Adapter, resourcePath string) {
 
 		facility := OtherFacilityInfo{
 			ParkingFeatures: S.Split(v.ParkingFeatures, `, `),
-			Gartereg: S.ToI(v.Gartereg),
-			LotSize: v.LotSize,
-			PostName: v.PostName,
+			Gartereg:        S.ToI(v.Gartereg),
+			LotSize:         v.LotSize,
+			PostName:        v.PostName,
 		}
 
 		facilityJson, err := json.Marshal(facility)
@@ -430,10 +431,10 @@ func ReadPropertyUSSheet002(adapter *Tt.Adapter, resourcePath string) {
 		}
 
 		mlsDisclaimerInfo := MlsDisclaimerInfo{
-			ListingBrokerName: v.BrokerName,
+			ListingBrokerName:   v.BrokerName,
 			ListingBrokerNumber: v.BrokerNumber,
-			ListingAgentName: v.AgentName,
-			ListingAgentNumber: v.AgentPhone,
+			ListingAgentName:    v.AgentName,
+			ListingAgentNumber:  v.AgentPhone,
 		}
 
 		mlsDisclaimerInfoJson, err := json.Marshal(mlsDisclaimerInfo)
@@ -452,7 +453,7 @@ func isValidURL(u string) bool {
 	if err != nil || parsedURL.Scheme == `` || parsedURL.Host == `` {
 		return false
 	}
-	
+
 	return true
 }
 

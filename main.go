@@ -128,17 +128,17 @@ func main() {
 
 	// create domain object
 	d := &domain.Domain{
-		AuthOltp: tConn,
-		AuthOlap: cConn,
-		PropOltp: tConn,
-		PropOlap: cConn,
+		AuthOltp:     tConn,
+		AuthOlap:     cConn,
+		PropOltp:     tConn,
+		PropOlap:     cConn,
 		BusinessOltp: tConn,
-		StorOltp: tConn,
-		Mailer:   mailer,
-		IsBgSvc:  false,
-		Oauth:    oauth,
-		Gmap:     gmap,
-		Log:      log,
+		StorOltp:     tConn,
+		Mailer:       mailer,
+		IsBgSvc:      false,
+		Oauth:        oauth,
+		Gmap:         gmap,
+		Log:          log,
 
 		UploadDir: conf.UploadDir(),
 		CacheDir:  conf.CacheDir(),
@@ -178,12 +178,12 @@ func main() {
 		cron.Start(log)
 	case `migrate`:
 		model.RunMigration(log, tConn, cConn, tConn, cConn, tConn, tConn)
-	case `import`:
+	case `import`: // 2023-06-01
 		excelFile, _ := filepath.Abs(`./static/house_data/House_Data_Full_Version_v1.xlsx`)
 		jsonCoordFile, _ := filepath.Abs(`./static/house_data/coordinates.json`)
 		zImport.ImportExcelData(tConn, excelFile, jsonCoordFile)
 		zImport.PatchPropertiesPrice(tConn)
-	case `import_property_us`:
+	case `import_property_us`: // 2023-09-19
 		const baseUrl = "https://www.redfin.com/stingray/api/home/details/belowTheFold"
 		// const minPropertyId = 1
 		// const maxPropertyId = 10000000
@@ -216,10 +216,12 @@ func main() {
 		}
 
 		zImport.ImportPropertyUsData(tConn, baseUrl, minPropertyIdNumber, maxPropertyIdNumber)
-	case `import_property_us_new`:
-		zImport.ReadPropertyUSSheet001(tConn, `./static/house_data/house_data_001.tsv`)
-		zImport.ReadPropertyUSSheet002(tConn, `./static/house_data/house_data_002.tsv`)
-	case `import_property_history_us`:
+	case `import_property_us_new`: // 2024-10-21
+		zImport.ReadPropertyUS_TruliaCom(tConn, `./static/house_data/house_data_trulia.com.tsv`)
+		zImport.ReadPropertyUS_ZillowCom(tConn, `./static/house_data/house_data_zillow.com.tsv`)
+	case `import_property_pt`: // 2024-11-13 lisbon/portugal
+		zImport.ReadPropertyPT_RightmoveCoUk(tConn, `./static/house_data/rightmove.co.uk_lisbon_final.tsv`)
+	case `import_property_history_us`: // 2023-11-12
 		const baseUrl = "https://www.redfin.com/stingray/api/home/details/belowTheFold"
 		args := os.Args
 		// Check the number of arguments.
@@ -244,18 +246,18 @@ func main() {
 			return
 		}
 		zImport.ImportPropertyHistoryUsData(tConn, baseUrl, minPropertyIdNumber, maxPropertyIdNumber)
-	case `import_property_tw`:
+	case `import_property_tw`: // 2023-11-30
 		// requirement: copy crawled data to static/property_tw_data/props_tw.jsonl
 		zImport.ImportPropertyTwData(tConn, gmap)
-	case `import_streetview_image_tw`:
+	case `import_streetview_image_tw`: // 2023-12-12
 		zImport.ImportStreetViewImageTW(d, gmap)
-	case `migrate_property_us_image`:
+	case `migrate_property_us_image`: // 2023-11-12
 		zImport.MigratePropertyUSImage(tConn, 4000001, 8000000)
-	case `clean_excessive_attr_property_extra_us`:
+	case `clean_excessive_attr_property_extra_us`: // 2023-10-15
 		zImport.CleanExcessiveAttrPropertyExtraUs(tConn)
-	case `import_location`:
+	case `import_location`: // 2023-07-02
 		zImport.ImportHouseLocation(tConn, gmap)
-	case `import_streetview_image`:
+	case `import_streetview_image`: // 2023-09-04
 		zImport.ImportStreetViewImage(d, gmap)
 	case `import_translation`:
 		// https://docs.google.com/spreadsheets/d/1XnbE1ERv-jGjEOh-Feibtlb-drTjgzqOrcHqTCCmE3Y/edit#gid=0
