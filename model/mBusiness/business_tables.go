@@ -6,6 +6,18 @@ import (
 	"github.com/kokizzu/gotro/D/Tt"
 )
 
+type Cache struct {
+	CacheUnixTime int64
+	CacheData any
+}
+
+// Return expired (true) if cache time more than 1 hour
+func (c *Cache) IsExpired() bool {
+	cacheTime := time.Unix(c.CacheUnixTime, 0)
+
+	return time.Since(cacheTime) > time.Hour
+}
+
 type Revenue struct {
 	Revenue int64 `json:"revenue"`
 	PropertyBought int64 `json:"propertyBought"`

@@ -8,6 +8,18 @@ import (
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
+	"github.com/kpango/fastime"
+)
+
+var (
+	CACHED_ORDERS_ANNUALLY mBusiness.Cache = mBusiness.Cache{
+		CacheUnixTime: 0,
+		CacheData: []any{},
+	}
+	CACHED_REVENUES_MONTHLY mBusiness.Cache = mBusiness.Cache{
+		CacheUnixTime: 0,
+		CacheData: []any{},
+	}
 )
 
 func (s *Sales) FindRealtorRevenuesMonthlyByRealtorId(yearMonth string) (revenues []*mBusiness.Revenue) {
@@ -65,6 +77,12 @@ FROM ` + s.SqlTableName() + whereAndSql
 
 func (s *Sales) FindRevenuesMonthly(yearMonth string) (revenues []*mBusiness.Revenue) {
 	const comment = `-- Sales) FindRevenuesMonthly`
+	
+	if !CACHED_REVENUES_MONTHLY.IsExpired() {
+		L.Print(`From Cache: `+comment)
+		revenues = CACHED_REVENUES_MONTHLY.CacheData.([]*mBusiness.Revenue)
+		return
+	}
 
 	var startDate string 	// YYYY-MM-DD
 	var endDate string		// YYYY-MM-DD
@@ -112,11 +130,20 @@ FROM ` + s.SqlTableName() + whereAndSql
 		}
 	})
 
+	CACHED_REVENUES_MONTHLY.CacheData = revenues
+	CACHED_REVENUES_MONTHLY.CacheUnixTime = fastime.UnixNow()
+
 	return
 }
 
 func (s *Sales) FindOrdersAnnually() (orders []*mBusiness.Order) {
 	const comment = `-- Sales) FindRevenuesMonthly`
+
+	if !CACHED_ORDERS_ANNUALLY.IsExpired() {
+		L.Print(`From Cache: `+comment)
+		orders = CACHED_ORDERS_ANNUALLY.CacheData.([]*mBusiness.Order)
+		return
+	}
 	
 	now := time.Now()
 	oneYearAgo := now.AddDate(-1, 0, 0)
@@ -154,6 +181,9 @@ FROM ` +s.SqlTableName() + whereAndSql
 			}
 		}
 	})
+
+	CACHED_ORDERS_ANNUALLY.CacheData = orders
+	CACHED_ORDERS_ANNUALLY.CacheUnixTime = fastime.UnixNow()
 	return
 }
 

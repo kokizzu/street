@@ -48,11 +48,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 
 			if segments[domain.AdminSegment] {
 				r := rqBusiness.NewSales(d.BusinessOltp)
-				revenues = r.FindRevenuesMonthly("XD")
+				revenues = r.FindRevenuesMonthly("XD") // default to current month
 			} else {
 				r := rqBusiness.NewSales(d.BusinessOltp)
 				r.RealtorId = user.Id
-				revenues = r.FindRealtorRevenuesMonthlyByRealtorId("XD")
+				revenues = r.FindRealtorRevenuesMonthlyByRealtorId("XD") // default to current month
 			}
 		}
 		return views.RenderIndex(c, M.SX{
