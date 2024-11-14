@@ -134,10 +134,12 @@ func ReadPropertyUS_TruliaCom(adapter *Tt.Adapter, resourcePath string) {
 		if isValidURL(v.SourceURL) {
 			propKey, err := getSheet001UniqPropKey(v.SourceURL)
 			if err != nil {
+				stat.Skip()
 				continue
 			}
 			property.SetUniqPropKey(propKey)
 		} else {
+			stat.Skip()
 			continue
 		}
 		property.SetLastPrice(v.MainListedPrice)
