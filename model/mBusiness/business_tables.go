@@ -7,6 +7,7 @@ import (
 )
 
 type Cache struct {
+	CacheName string
 	CacheUnixTime int64
 	CacheData any
 }

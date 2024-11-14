@@ -9,14 +9,17 @@ import (
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 	"github.com/kpango/fastime"
+	"github.com/vburenin/nsync"
 )
 
 var (
 	CACHED_ORDERS_ANNUALLY mBusiness.Cache = mBusiness.Cache{
+		CacheName: `ordersAnnually`,
 		CacheUnixTime: 0,
 		CacheData: []any{},
 	}
 	CACHED_REVENUES_MONTHLY mBusiness.Cache = mBusiness.Cache{
+		CacheName: `ordersAnnually`,
 		CacheUnixTime: 0,
 		CacheData: []any{},
 	}
@@ -75,6 +78,8 @@ FROM ` + s.SqlTableName() + whereAndSql
 	return
 }
 
+var revenuesMonthlyLock = nsync.NewNamedMutex()
+
 func (s *Sales) FindRevenuesMonthly(yearMonth string) (revenues []*mBusiness.Revenue) {
 	const comment = `-- Sales) FindRevenuesMonthly`
 	
@@ -83,6 +88,12 @@ func (s *Sales) FindRevenuesMonthly(yearMonth string) (revenues []*mBusiness.Rev
 		revenues = CACHED_REVENUES_MONTHLY.CacheData.([]*mBusiness.Revenue)
 		return
 	}
+
+	if !revenuesMonthlyLock.TryLock(CACHED_REVENUES_MONTHLY.CacheName) {
+		revenues = CACHED_REVENUES_MONTHLY.CacheData.([]*mBusiness.Revenue)
+		return
+	}
+	defer revenuesMonthlyLock.Unlock(CACHED_REVENUES_MONTHLY.CacheName)
 
 	var startDate string 	// YYYY-MM-DD
 	var endDate string		// YYYY-MM-DD
@@ -136,6 +147,8 @@ FROM ` + s.SqlTableName() + whereAndSql
 	return
 }
 
+var ordersAnnuallyLock = nsync.NewNamedMutex()
+
 func (s *Sales) FindOrdersAnnually() (orders []*mBusiness.Order) {
 	const comment = `-- Sales) FindRevenuesMonthly`
 
@@ -144,6 +157,12 @@ func (s *Sales) FindOrdersAnnually() (orders []*mBusiness.Order) {
 		orders = CACHED_ORDERS_ANNUALLY.CacheData.([]*mBusiness.Order)
 		return
 	}
+
+	if !ordersAnnuallyLock.TryLock(CACHED_ORDERS_ANNUALLY.CacheName) {
+		orders = CACHED_ORDERS_ANNUALLY.CacheData.([]*mBusiness.Order)
+		return
+	}
+	defer ordersAnnuallyLock.Unlock(CACHED_ORDERS_ANNUALLY.CacheName)
 	
 	now := time.Now()
 	oneYearAgo := now.AddDate(-1, 0, 0)
