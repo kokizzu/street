@@ -192,12 +192,16 @@ LIMIT 1`
 	queryRows := comment + `
 SELECT ` + meta.ToSelect() + `
 FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+
+	L.Print(`Query:`, queryRows)
 	p.Adapter.QuerySql(queryRows, func(row []any) {
 		var nt PropertyNote
 		row[0] = X.ToS(row[0]) // ensure id is string
 		if nil != json.Unmarshal([]byte(X.ToS(row[p.IdxNote()])), &nt) {
-			row[p.IdxNote()] = nt
+			nt.About = X.ToS(row[p.IdxNote()])
 		}
+
+		row[p.IdxNote()] = nt
 		res = append(res, row)
 	})
 

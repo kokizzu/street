@@ -6,9 +6,11 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
 	"strings"
 
+	"github.com/goccy/go-json"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
@@ -136,7 +138,10 @@ func ReadPropertyPT_RightmoveCoUk(conn *Tt.Adapter, resourcePath string) {
 		images := S.Split(v.Images, `|`)
 		imagesAny := convertArrStrToArrAny(images)
 		property.SetImages(imagesAny)
-		property.SetNote(v.Description)
+
+		jsonNote := getJsonStrPropertyNote(``, v.PhoneNumber, v.Description)
+
+		property.SetNote(jsonNote)
 		property.SetCoord([]any{0, 0})
 		property.SetCreatedAt(fastime.UnixNow())
 		property.SetUpdatedAt(fastime.UnixNow())
@@ -171,6 +176,20 @@ func getPropertyPurpose(str string) string {
 			return `for sale` // set by default
 		}
 	}
+}
+
+func getJsonStrPropertyNote(email, phone, about string) string {
+	pNote := rqProperty.PropertyNote{
+		ContactEmail: email,
+		ContactPhone: phone,
+		About:        about,
+	}
+	jsonByte, err := json.Marshal(pNote)
+	if err != nil {
+		return `{"contactEmail":"` + email + `","contactPhone":"` + phone + `","about":"` + about + `"}`
+	}
+
+	return string(jsonByte)
 }
 
 func convertGBPToUSD(gbpStrRaw string) string {
