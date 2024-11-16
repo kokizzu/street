@@ -606,6 +606,92 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   padding: 0;
   margin: 0;
 }
+
+/* fakecss:./user/buyers.esbuild-svelte-fake-css */
+.buyers-container.svelte-rm3x8e.svelte-rm3x8e {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+.table-root.svelte-rm3x8e.svelte-rm3x8e {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid var(--gray-003);
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+}
+.table-root.svelte-rm3x8e .table-container.svelte-rm3x8e {
+  overflow-x: auto;
+  scrollbar-color: var(--gray-003) transparent;
+  scrollbar-width: thin;
+}
+.table-root.svelte-rm3x8e .table-container table.svelte-rm3x8e {
+  width: 100%;
+  background: #fff;
+  box-shadow: none;
+  text-align: left;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  font-size: 13px;
+}
+.table-root.svelte-rm3x8e .table-container table thead.svelte-rm3x8e {
+  box-shadow: none;
+  border-bottom: 1px solid var(--gray-003);
+}
+.table-root.svelte-rm3x8e .table-container table thead tr th.svelte-rm3x8e {
+  padding: 12px;
+  background-color: var(--gray-001);
+  text-transform: capitalize;
+  border-right: 1px solid var(--gray-004);
+  border-bottom: 1px solid var(--gray-003);
+  min-width: fit-content;
+  width: auto;
+  text-wrap: nowrap;
+}
+.table_root .table_container table.svelte-rm3x8e thead tr th.no.svelte-rm3x8e {
+  width: 30px;
+}
+.table-root.svelte-rm3x8e .table-container table thead tr th.svelte-rm3x8e:last-child {
+  border-right: none;
+}
+.table-root.svelte-rm3x8e .table-container table tbody tr td.svelte-rm3x8e {
+  padding: 8px 12px;
+}
+.table-root.svelte-rm3x8e .table-container table tbody tr td.svelte-rm3x8e {
+  padding: 8px 12px;
+  border-right: 1px solid var(--gray-004);
+  border-bottom: 1px solid var(--gray-004);
+}
+.table-root.svelte-rm3x8e .table-container table tbody tr.svelte-rm3x8e:last-child {
+  border-bottom: none !important;
+}
+.table-root.svelte-rm3x8e .table-container table tbody tr:last-child td.svelte-rm3x8e,
+.table-root.svelte-rm3x8e .table-container table tbody tr:last-child th.svelte-rm3x8e {
+  border-bottom: none !important;
+}
+.table-root.svelte-rm3x8e .table-container table tbody tr:last-child td.svelte-rm3x8e:last-child {
+  border-right: none !important;
+}
+.table-root.svelte-rm3x8e .table-container table tbody tr:last-child td.svelte-rm3x8e,
+.table-root.svelte-rm3x8e .table-container table tbody tr:last-child th.svelte-rm3x8e {
+  border-bottom: none !important;
+}
+.table-root.svelte-rm3x8e .table-container table tbody tr:last-child td.svelte-rm3x8e:last-child {
+  border-right: none !important;
+}
+.table-root.svelte-rm3x8e .table-container table tbody tr td.svelte-rm3x8e:last-child {
+  border-right: none !important;
+}
+.table-root.svelte-rm3x8e .table-container table tbody tr th.svelte-rm3x8e {
+  text-align: center;
+  border-right: 1px solid var(--gray-004);
+  border-bottom: 1px solid var(--gray-004);
+}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -634,9 +720,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     mod
   ));
 
-  // node_modules/.pnpm/axios@1.7.7/node_modules/axios/dist/browser/axios.cjs
+  // node_modules/.pnpm/axios@1.7.4/node_modules/axios/dist/browser/axios.cjs
   var require_axios = __commonJS({
-    "node_modules/.pnpm/axios@1.7.7/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
+    "node_modules/.pnpm/axios@1.7.4/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
       "use strict";
       function bind(fn, thisArg) {
         return function wrap() {
@@ -1038,10 +1124,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         code && (this.code = code);
         config && (this.config = config);
         request && (this.request = request);
-        if (response) {
-          this.response = response;
-          this.status = response.status ? response.status : null;
-        }
+        response && (this.response = response);
       }
       utils$1.inherits(AxiosError, Error, {
         toJSON: function toJSON() {
@@ -1060,7 +1143,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             // Axios
             config: utils$1.toJSONObject(this.config),
             code: this.code,
-            status: this.status
+            status: this.response && this.response.status ? this.response.status : null
           };
         }
       });
@@ -1345,8 +1428,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         protocols: ["http", "https", "file", "blob", "url", "data"]
       };
       var hasBrowserEnv = typeof window !== "undefined" && typeof document !== "undefined";
-      var _navigator = typeof navigator === "object" && navigator || void 0;
-      var hasStandardBrowserEnv = hasBrowserEnv && (!_navigator || ["ReactNative", "NativeScript", "NS"].indexOf(_navigator.product) < 0);
+      var hasStandardBrowserEnv = ((product) => {
+        return hasBrowserEnv && ["ReactNative", "NativeScript", "NS"].indexOf(product) < 0;
+      })(typeof navigator !== "undefined" && navigator.product);
       var hasStandardBrowserWebWorkerEnv = (() => {
         return typeof WorkerGlobalScope !== "undefined" && // eslint-disable-next-line no-undef
         self instanceof WorkerGlobalScope && typeof self.importScripts === "function";
@@ -1357,7 +1441,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         hasBrowserEnv,
         hasStandardBrowserWebWorkerEnv,
         hasStandardBrowserEnv,
-        navigator: _navigator,
         origin
       });
       var platform = {
@@ -1937,7 +2020,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         // Standard browser envs have full support of the APIs needed to test
         // whether the request URL is of the same origin as current location.
         function standardBrowserEnv() {
-          const msie = platform.navigator && /(msie|trident)/i.test(platform.navigator.userAgent);
+          const msie = /(msie|trident)/i.test(navigator.userAgent);
           const urlParsingNode = document.createElement("a");
           let originURL;
           function resolveURL(url) {
@@ -2250,37 +2333,36 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         });
       };
       var composeSignals = (signals, timeout) => {
-        const { length } = signals = signals ? signals.filter(Boolean) : [];
-        if (timeout || length) {
-          let controller = new AbortController();
-          let aborted;
-          const onabort = function(reason) {
-            if (!aborted) {
-              aborted = true;
-              unsubscribe();
-              const err = reason instanceof Error ? reason : this.reason;
-              controller.abort(err instanceof AxiosError ? err : new CanceledError(err instanceof Error ? err.message : err));
-            }
-          };
-          let timer = timeout && setTimeout(() => {
+        let controller = new AbortController();
+        let aborted;
+        const onabort = function(cancel) {
+          if (!aborted) {
+            aborted = true;
+            unsubscribe();
+            const err = cancel instanceof Error ? cancel : this.reason;
+            controller.abort(err instanceof AxiosError ? err : new CanceledError(err instanceof Error ? err.message : err));
+          }
+        };
+        let timer = timeout && setTimeout(() => {
+          onabort(new AxiosError(`timeout ${timeout} of ms exceeded`, AxiosError.ETIMEDOUT));
+        }, timeout);
+        const unsubscribe = () => {
+          if (signals) {
+            timer && clearTimeout(timer);
             timer = null;
-            onabort(new AxiosError(`timeout ${timeout} of ms exceeded`, AxiosError.ETIMEDOUT));
-          }, timeout);
-          const unsubscribe = () => {
-            if (signals) {
-              timer && clearTimeout(timer);
-              timer = null;
-              signals.forEach((signal2) => {
-                signal2.unsubscribe ? signal2.unsubscribe(onabort) : signal2.removeEventListener("abort", onabort);
-              });
-              signals = null;
-            }
-          };
-          signals.forEach((signal2) => signal2.addEventListener("abort", onabort));
-          const { signal } = controller;
-          signal.unsubscribe = () => utils$1.asap(unsubscribe);
-          return signal;
-        }
+            signals.forEach((signal2) => {
+              signal2 && (signal2.removeEventListener ? signal2.removeEventListener("abort", onabort) : signal2.unsubscribe(onabort));
+            });
+            signals = null;
+          }
+        };
+        signals.forEach((signal2) => signal2 && signal2.addEventListener && signal2.addEventListener("abort", onabort));
+        const { signal } = controller;
+        signal.unsubscribe = unsubscribe;
+        return [signal, () => {
+          timer && clearTimeout(timer);
+          timer = null;
+        }];
       };
       var composeSignals$1 = composeSignals;
       var streamChunk = function* (chunk, chunkSize) {
@@ -2297,31 +2379,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           pos = end;
         }
       };
-      var readBytes = async function* (iterable, chunkSize) {
-        for await (const chunk of readStream(iterable)) {
-          yield* streamChunk(chunk, chunkSize);
+      var readBytes = async function* (iterable, chunkSize, encode2) {
+        for await (const chunk of iterable) {
+          yield* streamChunk(ArrayBuffer.isView(chunk) ? chunk : await encode2(String(chunk)), chunkSize);
         }
       };
-      var readStream = async function* (stream) {
-        if (stream[Symbol.asyncIterator]) {
-          yield* stream;
-          return;
-        }
-        const reader = stream.getReader();
-        try {
-          for (; ; ) {
-            const { done, value } = await reader.read();
-            if (done) {
-              break;
-            }
-            yield value;
-          }
-        } finally {
-          await reader.cancel();
-        }
-      };
-      var trackStream = (stream, chunkSize, onProgress, onFinish) => {
-        const iterator = readBytes(stream, chunkSize);
+      var trackStream = (stream, chunkSize, onProgress, onFinish, encode2) => {
+        const iterator = readBytes(stream, chunkSize, encode2);
         let bytes = 0;
         let done;
         let _onFinish = (e) => {
@@ -2400,11 +2464,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           return body.size;
         }
         if (utils$1.isSpecCompliantForm(body)) {
-          const _request = new Request(platform.origin, {
-            method: "POST",
-            body
-          });
-          return (await _request.arrayBuffer()).byteLength;
+          return (await new Request(body).arrayBuffer()).byteLength;
         }
         if (utils$1.isArrayBufferView(body) || utils$1.isArrayBuffer(body)) {
           return body.byteLength;
@@ -2436,11 +2496,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           fetchOptions
         } = resolveConfig(config);
         responseType = responseType ? (responseType + "").toLowerCase() : "text";
-        let composedSignal = composeSignals$1([signal, cancelToken && cancelToken.toAbortSignal()], timeout);
-        let request;
-        const unsubscribe = composedSignal && composedSignal.unsubscribe && (() => {
-          composedSignal.unsubscribe();
-        });
+        let [composedSignal, stopTimeout] = signal || cancelToken || timeout ? composeSignals$1([signal, cancelToken], timeout) : [];
+        let finished, request;
+        const onFinish = () => {
+          !finished && setTimeout(() => {
+            composedSignal && composedSignal.unsubscribe();
+          });
+          finished = true;
+        };
         let requestContentLength;
         try {
           if (onUploadProgress && supportsRequestStream && method !== "get" && method !== "head" && (requestContentLength = await resolveBodyLength(headers, data)) !== 0) {
@@ -2458,13 +2521,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
                 requestContentLength,
                 progressEventReducer(asyncDecorator(onUploadProgress))
               );
-              data = trackStream(_request.body, DEFAULT_CHUNK_SIZE, onProgress, flush2);
+              data = trackStream(_request.body, DEFAULT_CHUNK_SIZE, onProgress, flush2, encodeText);
             }
           }
           if (!utils$1.isString(withCredentials)) {
             withCredentials = withCredentials ? "include" : "omit";
           }
-          const isCredentialsSupported = "credentials" in Request.prototype;
           request = new Request(url, {
             ...fetchOptions,
             signal: composedSignal,
@@ -2472,11 +2534,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             headers: headers.normalize().toJSON(),
             body: data,
             duplex: "half",
-            credentials: isCredentialsSupported ? withCredentials : void 0
+            credentials: withCredentials
           });
           let response = await fetch(request);
           const isStreamResponse = supportsResponseStream && (responseType === "stream" || responseType === "response");
-          if (supportsResponseStream && (onDownloadProgress || isStreamResponse && unsubscribe)) {
+          if (supportsResponseStream && (onDownloadProgress || isStreamResponse)) {
             const options = {};
             ["status", "statusText", "headers"].forEach((prop) => {
               options[prop] = response[prop];
@@ -2489,14 +2551,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             response = new Response(
               trackStream(response.body, DEFAULT_CHUNK_SIZE, onProgress, () => {
                 flush2 && flush2();
-                unsubscribe && unsubscribe();
-              }),
+                isStreamResponse && onFinish();
+              }, encodeText),
               options
             );
           }
           responseType = responseType || "text";
           let responseData = await resolvers[utils$1.findKey(resolvers, responseType) || "text"](response, config);
-          !isStreamResponse && unsubscribe && unsubscribe();
+          !isStreamResponse && onFinish();
+          stopTimeout && stopTimeout();
           return await new Promise((resolve, reject) => {
             settle(resolve, reject, {
               data: responseData,
@@ -2508,7 +2571,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             });
           });
         } catch (err) {
-          unsubscribe && unsubscribe();
+          onFinish();
           if (err && err.name === "TypeError" && /fetch/i.test(err.message)) {
             throw Object.assign(
               new AxiosError("Network Error", AxiosError.ERR_NETWORK, config, request),
@@ -2615,7 +2678,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           return Promise.reject(reason);
         });
       }
-      var VERSION2 = "1.7.7";
+      var VERSION2 = "1.7.4";
       var validators$1 = {};
       ["object", "boolean", "number", "function", "string", "symbol"].forEach((type, i) => {
         validators$1[type] = function validator2(thing) {
@@ -2904,15 +2967,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           if (index !== -1) {
             this._listeners.splice(index, 1);
           }
-        }
-        toAbortSignal() {
-          const controller = new AbortController();
-          const abort = (err) => {
-            controller.abort(err);
-          };
-          this.subscribe(abort);
-          controller.signal.unsubscribe = () => this.unsubscribe(abort);
-          return controller.signal;
         }
         /**
          * Returns an object that contains a new `CancelToken` and a function that, when called,
@@ -3372,6 +3426,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       node.parentNode.removeChild(node);
     }
   }
+  function destroy_each(iterations, detaching) {
+    for (let i = 0; i < iterations.length; i += 1) {
+      if (iterations[i])
+        iterations[i].d(detaching);
+    }
+  }
   function element(name) {
     return document.createElement(name);
   }
@@ -3533,6 +3593,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     } else if (callback) {
       callback();
     }
+  }
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/each.js
+  function ensure_array_like(array_like_or_iterator) {
+    return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/spread.js
@@ -4242,13 +4307,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           /*pathLv1*/
           ctx[2] === ""
         );
-        attr(a1, "href", "/user/buyer");
+        attr(a1, "href", "/user/buyers");
         attr(a1, "class", "svelte-1hfp3dx");
         toggle_class(
           a1,
           "active",
           /*pathAll*/
-          ctx[1] === "/user/buyer"
+          ctx[1] === "/user/buyers"
         );
         attr(a2, "href", "/realtor");
         attr(a2, "class", "svelte-1hfp3dx");
@@ -5116,22 +5181,124 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   };
   var Main_default = Main;
 
-  // buyer.svelte
-  function create_default_slot(ctx) {
-    let div;
+  // user/buyers.svelte
+  function get_each_context(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[0] = list[i];
+    child_ctx[2] = i;
+    return child_ctx;
+  }
+  function create_each_block(ctx) {
+    let tr;
+    let td0;
+    let t1;
+    let td1;
+    let t3;
+    let td2;
+    let t5;
+    let td3;
+    let t7;
+    let td4;
+    let t9;
     return {
       c() {
-        div = element("div");
-        div.innerHTML = `<span>Buyer</span>`;
+        tr = element("tr");
+        td0 = element("td");
+        td0.textContent = `${/*idx*/
+        ctx[2] + 1}`;
+        t1 = space();
+        td1 = element("td");
+        td1.textContent = "#2H8JQPXMV";
+        t3 = space();
+        td2 = element("td");
+        td2.textContent = "johndoe@example.com";
+        t5 = space();
+        td3 = element("td");
+        td3.textContent = "$ 1,000,000";
+        t7 = space();
+        td4 = element("td");
+        td4.textContent = "2025-01-01";
+        t9 = space();
+        attr(td0, "class", "svelte-rm3x8e");
+        attr(td1, "class", "svelte-rm3x8e");
+        attr(td2, "class", "svelte-rm3x8e");
+        attr(td3, "class", "svelte-rm3x8e");
+        attr(td4, "class", "svelte-rm3x8e");
+        attr(tr, "class", "svelte-rm3x8e");
       },
       m(target, anchor) {
-        insert(target, div, anchor);
+        insert(target, tr, anchor);
+        append(tr, td0);
+        append(tr, t1);
+        append(tr, td1);
+        append(tr, t3);
+        append(tr, td2);
+        append(tr, t5);
+        append(tr, td3);
+        append(tr, t7);
+        append(tr, td4);
+        append(tr, t9);
       },
       p: noop,
       d(detaching) {
         if (detaching) {
-          detach(div);
+          detach(tr);
         }
+      }
+    };
+  }
+  function create_default_slot(ctx) {
+    let div2;
+    let div1;
+    let div0;
+    let table;
+    let thead;
+    let t9;
+    let tbody;
+    let each_value = ensure_array_like(Array(20));
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    }
+    return {
+      c() {
+        div2 = element("div");
+        div1 = element("div");
+        div0 = element("div");
+        table = element("table");
+        thead = element("thead");
+        thead.innerHTML = `<tr class="svelte-rm3x8e"><th class="no svelte-rm3x8e">No</th> <th class="svelte-rm3x8e">Property ID</th> <th class="svelte-rm3x8e">Buyer Email</th> <th class="svelte-rm3x8e">Property Price</th> <th class="svelte-rm3x8e">Sales Date</th></tr>`;
+        t9 = space();
+        tbody = element("tbody");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        attr(thead, "class", "svelte-rm3x8e");
+        attr(table, "class", "svelte-rm3x8e");
+        attr(div0, "class", "table-container svelte-rm3x8e");
+        attr(div1, "class", "table-root svelte-rm3x8e");
+        attr(div2, "class", "buyers-container svelte-rm3x8e");
+      },
+      m(target, anchor) {
+        insert(target, div2, anchor);
+        append(div2, div1);
+        append(div1, div0);
+        append(div0, table);
+        append(table, thead);
+        append(table, t9);
+        append(table, tbody);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(tbody, null);
+          }
+        }
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(div2);
+        }
+        destroy_each(each_blocks, detaching);
       }
     };
   }
@@ -5157,7 +5324,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       p(ctx2, [dirty]) {
         const main_changes = {};
         if (dirty & /*$scope*/
-        1) {
+        8) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -5185,16 +5352,16 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     /** @type {Access} */
     {/* segments */}
   );
-  var Buyer = class extends SvelteComponent {
+  var Buyers = class extends SvelteComponent {
     constructor(options) {
       super();
       init(this, options, null, create_fragment6, safe_not_equal, {});
     }
   };
-  var buyer_default = Buyer;
+  var buyers_default = Buyers;
 
-  // buyer.svelte.ts
-  var app = new buyer_default({ target: document.getElementById("app") });
+  // user/buyers.svelte.ts
+  var app = new buyers_default({ target: document.getElementById("app") });
 })();
 </script>
 </body></html>

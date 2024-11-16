@@ -2917,27 +2917,27 @@ exports.UserAutoLoginLink = async function UserAutoLoginLink( i, cb ) {
 }
 
 /**
- * @typedef {Object} UserBuyerIn
+ * @typedef {Object} UserBuyersIn
  */
-const UserBuyerIn = {
+const UserBuyersIn = {
 }
 /**
- * @typedef {Object} UserBuyerOut
+ * @typedef {Object} UserBuyersOut
  */
-const UserBuyerOut = {
+const UserBuyersOut = {
 }
 /**
- * @callback UserBuyerCallback
- * @param {UserBuyerOut} o
+ * @callback UserBuyersCallback
+ * @param {UserBuyersOut} o
  * @returns {Promise}
  */
 /**
- * @param  {UserBuyerIn} i
- * @param {UserBuyerCallback} cb
+ * @param  {UserBuyersIn} i
+ * @param {UserBuyersCallback} cb
  * @returns {Promise}
  */
-exports.UserBuyer = async function UserBuyer( i, cb ) {
-  return await axios.post( '/user/buyer', i ).
+exports.UserBuyers = async function UserBuyers( i, cb ) {
+  return await axios.post( '/user/buyers', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

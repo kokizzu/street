@@ -295,12 +295,12 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
-	fw.Get(`/`+domain.UserBuyerAction, func(ctx *fiber.Ctx) error {
+	fw.Get(`/`+domain.UserBuyersAction, func(ctx *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		return views.RenderBuyer(ctx, M.SX{
+		return views.RenderUserBuyers(ctx, M.SX{
 			`title`:    `Buyer`,
 			`user`:     user,
 			`segments`: segments,

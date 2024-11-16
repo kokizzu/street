@@ -37,7 +37,7 @@ var allCommands = []string{
 	domain.RealtorRevenueAction,
 	domain.RealtorUpsertPropertyAction,
 	domain.UserAutoLoginLinkAction,
-	domain.UserBuyerAction,
+	domain.UserBuyersAction,
 	domain.UserChangePasswordAction,
 	domain.UserDeactivateAction,
 	domain.UserGpsCountryAction,

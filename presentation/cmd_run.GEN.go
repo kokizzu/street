@@ -252,12 +252,12 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.UserAutoLoginLink(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
-	case domain.UserBuyerAction:
-		in := domain.UserBuyerIn{}
+	case domain.UserBuyersAction:
+		in := domain.UserBuyersIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
-		out := b.UserBuyer(&in)
+		out := b.UserBuyers(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.UserChangePasswordAction:

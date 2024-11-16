@@ -33,7 +33,7 @@
   <div class="container">
     <nav class="nav-menu">
       <a href="/" class:active={pathLv1 === ''}>Home</a>
-      <a href="/user/buyer" class:active={pathAll === '/user/buyer'}>Buyers</a>
+      <a href="/user/buyers" class:active={pathAll === '/user/buyers'}>Buyers</a>
       <a href="/realtor" class:active={pathAll === '/realtor'}>Realtors</a>
       <a href="/user/listings" class:active={pathAll === '/user/listings'}>Listings</a>
       {#if access.admin}
