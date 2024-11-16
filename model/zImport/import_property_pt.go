@@ -31,72 +31,74 @@ func ReadPropertyPT_RightmoveCoUk(conn *Tt.Adapter, resourcePath string) {
 
 	defer file.Close()
 	type propertyPT struct {
-		SourceURL        string
-		PropertyTitle         string
-		Location string
-		PhoneNumber string
-		PrimaryPrice string
+		SourceURL      string
+		PropertyTitle  string
+		Location       string
+		PhoneNumber    string
+		PrimaryPrice   string
 		SecondaryPrice string
-		PropertyType string
-		Bedrooms string
-		Bathrooms string
-		Size string
-		AgentName string
-		FullAddress string
-		Lat string
-		Long string
-		Images string
-		Description string
-		KeyFeatures string
+		PropertyType   string
+		Bedrooms       string
+		Bathrooms      string
+		Size           string
+		AgentName      string
+		FullAddress    string
+		Lat            string
+		Long           string
+		Images         string
+		Description    string
+		KeyFeatures    string
 	}
 
 	var properties []propertyPT
 
 	tsv := tsvreader.New(file)
-	_ = tsv.String()
+	for tsv.Next() {
+		_ = tsv.String()
 
-	sourceURL := tsv.String()
-	propertyTitle := tsv.String()
-	location := tsv.String()
-	phoneNumber := tsv.String()
-	primaryPrice := tsv.String()
-	secondaryPrice := tsv.String()
-	propertyType := tsv.String()
-	bedrooms := tsv.String()
-	bathrooms := tsv.String()
-	size := tsv.String()
-	agentName := tsv.String()
-	fullAddress := tsv.String()
-	lat := tsv.String()
-	long := tsv.String()
-	images := tsv.String()
-	description := tsv.String()
-	keyFeatures := tsv.String()
+		sourceURL := tsv.String()
+		propertyTitle := tsv.String()
+		location := tsv.String()
+		phoneNumber := tsv.String()
+		primaryPrice := tsv.String()
+		secondaryPrice := tsv.String()
+		propertyType := tsv.String()
+		bedrooms := tsv.String()
+		bathrooms := tsv.String()
+		size := tsv.String()
+		agentName := tsv.String()
+		fullAddress := tsv.String()
+		lat := tsv.String()
+		long := tsv.String()
+		images := tsv.String()
+		description := tsv.String()
+		keyFeatures := tsv.String()
 
-	properties = append(properties, propertyPT{
-		SourceURL: S.Trim(sourceURL),
-		PropertyTitle: S.Trim(propertyTitle),
-		Location: S.Trim(location),
-		PhoneNumber: S.Trim(phoneNumber),
-		PrimaryPrice: S.Trim(primaryPrice),
-		SecondaryPrice: S.Trim(secondaryPrice),
-		PropertyType: S.Trim(propertyType),
-		Bedrooms: S.Trim(bedrooms),
-		Bathrooms: S.Trim(bathrooms),
-		Size: S.Trim(size),
-		AgentName: S.Trim(agentName),
-		FullAddress: S.Trim(fullAddress),
-		Lat: S.Trim(lat),
-		Long: S.Trim(long),
-		Images: S.Trim(images),
-		Description: S.Trim(description),
-		KeyFeatures: S.Trim(keyFeatures),
-	})
+		properties = append(properties, propertyPT{
+			SourceURL:      S.Trim(sourceURL),
+			PropertyTitle:  S.Trim(propertyTitle),
+			Location:       S.Trim(location),
+			PhoneNumber:    S.Trim(phoneNumber),
+			PrimaryPrice:   S.Trim(primaryPrice),
+			SecondaryPrice: S.Trim(secondaryPrice),
+			PropertyType:   S.Trim(propertyType),
+			Bedrooms:       S.Trim(bedrooms),
+			Bathrooms:      S.Trim(bathrooms),
+			Size:           S.Trim(size),
+			AgentName:      S.Trim(agentName),
+			FullAddress:    S.Trim(fullAddress),
+			Lat:            S.Trim(lat),
+			Long:           S.Trim(long),
+			Images:         S.Trim(images),
+			Description:    S.Trim(description),
+			KeyFeatures:    S.Trim(keyFeatures),
+		})
+	}
 
 	if len(properties) > 0 {
 		properties = properties[1:] // remove 1st element
 	} else {
-		return
+		panic(`Properties from ` + resourcePath + ` is empty`)
 	}
 
 	stat := &ImporterStat{Total: len(properties)}
@@ -112,7 +114,7 @@ func ReadPropertyPT_RightmoveCoUk(conn *Tt.Adapter, resourcePath string) {
 				stat.Skip()
 				continue
 			}
-			property.SetUniqPropKey(propKey)
+			property.SetUniqPropKey(propKey + `_pt`)
 		} else {
 			stat.Skip()
 			continue
@@ -135,6 +137,7 @@ func ReadPropertyPT_RightmoveCoUk(conn *Tt.Adapter, resourcePath string) {
 		imagesAny := convertArrStrToArrAny(images)
 		property.SetImages(imagesAny)
 		property.SetNote(v.Description)
+		property.SetCoord([]any{0, 0})
 		property.SetCreatedAt(fastime.UnixNow())
 		property.SetUpdatedAt(fastime.UnixNow())
 
@@ -197,7 +200,7 @@ func getSizeSqFt(strSize string) float64 {
 func convertArrStrToArrAny(arrStr []string) []any {
 	var arrAny []any
 	for _, str := range arrStr {
-		arrAny = append(arrAny, str)
+		arrAny = append(arrAny, S.Trim(str))
 	}
 
 	return arrAny

@@ -191,7 +191,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		padding: 5px;
+		padding: 8px;
 		border-radius: 50%;
 		border: none;
 		background-color: transparent;

@@ -102,7 +102,7 @@
     flex-direction: column;
     gap: 20px;
     color: #475569;
-    width: 500px;
+    width: 600px;
   }
 
   .feedback-dialog h3 {
@@ -126,6 +126,7 @@
   .feedback-dialog .buttons {
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
     align-items: stretch;
     font-weight: 500;
     width: 100%;
@@ -137,7 +138,8 @@
     border: none;
     padding: 10px;
     cursor: pointer;
-    width: 100%;
+    width: fit-content;
+    padding: 12px 20px;
     text-transform: capitalize;
   }
 

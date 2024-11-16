@@ -61,9 +61,9 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`google`:          google.Link,
 			`segments`:        segments,
 			`user_registered`: userRegistered,
-			`realtor_stats`: realtorStats,
+			`realtor_stats`:   realtorStats,
 			`revenues`:        revenues,
-			`orders`: orders,
+			`orders`:          orders,
 		})
 	})
 
@@ -385,6 +385,20 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`, 302)
 		}
 		return views.RenderRealtorProperty(ctx, M.SX{
+			`title`:     `Realtor Property`,
+			`segments`:  segments,
+			`user`:      user,
+			`property`:  M.SX{},
+			`countries`: conf.CountriesData,
+		})
+	})
+	fw.Get(`/`+domain.RealtorPropertyAction+`Old`, func(ctx *fiber.Ctx) error {
+		// create new property
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		return views.RenderRealtorPropertyOld(ctx, M.SX{
 			`title`:     `Realtor Property`,
 			`segments`:  segments,
 			`user`:      user,
