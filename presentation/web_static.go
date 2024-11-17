@@ -296,14 +296,22 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	})
 
 	fw.Get(`/`+domain.UserBuyersAction, func(ctx *fiber.Ctx) error {
-		in, user, segments := userInfoFromContext(ctx, d)
+		var in domain.UserBuyersIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.RealtorRevenueAction)
+		if err != nil {
+			return err
+		}
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.Cmd = zCrud.CmdList
+		out := d.UserBuyers(&in)
 		return views.RenderUserBuyers(ctx, M.SX{
 			`title`:    `Buyer`,
 			`user`:     user,
 			`segments`: segments,
+			`buyers`: out.Buyers,
 		})
 	})
 

@@ -31,6 +31,13 @@ type Order struct {
 	SalesDate string `json:"salesDate"`
 }
 
+type Buyer struct {
+	PropertyId uint64 `json:"propertyId"`
+	BuyerEmail string `json:"buyerEmail"`
+	PropertyPrice int64 `json:"propertyPrice"`
+	SalesDate string `json:"salesDate"`
+}
+
 const (
 	TableSales Tt.TableName = `sales`
 

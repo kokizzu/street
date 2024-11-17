@@ -3235,8 +3235,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserBuyer = async function UserBuyer(i, cb) {
-        return await axios.post("/user/buyer", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      exports.UserBuyers = async function UserBuyers(i, cb) {
+        return await axios.post("/user/buyers", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserChangePassword = async function UserChangePassword(i, cb) {
         return await axios.post("/user/changePassword", i).then(wrapOk(cb)).catch(wrapErr(cb));

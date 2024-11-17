@@ -2918,13 +2918,20 @@ exports.UserAutoLoginLink = async function UserAutoLoginLink( i, cb ) {
 
 /**
  * @typedef {Object} UserBuyersIn
+ * @property {String} cmd
+ * @property {String} yearMonth
  */
 const UserBuyersIn = {
+  cmd: '', // string
+  yearMonth: '', // string
 }
 /**
  * @typedef {Object} UserBuyersOut
+ * @property {Object} buyers
  */
 const UserBuyersOut = {
+  buyers: { // []mBusiness.Buyer
+  }, // []mBusiness.Buyer
 }
 /**
  * @callback UserBuyersCallback
