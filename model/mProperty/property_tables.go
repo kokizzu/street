@@ -365,6 +365,17 @@ const (
 	Country = `country`
 )
 
+const (
+	TableScannedAreas Ch.TableName = `scannedAreas`
+
+	Latitude = `latitude`
+	Longitude = `longitude`
+)
+
+const (
+	TableScannedProperties Ch.TableName = `scannedProperties`
+)
+
 var ClickhouseTables = map[Ch.TableName]*Ch.TableProp{
 	TableViewedRooms: {
 		Fields: []Ch.Field{
@@ -373,6 +384,26 @@ var ClickhouseTables = map[Ch.TableName]*Ch.TableProp{
 			{PropertyId, Ch.UInt64},
 			{RoomLabel, Ch.String},
 			{Country, Ch.String},
+		},
+		Orders: []string{CreatedAt, ActorId},
+	},
+	TableScannedAreas: {
+		Fields: []Ch.Field{
+			{ActorId, Ch.UInt64},
+			{CreatedAt, Ch.DateTime},
+			{Latitude, Ch.Float64},
+			{Longitude, Ch.Float64},
+			{City, Ch.String},
+			{State, Ch.String},
+		},
+		Orders: []string{CreatedAt, ActorId},
+	},
+	TableScannedProperties: {
+		Fields: []Ch.Field{
+			{ActorId, Ch.UInt64},
+			{CreatedAt, Ch.DateTime},
+			{CountryCode, Ch.String},
+			{PropertyId, Ch.UInt64},
 		},
 		Orders: []string{CreatedAt, ActorId},
 	},

@@ -123,6 +123,9 @@ func (d *Domain) AdminRevenue(in *AdminRevenueIn) (out AdminRevenueOut) {
 			out.SetError(400, ErrAdminRevenueSaveFailed)
 			return
 		}
+
+		rqBusiness.CACHED_REVENUES_MONTHLY.Clear()
+		rqBusiness.CACHED_ORDERS_ANNUALLY.Clear()
 	case zCrud.CmdList:
 		r := rqBusiness.NewSales(d.BusinessOltp)
 		out.Revenues = r.FindRevenuesMonthly(in.YearMonth)

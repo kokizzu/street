@@ -19,6 +19,10 @@ func (c *Cache) IsExpired() bool {
 	return time.Since(cacheTime) > time.Hour
 }
 
+func (c *Cache) Clear() {
+	c.CacheUnixTime = 0
+}
+
 type Revenue struct {
 	Revenue int64 `json:"revenue"`
 	PropertyBought int64 `json:"propertyBought"`

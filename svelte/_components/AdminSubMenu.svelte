@@ -36,6 +36,10 @@
 			<span class="title">Files</span>
 			<span class="block"></span>
 		</a>
+		<a href="/admin/3dFiles" class:active={segment2==='3dFiles'}>
+			<span class="title">3D Files</span>
+			<span class="block"></span>
+		</a>
 	</nav>
 </div>
 

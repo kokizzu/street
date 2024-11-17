@@ -38,7 +38,7 @@ const (
 	Country            = `country`  // 2-letters ISO country code
 	Language           = `language` // 2-letters ISO country code (only EN and TW available, if empty assume EN)
 	PropertyCount			 = `propertyCount`
-	PropertyBoght			 = `propertyBought`
+	PropertyBought			 = `propertyBought`
 )
 
 const (
@@ -82,7 +82,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Country, Tt.String},
 			{Language, Tt.String},
 			{PropertyCount, Tt.Integer},
-			{PropertyBoght, Tt.Integer},
+			{PropertyBought, Tt.Integer},
 		},
 		AutoIncrementId:  true,
 		Unique1:          Email,
