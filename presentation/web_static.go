@@ -37,11 +37,13 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		var realtorStats []mAuth.RealtorStat
 		var revenues []*mBusiness.Revenue
 		var orders []*mBusiness.Order
+		var mostLoggedInUsers []saAuth.MostLoggedInUser
 
 		if segments[domain.UserSegment] {
 			actionLog := saAuth.NewActionLogs(d.AuthOlap)
 			userRegistered = actionLog.FindUserRegistered()
 			realtorStats = actionLog.FindRealtorActivity()
+			mostLoggedInUsers = actionLog.FindMostLoggedInUsers(d.AuthOltp)
 
 			or := rqBusiness.NewSales(d.BusinessOltp)
 			orders = or.FindOrdersAnnually()
@@ -64,6 +66,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`realtor_stats`:   realtorStats,
 			`revenues`:        revenues,
 			`orders`:          orders,
+			`users_most_logged_in`: mostLoggedInUsers,
 		})
 	})
 

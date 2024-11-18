@@ -3,9 +3,11 @@ package saAuth
 import (
 	"database/sql"
 
+	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
 
 	"street/model/mAuth"
+	"street/model/mAuth/rqAuth"
 	"street/model/zCrud"
 )
 
@@ -193,6 +195,107 @@ func (a ActionLogs) FindRealtorActivity() (res []mAuth.RealtorStat) {
 		res = append(res, mAuth.RealtorStat{
 			Date: dt,
 			TotalActivity: count,
+		})
+	}
+
+	return
+}
+
+type MostLoggedInUser struct {
+	TimePeriod string `json:"time_period"`
+	Email string `json:"email"`
+	FullName string `json:"full_name"`
+	Total int64 `json:"total"`
+}
+
+func (a ActionLogs) FindMostLoggedInUsers(ttConn *Tt.Adapter) (res []MostLoggedInUser) {
+	comment := `-- `
+	query := comment + `
+SELECT
+  'Daily' AS time_period,
+  actorId,
+  count(1) AS total
+FROM actionLogs
+WHERE (createdAt > (now() - toIntervalDay(1))) AND (action = 'guest/login')
+GROUP BY 1, 2
+ORDER BY total DESC
+LIMIT 1
+
+UNION ALL
+
+SELECT
+  'Weekly' AS time_period,
+  actorId,
+  count(1) AS total
+FROM actionLogs
+WHERE (createdAt > (now() - toIntervalWeek(1))) AND (action = 'guest/login')
+GROUP BY 1, 2
+ORDER BY total DESC
+LIMIT 1
+
+UNION ALL
+
+SELECT
+  'Monthly' AS time_period,
+  actorId,
+  count(1) AS total
+FROM actionLogs
+WHERE (createdAt > (now() - toIntervalMonth(1))) AND (action = 'guest/login')
+GROUP BY 1, 2
+ORDER BY total DESC
+LIMIT 1
+
+UNION ALL
+
+SELECT
+  'Quarterly' AS time_period,
+  actorId,
+  count(1) AS total
+FROM actionLogs
+WHERE (createdAt > (now() - toIntervalQuarter(1))) AND (action = 'guest/login')
+GROUP BY 1, 2
+ORDER BY total DESC
+LIMIT 1
+
+UNION ALL
+
+SELECT
+  'Annually' AS time_period,
+  actorId,
+  count(1) AS total
+FROM actionLogs
+WHERE (createdAt > (now() - toIntervalYear(1))) AND (action = 'guest/login')
+GROUP BY 1, 2
+ORDER BY total DESC
+LIMIT 1`
+
+	L.Print(query)
+	rows, err := a.Adapter.Query(query)
+	if err != nil {
+		L.IsError(err, `failed to get most logged in users: `+query)
+		return
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var (
+			timePeriod string
+			userId uint64
+			total int64
+		)
+		rows.Scan(&timePeriod, &userId, &total)
+
+		user := rqAuth.NewUsers(ttConn)
+		user.Id = userId
+		if !user.FindById() {
+			L.Print(`user with id `, userId, ` not found`)
+		}
+
+		res = append(res, MostLoggedInUser{
+			TimePeriod: timePeriod,
+			Email: user.Email,
+			FullName: user.FullName,
+			Total: total,
 		})
 	}
 

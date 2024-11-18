@@ -21982,6 +21982,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
 
   // index.svelte
   var { window: window_1 } = globals;
+  function get_each_context2(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[32] = list[i];
+    return child_ctx;
+  }
   function create_else_block3(ctx) {
     let section;
     let div5;
@@ -22523,7 +22528,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           ctx2[1];
         if (dirty[0] & /*MODE_STATS*/
         256 | dirty[1] & /*$scope*/
-        2) {
+        16) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -23651,6 +23656,60 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
+  function create_each_block2(ctx) {
+    let tr;
+    let td0;
+    let t1;
+    let td1;
+    let t3;
+    let td2;
+    let t5;
+    let td3;
+    let t7;
+    return {
+      c() {
+        tr = element("tr");
+        td0 = element("td");
+        td0.textContent = `${/*msUser*/
+        ctx[32].time_period}`;
+        t1 = space();
+        td1 = element("td");
+        td1.textContent = `${/*msUser*/
+        ctx[32].email}`;
+        t3 = space();
+        td2 = element("td");
+        td2.textContent = `${/*msUser*/
+        ctx[32].full_name}`;
+        t5 = space();
+        td3 = element("td");
+        td3.textContent = `${/*msUser*/
+        ctx[32].total}`;
+        t7 = space();
+        attr(td0, "class", "svelte-15noryw");
+        attr(td1, "class", "svelte-15noryw");
+        attr(td2, "class", "svelte-15noryw");
+        attr(td3, "class", "svelte-15noryw");
+        attr(tr, "class", "svelte-15noryw");
+      },
+      m(target, anchor) {
+        insert(target, tr, anchor);
+        append(tr, td0);
+        append(tr, t1);
+        append(tr, td1);
+        append(tr, t3);
+        append(tr, td2);
+        append(tr, t5);
+        append(tr, td3);
+        append(tr, t7);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(tr);
+        }
+      }
+    };
+  }
   function create_default_slot(ctx) {
     let div9;
     let div1;
@@ -23682,10 +23741,25 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let div0;
     let t12;
     let div6;
-    let t86;
+    let div3;
+    let header0;
+    let t14;
+    let div2;
+    let table0;
+    let thead0;
+    let t22;
+    let tbody0;
+    let t23;
+    let div5;
+    let t65;
     let div8;
     let mounted;
     let dispose;
+    let each_value = ensure_array_like(usersMostLoggedIn || []);
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block2(get_each_context2(ctx, each_value, i));
+    }
     return {
       c() {
         div9 = element("div");
@@ -23719,8 +23793,23 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         div0.innerHTML = `<canvas id="chart" class="svelte-15noryw"></canvas>`;
         t12 = space();
         div6 = element("div");
-        div6.innerHTML = `<div class="table-root svelte-15noryw"><header class="svelte-15noryw"><span class="svelte-15noryw">Most Logged in Buyers</span></header> <div class="table-container svelte-15noryw"><table class="svelte-15noryw"><thead class="svelte-15noryw"><tr class="svelte-15noryw"><th class="svelte-15noryw">Time period</th> <th class="svelte-15noryw">Time spent</th> <th class="svelte-15noryw">User</th></tr></thead> <tbody><tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">45mins</td> <td class="svelte-15noryw">Chris Kang</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Monthly</td> <td class="svelte-15noryw">20hrs 2mins</td> <td class="svelte-15noryw">Jennifer Hun</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Quarterly</td> <td class="svelte-15noryw">45mins</td> <td class="svelte-15noryw">Chris Kang</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Annually</td> <td class="svelte-15noryw">321hrs 42mins</td> <td class="svelte-15noryw">Kortin Lopez</td></tr></tbody></table></div></div> <div class="table-root svelte-15noryw"><header class="svelte-15noryw"><span class="svelte-15noryw">Most Scanned Area</span></header> <div class="table-container svelte-15noryw"><table class="svelte-15noryw"><thead class="svelte-15noryw"><tr class="svelte-15noryw"><th class="svelte-15noryw">Time period</th> <th class="svelte-15noryw">Views</th> <th class="svelte-15noryw">City</th> <th class="svelte-15noryw">State</th></tr></thead> <tbody><tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,840,798</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td></tr></tbody></table></div></div>`;
-        t86 = space();
+        div3 = element("div");
+        header0 = element("header");
+        header0.innerHTML = `<span class="svelte-15noryw">Most Logged in Buyers</span>`;
+        t14 = space();
+        div2 = element("div");
+        table0 = element("table");
+        thead0 = element("thead");
+        thead0.innerHTML = `<tr class="svelte-15noryw"><th class="svelte-15noryw">Time period</th> <th class="svelte-15noryw">Email</th> <th class="svelte-15noryw">Full Name</th> <th class="svelte-15noryw">Total</th></tr>`;
+        t22 = space();
+        tbody0 = element("tbody");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        t23 = space();
+        div5 = element("div");
+        div5.innerHTML = `<header class="svelte-15noryw"><span class="svelte-15noryw">Most Scanned Area</span></header> <div class="table-container svelte-15noryw"><table class="svelte-15noryw"><thead class="svelte-15noryw"><tr class="svelte-15noryw"><th class="svelte-15noryw">Time period</th> <th class="svelte-15noryw">Views</th> <th class="svelte-15noryw">City</th> <th class="svelte-15noryw">State</th></tr></thead> <tbody><tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,840,798</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td></tr></tbody></table></div>`;
+        t65 = space();
         div8 = element("div");
         div8.innerHTML = `<header class="svelte-15noryw"><span class="svelte-15noryw">Most Scanned Listing</span></header> <div class="table-container svelte-15noryw"><table class="svelte-15noryw"><thead class="svelte-15noryw"><tr class="svelte-15noryw"><th class="svelte-15noryw">Time period</th> <th class="svelte-15noryw">Views</th> <th class="svelte-15noryw">Price</th> <th class="svelte-15noryw">Size</th> <th class="svelte-15noryw">City</th> <th class="svelte-15noryw">State</th> <th class="svelte-15noryw">Address</th></tr></thead> <tbody><tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">$4,400,000</td> <td class="svelte-15noryw">40,000 sqm</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td> <td class="svelte-15noryw">99 silverlake dr.</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">$4,400,000</td> <td class="svelte-15noryw">40,000 sqm</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td> <td class="svelte-15noryw">99 silverlake dr.</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">$4,400,000</td> <td class="svelte-15noryw">40,000 sqm</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td> <td class="svelte-15noryw">99 silverlake dr.</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">$4,400,000</td> <td class="svelte-15noryw">40,000 sqm</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td> <td class="svelte-15noryw">99 silverlake dr.</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">$4,400,000</td> <td class="svelte-15noryw">40,000 sqm</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td> <td class="svelte-15noryw">99 silverlake dr.</td></tr></tbody></table></div>`;
         attr(span0, "class", "block svelte-15noryw");
@@ -23778,6 +23867,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         attr(nav, "class", "svelte-15noryw");
         attr(div0, "class", "chart svelte-15noryw");
         attr(div1, "class", "stats-chart svelte-15noryw");
+        attr(header0, "class", "svelte-15noryw");
+        attr(thead0, "class", "svelte-15noryw");
+        attr(table0, "class", "svelte-15noryw");
+        attr(div2, "class", "table-container svelte-15noryw");
+        attr(div3, "class", "table-root svelte-15noryw");
+        attr(div5, "class", "table-root svelte-15noryw");
         attr(div6, "class", "rows-table svelte-15noryw");
         attr(div8, "class", "table-root svelte-15noryw");
         attr(div9, "class", "home-container svelte-15noryw");
@@ -23809,7 +23904,22 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         append(div1, div0);
         append(div9, t12);
         append(div9, div6);
-        append(div9, t86);
+        append(div6, div3);
+        append(div3, header0);
+        append(div3, t14);
+        append(div3, div2);
+        append(div2, table0);
+        append(table0, thead0);
+        append(table0, t22);
+        append(table0, tbody0);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(tbody0, null);
+          }
+        }
+        append(div6, t23);
+        append(div6, div5);
+        append(div9, t65);
         append(div9, div8);
         if (!mounted) {
           dispose = [
@@ -23906,11 +24016,31 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             ctx2[13]
           );
         }
+        if (dirty & /*usersMostLoggedIn*/
+        0) {
+          each_value = ensure_array_like(usersMostLoggedIn || []);
+          let i;
+          for (i = 0; i < each_value.length; i += 1) {
+            const child_ctx = get_each_context2(ctx2, each_value, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block2(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(tbody0, null);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value.length;
+        }
       },
       d(detaching) {
         if (detaching) {
           detach(div9);
         }
+        destroy_each(each_blocks, detaching);
         mounted = false;
         run_all(dispose);
       }
@@ -24019,6 +24149,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var realtorStats = (
     /** @type {RealtorStat[]} */
     [/* realtor_stats */ ]
+  );
+  var usersMostLoggedIn = (
+    /** @type {MostLoggedInUser[]} */
+    [/* users_most_logged_in */ ]
   );
   var clientId = "com.hapstr.app";
   var redirectUri = "https://admin.hapstr.xyz/guest/oauthCallback";

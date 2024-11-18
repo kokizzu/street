@@ -1,6 +1,7 @@
 <script>
   /** @typedef {import('./_types/master.js').Access} Access */
   /** @typedef {import('./_types/user.js').User} User */
+  /** @typedef {import('./_types/user.js').MostLoggedInUser} MostLoggedInUser */
   /** @typedef {import('./_types/business.js').Revenue} Revenue */
   /** @typedef {import('./_types/business.js').Order} Order */
   /**
@@ -32,10 +33,11 @@
   let google    = /** @type {string} */ ('#{google}');
   let apple     = /** @type {string} */ ('#{apple}');
 
-  const revenues        = /** @type {Revenue[]} */ ([/* revenues */]);
-  const orders          = /** @type {Order[]} */ ([/* orders */]);
-  const usersRegistered = /** @type {UserRegistered[]} */ ([/* user_registered */ ]);
-  const realtorStats    = /** @type {RealtorStat[]} */ ([/* realtor_stats */ ]);
+  const revenues          = /** @type {Revenue[]} */ ([/* revenues */]);
+  const orders            = /** @type {Order[]} */ ([/* orders */]);
+  const usersRegistered   = /** @type {UserRegistered[]} */ ([/* user_registered */ ]);
+  const realtorStats      = /** @type {RealtorStat[]} */ ([/* realtor_stats */ ]);
+  const usersMostLoggedIn = /** @type {MostLoggedInUser[]} */ ([/* users_most_logged_in */ ]);
 
   // Generate Apple OAuth URL
   const clientId      = 'com.hapstr.app'; //
@@ -418,31 +420,20 @@
               <thead>
                 <tr>
                   <th>Time period</th>
-                  <th>Time spent</th>
-                  <th>User</th>
+                  <th>Email </th>
+                  <th>Full Name</th>
+                  <th>Total</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Daily</td>
-                  <td>45mins</td>
-                  <td>Chris Kang</td>
-                </tr>
-                <tr>
-                  <td>Monthly</td>
-                  <td>20hrs 2mins</td>
-                  <td>Jennifer Hun</td>
-                </tr>
-                <tr>
-                  <td>Quarterly</td>
-                  <td>45mins</td>
-                  <td>Chris Kang</td>
-                </tr>
-                <tr>
-                  <td>Annually</td>
-                  <td>321hrs 42mins</td>
-                  <td>Kortin Lopez</td>
-                </tr>
+                {#each (usersMostLoggedIn || []) as msUser}
+                  <tr>
+                    <td>{msUser.time_period}</td>
+                    <td>{msUser.email}</td>
+                    <td>{msUser.full_name}</td>
+                    <td>{msUser.total}</td>
+                  </tr>
+                {/each}
               </tbody>
             </table>
           </div>
