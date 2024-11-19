@@ -2917,27 +2917,34 @@ exports.UserAutoLoginLink = async function UserAutoLoginLink( i, cb ) {
 }
 
 /**
- * @typedef {Object} UserBuyerIn
+ * @typedef {Object} UserBuyersIn
+ * @property {String} cmd
+ * @property {String} yearMonth
  */
-const UserBuyerIn = {
+const UserBuyersIn = {
+  cmd: '', // string
+  yearMonth: '', // string
 }
 /**
- * @typedef {Object} UserBuyerOut
+ * @typedef {Object} UserBuyersOut
+ * @property {Object} buyers
  */
-const UserBuyerOut = {
+const UserBuyersOut = {
+  buyers: { // []mBusiness.Buyer
+  }, // []mBusiness.Buyer
 }
 /**
- * @callback UserBuyerCallback
- * @param {UserBuyerOut} o
+ * @callback UserBuyersCallback
+ * @param {UserBuyersOut} o
  * @returns {Promise}
  */
 /**
- * @param  {UserBuyerIn} i
- * @param {UserBuyerCallback} cb
+ * @param  {UserBuyersIn} i
+ * @param {UserBuyersCallback} cb
  * @returns {Promise}
  */
-exports.UserBuyer = async function UserBuyer( i, cb ) {
-  return await axios.post( '/user/buyer', i ).
+exports.UserBuyers = async function UserBuyers( i, cb ) {
+  return await axios.post( '/user/buyers', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -3712,6 +3719,32 @@ const UserUploadFileOut = {
  */
 exports.UserUploadFile = async function UserUploadFile( i, cb ) {
   return await axios.post( '/user/uploadFile', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserViewedRoomIn
+ */
+const UserViewedRoomIn = {
+}
+/**
+ * @typedef {Object} UserViewedRoomOut
+ */
+const UserViewedRoomOut = {
+}
+/**
+ * @callback UserViewedRoomCallback
+ * @param {UserViewedRoomOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserViewedRoomIn} i
+ * @param {UserViewedRoomCallback} cb
+ * @returns {Promise}
+ */
+exports.UserViewedRoom = async function UserViewedRoom( i, cb ) {
+  return await axios.post( '/user/viewedRoom', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

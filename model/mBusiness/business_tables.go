@@ -6,9 +6,39 @@ import (
 	"github.com/kokizzu/gotro/D/Tt"
 )
 
+type Cache struct {
+	CacheName string
+	CacheUnixTime int64
+	CacheData any
+}
+
+// Return expired (true) if cache time more than 1 hour
+func (c *Cache) IsExpired() bool {
+	cacheTime := time.Unix(c.CacheUnixTime, 0)
+
+	return time.Since(cacheTime) > time.Hour
+}
+
+func (c *Cache) Clear() {
+	c.CacheUnixTime = 0
+}
+
 type Revenue struct {
 	Revenue int64 `json:"revenue"`
 	PropertyBought int64 `json:"propertyBought"`
+	SalesDate string `json:"salesDate"`
+}
+
+type Order struct {
+	Revenue int64 `json:"revenue"`
+	TotalTransaction int64 `json:"totalTransaction"`
+	SalesDate string `json:"salesDate"`
+}
+
+type Buyer struct {
+	PropertyId uint64 `json:"propertyId"`
+	BuyerEmail string `json:"buyerEmail"`
+	PropertyPrice int64 `json:"propertyPrice"`
 	SalesDate string `json:"salesDate"`
 }
 

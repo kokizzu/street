@@ -3803,8 +3803,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserBuyer = async function UserBuyer(i, cb) {
-        return await axios.post("/user/buyer", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      exports.UserBuyers = async function UserBuyers(i, cb) {
+        return await axios.post("/user/buyers", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserChangePassword = async function UserChangePassword(i, cb) {
         return await axios.post("/user/changePassword", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -3859,6 +3859,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       };
       exports.UserUploadFile = async function UserUploadFile(i, cb) {
         return await axios.post("/user/uploadFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserViewedRoom = async function UserViewedRoom(i, cb) {
+        return await axios.post("/user/viewedRoom", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
     }
   });
@@ -6211,6 +6214,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let a6;
     let t20;
     let a7;
+    let t23;
+    let a8;
     return {
       c() {
         div = element("div");
@@ -6238,6 +6243,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         t20 = space();
         a7 = element("a");
         a7.innerHTML = `<span class="title svelte-1fszk5i">Files</span> <span class="block svelte-1fszk5i"></span>`;
+        t23 = space();
+        a8 = element("a");
+        a8.innerHTML = `<span class="title svelte-1fszk5i">3D Files</span> <span class="block svelte-1fszk5i"></span>`;
         attr(a0, "href", "/admin");
         attr(a0, "class", "svelte-1fszk5i");
         toggle_class(
@@ -6302,6 +6310,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           /*segment2*/
           ctx[0] === "files"
         );
+        attr(a8, "href", "/admin/3dFiles");
+        attr(a8, "class", "svelte-1fszk5i");
+        toggle_class(
+          a8,
+          "active",
+          /*segment2*/
+          ctx[0] === "3dFiles"
+        );
         attr(nav, "class", "svelte-1fszk5i");
         attr(div, "class", "admin-submenu svelte-1fszk5i");
       },
@@ -6323,6 +6339,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         append(nav, a6);
         append(nav, t20);
         append(nav, a7);
+        append(nav, t23);
+        append(nav, a8);
       },
       p: noop,
       i: noop,

@@ -13,6 +13,8 @@ import (
 	"street/conf"
 	"street/model/mAuth"
 	"street/model/mAuth/saAuth"
+	"street/model/mProperty"
+	"street/model/mProperty/saProperty"
 	"street/model/xGmap"
 	"street/model/xMailer"
 )
@@ -41,6 +43,9 @@ type Domain struct {
 
 	// timed buffer
 	authLogs *chBuffer.TimedBuffer
+	scannedAreasLogs *chBuffer.TimedBuffer
+	scannedPropsLogs *chBuffer.TimedBuffer
+	viewedRoomsLogs *chBuffer.TimedBuffer
 
 	// logger
 	Log *zerolog.Logger
@@ -65,6 +70,9 @@ func (d *Domain) runSubtask(subTask func()) {
 
 func (d *Domain) InitTimedBuffer() {
 	d.authLogs = chBuffer.NewTimedBuffer(d.AuthOlap.DB, 100_000, 1*time.Second, saAuth.Preparators[mAuth.TableActionLogs])
+	d.scannedAreasLogs = chBuffer.NewTimedBuffer(d.PropOlap.DB, 100_000, 1*time.Second, saProperty.Preparators[mProperty.TableScannedAreas])
+	d.scannedPropsLogs = chBuffer.NewTimedBuffer(d.PropOlap.DB, 100_000, 1*time.Second, saProperty.Preparators[mProperty.TableScannedProperties])
+	d.viewedRoomsLogs = chBuffer.NewTimedBuffer(d.PropOlap.DB, 100_000, 1*time.Second, saProperty.Preparators[mProperty.TableViewedRooms])
 }
 
 func (d *Domain) WaitTimedBufferFinalFlush() {
@@ -122,4 +130,34 @@ func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 func (d *Domain) CloseTimedBuffer() {
 	go d.authLogs.Close()
 	d.WaitTimedBufferFinalFlush()
+}
+
+func (d *Domain) insertScannedAreas(in saProperty.ScannedAreas) bool {
+	return d.scannedAreasLogs.Insert([]any{
+		in.ActorId,
+		in.CreatedAt,
+		in.Latitude,
+		in.Longitude,
+		in.City,
+		in.State,
+	})
+}
+
+func (d *Domain) insertScannedProps(in saProperty.ScannedProperties) bool {
+	return d.scannedPropsLogs.Insert([]any{
+		in.ActorId,
+		in.CreatedAt,
+		in.CountryCode,
+		in.PropertyId,
+	})
+}
+
+func (d *Domain) insertViewedRooms(in saProperty.ViewedRooms) bool {
+	return d.viewedRoomsLogs.Insert([]any{
+		in.ActorId,
+		in.CreatedAt,
+		in.PropertyId,
+		in.RoomLabel,
+		in.Country,
+	})
 }

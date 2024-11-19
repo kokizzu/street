@@ -5,6 +5,17 @@ import (
 	"github.com/kokizzu/gotro/D/Tt"
 )
 
+type (
+	UserRegisterStat struct {
+		Date string `json:"date"`
+		Count int64 `json:"count"`
+	}
+	RealtorStat struct {
+		Date string `json:"date"`
+		TotalActivity int64 `json:"totalActivity"`
+	}
+)
+
 const (
 	TableUsers Tt.TableName = `users`
 
@@ -27,7 +38,7 @@ const (
 	Country            = `country`  // 2-letters ISO country code
 	Language           = `language` // 2-letters ISO country code (only EN and TW available, if empty assume EN)
 	PropertyCount			 = `propertyCount`
-	PropertyBoght			 = `propertyBought`
+	PropertyBought			 = `propertyBought`
 )
 
 const (
@@ -71,7 +82,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Country, Tt.String},
 			{Language, Tt.String},
 			{PropertyCount, Tt.Integer},
-			{PropertyBoght, Tt.Integer},
+			{PropertyBought, Tt.Integer},
 		},
 		AutoIncrementId:  true,
 		Unique1:          Email,

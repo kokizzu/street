@@ -9,11 +9,10 @@
 </script>
 
 <Main {user} {access}>
-  <div class="property-container">
-    <a href="/realtor/propertyOld">Go to Old Page</a>
+  <div class="listing-container">
+    <h2>Listing</h2>
   </div>
 </Main>
 
 <style>
-  
 </style>

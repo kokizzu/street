@@ -252,12 +252,12 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.UserAutoLoginLink(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
-	case domain.UserBuyerAction:
-		in := domain.UserBuyerIn{}
+	case domain.UserBuyersAction:
+		in := domain.UserBuyersIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
-		out := b.UserBuyer(&in)
+		out := b.UserBuyers(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.UserChangePasswordAction:
@@ -402,6 +402,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.UserUploadFile(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.UserViewedRoomAction:
+		in := domain.UserViewedRoomIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.UserViewedRoom(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	}

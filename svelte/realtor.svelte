@@ -22,7 +22,7 @@
   <div class="properties-container">
     <div class="info-actions">
       <h2>Owned/Managed Properties: {pager.countResult}</h2>
-      <a href="/realtor/property" class="add-btn">
+      <a href="/realtor/propertyOld" class="add-btn">
         <Icon
           size="20"
           color="#FFF"

@@ -7,6 +7,23 @@
 module.exports = {};
 
 /**
+ * @typedef {Object} Order
+ * @property {string|number} revenue
+ * @property {number} totalTransaction
+ * @property {string} salesDate
+ */
+module.exports = {};
+
+/**
+ * @typedef {Object} Buyer
+ * @property {string|number} propertyId
+ * @property {string} buyerEmail
+ * @property {string|number} propertyPrice
+ * @property {string} salesDate
+ */
+module.exports = {};
+
+/**
  * @typedef {Object} Sales
  * @property {string|number} id
  * @property {string} propertyId

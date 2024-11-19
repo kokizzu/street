@@ -400,7 +400,79 @@ aside.svelte-1hfp3dx .container .nav-menu button.red.svelte-1hfp3dx:hover {
 }
 
 /* fakecss:./_components/partials/Navbar.esbuild-svelte-fake-css */
-header.svelte-14u710g.svelte-14u710g {
+.backdrop.svelte-8ivj6d.svelte-8ivj6d {
+  position: fixed;
+  z-index: 2001;
+  background: rgba(41, 41, 41, 0.5);
+  width: 100%;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.feedback-dialog.svelte-8ivj6d.svelte-8ivj6d {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #FFF;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #475569;
+  width: 600px;
+}
+.feedback-dialog.svelte-8ivj6d h3.svelte-8ivj6d {
+  margin: 0 0 0 20px;
+  font-size: 18px;
+}
+.feedback-dialog.svelte-8ivj6d textarea.svelte-8ivj6d {
+  border: 1px solid var(--gray-002);
+  background-color: var(--gray-001);
+  border-radius: 8px;
+  padding: 12px;
+  resize: none;
+}
+.feedback-dialog.svelte-8ivj6d textarea.svelte-8ivj6d:focus {
+  border-color: var(--orange-005);
+  outline: 1px solid var(--orange-005);
+}
+.feedback-dialog.svelte-8ivj6d .buttons.svelte-8ivj6d {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: stretch;
+  font-weight: 500;
+  width: 100%;
+  gap: 10px;
+}
+.feedback-dialog.svelte-8ivj6d .buttons button.svelte-8ivj6d {
+  border-radius: 999px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: fit-content;
+  padding: 12px 20px;
+  text-transform: capitalize;
+}
+.feedback-dialog.svelte-8ivj6d .buttons .cancel-btn.svelte-8ivj6d {
+  border: none;
+  background-color: transparent;
+}
+.feedback-dialog.svelte-8ivj6d .buttons .cancel-btn.svelte-8ivj6d:hover {
+  background-color: var(--orange-transparent);
+  color: var(--orange-005);
+}
+.feedback-dialog.svelte-8ivj6d .buttons .submit-btn.svelte-8ivj6d {
+  background-color: var(--orange-006);
+  color: #FFF;
+}
+.feedback-dialog.svelte-8ivj6d .buttons .submit-btn.svelte-8ivj6d:hover {
+  background-color: var(--orange-005);
+}
+header.svelte-8ivj6d.svelte-8ivj6d {
   top: 0;
   left: 0;
   right: 0;
@@ -415,14 +487,14 @@ header.svelte-14u710g.svelte-14u710g {
   background-color: #FFF;
   z-index: 100;
 }
-header.svelte-14u710g .label.svelte-14u710g {
+header.svelte-8ivj6d .label.svelte-8ivj6d {
   width: fit-content;
   display: flex;
   flex-direction: row;
   gap: 0;
   align-items: center;
 }
-header.svelte-14u710g .label .logo.svelte-14u710g {
+header.svelte-8ivj6d .label .logo.svelte-8ivj6d {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -431,13 +503,29 @@ header.svelte-14u710g .label .logo.svelte-14u710g {
   text-decoration: none;
   width: calc(var(--sidemenu-width) - 20px);
 }
-header.svelte-14u710g .user-info.svelte-14u710g {
+header.svelte-8ivj6d .info.svelte-8ivj6d {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
-header.svelte-14u710g .user-info a.user.svelte-14u710g {
+header.svelte-8ivj6d .info .feedback-btn.svelte-8ivj6d {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 9999px;
+  background-color: var(--blue-006);
+  color: #FFF;
+  cursor: pointer;
+}
+header.svelte-8ivj6d .info .feedback-btn.svelte-8ivj6d:hover {
+  background-color: var(--blue-005);
+}
+header.svelte-8ivj6d .info a.user.svelte-8ivj6d {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -445,11 +533,11 @@ header.svelte-14u710g .user-info a.user.svelte-14u710g {
   gap: 6px;
   text-decoration: none;
   color: var(--gray-008);
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 10px 20px;
+  border-radius: 9999px;
   border: 1px solid var(--gray-002);
 }
-header.svelte-14u710g .user-info a.user.svelte-14u710g:hover {
+header.svelte-8ivj6d .info a.user.svelte-8ivj6d:hover {
   background-color: var(--gray-001);
 }
 
@@ -3466,8 +3554,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserBuyer = async function UserBuyer(i, cb) {
-        return await axios.post("/user/buyer", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      exports.UserBuyers = async function UserBuyers(i, cb) {
+        return await axios.post("/user/buyers", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserChangePassword = async function UserChangePassword(i, cb) {
         return await axios.post("/user/changePassword", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -3505,7 +3593,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       exports.UserSearchPropUS = async function UserSearchPropUS(i, cb) {
         return await axios.post("/user/searchProp/US", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserSendFeedback = async function UserSendFeedback(i, cb) {
+      exports.UserSendFeedback = async function UserSendFeedback2(i, cb) {
         return await axios.post("/user/sendFeedback", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserSessionKill = async function UserSessionKill(i, cb) {
@@ -3522,6 +3610,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       };
       exports.UserUploadFile = async function UserUploadFile(i, cb) {
         return await axios.post("/user/uploadFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserViewedRoom = async function UserViewedRoom(i, cb) {
+        return await axios.post("/user/viewedRoom", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
     }
   });
@@ -4645,13 +4736,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           /*pathLv1*/
           ctx[2] === ""
         );
-        attr(a1, "href", "/user/buyer");
+        attr(a1, "href", "/user/buyers");
         attr(a1, "class", "svelte-1hfp3dx");
         toggle_class(
           a1,
           "active",
           /*pathAll*/
-          ctx[1] === "/user/buyer"
+          ctx[1] === "/user/buyers"
         );
         attr(a2, "href", "/realtor");
         attr(a2, "class", "svelte-1hfp3dx");
@@ -4940,60 +5031,223 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ri/index.js
   var RiUserFacesUserLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H18C18 18.6863 15.3137 16 12 16C8.68629 16 6 18.6863 6 22H4ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11Z"></path>' };
+  var RiCommunicationChatQuoteLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 3C21.5523 3 22 3.44772 22 4V18C22 18.5523 21.5523 19 21 19H6.455L2 22.5V4C2 3.44772 2.44772 3 3 3H21ZM20 5H4V18.385L5.76333 17H20V5ZM10.5153 7.4116L10.9616 8.1004C9.29402 9.0027 9.32317 10.4519 9.32317 10.7645C9.47827 10.7431 9.64107 10.7403 9.80236 10.7553C10.7045 10.8389 11.4156 11.5795 11.4156 12.5C11.4156 13.4665 10.6321 14.25 9.66558 14.25C9.12905 14.25 8.61598 14.0048 8.29171 13.6605C7.77658 13.1137 7.5 12.5 7.5 11.5052C7.5 9.75543 8.72825 8.18684 10.5153 7.4116ZM15.5153 7.4116L15.9616 8.1004C14.294 9.0027 14.3232 10.4519 14.3232 10.7645C14.4783 10.7431 14.6411 10.7403 14.8024 10.7553C15.7045 10.8389 16.4156 11.5795 16.4156 12.5C16.4156 13.4665 15.6321 14.25 14.6656 14.25C14.1291 14.25 13.616 14.0048 13.2917 13.6605C12.7766 13.1137 12.5 12.5 12.5 11.5052C12.5 9.75543 13.7283 8.18684 15.5153 7.4116Z"></path>' };
 
   // _components/partials/Navbar.svelte
+  var import_jsApi2 = __toESM(require_jsApi_GEN());
+  function create_if_block2(ctx) {
+    let div2;
+    let div1;
+    let h3;
+    let t1;
+    let textarea;
+    let t2;
+    let div0;
+    let button0;
+    let t4;
+    let button1;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        div2 = element("div");
+        div1 = element("div");
+        h3 = element("h3");
+        h3.textContent = "Send Feedback";
+        t1 = space();
+        textarea = element("textarea");
+        t2 = space();
+        div0 = element("div");
+        button0 = element("button");
+        button0.textContent = "Cancel";
+        t4 = space();
+        button1 = element("button");
+        button1.textContent = "Submit";
+        attr(h3, "class", "svelte-8ivj6d");
+        attr(textarea, "name", "feedback");
+        attr(textarea, "id", "feedback");
+        attr(textarea, "cols", "30");
+        attr(textarea, "rows", "10");
+        attr(textarea, "placeholder", "Your feedback here");
+        attr(textarea, "class", "svelte-8ivj6d");
+        attr(button0, "class", "cancel-btn svelte-8ivj6d");
+        attr(button1, "class", "submit-btn svelte-8ivj6d");
+        attr(div0, "class", "buttons svelte-8ivj6d");
+        attr(div1, "class", "feedback-dialog svelte-8ivj6d");
+        attr(div2, "class", "backdrop svelte-8ivj6d");
+      },
+      m(target, anchor) {
+        insert(target, div2, anchor);
+        append(div2, div1);
+        append(div1, h3);
+        append(div1, t1);
+        append(div1, textarea);
+        set_input_value(
+          textarea,
+          /*feedbackMessage*/
+          ctx[2]
+        );
+        append(div1, t2);
+        append(div1, div0);
+        append(div0, button0);
+        append(div0, t4);
+        append(div0, button1);
+        if (!mounted) {
+          dispose = [
+            listen(
+              textarea,
+              "input",
+              /*textarea_input_handler*/
+              ctx[4]
+            ),
+            listen(
+              button0,
+              "click",
+              /*click_handler*/
+              ctx[5]
+            ),
+            listen(
+              button1,
+              "click",
+              /*sendFeedback*/
+              ctx[3]
+            )
+          ];
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*feedbackMessage*/
+        4) {
+          set_input_value(
+            textarea,
+            /*feedbackMessage*/
+            ctx2[2]
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div2);
+        }
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
   function create_fragment3(ctx) {
+    let t0;
     let header;
     let div0;
-    let t1;
-    let div1;
-    let a1;
-    let span;
     let t2;
-    let t3;
-    let icon;
+    let div1;
+    let button;
+    let span0;
+    let t4;
+    let icon0;
+    let t5;
+    let a1;
+    let span1;
+    let t6;
+    let t7;
+    let icon1;
     let current;
-    icon = new Icon_default({
+    let mounted;
+    let dispose;
+    let if_block = (
+      /*isShowFeedBackPopUp*/
+      ctx[1] && create_if_block2(ctx)
+    );
+    icon0 = new Icon_default({
+      props: {
+        src: RiCommunicationChatQuoteLine,
+        size: "15",
+        color: "#FFF"
+      }
+    });
+    icon1 = new Icon_default({
       props: { src: RiUserFacesUserLine, size: "15" }
     });
     return {
       c() {
+        if (if_block)
+          if_block.c();
+        t0 = space();
         header = element("header");
         div0 = element("div");
-        div0.innerHTML = `<a href="/" class="logo svelte-14u710g"><h2>HapSTR</h2></a>`;
-        t1 = space();
+        div0.innerHTML = `<a href="/" class="logo svelte-8ivj6d"><h2>HapSTR</h2></a>`;
+        t2 = space();
         div1 = element("div");
+        button = element("button");
+        span0 = element("span");
+        span0.textContent = "Feedback";
+        t4 = space();
+        create_component(icon0.$.fragment);
+        t5 = space();
         a1 = element("a");
-        span = element("span");
-        t2 = text(
+        span1 = element("span");
+        t6 = text(
           /*username*/
           ctx[0]
         );
-        t3 = space();
-        create_component(icon.$.fragment);
-        attr(div0, "class", "label svelte-14u710g");
+        t7 = space();
+        create_component(icon1.$.fragment);
+        attr(div0, "class", "label svelte-8ivj6d");
+        attr(button, "class", "feedback-btn svelte-8ivj6d");
         attr(a1, "href", "/user");
-        attr(a1, "class", "user svelte-14u710g");
-        attr(div1, "class", "user-info svelte-14u710g");
-        attr(header, "class", "svelte-14u710g");
+        attr(a1, "class", "user svelte-8ivj6d");
+        attr(div1, "class", "info svelte-8ivj6d");
+        attr(header, "class", "svelte-8ivj6d");
       },
       m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, t0, anchor);
         insert(target, header, anchor);
         append(header, div0);
-        append(header, t1);
+        append(header, t2);
         append(header, div1);
+        append(div1, button);
+        append(button, span0);
+        append(button, t4);
+        mount_component(icon0, button, null);
+        append(div1, t5);
         append(div1, a1);
-        append(a1, span);
-        append(span, t2);
-        append(a1, t3);
-        mount_component(icon, a1, null);
+        append(a1, span1);
+        append(span1, t6);
+        append(a1, t7);
+        mount_component(icon1, a1, null);
         current = true;
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*click_handler_1*/
+            ctx[6]
+          );
+          mounted = true;
+        }
       },
       p(ctx2, [dirty]) {
+        if (
+          /*isShowFeedBackPopUp*/
+          ctx2[1]
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+          } else {
+            if_block = create_if_block2(ctx2);
+            if_block.c();
+            if_block.m(t0.parentNode, t0);
+          }
+        } else if (if_block) {
+          if_block.d(1);
+          if_block = null;
+        }
         if (!current || dirty & /*username*/
         1)
           set_data(
-            t2,
+            t6,
             /*username*/
             ctx2[0]
           );
@@ -5001,18 +5255,26 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       i(local) {
         if (current)
           return;
-        transition_in(icon.$.fragment, local);
+        transition_in(icon0.$.fragment, local);
+        transition_in(icon1.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(icon.$.fragment, local);
+        transition_out(icon0.$.fragment, local);
+        transition_out(icon1.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
+          detach(t0);
           detach(header);
         }
-        destroy_component(icon);
+        if (if_block)
+          if_block.d(detaching);
+        destroy_component(icon0);
+        destroy_component(icon1);
+        mounted = false;
+        dispose();
       }
     };
   }
@@ -5021,11 +5283,53 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       /** @type {string} */
       "unknown"
     ) } = $props;
+    let isShowFeedBackPopUp = (
+      /** @type {boolean} */
+      false
+    );
+    let feedbackMessage = (
+      /** @type {string} */
+      ""
+    );
+    async function sendFeedback() {
+      if (!feedbackMessage) {
+        notifier.showWarning("Please enter your feedback");
+        return;
+      }
+      const inUserSendFeedback = (
+        /** @type {import('../../jsApi.GEN').UserSendFeedbackIn} */
+        { userMessage: feedbackMessage }
+      );
+      await (0, import_jsApi2.UserSendFeedback)(inUserSendFeedback, async function(res) {
+        if (res.error) {
+          notifier.showError(res.error || "Failed to send feedback");
+          return;
+        }
+        notifier.showSuccess("Feedback sent");
+        $invalidate(1, isShowFeedBackPopUp = false);
+      });
+    }
+    function textarea_input_handler() {
+      feedbackMessage = this.value;
+      $invalidate(2, feedbackMessage);
+    }
+    const click_handler = () => {
+      $invalidate(1, isShowFeedBackPopUp = false);
+    };
+    const click_handler_1 = () => $invalidate(1, isShowFeedBackPopUp = true);
     $self.$set = ($props2) => {
       if ("username" in $props2)
         $invalidate(0, username = $props2.username);
     };
-    return [username];
+    return [
+      username,
+      isShowFeedBackPopUp,
+      feedbackMessage,
+      sendFeedback,
+      textarea_input_handler,
+      click_handler,
+      click_handler_1
+    ];
   }
   var Navbar = class extends SvelteComponent {
     constructor(options) {
@@ -6638,7 +6942,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block2(ctx) {
+  function create_if_block3(ctx) {
     let label_1;
     let t0;
     let t1;
@@ -7089,7 +7393,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let div1_class_value;
     let current;
     const if_block_creators = [
-      create_if_block2,
+      create_if_block3,
       create_if_block_13,
       create_if_block_22,
       create_if_block_3,
@@ -21678,7 +21982,22 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
 
   // index.svelte
   var { window: window_1 } = globals;
-  function create_else_block3(ctx) {
+  function get_each_context2(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[32] = list[i];
+    return child_ctx;
+  }
+  function get_each_context_12(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[35] = list[i];
+    return child_ctx;
+  }
+  function get_each_context_2(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[38] = list[i];
+    return child_ctx;
+  }
+  function create_else_block_3(ctx) {
     let section;
     let div5;
     let div0;
@@ -21716,53 +22035,53 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       (ctx[6] === MODE_LOGIN || /*MODE*/
       ctx[6] === MODE_REGISTER || /*MODE*/
       ctx[6] === MODE_VERIF_EMAIL || /*MODE*/
-      ctx[6] === MODE_FG_PASSWD) && create_if_block_222(ctx)
+      ctx[6] === MODE_FG_PASSWD) && create_if_block_25(ctx)
     );
     let if_block1 = (
       /*MODE*/
       (ctx[6] === MODE_LOGIN || /*MODE*/
-      ctx[6] === MODE_REGISTER) && create_if_block_21(ctx)
+      ctx[6] === MODE_REGISTER) && create_if_block_24(ctx)
     );
     let if_block2 = (
       /*MODE*/
-      ctx[6] === MODE_REGISTER && create_if_block_20(ctx)
+      ctx[6] === MODE_REGISTER && create_if_block_23(ctx)
     );
     let if_block3 = (
       /*MODE*/
-      ctx[6] === MODE_LOGIN && create_if_block_19(ctx)
+      ctx[6] === MODE_LOGIN && create_if_block_222(ctx)
     );
     let if_block4 = (
       /*MODE*/
-      ctx[6] === MODE_REGISTER && create_if_block_16(ctx)
+      ctx[6] === MODE_REGISTER && create_if_block_19(ctx)
     );
     let if_block5 = (
       /*MODE*/
-      ctx[6] === MODE_LOGIN && create_if_block_133(ctx)
+      ctx[6] === MODE_LOGIN && create_if_block_16(ctx)
     );
     let if_block6 = (
       /*MODE*/
-      ctx[6] === MODE_VERIF_EMAIL && create_if_block_102(ctx)
+      ctx[6] === MODE_VERIF_EMAIL && create_if_block_133(ctx)
     );
     let if_block7 = (
       /*MODE*/
-      ctx[6] === MODE_FG_PASSWD && create_if_block_72(ctx)
+      ctx[6] === MODE_FG_PASSWD && create_if_block_102(ctx)
     );
     let if_block8 = (
       /*MODE*/
       (ctx[6] === MODE_REGISTER || /*MODE*/
-      ctx[6] === MODE_LOGIN) && create_if_block_42(ctx)
+      ctx[6] === MODE_LOGIN) && create_if_block_72(ctx)
     );
     let if_block9 = (
       /*MODE*/
-      ctx[6] !== MODE_REGISTER && create_if_block_32(ctx)
+      ctx[6] !== MODE_REGISTER && create_if_block_62(ctx)
     );
     let if_block10 = (
       /*MODE*/
-      ctx[6] !== MODE_LOGIN && create_if_block_23(ctx)
+      ctx[6] !== MODE_LOGIN && create_if_block_52(ctx)
     );
     let if_block11 = (
       /*MODE*/
-      ctx[6] !== MODE_VERIF_EMAIL && create_if_block_110(ctx)
+      ctx[6] !== MODE_VERIF_EMAIL && create_if_block_42(ctx)
     );
     return {
       c() {
@@ -21883,7 +22202,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if ((!current || dirty & /*MODE*/
+        if ((!current || dirty[0] & /*MODE*/
         64) && t2_value !== (t2_value = /*MODE*/
         ctx2[6].split("_").join(" ") + ""))
           set_data(t2, t2_value);
@@ -21896,12 +22215,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
-            if (dirty & /*MODE*/
+            if (dirty[0] & /*MODE*/
             64) {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_222(ctx2);
+            if_block0 = create_if_block_25(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(div1, t4);
@@ -21920,12 +22239,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
-            if (dirty & /*MODE*/
+            if (dirty[0] & /*MODE*/
             64) {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_21(ctx2);
+            if_block1 = create_if_block_24(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(div1, t5);
@@ -21943,12 +22262,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ) {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
-            if (dirty & /*MODE*/
+            if (dirty[0] & /*MODE*/
             64) {
               transition_in(if_block2, 1);
             }
           } else {
-            if_block2 = create_if_block_20(ctx2);
+            if_block2 = create_if_block_23(ctx2);
             if_block2.c();
             transition_in(if_block2, 1);
             if_block2.m(div1, null);
@@ -21967,7 +22286,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           if (if_block3) {
             if_block3.p(ctx2, dirty);
           } else {
-            if_block3 = create_if_block_19(ctx2);
+            if_block3 = create_if_block_222(ctx2);
             if_block3.c();
             if_block3.m(div4, t8);
           }
@@ -21981,12 +22300,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ) {
           if (if_block4) {
             if_block4.p(ctx2, dirty);
-            if (dirty & /*MODE*/
+            if (dirty[0] & /*MODE*/
             64) {
               transition_in(if_block4, 1);
             }
           } else {
-            if_block4 = create_if_block_16(ctx2);
+            if_block4 = create_if_block_19(ctx2);
             if_block4.c();
             transition_in(if_block4, 1);
             if_block4.m(div2, t9);
@@ -22004,12 +22323,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ) {
           if (if_block5) {
             if_block5.p(ctx2, dirty);
-            if (dirty & /*MODE*/
+            if (dirty[0] & /*MODE*/
             64) {
               transition_in(if_block5, 1);
             }
           } else {
-            if_block5 = create_if_block_133(ctx2);
+            if_block5 = create_if_block_16(ctx2);
             if_block5.c();
             transition_in(if_block5, 1);
             if_block5.m(div2, t10);
@@ -22027,12 +22346,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ) {
           if (if_block6) {
             if_block6.p(ctx2, dirty);
-            if (dirty & /*MODE*/
+            if (dirty[0] & /*MODE*/
             64) {
               transition_in(if_block6, 1);
             }
           } else {
-            if_block6 = create_if_block_102(ctx2);
+            if_block6 = create_if_block_133(ctx2);
             if_block6.c();
             transition_in(if_block6, 1);
             if_block6.m(div2, t11);
@@ -22050,12 +22369,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ) {
           if (if_block7) {
             if_block7.p(ctx2, dirty);
-            if (dirty & /*MODE*/
+            if (dirty[0] & /*MODE*/
             64) {
               transition_in(if_block7, 1);
             }
           } else {
-            if_block7 = create_if_block_72(ctx2);
+            if_block7 = create_if_block_102(ctx2);
             if_block7.c();
             transition_in(if_block7, 1);
             if_block7.m(div2, null);
@@ -22075,7 +22394,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           if (if_block8) {
             if_block8.p(ctx2, dirty);
           } else {
-            if_block8 = create_if_block_42(ctx2);
+            if_block8 = create_if_block_72(ctx2);
             if_block8.c();
             if_block8.m(div4, t14);
           }
@@ -22090,7 +22409,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           if (if_block9) {
             if_block9.p(ctx2, dirty);
           } else {
-            if_block9 = create_if_block_32(ctx2);
+            if_block9 = create_if_block_62(ctx2);
             if_block9.c();
             if_block9.m(div3, t15);
           }
@@ -22105,7 +22424,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           if (if_block10) {
             if_block10.p(ctx2, dirty);
           } else {
-            if_block10 = create_if_block_23(ctx2);
+            if_block10 = create_if_block_52(ctx2);
             if_block10.c();
             if_block10.m(div3, t16);
           }
@@ -22120,7 +22439,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           if (if_block11) {
             if_block11.p(ctx2, dirty);
           } else {
-            if_block11 = create_if_block_110(ctx2);
+            if_block11 = create_if_block_42(ctx2);
             if_block11.c();
             if_block11.m(div3, null);
           }
@@ -22182,7 +22501,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block3(ctx) {
+  function create_if_block4(ctx) {
     let main;
     let current;
     main = new Main_default({
@@ -22209,16 +22528,17 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, dirty) {
         const main_changes = {};
-        if (dirty & /*user*/
+        if (dirty[0] & /*user*/
         1)
           main_changes.user = /*user*/
           ctx2[0];
-        if (dirty & /*segments*/
+        if (dirty[0] & /*segments*/
         2)
           main_changes.access = /*segments*/
           ctx2[1];
-        if (dirty & /*$scope, MODE_STATS*/
-        536871168) {
+        if (dirty[0] & /*MODE_STATS*/
+        256 | dirty[1] & /*$scope*/
+        1024) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -22238,12 +22558,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_222(ctx) {
+  function create_if_block_25(ctx) {
     let inputbox;
     let updating_value;
     let current;
     function inputbox_value_binding(value) {
-      ctx[20](value);
+      ctx[22](value);
     }
     let inputbox_props = {
       id: "email",
@@ -22269,7 +22589,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, dirty) {
         const inputbox_changes = {};
-        if (!updating_value && dirty & /*email*/
+        if (!updating_value && dirty[0] & /*email*/
         8) {
           updating_value = true;
           inputbox_changes.value = /*email*/
@@ -22293,12 +22613,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_21(ctx) {
+  function create_if_block_24(ctx) {
     let inputbox;
     let updating_value;
     let current;
     function inputbox_value_binding_1(value) {
-      ctx[21](value);
+      ctx[23](value);
     }
     let inputbox_props = {
       id: "password",
@@ -22324,7 +22644,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, dirty) {
         const inputbox_changes = {};
-        if (!updating_value && dirty & /*password*/
+        if (!updating_value && dirty[0] & /*password*/
         16) {
           updating_value = true;
           inputbox_changes.value = /*password*/
@@ -22348,12 +22668,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_20(ctx) {
+  function create_if_block_23(ctx) {
     let inputbox;
     let updating_value;
     let current;
     function inputbox_value_binding_2(value) {
-      ctx[22](value);
+      ctx[24](value);
     }
     let inputbox_props = {
       id: "confirmPass",
@@ -22379,7 +22699,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, dirty) {
         const inputbox_changes = {};
-        if (!updating_value && dirty & /*confirmPass*/
+        if (!updating_value && dirty[0] & /*confirmPass*/
         32) {
           updating_value = true;
           inputbox_changes.value = /*confirmPass*/
@@ -22403,7 +22723,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_19(ctx) {
+  function create_if_block_222(ctx) {
     let p;
     let t0;
     let a;
@@ -22426,7 +22746,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (!mounted) {
           dispose = listen(a, "click", prevent_default(
             /*click_handler*/
-            ctx[23]
+            ctx[25]
           ));
           mounted = true;
         }
@@ -22438,6 +22758,161 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }
         mounted = false;
         dispose();
+      }
+    };
+  }
+  function create_if_block_19(ctx) {
+    let button;
+    let t;
+    let current;
+    let mounted;
+    let dispose;
+    let if_block0 = (
+      /*isSubmitted*/
+      ctx[7] === true && create_if_block_21(ctx)
+    );
+    let if_block1 = (
+      /*isSubmitted*/
+      ctx[7] === false && create_if_block_20(ctx)
+    );
+    return {
+      c() {
+        button = element("button");
+        if (if_block0)
+          if_block0.c();
+        t = space();
+        if (if_block1)
+          if_block1.c();
+        attr(button, "class", "svelte-15noryw");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        if (if_block0)
+          if_block0.m(button, null);
+        append(button, t);
+        if (if_block1)
+          if_block1.m(button, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*guestRegister*/
+            ctx[18]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (
+          /*isSubmitted*/
+          ctx2[7] === true
+        ) {
+          if (if_block0) {
+            if (dirty[0] & /*isSubmitted*/
+            128) {
+              transition_in(if_block0, 1);
+            }
+          } else {
+            if_block0 = create_if_block_21(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(button, t);
+          }
+        } else if (if_block0) {
+          group_outros();
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*isSubmitted*/
+          ctx2[7] === false
+        ) {
+          if (if_block1) {
+          } else {
+            if_block1 = create_if_block_20(ctx2);
+            if_block1.c();
+            if_block1.m(button, null);
+          }
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block0);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block0);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_21(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        className: "spin",
+        color: "#FFF",
+        size: "15",
+        src: FaSolidCircleNotch
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_if_block_20(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Register";
+        attr(span, "class", "svelte-15noryw");
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
       }
     };
   }
@@ -22477,8 +22952,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           dispose = listen(
             button,
             "click",
-            /*guestRegister*/
-            ctx[16]
+            /*guestLogin*/
+            ctx[19]
           );
           mounted = true;
         }
@@ -22489,7 +22964,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           ctx2[7] === true
         ) {
           if (if_block0) {
-            if (dirty & /*isSubmitted*/
+            if (dirty[0] & /*isSubmitted*/
             128) {
               transition_in(if_block0, 1);
             }
@@ -22583,7 +23058,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     return {
       c() {
         span = element("span");
-        span.textContent = "Register";
+        span.textContent = "Login";
         attr(span, "class", "svelte-15noryw");
       },
       m(target, anchor) {
@@ -22632,8 +23107,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           dispose = listen(
             button,
             "click",
-            /*guestLogin*/
-            ctx[17]
+            /*guestResendVerificationEmail*/
+            ctx[20]
           );
           mounted = true;
         }
@@ -22644,7 +23119,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           ctx2[7] === true
         ) {
           if (if_block0) {
-            if (dirty & /*isSubmitted*/
+            if (dirty[0] & /*isSubmitted*/
             128) {
               transition_in(if_block0, 1);
             }
@@ -22738,7 +23213,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     return {
       c() {
         span = element("span");
-        span.textContent = "Login";
+        span.textContent = "Resend Verification Email";
         attr(span, "class", "svelte-15noryw");
       },
       m(target, anchor) {
@@ -22787,8 +23262,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           dispose = listen(
             button,
             "click",
-            /*guestResendVerificationEmail*/
-            ctx[18]
+            /*guestForgotPassword*/
+            ctx[21]
           );
           mounted = true;
         }
@@ -22799,7 +23274,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           ctx2[7] === true
         ) {
           if (if_block0) {
-            if (dirty & /*isSubmitted*/
+            if (dirty[0] & /*isSubmitted*/
             128) {
               transition_in(if_block0, 1);
             }
@@ -22893,161 +23368,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     return {
       c() {
         span = element("span");
-        span.textContent = "Resend Verification Email";
-        attr(span, "class", "svelte-15noryw");
-      },
-      m(target, anchor) {
-        insert(target, span, anchor);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(span);
-        }
-      }
-    };
-  }
-  function create_if_block_72(ctx) {
-    let button;
-    let t;
-    let current;
-    let mounted;
-    let dispose;
-    let if_block0 = (
-      /*isSubmitted*/
-      ctx[7] === true && create_if_block_92(ctx)
-    );
-    let if_block1 = (
-      /*isSubmitted*/
-      ctx[7] === false && create_if_block_82(ctx)
-    );
-    return {
-      c() {
-        button = element("button");
-        if (if_block0)
-          if_block0.c();
-        t = space();
-        if (if_block1)
-          if_block1.c();
-        attr(button, "class", "svelte-15noryw");
-      },
-      m(target, anchor) {
-        insert(target, button, anchor);
-        if (if_block0)
-          if_block0.m(button, null);
-        append(button, t);
-        if (if_block1)
-          if_block1.m(button, null);
-        current = true;
-        if (!mounted) {
-          dispose = listen(
-            button,
-            "click",
-            /*guestForgotPassword*/
-            ctx[19]
-          );
-          mounted = true;
-        }
-      },
-      p(ctx2, dirty) {
-        if (
-          /*isSubmitted*/
-          ctx2[7] === true
-        ) {
-          if (if_block0) {
-            if (dirty & /*isSubmitted*/
-            128) {
-              transition_in(if_block0, 1);
-            }
-          } else {
-            if_block0 = create_if_block_92(ctx2);
-            if_block0.c();
-            transition_in(if_block0, 1);
-            if_block0.m(button, t);
-          }
-        } else if (if_block0) {
-          group_outros();
-          transition_out(if_block0, 1, 1, () => {
-            if_block0 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*isSubmitted*/
-          ctx2[7] === false
-        ) {
-          if (if_block1) {
-          } else {
-            if_block1 = create_if_block_82(ctx2);
-            if_block1.c();
-            if_block1.m(button, null);
-          }
-        } else if (if_block1) {
-          if_block1.d(1);
-          if_block1 = null;
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(if_block0);
-        current = true;
-      },
-      o(local) {
-        transition_out(if_block0);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(button);
-        }
-        if (if_block0)
-          if_block0.d();
-        if (if_block1)
-          if_block1.d();
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block_92(ctx) {
-    let icon;
-    let current;
-    icon = new Icon_default({
-      props: {
-        className: "spin",
-        color: "#FFF",
-        size: "15",
-        src: FaSolidCircleNotch
-      }
-    });
-    return {
-      c() {
-        create_component(icon.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(icon, target, anchor);
-        current = true;
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(icon, detaching);
-      }
-    };
-  }
-  function create_if_block_82(ctx) {
-    let span;
-    return {
-      c() {
-        span = element("span");
         span.textContent = "Request Reset Password Link";
         attr(span, "class", "svelte-15noryw");
       },
@@ -23061,7 +23381,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_42(ctx) {
+  function create_if_block_72(ctx) {
     let div2;
     let div0;
     let t3;
@@ -23071,10 +23391,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let t5;
     let c1;
     let t6;
-    let if_block0 = google && create_if_block_62(ctx);
+    let if_block0 = google && create_if_block_92(ctx);
     let if_block1 = (
       /*apple*/
-      ctx[2] && create_if_block_52(ctx)
+      ctx[2] && create_if_block_82(ctx)
     );
     return {
       c() {
@@ -23121,7 +23441,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
           } else {
-            if_block1 = create_if_block_52(ctx2);
+            if_block1 = create_if_block_82(ctx2);
             if_block1.c();
             if_block1.m(div1, null);
           }
@@ -23141,7 +23461,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_62(ctx) {
+  function create_if_block_92(ctx) {
     let a;
     let img;
     let img_src_value;
@@ -23176,7 +23496,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_52(ctx) {
+  function create_if_block_82(ctx) {
     let a;
     let img;
     let img_src_value;
@@ -23209,7 +23529,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         append(a, span);
       },
       p(ctx2, dirty) {
-        if (dirty & /*apple*/
+        if (dirty[0] & /*apple*/
         4) {
           attr(
             a,
@@ -23226,7 +23546,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_32(ctx) {
+  function create_if_block_62(ctx) {
     let p;
     let t0;
     let a;
@@ -23251,7 +23571,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             a,
             "click",
             /*click_handler_1*/
-            ctx[24]
+            ctx[26]
           );
           mounted = true;
         }
@@ -23266,7 +23586,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_23(ctx) {
+  function create_if_block_52(ctx) {
     let p;
     let t0;
     let a;
@@ -23291,7 +23611,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             a,
             "click",
             /*click_handler_2*/
-            ctx[25]
+            ctx[27]
           );
           mounted = true;
         }
@@ -23306,7 +23626,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_if_block_110(ctx) {
+  function create_if_block_42(ctx) {
     let p;
     let t0;
     let a;
@@ -23331,7 +23651,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             a,
             "click",
             /*click_handler_3*/
-            ctx[26]
+            ctx[28]
           );
           mounted = true;
         }
@@ -23343,6 +23663,415 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }
         mounted = false;
         dispose();
+      }
+    };
+  }
+  function create_else_block_2(ctx) {
+    let tr;
+    return {
+      c() {
+        tr = element("tr");
+        tr.innerHTML = `<td colspan="4" class="svelte-15noryw">No data</td>`;
+        attr(tr, "class", "svelte-15noryw");
+      },
+      m(target, anchor) {
+        insert(target, tr, anchor);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(tr);
+        }
+      }
+    };
+  }
+  function create_if_block_32(ctx) {
+    let each_1_anchor;
+    let each_value_2 = ensure_array_like(usersMostLoggedIn || []);
+    let each_blocks = [];
+    for (let i = 0; i < each_value_2.length; i += 1) {
+      each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+    }
+    return {
+      c() {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        each_1_anchor = empty();
+      },
+      m(target, anchor) {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(target, anchor);
+          }
+        }
+        insert(target, each_1_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*usersMostLoggedIn*/
+        0) {
+          each_value_2 = ensure_array_like(usersMostLoggedIn || []);
+          let i;
+          for (i = 0; i < each_value_2.length; i += 1) {
+            const child_ctx = get_each_context_2(ctx2, each_value_2, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block_2(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value_2.length;
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(each_1_anchor);
+        }
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
+  function create_each_block_2(ctx) {
+    let tr;
+    let td0;
+    let t1;
+    let td1;
+    let t3;
+    let td2;
+    let t5;
+    let td3;
+    let t7;
+    return {
+      c() {
+        tr = element("tr");
+        td0 = element("td");
+        td0.textContent = `${/*msUser*/
+        ctx[38].time_period}`;
+        t1 = space();
+        td1 = element("td");
+        td1.textContent = `${/*msUser*/
+        ctx[38].email}`;
+        t3 = space();
+        td2 = element("td");
+        td2.textContent = `${/*msUser*/
+        ctx[38].full_name}`;
+        t5 = space();
+        td3 = element("td");
+        td3.textContent = `${/*msUser*/
+        ctx[38].total}`;
+        t7 = space();
+        attr(td0, "class", "svelte-15noryw");
+        attr(td1, "class", "svelte-15noryw");
+        attr(td2, "class", "svelte-15noryw");
+        attr(td3, "class", "svelte-15noryw");
+        attr(tr, "class", "svelte-15noryw");
+      },
+      m(target, anchor) {
+        insert(target, tr, anchor);
+        append(tr, td0);
+        append(tr, t1);
+        append(tr, td1);
+        append(tr, t3);
+        append(tr, td2);
+        append(tr, t5);
+        append(tr, td3);
+        append(tr, t7);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(tr);
+        }
+      }
+    };
+  }
+  function create_else_block_1(ctx) {
+    let tr;
+    return {
+      c() {
+        tr = element("tr");
+        tr.innerHTML = `<td colspan="4" class="svelte-15noryw">No data</td>`;
+        attr(tr, "class", "svelte-15noryw");
+      },
+      m(target, anchor) {
+        insert(target, tr, anchor);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(tr);
+        }
+      }
+    };
+  }
+  function create_if_block_26(ctx) {
+    let each_1_anchor;
+    let each_value_1 = ensure_array_like(mostScannedAreas || []);
+    let each_blocks = [];
+    for (let i = 0; i < each_value_1.length; i += 1) {
+      each_blocks[i] = create_each_block_12(get_each_context_12(ctx, each_value_1, i));
+    }
+    return {
+      c() {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        each_1_anchor = empty();
+      },
+      m(target, anchor) {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(target, anchor);
+          }
+        }
+        insert(target, each_1_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*mostScannedAreas*/
+        0) {
+          each_value_1 = ensure_array_like(mostScannedAreas || []);
+          let i;
+          for (i = 0; i < each_value_1.length; i += 1) {
+            const child_ctx = get_each_context_12(ctx2, each_value_1, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block_12(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value_1.length;
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(each_1_anchor);
+        }
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
+  function create_each_block_12(ctx) {
+    let tr;
+    let td0;
+    let t1;
+    let td1;
+    let t3;
+    let td2;
+    let t5;
+    let td3;
+    let t7;
+    let td4;
+    let t11;
+    return {
+      c() {
+        tr = element("tr");
+        td0 = element("td");
+        td0.textContent = `${/*msArea*/
+        ctx[35].time_period}`;
+        t1 = space();
+        td1 = element("td");
+        td1.textContent = `${/*msArea*/
+        ctx[35].views}`;
+        t3 = space();
+        td2 = element("td");
+        td2.textContent = `${/*msArea*/
+        ctx[35].city}`;
+        t5 = space();
+        td3 = element("td");
+        td3.textContent = `${/*msArea*/
+        ctx[35].state}`;
+        t7 = space();
+        td4 = element("td");
+        td4.textContent = `${/*msArea*/
+        ctx[35].latitude}, ${/*msArea*/
+        ctx[35].longitude}`;
+        t11 = space();
+        attr(td0, "class", "svelte-15noryw");
+        attr(td1, "class", "svelte-15noryw");
+        attr(td2, "class", "svelte-15noryw");
+        attr(td3, "class", "svelte-15noryw");
+        attr(td4, "class", "svelte-15noryw");
+        attr(tr, "class", "svelte-15noryw");
+      },
+      m(target, anchor) {
+        insert(target, tr, anchor);
+        append(tr, td0);
+        append(tr, t1);
+        append(tr, td1);
+        append(tr, t3);
+        append(tr, td2);
+        append(tr, t5);
+        append(tr, td3);
+        append(tr, t7);
+        append(tr, td4);
+        append(tr, t11);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(tr);
+        }
+      }
+    };
+  }
+  function create_else_block3(ctx) {
+    let tr;
+    return {
+      c() {
+        tr = element("tr");
+        tr.innerHTML = `<td colspan="4" class="svelte-15noryw">No data</td>`;
+        attr(tr, "class", "svelte-15noryw");
+      },
+      m(target, anchor) {
+        insert(target, tr, anchor);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(tr);
+        }
+      }
+    };
+  }
+  function create_if_block_110(ctx) {
+    let each_1_anchor;
+    let each_value = ensure_array_like(mostScannedProps || []);
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block2(get_each_context2(ctx, each_value, i));
+    }
+    return {
+      c() {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        each_1_anchor = empty();
+      },
+      m(target, anchor) {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(target, anchor);
+          }
+        }
+        insert(target, each_1_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*mostScannedProps*/
+        0) {
+          each_value = ensure_array_like(mostScannedProps || []);
+          let i;
+          for (i = 0; i < each_value.length; i += 1) {
+            const child_ctx = get_each_context2(ctx2, each_value, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block2(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value.length;
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(each_1_anchor);
+        }
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
+  function create_each_block2(ctx) {
+    let tr;
+    let td0;
+    let t1;
+    let td1;
+    let t3;
+    let td2;
+    let t5;
+    let td3;
+    let t7;
+    let td4;
+    let t9;
+    let td5;
+    let t11;
+    let td6;
+    let t13;
+    return {
+      c() {
+        tr = element("tr");
+        td0 = element("td");
+        td0.textContent = `${/*msProperty*/
+        ctx[32].time_period}`;
+        t1 = space();
+        td1 = element("td");
+        td1.textContent = `${/*msProperty*/
+        ctx[32].views}`;
+        t3 = space();
+        td2 = element("td");
+        td2.textContent = `${/*msProperty*/
+        ctx[32].price}`;
+        t5 = space();
+        td3 = element("td");
+        td3.textContent = `${/*msProperty*/
+        ctx[32].total_sqft}`;
+        t7 = space();
+        td4 = element("td");
+        td4.textContent = `${/*msProperty*/
+        ctx[32].city}`;
+        t9 = space();
+        td5 = element("td");
+        td5.textContent = `${/*msProperty*/
+        ctx[32].state}`;
+        t11 = space();
+        td6 = element("td");
+        td6.textContent = `${/*msProperty*/
+        ctx[32].address}`;
+        t13 = space();
+        attr(td0, "class", "svelte-15noryw");
+        attr(td1, "class", "svelte-15noryw");
+        attr(td2, "class", "svelte-15noryw");
+        attr(td3, "class", "svelte-15noryw");
+        attr(td4, "class", "svelte-15noryw");
+        attr(td5, "class", "svelte-15noryw");
+        attr(td6, "class", "svelte-15noryw");
+        attr(tr, "class", "svelte-15noryw");
+      },
+      m(target, anchor) {
+        insert(target, tr, anchor);
+        append(tr, td0);
+        append(tr, t1);
+        append(tr, td1);
+        append(tr, t3);
+        append(tr, td2);
+        append(tr, t5);
+        append(tr, td3);
+        append(tr, t7);
+        append(tr, td4);
+        append(tr, t9);
+        append(tr, td5);
+        append(tr, t11);
+        append(tr, td6);
+        append(tr, t13);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(tr);
+        }
       }
     };
   }
@@ -23377,10 +24106,55 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let div0;
     let t12;
     let div6;
-    let t86;
+    let div3;
+    let header0;
+    let t14;
+    let div2;
+    let table0;
+    let thead0;
+    let t22;
+    let tbody0;
+    let t23;
+    let div5;
+    let header1;
+    let t25;
+    let div4;
+    let table1;
+    let thead1;
+    let t35;
+    let tbody1;
+    let t36;
     let div8;
+    let header2;
+    let t38;
+    let div7;
+    let table2;
+    let thead2;
+    let t52;
+    let tbody2;
     let mounted;
     let dispose;
+    function select_block_type_1(ctx2, dirty) {
+      if (usersMostLoggedIn && usersMostLoggedIn.length > 0)
+        return create_if_block_32;
+      return create_else_block_2;
+    }
+    let current_block_type = select_block_type_1(ctx, [-1, -1]);
+    let if_block0 = current_block_type(ctx);
+    function select_block_type_2(ctx2, dirty) {
+      if (mostScannedAreas && mostScannedAreas.length > 0)
+        return create_if_block_26;
+      return create_else_block_1;
+    }
+    let current_block_type_1 = select_block_type_2(ctx, [-1, -1]);
+    let if_block1 = current_block_type_1(ctx);
+    function select_block_type_3(ctx2, dirty) {
+      if (mostScannedProps && mostScannedProps.length > 0)
+        return create_if_block_110;
+      return create_else_block3;
+    }
+    let current_block_type_2 = select_block_type_3(ctx, [-1, -1]);
+    let if_block2 = current_block_type_2(ctx);
     return {
       c() {
         div9 = element("div");
@@ -23414,10 +24188,41 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         div0.innerHTML = `<canvas id="chart" class="svelte-15noryw"></canvas>`;
         t12 = space();
         div6 = element("div");
-        div6.innerHTML = `<div class="table-root svelte-15noryw"><header class="svelte-15noryw"><span class="svelte-15noryw">Most Logged in Buyers</span></header> <div class="table-container svelte-15noryw"><table class="svelte-15noryw"><thead class="svelte-15noryw"><tr class="svelte-15noryw"><th class="svelte-15noryw">Time period</th> <th class="svelte-15noryw">Time spent</th> <th class="svelte-15noryw">User</th></tr></thead> <tbody><tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">45mins</td> <td class="svelte-15noryw">Chris Kang</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Monthly</td> <td class="svelte-15noryw">20hrs 2mins</td> <td class="svelte-15noryw">Jennifer Hun</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Quarterly</td> <td class="svelte-15noryw">45mins</td> <td class="svelte-15noryw">Chris Kang</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Annually</td> <td class="svelte-15noryw">321hrs 42mins</td> <td class="svelte-15noryw">Kortin Lopez</td></tr></tbody></table></div></div> <div class="table-root svelte-15noryw"><header class="svelte-15noryw"><span class="svelte-15noryw">Most Scanned Area</span></header> <div class="table-container svelte-15noryw"><table class="svelte-15noryw"><thead class="svelte-15noryw"><tr class="svelte-15noryw"><th class="svelte-15noryw">Time period</th> <th class="svelte-15noryw">Views</th> <th class="svelte-15noryw">City</th> <th class="svelte-15noryw">State</th></tr></thead> <tbody><tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,840,798</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td></tr></tbody></table></div></div>`;
-        t86 = space();
+        div3 = element("div");
+        header0 = element("header");
+        header0.innerHTML = `<span class="svelte-15noryw">Most Logged in Buyers</span>`;
+        t14 = space();
+        div2 = element("div");
+        table0 = element("table");
+        thead0 = element("thead");
+        thead0.innerHTML = `<tr class="svelte-15noryw"><th class="svelte-15noryw">Time period</th> <th class="svelte-15noryw">Email</th> <th class="svelte-15noryw">Full Name</th> <th class="svelte-15noryw">Total</th></tr>`;
+        t22 = space();
+        tbody0 = element("tbody");
+        if_block0.c();
+        t23 = space();
+        div5 = element("div");
+        header1 = element("header");
+        header1.innerHTML = `<span class="svelte-15noryw">Most Scanned Areas</span>`;
+        t25 = space();
+        div4 = element("div");
+        table1 = element("table");
+        thead1 = element("thead");
+        thead1.innerHTML = `<tr class="svelte-15noryw"><th class="svelte-15noryw">Time period</th> <th class="svelte-15noryw">Views</th> <th class="svelte-15noryw">City</th> <th class="svelte-15noryw">State</th> <th class="svelte-15noryw">Coord</th></tr>`;
+        t35 = space();
+        tbody1 = element("tbody");
+        if_block1.c();
+        t36 = space();
         div8 = element("div");
-        div8.innerHTML = `<header class="svelte-15noryw"><span class="svelte-15noryw">Most Scanned Listing</span></header> <div class="table-container svelte-15noryw"><table class="svelte-15noryw"><thead class="svelte-15noryw"><tr class="svelte-15noryw"><th class="svelte-15noryw">Time period</th> <th class="svelte-15noryw">Views</th> <th class="svelte-15noryw">Price</th> <th class="svelte-15noryw">Size</th> <th class="svelte-15noryw">City</th> <th class="svelte-15noryw">State</th> <th class="svelte-15noryw">Address</th></tr></thead> <tbody><tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">$4,400,000</td> <td class="svelte-15noryw">40,000 sqm</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td> <td class="svelte-15noryw">99 silverlake dr.</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">$4,400,000</td> <td class="svelte-15noryw">40,000 sqm</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td> <td class="svelte-15noryw">99 silverlake dr.</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">$4,400,000</td> <td class="svelte-15noryw">40,000 sqm</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td> <td class="svelte-15noryw">99 silverlake dr.</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">$4,400,000</td> <td class="svelte-15noryw">40,000 sqm</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td> <td class="svelte-15noryw">99 silverlake dr.</td></tr> <tr class="svelte-15noryw"><td class="svelte-15noryw">Daily</td> <td class="svelte-15noryw">1,798</td> <td class="svelte-15noryw">$4,400,000</td> <td class="svelte-15noryw">40,000 sqm</td> <td class="svelte-15noryw">Long beach</td> <td class="svelte-15noryw">California</td> <td class="svelte-15noryw">99 silverlake dr.</td></tr></tbody></table></div>`;
+        header2 = element("header");
+        header2.innerHTML = `<span class="svelte-15noryw">Most Scanned Properties</span>`;
+        t38 = space();
+        div7 = element("div");
+        table2 = element("table");
+        thead2 = element("thead");
+        thead2.innerHTML = `<tr class="svelte-15noryw"><th class="svelte-15noryw">Time period</th> <th class="svelte-15noryw">Views</th> <th class="svelte-15noryw">Price</th> <th class="svelte-15noryw">Size</th> <th class="svelte-15noryw">City</th> <th class="svelte-15noryw">State</th> <th class="svelte-15noryw">Address</th></tr>`;
+        t52 = space();
+        tbody2 = element("tbody");
+        if_block2.c();
         attr(span0, "class", "block svelte-15noryw");
         attr(span1, "class", "title svelte-15noryw");
         button0.disabled = button0_disabled_value = /*MODE_STATS*/
@@ -23473,7 +24278,21 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         attr(nav, "class", "svelte-15noryw");
         attr(div0, "class", "chart svelte-15noryw");
         attr(div1, "class", "stats-chart svelte-15noryw");
+        attr(header0, "class", "svelte-15noryw");
+        attr(thead0, "class", "svelte-15noryw");
+        attr(table0, "class", "svelte-15noryw");
+        attr(div2, "class", "table-container svelte-15noryw");
+        attr(div3, "class", "table-root svelte-15noryw");
+        attr(header1, "class", "svelte-15noryw");
+        attr(thead1, "class", "svelte-15noryw");
+        attr(table1, "class", "svelte-15noryw");
+        attr(div4, "class", "table-container svelte-15noryw");
+        attr(div5, "class", "table-root svelte-15noryw");
         attr(div6, "class", "rows-table svelte-15noryw");
+        attr(header2, "class", "svelte-15noryw");
+        attr(thead2, "class", "svelte-15noryw");
+        attr(table2, "class", "svelte-15noryw");
+        attr(div7, "class", "table-container svelte-15noryw");
         attr(div8, "class", "table-root svelte-15noryw");
         attr(div9, "class", "home-container svelte-15noryw");
       },
@@ -23504,8 +24323,35 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         append(div1, div0);
         append(div9, t12);
         append(div9, div6);
-        append(div9, t86);
+        append(div6, div3);
+        append(div3, header0);
+        append(div3, t14);
+        append(div3, div2);
+        append(div2, table0);
+        append(table0, thead0);
+        append(table0, t22);
+        append(table0, tbody0);
+        if_block0.m(tbody0, null);
+        append(div6, t23);
+        append(div6, div5);
+        append(div5, header1);
+        append(div5, t25);
+        append(div5, div4);
+        append(div4, table1);
+        append(table1, thead1);
+        append(table1, t35);
+        append(table1, tbody1);
+        if_block1.m(tbody1, null);
+        append(div9, t36);
         append(div9, div8);
+        append(div8, header2);
+        append(div8, t38);
+        append(div8, div7);
+        append(div7, table2);
+        append(table2, thead2);
+        append(table2, t52);
+        append(table2, tbody2);
+        if_block2.m(tbody2, null);
         if (!mounted) {
           dispose = [
             listen(
@@ -23520,20 +24366,30 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
               /*renderRegisteredChart*/
               ctx[15]
             ),
-            listen(button2, "click", renderRealtorsChart),
-            listen(button3, "click", renderOrdersChart)
+            listen(
+              button2,
+              "click",
+              /*renderRealtorsChart*/
+              ctx[16]
+            ),
+            listen(
+              button3,
+              "click",
+              /*renderOrdersChart*/
+              ctx[17]
+            )
           ];
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*MODE_STATS*/
+        if (dirty[0] & /*MODE_STATS*/
         256 && button0_disabled_value !== (button0_disabled_value = /*MODE_STATS*/
         ctx2[8] === /*STAT_REVENUE*/
         ctx2[10])) {
           button0.disabled = button0_disabled_value;
         }
-        if (dirty & /*MODE_STATS, STAT_REVENUE*/
+        if (dirty[0] & /*MODE_STATS, STAT_REVENUE*/
         1280) {
           toggle_class(
             button0,
@@ -23543,13 +24399,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             ctx2[10]
           );
         }
-        if (dirty & /*MODE_STATS*/
+        if (dirty[0] & /*MODE_STATS*/
         256 && button1_disabled_value !== (button1_disabled_value = /*MODE_STATS*/
         ctx2[8] === /*STAT_REGISTERED*/
         ctx2[11])) {
           button1.disabled = button1_disabled_value;
         }
-        if (dirty & /*MODE_STATS, STAT_REGISTERED*/
+        if (dirty[0] & /*MODE_STATS, STAT_REGISTERED*/
         2304) {
           toggle_class(
             button1,
@@ -23559,13 +24415,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             ctx2[11]
           );
         }
-        if (dirty & /*MODE_STATS*/
+        if (dirty[0] & /*MODE_STATS*/
         256 && button2_disabled_value !== (button2_disabled_value = /*MODE_STATS*/
         ctx2[8] === /*STAT_REALTORS*/
         ctx2[12])) {
           button2.disabled = button2_disabled_value;
         }
-        if (dirty & /*MODE_STATS, STAT_REALTORS*/
+        if (dirty[0] & /*MODE_STATS, STAT_REALTORS*/
         4352) {
           toggle_class(
             button2,
@@ -23575,13 +24431,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             ctx2[12]
           );
         }
-        if (dirty & /*MODE_STATS*/
+        if (dirty[0] & /*MODE_STATS*/
         256 && button3_disabled_value !== (button3_disabled_value = /*MODE_STATS*/
         ctx2[8] === /*STAT_ORDERS*/
         ctx2[13])) {
           button3.disabled = button3_disabled_value;
         }
-        if (dirty & /*MODE_STATS, STAT_ORDERS*/
+        if (dirty[0] & /*MODE_STATS, STAT_ORDERS*/
         8448) {
           toggle_class(
             button3,
@@ -23591,11 +24447,17 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             ctx2[13]
           );
         }
+        if_block0.p(ctx2, dirty);
+        if_block1.p(ctx2, dirty);
+        if_block2.p(ctx2, dirty);
       },
       d(detaching) {
         if (detaching) {
           detach(div9);
         }
+        if_block0.d();
+        if_block1.d();
+        if_block2.d();
         mounted = false;
         run_all(dispose);
       }
@@ -23608,7 +24470,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let current;
     let mounted;
     let dispose;
-    const if_block_creators = [create_if_block3, create_else_block3];
+    const if_block_creators = [create_if_block4, create_else_block_3];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (
@@ -23618,7 +24480,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type(ctx, -1);
+    current_block_type_index = select_block_type(ctx, [-1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -23639,7 +24501,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           mounted = true;
         }
       },
-      p(ctx2, [dirty]) {
+      p(ctx2, dirty) {
         let previous_block_index = current_block_type_index;
         current_block_type_index = select_block_type(ctx2, dirty);
         if (current_block_type_index === previous_block_index) {
@@ -23693,9 +24555,29 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     /** @type {Revenue[]} */
     [/* revenues */]
   );
+  var orders = (
+    /** @type {Order[]} */
+    [/* orders */]
+  );
   var usersRegistered = (
     /** @type {UserRegistered[]} */
     [/* user_registered */ ]
+  );
+  var realtorStats = (
+    /** @type {RealtorStat[]} */
+    [/* realtor_stats */ ]
+  );
+  var usersMostLoggedIn = (
+    /** @type {MostLoggedInUser[]} */
+    [/* users_most_logged_in */ ]
+  );
+  var mostScannedAreas = (
+    /** @type {ScannedAreasToRender[]} */
+    [/* most_scanned_areas */ ]
+  );
+  var mostScannedProps = (
+    /** @type {ScannedPropertiesToRender[]} */
+    [/* most_scanned_properties */ ]
   );
   var clientId = "com.hapstr.app";
   var redirectUri = "https://admin.hapstr.xyz/guest/oauthCallback";
@@ -23726,10 +24608,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     var match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
     if (match)
       return match[2];
-  }
-  function renderRealtorsChart() {
-  }
-  function renderOrdersChart() {
   }
   function instance7($self, $props, $invalidate) {
     let user = (
@@ -23804,12 +24682,19 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       /** @type {import('chart.js').Chart} */
       null
     );
-    let STAT_REVENUE = `revenue`;
-    let STAT_REGISTERED = `registered`;
-    let STAT_REALTORS = `realtors`;
-    let STAT_ORDERS = `orders`;
+    const STAT_REVENUE = `revenue`;
+    const STAT_REGISTERED = `registered`;
+    const STAT_REALTORS = `realtors`;
+    const STAT_ORDERS = `orders`;
     let MODE_STATS = STAT_REVENUE;
+    function remove2ndOrdersData() {
+      if (MODE_STATS === STAT_ORDERS) {
+        if (chart)
+          chart.data.datasets.pop();
+      }
+    }
     function renderRevenueChart() {
+      remove2ndOrdersData();
       $invalidate(8, MODE_STATS = STAT_REVENUE);
       if (chart) {
         chart.data.labels = (revenues || []).map(
@@ -23845,6 +24730,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     }
     function renderRegisteredChart() {
+      remove2ndOrdersData();
       $invalidate(8, MODE_STATS = STAT_REGISTERED);
       if (chart) {
         chart.data.labels = (usersRegistered || []).map(
@@ -23860,6 +24746,66 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         chart.data.datasets[0].data = (usersRegistered || []).map((i) => i.count);
         chart.data.datasets[0].label = "Registered";
         chart.options.scales.y = { ticks: { stepSize: 10 } };
+        chart.update();
+      }
+    }
+    function renderRealtorsChart() {
+      remove2ndOrdersData();
+      $invalidate(8, MODE_STATS = STAT_REALTORS);
+      if (chart) {
+        chart.data.labels = (realtorStats || []).map(
+          /** @type {RealtorStat} */
+          (i) => {
+            const dt = (
+              /** @type {Date} */
+              new Date(i.date)
+            );
+            return dt.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
+          }
+        );
+        chart.data.datasets[0].data = (realtorStats || []).map((i) => i.totalActivity);
+        chart.data.datasets[0].label = "Realtors";
+        chart.options.scales.y = { ticks: { stepSize: 10 } };
+        chart.update();
+      }
+    }
+    function renderOrdersChart() {
+      $invalidate(8, MODE_STATS = STAT_ORDERS);
+      if (chart) {
+        chart.data.labels = (orders || []).map(
+          /** @type {Order} */
+          (i) => {
+            const dt = (
+              /** @type {Date} */
+              new Date(i.salesDate)
+            );
+            return dt.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
+          }
+        );
+        chart.data.datasets[0].data = (orders || []).map((i) => Number(i.revenue));
+        chart.data.datasets[0].label = "Revenue";
+        chart.options.scales.y = {
+          ticks: {
+            stepSize: 1e7,
+            callback(value) {
+              if (Number(value) >= 1e9)
+                return Number(value) / 1e9 + "B";
+              if (Number(value) >= 1e6)
+                return Number(value) / 1e6 + "M";
+              if (Number(value) >= 1e3)
+                return Number(value) / 1e3 + "K";
+              return Number(value);
+            }
+          }
+        };
+        chart.data.datasets.push({
+          label: "Total Transactions",
+          data: (orders || []).map((i) => i.totalTransaction),
+          borderColor: "#3b82f6",
+          backgroundColor: "#3b82f630",
+          pointRadius: 0,
+          tension: 0.1
+        });
         chart.update();
       }
     }
@@ -24064,6 +25010,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       STAT_ORDERS,
       renderRevenueChart,
       renderRegisteredChart,
+      renderRealtorsChart,
+      renderOrdersChart,
       guestRegister,
       guestLogin,
       guestResendVerificationEmail,
@@ -24080,7 +25028,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var Index = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance7, create_fragment7, safe_not_equal, {});
+      init(this, options, instance7, create_fragment7, safe_not_equal, {}, null, [-1, -1]);
     }
   };
   var svelte_default = Index;

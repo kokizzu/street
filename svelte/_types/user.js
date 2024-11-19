@@ -31,3 +31,12 @@ module.exports = {}
  * @property {string} loginIPs
  */
 module.exports = {}
+
+/**
+ * @typedef {Object} MostLoggedInUser
+ * @property {string} time_period
+ * @property {string} email
+ * @property {string} full_name
+ * @property {number} total
+ */
+module.exports = {}

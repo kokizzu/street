@@ -1,12 +1,21 @@
 <script>
   /** @typedef {import('./_types/master.js').Access} Access */
   /** @typedef {import('./_types/user.js').User} User */
+  /** @typedef {import('./_types/user.js').MostLoggedInUser} MostLoggedInUser */
   /** @typedef {import('./_types/business.js').Revenue} Revenue */
+  /** @typedef {import('./_types/business.js').Order} Order */
+  /** @typedef {import('./_types/property.js').ScannedAreasToRender} ScannedAreasToRender */
+  /** @typedef {import('./_types/property.js').ScannedPropertiesToRender} ScannedPropertiesToRender */
   /**
    * @typedef {Object} UserRegistered
    * @property {string} date
    * @property {number} count
    */
+  /**
+   * @typedef {Object} RealtorStat
+   * @property {string} date
+   * @property {number} totalActivity
+  */
 
   import {
     GuestForgotPassword, GuestLogin, GuestRegister,
@@ -25,9 +34,14 @@
   let segments  = /** @type {Access} */ ({/* segments */});
   let google    = /** @type {string} */ ('#{google}');
   let apple     = /** @type {string} */ ('#{apple}');
-  let revenues  = /** @type {Revenue[]} */ ([/* revenues */]);
 
-  const usersRegistered = /** @type {UserRegistered[]} */ ([/* user_registered */ ]);
+  const revenues          = /** @type {Revenue[]} */ ([/* revenues */]);
+  const orders            = /** @type {Order[]} */ ([/* orders */]);
+  const usersRegistered   = /** @type {UserRegistered[]} */ ([/* user_registered */ ]);
+  const realtorStats      = /** @type {RealtorStat[]} */ ([/* realtor_stats */ ]);
+  const usersMostLoggedIn = /** @type {MostLoggedInUser[]} */ ([/* users_most_logged_in */ ]);
+  const mostScannedAreas  = /** @type {ScannedAreasToRender[]} */ ([/* most_scanned_areas */ ]);
+  const mostScannedProps  = /** @type {ScannedPropertiesToRender[]} */ ([/* most_scanned_properties */ ]);
 
   // Generate Apple OAuth URL
   const clientId      = 'com.hapstr.app'; //
@@ -95,14 +109,21 @@
 
   let chart = /** @type {import('chart.js').Chart} */ (null);
 
-  let STAT_REVENUE = `revenue`;
-  let STAT_REGISTERED = `registered`;
-  let STAT_REALTORS = `realtors`;
-  let STAT_ORDERS = `orders`;
+  const STAT_REVENUE    = `revenue`;
+  const STAT_REGISTERED = `registered`;
+  const STAT_REALTORS   = `realtors`;
+  const STAT_ORDERS     = `orders`;
 
   let MODE_STATS = STAT_REVENUE;
 
+  function remove2ndOrdersData() {
+    if (MODE_STATS === STAT_ORDERS) {
+      if (chart) chart.data.datasets.pop();
+    }
+  }
+
   function renderRevenueChart() {
+    remove2ndOrdersData()
     MODE_STATS = STAT_REVENUE;
     if (chart) {
       chart.data.labels = (revenues || []).map((/** @type {Revenue} */ i) => {
@@ -130,6 +151,7 @@
   }
 
   function renderRegisteredChart() {
+    remove2ndOrdersData()
     MODE_STATS = STAT_REGISTERED;
     if (chart) {
       chart.data.labels = (usersRegistered || []).map((/** @type {UserRegistered} */ i) => {
@@ -150,9 +172,62 @@
     }
   }
 
-  function renderRealtorsChart() {}
+  function renderRealtorsChart() {
+    remove2ndOrdersData()
+    MODE_STATS = STAT_REALTORS;
+    if (chart) {
+      chart.data.labels = (realtorStats || []).map((/** @type {RealtorStat} */ i) => {
+        const dt = /** @type {Date} */ (new Date(i.date));
+        return dt.toLocaleDateString('en-US', {
+          month: 'short',
+          day: '2-digit'
+        });
+      });
+      chart.data.datasets[0].data = (realtorStats || []).map((i) => i.totalActivity);
+      chart.data.datasets[0].label = 'Realtors';
+      chart.options.scales.y = {
+        ticks: {
+          stepSize: 10
+        }
+      };
+      chart.update();
+    }
+  }
   
-  function renderOrdersChart() {}
+  function renderOrdersChart() {
+    MODE_STATS = STAT_ORDERS;
+    if (chart) {
+      chart.data.labels = (orders || []).map((/** @type {Order} */ i) => {
+        const dt = /** @type {Date} */ (new Date(i.salesDate));
+        return dt.toLocaleDateString('en-US', {
+          month: 'short',
+          day: '2-digit'
+        });
+      });
+      chart.data.datasets[0].data = (orders || []).map((i) => Number(i.revenue));
+      chart.data.datasets[0].label = 'Revenue';
+      chart.options.scales.y = {
+        ticks: {
+          stepSize: 10000000,
+          callback: function(value) {
+            if (Number(value) >= 1000000000) return Number(value) / 1000000000 + 'B';
+            if (Number(value) >= 1000000) return Number(value) / 1000000 + 'M';
+            if (Number(value) >= 1000) return Number(value) / 1000 + 'K';
+            return Number(value);
+          }
+        }
+      };
+      chart.data.datasets.push({
+        label: 'Total Transactions',
+        data: (orders || []).map((i) => i.totalTransaction),
+        borderColor: '#3b82f6',
+        backgroundColor: '#3b82f630',
+        pointRadius: 0,
+        tension: 0.1
+      })
+      chart.update();
+    }
+  }
   
   onMount(() => {
     onHashChange();
@@ -349,38 +424,33 @@
               <thead>
                 <tr>
                   <th>Time period</th>
-                  <th>Time spent</th>
-                  <th>User</th>
+                  <th>Email </th>
+                  <th>Full Name</th>
+                  <th>Total</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Daily</td>
-                  <td>45mins</td>
-                  <td>Chris Kang</td>
-                </tr>
-                <tr>
-                  <td>Monthly</td>
-                  <td>20hrs 2mins</td>
-                  <td>Jennifer Hun</td>
-                </tr>
-                <tr>
-                  <td>Quarterly</td>
-                  <td>45mins</td>
-                  <td>Chris Kang</td>
-                </tr>
-                <tr>
-                  <td>Annually</td>
-                  <td>321hrs 42mins</td>
-                  <td>Kortin Lopez</td>
-                </tr>
+                {#if usersMostLoggedIn && usersMostLoggedIn.length > 0}
+                  {#each (usersMostLoggedIn || []) as msUser}
+                    <tr>
+                      <td>{msUser.time_period}</td>
+                      <td>{msUser.email}</td>
+                      <td>{msUser.full_name}</td>
+                      <td>{msUser.total}</td>
+                    </tr>
+                  {/each}
+                {:else}
+                  <tr>
+                    <td colspan="4">No data</td>
+                  </tr>
+                {/if}
               </tbody>
             </table>
           </div>
         </div>
         <div class="table-root">
           <header>
-            <span>Most Scanned Area</span>
+            <span>Most Scanned Areas</span>
           </header>
           <div class="table-container">
             <table>
@@ -390,33 +460,25 @@
                   <th>Views</th>
                   <th>City</th>
                   <th>State</th>
+                  <th>Coord</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Daily</td>
-                  <td>1,798</td>
-                  <td>Long beach</td>
-                  <td>California</td>
-                </tr>
-                <tr>
-                  <td>Daily</td>
-                  <td>1,798</td>
-                  <td>Long beach</td>
-                  <td>California</td>
-                </tr>
-                <tr>
-                  <td>Daily</td>
-                  <td>1,798</td>
-                  <td>Long beach</td>
-                  <td>California</td>
-                </tr>
-                <tr>
-                  <td>Daily</td>
-                  <td>1,840,798</td>
-                  <td>Long beach</td>
-                  <td>California</td>
-                </tr>
+                {#if mostScannedAreas && mostScannedAreas.length > 0}
+                  {#each (mostScannedAreas || []) as msArea}
+                    <tr>
+                      <td>{msArea.time_period}</td>
+                      <td>{msArea.views}</td>
+                      <td>{msArea.city}</td>
+                      <td>{msArea.state}</td>
+                      <td>{msArea.latitude}, {msArea.longitude}</td>
+                    </tr>
+                  {/each}
+                {:else}
+                  <tr>
+                    <td colspan="4">No data</td>
+                  </tr>
+                {/if}
               </tbody>
             </table>
           </div>
@@ -424,7 +486,7 @@
       </div>
       <div class="table-root">
         <header>
-          <span>Most Scanned Listing</span>
+          <span>Most Scanned Properties</span>
         </header>
         <div class="table-container">
           <table>
@@ -440,51 +502,23 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Daily</td>
-                <td>1,798</td>
-                <td>$4,400,000</td>
-                <td>40,000 sqm</td>
-                <td>Long beach</td>
-                <td>California</td>
-                <td>99 silverlake dr.</td>
-              </tr>
-              <tr>
-                <td>Daily</td>
-                <td>1,798</td>
-                <td>$4,400,000</td>
-                <td>40,000 sqm</td>
-                <td>Long beach</td>
-                <td>California</td>
-                <td>99 silverlake dr.</td>
-              </tr>
-              <tr>
-                <td>Daily</td>
-                <td>1,798</td>
-                <td>$4,400,000</td>
-                <td>40,000 sqm</td>
-                <td>Long beach</td>
-                <td>California</td>
-                <td>99 silverlake dr.</td>
-              </tr>
-              <tr>
-                <td>Daily</td>
-                <td>1,798</td>
-                <td>$4,400,000</td>
-                <td>40,000 sqm</td>
-                <td>Long beach</td>
-                <td>California</td>
-                <td>99 silverlake dr.</td>
-              </tr>
-              <tr>
-                <td>Daily</td>
-                <td>1,798</td>
-                <td>$4,400,000</td>
-                <td>40,000 sqm</td>
-                <td>Long beach</td>
-                <td>California</td>
-                <td>99 silverlake dr.</td>
-              </tr>
+              {#if mostScannedProps && mostScannedProps.length > 0}
+                {#each (mostScannedProps || []) as msProperty}
+                  <tr>
+                    <td>{msProperty.time_period}</td>
+                    <td>{msProperty.views}</td>
+                    <td>{msProperty.price}</td>
+                    <td>{msProperty.total_sqft}</td>
+                    <td>{msProperty.city}</td>
+                    <td>{msProperty.state}</td>
+                    <td>{msProperty.address}</td>
+                  </tr>
+                {/each}
+              {:else}
+                <tr>
+                  <td colspan="4">No data</td>
+                </tr>
+              {/if}
             </tbody>
           </table>
         </div>

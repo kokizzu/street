@@ -14,11 +14,13 @@ import (
 
 	"street/conf"
 	"street/domain"
+	"street/model/mAuth"
 	"street/model/mAuth/rqAuth"
 	"street/model/mAuth/saAuth"
 	"street/model/mBusiness"
 	"street/model/mBusiness/rqBusiness"
 	"street/model/mProperty/rqProperty"
+	"street/model/mProperty/saProperty"
 	"street/model/zCrud"
 )
 
@@ -32,22 +34,36 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 		google.ResponseCommon.DecorateSession(c)
 
-		var userRegistered []M.SX
-		if user != nil {
-			actionLog := saAuth.NewActionLogs(d.AuthOlap)
-			userRegistered = actionLog.FindUserRegistered()
-		}
-
+		var userRegistered []mAuth.UserRegisterStat
+		var realtorStats []mAuth.RealtorStat
 		var revenues []*mBusiness.Revenue
+		var orders []*mBusiness.Order
+		var mostLoggedInUsers []saAuth.MostLoggedInUser
+		var mostScannedAreas []saProperty.ScannedAreasToRender
+		var mostScannedProperties []saProperty.ScannedPropertiesToRender
 
 		if segments[domain.UserSegment] {
+			actionLog := saAuth.NewActionLogs(d.AuthOlap)
+			userRegistered = actionLog.FindUserRegistered()
+			realtorStats = actionLog.FindRealtorActivity()
+			mostLoggedInUsers = actionLog.FindMostLoggedInUsers(d.AuthOltp)
+
+			scannedArea := saProperty.NewScannedAreas(d.PropOlap)
+			mostScannedAreas = scannedArea.FindMostScannedAreas()
+
+			scannedProp := saProperty.NewScannedProperties(d.PropOlap)
+			mostScannedProperties = scannedProp.FindMostScannedProperties(d.PropOltp)
+
+			or := rqBusiness.NewSales(d.BusinessOltp)
+			orders = or.FindOrdersAnnually()
+
 			if segments[domain.AdminSegment] {
 				r := rqBusiness.NewSales(d.BusinessOltp)
-				revenues = r.FindRevenuesMonthly("XD")
+				revenues = r.FindRevenuesMonthly("XD") // default to current month
 			} else {
 				r := rqBusiness.NewSales(d.BusinessOltp)
 				r.RealtorId = user.Id
-				revenues = r.FindRealtorRevenuesMonthlyByRealtorId("XD")
+				revenues = r.FindRealtorRevenuesMonthlyByRealtorId("XD") // default to current month
 			}
 		}
 		return views.RenderIndex(c, M.SX{
@@ -56,7 +72,12 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`google`:          google.Link,
 			`segments`:        segments,
 			`user_registered`: userRegistered,
+			`realtor_stats`:   realtorStats,
 			`revenues`:        revenues,
+			`orders`:          orders,
+			`users_most_logged_in`: mostLoggedInUsers,
+			`most_scanned_areas`: mostScannedAreas,
+			`most_scanned_properties`: mostScannedProperties,
 		})
 	})
 
@@ -288,15 +309,23 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
-	fw.Get(`/`+domain.UserBuyerAction, func(ctx *fiber.Ctx) error {
-		in, user, segments := userInfoFromContext(ctx, d)
+	fw.Get(`/`+domain.UserBuyersAction, func(ctx *fiber.Ctx) error {
+		var in domain.UserBuyersIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.RealtorRevenueAction)
+		if err != nil {
+			return err
+		}
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		return views.RenderBuyer(ctx, M.SX{
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.Cmd = zCrud.CmdList
+		out := d.UserBuyers(&in)
+		return views.RenderUserBuyers(ctx, M.SX{
 			`title`:    `Buyer`,
 			`user`:     user,
 			`segments`: segments,
+			`buyers`: out.Buyers,
 		})
 	})
 
@@ -378,6 +407,20 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`, 302)
 		}
 		return views.RenderRealtorProperty(ctx, M.SX{
+			`title`:     `Realtor Property`,
+			`segments`:  segments,
+			`user`:      user,
+			`property`:  M.SX{},
+			`countries`: conf.CountriesData,
+		})
+	})
+	fw.Get(`/`+domain.RealtorPropertyAction+`Old`, func(ctx *fiber.Ctx) error {
+		// create new property
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		return views.RenderRealtorPropertyOld(ctx, M.SX{
 			`title`:     `Realtor Property`,
 			`segments`:  segments,
 			`user`:      user,
