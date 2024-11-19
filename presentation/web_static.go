@@ -20,6 +20,7 @@ import (
 	"street/model/mBusiness"
 	"street/model/mBusiness/rqBusiness"
 	"street/model/mProperty/rqProperty"
+	"street/model/mProperty/saProperty"
 	"street/model/zCrud"
 )
 
@@ -38,12 +39,20 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		var revenues []*mBusiness.Revenue
 		var orders []*mBusiness.Order
 		var mostLoggedInUsers []saAuth.MostLoggedInUser
+		var mostScannedAreas []saProperty.ScannedAreasToRender
+		var mostScannedProperties []saProperty.ScannedPropertiesToRender
 
 		if segments[domain.UserSegment] {
 			actionLog := saAuth.NewActionLogs(d.AuthOlap)
 			userRegistered = actionLog.FindUserRegistered()
 			realtorStats = actionLog.FindRealtorActivity()
 			mostLoggedInUsers = actionLog.FindMostLoggedInUsers(d.AuthOltp)
+
+			scannedArea := saProperty.NewScannedAreas(d.PropOlap)
+			mostScannedAreas = scannedArea.FindMostScannedAreas()
+
+			scannedProp := saProperty.NewScannedProperties(d.PropOlap)
+			mostScannedProperties = scannedProp.FindMostScannedProperties(d.PropOltp)
 
 			or := rqBusiness.NewSales(d.BusinessOltp)
 			orders = or.FindOrdersAnnually()
@@ -67,6 +76,8 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`revenues`:        revenues,
 			`orders`:          orders,
 			`users_most_logged_in`: mostLoggedInUsers,
+			`most_scanned_areas`: mostScannedAreas,
+			`most_scanned_properties`: mostScannedProperties,
 		})
 	})
 

@@ -137,7 +137,7 @@ func (d *Domain) UserSearchPropUS(in *UserSearchPropUSIn) (out UserSearchPropUSO
 		d.insertScannedProps(saProperty.ScannedProperties{
 			ActorId: sess.UserId,
 			CreatedAt: in.TimeNow(),
-			CountryCode: v.CountryCode,
+			CountryCode: `US`,
 			PropertyId: v.Id,
 		})
 	}

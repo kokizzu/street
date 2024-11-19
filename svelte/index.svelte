@@ -4,6 +4,8 @@
   /** @typedef {import('./_types/user.js').MostLoggedInUser} MostLoggedInUser */
   /** @typedef {import('./_types/business.js').Revenue} Revenue */
   /** @typedef {import('./_types/business.js').Order} Order */
+  /** @typedef {import('./_types/property.js').ScannedAreasToRender} ScannedAreasToRender */
+  /** @typedef {import('./_types/property.js').ScannedPropertiesToRender} ScannedPropertiesToRender */
   /**
    * @typedef {Object} UserRegistered
    * @property {string} date
@@ -38,6 +40,8 @@
   const usersRegistered   = /** @type {UserRegistered[]} */ ([/* user_registered */ ]);
   const realtorStats      = /** @type {RealtorStat[]} */ ([/* realtor_stats */ ]);
   const usersMostLoggedIn = /** @type {MostLoggedInUser[]} */ ([/* users_most_logged_in */ ]);
+  const mostScannedAreas  = /** @type {ScannedAreasToRender[]} */ ([/* most_scanned_areas */ ]);
+  const mostScannedProps  = /** @type {ScannedPropertiesToRender[]} */ ([/* most_scanned_properties */ ]);
 
   // Generate Apple OAuth URL
   const clientId      = 'com.hapstr.app'; //
@@ -426,21 +430,27 @@
                 </tr>
               </thead>
               <tbody>
-                {#each (usersMostLoggedIn || []) as msUser}
+                {#if usersMostLoggedIn && usersMostLoggedIn.length > 0}
+                  {#each (usersMostLoggedIn || []) as msUser}
+                    <tr>
+                      <td>{msUser.time_period}</td>
+                      <td>{msUser.email}</td>
+                      <td>{msUser.full_name}</td>
+                      <td>{msUser.total}</td>
+                    </tr>
+                  {/each}
+                {:else}
                   <tr>
-                    <td>{msUser.time_period}</td>
-                    <td>{msUser.email}</td>
-                    <td>{msUser.full_name}</td>
-                    <td>{msUser.total}</td>
+                    <td colspan="4">No data</td>
                   </tr>
-                {/each}
+                {/if}
               </tbody>
             </table>
           </div>
         </div>
         <div class="table-root">
           <header>
-            <span>Most Scanned Area</span>
+            <span>Most Scanned Areas</span>
           </header>
           <div class="table-container">
             <table>
@@ -450,33 +460,25 @@
                   <th>Views</th>
                   <th>City</th>
                   <th>State</th>
+                  <th>Coord</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Daily</td>
-                  <td>1,798</td>
-                  <td>Long beach</td>
-                  <td>California</td>
-                </tr>
-                <tr>
-                  <td>Daily</td>
-                  <td>1,798</td>
-                  <td>Long beach</td>
-                  <td>California</td>
-                </tr>
-                <tr>
-                  <td>Daily</td>
-                  <td>1,798</td>
-                  <td>Long beach</td>
-                  <td>California</td>
-                </tr>
-                <tr>
-                  <td>Daily</td>
-                  <td>1,840,798</td>
-                  <td>Long beach</td>
-                  <td>California</td>
-                </tr>
+                {#if mostScannedAreas && mostScannedAreas.length > 0}
+                  {#each (mostScannedAreas || []) as msArea}
+                    <tr>
+                      <td>{msArea.time_period}</td>
+                      <td>{msArea.views}</td>
+                      <td>{msArea.city}</td>
+                      <td>{msArea.state}</td>
+                      <td>{msArea.latitude}, {msArea.longitude}</td>
+                    </tr>
+                  {/each}
+                {:else}
+                  <tr>
+                    <td colspan="4">No data</td>
+                  </tr>
+                {/if}
               </tbody>
             </table>
           </div>
@@ -484,7 +486,7 @@
       </div>
       <div class="table-root">
         <header>
-          <span>Most Scanned Listing</span>
+          <span>Most Scanned Properties</span>
         </header>
         <div class="table-container">
           <table>
@@ -500,51 +502,23 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Daily</td>
-                <td>1,798</td>
-                <td>$4,400,000</td>
-                <td>40,000 sqm</td>
-                <td>Long beach</td>
-                <td>California</td>
-                <td>99 silverlake dr.</td>
-              </tr>
-              <tr>
-                <td>Daily</td>
-                <td>1,798</td>
-                <td>$4,400,000</td>
-                <td>40,000 sqm</td>
-                <td>Long beach</td>
-                <td>California</td>
-                <td>99 silverlake dr.</td>
-              </tr>
-              <tr>
-                <td>Daily</td>
-                <td>1,798</td>
-                <td>$4,400,000</td>
-                <td>40,000 sqm</td>
-                <td>Long beach</td>
-                <td>California</td>
-                <td>99 silverlake dr.</td>
-              </tr>
-              <tr>
-                <td>Daily</td>
-                <td>1,798</td>
-                <td>$4,400,000</td>
-                <td>40,000 sqm</td>
-                <td>Long beach</td>
-                <td>California</td>
-                <td>99 silverlake dr.</td>
-              </tr>
-              <tr>
-                <td>Daily</td>
-                <td>1,798</td>
-                <td>$4,400,000</td>
-                <td>40,000 sqm</td>
-                <td>Long beach</td>
-                <td>California</td>
-                <td>99 silverlake dr.</td>
-              </tr>
+              {#if mostScannedProps && mostScannedProps.length > 0}
+                {#each (mostScannedProps || []) as msProperty}
+                  <tr>
+                    <td>{msProperty.time_period}</td>
+                    <td>{msProperty.views}</td>
+                    <td>{msProperty.price}</td>
+                    <td>{msProperty.total_sqft}</td>
+                    <td>{msProperty.city}</td>
+                    <td>{msProperty.state}</td>
+                    <td>{msProperty.address}</td>
+                  </tr>
+                {/each}
+              {:else}
+                <tr>
+                  <td colspan="4">No data</td>
+                </tr>
+              {/if}
             </tbody>
           </table>
         </div>

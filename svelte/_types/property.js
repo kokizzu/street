@@ -138,3 +138,26 @@ module.exports = {};
  * @property {string} about
  */
 module.exports = {};
+
+/**
+ * @typedef {Object} ScannedAreasToRender
+ * @property {string} time_period
+ * @property {number} views
+ * @property {number} latitude
+ * @property {number} longitude
+ * @property {string} city
+ * @property {string} state
+ */
+module.exports = {};
+
+/**
+ * @typedef {Object} ScannedPropertiesToRender
+ * @property {string} time_period
+ * @property {number} views
+ * @property {string} price
+ * @property {number} total_sqft
+ * @property {string} city
+ * @property {string} state
+ * @property {string} address
+ */
+module.exports = {};
