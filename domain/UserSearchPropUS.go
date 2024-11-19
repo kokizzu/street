@@ -5,6 +5,7 @@ import (
 
 	"street/conf"
 	"street/model/mProperty/rqProperty"
+	"street/model/mProperty/saProperty"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserSearchProp.go
@@ -111,6 +112,34 @@ func (d *Domain) UserSearchPropUS(in *UserSearchPropUSIn) (out UserSearchPropUSO
 			out.Properties[i].Liked = likedMap[out.Properties[i].id]
 			out.Properties[i].LikeCount = countMap[out.Properties[i].id]
 		}
+	}
+
+	var (
+		city string = ``
+		state string = ``
+	)
+
+	if len(out.Properties) > 0 {
+		city = out.Properties[0].City
+		state = out.Properties[0].State
+	}
+	
+	d.insertScannedAreas(saProperty.ScannedAreas{
+		ActorId: sess.UserId,
+		CreatedAt: in.TimeNow(),
+		Latitude: in.Lat,
+		Longitude: in.Long,
+		City: city,
+		State: state,
+	})
+
+	for _, v := range out.Properties {
+		d.insertScannedProps(saProperty.ScannedProperties{
+			ActorId: sess.UserId,
+			CreatedAt: in.TimeNow(),
+			CountryCode: v.CountryCode,
+			PropertyId: v.Id,
+		})
 	}
 
 	return

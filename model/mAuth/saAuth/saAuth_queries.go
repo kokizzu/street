@@ -209,7 +209,7 @@ type MostLoggedInUser struct {
 }
 
 func (a ActionLogs) FindMostLoggedInUsers(ttConn *Tt.Adapter) (res []MostLoggedInUser) {
-	comment := `-- `
+	comment := `-- ActionLogs) FindMostLoggedInUsers`
 	query := comment + `
 SELECT
   'Daily' AS time_period,
