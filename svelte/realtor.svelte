@@ -21,7 +21,7 @@
 <Main {user} {access}>
   <div class="properties-container">
     <div class="info-actions">
-      <h2>Owned/Managed Properties: {pager.countResult}</h2>
+      <div class="owned-properties">Owned/Managed Properties: {pager.countResult}</div>
       <a href="/realtor/propertyOld" class="add-btn">
         <Icon
           size="20"
@@ -63,6 +63,18 @@
     align-items: center;
     gap: 20px;
     width: 100%;
+  }
+
+  .properties-container .info-actions .owned-properties {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    padding: 10px 15px;
+    border: 1px solid var(--gray-003);
+    border-radius: 8px;
+    font-weight: 600;
   }
 
   .properties-container .info-actions .add-btn {

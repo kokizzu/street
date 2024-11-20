@@ -194,41 +194,38 @@
 
 
 <style>/* fakecss:./_components/PillBox.esbuild-svelte-fake-css */
-.pill-box.svelte-1x7s25u.svelte-1x7s25u {
+.pill-box.svelte-103uryn.svelte-103uryn {
   line-height: 25px;
   display: inline-flex;
 }
-.pill-box-left.svelte-1x7s25u.svelte-1x7s25u,
-.pill-box-right.svelte-1x7s25u.svelte-1x7s25u {
-  border: 1px solid #E6E6E6;
-  border-radius: 4px;
-  color: #666;
+.pill-box.svelte-103uryn .label.svelte-103uryn,
+.pill-box.svelte-103uryn .content.svelte-103uryn {
+  border: 1px solid var(--blue-005);
+  border-radius: 5px;
   padding: 2px;
   margin-bottom: 1em;
 }
-.pill-box-left.svelte-1x7s25u.svelte-1x7s25u {
-  background-color: #E6E6E6;
+.pill-box.svelte-103uryn .label.svelte-103uryn {
+  background-color: var(--blue-005);
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   padding-left: 6px;
+  padding-right: 6px;
   text-align: center;
+  color: #FFF;
+  text-wrap: nowrap;
+  padding: auto;
+  display: inline-flex;
+  align-items: center;
 }
-.pill-box-right.svelte-1x7s25u.svelte-1x7s25u {
+.pill-box.svelte-103uryn .content.svelte-103uryn {
   background-color: #FFF;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
   border-left: 0;
-  padding-left: 4px;
-  padding-right: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
   margin-right: 1em;
-}
-.pill-blue.svelte-1x7s25u .pill-box-left.svelte-1x7s25u,
-.pill-blue.svelte-1x7s25u .pill-box-right.svelte-1x7s25u {
-  border-color: #4DA6FF;
-}
-.pill-blue.svelte-1x7s25u .pill-box-left.svelte-1x7s25u {
-  background-color: #4DA6FF;
-  color: #E5F2FF;
 }
 
 /* fakecss:./_components/Property.esbuild-svelte-fake-css */
@@ -1662,9 +1659,9 @@
           /*content*/
           ctx[1]
         );
-        attr(span0, "class", "pill-box-left svelte-1x7s25u");
-        attr(span1, "class", "pill-box-right svelte-1x7s25u");
-        attr(span2, "class", "pill-box pill-blue svelte-1x7s25u");
+        attr(span0, "class", "label svelte-103uryn");
+        attr(span1, "class", "content svelte-103uryn");
+        attr(span2, "class", "pill-box svelte-103uryn");
       },
       m(target, anchor) {
         insert(target, span2, anchor);
