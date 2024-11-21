@@ -8,6 +8,7 @@
 
   const pathAll = /** @type {string}*/ (window.location.pathname);
   const pathLv1 = /** @type {string}*/ (window.location.pathname.split( '/' )[ 1 ]);
+  const pathLv2 = /** @type {string}*/ (window.location.pathname.split( '/' )[ 2 ]);
 
   async function logout() {
     await UserLogout( {}, function( /** @type any */ o ) {
@@ -35,7 +36,7 @@
       <a href="/" class:active={pathLv1 === ''}>Home</a>
       <a href="/user/buyers" class:active={pathAll === '/user/buyers'}>Buyers</a>
       <a href="/realtor" class:active={pathAll === '/realtor'}>Realtors</a>
-      <a href="/user/listings" class:active={pathAll === '/user/listings'}>Listings</a>
+      <a href="/user/listings" class:active={pathLv2 === 'listings'}>Listings</a>
       {#if access.admin}
         <a href="/admin/revenue" class:active={pathAll === '/admin/revenue'}>Revenue</a>
       {:else}

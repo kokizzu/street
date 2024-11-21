@@ -340,6 +340,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// UserDownload3DFile
+	fw.Post("/"+domain.UserDownload3DFileAction, func(c *fiber.Ctx) error {
+		in := domain.UserDownload3DFileIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserDownload3DFileAction); err != nil {
+			return nil
+		}
+		out := d.UserDownload3DFile(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// UserGpsCountry
 	fw.Post("/"+domain.UserGpsCountryAction, func(c *fiber.Ctx) error {
 		in := domain.UserGpsCountryIn{}
@@ -357,6 +367,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.UserLikeProp(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// UserListing
+	fw.Post("/"+domain.UserListingAction, func(c *fiber.Ctx) error {
+		in := domain.UserListingIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserListingAction); err != nil {
+			return nil
+		}
+		out := d.UserListing(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

@@ -3010,6 +3010,32 @@ exports.UserDeactivate = async function UserDeactivate( i, cb ) {
 }
 
 /**
+ * @typedef {Object} UserDownload3DFileIn
+ */
+const UserDownload3DFileIn = {
+}
+/**
+ * @typedef {Object} UserDownload3DFileOut
+ */
+const UserDownload3DFileOut = {
+}
+/**
+ * @callback UserDownload3DFileCallback
+ * @param {UserDownload3DFileOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserDownload3DFileIn} i
+ * @param {UserDownload3DFileCallback} cb
+ * @returns {Promise}
+ */
+exports.UserDownload3DFile = async function UserDownload3DFile( i, cb ) {
+  return await axios.post( '/user/download3DFile', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} UserGpsCountryIn
  * @property {number} centerLat
  * @property {number} centerLong
@@ -3073,6 +3099,42 @@ const UserLikePropOut = {
  */
 exports.UserLikeProp = async function UserLikeProp( i, cb ) {
   return await axios.post( '/user/likeProp', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserListingIn
+ * @property {number} id
+ */
+const UserListingIn = {
+  id: 0, // uint64
+}
+/**
+ * @typedef {Object} UserListingOut
+ * @property {String} property.contactEmail
+ * @property {String} property.contactPhone
+ * @property {String} property.about
+ */
+const UserListingOut = {
+  property: { // rqProperty.PropertyWithNote
+    contactEmail: '', // string
+    contactPhone: '', // string
+    about: '', // string
+  }, // rqProperty.PropertyWithNote
+}
+/**
+ * @callback UserListingCallback
+ * @param {UserListingOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserListingIn} i
+ * @param {UserListingCallback} cb
+ * @returns {Promise}
+ */
+exports.UserListing = async function UserListing( i, cb ) {
+  return await axios.post( '/user/listing', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

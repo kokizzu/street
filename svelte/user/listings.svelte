@@ -1,19 +1,19 @@
 <script>
-	/** @typedef {import('./_types/user').User} User */
-  /** @typedef {import('./_types/property').Property} Property */
-  /** @typedef {import('./_types/master').Access} Access }*/
+	/** @typedef {import('../_types/user').User} User */
+  /** @typedef {import('../_types/property').Property} Property */
+  /** @typedef {import('../_types/master').Access} Access }*/
   /**
    * @typedef {Object} MarkerIcon
    * @property {string} path
    * @property {string} alt
    */
 
-  import Main from './_layouts/Main.svelte';
-  import { GoogleMap, GoogleSdk } from './_components/GoogleMap/components';
-  import { Icon } from './node_modules/svelte-icons-pack/dist';
-  import { LuSearch } from './node_modules/svelte-icons-pack/dist/lu';
-  import { FaSolidBan } from './node_modules/svelte-icons-pack/dist/fa';
-  import PropertyImage from './_components/propertyImage.svelte';
+  import Main from '../_layouts/Main.svelte';
+  import { GoogleMap, GoogleSdk } from '../_components/GoogleMap/components';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import { LuSearch } from '../node_modules/svelte-icons-pack/dist/lu';
+  import { FaSolidBan } from '../node_modules/svelte-icons-pack/dist/fa';
+  import PropertyImage from '../_components/propertyImage.svelte';
   import { onMount } from 'svelte';
 
 	const user              = /** @type {User} */ ({/* user */});
@@ -81,7 +81,7 @@
                   </div>
                 </div>
                 <div class="actions">
-                  <button>Listing</button>
+                  <button on:click={() => window.location.href = `/user/listings/${prop.id}`}>Listing</button>
                   <button>Upload 3D file</button>
                 </div>
               </div>

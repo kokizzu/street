@@ -351,7 +351,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 				MaxDistanceKM: defaultDistanceKm,
 			})
 		}
-		return views.RenderListings(ctx, M.SX{
+		return views.RenderUserListings(ctx, M.SX{
 			`title`:             `Listings`,
 			`user`:              user,
 			`segments`:          segments,
@@ -360,6 +360,42 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`defaultDistanceKm`: defaultDistanceKm,
 		})
 	})
+
+	fw.Get(`/`+domain.UserListingsAction+`/:propId`, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		out := d.UserListing(&domain.UserListingIn{
+			RequestCommon: in.RequestCommon,
+			Id: X.ToU(ctx.Params(`propId`)),
+		})
+		if out.Property.DeletedAt > 0 {
+			return views.RenderError(ctx, M.SX{
+				`error`: `property deleted`,
+			})
+		}
+		if out.Error != `` {
+			L.Print(out.Error)
+			return views.RenderError(ctx, M.SX{
+				`error`: out.Error,
+			})
+		}
+		title := `Property #` + X.ToS(out.Property.Id)
+		if out.Property.Address != `` {
+			title += ` on ` + out.Property.Address
+		} else if out.Property.FormattedAddress != `` {
+			title += ` on ` + out.Property.FormattedAddress
+		}
+		return views.RenderUserListingsListing(ctx, M.SX{
+			`title`:             title,
+			`user`:              user,
+			`segments`:          segments,
+			`property`: out.Property,
+			`countries`: conf.CountriesData,
+		})
+	})
+
 	fw.Get(`/realtor`, func(ctx *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
@@ -428,7 +464,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`countries`: conf.CountriesData,
 		})
 	})
-	fw.Get(`/`+domain.RealtorPropertyAction+`/:propId`, func(ctx *fiber.Ctx) error {
+	fw.Get(`/`+domain.RealtorPropertyAction+`Old/:propId`, func(ctx *fiber.Ctx) error {
 		// edit property
 		in, user, segments := userInfoFromContext(ctx, d)
 		in.RequestCommon.Action = domain.RealtorPropertyAction
@@ -458,7 +494,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		} else if out.Property.FormattedAddress != `` {
 			title += ` on ` + out.Property.FormattedAddress
 		}
-		return views.RenderRealtorProperty(ctx, M.SX{
+		return views.RenderRealtorPropertyOld(ctx, M.SX{
 			`title`:     title,
 			`segments`:  segments,
 			`user`:      user,
