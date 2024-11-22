@@ -392,7 +392,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`user`:              user,
 			`segments`:          segments,
 			`property`: out.Property,
-			`countries`: conf.CountriesData,
 		})
 	})
 

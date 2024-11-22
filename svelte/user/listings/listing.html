@@ -614,24 +614,104 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
 }
 
 /* fakecss:./user/listings/listing.esbuild-svelte-fake-css */
-.listing-container.svelte-li5k9m.svelte-li5k9m {
+.listing-container.svelte-i3mwym.svelte-i3mwym {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
-.listing-container.svelte-li5k9m div.content.svelte-li5k9m {
+.listing-container.svelte-i3mwym div.content.svelte-i3mwym {
   display: grid;
   grid-template-columns: auto 55%;
   position: relative;
 }
-.listing-container.svelte-li5k9m .content .searcher.svelte-li5k9m {
+.listing-container.svelte-i3mwym .content .property.svelte-i3mwym {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+.listing-container.svelte-i3mwym .content .property a.go-back.svelte-i3mwym {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  padding: 5px 10px 5px 7px;
+  color: var(--orange-006);
+  text-decoration: none;
+  width: fit-content;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.listing-container.svelte-i3mwym .content .property a.go-back.svelte-i3mwym:hover {
+  background-color: var(--orange-transparent);
+}
+.listing-container.svelte-i3mwym .content .property picture.img-container.svelte-i3mwym {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.listing-container.svelte-i3mwym .content .property picture.img-container img.svelte-i3mwym {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition-duration: 200ms;
+}
+.listing-container.svelte-i3mwym .content .property picture.img-container img.svelte-i3mwym:hover {
+  transform: scale(1.2);
+}
+.listing-container.svelte-i3mwym .content .property .info-1.svelte-i3mwym {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.listing-container.svelte-i3mwym .content .property .info-1 .address.svelte-i3mwym {
+  margin: 10px 0 0 0;
+}
+.listing-container.svelte-i3mwym .content .property .info-1 .about.svelte-i3mwym {
+  margin: 0;
+  padding: 0;
+}
+.listing-container.svelte-i3mwym .content .property .info-1 button.upload-btn.svelte-i3mwym {
+  background-color: transparent;
+  border: none;
+  font-weight: 600;
+  color: var(--orange-006);
+  cursor: pointer;
+  width: fit-content;
+  padding: 0;
+}
+.listing-container.svelte-i3mwym .content .property .info-1 button.upload-btn.svelte-i3mwym:hover {
+  color: var(--orange-005);
+}
+.listing-container.svelte-i3mwym .content .property .info-1 table.svelte-i3mwym {
+  width: 100%;
+  background: #fff;
+  box-shadow: none;
+  text-align: left;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  font-size: 13px;
+}
+.listing-container.svelte-i3mwym .content .property .info-1 table tbody th.svelte-i3mwym {
+  padding: 3px 5px 0 0;
+  min-width: 100px;
+  width: 130px;
+}
+.listing-container.svelte-i3mwym .content .property .info-1 table tbody td.svelte-i3mwym {
+  padding: 3px 0;
+}
+.listing-container.svelte-i3mwym .content .map-full.svelte-i3mwym {
   display: flex;
   flex-direction: column;
   position: sticky;
   top: 0;
   height: calc(100vh - var(--navbar-height));
 }
-.listing-container.svelte-li5k9m .content .searcher .map-container.svelte-li5k9m {
+.listing-container.svelte-i3mwym .content .map-full .map-container.svelte-i3mwym {
   display: block;
   width: 100%;
   height: 100%;
@@ -3251,6 +3331,171 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
   });
 
+  // _components/formatter.js
+  var require_formatter = __commonJS({
+    "_components/formatter.js"(exports, module) {
+      function datetime(unixSec, humanize) {
+        if (!unixSec)
+          return "";
+        let dt = (
+          /** @type {Date} */
+          new Date(unixSec * 1e3)
+        );
+        if (typeof unixSec === "string") {
+          dt = new Date(unixSec);
+        }
+        if (!humanize) {
+          const newDt = (
+            /** @type {string} */
+            dt.toISOString()
+          );
+          return newDt.substring(0, 10) + " " + newDt.substring(11, 16);
+        }
+        return dt.toLocaleDateString("default", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric"
+        });
+      }
+      function priceNtd(val) {
+        return new Number(val).toLocaleString("zh-TW");
+      }
+      function localeDatetime(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = (
+          /** @type {Date} */
+          new Date(Number(unixSec) * 1e3)
+        );
+        const day = (
+          /** @type {string} */
+          dt.toLocaleDateString("default", {
+            weekday: "long"
+          })
+        );
+        const date = (
+          /** @type {number} */
+          dt.getDate()
+        );
+        const month = (
+          /** @type {string} */
+          dt.toLocaleDateString("default", {
+            month: "long"
+          })
+        );
+        const year = (
+          /** @type {number} */
+          dt.getFullYear()
+        );
+        let hh = (
+          /** @type {string} */
+          String(dt.getHours())
+        );
+        if (Number(hh) < 10)
+          hh = "0" + hh;
+        let mm = (
+          /** @type {string} */
+          String(dt.getMinutes())
+        );
+        if (Number(mm) < 10)
+          mm = "0" + mm;
+        return `${day}, ${date} ${month} ${year} ${hh}:${mm}`;
+      }
+      function datetime2(unixSec) {
+        if (!unixSec)
+          return "-";
+        const dt = (
+          /** @type {Date} */
+          new Date(Number(unixSec) * 1e3)
+        );
+        const year = (
+          /** @type {number} */
+          dt.getFullYear()
+        );
+        const month = (
+          /** @type {string} */
+          dt.toLocaleDateString("default", {
+            month: "long"
+          })
+        );
+        const day = (
+          /** @type {string} */
+          dt.toLocaleDateString("default", {
+            weekday: "long"
+          })
+        );
+        const date = (
+          /** @type {string} */
+          String(dt.getDate()).padStart(2, "0")
+        );
+        const hours = (
+          /** @type {string} */
+          String(dt.getHours()).padStart(2, "0")
+        );
+        const minutes = (
+          /** @type {string} */
+          String(dt.getMinutes()).padStart(2, "0")
+        );
+        const seconds = (
+          /** @type {string} */
+          String(dt.getSeconds()).padStart(2, "0")
+        );
+        return `${day}, ${date} ${month} ${year} - ${hours}:${minutes}:${seconds}`;
+      }
+      function formatPrice2(price, currency) {
+        try {
+          return new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency,
+            maximumSignificantDigits: 4
+          }).format(price);
+        } catch (err) {
+          console.log("formatPrice failed", err, price, currency);
+          return `${currency} ${price}`;
+        }
+      }
+      function getApprovalState(s) {
+        if (s == "") {
+          return "approved";
+        } else if (s.startsWith("pending")) {
+          return "pending";
+        } else {
+          return "rejected";
+        }
+      }
+      function M2ToPing(sizeM2) {
+        const value = sizeM2 / 3.30579;
+        const minifiedValue = value.toFixed(2);
+        return parseFloat(minifiedValue);
+      }
+      function dateISOFormat(dayTo = 0) {
+        const dt = new Date();
+        dt.setDate(dt.getDate() + dayTo);
+        const date = String(dt.getDate()).padStart(2, "0");
+        const month = String(dt.getMonth() + 1).padStart(2, "0");
+        const year = dt.getFullYear();
+        return `${year}-${month}-${date}`;
+      }
+      function getYearMonth() {
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        return `${year}-${month}`;
+      }
+      module.exports = {
+        datetime,
+        priceNtd,
+        localeDatetime,
+        datetime2,
+        formatPrice: formatPrice2,
+        getApprovalState,
+        M2ToPing,
+        dateISOFormat,
+        getYearMonth
+      };
+    }
+  });
+
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
@@ -3276,6 +3521,16 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   }
   function safe_not_equal(a, b) {
     return a != a ? b == b : a !== b || a && typeof a === "object" || typeof a === "function";
+  }
+  var src_url_equal_anchor;
+  function src_url_equal(element_src, url) {
+    if (element_src === url)
+      return true;
+    if (!src_url_equal_anchor) {
+      src_url_equal_anchor = document.createElement("a");
+    }
+    src_url_equal_anchor.href = url;
+    return element_src === src_url_equal_anchor.href;
   }
   function is_empty(obj) {
     return Object.keys(obj).length === 0;
@@ -4605,6 +4860,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ri/index.js
   var RiUserFacesUserLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H18C18 18.6863 15.3137 16 12 16C8.68629 16 6 18.6863 6 22H4ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11Z"></path>' };
+  var RiArrowsArrowLeftSLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path>' };
   var RiCommunicationChatQuoteLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 3C21.5523 3 22 3.44772 22 4V18C22 18.5523 21.5523 19 21 19H6.455L2 22.5V4C2 3.44772 2.44772 3 3 3H21ZM20 5H4V18.385L5.76333 17H20V5ZM10.5153 7.4116L10.9616 8.1004C9.29402 9.0027 9.32317 10.4519 9.32317 10.7645C9.47827 10.7431 9.64107 10.7403 9.80236 10.7553C10.7045 10.8389 11.4156 11.5795 11.4156 12.5C11.4156 13.4665 10.6321 14.25 9.66558 14.25C9.12905 14.25 8.61598 14.0048 8.29171 13.6605C7.77658 13.1137 7.5 12.5 7.5 11.5052C7.5 9.75543 8.72825 8.18684 10.5153 7.4116ZM15.5153 7.4116L15.9616 8.1004C14.294 9.0027 14.3232 10.4519 14.3232 10.7645C14.4783 10.7431 14.6411 10.7403 14.8024 10.7553C15.7045 10.8389 16.4156 11.5795 16.4156 12.5C16.4156 13.4665 15.6321 14.25 14.6656 14.25C14.1291 14.25 13.616 14.0048 13.2917 13.6605C12.7766 13.1137 12.5 12.5 12.5 11.5052C12.5 9.75543 13.7283 8.18684 15.5153 7.4116Z"></path>' };
 
   // _components/partials/Navbar.svelte
@@ -5631,83 +5887,300 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var GoogleMapJS_default = GoogleMapJS;
 
   // user/listings/listing.svelte
+  var import_formatter = __toESM(require_formatter());
   function create_default_slot(ctx) {
+    let div5;
     let div4;
-    let div3;
+    let div1;
+    let a;
+    let icon;
+    let t0;
+    let span0;
+    let t2;
+    let picture;
+    let img;
+    let img_src_value;
+    let t3;
     let div0;
     let h2;
-    let t1;
-    let span;
-    let t2;
+    let t5;
+    let p;
+    let t7;
+    let button;
+    let t9;
+    let table;
+    let tbody;
+    let tr0;
+    let th0;
+    let t11;
+    let td0;
+    let t13;
+    let tr1;
+    let th1;
+    let t15;
+    let td1;
+    let t17;
+    let tr2;
+    let th2;
+    let t19;
+    let td2;
+    let t21;
+    let tr3;
+    let th3;
+    let t23;
+    let td3;
+    let t25;
+    let tr4;
+    let th4;
+    let t27;
+    let td4;
+    let t29;
+    let tr5;
+    let th5;
+    let t31;
+    let td5;
+    let t33;
+    let tr6;
+    let th6;
+    let t35;
+    let td6;
+    let t37;
+    let div3;
     let div2;
-    let div1;
     let googlemapjs;
     let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        src: RiArrowsArrowLeftSLine,
+        size: "20",
+        color: "var(--orange-006)"
+      }
+    });
     let googlemapjs_props = {
       lat: property.coord[0],
       lng: property.coord[1],
       zoom: 10
     };
     googlemapjs = new GoogleMapJS_default({ props: googlemapjs_props });
-    ctx[2](googlemapjs);
+    ctx[4](googlemapjs);
     googlemapjs.$on(
       "ready",
       /*gmapReady*/
-      ctx[1]
+      ctx[2]
     );
     return {
       c() {
+        div5 = element("div");
         div4 = element("div");
-        div3 = element("div");
+        div1 = element("div");
+        a = element("a");
+        create_component(icon.$.fragment);
+        t0 = space();
+        span0 = element("span");
+        span0.textContent = "Back";
+        t2 = space();
+        picture = element("picture");
+        img = element("img");
+        t3 = space();
         div0 = element("div");
         h2 = element("h2");
-        h2.textContent = "Listing";
-        t1 = space();
-        span = element("span");
-        t2 = space();
+        h2.textContent = `${property.address || property.formattedAddress}`;
+        t5 = space();
+        p = element("p");
+        p.textContent = `${property.about || "--"}`;
+        t7 = space();
+        button = element("button");
+        button.textContent = "Upload 3D File";
+        t9 = space();
+        table = element("table");
+        tbody = element("tbody");
+        tr0 = element("tr");
+        th0 = element("th");
+        th0.innerHTML = `<span>Property Key</span>`;
+        t11 = space();
+        td0 = element("td");
+        td0.textContent = `${property.uniqPropKey}`;
+        t13 = space();
+        tr1 = element("tr");
+        th1 = element("th");
+        th1.innerHTML = `<span>Price</span>`;
+        t15 = space();
+        td1 = element("td");
+        td1.textContent = `${(0, import_formatter.formatPrice)(Number(property.lastPrice || 0), "USD")}`;
+        t17 = space();
+        tr2 = element("tr");
+        th2 = element("th");
+        th2.innerHTML = `<span>Email</span>`;
+        t19 = space();
+        td2 = element("td");
+        td2.textContent = `${property.contactEmail || "--@--"}`;
+        t21 = space();
+        tr3 = element("tr");
+        th3 = element("th");
+        th3.innerHTML = `<span>Phone</span>`;
+        t23 = space();
+        td3 = element("td");
+        td3.textContent = `${property.contactPhone || "0 000 000 0000"}`;
+        t25 = space();
+        tr4 = element("tr");
+        th4 = element("th");
+        th4.innerHTML = `<span>Purpose</span>`;
+        t27 = space();
+        td4 = element("td");
+        td4.textContent = `${property.purpose || "For Sale"}`;
+        t29 = space();
+        tr5 = element("tr");
+        th5 = element("th");
+        th5.innerHTML = `<span>Bathroom</span>`;
+        t31 = space();
+        td5 = element("td");
+        td5.textContent = `${property.bathroom || 0}`;
+        t33 = space();
+        tr6 = element("tr");
+        th6 = element("th");
+        th6.innerHTML = `<span>Bedroom</span>`;
+        t35 = space();
+        td6 = element("td");
+        td6.textContent = `${property.bedroom || 0}`;
+        t37 = space();
+        div3 = element("div");
         div2 = element("div");
-        div1 = element("div");
         create_component(googlemapjs.$.fragment);
-        attr(div0, "class", "property");
-        attr(div1, "class", "map-container svelte-li5k9m");
-        attr(div2, "class", "searcher svelte-li5k9m");
-        attr(div3, "class", "content svelte-li5k9m");
-        attr(div4, "class", "listing-container svelte-li5k9m");
+        attr(a, "class", "go-back svelte-i3mwym");
+        attr(a, "href", "/user/listings");
+        if (!src_url_equal(img.src, img_src_value = /*imgUrl*/
+        ctx[1]))
+          attr(img, "src", img_src_value);
+        attr(img, "alt", title);
+        attr(img, "class", "svelte-i3mwym");
+        attr(picture, "class", "img-container svelte-i3mwym");
+        attr(h2, "class", "address svelte-i3mwym");
+        attr(p, "class", "about svelte-i3mwym");
+        attr(button, "class", "upload-btn svelte-i3mwym");
+        attr(th0, "class", "svelte-i3mwym");
+        attr(td0, "class", "svelte-i3mwym");
+        attr(th1, "class", "svelte-i3mwym");
+        attr(td1, "class", "svelte-i3mwym");
+        attr(th2, "class", "svelte-i3mwym");
+        attr(td2, "class", "svelte-i3mwym");
+        attr(th3, "class", "svelte-i3mwym");
+        attr(td3, "class", "svelte-i3mwym");
+        attr(th4, "class", "svelte-i3mwym");
+        attr(td4, "class", "svelte-i3mwym");
+        attr(th5, "class", "svelte-i3mwym");
+        attr(td5, "class", "svelte-i3mwym");
+        attr(th6, "class", "svelte-i3mwym");
+        attr(td6, "class", "svelte-i3mwym");
+        attr(table, "class", "svelte-i3mwym");
+        attr(div0, "class", "info-1 svelte-i3mwym");
+        attr(div1, "class", "property svelte-i3mwym");
+        attr(div2, "class", "map-container svelte-i3mwym");
+        attr(div3, "class", "map-full svelte-i3mwym");
+        attr(div4, "class", "content svelte-i3mwym");
+        attr(div5, "class", "listing-container svelte-i3mwym");
       },
       m(target, anchor) {
-        insert(target, div4, anchor);
-        append(div4, div3);
-        append(div3, div0);
+        insert(target, div5, anchor);
+        append(div5, div4);
+        append(div4, div1);
+        append(div1, a);
+        mount_component(icon, a, null);
+        append(a, t0);
+        append(a, span0);
+        append(div1, t2);
+        append(div1, picture);
+        append(picture, img);
+        append(div1, t3);
+        append(div1, div0);
         append(div0, h2);
-        append(div0, t1);
-        append(div0, span);
-        span.innerHTML = property;
-        append(div3, t2);
+        append(div0, t5);
+        append(div0, p);
+        append(div0, t7);
+        append(div0, button);
+        append(div0, t9);
+        append(div0, table);
+        append(table, tbody);
+        append(tbody, tr0);
+        append(tr0, th0);
+        append(tr0, t11);
+        append(tr0, td0);
+        append(tbody, t13);
+        append(tbody, tr1);
+        append(tr1, th1);
+        append(tr1, t15);
+        append(tr1, td1);
+        append(tbody, t17);
+        append(tbody, tr2);
+        append(tr2, th2);
+        append(tr2, t19);
+        append(tr2, td2);
+        append(tbody, t21);
+        append(tbody, tr3);
+        append(tr3, th3);
+        append(tr3, t23);
+        append(tr3, td3);
+        append(tbody, t25);
+        append(tbody, tr4);
+        append(tr4, th4);
+        append(tr4, t27);
+        append(tr4, td4);
+        append(tbody, t29);
+        append(tbody, tr5);
+        append(tr5, th5);
+        append(tr5, t31);
+        append(tr5, td5);
+        append(tbody, t33);
+        append(tbody, tr6);
+        append(tr6, th6);
+        append(tr6, t35);
+        append(tr6, td6);
+        append(div4, t37);
+        append(div4, div3);
         append(div3, div2);
-        append(div2, div1);
-        mount_component(googlemapjs, div1, null);
+        mount_component(googlemapjs, div2, null);
         current = true;
+        if (!mounted) {
+          dispose = listen(
+            img,
+            "error",
+            /*error_handler*/
+            ctx[3]
+          );
+          mounted = true;
+        }
       },
       p(ctx2, dirty) {
+        if (!current || dirty & /*imgUrl*/
+        2 && !src_url_equal(img.src, img_src_value = /*imgUrl*/
+        ctx2[1])) {
+          attr(img, "src", img_src_value);
+        }
         const googlemapjs_changes = {};
         googlemapjs.$set(googlemapjs_changes);
       },
       i(local) {
         if (current)
           return;
+        transition_in(icon.$.fragment, local);
         transition_in(googlemapjs.$.fragment, local);
         current = true;
       },
       o(local) {
+        transition_out(icon.$.fragment, local);
         transition_out(googlemapjs.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(div4);
+          detach(div5);
         }
-        ctx[2](null);
+        destroy_component(icon);
+        ctx[4](null);
         destroy_component(googlemapjs);
+        mounted = false;
+        dispose();
       }
     };
   }
@@ -5732,8 +6205,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, [dirty]) {
         const main_changes = {};
-        if (dirty & /*$scope, gmapComponent*/
-        9) {
+        if (dirty & /*$scope, gmapComponent, imgUrl*/
+        35) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -5769,21 +6242,31 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     /** @type {PropertyWithNote} */
     {/* property */}
   );
+  var defImgUrl = (
+    /** @type {string} */
+    "/assets/img/placeholder.webp"
+  );
   function instance7($self, $props, $invalidate) {
+    console.log("Property=", property);
     let gmapComponent = (
       /** @type {import('svelte').SvelteComponent} */
       null
     );
+    let imgUrl = (
+      /** @type {string} */
+      property.images[0] || defImgUrl
+    );
     function gmapReady() {
       gmapComponent.SetMarker(property.coord[0], property.coord[1], title);
     }
+    const error_handler = () => $invalidate(1, imgUrl = defImgUrl);
     function googlemapjs_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         gmapComponent = $value;
         $invalidate(0, gmapComponent);
       });
     }
-    return [gmapComponent, gmapReady, googlemapjs_binding];
+    return [gmapComponent, imgUrl, gmapReady, error_handler, googlemapjs_binding];
   }
   var Listing = class extends SvelteComponent {
     constructor(options) {

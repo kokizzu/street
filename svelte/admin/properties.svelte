@@ -200,6 +200,7 @@
         return modalForm.setLoading( false ); // has error
       }
       modalForm.hideModal(); // success
+      notifier.showSuccess('Property saved');
     } );
   }
   

@@ -1,4 +1,8 @@
 /**
+ * @typedef {[number, number]} Coord
+ */
+
+/**
  * @typedef {Object} Property
  * @property {string} id
  * @property {string} uniqPropKey
@@ -12,7 +16,7 @@
  * @property {string} address
  * @property {string} district
  * @property {string} note
- * @property {number[]} coord
+ * @property {Coord} coord
  * @property {number} createdAt
  * @property {string} createdBy
  * @property {number} updatedAt
@@ -24,7 +28,7 @@
  * @property {any[]} priceHistoriesRent
  * @property {string} purpose
  * @property {string} houseType
- * @property {any[]} images
+ * @property {string[]} images
  * @property {number} bedroom
  * @property {number} bathroom
  * @property {number} agencyFeePercent
@@ -65,7 +69,7 @@ module.exports = {};
  * @property {string} address
  * @property {string} district
  * @property {string} note
- * @property {number[]} coord
+ * @property {Coord} coord
  * @property {number} createdAt
  * @property {string} createdBy
  * @property {number} updatedAt
@@ -77,7 +81,7 @@ module.exports = {};
  * @property {any[]} priceHistoriesRent
  * @property {string} purpose
  * @property {string} houseType
- * @property {any[]} images
+ * @property {string[]} images
  * @property {number} bedroom
  * @property {number} bathroom
  * @property {number} agencyFeePercent
@@ -132,7 +136,55 @@ module.exports = {};
 module.exports = {};
 
 /**
- * @typedef {Property} PropertyWithNote
+ * @typedef {Object} PropertyWithNote
+ * @property {string} id
+ * @property {string} uniqPropKey
+ * @property {string} serialNumber
+ * @property {string} sizeM2
+ * @property {string} mainUse
+ * @property {string} mainBuildingMaterial
+ * @property {string} constructCompletedDate
+ * @property {string} numberOfFloors
+ * @property {string} buildingLamination
+ * @property {string} address
+ * @property {string} district
+ * @property {string} note
+ * @property {Coord} coord
+ * @property {number} createdAt
+ * @property {string} createdBy
+ * @property {number} updatedAt
+ * @property {string} updatedBy
+ * @property {number} deletedAt
+ * @property {string} formattedAddress
+ * @property {string} lastPrice
+ * @property {any[]} priceHistoriesSell
+ * @property {any[]} priceHistoriesRent
+ * @property {string} purpose
+ * @property {string} houseType
+ * @property {string[]} images
+ * @property {number} bedroom
+ * @property {number} bathroom
+ * @property {number} agencyFeePercent
+ * @property {any[]} floorList
+ * @property {string} version
+ * @property {number} yearBuilt
+ * @property {number} yearRenovated
+ * @property {number} totalSqft
+ * @property {string} countyName
+ * @property {string} street
+ * @property {string} city
+ * @property {string} state
+ * @property {string} zip
+ * @property {number} propertyLastUpdatedDate
+ * @property {string} approvalState
+ * @property {string} countryCode
+ * @property {number} livingroom
+ * @property {number} altitude
+ * @property {number} parking
+ * @property {number} depositFee
+ * @property {number} minimumDurationYear
+ * @property {any[]} otherFees
+ * @property {any[]} imageLabels
  * @property {string} contactEmail
  * @property {string} contactPhone
  * @property {string} about
