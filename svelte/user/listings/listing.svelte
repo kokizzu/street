@@ -8,15 +8,17 @@
   import { RiArrowsArrowLeftSLine } from '../../node_modules/svelte-icons-pack/dist/ri'
   import GoogleMapJs from '../../_components/GoogleMap/GoogleMapJS.svelte';
   import { formatPrice } from '../../_components/formatter';
+  import PopUpUpload3DFile from '../../_components/PopUpUpload3DFile.svelte';
+  import axios, { HttpStatusCode } from 'axios';
+  import { notifier } from '../../_components/notifier';
   
   const title     = /** @type {string} */ ('#{title}')
   const user      = /** @type {User} */ ({/* user */});
   const access    = /** @type {Access} */ ({/* segments */});
   const property  = /** @type {PropertyWithNote} */ ({/* property */});
 
-  console.log('Property=',property)
-
-  let gmapComponent = /** @type {import('svelte').SvelteComponent} */ (null);
+  let gmapComponent     = /** @type {import('svelte').SvelteComponent} */ (null);
+  let popUpUpload3DFile = /** @type {import('svelte').SvelteComponent} */ (null);
 
   const defImgUrl = /** @type {string} */ ('/assets/img/placeholder.webp');
   let imgUrl = /** @type {string} */ (property.images[0] || defImgUrl);
@@ -28,7 +30,49 @@
       title
     )
   }
+
+  let isSubmitUpload3dFile = false;
+  let uploadingProgressStr = '';
+
+  async function SubmitUpload3DFile(/** @type {File} */ file) {
+    isSubmitUpload3dFile = true;
+
+    const formData = new FormData();
+    formData.append('propertyId', String(property.id));
+    formData.append('country', String(property.countryCode));
+    formData.append('rawFile', file, file.name);
+
+    await axios.postForm('/user/upload3DFile', formData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      },
+      onUploadProgress: (/** @type {import('axios').AxiosProgressEvent} */ event) => {
+        const propgressNum = Math.round((event.loaded * 100) / Number(event.total));
+        uploadingProgressStr = `Uploading ${propgressNum}%`;
+      }
+    }).then((/** @type {import('axios').AxiosResponse}*/ res) => {
+      notifier.showSuccess('3D file uploaded to path '+(res.data.imageUrl || '/path/to/file.obj'));
+      popUpUpload3DFile.Close();
+    }).catch((/** @type {import('axios').AxiosError}*/ err) => {
+      const res = /** @type {import('axios').AxiosResponse} */ (err.response);
+      switch (res.status) {
+        case HttpStatusCode.PayloadTooLarge:
+          notifier.showError('File size too large');
+          break;
+        default:
+          notifier.showError(res.data.error || 'Failed to upload 3D file');
+      }
+      popUpUpload3DFile.Reset();
+    })
+  }
 </script>
+
+<PopUpUpload3DFile
+  bind:this={popUpUpload3DFile}
+  bind:isSubmitted={isSubmitUpload3dFile}
+  bind:uploadingProgressStr
+  OnSubmit={SubmitUpload3DFile}
+/>
 
 <Main {user} {access}>
   <div class="listing-container">
@@ -54,7 +98,7 @@
             {property.address || property.formattedAddress}
           </h2>
           <p class="about">{property.about || '--'}</p>
-          <button class="upload-btn">
+          <button class="upload-btn" on:click={() => popUpUpload3DFile.Show()}>
             Upload 3D File
           </button>
           <table>

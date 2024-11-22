@@ -9,54 +9,31 @@
    */
 
   import Main from '../_layouts/Main.svelte';
-  import { GoogleMap, GoogleSdk } from '../_components/GoogleMap/components';
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { LuSearch } from '../node_modules/svelte-icons-pack/dist/lu';
   import { FaSolidBan } from '../node_modules/svelte-icons-pack/dist/fa';
   import PropertyImage from '../_components/propertyImage.svelte';
+  import GoogleMapJs from '../_components/GoogleMap/GoogleMapJS.svelte';
   import { onMount } from 'svelte';
 
 	const user              = /** @type {User} */ ({/* user */});
   const access            = /** @type {Access} */ ({/* segments */});
-  const coord             = /** @type {number[]} */ ([/* initialLatLong */]);
-  const properties        = /** @type {Property[]} */ ([/* randomProps */]);
-  const defaultDistanceKm = /** @type {number} */ (Number('#{defaultDistanceKm}') || 20);
 
-  let gmapsComponent = /** @type {import('svelte').SvelteComponent} */ (null);
-
-  const markerIcons = /** @type {Record<string, MarkerIcon>} */ ({
-    'school': {
-      path: '/assets/icons/marker-school.svg',
-      alt: 'School',
-    },
-    'restaurant': {
-      path: '/assets/icons/marker-restaurant.svg',
-      alt: 'Restaurant',
-    },
-    'convenience_store': {
-      path: '/assets/icons/marker-mall.svg',
-      alt: 'Convenience Store',
-    },
-    'hospital': {
-      path: '/assets/icons/marker-hospital.svg',
-      alt: 'Hospital',
-    },
-    'subway_station': {
-      path: '/assets/icons/marker-subway.svg',
-      alt: 'Subway Station',
-    }
-  });
+  let coord             = /** @type {number[]} */ ([/* initialLatLong */]);
+  let properties        = /** @type {Property[]} */ ([/* randomProps */]);
+  let defaultDistanceKm = /** @type {number} */ (Number('#{defaultDistanceKm}') || 20);
+  let gmapComponent     = /** @type {import('svelte').SvelteComponent} */ (null);
 
   onMount(() => {
-    console.log('user = ', user);
-    console.log('coord = ', coord);
-    console.log('properties = ', properties);
-    console.log('markerIcons = ', markerIcons);
     console.log('defaultDistanceKm = ', defaultDistanceKm);
-  })
-</script>
+  });
 
-<GoogleSdk />
+  function gmapReady() {
+    (properties || []).forEach((p) => {
+      gmapComponent.SetMarker(p.coord[0], p.coord[1], p.address);
+    });
+  }
+</script>
 
 <Main {user} {access}>
 	<div class="listings-root">
@@ -117,17 +94,12 @@
           </div>
         </div>
         <div class="map-container">
-          <GoogleMap
-            bind:this={gmapsComponent}
-            options={{
-              center: {
-                lat: coord[0],
-                lng: coord[1],
-              },
-              zoom: 8,
-              mapTypeId: 'roadmap',
-              mapId: 'street_project',
-            }}
+          <GoogleMapJs
+            bind:this={gmapComponent}
+            lat={coord[0]}
+            lng={coord[1]}
+            zoom={11}
+            on:ready={gmapReady}
           />
         </div>
       </div>

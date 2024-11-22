@@ -607,132 +607,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   margin: 0;
 }
 
-/* fakecss:./_components/GoogleMap/GoogleMap.esbuild-svelte-fake-css */
-.map.svelte-14mm0to {
-  height: 100%;
-  width: 100%;
-}
-
-/* fakecss:./_components/Growl.esbuild-svelte-fake-css */
-.growl.hidden.svelte-1nas9kk.svelte-1nas9kk {
-  display: none;
-}
-.growl.svelte-1nas9kk.svelte-1nas9kk {
-  position: fixed;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  border-radius: 3px;
-  box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.25);
-  z-index: 9999;
-  min-width: 120px;
-  max-width: 350px;
-  height: fit-content;
-}
-.icon_growl {
-  flex-shrink: 0;
-}
-.growl.svelte-1nas9kk span.svelte-1nas9kk {
-  flex-shrink: 1;
-}
-.growl.info.svelte-1nas9kk.svelte-1nas9kk {
-  background-color: #1080E8;
-  color: #FFF;
-}
-.growl.success.svelte-1nas9kk.svelte-1nas9kk {
-  background-color: #059669;
-  color: #FFF;
-}
-.growl.error.svelte-1nas9kk.svelte-1nas9kk {
-  background-color: #EF4444;
-  color: #FFF;
-}
-.growl.warning.svelte-1nas9kk.svelte-1nas9kk {
-  background-color: #D97706;
-  color: #FFF;
-}
-
-/* fakecss:./_components/GoogleMap/StreetView.esbuild-svelte-fake-css */
-.streetview_input_box.svelte-wuiab6.svelte-wuiab6 {
-  position: absolute;
-  z-index: 20;
-  left: 20px;
-  top: 10px;
-}
-.icon_search_location {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  top: 10px;
-  z-index: 40;
-  margin: auto 0 auto 13px;
-  cursor: pointer;
-}
-.icon_search_location:hover {
-  fill: #F97316;
-}
-.streetview_input_box.svelte-wuiab6 #pacViewPlace.svelte-wuiab6 {
-  margin-top: 10px;
-  padding: 12px 12px 12px 40px;
-  border-radius: 8px;
-  border: none;
-  width: 450px;
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-}
-.streetview_input_box.svelte-wuiab6 #pacViewPlace.svelte-wuiab6:focus {
-  border-color: #F97316;
-  outline: 2px solid #F97316;
-}
-.autocomplete_container.svelte-wuiab6.svelte-wuiab6 {
-  position: absolute;
-  z-index: 20;
-  left: 20px;
-  top: 70px;
-  width: 450px;
-  min-height: 200px;
-  max-height: 400px;
-  background-color: #FFF;
-  border-radius: 8px;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-}
-.autocomplete_container.svelte-wuiab6.svelte-wuiab6::-webkit-scrollbar-thumb {
-  background-color: #3B82F6;
-}
-.autocomplete_container.svelte-wuiab6.svelte-wuiab6::-webkit-scrollbar {
-  width: 8px;
-}
-.autocomplete_container.svelte-wuiab6.svelte-wuiab6::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-.autocomplete_container.svelte-wuiab6 .autocomplete_item.svelte-wuiab6 {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  align-items: center;
-  padding: 10px;
-  border: none;
-  background: none;
-  border-bottom: 1px solid #CBD5E1;
-  cursor: pointer;
-}
-.autocomplete_container.svelte-wuiab6 .autocomplete_item.svelte-wuiab6:hover {
-  background-color: #F1F5F9;
-}
-#cesiumContainer.svelte-wuiab6.svelte-wuiab6 {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
 /* fakecss:./_components/propertyImage.esbuild-svelte-fake-css */
 picture.svelte-10x01ln.svelte-10x01ln {
   width: 100%;
@@ -744,6 +618,12 @@ picture.svelte-10x01ln img.svelte-10x01ln {
   height: 100%;
   object-fit: cover;
   transition-duration: 75ms;
+}
+
+/* fakecss:./_components/GoogleMap/GoogleMapJS.esbuild-svelte-fake-css */
+.map.svelte-wfv1rg {
+  height: 100%;
+  width: 100%;
 }
 
 /* fakecss:./user/listings.esbuild-svelte-fake-css */
@@ -3283,13 +3163,13 @@ picture.svelte-10x01ln img.svelte-10x01ln {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance10 = bind(Axios$1.prototype.request, context);
-        utils$1.extend(instance10, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance10, context, null, { allOwnKeys: true });
-        instance10.create = function create(instanceConfig) {
+        const instance9 = bind(Axios$1.prototype.request, context);
+        utils$1.extend(instance9, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance9, context, null, { allOwnKeys: true });
+        instance9.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance10;
+        return instance9;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -3589,10 +3469,6 @@ picture.svelte-10x01ln img.svelte-10x01ln {
       return dirty;
     }
     return -1;
-  }
-  function set_store_value(store, ret, value) {
-    store.set(value);
-    return ret;
   }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/globals.js
@@ -4058,7 +3934,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance10, create_fragment9, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance9, create_fragment9, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -4084,7 +3960,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance10 ? instance10(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance9 ? instance9(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -5540,234 +5416,14 @@ picture.svelte-10x01ln img.svelte-10x01ln {
   };
   var Main_default = Main;
 
-  // _components/GoogleMap/stores.js
-  var mapsLoaded = writable(false);
-  var mapsLoading = writable(false);
-  var mapComponent = writable(null);
-
-  // _components/GoogleMap/GoogleSdk.svelte
-  function Init(g) {
-    var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window;
-    b = b[c] || (b[c] = {});
-    var d = b.maps || (b.maps = {}), r = /* @__PURE__ */ new Set(), e = new URLSearchParams(), u = () => h || (h = new Promise(async (f, n) => {
-      await (a = m.createElement("script"));
-      e.set("libraries", [...r] + "");
-      for (k in g)
-        e.set(k.replace(/[A-Z]/g, (t) => "_" + t[0].toLowerCase()), g[k]);
-      e.set("callback", c + ".maps." + q);
-      a.src = `https://maps.${c}apis.com/maps/api/js?` + e;
-      d[q] = f;
-      a.onerror = () => h = n(Error(p + " could not load."));
-      a.nonce = m.querySelector("script[nonce]")?.nonce || "";
-      m.head.append(a);
-    }));
-    d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n));
-  }
-  function instance6($self, $props, $invalidate) {
-    let $mapsLoading;
-    let $mapsLoaded;
-    component_subscribe($self, mapsLoading, ($value) => $invalidate(1, $mapsLoading = $value));
-    component_subscribe($self, mapsLoaded, ($value) => $invalidate(0, $mapsLoaded = $value));
-    const dispatch = createEventDispatcher();
-    onMount(() => {
-      console.log("onMount.GoogleSdk");
-      if ($mapsLoaded) {
-        dispatch("ready");
-      }
-      if (!$mapsLoading) {
-        mapsLoading.set(true);
-        Init({
-          key: "AIzaSyAB19JBmmsKCtZqOZaMhUew9V5RPgmkSXY",
-          v: "weekly"
-        });
-        mapsLoaded.set(true);
-      }
-    });
-    $self.$.update = () => {
-      if ($self.$.dirty & /*$mapsLoaded*/
-      1) {
-        $:
-          $mapsLoaded && dispatch("ready");
-      }
-    };
-    return [$mapsLoaded];
-  }
-  var GoogleSdk = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(this, options, instance6, null, safe_not_equal, {});
-    }
-  };
-  var GoogleSdk_default = GoogleSdk;
-
-  // _components/GoogleMap/GoogleMap.svelte
-  function create_fragment6(ctx) {
-    let googlesdk;
-    let t;
-    let div;
-    let current;
-    googlesdk = new GoogleSdk_default({});
-    googlesdk.$on(
-      "ready",
-      /*initialise*/
-      ctx[1]
-    );
-    return {
-      c() {
-        create_component(googlesdk.$.fragment);
-        t = space();
-        div = element("div");
-        div.innerHTML = `<!--	Maps goes here, will be render automatically -->`;
-        attr(div, "class", "map svelte-14mm0to");
-      },
-      m(target, anchor) {
-        mount_component(googlesdk, target, anchor);
-        insert(target, t, anchor);
-        insert(target, div, anchor);
-        ctx[9](div);
-        current = true;
-      },
-      p: noop,
-      i(local) {
-        if (current)
-          return;
-        transition_in(googlesdk.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(googlesdk.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(t);
-          detach(div);
-        }
-        destroy_component(googlesdk, detaching);
-        ctx[9](null);
-      }
-    };
-  }
-  function clearMarkers(markers) {
-    markers.forEach((marker) => {
-      marker.setMap(null);
-      if (marker.listenerHandle && "function" === typeof marker.listenerHandle.remove) {
-        marker.listenerHandle.remove();
-      }
-    });
-    markers.length = 0;
-    markers = [];
-    return markers;
-  }
-  function infoWindow(name, address, type) {
-    const contentString = `<h3 style='margin: 0 !important; padding: 15px 5px 10px 0px !important; border-bottom: 1px solid #CBD5E1 !important;'>${name}</h3><p style='margin: 6px 0;'>${address}</p><p style='margin: 6px 0;'><b>Type:</b> ${type}</p>`;
-    const infowindow = new google.maps.InfoWindow({ content: contentString });
-    return infowindow;
-  }
-  function clearInfoWindow(infoWindows) {
-    infoWindows = null;
-    return infoWindows;
-  }
-  function instance7($self, $props, $invalidate) {
-    let $mapComponent;
-    component_subscribe($self, mapComponent, ($value) => $invalidate(11, $mapComponent = $value));
-    const dispatch = createEventDispatcher();
-    let mapElement;
-    let map;
-    let { options = {} } = $props;
-    let { bounds = {} } = $props;
-    function setCentre(location) {
-      map.setCenter(location);
-    }
-    async function createMarker(latitude, longitude) {
-      const markerLib = await google.maps.importLibrary("marker");
-      const pin = new markerLib.PinElement({ scale: 1.5 });
-      const marker = new markerLib.AdvancedMarkerElement({
-        map,
-        position: { lat: latitude, lng: longitude },
-        content: pin.element
-      });
-      return marker;
-    }
-    async function initialise() {
-      const { Map: Map2 } = await google.maps.importLibrary("maps");
-      map = new Map2(mapElement, options);
-      map.addListener("dragend", () => {
-        dispatch("mapDragged", map);
-      });
-      map.addListener("zoom_changed", () => {
-        dispatch("zoomChanged", map);
-      });
-      map.addListener("idle", () => {
-        $invalidate(2, bounds = map.getBounds());
-      });
-      set_store_value(mapComponent, $mapComponent = map, $mapComponent);
-      dispatch("ready");
-    }
-    function div_binding($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        mapElement = $value;
-        $invalidate(0, mapElement);
-      });
-    }
-    $self.$set = ($props2) => {
-      if ("options" in $props2)
-        $invalidate(3, options = $props2.options);
-      if ("bounds" in $props2)
-        $invalidate(2, bounds = $props2.bounds);
-    };
-    return [
-      mapElement,
-      initialise,
-      bounds,
-      options,
-      setCentre,
-      createMarker,
-      clearMarkers,
-      infoWindow,
-      clearInfoWindow,
-      div_binding
-    ];
-  }
-  var GoogleMap = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(this, options, instance7, create_fragment6, safe_not_equal, {
-        options: 3,
-        bounds: 2,
-        setCentre: 4,
-        createMarker: 5,
-        clearMarkers: 6,
-        infoWindow: 7,
-        clearInfoWindow: 8
-      });
-    }
-    get setCentre() {
-      return this.$.ctx[4];
-    }
-    get createMarker() {
-      return this.$.ctx[5];
-    }
-    get clearMarkers() {
-      return clearMarkers;
-    }
-    get infoWindow() {
-      return infoWindow;
-    }
-    get clearInfoWindow() {
-      return clearInfoWindow;
-    }
-  };
-  var GoogleMap_default = GoogleMap;
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/lu/index.js
+  var LuSearch = { a: { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" }, c: '<circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path>' };
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/fa/index.js
   var FaSolidBan = { a: { viewBox: "0 0 512 512" }, c: '<path d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"></path>' };
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/lu/index.js
-  var LuSearch = { a: { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" }, c: '<circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path>' };
-
   // _components/propertyImage.svelte
-  function create_fragment7(ctx) {
+  function create_fragment6(ctx) {
     let picture;
     let img;
     let img_src_value;
@@ -5829,7 +5485,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
       }
     };
   }
-  function instance8($self, $props, $invalidate) {
+  function instance6($self, $props, $invalidate) {
     let { src = "/assets/img/placeholder.webp" } = $props;
     let { alt = "" } = $props;
     function onerror() {
@@ -5846,10 +5502,456 @@ picture.svelte-10x01ln img.svelte-10x01ln {
   var PropertyImage = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance8, create_fragment7, safe_not_equal, { src: 0, alt: 1 });
+      init(this, options, instance6, create_fragment6, safe_not_equal, { src: 0, alt: 1 });
     }
   };
   var propertyImage_default = PropertyImage;
+
+  // node_modules/.pnpm/@googlemaps+js-api-loader@1.16.8/node_modules/@googlemaps/js-api-loader/dist/index.mjs
+  function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) {
+      return value instanceof P ? value : new P(function(resolve) {
+        resolve(value);
+      });
+    }
+    return new (P || (P = Promise))(function(resolve, reject) {
+      function fulfilled(value) {
+        try {
+          step(generator.next(value));
+        } catch (e) {
+          reject(e);
+        }
+      }
+      function rejected(value) {
+        try {
+          step(generator["throw"](value));
+        } catch (e) {
+          reject(e);
+        }
+      }
+      function step(result) {
+        result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+      }
+      step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+  }
+  function getDefaultExportFromCjs(x) {
+    return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
+  }
+  var fastDeepEqual = function equal(a, b) {
+    if (a === b)
+      return true;
+    if (a && b && typeof a == "object" && typeof b == "object") {
+      if (a.constructor !== b.constructor)
+        return false;
+      var length, i, keys;
+      if (Array.isArray(a)) {
+        length = a.length;
+        if (length != b.length)
+          return false;
+        for (i = length; i-- !== 0; )
+          if (!equal(a[i], b[i]))
+            return false;
+        return true;
+      }
+      if (a.constructor === RegExp)
+        return a.source === b.source && a.flags === b.flags;
+      if (a.valueOf !== Object.prototype.valueOf)
+        return a.valueOf() === b.valueOf();
+      if (a.toString !== Object.prototype.toString)
+        return a.toString() === b.toString();
+      keys = Object.keys(a);
+      length = keys.length;
+      if (length !== Object.keys(b).length)
+        return false;
+      for (i = length; i-- !== 0; )
+        if (!Object.prototype.hasOwnProperty.call(b, keys[i]))
+          return false;
+      for (i = length; i-- !== 0; ) {
+        var key = keys[i];
+        if (!equal(a[key], b[key]))
+          return false;
+      }
+      return true;
+    }
+    return a !== a && b !== b;
+  };
+  var isEqual = /* @__PURE__ */ getDefaultExportFromCjs(fastDeepEqual);
+  var DEFAULT_ID = "__googleMapsScriptId";
+  var LoaderStatus;
+  (function(LoaderStatus2) {
+    LoaderStatus2[LoaderStatus2["INITIALIZED"] = 0] = "INITIALIZED";
+    LoaderStatus2[LoaderStatus2["LOADING"] = 1] = "LOADING";
+    LoaderStatus2[LoaderStatus2["SUCCESS"] = 2] = "SUCCESS";
+    LoaderStatus2[LoaderStatus2["FAILURE"] = 3] = "FAILURE";
+  })(LoaderStatus || (LoaderStatus = {}));
+  var Loader = class {
+    /**
+     * Creates an instance of Loader using [[LoaderOptions]]. No defaults are set
+     * using this library, instead the defaults are set by the Google Maps
+     * JavaScript API server.
+     *
+     * ```
+     * const loader = Loader({apiKey, version: 'weekly', libraries: ['places']});
+     * ```
+     */
+    constructor({ apiKey, authReferrerPolicy, channel, client, id = DEFAULT_ID, language, libraries = [], mapIds, nonce, region, retries = 3, url = "https://maps.googleapis.com/maps/api/js", version }) {
+      this.callbacks = [];
+      this.done = false;
+      this.loading = false;
+      this.errors = [];
+      this.apiKey = apiKey;
+      this.authReferrerPolicy = authReferrerPolicy;
+      this.channel = channel;
+      this.client = client;
+      this.id = id || DEFAULT_ID;
+      this.language = language;
+      this.libraries = libraries;
+      this.mapIds = mapIds;
+      this.nonce = nonce;
+      this.region = region;
+      this.retries = retries;
+      this.url = url;
+      this.version = version;
+      if (Loader.instance) {
+        if (!isEqual(this.options, Loader.instance.options)) {
+          throw new Error(`Loader must not be called again with different options. ${JSON.stringify(this.options)} !== ${JSON.stringify(Loader.instance.options)}`);
+        }
+        return Loader.instance;
+      }
+      Loader.instance = this;
+    }
+    get options() {
+      return {
+        version: this.version,
+        apiKey: this.apiKey,
+        channel: this.channel,
+        client: this.client,
+        id: this.id,
+        libraries: this.libraries,
+        language: this.language,
+        region: this.region,
+        mapIds: this.mapIds,
+        nonce: this.nonce,
+        url: this.url,
+        authReferrerPolicy: this.authReferrerPolicy
+      };
+    }
+    get status() {
+      if (this.errors.length) {
+        return LoaderStatus.FAILURE;
+      }
+      if (this.done) {
+        return LoaderStatus.SUCCESS;
+      }
+      if (this.loading) {
+        return LoaderStatus.LOADING;
+      }
+      return LoaderStatus.INITIALIZED;
+    }
+    get failed() {
+      return this.done && !this.loading && this.errors.length >= this.retries + 1;
+    }
+    /**
+     * CreateUrl returns the Google Maps JavaScript API script url given the [[LoaderOptions]].
+     *
+     * @ignore
+     * @deprecated
+     */
+    createUrl() {
+      let url = this.url;
+      url += `?callback=__googleMapsCallback&loading=async`;
+      if (this.apiKey) {
+        url += `&key=${this.apiKey}`;
+      }
+      if (this.channel) {
+        url += `&channel=${this.channel}`;
+      }
+      if (this.client) {
+        url += `&client=${this.client}`;
+      }
+      if (this.libraries.length > 0) {
+        url += `&libraries=${this.libraries.join(",")}`;
+      }
+      if (this.language) {
+        url += `&language=${this.language}`;
+      }
+      if (this.region) {
+        url += `&region=${this.region}`;
+      }
+      if (this.version) {
+        url += `&v=${this.version}`;
+      }
+      if (this.mapIds) {
+        url += `&map_ids=${this.mapIds.join(",")}`;
+      }
+      if (this.authReferrerPolicy) {
+        url += `&auth_referrer_policy=${this.authReferrerPolicy}`;
+      }
+      return url;
+    }
+    deleteScript() {
+      const script = document.getElementById(this.id);
+      if (script) {
+        script.remove();
+      }
+    }
+    /**
+     * Load the Google Maps JavaScript API script and return a Promise.
+     * @deprecated, use importLibrary() instead.
+     */
+    load() {
+      return this.loadPromise();
+    }
+    /**
+     * Load the Google Maps JavaScript API script and return a Promise.
+     *
+     * @ignore
+     * @deprecated, use importLibrary() instead.
+     */
+    loadPromise() {
+      return new Promise((resolve, reject) => {
+        this.loadCallback((err) => {
+          if (!err) {
+            resolve(window.google);
+          } else {
+            reject(err.error);
+          }
+        });
+      });
+    }
+    importLibrary(name) {
+      this.execute();
+      return google.maps.importLibrary(name);
+    }
+    /**
+     * Load the Google Maps JavaScript API script with a callback.
+     * @deprecated, use importLibrary() instead.
+     */
+    loadCallback(fn) {
+      this.callbacks.push(fn);
+      this.execute();
+    }
+    /**
+     * Set the script on document.
+     */
+    setScript() {
+      var _a, _b;
+      if (document.getElementById(this.id)) {
+        this.callback();
+        return;
+      }
+      const params = {
+        key: this.apiKey,
+        channel: this.channel,
+        client: this.client,
+        libraries: this.libraries.length && this.libraries,
+        v: this.version,
+        mapIds: this.mapIds,
+        language: this.language,
+        region: this.region,
+        authReferrerPolicy: this.authReferrerPolicy
+      };
+      Object.keys(params).forEach(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (key) => !params[key] && delete params[key]
+      );
+      if (!((_b = (_a = window === null || window === void 0 ? void 0 : window.google) === null || _a === void 0 ? void 0 : _a.maps) === null || _b === void 0 ? void 0 : _b.importLibrary)) {
+        ((g) => {
+          let h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window;
+          b = b[c] || (b[c] = {});
+          const d = b.maps || (b.maps = {}), r = /* @__PURE__ */ new Set(), e = new URLSearchParams(), u = () => (
+            // @ts-ignore
+            h || (h = new Promise((f, n) => __awaiter(this, void 0, void 0, function* () {
+              var _a2;
+              yield a = m.createElement("script");
+              a.id = this.id;
+              e.set("libraries", [...r] + "");
+              for (k in g)
+                e.set(k.replace(/[A-Z]/g, (t) => "_" + t[0].toLowerCase()), g[k]);
+              e.set("callback", c + ".maps." + q);
+              a.src = this.url + `?` + e;
+              d[q] = f;
+              a.onerror = () => h = n(Error(p + " could not load."));
+              a.nonce = this.nonce || ((_a2 = m.querySelector("script[nonce]")) === null || _a2 === void 0 ? void 0 : _a2.nonce) || "";
+              m.head.append(a);
+            })))
+          );
+          d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n));
+        })(params);
+      }
+      const libraryPromises = this.libraries.map((library) => this.importLibrary(library));
+      if (!libraryPromises.length) {
+        libraryPromises.push(this.importLibrary("core"));
+      }
+      Promise.all(libraryPromises).then(() => this.callback(), (error) => {
+        const event = new ErrorEvent("error", { error });
+        this.loadErrorCallback(event);
+      });
+    }
+    /**
+     * Reset the loader state.
+     */
+    reset() {
+      this.deleteScript();
+      this.done = false;
+      this.loading = false;
+      this.errors = [];
+      this.onerrorEvent = null;
+    }
+    resetIfRetryingFailed() {
+      if (this.failed) {
+        this.reset();
+      }
+    }
+    loadErrorCallback(e) {
+      this.errors.push(e);
+      if (this.errors.length <= this.retries) {
+        const delay = this.errors.length * Math.pow(2, this.errors.length);
+        console.error(`Failed to load Google Maps script, retrying in ${delay} ms.`);
+        setTimeout(() => {
+          this.deleteScript();
+          this.setScript();
+        }, delay);
+      } else {
+        this.onerrorEvent = e;
+        this.callback();
+      }
+    }
+    callback() {
+      this.done = true;
+      this.loading = false;
+      this.callbacks.forEach((cb) => {
+        cb(this.onerrorEvent);
+      });
+      this.callbacks = [];
+    }
+    execute() {
+      this.resetIfRetryingFailed();
+      if (this.loading) {
+        return;
+      }
+      if (this.done) {
+        this.callback();
+      } else {
+        if (window.google && window.google.maps && window.google.maps.version) {
+          console.warn("Google Maps already loaded outside @googlemaps/js-api-loader. This may result in undesirable behavior as options and script parameters may not match.");
+          this.callback();
+          return;
+        }
+        this.loading = true;
+        this.setScript();
+      }
+    }
+  };
+
+  // _components/GoogleMap/GoogleMapJS.svelte
+  function create_fragment7(ctx) {
+    let div;
+    return {
+      c() {
+        div = element("div");
+        div.innerHTML = ``;
+        attr(div, "class", "map svelte-wfv1rg");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        ctx[6](div);
+      },
+      p: noop,
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        ctx[6](null);
+      }
+    };
+  }
+  function instance7($self, $props, $invalidate) {
+    const dispatch = createEventDispatcher();
+    let { mapId = (
+      /** @type {string} */
+      "STREET_MAP"
+    ) } = $props;
+    let { lat = (
+      /** @type {number} */
+      23.775418
+    ) } = $props;
+    let { lng = (
+      /** @type {number} */
+      120.6665624
+    ) } = $props;
+    let { zoom = (
+      /** @type {number} */
+      8
+    ) } = $props;
+    let map;
+    const loader = (
+      /** @type {Loader} */
+      new Loader({
+        apiKey: "AIzaSyAB19JBmmsKCtZqOZaMhUew9V5RPgmkSXY",
+        version: "weekly",
+        libraries: ["places", "marker", "maps"]
+      })
+    );
+    let mapElement = (
+      /** @type {HTMLDivElement} */
+      null
+    );
+    loader.importLibrary("maps").then(({ Map: Map2 }) => {
+      map = new Map2(mapElement, { center: { lat, lng }, zoom, mapId });
+    }).catch((e) => {
+      console.log("failed to load google map: ", e);
+    }).finally(() => {
+      dispatch("ready");
+    });
+    function SetMarker(latitude, longitude, title) {
+      loader.importLibrary("marker").then(({ AdvancedMarkerElement }) => {
+        new AdvancedMarkerElement({
+          map,
+          position: { lat: latitude, lng: longitude },
+          title
+        });
+      }).catch((e) => {
+        console.log("failed to load marker: ", e);
+      });
+    }
+    function div_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        mapElement = $value;
+        $invalidate(0, mapElement);
+      });
+    }
+    $self.$set = ($props2) => {
+      if ("mapId" in $props2)
+        $invalidate(1, mapId = $props2.mapId);
+      if ("lat" in $props2)
+        $invalidate(2, lat = $props2.lat);
+      if ("lng" in $props2)
+        $invalidate(3, lng = $props2.lng);
+      if ("zoom" in $props2)
+        $invalidate(4, zoom = $props2.zoom);
+    };
+    return [mapElement, mapId, lat, lng, zoom, SetMarker, div_binding];
+  }
+  var GoogleMapJS = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance7, create_fragment7, safe_not_equal, {
+        mapId: 1,
+        lat: 2,
+        lng: 3,
+        zoom: 4,
+        SetMarker: 5
+      });
+    }
+    get SetMarker() {
+      return this.$.ctx[5];
+    }
+  };
+  var GoogleMapJS_default = GoogleMapJS;
 
   // user/listings.svelte
   function get_each_context(ctx, list, i) {
@@ -6017,7 +6119,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[1](
+        ctx[2](
           /*prop*/
           ctx[5]
         )
@@ -6150,7 +6252,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     let button;
     let t4;
     let div4;
-    let googlemap;
+    let googlemapjs;
     let current;
     const if_block_creators = [create_if_block3, create_else_block2];
     const if_blocks = [];
@@ -6168,16 +6270,14 @@ picture.svelte-10x01ln img.svelte-10x01ln {
         className: "search-icon"
       }
     });
-    let googlemap_props = {
-      options: {
-        center: { lat: coord[0], lng: coord[1] },
-        zoom: 8,
-        mapTypeId: "roadmap",
-        mapId: "street_project"
-      }
-    };
-    googlemap = new GoogleMap_default({ props: googlemap_props });
-    ctx[2](googlemap);
+    let googlemapjs_props = { lat: coord[0], lng: coord[1], zoom: 11 };
+    googlemapjs = new GoogleMapJS_default({ props: googlemapjs_props });
+    ctx[3](googlemapjs);
+    googlemapjs.$on(
+      "ready",
+      /*gmapReady*/
+      ctx[1]
+    );
     return {
       c() {
         div7 = element("div");
@@ -6197,7 +6297,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
         button.innerHTML = `<span>Search</span>`;
         t4 = space();
         div4 = element("div");
-        create_component(googlemap.$.fragment);
+        create_component(googlemapjs.$.fragment);
         attr(div0, "class", "properties svelte-h2bt6n");
         attr(input, "type", "text");
         attr(input, "class", "svelte-h2bt6n");
@@ -6227,26 +6327,26 @@ picture.svelte-10x01ln img.svelte-10x01ln {
         append(div2, button);
         append(div5, t4);
         append(div5, div4);
-        mount_component(googlemap, div4, null);
+        mount_component(googlemapjs, div4, null);
         current = true;
       },
       p(ctx2, dirty) {
         if_block.p(ctx2, dirty);
-        const googlemap_changes = {};
-        googlemap.$set(googlemap_changes);
+        const googlemapjs_changes = {};
+        googlemapjs.$set(googlemapjs_changes);
       },
       i(local) {
         if (current)
           return;
         transition_in(if_block);
         transition_in(icon.$.fragment, local);
-        transition_in(googlemap.$.fragment, local);
+        transition_in(googlemapjs.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(if_block);
         transition_out(icon.$.fragment, local);
-        transition_out(googlemap.$.fragment, local);
+        transition_out(googlemapjs.$.fragment, local);
         current = false;
       },
       d(detaching) {
@@ -6255,17 +6355,14 @@ picture.svelte-10x01ln img.svelte-10x01ln {
         }
         if_blocks[current_block_type_index].d();
         destroy_component(icon);
-        ctx[2](null);
-        destroy_component(googlemap);
+        ctx[3](null);
+        destroy_component(googlemapjs);
       }
     };
   }
   function create_fragment8(ctx) {
-    let googlesdk;
-    let t;
     let main;
     let current;
-    googlesdk = new GoogleSdk_default({});
     main = new Main_default({
       props: {
         user,
@@ -6276,19 +6373,15 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     });
     return {
       c() {
-        create_component(googlesdk.$.fragment);
-        t = space();
         create_component(main.$.fragment);
       },
       m(target, anchor) {
-        mount_component(googlesdk, target, anchor);
-        insert(target, t, anchor);
         mount_component(main, target, anchor);
         current = true;
       },
       p(ctx2, [dirty]) {
         const main_changes = {};
-        if (dirty & /*$scope, gmapsComponent*/
+        if (dirty & /*$scope, gmapComponent*/
         257) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
@@ -6297,20 +6390,14 @@ picture.svelte-10x01ln img.svelte-10x01ln {
       i(local) {
         if (current)
           return;
-        transition_in(googlesdk.$.fragment, local);
         transition_in(main.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(googlesdk.$.fragment, local);
         transition_out(main.$.fragment, local);
         current = false;
       },
       d(detaching) {
-        if (detaching) {
-          detach(t);
-        }
-        destroy_component(googlesdk, detaching);
         destroy_component(main, detaching);
       }
     };
@@ -6331,60 +6418,36 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     /** @type {Property[]} */
     [/* randomProps */]
   );
-  function instance9($self, $props, $invalidate) {
-    const defaultDistanceKm = (
+  function instance8($self, $props, $invalidate) {
+    let defaultDistanceKm = (
       /** @type {number} */
       Number('#{defaultDistanceKm}') || 20
     );
-    let gmapsComponent = (
+    let gmapComponent = (
       /** @type {import('svelte').SvelteComponent} */
       null
     );
-    const markerIcons = (
-      /** @type {Record<string, MarkerIcon>} */
-      {
-        "school": {
-          path: "/assets/icons/marker-school.svg",
-          alt: "School"
-        },
-        "restaurant": {
-          path: "/assets/icons/marker-restaurant.svg",
-          alt: "Restaurant"
-        },
-        "convenience_store": {
-          path: "/assets/icons/marker-mall.svg",
-          alt: "Convenience Store"
-        },
-        "hospital": {
-          path: "/assets/icons/marker-hospital.svg",
-          alt: "Hospital"
-        },
-        "subway_station": {
-          path: "/assets/icons/marker-subway.svg",
-          alt: "Subway Station"
-        }
-      }
-    );
     onMount(() => {
-      console.log("user = ", user);
-      console.log("coord = ", coord);
-      console.log("properties = ", properties);
-      console.log("markerIcons = ", markerIcons);
       console.log("defaultDistanceKm = ", defaultDistanceKm);
     });
-    const click_handler = (prop) => window.location.href = `/user/listings/${prop.id}`;
-    function googlemap_binding($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        gmapsComponent = $value;
-        $invalidate(0, gmapsComponent);
+    function gmapReady() {
+      (properties || []).forEach((p) => {
+        gmapComponent.SetMarker(p.coord[0], p.coord[1], p.address);
       });
     }
-    return [gmapsComponent, click_handler, googlemap_binding];
+    const click_handler = (prop) => window.location.href = `/user/listings/${prop.id}`;
+    function googlemapjs_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        gmapComponent = $value;
+        $invalidate(0, gmapComponent);
+      });
+    }
+    return [gmapComponent, gmapReady, click_handler, googlemapjs_binding];
   }
   var Listings = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance9, create_fragment8, safe_not_equal, {});
+      init(this, options, instance8, create_fragment8, safe_not_equal, {});
     }
   };
   var listings_default = Listings;

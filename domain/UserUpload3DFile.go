@@ -8,6 +8,7 @@ import (
 	"street/model/mStorage/wcStorage"
 
 	"github.com/gabriel-vasile/mimetype"
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 )
 
@@ -104,8 +105,10 @@ func (d *Domain) UserUpload3DFile(in *UserUpload3DFileIn) (out UserUpload3DFileO
 	}
 
 	ext := mime.Extension()
+	L.Print(`File Extension:`, ext)
 	switch ext {
-	case `.obj`, `.fbx`, `.stl`, `.amf`, `.iges`:
+	case `.obj`, `.fbx`, `.stl`, `.amf`, `.iges`, `.glb`:
+		break
 	default:
 		d.Log.Warn().Msgf(`uploaded mime: %v %v`, mime.Extension(), mime.String())
 		out.SetError(400, ErrUserUpload3DFileInvalidExtension)
