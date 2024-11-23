@@ -215,7 +215,7 @@
   .admin-container .admin-content .charts-container .actions {
     width: 100%;
     border-radius: 8px;
-    height: 450px;
+    height: 500px;
     padding: 16px 16px 25px 16px;
     border: 1px solid var(--gray-003);
     display: flex;

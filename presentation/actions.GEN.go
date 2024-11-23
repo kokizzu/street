@@ -40,7 +40,6 @@ var allCommands = []string{
 	domain.UserBuyersAction,
 	domain.UserChangePasswordAction,
 	domain.UserDeactivateAction,
-	domain.UserDownload3DFileAction,
 	domain.UserGpsCountryAction,
 	domain.UserLikePropAction,
 	domain.UserListingAction,

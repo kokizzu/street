@@ -824,14 +824,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
 }
 
 /* fakecss:./realtor.esbuild-svelte-fake-css */
-.properties-container.svelte-122xx5.svelte-122xx5 {
+.properties-container.svelte-jjgdnz.svelte-jjgdnz {
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 20px;
   padding: 20px;
 }
-.properties-container.svelte-122xx5 .info-actions.svelte-122xx5 {
+.properties-container.svelte-jjgdnz .info-actions.svelte-jjgdnz {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -839,7 +839,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   gap: 20px;
   width: 100%;
 }
-.properties-container.svelte-122xx5 .info-actions .owned-properties.svelte-122xx5 {
+.properties-container.svelte-jjgdnz .info-actions .owned-properties.svelte-jjgdnz {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -850,7 +850,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   border-radius: 8px;
   font-weight: 600;
 }
-.properties-container.svelte-122xx5 .info-actions .add-btn.svelte-122xx5 {
+.properties-container.svelte-jjgdnz .info-actions .add-btn.svelte-jjgdnz {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -863,10 +863,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   font-weight: 600;
   text-decoration: none;
 }
-.properties-container.svelte-122xx5 .info-actions .add-btn.svelte-122xx5:hover {
+.properties-container.svelte-jjgdnz .info-actions .add-btn.svelte-jjgdnz:hover {
   background-color: var(--orange-005);
 }
-.properties-container.svelte-122xx5 .no-property.svelte-122xx5 {
+.properties-container.svelte-jjgdnz .no-property.svelte-jjgdnz {
   background-color: var(--gray-002);
   border-radius: 8px;
   height: fit-content;
@@ -875,27 +875,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   justify-content: center;
   font-weight: 600;
 }
-.properties-container.svelte-122xx5 .properties.svelte-122xx5 {
+.properties-container.svelte-jjgdnz .properties.svelte-jjgdnz {
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 100%;
-}
-@media (max-width : 768px) {
-  .icon {
-    width: 15px;
-    height: 15px;
-  }
-  .properties-container.svelte-122xx5.svelte-122xx5 {
-    margin: -40px 20px 0 20px;
-    padding: 15px;
-    width: auto;
-  }
-  .properties-container.svelte-122xx5 .info-actions .add-btn.svelte-122xx5 {
-    padding: 5px 15px !important;
-    font-size: 14px !important;
-    gap: 8px !important;
-  }
 }
 </style>
 <script>(() => {
@@ -6767,7 +6751,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       c() {
         div = element("div");
         div.innerHTML = `<p>No Property</p>`;
-        attr(div, "class", "no-property svelte-122xx5");
+        attr(div, "class", "no-property svelte-jjgdnz");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -6799,7 +6783,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(section, "class", "properties svelte-122xx5");
+        attr(section, "class", "properties svelte-jjgdnz");
       },
       m(target, anchor) {
         insert(target, section, anchor);
@@ -6981,11 +6965,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         span.textContent = "Add";
         t5 = space();
         if_block.c();
-        attr(div0, "class", "owned-properties svelte-122xx5");
+        attr(div0, "class", "owned-properties svelte-jjgdnz");
         attr(a, "href", "/realtor/propertyOld");
-        attr(a, "class", "add-btn svelte-122xx5");
-        attr(div1, "class", "info-actions svelte-122xx5");
-        attr(div2, "class", "properties-container svelte-122xx5");
+        attr(a, "class", "add-btn svelte-jjgdnz");
+        attr(div1, "class", "info-actions svelte-jjgdnz");
+        attr(div2, "class", "properties-container svelte-jjgdnz");
       },
       m(target, anchor) {
         insert(target, div2, anchor);

@@ -276,14 +276,6 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.UserDeactivate(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
-	case domain.UserDownload3DFileAction:
-		in := domain.UserDownload3DFileIn{}
-		if !in.RequestCommon.FromCli(action, payload, &in) {
-			return
-		}
-		out := b.UserDownload3DFile(&in)
-		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
-
 	case domain.UserGpsCountryAction:
 		in := domain.UserGpsCountryIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

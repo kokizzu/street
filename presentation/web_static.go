@@ -21,6 +21,7 @@ import (
 	"street/model/mBusiness/rqBusiness"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/saProperty"
+	"street/model/mStorage/rqStorage"
 	"street/model/zCrud"
 )
 
@@ -248,6 +249,28 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/user/download3dFile`, func (ctx *fiber.Ctx) error {
+		in, _, _ := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		queries := ctx.Queries()
+		countryPropId := fmt.Sprintf("%s:%d", queries[`country`], S.ToU(queries[`propertyId`]))
+		img3d := rqStorage.NewDesignFiles(d.StorOltp)
+		img3d.CountryPropId = countryPropId
+		if !img3d.FindByCountryPropId() {
+			return views.RenderError(ctx, M.SX{
+				`title`: `3D file not found`,
+				`error`: `3D file not found, make sure country and property id is valid`,
+			})
+		}
+
+		ctx.SendFile(d.UploadDir + img3d.FilePath)
+		ctx.Set("Content-Disposition", `attachment; filename="`+img3d.FilePath+`"`)
+		return nil
+	})
+
 	fw.Get(`/`+domain.UserPropertyAction+`/:propId`, func(ctx *fiber.Ctx) error {
 		in, _, _ := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
@@ -262,7 +285,8 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 		if out.Property.DeletedAt > 0 {
 			return views.RenderError(ctx, M.SX{
-				`error`: `property deleted`,
+				`title`: `Property is deleted`,
+				`error`: `Property is deleted`,
 			})
 		}
 		if out.Error != `` {

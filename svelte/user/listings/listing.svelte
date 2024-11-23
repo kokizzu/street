@@ -5,7 +5,7 @@
 
   import Main from '../../_layouts/Main.svelte';
   import { Icon } from '../../node_modules/svelte-icons-pack/dist';
-  import { RiArrowsArrowLeftSLine } from '../../node_modules/svelte-icons-pack/dist/ri'
+  import { RiArrowsArrowLeftSLine, RiDocumentFileDownloadLine } from '../../node_modules/svelte-icons-pack/dist/ri'
   import GoogleMapJs from '../../_components/GoogleMap/GoogleMapJS.svelte';
   import { formatPrice } from '../../_components/formatter';
   import PopUpUpload3DFile from '../../_components/PopUpUpload3DFile.svelte';
@@ -17,18 +17,21 @@
   const access    = /** @type {Access} */ ({/* segments */});
   const property  = /** @type {PropertyWithNote} */ ({/* property */});
 
+  console.log('Property=',property)
+
   let gmapComponent     = /** @type {import('svelte').SvelteComponent} */ (null);
   let popUpUpload3DFile = /** @type {import('svelte').SvelteComponent} */ (null);
 
   const defImgUrl = /** @type {string} */ ('/assets/img/placeholder.webp');
   let imgUrl = /** @type {string} */ (property.images[0] || defImgUrl);
+  let img3dUrl = /** @type {string} */ (property.image3dUrl)
 
   function gmapReady() {
     gmapComponent.SetMarker(
       property.coord[0],
       property.coord[1],
       title
-    )
+    );
   }
 
   let isSubmitUpload3dFile = false;
@@ -53,6 +56,8 @@
     }).then((/** @type {import('axios').AxiosResponse}*/ res) => {
       notifier.showSuccess('3D file uploaded to path '+(res.data.imageUrl || '/path/to/file.obj'));
       popUpUpload3DFile.Close();
+
+      img3dUrl = res.data.imageUrl;
     }).catch((/** @type {import('axios').AxiosError}*/ err) => {
       const res = /** @type {import('axios').AxiosResponse} */ (err.response);
       switch (res.status) {
@@ -98,9 +103,24 @@
             {property.address || property.formattedAddress}
           </h2>
           <p class="about">{property.about || '--'}</p>
-          <button class="upload-btn" on:click={() => popUpUpload3DFile.Show()}>
-            Upload 3D File
-          </button>
+          {#if img3dUrl === ''}
+            <button class="upload-btn" on:click={() => popUpUpload3DFile.Show()}>
+              Upload 3D File
+            </button>
+          {/if}
+          {#if img3dUrl !== ''}
+            <a class="download-btn"
+              href="/user/download3dFile?country={property.countryCode}&propertyId={property.id}"
+              target="_blank"
+            >
+              <Icon
+                src={RiDocumentFileDownloadLine}
+                size="20"
+                color="#FFF"
+              />
+              <span>Download 3D File</span>
+            </a>
+          {/if}
           <table>
             <tbody>
               <tr>
@@ -234,6 +254,24 @@
 
   .listing-container .content .property .info-1 button.upload-btn:hover {
     color: var(--orange-005);
+  }
+
+  .listing-container .content .property .info-1 a.download-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 13px;
+    border-radius: 5px;
+    background-color: var(--blue-006);
+    color: #FFF;
+    width: fit-content;
+    text-decoration: none;
+  }
+
+  .listing-container .content .property .info-1 a.download-btn:hover {
+    background-color: var(--blue-005);
   }
 
   .listing-container .content .property .info-1 table {

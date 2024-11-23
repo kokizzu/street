@@ -20,7 +20,7 @@ import (
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type saProperty__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type saProperty__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type saProperty__ORM.GEN.go
-//go:generate msgp -tests=false -file saProperty__ORM.GEN.go -o saProperty__MSG.GEN.go
+// go:generate msgp -tests=false -file saProperty__ORM.GEN.go -o saProperty__MSG.GEN.go
 
 var scannedAreasDummy = ScannedAreas{}
 var scannedPropertiesDummy = ScannedProperties{}

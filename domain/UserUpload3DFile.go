@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path/filepath"
 	"street/model/mProperty/rqProperty"
+	"street/model/mStorage/rqStorage"
 	"street/model/mStorage/wcStorage"
 
 	"github.com/gabriel-vasile/mimetype"
@@ -43,6 +45,7 @@ const (
 	ErrUserUpload3DFileUnreadable       = `3D file unreadable`
 	ErrUserUpload3DFileUnsupportedMime  = `unsupported mime, not obj/fbx/stl/amf/iges`
 	ErrUserUpload3DFileUnableToSeek     = `unable to seek content`
+	ErrUserUpload3DFileExist						= `3D file already exist`
 )
 
 func (d *Domain) UserUpload3DFile(in *UserUpload3DFileIn) (out UserUpload3DFileOut) {
@@ -76,6 +79,14 @@ func (d *Domain) UserUpload3DFile(in *UserUpload3DFileIn) (out UserUpload3DFileO
 		}
 	}
 
+	countryPropId := fmt.Sprintf("%s:%d", in.Country, in.PropertyId)
+	img3d := rqStorage.NewDesignFiles(d.StorOltp)
+	img3d.CountryPropId = countryPropId
+	if img3d.FindByCountryPropId() {
+		out.SetError(400, ErrUserUpload3DFileExist)
+		return
+	}
+
 	if in.RawFile == nil {
 		out.SetError(400, ErrUserUpload3DFileNoRawfile)
 		return
@@ -105,20 +116,21 @@ func (d *Domain) UserUpload3DFile(in *UserUpload3DFileIn) (out UserUpload3DFileO
 	}
 
 	ext := mime.Extension()
-	L.Print(`File Extension:`, ext)
 	switch ext {
 	case `.obj`, `.fbx`, `.stl`, `.amf`, `.iges`, `.glb`:
 		break
 	default:
 		d.Log.Warn().Msgf(`uploaded mime: %v %v`, mime.Extension(), mime.String())
-		out.SetError(400, ErrUserUpload3DFileInvalidExtension)
-		return
+		ext = filepath.Ext(in.RawFile.FileName)
+		if ext == `` {
+			ext = `.obj`
+		}
 	}
 
 	filePath := in.RequestId + `_` + in.RawFile.FileName
 
 	file := wcStorage.NewDesignFilesMutator(d.StorOltp)
-	file.SetCountryPropId(fmt.Sprintf("%s:%d", in.Country, in.PropertyId))
+	file.SetCountryPropId(countryPropId)
 	file.SetCreatedAt(in.UnixNow())
 	file.SetCreatedBy(sess.UserId)
 	if !file.DoInsert() {
@@ -131,13 +143,15 @@ func (d *Domain) UserUpload3DFile(in *UserUpload3DFileIn) (out UserUpload3DFileO
 	suffix = S.Right(suffix, 80)
 
 	file.SetFilePath(fmt.Sprintf(`%d_%s%s`, file.Id, suffix, ext))
-
-	writer, err := os.Create(d.UploadDir + file.FilePath)
+	pathName := d.UploadDir + file.FilePath
+	writer, err := os.Create(pathName)
 	if err != nil {
 		d.Log.Err(err).Msg(ErrUserUploadFileCreationFailed)
 		out.SetError(500, ErrUserUploadFileCreationFailed)
 		return
 	}
+
+	L.Print(`Pathname:`, pathName)
 
 	_, err = io.Copy(writer, reader)
 	if err != nil {
@@ -150,6 +164,13 @@ func (d *Domain) UserUpload3DFile(in *UserUpload3DFileIn) (out UserUpload3DFileO
 		d.Log.Err(err).Msg(ErrUserUploadFailedFinalize)
 		out.SetError(500, ErrUserUploadFailedFinalize)
 	}
+
+	if !file.DoUpdateById() {
+		out.SetError(500, ErrUserUploadFailedSaveMetadata)
+		return
+	}
+
+	out.ImageURL = file.FilePath
 
 	return
 }

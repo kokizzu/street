@@ -188,6 +188,7 @@ module.exports = {};
  * @property {string} contactEmail
  * @property {string} contactPhone
  * @property {string} about
+ * @property {string} image3dUrl
  */
 module.exports = {};
 

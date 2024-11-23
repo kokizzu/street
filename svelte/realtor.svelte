@@ -95,11 +95,6 @@
     background-color: var(--orange-005);
   }
 
-  .properties-container .info-actions h2 {
-    font-size: 18px;
-    margin: 0;
-  }
-
   .properties-container .no-property {
     background-color: var(--gray-002);
     border-radius: 8px;
@@ -115,29 +110,5 @@
     flex-direction: column;
     gap: 20px;
     width: 100%;
-  }
-
-  /* Responsive to mobile device */
-  @media (max-width : 768px) {
-    :global(.icon) {
-      width  : 15px;
-      height : 15px;
-    }
-
-    .properties-container {
-      margin  : -40px 20px 0 20px;
-      padding : 15px;
-      width   : auto;
-    }
-
-    .properties-container .info-actions h2 {
-      font-size : 16px !important;
-    }
-
-    .properties-container .info-actions .add-btn {
-      padding   : 5px 15px !important;
-      font-size : 14px !important;
-      gap       : 8px !important;
-    }
   }
 </style>

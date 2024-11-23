@@ -25,6 +25,7 @@ type PropertyWithNote struct {
 	ContactEmail string `json:"contactEmail" form:"contactEmail" query:"contactEmail" long:"contactEmail" msg:"contactEmail"`
 	ContactPhone string `json:"contactPhone" form:"contactPhone" query:"contactPhone" long:"contactPhone" msg:"contactPhone"`
 	About        string `json:"about" form:"about" query:"about" long:"about" msg:"about"`
+	Image3dUrl	 string `json:"image3dUrl" form:"image3dUrl" query:"image3dUrl" long:"image3dUrl" msg:"image3dUrl"`
 }
 
 func (pwn *PropertyWithNote) FromArray(row []any) {
@@ -44,6 +45,7 @@ func (rq *Property) ToPropertyWithNote() PropertyWithNote {
 		ContactEmail: gjson.Get(rq.Note, `contactEmail`).String(),
 		ContactPhone: gjson.Get(rq.Note, `contactPhone`).String(),
 		About:        gjson.Get(rq.Note, `about`).String(),
+		Image3dUrl: ``,
 	}
 }
 
