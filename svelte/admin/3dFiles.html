@@ -951,15 +951,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   cursor: default;
 }
 
-/* fakecss:./admin/accessLog.esbuild-svelte-fake-css */
-.admin-container.svelte-yvnkd8.svelte-yvnkd8 {
+/* fakecss:./admin/3dFiles.esbuild-svelte-fake-css */
+.admin-container.svelte-wlmfhl.svelte-wlmfhl {
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 20px;
   padding: 10px 20px 20px;
 }
-.admin-container.svelte-yvnkd8 .admin-content.svelte-yvnkd8 {
+.admin-container.svelte-wlmfhl .admin-content.svelte-wlmfhl {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -3420,10 +3420,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           cb(data);
         };
       }
-      exports.Admin3DFiles = async function Admin3DFiles(i, cb) {
+      exports.Admin3DFiles = async function Admin3DFiles2(i, cb) {
         return await axios.post("/admin/3dFiles", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.AdminAccessLogs = async function AdminAccessLogs2(i, cb) {
+      exports.AdminAccessLogs = async function AdminAccessLogs(i, cb) {
         return await axios.post("/admin/accessLogs", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.AdminDashboard = async function AdminDashboard(i, cb) {
@@ -7997,13 +7997,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   };
   var TableView_default = TableView;
 
-  // admin/accessLog.svelte
+  // admin/3dFiles.svelte
   var import_jsApi3 = __toESM(require_jsApi_GEN());
   function create_default_slot(ctx) {
     let div1;
     let adminsubmenu;
     let t;
     let div0;
+    let section;
     let tableview;
     let updating_pager;
     let current;
@@ -8012,15 +8013,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       ctx[3](value);
     }
     let tableview_props = {
-      arrayOfArray: false,
       fields,
+      rows: (
+        /*files*/
+        ctx[0]
+      ),
       onRefreshTableView: (
         /*refreshTableView*/
         ctx[2]
-      ),
-      rows: (
-        /*logs*/
-        ctx[0]
       )
     };
     if (
@@ -8038,23 +8038,26 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         create_component(adminsubmenu.$.fragment);
         t = space();
         div0 = element("div");
+        section = element("section");
         create_component(tableview.$.fragment);
-        attr(div0, "class", "admin-content svelte-yvnkd8");
-        attr(div1, "class", "admin-container svelte-yvnkd8");
+        attr(section, "class", "tableview-container");
+        attr(div0, "class", "admin-content svelte-wlmfhl");
+        attr(div1, "class", "admin-container svelte-wlmfhl");
       },
       m(target, anchor) {
         insert(target, div1, anchor);
         mount_component(adminsubmenu, div1, null);
         append(div1, t);
         append(div1, div0);
-        mount_component(tableview, div0, null);
+        append(div0, section);
+        mount_component(tableview, section, null);
         current = true;
       },
       p(ctx2, dirty) {
         const tableview_changes = {};
-        if (dirty & /*logs*/
+        if (dirty & /*files*/
         1)
-          tableview_changes.rows = /*logs*/
+          tableview_changes.rows = /*files*/
           ctx2[0];
         if (!updating_pager && dirty & /*pager*/
         2) {
@@ -8107,7 +8110,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, [dirty]) {
         const main_changes = {};
-        if (dirty & /*$scope, logs, pager*/
+        if (dirty & /*$scope, files, pager*/
         35) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
@@ -8128,44 +8131,46 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  var access = (
-    /** @type {Access} */
-    {/* segments */}
-  );
   var user = (
     /** @type {User} */
     {/* user */}
   );
+  var access = (
+    /** @type {Access} */
+    {/* segments */}
+  );
   var fields = (
-    /** @type {Field[]}	*/
+    /** @type {Field[]} */
     [/* fields */]
   );
   function instance9($self, $props, $invalidate) {
-    let logs = (
-      /** @type {any[]} */
-      [/* logs */]
+    let files = (
+      /** @type {any}*/
+      [/* files */]
     );
     let pager = (
       /** @type {PagerOut} */
       {/* pager */}
     );
     function handleResponse(res) {
+      console.log(res);
       if (res.error) {
         notifier.showError(res.error);
         return true;
       }
-      if (res.logs && res.logs.length)
-        $invalidate(0, logs = res.logs);
+      if (res.files && res.files.length)
+        $invalidate(0, files = res.files);
       if (res.pager && res.pager.page)
         $invalidate(1, pager = res.pager);
     }
     async function refreshTableView(pagerIn) {
-      await (0, import_jsApi3.AdminAccessLogs)(
+      await (0, import_jsApi3.Admin3DFiles)(
         {
           // @ts-ignore
-          pager: pagerIn
+          pager: pagerIn,
+          cmd: "list"
         },
-        function(res) {
+        async function(res) {
           handleResponse(res);
         }
       );
@@ -8174,18 +8179,18 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       pager = value;
       $invalidate(1, pager);
     }
-    return [logs, pager, refreshTableView, tableview_pager_binding];
+    return [files, pager, refreshTableView, tableview_pager_binding];
   }
-  var AccessLog = class extends SvelteComponent {
+  var _3dFiles = class extends SvelteComponent {
     constructor(options) {
       super();
       init(this, options, instance9, create_fragment9, safe_not_equal, {});
     }
   };
-  var accessLog_default = AccessLog;
+  var dFiles_default = _3dFiles;
 
-  // admin/accessLog.svelte.ts
-  var app = new accessLog_default({ target: document.getElementById("app") });
+  // admin/3dFiles.svelte.ts
+  var app = new dFiles_default({ target: document.getElementById("app") });
 })();
 </script>
 </body></html>

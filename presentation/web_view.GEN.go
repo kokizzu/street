@@ -11,6 +11,7 @@ import (
 
 var viewList = map[string]string{
 	`Admin`: `../svelte/admin.html`, // ../svelte/admin.svelte
+	`Admin3DFiles`: `../svelte/admin/3dFiles.html`, // ../svelte/admin/3dFiles.svelte
 	`AdminAccessLog`: `../svelte/admin/accessLog.html`, // ../svelte/admin/accessLog.svelte
 	`AdminFeedbacks`: `../svelte/admin/feedbacks.html`, // ../svelte/admin/feedbacks.svelte
 	`AdminFiles`: `../svelte/admin/files.html`, // ../svelte/admin/files.svelte
@@ -46,6 +47,11 @@ var viewList = map[string]string{
 func (v *Views) RenderAdmin(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`Admin`].Str(m))
+}
+
+func (v *Views) RenderAdmin3DFiles(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`Admin3DFiles`].Str(m))
 }
 
 func (v *Views) RenderAdminAccessLog(c *fiber.Ctx, m M.SX) error {

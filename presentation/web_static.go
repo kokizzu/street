@@ -772,7 +772,28 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.Cmd = `list`
 		out := d.AdminFiles(&in)
 		return views.RenderAdminFiles(ctx, M.SX{
-			`title`:    `Access Log`,
+			`title`:    `Files`,
+			`segments`: segments,
+			`files`:    out.Files,
+			`fields`:   out.Meta.Fields,
+			`pager`:    out.Pager,
+		})
+	})
+	fw.Get(`/`+domain.Admin3DFilesAction, func(ctx *fiber.Ctx) error {
+		var in domain.Admin3DFilesIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminUsersAction)
+		if err != nil {
+			return err
+		}
+		if notAdmin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Cmd = `list`
+		out := d.Admin3DFiles(&in)
+		return views.RenderAdminFiles(ctx, M.SX{
+			`title`:    `3D Design Files`,
 			`segments`: segments,
 			`files`:    out.Files,
 			`fields`:   out.Meta.Fields,

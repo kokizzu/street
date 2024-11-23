@@ -3281,6 +3281,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           cb(data);
         };
       }
+      exports.Admin3DFiles = async function Admin3DFiles(i, cb) {
+        return await axios.post("/admin/3dFiles", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.AdminAccessLogs = async function AdminAccessLogs(i, cb) {
         return await axios.post("/admin/accessLogs", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -3379,9 +3382,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       };
       exports.UserDeactivate = async function UserDeactivate(i, cb) {
         return await axios.post("/user/deactivate", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserDownload3DFile = async function UserDownload3DFile(i, cb) {
-        return await axios.post("/user/download3DFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserGpsCountry = async function UserGpsCountry(i, cb) {
         return await axios.post("/user/gpsCountry", i).then(wrapOk(cb)).catch(wrapErr(cb));

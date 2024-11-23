@@ -10,6 +10,16 @@ import (
 
 func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 
+	// Admin3DFiles
+	fw.Post("/"+domain.Admin3DFilesAction, func(c *fiber.Ctx) error {
+		in := domain.Admin3DFilesIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.Admin3DFilesAction); err != nil {
+			return nil
+		}
+		out := d.Admin3DFiles(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// AdminAccessLogs
 	fw.Post("/"+domain.AdminAccessLogsAction, func(c *fiber.Ctx) error {
 		in := domain.AdminAccessLogsIn{}
