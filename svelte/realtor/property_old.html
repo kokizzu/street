@@ -20256,6 +20256,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var mapsLoaded = writable(false);
   var mapsLoading = writable(false);
   var mapComponent = writable(null);
+  var gmap = (
+    /** @type {import('svelte/store').Writable<Map>} */
+    writable(null)
+  );
+  var mapLoader = (
+    /** @type {import('svelte/store').Writable<Loader>} */
+    writable(null)
+  );
 
   // _components/GoogleMap/GoogleSdk.svelte
   function Init(g) {

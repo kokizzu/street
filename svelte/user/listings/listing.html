@@ -5941,6 +5941,19 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
   };
 
+  // _components/GoogleMap/stores.js
+  var mapsLoaded = writable(false);
+  var mapsLoading = writable(false);
+  var mapComponent = writable(null);
+  var gmap = (
+    /** @type {import('svelte/store').Writable<Map>} */
+    writable(null)
+  );
+  var mapLoader = (
+    /** @type {import('svelte/store').Writable<Loader>} */
+    writable(null)
+  );
+
   // _components/GoogleMap/GoogleMapJS.svelte
   function create_fragment6(ctx) {
     let div;
@@ -5952,7 +5965,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       m(target, anchor) {
         insert(target, div, anchor);
-        ctx[6](div);
+        ctx[8](div);
       },
       p: noop,
       i: noop,
@@ -5961,9 +5974,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (detaching) {
           detach(div);
         }
-        ctx[6](null);
+        ctx[8](null);
       }
     };
+  }
+  function DeleteMarkers(markers) {
+    (markers || []).forEach((m) => m.map = null);
+    markers = [];
+    return markers;
   }
   function instance6($self, $props, $invalidate) {
     const dispatch = createEventDispatcher();
@@ -5983,7 +6001,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       /** @type {number} */
       8
     ) } = $props;
-    let map;
+    let map = (
+      /** @type {google.maps.Map} */
+      null
+    );
     const loader = (
       /** @type {Loader} */
       new Loader({
@@ -5992,20 +6013,26 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         libraries: ["places", "marker", "maps"]
       })
     );
+    mapLoader.set(loader);
     let mapElement = (
       /** @type {HTMLDivElement} */
       null
     );
     loader.importLibrary("maps").then(({ Map: Map2 }) => {
       map = new Map2(mapElement, { center: { lat, lng }, zoom, mapId });
+      gmap.set(map);
     }).catch((e) => {
-      console.log("failed to load google map: ", e);
+      console.error("failed to load google map: ", e);
     }).finally(() => {
       dispatch("ready");
     });
     function SetMarker(latitude, longitude, title2) {
+      let marker = (
+        /** @type {google.maps.marker.AdvancedMarkerElement} */
+        null
+      );
       loader.importLibrary("marker").then(({ AdvancedMarkerElement }) => {
-        new AdvancedMarkerElement({
+        marker = new AdvancedMarkerElement({
           map,
           position: { lat: latitude, lng: longitude },
           title: title2
@@ -6013,6 +6040,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }).catch((e) => {
         console.log("failed to load marker: ", e);
       });
+      return marker;
+    }
+    function SetCenter(lat2, lng2) {
+      map.setCenter({ lat: lat2, lng: lng2 });
     }
     function div_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
@@ -6030,7 +6061,17 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       if ("zoom" in $props2)
         $invalidate(4, zoom = $props2.zoom);
     };
-    return [mapElement, mapId, lat, lng, zoom, SetMarker, div_binding];
+    return [
+      mapElement,
+      mapId,
+      lat,
+      lng,
+      zoom,
+      SetMarker,
+      DeleteMarkers,
+      SetCenter,
+      div_binding
+    ];
   }
   var GoogleMapJS = class extends SvelteComponent {
     constructor(options) {
@@ -6040,11 +6081,19 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         lat: 2,
         lng: 3,
         zoom: 4,
-        SetMarker: 5
+        SetMarker: 5,
+        DeleteMarkers: 6,
+        SetCenter: 7
       });
     }
     get SetMarker() {
       return this.$.ctx[5];
+    }
+    get DeleteMarkers() {
+      return DeleteMarkers;
+    }
+    get SetCenter() {
+      return this.$.ctx[7];
     }
   };
   var GoogleMapJS_default = GoogleMapJS;
