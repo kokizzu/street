@@ -189,6 +189,11 @@ module.exports = {};
  * @property {string} contactPhone
  * @property {string} about
  * @property {string} image3dUrl
+ * @property {number} lat?
+ * @property {number} lng?
+ * @property {number} distanceKM?
+ * @property {boolean} liked?
+ * @property {number} likeCount?
  */
 module.exports = {};
 

@@ -24,7 +24,7 @@
 
   const defImgUrl = /** @type {string} */ ('/assets/img/placeholder.webp');
   let imgUrl = /** @type {string} */ (property.images[0] || defImgUrl);
-  let img3dUrl = /** @type {string} */ (property.image3dUrl)
+  let img3dUrl = /** @type {string} */ (property.image3dUrl);
 
   function gmapReady() {
     gmapComponent.SetMarker(
@@ -54,7 +54,7 @@
         uploadingProgressStr = `Uploading ${propgressNum}%`;
       }
     }).then((/** @type {import('axios').AxiosResponse}*/ res) => {
-      notifier.showSuccess('3D file uploaded to path '+(res.data.imageUrl || '/path/to/file.obj'));
+      notifier.showSuccess('3D file uploaded !!');
       popUpUpload3DFile.Close();
 
       img3dUrl = res.data.imageUrl;

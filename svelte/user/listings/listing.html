@@ -9744,7 +9744,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }).then(
         /** @type {import('axios').AxiosResponse}*/
         (res) => {
-          notifier.showSuccess("3D file uploaded to path " + (res.data.imageUrl || "/path/to/file.obj"));
+          notifier.showSuccess("3D file uploaded !!");
           popUpUpload3DFile.Close();
           $invalidate(3, img3dUrl = res.data.imageUrl);
         }

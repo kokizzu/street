@@ -266,7 +266,13 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			})
 		}
 
-		ctx.SendFile(d.UploadDir + img3d.FilePath)
+		if ctx.SendFile(d.UploadDir + img3d.FilePath) != nil {
+			return views.RenderError(ctx, M.SX{
+				`title`: `3D file not found`,
+				`error`: `3D file is either missing from the server or has been deleted. Please check again or contact support for help.`,
+			})
+		}
+		
 		ctx.Set("Content-Disposition", `attachment; filename="`+img3d.FilePath+`"`)
 		return nil
 	})

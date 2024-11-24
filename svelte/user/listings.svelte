@@ -1,12 +1,7 @@
 <script>
 	/** @typedef {import('../_types/user').User} User */
-  /** @typedef {import('../_types/property').Property} Property */
+  /** @typedef {import('../_types/property').PropertyWithNote} PropertyWithNote */
   /** @typedef {import('../_types/master').Access} Access }*/
-  /**
-   * @typedef {Object} MarkerIcon
-   * @property {string} path
-   * @property {string} alt
-   */
 
   import Main from '../_layouts/Main.svelte';
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
@@ -15,56 +10,129 @@
   import PropertyImage from '../_components/propertyImage.svelte';
   import GoogleMapJs from '../_components/GoogleMap/GoogleMapJS.svelte';
   import { onMount } from 'svelte';
+  import axios, { HttpStatusCode } from 'axios';
+  import { notifier } from '../_components/notifier';
+  import PopUpUpload3DFile from '../_components/PopUpUpload3DFile.svelte';
 
-	const user              = /** @type {User} */ ({/* user */});
-  const access            = /** @type {Access} */ ({/* segments */});
+	const user    = /** @type {User} */ ({/* user */});
+  const access  = /** @type {Access} */ ({/* segments */});
 
-  let coord             = /** @type {number[]} */ ([/* initialLatLong */]);
-  let properties        = /** @type {Property[]} */ ([/* randomProps */]);
-  let defaultDistanceKm = /** @type {number} */ (Number('#{defaultDistanceKm}') || 20);
-  let gmapComponent     = /** @type {import('svelte').SvelteComponent} */ (null);
+  let coord         = /** @type {number[]} */ ([/* initialLatLong */]);
+  let properties    = /** @type {PropertyWithNote[]} */ ([/* randomProps */]);
+  let distanceKm    = /** @type {number} */ (Number('#{defaultDistanceKm}') || 20);
+  let gmapComponent = /** @type {import('svelte').SvelteComponent} */ (null);
 
   onMount(() => {
-    console.log('defaultDistanceKm = ', defaultDistanceKm);
+    console.log('defaultDistanceKm = ', distanceKm);
   });
 
   function gmapReady() {
     (properties || []).forEach((p) => {
       gmapComponent.SetMarker(p.coord[0], p.coord[1], p.address);
     });
+
+    console.log('properties =', properties);
+  }
+
+  let popUpUpload3DFile = /** @type {import('svelte').SvelteComponent} */ (null);
+  let isSubmitUpload3d  = /** @type {boolean} */ (false);
+  let upload3dProgress  = /** @type {string} */ ('');
+  let upload3dPropId    = /** @type {number|string} */ (0);
+  let upload3dCountry   = /** @type {string} */ ('');
+
+  async function SubmitUpload3DFile(/** @type {File} */ file) {
+    isSubmitUpload3d = true;
+
+    const formData = new FormData();
+    formData.append('propertyId', String(upload3dPropId));
+    formData.append('country', String(upload3dCountry));
+    formData.append('rawFile', file, file.name);
+
+    await axios.postForm('/user/upload3DFile', formData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      },
+      onUploadProgress: (/** @type {import('axios').AxiosProgressEvent} */ event) => {
+        const propgressNum = Math.round((event.loaded * 100) / Number(event.total));
+        upload3dProgress = `Uploading ${propgressNum}%`;
+      }
+    }).then((/** @type {import('axios').AxiosResponse}*/ res) => {
+      notifier.showSuccess('3D file uploaded !!');
+      popUpUpload3DFile.Close();
+
+      for (let i = 0; i < (properties.length -1); i++) {
+        if (properties[i].id === upload3dPropId) {
+          properties[i].image3dUrl = res.data.imageUrl;
+          console.log('Img 3D URL:', properties[i].image3dUrl);
+          break;
+        } 
+      }
+    }).catch((/** @type {import('axios').AxiosError}*/ err) => {
+      const res = /** @type {import('axios').AxiosResponse} */ (err.response);
+      switch (res.status) {
+        case HttpStatusCode.PayloadTooLarge:
+          notifier.showError('File size too large');
+          break;
+        default:
+          notifier.showError(res.data.error || 'Failed to upload 3D file');
+      }
+      popUpUpload3DFile.Reset();
+    })
   }
 </script>
+
+<PopUpUpload3DFile
+  bind:this={popUpUpload3DFile}
+  bind:isSubmitted={isSubmitUpload3d}
+  bind:uploadingProgressStr={upload3dProgress}
+  OnSubmit={SubmitUpload3DFile}
+/>
 
 <Main {user} {access}>
 	<div class="listings-root">
     <div class="content">
       <div class="properties">
-        {#if properties && properties.length}
-          {#each properties as prop, _ (prop.id)}
-            <div class="property">
-              <PropertyImage
-                src={prop.images[0]}
-                alt={prop.address || prop.formattedAddress}
-              />
-              <div class="info">
-                <div class="top">
-                  <b>{prop.address || prop.formattedAddress}</b>
-                  <div class="features">
-                    <div class="pill-box">Floors: {prop.numberOfFloors}</div>
-                    <div class="pill-box">Bed: {prop.bedroom}</div>
-                    <div class="pill-box">Bath: {prop.bathroom}</div>
-                    <div class="pill-box">Size (m2): {prop.sizeM2}</div>
-                    <div class="pill-box">Siz (sqft): {prop.totalSqft}</div>
-                  </div>
-                </div>
-                <div class="actions">
-                  <button on:click={() => window.location.href = `/user/listings/${prop.id}`}>Listing</button>
-                  <button>Upload 3D file</button>
+        {#each (properties || []) as prop, _ (prop.id)}
+          <div class="property">
+            <PropertyImage
+              src={prop.images[0]}
+              alt={prop.address || prop.formattedAddress}
+            />
+            <div class="info">
+              <div class="top">
+                <b>{prop.address || prop.formattedAddress}</b>
+                <div class="features">
+                  <div class="pill-box">Floors: {prop.numberOfFloors}</div>
+                  <div class="pill-box">Bed: {prop.bedroom}</div>
+                  <div class="pill-box">Bath: {prop.bathroom}</div>
+                  <div class="pill-box">Size (m2): {prop.sizeM2}</div>
+                  <div class="pill-box">Siz (sqft): {prop.totalSqft}</div>
                 </div>
               </div>
+              <div class="actions">
+                <button on:click={() => window.location.href = `/user/listings/${prop.id}`}>Listing</button>
+                {#if prop.image3dUrl === ''}
+                  <button on:click={() => {
+                    upload3dCountry = prop.countryCode;
+                    upload3dPropId = prop.id;
+                    popUpUpload3DFile.Show();
+                  }}>Upload 3D file</button>
+                {/if}
+                {#if prop.image3dUrl !== ''}
+                  <button class="download-btn" on:click={() => {
+                    window.open(
+                      `/user/download3dFile?country=${prop.countryCode}&propertyId=${prop.id}`,
+                      '_blank'
+                    );
+                  }}>
+                    Download 3D file
+                  </button>
+                {/if}
+              </div>
             </div>
-          {/each}
-        {:else}
+          </div>
+        {/each}
+        {#if !properties || properties.length === 0}
           <div class="no-properties">
             <div class="warn">
               <Icon
@@ -187,6 +255,14 @@
 
   .listings-root .content .properties .property .info .actions button:hover {
     color: var(--orange-005);
+  }
+
+  .listings-root .content .properties .property .info .actions button.download-btn {
+    color: var(--blue-006);
+  }
+
+  .listings-root .content .properties .property .info .actions button.download-btn:hover {
+    color: var(--blue-005);
   }
 
   .listings-root .content .searcher {

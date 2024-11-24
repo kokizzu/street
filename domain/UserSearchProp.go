@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/kokizzu/gotro/X"
@@ -8,6 +9,7 @@ import (
 	"street/conf"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/saProperty"
+	"street/model/mStorage/rqStorage"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserSearchProp.go
@@ -136,6 +138,13 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 		item.DistanceKM = conf.DistanceKm(item.Lat, item.Lng, in.CenterLat, in.CenterLong)
 		if item.DistanceKM > in.MaxDistanceKM {
 			return false
+		}
+
+		img3d := rqStorage.NewDesignFiles(d.StorOltp)
+		img3dCountryPropId := fmt.Sprintf("%s:%d", item.CountryCode, item.Id)
+		img3d.CountryPropId = img3dCountryPropId
+		if img3d.FindByCountryPropId() {
+			item.PropertyWithNote.Image3dUrl = img3d.FilePath	
 		}
 
 		satisfiedProperties = append(satisfiedProperties, item)

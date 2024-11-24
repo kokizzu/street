@@ -55,7 +55,6 @@ func (d *Domain) UserListing(in *UserListingIn) (out UserListingOut) {
 
 	img3d := rqStorage.NewDesignFiles(d.StorOltp)
 	img3dCountryPropId := fmt.Sprintf("%s:%d", out.Property.CountryCode, out.Property.Id)
-	L.Print(`Country Prop ID:`, img3dCountryPropId)
 	img3d.CountryPropId = img3dCountryPropId
 	if img3d.FindByCountryPropId() {
 		out.Property.Image3dUrl = img3d.FilePath	
