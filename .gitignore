@@ -18,3 +18,4 @@ cache
 docker-data
 tmpdb
 AuthKey_*.p8
+upload

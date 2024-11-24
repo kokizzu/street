@@ -11,6 +11,7 @@ import (
 
 var viewList = map[string]string{
 	`Admin`: `../svelte/admin.html`, // ../svelte/admin.svelte
+	`Admin3DFiles`: `../svelte/admin/3dFiles.html`, // ../svelte/admin/3dFiles.svelte
 	`AdminAccessLog`: `../svelte/admin/accessLog.html`, // ../svelte/admin/accessLog.svelte
 	`AdminFeedbacks`: `../svelte/admin/feedbacks.html`, // ../svelte/admin/feedbacks.svelte
 	`AdminFiles`: `../svelte/admin/files.html`, // ../svelte/admin/files.svelte
@@ -28,7 +29,6 @@ var viewList = map[string]string{
 	`GuestResetPassword`: `../svelte/guest/resetPassword.html`, // ../svelte/guest/resetPassword.svelte
 	`GuestVerifyEmail`: `../svelte/guest/verifyEmail.html`, // ../svelte/guest/verifyEmail.svelte
 	`Index`: `../svelte/index.html`, // ../svelte/index.svelte
-	`Listings`: `../svelte/listings.html`, // ../svelte/listings.svelte
 	`Privacy`: `../svelte/privacy.html`, // ../svelte/privacy.svelte
 	`Realtor`: `../svelte/realtor.html`, // ../svelte/realtor.svelte
 	`RealtorOwnedProperty`: `../svelte/realtor/ownedProperty.html`, // ../svelte/realtor/ownedProperty.svelte
@@ -38,6 +38,8 @@ var viewList = map[string]string{
 	`Tos`: `../svelte/tos.html`, // ../svelte/tos.svelte
 	`User`: `../svelte/user.html`, // ../svelte/user.svelte
 	`UserBuyers`: `../svelte/user/buyers.html`, // ../svelte/user/buyers.svelte
+	`UserListings`: `../svelte/user/listings.html`, // ../svelte/user/listings.svelte
+	`UserListingsListing`: `../svelte/user/listings/listing.html`, // ../svelte/user/listings/listing.svelte
 	`UserPropertyIndex`: `../svelte/user/property/index.html`, // ../svelte/user/property/index.svelte
 }
 
@@ -45,6 +47,11 @@ var viewList = map[string]string{
 func (v *Views) RenderAdmin(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`Admin`].Str(m))
+}
+
+func (v *Views) RenderAdmin3DFiles(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`Admin3DFiles`].Str(m))
 }
 
 func (v *Views) RenderAdminAccessLog(c *fiber.Ctx, m M.SX) error {
@@ -132,11 +139,6 @@ func (v *Views) RenderIndex(c *fiber.Ctx, m M.SX) error {
 	return c.SendString(v.cache[`Index`].Str(m))
 }
 
-func (v *Views) RenderListings(c *fiber.Ctx, m M.SX) error {
-	c.Set("Content-Type", "text/html; charset=utf-8")
-	return c.SendString(v.cache[`Listings`].Str(m))
-}
-
 func (v *Views) RenderPrivacy(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`Privacy`].Str(m))
@@ -180,6 +182,16 @@ func (v *Views) RenderUser(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderUserBuyers(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`UserBuyers`].Str(m))
+}
+
+func (v *Views) RenderUserListings(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`UserListings`].Str(m))
+}
+
+func (v *Views) RenderUserListingsListing(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`UserListingsListing`].Str(m))
 }
 
 func (v *Views) RenderUserPropertyIndex(c *fiber.Ctx, m M.SX) error {

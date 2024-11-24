@@ -21,6 +21,7 @@ import (
 	"street/model/mBusiness/rqBusiness"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/saProperty"
+	"street/model/mStorage/rqStorage"
 	"street/model/zCrud"
 )
 
@@ -248,6 +249,34 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/user/download3dFile`, func (ctx *fiber.Ctx) error {
+		in, _, _ := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		queries := ctx.Queries()
+		countryPropId := fmt.Sprintf("%s:%d", queries[`country`], S.ToU(queries[`propertyId`]))
+		img3d := rqStorage.NewDesignFiles(d.StorOltp)
+		img3d.CountryPropId = countryPropId
+		if !img3d.FindByCountryPropId() {
+			return views.RenderError(ctx, M.SX{
+				`title`: `3D file not found`,
+				`error`: `3D file not found, make sure country and property id is valid`,
+			})
+		}
+
+		if ctx.SendFile(d.UploadDir + img3d.FilePath) != nil {
+			return views.RenderError(ctx, M.SX{
+				`title`: `3D file not found`,
+				`error`: `3D file is either missing from the server or has been deleted. Please check again or contact support for help.`,
+			})
+		}
+		
+		ctx.Set("Content-Disposition", `attachment; filename="`+img3d.FilePath+`"`)
+		return nil
+	})
+
 	fw.Get(`/`+domain.UserPropertyAction+`/:propId`, func(ctx *fiber.Ctx) error {
 		in, _, _ := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
@@ -262,7 +291,8 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 		if out.Property.DeletedAt > 0 {
 			return views.RenderError(ctx, M.SX{
-				`error`: `property deleted`,
+				`title`: `Property is deleted`,
+				`error`: `Property is deleted`,
 			})
 		}
 		if out.Error != `` {
@@ -351,7 +381,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 				MaxDistanceKM: defaultDistanceKm,
 			})
 		}
-		return views.RenderListings(ctx, M.SX{
+		return views.RenderUserListings(ctx, M.SX{
 			`title`:             `Listings`,
 			`user`:              user,
 			`segments`:          segments,
@@ -360,6 +390,41 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`defaultDistanceKm`: defaultDistanceKm,
 		})
 	})
+
+	fw.Get(`/`+domain.UserListingsAction+`/:propId`, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		out := d.UserListing(&domain.UserListingIn{
+			RequestCommon: in.RequestCommon,
+			Id: X.ToU(ctx.Params(`propId`)),
+		})
+		if out.Property.DeletedAt > 0 {
+			return views.RenderError(ctx, M.SX{
+				`error`: `property deleted`,
+			})
+		}
+		if out.Error != `` {
+			L.Print(out.Error)
+			return views.RenderError(ctx, M.SX{
+				`error`: out.Error,
+			})
+		}
+		title := `Property #` + X.ToS(out.Property.Id)
+		if out.Property.Address != `` {
+			title += ` on ` + out.Property.Address
+		} else if out.Property.FormattedAddress != `` {
+			title += ` on ` + out.Property.FormattedAddress
+		}
+		return views.RenderUserListingsListing(ctx, M.SX{
+			`title`:             title,
+			`user`:              user,
+			`segments`:          segments,
+			`property`: out.Property,
+		})
+	})
+
 	fw.Get(`/realtor`, func(ctx *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
@@ -428,7 +493,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`countries`: conf.CountriesData,
 		})
 	})
-	fw.Get(`/`+domain.RealtorPropertyAction+`/:propId`, func(ctx *fiber.Ctx) error {
+	fw.Get(`/`+domain.RealtorPropertyAction+`Old/:propId`, func(ctx *fiber.Ctx) error {
 		// edit property
 		in, user, segments := userInfoFromContext(ctx, d)
 		in.RequestCommon.Action = domain.RealtorPropertyAction
@@ -458,7 +523,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		} else if out.Property.FormattedAddress != `` {
 			title += ` on ` + out.Property.FormattedAddress
 		}
-		return views.RenderRealtorProperty(ctx, M.SX{
+		return views.RenderRealtorPropertyOld(ctx, M.SX{
 			`title`:     title,
 			`segments`:  segments,
 			`user`:      user,
@@ -713,7 +778,28 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.Cmd = `list`
 		out := d.AdminFiles(&in)
 		return views.RenderAdminFiles(ctx, M.SX{
-			`title`:    `Access Log`,
+			`title`:    `Files`,
+			`segments`: segments,
+			`files`:    out.Files,
+			`fields`:   out.Meta.Fields,
+			`pager`:    out.Pager,
+		})
+	})
+	fw.Get(`/`+domain.Admin3DFilesAction, func(ctx *fiber.Ctx) error {
+		var in domain.Admin3DFilesIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.AdminUsersAction)
+		if err != nil {
+			return err
+		}
+		if notAdmin(ctx, d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Cmd = `list`
+		out := d.Admin3DFiles(&in)
+		return views.RenderAdminFiles(ctx, M.SX{
+			`title`:    `3D Design Files`,
 			`segments`: segments,
 			`files`:    out.Files,
 			`fields`:   out.Meta.Fields,

@@ -80,6 +80,25 @@ func (d *DesignFiles) FindByFilePath() bool { //nolint:dupl false positive
 	return false
 }
 
+// UniqueIndexCountryPropId return unique index name
+func (d *DesignFiles) UniqueIndexCountryPropId() string { //nolint:dupl false positive
+	return `countryPropId`
+}
+
+// FindByCountryPropId Find one by CountryPropId
+func (d *DesignFiles) FindByCountryPropId() bool { //nolint:dupl false positive
+	res, err := d.Adapter.Select(d.SpaceName(), d.UniqueIndexCountryPropId(), 0, 1, tarantool.IterEq, A.X{d.CountryPropId})
+	if L.IsError(err, `DesignFiles.FindByCountryPropId failed: `+d.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		d.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
 // SqlSelectAllFields generate Sql select fields
 func (d *DesignFiles) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "id"

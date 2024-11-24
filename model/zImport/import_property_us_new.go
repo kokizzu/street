@@ -266,7 +266,7 @@ func ReadPropertyUS_ZillowCom(adapter *Tt.Adapter, resourcePath string) {
 		PropertyType    string
 		LastUpdate      string
 		LastChecked     string
-		HistoryLited    string
+		HistoryListed    string
 		Image           string
 	}
 
@@ -301,7 +301,7 @@ func ReadPropertyUS_ZillowCom(adapter *Tt.Adapter, resourcePath string) {
 		propertyType := tsv.String()
 		lastUpdate := tsv.String()
 		lastChecked := tsv.String()
-		historyLited := tsv.String()
+		historyListed := tsv.String()
 		image := tsv.String()
 
 		properties = append(properties, propertyUS{
@@ -330,7 +330,7 @@ func ReadPropertyUS_ZillowCom(adapter *Tt.Adapter, resourcePath string) {
 			PropertyType:    S.Trim(propertyType),
 			LastUpdate:      S.Trim(lastUpdate),
 			LastChecked:     S.Trim(lastChecked),
-			HistoryLited:    S.Trim(historyLited),
+			HistoryListed:    S.Trim(historyListed),
 			Image:           S.Trim(image),
 		})
 	}

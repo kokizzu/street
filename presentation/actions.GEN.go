@@ -7,6 +7,7 @@ import (
 )
 
 var allCommands = []string{
+	domain.Admin3DFilesAction,
 	domain.AdminAccessLogsAction,
 	domain.AdminDashboardAction,
 	domain.AdminFeedbacksAction,
@@ -42,6 +43,7 @@ var allCommands = []string{
 	domain.UserDeactivateAction,
 	domain.UserGpsCountryAction,
 	domain.UserLikePropAction,
+	domain.UserListingAction,
 	domain.UserListingsAction,
 	domain.UserLogoutAction,
 	domain.UserNearbyFacilitiesAction,

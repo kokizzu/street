@@ -101,6 +101,27 @@ func (d *DesignFilesMutator) DoDeletePermanentByFilePath() bool { //nolint:dupl 
 	return !L.IsError(err, `DesignFiles.DoDeletePermanentByFilePath failed: `+d.SpaceName())
 }
 
+// DoOverwriteByCountryPropId update all columns, error if not exists, not using mutations/Set*
+func (d *DesignFilesMutator) DoOverwriteByCountryPropId() bool { //nolint:dupl false positive
+	_, err := d.Adapter.Update(d.SpaceName(), d.UniqueIndexCountryPropId(), A.X{d.CountryPropId}, d.ToUpdateArray())
+	return !L.IsError(err, `DesignFiles.DoOverwriteByCountryPropId failed: `+d.SpaceName())
+}
+
+// DoUpdateByCountryPropId update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (d *DesignFilesMutator) DoUpdateByCountryPropId() bool { //nolint:dupl false positive
+	if !d.HaveMutation() {
+		return true
+	}
+	_, err := d.Adapter.Update(d.SpaceName(), d.UniqueIndexCountryPropId(), A.X{d.CountryPropId}, d.mutations)
+	return !L.IsError(err, `DesignFiles.DoUpdateByCountryPropId failed: `+d.SpaceName())
+}
+
+// DoDeletePermanentByCountryPropId permanent delete
+func (d *DesignFilesMutator) DoDeletePermanentByCountryPropId() bool { //nolint:dupl false positive
+	_, err := d.Adapter.Delete(d.SpaceName(), d.UniqueIndexCountryPropId(), A.X{d.CountryPropId})
+	return !L.IsError(err, `DesignFiles.DoDeletePermanentByCountryPropId failed: `+d.SpaceName())
+}
+
 // DoInsert insert, error if already exists
 func (d *DesignFilesMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := d.ToArray()

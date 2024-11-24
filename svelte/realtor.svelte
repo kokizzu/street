@@ -21,7 +21,7 @@
 <Main {user} {access}>
   <div class="properties-container">
     <div class="info-actions">
-      <h2>Owned/Managed Properties: {pager.countResult}</h2>
+      <div class="owned-properties">Owned/Managed Properties: {pager.countResult}</div>
       <a href="/realtor/propertyOld" class="add-btn">
         <Icon
           size="20"
@@ -65,6 +65,18 @@
     width: 100%;
   }
 
+  .properties-container .info-actions .owned-properties {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    padding: 10px 15px;
+    border: 1px solid var(--gray-003);
+    border-radius: 8px;
+    font-weight: 600;
+  }
+
   .properties-container .info-actions .add-btn {
     display: flex;
     flex-direction: row;
@@ -83,11 +95,6 @@
     background-color: var(--orange-005);
   }
 
-  .properties-container .info-actions h2 {
-    font-size: 18px;
-    margin: 0;
-  }
-
   .properties-container .no-property {
     background-color: var(--gray-002);
     border-radius: 8px;
@@ -103,29 +110,5 @@
     flex-direction: column;
     gap: 20px;
     width: 100%;
-  }
-
-  /* Responsive to mobile device */
-  @media (max-width : 768px) {
-    :global(.icon) {
-      width  : 15px;
-      height : 15px;
-    }
-
-    .properties-container {
-      margin  : -40px 20px 0 20px;
-      padding : 15px;
-      width   : auto;
-    }
-
-    .properties-container .info-actions h2 {
-      font-size : 16px !important;
-    }
-
-    .properties-container .info-actions .add-btn {
-      padding   : 5px 15px !important;
-      font-size : 14px !important;
-      gap       : 8px !important;
-    }
   }
 </style>

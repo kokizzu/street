@@ -112,6 +112,7 @@ LIMIT 1`
 		return
 	}
 	err = row.Scan(&out.Total)
+	L.IsError(err, comment+`: error while scanning total`)
 	out.CalculatePages(in.Page, in.PerPage, out.Total)
 
 	orderBySql := out.OrderBySqlCh(in.Order, validFields)
@@ -216,7 +217,9 @@ SELECT
   actorId,
   count(1) AS total
 FROM actionLogs
-WHERE (createdAt > (now() - toIntervalDay(1))) AND (action = 'guest/login')
+WHERE (createdAt > (now() - toIntervalDay(1)))
+	AND action = 'guest/login'
+	AND actorId > 0
 GROUP BY 1, 2
 ORDER BY total DESC
 LIMIT 1
@@ -228,7 +231,9 @@ SELECT
   actorId,
   count(1) AS total
 FROM actionLogs
-WHERE (createdAt > (now() - toIntervalWeek(1))) AND (action = 'guest/login')
+WHERE (createdAt > (now() - toIntervalWeek(1)))
+	AND action = 'guest/login'
+	AND actorId > 0
 GROUP BY 1, 2
 ORDER BY total DESC
 LIMIT 1
@@ -240,7 +245,9 @@ SELECT
   actorId,
   count(1) AS total
 FROM actionLogs
-WHERE (createdAt > (now() - toIntervalMonth(1))) AND (action = 'guest/login')
+WHERE (createdAt > (now() - toIntervalMonth(1)))
+	AND action = 'guest/login'
+	AND actorId > 0
 GROUP BY 1, 2
 ORDER BY total DESC
 LIMIT 1
@@ -252,7 +259,9 @@ SELECT
   actorId,
   count(1) AS total
 FROM actionLogs
-WHERE (createdAt > (now() - toIntervalQuarter(1))) AND (action = 'guest/login')
+WHERE (createdAt > (now() - toIntervalQuarter(1)))
+	AND action = 'guest/login'
+	AND actorId > 0
 GROUP BY 1, 2
 ORDER BY total DESC
 LIMIT 1
@@ -264,7 +273,9 @@ SELECT
   actorId,
   count(1) AS total
 FROM actionLogs
-WHERE (createdAt > (now() - toIntervalYear(1))) AND (action = 'guest/login')
+WHERE (createdAt > (now() - toIntervalYear(1)))
+	AND action = 'guest/login'
+	AND actorId > 0
 GROUP BY 1, 2
 ORDER BY total DESC
 LIMIT 1`

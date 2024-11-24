@@ -15,20 +15,19 @@
 		map.setCenter(location);
 	}
 
-	export function createMarker(latitude, longitude, iconPath, iconSize, title) {
+	export async function createMarker(latitude, longitude) {
 		// @ts-ignore
-		let marker = new google.maps.Marker({
-			map,
-			icon: {
-				url: iconPath, // @ts-ignore
-				scaledSize: new google.maps.Size(iconSize, iconSize),
-			},
+		const markerLib = await google.maps.importLibrary("marker");
+		const pin = new markerLib.PinElement({
+			scale: 1.5,
+	});
+		const marker = new markerLib.AdvancedMarkerElement({
+			map: map,
 			position: {
-					lat: latitude,
-					lng: longitude,
+				lat: latitude,
+				lng: longitude
 			},
-			title: title || '',
-			draggable: false,
+			content: pin.element,
 		});
 
 		return marker;
