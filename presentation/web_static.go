@@ -798,7 +798,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.WithMeta = true
 		in.Cmd = `list`
 		out := d.Admin3DFiles(&in)
-		return views.RenderAdminFiles(ctx, M.SX{
+		return views.RenderAdmin3DFiles(ctx, M.SX{
 			`title`:    `3D Design Files`,
 			`segments`: segments,
 			`files`:    out.Files,

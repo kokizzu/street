@@ -186,6 +186,10 @@
         color: var(--gray-008);
       }
 
+      button {
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+      }
+
       hr {
         height: 0;
         border-top-width: 1px;
@@ -949,6 +953,121 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   background-color: var(--gray-002);
   font-weight: 600;
   cursor: default;
+}
+
+/* fakecss:./_components/PopUpUpload3DFile.esbuild-svelte-fake-css */
+@keyframes svelte-121x6lz-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: svelte-121x6lz-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.backdrop.svelte-121x6lz.svelte-121x6lz {
+  position: fixed;
+  z-index: 2001;
+  background: rgba(41, 41, 41, 0.5);
+  width: 100%;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: auto;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.backdrop.show.svelte-121x6lz.svelte-121x6lz {
+  display: flex;
+}
+.form-upload.svelte-121x6lz.svelte-121x6lz {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #FFF;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #475569;
+  width: 600px;
+}
+.form-upload.svelte-121x6lz h3.svelte-121x6lz {
+  margin: 0 0 0 20px;
+  font-size: 18px;
+}
+.form-upload.svelte-121x6lz .upload-zone.svelte-121x6lz {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  width: 100%;
+}
+.form-upload.svelte-121x6lz .upload-zone label.svelte-121x6lz {
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  border: 3px dashed var(--gray-003);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  border-radius: 8px;
+}
+.form-upload.svelte-121x6lz .upload-zone label h3.svelte-121x6lz {
+  margin: 0;
+  font-size: 20px;
+}
+.form-upload.svelte-121x6lz .upload-zone label.svelte-121x6lz:hover {
+  border-color: var(--orange-005);
+  color: var(--orange-005);
+}
+.form-upload.svelte-121x6lz .upload-zone input.svelte-121x6lz {
+  display: none;
+  visibility: hidden;
+}
+.form-upload.svelte-121x6lz .buttons.svelte-121x6lz {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: stretch;
+  font-weight: 500;
+  width: 100%;
+  gap: 10px;
+}
+.form-upload.svelte-121x6lz .buttons button.svelte-121x6lz {
+  border-radius: 999px;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: fit-content;
+  padding: 12px 20px;
+  text-transform: capitalize;
+}
+.form-upload.svelte-121x6lz .buttons .cancel-btn.svelte-121x6lz {
+  border: none;
+  background-color: transparent;
+}
+.form-upload.svelte-121x6lz .buttons .cancel-btn.svelte-121x6lz:hover {
+  background-color: var(--orange-transparent);
+  color: var(--orange-005);
+}
+.form-upload.svelte-121x6lz .buttons .submit-btn.svelte-121x6lz {
+  background-color: var(--orange-006);
+  color: #FFF;
+}
+.form-upload.svelte-121x6lz .buttons .submit-btn.svelte-121x6lz:disabled,
+.form-upload.svelte-121x6lz .buttons .submit-btn.svelte-121x6lz:disabled:hover {
+  background-color: var(--gray-003);
+  color: var(--gray-008);
+}
+.form-upload.svelte-121x6lz .buttons .submit-btn.svelte-121x6lz:hover {
+  background-color: var(--orange-005);
+  color: #FFF;
 }
 
 /* fakecss:./admin/3dFiles.esbuild-svelte-fake-css */
@@ -3368,13 +3487,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance10 = bind2(Axios$1.prototype.request, context);
-        utils$1.extend(instance10, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance10, context, null, { allOwnKeys: true });
-        instance10.create = function create(instanceConfig) {
+        const instance11 = bind2(Axios$1.prototype.request, context);
+        utils$1.extend(instance11, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance11, context, null, { allOwnKeys: true });
+        instance11.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance10;
+        return instance11;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -4217,7 +4336,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance10, create_fragment10, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance11, create_fragment11, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -4243,7 +4362,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance10 ? instance10(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance11 ? instance11(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -4256,7 +4375,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment10 ? create_fragment10($.ctx) : false;
+    $.fragment = create_fragment11 ? create_fragment11($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -5121,6 +5240,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ri/index.js
   var RiDesignPencilLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M15.7279 9.57627L14.3137 8.16206L5 17.4758V18.89H6.41421L15.7279 9.57627ZM17.1421 8.16206L18.5563 6.74785L17.1421 5.33363L15.7279 6.74785L17.1421 8.16206ZM7.24264 20.89H3V16.6473L16.435 3.21231C16.8256 2.82179 17.4587 2.82179 17.8492 3.21231L20.6777 6.04074C21.0682 6.43126 21.0682 7.06443 20.6777 7.45495L7.24264 20.89Z"></path>' };
   var RiUserFacesUserLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H18C18 18.6863 15.3137 16 12 16C8.68629 16 6 18.6863 6 22H4ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11Z"></path>' };
+  var RiSystemAddBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5ZM11 11V7H13V11H17V13H13V17H11V13H7V11H11Z"></path>' };
   var RiSystemRefreshLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M5.46257 4.43262C7.21556 2.91688 9.5007 2 12 2C17.5228 2 22 6.47715 22 12C22 14.1361 21.3302 16.1158 20.1892 17.7406L17 12H20C20 7.58172 16.4183 4 12 4C9.84982 4 7.89777 4.84827 6.46023 6.22842L5.46257 4.43262ZM18.5374 19.5674C16.7844 21.0831 14.4993 22 12 22C6.47715 22 2 17.5228 2 12C2 9.86386 2.66979 7.88416 3.8108 6.25944L7 12H4C4 16.4183 7.58172 20 12 20C14.1502 20 16.1022 19.1517 17.5398 17.7716L18.5374 19.5674Z"></path>' };
   var RiSystemFilterLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 4V6H20L15 13.5V22H9V13.5L4 6H3V4H21ZM6.4037 6L11 12.8944V20H13V12.8944L17.5963 6H6.4037Z"></path>' };
   var RiArrowsArrowRightSLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z"></path>' };
@@ -7999,6 +8119,630 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
 
   // admin/3dFiles.svelte
   var import_jsApi3 = __toESM(require_jsApi_GEN());
+
+  // _components/PopUpUpload3DFile.svelte
+  function create_if_block_32(ctx) {
+    let t;
+    let if_block1_anchor;
+    let if_block0 = (
+      /*fileName*/
+      ctx[5] !== "" && create_if_block_52(ctx)
+    );
+    let if_block1 = (
+      /*fileName*/
+      ctx[5] === "" && create_if_block_42(ctx)
+    );
+    return {
+      c() {
+        if (if_block0)
+          if_block0.c();
+        t = space();
+        if (if_block1)
+          if_block1.c();
+        if_block1_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block0)
+          if_block0.m(target, anchor);
+        insert(target, t, anchor);
+        if (if_block1)
+          if_block1.m(target, anchor);
+        insert(target, if_block1_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (
+          /*fileName*/
+          ctx2[5] !== ""
+        ) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+          } else {
+            if_block0 = create_if_block_52(ctx2);
+            if_block0.c();
+            if_block0.m(t.parentNode, t);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        if (
+          /*fileName*/
+          ctx2[5] === ""
+        ) {
+          if (if_block1) {
+          } else {
+            if_block1 = create_if_block_42(ctx2);
+            if_block1.c();
+            if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
+          }
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(t);
+          detach(if_block1_anchor);
+        }
+        if (if_block0)
+          if_block0.d(detaching);
+        if (if_block1)
+          if_block1.d(detaching);
+      }
+    };
+  }
+  function create_if_block_52(ctx) {
+    let h3;
+    let t0;
+    let t1;
+    let span;
+    return {
+      c() {
+        h3 = element("h3");
+        t0 = text(
+          /*fileName*/
+          ctx[5]
+        );
+        t1 = space();
+        span = element("span");
+        span.textContent = "Click or Drop file here to change";
+        attr(h3, "class", "svelte-121x6lz");
+      },
+      m(target, anchor) {
+        insert(target, h3, anchor);
+        append(h3, t0);
+        insert(target, t1, anchor);
+        insert(target, span, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*fileName*/
+        32)
+          set_data(
+            t0,
+            /*fileName*/
+            ctx2[5]
+          );
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(h3);
+          detach(t1);
+          detach(span);
+        }
+      }
+    };
+  }
+  function create_if_block_42(ctx) {
+    let b;
+    return {
+      c() {
+        b = element("b");
+        b.textContent = "Click or Drag and Drop your 3D file here (obj, fbx, stl, amf, iges, glb)";
+      },
+      m(target, anchor) {
+        insert(target, b, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(b);
+        }
+      }
+    };
+  }
+  function create_if_block_23(ctx) {
+    let b;
+    let t;
+    return {
+      c() {
+        b = element("b");
+        t = text(
+          /*uploadingProgressStr*/
+          ctx[1]
+        );
+      },
+      m(target, anchor) {
+        insert(target, b, anchor);
+        append(b, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*uploadingProgressStr*/
+        2)
+          set_data(
+            t,
+            /*uploadingProgressStr*/
+            ctx2[1]
+          );
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(b);
+        }
+      }
+    };
+  }
+  function create_if_block_13(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Uploading....";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
+  function create_if_block4(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Upload";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
+  function create_fragment9(ctx) {
+    let div3;
+    let div2;
+    let h3;
+    let t1;
+    let div0;
+    let label;
+    let t2;
+    let t3;
+    let input;
+    let t4;
+    let div1;
+    let button0;
+    let t6;
+    let button1;
+    let t7;
+    let button1_disabled_value;
+    let div3_class_value;
+    let mounted;
+    let dispose;
+    let if_block0 = (
+      /*uploadingProgressStr*/
+      ctx[1] === "" && create_if_block_32(ctx)
+    );
+    let if_block1 = (
+      /*uploadingProgressStr*/
+      ctx[1] !== "" && create_if_block_23(ctx)
+    );
+    let if_block2 = (
+      /*isSubmitted*/
+      ctx[0] && create_if_block_13(ctx)
+    );
+    let if_block3 = !/*isSubmitted*/
+    ctx[0] && create_if_block4(ctx);
+    return {
+      c() {
+        div3 = element("div");
+        div2 = element("div");
+        h3 = element("h3");
+        h3.textContent = "Upload 3D File";
+        t1 = space();
+        div0 = element("div");
+        label = element("label");
+        if (if_block0)
+          if_block0.c();
+        t2 = space();
+        if (if_block1)
+          if_block1.c();
+        t3 = space();
+        input = element("input");
+        t4 = space();
+        div1 = element("div");
+        button0 = element("button");
+        button0.textContent = "Cancel";
+        t6 = space();
+        button1 = element("button");
+        if (if_block2)
+          if_block2.c();
+        t7 = space();
+        if (if_block3)
+          if_block3.c();
+        attr(h3, "class", "svelte-121x6lz");
+        attr(label, "for", "3dFile");
+        attr(label, "class", "svelte-121x6lz");
+        attr(input, "type", "file");
+        attr(input, "name", "3dFile");
+        attr(input, "id", "3dFile");
+        attr(input, "accept", ".obj,.fbx,.stl,.amf,.iges,.glb");
+        input.required = true;
+        attr(input, "class", "svelte-121x6lz");
+        attr(div0, "class", "upload-zone svelte-121x6lz");
+        attr(button0, "class", "cancel-btn svelte-121x6lz");
+        attr(button1, "class", "submit-btn svelte-121x6lz");
+        button1.disabled = button1_disabled_value = !/*file3d*/
+        ctx[6];
+        attr(div1, "class", "buttons svelte-121x6lz");
+        attr(div2, "class", "form-upload svelte-121x6lz");
+        attr(div3, "class", div3_class_value = "backdrop " + /*isShow*/
+        (ctx[4] ? "show" : "") + " svelte-121x6lz");
+      },
+      m(target, anchor) {
+        insert(target, div3, anchor);
+        append(div3, div2);
+        append(div2, h3);
+        append(div2, t1);
+        append(div2, div0);
+        append(div0, label);
+        if (if_block0)
+          if_block0.m(label, null);
+        append(label, t2);
+        if (if_block1)
+          if_block1.m(label, null);
+        append(div0, t3);
+        append(div0, input);
+        ctx[14](input);
+        append(div2, t4);
+        append(div2, div1);
+        append(div1, button0);
+        append(div1, t6);
+        append(div1, button1);
+        if (if_block2)
+          if_block2.m(button1, null);
+        append(button1, t7);
+        if (if_block3)
+          if_block3.m(button1, null);
+        if (!mounted) {
+          dispose = [
+            listen(
+              label,
+              "dragover",
+              /*handleDragOver*/
+              ctx[9]
+            ),
+            listen(
+              label,
+              "dragleave",
+              /*handleDragLeave*/
+              ctx[10]
+            ),
+            listen(
+              label,
+              "drop",
+              /*handleDrop*/
+              ctx[8]
+            ),
+            listen(
+              input,
+              "change",
+              /*handleFileInputChange*/
+              ctx[11]
+            ),
+            listen(
+              button0,
+              "click",
+              /*Close*/
+              ctx[2]
+            ),
+            listen(
+              button1,
+              "click",
+              /*click_handler*/
+              ctx[15]
+            )
+          ];
+          mounted = true;
+        }
+      },
+      p(ctx2, [dirty]) {
+        if (
+          /*uploadingProgressStr*/
+          ctx2[1] === ""
+        ) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+          } else {
+            if_block0 = create_if_block_32(ctx2);
+            if_block0.c();
+            if_block0.m(label, t2);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        if (
+          /*uploadingProgressStr*/
+          ctx2[1] !== ""
+        ) {
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
+          } else {
+            if_block1 = create_if_block_23(ctx2);
+            if_block1.c();
+            if_block1.m(label, null);
+          }
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
+        }
+        if (
+          /*isSubmitted*/
+          ctx2[0]
+        ) {
+          if (if_block2) {
+          } else {
+            if_block2 = create_if_block_13(ctx2);
+            if_block2.c();
+            if_block2.m(button1, t7);
+          }
+        } else if (if_block2) {
+          if_block2.d(1);
+          if_block2 = null;
+        }
+        if (!/*isSubmitted*/
+        ctx2[0]) {
+          if (if_block3) {
+          } else {
+            if_block3 = create_if_block4(ctx2);
+            if_block3.c();
+            if_block3.m(button1, null);
+          }
+        } else if (if_block3) {
+          if_block3.d(1);
+          if_block3 = null;
+        }
+        if (dirty & /*file3d*/
+        64 && button1_disabled_value !== (button1_disabled_value = !/*file3d*/
+        ctx2[6])) {
+          button1.disabled = button1_disabled_value;
+        }
+        if (dirty & /*isShow*/
+        16 && div3_class_value !== (div3_class_value = "backdrop " + /*isShow*/
+        (ctx2[4] ? "show" : "") + " svelte-121x6lz")) {
+          attr(div3, "class", div3_class_value);
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(div3);
+        }
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        ctx[14](null);
+        if (if_block2)
+          if_block2.d();
+        if (if_block3)
+          if_block3.d();
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function instance9($self, $props, $invalidate) {
+    let isShow = (
+      /** @type {boolean} */
+      false
+    );
+    let { isSubmitted = (
+      /** @type {boolean} */
+      false
+    ) } = $props;
+    let { uploadingProgressStr = (
+      /** @type {string} */
+      ""
+    ) } = $props;
+    const allowedExtensions = (
+      /** @type {string[]} */
+      [".obj", ".fbx", ".stl", ".amf", ".iges", ".glb"]
+    );
+    let fileName = (
+      /** @type {string} */
+      ""
+    );
+    let file3d = (
+      /** @type {File} */
+      null
+    );
+    let inputElm = (
+      /** @type {HTMLInputElement} */
+      null
+    );
+    let isDragging = (
+      /** @type {boolean} */
+      false
+    );
+    const Reset = () => {
+      $invalidate(0, isSubmitted = false);
+      $invalidate(5, fileName = "");
+      $invalidate(6, file3d = null);
+      $invalidate(7, inputElm.files = null, inputElm);
+      $invalidate(7, inputElm.value = "", inputElm);
+      isDragging = false;
+      $invalidate(1, uploadingProgressStr = "");
+    };
+    const Show = () => $invalidate(4, isShow = true);
+    const Close = () => {
+      $invalidate(4, isShow = false);
+      Reset();
+    };
+    let { OnSubmit = async function(file) {
+      console.log("File Name =", file.name);
+    } } = $props;
+    function handleDrop(event) {
+      event.preventDefault();
+      isDragging = false;
+      const droppedFile = event.dataTransfer.files[0];
+      if (!droppedFile) {
+        notifier.showError("No file dropped.");
+        return;
+      }
+      const fileExtension = droppedFile.name.slice(droppedFile.name.lastIndexOf(".")).toLowerCase();
+      if (!allowedExtensions.includes(fileExtension)) {
+        notifier.showError(`Invalid file type. Please upload a 3D file (${allowedExtensions.join(", ")}).`);
+        return;
+      }
+      $invalidate(6, file3d = droppedFile);
+      $invalidate(5, fileName = file3d.name);
+    }
+    function handleDragOver(event) {
+      event.preventDefault();
+      isDragging = true;
+    }
+    function handleDragLeave() {
+      isDragging = false;
+    }
+    function handleFileInputChange(event) {
+      const file = event.currentTarget.files[0];
+      $invalidate(6, file3d = file);
+      $invalidate(5, fileName = file.name);
+      console.log("FileName:", fileName);
+    }
+    function input_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        inputElm = $value;
+        $invalidate(7, inputElm);
+      });
+    }
+    const click_handler = () => OnSubmit(file3d);
+    $self.$set = ($props2) => {
+      if ("isSubmitted" in $props2)
+        $invalidate(0, isSubmitted = $props2.isSubmitted);
+      if ("uploadingProgressStr" in $props2)
+        $invalidate(1, uploadingProgressStr = $props2.uploadingProgressStr);
+      if ("OnSubmit" in $props2)
+        $invalidate(3, OnSubmit = $props2.OnSubmit);
+    };
+    return [
+      isSubmitted,
+      uploadingProgressStr,
+      Close,
+      OnSubmit,
+      isShow,
+      fileName,
+      file3d,
+      inputElm,
+      handleDrop,
+      handleDragOver,
+      handleDragLeave,
+      handleFileInputChange,
+      Reset,
+      Show,
+      input_binding,
+      click_handler
+    ];
+  }
+  var PopUpUpload3DFile = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance9, create_fragment9, safe_not_equal, {
+        isSubmitted: 0,
+        uploadingProgressStr: 1,
+        Reset: 12,
+        Show: 13,
+        Close: 2,
+        OnSubmit: 3
+      });
+    }
+    get Reset() {
+      return this.$.ctx[12];
+    }
+    get Show() {
+      return this.$.ctx[13];
+    }
+    get Close() {
+      return this.$.ctx[2];
+    }
+  };
+  var PopUpUpload3DFile_default = PopUpUpload3DFile;
+
+  // admin/3dFiles.svelte
+  function create_default_slot_1(ctx) {
+    let button;
+    let icon;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        size: "17",
+        src: RiSystemAddBoxLine,
+        color: "var(--gray-008)"
+      }
+    });
+    return {
+      c() {
+        button = element("button");
+        create_component(icon.$.fragment);
+        attr(button, "class", "btn");
+        attr(button, "title", "Upload 3D file");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        mount_component(icon, button, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*click_handler*/
+            ctx[5]
+          );
+          mounted = true;
+        }
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        destroy_component(icon);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
   function create_default_slot(ctx) {
     let div1;
     let adminsubmenu;
@@ -8010,7 +8754,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let current;
     adminsubmenu = new AdminSubMenu_default({});
     function tableview_pager_binding(value) {
-      ctx[3](value);
+      ctx[6](value);
     }
     let tableview_props = {
       fields,
@@ -8020,8 +8764,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       ),
       onRefreshTableView: (
         /*refreshTableView*/
-        ctx[2]
-      )
+        ctx[3]
+      ),
+      $slots: { default: [create_default_slot_1] },
+      $scope: { ctx }
     };
     if (
       /*pager*/
@@ -8059,6 +8805,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         1)
           tableview_changes.rows = /*files*/
           ctx2[0];
+        if (dirty & /*$scope, popUpUpload3DFile*/
+        260) {
+          tableview_changes.$scope = { dirty, ctx: ctx2 };
+        }
         if (!updating_pager && dirty & /*pager*/
         2) {
           updating_pager = true;
@@ -8089,9 +8839,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  function create_fragment9(ctx) {
+  function create_fragment10(ctx) {
+    let popupupload3dfile;
+    let t;
     let main;
     let current;
+    let popupupload3dfile_props = {};
+    popupupload3dfile = new PopUpUpload3DFile_default({ props: popupupload3dfile_props });
+    ctx[4](popupupload3dfile);
     main = new Main_default({
       props: {
         user,
@@ -8102,16 +8857,22 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     });
     return {
       c() {
+        create_component(popupupload3dfile.$.fragment);
+        t = space();
         create_component(main.$.fragment);
       },
       m(target, anchor) {
+        mount_component(popupupload3dfile, target, anchor);
+        insert(target, t, anchor);
         mount_component(main, target, anchor);
         current = true;
       },
       p(ctx2, [dirty]) {
+        const popupupload3dfile_changes = {};
+        popupupload3dfile.$set(popupupload3dfile_changes);
         const main_changes = {};
-        if (dirty & /*$scope, files, pager*/
-        35) {
+        if (dirty & /*$scope, files, pager, popUpUpload3DFile*/
+        263) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -8119,14 +8880,21 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       i(local) {
         if (current)
           return;
+        transition_in(popupupload3dfile.$.fragment, local);
         transition_in(main.$.fragment, local);
         current = true;
       },
       o(local) {
+        transition_out(popupupload3dfile.$.fragment, local);
         transition_out(main.$.fragment, local);
         current = false;
       },
       d(detaching) {
+        if (detaching) {
+          detach(t);
+        }
+        ctx[4](null);
+        destroy_component(popupupload3dfile, detaching);
         destroy_component(main, detaching);
       }
     };
@@ -8143,7 +8911,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     /** @type {Field[]} */
     [/* fields */]
   );
-  function instance9($self, $props, $invalidate) {
+  function instance10($self, $props, $invalidate) {
     let files = (
       /** @type {any}*/
       [/* files */]
@@ -8151,6 +8919,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let pager = (
       /** @type {PagerOut} */
       {/* pager */}
+    );
+    let popUpUpload3DFile = (
+      /** @type {import('svelte').SvelteComponent} */
+      null
     );
     function handleResponse(res) {
       console.log(res);
@@ -8175,16 +8947,31 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }
       );
     }
+    function popupupload3dfile_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        popUpUpload3DFile = $value;
+        $invalidate(2, popUpUpload3DFile);
+      });
+    }
+    const click_handler = () => popUpUpload3DFile.Show();
     function tableview_pager_binding(value) {
       pager = value;
       $invalidate(1, pager);
     }
-    return [files, pager, refreshTableView, tableview_pager_binding];
+    return [
+      files,
+      pager,
+      popUpUpload3DFile,
+      refreshTableView,
+      popupupload3dfile_binding,
+      click_handler,
+      tableview_pager_binding
+    ];
   }
   var _3dFiles = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance9, create_fragment9, safe_not_equal, {});
+      init(this, options, instance10, create_fragment10, safe_not_equal, {});
     }
   };
   var dFiles_default = _3dFiles;

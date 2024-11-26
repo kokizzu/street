@@ -10,12 +10,17 @@
     import TableView from '../_components/TableView.svelte';
     import { Admin3DFiles } from '../jsApi.GEN';
     import { notifier } from '../_components/notifier';
+    import PopUpUpload3DFile from '../_components/PopUpUpload3DFile.svelte';
+    import { Icon } from '../node_modules/svelte-icons-pack/dist';
+    import { RiSystemAddBoxLine } from '../node_modules/svelte-icons-pack/dist/ri';
   
     let user 		= /** @type {User} */ ({/* user */});
     let access	= /** @type {Access} */ ({/* segments */});
     let fields	= /** @type {Field[]} */ ([/* fields */]);
     let files   = /** @type {any}*/ ([/* files */]);
     let pager   = /** @type {PagerOut} */ ({/* pager */});
+
+    let popUpUpload3DFile = /** @type {import('svelte').SvelteComponent} */ (null);
   
     /**
      * @description Handle AJAX response
@@ -41,6 +46,10 @@
       });
     }
   </script>
+
+<PopUpUpload3DFile
+  bind:this={popUpUpload3DFile}
+/>
   
   <Main {user} {access}>
     <div class="admin-container">
@@ -51,7 +60,19 @@
             bind:pager={pager}
             rows={files}
             onRefreshTableView={refreshTableView}
-          />
+          >
+          <button
+            class="btn"
+            on:click={() => popUpUpload3DFile.Show()}
+            title="Upload 3D file"
+          >
+            <Icon
+              size="17"
+              src={RiSystemAddBoxLine}
+              color="var(--gray-008)"
+            />
+          </button>
+          </TableView>
         </section>
       </div>
     </div>
