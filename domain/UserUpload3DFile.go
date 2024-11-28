@@ -24,6 +24,7 @@ type (
 	UserUpload3DFileIn struct {
 		RequestCommon
 		PropertyId uint64 `json:"propertyId" form:"propertyId" query:"propertyId" long:"propertyId" msg:"propertyId"`
+		PropKey string `json:"propKey" form:"propKey" query:"propKey" long:"propKey" msg:"propKey"`
 		Country    string `json:"country" form:"country" query:"country" long:"country" msg:"country"`
 	}
 
@@ -59,23 +60,47 @@ func (d *Domain) UserUpload3DFile(in *UserUpload3DFileIn) (out UserUpload3DFileO
 	case `TW`:
 		propertyTw := rqProperty.NewPropertyTW(d.AuthOltp)
 		propertyTw.Id = in.PropertyId
-		if !propertyTw.FindById() {
-			out.SetError(400, ErrUserUpload3DPropertyTWNotFound)
-			return
+		propertyTw.UniqPropKey = in.PropKey
+		if in.PropKey == `` {
+			if !propertyTw.FindById() {
+				out.SetError(400, ErrUserUpload3DPropertyTWNotFound)
+				return
+			}
+		} else {
+			if !propertyTw.FindByUniqPropKey() {
+				out.SetError(400, ErrUserUpload3DPropertyTWNotFound)
+				return
+			}
 		}
 	case `US`:
 		propertyUs := rqProperty.NewPropertyUS(d.AuthOltp)
 		propertyUs.Id = in.PropertyId
-		if !propertyUs.FindById() {
-			out.SetError(400, ErrUserUpload3DPropertyUSNotFound)
-			return
+		propertyUs.UniqPropKey = in.PropKey
+		if in.PropKey == `` {
+			if !propertyUs.FindById() {
+				out.SetError(400, ErrUserUpload3DPropertyUSNotFound)
+				return
+			}
+		} else {
+			if !propertyUs.FindByUniqPropKey() {
+				out.SetError(400, ErrUserUpload3DPropertyUSNotFound)
+				return
+			}
 		}
 	default:
 		property := rqProperty.NewProperty(d.AuthOltp)
 		property.Id = in.PropertyId
-		if !property.FindById() {
-			out.SetError(400, ErrUserUpload3DPropertyNotFound)
-			return
+		property.UniqPropKey = in.PropKey
+		if in.PropKey == `` {
+			if !property.FindById() {
+				out.SetError(400, ErrUserUpload3DPropertyNotFound)
+				return
+			}
+		} else {
+			if !property.FindByUniqPropKey() {
+				out.SetError(400, ErrUserUpload3DPropertyNotFound)
+				return
+			}
 		}
 	}
 
