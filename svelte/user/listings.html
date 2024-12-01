@@ -10116,6 +10116,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
       );
       const { suggestions } = await autoCompleteSuggestion.fetchAutocompleteSuggestions(request);
       placeSuggestions = suggestions;
+      console.log("placeSuggestions=", placeSuggestions);
     }
     async function HandlerSearchByPlaceID(placeId) {
       await geocoder.geocode({ placeId }).then(({ results }) => {

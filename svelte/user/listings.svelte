@@ -91,6 +91,7 @@
     const { suggestions } = await autoCompleteSuggestion.fetchAutocompleteSuggestions(request);
 
     placeSuggestions = suggestions;
+    console.log('placeSuggestions=', placeSuggestions);
   }
 
   async function HandlerSearchByPlaceID(/** @type {string} */ placeId) {
