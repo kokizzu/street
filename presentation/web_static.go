@@ -37,6 +37,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 
 		var userRegistered []mAuth.UserRegisterStat
 		var realtorStats []mAuth.RealtorStat
+		var buyerStats []mAuth.BuyerStat
 		var revenues []*mBusiness.Revenue
 		var orders []*mBusiness.Order
 		var mostLoggedInUsers []saAuth.MostLoggedInUser
@@ -48,6 +49,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			userRegistered = actionLog.FindUserRegistered()
 			realtorStats = actionLog.FindRealtorActivity()
 			mostLoggedInUsers = actionLog.FindMostLoggedInUsers(d.AuthOltp)
+			buyerStats = actionLog.FindBuyerActivity()
 
 			scannedArea := saProperty.NewScannedAreas(d.PropOlap)
 			mostScannedAreas = scannedArea.FindMostScannedAreas()
@@ -68,16 +70,17 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			}
 		}
 		return views.RenderIndex(c, M.SX{
-			`title`:           `HapSTR`,
-			`user`:            user,
-			`google`:          google.Link,
-			`segments`:        segments,
-			`user_registered`: userRegistered,
-			`realtor_stats`:   realtorStats,
-			`revenues`:        revenues,
-			`orders`:          orders,
-			`users_most_logged_in`: mostLoggedInUsers,
-			`most_scanned_areas`: mostScannedAreas,
+			`title`:                   `HapSTR`,
+			`user`:                    user,
+			`google`:                  google.Link,
+			`segments`:                segments,
+			`user_registered`:         userRegistered,
+			`realtor_stats`:           realtorStats,
+			`buyer_stats`:             buyerStats,
+			`revenues`:                revenues,
+			`orders`:                  orders,
+			`users_most_logged_in`:    mostLoggedInUsers,
+			`most_scanned_areas`:      mostScannedAreas,
 			`most_scanned_properties`: mostScannedProperties,
 		})
 	})
@@ -249,7 +252,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
-	fw.Get(`/user/download3dFile`, func (ctx *fiber.Ctx) error {
+	fw.Get(`/user/download3dFile`, func(ctx *fiber.Ctx) error {
 		in, _, _ := userInfoFromContext(ctx, d)
 		if notLogin(ctx, d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
@@ -266,13 +269,13 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			})
 		}
 
-		if ctx.SendFile(d.UploadDir + img3d.FilePath) != nil {
+		if ctx.SendFile(d.UploadDir+img3d.FilePath) != nil {
 			return views.RenderError(ctx, M.SX{
 				`title`: `3D file not found`,
 				`error`: `3D file is either missing from the server or has been deleted. Please check again or contact support for help.`,
 			})
 		}
-		
+
 		ctx.Set("Content-Disposition", `attachment; filename="`+img3d.FilePath+`"`)
 		return nil
 	})
@@ -355,7 +358,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`title`:    `Buyer`,
 			`user`:     user,
 			`segments`: segments,
-			`buyers`: out.Buyers,
+			`buyers`:   out.Buyers,
 		})
 	})
 
@@ -398,7 +401,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		}
 		out := d.UserListing(&domain.UserListingIn{
 			RequestCommon: in.RequestCommon,
-			Id: X.ToU(ctx.Params(`propId`)),
+			Id:            X.ToU(ctx.Params(`propId`)),
 		})
 		if out.Property.DeletedAt > 0 {
 			return views.RenderError(ctx, M.SX{
@@ -418,9 +421,9 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			title += ` on ` + out.Property.FormattedAddress
 		}
 		return views.RenderUserListingsListing(ctx, M.SX{
-			`title`:             title,
-			`user`:              user,
-			`segments`:          segments,
+			`title`:    title,
+			`user`:     user,
+			`segments`: segments,
 			`property`: out.Property,
 		})
 	})

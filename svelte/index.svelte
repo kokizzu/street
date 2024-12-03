@@ -16,6 +16,11 @@
    * @property {string} date
    * @property {number} totalActivity
   */
+  /**
+   * @typedef {Object} BuyerStat
+   * @property {string} date
+   * @property {number} totalActivity
+  */
 
   import {
     GuestForgotPassword, GuestLogin, GuestRegister,
@@ -39,6 +44,7 @@
   const orders            = /** @type {Order[]} */ ([/* orders */]);
   const usersRegistered   = /** @type {UserRegistered[]} */ ([/* user_registered */ ]);
   const realtorStats      = /** @type {RealtorStat[]} */ ([/* realtor_stats */ ]);
+  const buyerStats        = /** @type {BuyerStat[]} */ ([/* buyer_stats */ ]);
   const usersMostLoggedIn = /** @type {MostLoggedInUser[]} */ ([/* users_most_logged_in */ ]);
   const mostScannedAreas  = /** @type {ScannedAreasToRender[]} */ ([/* most_scanned_areas */ ]);
   const mostScannedProps  = /** @type {ScannedPropertiesToRender[]} */ ([/* most_scanned_properties */ ]);
@@ -113,6 +119,7 @@
   const STAT_REGISTERED = `registered`;
   const STAT_REALTORS   = `realtors`;
   const STAT_ORDERS     = `orders`;
+  const STAT_BUYERS     = `buyers`;
 
   let MODE_STATS = STAT_REVENUE;
 
@@ -184,6 +191,28 @@
         });
       });
       chart.data.datasets[0].data = (realtorStats || []).map((i) => i.totalActivity);
+      chart.data.datasets[0].label = 'Realtors';
+      chart.options.scales.y = {
+        ticks: {
+          stepSize: 10
+        }
+      };
+      chart.update();
+    }
+  }
+
+  function renderBuyersChart() {
+    remove2ndOrdersData()
+    MODE_STATS = STAT_BUYERS;
+    if (chart) {
+      chart.data.labels = (buyerStats || []).map((/** @type {BuyerStat} */ i) => {
+        const dt = /** @type {Date} */ (new Date(i.date));
+        return dt.toLocaleDateString('en-US', {
+          month: 'short',
+          day: '2-digit'
+        });
+      });
+      chart.data.datasets[0].data = (buyerStats || []).map((i) => i.totalActivity);
       chart.data.datasets[0].label = 'Realtors';
       chart.options.scales.y = {
         ticks: {
@@ -408,6 +437,10 @@
           <button on:click={renderOrdersChart} class:active={MODE_STATS===STAT_ORDERS} disabled={MODE_STATS===STAT_ORDERS}>
             <span class="block"></span>
             <span class="title">Orders</span>
+          </button>
+          <button on:click={renderBuyersChart} class:active={MODE_STATS===STAT_BUYERS} disabled={MODE_STATS===STAT_BUYERS}>
+            <span class="block"></span>
+            <span class="title">Buyers</span>
           </button>
         </nav>
         <div class="chart">
