@@ -7,12 +7,16 @@ import (
 
 type (
 	UserRegisterStat struct {
-		Date string `json:"date"`
-		Count int64 `json:"count"`
+		Date  string `json:"date"`
+		Count int64  `json:"count"`
 	}
 	RealtorStat struct {
-		Date string `json:"date"`
-		TotalActivity int64 `json:"totalActivity"`
+		Date          string `json:"date"`
+		TotalActivity int64  `json:"totalActivity"`
+	}
+	BuyerStat struct {
+		Date          string `json:"date"`
+		TotalActivity int64  `json:"totalActivity"`
 	}
 )
 
@@ -37,8 +41,8 @@ const (
 	UserName           = `userName`
 	Country            = `country`  // 2-letters ISO country code
 	Language           = `language` // 2-letters ISO country code (only EN and TW available, if empty assume EN)
-	PropertyCount			 = `propertyCount`
-	PropertyBought			 = `propertyBought`
+	PropertyCount      = `propertyCount`
+	PropertyBought     = `propertyBought`
 )
 
 const (

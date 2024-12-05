@@ -69,7 +69,7 @@
       const color = 'hsl(' + degree + ', 100%, 47%)';
       const borderColor = 'hsl(' + degree + ', 100%, 60%)';
       DatasetsReqActions.push( {
-        label: data_actionLists[ idx ],
+        label: '/'+data_actionLists[ idx ],
         backgroundColor: color,
         borderColor: borderColor,
         data: data_countPerActionsPerDate[ idx ],

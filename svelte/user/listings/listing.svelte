@@ -68,7 +68,7 @@
           notifier.showError(res.data.error || 'Failed to upload 3D file');
       }
       popUpUpload3DFile.Reset();
-    })
+    });
   }
 </script>
 

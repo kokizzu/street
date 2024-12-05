@@ -3793,10 +3793,12 @@ exports.UserUpdateProfile = async function UserUpdateProfile( i, cb ) {
 /**
  * @typedef {Object} UserUpload3DFileIn
  * @property {number} propertyId
+ * @property {String} propKey
  * @property {String} country
  */
 const UserUpload3DFileIn = {
   propertyId: 0, // uint64
+  propKey: '', // string
   country: '', // string
 }
 /**

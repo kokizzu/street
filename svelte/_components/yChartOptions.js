@@ -16,11 +16,9 @@ function getRequestStatsChartOptions(labels, datasets) {
     options: {
       plugins: {
         legend: {
-          rtl: true,
           labels: {
             usePointStyle: true,
-            color: 'var(--gray-008)',
-            textAlign: 'right',
+            color: '#343a40'
           }
         }
       },
@@ -29,25 +27,28 @@ function getRequestStatsChartOptions(labels, datasets) {
       scales: {
         x: {
           ticks: {
-            color: 'var(--gray-008)',
+            color: '#343a40',
           },
           grid: {
             display: false
+          },
+          border: {
+            dash: [2],
+            color: '#343a40'
           }
         },
         y: {
           beginAtZero: true,
           ticks: {
             stepSize: 50,
-            color: 'var(--gray-008)',
+            color: '#343a40',
           },
           border: {
             dash: [2],
           },
           grid: {
-            tickColor: 'var(--orange-005)',
             tickBorderDash: [2],
-            color: 'var(--orange-005)'
+            color: '#343a40'
           }
         }
       }
@@ -70,9 +71,11 @@ function getRequestActionChartOptions(labels, datasets) {
     options: {
       plugins: {
         legend: {
-          position: 'right',
+          position: 'top',
+          align: 'start',
           labels: {
-            color: '#475569',
+            usePointStyle: true,
+            color: '#343a40',
           },
         },
       },
@@ -86,7 +89,7 @@ function getRequestActionChartOptions(labels, datasets) {
         x: {
           stacked: true,
           ticks: {
-            color: '#475569',
+            color: '#343a40',
           },
           grid: {
             tickColor: 'transparent',
@@ -96,15 +99,14 @@ function getRequestActionChartOptions(labels, datasets) {
         y: {
           stacked: true,
           ticks: {
-            color: '#475569',
+            color: '#343a40',
           },
           border: {
-            dash: [4],
+            dash: [2],
           },
           grid: {
-            tickColor: '#D1D5DB',
-            tickBorderDash: [4],
-            color: '#D1D5DB',
+            tickBorderDash: [2],
+            color: '#343a40',
           },
         },
       },

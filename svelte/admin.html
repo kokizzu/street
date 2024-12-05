@@ -186,6 +186,10 @@
         color: var(--gray-008);
       }
 
+      button {
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+      }
+
       hr {
         height: 0;
         border-top-width: 1px;
@@ -3349,11 +3353,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           options: {
             plugins: {
               legend: {
-                rtl: true,
                 labels: {
                   usePointStyle: true,
-                  color: "var(--gray-008)",
-                  textAlign: "right"
+                  color: "#343a40"
                 }
               }
             },
@@ -3362,25 +3364,28 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             scales: {
               x: {
                 ticks: {
-                  color: "var(--gray-008)"
+                  color: "#343a40"
                 },
                 grid: {
                   display: false
+                },
+                border: {
+                  dash: [2],
+                  color: "#343a40"
                 }
               },
               y: {
                 beginAtZero: true,
                 ticks: {
                   stepSize: 50,
-                  color: "var(--gray-008)"
+                  color: "#343a40"
                 },
                 border: {
                   dash: [2]
                 },
                 grid: {
-                  tickColor: "var(--orange-005)",
                   tickBorderDash: [2],
-                  color: "var(--orange-005)"
+                  color: "#343a40"
                 }
               }
             }
@@ -3397,9 +3402,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           options: {
             plugins: {
               legend: {
-                position: "right",
+                position: "top",
+                align: "start",
                 labels: {
-                  color: "#475569"
+                  usePointStyle: true,
+                  color: "#343a40"
                 }
               }
             },
@@ -3413,7 +3420,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
               x: {
                 stacked: true,
                 ticks: {
-                  color: "#475569"
+                  color: "#343a40"
                 },
                 grid: {
                   tickColor: "transparent",
@@ -3423,15 +3430,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
               y: {
                 stacked: true,
                 ticks: {
-                  color: "#475569"
+                  color: "#343a40"
                 },
                 border: {
-                  dash: [4]
+                  dash: [2]
                 },
                 grid: {
-                  tickColor: "#D1D5DB",
-                  tickBorderDash: [4],
-                  color: "#D1D5DB"
+                  tickBorderDash: [2],
+                  color: "#343a40"
                 }
               }
             }
@@ -19990,7 +19996,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         const color2 = "hsl(" + degree + ", 100%, 47%)";
         const borderColor = "hsl(" + degree + ", 100%, 60%)";
         DatasetsReqActions.push({
-          label: data_actionLists[idx],
+          label: "/" + data_actionLists[idx],
           backgroundColor: color2,
           borderColor,
           data: data_countPerActionsPerDate[idx],

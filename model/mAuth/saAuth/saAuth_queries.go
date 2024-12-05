@@ -153,14 +153,14 @@ func (a ActionLogs) FindUserRegistered() (res []mAuth.UserRegisterStat) {
 
 	for rows.Next() {
 		var (
-			dt string
+			dt    string
 			count int64
 		)
 
 		rows.Scan(&dt, &count)
 
 		res = append(res, mAuth.UserRegisterStat{
-			Date: dt,
+			Date:  dt,
 			Count: count,
 		})
 	}
@@ -180,21 +180,55 @@ func (a ActionLogs) FindRealtorActivity() (res []mAuth.RealtorStat) {
 	L.Print(query)
 	rows, err := a.Adapter.Query(query)
 	if err != nil {
-		L.IsError(err, `failed to get user registered: `+query)
+		L.IsError(err, `failed to get realtor activyties: `+query)
 		return
 	}
 	defer rows.Close()
 
 	for rows.Next() {
 		var (
-			dt string
+			dt    string
 			count int64
 		)
 
 		rows.Scan(&dt, &count)
 
 		res = append(res, mAuth.RealtorStat{
-			Date: dt,
+			Date:          dt,
+			TotalActivity: count,
+		})
+	}
+
+	return
+}
+
+func (a ActionLogs) FindBuyerActivity() (res []mAuth.BuyerStat) {
+	query := `-- FindRealtorActivity
+	SELECT DISTINCT toDate(createdAt) dt,
+		COUNT(*) OVER (PARTITION BY toDate(createdAt)) AS count
+	FROM actionLogs
+	WHERE action = 'admin/revenue'
+		AND createdAt > (today() - INTERVAL 1 YEAR)
+	ORDER BY dt
+	`
+	L.Print(query)
+	rows, err := a.Adapter.Query(query)
+	if err != nil {
+		L.IsError(err, `failed to get buyer activyties: `+query)
+		return
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var (
+			dt    string
+			count int64
+		)
+
+		rows.Scan(&dt, &count)
+
+		res = append(res, mAuth.BuyerStat{
+			Date:          dt,
 			TotalActivity: count,
 		})
 	}
@@ -204,9 +238,9 @@ func (a ActionLogs) FindRealtorActivity() (res []mAuth.RealtorStat) {
 
 type MostLoggedInUser struct {
 	TimePeriod string `json:"time_period"`
-	Email string `json:"email"`
-	FullName string `json:"full_name"`
-	Total int64 `json:"total"`
+	Email      string `json:"email"`
+	FullName   string `json:"full_name"`
+	Total      int64  `json:"total"`
 }
 
 func (a ActionLogs) FindMostLoggedInUsers(ttConn *Tt.Adapter) (res []MostLoggedInUser) {
@@ -291,8 +325,8 @@ LIMIT 1`
 	for rows.Next() {
 		var (
 			timePeriod string
-			userId uint64
-			total int64
+			userId     uint64
+			total      int64
 		)
 		rows.Scan(&timePeriod, &userId, &total)
 
@@ -304,9 +338,9 @@ LIMIT 1`
 
 		res = append(res, MostLoggedInUser{
 			TimePeriod: timePeriod,
-			Email: user.Email,
-			FullName: user.FullName,
-			Total: total,
+			Email:      user.Email,
+			FullName:   user.FullName,
+			Total:      total,
 		})
 	}
 
