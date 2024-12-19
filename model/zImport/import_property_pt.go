@@ -6,6 +6,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
 	"strings"
@@ -167,13 +168,13 @@ func getSheetPropertyPTUniqPropKey(sourceURL string) (string, error) {
 }
 
 func getPropertyPurpose(str string) string {
-	if idx := S.IndexOf(str, `for sale`); idx != -1 {
+	if idx := S.IndexOf(str, mProperty.PropertyPurposeSale); idx != -1 {
 		return str[idx:]
 	} else {
-		if idx := S.IndexOf(str, `for rent`); idx != -1 {
+		if idx := S.IndexOf(str, mProperty.PropertyPurposeRent); idx != -1 {
 			return str[idx:]
 		} else {
-			return `for sale` // set by default
+			return mProperty.PropertyPurposeSale
 		}
 	}
 }
