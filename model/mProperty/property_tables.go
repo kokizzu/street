@@ -8,6 +8,11 @@ import (
 )
 
 const (
+	PropertyPurposeSale string = `for sale`
+	PropertyPurposeRent string = `for rent`
+)
+
+const (
 	TablePropertyUS      Tt.TableName = `propertyUS`
 	TablePropertyExtraUS Tt.TableName = `propertyExtraUS`
 
@@ -359,16 +364,16 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 const (
 	TableViewedRooms Ch.TableName = `viewedRooms`
 
-	ActorId = `actorId`
+	ActorId    = `actorId`
 	PropertyId = `propertyId`
-	RoomLabel = `roomLabel`
-	Country = `country`
+	RoomLabel  = `roomLabel`
+	Country    = `country`
 )
 
 const (
 	TableScannedAreas Ch.TableName = `scannedAreas`
 
-	Latitude = `latitude`
+	Latitude  = `latitude`
 	Longitude = `longitude`
 )
 
