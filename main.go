@@ -222,6 +222,7 @@ func main() {
 		zImport.ReadPropertyUS_ZillowCom(tConn, `./static/house_data/house_data_zillow.com_2.tsv`)
 	case `import_property_pt`: // 2024-11-13 lisbon/portugal
 		zImport.ReadPropertyPT_RightmoveCoUk(tConn, `./static/house_data/rightmove.co.uk_lisbon_final.tsv`)
+		zImport.ReadPropertyPT_RightmoveCoUk2(tConn, `./static/house_data/Rightmove.co.uk_Final.tsv`)
 	case `import_property_pt_new`: // 2024-12-01 portugal
 		zImport.ReadPropertyPT_Buy_ZomePT(tConn, `./static/house_data/Zome.pt_buy_Final.tsv`)
 	case `import_property_history_us`: // 2023-11-12

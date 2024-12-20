@@ -131,16 +131,9 @@ func ReadPropertyPT_Buy_ZomePT(conn *Tt.Adapter, resourcePath string) {
 		property.SetPurpose(mProperty.PropertyPurposeSale)
 		property.SetAddress(v.Address)
 
-		coord := [2]any{0, 0}
-		if v.Latitude != `` {
-			latitude := S.Replace(v.Latitude, `,`, `.`)
-			coord[0] = S.ToF(latitude)
-		}
-		if v.Longitude != `` {
-			longitude := S.Replace(v.Latitude, `,`, `.`)
-			coord[1] = S.ToF(longitude)
-		}
+		coord := getLatLong(v.Latitude, v.Longitude)
 		property.SetCoord(coord[:])
+
 		if v.Areas != `` {
 			match := rgxUsableAreaM2.FindStringSubmatch(v.Areas)
 			if len(match) > 1 {
