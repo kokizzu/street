@@ -259,6 +259,7 @@ func ReadPropertyPT_RightmoveCoUk2(conn *Tt.Adapter, resourcePath string) {
 		}
 		purpose := getPropertyPurpose(v.PropertyTitle)
 		property.SetPurpose(purpose)
+		property.SetCity(`Lisbon`)
 
 		priceUSD := convertGBPToUSD(v.PrimaryPrice)
 		property.SetLastPrice(priceUSD)
