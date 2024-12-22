@@ -5,9 +5,10 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"strings"
+
 	"street/model/mProperty"
 	"street/model/mProperty/wcProperty"
-	"strings"
 
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
@@ -122,9 +123,11 @@ func ReadPropertyPT_Buy_ZomePT(conn *Tt.Adapter, resourcePath string) {
 		stat.Print()
 
 		property := wcProperty.NewPropertyMutator(conn)
+		property.SetUniqPropKey(v.PID + `_pt`)
+		property.FindByUniqPropKey()
+
 		property.SetBedroom(S.ToI(v.Bedrooms))
 		property.SetBathroom(S.ToI(v.Bathrooms))
-		property.SetUniqPropKey(v.PID + `_pt`)
 
 		priceUSD := convertEURToUSD(v.BuyPrice, false)
 		property.SetLastPrice(priceUSD)
@@ -155,7 +158,7 @@ func ReadPropertyPT_Buy_ZomePT(conn *Tt.Adapter, resourcePath string) {
 }
 
 func ReadPropertyPT_Rent_ZomePT(conn *Tt.Adapter, resourcePath string) {
-	defer subTaskPrint(`ReadPropertyPT_Buy_ZomePT: import property data`)()
+	defer subTaskPrint(`ReadPropertyPT_Rent_ZomePT: import property data`)()
 
 	path, err := filepath.Abs(resourcePath)
 	if L.IsError(err, `failed to get path to file "`+resourcePath+`"`) {
@@ -258,9 +261,11 @@ func ReadPropertyPT_Rent_ZomePT(conn *Tt.Adapter, resourcePath string) {
 		stat.Print()
 
 		property := wcProperty.NewPropertyMutator(conn)
+		property.SetUniqPropKey(v.PID + `_pt`)
+		property.FindByUniqPropKey()
+
 		property.SetBedroom(S.ToI(v.Bedrooms))
 		property.SetBathroom(S.ToI(v.Bathrooms))
-		property.SetUniqPropKey(v.PID + `_pt`)
 
 		priceUSD := convertEURToUSD(v.RentPrice, true)
 		property.SetLastPrice(priceUSD)

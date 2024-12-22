@@ -6,10 +6,11 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"strings"
+
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
-	"strings"
 
 	"github.com/goccy/go-json"
 	"github.com/kokizzu/gotro/D/Tt"
@@ -118,6 +119,7 @@ func ReadPropertyPT_RightmoveCoUk(conn *Tt.Adapter, resourcePath string) {
 				continue
 			}
 			property.SetUniqPropKey(propKey + `_pt`)
+			property.FindByUniqPropKey()
 		} else {
 			stat.Skip()
 			continue
@@ -253,6 +255,7 @@ func ReadPropertyPT_RightmoveCoUk2(conn *Tt.Adapter, resourcePath string) {
 				continue
 			}
 			property.SetUniqPropKey(propKey + `_pt`)
+			property.FindByUniqPropKey()
 		} else {
 			stat.Skip()
 			continue
