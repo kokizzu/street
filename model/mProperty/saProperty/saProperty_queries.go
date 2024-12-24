@@ -8,12 +8,12 @@ import (
 )
 
 type ScannedAreasToRender struct {
-	TimePeriod string `json:"time_period"`
-	Views int64 `json:"views"`
-	Latitude float64 `json:"latitude"`
-	Longitude float64 `json:"longitude"`
-	City string `json:"city"`
-	State string `json:"state"`
+	TimePeriod string  `json:"time_period"`
+	Views      int64   `json:"views"`
+	Latitude   float64 `json:"latitude"`
+	Longitude  float64 `json:"longitude"`
+	City       string  `json:"city"`
+	State      string  `json:"state"`
 }
 
 func (s *ScannedAreas) FindMostScannedAreas() (res []ScannedAreasToRender) {
@@ -26,7 +26,7 @@ SELECT
 	any(state) AS state,
 	any(latitude) AS lat,
 	any(longitude) AS lng
-FROM `+s.SqlTableName()+`
+FROM ` + s.SqlTableName() + `
 WHERE createdAt > (now() - toIntervalDay(1))
 GROUP BY 1
 ORDER BY views DESC
@@ -41,7 +41,7 @@ SELECT
 	any(state) AS state,
 	any(latitude) AS lat,
 	any(longitude) AS lng
-FROM `+s.SqlTableName()+`
+FROM ` + s.SqlTableName() + `
 WHERE createdAt > (now() - toIntervalWeek(1))
 GROUP BY 1
 ORDER BY views DESC
@@ -56,7 +56,7 @@ SELECT
 	any(state) AS state,
 	any(latitude) AS lat,
 	any(longitude) AS lng
-FROM `+s.SqlTableName()+`
+FROM ` + s.SqlTableName() + `
 WHERE createdAt > (now() - toIntervalMonth(1))
 GROUP BY 1
 ORDER BY views DESC
@@ -71,7 +71,7 @@ SELECT
 	any(state) AS state,
 	any(latitude) AS lat,
 	any(longitude) AS lng
-FROM `+s.SqlTableName()+`
+FROM ` + s.SqlTableName() + `
 WHERE createdAt > (now() - toIntervalQuarter(1))
 GROUP BY 1
 ORDER BY views DESC
@@ -86,7 +86,7 @@ SELECT
 	any(state) AS state,
 	any(latitude) AS lat,
 	any(longitude) AS lng
-FROM `+s.SqlTableName()+`
+FROM ` + s.SqlTableName() + `
 WHERE createdAt > (now() - toIntervalYear(1))
 GROUP BY 1
 ORDER BY views DESC
@@ -103,22 +103,22 @@ LIMIT 1
 	for rows.Next() {
 		var (
 			timePeriod string
-			views int64
-			city string
-			state string
-			lat float64
-			lng float64
+			views      int64
+			city       string
+			state      string
+			lat        float64
+			lng        float64
 		)
 
 		rows.Scan(&timePeriod, &views, &city, &state, &lat, &lng)
 
 		res = append(res, ScannedAreasToRender{
 			TimePeriod: timePeriod,
-			Views: views,
-			City: city,
-			State: state,
-			Latitude: lat,
-			Longitude: lng,
+			Views:      views,
+			City:       city,
+			State:      state,
+			Latitude:   lat,
+			Longitude:  lng,
 		})
 	}
 
@@ -126,13 +126,13 @@ LIMIT 1
 }
 
 type ScannedPropertiesToRender struct {
-	TimePeriod string `json:"time_period"`
-	Views int64 `json:"views"`
-	Price string `json:"price"`
-	SizeSqft float64 `json:"total_sqft"`
-	City string `json:"city"`
-	State string `json:"state"`
-	Address string `json:"address"`
+	TimePeriod string  `json:"time_period"`
+	Views      int64   `json:"views"`
+	Price      string  `json:"price"`
+	SizeSqft   float64 `json:"total_sqft"`
+	City       string  `json:"city"`
+	State      string  `json:"state"`
+	Address    string  `json:"address"`
 }
 
 func (sp *ScannedProperties) FindMostScannedProperties(ttConn *Tt.Adapter) (res []ScannedPropertiesToRender) {
@@ -143,7 +143,7 @@ SELECT
 	count(1) AS views,
   any(countryCode) AS countryCode,
 	any(propertyId) AS propertyId
-FROM `+sp.SqlTableName()+`
+FROM ` + sp.SqlTableName() + `
 WHERE createdAt > (now() - toIntervalDay(1))
 GROUP BY 1
 ORDER BY views DESC
@@ -156,7 +156,7 @@ SELECT
 	count(1) AS views,
   any(countryCode) AS countryCode,
 	any(propertyId) AS propertyId
-FROM `+sp.SqlTableName()+`
+FROM ` + sp.SqlTableName() + `
 WHERE createdAt > (now() - toIntervalWeek(1))
 GROUP BY 1
 ORDER BY views DESC
@@ -169,7 +169,7 @@ SELECT
 	count(1) AS views,
   any(countryCode) AS countryCode,
 	any(propertyId) AS propertyId
-FROM `+sp.SqlTableName()+`
+FROM ` + sp.SqlTableName() + `
 WHERE createdAt > (now() - toIntervalMonth(1))
 GROUP BY 1
 ORDER BY views DESC
@@ -182,7 +182,7 @@ SELECT
 	count(1) AS views,
   any(countryCode) AS countryCode,
 	any(propertyId) AS propertyId
-FROM `+sp.SqlTableName()+`
+FROM ` + sp.SqlTableName() + `
 WHERE createdAt > (now() - toIntervalQuarter(1))
 GROUP BY 1
 ORDER BY views DESC
@@ -195,7 +195,7 @@ SELECT
 	count(1) AS views,
   any(countryCode) AS countryCode,
 	any(propertyId) AS propertyId
-FROM `+sp.SqlTableName()+`
+FROM ` + sp.SqlTableName() + `
 WHERE createdAt > (now() - toIntervalYear(1))
 GROUP BY 1
 ORDER BY views DESC
@@ -211,19 +211,19 @@ LIMIT 1
 
 	for rows.Next() {
 		var (
-			timePeriod string
-			views int64
+			timePeriod  string
+			views       int64
 			countryCode string
-			propertyId uint64
+			propertyId  uint64
 		)
 		rows.Scan(&timePeriod, &views, &countryCode, &propertyId)
 
 		var (
-			price string
+			price    string
 			sizeSqFt float64
-			city string
-			state string
-			address string
+			city     string
+			state    string
+			address  string
 		)
 
 		switch countryCode {
@@ -261,12 +261,12 @@ LIMIT 1
 
 		res = append(res, ScannedPropertiesToRender{
 			TimePeriod: timePeriod,
-			Views: views,
-			Price: price,
-			SizeSqft: sizeSqFt,
-			City: city,
-			State: state,
-			Address: address,
+			Views:      views,
+			Price:      price,
+			SizeSqft:   sizeSqFt,
+			City:       city,
+			State:      state,
+			Address:    address,
 		})
 	}
 

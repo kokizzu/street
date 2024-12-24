@@ -3859,27 +3859,40 @@ exports.UserUploadFile = async function UserUploadFile( i, cb ) {
 }
 
 /**
- * @typedef {Object} UserViewedRoomIn
+ * @typedef {Object} UserViewRoomIn
+ * @property {number} viewedRoom.actorId
+ * @property {Object} viewedRoom.createdAt
+ * @property {number} viewedRoom.propertyId
+ * @property {String} viewedRoom.roomLabel
+ * @property {String} viewedRoom.country
  */
-const UserViewedRoomIn = {
+const UserViewRoomIn = {
+  viewedRoom: { // saProperty.ViewedRooms
+    actorId: 0, // uint64
+    createdAt: { // time.Time
+    }, // time.Time
+    propertyId: 0, // uint64
+    roomLabel: '', // string
+    country: '', // string
+  }, // saProperty.ViewedRooms
 }
 /**
- * @typedef {Object} UserViewedRoomOut
+ * @typedef {Object} UserViewRoomOut
  */
-const UserViewedRoomOut = {
+const UserViewRoomOut = {
 }
 /**
- * @callback UserViewedRoomCallback
- * @param {UserViewedRoomOut} o
+ * @callback UserViewRoomCallback
+ * @param {UserViewRoomOut} o
  * @returns {Promise}
  */
 /**
- * @param  {UserViewedRoomIn} i
- * @param {UserViewedRoomCallback} cb
+ * @param  {UserViewRoomIn} i
+ * @param {UserViewRoomCallback} cb
  * @returns {Promise}
  */
-exports.UserViewedRoom = async function UserViewedRoom( i, cb ) {
-  return await axios.post( '/user/viewedRoom', i ).
+exports.UserViewRoom = async function UserViewRoom( i, cb ) {
+  return await axios.post( '/user/viewRoom', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

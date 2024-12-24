@@ -520,13 +520,13 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
-	// UserViewedRoom
-	fw.Post("/"+domain.UserViewedRoomAction, func(c *fiber.Ctx) error {
-		in := domain.UserViewedRoomIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserViewedRoomAction); err != nil {
+	// UserViewRoom
+	fw.Post("/"+domain.UserViewRoomAction, func(c *fiber.Ctx) error {
+		in := domain.UserViewRoomIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserViewRoomAction); err != nil {
 			return nil
 		}
-		out := d.UserViewedRoom(&in)
+		out := d.UserViewRoom(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

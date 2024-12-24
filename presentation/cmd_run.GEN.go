@@ -420,12 +420,12 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.UserUploadFile(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
-	case domain.UserViewedRoomAction:
-		in := domain.UserViewedRoomIn{}
+	case domain.UserViewRoomAction:
+		in := domain.UserViewRoomIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
-		out := b.UserViewedRoom(&in)
+		out := b.UserViewRoom(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	}
