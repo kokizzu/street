@@ -226,6 +226,8 @@ func main() {
 	case `import_property_pt_new`: // 2024-12-01 portugal
 		zImport.ReadPropertyPT_Buy_ZomePT(tConn, `./static/house_data/Zome.pt_buy_Final.tsv`)
 		zImport.ReadPropertyPT_Rent_ZomePT(tConn, `./static/house_data/Zome.pt_rent_Final.tsv`)
+	case `import_property_uk_split_rent_buy`:
+		zImport.ReadPropertyUK_Rent_RightmoveCoUk(tConn, `./static/house_data/Rightmove.co.uk_Rent_Final.tsv`)
 	case `import_property_history_us`: // 2023-11-12
 		const baseUrl = "https://www.redfin.com/stingray/api/home/details/belowTheFold"
 		args := os.Args
