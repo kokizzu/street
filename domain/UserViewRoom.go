@@ -1,9 +1,10 @@
 package domain
 
 import (
+	"time"
+
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/saProperty"
-	"time"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserViewRoom.go
@@ -15,7 +16,9 @@ import (
 type (
 	UserViewRoomIn struct {
 		RequestCommon
-		ViewedRoom saProperty.ViewedRooms `json:"viewedRoom" form:"viewedRoom" query:"viewedRoom" long:"viewedRoom" msg:"viewedRoom"`
+		PropertyId uint64 `json:"propertyId,string" form:"propertyId" query:"propertyId" long:"propertyId" msg:"propertyId"`
+		RoomLabel  string `json:"roomLabel" form:"roomLabel" query:"roomLabel" long:"roomLabel" msg:"roomLabel"`
+		Country    string `json:"country" form:"country" query:"country" long:"country" msg:"country"`
 	}
 
 	UserViewRoomOut struct {
@@ -38,24 +41,24 @@ func (d *Domain) UserViewRoom(in *UserViewRoomIn) (out UserViewRoomOut) {
 		return
 	}
 
-	switch in.ViewedRoom.Country {
+	switch in.Country {
 	case `US`:
 		propUS := rqProperty.NewPropertyUS(d.PropOltp)
-		propUS.Id = in.ViewedRoom.PropertyId
+		propUS.Id = in.PropertyId
 		if !propUS.FindById() {
 			out.SetError(400, ErrUserViewRoomPropertyNotFound)
 			return
 		}
 	case `TW`:
 		propTW := rqProperty.NewPropertyTW(d.PropOltp)
-		propTW.Id = in.ViewedRoom.PropertyId
+		propTW.Id = in.PropertyId
 		if !propTW.FindById() {
 			out.SetError(400, ErrUserViewRoomPropertyNotFound)
 			return
 		}
 	default:
 		prop := rqProperty.NewProperty(d.PropOltp)
-		prop.Id = in.ViewedRoom.PropertyId
+		prop.Id = in.PropertyId
 		if !prop.FindById() {
 			out.SetError(400, ErrUserViewRoomPropertyNotFound)
 			return
@@ -65,9 +68,9 @@ func (d *Domain) UserViewRoom(in *UserViewRoomIn) (out UserViewRoomOut) {
 	row := saProperty.ViewedRooms{
 		ActorId:    sess.UserId,
 		CreatedAt:  time.Now(),
-		PropertyId: in.ViewedRoom.PropertyId,
-		RoomLabel:  in.ViewedRoom.RoomLabel,
-		Country:    in.ViewedRoom.Country,
+		PropertyId: in.PropertyId,
+		RoomLabel:  in.RoomLabel,
+		Country:    in.Country,
 	}
 
 	if !d.viewedRoomsLogs.Insert([]any{
