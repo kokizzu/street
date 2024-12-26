@@ -3464,8 +3464,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       exports.UserUploadFile = async function UserUploadFile(i, cb) {
         return await axios2.post("/user/uploadFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserViewedRoom = async function UserViewedRoom(i, cb) {
-        return await axios2.post("/user/viewedRoom", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      exports.UserViewRoom = async function UserViewRoom(i, cb) {
+        return await axios2.post("/user/viewRoom", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
     }
   });
@@ -9252,7 +9252,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         span = element("span");
         span.textContent = "Download 3D File";
         attr(a, "class", "download-btn svelte-1lhkjyv");
-        attr(a, "href", a_href_value = "/user/download3dFile?country=" + property.countryCode + "&propertyId=" + property.id);
+        attr(a, "href", a_href_value = "/guest/download3dFile?country=" + property.countryCode + "&propertyId=" + property.id);
         attr(a, "target", "_blank");
       },
       m(target, anchor) {

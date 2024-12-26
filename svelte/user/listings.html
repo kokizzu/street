@@ -3497,8 +3497,8 @@ picture.svelte-10x01ln img.svelte-10x01ln {
       exports.UserUploadFile = async function UserUploadFile(i, cb) {
         return await axios2.post("/user/uploadFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserViewedRoom = async function UserViewedRoom(i, cb) {
-        return await axios2.post("/user/viewedRoom", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      exports.UserViewRoom = async function UserViewRoom(i, cb) {
+        return await axios2.post("/user/viewRoom", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
     }
   });
@@ -10161,7 +10161,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
       popUpUpload3DFile.Show();
     };
     const click_handler_2 = (prop) => {
-      window.open(`/user/download3dFile?country=${prop.countryCode}&propertyId=${prop.id}`, "_blank");
+      window.open(`/guest/download3dFile?country=${prop.countryCode}&propertyId=${prop.id}`, "_blank");
     };
     function input_input_handler() {
       inputSearchAddressValue = this.value;

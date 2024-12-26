@@ -252,12 +252,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
-	fw.Get(`/user/download3dFile`, func(ctx *fiber.Ctx) error {
-		in, _, _ := userInfoFromContext(ctx, d)
-		if notLogin(ctx, d, in.RequestCommon) {
-			return ctx.Redirect(`/`, 302)
-		}
-
+	fw.Get(`/guest/download3dFile`, func(ctx *fiber.Ctx) error {
 		queries := ctx.Queries()
 		countryPropId := fmt.Sprintf("%s:%d", queries[`country`], S.ToU(queries[`propertyId`]))
 		img3d := rqStorage.NewDesignFiles(d.StorOltp)

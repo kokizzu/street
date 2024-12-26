@@ -166,7 +166,7 @@
                 {#if prop.image3dUrl !== ''}
                   <button class="download-btn" on:click={() => {
                     window.open(
-                      `/user/download3dFile?country=${prop.countryCode}&propertyId=${prop.id}`,
+                      `/guest/download3dFile?country=${prop.countryCode}&propertyId=${prop.id}`,
                       '_blank'
                     );
                   }}>

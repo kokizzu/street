@@ -110,7 +110,7 @@
           {/if}
           {#if img3dUrl !== ''}
             <a class="download-btn"
-              href="/user/download3dFile?country={property.countryCode}&propertyId={property.id}"
+              href="/guest/download3dFile?country={property.countryCode}&propertyId={property.id}"
               target="_blank"
             >
               <Icon

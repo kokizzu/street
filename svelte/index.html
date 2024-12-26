@@ -3653,8 +3653,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       exports.UserUploadFile = async function UserUploadFile(i, cb) {
         return await axios.post("/user/uploadFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.UserViewedRoom = async function UserViewedRoom(i, cb) {
-        return await axios.post("/user/viewedRoom", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      exports.UserViewRoom = async function UserViewRoom(i, cb) {
+        return await axios.post("/user/viewRoom", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
     }
   });
