@@ -120,18 +120,6 @@ func ReadPropertyUK_Rent_RightmoveCoUk(conn *Tt.Adapter, resourcePath string) {
 			continue
 		}
 
-		propKey, err := getSheetPropertyPTUniqPropKey(v.SourceURL)
-		if err != nil {
-			stat.Skip()
-			continue
-		}
-
-		// Find by uniq prop key
-		property.SetUniqPropKey(propKey + `_pt`)
-		property.FindByUniqPropKey()
-
-		// Update to UK
-		property.SetUniqPropKey(propKey + `_uk`)
 		property.SetPurpose(mProperty.PropertyPurposeRent)
 		property.SetAddress(v.Location)
 		property.SetCity(`London`)
@@ -167,9 +155,48 @@ func ReadPropertyUK_Rent_RightmoveCoUk(conn *Tt.Adapter, resourcePath string) {
 		property.SetCreatedAt(fastime.UnixNow())
 		property.SetUpdatedAt(fastime.UnixNow())
 
-		if !property.DoUpsert() {
+		propKey, err := getSheetPropertyPTUniqPropKey(v.SourceURL)
+		if err != nil {
 			stat.Skip()
-			fmt.Printf("\033[32m[%d] Skipped ...\033[0m\n", idx+1)
+			fmt.Printf("\033[32m[%d] Skipped (uniqPropKey not found from source url)\033[0m\n", idx+1)
+			continue
+		}
+
+		// Find by uniq prop key
+		// Override from '_pt' to '_uk' if exists
+		property.UniqPropKey = propKey + `_pt`
+		if property.FindByUniqPropKey() {
+			fmt.Printf("\033[34m[%d] Override (uniqPropKey '%s_pt' to '%s_uk')\033[0m\n", idx+1, propKey, propKey)
+			property.SetUniqPropKey(propKey + `_uk`)
+			// Update by ID because uniqPropKey will be modified from '_pt' to '_uk'
+			if !property.DoUpdateById() {
+				stat.Skip()
+				fmt.Printf("\033[31m[%d] Skipped (property not updated by id)\033[0m\n", idx+1)
+				continue
+			}
+			stat.Ok(true)
+			continue
+		}
+
+		// Find by uniq prop key
+		// Skip if exists
+		property.UniqPropKey = propKey + `_uk`
+		if property.FindByUniqPropKey() {
+			fmt.Printf("\033[32m[%d] Override (uniqPropKey %s already exists)\033[0m\n", idx+1, property.UniqPropKey)
+			if !property.DoUpdateByUniqPropKey() {
+				stat.Skip()
+				fmt.Printf("\033[31m[%d] Skipped (property not updated by uniqPropKey)\033[0m\n", idx+1)
+				continue
+			}
+			stat.Ok(true)
+			continue
+		}
+
+		property.SetUniqPropKey(propKey + `_uk`)
+
+		if !property.DoInsert() {
+			stat.Skip()
+			fmt.Printf("\033[31m[%d] Skipped (property not inserted)\033[0m\n", idx+1)
 			continue
 		}
 
@@ -280,21 +307,10 @@ func ReadPropertyUK_Sale_RightmoveCoUk(conn *Tt.Adapter, resourcePath string) {
 		property := wcProperty.NewPropertyMutator(conn)
 		if !isValidURL(v.SourceURL) {
 			stat.Skip()
+			fmt.Printf("\033[32m[%d] Skipped (invalid url) ...\033[0m\n", idx+1)
 			continue
 		}
 
-		propKey, err := getSheetPropertyPTUniqPropKey(v.SourceURL)
-		if err != nil {
-			stat.Skip()
-			continue
-		}
-
-		// Find by uniq prop key
-		property.SetUniqPropKey(propKey + `_pt`)
-		property.FindByUniqPropKey()
-
-		// Update to UK
-		property.SetUniqPropKey(propKey + `_uk`)
 		property.SetPurpose(mProperty.PropertyPurposeSale)
 		property.SetAddress(v.Location)
 		property.SetCity(`London`)
@@ -330,9 +346,48 @@ func ReadPropertyUK_Sale_RightmoveCoUk(conn *Tt.Adapter, resourcePath string) {
 		property.SetCreatedAt(fastime.UnixNow())
 		property.SetUpdatedAt(fastime.UnixNow())
 
-		if !property.DoUpsert() {
+		propKey, err := getSheetPropertyPTUniqPropKey(v.SourceURL)
+		if err != nil {
 			stat.Skip()
-			fmt.Printf("\033[32m[%d] Skipped ...\033[0m\n", idx+1)
+			fmt.Printf("\033[32m[%d] Skipped (uniqPropKey not found from source url)\033[0m\n", idx+1)
+			continue
+		}
+
+		// Find by uniq prop key
+		// Override from '_pt' to '_uk' if exists
+		property.UniqPropKey = propKey + `_pt`
+		if property.FindByUniqPropKey() {
+			fmt.Printf("\033[34m[%d] Override (uniqPropKey '%s_pt' to '%s_uk')\033[0m\n", idx+1, propKey, propKey)
+			property.SetUniqPropKey(propKey + `_uk`)
+			// Update by ID because uniqPropKey will be modified from '_pt' to '_uk'
+			if !property.DoUpdateById() {
+				stat.Skip()
+				fmt.Printf("\033[31m[%d] Skipped (property not updated by id)\033[0m\n", idx+1)
+				continue
+			}
+			stat.Ok(true)
+			continue
+		}
+
+		// Find by uniq prop key
+		// Skip if exists
+		property.UniqPropKey = propKey + `_uk`
+		if property.FindByUniqPropKey() {
+			fmt.Printf("\033[32m[%d] Override (uniqPropKey %s already exists)\033[0m\n", idx+1, property.UniqPropKey)
+			if !property.DoUpdateByUniqPropKey() {
+				stat.Skip()
+				fmt.Printf("\033[31m[%d] Skipped (property not updated by uniqPropKey)\033[0m\n", idx+1)
+				continue
+			}
+			stat.Ok(true)
+			continue
+		}
+
+		property.SetUniqPropKey(propKey + `_uk`)
+
+		if !property.DoInsert() {
+			stat.Skip()
+			fmt.Printf("\033[31m[%d] Skipped (property not inserted)\033[0m\n", idx+1)
 			continue
 		}
 
