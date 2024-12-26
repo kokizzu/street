@@ -335,11 +335,13 @@ func getJsonStrPropertyNote(email, phone, about string) string {
 }
 
 func convertGBPToUSD(gbpStrRaw string) string {
-	gbpStrArr := S.Split(gbpStrRaw, `,`)
-	gbpStr := strings.Join(gbpStrArr, ``)[2:]
-	gbpFloat := S.ToF(gbpStr)
+	gbpStrRaw = strings.Replace(gbpStrRaw, ` pcm`, ``, 1)
+	gbpStrRaw = strings.Replace(gbpStrRaw, `£`, ``, 1)
+	gbpStrRaw = strings.Replace(gbpStrRaw, `,`, ``, 1)
 
-	var exchangeRateUSD float64 = 1.26 // possibly change
+	gbpFloat := S.ToF(gbpStrRaw)
+
+	var exchangeRateUSD float64 = 1.25 // possibly change
 
 	usdAmount := (gbpFloat * exchangeRateUSD)
 
