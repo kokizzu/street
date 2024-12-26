@@ -112,18 +112,24 @@ func ReadPropertyPT_RightmoveCoUk(conn *Tt.Adapter, resourcePath string) {
 		stat.Print()
 
 		property := wcProperty.NewPropertyMutator(conn)
-		if isValidURL(v.SourceURL) {
-			propKey, err := getSheetPropertyPTUniqPropKey(v.SourceURL)
-			if err != nil {
-				stat.Skip()
-				continue
-			}
-			property.SetUniqPropKey(propKey + `_pt`)
-			property.FindByUniqPropKey()
-		} else {
+		if !isValidURL(v.SourceURL) {
 			stat.Skip()
 			continue
 		}
+
+		propKey, err := getSheetPropertyPTUniqPropKey(v.SourceURL)
+		if err != nil {
+			stat.Skip()
+			continue
+		}
+
+		property.UniqPropKey = propKey + `_pt`
+		if property.FindByUniqPropKey() {
+			fmt.Println(`Override property with uniq prop key (PT): `, property.UniqPropKey)
+		} else {
+			property.SetUniqPropKey(propKey + `_pt`)
+		}
+
 		purpose := getPropertyPurpose(v.PropertyTitle)
 		property.SetPurpose(purpose)
 		property.SetCity(`Lisbon`)
