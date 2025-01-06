@@ -143,7 +143,7 @@ func (a ActionLogs) FindUserRegistered() (res []mAuth.UserRegisterStat) {
 		AND createdAt > (today() - INTERVAL 1 YEAR)
 	ORDER BY dt
 	`
-	L.Print(query)
+	//L.Print(query)
 	rows, err := a.Adapter.Query(query)
 	if err != nil {
 		L.IsError(err, `failed to get user registered: `+query)
@@ -177,7 +177,7 @@ func (a ActionLogs) FindRealtorActivity() (res []mAuth.RealtorStat) {
 		AND createdAt > (today() - INTERVAL 1 YEAR)
 	ORDER BY dt
 	`
-	L.Print(query)
+	//L.Print(query)
 	rows, err := a.Adapter.Query(query)
 	if err != nil {
 		L.IsError(err, `failed to get realtor activyties: `+query)
@@ -211,7 +211,7 @@ func (a ActionLogs) FindBuyerActivity() (res []mAuth.BuyerStat) {
 		AND createdAt > (today() - INTERVAL 1 YEAR)
 	ORDER BY dt
 	`
-	L.Print(query)
+	//L.Print(query)
 	rows, err := a.Adapter.Query(query)
 	if err != nil {
 		L.IsError(err, `failed to get buyer activyties: `+query)
@@ -314,7 +314,7 @@ GROUP BY 1, 2
 ORDER BY total DESC
 LIMIT 1`
 
-	L.Print(query)
+	//L.Print(query)
 	rows, err := a.Adapter.Query(query)
 	if err != nil {
 		L.IsError(err, `failed to get most logged in users: `+query)

@@ -14,22 +14,22 @@ import (
 
 var (
 	CACHED_ORDERS_ANNUALLY mBusiness.Cache = mBusiness.Cache{
-		CacheName: `ordersAnnually`,
+		CacheName:     `ordersAnnually`,
 		CacheUnixTime: 0,
-		CacheData: []any{},
+		CacheData:     []any{},
 	}
 	CACHED_REVENUES_MONTHLY mBusiness.Cache = mBusiness.Cache{
-		CacheName: `ordersAnnually`,
+		CacheName:     `ordersAnnually`,
 		CacheUnixTime: 0,
-		CacheData: []any{},
+		CacheData:     []any{},
 	}
 )
 
 func (s *Sales) FindRealtorRevenuesMonthlyByRealtorId(yearMonth string) (revenues []*mBusiness.Revenue) {
 	const comment = `-- Sales) FindRealtorRevenuesMonthlyByRealtorId`
 
-	var startDate string 	// YYYY-MM-DD
-	var endDate string		// YYYY-MM-DD
+	var startDate string // YYYY-MM-DD
+	var endDate string   // YYYY-MM-DD
 
 	year, month, isValid := isValidMonthYear(yearMonth)
 	if !isValid {
@@ -57,7 +57,7 @@ FROM ` + s.SqlTableName() + whereAndSql
 			var isExist bool = false
 
 			for _, r := range revenues {
-				if r.SalesDate == salesDate  {
+				if r.SalesDate == salesDate {
 					r.PropertyBought += 1
 					r.Revenue += price
 
@@ -67,9 +67,9 @@ FROM ` + s.SqlTableName() + whereAndSql
 
 			if !isExist {
 				revenues = append(revenues, &mBusiness.Revenue{
-					Revenue: price,
+					Revenue:        price,
 					PropertyBought: 1,
-					SalesDate: salesDate,
+					SalesDate:      salesDate,
 				})
 			}
 		}
@@ -82,9 +82,9 @@ var revenuesMonthlyLock = nsync.NewNamedMutex()
 
 func (s *Sales) FindRevenuesMonthly(yearMonth string) (revenues []*mBusiness.Revenue) {
 	const comment = `-- Sales) FindRevenuesMonthly`
-	
+
 	if !CACHED_REVENUES_MONTHLY.IsExpired() {
-		L.Print(`From Cache: `+comment)
+		L.Print(`From Cache: ` + comment)
 		revenues = CACHED_REVENUES_MONTHLY.CacheData.([]*mBusiness.Revenue)
 		return
 	}
@@ -95,8 +95,8 @@ func (s *Sales) FindRevenuesMonthly(yearMonth string) (revenues []*mBusiness.Rev
 	}
 	defer revenuesMonthlyLock.Unlock(CACHED_REVENUES_MONTHLY.CacheName)
 
-	var startDate string 	// YYYY-MM-DD
-	var endDate string		// YYYY-MM-DD
+	var startDate string // YYYY-MM-DD
+	var endDate string   // YYYY-MM-DD
 
 	year, month, isValid := isValidMonthYear(yearMonth)
 	if !isValid {
@@ -123,7 +123,7 @@ FROM ` + s.SqlTableName() + whereAndSql
 			var isExist bool = false
 
 			for _, r := range revenues {
-				if r.SalesDate == salesDate  {
+				if r.SalesDate == salesDate {
 					r.PropertyBought += 1
 					r.Revenue += price
 
@@ -133,9 +133,9 @@ FROM ` + s.SqlTableName() + whereAndSql
 
 			if !isExist {
 				revenues = append(revenues, &mBusiness.Revenue{
-					Revenue: price,
+					Revenue:        price,
 					PropertyBought: 1,
-					SalesDate: salesDate,
+					SalesDate:      salesDate,
 				})
 			}
 		}
@@ -153,7 +153,7 @@ func (s *Sales) FindOrdersAnnually() (orders []*mBusiness.Order) {
 	const comment = `-- Sales) FindRevenuesMonthly`
 
 	if !CACHED_ORDERS_ANNUALLY.IsExpired() {
-		L.Print(`From Cache: `+comment)
+		L.Print(`From Cache: ` + comment)
 		orders = CACHED_ORDERS_ANNUALLY.CacheData.([]*mBusiness.Order)
 		return
 	}
@@ -163,7 +163,7 @@ func (s *Sales) FindOrdersAnnually() (orders []*mBusiness.Order) {
 		return
 	}
 	defer ordersAnnuallyLock.Unlock(CACHED_ORDERS_ANNUALLY.CacheName)
-	
+
 	now := time.Now()
 	oneYearAgo := now.AddDate(-1, 0, 0)
 	strOneYearAgo := oneYearAgo.Format("2006-01-02")
@@ -171,10 +171,10 @@ func (s *Sales) FindOrdersAnnually() (orders []*mBusiness.Order) {
 	whereAndSql := ` WHERE ` + s.SqlSalesDate() + ` >= ` + S.Z(strOneYearAgo)
 
 	query := comment + `
-SELECT ` + s.SqlPrice() + `, ` + s.SqlSalesDate() +`
-FROM ` +s.SqlTableName() + whereAndSql
+SELECT ` + s.SqlPrice() + `, ` + s.SqlSalesDate() + `
+FROM ` + s.SqlTableName() + whereAndSql
 
-	L.Print(query)
+	//L.Print(query)
 	s.Adapter.QuerySql(query, func(row []any) {
 		if len(row) == 2 {
 			price := X.ToI(row[0])
@@ -183,7 +183,7 @@ FROM ` +s.SqlTableName() + whereAndSql
 			var isExist bool = false
 
 			for _, r := range orders {
-				if r.SalesDate == salesDate  {
+				if r.SalesDate == salesDate {
 					r.TotalTransaction += 1
 					r.Revenue += price
 
@@ -193,9 +193,9 @@ FROM ` +s.SqlTableName() + whereAndSql
 
 			if !isExist {
 				orders = append(orders, &mBusiness.Order{
-					Revenue: price,
+					Revenue:          price,
 					TotalTransaction: 1,
-					SalesDate: salesDate,
+					SalesDate:        salesDate,
 				})
 			}
 		}
@@ -249,8 +249,8 @@ func isValidMonthYear(in string) (year int, month time.Month, isValid bool) {
 func (s *Sales) FindBuyerMonthly(yearMonth string) (buyers []mBusiness.Buyer) {
 	const comment = `-- Sales) FindBuyerMonthly`
 
-	var startDate string 	// YYYY-MM-DD
-	var endDate string		// YYYY-MM-DD
+	var startDate string // YYYY-MM-DD
+	var endDate string   // YYYY-MM-DD
 
 	year, month, isValid := isValidMonthYear(yearMonth)
 	if !isValid {
@@ -276,10 +276,10 @@ FROM ` + s.SqlTableName() + whereAndSql
 		}
 
 		buyers = append(buyers, mBusiness.Buyer{
-			PropertyId: X.ToU(row[0]),
-			BuyerEmail: email,
+			PropertyId:    X.ToU(row[0]),
+			BuyerEmail:    email,
 			PropertyPrice: X.ToI(row[3]),
-			SalesDate: X.ToS(row[4]),
+			SalesDate:     X.ToS(row[4]),
 		})
 	})
 

@@ -92,7 +92,7 @@ GROUP BY 1
 ORDER BY views DESC
 LIMIT 1
 `
-	L.Print(query)
+	//L.Print(query)
 	rows, err := s.Adapter.Query(query)
 	if err != nil {
 		L.IsError(err, `failed to get most scanned areas: `+query)
@@ -201,7 +201,7 @@ GROUP BY 1
 ORDER BY views DESC
 LIMIT 1
 `
-	L.Print(query)
+	//L.Print(query)
 	rows, err := sp.Adapter.Query(query)
 	if err != nil {
 		L.IsError(err, `failed to get most scanned areas: `+query)
