@@ -347,13 +347,16 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`, 302)
 		}
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.UserBuyers(&in)
 		return views.RenderUserBuyers(ctx, M.SX{
 			`title`:    `Buyer`,
 			`user`:     user,
 			`segments`: segments,
-			`buyers`:   out.Buyers,
+			`users`:    out.Users,
+			`fields`:   out.Meta.Fields,
+			`pager`:    out.Pager,
 		})
 	})
 

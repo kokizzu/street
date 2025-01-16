@@ -1,8 +1,7 @@
 package domain
 
 import (
-	"street/model/mBusiness"
-	"street/model/mBusiness/rqBusiness"
+	"street/model/mAuth/rqAuth"
 	"street/model/zCrud"
 )
 
@@ -15,13 +14,16 @@ import (
 type (
 	UserBuyersIn struct {
 		RequestCommon
-		Cmd string `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		YearMonth string `json:"yearMonth" form:"yearMonth" query:"yearMonth" long:"yearMonth" msg:"yearMonth"`
+		Cmd      string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		WithMeta bool          `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
+		Pager    zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 	}
 
 	UserBuyersOut struct {
 		ResponseCommon
-		Buyers []mBusiness.Buyer `json:"buyers" form:"buyers" query:"buyers" long:"buyers" msg:"buyers"`
+		Pager zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		Meta  *zCrud.Meta    `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
+		Users [][]any        `json:"users" form:"users" query:"users" long:"users" msg:"users"`
 	}
 )
 
@@ -37,14 +39,15 @@ func (d *Domain) UserBuyers(in *UserBuyersIn) (out UserBuyersOut) {
 		return
 	}
 
-	switch in.Cmd {
-	case zCrud.CmdList:
-		r := rqBusiness.NewSales(d.BusinessOltp)
-		buyers := r.FindBuyerMonthly(in.YearMonth)
-
-		out.Buyers = buyers
+	if in.WithMeta {
+		out.Meta = &AdminUsersMeta
 	}
 
+	switch in.Cmd {
+	case zCrud.CmdList:
+		r := rqAuth.NewUsers(d.AuthOltp)
+		out.Users = r.FindByPagination(&AdminUsersMeta, &in.Pager, &out.Pager)
+	}
 
 	return
 }

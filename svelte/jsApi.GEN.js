@@ -3014,19 +3014,55 @@ exports.UserAutoLoginLink = async function UserAutoLoginLink( i, cb ) {
 /**
  * @typedef {Object} UserBuyersIn
  * @property {String} cmd
- * @property {String} yearMonth
+ * @property {Object} withMeta
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
  */
 const UserBuyersIn = {
   cmd: '', // string
-  yearMonth: '', // string
+  withMeta: false, // bool
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
 }
 /**
  * @typedef {Object} UserBuyersOut
- * @property {Object} buyers
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
+ * @property {Object} users
  */
 const UserBuyersOut = {
-  buyers: { // []mBusiness.Buyer
-  }, // []mBusiness.Buyer
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
+  users: { // [][]any
+  }, // [][]any
 }
 /**
  * @callback UserBuyersCallback
@@ -3860,21 +3896,14 @@ exports.UserUploadFile = async function UserUploadFile( i, cb ) {
 
 /**
  * @typedef {Object} UserViewRoomIn
- * @property {number} viewedRoom.actorId
- * @property {Object} viewedRoom.createdAt
- * @property {number} viewedRoom.propertyId
- * @property {String} viewedRoom.roomLabel
- * @property {String} viewedRoom.country
+ * @property {number} propertyId
+ * @property {String} roomLabel
+ * @property {String} country
  */
 const UserViewRoomIn = {
-  viewedRoom: { // saProperty.ViewedRooms
-    actorId: 0, // uint64
-    createdAt: { // time.Time
-    }, // time.Time
-    propertyId: 0, // uint64
-    roomLabel: '', // string
-    country: '', // string
-  }, // saProperty.ViewedRooms
+  propertyId: 0, // uint64
+  roomLabel: '', // string
+  country: '', // string
 }
 /**
  * @typedef {Object} UserViewRoomOut
