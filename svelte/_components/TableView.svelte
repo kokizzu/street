@@ -21,6 +21,7 @@
   export let pager        = /** @type {PagerOut} */ ({});
   export let extraActions = /** @type {ExtendedAction[]} */ ([]);
   export let widths       = /** @type {Record<string, string>} */ ({});
+  export let isNoActions  = /** @type {boolean} */ (false);
 
   export let onRefreshTableView = function(/** @type {PagerIn} */ pager ) {
     console.log( 'TableView.onRefreshTableView', pager );
@@ -135,7 +136,9 @@
           <th class="no">No</th>
           {#each (fields || []) as field}
             {#if field.name==='id'}
-              <th class='a-row'>Action</th>
+              {#if !isNoActions}
+                <th class='a-row'>Action</th>
+              {/if}
             {:else}
               <th
                 style="{widths[field.name] ? '--th-width: ' + widths[field.name] + '' : '--th-width: fit-content'}"
@@ -161,38 +164,40 @@
               <td class="num-row">{(pager.page -1) * pager.perPage + idx + 1}</td>
               {#each fields as field, i}
                 {#if field.name === 'id'}
-                  <td class="a-row">
-                    <div class="actions">
-                      <button class="btn" title="Edit" on:click={() => onEditRow(cell(row,i,field), row)}>
-                        <Icon
-                          src={RiDesignPencilLine}
-                          size="17"
-                          color="var(--gray-008)"
-                        />
-                      </button>
-                      {#each extraActions as action}
-                        {#if action.link}
-                          <a href={action.link(row)} class="btn" target="_blank" title={action.label || ''}>
-                            <Icon
-                              src={action.icon}
-                              size="17"
-                              color="var(--gray-008)"
-                            />
-                          </a>
-                        {:else}
-                          <button class="btn" title={action.label || ""}
-                            on:click={() => action.onClick(row)}
-                          >
-                            <Icon
-                              src={action.icon}
-                              size="17"
-                              color="var(--gray-008)"
-                            />
-                          </button>
-                        {/if}
-                      {/each}
-                    </div>
-                  </td>
+                  {#if !isNoActions}
+                    <td class="a-row">
+                      <div class="actions">
+                        <button class="btn" title="Edit" on:click={() => onEditRow(cell(row,i,field), row)}>
+                          <Icon
+                            src={RiDesignPencilLine}
+                            size="17"
+                            color="var(--gray-008)"
+                          />
+                        </button>
+                        {#each extraActions as action}
+                          {#if action.link}
+                            <a href={action.link(row)} class="btn" target="_blank" title={action.label || ''}>
+                              <Icon
+                                src={action.icon}
+                                size="17"
+                                color="var(--gray-008)"
+                              />
+                            </a>
+                          {:else}
+                            <button class="btn" title={action.label || ""}
+                              on:click={() => action.onClick(row)}
+                            >
+                              <Icon
+                                src={action.icon}
+                                size="17"
+                                color="var(--gray-008)"
+                              />
+                            </button>
+                          {/if}
+                        {/each}
+                      </div>
+                    </td>
+                  {/if}
                 {:else if renderFuncs[ field.name ]}
                   <td>{renderFuncs[ field.name ]( cell( row, i, field ) ) }</td>
                 {:else if field.inputType==='checkbox'}
