@@ -22,10 +22,17 @@ import (
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type saProperty__ORM.GEN.go
 // go:generate msgp -tests=false -file saProperty__ORM.GEN.go -o saProperty__MSG.GEN.go
 
+var geolocationDummy = Geolocation{}
 var scannedAreasDummy = ScannedAreas{}
 var scannedPropertiesDummy = ScannedProperties{}
 var viewedRoomsDummy = ViewedRooms{}
 var Preparators = map[Ch.TableName]chBuffer.Preparator{
+	mProperty.TableGeolocation: func(tx *sql.Tx) *sql.Stmt {
+		query := geolocationDummy.SqlInsert()
+		stmt, err := tx.Prepare(query)
+		L.IsError(err, `failed to tx.Prepare: `+query)
+		return stmt
+	},
 	mProperty.TableScannedAreas: func(tx *sql.Tx) *sql.Stmt {
 		query := scannedAreasDummy.SqlInsert()
 		stmt, err := tx.Prepare(query)
@@ -45,6 +52,228 @@ var Preparators = map[Ch.TableName]chBuffer.Preparator{
 		return stmt
 	},
 }
+
+type Geolocation struct {
+	Adapter     *Ch.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id          uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	City        string      `json:"city" form:"city" query:"city" long:"city" msg:"city"`
+	StateId     uint64      `json:"stateId,string" form:"stateId" query:"stateId" long:"stateId" msg:"stateId"`
+	StateCode   string      `json:"stateCode" form:"stateCode" query:"stateCode" long:"stateCode" msg:"stateCode"`
+	StateName   string      `json:"stateName" form:"stateName" query:"stateName" long:"stateName" msg:"stateName"`
+	CountryId   uint64      `json:"countryId,string" form:"countryId" query:"countryId" long:"countryId" msg:"countryId"`
+	CountryCode string      `json:"countryCode" form:"countryCode" query:"countryCode" long:"countryCode" msg:"countryCode"`
+	CountryName string      `json:"countryName" form:"countryName" query:"countryName" long:"countryName" msg:"countryName"`
+	Latitude    float64     `json:"latitude" form:"latitude" query:"latitude" long:"latitude" msg:"latitude"`
+	Longitude   float64     `json:"longitude" form:"longitude" query:"longitude" long:"longitude" msg:"longitude"`
+	WikiDataId  string      `json:"wikiDataId,string" form:"wikiDataId" query:"wikiDataId" long:"wikiDataId" msg:"wikiDataId"`
+}
+
+func NewGeolocation(adapter *Ch.Adapter) *Geolocation {
+	return &Geolocation{Adapter: adapter}
+}
+
+// GeolocationFieldTypeMap returns key value of field name and key
+var GeolocationFieldTypeMap = map[string]Ch.DataType{ //nolint:dupl false positive
+	`id`:          Ch.UInt64,
+	`city`:        Ch.String,
+	`stateId`:     Ch.UInt64,
+	`stateCode`:   Ch.String,
+	`stateName`:   Ch.String,
+	`countryId`:   Ch.UInt64,
+	`countryCode`: Ch.String,
+	`countryName`: Ch.String,
+	`latitude`:    Ch.Float64,
+	`longitude`:   Ch.Float64,
+	`wikiDataId`:  Ch.String,
+}
+
+func (g *Geolocation) TableName() Ch.TableName { //nolint:dupl false positive
+	return mProperty.TableGeolocation
+}
+
+func (g *Geolocation) SqlTableName() string { //nolint:dupl false positive
+	return `"geolocation"`
+}
+
+func (g *Geolocation) ScanRowAllCols(rows *sql.Rows) (err error) { //nolint:dupl false positive
+	return rows.Scan(
+		&g.Id,
+		&g.City,
+		&g.StateId,
+		&g.StateCode,
+		&g.StateName,
+		&g.CountryId,
+		&g.CountryCode,
+		&g.CountryName,
+		&g.Latitude,
+		&g.Longitude,
+		&g.WikiDataId,
+	)
+}
+
+func (g *Geolocation) ScanRowsAllCols(rows *sql.Rows, estimateRows int) (res []Geolocation, err error) { //nolint:dupl false positive
+	res = make([]Geolocation, 0, estimateRows)
+	defer rows.Close()
+	for rows.Next() {
+		var row Geolocation
+		err = row.ScanRowAllCols(rows)
+		if err != nil {
+			return
+		}
+		res = append(res, row)
+	}
+	return
+}
+
+// insert, error if exists
+func (g *Geolocation) SqlInsert() string { //nolint:dupl false positive
+	return `INSERT INTO ` + g.SqlTableName() + `(` + g.SqlAllFields() + `) VALUES (?,?,?,?,?,?,?,?,?,?,?)`
+}
+
+func (g *Geolocation) SqlCount() string { //nolint:dupl false positive
+	return `SELECT COUNT(*) FROM ` + g.SqlTableName()
+}
+
+func (g *Geolocation) SqlSelectAllFields() string { //nolint:dupl false positive
+	return ` id
+	, city
+	, stateId
+	, stateCode
+	, stateName
+	, countryId
+	, countryCode
+	, countryName
+	, latitude
+	, longitude
+	, wikiDataId
+	`
+}
+
+func (g *Geolocation) SqlAllFields() string { //nolint:dupl false positive
+	return `id, city, stateId, stateCode, stateName, countryId, countryCode, countryName, latitude, longitude, wikiDataId`
+}
+
+func (g Geolocation) SqlInsertParam() []any { //nolint:dupl false positive
+	return []any{
+		g.Id,          // 0
+		g.City,        // 1
+		g.StateId,     // 2
+		g.StateCode,   // 3
+		g.StateName,   // 4
+		g.CountryId,   // 5
+		g.CountryCode, // 6
+		g.CountryName, // 7
+		g.Latitude,    // 8
+		g.Longitude,   // 9
+		g.WikiDataId,  // 10
+	}
+}
+
+func (g *Geolocation) IdxId() int { //nolint:dupl false positive
+	return 0
+}
+
+func (g *Geolocation) SqlId() string { //nolint:dupl false positive
+	return `id`
+}
+
+func (g *Geolocation) IdxCity() int { //nolint:dupl false positive
+	return 1
+}
+
+func (g *Geolocation) SqlCity() string { //nolint:dupl false positive
+	return `city`
+}
+
+func (g *Geolocation) IdxStateId() int { //nolint:dupl false positive
+	return 2
+}
+
+func (g *Geolocation) SqlStateId() string { //nolint:dupl false positive
+	return `stateId`
+}
+
+func (g *Geolocation) IdxStateCode() int { //nolint:dupl false positive
+	return 3
+}
+
+func (g *Geolocation) SqlStateCode() string { //nolint:dupl false positive
+	return `stateCode`
+}
+
+func (g *Geolocation) IdxStateName() int { //nolint:dupl false positive
+	return 4
+}
+
+func (g *Geolocation) SqlStateName() string { //nolint:dupl false positive
+	return `stateName`
+}
+
+func (g *Geolocation) IdxCountryId() int { //nolint:dupl false positive
+	return 5
+}
+
+func (g *Geolocation) SqlCountryId() string { //nolint:dupl false positive
+	return `countryId`
+}
+
+func (g *Geolocation) IdxCountryCode() int { //nolint:dupl false positive
+	return 6
+}
+
+func (g *Geolocation) SqlCountryCode() string { //nolint:dupl false positive
+	return `countryCode`
+}
+
+func (g *Geolocation) IdxCountryName() int { //nolint:dupl false positive
+	return 7
+}
+
+func (g *Geolocation) SqlCountryName() string { //nolint:dupl false positive
+	return `countryName`
+}
+
+func (g *Geolocation) IdxLatitude() int { //nolint:dupl false positive
+	return 8
+}
+
+func (g *Geolocation) SqlLatitude() string { //nolint:dupl false positive
+	return `latitude`
+}
+
+func (g *Geolocation) IdxLongitude() int { //nolint:dupl false positive
+	return 9
+}
+
+func (g *Geolocation) SqlLongitude() string { //nolint:dupl false positive
+	return `longitude`
+}
+
+func (g *Geolocation) IdxWikiDataId() int { //nolint:dupl false positive
+	return 10
+}
+
+func (g *Geolocation) SqlWikiDataId() string { //nolint:dupl false positive
+	return `wikiDataId`
+}
+
+func (g *Geolocation) ToArray() A.X { //nolint:dupl false positive
+	return A.X{
+		g.Id,          // 0
+		g.City,        // 1
+		g.StateId,     // 2
+		g.StateCode,   // 3
+		g.StateName,   // 4
+		g.CountryId,   // 5
+		g.CountryCode, // 6
+		g.CountryName, // 7
+		g.Latitude,    // 8
+		g.Longitude,   // 9
+		g.WikiDataId,  // 10
+	}
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/Ch/clickhouse_orm_generator.go
 
 type ScannedAreas struct {
 	Adapter   *Ch.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
