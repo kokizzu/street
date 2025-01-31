@@ -270,6 +270,8 @@ func main() {
 	case `import_translation`:
 		// https://docs.google.com/spreadsheets/d/1XnbE1ERv-jGjEOh-Feibtlb-drTjgzqOrcHqTCCmE3Y/edit#gid=0
 		zImport.GoogleSheetTranslationToJson(`1XnbE1ERv-jGjEOh-Feibtlb-drTjgzqOrcHqTCCmE3Y`)
+	case `import_geolocation`:
+		zImport.ImportGeolocationDatabase(cConn, `./static/cities.tsv`)
 	case `manual_test`: // how to manual test, it's better to use unit test, except for third party
 		const UA = `LocalTesting/1.0`
 		const sessionSavePath = `/tmp/session1.txt` // simulate cookie
