@@ -381,6 +381,17 @@ const (
 	TableScannedProperties Ch.TableName = `scannedProperties`
 )
 
+const (
+	TableGeolocation Ch.TableName = `geolocation`
+
+	StateId     = `stateId`
+	StateCode   = `stateCode`
+	StateName   = `stateName`
+	CountryId   = `countryId`
+	CountryName = `countryName`
+	WikiDataId  = `wikiDataId`
+)
+
 var ClickhouseTables = map[Ch.TableName]*Ch.TableProp{
 	TableViewedRooms: {
 		Fields: []Ch.Field{
@@ -411,5 +422,21 @@ var ClickhouseTables = map[Ch.TableName]*Ch.TableProp{
 			{PropertyId, Ch.UInt64},
 		},
 		Orders: []string{CreatedAt, ActorId},
+	},
+	TableGeolocation: {
+		Fields: []Ch.Field{
+			{Id, Ch.UInt64},
+			{City, Ch.String},
+			{StateId, Ch.UInt64},
+			{StateCode, Ch.String},
+			{StateName, Ch.String},
+			{CountryId, Ch.UInt64},
+			{CountryCode, Ch.String},
+			{CountryName, Ch.String},
+			{Latitude, Ch.Float64},
+			{Longitude, Ch.Float64},
+			{WikiDataId, Ch.String},
+		},
+		Orders: []string{Id},
 	},
 }
