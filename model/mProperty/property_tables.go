@@ -437,6 +437,6 @@ var ClickhouseTables = map[Ch.TableName]*Ch.TableProp{
 			{Longitude, Ch.Float64},
 			{WikiDataId, Ch.String},
 		},
-		Orders: []string{Id, WikiDataId},
+		Orders: []string{Id},
 	},
 }

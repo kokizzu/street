@@ -70,7 +70,6 @@ func ImportGeolocationDatabase(conn *Ch.Adapter, resourcePath string) {
 	defer stat.Print(`last`)
 
 	timedBuffer := chBuffer.NewTimedBuffer(conn.DB, 100_000, 1*time.Second, saProperty.Preparators[mProperty.TableGeolocation])
-
 	for _, g := range geolocation {
 		stat.Print()
 
@@ -88,4 +87,6 @@ func ImportGeolocationDatabase(conn *Ch.Adapter, resourcePath string) {
 			g.WikiDataId,
 		}))
 	}
+
+	time.Sleep(2 * time.Second)
 }
