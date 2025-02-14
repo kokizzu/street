@@ -27,7 +27,7 @@
   let user        = /** @type {User} */ ({/* user */});
   let access      = /** @type {Access} */ ({/* segments */});
   let fields      = /** @type {Field[]} */ ([/* fields */]);
-  let properties  = /** @type {Property[]} */ ([/* properties */]);
+  let properties  = /** @type {any[][]} */ ([/* properties */]);
   let pager       = /** @type {PagerOut} */ ({/* pager */});
 
   let propHistoryModal  = /** @type {import('svelte').SvelteComponent}*/ (null);
@@ -208,6 +208,9 @@
     note: function(/** @type {any} */ note ) {
       return JSON.stringify( note );
     },
+    attribute: function(/** @type {any} */ attribute ) {
+      return JSON.stringify( attribute );
+    }
   };
 </script>
 

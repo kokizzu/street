@@ -134,6 +134,12 @@ var (
 				InputType: zCrud.InputTypeText,
 			},
 			{
+				Name:      mProperty.Attribute,
+				Label:     `Attribute`,
+				DataType:  zCrud.DataTypeString,
+				InputType: zCrud.InputTypeText,
+			},
+			{
 				Name:      mProperty.Coord,
 				Label:     `Coord`,
 				DataType:  zCrud.DataTypeString,

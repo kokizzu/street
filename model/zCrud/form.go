@@ -78,3 +78,13 @@ func (m *Meta) ToSelect() string {
 	m.cachedSelect = m.cachedSelect[1:]
 	return m.cachedSelect
 }
+
+func (m *Meta) GetIdxByName(name string) int {
+	for i, f := range m.Fields {
+		if f.Name == name {
+			return i
+		}
+	}
+
+	return 0
+}

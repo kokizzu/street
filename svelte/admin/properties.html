@@ -177,17 +177,17 @@
         line-height-step: 1.15;
         -webkit-text-size-adjust: 100%;
         font-size: 13px;
+        font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
       }
 
       body {
-        font-family: Roboto, Helvetica, Arial, sans-serif;
         margin: 0;
         font-size: var(--font-base);
         color: var(--gray-008);
       }
 
       button {
-        font-family: Roboto, Helvetica, Arial, sans-serif;
+        font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
       }
 
       hr {
@@ -10934,7 +10934,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   function instance12($self, $props, $invalidate) {
     let approvalStateFilter;
     let properties = (
-      /** @type {Property[]} */
+      /** @type {any[][]} */
       [/* properties */]
     );
     let pager = (
@@ -11138,6 +11138,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let renderMap = {
       note(note) {
         return JSON.stringify(note);
+      },
+      attribute(attribute) {
+        return JSON.stringify(attribute);
       }
     };
     function modaldialog_binding($value) {

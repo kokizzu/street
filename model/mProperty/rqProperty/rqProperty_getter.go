@@ -25,7 +25,7 @@ type PropertyWithNote struct {
 	ContactEmail string `json:"contactEmail" form:"contactEmail" query:"contactEmail" long:"contactEmail" msg:"contactEmail"`
 	ContactPhone string `json:"contactPhone" form:"contactPhone" query:"contactPhone" long:"contactPhone" msg:"contactPhone"`
 	About        string `json:"about" form:"about" query:"about" long:"about" msg:"about"`
-	Image3dUrl	 string `json:"image3dUrl" form:"image3dUrl" query:"image3dUrl" long:"image3dUrl" msg:"image3dUrl"`
+	Image3dUrl   string `json:"image3dUrl" form:"image3dUrl" query:"image3dUrl" long:"image3dUrl" msg:"image3dUrl"`
 }
 
 func (pwn *PropertyWithNote) FromArray(row []any) {
@@ -45,7 +45,7 @@ func (rq *Property) ToPropertyWithNote() PropertyWithNote {
 		ContactEmail: gjson.Get(rq.Note, `contactEmail`).String(),
 		ContactPhone: gjson.Get(rq.Note, `contactPhone`).String(),
 		About:        gjson.Get(rq.Note, `about`).String(),
-		Image3dUrl: ``,
+		Image3dUrl:   ``,
 	}
 }
 
@@ -168,11 +168,19 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	return
 }
 
-type PropertyNote struct {
-	ContactEmail string `json:"contactEmail" form:"contactEmail" query:"contactEmail" long:"contactEmail" msg:"contactEmail"`
-	ContactPhone string `json:"contactPhone" form:"contactPhone" query:"contactPhone" long:"contactPhone" msg:"contactPhone"`
-	About        string `json:"about" form:"about" query:"about" long:"about" msg:"about"`
-}
+type (
+	PropertyNote struct {
+		ContactEmail string `json:"contactEmail" form:"contactEmail" query:"contactEmail" long:"contactEmail" msg:"contactEmail"`
+		ContactPhone string `json:"contactPhone" form:"contactPhone" query:"contactPhone" long:"contactPhone" msg:"contactPhone"`
+		About        string `json:"about" form:"about" query:"about" long:"about" msg:"about"`
+	}
+	PropertyAttribute struct {
+		Title      string  `json:"title" form:"title" query:"title" long:"title" msg:"title"`
+		AgentPhone string  `json:"agentPhone" form:"agentPhone" query:"agentPhone" long:"agentPhone" msg:"agentPhone"`
+		AgentBio   string  `json:"agentBio" form:"agentBio" query:"agentBio" long:"agentBio" msg:"agentBio"`
+		YardSizeM2 float64 `json:"yardSizeM2" form:"yardSizeM2" query:"yardSizeM2" long:"yardSizeM2" msg:"yardSizeM2"`
+	}
+)
 
 func (p *Property) FindByPaginationWithNote(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
 	const comment = `-- Property) FindByPaginationWithNote`
@@ -201,6 +209,12 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 		row[0] = X.ToS(row[0]) // ensure id is string
 		if nil != json.Unmarshal([]byte(X.ToS(row[p.IdxNote()])), &nt) {
 			nt.About = X.ToS(row[p.IdxNote()])
+		}
+
+		idxAttr := meta.GetIdxByName(mProperty.Attribute)
+		var attr PropertyAttribute
+		if nil != json.Unmarshal([]byte(X.ToS(row[idxAttr])), &attr) {
+			row[idxAttr] = attr
 		}
 
 		row[p.IdxNote()] = nt
