@@ -175,10 +175,11 @@ type (
 		About        string `json:"about" form:"about" query:"about" long:"about" msg:"about"`
 	}
 	PropertyAttribute struct {
-		Title      string  `json:"title" form:"title" query:"title" long:"title" msg:"title"`
-		AgentPhone string  `json:"agentPhone" form:"agentPhone" query:"agentPhone" long:"agentPhone" msg:"agentPhone"`
-		AgentBio   string  `json:"agentBio" form:"agentBio" query:"agentBio" long:"agentBio" msg:"agentBio"`
-		YardSizeM2 float64 `json:"yardSizeM2" form:"yardSizeM2" query:"yardSizeM2" long:"yardSizeM2" msg:"yardSizeM2"`
+		Title          string  `json:"title" form:"title" query:"title" long:"title" msg:"title"`
+		AgentPhone     string  `json:"agentPhone" form:"agentPhone" query:"agentPhone" long:"agentPhone" msg:"agentPhone"`
+		AgentBio       string  `json:"agentBio" form:"agentBio" query:"agentBio" long:"agentBio" msg:"agentBio"`
+		BuildingSizeM2 float64 `json:"buildingSizeM2" form:"buildingSizeM2" query:"buildingSizeM2" long:"buildingSizeM2" msg:"buildingSizeM2"`
+		YardSizeM2     float64 `json:"yardSizeM2" form:"yardSizeM2" query:"yardSizeM2" long:"yardSizeM2" msg:"yardSizeM2"`
 	}
 )
 
