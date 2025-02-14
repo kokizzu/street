@@ -220,6 +220,7 @@ type Property struct {
 	MinimumDurationYear     float64     `json:"minimumDurationYear" form:"minimumDurationYear" query:"minimumDurationYear" long:"minimumDurationYear" msg:"minimumDurationYear"`
 	OtherFees               []any       `json:"otherFees" form:"otherFees" query:"otherFees" long:"otherFees" msg:"otherFees"`
 	ImageLabels             []any       `json:"imageLabels" form:"imageLabels" query:"imageLabels" long:"imageLabels" msg:"imageLabels"`
+	Attribute               string      `json:"attribute" form:"attribute" query:"attribute" long:"attribute" msg:"attribute"`
 }
 
 // NewProperty create new ORM reader/query object
@@ -329,6 +330,7 @@ func (p *Property) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "minimumDurationYear"
 	, "otherFees"
 	, "imageLabels"
+	, "attribute"
 	`
 }
 
@@ -382,6 +384,7 @@ func (p *Property) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 	, "minimumDurationYear"
 	, "otherFees"
 	, "imageLabels"
+	, "attribute"
 	`
 }
 
@@ -436,6 +439,7 @@ func (p *Property) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 45, p.MinimumDurationYear},
 		A.X{`=`, 46, p.OtherFees},
 		A.X{`=`, 47, p.ImageLabels},
+		A.X{`=`, 48, p.Attribute},
 	}
 }
 
@@ -919,6 +923,16 @@ func (p *Property) SqlImageLabels() string { //nolint:dupl false positive
 	return `"imageLabels"`
 }
 
+// IdxAttribute return name of the index
+func (p *Property) IdxAttribute() int { //nolint:dupl false positive
+	return 48
+}
+
+// SqlAttribute return name of the column being indexed
+func (p *Property) SqlAttribute() string { //nolint:dupl false positive
+	return `"attribute"`
+}
+
 // ToArray receiver fields to slice
 func (p *Property) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -974,6 +988,7 @@ func (p *Property) ToArray() A.X { //nolint:dupl false positive
 		p.MinimumDurationYear,     // 45
 		p.OtherFees,               // 46
 		p.ImageLabels,             // 47
+		p.Attribute,               // 48
 	}
 }
 
@@ -1027,6 +1042,7 @@ func (p *Property) FromArray(a A.X) *Property { //nolint:dupl false positive
 	p.MinimumDurationYear = X.ToF(a[45])
 	p.OtherFees = X.ToArr(a[46])
 	p.ImageLabels = X.ToArr(a[47])
+	p.Attribute = X.ToS(a[48])
 	return p
 }
 
@@ -1080,6 +1096,7 @@ func (p *Property) FromUncensoredArray(a A.X) *Property { //nolint:dupl false po
 	p.MinimumDurationYear = X.ToF(a[45])
 	p.OtherFees = X.ToArr(a[46])
 	p.ImageLabels = X.ToArr(a[47])
+	p.Attribute = X.ToS(a[48])
 	return p
 }
 
@@ -1171,6 +1188,7 @@ var PropertyFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`minimumDurationYear`:     Tt.Double,
 	`otherFees`:               Tt.Array,
 	`imageLabels`:             Tt.Array,
+	`attribute`:               Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
@@ -1597,6 +1615,7 @@ type PropertyTW struct {
 	MinimumDurationYear     float64     `json:"minimumDurationYear" form:"minimumDurationYear" query:"minimumDurationYear" long:"minimumDurationYear" msg:"minimumDurationYear"`
 	OtherFees               []any       `json:"otherFees" form:"otherFees" query:"otherFees" long:"otherFees" msg:"otherFees"`
 	ImageLabels             []any       `json:"imageLabels" form:"imageLabels" query:"imageLabels" long:"imageLabels" msg:"imageLabels"`
+	Attribute               string      `json:"attribute" form:"attribute" query:"attribute" long:"attribute" msg:"attribute"`
 }
 
 // NewPropertyTW create new ORM reader/query object
@@ -1706,6 +1725,7 @@ func (p *PropertyTW) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "minimumDurationYear"
 	, "otherFees"
 	, "imageLabels"
+	, "attribute"
 	`
 }
 
@@ -1759,6 +1779,7 @@ func (p *PropertyTW) SqlSelectAllUncensoredFields() string { //nolint:dupl false
 	, "minimumDurationYear"
 	, "otherFees"
 	, "imageLabels"
+	, "attribute"
 	`
 }
 
@@ -1813,6 +1834,7 @@ func (p *PropertyTW) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 45, p.MinimumDurationYear},
 		A.X{`=`, 46, p.OtherFees},
 		A.X{`=`, 47, p.ImageLabels},
+		A.X{`=`, 48, p.Attribute},
 	}
 }
 
@@ -2296,6 +2318,16 @@ func (p *PropertyTW) SqlImageLabels() string { //nolint:dupl false positive
 	return `"imageLabels"`
 }
 
+// IdxAttribute return name of the index
+func (p *PropertyTW) IdxAttribute() int { //nolint:dupl false positive
+	return 48
+}
+
+// SqlAttribute return name of the column being indexed
+func (p *PropertyTW) SqlAttribute() string { //nolint:dupl false positive
+	return `"attribute"`
+}
+
 // ToArray receiver fields to slice
 func (p *PropertyTW) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -2351,6 +2383,7 @@ func (p *PropertyTW) ToArray() A.X { //nolint:dupl false positive
 		p.MinimumDurationYear,     // 45
 		p.OtherFees,               // 46
 		p.ImageLabels,             // 47
+		p.Attribute,               // 48
 	}
 }
 
@@ -2404,6 +2437,7 @@ func (p *PropertyTW) FromArray(a A.X) *PropertyTW { //nolint:dupl false positive
 	p.MinimumDurationYear = X.ToF(a[45])
 	p.OtherFees = X.ToArr(a[46])
 	p.ImageLabels = X.ToArr(a[47])
+	p.Attribute = X.ToS(a[48])
 	return p
 }
 
@@ -2457,6 +2491,7 @@ func (p *PropertyTW) FromUncensoredArray(a A.X) *PropertyTW { //nolint:dupl fals
 	p.MinimumDurationYear = X.ToF(a[45])
 	p.OtherFees = X.ToArr(a[46])
 	p.ImageLabels = X.ToArr(a[47])
+	p.Attribute = X.ToS(a[48])
 	return p
 }
 
@@ -2548,6 +2583,7 @@ var PropertyTWFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positiv
 	`minimumDurationYear`:     Tt.Double,
 	`otherFees`:               Tt.Array,
 	`imageLabels`:             Tt.Array,
+	`attribute`:               Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
@@ -2603,6 +2639,7 @@ type PropertyUS struct {
 	MinimumDurationYear     float64     `json:"minimumDurationYear" form:"minimumDurationYear" query:"minimumDurationYear" long:"minimumDurationYear" msg:"minimumDurationYear"`
 	OtherFees               []any       `json:"otherFees" form:"otherFees" query:"otherFees" long:"otherFees" msg:"otherFees"`
 	ImageLabels             []any       `json:"imageLabels" form:"imageLabels" query:"imageLabels" long:"imageLabels" msg:"imageLabels"`
+	Attribute               string      `json:"attribute" form:"attribute" query:"attribute" long:"attribute" msg:"attribute"`
 }
 
 // NewPropertyUS create new ORM reader/query object
@@ -2712,6 +2749,7 @@ func (p *PropertyUS) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "minimumDurationYear"
 	, "otherFees"
 	, "imageLabels"
+	, "attribute"
 	`
 }
 
@@ -2765,6 +2803,7 @@ func (p *PropertyUS) SqlSelectAllUncensoredFields() string { //nolint:dupl false
 	, "minimumDurationYear"
 	, "otherFees"
 	, "imageLabels"
+	, "attribute"
 	`
 }
 
@@ -2819,6 +2858,7 @@ func (p *PropertyUS) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 45, p.MinimumDurationYear},
 		A.X{`=`, 46, p.OtherFees},
 		A.X{`=`, 47, p.ImageLabels},
+		A.X{`=`, 48, p.Attribute},
 	}
 }
 
@@ -3302,6 +3342,16 @@ func (p *PropertyUS) SqlImageLabels() string { //nolint:dupl false positive
 	return `"imageLabels"`
 }
 
+// IdxAttribute return name of the index
+func (p *PropertyUS) IdxAttribute() int { //nolint:dupl false positive
+	return 48
+}
+
+// SqlAttribute return name of the column being indexed
+func (p *PropertyUS) SqlAttribute() string { //nolint:dupl false positive
+	return `"attribute"`
+}
+
 // ToArray receiver fields to slice
 func (p *PropertyUS) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -3357,6 +3407,7 @@ func (p *PropertyUS) ToArray() A.X { //nolint:dupl false positive
 		p.MinimumDurationYear,     // 45
 		p.OtherFees,               // 46
 		p.ImageLabels,             // 47
+		p.Attribute,               // 48
 	}
 }
 
@@ -3410,6 +3461,7 @@ func (p *PropertyUS) FromArray(a A.X) *PropertyUS { //nolint:dupl false positive
 	p.MinimumDurationYear = X.ToF(a[45])
 	p.OtherFees = X.ToArr(a[46])
 	p.ImageLabels = X.ToArr(a[47])
+	p.Attribute = X.ToS(a[48])
 	return p
 }
 
@@ -3463,6 +3515,7 @@ func (p *PropertyUS) FromUncensoredArray(a A.X) *PropertyUS { //nolint:dupl fals
 	p.MinimumDurationYear = X.ToF(a[45])
 	p.OtherFees = X.ToArr(a[46])
 	p.ImageLabels = X.ToArr(a[47])
+	p.Attribute = X.ToS(a[48])
 	return p
 }
 
@@ -3554,6 +3607,7 @@ var PropertyUSFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positiv
 	`minimumDurationYear`:     Tt.Double,
 	`otherFees`:               Tt.Array,
 	`imageLabels`:             Tt.Array,
+	`attribute`:               Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

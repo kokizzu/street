@@ -91,6 +91,7 @@ const (
 	About                  = `about`
 	ContactEmail           = `contactEmail`
 	ContactPhone           = `contactPhone`
+	Attribute              = `attribute`
 
 	TablePropertyHistory   Tt.TableName = `property_history`
 	TablePropertyHistoryUS Tt.TableName = `property_historyUS`
@@ -280,6 +281,9 @@ func buildStandardPropertySchema() []Tt.Field {
 
 		// Approval state
 		39: {ApprovalState, Tt.String},
+
+		// Property Attribute
+		48: {Attribute, Tt.String},
 	}
 
 	keys := make([]int, 0, len(schema))

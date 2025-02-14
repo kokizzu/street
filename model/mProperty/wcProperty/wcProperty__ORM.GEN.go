@@ -244,6 +244,7 @@ func (p *PropertyMutator) DoDeletePermanentById() bool { //nolint:dupl false pos
 //		A.X{`=`, 45, p.MinimumDurationYear},
 //		A.X{`=`, 46, p.OtherFees},
 //		A.X{`=`, 47, p.ImageLabels},
+//		A.X{`=`, 48, p.Attribute},
 //	})
 //	return !L.IsError(err, `Property.DoUpsert failed: `+p.SpaceName()+ `\n%#v`, arr)
 // }
@@ -804,6 +805,17 @@ func (p *PropertyMutator) SetImageLabels(val []any) bool { //nolint:dupl false p
 	return true
 }
 
+// SetAttribute create mutations, should not duplicate
+func (p *PropertyMutator) SetAttribute(val string) bool { //nolint:dupl false positive
+	if val != p.Attribute {
+		p.mutations = append(p.mutations, A.X{`=`, 48, val})
+		p.logs = append(p.logs, A.X{`attribute`, p.Attribute, val})
+		p.Attribute = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -1002,6 +1014,10 @@ func (p *PropertyMutator) SetAll(from rqProperty.Property, excludeMap, forceMap 
 	}
 	if !excludeMap[`imageLabels`] && (forceMap[`imageLabels`] || from.ImageLabels != nil) {
 		p.ImageLabels = from.ImageLabels
+		changed = true
+	}
+	if !excludeMap[`attribute`] && (forceMap[`attribute`] || from.Attribute != ``) {
+		p.Attribute = S.Trim(from.Attribute)
 		changed = true
 	}
 	return
@@ -1444,6 +1460,7 @@ func (p *PropertyTWMutator) DoDeletePermanentById() bool { //nolint:dupl false p
 //		A.X{`=`, 45, p.MinimumDurationYear},
 //		A.X{`=`, 46, p.OtherFees},
 //		A.X{`=`, 47, p.ImageLabels},
+//		A.X{`=`, 48, p.Attribute},
 //	})
 //	return !L.IsError(err, `PropertyTW.DoUpsert failed: `+p.SpaceName()+ `\n%#v`, arr)
 // }
@@ -2004,6 +2021,17 @@ func (p *PropertyTWMutator) SetImageLabels(val []any) bool { //nolint:dupl false
 	return true
 }
 
+// SetAttribute create mutations, should not duplicate
+func (p *PropertyTWMutator) SetAttribute(val string) bool { //nolint:dupl false positive
+	if val != p.Attribute {
+		p.mutations = append(p.mutations, A.X{`=`, 48, val})
+		p.logs = append(p.logs, A.X{`attribute`, p.Attribute, val})
+		p.Attribute = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (p *PropertyTWMutator) SetAll(from rqProperty.PropertyTW, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -2204,6 +2232,10 @@ func (p *PropertyTWMutator) SetAll(from rqProperty.PropertyTW, excludeMap, force
 		p.ImageLabels = from.ImageLabels
 		changed = true
 	}
+	if !excludeMap[`attribute`] && (forceMap[`attribute`] || from.Attribute != ``) {
+		p.Attribute = S.Trim(from.Attribute)
+		changed = true
+	}
 	return
 }
 
@@ -2317,6 +2349,7 @@ func (p *PropertyUSMutator) DoDeletePermanentById() bool { //nolint:dupl false p
 //		A.X{`=`, 45, p.MinimumDurationYear},
 //		A.X{`=`, 46, p.OtherFees},
 //		A.X{`=`, 47, p.ImageLabels},
+//		A.X{`=`, 48, p.Attribute},
 //	})
 //	return !L.IsError(err, `PropertyUS.DoUpsert failed: `+p.SpaceName()+ `\n%#v`, arr)
 // }
@@ -2877,6 +2910,17 @@ func (p *PropertyUSMutator) SetImageLabels(val []any) bool { //nolint:dupl false
 	return true
 }
 
+// SetAttribute create mutations, should not duplicate
+func (p *PropertyUSMutator) SetAttribute(val string) bool { //nolint:dupl false positive
+	if val != p.Attribute {
+		p.mutations = append(p.mutations, A.X{`=`, 48, val})
+		p.logs = append(p.logs, A.X{`attribute`, p.Attribute, val})
+		p.Attribute = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (p *PropertyUSMutator) SetAll(from rqProperty.PropertyUS, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -3075,6 +3119,10 @@ func (p *PropertyUSMutator) SetAll(from rqProperty.PropertyUS, excludeMap, force
 	}
 	if !excludeMap[`imageLabels`] && (forceMap[`imageLabels`] || from.ImageLabels != nil) {
 		p.ImageLabels = from.ImageLabels
+		changed = true
+	}
+	if !excludeMap[`attribute`] && (forceMap[`attribute`] || from.Attribute != ``) {
+		p.Attribute = S.Trim(from.Attribute)
 		changed = true
 	}
 	return
