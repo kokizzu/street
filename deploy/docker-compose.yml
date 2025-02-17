@@ -2,7 +2,7 @@ version: '3'
 
 services:
   tarantool1:
-    image: tarantool/tarantool:2.10.5 # 2.11.2
+    image: tarantool/tarantool:2.11.5
     # x.x.0 = alpha, x.x.1 = beta, x.x.2+ = stable, latest not always stable
     environment:
       TARANTOOL_USER_NAME: "userT"
@@ -13,6 +13,7 @@ services:
       TT_NET_MSG_MAX: '76800' # 100x
       TT_MEMTX_MEMORY: '34359738368' # 128x
       TT_VINYL_PAGE_SIZE: '8192' # 1x
+      TT_FORCE_RECOVERY: 'true'
     volumes:
         - ./var_lib_tarantool:/var/lib/tarantool
         - ./opt_tarantool:/opt/tarantool

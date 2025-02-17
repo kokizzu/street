@@ -5,6 +5,7 @@ import (
 
 	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
+	"github.com/kokizzu/gotro/L"
 )
 
 const (
@@ -290,6 +291,7 @@ func buildStandardPropertySchema() []Tt.Field {
 	for k := range schema {
 		keys = append(keys, k)
 	}
+	L.Describe(keys)
 
 	sort.Ints(keys)
 	listPropertyFields := make([]Tt.Field, len(schema))
@@ -297,6 +299,7 @@ func buildStandardPropertySchema() []Tt.Field {
 	for i := 0; i < len(keys); i++ {
 		listPropertyFields[i] = schema[keys[i]]
 	}
+	L.Describe(listPropertyFields)
 
 	return listPropertyFields
 }
