@@ -278,7 +278,7 @@ func main() {
 	case `fix_attribute`:
 		err := 0
 		start := fastime.Now()
-		for _, tableName := range []string{`propertyUS`, `property`, `propertyTW`} {
+		for _, tableName := range []string{`property`, `propertyTW`, `propertyUS`} {
 			total := 0
 			iter := 0
 			for {
