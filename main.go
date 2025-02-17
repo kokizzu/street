@@ -13,12 +13,15 @@ import (
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
+	"github.com/kokizzu/gotro/X"
+	"github.com/kpango/fastime"
 	"github.com/rs/zerolog"
 	"golang.org/x/sync/errgroup"
 
 	"street/conf"
 	"street/domain"
 	"street/model"
+	"street/model/mProperty/wcProperty"
 	"street/model/xGmap"
 	"street/model/xMailer"
 	"street/model/zImport"
@@ -272,6 +275,33 @@ func main() {
 		zImport.GoogleSheetTranslationToJson(`1XnbE1ERv-jGjEOh-Feibtlb-drTjgzqOrcHqTCCmE3Y`)
 	case `import_geolocation`:
 		zImport.ImportGeolocationDatabase(cConn, `./static/cities.tsv`)
+	case `fix_attribute`:
+		err := 0
+		start := fastime.Now()
+		for _, tableName := range []string{`propertyUS`, `property`, `propertyTW`} {
+			total := 0
+			iter := 0
+			for {
+				iter++
+				rows := 0
+				tConn.QuerySql(`SELECT "id" FROM "`+tableName+`" WHERE "attribute" IS NULL LIMIT 16000`, func(row []any) {
+					p := wcProperty.NewPropertyMutator(tConn)
+					p.Id = X.ToU(row[0])
+					p.Attribute = `x` // to force mutation
+					p.SetAttribute(``)
+					if p.DoUpdateById() {
+						rows++
+					} else {
+						err++
+					}
+				})
+				total += rows
+				fmt.Println(tableName, iter, rows, total, err, int(float64(total)/fastime.Since(start).Seconds()), `rps`)
+				if rows == 0 {
+					break
+				}
+			}
+		}
 	case `manual_test`: // how to manual test, it's better to use unit test, except for third party
 		const UA = `LocalTesting/1.0`
 		const sessionSavePath = `/tmp/session1.txt` // simulate cookie
