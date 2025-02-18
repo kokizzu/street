@@ -180,6 +180,7 @@ type (
 		AgentBio       string  `json:"agentBio" form:"agentBio" query:"agentBio" long:"agentBio" msg:"agentBio"`
 		BuildingSizeM2 float64 `json:"buildingSizeM2" form:"buildingSizeM2" query:"buildingSizeM2" long:"buildingSizeM2" msg:"buildingSizeM2"`
 		YardSizeM2     float64 `json:"yardSizeM2" form:"yardSizeM2" query:"yardSizeM2" long:"yardSizeM2" msg:"yardSizeM2"`
+		ContactLink    string  `json:"contactLink" form:"contactLink" query:"contactLink" long:"contactLink" msg:"contactLink"`
 	}
 )
 
