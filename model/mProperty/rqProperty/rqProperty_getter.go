@@ -6,6 +6,7 @@ import (
 	"github.com/goccy/go-json"
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"
+	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
@@ -713,4 +714,23 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	})
 
 	return
+}
+
+func (p *Property) GetRows(totalRows int64) [][]any {
+	const comment = `-- Property) GetRows`
+
+	query := comment + `
+	SELECT ` + p.SqlSelectAllFields() + `
+	FROM ` + p.SqlTableName() + `
+	ORDER BY id
+	LIMIT ` + I.ToS(totalRows)
+
+	rows := make([][]any, 0, totalRows)
+
+	p.Adapter.QuerySql(query, func(row []any) {
+		row[0] = X.ToS(row[0])
+		rows = append(rows, row)
+	})
+
+	return rows
 }

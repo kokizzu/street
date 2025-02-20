@@ -302,6 +302,9 @@ func main() {
 				}
 			}
 		}
+	case `dump_trunc_table`:
+		model.BackupProperty(tConn, `./static/property.jsonline.lzo`)
+	case `restore_table`:
 	case `manual_test`: // how to manual test, it's better to use unit test, except for third party
 		const UA = `LocalTesting/1.0`
 		const sessionSavePath = `/tmp/session1.txt` // simulate cookie
