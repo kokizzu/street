@@ -25,7 +25,7 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/mojura/enkodo v0.5.6
 	github.com/ory/dockertest/v3 v3.11.0
-	github.com/rasky/go-lzo v0.0.0-20200203143853-96a758eda86e
+	github.com/pierrec/lz4/v4 v4.1.22
 	github.com/rs/zerolog v1.29.1
 	github.com/segmentio/fasthash v1.0.3
 	github.com/sendgrid/sendgrid-go v3.12.0+incompatible
@@ -95,7 +95,6 @@ require (
 	github.com/orcaman/concurrent-map v1.0.0 // indirect
 	github.com/paulmach/orb v0.11.1 // indirect
 	github.com/philhofer/fwd v1.1.2 // indirect
-	github.com/pierrec/lz4/v4 v4.1.22 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/richardlehane/mscfb v1.0.4 // indirect

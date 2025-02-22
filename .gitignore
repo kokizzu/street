@@ -21,3 +21,4 @@ AuthKey_*.p8
 upload
 
 *.lzo
+*.lz4

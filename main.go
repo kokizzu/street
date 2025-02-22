@@ -305,6 +305,7 @@ func main() {
 		}
 	case `dump_trunc_table`:
 		args := os.Args
+
 		// Check the number of arguments.
 		if len(args) < 2 {
 			fmt.Println("Usage: go run main.go dump_trunc_table -tableName -directory")
@@ -313,7 +314,11 @@ func main() {
 
 		// Process the arguments
 		tableName := args[2]
-		directory := args[3]
+		directory := ``
+
+		if len(args) >= 4 {
+			directory = args[3]
+		}
 
 		switch tableName {
 		case string(mProperty.TablePropLikeCount),

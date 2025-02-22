@@ -6,7 +6,6 @@ import (
 	"github.com/goccy/go-json"
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"
-	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
@@ -716,19 +715,28 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	return
 }
 
-func (p *Property) GetRows(offset, limit int64) (res [][]any) {
-	const comment = `-- Property) GetRows`
-
-	query := comment + `
-	SELECT ` + p.SqlSelectAllFields() + `
+func (p *Property) CountTotalAllRows() (total uint64) {
+	queryCount := `
+	SELECT COUNT(1)
 	FROM ` + p.SqlTableName() + `
-	ORDER BY id
-	OFFSET ` + I.ToS(offset) + ` LIMIT ` + I.ToS(limit)
+	LIMIT 1`
 
-	p.Adapter.QuerySql(query, func(row []any) {
-		row[0] = X.ToS(row[0])
-		res = append(res, row)
+	p.Adapter.QuerySql(queryCount, func(row []any) {
+		if len(row) >= 1 {
+			total = X.ToU(row[0])
+		}
 	})
+
+	return
+}
+
+func (p *Property) GetRows(offset, limit uint32) (res [][]any) {
+	resp, err := p.Adapter.Select(p.SpaceName(), p.UniqueIndexId(), offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `failed to query property`) {
+		return
+	}
+
+	res = resp.Tuples()
 
 	return
 }
