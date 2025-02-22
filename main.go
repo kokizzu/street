@@ -21,6 +21,7 @@ import (
 	"street/conf"
 	"street/domain"
 	"street/model"
+	"street/model/mProperty"
 	"street/model/mProperty/wcProperty"
 	"street/model/xGmap"
 	"street/model/xMailer"
@@ -303,7 +304,32 @@ func main() {
 			}
 		}
 	case `dump_trunc_table`:
-		model.BackupProperty(tConn, `./static/property.jsonline.lzo`)
+		args := os.Args
+		// Check the number of arguments.
+		if len(args) < 2 {
+			fmt.Println("Usage: go run main.go dump_trunc_table -tableName -directory")
+			return
+		}
+
+		// Process the arguments
+		tableName := args[2]
+		directory := args[3]
+
+		switch tableName {
+		case string(mProperty.TablePropLikeCount),
+			string(mProperty.TableProperty),
+			string(mProperty.TablePropertyUS),
+			string(mProperty.TablePropertyTW),
+			string(mProperty.TablePropertyExtraUS),
+			string(mProperty.TablePropertyHistory),
+			string(mProperty.TablePropertyHistoryUS):
+			break
+		default:
+			fmt.Println("Invalid table name")
+			return
+		}
+
+		model.BackupProperty(tConn, directory, tableName)
 	case `restore_table`:
 	case `manual_test`: // how to manual test, it's better to use unit test, except for third party
 		const UA = `LocalTesting/1.0`

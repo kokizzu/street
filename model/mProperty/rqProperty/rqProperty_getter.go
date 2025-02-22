@@ -716,21 +716,19 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	return
 }
 
-func (p *Property) GetRows(totalRows int64) [][]any {
+func (p *Property) GetRows(offset, limit int64) (res [][]any) {
 	const comment = `-- Property) GetRows`
 
 	query := comment + `
 	SELECT ` + p.SqlSelectAllFields() + `
 	FROM ` + p.SqlTableName() + `
 	ORDER BY id
-	LIMIT ` + I.ToS(totalRows)
-
-	rows := make([][]any, 0, totalRows)
+	OFFSET ` + I.ToS(offset) + ` LIMIT ` + I.ToS(limit)
 
 	p.Adapter.QuerySql(query, func(row []any) {
 		row[0] = X.ToS(row[0])
-		rows = append(rows, row)
+		res = append(res, row)
 	})
 
-	return rows
+	return
 }
