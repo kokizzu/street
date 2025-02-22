@@ -32,8 +32,12 @@ func BackupProperty(conn *Tt.Adapter, outputDir, tableName string) {
 	switch tableName {
 	case string(mProperty.TableProperty):
 		backupPropertyDefault(conn, outputDir)
+	case string(mProperty.TablePropertyUS):
+		backupPropertyUS(conn, outputDir)
+	case string(mProperty.TablePropertyTW):
+		backupPropertyTW(conn, outputDir)
 	default:
-		fmt.Println("Invalid table name")
+		fmt.Println("invalid table name, must be property/propertyUS/propertyTW")
 		return
 	}
 
@@ -50,6 +54,78 @@ func backupPropertyDefault(conn *Tt.Adapter, outputDir string) {
 		data := prop.GetRows(uint32(i), uint32(batchSize))
 
 		outputFile := getBackupPropertyFileOutput(outputDir, string(mProperty.TableProperty), i, batchSize)
+		file, err := os.Create(outputFile)
+		if err != nil {
+			log.Println(`Err os.Create(outputFile): `, err)
+			return
+		}
+		defer file.Close()
+
+		lz4Writer := lz4.NewWriter(file)
+		defer lz4Writer.Close()
+
+		for _, row := range data {
+			jsonRow, err := json.Marshal(row)
+			if err != nil {
+				log.Println(`Err json.Marshal(row): `, err)
+				continue
+			}
+
+			_, err = lz4Writer.Write(append(jsonRow, '\n'))
+			if err != nil {
+				log.Println(`Err lz4Writer.Write(append(jsonRow, '\n')): `, err)
+				continue
+			}
+		}
+	}
+}
+
+func backupPropertyUS(conn *Tt.Adapter, outputDir string) {
+	prop := rqProperty.NewPropertyUS(conn)
+
+	totalAllRows := prop.CountTotalAllRows()
+	batchSize := 10_000
+
+	for i := 0; i < int(totalAllRows); i += batchSize {
+		data := prop.GetRows(uint32(i), uint32(batchSize))
+
+		outputFile := getBackupPropertyFileOutput(outputDir, string(mProperty.TablePropertyUS), i, batchSize)
+		file, err := os.Create(outputFile)
+		if err != nil {
+			log.Println(`Err os.Create(outputFile): `, err)
+			return
+		}
+		defer file.Close()
+
+		lz4Writer := lz4.NewWriter(file)
+		defer lz4Writer.Close()
+
+		for _, row := range data {
+			jsonRow, err := json.Marshal(row)
+			if err != nil {
+				log.Println(`Err json.Marshal(row): `, err)
+				continue
+			}
+
+			_, err = lz4Writer.Write(append(jsonRow, '\n'))
+			if err != nil {
+				log.Println(`Err lz4Writer.Write(append(jsonRow, '\n')): `, err)
+				continue
+			}
+		}
+	}
+}
+
+func backupPropertyTW(conn *Tt.Adapter, outputDir string) {
+	prop := rqProperty.NewPropertyTW(conn)
+
+	totalAllRows := prop.CountTotalAllRows()
+	batchSize := 10_000
+
+	for i := 0; i < int(totalAllRows); i += batchSize {
+		data := prop.GetRows(uint32(i), uint32(batchSize))
+
+		outputFile := getBackupPropertyFileOutput(outputDir, string(mProperty.TablePropertyTW), i, batchSize)
 		file, err := os.Create(outputFile)
 		if err != nil {
 			log.Println(`Err os.Create(outputFile): `, err)

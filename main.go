@@ -321,16 +321,12 @@ func main() {
 		}
 
 		switch tableName {
-		case string(mProperty.TablePropLikeCount),
-			string(mProperty.TableProperty),
+		case string(mProperty.TableProperty),
 			string(mProperty.TablePropertyUS),
-			string(mProperty.TablePropertyTW),
-			string(mProperty.TablePropertyExtraUS),
-			string(mProperty.TablePropertyHistory),
-			string(mProperty.TablePropertyHistoryUS):
+			string(mProperty.TablePropertyTW):
 			break
 		default:
-			fmt.Println("Invalid table name")
+			fmt.Println("invalid table name, must be property/propertyUS/propertyTW")
 			return
 		}
 
