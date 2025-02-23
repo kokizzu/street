@@ -741,6 +741,10 @@ func (p *Property) GetRows(offset, limit uint32) (res [][]any) {
 	return
 }
 
+func (p *Property) Truncate() bool {
+	return p.Adapter.ExecBoxSpace(`property:truncate`, A.X{})
+}
+
 func (p *PropertyUS) CountTotalAllRows() (total uint64) {
 	queryCount := `
 	SELECT COUNT(1)
@@ -767,6 +771,10 @@ func (p *PropertyUS) GetRows(offset, limit uint32) (res [][]any) {
 	return
 }
 
+func (p *PropertyUS) Truncate() bool {
+	return p.Adapter.ExecBoxSpace(`propertyUS:truncate`, A.X{})
+}
+
 func (p *PropertyTW) CountTotalAllRows() (total uint64) {
 	queryCount := `
 	SELECT COUNT(1)
@@ -791,4 +799,8 @@ func (p *PropertyTW) GetRows(offset, limit uint32) (res [][]any) {
 	res = resp.Tuples()
 
 	return
+}
+
+func (p *PropertyTW) Truncate() bool {
+	return p.Adapter.ExecBoxSpace(`propertyTW:truncate`, A.X{})
 }

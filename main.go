@@ -21,7 +21,6 @@ import (
 	"street/conf"
 	"street/domain"
 	"street/model"
-	"street/model/mProperty"
 	"street/model/mProperty/wcProperty"
 	"street/model/xGmap"
 	"street/model/xMailer"
@@ -321,16 +320,14 @@ func main() {
 		}
 
 		switch tableName {
-		case string(mProperty.TableProperty),
-			string(mProperty.TablePropertyUS),
-			string(mProperty.TablePropertyTW):
+		case model.TableProperty, model.TablePropertyUS, model.TablePropertyTW:
 			break
 		default:
-			fmt.Println("invalid table name, must be property/propertyUS/propertyTW")
+			L.Print("invalid table name, must be property/propertyUS/propertyTW")
 			return
 		}
 
-		model.BackupProperty(tConn, directory, tableName)
+		model.BackupTruncateProperty(tConn, directory, tableName)
 	case `restore_table`:
 	case `manual_test`: // how to manual test, it's better to use unit test, except for third party
 		const UA = `LocalTesting/1.0`
