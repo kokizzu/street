@@ -296,7 +296,7 @@ func buildStandardPropertySchema() []Tt.Field {
 	sort.Ints(keys)
 	listPropertyFields := make([]Tt.Field, len(schema))
 
-	for i := 0; i < len(keys); i++ {
+	for i := range keys {
 		listPropertyFields[i] = schema[keys[i]]
 	}
 	L.Describe(listPropertyFields)
