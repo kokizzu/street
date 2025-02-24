@@ -62,7 +62,7 @@ func getBackupFiles(tableName string) (files []string, err error) {
 }
 
 func restoreTableProperty(conn *Tt.Adapter) error {
-	backupFiles, err := getBackupFiles(TablePropertyUS)
+	backupFiles, err := getBackupFiles(TableProperty)
 	if err != nil {
 		return err
 	}
@@ -260,7 +260,7 @@ func restoreTablePropertyUS(conn *Tt.Adapter) error {
 }
 
 func restoreTablePropertyTW(conn *Tt.Adapter) error {
-	backupFiles, err := getBackupFiles(TablePropertyUS)
+	backupFiles, err := getBackupFiles(TablePropertyTW)
 	if err != nil {
 		return err
 	}
