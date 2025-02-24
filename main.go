@@ -340,7 +340,7 @@ func main() {
 			return
 		}
 
-		model.RestoreTable(tableName)
+		model.RestoreTable(tConn, tableName)
 	case `manual_test`: // how to manual test, it's better to use unit test, except for third party
 		const UA = `LocalTesting/1.0`
 		const sessionSavePath = `/tmp/session1.txt` // simulate cookie
