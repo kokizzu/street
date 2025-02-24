@@ -126,7 +126,7 @@ func restoreTableProperty(conn *Tt.Adapter) error {
 				break
 			}
 
-			prop := wcProperty.NewPropertyUSMutator(conn)
+			prop := wcProperty.NewPropertyMutator(conn)
 			prop.FromUncensoredArray(row)
 
 			uniqPropKey := X.ToS(row[prop.IdxUniqPropKey()])
