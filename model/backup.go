@@ -1,10 +1,12 @@
 package model
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"street/model/mProperty/rqProperty"
 
+	"github.com/fatih/color"
 	"github.com/goccy/go-json"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
@@ -29,31 +31,22 @@ func getBackupPropertyFileOutput(tableName string, offset, limit int) string {
 func BackupTruncateProperty(conn *Tt.Adapter, tableName string) {
 	switch tableName {
 	case TableProperty:
-		err := backupPropertyDefault(conn)
+		err := backupProperty(conn, rqProperty.NewProperty, tableName)
 		if err != nil {
+			L.LOG.Error("failed to backup property :", err)
 			return
-		}
-		prop := rqProperty.NewProperty(conn)
-		if !prop.Truncate() {
-			L.LOG.Error(`failed to truncate table ` + prop.SqlTableName())
 		}
 	case TablePropertyUS:
-		err := backupPropertyUS(conn)
+		err := backupProperty(conn, rqProperty.NewPropertyUS, tableName)
 		if err != nil {
+			L.LOG.Error("failed to backup propertyUS :", err)
 			return
-		}
-		prop := rqProperty.NewPropertyUS(conn)
-		if !prop.Truncate() {
-			L.LOG.Error(`failed to truncate table ` + prop.SqlTableName())
 		}
 	case TablePropertyTW:
-		err := backupPropertyTW(conn)
+		err := backupProperty(conn, rqProperty.NewPropertyTW, tableName)
 		if err != nil {
+			L.LOG.Error("failed to backup propertyTW :", err)
 			return
-		}
-		prop := rqProperty.NewPropertyTW(conn)
-		if !prop.Truncate() {
-			L.LOG.Error(`failed to truncate table ` + prop.SqlTableName())
 		}
 	default:
 		fmt.Println("invalid table name, must be property/propertyUS/propertyTW")
@@ -63,114 +56,56 @@ func BackupTruncateProperty(conn *Tt.Adapter, tableName string) {
 	fmt.Println("Backup completed successfully ")
 }
 
-func backupPropertyDefault(conn *Tt.Adapter) error {
-	prop := rqProperty.NewProperty(conn)
-
-	totalAllRows := prop.CountTotalAllRows()
-	batchSize := 10_000
-
-	for i := 0; i < int(totalAllRows); i += batchSize {
-		data := prop.GetRows(uint32(i), uint32(batchSize))
-
-		outputFile := getBackupPropertyFileOutput(TableProperty, i, batchSize)
-		file, err := os.Create(outputFile)
-		if err != nil {
-			L.LOG.Error(`Err os.Create(outputFile): `, err)
-			return err
-		}
-		defer file.Close()
-
-		lz4Writer := lz4.NewWriter(file)
-		defer lz4Writer.Close()
-
-		for _, row := range data {
-			jsonRow, err := json.Marshal(row)
-			if err != nil {
-				L.LOG.Error(`Err json.Marshal(row): `, err)
-				return err
-			}
-
-			_, err = lz4Writer.Write(append(jsonRow, '\n'))
-			if err != nil {
-				L.LOG.Error(`Err lz4Writer.Write(append(jsonRow, '\n')): `, err)
-				return err
-			}
-		}
-	}
-
-	return nil
+type newPropFunc interface {
+	CountTotalAllRows() uint64
+	GetRows(offset, limit uint32) [][]any
 }
 
-func backupPropertyUS(conn *Tt.Adapter) error {
-	prop := rqProperty.NewPropertyUS(conn)
+func backupProperty[T newPropFunc](conn *Tt.Adapter, newFunc func(tt *Tt.Adapter) T, tableName string) error {
+	prop := newFunc(conn)
 
 	totalAllRows := prop.CountTotalAllRows()
+
 	batchSize := 10_000
 
 	for i := 0; i < int(totalAllRows); i += batchSize {
-		data := prop.GetRows(uint32(i), uint32(batchSize))
+		err := func() error {
+			data := prop.GetRows(uint32(i), uint32(batchSize))
+			if len(data) == 0 {
+				return errors.New("no data")
+			}
 
-		outputFile := getBackupPropertyFileOutput(TablePropertyUS, i, batchSize)
-		file, err := os.Create(outputFile)
+			outputFile := getBackupPropertyFileOutput(tableName, i, batchSize)
+			file, err := os.Create(outputFile)
+			if err != nil {
+				L.LOG.Error(`Err os.Create(outputFile): `, err)
+				return err
+			}
+			defer file.Close()
+
+			lz4Writer := lz4.NewWriter(file)
+			defer lz4Writer.Close()
+
+			for _, row := range data {
+				jsonRow, err := json.Marshal(row)
+				if err != nil {
+					L.LOG.Error(`Err json.Marshal(row): `, err)
+					return err
+				}
+
+				_, err = lz4Writer.Write(append(jsonRow, '\n'))
+				if err != nil {
+					L.LOG.Error(`Err lz4Writer.Write(append(jsonRow, '\n')): `, err)
+					return err
+				}
+			}
+
+			fmt.Println(color.GreenString("[OK] Backed up to file " + outputFile))
+
+			return nil
+		}()
 		if err != nil {
-			L.LOG.Error(`Err os.Create(outputFile): `, err)
 			return err
-		}
-		defer file.Close()
-
-		lz4Writer := lz4.NewWriter(file)
-		defer lz4Writer.Close()
-
-		for _, row := range data {
-			jsonRow, err := json.Marshal(row)
-			if err != nil {
-				L.LOG.Error(`Err json.Marshal(row): `, err)
-				return err
-			}
-
-			_, err = lz4Writer.Write(append(jsonRow, '\n'))
-			if err != nil {
-				L.LOG.Error(`Err lz4Writer.Write(append(jsonRow, '\n')): `, err)
-				return err
-			}
-		}
-	}
-
-	return nil
-}
-
-func backupPropertyTW(conn *Tt.Adapter) error {
-	prop := rqProperty.NewPropertyTW(conn)
-
-	totalAllRows := prop.CountTotalAllRows()
-	batchSize := 10_000
-
-	for i := 0; i < int(totalAllRows); i += batchSize {
-		data := prop.GetRows(uint32(i), uint32(batchSize))
-
-		outputFile := getBackupPropertyFileOutput(TablePropertyTW, i, batchSize)
-		file, err := os.Create(outputFile)
-		if err != nil {
-			L.LOG.Error(`Err os.Create(outputFile): `, err)
-			return err
-		}
-		defer file.Close()
-
-		lz4Writer := lz4.NewWriter(file)
-		defer lz4Writer.Close()
-
-		for _, row := range data {
-			jsonRow, err := json.Marshal(row)
-			if err != nil {
-				L.LOG.Error(`Err json.Marshal(row): `, err)
-				return err
-			}
-
-			_, err = lz4Writer.Write(append(jsonRow, '\n'))
-			if err != nil {
-				L.LOG.Error(`Err lz4Writer.Write(append(jsonRow, '\n')): `, err)
-				return err
-			}
 		}
 	}
 
