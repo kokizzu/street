@@ -302,6 +302,45 @@ func main() {
 				}
 			}
 		}
+	case `dump_trunc_table`:
+		args := os.Args
+
+		// Check the number of arguments.
+		if len(args) < 2 {
+			L.LOG.Error("Usage: go run main.go dump_trunc_table -tableName")
+			return
+		}
+
+		// Process the arguments
+		tableName := args[2]
+
+		switch tableName {
+		case model.TableProperty, model.TablePropertyUS, model.TablePropertyTW:
+			break
+		default:
+			L.LOG.Error("invalid table name, must be property/propertyUS/propertyTW")
+			return
+		}
+
+		model.BackupTruncateProperty(tConn, tableName)
+	case `restore_table`:
+		args := os.Args
+		if len(args) < 3 {
+			L.LOG.Error("Usage: go run main.go restore_table -tableName ")
+			return
+		}
+
+		tableName := args[2]
+
+		switch tableName {
+		case model.TableProperty, model.TablePropertyUS, model.TablePropertyTW:
+			break
+		default:
+			L.LOG.Error("invalid table name, must be property/propertyUS/propertyTW")
+			return
+		}
+
+		model.RestoreTable(tConn, tableName)
 	case `manual_test`: // how to manual test, it's better to use unit test, except for third party
 		const UA = `LocalTesting/1.0`
 		const sessionSavePath = `/tmp/session1.txt` // simulate cookie

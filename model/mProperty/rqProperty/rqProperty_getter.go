@@ -714,3 +714,93 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 
 	return
 }
+
+func (p *Property) CountTotalAllRows() (total uint64) {
+	queryCount := `
+	SELECT COUNT(1)
+	FROM ` + p.SqlTableName() + `
+	LIMIT 1`
+
+	p.Adapter.QuerySql(queryCount, func(row []any) {
+		if len(row) >= 1 {
+			total = X.ToU(row[0])
+		}
+	})
+
+	return
+}
+
+func (p *Property) GetRows(offset, limit uint32) (res [][]any) {
+	resp, err := p.Adapter.Select(p.SpaceName(), p.UniqueIndexId(), offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `failed to query property`) {
+		return
+	}
+
+	res = resp.Tuples()
+
+	return
+}
+
+func (p *Property) Truncate() bool {
+	return p.Adapter.ExecBoxSpace(`property:truncate`, A.X{})
+}
+
+func (p *PropertyUS) CountTotalAllRows() (total uint64) {
+	queryCount := `
+	SELECT COUNT(1)
+	FROM ` + p.SqlTableName() + `
+	LIMIT 1`
+
+	p.Adapter.QuerySql(queryCount, func(row []any) {
+		if len(row) >= 1 {
+			total = X.ToU(row[0])
+		}
+	})
+
+	return
+}
+
+func (p *PropertyUS) GetRows(offset, limit uint32) (res [][]any) {
+	resp, err := p.Adapter.Select(p.SpaceName(), p.UniqueIndexId(), offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `failed to query property`) {
+		return
+	}
+
+	res = resp.Tuples()
+
+	return
+}
+
+func (p *PropertyUS) Truncate() bool {
+	return p.Adapter.ExecBoxSpace(`propertyUS:truncate`, A.X{})
+}
+
+func (p *PropertyTW) CountTotalAllRows() (total uint64) {
+	queryCount := `
+	SELECT COUNT(1)
+	FROM ` + p.SqlTableName() + `
+	LIMIT 1`
+
+	p.Adapter.QuerySql(queryCount, func(row []any) {
+		if len(row) >= 1 {
+			total = X.ToU(row[0])
+		}
+	})
+
+	return
+}
+
+func (p *PropertyTW) GetRows(offset, limit uint32) (res [][]any) {
+	resp, err := p.Adapter.Select(p.SpaceName(), p.UniqueIndexId(), offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `failed to query property`) {
+		return
+	}
+
+	res = resp.Tuples()
+
+	return
+}
+
+func (p *PropertyTW) Truncate() bool {
+	return p.Adapter.ExecBoxSpace(`propertyTW:truncate`, A.X{})
+}
