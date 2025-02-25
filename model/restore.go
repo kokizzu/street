@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"errors"
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 	"street/model/mProperty"
@@ -15,7 +14,6 @@ import (
 	"github.com/goccy/go-json"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
-	"github.com/kokizzu/gotro/X"
 	"github.com/pierrec/lz4/v4"
 )
 
@@ -23,15 +21,15 @@ func RestoreTable(conn *Tt.Adapter, tableName string) {
 	switch tableName {
 	case TableProperty:
 		if err := restoreTableProperty(conn); err != nil {
-			log.Println("failed to restore property")
+			L.LOG.Error("failed to restore property:", err)
 		}
 	case TablePropertyUS:
 		if err := restoreTablePropertyUS(conn); err != nil {
-			log.Println("failed to restore propertyUS")
+			L.LOG.Error("failed to restore propertyUS:", err)
 		}
 	case TablePropertyTW:
 		if err := restoreTablePropertyTW(conn); err != nil {
-			log.Println("failed to restore propertyTW")
+			L.LOG.Error("failed to restore propertyTW:", err)
 		}
 	default:
 		fmt.Println("invalid table name, must be property/propertyUS/propertyTW")
@@ -53,6 +51,11 @@ func getBackupFiles(tableName string) (files []string, err error) {
 	})
 	if err != nil {
 		L.LOG.Error("error walking through directory:", err)
+		return
+	}
+
+	if len(files) == 0 {
+		err = errors.New("no backup files available")
 		return
 	}
 
@@ -120,6 +123,7 @@ func restoreTableProperty(conn *Tt.Adapter) error {
 
 							row = append(row, rowDataToAppend)
 							rowsLength++
+
 							continue
 						}
 
@@ -127,32 +131,25 @@ func restoreTableProperty(conn *Tt.Adapter) error {
 					}
 
 					prop := wcProperty.NewPropertyMutator(conn)
-
 					prop.FromUncensoredArray(row)
 
-					uniqPropKey := X.ToS(row[prop.IdxUniqPropKey()])
+					if prop.FindByUniqPropKey() {
+						if !prop.DoOverwriteByUniqPropKey() {
+							return errors.New("error while overwrite " + TableProperty + " by uniqPropKey: " + prop.UniqPropKey)
+						}
 
-					var isFoundByUniqPropKey = true
-					if !prop.FindByUniqPropKey() {
-						isFoundByUniqPropKey = false
+						fmt.Print("\033[1A\033[K")
+						rowOverrideStr := color.BlueString(fmt.Sprintf("[ %d ] Updated %s '%s'", idxLine+1, TableProperty, prop.UniqPropKey))
+						fmt.Println(rowOverrideStr)
 					}
 
-					if isFoundByUniqPropKey {
-						if !prop.DoOverwriteByUniqPropKey() {
-							return errors.New("failed to overwrite " + TableProperty + " by uniqPropKey: " + uniqPropKey)
-						}
-
-						rowOverrideStr := color.BlueString(fmt.Sprintf("[ %d ] Updated %s '%s'", idxLine, TableProperty, uniqPropKey))
-						fmt.Print("\r" + rowOverrideStr + "\n")
-
-					} else {
-						if !prop.DoInsert() {
-							return errors.New("failed to insert " + TableProperty + " " + uniqPropKey)
-						}
+					if !prop.DoUpsert() {
+						return errors.New("error while upsert " + TableProperty + " " + prop.UniqPropKey)
 					}
 
 					return nil
 				}()
+
 				if err != nil {
 					return err
 				}
@@ -160,8 +157,8 @@ func restoreTableProperty(conn *Tt.Adapter) error {
 				idxLine++
 			}
 
-			rowsInsertedStr := color.GreenString(fmt.Sprintf("[ %d ] Rows Inserted from file %s", idxLine, filePath))
-			fmt.Println(rowsInsertedStr)
+			rowsInsertedStr := color.GreenString(fmt.Sprintf("[ %d ] Rows Upserted from file %s", idxLine, filePath))
+			fmt.Println(rowsInsertedStr + "\n")
 
 			return nil
 		}()
@@ -235,6 +232,7 @@ func restoreTablePropertyUS(conn *Tt.Adapter) error {
 
 							row = append(row, rowDataToAppend)
 							rowsLength++
+
 							continue
 						}
 
@@ -242,32 +240,25 @@ func restoreTablePropertyUS(conn *Tt.Adapter) error {
 					}
 
 					prop := wcProperty.NewPropertyUSMutator(conn)
-
 					prop.FromUncensoredArray(row)
 
-					uniqPropKey := X.ToS(row[prop.IdxUniqPropKey()])
+					if prop.FindByUniqPropKey() {
+						if !prop.DoOverwriteByUniqPropKey() {
+							return errors.New("error while overwrite " + TablePropertyUS + " by uniqPropKey: " + prop.UniqPropKey)
+						}
 
-					var isFoundByUniqPropKey = true
-					if !prop.FindByUniqPropKey() {
-						isFoundByUniqPropKey = false
+						fmt.Print("\033[1A\033[K")
+						rowOverrideStr := color.BlueString(fmt.Sprintf("[ %d ] Updated %s '%s'", idxLine+1, TablePropertyUS, prop.UniqPropKey))
+						fmt.Println(rowOverrideStr)
 					}
 
-					if isFoundByUniqPropKey {
-						if !prop.DoOverwriteByUniqPropKey() {
-							return errors.New("failed to overwrite " + TablePropertyUS + " by uniqPropKey: " + uniqPropKey)
-						}
-
-						rowOverrideStr := color.BlueString(fmt.Sprintf("[ %d ] Updated %s '%s'", idxLine, TablePropertyUS, uniqPropKey))
-						fmt.Print("\r" + rowOverrideStr + "\n")
-
-					} else {
-						if !prop.DoInsert() {
-							return errors.New("failed to insert " + TablePropertyUS + " " + uniqPropKey)
-						}
+					if !prop.DoUpsert() {
+						return errors.New("error while upsert " + TablePropertyUS + " " + prop.UniqPropKey)
 					}
 
 					return nil
 				}()
+
 				if err != nil {
 					return err
 				}
@@ -275,8 +266,8 @@ func restoreTablePropertyUS(conn *Tt.Adapter) error {
 				idxLine++
 			}
 
-			rowsInsertedStr := color.GreenString(fmt.Sprintf("[ %d ] Rows Inserted from file %s", idxLine, filePath))
-			fmt.Println(rowsInsertedStr)
+			rowsInsertedStr := color.GreenString(fmt.Sprintf("[ %d ] Rows Upserted from file %s", idxLine, filePath))
+			fmt.Println(rowsInsertedStr + "\n")
 
 			return nil
 		}()
@@ -350,6 +341,7 @@ func restoreTablePropertyTW(conn *Tt.Adapter) error {
 
 							row = append(row, rowDataToAppend)
 							rowsLength++
+
 							continue
 						}
 
@@ -357,32 +349,25 @@ func restoreTablePropertyTW(conn *Tt.Adapter) error {
 					}
 
 					prop := wcProperty.NewPropertyTWMutator(conn)
-
 					prop.FromUncensoredArray(row)
 
-					uniqPropKey := X.ToS(row[prop.IdxUniqPropKey()])
+					if prop.FindByUniqPropKey() {
+						if !prop.DoOverwriteByUniqPropKey() {
+							return errors.New("error while overwrite " + TablePropertyTW + " by uniqPropKey: " + prop.UniqPropKey)
+						}
 
-					var isFoundByUniqPropKey = true
-					if !prop.FindByUniqPropKey() {
-						isFoundByUniqPropKey = false
+						fmt.Print("\033[1A\033[K")
+						rowOverrideStr := color.BlueString(fmt.Sprintf("[ %d ] Updated %s '%s'", idxLine+1, TablePropertyTW, prop.UniqPropKey))
+						fmt.Println(rowOverrideStr)
 					}
 
-					if isFoundByUniqPropKey {
-						if !prop.DoOverwriteByUniqPropKey() {
-							return errors.New("failed to overwrite " + TablePropertyTW + " by uniqPropKey: " + uniqPropKey)
-						}
-
-						rowOverrideStr := color.BlueString(fmt.Sprintf("[ %d ] Updated %s '%s'", idxLine, TablePropertyTW, uniqPropKey))
-						fmt.Print("\r" + rowOverrideStr + "\n")
-
-					} else {
-						if !prop.DoInsert() {
-							return errors.New("failed to insert " + TablePropertyTW + " " + uniqPropKey)
-						}
+					if !prop.DoUpsert() {
+						return errors.New("error while upsert " + TablePropertyTW + " " + prop.UniqPropKey)
 					}
 
 					return nil
 				}()
+
 				if err != nil {
 					return err
 				}
@@ -390,8 +375,8 @@ func restoreTablePropertyTW(conn *Tt.Adapter) error {
 				idxLine++
 			}
 
-			rowsInsertedStr := color.GreenString(fmt.Sprintf("[ %d ] Rows Inserted from file %s", idxLine, filePath))
-			fmt.Println(rowsInsertedStr)
+			rowsInsertedStr := color.GreenString(fmt.Sprintf("[ %d ] Rows Upserted from file %s", idxLine, filePath))
+			fmt.Println(rowsInsertedStr + "\n")
 
 			return nil
 		}()
