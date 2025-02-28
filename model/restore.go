@@ -20,18 +20,18 @@ import (
 
 func RestoreTable(conn *Tt.Adapter, tableName string) {
 	switch tableName {
-	// case TableProperty:
-	// 	if err := restoreTableProperty(conn); err != nil {
-	// 		L.LOG.Error("failed to restore property:", err)
-	// 	}
+	case TableProperty:
+		if err := restoreTableProperty(conn); err != nil {
+			L.LOG.Error("failed to restore property:", err)
+		}
 	case TablePropertyUS:
 		if err := restoreTablePropertyUS(conn); err != nil {
 			L.LOG.Error("failed to restore propertyUS:", err)
 		}
-	// case TablePropertyTW:
-	// 	if err := restoreTablePropertyTW(conn); err != nil {
-	// 		L.LOG.Error("failed to restore propertyTW:", err)
-	// 	}
+	case TablePropertyTW:
+		if err := restoreTablePropertyTW(conn); err != nil {
+			L.LOG.Error("failed to restore propertyTW:", err)
+		}
 	default:
 		fmt.Println("invalid table name, must be property/propertyUS/propertyTW")
 		return
@@ -61,6 +61,119 @@ func getBackupFiles(tableName string) (files []string, err error) {
 	}
 
 	return
+}
+
+func restoreTableProperty(conn *Tt.Adapter) error {
+	backupFiles, err := getBackupFiles(TableProperty)
+	if err != nil {
+		return err
+	}
+
+	for _, fileName := range backupFiles {
+		err := func() error {
+			defer subTaskPrint("Restore Table " + TableProperty + " from " + backupDir + "/" + fileName)()
+
+			filePath := fmt.Sprintf("%s/%s", backupDir, fileName)
+			file, err := os.Open(filePath)
+			if err != nil {
+				L.LOG.Error("failed to open file: ", err)
+				return err
+			}
+			defer file.Close()
+
+			reader := lz4.NewReader(file)
+			scanner := bufio.NewScanner(reader)
+
+			stat := &zImport.ImporterStat{}
+			defer stat.Print(`last`)
+
+			var idxLine int = 0
+			for scanner.Scan() {
+				stat.Total++
+				stat.Print()
+
+				line := scanner.Text()
+				err := func() error {
+					var row []any
+					err := json.Unmarshal([]byte(line), &row)
+					if err != nil {
+						stat.Fail(`Err json.Unmarshal([]byte(line), &row): ` + err.Error())
+						return err
+					}
+
+					rowsLength := len(row)
+					tableLength := len(mProperty.TarantoolTables[mProperty.TableProperty].Fields)
+					for {
+						if rowsLength < tableLength {
+							rowType := mProperty.TarantoolTables[mProperty.TableProperty].Fields[rowsLength].Type
+							rowName := mProperty.TarantoolTables[mProperty.TableProperty].Fields[rowsLength].Name
+
+							var rowDataToAppend any = ""
+
+							switch rowType {
+							case Tt.String:
+								rowDataToAppend = ""
+							case Tt.Boolean:
+								rowDataToAppend = false
+							case Tt.Double, Tt.Integer, Tt.Unsigned:
+								rowDataToAppend = 0
+							case Tt.Array:
+								rowDataToAppend = []any{0, 0}
+							default:
+								rowDataToAppend = ""
+							}
+
+							switch rowName {
+							case mProperty.Attribute, mProperty.Note:
+								rowDataToAppend = "{}"
+							}
+
+							row = append(row, rowDataToAppend)
+							rowsLength++
+
+							continue
+						}
+
+						break
+					}
+
+					prop := wcProperty.NewPropertyMutator(conn)
+					prop.FromUncensoredArray(row)
+
+					if prop.FindByUniqPropKey() {
+						if !prop.DoOverwriteByUniqPropKey() {
+							errMsg := "error while overwrite " + TableProperty + " by uniqPropKey: " + prop.UniqPropKey
+							stat.Fail(errMsg)
+							return errors.New(errMsg)
+						}
+					}
+
+					if !prop.DoUpsert() {
+						errMsg := "error while upsert " + TableProperty + " " + prop.UniqPropKey
+						stat.Fail(errMsg)
+						return errors.New(errMsg)
+					}
+
+					stat.Ok(true)
+
+					return nil
+				}()
+				if err != nil {
+					return err
+				}
+
+				idxLine++
+			}
+
+			return nil
+		}()
+
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func restoreTablePropertyUS(conn *Tt.Adapter) error {
@@ -150,6 +263,119 @@ func restoreTablePropertyUS(conn *Tt.Adapter) error {
 
 					if !prop.DoUpsert() {
 						errMsg := "error while upsert " + TablePropertyUS + " " + prop.UniqPropKey
+						stat.Fail(errMsg)
+						return errors.New(errMsg)
+					}
+
+					stat.Ok(true)
+
+					return nil
+				}()
+				if err != nil {
+					return err
+				}
+
+				idxLine++
+			}
+
+			return nil
+		}()
+
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func restoreTablePropertyTW(conn *Tt.Adapter) error {
+	backupFiles, err := getBackupFiles(TablePropertyTW)
+	if err != nil {
+		return err
+	}
+
+	for _, fileName := range backupFiles {
+		err := func() error {
+			defer subTaskPrint("Restore Table " + TablePropertyTW + " from " + backupDir + "/" + fileName)()
+
+			filePath := fmt.Sprintf("%s/%s", backupDir, fileName)
+			file, err := os.Open(filePath)
+			if err != nil {
+				L.LOG.Error("failed to open file: ", err)
+				return err
+			}
+			defer file.Close()
+
+			reader := lz4.NewReader(file)
+			scanner := bufio.NewScanner(reader)
+
+			stat := &zImport.ImporterStat{}
+			defer stat.Print(`last`)
+
+			var idxLine int = 0
+			for scanner.Scan() {
+				stat.Total++
+				stat.Print()
+
+				line := scanner.Text()
+				err := func() error {
+					var row []any
+					err := json.Unmarshal([]byte(line), &row)
+					if err != nil {
+						stat.Fail(`Err json.Unmarshal([]byte(line), &row): ` + err.Error())
+						return err
+					}
+
+					rowsLength := len(row)
+					tableLength := len(mProperty.TarantoolTables[mProperty.TablePropertyTW].Fields)
+					for {
+						if rowsLength < tableLength {
+							rowType := mProperty.TarantoolTables[mProperty.TablePropertyTW].Fields[rowsLength].Type
+							rowName := mProperty.TarantoolTables[mProperty.TablePropertyTW].Fields[rowsLength].Name
+
+							var rowDataToAppend any = ""
+
+							switch rowType {
+							case Tt.String:
+								rowDataToAppend = ""
+							case Tt.Boolean:
+								rowDataToAppend = false
+							case Tt.Double, Tt.Integer, Tt.Unsigned:
+								rowDataToAppend = 0
+							case Tt.Array:
+								rowDataToAppend = []any{0, 0}
+							default:
+								rowDataToAppend = ""
+							}
+
+							switch rowName {
+							case mProperty.Attribute, mProperty.Note:
+								rowDataToAppend = "{}"
+							}
+
+							row = append(row, rowDataToAppend)
+							rowsLength++
+
+							continue
+						}
+
+						break
+					}
+
+					prop := wcProperty.NewPropertyTWMutator(conn)
+					prop.FromUncensoredArray(row)
+
+					if prop.FindByUniqPropKey() {
+						if !prop.DoOverwriteByUniqPropKey() {
+							errMsg := "error while overwrite " + TablePropertyTW + " by uniqPropKey: " + prop.UniqPropKey
+							stat.Fail(errMsg)
+							return errors.New(errMsg)
+						}
+					}
+
+					if !prop.DoUpsert() {
+						errMsg := "error while upsert " + TablePropertyTW + " " + prop.UniqPropKey
 						stat.Fail(errMsg)
 						return errors.New(errMsg)
 					}
