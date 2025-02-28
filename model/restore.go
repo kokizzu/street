@@ -89,6 +89,7 @@ func restoreTablePropertyUS(conn *Tt.Adapter) error {
 
 			var idxLine int = 0
 			for scanner.Scan() {
+				stat.Total++
 				stat.Print()
 
 				line := scanner.Text()
