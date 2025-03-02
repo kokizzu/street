@@ -52,7 +52,11 @@ func GoogleSheetTranslationToJson(docId string) {
 		L.PanicIf(err, `GoogleSheetTranslationToJson.tsvreader.Error`)
 	}
 	fo, err := os.Create(`./svelte/translation.json`)
+	if err != nil {
+		L.PanicIf(err, `GoogleSheetTranslationToJson.tsvreader.Error`)
+	}
 	defer fo.Close()
+
 	L.PanicIf(err, `GoogleSheetTranslationToJson.os.Create`)
 	_, err = fo.WriteString(X.ToJsonPretty(m))
 	L.PanicIf(err, `GoogleSheetTranslationToJson.WriteString`)

@@ -8,7 +8,6 @@ import (
 	"path/filepath"
 	"street/model/mProperty"
 	"street/model/mProperty/wcProperty"
-	"street/model/zImport"
 	"strings"
 
 	"github.com/fatih/color"
@@ -84,7 +83,7 @@ func restoreTableProperty(conn *Tt.Adapter) error {
 			reader := lz4.NewReader(file)
 			scanner := bufio.NewScanner(reader)
 
-			stat := &zImport.ImporterStat{}
+			stat := &ImporterStat{}
 			defer stat.Print(`last`)
 
 			var idxLine int = 0
@@ -197,7 +196,7 @@ func restoreTablePropertyUS(conn *Tt.Adapter) error {
 			reader := lz4.NewReader(file)
 			scanner := bufio.NewScanner(reader)
 
-			stat := &zImport.ImporterStat{}
+			stat := &ImporterStat{}
 			defer stat.Print(`last`)
 
 			var idxLine int = 0
@@ -310,7 +309,7 @@ func restoreTablePropertyTW(conn *Tt.Adapter) error {
 			reader := lz4.NewReader(file)
 			scanner := bufio.NewScanner(reader)
 
-			stat := &zImport.ImporterStat{}
+			stat := &ImporterStat{}
 			defer stat.Print(`last`)
 
 			var idxLine int = 0

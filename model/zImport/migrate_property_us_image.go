@@ -2,6 +2,7 @@ package zImport
 
 import (
 	"strconv"
+	"street/model"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
 
@@ -36,7 +37,7 @@ func MigratePropertyUSImage(adapter *Tt.Adapter, minPropertyId int, maxPropertyI
 
 	propertyUSMutator := wcProperty.NewPropertyUSMutator(adapter)
 
-	stat := &ImporterStat{Total: maxPropertyId - minPropertyId}
+	stat := &model.ImporterStat{Total: maxPropertyId - minPropertyId}
 	defer stat.Print(`last`)
 
 	for i := minPropertyId; i <= maxPropertyId; i++ {

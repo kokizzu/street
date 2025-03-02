@@ -5,6 +5,7 @@ import (
 	"strings"
 	"time"
 
+	"street/model"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
 
@@ -15,7 +16,7 @@ import (
 
 func ImportPropertyHistories(propertyResponseObject *PropertyFullResponse, redFinId string) []rqProperty.PropertyHistoryUS {
 
-	if propertyResponseObject.PropertyHistoryInfo.HasPropertyHistory == false {
+	if !propertyResponseObject.PropertyHistoryInfo.HasPropertyHistory {
 		return []rqProperty.PropertyHistoryUS{}
 	}
 
@@ -52,7 +53,7 @@ func ImportPropertyHistories(propertyResponseObject *PropertyFullResponse, redFi
 
 }
 
-func SavePropertyHistories(adapter *Tt.Adapter, propList []rqProperty.PropertyHistoryUS, stat *ImporterStat) {
+func SavePropertyHistories(adapter *Tt.Adapter, propList []rqProperty.PropertyHistoryUS, stat *model.ImporterStat) {
 
 	for _, pHistory := range propList {
 
@@ -75,7 +76,7 @@ func ImportPropertyHistoryUsData(adapter *Tt.Adapter, baseUrl string, minPropert
 	// const minPropertyId = 1
 	// const maxPropertyId = 10000000
 
-	stat := &ImporterStat{Total: maxPropertyId - minPropertyId, PrintEvery: 11}
+	stat := &model.ImporterStat{Total: maxPropertyId - minPropertyId, PrintEvery: 11}
 	defer stat.Print(`last`)
 
 	for i := minPropertyId; i <= maxPropertyId; i++ {

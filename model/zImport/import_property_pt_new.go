@@ -7,6 +7,7 @@ import (
 	"regexp"
 	"strings"
 
+	"street/model"
 	"street/model/mProperty"
 	"street/model/mProperty/wcProperty"
 
@@ -116,7 +117,7 @@ func ReadPropertyPT_Buy_ZomePT(conn *Tt.Adapter, resourcePath string) {
 		panic(`Properties from ` + resourcePath + ` is empty`)
 	}
 
-	stat := &ImporterStat{Total: len(properties)}
+	stat := &model.ImporterStat{Total: len(properties)}
 	defer stat.Print(`last`)
 
 	for _, v := range properties {
@@ -254,7 +255,7 @@ func ReadPropertyPT_Rent_ZomePT(conn *Tt.Adapter, resourcePath string) {
 		panic(`Properties from ` + resourcePath + ` is empty`)
 	}
 
-	stat := &ImporterStat{Total: len(properties)}
+	stat := &model.ImporterStat{Total: len(properties)}
 	defer stat.Print(`last`)
 
 	for _, v := range properties {

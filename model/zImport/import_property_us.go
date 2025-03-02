@@ -13,6 +13,7 @@ import (
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 
+	"street/model"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
 
@@ -139,8 +140,8 @@ type StreetView struct {
 }
 
 type LatLong struct {
-	latitude  float64
-	longitude float64
+	Latitude  float64
+	Longitude float64
 }
 
 const (
@@ -163,7 +164,7 @@ func fetchPropertyUSByPropID(baseUrl string, propertyIdNum int) (map[any]any, er
 	response, err := http.Get(url)
 	if err != nil {
 		fmt.Printf("Error making HTTP GET request: %v\n", err)
-		return nil, errors.New("Error making HTTP GET request")
+		return nil, errors.New("error making HTTP GET request")
 	}
 	defer response.Body.Close()
 
@@ -330,7 +331,7 @@ func eraseFacilityInfoReviews(facilityInfo M.SX, key string) {
 	facilityInfo[key] = schools
 }
 
-func parsePropertyData(propertyMutator *wcProperty.PropertyUSMutator, propertyResponseObject *PropertyFullResponse, stat *ImporterStat) {
+func parsePropertyData(propertyMutator *wcProperty.PropertyUSMutator, propertyResponseObject *PropertyFullResponse, stat *model.ImporterStat) {
 
 	// // -------- Basic info --------
 	propertyMutator.Street = propertyResponseObject.PublicRecordsInfo.AddressInfo.Street
@@ -399,7 +400,7 @@ func convertSqftToM2(sqft float64) float64 {
 
 func CleanExcessiveAttrPropertyExtraUs(adapter *Tt.Adapter) {
 
-	stat := &ImporterStat{Total: 0}
+	stat := &model.ImporterStat{Total: 0}
 	defer stat.Print(`last`)
 
 	propExtraUS := rqProperty.NewPropertyExtraUS(adapter)
@@ -471,7 +472,7 @@ func ImportPropertyUsData(adapter *Tt.Adapter, baseUrl string, minPropertyId int
 	// const minPropertyId = 1
 	// const maxPropertyId = 10000000
 
-	stat := &ImporterStat{Total: maxPropertyId * 2, PrintEvery: 11}
+	stat := &model.ImporterStat{Total: maxPropertyId * 2, PrintEvery: 11}
 	defer stat.Print(`last`)
 
 	for i := minPropertyId; i <= maxPropertyId; i++ {

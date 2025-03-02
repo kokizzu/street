@@ -8,6 +8,7 @@ import (
 	"golang.org/x/exp/rand"
 
 	"street/domain"
+	"street/model"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
 	"street/model/xGmap"
@@ -28,7 +29,7 @@ func ImportStreetViewImage(d *domain.Domain, gmap xGmap.Gmap) {
 
 	rc := domain.NewLocalRequestCommon(session.SessionToken, UA)
 
-	stat := &ImporterStat{}
+	stat := &model.ImporterStat{}
 	defer stat.Print(`last`)
 
 	// all possible degree to 360, increment by 15
