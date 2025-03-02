@@ -10,6 +10,7 @@ import (
 	"os"
 	"strconv"
 	"street/conf"
+	"street/model"
 	"street/model/mProperty/wcProperty"
 	"street/model/xGmap"
 	"time"
@@ -104,7 +105,7 @@ func retrievePropertyTwLatLong(propertyMutator *wcProperty.PropertyTWMutator, gm
 	return nil
 }
 
-func parsePropertyTwData(propertyMutator *wcProperty.PropertyTWMutator, propertyResponseObject *PropertyTWFullResponse, stat *ImporterStat, gmap xGmap.Gmap) {
+func parsePropertyTwData(propertyMutator *wcProperty.PropertyTWMutator, propertyResponseObject *PropertyTWFullResponse, stat *model.ImporterStat, gmap xGmap.Gmap) {
 	propertyMutator.Address = propertyResponseObject.Address
 	propertyMutator.CountryCode = PropertyTWCountryCode
 
@@ -164,7 +165,7 @@ func ImportPropertyTwData(adapter *Tt.Adapter, gmap xGmap.Gmap) {
 		}
 	}
 
-	stat := &ImporterStat{Total: len(props), PrintEvery: 11}
+	stat := &model.ImporterStat{Total: len(props), PrintEvery: 11}
 	defer stat.Print(`last`)
 
 	for _, prop := range props {

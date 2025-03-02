@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"street/model"
 	"street/model/mProperty"
 	"street/model/mProperty/wcProperty"
 
@@ -109,7 +110,7 @@ func ReadPropertyUK_Rent_RightmoveCoUk(conn *Tt.Adapter, resourcePath string) {
 		panic(`Properties from ` + resourcePath + ` is empty`)
 	}
 
-	stat := &ImporterStat{Total: len(properties)}
+	stat := &model.ImporterStat{Total: len(properties)}
 	defer stat.Print(`last`)
 
 	for idx, v := range properties {
@@ -299,7 +300,7 @@ func ReadPropertyUK_Sale_RightmoveCoUk(conn *Tt.Adapter, resourcePath string) {
 		panic(`Properties from ` + resourcePath + ` is empty`)
 	}
 
-	stat := &ImporterStat{Total: len(properties)}
+	stat := &model.ImporterStat{Total: len(properties)}
 	defer stat.Print(`last`)
 
 	for idx, v := range properties {

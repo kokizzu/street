@@ -3,6 +3,7 @@ package zImport
 import (
 	"os"
 	"path/filepath"
+	"street/model"
 	"street/model/mProperty"
 	"street/model/mProperty/saProperty"
 	"time"
@@ -66,7 +67,7 @@ func ImportGeolocationDatabase(conn *Ch.Adapter, resourcePath string) {
 		panic(`Geolocation data from ` + resourcePath + ` is empty`)
 	}
 
-	stat := &ImporterStat{Total: len(geolocation)}
+	stat := &model.ImporterStat{Total: len(geolocation)}
 	defer stat.Print(`last`)
 
 	timedBuffer := chBuffer.NewTimedBuffer(conn.DB, 100_000, 1*time.Second, saProperty.Preparators[mProperty.TableGeolocation])

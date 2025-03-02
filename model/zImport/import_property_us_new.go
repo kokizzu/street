@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"street/model"
 	"street/model/mProperty/wcProperty"
 
 	"github.com/goccy/go-json"
@@ -124,7 +125,7 @@ func ReadPropertyUS_TruliaCom(adapter *Tt.Adapter, resourcePath string) {
 		return
 	}
 
-	stat := &ImporterStat{Total: len(properties)}
+	stat := &model.ImporterStat{Total: len(properties)}
 	defer stat.Print(`last`)
 
 	for _, v := range properties {
@@ -266,7 +267,7 @@ func ReadPropertyUS_ZillowCom(adapter *Tt.Adapter, resourcePath string) {
 		PropertyType    string
 		LastUpdate      string
 		LastChecked     string
-		HistoryListed    string
+		HistoryListed   string
 		Image           string
 	}
 
@@ -330,7 +331,7 @@ func ReadPropertyUS_ZillowCom(adapter *Tt.Adapter, resourcePath string) {
 			PropertyType:    S.Trim(propertyType),
 			LastUpdate:      S.Trim(lastUpdate),
 			LastChecked:     S.Trim(lastChecked),
-			HistoryListed:    S.Trim(historyListed),
+			HistoryListed:   S.Trim(historyListed),
 			Image:           S.Trim(image),
 		})
 	}
@@ -341,7 +342,7 @@ func ReadPropertyUS_ZillowCom(adapter *Tt.Adapter, resourcePath string) {
 		return
 	}
 
-	stat := &ImporterStat{Total: len(properties) * 2}
+	stat := &model.ImporterStat{Total: len(properties) * 2}
 	defer stat.Print(`last`)
 
 	for _, v := range properties {

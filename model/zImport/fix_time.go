@@ -8,6 +8,7 @@ import (
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/X"
 
+	"street/model"
 	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
@@ -52,7 +53,7 @@ func fixPropertyTable(propOltp *Tt.Adapter) {
 
 	rows := prop.FindByPagination(&meta, &in, out)
 
-	stat := &ImporterStat{Total: len(rows)}
+	stat := &model.ImporterStat{Total: len(rows)}
 	defer stat.Print(`last`)
 
 	for len(rows) > 0 {
@@ -107,7 +108,7 @@ func fixPropertyHistoryTable(propOltp *Tt.Adapter) {
 
 	rows := ph.FindByPagination(&meta, &in, out)
 
-	stat := &ImporterStat{Total: len(rows)}
+	stat := &model.ImporterStat{Total: len(rows)}
 	defer stat.Print(`last`)
 
 	for len(rows) > 0 {

@@ -10,6 +10,7 @@ import (
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
 
+	"street/model"
 	"street/model/mProperty/wcProperty"
 	"street/model/xGmap"
 )
@@ -50,7 +51,7 @@ func retrieveLatLongFromAddress(adapter *Tt.Adapter, gmap xGmap.Gmap) {
 	propertyMutator := wcProperty.NewPropertyMutator(adapter)
 	properties := propertyMutator.FindAllProperties()
 
-	stat := &ImporterStat{Total: len(properties), PrintEvery: 10}
+	stat := &model.ImporterStat{Total: len(properties), PrintEvery: 10}
 	defer stat.Print(`last`)
 
 	for _, p := range properties {

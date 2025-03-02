@@ -5,6 +5,7 @@ import (
 	"strconv"
 	"time"
 
+	"street/model"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
 
@@ -30,7 +31,7 @@ func UpdatePriceToProperties(propOltp *Tt.Adapter) {
 
 	properties := propertyMutator.FindAllProperties()
 
-	stat := &ImporterStat{Total: len(properties), PrintEvery: 10}
+	stat := &model.ImporterStat{Total: len(properties), PrintEvery: 10}
 	defer stat.Print(`last`)
 
 	for _, p := range properties {

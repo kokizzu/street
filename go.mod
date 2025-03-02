@@ -9,6 +9,7 @@ require (
 	github.com/allegro/bigcache/v3 v3.1.0
 	github.com/davecgh/go-spew v1.1.1
 	github.com/disintegration/imaging v1.6.2
+	github.com/fatih/color v1.18.0
 	github.com/gabriel-vasile/mimetype v1.4.2
 	github.com/goccy/go-json v0.10.4
 	github.com/gofiber/fiber/v2 v2.50.0
@@ -61,7 +62,6 @@ require (
 	github.com/docker/docker v27.5.0+incompatible // indirect
 	github.com/docker/go-connections v0.5.0 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
-	github.com/fatih/color v1.18.0 // indirect
 	github.com/go-faster/city v1.0.1 // indirect
 	github.com/go-faster/errors v0.7.1 // indirect
 	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect

@@ -12,6 +12,7 @@ import (
 	"github.com/kokizzu/gotro/L"
 	"github.com/xuri/excelize/v2"
 
+	"street/model"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
 )
@@ -38,7 +39,7 @@ func GetHouseAddressInBuySellData(adapter **Tt.Adapter, resourceFile string) {
 	rows, closer := readExcelWorksheet(resourceFile, "不動產買賣BuyandSell")
 	defer closer()
 
-	stat := &ImporterStat{Total: len(rows)}
+	stat := &model.ImporterStat{Total: len(rows)}
 	defer stat.Print(`last`)
 
 	for index, row := range rows {
@@ -111,7 +112,7 @@ func GetHouseAddressInRentData1(adapter **Tt.Adapter, resourceFile string) {
 	rows, closer := readExcelWorksheet(resourceFile, "不動產租賃Rent")
 	defer closer()
 
-	stat := &ImporterStat{Total: len(rows)}
+	stat := &model.ImporterStat{Total: len(rows)}
 	defer stat.Print(`last`)
 
 	for index, row := range rows {
@@ -183,7 +184,7 @@ func GetHouseAddressInRentData2(adapter **Tt.Adapter, resourceFile string) {
 	rows, closer := readExcelWorksheet(resourceFile, "不動產租賃Rent")
 	defer closer()
 
-	stat := &ImporterStat{Total: len(rows)}
+	stat := &model.ImporterStat{Total: len(rows)}
 	defer stat.Print(`last`)
 
 	for index, row := range rows {
@@ -260,7 +261,7 @@ func ReadHouseDataSheet(adapter *Tt.Adapter, resourcePath string, jsonCoordFile 
 	err := json.Unmarshal([]byte(coords), &coordsByUniqPropKey)
 	L.PanicIf(err, `json.Unmarshal coords`)
 
-	stat := &ImporterStat{Total: len(rows)}
+	stat := &model.ImporterStat{Total: len(rows)}
 	defer stat.Print(`last`)
 
 	for index, row := range rows {
@@ -327,7 +328,7 @@ func ImportHouseHistoryInBuySellSheet(adapter **Tt.Adapter, resourcePath string)
 	rows, closer := readExcelWorksheet(resourcePath, "不動產買賣BuyandSell")
 	defer closer()
 
-	stat := &ImporterStat{Total: len(rows)}
+	stat := &model.ImporterStat{Total: len(rows)}
 	defer stat.Print(`last`)
 
 	for index, row := range rows {
@@ -423,7 +424,7 @@ func ImportHouseHistoryInRentSheet(adapter *Tt.Adapter, resourcePath string) {
 	rows, closer := readExcelWorksheet(resourcePath, "不動產租賃Rent")
 	defer closer()
 
-	stat := &ImporterStat{Total: len(rows)}
+	stat := &model.ImporterStat{Total: len(rows)}
 	defer stat.Print(`last`)
 
 	for index, row := range rows {
@@ -519,7 +520,7 @@ func ImportHouseSerialNumberForHistory(adapter *Tt.Adapter) {
 	propertyHistoryQuery := rqProperty.NewPropertyHistory(adapter)
 	propertyHistories := propertyHistoryQuery.FindAllPropertyHistoriesWithBlankSerial()
 	fmt.Println("Len of house history => ", len(propertyHistories))
-	stat := &ImporterStat{Total: len(propertyHistories)}
+	stat := &model.ImporterStat{Total: len(propertyHistories)}
 	defer stat.Print(`last`)
 
 	for _, pHistory := range propertyHistories {
