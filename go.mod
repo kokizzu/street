@@ -13,7 +13,7 @@ require (
 	github.com/gabriel-vasile/mimetype v1.4.2
 	github.com/goccy/go-json v0.10.4
 	github.com/gofiber/fiber/v2 v2.50.0
-	github.com/golang-jwt/jwt/v5 v5.2.1
+	github.com/golang-jwt/jwt/v5 v5.2.2
 	github.com/hexops/autogold/v2 v2.1.0
 	github.com/joho/godotenv v1.4.0
 	github.com/jxskiss/base62 v1.1.0
