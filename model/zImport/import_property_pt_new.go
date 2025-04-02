@@ -272,6 +272,7 @@ func ReadPropertyPT_Rent_ZomePT(conn *Tt.Adapter, resourcePath string) {
 		property.SetLastPrice(priceUSD)
 		property.SetPurpose(mProperty.PropertyPurposeRent)
 		property.SetAddress(v.Address)
+		property.SetCountryCode(`PT`)
 
 		coord := getLatLong(v.Latitude, v.Longitude)
 		property.SetCoord(coord[:])

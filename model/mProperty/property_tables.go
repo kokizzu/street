@@ -8,6 +8,24 @@ import (
 	"github.com/kokizzu/gotro/L"
 )
 
+type (
+	PropertyNote struct {
+		ContactEmail string `json:"contactEmail" form:"contactEmail" query:"contactEmail" long:"contactEmail" msg:"contactEmail"`
+		ContactPhone string `json:"contactPhone" form:"contactPhone" query:"contactPhone" long:"contactPhone" msg:"contactPhone"`
+		About        string `json:"about" form:"about" query:"about" long:"about" msg:"about"`
+	}
+	PropertyAttribute struct {
+		Title            string  `json:"title" form:"title" query:"title" long:"title" msg:"title"`
+		AgentPhone       string  `json:"agentPhone" form:"agentPhone" query:"agentPhone" long:"agentPhone" msg:"agentPhone"`
+		AgentBio         string  `json:"agentBio" form:"agentBio" query:"agentBio" long:"agentBio" msg:"agentBio"`
+		BuildingSizeM2   float64 `json:"buildingSizeM2" form:"buildingSizeM2" query:"buildingSizeM2" long:"buildingSizeM2" msg:"buildingSizeM2"`
+		YardSizeM2       float64 `json:"yardSizeM2" form:"yardSizeM2" query:"yardSizeM2" long:"yardSizeM2" msg:"yardSizeM2"`
+		ContactLink      string  `json:"contactLink" form:"contactLink" query:"contactLink" long:"contactLink" msg:"contactLink"`
+		ClosestStation   string  `json:"closestStation" form:"closestStation" query:"closestStation" long:"closestStation" msg:"closestStation"`
+		MinutesToStation int64   `json:"minutesToStation" form:"minutesToStation" query:"minutesToStation" long:"minutesToStation" msg:"minutesToStation"`
+	}
+)
+
 const (
 	PropertyPurposeSale string = `for sale`
 	PropertyPurposeRent string = `for rent`
@@ -203,7 +221,7 @@ func buildPropertyHistorySchema() []Tt.Field {
 	}
 
 	listFields := make([]Tt.Field, len(schema))
-	for i := 0; i < len(listFields); i++ {
+	for i := range listFields {
 		if schema[i].Name == "" && schema[i].Type == "" {
 			continue
 		} else {

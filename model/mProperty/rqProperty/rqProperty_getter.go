@@ -31,7 +31,7 @@ type PropertyWithNote struct {
 func (pwn *PropertyWithNote) FromArray(row []any) {
 	pwn.Property.FromArray(row)
 	pwn.NormalizeFloorList()
-	var nt PropertyNote
+	var nt mProperty.PropertyNote
 	if json.Unmarshal([]byte(pwn.Property.Note), &nt) != nil {
 		pwn.About = nt.About
 		pwn.ContactEmail = nt.ContactEmail
@@ -168,22 +168,6 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	return
 }
 
-type (
-	PropertyNote struct {
-		ContactEmail string `json:"contactEmail" form:"contactEmail" query:"contactEmail" long:"contactEmail" msg:"contactEmail"`
-		ContactPhone string `json:"contactPhone" form:"contactPhone" query:"contactPhone" long:"contactPhone" msg:"contactPhone"`
-		About        string `json:"about" form:"about" query:"about" long:"about" msg:"about"`
-	}
-	PropertyAttribute struct {
-		Title          string  `json:"title" form:"title" query:"title" long:"title" msg:"title"`
-		AgentPhone     string  `json:"agentPhone" form:"agentPhone" query:"agentPhone" long:"agentPhone" msg:"agentPhone"`
-		AgentBio       string  `json:"agentBio" form:"agentBio" query:"agentBio" long:"agentBio" msg:"agentBio"`
-		BuildingSizeM2 float64 `json:"buildingSizeM2" form:"buildingSizeM2" query:"buildingSizeM2" long:"buildingSizeM2" msg:"buildingSizeM2"`
-		YardSizeM2     float64 `json:"yardSizeM2" form:"yardSizeM2" query:"yardSizeM2" long:"yardSizeM2" msg:"yardSizeM2"`
-		ContactLink    string  `json:"contactLink" form:"contactLink" query:"contactLink" long:"contactLink" msg:"contactLink"`
-	}
-)
-
 func (p *Property) FindByPaginationWithNote(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
 	const comment = `-- Property) FindByPaginationWithNote`
 
@@ -207,14 +191,14 @@ FROM ` + p.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 
 	L.Print(`Query:`, queryRows)
 	p.Adapter.QuerySql(queryRows, func(row []any) {
-		var nt PropertyNote
+		var nt mProperty.PropertyNote
 		row[0] = X.ToS(row[0]) // ensure id is string
 		if nil != json.Unmarshal([]byte(X.ToS(row[p.IdxNote()])), &nt) {
 			nt.About = X.ToS(row[p.IdxNote()])
 		}
 
 		idxAttr := meta.GetIdxByName(mProperty.Attribute)
-		var attr PropertyAttribute
+		var attr mProperty.PropertyAttribute
 		if nil != json.Unmarshal([]byte(X.ToS(row[idxAttr])), &attr) {
 			row[idxAttr] = attr
 		}

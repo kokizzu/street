@@ -10,7 +10,6 @@ import (
 
 	"street/model"
 	"street/model/mProperty"
-	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
 
 	"github.com/goccy/go-json"
@@ -270,6 +269,7 @@ func ReadPropertyPT_RightmoveCoUk2(conn *Tt.Adapter, resourcePath string) {
 		purpose := getPropertyPurpose(v.PropertyTitle)
 		property.SetPurpose(purpose)
 		property.SetCity(`Lisbon`)
+		property.SetCountryCode(`PT`)
 
 		priceUSD := convertGBPToUSD(v.PrimaryPrice)
 		property.SetLastPrice(priceUSD)
@@ -328,7 +328,7 @@ func getPropertyPurpose(str string) string {
 }
 
 func getJsonStrPropertyNote(email, phone, about string) string {
-	pNote := rqProperty.PropertyNote{
+	pNote := mProperty.PropertyNote{
 		ContactEmail: email,
 		ContactPhone: phone,
 		About:        about,
