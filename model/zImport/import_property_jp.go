@@ -25,7 +25,8 @@ func ReadPropertyJP(conn *Tt.Adapter, resourcePath string) {
 	}
 
 	file, err := os.Open(path)
-	if L.IsError(err, `failed to open file "`+path+`"`) {
+	if err != nil {
+		fmt.Println(`failed to open file "`+path+`" : `, err)
 		os.Exit(1)
 	}
 	defer file.Close()
@@ -44,28 +45,44 @@ func ReadPropertyJP(conn *Tt.Adapter, resourcePath string) {
 		closestStation string
 		minToStation   string
 		status         string
+		coord          string
 	}
 
 	var properties []propertyJp
 
 	tsv := tsvreader.New(file)
 	for tsv.Next() {
-		property := propertyJp{}
-		property.sellingPrice = tsv.String()
-		property.buildingName = tsv.String()
-		property.city = tsv.String()
-		property.district = tsv.String()
-		property.address = tsv.String()
-		property.roomType = tsv.String()
-		property.sizeM2 = tsv.String()
-		property.floor = tsv.String()
-		property.year = tsv.String()
-		property.month = tsv.String()
-		property.closestStation = tsv.String()
-		property.minToStation = tsv.String()
-		property.status = tsv.String()
+		sellingPrice := tsv.String()
+		buildingName := tsv.String()
+		city := tsv.String()
+		district := tsv.String()
+		address := tsv.String()
+		roomType := tsv.String()
+		sizeM2 := tsv.String()
+		floor := tsv.String()
+		year := tsv.String()
+		month := tsv.String()
+		closestStation := tsv.String()
+		minToStation := tsv.String()
+		status := tsv.String()
+		coord := tsv.String()
 
-		properties = append(properties, property)
+		properties = append(properties, propertyJp{
+			sellingPrice:   sellingPrice,
+			buildingName:   buildingName,
+			city:           city,
+			district:       district,
+			address:        address,
+			roomType:       roomType,
+			sizeM2:         sizeM2,
+			floor:          floor,
+			year:           year,
+			month:          month,
+			closestStation: closestStation,
+			minToStation:   minToStation,
+			status:         status,
+			coord:          coord,
+		})
 	}
 
 	if len(properties) > 0 {
@@ -75,7 +92,9 @@ func ReadPropertyJP(conn *Tt.Adapter, resourcePath string) {
 		os.Exit(1)
 	}
 
-	stat := &model.ImporterStat{Total: len(properties)}
+	stat := &model.ImporterStat{
+		Total: len(properties),
+	}
 	defer stat.Print(`last`)
 
 	for _, v := range properties {
@@ -105,13 +124,22 @@ func ReadPropertyJP(conn *Tt.Adapter, resourcePath string) {
 			MinutesToStation: S.ToI(v.minToStation),
 		})
 		if err != nil {
+			fmt.Println(`failed to marshal property attribute: `, err)
 			stat.Skip()
 		}
 		prop.SetAttribute(string(attrByt))
 
 		price := convertJPYToUSD(v.sellingPrice)
 		prop.SetLastPrice(price)
-		prop.SetCoord([]any{0, 0})
+
+		coordStrSlice := S.Split(v.coord, ",")
+		if len(coordStrSlice) == 2 {
+			coordAnySlice := []any{
+				S.ToF(S.Trim(coordStrSlice[0])),
+				S.ToF(S.Trim(coordStrSlice[1])),
+			}
+			prop.SetCoord(coordAnySlice)
+		}
 		prop.SetCountryCode(`JP`)
 
 		stat.Ok(prop.DoUpsert())
