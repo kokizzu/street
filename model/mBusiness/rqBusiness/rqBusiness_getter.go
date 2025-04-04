@@ -1,8 +1,9 @@
 package rqBusiness
 
 import (
-	"street/model/mBusiness"
 	"time"
+
+	"street/model/mBusiness"
 
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
@@ -84,7 +85,7 @@ func (s *Sales) FindRevenuesMonthly(yearMonth string) (revenues []*mBusiness.Rev
 	const comment = `-- Sales) FindRevenuesMonthly`
 
 	if !CACHED_REVENUES_MONTHLY.IsExpired() {
-		L.Print(`From Cache: ` + comment)
+		//L.Print(`From Cache: ` + comment)
 		revenues = CACHED_REVENUES_MONTHLY.CacheData.([]*mBusiness.Revenue)
 		return
 	}
@@ -114,7 +115,7 @@ func (s *Sales) FindRevenuesMonthly(yearMonth string) (revenues []*mBusiness.Rev
 SELECT ` + s.SqlPrice() + `, ` + s.SqlSalesDate() + `
 FROM ` + s.SqlTableName() + whereAndSql
 
-	L.Print(`QUERY :`, query)
+	//L.Print(`QUERY :`, query)
 	s.Adapter.QuerySql(query, func(row []any) {
 		if len(row) == 2 {
 			price := X.ToI(row[0])
@@ -153,7 +154,7 @@ func (s *Sales) FindOrdersAnnually() (orders []*mBusiness.Order) {
 	const comment = `-- Sales) FindRevenuesMonthly`
 
 	if !CACHED_ORDERS_ANNUALLY.IsExpired() {
-		L.Print(`From Cache: ` + comment)
+		//L.Print(`From Cache: ` + comment)
 		orders = CACHED_ORDERS_ANNUALLY.CacheData.([]*mBusiness.Order)
 		return
 	}
