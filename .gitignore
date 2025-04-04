@@ -19,6 +19,8 @@ docker-data
 tmpdb
 AuthKey_*.p8
 upload
+all.log
+tmp_docker-mailserver
 
 *.lzo
 *.lz4

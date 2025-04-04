@@ -7,8 +7,8 @@ Wants=network-online.target
 Type=simple
 Restart=on-failure
 
-User=kyz
-Group=kyz
+User=street
+Group=www-data
 
 WorkingDirectory=/home/street
 

@@ -13,6 +13,16 @@ mv ../$BIN_NAME . &&
 rsync --delete -a \
   --exclude='_*' \
   --exclude='.*' \
+  --exclude='etc_clickhouse-server' \
+  --exclude='opt_tarantool' \
+  --exclude='var_lib_tarantool' \
+  --exclude='tmp_docker-mailserver' \
+  --exclude='var_lib_clickhouse' \
+  --exclude='var_log_letsencrypt' \
+  --exclude='var_log_mail' \
+  --exclude='var_mail' \
+  --exclude='var_mail-state' \
+  --exclude='tmp_docker-mailserver' \
   --exclude='tmp' \
   --exclude='*.svelte' \
   --exclude='*.sh' \
