@@ -85,12 +85,7 @@ func ReadPropertyJP(conn *Tt.Adapter, resourcePath string) {
 		})
 	}
 
-	if len(properties) > 0 {
-		properties = properties[1:]
-	} else {
-		L.Print(`ReadPropertyJP: no data`)
-		os.Exit(1)
-	}
+	properties = properties[1:]
 
 	stat := &model.ImporterStat{
 		Total: len(properties),
@@ -148,10 +143,13 @@ func ReadPropertyJP(conn *Tt.Adapter, resourcePath string) {
 
 func convertJPYToUSD(jpyStr string) string {
 	jpyStr = S.Trim(jpyStr)
+	jpyStr = S.Replace(jpyStr, `.`, ``)
+
+	jpyFloat := S.ToF(jpyStr)
 
 	var exchangeRate float64 = 0.0067
 
-	usdAmount := (S.ToF(jpyStr) * exchangeRate)
+	usdAmount := (jpyFloat * exchangeRate)
 
 	return fmt.Sprintf("%.2f", usdAmount)
 }
