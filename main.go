@@ -21,6 +21,7 @@ import (
 	"street/conf"
 	"street/domain"
 	"street/model"
+	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/wcProperty"
 	"street/model/xGmap"
 	"street/model/xMailer"
@@ -325,6 +326,15 @@ func main() {
 		}
 
 		model.BackupTruncateProperty(tConn, tableName)
+	case `remove_price_history`:
+		prop := rqProperty.NewProperty(tConn)
+		prop.RemovePriceHistory()
+
+		propTw := rqProperty.NewPropertyTW(tConn)
+		propTw.RemovePriceHistory()
+
+		propUs := rqProperty.NewPropertyUS(tConn)
+		propUs.RemovePriceHistory()
 	case `restore_table`:
 		args := os.Args
 		if len(args) < 3 {

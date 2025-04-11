@@ -788,3 +788,18 @@ func (p *PropertyTW) GetRows(offset, limit uint32) (res [][]any) {
 func (p *PropertyTW) Truncate() bool {
 	return p.Adapter.ExecBoxSpace(`propertyTW:truncate`, A.X{})
 }
+
+func (p *Property) RemovePriceHistory() bool {
+	p.Adapter.ExecSql(`UPDATE ` + p.SqlTableName() + ` SET ` + p.SqlPriceHistoriesRent() + ` = [], ` + p.SqlPriceHistoriesSell() + ` = []`)
+	return true
+}
+
+func (p *PropertyTW) RemovePriceHistory() bool {
+	p.Adapter.ExecSql(`UPDATE ` + p.SqlTableName() + ` SET ` + p.SqlPriceHistoriesRent() + ` = [], ` + p.SqlPriceHistoriesSell() + ` = []`)
+	return true
+}
+
+func (p *PropertyUS) RemovePriceHistory() bool {
+	p.Adapter.ExecSql(`UPDATE ` + p.SqlTableName() + ` SET ` + p.SqlPriceHistoriesRent() + ` = [], ` + p.SqlPriceHistoriesSell() + ` = []`)
+	return true
+}
