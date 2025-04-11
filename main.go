@@ -326,15 +326,15 @@ func main() {
 		}
 
 		model.BackupTruncateProperty(tConn, tableName)
-	case `remove_price_history`:
+	case `remove_all_price_history`:
 		prop := rqProperty.NewProperty(tConn)
-		prop.RemovePriceHistory()
+		rqProperty.RemoveAllPriceHistory(prop)
 
 		propTw := rqProperty.NewPropertyTW(tConn)
-		propTw.RemovePriceHistory()
+		rqProperty.RemoveAllPriceHistoryTw(propTw)
 
 		propUs := rqProperty.NewPropertyUS(tConn)
-		propUs.RemovePriceHistory()
+		rqProperty.RemoveAllPriceHistoryUs(propUs)
 	case `restore_table`:
 		args := os.Args
 		if len(args) < 3 {
