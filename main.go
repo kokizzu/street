@@ -262,7 +262,7 @@ func main() {
 		// requirement: copy crawled data to static/property_tw_data/props_tw.jsonl
 		zImport.ImportPropertyTwData(tConn, gmap)
 	case `import_property_jp`:
-		zImport.ReadPropertyJP(tConn, `./static/house_data/japanese_data.tsv`)
+		zImport.ReadPropertyJP(tConn, `./static/house_data/japanese_data.tsv`, d.UploadDir)
 	case `import_streetview_image_tw`: // 2023-12-12
 		zImport.ImportStreetViewImageTW(d, gmap)
 	case `migrate_property_us_image`: // 2023-11-12
@@ -335,6 +335,9 @@ func main() {
 
 		propUs := rqProperty.NewPropertyUS(tConn)
 		rqProperty.RemoveAllPriceHistoryUs(propUs)
+	case `delete_jp`:
+		prop := rqProperty.NewProperty(tConn)
+		prop.DeletePropertyJP()
 	case `restore_table`:
 		args := os.Args
 		if len(args) < 3 {
