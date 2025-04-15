@@ -803,3 +803,8 @@ func (p *PropertyUS) RemovePriceHistory() bool {
 	p.Adapter.ExecSql(`UPDATE ` + p.SqlTableName() + ` SET ` + p.SqlPriceHistoriesRent() + ` = [], ` + p.SqlPriceHistoriesSell() + ` = []`)
 	return true
 }
+
+func (p *Property) DeletePropertyJP() bool {
+	p.Adapter.ExecSql(`DELETE FROM ` + p.SqlTableName() + ` WHERE ` + p.SqlCountryCode() + ` = 'JP'`)
+	return true
+}
