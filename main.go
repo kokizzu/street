@@ -337,7 +337,7 @@ func main() {
 		rqProperty.RemoveAllPriceHistoryUs(propUs)
 	case `delete_jp`:
 		prop := rqProperty.NewProperty(tConn)
-		prop.DeletePropertyJP()
+		rqProperty.DeletePropertyJP(prop)
 	case `restore_table`:
 		args := os.Args
 		if len(args) < 3 {

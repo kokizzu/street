@@ -804,7 +804,7 @@ func RemoveAllPriceHistoryUs(p *PropertyUS) bool {
 	return true
 }
 
-func (p *Property) DeletePropertyJP() bool {
+func DeletePropertyJP(p *Property) bool {
 	p.Adapter.ExecSql(`DELETE FROM ` + p.SqlTableName() + ` WHERE ` + p.SqlCountryCode() + ` = 'JP'`)
 	return true
 }
