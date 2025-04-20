@@ -68,22 +68,22 @@ func mergePropertyWithSerialNumber(inputProperties []Property) ([]Property, []ui
 
 	for _, prop := range inputProperties {
 		prop := prop
-		propSize, err := strconv.ParseFloat(prop.SizeM2, 64)
+		propSize, _ := strconv.ParseFloat(prop.SizeM2, 64)
 
 		// Check for errors
-		if err != nil {
-			continue
-		}
+		//if err != nil {
+		//	continue
+		//}
 
 		if totalSizePropBySerialNumber[prop.SerialNumber] == nil {
 			totalSizePropBySerialNumber[prop.SerialNumber] = &prop
 		} else {
 			// Existing size
-			existingPropSize, err := strconv.ParseFloat(totalSizePropBySerialNumber[prop.SerialNumber].SizeM2, 64)
+			existingPropSize, _ := strconv.ParseFloat(totalSizePropBySerialNumber[prop.SerialNumber].SizeM2, 64)
 
-			if err != nil {
-				continue
-			}
+			//if err != nil {
+			//	continue
+			//}
 
 			// Accumulate size of property
 			appendSize := existingPropSize + propSize
@@ -136,6 +136,7 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 		}
 		item.id = item.Id
 		item.DistanceKM = conf.DistanceKm(item.Lat, item.Lng, in.CenterLat, in.CenterLong)
+		//L.Print(item.UniqPropKey, item.DistanceKM)
 		if item.DistanceKM > in.MaxDistanceKM {
 			return false
 		}
@@ -144,7 +145,7 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 		img3dCountryPropId := fmt.Sprintf("%s:%d", item.CountryCode, item.Id)
 		img3d.CountryPropId = img3dCountryPropId
 		if img3d.FindByCountryPropId() {
-			item.PropertyWithNote.Image3dUrl = img3d.FilePath	
+			item.PropertyWithNote.Image3dUrl = img3d.FilePath
 		}
 
 		satisfiedProperties = append(satisfiedProperties, item)
@@ -152,10 +153,14 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 	})
 
 	// Merge property history with same serial number
-	filterProperties, filterPropIds := mergePropertyWithSerialNumber(satisfiedProperties)
+	//L.Print(`satisfiedProperties`, len(satisfiedProperties))
+	//filterProperties, filterPropIds := mergePropertyWithSerialNumber(satisfiedProperties)
+	//L.Print(`filterProperties`, len(filterProperties))
+	for _, prop := range satisfiedProperties {
+		propIds = append(propIds, prop.Id)
+	}
 
-	out.Properties = filterProperties
-	propIds = filterPropIds
+	out.Properties = satisfiedProperties
 
 	if !ok {
 		out.SetError(500, ErrSearchPropFailed)
@@ -178,7 +183,7 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 	}
 
 	var (
-		city string = ``
+		city  string = ``
 		state string = ``
 	)
 
@@ -186,24 +191,24 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 		city = out.Properties[0].City
 		state = out.Properties[0].State
 	}
-	
+
 	d.insertScannedAreas(saProperty.ScannedAreas{
-		ActorId: sess.UserId,
+		ActorId:   sess.UserId,
 		CreatedAt: in.TimeNow(),
-		Latitude: in.Lat,
+		Latitude:  in.Lat,
 		Longitude: in.Long,
-		City: city,
-		State: state,
+		City:      city,
+		State:     state,
 	})
 
 	for _, v := range out.Properties {
 		d.insertScannedProps(saProperty.ScannedProperties{
-			ActorId: sess.UserId,
-			CreatedAt: in.TimeNow(),
+			ActorId:     sess.UserId,
+			CreatedAt:   in.TimeNow(),
 			CountryCode: v.CountryCode,
-			PropertyId: v.Id,
+			PropertyId:  v.Id,
 		})
 	}
-	
+
 	return
 }
