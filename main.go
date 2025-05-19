@@ -221,8 +221,8 @@ func main() {
 
 		zImport.ImportPropertyUsData(tConn, baseUrl, minPropertyIdNumber, maxPropertyIdNumber)
 	case `import_property_us_new`: // 2024-10-21
-		zImport.ReadPropertyUS_TruliaCom(tConn, `./static/house_data/house_data_trulia.com.tsv`)
-		zImport.ReadPropertyUS_ZillowCom(tConn, `./static/house_data/house_data_zillow.com.tsv`)
+		//zImport.ReadPropertyUS_TruliaCom(tConn, `./static/house_data/house_data_trulia.com.tsv`)
+		//zImport.ReadPropertyUS_ZillowCom(tConn, `./static/house_data/house_data_zillow.com.tsv`)
 		zImport.ReadPropertyUS_ZillowCom(tConn, `./static/house_data/house_data_zillow.com_2.tsv`)
 	case `import_property_pt`: // 2024-11-13 lisbon/portugal
 		zImport.ReadPropertyPT_RightmoveCoUk(tConn, `./static/house_data/rightmove.co.uk_lisbon_final.tsv`)

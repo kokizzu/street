@@ -2,6 +2,7 @@ package zImport
 
 import (
 	"errors"
+	"fmt"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -188,7 +189,6 @@ func ReadPropertyUS_TruliaCom(adapter *Tt.Adapter, resourcePath string) {
 
 		property.SetCreatedAt(fastime.UnixNow())
 		property.SetUpdatedAt(fastime.UnixNow())
-		property.SetCoord([]any{0, 0})
 
 		stat.Ok(property.DoUpsert())
 
@@ -374,11 +374,16 @@ func ReadPropertyUS_ZillowCom(adapter *Tt.Adapter, resourcePath string) {
 		}
 
 		if v.Longitude != `` {
-			longitude := S.Replace(v.Latitude, `,`, `.`)
+			longitude := S.Replace(v.Longitude, `,`, `.`)
 			coord[1] = S.ToF(longitude)
 		}
 
 		property.SetCoord(coord[:])
+		//fmt.Printf("%.0f %.0f\n", coord[0], coord[1])
+		if fmt.Sprintf("%.0f", coord[0]) == `0` || fmt.Sprintf("%.0f", coord[1]) == `0` {
+			stat.Skip()
+			continue
+		}
 
 		if v.MainPrice != `` {
 			price := S.Replace(S.Replace(v.MainPrice, `$`, ``), `.`, ``)
@@ -411,7 +416,6 @@ func ReadPropertyUS_ZillowCom(adapter *Tt.Adapter, resourcePath string) {
 
 		property.SetCreatedAt(fastime.UnixNow())
 		property.SetUpdatedAt(fastime.UnixNow())
-		property.SetCoord([]any{0, 0})
 
 		stat.Ok(property.DoUpsert())
 
