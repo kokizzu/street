@@ -40,7 +40,7 @@ require (
 	github.com/yosuke-furukawa/json5 v0.1.1
 	github.com/zeebo/xxh3 v1.0.2
 	golang.org/x/exp v0.0.0-20250106191152-7588d65b2ba8
-	golang.org/x/oauth2 v0.0.0-20220524215830-622c5d57e401
+	golang.org/x/oauth2 v0.27.0
 	golang.org/x/sync v0.12.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 )
