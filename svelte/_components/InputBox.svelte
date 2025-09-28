@@ -184,7 +184,7 @@
     width: fit-content;
     background-color: transparent;
     padding: 0;
-    top: 30px;
+    top: 33px;
     bottom: auto;
     right: 10px;
     border: none;

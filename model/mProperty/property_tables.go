@@ -84,6 +84,16 @@ const (
 	TablePropertyTW Tt.TableName = `propertyTW`
 )
 
+var PropertyTableColumnToSearch_Map = map[string]bool{
+	SizeM2:               true,
+	MainUse:              true,
+	MainBuildingMaterial: true,
+	NumberOfFloors:       true,
+	Bedroom:              true,
+	Bathroom:             true,
+	Livingroom:           true,
+}
+
 const (
 	TableProperty Tt.TableName = `property`
 

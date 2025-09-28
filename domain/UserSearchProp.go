@@ -7,6 +7,7 @@ import (
 	"github.com/kokizzu/gotro/X"
 
 	"street/conf"
+	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/saProperty"
 	"street/model/mStorage/rqStorage"
@@ -21,6 +22,9 @@ import (
 type (
 	UserSearchPropIn struct {
 		RequestCommon `json:"request_common"`
+
+		SearchColumn string `json:"searchColumn" form:"searchColumn" query:"searchColumn" long:"searchColumn" msg:"searchColumn"`
+		SearchValue  string `json:"searchValue" form:"searchValue" query:"searchValue" long:"searchValue" msg:"searchValue"`
 
 		CenterLat  float64 `json:"centerLat" form:"centerLat" query:"centerLat" long:"centerLat" msg:"centerLat"`
 		CenterLong float64 `json:"centerLong" form:"centerLong" query:"centerLong" long:"centerLong" msg:"centerLong"`
@@ -139,6 +143,12 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 		//L.Print(item.UniqPropKey, item.DistanceKM)
 		if item.DistanceKM > in.MaxDistanceKM {
 			return false
+		}
+
+		if mProperty.PropertyTableColumnToSearch_Map[in.SearchColumn] {
+			if !item.IsContainsValueByColumn(in.SearchColumn, in.SearchValue) {
+				return false
+			}
 		}
 
 		img3d := rqStorage.NewDesignFiles(d.StorOltp)

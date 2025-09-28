@@ -808,3 +808,34 @@ func DeletePropertyJP(p *Property) bool {
 	p.Adapter.ExecSql(`DELETE FROM ` + p.SqlTableName() + ` WHERE ` + p.SqlCountryCode() + ` = 'JP'`)
 	return true
 }
+
+func (p Property) IsContainsValueByColumn(columnToSearch, value string) bool {
+	switch columnToSearch {
+	case mProperty.SizeM2:
+		if S.Contains(X.ToS(p.SizeM2), value) {
+			return true
+		}
+	case mProperty.MainUse:
+		if S.Contains(X.ToS(p.MainUse), value) {
+			return true
+		}
+	case mProperty.MainBuildingMaterial:
+		if S.Contains(X.ToS(p.MainBuildingMaterial), value) {
+			return true
+		}
+	case mProperty.Bedroom:
+		if X.ToS(p.Bedroom) == S.Trim(value) {
+			return true
+		}
+	case mProperty.Bathroom:
+		if X.ToS(p.Bathroom) == S.Trim(value) {
+			return true
+		}
+	case mProperty.Livingroom:
+		if X.ToS(p.Livingroom) == S.Trim(value) {
+			return true
+		}
+	}
+
+	return false
+}
