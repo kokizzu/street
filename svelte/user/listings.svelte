@@ -14,6 +14,8 @@
   import { notifier } from '../_components/notifier';
   import PopUpUpload3DFile from '../_components/PopUpUpload3DFile.svelte';
   import { gmap, mapLoader } from '../_components/GoogleMap/stores';
+  // import { UserSearchProp } from '../jsApi.GEN';
+  // import { onMount } from 'svelte';
 
 	const user    = /** @type {User} */ ({/* user */});
   const access  = /** @type {Access} */ ({/* segments */});
@@ -21,6 +23,22 @@
   let coord         = /** @type {number[]} */ ([/* initialLatLong */]);
   let properties    = /** @type {PropertyWithNote[]} */ ([/* randomProps */]);
   let distanceKm    = /** @type {number} */ (Number('#{defaultDistanceKm}') || 20);
+
+  // onMount(async () => {
+  //   setTimeout(async () => {
+  //     await UserSearchProp({
+  //     searchColumn: "bedroom",
+  //     searchValue: "2",
+  //     centerLat: 25.1113353,
+  //     centerLong: 121.5298509,
+  //     offset: 0,
+  //     limit: 0,
+  //     maxDistanceKM: 20
+  //   }, async res => {
+  //     console.log(res);
+  //   });
+  //   }, 5000);
+  // })
   
   let gmapComponent = /** @type {import('svelte').SvelteComponent} */ (null);
   let mapMarkers    = /** @type {google.maps.marker.AdvancedMarkerElement[]} */ ([]);

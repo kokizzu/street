@@ -145,12 +145,6 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 			return false
 		}
 
-		if mProperty.PropertyTableColumnToSearch_Map[in.SearchColumn] {
-			if !item.IsContainsValueByColumn(in.SearchColumn, in.SearchValue) {
-				return false
-			}
-		}
-
 		img3d := rqStorage.NewDesignFiles(d.StorOltp)
 		img3dCountryPropId := fmt.Sprintf("%s:%d", item.CountryCode, item.Id)
 		img3d.CountryPropId = img3dCountryPropId
@@ -158,7 +152,13 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 			item.PropertyWithNote.Image3dUrl = img3d.FilePath
 		}
 
-		satisfiedProperties = append(satisfiedProperties, item)
+		if mProperty.PropertyTableColumnToSearch_Map[in.SearchColumn] {
+			if item.IsContainsValueByColumn(in.SearchColumn, in.SearchValue) {
+				satisfiedProperties = append(satisfiedProperties, item)
+			}
+		} else {
+			satisfiedProperties = append(satisfiedProperties, item)
+		}
 		return true
 	})
 

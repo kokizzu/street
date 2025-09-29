@@ -809,7 +809,7 @@ func DeletePropertyJP(p *Property) bool {
 	return true
 }
 
-func (p Property) IsContainsValueByColumn(columnToSearch, value string) bool {
+func (p *Property) IsContainsValueByColumn(columnToSearch, value string) bool {
 	switch columnToSearch {
 	case mProperty.SizeM2:
 		if S.Contains(X.ToS(p.SizeM2), value) {
@@ -824,7 +824,7 @@ func (p Property) IsContainsValueByColumn(columnToSearch, value string) bool {
 			return true
 		}
 	case mProperty.Bedroom:
-		if X.ToS(p.Bedroom) == S.Trim(value) {
+		if p.Bedroom == S.ToI(value) {
 			return true
 		}
 	case mProperty.Bathroom:
