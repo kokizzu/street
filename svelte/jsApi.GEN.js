@@ -3600,8 +3600,7 @@ exports.UserProperty = async function UserProperty( i, cb ) {
 
 /**
  * @typedef {Object} UserSearchPropIn
- * @property {String} searchColumn
- * @property {String} searchValue
+ * @property {Object} filter
  * @property {number} centerLat
  * @property {number} centerLong
  * @property {number} offset
@@ -3609,8 +3608,8 @@ exports.UserProperty = async function UserProperty( i, cb ) {
  * @property {number} maxDistanceKM
  */
 const UserSearchPropIn = {
-  searchColumn: '', // string
-  searchValue: '', // string
+  filter: { // map[string]string
+  }, // map[string]string
   centerLat: 0, // float64
   centerLong: 0, // float64
   offset: 0, // int

@@ -809,33 +809,40 @@ func DeletePropertyJP(p *Property) bool {
 	return true
 }
 
-func (p *Property) IsContainsValueByColumn(columnToSearch, value string) bool {
-	switch columnToSearch {
-	case mProperty.SizeM2:
-		if S.Contains(X.ToS(p.SizeM2), value) {
-			return true
-		}
-	case mProperty.MainUse:
-		if S.Contains(X.ToS(p.MainUse), value) {
-			return true
-		}
-	case mProperty.MainBuildingMaterial:
-		if S.Contains(X.ToS(p.MainBuildingMaterial), value) {
-			return true
-		}
-	case mProperty.Bedroom:
-		if p.Bedroom == S.ToI(value) {
-			return true
-		}
-	case mProperty.Bathroom:
-		if X.ToS(p.Bathroom) == S.Trim(value) {
-			return true
-		}
-	case mProperty.Livingroom:
-		if X.ToS(p.Livingroom) == S.Trim(value) {
-			return true
+func (p *Property) IsColumnFiltered(filter map[string]string) bool {
+	if len(filter) == 0 {
+		return true // It means nothing to filter
+	}
+	collectionOfTruth := []bool{}
+
+	for column, value := range filter {
+		switch column {
+		case mProperty.SizeM2:
+			if S.Contains(X.ToS(p.SizeM2), value) {
+				collectionOfTruth = append(collectionOfTruth, true)
+			}
+		case mProperty.MainUse:
+			if S.Contains(X.ToS(p.MainUse), value) {
+				collectionOfTruth = append(collectionOfTruth, true)
+			}
+		case mProperty.MainBuildingMaterial:
+			if S.Contains(X.ToS(p.MainBuildingMaterial), value) {
+				collectionOfTruth = append(collectionOfTruth, true)
+			}
+		case mProperty.Bedroom:
+			if p.Bedroom == S.ToI(value) {
+				collectionOfTruth = append(collectionOfTruth, true)
+			}
+		case mProperty.Bathroom:
+			if X.ToS(p.Bathroom) == S.Trim(value) {
+				collectionOfTruth = append(collectionOfTruth, true)
+			}
+		case mProperty.Livingroom:
+			if X.ToS(p.Livingroom) == S.Trim(value) {
+				collectionOfTruth = append(collectionOfTruth, true)
+			}
 		}
 	}
 
-	return false
+	return len(collectionOfTruth) != 0
 }

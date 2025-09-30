@@ -27,16 +27,17 @@
   // onMount(async () => {
   //   setTimeout(async () => {
   //     await UserSearchProp({
-  //     searchColumn: "bedroom",
-  //     searchValue: "2",
-  //     centerLat: 25.1113353,
-  //     centerLong: 121.5298509,
-  //     offset: 0,
-  //     limit: 0,
-  //     maxDistanceKM: 20
-  //   }, async res => {
-  //     console.log(res);
-  //   });
+  //       filter: {
+  //         bedroom: '2'
+  //       },
+  //       centerLat: 25.1113353,
+  //       centerLong: 121.5298509,
+  //       offset: 0,
+  //       limit: 0,
+  //       maxDistanceKM: 20
+  //     }, async res => {
+  //       console.log(res);
+  //     });
   //   }, 5000);
   // })
   

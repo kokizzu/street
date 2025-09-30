@@ -7,7 +7,6 @@ import (
 	"github.com/kokizzu/gotro/X"
 
 	"street/conf"
-	"street/model/mProperty"
 	"street/model/mProperty/rqProperty"
 	"street/model/mProperty/saProperty"
 	"street/model/mStorage/rqStorage"
@@ -23,8 +22,7 @@ type (
 	UserSearchPropIn struct {
 		RequestCommon `json:"request_common"`
 
-		SearchColumn string `json:"searchColumn" form:"searchColumn" query:"searchColumn" long:"searchColumn" msg:"searchColumn"`
-		SearchValue  string `json:"searchValue" form:"searchValue" query:"searchValue" long:"searchValue" msg:"searchValue"`
+		Filter map[string]string `json:"filter" form:"filter" query:"filter" long:"filter" msg:"filter"`
 
 		CenterLat  float64 `json:"centerLat" form:"centerLat" query:"centerLat" long:"centerLat" msg:"centerLat"`
 		CenterLong float64 `json:"centerLong" form:"centerLong" query:"centerLong" long:"centerLong" msg:"centerLong"`
@@ -145,6 +143,10 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 			return false
 		}
 
+		if !item.IsColumnFiltered(in.Filter) {
+			return false
+		}
+
 		img3d := rqStorage.NewDesignFiles(d.StorOltp)
 		img3dCountryPropId := fmt.Sprintf("%s:%d", item.CountryCode, item.Id)
 		img3d.CountryPropId = img3dCountryPropId
@@ -152,13 +154,8 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 			item.PropertyWithNote.Image3dUrl = img3d.FilePath
 		}
 
-		if mProperty.PropertyTableColumnToSearch_Map[in.SearchColumn] {
-			if item.IsContainsValueByColumn(in.SearchColumn, in.SearchValue) {
-				satisfiedProperties = append(satisfiedProperties, item)
-			}
-		} else {
-			satisfiedProperties = append(satisfiedProperties, item)
-		}
+		satisfiedProperties = append(satisfiedProperties, item)
+
 		return true
 	})
 
