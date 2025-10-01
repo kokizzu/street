@@ -836,19 +836,89 @@ func (p *Property) IsColumnFiltered(filter map[string]string) bool {
 				collectionOfTruth = append(collectionOfTruth, true)
 			}
 		case mProperty.Bedroom:
-			if p.Bedroom == S.ToI(value) {
-				collectionOfTruth = append(collectionOfTruth, true)
+			operator, rhs := splitOperatorValue(value)
+			switch operator {
+			case `>`:
+				if p.Bedroom > X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
+			case `<`:
+				if p.Bedroom < X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
+			default:
+				if p.Bedroom == X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
 			}
 		case mProperty.Bathroom:
-			if X.ToS(p.Bathroom) == S.Trim(value) {
-				collectionOfTruth = append(collectionOfTruth, true)
+			operator, rhs := splitOperatorValue(value)
+			switch operator {
+			case `>`:
+				if p.Bathroom > X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
+			case `<`:
+				if p.Bathroom < X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
+			default:
+				if p.Bathroom == X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
 			}
 		case mProperty.Livingroom:
-			if X.ToS(p.Livingroom) == S.Trim(value) {
-				collectionOfTruth = append(collectionOfTruth, true)
+			operator, rhs := splitOperatorValue(value)
+			switch operator {
+			case `>`:
+				if p.Livingroom > X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
+			case `<`:
+				if p.Livingroom < X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
+			default:
+				if p.Livingroom == X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
 			}
 		}
 	}
 
 	return len(collectionOfTruth) != 0
+}
+
+func splitOperatorValue(str string) (op string, rhs string) {
+	l := len(str)
+	if l < 1 {
+		op = `=`
+		return
+	}
+	equal := l > 1 && str[1] == '='
+	startCh := 0
+
+	opInput := str[0]
+
+	switch opInput {
+	case '>':
+		startCh = 1
+		if equal {
+			startCh = 2
+		}
+		op = str[:startCh]
+	case '<':
+		startCh = 1
+		if equal {
+			startCh = 2
+		} else if l > 1 && str[1] == '>' {
+			startCh = 2
+		}
+		op = str[:startCh]
+	default:
+		op = `=`
+	}
+	rhs = str[startCh:]
+
+	return
 }
