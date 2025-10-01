@@ -304,7 +304,13 @@ func (p *Property) FindByLatLongAndCountry(propAdapter *Tt.Adapter, countryCode 
 	}
 
 	p.Coord = []any{lat, long}
-	res, err := p.Adapter.Select(p.SpaceName(), p.SpatialIndexCoord(), uint32(offset), uint32(limit), tarantool.IterNeighbor, p.Coord)
+	res, err := p.Adapter.Select(
+		p.SpaceName(),
+		p.SpatialIndexCoord(),
+		uint32(offset),
+		uint32(limit),
+		tarantool.IterNeighbor,
+		p.Coord)
 	if L.IsError(err, prefix+` failed: `+p.SpaceName()) {
 		return false
 	}

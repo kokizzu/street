@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"math/rand"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -251,15 +250,4 @@ func convertJPYToUSD(jpyStr string) string {
 	usdAmount := (jpyFloat * exchangeRate)
 
 	return fmt.Sprintf("%.2f", usdAmount)
-}
-
-func randChar(length int) string {
-	const letterBytes = `abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`
-
-	b := make([]byte, length)
-	for i := range b {
-		b[i] = letterBytes[rand.Intn(len(letterBytes))]
-	}
-
-	return string(b)
 }
