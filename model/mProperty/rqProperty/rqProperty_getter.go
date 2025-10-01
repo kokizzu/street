@@ -304,7 +304,13 @@ func (p *Property) FindByLatLongAndCountry(propAdapter *Tt.Adapter, countryCode 
 	}
 
 	p.Coord = []any{lat, long}
-	res, err := p.Adapter.Select(p.SpaceName(), p.SpatialIndexCoord(), uint32(offset), uint32(limit), tarantool.IterNeighbor, p.Coord)
+	res, err := p.Adapter.Select(
+		p.SpaceName(),
+		p.SpatialIndexCoord(),
+		uint32(offset),
+		uint32(limit),
+		tarantool.IterNeighbor,
+		p.Coord)
 	if L.IsError(err, prefix+` failed: `+p.SpaceName()) {
 		return false
 	}
@@ -807,4 +813,112 @@ func RemoveAllPriceHistoryUs(p *PropertyUS) bool {
 func DeletePropertyJP(p *Property) bool {
 	p.Adapter.ExecSql(`DELETE FROM ` + p.SqlTableName() + ` WHERE ` + p.SqlCountryCode() + ` = 'JP'`)
 	return true
+}
+
+func (p *Property) IsColumnFiltered(filter map[string]string) bool {
+	if len(filter) == 0 {
+		return true // It means nothing to filter
+	}
+	collectionOfTruth := []bool{}
+
+	for column, value := range filter {
+		switch column {
+		case mProperty.SizeM2:
+			if S.Contains(X.ToS(p.SizeM2), value) {
+				collectionOfTruth = append(collectionOfTruth, true)
+			}
+		case mProperty.MainUse:
+			if S.Contains(X.ToS(p.MainUse), value) {
+				collectionOfTruth = append(collectionOfTruth, true)
+			}
+		case mProperty.MainBuildingMaterial:
+			if S.Contains(X.ToS(p.MainBuildingMaterial), value) {
+				collectionOfTruth = append(collectionOfTruth, true)
+			}
+		case mProperty.Bedroom:
+			operator, rhs := splitOperatorValue(value)
+			switch operator {
+			case `>`:
+				if p.Bedroom > X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
+			case `<`:
+				if p.Bedroom < X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
+			default:
+				if p.Bedroom == X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
+			}
+		case mProperty.Bathroom:
+			operator, rhs := splitOperatorValue(value)
+			switch operator {
+			case `>`:
+				if p.Bathroom > X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
+			case `<`:
+				if p.Bathroom < X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
+			default:
+				if p.Bathroom == X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
+			}
+		case mProperty.Livingroom:
+			operator, rhs := splitOperatorValue(value)
+			switch operator {
+			case `>`:
+				if p.Livingroom > X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
+			case `<`:
+				if p.Livingroom < X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
+			default:
+				if p.Livingroom == X.ToI(rhs) {
+					collectionOfTruth = append(collectionOfTruth, true)
+				}
+			}
+		}
+	}
+
+	return len(collectionOfTruth) != 0
+}
+
+func splitOperatorValue(str string) (op string, rhs string) {
+	l := len(str)
+	if l < 1 {
+		op = `=`
+		return
+	}
+	equal := l > 1 && str[1] == '='
+	startCh := 0
+
+	opInput := str[0]
+
+	switch opInput {
+	case '>':
+		startCh = 1
+		if equal {
+			startCh = 2
+		}
+		op = str[:startCh]
+	case '<':
+		startCh = 1
+		if equal {
+			startCh = 2
+		} else if l > 1 && str[1] == '>' {
+			startCh = 2
+		}
+		op = str[:startCh]
+	default:
+		op = `=`
+	}
+	rhs = str[startCh:]
+
+	return
 }

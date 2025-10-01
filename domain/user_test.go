@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/kokizzu/gotro/S"
+	"github.com/kokizzu/gotro/X"
 	"github.com/kokizzu/id64"
 	"github.com/kpango/fastime"
 	"github.com/stretchr/testify/assert"
@@ -357,6 +358,7 @@ func TestUserSearchPropAndLikes(t *testing.T) {
 			MainUse:                "Residential",
 			MainBuildingMaterial:   "Cardboard",
 			ConstructCompletedDate: "105年12月4日",
+			Bedroom:                3,
 			NumberOfFloors:         "10",
 			Address:                "1-12 Matsushigecho, Nakamura Ward, Nagoya, Aichi 450-0004",
 			Coord:                  []any{35.165, 136.89},
@@ -376,6 +378,32 @@ func TestUserSearchPropAndLikes(t *testing.T) {
 	})
 	assert.Empty(t, outs2.Error)
 	assert.Len(t, outs2.Properties, 2)
+
+	outs3 := d.UserSearchProp(&UserSearchPropIn{
+		RequestCommon: testAdminRequestCommon(UserSearchPropAction),
+		CenterLat:     35.16,
+		CenterLong:    136.89,
+		Offset:        0,
+		Filter: map[string]string{
+			`bedroom`: `>1`,
+		},
+	})
+	assert.Empty(t, outs3.Error)
+	assert.Len(t, outs3.Properties, 1)
+	t.Log(`Properties (with filter bedroom >1): ` + X.ToJsonPretty(outs3.Properties))
+
+	outs4 := d.UserSearchProp(&UserSearchPropIn{
+		RequestCommon: testAdminRequestCommon(UserSearchPropAction),
+		CenterLat:     35.16,
+		CenterLong:    136.89,
+		Offset:        0,
+		Filter: map[string]string{
+			`bedroom`: `>3`,
+		},
+	})
+	assert.Empty(t, outs4.Error)
+	assert.Len(t, outs4.Properties, 0)
+	t.Log(`Properties (with filter bedroom >3): ` + X.ToJsonPretty(outs4.Properties))
 
 	fetchLike := func(pid1, pid2 uint64) (likedMap map[uint64]bool, countMap map[uint64]int64) {
 		upl := rqProperty.NewUserPropLikes(d.PropOltp)

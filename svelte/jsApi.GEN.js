@@ -661,6 +661,7 @@ exports.AdminPropHistories = async function AdminPropHistories( i, cb ) {
  * @property {number} property.minimumDurationYear
  * @property {Object} property.otherFees
  * @property {Object} property.imageLabels
+ * @property {String} property.attribute
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -725,6 +726,7 @@ const AdminPropertiesIn = {
     }, // []any
     imageLabels: { // []any
     }, // []any
+    attribute: '', // string
   }, // rqProperty.Property
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -794,6 +796,7 @@ const AdminPropertiesIn = {
  * @property {number} property.minimumDurationYear
  * @property {Object} property.otherFees
  * @property {Object} property.imageLabels
+ * @property {String} property.attribute
  * @property {Object} properties
  */
 const AdminPropertiesOut = {
@@ -869,6 +872,7 @@ const AdminPropertiesOut = {
     }, // []any
     imageLabels: { // []any
     }, // []any
+    attribute: '', // string
   }, // rqProperty.Property
   properties: { // [][]any
   }, // [][]any
@@ -940,6 +944,7 @@ exports.AdminProperties = async function AdminProperties( i, cb ) {
  * @property {number} property.minimumDurationYear
  * @property {Object} property.otherFees
  * @property {Object} property.imageLabels
+ * @property {String} property.attribute
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -1004,6 +1009,7 @@ const AdminPropertiesTWIn = {
     }, // []any
     imageLabels: { // []any
     }, // []any
+    attribute: '', // string
   }, // rqProperty.PropertyTW
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -1073,6 +1079,7 @@ const AdminPropertiesTWIn = {
  * @property {number} property.minimumDurationYear
  * @property {Object} property.otherFees
  * @property {Object} property.imageLabels
+ * @property {String} property.attribute
  * @property {Object} properties
  */
 const AdminPropertiesTWOut = {
@@ -1148,6 +1155,7 @@ const AdminPropertiesTWOut = {
     }, // []any
     imageLabels: { // []any
     }, // []any
+    attribute: '', // string
   }, // rqProperty.PropertyTW
   properties: { // [][]any
   }, // [][]any
@@ -1219,6 +1227,7 @@ exports.AdminPropertiesTW = async function AdminPropertiesTW( i, cb ) {
  * @property {number} property.minimumDurationYear
  * @property {Object} property.otherFees
  * @property {Object} property.imageLabels
+ * @property {String} property.attribute
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -1283,6 +1292,7 @@ const AdminPropertiesUSIn = {
     }, // []any
     imageLabels: { // []any
     }, // []any
+    attribute: '', // string
   }, // rqProperty.PropertyUS
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -1352,6 +1362,7 @@ const AdminPropertiesUSIn = {
  * @property {number} property.minimumDurationYear
  * @property {Object} property.otherFees
  * @property {Object} property.imageLabels
+ * @property {String} property.attribute
  * @property {Object} properties
  */
 const AdminPropertiesUSOut = {
@@ -1427,6 +1438,7 @@ const AdminPropertiesUSOut = {
     }, // []any
     imageLabels: { // []any
     }, // []any
+    attribute: '', // string
   }, // rqProperty.PropertyUS
   properties: { // [][]any
   }, // [][]any
@@ -2269,6 +2281,7 @@ const GuestPropertyIn = {
  * @property {number} property.minimumDurationYear
  * @property {Object} property.otherFees
  * @property {Object} property.imageLabels
+ * @property {String} property.attribute
  * @property {number} propertyExtraUS.id
  * @property {String} propertyExtraUS.propertyKey
  * @property {String} propertyExtraUS.countyUrl
@@ -2341,6 +2354,7 @@ const GuestPropertyOut = {
     }, // []any
     imageLabels: { // []any
     }, // []any
+    attribute: '', // string
   }, // rqProperty.Property
   propertyExtraUS: { // rqProperty.PropertyExtraUS
     id: 0, // uint64
@@ -2794,6 +2808,7 @@ exports.RealtorRevenue = async function RealtorRevenue( i, cb ) {
  * @property {number} property.minimumDurationYear
  * @property {Object} property.otherFees
  * @property {Object} property.imageLabels
+ * @property {String} property.attribute
  */
 const RealtorUpsertPropertyIn = {
   askReview: false, // bool
@@ -2853,6 +2868,7 @@ const RealtorUpsertPropertyIn = {
     }, // []any
     imageLabels: { // []any
     }, // []any
+    attribute: '', // string
   }, // rqProperty.Property
 }
 /**
@@ -2905,6 +2921,7 @@ const RealtorUpsertPropertyIn = {
  * @property {number} property.minimumDurationYear
  * @property {Object} property.otherFees
  * @property {Object} property.imageLabels
+ * @property {String} property.attribute
  */
 const RealtorUpsertPropertyOut = {
   property: { // rqProperty.Property
@@ -2963,6 +2980,7 @@ const RealtorUpsertPropertyOut = {
     }, // []any
     imageLabels: { // []any
     }, // []any
+    attribute: '', // string
   }, // rqProperty.Property
 }
 /**
@@ -3496,6 +3514,7 @@ const UserPropertyIn = {
  * @property {number} property.minimumDurationYear
  * @property {Object} property.otherFees
  * @property {Object} property.imageLabels
+ * @property {String} property.attribute
  * @property {Object} propHistories
  * @property {Object} meta
  */
@@ -3556,6 +3575,7 @@ const UserPropertyOut = {
     }, // []any
     imageLabels: { // []any
     }, // []any
+    attribute: '', // string
   }, // rqProperty.Property
   propHistories: { // []rqProperty.PropertyHistory
   }, // []rqProperty.PropertyHistory
@@ -3580,6 +3600,7 @@ exports.UserProperty = async function UserProperty( i, cb ) {
 
 /**
  * @typedef {Object} UserSearchPropIn
+ * @property {Object} filter
  * @property {number} centerLat
  * @property {number} centerLong
  * @property {number} offset
@@ -3587,6 +3608,8 @@ exports.UserProperty = async function UserProperty( i, cb ) {
  * @property {number} maxDistanceKM
  */
 const UserSearchPropIn = {
+  filter: { // map[string]string
+  }, // map[string]string
   centerLat: 0, // float64
   centerLong: 0, // float64
   offset: 0, // int

@@ -7,12 +7,15 @@
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { LuSearch } from '../node_modules/svelte-icons-pack/dist/lu';
   import { FaSolidBan } from '../node_modules/svelte-icons-pack/dist/fa';
+  import { RiSystemFilterLine } from '../node_modules/svelte-icons-pack/dist/ri';
   import PropertyImage from '../_components/propertyImage.svelte';
   import GoogleMapJs from '../_components/GoogleMap/GoogleMapJS.svelte';
   import axios, { HttpStatusCode } from 'axios';
   import { notifier } from '../_components/notifier';
   import PopUpUpload3DFile from '../_components/PopUpUpload3DFile.svelte';
   import { gmap, mapLoader } from '../_components/GoogleMap/stores';
+  // import { UserSearchProp } from '../jsApi.GEN';
+  // import { onMount } from 'svelte';
 
 	const user    = /** @type {User} */ ({/* user */});
   const access  = /** @type {Access} */ ({/* segments */});
@@ -20,6 +23,24 @@
   let coord         = /** @type {number[]} */ ([/* initialLatLong */]);
   let properties    = /** @type {PropertyWithNote[]} */ ([/* randomProps */]);
   let distanceKm    = /** @type {number} */ (Number('#{defaultDistanceKm}') || 20);
+
+  // onMount(async () => {
+  //   setTimeout(async () => {
+  //     await UserSearchProp({
+  //       filter: {
+  //         bedroom: '2'
+  //       },
+  //       centerLat: 25.1113353,
+  //       centerLong: 121.5298509,
+  //       offset: 0,
+  //       limit: 0,
+  //       maxDistanceKM: 20
+  //     }, async res => {
+  //       console.log(res);
+  //     });
+  //   }, 5000);
+  // })
+  
   let gmapComponent = /** @type {import('svelte').SvelteComponent} */ (null);
   let mapMarkers    = /** @type {google.maps.marker.AdvancedMarkerElement[]} */ ([]);
 
@@ -193,6 +214,13 @@
       <div class="searcher">
         <div class="search-container">
           <div class="search-form">
+            <button class="filter-btn">
+              <Icon
+                src={RiSystemFilterLine}
+                size="15"
+              />
+              <span>Filter</span>
+            </button>
             <div class="search-box">
               <Icon
                 src={LuSearch}
@@ -337,6 +365,25 @@
     flex-direction: row;
     width: 100%;
     gap: 10px;
+  }
+
+  .listings-root .content .searcher .search-container .search-form .filter-btn {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    border: 1px solid var(--gray-003);
+    border-radius: 8px;
+    background-color: transparent;
+    padding: 10px 12px;
+    width: fit-content;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .listings-root .content .searcher .search-container .search-form .filter-btn:hover {
+    border: 1px solid var(--gray-005);
+    color: var(--gray-007);
+    background-color: var(--gray-001);
   }
 
   .listings-root .content .searcher .search-container .search-form .search-box {

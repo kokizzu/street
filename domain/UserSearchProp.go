@@ -22,6 +22,8 @@ type (
 	UserSearchPropIn struct {
 		RequestCommon `json:"request_common"`
 
+		Filter map[string]string `json:"filter" form:"filter" query:"filter" long:"filter" msg:"filter"`
+
 		CenterLat  float64 `json:"centerLat" form:"centerLat" query:"centerLat" long:"centerLat" msg:"centerLat"`
 		CenterLong float64 `json:"centerLong" form:"centerLong" query:"centerLong" long:"centerLong" msg:"centerLong"`
 		Offset     int     `json:"offset" form:"offset" query:"offset" long:"offset" msg:"offset"`
@@ -141,6 +143,10 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 			return false
 		}
 
+		if !item.IsColumnFiltered(in.Filter) {
+			return false
+		}
+
 		img3d := rqStorage.NewDesignFiles(d.StorOltp)
 		img3dCountryPropId := fmt.Sprintf("%s:%d", item.CountryCode, item.Id)
 		img3d.CountryPropId = img3dCountryPropId
@@ -149,6 +155,7 @@ func (d *Domain) UserSearchProp(in *UserSearchPropIn) (out UserSearchPropOut) {
 		}
 
 		satisfiedProperties = append(satisfiedProperties, item)
+
 		return true
 	})
 

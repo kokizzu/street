@@ -269,6 +269,8 @@ func main() {
 		zImport.MigratePropertyUSImage(tConn, 4000001, 8000000)
 	case `clean_excessive_attr_property_extra_us`: // 2023-10-15
 		zImport.CleanExcessiveAttrPropertyExtraUs(tConn)
+	case `import_property_in`: // 2025-10-01
+		zImport.ReadPropertyIN(tConn, `./static/house_data/HapSTR_TNGSS_Coimbatore_sample_listings.tsv`)
 	case `import_location`: // 2023-07-02
 		zImport.ImportHouseLocation(tConn, gmap)
 	case `import_streetview_image`: // 2023-09-04
