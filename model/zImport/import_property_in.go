@@ -54,28 +54,42 @@ func ReadPropertyIN(conn *Tt.Adapter, resourcePath string) {
 		Bed       string
 		Bath      string
 		SqFt      string
+		AgentName string
 	}
 
 	var properties []propertyIn
 
 	tsv := tsvreader.New(file)
 	for tsv.Next() {
-		var prop propertyIn
+		PostName := tsv.String()
+		Type := tsv.String()
+		Address := tsv.String()
+		City := tsv.String()
+		State := tsv.String()
+		ZipCode := tsv.String()
+		Lat := tsv.String()
+		Lng := tsv.String()
+		MainPrice := tsv.String()
+		Bed := tsv.String()
+		Bath := tsv.String()
+		SqFt := tsv.String()
+		agentName := tsv.String()
 
-		prop.PostName = S.Trim(tsv.String())
-		prop.Type = S.Trim(tsv.String())
-		prop.Address = S.Trim(tsv.String())
-		prop.City = S.Trim(tsv.String())
-		prop.State = S.Trim(tsv.String())
-		prop.ZipCode = S.Trim(tsv.String())
-		prop.Lat = S.Trim(tsv.String())
-		prop.Lng = S.Trim(tsv.String())
-		prop.MainPrice = S.Trim(tsv.String())
-		prop.Bed = S.Trim(tsv.String())
-		prop.Bath = S.Trim(tsv.String())
-		prop.SqFt = S.Trim(tsv.String())
-
-		properties = append(properties, prop)
+		properties = append(properties, propertyIn{
+			PostName:  PostName,
+			Type:      Type,
+			Address:   Address,
+			City:      City,
+			State:     State,
+			ZipCode:   ZipCode,
+			Lat:       Lat,
+			Lng:       Lng,
+			MainPrice: MainPrice,
+			Bed:       Bed,
+			Bath:      Bath,
+			SqFt:      SqFt,
+			AgentName: agentName,
+		})
 	}
 
 	properties = properties[1:]
