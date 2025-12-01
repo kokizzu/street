@@ -10,25 +10,25 @@
 		"serve": "node build.js --serve"
 	},
 	"dependencies": {
-		"@googlemaps/js-api-loader": "^1.16.8",
-		"axios": "^1.8.2",
-		"chart.js": "^4.3.2",
+		"@googlemaps/js-api-loader": "^1.16.10",
+		"axios": "^1.13.2",
+		"chart.js": "^4.5.1",
 		"file-selector": "^0.2.4",
 		"svelte-icons-pack": "^3.1.3"
 	},
 	"devDependencies": {
 		"@types/google.maps": "^3.58.1",
-		"chokidar": "^3.5.3",
+		"chokidar": "^3.6.0",
 		"esbuild": "0.25.0",
-		"esbuild-svelte": "^0.8.0",
+		"esbuild-svelte": "^0.8.2",
 		"five-server": "^0.1.9",
 		"lodash": "^4.17.21",
 		"node-notifier": "^10.0.1",
-		"parse5": "^7.1.2",
+		"parse5": "^7.3.0",
 		"prettier": "^2.8.8",
-		"svelte": "^4.2.2",
-		"svelte-preprocess": "^5.0.4",
-		"typescript": "^5.2.2"
+		"svelte": "^4.2.20",
+		"svelte-preprocess": "^5.1.4",
+		"typescript": "^5.9.3"
 	},
 	"prettier": {
 		"singleQuote": true,
