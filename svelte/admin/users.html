@@ -5873,6 +5873,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let a7;
     let t23;
     let a8;
+    let t26;
+    let a9;
     return {
       c() {
         div = element("div");
@@ -5903,6 +5905,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         t23 = space();
         a8 = element("a");
         a8.innerHTML = `<span class="title svelte-1fszk5i">3D Files</span> <span class="block svelte-1fszk5i"></span>`;
+        t26 = space();
+        a9 = element("a");
+        a9.innerHTML = `<span class="title svelte-1fszk5i">PostHog</span> <span class="block svelte-1fszk5i"></span>`;
         attr(a0, "href", "/admin");
         attr(a0, "class", "svelte-1fszk5i");
         toggle_class(
@@ -5975,6 +5980,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           /*segment2*/
           ctx[0] === "3dFiles"
         );
+        attr(a9, "href", "/admin/posthog");
+        attr(a9, "class", "svelte-1fszk5i");
+        toggle_class(
+            a9,
+            "active",
+            /*segment2*/
+            ctx[0] === "posthog"
+        );
         attr(nav, "class", "svelte-1fszk5i");
         attr(div, "class", "admin-submenu svelte-1fszk5i");
       },
@@ -5998,6 +6011,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         append(nav, a7);
         append(nav, t23);
         append(nav, a8);
+        append(nav, t26);
+        append(nav, a9);
       },
       p: noop,
       i: noop,
