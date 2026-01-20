@@ -24,3 +24,4 @@ tmp_docker-mailserver
 
 *.lzo
 *.lz4
+./street
