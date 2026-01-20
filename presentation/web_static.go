@@ -817,7 +817,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`, 302)
 		}
 		user, segments := userInfoFromRequest(in, d)
-		return views.RenderAdmin3DFiles(ctx, M.SX{
+		return views.RenderAdminPosthog(ctx, M.SX{
 			`title`:    `Posthog`,
 			`segments`: segments,
 			`user`:     user,
