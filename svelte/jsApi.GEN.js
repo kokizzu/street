@@ -109,7 +109,7 @@ const Admin3DFilesOut = {
  * @param {Admin3DFilesCallback} cb
  * @returns {Promise}
  */
-exports.Admin3DFiles = async function Admin3DFiles( i, cb ) {
+export const Admin3DFiles = async function Admin3DFiles( i, cb ) {
   return await axios.post( '/admin/3dFiles', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -176,7 +176,7 @@ const AdminAccessLogsOut = {
  * @param {AdminAccessLogsCallback} cb
  * @returns {Promise}
  */
-exports.AdminAccessLogs = async function AdminAccessLogs( i, cb ) {
+export const AdminAccessLogs = async function AdminAccessLogs( i, cb ) {
   return await axios.post( '/admin/accessLogs', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -218,7 +218,7 @@ const AdminDashboardOut = {
  * @param {AdminDashboardCallback} cb
  * @returns {Promise}
  */
-exports.AdminDashboard = async function AdminDashboard( i, cb ) {
+export const AdminDashboard = async function AdminDashboard( i, cb ) {
   return await axios.post( '/admin/dashboard', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -326,7 +326,7 @@ const AdminFeedbacksOut = {
  * @param {AdminFeedbacksCallback} cb
  * @returns {Promise}
  */
-exports.AdminFeedbacks = async function AdminFeedbacks( i, cb ) {
+export const AdminFeedbacks = async function AdminFeedbacks( i, cb ) {
   return await axios.post( '/admin/feedbacks', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -447,7 +447,7 @@ const AdminFilesOut = {
  * @param {AdminFilesCallback} cb
  * @returns {Promise}
  */
-exports.AdminFiles = async function AdminFiles( i, cb ) {
+export const AdminFiles = async function AdminFiles( i, cb ) {
   return await axios.post( '/admin/files', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -604,7 +604,7 @@ const AdminPropHistoriesOut = {
  * @param {AdminPropHistoriesCallback} cb
  * @returns {Promise}
  */
-exports.AdminPropHistories = async function AdminPropHistories( i, cb ) {
+export const AdminPropHistories = async function AdminPropHistories( i, cb ) {
   return await axios.post( '/admin/propHistories', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -887,7 +887,7 @@ const AdminPropertiesOut = {
  * @param {AdminPropertiesCallback} cb
  * @returns {Promise}
  */
-exports.AdminProperties = async function AdminProperties( i, cb ) {
+export const AdminProperties = async function AdminProperties( i, cb ) {
   return await axios.post( '/admin/properties', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -1170,7 +1170,7 @@ const AdminPropertiesTWOut = {
  * @param {AdminPropertiesTWCallback} cb
  * @returns {Promise}
  */
-exports.AdminPropertiesTW = async function AdminPropertiesTW( i, cb ) {
+export const AdminPropertiesTW = async function AdminPropertiesTW( i, cb ) {
   return await axios.post( '/admin/properties/TW', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -1453,7 +1453,7 @@ const AdminPropertiesUSOut = {
  * @param {AdminPropertiesUSCallback} cb
  * @returns {Promise}
  */
-exports.AdminPropertiesUS = async function AdminPropertiesUS( i, cb ) {
+export const AdminPropertiesUS = async function AdminPropertiesUS( i, cb ) {
   return await axios.post( '/admin/properties/US', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -1520,7 +1520,7 @@ const AdminRevenueOut = {
  * @param {AdminRevenueCallback} cb
  * @returns {Promise}
  */
-exports.AdminRevenue = async function AdminRevenue( i, cb ) {
+export const AdminRevenue = async function AdminRevenue( i, cb ) {
   return await axios.post( '/admin/revenue', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -1673,7 +1673,7 @@ const AdminUsersOut = {
  * @param {AdminUsersCallback} cb
  * @returns {Promise}
  */
-exports.AdminUsers = async function AdminUsers( i, cb ) {
+export const AdminUsers = async function AdminUsers( i, cb ) {
   return await axios.post( '/admin/users', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -1750,7 +1750,7 @@ const GuestAutoLoginOut = {
  * @param {GuestAutoLoginCallback} cb
  * @returns {Promise}
  */
-exports.GuestAutoLogin = async function GuestAutoLogin( i, cb ) {
+export const GuestAutoLogin = async function GuestAutoLogin( i, cb ) {
   return await axios.post( '/guest/autoLogin', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -1779,7 +1779,7 @@ const GuestDebugOut = {
  * @param {GuestDebugCallback} cb
  * @returns {Promise}
  */
-exports.GuestDebug = async function GuestDebug( i, cb ) {
+export const GuestDebug = async function GuestDebug( i, cb ) {
   return await axios.post( '/guest/debug', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -1819,7 +1819,7 @@ const GuestExternalAuthOut = {
  * @param {GuestExternalAuthCallback} cb
  * @returns {Promise}
  */
-exports.GuestExternalAuth = async function GuestExternalAuth( i, cb ) {
+export const GuestExternalAuth = async function GuestExternalAuth( i, cb ) {
   return await axios.post( '/guest/externalAuth', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -1859,7 +1859,7 @@ const GuestFilesOut = {
  * @param {GuestFilesCallback} cb
  * @returns {Promise}
  */
-exports.GuestFiles = async function GuestFiles( i, cb ) {
+export const GuestFiles = async function GuestFiles( i, cb ) {
   return await axios.post( '/guest/files', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -1891,7 +1891,7 @@ const GuestForgotPasswordOut = {
  * @param {GuestForgotPasswordCallback} cb
  * @returns {Promise}
  */
-exports.GuestForgotPassword = async function GuestForgotPassword( i, cb ) {
+export const GuestForgotPassword = async function GuestForgotPassword( i, cb ) {
   return await axios.post( '/guest/forgotPassword', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -1966,7 +1966,7 @@ const GuestLoginOut = {
  * @param {GuestLoginCallback} cb
  * @returns {Promise}
  */
-exports.GuestLogin = async function GuestLogin( i, cb ) {
+export const GuestLogin = async function GuestLogin( i, cb ) {
   return await axios.post( '/guest/login', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -2050,7 +2050,7 @@ const GuestOauthCallbackOut = {
  * @param {GuestOauthCallbackCallback} cb
  * @returns {Promise}
  */
-exports.GuestOauthCallback = async function GuestOauthCallback( i, cb ) {
+export const GuestOauthCallback = async function GuestOauthCallback( i, cb ) {
   return await axios.post( '/guest/oauthCallback', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -2134,7 +2134,7 @@ const GuestOauthCallbackRedirectOut = {
  * @param {GuestOauthCallbackRedirectCallback} cb
  * @returns {Promise}
  */
-exports.GuestOauthCallbackRedirect = async function GuestOauthCallbackRedirect( i, cb ) {
+export const GuestOauthCallbackRedirect = async function GuestOauthCallbackRedirect( i, cb ) {
   return await axios.post( '/guest/oauthCallbackRedirect', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -2216,7 +2216,7 @@ const GuestOauthTokenExchangeOut = {
  * @param {GuestOauthTokenExchangeCallback} cb
  * @returns {Promise}
  */
-exports.GuestOauthTokenExchange = async function GuestOauthTokenExchange( i, cb ) {
+export const GuestOauthTokenExchange = async function GuestOauthTokenExchange( i, cb ) {
   return await axios.post( '/guest/oauthTokenExchange', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -2384,7 +2384,7 @@ const GuestPropertyOut = {
  * @param {GuestPropertyCallback} cb
  * @returns {Promise}
  */
-exports.GuestProperty = async function GuestProperty( i, cb ) {
+export const GuestProperty = async function GuestProperty( i, cb ) {
   return await axios.post( '/guest/property', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -2458,7 +2458,7 @@ const GuestRegisterOut = {
  * @param {GuestRegisterCallback} cb
  * @returns {Promise}
  */
-exports.GuestRegister = async function GuestRegister( i, cb ) {
+export const GuestRegister = async function GuestRegister( i, cb ) {
   return await axios.post( '/guest/register', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -2490,7 +2490,7 @@ const GuestResendVerificationEmailOut = {
  * @param {GuestResendVerificationEmailCallback} cb
  * @returns {Promise}
  */
-exports.GuestResendVerificationEmail = async function GuestResendVerificationEmail( i, cb ) {
+export const GuestResendVerificationEmail = async function GuestResendVerificationEmail( i, cb ) {
   return await axios.post( '/guest/resendVerificationEmail', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -2524,7 +2524,7 @@ const GuestResetPasswordOut = {
  * @param {GuestResetPasswordCallback} cb
  * @returns {Promise}
  */
-exports.GuestResetPassword = async function GuestResetPassword( i, cb ) {
+export const GuestResetPassword = async function GuestResetPassword( i, cb ) {
   return await axios.post( '/guest/resetPassword', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -2558,7 +2558,7 @@ const GuestVerifyEmailOut = {
  * @param {GuestVerifyEmailCallback} cb
  * @returns {Promise}
  */
-exports.GuestVerifyEmail = async function GuestVerifyEmail( i, cb ) {
+export const GuestVerifyEmail = async function GuestVerifyEmail( i, cb ) {
   return await axios.post( '/guest/verifyEmail', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -2588,7 +2588,7 @@ const RealtorDeletePropertyOut = {
  * @param {RealtorDeletePropertyCallback} cb
  * @returns {Promise}
  */
-exports.RealtorDeleteProperty = async function RealtorDeleteProperty( i, cb ) {
+export const RealtorDeleteProperty = async function RealtorDeleteProperty( i, cb ) {
   return await axios.post( '/realtor/deleteProperty', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -2648,7 +2648,7 @@ const RealtorOwnedPropertiesOut = {
  * @param {RealtorOwnedPropertiesCallback} cb
  * @returns {Promise}
  */
-exports.RealtorOwnedProperties = async function RealtorOwnedProperties( i, cb ) {
+export const RealtorOwnedProperties = async function RealtorOwnedProperties( i, cb ) {
   return await axios.post( '/realtor/ownedProperties', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -2686,7 +2686,7 @@ const RealtorPropertyOut = {
  * @param {RealtorPropertyCallback} cb
  * @returns {Promise}
  */
-exports.RealtorProperty = async function RealtorProperty( i, cb ) {
+export const RealtorProperty = async function RealtorProperty( i, cb ) {
   return await axios.post( '/realtor/property', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -2751,7 +2751,7 @@ const RealtorRevenueOut = {
  * @param {RealtorRevenueCallback} cb
  * @returns {Promise}
  */
-exports.RealtorRevenue = async function RealtorRevenue( i, cb ) {
+export const RealtorRevenue = async function RealtorRevenue( i, cb ) {
   return await axios.post( '/realtor/revenue', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -2993,7 +2993,7 @@ const RealtorUpsertPropertyOut = {
  * @param {RealtorUpsertPropertyCallback} cb
  * @returns {Promise}
  */
-exports.RealtorUpsertProperty = async function RealtorUpsertProperty( i, cb ) {
+export const RealtorUpsertProperty = async function RealtorUpsertProperty( i, cb ) {
   return await axios.post( '/realtor/upsertProperty', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3023,7 +3023,7 @@ const UserAutoLoginLinkOut = {
  * @param {UserAutoLoginLinkCallback} cb
  * @returns {Promise}
  */
-exports.UserAutoLoginLink = async function UserAutoLoginLink( i, cb ) {
+export const UserAutoLoginLink = async function UserAutoLoginLink( i, cb ) {
   return await axios.post( '/user/autoLoginLink', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3092,7 +3092,7 @@ const UserBuyersOut = {
  * @param {UserBuyersCallback} cb
  * @returns {Promise}
  */
-exports.UserBuyers = async function UserBuyers( i, cb ) {
+export const UserBuyers = async function UserBuyers( i, cb ) {
   return await axios.post( '/user/buyers', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3124,7 +3124,7 @@ const UserChangePasswordOut = {
  * @param {UserChangePasswordCallback} cb
  * @returns {Promise}
  */
-exports.UserChangePassword = async function UserChangePassword( i, cb ) {
+export const UserChangePassword = async function UserChangePassword( i, cb ) {
   return await axios.post( '/user/changePassword', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3152,7 +3152,7 @@ const UserDeactivateOut = {
  * @param {UserDeactivateCallback} cb
  * @returns {Promise}
  */
-exports.UserDeactivate = async function UserDeactivate( i, cb ) {
+export const UserDeactivate = async function UserDeactivate( i, cb ) {
   return await axios.post( '/user/deactivate', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3190,7 +3190,7 @@ const UserGpsCountryOut = {
  * @param {UserGpsCountryCallback} cb
  * @returns {Promise}
  */
-exports.UserGpsCountry = async function UserGpsCountry( i, cb ) {
+export const UserGpsCountry = async function UserGpsCountry( i, cb ) {
   return await axios.post( '/user/gpsCountry', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3220,7 +3220,7 @@ const UserLikePropOut = {
  * @param {UserLikePropCallback} cb
  * @returns {Promise}
  */
-exports.UserLikeProp = async function UserLikeProp( i, cb ) {
+export const UserLikeProp = async function UserLikeProp( i, cb ) {
   return await axios.post( '/user/likeProp', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3258,7 +3258,7 @@ const UserListingOut = {
  * @param {UserListingCallback} cb
  * @returns {Promise}
  */
-exports.UserListing = async function UserListing( i, cb ) {
+export const UserListing = async function UserListing( i, cb ) {
   return await axios.post( '/user/listing', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3284,7 +3284,7 @@ const UserListingsOut = {
  * @param {UserListingsCallback} cb
  * @returns {Promise}
  */
-exports.UserListings = async function UserListings( i, cb ) {
+export const UserListings = async function UserListings( i, cb ) {
   return await axios.post( '/user/listings', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3312,7 +3312,7 @@ const UserLogoutOut = {
  * @param {UserLogoutCallback} cb
  * @returns {Promise}
  */
-exports.UserLogout = async function UserLogout( i, cb ) {
+export const UserLogout = async function UserLogout( i, cb ) {
   return await axios.post( '/user/logout', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3347,7 +3347,7 @@ const UserNearbyFacilitiesOut = {
  * @param {UserNearbyFacilitiesCallback} cb
  * @returns {Promise}
  */
-exports.UserNearbyFacilities = async function UserNearbyFacilities( i, cb ) {
+export const UserNearbyFacilities = async function UserNearbyFacilities( i, cb ) {
   return await axios.post( '/user/nearbyFacilities', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3418,7 +3418,7 @@ const UserProfileOut = {
  * @param {UserProfileCallback} cb
  * @returns {Promise}
  */
-exports.UserProfile = async function UserProfile( i, cb ) {
+export const UserProfile = async function UserProfile( i, cb ) {
   return await axios.post( '/user/profile', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3449,7 +3449,7 @@ const UserPropHistoryOut = {
  * @param {UserPropHistoryCallback} cb
  * @returns {Promise}
  */
-exports.UserPropHistory = async function UserPropHistory( i, cb ) {
+export const UserPropHistory = async function UserPropHistory( i, cb ) {
   return await axios.post( '/user/propHistory', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3592,7 +3592,7 @@ const UserPropertyOut = {
  * @param {UserPropertyCallback} cb
  * @returns {Promise}
  */
-exports.UserProperty = async function UserProperty( i, cb ) {
+export const UserProperty = async function UserProperty( i, cb ) {
   return await axios.post( '/user/property', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3634,7 +3634,7 @@ const UserSearchPropOut = {
  * @param {UserSearchPropCallback} cb
  * @returns {Promise}
  */
-exports.UserSearchProp = async function UserSearchProp( i, cb ) {
+export const UserSearchProp = async function UserSearchProp( i, cb ) {
   return await axios.post( '/user/searchProp', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3673,7 +3673,7 @@ const UserSearchPropUSOut = {
  * @param {UserSearchPropUSCallback} cb
  * @returns {Promise}
  */
-exports.UserSearchPropUS = async function UserSearchPropUS( i, cb ) {
+export const UserSearchPropUS = async function UserSearchPropUS( i, cb ) {
   return await axios.post( '/user/searchProp/US', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3701,7 +3701,7 @@ const UserSendFeedbackOut = {
  * @param {UserSendFeedbackCallback} cb
  * @returns {Promise}
  */
-exports.UserSendFeedback = async function UserSendFeedback( i, cb ) {
+export const UserSendFeedback = async function UserSendFeedback( i, cb ) {
   return await axios.post( '/user/sendFeedback', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3733,7 +3733,7 @@ const UserSessionKillOut = {
  * @param {UserSessionKillCallback} cb
  * @returns {Promise}
  */
-exports.UserSessionKill = async function UserSessionKill( i, cb ) {
+export const UserSessionKill = async function UserSessionKill( i, cb ) {
   return await axios.post( '/user/sessionKill', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3762,7 +3762,7 @@ const UserSessionsActiveOut = {
  * @param {UserSessionsActiveCallback} cb
  * @returns {Promise}
  */
-exports.UserSessionsActive = async function UserSessionsActive( i, cb ) {
+export const UserSessionsActive = async function UserSessionsActive( i, cb ) {
   return await axios.post( '/user/sessionsActive', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3843,7 +3843,7 @@ const UserUpdateProfileOut = {
  * @param {UserUpdateProfileCallback} cb
  * @returns {Promise}
  */
-exports.UserUpdateProfile = async function UserUpdateProfile( i, cb ) {
+export const UserUpdateProfile = async function UserUpdateProfile( i, cb ) {
   return await axios.post( '/user/updateProfile', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3877,7 +3877,7 @@ const UserUpload3DFileOut = {
  * @param {UserUpload3DFileCallback} cb
  * @returns {Promise}
  */
-exports.UserUpload3DFile = async function UserUpload3DFile( i, cb ) {
+export const UserUpload3DFile = async function UserUpload3DFile( i, cb ) {
   return await axios.post( '/user/upload3DFile', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3911,7 +3911,7 @@ const UserUploadFileOut = {
  * @param {UserUploadFileCallback} cb
  * @returns {Promise}
  */
-exports.UserUploadFile = async function UserUploadFile( i, cb ) {
+export const UserUploadFile = async function UserUploadFile( i, cb ) {
   return await axios.post( '/user/uploadFile', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
@@ -3943,7 +3943,7 @@ const UserViewRoomOut = {
  * @param {UserViewRoomCallback} cb
  * @returns {Promise}
  */
-exports.UserViewRoom = async function UserViewRoom( i, cb ) {
+export const UserViewRoom = async function UserViewRoom( i, cb ) {
   return await axios.post( '/user/viewRoom', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )

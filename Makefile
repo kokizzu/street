@@ -37,3 +37,8 @@ orm:
 views:
 	# generate views and routes
 	./gen-views.sh
+
+svelte:
+	cd svelte
+	pnpm i
+	pnpm run dev
