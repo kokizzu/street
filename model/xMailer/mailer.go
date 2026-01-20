@@ -169,6 +169,6 @@ Thank you for your feedback.
 		map[string]string{userEmail: ``},
 		`Reply Feedback #`+feedbackId,
 		text,
-		fmt.Sprintf(htmlFromText(text)),
+		htmlFromText(text),
 	)
 }

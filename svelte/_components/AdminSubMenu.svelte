@@ -40,6 +40,10 @@
 			<span class="title">3D Files</span>
 			<span class="block"></span>
 		</a>
+		<a href="/admin/posthog" class:active={segment2==='posthog'}>
+			<span class="title">PostHog</span>
+			<span class="block"></span>
+		</a>
 	</nav>
 </div>
 

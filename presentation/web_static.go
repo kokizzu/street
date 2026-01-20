@@ -807,6 +807,22 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`pager`:    out.Pager,
 		})
 	})
+	fw.Get(`/admin/posthog`, func(ctx *fiber.Ctx) error {
+		var in domain.RequestCommon
+		err := webApiParseInput(ctx, &in, &in, domain.AdminUsersAction)
+		if err != nil {
+			return err
+		}
+		if notAdmin(ctx, d, in) {
+			return ctx.Redirect(`/`, 302)
+		}
+		user, segments := userInfoFromRequest(in, d)
+		return views.RenderAdminPosthog(ctx, M.SX{
+			`title`:    `Posthog`,
+			`segments`: segments,
+			`user`:     user,
+		})
+	})
 	fw.All(`/`+domain.GuestFilesAction+`/:base62id-:modifier.:ext`, func(ctx *fiber.Ctx) error {
 		method := ctx.Method()
 		if method != fiber.MethodGet && method != fiber.MethodHead {

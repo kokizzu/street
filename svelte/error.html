@@ -398,7 +398,7 @@
 }
 </style>
 <script>(() => {
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/utils.js
+  // node_modules/.pnpm/svelte@4.2.20/node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
   function assign(tar, src) {
@@ -428,13 +428,13 @@
     return Object.keys(obj).length === 0;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/globals.js
+  // node_modules/.pnpm/svelte@4.2.20/node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
     // @ts-ignore Node typings have this
     global
   );
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  // node_modules/.pnpm/svelte@4.2.20/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
   var ResizeObserverSingleton = class {
     /**
      * @private
@@ -480,7 +480,7 @@
   };
   ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/dom.js
+  // node_modules/.pnpm/svelte@4.2.20/node_modules/svelte/src/runtime/internal/dom.js
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -540,13 +540,13 @@
     return result;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/lifecycle.js
+  // node_modules/.pnpm/svelte@4.2.20/node_modules/svelte/src/runtime/internal/lifecycle.js
   var current_component;
   function set_current_component(component) {
     current_component = component;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/scheduler.js
+  // node_modules/.pnpm/svelte@4.2.20/node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -621,7 +621,7 @@
     render_callbacks = filtered;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/transitions.js
+  // node_modules/.pnpm/svelte@4.2.20/node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   var outros;
   function transition_in(block, local) {
@@ -649,7 +649,7 @@
     }
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/spread.js
+  // node_modules/.pnpm/svelte@4.2.20/node_modules/svelte/src/runtime/internal/spread.js
   function get_spread_update(levels, updates) {
     const update2 = {};
     const to_null_out = {};
@@ -683,7 +683,7 @@
     return update2;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/boolean_attributes.js
+  // node_modules/.pnpm/svelte@4.2.20/node_modules/svelte/src/shared/boolean_attributes.js
   var _boolean_attributes = (
     /** @type {const} */
     [
@@ -716,7 +716,7 @@
   );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/Component.js
+  // node_modules/.pnpm/svelte@4.2.20/node_modules/svelte/src/runtime/internal/Component.js
   function create_component(block) {
     block && block.c();
   }
@@ -856,6 +856,12 @@
             this.$l_u.delete(listener);
           }
         }
+        if (this.$l[type]) {
+          const idx = this.$l[type].indexOf(listener);
+          if (idx >= 0) {
+            this.$l[type].splice(idx, 1);
+          }
+        }
       }
       async connectedCallback() {
         this.$cn = true;
@@ -887,7 +893,7 @@
             };
           };
           await Promise.resolve();
-          if (!this.$cn) {
+          if (!this.$cn || this.$c) {
             return;
           }
           const $slots = {};
@@ -901,6 +907,12 @@
             const name = this.$g_p(attribute.name);
             if (!(name in this.$d)) {
               this.$d[name] = get_custom_element_value(name, attribute.value, this.$p_d, "toProp");
+            }
+          }
+          for (const key in this.$p_d) {
+            if (!(key in this.$d) && this[key] !== void 0) {
+              this.$d[key] = this[key];
+              delete this[key];
             }
           }
           this.$c = new this.$ctor({
@@ -956,7 +968,7 @@
       disconnectedCallback() {
         this.$cn = false;
         Promise.resolve().then(() => {
-          if (!this.$cn) {
+          if (!this.$cn && this.$c) {
             this.$c.$destroy();
             this.$c = void 0;
           }
@@ -1053,14 +1065,14 @@
     }
   };
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/version.js
+  // node_modules/.pnpm/svelte@4.2.20/node_modules/svelte/src/shared/version.js
   var PUBLIC_VERSION = "4";
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  // node_modules/.pnpm/svelte@4.2.20/node_modules/svelte/src/runtime/internal/disclose-version/index.js
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/Icon.svelte
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.20/node_modules/svelte-icons-pack/dist/Icon.svelte
   function create_fragment(ctx) {
     let svg;
     let svg_style_value;
@@ -1219,7 +1231,7 @@
   };
   var Icon_default = Icon;
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/fa/index.js
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.20/node_modules/svelte-icons-pack/dist/fa/index.js
   var FaSolidArrowRight = { a: { viewBox: "0 0 448 512" }, c: '<path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>' };
 
   // error.svelte
