@@ -6446,7 +6446,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   function instance3($self, $props, $invalidate) {
     let $isSideMenuOpen;
     component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(15, $isSideMenuOpen = $value));
-    let { user: user2 = null } = $props;
+    let { user = null } = $props;
     let { access = {
       "admin": false,
       "buyer": false,
@@ -6458,18 +6458,18 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     let selectedLanguage = "";
     onMount(() => {
-      console.log("onMount.ProfileHeader =", user2);
+      console.log("onMount.ProfileHeader =", user);
       $invalidate(1, selectedLanguage = T.currentLang || "EN");
     });
     async function updateLang() {
-      if (user2 !== null && user2.language !== selectedLanguage) {
-        $invalidate(8, user2.language = selectedLanguage, user2);
-        await UserUpdateProfile(user2, function(res) {
+      if (user !== null && user.language !== selectedLanguage) {
+        $invalidate(8, user.language = selectedLanguage, user);
+        await UserUpdateProfile(user, function(res) {
           if (res.error) {
             notifier.showError(res.error);
             return;
           }
-          $invalidate(8, user2 = res.user);
+          $invalidate(8, user = res.user);
         });
       }
     }
@@ -6517,7 +6517,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(8, user2 = $props2.user);
+        $invalidate(8, user = $props2.user);
       if ("access" in $props2)
         $invalidate(0, access = $props2.access);
     };
@@ -6538,7 +6538,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       openSideMenu,
       userLogout,
       sendFeedback,
-      user2,
+      user,
       textarea_input_handler,
       click_handler,
       click_handler_1,
@@ -8939,11 +8939,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   }
   function instance6($self, $props, $invalidate) {
     let { propHistories } = $props;
-    let { propItem: propItem2 = (
+    let { propItem = (
       /** @type {TypeProperty | TypePropertyUS} */
       {}
     ) } = $props;
-    let { meta: meta2 } = $props;
+    let { meta } = $props;
     let { isAdmin: isAdmin2 = false } = $props;
     let { isGuest = false } = $props;
     let { propExtraUS = (
@@ -8967,15 +8967,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     onMount(() => {
       console.log("onMount.Property");
-      console.log("Property = ", propItem2);
-      console.log("Meta =", meta2);
+      console.log("Property = ", propItem);
+      console.log("Meta =", meta);
       console.log("IsAdmin =", isAdmin2);
       console.log("isGuest =", isGuest);
-      console.log("propItem.note =", propItem2.note);
-      if (propItem2.approvalState !== "pending" && propItem2.approvalState !== "") {
+      console.log("propItem.note =", propItem.note);
+      if (propItem.approvalState !== "pending" && propItem.approvalState !== "") {
         $invalidate(5, approvalStatus = "rejected");
       }
-      if (propItem2.approvalState === "pending") {
+      if (propItem.approvalState === "pending") {
         $invalidate(5, approvalStatus = "pending");
       }
     });
@@ -8983,9 +8983,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       if ("propHistories" in $props2)
         $invalidate(0, propHistories = $props2.propHistories);
       if ("propItem" in $props2)
-        $invalidate(1, propItem2 = $props2.propItem);
+        $invalidate(1, propItem = $props2.propItem);
       if ("meta" in $props2)
-        $invalidate(2, meta2 = $props2.meta);
+        $invalidate(2, meta = $props2.meta);
       if ("isAdmin" in $props2)
         $invalidate(3, isAdmin2 = $props2.isAdmin);
       if ("isGuest" in $props2)
@@ -8995,8 +8995,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     };
     return [
       propHistories,
-      propItem2,
-      meta2,
+      propItem,
+      meta,
       isAdmin2,
       isGuest,
       approvalStatus,
@@ -9036,7 +9036,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let p0;
     let t2_value = (
       /*approvalStates*/
-      ctx[1][
+      ctx[5][
         /*approvalStatus*/
         ctx[0]
       ].description + ""
@@ -9048,7 +9048,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let p1;
     let t4_value = (
       /*approvalStates*/
-      ctx[1][
+      ctx[5][
         /*approvalStatus*/
         ctx[0]
       ].reason + ""
@@ -9060,9 +9060,35 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let t6;
     let footer;
     let current;
-    menu = new Menu_default({ props: { access: segments } });
-    profileheader = new ProfileHeader_default({ props: { user, access: segments } });
-    property = new Property_default({ props: { meta, propItem, isAdmin } });
+    menu = new Menu_default({ props: { access: (
+      /*segments*/
+      ctx[4]
+    ) } });
+    profileheader = new ProfileHeader_default({
+      props: {
+        user: (
+          /*user*/
+          ctx[3]
+        ),
+        access: (
+          /*segments*/
+          ctx[4]
+        )
+      }
+    });
+    property = new Property_default({
+      props: {
+        meta: (
+          /*meta*/
+          ctx[2]
+        ),
+        propItem: (
+          /*propItem*/
+          ctx[1]
+        ),
+        isAdmin
+      }
+    });
     footer = new Footer_default({});
     return {
       c() {
@@ -9126,7 +9152,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       p(ctx2, [dirty]) {
         if ((!current || dirty & /*approvalStatus*/
         1) && t2_value !== (t2_value = /*approvalStates*/
-        ctx2[1][
+        ctx2[5][
           /*approvalStatus*/
           ctx2[0]
         ].description + ""))
@@ -9138,7 +9164,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }
         if ((!current || dirty & /*approvalStatus*/
         1) && t4_value !== (t4_value = /*approvalStates*/
-        ctx2[1][
+        ctx2[5][
           /*approvalStatus*/
           ctx2[0]
         ].reason + ""))
@@ -9171,12 +9197,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  var propItem = {/* property */};
-  var meta = {/* propertyMeta */};
-  var user = {/* user */};
-  var segments = {/* segments */};
   var isAdmin = false;
   function instance7($self, $props, $invalidate) {
+    let propItem = {};
+    let meta = {};
+    let user = {};
+    let segments = {};
     let approvalStatus = "approved";
     onMount(() => {
       console.log("onMount.realtor/ownedProperty");
@@ -9202,7 +9228,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         reason: ""
       }
     };
-    return [approvalStatus, approvalStates];
+    return [approvalStatus, propItem, meta, user, segments, approvalStates];
   }
   var OwnedProperty = class extends SvelteComponent {
     constructor(options) {

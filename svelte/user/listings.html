@@ -4710,7 +4710,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     };
   }
   function instance($self, $props, $invalidate) {
-    let { access: access2 = (
+    let { access = (
       /** @type {Access} */
       {}
     ) } = $props;
@@ -4748,9 +4748,9 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     }
     $self.$set = ($props2) => {
       if ("access" in $props2)
-        $invalidate(0, access2 = $props2.access);
+        $invalidate(0, access = $props2.access);
     };
-    return [access2, pathAll, pathLv1, pathLv2, logout];
+    return [access, pathAll, pathLv1, pathLv2, logout];
   }
   var SideMenu = class extends SvelteComponent {
     constructor(options) {
@@ -5474,23 +5474,23 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     let $isShrinkMenu;
     component_subscribe($self, isShrinkMenu, ($value) => $invalidate(2, $isShrinkMenu = $value));
     let { $slots: slots = {}, $scope } = $props;
-    let { user: user2 = (
+    let { user = (
       /** @type {User} */
       {}
     ) } = $props;
-    let { access: access2 = (
+    let { access = (
       /** @type {Access} */
       {}
     ) } = $props;
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(0, user2 = $props2.user);
+        $invalidate(0, user = $props2.user);
       if ("access" in $props2)
-        $invalidate(1, access2 = $props2.access);
+        $invalidate(1, access = $props2.access);
       if ("$scope" in $props2)
         $invalidate(3, $scope = $props2.$scope);
     };
-    return [user2, access2, $isShrinkMenu, $scope, slots];
+    return [user, access, $isShrinkMenu, $scope, slots];
   }
   var Main = class extends SvelteComponent {
     constructor(options) {
@@ -9285,8 +9285,8 @@ picture.svelte-10x01ln img.svelte-10x01ln {
   // user/listings.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[30] = list[i];
-    child_ctx[32] = i;
+    child_ctx[34] = list[i];
+    child_ctx[36] = i;
     return child_ctx;
   }
   function create_if_block_23(ctx) {
@@ -9296,9 +9296,9 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     function click_handler_1() {
       return (
         /*click_handler_1*/
-        ctx[15](
+        ctx[19](
           /*prop*/
-          ctx[30]
+          ctx[34]
         )
       );
     }
@@ -9334,9 +9334,9 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     function click_handler_2() {
       return (
         /*click_handler_2*/
-        ctx[16](
+        ctx[20](
           /*prop*/
-          ctx[30]
+          ctx[34]
         )
       );
     }
@@ -9374,8 +9374,8 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     let b;
     let t1_value = (
       /*prop*/
-      (ctx[30].address || /*prop*/
-      ctx[30].formattedAddress) + ""
+      (ctx[34].address || /*prop*/
+      ctx[34].formattedAddress) + ""
     );
     let t1;
     let t2;
@@ -9384,7 +9384,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     let t3;
     let t4_value = (
       /*prop*/
-      ctx[30].numberOfFloors + ""
+      ctx[34].numberOfFloors + ""
     );
     let t4;
     let t5;
@@ -9392,7 +9392,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     let t6;
     let t7_value = (
       /*prop*/
-      ctx[30].bedroom + ""
+      ctx[34].bedroom + ""
     );
     let t7;
     let t8;
@@ -9400,7 +9400,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     let t9;
     let t10_value = (
       /*prop*/
-      ctx[30].bathroom + ""
+      ctx[34].bathroom + ""
     );
     let t10;
     let t11;
@@ -9408,7 +9408,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     let t12;
     let t13_value = (
       /*prop*/
-      ctx[30].sizeM2 + ""
+      ctx[34].sizeM2 + ""
     );
     let t13;
     let t14;
@@ -9416,7 +9416,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     let t15;
     let t16_value = (
       /*prop*/
-      ctx[30].totalSqft + ""
+      ctx[34].totalSqft + ""
     );
     let t16;
     let t17;
@@ -9431,31 +9431,31 @@ picture.svelte-10x01ln img.svelte-10x01ln {
       props: {
         src: (
           /*prop*/
-          ctx[30].images[0]
+          ctx[34].images[0]
         ),
         alt: (
           /*prop*/
-          ctx[30].address || /*prop*/
-          ctx[30].formattedAddress
+          ctx[34].address || /*prop*/
+          ctx[34].formattedAddress
         )
       }
     });
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[14](
+        ctx[18](
           /*prop*/
-          ctx[30]
+          ctx[34]
         )
       );
     }
     let if_block0 = (
       /*prop*/
-      ctx[30].image3dUrl === "" && create_if_block_23(ctx)
+      ctx[34].image3dUrl === "" && create_if_block_23(ctx)
     );
     let if_block1 = (
       /*prop*/
-      ctx[30].image3dUrl !== "" && create_if_block_13(ctx)
+      ctx[34].image3dUrl !== "" && create_if_block_13(ctx)
     );
     return {
       key: key_1,
@@ -9559,44 +9559,44 @@ picture.svelte-10x01ln img.svelte-10x01ln {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         const propertyimage_changes = {};
-        if (dirty & /*properties*/
-        0)
+        if (dirty[0] & /*properties*/
+        1)
           propertyimage_changes.src = /*prop*/
-          ctx[30].images[0];
-        if (dirty & /*properties*/
-        0)
+          ctx[34].images[0];
+        if (dirty[0] & /*properties*/
+        1)
           propertyimage_changes.alt = /*prop*/
-          ctx[30].address || /*prop*/
-          ctx[30].formattedAddress;
+          ctx[34].address || /*prop*/
+          ctx[34].formattedAddress;
         propertyimage.$set(propertyimage_changes);
-        if ((!current || dirty & /*properties*/
-        0) && t1_value !== (t1_value = /*prop*/
-        (ctx[30].address || /*prop*/
-        ctx[30].formattedAddress) + ""))
+        if ((!current || dirty[0] & /*properties*/
+        1) && t1_value !== (t1_value = /*prop*/
+        (ctx[34].address || /*prop*/
+        ctx[34].formattedAddress) + ""))
           set_data(t1, t1_value);
-        if ((!current || dirty & /*properties*/
-        0) && t4_value !== (t4_value = /*prop*/
-        ctx[30].numberOfFloors + ""))
+        if ((!current || dirty[0] & /*properties*/
+        1) && t4_value !== (t4_value = /*prop*/
+        ctx[34].numberOfFloors + ""))
           set_data(t4, t4_value);
-        if ((!current || dirty & /*properties*/
-        0) && t7_value !== (t7_value = /*prop*/
-        ctx[30].bedroom + ""))
+        if ((!current || dirty[0] & /*properties*/
+        1) && t7_value !== (t7_value = /*prop*/
+        ctx[34].bedroom + ""))
           set_data(t7, t7_value);
-        if ((!current || dirty & /*properties*/
-        0) && t10_value !== (t10_value = /*prop*/
-        ctx[30].bathroom + ""))
+        if ((!current || dirty[0] & /*properties*/
+        1) && t10_value !== (t10_value = /*prop*/
+        ctx[34].bathroom + ""))
           set_data(t10, t10_value);
-        if ((!current || dirty & /*properties*/
-        0) && t13_value !== (t13_value = /*prop*/
-        ctx[30].sizeM2 + ""))
+        if ((!current || dirty[0] & /*properties*/
+        1) && t13_value !== (t13_value = /*prop*/
+        ctx[34].sizeM2 + ""))
           set_data(t13, t13_value);
-        if ((!current || dirty & /*properties*/
-        0) && t16_value !== (t16_value = /*prop*/
-        ctx[30].totalSqft + ""))
+        if ((!current || dirty[0] & /*properties*/
+        1) && t16_value !== (t16_value = /*prop*/
+        ctx[34].totalSqft + ""))
           set_data(t16, t16_value);
         if (
           /*prop*/
-          ctx[30].image3dUrl === ""
+          ctx[34].image3dUrl === ""
         ) {
           if (if_block0) {
             if_block0.p(ctx, dirty);
@@ -9611,7 +9611,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
         }
         if (
           /*prop*/
-          ctx[30].image3dUrl !== ""
+          ctx[34].image3dUrl !== ""
         ) {
           if (if_block1) {
             if_block1.p(ctx, dirty);
@@ -9728,17 +9728,22 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     let current;
     let mounted;
     let dispose;
-    let each_value = ensure_array_like(properties || []);
+    let each_value = ensure_array_like(
+      /*properties*/
+      ctx[0] || []
+    );
     const get_key = (ctx2) => (
       /*prop*/
-      ctx2[30].id
+      ctx2[34].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context(ctx, each_value, i);
       let key = get_key(child_ctx);
       each_1_lookup.set(key, each_blocks[i] = create_each_block(key, child_ctx));
     }
-    let if_block = (!properties || properties.length === 0) && create_if_block4(ctx);
+    let if_block = (!/*properties*/
+    ctx[0] || /*properties*/
+    ctx[0].length === 0) && create_if_block4(ctx);
     icon0 = new Icon_default({
       props: { src: RiSystemFilterLine, size: "15" }
     });
@@ -9749,13 +9754,23 @@ picture.svelte-10x01ln img.svelte-10x01ln {
         className: "search-icon"
       }
     });
-    let googlemapjs_props = { lat: coord[0], lng: coord[1], zoom: 11 };
+    let googlemapjs_props = {
+      lat: (
+        /*coord*/
+        ctx[11][0]
+      ),
+      lng: (
+        /*coord*/
+        ctx[11][1]
+      ),
+      zoom: 11
+    };
     googlemapjs = new GoogleMapJS_default({ props: googlemapjs_props });
-    ctx[20](googlemapjs);
+    ctx[24](googlemapjs);
     googlemapjs.$on(
       "ready",
       /*gmapReady*/
-      ctx[10]
+      ctx[14]
     );
     return {
       c() {
@@ -9831,7 +9846,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
         set_input_value(
           input,
           /*inputSearchAddressValue*/
-          ctx[6]
+          ctx[7]
         );
         append(div2, t6);
         append(div2, button1);
@@ -9845,42 +9860,47 @@ picture.svelte-10x01ln img.svelte-10x01ln {
               input,
               "input",
               /*input_input_handler*/
-              ctx[17]
+              ctx[21]
             ),
             listen(
               input,
               "input",
               /*HandlerSearchLocation*/
-              ctx[9]
+              ctx[13]
             ),
             listen(
               input,
               "focus",
               /*focus_handler*/
-              ctx[18]
+              ctx[22]
             ),
             listen(
               input,
               "blur",
               /*blur_handler*/
-              ctx[19]
+              ctx[23]
             )
           ];
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*upload3dCountry, upload3dPropId, popUpUpload3DFile*/
-        50) {
-          each_value = ensure_array_like(properties || []);
+        if (dirty[0] & /*properties, upload3dCountry, upload3dPropId, popUpUpload3DFile*/
+        101) {
+          each_value = ensure_array_like(
+            /*properties*/
+            ctx2[0] || []
+          );
           group_outros();
           each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, div0, outro_and_destroy_block, create_each_block, t0, get_each_context);
           check_outros();
         }
-        if (!properties || properties.length === 0) {
+        if (!/*properties*/
+        ctx2[0] || /*properties*/
+        ctx2[0].length === 0) {
           if (if_block) {
-            if (dirty & /*properties*/
-            0) {
+            if (dirty[0] & /*properties*/
+            1) {
               transition_in(if_block, 1);
             }
           } else {
@@ -9897,12 +9917,12 @@ picture.svelte-10x01ln img.svelte-10x01ln {
           check_outros();
         }
         if (dirty[0] & /*inputSearchAddressValue*/
-        64 && input.value !== /*inputSearchAddressValue*/
-        ctx2[6]) {
+        128 && input.value !== /*inputSearchAddressValue*/
+        ctx2[7]) {
           set_input_value(
             input,
             /*inputSearchAddressValue*/
-            ctx2[6]
+            ctx2[7]
           );
         }
         const googlemapjs_changes = {};
@@ -9941,7 +9961,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
           if_block.d();
         destroy_component(icon0);
         destroy_component(icon1);
-        ctx[20](null);
+        ctx[24](null);
         destroy_component(googlemapjs);
         mounted = false;
         run_all(dispose);
@@ -9956,37 +9976,43 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     let main;
     let current;
     function popupupload3dfile_isSubmitted_binding(value) {
-      ctx[12](value);
+      ctx[16](value);
     }
     function popupupload3dfile_uploadingProgressStr_binding(value) {
-      ctx[13](value);
+      ctx[17](value);
     }
     let popupupload3dfile_props = { OnSubmit: (
       /*SubmitUpload3DFile*/
-      ctx[8]
+      ctx[12]
     ) };
     if (
       /*isSubmitUpload3d*/
-      ctx[2] !== void 0
+      ctx[3] !== void 0
     ) {
       popupupload3dfile_props.isSubmitted = /*isSubmitUpload3d*/
-      ctx[2];
+      ctx[3];
     }
     if (
       /*upload3dProgress*/
-      ctx[3] !== void 0
+      ctx[4] !== void 0
     ) {
       popupupload3dfile_props.uploadingProgressStr = /*upload3dProgress*/
-      ctx[3];
+      ctx[4];
     }
     popupupload3dfile = new PopUpUpload3DFile_default({ props: popupupload3dfile_props });
-    ctx[11](popupupload3dfile);
+    ctx[15](popupupload3dfile);
     binding_callbacks.push(() => bind(popupupload3dfile, "isSubmitted", popupupload3dfile_isSubmitted_binding));
     binding_callbacks.push(() => bind(popupupload3dfile, "uploadingProgressStr", popupupload3dfile_uploadingProgressStr_binding));
     main = new Main_default({
       props: {
-        user,
-        access,
+        user: (
+          /*user*/
+          ctx[9]
+        ),
+        access: (
+          /*access*/
+          ctx[10]
+        ),
         $slots: { default: [create_default_slot] },
         $scope: { ctx }
       }
@@ -10006,24 +10032,24 @@ picture.svelte-10x01ln img.svelte-10x01ln {
       p(ctx2, dirty) {
         const popupupload3dfile_changes = {};
         if (!updating_isSubmitted && dirty[0] & /*isSubmitUpload3d*/
-        4) {
+        8) {
           updating_isSubmitted = true;
           popupupload3dfile_changes.isSubmitted = /*isSubmitUpload3d*/
-          ctx2[2];
+          ctx2[3];
           add_flush_callback(() => updating_isSubmitted = false);
         }
         if (!updating_uploadingProgressStr && dirty[0] & /*upload3dProgress*/
-        8) {
+        16) {
           updating_uploadingProgressStr = true;
           popupupload3dfile_changes.uploadingProgressStr = /*upload3dProgress*/
-          ctx2[3];
+          ctx2[4];
           add_flush_callback(() => updating_uploadingProgressStr = false);
         }
         popupupload3dfile.$set(popupupload3dfile_changes);
         const main_changes = {};
-        if (dirty[0] & /*gmapComponent, inputSearchAddressValue, isFocusInputSearchAddress, upload3dCountry, upload3dPropId, popUpUpload3DFile*/
-        243 | dirty[1] & /*$scope*/
-        4) {
+        if (dirty[0] & /*gmapComponent, inputSearchAddressValue, isFocusInputSearchAddress, properties, upload3dCountry, upload3dPropId, popUpUpload3DFile*/
+        487 | dirty[1] & /*$scope*/
+        64) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -10044,36 +10070,36 @@ picture.svelte-10x01ln img.svelte-10x01ln {
         if (detaching) {
           detach(t);
         }
-        ctx[11](null);
+        ctx[15](null);
         destroy_component(popupupload3dfile, detaching);
         destroy_component(main, detaching);
       }
     };
   }
-  var user = (
-    /** @type {User} */
-    {/* user */}
-  );
-  var access = (
-    /** @type {Access} */
-    {/* segments */}
-  );
-  var coord = (
-    /** @type {number[]} */
-    [/* initialLatLong */]
-  );
-  var properties = (
-    /** @type {PropertyWithNote[]} */
-    [/* randomProps */]
-  );
   function instance9($self, $props, $invalidate) {
     let $mapLoader;
     let $gmap;
-    component_subscribe($self, mapLoader, ($value) => $invalidate(26, $mapLoader = $value));
-    component_subscribe($self, gmap, ($value) => $invalidate(27, $gmap = $value));
+    component_subscribe($self, mapLoader, ($value) => $invalidate(30, $mapLoader = $value));
+    component_subscribe($self, gmap, ($value) => $invalidate(31, $gmap = $value));
+    const user = (
+      /** @type {User} */
+      {}
+    );
+    const access = (
+      /** @type {Access} */
+      {}
+    );
+    let coord = (
+      /** @type {number[]} */
+      []
+    );
+    let properties = (
+      /** @type {PropertyWithNote[]} */
+      []
+    );
     let distanceKm = (
       /** @type {number} */
-      Number('#{defaultDistanceKm}') || 20
+      Number("#{defaultDistanceKm}") || 20
     );
     let gmapComponent = (
       /** @type {import('svelte').SvelteComponent} */
@@ -10104,7 +10130,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
       ""
     );
     async function SubmitUpload3DFile(file) {
-      $invalidate(2, isSubmitUpload3d = true);
+      $invalidate(3, isSubmitUpload3d = true);
       const formData = new FormData();
       formData.append("propertyId", String(upload3dPropId));
       formData.append("country", String(upload3dCountry));
@@ -10115,7 +10141,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
           /** @type {import('axios').AxiosProgressEvent} */
           (event) => {
             const propgressNum = Math.round(event.loaded * 100 / Number(event.total));
-            $invalidate(3, upload3dProgress = `Uploading ${propgressNum}%`);
+            $invalidate(4, upload3dProgress = `Uploading ${propgressNum}%`);
           }
         )
       }).then(
@@ -10125,7 +10151,7 @@ picture.svelte-10x01ln img.svelte-10x01ln {
           popUpUpload3DFile.Close();
           for (let i = 0; i < properties.length - 1; i++) {
             if (properties[i].id === upload3dPropId) {
-              properties[i].image3dUrl = res.data.imageUrl;
+              $invalidate(0, properties[i].image3dUrl = res.data.imageUrl, properties);
               console.log("Img 3D URL:", properties[i].image3dUrl);
               break;
             }
@@ -10200,8 +10226,8 @@ picture.svelte-10x01ln img.svelte-10x01ln {
           $gmap.setCenter(res.geometry.location);
         }
       });
-      $invalidate(7, isFocusInputSearchAddress = false);
-      $invalidate(6, inputSearchAddressValue = "");
+      $invalidate(8, isFocusInputSearchAddress = false);
+      $invalidate(7, inputSearchAddressValue = "");
     }
     async function gmapReady() {
       (properties || []).forEach((p) => {
@@ -10218,21 +10244,21 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     function popupupload3dfile_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpUpload3DFile = $value;
-        $invalidate(1, popUpUpload3DFile);
+        $invalidate(2, popUpUpload3DFile);
       });
     }
     function popupupload3dfile_isSubmitted_binding(value) {
       isSubmitUpload3d = value;
-      $invalidate(2, isSubmitUpload3d);
+      $invalidate(3, isSubmitUpload3d);
     }
     function popupupload3dfile_uploadingProgressStr_binding(value) {
       upload3dProgress = value;
-      $invalidate(3, upload3dProgress);
+      $invalidate(4, upload3dProgress);
     }
     const click_handler = (prop) => window.location.href = `/user/listings/${prop.id}`;
     const click_handler_1 = (prop) => {
-      $invalidate(5, upload3dCountry = prop.countryCode);
-      $invalidate(4, upload3dPropId = prop.id);
+      $invalidate(6, upload3dCountry = prop.countryCode);
+      $invalidate(5, upload3dPropId = prop.id);
       popUpUpload3DFile.Show();
     };
     const click_handler_2 = (prop) => {
@@ -10240,17 +10266,18 @@ picture.svelte-10x01ln img.svelte-10x01ln {
     };
     function input_input_handler() {
       inputSearchAddressValue = this.value;
-      $invalidate(6, inputSearchAddressValue);
+      $invalidate(7, inputSearchAddressValue);
     }
-    const focus_handler = () => $invalidate(7, isFocusInputSearchAddress = true);
-    const blur_handler = () => $invalidate(7, isFocusInputSearchAddress = false);
+    const focus_handler = () => $invalidate(8, isFocusInputSearchAddress = true);
+    const blur_handler = () => $invalidate(8, isFocusInputSearchAddress = false);
     function googlemapjs_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         gmapComponent = $value;
-        $invalidate(0, gmapComponent);
+        $invalidate(1, gmapComponent);
       });
     }
     return [
+      properties,
       gmapComponent,
       popUpUpload3DFile,
       isSubmitUpload3d,
@@ -10259,6 +10286,9 @@ picture.svelte-10x01ln img.svelte-10x01ln {
       upload3dCountry,
       inputSearchAddressValue,
       isFocusInputSearchAddress,
+      user,
+      access,
+      coord,
       SubmitUpload3DFile,
       HandlerSearchLocation,
       gmapReady,

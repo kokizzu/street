@@ -3088,13 +3088,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance6 = bind(Axios$1.prototype.request, context);
-        utils$1.extend(instance6, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance6, context, null, { allOwnKeys: true });
-        instance6.create = function create(instanceConfig) {
+        const instance7 = bind(Axios$1.prototype.request, context);
+        utils$1.extend(instance7, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance7, context, null, { allOwnKeys: true });
+        instance7.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance6;
+        return instance7;
       }
       var axios2 = createInstance(defaults$1);
       axios2.Axios = Axios$1;
@@ -3544,7 +3544,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance6, create_fragment7, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance7, create_fragment7, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3570,7 +3570,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance6 ? instance6(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance7 ? instance7(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -4270,7 +4270,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     };
   }
   function instance($self, $props, $invalidate) {
-    let { access: access2 = (
+    let { access = (
       /** @type {Access} */
       {}
     ) } = $props;
@@ -4308,9 +4308,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     $self.$set = ($props2) => {
       if ("access" in $props2)
-        $invalidate(0, access2 = $props2.access);
+        $invalidate(0, access = $props2.access);
     };
-    return [access2, pathAll, pathLv1, pathLv2, logout];
+    return [access, pathAll, pathLv1, pathLv2, logout];
   }
   var SideMenu = class extends SvelteComponent {
     constructor(options) {
@@ -5033,23 +5033,23 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let $isShrinkMenu;
     component_subscribe($self, isShrinkMenu, ($value) => $invalidate(2, $isShrinkMenu = $value));
     let { $slots: slots = {}, $scope } = $props;
-    let { user: user2 = (
+    let { user = (
       /** @type {User} */
       {}
     ) } = $props;
-    let { access: access2 = (
+    let { access = (
       /** @type {Access} */
       {}
     ) } = $props;
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(0, user2 = $props2.user);
+        $invalidate(0, user = $props2.user);
       if ("access" in $props2)
-        $invalidate(1, access2 = $props2.access);
+        $invalidate(1, access = $props2.access);
       if ("$scope" in $props2)
         $invalidate(3, $scope = $props2.$scope);
     };
-    return [user2, access2, $isShrinkMenu, $scope, slots];
+    return [user, access, $isShrinkMenu, $scope, slots];
   }
   var Main = class extends SvelteComponent {
     constructor(options) {
@@ -5084,8 +5084,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let current;
     main = new Main_default({
       props: {
-        user,
-        access,
+        user: (
+          /*user*/
+          ctx[0]
+        ),
+        access: (
+          /*access*/
+          ctx[1]
+        ),
         $slots: { default: [create_default_slot] },
         $scope: { ctx }
       }
@@ -5101,7 +5107,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       p(ctx2, [dirty]) {
         const main_changes = {};
         if (dirty & /*$scope*/
-        1) {
+        4) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -5121,18 +5127,21 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  var user = (
-    /** @type {User} */
-    {/* user */}
-  );
-  var access = (
-    /** @type {Access} */
-    {/* segments */}
-  );
+  function instance6($self) {
+    let user = (
+      /** @type {User} */
+      {}
+    );
+    let access = (
+      /** @type {Access} */
+      {}
+    );
+    return [user, access];
+  }
   var Property = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment6, safe_not_equal, {});
+      init(this, options, instance6, create_fragment6, safe_not_equal, {});
     }
   };
   var property_default = Property;

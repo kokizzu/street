@@ -3981,14 +3981,14 @@
   }
   function instance3($self, $props, $invalidate) {
     let { propHistories } = $props;
-    let { propItem: propItem2 = (
+    let { propItem = (
       /** @type {TypeProperty | TypePropertyUS} */
       {}
     ) } = $props;
-    let { meta: meta2 } = $props;
+    let { meta } = $props;
     let { isAdmin: isAdmin2 = false } = $props;
     let { isGuest = false } = $props;
-    let { propExtraUS: propExtraUS2 = (
+    let { propExtraUS = (
       /** @type {TypePropertyExtraUS} */
       {}
     ) } = $props;
@@ -4001,23 +4001,23 @@
     let facilityInfoJSON;
     let mlsDisclaimerInfo;
     try {
-      facilityInfoJSON = JSON.parse(String(propExtraUS2.facilityInfo));
-      mlsDisclaimerInfo = JSON.parse(String(propExtraUS2.mlsDisclaimerInfo));
+      facilityInfoJSON = JSON.parse(String(propExtraUS.facilityInfo));
+      mlsDisclaimerInfo = JSON.parse(String(propExtraUS.mlsDisclaimerInfo));
     } catch (error) {
       facilityInfoJSON = {};
       mlsDisclaimerInfo = {};
     }
     onMount(() => {
       console.log("onMount.Property");
-      console.log("Property = ", propItem2);
-      console.log("Meta =", meta2);
+      console.log("Property = ", propItem);
+      console.log("Meta =", meta);
       console.log("IsAdmin =", isAdmin2);
       console.log("isGuest =", isGuest);
-      console.log("propItem.note =", propItem2.note);
-      if (propItem2.approvalState !== "pending" && propItem2.approvalState !== "") {
+      console.log("propItem.note =", propItem.note);
+      if (propItem.approvalState !== "pending" && propItem.approvalState !== "") {
         $invalidate(5, approvalStatus = "rejected");
       }
-      if (propItem2.approvalState === "pending") {
+      if (propItem.approvalState === "pending") {
         $invalidate(5, approvalStatus = "pending");
       }
     });
@@ -4025,27 +4025,27 @@
       if ("propHistories" in $props2)
         $invalidate(0, propHistories = $props2.propHistories);
       if ("propItem" in $props2)
-        $invalidate(1, propItem2 = $props2.propItem);
+        $invalidate(1, propItem = $props2.propItem);
       if ("meta" in $props2)
-        $invalidate(2, meta2 = $props2.meta);
+        $invalidate(2, meta = $props2.meta);
       if ("isAdmin" in $props2)
         $invalidate(3, isAdmin2 = $props2.isAdmin);
       if ("isGuest" in $props2)
         $invalidate(4, isGuest = $props2.isGuest);
       if ("propExtraUS" in $props2)
-        $invalidate(9, propExtraUS2 = $props2.propExtraUS);
+        $invalidate(9, propExtraUS = $props2.propExtraUS);
     };
     return [
       propHistories,
-      propItem2,
-      meta2,
+      propItem,
+      meta,
       isAdmin2,
       isGuest,
       approvalStatus,
       facilityInfoJSON,
       mlsDisclaimerInfo,
       signs,
-      propExtraUS2
+      propExtraUS
     ];
   }
   var Property = class extends SvelteComponent {
@@ -4184,11 +4184,20 @@
     let dispose;
     property = new Property_default({
       props: {
-        propItem,
-        meta,
+        propItem: (
+          /*propItem*/
+          ctx[0]
+        ),
+        meta: (
+          /*meta*/
+          ctx[1]
+        ),
         isAdmin,
         isGuest: true,
-        propExtraUS,
+        propExtraUS: (
+          /*propExtraUS*/
+          ctx[2]
+        ),
         propHistories: []
       }
     });
@@ -4375,7 +4384,7 @@
             button,
             "click",
             /*click_handler*/
-            ctx[1]
+            ctx[4]
           );
           mounted = true;
         }
@@ -4455,7 +4464,10 @@
     const if_block_creators = [create_if_block3, create_else_block2];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
-      if (propItem.deletedAt > 0)
+      if (
+        /*propItem*/
+        ctx2[0].deletedAt > 0
+      )
         return 0;
       return 1;
     }
@@ -4493,29 +4505,29 @@
       }
     };
   }
-  var propItem = (
-    /** @type {TypeProperty | TypePropertyUS} */
-    {/* propItem */}
-  );
-  var meta = (
-    /** @type {Field[]}*/
-    [/* propertyMeta */]
-  );
-  var propExtraUS = (
-    /** @type {TypePropertyExtraUS} */
-    {/* propExtraUS */}
-  );
   var isAdmin = (
     /** @type {boolean} */
     false
   );
   function instance4($self) {
+    let propItem = (
+      /** @type {TypeProperty | TypePropertyUS} */
+      {}
+    );
+    let meta = (
+      /** @type {Field[]}*/
+      []
+    );
+    let propExtraUS = (
+      /** @type {TypePropertyExtraUS} */
+      {}
+    );
     function copyToClipboard(text2) {
       navigator.clipboard.writeText(text2);
       notifier.showInfo("Link copied to clipboard");
     }
     const click_handler = () => copyToClipboard(String(window.location));
-    return [copyToClipboard, click_handler];
+    return [propItem, meta, propExtraUS, copyToClipboard, click_handler];
   }
   var Public = class extends SvelteComponent {
     constructor(options) {

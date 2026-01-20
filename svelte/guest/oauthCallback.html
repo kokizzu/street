@@ -1060,7 +1060,7 @@
         section = element("section");
         div = element("div");
         h1 = element("h1");
-        h1.textContent = '/*! title */';
+        h1.textContent = "/*! title */";
         t1 = space();
         if_block.c();
         t2 = space();
@@ -1094,10 +1094,10 @@
       }
     };
   }
-  var error = '#{error}';
-  var email = '#{email}';
+  var error = "#{error}";
+  var email = "#{email}";
   function instance($self) {
-    const createdAt = new Date(+'#{createdAt}');
+    const createdAt = new Date(+"#{createdAt}");
     const now2 = new Date();
     const recentlyRegistered = now2 - createdAt < 1e3 * 60 * 10;
     onMount(() => {

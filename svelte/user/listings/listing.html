@@ -4766,7 +4766,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     };
   }
   function instance($self, $props, $invalidate) {
-    let { access: access2 = (
+    let { access = (
       /** @type {Access} */
       {}
     ) } = $props;
@@ -4804,9 +4804,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     $self.$set = ($props2) => {
       if ("access" in $props2)
-        $invalidate(0, access2 = $props2.access);
+        $invalidate(0, access = $props2.access);
     };
-    return [access2, pathAll, pathLv1, pathLv2, logout];
+    return [access, pathAll, pathLv1, pathLv2, logout];
   }
   var SideMenu = class extends SvelteComponent {
     constructor(options) {
@@ -5531,23 +5531,23 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let $isShrinkMenu;
     component_subscribe($self, isShrinkMenu, ($value) => $invalidate(2, $isShrinkMenu = $value));
     let { $slots: slots = {}, $scope } = $props;
-    let { user: user2 = (
+    let { user = (
       /** @type {User} */
       {}
     ) } = $props;
-    let { access: access2 = (
+    let { access = (
       /** @type {Access} */
       {}
     ) } = $props;
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(0, user2 = $props2.user);
+        $invalidate(0, user = $props2.user);
       if ("access" in $props2)
-        $invalidate(1, access2 = $props2.access);
+        $invalidate(1, access = $props2.access);
       if ("$scope" in $props2)
         $invalidate(3, $scope = $props2.$scope);
     };
-    return [user2, access2, $isShrinkMenu, $scope, slots];
+    return [user, access, $isShrinkMenu, $scope, slots];
   }
   var Main = class extends SvelteComponent {
     constructor(options) {
@@ -9269,7 +9269,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             button,
             "click",
             /*click_handler*/
-            ctx[12]
+            ctx[15]
           );
           mounted = true;
         }
@@ -9306,7 +9306,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         span = element("span");
         span.textContent = "Download 3D File";
         attr(a, "class", "download-btn svelte-1lhkjyv");
-        attr(a, "href", a_href_value = "/guest/download3dFile?country=" + property.countryCode + "&propertyId=" + property.id);
+        attr(a, "href", a_href_value = "/guest/download3dFile?country=" + /*property*/
+        ctx[8].countryCode + "&propertyId=" + /*property*/
+        ctx[8].id);
         attr(a, "target", "_blank");
       },
       m(target, anchor) {
@@ -9414,16 +9416,22 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       ctx[3] !== "" && create_if_block4(ctx)
     );
     let googlemapjs_props = {
-      lat: property.coord[0],
-      lng: property.coord[1],
+      lat: (
+        /*property*/
+        ctx[8].coord[0]
+      ),
+      lng: (
+        /*property*/
+        ctx[8].coord[1]
+      ),
       zoom: 10
     };
     googlemapjs = new GoogleMapJS_default({ props: googlemapjs_props });
-    ctx[13](googlemapjs);
+    ctx[16](googlemapjs);
     googlemapjs.$on(
       "ready",
       /*gmapReady*/
-      ctx[6]
+      ctx[9]
     );
     return {
       c() {
@@ -9441,10 +9449,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         t3 = space();
         div0 = element("div");
         h2 = element("h2");
-        h2.textContent = `${property.address || property.formattedAddress}`;
+        h2.textContent = `${/*property*/
+        ctx[8].address || /*property*/
+        ctx[8].formattedAddress}`;
         t5 = space();
         p = element("p");
-        p.textContent = `${property.about || "--"}`;
+        p.textContent = `${/*property*/
+        ctx[8].about || "--"}`;
         t7 = space();
         if (if_block0)
           if_block0.c();
@@ -9459,49 +9470,58 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         th0.innerHTML = `<span>Property Key</span>`;
         t11 = space();
         td0 = element("td");
-        td0.textContent = `${property.uniqPropKey}`;
+        td0.textContent = `${/*property*/
+        ctx[8].uniqPropKey}`;
         t13 = space();
         tr1 = element("tr");
         th1 = element("th");
         th1.innerHTML = `<span>Price</span>`;
         t15 = space();
         td1 = element("td");
-        td1.textContent = `${(0, import_formatter.formatPrice)(Number(property.lastPrice || 0), "USD")}`;
+        td1.textContent = `${(0, import_formatter.formatPrice)(Number(
+          /*property*/
+          ctx[8].lastPrice || 0
+        ), "USD")}`;
         t17 = space();
         tr2 = element("tr");
         th2 = element("th");
         th2.innerHTML = `<span>Email</span>`;
         t19 = space();
         td2 = element("td");
-        td2.textContent = `${property.contactEmail || "--@--"}`;
+        td2.textContent = `${/*property*/
+        ctx[8].contactEmail || "--@--"}`;
         t21 = space();
         tr3 = element("tr");
         th3 = element("th");
         th3.innerHTML = `<span>Phone</span>`;
         t23 = space();
         td3 = element("td");
-        td3.textContent = `${property.contactPhone || "0 000 000 0000"}`;
+        td3.textContent = `${/*property*/
+        ctx[8].contactPhone || "0 000 000 0000"}`;
         t25 = space();
         tr4 = element("tr");
         th4 = element("th");
         th4.innerHTML = `<span>Purpose</span>`;
         t27 = space();
         td4 = element("td");
-        td4.textContent = `${property.purpose || "For Sale"}`;
+        td4.textContent = `${/*property*/
+        ctx[8].purpose || "For Sale"}`;
         t29 = space();
         tr5 = element("tr");
         th5 = element("th");
         th5.innerHTML = `<span>Bathroom</span>`;
         t31 = space();
         td5 = element("td");
-        td5.textContent = `${property.bathroom || 0}`;
+        td5.textContent = `${/*property*/
+        ctx[8].bathroom || 0}`;
         t33 = space();
         tr6 = element("tr");
         th6 = element("th");
         th6.innerHTML = `<span>Bedroom</span>`;
         t35 = space();
         td6 = element("td");
-        td6.textContent = `${property.bedroom || 0}`;
+        td6.textContent = `${/*property*/
+        ctx[8].bedroom || 0}`;
         t37 = space();
         div3 = element("div");
         div2 = element("div");
@@ -9607,7 +9627,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             img,
             "error",
             /*error_handler*/
-            ctx[11]
+            ctx[14]
           );
           mounted = true;
         }
@@ -9682,7 +9702,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           if_block0.d();
         if (if_block1)
           if_block1.d();
-        ctx[13](null);
+        ctx[16](null);
         destroy_component(googlemapjs);
         mounted = false;
         dispose();
@@ -9697,14 +9717,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let main;
     let current;
     function popupupload3dfile_isSubmitted_binding(value) {
-      ctx[9](value);
+      ctx[12](value);
     }
     function popupupload3dfile_uploadingProgressStr_binding(value) {
-      ctx[10](value);
+      ctx[13](value);
     }
     let popupupload3dfile_props = { OnSubmit: (
       /*SubmitUpload3DFile*/
-      ctx[7]
+      ctx[10]
     ) };
     if (
       /*isSubmitUpload3dFile*/
@@ -9721,13 +9741,19 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       ctx[5];
     }
     popupupload3dfile = new PopUpUpload3DFile_default({ props: popupupload3dfile_props });
-    ctx[8](popupupload3dfile);
+    ctx[11](popupupload3dfile);
     binding_callbacks.push(() => bind(popupupload3dfile, "isSubmitted", popupupload3dfile_isSubmitted_binding));
     binding_callbacks.push(() => bind(popupupload3dfile, "uploadingProgressStr", popupupload3dfile_uploadingProgressStr_binding));
     main = new Main_default({
       props: {
-        user,
-        access,
+        user: (
+          /*user*/
+          ctx[6]
+        ),
+        access: (
+          /*access*/
+          ctx[7]
+        ),
         $slots: { default: [create_default_slot] },
         $scope: { ctx }
       }
@@ -9763,7 +9789,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         popupupload3dfile.$set(popupupload3dfile_changes);
         const main_changes = {};
         if (dirty & /*$scope, gmapComponent, img3dUrl, popUpUpload3DFile, imgUrl*/
-        16399) {
+        131087) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -9784,7 +9810,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (detaching) {
           detach(t);
         }
-        ctx[8](null);
+        ctx[11](null);
         destroy_component(popupupload3dfile, detaching);
         destroy_component(main, detaching);
       }
@@ -9792,25 +9818,25 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   }
   var title = (
     /** @type {string} */
-    '#{title}'
-  );
-  var user = (
-    /** @type {User} */
-    {/* user */}
-  );
-  var access = (
-    /** @type {Access} */
-    {/* segments */}
-  );
-  var property = (
-    /** @type {PropertyWithNote} */
-    {/* property */}
+    "#{title}"
   );
   var defImgUrl = (
     /** @type {string} */
     "/assets/img/placeholder.webp"
   );
   function instance8($self, $props, $invalidate) {
+    const user = (
+      /** @type {User} */
+      {}
+    );
+    const access = (
+      /** @type {Access} */
+      {}
+    );
+    const property = (
+      /** @type {PropertyWithNote} */
+      {}
+    );
     console.log("Property=", property);
     let gmapComponent = (
       /** @type {import('svelte').SvelteComponent} */
@@ -9902,6 +9928,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       img3dUrl,
       isSubmitUpload3dFile,
       uploadingProgressStr,
+      user,
+      access,
+      property,
       gmapReady,
       SubmitUpload3DFile,
       popupupload3dfile_binding,

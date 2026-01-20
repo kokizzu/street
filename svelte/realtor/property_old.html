@@ -8225,7 +8225,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   function instance3($self, $props, $invalidate) {
     let $isSideMenuOpen;
     component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(15, $isSideMenuOpen = $value));
-    let { user: user2 = null } = $props;
+    let { user = null } = $props;
     let { access = {
       "admin": false,
       "buyer": false,
@@ -8237,18 +8237,18 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     let selectedLanguage = "";
     onMount(() => {
-      console.log("onMount.ProfileHeader =", user2);
+      console.log("onMount.ProfileHeader =", user);
       $invalidate(1, selectedLanguage = T.currentLang || "EN");
     });
     async function updateLang() {
-      if (user2 !== null && user2.language !== selectedLanguage) {
-        $invalidate(8, user2.language = selectedLanguage, user2);
-        await UserUpdateProfile(user2, function(res) {
+      if (user !== null && user.language !== selectedLanguage) {
+        $invalidate(8, user.language = selectedLanguage, user);
+        await UserUpdateProfile(user, function(res) {
           if (res.error) {
             notifier.showError(res.error);
             return;
           }
-          $invalidate(8, user2 = res.user);
+          $invalidate(8, user = res.user);
         });
       }
     }
@@ -8296,7 +8296,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(8, user2 = $props2.user);
+        $invalidate(8, user = $props2.user);
       if ("access" in $props2)
         $invalidate(0, access = $props2.access);
     };
@@ -8317,7 +8317,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       openSideMenu,
       userLogout,
       sendFeedback,
-      user2,
+      user,
       textarea_input_handler,
       click_handler,
       click_handler_1,
@@ -13542,9 +13542,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var m2 = "M2";
   var ping = "Ping";
   function instance6($self, $props, $invalidate) {
-    let { user: user2 } = $props;
-    let { property: property2 } = $props;
-    let { countries: countries2 } = $props;
+    let { user } = $props;
+    let { property } = $props;
+    let { countries } = $props;
     let currentPage = 0, isPropertySubmitted = false;
     let cards = [{}, {}, {}, {}];
     let stackContainerElm, stacks, observer;
@@ -13569,9 +13569,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           threshold: 1
         }
       );
-      console.log("User data = ", user2);
-      $invalidate(0, property2 = {
-        countryCode: user2.country,
+      console.log("User data = ", user);
+      $invalidate(0, property = {
+        countryCode: user.country,
         city: "",
         countyName: "",
         address: "",
@@ -13606,12 +13606,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         createdAt: 1692641835,
         updatedAt: 1692641835
       });
-      for (let i = 0; i < countries2.length; i++) {
-        if (countries2[i].iso_2 === property2.countryCode) {
-          $invalidate(6, countryCurrency = countries2[i].currency.code);
+      for (let i = 0; i < countries.length; i++) {
+        if (countries[i].iso_2 === property.countryCode) {
+          $invalidate(6, countryCurrency = countries[i].currency.code);
         }
       }
-      console.log("property.countryCode=", property2.countryCode);
+      console.log("property.countryCode=", property.countryCode);
     });
     function subpageScroll() {
       stacks.forEach((stack) => {
@@ -13619,35 +13619,35 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       });
     }
     function GetPayload() {
-      $invalidate(0, property2.note = JSON.stringify(noteObj), property2);
-      if (property2.countryCode === "US")
-        $invalidate(0, property2.city = property2.countyName, property2);
+      $invalidate(0, property.note = JSON.stringify(noteObj), property);
+      if (property.countryCode === "US")
+        $invalidate(0, property.city = property.countyName, property);
       return {
-        countryCode: property2.countryCode || user2.country,
-        city: property2.city,
-        countyName: property2.countyName,
-        district: property2.district,
-        street: property2.street + "\n" + (property2.street2 || ""),
-        livingroom: property2.livingroom,
-        parking: parseFloat(property2.parking),
-        depositFee: property2.depositFee,
-        minimumDurationYear: property2.minimumDurationYear,
-        otherFees: property2.otherFees || [],
-        imageLabels: property2.imageLabels || [],
-        altitude: property2.altitude,
-        id: property2.id,
-        formattedAddress: property2.formattedAddress,
-        coord: property2.coord,
-        houseType: property2.houseType,
-        purpose: property2.purpose,
-        images: property2.images || [],
-        bedroom: property2.bedroom,
-        bathroom: property2.bathroom,
-        sizeM2: "" + property2.sizeM2,
-        mainUse: property2.mainUse,
-        note: property2.note,
-        lastPrice: "" + property2.lastPrice,
-        agencyFeePercent: property2.agencyFeePercent || 0
+        countryCode: property.countryCode || user.country,
+        city: property.city,
+        countyName: property.countyName,
+        district: property.district,
+        street: property.street + "\n" + (property.street2 || ""),
+        livingroom: property.livingroom,
+        parking: parseFloat(property.parking),
+        depositFee: property.depositFee,
+        minimumDurationYear: property.minimumDurationYear,
+        otherFees: property.otherFees || [],
+        imageLabels: property.imageLabels || [],
+        altitude: property.altitude,
+        id: property.id,
+        formattedAddress: property.formattedAddress,
+        coord: property.coord,
+        houseType: property.houseType,
+        purpose: property.purpose,
+        images: property.images || [],
+        bedroom: property.bedroom,
+        bathroom: property.bathroom,
+        sizeM2: "" + property.sizeM2,
+        mainUse: property.mainUse,
+        note: property.note,
+        lastPrice: "" + property.lastPrice,
+        agencyFeePercent: property.agencyFeePercent || 0
       };
     }
     function progressDotHandler(toPage) {
@@ -13685,8 +13685,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         map_container,
         {
           center: {
-            lat: property2.coord[0],
-            lng: property2.coord[1]
+            lat: property.coord[0],
+            lng: property.coord[1]
           },
           zoom: 8,
           mapTypeId: "roadmap",
@@ -13700,12 +13700,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       await geocoder.geocode({ address: input_address_value }).then(({ results }) => {
         if (results[0]) {
           console.log("Result = ", results);
-          $invalidate(0, property2.coord[0] = results[0].geometry.location.lat(), property2);
-          $invalidate(0, property2.coord[1] = results[0].geometry.location.lng(), property2);
-          $invalidate(0, property2.formattedAddress = results[0].formatted_address, property2);
+          $invalidate(0, property.coord[0] = results[0].geometry.location.lat(), property);
+          $invalidate(0, property.coord[1] = results[0].geometry.location.lng(), property);
+          $invalidate(0, property.formattedAddress = results[0].formatted_address, property);
           for (let i = 0; i < results[0].address_components.length; i++) {
             if (results[0].address_components[i].types.indexOf("country") !== -1) {
-              $invalidate(0, property2.countryCode = results[0].address_components[i].short_name, property2);
+              $invalidate(0, property.countryCode = results[0].address_components[i].short_name, property);
               $invalidate(8, countryName = results[0].address_components[i].long_name);
             }
           }
@@ -13718,8 +13718,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         notifier.showError("cannot get address");
       });
       const markerEventHandler = (event) => {
-        $invalidate(0, property2.coord[0] = event.latLng.lat(), property2);
-        $invalidate(0, property2.coord[1] = event.latLng.lng(), property2);
+        $invalidate(0, property.coord[0] = event.latLng.lat(), property);
+        $invalidate(0, property.coord[1] = event.latLng.lng(), property);
         getAddress(event.latLng);
       };
       const createMarker = (map2, latLng) => {
@@ -13736,23 +13736,23 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         markers2.length = 0;
       };
       markers.push(createMarker(map, {
-        lat: property2.coord[0],
-        lng: property2.coord[1]
+        lat: property.coord[0],
+        lng: property.coord[1]
       }));
       const getAddress = (latLng) => {
         geocoder.geocode({ location: latLng }, (results, status) => {
           if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
-            $invalidate(0, property2.formattedAddress = results[0].formatted_address, property2);
+            $invalidate(0, property.formattedAddress = results[0].formatted_address, property);
             for (let i = 0; i < results[0].address_components.length; i++) {
               if (results[0].address_components[i].types.indexOf("country") !== -1) {
-                $invalidate(0, property2.countryCode = results[0].address_components[i].short_name, property2);
+                $invalidate(0, property.countryCode = results[0].address_components[i].short_name, property);
                 $invalidate(8, countryName = results[0].address_components[i].long_name);
               }
             }
           } else {
             notifier.showError("Address not found");
-            $invalidate(0, property2.formattedAddresss = "", property2);
-            $invalidate(0, property2.country = "", property2);
+            $invalidate(0, property.formattedAddresss = "", property);
+            $invalidate(0, property.country = "", property);
           }
         });
       };
@@ -13760,8 +13760,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         clearMarkers(markers);
         const latLong = event.latLng;
         markers.push(createMarker(map, latLong));
-        $invalidate(0, property2.coord[0] = latLong.lat(), property2);
-        $invalidate(0, property2.coord[1] = latLong.lng(), property2);
+        $invalidate(0, property.coord[0] = latLong.lat(), property);
+        $invalidate(0, property.coord[1] = latLong.lng(), property);
         getAddress(latLong);
       });
       map.addListener("bounds_changed", () => {
@@ -13772,9 +13772,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (places.length === 0) {
           return;
         }
-        $invalidate(0, property2.coord[0] = places[0].geometry.location.lat(), property2);
-        $invalidate(0, property2.coord[1] = places[0].geometry.location.lng(), property2);
-        $invalidate(0, property2.formattedAddress = places[0].formatted_address, property2);
+        $invalidate(0, property.coord[0] = places[0].geometry.location.lat(), property);
+        $invalidate(0, property.coord[1] = places[0].geometry.location.lng(), property);
+        $invalidate(0, property.formattedAddress = places[0].formatted_address, property);
         for (let i = 0; i < places[0].address_components.length; i++) {
           if (places[0].address_components[i].types.indexOf("country") !== -1) {
             $invalidate(8, countryName = places[0].address_components[i].long_name);
@@ -13798,8 +13798,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       });
     }
     function changeCurrency() {
-      countries2.forEach((c) => {
-        if (c.iso_2 === property2.country) {
+      countries.forEach((c) => {
+        if (c.iso_2 === property.country) {
           $invalidate(6, countryCurrency = c.currency.code);
         }
       });
@@ -13815,25 +13815,25 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     const handleNextLocation = {
       "LOC_ADDR": async () => {
-        if (property2.city === "" || property2.street === "") {
+        if (property.city === "" || property.street === "") {
           notifier.showError("Please fill required form");
           return;
         }
-        for (let i = 0; i < countries2.length; i++) {
-          if (countries2[i].iso_2 === property2.countryCode) {
-            $invalidate(8, countryName = countries2[i].country);
-            $invalidate(6, countryCurrency = countries2[i].currency.code);
-            $invalidate(0, property2.lat = parseInt(countries2[i].coordinate.lat), property2);
-            $invalidate(0, property2.lng = parseInt(countries2[i].coordinate.lng), property2);
+        for (let i = 0; i < countries.length; i++) {
+          if (countries[i].iso_2 === property.countryCode) {
+            $invalidate(8, countryName = countries[i].country);
+            $invalidate(6, countryCurrency = countries[i].currency.code);
+            $invalidate(0, property.lat = parseInt(countries[i].coordinate.lat), property);
+            $invalidate(0, property.lng = parseInt(countries[i].coordinate.lng), property);
           }
         }
-        $invalidate(12, input_address_value = property2.street);
+        $invalidate(12, input_address_value = property.street);
         $invalidate(7, modeLocationCount += 1);
         $invalidate(9, modeLocation = modeLocationLists[modeLocationCount].mode);
         await initMap();
       },
       "LOC_MAP": () => {
-        if (property2.formattedAddress === "") {
+        if (property.formattedAddress === "") {
           notifier.showError("Please mark location on map");
           return;
         }
@@ -13844,13 +13844,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         nextPage();
       }
     };
-    let modeInfoCount = 0, infoUnitMode = m2, houseSize = parseInt(property2.sizeM2), houseSizeM2 = 0, houseSizePing = 0;
+    let modeInfoCount = 0, infoUnitMode = m2, houseSize = parseInt(property.sizeM2), houseSizeM2 = 0, houseSizePing = 0;
     const modeInfoLists = [{ mode: INFO_FEAT }, { mode: INFO_PRICE }];
     let modeInfo = modeInfoLists[modeInfoCount].mode;
     let infoObj = {
       agencyFee: "false",
       deposit: "false",
-      houseType: property2.houseType
+      houseType: property.houseType
     };
     let otherFeeObj = { name: "", fee: 0 };
     let addOtherFeeDialog = AddOtherFeesDialog_default;
@@ -13866,7 +13866,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       "other"
     ];
     function addOtherFee() {
-      $invalidate(0, property2.otherFee = [...property2.otherFee, otherFeeObj], property2);
+      $invalidate(0, property.otherFee = [...property.otherFee, otherFeeObj], property);
       $invalidate(19, otherFeeObj = { name: "", fee: 0 });
       addOtherFeeDialog.hideModal();
     }
@@ -13913,15 +13913,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     const handleNextInfo = {
       "INFO_FEAT": () => {
-        $invalidate(0, property2.parking = infoObj.parking, property2);
-        $invalidate(0, property2.houseType = infoObj.houseType, property2);
+        $invalidate(0, property.parking = infoObj.parking, property);
+        $invalidate(0, property.houseType = infoObj.houseType, property);
         if (infoUnitMode === ping) {
-          $invalidate(0, property2.sizeM2 = handleInfoUnitMode.pingToM2(houseSize), property2);
+          $invalidate(0, property.sizeM2 = handleInfoUnitMode.pingToM2(houseSize), property);
         }
         if (infoUnitMode === m2) {
-          $invalidate(0, property2.sizeM2 = houseSize, property2);
+          $invalidate(0, property.sizeM2 = houseSize, property);
         }
-        if (property2.sizeM2 === 0) {
+        if (property.sizeM2 === 0) {
           notifier.showError("Please fill required form");
           return;
         }
@@ -13929,7 +13929,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         $invalidate(17, modeInfo = modeInfoLists[modeInfoCount].mode);
       },
       "INFO_PRICE": () => {
-        if (property2.lastPrice === 0 || property2.agencyFee >= 99) {
+        if (property.lastPrice === 0 || property.agencyFee >= 99) {
           notifier.showWarning("Price cannot be 0");
           return;
         }
@@ -13960,8 +13960,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           if (ajax.status === 200) {
             const out = JSON.parse(event.target.responseText);
             if (!out.error) {
-              $invalidate(0, property2.images = [...property2.images, out.urlPattern], property2);
-              $invalidate(0, property2.imageLabels = [...property2.imageLabels, ""], property2);
+              $invalidate(0, property.images = [...property.images, out.urlPattern], property);
+              $invalidate(0, property.imageLabels = [...property.imageLabels, ""], property);
             }
             notifier.showSuccess("Image uploaded");
           } else if (ajax.status === 413) {
@@ -13986,8 +13986,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       $invalidate(21, imageHouseInput.value = null, imageHouseInput);
     }
     function removeImage(index) {
-      $invalidate(0, property2.images = property2.images.filter((_, i) => i !== index), property2);
-      $invalidate(0, property2.imageLabels = property2.imageLabels.filter((_, i) => i !== index), property2);
+      $invalidate(0, property.images = property.images.filter((_, i) => i !== index), property);
+      $invalidate(0, property.imageLabels = property.imageLabels.filter((_, i) => i !== index), property);
       notifier.showSuccess("Image removed");
     }
     let res_propId = "1";
@@ -14004,7 +14004,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }
         $invalidate(26, submitLoading = false);
         $invalidate(3, isPropertySubmitted = true);
-        $invalidate(0, property2.id = (res.property || {}).id + "", property2);
+        $invalidate(0, property.id = (res.property || {}).id + "", property);
         $invalidate(25, res_propId = (res.property || {}).id + "");
         notifier.showSuccess("Property created");
       });
@@ -14021,29 +14021,29 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
     function select_change_handler() {
-      property2.countryCode = select_value(this);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.countryCode = select_value(this);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input0_input_handler() {
-      property2.city = this.value;
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.city = this.value;
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input1_input_handler() {
-      property2.street = this.value;
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.street = this.value;
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input2_input_handler() {
-      property2.street2 = this.value;
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.street2 = this.value;
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input3_input_handler() {
-      property2.floors = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.floors = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input4_input_handler() {
       noteObj.contactEmail = this.value;
@@ -14070,9 +14070,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       });
     }
     function input_input_handler_1() {
-      property2.altitude = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.altitude = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     const click_handler_5 = () => {
       if (modeLocationCount === 0) {
@@ -14113,35 +14113,35 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       $invalidate(34, houseTypeLists);
     }
     function select1_change_handler() {
-      property2.parking = select_value(this);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.parking = select_value(this);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input0_input_handler_1() {
-      property2.bedroom = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.bedroom = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input1_input_handler_1() {
-      property2.bathroom = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.bathroom = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input2_input_handler_1() {
-      property2.livingroom = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.livingroom = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input_input_handler_2() {
       houseSize = to_number(this.value);
       $invalidate(16, houseSize);
     }
-    const click_handler_6 = () => $invalidate(0, property2.purpose = "sell", property2);
-    const click_handler_7 = () => $invalidate(0, property2.purpose = "rent", property2);
+    const click_handler_6 = () => $invalidate(0, property.purpose = "sell", property);
+    const click_handler_7 = () => $invalidate(0, property.purpose = "rent", property);
     function input2_input_handler_2() {
-      property2.lastPrice = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.lastPrice = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function select_change_handler_1() {
       infoObj.agencyFee = select_value(this);
@@ -14149,9 +14149,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       $invalidate(34, houseTypeLists);
     }
     function input_input_handler_3() {
-      property2.agencyFeePercent = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.agencyFeePercent = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function select_change_handler_2() {
       infoObj.deposit = select_value(this);
@@ -14159,14 +14159,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       $invalidate(34, houseTypeLists);
     }
     function input_input_handler_4() {
-      property2.depositFee = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.depositFee = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input_input_handler_5() {
-      property2.minimumDurationYear = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.minimumDurationYear = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     const click_handler_8 = () => {
       if (modeInfoCount === 0) {
@@ -14188,9 +14188,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       });
     }
     function input_input_handler_6(idx) {
-      property2.imageLabels[idx] = this.value;
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.imageLabels[idx] = this.value;
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     const click_handler_9 = (idx) => removeImage(idx);
     function section2_binding($value) {
@@ -14214,15 +14214,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(42, user2 = $props2.user);
+        $invalidate(42, user = $props2.user);
       if ("property" in $props2)
-        $invalidate(0, property2 = $props2.property);
+        $invalidate(0, property = $props2.property);
       if ("countries" in $props2)
-        $invalidate(1, countries2 = $props2.countries);
+        $invalidate(1, countries = $props2.countries);
     };
     return [
-      property2,
-      countries2,
+      property,
+      countries,
       currentPage,
       isPropertySubmitted,
       cards,
@@ -14263,7 +14263,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       handlerHouseImage,
       removeImage,
       handleSubmit,
-      user2,
+      user,
       click_handler,
       click_handler_1,
       click_handler_2,
@@ -19705,8 +19705,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var EDIT_ABOUT = "about";
   function instance7($self, $props, $invalidate) {
     let { isOwner = false } = $props;
-    let { property: property2 } = $props;
-    let { countries: countries2 } = $props;
+    let { property } = $props;
+    let { countries } = $props;
     let { isAdmin = false } = $props;
     let approvalStatus = "approved";
     let submitLoading = false;
@@ -19714,52 +19714,52 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let noteObj;
     onMount(() => {
       try {
-        $invalidate(6, noteObj = JSON.parse(property2.note));
+        $invalidate(6, noteObj = JSON.parse(property.note));
       } catch (e) {
         $invalidate(6, noteObj = {
           contactPhone: "",
           contactEmail: "",
-          about: property2.note
+          about: property.note
         });
       }
-      $invalidate(3, approvalStatus = (0, import_formatter2.getApprovalState)(property2.approvalState));
-      for (let i = 0; i < countries2.length; i++) {
-        if (countries2[i].iso_2 === property2.countryCode) {
-          $invalidate(5, countryCurrency = countries2[i].currency.code);
+      $invalidate(3, approvalStatus = (0, import_formatter2.getApprovalState)(property.approvalState));
+      for (let i = 0; i < countries.length; i++) {
+        if (countries[i].iso_2 === property.countryCode) {
+          $invalidate(5, countryCurrency = countries[i].currency.code);
         }
       }
     });
     function GetPayload() {
-      if (property2.countryCode === "US")
-        $invalidate(0, property2.city = property2.countyName, property2);
-      if (property2.numberOfFloors === "undefined")
-        $invalidate(0, property2.numberOfFloors = 1, property2);
+      if (property.countryCode === "US")
+        $invalidate(0, property.city = property.countyName, property);
+      if (property.numberOfFloors === "undefined")
+        $invalidate(0, property.numberOfFloors = 1, property);
       return {
-        countryCode: property2.countryCode,
-        city: property2.city,
-        countyName: property2.countyName,
-        district: property2.district,
-        street: property2.street + "\n" + (property2.street2 || ""),
-        livingroom: property2.livingroom,
-        parking: parseFloat(property2.parking),
-        depositFee: property2.depositFee,
-        minimumDurationYear: property2.minimumDurationYear,
-        otherFees: property2.otherFees || [],
-        imageLabels: property2.imageLabels || [],
-        altitude: property2.altitude,
-        id: property2.id,
-        formattedAddress: property2.formattedAddress,
-        coord: property2.coord,
-        houseType: property2.houseType,
-        purpose: property2.purpose,
-        images: property2.images || [],
-        bedroom: property2.bedroom,
-        bathroom: property2.bathroom,
-        sizeM2: "" + property2.sizeM2,
-        mainUse: property2.mainUse,
-        note: property2.note,
-        lastPrice: "" + property2.lastPrice,
-        agencyFeePercent: property2.agencyFeePercent || 0
+        countryCode: property.countryCode,
+        city: property.city,
+        countyName: property.countyName,
+        district: property.district,
+        street: property.street + "\n" + (property.street2 || ""),
+        livingroom: property.livingroom,
+        parking: parseFloat(property.parking),
+        depositFee: property.depositFee,
+        minimumDurationYear: property.minimumDurationYear,
+        otherFees: property.otherFees || [],
+        imageLabels: property.imageLabels || [],
+        altitude: property.altitude,
+        id: property.id,
+        formattedAddress: property.formattedAddress,
+        coord: property.coord,
+        houseType: property.houseType,
+        purpose: property.purpose,
+        images: property.images || [],
+        bedroom: property.bedroom,
+        bathroom: property.bathroom,
+        sizeM2: "" + property.sizeM2,
+        mainUse: property.mainUse,
+        note: property.note,
+        lastPrice: "" + property.lastPrice,
+        agencyFeePercent: property.agencyFeePercent || 0
       };
     }
     let approvalStates = {
@@ -19769,7 +19769,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       "rejected": {
         description: "Sorry, your property information has been rejected \u{1F622}",
-        reason: property2.approvalState
+        reason: property.approvalState
       },
       "approved": {
         description: "Congratulations, your property has been successfully listed on the App. \u{1F604}",
@@ -19779,7 +19779,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let PART_TO_EDIT = "";
     let imageHouseInput;
     let houseImgUploading = false, uploadHouseStatus = "", uploadHousePercent = 0;
-    let images = property2.images, imageLabels = property2.imageLabels || [];
+    let images = property.images, imageLabels = property.imageLabels || [];
     function handlerHouseImage() {
       if (!imageHouseInput)
         return;
@@ -19832,8 +19832,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     async function SaveEditPicture() {
       $invalidate(4, submitLoading = true);
-      $invalidate(0, property2.images = images, property2);
-      $invalidate(0, property2.imageLabels = imageLabels, property2);
+      $invalidate(0, property.images = images, property);
+      $invalidate(0, property.imageLabels = imageLabels, property);
       const payload = GetPayload();
       const prop = { property: payload };
       await RealtorUpsertProperty(prop, function(res) {
@@ -19857,10 +19857,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       "parking",
       "other"
     ], editFeatureCount = 0;
-    let houseType = property2.houseType, bedroom = property2.bedroom, bathroom = property2.bathroom, livingroom = property2.livingroom;
-    let sizeM2 = property2.sizeM2, parking = property2.parking.toString();
-    let purpose = property2.purpose, lastPrice = property2.lastPrice, agencyFeePercent = property2.agencyFeePercent;
-    let depositFee = property2.depositFee, minimumDurationYear = property2.minimumDurationYear, otherFees = property2.otherFees;
+    let houseType = property.houseType, bedroom = property.bedroom, bathroom = property.bathroom, livingroom = property.livingroom;
+    let sizeM2 = property.sizeM2, parking = property.parking.toString();
+    let purpose = property.purpose, lastPrice = property.lastPrice, agencyFeePercent = property.agencyFeePercent;
+    let depositFee = property.depositFee, minimumDurationYear = property.minimumDurationYear, otherFees = property.otherFees;
     let otherFeeObj = { name: "", fee: 0 };
     let addOtherFeeDialog;
     let agencyFee = "true";
@@ -19877,18 +19877,18 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
       if (editFeatureCount === 1) {
         $invalidate(4, submitLoading = true);
-        $invalidate(0, property2.houseType = houseType, property2);
-        $invalidate(0, property2.bedroom = bedroom, property2);
-        $invalidate(0, property2.bathroom = bathroom, property2);
-        $invalidate(0, property2.livingroom = livingroom, property2);
-        $invalidate(0, property2.sizeM2 = sizeM2, property2);
-        $invalidate(0, property2.parking = parking, property2);
-        $invalidate(0, property2.purpose = purpose, property2);
-        $invalidate(0, property2.lastPrice = lastPrice, property2);
-        $invalidate(0, property2.agencyFeePercent = agencyFeePercent, property2);
-        $invalidate(0, property2.depositFee = depositFee, property2);
-        $invalidate(0, property2.minimumDurationYear = minimumDurationYear, property2);
-        $invalidate(0, property2.otherFees = otherFees, property2);
+        $invalidate(0, property.houseType = houseType, property);
+        $invalidate(0, property.bedroom = bedroom, property);
+        $invalidate(0, property.bathroom = bathroom, property);
+        $invalidate(0, property.livingroom = livingroom, property);
+        $invalidate(0, property.sizeM2 = sizeM2, property);
+        $invalidate(0, property.parking = parking, property);
+        $invalidate(0, property.purpose = purpose, property);
+        $invalidate(0, property.lastPrice = lastPrice, property);
+        $invalidate(0, property.agencyFeePercent = agencyFeePercent, property);
+        $invalidate(0, property.depositFee = depositFee, property);
+        $invalidate(0, property.minimumDurationYear = minimumDurationYear, property);
+        $invalidate(0, property.otherFees = otherFees, property);
         const payload = GetPayload();
         const prop = { property: payload };
         await RealtorUpsertProperty(prop, function(res) {
@@ -19902,10 +19902,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         });
       }
     }
-    let mainUse = property2.mainUse;
+    let mainUse = property.mainUse;
     async function SaveEditFacility() {
       $invalidate(4, submitLoading = true);
-      $invalidate(0, property2.mainUse = mainUse, property2);
+      $invalidate(0, property.mainUse = mainUse, property);
       const payload = GetPayload();
       const prop = { property: payload };
       await RealtorUpsertProperty(prop, function(res) {
@@ -19920,7 +19920,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     async function SaveEditAbout() {
       $invalidate(4, submitLoading = true);
-      $invalidate(0, property2.note = JSON.stringify(noteObj), property2);
+      $invalidate(0, property.note = JSON.stringify(noteObj), property);
       const payload = GetPayload();
       const prop = { property: payload };
       await RealtorUpsertProperty(prop, function(res) {
@@ -19938,7 +19938,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       AdminProperties(
         {
           cmd: "upsert",
-          property: { id: property2.id, approvalState: " " }
+          property: { id: property.id, approvalState: " " }
           // empty is approved, will be trimmed on server side
         },
         function(res) {
@@ -19961,7 +19961,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         {
           cmd: "upsert",
           property: {
-            id: property2.id,
+            id: property.id,
             approvalState: rejectReason
           }
         },
@@ -19977,7 +19977,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       );
     }
     function ReviewProperty() {
-      RealtorUpsertProperty({ askReview: true, property: property2 }, function(res) {
+      RealtorUpsertProperty({ askReview: true, property }, function(res) {
         if (res.error) {
           notifier.showError(res.error);
           return;
@@ -19988,7 +19988,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     function DeleteProperty() {
       if (!confirm("Are you sure you want to delete this property?"))
         return;
-      RealtorDeleteProperty({ id: "" + property2.id }, function(res) {
+      RealtorDeleteProperty({ id: "" + property.id }, function(res) {
         if (res.error) {
           notifier.showError(res.error);
           return;
@@ -20105,14 +20105,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       if ("isOwner" in $props2)
         $invalidate(1, isOwner = $props2.isOwner);
       if ("property" in $props2)
-        $invalidate(0, property2 = $props2.property);
+        $invalidate(0, property = $props2.property);
       if ("countries" in $props2)
-        $invalidate(47, countries2 = $props2.countries);
+        $invalidate(47, countries = $props2.countries);
       if ("isAdmin" in $props2)
         $invalidate(2, isAdmin = $props2.isAdmin);
     };
     return [
-      property2,
+      property,
       isOwner,
       isAdmin,
       approvalStatus,
@@ -20159,7 +20159,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       RejectProperty,
       ReviewProperty,
       DeleteProperty,
-      countries2,
+      countries,
       textarea_input_handler,
       click_handler,
       click_handler_1,
@@ -20293,7 +20293,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     const if_block_creators = [create_if_block_113, create_else_block3];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
-      if (property.id)
+      if (
+        /*property*/
+        ctx2[3].id
+      )
         return 0;
       return 1;
     }
@@ -20333,7 +20336,22 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   function create_else_block3(ctx) {
     let createproperty;
     let current;
-    createproperty = new CreateProperty_old_default({ props: { property, user, countries } });
+    createproperty = new CreateProperty_old_default({
+      props: {
+        property: (
+          /*property*/
+          ctx[3]
+        ),
+        user: (
+          /*user*/
+          ctx[4]
+        ),
+        countries: (
+          /*countries*/
+          ctx[6]
+        )
+      }
+    });
     return {
       c() {
         create_component(createproperty.$.fragment);
@@ -20363,8 +20381,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let current;
     editproperty = new EditProperty_old_default({
       props: {
-        property,
-        countries,
+        property: (
+          /*property*/
+          ctx[3]
+        ),
+        countries: (
+          /*countries*/
+          ctx[6]
+        ),
         isAdmin: (
           /*isAdmin*/
           ctx[0]
@@ -20426,10 +20450,24 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     googlesdk.$on(
       "ready",
       /*ready_handler*/
-      ctx[3]
+      ctx[7]
     );
-    menu = new Menu_default({ props: { access: segments } });
-    profileheader = new ProfileHeader_default({ props: { user, access: segments } });
+    menu = new Menu_default({ props: { access: (
+      /*segments*/
+      ctx[5]
+    ) } });
+    profileheader = new ProfileHeader_default({
+      props: {
+        user: (
+          /*user*/
+          ctx[4]
+        ),
+        access: (
+          /*segments*/
+          ctx[5]
+        )
+      }
+    });
     let if_block = (
       /*isGoogleReady*/
       ctx[2] && create_if_block6(ctx)
@@ -20524,23 +20562,23 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  var property = (
-    /** @type {TypeProperty} */
-    {/* property */}
-  );
-  var user = (
-    /** @type {User} */
-    {/* user */}
-  );
-  var segments = (
-    /** @type {Access}*/
-    {/* segments */}
-  );
-  var countries = (
-    /** @type {CountryData[]}*/
-    [/* countries */]
-  );
   function instance9($self, $props, $invalidate) {
+    let property = (
+      /** @type {TypeProperty} */
+      {}
+    );
+    let user = (
+      /** @type {User} */
+      {}
+    );
+    let segments = (
+      /** @type {Access}*/
+      {}
+    );
+    let countries = (
+      /** @type {CountryData[]}*/
+      []
+    );
     let isAdmin = false;
     let isOwner = false;
     onMount(() => {
@@ -20553,7 +20591,16 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     });
     let isGoogleReady = false;
     const ready_handler = () => $invalidate(2, isGoogleReady = true);
-    return [isAdmin, isOwner, isGoogleReady, ready_handler];
+    return [
+      isAdmin,
+      isOwner,
+      isGoogleReady,
+      property,
+      user,
+      segments,
+      countries,
+      ready_handler
+    ];
   }
   var Property_old = class extends SvelteComponent {
     constructor(options) {

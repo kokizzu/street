@@ -9154,7 +9154,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       /** @type {boolean} */
       true
     ) } = $props;
-    let { fields: fields2 = (
+    let { fields = (
       /** @type {Field[]} */
       []
     ) } = $props;
@@ -9195,12 +9195,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     );
     onMount(() => {
       console.log("onMount.TableView");
-      console.log("fields=", fields2);
+      console.log("fields=", fields);
       console.log("rows=", rows);
       console.log("pager=", pager);
       console.log("extraActions=", extraActions);
-      for (let z = 0; z < fields2.length; z++) {
-        let field = fields2[z];
+      for (let z = 0; z < fields.length; z++) {
+        let field = fields[z];
         if (field.name === "deletedAt") {
           $invalidate(9, deletedAtIdx = z);
         }
@@ -9268,7 +9268,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       if ("arrayOfArray" in $props2)
         $invalidate(18, arrayOfArray = $props2.arrayOfArray);
       if ("fields" in $props2)
-        $invalidate(2, fields2 = $props2.fields);
+        $invalidate(2, fields = $props2.fields);
       if ("rows" in $props2)
         $invalidate(3, rows = $props2.rows);
       if ("pager" in $props2)
@@ -9306,7 +9306,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     return [
       pager,
       renderFuncs,
-      fields2,
+      fields,
       rows,
       extraActions,
       widths,
@@ -10446,7 +10446,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   }
   function instance8($self, $props, $invalidate) {
     let { $slots: slots = {}, $scope } = $props;
-    let { fields: fields2 = [] } = $props;
+    let { fields = [] } = $props;
     let { visible = false } = $props;
     let { loading = false } = $props;
     let { row = {} } = $props;
@@ -10517,7 +10517,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     $self.$set = ($props2) => {
       if ("fields" in $props2)
-        $invalidate(3, fields2 = $props2.fields);
+        $invalidate(3, fields = $props2.fields);
       if ("visible" in $props2)
         $invalidate(1, visible = $props2.visible);
       if ("loading" in $props2)
@@ -10540,14 +10540,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       if ($self.$.dirty & /*fields*/
       8) {
         $:
-          JSON.stringify(fields2);
+          JSON.stringify(fields);
       }
     };
     return [
       row,
       visible,
       loading,
-      fields2,
+      fields,
       rowType,
       deletePressed,
       restorePressed,
@@ -11066,13 +11066,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var import_mapper = __toESM(require_mapper());
   function get_each_context4(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[22] = list[i];
+    child_ctx[24] = list[i];
     return child_ctx;
   }
   function get_each_context_12(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[25] = list[i][0];
-    child_ctx[26] = list[i][1];
+    child_ctx[27] = list[i][0];
+    child_ctx[28] = list[i][1];
     return child_ctx;
   }
   function create_default_slot(ctx) {
@@ -11165,19 +11165,19 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
               button0,
               "click",
               /*addRow*/
-              ctx[12]
+              ctx[14]
             ),
             listen(
               button1,
               "click",
               /*filterPendingApproval*/
-              ctx[10]
+              ctx[12]
             ),
             listen(
               button2,
               "click",
               /*filterRejectedApproval*/
-              ctx[11]
+              ctx[13]
             )
           ];
           mounted = true;
@@ -11185,23 +11185,23 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, dirty) {
         const icon1_changes = {};
-        if (dirty & /*filterdByPending*/
+        if (dirty[0] & /*filterdByPending*/
         32)
           icon1_changes.color = !/*filterdByPending*/
           ctx2[5] ? "#FFF" : "#000";
         icon1.$set(icon1_changes);
-        if (!current || dirty & /*filterdByPending*/
+        if (!current || dirty[0] & /*filterdByPending*/
         32) {
           toggle_class(button1, "not_filtered", !/*filterdByPending*/
           ctx2[5]);
         }
         const icon2_changes = {};
-        if (dirty & /*filterdByRejected*/
+        if (dirty[0] & /*filterdByRejected*/
         64)
           icon2_changes.color = !/*filterdByRejected*/
           ctx2[6] ? "#FFF" : "#000";
         icon2.$set(icon2_changes);
-        if (!current || dirty & /*filterdByRejected*/
+        if (!current || dirty[0] & /*filterdByRejected*/
         64) {
           toggle_class(button2, "not_filtered", !/*filterdByRejected*/
           ctx2[6]);
@@ -11287,7 +11287,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*Object, currentPropHistory, Date*/
+        if (dirty[0] & /*currentPropHistory*/
         4) {
           each_value = ensure_array_like(
             /*currentPropHistory*/
@@ -11343,11 +11343,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       props: {
         label: (
           /*key*/
-          ctx[25]
+          ctx[27]
         ),
         content: (
           /*val*/
-          ctx[26]
+          ctx[28]
         )
       }
     });
@@ -11361,14 +11361,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, dirty) {
         const pillbox_changes = {};
-        if (dirty & /*currentPropHistory*/
+        if (dirty[0] & /*currentPropHistory*/
         4)
           pillbox_changes.label = /*key*/
-          ctx2[25];
-        if (dirty & /*currentPropHistory*/
+          ctx2[27];
+        if (dirty[0] & /*currentPropHistory*/
         4)
           pillbox_changes.content = /*val*/
-          ctx2[26];
+          ctx2[28];
         pillbox.$set(pillbox_changes);
       },
       i(local) {
@@ -11393,11 +11393,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       props: {
         label: (
           /*key*/
-          ctx[25]
+          ctx[27]
         ),
         content: (0, import_formatter3.priceNtd)(
           /*val*/
-          ctx[26]
+          ctx[28]
         )
       }
     });
@@ -11411,15 +11411,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, dirty) {
         const pillbox_changes = {};
-        if (dirty & /*currentPropHistory*/
+        if (dirty[0] & /*currentPropHistory*/
         4)
           pillbox_changes.label = /*key*/
-          ctx2[25];
-        if (dirty & /*currentPropHistory*/
+          ctx2[27];
+        if (dirty[0] & /*currentPropHistory*/
         4)
           pillbox_changes.content = (0, import_formatter3.priceNtd)(
             /*val*/
-            ctx2[26]
+            ctx2[28]
           );
         pillbox.$set(pillbox_changes);
       },
@@ -11445,11 +11445,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       props: {
         label: (
           /*key*/
-          ctx[25]
+          ctx[27]
         ),
         content: new Date(
           /*val*/
-          ctx[26] * 1e3
+          ctx[28] * 1e3
         )
       }
     });
@@ -11463,15 +11463,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, dirty) {
         const pillbox_changes = {};
-        if (dirty & /*currentPropHistory*/
+        if (dirty[0] & /*currentPropHistory*/
         4)
           pillbox_changes.label = /*key*/
-          ctx2[25];
-        if (dirty & /*currentPropHistory*/
+          ctx2[27];
+        if (dirty[0] & /*currentPropHistory*/
         4)
           pillbox_changes.content = new Date(
             /*val*/
-            ctx2[26] * 1e3
+            ctx2[28] * 1e3
           );
         pillbox.$set(pillbox_changes);
       },
@@ -11519,25 +11519,25 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     function select_block_type_1(ctx2, dirty) {
       if (
         /*val*/
-        ctx2[26] === "0" || !/*val*/
-        ctx2[26]
+        ctx2[28] === "0" || !/*val*/
+        ctx2[28]
       )
         return 0;
       if (
         /*key*/
-        ctx2[25] === "createdAt" || /*key*/
-        ctx2[25] === "updatedAt"
+        ctx2[27] === "createdAt" || /*key*/
+        ctx2[27] === "updatedAt"
       )
         return 1;
       if (
         /*key*/
-        ctx2[25] === "priceNtd" || /*key*/
-        ctx2[25] === "pricePerUnit"
+        ctx2[27] === "priceNtd" || /*key*/
+        ctx2[27] === "pricePerUnit"
       )
         return 2;
       return 3;
     }
-    current_block_type_index = select_block_type_1(ctx, -1);
+    current_block_type_index = select_block_type_1(ctx, [-1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -11594,7 +11594,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let current;
     let each_value_1 = ensure_array_like(Object.entries(
       /*row*/
-      ctx[22]
+      ctx[24]
     ));
     let each_blocks = [];
     for (let i = 0; i < each_value_1.length; i += 1) {
@@ -11620,11 +11620,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*Object, currentPropHistory, Date*/
+        if (dirty[0] & /*currentPropHistory*/
         4) {
           each_value_1 = ensure_array_like(Object.entries(
             /*row*/
-            ctx2[22]
+            ctx2[24]
           ));
           let i;
           for (i = 0; i < each_value_1.length; i += 1) {
@@ -11687,7 +11687,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type(ctx, -1);
+    current_block_type_index = select_block_type(ctx, [-1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -11765,35 +11765,47 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let t5;
     let modaldialog;
     let current;
-    menu = new Menu_default({ props: { access: segments } });
-    profileheader = new ProfileHeader_default({ props: { access: segments } });
+    menu = new Menu_default({ props: { access: (
+      /*segments*/
+      ctx[7]
+    ) } });
+    profileheader = new ProfileHeader_default({ props: { access: (
+      /*segments*/
+      ctx[7]
+    ) } });
     adminsubmenu = new AdminSubMenu_default({});
     let modalform_props = {
-      fields,
+      fields: (
+        /*fields*/
+        ctx[8]
+      ),
       onConfirm: (
         /*saveRow*/
-        ctx[13]
+        ctx[15]
       ),
       rowType: "Property"
     };
     modalform = new ModalForm_default({ props: modalform_props });
-    ctx[16](modalform);
+    ctx[18](modalform);
     function tableview_pager_binding(value) {
-      ctx[17](value);
+      ctx[19](value);
     }
     let tableview_props = {
       extraActions: (
         /*extraActions*/
-        ctx[7]
+        ctx[9]
       ),
-      fields,
+      fields: (
+        /*fields*/
+        ctx[8]
+      ),
       onEditRow: (
         /*editRow*/
-        ctx[9]
+        ctx[11]
       ),
       onRefreshTableView: (
         /*refreshTableView*/
-        ctx[8]
+        ctx[10]
       ),
       rows: (
         /*properties*/
@@ -11801,7 +11813,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       ),
       renderFuncs: (
         /*renderMap*/
-        ctx[14]
+        ctx[16]
       ),
       widths: { mainUse: "320px", address: "240px" },
       $slots: { default: [create_default_slot] },
@@ -11822,7 +11834,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       $scope: { ctx }
     };
     modaldialog = new ModalDialog_default({ props: modaldialog_props });
-    ctx[18](modaldialog);
+    ctx[20](modaldialog);
     return {
       c() {
         section1 = element("section");
@@ -11867,19 +11879,20 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         mount_component(modaldialog, section1, null);
         current = true;
       },
-      p(ctx2, [dirty]) {
+      p(ctx2, dirty) {
         const modalform_changes = {};
         modalform.$set(modalform_changes);
         const tableview_changes = {};
-        if (dirty & /*properties*/
+        if (dirty[0] & /*properties*/
         1)
           tableview_changes.rows = /*properties*/
           ctx2[0];
-        if (dirty & /*$scope, filterdByRejected, filterdByPending*/
-        536871008) {
+        if (dirty[0] & /*filterdByRejected, filterdByPending*/
+        96 | dirty[1] & /*$scope*/
+        1) {
           tableview_changes.$scope = { dirty, ctx: ctx2 };
         }
-        if (!updating_pager && dirty & /*pager*/
+        if (!updating_pager && dirty[0] & /*pager*/
         2) {
           updating_pager = true;
           tableview_changes.pager = /*pager*/
@@ -11888,8 +11901,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }
         tableview.$set(tableview_changes);
         const modaldialog_changes = {};
-        if (dirty & /*$scope, currentPropHistory*/
-        536870916) {
+        if (dirty[0] & /*currentPropHistory*/
+        4 | dirty[1] & /*$scope*/
+        1) {
           modaldialog_changes.$scope = { dirty, ctx: ctx2 };
         }
         modaldialog.$set(modaldialog_changes);
@@ -11923,22 +11937,22 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         destroy_component(menu);
         destroy_component(profileheader);
         destroy_component(adminsubmenu);
-        ctx[16](null);
+        ctx[18](null);
         destroy_component(modalform);
         destroy_component(tableview);
         destroy_component(footer);
-        ctx[18](null);
+        ctx[20](null);
         destroy_component(modaldialog);
       }
     };
   }
-  var segments = {/* segments */};
-  var fields = [/* fields */];
   function instance11($self, $props, $invalidate) {
     let approvalStateFilter;
+    let segments = {};
+    let fields = [];
     let fieldByKey = (0, import_mapper.fieldsArrToMap)(fields);
-    let properties = [/* properties */];
-    let pager = {/* pager */};
+    let properties = [];
+    let pager = {};
     let currentPropHistory = [];
     let extraActions = [
       {
@@ -12102,23 +12116,23 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       });
     }
     $self.$.update = () => {
-      if ($self.$.dirty & /*properties*/
+      if ($self.$.dirty[0] & /*properties*/
       1) {
         $:
           console.log("properties=", properties);
       }
-      if ($self.$.dirty & /*pager*/
+      if ($self.$.dirty[0] & /*pager*/
       2) {
         $:
-          $invalidate(15, approvalStateFilter = (pager.filters || {}).approvalState || []);
+          $invalidate(17, approvalStateFilter = (pager.filters || {}).approvalState || []);
       }
-      if ($self.$.dirty & /*approvalStateFilter*/
-      32768) {
+      if ($self.$.dirty[0] & /*approvalStateFilter*/
+      131072) {
         $:
           $invalidate(5, filterdByPending = approvalStateFilter[0] === "pending");
       }
-      if ($self.$.dirty & /*approvalStateFilter*/
-      32768) {
+      if ($self.$.dirty[0] & /*approvalStateFilter*/
+      131072) {
         $:
           $invalidate(6, filterdByRejected = approvalStateFilter[0] === "<>" && approvalStateFilter[1] === "<>pending");
       }
@@ -12131,6 +12145,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       form,
       filterdByPending,
       filterdByRejected,
+      segments,
+      fields,
       extraActions,
       refreshTableView,
       editRow,
@@ -12148,7 +12164,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var PropertiesTW = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance11, create_fragment11, safe_not_equal, {});
+      init(this, options, instance11, create_fragment11, safe_not_equal, {}, null, [-1, -1]);
     }
   };
   var propertiesTW_default = PropertiesTW;

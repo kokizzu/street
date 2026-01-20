@@ -3860,12 +3860,12 @@
     };
   }
   function instance3($self, $props, $invalidate) {
-    let { propHistories: propHistories2 } = $props;
-    let { propItem: propItem2 = (
+    let { propHistories } = $props;
+    let { propItem = (
       /** @type {TypeProperty | TypePropertyUS} */
       {}
     ) } = $props;
-    let { meta: meta2 } = $props;
+    let { meta } = $props;
     let { isAdmin: isAdmin2 = false } = $props;
     let { isGuest = false } = $props;
     let { propExtraUS = (
@@ -3889,25 +3889,25 @@
     }
     onMount(() => {
       console.log("onMount.Property");
-      console.log("Property = ", propItem2);
-      console.log("Meta =", meta2);
+      console.log("Property = ", propItem);
+      console.log("Meta =", meta);
       console.log("IsAdmin =", isAdmin2);
       console.log("isGuest =", isGuest);
-      console.log("propItem.note =", propItem2.note);
-      if (propItem2.approvalState !== "pending" && propItem2.approvalState !== "") {
+      console.log("propItem.note =", propItem.note);
+      if (propItem.approvalState !== "pending" && propItem.approvalState !== "") {
         $invalidate(5, approvalStatus = "rejected");
       }
-      if (propItem2.approvalState === "pending") {
+      if (propItem.approvalState === "pending") {
         $invalidate(5, approvalStatus = "pending");
       }
     });
     $self.$set = ($props2) => {
       if ("propHistories" in $props2)
-        $invalidate(0, propHistories2 = $props2.propHistories);
+        $invalidate(0, propHistories = $props2.propHistories);
       if ("propItem" in $props2)
-        $invalidate(1, propItem2 = $props2.propItem);
+        $invalidate(1, propItem = $props2.propItem);
       if ("meta" in $props2)
-        $invalidate(2, meta2 = $props2.meta);
+        $invalidate(2, meta = $props2.meta);
       if ("isAdmin" in $props2)
         $invalidate(3, isAdmin2 = $props2.isAdmin);
       if ("isGuest" in $props2)
@@ -3916,9 +3916,9 @@
         $invalidate(9, propExtraUS = $props2.propExtraUS);
     };
     return [
-      propHistories2,
-      propItem2,
-      meta2,
+      propHistories,
+      propItem,
+      meta,
       isAdmin2,
       isGuest,
       approvalStatus,
@@ -3990,7 +3990,21 @@
     let mounted;
     let dispose;
     property = new Property_default({
-      props: { propItem, meta, propHistories, isAdmin }
+      props: {
+        propItem: (
+          /*propItem*/
+          ctx[1]
+        ),
+        meta: (
+          /*meta*/
+          ctx[2]
+        ),
+        propHistories: (
+          /*propHistories*/
+          ctx[0]
+        ),
+        isAdmin
+      }
     });
     icon0 = new Icon_default({
       props: {
@@ -4106,31 +4120,31 @@
         attr(a1, "aria-label", "Share to Facebook");
         attr(a1, "class", "share_item svelte-2tq1rc");
         attr(a1, "href", a1_href_value = "https://www.facebook.com/sharer/sharer.php?u=" + /*toBeUrl*/
-        ctx[0] + "?utm_source=facebook&utm_medium=social&utm_campaign=user-share");
+        ctx[3] + "?utm_source=facebook&utm_medium=social&utm_campaign=user-share");
         attr(a1, "rel", "noopener");
         attr(a1, "target", "_blank");
         attr(a2, "aria-label", "Share to LinkedIn");
         attr(a2, "class", "share_item svelte-2tq1rc");
         attr(a2, "href", a2_href_value = "https://www.linkedin.com/shareArticle?mini=true&url=" + /*toBeUrl*/
-        ctx[0] + "&title=I%20Found%20Awesome%House%20" + window.location);
+        ctx[3] + "&title=I%20Found%20Awesome%House%20" + window.location);
         attr(a2, "rel", "noopener");
         attr(a2, "target", "_blank");
         attr(a3, "aria-label", "Share to Twitter");
         attr(a3, "class", "share_item svelte-2tq1rc");
         attr(a3, "href", a3_href_value = "https://twitter.com/intent/tweet?url=" + /*toBeUrl*/
-        ctx[0]);
+        ctx[3]);
         attr(a3, "rel", "noopener");
         attr(a3, "target", "_blank");
         attr(a4, "aria-label", "Share to Telegram");
         attr(a4, "class", "share_item svelte-2tq1rc");
         attr(a4, "href", a4_href_value = "https://t.me/share/url?url=" + /*toBeUrl*/
-        ctx[0]);
+        ctx[3]);
         attr(a4, "rel", "noopener");
         attr(a4, "target", "_blank");
         attr(a5, "aria-label", "Share to WhatsApp");
         attr(a5, "class", "share_item svelte-2tq1rc");
         attr(a5, "href", a5_href_value = "https://api.whatsapp.com/send?text=I%20Found%20Awesome%20House%20" + /*toBeUrl*/
-        ctx[0]);
+        ctx[3]);
         attr(a5, "rel", "noopener");
         attr(a5, "target", "_blank");
         attr(div3, "class", "share_options svelte-2tq1rc");
@@ -4180,7 +4194,7 @@
             button,
             "click",
             /*click_handler*/
-            ctx[2]
+            ctx[5]
           );
           mounted = true;
         }
@@ -4259,7 +4273,10 @@
     const if_block_creators = [create_if_block3, create_else_block2];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
-      if (propItem.deletedAt > 0)
+      if (
+        /*propItem*/
+        ctx2[1].deletedAt > 0
+      )
         return 0;
       return 1;
     }
@@ -4297,11 +4314,11 @@
       }
     };
   }
-  var propHistories = [/* propHistories */];
-  var propItem = {/* propItem */};
-  var meta = {/* propertyMeta */};
   var isAdmin = false;
   function instance4($self) {
+    let propHistories = [];
+    let propItem = {};
+    let meta = {};
     let showGrowl = false, gMsg = "", gType = "";
     onMount(() => {
       console.log("onMount.user/property/index");
@@ -4325,7 +4342,7 @@
       useGrowl("success", "Link copied to clipboard");
     }
     const click_handler = () => copyToClipboard(toBeUrl);
-    return [toBeUrl, copyToClipboard, click_handler];
+    return [propHistories, propItem, meta, toBeUrl, copyToClipboard, click_handler];
   }
   var Property_1 = class extends SvelteComponent {
     constructor(options) {

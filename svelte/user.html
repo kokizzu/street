@@ -4862,7 +4862,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     };
   }
   function instance($self, $props, $invalidate) {
-    let { access: access2 = (
+    let { access = (
       /** @type {Access} */
       {}
     ) } = $props;
@@ -4900,9 +4900,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     $self.$set = ($props2) => {
       if ("access" in $props2)
-        $invalidate(0, access2 = $props2.access);
+        $invalidate(0, access = $props2.access);
     };
-    return [access2, pathAll, pathLv1, pathLv2, logout];
+    return [access, pathAll, pathLv1, pathLv2, logout];
   }
   var SideMenu = class extends SvelteComponent {
     constructor(options) {
@@ -5630,7 +5630,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       /** @type {User} */
       {}
     ) } = $props;
-    let { access: access2 = (
+    let { access = (
       /** @type {Access} */
       {}
     ) } = $props;
@@ -5638,11 +5638,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       if ("user" in $props2)
         $invalidate(0, user = $props2.user);
       if ("access" in $props2)
-        $invalidate(1, access2 = $props2.access);
+        $invalidate(1, access = $props2.access);
       if ("$scope" in $props2)
         $invalidate(3, $scope = $props2.$scope);
     };
-    return [user, access2, $isShrinkMenu, $scope, slots];
+    return [user, access, $isShrinkMenu, $scope, slots];
   }
   var Main = class extends SvelteComponent {
     constructor(options) {
@@ -7997,8 +7997,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   // user.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[25] = list[i];
-    child_ctx[27] = i;
+    child_ctx[27] = list[i];
+    child_ctx[29] = i;
     return child_ctx;
   }
   function create_if_block5(ctx) {
@@ -8006,7 +8006,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let updating_value;
     let current;
     function inputbox_value_binding(value) {
-      ctx[19](value);
+      ctx[20](value);
     }
     let inputbox_props = {
       label: "Country",
@@ -8076,17 +8076,17 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let td2;
     let t3_value = (
       /*session*/
-      (ctx[25].loginIPs || "0") + ""
+      (ctx[27].loginIPs || "0") + ""
     );
     let t3;
     let t4;
     let td3;
     let t5_value = (
       /*session*/
-      (ctx[25].expiredAt && /*session*/
-      ctx[25].expiredAt > 0 ? (0, import_formatter.datetime)(
+      (ctx[27].expiredAt && /*session*/
+      ctx[27].expiredAt > 0 ? (0, import_formatter.datetime)(
         /*session*/
-        ctx[25].expiredAt
+        ctx[27].expiredAt
       ) : "0") + ""
     );
     let t5;
@@ -8094,7 +8094,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let td4;
     let t7_value = (
       /*session*/
-      (ctx[25].device || "--") + ""
+      (ctx[27].device || "--") + ""
     );
     let t7;
     let t8;
@@ -8111,9 +8111,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[20](
+        ctx[21](
           /*session*/
-          ctx[25]
+          ctx[27]
         )
       );
     }
@@ -8122,7 +8122,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         tr = element("tr");
         td0 = element("td");
         td0.textContent = `${/*i*/
-        ctx[27] + 1}`;
+        ctx[29] + 1}`;
         t1 = space();
         td1 = element("td");
         div = element("div");
@@ -8176,19 +8176,19 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ctx = new_ctx;
         if ((!current || dirty & /*activeSessions*/
         2) && t3_value !== (t3_value = /*session*/
-        (ctx[25].loginIPs || "0") + ""))
+        (ctx[27].loginIPs || "0") + ""))
           set_data(t3, t3_value);
         if ((!current || dirty & /*activeSessions*/
         2) && t5_value !== (t5_value = /*session*/
-        (ctx[25].expiredAt && /*session*/
-        ctx[25].expiredAt > 0 ? (0, import_formatter.datetime)(
+        (ctx[27].expiredAt && /*session*/
+        ctx[27].expiredAt > 0 ? (0, import_formatter.datetime)(
           /*session*/
-          ctx[25].expiredAt
+          ctx[27].expiredAt
         ) : "0") + ""))
           set_data(t5, t5_value);
         if ((!current || dirty & /*activeSessions*/
         2) && t7_value !== (t7_value = /*session*/
-        (ctx[25].device || "--") + ""))
+        (ctx[27].device || "--") + ""))
           set_data(t7, t7_value);
       },
       i(local) {
@@ -8294,7 +8294,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let submitbutton1;
     let current;
     function inputbox0_value_binding(value) {
-      ctx[16](value);
+      ctx[17](value);
     }
     let inputbox0_props = {
       label: "Username",
@@ -8312,7 +8312,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     inputbox0 = new InputBox_default({ props: inputbox0_props });
     binding_callbacks.push(() => bind(inputbox0, "value", inputbox0_value_binding));
     function inputbox1_value_binding(value) {
-      ctx[17](value);
+      ctx[18](value);
     }
     let inputbox1_props = {
       label: "Full Name",
@@ -8330,7 +8330,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     inputbox1 = new InputBox_default({ props: inputbox1_props });
     binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
     function inputbox2_value_binding(value) {
-      ctx[18](value);
+      ctx[19](value);
     }
     let inputbox2_props = {
       label: "Email",
@@ -8363,7 +8363,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     submitbutton0.$on(
       "click",
       /*updateProfile*/
-      ctx[13]
+      ctx[14]
     );
     let each_value = ensure_array_like(
       /*activeSessions*/
@@ -8377,7 +8377,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       each_blocks[i] = null;
     });
     function inputbox3_value_binding(value) {
-      ctx[21](value);
+      ctx[22](value);
     }
     let inputbox3_props = {
       label: "Old Password",
@@ -8395,7 +8395,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     inputbox3 = new InputBox_default({ props: inputbox3_props });
     binding_callbacks.push(() => bind(inputbox3, "value", inputbox3_value_binding));
     function inputbox4_value_binding(value) {
-      ctx[22](value);
+      ctx[23](value);
     }
     let inputbox4_props = {
       label: "New Password",
@@ -8413,7 +8413,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     inputbox4 = new InputBox_default({ props: inputbox4_props });
     binding_callbacks.push(() => bind(inputbox4, "value", inputbox4_value_binding));
     function inputbox5_value_binding(value) {
-      ctx[23](value);
+      ctx[24](value);
     }
     let inputbox5_props = {
       label: "Confirm New Password",
@@ -8442,7 +8442,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     submitbutton1.$on(
       "click",
       /*changePassword*/
-      ctx[14]
+      ctx[15]
     );
     return {
       c() {
@@ -8667,7 +8667,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           ctx2[11];
         submitbutton0.$set(submitbutton0_changes);
         if (dirty & /*activeSessions, killSession*/
-        32770) {
+        65538) {
           each_value = ensure_array_like(
             /*activeSessions*/
             ctx2[1] || []
@@ -8785,7 +8785,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           /*user*/
           ctx[0]
         ),
-        access,
+        access: (
+          /*access*/
+          ctx[13]
+        ),
         $slots: { default: [create_default_slot] },
         $scope: { ctx }
       }
@@ -8805,7 +8808,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           main_changes.user = /*user*/
           ctx2[0];
         if (dirty & /*$scope, isSubmitPassword, confNewPassword, newPassword, oldPassword, activeSessions, isSubmitProfile, user, countriesObj, country, isCountriesReady, email, fullName, username*/
-        268443647) {
+        1073750015) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -8825,22 +8828,22 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  var access = (
-    /** @type {Access} */
-    {/* segments */}
-  );
-  var countries = (
-    /** @type {CountryData[]} */
-    [/* countries */]
-  );
   function instance8($self, $props, $invalidate) {
     let user = (
       /** @type {User} */
-      {/* user */}
+      {}
+    );
+    let access = (
+      /** @type {Access} */
+      {}
+    );
+    let countries = (
+      /** @type {CountryData[]} */
+      []
     );
     let activeSessions = (
       /** @type {Session[]} */
-      {/* activeSessions */}
+      {}
     );
     let oldPassword = (
       /** @type {string} */
@@ -9005,6 +9008,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       country,
       isSubmitProfile,
       isSubmitPassword,
+      access,
       updateProfile,
       changePassword,
       killSession,

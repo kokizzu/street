@@ -18996,7 +18996,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     };
   }
   function instance($self, $props, $invalidate) {
-    let { access: access2 = (
+    let { access = (
       /** @type {Access} */
       {}
     ) } = $props;
@@ -19034,9 +19034,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     $self.$set = ($props2) => {
       if ("access" in $props2)
-        $invalidate(0, access2 = $props2.access);
+        $invalidate(0, access = $props2.access);
     };
-    return [access2, pathAll, pathLv1, pathLv2, logout];
+    return [access, pathAll, pathLv1, pathLv2, logout];
   }
   var SideMenu = class extends SvelteComponent {
     constructor(options) {
@@ -19759,23 +19759,23 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let $isShrinkMenu;
     component_subscribe($self, isShrinkMenu, ($value) => $invalidate(2, $isShrinkMenu = $value));
     let { $slots: slots = {}, $scope } = $props;
-    let { user: user2 = (
+    let { user = (
       /** @type {User} */
       {}
     ) } = $props;
-    let { access: access2 = (
+    let { access = (
       /** @type {Access} */
       {}
     ) } = $props;
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(0, user2 = $props2.user);
+        $invalidate(0, user = $props2.user);
       if ("access" in $props2)
-        $invalidate(1, access2 = $props2.access);
+        $invalidate(1, access = $props2.access);
       if ("$scope" in $props2)
         $invalidate(3, $scope = $props2.$scope);
     };
-    return [user2, access2, $isShrinkMenu, $scope, slots];
+    return [user, access, $isShrinkMenu, $scope, slots];
   }
   var Main = class extends SvelteComponent {
     constructor(options) {
@@ -19996,11 +19996,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         div2 = element("div");
         div0 = element("div");
         div0.textContent = `Registered User Total: ${/*registeredUserTotal*/
-        ctx[0]}`;
+        ctx[2]}`;
         t3 = space();
         div1 = element("div");
         div1.textContent = `Registered User Today: ${/*totalRegisteredUserToday*/
-        ctx[1]}`;
+        ctx[3]}`;
         t6 = space();
         div7 = element("div");
         div7.innerHTML = `<div class="statistics svelte-1w4setq"><header><h3 class="svelte-1w4setq">Last 30 days User Statistics</h3></header> <div class="stats svelte-1w4setq"><canvas id="stats-chart"></canvas></div></div> <div class="actions svelte-1w4setq"><header><h3 class="svelte-1w4setq">Last 30 days Actions</h3></header> <div class="action svelte-1w4setq"><canvas id="action-chart"></canvas></div></div>`;
@@ -20048,8 +20048,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let current;
     main = new Main_default({
       props: {
-        user,
-        access,
+        user: (
+          /*user*/
+          ctx[0]
+        ),
+        access: (
+          /*access*/
+          ctx[1]
+        ),
         $slots: { default: [create_default_slot] },
         $scope: { ctx }
       }
@@ -20065,7 +20071,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       p(ctx2, [dirty]) {
         const main_changes = {};
         if (dirty & /*$scope*/
-        512) {
+        32768) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -20085,42 +20091,42 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  var user = (
-    /** @type {User} */
-    {/* user */}
-  );
-  var access = (
-    /** @type {Access} */
-    {/* segments */}
-  );
-  var uniqueIpPerDate = (
-    /** @type {Record<string, number>} */
-    {/* uniqueIpPerDate */}
-  );
-  var requestsPerDate = (
-    /** @type {Record<string, number>} */
-    {/* requestsPerDate */}
-  );
-  var uniqueUserPerDate = (
-    /** @type {Record<string, number>} */
-    {/* uniqueUserPerDate */}
-  );
-  var countPerActionsPerDate = (
-    /** @type {Record<string, Record<string, number>>} */
-    {/* countPerActionsPerDate */}
-  );
   function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", { day: "numeric", month: "long" });
   }
   function instance7($self) {
+    let user = (
+      /** @type {User} */
+      {}
+    );
+    let access = (
+      /** @type {Access} */
+      {}
+    );
+    let uniqueIpPerDate = (
+      /** @type {Record<string, number>} */
+      {}
+    );
+    let requestsPerDate = (
+      /** @type {Record<string, number>} */
+      {}
+    );
+    let uniqueUserPerDate = (
+      /** @type {Record<string, number>} */
+      {}
+    );
     let registeredUserTotal = (
       /** @type {number} */
-      parseInt('#{registeredUserTotal}') || 0
+      parseInt("#{registeredUserTotal}") || 0
     );
     let totalRegisteredUserToday = (
       /** @type {number} */
-      parseInt('#{registeredUserToday}') || 0
+      parseInt("#{registeredUserToday}") || 0
+    );
+    let countPerActionsPerDate = (
+      /** @type {Record<string, Record<string, number>>} */
+      {}
     );
     let sortedDate = (
       /** @type {string[]}*/
@@ -20218,7 +20224,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       new auto_default(ElmStatsChart, (0, import_yChartOptions.getRequestStatsChartOptions)(formattedDates, DatasetsStatsChart));
       new auto_default(ElmActionChart, (0, import_yChartOptions.getRequestActionChartOptions)(formattedDates, DatasetsReqActions));
     });
-    return [registeredUserTotal, totalRegisteredUserToday];
+    return [user, access, registeredUserTotal, totalRegisteredUserToday];
   }
   var Admin = class extends SvelteComponent {
     constructor(options) {

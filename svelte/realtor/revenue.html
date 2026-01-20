@@ -7765,7 +7765,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     };
   }
   function instance4($self, $props, $invalidate) {
-    let { access: access2 = (
+    let { access = (
       /** @type {Access} */
       {}
     ) } = $props;
@@ -7803,9 +7803,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     $self.$set = ($props2) => {
       if ("access" in $props2)
-        $invalidate(0, access2 = $props2.access);
+        $invalidate(0, access = $props2.access);
     };
-    return [access2, pathAll, pathLv1, pathLv2, logout];
+    return [access, pathAll, pathLv1, pathLv2, logout];
   }
   var SideMenu = class extends SvelteComponent {
     constructor(options) {
@@ -8365,23 +8365,23 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let $isShrinkMenu;
     component_subscribe($self, isShrinkMenu, ($value) => $invalidate(2, $isShrinkMenu = $value));
     let { $slots: slots = {}, $scope } = $props;
-    let { user: user2 = (
+    let { user = (
       /** @type {User} */
       {}
     ) } = $props;
-    let { access: access2 = (
+    let { access = (
       /** @type {Access} */
       {}
     ) } = $props;
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(0, user2 = $props2.user);
+        $invalidate(0, user = $props2.user);
       if ("access" in $props2)
-        $invalidate(1, access2 = $props2.access);
+        $invalidate(1, access = $props2.access);
       if ("$scope" in $props2)
         $invalidate(3, $scope = $props2.$scope);
     };
-    return [user2, access2, $isShrinkMenu, $scope, slots];
+    return [user, access, $isShrinkMenu, $scope, slots];
   }
   var Main = class extends SvelteComponent {
     constructor(options) {
@@ -8394,8 +8394,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   // realtor/revenue.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[10] = list[i];
-    child_ctx[12] = i;
+    child_ctx[12] = list[i];
+    child_ctx[14] = i;
     return child_ctx;
   }
   function create_else_block3(ctx) {
@@ -8481,21 +8481,21 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let td1;
     let t2_value = (0, import_formatter2.formatPrice)(Number(
       /*rv*/
-      ctx[10].revenue
+      ctx[12].revenue
     ), "USD") + "";
     let t2;
     let t3;
     let td2;
     let t4_value = (
       /*rv*/
-      ctx[10].propertyBought + ""
+      ctx[12].propertyBought + ""
     );
     let t4;
     let t5;
     let td3;
     let t6_value = (
       /*rv*/
-      ctx[10].salesDate + ""
+      ctx[12].salesDate + ""
     );
     let t6;
     let t7;
@@ -8504,7 +8504,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         tr = element("tr");
         td0 = element("td");
         td0.textContent = `${/*idx*/
-        ctx[12] + 1}`;
+        ctx[14] + 1}`;
         t1 = space();
         td1 = element("td");
         t2 = text(t2_value);
@@ -8539,16 +8539,16 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (dirty & /*revenues*/
         1 && t2_value !== (t2_value = (0, import_formatter2.formatPrice)(Number(
           /*rv*/
-          ctx2[10].revenue
+          ctx2[12].revenue
         ), "USD") + ""))
           set_data(t2, t2_value);
         if (dirty & /*revenues*/
         1 && t4_value !== (t4_value = /*rv*/
-        ctx2[10].propertyBought + ""))
+        ctx2[12].propertyBought + ""))
           set_data(t4, t4_value);
         if (dirty & /*revenues*/
         1 && t6_value !== (t6_value = /*rv*/
-        ctx2[10].salesDate + ""))
+        ctx2[12].salesDate + ""))
           set_data(t6, t6_value);
       },
       d(detaching) {
@@ -8582,7 +8582,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let mounted;
     let dispose;
     function inputbox_value_binding(value) {
-      ctx[8](value);
+      ctx[10](value);
     }
     let inputbox_props = { type: "month", id: "month-filter" };
     if (
@@ -8673,13 +8673,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
               button0,
               "click",
               /*applyFilterYearMonth*/
-              ctx[4]
+              ctx[6]
             ),
             listen(
               button1,
               "click",
               /*click_handler*/
-              ctx[9]
+              ctx[11]
             )
           ];
           mounted = true;
@@ -8737,13 +8737,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let main;
     let current;
     function popupaddsales_isSubmitted_binding(value) {
-      ctx[7](value);
+      ctx[9](value);
     }
     let popupaddsales_props = {
       heading: "Add Sales",
       OnSubmit: (
         /*SubmitAddSales*/
-        ctx[5]
+        ctx[7]
       )
     };
     if (
@@ -8754,12 +8754,18 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       ctx[3];
     }
     popupaddsales = new PopUpRealtorAddSales_default({ props: popupaddsales_props });
-    ctx[6](popupaddsales);
+    ctx[8](popupaddsales);
     binding_callbacks.push(() => bind(popupaddsales, "isSubmitted", popupaddsales_isSubmitted_binding));
     main = new Main_default({
       props: {
-        user,
-        access,
+        user: (
+          /*user*/
+          ctx[4]
+        ),
+        access: (
+          /*access*/
+          ctx[5]
+        ),
         $slots: { default: [create_default_slot] },
         $scope: { ctx }
       }
@@ -8788,7 +8794,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         popupaddsales.$set(popupaddsales_changes);
         const main_changes = {};
         if (dirty & /*$scope, revenues, popUpAddSales, monthFilter*/
-        8199) {
+        32775) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -8809,24 +8815,24 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (detaching) {
           detach(t);
         }
-        ctx[6](null);
+        ctx[8](null);
         destroy_component(popupaddsales, detaching);
         destroy_component(main, detaching);
       }
     };
   }
-  var user = (
-    /** @type {User} */
-    {/* user */}
-  );
-  var access = (
-    /** @type {Access} */
-    {/* segments */}
-  );
   function instance8($self, $props, $invalidate) {
+    let user = (
+      /** @type {User} */
+      {}
+    );
+    let access = (
+      /** @type {Access} */
+      {}
+    );
     let revenues = (
       /** @type {Revenue[]} */
-      [/* revenues */]
+      []
     );
     console.log("revenues =", revenues);
     let monthFilter = (
@@ -8912,6 +8918,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       monthFilter,
       popUpAddSales,
       isSubmitAddSales,
+      user,
+      access,
       applyFilterYearMonth,
       SubmitAddSales,
       popupaddsales_binding,

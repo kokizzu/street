@@ -5109,7 +5109,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     };
   }
   function instance($self, $props, $invalidate) {
-    let { access: access2 = (
+    let { access = (
       /** @type {Access} */
       {}
     ) } = $props;
@@ -5147,9 +5147,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     $self.$set = ($props2) => {
       if ("access" in $props2)
-        $invalidate(0, access2 = $props2.access);
+        $invalidate(0, access = $props2.access);
     };
-    return [access2, pathAll, pathLv1, pathLv2, logout];
+    return [access, pathAll, pathLv1, pathLv2, logout];
   }
   var SideMenu = class extends SvelteComponent {
     constructor(options) {
@@ -5880,23 +5880,23 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let $isShrinkMenu;
     component_subscribe($self, isShrinkMenu, ($value) => $invalidate(2, $isShrinkMenu = $value));
     let { $slots: slots = {}, $scope } = $props;
-    let { user: user2 = (
+    let { user = (
       /** @type {User} */
       {}
     ) } = $props;
-    let { access: access2 = (
+    let { access = (
       /** @type {Access} */
       {}
     ) } = $props;
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(0, user2 = $props2.user);
+        $invalidate(0, user = $props2.user);
       if ("access" in $props2)
-        $invalidate(1, access2 = $props2.access);
+        $invalidate(1, access = $props2.access);
       if ("$scope" in $props2)
         $invalidate(3, $scope = $props2.$scope);
     };
-    return [user2, access2, $isShrinkMenu, $scope, slots];
+    return [user, access, $isShrinkMenu, $scope, slots];
   }
   var Main = class extends SvelteComponent {
     constructor(options) {
@@ -8104,7 +8104,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       /** @type {boolean} */
       true
     ) } = $props;
-    let { fields: fields2 = (
+    let { fields = (
       /** @type {Field[]} */
       []
     ) } = $props;
@@ -8145,12 +8145,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     );
     onMount(() => {
       console.log("onMount.TableView");
-      console.log("fields=", fields2);
+      console.log("fields=", fields);
       console.log("rows=", rows);
       console.log("pager=", pager);
       console.log("extraActions=", extraActions);
-      for (let z = 0; z < fields2.length; z++) {
-        let field = fields2[z];
+      for (let z = 0; z < fields.length; z++) {
+        let field = fields[z];
         if (field.name === "deletedAt") {
           $invalidate(9, deletedAtIdx = z);
         }
@@ -8218,7 +8218,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       if ("arrayOfArray" in $props2)
         $invalidate(18, arrayOfArray = $props2.arrayOfArray);
       if ("fields" in $props2)
-        $invalidate(2, fields2 = $props2.fields);
+        $invalidate(2, fields = $props2.fields);
       if ("rows" in $props2)
         $invalidate(3, rows = $props2.rows);
       if ("pager" in $props2)
@@ -8256,7 +8256,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     return [
       pager,
       renderFuncs,
-      fields2,
+      fields,
       rows,
       extraActions,
       widths,
@@ -13738,7 +13738,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             button,
             "click",
             /*click_handler*/
-            ctx[10]
+            ctx[13]
           );
           mounted = true;
         }
@@ -13775,17 +13775,20 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let current;
     adminsubmenu = new AdminSubMenu_default({});
     function tableview_pager_binding(value) {
-      ctx[11](value);
+      ctx[14](value);
     }
     let tableview_props = {
-      fields,
+      fields: (
+        /*fields*/
+        ctx[7]
+      ),
       rows: (
         /*files*/
         ctx[0]
       ),
       onRefreshTableView: (
         /*refreshTableView*/
-        ctx[5]
+        ctx[8]
       ),
       $slots: { default: [create_default_slot_1] },
       $scope: { ctx }
@@ -13827,7 +13830,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           tableview_changes.rows = /*files*/
           ctx2[0];
         if (dirty & /*$scope, popUpUpload3DFile*/
-        8196) {
+        65540) {
           tableview_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_pager && dirty & /*pager*/
@@ -13868,14 +13871,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let main;
     let current;
     function popupupload3dfile_isSubmitted_binding(value) {
-      ctx[8](value);
+      ctx[11](value);
     }
     function popupupload3dfile_uploadingProgressStr_binding(value) {
-      ctx[9](value);
+      ctx[12](value);
     }
     let popupupload3dfile_props = { OnSubmit: (
       /*SubmitUpload3DFile*/
-      ctx[6]
+      ctx[9]
     ) };
     if (
       /*isSubmitUpload3dFile*/
@@ -13892,13 +13895,19 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       ctx[4];
     }
     popupupload3dfile = new PopUpAdminUpload3DFile_default({ props: popupupload3dfile_props });
-    ctx[7](popupupload3dfile);
+    ctx[10](popupupload3dfile);
     binding_callbacks.push(() => bind(popupupload3dfile, "isSubmitted", popupupload3dfile_isSubmitted_binding));
     binding_callbacks.push(() => bind(popupupload3dfile, "uploadingProgressStr", popupupload3dfile_uploadingProgressStr_binding));
     main = new Main_default({
       props: {
-        user,
-        access,
+        user: (
+          /*user*/
+          ctx[5]
+        ),
+        access: (
+          /*access*/
+          ctx[6]
+        ),
         $slots: { default: [create_default_slot] },
         $scope: { ctx }
       }
@@ -13934,7 +13943,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         popupupload3dfile.$set(popupupload3dfile_changes);
         const main_changes = {};
         if (dirty & /*$scope, files, pager, popUpUpload3DFile*/
-        8199) {
+        65543) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -13955,32 +13964,32 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (detaching) {
           detach(t);
         }
-        ctx[7](null);
+        ctx[10](null);
         destroy_component(popupupload3dfile, detaching);
         destroy_component(main, detaching);
       }
     };
   }
-  var user = (
-    /** @type {User} */
-    {/* user */}
-  );
-  var access = (
-    /** @type {Access} */
-    {/* segments */}
-  );
-  var fields = (
-    /** @type {Field[]} */
-    [/* fields */]
-  );
   function instance11($self, $props, $invalidate) {
+    let user = (
+      /** @type {User} */
+      {}
+    );
+    let access = (
+      /** @type {Access} */
+      {}
+    );
+    let fields = (
+      /** @type {Field[]} */
+      []
+    );
     let files = (
       /** @type {any}*/
-      [/* files */]
+      []
     );
     let pager = (
       /** @type {PagerOut} */
-      {/* pager */}
+      {}
     );
     let popUpUpload3DFile = (
       /** @type {import('svelte').SvelteComponent} */
@@ -14076,6 +14085,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       popUpUpload3DFile,
       isSubmitUpload3dFile,
       uploadingProgressStr,
+      user,
+      access,
+      fields,
       refreshTableView,
       SubmitUpload3DFile,
       popupupload3dfile_binding,

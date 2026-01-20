@@ -22172,17 +22172,17 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var { window: window_1 } = globals;
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[34] = list[i];
+    child_ctx[42] = list[i];
     return child_ctx;
   }
   function get_each_context_12(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[37] = list[i];
+    child_ctx[45] = list[i];
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[40] = list[i];
+    child_ctx[48] = list[i];
     return child_ctx;
   }
   function create_else_block_3(ctx) {
@@ -22726,7 +22726,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           ctx2[1];
         if (dirty[0] & /*MODE_STATS*/
         256 | dirty[1] & /*$scope*/
-        4096) {
+        1048576) {
           main_changes.$scope = { dirty, ctx: ctx2 };
         }
         main.$set(main_changes);
@@ -22751,7 +22751,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let updating_value;
     let current;
     function inputbox_value_binding(value) {
-      ctx[24](value);
+      ctx[27](value);
     }
     let inputbox_props = {
       id: "email",
@@ -22806,7 +22806,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let updating_value;
     let current;
     function inputbox_value_binding_1(value) {
-      ctx[25](value);
+      ctx[28](value);
     }
     let inputbox_props = {
       id: "password",
@@ -22861,7 +22861,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let updating_value;
     let current;
     function inputbox_value_binding_2(value) {
-      ctx[26](value);
+      ctx[29](value);
     }
     let inputbox_props = {
       id: "confirmPass",
@@ -22934,7 +22934,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (!mounted) {
           dispose = listen(a, "click", prevent_default(
             /*click_handler*/
-            ctx[27]
+            ctx[30]
           ));
           mounted = true;
         }
@@ -22986,7 +22986,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             button,
             "click",
             /*guestRegister*/
-            ctx[20]
+            ctx[23]
           );
           mounted = true;
         }
@@ -23141,7 +23141,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             button,
             "click",
             /*guestLogin*/
-            ctx[21]
+            ctx[24]
           );
           mounted = true;
         }
@@ -23296,7 +23296,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             button,
             "click",
             /*guestResendVerificationEmail*/
-            ctx[22]
+            ctx[25]
           );
           mounted = true;
         }
@@ -23451,7 +23451,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             button,
             "click",
             /*guestForgotPassword*/
-            ctx[23]
+            ctx[26]
           );
           mounted = true;
         }
@@ -23759,7 +23759,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             a,
             "click",
             /*click_handler_1*/
-            ctx[28]
+            ctx[31]
           );
           mounted = true;
         }
@@ -23799,7 +23799,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             a,
             "click",
             /*click_handler_2*/
-            ctx[29]
+            ctx[32]
           );
           mounted = true;
         }
@@ -23839,7 +23839,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             a,
             "click",
             /*click_handler_3*/
-            ctx[30]
+            ctx[33]
           );
           mounted = true;
         }
@@ -23875,7 +23875,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   }
   function create_if_block_32(ctx) {
     let each_1_anchor;
-    let each_value_2 = ensure_array_like(usersMostLoggedIn || []);
+    let each_value_2 = ensure_array_like(
+      /*usersMostLoggedIn*/
+      ctx[9] || []
+    );
     let each_blocks = [];
     for (let i = 0; i < each_value_2.length; i += 1) {
       each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
@@ -23896,9 +23899,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         insert(target, each_1_anchor, anchor);
       },
       p(ctx2, dirty) {
-        if (dirty & /*usersMostLoggedIn*/
-        0) {
-          each_value_2 = ensure_array_like(usersMostLoggedIn || []);
+        if (dirty[0] & /*usersMostLoggedIn*/
+        512) {
+          each_value_2 = ensure_array_like(
+            /*usersMostLoggedIn*/
+            ctx2[9] || []
+          );
           let i;
           for (i = 0; i < each_value_2.length; i += 1) {
             const child_ctx = get_each_context_2(ctx2, each_value_2, i);
@@ -23939,19 +23945,19 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         tr = element("tr");
         td0 = element("td");
         td0.textContent = `${/*msUser*/
-        ctx[40].time_period}`;
+        ctx[48].time_period}`;
         t1 = space();
         td1 = element("td");
         td1.textContent = `${/*msUser*/
-        ctx[40].email}`;
+        ctx[48].email}`;
         t3 = space();
         td2 = element("td");
         td2.textContent = `${/*msUser*/
-        ctx[40].full_name}`;
+        ctx[48].full_name}`;
         t5 = space();
         td3 = element("td");
         td3.textContent = `${/*msUser*/
-        ctx[40].total}`;
+        ctx[48].total}`;
         t7 = space();
         attr(td0, "class", "svelte-15noryw");
         attr(td1, "class", "svelte-15noryw");
@@ -23999,7 +24005,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   }
   function create_if_block_26(ctx) {
     let each_1_anchor;
-    let each_value_1 = ensure_array_like(mostScannedAreas || []);
+    let each_value_1 = ensure_array_like(
+      /*mostScannedAreas*/
+      ctx[10] || []
+    );
     let each_blocks = [];
     for (let i = 0; i < each_value_1.length; i += 1) {
       each_blocks[i] = create_each_block_12(get_each_context_12(ctx, each_value_1, i));
@@ -24020,9 +24029,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         insert(target, each_1_anchor, anchor);
       },
       p(ctx2, dirty) {
-        if (dirty & /*mostScannedAreas*/
-        0) {
-          each_value_1 = ensure_array_like(mostScannedAreas || []);
+        if (dirty[0] & /*mostScannedAreas*/
+        1024) {
+          each_value_1 = ensure_array_like(
+            /*mostScannedAreas*/
+            ctx2[10] || []
+          );
           let i;
           for (i = 0; i < each_value_1.length; i += 1) {
             const child_ctx = get_each_context_12(ctx2, each_value_1, i);
@@ -24065,24 +24077,24 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         tr = element("tr");
         td0 = element("td");
         td0.textContent = `${/*msArea*/
-        ctx[37].time_period}`;
+        ctx[45].time_period}`;
         t1 = space();
         td1 = element("td");
         td1.textContent = `${/*msArea*/
-        ctx[37].views}`;
+        ctx[45].views}`;
         t3 = space();
         td2 = element("td");
         td2.textContent = `${/*msArea*/
-        ctx[37].city}`;
+        ctx[45].city}`;
         t5 = space();
         td3 = element("td");
         td3.textContent = `${/*msArea*/
-        ctx[37].state}`;
+        ctx[45].state}`;
         t7 = space();
         td4 = element("td");
         td4.textContent = `${/*msArea*/
-        ctx[37].latitude}, ${/*msArea*/
-        ctx[37].longitude}`;
+        ctx[45].latitude}, ${/*msArea*/
+        ctx[45].longitude}`;
         t11 = space();
         attr(td0, "class", "svelte-15noryw");
         attr(td1, "class", "svelte-15noryw");
@@ -24133,7 +24145,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   }
   function create_if_block_110(ctx) {
     let each_1_anchor;
-    let each_value = ensure_array_like(mostScannedProps || []);
+    let each_value = ensure_array_like(
+      /*mostScannedProps*/
+      ctx[11] || []
+    );
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
       each_blocks[i] = create_each_block2(get_each_context2(ctx, each_value, i));
@@ -24154,9 +24169,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         insert(target, each_1_anchor, anchor);
       },
       p(ctx2, dirty) {
-        if (dirty & /*mostScannedProps*/
-        0) {
-          each_value = ensure_array_like(mostScannedProps || []);
+        if (dirty[0] & /*mostScannedProps*/
+        2048) {
+          each_value = ensure_array_like(
+            /*mostScannedProps*/
+            ctx2[11] || []
+          );
           let i;
           for (i = 0; i < each_value.length; i += 1) {
             const child_ctx = get_each_context2(ctx2, each_value, i);
@@ -24203,31 +24221,31 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         tr = element("tr");
         td0 = element("td");
         td0.textContent = `${/*msProperty*/
-        ctx[34].time_period}`;
+        ctx[42].time_period}`;
         t1 = space();
         td1 = element("td");
         td1.textContent = `${/*msProperty*/
-        ctx[34].views}`;
+        ctx[42].views}`;
         t3 = space();
         td2 = element("td");
         td2.textContent = `${/*msProperty*/
-        ctx[34].price}`;
+        ctx[42].price}`;
         t5 = space();
         td3 = element("td");
         td3.textContent = `${/*msProperty*/
-        ctx[34].total_sqft}`;
+        ctx[42].total_sqft}`;
         t7 = space();
         td4 = element("td");
         td4.textContent = `${/*msProperty*/
-        ctx[34].city}`;
+        ctx[42].city}`;
         t9 = space();
         td5 = element("td");
         td5.textContent = `${/*msProperty*/
-        ctx[34].state}`;
+        ctx[42].state}`;
         t11 = space();
         td6 = element("td");
         td6.textContent = `${/*msProperty*/
-        ctx[34].address}`;
+        ctx[42].address}`;
         t13 = space();
         attr(td0, "class", "svelte-15noryw");
         attr(td1, "class", "svelte-15noryw");
@@ -24329,21 +24347,33 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let mounted;
     let dispose;
     function select_block_type_1(ctx2, dirty) {
-      if (usersMostLoggedIn && usersMostLoggedIn.length > 0)
+      if (
+        /*usersMostLoggedIn*/
+        ctx2[9] && /*usersMostLoggedIn*/
+        ctx2[9].length > 0
+      )
         return create_if_block_32;
       return create_else_block_2;
     }
     let current_block_type = select_block_type_1(ctx, [-1, -1]);
     let if_block0 = current_block_type(ctx);
     function select_block_type_2(ctx2, dirty) {
-      if (mostScannedAreas && mostScannedAreas.length > 0)
+      if (
+        /*mostScannedAreas*/
+        ctx2[10] && /*mostScannedAreas*/
+        ctx2[10].length > 0
+      )
         return create_if_block_26;
       return create_else_block_1;
     }
     let current_block_type_1 = select_block_type_2(ctx, [-1, -1]);
     let if_block1 = current_block_type_1(ctx);
     function select_block_type_3(ctx2, dirty) {
-      if (mostScannedProps && mostScannedProps.length > 0)
+      if (
+        /*mostScannedProps*/
+        ctx2[11] && /*mostScannedProps*/
+        ctx2[11].length > 0
+      )
         return create_if_block_110;
       return create_else_block3;
     }
@@ -24427,66 +24457,66 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         attr(span1, "class", "title svelte-15noryw");
         button0.disabled = button0_disabled_value = /*MODE_STATS*/
         ctx[8] === /*STAT_REVENUE*/
-        ctx[10];
+        ctx[13];
         attr(button0, "class", "svelte-15noryw");
         toggle_class(
           button0,
           "active",
           /*MODE_STATS*/
           ctx[8] === /*STAT_REVENUE*/
-          ctx[10]
+          ctx[13]
         );
         attr(span2, "class", "block svelte-15noryw");
         attr(span3, "class", "title svelte-15noryw");
         button1.disabled = button1_disabled_value = /*MODE_STATS*/
         ctx[8] === /*STAT_REGISTERED*/
-        ctx[11];
+        ctx[14];
         attr(button1, "class", "svelte-15noryw");
         toggle_class(
           button1,
           "active",
           /*MODE_STATS*/
           ctx[8] === /*STAT_REGISTERED*/
-          ctx[11]
+          ctx[14]
         );
         attr(span4, "class", "block svelte-15noryw");
         attr(span5, "class", "title svelte-15noryw");
         button2.disabled = button2_disabled_value = /*MODE_STATS*/
         ctx[8] === /*STAT_REALTORS*/
-        ctx[12];
+        ctx[15];
         attr(button2, "class", "svelte-15noryw");
         toggle_class(
           button2,
           "active",
           /*MODE_STATS*/
           ctx[8] === /*STAT_REALTORS*/
-          ctx[12]
+          ctx[15]
         );
         attr(span6, "class", "block svelte-15noryw");
         attr(span7, "class", "title svelte-15noryw");
         button3.disabled = button3_disabled_value = /*MODE_STATS*/
         ctx[8] === /*STAT_ORDERS*/
-        ctx[13];
+        ctx[16];
         attr(button3, "class", "svelte-15noryw");
         toggle_class(
           button3,
           "active",
           /*MODE_STATS*/
           ctx[8] === /*STAT_ORDERS*/
-          ctx[13]
+          ctx[16]
         );
         attr(span8, "class", "block svelte-15noryw");
         attr(span9, "class", "title svelte-15noryw");
         button4.disabled = button4_disabled_value = /*MODE_STATS*/
         ctx[8] === /*STAT_BUYERS*/
-        ctx[14];
+        ctx[17];
         attr(button4, "class", "svelte-15noryw");
         toggle_class(
           button4,
           "active",
           /*MODE_STATS*/
           ctx[8] === /*STAT_BUYERS*/
-          ctx[14]
+          ctx[17]
         );
         attr(nav, "class", "svelte-15noryw");
         attr(div0, "class", "chart svelte-15noryw");
@@ -24576,31 +24606,31 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
               button0,
               "click",
               /*renderRevenueChart*/
-              ctx[15]
+              ctx[18]
             ),
             listen(
               button1,
               "click",
               /*renderRegisteredChart*/
-              ctx[16]
+              ctx[19]
             ),
             listen(
               button2,
               "click",
               /*renderRealtorsChart*/
-              ctx[17]
+              ctx[20]
             ),
             listen(
               button3,
               "click",
               /*renderOrdersChart*/
-              ctx[19]
+              ctx[22]
             ),
             listen(
               button4,
               "click",
               /*renderBuyersChart*/
-              ctx[18]
+              ctx[21]
             )
           ];
           mounted = true;
@@ -24610,81 +24640,81 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (dirty[0] & /*MODE_STATS*/
         256 && button0_disabled_value !== (button0_disabled_value = /*MODE_STATS*/
         ctx2[8] === /*STAT_REVENUE*/
-        ctx2[10])) {
+        ctx2[13])) {
           button0.disabled = button0_disabled_value;
         }
         if (dirty[0] & /*MODE_STATS, STAT_REVENUE*/
-        1280) {
+        8448) {
           toggle_class(
             button0,
             "active",
             /*MODE_STATS*/
             ctx2[8] === /*STAT_REVENUE*/
-            ctx2[10]
+            ctx2[13]
           );
         }
         if (dirty[0] & /*MODE_STATS*/
         256 && button1_disabled_value !== (button1_disabled_value = /*MODE_STATS*/
         ctx2[8] === /*STAT_REGISTERED*/
-        ctx2[11])) {
+        ctx2[14])) {
           button1.disabled = button1_disabled_value;
         }
         if (dirty[0] & /*MODE_STATS, STAT_REGISTERED*/
-        2304) {
+        16640) {
           toggle_class(
             button1,
             "active",
             /*MODE_STATS*/
             ctx2[8] === /*STAT_REGISTERED*/
-            ctx2[11]
+            ctx2[14]
           );
         }
         if (dirty[0] & /*MODE_STATS*/
         256 && button2_disabled_value !== (button2_disabled_value = /*MODE_STATS*/
         ctx2[8] === /*STAT_REALTORS*/
-        ctx2[12])) {
+        ctx2[15])) {
           button2.disabled = button2_disabled_value;
         }
         if (dirty[0] & /*MODE_STATS, STAT_REALTORS*/
-        4352) {
+        33024) {
           toggle_class(
             button2,
             "active",
             /*MODE_STATS*/
             ctx2[8] === /*STAT_REALTORS*/
-            ctx2[12]
+            ctx2[15]
           );
         }
         if (dirty[0] & /*MODE_STATS*/
         256 && button3_disabled_value !== (button3_disabled_value = /*MODE_STATS*/
         ctx2[8] === /*STAT_ORDERS*/
-        ctx2[13])) {
+        ctx2[16])) {
           button3.disabled = button3_disabled_value;
         }
         if (dirty[0] & /*MODE_STATS, STAT_ORDERS*/
-        8448) {
+        65792) {
           toggle_class(
             button3,
             "active",
             /*MODE_STATS*/
             ctx2[8] === /*STAT_ORDERS*/
-            ctx2[13]
+            ctx2[16]
           );
         }
         if (dirty[0] & /*MODE_STATS*/
         256 && button4_disabled_value !== (button4_disabled_value = /*MODE_STATS*/
         ctx2[8] === /*STAT_BUYERS*/
-        ctx2[14])) {
+        ctx2[17])) {
           button4.disabled = button4_disabled_value;
         }
         if (dirty[0] & /*MODE_STATS, STAT_BUYERS*/
-        16640) {
+        131328) {
           toggle_class(
             button4,
             "active",
             /*MODE_STATS*/
             ctx2[8] === /*STAT_BUYERS*/
-            ctx2[14]
+            ctx2[17]
           );
         }
         if_block0.p(ctx2, dirty);
@@ -24736,7 +24766,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             window_1,
             "hashchange",
             /*onHashChange*/
-            ctx[9]
+            ctx[12]
           );
           mounted = true;
         }
@@ -24785,43 +24815,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   }
   var title = (
     /** @type {string} */
-    '#{title}'
+    "#{title}"
   );
   var google = (
     /** @type {string} */
-    '#{google}'
-  );
-  var revenues = (
-    /** @type {Revenue[]} */
-    [/* revenues */]
-  );
-  var orders = (
-    /** @type {Order[]} */
-    [/* orders */]
-  );
-  var usersRegistered = (
-    /** @type {UserRegistered[]} */
-    [/* user_registered */ ]
-  );
-  var realtorStats = (
-    /** @type {RealtorStat[]} */
-    [/* realtor_stats */ ]
-  );
-  var buyerStats = (
-    /** @type {BuyerStat[]} */
-    [/* buyer_stats */ ]
-  );
-  var usersMostLoggedIn = (
-    /** @type {MostLoggedInUser[]} */
-    [/* users_most_logged_in */ ]
-  );
-  var mostScannedAreas = (
-    /** @type {ScannedAreasToRender[]} */
-    [/* most_scanned_areas */ ]
-  );
-  var mostScannedProps = (
-    /** @type {ScannedPropertiesToRender[]} */
-    [/* most_scanned_properties */ ]
+    "#{google}"
   );
   var clientId = "com.hapstr.app";
   var redirectUri = "https://admin.hapstr.xyz/guest/oauthCallback";
@@ -24856,15 +24854,47 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   function instance7($self, $props, $invalidate) {
     let user = (
       /** @type {User} */
-      {/* user */}
+      {}
     );
     let segments = (
       /** @type {Access} */
-      {/* segments */}
+      {}
     );
     let apple = (
       /** @type {string} */
-      '#{apple}'
+      "#{apple}"
+    );
+    const revenues = (
+      /** @type {Revenue[]} */
+      []
+    );
+    const orders = (
+      /** @type {Order[]} */
+      []
+    );
+    const usersRegistered = (
+      /** @type {UserRegistered[]} */
+      []
+    );
+    const realtorStats = (
+      /** @type {RealtorStat[]} */
+      []
+    );
+    const buyerStats = (
+      /** @type {BuyerStat[]} */
+      []
+    );
+    const usersMostLoggedIn = (
+      /** @type {MostLoggedInUser[]} */
+      []
+    );
+    const mostScannedAreas = (
+      /** @type {ScannedAreasToRender[]} */
+      []
+    );
+    const mostScannedProps = (
+      /** @type {ScannedPropertiesToRender[]} */
+      []
     );
     apple = `https://appleid.apple.com/auth/authorize?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&state=${state}&response_mode=${response_mode}`;
     let email = (
@@ -25268,6 +25298,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       MODE,
       isSubmitted,
       MODE_STATS,
+      usersMostLoggedIn,
+      mostScannedAreas,
+      mostScannedProps,
       onHashChange,
       STAT_REVENUE,
       STAT_REGISTERED,
