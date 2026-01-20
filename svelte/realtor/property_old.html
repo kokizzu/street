@@ -2708,35 +2708,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
 }
 </style>
 <script>(() => {
-  var __create = Object.create;
-  var __defProp = Object.defineProperty;
-  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
   var __getOwnPropNames = Object.getOwnPropertyNames;
-  var __getProtoOf = Object.getPrototypeOf;
-  var __hasOwnProp = Object.prototype.hasOwnProperty;
   var __commonJS = (cb, mod) => function __require() {
     return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
   };
-  var __copyProps = (to, from, except, desc) => {
-    if (from && typeof from === "object" || typeof from === "function") {
-      for (let key of __getOwnPropNames(from))
-        if (!__hasOwnProp.call(to, key) && key !== except)
-          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-    }
-    return to;
-  };
-  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-    // If the importer is in node compatibility mode or this is not an ESM
-    // file that has been converted to a CommonJS file using a Babel-
-    // compatible transform (i.e. "__esModule" has not been set), then set
-    // "default" to the CommonJS "module.exports" for node compatibility.
-    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-    mod
-  ));
 
-  // node_modules/.pnpm/axios@1.7.7/node_modules/axios/dist/browser/axios.cjs
+  // node_modules/axios/dist/browser/axios.cjs
   var require_axios = __commonJS({
-    "node_modules/.pnpm/axios@1.7.7/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
+    "node_modules/axios/dist/browser/axios.cjs"(exports2, module2) {
       "use strict";
       function bind2(fn, thisArg) {
         return function wrap() {
@@ -2745,6 +2724,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
       var { toString } = Object.prototype;
       var { getPrototypeOf } = Object;
+      var { iterator, toStringTag } = Symbol;
       var kindOf = ((cache) => (thing) => {
         const str = toString.call(thing);
         return cache[str] || (cache[str] = str.slice(8, -1).toLowerCase());
@@ -2757,7 +2737,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       var { isArray } = Array;
       var isUndefined = typeOfTest("undefined");
       function isBuffer(val) {
-        return val !== null && !isUndefined(val) && val.constructor !== null && !isUndefined(val.constructor) && isFunction(val.constructor.isBuffer) && val.constructor.isBuffer(val);
+        return val !== null && !isUndefined(val) && val.constructor !== null && !isUndefined(val.constructor) && isFunction$1(val.constructor.isBuffer) && val.constructor.isBuffer(val);
       }
       var isArrayBuffer = kindOfTest("ArrayBuffer");
       function isArrayBufferView(val) {
@@ -2770,7 +2750,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         return result;
       }
       var isString = typeOfTest("string");
-      var isFunction = typeOfTest("function");
+      var isFunction$1 = typeOfTest("function");
       var isNumber = typeOfTest("number");
       var isObject = (thing) => thing !== null && typeof thing === "object";
       var isBoolean = (thing) => thing === true || thing === false;
@@ -2779,17 +2759,27 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           return false;
         }
         const prototype2 = getPrototypeOf(val);
-        return (prototype2 === null || prototype2 === Object.prototype || Object.getPrototypeOf(prototype2) === null) && !(Symbol.toStringTag in val) && !(Symbol.iterator in val);
+        return (prototype2 === null || prototype2 === Object.prototype || Object.getPrototypeOf(prototype2) === null) && !(toStringTag in val) && !(iterator in val);
+      };
+      var isEmptyObject = (val) => {
+        if (!isObject(val) || isBuffer(val)) {
+          return false;
+        }
+        try {
+          return Object.keys(val).length === 0 && Object.getPrototypeOf(val) === Object.prototype;
+        } catch (e) {
+          return false;
+        }
       };
       var isDate = kindOfTest("Date");
       var isFile = kindOfTest("File");
       var isBlob = kindOfTest("Blob");
       var isFileList = kindOfTest("FileList");
-      var isStream = (val) => isObject(val) && isFunction(val.pipe);
+      var isStream = (val) => isObject(val) && isFunction$1(val.pipe);
       var isFormData = (thing) => {
         let kind;
-        return thing && (typeof FormData === "function" && thing instanceof FormData || isFunction(thing.append) && ((kind = kindOf(thing)) === "formdata" || // detect form-data instance
-        kind === "object" && isFunction(thing.toString) && thing.toString() === "[object FormData]"));
+        return thing && (typeof FormData === "function" && thing instanceof FormData || isFunction$1(thing.append) && ((kind = kindOf(thing)) === "formdata" || // detect form-data instance
+        kind === "object" && isFunction$1(thing.toString) && thing.toString() === "[object FormData]"));
       };
       var isURLSearchParams = kindOfTest("URLSearchParams");
       var [isReadableStream, isRequest, isResponse, isHeaders] = ["ReadableStream", "Request", "Response", "Headers"].map(kindOfTest);
@@ -2808,6 +2798,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             fn.call(null, obj[i], i, obj);
           }
         } else {
+          if (isBuffer(obj)) {
+            return;
+          }
           const keys = allOwnKeys ? Object.getOwnPropertyNames(obj) : Object.keys(obj);
           const len = keys.length;
           let key;
@@ -2818,6 +2811,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }
       }
       function findKey(obj, key) {
+        if (isBuffer(obj)) {
+          return null;
+        }
         key = key.toLowerCase();
         const keys = Object.keys(obj);
         let i = keys.length;
@@ -2837,7 +2833,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       })();
       var isContextDefined = (context) => !isUndefined(context) && context !== _global;
       function merge() {
-        const { caseless } = isContextDefined(this) && this || {};
+        const { caseless, skipUndefined } = isContextDefined(this) && this || {};
         const result = {};
         const assignValue = (val, key) => {
           const targetKey = caseless && findKey(result, key) || key;
@@ -2847,7 +2843,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             result[targetKey] = merge({}, val);
           } else if (isArray(val)) {
             result[targetKey] = val.slice();
-          } else {
+          } else if (!skipUndefined || !isUndefined(val)) {
             result[targetKey] = val;
           }
         };
@@ -2858,7 +2854,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
       var extend = (a, b, thisArg, { allOwnKeys } = {}) => {
         forEach(b, (val, key) => {
-          if (thisArg && isFunction(val)) {
+          if (thisArg && isFunction$1(val)) {
             a[key] = bind2(val, thisArg);
           } else {
             a[key] = val;
@@ -2931,10 +2927,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         };
       })(typeof Uint8Array !== "undefined" && getPrototypeOf(Uint8Array));
       var forEachEntry = (obj, fn) => {
-        const generator = obj && obj[Symbol.iterator];
-        const iterator = generator.call(obj);
+        const generator = obj && obj[iterator];
+        const _iterator = generator.call(obj);
         let result;
-        while ((result = iterator.next()) && !result.done) {
+        while ((result = _iterator.next()) && !result.done) {
           const pair = result.value;
           fn.call(obj, pair[0], pair[1]);
         }
@@ -2971,11 +2967,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       };
       var freezeMethods = (obj) => {
         reduceDescriptors(obj, (descriptor, name) => {
-          if (isFunction(obj) && ["arguments", "caller", "callee"].indexOf(name) !== -1) {
+          if (isFunction$1(obj) && ["arguments", "caller", "callee"].indexOf(name) !== -1) {
             return false;
           }
           const value = obj[name];
-          if (!isFunction(value))
+          if (!isFunction$1(value))
             return;
           descriptor.enumerable = false;
           if ("writable" in descriptor) {
@@ -2999,28 +2995,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         isArray(arrayOrString) ? define(arrayOrString) : define(String(arrayOrString).split(delimiter));
         return obj;
       };
-      var noop2 = () => {
+      var noop3 = () => {
       };
       var toFiniteNumber = (value, defaultValue) => {
         return value != null && Number.isFinite(value = +value) ? value : defaultValue;
       };
-      var ALPHA = "abcdefghijklmnopqrstuvwxyz";
-      var DIGIT = "0123456789";
-      var ALPHABET = {
-        DIGIT,
-        ALPHA,
-        ALPHA_DIGIT: ALPHA + ALPHA.toUpperCase() + DIGIT
-      };
-      var generateString = (size = 16, alphabet = ALPHABET.ALPHA_DIGIT) => {
-        let str = "";
-        const { length } = alphabet;
-        while (size--) {
-          str += alphabet[Math.random() * length | 0];
-        }
-        return str;
-      };
       function isSpecCompliantForm(thing) {
-        return !!(thing && isFunction(thing.append) && thing[Symbol.toStringTag] === "FormData" && thing[Symbol.iterator]);
+        return !!(thing && isFunction$1(thing.append) && thing[toStringTag] === "FormData" && thing[iterator]);
       }
       var toJSONObject = (obj) => {
         const stack = new Array(10);
@@ -3028,6 +3009,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           if (isObject(source)) {
             if (stack.indexOf(source) >= 0) {
               return;
+            }
+            if (isBuffer(source)) {
+              return source;
             }
             if (!("toJSON" in source)) {
               stack[i] = source;
@@ -3045,7 +3029,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         return visit(obj, 0);
       };
       var isAsyncFn = kindOfTest("AsyncFunction");
-      var isThenable = (thing) => thing && (isObject(thing) || isFunction(thing)) && isFunction(thing.then) && isFunction(thing.catch);
+      var isThenable = (thing) => thing && (isObject(thing) || isFunction$1(thing)) && isFunction$1(thing.then) && isFunction$1(thing.catch);
       var _setImmediate = ((setImmediateSupported, postMessageSupported) => {
         if (setImmediateSupported) {
           return setImmediate;
@@ -3063,9 +3047,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         })(`axios@${Math.random()}`, []) : (cb) => setTimeout(cb);
       })(
         typeof setImmediate === "function",
-        isFunction(_global.postMessage)
+        isFunction$1(_global.postMessage)
       );
       var asap = typeof queueMicrotask !== "undefined" ? queueMicrotask.bind(_global) : typeof process !== "undefined" && process.nextTick || _setImmediate;
+      var isIterable = (thing) => thing != null && isFunction$1(thing[iterator]);
       var utils$1 = {
         isArray,
         isArrayBuffer,
@@ -3077,6 +3062,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         isBoolean,
         isObject,
         isPlainObject,
+        isEmptyObject,
         isReadableStream,
         isRequest,
         isResponse,
@@ -3086,7 +3072,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         isFile,
         isBlob,
         isRegExp,
-        isFunction,
+        isFunction: isFunction$1,
         isStream,
         isURLSearchParams,
         isTypedArray,
@@ -3112,19 +3098,18 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         freezeMethods,
         toObjectSet,
         toCamelCase,
-        noop: noop2,
+        noop: noop3,
         toFiniteNumber,
         findKey,
         global: _global,
         isContextDefined,
-        ALPHABET,
-        generateString,
         isSpecCompliantForm,
         toJSONObject,
         isAsyncFn,
         isThenable,
         setImmediate: _setImmediate,
-        asap
+        asap,
+        isIterable
       };
       function AxiosError(message, code, config, request, response) {
         Error.call(this);
@@ -3192,9 +3177,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }, (prop) => {
           return prop !== "isAxiosError";
         });
-        AxiosError.call(axiosError, error.message, code, config, request, response);
-        axiosError.cause = error;
-        axiosError.name = error.name;
+        const msg = error && error.message ? error.message : "Error";
+        const errCode = code == null && error ? error.code : code;
+        AxiosError.call(axiosError, msg, errCode, config, request, response);
+        if (error && axiosError.cause == null) {
+          Object.defineProperty(axiosError, "cause", { value: error, configurable: true });
+        }
+        axiosError.name = error && error.name || "Error";
         customProps && Object.assign(axiosError, customProps);
         return axiosError;
       };
@@ -3245,6 +3234,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             return "";
           if (utils$1.isDate(value)) {
             return value.toISOString();
+          }
+          if (utils$1.isBoolean(value)) {
+            return value.toString();
           }
           if (!useBlob && utils$1.isBlob(value)) {
             throw new AxiosError("Blob is not supported. Use a Buffer instead.");
@@ -3330,7 +3322,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         params && toFormData(params, this, options);
       }
       var prototype = AxiosURLSearchParams.prototype;
-      prototype.append = function append2(name, value) {
+      prototype.append = function append3(name, value) {
         this._pairs.push([name, value]);
       };
       prototype.toString = function toString2(encoder) {
@@ -3342,13 +3334,18 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }, "").join("&");
       };
       function encode(val) {
-        return encodeURIComponent(val).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
+        return encodeURIComponent(val).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+");
       }
       function buildURL(url, params, options) {
         if (!params) {
           return url;
         }
         const _encode = options && options.encode || encode;
+        if (utils$1.isFunction(options)) {
+          options = {
+            serialize: options
+          };
+        }
         const serializeFn = options && options.serialize;
         let serializedParams;
         if (serializeFn) {
@@ -3391,7 +3388,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
          *
          * @param {Number} id The ID that was returned by `use`
          *
-         * @returns {Boolean} `true` if the interceptor was removed, `false` otherwise
+         * @returns {void}
          */
         eject(id) {
           if (this.handlers[id]) {
@@ -3465,15 +3462,16 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ...platform$1
       };
       function toURLEncodedForm(data, options) {
-        return toFormData(data, new platform.classes.URLSearchParams(), Object.assign({
+        return toFormData(data, new platform.classes.URLSearchParams(), {
           visitor: function(value, key, path, helpers) {
             if (platform.isNode && utils$1.isBuffer(value)) {
               this.append(key, value.toString("base64"));
               return false;
             }
             return helpers.defaultVisitor.apply(this, arguments);
-          }
-        }, options));
+          },
+          ...options
+        });
       }
       function parsePropPath(name) {
         return utils$1.matchAll(/\w+|\[(\w*)]/g, name).map((match) => {
@@ -3594,7 +3592,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             const silentJSONParsing = transitional && transitional.silentJSONParsing;
             const strictJSONParsing = !silentJSONParsing && JSONRequested;
             try {
-              return JSON.parse(data);
+              return JSON.parse(data, this.parseReviver);
             } catch (e) {
               if (strictJSONParsing) {
                 if (e.name === "SyntaxError") {
@@ -3749,10 +3747,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             setHeaders(header, valueOrRewrite);
           } else if (utils$1.isString(header) && (header = header.trim()) && !isValidHeaderName(header)) {
             setHeaders(parseHeaders(header), valueOrRewrite);
-          } else if (utils$1.isHeaders(header)) {
-            for (const [key, value] of header.entries()) {
-              setHeader(value, key, rewrite);
+          } else if (utils$1.isObject(header) && utils$1.isIterable(header)) {
+            let obj = {}, dest, key;
+            for (const entry of header) {
+              if (!utils$1.isArray(entry)) {
+                throw TypeError("Object iterator must return a key-value pair");
+              }
+              obj[key = entry[0]] = (dest = obj[key]) ? utils$1.isArray(dest) ? [...dest, entry[1]] : [dest, entry[1]] : entry[1];
             }
+            setHeaders(obj, valueOrRewrite);
           } else {
             header != null && setHeader(valueOrRewrite, header, rewrite);
           }
@@ -3856,6 +3859,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         toString() {
           return Object.entries(this.toJSON()).map(([header, value]) => header + ": " + value).join("\n");
         }
+        getSetCookie() {
+          return this.get("set-cookie") || [];
+        }
         get [Symbol.toStringTag]() {
           return "AxiosHeaders";
         }
@@ -3944,13 +3950,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         let firstSampleTS;
         min = min !== void 0 ? min : 1e3;
         return function push(chunkLength) {
-          const now2 = Date.now();
+          const now3 = Date.now();
           const startedAt = timestamps[tail];
           if (!firstSampleTS) {
-            firstSampleTS = now2;
+            firstSampleTS = now3;
           }
           bytes[head] = chunkLength;
-          timestamps[head] = now2;
+          timestamps[head] = now3;
           let i = tail;
           let bytesCount = 0;
           while (i !== head) {
@@ -3961,10 +3967,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           if (head === tail) {
             tail = (tail + 1) % samplesCount;
           }
-          if (now2 - firstSampleTS < min) {
+          if (now3 - firstSampleTS < min) {
             return;
           }
-          const passed = startedAt && now2 - startedAt;
+          const passed = startedAt && now3 - startedAt;
           return passed ? Math.round(bytesCount * 1e3 / passed) : void 0;
         };
       }
@@ -3973,20 +3979,20 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         let threshold = 1e3 / freq;
         let lastArgs;
         let timer;
-        const invoke = (args, now2 = Date.now()) => {
-          timestamp = now2;
+        const invoke = (args, now3 = Date.now()) => {
+          timestamp = now3;
           lastArgs = null;
           if (timer) {
             clearTimeout(timer);
             timer = null;
           }
-          fn.apply(null, args);
+          fn(...args);
         };
         const throttled = (...args) => {
-          const now2 = Date.now();
-          const passed = now2 - timestamp;
+          const now3 = Date.now();
+          const passed = now3 - timestamp;
           if (passed >= threshold) {
-            invoke(args, now2);
+            invoke(args, now3);
           } else {
             lastArgs = args;
             if (!timer) {
@@ -3997,8 +4003,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             }
           }
         };
-        const flush2 = () => lastArgs && invoke(lastArgs);
-        return [throttled, flush2];
+        const flush3 = () => lastArgs && invoke(lastArgs);
+        return [throttled, flush3];
       }
       var progressEventReducer = (listener, isDownloadStream, freq = 3) => {
         let bytesNotified = 0;
@@ -4033,62 +4039,45 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }), throttled[1]];
       };
       var asyncDecorator = (fn) => (...args) => utils$1.asap(() => fn(...args));
-      var isURLSameOrigin = platform.hasStandardBrowserEnv ? (
-        // Standard browser envs have full support of the APIs needed to test
-        // whether the request URL is of the same origin as current location.
-        function standardBrowserEnv() {
-          const msie = platform.navigator && /(msie|trident)/i.test(platform.navigator.userAgent);
-          const urlParsingNode = document.createElement("a");
-          let originURL;
-          function resolveURL(url) {
-            let href = url;
-            if (msie) {
-              urlParsingNode.setAttribute("href", href);
-              href = urlParsingNode.href;
-            }
-            urlParsingNode.setAttribute("href", href);
-            return {
-              href: urlParsingNode.href,
-              protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, "") : "",
-              host: urlParsingNode.host,
-              search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, "") : "",
-              hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, "") : "",
-              hostname: urlParsingNode.hostname,
-              port: urlParsingNode.port,
-              pathname: urlParsingNode.pathname.charAt(0) === "/" ? urlParsingNode.pathname : "/" + urlParsingNode.pathname
-            };
-          }
-          originURL = resolveURL(window.location.href);
-          return function isURLSameOrigin2(requestURL) {
-            const parsed = utils$1.isString(requestURL) ? resolveURL(requestURL) : requestURL;
-            return parsed.protocol === originURL.protocol && parsed.host === originURL.host;
-          };
-        }()
-      ) : (
-        // Non standard browser envs (web workers, react-native) lack needed support.
-        function nonStandardBrowserEnv() {
-          return function isURLSameOrigin2() {
-            return true;
-          };
-        }()
-      );
+      var isURLSameOrigin = platform.hasStandardBrowserEnv ? ((origin2, isMSIE) => (url) => {
+        url = new URL(url, platform.origin);
+        return origin2.protocol === url.protocol && origin2.host === url.host && (isMSIE || origin2.port === url.port);
+      })(
+        new URL(platform.origin),
+        platform.navigator && /(msie|trident)/i.test(platform.navigator.userAgent)
+      ) : () => true;
       var cookies = platform.hasStandardBrowserEnv ? (
         // Standard browser envs support document.cookie
         {
-          write(name, value, expires, path, domain, secure) {
-            const cookie = [name + "=" + encodeURIComponent(value)];
-            utils$1.isNumber(expires) && cookie.push("expires=" + new Date(expires).toGMTString());
-            utils$1.isString(path) && cookie.push("path=" + path);
-            utils$1.isString(domain) && cookie.push("domain=" + domain);
-            secure === true && cookie.push("secure");
+          write(name, value, expires, path, domain, secure, sameSite) {
+            if (typeof document === "undefined")
+              return;
+            const cookie = [`${name}=${encodeURIComponent(value)}`];
+            if (utils$1.isNumber(expires)) {
+              cookie.push(`expires=${new Date(expires).toUTCString()}`);
+            }
+            if (utils$1.isString(path)) {
+              cookie.push(`path=${path}`);
+            }
+            if (utils$1.isString(domain)) {
+              cookie.push(`domain=${domain}`);
+            }
+            if (secure === true) {
+              cookie.push("secure");
+            }
+            if (utils$1.isString(sameSite)) {
+              cookie.push(`SameSite=${sameSite}`);
+            }
             document.cookie = cookie.join("; ");
           },
           read(name) {
-            const match = document.cookie.match(new RegExp("(^|;\\s*)(" + name + ")=([^;]*)"));
-            return match ? decodeURIComponent(match[3]) : null;
+            if (typeof document === "undefined")
+              return null;
+            const match = document.cookie.match(new RegExp("(?:^|; )" + name + "=([^;]*)"));
+            return match ? decodeURIComponent(match[1]) : null;
           },
           remove(name) {
-            this.write(name, "", Date.now() - 864e5);
+            this.write(name, "", Date.now() - 864e5, "/");
           }
         }
       ) : (
@@ -4109,8 +4098,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       function combineURLs(baseURL, relativeURL) {
         return relativeURL ? baseURL.replace(/\/?\/$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
       }
-      function buildFullPath(baseURL, requestedURL) {
-        if (baseURL && !isAbsoluteURL(requestedURL)) {
+      function buildFullPath(baseURL, requestedURL, allowAbsoluteUrls) {
+        let isRelativeUrl = !isAbsoluteURL(requestedURL);
+        if (baseURL && (isRelativeUrl || allowAbsoluteUrls == false)) {
           return combineURLs(baseURL, requestedURL);
         }
         return requestedURL;
@@ -4119,7 +4109,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       function mergeConfig(config1, config2) {
         config2 = config2 || {};
         const config = {};
-        function getMergedValue(target, source, caseless) {
+        function getMergedValue(target, source, prop, caseless) {
           if (utils$1.isPlainObject(target) && utils$1.isPlainObject(source)) {
             return utils$1.merge.call({ caseless }, target, source);
           } else if (utils$1.isPlainObject(source)) {
@@ -4129,11 +4119,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           }
           return source;
         }
-        function mergeDeepProperties(a, b, caseless) {
+        function mergeDeepProperties(a, b, prop, caseless) {
           if (!utils$1.isUndefined(b)) {
-            return getMergedValue(a, b, caseless);
+            return getMergedValue(a, b, prop, caseless);
           } else if (!utils$1.isUndefined(a)) {
-            return getMergedValue(void 0, a, caseless);
+            return getMergedValue(void 0, a, prop, caseless);
           }
         }
         function valueFromConfig2(a, b) {
@@ -4184,9 +4174,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           socketPath: defaultToConfig2,
           responseEncoding: defaultToConfig2,
           validateStatus: mergeDirectKeys,
-          headers: (a, b) => mergeDeepProperties(headersToObject(a), headersToObject(b), true)
+          headers: (a, b, prop) => mergeDeepProperties(headersToObject(a), headersToObject(b), prop, true)
         };
-        utils$1.forEach(Object.keys(Object.assign({}, config1, config2)), function computeConfigValue(prop) {
+        utils$1.forEach(Object.keys({ ...config1, ...config2 }), function computeConfigValue(prop) {
           const merge2 = mergeMap[prop] || mergeDeepProperties;
           const configValue = merge2(config1[prop], config2[prop], prop);
           utils$1.isUndefined(configValue) && merge2 !== mergeDirectKeys || (config[prop] = configValue);
@@ -4197,20 +4187,24 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         const newConfig = mergeConfig({}, config);
         let { data, withXSRFToken, xsrfHeaderName, xsrfCookieName, headers, auth } = newConfig;
         newConfig.headers = headers = AxiosHeaders$1.from(headers);
-        newConfig.url = buildURL(buildFullPath(newConfig.baseURL, newConfig.url), config.params, config.paramsSerializer);
+        newConfig.url = buildURL(buildFullPath(newConfig.baseURL, newConfig.url, newConfig.allowAbsoluteUrls), config.params, config.paramsSerializer);
         if (auth) {
           headers.set(
             "Authorization",
             "Basic " + btoa((auth.username || "") + ":" + (auth.password ? unescape(encodeURIComponent(auth.password)) : ""))
           );
         }
-        let contentType;
         if (utils$1.isFormData(data)) {
           if (platform.hasStandardBrowserEnv || platform.hasStandardBrowserWebWorkerEnv) {
             headers.setContentType(void 0);
-          } else if ((contentType = headers.getContentType()) !== false) {
-            const [type, ...tokens] = contentType ? contentType.split(";").map((token) => token.trim()).filter(Boolean) : [];
-            headers.setContentType([type || "multipart/form-data", ...tokens].join("; "));
+          } else if (utils$1.isFunction(data.getHeaders)) {
+            const formHeaders = data.getHeaders();
+            const allowedHeaders = ["content-type", "content-length"];
+            Object.entries(formHeaders).forEach(([key, val]) => {
+              if (allowedHeaders.includes(key.toLowerCase())) {
+                headers.set(key, val);
+              }
+            });
           }
         }
         if (platform.hasStandardBrowserEnv) {
@@ -4288,8 +4282,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             reject(new AxiosError("Request aborted", AxiosError.ECONNABORTED, config, request));
             request = null;
           };
-          request.onerror = function handleError() {
-            reject(new AxiosError("Network Error", AxiosError.ERR_NETWORK, config, request));
+          request.onerror = function handleError(event) {
+            const msg = event && event.message ? event.message : "Network Error";
+            const err = new AxiosError(msg, AxiosError.ERR_NETWORK, config, request);
+            err.event = event || null;
+            reject(err);
             request = null;
           };
           request.ontimeout = function handleTimeout() {
@@ -4421,7 +4418,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }
       };
       var trackStream = (stream, chunkSize, onProgress, onFinish) => {
-        const iterator = readBytes(stream, chunkSize);
+        const iterator2 = readBytes(stream, chunkSize);
         let bytes = 0;
         let done;
         let _onFinish = (e) => {
@@ -4433,7 +4430,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         return new ReadableStream({
           async pull(controller) {
             try {
-              const { done: done2, value } = await iterator.next();
+              const { done: done2, value } = await iterator2.next();
               if (done2) {
                 _onFinish();
                 controller.close();
@@ -4452,15 +4449,22 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           },
           cancel(reason) {
             _onFinish(reason);
-            return iterator.return();
+            return iterator2.return();
           }
         }, {
           highWaterMark: 2
         });
       };
-      var isFetchSupported = typeof fetch === "function" && typeof Request === "function" && typeof Response === "function";
-      var isReadableStreamSupported = isFetchSupported && typeof ReadableStream === "function";
-      var encodeText = isFetchSupported && (typeof TextEncoder === "function" ? ((encoder) => (str) => encoder.encode(str))(new TextEncoder()) : async (str) => new Uint8Array(await new Response(str).arrayBuffer()));
+      var DEFAULT_CHUNK_SIZE = 64 * 1024;
+      var { isFunction } = utils$1;
+      var globalFetchAPI = (({ Request, Response }) => ({
+        Request,
+        Response
+      }))(utils$1.global);
+      var {
+        ReadableStream: ReadableStream$1,
+        TextEncoder
+      } = utils$1.global;
       var test = (fn, ...args) => {
         try {
           return !!fn(...args);
@@ -4468,162 +4472,202 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           return false;
         }
       };
-      var supportsRequestStream = isReadableStreamSupported && test(() => {
-        let duplexAccessed = false;
-        const hasContentType = new Request(platform.origin, {
-          body: new ReadableStream(),
-          method: "POST",
-          get duplex() {
-            duplexAccessed = true;
-            return "half";
-          }
-        }).headers.has("Content-Type");
-        return duplexAccessed && !hasContentType;
-      });
-      var DEFAULT_CHUNK_SIZE = 64 * 1024;
-      var supportsResponseStream = isReadableStreamSupported && test(() => utils$1.isReadableStream(new Response("").body));
-      var resolvers = {
-        stream: supportsResponseStream && ((res) => res.body)
-      };
-      isFetchSupported && ((res) => {
-        ["text", "arrayBuffer", "blob", "formData", "stream"].forEach((type) => {
-          !resolvers[type] && (resolvers[type] = utils$1.isFunction(res[type]) ? (res2) => res2[type]() : (_, config) => {
-            throw new AxiosError(`Response type '${type}' is not supported`, AxiosError.ERR_NOT_SUPPORT, config);
-          });
-        });
-      })(new Response());
-      var getBodyLength = async (body) => {
-        if (body == null) {
-          return 0;
+      var factory = (env) => {
+        env = utils$1.merge.call({
+          skipUndefined: true
+        }, globalFetchAPI, env);
+        const { fetch: envFetch, Request, Response } = env;
+        const isFetchSupported = envFetch ? isFunction(envFetch) : typeof fetch === "function";
+        const isRequestSupported = isFunction(Request);
+        const isResponseSupported = isFunction(Response);
+        if (!isFetchSupported) {
+          return false;
         }
-        if (utils$1.isBlob(body)) {
-          return body.size;
-        }
-        if (utils$1.isSpecCompliantForm(body)) {
-          const _request = new Request(platform.origin, {
+        const isReadableStreamSupported = isFetchSupported && isFunction(ReadableStream$1);
+        const encodeText = isFetchSupported && (typeof TextEncoder === "function" ? ((encoder) => (str) => encoder.encode(str))(new TextEncoder()) : async (str) => new Uint8Array(await new Request(str).arrayBuffer()));
+        const supportsRequestStream = isRequestSupported && isReadableStreamSupported && test(() => {
+          let duplexAccessed = false;
+          const hasContentType = new Request(platform.origin, {
+            body: new ReadableStream$1(),
             method: "POST",
-            body
-          });
-          return (await _request.arrayBuffer()).byteLength;
-        }
-        if (utils$1.isArrayBufferView(body) || utils$1.isArrayBuffer(body)) {
-          return body.byteLength;
-        }
-        if (utils$1.isURLSearchParams(body)) {
-          body = body + "";
-        }
-        if (utils$1.isString(body)) {
-          return (await encodeText(body)).byteLength;
-        }
-      };
-      var resolveBodyLength = async (headers, body) => {
-        const length = utils$1.toFiniteNumber(headers.getContentLength());
-        return length == null ? getBodyLength(body) : length;
-      };
-      var fetchAdapter = isFetchSupported && (async (config) => {
-        let {
-          url,
-          method,
-          data,
-          signal,
-          cancelToken,
-          timeout,
-          onDownloadProgress,
-          onUploadProgress,
-          responseType,
-          headers,
-          withCredentials = "same-origin",
-          fetchOptions
-        } = resolveConfig(config);
-        responseType = responseType ? (responseType + "").toLowerCase() : "text";
-        let composedSignal = composeSignals$1([signal, cancelToken && cancelToken.toAbortSignal()], timeout);
-        let request;
-        const unsubscribe = composedSignal && composedSignal.unsubscribe && (() => {
-          composedSignal.unsubscribe();
+            get duplex() {
+              duplexAccessed = true;
+              return "half";
+            }
+          }).headers.has("Content-Type");
+          return duplexAccessed && !hasContentType;
         });
-        let requestContentLength;
-        try {
-          if (onUploadProgress && supportsRequestStream && method !== "get" && method !== "head" && (requestContentLength = await resolveBodyLength(headers, data)) !== 0) {
-            let _request = new Request(url, {
-              method: "POST",
-              body: data,
-              duplex: "half"
-            });
-            let contentTypeHeader;
-            if (utils$1.isFormData(data) && (contentTypeHeader = _request.headers.get("content-type"))) {
-              headers.setContentType(contentTypeHeader);
-            }
-            if (_request.body) {
-              const [onProgress, flush2] = progressEventDecorator(
-                requestContentLength,
-                progressEventReducer(asyncDecorator(onUploadProgress))
-              );
-              data = trackStream(_request.body, DEFAULT_CHUNK_SIZE, onProgress, flush2);
-            }
-          }
-          if (!utils$1.isString(withCredentials)) {
-            withCredentials = withCredentials ? "include" : "omit";
-          }
-          const isCredentialsSupported = "credentials" in Request.prototype;
-          request = new Request(url, {
-            ...fetchOptions,
-            signal: composedSignal,
-            method: method.toUpperCase(),
-            headers: headers.normalize().toJSON(),
-            body: data,
-            duplex: "half",
-            credentials: isCredentialsSupported ? withCredentials : void 0
-          });
-          let response = await fetch(request);
-          const isStreamResponse = supportsResponseStream && (responseType === "stream" || responseType === "response");
-          if (supportsResponseStream && (onDownloadProgress || isStreamResponse && unsubscribe)) {
-            const options = {};
-            ["status", "statusText", "headers"].forEach((prop) => {
-              options[prop] = response[prop];
-            });
-            const responseContentLength = utils$1.toFiniteNumber(response.headers.get("content-length"));
-            const [onProgress, flush2] = onDownloadProgress && progressEventDecorator(
-              responseContentLength,
-              progressEventReducer(asyncDecorator(onDownloadProgress), true)
-            ) || [];
-            response = new Response(
-              trackStream(response.body, DEFAULT_CHUNK_SIZE, onProgress, () => {
-                flush2 && flush2();
-                unsubscribe && unsubscribe();
-              }),
-              options
-            );
-          }
-          responseType = responseType || "text";
-          let responseData = await resolvers[utils$1.findKey(resolvers, responseType) || "text"](response, config);
-          !isStreamResponse && unsubscribe && unsubscribe();
-          return await new Promise((resolve, reject) => {
-            settle(resolve, reject, {
-              data: responseData,
-              headers: AxiosHeaders$1.from(response.headers),
-              status: response.status,
-              statusText: response.statusText,
-              config,
-              request
-            });
-          });
-        } catch (err) {
-          unsubscribe && unsubscribe();
-          if (err && err.name === "TypeError" && /fetch/i.test(err.message)) {
-            throw Object.assign(
-              new AxiosError("Network Error", AxiosError.ERR_NETWORK, config, request),
-              {
-                cause: err.cause || err
+        const supportsResponseStream = isResponseSupported && isReadableStreamSupported && test(() => utils$1.isReadableStream(new Response("").body));
+        const resolvers = {
+          stream: supportsResponseStream && ((res) => res.body)
+        };
+        isFetchSupported && (() => {
+          ["text", "arrayBuffer", "blob", "formData", "stream"].forEach((type) => {
+            !resolvers[type] && (resolvers[type] = (res, config) => {
+              let method = res && res[type];
+              if (method) {
+                return method.call(res);
               }
-            );
+              throw new AxiosError(`Response type '${type}' is not supported`, AxiosError.ERR_NOT_SUPPORT, config);
+            });
+          });
+        })();
+        const getBodyLength = async (body) => {
+          if (body == null) {
+            return 0;
           }
-          throw AxiosError.from(err, err && err.code, config, request);
+          if (utils$1.isBlob(body)) {
+            return body.size;
+          }
+          if (utils$1.isSpecCompliantForm(body)) {
+            const _request = new Request(platform.origin, {
+              method: "POST",
+              body
+            });
+            return (await _request.arrayBuffer()).byteLength;
+          }
+          if (utils$1.isArrayBufferView(body) || utils$1.isArrayBuffer(body)) {
+            return body.byteLength;
+          }
+          if (utils$1.isURLSearchParams(body)) {
+            body = body + "";
+          }
+          if (utils$1.isString(body)) {
+            return (await encodeText(body)).byteLength;
+          }
+        };
+        const resolveBodyLength = async (headers, body) => {
+          const length = utils$1.toFiniteNumber(headers.getContentLength());
+          return length == null ? getBodyLength(body) : length;
+        };
+        return async (config) => {
+          let {
+            url,
+            method,
+            data,
+            signal,
+            cancelToken,
+            timeout,
+            onDownloadProgress,
+            onUploadProgress,
+            responseType,
+            headers,
+            withCredentials = "same-origin",
+            fetchOptions
+          } = resolveConfig(config);
+          let _fetch = envFetch || fetch;
+          responseType = responseType ? (responseType + "").toLowerCase() : "text";
+          let composedSignal = composeSignals$1([signal, cancelToken && cancelToken.toAbortSignal()], timeout);
+          let request = null;
+          const unsubscribe = composedSignal && composedSignal.unsubscribe && (() => {
+            composedSignal.unsubscribe();
+          });
+          let requestContentLength;
+          try {
+            if (onUploadProgress && supportsRequestStream && method !== "get" && method !== "head" && (requestContentLength = await resolveBodyLength(headers, data)) !== 0) {
+              let _request = new Request(url, {
+                method: "POST",
+                body: data,
+                duplex: "half"
+              });
+              let contentTypeHeader;
+              if (utils$1.isFormData(data) && (contentTypeHeader = _request.headers.get("content-type"))) {
+                headers.setContentType(contentTypeHeader);
+              }
+              if (_request.body) {
+                const [onProgress, flush3] = progressEventDecorator(
+                  requestContentLength,
+                  progressEventReducer(asyncDecorator(onUploadProgress))
+                );
+                data = trackStream(_request.body, DEFAULT_CHUNK_SIZE, onProgress, flush3);
+              }
+            }
+            if (!utils$1.isString(withCredentials)) {
+              withCredentials = withCredentials ? "include" : "omit";
+            }
+            const isCredentialsSupported = isRequestSupported && "credentials" in Request.prototype;
+            const resolvedOptions = {
+              ...fetchOptions,
+              signal: composedSignal,
+              method: method.toUpperCase(),
+              headers: headers.normalize().toJSON(),
+              body: data,
+              duplex: "half",
+              credentials: isCredentialsSupported ? withCredentials : void 0
+            };
+            request = isRequestSupported && new Request(url, resolvedOptions);
+            let response = await (isRequestSupported ? _fetch(request, fetchOptions) : _fetch(url, resolvedOptions));
+            const isStreamResponse = supportsResponseStream && (responseType === "stream" || responseType === "response");
+            if (supportsResponseStream && (onDownloadProgress || isStreamResponse && unsubscribe)) {
+              const options = {};
+              ["status", "statusText", "headers"].forEach((prop) => {
+                options[prop] = response[prop];
+              });
+              const responseContentLength = utils$1.toFiniteNumber(response.headers.get("content-length"));
+              const [onProgress, flush3] = onDownloadProgress && progressEventDecorator(
+                responseContentLength,
+                progressEventReducer(asyncDecorator(onDownloadProgress), true)
+              ) || [];
+              response = new Response(
+                trackStream(response.body, DEFAULT_CHUNK_SIZE, onProgress, () => {
+                  flush3 && flush3();
+                  unsubscribe && unsubscribe();
+                }),
+                options
+              );
+            }
+            responseType = responseType || "text";
+            let responseData = await resolvers[utils$1.findKey(resolvers, responseType) || "text"](response, config);
+            !isStreamResponse && unsubscribe && unsubscribe();
+            return await new Promise((resolve, reject) => {
+              settle(resolve, reject, {
+                data: responseData,
+                headers: AxiosHeaders$1.from(response.headers),
+                status: response.status,
+                statusText: response.statusText,
+                config,
+                request
+              });
+            });
+          } catch (err) {
+            unsubscribe && unsubscribe();
+            if (err && err.name === "TypeError" && /Load failed|fetch/i.test(err.message)) {
+              throw Object.assign(
+                new AxiosError("Network Error", AxiosError.ERR_NETWORK, config, request),
+                {
+                  cause: err.cause || err
+                }
+              );
+            }
+            throw AxiosError.from(err, err && err.code, config, request);
+          }
+        };
+      };
+      var seedCache = /* @__PURE__ */ new Map();
+      var getFetch = (config) => {
+        let env = config && config.env || {};
+        const { fetch: fetch2, Request, Response } = env;
+        const seeds = [
+          Request,
+          Response,
+          fetch2
+        ];
+        let len = seeds.length, i = len, seed, target, map = seedCache;
+        while (i--) {
+          seed = seeds[i];
+          target = map.get(seed);
+          target === void 0 && map.set(seed, target = i ? /* @__PURE__ */ new Map() : factory(env));
+          map = target;
         }
-      });
+        return target;
+      };
+      getFetch();
       var knownAdapters = {
         http: httpAdapter,
         xhr: xhrAdapter,
-        fetch: fetchAdapter
+        fetch: {
+          get: getFetch
+        }
       };
       utils$1.forEach(knownAdapters, (fn, value) => {
         if (fn) {
@@ -4636,40 +4680,49 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       });
       var renderReason = (reason) => `- ${reason}`;
       var isResolvedHandle = (adapter) => utils$1.isFunction(adapter) || adapter === null || adapter === false;
+      function getAdapter(adapters2, config) {
+        adapters2 = utils$1.isArray(adapters2) ? adapters2 : [adapters2];
+        const { length } = adapters2;
+        let nameOrAdapter;
+        let adapter;
+        const rejectedReasons = {};
+        for (let i = 0; i < length; i++) {
+          nameOrAdapter = adapters2[i];
+          let id;
+          adapter = nameOrAdapter;
+          if (!isResolvedHandle(nameOrAdapter)) {
+            adapter = knownAdapters[(id = String(nameOrAdapter)).toLowerCase()];
+            if (adapter === void 0) {
+              throw new AxiosError(`Unknown adapter '${id}'`);
+            }
+          }
+          if (adapter && (utils$1.isFunction(adapter) || (adapter = adapter.get(config)))) {
+            break;
+          }
+          rejectedReasons[id || "#" + i] = adapter;
+        }
+        if (!adapter) {
+          const reasons = Object.entries(rejectedReasons).map(
+            ([id, state]) => `adapter ${id} ` + (state === false ? "is not supported by the environment" : "is not available in the build")
+          );
+          let s = length ? reasons.length > 1 ? "since :\n" + reasons.map(renderReason).join("\n") : " " + renderReason(reasons[0]) : "as no adapter specified";
+          throw new AxiosError(
+            `There is no suitable adapter to dispatch the request ` + s,
+            "ERR_NOT_SUPPORT"
+          );
+        }
+        return adapter;
+      }
       var adapters = {
-        getAdapter: (adapters2) => {
-          adapters2 = utils$1.isArray(adapters2) ? adapters2 : [adapters2];
-          const { length } = adapters2;
-          let nameOrAdapter;
-          let adapter;
-          const rejectedReasons = {};
-          for (let i = 0; i < length; i++) {
-            nameOrAdapter = adapters2[i];
-            let id;
-            adapter = nameOrAdapter;
-            if (!isResolvedHandle(nameOrAdapter)) {
-              adapter = knownAdapters[(id = String(nameOrAdapter)).toLowerCase()];
-              if (adapter === void 0) {
-                throw new AxiosError(`Unknown adapter '${id}'`);
-              }
-            }
-            if (adapter) {
-              break;
-            }
-            rejectedReasons[id || "#" + i] = adapter;
-          }
-          if (!adapter) {
-            const reasons = Object.entries(rejectedReasons).map(
-              ([id, state]) => `adapter ${id} ` + (state === false ? "is not supported by the environment" : "is not available in the build")
-            );
-            let s = length ? reasons.length > 1 ? "since :\n" + reasons.map(renderReason).join("\n") : " " + renderReason(reasons[0]) : "as no adapter specified";
-            throw new AxiosError(
-              `There is no suitable adapter to dispatch the request ` + s,
-              "ERR_NOT_SUPPORT"
-            );
-          }
-          return adapter;
-        },
+        /**
+         * Resolve an adapter from a list of adapter names or functions.
+         * @type {Function}
+         */
+        getAdapter,
+        /**
+         * Exposes all known adapters
+         * @type {Object<string, Function|Object>}
+         */
         adapters: knownAdapters
       };
       function throwIfCancellationRequested(config) {
@@ -4690,7 +4743,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (["post", "put", "patch"].indexOf(config.method) !== -1) {
           config.headers.setContentType("application/x-www-form-urlencoded", false);
         }
-        const adapter = adapters.getAdapter(config.adapter || defaults$1.adapter);
+        const adapter = adapters.getAdapter(config.adapter || defaults$1.adapter, config);
         return adapter(config).then(function onAdapterResolution(response) {
           throwIfCancellationRequested(config);
           response.data = transformData.call(
@@ -4715,7 +4768,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           return Promise.reject(reason);
         });
       }
-      var VERSION2 = "1.7.7";
+      var VERSION3 = "1.13.2";
       var validators$1 = {};
       ["object", "boolean", "number", "function", "string", "symbol"].forEach((type, i) => {
         validators$1[type] = function validator2(thing) {
@@ -4725,7 +4778,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       var deprecatedWarnings = {};
       validators$1.transitional = function transitional(validator2, version, message) {
         function formatMessage(opt, desc) {
-          return "[Axios v" + VERSION2 + "] Transitional option '" + opt + "'" + desc + (message ? ". " + message : "");
+          return "[Axios v" + VERSION3 + "] Transitional option '" + opt + "'" + desc + (message ? ". " + message : "");
         }
         return (value, opt, opts) => {
           if (validator2 === false) {
@@ -4744,6 +4797,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             );
           }
           return validator2 ? validator2(value, opt, opts) : true;
+        };
+      };
+      validators$1.spelling = function spelling(correctSpelling) {
+        return (value, opt) => {
+          console.warn(`${opt} is likely a misspelling of ${correctSpelling}`);
+          return true;
         };
       };
       function assertOptions(options, schema, allowUnknown) {
@@ -4775,7 +4834,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       var validators = validator.validators;
       var Axios = class {
         constructor(instanceConfig) {
-          this.defaults = instanceConfig;
+          this.defaults = instanceConfig || {};
           this.interceptors = {
             request: new InterceptorManager$1(),
             response: new InterceptorManager$1()
@@ -4794,8 +4853,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             return await this._request(configOrUrl, config);
           } catch (err) {
             if (err instanceof Error) {
-              let dummy;
-              Error.captureStackTrace ? Error.captureStackTrace(dummy = {}) : dummy = new Error();
+              let dummy = {};
+              Error.captureStackTrace ? Error.captureStackTrace(dummy) : dummy = new Error();
               const stack = dummy.stack ? dummy.stack.replace(/^.+\n/, "") : "";
               try {
                 if (!err.stack) {
@@ -4837,6 +4896,17 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
               }, true);
             }
           }
+          if (config.allowAbsoluteUrls !== void 0)
+            ;
+          else if (this.defaults.allowAbsoluteUrls !== void 0) {
+            config.allowAbsoluteUrls = this.defaults.allowAbsoluteUrls;
+          } else {
+            config.allowAbsoluteUrls = true;
+          }
+          validator.assertOptions(config, {
+            baseUrl: validators.spelling("baseURL"),
+            withXsrfToken: validators.spelling("withXSRFToken")
+          }, true);
           config.method = (config.method || this.defaults.method || "get").toLowerCase();
           let contextHeaders = headers && utils$1.merge(
             headers.common,
@@ -4867,8 +4937,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           let len;
           if (!synchronousRequestInterceptors) {
             const chain = [dispatchRequest.bind(this), void 0];
-            chain.unshift.apply(chain, requestInterceptorChain);
-            chain.push.apply(chain, responseInterceptorChain);
+            chain.unshift(...requestInterceptorChain);
+            chain.push(...responseInterceptorChain);
             len = chain.length;
             promise = Promise.resolve(config);
             while (i < len) {
@@ -4878,7 +4948,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           }
           len = requestInterceptorChain.length;
           let newConfig = config;
-          i = 0;
           while (i < len) {
             const onFulfilled = requestInterceptorChain[i++];
             const onRejected = requestInterceptorChain[i++];
@@ -4903,7 +4972,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }
         getUri(config) {
           config = mergeConfig(this.defaults, config);
-          const fullPath = buildFullPath(config.baseURL, config.url);
+          const fullPath = buildFullPath(config.baseURL, config.url, config.allowAbsoluteUrls);
           return buildURL(fullPath, config.params, config.paramsSerializer);
         }
       };
@@ -5101,7 +5170,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         InsufficientStorage: 507,
         LoopDetected: 508,
         NotExtended: 510,
-        NetworkAuthenticationRequired: 511
+        NetworkAuthenticationRequired: 511,
+        WebServerIsDown: 521,
+        ConnectionTimedOut: 522,
+        OriginIsUnreachable: 523,
+        TimeoutOccurred: 524,
+        SslHandshakeFailed: 525,
+        InvalidSslCertificate: 526
       };
       Object.entries(HttpStatusCode).forEach(([key, value]) => {
         HttpStatusCode[value] = key;
@@ -5117,375 +5192,31 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         };
         return instance10;
       }
-      var axios = createInstance(defaults$1);
-      axios.Axios = Axios$1;
-      axios.CanceledError = CanceledError;
-      axios.CancelToken = CancelToken$1;
-      axios.isCancel = isCancel;
-      axios.VERSION = VERSION2;
-      axios.toFormData = toFormData;
-      axios.AxiosError = AxiosError;
-      axios.Cancel = axios.CanceledError;
-      axios.all = function all(promises) {
+      var axios2 = createInstance(defaults$1);
+      axios2.Axios = Axios$1;
+      axios2.CanceledError = CanceledError;
+      axios2.CancelToken = CancelToken$1;
+      axios2.isCancel = isCancel;
+      axios2.VERSION = VERSION3;
+      axios2.toFormData = toFormData;
+      axios2.AxiosError = AxiosError;
+      axios2.Cancel = axios2.CanceledError;
+      axios2.all = function all(promises) {
         return Promise.all(promises);
       };
-      axios.spread = spread;
-      axios.isAxiosError = isAxiosError;
-      axios.mergeConfig = mergeConfig;
-      axios.AxiosHeaders = AxiosHeaders$1;
-      axios.formToJSON = (thing) => formDataToJSON(utils$1.isHTMLForm(thing) ? new FormData(thing) : thing);
-      axios.getAdapter = adapters.getAdapter;
-      axios.HttpStatusCode = HttpStatusCode$1;
-      axios.default = axios;
-      module.exports = axios;
+      axios2.spread = spread;
+      axios2.isAxiosError = isAxiosError;
+      axios2.mergeConfig = mergeConfig;
+      axios2.AxiosHeaders = AxiosHeaders$1;
+      axios2.formToJSON = (thing) => formDataToJSON(utils$1.isHTMLForm(thing) ? new FormData(thing) : thing);
+      axios2.getAdapter = adapters.getAdapter;
+      axios2.HttpStatusCode = HttpStatusCode$1;
+      axios2.default = axios2;
+      module2.exports = axios2;
     }
   });
 
-  // jsApi.GEN.js
-  var require_jsApi_GEN = __commonJS({
-    "jsApi.GEN.js"(exports) {
-      var axios = require_axios();
-      function wrapErr(cb) {
-        return function(err) {
-          let data = (err.response || {}).data || {};
-          if (!data.error)
-            data.error = err.code;
-          data._axios = err;
-          cb(data);
-        };
-      }
-      function wrapOk(cb) {
-        return function(resp) {
-          let data = resp.data || {};
-          data._axios = resp;
-          cb(data);
-        };
-      }
-      exports.Admin3DFiles = async function Admin3DFiles(i, cb) {
-        return await axios.post("/admin/3dFiles", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.AdminAccessLogs = async function AdminAccessLogs(i, cb) {
-        return await axios.post("/admin/accessLogs", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.AdminDashboard = async function AdminDashboard(i, cb) {
-        return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.AdminFeedbacks = async function AdminFeedbacks(i, cb) {
-        return await axios.post("/admin/feedbacks", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.AdminFiles = async function AdminFiles(i, cb) {
-        return await axios.post("/admin/files", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.AdminPropHistories = async function AdminPropHistories(i, cb) {
-        return await axios.post("/admin/propHistories", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.AdminProperties = async function AdminProperties2(i, cb) {
-        return await axios.post("/admin/properties", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.AdminPropertiesTW = async function AdminPropertiesTW(i, cb) {
-        return await axios.post("/admin/properties/TW", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.AdminPropertiesUS = async function AdminPropertiesUS(i, cb) {
-        return await axios.post("/admin/properties/US", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.AdminRevenue = async function AdminRevenue(i, cb) {
-        return await axios.post("/admin/revenue", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.AdminUsers = async function AdminUsers(i, cb) {
-        return await axios.post("/admin/users", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestAutoLogin = async function GuestAutoLogin(i, cb) {
-        return await axios.post("/guest/autoLogin", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestDebug = async function GuestDebug(i, cb) {
-        return await axios.post("/guest/debug", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestExternalAuth = async function GuestExternalAuth(i, cb) {
-        return await axios.post("/guest/externalAuth", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestFiles = async function GuestFiles(i, cb) {
-        return await axios.post("/guest/files", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestForgotPassword = async function GuestForgotPassword(i, cb) {
-        return await axios.post("/guest/forgotPassword", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestLogin = async function GuestLogin(i, cb) {
-        return await axios.post("/guest/login", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestOauthCallback = async function GuestOauthCallback(i, cb) {
-        return await axios.post("/guest/oauthCallback", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestOauthCallbackRedirect = async function GuestOauthCallbackRedirect(i, cb) {
-        return await axios.post("/guest/oauthCallbackRedirect", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestOauthTokenExchange = async function GuestOauthTokenExchange(i, cb) {
-        return await axios.post("/guest/oauthTokenExchange", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestProperty = async function GuestProperty(i, cb) {
-        return await axios.post("/guest/property", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestRegister = async function GuestRegister(i, cb) {
-        return await axios.post("/guest/register", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestResendVerificationEmail = async function GuestResendVerificationEmail(i, cb) {
-        return await axios.post("/guest/resendVerificationEmail", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestResetPassword = async function GuestResetPassword(i, cb) {
-        return await axios.post("/guest/resetPassword", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestVerifyEmail = async function GuestVerifyEmail(i, cb) {
-        return await axios.post("/guest/verifyEmail", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.RealtorDeleteProperty = async function RealtorDeleteProperty2(i, cb) {
-        return await axios.post("/realtor/deleteProperty", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.RealtorOwnedProperties = async function RealtorOwnedProperties(i, cb) {
-        return await axios.post("/realtor/ownedProperties", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.RealtorProperty = async function RealtorProperty(i, cb) {
-        return await axios.post("/realtor/property", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.RealtorRevenue = async function RealtorRevenue(i, cb) {
-        return await axios.post("/realtor/revenue", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.RealtorUpsertProperty = async function RealtorUpsertProperty3(i, cb) {
-        return await axios.post("/realtor/upsertProperty", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
-        return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserBuyers = async function UserBuyers(i, cb) {
-        return await axios.post("/user/buyers", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserChangePassword = async function UserChangePassword(i, cb) {
-        return await axios.post("/user/changePassword", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserDeactivate = async function UserDeactivate(i, cb) {
-        return await axios.post("/user/deactivate", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserGpsCountry = async function UserGpsCountry(i, cb) {
-        return await axios.post("/user/gpsCountry", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserLikeProp = async function UserLikeProp(i, cb) {
-        return await axios.post("/user/likeProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserListing = async function UserListing(i, cb) {
-        return await axios.post("/user/listing", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserListings = async function UserListings(i, cb) {
-        return await axios.post("/user/listings", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserLogout = async function UserLogout3(i, cb) {
-        return await axios.post("/user/logout", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserNearbyFacilities = async function UserNearbyFacilities(i, cb) {
-        return await axios.post("/user/nearbyFacilities", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserProfile = async function UserProfile(i, cb) {
-        return await axios.post("/user/profile", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserPropHistory = async function UserPropHistory(i, cb) {
-        return await axios.post("/user/propHistory", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserProperty = async function UserProperty(i, cb) {
-        return await axios.post("/user/property", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserSearchProp = async function UserSearchProp(i, cb) {
-        return await axios.post("/user/searchProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserSearchPropUS = async function UserSearchPropUS(i, cb) {
-        return await axios.post("/user/searchProp/US", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserSendFeedback = async function UserSendFeedback2(i, cb) {
-        return await axios.post("/user/sendFeedback", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserSessionKill = async function UserSessionKill(i, cb) {
-        return await axios.post("/user/sessionKill", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserSessionsActive = async function UserSessionsActive(i, cb) {
-        return await axios.post("/user/sessionsActive", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserUpdateProfile = async function UserUpdateProfile2(i, cb) {
-        return await axios.post("/user/updateProfile", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserUpload3DFile = async function UserUpload3DFile(i, cb) {
-        return await axios.post("/user/upload3DFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserUploadFile = async function UserUploadFile(i, cb) {
-        return await axios.post("/user/uploadFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.UserViewRoom = async function UserViewRoom(i, cb) {
-        return await axios.post("/user/viewRoom", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-    }
-  });
-
-  // _components/formatter.js
-  var require_formatter = __commonJS({
-    "_components/formatter.js"(exports, module) {
-      function datetime(unixSec, humanize) {
-        if (!unixSec)
-          return "";
-        let dt = (
-          /** @type {Date} */
-          new Date(unixSec * 1e3)
-        );
-        if (typeof unixSec === "string") {
-          dt = new Date(unixSec);
-        }
-        if (!humanize) {
-          const newDt = (
-            /** @type {string} */
-            dt.toISOString()
-          );
-          return newDt.substring(0, 10) + " " + newDt.substring(11, 16);
-        }
-        return dt.toLocaleDateString("default", {
-          day: "2-digit",
-          month: "long",
-          year: "numeric"
-        });
-      }
-      function priceNtd(val) {
-        return new Number(val).toLocaleString("zh-TW");
-      }
-      function localeDatetime(unixSec) {
-        if (!unixSec)
-          return "";
-        const dt = (
-          /** @type {Date} */
-          new Date(Number(unixSec) * 1e3)
-        );
-        const day = (
-          /** @type {string} */
-          dt.toLocaleDateString("default", {
-            weekday: "long"
-          })
-        );
-        const date = (
-          /** @type {number} */
-          dt.getDate()
-        );
-        const month = (
-          /** @type {string} */
-          dt.toLocaleDateString("default", {
-            month: "long"
-          })
-        );
-        const year = (
-          /** @type {number} */
-          dt.getFullYear()
-        );
-        let hh = (
-          /** @type {string} */
-          String(dt.getHours())
-        );
-        if (Number(hh) < 10)
-          hh = "0" + hh;
-        let mm = (
-          /** @type {string} */
-          String(dt.getMinutes())
-        );
-        if (Number(mm) < 10)
-          mm = "0" + mm;
-        return `${day}, ${date} ${month} ${year} ${hh}:${mm}`;
-      }
-      function datetime2(unixSec) {
-        if (!unixSec)
-          return "-";
-        const dt = (
-          /** @type {Date} */
-          new Date(Number(unixSec) * 1e3)
-        );
-        const year = (
-          /** @type {number} */
-          dt.getFullYear()
-        );
-        const month = (
-          /** @type {string} */
-          dt.toLocaleDateString("default", {
-            month: "long"
-          })
-        );
-        const day = (
-          /** @type {string} */
-          dt.toLocaleDateString("default", {
-            weekday: "long"
-          })
-        );
-        const date = (
-          /** @type {string} */
-          String(dt.getDate()).padStart(2, "0")
-        );
-        const hours = (
-          /** @type {string} */
-          String(dt.getHours()).padStart(2, "0")
-        );
-        const minutes = (
-          /** @type {string} */
-          String(dt.getMinutes()).padStart(2, "0")
-        );
-        const seconds = (
-          /** @type {string} */
-          String(dt.getSeconds()).padStart(2, "0")
-        );
-        return `${day}, ${date} ${month} ${year} - ${hours}:${minutes}:${seconds}`;
-      }
-      function formatPrice3(price, currency) {
-        try {
-          return new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency,
-            maximumSignificantDigits: 4
-          }).format(price);
-        } catch (err) {
-          console.log("formatPrice failed", err, price, currency);
-          return `${currency} ${price}`;
-        }
-      }
-      function getApprovalState2(s) {
-        if (s == "") {
-          return "approved";
-        } else if (s.startsWith("pending")) {
-          return "pending";
-        } else {
-          return "rejected";
-        }
-      }
-      function M2ToPing(sizeM2) {
-        const value = sizeM2 / 3.30579;
-        const minifiedValue = value.toFixed(2);
-        return parseFloat(minifiedValue);
-      }
-      function dateISOFormat(dayTo = 0) {
-        const dt = new Date();
-        dt.setDate(dt.getDate() + dayTo);
-        const date = String(dt.getDate()).padStart(2, "0");
-        const month = String(dt.getMonth() + 1).padStart(2, "0");
-        const year = dt.getFullYear();
-        return `${year}-${month}-${date}`;
-      }
-      function getYearMonth() {
-        const date = new Date();
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        return `${year}-${month}`;
-      }
-      module.exports = {
-        datetime,
-        priceNtd,
-        localeDatetime,
-        datetime2,
-        formatPrice: formatPrice3,
-        getApprovalState: getApprovalState2,
-        M2ToPing,
-        dateISOFormat,
-        getYearMonth
-      };
-    }
-  });
-
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/utils.js
+  // node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
   function assign(tar, src) {
@@ -5589,13 +5320,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     return ret;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/globals.js
+  // node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
     // @ts-ignore Node typings have this
     global
   );
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  // node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
   var ResizeObserverSingleton = class {
     /**
      * @private
@@ -5619,12 +5350,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
      * @param {import('./private.js').Listener} listener
      * @returns {() => void}
      */
-    observe(element2, listener) {
-      this._listeners.set(element2, listener);
-      this._getObserver().observe(element2, this.options);
+    observe(element3, listener) {
+      this._listeners.set(element3, listener);
+      this._getObserver().observe(element3, this.options);
       return () => {
-        this._listeners.delete(element2);
-        this._observer.unobserve(element2);
+        this._listeners.delete(element3);
+        this._observer.unobserve(element3);
       };
     }
     /**
@@ -5641,7 +5372,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   };
   ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/dom.js
+  // node_modules/svelte/src/runtime/internal/dom.js
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -5668,9 +5399,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   }
   function element(name) {
     return document.createElement(name);
-  }
-  function svg_element(name) {
-    return document.createElementNS("http://www.w3.org/2000/svg", name);
   }
   function text(data) {
     return document.createTextNode(data);
@@ -5700,16 +5428,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     else if (node.getAttribute(attribute) !== value)
       node.setAttribute(attribute, value);
   }
-  function set_svg_attributes(node, attributes) {
-    for (const key in attributes) {
-      attr(node, key, attributes[key]);
-    }
-  }
   function to_number(value) {
     return value === "" ? null : +value;
   }
-  function children(element2) {
-    return Array.from(element2.childNodes);
+  function children(element3) {
+    return Array.from(element3.childNodes);
   }
   function set_data(text2, data) {
     data = "" + data;
@@ -5737,15 +5460,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     const selected_option = select.querySelector(":checked");
     return selected_option && selected_option.__value;
   }
-  function toggle_class(element2, name, toggle) {
-    element2.classList.toggle(name, !!toggle);
+  function toggle_class(element3, name, toggle) {
+    element3.classList.toggle(name, !!toggle);
   }
   function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
     return new CustomEvent(type, { detail, bubbles, cancelable });
   }
-  function get_custom_elements_slots(element2) {
+  function get_custom_elements_slots(element3) {
     const result = {};
-    element2.childNodes.forEach(
+    element3.childNodes.forEach(
       /** @param {Element} node */
       (node) => {
         result[node.slot || "default"] = true;
@@ -5754,7 +5477,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     return result;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/lifecycle.js
+  // node_modules/svelte/src/runtime/internal/lifecycle.js
   var current_component;
   function set_current_component(component) {
     current_component = component;
@@ -5787,7 +5510,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     };
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/scheduler.js
+  // node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -5865,7 +5588,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     render_callbacks = filtered;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/transitions.js
+  // node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   var outros;
   function group_outros() {
@@ -5888,7 +5611,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       block.i(local);
     }
   }
-  function transition_out(block, local, detach2, callback) {
+  function transition_out(block, local, detach3, callback) {
     if (block && block.o) {
       if (outroing.has(block))
         return;
@@ -5896,7 +5619,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       outros.c.push(() => {
         outroing.delete(block);
         if (callback) {
-          if (detach2)
+          if (detach3)
             block.d(1);
           callback();
         }
@@ -5907,46 +5630,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/each.js
+  // node_modules/svelte/src/runtime/internal/each.js
   function ensure_array_like(array_like_or_iterator) {
     return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/spread.js
-  function get_spread_update(levels, updates) {
-    const update2 = {};
-    const to_null_out = {};
-    const accounted_for = { $scope: 1 };
-    let i = levels.length;
-    while (i--) {
-      const o = levels[i];
-      const n = updates[i];
-      if (n) {
-        for (const key in o) {
-          if (!(key in n))
-            to_null_out[key] = 1;
-        }
-        for (const key in n) {
-          if (!accounted_for[key]) {
-            update2[key] = n[key];
-            accounted_for[key] = 1;
-          }
-        }
-        levels[i] = n;
-      } else {
-        for (const key in o) {
-          accounted_for[key] = 1;
-        }
-      }
-    }
-    for (const key in to_null_out) {
-      if (!(key in update2))
-        update2[key] = void 0;
-    }
-    return update2;
-  }
-
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/boolean_attributes.js
+  // node_modules/svelte/src/shared/boolean_attributes.js
   var _boolean_attributes = (
     /** @type {const} */
     [
@@ -5979,7 +5668,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/Component.js
+  // node_modules/svelte/src/runtime/internal/Component.js
   function bind(component, name, callback) {
     const index = component.$.props[name];
     if (index !== void 0) {
@@ -6126,6 +5815,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             this.$l_u.delete(listener);
           }
         }
+        if (this.$l[type]) {
+          const idx = this.$l[type].indexOf(listener);
+          if (idx >= 0) {
+            this.$l[type].splice(idx, 1);
+          }
+        }
       }
       async connectedCallback() {
         this.$cn = true;
@@ -6157,7 +5852,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             };
           };
           await Promise.resolve();
-          if (!this.$cn) {
+          if (!this.$cn || this.$c) {
             return;
           }
           const $slots = {};
@@ -6171,6 +5866,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
             const name = this.$g_p(attribute.name);
             if (!(name in this.$d)) {
               this.$d[name] = get_custom_element_value(name, attribute.value, this.$p_d, "toProp");
+            }
+          }
+          for (const key in this.$p_d) {
+            if (!(key in this.$d) && this[key] !== void 0) {
+              this.$d[key] = this[key];
+              delete this[key];
             }
           }
           this.$c = new this.$ctor({
@@ -6216,17 +5917,17 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
       // We don't need this when working within Svelte code, but for compatibility of people using this outside of Svelte
       // and setting attributes through setAttribute etc, this is helpful
-      attributeChangedCallback(attr2, _oldValue, newValue) {
+      attributeChangedCallback(attr3, _oldValue, newValue) {
         if (this.$r)
           return;
-        attr2 = this.$g_p(attr2);
-        this.$d[attr2] = get_custom_element_value(attr2, newValue, this.$p_d, "toProp");
-        this.$c?.$set({ [attr2]: this.$d[attr2] });
+        attr3 = this.$g_p(attr3);
+        this.$d[attr3] = get_custom_element_value(attr3, newValue, this.$p_d, "toProp");
+        this.$c?.$set({ [attr3]: this.$d[attr3] });
       }
       disconnectedCallback() {
         this.$cn = false;
         Promise.resolve().then(() => {
-          if (!this.$cn) {
+          if (!this.$cn && this.$c) {
             this.$c.$destroy();
             this.$c = void 0;
           }
@@ -6323,17 +6024,189 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
   };
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/version.js
+  // node_modules/svelte/src/shared/version.js
   var PUBLIC_VERSION = "4";
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  // node_modules/svelte/src/runtime/internal/disclose-version/index.js
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
-  // _components/Menu.svelte
-  var import_jsApi_GEN = __toESM(require_jsApi_GEN());
+  // jsApi.GEN.js
+  var axios = require_axios();
+  function wrapErr(cb) {
+    return function(err) {
+      let data = (err.response || {}).data || {};
+      if (!data.error)
+        data.error = err.code;
+      data._axios = err;
+      cb(data);
+    };
+  }
+  function wrapOk(cb) {
+    return function(resp) {
+      let data = resp.data || {};
+      data._axios = resp;
+      cb(data);
+    };
+  }
+  exports.Admin3DFiles = async function Admin3DFiles(i, cb) {
+    return await axios.post("/admin/3dFiles", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.AdminAccessLogs = async function AdminAccessLogs(i, cb) {
+    return await axios.post("/admin/accessLogs", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.AdminDashboard = async function AdminDashboard(i, cb) {
+    return await axios.post("/admin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.AdminFeedbacks = async function AdminFeedbacks(i, cb) {
+    return await axios.post("/admin/feedbacks", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.AdminFiles = async function AdminFiles(i, cb) {
+    return await axios.post("/admin/files", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.AdminPropHistories = async function AdminPropHistories(i, cb) {
+    return await axios.post("/admin/propHistories", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.AdminProperties = async function AdminProperties(i, cb) {
+    return await axios.post("/admin/properties", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.AdminPropertiesTW = async function AdminPropertiesTW(i, cb) {
+    return await axios.post("/admin/properties/TW", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.AdminPropertiesUS = async function AdminPropertiesUS(i, cb) {
+    return await axios.post("/admin/properties/US", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.AdminRevenue = async function AdminRevenue(i, cb) {
+    return await axios.post("/admin/revenue", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.AdminUsers = async function AdminUsers(i, cb) {
+    return await axios.post("/admin/users", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.GuestAutoLogin = async function GuestAutoLogin(i, cb) {
+    return await axios.post("/guest/autoLogin", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.GuestDebug = async function GuestDebug(i, cb) {
+    return await axios.post("/guest/debug", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.GuestExternalAuth = async function GuestExternalAuth(i, cb) {
+    return await axios.post("/guest/externalAuth", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.GuestFiles = async function GuestFiles(i, cb) {
+    return await axios.post("/guest/files", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.GuestForgotPassword = async function GuestForgotPassword(i, cb) {
+    return await axios.post("/guest/forgotPassword", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.GuestLogin = async function GuestLogin(i, cb) {
+    return await axios.post("/guest/login", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.GuestOauthCallback = async function GuestOauthCallback(i, cb) {
+    return await axios.post("/guest/oauthCallback", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.GuestOauthCallbackRedirect = async function GuestOauthCallbackRedirect(i, cb) {
+    return await axios.post("/guest/oauthCallbackRedirect", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.GuestOauthTokenExchange = async function GuestOauthTokenExchange(i, cb) {
+    return await axios.post("/guest/oauthTokenExchange", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.GuestProperty = async function GuestProperty(i, cb) {
+    return await axios.post("/guest/property", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.GuestRegister = async function GuestRegister(i, cb) {
+    return await axios.post("/guest/register", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.GuestResendVerificationEmail = async function GuestResendVerificationEmail(i, cb) {
+    return await axios.post("/guest/resendVerificationEmail", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.GuestResetPassword = async function GuestResetPassword(i, cb) {
+    return await axios.post("/guest/resetPassword", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.GuestVerifyEmail = async function GuestVerifyEmail(i, cb) {
+    return await axios.post("/guest/verifyEmail", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.RealtorDeleteProperty = async function RealtorDeleteProperty(i, cb) {
+    return await axios.post("/realtor/deleteProperty", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.RealtorOwnedProperties = async function RealtorOwnedProperties(i, cb) {
+    return await axios.post("/realtor/ownedProperties", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.RealtorProperty = async function RealtorProperty(i, cb) {
+    return await axios.post("/realtor/property", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.RealtorRevenue = async function RealtorRevenue(i, cb) {
+    return await axios.post("/realtor/revenue", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.RealtorUpsertProperty = async function RealtorUpsertProperty(i, cb) {
+    return await axios.post("/realtor/upsertProperty", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
+    return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserBuyers = async function UserBuyers(i, cb) {
+    return await axios.post("/user/buyers", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserChangePassword = async function UserChangePassword(i, cb) {
+    return await axios.post("/user/changePassword", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserDeactivate = async function UserDeactivate(i, cb) {
+    return await axios.post("/user/deactivate", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserGpsCountry = async function UserGpsCountry(i, cb) {
+    return await axios.post("/user/gpsCountry", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserLikeProp = async function UserLikeProp(i, cb) {
+    return await axios.post("/user/likeProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserListing = async function UserListing(i, cb) {
+    return await axios.post("/user/listing", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserListings = async function UserListings(i, cb) {
+    return await axios.post("/user/listings", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserLogout = async function UserLogout(i, cb) {
+    return await axios.post("/user/logout", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserNearbyFacilities = async function UserNearbyFacilities(i, cb) {
+    return await axios.post("/user/nearbyFacilities", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserProfile = async function UserProfile(i, cb) {
+    return await axios.post("/user/profile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserPropHistory = async function UserPropHistory(i, cb) {
+    return await axios.post("/user/propHistory", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserProperty = async function UserProperty(i, cb) {
+    return await axios.post("/user/property", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserSearchProp = async function UserSearchProp(i, cb) {
+    return await axios.post("/user/searchProp", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserSearchPropUS = async function UserSearchPropUS(i, cb) {
+    return await axios.post("/user/searchProp/US", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserSendFeedback = async function UserSendFeedback(i, cb) {
+    return await axios.post("/user/sendFeedback", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserSessionKill = async function UserSessionKill(i, cb) {
+    return await axios.post("/user/sessionKill", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserSessionsActive = async function UserSessionsActive(i, cb) {
+    return await axios.post("/user/sessionsActive", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserUpdateProfile = async function UserUpdateProfile(i, cb) {
+    return await axios.post("/user/updateProfile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserUpload3DFile = async function UserUpload3DFile(i, cb) {
+    return await axios.post("/user/upload3DFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserUploadFile = async function UserUploadFile(i, cb) {
+    return await axios.post("/user/uploadFile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
+  exports.UserViewRoom = async function UserViewRoom(i, cb) {
+    return await axios.post("/user/viewRoom", i).then(wrapOk(cb)).catch(wrapErr(cb));
+  };
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/store/index.js
+  // node_modules/svelte/src/runtime/store/index.js
   var subscriber_queue = [];
   function writable(value, start = noop) {
     let stop;
@@ -6356,16 +6229,16 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }
       }
     }
-    function update2(fn) {
+    function update3(fn) {
       set(fn(value));
     }
-    function subscribe2(run2, invalidate = noop) {
-      const subscriber = [run2, invalidate];
+    function subscribe2(run3, invalidate = noop) {
+      const subscriber = [run3, invalidate];
       subscribers.add(subscriber);
       if (subscribers.size === 1) {
-        stop = start(set, update2) || noop;
+        stop = start(set, update3) || noop;
       }
-      run2(value);
+      run3(value);
       return () => {
         subscribers.delete(subscriber);
         if (subscribers.size === 0 && stop) {
@@ -6374,7 +6247,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }
       };
     }
-    return { set, update: update2, subscribe: subscribe2 };
+    return { set, update: update3, subscribe: subscribe2 };
   }
 
   // translation.json
@@ -6535,7 +6408,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }
       }
     };
-    const { subscribe: subscribe2, set, update: update2 } = writable(kv);
+    const { subscribe: subscribe2, set, update: update3 } = writable(kv);
     return {
       currentLang,
       subscribe: subscribe2,
@@ -6549,14 +6422,641 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         console.log("kv", kv);
         if (Object.keys(kv).length === 0)
           return;
-        update2((el) => kv);
+        update3((el) => kv);
         cb();
       }
     };
   }
   var T = translationStore();
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/Icon.svelte
+  // node_modules/svelte-icons-pack/node_modules/svelte/src/runtime/internal/utils.js
+  function noop2() {
+  }
+  function assign2(tar, src) {
+    for (const k in src)
+      tar[k] = src[k];
+    return (
+      /** @type {T & S} */
+      tar
+    );
+  }
+  function run2(fn) {
+    return fn();
+  }
+  function blank_object2() {
+    return /* @__PURE__ */ Object.create(null);
+  }
+  function run_all2(fns) {
+    fns.forEach(run2);
+  }
+  function is_function2(thing) {
+    return typeof thing === "function";
+  }
+  function safe_not_equal2(a, b) {
+    return a != a ? b == b : a !== b || a && typeof a === "object" || typeof a === "function";
+  }
+  function is_empty2(obj) {
+    return Object.keys(obj).length === 0;
+  }
+
+  // node_modules/svelte-icons-pack/node_modules/svelte/src/runtime/internal/globals.js
+  var globals2 = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
+    // @ts-ignore Node typings have this
+    global
+  );
+
+  // node_modules/svelte-icons-pack/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  var ResizeObserverSingleton2 = class {
+    /**
+     * @private
+     * @readonly
+     * @type {WeakMap<Element, import('./private.js').Listener>}
+     */
+    _listeners = "WeakMap" in globals2 ? /* @__PURE__ */ new WeakMap() : void 0;
+    /**
+     * @private
+     * @type {ResizeObserver}
+     */
+    _observer = void 0;
+    /** @type {ResizeObserverOptions} */
+    options;
+    /** @param {ResizeObserverOptions} options */
+    constructor(options) {
+      this.options = options;
+    }
+    /**
+     * @param {Element} element
+     * @param {import('./private.js').Listener} listener
+     * @returns {() => void}
+     */
+    observe(element3, listener) {
+      this._listeners.set(element3, listener);
+      this._getObserver().observe(element3, this.options);
+      return () => {
+        this._listeners.delete(element3);
+        this._observer.unobserve(element3);
+      };
+    }
+    /**
+     * @private
+     */
+    _getObserver() {
+      return this._observer ?? (this._observer = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          ResizeObserverSingleton2.entries.set(entry.target, entry);
+          this._listeners.get(entry.target)?.(entry);
+        }
+      }));
+    }
+  };
+  ResizeObserverSingleton2.entries = "WeakMap" in globals2 ? /* @__PURE__ */ new WeakMap() : void 0;
+
+  // node_modules/svelte-icons-pack/node_modules/svelte/src/runtime/internal/dom.js
+  var is_hydrating2 = false;
+  function start_hydrating2() {
+    is_hydrating2 = true;
+  }
+  function end_hydrating2() {
+    is_hydrating2 = false;
+  }
+  function insert2(target, node, anchor) {
+    target.insertBefore(node, anchor || null);
+  }
+  function detach2(node) {
+    if (node.parentNode) {
+      node.parentNode.removeChild(node);
+    }
+  }
+  function element2(name) {
+    return document.createElement(name);
+  }
+  function svg_element(name) {
+    return document.createElementNS("http://www.w3.org/2000/svg", name);
+  }
+  function attr2(node, attribute, value) {
+    if (value == null)
+      node.removeAttribute(attribute);
+    else if (node.getAttribute(attribute) !== value)
+      node.setAttribute(attribute, value);
+  }
+  function set_svg_attributes(node, attributes) {
+    for (const key in attributes) {
+      attr2(node, key, attributes[key]);
+    }
+  }
+  function children2(element3) {
+    return Array.from(element3.childNodes);
+  }
+  function get_custom_elements_slots2(element3) {
+    const result = {};
+    element3.childNodes.forEach(
+      /** @param {Element} node */
+      (node) => {
+        result[node.slot || "default"] = true;
+      }
+    );
+    return result;
+  }
+
+  // node_modules/svelte-icons-pack/node_modules/svelte/src/runtime/internal/lifecycle.js
+  var current_component2;
+  function set_current_component2(component) {
+    current_component2 = component;
+  }
+
+  // node_modules/svelte-icons-pack/node_modules/svelte/src/runtime/internal/scheduler.js
+  var dirty_components2 = [];
+  var binding_callbacks2 = [];
+  var render_callbacks2 = [];
+  var flush_callbacks2 = [];
+  var resolved_promise2 = /* @__PURE__ */ Promise.resolve();
+  var update_scheduled2 = false;
+  function schedule_update2() {
+    if (!update_scheduled2) {
+      update_scheduled2 = true;
+      resolved_promise2.then(flush2);
+    }
+  }
+  function add_render_callback2(fn) {
+    render_callbacks2.push(fn);
+  }
+  var seen_callbacks2 = /* @__PURE__ */ new Set();
+  var flushidx2 = 0;
+  function flush2() {
+    if (flushidx2 !== 0) {
+      return;
+    }
+    const saved_component = current_component2;
+    do {
+      try {
+        while (flushidx2 < dirty_components2.length) {
+          const component = dirty_components2[flushidx2];
+          flushidx2++;
+          set_current_component2(component);
+          update2(component.$);
+        }
+      } catch (e) {
+        dirty_components2.length = 0;
+        flushidx2 = 0;
+        throw e;
+      }
+      set_current_component2(null);
+      dirty_components2.length = 0;
+      flushidx2 = 0;
+      while (binding_callbacks2.length)
+        binding_callbacks2.pop()();
+      for (let i = 0; i < render_callbacks2.length; i += 1) {
+        const callback = render_callbacks2[i];
+        if (!seen_callbacks2.has(callback)) {
+          seen_callbacks2.add(callback);
+          callback();
+        }
+      }
+      render_callbacks2.length = 0;
+    } while (dirty_components2.length);
+    while (flush_callbacks2.length) {
+      flush_callbacks2.pop()();
+    }
+    update_scheduled2 = false;
+    seen_callbacks2.clear();
+    set_current_component2(saved_component);
+  }
+  function update2($) {
+    if ($.fragment !== null) {
+      $.update();
+      run_all2($.before_update);
+      const dirty = $.dirty;
+      $.dirty = [-1];
+      $.fragment && $.fragment.p($.ctx, dirty);
+      $.after_update.forEach(add_render_callback2);
+    }
+  }
+  function flush_render_callbacks2(fns) {
+    const filtered = [];
+    const targets = [];
+    render_callbacks2.forEach((c) => fns.indexOf(c) === -1 ? filtered.push(c) : targets.push(c));
+    targets.forEach((c) => c());
+    render_callbacks2 = filtered;
+  }
+
+  // node_modules/svelte-icons-pack/node_modules/svelte/src/runtime/internal/transitions.js
+  var outroing2 = /* @__PURE__ */ new Set();
+  function transition_in2(block, local) {
+    if (block && block.i) {
+      outroing2.delete(block);
+      block.i(local);
+    }
+  }
+
+  // node_modules/svelte-icons-pack/node_modules/svelte/src/runtime/internal/spread.js
+  function get_spread_update(levels, updates) {
+    const update3 = {};
+    const to_null_out = {};
+    const accounted_for = { $scope: 1 };
+    let i = levels.length;
+    while (i--) {
+      const o = levels[i];
+      const n = updates[i];
+      if (n) {
+        for (const key in o) {
+          if (!(key in n))
+            to_null_out[key] = 1;
+        }
+        for (const key in n) {
+          if (!accounted_for[key]) {
+            update3[key] = n[key];
+            accounted_for[key] = 1;
+          }
+        }
+        levels[i] = n;
+      } else {
+        for (const key in o) {
+          accounted_for[key] = 1;
+        }
+      }
+    }
+    for (const key in to_null_out) {
+      if (!(key in update3))
+        update3[key] = void 0;
+    }
+    return update3;
+  }
+
+  // node_modules/svelte-icons-pack/node_modules/svelte/src/shared/boolean_attributes.js
+  var _boolean_attributes2 = (
+    /** @type {const} */
+    [
+      "allowfullscreen",
+      "allowpaymentrequest",
+      "async",
+      "autofocus",
+      "autoplay",
+      "checked",
+      "controls",
+      "default",
+      "defer",
+      "disabled",
+      "formnovalidate",
+      "hidden",
+      "inert",
+      "ismap",
+      "loop",
+      "multiple",
+      "muted",
+      "nomodule",
+      "novalidate",
+      "open",
+      "playsinline",
+      "readonly",
+      "required",
+      "reversed",
+      "selected"
+    ]
+  );
+  var boolean_attributes2 = /* @__PURE__ */ new Set([..._boolean_attributes2]);
+
+  // node_modules/svelte-icons-pack/node_modules/svelte/src/runtime/internal/Component.js
+  function mount_component2(component, target, anchor) {
+    const { fragment, after_update } = component.$;
+    fragment && fragment.m(target, anchor);
+    add_render_callback2(() => {
+      const new_on_destroy = component.$.on_mount.map(run2).filter(is_function2);
+      if (component.$.on_destroy) {
+        component.$.on_destroy.push(...new_on_destroy);
+      } else {
+        run_all2(new_on_destroy);
+      }
+      component.$.on_mount = [];
+    });
+    after_update.forEach(add_render_callback2);
+  }
+  function destroy_component2(component, detaching) {
+    const $ = component.$;
+    if ($.fragment !== null) {
+      flush_render_callbacks2($.after_update);
+      run_all2($.on_destroy);
+      $.fragment && $.fragment.d(detaching);
+      $.on_destroy = $.fragment = null;
+      $.ctx = [];
+    }
+  }
+  function make_dirty2(component, i) {
+    if (component.$.dirty[0] === -1) {
+      dirty_components2.push(component);
+      schedule_update2();
+      component.$.dirty.fill(0);
+    }
+    component.$.dirty[i / 31 | 0] |= 1 << i % 31;
+  }
+  function init2(component, options, instance10, create_fragment9, not_equal, props, append_styles, dirty = [-1]) {
+    const parent_component = current_component2;
+    set_current_component2(component);
+    const $ = component.$ = {
+      fragment: null,
+      ctx: [],
+      // state
+      props,
+      update: noop2,
+      not_equal,
+      bound: blank_object2(),
+      // lifecycle
+      on_mount: [],
+      on_destroy: [],
+      on_disconnect: [],
+      before_update: [],
+      after_update: [],
+      context: new Map(options.context || (parent_component ? parent_component.$.context : [])),
+      // everything else
+      callbacks: blank_object2(),
+      dirty,
+      skip_bound: false,
+      root: options.target || parent_component.$.root
+    };
+    append_styles && append_styles($.root);
+    let ready = false;
+    $.ctx = instance10 ? instance10(component, options.props || {}, (i, ret, ...rest) => {
+      const value = rest.length ? rest[0] : ret;
+      if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
+        if (!$.skip_bound && $.bound[i])
+          $.bound[i](value);
+        if (ready)
+          make_dirty2(component, i);
+      }
+      return ret;
+    }) : [];
+    $.update();
+    ready = true;
+    run_all2($.before_update);
+    $.fragment = create_fragment9 ? create_fragment9($.ctx) : false;
+    if (options.target) {
+      if (options.hydrate) {
+        start_hydrating2();
+        const nodes = children2(options.target);
+        $.fragment && $.fragment.l(nodes);
+        nodes.forEach(detach2);
+      } else {
+        $.fragment && $.fragment.c();
+      }
+      if (options.intro)
+        transition_in2(component.$.fragment);
+      mount_component2(component, options.target, options.anchor);
+      end_hydrating2();
+      flush2();
+    }
+    set_current_component2(parent_component);
+  }
+  var SvelteElement2;
+  if (typeof HTMLElement === "function") {
+    SvelteElement2 = class extends HTMLElement {
+      /** The Svelte component constructor */
+      $ctor;
+      /** Slots */
+      $s;
+      /** The Svelte component instance */
+      $c;
+      /** Whether or not the custom element is connected */
+      $cn = false;
+      /** Component props data */
+      $d = {};
+      /** `true` if currently in the process of reflecting component props back to attributes */
+      $r = false;
+      /** @type {Record<string, CustomElementPropDefinition>} Props definition (name, reflected, type etc) */
+      $p_d = {};
+      /** @type {Record<string, Function[]>} Event listeners */
+      $l = {};
+      /** @type {Map<Function, Function>} Event listener unsubscribe functions */
+      $l_u = /* @__PURE__ */ new Map();
+      constructor($componentCtor, $slots, use_shadow_dom) {
+        super();
+        this.$ctor = $componentCtor;
+        this.$s = $slots;
+        if (use_shadow_dom) {
+          this.attachShadow({ mode: "open" });
+        }
+      }
+      addEventListener(type, listener, options) {
+        this.$l[type] = this.$l[type] || [];
+        this.$l[type].push(listener);
+        if (this.$c) {
+          const unsub = this.$c.$on(type, listener);
+          this.$l_u.set(listener, unsub);
+        }
+        super.addEventListener(type, listener, options);
+      }
+      removeEventListener(type, listener, options) {
+        super.removeEventListener(type, listener, options);
+        if (this.$c) {
+          const unsub = this.$l_u.get(listener);
+          if (unsub) {
+            unsub();
+            this.$l_u.delete(listener);
+          }
+        }
+      }
+      async connectedCallback() {
+        this.$cn = true;
+        if (!this.$c) {
+          let create_slot2 = function(name) {
+            return () => {
+              let node;
+              const obj = {
+                c: function create() {
+                  node = element2("slot");
+                  if (name !== "default") {
+                    attr2(node, "name", name);
+                  }
+                },
+                /**
+                 * @param {HTMLElement} target
+                 * @param {HTMLElement} [anchor]
+                 */
+                m: function mount(target, anchor) {
+                  insert2(target, node, anchor);
+                },
+                d: function destroy(detaching) {
+                  if (detaching) {
+                    detach2(node);
+                  }
+                }
+              };
+              return obj;
+            };
+          };
+          await Promise.resolve();
+          if (!this.$cn) {
+            return;
+          }
+          const $slots = {};
+          const existing_slots = get_custom_elements_slots2(this);
+          for (const name of this.$s) {
+            if (name in existing_slots) {
+              $slots[name] = [create_slot2(name)];
+            }
+          }
+          for (const attribute of this.attributes) {
+            const name = this.$g_p(attribute.name);
+            if (!(name in this.$d)) {
+              this.$d[name] = get_custom_element_value2(name, attribute.value, this.$p_d, "toProp");
+            }
+          }
+          this.$c = new this.$ctor({
+            target: this.shadowRoot || this,
+            props: {
+              ...this.$d,
+              $slots,
+              $scope: {
+                ctx: []
+              }
+            }
+          });
+          const reflect_attributes = () => {
+            this.$r = true;
+            for (const key in this.$p_d) {
+              this.$d[key] = this.$c.$.ctx[this.$c.$.props[key]];
+              if (this.$p_d[key].reflect) {
+                const attribute_value = get_custom_element_value2(
+                  key,
+                  this.$d[key],
+                  this.$p_d,
+                  "toAttribute"
+                );
+                if (attribute_value == null) {
+                  this.removeAttribute(key);
+                } else {
+                  this.setAttribute(this.$p_d[key].attribute || key, attribute_value);
+                }
+              }
+            }
+            this.$r = false;
+          };
+          this.$c.$.after_update.push(reflect_attributes);
+          reflect_attributes();
+          for (const type in this.$l) {
+            for (const listener of this.$l[type]) {
+              const unsub = this.$c.$on(type, listener);
+              this.$l_u.set(listener, unsub);
+            }
+          }
+          this.$l = {};
+        }
+      }
+      // We don't need this when working within Svelte code, but for compatibility of people using this outside of Svelte
+      // and setting attributes through setAttribute etc, this is helpful
+      attributeChangedCallback(attr3, _oldValue, newValue) {
+        if (this.$r)
+          return;
+        attr3 = this.$g_p(attr3);
+        this.$d[attr3] = get_custom_element_value2(attr3, newValue, this.$p_d, "toProp");
+        this.$c?.$set({ [attr3]: this.$d[attr3] });
+      }
+      disconnectedCallback() {
+        this.$cn = false;
+        Promise.resolve().then(() => {
+          if (!this.$cn) {
+            this.$c.$destroy();
+            this.$c = void 0;
+          }
+        });
+      }
+      $g_p(attribute_name) {
+        return Object.keys(this.$p_d).find(
+          (key) => this.$p_d[key].attribute === attribute_name || !this.$p_d[key].attribute && key.toLowerCase() === attribute_name
+        ) || attribute_name;
+      }
+    };
+  }
+  function get_custom_element_value2(prop, value, props_definition, transform) {
+    const type = props_definition[prop]?.type;
+    value = type === "Boolean" && typeof value !== "boolean" ? value != null : value;
+    if (!transform || !props_definition[prop]) {
+      return value;
+    } else if (transform === "toAttribute") {
+      switch (type) {
+        case "Object":
+        case "Array":
+          return value == null ? null : JSON.stringify(value);
+        case "Boolean":
+          return value ? "" : null;
+        case "Number":
+          return value == null ? null : value;
+        default:
+          return value;
+      }
+    } else {
+      switch (type) {
+        case "Object":
+        case "Array":
+          return value && JSON.parse(value);
+        case "Boolean":
+          return value;
+        case "Number":
+          return value != null ? +value : value;
+        default:
+          return value;
+      }
+    }
+  }
+  var SvelteComponent2 = class {
+    /**
+     * ### PRIVATE API
+     *
+     * Do not use, may change at any time
+     *
+     * @type {any}
+     */
+    $ = void 0;
+    /**
+     * ### PRIVATE API
+     *
+     * Do not use, may change at any time
+     *
+     * @type {any}
+     */
+    $set = void 0;
+    /** @returns {void} */
+    $destroy() {
+      destroy_component2(this, 1);
+      this.$destroy = noop2;
+    }
+    /**
+     * @template {Extract<keyof Events, string>} K
+     * @param {K} type
+     * @param {((e: Events[K]) => void) | null | undefined} callback
+     * @returns {() => void}
+     */
+    $on(type, callback) {
+      if (!is_function2(callback)) {
+        return noop2;
+      }
+      const callbacks = this.$.callbacks[type] || (this.$.callbacks[type] = []);
+      callbacks.push(callback);
+      return () => {
+        const index = callbacks.indexOf(callback);
+        if (index !== -1)
+          callbacks.splice(index, 1);
+      };
+    }
+    /**
+     * @param {Partial<Props>} props
+     * @returns {void}
+     */
+    $set(props) {
+      if (this.$set && !is_empty2(props)) {
+        this.$.skip_bound = true;
+        this.$set(props);
+        this.$.skip_bound = false;
+      }
+    }
+  };
+
+  // node_modules/svelte-icons-pack/node_modules/svelte/src/shared/version.js
+  var PUBLIC_VERSION2 = "4";
+
+  // node_modules/svelte-icons-pack/node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  if (typeof window !== "undefined")
+    (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION2);
+
+  // node_modules/svelte-icons-pack/dist/Icon.svelte
   function create_fragment(ctx) {
     let svg;
     let svg_style_value;
@@ -6591,7 +7091,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     ];
     let svg_data = {};
     for (let i = 0; i < svg_levels.length; i += 1) {
-      svg_data = assign(svg_data, svg_levels[i]);
+      svg_data = assign2(svg_data, svg_levels[i]);
     }
     return {
       c() {
@@ -6599,7 +7099,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         set_svg_attributes(svg, svg_data);
       },
       m(target, anchor) {
-        insert(target, svg, anchor);
+        insert2(target, svg, anchor);
         svg.innerHTML = /*innerHtml*/
         ctx[5];
       },
@@ -6644,11 +7144,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           { xmlns: "http://www.w3.org/2000/svg" }
         ]));
       },
-      i: noop,
-      o: noop,
+      i: noop2,
+      o: noop2,
       d(detaching) {
         if (detaching) {
-          detach(svg);
+          detach2(svg);
         }
       }
     };
@@ -6661,7 +7161,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let { title = void 0 } = $props;
     let { className = "" } = $props;
     let innerHtml;
-    let attr2 = {};
+    let attr3 = {};
     $self.$set = ($props2) => {
       if ("src" in $props2)
         $invalidate(0, src = $props2.src);
@@ -6680,13 +7180,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       if ($self.$.dirty & /*color, src*/
       9) {
         $: {
-          $invalidate(6, attr2 = {});
+          $invalidate(6, attr3 = {});
           if (color) {
             if (src.a.stroke !== "none") {
-              $invalidate(6, attr2.stroke = "currentColor", attr2);
+              $invalidate(6, attr3.stroke = "currentColor", attr3);
             }
             if (src.a.fill !== "none") {
-              $invalidate(6, attr2.fill = "currentColor", attr2);
+              $invalidate(6, attr3.fill = "currentColor", attr3);
             }
           }
         }
@@ -6698,12 +7198,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }
       }
     };
-    return [src, size, viewBox, color, className, innerHtml, attr2, title];
+    return [src, size, viewBox, color, className, innerHtml, attr3, title];
   }
-  var Icon = class extends SvelteComponent {
+  var Icon = class extends SvelteComponent2 {
     constructor(options) {
       super();
-      init(this, options, instance, create_fragment, safe_not_equal, {
+      init2(this, options, instance, create_fragment, safe_not_equal2, {
         src: 0,
         size: 1,
         viewBox: 2,
@@ -6715,7 +7215,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   };
   var Icon_default = Icon;
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/fa/index.js
+  // node_modules/svelte-icons-pack/dist/fa/index.js
   var FaSolidHouse = { a: { viewBox: "0 0 576 512" }, c: '<path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"></path>' };
   var FaSolidBed = { a: { viewBox: "0 0 640 512" }, c: '<path d="M32 32c17.7 0 32 14.3 32 32V320H288V160c0-17.7 14.3-32 32-32H544c53 0 96 43 96 96V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H352 320 64v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V64C0 46.3 14.3 32 32 32zm144 96a80 80 0 1 1 0 160 80 80 0 1 1 0-160z"></path>' };
   var FaSolidSliders = { a: { viewBox: "0 0 512 512" }, c: '<path d="M0 416c0 17.7 14.3 32 32 32l54.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 448c17.7 0 32-14.3 32-32s-14.3-32-32-32l-246.7 0c-12.3-28.3-40.5-48-73.3-48s-61 19.7-73.3 48L32 384c-17.7 0-32 14.3-32 32zm128 0a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM320 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm32-80c-32.8 0-61 19.7-73.3 48L32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l246.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48l54.7 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-54.7 0c-12.3-28.3-40.5-48-73.3-48zM192 128a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm73.3-64C253 35.7 224.8 16 192 16s-61 19.7-73.3 48L32 64C14.3 64 0 78.3 0 96s14.3 32 32 32l86.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 128c17.7 0 32-14.3 32-32s-14.3-32-32-32L265.3 64z"></path>' };
@@ -7632,7 +8132,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       $invalidate(2, segment1 = window.location.pathname.split("/")[1]);
     });
     async function userLogout() {
-      await (0, import_jsApi_GEN.UserLogout)({}, function(o) {
+      await (void 0)({}, function(o) {
         if (o.error) {
           notifier.showError(o.error);
           return;
@@ -7668,7 +8168,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var Menu_default = Menu;
 
   // _components/ProfileHeader.svelte
-  var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[17] = list[i];
@@ -8263,7 +8762,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   function instance3($self, $props, $invalidate) {
     let $isSideMenuOpen;
     component_subscribe($self, isSideMenuOpen, ($value) => $invalidate(15, $isSideMenuOpen = $value));
-    let { user: user2 = null } = $props;
+    let { user = null } = $props;
     let { access = {
       "admin": false,
       "buyer": false,
@@ -8275,24 +8774,24 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     let selectedLanguage = "";
     onMount(() => {
-      console.log("onMount.ProfileHeader =", user2);
+      console.log("onMount.ProfileHeader =", user);
       $invalidate(1, selectedLanguage = T.currentLang || "EN");
     });
     async function updateLang() {
-      if (user2 !== null && user2.language !== selectedLanguage) {
-        $invalidate(8, user2.language = selectedLanguage, user2);
-        await (0, import_jsApi_GEN2.UserUpdateProfile)(user2, function(res) {
+      if (user !== null && user.language !== selectedLanguage) {
+        $invalidate(8, user.language = selectedLanguage, user);
+        await (void 0)(user, function(res) {
           if (res.error) {
             notifier.showError(res.error);
             return;
           }
-          $invalidate(8, user2 = res.user);
+          $invalidate(8, user = res.user);
         });
       }
     }
     let showLogoutMenu = false;
     async function userLogout() {
-      await (0, import_jsApi_GEN2.UserLogout)({}, function(o) {
+      await (void 0)({}, function(o) {
         console.log(o);
         if (o.error) {
           notifier.showError(o.error);
@@ -8308,7 +8807,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         notifier.showError("Please enter your feedback");
         return;
       }
-      (0, import_jsApi_GEN2.UserSendFeedback)({ userMessage }, function(res) {
+      (void 0)({ userMessage }, function(res) {
         if (res.error) {
           $invalidate(3, userMessage = "");
           $invalidate(4, showFeedbackDialog = false);
@@ -8334,7 +8833,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(8, user2 = $props2.user);
+        $invalidate(8, user = $props2.user);
       if ("access" in $props2)
         $invalidate(0, access = $props2.access);
     };
@@ -8355,7 +8854,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       openSideMenu,
       userLogout,
       sendFeedback,
-      user2,
+      user,
       textarea_input_handler,
       click_handler,
       click_handler_1,
@@ -8421,11 +8920,169 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   };
   var Footer_default = Footer;
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ri/index.js
+  // node_modules/svelte-icons-pack/dist/ri/index.js
   var RiFinanceExchangeLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M12.0049 22.0027C6.48204 22.0027 2.00488 17.5256 2.00488 12.0027C2.00488 6.4799 6.48204 2.00275 12.0049 2.00275C17.5277 2.00275 22.0049 6.4799 22.0049 12.0027C22.0049 17.5256 17.5277 22.0027 12.0049 22.0027ZM12.0049 20.0027C16.4232 20.0027 20.0049 16.421 20.0049 12.0027C20.0049 7.58447 16.4232 4.00275 12.0049 4.00275C7.5866 4.00275 4.00488 7.58447 4.00488 12.0027C4.00488 16.421 7.5866 20.0027 12.0049 20.0027ZM7.00488 13.0027H16.0049V15.0027H12.0049V18.0027L7.00488 13.0027ZM12.0049 9.00275V6.00275L17.0049 11.0027H8.00488V9.00275H12.0049Z"></path>' };
 
-  // _components/CreateProperty.old.svelte
-  var import_formatter = __toESM(require_formatter());
+  // _components/formatter.js
+  function datetime(unixSec, humanize) {
+    if (!unixSec)
+      return "";
+    let dt = (
+      /** @type {Date} */
+      new Date(unixSec * 1e3)
+    );
+    if (typeof unixSec === "string") {
+      dt = new Date(unixSec);
+    }
+    if (!humanize) {
+      const newDt = (
+        /** @type {string} */
+        dt.toISOString()
+      );
+      return newDt.substring(0, 10) + " " + newDt.substring(11, 16);
+    }
+    return dt.toLocaleDateString("default", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric"
+    });
+  }
+  function priceNtd(val) {
+    return new Number(val).toLocaleString("zh-TW");
+  }
+  function localeDatetime(unixSec) {
+    if (!unixSec)
+      return "";
+    const dt = (
+      /** @type {Date} */
+      new Date(Number(unixSec) * 1e3)
+    );
+    const day = (
+      /** @type {string} */
+      dt.toLocaleDateString("default", {
+        weekday: "long"
+      })
+    );
+    const date = (
+      /** @type {number} */
+      dt.getDate()
+    );
+    const month = (
+      /** @type {string} */
+      dt.toLocaleDateString("default", {
+        month: "long"
+      })
+    );
+    const year = (
+      /** @type {number} */
+      dt.getFullYear()
+    );
+    let hh = (
+      /** @type {string} */
+      String(dt.getHours())
+    );
+    if (Number(hh) < 10)
+      hh = "0" + hh;
+    let mm = (
+      /** @type {string} */
+      String(dt.getMinutes())
+    );
+    if (Number(mm) < 10)
+      mm = "0" + mm;
+    return `${day}, ${date} ${month} ${year} ${hh}:${mm}`;
+  }
+  function datetime2(unixSec) {
+    if (!unixSec)
+      return "-";
+    const dt = (
+      /** @type {Date} */
+      new Date(Number(unixSec) * 1e3)
+    );
+    const year = (
+      /** @type {number} */
+      dt.getFullYear()
+    );
+    const month = (
+      /** @type {string} */
+      dt.toLocaleDateString("default", {
+        month: "long"
+      })
+    );
+    const day = (
+      /** @type {string} */
+      dt.toLocaleDateString("default", {
+        weekday: "long"
+      })
+    );
+    const date = (
+      /** @type {string} */
+      String(dt.getDate()).padStart(2, "0")
+    );
+    const hours = (
+      /** @type {string} */
+      String(dt.getHours()).padStart(2, "0")
+    );
+    const minutes = (
+      /** @type {string} */
+      String(dt.getMinutes()).padStart(2, "0")
+    );
+    const seconds = (
+      /** @type {string} */
+      String(dt.getSeconds()).padStart(2, "0")
+    );
+    return `${day}, ${date} ${month} ${year} - ${hours}:${minutes}:${seconds}`;
+  }
+  function formatPrice(price, currency) {
+    try {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency,
+        maximumSignificantDigits: 4
+      }).format(price);
+    } catch (err) {
+      console.log("formatPrice failed", err, price, currency);
+      return `${currency} ${price}`;
+    }
+  }
+  function getApprovalState(s) {
+    if (s == "") {
+      return "approved";
+    } else if (s.startsWith("pending")) {
+      return "pending";
+    } else {
+      return "rejected";
+    }
+  }
+  function M2ToPing(sizeM2) {
+    const value = sizeM2 / 3.30579;
+    const minifiedValue = value.toFixed(2);
+    return parseFloat(minifiedValue);
+  }
+  function dateISOFormat(dayTo = 0) {
+    const dt = new Date();
+    dt.setDate(dt.getDate() + dayTo);
+    const date = String(dt.getDate()).padStart(2, "0");
+    const month = String(dt.getMonth() + 1).padStart(2, "0");
+    const year = dt.getFullYear();
+    return `${year}-${month}-${date}`;
+  }
+  function getYearMonth() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    return `${year}-${month}`;
+  }
+  module.exports = {
+    datetime,
+    priceNtd,
+    localeDatetime,
+    datetime2,
+    formatPrice,
+    getApprovalState,
+    M2ToPing,
+    dateISOFormat,
+    getYearMonth
+  };
 
   // _components/AddOtherFeesDialog.svelte
   function create_if_block3(ctx) {
@@ -8754,7 +9411,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var AddOtherFeesDialog_default = AddOtherFeesDialog;
 
   // _components/CreateProperty.old.svelte
-  var import_jsApi = __toESM(require_jsApi_GEN());
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[96] = list[i];
@@ -11018,7 +11674,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let t0;
     let t1;
     let b;
-    let t2_value = (0, import_formatter.formatPrice)(
+    let t2_value = (void 0)(
       /*otherFee*/
       ctx[102].fee,
       /*countryCurrency*/
@@ -11057,7 +11713,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ctx2[102].name + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*property, countryCurrency*/
-        65 && t2_value !== (t2_value = (0, import_formatter.formatPrice)(
+        65 && t2_value !== (t2_value = (void 0)(
           /*otherFee*/
           ctx2[102].fee,
           /*countryCurrency*/
@@ -11501,7 +12157,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let div2;
     let div1;
     let h50;
-    let t6_value = (0, import_formatter.formatPrice)(
+    let t6_value = (void 0)(
       /*property*/
       ctx[0].lastPrice,
       /*countryCurrency*/
@@ -11980,7 +12636,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           attr(span0, "class", span0_class_value);
         }
         if ((!current || dirty[0] & /*property, countryCurrency*/
-        65) && t6_value !== (t6_value = (0, import_formatter.formatPrice)(
+        65) && t6_value !== (t6_value = (void 0)(
           /*property*/
           ctx2[0].lastPrice,
           /*countryCurrency*/
@@ -12263,7 +12919,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let span0;
     let t3;
     let b0;
-    let t4_value = (0, import_formatter.formatPrice)(
+    let t4_value = (void 0)(
       /*property*/
       ctx[0].depositFee,
       /*countryCurrency*/
@@ -12344,7 +13000,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*property, countryCurrency*/
-        65 && t4_value !== (t4_value = (0, import_formatter.formatPrice)(
+        65 && t4_value !== (t4_value = (void 0)(
           /*property*/
           ctx2[0].depositFee,
           /*countryCurrency*/
@@ -12459,7 +13115,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let t0;
     let t1;
     let b;
-    let t2_value = (0, import_formatter.formatPrice)(
+    let t2_value = (void 0)(
       /*otherfee*/
       ctx[96].fee,
       /*countryCurrency*/
@@ -12498,7 +13154,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ctx2[96].name + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*infoObj, countryCurrency*/
-        262208 && t2_value !== (t2_value = (0, import_formatter.formatPrice)(
+        262208 && t2_value !== (t2_value = (void 0)(
           /*otherfee*/
           ctx2[96].fee,
           /*countryCurrency*/
@@ -13581,9 +14237,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var m2 = "M2";
   var ping = "Ping";
   function instance6($self, $props, $invalidate) {
-    let { user: user2 } = $props;
-    let { property: property2 } = $props;
-    let { countries: countries2 } = $props;
+    let { user } = $props;
+    let { property } = $props;
+    let { countries } = $props;
     let currentPage = 0, isPropertySubmitted = false;
     let cards = [{}, {}, {}, {}];
     let stackContainerElm, stacks, observer;
@@ -13608,9 +14264,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           threshold: 1
         }
       );
-      console.log("User data = ", user2);
-      $invalidate(0, property2 = {
-        countryCode: user2.country,
+      console.log("User data = ", user);
+      $invalidate(0, property = {
+        countryCode: user.country,
         city: "",
         countyName: "",
         address: "",
@@ -13645,12 +14301,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         createdAt: 1692641835,
         updatedAt: 1692641835
       });
-      for (let i = 0; i < countries2.length; i++) {
-        if (countries2[i].iso_2 === property2.countryCode) {
-          $invalidate(6, countryCurrency = countries2[i].currency.code);
+      for (let i = 0; i < countries.length; i++) {
+        if (countries[i].iso_2 === property.countryCode) {
+          $invalidate(6, countryCurrency = countries[i].currency.code);
         }
       }
-      console.log("property.countryCode=", property2.countryCode);
+      console.log("property.countryCode=", property.countryCode);
     });
     function subpageScroll() {
       stacks.forEach((stack) => {
@@ -13658,35 +14314,35 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       });
     }
     function GetPayload() {
-      $invalidate(0, property2.note = JSON.stringify(noteObj), property2);
-      if (property2.countryCode === "US")
-        $invalidate(0, property2.city = property2.countyName, property2);
+      $invalidate(0, property.note = JSON.stringify(noteObj), property);
+      if (property.countryCode === "US")
+        $invalidate(0, property.city = property.countyName, property);
       return {
-        countryCode: property2.countryCode || user2.country,
-        city: property2.city,
-        countyName: property2.countyName,
-        district: property2.district,
-        street: property2.street + "\n" + (property2.street2 || ""),
-        livingroom: property2.livingroom,
-        parking: parseFloat(property2.parking),
-        depositFee: property2.depositFee,
-        minimumDurationYear: property2.minimumDurationYear,
-        otherFees: property2.otherFees || [],
-        imageLabels: property2.imageLabels || [],
-        altitude: property2.altitude,
-        id: property2.id,
-        formattedAddress: property2.formattedAddress,
-        coord: property2.coord,
-        houseType: property2.houseType,
-        purpose: property2.purpose,
-        images: property2.images || [],
-        bedroom: property2.bedroom,
-        bathroom: property2.bathroom,
-        sizeM2: "" + property2.sizeM2,
-        mainUse: property2.mainUse,
-        note: property2.note,
-        lastPrice: "" + property2.lastPrice,
-        agencyFeePercent: property2.agencyFeePercent || 0
+        countryCode: property.countryCode || user.country,
+        city: property.city,
+        countyName: property.countyName,
+        district: property.district,
+        street: property.street + "\n" + (property.street2 || ""),
+        livingroom: property.livingroom,
+        parking: parseFloat(property.parking),
+        depositFee: property.depositFee,
+        minimumDurationYear: property.minimumDurationYear,
+        otherFees: property.otherFees || [],
+        imageLabels: property.imageLabels || [],
+        altitude: property.altitude,
+        id: property.id,
+        formattedAddress: property.formattedAddress,
+        coord: property.coord,
+        houseType: property.houseType,
+        purpose: property.purpose,
+        images: property.images || [],
+        bedroom: property.bedroom,
+        bathroom: property.bathroom,
+        sizeM2: "" + property.sizeM2,
+        mainUse: property.mainUse,
+        note: property.note,
+        lastPrice: "" + property.lastPrice,
+        agencyFeePercent: property.agencyFeePercent || 0
       };
     }
     function progressDotHandler(toPage) {
@@ -13724,8 +14380,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         map_container,
         {
           center: {
-            lat: property2.coord[0],
-            lng: property2.coord[1]
+            lat: property.coord[0],
+            lng: property.coord[1]
           },
           zoom: 8,
           mapTypeId: "roadmap",
@@ -13739,12 +14395,12 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       await geocoder.geocode({ address: input_address_value }).then(({ results }) => {
         if (results[0]) {
           console.log("Result = ", results);
-          $invalidate(0, property2.coord[0] = results[0].geometry.location.lat(), property2);
-          $invalidate(0, property2.coord[1] = results[0].geometry.location.lng(), property2);
-          $invalidate(0, property2.formattedAddress = results[0].formatted_address, property2);
+          $invalidate(0, property.coord[0] = results[0].geometry.location.lat(), property);
+          $invalidate(0, property.coord[1] = results[0].geometry.location.lng(), property);
+          $invalidate(0, property.formattedAddress = results[0].formatted_address, property);
           for (let i = 0; i < results[0].address_components.length; i++) {
             if (results[0].address_components[i].types.indexOf("country") !== -1) {
-              $invalidate(0, property2.countryCode = results[0].address_components[i].short_name, property2);
+              $invalidate(0, property.countryCode = results[0].address_components[i].short_name, property);
               $invalidate(8, countryName = results[0].address_components[i].long_name);
             }
           }
@@ -13757,8 +14413,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         notifier.showError("cannot get address");
       });
       const markerEventHandler = (event) => {
-        $invalidate(0, property2.coord[0] = event.latLng.lat(), property2);
-        $invalidate(0, property2.coord[1] = event.latLng.lng(), property2);
+        $invalidate(0, property.coord[0] = event.latLng.lat(), property);
+        $invalidate(0, property.coord[1] = event.latLng.lng(), property);
         getAddress(event.latLng);
       };
       const createMarker = (map2, latLng) => {
@@ -13775,23 +14431,23 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         markers2.length = 0;
       };
       markers.push(createMarker(map, {
-        lat: property2.coord[0],
-        lng: property2.coord[1]
+        lat: property.coord[0],
+        lng: property.coord[1]
       }));
       const getAddress = (latLng) => {
         geocoder.geocode({ location: latLng }, (results, status) => {
           if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
-            $invalidate(0, property2.formattedAddress = results[0].formatted_address, property2);
+            $invalidate(0, property.formattedAddress = results[0].formatted_address, property);
             for (let i = 0; i < results[0].address_components.length; i++) {
               if (results[0].address_components[i].types.indexOf("country") !== -1) {
-                $invalidate(0, property2.countryCode = results[0].address_components[i].short_name, property2);
+                $invalidate(0, property.countryCode = results[0].address_components[i].short_name, property);
                 $invalidate(8, countryName = results[0].address_components[i].long_name);
               }
             }
           } else {
             notifier.showError("Address not found");
-            $invalidate(0, property2.formattedAddresss = "", property2);
-            $invalidate(0, property2.country = "", property2);
+            $invalidate(0, property.formattedAddresss = "", property);
+            $invalidate(0, property.country = "", property);
           }
         });
       };
@@ -13799,8 +14455,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         clearMarkers(markers);
         const latLong = event.latLng;
         markers.push(createMarker(map, latLong));
-        $invalidate(0, property2.coord[0] = latLong.lat(), property2);
-        $invalidate(0, property2.coord[1] = latLong.lng(), property2);
+        $invalidate(0, property.coord[0] = latLong.lat(), property);
+        $invalidate(0, property.coord[1] = latLong.lng(), property);
         getAddress(latLong);
       });
       map.addListener("bounds_changed", () => {
@@ -13811,9 +14467,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         if (places.length === 0) {
           return;
         }
-        $invalidate(0, property2.coord[0] = places[0].geometry.location.lat(), property2);
-        $invalidate(0, property2.coord[1] = places[0].geometry.location.lng(), property2);
-        $invalidate(0, property2.formattedAddress = places[0].formatted_address, property2);
+        $invalidate(0, property.coord[0] = places[0].geometry.location.lat(), property);
+        $invalidate(0, property.coord[1] = places[0].geometry.location.lng(), property);
+        $invalidate(0, property.formattedAddress = places[0].formatted_address, property);
         for (let i = 0; i < places[0].address_components.length; i++) {
           if (places[0].address_components[i].types.indexOf("country") !== -1) {
             $invalidate(8, countryName = places[0].address_components[i].long_name);
@@ -13837,8 +14493,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       });
     }
     function changeCurrency() {
-      countries2.forEach((c) => {
-        if (c.iso_2 === property2.country) {
+      countries.forEach((c) => {
+        if (c.iso_2 === property.country) {
           $invalidate(6, countryCurrency = c.currency.code);
         }
       });
@@ -13854,25 +14510,25 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     const handleNextLocation = {
       "LOC_ADDR": async () => {
-        if (property2.city === "" || property2.street === "") {
+        if (property.city === "" || property.street === "") {
           notifier.showError("Please fill required form");
           return;
         }
-        for (let i = 0; i < countries2.length; i++) {
-          if (countries2[i].iso_2 === property2.countryCode) {
-            $invalidate(8, countryName = countries2[i].country);
-            $invalidate(6, countryCurrency = countries2[i].currency.code);
-            $invalidate(0, property2.lat = parseInt(countries2[i].coordinate.lat), property2);
-            $invalidate(0, property2.lng = parseInt(countries2[i].coordinate.lng), property2);
+        for (let i = 0; i < countries.length; i++) {
+          if (countries[i].iso_2 === property.countryCode) {
+            $invalidate(8, countryName = countries[i].country);
+            $invalidate(6, countryCurrency = countries[i].currency.code);
+            $invalidate(0, property.lat = parseInt(countries[i].coordinate.lat), property);
+            $invalidate(0, property.lng = parseInt(countries[i].coordinate.lng), property);
           }
         }
-        $invalidate(12, input_address_value = property2.street);
+        $invalidate(12, input_address_value = property.street);
         $invalidate(7, modeLocationCount += 1);
         $invalidate(9, modeLocation = modeLocationLists[modeLocationCount].mode);
         await initMap();
       },
       "LOC_MAP": () => {
-        if (property2.formattedAddress === "") {
+        if (property.formattedAddress === "") {
           notifier.showError("Please mark location on map");
           return;
         }
@@ -13883,13 +14539,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         nextPage();
       }
     };
-    let modeInfoCount = 0, infoUnitMode = m2, houseSize = parseInt(property2.sizeM2), houseSizeM2 = 0, houseSizePing = 0;
+    let modeInfoCount = 0, infoUnitMode = m2, houseSize = parseInt(property.sizeM2), houseSizeM2 = 0, houseSizePing = 0;
     const modeInfoLists = [{ mode: INFO_FEAT }, { mode: INFO_PRICE }];
     let modeInfo = modeInfoLists[modeInfoCount].mode;
     let infoObj = {
       agencyFee: "false",
       deposit: "false",
-      houseType: property2.houseType
+      houseType: property.houseType
     };
     let otherFeeObj = { name: "", fee: 0 };
     let addOtherFeeDialog = AddOtherFeesDialog_default;
@@ -13905,7 +14561,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       "other"
     ];
     function addOtherFee() {
-      $invalidate(0, property2.otherFee = [...property2.otherFee, otherFeeObj], property2);
+      $invalidate(0, property.otherFee = [...property.otherFee, otherFeeObj], property);
       $invalidate(19, otherFeeObj = { name: "", fee: 0 });
       addOtherFeeDialog.hideModal();
     }
@@ -13952,15 +14608,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     const handleNextInfo = {
       "INFO_FEAT": () => {
-        $invalidate(0, property2.parking = infoObj.parking, property2);
-        $invalidate(0, property2.houseType = infoObj.houseType, property2);
+        $invalidate(0, property.parking = infoObj.parking, property);
+        $invalidate(0, property.houseType = infoObj.houseType, property);
         if (infoUnitMode === ping) {
-          $invalidate(0, property2.sizeM2 = handleInfoUnitMode.pingToM2(houseSize), property2);
+          $invalidate(0, property.sizeM2 = handleInfoUnitMode.pingToM2(houseSize), property);
         }
         if (infoUnitMode === m2) {
-          $invalidate(0, property2.sizeM2 = houseSize, property2);
+          $invalidate(0, property.sizeM2 = houseSize, property);
         }
-        if (property2.sizeM2 === 0) {
+        if (property.sizeM2 === 0) {
           notifier.showError("Please fill required form");
           return;
         }
@@ -13968,7 +14624,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         $invalidate(17, modeInfo = modeInfoLists[modeInfoCount].mode);
       },
       "INFO_PRICE": () => {
-        if (property2.lastPrice === 0 || property2.agencyFee >= 99) {
+        if (property.lastPrice === 0 || property.agencyFee >= 99) {
           notifier.showWarning("Price cannot be 0");
           return;
         }
@@ -13999,8 +14655,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
           if (ajax.status === 200) {
             const out = JSON.parse(event.target.responseText);
             if (!out.error) {
-              $invalidate(0, property2.images = [...property2.images, out.urlPattern], property2);
-              $invalidate(0, property2.imageLabels = [...property2.imageLabels, ""], property2);
+              $invalidate(0, property.images = [...property.images, out.urlPattern], property);
+              $invalidate(0, property.imageLabels = [...property.imageLabels, ""], property);
             }
             notifier.showSuccess("Image uploaded");
           } else if (ajax.status === 413) {
@@ -14025,8 +14681,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       $invalidate(21, imageHouseInput.value = null, imageHouseInput);
     }
     function removeImage(index) {
-      $invalidate(0, property2.images = property2.images.filter((_, i) => i !== index), property2);
-      $invalidate(0, property2.imageLabels = property2.imageLabels.filter((_, i) => i !== index), property2);
+      $invalidate(0, property.images = property.images.filter((_, i) => i !== index), property);
+      $invalidate(0, property.imageLabels = property.imageLabels.filter((_, i) => i !== index), property);
       notifier.showSuccess("Image removed");
     }
     let res_propId = "1";
@@ -14035,7 +14691,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       $invalidate(26, submitLoading = true);
       let payload = GetPayload();
       const prop = { property: payload };
-      await (0, import_jsApi.RealtorUpsertProperty)(prop, function(res) {
+      await (void 0)(prop, function(res) {
         if (res.error) {
           $invalidate(26, submitLoading = false);
           notifier.showError(res.error);
@@ -14043,7 +14699,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         }
         $invalidate(26, submitLoading = false);
         $invalidate(3, isPropertySubmitted = true);
-        $invalidate(0, property2.id = (res.property || {}).id + "", property2);
+        $invalidate(0, property.id = (res.property || {}).id + "", property);
         $invalidate(25, res_propId = (res.property || {}).id + "");
         notifier.showSuccess("Property created");
       });
@@ -14060,29 +14716,29 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
     function select_change_handler() {
-      property2.countryCode = select_value(this);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.countryCode = select_value(this);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input0_input_handler() {
-      property2.city = this.value;
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.city = this.value;
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input1_input_handler() {
-      property2.street = this.value;
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.street = this.value;
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input2_input_handler() {
-      property2.street2 = this.value;
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.street2 = this.value;
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input3_input_handler() {
-      property2.floors = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.floors = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input4_input_handler() {
       noteObj.contactEmail = this.value;
@@ -14109,9 +14765,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       });
     }
     function input_input_handler_1() {
-      property2.altitude = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.altitude = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     const click_handler_5 = () => {
       if (modeLocationCount === 0) {
@@ -14152,35 +14808,35 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       $invalidate(34, houseTypeLists);
     }
     function select1_change_handler() {
-      property2.parking = select_value(this);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.parking = select_value(this);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input0_input_handler_1() {
-      property2.bedroom = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.bedroom = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input1_input_handler_1() {
-      property2.bathroom = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.bathroom = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input2_input_handler_1() {
-      property2.livingroom = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.livingroom = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input_input_handler_2() {
       houseSize = to_number(this.value);
       $invalidate(16, houseSize);
     }
-    const click_handler_6 = () => $invalidate(0, property2.purpose = "sell", property2);
-    const click_handler_7 = () => $invalidate(0, property2.purpose = "rent", property2);
+    const click_handler_6 = () => $invalidate(0, property.purpose = "sell", property);
+    const click_handler_7 = () => $invalidate(0, property.purpose = "rent", property);
     function input2_input_handler_2() {
-      property2.lastPrice = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.lastPrice = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function select_change_handler_1() {
       infoObj.agencyFee = select_value(this);
@@ -14188,9 +14844,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       $invalidate(34, houseTypeLists);
     }
     function input_input_handler_3() {
-      property2.agencyFeePercent = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.agencyFeePercent = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function select_change_handler_2() {
       infoObj.deposit = select_value(this);
@@ -14198,14 +14854,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       $invalidate(34, houseTypeLists);
     }
     function input_input_handler_4() {
-      property2.depositFee = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.depositFee = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     function input_input_handler_5() {
-      property2.minimumDurationYear = to_number(this.value);
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.minimumDurationYear = to_number(this.value);
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     const click_handler_8 = () => {
       if (modeInfoCount === 0) {
@@ -14227,9 +14883,9 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       });
     }
     function input_input_handler_6(idx) {
-      property2.imageLabels[idx] = this.value;
-      $invalidate(0, property2);
-      $invalidate(1, countries2);
+      property.imageLabels[idx] = this.value;
+      $invalidate(0, property);
+      $invalidate(1, countries);
     }
     const click_handler_9 = (idx) => removeImage(idx);
     function section2_binding($value) {
@@ -14253,15 +14909,15 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(42, user2 = $props2.user);
+        $invalidate(42, user = $props2.user);
       if ("property" in $props2)
-        $invalidate(0, property2 = $props2.property);
+        $invalidate(0, property = $props2.property);
       if ("countries" in $props2)
-        $invalidate(1, countries2 = $props2.countries);
+        $invalidate(1, countries = $props2.countries);
     };
     return [
-      property2,
-      countries2,
+      property,
+      countries,
       currentPage,
       isPropertySubmitted,
       cards,
@@ -14302,7 +14958,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       handlerHouseImage,
       removeImage,
       handleSubmit,
-      user2,
+      user,
       click_handler,
       click_handler_1,
       click_handler_2,
@@ -14358,8 +15014,6 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var CreateProperty_old_default = CreateProperty_old;
 
   // _components/EditProperty.old.svelte
-  var import_jsApi2 = __toESM(require_jsApi_GEN());
-  var import_formatter2 = __toESM(require_formatter());
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[82] = list[i];
@@ -14537,7 +15191,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let t11;
     let div8;
     let h1;
-    let t12_value = ((0, import_formatter2.formatPrice)(
+    let t12_value = ((void 0)(
       /*property*/
       ctx[0].lastPrice,
       "TWD"
@@ -15406,7 +16060,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         )) + ""))
           set_data(t10, t10_value);
         if ((!current || dirty[0] & /*property*/
-        1) && t12_value !== (t12_value = ((0, import_formatter2.formatPrice)(
+        1) && t12_value !== (t12_value = ((void 0)(
           /*property*/
           ctx2[0].lastPrice,
           "TWD"
@@ -18780,7 +19434,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let t0;
     let t1;
     let b;
-    let t2_value = (0, import_formatter2.formatPrice)(
+    let t2_value = (void 0)(
       /*otherFee*/
       ctx[82].fee,
       /*countryCurrency*/
@@ -18819,7 +19473,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         ctx2[82].name + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*otherFees, countryCurrency*/
-        67108896 && t2_value !== (t2_value = (0, import_formatter2.formatPrice)(
+        67108896 && t2_value !== (t2_value = (void 0)(
           /*otherFee*/
           ctx2[82].fee,
           /*countryCurrency*/
@@ -19745,8 +20399,8 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   var EDIT_ABOUT = "about";
   function instance7($self, $props, $invalidate) {
     let { isOwner = false } = $props;
-    let { property: property2 } = $props;
-    let { countries: countries2 } = $props;
+    let { property } = $props;
+    let { countries } = $props;
     let { isAdmin = false } = $props;
     let approvalStatus = "approved";
     let submitLoading = false;
@@ -19754,52 +20408,52 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let noteObj;
     onMount(() => {
       try {
-        $invalidate(6, noteObj = JSON.parse(property2.note));
+        $invalidate(6, noteObj = JSON.parse(property.note));
       } catch (e) {
         $invalidate(6, noteObj = {
           contactPhone: "",
           contactEmail: "",
-          about: property2.note
+          about: property.note
         });
       }
-      $invalidate(3, approvalStatus = (0, import_formatter2.getApprovalState)(property2.approvalState));
-      for (let i = 0; i < countries2.length; i++) {
-        if (countries2[i].iso_2 === property2.countryCode) {
-          $invalidate(5, countryCurrency = countries2[i].currency.code);
+      $invalidate(3, approvalStatus = (void 0)(property.approvalState));
+      for (let i = 0; i < countries.length; i++) {
+        if (countries[i].iso_2 === property.countryCode) {
+          $invalidate(5, countryCurrency = countries[i].currency.code);
         }
       }
     });
     function GetPayload() {
-      if (property2.countryCode === "US")
-        $invalidate(0, property2.city = property2.countyName, property2);
-      if (property2.numberOfFloors === "undefined")
-        $invalidate(0, property2.numberOfFloors = 1, property2);
+      if (property.countryCode === "US")
+        $invalidate(0, property.city = property.countyName, property);
+      if (property.numberOfFloors === "undefined")
+        $invalidate(0, property.numberOfFloors = 1, property);
       return {
-        countryCode: property2.countryCode,
-        city: property2.city,
-        countyName: property2.countyName,
-        district: property2.district,
-        street: property2.street + "\n" + (property2.street2 || ""),
-        livingroom: property2.livingroom,
-        parking: parseFloat(property2.parking),
-        depositFee: property2.depositFee,
-        minimumDurationYear: property2.minimumDurationYear,
-        otherFees: property2.otherFees || [],
-        imageLabels: property2.imageLabels || [],
-        altitude: property2.altitude,
-        id: property2.id,
-        formattedAddress: property2.formattedAddress,
-        coord: property2.coord,
-        houseType: property2.houseType,
-        purpose: property2.purpose,
-        images: property2.images || [],
-        bedroom: property2.bedroom,
-        bathroom: property2.bathroom,
-        sizeM2: "" + property2.sizeM2,
-        mainUse: property2.mainUse,
-        note: property2.note,
-        lastPrice: "" + property2.lastPrice,
-        agencyFeePercent: property2.agencyFeePercent || 0
+        countryCode: property.countryCode,
+        city: property.city,
+        countyName: property.countyName,
+        district: property.district,
+        street: property.street + "\n" + (property.street2 || ""),
+        livingroom: property.livingroom,
+        parking: parseFloat(property.parking),
+        depositFee: property.depositFee,
+        minimumDurationYear: property.minimumDurationYear,
+        otherFees: property.otherFees || [],
+        imageLabels: property.imageLabels || [],
+        altitude: property.altitude,
+        id: property.id,
+        formattedAddress: property.formattedAddress,
+        coord: property.coord,
+        houseType: property.houseType,
+        purpose: property.purpose,
+        images: property.images || [],
+        bedroom: property.bedroom,
+        bathroom: property.bathroom,
+        sizeM2: "" + property.sizeM2,
+        mainUse: property.mainUse,
+        note: property.note,
+        lastPrice: "" + property.lastPrice,
+        agencyFeePercent: property.agencyFeePercent || 0
       };
     }
     let approvalStates = {
@@ -19809,7 +20463,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       },
       "rejected": {
         description: "Sorry, your property information has been rejected \u{1F622}",
-        reason: property2.approvalState
+        reason: property.approvalState
       },
       "approved": {
         description: "Congratulations, your property has been successfully listed on the App. \u{1F604}",
@@ -19819,7 +20473,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let PART_TO_EDIT = "";
     let imageHouseInput;
     let houseImgUploading = false, uploadHouseStatus = "", uploadHousePercent = 0;
-    let images = property2.images, imageLabels = property2.imageLabels || [];
+    let images = property.images, imageLabels = property.imageLabels || [];
     function handlerHouseImage() {
       if (!imageHouseInput)
         return;
@@ -19872,11 +20526,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     async function SaveEditPicture() {
       $invalidate(4, submitLoading = true);
-      $invalidate(0, property2.images = images, property2);
-      $invalidate(0, property2.imageLabels = imageLabels, property2);
+      $invalidate(0, property.images = images, property);
+      $invalidate(0, property.imageLabels = imageLabels, property);
       const payload = GetPayload();
       const prop = { property: payload };
-      await (0, import_jsApi2.RealtorUpsertProperty)(prop, function(res) {
+      await (void 0)(prop, function(res) {
         if (res.error) {
           $invalidate(4, submitLoading = false);
           notifier.showError(res.error);
@@ -19897,10 +20551,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       "parking",
       "other"
     ], editFeatureCount = 0;
-    let houseType = property2.houseType, bedroom = property2.bedroom, bathroom = property2.bathroom, livingroom = property2.livingroom;
-    let sizeM2 = property2.sizeM2, parking = property2.parking.toString();
-    let purpose = property2.purpose, lastPrice = property2.lastPrice, agencyFeePercent = property2.agencyFeePercent;
-    let depositFee = property2.depositFee, minimumDurationYear = property2.minimumDurationYear, otherFees = property2.otherFees;
+    let houseType = property.houseType, bedroom = property.bedroom, bathroom = property.bathroom, livingroom = property.livingroom;
+    let sizeM2 = property.sizeM2, parking = property.parking.toString();
+    let purpose = property.purpose, lastPrice = property.lastPrice, agencyFeePercent = property.agencyFeePercent;
+    let depositFee = property.depositFee, minimumDurationYear = property.minimumDurationYear, otherFees = property.otherFees;
     let otherFeeObj = { name: "", fee: 0 };
     let addOtherFeeDialog;
     let agencyFee = "true";
@@ -19917,21 +20571,21 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
       if (editFeatureCount === 1) {
         $invalidate(4, submitLoading = true);
-        $invalidate(0, property2.houseType = houseType, property2);
-        $invalidate(0, property2.bedroom = bedroom, property2);
-        $invalidate(0, property2.bathroom = bathroom, property2);
-        $invalidate(0, property2.livingroom = livingroom, property2);
-        $invalidate(0, property2.sizeM2 = sizeM2, property2);
-        $invalidate(0, property2.parking = parking, property2);
-        $invalidate(0, property2.purpose = purpose, property2);
-        $invalidate(0, property2.lastPrice = lastPrice, property2);
-        $invalidate(0, property2.agencyFeePercent = agencyFeePercent, property2);
-        $invalidate(0, property2.depositFee = depositFee, property2);
-        $invalidate(0, property2.minimumDurationYear = minimumDurationYear, property2);
-        $invalidate(0, property2.otherFees = otherFees, property2);
+        $invalidate(0, property.houseType = houseType, property);
+        $invalidate(0, property.bedroom = bedroom, property);
+        $invalidate(0, property.bathroom = bathroom, property);
+        $invalidate(0, property.livingroom = livingroom, property);
+        $invalidate(0, property.sizeM2 = sizeM2, property);
+        $invalidate(0, property.parking = parking, property);
+        $invalidate(0, property.purpose = purpose, property);
+        $invalidate(0, property.lastPrice = lastPrice, property);
+        $invalidate(0, property.agencyFeePercent = agencyFeePercent, property);
+        $invalidate(0, property.depositFee = depositFee, property);
+        $invalidate(0, property.minimumDurationYear = minimumDurationYear, property);
+        $invalidate(0, property.otherFees = otherFees, property);
         const payload = GetPayload();
         const prop = { property: payload };
-        await (0, import_jsApi2.RealtorUpsertProperty)(prop, function(res) {
+        await (void 0)(prop, function(res) {
           if (res.error) {
             $invalidate(4, submitLoading = false);
             notifier.showError(res.error);
@@ -19942,13 +20596,13 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         });
       }
     }
-    let mainUse = property2.mainUse;
+    let mainUse = property.mainUse;
     async function SaveEditFacility() {
       $invalidate(4, submitLoading = true);
-      $invalidate(0, property2.mainUse = mainUse, property2);
+      $invalidate(0, property.mainUse = mainUse, property);
       const payload = GetPayload();
       const prop = { property: payload };
-      await (0, import_jsApi2.RealtorUpsertProperty)(prop, function(res) {
+      await (void 0)(prop, function(res) {
         if (res.error) {
           $invalidate(4, submitLoading = false);
           notifier.showError(res.error);
@@ -19960,10 +20614,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     async function SaveEditAbout() {
       $invalidate(4, submitLoading = true);
-      $invalidate(0, property2.note = JSON.stringify(noteObj), property2);
+      $invalidate(0, property.note = JSON.stringify(noteObj), property);
       const payload = GetPayload();
       const prop = { property: payload };
-      await (0, import_jsApi2.RealtorUpsertProperty)(prop, function(res) {
+      await (void 0)(prop, function(res) {
         if (res.error) {
           $invalidate(4, submitLoading = false);
           notifier.showError(res.error);
@@ -19975,10 +20629,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     }
     function ApproveProperty() {
       $invalidate(30, submitApprove = true);
-      (0, import_jsApi2.AdminProperties)(
+      (void 0)(
         {
           cmd: "upsert",
-          property: { id: property2.id, approvalState: " " }
+          property: { id: property.id, approvalState: " " }
           // empty is approved, will be trimmed on server side
         },
         function(res) {
@@ -19997,11 +20651,11 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
         notifier.showError("Reason cannot be empty");
         return;
       }
-      (0, import_jsApi2.AdminProperties)(
+      (void 0)(
         {
           cmd: "upsert",
           property: {
-            id: property2.id,
+            id: property.id,
             approvalState: rejectReason
           }
         },
@@ -20017,7 +20671,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       );
     }
     function ReviewProperty() {
-      (0, import_jsApi2.RealtorUpsertProperty)({ askReview: true, property: property2 }, function(res) {
+      (void 0)({ askReview: true, property }, function(res) {
         if (res.error) {
           notifier.showError(res.error);
           return;
@@ -20028,7 +20682,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     function DeleteProperty() {
       if (!confirm("Are you sure you want to delete this property?"))
         return;
-      (0, import_jsApi2.RealtorDeleteProperty)({ id: "" + property2.id }, function(res) {
+      (void 0)({ id: "" + property.id }, function(res) {
         if (res.error) {
           notifier.showError(res.error);
           return;
@@ -20145,14 +20799,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       if ("isOwner" in $props2)
         $invalidate(1, isOwner = $props2.isOwner);
       if ("property" in $props2)
-        $invalidate(0, property2 = $props2.property);
+        $invalidate(0, property = $props2.property);
       if ("countries" in $props2)
-        $invalidate(47, countries2 = $props2.countries);
+        $invalidate(47, countries = $props2.countries);
       if ("isAdmin" in $props2)
         $invalidate(2, isAdmin = $props2.isAdmin);
     };
     return [
-      property2,
+      property,
       isOwner,
       isAdmin,
       approvalStatus,
@@ -20199,7 +20853,7 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       RejectProperty,
       ReviewProperty,
       DeleteProperty,
-      countries2,
+      countries,
       textarea_input_handler,
       click_handler,
       click_handler_1,
@@ -20333,7 +20987,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     const if_block_creators = [create_if_block_113, create_else_block3];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
-      if (property.id)
+      if (
+        /*property*/
+        ctx2[3].id
+      )
         return 0;
       return 1;
     }
@@ -20373,7 +21030,22 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   function create_else_block3(ctx) {
     let createproperty;
     let current;
-    createproperty = new CreateProperty_old_default({ props: { property, user, countries } });
+    createproperty = new CreateProperty_old_default({
+      props: {
+        property: (
+          /*property*/
+          ctx[3]
+        ),
+        user: (
+          /*user*/
+          ctx[4]
+        ),
+        countries: (
+          /*countries*/
+          ctx[6]
+        )
+      }
+    });
     return {
       c() {
         create_component(createproperty.$.fragment);
@@ -20403,8 +21075,14 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     let current;
     editproperty = new EditProperty_old_default({
       props: {
-        property,
-        countries,
+        property: (
+          /*property*/
+          ctx[3]
+        ),
+        countries: (
+          /*countries*/
+          ctx[6]
+        ),
         isAdmin: (
           /*isAdmin*/
           ctx[0]
@@ -20466,10 +21144,24 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     googlesdk.$on(
       "ready",
       /*ready_handler*/
-      ctx[3]
+      ctx[7]
     );
-    menu = new Menu_default({ props: { access: segments } });
-    profileheader = new ProfileHeader_default({ props: { user, access: segments } });
+    menu = new Menu_default({ props: { access: (
+      /*segments*/
+      ctx[5]
+    ) } });
+    profileheader = new ProfileHeader_default({
+      props: {
+        user: (
+          /*user*/
+          ctx[4]
+        ),
+        access: (
+          /*segments*/
+          ctx[5]
+        )
+      }
+    });
     let if_block = (
       /*isGoogleReady*/
       ctx[2] && create_if_block6(ctx)
@@ -20564,23 +21256,23 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
       }
     };
   }
-  var property = (
-    /** @type {TypeProperty} */
-    {/* property */}
-  );
-  var user = (
-    /** @type {User} */
-    {/* user */}
-  );
-  var segments = (
-    /** @type {Access}*/
-    {/* segments */}
-  );
-  var countries = (
-    /** @type {CountryData[]}*/
-    [/* countries */]
-  );
   function instance9($self, $props, $invalidate) {
+    let property = (
+      /** @type {TypeProperty} */
+      {}
+    );
+    let user = (
+      /** @type {User} */
+      {}
+    );
+    let segments = (
+      /** @type {Access}*/
+      {}
+    );
+    let countries = (
+      /** @type {CountryData[]}*/
+      []
+    );
     let isAdmin = false;
     let isOwner = false;
     onMount(() => {
@@ -20593,7 +21285,16 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
     });
     let isGoogleReady = false;
     const ready_handler = () => $invalidate(2, isGoogleReady = true);
-    return [isAdmin, isOwner, isGoogleReady, ready_handler];
+    return [
+      isAdmin,
+      isOwner,
+      isGoogleReady,
+      property,
+      user,
+      segments,
+      countries,
+      ready_handler
+    ];
   }
   var Property_old = class extends SvelteComponent {
     constructor(options) {
@@ -20606,5 +21307,10 @@ footer.svelte-1tm73ji nav a.svelte-1tm73ji:hover {
   // realtor/property_old.svelte.ts
   var app = new property_old_default({ target: document.getElementById("app") });
 })();
+/*! Bundled license information:
+
+axios/dist/browser/axios.cjs:
+  (*! Axios v1.13.2 Copyright (c) 2025 Matt Zabriskie and contributors *)
+*/
 </script>
 </body></html>

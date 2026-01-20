@@ -15,6 +15,7 @@ var viewList = map[string]string{
 	`AdminAccessLog`: `../svelte/admin/accessLog.html`, // ../svelte/admin/accessLog.svelte
 	`AdminFeedbacks`: `../svelte/admin/feedbacks.html`, // ../svelte/admin/feedbacks.svelte
 	`AdminFiles`: `../svelte/admin/files.html`, // ../svelte/admin/files.svelte
+	`AdminPosthog`: `../svelte/admin/posthog.html`, // ../svelte/admin/posthog.svelte
 	`AdminPropHistories`: `../svelte/admin/propHistories.html`, // ../svelte/admin/propHistories.svelte
 	`AdminProperties`: `../svelte/admin/properties.html`, // ../svelte/admin/properties.svelte
 	`AdminPropertiesTW`: `../svelte/admin/propertiesTW.html`, // ../svelte/admin/propertiesTW.svelte
@@ -67,6 +68,11 @@ func (v *Views) RenderAdminFeedbacks(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderAdminFiles(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`AdminFiles`].Str(m))
+}
+
+func (v *Views) RenderAdminPosthog(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`AdminPosthog`].Str(m))
 }
 
 func (v *Views) RenderAdminPropHistories(c *fiber.Ctx, m M.SX) error {

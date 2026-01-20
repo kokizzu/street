@@ -81,7 +81,7 @@ func TestMain(m *testing.M) {
 				User:     "testT",
 				Password: "passT",
 			}
-			img := tdt.ImageVersion(dockerPool, ``)
+			img := tdt.ImageVersion(dockerPool, `2-ubuntu20.04`)
 			dockerPool.Spawn(img, func(res *dockertest.Resource) error {
 				t, err := tdt.ConnectCheck(res)
 				if err != nil {
