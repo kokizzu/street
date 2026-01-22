@@ -24,7 +24,7 @@
 		"esbuild": "0.16.17",
 		"esbuild-svelte": "0.8.0",
 		"five-server": "^0.1.9",
-		"lodash": "^4.17.21",
+		"lodash": "^4.17.23",
 		"node-notifier": "^10.0.1",
 		"parse5": "^7.1.2",
 		"prettier": "^2.8.8",
