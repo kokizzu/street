@@ -6,7 +6,7 @@
  * @param {string[]} labels
  * @param {ChartDataset[]} datasets
  */
-function getRequestStatsChartOptions(labels, datasets) {
+export function getRequestStatsChartOptions(labels, datasets) {
   return {    
     type: 'line',
     data: {
@@ -61,7 +61,7 @@ function getRequestStatsChartOptions(labels, datasets) {
  * @param {string[]} labels
  * @param {ChartDataset[]} datasets
  */
-function getRequestActionChartOptions(labels, datasets) {
+export function getRequestActionChartOptions(labels, datasets) {
   return {
     type: 'bar',
     data: {
@@ -112,8 +112,4 @@ function getRequestActionChartOptions(labels, datasets) {
       },
     },
   }
-}
-
-module.exports = {
-  getRequestStatsChartOptions, getRequestActionChartOptions
 }

@@ -18,10 +18,10 @@
   let user 		= /** @type {User} */ ({/* user */});
   let access	= /** @type {Access} */ ({/* segments */});
   let fields	= /** @type {Field[]} */ ([/* fields */]);
-  let files   = /** @type {any}*/ ([/* files */]);
-  let pager   = /** @type {PagerOut} */ ({/* pager */});
+  let files   = /** @type {any}*/ ($state([/* files */]));
+  let pager   = /** @type {PagerOut} */ ($state({/* pager */}));
 
-  let popUpUpload3DFile = /** @type {import('svelte').SvelteComponent} */ (null);
+  let popUpUpload3DFile = /** @type {import('svelte').SvelteComponent} */ ($state(null));
 
   /**
    * @description Handle AJAX response
@@ -47,8 +47,8 @@
     });
   }
 
-  let isSubmitUpload3dFile = false;
-  let uploadingProgressStr = '';
+  let isSubmitUpload3dFile = $state(false);
+  let uploadingProgressStr = $state('');
 
   /**
    * @description Submit Upload 3D File
@@ -112,7 +112,7 @@
           >
           <button
             class="btn"
-            on:click={() => popUpUpload3DFile.Show()}
+            onclick={() => popUpUpload3DFile.Show()}
             title="Upload 3D file"
           >
             <Icon

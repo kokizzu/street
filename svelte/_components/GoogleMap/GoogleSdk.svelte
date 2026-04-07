@@ -1,11 +1,15 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   // @ts-nocheck
   
   import { onMount, createEventDispatcher } from 'svelte';
   import { mapsLoaded, mapsLoading } from "./stores";
 
   const dispatch = createEventDispatcher();
-  $: $mapsLoaded && dispatch('ready')
+  run(() => {
+    $mapsLoaded && dispatch('ready')
+  });
   
   onMount(() => {
     console.log('onMount.GoogleSdk')

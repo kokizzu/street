@@ -24,7 +24,7 @@
       <p>{email} { recentlyRegistered ? 'registered and' : ''} logged in successfully</p>
     {/if}
     <a href='/realtor'>
-      <i class='gg-arrow-left-r' />
+      <i class='gg-arrow-left-r'></i>
       <p>Back to main page</p>
     </a>
   </div>

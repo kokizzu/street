@@ -19,12 +19,12 @@
 
   console.log('Property=',property)
 
-  let gmapComponent     = /** @type {import('svelte').SvelteComponent} */ (null);
-  let popUpUpload3DFile = /** @type {import('svelte').SvelteComponent} */ (null);
+  let gmapComponent     = /** @type {import('svelte').SvelteComponent} */ ($state(null));
+  let popUpUpload3DFile = /** @type {import('svelte').SvelteComponent} */ ($state(null));
 
   const defImgUrl = /** @type {string} */ ('/assets/img/placeholder.webp');
-  let imgUrl = /** @type {string} */ (property.images[0] || defImgUrl);
-  let img3dUrl = /** @type {string} */ (property.image3dUrl);
+  let imgUrl = /** @type {string} */ ($state(property.images[0] || defImgUrl));
+  let img3dUrl = /** @type {string} */ ($state(property.image3dUrl));
 
   function gmapReady() {
     gmapComponent.SetMarker(
@@ -34,8 +34,8 @@
     );
   }
 
-  let isSubmitUpload3dFile = false;
-  let uploadingProgressStr = '';
+  let isSubmitUpload3dFile = $state(false);
+  let uploadingProgressStr = $state('');
 
   async function SubmitUpload3DFile(/** @type {File} */ file) {
     isSubmitUpload3dFile = true;
@@ -95,7 +95,7 @@
           <img
             src={imgUrl}
             alt={title}
-            on:error={() => imgUrl = defImgUrl}
+            onerror={() => imgUrl = defImgUrl}
           />
         </picture>
         <div class="info-1">
@@ -104,7 +104,7 @@
           </h2>
           <p class="about">{property.about || '--'}</p>
           {#if img3dUrl === ''}
-            <button class="upload-btn" on:click={() => popUpUpload3DFile.Show()}>
+            <button class="upload-btn" onclick={() => popUpUpload3DFile.Show()}>
               Upload 3D File
             </button>
           {/if}

@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import Menu from '../_components/Menu.svelte';
   import AdminSubMenu from '../_components/AdminSubMenu.svelte';
   import ProfileHeader from '../_components/ProfileHeader.svelte';
@@ -23,9 +25,9 @@
   let segments = {/* segments */};
   let fields = [/* fields */];
   let fieldByKey = fieldsArrToMap( fields );
-  let properties = [/* properties */];
-  let pager = {/* pager */};
-  let currentPropHistory = [];
+  let properties = $state([/* properties */]);
+  let pager = $state({/* pager */});
+  let currentPropHistory = $state([]);
   let extraActions = [
     {
       icon: HiSolidEye,
@@ -86,9 +88,11 @@
     },
   ];
   
-  $: console.log( 'properties=', properties );
+  run(() => {
+    console.log( 'properties=', properties );
+  });
   
-  let propHistoryModal = ModalDialog;
+  let propHistoryModal = $state(ModalDialog);
   
   // return true if got error
   function handleResponse( res ) {
@@ -111,7 +115,7 @@
     } );
   }
   
-  let form = ModalForm; // for lookup
+  let form = $state(ModalForm); // for lookup
   
   async function editRow( id, row ) {
     await AdminPropertiesTW( {
@@ -123,10 +127,14 @@
     } );
   }
   
-  let filterdByPending = false, filterdByRejected = false, filter = [];
-  $: approvalStateFilter = (pager.filters || {}).approvalState || [];
-  $: filterdByPending = approvalStateFilter[ 0 ]==='pending';
-  $: filterdByRejected = approvalStateFilter[ 0 ]==='<>' && approvalStateFilter[ 1 ]==='<>pending';
+  let filterdByPending = $state(false), filterdByRejected = $state(false), filter = [];
+  let approvalStateFilter = $derived((pager.filters || {}).approvalState || []);
+  run(() => {
+    filterdByPending = approvalStateFilter[ 0 ]==='pending';
+  });
+  run(() => {
+    filterdByRejected = approvalStateFilter[ 0 ]==='<>' && approvalStateFilter[ 1 ]==='<>pending';
+  });
   
   async function filterPendingApproval() {
     if( !pager.filters ) pager.filters = {};
@@ -210,14 +218,14 @@
           renderFuncs={renderMap}
           widths={{mainUse: '320px', address: '240px'}}
         >
-          <button class='action_btn' on:click={addRow}>
+          <button class='action_btn' onclick={addRow}>
             <Icon color='#FFF' size={17} src={FaSolidCirclePlus} />
             <span>Add</span>
           </button>
           <button
             class='action_btn'
             class:not_filtered={!filterdByPending}
-            on:click={filterPendingApproval}
+            onclick={filterPendingApproval}
           >
             <Icon color='{!filterdByPending ? "#FFF" : "#000"}' size={17} src={FaSolidCheckDouble} />
             <span>Filter Pending</span>
@@ -225,7 +233,7 @@
           <button
             class='action_btn'
             class:not_filtered={!filterdByRejected}
-            on:click={filterRejectedApproval}
+            onclick={filterRejectedApproval}
           >
             <Icon color='{!filterdByRejected ? "#FFF" : "#000"}' size={17} src={FaSolidRecycle} />
             <span>Filter Rejected</span>
@@ -236,26 +244,28 @@
     <Footer></Footer>
   </div>
   <ModalDialog bind:this={propHistoryModal}>
-    <div slot='content'>
-      <h3>Property History</h3>
-      {#if currentPropHistory && currentPropHistory.length}
-        {#each currentPropHistory as row}
-          {#each Object.entries( row ) as [key, val]}
-            {#if val==='0' || !val}
-              &nbsp;
-            {:else if key==='createdAt' || key==='updatedAt'}
-              <PillBox label={key} content={new Date(val*1000)} />
-            {:else if key==='priceNtd' || key==='pricePerUnit'}
-              <PillBox label={key} content={priceNtd(val)} />
-            {:else}
-              <PillBox label={key} content={val} />
-            {/if}
+    {#snippet content()}
+        <div >
+        <h3>Property History</h3>
+        {#if currentPropHistory && currentPropHistory.length}
+          {#each currentPropHistory as row}
+            {#each Object.entries( row ) as [key, val]}
+              {#if val==='0' || !val}
+                &nbsp;
+              {:else if key==='createdAt' || key==='updatedAt'}
+                <PillBox label={key} content={new Date(val*1000)} />
+              {:else if key==='priceNtd' || key==='pricePerUnit'}
+                <PillBox label={key} content={priceNtd(val)} />
+              {:else}
+                <PillBox label={key} content={val} />
+              {/if}
+            {/each}
           {/each}
-        {/each}
-      {:else}
-        no history for this property
-      {/if}
-    </div>
+        {:else}
+          no history for this property
+        {/if}
+      </div>
+      {/snippet}
   </ModalDialog>
 </section>
 

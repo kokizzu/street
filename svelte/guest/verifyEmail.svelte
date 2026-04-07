@@ -14,7 +14,7 @@
       <p class="error">{error}</p>
     {/if}
     <a href="/">
-      <i class="gg-arrow-left-r" />
+      <i class="gg-arrow-left-r"></i>
       <p>Back to main page</p>
     </a>
   </div>

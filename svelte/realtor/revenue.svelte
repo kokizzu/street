@@ -16,11 +16,11 @@
   
   let user      = /** @type {User} */ ({/* user */});
   let access    = /** @type {Access} */ ({/* segments */});
-  let revenues  = /** @type {Revenue[]} */ ([/* revenues */]);
+  let revenues  = /** @type {Revenue[]} */ ($state([/* revenues */]));
 
   console.log('revenues =', revenues);
 
-  let monthFilter = /** @type {Date|string|any} */ (getYearMonth());
+  let monthFilter = /** @type {Date|string|any} */ ($state(getYearMonth()));
 
   async function applyFilterYearMonth() {
     const inRealtorRevenue = /** @type {import('../jsApi.GEN').RealtorRevenueIn} */ ({
@@ -39,8 +39,8 @@
     })
   }
 
-  let popUpAddSales = /** @type {import('svelte').SvelteComponent} */ (null);
-  let isSubmitAddSales = /** @type {boolean} */ (false);
+  let popUpAddSales = /** @type {import('svelte').SvelteComponent} */ ($state(null));
+  let isSubmitAddSales = /** @type {boolean} */ ($state(false));
   /**
    * @description Submit add sales
    * @type {Function}
@@ -101,11 +101,11 @@
           id="month-filter"
           bind:value={monthFilter}
         />
-        <button class="btn-filter" on:click={applyFilterYearMonth}>
+        <button class="btn-filter" onclick={applyFilterYearMonth}>
           <span>Apply Filter</span>
         </button>
       </div>
-      <button class="add-btn" on:click={() => popUpAddSales.Show()}>
+      <button class="add-btn" onclick={() => popUpAddSales.Show()}>
         <Icon
           size="20"
           color="#FFF"

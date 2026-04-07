@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   /** @typedef {import('../_types/user').User} User */
   /** @typedef {import('../_types/master').Access} Access */
   /** @typedef {import('../_types/master').PagerIn} PagerIn */
@@ -27,15 +29,15 @@
   let user        = /** @type {User} */ ({/* user */});
   let access      = /** @type {Access} */ ({/* segments */});
   let fields      = /** @type {Field[]} */ ([/* fields */]);
-  let properties  = /** @type {any[][]} */ ([/* properties */]);
-  let pager       = /** @type {PagerOut} */ ({/* pager */});
+  let properties  = /** @type {any[][]} */ ($state([/* properties */]));
+  let pager       = /** @type {PagerOut} */ ($state({/* pager */}));
 
-  let propHistoryModal  = /** @type {import('svelte').SvelteComponent}*/ (null);
-  let modalForm         = /** @type {import('svelte').SvelteComponent}*/ (null);
+  let propHistoryModal  = /** @type {import('svelte').SvelteComponent}*/ ($state(null));
+  let modalForm         = /** @type {import('svelte').SvelteComponent}*/ ($state(null));
 
   let fieldByKey = fieldsArrToMap( fields );
 
-  let currentPropHistory = [];
+  let currentPropHistory = $state([]);
 
   /** @type {ExtendedAction[]} */
   let extraActions = [
@@ -146,12 +148,16 @@
     });
   }
   
-  let filterdByPending = false;
-  let filterdByRejected = false;
+  let filterdByPending = $state(false);
+  let filterdByRejected = $state(false);
 
-  $: approvalStateFilter = (pager.filters || {}).approvalState || [];
-  $: filterdByPending = approvalStateFilter[ 0 ]==='pending';
-  $: filterdByRejected = approvalStateFilter[ 0 ]==='<>' && approvalStateFilter[ 1 ]==='<>pending';
+  let approvalStateFilter = $derived((pager.filters || {}).approvalState || []);
+  run(() => {
+    filterdByPending = approvalStateFilter[ 0 ]==='pending';
+  });
+  run(() => {
+    filterdByRejected = approvalStateFilter[ 0 ]==='<>' && approvalStateFilter[ 1 ]==='<>pending';
+  });
   
   async function filterPendingApproval() {
     if( !pager.filters ) pager.filters = {};
@@ -220,26 +226,28 @@
     <AdminSubMenu />
     <div class="admin-content">
       <ModalDialog bind:this={propHistoryModal}>
-        <div slot='content'>
-          <h3>Property History</h3>
-          {#if currentPropHistory && currentPropHistory.length}
-            {#each currentPropHistory as row}
-              {#each Object.entries( row ) as [key, val]}
-                {#if val==='0' || !val}
-                  &nbsp;
-                {:else if key==='createdAt' || key==='updatedAt'}
-                  <PillBox label={key} content={new Date(val*1000).toString()} />
-                {:else if key==='priceNtd' || key==='pricePerUnit'}
-                  <PillBox label={key} content={priceNtd(val)} />
-                {:else}
-                  <PillBox label={key} content={val} />
-                {/if}
+        {#snippet content()}
+                <div >
+            <h3>Property History</h3>
+            {#if currentPropHistory && currentPropHistory.length}
+              {#each currentPropHistory as row}
+                {#each Object.entries( row ) as [key, val]}
+                  {#if val==='0' || !val}
+                    &nbsp;
+                  {:else if key==='createdAt' || key==='updatedAt'}
+                    <PillBox label={key} content={new Date(val*1000).toString()} />
+                  {:else if key==='priceNtd' || key==='pricePerUnit'}
+                    <PillBox label={key} content={priceNtd(val)} />
+                  {:else}
+                    <PillBox label={key} content={val} />
+                  {/if}
+                {/each}
               {/each}
-            {/each}
-          {:else}
-            no history for this property
-          {/if}
-        </div>
+            {:else}
+              no history for this property
+            {/if}
+          </div>
+              {/snippet}
       </ModalDialog>
       <ModalForm
         bind:this={modalForm}
@@ -263,7 +271,7 @@
         >
           <button
             class="btn"
-            on:click={addRow}
+            onclick={addRow}
             title="Add property"
           >
             <Icon
@@ -275,7 +283,7 @@
           <button
             class="btn"
             disabled={!filterdByPending}
-            on:click={filterPendingApproval}
+            onclick={filterPendingApproval}
             title="Filter by pending approval"
           >
             <Icon
@@ -287,7 +295,7 @@
           <button
             class="btn"
             disabled={!filterdByRejected}
-            on:click={filterRejectedApproval}
+            onclick={filterRejectedApproval}
             title="Filter by rejected approval"
           >
             <Icon

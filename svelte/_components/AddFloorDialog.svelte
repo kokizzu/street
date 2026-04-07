@@ -1,7 +1,8 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   import OptionButtons from "./OptionButtons.svelte";
 
-  export let visible = false;
   export function showModal() {
     visible = true;
   }
@@ -9,7 +10,15 @@
     visible = false;
   }
 
-  export let floor_type = '';
+  /**
+   * @typedef {Object} Props
+   * @property {boolean} [visible]
+   * @property {string} [floor_type]
+   * @property {import('svelte').Snippet} [children]
+   */
+
+  /** @type {Props} */
+  let { visible = $bindable(false), floor_type = $bindable(''), children } = $props();
   let floor_types = [
     "basement", "floor"
   ]
@@ -26,8 +35,8 @@
       </div>
     </div>
     <div class='buttons'>
-      <button on:click|preventDefault={() => hideModal()} class='cancel_button'>Cancel</button>
-      <slot></slot>
+      <button onclick={preventDefault(() => hideModal())} class='cancel_button'>Cancel</button>
+      {@render children?.()}
     </div>
   </div>
 </div>

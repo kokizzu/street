@@ -1,6 +1,12 @@
 <script>
-	export let label 		= 'label';
-	export let content	= '';
+	/**
+	 * @typedef {Object} Props
+	 * @property {string} [label]
+	 * @property {string} [content]
+	 */
+
+	/** @type {Props} */
+	let { label = 'label', content = '' } = $props();
 </script>
 
 {#if content}

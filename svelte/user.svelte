@@ -18,18 +18,18 @@
 	import InputBox from './_components/InputBox.svelte';
 	import SubmitButton from './_components/SubmitButton.svelte';
 
-	let user 						= /** @type {User} */ ({/* user */});
+	let user 						= /** @type {User} */ ($state({/* user */}));
 	let access					= /** @type {Access} */ ({/* segments */});
 	let countries				= /** @type {CountryData[]} */ ([/* countries */]);
-	let activeSessions	= /** @type {Session[]} */ ({/* activeSessions */});
+	let activeSessions	= /** @type {Session[]} */ ($state({/* activeSessions */}));
 
-	let oldPassword			= /** @type {string} */ ('');
-	let newPassword 		= /** @type {string} */ ('');
-	let confNewPassword	= /** @type {string} */ ('');
+	let oldPassword			= /** @type {string} */ ($state(''));
+	let newPassword 		= /** @type {string} */ ($state(''));
+	let confNewPassword	= /** @type {string} */ ($state(''));
 	let oldProfileJson 	= /** @type {string} */ ('');
-	let countriesObj		= /** @type {Record<string, string>} */ ({});
+	let countriesObj		= /** @type {Record<string, string>} */ ($state({}));
 
-	let isCountriesReady	= /** @type {boolean} */ (false);
+	let isCountriesReady	= /** @type {boolean} */ ($state(false));
 
 	onMount(() => {
 		oldProfileJson = JSON.stringify(user);
@@ -41,12 +41,12 @@
 		isCountriesReady = true;
 	});
 
-	let username 	= /** @type {string} */ (user.userName || '');
-	let fullName	= /** @type {string} */ (user.fullName || '');
-	let email 		= /** @type {string} */ (user.email || '');
-	let country		= /** @type {string} */ (user.country || '');
+	let username 	= /** @type {string} */ ($state(user.userName || ''));
+	let fullName	= /** @type {string} */ ($state(user.fullName || ''));
+	let email 		= /** @type {string} */ ($state(user.email || ''));
+	let country		= /** @type {string} */ ($state(user.country || ''));
 
-	let isSubmitProfile		= /** @type {boolean} */ (false);
+	let isSubmitProfile		= /** @type {boolean} */ ($state(false));
 	async function updateProfile() {
 		user.userName = username;
 		user.fullName = fullName;
@@ -73,7 +73,7 @@
 		});
 	}
 
-	let isSubmitPassword	= /** @type {boolean} */ (false);
+	let isSubmitPassword	= /** @type {boolean} */ ($state(false));
 	async function changePassword() {
 		if (newPassword !== confNewPassword) {
 			notifier.showError('New password and repeat new password must be same');
@@ -211,7 +211,7 @@
 										<td>
 											<div class="actions">
 												<button class="btn" title="Kill Session"
-													on:click={() => killSession(session.sessionToken)}>
+													onclick={() => killSession(session.sessionToken)}>
 													<Icon
 														size="17"
 														src={RiSystemDeleteBinLine}
@@ -305,7 +305,7 @@
 	}
 
 	.user-details .profile-sessions-container .profile h2 {
-		margin: 0;;
+		margin: 0;
 	}
 
 	.user-details .profile-sessions-container .profile .profile-form {

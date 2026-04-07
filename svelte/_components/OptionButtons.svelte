@@ -1,16 +1,22 @@
 <script>
-  export let options = [];
-  export let selected = '';
-  export let onChange = function(newlySelected) {
+  /**
+   * @typedef {Object} Props
+   * @property {any} [options]
+   * @property {string} [selected]
+   * @property {any} [onChange]
+   */
+
+  /** @type {Props} */
+  let { options = [], selected = $bindable(''), onChange = function(newlySelected) {
     console.log('OptionButtons.onChange',newlySelected)
-  }
+  } } = $props();
 </script>
 
 <div class="option_container">
   {#each options as option}
     <label class='option' class:clicked={selected === option} for={option}>
       <input type="radio"
-             on:click={()=> onChange(selected=option)}
+             onclick={()=> onChange(selected=option)}
              id={option}
              value={option} />
       {option}

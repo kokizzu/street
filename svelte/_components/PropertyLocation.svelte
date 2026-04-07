@@ -1,4 +1,6 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   import {UserNearbyFacilities, UserSearchProp, UserLikeProp} from '../jsApi.GEN.js';
   import {formatPrice} from './formatter.js';
   import {T} from './uiState.js';
@@ -22,13 +24,19 @@
 
   let google = window['google'];
 
-  export let randomProps = [];
-  export let defaultDistanceKm = 20;
-  export let initialLatLong = [0, 0];
-  let facilities = [], markersFacility = [], markersProperty = [], propItemBinds = [], infoWindows, propItemHighlight = null;
+  /**
+   * @typedef {Object} Props
+   * @property {any} [randomProps]
+   * @property {number} [defaultDistanceKm]
+   * @property {any} [initialLatLong]
+   */
 
-  let gmapsComponent;
-  let gmapBounds = {}; // top-left bottom-right of map
+  /** @type {Props} */
+  let { randomProps = $bindable([]), defaultDistanceKm = 20, initialLatLong = [0, 0] } = $props();
+  let facilities = [], markersFacility = [], markersProperty = [], propItemBinds = $state([]), infoWindows, propItemHighlight = $state(null);
+
+  let gmapsComponent = $state();
+  let gmapBounds = $state({}); // top-left bottom-right of map
   let myLatLng = {lat: initialLatLong[ 0 ], lng: initialLatLong[ 1 ]};
   let mapOptions = {
     center: myLatLng,
@@ -43,10 +51,10 @@
     hospital: {path: '/assets/icons/marker-hospital.svg'},
     subway_station: {path: '/assets/icons/marker-subway.svg'},
   };
-  let geocoder, input_search_value, autocomplete_service;
-  let autocomplete_lists = [];
-  let shareItemIndex = null;
-  let isSearchingMap = false;
+  let geocoder, input_search_value = $state(), autocomplete_service;
+  let autocomplete_lists = $state([]);
+  let shareItemIndex = $state(null);
+  let isSearchingMap = $state(false);
 
   const highLightMapMarker = {
     enter: ( index ) => {
@@ -258,7 +266,7 @@
     } )
   }
 
-  let mobileClickSearchLocation = false;
+  let mobileClickSearchLocation = $state(false);
 </script>
 
 
@@ -267,7 +275,7 @@
 {#if mobileClickSearchLocation}
   <div class='mobile_autocomplete_container'>
     <header>
-      <button class="back_button" on:click={() => mobileClickSearchLocation = false}>
+      <button class="back_button" onclick={() => mobileClickSearchLocation = false}>
         <Icon color='#475569' size="27" src={FaSolidAngleLeft} />
       </button>
       <div class='search_box'>
@@ -282,7 +290,7 @@
 				<input
 					bind:value={input_search_value}
 					id='search_location'
-					on:input={() => {
+					oninput={() => {
             searchLocationHandler();
           }}
 					placeholder='Search for address...'
@@ -295,10 +303,10 @@
         {#each autocomplete_lists as place}
           <button
             class='autocomplete_item'
-            on:click|preventDefault={() => {
+            onclick={preventDefault(() => {
               mobileClickSearchLocation = false;
               searchByAddressHandler(place.place_id)
-            }}
+            })}
           >
             <Icon size="17" color='#9fa9b5' src={FaSolidMapLocationDot}/>
             <span>{place.description}</span>
@@ -318,7 +326,7 @@
 
 <div class='property_location_container'>
   <div class="search_mobile">
-    <button class='search_location_btn' on:click={() => mobileClickSearchLocation = true}>
+    <button class='search_location_btn' onclick={() => mobileClickSearchLocation = true}>
       <Icon
         color='#475569'
         size="18"
@@ -331,11 +339,11 @@
 		<div class='props_container'>
 			{#if randomProps.length}
 				{#each randomProps as prop, index}
-					<button
+					<div
 						class={propItemHighlight === index ? `prop_item highlight` : 'prop_item' }
 						bind:this={propItemBinds[index]}
-						on:mouseenter={() => highLightMapMarker.enter(index)}
-						on:mouseleave={() => highLightMapMarker.leave(index)}
+						onmouseenter={() => highLightMapMarker.enter(index)}
+						onmouseleave={() => highLightMapMarker.leave(index)}
 					>
 						<picture class='img_container'>
 							{#if prop.images && prop.images.length}
@@ -360,17 +368,17 @@
 										</div>
 									</div>
 									<div class='right_buttons'>
-										<button class="like_btn" on:click={() => likeProperty(prop.id)}>
+										<button class="like_btn" onclick={() => likeProperty(prop.id)}>
 											<Icon color='#9fa9b5' className='like_icon' size="18" src={FaHeart}/>
 										</button>
-										<button class='share_btn' on:click={() => showShareItems(index)}>
+										<button class='share_btn' onclick={() => showShareItems(index)}>
 											<Icon size="17" color='#9fa9b5' className='share_icon' src={FaSolidShareNodes}/>
 										</button>
 									</div>
 									{#if shareItemIndex===index}
 										<div class='share_container'>
 											<button class='share_item copy' title='Copy link address'
-											        on:click={() => copyToClipboard(propertyUrl(prop.id))}>
+											        onclick={() => copyToClipboard(propertyUrl(prop.id))}>
 												<Icon size="14" color='#475569' src={FaCopy}/>
 											</button>
 											<a class='share_item'
@@ -462,7 +470,7 @@
 								</div>
 							</div>
 						</div>
-					</button>
+					</div>
 				{/each}
 			{:else }
 				<div class='no_properties'>
@@ -476,7 +484,7 @@
 	</div>
 	<div class='right'>
 		<div class='map_container'>
-			<button class='btn_sync_map' on:click={searchByLocationHandler}>
+			<button class='btn_sync_map' onclick={searchByLocationHandler}>
 				{#if !isSearchingMap}
 					<Icon color='#1080e8' size="12" src={LuUndo2}/>
 				{/if}
@@ -506,7 +514,7 @@
 				<input
 					bind:value={input_search_value}
 					id='search_location'
-					on:input={() => {
+					oninput={() => {
             searchLocationHandler();
           }}
 					placeholder='Search for address...'
@@ -518,7 +526,7 @@
 					{#each autocomplete_lists as place}
 						<button
 							class='autocomplete_item'
-							on:click|preventDefault={() => searchByAddressHandler(place.place_id)}
+							onclick={preventDefault(() => searchByAddressHandler(place.place_id))}
 						>
 							<Icon size="17" color='#9fa9b5' src={FaSolidMapLocationDot}/>
 							<span>{place.description}</span>

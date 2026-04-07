@@ -4,10 +4,16 @@
   import { UserSendFeedback } from '../../jsApi.GEN';
   import { notifier } from '../notifier';
 
-  export let username = /** @type {string} */ ('unknown');
+  /**
+   * @typedef {Object} Props
+   * @property {string} [username]
+   */
 
-  let isShowFeedBackPopUp = /** @type {boolean} */ (false);
-  let feedbackMessage = /** @type {string} */ ('');
+  /** @type {Props} */
+  let { username = 'unknown' } = $props();
+
+  let isShowFeedBackPopUp = /** @type {boolean} */ ($state(false));
+  let feedbackMessage = /** @type {string} */ ($state(''));
 
   async function sendFeedback() {
     if (!feedbackMessage) {
@@ -42,14 +48,14 @@
         cols="30"
         rows="10"
         placeholder="Your feedback here"
-      />
+></textarea>
       <div class="buttons">
-        <button class="cancel-btn" on:click={() => {
+        <button class="cancel-btn" onclick={() => {
           isShowFeedBackPopUp = false
         }}>Cancel</button>
         <button
           class="submit-btn"
-          on:click={sendFeedback}
+          onclick={sendFeedback}
         >Submit</button>
       </div>
     </div>
@@ -63,7 +69,7 @@
     </a>
   </div>
   <div class="info">
-    <button on:click={() => isShowFeedBackPopUp = true} class="feedback-btn">
+    <button onclick={() => isShowFeedBackPopUp = true} class="feedback-btn">
       <span>Feedback</span>
       <Icon
         src={RiCommunicationChatQuoteLine}

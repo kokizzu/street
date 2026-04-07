@@ -1,13 +1,22 @@
 <script>
+  import { createBubbler, preventDefault } from 'svelte/legacy';
+
+  const bubble = createBubbler();
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FiSend, FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
 
-  export let isSubmitted  = /** @type {boolean} */ (false);
-  export let isFullWidth  = /** @type {boolean} */ (false);
-  export let label        = /** @type {string} */ ('Submit');
+  /**
+   * @typedef {Object} Props
+   * @property {boolean} [isSubmitted]
+   * @property {boolean} [isFullWidth]
+   * @property {string} [label]
+   */
+
+  /** @type {Props} */
+  let { isSubmitted = false, isFullWidth = false, label = 'Submit' } = $props();
 </script>
 
-<button class={isFullWidth ? 'submit-btn full-width' : 'submit-btn'} on:click|preventDefault>
+<button class={isFullWidth ? 'submit-btn full-width' : 'submit-btn'} onclick={preventDefault(bubble('click'))}>
   {#if !isSubmitted}
     <Icon color="#FFF" size="14" src={FiSend} />
   {/if}

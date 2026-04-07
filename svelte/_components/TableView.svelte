@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   /** @typedef {import('../_types/master.js').Field} Field */
   /** @typedef {import('../_types/master.js').PagerIn} PagerIn */
   /** @typedef {import('../_types/master.js').PagerOut} PagerOut */
@@ -14,24 +16,43 @@
   } from '../node_modules/svelte-icons-pack/dist/ri';
   import TableFilterInput from './TableFilterInput.svelte';
   
-  export let renderFuncs  = /** @type {Record<string, Function>} */ ({});
-  export let arrayOfArray = /** @type {boolean} */ (true);
-  export let fields       = /** @type {Field[]} */ ([]);
-  export let rows         = /** @type {any[] | Record<string, any>[]} */ ([]);
-  export let pager        = /** @type {PagerOut} */ ({});
-  export let extraActions = /** @type {ExtendedAction[]} */ ([]);
-  export let widths       = /** @type {Record<string, string>} */ ({});
-  export let isNoActions  = /** @type {boolean} */ (false);
 
-  export let onRefreshTableView = function(/** @type {PagerIn} */ pager ) {
+  /**
+   * @typedef {Object} Props
+   * @property {any} [renderFuncs]
+   * @property {boolean} [arrayOfArray]
+   * @property {any} [fields]
+   * @property {any} [rows]
+   * @property {any} [pager]
+   * @property {any} [extraActions]
+   * @property {any} [widths]
+   * @property {boolean} [isNoActions]
+   * @property {any} [onRefreshTableView]
+   * @property {any} [onEditRow]
+   * @property {import('svelte').Snippet} [children]
+   */
+
+  /** @type {Props} */
+  let {
+    renderFuncs = {},
+    arrayOfArray = true,
+    fields = [],
+    rows = [],
+    pager = $bindable({}),
+    extraActions = [],
+    widths = {},
+    isNoActions = false,
+    onRefreshTableView = function(/** @type {PagerIn} */ pager ) {
     console.log( 'TableView.onRefreshTableView', pager );
-  };
-  export let onEditRow = function(/** @type {number | string} */ id, /** @type {any | any[]} */ row ) {
+  },
+    onEditRow = function(/** @type {number | string} */ id, /** @type {any | any[]} */ row ) {
     console.log( 'TableView.onEditRow', id, row );
-  };
+  },
+    children
+  } = $props();
   
   // Index of deletedAt field
-  let deletedAtIdx = /** @type {number} */ (-1);
+  let deletedAtIdx = /** @type {number} */ ($state(-1));
 
   onMount( () => {
     console.log( 'onMount.TableView' );
@@ -53,12 +74,11 @@
     oldFilterStr = JSON.stringify( filtersMap );
   } );
   
-  let oldFilterStr = '{}';
-  let newFilterStr = '';
+  let oldFilterStr = $state('{}');
+  let newFilterStr = $state('');
 
-  $: newFilterStr = JSON.stringify( filtersMap );
   
-  let filtersMap = /** @type {Record<string, string>} */ ({});
+  let filtersMap = /** @type {Record<string, string>} */ ($state({}));
   
   // @deprecated
   // function filterKeyDown(/** @type {KeyboardEvent} */ event ) {
@@ -97,17 +117,20 @@
     return row[ field.name ] || '';
   }
   
-  $: allowPrevPage = pager.page>1;
-  $: allowNextPage = pager.page<pager.pages;
+  run(() => {
+    newFilterStr = JSON.stringify( filtersMap );
+  });
+  let allowPrevPage = $derived(pager.page>1);
+  let allowNextPage = $derived(pager.page<pager.pages);
 </script>
 
 <section class="table-root">
   <div class="actions-container">
     <div class="left">
       <div class="actions-button">
-        <slot />
+        {@render children?.()}
         <button class="btn"
-          disabled={oldFilterStr===newFilterStr} on:click={applyFilter}
+          disabled={oldFilterStr===newFilterStr} onclick={applyFilter}
           title="Apply Filter"
         >
           <Icon
@@ -117,7 +140,7 @@
           />
         </button>
         <button class="btn"
-          on:click={() => gotoPage(pager.page)}
+          onclick={() => gotoPage(pager.page)}
           title="Refresh Table"
         >
           <Icon
@@ -167,7 +190,7 @@
                   {#if !isNoActions}
                     <td class="a-row">
                       <div class="actions">
-                        <button class="btn" title="Edit" on:click={() => onEditRow(cell(row,i,field), row)}>
+                        <button class="btn" title="Edit" onclick={() => onEditRow(cell(row,i,field), row)}>
                           <Icon
                             src={RiDesignPencilLine}
                             size="17"
@@ -185,7 +208,7 @@
                             </a>
                           {:else}
                             <button class="btn" title={action.label || ""}
-                              on:click={() => action.onClick(row)}
+                              onclick={() => action.onClick(row)}
                             >
                               <Icon
                                 src={action.icon}
@@ -229,7 +252,7 @@
         class="per-page"
         id="perPage"
         min="0"
-        on:change={() => changePerPage(pager.perPage)}
+        onchange={() => changePerPage(pager.perPage)}
         type="number"
       />
       <span>rows per page.</span>
@@ -241,7 +264,7 @@
       <button
         class="btn"
         disabled={!allowPrevPage}
-        on:click={() => gotoPage(1)}
+        onclick={() => gotoPage(1)}
         title="Go to first page"
       >
         <Icon
@@ -253,7 +276,7 @@
       <button
         class="btn"
         disabled={!allowPrevPage}
-        on:click={() => gotoPage(pager.page - 1)}
+        onclick={() => gotoPage(pager.page - 1)}
         title="Go to previous page"
       >
         <Icon
@@ -265,7 +288,7 @@
       <button
         class="btn"
         disabled={!allowNextPage}
-        on:click={() => gotoPage(pager.page + 1)}
+        onclick={() => gotoPage(pager.page + 1)}
         title="Go to next page"
       >
         <Icon
@@ -277,7 +300,7 @@
       <button
         class="btn"
         disabled={!allowNextPage}
-        on:click={() => gotoPage(pager.pages)}
+        onclick={() => gotoPage(pager.pages)}
         title="Go to last page"
       >
         <Icon

@@ -17,10 +17,10 @@
   let user        = /** @type {User} */ ({/* user */});
   let access      = /** @type {Access} */ ({/* segments */});
   let fields      = /** @type {Field[]} */ ([/* fields */]);
-  let feedbacks   = /** @type {any[][]}*/ [/* feedbacks */];
-  let pager       = /** @type {PagerOut} */ ({/* pager */});
+  let feedbacks   = /** @type {any[][]}*/ $state([/* feedbacks */]);
+  let pager       = /** @type {PagerOut} */ ($state({/* pager */}));
   let users       = /** @type {User[]} */ ([/* users */]);
-  let modalForm   = /** @type {import('svelte').SvelteComponent}*/ (null);
+  let modalForm   = /** @type {import('svelte').SvelteComponent}*/ ($state(null));
   
   /**
 	 * @description Handle AJAX response

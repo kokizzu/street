@@ -19,10 +19,10 @@
   let user          = /** @type {User} */ ({/* user */});
   let access        = /** @type {Access} */ ({/* segments */});
   let fields        = /** @type {Field[]} */ ([/* fields */]);
-  let pager         = /** @type {PagerOut} */ ({/* pager */});
-  let propHistories = /** @type {any[][]} */ ([/* propHistories */]);
+  let pager         = /** @type {PagerOut} */ ($state({/* pager */}));
+  let propHistories = /** @type {any[][]} */ ($state([/* propHistories */]));
 
-  let modalForm = /** @type {import('svelte').SvelteComponent}*/ (null);
+  let modalForm = /** @type {import('svelte').SvelteComponent}*/ ($state(null));
   
   /**
 	 * @description Handle AJAX response
@@ -105,7 +105,7 @@
       >
         <button
           class="btn"
-          on:click={addRow}
+          onclick={addRow}
           title="Add property history"
         >
           <Icon

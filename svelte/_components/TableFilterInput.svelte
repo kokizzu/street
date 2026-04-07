@@ -1,25 +1,33 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { RiSystemFilterLine } from '../node_modules/svelte-icons-pack/dist/ri';
 
-  export let label = /** @type {string} */ ('');
-  export let value = /** @type {string} */ ('');
+  /**
+   * @typedef {Object} Props
+   * @property {string} [label]
+   * @property {string} [value]
+   */
 
-  let isShowInput = /** @type {boolean} */ (false);
-  let isFiltering = /** @type {boolean} */ (false);
+  /** @type {Props} */
+  let { label = '', value = $bindable('') } = $props();
 
-  $: {
+  let isShowInput = /** @type {boolean} */ ($state(false));
+  let isFiltering = /** @type {boolean} */ ($state(false));
+
+  run(() => {
     if (value !== '') {
       isFiltering = true;
     } else {
       isFiltering = false;
     }
-  }
+  });
 </script>
 
 <div class="header" class:active={isFiltering}>
   <span>{label}</span>
-  <button class="btn" on:click={() => (isShowInput = !isShowInput)}>
+  <button class="btn" onclick={() => (isShowInput = !isShowInput)}>
     <Icon
       src={RiSystemFilterLine}
       size="17"

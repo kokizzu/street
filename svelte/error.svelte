@@ -13,7 +13,7 @@
 		<h1>Error</h1>
 		<h2>{error}</h2>
 	</header>
-	<button class="back_home" on:click={backHome}>
+	<button class="back_home" onclick={backHome}>
 		<span>Back to home</span>
 		<Icon className="arrow_backhome" color='#FFF' size={18} src={FaSolidArrowRight}/>
 	</button>

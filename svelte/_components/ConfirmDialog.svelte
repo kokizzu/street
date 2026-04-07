@@ -1,13 +1,30 @@
 <script>
-  export let show = false;
-  export let title = '';
-  export let content = '';
-  export let modifier = 'primary';
-  export let confirmText = 'Ok';
-  export let extraButtons = []; // {label:'', onClick: function(){}, modifier:'danger'}
-  export let onConfirm = function() {};
   
-  export let onCancel = function() {};
+  /**
+   * @typedef {Object} Props
+   * @property {boolean} [show]
+   * @property {string} [title]
+   * @property {string} [content]
+   * @property {string} [modifier]
+   * @property {string} [confirmText]
+   * @property {any} [extraButtons] - {label:'', onClick: function(){}, modifier:'danger'}
+   * @property {any} [onConfirm]
+   * @property {any} [onCancel]
+   * @property {import('svelte').Snippet} [children]
+   */
+
+  /** @type {Props} */
+  let {
+    show = $bindable(false),
+    title = $bindable(''),
+    content = $bindable(''),
+    modifier = $bindable('primary'),
+    confirmText = $bindable('Ok'),
+    extraButtons = $bindable([]),
+    onConfirm = $bindable(function() {}),
+    onCancel = function() {},
+    children
+  } = $props();
   
   function okPressed() {
     show = false;
@@ -49,19 +66,19 @@
   <div class='modal'>
     <div class='modal_background'></div>
     <div class='modal_content box -small' style='outline: none;'>
-      <button tabindex='0' aria-label='close' title='Close' type='button' class='smallBtn close' on:click={cancelPressed}>
-        <i class='gg-cross' />
+      <button tabindex='0' aria-label='close' title='Close' type='button' class='smallBtn close' onclick={cancelPressed}>
+        <i class='gg-cross'></i>
       </button>
       <div class='title'>{title}</div>
       <p>
         {@html content}
-        <slot />
+        {@render children?.()}
       </p>
       <div class='layout-h'>
-        <button tabindex='0' type='button' class="button {modifier || 'primary'}" on:click={okPressed}>{confirmText}</button>
-        <button tabindex='0' type='button' class='button secondary' on:click={cancelPressed}>Cancel</button>
+        <button tabindex='0' type='button' class="button {modifier || 'primary'}" onclick={okPressed}>{confirmText}</button>
+        <button tabindex='0' type='button' class='button secondary' onclick={cancelPressed}>Cancel</button>
         {#each extraButtons as prop}
-          <button tabindex='0' type='button' class='button {prop.modifier}' on:click={closeCallback(prop.onClick)}>{prop.label}</button>
+          <button tabindex='0' type='button' class='button {prop.modifier}' onclick={closeCallback(prop.onClick)}>{prop.label}</button>
         {/each}
       </div>
     </div>

@@ -1,16 +1,22 @@
 <script>
   import FloatingNotification from "./FloatingNotification.svelte";
   
-  export let modifier = '';
-  export let tooltip = '';
-  export let value = 0; // 0 to 1
+  /**
+   * @typedef {Object} Props
+   * @property {string} [modifier]
+   * @property {string} [tooltip]
+   * @property {number} [value] - 0 to 1
+   */
+
+  /** @type {Props} */
+  let { modifier = '', tooltip = '', value = 0 } = $props();
   
   // local state
-  let showProgressTooltip = false;
+  let showProgressTooltip = $state(false);
 </script>
 <div class="progressBar {modifier}"
-     on:mouseenter={() => showProgressTooltip = true}
-     on:mouseleave={() => showProgressTooltip = false}>
+     onmouseenter={() => showProgressTooltip = true}
+     onmouseleave={() => showProgressTooltip = false}>
 	<div class="progressBar_value {modifier}" style="width: {Math.floor(value*100)}%;"></div>
 </div>
 {#if showProgressTooltip}

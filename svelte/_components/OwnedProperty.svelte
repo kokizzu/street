@@ -18,10 +18,9 @@
 	} from './formatter';
 	import { onMount } from 'svelte';
 	
-	export let property = /** @type {TypeProperty | TypePropertyUS | PropertyWithNote} */ ({});
-	export let meta = /** @type {Field[]} */ ([]);
-	let approvalStatus = /** @type {string} */ ('approved');
-	let noteObj = /** @type {Record<string, any>} */ ({});
+	let { property = $bindable({}), meta = [] } = $props();
+	let approvalStatus = /** @type {string} */ ($state('approved'));
+	let noteObj = /** @type {Record<string, any>} */ ($state({}));
 
 	onMount(() => {
 		try {

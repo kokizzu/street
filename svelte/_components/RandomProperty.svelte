@@ -2,7 +2,7 @@
   import { UserSearchProp } from '../jsApi.GEN';
   import { onMount } from 'svelte';
 
-  let props = [];
+  let props = $state([]);
 
   onMount(async () => {
     console.log('onMount.RandomProperty')

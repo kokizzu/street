@@ -1,4 +1,6 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   /** @typedef {import('../_types/business').Sales} Sales */
 
 	import { Icon } from '../node_modules/svelte-icons-pack/dist';
@@ -7,28 +9,28 @@
   import InputBox from './InputBox.svelte';
   import { dateISOFormat } from './formatter';
 
-  let isShow = /** @type {boolean} */ (false);
+  let isShow = /** @type {boolean} */ ($state(false));
 
-  export let heading      = /** @type {string} */ ('Add Sales');
-  export let isSubmitted  = /** @type {boolean} */ (false);
 
+  
   /**
-   * @description Submit add sales
-   * @type {Function}
-   * @param salesObj {Sales}
-   * @param propKey {string}
-   * @returns {Promise<void>}
+   * @typedef {Object} Props
+   * @property {string} [heading]
+   * @property {boolean} [isSubmitted]
+   * @property {Function} [OnSubmit]
    */
-  export let OnSubmit = async function(salesObj, propKey) {
+
+  /** @type {Props} */
+  let { heading = 'Add Sales', isSubmitted = $bindable(false), OnSubmit = async function(salesObj, propKey) {
     console.log('Sales =', salesObj);
     console.log('Property Key =', propKey);
-  };
+  } } = $props();
 
-  let propertyCountry = /** @type {string} */ ('Default');
-  let propertyKey = /** @type {string} */ ('');
-  let buyerEmail = /** @type {string} */ ('');
-  let price = /** @type {number|string|any} */ ('0');
-  let salesDate = /** @type {string|Date|any} */ (dateISOFormat(0));
+  let propertyCountry = /** @type {string} */ ($state('Default'));
+  let propertyKey = /** @type {string} */ ($state(''));
+  let buyerEmail = /** @type {string} */ ($state(''));
+  let price = /** @type {number|string|any} */ ($state('0'));
+  let salesDate = /** @type {string|Date|any} */ ($state(dateISOFormat(0)));
 
   export const Reset = () => {
     propertyCountry = /** @type {string} */ ('Default');
@@ -64,7 +66,7 @@
   <div class="popup">
     <header class="header">
       <h2>{heading}</h2>
-      <button on:click={Hide}>
+      <button onclick={Hide}>
         <Icon size="22" color="var(--red-005)" src={IoClose}/>
       </button>
     </header>
@@ -115,8 +117,8 @@
       <div class="left">
       </div>
       <div class="right">
-        <button class="cancel" on:click|preventDefault={cancel}>Cancel</button>
-        <button class="ok" on:click|preventDefault={submitAddSales} disabled={isSubmitted}>
+        <button class="cancel" onclick={preventDefault(cancel)}>Cancel</button>
+        <button class="ok" onclick={preventDefault(submitAddSales)} disabled={isSubmitted}>
           {#if !isSubmitted}
             <span>Submit</span>
           {/if}

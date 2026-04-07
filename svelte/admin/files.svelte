@@ -14,8 +14,8 @@
 	let user 		= /** @type {User} */ ({/* user */});
   let access	= /** @type {Access} */ ({/* segments */});
   let fields	= /** @type {Field[]} */ ([/* fields */]);
-	let files   = /** @type {any}*/ ([/* files */]);
-	let pager   = /** @type {PagerOut} */ ({/* pager */});
+	let files   = /** @type {any}*/ ($state([/* files */]));
+	let pager   = /** @type {PagerOut} */ ($state({/* pager */}));
 
 	/**
 	 * @description Handle AJAX response

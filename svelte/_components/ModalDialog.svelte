@@ -1,7 +1,23 @@
 <script>
-  export let visible = false;
-  export let close_label = 'Close';
-  export let title = '';
+  import { preventDefault } from 'svelte/legacy';
+
+  /**
+   * @typedef {Object} Props
+   * @property {boolean} [visible]
+   * @property {string} [close_label]
+   * @property {string} [title]
+   * @property {import('svelte').Snippet} [content]
+   * @property {import('svelte').Snippet} [buttons]
+   */
+
+  /** @type {Props} */
+  let {
+    visible = $bindable(false),
+    close_label = 'Close',
+    title = '',
+    content,
+    buttons
+  } = $props();
 
   export function showModal() {
     visible = true;
@@ -19,11 +35,11 @@
         {#if title}
           <h3>{title}</h3>
         {/if}
-        <slot name="content" />
+        {@render content?.()}
       </div>
       <div class="buttons">
-        <button on:click|preventDefault={() => hideModal()} class="cancel_button">{close_label} </button>
-        <slot name="buttons" />
+        <button onclick={preventDefault(() => hideModal())} class="cancel_button">{close_label} </button>
+        {@render buttons?.()}
       </div>
     </div>
   </div>

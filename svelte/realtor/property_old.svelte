@@ -17,8 +17,8 @@
   let segments  = /** @type {Access}*/ ({/* segments */});
   let countries = /** @type {CountryData[]}*/ ([/* countries */]);
 
-  let isAdmin = false;
-  let isOwner = false;
+  let isAdmin = $state(false);
+  let isOwner = $state(false);
 
   onMount(() => {
     console.log('User = ', user);
@@ -27,7 +27,7 @@
     if (user.id == property.createdBy) isOwner = true;
   });
 
-  let isGoogleReady = false;
+  let isGoogleReady = $state(false);
 </script>
 
 <GoogleSdk on:ready={()=>isGoogleReady = true}/>

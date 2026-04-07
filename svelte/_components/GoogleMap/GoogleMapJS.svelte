@@ -5,10 +5,21 @@
 
   const dispatch = createEventDispatcher();
 
-  export let mapId  = /** @type {string} */ ('STREET_MAP')
-  export let lat    = /** @type {number} */ (23.775418);
-  export let lng    = /** @type {number} */ (120.6665624);
-  export let zoom   = /** @type {number} */ (8);
+  /**
+   * @typedef {Object} Props
+   * @property {string} [mapId]
+   * @property {number} [lat]
+   * @property {number} [lng]
+   * @property {number} [zoom]
+   */
+
+  /** @type {Props} */
+  let {
+    mapId = 'STREET_MAP',
+    lat = 23.775418,
+    lng = 120.6665624,
+    zoom = 8
+  } = $props();
 
   let map = /** @type {google.maps.Map} */ (null);
   const loader = /** @type {Loader} */ (new Loader({
@@ -19,7 +30,7 @@
   
   mapLoader.set(loader);
 
-  let mapElement = /** @type {HTMLDivElement} */ (null);
+  let mapElement = /** @type {HTMLDivElement} */ ($state(null));
 
   loader.importLibrary('maps').then(({ Map }) => {
     map = new Map(mapElement, {

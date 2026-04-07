@@ -61,7 +61,7 @@
           <Icon className='share_icon' color='#9fa9b5' size={14} src={FaSolidShareNodes} />
         </header>
         <div class='share_options'>
-          <button class='share_item' on:click={() => copyToClipboard(toBeUrl)} title='Copy link address'>
+          <button class='share_item' onclick={() => copyToClipboard(toBeUrl)} title='Copy link address'>
             <Icon className='share_icon' color='#475569' size={28} src={FaCopy} />
           </button>
           <a aria-label='Share to Facebook'

@@ -7,8 +7,7 @@
   import Footer from '../_components/partials/Footer.svelte';
   import { isShrinkMenu } from '../_states/page';
 
-  export let user   = /** @type {User} */ ({});
-  export let access = /** @type {Access} */ ({});
+  let { user = {}, access = {}, children } = $props();
 </script>
 
 <div class="root_layout">
@@ -17,7 +16,7 @@
     <div class="root_content { $isShrinkMenu ? 'shrink' : 'expand' }">
       <SideMenu {access} />
       <main class="content">
-        <slot />
+        {@render children?.()}
         <Footer />
       </main>
     </div>

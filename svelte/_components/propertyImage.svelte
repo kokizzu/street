@@ -1,6 +1,12 @@
 <script>
-  export let src = '/assets/img/placeholder.webp';
-  export let alt = '';
+  /**
+   * @typedef {Object} Props
+   * @property {string} [src]
+   * @property {string} [alt]
+   */
+
+  /** @type {Props} */
+  let { src = $bindable('/assets/img/placeholder.webp'), alt = '' } = $props();
 
   function onerror() {
     src = '/assets/img/placeholder.webp';
@@ -8,7 +14,7 @@
 </script>
 
 <picture>
-  <img {src} {alt} on:error={onerror} />
+  <img {src} {alt} {onerror} />
 </picture>
 
 <style>

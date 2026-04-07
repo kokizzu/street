@@ -2,20 +2,18 @@
   import { notifier } from './notifier';
   import InputBox from './InputBox.svelte';
 
-  let isShow      = /** @type {boolean} */ (false);
-  export let isSubmitted = /** @type {boolean} */ (false);
-  export let uploadingProgressStr = /** @type {string} */ ('');
+  let isShow      = /** @type {boolean} */ ($state(false));
 
   const allowedExtensions = /** @type {string[]} */ ([
     '.obj', '.fbx', '.stl', '.amf', '.iges', '.glb'
   ]);
 
-  let fileName    = /** @type {string} */ ('');
-  let file3d      = /** @type {File} */ (null);
-  let inputElm    = /** @type {HTMLInputElement} */ (null);
+  let fileName    = /** @type {string} */ ($state(''));
+  let file3d      = /** @type {File} */ ($state(null));
+  let inputElm    = /** @type {HTMLInputElement} */ ($state(null));
   let isDragging  = /** @type {boolean} */ (false);
-  let propertyCountry = /** @type {string} */ ('Default');
-  let propertyKey = /** @type {string} */ ('');
+  let propertyCountry = /** @type {string} */ ($state('Default'));
+  let propertyKey = /** @type {string} */ ($state(''));
 
   export const Reset = () => {
     isSubmitted = false;
@@ -32,19 +30,20 @@
     Reset();
   }
 
+  
   /**
-   * @description Submit Upload 3D File
-   * @type {Function}
-   * @param file {File}
-   * @param country {string}
-   * @param propKey {string}
-   * @returns {Promise<void>}
+   * @typedef {Object} Props
+   * @property {boolean} [isSubmitted]
+   * @property {string} [uploadingProgressStr]
+   * @property {Function} [OnSubmit]
    */
-   export let OnSubmit = async function(file, country, propKey) {
+
+  /** @type {Props} */
+  let { isSubmitted = $bindable(false), uploadingProgressStr = $bindable(''), OnSubmit = async function(file, country, propKey) {
     console.log('File Name =', file.name);
     console.log('Country =', country);
     console.log('Property Key =', propKey);
-  };
+  } } = $props();
 
   function handleDrop(/** @type {DragEvent}*/ event) {
     event.preventDefault();
@@ -113,9 +112,9 @@
     <div class="upload-zone">
       <label
         for="3dFile"
-        on:dragover={handleDragOver}
-        on:dragleave={handleDragLeave}
-        on:drop={handleDrop}
+        ondragover={handleDragOver}
+        ondragleave={handleDragLeave}
+        ondrop={handleDrop}
       >
         {#if uploadingProgressStr === ''}
           {#if fileName !== ''}
@@ -133,7 +132,7 @@
       </label>
       <input
         bind:this={inputElm}
-        on:change={handleFileInputChange}
+        onchange={handleFileInputChange}
         type="file"
         name="3dFile"
         id="3dFile"
@@ -142,10 +141,10 @@
       />
     </div>
     <div class="buttons">
-      <button class="cancel-btn" on:click={Close}>
+      <button class="cancel-btn" onclick={Close}>
         Cancel
       </button>
-      <button class="submit-btn" on:click={() => OnSubmit(file3d, propertyCountry, propertyKey)} disabled={!file3d}>
+      <button class="submit-btn" onclick={() => OnSubmit(file3d, propertyCountry, propertyKey)} disabled={!file3d}>
         {#if isSubmitted}
           <span>Uploading....</span>
         {/if}

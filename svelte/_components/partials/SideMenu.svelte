@@ -4,7 +4,7 @@
   import { UserLogout } from '../../jsApi.GEN';
   import { notifier } from '../notifier';
 
-  export let access = /** @type {Access} */ ({});
+  let { access = {} } = $props();
 
   const pathAll = /** @type {string}*/ (window.location.pathname);
   const pathLv1 = /** @type {string}*/ (window.location.pathname.split( '/' )[ 1 ]);
@@ -43,14 +43,14 @@
         <a href="/realtor/revenue" class:active={pathAll === '/realtor/revenue'}>Revenue</a>
       {/if}
     </nav>
-    <span class="separator" />
+    <span class="separator"></span>
     {#if access.user}
       <nav class="nav-menu">
         {#if access.admin}
           <a href="/admin" class:active={pathLv1 === 'admin' && pathAll !== '/admin/revenue'}>Admin</a>
         {/if}
         <a href="/user" class:active={pathAll === '/user'}>Profile</a>
-        <button class="red" on:click={logout}>Logout</button>
+        <button class="red" onclick={logout}>Logout</button>
       </nav>
     {/if}
   </div>

@@ -2,8 +2,8 @@
   import { GuestResetPassword } from '../jsApi.GEN';
   import { notifier } from '../_components/notifier.js';
 
-  let password = '';
-  let pass2 = '';
+  let password = $state('');
+  let pass2 = $state('');
 
   async function resetPassword() {
     if (password.length < 12) {
@@ -39,7 +39,7 @@
 <section class="reset_password_container">
   <div class="main_content">
     <h1>
-      <i class="gg-lock" />
+      <i class="gg-lock"></i>
       <span>Reset Password</span>
     </h1>
 
@@ -53,7 +53,7 @@
       <input type="password" bind:value={pass2} /><br />
     </div>
 
-    <button on:click={resetPassword}>Reset Password</button>
+    <button onclick={resetPassword}>Reset Password</button>
   </div>
 </section>
 

@@ -1,4 +1,6 @@
 <script>
+    import { run, preventDefault } from 'svelte/legacy';
+
     import {T, isSideMenuOpen, langOptions} from './uiState.js';
     import { Icon } from '../node_modules/svelte-icons-pack/dist';
     import {
@@ -8,19 +10,25 @@
     import {UserUpdateProfile, UserLogout, UserSendFeedback} from '../jsApi.GEN.js';
     import {notifier} from './notifier.js';
 
-    export let user = null;
-    export let access = {
+    /**
+     * @typedef {Object} Props
+     * @property {any} [user]
+     * @property {any} [access]
+     */
+
+    /** @type {Props} */
+    let { user = $bindable(null), access = {
         'admin': false,
         'buyer': false,
         'realtor': false,
         'user': false,
-    };
+    } } = $props();
 
     function openSideMenu() {
         isSideMenuOpen.set(!$isSideMenuOpen);
     }
 
-    let selectedLanguage = '';
+    let selectedLanguage = $state('');
     onMount(() => {
         console.log('onMount.ProfileHeader =', user)
         selectedLanguage = T.currentLang || 'EN';
@@ -39,11 +47,11 @@
         }
     }
 
-    $: {
+    run(() => {
         T.changeLanguage(selectedLanguage, async () => await updateLang());
-    }
+    });
 
-    let showLogoutMenu = false;
+    let showLogoutMenu = $state(false);
     async function userLogout() {
         await UserLogout( {}, function( o ) {
             console.log( o );
@@ -56,7 +64,7 @@
         } );
     }
 
-    let userMessage = '', showFeedbackDialog = false;
+    let userMessage = $state(''), showFeedbackDialog = $state(false);
     function sendFeedback() {
         if (userMessage === '') {
             notifier.showError( 'Please enter your feedback');
@@ -82,8 +90,8 @@
         <h3>Feedback</h3>
         <textarea bind:value={userMessage} name="feedback" id="feedback" cols="30" rows="10" placeholder="your feedback here"></textarea>
         <div class="buttons">
-            <button class="cancel_btn" on:click={() => showFeedbackDialog = false}>Cancel</button>
-            <button class="submit_btn" on:click={sendFeedback}>Submit</button>
+            <button class="cancel_btn" onclick={() => showFeedbackDialog = false}>Cancel</button>
+            <button class="submit_btn" onclick={sendFeedback}>Submit</button>
         </div>
     </div>
 </div>
@@ -92,29 +100,29 @@
     <nav class='navbar'>
         <div class='label_menu'>
             {#if access.admin}
-                <button on:click|preventDefault={openSideMenu}>
+                <button onclick={preventDefault(openSideMenu)}>
                     <Icon color='#FFF' size={20} src={FaSolidBars}/>
                 </button>
             {/if}
             {#if !access.admin}
-                <button on:click|preventDefault={() => showLogoutMenu = !showLogoutMenu}>
+                <button onclick={preventDefault(() => showLogoutMenu = !showLogoutMenu)}>
                     <Icon color='#FFF' size={20} src={FaSolidPowerOff}/>
                 </button>
             {/if}
             <p>HapSTR</p>
             {#if showLogoutMenu}
             <div class="logout_menu">
-                <button on:click|preventDefault={userLogout}>
+                <button onclick={preventDefault(userLogout)}>
                     Logout
                 </button>
-                <button on:click|preventDefault={() => showLogoutMenu = !showLogoutMenu}>
+                <button onclick={preventDefault(() => showLogoutMenu = !showLogoutMenu)}>
                     Cancel
                 </button>
             </div>
             {/if}
         </div>
         <div class='right_nav'>
-            <button class="feedback_btn" on:click={() => showFeedbackDialog = true}>
+            <button class="feedback_btn" onclick={() => showFeedbackDialog = true}>
                 <Icon className="feedback_icon" color='#475569' size={16} src={FaCommentDots}/>
                 <span>Feedback</span>
             </button>

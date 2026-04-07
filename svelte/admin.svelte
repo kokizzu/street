@@ -137,7 +137,7 @@
             <h3>Last 30 days User Statistics</h3>
           </header>
           <div class="stats">
-            <canvas id="stats-chart" />
+            <canvas id="stats-chart"></canvas>
           </div>
         </div>
         <div class="actions">
@@ -145,7 +145,7 @@
             <h3>Last 30 days Actions</h3>
           </header>
           <div class="action">
-            <canvas id="action-chart" />
+            <canvas id="action-chart"></canvas>
           </div>
         </div>
       </div>

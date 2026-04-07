@@ -3,7 +3,7 @@
 </script>
 <hr/>
 checking whether component conflict or not
-<button on:click={() => notifier.showInfo('test')}>Notify</button>
-<button on:click={() => notifier.showSuccess('test')}>Success</button>
-<button on:click={() => notifier.showError('test')}>Error</button>
-<button on:click={() => notifier.showWarning('test')}>Warn</button>
+<button onclick={() => notifier.showInfo('test')}>Notify</button>
+<button onclick={() => notifier.showSuccess('test')}>Success</button>
+<button onclick={() => notifier.showError('test')}>Error</button>
+<button onclick={() => notifier.showWarning('test')}>Warn</button>

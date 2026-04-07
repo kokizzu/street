@@ -1,22 +1,38 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { RiFinanceExchangeBoxLine } from '../node_modules/svelte-icons-pack/dist/ri';
   
-  export let visible = false;
   export function showModal() {
     visible = true;
   }
   export function hideModal() {
     visible = false;
   }
-  export let room_type = '';
   // unit mode
   const sqft = 'SqFt';
   const m2 = 'M2';
-  export let unit_mode = m2;
-  export let room_size = 0;
   let sqft_size = 0;
-  export let m2_size = 0;
+  /**
+   * @typedef {Object} Props
+   * @property {boolean} [visible]
+   * @property {string} [room_type]
+   * @property {any} [unit_mode]
+   * @property {number} [room_size]
+   * @property {number} [m2_size]
+   * @property {import('svelte').Snippet} [children]
+   */
+
+  /** @type {Props} */
+  let {
+    visible = $bindable(false),
+    room_type = $bindable(''),
+    unit_mode = $bindable(m2),
+    room_size = $bindable(0),
+    m2_size = $bindable(0),
+    children
+  } = $props();
   function toggleUnitMode() {
     if (unit_mode == sqft) {
       if (room_size !== 0) {
@@ -59,15 +75,15 @@
         <label for="room_type">House Type</label>
         <div class="option_container">
           <label class={room_type === 'bedroom' ? 'option clicked': 'option'} for="bedroom">
-            <input type="radio" on:click={() => (room_type = 'bedroom')} id="bedroom" value="bedroom" />
+            <input type="radio" onclick={() => (room_type = 'bedroom')} id="bedroom" value="bedroom" />
             bedroom
           </label>
           <label class={room_type === 'bathroom' ? 'option clicked': 'option'} for="bathroom">
-            <input type="radio" on:click={() => (room_type = 'bathroom')} id="bathroom" value="bathroom" />
+            <input type="radio" onclick={() => (room_type = 'bathroom')} id="bathroom" value="bathroom" />
             bathroom
           </label>
           <label class={room_type === 'living room' ? 'option clicked': 'option'} for="living_room">
-            <input type="radio" on:click={() => (room_type = 'living room')} id="living_room" value="living room" />
+            <input type="radio" onclick={() => (room_type = 'living room')} id="living_room" value="living room" />
             living room
           </label>
         </div>
@@ -78,7 +94,7 @@
           <input bind:value={room_size} min='0' step='0.01' type='number' name='room_size' id='room_size'>
           <div class='unit_toggle'>
             <p>{unit_mode}</p>
-            <button on:click={toggleUnitMode}>
+            <button onclick={toggleUnitMode}>
               <Icon size={16} color='#F97316' src={RiFinanceExchangeBoxLine} />
             </button>
           </div>
@@ -87,9 +103,9 @@
     </div>
     <div class='buttons'>
       <button
-        on:click|preventDefault={() => hideModal()}
+        onclick={preventDefault(() => hideModal())}
         class='cancel_button'>Cancel</button>
-      <slot></slot>
+      {@render children?.()}
     </div>
   </div>
 </div>

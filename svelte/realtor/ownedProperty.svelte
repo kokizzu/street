@@ -12,7 +12,7 @@
   
   let isAdmin = false;
   
-  let approvalStatus = 'approved';
+  let approvalStatus = $state('approved');
   onMount(() => {
     console.log('onMount.realtor/ownedProperty')
     console.log('Property = ', propItem)

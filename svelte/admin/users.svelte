@@ -17,8 +17,8 @@
   let user    = /** @type {User} */ ({/* user */});
   let access = /** @type {Access} */ ({/* segments */});
   let fields  = /** @type {Field[]} */ ([/* fields */]);
-  let users   = /** @type {User[]} */ ([/* users */]);
-  let pager   = /** @type {PagerOut} */ ({/* pager */});
+  let users   = /** @type {User[]} */ ($state([/* users */]));
+  let pager   = /** @type {PagerOut} */ ($state({/* pager */}));
 
   /**
 	 * @description Handle AJAX response
@@ -44,7 +44,7 @@
     } );
   }
   
-  let form = /** @type {import('svelte').SvelteComponent} */ (null);
+  let form = /** @type {import('svelte').SvelteComponent} */ ($state(null));
   
   async function editRow(/** @type {string | number}*/ id, /** @type {any[] | any}*/ row ) {
     await AdminUsers( { // @ts-ignore
@@ -94,7 +94,7 @@
           onRefreshTableView={refreshTableView}
           onEditRow={editRow}
         >
-          <button on:click={addRow} class="btn">
+          <button onclick={addRow} class="btn">
             <Icon
               size="17"
               src={RiSystemAddBoxLine}

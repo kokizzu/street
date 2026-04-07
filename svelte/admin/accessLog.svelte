@@ -15,8 +15,8 @@
 	
 	let user 		= /** @type {User} */ ({/* user */});
 	let fields	= /** @type {Field[]}	*/ ([/* fields */]);
-	let logs 		= /** @type {any[]} */ ([/* logs */]);
-	let pager		= /** @type {PagerOut} */ ({/* pager */});
+	let logs 		= /** @type {any[]} */ ($state([/* logs */]));
+	let pager		= /** @type {PagerOut} */ ($state({/* pager */}));
 
 	function handleResponse(res) {
 		if (res.error) {

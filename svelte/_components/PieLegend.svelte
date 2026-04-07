@@ -1,5 +1,5 @@
 <script>
-  export let shares = []
+	let { shares = [] } = $props();
 </script>
 
 {#each shares as share}

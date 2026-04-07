@@ -4,7 +4,7 @@
  * @param {any} humanize 
  * @returns {string}
  */
-function datetime( unixSec, humanize ) {
+export function datetime( unixSec, humanize ) {
   if (!unixSec) return '';
 
   let dt = /** @type {Date} */ (new Date( unixSec * 1000 ));
@@ -25,7 +25,7 @@ function datetime( unixSec, humanize ) {
   });
 }
 
-function priceNtd( val ) {
+export function priceNtd( val ) {
   return (new Number( val )).toLocaleString( 'zh-TW' );
 }
 
@@ -34,7 +34,7 @@ function priceNtd( val ) {
  * @param {number|string} unixSec 
  * @returns {string}
  */
-function localeDatetime( unixSec ) {
+export function localeDatetime( unixSec ) {
   if( !unixSec ) return '';
 
   const dt = /** @type {Date} */ (new Date(Number(unixSec) * 1000));
@@ -61,7 +61,7 @@ function localeDatetime( unixSec ) {
  * @param {number|string} unixSec 
  * @returns {string}
  */
-function datetime2( unixSec ) {
+export function datetime2( unixSec ) {
   if (!unixSec) return '-';
   
   const dt = /** @type {Date} */ (new Date(Number(unixSec) * 1000 ));
@@ -86,7 +86,7 @@ function datetime2( unixSec ) {
  * @param {string} currency 
  * @returns {string}
  */
-function formatPrice(price, currency) {
+export function formatPrice(price, currency) {
   try {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -99,7 +99,7 @@ function formatPrice(price, currency) {
   }
 }
 
-function getApprovalState(/** @type {string} */ s) {
+export function getApprovalState(/** @type {string} */ s) {
   if (s == '') {
     return 'approved'
   } else if (s.startsWith('pending')) {
@@ -109,13 +109,13 @@ function getApprovalState(/** @type {string} */ s) {
   }
 }
 
-function M2ToPing(/** @type {number} */ sizeM2 ) {
+export function M2ToPing(/** @type {number} */ sizeM2 ) {
   const value = sizeM2 / 3.30579;
   const minifiedValue = value.toFixed( 2 );
   return parseFloat( minifiedValue );
 }
 
-function dateISOFormat(/** @type number */ dayTo = 0) {
+export function dateISOFormat(/** @type number */ dayTo = 0) {
   const dt = new Date();
   dt.setDate(dt.getDate() + dayTo);
 
@@ -126,22 +126,10 @@ function dateISOFormat(/** @type number */ dayTo = 0) {
   return `${year}-${month}-${date}`;
 }
 
-function getYearMonth() {
+export function getYearMonth() {
   const date = new Date();
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
 
   return `${year}-${month}`
 }
-
-module.exports = {
-  datetime: datetime,
-  priceNtd: priceNtd,
-  localeDatetime: localeDatetime,
-  datetime2: datetime2,
-  formatPrice: formatPrice,
-  getApprovalState: getApprovalState,
-  M2ToPing: M2ToPing,
-  dateISOFormat: dateISOFormat,
-  getYearMonth: getYearMonth
-};

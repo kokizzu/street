@@ -1,4 +1,6 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   /** @typedef {import('./_types/master.js').Access} Access */
   /** @typedef {import('./_types/user.js').User} User */
   /** @typedef {import('./_types/user.js').MostLoggedInUser} MostLoggedInUser */
@@ -35,10 +37,10 @@
   import Chart from 'chart.js/auto';
   
   let title     = /** @type {string} */ ('#{title}');
-  let user      = /** @type {User} */ ({/* user */});
-  let segments  = /** @type {Access} */ ({/* segments */});
+  let user      = /** @type {User} */ ($state({/* user */}));
+  let segments  = /** @type {Access} */ ($state({/* segments */}));
   let google    = /** @type {string} */ ('#{google}');
-  let apple     = /** @type {string} */ ('#{apple}');
+  let apple     = /** @type {string} */ ($state('#{apple}'));
 
   const revenues          = /** @type {Revenue[]} */ ([/* revenues */]);
   const orders            = /** @type {Order[]} */ ([/* orders */]);
@@ -52,11 +54,11 @@
   // Generate Apple OAuth URL
   const clientId      = 'com.hapstr.app'; //
   const redirectUri   = 'https://admin.hapstr.xyz/guest/oauthCallback'; // Your frontend callback URL
-  const state         = 'random_state_value'; // Use a random string to prevent CSRF attacks
+  const oauthState    = 'random_state_value'; // Use a random string to prevent CSRF attacks
   const scope         = 'email';
   const response_mode = 'form_post'
 
-  apple = `https://appleid.apple.com/auth/authorize?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&state=${state}&response_mode=${response_mode}`;
+  apple = `https://appleid.apple.com/auth/authorize?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}&state=${oauthState}&response_mode=${response_mode}`;
   
   function getCookie( name ) {
     var match = document.cookie.match( new RegExp( '(^| )' + name + '=([^;]+)' ) );
@@ -64,9 +66,9 @@
   }
   
   // local state
-  let email       = /** @type {string} */ ('');
-  let password    = /** @type {string} */ ('');
-  let confirmPass = /** @type {string} */ ('');
+  let email       = /** @type {string} */ ($state(''));
+  let password    = /** @type {string} */ ($state(''));
+  let confirmPass = /** @type {string} */ ($state(''));
   
   // binding to element
   let passInput   = /** @type {HTMLInputElement} */ ({});
@@ -77,9 +79,9 @@
   const MODE_FG_PASSWD    = /** @type {string} */ ('FORGOT_PASSWORD');
   const MODE_USER         = /** @type {string} */ ('');
 
-  let MODE = /** @type {string} */ (MODE_LOGIN);
+  let MODE = /** @type {string} */ ($state(MODE_LOGIN));
 
-  let isSubmitted = /** @type {boolean} */ (false);
+  let isSubmitted = /** @type {boolean} */ ($state(false));
   
   async function onHashChange() {
     const auth = getCookie( 'auth' );
@@ -121,7 +123,7 @@
   const STAT_ORDERS     = `orders`;
   const STAT_BUYERS     = `buyers`;
 
-  let MODE_STATS = STAT_REVENUE;
+  let MODE_STATS = $state(STAT_REVENUE);
 
   function remove2ndOrdersData() {
     if (MODE_STATS === STAT_ORDERS) {
@@ -415,30 +417,30 @@
   }
 </script>
 
-<svelte:window on:hashchange={onHashChange}/>
+<svelte:window onhashchange={onHashChange}/>
 
 {#if MODE === MODE_USER}
   <Main {user} access={segments}>
     <div class="home-container">
       <div class="stats-chart">
         <nav>
-          <button on:click={renderRevenueChart} class:active={MODE_STATS===STAT_REVENUE} disabled={MODE_STATS===STAT_REVENUE}>
+          <button onclick={renderRevenueChart} class:active={MODE_STATS===STAT_REVENUE} disabled={MODE_STATS===STAT_REVENUE}>
             <span class="block"></span>
             <span class="title">Revenue</span>
           </button>
-          <button on:click={renderRegisteredChart} class:active={MODE_STATS===STAT_REGISTERED} disabled={MODE_STATS===STAT_REGISTERED}>
+          <button onclick={renderRegisteredChart} class:active={MODE_STATS===STAT_REGISTERED} disabled={MODE_STATS===STAT_REGISTERED}>
             <span class="block"></span>
             <span class="title">Registered</span>
           </button>
-          <button on:click={renderRealtorsChart} class:active={MODE_STATS===STAT_REALTORS} disabled={MODE_STATS===STAT_REALTORS}>
+          <button onclick={renderRealtorsChart} class:active={MODE_STATS===STAT_REALTORS} disabled={MODE_STATS===STAT_REALTORS}>
             <span class="block"></span>
             <span class="title">Realtors</span>
           </button>
-          <button on:click={renderOrdersChart} class:active={MODE_STATS===STAT_ORDERS} disabled={MODE_STATS===STAT_ORDERS}>
+          <button onclick={renderOrdersChart} class:active={MODE_STATS===STAT_ORDERS} disabled={MODE_STATS===STAT_ORDERS}>
             <span class="block"></span>
             <span class="title">Orders</span>
           </button>
-          <button on:click={renderBuyersChart} class:active={MODE_STATS===STAT_BUYERS} disabled={MODE_STATS===STAT_BUYERS}>
+          <button onclick={renderBuyersChart} class:active={MODE_STATS===STAT_BUYERS} disabled={MODE_STATS===STAT_BUYERS}>
             <span class="block"></span>
             <span class="title">Buyers</span>
           </button>
@@ -570,8 +572,7 @@
 					{#if MODE === MODE_LOGIN
             || MODE === MODE_REGISTER
             || MODE === MODE_VERIF_EMAIL
-            || MODE === MODE_FG_PASSWD
-          }
+            || MODE === MODE_FG_PASSWD}
             <InputBox
               id="email"
               label="Email"
@@ -602,12 +603,12 @@
 				{#if MODE===MODE_LOGIN}
 					<p class="forgot-password">
 						Forgot Password?
-						<a href="#FORGOT_PASSWORD" on:click|preventDefault={() => (MODE = MODE_FG_PASSWD)}>Reset here</a>
+						<a href="#FORGOT_PASSWORD" onclick={preventDefault(() => (MODE = MODE_FG_PASSWD))}>Reset here</a>
 					</p>
 				{/if}
 				<div class="button-container">
 					{#if MODE===MODE_REGISTER}
-						<button on:click={guestRegister}>
+						<button onclick={guestRegister}>
 							{#if isSubmitted===true}
 								<Icon className="spin" color='#FFF' size="15" src={FaSolidCircleNotch}/>
 							{/if}
@@ -617,7 +618,7 @@
 						</button>
 					{/if}
 					{#if MODE===MODE_LOGIN}
-						<button on:click={guestLogin}>
+						<button onclick={guestLogin}>
 							{#if isSubmitted===true}
 								<Icon className="spin" color='#FFF' size="15" src={FaSolidCircleNotch}/>
 							{/if}
@@ -627,7 +628,7 @@
 						</button>
 					{/if}
 					{#if MODE=== MODE_VERIF_EMAIL}
-						<button on:click={guestResendVerificationEmail}>
+						<button onclick={guestResendVerificationEmail}>
 							{#if isSubmitted===true}
 								<Icon className="spin" color='#FFF' size="15" src={FaSolidCircleNotch}/>
 							{/if}
@@ -637,7 +638,7 @@
 						</button>
 					{/if}
 					{#if MODE===MODE_FG_PASSWD}
-						<button on:click={guestForgotPassword}>
+						<button onclick={guestForgotPassword}>
 							{#if isSubmitted===true}
 								<Icon className="spin" color='#FFF' size="15" src={FaSolidCircleNotch}/>
 							{/if}
@@ -651,9 +652,9 @@
 				{#if MODE===MODE_REGISTER || MODE===MODE_LOGIN}
 					<div class="oauth-container">
 						<div class="or-separator">
-							<span/>
+							<span></span>
 							<p>or</p>
-							<span/>
+							<span></span>
 						</div>
             <div class="oauth-buttons">
               <!-- Google OAuth -->
@@ -675,16 +676,16 @@
 				{/if}
 				<div class="foot-auth">
 					{#if MODE!==MODE_REGISTER}
-						<p>Have no account? <a href="#REGISTER" on:click={() => (MODE = MODE_REGISTER)}>register</a></p>
+						<p>Have no account? <a href="#REGISTER" onclick={() => (MODE = MODE_REGISTER)}>register</a></p>
 					{/if}
 					{#if MODE!==MODE_LOGIN}
-						<p>Already have account? <a href="#LOGIN" on:click={() => (MODE = MODE_LOGIN)}>login</a></p>
+						<p>Already have account? <a href="#LOGIN" onclick={() => (MODE = MODE_LOGIN)}>login</a></p>
 					{/if}
 					{#if MODE!==MODE_VERIF_EMAIL}
 						<p>
 							Email not yet verified? <a
 							href="#RESEND_VERIFICATION_EMAIL"
-							on:click={() => (MODE = MODE_VERIF_EMAIL)}>request verification email</a
+							onclick={() => (MODE = MODE_VERIF_EMAIL)}>request verification email</a
 						>
 						</p>
 					{/if}

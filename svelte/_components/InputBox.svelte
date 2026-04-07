@@ -5,18 +5,34 @@
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { AiOutlineEye, AiOutlineEyeInvisible } from '../node_modules/svelte-icons-pack/dist/ai';
 
-  export let className    = /** @type {string} */ ('');
-  export let id           = /** @type {string} */ ('');
-  export let label        = /** @type {string} */ ('');
-  export let value        = /** @type {string} */ ('');
-  export let placeholder  = /** @type {string} */ ('');
-  export let type         = /** @type {InputType | string} */ ('text');
-  export let autocomplete = /** @type {('on' | 'off')} */ ('on');
-  export let valuesObj    = /** @type {Record<string, string>} */ ({});
-  export let valuesArr    = /** @type {any[]} */ ([]);
+  /**
+   * @typedef {Object} Props
+   * @property {string} [className]
+   * @property {string} [id]
+   * @property {string} [label]
+   * @property {string} [value]
+   * @property {string} [placeholder]
+   * @property {string} [type]
+   * @property {string} [autocomplete]
+   * @property {any} [valuesObj]
+   * @property {any} [valuesArr]
+   */
 
-  let isShowPassword  = /** @type {boolean} */ (false);
-  let inputElm        = /** @type {HTMLInputElement} */ (null);
+  /** @type {Props} */
+  let {
+    className = '',
+    id = '',
+    label = '',
+    value = $bindable(''),
+    placeholder = '',
+    type = 'text',
+    autocomplete = 'on',
+    valuesObj = {},
+    valuesArr = []
+  } = $props();
+
+  let isShowPassword  = /** @type {boolean} */ ($state(false));
+  let inputElm        = /** @type {HTMLInputElement} */ ($state(null));
   
   onMount(() => {
     if (type === 'password') inputElm.type = type;
@@ -47,7 +63,7 @@
       <label class="label" for={id}>{label}</label>
       <input bind:value={value} {id} bind:this={inputElm} {placeholder} />
       {#if type === 'password'}
-        <button class="eye" on:click={toggleShowPassword} title={isShowPassword ? 'Hide Password' : 'Show Password'}>
+        <button class="eye" onclick={toggleShowPassword} title={isShowPassword ? 'Hide Password' : 'Show Password'}>
           {#if !isShowPassword}
             <Icon color="#495057" size="20" src={AiOutlineEye}/>
           {/if}

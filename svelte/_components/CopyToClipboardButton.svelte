@@ -3,11 +3,17 @@
     import { TrOutlineCopy } from '../node_modules/svelte-icons-pack/dist/tr';
     import FloatingNotification from './FloatingNotification.svelte';
 
-    export let value = '';
-    export let title = 'copy to clipboard';
+    /**
+     * @typedef {Object} Props
+     * @property {string} [value]
+     * @property {string} [title]
+     */
+
+    /** @type {Props} */
+    let { value = '', title = 'copy to clipboard' } = $props();
 
     // local state
-    let copied = 0;
+    let copied = $state(0);
 
     function showNotification() {
     copied = setTimeout(function() {
@@ -33,7 +39,7 @@
 
 </script>
 <button title='{title}' type='button' class='iconButton'
-        on:click={copyToClipboard}>
+        onclick={copyToClipboard}>
     <Icon src={TrOutlineCopy} />
 </button>
 {#if copied}

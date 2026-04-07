@@ -1,18 +1,22 @@
 <script>
+	import { preventDefault } from 'svelte/legacy';
+
 	import { Icon } from '../../node_modules/svelte-icons-pack/dist';
 	import { RiSystemSearchLine, RiMapMapPin2Line} from '../../node_modules/svelte-icons-pack/dist/ri';
 	import GoogleSdk from './GoogleSdk.svelte';
 	import Growl from '../Growl.svelte'
 
-	export let elevation;
-	export let resolution;
-	export let lat;
-	export let lng;
+	let {
+		elevation = $bindable(),
+		resolution = $bindable(),
+		lat = $bindable(),
+		lng = $bindable()
+	} = $props();
 
 	let scriptLoaded = false, cssLoaded = false;
 	let viewer, tileset, handler;
-	let streetViewInput, streetViewInputValue, autocompleteService, geocoder, elevationService;
-	let showAutoCompleteList = false, autocompleteLists = [];
+	let streetViewInput = $state(), streetViewInputValue = $state(), autocompleteService, geocoder, elevationService;
+	let showAutoCompleteList = $state(false), autocompleteLists = $state([]);
 	let growl1 = Growl;
 	let cameraOrientation;
 
@@ -191,7 +195,7 @@
 		bind:value={streetViewInputValue}
 		id="pacViewPlace"
 		name="pacViewPlace"
-		on:input={searchLocationHandler}
+		oninput={searchLocationHandler}
 		placeholder="Enter a location..."
 		type="text"
 	/>
@@ -202,7 +206,7 @@
 		{#each autocompleteLists as place}
 			<button
 				class='autocomplete_item'
-				on:click|preventDefault={() => searchByAddressHandler(place.place_id)}
+				onclick={preventDefault(() => searchByAddressHandler(place.place_id))}
 			>
 				<Icon size={17} color='#9fa9b5' src={RiMapMapPin2Line}/>
 				<span>{place.description}</span>

@@ -1,5 +1,6 @@
 <script>
-    export let visible = false;
+  import { preventDefault } from 'svelte/legacy';
+
     
     export function showModal() {
       visible = true;
@@ -9,8 +10,21 @@
       visible = false;
     }
     
-    export let name = '';
-    export let fee = 0;
+  /**
+   * @typedef {Object} Props
+   * @property {boolean} [visible]
+   * @property {string} [name]
+   * @property {number} [fee]
+   * @property {import('svelte').Snippet} [children]
+   */
+
+  /** @type {Props} */
+  let {
+    visible = $bindable(false),
+    name = $bindable(''),
+    fee = $bindable(0),
+    children
+  } = $props();
   </script>
   
   {#if visible}
@@ -28,8 +42,8 @@
                   </div>
               </div>
               <div class='buttons'>
-                  <button on:click|preventDefault={() => hideModal()} class='cancel_button'>Cancel</button>
-                  <slot></slot>
+                  <button onclick={preventDefault(() => hideModal())} class='cancel_button'>Cancel</button>
+                  {@render children?.()}
               </div>
           </div>
       </div>

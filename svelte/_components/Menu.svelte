@@ -1,4 +1,6 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   /** @typedef {import('../_types/master.js').Access} Access*/
 
   import {UserLogout} from '../jsApi.GEN.js';
@@ -12,12 +14,11 @@
   } from '../node_modules/svelte-icons-pack/dist/fa';
   import { notifier } from './notifier.js';
   
-  export let doToggle = function() {
+  let { doToggle = function() {
     isSideMenuOpen.set( !$isSideMenuOpen );
-  };
-  export let access = /** @type {Access} */ ({});
+  }, access = {} } = $props();
   
-  let segment1;
+  let segment1 = $state();
   onMount( () => {
     console.log( 'onMount.Menu =', access );
     segment1 = window.location.pathname.split( '/' )[ 1 ];
@@ -42,13 +43,13 @@
 </script>
 
 {#if $isSideMenuOpen}
-	<button class="backdrop" on:click={() => $isSideMenuOpen = !$isSideMenuOpen}></button>
+	<button class="backdrop" onclick={() => $isSideMenuOpen = !$isSideMenuOpen}></button>
 {/if}
 <aside class={$isSideMenuOpen ? `side_menu_admin open` : `side_menu_admin`}>
 	<div class='side_menu_admin_container'>
 		<header>
 			<h3>STREET</h3>
-			<button on:click|preventDefault={doToggle}>
+			<button onclick={preventDefault(doToggle)}>
 				<Icon color='#475569' size="20" src={FaSolidCircleXmark}/>
 			</button>
 		</header>
@@ -61,7 +62,7 @@
 					<Icon className={segment1 === '' ? 'icon_active' : 'icon_dark'} size="22" src={FaSolidHouse}/>
 					<span>HOME</span>
 				</a>
-				{#if access.buyer }
+				{#if access.buyer}
 					<a href='/buyer' class:active={segment1 === 'buyer'}>
 						<Icon size="22" className={segment1 === 'buyer' ? 'icon_active' : 'icon_dark'} src={FaSolidBagShopping}/>
 						<span>BUYER</span>
@@ -73,7 +74,7 @@
 						<span>REALTOR</span>
 					</a>
 				{/if}
-				{#if access.admin }
+				{#if access.admin}
 					<a href='/admin' class:active={segment1 === 'admin'}>
 						<Icon size="20" className={segment1 === 'admin' ? 'icon_active' : 'icon_dark'} src={FaSolidSliders}/>
 						<span>ADMIN</span>
@@ -91,7 +92,7 @@
 					</a>
 				{/if}
 				{#if access.user}
-					<button on:click={userLogout} class='logout'>
+					<button onclick={userLogout} class='logout'>
 						<Icon size="22" className='icon_dark' src={FaSolidSignsPost}/>
 						<span>LOGOUT</span>
 					</button>

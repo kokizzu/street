@@ -5,10 +5,10 @@
     FaSolidTriangleExclamation, FaSolidCircleXmark
   } from '../node_modules/svelte-icons-pack/dist/fa';
   
-  let message = 'This is growl, XD';
-  let growlType = 'info'; // info, warning, error, success
-  let isShow = false;
-  let icon = /** @type {import(../node_modules/svelte-icons-pack/dist).IconType} */ FaSolidCircleInfo;
+  let message = $state('This is growl, XD');
+  let growlType = $state('info'); // info, warning, error, success
+  let isShow = $state(false);
+  let icon = /** @type {import(../node_modules/svelte-icons-pack/dist).IconType} */ $state(FaSolidCircleInfo);
   
   function show( msg, typ, ico ) {
     icon = ico;

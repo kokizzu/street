@@ -1,5 +1,4 @@
-
-const axios = require("axios");
+import axios from 'axios';
 
 
 // rearrange response to be data first instead of axios error

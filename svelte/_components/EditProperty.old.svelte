@@ -1,4 +1,6 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import {
     FaSolidAngleLeft, FaSolidBed, FaSolidBath, FaSolidChair,
@@ -13,16 +15,27 @@
   import AddOtherFeesDialog from './AddOtherFeesDialog.svelte';
   import { notifier } from './notifier.js';
   
-  export let isOwner = false;
-  export let property;
-  export let countries;
-  export let isAdmin = false;
-  
-  let approvalStatus = 'approved';
-  let submitLoading = false;
-  let countryCurrency = 'TWD';
+  /**
+   * @typedef {Object} Props
+   * @property {boolean} [isOwner]
+   * @property {any} property
+   * @property {any} countries
+   * @property {boolean} [isAdmin]
+   */
 
-  let noteObj;
+  /** @type {Props} */
+  let {
+    isOwner = false,
+    property = $bindable(),
+    countries,
+    isAdmin = false
+  } = $props();
+  
+  let approvalStatus = $state('approved');
+  let submitLoading = $state(false);
+  let countryCurrency = $state('TWD');
+
+  let noteObj = $state();
   
   onMount( () => {
     try {
@@ -91,12 +104,12 @@
   };
   
   const EDIT_PICTURE = 'picture', EDIT_FEATURE = 'feature', EDIT_FACILITY = 'facility', EDIT_ABOUT = 'about', EDIT_FLOORS = 'floors';
-  let PART_TO_EDIT = '';
+  let PART_TO_EDIT = $state('');
   
   // +================| Edit Picture |================+ //
-  let imageHouseInput;
-  let houseImgUploading = false, uploadHouseStatus = '', uploadHousePercent = 0;
-  let images = property.images, imageLabels = property.imageLabels || [];
+  let imageHouseInput = $state();
+  let houseImgUploading = $state(false), uploadHouseStatus = $state(''), uploadHousePercent = $state(0);
+  let images = $state(property.images), imageLabels = $state(property.imageLabels || []);
   
   function handlerHouseImage() {
     if( !imageHouseInput ) return;
@@ -165,18 +178,18 @@
   // +================| Edit Feature |===================+ //
   let houseTypeLists = [
     'house', 'land', 'apartment', 'townhouse', 'condo', 'villa', 'factory', 'parking', 'other',
-  ], editFeatureCount = 0;
-  let houseType = property.houseType, bedroom = property.bedroom, bathroom = property.bathroom, livingroom = property.livingroom;
-  let sizeM2 = property.sizeM2, parking = property.parking.toString();
-  let purpose = property.purpose, lastPrice = property.lastPrice, agencyFeePercent = property.agencyFeePercent;
-  let depositFee = property.depositFee, minimumDurationYear = property.minimumDurationYear, otherFees = property.otherFees;
-  let otherFeeObj = {name: '', fee: 0};
+  ], editFeatureCount = $state(0);
+  let houseType = $state(property.houseType), bedroom = $state(property.bedroom), bathroom = $state(property.bathroom), livingroom = $state(property.livingroom);
+  let sizeM2 = $state(property.sizeM2), parking = $state(property.parking.toString());
+  let purpose = $state(property.purpose), lastPrice = $state(property.lastPrice), agencyFeePercent = $state(property.agencyFeePercent);
+  let depositFee = $state(property.depositFee), minimumDurationYear = $state(property.minimumDurationYear), otherFees = $state(property.otherFees);
+  let otherFeeObj = $state({name: '', fee: 0});
 
   /** @type {import('svelte').SvelteComponent} */
-  let addOtherFeeDialog;
+  let addOtherFeeDialog = $state();
 
-  let agencyFee = 'true';
-  let submitApprove = false, submitReject = false;
+  let agencyFee = $state('true');
+  let submitApprove = $state(false), submitReject = false;
   
   function addOtherFee() {
     otherFees = [...otherFees, otherFeeObj];
@@ -221,7 +234,7 @@
   }
   
   // +================| Edit Facility |===================+ //
-  let mainUse = property.mainUse;
+  let mainUse = $state(property.mainUse);
   
   async function SaveEditFacility() {
     submitLoading = true;
@@ -272,7 +285,7 @@
       } );
   }
   
-  let rejectReason = '', showRejectDialog = false;
+  let rejectReason = $state(''), showRejectDialog = $state(false);
   
   function RejectProperty() {
     if( rejectReason==='' ) {
@@ -347,8 +360,8 @@
             ></textarea>
           </div>
           <div class='buttons'>
-            <button class='cancel_btn' on:click={()=>showRejectDialog=false}>Cancel</button>
-            <button class='reject_btn' on:click={RejectProperty}>Reject</button>
+            <button class='cancel_btn' onclick={()=>showRejectDialog=false}>Cancel</button>
+            <button class='reject_btn' onclick={RejectProperty}>Reject</button>
           </div>
         </div>
       </div>
@@ -366,13 +379,13 @@
         {/if}
         <div class='action_btns'>
           {#if isOwner && approvalStatus!==''}
-            <button class='edit_btn' on:click={ReviewProperty}>
+            <button class='edit_btn' onclick={ReviewProperty}>
               Review again
             </button>
           {/if}
           {#if isAdmin}
             {#if approvalStatus==='pending' || approvalStatus==='rejected'}
-              <button class='approve_btn' on:click={ApproveProperty}>
+              <button class='approve_btn' onclick={ApproveProperty}>
                 {#if !submitApprove}
                   <Icon size={10} color='#FFF' src={FaCircleCheck} />
                 {/if}
@@ -383,7 +396,7 @@
               </button>
             {/if}
             {#if approvalStatus==='pending' || approvalStatus==='approved'}
-              <button class='reject_btn' on:click={()=>showRejectDialog=true}>
+              <button class='reject_btn' onclick={()=>showRejectDialog=true}>
                 <Icon size={10} color='#FFF' src={FaClock} />
                 <span>Reject</span>
               </button>
@@ -403,7 +416,7 @@
           {/if}
         </div>
         {#if isOwner}
-          <button class='edit_btn' on:click={() => PART_TO_EDIT = EDIT_PICTURE}>
+          <button class='edit_btn' onclick={() => PART_TO_EDIT = EDIT_PICTURE}>
             <Icon color='#FFF' size={10} src={FaSolidPen} />
             <span>Edit</span>
           </button>
@@ -428,7 +441,7 @@
           </div>
           <div class='right'>
             {#if isOwner}
-              <button class='edit_btn' on:click={() => PART_TO_EDIT = EDIT_FEATURE}>
+              <button class='edit_btn' onclick={() => PART_TO_EDIT = EDIT_FEATURE}>
                 <Icon color='#FFF' size={10} src={FaSolidPen} />
                 <span>Edit</span>
               </button>
@@ -475,7 +488,7 @@
           <div class='upper'>
             <h3>Facility</h3>
             {#if isOwner}
-              <button class='edit_btn' on:click={() => PART_TO_EDIT = EDIT_FACILITY}>
+              <button class='edit_btn' onclick={() => PART_TO_EDIT = EDIT_FACILITY}>
                 <Icon color='#FFF' size={10} src={FaSolidPen} />
                 <span>Edit</span>
               </button>
@@ -489,7 +502,7 @@
           <div class='upper'>
             <h3>About</h3>
             {#if isOwner}
-              <button class='edit_btn' on:click={() => PART_TO_EDIT = EDIT_ABOUT}>
+              <button class='edit_btn' onclick={() => PART_TO_EDIT = EDIT_ABOUT}>
                 <Icon color='#FFF' size={10} src={FaSolidPen} />
                 <span>Edit</span>
               </button>
@@ -556,7 +569,7 @@
     {#if PART_TO_EDIT===EDIT_PICTURE}
       <div class='edit_part'>
         <div class='upper'>
-          <button class='back_button' on:click={() => PART_TO_EDIT = ''}>
+          <button class='back_button' onclick={() => PART_TO_EDIT = ''}>
             <Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft} />
           </button>
           <h3>Upload property photo</h3>
@@ -568,7 +581,7 @@
                 {#if !houseImgUploading}
                   <input
                     bind:this={imageHouseInput}
-                    on:change={handlerHouseImage}
+                    onchange={handlerHouseImage}
                     type='file'
                     accept='image/*'
                     id='upload_image'
@@ -598,7 +611,7 @@
                     <button
                       class='remove_image'
                       title='remove this image'
-                      on:click|preventDefault={() => removeImage(idx)}
+                      onclick={preventDefault(() => removeImage(idx))}
                     >
                       <Icon color='#FFF' size={12} src={FaClock} />
                     </button>
@@ -607,7 +620,7 @@
               {/if}
             </div>
           </div>
-          <button disabled={submitLoading===true} class='next_button' on:click={SaveEditPicture}>
+          <button disabled={submitLoading===true} class='next_button' onclick={SaveEditPicture}>
             {#if submitLoading===false}
               <span>Save</span>
             {/if}
@@ -624,13 +637,13 @@
         bind:name={otherFeeObj.name}
         bind:this={addOtherFeeDialog}
       >
-        <button class='add_fee_btn' on:click={addOtherFee}>
+        <button class='add_fee_btn' onclick={addOtherFee}>
           Add
         </button>
       </AddOtherFeesDialog>
       <div class='edit_part'>
         <div class='upper'>
-          <button class='back_button' on:click={() => {
+          <button class='back_button' onclick={() => {
             if( editFeatureCount>0 ) {
               editFeatureCount = 0;
             } else if( editFeatureCount===0 ) {
@@ -708,7 +721,7 @@
                   <input
                     type='radio'
                     name='rent_or_sell'
-                    on:click={() => (purpose = 'sell')}
+                    onclick={() => (purpose = 'sell')}
                     id='sell'
                     value='sell'
                   />
@@ -718,7 +731,7 @@
                   <input
                     type='radio'
                     name='rent_or_sell'
-                    on:click={() => (purpose = 'rent')}
+                    onclick={() => (purpose = 'rent')}
                     id='rent'
                     value='rent'
                   />
@@ -767,7 +780,7 @@
                 <div class='other_fee'>
                   <header>
                     <h4>Other Fee</h4>
-                    <button class='add_fee' on:click={addOtherFeeDialog.showModal()}>
+                    <button class='add_fee' onclick={addOtherFeeDialog.showModal()}>
                       Add
                     </button>
                   </header>
@@ -794,7 +807,7 @@
               {/if}
             </div>
           {/if}
-          <button disabled={submitLoading===true} class='next_button' on:click={SaveEditFeature}>
+          <button disabled={submitLoading===true} class='next_button' onclick={SaveEditFeature}>
             {#if submitLoading===false}
 							<span>
 								{editFeatureCount===0 ? 'Next' : 'Save'}
@@ -810,7 +823,7 @@
     {#if PART_TO_EDIT===EDIT_FACILITY}
       <div class='edit_part'>
         <div class='upper'>
-          <button class='back_button' on:click={() => PART_TO_EDIT = ''}>
+          <button class='back_button' onclick={() => PART_TO_EDIT = ''}>
             <Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft} />
           </button>
           <h3>Facility</h3>
@@ -825,7 +838,7 @@
               class='textarea_input'
             ></textarea>
           </div>
-          <button disabled={submitLoading===true} class='next_button' on:click={SaveEditFacility}>
+          <button disabled={submitLoading===true} class='next_button' onclick={SaveEditFacility}>
             {#if submitLoading===false}
               <span>Save</span>
             {/if}
@@ -839,7 +852,7 @@
     {#if PART_TO_EDIT===EDIT_ABOUT}
       <div class='edit_part'>
         <div class='upper'>
-          <button class='back_button' on:click={() => PART_TO_EDIT = ''}>
+          <button class='back_button' onclick={() => PART_TO_EDIT = ''}>
             <Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft} />
           </button>
           <h3>About</h3>
@@ -854,7 +867,7 @@
               class='textarea_input'
             ></textarea>
           </div>
-          <button disabled={submitLoading===true} class='next_button' on:click={SaveEditAbout}>
+          <button disabled={submitLoading===true} class='next_button' onclick={SaveEditAbout}>
             {#if submitLoading===false}
               <span>Save</span>
             {/if}
@@ -867,7 +880,7 @@
     {/if}
   </div>
   <div class='delete_property_container'>
-    <button class='delete_property' on:click={DeleteProperty}>
+    <button class='delete_property' onclick={DeleteProperty}>
       <Icon color='#FFF' size={10} src={FaTrashCan} />
       <span>Delete Property</span>
     </button>

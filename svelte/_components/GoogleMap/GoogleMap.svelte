@@ -5,11 +5,10 @@
 
 	const dispatch = createEventDispatcher();
 
-	let mapElement;
+	let mapElement = $state();
 	let map;
 
-	export let options = {};
-	export let bounds = {}; // bound of map from googlemap (top-left and bottom-right)
+	let { options = {}, bounds = $bindable({}) } = $props();
 
 	export function setCentre(location) {
 		map.setCenter(location);

@@ -5,7 +5,7 @@
  * @param {Array<any>} arr 
  * @returns {Object.<string, any>}
  */
-function fieldsArrToMap(arr) {
+export function fieldsArrToMap(arr) {
   let map = {}
   for(const idx in arr) {
     let el = arr[idx]
@@ -14,7 +14,3 @@ function fieldsArrToMap(arr) {
   }
   return map;
 }
-
-module.exports = {
-  fieldsArrToMap: fieldsArrToMap,
-};

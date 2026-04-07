@@ -1,7 +1,13 @@
 <script>
-  export let text = '';
-  export let subtext = '';
-  export let modifier = '';
+  /**
+   * @typedef {Object} Props
+   * @property {string} [text]
+   * @property {string} [subtext]
+   * @property {string} [modifier]
+   */
+
+  /** @type {Props} */
+  let { text = $bindable(''), subtext = $bindable(''), modifier = $bindable('') } = $props();
   
   export function hidingAfter( sec ) {
     return function() {

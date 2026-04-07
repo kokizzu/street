@@ -11,14 +11,27 @@
     import PillBox from './PillBox.svelte';
     import { onMount } from 'svelte';
   
-    export let propHistories;
-    export let propItem = /** @type {TypeProperty | TypePropertyUS} */ ({});
-    export let meta;
-    export let isAdmin = false;
-    export let isGuest = false;
-    export let propExtraUS = /** @type {TypePropertyExtraUS} */ ({});
+  /**
+   * @typedef {Object} Props
+   * @property {any} propHistories
+   * @property {any} [propItem]
+   * @property {any} meta
+   * @property {boolean} [isAdmin]
+   * @property {boolean} [isGuest]
+   * @property {any} [propExtraUS]
+   */
+
+  /** @type {Props} */
+  let {
+    propHistories,
+    propItem = {},
+    meta,
+    isAdmin = false,
+    isGuest = false,
+    propExtraUS = {}
+  } = $props();
   
-    let approvalStatus = 'approved';
+    let approvalStatus = $state('approved');
     let signs = [
       {
         status: 'approved',
@@ -32,8 +45,8 @@
       },
     ];
   
-    let facilityInfoJSON;
-    let mlsDisclaimerInfo;
+    let facilityInfoJSON = $state();
+    let mlsDisclaimerInfo = $state();
   
     try {
       facilityInfoJSON = JSON.parse(String(propExtraUS.facilityInfo))

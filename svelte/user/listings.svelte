@@ -21,7 +21,7 @@
   const access  = /** @type {Access} */ ({/* segments */});
 
   let coord         = /** @type {number[]} */ ([/* initialLatLong */]);
-  let properties    = /** @type {PropertyWithNote[]} */ ([/* randomProps */]);
+  let properties    = /** @type {PropertyWithNote[]} */ ($state([/* randomProps */]));
   let distanceKm    = /** @type {number} */ (Number('#{defaultDistanceKm}') || 20);
 
   // onMount(async () => {
@@ -41,14 +41,14 @@
   //   }, 5000);
   // })
   
-  let gmapComponent = /** @type {import('svelte').SvelteComponent} */ (null);
+  let gmapComponent = /** @type {import('svelte').SvelteComponent} */ ($state(null));
   let mapMarkers    = /** @type {google.maps.marker.AdvancedMarkerElement[]} */ ([]);
 
-  let popUpUpload3DFile = /** @type {import('svelte').SvelteComponent} */ (null);
-  let isSubmitUpload3d  = /** @type {boolean} */ (false);
-  let upload3dProgress  = /** @type {string} */ ('');
-  let upload3dPropId    = /** @type {number|string} */ (0);
-  let upload3dCountry   = /** @type {string} */ ('');
+  let popUpUpload3DFile = /** @type {import('svelte').SvelteComponent} */ ($state(null));
+  let isSubmitUpload3d  = /** @type {boolean} */ ($state(false));
+  let upload3dProgress  = /** @type {string} */ ($state(''));
+  let upload3dPropId    = /** @type {number|string} */ ($state(0));
+  let upload3dCountry   = /** @type {string} */ ($state(''));
 
   async function SubmitUpload3DFile(/** @type {File} */ file) {
     isSubmitUpload3d = true;
@@ -90,8 +90,8 @@
     });
   }
 
-  let inputSearchAddressValue   = /** @type {string} */ ('');
-  let isFocusInputSearchAddress = /** @type {boolean} */ (false);
+  let inputSearchAddressValue   = /** @type {string} */ ($state(''));
+  let isFocusInputSearchAddress = /** @type {boolean} */ ($state(false));
   let isSearchingAddress        = /** @type {boolean} */ (false);
   let placeSuggestions          = /** @type {google.maps.places.AutocompleteSuggestion[]} */ ([]);
   let autoCompleteSuggestion    = /** @type {typeof google.maps.places.AutocompleteSuggestion} */ (null);
@@ -176,16 +176,16 @@
                 </div>
               </div>
               <div class="actions">
-                <button on:click={() => window.location.href = `/user/listings/${prop.id}`}>Listing</button>
+                <button onclick={() => window.location.href = `/user/listings/${prop.id}`}>Listing</button>
                 {#if prop.image3dUrl === ''}
-                  <button on:click={() => {
+                  <button onclick={() => {
                     upload3dCountry = prop.countryCode;
                     upload3dPropId = prop.id;
                     popUpUpload3DFile.Show();
                   }}>Upload 3D file</button>
                 {/if}
                 {#if prop.image3dUrl !== ''}
-                  <button class="download-btn" on:click={() => {
+                  <button class="download-btn" onclick={() => {
                     window.open(
                       `/guest/download3dFile?country=${prop.countryCode}&propertyId=${prop.id}`,
                       '_blank'
@@ -231,9 +231,9 @@
                 type="text"
                 id="search-address"
                 bind:value={inputSearchAddressValue}
-                on:input={HandlerSearchLocation}
-                on:focus={() => isFocusInputSearchAddress = true}
-                on:blur={() => isFocusInputSearchAddress = false}
+                oninput={HandlerSearchLocation}
+                onfocus={() => isFocusInputSearchAddress = true}
+                onblur={() => isFocusInputSearchAddress = false}
                 placeholder="Search for address..."
               />
             </div>

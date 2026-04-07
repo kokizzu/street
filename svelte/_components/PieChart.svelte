@@ -1,19 +1,29 @@
 <script>
-  export let size = 200;
-  export let bgColor = 'cornflowerblue'
-  export let shares = [
+  import { run } from 'svelte/legacy';
+
+  /**
+   * @typedef {Object} Props
+   * @property {number} [size]
+   * @property {string} [bgColor]
+   * @property {any} [shares]
+   */
+
+  /** @type {Props} */
+  let { size = 200, bgColor = 'cornflowerblue', shares = $bindable([
     {
       percent: 44,
       color: 'orange'
     }
-  ];
+  ]) } = $props();
   
-  let viewBox, radius, halfCircumference;
-  $: viewBox = `0 0 ${size} ${size}`;
-  $: radius = size / 2;
-  $: halfCircumference = Math.PI * radius;
+  let viewBox = $derived(`0 0 ${size} ${size}`), radius = $derived(size / 2), halfCircumference = $state();
   
-  $: {
+  
+  run(() => {
+    halfCircumference = Math.PI * radius;
+  });
+  
+  run(() => {
     let last = 0;
     for( const z in shares ) {
       const percent = shares[ z ].percent || 0;
@@ -22,7 +32,7 @@
       shares[ z ].rotate = last * 360 / 100;
       last -= percent;
     }
-  }
+  });
 </script>
 <svg width={size} height={size} {viewBox}>
 	<circle r={radius} cx={radius} cy={radius} fill={bgColor}/>

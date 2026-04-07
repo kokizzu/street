@@ -1,4 +1,6 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import {
     FaSolidAngleLeft, FaSolidMap, FaSolidFlagUsa,
@@ -13,15 +15,13 @@
   import { onMount } from 'svelte';
   import { notifier } from './notifier.js';
   
-  export let user;
-  export let property;
-  export let countries;
+  let { user, property = $bindable(), countries } = $props();
   
-  let currentPage = 0, isPropertySubmitted = false;
-  let cards = [{}, {}, {}, {}];
-  let stackContainerElm, stacks, observer;
+  let currentPage = $state(0), isPropertySubmitted = $state(false);
+  let cards = $state([{}, {}, {}, {}]);
+  let stackContainerElm = $state(), stacks, observer;
   
-  let countryCurrency = 'TWD';
+  let countryCurrency = $state('TWD');
   const defaultLat = 23.6978, defaultLng = 120.9605;
   
   onMount( () => {
@@ -146,20 +146,20 @@
   const LOC_ADDR = 'Address';
   const LOC_MAP = 'Put the pin on your house location by clicking the map';
   const LOC_STREETVIEW = 'Please input the height of your floor';
-  let modeLocationCount = 0, countryName = 'Country';
+  let modeLocationCount = $state(0), countryName = $state('Country');
   const modeLocationLists = [
     {mode: LOC_ADDR},
     {mode: LOC_MAP},
     {mode: LOC_STREETVIEW},
   ];
-  let modeLocation = modeLocationLists[ modeLocationCount ].mode;
-  let map, map_container, input_address, input_address_value;
+  let modeLocation = $state(modeLocationLists[ modeLocationCount ].mode);
+  let map, map_container = $state(), input_address = $state(), input_address_value = $state();
 
-  let noteObj = {
+  let noteObj = $state({
     contactPhone: "",
     contactEmail: "",
     about: ""
-  }
+  })
   
   async function initMap() {
     const {Map} = await google.maps.importLibrary( 'maps' );
@@ -346,22 +346,22 @@
   // +================| Info |=================+ //
   const INFO_FEAT = 'Feature', INFO_PRICE = 'Price';
   const m2 = 'M2', ping = 'Ping';
-  let modeInfoCount = 0, infoUnitMode = m2, houseSize = parseInt( property.sizeM2 ), houseSizeM2 = 0, houseSizePing = 0;
+  let modeInfoCount = $state(0), infoUnitMode = $state(m2), houseSize = $state(parseInt( property.sizeM2 )), houseSizeM2 = 0, houseSizePing = 0;
   const modeInfoLists = [
     {mode: INFO_FEAT},
     {mode: INFO_PRICE},
   ];
-  let modeInfo = modeInfoLists[ modeInfoCount ].mode;
-  let infoObj = {
+  let modeInfo = $state(modeInfoLists[ modeInfoCount ].mode);
+  let infoObj = $state({
     agencyFee: 'false',
     deposit: 'false',
     houseType: property.houseType,
-  };
-  let otherFeeObj = {
+  });
+  let otherFeeObj = $state({
     name: '',
     fee: 0,
-  };
-  let addOtherFeeDialog = AddOtherFeesDialog;
+  });
+  let addOtherFeeDialog = $state(AddOtherFeesDialog);
   let houseTypeLists = [
     'house', 'land', 'apartment', 'townhouse', 'condo', 'villa', 'factory', 'parking', 'other',
   ];
@@ -445,10 +445,10 @@
   };
   
   // +================| Picture |=================+ //
-  let imageHouseInput;
-  let houseImgUploading = false;
-  let uploadHouseStatus = '';
-  let uploadHousePercent = 0;
+  let imageHouseInput = $state();
+  let houseImgUploading = $state(false);
+  let uploadHouseStatus = $state('');
+  let uploadHousePercent = $state(0);
   
   function handlerHouseImage() {
     if( !imageHouseInput ) return;
@@ -498,8 +498,8 @@
   }
   
   // SUBMIT =====================+
-  let res_propId = '1';
-  let submitLoading = false;
+  let res_propId = $state('1');
+  let submitLoading = $state(false);
   
   async function handleSubmit() {
     submitLoading = true;
@@ -528,19 +528,19 @@
 		</a>
 		<div class='step_wrapper'>
 			<div class={currentPage >= 0 ? 'step_item completed' : 'step_item active'}>
-				<button on:click={() => progressDotHandler(0)}></button>
+				<button onclick={() => progressDotHandler(0)}></button>
 				<p>Location</p>
 			</div>
 			<div class={currentPage === 1 ? 'step_item active' : 'step_item' && currentPage > 1 ? 'step_item completed' : 'step_item'}>
-				<button on:click={() => progressDotHandler(1)}></button>
+				<button onclick={() => progressDotHandler(1)}></button>
 				<p>Info</p>
 			</div>
 			<div class={currentPage === 2 ? 'step_item active' : 'step_item' && currentPage > 2 ? 'step_item completed' : 'step_item'}>
-				<button on:click={() => progressDotHandler(2)}></button>
+				<button onclick={() => progressDotHandler(2)}></button>
 				<p>Picture</p>
 			</div>
 			<div class={currentPage === 3 ? 'step_item active' : 'step_item'}>
-				<button on:click={() => progressDotHandler(3)}></button>
+				<button onclick={() => progressDotHandler(3)}></button>
 				<p>Preview</p>
 			</div>
 		</div>
@@ -548,12 +548,12 @@
 </div>
 <div class="create_property_container">
 	<div class='content'>
-		<div class='realtor_subpage_container' on:scroll={subpageScroll} id='subpage_container' bind:this={stackContainerElm}>
+		<div class='realtor_subpage_container' onscroll={subpageScroll} id='subpage_container' bind:this={stackContainerElm}>
 			<section bind:this={cards[0]} class='subpage location' id='subpage_1'>
 				{#if modeLocation!==LOC_ADDR}
 					<button
 						class='back_button'
-						on:click={() => {
+						onclick={() => {
                         if (currentPage === 0) {
                         handleBackLocation();
                      } else {
@@ -570,7 +570,7 @@
 							<div class='row'>
 								<div class='input_box'>
 									<label for='country'>Country or Region <span class='asterisk'>*</span></label>
-									<select id='country' name='country' bind:value={property.countryCode} on:change={changeCurrency}>
+									<select id='country' name='country' bind:value={property.countryCode} onchange={changeCurrency}>
 										{#each countries as country}
 											<option value={country.iso_2}>{country.iso_2} {country.country}</option>
 										{/each}
@@ -651,7 +651,7 @@
 				</div>
 				<button
 					class='next_button'
-					on:click|preventDefault={() => {
+					onclick={preventDefault(() => {
           if (modeLocationCount === 0) {
             handleNextLocation.LOC_ADDR()
           } else if (modeLocationCount === 1) {
@@ -659,7 +659,7 @@
           } else if (modeLocationCount === 2) {
             handleNextLocation.LOC_STREETVIEW()
           }
-        }}>
+        })}>
 					<span>NEXT</span>
 				</button>
 			</section>
@@ -669,11 +669,11 @@
 					bind:name={otherFeeObj.name}
 					bind:this={addOtherFeeDialog}
 				>
-					<button class='add_fee_btn' on:click={addOtherFee}>
+					<button class='add_fee_btn' onclick={addOtherFee}>
 						Add
 					</button>
 				</AddOtherFeesDialog>
-				<button class='back_button' on:click={handleBackInfo}>
+				<button class='back_button' onclick={handleBackInfo}>
 					<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
 				</button>
 				<div class='subpage_content'>
@@ -726,7 +726,7 @@
 										<label for='area' class="with_icon">
 											<Icon className="labels_icon" color='#475569' size={13} src={FaSolidBorderTopLeft}/>
 											<span>{infoUnitMode} <span class='asterisk'>*</span></span>
-											<button class='unit_toggle' on:click={handleInfoUnitMode.toggle}>
+											<button class='unit_toggle' onclick={handleInfoUnitMode.toggle}>
 												<span class='bg'></span>
 											</button>
 										</label>
@@ -743,7 +743,7 @@
 									<input
 										type='radio'
 										name='rent_or_sell'
-										on:click={() => (property.purpose = 'sell')}
+										onclick={() => (property.purpose = 'sell')}
 										id='sell'
 										value='sell'
 									/>
@@ -753,7 +753,7 @@
 									<input
 										type='radio'
 										name='rent_or_sell'
-										on:click={() => (property.purpose = 'rent')}
+										onclick={() => (property.purpose = 'rent')}
 										id='rent'
 										value='rent'
 									/>
@@ -813,7 +813,7 @@
 								<div class='other_fee'>
 									<header>
 										<h4>Other Fee</h4>
-										<button class='add_fee' on:click={addOtherFeeDialog.showModal()}>
+										<button class='add_fee' onclick={addOtherFeeDialog.showModal()}>
 											Add
 										</button>
 									</header>
@@ -843,18 +843,18 @@
 				</div>
 				<button
 					class='next_button'
-					on:click|preventDefault={() => {
+					onclick={preventDefault(() => {
                      if (modeInfoCount === 0) {
                        handleNextInfo.INFO_FEAT();
                      } else if (modeInfoCount === 1) {
                        handleNextInfo.INFO_PRICE();
                      }
-                  }}>
+                  })}>
 					<span>NEXT</span>
 				</button>
 			</section>
 			<section bind:this={cards[2]} class='subpage picture' id='subpage_3'>
-				<button class='back_button' on:click={backPage}>
+				<button class='back_button' onclick={backPage}>
 					<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
 				</button>
 				<div class='subpage_content'>
@@ -865,7 +865,7 @@
 								{#if !houseImgUploading}
 									<input
 										bind:this={imageHouseInput}
-										on:change={handlerHouseImage}
+										onchange={handlerHouseImage}
 										type='file'
 										accept='image/*'
 										id='upload_image'
@@ -895,7 +895,7 @@
 										<button
 											class='remove_image'
 											title='remove this image'
-											on:click|preventDefault={() => removeImage(idx)}
+											onclick={preventDefault(() => removeImage(idx))}
 										>
 											<Icon color='#FFF' size={12} src={FaClock}/>
 										</button>
@@ -905,13 +905,13 @@
 						</div>
 					</div>
 				</div>
-				<button class='next_button' on:click={nextPage}>
+				<button class='next_button' onclick={nextPage}>
 					<span>NEXT</span>
 				</button>
 			</section>
 			<section bind:this={cards[3]} class='subpage preview' id='subpage_4'>
 				{#if isPropertySubmitted===false}
-					<button class='back_button' on:click={backPage}>
+					<button class='back_button' onclick={backPage}>
 						<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
 					</button>
 					<div class='subpage_content'>
@@ -941,7 +941,7 @@
 										<div class='left'>
 											<div class='price'>
 												<h5>{formatPrice( property.lastPrice, countryCurrency )}</h5>
-												{ #if property.purpose==='rent'}
+												{#if property.purpose==='rent'}
 													<span>/mo</span>
 												{/if}
 											</div>
@@ -984,7 +984,7 @@
 										<div>
 											<Icon color='#475569' size={13} src={FaSolidBorderTopLeft}/>
 											<span>{infoUnitMode}</span>
-											<button class='unit_toggle' on:click|preventDefault={handleInfoUnitMode.toggle}>
+											<button class='unit_toggle' onclick={preventDefault(handleInfoUnitMode.toggle)}>
 												<span class='bg'></span>
 											</button>
 										</div>
@@ -1026,7 +1026,7 @@
 							</div>
 						</div>
 					</div>
-					<button class='next_button' on:click|preventDefault={handleSubmit}>
+					<button class='next_button' onclick={preventDefault(handleSubmit)}>
 						{#if submitLoading===false}
 							<span>SUBMIT</span>
 						{/if}
@@ -1036,7 +1036,7 @@
 					</button>
 				{/if}
 				{#if isPropertySubmitted===true}
-					<button class='back_button' on:click={() => isPropertySubmitted = false}>
+					<button class='back_button' onclick={() => isPropertySubmitted = false}>
 						<Icon className='iconBack' color='#475569' size={18} src={FaSolidAngleLeft}/>
 					</button>
 					<div class='property_submitted_container'>
