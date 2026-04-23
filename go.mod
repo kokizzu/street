@@ -6,7 +6,6 @@ require (
 	github.com/ClickHouse/clickhouse-go/v2 v2.42.0
 	github.com/allegro/bigcache/v3 v3.1.0
 	github.com/davecgh/go-spew v1.1.1
-	github.com/disintegration/imaging v1.6.2
 	github.com/fatih/color v1.18.0
 	github.com/gabriel-vasile/mimetype v1.4.2
 	github.com/goccy/go-json v0.10.6
@@ -33,12 +32,12 @@ require (
 	github.com/tidwall/gjson v1.17.0
 	github.com/valyala/tsvreader v1.0.0
 	github.com/vburenin/nsync v0.0.0-20160822015540-9a75d1c80410
-	github.com/wneessen/go-mail v0.3.9
+	github.com/wneessen/go-mail v0.7.1
 	github.com/xuri/excelize/v2 v2.7.1
 	github.com/yosuke-furukawa/json5 v0.1.1
 	github.com/zeebo/xxh3 v1.0.2
 	golang.org/x/exp v0.0.0-20260112195511-716be5621a96
-	golang.org/x/oauth2 v0.0.0-20220524215830-622c5d57e401
+	golang.org/x/oauth2 v0.27.0
 	golang.org/x/sync v0.19.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 )
@@ -107,7 +106,6 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/richardlehane/mscfb v1.0.4 // indirect
 	github.com/richardlehane/msoleps v1.0.3 // indirect
-	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
 	github.com/segmentio/asm v1.2.1 // indirect
 	github.com/sendgrid/rest v2.6.9+incompatible // indirect
@@ -134,7 +132,7 @@ require (
 	go.opentelemetry.io/otel/trace v1.39.0 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/crypto v0.47.0 // indirect
-	golang.org/x/image v0.5.0 // indirect
+	golang.org/x/image v0.10.0
 	golang.org/x/mod v0.32.0 // indirect
 	golang.org/x/net v0.49.0 // indirect
 	golang.org/x/sys v0.42.0 // indirect

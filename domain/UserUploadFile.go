@@ -2,14 +2,16 @@ package domain
 
 import (
 	"fmt"
+	"image"
 	"image/jpeg"
+	_ "image/png"
 	"io"
 	"os"
 
-	"github.com/disintegration/imaging"
 	"github.com/gabriel-vasile/mimetype"
 	"github.com/jxskiss/base62"
 	"github.com/kokizzu/gotro/S"
+	"golang.org/x/image/draw"
 
 	"street/model/mStorage/wcStorage"
 )
@@ -172,7 +174,14 @@ func (d *Domain) UserUploadFile(in *UserUploadFileIn) (out UserUploadFileOut) {
 		out.SetError(500, ErrUserUploadFailedFinalize)
 	}
 
-	origImg, err := imaging.Open(d.UploadDir + file.OriginalPath)
+	origFile, err := os.Open(d.UploadDir + file.OriginalPath)
+	if err != nil {
+		out.SetError(500, ErrUserUploadUnableDecodeImage)
+		return
+	}
+	defer origFile.Close()
+
+	origImg, _, err := image.Decode(origFile)
 	if err != nil {
 		out.SetError(500, ErrUserUploadUnableDecodeImage)
 		return
@@ -180,7 +189,7 @@ func (d *Domain) UserUploadFile(in *UserUploadFileIn) (out UserUploadFileOut) {
 
 	// create thumbnail: 640x400
 
-	smallImg := imaging.Fit(origImg, 640, 400, imaging.Box)
+	smallImg := fitImage(origImg, 640, 400)
 	file.SetResizedPath(fmt.Sprintf(`%d_%s-small%s`, file.Id, suffix, ext))
 
 	writer, err = os.Create(d.UploadDir + file.ResizedPath)
@@ -214,4 +223,26 @@ func (d *Domain) UserUploadFile(in *UserUploadFileIn) (out UserUploadFileOut) {
 	file.SetResizedSize(uint64(stat.Size()))
 
 	return
+}
+
+func fitImage(src image.Image, maxWidth, maxHeight int) image.Image {
+	bounds := src.Bounds()
+	srcWidth := bounds.Dx()
+	srcHeight := bounds.Dy()
+	if srcWidth <= 0 || srcHeight <= 0 {
+		return image.NewRGBA(image.Rect(0, 0, 1, 1))
+	}
+
+	scaleX := float64(maxWidth) / float64(srcWidth)
+	scaleY := float64(maxHeight) / float64(srcHeight)
+	scale := min(scaleX, scaleY)
+	if scale > 1 {
+		scale = 1
+	}
+
+	dstWidth := max(1, int(float64(srcWidth)*scale))
+	dstHeight := max(1, int(float64(srcHeight)*scale))
+	dst := image.NewRGBA(image.Rect(0, 0, dstWidth, dstHeight))
+	draw.CatmullRom.Scale(dst, dst.Bounds(), src, bounds, draw.Over, nil)
+	return dst
 }
