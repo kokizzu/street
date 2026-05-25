@@ -242,10 +242,10 @@
     "@babel/code-frame" "^7.16.0"
     chalk "^4.1.0"
 
-"@sveltejs/acorn-typescript@^1.0.5":
-  version "1.0.9"
-  resolved "https://registry.npmjs.org/@sveltejs/acorn-typescript/-/acorn-typescript-1.0.9.tgz"
-  integrity sha512-lVJX6qEgs/4DOcRTpo56tmKzVPtoWAaVbL4hfO7t7NVwl9AAXzQR6cihesW1BmNMPl+bK6dreu2sOKBP2Q9CIA==
+"@sveltejs/acorn-typescript@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@sveltejs/acorn-typescript/-/acorn-typescript-1.0.10.tgz#72376d9f46c04be82b714b1c33f0956911a7a6d6"
+  integrity sha512-4WfKk68eTih+MiJD4fSbxN7E8kVBmTMPWHUPYjvl2N0rMs53YLTT8/YjKU5Dtnz5LqDjl7LEw4U7lXR2W3J5WA==
 
 "@types/estree@^1.0.5", "@types/estree@^1.0.6":
   version "1.0.8"
@@ -280,11 +280,6 @@
   version "2.0.7"
   resolved "https://registry.npmjs.org/@types/trusted-types/-/trusted-types-2.0.7.tgz"
   integrity sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==
-
-"@typescript-eslint/types@^8.2.0":
-  version "8.58.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/types/-/types-8.58.0.tgz"
-  integrity sha512-O9CjxypDT89fbHxRfETNoAnHj/i6IpRK0CvbVN3qibxlLdo5p5hcLmUuCCrHMpxiWSwKyI8mCP7qRNYuOJ0Uww==
 
 "@yandeu/open-cjs@^0.0.3":
   version "0.0.3"
@@ -597,10 +592,10 @@ detect-indent@^6.1.0:
   resolved "https://registry.npmjs.org/detect-indent/-/detect-indent-6.1.0.tgz"
   integrity sha512-reYkTUJAZb9gUuZ2RvVCNhVHdg62RHnJ7WJl8ftMi4diZ6NWlciOzQN88pUhSELEwflJht4oQDv0F0BMlwaYtA==
 
-devalue@^5.6.4:
-  version "5.7.0"
-  resolved "https://registry.npmjs.org/devalue/-/devalue-5.7.0.tgz"
-  integrity sha512-qCvc8m7cImp1QDCsiY+C2EdSBWSj7Ucfoq87scSdYboDiIKdvMtFbH1U2VReBls6WMhMaUOoK3ZJEDNG/7zm3w==
+devalue@^5.8.1:
+  version "5.8.1"
+  resolved "https://registry.yarnpkg.com/devalue/-/devalue-5.8.1.tgz#f27290d3a324e2eb20c2714369b01b8ec4de4c61"
+  integrity sha512-4CXDYRBGqN+57wVJkuXBYmpAVUSg3L6JAQa/DFqm238G73E1wuyc/JhGQJzN7vUf/CMphYau2zXbfWzDR5aTEw==
 
 dom-serializer@^1.0.1:
   version "1.4.1"
@@ -771,13 +766,12 @@ espree@^9.0.0:
     acorn-jsx "^5.3.2"
     eslint-visitor-keys "^3.4.1"
 
-esrap@^2.2.4:
-  version "2.2.4"
-  resolved "https://registry.npmjs.org/esrap/-/esrap-2.2.4.tgz"
-  integrity sha512-suICpxAmZ9A8bzJjEl/+rLJiDKC0X4gYWUxT6URAWBLvlXmtbZd5ySMu/N2ZGEtMCAmflUDPSehrP9BQcsGcSg==
+esrap@^2.2.9:
+  version "2.2.9"
+  resolved "https://registry.yarnpkg.com/esrap/-/esrap-2.2.9.tgz#97b7939015dccfb8c00b0d3e1a2c8735ba46bac9"
+  integrity sha512-4KijP+NxCWthMCUC3qHbE6n4vCjqgJS1uAYKhuT/GWfFTf1Qyive2TgOjep+gzbSzRfnNyaN/UU9YmdOt8Eg0A==
   dependencies:
     "@jridgewell/sourcemap-codec" "^1.4.15"
-    "@typescript-eslint/types" "^8.2.0"
 
 etag@^1.8.1:
   version "1.8.1"
@@ -1712,23 +1706,23 @@ svelte-select@^5.8.3:
   dependencies:
     svelte-floating-ui "1.5.8"
 
-svelte@^5.55.1:
-  version "5.55.1"
-  resolved "https://registry.npmjs.org/svelte/-/svelte-5.55.1.tgz"
-  integrity sha512-QjvU7EFemf6mRzdMGlAFttMWtAAVXrax61SZYHdkD6yoVGQ89VeyKfZD4H1JrV1WLmJBxWhFch9H6ig/87VGjw==
+svelte@^5.55.9:
+  version "5.55.9"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-5.55.9.tgz#ebefa195db723c9732910d8fd17f8514105b688d"
+  integrity sha512-fTjjT8cHLDwigcu2j3pv7Jq04LklXevPB8uBgyHNiTXv+RMNvVnrjS4UEYrLMkhuq1vpCodHjiW+z/95SDs/fg==
   dependencies:
     "@jridgewell/remapping" "^2.3.4"
     "@jridgewell/sourcemap-codec" "^1.5.0"
-    "@sveltejs/acorn-typescript" "^1.0.5"
+    "@sveltejs/acorn-typescript" "^1.0.10"
     "@types/estree" "^1.0.5"
     "@types/trusted-types" "^2.0.7"
     acorn "^8.12.1"
     aria-query "5.3.1"
     axobject-query "^4.1.0"
     clsx "^2.1.1"
-    devalue "^5.6.4"
+    devalue "^5.8.1"
     esm-env "^1.2.1"
-    esrap "^2.2.4"
+    esrap "^2.2.9"
     is-reference "^3.0.3"
     locate-character "^3.0.0"
     magic-string "^0.30.11"
