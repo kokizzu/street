@@ -12,7 +12,7 @@
 	},
 	"dependencies": {
 		"@googlemaps/js-api-loader": "^1.16.8",
-		"axios": "^1.13.5",
+		"axios": "^1.16.0",
 		"chart.js": "^4.3.2",
 		"file-selector": "^0.2.4",
 		"lodash-es": "^4.17.21",
