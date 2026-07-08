@@ -1,4 +1,6 @@
 
+.PHONY: setup verify-dependency-security local-tarantool local-clickhouse modtidy fixtags orm views svelte
+
 setup:
 	#go get -u -v github.com/kokizzu/gotro@latest
 	go install github.com/air-verse/air@latest
@@ -22,6 +24,9 @@ local-clickhouse:
 	docker exec -it street-clickhouse1-1 clickhouse-client -u userC
 	# SHOW TABLES -- list all tables
 	# SELECT * FROM "actionLogs" LIMIT 1;
+
+verify-dependency-security:
+	bash ./scripts/verify-dependency-security.sh
 
 modtidy:
 	sudo chmod -R a+rwx _tmpdb && go mod tidy
