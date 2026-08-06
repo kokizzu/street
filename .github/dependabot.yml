@@ -3,10 +3,7 @@ updates:
   - package-ecosystem: npm
     directory: /svelte
     schedule:
-      interval: weekly
-    open-pull-requests-limit: 0
-    groups:
-      fast-uri-security:
-        applies-to: security-updates
-        patterns:
-          - fast-uri
+      interval: daily
+    open-pull-requests-limit: 1
+    allow:
+      - dependency-name: fast-uri
