@@ -80,7 +80,7 @@ require (
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/hexops/gotextdiff v1.0.3 // indirect
 	github.com/hexops/valast v1.4.3 // indirect
-	github.com/klauspost/compress v1.19.0 // indirect
+	github.com/klauspost/compress v1.20.3 // indirect
 	github.com/klauspost/cpuid/v2 v2.4.0 // indirect
 	github.com/kokizzu/rand v0.0.0-20221021123447-6043c55a8bad // indirect
 	github.com/kr/pretty v0.3.1 // indirect
