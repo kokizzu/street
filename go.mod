@@ -33,7 +33,7 @@ require (
 	github.com/valyala/tsvreader v1.0.0
 	github.com/vburenin/nsync v0.0.0-20160822015540-9a75d1c80410
 	github.com/wneessen/go-mail v0.7.1
-	github.com/xuri/excelize/v2 v2.11.0
+	github.com/xuri/excelize/v2 v2.11.1-0.20260908032718-ecd99d761fe0
 	github.com/yosuke-furukawa/json5 v0.1.1
 	github.com/zeebo/xxh3 v1.1.0
 	golang.org/x/exp v0.0.0-20260611194520-c48552f49976
