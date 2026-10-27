@@ -71,6 +71,7 @@
 	"pnpm": {
 		"overrides": {
 			"ajv": "8.18.0",
+			"brace-expansion@^2.0.0": "^2.1.7",
 			"body-parser": "2.3.0",
 			"brace-expansion": "^1.1.21",
 			"fast-uri": "^3.1.7",
